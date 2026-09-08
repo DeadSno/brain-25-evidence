@@ -6,7 +6,7 @@ def add_month_price(prices: pd.DataFrame) -> pd.DataFrame:
     prices = prices.copy()
     prices["цена_мес"] = (prices["цена_упаковки"] / prices["единиц_в_упаковке"]
                           * prices["норма_мес"]).round(0)
-    sus = prices[prices["цена_мес"] > 5000]
+    sus = prices[prices["цена_мес"] > 10000]
     if len(sus):
         print("⚠️ Подозрительно дорогие — проверь фасовку:")
         print(sus[["добавка", "продукт", "единиц_в_упаковке", "цена_мес"]])
