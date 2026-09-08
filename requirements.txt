@@ -4,3 +4,4 @@ matplotlib
 requests
 openpyxl
 duckdb
+scikit-learn>=1.4
