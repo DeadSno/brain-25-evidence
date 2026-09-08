@@ -65,9 +65,7 @@ function showNode(id){const n=nodes.get(id);
   html+='<div class="route"><b>📚 Вес науки:</b><br>';
   html+='Всего мета-анализов: <b>'+n.ma_total+'</b>';
   if(n.citations!==null&&n.citations!==undefined)html+='<br>Цитирований ключевого MA: <b>'+n.citations+'</b>'+(n.ma_year?' ('+n.ma_year+')':'');
-  if(n.spark){
-   html+='<br>Мета-анализы по годам ('+DATA.yearMin+'–'+DATA.yearMax+'): '+sparkSVG(n.spark);
-  }
+  if(n.spark){html+='<br>Мета-анализы по годам ('+DATA.yearMin+'–'+DATA.yearMax+'): '+sparkSVG(n.spark);}
   html+='</div>';
  }
  (DATA.routes[id]||[]).forEach(r=>{html+='<div class="route" style="cursor:pointer" data-s="'+id+'" data-e="'+r.effect+'">→ <b>'+r.target+'</b> → <b>'+r.effect+'</b><br><span style="color:'+r.color+';font-weight:bold">'+r.ev+'</span></div>';});
@@ -75,7 +73,7 @@ function showNode(id){const n=nodes.get(id);
  if(n.pmid&&n.pmid!=='NO_META_ANALYSIS')html+='<p><a href="https://pubmed.ncbi.nlm.nih.gov/'+n.pmid+'/" target="_blank">📄 Ключевой мета-анализ в PubMed</a></p>';
  if(n.pmid==='NO_META_ANALYSIS')html+='<p style="color:#c0392b"><b>⚠️ Мета-анализов не найдено вообще</b></p>';
  info.innerHTML=html;
- info.querySelectorAll('.route[data-s]').forEach(el=>el.onclick=()=>highlightRoute(el.dataset.s,el.dataset.e));}
+ info.querySelectorAll('.route[data-s]').forEach(el=>el.onclick=()=>{highlightRoute(el.dataset.s,el.dataset.e);showNode(el.dataset.s);});}
 function highlightRoute(s,e){resetColors();const p=DATA.paths[s+'||'+e];if(!p)return;
  nodes.update(p.nodeIds.map(id=>({id,color:'#f1c40f'})));
  edges.update(p.edgeIds.map(id=>({id,color:{color:'#f1c40f'},width:6,hidden:false})));
@@ -84,19 +82,19 @@ btnRoute.onclick=()=>{const s=selSup.value,e=selEff.value;
  if(!s||!e){info.innerHTML='<p>⚠️ Выбери и добавку, и эффект.</p>';return;}
  const p=DATA.paths[s+'||'+e];resetColors();
  if(!p){info.innerHTML='<h2>'+s+' → '+e+'</h2><p>Маршрута нет: добавка не заявляет этот эффект.</p>';return;}
- highlightRoute(s,e);
- info.innerHTML='<h2>'+s+' → '+e+'</h2><div class="route">через мишень: <b>'+p.target+'</b><br><span style="color:'+p.color+';font-weight:bold">'+p.ev+'</span></div>';};
+ highlightRoute(s,e);showNode(s);};
 btnRev.onclick=()=>{const e=selRev.value;if(!e){info.innerHTML='<p>⚠️ Выбери эффект.</p>';return;}
  const list=DATA.rev[e]||[];resetColors();
  let html='<h2>«'+e+'»: кто заявляет</h2>';
  if(!list.length)html+='<p>Никто из 25 добавок.</p>';
  list.forEach((r,i)=>{html+='<div class="route" style="cursor:pointer" data-s="'+r.sup+'" data-e="'+e+'"><b>'+(i+1)+'. '+r.sup+'</b> <small>(мета-анализов: '+r.ma+')</small><br><span style="color:'+r.color+';font-weight:bold">'+r.ev+'</span></div>';});
  info.innerHTML=html;
- info.querySelectorAll('.route[data-s]').forEach(el=>el.onclick=()=>highlightRoute(el.dataset.s,el.dataset.e));};
+ info.querySelectorAll('.route[data-s]').forEach(el=>el.onclick=()=>{highlightRoute(el.dataset.s,el.dataset.e);showNode(el.dataset.s);});};
 btnReset.onclick=()=>{resetColors();applyFilters();info.innerHTML='<p>Кликни по любому кругу или проложи маршрут.</p>';};
 function resetColors(){nodes.update(DATA.nodes.map(n=>({id:n.id,color:n.color})));
  edges.update(DATA.edges.map(e=>({id:e.id,color:e.color,width:e.width})));}
 search.oninput=()=>{const q=search.value.toLowerCase();if(!q)return;
- const hit=nodes.get().find(n=>n.id.toLowerCase().includes(q));
+ let sid=DATA.sups.find(s=>s.toLowerCase().includes(q));
+ const hit=sid?nodes.get(sid):nodes.get().find(n=>n.id.toLowerCase().includes(q));
  if(hit){net.focus(hit.id,{scale:1.2});showNode(hit.id);}};
 </script></body></html>
