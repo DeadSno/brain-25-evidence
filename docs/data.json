@@ -1,12 +1,55 @@
 [
  {
+  "id": "Креатин",
+  "name": "Креатин",
+  "code": 1,
+  "verdict": "работает",
+  "category": "Когниция",
+  "price": 469,
+  "scienceIndex": 240,
+  "metaCount": 25,
+  "citations": 42,
+  "trends": 43.1,
+  "wiki": 172591,
+  "reviews": 191221,
+  "effects": [
+   "Рабочая память под нагрузкой"
+  ],
+  "dosage": "3-5 г/сут (моногидрат)",
+  "course": "постоянно, эффект с 2-4 нед",
+  "caution": "при болезнях почек — к врачу",
+  "forms": null
+ },
+ {
+  "id": "Омега-3",
+  "name": "Омега-3",
+  "code": 1,
+  "verdict": "работает",
+  "category": "Когниция",
+  "price": 543,
+  "scienceIndex": 862,
+  "metaCount": 107,
+  "citations": 0,
+  "trends": 13.1,
+  "wiki": 49594,
+  "reviews": 447,
+  "effects": [
+   "Нейропластичность"
+  ],
+  "dosage": "1-2 г EPA+DHA",
+  "course": "8-12 недель",
+  "caution": "разжижает кровь",
+  "forms": "смотри мг EPA+DHA на этикетке, а не «рыбий жир 1000 мг»"
+ },
+ {
   "id": "Витамин D",
   "name": "Витамин D",
   "code": 0,
   "verdict": "зависит от контекста",
+  "category": "Когниция",
   "price": 205,
-  "scienceIndex": 605,
-  "metaCount": 50,
+  "scienceIndex": 610,
+  "metaCount": 87,
   "citations": 0,
   "trends": 10.9,
   "wiki": 137275,
@@ -16,13 +59,57 @@
   ],
   "dosage": "1000-2000 МЕ/сут",
   "course": "зимой постоянно",
-  "caution": "мегадозы без анализа — риск"
+  "caution": "мегадозы без анализа — риск",
+  "forms": "D3 (холекальциферол) поднимает уровень лучше, чем D2"
+ },
+ {
+  "id": "B12",
+  "name": "B12",
+  "code": 0,
+  "verdict": "зависит от контекста",
+  "category": "Когниция",
+  "price": 262,
+  "scienceIndex": 374,
+  "metaCount": 50,
+  "citations": 1,
+  "trends": 17.3,
+  "wiki": 102227,
+  "reviews": 7796,
+  "effects": [
+   "Когниция (при дефиците)"
+  ],
+  "dosage": "500-1000 мкг",
+  "course": "только при дефиците/веганам",
+  "caution": "здоровым бесполезен",
+  "forms": null
+ },
+ {
+  "id": "Магний",
+  "name": "Магний",
+  "code": 0,
+  "verdict": "зависит от контекста",
+  "category": "Когниция",
+  "price": 330,
+  "scienceIndex": 172,
+  "metaCount": 23,
+  "citations": 30,
+  "trends": 146.2,
+  "wiki": 93483,
+  "reviews": 302,
+  "effects": [
+   "Сон, расслабление"
+  ],
+  "dosage": "200-400 мг (глицинат/цитрат)",
+  "course": "постоянно при дефиците",
+  "caution": "высокие дозы = диарея",
+  "forms": "оксид — плохо усваивается; цитрат — слабит; глицинат — сон, мягкий для ЖКТ; треонат — «для мозга», доказательств слабо"
  },
  {
   "id": "Кофеин",
   "name": "Кофеин",
   "code": 1,
   "verdict": "работает",
+  "category": "Когниция",
   "price": 266,
   "scienceIndex": 580,
   "metaCount": 39,
@@ -36,241 +123,15 @@
   ],
   "dosage": "100-200 мг за 30-60 мин до задачи",
   "course": "по необходимости",
-  "caution": "тревожность, бессонница; беременность — ограничить"
- },
- {
-  "id": "Омега-3",
-  "name": "Омега-3",
-  "code": 1,
-  "verdict": "работает",
-  "price": 543,
-  "scienceIndex": 555,
-  "metaCount": 50,
-  "citations": 0,
-  "trends": 13.1,
-  "wiki": 49594,
-  "reviews": 447,
-  "effects": [
-   "Нейропластичность"
-  ],
-  "dosage": "1-2 г EPA+DHA",
-  "course": "8-12 недель",
-  "caution": "разжижает кровь"
- },
- {
-  "id": "Тирозин",
-  "name": "Тирозин",
-  "code": 0,
-  "verdict": "зависит от контекста",
-  "price": 980,
-  "scienceIndex": 459,
-  "metaCount": 39,
-  "citations": null,
-  "trends": 5.5,
-  "wiki": 42658,
-  "reviews": 4945,
-  "effects": [
-   "Когниция под стрессом"
-  ],
-  "dosage": "500-2000 мг остро",
-  "course": "ситуативно",
-  "caution": "НЕ с ингибиторами МАО"
- },
- {
-  "id": "Гинкго",
-  "name": "Гинкго",
-  "code": -1,
-  "verdict": "не подтверждено",
-  "price": 326,
-  "scienceIndex": 380,
-  "metaCount": 47,
-  "citations": 2,
-  "trends": 11.6,
-  "wiki": 87842,
-  "reviews": 2315,
-  "effects": [
-   "Внимание"
-  ],
-  "dosage": "120-240 мг EGb761",
-  "course": "8-12 недель",
-  "caution": "вердикт -1; разжижает кровь"
- },
- {
-  "id": "B12",
-  "name": "B12",
-  "code": 0,
-  "verdict": "зависит от контекста",
-  "price": 262,
-  "scienceIndex": 374,
-  "metaCount": 50,
-  "citations": 1,
-  "trends": 17.3,
-  "wiki": 102227,
-  "reviews": 7796,
-  "effects": [
-   "Когниция (при дефиците)"
-  ],
-  "dosage": "500-1000 мкг",
-  "course": "только при дефиците/веганам",
-  "caution": "здоровым бесполезен"
- },
- {
-  "id": "Цинк",
-  "name": "Цинк",
-  "code": 0,
-  "verdict": "зависит от контекста",
-  "price": 532,
-  "scienceIndex": 320,
-  "metaCount": 45,
-  "citations": 1,
-  "trends": 65.6,
-  "wiki": 73624,
-  "reviews": 3354,
-  "effects": [
-   "Когниция (при дефиците)"
-  ],
-  "dosage": "15-30 мг",
-  "course": "курсы 4-8 нед",
-  "caution": "долгие курсы = дефицит меди"
- },
- {
-  "id": "Креатин",
-  "name": "Креатин",
-  "code": 1,
-  "verdict": "работает",
-  "price": 469,
-  "scienceIndex": 241,
-  "metaCount": 25,
-  "citations": 42,
-  "trends": 43.1,
-  "wiki": 172591,
-  "reviews": 191221,
-  "effects": [
-   "Рабочая память под нагрузкой"
-  ],
-  "dosage": "3-5 г/сут (моногидрат)",
-  "course": "постоянно, эффект с 2-4 нед",
-  "caution": "при болезнях почек — к врачу"
- },
- {
-  "id": "Магний",
-  "name": "Магний",
-  "code": 0,
-  "verdict": "зависит от контекста",
-  "price": 330,
-  "scienceIndex": 172,
-  "metaCount": 23,
-  "citations": 30,
-  "trends": 146.2,
-  "wiki": 93483,
-  "reviews": 302,
-  "effects": [
-   "Сон, расслабление"
-  ],
-  "dosage": "200-400 мг (глицинат/цитрат)",
-  "course": "постоянно при дефиците",
-  "caution": "высокие дозы = диарея"
- },
- {
-  "id": "NAC",
-  "name": "NAC",
-  "code": 0,
-  "verdict": "зависит от контекста",
-  "price": 1259,
-  "scienceIndex": 111,
-  "metaCount": 14,
-  "citations": null,
-  "trends": 3.4,
-  "wiki": 66356,
-  "reviews": 2054,
-  "effects": [
-   "Когниция (психиатрия)"
-  ],
-  "dosage": "600-1200 мг",
-  "course": "курсы",
-  "caution": "ЖКТ-расстройства"
- },
- {
-  "id": "CDP-холин",
-  "name": "CDP-холин",
-  "code": 0,
-  "verdict": "зависит от контекста",
-  "price": 1857,
-  "scienceIndex": 88,
-  "metaCount": 8,
-  "citations": 29,
-  "trends": 0.0,
-  "wiki": 31044,
-  "reviews": 379,
-  "effects": [
-   "Память (у пациентов)"
-  ],
-  "dosage": "250-500 мг",
-  "course": "курсы",
-  "caution": "база на пациентах"
- },
- {
-  "id": "Таурин",
-  "name": "Таурин",
-  "code": -1,
-  "verdict": "не подтверждено",
-  "price": 526,
-  "scienceIndex": 82,
-  "metaCount": 7,
-  "citations": 1,
-  "trends": 25.0,
-  "wiki": 115795,
-  "reviews": 160751,
-  "effects": [
-   "Спокойствие"
-  ],
-  "dosage": "500-2000 мг",
-  "course": "—",
-  "caution": "когнитивных пруфов нет"
- },
- {
-  "id": "Куркумин",
-  "name": "Куркумин",
-  "code": -1,
-  "verdict": "не подтверждено",
-  "price": 820,
-  "scienceIndex": 80,
-  "metaCount": 12,
-  "citations": 13,
-  "trends": 5.5,
-  "wiki": 31187,
-  "reviews": 1516,
-  "effects": [
-   "Настроение, когниция"
-  ],
-  "dosage": "500 мг с пиперином",
-  "course": "курсы",
-  "caution": "без пиперина не всасывается"
- },
- {
-  "id": "Ресвератрол",
-  "name": "Ресвератрол",
-  "code": -1,
-  "verdict": "не подтверждено",
-  "price": 599,
-  "scienceIndex": 69,
-  "metaCount": 9,
-  "citations": 0,
-  "trends": 4.9,
-  "wiki": 76475,
-  "reviews": 2269,
-  "effects": [
-   "Антивозрастной эффект"
-  ],
-  "dosage": "100-500 мг",
-  "course": "—",
-  "caution": "человеческих данных почти нет"
+  "caution": "тревожность, бессонница; беременность — ограничить",
+  "forms": null
  },
  {
   "id": "L-Теанин",
   "name": "L-Теанин",
   "code": 1,
   "verdict": "работает",
+  "category": "Когниция",
   "price": 709,
   "scienceIndex": 54,
   "metaCount": 2,
@@ -284,32 +145,15 @@
   ],
   "dosage": "100-200 мг; с кофеином 2:1",
   "course": "по необходимости",
-  "caution": "редкая сонливость"
- },
- {
-  "id": "Гуперзин А",
-  "name": "Гуперзин А",
-  "code": 0,
-  "verdict": "зависит от контекста",
-  "price": 958,
-  "scienceIndex": 48,
-  "metaCount": 8,
-  "citations": 235,
-  "trends": 0.0,
-  "wiki": 329,
-  "reviews": 892,
-  "effects": [
-   "Память (Альцгеймер)"
-  ],
-  "dosage": "50-200 мкг",
-  "course": "циклы 2/1 нед",
-  "caution": "холинергический избыток"
+  "caution": "редкая сонливость",
+  "forms": null
  },
  {
   "id": "Бакопа",
   "name": "Бакопа",
   "code": 1,
   "verdict": "работает",
+  "category": "Когниция",
   "price": 398,
   "scienceIndex": 36,
   "metaCount": 2,
@@ -322,146 +166,15 @@
   ],
   "dosage": "300 мг экстракта (50% бакозидов)",
   "course": "8-12 недель",
-  "caution": "тошнота натощак"
- },
- {
-  "id": "CoQ10",
-  "name": "CoQ10",
-  "code": -1,
-  "verdict": "не подтверждено",
-  "price": 357,
-  "scienceIndex": 35,
-  "metaCount": 3,
-  "citations": 11,
-  "trends": 0.1,
-  "wiki": 1299,
-  "reviews": 21117,
-  "effects": [
-   "Энергия, когниция"
-  ],
-  "dosage": "100-200 мг",
-  "course": "курсы",
-  "caution": "когнитивных пруфов нет"
- },
- {
-  "id": "Фосфатидилсерин",
-  "name": "Фосфатидилсерин",
-  "code": 0,
-  "verdict": "зависит от контекста",
-  "price": 1346,
-  "scienceIndex": 35,
-  "metaCount": 2,
-  "citations": 14,
-  "trends": 0.7,
-  "wiki": 25223,
-  "reviews": 1598,
-  "effects": [
-   "Память (пожилые)"
-  ],
-  "dosage": "100-300 мг",
-  "course": "курсы",
-  "caution": "данные на пожилых"
- },
- {
-  "id": "Родиола",
-  "name": "Родиола",
-  "code": 0,
-  "verdict": "зависит от контекста",
-  "price": 299,
-  "scienceIndex": 31,
-  "metaCount": 4,
-  "citations": 32,
-  "trends": 3.2,
-  "wiki": 59415,
-  "reviews": 77292,
-  "effects": [
-   "Устойчивость к усталости"
-  ],
-  "dosage": "200-400 мг экстракта",
-  "course": "курсы с перерывами",
-  "caution": "слабая база у здоровых"
- },
- {
-  "id": "Пикногенол",
-  "name": "Пикногенол",
-  "code": -1,
-  "verdict": "не подтверждено",
-  "price": 1718,
-  "scienceIndex": 27,
-  "metaCount": 5,
-  "citations": 1,
-  "trends": 0.0,
-  "wiki": null,
-  "reviews": 92,
-  "effects": [
-   "Когница"
-  ],
-  "dosage": "50-100 мг",
-  "course": "—",
-  "caution": "переплата 215% за пустышку"
- },
- {
-  "id": "Ашваганда",
-  "name": "Ашваганда",
-  "code": 1,
-  "verdict": "работает",
-  "price": null,
-  "scienceIndex": 21,
-  "metaCount": 2,
-  "citations": 73,
-  "trends": 7.4,
-  "wiki": null,
-  "reviews": 551,
-  "effects": [
-   "Стрессоустойчивость"
-  ],
-  "dosage": "300-600 мг (KSM-66)",
-  "course": "4-8 недель",
-  "caution": "щитовидная; беременность — нельзя"
- },
- {
-  "id": "Alpha-GPC",
-  "name": "Alpha-GPC",
-  "code": 0,
-  "verdict": "зависит от контекста",
-  "price": 1316,
-  "scienceIndex": 18,
-  "metaCount": 2,
-  "citations": 47,
-  "trends": 0.0,
-  "wiki": 15442,
-  "reviews": 933,
-  "effects": [
-   "Память (у пациентов)"
-  ],
-  "dosage": "300-600 мг",
-  "course": "курсы",
-  "caution": "база на пациентах"
- },
- {
-  "id": "Готу кола",
-  "name": "Готу кола",
-  "code": -1,
-  "verdict": "не подтверждено",
-  "price": 339,
-  "scienceIndex": 12,
-  "metaCount": 2,
-  "citations": 131,
-  "trends": 0.8,
-  "wiki": 19315,
-  "reviews": 70449,
-  "effects": [
-   "Когниция"
-  ],
-  "dosage": "300-600 мг",
-  "course": "курсы",
-  "caution": "слабые данные"
+  "caution": "тошнота натощак",
+  "forms": null
  },
  {
   "id": "Ежовик",
   "name": "Ежовик",
   "code": -1,
   "verdict": "не подтверждено",
+  "category": "Когниция",
   "price": 539,
   "scienceIndex": 4,
   "metaCount": 0,
@@ -474,6 +187,680 @@
   ],
   "dosage": "дозы только из исследований на животных",
   "course": "—",
-  "caution": "НЕТ человеческих мета-анализов"
+  "caution": "НЕТ человеческих мета-анализов",
+  "forms": null
+ },
+ {
+  "id": "Гинкго",
+  "name": "Гинкго",
+  "code": -1,
+  "verdict": "не подтверждено",
+  "category": "Когниция",
+  "price": 326,
+  "scienceIndex": 380,
+  "metaCount": 47,
+  "citations": 2,
+  "trends": 11.6,
+  "wiki": 87842,
+  "reviews": 2315,
+  "effects": [
+   "Внимание"
+  ],
+  "dosage": "120-240 мг EGb761",
+  "course": "8-12 недель",
+  "caution": "вердикт -1; разжижает кровь",
+  "forms": null
+ },
+ {
+  "id": "Родиола",
+  "name": "Родиола",
+  "code": 0,
+  "verdict": "зависит от контекста",
+  "category": "Когниция",
+  "price": 299,
+  "scienceIndex": 31,
+  "metaCount": 4,
+  "citations": 32,
+  "trends": 3.2,
+  "wiki": 59415,
+  "reviews": 77292,
+  "effects": [
+   "Устойчивость к усталости"
+  ],
+  "dosage": "200-400 мг экстракта",
+  "course": "курсы с перерывами",
+  "caution": "слабая база у здоровых",
+  "forms": null
+ },
+ {
+  "id": "Ашваганда",
+  "name": "Ашваганда",
+  "code": 1,
+  "verdict": "работает",
+  "category": "Когниция",
+  "price": null,
+  "scienceIndex": 21,
+  "metaCount": 2,
+  "citations": 73,
+  "trends": 7.4,
+  "wiki": 0,
+  "reviews": 551,
+  "effects": [
+   "Стрессоустойчивость"
+  ],
+  "dosage": "300-600 мг (KSM-66)",
+  "course": "4-8 недель",
+  "caution": "щитовидная; беременность — нельзя",
+  "forms": null
+ },
+ {
+  "id": "Фосфатидилсерин",
+  "name": "Фосфатидилсерин",
+  "code": 0,
+  "verdict": "зависит от контекста",
+  "category": "Когниция",
+  "price": 1346,
+  "scienceIndex": 35,
+  "metaCount": 2,
+  "citations": 14,
+  "trends": 0.7,
+  "wiki": 25223,
+  "reviews": 1598,
+  "effects": [
+   "Память (пожилые)"
+  ],
+  "dosage": "100-300 мг",
+  "course": "курсы",
+  "caution": "данные на пожилых",
+  "forms": null
+ },
+ {
+  "id": "Alpha-GPC",
+  "name": "Alpha-GPC",
+  "code": 0,
+  "verdict": "зависит от контекста",
+  "category": "Когниция",
+  "price": 1316,
+  "scienceIndex": 18,
+  "metaCount": 2,
+  "citations": 47,
+  "trends": 0.0,
+  "wiki": 15442,
+  "reviews": 933,
+  "effects": [
+   "Память (у пациентов)"
+  ],
+  "dosage": "300-600 мг",
+  "course": "курсы",
+  "caution": "база на пациентах",
+  "forms": null
+ },
+ {
+  "id": "CDP-холин",
+  "name": "CDP-холин",
+  "code": 0,
+  "verdict": "зависит от контекста",
+  "category": "Когниция",
+  "price": 1857,
+  "scienceIndex": 88,
+  "metaCount": 8,
+  "citations": 29,
+  "trends": 0.0,
+  "wiki": 31044,
+  "reviews": 379,
+  "effects": [
+   "Память (у пациентов)"
+  ],
+  "dosage": "250-500 мг",
+  "course": "курсы",
+  "caution": "база на пациентах",
+  "forms": null
+ },
+ {
+  "id": "Гуперзин А",
+  "name": "Гуперзин А",
+  "code": 0,
+  "verdict": "зависит от контекста",
+  "category": "Когниция",
+  "price": 958,
+  "scienceIndex": 48,
+  "metaCount": 8,
+  "citations": 235,
+  "trends": 0.0,
+  "wiki": 329,
+  "reviews": 892,
+  "effects": [
+   "Память (Альцгеймер)"
+  ],
+  "dosage": "50-200 мкг",
+  "course": "циклы 2/1 нед",
+  "caution": "холинергический избыток",
+  "forms": null
+ },
+ {
+  "id": "Куркумин",
+  "name": "Куркумин",
+  "code": -1,
+  "verdict": "не подтверждено",
+  "category": "Когниция",
+  "price": 820,
+  "scienceIndex": 73,
+  "metaCount": 12,
+  "citations": 13,
+  "trends": 5.5,
+  "wiki": 31187,
+  "reviews": 1516,
+  "effects": [
+   "Настроение, когниция"
+  ],
+  "dosage": "500 мг с пиперином",
+  "course": "курсы",
+  "caution": "без пиперина не всасывается",
+  "forms": null
+ },
+ {
+  "id": "Ресвератрол",
+  "name": "Ресвератрол",
+  "code": -1,
+  "verdict": "не подтверждено",
+  "category": "Когниция",
+  "price": 599,
+  "scienceIndex": 69,
+  "metaCount": 9,
+  "citations": 0,
+  "trends": 4.9,
+  "wiki": 76475,
+  "reviews": 2269,
+  "effects": [
+   "Антивозрастной эффект"
+  ],
+  "dosage": "100-500 мг",
+  "course": "—",
+  "caution": "человеческих данных почти нет",
+  "forms": null
+ },
+ {
+  "id": "NAC",
+  "name": "NAC",
+  "code": 0,
+  "verdict": "зависит от контекста",
+  "category": "Когниция",
+  "price": 1259,
+  "scienceIndex": 111,
+  "metaCount": 14,
+  "citations": null,
+  "trends": 3.4,
+  "wiki": 66356,
+  "reviews": 2054,
+  "effects": [
+   "Когниция (психиатрия)"
+  ],
+  "dosage": "600-1200 мг",
+  "course": "курсы",
+  "caution": "ЖКТ-расстройства",
+  "forms": null
+ },
+ {
+  "id": "Цинк",
+  "name": "Цинк",
+  "code": 0,
+  "verdict": "зависит от контекста",
+  "category": "Когниция",
+  "price": 532,
+  "scienceIndex": 318,
+  "metaCount": 45,
+  "citations": 1,
+  "trends": 65.6,
+  "wiki": 73624,
+  "reviews": 3354,
+  "effects": [
+   "Когниция (при дефиците)"
+  ],
+  "dosage": "15-30 мг",
+  "course": "курсы 4-8 нед",
+  "caution": "долгие курсы = дефицит меди",
+  "forms": null
+ },
+ {
+  "id": "Тирозин",
+  "name": "Тирозин",
+  "code": 0,
+  "verdict": "зависит от контекста",
+  "category": "Когниция",
+  "price": 980,
+  "scienceIndex": 459,
+  "metaCount": 39,
+  "citations": null,
+  "trends": 5.5,
+  "wiki": 42658,
+  "reviews": 4945,
+  "effects": [
+   "Когниция под стрессом"
+  ],
+  "dosage": "500-2000 мг остро",
+  "course": "ситуативно",
+  "caution": "НЕ с ингибиторами МАО",
+  "forms": null
+ },
+ {
+  "id": "Таурин",
+  "name": "Таурин",
+  "code": -1,
+  "verdict": "не подтверждено",
+  "category": "Когниция",
+  "price": 526,
+  "scienceIndex": 82,
+  "metaCount": 7,
+  "citations": 1,
+  "trends": 25.0,
+  "wiki": 115795,
+  "reviews": 160751,
+  "effects": [
+   "Спокойствие"
+  ],
+  "dosage": "500-2000 мг",
+  "course": "—",
+  "caution": "когнитивных пруфов нет",
+  "forms": null
+ },
+ {
+  "id": "CoQ10",
+  "name": "CoQ10",
+  "code": -1,
+  "verdict": "не подтверждено",
+  "category": "Когниция",
+  "price": 357,
+  "scienceIndex": 35,
+  "metaCount": 3,
+  "citations": 11,
+  "trends": 0.1,
+  "wiki": 1299,
+  "reviews": 21117,
+  "effects": [
+   "Энергия, когниция"
+  ],
+  "dosage": "100-200 мг",
+  "course": "курсы",
+  "caution": "когнитивных пруфов нет",
+  "forms": null
+ },
+ {
+  "id": "Пикногенол",
+  "name": "Пикногенол",
+  "code": -1,
+  "verdict": "не подтверждено",
+  "category": "Когниция",
+  "price": 1718,
+  "scienceIndex": 33,
+  "metaCount": 5,
+  "citations": 1,
+  "trends": 0.0,
+  "wiki": 0,
+  "reviews": 92,
+  "effects": [
+   "Когниция"
+  ],
+  "dosage": "50-100 мг",
+  "course": "—",
+  "caution": "переплата за пустышку",
+  "forms": null
+ },
+ {
+  "id": "Готу кола",
+  "name": "Готу кола",
+  "code": -1,
+  "verdict": "не подтверждено",
+  "category": "Когниция",
+  "price": 339,
+  "scienceIndex": 12,
+  "metaCount": 2,
+  "citations": 131,
+  "trends": 0.8,
+  "wiki": 19315,
+  "reviews": 70449,
+  "effects": [
+   "Когниция"
+  ],
+  "dosage": "300-600 мг",
+  "course": "курсы",
+  "caution": "слабые данные",
+  "forms": null
+ },
+ {
+  "id": "Мелатонин",
+  "name": "Мелатонин",
+  "code": 1,
+  "verdict": "работает",
+  "category": "Сон",
+  "price": null,
+  "scienceIndex": 139,
+  "metaCount": 11,
+  "citations": null,
+  "trends": 24.8,
+  "wiki": 0,
+  "reviews": null,
+  "effects": [
+   "Засыпание",
+   "Джетлаг"
+  ],
+  "dosage": "0.5-3 мг за 30-60 мин до сна",
+  "course": "по необходимости",
+  "caution": "утром сонливость; не за руль; не с алкоголем",
+  "forms": "формы с контролируемым высвобождением — для поддержания сна, обычная — для засыпания"
+ },
+ {
+  "id": "ГАБА",
+  "name": "ГАБА",
+  "code": -1,
+  "verdict": "не подтверждено",
+  "category": "Сон",
+  "price": null,
+  "scienceIndex": 7,
+  "metaCount": 1,
+  "citations": null,
+  "trends": 38.4,
+  "wiki": 0,
+  "reviews": null,
+  "effects": [
+   "Спокойствие (заявлено)"
+  ],
+  "dosage": "100-300 мг (дозы исследований)",
+  "course": "—",
+  "caution": "человеческих доказательств НЕТ (MA на курах)",
+  "forms": null
+ },
+ {
+  "id": "Глицин",
+  "name": "Глицин",
+  "code": 0,
+  "verdict": "зависит от контекста",
+  "category": "Сон",
+  "price": null,
+  "scienceIndex": 0,
+  "metaCount": 0,
+  "citations": null,
+  "trends": 3.3,
+  "wiki": 0,
+  "reviews": null,
+  "effects": [
+   "Сон (заявлено)"
+  ],
+  "dosage": "3 г перед сном",
+  "course": "—",
+  "caution": "база очень слабая",
+  "forms": null
+ },
+ {
+  "id": "Валериана",
+  "name": "Валериана",
+  "code": -1,
+  "verdict": "не подтверждено",
+  "category": "Сон",
+  "price": null,
+  "scienceIndex": 89,
+  "metaCount": 9,
+  "citations": null,
+  "trends": 1.5,
+  "wiki": 0,
+  "reviews": null,
+  "effects": [
+   "Сон, тревога (заявлено)"
+  ],
+  "dosage": "300-600 мг экстракта перед сном",
+  "course": "2-4 недели",
+  "caution": "сонливость; не с седативными",
+  "forms": null
+ },
+ {
+  "id": "Бета-аланин",
+  "name": "Бета-аланин",
+  "code": 1,
+  "verdict": "работает",
+  "category": "Спорт",
+  "price": null,
+  "scienceIndex": 400,
+  "metaCount": 45,
+  "citations": null,
+  "trends": 0.1,
+  "wiki": 0,
+  "reviews": null,
+  "effects": [
+   "Выносливость в интенсивной работе"
+  ],
+  "dosage": "3.2-6.4 г/сут дробно",
+  "course": "4+ недели (накопление карнозина)",
+  "caution": "парестезии (покалывание) — безопасно",
+  "forms": null
+ },
+ {
+  "id": "L-цитруллин",
+  "name": "L-цитруллин",
+  "code": 1,
+  "verdict": "работает",
+  "category": "Спорт",
+  "price": null,
+  "scienceIndex": 117,
+  "metaCount": 10,
+  "citations": null,
+  "trends": 0.5,
+  "wiki": 0,
+  "reviews": null,
+  "effects": [
+   "Кровоток, производительность"
+  ],
+  "dosage": "6-8 г малата за 60 мин до нагрузки",
+  "course": "по необходимости",
+  "caution": "безопасен в дозах исследований",
+  "forms": null
+ },
+ {
+  "id": "Витамин C",
+  "name": "Витамин C",
+  "code": 0,
+  "verdict": "зависит от контекста",
+  "category": "Иммунитет",
+  "price": null,
+  "scienceIndex": 747,
+  "metaCount": 82,
+  "citations": null,
+  "trends": 46.9,
+  "wiki": 0,
+  "reviews": null,
+  "effects": [
+   "Иммунитет (при нагрузках)"
+  ],
+  "dosage": "500-1000 мг/сут",
+  "course": "периоды нагрузок",
+  "caution": "мегадозы — риск камней в почках",
+  "forms": null
+ },
+ {
+  "id": "Эхинацея",
+  "name": "Эхинацея",
+  "code": -1,
+  "verdict": "не подтверждено",
+  "category": "Иммунитет",
+  "price": null,
+  "scienceIndex": 81,
+  "metaCount": 9,
+  "citations": null,
+  "trends": 0.6,
+  "wiki": 0,
+  "reviews": null,
+  "effects": [
+   "Профилактика ОРВИ (заявлено)"
+  ],
+  "dosage": "по инструкции производителя",
+  "course": "до 8 недель",
+  "caution": "аллергия (астровые)",
+  "forms": null
+ },
+ {
+  "id": "Бузина",
+  "name": "Бузина",
+  "code": 0,
+  "verdict": "зависит от контекста",
+  "category": "Иммунитет",
+  "price": null,
+  "scienceIndex": 14,
+  "metaCount": 1,
+  "citations": null,
+  "trends": 1.5,
+  "wiki": 0,
+  "reviews": null,
+  "effects": [
+   "Симптомы ОРВИ"
+  ],
+  "dosage": "по инструкции (сироп/экстракт)",
+  "course": "5-7 дней",
+  "caution": "сырые ягоды токсичны",
+  "forms": null
+ },
+ {
+  "id": "Зверобой",
+  "name": "Зверобой",
+  "code": 1,
+  "verdict": "работает",
+  "category": "Настроение",
+  "price": null,
+  "scienceIndex": 218,
+  "metaCount": 31,
+  "citations": null,
+  "trends": 0.0,
+  "wiki": 0,
+  "reviews": null,
+  "effects": [
+   "Настроение (лёгкая депрессия)"
+  ],
+  "dosage": "300 мг 3 р/день (0.3% гиперицина)",
+  "course": "4-6 недель",
+  "caution": "⚠️ CYP3A4: снижает эффект контрацептивов, антикоагулянтов, антидепрессантов",
+  "forms": null
+ },
+ {
+  "id": "5-HTP",
+  "name": "5-HTP",
+  "code": 0,
+  "verdict": "зависит от контекста",
+  "category": "Настроение",
+  "price": null,
+  "scienceIndex": 37,
+  "metaCount": 2,
+  "citations": null,
+  "trends": 1.7,
+  "wiki": 0,
+  "reviews": null,
+  "effects": [
+   "Настроение"
+  ],
+  "dosage": "100-300 мг",
+  "course": "курсы",
+  "caution": "⚠️ НЕ с антидепрессантами (серотониновый синдром)",
+  "forms": null
+ },
+ {
+  "id": "Коллаген",
+  "name": "Коллаген",
+  "code": 1,
+  "verdict": "работает",
+  "category": "Кожа и суставы",
+  "price": null,
+  "scienceIndex": 69,
+  "metaCount": 4,
+  "citations": null,
+  "trends": 13.6,
+  "wiki": 0,
+  "reviews": null,
+  "effects": [
+   "Кожа, суставы"
+  ],
+  "dosage": "5-10 г гидролизата/сут",
+  "course": "8-12 недель",
+  "caution": "безопасен",
+  "forms": "гидролизат или пептиды — не «желатин пищевой»; тип I/III — кожа, II — суставы"
+ },
+ {
+  "id": "Пробиотики",
+  "name": "Пробиотики",
+  "code": 0,
+  "verdict": "зависит от контекста",
+  "category": "Кишечник",
+  "price": null,
+  "scienceIndex": 2059,
+  "metaCount": 238,
+  "citations": null,
+  "trends": 1.6,
+  "wiki": 0,
+  "reviews": null,
+  "effects": [
+   "Кишечник, иммунитет"
+  ],
+  "dosage": "1-10 млрд КОЕ, штамм под задачу",
+  "course": "4+ недели",
+  "caution": "осторожно при иммуносупрессии",
+  "forms": "эффект штаммозависим: L. rhamnosus GG — диарея; S. boulardii — антибиотико-ассоциированная; B. longum 1714 — стресс (мелкие RCT)"
+ },
+ {
+  "id": "B9",
+  "name": "B9",
+  "code": 0,
+  "verdict": "зависит от контекста",
+  "category": "Общее",
+  "price": null,
+  "scienceIndex": 96,
+  "metaCount": 13,
+  "citations": null,
+  "trends": 0.4,
+  "wiki": 0,
+  "reviews": null,
+  "effects": [
+   "Когниция (при дефиците/MCI)"
+  ],
+  "dosage": "400-800 мкг",
+  "course": "по назначению",
+  "caution": "маскирует B12-дефицит",
+  "forms": null
+ },
+ {
+  "id": "Железо",
+  "name": "Железо",
+  "code": 0,
+  "verdict": "зависит от контекста",
+  "category": "Общее",
+  "price": null,
+  "scienceIndex": 1873,
+  "metaCount": 197,
+  "citations": null,
+  "trends": 45.3,
+  "wiki": 0,
+  "reviews": null,
+  "effects": [
+   "Энергия (при анемии)"
+  ],
+  "dosage": "ТОЛЬКО по анализу ферритина и назначению врача",
+  "course": "курсы под контролем",
+  "caution": "⚠️ самолечение опасно: перегрузка, ЖКТ",
+  "forms": "хелат/бисглицинат мягче для ЖКТ, чем сульфат; принимать с витамином C, не с кальцием"
+ },
+ {
+  "id": "Триптофан",
+  "name": "Триптофан",
+  "code": 0,
+  "verdict": "зависит от контекста",
+  "category": "Сон",
+  "price": null,
+  "scienceIndex": 72,
+  "metaCount": 5,
+  "citations": null,
+  "trends": 2.5,
+  "wiki": 0,
+  "reviews": null,
+  "effects": [
+   "Сон, настроение"
+  ],
+  "dosage": "500-1000 мг перед сном",
+  "course": "—",
+  "caution": "не с антидепрессантами",
+  "forms": null
  }
 ]
