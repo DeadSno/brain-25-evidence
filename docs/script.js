@@ -54,41 +54,40 @@ function applyFilters() {
     name: (a, b) => a.name.localeCompare(b.name, 'ru')
   };
   currentData.sort(cmp[sort]);
-  $('countBadge').textContent = `(${currentData.length} из ${supplements.length})`;
+  $('countBadge').textContent = '(' + currentData.length + ' из ' + supplements.length + ')';
   renderCards(currentData); renderBubble(currentData);
 }
 
 function renderCards(data) {
   const g = $('cardsGrid');
   if (!data.length) { g.innerHTML = '<p style="opacity:.6">Ничего не найдено — попробуй другие фильтры.</p>'; return; }
-  g.innerHTML = data.map(s => `<div class="card" data-id="${s.id}">
-    <span class="cat">${s.category || ''}</span><h3>${s.name}</h3>
-    <div class="verdict" style="background:${vColor(s.code)}">${s.verdict}</div>
-    <div class="price">${s.price ? s.price + ' ₽/мес' : 'цена не указана'}</div>
-    ${val(s) !== null ? `<div class="value">⚖️ ценность: ${val(s)}</div>` : ''}
-    <div class="effects">${(s.effects || []).map(e => `<span>${e}</span>`).join('')}</div></div>`).join('');
+  g.innerHTML = data.map(s => '<div class="card" data-id="' + s.id + '">' +
+    '<span class="cat">' + (s.category || '') + '</span><h3>' + s.name + '</h3>' +
+    '<div class="verdict" style="background:' + vColor(s.code) + '">' + s.verdict + '</div>' +
+    '<div class="price">' + (s.price ? s.price + ' ₽/мес' : 'цена не указана') + '</div>' +
+    (val(s) !== null ? '<div class="value">⚖️ ценность: ' + val(s) + '</div>' : '') +
+    '<div class="effects">' + (s.effects || []).map(e => '<span>' + e + '</span>').join('') + '</div></div>').join('');
   g.querySelectorAll('.card').forEach(el => el.onclick = () => openModal(el.dataset.id));
 }
 
 function openModal(id) {
   const s = supplements.find(x => x.id === id); if (!s) return;
-  // ongoing trials: 0 = ❄️ (маркетинг без будущего), >0 = 🧪
   const trialsLine = s.ongoing != null
     ? (s.ongoing > 0
-        ? `<div class="mrow">🧪 <b>Ongoing trials: ${s.ongoing}</b> — сейчас в мире тестируют на людях</div>`
-        : `<div class="mrow warn">❄️ Ongoing trials: 0 — никто сейчас не проверяет на людях</div>`)
+        ? '<div class="mrow">🧪 <b>Активных испытаний: ' + s.ongoing + '</b> — сейчас проверяют на людях</div>'
+        : '<div class="mrow warn">❄️ Активных испытаний: 0 — сейчас никто не проверяет на людях</div>')
     : '';
-  $('modalBody').innerHTML = `<h2>${s.name}</h2>
-  <div class="mrow"><span class="verdict" style="background:${vColor(s.code)}">${s.verdict}</span> · ${s.category || ''}</div>
-  <div class="mrow">💰 <b>${s.price ? s.price + ' ₽/мес' : '—'}</b> · 🔬 наука: <b>${s.scienceIndex}</b> · 📚 MA: <b>${s.metaCount}</b>${val(s) !== null ? ` · ⚖️ ценность: <b>${val(s)}</b>` : ''}</div>
-  ${trialsLine}
-  ${s.citations != null ? `<div class="mrow">📖 Цитирований ключевого MA: ${s.citations}</div>` : ''}
-  ${s.reviews != null ? `<div class="mrow">🛒 Отзывов WB: ${s.reviews.toLocaleString('ru-RU')} · 📈 поиск 5 лет: ${s.trends ?? '—'} · 🌐 Wiki: ${s.wiki != null ? s.wiki.toLocaleString('ru-RU') : '—'}</div>` : ''}
-  <div class="mrow"><b>Эффекты:</b> ${(s.effects || []).join(', ') || '—'}</div>
-  <div class="mrow">💊 <b>Дозировка:</b> ${s.dosage || '—'}</div>
-  <div class="mrow">⏳ <b>Курс:</b> ${s.course || '—'}</div>
-  ${s.forms ? `<div class="mrow">🧪 <b>Формы/штаммы:</b> ${s.forms}</div>` : ''}
-  <div class="mrow warn">⚠️ ${s.caution || '—'}</div>`;
+  $('modalBody').innerHTML = '<h2>' + s.name + '</h2>' +
+    '<div class="mrow"><span class="verdict" style="background:' + vColor(s.code) + '">' + s.verdict + '</span> · ' + (s.category || '') + '</div>' +
+    '<div class="mrow">💰 <b>' + (s.price ? s.price + ' ₽/мес' : '—') + '</b> · 🔬 наука: <b>' + s.scienceIndex + '</b> · 📚 MA: <b>' + s.metaCount + '</b>' + (val(s) !== null ? ' · ⚖️ ценность: <b>' + val(s) + '</b>' : '') + '</div>' +
+    trialsLine +
+    (s.citations != null ? '<div class="mrow">📖 Цитирований ключевого MA: ' + s.citations + '</div>' : '') +
+    (s.reviews != null ? '<div class="mrow">🛒 Отзывов WB: ' + s.reviews.toLocaleString('ru-RU') + ' · 📈 поиск 5 лет: ' + (s.trends ?? '—') + ' · 🌐 Wiki: ' + (s.wiki != null ? s.wiki.toLocaleString('ru-RU') : '—') + '</div>' : '') +
+    '<div class="mrow"><b>Эффекты:</b> ' + ((s.effects || []).join(', ') || '—') + '</div>' +
+    '<div class="mrow">💊 <b>Дозировка:</b> ' + (s.dosage || '—') + '</div>' +
+    '<div class="mrow">⏳ <b>Курс:</b> ' + (s.course || '—') + '</div>' +
+    (s.forms ? '<div class="mrow">🧪 <b>Формы/штаммы:</b> ' + s.forms + '</div>' : '') +
+    '<div class="mrow warn">⚠️ ' + (s.caution || '—') + '</div>';
   $('modalOverlay').style.display = 'flex';
 }
 function closeModal() { $('modalOverlay').style.display = 'none'; }
@@ -96,7 +95,7 @@ function closeModal() { $('modalOverlay').style.display = 'none'; }
 function renderBubble(data) {
   const plotted = data.filter(s => s.price > 0);
   $('chartNote').textContent = plotted.length < data.length
-    ? `⚠️ ${data.length - plotted.length} добавок без цены не показаны на графике (ждут батчей WB)` : '';
+    ? '⚠️ ' + (data.length - plotted.length) + ' добавок без цены не показаны на графике (ждут батчей WB)' : '';
   const ctx = $('bubbleChart').getContext('2d');
   if (chartInstance) chartInstance.destroy();
   const txt = getComputedStyle(document.body).getPropertyValue('--text');
@@ -132,11 +131,11 @@ function showTooltip(evt, s) {
   const ny = evt.native ? evt.native.clientY : evt.clientY;
   const t = $('tooltip');
   t.style.display = 'block';
-  t.innerHTML = `<strong>${s.name}</strong>
-    <div class="detail">${s.verdict} · ${s.category || ''}</div>
-    <div class="detail">💰 ${s.price ? s.price + ' ₽/мес' : '—'} · 🔬 ${s.scienceIndex} · 📚 ${s.metaCount} MA</div>
-    ${val(s) !== null ? `<div class="detail">⚖️ ценность: ${val(s)} науки на 100 ₽</div>` : ''}
-    <div class="detail">${s.ongoing != null ? `🧪 ongoing: ${s.ongoing}` : ''}</div>`;
+  t.innerHTML = '<strong>' + s.name + '</strong>' +
+    '<div class="detail">' + s.verdict + ' · ' + (s.category || '') + '</div>' +
+    '<div class="detail">💰 ' + (s.price ? s.price + ' ₽/мес' : '—') + ' · 🔬 ' + s.scienceIndex + ' · 📚 ' + s.metaCount + ' MA</div>' +
+    (val(s) !== null ? '<div class="detail">⚖️ ценность: ' + val(s) + ' науки на 100 ₽</div>' : '') +
+    (s.ongoing != null ? '<div class="detail">🧪 испытаний сейчас: ' + s.ongoing + '</div>' : '');
   t.style.left = (nx - rect.left + 12) + 'px';
   t.style.top = (ny - rect.top - 10) + 'px';
 }
@@ -152,7 +151,7 @@ function renderCompare() {
     ['⚖️ Ценность', val(a) ?? '—', val(b) ?? '—'],
     ['Индекс науки', a.scienceIndex, b.scienceIndex],
     ['Мета-анализов', a.metaCount, b.metaCount],
-    ['🧪 Ongoing trials', a.ongoing ?? '—', b.ongoing ?? '—'],
+    ['🧪 Испытания сейчас', a.ongoing ?? '—', b.ongoing ?? '—'],
     ['Цитирований MA', a.citations ?? '—', b.citations ?? '—'],
     ['Отзывов на WB', a.reviews ?? '—', b.reviews ?? '—'],
     ['Поиск (5 лет)', a.trends ?? '—', b.trends ?? '—'],
@@ -162,7 +161,7 @@ function renderCompare() {
     ['⚠️ Осторожно', a.caution ?? '—', b.caution ?? '—']
   ];
   $('compareResult').innerHTML = '<table><tr><th>Параметр</th><th>' + a.name + '</th><th>' + b.name + '</th></tr>' +
-    rows.map(r => `<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join('') + '</table>';
+    rows.map(r => '<tr><td>' + r[0] + '</td><td>' + r[1] + '</td><td>' + r[2] + '</td></tr>').join('') + '</table>';
 
   const mx = k => Math.max(1, ...supplements.map(s => s[k] || 0));
   const mPr = Math.max(1, ...supplements.map(s => s.price || 0));

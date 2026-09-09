@@ -47,3 +47,21 @@ footer p{margin-bottom:.5rem}
 #modal .warn{color:#c0392b}
 .skeleton{animation:shimmer 1.2s infinite linear;background:linear-gradient(90deg,var(--card-bg) 25%,var(--bg) 50%,var(--card-bg) 75%);background-size:200% 100%;min-height:120px}
 @keyframes shimmer{from{background-position:200% 0}to{background-position:0 0}}
+/* ===== v1.2: мобильная адаптация нового UI ===== */
+@media (max-width: 768px) {
+  body { padding: 1rem; }
+  h1 { font-size: 1.4rem; }
+  header { flex-direction: column; align-items: flex-start; gap: .6rem; }
+  .hdr { width: 100%; justify-content: space-between; }
+  #controls { flex-direction: column; }
+  #controls input, #controls select { width: 100%; min-width: 0; }
+  #cardsGrid { grid-template-columns: 1fr; }
+  .row { flex-direction: column; }
+  .row > div { width: 100%; }
+  .row button { width: 100%; }
+  select { width: 100%; }
+  #tooltip { max-width: 80vw; font-size: .85rem; }
+  #compareResult { font-size: .85rem; overflow-x: auto; }
+  #compareResult th, #compareResult td { padding: .4rem; }
+  #modal { padding: 1rem; max-height: 90vh; }
+}
