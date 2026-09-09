@@ -4,16 +4,15 @@ import time
 import requests
 import pandas as pd
 
-from .config import SUPPLEMENTS, COG, EN, NORM, WB_QUERY, MAILTO
+from . import config                      # модуль целиком → config.OUTCOME_V12 доступен
+from .config import (SUPPLEMENTS, COG, EN, NORM,
+                     WB_QUERY, MAILTO, OUTCOME_V12)
 
-EUTILS = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi"
+EUTILS   = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi"
 OPENALEX = "https://api.openalex.org/works"
 WB_SEARCH = "https://search.wb.ru/exactmatch/ru/common/v4/search"
 
-# Чёрный список: товары для огорода/наборы, а не дозы
 GARDEN = re.compile(r"семен|сажен|рассад|грунт|агрофирм|аэлит|цвето|растен|огород", re.I)
-
-# ВАЖНО: токен «шт» убран — «1 шт/2 шт» это флаконы и наборы, не дозы
 UNIT_RE = {
     "г":    re.compile(r"(\d+(?:[.,]\d+)?)\s*(?:грамм|граммов|г|g|гр)\b", re.I),
     "капс": re.compile(r"(\d+)\s*(?:капсул|капс|caps|capsules|таблеток|табл|таб)\b", re.I),
@@ -29,15 +28,17 @@ def pubmed_count(term: str) -> int:
 
 
 def collect_pubmed() -> pd.DataFrame:
-    """Полный сбор PubMed (использовать только для обновления данных)."""
+    """Полный сбор PubMed. v1.2: outcome зависит от категории добавки."""
     rows = []
     for name, q in SUPPLEMENTS.items():
-        base = f"({q}) AND ({COG})"
+        # ← ИСПРАВЛЕНО: name (не sup), OUTCOME_V12 (не config.OUTCOME_V12)
+        outcome = OUTCOME_V12.get(name, COG)
+        base = f"({q}) AND ({outcome})"
         rows.append({
             "добавка": name,
             "всего_публикаций": pubmed_count(base),
-            "rct": pubmed_count(f"{base} AND randomized controlled trial[pt]"),
-            "мета_анализы": pubmed_count(f"{base} AND meta-analysis[pt]"),
+            "rct":            pubmed_count(f"{base} AND randomized controlled trial[pt]"),
+            "мета_анализы":   pubmed_count(f"{base} AND meta-analysis[pt]"),
         })
         print(f"{name}: собрано")
     return pd.DataFrame(rows)
@@ -90,7 +91,7 @@ def parse_units(name: str, unit: str):
 
 
 def collect_wb_prices() -> pd.DataFrame:
-    """Сбор цен WB с фильтрами шума (наборы/огород отбрасываются)."""
+    """Сбор цен WB. v1.2: новые добавки уже должны быть в WB_QUERY."""
     rows = []
     for sup, (q, unit) in WB_QUERY.items():
         try:
@@ -110,20 +111,3 @@ def collect_wb_prices() -> pd.DataFrame:
                          "дата": time.strftime("%Y-%m-%d")})
         time.sleep(1.0)
     return pd.DataFrame(rows)
-def wb_demand(query: str, n: int = 12) -> pd.DataFrame:
-    """Карточки WB: отзывы + рейтинг (показатели спроса)."""
-    r = requests.get(WB_SEARCH,
-                     params={"appType": 1, "curr": "rub", "dest": -1257786,
-                             "query": query, "resultset": "catalog",
-                             "sort": "popular", "spp": 30},
-                     timeout=15, headers={"User-Agent": "Mozilla/5.0"})
-    r.raise_for_status()
-    data = r.json()
-    items = data.get("products", data.get("data", {}).get("products", []))[:n]
-    return pd.DataFrame([{
-        "артикул": it.get("id"),
-        "добавка": "",
-        "название": it.get("name", ""),
-        "отзывов": int(it.get("feedbacks", 0) or 0),
-        "рейтинг": float(it.get("rating", 0) or 0),
-    } for it in items])
