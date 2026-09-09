@@ -12,6 +12,7 @@
   "trends": 43.1,
   "wiki": 172591,
   "reviews": 191221,
+  "ongoing": 196,
   "effects": [
    "Рабочая память под нагрузкой"
   ],
@@ -33,6 +34,7 @@
   "trends": 13.1,
   "wiki": 49594,
   "reviews": 447,
+  "ongoing": 0,
   "effects": [
    "Нейропластичность"
   ],
@@ -54,6 +56,7 @@
   "trends": 10.9,
   "wiki": 137275,
   "reviews": 13623,
+  "ongoing": 0,
   "effects": [
    "Настроение (при дефиците)"
   ],
@@ -75,6 +78,7 @@
   "trends": 17.3,
   "wiki": 102227,
   "reviews": 7796,
+  "ongoing": 0,
   "effects": [
    "Когниция (при дефиците)"
   ],
@@ -96,6 +100,7 @@
   "trends": 146.2,
   "wiki": 93483,
   "reviews": 302,
+  "ongoing": 160,
   "effects": [
    "Сон, расслабление"
   ],
@@ -117,6 +122,7 @@
   "trends": 17.6,
   "wiki": 103087,
   "reviews": 2187,
+  "ongoing": 129,
   "effects": [
    "Бодрость, скорость реакции",
    "Настроение, мотивация"
@@ -139,6 +145,7 @@
   "trends": 0.0,
   "wiki": 19356,
   "reviews": 297236,
+  "ongoing": 0,
   "effects": [
    "Спокойный фокус",
    "Внимание без джиттеров"
@@ -161,6 +168,7 @@
   "trends": 3.4,
   "wiki": 6583,
   "reviews": 6397,
+  "ongoing": 1,
   "effects": [
    "Память (курсом)"
   ],
@@ -182,6 +190,7 @@
   "trends": 13.1,
   "wiki": 137186,
   "reviews": 9561,
+  "ongoing": 0,
   "effects": [
    "Нейрогенез"
   ],
@@ -203,6 +212,7 @@
   "trends": 11.6,
   "wiki": 87842,
   "reviews": 2315,
+  "ongoing": 10,
   "effects": [
    "Внимание"
   ],
@@ -224,6 +234,7 @@
   "trends": 3.2,
   "wiki": 59415,
   "reviews": 77292,
+  "ongoing": 1,
   "effects": [
    "Устойчивость к усталости"
   ],
@@ -245,6 +256,7 @@
   "trends": 7.4,
   "wiki": 0,
   "reviews": 551,
+  "ongoing": 0,
   "effects": [
    "Стрессоустойчивость"
   ],
@@ -266,6 +278,7 @@
   "trends": 0.7,
   "wiki": 25223,
   "reviews": 1598,
+  "ongoing": 7,
   "effects": [
    "Память (пожилые)"
   ],
@@ -287,6 +300,7 @@
   "trends": 0.0,
   "wiki": 15442,
   "reviews": 933,
+  "ongoing": 0,
   "effects": [
    "Память (у пациентов)"
   ],
@@ -308,6 +322,7 @@
   "trends": 0.0,
   "wiki": 31044,
   "reviews": 379,
+  "ongoing": 0,
   "effects": [
    "Память (у пациентов)"
   ],
@@ -329,6 +344,7 @@
   "trends": 0.0,
   "wiki": 329,
   "reviews": 892,
+  "ongoing": 3,
   "effects": [
    "Память (Альцгеймер)"
   ],
@@ -350,6 +366,7 @@
   "trends": 5.5,
   "wiki": 31187,
   "reviews": 1516,
+  "ongoing": 0,
   "effects": [
    "Настроение, когниция"
   ],
@@ -371,6 +388,7 @@
   "trends": 4.9,
   "wiki": 76475,
   "reviews": 2269,
+  "ongoing": 9,
   "effects": [
    "Антивозрастной эффект"
   ],
@@ -392,6 +410,7 @@
   "trends": 3.4,
   "wiki": 66356,
   "reviews": 2054,
+  "ongoing": 25,
   "effects": [
    "Когниция (психиатрия)"
   ],
@@ -413,6 +432,7 @@
   "trends": 65.6,
   "wiki": 73624,
   "reviews": 3354,
+  "ongoing": 75,
   "effects": [
    "Когниция (при дефиците)"
   ],
@@ -434,6 +454,7 @@
   "trends": 5.5,
   "wiki": 42658,
   "reviews": 4945,
+  "ongoing": 169,
   "effects": [
    "Когниция под стрессом"
   ],
@@ -455,6 +476,7 @@
   "trends": 25.0,
   "wiki": 115795,
   "reviews": 160751,
+  "ongoing": 20,
   "effects": [
    "Спокойствие"
   ],
@@ -476,6 +498,7 @@
   "trends": 0.1,
   "wiki": 1299,
   "reviews": 21117,
+  "ongoing": 0,
   "effects": [
    "Энергия, когниция"
   ],
@@ -497,6 +520,7 @@
   "trends": 0.0,
   "wiki": 0,
   "reviews": 92,
+  "ongoing": 0,
   "effects": [
    "Когниция"
   ],
@@ -518,6 +542,7 @@
   "trends": 0.8,
   "wiki": 19315,
   "reviews": 70449,
+  "ongoing": 0,
   "effects": [
    "Когниция"
   ],
@@ -539,6 +564,7 @@
   "trends": 24.8,
   "wiki": 0,
   "reviews": null,
+  "ongoing": 0,
   "effects": [
    "Засыпание",
    "Джетлаг"
@@ -561,6 +587,7 @@
   "trends": 38.4,
   "wiki": 0,
   "reviews": null,
+  "ongoing": 0,
   "effects": [
    "Спокойствие (заявлено)"
   ],
@@ -582,6 +609,7 @@
   "trends": 3.3,
   "wiki": 0,
   "reviews": null,
+  "ongoing": 4,
   "effects": [
    "Сон (заявлено)"
   ],
@@ -603,6 +631,7 @@
   "trends": 1.5,
   "wiki": 0,
   "reviews": null,
+  "ongoing": 0,
   "effects": [
    "Сон, тревога (заявлено)"
   ],
@@ -624,6 +653,7 @@
   "trends": 0.1,
   "wiki": 0,
   "reviews": null,
+  "ongoing": 5,
   "effects": [
    "Выносливость в интенсивной работе"
   ],
@@ -645,6 +675,7 @@
   "trends": 0.5,
   "wiki": 0,
   "reviews": null,
+  "ongoing": 7,
   "effects": [
    "Кровоток, производительность"
   ],
@@ -666,6 +697,7 @@
   "trends": 46.9,
   "wiki": 0,
   "reviews": null,
+  "ongoing": 0,
   "effects": [
    "Иммунитет (при нагрузках)"
   ],
@@ -687,6 +719,7 @@
   "trends": 0.6,
   "wiki": 0,
   "reviews": null,
+  "ongoing": 1,
   "effects": [
    "Профилактика ОРВИ (заявлено)"
   ],
@@ -708,6 +741,7 @@
   "trends": 1.5,
   "wiki": 0,
   "reviews": null,
+  "ongoing": 0,
   "effects": [
    "Симптомы ОРВИ"
   ],
@@ -729,6 +763,7 @@
   "trends": 0.0,
   "wiki": 0,
   "reviews": null,
+  "ongoing": 0,
   "effects": [
    "Настроение (лёгкая депрессия)"
   ],
@@ -750,6 +785,7 @@
   "trends": 1.7,
   "wiki": 0,
   "reviews": null,
+  "ongoing": 4,
   "effects": [
    "Настроение"
   ],
@@ -771,6 +807,7 @@
   "trends": 13.6,
   "wiki": 0,
   "reviews": null,
+  "ongoing": 333,
   "effects": [
    "Кожа, суставы"
   ],
@@ -792,6 +829,7 @@
   "trends": 1.6,
   "wiki": 0,
   "reviews": null,
+  "ongoing": 470,
   "effects": [
    "Кишечник, иммунитет"
   ],
@@ -813,6 +851,7 @@
   "trends": 0.4,
   "wiki": 0,
   "reviews": null,
+  "ongoing": 0,
   "effects": [
    "Когниция (при дефиците/MCI)"
   ],
@@ -834,6 +873,7 @@
   "trends": 45.3,
   "wiki": 0,
   "reviews": null,
+  "ongoing": 461,
   "effects": [
    "Энергия (при анемии)"
   ],
@@ -855,6 +895,7 @@
   "trends": 2.5,
   "wiki": 0,
   "reviews": null,
+  "ongoing": 27,
   "effects": [
    "Сон, настроение"
   ],
