@@ -3,33 +3,56 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>🧠 БАДы для мозга: цена vs наука</title>
+<title>🧠 БАДы: цена vs наука</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
 <header>
-  <h1>🧠 БАДы для мозга: цена vs наука</h1>
+  <h1>🧠 БАДы: цена vs наука</h1>
   <div class="hdr">
     <a class="btn" href="map.html">🕸 Карта механизмов</a>
     <button id="themeToggle">🌙 Тёмная тема</button>
   </div>
 </header>
-<section id="symptomFilter">
-  <label for="symptomSelect">Что хотите улучшить?</label>
-  <select id="symptomSelect"><option value="all">Все эффекты</option></select>
+
+<section id="controls">
+  <input id="search" placeholder="🔍 Поиск: название или эффект..."/>
+  <select id="verdictFilter">
+    <option value="all">Любой вердикт</option>
+    <option value="1">✅ работает</option>
+    <option value="0">🟡 зависит от контекста</option>
+    <option value="-1">❌ не подтверждено</option>
+  </select>
+  <select id="categoryFilter"><option value="all">Все категории</option></select>
+  <select id="sortSelect">
+    <option value="science">По науке</option>
+    <option value="value">По ценности (наука/цена)</option>
+    <option value="price_asc">Сначала дешёвые</option>
+    <option value="reviews">По популярности (WB)</option>
+    <option value="name">По алфавиту</option>
+  </select>
 </section>
+
 <section id="chartSection">
-  <h2>Цена vs Доказательность (размер пузыря = число мета-анализов)</h2>
+  <h2>Цена vs Доказательность <span class="hint">(пузырь = мета-анализы, ось Y — лог-шкала)</span></h2>
+  <details class="method">
+    <summary>📐 Что такое «индекс науки» и «ценность»?</summary>
+    <p><b>Индекс науки = РКИ + 5 × мета-анализы</b> в PubMed по запросу «(добавка) AND (исход)».</p>
+    <p><b>Ценность = индекс науки на 100 ₽ месячной цены.</b> Чем выше — тем больше науки за рубль.</p>
+    <p>Индекс меряет <i>количество</i> науки, не силу эффекта. Вердикты ставим вручную по топ-2 мета-анализам.</p>
+  </details>
   <div id="chartWrap" style="position:relative;">
     <canvas id="bubbleChart"></canvas>
     <div id="tooltip" style="display:none;position:absolute;"></div>
   </div>
 </section>
+
 <section id="cardsContainer">
-  <h2>Все добавки</h2>
+  <h2>Все добавки <span id="countBadge" class="hint"></span></h2>
   <div id="cardsGrid"></div>
 </section>
+
 <section id="compareSection">
   <h2>Сравнить две добавки</h2>
   <div class="row">
@@ -38,12 +61,22 @@
     <button id="compareBtn">Сравнить</button>
   </div>
   <div id="compareResult"></div>
+  <h3 style="margin-top:1rem">📡 Радар профиля</h3>
+  <div style="position:relative;max-width:520px;margin:0 auto"><canvas id="radarChart"></canvas></div>
 </section>
+
 <footer>
   <p><b>⚠️ Дисклеймер.</b> Проект не является медицинской рекомендацией. При болезнях, беременности и приёме лекарств — сначала к врачу.</p>
   <p>Цены рассчитаны по действующему веществу и дозировке из исследований. Мы НЕ учитывали: вспомогательные компоненты таблеток (диоксид кремния, стеарат магния, красители, оболочка), форму вещества (хелат/цитрат/оксид/липосомы), степень очистки, размер упаковки и брендовую наценку — всё это влияет на реальную цену на полке.</p>
-  <p>v1.1 • данные на 09.09.2026 • источники: PubMed, OpenAlex, Wildberries, Google Trends, Wikimedia</p>
+  <p>v1.2 • данные на 09.09.2026 • источники: PubMed, OpenAlex, Wildberries, Google Trends, Wikimedia</p>
 </footer>
+
+<div id="modalOverlay" style="display:none">
+  <div id="modal">
+    <button id="modalClose">✕</button>
+    <div id="modalBody"></div>
+  </div>
+</div>
 <script src="script.js"></script>
 </body>
 </html>
