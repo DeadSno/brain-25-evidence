@@ -25,6 +25,8 @@ function initApp() {
   $('modalClose').onclick = closeModal;
   $('modalOverlay').onclick = e => { if (e.target.id === 'modalOverlay') closeModal(); };
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+  const deep = decodeURIComponent(location.hash.replace('#sup=', ''));
+  if (deep && supplements.some(s => s.id === deep)) setTimeout(() => openModal(deep), 300);
   applyFilters(); renderCompare();
 }
 
@@ -88,9 +90,10 @@ function openModal(id) {
     '<div class="mrow">⏳ <b>Курс:</b> ' + (s.course || '—') + '</div>' +
     (s.forms ? '<div class="mrow">🧪 <b>Формы/штаммы:</b> ' + s.forms + '</div>' : '') +
     '<div class="mrow warn">⚠️ ' + (s.caution || '—') + '</div>';
+    history.replaceState(null, '', '#sup=' + encodeURIComponent(s.id));
   $('modalOverlay').style.display = 'flex';
 }
-function closeModal() { $('modalOverlay').style.display = 'none'; }
+function closeModal() { $('modalOverlay').style.display = 'none'; history.replaceState(null, '', location.pathname); }
 
 function renderBubble(data) {
   const plotted = data.filter(s => s.price > 0);
