@@ -97,4 +97,4 @@ search.oninput=()=>{const q=search.value.toLowerCase();if(!q)return;
  let sid=DATA.sups.find(s=>s.toLowerCase().includes(q));
  const hit=sid?nodes.get(sid):nodes.get().find(n=>n.id.toLowerCase().includes(q));
  if(hit){net.focus(hit.id,{scale:1.2});showNode(hit.id);}};
-</script></body></html>
+</script><p style="position:fixed;bottom:6px;left:10px;font-size:11px;color:#999">v1.0 • данные на 09.09.2026 • источники: PubMed, OpenAlex, Wildberries, Google Trends</p></body></html>

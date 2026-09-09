@@ -1,0 +1,179 @@
+/* ----- CSS-переменные (светлая тема по умолчанию) ----- */
+:root {
+    --bg: #f5f5f7;
+    --text: #1c1c1e;
+    --card-bg: #ffffff;
+    --border: #d1d1d6;
+    --shadow: rgba(0,0,0,0.08);
+    --accent: #007aff;
+}
+body.dark {
+    --bg: #1c1c1e;
+    --text: #f5f5f7;
+    --card-bg: #2c2c2e;
+    --border: #3a3a3c;
+    --shadow: rgba(0,0,0,0.4);
+    --accent: #0a84ff;
+}
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    padding: 1.5rem;
+    transition: background 0.25s, color 0.25s;
+    max-width: 1200px;
+    margin: 0 auto;
+    line-height: 1.5;
+}
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+h1 { font-size: 2rem; font-weight: 600; }
+button {
+    background: var(--card-bg);
+    color: var(--text);
+    border: 1px solid var(--border);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: 0.15s;
+}
+button:hover {
+    background: var(--border);
+}
+section {
+    margin-bottom: 2.5rem;
+}
+h2 {
+    font-size: 1.4rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+label {
+    font-weight: 500;
+    margin-right: 0.5rem;
+}
+select, input {
+    background: var(--card-bg);
+    color: var(--text);
+    border: 1px solid var(--border);
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    font-size: 0.95rem;
+}
+#symptomFilter {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+/* ----- Пузырьковая диаграмма ----- */
+#chartSection {
+    background: var(--card-bg);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+}
+#chartSection canvas {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 500px;
+}
+#tooltip {
+    font-size: 0.9rem;
+}
+#tooltip strong {
+    display: block;
+    margin-bottom: 4px;
+}
+#tooltip .detail {
+    margin: 2px 0;
+    font-size: 0.85rem;
+    opacity: 0.8;
+}
+
+/* ----- Карточки добавок ----- */
+#cardsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.2rem;
+}
+.card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem 1.2rem;
+    box-shadow: 0 2px 6px var(--shadow);
+    transition: transform 0.1s;
+}
+.card:hover {
+    transform: translateY(-2px);
+}
+.card h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+}
+.card .verdict {
+    display: inline-block;
+    font-size: 0.75rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+    background: #e9ecef;
+    margin-bottom: 0.5rem;
+}
+.card .price {
+    font-weight: 500;
+    color: var(--accent);
+}
+.card .effects {
+    font-size: 0.9rem;
+    margin-top: 0.4rem;
+    opacity: 0.8;
+}
+.card .effects span {
+    background: var(--bg);
+    padding: 0.1rem 0.5rem;
+    border-radius: 12px;
+    margin-right: 0.3rem;
+    display: inline-block;
+    margin-bottom: 0.2rem;
+}
+
+/* ----- Блок сравнения ----- */
+#compareSection {
+    background: var(--card-bg);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+}
+#compareResult {
+    margin-top: 1rem;
+    overflow-x: auto;
+}
+#compareResult table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+}
+#compareResult th, #compareResult td {
+    padding: 0.6rem 0.8rem;
+    border-bottom: 1px solid var(--border);
+    text-align: left;
+}
+#compareResult th {
+    background: var(--bg);
+    font-weight: 500;
+}
