@@ -72,9 +72,16 @@ function renderCards(data) {
 
 function openModal(id) {
   const s = supplements.find(x => x.id === id); if (!s) return;
+  // ongoing trials: 0 = ❄️ (маркетинг без будущего), >0 = 🧪
+  const trialsLine = s.ongoing != null
+    ? (s.ongoing > 0
+        ? `<div class="mrow">🧪 <b>Ongoing trials: ${s.ongoing}</b> — сейчас в мире тестируют на людях</div>`
+        : `<div class="mrow warn">❄️ Ongoing trials: 0 — никто сейчас не проверяет на людях</div>`)
+    : '';
   $('modalBody').innerHTML = `<h2>${s.name}</h2>
   <div class="mrow"><span class="verdict" style="background:${vColor(s.code)}">${s.verdict}</span> · ${s.category || ''}</div>
   <div class="mrow">💰 <b>${s.price ? s.price + ' ₽/мес' : '—'}</b> · 🔬 наука: <b>${s.scienceIndex}</b> · 📚 MA: <b>${s.metaCount}</b>${val(s) !== null ? ` · ⚖️ ценность: <b>${val(s)}</b>` : ''}</div>
+  ${trialsLine}
   ${s.citations != null ? `<div class="mrow">📖 Цитирований ключевого MA: ${s.citations}</div>` : ''}
   ${s.reviews != null ? `<div class="mrow">🛒 Отзывов WB: ${s.reviews.toLocaleString('ru-RU')} · 📈 поиск 5 лет: ${s.trends ?? '—'} · 🌐 Wiki: ${s.wiki != null ? s.wiki.toLocaleString('ru-RU') : '—'}</div>` : ''}
   <div class="mrow"><b>Эффекты:</b> ${(s.effects || []).join(', ') || '—'}</div>
@@ -87,14 +94,17 @@ function openModal(id) {
 function closeModal() { $('modalOverlay').style.display = 'none'; }
 
 function renderBubble(data) {
+  const plotted = data.filter(s => s.price > 0);
+  $('chartNote').textContent = plotted.length < data.length
+    ? `⚠️ ${data.length - plotted.length} добавок без цены не показаны на графике (ждут батчей WB)` : '';
   const ctx = $('bubbleChart').getContext('2d');
   if (chartInstance) chartInstance.destroy();
   const txt = getComputedStyle(document.body).getPropertyValue('--text');
   chartInstance = new Chart(ctx, {
     type: 'scatter',
-    data: { datasets: data.map(s => ({
+    data: { datasets: plotted.map(s => ({
       label: s.name,
-      data: [{ x: s.price || 0, y: Math.max(1, s.scienceIndex) }],
+      data: [{ x: s.price, y: Math.max(1, s.scienceIndex) }],
       backgroundColor: vColor(s.code),
       pointRadius: Math.min(30, Math.sqrt(s.metaCount || 1) * 2.5),
       pointHoverRadius: Math.min(36, Math.sqrt(s.metaCount || 1) * 3.5)
@@ -103,10 +113,13 @@ function renderBubble(data) {
       responsive: true, maintainAspectRatio: true,
       scales: {
         x: { title: { display: true, text: 'Цена за месяц (₽)', color: txt }, grid: { color: 'rgba(128,128,128,.15)' } },
-        y: { type: 'logarithmic', title: { display: true, text: 'Индекс науки (лог)', color: txt }, grid: { color: 'rgba(128,128,128,.15)' } }
+        y: { type: 'logarithmic',
+             title: { display: true, text: 'Индекс науки (лог)', color: txt },
+             grid: { color: 'rgba(128,128,128,.15)' },
+             ticks: { callback: v => [1, 10, 100, 1000, 10000].includes(v) ? v : '' } }
       },
       plugins: { legend: { display: false }, tooltip: { enabled: false } },
-      onHover: (evt, els) => { if (els && els.length) showTooltip(evt, data[els[0].datasetIndex]); else hideTooltip(); }
+      onHover: (evt, els) => { if (els && els.length) showTooltip(evt, plotted[els[0].datasetIndex]); else hideTooltip(); }
     }
   });
   $('bubbleChart').addEventListener('mouseleave', hideTooltip);
@@ -123,7 +136,7 @@ function showTooltip(evt, s) {
     <div class="detail">${s.verdict} · ${s.category || ''}</div>
     <div class="detail">💰 ${s.price ? s.price + ' ₽/мес' : '—'} · 🔬 ${s.scienceIndex} · 📚 ${s.metaCount} MA</div>
     ${val(s) !== null ? `<div class="detail">⚖️ ценность: ${val(s)} науки на 100 ₽</div>` : ''}
-    <div class="detail">Кликни карточку ниже для деталей</div>`;
+    <div class="detail">${s.ongoing != null ? `🧪 ongoing: ${s.ongoing}` : ''}</div>`;
   t.style.left = (nx - rect.left + 12) + 'px';
   t.style.top = (ny - rect.top - 10) + 'px';
 }
@@ -139,6 +152,7 @@ function renderCompare() {
     ['⚖️ Ценность', val(a) ?? '—', val(b) ?? '—'],
     ['Индекс науки', a.scienceIndex, b.scienceIndex],
     ['Мета-анализов', a.metaCount, b.metaCount],
+    ['🧪 Ongoing trials', a.ongoing ?? '—', b.ongoing ?? '—'],
     ['Цитирований MA', a.citations ?? '—', b.citations ?? '—'],
     ['Отзывов на WB', a.reviews ?? '—', b.reviews ?? '—'],
     ['Поиск (5 лет)', a.trends ?? '—', b.trends ?? '—'],
