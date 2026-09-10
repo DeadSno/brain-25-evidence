@@ -1,6 +1,6 @@
 """Конфигурация проекта: список добавок, запросы PubMed/WB, нормы."""
 
-MAILTO = "you@example.com"  # для PubMed E-utilities (любой email)
+MAILTO = "brain25-evidence@users.noreply.github.com"  # для PubMed E-utilities
 
 # ============ БАЗОВЫЕ 25 КОГНИТИВНЫХ ДОБАВОК (v1.0) ============
 SUPPLEMENTS = {
