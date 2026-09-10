@@ -2,6 +2,7 @@ const $ = id => document.getElementById(id);
 let supplements = [], currentData = [], chartInstance = null, radarInstance = null, onlyFavs = false;
 let chartPts = [];
 let scrollBeforeModal = 0;
+let BEST = [];
 
 function chartSupByEl(chart, el) {
   const ds = (chart.data.datasets || [])[el.datasetIndex] || {};
@@ -23,6 +24,7 @@ fetch('data.json?ts=' + Date.now())
   .catch(() => { document.body.innerHTML = '<p style="color:red">❌ Не удалось загрузить data.json</p>'; });
 
 function initApp() {
+  BEST = supplements.filter(s => val(s) !== null).sort((x, y) => val(y) - val(x)).slice(0, 3).map(s => s.id);
   const saved = localStorage.getItem('theme');
   if (saved !== 'light') setDark(true);   // v1.3: по умолчанию тёмная; светлая — только по выбору
   [...new Set(supplements.map(s => s.category).filter(Boolean))].sort()
@@ -100,10 +102,12 @@ function renderCards(data) {
   if (!data.length) { g.innerHTML = '<p style="opacity:.6">Ничего не найдено — попробуй другие фильтры.</p>'; return; }
   g.innerHTML = data.map(s => '<div class="card" data-id="' + s.id + '">' +
     '<button class="favBtn' + (isFav(s.id) ? ' on' : '') + '" data-fav="' + s.id + '" title="В избранное">' + (isFav(s.id) ? '★' : '☆') + '</button>' +
+    (BEST.includes(s.id) ? '<span class="bestBadge">🏆 Лучший выбор</span>' : '') +
     '<span class="cat">' + (s.category || '') + '</span><h3>' + s.name + '</h3>' +
-    '<div class="verdict" style="background:' + vColor(s.code) + '">' + s.verdict + '</div>' +
+    '<div class="verdict v' + s.code + '">' + s.verdict + '</div>' +
     '<div class="price">' + (s.price ? s.price + ' ₽/мес' : 'цена не указана') + '</div>' +
     (val(s) !== null ? '<div class="value">⚖️ ценность: ' + val(s) + '</div>' : '') +
+    (val(s) !== null ? '<div class="valBar"><i style="width:' + Math.min(100, val(s) / 3) + '%"></i></div>' : '') +
     '<div class="effects">' + (s.effects || []).map(e => '<span>' + e + '</span>').join('') + '</div></div>').join('');
   g.querySelectorAll('.card').forEach(el => el.onclick = () => openModal(el.dataset.id));
 }
@@ -130,7 +134,7 @@ function openModal(id) {
     : '';
 
   $('modalBody').innerHTML = '<h2>' + s.name + '</h2>' +
-    '<div class="mrow"><span class="verdict" style="background:' + vColor(s.code) + '">' + s.verdict + '</span> · ' + (s.category || '') + '</div>' +
+    '<div class="mrow"><span class="verdict v' + s.code + '">' + s.verdict + '</span> · ' + (s.category || '') + '</div>' +
     '<div class="mrow">💰 <b>' + (s.price ? s.price + ' ₽/мес' : '—') + '</b> · 🔬 наука: <b>' + s.scienceIndex + '</b> · 📚 MA: <b>' + s.metaCount + '</b>' + (val(s) !== null ? ' · ⚖️ ценность: <b>' + val(s) + '</b>' : '') + '</div>' +
     '<div class="mrow">🛒 <a class="wbLink" target="_blank" rel="noopener" href="https://www.wildberries.ru/catalog/0/search.aspx?search=' + encodeURIComponent(s.name) + '">Проверить актуальную цену на WB</a></div>' +
     trialsLine +
@@ -220,6 +224,16 @@ function renderBubble(data) {
   });
 }
 
+function radarFill(ctx) {
+  const { chart } = ctx; const { ctx: c, chartArea } = chart;
+  if (!chartArea) return 'rgba(52,152,219,.25)';
+  const cx = (chartArea.left + chartArea.right) / 2, cy = (chartArea.top + chartArea.bottom) / 2;
+  const g = c.createRadialGradient(cx, cy, 8, cx, cy, Math.max(chartArea.width, chartArea.height) / 2);
+  g.addColorStop(0, 'rgba(46,204,113,.38)');
+  g.addColorStop(1, 'rgba(52,152,219,.12)');
+  return g;
+}
+
 function renderCompare() {
   const a = supplements.find(s => s.id === $('compareSelect1').value);
   const b = supplements.find(s => s.id === $('compareSelect2').value);
@@ -257,8 +271,8 @@ function renderCompare() {
     data: {
       labels: ['Наука', 'База MA', 'Спрос (WB)', 'Интерес (trends)', 'Доступность'],
       datasets: [
-        { label: a.name, data: prof(a), borderColor: '#3498db', backgroundColor: 'rgba(52,152,219,.2)' },
-        { label: b.name, data: prof(b), borderColor: '#e67e22', backgroundColor: 'rgba(230,126,34,.2)' }
+        { label: a.name, data: prof(a), borderColor: '#3498db', backgroundColor: radarFill },
+        { label: b.name, data: prof(b), borderColor: '#e67e22', backgroundColor: radarFill }
       ]
     },
     options: { scales: { r: { min: 0, max: 100, ticks: { display: false } } }, plugins: { legend: { position: 'bottom' } } }
