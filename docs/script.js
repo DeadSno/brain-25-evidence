@@ -6,14 +6,14 @@ let supplements = [], currentData = [], chartInstance = null, radarInstance = nu
   $('cardsGrid').innerHTML = h;
 })();
 
-fetch('data.json')
+fetch('data.json?ts=' + Date.now())
   .then(r => { if (!r.ok) throw new Error('no data'); return r.json(); })
   .then(d => { supplements = d; initApp(); })
   .catch(() => { document.body.innerHTML = '<p style="color:red">❌ Не удалось загрузить data.json</p>'; });
 
 function initApp() {
   const saved = localStorage.getItem('theme');
-  if (saved === 'dark' || (!saved && matchMedia('(prefers-color-scheme: dark)').matches)) setDark(true);
+  if (saved !== 'light') setDark(true);   // v1.3: по умолчанию тёмная; светлая — только по выбору
   [...new Set(supplements.map(s => s.category).filter(Boolean))].sort()
     .forEach(c => $('categoryFilter').add(new Option(c, c)));
   supplements.forEach(s => { $('compareSelect1').add(new Option(s.name, s.id)); $('compareSelect2').add(new Option(s.name, s.id)); });
@@ -74,15 +74,29 @@ function renderCards(data) {
 
 function openModal(id) {
   const s = supplements.find(x => x.id === id); if (!s) return;
+
   const trialsLine = s.ongoing != null
     ? (s.ongoing > 0
         ? '<div class="mrow">🧪 <b>Активных испытаний: ' + s.ongoing + '</b> — сейчас проверяют на людях</div>'
         : '<div class="mrow warn">❄️ Активных испытаний: 0 — сейчас никто не проверяет на людях</div>')
     : '';
+
+  const calcLine = s.dosagePerKg != null
+    ? '<div class="mrow calc">' +
+      '<label for="weightInput">📏 <b>Калькулятор дозировки:</b></label>' +
+      '<div class="calcRow">' +
+      '<input type="number" id="weightInput" placeholder="Ваш вес (кг)" min="30" max="200" step="0.1"/>' +
+      '<span id="calcResult" class="calcResult"></span>' +
+      '</div>' +
+      '<small class="hint">Стандартная доза: ' + (s.dosage || '—') + '</small>' +
+      '</div>'
+    : '';
+
   $('modalBody').innerHTML = '<h2>' + s.name + '</h2>' +
     '<div class="mrow"><span class="verdict" style="background:' + vColor(s.code) + '">' + s.verdict + '</span> · ' + (s.category || '') + '</div>' +
     '<div class="mrow">💰 <b>' + (s.price ? s.price + ' ₽/мес' : '—') + '</b> · 🔬 наука: <b>' + s.scienceIndex + '</b> · 📚 MA: <b>' + s.metaCount + '</b>' + (val(s) !== null ? ' · ⚖️ ценность: <b>' + val(s) + '</b>' : '') + '</div>' +
     trialsLine +
+    calcLine +
     (s.citations != null ? '<div class="mrow">📖 Цитирований ключевого MA: ' + s.citations + '</div>' : '') +
     (s.reviews != null ? '<div class="mrow">🛒 Отзывов WB: ' + s.reviews.toLocaleString('ru-RU') + ' · 📈 поиск 5 лет: ' + (s.trends ?? '—') + ' · 🌐 Wiki: ' + (s.wiki != null ? s.wiki.toLocaleString('ru-RU') : '—') + '</div>' : '') +
     '<div class="mrow"><b>Эффекты:</b> ' + ((s.effects || []).join(', ') || '—') + '</div>' +
@@ -90,8 +104,27 @@ function openModal(id) {
     '<div class="mrow">⏳ <b>Курс:</b> ' + (s.course || '—') + '</div>' +
     (s.forms ? '<div class="mrow">🧪 <b>Формы/штаммы:</b> ' + s.forms + '</div>' : '') +
     '<div class="mrow warn">⚠️ ' + (s.caution || '—') + '</div>';
-    history.replaceState(null, '', '#sup=' + encodeURIComponent(s.id));
+  history.replaceState(null, '', '#sup=' + encodeURIComponent(s.id));
   $('modalOverlay').style.display = 'flex';
+
+  if (s.dosagePerKg != null) {
+    const weightInput = $('weightInput');
+    const calcResult = $('calcResult');
+    weightInput.addEventListener('input', () => {
+      const weight = parseFloat(weightInput.value);
+      if (weight > 0 && weight < 300) {
+        const dose = weight * s.dosagePerKg;
+        const unit = s.dosage && s.dosage.includes('мг') ? 'мг' : s.dosage && s.dosage.includes('г') ? 'г' : 'МЕ';
+        let html = '<b>' + dose.toFixed(1) + ' ' + unit + '/сут</b>';
+        if (s.dosageMax && dose > s.dosageMax) {
+          html += ' <span class="warn">⚠️ превышает максимум (' + s.dosageMax + ' ' + unit + ')</span>';
+        }
+        calcResult.innerHTML = html;
+      } else {
+        calcResult.innerHTML = '';
+      }
+    });
+  }
 }
 function closeModal() { $('modalOverlay').style.display = 'none'; history.replaceState(null, '', location.pathname); }
 
