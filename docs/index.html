@@ -11,6 +11,17 @@
 <meta property="og:image" content="https://deadsno.github.io/brain-25-evidence/og.png"/>
 <meta name="twitter:card" content="summary_large_image"/>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧠</text></svg>"/>
+<script>
+try {
+  if (localStorage.getItem('theme') !== 'light') {
+    document.addEventListener('DOMContentLoaded', function () {
+      document.body.classList.add('dark');
+      var b = document.getElementById('themeToggle');
+      if (b) b.textContent = '☀️ Светлая тема';
+    });
+  }
+} catch (e) {}
+</script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -44,6 +55,8 @@
   </select>
   <button id="favFilter" class="favFilter" title="Показать только избранные">⭐ Избранное: <span id="favCount">0</span></button>
   <button id="resetFilters" class="favFilter" title="Сбросить все фильтры и поиск">✖ Сбросить</button>
+  <a id="shareTg" class="favFilter" target="_blank" rel="noopener" title="Поделиться в Telegram">📤 TG</a>
+  <a id="shareVk" class="favFilter" target="_blank" rel="noopener" title="Поделиться во ВКонтакте">📤 VK</a>
 </section>
 
 <section id="chartSection">

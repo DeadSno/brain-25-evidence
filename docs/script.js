@@ -35,9 +35,21 @@ function initApp() {
   ['verdictFilter', 'categoryFilter', 'sortSelect'].forEach(id => $(id).addEventListener('change', applyFilters));
   $('themeToggle').onclick = () => { const on = !document.body.classList.contains('dark'); setDark(on); localStorage.setItem('theme', on ? 'dark' : 'light'); };
   $('compareBtn').onclick = renderCompare;
+  const pageUrl = encodeURIComponent('https://deadsno.github.io/brain-25-evidence/');
+  const pageTitle = encodeURIComponent('БАДы: цена vs наука — 41 добавка через мета-анализы');
+  $('shareTg').href = 'https://t.me/share/url?url=' + pageUrl + '&text=' + pageTitle;
+  $('shareVk').href = 'https://vk.com/share.php?url=' + pageUrl + '&title=' + pageTitle;
   $('modalClose').onclick = closeModal;
   $('modalOverlay').onclick = e => { if (e.target.id === 'modalOverlay') closeModal(); };
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+  document.addEventListener('click', e => {
+    const b = e.target.closest('.copyLink');
+    if (!b) return;
+    navigator.clipboard.writeText(b.dataset.copy).then(() => {
+      const old = b.textContent; b.textContent = '✅ Скопировано!';
+      setTimeout(() => { b.textContent = old; }, 1500);
+    });
+  });
   const deep = decodeURIComponent(location.hash.replace('#sup=', ''));
   if (deep && supplements.some(s => s.id === deep)) setTimeout(() => openModal(deep), 300);
   applyFilters(); renderCompare();
@@ -145,7 +157,8 @@ function openModal(id) {
     '<div class="mrow">💊 <b>Дозировка:</b> ' + (s.dosage || '—') + '</div>' +
     '<div class="mrow">⏳ <b>Курс:</b> ' + (s.course || '—') + '</div>' +
     (s.forms ? '<div class="mrow">🧪 <b>Формы/штаммы:</b> ' + s.forms + '</div>' : '') +
-    '<div class="mrow warn">⚠️ ' + (s.caution || '—') + '</div>';
+    '<div class="mrow warn">⚠️ ' + (s.caution || '—') + '</div>' +
+    '<div class="mrow"><button class="copyLink" data-copy="' + location.origin + location.pathname + '#sup=' + encodeURIComponent(s.id) + '">🔗 Скопировать ссылку на карточку</button></div>';
   history.replaceState(null, '', '#sup=' + encodeURIComponent(s.id));
   $('modalOverlay').style.display = 'flex';
 
