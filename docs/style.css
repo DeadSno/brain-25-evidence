@@ -42,8 +42,10 @@ footer p{margin-bottom:.5rem}
 #modal h2{margin-bottom:.4rem}
 #modal .mrow{margin:.35rem 0;font-size:.92rem}
 #modal .warn{color:#c0392b}
-.skeleton{animation:shimmer 1.2s infinite linear;background:linear-gradient(90deg,var(--card-bg) 25%,var(--bg) 50%,var(--card-bg) 75%);background-size:200% 100%;min-height:120px}
-@keyframes shimmer{from{background-position:200% 0}to{background-position:0 0}}
+.skeleton { min-height: 170px; border-radius: 12px;
+  background: linear-gradient(100deg, rgba(128,128,128,.12) 40%, rgba(128,128,128,.28) 50%, rgba(128,128,128,.12) 60%);
+  background-size: 200% 100%; animation: sh 1.2s infinite; }
+@keyframes sh { to { background-position: -200% 0; } }
 /* ===== v1.2: мобильная адаптация нового UI ===== */
 @media (max-width: 768px) {
   body { padding: 1rem; }
@@ -111,3 +113,66 @@ footer p{margin-bottom:.5rem}
 /* ===== v1.3: ссылка на WB из модалки ===== */
 .wbLink { color: #3498db; text-decoration: none; border-bottom: 1px dashed #3498db; }
 .wbLink:hover { color: #5dade2; }
+/* ===== v1.3.1: design pack A ===== */
+
+/* 4. Inter */
+body { font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif; }
+
+/* 2. Gradient mesh фон */
+body::before {
+  content: ""; position: fixed; inset: 0; z-index: -2; pointer-events: none;
+  background:
+    radial-gradient(600px 400px at 15% 10%, rgba(52,152,219,.16), transparent 60%),
+    radial-gradient(700px 500px at 85% 20%, rgba(155,89,182,.14), transparent 60%),
+    radial-gradient(800px 600px at 50% 95%, rgba(46,204,113,.10), transparent 60%);
+}
+
+/* 11. Noise-текстура */
+body::after {
+  content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: .04;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2"/></filter><rect width="120" height="120" filter="url(%23n)"/></svg>');
+}
+
+/* 1. Glassmorphism: карточки */
+.card {
+  background: rgba(255,255,255,.55);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,.4);
+  transition: transform .18s ease, box-shadow .18s ease;   /* 5. микро-анимации */
+}
+body.dark .card {
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.09);
+}
+.card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,.16); }
+body.dark .card:hover { box-shadow: 0 12px 32px rgba(0,0,0,.5); }
+
+/* 12. Плавающая шапка */
+header, .header {
+  position: sticky; top: 0; z-index: 50;
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  background: rgba(255,255,255,.65);
+}
+body.dark header, body.dark .header { background: rgba(18,18,18,.65); }
+
+/* 3. Градиентные бейджи вердиктов */
+.verdict { border: none; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.3); font-weight: 600; }
+.verdict.v1  { background: linear-gradient(135deg, #1e8e4e, #2ecc71); }
+.verdict.v0  { background: linear-gradient(135deg, #b7791f, #f1c40f); }
+.verdict.v-1 { background: linear-gradient(135deg, #a93226, #e74c3c); }
+
+/* 5. pop-in модалки */
+@keyframes popIn { from { opacity: 0; transform: scale(.96) translateY(10px); } to { opacity: 1; transform: none; } }
+#modalOverlay > div { animation: popIn .22s ease; }
+/* ===== v1.3.1: B-пакет (микро-JS) ===== */
+
+/* B1. Прогресс-бар ценности */
+.valBar { height: 4px; border-radius: 2px; background: rgba(128,128,128,.22); margin: .35rem 0; overflow: hidden; }
+.valBar i { display: block; height: 100%; border-radius: 2px; background: linear-gradient(90deg, #9b59b6, #e91e63); }
+
+/* B2. Бейдж «Лучший выбор» */
+.bestBadge {
+  position: absolute; top: .45rem; left: .6rem; font-size: .68rem; font-weight: 700;
+  padding: .18rem .5rem; border-radius: 999px; color: #222;
+  background: linear-gradient(135deg, #f1c40f, #f39c12); box-shadow: 0 2px 8px rgba(243,156,18,.4);
+}
