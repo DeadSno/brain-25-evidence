@@ -108,3 +108,6 @@ footer p{margin-bottom:.5rem}
   box-shadow: 0 0 0 3px #f1c40f, 0 0 20px rgba(241, 196, 15, .45);
   transition: box-shadow .25s;
 }
+/* ===== v1.3: ссылка на WB из модалки ===== */
+.wbLink { color: #3498db; text-decoration: none; border-bottom: 1px dashed #3498db; }
+.wbLink:hover { color: #5dade2; }

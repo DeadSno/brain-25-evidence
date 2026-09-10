@@ -132,6 +132,7 @@ function openModal(id) {
   $('modalBody').innerHTML = '<h2>' + s.name + '</h2>' +
     '<div class="mrow"><span class="verdict" style="background:' + vColor(s.code) + '">' + s.verdict + '</span> · ' + (s.category || '') + '</div>' +
     '<div class="mrow">💰 <b>' + (s.price ? s.price + ' ₽/мес' : '—') + '</b> · 🔬 наука: <b>' + s.scienceIndex + '</b> · 📚 MA: <b>' + s.metaCount + '</b>' + (val(s) !== null ? ' · ⚖️ ценность: <b>' + val(s) + '</b>' : '') + '</div>' +
+    '<div class="mrow">🛒 <a class="wbLink" target="_blank" rel="noopener" href="https://www.wildberries.ru/catalog/0/search.aspx?search=' + encodeURIComponent(s.name) + '">Проверить актуальную цену на WB</a></div>' +
     trialsLine +
     calcLine +
     (s.citations != null ? '<div class="mrow">📖 Цитирований ключевого MA: ' + s.citations + '</div>' : '') +
