@@ -1,9 +1,9 @@
 from src import config
 
 
-def test_all_dicts_41():
+def test_all_dicts_81():
     for name in ("SUPPLEMENTS", "EN", "NORM", "WB_QUERY"):
-        assert len(getattr(config, name)) == 41, name
+        assert len(getattr(config, name)) == 81, name
 
 
 def test_keys_consistent():

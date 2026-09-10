@@ -5,7 +5,7 @@ import requests
 import pandas as pd
 
 from .config import (SUPPLEMENTS, COG, EN, NORM,
-                     WB_QUERY, MAILTO, OUTCOME_V12)
+                     WB_QUERY, MAILTO, OUTCOME)
 
 EUTILS   = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi"
 OPENALEX = "https://api.openalex.org/works"
@@ -31,7 +31,7 @@ def collect_pubmed() -> pd.DataFrame:
     """Полный сбор PubMed. v1.2: outcome зависит от категории добавки."""
     rows = []
     for name, q in SUPPLEMENTS.items():
-        outcome = OUTCOME_V12.get(name, COG)
+        outcome = OUTCOME.get(name, COG)
         base = f"({q}) AND ({outcome})"
         rows.append({
             "добавка": name,

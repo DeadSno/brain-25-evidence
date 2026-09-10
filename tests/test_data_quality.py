@@ -23,7 +23,7 @@ def test_wb_ranges_and_coverage():
 def test_processed_ok():
     df = pd.read_csv(PROC / "evidence_scored_v12.csv")
     assert {"добавка", "score", "вердикт", "цена_мес"} <= set(df.columns)
-    assert len(df) == 41
+    assert len(df) == 81
 
 
 def test_freshness():
