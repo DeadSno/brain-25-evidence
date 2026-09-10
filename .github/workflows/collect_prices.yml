@@ -3,11 +3,18 @@ on:
   schedule:
     - cron: "0 3 * * *"
   workflow_dispatch:
+
+permissions:
+  contents: write
+
 jobs:
   collect:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          persist-credentials: true
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -18,5 +25,9 @@ jobs:
           git config user.name "price-bot"
           git config user.email "bot@users.noreply.github.com"
           git add data/raw/prices_wb_history.csv || true
-          git diff --cached --quiet || git commit -m "data: daily WB prices $(date +%F)"
-          git push
+          if ! git diff --cached --quiet; then
+            git commit -m "data: daily WB prices $(date +%F)"
+            git push
+          else
+            echo "Нет изменений — не коммитим"
+          fi
