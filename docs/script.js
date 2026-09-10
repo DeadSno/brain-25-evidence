@@ -1,5 +1,5 @@
 const $ = id => document.getElementById(id);
-let supplements = [], currentData = [], chartInstance = null, radarInstance = null;
+let supplements = [], currentData = [], chartInstance = null, radarInstance = null, onlyFavs = false;
 
 (function skeleton() {
   let h = ''; for (let i = 0; i < 8; i++) h += '<div class="card skeleton"></div>';
@@ -28,6 +28,18 @@ function initApp() {
   const deep = decodeURIComponent(location.hash.replace('#sup=', ''));
   if (deep && supplements.some(s => s.id === deep)) setTimeout(() => openModal(deep), 300);
   applyFilters(); renderCompare();
+  $('favFilter').addEventListener('click', () => {
+    onlyFavs = !onlyFavs;
+    $('favFilter').classList.toggle('on', onlyFavs);
+    applyFilters();
+  });
+
+  document.addEventListener('click', e => {
+    const b = e.target.closest('[data-fav]');
+    if (!b) return;
+    e.stopPropagation(); e.preventDefault();
+    toggleFav(b.dataset.fav);
+  }, true);
 }
 
 function setDark(on) {
@@ -48,6 +60,7 @@ function applyFilters() {
     if (q && !(s.name.toLowerCase().includes(q) || (s.effects || []).join(' ').toLowerCase().includes(q))) return false;
     return true;
   });
+  if (onlyFavs) currentData = currentData.filter(x => isFav(x.id));
   const cmp = {
     science: (a, b) => b.scienceIndex - a.scienceIndex,
     value: (a, b) => (val(b) || -1) - (val(a) || -1),
@@ -58,12 +71,14 @@ function applyFilters() {
   currentData.sort(cmp[sort]);
   $('countBadge').textContent = '(' + currentData.length + ' из ' + supplements.length + ')';
   renderCards(currentData); renderBubble(currentData);
+  updateFavUI();
 }
 
 function renderCards(data) {
   const g = $('cardsGrid');
   if (!data.length) { g.innerHTML = '<p style="opacity:.6">Ничего не найдено — попробуй другие фильтры.</p>'; return; }
   g.innerHTML = data.map(s => '<div class="card" data-id="' + s.id + '">' +
+    '<button class="favBtn' + (isFav(s.id) ? ' on' : '') + '" data-fav="' + s.id + '" title="В избранное">★</button>' +
     '<span class="cat">' + (s.category || '') + '</span><h3>' + s.name + '</h3>' +
     '<div class="verdict" style="background:' + vColor(s.code) + '">' + s.verdict + '</div>' +
     '<div class="price">' + (s.price ? s.price + ' ₽/мес' : 'цена не указана') + '</div>' +
@@ -220,4 +235,21 @@ function renderCompare() {
     },
     options: { scales: { r: { min: 0, max: 100, ticks: { display: false } } }, plugins: { legend: { position: 'bottom' } } }
   });
+}
+
+// ===== v1.3: избранное =====
+function getFavs() { try { return JSON.parse(localStorage.getItem('favs') || '[]'); } catch (e) { return []; } }
+function setFavs(a) { localStorage.setItem('favs', JSON.stringify(a)); }
+function isFav(id) { return getFavs().includes(id); }
+function toggleFav(id) {
+  const f = getFavs();
+  const i = f.indexOf(id);
+  if (i >= 0) f.splice(i, 1); else f.push(id);
+  setFavs(f);
+  updateFavUI();
+}
+function updateFavUI() {
+  const favs = getFavs();
+  const c = $('favCount'); if (c) c.textContent = favs.length;
+  document.querySelectorAll('[data-fav]').forEach(b => b.classList.toggle('on', favs.includes(b.dataset.fav)));
 }
