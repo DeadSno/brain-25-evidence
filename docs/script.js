@@ -78,7 +78,7 @@ function renderCards(data) {
   const g = $('cardsGrid');
   if (!data.length) { g.innerHTML = '<p style="opacity:.6">Ничего не найдено — попробуй другие фильтры.</p>'; return; }
   g.innerHTML = data.map(s => '<div class="card" data-id="' + s.id + '">' +
-    '<button class="favBtn' + (isFav(s.id) ? ' on' : '') + '" data-fav="' + s.id + '" title="В избранное">★</button>' +
+    '<button class="favBtn' + (isFav(s.id) ? ' on' : '') + '" data-fav="' + s.id + '" title="В избранное">' + (isFav(s.id) ? '★' : '☆') + '</button>' +
     '<span class="cat">' + (s.category || '') + '</span><h3>' + s.name + '</h3>' +
     '<div class="verdict" style="background:' + vColor(s.code) + '">' + s.verdict + '</div>' +
     '<div class="price">' + (s.price ? s.price + ' ₽/мес' : 'цена не указана') + '</div>' +
@@ -251,5 +251,9 @@ function toggleFav(id) {
 function updateFavUI() {
   const favs = getFavs();
   const c = $('favCount'); if (c) c.textContent = favs.length;
-  document.querySelectorAll('[data-fav]').forEach(b => b.classList.toggle('on', favs.includes(b.dataset.fav)));
+  document.querySelectorAll('[data-fav]').forEach(b => {
+    const on = favs.includes(b.dataset.fav);
+    b.classList.toggle('on', on);
+    b.textContent = on ? '★' : '☆';
+  });
 }
