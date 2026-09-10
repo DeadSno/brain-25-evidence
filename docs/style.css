@@ -19,7 +19,7 @@ select{background:var(--card-bg);color:var(--text);border:1px solid var(--border
 #tooltip strong{display:block;margin-bottom:4px}
 #tooltip .detail{margin:2px 0;font-size:.85rem;opacity:.85}
 #cardsGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.2rem}
-.card{background:var(--card-bg);border:1px solid var(--border);border-radius:10px;padding:1rem 1.2rem;box-shadow:0 2px 6px var(--shadow)}
+.card{background:var(--card-bg);border:1px solid var(--border);border-radius:10px;padding:1rem 1.2rem;box-shadow:0 2px 6px var(--shadow);position:relative}
 .card h3{font-size:1.1rem;margin-bottom:.3rem}
 .card .verdict{display:inline-block;font-size:.75rem;padding:.2rem .6rem;border-radius:20px;color:#fff;margin-bottom:.5rem}
 .card .price{font-weight:500;color:var(--accent)}
@@ -94,3 +94,11 @@ footer p{margin-bottom:.5rem}
   color: #c0392b;
   font-size: 0.9rem;
 }
+/* ===== v1.3: избранное ===== */
+.favBtn { position: absolute; top: .5rem; right: .6rem; background: none; border: none;
+          color: #555; font-size: 1.15rem; cursor: pointer; z-index: 2; line-height: 1; }
+.favBtn:hover { color: #999; }
+.favBtn.on { color: #f1c40f; }
+.favFilter { margin-left: .5rem; padding: .5rem .8rem; border: 1px solid var(--border);
+             border-radius: 6px; background: var(--card-bg); color: var(--text); cursor: pointer; }
+.favFilter.on { border-color: #f1c40f; color: #f1c40f; }
