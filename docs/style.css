@@ -15,11 +15,8 @@ select{background:var(--card-bg);color:var(--text);border:1px solid var(--border
 #symptomFilter{display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
 #chartSection,#compareSection{background:var(--card-bg);padding:1.5rem;border-radius:12px;border:1px solid var(--border)}
 #chartWrap canvas{width:100%!important;max-height:500px}
-#tooltip{background:var(--card-bg);border:1px solid var(--border);padding:12px;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,.15);max-width:260px;pointer-events:none;z-index:10;font-size:.9rem}
-#tooltip strong{display:block;margin-bottom:4px}
-#tooltip .detail{margin:2px 0;font-size:.85rem;opacity:.85}
 #cardsGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.2rem}
-.card{background:var(--card-bg);border:1px solid var(--border);border-radius:10px;padding:1rem 1.2rem;box-shadow:0 2px 6px var(--shadow)}
+.card{background:var(--card-bg);border:1px solid var(--border);border-radius:10px;padding:1rem 1.2rem;box-shadow:0 2px 6px var(--shadow);position:relative}
 .card h3{font-size:1.1rem;margin-bottom:.3rem}
 .card .verdict{display:inline-block;font-size:.75rem;padding:.2rem .6rem;border-radius:20px;color:#fff;margin-bottom:.5rem}
 .card .price{font-weight:500;color:var(--accent)}
@@ -60,8 +57,57 @@ footer p{margin-bottom:.5rem}
   .row > div { width: 100%; }
   .row button { width: 100%; }
   select { width: 100%; }
-  #tooltip { max-width: 80vw; font-size: .85rem; }
   #compareResult { font-size: .85rem; overflow-x: auto; }
   #compareResult th, #compareResult td { padding: .4rem; }
   #modal { padding: 1rem; max-height: 90vh; }
 }
+/* ===== v1.3: калькулятор дозировки ===== */
+.calc {
+  background: rgba(52, 152, 219, 0.1);
+  border-left: 3px solid #3498db;
+  padding: 0.8rem;
+  margin: 0.8rem 0;
+}
+.calcRow {
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+  margin-top: 0.4rem;
+}
+.calcRow input {
+  flex: 1;
+  padding: 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--bg);
+  color: var(--text);
+}
+.calcResult {
+  font-size: 1.1rem;
+  white-space: nowrap;
+}
+.calcResult .warn {
+  color: #c0392b;
+  font-size: 0.9rem;
+}
+/* ===== v1.3: избранное ===== */
+.favBtn {
+  position: absolute; top: .5rem; right: .6rem;
+  background: transparent; border: none; padding: 0;
+  color: #666; font-size: 1.35rem; line-height: 1;
+  cursor: pointer; z-index: 2;
+  transition: color .15s, transform .15s;
+}
+.favBtn:hover { color: #aaa; transform: scale(1.2); }
+.favBtn.on { color: #f1c40f; text-shadow: 0 0 8px rgba(241, 196, 15, .55); }
+.favFilter { margin-left: .5rem; padding: .5rem .8rem; border: 1px solid var(--border);
+             border-radius: 6px; background: var(--card-bg); color: var(--text); cursor: pointer; }
+.favFilter.on { border-color: #f1c40f; color: #f1c40f; }
+/* ===== v1.3: подсветка карточки после модалки ===== */
+.card.flash {
+  box-shadow: 0 0 0 3px #f1c40f, 0 0 20px rgba(241, 196, 15, .45);
+  transition: box-shadow .25s;
+}
+/* ===== v1.3: ссылка на WB из модалки ===== */
+.wbLink { color: #3498db; text-decoration: none; border-bottom: 1px dashed #3498db; }
+.wbLink:hover { color: #5dade2; }

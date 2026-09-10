@@ -4,7 +4,6 @@ import time
 import requests
 import pandas as pd
 
-from . import config                      # модуль целиком → config.OUTCOME_V12 доступен
 from .config import (SUPPLEMENTS, COG, EN, NORM,
                      WB_QUERY, MAILTO, OUTCOME_V12)
 
@@ -16,7 +15,7 @@ GARDEN = re.compile(r"семен|сажен|рассад|грунт|агрофи
 UNIT_RE = {
     "г":    re.compile(r"(\d+(?:[.,]\d+)?)\s*(?:грамм|граммов|г|g|гр)\b", re.I),
     "капс": re.compile(r"(\d+)\s*(?:капсул|капс|caps|capsules|таблеток|табл|таб)\b", re.I),
-    "табл": re.compile(r"(\d+)\s*(?:таблеток|табл|таб)\b", re.I),     # ← ДОБАВЬ ЭТУ СТРОКУ
+    "табл": re.compile(r"(\d+)\s*(?:таблеток|табл|таб)\b", re.I),
 }
 
 
@@ -32,7 +31,6 @@ def collect_pubmed() -> pd.DataFrame:
     """Полный сбор PubMed. v1.2: outcome зависит от категории добавки."""
     rows = []
     for name, q in SUPPLEMENTS.items():
-        # ← ИСПРАВЛЕНО: name (не sup), OUTCOME_V12 (не config.OUTCOME_V12)
         outcome = OUTCOME_V12.get(name, COG)
         base = f"({q}) AND ({outcome})"
         rows.append({
