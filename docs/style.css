@@ -178,3 +178,8 @@ body.dark header, body.dark .header { background: rgba(18,18,18,.65); }
   background: linear-gradient(135deg, #f1c40f, #f39c12);
   box-shadow: 0 2px 8px rgba(243,156,18,.4);
 }
+
+/* ===== v1.3.1: кнопка «Скопировать ссылку» ===== */
+.copyLink { background: none; border: 1px dashed var(--border); border-radius: 6px;
+  color: var(--text); padding: .3rem .6rem; cursor: pointer; }
+.copyLink:hover { border-color: #3498db; color: #3498db; }

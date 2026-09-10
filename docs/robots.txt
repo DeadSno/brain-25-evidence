@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://deadsno.github.io/brain-25-evidence/sitemap.xml
