@@ -102,3 +102,17 @@ footer p{margin-bottom:.5rem}
 .favFilter { margin-left: .5rem; padding: .5rem .8rem; border: 1px solid var(--border);
              border-radius: 6px; background: var(--card-bg); color: var(--text); cursor: pointer; }
 .favFilter.on { border-color: #f1c40f; color: #f1c40f; }
+/* ===== v1.3: избранное ===== */
+.card { position: relative; }
+.favBtn {
+  position: absolute; top: .5rem; right: .6rem;
+  background: transparent; border: none; padding: 0;
+  color: #666; font-size: 1.35rem; line-height: 1;
+  cursor: pointer; z-index: 2;
+  transition: color .15s, transform .15s;
+}
+.favBtn:hover { color: #aaa; transform: scale(1.2); }
+.favBtn.on { color: #f1c40f; text-shadow: 0 0 8px rgba(241, 196, 15, .55); }
+.favFilter { margin-left: .5rem; padding: .5rem .8rem; border: 1px solid var(--border);
+             border-radius: 6px; background: var(--panel); color: var(--text); cursor: pointer; }
+.favFilter.on { border-color: #f1c40f; color: #f1c40f; }
