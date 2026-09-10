@@ -1,5 +1,16 @@
 const $ = id => document.getElementById(id);
 let supplements = [], currentData = [], chartInstance = null, radarInstance = null, onlyFavs = false;
+let chartPts = [];
+let scrollBeforeModal = 0;
+
+function chartSupByEl(chart, el) {
+  const ds = (chart.data.datasets || [])[el.datasetIndex] || {};
+  if (ds.label) {
+    const byLabel = supplements.find(x => x.id === ds.label || x.name === ds.label);
+    if (byLabel) return byLabel;
+  }
+  return chartPts[el.index] || chartPts[el.datasetIndex];
+}
 
 (function skeleton() {
   let h = ''; for (let i = 0; i < 8; i++) h += '<div class="card skeleton"></div>';
@@ -32,6 +43,16 @@ function initApp() {
     onlyFavs = !onlyFavs;
     $('favFilter').classList.toggle('on', onlyFavs);
     applyFilters();
+  });
+
+  $('resetFilters').addEventListener('click', () => {
+    const row = $('favFilter').parentElement;
+    row.querySelectorAll('input').forEach(i => { i.value = ''; });
+    row.querySelectorAll('select').forEach(s => { s.selectedIndex = 0; });
+    onlyFavs = false;
+    $('favFilter').classList.remove('on');
+    applyFilters();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 
   document.addEventListener('click', e => {
@@ -88,6 +109,7 @@ function renderCards(data) {
 }
 
 function openModal(id) {
+  scrollBeforeModal = window.scrollY || 0;
   const s = supplements.find(x => x.id === id); if (!s) return;
 
   const trialsLine = s.ongoing != null
@@ -141,10 +163,15 @@ function openModal(id) {
     });
   }
 }
-function closeModal() { $('modalOverlay').style.display = 'none'; history.replaceState(null, '', location.pathname); }
+function closeModal() {
+  $('modalOverlay').style.display = 'none';
+  history.replaceState(null, '', location.pathname);
+  window.scrollTo({ top: scrollBeforeModal, behavior: 'smooth' });
+}
 
 function renderBubble(data) {
   const plotted = data.filter(s => s.price > 0);
+  chartPts = plotted;
   $('chartNote').textContent = plotted.length < data.length
     ? '⚠️ ' + (data.length - plotted.length) + ' добавок без цены не показаны на графике (ждут батчей WB)' : '';
   const ctx = $('bubbleChart').getContext('2d');
@@ -168,29 +195,29 @@ function renderBubble(data) {
              grid: { color: 'rgba(128,128,128,.15)' },
              ticks: { callback: v => [1, 10, 100, 1000, 10000].includes(v) ? v : '' } }
       },
-      plugins: { legend: { display: false }, tooltip: { enabled: false } },
-      onHover: (evt, els) => { if (els && els.length) showTooltip(evt, plotted[els[0].datasetIndex]); else hideTooltip(); }
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: ctx => {
+              const s = chartSupByEl(ctx.chart, { datasetIndex: ctx.datasetIndex, index: ctx.dataIndex });
+              return s ? ' ' + s.name + ' · ' + (s.price ?? '—') + ' ₽/мес · ' + s.verdict : '';
+            }
+          }
+        }
+      },
+      onClick: (e, els) => {
+        if (!els.length) return;
+        const s = chartSupByEl(e.chart, els[0]);
+        if (!s) return;
+        openModal(s.id);
+      },
+      onHover: (e, els) => {
+        e.native.target.style.cursor = els.length ? 'pointer' : 'default';
+      }
     }
   });
-  $('bubbleChart').addEventListener('mouseleave', hideTooltip);
 }
-
-function showTooltip(evt, s) {
-  if (!s) return;
-  const rect = $('chartWrap').getBoundingClientRect();
-  const nx = evt.native ? evt.native.clientX : evt.clientX;
-  const ny = evt.native ? evt.native.clientY : evt.clientY;
-  const t = $('tooltip');
-  t.style.display = 'block';
-  t.innerHTML = '<strong>' + s.name + '</strong>' +
-    '<div class="detail">' + s.verdict + ' · ' + (s.category || '') + '</div>' +
-    '<div class="detail">💰 ' + (s.price ? s.price + ' ₽/мес' : '—') + ' · 🔬 ' + s.scienceIndex + ' · 📚 ' + s.metaCount + ' MA</div>' +
-    (val(s) !== null ? '<div class="detail">⚖️ ценность: ' + val(s) + ' науки на 100 ₽</div>' : '') +
-    (s.ongoing != null ? '<div class="detail">🧪 испытаний сейчас: ' + s.ongoing + '</div>' : '');
-  t.style.left = (nx - rect.left + 12) + 'px';
-  t.style.top = (ny - rect.top - 10) + 'px';
-}
-function hideTooltip() { $('tooltip').style.display = 'none'; }
 
 function renderCompare() {
   const a = supplements.find(s => s.id === $('compareSelect1').value);

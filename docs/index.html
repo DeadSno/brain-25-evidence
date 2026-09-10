@@ -16,7 +16,7 @@
 </head>
 <body>
 <header>
-  <h1>🧠 БАДы: цена vs наука</h1>
+  <h1><a href="index.html" style="color:inherit;text-decoration:none" title="На главную">🧠 БАДы: цена vs наука</a></h1>
   <div class="hdr">
     <a class="btn" href="map.html">🕸 Карта механизмов</a>
     <button id="themeToggle">🌙 Тёмная тема</button>
@@ -40,6 +40,7 @@
     <option value="name">По алфавиту</option>
   </select>
   <button id="favFilter" class="favFilter" title="Показать только избранные">⭐ Избранное: <span id="favCount">0</span></button>
+  <button id="resetFilters" class="favFilter" title="Сбросить все фильтры и поиск">✖ Сбросить</button>
 </section>
 
 <section id="chartSection">
@@ -50,9 +51,8 @@
     <p><b>Ценность = индекс науки на 100 ₽ месячной цены.</b> Чем выше — тем больше науки за рубль.</p>
     <p>Индекс меряет <i>количество</i> науки, не силу эффекта. Вердикты ставим вручную по топ-2 мета-анализам.</p>
   </details>
-  <div id="chartWrap" style="position:relative;">
+  <div id="chartWrap">
     <canvas id="bubbleChart"></canvas>
-    <div id="tooltip" style="display:none;position:absolute;"></div>
   </div>
   <p id="chartNote" class="hint" style="margin-top:.5rem"></p>
 </section>
