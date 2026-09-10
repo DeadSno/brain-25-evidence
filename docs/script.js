@@ -112,7 +112,7 @@ function openModal(id) {
     const calcResult = $('calcResult');
     weightInput.addEventListener('input', () => {
       const weight = parseFloat(weightInput.value);
-      if (weight > 0 && weight < 300) {
+        if (weight > 0 && weight <= 500) {
         const dose = weight * s.dosagePerKg;
         const unit = s.dosage && s.dosage.includes('мг') ? 'мг' : s.dosage && s.dosage.includes('г') ? 'г' : 'МЕ';
         let html = '<b>' + dose.toFixed(1) + ' ' + unit + '/сут</b>';
