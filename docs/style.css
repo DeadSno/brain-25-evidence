@@ -172,7 +172,9 @@ body.dark header, body.dark .header { background: rgba(18,18,18,.65); }
 
 /* B2. Бейдж «Лучший выбор» */
 .bestBadge {
-  position: absolute; top: .45rem; left: .6rem; font-size: .68rem; font-weight: 700;
+  display: inline-block; margin: 0 0 .35rem 0;
+  font-size: .68rem; font-weight: 700;
   padding: .18rem .5rem; border-radius: 999px; color: #222;
-  background: linear-gradient(135deg, #f1c40f, #f39c12); box-shadow: 0 2px 8px rgba(243,156,18,.4);
+  background: linear-gradient(135deg, #f1c40f, #f39c12);
+  box-shadow: 0 2px 8px rgba(243,156,18,.4);
 }
