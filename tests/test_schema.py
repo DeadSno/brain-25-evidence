@@ -42,3 +42,8 @@ def test_ranges_sane():
             assert 0 < s["price"] < 100000, f"{s['id']}: подозрительная цена {s['price']}"
         if s.get("dosagePerKg") is not None:
             assert s["dosagePerKg"] > 0 and s["dosageMax"] > 0, f"{s['id']}: битая дозировка"
+
+
+def test_no_zero_science_index():
+    for s in load():
+        assert s["scienceIndex"] > 0, f"{s['id']}: scienceIndex=0 — не попадёт на график"
