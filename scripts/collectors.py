@@ -1,11 +1,13 @@
 """Коллекторы цен v2: Wildberries (v5→v4→старый→basket-CDN) и Ozon через JSON-API."""
 from __future__ import annotations
-import csv, json, random, re, time
+import csv, json, random, re, sys, time
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Iterator
 from urllib.parse import quote
 import requests
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 UA = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
                     "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0 Safari/537.36"}

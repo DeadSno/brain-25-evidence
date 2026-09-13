@@ -1,9 +1,10 @@
 """Парсер суточных доз (в день) из docs/data.json: мес-лексика поля dosage."""
 from __future__ import annotations
-import json, re, statistics
+import json, re, statistics, sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
 DATA = ROOT / "docs" / "data.json"
 
 # первое вхождение "N г", "N-M г", "N.5 г" (порошки: доза в граммах/день)

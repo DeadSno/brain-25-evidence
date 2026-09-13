@@ -3,6 +3,8 @@ from __future__ import annotations
 import csv, json, random, statistics, sys, time
 from datetime import date
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import collectors as C
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -15,7 +17,8 @@ from src.parsers import parse_units  # noqa: E402
 
 
 def query_of(sid: str):
-    return WB_QUERY.get(sid)
+    pair = WB_QUERY.get(sid)
+    return pair[0] if pair else None
 
 
 def unit_of(sid: str) -> str:
@@ -74,7 +77,8 @@ def main(limit: int = 27) -> int:
         if not HIST.stat().st_size:
             w.writerow(["date", "id", "wb", "ozon", "median", "source"])
         for s in queue[:limit]:
-            sid, q = s["id"], query_of(sid)
+            sid = s["id"]
+            q = query_of(sid)
             if not q:
                 continue
             if last.get(sid) and (date.fromisoformat(today) -
