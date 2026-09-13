@@ -316,9 +316,11 @@ function isFav(id) { return getFavs().includes(id); }
 function toggleFav(id) {
   const f = getFavs();
   const i = f.indexOf(id);
-  if (i >= 0) f.splice(i, 1); else f.push(id);
+  const wasFav = i >= 0;
+  if (wasFav) f.splice(i, 1); else f.push(id);
   setFavs(f);
   updateFavUI();
+  window.dispatchEvent(new Event(wasFav ? 'removeFav' : 'addFav'));
 }
 function updateFavUI() {
   const favs = getFavs();
@@ -329,3 +331,40 @@ function updateFavUI() {
     b.textContent = on ? '★' : '☆';
   });
 }
+
+// ===== v2.2: баннер конфликтов избранного =====
+function checkInteractions() {
+  const favs = getFavs();
+  const conflicts = [];
+  for (let i = 0; i < favs.length; i++) {
+    for (let j = i + 1; j < favs.length; j++) {
+      const s1 = supplements.find(s => s.id === favs[i]);
+      const s2 = supplements.find(s => s.id === favs[j]);
+      if (!s1 || !s2) continue;
+      for (const inter of (s1.interactions || [])) {
+        if (inter.with === s2.id && inter.severity === 'critical') {
+          conflicts.push({ s1: s1.name, s2: s2.name, note: inter.note });
+        }
+      }
+      for (const inter of (s2.interactions || [])) {
+        if (inter.with === s1.id && inter.severity === 'critical') {
+          conflicts.push({ s1: s1.name, s2: s2.name, note: inter.note });
+        }
+      }
+    }
+  }
+  const old = document.querySelector('.conflict-banner');
+  if (old) old.remove();
+  if (conflicts.length > 0) {
+    const banner = document.createElement('div');
+    banner.className = 'conflict-banner';
+    banner.innerHTML = '⚠️ Опасно в избранном: ' +
+      conflicts.map(c => c.s1 + ' + ' + c.s2).join(', ') + '. ' + conflicts[0].note;
+    banner.id = 'conflictBanner';
+    document.body.prepend(banner);
+  }
+}
+
+['addFav', 'removeFav'].forEach(event => {
+  window.addEventListener(event, checkInteractions);
+});
