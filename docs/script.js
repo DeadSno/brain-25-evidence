@@ -7,8 +7,8 @@ let BEST = [];
 // ===== v2.3: шаблон полной карточки (15 блоков, структура фиксирована) =====
 const BLOCK_EMPTY = '<span class="cbEmpty">данных пока нет — проверяем</span>';
 const CARDBLOCKS = [
-  { key: 'what',      title: 'Что это',                    get: s => (s.effects || []).join(', ') || '' },
-  { key: 'who',       title: 'Кому нужно',                 get: s => s.who || '' },
+  { key: 'what',      title: 'Что это',                    get: s => s.about || (s.effects || []).join(', ') || '' },
+  { key: 'who',       title: 'Кому нужно',                 get: s => s.who_needs || s.who || '' },
   { key: 'works',     title: 'Работает ли',                get: s => '<span class="verdict v' + s.code + '">' + s.verdict + '</span> · грейд g=' + s.code },
   { key: 'evidence',  title: 'На чём основано',            get: s => '<div>🔬 наука: ' + s.scienceIndex + ' · 📚 MA: ' + s.metaCount + ' · 📖 цитирований MA: ' + s.citations + '</div>' +
     ((s.mechs || []).length ? '<div class="hline">Механизмы: ' + s.mechs.map(m => m[0]).join('; ') + '</div>' : '') },
@@ -18,10 +18,10 @@ const CARDBLOCKS = [
   { key: 'conflicts', title: 'С чем конфликтует',          get: renderConflicts },
   { key: 'friends',   title: 'С чем дружит',               get: s => (s.synergists || []).length
     ? '<span class="goodPair">🤝 Хорошая пара: ' + s.synergists.join(', ') + '</span>' : '' },
-  { key: 'ul',        title: 'Передозировка (UL)',         get: s => s.ul || '' },
-  { key: 'food',      title: 'Можно ли из еды',            get: s => s.food || '' },
-  { key: 'official',  title: 'Что говорят официалы',       get: s => s.official || '' },
-  { key: 'shop',      title: 'Как выбрать в магазине',     get: s => s.forms || '' },
+  { key: 'ul',        title: 'Передозировка (UL)',         get: s => s.upper_limit || s.ul || '' },
+  { key: 'food',      title: 'Можно ли из еды',            get: s => s.food_sources || s.food || '' },
+  { key: 'official',  title: 'Что говорят официалы',       get: s => s.guidelines || s.official || '' },
+  { key: 'shop',      title: 'Как выбрать в магазине',     get: s => s.how_to_choose || s.forms || '' },
   { key: 'myths',     title: 'Мифы и ловушки',             get: s => s.myths || '' },
   { key: 'price',     title: 'Сколько стоит и откуда цена', get: s => (s.price != null ? s.price + ' ₽/мес' : 'цена не найдена') +
     (s.price_source ? ' · источник: ' + s.price_source : '') }
