@@ -250,6 +250,7 @@ function renderBubble(data) {
       }
     }
   });
+  window.chart = chartInstance;
 }
 
 function radarFill(ctx) {
