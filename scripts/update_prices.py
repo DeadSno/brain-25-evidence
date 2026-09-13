@@ -71,8 +71,11 @@ def main(limit: int = 27) -> int:
                 continue
             wb = oz = None
             try:
+                wb_dead_before = C.WB_DEAD
                 offs = C.collect_wb(q)
                 wb = monthly(statistics.median([o.price_rub for o in offs]), sid) if offs else None
+                if C.WB_DEAD and not wb_dead_before:
+                    flags.append("WB_DOWN")
             except C.CollectorError:
                 pass
             time.sleep(1 + random.uniform(0, 1))

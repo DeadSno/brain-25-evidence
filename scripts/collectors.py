@@ -1,4 +1,4 @@
-"""Коллекторы цен v2: Wildberries и Ozon через JSON-API (без HTML)."""
+"""Коллекторы цен v2: Wildberries (v5→v4→старый) и Ozon через JSON-API."""
 from __future__ import annotations
 import json, random, time
 from dataclasses import dataclass
@@ -8,8 +8,15 @@ import requests
 
 UA = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
                     "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0 Safari/537.36"}
+WB_HOME = "https://www.wildberries.ru/"
+WB_URL_V5 = "https://search.wb.ru/exactmatch/ru/common/v5/search"
 WB_URL = "https://search.wb.ru/exactmatch/ru/common/v4/search"
 OZON_URL = "https://www.ozon.ru/api/composer-api.bx/page/json/v2"
+WB_PARAMS = {"appType": 1, "curr": "rub", "dest": -1257786,
+             "resultset": "catalog", "sort": "popular"}
+
+# watchdog: все три эндпоинта WB мертвы (выставляет collect_wb)
+WB_DEAD: bool = False
 
 
 class CollectorError(RuntimeError):
@@ -23,10 +30,41 @@ class Offer:
     source: str
 
 
+_SESSION = None
+
+
+def warmup(session: "requests.Session") -> None:
+    """Прогрев: главная WB для cookie-сессии x-wb-* (анти-бот)."""
+    try:
+        session.get(WB_HOME, timeout=20,
+                    headers={"Accept": "text/html,application/xhtml+xml,*/*",
+                             "Accept-Language": "ru-RU,ru;q=0.9",
+                             "Referer": WB_HOME})
+    except requests.RequestException:
+        pass
+
+
+def get_session() -> "requests.Session":
+    """Одна тёплая WB-сессия на процесс; создаётся только в реальном _get."""
+    global _SESSION
+    if _SESSION is None:
+        s = requests.Session()
+        s.headers.update({
+            "User-Agent": UA["User-Agent"],
+            "Accept": "application/json, text/plain, */*",
+            "Accept-Language": "ru-RU,ru;q=0.9",
+            "Referer": WB_HOME,
+        })
+        warmup(s)
+        _SESSION = s
+    return _SESSION
+
+
 def _get(url: str, params: dict, timeout: int = 20, retries: int = 3) -> Any:
+    session = get_session()
     for i in range(retries):
         try:
-            r = requests.get(url, params=params, headers=UA, timeout=timeout)
+            r = session.get(url, params=params, timeout=timeout)
             if r.status_code == 429:
                 time.sleep(45 * 2 ** i + random.uniform(0, 5))
                 continue
@@ -46,15 +84,44 @@ def _rub(value: Any, kopecks: bool = False) -> float:
     return round(float(value) / (100.0 if kopecks else 1.0), 1)
 
 
-def collect_wb(query: str, limit: int = 8) -> list[Offer]:
-    data = _get(WB_URL, {"appType": 1, "curr": "rub", "dest": -1257786,
-                         "query": query, "resultset": "catalog", "sort": "popular"})
+def _offers_of(data: Any, limit: int) -> list[Offer]:
     out = []
     for p in (data.get("data") or {}).get("products", [])[:limit]:
         price = _rub(p.get("salePriceU") or p.get("priceU") or 0, kopecks=True)
         if price > 0:
             out.append(Offer(p.get("name", ""), price, "wb"))
     return out
+
+
+def _old_wb(query: str, limit: int) -> list[Offer]:
+    """Старый HTML-коллектор v1.2 (src.parsers.wb_search) — без дублирования кода."""
+    from src.parsers import wb_search
+    out = []
+    df = wb_search(query, n=limit)
+    for _, o in df.iterrows():
+        out.append(Offer(str(o.get("название", "")), float(o.get("цена_руб", 0)), "wb"))
+    return out
+
+
+def _dead() -> list[Offer]:
+    global WB_DEAD
+    WB_DEAD = True
+    return []
+
+
+def collect_wb(query: str, limit: int = 8) -> list[Offer]:
+    params = {**WB_PARAMS, "query": query}
+    for url in (WB_URL_V5, WB_URL):
+        try:
+            offs = _offers_of(_get(url, params), limit)
+            if offs:
+                return offs
+        except CollectorError:
+            continue
+    try:
+        return _old_wb(query, limit) or _dead()
+    except Exception:
+        return _dead()
 
 
 def _walk(obj: Any) -> Iterator[tuple[str, float]]:
