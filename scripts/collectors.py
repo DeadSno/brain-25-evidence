@@ -20,6 +20,31 @@ HISTORY_CSV = Path(__file__).resolve().parents[1] / "data" / "raw" / "prices_wb_
 # watchdog: все эндпоинты WB мертвы (выставляет collect_wb)
 WB_DEAD: bool = False
 
+# circuit breaker: последовательные CollectorError на семейство
+DEAD_LIMIT = 3
+_FAIL: dict[str, int] = {}
+
+
+def _failing(family: str) -> bool:
+    _FAIL[family] = _FAIL.get(family, 0) + 1
+    return _FAIL[family] >= DEAD_LIMIT
+
+
+def family_dead(family: str) -> bool:
+    return _FAIL.get(family, 0) >= DEAD_LIMIT
+
+
+def _family_ok(family: str) -> None:
+    _FAIL.pop(family, None)
+
+
+def reset_breakers() -> None:
+    _FAIL.clear()
+
+
+def circuit_dead() -> list[str]:
+    return sorted(f for f, c in _FAIL.items() if c >= DEAD_LIMIT)
+
 # кэш id по поисковому запросу (для basket-CDN ступени)
 _ID_CACHE: dict[str, list[int]] = {}
 
@@ -167,22 +192,28 @@ def _dead() -> list[Offer]:
 def collect_wb(query: str, limit: int = 8) -> list[Offer]:
     _seed_cache()
     params = {**WB_PARAMS, "query": query}
-    for url in (WB_URL_V5, WB_URL):
+    if not family_dead("wb_search"):
+        for url in (WB_URL_V5, WB_URL):
+            try:
+                data = _get(url, params)
+            except CollectorError:
+                if _failing("wb_search"):
+                    break
+                continue
+            _family_ok("wb_search")
+            offs, ids = _offers_and_ids(data, limit)
+            if ids:
+                _ID_CACHE.setdefault(query, []).extend(ids)
+            if offs:
+                return offs
+    if not family_dead("wb_html"):
         try:
-            data = _get(url, params)
-        except CollectorError:
-            continue
-        offs, ids = _offers_and_ids(data, limit)
-        if ids:
-            _ID_CACHE.setdefault(query, []).extend(ids)
-        if offs:
-            return offs
-    try:
-        offs = _old_wb(query, limit)
-        if offs:
-            return offs
-    except Exception:
-        pass
+            offs = _old_wb(query, limit)
+            if offs:
+                _family_ok("wb_html")
+                return offs
+        except Exception:
+            _failing("wb_html")
     for pid in _ID_CACHE.get(query, [])[:limit]:
         off = _basket_offer(pid)
         if off:
@@ -211,8 +242,15 @@ def _walk(obj: Any) -> Iterator[tuple[str, float]]:
 
 
 def collect_ozon(query: str, limit: int = 8) -> list[Offer]:
+    if family_dead("ozon"):
+        raise CollectorError("ozon: circuit open (3 подряд)")
     out = []
-    data = _get(OZON_URL, {"url": f"/search/?text={quote(query)}"})
+    try:
+        data = _get(OZON_URL, {"url": f"/search/?text={quote(query)}"})
+    except CollectorError:
+        _failing("ozon")
+        raise
+    _family_ok("ozon")
     for name, price in _walk(data):
         out.append(Offer(name, price, "ozon"))
         if len(out) >= limit:

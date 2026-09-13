@@ -113,7 +113,7 @@ def main(limit: int = 27) -> int:
             done += 1
             time.sleep(1 + random.uniform(0, 1))
     DATA.write_text(json.dumps(data, ensure_ascii=False, indent=1), encoding="utf-8")
-    print(f"обработано={done} null={nulls} флаги={flags}")
+    print(f"обработано={done} null={nulls} флаги={flags} dead={C.circuit_dead()}")
     return 1 if flags else 0
 
 

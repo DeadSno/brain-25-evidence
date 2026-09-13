@@ -56,3 +56,23 @@ def test_warmup_calls_session_get(monkeypatch):
     monkeypatch.setattr(C, "_old_wb", lambda *a, **k: [])
     C.collect_wb("креатин")
     assert calls and calls[0] == C.WB_HOME
+
+
+def test_circuit_breaker_wb_search(monkeypatch):
+    C.reset_breakers()
+    try:
+        hits = {"n": 0}
+
+        def boom(*a, **k):
+            hits["n"] += 1
+            raise C.CollectorError("бан")
+
+        monkeypatch.setattr(C, "_get", boom)
+        monkeypatch.setattr(C, "_old_wb", lambda *a, **k: [C.Offer("x", 10, "wb")])
+        monkeypatch.setattr(C, "_basket_offer", lambda pid: None)
+        for _ in range(4):
+            C.collect_wb("креатин")
+        assert hits["n"] == 3, "после 3 CollectorError search больше не дёргается"
+        assert C.circuit_dead() == ["wb_search"]
+    finally:
+        C.reset_breakers()
