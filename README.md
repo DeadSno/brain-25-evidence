@@ -5,9 +5,9 @@
 
 [Открыть сайт](https://deadsno.github.io/brain-25-evidence/) | [Карта механизмов](https://deadsno.github.io/brain-25-evidence/map.html) | [Задать вопрос](https://github.com/DeadSno/brain-25-evidence/issues/new/choose)
 
-![version](https://img.shields.io/badge/version-v1.2-blue)
-![supplements](https://img.shields.io/badge/supplements-41-orange)
-![tests](https://img.shields.io/badge/tests-17%20passed-brightgreen)
+![version](https://img.shields.io/badge/version-v2.0-blue)
+![supplements](https://img.shields.io/badge/supplements-81-orange)
+![tests](https://img.shields.io/badge/tests-24%20passed-brightgreen)
 ![license](https://img.shields.io/badge/license-MIT-green)
 
 ![Превью: пузырьковая диаграмма цена vs наука](docs/og.png)
