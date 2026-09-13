@@ -10,18 +10,29 @@ DATA = ROOT / "docs" / "data.json"
 HIST = ROOT / "data" / "processed" / "price_history.csv"
 
 # --- ADAPTER: сопоставить имена с src/config.py (логика ниже НЕ трогается) ---
-from src.config import WB_QUERY, DOSE_PER_DAY, UNITS_PER_PACK  # noqa: E402
+from src.config import WB_QUERY, DOSE_PER_DAY  # noqa: E402
+from src.parsers import parse_units  # noqa: E402
 
 
 def query_of(sid: str):
     return WB_QUERY.get(sid)
 
 
-def monthly(price_pack: float, sid: str):
-    dose, pack = DOSE_PER_DAY.get(sid), UNITS_PER_PACK.get(sid)
-    if not dose or not pack:
+def unit_of(sid: str) -> str:
+    return (query_of(sid) or ("", ""))[1]
+
+
+def monthly(price_pack: float, units_pack: float, sid: str):
+    dose = DOSE_PER_DAY.get(sid)
+    if not price_pack or not units_pack or not dose:
         return None
-    return round(price_pack / pack * dose * 30, 1)
+    return round(price_pack / units_pack * dose * 30, 1)
+
+
+def units_median(offs: list, unit: str, fallback: float | None = None) -> float | None:
+    u = [parse_units(o.name, unit) for o in offs]
+    u = [x for x in u if x and x > 0]
+    return statistics.median(u) if u else fallback
 
 
 def median_price(wb, oz):
@@ -70,10 +81,13 @@ def main(limit: int = 27) -> int:
                                   date.fromisoformat(last[sid])).days < 2:
                 continue
             wb = oz = None
+            unit = unit_of(sid)
+            wu = None
             try:
                 wb_dead_before = C.WB_DEAD
                 offs = C.collect_wb(q)
-                wb = monthly(statistics.median([o.price_rub for o in offs]), sid) if offs else None
+                wu = units_median(offs, unit)
+                wb = monthly(statistics.median([o.price_rub for o in offs]), wu, sid) if offs and wu else None
                 if C.WB_DEAD and not wb_dead_before:
                     flags.append("WB_DOWN")
             except C.CollectorError:
@@ -81,7 +95,8 @@ def main(limit: int = 27) -> int:
             time.sleep(1 + random.uniform(0, 1))
             try:
                 offs = C.collect_ozon(q)
-                oz = monthly(statistics.median([o.price_rub for o in offs]), sid) if offs else None
+                ou = units_median(offs, unit, fallback=wu)
+                oz = monthly(statistics.median([o.price_rub for o in offs]), ou, sid) if offs and ou else None
             except C.CollectorError:
                 pass
             price, src, flag = median_price(wb, oz)
