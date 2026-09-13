@@ -148,6 +148,7 @@ function openModal(id) {
   $('modalBody').innerHTML = '<h2>' + s.name + '</h2>' +
     '<div class="mrow"><span class="verdict v' + s.code + '">' + s.verdict + '</span> · ' + (s.category || '') + '</div>' +
     '<div class="mrow">💰 <b>' + (s.price ? s.price + ' ₽/мес' : '—') + '</b> · 🔬 наука: <b>' + s.scienceIndex + '</b> · 📚 MA: <b>' + s.metaCount + '</b>' + (val(s) !== null ? ' · ⚖️ ценность: <b>' + val(s) + '</b>' : '') + '</div>' +
+    '<div class="mrow" style="font-size:.85rem;opacity:.9">⚠️ Проект не является медицинской рекомендацией. При болезнях, беременности и приёме лекарств — сначала к врачу.</div>' +
     '<div class="mrow">🛒 <a class="wbLink" target="_blank" rel="noopener" href="https://www.wildberries.ru/catalog/0/search.aspx?search=' + encodeURIComponent(s.name) + '">Проверить актуальную цену на WB</a></div>' +
     trialsLine +
     calcLine +
