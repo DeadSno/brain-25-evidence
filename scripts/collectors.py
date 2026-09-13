@@ -1,7 +1,8 @@
-"""Коллекторы цен v2: Wildberries (v5→v4→старый) и Ozon через JSON-API."""
+"""Коллекторы цен v2: Wildberries (v5→v4→старый→basket-CDN) и Ozon через JSON-API."""
 from __future__ import annotations
-import json, random, time
+import csv, json, random, re, time
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Any, Iterator
 from urllib.parse import quote
 import requests
@@ -14,9 +15,13 @@ WB_URL = "https://search.wb.ru/exactmatch/ru/common/v4/search"
 OZON_URL = "https://www.ozon.ru/api/composer-api.bx/page/json/v2"
 WB_PARAMS = {"appType": 1, "curr": "rub", "dest": -1257786,
              "resultset": "catalog", "sort": "popular"}
+HISTORY_CSV = Path(__file__).resolve().parents[1] / "data" / "raw" / "prices_wb_history.csv"
 
-# watchdog: все три эндпоинта WB мертвы (выставляет collect_wb)
+# watchdog: все эндпоинты WB мертвы (выставляет collect_wb)
 WB_DEAD: bool = False
+
+# кэш id по поисковому запросу (для basket-CDN ступени)
+_ID_CACHE: dict[str, list[int]] = {}
 
 
 class CollectorError(RuntimeError):
@@ -84,13 +89,63 @@ def _rub(value: Any, kopecks: bool = False) -> float:
     return round(float(value) / (100.0 if kopecks else 1.0), 1)
 
 
-def _offers_of(data: Any, limit: int) -> list[Offer]:
-    out = []
+def _offers_and_ids(data: Any, limit: int) -> tuple[list[Offer], list[int]]:
+    offs, ids = [], []
     for p in (data.get("data") or {}).get("products", [])[:limit]:
+        if p.get("id"):
+            ids.append(p["id"])
         price = _rub(p.get("salePriceU") or p.get("priceU") or 0, kopecks=True)
         if price > 0:
-            out.append(Offer(p.get("name", ""), price, "wb"))
-    return out
+            offs.append(Offer(p.get("name", ""), price, "wb"))
+    return offs, ids
+
+
+def _seed_cache() -> None:
+    """Доси́д из v1.x истории: запрос → WB арт. (колонка источник)."""
+    if _ID_CACHE or not HISTORY_CSV.exists():
+        return
+    from src.config import WB_QUERY
+    q_by_name = {name: q for name, (q, _u) in WB_QUERY.items()}
+    text = HISTORY_CSV.read_text(encoding="utf-8-sig")
+    for row in csv.DictReader(text.splitlines()):
+        q = q_by_name.get(row.get("добавка") or "")
+        m = re.search(r"(\d+)", row.get("источник") or "")
+        if q and m:
+            _ID_CACHE.setdefault(q, []).append(int(m.group(1)))
+
+
+def _basket_url(pid: int, basket: int) -> str:
+    vol, part = pid // 100000, pid // 1000
+    return (f"https://basket-{basket:02d}.wbbasket.ru/vol{vol}/part{part}/"
+            f"{pid}/info/ru/card.json")
+
+
+def _basket_get(url: str) -> Any:
+    try:
+        r = get_session().get(url, timeout=10)
+    except requests.RequestException:
+        return None
+    if r.status_code != 200:
+        return None
+    try:
+        return r.json()
+    except ValueError:
+        return None
+
+
+def _basket_offer(pid: int) -> Offer | None:
+    """Ступень 4: card.json по кэшированному id (эмпирическая формула vol/part)."""
+    for b in range(1, 41):
+        data = _basket_get(_basket_url(pid, b))
+        if not data:
+            continue
+        for sz in data.get("sizes") or []:
+            price = ((sz.get("price") or {}).get("product")
+                     or (sz.get("price") or {}).get("total"))
+            if price:
+                name = data.get("title") or data.get("subject") or f"арт.{pid}"
+                return Offer(str(name), _rub(price, kopecks=True), "wb-cdn")
+    return None
 
 
 def _old_wb(query: str, limit: int) -> list[Offer]:
@@ -110,18 +165,29 @@ def _dead() -> list[Offer]:
 
 
 def collect_wb(query: str, limit: int = 8) -> list[Offer]:
+    _seed_cache()
     params = {**WB_PARAMS, "query": query}
     for url in (WB_URL_V5, WB_URL):
         try:
-            offs = _offers_of(_get(url, params), limit)
-            if offs:
-                return offs
+            data = _get(url, params)
         except CollectorError:
             continue
+        offs, ids = _offers_and_ids(data, limit)
+        if ids:
+            _ID_CACHE.setdefault(query, []).extend(ids)
+        if offs:
+            return offs
     try:
-        return _old_wb(query, limit) or _dead()
+        offs = _old_wb(query, limit)
+        if offs:
+            return offs
     except Exception:
-        return _dead()
+        pass
+    for pid in _ID_CACHE.get(query, [])[:limit]:
+        off = _basket_offer(pid)
+        if off:
+            return [off]
+    return _dead()
 
 
 def _walk(obj: Any) -> Iterator[tuple[str, float]]:
