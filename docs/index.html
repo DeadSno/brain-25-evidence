@@ -97,10 +97,16 @@ try {
     <p><b>Ценность = индекс науки на 100 ₽ месячной цены.</b> Чем выше — тем больше науки за рубль.</p>
     <p>Индекс меряет <i>количество</i> науки, не силу эффекта. Вердикты ставим вручную по топ-2 мета-анализам.</p>
   </details>
+  <div class="chartTabs">
+    <button id="tabPrice" class="chartTab on">Цена vs наука</button>
+    <button id="tabQuadrant" class="chartTab">Квадрант доказательности</button>
+  </div>
   <div id="chartWrap">
     <canvas id="bubbleChart"></canvas>
+    <canvas id="quadrantChart"></canvas>
   </div>
   <p id="chartNote" class="hint" style="margin-top:.5rem"></p>
+  <p id="quadrantNote" class="hint" style="margin-top:.5rem"></p>
 </section>
 
 <section id="cardsContainer">
@@ -123,8 +129,8 @@ try {
 <footer>
   <p><b>⚠️ Дисклеймер.</b> Проект не является медицинской рекомендацией. При болезнях, беременности и приёме лекарств — сначала к врачу.</p>
   <p>Цены рассчитаны по действующему веществу и дозировке из исследований. Мы НЕ учитывали: вспомогательные компоненты таблеток (диоксид кремния, стеарат магния, красители, оболочка), форму вещества (хелат/цитрат/оксид/липосомы), степень очистки, размер упаковки и брендовую наценку — всё это влияет на реальную цену на полке.</p>
-  <p>v2.0 • данные на 11.09.2026 • источники: PubMed, OpenAlex, Wildberries, Google Trends, Wikimedia</p>
-  <p style="margin-top:.6rem">🛠 Нашли ошибку в данных? <a href="https://github.com/DeadSno/brain-25-evidence/issues/new?template=data-error.md" style="color:inherit">Создайте issue</a> — исправим и отметим в чейнджлоге.</p>
+  <p>v2.4 • данные на 11.09.2026 • источники: PubMed, OpenAlex, Wildberries, Google Trends, Wikimedia</p>
+  <p style="margin-top:.6rem">📐 <a href="methodology.html" style="color:inherit">Методология и ошибки (цикл 4)</a> · 🛠 Нашли ошибку в данных? <a href="https://github.com/DeadSno/brain-25-evidence/issues/new?template=data-error.md" style="color:inherit">Создайте issue</a> — исправим и отметим в чейнджлоге.</p>
 </footer>
 
 <div id="modalOverlay" style="display:none">

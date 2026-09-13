@@ -62,6 +62,28 @@ def main() -> None:
             assert med.count() == 1, "баннер medium не появился на кальций+железо"
             assert "конкурируют за всасывание" in med.inner_text(), "текст medium-баннера не тот"
 
+            # v2.4: вкладка «Квадрант доказательности» рендерит (или честная заглушка)
+            ts += 1; pg.goto(f"{BASE}/index.html?ts={ts}", wait_until="networkidle")
+            n_verified = sum(1 for s in data if s.get("hedges_g") is not None)
+            pg.click("#tabQuadrant")
+            pg.wait_for_function("window.quadrantChart != null", timeout=5000)
+            qpts = pg.evaluate("window.quadrantChart?.data?.datasets?.length ?? -1")
+            assert qpts == n_verified, f"точек квадранта {qpts}, ожидалось {n_verified}"
+            qnote = pg.locator("#quadrantNote").inner_text()
+            assert "ждут верификации эффекта" in qnote, "нет честной заглушки «ждут верификации»"
+
+            # v2.4: грейды A–D в DOM (карточка и модалка), когда есть верифицированный g
+            with_g = [s for s in data if s.get("hedges_g") is not None and s.get("grade")]
+            if with_g:
+                first = with_g[0]
+                ts += 1; pg.goto(f"{BASE}/index.html?ts={ts}", wait_until="networkidle")
+                card_grade = pg.locator(".card[data-id='" + first["id"] + "'] .grade").count()
+                assert card_grade == 1, "нет грейда на карточке верифицированной добавки"
+                pg.click(f".card[data-id='{first['id']}']")
+                pg.wait_for_selector("#modalOverlay", state="visible", timeout=5000)
+                assert pg.locator("#modalBody .grade").count() >= 1, "грейд не в модалке"
+                assert first["grade"] in pg.locator("#modalBody").inner_text(), "буква грейда не в модалке"
+
             pg.goto(f"{BASE}/map.html?supplement=Эхинацея", wait_until="networkidle")
             assert "Эхинацея" in pg.locator("#chain").inner_text(), "атлас не открыл добавку"
             assert not errors, f"ошибки консоли: {errors}"
