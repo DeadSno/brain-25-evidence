@@ -112,23 +112,26 @@ function select(id, push){
   $('chain').innerHTML = html;
 }
 
-fetch('data.json?ts=' + Date.now()).then(r => r.json()).then(data => {
-  SUPS = data;
-  const cats = {};
-  data.forEach(s => { (cats[s.category] = cats[s.category] || []).push(s); });
-  const targets = new Set(), effects = new Set();
-  data.forEach(s => (s.mechs || []).forEach(m => { targets.add(m[0]); effects.add(m[1]); }));
-  $('stats').textContent = data.length + ' добавка · ' + Object.keys(cats).length + ' категорий · ' +
-    targets.size + ' мишеней · ' + effects.size + ' эффектов';
-  let closed = [];
-  try { closed = JSON.parse(localStorage.getItem('mapClosed') || '[]'); } catch(e){}
-  $('list').innerHTML = Object.keys(cats).sort().map(c =>
-    '<div class="cat' + (closed.includes(c) ? ' closed' : '') + '"><h3>' + c + ' ▾</h3>' +
-    cats[c].map(s => '<span class="chip" data-id="' + s.id + '">' + s.name + '</span>').join('') +
-    '</div>').join('');
-  const p = new URLSearchParams(location.search).get('supplement');
-  select(p && SUPS.some(s => s.id === p) ? p : 'Креатин', false);
-});
+fetch('data.json?ts=' + Date.now())
+  .then(r => { if (!r.ok) throw new Error('no data'); return r.json(); })
+  .then(data => {
+    SUPS = data;
+    const cats = {};
+    data.forEach(s => { (cats[s.category] = cats[s.category] || []).push(s); });
+    const targets = new Set(), effects = new Set();
+    data.forEach(s => (s.mechs || []).forEach(m => { targets.add(m[0]); effects.add(m[1]); }));
+    $('stats').textContent = data.length + ' добавка · ' + Object.keys(cats).length + ' категорий · ' +
+      targets.size + ' мишеней · ' + effects.size + ' эффектов';
+    let closed = [];
+    try { closed = JSON.parse(localStorage.getItem('mapClosed') || '[]'); } catch(e){}
+    $('list').innerHTML = Object.keys(cats).sort().map(c =>
+      '<div class="cat' + (closed.includes(c) ? ' closed' : '') + '"><h3>' + c + ' ▾</h3>' +
+      cats[c].map(s => '<span class="chip" data-id="' + s.id + '">' + s.name + '</span>').join('') +
+      '</div>').join('');
+    const p = new URLSearchParams(location.search).get('supplement');
+    select(p && SUPS.some(s => s.id === p) ? p : 'Креатин', false);
+  })
+  .catch(() => { $('chain').innerHTML = '<p style="color:red">❌ Не удалось загрузить data.json</p>'; });
 
 $('list').addEventListener('click', e => {
   const h = e.target.closest('h3');
