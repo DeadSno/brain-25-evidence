@@ -36,7 +36,7 @@ function initApp() {
   $('themeToggle').onclick = () => { const on = !document.body.classList.contains('dark'); setDark(on); localStorage.setItem('theme', on ? 'dark' : 'light'); };
   $('compareBtn').onclick = renderCompare;
   const pageUrl = encodeURIComponent('https://deadsno.github.io/brain-25-evidence/');
-  const pageTitle = encodeURIComponent('БАДы: цена vs наука — 41 добавка через мета-анализы');
+  const pageTitle = encodeURIComponent('БАДы: цена vs наука — 81 добавка через мета-анализы');
   $('shareTg').href = 'https://t.me/share/url?url=' + pageUrl + '&text=' + pageTitle;
   $('shareVk').href = 'https://vk.com/share.php?url=' + pageUrl + '&title=' + pageTitle;
   $('modalClose').onclick = closeModal;
