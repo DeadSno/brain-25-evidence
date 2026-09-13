@@ -1,7 +1,6 @@
+# АРХИВ (бот v1, снят с расписания в S9): nightly_prices.yml — единственный бот.
 name: collect-wb-prices
 on:
-  schedule:
-    - cron: "0 3 * * *"
   workflow_dispatch:
 
 permissions:
