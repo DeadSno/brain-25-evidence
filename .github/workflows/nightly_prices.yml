@@ -1,0 +1,21 @@
+name: nightly-prices
+on:
+  schedule: [{cron: "0 0 * * *"}]
+  workflow_dispatch:
+permissions: {contents: write}
+jobs:
+  prices:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - run: pip install requests
+      - run: python scripts/update_prices.py 27
+      - name: commit prices
+        run: |
+          git config user.name "price-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add docs/data.json data/processed/price_history.csv
+          git diff --cached --quiet || git commit -m "data: nightly prices $(date +%F)"
+          git push

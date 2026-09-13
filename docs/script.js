@@ -68,6 +68,10 @@ function initApp() {
     applyFilters();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
+  document.addEventListener('click', e => {
+    const rb = e.target.closest('#resetAll');
+    if (rb) { $('resetFilters').click(); }
+  });
 
   document.addEventListener('click', e => {
     const b = e.target.closest('[data-fav]');
@@ -75,6 +79,12 @@ function initApp() {
     e.stopPropagation(); e.preventDefault();
     toggleFav(b.dataset.fav);
   }, true);
+
+  const up = document.createElement('button');
+  up.id = 'toTop'; up.textContent = '↑';
+  up.onclick = () => scrollTo({top: 0, behavior: 'smooth'});
+  document.body.appendChild(up);
+  addEventListener('scroll', () => up.classList.toggle('show', scrollY > 500));
 }
 
 function setDark(on) {
@@ -111,13 +121,18 @@ function applyFilters() {
 
 function renderCards(data) {
   const g = $('cardsGrid');
-  if (!data.length) { g.innerHTML = '<p style="opacity:.6">Ничего не найдено — попробуй другие фильтры.</p>'; return; }
+  if (!data.length) { g.innerHTML = '<div class="empty">🔍 Ничего не найдено. ' +
+      '<button id="resetAll" class="favFilter">✖ Сбросить фильтры</button></div>'; return; }
   g.innerHTML = data.map(s => '<div class="card" data-id="' + s.id + '">' +
     '<button class="favBtn' + (isFav(s.id) ? ' on' : '') + '" data-fav="' + s.id + '" title="В избранное">' + (isFav(s.id) ? '★' : '☆') + '</button>' +
     (BEST.includes(s.id) ? '<span class="bestBadge">🏆 Лучший выбор</span>' : '') +
     '<span class="cat">' + (s.category || '') + '</span><h3>' + s.name + '</h3>' +
     '<div class="verdict v' + s.code + '">' + s.verdict + '</div>' +
-    '<div class="price">' + (s.price ? s.price + ' ₽/мес' : 'цена не указана') + '</div>' +
+    (s.price != null
+      ? '<div class="price">' + s.price + ' ₽/мес</div>'
+      : '<div class="price noPrice">цена не найдена · <a target="_blank" rel="noopener" href="' +
+        'https://github.com/DeadSno/brain-25-evidence/issues/new?title=' +
+        encodeURIComponent('Цена не найдена: ' + s.id) + '">предложить</a></div>') +
     (val(s) !== null ? '<div class="value">⚖️ ценность: ' + val(s) + '</div>' : '') +
     (val(s) !== null ? '<div class="valBar"><i style="width:' + Math.min(100, val(s) / 3) + '%"></i></div>' : '') +
     '<div class="effects">' + (s.effects || []).map(e => '<span>' + e + '</span>').join('') + '</div></div>').join('');
@@ -236,6 +251,7 @@ function renderBubble(data) {
       }
     }
   });
+  window.chart = chartInstance;
 }
 
 function radarFill(ctx) {

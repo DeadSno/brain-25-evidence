@@ -1,0 +1,20 @@
+name: watchdog
+on:
+  schedule: [{cron: "0 6 * * 1"}]
+  workflow_dispatch:
+permissions: {contents: read, issues: write}
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - run: pip install requests pytest
+      - run: python scripts/audit_links.py
+      - run: pytest tests/test_prices_guards.py tests/test_schema.py -q
+      - name: issue on failure
+        if: failure()
+        env: {GH_TOKEN: "${{ secrets.GITHUB_TOKEN }}"}
+        run: gh issue create --title "🐕 watchdog: проверка ссылок/цен упала"
+             --body "run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
