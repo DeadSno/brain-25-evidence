@@ -1,0 +1,117 @@
+# MASTER RUNBOOK — ревью + цикл 1 (v2.1). Читать ЦЕЛИКОМ до любой работы.
+
+## ПРОТОКОЛ АВТОПИЛОТА
+1. Текущая фаза = строка запуска владельца; если её нет — читай docs/STATE.md
+   и продолжай следующую незавершённую фазу.
+2. Одна фаза = одна сессия. На границе фаз с меткой [NEW SESSION]
+   ОБЯЗАТЕЛЬНО: обнови STATE.md → выдай отчёт → последняя строка отчёта:
+   «СЛЕДУЮЩИЙ ЗАПУСК: <точная строка для новой сессии>».
+3. STATE.md формат: фаза | статус | хэши | открытые пункты | дата.
+4. Стоп-правила: 429/обрыв = перезапуск фазы; «заодно отрефакторить» = вне
+   скоупа → в бэклог; неуверен = «нужна проверка человеком»; два красных
+   прогона pytest без прогресса = стоп и доклад.
+5. Правила брифа (приложение 1) действуют в КАЖДОЙ фазе без напоминания.
+
+## КАРТА ФАЗ
+S0 [этот сеанс] сейв документа+приложений в репо; выход: файлы существуют
+S1 [NEW SESSION] аудит A (приложение 3.1) → docs/audit/01-map-data.md
+S2 [NEW SESSION] аудит D (3.2) → 04-content.md
+S3 [NEW SESSION] аудит B (3.3) → 02-python-ci.md
+S4 [NEW SESSION] аудит C (3.4) → 03-frontend.md
+   → ТОЧКА РЕШЕНИЯ ВЛАДЕЛЬЦА: список «approve 🔴» (ждать, не продолжать)
+S5 [NEW SESSION] ветка audit-fixes: чинить ТОЛЬКО одобренное; коммит на находку
+S6 [NEW SESSION] стартовый пакет (приложение 4): создать файлы дословно,
+   ALIGN ADAPTER, record_fixtures; приёмка: test_prices_guards зелёный
+S7 [NEW SESSION] ранбук шаги 3-4: прогон цен 81, DOSE/UNITS в config, коммиты
+S8 [NEW SESSION] ранбук шаг 5: UI-хвосты (бейдж/empty/toTop), коммит UI
+S9 [NEW SESSION] ранбук шаги 6-8: e2e ALIGN, пирамида, snapshot, CHANGELOG,
+   мердж v2.1-dev→main, тег v2.1, черновик поста; ТОЧКА РЕШЕНИЯ: «тегирую?»
+Отчёт каждой фазы: путь/хэши + топ-5 + хвост pytest + строка следующего запуска.
+
+---
+## ПРИЛОЖЕНИЕ 1. AGENT BRIEF
+Миссия: «одна точка правды по БАДам для СНГ», осознанный выбор ≠ экономия.
+Манифест: польза выше денег · язык фактов · null честнее выдумки ·
+нет утверждения без источника · никогда партнёрки/реклама/платный доступ.
+docs/ = GitHub Pages (index.html дашборд, map.html атлас). data.json = 81 добавка.
+Состояние: тег v2.0 в main; v2.1-dev = 6 цен (слить в S7-S9).
+ПРАВИЛА: (1) UTF-8 без BOM, правки UI проверять глазами; (2) ветка на цикл,
+main публикуем всегда, теги на релизы; (3) коммит атомен: данные/UI/chore раздельно;
+(4) CHANGELOG блок на релиз, снапшот UPDATE_SNAPSHOT=1; (5) price=null ок,
+price=0 и scienceIndex=0 = БАГ; (6) timestamp/API-недетерминизм = by design;
+(7) не рефакторить вне задачи, вкусовщина ≠ находка; (8) DoD цикла = пирамида зелёная.
+ПИРАМИДА: L1 schema+provenance (g≠null ⇒ key_source с PMID/DOI) · L2 fixture-replay
+API · L3 sanity (цена 10..20000, скачок >×3 FAIL, -3≤g≤3, ci_lo<ci_hi) · L4 e2e-smoke
+(81 карточка, пузырей=count(price≠null), модалка #sup=, атлас-цепочка, консоль=0) ·
+L5 watchdog cron (ссылки/дрейф/тихие нули → issue).
+
+## ПРИЛОЖЕНИЕ 2. CYCLE1 RUNBOOK (шаги для S7-S9)
+3. python scripts/update_prices.py 81 → null ≤5; флаги расхождения списком;
+   ни один существующий price не затёрт на null; коммит данных.
+4. DOSE_PER_DAY/UNITS_PER_PACK вынести в src/config.py из collect26/notebooks;
+   тест monthly() совпадает с ручным расчётом; коммит config.
+5. UI-сниппеты (приложение 4.8) в index.html/script.js; коммит UI.
+6. pip install playwright && playwright install chromium; python scripts/e2e_smoke.py
+   → OK; ALIGN селекторы под реальную вёрстку (логику не менять).
+7. pytest -q зелёный; UPDATE_SNAPSHOT=1 при изменении data.json; CHANGELOG [v2.1].
+8. merge v2.1-dev→main, push, tag v2.1, push tag; черновик поста владельцу.
+
+## ПРИЛОЖЕНИЕ 3. АУДИТ-ПРОМПТЫ
+Общее для 3.1-3.4: механические проверки СКРИПТОМ (STDOUT в артефакт);
+находка = файл:строки + сниппет 1-3 строки, иначе «не верифицировано»;
+файлы не менять; ≤25 находок; шапка: таблица 🔴🟡🟢 + топ-5; в чат только путь+топ-5.
+3.1 A: карта проекта (дерево без node_modules/__pycache__/.git; мёртвый код;
+     кто РЕАЛЬНО генерирует data.json: notebooks vs src vs scripts) + данные:
+     валидность JSON; обязательные поля (id,name,code,verdict,category,scienceIndex,
+     metaCount,effects,dosage,mechs); price=0 БАГ, null ок; scienceIndex=0 БАГ;
+     unique id; синхрон с config; value=scienceIndex/(price/100) аномалии >1000 или <1;
+     эвристика вердиктов → СПИСОК НА РУЧНУЮ ПРОВЕРКУ, не баги. Скрипт: scripts/audit_data.py.
+3.2 D: тексты: опечатки UI и текстовых полей data.json; термины («вердикт/статус»,
+     «ценность/Value Score»); дисклеймер на обеих страницах+модалках; числа «41/81»
+     во всех og/meta/футер/README/шапках; даты футер vs коммит vs CHANGELOG;
+     ссылки скриптом (HEAD→GET, UA, 2 ретрая, 429≠бита). Артефакт 04-content.md.
+3.3 B: python+CI+секреты: ошибки парсеров (500/429/timeout каждого API, ретраи?);
+     идемпотентность (сортировки/seed; timestamp=by design); хардкод (пути C:\, magic,
+     токены); type hints/docstrings = 🟢; тесты: happy path? предложить 3-5;
+     workflows: permissions/pinning/cron; grep токенов скриптом scripts/audit_secrets.py
+     (ghp_, xox, bot\d+:, TG/VK/MAX; id метрики ≠ баг); вежливость WB-парсинга. Артефакт 02.
+3.4 C: фронтенд: ВСЕ innerHTML + векторы пользовательских данных (#sup=,
+     ?supplement=, поиск, localStorage) → экранирование? (data.json first-party = 🟡);
+     fetch 404/500/битый JSON = видимое сообщение?; Chart.js destroy при перерендере;
+     остатки d3; localStorage битые значения (theme="fff", fav="{{{") try/catch;
+     a11y (aria, таб, Esc, контраст бейджей); 375px (сетка/модалка/таблица/чипы/шапка);
+     перф (размер data.json, рендер 81, шрифты). Headless где можно. Артефакт 03.
+(3.5 E синтез+улучшения — запускается ОТДЕЛЬНО после цикла 2, вход только 01-04.)
+
+## ПРИЛОЖЕНИЕ 4. СТАРТОВЫЙ ПАКЕТ (создать дословно в S6)
+4.1 scripts/collectors.py — WB JSON (search.wb.ru/exactmatch/ru/common/v4/search,
+    params appType=1&curr=rub&dest=-1257786&query&resultset=catalog&sort=popular;
+    data.products[].salePriceU копейки) + Ozon composer-api.bx/page/json/v2
+    (url=/search/?text=); _get с ретраями 45*2^i на 429; _walk универсальный
+    экстрактор имя+цена incl. JSON-строки widgetStates; Offer(name,price_rub,source);
+    CollectorError. [код из чата-истории владельца: сообщение «СТАРТ-ПАКЕТ», файл 2]
+4.2 scripts/update_prices.py — round-robin 27 (null первыми, по давности),
+    кулдаун 48ч, медиана WB+Ozon (расхождение >40% = флаг, цена=wb), jump_ok 1/3..3
+    (нарушение = старую цену НЕ затираем), price_history.csv append, price_source,
+    exit 1 при флагах; ADAPTER: from src.config import WB_QUERY, DOSE_PER_DAY, UNITS_PER_PACK.
+    [файл 3 того же сообщения]
+4.3 scripts/audit_links.py — regex URL из data.json+README, HEAD→GET на 405/403/429,
+    dead список, exit 1. [файл 4]
+4.4 scripts/record_fixtures.py — запись wb_creatine.json/ozon_creatine.json
+    в tests/fixtures/. [файл из сообщения «ПОСЛЕДУЮЩАЯ ПОСЛЕДОВАТЕЛЬНОСТЬ»]
+4.5 scripts/e2e_smoke.py — playwright: сервер :8123 из docs/; assert карточек=len(data),
+    пузырей=count(price≠null) через window.chart, модалка #sup=Креатин видима,
+    map.html?supplement=Эхинацея содержит «Эхинацея» в #chain, консоль=0 ошибок.
+    [файл оттуда же; ALIGN селекторы разрешён]
+4.6 .github/workflows/nightly_prices.yml — cron 0 0 * * *, pip requests,
+    update_prices 27, commit docs/data.json+history от price-bot, push. [файл 5]
+4.7 .github/workflows/watchdog.yml — cron 0 6 * * 1: audit_links + pytest
+    test_prices_guards+test_schema; if failure → gh issue create (GH_TOKEN). [файл 6]
+4.8 tests/test_prices_guards.py — фикстуры WB/OZON inline + monkeypatch _get;
+    проверки цен копеек→рубли, ozon walk, median_price/divergence, jump_ok. [файл 7]
+4.9 UI-сниппеты: бейдж noPrice+issue-ссылка / empty+resetAll / #toTop + CSS
+    (.noPrice,.empty,#toTop). [сниппеты из сообщения «ПОСЛЕДУЮЩАЯ ПОСЛЕДОВАТЕЛЬНОСТЬ»]
+4.10 CHANGELOG-блок [v2.1] и черновик поста — тексты из того же сообщения.
+ПОМЕТКА: полные тела 4.1-4.10 владелец вставляет в этот документ при S0-paste
+(они есть в истории чата владельца одним сообщением «СТАРТ-ПАКЕТ» и одним
+«ПОСЛЕДУЮЩАЯ ПОСЛЕДОВАТЕЛЬНОСТЬ»); агент S0 сверяет наличие всех 10 пунктов.
