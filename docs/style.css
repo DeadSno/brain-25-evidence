@@ -196,3 +196,28 @@ font-size:1.2rem;cursor:pointer;opacity:0;pointer-events:none;transition:.25s}
 .conflict-banner{background:#ff4757;color:#fff;padding:1rem;text-align:center;font-weight:600;
 position:sticky;top:0;z-index:1000;animation:fadeIn .25s}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+/* ===== v2.3: раздел «3 вопроса» ===== */
+#qaSection .qa{margin:.6rem 0 1rem}
+#qaSection .qa h3{font-size:1.02rem;margin-bottom:.25rem}
+#qaSection .qa p{font-size:.95rem;opacity:.88;max-width:72ch}
+
+/* ===== v2.3: шаблон полной карточки (15 блоков) ===== */
+.blockTitle{font-weight:700;margin:1rem 0 .4rem;font-size:1.05rem}
+.cblocks{display:flex;flex-direction:column;gap:.5rem}
+.cblock{border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem;background:var(--bg)}
+.cblock h4{font-size:.8rem;font-weight:700;opacity:.65;text-transform:uppercase;letter-spacing:.03em;margin-bottom:.2rem}
+.cbbody{font-size:.92rem}
+.cbEmpty{opacity:.55;font-style:italic}
+.hline{margin-top:.25rem;opacity:.85}
+.goodPair{color:#2d8a4e;font-weight:600}
+.sev{font-size:.88rem;margin:.15rem 0}
+.sev-critical{color:#e74c3c;font-weight:600}
+.sev-high{color:#e67e22}
+.sev-medium{color:#d4a017}
+.sev-low{color:var(--text);opacity:.7}
+
+/* ===== v2.3: живой баннер — medium (оранжевый), synergy (зелёный) ===== */
+.conflict-banner.medium{background:#e67e22}
+.synergy-banner{background:#2d8a4e;color:#fff;padding:1rem;text-align:center;font-weight:600;
+position:sticky;top:0;z-index:1000;animation:fadeIn .25s}
