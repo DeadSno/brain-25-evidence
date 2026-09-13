@@ -11,13 +11,15 @@
 | S4 | done | 53d593d (scripts/audit_frontend.py), cc48c71 (docs/audit/03-frontend.md), 80352cc (STATE.md) | audit C: 🔴1 🟡8 🟢0; map.html fetch без r.ok+.catch → белый экран; 10 innerHTML-sinks без escape (data.json first-party=🟡); theme в script.js без try/catch (SecurityError private mode); a11y: модалка без aria/фокус-трапа, категории карты не-фокусируемые, контраст бейджей v0/v1 за WCAG AA; 375px — нужна проверка человеком (playwright не установлен); d3 нет | 2026-09-13 |
 | S5 | done | ветка audit-fixes (от main, не v2.1-dev): 78c4cb8 (map.html fetch r.ok+catch), 20f1b0d (og:title 81), 2e69e8c (shareTitle 81), b05b7b2 (README-бейджи v2.0/81/24), 3f30d27 (README 41→81 ×7), f6c5490 (map.html футер-дисклеймер), f91ae73 (модалка дисклеймер перед WB) | 7/7 одобренных фиксов починено; pytest 24 passed, 1 deselected после каждого коммита; оставлены как цитаты: историч. чейнджлог v1.2/v1.3 (41), n=41 корреляций (нужен пересчёт — мы не выдумываем), дата «Данные (v1.2, 09.09.2026)» вне скоупа списка | 2026-09-13 |
 | S6 | done | v2.1-dev: f19e143 (4.1 collectors + 4.4 record_fixtures), b9d87fb (4.2 update_prices + 4.3 audit_links + ADAPTER DOSE/UNITS в config), c98a2a5 (4.6 nightly_prices + 4.7 watchdog), 889d982 (4.8 test_prices_guards), 6181eb4 (4.9 UI noPrice/empty/toTop + 4.10 CHANGELOG [v2.1]), e83560e (4.5 e2e_smoke) | стартовый пакет создан дословно; ALIGN ADAPTER: DOSE_PER_DAY/UNITS_PER_PACK={} заглушки (S7 заполнит); playwright 1.62.0 + chromium установлены; test_prices_guards зелёный, полный pytest 28 passed, 1 deselected; record_fixtures 🔴 403 WB (анти-бот) — нужна проверка человеком, приёмка не зависит (инлайн-фикстуры); nightly_prices.yml дублирует collect_prices.yml (старый бот) — принять решение на мердже S9 | 2026-09-13 |
+| S7 | in_progress | v2.1-dev: fdd6510 (WB 403 fix: сессия с прогревом, v5→v4→старый коллектор, WB_DEAD, тест warmup) | 🔴 АДАПТАЦИЯ одобрена и внесена, но WB с этой сети 498 на главной (X-Wbaas-Token: get) + 403 на search, Ozon 403 — блок уровня CDN/IP, JS-челлендж, не снять через requests; record_fixtures и шаг 3 (update_prices 81) отложены до сети/проверки человеком; 🔴 шаг 4: DOSE_PER_DAY/UNITS_PER_PACK реальных значений НЕТ (collect26/notebooks отсутствуют в репо, UNITS_PER_PACK выводился из названий офферов v1.x динамически) — нужна таблица от владельца или явный допуск DOSE=NORM/30; pytest 29 passed, 1 deselected (после commit fdd6510) | 2026-09-13 |
 
 ## Текущее состояние
-- Ветка цикла: v2.1-dev (стартовый пакет S6 внесён: collectors, update_prices, e2e_smoke, workflows, test_prices_guards, UI).
+- Ветка цикла: v2.1-dev (стартовый пакет S6 внесён; WB-адаптация S7 внесена).
 - main = v2.0 + tag v2.0; nightly-бот на main собирает цены по обновлённым запросам.
 - S5 (audit-fixes) починен в ветке audit-fixes от main — 7 коммитов, ждут ревью и мерджа (S9).
 - S6 (стартовый пакет) выполнен; открытые пункты: record_fixtures 403 WB (проверка человеком), дубль nightly/collect workflows (решение на мердже).
-- Следующая: S7 [NEW SESSION] — ранбук шаги 3-4: прогон цен 81, DOSE/UNITS в config, коммиты.
+- S7 (шаги 3-4) БЛОКИРОВАН: WB 498/403 + Ozon 403 с этой сети (CDN/IP-блок); таблица DOSE/UNITS для 81 отсутствует (нет collect26/notebooks). Ждёт решения владельца: сеть/браузер для фикстур + источник DOSE/UNITS (или допуск DOSE=NORM/30).
+- Следующая: S7 continue — после снятия блокад: record_fixtures рабочим путём → update_prices 81 (null≤5, флаги, ни один price не затёрт) → шаг 4 → коммиты.
 
 ## СПИСОК «APPROVE 🔴» (точка решения владельца, после S4)
 1. A (3.1): 🔴 нет (red=0). 🟡 value-аномалии 5 + ручные вердикты 18.
@@ -32,7 +34,7 @@
 - S3: аудит B (3.3) → 02-python-ci.md
 - S4: аудит C (3.4) → 03-frontend.md → ТОЧКА РЕШЕНИЯ ВЛАДЕЛЬЦА
 - S5: ветка audit-fixes, чинить только одобренное — DONE
-- S6: стартовый пакет (приложение 4), test_prices_guards зелёный
-- S7: ранбук 3-4 (цены 81, DOSE/UNITS)
+- S6: стартовый пакет (приложение 4), test_prices_guards зелёный — DONE
+- S7: ранбук 3-4 (цены 81, DOSE/UNITS) — in_progress, БЛОКИРОВАН (сеть + источник DOSE/UNITS)
 - S8: ранбук 5 (UI-хвосты)
-- S9: ранбук 6-8 (e2e, пирамида, мердж, тег v2.1)
+- S9: ранбук 6-8 (e2e, пирамида, мердж, тег v2.1) + РЕШЕНИЯ ОДОБРЕНЫ: collect_prices.yml снять cron и положить в docs/archived/ (бот v1 = история, nightly_prices единственный); дата CHANGELOG 2026-09-16, сверять с фактической датой тега в S9
