@@ -221,3 +221,15 @@ position:sticky;top:0;z-index:1000;animation:fadeIn .25s}
 .conflict-banner.medium{background:#e67e22}
 .synergy-banner{background:#2d8a4e;color:#fff;padding:1rem;text-align:center;font-weight:600;
 position:sticky;top:0;z-index:1000;animation:fadeIn .25s}
+
+/* ===== v2.4: вкладки графика, грейды A–D ===== */
+.chartTabs{display:flex;gap:.5rem;margin-bottom:.8rem}
+.chartTab{background:var(--card-bg);color:var(--text);border:1px solid var(--border);
+  padding:.45rem .9rem;border-radius:6px;cursor:pointer;font-size:.88rem;font-weight:500}
+.chartTab.on{border-color:var(--accent);color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.grade{display:inline-block;font-size:.72rem;font-weight:700;padding:.15rem .55rem;
+  border-radius:999px;color:#fff;vertical-align:middle;margin-left:.3rem}
+.gA{background:linear-gradient(135deg,#1e8e4e,#27ae60)}
+.gB{background:linear-gradient(135deg,#2980b9,#3498db)}
+.gC{background:linear-gradient(135deg,#b7791f,#d4a017)}
+.gD{background:linear-gradient(135deg,#666,#999)}

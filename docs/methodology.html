@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>📐 Методология и ошибки — brain-25-evidence</title>
+<link rel="stylesheet" href="style.css"/>
+<script>
+try {
+  if (localStorage.getItem('theme') !== 'light') {
+    document.addEventListener('DOMContentLoaded', function () {
+      document.body.classList.add('dark');
+      var b = document.getElementById('themeToggle');
+      if (b) b.textContent = '☀️ Светлая тема';
+    });
+  }
+} catch (e) {}
+</script>
+</head>
+<body>
+<header>
+  <h1><a href="index.html" style="color:inherit;text-decoration:none" title="На главную">📐 Методология и ошибки</a></h1>
+  <div class="hdr">
+    <a class="btn" href="index.html">← Назад к дашборду</a>
+    <button id="themeToggle">🌙 Тёмная тема</button>
+  </div>
+</header>
+
+<section style="background:var(--card-bg);padding:1.5rem;border-radius:12px;border:1px solid var(--border);margin-bottom:1.5rem">
+<h2>Как считаем</h2>
+
+<h3>Индекс науки</h3>
+<p><b>scienceIndex = РКИ + 5 × мета-анализы</b>, найденные в PubMed по запросу «(добавка) AND (исход)». Индекс меряет <i>количество</i> науки, не силу эффекта.</p>
+
+<h3>Hedges' g (сила эффекта)</h3>
+<p>Коэффициент размера эффекта из абстрактов мета-анализовPubMed. Абсолютное значение: g = 0.2 (малый), 0.5 (средний), 0.8 (большой). Отрицательный g = добавка хуже плацебо.</p>
+
+<h3>Грейды A–D</h3>
+<p>Пересчитываются из <code>grade_of(hedges_g, scienceIndex)</code>:</p>
+<ul style="margin:.6rem 0 1rem 1.5rem;line-height:1.8">
+  <li><b>A — крепко доказано:</b> g ≥ 0.4 и индекс науки ≥ 100</li>
+  <li><b>B — умеренно:</b> g ≥ 0.2 (при объёме ≥ 50)</li>
+  <li><b>C — изучено много, эффект мал:</b> g &lt; 0.2</li>
+  <li><b>D — данных мало:</b> индекс науки &lt; 50</li>
+</ul>
+
+<h3>Ценность</h3>
+<p>Ценность = scienceIndex / (цена за месяц × 100). Показывает, сколько «науки за рубль». Ценность учитывает количество исследований, но не силу эффекта.</p>
+
+<h3>Квадрант доказательности</h3>
+<p>Ось X: Hedges' g (сила эффекта, от −0.2 до 0.6). Ось Y: индекс науки (лог-шкала). Размер пузыря: число мета-анализов. Цвет: вердикт (зелёный = работает, жёлтый = зависит от контекста, красный = не подтверждено).</p>
+<p>Добавки без верифицированного g не попадают на квадрант — показывается честная заглушка «N добавок ждут верификации эффекта».</p>
+</section>
+
+<section style="background:var(--card-bg);padding:1.5rem;border-radius:12px;border:1px solid var(--border);margin-bottom:1.5rem">
+<h2>Ошибки и исправления</h2>
+
+<h3>1. SAMe</h3>
+<p>Поисковый токен матчил английское слово «same» и дал 7495 фантомных РКИ.</p>
+<p><b>Исправлено:</b> запрос заменён на S-adenosylmethionine, добавлен тест запросов.</p>
+
+<h3>2. Кракозябры</h3>
+<p>Локальный сервер отдавал UTF-8 без charset, браузер в русской локали подставлял CP1251.</p>
+<p><b>Исправлено:</b> charset=utf-8 в заголовках + guard-тест.</p>
+
+<h3>3. Одна цифра без кавычек</h3>
+<p>Одна цифра без кавычек убила скрипт карты механизмов целиком.</p>
+<p><b>Исправлено:</b> e2e-smoke проверяет обе страницы и консоль браузера.</p>
+
+<h3>4. Wildberries</h3>
+<p>Wildberries закрыл search-API TLS-фильтром: цены деградировали до статики карточек и честных null вместо выдуманных чисел.</p>
+<p><b>Исправление полного пути — в работе (reliability-трек).</b></p>
+</section>
+
+<section style="background:var(--card-bg);padding:1.5rem;border-radius:12px;border:1px solid var(--border)">
+<h2>Approve-очередь g</h2>
+<p>Hedges' g в data.json появляются <b>только после ревью</b> владельцем проекта. Кандидаты собираются изPubMed (scripts/extract_g.py), проверяются по приорам соавтора (PRIOR_G ± 0.1) и лежат в docs/approve_queue.md до одобрения.</p>
+<p><b>Мы не верим одному источнику.</b> Каждый g проверяется через PMID на PubMed. Ошибка одной цифры стоит нам доверия.</p>
+</section>
+
+<footer style="margin-top:2rem;padding-top:1rem;border-top:1px solid var(--border);font-size:.8rem;opacity:.75">
+  <p><a href="index.html" style="color:inherit">← Дашборд «БАДы: цена vs наука»</a></p>
+  <p>v2.4 · источники: PubMed, OpenAlex, Wildberries, Google Trends, Wikimedia</p>
+</footer>
+<script>
+$('themeToggle').onclick = () => {
+  const on = !document.body.classList.contains('dark');
+  document.body.classList.toggle('dark', on);
+  $('themeToggle').textContent = on ? '☀️ Светлая тема' : '🌙 Тёмная тема';
+  localStorage.setItem('theme', on ? 'dark' : 'light');
+};
+</script>
+</body>
+</html>
