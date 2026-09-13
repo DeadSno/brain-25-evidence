@@ -6,12 +6,12 @@
 |---|---|---|---|---|
 | S0 | done | ce6f981 (MASTER_RUNBOOK) | приложение 4: полные тела 4.1-4.10 [СТАРТ-ПАКЕТ / ПОСЛЕДУЮЩАЯ ПОСЛЕДОВАТЕЛЬНОСТЬ] не вставлены владельцем — только заглушки | 2026-09-13 |
 | S1 | done | 0764d2e (audit A: docs/audit/01-map-data.md, scripts/audit_data.py, snapshot sync) | 🟡 value-аномалии 5 (Ежовик/Аргинин/Чеснок/Лютеин+зеаксантин/Трибулус, value<1); 🟢 openalex_count мёртвый код-кандидат; эвристика вердиктов → 18 на ручную проверку; red=0 | 2026-09-13 |
-| S2 | not_started | — | — | — |
+| S2 | done | c3abcbd (scripts/audit_content.py), 9994b55 (docs/audit/04-content.md), [STATE-коммит] (STATE.md) | audit D: 🔴5 🟡5 🟢0; «41/81» рассинхрон (og:title, shareTitle, README-бейджи version/supplements/tests, ещё 12 «41»); README-даты «v1.2, 09.09.2026» vs v2.0; дисклеймер есть на index.html, нет на map.html и в модалках; ссылки 22 OK + 5 не верифицировано (fonts.googleapis/gstatic/t.me/vk); стилевые 2×двойные пробелы | 2026-09-13 |
 
 ## Текущее состояние
 - Ветка цикла: v2.1-dev (6 цен в data.json, конфиг WB-запросов — в main).
 - main = v2.0 + tag v2.0; nightly-бот на main собирает цены по обновлённым запросам.
-- Следующая фаза: S2 [NEW SESSION] — аудит D (приложение 3.2) → docs/audit/04-content.md.
+- Следующая фаза: S3 [NEW SESSION] — аудит B (приложение 3.3) → docs/audit/02-python-ci.md.
 
 ## Строки запуска фаз (из КАРТЫ ФАЗ)
 - S2: аудит D (3.2) → docs/audit/04-content.md
