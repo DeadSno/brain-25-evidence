@@ -4,6 +4,41 @@ let chartPts = [];
 let scrollBeforeModal = 0;
 let BEST = [];
 
+// ===== v2.3: шаблон полной карточки (15 блоков, структура фиксирована) =====
+const BLOCK_EMPTY = '<span class="cbEmpty">данных пока нет — проверяем</span>';
+const CARDBLOCKS = [
+  { key: 'what',      title: 'Что это',                    get: s => (s.effects || []).join(', ') || '' },
+  { key: 'who',       title: 'Кому нужно',                 get: s => s.who || '' },
+  { key: 'works',     title: 'Работает ли',                get: s => '<span class="verdict v' + s.code + '">' + s.verdict + '</span> · грейд g=' + s.code },
+  { key: 'evidence',  title: 'На чём основано',            get: s => '<div>🔬 наука: ' + s.scienceIndex + ' · 📚 MA: ' + s.metaCount + ' · 📖 цитирований MA: ' + s.citations + '</div>' +
+    ((s.mechs || []).length ? '<div class="hline">Механизмы: ' + s.mechs.map(m => m[0]).join('; ') + '</div>' : '') },
+  { key: 'how',       title: 'Как принимать',              get: s => [s.dosage, s.course].filter(Boolean).join(' · ') || '' },
+  { key: 'onset',     title: 'Когда почувствую',           get: s => s.onset || '' },
+  { key: 'notwho',    title: 'Кому нельзя',                get: s => s.caution || '' },
+  { key: 'conflicts', title: 'С чем конфликтует',          get: renderConflicts },
+  { key: 'friends',   title: 'С чем дружит',               get: s => (s.synergists || []).length
+    ? '<span class="goodPair">🤝 Хорошая пара: ' + s.synergists.join(', ') + '</span>' : '' },
+  { key: 'ul',        title: 'Передозировка (UL)',         get: s => s.ul || '' },
+  { key: 'food',      title: 'Можно ли из еды',            get: s => s.food || '' },
+  { key: 'official',  title: 'Что говорят официалы',       get: s => s.official || '' },
+  { key: 'shop',      title: 'Как выбрать в магазине',     get: s => s.forms || '' },
+  { key: 'myths',     title: 'Мифы и ловушки',             get: s => s.myths || '' },
+  { key: 'price',     title: 'Сколько стоит и откуда цена', get: s => (s.price != null ? s.price + ' ₽/мес' : 'цена не найдена') +
+    (s.price_source ? ' · источник: ' + s.price_source : '') }
+];
+
+function renderConflicts(s) {
+  const list = s.interactions || [];
+  if (!list.length) return '';
+  return list.map(i => '<div class="sev sev-' + i.severity + '"><b>' + i.with + '</b> · ' + i.severity + (i.note ? ' — ' + i.note : '') + '</div>').join('');
+}
+function renderCardBlocks(s) {
+  return '<div class="cblocks">' + CARDBLOCKS.map(b =>
+    '<div class="cblock" data-block-key="' + b.key + '"><h4>' + b.title + '</h4><div class="cbbody">' +
+    (b.get(s) || BLOCK_EMPTY) + '</div></div>').join('') + '</div>';
+}
+// ===== v2.3: баннеры избранного (critical/medium/synergy) =====
+
 function chartSupByEl(chart, el) {
   const ds = (chart.data.datasets || [])[el.datasetIndex] || {};
   if (ds.label) {
@@ -52,7 +87,7 @@ function initApp() {
   });
   const deep = decodeURIComponent(location.hash.replace('#sup=', ''));
   if (deep && supplements.some(s => s.id === deep)) setTimeout(() => openModal(deep), 300);
-  applyFilters(); renderCompare();
+  applyFilters(); renderCompare(); checkInteractions();
   $('favFilter').addEventListener('click', () => {
     onlyFavs = !onlyFavs;
     $('favFilter').classList.toggle('on', onlyFavs);
@@ -174,7 +209,8 @@ function openModal(id) {
     '<div class="mrow">⏳ <b>Курс:</b> ' + (s.course || '—') + '</div>' +
     (s.forms ? '<div class="mrow">🧪 <b>Формы/штаммы:</b> ' + s.forms + '</div>' : '') +
     '<div class="mrow warn">⚠️ ' + (s.caution || '—') + '</div>' +
-    '<div class="mrow"><button class="copyLink" data-copy="' + location.origin + location.pathname + '#sup=' + encodeURIComponent(s.id) + '">🔗 Скопировать ссылку на карточку</button></div>';
+    '<div class="mrow"><button class="copyLink" data-copy="' + location.origin + location.pathname + '#sup=' + encodeURIComponent(s.id) + '">🔗 Скопировать ссылку на карточку</button></div>' +
+    '<div class="blockTitle">🧩 Полная карточка добавки</div>' + renderCardBlocks(s);
   history.replaceState(null, '', '#sup=' + encodeURIComponent(s.id));
   $('modalOverlay').style.display = 'flex';
 
@@ -332,37 +368,46 @@ function updateFavUI() {
   });
 }
 
-// ===== v2.2: баннер конфликтов избранного =====
+// ===== v2.2+: баннеры избранного (critical красный / medium оранжевый / synergy зелёный) =====
+function named(inList, s) { return (inList || []).some(x => x === s.id || x === s.name); }
+function isSynergy(s1, s2) { return named(s1.synergists, s2) || named(s2.synergists, s1); }
+function isAntagonist(s1, s2) { return named(s1.antagonists, s2) || named(s2.antagonists, s1); }
+
+function renderBanner(key, cls, html) {
+  const old = document.querySelector('.banner[data-key="' + key + '"]');
+  if (old) old.remove();
+  if (!html) return;
+  const banner = document.createElement('div');
+  banner.className = 'banner ' + cls;
+  banner.dataset.key = key;
+  banner.innerHTML = html;
+  document.body.prepend(banner);
+}
+
 function checkInteractions() {
   const favs = getFavs();
-  const conflicts = [];
+  const critical = [], medium = [], synergy = [];
   for (let i = 0; i < favs.length; i++) {
     for (let j = i + 1; j < favs.length; j++) {
       const s1 = supplements.find(s => s.id === favs[i]);
       const s2 = supplements.find(s => s.id === favs[j]);
       if (!s1 || !s2) continue;
       for (const inter of (s1.interactions || [])) {
-        if (inter.with === s2.id && inter.severity === 'critical') {
-          conflicts.push({ s1: s1.name, s2: s2.name, note: inter.note });
-        }
+        if (inter.with === s2.id && inter.severity === 'critical') critical.push({ s1: s1.name, s2: s2.name, note: inter.note });
       }
       for (const inter of (s2.interactions || [])) {
-        if (inter.with === s1.id && inter.severity === 'critical') {
-          conflicts.push({ s1: s1.name, s2: s2.name, note: inter.note });
-        }
+        if (inter.with === s1.id && inter.severity === 'critical') critical.push({ s1: s1.name, s2: s2.name, note: inter.note });
       }
+      if (isAntagonist(s1, s2)) medium.push({ s1: s1.name, s2: s2.name });
+      if (isSynergy(s1, s2)) synergy.push({ s1: s1.name, s2: s2.name });
     }
   }
-  const old = document.querySelector('.conflict-banner');
-  if (old) old.remove();
-  if (conflicts.length > 0) {
-    const banner = document.createElement('div');
-    banner.className = 'conflict-banner';
-    banner.innerHTML = '⚠️ Опасно в избранном: ' +
-      conflicts.map(c => c.s1 + ' + ' + c.s2).join(', ') + '. ' + conflicts[0].note;
-    banner.id = 'conflictBanner';
-    document.body.prepend(banner);
-  }
+  renderBanner('critical', 'conflict-banner', critical.length
+    ? '⚠️ Опасно в избранном: ' + critical.map(c => c.s1 + ' + ' + c.s2).join(', ') + '. ' + critical[0].note : '');
+  renderBanner('medium', 'conflict-banner medium', medium.length
+    ? '⚠️ ' + medium.map(c => c.s1 + ' и ' + c.s2).join(', ') + ' конкурируют за всасывание — разнесите на 2-4 часа' : '');
+  renderBanner('synergy', 'synergy-banner', synergy.length
+    ? '🤝 Хорошая пара: ' + synergy.map(c => c.s1 + ' + ' + c.s2).join(', ') : '');
 }
 
 ['addFav', 'removeFav'].forEach(event => {
