@@ -191,3 +191,8 @@ body.dark header, body.dark .header { background: rgba(18,18,18,.65); }
 border-radius:50%;border:1px solid var(--border);background:var(--card-bg);color:var(--text);
 font-size:1.2rem;cursor:pointer;opacity:0;pointer-events:none;transition:.25s}
 #toTop.show{opacity:1;pointer-events:auto}
+
+/* ===== v2.2: баннер конфликтов избранного ===== */
+.conflict-banner{background:#ff4757;color:#fff;padding:1rem;text-align:center;font-weight:600;
+position:sticky;top:0;z-index:1000;animation:fadeIn .25s}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
