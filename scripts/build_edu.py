@@ -35,14 +35,13 @@ def main() -> None:
             missing.append(key)
             continue
         card = by_id[key]
-        if all(f in card for f in EDU_FIELDS):
+        if all(card.get(f) == v for f, v in fields.items()):
             skipped += 1
             continue
-        for f in EDU_FIELDS:
-            card[f] = fields[f]
+        card.update(fields)
         attached += 1
 
-    print(f"edu attached: {attached} cards (skipped already-filled: {skipped})")
+    print(f"edu attached: {attached} cards (skipped: {skipped})")
     if missing:
         print(f"WARNING: нет карточек для id: {missing}")
 
