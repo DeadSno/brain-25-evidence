@@ -51,6 +51,18 @@ def main() -> int:
             if overflow > 380:
                 print(f"WARN: горизонтальный оверфлоу на 375px: {overflow}px")
 
+            # v2.3: баннер medium на кальций+железо
+            pg.evaluate("localStorage.setItem('favs', JSON.stringify(['Кальций','Железо']))")
+            pg.reload(wait_until="networkidle")
+            if pg.locator(".banner.medium").count():
+                pg.screenshot(path=str(SHOTS / "banner_medium.png"))
+
+            # v2.3: зелёная подсказка в модалке Магния
+            pg.evaluate("localStorage.removeItem('favs')")
+            pg.goto(f"{BASE}/index.html?ts={int(time.time())}#sup=Магний", wait_until="networkidle")
+            pg.wait_for_selector("#modalOverlay", state="visible", timeout=5000)
+            pg.screenshot(path=str(SHOTS / "modal_synergy.png"))
+
             assert not errors, f"ошибки консоли: {errors}"
             b.close()
     finally:

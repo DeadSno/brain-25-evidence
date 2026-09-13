@@ -24,9 +24,33 @@ def main() -> None:
             assert cards == n_all, f"карточек {cards}, ожидалось {n_all}"
             bubbles = pg.evaluate("window.chart?.data?.datasets?.length ?? -1")
             assert bubbles == n_price, f"пузырей {bubbles}, ожидалось {n_price}"
-            pg.goto(f"{BASE}/index.html?ts={int(time.time())}#sup=Креатин", wait_until="networkidle")
+
+            # v2.3: 3 вопроса в DOM
+            qa = pg.locator("#qaSection .qa").count()
+            assert qa == 3, f"секция «3 вопроса»: блоков {qa}, ожидалось 3"
+            assert pg.locator("#qaSection").inner_text(), "секция «3 вопроса» пуста"
+
+            # v2.3: 15 блоков в модалке + заглушка пустых блоков
+            pg.goto(f"{BASE}/index.html?ts={int(time.time())}#sup=Фосфатидилсерин", wait_until="networkidle")
             pg.wait_for_selector("#modalOverlay", state="visible", timeout=5000)
-            assert pg.locator("#modalOverlay").is_visible(), "модалка не открылась"
+            nblocks = pg.locator("#modalBody .cblock").count()
+            assert nblocks == 15, f"блоков полной карточки {nblocks}, ожидалось 15"
+            assert pg.locator("#modalBody .cbEmpty").count() > 0, "нет заглушки «данных пока нет — проверяем»"
+
+            # v2.3: зелёная подсказка «хорошая пара» в модалке Магния (магний+B6)
+            pg.goto(f"{BASE}/index.html?ts={int(time.time())}#sup=Магний", wait_until="networkidle")
+            pg.wait_for_selector("#modalOverlay", state="visible", timeout=5000)
+            friends = pg.locator('[data-block-key="friends"]').inner_text()
+            assert "Витамин B6" in friends, "зелёная подсказка магний+B6 не найдена"
+            assert "Хорошая пара" in friends, "нет подписи «Хорошая пара»"
+
+            # v2.3: живой баннер medium на кальций+железо в favs
+            pg.evaluate("localStorage.setItem('favs', JSON.stringify(['Кальций','Железо']))")
+            pg.reload(wait_until="networkidle")
+            med = pg.locator(".banner.medium")
+            assert med.count() == 1, "баннер medium не появился на кальций+железо"
+            assert "конкурируют за всасывание" in med.inner_text(), "текст medium-баннера не тот"
+
             pg.goto(f"{BASE}/map.html?supplement=Эхинацея", wait_until="networkidle")
             assert "Эхинацея" in pg.locator("#chain").inner_text(), "атлас не открыл добавку"
             assert not errors, f"ошибки консоли: {errors}"
