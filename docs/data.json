@@ -46,7 +46,12 @@
   "food_sources": "Красное мясо и рыба: порядка 4-5 г на килограмм сырого продукта — наесть дозу сложно.",
   "guidelines": "Позиция ISSN: эффективен и безопасен; EFSA health claims для спорта не требует.",
   "how_to_choose": "Моногидрат (знак Creapure); без «транспортных систем» и переплаты за экзотические формы.",
-  "myths": "«Бьёт по почкам у здоровых» — на стандартных дозах не подтверждено. «Без загрузки не работает» — работает, просто медленнее."
+  "myths": "«Бьёт по почкам у здоровых» — на стандартных дозах не подтверждено. «Без загрузки не работает» — работает, просто медленнее.",
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "Омега-3",
@@ -98,7 +103,12 @@
   "food_sources": "Лосось, скумбрия, сардины, сельдь; растительная ALA (лён, грецкий орех) конвертируется в EPA/DHA на 5-10%.",
   "guidelines": "EFSA: DHA для мозга и зрения; AHA: рыба 2 раза в неделю; Cochrane: скромный эффект на сердечно-сосудистые события.",
   "how_to_choose": "На банке мг EPA+DHA, а не «рыбий жир 1000 мг»; формы TG/rTG; окисление (TOTOX) если указано.",
-  "myths": "«Любой рыбий жир работает» — в капсуле 1000 мг может быть 300 мг EPA+DHA. «Растительная омега равноценна» — конверсия ALA низкая."
+  "myths": "«Любой рыбий жир работает» — в капсуле 1000 мг может быть 300 мг EPA+DHA. «Растительная омега равноценна» — конверсия ALA низкая.",
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "Витамин D",
@@ -151,7 +161,12 @@
   "food_sources": "Жирная рыба, желток, обогащённая молочка; зимой еды недостаточно.",
   "guidelines": "EFSA: кости и мышцы; NIH: рекомендует контролировать уровень в крови.",
   "how_to_choose": "D3 (холекальциферол), не D2; масляные капсулы; дозировка в МЕ на этикетке.",
-  "myths": "«Чем больше, тем лучше» — жирорастворимый, накапливается. «Летнего солнца хватает на зиму» — запаса на 2-3 месяца."
+  "myths": "«Чем больше, тем лучше» — жирорастворимый, накапливается. «Летнего солнца хватает на зиму» — запаса на 2-3 месяца.",
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "B12",
@@ -192,7 +207,12 @@
     "severity": "medium",
     "note": "снижает всасывание"
    }
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "Магний",
@@ -250,7 +270,12 @@
   "food_sources": "Тыквенные семечки, миндаль, гречка, тёмный шоколад, листовая зелень.",
   "guidelines": "EFSA: функция мышц и нервной системы; NIH: дефицит чаще после 70 лет.",
   "how_to_choose": "Цитрат, глицинат, бисглицинат — усвоение и переносимость; оксид — дёшев, всасывается плохо, слабит.",
-  "myths": "«Успокаивает сразу» — эффект накопительный. «Любая форма одинакова» — оксид почти не поднимает уровни."
+  "myths": "«Успокаивает сразу» — эффект накопительный. «Любая форма одинакова» — оксид почти не поднимает уровни.",
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "Кофеин",
@@ -305,7 +330,12 @@
   "food_sources": "Кофе, чай, тёмный шоколад, гуарана.",
   "guidelines": "EFSA: 400 мг/сут безопасно; позиция ISSN: эргогеник 3-6 мг/кг.",
   "how_to_choose": "Таблетки для точной дозы перед тренировкой; в кофе доза плавает (эспрессо 60-80 мг).",
-  "myths": "«Кофе обезвоживает» — умеренный диурез не ведёт к дегидратации. «После 18:00 можно всем» — генотип CYP1A2 решает, сон страдает даже без ощущений."
+  "myths": "«Кофе обезвоживает» — умеренный диурез не ведёт к дегидратации. «После 18:00 можно всем» — генотип CYP1A2 решает, сон страдает даже без ощущений.",
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "L-Теанин",
@@ -347,7 +377,12 @@
     "severity": "low",
     "note": "смягчает эффекты, не опасно"
    }
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "Бакопа",
@@ -388,7 +423,12 @@
     "severity": "low",
     "note": "может усиливать седацию"
    }
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "Ежовик",
@@ -424,7 +464,12 @@
     "severity": "low",
     "note": "мало данных, нет известных взаимодействий"
    }
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "Гинкго",
@@ -470,7 +515,12 @@
     "severity": "low",
     "note": "возможна серотониновая нагрузка"
    }
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "Родиола",
@@ -511,7 +561,12 @@
     "severity": "low",
     "note": "может влиять на АД"
    }
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "Ашваганда",
@@ -557,7 +612,12 @@
     "severity": "medium",
     "note": "может повышать T3/T4, контроль ТТГ"
    }
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "Фосфатидилсерин",
@@ -593,7 +653,12 @@
     "severity": "low",
     "note": "известных взаимодействий нет"
    }
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "Alpha-GPC",
@@ -629,7 +694,12 @@
     "severity": "low",
     "note": "известных взаимодействий нет"
    }
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "CDP-холин",
@@ -665,7 +735,12 @@
     "severity": "low",
     "note": "известных взаимодействий нет"
    }
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "Гуперзин А",
@@ -706,7 +781,12 @@
     "severity": "medium",
     "note": "антагонизм эффектов"
    }
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "Куркумин",
@@ -763,7 +843,12 @@
   "food_sources": "Куркума в пище (около 3% куркумина); с пиперином и жирами всасывание выше.",
   "guidelines": "EFSA: claims не одобрены; ряд МА — скромный эффект при остеоартрите, сопоставимый с НПВС в малых trials.",
   "how_to_choose": "Стандартизация 95% куркуминоидов + пиперин либо фосфосомные/жидкие формы; «порошок куркумы в капсуле» слаб.",
-  "myths": "«Куркума в еде = доза добавки» — в 1-2 г порошка 30-60 мг куркумина с плохим всасыванием. «Полностью лечит воспаление» — эффект скромный."
+  "myths": "«Куркума в еде = доза добавки» — в 1-2 г порошка 30-60 мг куркумина с плохим всасыванием. «Полностью лечит воспаление» — эффект скромный.",
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "Ресвератрол",
@@ -804,7 +889,12 @@
     "severity": "low",
     "note": "дополнительный антиагрегантный эффект"
    }
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "NAC",
@@ -845,7 +935,12 @@
     "severity": "medium",
     "note": "снижает всасывание"
    }
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "Цинк",
@@ -899,7 +994,12 @@
   "food_sources": "Устрицы, говядина, тыквенные семечки, сыр.",
   "guidelines": "EFSA: иммунитет и кожа; NIH: вегетарианцы в группе риска дефицита.",
   "how_to_choose": "Пиколинат, цитрат, глюконат; 15-25 мг элементарного цинка; «50 мг + медь» без показаний не брать.",
-  "myths": "«Вылечит простуду за день» — пастилки слегка сокращают длительность. «Больше — больше тестостерона» — только при дефиците."
+  "myths": "«Вылечит простуду за день» — пастилки слегка сокращают длительность. «Больше — больше тестостерона» — только при дефиците.",
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "Тирозин",
@@ -940,7 +1040,12 @@
     "severity": "medium",
     "note": "конкурируют за всасывание"
    }
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "Таурин",
@@ -981,7 +1086,12 @@
     "severity": "low",
     "note": "возможно влияние на концентрацию"
    }
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "CoQ10",
@@ -1025,7 +1135,12 @@
   ],
   "synergists": [
    "Витамин E"
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "Пикногенол",
@@ -1066,7 +1181,12 @@
     "severity": "low",
     "note": "иммуностимулирующий эффект"
    }
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "Готу кола",
@@ -1102,7 +1222,12 @@
     "severity": "low",
     "note": "известных взаимодействий нет"
    }
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "Мелатонин",
@@ -1157,7 +1282,12 @@
   "food_sources": "Вишня, грецкие орехи, рис — следовые количества, без практической роли.",
   "guidelines": "EFSA: 0.5 мг перед сном уменьшает джетлаг; NIH: коротким курсом для засыпания.",
   "how_to_choose": "Низкие дозы 0.5-1 мг; без связок «10 мг + травы».",
-  "myths": "«Больше — быстрее уснёшь» — кривая доза-эффект плоская после 1-3 мг. «Можно месяцами» — данных мало, лучше курсами."
+  "myths": "«Больше — быстрее уснёшь» — кривая доза-эффект плоская после 1-3 мг. «Можно месяцами» — данных мало, лучше курсами.",
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "ГАБА",
@@ -1198,7 +1328,12 @@
     "severity": "low",
     "note": "может усиливать седацию"
    }
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "Глицин",
@@ -1239,7 +1374,12 @@
     "severity": "low",
     "note": "усиливает седацию"
    }
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "Валериана",
@@ -1280,7 +1420,12 @@
     "severity": "high",
     "note": "усиливает седацию"
    }
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "Бета-аланин",
@@ -1316,7 +1461,12 @@
     "severity": "low",
     "note": "нет известных взаимодействий"
    }
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "L-цитруллин",
@@ -1357,7 +1507,12 @@
     "severity": "medium",
     "note": "усиливает вазодилатацию"
    }
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "Витамин C",
@@ -1409,7 +1564,12 @@
   "food_sources": "Болгарский перец, чёрная смородина, киви, цитрусовые, квашеная капуста.",
   "guidelines": "EFSA: иммунитет и коллаген; Cochrane: простуда — чуть короче длится, но не реже в общей популяции.",
   "how_to_choose": "Обычная аскорбиновая кислота достаточна; «липосомальные и эстерифицированные» — переплата без сильных данных.",
-  "myths": "«Предотвращает простуду» — в общей популяции нет. «Мегадозы безопасны» — ЖКТ и камни."
+  "myths": "«Предотвращает простуду» — в общей популяции нет. «Мегадозы безопасны» — ЖКТ и камни.",
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "Эхинацея",
@@ -1450,7 +1610,12 @@
     "severity": "medium",
     "note": "теоретический риск"
    }
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "Бузина",
@@ -1486,7 +1651,12 @@
     "severity": "low",
     "note": "известных взаимодействий нет"
    }
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "Зверобой",
@@ -1537,7 +1707,12 @@
     "severity": "high",
     "note": "снижает эффект, контроль МНО"
    }
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "5-HTP",
@@ -1578,7 +1753,12 @@
     "severity": "critical",
     "note": "серотониновый синдром"
    }
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "Коллаген",
@@ -1614,7 +1794,12 @@
     "severity": "low",
     "note": "нет известных взаимодействий"
    }
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "Пробиотики",
@@ -1663,7 +1848,12 @@
   "food_sources": "Йогурт, кефир, квашеная капуста, кимчи, комбуча — смежно, но не равно добавке.",
   "guidelines": "Cochrane: умеренные данные по L. rhamnosus GG и S. boulardii при антибиотик-диарее; EFSA: claims «иммунитет» не одобрены.",
   "how_to_choose": "Штамм на этикетке (LGG, а не просто Lactobacillus); КОЕ на срок годности, не на выпуск; условия хранения.",
-  "myths": "«Больше миллиардов КОЕ — лучше» — важнее штамм и доказательства. «Заселяет кишечник навсегда» — транзиторен по природе."
+  "myths": "«Больше миллиардов КОЕ — лучше» — важнее штамм и доказательства. «Заселяет кишечник навсегда» — транзиторен по природе.",
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "B9",
@@ -1704,7 +1894,12 @@
     "severity": "medium",
     "note": "может снижать концентрацию препаратов"
    }
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "Железо",
@@ -1755,7 +1950,12 @@
    "Кальций",
    "Цинк",
    "Магний"
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "Триптофан",
@@ -1791,7 +1991,12 @@
     "severity": "critical",
     "note": "серотониновый синдром, ОПАСНО"
    }
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "Глюкозамин + хондроитин",
@@ -1832,7 +2037,12 @@
     "severity": "low",
     "note": "может влиять на гликемию"
    }
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "Витамин E",
@@ -1873,7 +2083,12 @@
     "severity": "low",
     "note": "может снижать эффект (спорно)"
    }
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "Биотин",
@@ -1909,7 +2124,12 @@
     "severity": "high",
     "note": "искажает результаты, стоп за 3 дня"
    }
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "L-карнитин",
@@ -1950,7 +2170,12 @@
     "severity": "medium",
     "note": "может снижать эффект"
    }
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "BCAA",
@@ -1986,7 +2211,12 @@
     "severity": "medium",
     "note": "конкурируют за всасывание"
    }
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "Аргинин",
@@ -2027,7 +2257,12 @@
     "severity": "medium",
     "note": "усиливает вазодилатацию"
    }
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "Кальций",
@@ -2077,7 +2312,12 @@
   "antagonists": [
    "Железо",
    "Цинк"
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "Гиалуроновая кислота",
@@ -2113,7 +2353,12 @@
     "severity": "low",
     "note": "теоретический риск (инъекции)"
    }
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "Псиллиум",
@@ -2149,7 +2394,12 @@
     "severity": "medium",
     "note": "снижает всасывание, раздельный приём 2 часа"
    }
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "Имбирь",
@@ -2190,7 +2440,12 @@
     "severity": "low",
     "note": "может усиливать эффект"
    }
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "Чеснок",
@@ -2231,7 +2486,12 @@
     "severity": "high",
     "note": "снижает концентрацию"
    }
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "Клюква",
@@ -2267,7 +2527,12 @@
     "severity": "high",
     "note": "усиливает эффект, контроль МНО"
    }
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "Пустырник",
@@ -2308,7 +2573,12 @@
     "severity": "low",
     "note": "может усиливать эффект"
    }
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "Боярышник",
@@ -2349,7 +2619,12 @@
     "severity": "medium",
     "note": "усиливает эффект"
    }
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "Бета-глюканы овса",
@@ -2385,7 +2660,12 @@
     "severity": "low",
     "note": "нет известных взаимодействий"
    }
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "Рибофлавин",
@@ -2421,7 +2701,12 @@
     "severity": "low",
     "note": "нет известных взаимодействий"
    }
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "Лютеин + зеаксантин",
@@ -2457,7 +2742,12 @@
     "severity": "low",
     "note": "нет известных взаимодействий"
    }
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "Инозитол",
@@ -2493,7 +2783,12 @@
     "severity": "medium",
     "note": "может снижать эффект"
    }
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "Альфа-липоевая кислота",
@@ -2534,7 +2829,12 @@
     "severity": "low",
     "note": "может влиять на метаболизм"
    }
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "D-манноза",
@@ -2570,7 +2870,12 @@
     "severity": "low",
     "note": "нет известных взаимодействий"
    }
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "Мака",
@@ -2606,7 +2911,12 @@
     "severity": "low",
     "note": "известных взаимодействий нет"
    }
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "Хром",
@@ -2642,7 +2952,12 @@
     "severity": "low",
     "note": "известных взаимодействий нет"
    }
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "Астаксантин",
@@ -2678,7 +2993,12 @@
     "severity": "low",
     "note": "теоретический риск"
    }
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "Расторопша",
@@ -2714,7 +3034,12 @@
     "severity": "medium",
     "note": "может влиять на метаболизм"
    }
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "Лактоферрин",
@@ -2753,7 +3078,12 @@
   ],
   "synergists": [
    "Железо"
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "SAMe",
@@ -2789,7 +3119,12 @@
     "severity": "high",
     "note": "серотониновый синдром"
    }
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "Йохимбин",
@@ -2830,7 +3165,12 @@
     "severity": "high",
     "note": "антагонизм эффектов"
    }
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "Пажитник",
@@ -2871,7 +3211,12 @@
     "severity": "medium",
     "note": "усиливает эффект"
    }
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "Чёрный тмин",
@@ -2912,7 +3257,12 @@
     "severity": "low",
     "note": "может усиливать эффект"
    }
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "Трибулус",
@@ -2948,7 +3298,12 @@
     "severity": "low",
     "note": "может влиять на гликемию"
    }
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "NMN/NR",
@@ -2984,7 +3339,12 @@
     "severity": "low",
     "note": "мало данных, нет известных взаимодействий"
    }
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "Кордицепс",
@@ -3020,7 +3380,12 @@
     "severity": "medium",
     "note": "антагонизм эффектов"
    }
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "Рейши",
@@ -3061,7 +3426,12 @@
     "severity": "medium",
     "note": "антагонизм эффектов"
    }
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "Хлорофилл",
@@ -3097,7 +3467,12 @@
     "severity": "low",
     "note": "нет известных взаимодействий"
    }
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "Сывороточный протеин",
@@ -3133,7 +3508,12 @@
     "severity": "medium",
     "note": "белок снижает всасывание, раздельный приём"
    }
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "Глутамин",
@@ -3169,7 +3549,12 @@
     "severity": "low",
     "note": "может снижать токсичность (адъювант)"
    }
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "Босвеллия",
@@ -3210,7 +3595,12 @@
     "severity": "medium",
     "note": "может влиять на свёртываемость"
    }
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "Витамин K2",
@@ -3249,7 +3639,12 @@
   ],
   "synergists": [
    "Витамин D"
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "Берберин",
@@ -3295,7 +3690,12 @@
     "severity": "medium",
     "note": "может влиять на свёртываемость"
    }
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  },
  {
   "id": "Кверцетин",
@@ -3336,6 +3736,11 @@
     "severity": "medium",
     "note": "может повышать концентрацию"
    }
-  ]
+  ],
+  "hedges_g": null,
+  "hedges_g_ci": null,
+  "effect_outcome": null,
+  "grade": null,
+  "key_sources": []
  }
 ]
