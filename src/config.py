@@ -353,3 +353,7 @@ EN.update(EN_V20)
 NORM.update(NORM_V20)
 WB_QUERY.update(WB_QUERY_V20)
 OUTCOME = {**OUTCOME_V12, **OUTCOME_V20}
+
+# ALIGN ADAPTER (S6): заглушки для scripts/update_prices.py. Реальные значения — в S7 (ranbuk шаг 4).
+DOSE_PER_DAY: dict[str, float] = {}
+UNITS_PER_PACK: dict[str, float] = {}
