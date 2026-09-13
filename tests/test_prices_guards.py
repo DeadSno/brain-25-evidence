@@ -2,6 +2,7 @@
 import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
+import requests
 import collectors as C
 from update_prices import jump_ok, median_price
 
@@ -35,3 +36,23 @@ def test_median_and_divergence():
 def test_jump_guard():
     assert jump_ok(500, 600) and not jump_ok(500, 5000)
     assert jump_ok(None, 10)
+
+
+def test_warmup_calls_session_get(monkeypatch):
+    calls = []
+
+    class FakeResp:
+        status_code = 200
+        cookies = {}
+
+        def json(self):
+            return {"data": {"products": []}}
+
+        def raise_for_status(self):
+            return None
+
+    monkeypatch.setattr(requests.Session, "get",
+                        lambda self, url, **kw: calls.append(url) or FakeResp())
+    monkeypatch.setattr(C, "_old_wb", lambda *a, **k: [])
+    C.collect_wb("креатин")
+    assert calls and calls[0] == C.WB_HOME
