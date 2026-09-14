@@ -214,6 +214,126 @@ def main() -> None:
                 "в сравнении осталась «Ценность»"
             # ==================== конец v2.6.1 ====================
 
+            # ==================== v2.6.2: UI-фиксы ====================
+
+            # F1.3: JS-рендер tĩnh строки (не из HTML) — «цена не найдена» из script.js
+            ts += 1; pg.goto(f"{BASE}/index.html?ts={ts}", wait_until="domcontentloaded")
+            pg.wait_for_selector(".card[data-id]", state="attached", timeout=5000)
+            pg.wait_for_function("window.chart != null", timeout=5000)
+            assert "цена не найдена" in pg.content(), \
+                "F1.3: JS-строка «цена не найдена» не рендерится (.encoding?)"
+
+            # F2.3: категория «Спорт» — графики уважают фильтры
+            n_sport = sum(1 for s in data if s.get("category") == "Спорт")
+            n_sport_ma = sum(1 for s in data if s.get("category") == "Спорт" and (s.get("metaCount") or 0) > 0)
+            n_sport_price = sum(1 for s in data if s.get("category") == "Спорт" and s.get("price") is not None)
+            pg.locator("#categoryFilter").select_option(label="Спорт")
+            pg.wait_for_timeout(300)
+            sport_cards = pg.locator(".card[data-id]").count()
+            assert sport_cards == n_sport, f"F2.3: карточек «Спорт» {sport_cards}, ожидалось {n_sport}"
+            # пузырей на оси МА = спортивных с metaCount>0
+            sport_bubbles_ma = pg.evaluate("window.chart?.data?.datasets?.length ?? -1")
+            assert sport_bubbles_ma == n_sport_ma, \
+                f"F2.3: пузырей МА «Спорт» {sport_bubbles_ma}, ожидалось {n_sport_ma}"
+            # переключить на цену → пузырей = спортивных с ценой
+            pg.click("#axisPrice")
+            pg.wait_for_function("window.chart?.data?.datasets.length === " + str(n_sport_price), timeout=5000)
+            sport_bubbles_price = pg.evaluate("window.chart?.data?.datasets?.length ?? -1")
+            assert sport_bubbles_price == n_sport_price, \
+                f"F2.3: пузырей цена «Спорт» {sport_bubbles_price}, ожидалось {n_sport_price}"
+            # подпись под чартом
+            summary = pg.locator("#chartSummary").inner_text()
+            assert f"показано {n_sport} из {n_all}" in summary, \
+                f"F2.2: подпись чарта не совпадает: {summary!r}"
+            # сброс фильтра
+            pg.locator("#categoryFilter").select_option(index=0)
+            pg.wait_for_timeout(200)
+
+            # F4.3: радар — значения ∈ [0,100]
+            ts += 1; pg.goto(f"{BASE}/index.html?ts={ts}", wait_until="domcontentloaded")
+            pg.wait_for_selector(".card[data-id]", state="attached", timeout=5000)
+            pg.wait_for_function("window.chart != null", timeout=5000)
+            # открыть секцию сравнения, чтобы радар отрендерился
+            pg.select_option("#compareSelect1", label="Кофеин")
+            pg.select_option("#compareSelect2", label="Креатин")
+            pg.click("#compareBtn")
+            pg.wait_for_function("window.radarInstance != null", timeout=5000)
+            radar_vals = pg.evaluate("""() => {
+                const ds = window.radarInstance.data.datasets;
+                return ds.flatMap(d => d.data);
+            }""")
+            assert all(0 <= v <= 100 for v in radar_vals), \
+                f"F4.3: радар значения вне [0,100]: {[round(v,1) for v in radar_vals if v < 0 or v > 100]}"
+            # подпись осей содержит «нормировано по базе»
+            labels_text = pg.evaluate("window.radarInstance.data.labels.join(' ')")
+            assert "нормировано по базе" in labels_text, \
+                f"F4.3: нет подписи «нормировано по базе» на осях: {labels_text!r}"
+
+            # F5.4: высота секции доверия #trustSummary ≤ 40% прежней
+            OLD_TRUST_HEIGHT = 223.5   # измерено на main (9acbd6a) playwright 1280×900
+            pg.goto(f"{BASE}/index.html?ts={ts}", wait_until="domcontentloaded")
+            pg.wait_for_selector("#cardsGrid .card", state="attached", timeout=5000)
+            pg.wait_for_function("window.chart != null", timeout=5000)
+            trust_h = pg.locator("#trustSummary").bounding_box()["height"]
+            assert trust_h <= 0.40 * OLD_TRUST_HEIGHT + 10, \
+                f"F5.4: высота #trustSummary {trust_h:.1f}px > 40% ({0.40*OLD_TRUST_HEIGHT:.1f}px) прежней {OLD_TRUST_HEIGHT}px"
+
+            # F3.2: ссылки в обеих темах ≥4.5:1 (проверка через getComputedStyle)
+            def _contrast_hex(c1, c2):
+                import math
+                def _srgb(x):
+                    x /= 255
+                    return x / 12.92 if x <= 0.04045 else ((x + 0.055) / 1.055) ** 2.4
+                def _lum(r, g, b):
+                    return 0.2126 * _srgb(r) + 0.7152 * _srgb(g) + 0.0722 * _srgb(b)
+                def _parse(c):
+                    c = c.strip()
+                    if c.startswith("#"):
+                        c = c[1:]
+                        if len(c) == 3:
+                            c = c[0]*2 + c[1]*2 + c[2]*2
+                        return int(c[0:2], 16), int(c[2:4], 16), int(c[4:6], 16)
+                    if c.startswith("rgb"):
+                        parts = c.replace("rgba(", "").replace("rgb(", "").split(",")[:3]
+                        return int(parts[0]), int(parts[1]), int(parts[2])
+                    return 128, 128, 128
+                r1, g1, b1 = _parse(c1)
+                r2, g2, b2 = _parse(c2)
+                L1, L2 = _lum(r1, g1, b1), _lum(r2, g2, b2)
+                if L1 < L2:
+                    L1, L2 = L2, L1
+                return (L1 + 0.05) / (L2 + 0.05)
+
+            # deferred to ui_verify for thorough multi-element check; quick smoke:
+            for theme in ["light", "dark"]:
+                pg.evaluate(f"document.body.classList.toggle('dark', '{theme}' === 'dark')")
+                pg.wait_for_timeout(150)
+                res = pg.evaluate("""() => {
+                    function fg_bg(sel) {
+                        const el = document.querySelector(sel);
+                        if (!el) return null;
+                        const s = getComputedStyle(el);
+                        let bg = s.backgroundColor, node = el;
+                        while ((bg === 'rgba(0, 0, 0, 0)' || bg === 'transparent') && node.parentElement) {
+                            node = node.parentElement;
+                            bg = getComputedStyle(node).backgroundColor;
+                        }
+                        return {fg: s.color, bg: bg};
+                    }
+                    return {
+                        methodology: fg_bg('footer a[href="methodology.html"]'),
+                        qaMore: fg_bg('.qaMore'),
+                        chip: fg_bg('.trustChips .chip'),
+                    };
+                }""")
+                for name, pair in res.items():
+                    if pair:
+                        ratio = _contrast_hex(pair["fg"], pair["bg"])
+                        assert ratio >= 4.5, \
+                            f"F3.2 [{theme}] {name}: контраст {ratio:.1f}:1 < 4.5:1 (fg={pair['fg']}, bg={pair['bg']})"
+
+            # ==================== конец v2.6.2 ====================
+
             assert not errors, f"ошибки консоли: {errors}"
 
             # v2.5: faq/glossary/changelog_public рендерятся, футер-ссылки на них живые
