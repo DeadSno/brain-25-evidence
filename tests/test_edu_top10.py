@@ -1,4 +1,4 @@
-"""v2.3.1: контент топ-10 для 15 блоков (бриф v2.3b)."""
+"""v2.3.1+v2.5: контент для 15 блоков (брифы v2.3b, v2.5 — контент №1+№2)."""
 import json
 import sys
 from pathlib import Path
@@ -13,7 +13,7 @@ SCRIPT = (ROOT / "docs" / "script.js").read_text(encoding="utf-8")
 
 EDU_FIELDS = ["about", "who_needs", "onset", "upper_limit",
               "food_sources", "guidelines", "how_to_choose", "myths"]
-EXPECTED = 10
+EXPECTED = 20
 
 
 def test_edu_top10_all_fields_nonempty_in_data():
