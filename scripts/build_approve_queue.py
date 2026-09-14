@@ -55,12 +55,6 @@ def match_prior(sid: str, g: float | None) -> float | None:
     return None
 
 
-def query_outcome(snippet: str) -> str:
-    """Первые 40 значимых символов сниппета как «исход»."""
-    t = snippet.strip()
-    return t[:40].replace("\n", " ") if t else "—"
-
-
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--top10", action="store_true", help="только EDU_TOP10")
@@ -74,8 +68,12 @@ def main() -> None:
         chosen = [c for c in chosen if c in top]
 
     rows = []
+    seen: set[str] = set()
     for sid in chosen:
         for cand in candidates(sid, QUERIES[sid]):
+            if cand["pmid"] in seen:
+                continue
+            seen.add(cand["pmid"])
             ci = "—"
             if cand["ci"]:
                 ci = f"{cand['ci'][0]:.2f}..{cand['ci'][1]:.2f}"
@@ -84,7 +82,8 @@ def main() -> None:
             ok = "да" if prior is not None else "?"
             rows.append({
                 "sid": sid, "pmid": cand["pmid"], "year": year_of(cand["pmid"]),
-                "g": f"{g:+.2f}", "ci": ci, "outcome": query_outcome(cand["snippet"]),
+                "g": f"{g:+.2f}", "ci": ci,
+                "outcome": cand["outcome"] or "—",
                 "snippet": cand["snippet"].replace("\n", " ").replace("|", r"\|")[:120],
                 "prior": f"{prior:.2f}" if prior is not None else "—",
                 "ok": ok})
