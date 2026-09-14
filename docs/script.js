@@ -17,6 +17,7 @@ function gradeBadge(s) {
 const DOT_FILL = { A: 4, B: 3, C: 2, D: 1 };
 const DOT_COLOR = { A: '#2ecc71', B: '#7dcea0', C: '#f4d03f', D: '#eb984e' };
 const DOT_TIP = "Грейд считает силу эффекта (Hedges' g) и объём науки (scienceIndex). Вердикт — ручная оценка по методологии.";
+const GRADE_PRIOR = { A: 0, B: 1, C: 2, D: 3 };   // v2.6.1: сортировка «по грейду» A<B<C<D<нет
 function gradeDots(s) {
   const fill = s.grade ? (DOT_FILL[s.grade] || 0) : 0;
   const color = s.grade ? (DOT_COLOR[s.grade] || '#bdc3c7') : '#bdc3c7';
@@ -239,7 +240,50 @@ function setChartTab(tab) {
 }
 
 const vColor = c => c === 1 ? '#2d8a4e' : c === 0 ? '#d4a017' : '#c0392b';
-const val = s => s.price > 0 ? +(s.scienceIndex / s.price * 100).toFixed(1) : null;
+
+// ===== v2.6.1: демонтаж Value Score, честная экономика =====
+// ₽ за единицу эффекта = round(цена / Hedges' g) при обоих ненулевых;
+// иначе — честная причина, а не ноль/прочерк-обманка.
+function ppe(s) {
+  if (s.price != null && s.price > 0 && s.hedges_g != null) return Math.round(s.price / s.hedges_g);
+  return null;
+}
+function ppeReason(s) {
+  if (s.price == null) return 'цена не найдена — не считаем';
+  return 'Эффект ждёт верификации — ₽ за единицу эффекта не считаем';
+}
+function priceTip(s) {
+  const d = s.price_date || 'дата неизвестна';
+  return '<span class="priceTip" title="Цена на ' + d +
+    '; ночной сбор временно заблокирован TLS-фильтром маркетплейса, трек reliability в работе">' +
+    (s.price != null ? s.price + ' ₽/мес' : 'цена не найдена') + '</span>';
+}
+function ppeModalLine(s) {
+  const v = ppe(s);
+  if (v != null) return '<div class="mrow">📐 <b>₽ за единицу эффекта (цена / Hedges\' g):</b> ' + v + '</div>';
+  return '<div class="mrow">📐 ' + ppeReason(s) + '</div>';
+}
+function economicsBlock(s) {
+  return '<div class="blockTitle">💰 ЭКОНОМИКА</div>' +
+    '<div class="mrow">🏷 <b>Цена:</b> ' + priceTip(s) + (s.price_source ? ' · источник: ' + s.price_source : '') + '</div>' +
+    ppeModalLine(s);
+}
+function verifiedCount() {
+  return supplements.filter(x => (x.key_sources || []).length).length;
+}
+function maTop3Block(s) {
+  const list = s.ma_top3 || [];
+  const note = 'Автоматический топ-3 запроса PubMed. Ручная верификация эффекта — в грейде и key_sources; верифицированных добавок сейчас: ' + verifiedCount() + '.';
+  const body = list.length
+    ? '<div class="mrow">' + list.map(m =>
+        '<a class="srcIcon" target="_blank" rel="noopener" href="https://pubmed.ncbi.nlm.nih.gov/' + m.pmid + '/">' + m.title + ' (' + m.year + ') ↗</a>'
+      ).join('<br>') + '</div>'
+    : '<div class="mrow cbEmpty">Автотоп-3 PubMed пока не собран — нужен живой прогон (P-стоп)</div>';
+  return '<div class="blockTitle">📚 Ключевые мета-анализы (топ-3 поиска)</div>' +
+    '<div class="mrow hint" style="font-size:.85rem;opacity:.9">' + note + '</div>' +
+    body +
+    '<div class="mrow hint" style="font-size:.85rem;opacity:.9">' + note + '</div>';
+}
 
 function applyFilters() {
   const q = $('search').value.toLowerCase().trim();
@@ -253,10 +297,9 @@ function applyFilters() {
   if (onlyFavs) currentData = currentData.filter(x => isFav(x.id));
   const cmp = {
     science: (a, b) => b.scienceIndex - a.scienceIndex,
-    value: (a, b) => (val(b) || -1) - (val(a) || -1),
     price_asc: (a, b) => (a.price || 1e9) - (b.price || 1e9),
-    reviews: (a, b) => (b.reviews || 0) - (a.reviews || 0),
-    name: (a, b) => a.name.localeCompare(b.name, 'ru')
+    name: (a, b) => a.name.localeCompare(b.name, 'ru'),
+    grade: (a, b) => ((GRADE_PRIOR[a.grade] ?? 4) - (GRADE_PRIOR[b.grade] ?? 4)) || (b.scienceIndex - a.scienceIndex)
   };
   currentData.sort(cmp[sort]);
   $('countBadge').textContent = '(' + currentData.length + ' из ' + supplements.length + ')';
@@ -280,8 +323,6 @@ function renderCards(data) {
       : '<div class="price noPrice">цена не найдена · <a target="_blank" rel="noopener" href="' +
         'https://github.com/DeadSno/brain-25-evidence/issues/new?title=' +
         encodeURIComponent('Цена не найдена: ' + s.id) + '">предложить</a></div>') +
-    (val(s) !== null ? '<div class="value">⚖️ ценность: ' + val(s) + '</div>' : '') +
-    (val(s) !== null ? '<div class="valBar"><i style="width:' + Math.min(100, val(s) / 3) + '%"></i></div>' : '') +
     '<div class="effects">' + (s.effects || []).map(e => '<span>' + e + '</span>').join('') + '</div></div>').join('');
   g.querySelectorAll('.card').forEach(el => el.onclick = (e) => {
     if (e.target.closest('a')) return;
@@ -313,7 +354,9 @@ function openModal(id) {
 
   $('modalBody').innerHTML = '<h2>' + s.name + '</h2>' + updatedLine(s) + manualBadge(s) +
     '<div class="mrow"><span class="verdict v' + s.code + '">' + s.verdict + '</span> · ' + (s.category || '') + (s.grade ? ' · <span class="grade g' + s.grade + '">грейд ' + s.grade + '</span> · ' + (GRADE_LABEL[s.grade] || '') : '') + '</div>' + gradeDots(s) +
-    '<div class="mrow">💰 <b>' + (s.price ? s.price + ' ₽/мес' : '—') + '</b>' + priceSrcLink(s) + ' · 🔬 наука: <b>' + s.scienceIndex + '</b>' + pubmedLink(s) + ' · 📚 MA: <b>' + s.metaCount + '</b>' + (val(s) !== null ? ' · ⚖️ ценность: <b>' + val(s) + '</b>' : '') + '</div>' +
+    '<div class="mrow">💰 <b>' + (s.price ? s.price + ' ₽/мес' : '—') + '</b>' + priceSrcLink(s) + ' · 🔬 наука: <b>' + s.scienceIndex + '</b>' + pubmedLink(s) + ' · 📚 MA: <b>' + s.metaCount + '</b></div>' +
+    economicsBlock(s) +
+    maTop3Block(s) +
     '<div class="mrow" style="font-size:.85rem;opacity:.9">⚠️ Проект не является медицинской рекомендацией. При болезнях, беременности и приёме лекарств — сначала к врачу.</div>' +
     '<div class="mrow">🛒 <a class="wbLink" target="_blank" rel="noopener" href="https://www.wildberries.ru/catalog/0/search.aspx?search=' + encodeURIComponent(s.name) + '">Проверить актуальную цену на WB</a></div>' +
     trialsLine +
@@ -494,7 +537,7 @@ function renderCompare() {
   const rows = [
     ['Вердикт', a.verdict, b.verdict],
     ['Цена (₽/мес)', a.price ?? '—', b.price ?? '—'],
-    ['⚖️ Ценность', val(a) ?? '—', val(b) ?? '—'],
+    ['₽ за единицу эффекта', ppe(a) != null ? ppe(a) : ppeReason(a), ppe(b) != null ? ppe(b) : ppeReason(b)],
     ['Индекс науки', a.scienceIndex, b.scienceIndex],
     ['Мета-анализов', a.metaCount, b.metaCount],
     ['🧪 Испытания сейчас', a.ongoing ?? '—', b.ongoing ?? '—'],
