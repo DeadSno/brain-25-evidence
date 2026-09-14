@@ -1,0 +1,12 @@
+{
+  "name": "БАДы: цена vs наука",
+  "short_name": "БАДы",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#1c1c1e",
+  "theme_color": "#1c1c1e",
+  "icons": [
+    { "src": "./icons/192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "./icons/512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
