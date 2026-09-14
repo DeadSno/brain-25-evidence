@@ -40,7 +40,7 @@ def _prof(s):
         [x.get("metaCount") or 0 for x in DATA],
         [x.get("reviews") or 0 for x in DATA],
         [x.get("trends") or 0 for x in DATA],
-        [x.get("price") for x in DATA if x.get("price") is not None],
+        [x.get("price") for x in DATA],   # null → 0 в pctile (как в script.js)
     ]
     vals = []
     for i in range(5):
