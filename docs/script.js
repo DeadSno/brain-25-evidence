@@ -361,17 +361,18 @@ function closeModal() {
 
 // ===== v2.6: сменная ось X графика (Цена/MА/РКИ/Год) =====
 let axisX = 'ma';
+const AXIS_IDS = { price: 'axisPrice', ma: 'axisMA', rct: 'axisRCT', year: 'axisYear' };
 const AXIS_LABEL = { price: 'Цена за месяц (₽)', ma: 'Число МА', rct: 'Число РКИ', year: 'Год последнего МА' };
 function axisVal(s) {
-  if (axisX === 'price') return s.price;
-  if (axisX === 'ma') return s.metaCount || 0;
-  if (axisX === 'rct') return Math.max(0, (s.scienceIndex || 0) - 5 * (s.metaCount || 0));
-  return s.year_last_ma;
+  if (axisX === 'price') return (s.price || 0) > 0 ? s.price : null;
+  if (axisX === 'ma') return (s.metaCount || 0) > 0 ? s.metaCount : null;
+  if (axisX === 'rct') { const r = Math.max(0, (s.scienceIndex || 0) - 5 * (s.metaCount || 0)); return r > 0 ? r : null; }
+  return s.year_last_ma || null;
 }
 function setAxisX(ax) {
   if (ax === axisX) return;
   axisX = ax;
-  ['price', 'ma', 'rct', 'year'].forEach(k => $('axis' + k.toUpperCase()).classList.toggle('on', k === ax));
+  ['price', 'ma', 'rct', 'year'].forEach(k => $(AXIS_IDS[k]).classList.toggle('on', k === ax));
   if (currentData.length && chartTab === 'price') renderBubble(currentData);
 }
 
