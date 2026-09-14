@@ -233,3 +233,39 @@ position:sticky;top:0;z-index:1000;animation:fadeIn .25s}
 .gB{background:linear-gradient(135deg,#2980b9,#3498db)}
 .gC{background:linear-gradient(135deg,#b7791f,#d4a017)}
 .gD{background:linear-gradient(135deg,#666,#999)}
+
+/* ===== v2.6: add-on trust ===== */
+.trustbar{position:sticky;top:0;z-index:100;background:var(--card-bg);color:var(--accent);
+  border-bottom:1px solid var(--border);text-align:center;font-size:.8rem;font-weight:600;
+  padding:.45rem .5rem;letter-spacing:.02em}
+
+/* ===== v2.6: 5-точечный бейдж доверия (грейд) ===== */
+.gdots{display:inline-flex;gap:3px;vertical-align:middle;margin-left:.35rem}
+.gdots i{width:10px;height:10px;border-radius:50%;background:#bdc3c7;display:inline-block}
+.gdots i.on{box-shadow:0 0 4px rgba(0,0,0,.25)}
+.vwait{font-size:.72rem;opacity:.6;margin-left:.4rem;font-style:italic}
+
+/* ===== v2.6: ручная вычитка ===== */
+.manual-badge{display:inline-flex;align-items:center;gap:.25rem;font-size:.68rem;font-weight:700;
+  padding:.15rem .5rem;border-radius:999px;border:1px solid var(--border);color:var(--text);
+  cursor:help;vertical-align:middle;margin-left:.4rem}
+.manual-badge:hover{border-color:var(--accent);color:var(--accent)}
+
+/* ===== v2.6: «Обновлено» под названием ===== */
+.updatedLine{font-size:.68rem;opacity:.55;display:block;margin:.1rem 0 .35rem}
+
+/* ===== v2.6: иконки источников ===== */
+.srcIcon{display:inline-block;font-size:.68rem;font-weight:700;padding:.1rem .45rem;
+  border-radius:999px;background:var(--bg);border:1px solid var(--border);color:var(--text);
+  text-decoration:none;vertical-align:middle;margin-left:.25rem}
+.srcIcon:hover{border-color:var(--accent);color:var(--accent)}
+
+/* ===== v2.6: поделиться + сравнить в модалке ===== */
+.shareRow{display:flex;gap:.4rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+.shareRow a{text-decoration:none}
+.compareChips{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.3rem}
+.compareChips .chipbx{background:var(--bg);border:1px solid var(--border);border-radius:999px;
+  padding:.2rem .6rem;font-size:.8rem;cursor:pointer}
+.compareChips .chipbx:hover{border-color:var(--accent);color:var(--accent)}
+#trustSummary ul{margin:.4rem 0 0 1.2rem;opacity:.9}
+#trustSummary li{margin:.2rem 0}
