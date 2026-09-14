@@ -62,11 +62,10 @@ try {
   </select>
   <select id="categoryFilter"><option value="all">Все категории</option></select>
   <select id="sortSelect">
-    <option value="science">🔬 Топ-3 по доказательности</option>
-    <option value="value">⚖️ По ценности (наука/цена)</option>
+    <option value="science">🔬 По доказательности (наука)</option>
     <option value="price_asc">Сначала дешёвые</option>
-    <option value="reviews">По популярности (WB)</option>
     <option value="name">По алфавиту</option>
+    <option value="grade">🎖 По грейду доказанности</option>
   </select>
   <button id="favFilter" class="favFilter" title="Показать только избранные">⭐ Избранное: <span id="favCount">0</span></button>
   <button id="resetFilters" class="favFilter" title="Сбросить все фильтры и поиск">✖ Сбросить</button>
@@ -104,9 +103,9 @@ try {
 <section id="chartSection">
   <h2>Цена vs Доказательность <span class="hint">(пузырь = мета-анализы, ось Y — лог-шкала)</span></h2>
   <details class="method">
-    <summary>📐 Что такое «индекс науки» и «ценность»?</summary>
+    <summary>📐 Что такое «индекс науки» и «₽ за единицу эффекта»?</summary>
     <p><b>Индекс науки = РКИ + 5 × мета-анализы</b> в PubMed по запросу «(добавка) AND (исход)».</p>
-    <p><b>Ценность = индекс науки на 100 ₽ месячной цены.</b> Чем выше — тем больше науки за рубль.</p>
+    <p><b>₽ за единицу эффекта = месячная цена ÷ Hedges' g</b> там, где эффект верифицирован (грейд A–D). Меньше — больше эффекта за каждый рубль.</p>
     <p>Индекс меряет <i>количество</i> науки, не силу эффекта. Вердикты ставим вручную по топ-2 мета-анализам.</p>
   </details>
   <div class="chartTabs">
