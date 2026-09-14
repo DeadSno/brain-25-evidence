@@ -62,8 +62,8 @@ for version, date, changes in reversed(entries):
 
 html += """</tbody>
 </table>
-<footer style="margin-top:2rem;padding-top:1rem;border-top:1px solid var(--border);font-size:.8rem;opacity:.75">
-  <p><a href="index.html" style="color:inherit">← Дашборд «БАДы: цена vs наука»</a></p>
+<footer style="margin-top:2rem;padding-top:1rem;border-top:1px solid var(--border);font-size:.8rem;color:var(--muted)">
+  <p><a href="index.html">← Дашборд «БАДы: цена vs наука»</a></p>
   <p>v2.5 · источники: PubMed, OpenAlex, Wildberries, Google Trends, Wikimedia</p>
 </footer>
 <script>
