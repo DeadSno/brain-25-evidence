@@ -25,6 +25,9 @@ def main() -> None:
             pg.wait_for_function("window.chart != null", timeout=5000)
             cards = pg.locator(".card").count()                      # ALIGN-селектор
             assert cards == n_all, f"карточек {cards}, ожидалось {n_all}"
+            # После проверки данных:
+            assert "Как мы проверяем" in pg.content() or "Открытые данные" in pg.content(), \
+                "Статическая строка UTF-8 не рендерится (кракозябры?)"
             n_ma = sum(1 for s in data if (s.get("metaCount") or 0) > 0)
             # v2.6: дефолтная ось графика — «Число МА»
             bubbles = pg.evaluate("window.chart?.data?.datasets?.length ?? -1")
