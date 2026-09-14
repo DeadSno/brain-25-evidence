@@ -70,6 +70,14 @@ try {
 <h3>4. Wildberries</h3>
 <p>Wildberries закрыл search-API TLS-фильтром: цены деградировали до статики карточек и честных null вместо выдуманных чисел.</p>
 <p><b>Исправление полного пути — в работе (reliability-трек).</b></p>
+
+<h3>5. Локальные кракозябры-2 (сентябрь 2026)</h3>
+<p>Файл docs/serve.py отсутствовал, простой http.server не шлёт charset,
+meta charset стояла не первой строкой → браузер в русской локали
+угадывал CP1251, данные из fetch (JSON) читались нормально,
+статические строки — каша. Прод не пострадал (GitHub Pages шлёт charset).</p>
+<p><b>Починено:</b> создан docs/serve.py с заголовками, meta charset первой
+строкой, гард-тест на все HTML, статическая строка в e2e.</p>
 </section>
 
 <section style="background:var(--card-bg);padding:1.5rem;border-radius:12px;border:1px solid var(--border)">

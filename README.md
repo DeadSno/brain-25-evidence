@@ -192,8 +192,8 @@ pip install -r requirements.txt
 python -m pytest tests/ -q
 
 # 4. Подними сайт локально
-python serve.py
-# открой http://localhost:8000
+python docs/serve.py
+# → http://localhost:8000/
 ```
 
 **Важно для headless-проверок:**
@@ -201,7 +201,7 @@ python serve.py
 - Используй `http://localhost:8000`, **НЕ** `file://` — fetch() не работает в файловом протоколе (CORS)
 - После старта сервера: **Ctrl+Shift+R** в браузере для обхода кэша `data.json`
 - На GitHub Pages (https) fetch работает без проблем
-- `serve.py` автоматически добавляет заголовки `Cache-Control: no-store` и `Access-Control-Allow-Origin: *`
+- `docs/serve.py` автоматически добавляет заголовки `Content-Type: text/html; charset=utf-8` (и для JS/CSS/JSON) — лечит локальные кракозябры
 
 ---
 
