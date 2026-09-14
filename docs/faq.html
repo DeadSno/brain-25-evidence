@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>❓ Часто задаваемые вопросы — brain-25-evidence</title>
+<link rel="stylesheet" href="style.css"/>
+<script>
+try {
+  if (localStorage.getItem('theme') !== 'light') {
+    document.addEventListener('DOMContentLoaded', function () {
+      document.body.classList.add('dark');
+      var b = document.getElementById('themeToggle');
+      if (b) b.textContent = '☀️ Светлая тема';
+    });
+  }
+} catch (e) {}
+</script>
+</head>
+<body>
+<header>
+  <h1><a href="index.html" style="color:inherit;text-decoration:none" title="На главную">❓ Часто задаваемые вопросы</a></h1>
+  <div class="hdr">
+    <a class="btn" href="index.html">← Назад к дашборду</a>
+    <button id="themeToggle">🌙 Тёмная тема</button>
+  </div>
+</header>
+
+<details class="qa" open>
+  <summary>1. Что такое мета-анализ?</summary>
+  <p>Мета-анализ — когда учёные собрали 10-50 отдельных исследований и посчитали средний эффект. Это надёжнее одного исследования: случайные ошибки гасятся, систематические — видны. Мы считаем вердикты по мета-анализам, не по отдельным РКИ.</p>
+</details>
+
+<details class="qa">
+  <summary>2. Что такое Hedges' g?</summary>
+  <p>Размер эффекта в стандартных отклонениях: насколько экспериментальная группа отличается от контрольной. g=0.2 = малый эффект, 0.5 = средний, 0.8+ = большой. g<0 = работает наоборот (вред или обратный эффект). Мы берём g из абстрактов мета-анализов, сверяем с приором, записываем только верифицированные.</p>
+</details>
+
+<details class="qa">
+  <summary>3. Что такое грейд A-D?</summary>
+  <p>A = крепко доказано (g≥0.4, объём≥100)<br>
+     B = доказано умеренно (g 0.2-0.4, объём≥50)<br>
+     C = изучено много, эффект мал (объём≥100, g<0.2)<br>
+     D = данных мало (объём<50)<br>
+     Грейд пересчитывается автоматически из g и scienceIndex.</p>
+</details>
+
+<details class="qa">
+  <summary>4. Почему некоторые добавки "работает" при scienceIndex &lt; 100?</summary>
+  <p>Вердикт ставится вручную по методологии: качество исследований, согласованность результатов, биологическая правдоподобность. scienceIndex = объём науки, не качество. Имбирь работает при индексе &lt;100, потому что МА согласованы и механизм понятен.</p>
+</details>
+
+<details class="qa">
+  <summary>5. Как читать квадрант доказательности?</summary>
+  <p>X = Hedges' g (сила эффекта), Y = scienceIndex (объём науки, лог-шкала). Размер пузыря = metaCount (число МА), цвет = вердикт.<br>
+     Большой пузырь высоко справа = много науки + сильный эффект (креатин).<br>
+     Большой пузырь высоко слева = много науки + слабый эффект (глюкозамин).<br>
+     Добавки без g помечены «ждут верификации» — у нас нет данных, не выдумка.</p>
+</details>
+
+<details class="qa">
+  <summary>6. Что делать если цена не найдена?</summary>
+  <p>Нажми «предложить» — откроется GitHub issue с названием добавки. Мы добавим цену вручную. Честный null лучше выдуманной цифры.</p>
+</details>
+
+<details class="qa">
+  <summary>7. Можно ли принимать всё сразу?</summary>
+  <p>Смотри вкладку «Взаимодействия» в карточке. Критичные пары (зверобой+SSRI, 5-HTP+трамадол) — опасно для жизни. Антагонисты (кальций+железо) — разнести на 2-4 часа. Синергисты (магний+B6) — принимать вместе можно.</p>
+</details>
+
+<details class="qa">
+  <summary>8. Когда ждать эффект?</summary>
+  <p>Смотри блок «Когда почувствую» в карточке. Креатин = 2-4 недели, мелатонин = 30-60 минут, омега-3 = 8-12 недель. Если эффект не указан = данных нет или эффект не ощущается субъективно (контролировать анализом).</p>
+</details>
+
+<footer style="margin-top:2rem;padding-top:1rem;border-top:1px solid var(--border);font-size:.8rem;opacity:.75">
+  <p><a href="index.html" style="color:inherit">← Дашборд «БАДы: цена vs наука»</a></p>
+  <p>v2.5 · источники: PubMed, OpenAlex, Wildberries, Google Trends, Wikimedia</p>
+</footer>
+<script>
+const $ = id => document.getElementById(id);
+$('themeToggle').onclick = () => {
+  const on = !document.body.classList.contains('dark');
+  document.body.classList.toggle('dark', on);
+  $('themeToggle').textContent = on ? '☀️ Светлая тема' : '🌙 Тёмная тема';
+  localStorage.setItem('theme', on ? 'dark' : 'light');
+};
+</script>
+</body>
+</html>
