@@ -1,3 +1,18 @@
+## [v2.5.1] — 2026-09-14
+### Исправлено
+- Charset-хотфикс: docs/serve.py с заголовками UTF-8 (text/html; charset=utf-8,
+  application/javascript, text/css, application/json) — лечит локальные кракозябры
+- <meta charset="utf-8"> ПЕРВЫМ тегом внутри <head> во всех docs/*.html
+  (порядок: charset → viewport → title → og-* → canonical → стили); блок
+  Yandex.Metrika перенесён из <head> в начало <body>; дубликаты удалены
+- Гард-тест tests/test_html_charset.py: charset — первый тег внутри <head>
+  (regex <head>\s*<meta charset) для всех docs/*.html + существование serve.py
+- Статическая строка в e2e_smoke («Как мы проверяем»/«Открытые данные») —
+  ловит кракозябры на главной
+- Кейс №5 в docs/methodology.html («Локальные кракозябры-2») и инструкция
+  локального запуска в README (python docs/serve.py)
+- Проверено: pytest 74 passed, e2e smoke OK
+
 ## [v2.6] — 2026-09-14
 ### Добавлено
 - Add-on trust из бриф v2.6: баннер «Открытые данные · Бесплатно · Без рекламы»
