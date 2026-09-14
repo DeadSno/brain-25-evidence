@@ -306,6 +306,17 @@ function applyFilters() {
   renderCards(currentData);
   if (chartTab === 'price') renderBubble(currentData); else renderQuadrant(currentData);
   updateFavUI();
+  // F2.2: подпись под чартом — показано N из M
+  const filterParts = [];
+  if (v !== 'all') filterParts.push('вердикт');
+  if (c !== 'all') filterParts.push(c);
+  if (q) filterParts.push('поиск');
+  if (onlyFavs) filterParts.push('избранное');
+  const summary = $('chartSummary');
+  if (summary) {
+    summary.textContent = 'показано ' + currentData.length + ' из ' + supplements.length + ' добавок' +
+      (filterParts.length ? ' (фильтр: ' + filterParts.join(', ') + ')' : '');
+  }
 }
 
 function renderCards(data) {
@@ -552,26 +563,69 @@ function renderCompare() {
   $('compareResult').innerHTML = '<table><tr><th>Параметр</th><th>' + a.name + '</th><th>' + b.name + '</th></tr>' +
     rows.map(r => '<tr><td>' + r[0] + '</td><td>' + r[1] + '</td><td>' + r[2] + '</td></tr>').join('') + '</table>';
 
-  const mx = k => Math.max(1, ...supplements.map(s => s[k] || 0));
-  const mPr = Math.max(1, ...supplements.map(s => s.price || 0));
-  const prof = s => [
-    s.scienceIndex / mx('scienceIndex') * 100,
-    (s.metaCount || 0) / mx('metaCount') * 100,
-    (s.reviews || 0) / mx('reviews') * 100,
-    (s.trends || 0) / mx('trends') * 100,
-    Math.max(0, (1 - (s.price || mPr) / mPr) * 100)
+  // F4: перцентиль внутри метрики по базе (0-100); значение 100% — максимум базы
+  const pctile = (x, arr) => {
+    const vals = arr.map(v => (v == null ? 0 : v)).sort((a, b) => a - b);
+    if (!vals.length) return 0;
+    let lo = 0, hi = vals.length - 1, target = (x == null ? 0 : x);
+    while (lo <= hi) {
+      const mid = (lo + hi) >> 1;
+      if (vals[mid] < target) lo = mid + 1; else hi = mid - 1;
+    }
+    return lo > 0 ? Math.round((lo / (vals.length - 1)) * 100) : 0;
+  };
+  const BASE_FOR_PCT = supplements;   // нормировка по всей базе 81
+  const rawVals = s => [
+    s.scienceIndex || 0,
+    s.metaCount || 0,
+    s.reviews || 0,
+    s.trends || 0,
+    s.price != null ? s.price : null
   ];
+  const prof = s => {
+    const r = rawVals(s);
+    return [
+      pctile(r[0], BASE_FOR_PCT.map(x => x.scienceIndex)),
+      pctile(r[1], BASE_FOR_PCT.map(x => x.metaCount)),
+      pctile(r[2], BASE_FOR_PCT.map(x => x.reviews)),
+      pctile(r[3], BASE_FOR_PCT.map(x => x.trends)),
+      r[4] != null ? pctile(r[4], BASE_FOR_PCT.map(x => x.price)) : 0
+      // Доступность = инверсия перцентиля цены (чем дороже — тем ниже)
+    ].map((p, i) => {
+      if (i === 4 && r[4] != null) return 100 - p;
+      return p;
+    });
+  };
+  const PROF_LABELS = ['Наука', 'База MA', 'Спрос (WB)', 'Интерес (trends)', 'Доступность'];
   if (radarInstance) radarInstance.destroy();
   radarInstance = new Chart($('radarChart'), {
     type: 'radar',
     data: {
-      labels: ['Наука', 'База MA', 'Спрос (WB)', 'Интерес (trends)', 'Доступность'],
+      labels: PROF_LABELS.map(l => l + ' (нормировано по базе)'),
       datasets: [
-        { label: a.name, data: prof(a), borderColor: '#3498db', backgroundColor: radarFill },
-        { label: b.name, data: prof(b), borderColor: '#e67e22', backgroundColor: radarFill }
+        { label: a.name, data: prof(a), borderColor: '#3498db', backgroundColor: radarFill,
+          pointBackgroundColor: '#3498db' },
+        { label: b.name, data: prof(b), borderColor: '#e67e22', backgroundColor: radarFill,
+          pointBackgroundColor: '#e67e22' }
       ]
     },
-    options: { scales: { r: { min: 0, max: 100, ticks: { display: false } } }, plugins: { legend: { position: 'bottom' } } }
+    options: {
+      scales: { r: { min: 0, max: 100, ticks: { display: false } } },
+      plugins: {
+        legend: { position: 'bottom' },
+        tooltip: {
+          callbacks: {
+            label: ctx => {
+              const s = ctx.datasetIndex === 0 ? a : b;
+              const raw = rawVals(s)[ctx.dataIndex];
+              return ' ' + s.name + ' · ' + PROF_LABELS[ctx.dataIndex] + ': ' +
+                Math.round(ctx.parsed.r) + '/100' +
+                (raw != null ? ' · сырое: ' + (raw.toLocaleString ? raw.toLocaleString('ru-RU') : raw) : '');
+            }
+          }
+        }
+      }
+    }
   });
 }
 
