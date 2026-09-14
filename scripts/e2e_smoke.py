@@ -413,7 +413,7 @@ def main() -> None:
             assert "bad" not in stored, "битый ключ 'bad' не был удалён гардом"
             assert "good" in stored, "валидный ключ 'good' был удалён"
 
-            # === PART B pwa ===
+# === PART B pwa ===
             # B5/B4: manifest в head + SW регистрируется; ждём claim() на первой странице
             ts += 1; pg.goto(f"{BASE}/index.html", wait_until="domcontentloaded")
             pg.wait_for_selector(".card[data-id]", state="attached", timeout=5000)
@@ -460,6 +460,36 @@ def main() -> None:
                 assert pg.locator("#pwaOfflineBadge").count() == 0, "бейдж не скрылся после online"
                 errors.clear()
             # ==================== конец PART B pwa ====================
+
+            # === PART C timeline (пульс науки + спарклайн) ===
+            # C3: график «Пульс науки» рендерит >0 точек из data_ma_timeline.json
+            ts += 1; pg.goto(f"{BASE}/index.html?ts={ts}", wait_until="domcontentloaded")
+            pg.wait_for_selector("#maTimelineBox", state="attached", timeout=5000)
+            pg.wait_for_function(
+                "() => window.maPulseData && window.maPulseData.years.length > 0",
+                timeout=5000
+            )
+            pd = pg.evaluate("window.maPulseData")
+            assert pd and len(pd["years"]) == 12, \
+                f"Пульс науки: годы {pd and pd.get('years')}, ожидалось 12"
+            assert all(t > 0 for t in pd["totals"]), "Пульс науки: есть total=0"
+            n_points = pg.evaluate(
+                "Chart.getChart('maTimelineCanvas')?.data?.datasets?.[0]?.data?.length ?? 0"
+            )
+            assert n_points == 12, f"Chart.js точек {n_points}, ожидалось 12"
+
+            # C4: спарклайн — честный фолбэк при пустой истории price
+            ts += 1; pg.goto(f"{BASE}/index.html?ts={ts}#sup=Магний", wait_until="domcontentloaded")
+            pg.wait_for_selector("#modalOverlay", state="visible", timeout=5000)
+            pg.wait_for_selector("#ecoSpark", state="attached", timeout=5000)
+            spark = pg.locator("#ecoSpark")
+            txt = spark.inner_text()
+            assert "история копится с v2.1" in txt, f"нет фолбэк-текста спарклайна: {txt!r}"
+            assert spark.get_attribute("data-state") == "fallback", \
+                f"спарклайн не в state=fallback: {spark.get_attribute('data-state')!r}"
+            pg.keyboard.press("Escape")
+
+            # ==================== конец PART C timeline ====================
 
             assert not errors, f"ошибки консоли: {errors}"
             b.close()
