@@ -1,3 +1,24 @@
+## [v2.7] — 2026-09-14
+### Добавлено
+- Трекер приёма (ветка v2.7-dev-a): кнопка «📅 В мой курс» в модалке (доза из
+  dosage, длительность 30 дней редактируемая, приватность-пометка «данные хранятся
+  только в вашем браузере»), секция «Мои добавки» на главной с прогресс-баром
+  taken/30 и кнопками «+ принял»/«завершить»/«убрать», localStorage-гард myCourse
+  (битые значения → сброс + console.warn) — docs/tracker.js
+- PWA (ветка v2.7-dev-b): manifest.webmanifest (standalone, theme #1c1c1e, иконки
+  192/512 «🧠⚖️»), docs/icons/ через scripts/make_icons.py (playwright-скриншот,
+  без PIL), sw.js: cache-first для статики + network-first для data.json с
+  офлайн-фолбэком и бейджем «офлайн-режим»; регистрация в index.html и map.html
+- Пульс науки + спарклайны (ветка v2.7-dev-c): scripts/build_ma_timeline.py
+  (esearch retmax=100 + esummary пачками по 50, годы МА для 71/81 добавок),
+  график «Пульс науки: мета-анализы по годам» 2015-2026 на главной (Chart.js
+  line, data_ma_timeline.json), спарклайн цены в блоке «Экономика» модалки
+  (при <2 точек — честный фолбэк «история копится с v2.1») — docs/science2.js
+- Параллелизм по P8-P12: три независимых контура (tracker.js / pwa.js+sw.js /
+  science2.js) в отдельных ветках, мёржатся оркестратором последовательно a→b→c,
+  data.json ни одна часть не меняла
+- Проверено: pytest 122 passed, 1 deselected; e2e smoke OK; UI-verify OK
+
 ## [v2.6.2] — 2026-09-14
 ### Исправлено
 - F1 Encoding-хирургия: гард-тест tests/test_no_mojibake_in_js.py (биграммы
