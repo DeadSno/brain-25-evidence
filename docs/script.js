@@ -627,6 +627,7 @@ function renderCompare() {
       }
     }
   });
+  window.radarInstance = radarInstance;
 }
 
 // ===== v1.3: избранное =====
