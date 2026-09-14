@@ -86,6 +86,22 @@ def main() -> None:
 
             pg.goto(f"{BASE}/map.html?supplement=Эхинацея", wait_until="networkidle")
             assert "Эхинацея" in pg.locator("#chain").inner_text(), "атлас не открыл добавку"
+
+            # v2.5: faq/glossary/changelog_public рендерятся, футер-ссылки на них живые
+            for sub in ["faq", "glossary", "changelog_public"]:
+                for page in ["index.html", "map.html"]:
+                    pg.goto(f"{BASE}/{page}?ts={ts}", wait_until="domcontentloaded")
+                    page_html = pg.content()
+                    assert f'href="{sub}.html"' in page_html, f"{page} не ссылается на {sub}.html"
+                ts += 1
+                pg.goto(f"{BASE}/{sub}.html?ts={ts}", wait_until="domcontentloaded")
+                if sub == "faq":
+                    assert pg.locator("details.qa").count() == 8, "faq: не 8 аккордеонов"
+                elif sub == "glossary":
+                    assert "Глоссарий" in pg.locator("h1").inner_text(), "glossary: нет h1"
+                else:
+                    assert "Журнал" in pg.locator("h1").inner_text(), "changelog_public: нет h1"
+
             assert not errors, f"ошибки консоли: {errors}"
             b.close()
     finally:
