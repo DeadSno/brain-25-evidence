@@ -54,7 +54,25 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "42473449",
+    "title": "Temporal dynamics of muscle strength recovery following acute cold-water immersion: a systematic review and meta-analysis.",
+    "year": 2026
+   },
+   {
+    "pmid": "42386462",
+    "title": "Comparative safety of lipid-lowering drugs alone or in combination: insights from a systematic review and network meta-analysis.",
+    "year": 2026
+   },
+   {
+    "pmid": "42384726",
+    "title": "Effects of combined versus single supplementation of creatine and beta-alanine on aerobic and anerobic performance: a systematic review and network meta-analysis.",
+    "year": 2026
+   }
+  ]
  },
  {
   "id": "Омега-3",
@@ -114,7 +132,25 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "42614022",
+    "title": "The Effects of Ocean Warming and Acidification on Fatty Acid Contents of Marine Organisms: A Global Meta-Analysis.",
+    "year": 2026
+   },
+   {
+    "pmid": "42521226",
+    "title": "Early-life high-dose omega-3 polyunsaturated fatty acid supplementation reduces risk of childhood asthma/wheezing: A meta-analysis of randomized controlled trials.",
+    "year": 2026
+   },
+   {
+    "pmid": "42517346",
+    "title": "The Impact of Omega Fatty Acids on DKD: A Multimodal Study Integrating Mendelian Randomization, Proteomic Mediation Analysis, and Meta-Analysis.",
+    "year": 2026
+   }
+  ]
  },
  {
   "id": "Витамин D",
@@ -175,7 +211,25 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "42700010",
+    "title": "Association between vitamin D deficiency and chronic kidney disease progression: A GRADE-based dose-response systematic review and meta-analysis.",
+    "year": 2026
+   },
+   {
+    "pmid": "42698428",
+    "title": "Graves' disease and bone mineral density: a meta-analysis and UK Biobank.",
+    "year": 2026
+   },
+   {
+    "pmid": "42677903",
+    "title": "Factors influencing abnormal bone mineral density in Chinese women aged 40 years and older: A meta-analysis.",
+    "year": 2026
+   }
+  ]
  },
  {
   "id": "B12",
@@ -224,7 +278,25 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "42669949",
+    "title": "Adjusted Indirect and Mixed Comparisons of Drug Therapy for Neuropathic Cancer Pain.",
+    "year": 2026
+   },
+   {
+    "pmid": "42227307",
+    "title": "Vitamin B12 supplementation for growth, development, and cognition in children.",
+    "year": 2026
+   },
+   {
+    "pmid": "42225169",
+    "title": "The Health and Environmental Impacts, Safety, and Affordability of the EAT-Lancet Planetary Health Diet: A Multidisciplinary Systematic Review and Meta-Analysis.",
+    "year": 2026
+   }
+  ]
  },
  {
   "id": "Магний",
@@ -290,7 +362,25 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "42689525",
+    "title": "Magnesium sulphate for women at risk of preterm birth for neuroprotection of the fetus.",
+    "year": 2026
+   },
+   {
+    "pmid": "42664719",
+    "title": "Intravenous magnesium sulfate for analgesia in spinal surgery: a systematic review and meta-analysis of randomized controlled trials.",
+    "year": 2026
+   },
+   {
+    "pmid": "42588058",
+    "title": "Comprehensive Effects of Magnesium Supplementation on Cardiometabolic Risk Factors: A Systematic Review and Dose-Response Meta-Analysis.",
+    "year": 2026
+   }
+  ]
  },
  {
   "id": "Кофеин",
@@ -367,7 +457,25 @@
   ],
   "year_last_ma": 2026,
   "updated": "2026-09-14",
-  "price_source": null
+  "price_source": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "42621780",
+    "title": "Methylxanthines for the prevention or treatment of intermittent hypoxemia or respiratory insufficiency in late preterm infants.",
+    "year": 2026
+   },
+   {
+    "pmid": "42588143",
+    "title": "Acute Effects and Safety of Caffeine Ingestion in Adolescent Athletes: A Systematic Review and Three-Level Meta-Analysis.",
+    "year": 2026
+   },
+   {
+    "pmid": "42588052",
+    "title": "Effects of Acute Caffeine Supplementation on Physical, Sport-Specific, Physiological, Perceptual, and Cognitive Outcomes in Female Team-Sport Athletes: A Three-Level Meta-Analysis.",
+    "year": 2026
+   }
+  ]
  },
  {
   "id": "L-Теанин",
@@ -417,7 +525,25 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "42415270",
+    "title": "Heterogeneity in Withering Conditions and Associated Changes in Key Nonvolatile Compounds in Black Tea (Camellia sinensis): A Systematic Review and Meta-Analysis.",
+    "year": 2026
+   },
+   {
+    "pmid": "40314930",
+    "title": "Effects of Tea (Camellia sinensis) or its Bioactive Compounds l-Theanine or l-Theanine plus Caffeine on Cognition, Sleep, and Mood in Healthy Participants: A Systematic Review and Meta-Analysis of Randomized Controlled Trials.",
+    "year": 2025
+   },
+   {
+    "pmid": "40056718",
+    "title": "The effects of L-theanine consumption on sleep outcomes: A systematic review and meta-analysis.",
+    "year": 2025
+   }
+  ]
  },
  {
   "id": "Бакопа",
@@ -474,7 +600,20 @@
   "myths": "«Работает как пирацетам» — механизм другой, медленнее. «Мгновенный эффект» — 8-12 недель минимум.",
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "41678913",
+    "title": "Comparative effects of Bacopa monnieri and Ginkgo biloba on cognitive functions: A systematic review and network meta-analysis.",
+    "year": 2026
+   },
+   {
+    "pmid": "24252493",
+    "title": "Meta-analysis of randomized controlled trials on cognitive effects of Bacopa monnieri extract.",
+    "year": 2014
+   }
+  ]
  },
  {
   "id": "Ежовик",
@@ -518,7 +657,9 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": []
  },
  {
   "id": "Гинкго",
@@ -580,7 +721,25 @@
   "myths": "«Улучшает память всем» — эффект при возрастном снижении, не у здоровых. «Безопасен с аспирином» — риск кровотечений.",
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "41678913",
+    "title": "Comparative effects of Bacopa monnieri and Ginkgo biloba on cognitive functions: A systematic review and network meta-analysis.",
+    "year": 2026
+   },
+   {
+    "pmid": "41641880",
+    "title": "Ginkgo biloba for cognitive impairment and dementia.",
+    "year": 2026
+   },
+   {
+    "pmid": "41198594",
+    "title": "Therapeutic strategies in vascular cognitive impairment: A systematic review and meta-analysis.",
+    "year": 2025
+   }
+  ]
  },
  {
   "id": "Родиола",
@@ -637,7 +796,25 @@
   "myths": "«Заменит кофе» — механизм другой, не стимулятор. «Работает всем» — эффект зависит от baseline усталости.",
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "41535755",
+    "title": "Preventive and therapeutic effects of ginsenosides on myocardial ischemia-reperfusion injury in animal models: a systematic review and meta-analysis.",
+    "year": 2026
+   },
+   {
+    "pmid": "40014460",
+    "title": "Efficacy of Pharmacological Interventions in Milder Depression: A Systematic Review and Meta-Analysis.",
+    "year": 2025
+   },
+   {
+    "pmid": "37934032",
+    "title": "Neuroprotective Mechanisms of Salidroside in Alzheimer's Disease: A Systematic Review and Meta-analysis of Preclinical Studies.",
+    "year": 2023
+   }
+  ]
  },
  {
   "id": "Ашваганда",
@@ -699,7 +876,25 @@
   "myths": "«Работает сразу как транквилизатор» — эффект накопительный. «Любой экстракт одинаков» — withanolides решают.",
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "42356302",
+    "title": "Effects of Withania somnifera (Ashwagandha) Supplementation on Exercise Performance: A Systematic Review and Three-Level Meta-Analysis.",
+    "year": 2026
+   },
+   {
+    "pmid": "41740946",
+    "title": "Hormonal Modulation with Withania somnifera: Systematic Review and Meta-Analysis of Randomized-controlled Trials.",
+    "year": 2026
+   },
+   {
+    "pmid": "41644067",
+    "title": "Effects of ashwagandha (Withania somnifera) on mental health in adults: A systematic review and dose-response meta-analysis of randomized controlled trials.",
+    "year": 2026
+   }
+  ]
  },
  {
   "id": "Фосфатидилсерин",
@@ -743,7 +938,25 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "42497533",
+    "title": "Evaluating the diagnostic performance of exosome biomarkers for the detection of ovarian cancer: a systematic review and meta-analysis.",
+    "year": 2026
+   },
+   {
+    "pmid": "39638272",
+    "title": "Prevalence of antiphospholipid antibodies in COVID-19 patients: A meta-analysis.",
+    "year": 2025
+   },
+   {
+    "pmid": "38547138",
+    "title": "Safety and efficacy of antioxidant therapy in children and adolescents with attention deficit hyperactivity disorder: A systematic review and network meta-analysis.",
+    "year": 2024
+   }
+  ]
  },
  {
   "id": "Alpha-GPC",
@@ -787,7 +1000,20 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "41362980",
+    "title": "[Gliatilin in the Treatment of Cognitive Impairments Not Reaching the Level of Dementia: Meta-Analysis and Systematic Review].",
+    "year": 2025
+   },
+   {
+    "pmid": "36683513",
+    "title": "Activity of Choline Alphoscerate on Adult-Onset Cognitive Dysfunctions: A Systematic Review and Meta-Analysis.",
+    "year": 2023
+   }
+  ]
  },
  {
   "id": "CDP-холин",
@@ -831,7 +1057,25 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "42635820",
+    "title": "Pharmacological interventions targeting cognition and related clinical outcomes in vascular dementia: a systematic review and meta-analysis of randomized controlled trials.",
+    "year": 2026
+   },
+   {
+    "pmid": "41347649",
+    "title": "Medical and surgical interventions for neurotrophic keratopathy.",
+    "year": 2025
+   },
+   {
+    "pmid": "41343532",
+    "title": "Pharmacologic neuroprotective agents for the treatment of perinatal asphyxia in low-income and lower-middle-income countries: A systematic review and meta-analysis of randomised controlled trials.",
+    "year": 2025
+   }
+  ]
  },
  {
   "id": "Гуперзин А",
@@ -880,7 +1124,25 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "34924395",
+    "title": "The Efficacy and Safety of Alzheimer's Disease Therapies: An Updated Umbrella Review.",
+    "year": 2022
+   },
+   {
+    "pmid": "31277107",
+    "title": "The effect of anti-dementia drugs on Alzheimer disease-induced cognitive impairment: A network meta-analysis.",
+    "year": 2019
+   },
+   {
+    "pmid": "30989926",
+    "title": "[Efficacy and safety of huperzine A in treating patients with mild cognitive impairment: a systematic review and Meta-analysis].",
+    "year": 2019
+   }
+  ]
  },
  {
   "id": "Куркумин",
@@ -945,7 +1207,25 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "42711998",
+    "title": "Evidence-based ranking of diabetes prevention in prediabetes: A comprehensive network meta-analysis of 378 randomised controlled trials.",
+    "year": 2026
+   },
+   {
+    "pmid": "42656268",
+    "title": "Integrated meta-analysis and exploratory small-sample machine learning to evaluate curcumin against osteoporosis: a preclinical evidence-based study.",
+    "year": 2026
+   },
+   {
+    "pmid": "42573968",
+    "title": "Effects of curcumin on inflammatory and oxidative stress related markers in rat models of experimental arthritis: a systematic review and meta-analysis.",
+    "year": 2026
+   }
+  ]
  },
  {
   "id": "Ресвератрол",
@@ -994,7 +1274,25 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "42451212",
+    "title": "Resveratrol as an Adjunct Therapy in Periodontal Disease: A Systematic Review and Meta-Analysis.",
+    "year": 2026
+   },
+   {
+    "pmid": "42268476",
+    "title": "The effects of resveratrol on glycemic indices and lipid profile in patients with type 2 diabetes: an umbrella review and meta-analysis.",
+    "year": 2026
+   },
+   {
+    "pmid": "42254029",
+    "title": "Protective effect and possible mechanisms of resveratrol in animal models of spinal cord injury: a preclinical systematic review and meta-analysis.",
+    "year": 2026
+   }
+  ]
  },
  {
   "id": "NAC",
@@ -1043,7 +1341,25 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "42473447",
+    "title": "The efficacy of N-acetylcysteine in the management of chronic obstructive pulmonary disease: a systematic review and meta-analysis.",
+    "year": 2026
+   },
+   {
+    "pmid": "42342264",
+    "title": "Mucoactive agents in bronchiectasis: a systematic review and meta-analysis.",
+    "year": 2026
+   },
+   {
+    "pmid": "42015439",
+    "title": "N-acetylcysteine as Prophylaxis Against Contrast-Induced Nephropathy: A Meta-Analysis.",
+    "year": 2026
+   }
+  ]
  },
  {
   "id": "Цинк",
@@ -1105,7 +1421,25 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "42711998",
+    "title": "Evidence-based ranking of diabetes prevention in prediabetes: A comprehensive network meta-analysis of 378 randomised controlled trials.",
+    "year": 2026
+   },
+   {
+    "pmid": "42594341",
+    "title": "Effects of Zinc Supplementation on Glycemic Control, Insulin Resistance, Inflammation and Oxidative Stress in Diabetes: A Systematic Review and Meta-Analysis of Randomized Controlled Trials.",
+    "year": 2026
+   },
+   {
+    "pmid": "42398414",
+    "title": "Can heavy metal accumulation in crops be mitigated by microbial inoculants? A meta-analysis and machine learning.",
+    "year": 2026
+   }
+  ]
  },
  {
   "id": "Тирозин",
@@ -1154,7 +1488,25 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "42688407",
+    "title": "The efficacy and safety of pembrolizumab in the treatment of HER2-negative advanced gastric or gastroesophageal junction cancer: a systematic review and meta-analysis of emerging clinical data.",
+    "year": 2026
+   },
+   {
+    "pmid": "42687221",
+    "title": "Comparative Efficacy of BTK Inhibitors in Treatment-Naïve and Relapsed/Refractory Mantle Cell Lymphoma: A Systematic Review and Meta-Analysis.",
+    "year": 2026
+   },
+   {
+    "pmid": "42686799",
+    "title": "A systematic review and network meta-analysis of first-line EGFR-TKI-based combination strategies for EGFR-mutant non-small cell lung cancer with brain metastases.",
+    "year": 2026
+   }
+  ]
  },
  {
   "id": "Таурин",
@@ -1203,7 +1555,25 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "42653271",
+    "title": "TUDCA and 4-PBA in Preclinical Models of Beta-Cell Secretory Failure: A Systematic Review and Bayesian Meta-Analysis.",
+    "year": 2026
+   },
+   {
+    "pmid": "42107488",
+    "title": "Meta-analysis of blood metabolomics reveals dysregulated amino acid, neurotransmitter, and energy pathways in depression.",
+    "year": 2026
+   },
+   {
+    "pmid": "41937083",
+    "title": "Trans-organ net fluxes of essential amino acids and their calculated efficiency of utilization in dairy cows: A meta-analysis.",
+    "year": 2026
+   }
+  ]
  },
  {
   "id": "CoQ10",
@@ -1255,7 +1625,25 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "42642774",
+    "title": "The effect of CoQ10 supplementation on cardiovascular risk factors in patients with prediabetes and type 2 diabetes mellitus: a grade-assessed systematic review and dose-response meta-analysis.",
+    "year": 2026
+   },
+   {
+    "pmid": "42192187",
+    "title": "Effects of Coenzyme Q10 on Lipid, Glycemic, and Inflammatory Markers in Metabolic Disorders: A Systematic Review and Meta-Analysis.",
+    "year": 2026
+   },
+   {
+    "pmid": "42117563",
+    "title": "Pharmacological treatments for Friedreich ataxia.",
+    "year": 2026
+   }
+  ]
  },
  {
   "id": "Пикногенол",
@@ -1304,7 +1692,25 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "39987124",
+    "title": "Does supplementation with pine bark extract improve cardiometabolic risk factors? A systematic review and meta-analysis.",
+    "year": 2025
+   },
+   {
+    "pmid": "38547138",
+    "title": "Safety and efficacy of antioxidant therapy in children and adolescents with attention deficit hyperactivity disorder: A systematic review and network meta-analysis.",
+    "year": 2024
+   },
+   {
+    "pmid": "37908749",
+    "title": "Efficacy of L-arginine and Pycnogenol ® in the treatment of male erectile dysfunction: a systematic review and meta-analysis.",
+    "year": 2023
+   }
+  ]
  },
  {
   "id": "Готу кола",
@@ -1348,7 +1754,25 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "33809656",
+    "title": "Efficacy of Functional Foods, Beverages, and Supplements Claiming to Alleviate Air Travel Symptoms: Systematic Review and Meta-Analysis.",
+    "year": 2021
+   },
+   {
+    "pmid": "33413787",
+    "title": "Efficacy and Safety of Centella Asiatica (L.) Urb. on Wrinkles: A Systematic Review of Published Data and Network Meta-Analysis.",
+    "year": 2020
+   },
+   {
+    "pmid": "33141449",
+    "title": "Phlebotonics for venous insufficiency.",
+    "year": 2020
+   }
+  ]
  },
  {
   "id": "Мелатонин",
@@ -1411,7 +1835,25 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "42726650",
+    "title": "Efficacy of Melatonin in Alleviating Radiotherapy-Induced Fatigue, Anxiety, and Depression in Breast Cancer Patients: A Systematic Review and Meta-Analysis.",
+    "year": 2026
+   },
+   {
+    "pmid": "42708337",
+    "title": "Safety and Efficacy of Melatonin for Sleep Disorders in Cancer: A Systematic Review and Meta-Analysis of Randomized Clinical Trials.",
+    "year": 2026
+   },
+   {
+    "pmid": "42603831",
+    "title": "Digital screen exposure and migraine burden: a systematic review and meta-analysis.",
+    "year": 2026
+   }
+  ]
  },
  {
   "id": "ГАБА",
@@ -1460,7 +1902,25 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "42566840",
+    "title": "Comparison of Ketamine and Pregabalin on Postoperative Opioid Usage and Pain Management in Spinal Fusion: Systematic Review and Network Meta-analysis.",
+    "year": 2026
+   },
+   {
+    "pmid": "42562184",
+    "title": "Efficacy and tolerability of mirogabalin, pregabalin, duloxetine, and placebo in patients with type 2 diabetes mellitus and painful diabetic peripheral neuropathy: A network meta-analysis.",
+    "year": 2026
+   },
+   {
+    "pmid": "42530025",
+    "title": "Antidepressant-like effects of valproic acid in rodents go back to the 1980s: a comment to enrich the reviewed evidence by Goudarzi et al. (2026) \"Valproic acid effects on stress-induced depression-like behavior in rodent models: a systematic review and meta-analysis\".",
+    "year": 2026
+   }
+  ]
  },
  {
   "id": "Глицин",
@@ -1509,7 +1969,25 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "42652314",
+    "title": "A Systematic Review and Meta-Analysis of Glyphosate-Based Herbicide Exposure and Risk of Non-Hodgkin Lymphoma.",
+    "year": 2026
+   },
+   {
+    "pmid": "42299135",
+    "title": "Use of Mendelian Randomization to Unveil Metabolic Markers in Helicobacter pylori Infection.",
+    "year": 2026
+   },
+   {
+    "pmid": "42185813",
+    "title": "Roxadustat for CKD-related anemia in patients undergoing peritoneal dialysis: a systematic review and meta-analysis.",
+    "year": 2026
+   }
+  ]
  },
  {
   "id": "Валериана",
@@ -1558,7 +2036,25 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "35378276",
+    "title": "Medicinal herbs for the treatment of anxiety: A systematic review and network meta-analysis.",
+    "year": 2022
+   },
+   {
+    "pmid": "33086877",
+    "title": "Valerian Root in Treating Sleep Problems and Associated Disorders-A Systematic Review and Meta-Analysis.",
+    "year": 2020
+   },
+   {
+    "pmid": "27000311",
+    "title": "Dietary supplements for dysmenorrhoea.",
+    "year": 2016
+   }
+  ]
  },
  {
   "id": "Бета-аланин",
@@ -1602,7 +2098,25 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "42384726",
+    "title": "Effects of combined versus single supplementation of creatine and beta-alanine on aerobic and anerobic performance: a systematic review and network meta-analysis.",
+    "year": 2026
+   },
+   {
+    "pmid": "42133103",
+    "title": "Efficacy and safety of netarsudil compared with prostaglandin-based therapies: a Bayesian network meta-analysis.",
+    "year": 2026
+   },
+   {
+    "pmid": "41796311",
+    "title": "The novel anticoagulant dabigatran versus enoxaparin for thromboprophylaxis following total hip replacement: a meta-analysis.",
+    "year": 2026
+   }
+  ]
  },
  {
   "id": "L-цитруллин",
@@ -1651,7 +2165,25 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "42382770",
+    "title": "Network meta-analysis of novel diagnostic biomarkers for rheumatoid arthritis: comparative performance of anti-CarP, anti-MCV, and emerging markers.",
+    "year": 2026
+   },
+   {
+    "pmid": "42356270",
+    "title": "Effects of Citrulline Malate Supplementation on Exercise Performance: A Systematic Review and Three-Level Meta-Analysis.",
+    "year": 2026
+   },
+   {
+    "pmid": "42068627",
+    "title": "Neutrophil Extracellular Traps as Mediators of Acute Lung Injury: Bridging Clinical and Preclinical Evidence.",
+    "year": 2026
+   }
+  ]
  },
  {
   "id": "Витамин C",
@@ -1711,7 +2243,25 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "42602406",
+    "title": "Efficacy and safety of microneedling with tranexamic acid versus microneedling with vitamin C in the treatment of melasma: a systematic review and meta-analysis.",
+    "year": 2026
+   },
+   {
+    "pmid": "42514284",
+    "title": "Contemporary Scurvy in Vulnerable Populations in High-Income Countries: A Systematic Review and Multilevel Meta-Analysis.",
+    "year": 2026
+   },
+   {
+    "pmid": "42446912",
+    "title": "The effect of high-dose of vitamin C on mortality among aged patients with severe COVID-19: A systematic review and meta-analysis.",
+    "year": 2026
+   }
+  ]
  },
  {
   "id": "Эхинацея",
@@ -1768,7 +2318,25 @@
   "myths": "«Предотвращает простуду» — слегка сокращает длительность. «Работает всем» — эффект скромный.",
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "42528672",
+    "title": "Efficacy of traditional Chinese Medicine-based biological extracts in the treatment of oral lichen planus.",
+    "year": 2026
+   },
+   {
+    "pmid": "40311928",
+    "title": "Efficacy and safety of Echinacea purpurea in treating upper respiratory infections and complications of otitis media in children: Systematic review and meta-analysis.",
+    "year": 2025
+   },
+   {
+    "pmid": "38999738",
+    "title": "Echinacea Supplementation Does Not Impact Aerobic Capacity and Erythropoiesis in Athletes: A Meta-Analysis.",
+    "year": 2024
+   }
+  ]
  },
  {
   "id": "Бузина",
@@ -1812,7 +2380,25 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "35597998",
+    "title": "Effect of herbal compounds on coronavirus; a systematic review and meta-analysis.",
+    "year": 2022
+   },
+   {
+    "pmid": "33809656",
+    "title": "Efficacy of Functional Foods, Beverages, and Supplements Claiming to Alleviate Air Travel Symptoms: Systematic Review and Meta-Analysis.",
+    "year": 2021
+   },
+   {
+    "pmid": "30670267",
+    "title": "Black elderberry (Sambucus nigra) supplementation effectively treats upper respiratory symptoms: A meta-analysis of randomized, controlled clinical trials.",
+    "year": 2019
+   }
+  ]
  },
  {
   "id": "Зверобой",
@@ -1871,7 +2457,25 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "40083108",
+    "title": "Systematic Review and Network Meta-Analysis of the Effects of Plant Extracts on Cognitive Function and Quality of Life in Stroke Patients.",
+    "year": 2025
+   },
+   {
+    "pmid": "40014460",
+    "title": "Efficacy of Pharmacological Interventions in Milder Depression: A Systematic Review and Meta-Analysis.",
+    "year": 2025
+   },
+   {
+    "pmid": "39609444",
+    "title": "Herbal extracts in orofacial pain: a systematic review and direct and indirect meta-analysis.",
+    "year": 2024
+   }
+  ]
  },
  {
   "id": "5-HTP",
@@ -1920,7 +2524,25 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "31504850",
+    "title": "Effects of 5-hydroxytryptophan on distinct types of depression: a systematic review and meta-analysis.",
+    "year": 2020
+   },
+   {
+    "pmid": "19404614",
+    "title": "The effect of increased serotonergic neurotransmission on aggression: a critical meta-analytical review of preclinical studies.",
+    "year": 2009
+   },
+   {
+    "pmid": "12169147",
+    "title": "Are tryptophan and 5-hydroxytryptophan effective treatments for depression? A meta-analysis.",
+    "year": 2002
+   }
+  ]
  },
  {
   "id": "Коллаген",
@@ -1972,7 +2594,25 @@
   "myths": "«Желатин равноценен» — пептиды всасываются лучше. «Работает сразу» — 8-12 недель минимум.",
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "42709270",
+    "title": "Fractional laser therapy versus microneedling for non-acne scars and scar-like dermal fibrotic lesions.",
+    "year": 2026
+   },
+   {
+    "pmid": "42613148",
+    "title": "Exosome therapy for knee osteoarthritis: a network meta-analysis based on rat models.",
+    "year": 2026
+   },
+   {
+    "pmid": "42602406",
+    "title": "Efficacy and safety of microneedling with tranexamic acid versus microneedling with vitamin C in the treatment of melasma: a systematic review and meta-analysis.",
+    "year": 2026
+   }
+  ]
  },
  {
   "id": "Пробиотики",
@@ -2029,7 +2669,25 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "42688031",
+    "title": "Probiotic mediated modulation of neonatal health: a meta-analysis of prematurity-related morbidity, jaundice, and respiratory distress.",
+    "year": 2026
+   },
+   {
+    "pmid": "42687557",
+    "title": "[Microbiome as a Novel Player in the Development and Treatment of Renal Cancer: A Systematic Review and Meta-Analysis].",
+    "year": 2026
+   },
+   {
+    "pmid": "42674774",
+    "title": "Probiotics for the prevention of ventilator-associated pneumonia and other outcomes in critically ill children: a systematic review and meta-analysis of randomized controlled trials.",
+    "year": 2026
+   }
+  ]
  },
  {
   "id": "B9",
@@ -2078,7 +2736,25 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "42490840",
+    "title": "Comparative analysis of glucagon-like peptide-1 receptor agonists, metformin, and inositol in improving anthropometric and metabolic outcomes in women with polycystic ovary syndrome: a network meta-analysis.",
+    "year": 2026
+   },
+   {
+    "pmid": "42435267",
+    "title": "A metabolomic signatures in hyperuricemia: a systematic review.",
+    "year": 2026
+   },
+   {
+    "pmid": "42398592",
+    "title": "A systematic review on the role of diet in managing pre-existing diabetes during pregnancy.",
+    "year": 2026
+   }
+  ]
  },
  {
   "id": "Железо",
@@ -2137,7 +2813,25 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "42720098",
+    "title": "Iodine supplementation for preventing iodine deficiency disorders in children and adolescents.",
+    "year": 2026
+   },
+   {
+    "pmid": "42692818",
+    "title": "Maternal anemia and the risk of preterm birth: a meta-analysis.",
+    "year": 2026
+   },
+   {
+    "pmid": "42680423",
+    "title": "Optimizing water management for cadmium mitigation in rice production: A global meta-analysis and application effectiveness assessment.",
+    "year": 2026
+   }
+  ]
  },
  {
   "id": "Триптофан",
@@ -2181,7 +2875,25 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "42687557",
+    "title": "[Microbiome as a Novel Player in the Development and Treatment of Renal Cancer: A Systematic Review and Meta-Analysis].",
+    "year": 2026
+   },
+   {
+    "pmid": "42299135",
+    "title": "Use of Mendelian Randomization to Unveil Metabolic Markers in Helicobacter pylori Infection.",
+    "year": 2026
+   },
+   {
+    "pmid": "42252042",
+    "title": "An umbrella review of inflammatory biomarkers and their relationship to treatment response in MDD.",
+    "year": 2026
+   }
+  ]
  },
  {
   "id": "Глюкозамин + хондроитин",
@@ -2230,7 +2942,25 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "40005447",
+    "title": "Effectiveness and Safety of SYSADOAs Used in Eastern and Western Regions for the Treatment of Knee Osteoarthritis: A Systematic Review and Meta-Analysis of Randomized Controlled Trials-SYSADOAs Are Effective and Safe for Knee OA.",
+    "year": 2025
+   },
+   {
+    "pmid": "38867545",
+    "title": "Efficiency of Glucosamine in Treating Temporomandibular Joint Osteoarthritis: A Meta-Analytic Umbrella Review.",
+    "year": 2025
+   },
+   {
+    "pmid": "38581640",
+    "title": "Evaluation of efficacy and safety of glucosamine sulfate, chondroitin sulfate, and their combination regimen in the management of knee osteoarthritis: a systematic review and meta-analysis.",
+    "year": 2024
+   }
+  ]
  },
  {
   "id": "Витамин E",
@@ -2279,7 +3009,25 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "42421296",
+    "title": "The Association Between Serum α-Tocopherol and Pathogenesis of Multiple Sclerosis: A Systematic Review and Meta-Analysis of Case-Control Studies.",
+    "year": 2026
+   },
+   {
+    "pmid": "41886966",
+    "title": "Vitamin E in the management of oral mucositis: Systematic review with meta-analysis of randomized clinical trials.",
+    "year": 2026
+   },
+   {
+    "pmid": "41521729",
+    "title": "Effects of Vitamin C and/or E Supplementation on Glycemic Control and Cardiovascular Risk Factors in Type 2 Diabetes: A Systematic Review and Subgroup Meta-analysis.",
+    "year": 2026
+   }
+  ]
  },
  {
   "id": "Биотин",
@@ -2323,7 +3071,25 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "41124782",
+    "title": "Vitamin supplementation in the treatment of optic neuritis: A systematic review and meta-analysis.",
+    "year": 2025
+   },
+   {
+    "pmid": "39950378",
+    "title": "A Multi-Omics Meta-Analysis of Rhizosphere Microbiome Reveals Growth-Promoting Marker Bacteria at Different Stages of Legume Development.",
+    "year": 2026
+   },
+   {
+    "pmid": "37178621",
+    "title": "Quantitative comparison of the efficacy of clinical drug treatments for primary progressive multiple sclerosis.",
+    "year": 2023
+   }
+  ]
  },
  {
   "id": "L-карнитин",
@@ -2372,7 +3138,25 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "41177307",
+    "title": "Effects of carnitine supplementation on glycemic markers in women with overweight and obesity: A systematic review and meta-analysis of randomized controlled trials.",
+    "year": 2025
+   },
+   {
+    "pmid": "40835231",
+    "title": "Blood metabolome of cardiovascular disease, diabetic kidney disease, and diabetic retinopathy in type 2 diabetes patients: A systematic review and meta-analysis.",
+    "year": 2025
+   },
+   {
+    "pmid": "40813743",
+    "title": "Effects of Carnitine and Coenzyme Q10 on Sperm Quality and Pregnancy Rates in Men with Unexplained Infertility: A Systematic Review and Network Meta-Analysis.",
+    "year": 2025
+   }
+  ]
  },
  {
   "id": "BCAA",
@@ -2416,7 +3200,25 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "42162431",
+    "title": "Genetic analysis of circulating metabolic traits in 619,372 individuals.",
+    "year": 2026
+   },
+   {
+    "pmid": "42107488",
+    "title": "Meta-analysis of blood metabolomics reveals dysregulated amino acid, neurotransmitter, and energy pathways in depression.",
+    "year": 2026
+   },
+   {
+    "pmid": "41851059",
+    "title": "Treatment of Sleep Disorders Following Traumatic Brain Injury: A Systematic Review and Network Meta-Analysis.",
+    "year": 2026
+   }
+  ]
  },
  {
   "id": "Аргинин",
@@ -2465,7 +3267,25 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "42520885",
+    "title": "Reassessment of the effect of oral l-arginine on blood pressure: A systematic review and meta-analysis based on ambulatory blood pressure monitoring.",
+    "year": 2026
+   },
+   {
+    "pmid": "42435267",
+    "title": "A metabolomic signatures in hyperuricemia: a systematic review.",
+    "year": 2026
+   },
+   {
+    "pmid": "42397815",
+    "title": "Nutritional supplements for preventing preeclampsia: A network meta-analysis.",
+    "year": 2026
+   }
+  ]
  },
  {
   "id": "Кальций",
@@ -2523,7 +3343,25 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "42703738",
+    "title": "Meta-Analysis of the Mitigation Effects of Supplementation With Calcium Salts of Unsaturated Fatty Acids on Enteric Methane Emissions in Beef Cattle and Its Impact on Meat Quality.",
+    "year": 2026
+   },
+   {
+    "pmid": "42677903",
+    "title": "Factors influencing abnormal bone mineral density in Chinese women aged 40 years and older: A meta-analysis.",
+    "year": 2026
+   },
+   {
+    "pmid": "42565501",
+    "title": "Effectiveness of anti-osteoporotic medications in the management of glucocorticoid-induced osteoporosis: a systematic review and network meta-analysis on behalf of the ECTS clinical action group.",
+    "year": 2026
+   }
+  ]
  },
  {
   "id": "Гиалуроновая кислота",
@@ -2567,7 +3405,25 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "42402428",
+    "title": "Penile augmentation procedures: a systematic review and meta-analysis of techniques, materials, and safety outcomes.",
+    "year": 2026
+   },
+   {
+    "pmid": "42374337",
+    "title": "Comparative efficacy of arthrocentesis combined with different drug injections for arthrogenic temporomandibular disorders: a network meta-analysis of randomized trials.",
+    "year": 2026
+   },
+   {
+    "pmid": "42343396",
+    "title": "Comparative efficacy of platelet-rich plasma monotherapy versus combination therapies for knee osteoarthritis: a systematic review and network meta-analysis.",
+    "year": 2026
+   }
+  ]
  },
  {
   "id": "Псиллиум",
@@ -2619,7 +3475,25 @@
   "myths": "«Заменит овощи» — клетчатка есть, но нет витаминов. «Работает без воды» — без воды запор.",
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "42687548",
+    "title": "[Efficacy of trospium chloride in the treatment of overactive bladder: asystematic review and meta-analysis].",
+    "year": 2026
+   },
+   {
+    "pmid": "41126340",
+    "title": "The effect of psyllium consumption on anthropometric indices: a systematic review and dose-response meta-analysis of randomized controlled trials.",
+    "year": 2025
+   },
+   {
+    "pmid": "39470206",
+    "title": "Conservative, physical and surgical interventions for managing faecal incontinence and constipation in adults with central neurological diseases.",
+    "year": 2024
+   }
+  ]
  },
  {
   "id": "Имбирь",
@@ -2676,7 +3550,25 @@
   "myths": "«Лечит простуду» — облегчает симптомы, не лечит. «Безопасен с антикоагулянтами» — риск кровотечений.",
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "42566667",
+    "title": "Ginger Supplementation and Blood Pressure in Adults: A GRADE-Based Systematic Review and Dose-Response Meta-Analysis of Randomized Controlled Trials.",
+    "year": 2026
+   },
+   {
+    "pmid": "42524861",
+    "title": "External Source Monitoring and Reality Monitoring: Meta-Analysis of fMRI Studies.",
+    "year": 2026
+   },
+   {
+    "pmid": "42443093",
+    "title": "[Different moxibustion therapies for primary dysmenorrhea: a network Meta-analysis].",
+    "year": 2026
+   }
+  ]
  },
  {
   "id": "Чеснок",
@@ -2733,7 +3625,25 @@
   "myths": "«Заменит статины» — эффект скромный. «Свежий чеснок равноценен» — добавки стабильнее.",
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "31660038",
+    "title": "Allicin as add-on therapy for Helicobacter pylori infection: A systematic review and meta-analysis.",
+    "year": 2019
+   },
+   {
+    "pmid": "19017826",
+    "title": "Effects of garlic on blood pressure in patients with and without systolic hypertension: a meta-analysis.",
+    "year": 2008
+   },
+   {
+    "pmid": "8169881",
+    "title": "Garlic as a lipid lowering agent--a meta-analysis.",
+    "year": 1994
+   }
+  ]
  },
  {
   "id": "Клюква",
@@ -2777,7 +3687,25 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "39579122",
+    "title": "Effects of cross-linking agents on hydroxyproline release and root caries lesion size: Systematic review and network meta-analysis of in vitro studies.",
+    "year": 2024
+   },
+   {
+    "pmid": "34473789",
+    "title": "Consumption of cranberry as adjuvant therapy for urinary tract infections in susceptible populations: A systematic review and meta-analysis with trial sequential analysis.",
+    "year": 2021
+   },
+   {
+    "pmid": "29046404",
+    "title": "Cranberry Reduces the Risk of Urinary Tract Infection Recurrence in Otherwise Healthy Women: A Systematic Review and Meta-Analysis.",
+    "year": 2017
+   }
+  ]
  },
  {
   "id": "Пустырник",
@@ -2826,7 +3754,25 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "40527062",
+    "title": "Motherwort synergized with oxytocin for postpartum hemorrhage prevention: Integrated clinical efficacy and mechanism exploration.",
+    "year": 2025
+   },
+   {
+    "pmid": "30288846",
+    "title": "Efficacy and safety of motherwort injection add-on therapy to carboprost tromethamine for prevention of post-partum blood loss: A meta-analysis of randomized controlled trials.",
+    "year": 2019
+   },
+   {
+    "pmid": "29882344",
+    "title": "Motherwort injection for preventing postpartum hemorrhage in pregnant women with cesarean section: A systematic review and meta-analysis.",
+    "year": 2018
+   }
+  ]
  },
  {
   "id": "Боярышник",
@@ -2875,7 +3821,25 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "42521227",
+    "title": "Does vitamin D supplementation modulate metabolic risk factors of cardiovascular disease? A systematic review and meta-analysis of clinical trials.",
+    "year": 2026
+   },
+   {
+    "pmid": "42381151",
+    "title": "Traditional Chinese Medicines for Metabolic Dysfunction-Associated Steatotic Liver Disease: A Mixed-Method Systematic Review.",
+    "year": 2026
+   },
+   {
+    "pmid": "42134427",
+    "title": "Does intranasal oxytocin reduce symptoms of mental disorders? A meta-analysis of clinical trials.",
+    "year": 2026
+   }
+  ]
  },
  {
   "id": "Бета-глюканы овса",
@@ -2919,7 +3883,25 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "41362998",
+    "title": "Cereal beta-glucan and cardiovascular disease risk reduction in overweight and obese populations: a systematic review and meta-analysis of lipid, blood pressure, and anthropometric parameters.",
+    "year": 2026
+   },
+   {
+    "pmid": "38441173",
+    "title": "Efficacy of oats in dyslipidemia: a systematic review and meta-analysis.",
+    "year": 2024
+   },
+   {
+    "pmid": "36657917",
+    "title": "The separate effects of whole oats and isolated beta-glucan on lipid profile: A systematic review and meta-analysis of randomized controlled trials.",
+    "year": 2023
+   }
+  ]
  },
  {
   "id": "Рибофлавин",
@@ -2963,7 +3945,25 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "41123035",
+    "title": "Riboflavin supplements for blood pressure lowering in adults.",
+    "year": 2025
+   },
+   {
+    "pmid": "38296289",
+    "title": "Effect of vitamin B(2), vitamin C, vitamin D, vitamin E and folic acid in adults with essential hypertension: a systematic review and network meta-analysis.",
+    "year": 2024
+   },
+   {
+    "pmid": "33912967",
+    "title": "Associations of dietary vitamin B1, vitamin B2, vitamin B6, and vitamin B12 with the risk of depression: a systematic review and meta-analysis.",
+    "year": 2022
+   }
+  ]
  },
  {
   "id": "Лютеин + зеаксантин",
@@ -3007,7 +4007,25 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "40292760",
+    "title": "Lutein and zeaxanthin for reducing morbidity and mortality in preterm infants.",
+    "year": 2025
+   },
+   {
+    "pmid": "38582248",
+    "title": "Effect of Antioxidant Supplementation on Macular Pigment Optical Density and Visual Functions: A Systematic Review and Network Meta-Analysis of Randomized Controlled Trials.",
+    "year": 2024
+   },
+   {
+    "pmid": "37094947",
+    "title": "Effect of xanthophyll-rich food and supplement intake on visual outcomes in healthy adults and those with eye disease: a systematic review, meta-analysis, and meta-regression of randomized controlled trials.",
+    "year": 2023
+   }
+  ]
  },
  {
   "id": "Инозитол",
@@ -3051,7 +4069,25 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "42490840",
+    "title": "Comparative analysis of glucagon-like peptide-1 receptor agonists, metformin, and inositol in improving anthropometric and metabolic outcomes in women with polycystic ovary syndrome: a network meta-analysis.",
+    "year": 2026
+   },
+   {
+    "pmid": "42356328",
+    "title": "The Effect of Dietary Supplements on Female Infertility in Terms of Endometrial Thickness, Pregnancy, Live Birth and Miscarriage: A Systematic Review and Meta-Analysis.",
+    "year": 2026
+   },
+   {
+    "pmid": "42340705",
+    "title": "Neurometabolites and Antipsychotic Response in Psychosis: A Mega-Analysis.",
+    "year": 2026
+   }
+  ]
  },
  {
   "id": "Альфа-липоевая кислота",
@@ -3100,7 +4136,25 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "42643396",
+    "title": "Oral, intravenous, or sequential alpha-lipoic acid for diabetic peripheral neuropathy? A Bayesian network meta-analysis of randomized controlled trials.",
+    "year": 2026
+   },
+   {
+    "pmid": "42147097",
+    "title": "Efficacy and safety of Buyang Huanwu Decoction combined with α-lipoic acid for diabetic peripheral neuropathy: a systematic review with in-depth heterogeneity deconstruction and methodological appraisal.",
+    "year": 2026
+   },
+   {
+    "pmid": "41917882",
+    "title": "Effects of alpha-lipoic acid supplementation on patients with nonalcoholic fatty liver disease: a systematic review and meta-analysis of randomized clinical trials.",
+    "year": 2026
+   }
+  ]
  },
  {
   "id": "D-манноза",
@@ -3144,7 +4198,25 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "42437309",
+    "title": "Role of Mannose-binding Lectin-2 Promoter Genetic Variants in Susceptibility to Sepsis: A Meta and Trial Sequential Analysis.",
+    "year": 2026
+   },
+   {
+    "pmid": "42353883",
+    "title": "Genetic Variants and Dental Caries Susceptibility: An Umbrella Review and Multilevel Meta-Analysis.",
+    "year": 2026
+   },
+   {
+    "pmid": "41004704",
+    "title": "Efficacy of D-mannose as prophylaxis of recurrent urinary tract infection: a systematic review and meta-analysis of randomized controlled trials.",
+    "year": 2025
+   }
+  ]
  },
  {
   "id": "Мака",
@@ -3188,7 +4260,20 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "42356395",
+    "title": "Lepidium Meyenii Walp. (Maca) and Blood Biomarkers of Muscle Damage and Post-Exertion Protein Degradation: A Systematic Review and Meta-Analysis of Preclinical Studies.",
+    "year": 2026
+   },
+   {
+    "pmid": "39796542",
+    "title": "Effects of Maca (Lepidium meyenii Walp.) on Physical Performance in Animals and Humans: A Systematic Review and Meta-Analysis.",
+    "year": 2024
+   }
+  ]
  },
  {
   "id": "Хром",
@@ -3232,7 +4317,25 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "41651358",
+    "title": "Quantifying production responses to the supplementation of chromium in lactating dairy cattle.",
+    "year": 2026
+   },
+   {
+    "pmid": "41580698",
+    "title": "Effectiveness of mineral supplements (magnesium, chromium, zinc, selenium, chromium picolinate) in reducing insulin resistance in polycystic ovary syndrome: a meta-analysis of randomized controlled trials.",
+    "year": 2026
+   },
+   {
+    "pmid": "41067797",
+    "title": "Therapeutic effects of chromium supplementation on women with polycystic ovarian syndrome: A systematic review and meta-analysis.",
+    "year": 2025
+   }
+  ]
  },
  {
   "id": "Астаксантин",
@@ -3276,7 +4379,25 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "42197030",
+    "title": "The Effects of Astaxanthin Supplementation on Exercise Recovery Biomarkers and Exercise Performance: A Systematic Review and Meta-Analysis.",
+    "year": 2026
+   },
+   {
+    "pmid": "42075102",
+    "title": "The Effects of Seaweed and Microalgae Supplementation on Exercise Performance and Recovery: A Systematic Review and Meta-Analysis.",
+    "year": 2026
+   },
+   {
+    "pmid": "41714744",
+    "title": "A systematic review and meta-analysis of astaxanthin efficacy in male infertility: evidence from clinical and preclinical studies.",
+    "year": 2026
+   }
+  ]
  },
  {
   "id": "Расторопша",
@@ -3320,7 +4441,25 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "40886393",
+    "title": "Nephroprotective Effects of Silymarin: A Systematic Review and Meta-Analysis.",
+    "year": 2025
+   },
+   {
+    "pmid": "38579127",
+    "title": "Administration of silymarin in NAFLD/NASH: A systematic review and meta-analysis.",
+    "year": 2024
+   },
+   {
+    "pmid": "34486906",
+    "title": "Coadministration of silymarin with iron chelators in transfusion-dependent β-thalassemia patients: a systematic review and meta-analysis for effect on iron overload.",
+    "year": 2021
+   }
+  ]
  },
  {
   "id": "Лактоферрин",
@@ -3367,7 +4506,25 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "42227920",
+    "title": "Dynamic Profiles of Total Protein, Amino Acids, and Representative Bioactive Proteins in Human Milk across Lactation Stages: A Systematic Review and Meta-Analysis.",
+    "year": 2026
+   },
+   {
+    "pmid": "39939938",
+    "title": "Tear-fluid-derived biomarkers of ocular complications in diabetes: a systematic review and meta-analysis.",
+    "year": 2025
+   },
+   {
+    "pmid": "39841980",
+    "title": "Efficacy of lactoferrin supplementation in pediatric infections: a systematic review and meta-analysis.",
+    "year": 2025
+   }
+  ]
  },
  {
   "id": "SAMe",
@@ -3411,7 +4568,25 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "40014460",
+    "title": "Efficacy of Pharmacological Interventions in Milder Depression: A Systematic Review and Meta-Analysis.",
+    "year": 2025
+   },
+   {
+    "pmid": "38423354",
+    "title": "Efficacy and acceptability of S-adenosyl-L-methionine (SAMe) for depressed patients: A systematic review and meta- analysis.",
+    "year": 2024
+   },
+   {
+    "pmid": "38199136",
+    "title": "S-Adenosylmethionine (SAMe) as an adjuvant therapy for patients with depression: An updated systematic review and meta-analysis.",
+    "year": 2024
+   }
+  ]
  },
  {
   "id": "Йохимбин",
@@ -3460,7 +4635,25 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "42190597",
+    "title": "Comparative diagnostic accuracy of panic provocation tests: A meta-analysis.",
+    "year": 2026
+   },
+   {
+    "pmid": "31433334",
+    "title": "The Efficacy of Modafinil as a Cognitive Enhancer: A Systematic Review and Meta-Analysis.",
+    "year": 2019
+   },
+   {
+    "pmid": "30770070",
+    "title": "The Potential Role of Arginine Supplements on Erectile Dysfunction: A Systemic Review and Meta-Analysis.",
+    "year": 2019
+   }
+  ]
  },
  {
   "id": "Пажитник",
@@ -3509,7 +4702,25 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "41539457",
+    "title": "Assessing the safety of herbal medicine use among type 2 diabetes mellitus patients: A systematic review and meta-analysis.",
+    "year": 2026
+   },
+   {
+    "pmid": "40037045",
+    "title": "Improving quercetin bioavailability: A systematic review and meta-analysis of human intervention studies.",
+    "year": 2025
+   },
+   {
+    "pmid": "37762302",
+    "title": "The Effect of Fenugreek in Type 2 Diabetes and Prediabetes: A Systematic Review and Meta-Analysis of Randomized Controlled Trials.",
+    "year": 2023
+   }
+  ]
  },
  {
   "id": "Чёрный тмин",
@@ -3558,7 +4769,25 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "42522800",
+    "title": "Thymoquinone Modulates Gene Expression Associated with Apoptosis in Colorectal Cancer: A Preclinical Systematic Review and Meta-Analysis of BAX, BCL2, and CASP3.",
+    "year": 2026
+   },
+   {
+    "pmid": "40839182",
+    "title": "Effects of Nigella sativa and its constituents on inflammatory markers in ovalbumin-induced asthma model: a preclinical systematic review and meta-analysis.",
+    "year": 2025
+   },
+   {
+    "pmid": "32454800",
+    "title": "Effect of Nigella sativa Supplementation on Oxidative Stress and Antioxidant Parameters: A Meta-Analysis of Randomized Controlled Trials.",
+    "year": 2020
+   }
+  ]
  },
  {
   "id": "Трибулус",
@@ -3602,7 +4831,25 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "40360723",
+    "title": "Tribulus terrestris for management of patients with erectile dysfunction: a systematic review and meta-analysis of randomized trials.",
+    "year": 2026
+   },
+   {
+    "pmid": "37686709",
+    "title": "Dietary Supplements for Erectile Dysfunction: Analysis of Marketed Products, Systematic Review, Meta-Analysis and Rational Use.",
+    "year": 2023
+   },
+   {
+    "pmid": "34638031",
+    "title": "Beneficial effects of natural products on female sexual dysfunction: A systematic review and meta-analysis.",
+    "year": 2021
+   }
+  ]
  },
  {
   "id": "NMN/NR",
@@ -3646,7 +4893,15 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "40275690",
+    "title": "The Effect of Nicotinamide Mononucleotide and Riboside on Skeletal Muscle Mass and Function: A Systematic Review and Meta-Analysis.",
+    "year": 2025
+   }
+  ]
  },
  {
   "id": "Кордицепс",
@@ -3690,7 +4945,25 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "39460586",
+    "title": "Therapeutic efficacy and pharmacological mechanism of Bailing capsule on chronic obstructive pulmonary disease: a meta-analysis and network pharmacology.",
+    "year": 2024
+   },
+   {
+    "pmid": "38484953",
+    "title": "Adjuvant treatment with Cordyceps sinensis for lung cancer: A systematic review and meta-analysis of randomized controlled trials.",
+    "year": 2024
+   },
+   {
+    "pmid": "36375237",
+    "title": "The effects of Ophiocordyceps sinensis combined with ACEI/ARB on diabetic kidney disease: A systematic review and meta-analysis.",
+    "year": 2023
+   }
+  ]
  },
  {
   "id": "Рейши",
@@ -3739,7 +5012,25 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "32325828",
+    "title": "Use of Ganoderma lucidum (Ganodermataceae, Basidiomycota) as Radioprotector.",
+    "year": 2020
+   },
+   {
+    "pmid": "27045603",
+    "title": "Ganoderma lucidum (Reishi mushroom) for cancer treatment.",
+    "year": 2016
+   },
+   {
+    "pmid": "25686270",
+    "title": "Ganoderma lucidum mushroom for the treatment of cardiovascular risk factors.",
+    "year": 2015
+   }
+  ]
  },
  {
   "id": "Хлорофилл",
@@ -3783,7 +5074,25 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "42384465",
+    "title": "Biometric, Physiological, Biochemical, and Molecular Responses of Grapevine to Flavescence Dorée Phytoplasma Infection: A Comprehensive Meta-Analysis.",
+    "year": 2026
+   },
+   {
+    "pmid": "42216720",
+    "title": "Hydrogen Sulfide as a Green Postharvest Preservative: A Meta-Analysis of Quality Maintenance, Stress Resistance Regulation, and Implications for Artificial Intelligence‑Assisted Chilling Injury Early Warning.",
+    "year": 2026
+   },
+   {
+    "pmid": "42203996",
+    "title": "Machine learning-assisted meta-analysis reveals melatonin crosstalk regulating plant growth plasticity under heavy metal stress.",
+    "year": 2026
+   }
+  ]
  },
  {
   "id": "Сывороточный протеин",
@@ -3827,7 +5136,25 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "42700006",
+    "title": "Combined effects of strength training, whey protein, and HMB on sarcopenia in older people: A systematic review and meta-analysis.",
+    "year": 2026
+   },
+   {
+    "pmid": "42676343",
+    "title": "Effects of breakfast macronutrient composition on postprandial glycemic control in patients with diabetes mellitus: a systematic review and meta-analysis of randomized controlled trials.",
+    "year": 2026
+   },
+   {
+    "pmid": "42385660",
+    "title": "Dose-dependent effect of milk proteins on body composition and lipid profile in overweight and obese individuals; A GRADE-assessed systematic review and meta-analysis of randomized controlled trials.",
+    "year": 2026
+   }
+  ]
  },
  {
   "id": "Глутамин",
@@ -3871,7 +5198,25 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "42340705",
+    "title": "Neurometabolites and Antipsychotic Response in Psychosis: A Mega-Analysis.",
+    "year": 2026
+   },
+   {
+    "pmid": "42316063",
+    "title": "Effect of immunonutrition on surgery outcomes in cancer patients: evidence from an umbrella review on interventional and observational meta-analyses.",
+    "year": 2026
+   },
+   {
+    "pmid": "42107488",
+    "title": "Meta-analysis of blood metabolomics reveals dysregulated amino acid, neurotransmitter, and energy pathways in depression.",
+    "year": 2026
+   }
+  ]
  },
  {
   "id": "Босвеллия",
@@ -3920,7 +5265,25 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "41082950",
+    "title": "Evaluating the efficacy and safety of Curcuma longa, Boswellia serrata, and their mixed formulation in treating knee osteoarthritis: A systematic review and network meta-analysis.",
+    "year": 2026
+   },
+   {
+    "pmid": "38365549",
+    "title": "Efficacy evaluation of standardized Boswellia serrata extract (Aflapin(Ⓡ)) in osteoarthritis: A systematic review and sub-group meta-analysis study.",
+    "year": 2024
+   },
+   {
+    "pmid": "32680575",
+    "title": "Effectiveness of Boswellia and Boswellia extract for osteoarthritis patients: a systematic review and meta-analysis.",
+    "year": 2020
+   }
+  ]
  },
  {
   "id": "Витамин K2",
@@ -3967,7 +5330,25 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "41388930",
+    "title": "Vitamin K2 Supplementation and Clinical Outcomes in Hepatocellular Carcinoma Patients: A Meta-Analysis with Trial Sequential Analysis.",
+    "year": 2026
+   },
+   {
+    "pmid": "41268154",
+    "title": "The effect of vitamin K2 supplementation on bone turnover biochemical markers in postmenopausal osteoporosis patients: a systematic review and meta-analysis.",
+    "year": 2025
+   },
+   {
+    "pmid": "36033779",
+    "title": "Efficacy of vitamin K2 in the prevention and treatment of postmenopausal osteoporosis: A systematic review and meta-analysis of randomized controlled trials.",
+    "year": 2022
+   }
+  ]
  },
  {
   "id": "Берберин",
@@ -4029,7 +5410,25 @@
   "myths": "«Заменит метформин» — эффект схож, но данных меньше. «Безопасен со статинами» — взаимодействие.",
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "42213651",
+    "title": "Probiotics, synbiotics and berberine in Type 2 diabetes mellitus: A systematic review, meta-analysis, and molecular dynamics simulation study.",
+    "year": 2026
+   },
+   {
+    "pmid": "42202392",
+    "title": "Efficacy and potential mechanisms of alkaloids in animal models for pulmonary fibrosis: a study integrating preclinical systematic review and meta-analysis, network pharmacology and molecular docking.",
+    "year": 2026
+   },
+   {
+    "pmid": "41310257",
+    "title": "The effect of berberine on obesity indices: a systematic review and meta-analysis.",
+    "year": 2026
+   }
+  ]
  },
  {
   "id": "Кверцетин",
@@ -4078,6 +5477,24 @@
   "key_sources": [],
   "updated": "2026-09-14",
   "price_source": null,
-  "year_last_ma": null
+  "year_last_ma": null,
+  "price_date": "дата неизвестна",
+  "ma_top3": [
+   {
+    "pmid": "42284759",
+    "title": "Systematic review and meta-analysis of protective effects of quercetin in animal models of lung fibrosis and possible mechanism.",
+    "year": 2026
+   },
+   {
+    "pmid": "41516399",
+    "title": "Evidence Synthesis and Mechanism Analysis of Quercetin Treatment for Atherosclerosis: A Preclinical Systematic Review and Meta-Analysis.",
+    "year": 2026
+   },
+   {
+    "pmid": "41514376",
+    "title": "The effect of Quercetin supplementation on hyperuricemia-related biochemical and renal outcomes in animal models: a systematic review and meta-analysis.",
+    "year": 2026
+   }
+  ]
  }
 ]
