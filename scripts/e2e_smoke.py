@@ -356,6 +356,63 @@ def main() -> None:
                 else:
                     assert "Журнал" in pg.locator("h1").inner_text(), "changelog_public: нет h1"
 
+            # === PART A tracker ===
+            # A2: кнопка «📅 В мой курс» появляется в модалке
+            ts += 1; pg.goto(f"{BASE}/index.html?ts={ts}", wait_until="domcontentloaded")
+            pg.wait_for_selector(".card[data-id='Омега-3']", state="attached", timeout=5000)
+            pg.wait_for_function("window.chart != null", timeout=5000)
+            pg.click(".card[data-id='Омега-3']")
+            pg.wait_for_selector("#modalOverlay", state="visible", timeout=5000)
+            pg.wait_for_selector("[data-tracker-btn]", state="attached", timeout=3000)
+            btn = pg.locator("[data-tracker-btn]")
+            assert btn.count() == 1, "кнопка «В мой курс» не появилась в модалке"
+            assert "В мой курс" in btn.inner_text(), f"текст кнопки: {btn.inner_text()!r}"
+            # Приватность-пометка
+            assert "только в вашем браузере" in pg.locator("#modalBody").inner_text(), \
+                "нет приватность-пометки под кнопкой"
+
+            # A2: добавляем курс → прогресс обновляется
+            btn.click()
+            pg.wait_for_timeout(300)
+            assert "В курсе" in btn.inner_text(), f"кнопка не обновилась: {btn.inner_text()!r}"
+            assert "1/" in btn.inner_text(), f"прогресс не 1/N: {btn.inner_text()!r}"
+            pg.keyboard.press("Escape")
+            pg.wait_for_selector("#modalOverlay", state="hidden", timeout=5000)
+
+            # A3: секция «Мои добавки» появилась на главной
+            pg.goto(f"{BASE}/index.html?ts={ts}", wait_until="domcontentloaded")
+            pg.wait_for_selector("#myCoursesSection", state="attached", timeout=5000)
+            sec = pg.locator("#myCoursesSection")
+            assert sec.is_visible(), "секция «Мои добавки» скрыта"
+            assert "Омега-3" in sec.inner_text(), "Омега-3 нет в секции «Мои добавки»"
+            assert "1/30" in sec.inner_text(), f"прогресс не 1/30: {sec.inner_text()!r}"
+
+            # A3: кнопка «+ Принял» → прогресс 2/30
+            pg.click("[data-tracker-take='Омега-3']")
+            pg.wait_for_timeout(300)
+            assert "2/30" in sec.inner_text(), f"прогресс не 2/30: {sec.inner_text()!r}"
+
+            # A3: кнопка «убрать» → секция пуста
+            pg.click("[data-tracker-remove='Омега-3']")
+            pg.wait_for_timeout(300)
+            assert not sec.is_visible(), "секция не скрыта после удаления курса"
+
+            # A1: localStorage-гард — вставляем битые данные → console.warn + сброс
+            pg.evaluate("""() => {
+                localStorage.setItem('myCourse', JSON.stringify({
+                    'bad': { 'start': 'not-a-date', 'days': 30, 'taken': [], 'note': '' },
+                    'good': { 'start': '2025-09-14T00:00:00.000Z', 'days': 30, 'taken': ['2025-09-14'], 'note': '' }
+                }));
+            }""")
+            warn_logs = []
+            pg.on("console", lambda m: warn_logs.append(m.text) if m.type == "warning" else None)
+            pg.reload(wait_until="domcontentloaded")
+            pg.wait_for_timeout(500)
+            # Битый ключ должен быть сброшен, good — сохранён
+            stored = pg.evaluate("JSON.parse(localStorage.getItem('myCourse') || '{}')")
+            assert "bad" not in stored, "битый ключ 'bad' не был удалён гардом"
+            assert "good" in stored, "валидный ключ 'good' был удалён"
+
             assert not errors, f"ошибки консоли: {errors}"
             b.close()
     finally:
