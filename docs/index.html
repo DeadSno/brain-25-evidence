@@ -43,6 +43,7 @@ try {
 <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
+<div class="trustbar">🧬 Открытые данные · Бесплатно · Без рекламы</div>
 <header>
   <h1><a href="index.html" style="color:inherit;text-decoration:none" title="На главную">🧠 БАДы: цена vs наука</a></h1>
   <div class="hdr">
@@ -61,8 +62,8 @@ try {
   </select>
   <select id="categoryFilter"><option value="all">Все категории</option></select>
   <select id="sortSelect">
-    <option value="science">По науке</option>
-    <option value="value">По ценности (наука/цена)</option>
+    <option value="science">🔬 Топ-3 по доказательности</option>
+    <option value="value">⚖️ По ценности (наука/цена)</option>
     <option value="price_asc">Сначала дешёвые</option>
     <option value="reviews">По популярности (WB)</option>
     <option value="name">По алфавиту</option>
@@ -89,6 +90,17 @@ try {
   </div>
 </section>
 
+<section id="trustSummary" style="background:var(--card-bg);padding:1.2rem 1.5rem;border-radius:12px;border:1px solid var(--border)">
+  <h2>🔬 Как мы проверяем данные</h2>
+  <ul>
+    <li>Мета-анализы из PubMed — каждый факт со ссылкой на оригинал</li>
+    <li>Ручная вычитка топ-2 мета-анализов по каждой добавке (вердикт и грейд)</li>
+    <li>Ночной бот пересматривает цены 27 добавок и следит за дрейфом</li>
+    <li>64 автотеста + снапшот данных — ничего не меняется молча</li>
+    <li>Открытый код: <a href="https://github.com/DeadSno/brain-25-evidence" target="_blank" rel="noopener">github.com/DeadSno/brain-25-evidence</a></li>
+  </ul>
+</section>
+
 <section id="chartSection">
   <h2>Цена vs Доказательность <span class="hint">(пузырь = мета-анализы, ось Y — лог-шкала)</span></h2>
   <details class="method">
@@ -100,6 +112,12 @@ try {
   <div class="chartTabs">
     <button id="tabPrice" class="chartTab on">Цена vs наука</button>
     <button id="tabQuadrant" class="chartTab">Квадрант доказательности</button>
+  </div>
+  <div class="chartTabs" id="axisRow">
+    <button id="axisPrice" class="chartTab">Цена ₽/мес</button>
+    <button id="axisMA" class="chartTab on">Число МА</button>
+    <button id="axisRCT" class="chartTab">Число РКИ</button>
+    <button id="axisYear" class="chartTab">Год последнего МА</button>
   </div>
   <div id="chartWrap">
     <canvas id="bubbleChart"></canvas>
@@ -129,8 +147,8 @@ try {
 <footer>
   <p><b>⚠️ Дисклеймер.</b> Проект не является медицинской рекомендацией. При болезнях, беременности и приёме лекарств — сначала к врачу.</p>
   <p>Цены рассчитаны по действующему веществу и дозировке из исследований. Мы НЕ учитывали: вспомогательные компоненты таблеток (диоксид кремния, стеарат магния, красители, оболочка), форму вещества (хелат/цитрат/оксид/липосомы), степень очистки, размер упаковки и брендовую наценку — всё это влияет на реальную цену на полке.</p>
-  <p>v2.5 • данные на 11.09.2026 • источники: PubMed, OpenAlex, Wildberries, Google Trends, Wikimedia</p>
-  <p style="margin-top:.6rem">📐 <a href="methodology.html" style="color:inherit">Методология и ошибки (цикл 4)</a> · ❓ <a href="faq.html" style="color:inherit">FAQ</a> · 📖 <a href="glossary.html" style="color:inherit">Глоссарий</a> · 📋 <a href="changelog_public.html" style="color:inherit">Журнал правок</a> · 🛠 Нашли ошибку в данных? <a href="https://github.com/DeadSno/brain-25-evidence/issues/new?template=data-error.md" style="color:inherit">Создайте issue</a> — исправим и отметим в чейнджлоге.</p>
+  <p>v2.6 • данные на 11.09.2026 • источники: PubMed, OpenAlex, Wildberries, Google Trends, Wikimedia</p>
+  <p style="margin-top:.6rem">📐 <a href="methodology.html" style="color:inherit">Методология и ошибки (цикл 4)</a> · ❓ <a href="faq.html" style="color:inherit">FAQ</a> · 📖 <a href="glossary.html" style="color:inherit">Глоссарий</a> · 📋 <a href="changelog_public.html" style="color:inherit">Журнал правок</a> · ❌ <a href="https://github.com/DeadSno/brain-25-evidence/issues/new?title=Неточность%20в%20данных&body=Что%20не%20так:%20" style="color:inherit">Нашли неточность? Сообщить</a> — исправим и отметим в чейнджлоге.</p>
 </footer>
 
 <div id="modalOverlay" style="display:none">
