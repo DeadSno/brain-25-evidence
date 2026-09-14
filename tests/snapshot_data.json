@@ -331,11 +331,25 @@
   "guidelines": "EFSA: 400 мг/сут безопасно; позиция ISSN: эргогеник 3-6 мг/кг.",
   "how_to_choose": "Таблетки для точной дозы перед тренировкой; в кофе доза плавает (эспрессо 60-80 мг).",
   "myths": "«Кофе обезвоживает» — умеренный диурез не ведёт к дегидратации. «После 18:00 можно всем» — генотип CYP1A2 решает, сон страдает даже без ощущений.",
-  "hedges_g": null,
-  "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": []
+  "hedges_g": 0.21,
+  "hedges_g_ci": {
+   "lo": 0.14,
+   "hi": 0.27
+  },
+  "effect_outcome": "muscular strength (жевательная форма)",
+  "grade": "B",
+  "key_sources": [
+   {
+    "citation": "Varovic, D and Grgic, J. Fast-acting caffeine: Does caffeinated chewing gum enhance muscular strength, endurance, and jumping performance? A systematic review and meta-analysis. J Strength Cond Res 40(8): 1020-1029, 2026",
+    "pmid": "42228847",
+    "year": 2026,
+    "g": 0.21,
+    "ci": {
+     "lo": 0.14,
+     "hi": 0.27
+    }
+   }
+  ]
  },
  {
   "id": "L-Теанин",
