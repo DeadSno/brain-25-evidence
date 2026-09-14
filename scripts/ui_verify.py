@@ -68,6 +68,25 @@ def main() -> int:
                 pg.goto(f"{BASE}/{sub}.html?ts={int(time.time())}", wait_until="networkidle")
                 pg.screenshot(path=str(SHOTS / f"v25_{sub}.png"))
 
+            # v2.6: главная с 5-точечными бейджами и тумблером осей
+            pg.goto(f"{BASE}/index.html?ts={int(time.time())}", wait_until="networkidle")
+            pg.set_viewport_size({"width": 1280, "height": 900})
+            pg.screenshot(path=str(SHOTS / "v26_index.png"), full_page=True)
+            # переключение на ось «Число РКИ» — график перерисовался без reload
+            pg.click("#axisRCT")
+            pg.wait_for_timeout(600)
+            pg.screenshot(path=str(SHOTS / "v26_axisRCT.png"))
+            # модалка Кофеина: точки, бейджи, поделиться/сравнить
+            pg.click("#axisMA")
+            pg.click(".card[data-id='Кофеин']")
+            pg.wait_for_selector("#modalOverlay", state="visible", timeout=5000)
+            pg.wait_for_timeout(400)
+            pg.screenshot(path=str(SHOTS / "v26_modal.png"), full_page=True)
+            pg.keyboard.press("Escape")
+            # карта с trustbar
+            pg.goto(f"{BASE}/map.html?ts={int(time.time())}", wait_until="networkidle")
+            pg.screenshot(path=str(SHOTS / "v26_map.png"), full_page=True)
+
             assert not errors, f"ошибки консоли: {errors}"
             b.close()
     finally:
