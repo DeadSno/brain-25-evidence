@@ -294,7 +294,8 @@ def main() -> None:
                             c = c[0]*2 + c[1]*2 + c[2]*2
                         return int(c[0:2], 16), int(c[2:4], 16), int(c[4:6], 16)
                     if c.startswith("rgb"):
-                        parts = c.replace("rgba(", "").replace("rgb(", "").split(",")[:3]
+                        inner = c.replace("rgba", "").replace("rgb", "").rstrip(")")
+                        parts = [p.strip() for p in inner.replace("(", "").split(",")][:3]
                         return int(parts[0]), int(parts[1]), int(parts[2])
                     return 128, 128, 128
                 r1, g1, b1 = _parse(c1)
@@ -306,8 +307,12 @@ def main() -> None:
 
             # deferred to ui_verify for thorough multi-element check; quick smoke:
             for theme in ["light", "dark"]:
-                pg.evaluate(f"document.body.classList.toggle('dark', '{theme}' === 'dark')")
-                pg.wait_for_timeout(150)
+                pg.evaluate(f"localStorage.setItem('theme', '{theme}')")
+                pg.wait_for_timeout(100)
+                ts_theme = int(time.time())
+                pg.goto(f"{BASE}/index.html?ts={ts_theme}", wait_until="domcontentloaded")
+                pg.wait_for_selector(".card[data-id]", state="attached", timeout=5000)
+                pg.wait_for_timeout(400)  # переждать transition:background .25s
                 res = pg.evaluate("""() => {
                     function fg_bg(sel) {
                         const el = document.querySelector(sel);

@@ -128,7 +128,8 @@ def main() -> int:
                             c = c[0]*2 + c[1]*2 + c[2]*2
                         return int(c[0:2], 16), int(c[2:4], 16), int(c[4:6], 16)
                     if c.startswith("rgb"):
-                        parts = c.replace("rgba(", "").replace("rgb(", "").split(",")[:3]
+                        inner = c.replace("rgba", "").replace("rgb", "").rstrip(")")
+                        parts = [p.strip() for p in inner.replace("(", "").split(",")][:3]
                         return int(parts[0]), int(parts[1]), int(parts[2])
                     return 128, 128, 128
                 r1, g1, b1 = _parse(c1)
