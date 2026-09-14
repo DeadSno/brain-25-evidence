@@ -26,6 +26,11 @@ OUTCOME_TERMS = [
     "hemoglobin", "glyc", "a1c", "ferritin", "acetate", "crp",
     "interleukin", "cortisol", "cholesterol", "triglyceride", "insulin",
     "testosterone", "homocysteine", "blood pressure", "bone",
+    "strength", "power", "performance", "endurance", "exercis",
+    "sleep onset", "sleep quality", "sleep latency",
+    "triglycerides", "cardiovascular", "diarrhea", "bowel",
+    "wound", "immune", "immunity", "collagen", "osteoarthritis",
+    "bone mineral density", "bone density",
 ]
 
 
@@ -41,9 +46,11 @@ def ma_pmids(query: str, n: int = 5) -> list[str]:
     return r.json()["esearchresult"].get("idlist", [])
 
 
-def abstract(pmid: str) -> str:
+def abstract(pmid: str) -> str | None:
     r = requests.get(EFETCH, params={"db": "pubmed", "id": pmid,
                                      "rettype": "abstract", "retmode": "xml"}, timeout=30)
+    if r.status_code in (400, 404):
+        return None  # efetch-глюк конкретного id: пропустить PMID, не валить пересборку
     r.raise_for_status()
     raw = " ".join(re.findall(r"<AbstractText[^>]*>(.*?)</AbstractText>", r.text, re.S))
     return _clean_text(raw)
@@ -109,6 +116,8 @@ def candidates(sid: str, query: str) -> list[dict]:
             continue
         seen.add(pmid)
         text = abstract(pmid)
+        if text is None:
+            continue
         m = G_RE.search(text)
         if not m:
             continue
