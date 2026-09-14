@@ -19,7 +19,9 @@ def main() -> int:
             pg = b.new_page(viewport={"width": 1280, "height": 900})
             errors = []
             pg.on("console", lambda m: errors.append(m.text) if m.type == "error" else None)
-            pg.goto(f"{BASE}/index.html", wait_until="networkidle")
+            pg.goto(f"{BASE}/index.html", wait_until="domcontentloaded")
+            pg.wait_for_selector(".card", state="attached", timeout=5000)
+            pg.wait_for_function("window.chart != null", timeout=5000)
 
             # бейдж noPrice в вёрстке (26 товаров без цены)
             np_count = pg.locator(".noPrice").count()
@@ -45,7 +47,9 @@ def main() -> int:
 
             # 375px (закрывает пункт C «не верифицировано»)
             pg.set_viewport_size({"width": 375, "height": 667})
-            pg.reload(wait_until="networkidle")
+            pg.reload(wait_until="domcontentloaded")
+            pg.wait_for_selector(".card", state="attached", timeout=5000)
+            pg.wait_for_function("window.chart != null", timeout=5000)
             pg.screenshot(path=str(SHOTS / "ui_375.png"), full_page=True)
             overflow = pg.evaluate("document.documentElement.scrollWidth")
             if overflow > 380:
@@ -53,23 +57,27 @@ def main() -> int:
 
             # v2.3: баннер medium на кальций+железо
             pg.evaluate("localStorage.setItem('favs', JSON.stringify(['Кальций','Железо']))")
-            pg.reload(wait_until="networkidle")
+            pg.reload(wait_until="domcontentloaded")
+            pg.wait_for_timeout(500)
             if pg.locator(".banner.medium").count():
                 pg.screenshot(path=str(SHOTS / "banner_medium.png"))
 
             # v2.3: зелёная подсказка в модалке Магния
             pg.evaluate("localStorage.removeItem('favs')")
-            pg.goto(f"{BASE}/index.html?ts={int(time.time())}#sup=Магний", wait_until="networkidle")
+            pg.goto(f"{BASE}/index.html?ts={int(time.time())}#sup=Магний", wait_until="domcontentloaded")
             pg.wait_for_selector("#modalOverlay", state="visible", timeout=5000)
             pg.screenshot(path=str(SHOTS / "modal_synergy.png"))
 
             # v2.5: новые страницы прозрачности рендерятся и скриншотятся
             for sub in ["faq", "glossary", "changelog_public"]:
-                pg.goto(f"{BASE}/{sub}.html?ts={int(time.time())}", wait_until="networkidle")
+                pg.goto(f"{BASE}/{sub}.html?ts={int(time.time())}", wait_until="domcontentloaded")
+                pg.wait_for_selector("h1", state="attached", timeout=5000)
                 pg.screenshot(path=str(SHOTS / f"v25_{sub}.png"))
 
             # v2.6: главная с 5-точечными бейджами и тумблером осей
-            pg.goto(f"{BASE}/index.html?ts={int(time.time())}", wait_until="networkidle")
+            pg.goto(f"{BASE}/index.html?ts={int(time.time())}", wait_until="domcontentloaded")
+            pg.wait_for_selector("#cardsGrid .card", state="attached", timeout=5000)
+            pg.wait_for_function("window.chart != null", timeout=5000)
             pg.set_viewport_size({"width": 1280, "height": 900})
             pg.screenshot(path=str(SHOTS / "v26_index.png"), full_page=True)
             # переключение на ось «Число РКИ» — график перерисовался без reload
@@ -84,8 +92,22 @@ def main() -> int:
             pg.screenshot(path=str(SHOTS / "v26_modal.png"), full_page=True)
             pg.keyboard.press("Escape")
             # карта с trustbar
-            pg.goto(f"{BASE}/map.html?ts={int(time.time())}", wait_until="networkidle")
+            pg.goto(f"{BASE}/map.html?ts={int(time.time())}", wait_until="domcontentloaded")
+            pg.wait_for_selector("#chain", state="attached", timeout=5000)
             pg.screenshot(path=str(SHOTS / "v26_map.png"), full_page=True)
+
+            # v2.6.1: экономика-блок + топ-3 МА в модалке Кофеина
+            pg.goto(f"{BASE}/index.html?ts={int(time.time())}", wait_until="domcontentloaded")
+            pg.wait_for_selector("#cardsGrid .card", state="attached", timeout=5000)
+            pg.wait_for_function("window.chart != null", timeout=5000)
+            pg.screenshot(path=str(SHOTS / "v261_index.png"), full_page=True)
+            pg.locator("#sortSelect").select_option("grade")
+            pg.wait_for_timeout(300)
+            pg.screenshot(path=str(SHOTS / "v261_sort_grade.png"), full_page=True)
+            pg.click(".card[data-id='Кофеин']")
+            pg.wait_for_selector("#modalOverlay", state="visible", timeout=5000)
+            pg.wait_for_timeout(400)
+            pg.screenshot(path=str(SHOTS / "v261_modal_economics.png"), full_page=True)
 
             assert not errors, f"ошибки консоли: {errors}"
             b.close()

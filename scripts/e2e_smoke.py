@@ -164,6 +164,56 @@ def main() -> None:
 
             # ==================== конец v2.6 ====================
 
+            # ==================== v2.6.1: economics ====================
+            ts += 1; pg.goto(f"{BASE}/index.html?ts={ts}", wait_until="domcontentloaded")
+            pg.wait_for_selector(".card[data-id='Кофеин']", state="attached", timeout=5000)
+            pg.wait_for_function("window.chart != null", timeout=5000)
+
+            # A: карточка больше не рисует «ценность»-блоки
+            assert "ценность" not in pg.locator(".card[data-id='Кофеин']").inner_text()
+
+            # B: экономика-блок Кофеина — price_per_effect = round(266 / 0.21) = 1267
+            pg.click(".card[data-id='Кофеин']")
+            pg.wait_for_selector("#modalOverlay", state="visible", timeout=5000)
+            body = pg.locator("#modalBody").inner_text()
+            assert "ЭКОНОМИКА" in body, "нет блока ЭКОНОМИКА в модалке"
+            assert "1267" in body, f"₽ за единицу эффекта Кофеина не 1267 (266/0.21): {body[:300]}"
+            assert "ценност" not in body, "в модалке осталась «ценность»"
+
+            # C: тултип цены с price_date («Цена на ...; ночной сбор временно заблокирован...»)
+            tip = pg.locator("#modalBody .priceTip").get_attribute("title")
+            assert tip and tip.startswith("Цена на "), f"нет тултипа цены: {tip!r}"
+
+            # D: блок «Ключевые мета-анализы (топ-3 поиска)» — ≥1 ссылки + пометка до и после
+            assert "Ключевые мета-анализы" in body, "нет блока топ-3 МА"
+            assert pg.locator("#modalBody a[href*='pubmed.ncbi.nlm.nih.gov/']").count() >= 1, \
+                "нет ссылок на PubMed в топ-3"
+            vc = sum(1 for s in data if (s.get("key_sources") or []))
+            note = "верифицированных добавок сейчас: " + str(vc)
+            cuts = pg.locator("#modalBody").inner_text().count(note)
+            assert cuts >= 2, f"пометка топ-3 не до+после списка: вхождений {cuts}"
+
+            pg.keyboard.press("Escape")
+            pg.wait_for_selector("#modalOverlay", state="hidden", timeout=5000)
+
+            # E: Креатин (без g) — честная причина, а не прочерк/ноль
+            pg.click(".card[data-id='Креатин']")
+            pg.wait_for_selector("#modalOverlay", state="visible", timeout=5000)
+            assert "Эффект ждёт верификации" in pg.locator("#modalBody").inner_text(), \
+                "у добавки без g нет причины «Эффект ждёт верификации»"
+            pg.keyboard.press("Escape")
+            pg.wait_for_selector("#modalOverlay", state="hidden", timeout=5000)
+
+            # F: сравнение — колонка «₽ за единицу эффекта» вместо «Ценность»
+            pg.select_option("#compareSelect1", label=cof["name"])
+            pg.select_option("#compareSelect2", label="Креатин")
+            pg.click("#compareBtn")
+            cmp_txt = pg.locator("#compareResult").inner_text()
+            assert "₽ за единицу эффекта" in cmp_txt, "в сравнении нет колонки стоимости эффекта"
+            assert "Ценность" not in cmp_txt and "ценность" not in cmp_txt, \
+                "в сравнении осталась «Ценность»"
+            # ==================== конец v2.6.1 ====================
+
             assert not errors, f"ошибки консоли: {errors}"
 
             # v2.5: faq/glossary/changelog_public рендерятся, футер-ссылки на них живые
