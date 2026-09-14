@@ -21,18 +21,19 @@ ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "docs" / "data.json"
 OUT = ROOT / "docs" / "approve_queue.md"
 
-# sid (id в data.json) → PubMed-запрос. Для топ-10 и состава PRIOR_G.
+# sid (id в data.json) → PubMed-запрос. Топ-10 нацелены на ЦЕЛЕВОЙ исход
+# (владелец: если МА с основным исходом нет — добавку пропустить).
 QUERIES = {
-    "Креатин": "creatine AND memory",
-    "Кофеин": "caffeine AND cognition",
-    "Мелатонин": "melatonin AND sleep",
-    "Омега-3": "omega-3 fatty acids AND cognition",
-    "Витамин D": "vitamin D AND depression",
-    "Магний": "magnesium AND anxiety",
-    "Куркумин": "curcumin AND depression",
-    "Пробиотики": "probiotics AND depression",
-    "Цинк": "zinc AND depression",
-    "Витамин C": "vitamin C AND immune",
+    "Креатин": "creatine AND (strength OR power)",
+    "Кофеин": "caffeine AND endurance",
+    "Мелатонин": "melatonin AND (sleep onset OR sleep quality)",
+    "Омега-3": "omega-3 AND (triglycerides OR cardiovascular events)",
+    "Витамин D": "vitamin D AND (bone mineral density OR immune function)",
+    "Магний": "magnesium AND (depression OR anxiety)",
+    "Куркумин": "curcumin AND (pain OR osteoarthritis)",
+    "Пробиотики": "probiotics AND (antibiotic-associated diarrhea OR irritable bowel syndrome)",
+    "Цинк": "zinc AND (immune function OR wound healing)",
+    "Витамин C": "vitamin C AND (immune function OR collagen synthesis)",
     "Бакопа": "bacopa monnieri AND memory",
     "Ашваганда": "ashwagandha AND stress",
     "Родиола": "rhodiola rosea AND fatigue",
@@ -55,6 +56,23 @@ def match_prior(sid: str, g: float | None) -> float | None:
     return None
 
 
+# Целевой исход топ-10 (владелец). Кандидат, чей outcome (текст из абстракта
+# рядом с g) не попадает в список — отсекается: «если МА с основным исходом
+# нет — добавку пропустить».
+TARGET_OUTCOME = {
+    "Креатин": {"strength", "power", "performance", "endurance", "exercise"},
+    "Кофеин": {"strength", "power", "performance", "endurance", "exercise"},
+    "Мелатонин": {"sleep", "sleep onset", "sleep quality", "sleep latency", "insomnia"},
+    "Омега-3": {"triglyceride", "triglycerides", "cardiovascular"},
+    "Витамин D": {"bone", "bone mineral density", "bone density", "immune", "immunity"},
+    "Магний": {"depression", "depressive", "anxiety"},
+    "Куркумин": {"osteoarthritis", "arthritis"},
+    "Пробиотики": {"diarrhea", "bowel"},
+    "Цинк": {"immune", "immunity", "wound"},
+    "Витамин C": {"immune", "immunity", "collagen"},
+}
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--top10", action="store_true", help="только EDU_TOP10")
@@ -70,10 +88,15 @@ def main() -> None:
     rows = []
     seen: set[str] = set()
     for sid in chosen:
+        targets = TARGET_OUTCOME.get(sid)
         for cand in candidates(sid, QUERIES[sid]):
             if cand["pmid"] in seen:
                 continue
             seen.add(cand["pmid"])
+            if targets is not None and cand["outcome"] not in targets:
+                continue
+            if cand["ci"] is None or cand["ci"][0] <= 0 <= cand["ci"][1]:
+                continue  # нет парного CI или CI пересекает 0 (незначимо)
             ci = "—"
             if cand["ci"]:
                 ci = f"{cand['ci'][0]:.2f}..{cand['ci'][1]:.2f}"
