@@ -3,6 +3,7 @@ let supplements = [], currentData = [], chartInstance = null, radarInstance = nu
 let chartPts = [];
 let quadrantInstance = null, chartTab = 'price';   // v2.4: вкладки графика
 let scrollBeforeModal = 0;
+let curModal = null;   // v2.6: id открытой модалки для «Сравнить с»
 let BEST = [];
 
 // ===== v2.4: грейды A–D =====
@@ -12,13 +13,83 @@ function gradeBadge(s) {
   return '<span class="grade g' + s.grade + '" title="Грейд ' + s.grade + ' — ' + (GRADE_LABEL[s.grade] || '') + '">грейд ' + s.grade + '</span>';
 }
 
+// ===== v2.6: 5-точечный бейдж доверия (по греЙду, не смешиваем силу и контекст) =====
+const DOT_FILL = { A: 4, B: 3, C: 2, D: 1 };
+const DOT_COLOR = { A: '#2ecc71', B: '#7dcea0', C: '#f4d03f', D: '#eb984e' };
+const DOT_TIP = "Грейд считает силу эффекта (Hedges' g) и объём науки (scienceIndex). Вердикт — ручная оценка по методологии.";
+function gradeDots(s) {
+  const fill = s.grade ? (DOT_FILL[s.grade] || 0) : 0;
+  const color = s.grade ? (DOT_COLOR[s.grade] || '#bdc3c7') : '#bdc3c7';
+  return '<span class="gdots" title="' + DOT_TIP.replace(/"/g, '&quot;') + '">' +
+    [0, 1, 2, 3, 4].map(i =>
+      '<i class="dot' + (i < fill ? ' on' : '') + '"' + ((i < fill) ? ' style="background:' + color + '"' : '') + '></i>'
+    ).join('') + '</span>' + (s.grade ? '' : '<span class="vwait">ждёт верификации</span>');
+}
+
+// ===== v2.6: бейдж «ручная вычитка» (у карточек с ручным вердиктом — все вердикты ручные) =====
+function manualBadge(s) {
+  if (!s.verdict) return '';
+  return '<span class="manual-badge" title="Вердикт выставлен вручную по топ-2 МА методологией проекта">✋ ручная вычитка</span>';
+}
+
+// ===== v2.6: «Обновлено: дата последнего коммита data.json» =====
+function updatedLine(s) {
+  return s.updated ? '<span class="updatedLine">Обновлено: ' + s.updated + '</span>' : '';
+}
+
+// ===== v2.6: иконки источников =====
+function pubmedLink(s) {
+  return ' <a class="srcIcon" target="_blank" rel="noopener" title="Поиск в PubMed" href="https://pubmed.ncbi.nlm.nih.gov/?term=' +
+    encodeURIComponent(s.name) + '">PubMed ↗</a>';
+}
+function wikiLink(s) {
+  return ' <a class="srcIcon" target="_blank" rel="noopener" title="Википедия" href="https://ru.wikipedia.org/wiki/' +
+    encodeURIComponent(s.name.replace(/\+/g, ' ')) + '">Wiki ↗</a>';
+}
+function priceSrcLink(s) {
+  const src = s.price_source || '';
+  if (!src) return '';
+  const href = src.indexOf('Ozon') >= 0
+    ? 'https://www.ozon.ru/search/?text=' + encodeURIComponent(s.name)
+    : 'https://www.wildberries.ru/catalog/0/search.aspx?search=' + encodeURIComponent(s.name);
+  return ' <a class="srcIcon" target="_blank" rel="noopener" title="Где собираема цена" href="' + href + '">' + src + ' ↗</a>';
+}
+
+// ===== v2.6: кнопка «Нашли неточность?» (issue с добавка+поле) =====
+function issueUrl(s, field) {
+  const title = (s.name || 'добавка') + (field ? ': ' + field : '') + ' — неточность в данных';
+  const body = 'Что не так?\n\n(заполните)';
+  return 'https://github.com/DeadSno/brain-25-evidence/issues/new?title=' +
+    encodeURIComponent(title) + '&body=' + encodeURIComponent(body);
+}
+
+// ===== v2.6: поделиться (TG/VK/копировать) в модалке =====
+function shareRow(s) {
+  const cardUrl = 'https://deadsno.github.io/brain-25-evidence/#sup=' + encodeURIComponent(s.id);
+  const post = s.name + ': индекс ' + s.scienceIndex + ', ' + s.metaCount + ' МА · открытые данные · ' + cardUrl;
+  return '<div class="shareRow"><b>📤 Поделиться:</b>' +
+    ' <a class="favFilter" target="_blank" rel="noopener" href="https://t.me/share/url?url=' + encodeURIComponent(cardUrl) + '&text=' + encodeURIComponent(post) + '">TG</a>' +
+    ' <a class="favFilter" target="_blank" rel="noopener" href="https://vk.com/share.php?url=' + encodeURIComponent(cardUrl) + '&title=' + encodeURIComponent(post) + '">VK</a>' +
+    ' <button class="copyLink" data-copy="' + cardUrl + '">🔗 копировать</button></div>';
+}
+
+// ===== v2.6: «Сравнить с» — топ-3 той же категории (по доказательности, не случайные) =====
+function compareBlock(s) {
+  const same = supplements.filter(x => x.id !== s.id && x.category === s.category)
+    .sort((a, b) => (b.scienceIndex || 0) - (a.scienceIndex || 0)).slice(0, 3);
+  if (!same.length) return '';
+  return '<div class="mrow"><b>🔀 Сравнить с:</b><div class="compareChips">' +
+    same.map(x => '<span class="chipbx" data-cmp="' + encodeURIComponent(x.id) + '">' + x.name + '</span>').join('') +
+    '</div></div>';
+}
+
 // ===== v2.3: шаблон полной карточки (15 блоков, структура фиксирована) =====
 const BLOCK_EMPTY = '<span class="cbEmpty">данных пока нет — проверяем</span>';
 const CARDBLOCKS = [
   { key: 'what',      title: 'Что это',                    get: s => s.about || (s.effects || []).join(', ') || '' },
   { key: 'who',       title: 'Кому нужно',                 get: s => s.who_needs || s.who || '' },
   { key: 'works',     title: 'Работает ли',                get: s => '<span class="verdict v' + s.code + '">' + s.verdict + '</span> · ' + gradeBadge(s) },
-  { key: 'evidence',  title: 'На чём основано',            get: s => '<div>🔬 наука: ' + s.scienceIndex + ' · 📚 MA: ' + s.metaCount + ' · 📖 цитирований MA: ' + s.citations + '</div>' +
+  { key: 'evidence',  title: 'На чём основано',            get: s => '<div>🔬 наука: ' + s.scienceIndex + pubmedLink(s) + ' · 📚 MA: ' + s.metaCount + ' · 📖 цитирований MA: ' + s.citations + '</div>' +
     ((s.mechs || []).length ? '<div class="hline">Механизмы: ' + s.mechs.map(m => m[0]).join('; ') + '</div>' : '') },
   { key: 'how',       title: 'Как принимать',              get: s => [s.dosage, s.course].filter(Boolean).join(' · ') || '' },
   { key: 'onset',     title: 'Когда почувствую',           get: s => s.onset || '' },
@@ -32,7 +103,7 @@ const CARDBLOCKS = [
   { key: 'shop',      title: 'Как выбрать в магазине',     get: s => s.how_to_choose || s.forms || '' },
   { key: 'myths',     title: 'Мифы и ловушки',             get: s => s.myths || '' },
   { key: 'price',     title: 'Сколько стоит и откуда цена', get: s => (s.price != null ? s.price + ' ₽/мес' : 'цена не найдена') +
-    (s.price_source ? ' · источник: ' + s.price_source : '') }
+    priceSrcLink(s) + (s.price_source ? ' · источник: ' + s.price_source : '') }
 ];
 
 function renderConflicts(s) {
@@ -67,7 +138,7 @@ fetch('data.json?ts=' + Date.now())
   .catch(() => { document.body.innerHTML = '<p style="color:red">❌ Не удалось загрузить data.json</p>'; });
 
 function initApp() {
-  BEST = supplements.filter(s => val(s) !== null).sort((x, y) => val(y) - val(x)).slice(0, 3).map(s => s.id);
+  BEST = supplements.filter(s => s.scienceIndex != null).sort((x, y) => y.scienceIndex - x.scienceIndex).slice(0, 3).map(s => s.id);
   const saved = localStorage.getItem('theme');
   if (saved !== 'light') setDark(true);   // v1.3: по умолчанию тёмная; светлая — только по выбору
   [...new Set(supplements.map(s => s.category).filter(Boolean))].sort()
@@ -99,6 +170,11 @@ function initApp() {
   // v2.4: вкладки графика «Цена vs наука | Квадрант доказательности»
   $('tabPrice').onclick = () => setChartTab('price');
   $('tabQuadrant').onclick = () => setChartTab('quadrant');
+  // v2.6: оси X графика
+  $('axisPrice').onclick = () => setAxisX('price');
+  $('axisMA').onclick = () => setAxisX('ma');
+  $('axisRCT').onclick = () => setAxisX('rct');
+  $('axisYear').onclick = () => setAxisX('year');
   $('quadrantChart').style.display = 'none';
   $('quadrantNote').style.display = 'none';
   $('favFilter').addEventListener('click', () => {
@@ -127,6 +203,14 @@ function initApp() {
     e.stopPropagation(); e.preventDefault();
     toggleFav(b.dataset.fav);
   }, true);
+
+  // v2.6: чипы «🔀 Сравнить с:» в модалке
+  document.addEventListener('click', e => {
+    const chip = e.target.closest('.chipbx[data-cmp]');
+    if (!chip || !curModal) return;
+    e.stopPropagation();
+    gotoCompare(curModal, decodeURIComponent(chip.dataset.cmp));
+  });
 
   const up = document.createElement('button');
   up.id = 'toTop'; up.textContent = '↑';
@@ -187,23 +271,28 @@ function renderCards(data) {
       '<button id="resetAll" class="favFilter">✖ Сбросить фильтры</button></div>'; return; }
   g.innerHTML = data.map(s => '<div class="card" data-id="' + s.id + '">' +
     '<button class="favBtn' + (isFav(s.id) ? ' on' : '') + '" data-fav="' + s.id + '" title="В избранное">' + (isFav(s.id) ? '★' : '☆') + '</button>' +
-    (BEST.includes(s.id) ? '<span class="bestBadge">🏆 Лучший выбор</span>' : '') +
+    (BEST.includes(s.id) ? '<span class="bestBadge">🔬 Топ-3 по доказательности</span>' : '') +
     '<span class="cat">' + (s.category || '') + '</span><h3>' + s.name + '</h3>' +
-    '<div class="verdict v' + s.code + '">' + s.verdict + '</div>' + gradeBadge(s) +
+    updatedLine(s) + manualBadge(s) +
+    '<div class="verdict v' + s.code + '">' + s.verdict + '</div>' + gradeBadge(s) + gradeDots(s) +
     (s.price != null
-      ? '<div class="price">' + s.price + ' ₽/мес</div>'
+      ? '<div class="price">' + s.price + ' ₽/мес</div>' + priceSrcLink(s)
       : '<div class="price noPrice">цена не найдена · <a target="_blank" rel="noopener" href="' +
         'https://github.com/DeadSno/brain-25-evidence/issues/new?title=' +
         encodeURIComponent('Цена не найдена: ' + s.id) + '">предложить</a></div>') +
     (val(s) !== null ? '<div class="value">⚖️ ценность: ' + val(s) + '</div>' : '') +
     (val(s) !== null ? '<div class="valBar"><i style="width:' + Math.min(100, val(s) / 3) + '%"></i></div>' : '') +
     '<div class="effects">' + (s.effects || []).map(e => '<span>' + e + '</span>').join('') + '</div></div>').join('');
-  g.querySelectorAll('.card').forEach(el => el.onclick = () => openModal(el.dataset.id));
+  g.querySelectorAll('.card').forEach(el => el.onclick = (e) => {
+    if (e.target.closest('a')) return;
+    openModal(el.dataset.id);
+  });
 }
 
 function openModal(id) {
   scrollBeforeModal = window.scrollY || 0;
   const s = supplements.find(x => x.id === id); if (!s) return;
+  curModal = id;
 
   const trialsLine = s.ongoing != null
     ? (s.ongoing > 0
@@ -222,21 +311,24 @@ function openModal(id) {
       '</div>'
     : '';
 
-  $('modalBody').innerHTML = '<h2>' + s.name + '</h2>' +
-    '<div class="mrow"><span class="verdict v' + s.code + '">' + s.verdict + '</span> · ' + (s.category || '') + (s.grade ? ' · <span class="grade g' + s.grade + '">грейд ' + s.grade + '</span> · ' + (GRADE_LABEL[s.grade] || '') : '') + '</div>' +
-    '<div class="mrow">💰 <b>' + (s.price ? s.price + ' ₽/мес' : '—') + '</b> · 🔬 наука: <b>' + s.scienceIndex + '</b> · 📚 MA: <b>' + s.metaCount + '</b>' + (val(s) !== null ? ' · ⚖️ ценность: <b>' + val(s) + '</b>' : '') + '</div>' +
+  $('modalBody').innerHTML = '<h2>' + s.name + '</h2>' + updatedLine(s) + manualBadge(s) +
+    '<div class="mrow"><span class="verdict v' + s.code + '">' + s.verdict + '</span> · ' + (s.category || '') + (s.grade ? ' · <span class="grade g' + s.grade + '">грейд ' + s.grade + '</span> · ' + (GRADE_LABEL[s.grade] || '') : '') + '</div>' + gradeDots(s) +
+    '<div class="mrow">💰 <b>' + (s.price ? s.price + ' ₽/мес' : '—') + '</b>' + priceSrcLink(s) + ' · 🔬 наука: <b>' + s.scienceIndex + '</b>' + pubmedLink(s) + ' · 📚 MA: <b>' + s.metaCount + '</b>' + (val(s) !== null ? ' · ⚖️ ценность: <b>' + val(s) + '</b>' : '') + '</div>' +
     '<div class="mrow" style="font-size:.85rem;opacity:.9">⚠️ Проект не является медицинской рекомендацией. При болезнях, беременности и приёме лекарств — сначала к врачу.</div>' +
     '<div class="mrow">🛒 <a class="wbLink" target="_blank" rel="noopener" href="https://www.wildberries.ru/catalog/0/search.aspx?search=' + encodeURIComponent(s.name) + '">Проверить актуальную цену на WB</a></div>' +
     trialsLine +
     calcLine +
     (s.citations != null ? '<div class="mrow">📖 Цитирований ключевого MA: ' + s.citations + '</div>' : '') +
-    (s.reviews != null ? '<div class="mrow">🛒 Отзывов WB: ' + s.reviews.toLocaleString('ru-RU') + ' · 📈 поиск 5 лет: ' + (s.trends ?? '—') + ' · 🌐 Wiki: ' + (s.wiki != null ? s.wiki.toLocaleString('ru-RU') : '—') + '</div>' : '') +
+    (s.reviews != null ? '<div class="mrow">🛒 Отзывов WB: ' + s.reviews.toLocaleString('ru-RU') + ' · 📈 поиск 5 лет: ' + (s.trends ?? '—') + ' · 🌐 Wiki: ' + (s.wiki != null ? s.wiki.toLocaleString('ru-RU') : '—') + wikiLink(s) + '</div>' : '') +
     '<div class="mrow"><b>Эффекты:</b> ' + ((s.effects || []).join(', ') || '—') + '</div>' +
     '<div class="mrow">💊 <b>Дозировка:</b> ' + (s.dosage || '—') + '</div>' +
     '<div class="mrow">⏳ <b>Курс:</b> ' + (s.course || '—') + '</div>' +
     (s.forms ? '<div class="mrow">🧪 <b>Формы/штаммы:</b> ' + s.forms + '</div>' : '') +
+    shareRow(s) +
+    compareBlock(s) +
     '<div class="mrow warn">⚠️ ' + (s.caution || '—') + '</div>' +
-    '<div class="mrow"><button class="copyLink" data-copy="' + location.origin + location.pathname + '#sup=' + encodeURIComponent(s.id) + '">🔗 Скопировать ссылку на карточку</button></div>' +
+    '<div class="mrow"><button class="copyLink" data-copy="' + location.origin + location.pathname + '#sup=' + encodeURIComponent(s.id) + '">🔗 Скопировать ссылку на карточку</button>' +
+    ' <a class="favFilter" target="_blank" rel="noopener" href="' + issueUrl(s, '') + '">❌ Нашли неточность? Сообщить</a></div>' +
     '<div class="blockTitle">🧩 Полная карточка добавки</div>' + renderCardBlocks(s);
   history.replaceState(null, '', '#sup=' + encodeURIComponent(s.id));
   $('modalOverlay').style.display = 'flex';
@@ -261,16 +353,41 @@ function openModal(id) {
   }
 }
 function closeModal() {
+  curModal = null;
   $('modalOverlay').style.display = 'none';
   history.replaceState(null, '', location.pathname);
   window.scrollTo({ top: scrollBeforeModal, behavior: 'smooth' });
 }
 
+// ===== v2.6: сменная ось X графика (Цена/MА/РКИ/Год) =====
+let axisX = 'ma';
+const AXIS_LABEL = { price: 'Цена за месяц (₽)', ma: 'Число МА', rct: 'Число РКИ', year: 'Год последнего МА' };
+function axisVal(s) {
+  if (axisX === 'price') return s.price;
+  if (axisX === 'ma') return s.metaCount || 0;
+  if (axisX === 'rct') return Math.max(0, (s.scienceIndex || 0) - 5 * (s.metaCount || 0));
+  return s.year_last_ma;
+}
+function setAxisX(ax) {
+  if (ax === axisX) return;
+  axisX = ax;
+  ['price', 'ma', 'rct', 'year'].forEach(k => $('axis' + k.toUpperCase()).classList.toggle('on', k === ax));
+  if (currentData.length && chartTab === 'price') renderBubble(currentData);
+}
+
+function gotoCompare(idA, idB) {
+  closeModal();
+  $('compareSelect1').value = idA;
+  $('compareSelect2').value = idB;
+  renderCompare();
+  document.getElementById('compareSection').scrollIntoView({ behavior: 'smooth' });
+}
+
 function renderBubble(data) {
-  const plotted = data.filter(s => s.price > 0);
+  const plotted = data.filter(s => axisVal(s) != null && axisVal(s) >= 0);
   chartPts = plotted;
   $('chartNote').textContent = plotted.length < data.length
-    ? '⚠️ ' + (data.length - plotted.length) + ' добавок без цены не показаны на графике (ждут батчей WB)' : '';
+    ? '⚠️ ' + (data.length - plotted.length) + ' добавок без значения («' + AXIS_LABEL[axisX] + '») не показаны на графике' : '';
   const ctx = $('bubbleChart').getContext('2d');
   if (chartInstance) chartInstance.destroy();
   const txt = getComputedStyle(document.body).getPropertyValue('--text');
@@ -278,7 +395,7 @@ function renderBubble(data) {
     type: 'scatter',
     data: { datasets: plotted.map(s => ({
       label: s.name,
-      data: [{ x: s.price, y: Math.max(1, s.scienceIndex) }],
+      data: [{ x: axisVal(s), y: Math.max(1, s.scienceIndex) }],
       backgroundColor: vColor(s.code),
       pointRadius: Math.min(30, Math.sqrt(s.metaCount || 1) * 2.5),
       pointHoverRadius: Math.min(36, Math.sqrt(s.metaCount || 1) * 3.5)
@@ -286,7 +403,7 @@ function renderBubble(data) {
     options: {
       responsive: true, maintainAspectRatio: true,
       scales: {
-        x: { title: { display: true, text: 'Цена за месяц (₽)', color: txt }, grid: { color: 'rgba(128,128,128,.15)' } },
+        x: { title: { display: true, text: AXIS_LABEL[axisX], color: txt }, grid: { color: 'rgba(128,128,128,.15)' } },
         y: { type: 'logarithmic',
              title: { display: true, text: 'Индекс науки (лог)', color: txt },
              grid: { color: 'rgba(128,128,128,.15)' },
@@ -298,7 +415,7 @@ function renderBubble(data) {
           callbacks: {
             label: ctx => {
               const s = chartSupByEl(ctx.chart, { datasetIndex: ctx.datasetIndex, index: ctx.dataIndex });
-              return s ? ' ' + s.name + ' · ' + (s.price ?? '—') + ' ₽/мес · ' + s.verdict : '';
+              return s ? ' ' + s.name + ' · ' + (axisX === 'price' ? (s.price ?? '—') + ' ₽/мес' : AXIS_LABEL[axisX] + ': ' + axisVal(s)) + ' · ' + s.verdict : '';
             }
           }
         }
