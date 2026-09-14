@@ -63,6 +63,11 @@ def main() -> int:
             pg.wait_for_selector("#modalOverlay", state="visible", timeout=5000)
             pg.screenshot(path=str(SHOTS / "modal_synergy.png"))
 
+            # v2.5: новые страницы прозрачности рендерятся и скриншотятся
+            for sub in ["faq", "glossary", "changelog_public"]:
+                pg.goto(f"{BASE}/{sub}.html?ts={int(time.time())}", wait_until="networkidle")
+                pg.screenshot(path=str(SHOTS / f"v25_{sub}.png"))
+
             assert not errors, f"ошибки консоли: {errors}"
             b.close()
     finally:
