@@ -356,7 +356,7 @@ def main() -> None:
                 else:
                     assert "Журнал" in pg.locator("h1").inner_text(), "changelog_public: нет h1"
 
-            # === PART A tracker ===
+# === PART A tracker ===
             # A2: кнопка «📅 В мой курс» появляется в модалке
             ts += 1; pg.goto(f"{BASE}/index.html?ts={ts}", wait_until="domcontentloaded")
             pg.wait_for_selector(".card[data-id='Омега-3']", state="attached", timeout=5000)
@@ -412,6 +412,54 @@ def main() -> None:
             stored = pg.evaluate("JSON.parse(localStorage.getItem('myCourse') || '{}')")
             assert "bad" not in stored, "битый ключ 'bad' не был удалён гардом"
             assert "good" in stored, "валидный ключ 'good' был удалён"
+
+            # === PART B pwa ===
+            # B5/B4: manifest в head + SW регистрируется; ждём claim() на первой странице
+            ts += 1; pg.goto(f"{BASE}/index.html", wait_until="domcontentloaded")
+            pg.wait_for_selector(".card[data-id]", state="attached", timeout=5000)
+            mlink = pg.locator("link[rel='manifest']").get_attribute("href")
+            assert mlink and mlink.endswith("manifest.webmanifest"), f"нет link manifest: {mlink!r}"
+            pg.wait_for_function(
+                "() => navigator.serviceWorker && navigator.serviceWorker.controller !== null",
+                timeout=10000
+            )
+            assert pg.evaluate("navigator.serviceWorker.controller !== null"), \
+                "SW не управляет страницей (controller === null)"
+            # контролируемый reload ?ts= — data.json пойдёт через SW (network-first → кэш v27-data)
+            ts += 1; pg.goto(f"{BASE}/index.html?ts={ts}", wait_until="domcontentloaded")
+            pg.wait_for_selector(".card[data-id]", state="attached", timeout=5000)
+            assert pg.evaluate("navigator.serviceWorker.controller !== null"), \
+                "контролируемый reload: controller === null — данные пойдут мимо SW"
+            # ждём, пока network-first добьёт data.json в кэш (иначе офлайн-фолбэк плавает)
+            pg.wait_for_function(
+                """() => caches.open('v27-data')
+                       .then(c => c.keys())
+                       .then(ks => ks.some(r => r.url.endsWith('/data.json')))""",
+                timeout=8000,
+            )
+
+            # B3: офлайн-фолбэк data.json — reload в том же контексте (SW per-origin)
+            errors.clear()
+            pg.context.set_offline(True)
+            try:
+                pg.reload(wait_until="domcontentloaded")
+                pg.wait_for_selector("#pwaOfflineBadge", state="attached", timeout=8000)
+                assert pg.locator("#pwaOfflineBadge").count() == 1, "нет бейджа «офлайн-режим»"
+                pg.wait_for_selector(".card[data-id]", state="attached", timeout=8000)
+                n_off = pg.locator(".card[data-id]").count()
+                assert n_off == n_all, f"офлайн карточек {n_off}, ожидалось {n_all} (кэш data.json)"
+                assert "Офлайн-режим" in pg.locator("#pwaOfflineBadge").inner_text()
+            finally:
+                pg.context.set_offline(False)
+                pg.wait_for_timeout(1500)
+                ts += 1
+                pg.goto(f"{BASE}/index.html?ts={ts}", wait_until="domcontentloaded")
+                pg.wait_for_selector(".card[data-id]", state="attached", timeout=10000)
+                pg.wait_for_function("window.chart != null", timeout=10000)
+                pg.wait_for_timeout(300)
+                assert pg.locator("#pwaOfflineBadge").count() == 0, "бейдж не скрылся после online"
+                errors.clear()
+            # ==================== конец PART B pwa ====================
 
             assert not errors, f"ошибки консоли: {errors}"
             b.close()
