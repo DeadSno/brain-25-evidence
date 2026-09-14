@@ -17,6 +17,9 @@
 - Тесты: provenance (грейд пересчитывается grade_of, g требует key_sources,
   −3≤g≤3, ci_lo<ci_hi); e2e: квадрант рендерит, грейды в DOM
 - Проверено: pytest 58 passed, e2e smoke OK
+- Верифицированные g: 1 добавка (Кофеин) — g=0.21 [0.14,0.27], muscular strength
+  (жевательная резинка), key_sources PMID 42228847 (Varovic D, Grgic J., 2026),
+  grade B; приор PRIOR_G Кофеина пересмотрен 0.42 → 0.21 (тег v2.4.1)
 
 ## [v2.3.1] — 2026-09-13
 ### Добавлено
