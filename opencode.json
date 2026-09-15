@@ -9,9 +9,17 @@
         "apiKey": "{env:OPENROUTER_API_KEY}"
       },
       "models": {
-        "nvidia/nemotron-3-ultra:free": { "name": "nemotron-ultra" },
-        "google/gemma-4-31b-it:free": { "name": "gemma-31b" }
+        "nvidia/nemotron-3-ultra:free": { "name": "EXEC-nemotron-ultra" },
+        "google/gemma-4-31b-it:free": { "name": "EXEC-gemma-31b" }
       }
+    }
+  },
+  "lsp": {
+    "pyright": {
+      "command": ["pyright-langserver", "--stdio"]
+    },
+    "ts": {
+      "command": ["typescript-language-server", "--stdio"]
     }
   }
 }
