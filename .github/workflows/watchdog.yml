@@ -6,6 +6,7 @@ permissions: {contents: read, issues: write}
 jobs:
   check:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -16,5 +17,6 @@ jobs:
       - name: issue on failure
         if: failure()
         env: {GH_TOKEN: "${{ secrets.GITHUB_TOKEN }}"}
-        run: gh issue create --title "🐕 watchdog: проверка ссылок/цен упала"
-             --body "run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+        run: |
+          gh issue create --title "🐕 watchdog: проверка ссылок/цен упала" \
+            --body "run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
