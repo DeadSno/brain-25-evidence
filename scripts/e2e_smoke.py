@@ -341,6 +341,11 @@ def main() -> None:
 
             assert not errors, f"ошибки консоли: {errors}"
 
+            # v2.7.1: статическая строка титула в content (задача 3.2)
+            pg.goto(f"{BASE}/index.html?ts={ts}", wait_until="domcontentloaded")
+            assert "что работает, а что нет" in pg.content(), "v2.7.1: title missing"
+            ts += 1
+
             # v2.5: faq/glossary/changelog_public рендерятся, футер-ссылки на них живые
             for sub in ["faq", "glossary", "changelog_public"]:
                 for page in ["index.html", "map.html"]:

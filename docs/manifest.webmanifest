@@ -1,6 +1,6 @@
 {
-  "name": "БАДы: цена vs наука",
-  "short_name": "БАДы",
+  "name": "БАДы: что работает, а что нет",
+  "short_name": "БАД-данные",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#1c1c1e",
