@@ -4,6 +4,7 @@
 (C1-кэш), плюс связку index.html ↔ science2.js.
 """
 import json
+import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -69,7 +70,7 @@ def test_cache_schema():
 def test_index_connects_science2_once():
     html = INDEX.read_text(encoding="utf-8")
     assert html.count("science2.js") == 1
-    assert '<script src="science2.js" defer></script>' in html
+    assert re.search(r'<script src="science2\.js(?:\?v=\d+)?" defer></script>', html)
 
 
 def test_science2_exposes_pulse_and_spark():

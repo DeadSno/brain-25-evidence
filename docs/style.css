@@ -308,3 +308,9 @@ body:not(.dark) .compareChips .chipbx{color:var(--accent)}
   .trustChips{flex-direction:column;align-items:stretch}
   .trustChips .chip{text-align:center}
 }
+
+/* v2.7.2 hotfix */
+.trustbar { text-align: center; }
+body.dark .qaMore { color: #5dade2; }
+body.dark .chip a,
+body.dark .chip a:visited { color: #5dade2; }
