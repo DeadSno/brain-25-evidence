@@ -172,17 +172,24 @@ def main() -> None:
             # A: карточка больше не рисует «ценность»-блоки
             assert "ценность" not in pg.locator(".card[data-id='Кофеин']").inner_text()
 
-            # B: экономика-блок Кофеина — price_per_effect = round(266 / 0.21) = 1267
+            # B: блок «История цены» вместо экономики; canvas ИЛИ честный фолбэк (историй цен нет)
             pg.click(".card[data-id='Кофеин']")
             pg.wait_for_selector("#modalOverlay", state="visible", timeout=5000)
+            pg.wait_for_function(
+                "(() => { if (!document.getElementById('modalBody')) return false; "
+                "const el = document.getElementById('ecoSpark'); "
+                "if (!el) return false; "
+                "return el.getElementsByTagName('canvas').length > 0 || "
+                "el.innerText.includes('спарклайн появится') || el.dataset.state !== undefined; })()",
+                timeout=5000)
             body = pg.locator("#modalBody").inner_text()
-            assert "ЭКОНОМИКА" in body, "нет блока ЭКОНОМИКА в модалке"
-            assert "1267" in body, f"₽ за единицу эффекта Кофеина не 1267 (266/0.21): {body[:300]}"
+            assert "История цены" in body, "нет блока «История цены» в модалке"
+            assert "ЭКОНОМИКА" not in body and "₽ за единицу эффекта" not in body, \
+                "экономика-блок не демонтирован (v2.7.1)"
             assert "ценност" not in body, "в модалке осталась «ценность»"
 
-            # C: тултип цены с price_date («Цена на ...; ночной сбор временно заблокирован...»)
-            tip = pg.locator("#modalBody .priceTip").get_attribute("title")
-            assert tip and tip.startswith("Цена на "), f"нет тултипа цены: {tip!r}"
+            # C: тултип цены (priceTip) демонтирован вместе с экономика-блоком
+            assert pg.locator("#modalBody .priceTip").count() == 0, "priceTip остался в модалке"
 
             # D: блок «Ключевые мета-анализы (топ-3 поиска)» — ≥1 ссылки + пометка до и после
             assert "Ключевые мета-анализы" in body, "нет блока топ-3 МА"
@@ -196,11 +203,12 @@ def main() -> None:
             pg.keyboard.press("Escape")
             pg.wait_for_selector("#modalOverlay", state="hidden", timeout=5000)
 
-            # E: Креатин (без g) — честная причина, а не прочерк/ноль
+            # E: Креатин (без g) — экономика-причина демонтирована, блок «История цены» на месте
             pg.click(".card[data-id='Креатин']")
             pg.wait_for_selector("#modalOverlay", state="visible", timeout=5000)
-            assert "Эффект ждёт верификации" in pg.locator("#modalBody").inner_text(), \
-                "у добавки без g нет причины «Эффект ждёт верификации»"
+            kb = pg.locator("#modalBody").inner_text()
+            assert "Эффект ждёт верификации" not in kb, "у добавки без g осталась экономика-причина"
+            assert "История цены" in kb, "у добавки без g нет блока «История цены»"
             pg.keyboard.press("Escape")
             pg.wait_for_selector("#modalOverlay", state="hidden", timeout=5000)
 

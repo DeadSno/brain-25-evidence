@@ -263,11 +263,7 @@ function ppeModalLine(s) {
   if (v != null) return '<div class="mrow">📐 <b>₽ за единицу эффекта (цена / Hedges\' g):</b> ' + v + '</div>';
   return '<div class="mrow">📐 ' + ppeReason(s) + '</div>';
 }
-function economicsBlock(s) {
-  return '<div class="blockTitle">💰 ЭКОНОМИКА</div>' +
-    '<div class="mrow">🏷 <b>Цена:</b> ' + priceTip(s) + (s.price_source ? ' · источник: ' + s.price_source : '') + '</div>' +
-    ppeModalLine(s);
-}
+/* economicsBlock removed per v2.7.1 chunk 2 — price_per_effect gone, no "Экономика" block */
 function verifiedCount() {
   return supplements.filter(x => (x.key_sources || []).length).length;
 }
@@ -281,8 +277,12 @@ function maTop3Block(s) {
     : '<div class="mrow cbEmpty">Автотоп-3 PubMed пока не собран — нужен живой прогон (P-стоп)</div>';
   return '<div class="blockTitle">📚 Ключевые мета-анализы (топ-3 поиска)</div>' +
     '<div class="mrow hint" style="font-size:.85rem;opacity:.9">' + note + '</div>' +
-    body +
-    '<div class="mrow hint" style="font-size:.85rem;opacity:.9">' + note + '</div>';
+     body +
+     '<div class="mrow hint" style="font-size:.85rem;opacity:.9">' + note + '</div>';
+}
+function historyPriceBlock(s) {
+  return '<div class="blockTitle">💰 История цены</div>' +
+    '<div class="mrow history-price-canvas"></div>';
 }
 
 function applyFilters() {
@@ -366,8 +366,8 @@ function openModal(id) {
   $('modalBody').innerHTML = '<h2>' + s.name + '</h2>' + updatedLine(s) + manualBadge(s) +
     '<div class="mrow"><span class="verdict v' + s.code + '">' + s.verdict + '</span> · ' + (s.category || '') + (s.grade ? ' · <span class="grade g' + s.grade + '">грейд ' + s.grade + '</span> · ' + (GRADE_LABEL[s.grade] || '') : '') + '</div>' + gradeDots(s) +
     '<div class="mrow">💰 <b>' + (s.price ? s.price + ' ₽/мес' : '—') + '</b>' + priceSrcLink(s) + ' · 🔬 наука: <b>' + s.scienceIndex + '</b>' + pubmedLink(s) + ' · 📚 MA: <b>' + s.metaCount + '</b></div>' +
-    economicsBlock(s) +
     maTop3Block(s) +
+    historyPriceBlock(s) +
     '<div class="mrow" style="font-size:.85rem;opacity:.9">⚠️ Проект не является медицинской рекомендацией. При болезнях, беременности и приёме лекарств — сначала к врачу.</div>' +
     '<div class="mrow">🛒 <a class="wbLink" target="_blank" rel="noopener" href="https://www.wildberries.ru/catalog/0/search.aspx?search=' + encodeURIComponent(s.name) + '">Проверить актуальную цену на WB</a></div>' +
     trialsLine +
