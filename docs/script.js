@@ -458,7 +458,7 @@ function renderBubble(data) {
   const txt = getComputedStyle(document.body).getPropertyValue('--text');
   const maxP = priced.reduce((m, s) => Math.max(m, s.price || 0), 0) || 1;
   const band = isPrice && nullPrice.length
-    ? { lo: maxP * 1.2, hi: maxP * 1.5, label: 'без цены (N=' + nullPrice.length + ')' }
+    ? { lo: maxP * 1.1, hi: maxP * 1.25, label: 'без цены (N=' + nullPrice.length + ')' }
     : null;
   const bandDatasets = band
     ? nullPrice.map(s => ({
@@ -507,7 +507,7 @@ function renderBubble(data) {
     options: {
       responsive: true, maintainAspectRatio: true,
       scales: {
-        x: { title: { display: true, text: AXIS_LABEL[axisX], color: txt }, grid: { color: 'rgba(128,128,128,.15)' }, max: band ? band.hi * 1.05 : undefined },
+        x: { title: { display: true, text: AXIS_LABEL[axisX], color: txt }, grid: { color: 'rgba(128,128,128,.15)' }, max: band ? band.hi * 1.02 : undefined },
         y: { type: 'logarithmic',
              title: { display: true, text: 'Индекс науки (лог)', color: txt },
              grid: { color: 'rgba(128,128,128,.15)' },
