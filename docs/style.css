@@ -239,7 +239,7 @@ position:sticky;top:0;z-index:1000;animation:fadeIn .25s}
 .gD{background:linear-gradient(135deg,#666,#999)}
 
 /* ===== v2.6: add-on trust ===== */
-.trustbar{position:sticky;top:0;z-index:100;background:var(--card-bg);color:var(--accent);
+.trustbar{position:sticky;top:0;z-index:100;background:var(--card-bg);color:var(--text);
   border-bottom:1px solid var(--border);text-align:center;font-size:.8rem;font-weight:600;
   padding:.45rem .5rem;letter-spacing:.02em}
 
@@ -314,3 +314,6 @@ body:not(.dark) .compareChips .chipbx{color:var(--accent)}
 body.dark .qaMore { color: #5dade2; }
 body.dark .chip a,
 body.dark .chip a:visited { color: #5dade2; }
+
+/* v2.7.3: поиск не обрезается */
+#search { min-width: 250px; flex: 1 1 250px; }

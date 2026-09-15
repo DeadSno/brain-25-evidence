@@ -661,7 +661,9 @@ function renderCompare() {
       ]
     },
     options: {
-      scales: { r: { min: 0, max: 100, ticks: { display: false } } },
+      layout: { padding: 30 },
+      scales: { r: { min: 0, max: 100, ticks: { display: false },
+               pointLabels: { font: { size: 10 } } } },
       plugins: {
         legend: { position: 'bottom' },
         tooltip: {
