@@ -1,0 +1,15 @@
+.git/
+node_modules/
+__pycache__/
+*.pyc
+*.pyo
+.opencode/
+.vscode/
+.idea/
+.env*
+*.log
+data/raw/
+data/processed/
+reports/ui/*.png
+docs/reports/agent_log.md
+UNCOMMITTED.txt
