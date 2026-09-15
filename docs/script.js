@@ -439,26 +439,75 @@ function gotoCompare(idA, idB) {
 }
 
 function renderBubble(data) {
-  const plotted = data.filter(s => axisVal(s) != null && axisVal(s) >= 0);
-  chartPts = plotted;
-  $('chartNote').textContent = plotted.length < data.length
-    ? '⚠️ ' + (data.length - plotted.length) + ' добавок без значения («' + AXIS_LABEL[axisX] + '») не показаны на графике' : '';
+  const isPrice = axisX === 'price';
+  const priced = isPrice
+    ? data.filter(s => (s.price || 0) > 0)
+    : data.filter(s => axisVal(s) != null && axisVal(s) >= 0);
+  const nullPrice = isPrice ? data.filter(s => !((s.price || 0) > 0)) : [];
+  chartPts = priced.concat(nullPrice);
+  if (isPrice) {
+    $('chartNote').textContent = nullPrice.length
+      ? '💰 ' + nullPrice.length + ' добавок без цены — серые точки в зоне справа'
+      : '';
+  } else {
+    $('chartNote').textContent = priced.length < data.length
+      ? '⚠️ ' + (data.length - priced.length) + ' добавок без значения («' + AXIS_LABEL[axisX] + '») не показаны на графике' : '';
+  }
   const ctx = $('bubbleChart').getContext('2d');
   if (chartInstance) chartInstance.destroy();
   const txt = getComputedStyle(document.body).getPropertyValue('--text');
+  const maxP = priced.reduce((m, s) => Math.max(m, s.price || 0), 0) || 1;
+  const band = isPrice && nullPrice.length
+    ? { lo: maxP * 1.2, hi: maxP * 1.5, label: 'без цены (N=' + nullPrice.length + ')' }
+    : null;
+  const bandDatasets = band
+    ? nullPrice.map(s => ({
+        label: s.name,
+        data: [{ x: (band.lo + band.hi) / 2, y: Math.max(1, s.scienceIndex) }],
+        backgroundColor: 'rgba(150,150,150,.55)',
+        pointRadius: Math.min(30, Math.sqrt(s.metaCount || 1) * 2.5),
+        pointHoverRadius: Math.min(36, Math.sqrt(s.metaCount || 1) * 3.5)
+      }))
+    : [];
+  const noPriceBandPlugin = {
+    id: 'noPriceBand',
+    afterDraw(chart) {
+      const cfg = chart.config._config;
+      if (!cfg.$band) return;
+      const { lo, hi, label } = cfg.$band;
+      const xs = chart.scales.x;
+      const pxLo = xs.getPixelForValue(lo);
+      const pxHi = xs.getPixelForValue(hi);
+      const { top, bottom, left, right } = chart.chartArea;
+      const c = chart.ctx;
+      c.save();
+      c.fillStyle = 'rgba(128,128,128,.12)';
+      c.fillRect(pxLo, top, pxHi - pxLo, bottom - top);
+      c.strokeStyle = 'rgba(128,128,128,.4)';
+      c.setLineDash([4, 3]);
+      c.beginPath(); c.moveTo(pxLo, top); c.lineTo(pxLo, bottom);
+      c.moveTo(pxHi, top); c.lineTo(pxHi, bottom); c.stroke();
+      c.setLineDash([]);
+      c.fillStyle = 'rgba(128,128,128,.78)';
+      c.font = '11px sans-serif';
+      c.textAlign = 'center';
+      c.fillText(label, (pxLo + pxHi) / 2, bottom - 5);
+      c.restore();
+    }
+  };
   chartInstance = new Chart(ctx, {
     type: 'scatter',
-    data: { datasets: plotted.map(s => ({
+    data: { datasets: priced.map(s => ({
       label: s.name,
       data: [{ x: axisVal(s), y: Math.max(1, s.scienceIndex) }],
       backgroundColor: vColor(s.code),
       pointRadius: Math.min(30, Math.sqrt(s.metaCount || 1) * 2.5),
       pointHoverRadius: Math.min(36, Math.sqrt(s.metaCount || 1) * 3.5)
-    })) },
+    })).concat(bandDatasets) },
     options: {
       responsive: true, maintainAspectRatio: true,
       scales: {
-        x: { title: { display: true, text: AXIS_LABEL[axisX], color: txt }, grid: { color: 'rgba(128,128,128,.15)' } },
+        x: { title: { display: true, text: AXIS_LABEL[axisX], color: txt }, grid: { color: 'rgba(128,128,128,.15)' }, max: band ? band.hi * 1.05 : undefined },
         y: { type: 'logarithmic',
              title: { display: true, text: 'Индекс науки (лог)', color: txt },
              grid: { color: 'rgba(128,128,128,.15)' },
@@ -484,7 +533,9 @@ function renderBubble(data) {
       onHover: (e, els) => {
         e.native.target.style.cursor = els.length ? 'pointer' : 'default';
       }
-    }
+    },
+    plugins: [noPriceBandPlugin],
+    $band: band
   });
   window.chart = chartInstance;
 }
