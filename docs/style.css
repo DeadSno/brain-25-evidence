@@ -209,6 +209,8 @@ position:sticky;top:0;z-index:1000;animation:fadeIn .25s}
 .cblocks{display:flex;flex-direction:column;gap:.5rem}
 .cblock{border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem;background:var(--bg)}
 .cblock h4{font-size:.8rem;font-weight:700;opacity:.65;text-transform:uppercase;letter-spacing:.03em;margin-bottom:.2rem}
+.cblock[data-block-key="evidence"] h4{font-size:1.05rem;opacity:.95}
+.cblock[data-block-key="price"] h4{font-size:.8rem}
 .cbbody{font-size:.92rem}
 .cbEmpty{opacity:.55;font-style:italic}
 .hline{margin-top:.25rem;opacity:.85}

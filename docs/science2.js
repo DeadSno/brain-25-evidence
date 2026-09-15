@@ -207,7 +207,7 @@
       const btns = body.querySelectorAll('.blockTitle');
       let econ = null;
       for (const b of btns) {
-        if ((b.textContent || '').includes('ЭКОНОМИКА')) { econ = b; break; }
+        if ((b.textContent || '').includes('История цены')) { econ = b; break; }
       }
       if (!econ) return;
       const id = curId();
