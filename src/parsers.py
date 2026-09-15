@@ -82,7 +82,10 @@ def wb_search(query: str, n: int = 12) -> pd.DataFrame:
 
 
 def parse_units(name: str, unit: str):
-    m = UNIT_RE[unit].search(name)
+    rx = UNIT_RE.get(unit)
+    if rx is None:
+        return None
+    m = rx.search(name)
     if not m:
         return None
     val = float(m.group(1).replace(",", "."))

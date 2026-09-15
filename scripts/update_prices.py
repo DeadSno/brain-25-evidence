@@ -22,7 +22,8 @@ def query_of(sid: str):
 
 
 def unit_of(sid: str) -> str:
-    return (query_of(sid) or ("", ""))[1]
+    pair = WB_QUERY.get(sid)
+    return pair[1] if pair else ""
 
 
 def monthly(price_pack: float, units_pack: float, sid: str):
