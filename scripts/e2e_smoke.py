@@ -33,9 +33,9 @@ def main() -> None:
             bubbles = pg.evaluate("window.chart?.data?.datasets?.length ?? -1")
             assert bubbles == n_ma, f"пузырей (ось=МА) {bubbles}, ожидалось {n_ma}"
             pg.click("#axisPrice")
-            pg.wait_for_function("window.chart?.data?.datasets.length === " + str(n_price), timeout=5000)
+            n_plot = sum(1 for s in data if s.get("scienceIndex") is not None)
+            pg.wait_for_function("window.chart?.data?.datasets.length === " + str(n_plot), timeout=5000)
             pg.click("#axisMA")
-
             # v2.3: 3 вопроса в DOM
             qa = pg.locator("#qaSection .qa").count()
             assert qa == 3, f"секция «3 вопроса»: блоков {qa}, ожидалось 3"
@@ -56,14 +56,32 @@ def main() -> None:
             assert "Витамин B6" in friends, "зелёная подсказка магний+B6 не найдена"
             assert "Хорошая пара" in friends, "нет подписи «Хорошая пара»"
 
-            # v2.3.1: контент топ-10 — у Креатина 8 edu-блоков заполнены (без заглушки)
-            ts += 1; pg.goto(f"{BASE}/index.html?ts={ts}#sup=Креатин", wait_until="domcontentloaded")
+                       # ==================== v2.3.1: контент топ-10 ====================
+            # У Креатина 8 edu-блоков заполнены (без заглушки и без пустот)
+            ts += 1
+            pg.goto(f"{BASE}/index.html?ts={ts}#sup=Креатин", wait_until="domcontentloaded")
             pg.wait_for_selector("#modalOverlay", state="visible", timeout=5000)
-            pg.wait_for_function("document.getElementById('modalBody').innerText.includes('Самая изученная спортивная добавка')", timeout=5000)
+            pg.wait_for_function(
+                "document.getElementById('modalBody').innerText.includes('Самая изученная спортивная добавка')",
+                timeout=5000,
+            )
+
+            # Усиление A: в DOM вообще присутствует минимум 8 edu-блоков
             edu_keys = ["what", "who", "onset", "ul", "food", "official", "shop", "myths"]
+            edu_total = pg.locator("[data-block-key]").count()
+            assert edu_total >= len(edu_keys), (
+                f"edu-блоков меньше {len(edu_keys)}: найдено {edu_total}"
+            )
+
+            # Усиление B: каждый блок не заглушка и не пустой div с пробелами
             for k in edu_keys:
-                txt = pg.locator(f'[data-block-key="{k}"]').inner_text()
-                assert "данных пока нет" not in txt, f"edu-блок {k} Креатина остался пустым"
+                txt = pg.locator(f'[data-block-key="{k}"]').inner_text().strip()
+                assert "данных пока нет" not in txt, (
+                    f"edu-блок {k!r} Креатина остался заглушкой"
+                )
+                assert len(txt) >= 10, (
+                    f"edu-блок {k!r} подозрительно короткий: {len(txt)} симв."
+                )
 
             # v2.3: живой баннер medium на кальций+железо в favs
             pg.evaluate("localStorage.setItem('favs', JSON.stringify(['Кальций','Железо']))")
@@ -235,6 +253,7 @@ def main() -> None:
             n_sport = sum(1 for s in data if s.get("category") == "Спорт")
             n_sport_ma = sum(1 for s in data if s.get("category") == "Спорт" and (s.get("metaCount") or 0) > 0)
             n_sport_price = sum(1 for s in data if s.get("category") == "Спорт" and s.get("price") is not None)
+            n_sport_plot = sum(1 for s in data if s.get("category") == "Спорт" and s.get("scienceIndex") is not None)
             pg.locator("#categoryFilter").select_option(label="Спорт")
             pg.wait_for_timeout(300)
             sport_cards = pg.locator(".card[data-id]").count()
@@ -245,10 +264,10 @@ def main() -> None:
                 f"F2.3: пузырей МА «Спорт» {sport_bubbles_ma}, ожидалось {n_sport_ma}"
             # переключить на цену → пузырей = спортивных с ценой
             pg.click("#axisPrice")
-            pg.wait_for_function("window.chart?.data?.datasets.length === " + str(n_sport_price), timeout=5000)
+            pg.wait_for_function("window.chart?.data?.datasets.length === " + str(n_sport_plot), timeout=5000)
             sport_bubbles_price = pg.evaluate("window.chart?.data?.datasets?.length ?? -1")
-            assert sport_bubbles_price == n_sport_price, \
-                f"F2.3: пузырей цена «Спорт» {sport_bubbles_price}, ожидалось {n_sport_price}"
+            assert sport_bubbles_price == n_sport_plot, \
+                f"F2.3: пузырей цена «Спорт» {sport_bubbles_price}, ожидалось {n_sport_plot}"
             # подпись под чартом
             summary = pg.locator("#chartSummary").inner_text()
             assert f"показано {n_sport} из {n_all}" in summary, \
@@ -503,6 +522,32 @@ def main() -> None:
             pg.keyboard.press("Escape")
 
             # ==================== конец PART C timeline ====================
+
+            # === v2.7.1 chunk 3: computed-style иерархия «наука ≥1.2× цена» ===
+            ts += 1; pg.goto(f"{BASE}/index.html?ts={ts}", wait_until="domcontentloaded")
+            pg.wait_for_selector(".card[data-id]", state="attached", timeout=5000)
+            pg.click(".card[data-id] >> nth=0")
+            pg.wait_for_selector("#modalOverlay", state="visible", timeout=5000)
+            fs = pg.evaluate("""(() => {
+              const g = k => {
+                const el = document.querySelector('#modalBody .cblock[data-block-key="' + k + '"] h4');
+                const f = el ? parseFloat(getComputedStyle(el).fontSize) : NaN;
+                return f;
+              };
+              return [g('evidence'), g('price')];
+            })()""")
+            assert len(fs) == 2 and fs[0] > 0 and fs[1] > 0, \
+                f"иерархия: не найдены h4 блоков evidence/price: {fs}"
+            assert fs[0] >= fs[1] * 1.2, \
+                f"иерархия: наука {fs[0]}px < 1.2× цена {fs[1]}px"
+            # ссылка «Для врачей» в футере index и map
+            assert pg.locator("footer a[href='for_doctors.html']").count() == 1, \
+                "в футере index.html нет ссылки «Для врачей»"
+            pg.keyboard.press("Escape")
+            pg.goto(f"{BASE}/map.html?ts={ts}", wait_until="domcontentloaded")
+            pg.wait_for_selector("#chain", state="attached", timeout=5000)
+            assert pg.locator("footer a[href='for_doctors.html']").count() == 1, \
+                "в футере map.html нет ссылки «Для врачей»"
 
             assert not errors, f"ошибки консоли: {errors}"
             b.close()
