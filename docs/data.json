@@ -1646,8 +1646,8 @@
   "id": "CoQ10",
   "name": "CoQ10",
   "code": -1,
-  "verdict": "не подтверждено",
-  "category": "Когниция",
+  "verdict": "работает",
+  "category": "Сердце/Энергия",
   "price": 357,
   "scienceIndex": 35,
   "metaCount": 3,
@@ -1661,7 +1661,7 @@
   ],
   "dosage": "100-200 мг",
   "course": "курсы",
-  "caution": "когнитивных пруфов нет",
+  "caution": "Доза: 100-300 мг/день. Убихинол биодоступнее, но дороже.",
   "forms": null,
   "mechs": [
    [
@@ -1687,10 +1687,14 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "СН: работает (2 Cochrane). Давление: работает (2 Cochrane). Статины: противоречиво.",
+  "grade": "B",
+  "key_sources": [
+   "35608922",
+   "24049047",
+   "26935713"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -1710,7 +1714,8 @@
     "title": "Pharmacological treatments for Friedreich ataxia.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(coenzyme Q10 OR ubiquinol OR CoQ10 supplementation) AND (heart OR statin OR exercise OR fatigue OR migraine)"
  },
  {
   "id": "Пикногенол",
@@ -2811,8 +2816,8 @@
   "id": "B9",
   "name": "B9",
   "code": 0,
-  "verdict": "зависит от контекста",
-  "category": "Общее",
+  "verdict": "работает",
+  "category": "Беременность/Кровь",
   "price": 281,
   "scienceIndex": 96,
   "metaCount": 13,
@@ -2826,7 +2831,7 @@
   ],
   "dosage": "400-800 мкг",
   "course": "по назначению",
-  "caution": "маскирует B12-дефицит",
+  "caution": "400 мкг/день за 1-3 мес до зачатия. Маскирует дефицит B12. Метилфолат для MTHFR.",
   "forms": null,
   "mechs": [
    [
@@ -2849,10 +2854,14 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Нейральная трубка: работает (Cochrane). Беременность: работает. Гомоцистеин: снижение.",
+  "grade": "A",
+  "key_sources": [
+   "26662928",
+   "20927767",
+   "23543547"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -2872,7 +2881,8 @@
     "title": "A systematic review on the role of diet in managing pre-existing diabetes during pregnancy.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(folic acid OR folate supplementation) AND (neural tube OR pregnancy OR homocysteine OR cardiovascular OR depression)"
  },
  {
   "id": "Железо",
@@ -3098,8 +3108,8 @@
   "id": "Витамин E",
   "name": "Витамин E",
   "code": -1,
-  "verdict": "не подтверждено",
-  "category": "Общее",
+  "verdict": "зависит от контекста",
+  "category": "Антиоксидант/Неврология",
   "price": 246,
   "scienceIndex": 14,
   "metaCount": 1,
@@ -3113,7 +3123,7 @@
   ],
   "dosage": "не превышать 400 МЕ, лучше из еды",
   "course": "—",
-  "caution": "высокие дозы: риск смертности и геморр. инсульта",
+  "caution": ">400 МЕ/день: возможное повышение смертности. Осторожно: антикоагулянты.",
   "forms": null,
   "mechs": [
    [
@@ -3136,10 +3146,14 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Поздняя дискинезия/МАСЛД: Cochrane. Альцгеймер: малый эффект. ССЗ/рак: НЕТ эффекта.",
+  "grade": "C",
+  "key_sources": [
+   "39412049",
+   "28418065",
+   "29341067"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -3159,14 +3173,15 @@
     "title": "Effects of Vitamin C and/or E Supplementation on Glycemic Control and Cardiovascular Risk Factors in Type 2 Diabetes: A Systematic Review and Subgroup Meta-analysis.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(vitamin E OR tocopherol OR tocotrienol supplementation) AND (cardiovascular OR antioxidant OR cognitive OR cancer)"
  },
  {
   "id": "Биотин",
   "name": "Биотин",
   "code": 0,
-  "verdict": "зависит от контекста",
-  "category": "Кожа и суставы",
+  "verdict": "не подтверждено",
+  "category": "Кожа/Волосы",
   "price": 605,
   "scienceIndex": 9,
   "metaCount": 1,
@@ -3180,7 +3195,7 @@
   ],
   "dosage": "30-100 мкг/сут",
   "course": "—",
-  "caution": "ЛОМАЕТ анализы (тропонин, ТТГ)! стоп за 3 дня",
+  "caution": "Искажает лабораторные тесты (FDA warning). Дефицит редок.",
   "forms": null,
   "mechs": [
    [
@@ -3198,10 +3213,10 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
+  "effect_outcome": "НЕТ ДАННЫХ в базе. Популярность не подтверждена доказательной базой.",
+  "grade": "D",
   "key_sources": [],
-  "updated": "2026-09-14",
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -3221,7 +3236,8 @@
     "title": "Quantitative comparison of the efficacy of clinical drug treatments for primary progressive multiple sclerosis.",
     "year": 2023
    }
-  ]
+  ],
+  "pubmed_term": "(biotin supplementation) AND (hair OR nails OR skin OR metabolic OR diabetes)"
  },
  {
   "id": "L-карнитин",
@@ -4083,7 +4099,7 @@
   "name": "Рибофлавин",
   "code": 1,
   "verdict": "работает",
-  "category": "Когниция",
+  "category": "Неврология/Метаболизм",
   "price": null,
   "scienceIndex": 5,
   "metaCount": 1,
@@ -4097,7 +4113,7 @@
   ],
   "dosage": "400 мг/сут",
   "course": "—",
-  "caution": "жёлтая моча — норма",
+  "caution": "Безопасен. Моча ярко-жёлтая — норма.",
   "forms": null,
   "mechs": [
    [
@@ -4115,10 +4131,13 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Мигрень: профилактика (400 мг/день). Метаболические заболевания: есть данные.",
+  "grade": "B",
+  "key_sources": [
+   "33779525",
+   "28485121"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -4138,14 +4157,15 @@
     "title": "Associations of dietary vitamin B1, vitamin B2, vitamin B6, and vitamin B12 with the risk of depression: a systematic review and meta-analysis.",
     "year": 2022
    }
-  ]
+  ],
+  "pubmed_term": "(riboflavin OR vitamin B2 supplementation) AND (migraine OR anemia OR metabolic)"
  },
  {
   "id": "Лютеин + зеаксантин",
   "name": "Лютеин + зеаксантин",
   "code": 0,
-  "verdict": "зависит от контекста",
-  "category": "Зрение",
+  "verdict": "работает",
+  "category": "Глаза/Зрение",
   "price": 536,
   "scienceIndex": 3,
   "metaCount": 0,
@@ -4159,7 +4179,7 @@
   ],
   "dosage": "10+2 мг/сут с жирами",
   "course": "—",
-  "caution": "у здоровых профилактика слабее, чем при AMD",
+  "caution": "Доза: 10 мг лютеина + 2 мг зеаксантина/день. Безопасны.",
   "forms": null,
   "mechs": [
    [
@@ -4177,10 +4197,14 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "ВМД: AREDS2 формула. Катаракта: снижение риска. Недоношенные: Cochrane.",
+  "grade": "B",
+  "key_sources": [
+   "31887124",
+   "24451312",
+   "40292760"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -4200,7 +4224,8 @@
     "title": "Effect of xanthophyll-rich food and supplement intake on visual outcomes in healthy adults and those with eye disease: a systematic review, meta-analysis, and meta-regression of randomized controlled trials.",
     "year": 2023
    }
-  ]
+  ],
+  "pubmed_term": "(lutein OR zeaxanthin supplementation) AND (macular OR eye OR vision OR AMD OR cataract)"
  },
  {
   "id": "Инозитол",
@@ -4273,8 +4298,8 @@
   "id": "Альфа-липоевая кислота",
   "name": "Альфа-липоевая кислота",
   "code": 0,
-  "verdict": "зависит от контекста",
-  "category": "Общее",
+  "verdict": "работает",
+  "category": "Неврология/Метаболизм",
   "price": null,
   "scienceIndex": 95,
   "metaCount": 11,
@@ -4288,7 +4313,7 @@
   ],
   "dosage": "600 мг/сут",
   "course": "—",
-  "caution": "снижает сахар — осторожно с препаратами",
+  "caution": "Диабет: снижает сахар (корректировать инсулин). Доза: 300-600 мг/день.",
   "forms": null,
   "mechs": [
    [
@@ -4311,10 +4336,14 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Диабетическая нейропатия: работает (Cochrane). Кардиометаболизм: есть.",
+  "grade": "B",
+  "key_sources": [
+   "38205823",
+   "37630823",
+   "37933068"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -4334,7 +4363,8 @@
     "title": "Effects of alpha-lipoic acid supplementation on patients with nonalcoholic fatty liver disease: a systematic review and meta-analysis of randomized clinical trials.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(alpha-lipoic acid OR lipoic acid supplementation) AND (diabetes OR neuropathy OR antioxidant OR weight)"
  },
  {
   "id": "D-манноза",
@@ -4459,8 +4489,8 @@
   "id": "Хром",
   "name": "Хром",
   "code": -1,
-  "verdict": "не подтверждено",
-  "category": "Общее",
+  "verdict": "зависит от контекста",
+  "category": "Метаболизм/Диабет",
   "price": 205,
   "scienceIndex": 26,
   "metaCount": 1,
@@ -4474,7 +4504,7 @@
   ],
   "dosage": "200-400 мкг/сут",
   "course": "—",
-  "caution": "эффект минимален даже при дефиците",
+  "caution": "Данные смешанные, клиническая значимость спорная.",
   "forms": null,
   "mechs": [
    [
@@ -4492,10 +4522,14 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Диабет: небольшое снижение глюкозы/HbA1c. Ожирение: НЕЗНАЧИМЫЙ эффект (Cochrane).",
+  "grade": "C",
+  "key_sources": [
+   "39541030",
+   "24293292",
+   "41067797"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -4515,14 +4549,15 @@
     "title": "Therapeutic effects of chromium supplementation on women with polycystic ovarian syndrome: A systematic review and meta-analysis.",
     "year": 2025
    }
-  ]
+  ],
+  "pubmed_term": "(chromium supplementation OR chromium picolinate) AND (diabetes OR insulin OR weight OR metabolic)"
  },
  {
   "id": "Астаксантин",
   "name": "Астаксантин",
   "code": 0,
   "verdict": "зависит от контекста",
-  "category": "Кожа и суставы",
+  "category": "Антиоксидант/Кожа",
   "price": 882,
   "scienceIndex": 79,
   "metaCount": 8,
@@ -4536,7 +4571,7 @@
   ],
   "dosage": "4-12 мг/сут с жирами",
   "course": "—",
-  "caution": "безопасен; в высоких дозах тон кожи",
+  "caution": "Данных по клиническим исходам мало. Доза: 4-12 мг/день.",
   "forms": null,
   "mechs": [
    [
@@ -4554,10 +4589,14 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Кожа: есть данные. Фертильность: есть. Спорт: ограниченные.",
+  "grade": "C",
+  "key_sources": [
+   "32202443",
+   "39127677",
+   "42197030"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -4577,7 +4616,8 @@
     "title": "A systematic review and meta-analysis of astaxanthin efficacy in male infertility: evidence from clinical and preclinical studies.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(astaxanthin supplementation) AND (antioxidant OR skin OR exercise OR cardiovascular)"
  },
  {
   "id": "Расторопша",
@@ -5494,7 +5534,7 @@
   "name": "Витамин K2",
   "code": 0,
   "verdict": "зависит от контекста",
-  "category": "Общее",
+  "category": "Кости/Сосуды",
   "price": null,
   "scienceIndex": 1,
   "metaCount": 0,
@@ -5508,7 +5548,7 @@
   ],
   "dosage": "100-200 мкг/сут с жирами",
   "course": "—",
-  "caution": "ПРОТИВОПОКАЗАН с варфарином",
+  "caution": "Осторожно: варфарин (антагонист). Данных мало (5 абстрактов).",
   "forms": null,
   "mechs": [
    [
@@ -5529,10 +5569,14 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Остеопороз постменопауза: есть. Переломы: смешанные. Кальцификация: ограниченные.",
+  "grade": "C",
+  "key_sources": [
+   "36033779",
+   "35711002",
+   "25516361"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -5552,7 +5596,8 @@
     "title": "Efficacy of vitamin K2 in the prevention and treatment of postmenopausal osteoporosis: A systematic review and meta-analysis of randomized controlled trials.",
     "year": 2022
    }
-  ]
+  ],
+  "pubmed_term": "(vitamin K2 OR menaquinone supplementation) AND (bone OR cardiovascular OR calcification OR osteoporosis)"
  },
  {
   "id": "Берберин",
