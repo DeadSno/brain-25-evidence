@@ -1574,8 +1574,8 @@
   "id": "Таурин",
   "name": "Таурин",
   "code": -1,
-  "verdict": "не подтверждено",
-  "category": "Когниция",
+  "verdict": "зависит от контекста",
+  "category": "Метаболизм/Антиоксидант",
   "price": 526,
   "scienceIndex": 82,
   "metaCount": 7,
@@ -1589,7 +1589,7 @@
   ],
   "dosage": "500-2000 мг",
   "course": "—",
-  "caution": "когнитивных пруфов нет",
+  "caution": "Безопасен в дозах 1-6 г/день. Данных по спорту мало.",
   "forms": null,
   "mechs": [
    [
@@ -1612,10 +1612,14 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Кардиометаболические факторы: умеренное улучшение. Рост у детей с НМТ: есть данные.",
+  "grade": "C",
+  "key_sources": [
+   "41275513",
+   "32871172",
+   "40320621"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -1635,7 +1639,8 @@
     "title": "Trans-organ net fluxes of essential amino acids and their calculated efficiency of utilization in dairy cows: A meta-analysis.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(taurine supplementation) AND (exercise OR performance OR cardiovascular OR antioxidant)"
  },
  {
   "id": "CoQ10",
@@ -3294,8 +3299,8 @@
   "id": "BCAA",
   "name": "BCAA",
   "code": -1,
-  "verdict": "не подтверждено",
-  "category": "Спорт",
+  "verdict": "зависит от контекста",
+  "category": "Печень/Спорт",
   "price": 177,
   "scienceIndex": 5,
   "metaCount": 0,
@@ -3309,7 +3314,7 @@
   ],
   "dosage": "5-10 г вокруг тренировки",
   "course": "—",
-  "caution": "бессмысленны при норме белка",
+  "caution": "Для спорта: клиническая ценность спорная. Для цирроза: есть Cochrane.",
   "forms": null,
   "mechs": [
    [
@@ -3327,10 +3332,14 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Печеночная энцефалопатия при циррозе: работает (4 Cochrane). Спорт: противоречиво.",
+  "grade": "B",
+  "key_sources": [
+   "41542879",
+   "28518283",
+   "26377410"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -3350,14 +3359,15 @@
     "title": "Treatment of Sleep Disorders Following Traumatic Brain Injury: A Systematic Review and Network Meta-Analysis.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(branched-chain amino acids OR BCAA supplementation) AND (exercise OR muscle OR recovery OR performance)"
  },
  {
   "id": "Аргинин",
   "name": "Аргинин",
   "code": 0,
   "verdict": "зависит от контекста",
-  "category": "Спорт",
+  "category": "Сосуды/Беременность",
   "price": 230,
   "scienceIndex": 2,
   "metaCount": 0,
@@ -3371,7 +3381,7 @@
   ],
   "dosage": "3-6 г/сут (часто ЖКТ-побочки)",
   "course": "—",
-  "caution": "осторожно при герпесе и гипотонии",
+  "caution": "NO-путь работает слабее ожидаемого. Доза: 3-6 г/день.",
   "forms": null,
   "mechs": [
    [
@@ -3394,10 +3404,14 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Преэклампсия: профилактика. НЭК у недоношенных: Cochrane. Давление: умеренное снижение.",
+  "grade": "B",
+  "key_sources": [
+   "39800868",
+   "39564822",
+   "28399330"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -3417,7 +3431,8 @@
     "title": "Nutritional supplements for preventing preeclampsia: A network meta-analysis.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(L-arginine OR arginine supplementation) AND (nitric oxide OR exercise OR blood pressure OR erectile)"
  },
  {
   "id": "Кальций",
@@ -3647,7 +3662,7 @@
   "name": "Имбирь",
   "code": 1,
   "verdict": "работает",
-  "category": "Общее",
+  "category": "ЖКТ/Метаболизм",
   "price": 135,
   "scienceIndex": 44,
   "metaCount": 6,
@@ -3661,7 +3676,7 @@
   ],
   "dosage": "1 г/сут сухого корня",
   "course": "—",
-  "caution": "осторожно с антикоагулянтами",
+  "caution": "Доза 1 г/день для тошноты. Осторожно: антикоагулянты.",
   "forms": null,
   "mechs": [
    [
@@ -3684,9 +3699,13 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
+  "effect_outcome": "Тошнота при беременности: работает. Послеоперационная тошнота: работает.",
+  "grade": "B",
+  "key_sources": [
+   "42322087",
+   "37379959",
+   "35031435"
+  ],
   "about": "Противовоспалительное, противорвотное, умеренный эффект на боль.",
   "who_needs": "Остеоартрит, тошнота (беременность, химиотерапия), мышечная боль.",
   "onset": "Тошнота — 30-60 минут; боль — 4-8 недель.",
@@ -3695,7 +3714,7 @@
   "guidelines": "EFSA: claims не одобрены; МА — умеренный эффект на боль при остеоартрите.",
   "how_to_choose": "Стандартизация 5% гингеролов; капсулы или свежий корень.",
   "myths": "«Лечит простуду» — облегчает симптомы, не лечит. «Безопасен с антикоагулянтами» — риск кровотечений.",
-  "updated": "2026-09-14",
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -3715,14 +3734,15 @@
     "title": "[Different moxibustion therapies for primary dysmenorrhea: a network Meta-analysis].",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(Zingiber officinale OR ginger supplementation) AND (nausea OR inflammation OR pain OR metabolic)"
  },
  {
   "id": "Чеснок",
   "name": "Чеснок",
   "code": 0,
-  "verdict": "зависит от контекста",
-  "category": "Общее",
+  "verdict": "работает",
+  "category": "Сосуды/Метаболизм",
   "price": 318,
   "scienceIndex": 1,
   "metaCount": 0,
@@ -3736,7 +3756,7 @@
   ],
   "dosage": "600-1200 мг выдерж. экстракта/сут",
   "course": "—",
-  "caution": "усиливает антикоагулянты; запах",
+  "caution": "Aged garlic extract лучше. Осторожно: антикоагулянты, операции.",
   "forms": null,
   "mechs": [
    [
@@ -3759,9 +3779,13 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
+  "effect_outcome": "Давление: умеренное снижение. Холестерин: умеренное снижение.",
+  "grade": "B",
+  "key_sources": [
+   "40628369",
+   "33792129",
+   "40580481"
+  ],
   "about": "Серосодержащие соединения: умеренный эффект на АД и холестерин.",
   "who_needs": "Повышенное АД (адъювант), повышенный холестерин, профилактика.",
   "onset": "АД — 8-12 недель; холестерин — 12-24 недели.",
@@ -3770,7 +3794,7 @@
   "guidelines": "EFSA: claims не одобрены; МА — modest effect на АД и холестерин.",
   "how_to_choose": "Стандартизация 1.3% аллицина; aged garlic extract (AGE) лучше переносится.",
   "myths": "«Заменит статины» — эффект скромный. «Свежий чеснок равноценен» — добавки стабильнее.",
-  "updated": "2026-09-14",
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -3790,14 +3814,15 @@
     "title": "Garlic as a lipid lowering agent--a meta-analysis.",
     "year": 1994
    }
-  ]
+  ],
+  "pubmed_term": "(Allium sativum OR garlic supplementation OR aged garlic extract) AND (cardiovascular OR blood pressure OR cholesterol)"
  },
  {
   "id": "Клюква",
   "name": "Клюква",
   "code": 0,
   "verdict": "зависит от контекста",
-  "category": "Иммунитет",
+  "category": "Мочеполовая система",
   "price": null,
   "scienceIndex": 25,
   "metaCount": 3,
@@ -3811,7 +3836,7 @@
   ],
   "dosage": "36 мг PAC/сут",
   "course": "—",
-  "caution": "профилактика, НЕ лечение",
+  "caution": "Современные данные показывают ограниченную эффективность.",
   "forms": null,
   "mechs": [
    [
@@ -3829,10 +3854,12 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Профилактика ИМП: данные ограниченные (противоречивые).",
+  "grade": "C",
+  "key_sources": [
+   "41676867"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -3852,7 +3879,8 @@
     "title": "Cranberry Reduces the Risk of Urinary Tract Infection Recurrence in Otherwise Healthy Women: A Systematic Review and Meta-Analysis.",
     "year": 2017
    }
-  ]
+  ],
+  "pubmed_term": "(Vaccinium macrocarpon OR cranberry supplementation) AND (urinary tract infection OR prevention OR antioxidant)"
  },
  {
   "id": "Пустырник",
@@ -4556,7 +4584,7 @@
   "name": "Расторопша",
   "code": 0,
   "verdict": "зависит от контекста",
-  "category": "Общее",
+  "category": "Печень",
   "price": null,
   "scienceIndex": 2,
   "metaCount": 0,
@@ -4570,7 +4598,7 @@
   ],
   "dosage": "420 мг силимарина/сут",
   "course": "—",
-  "caution": "не заменяет терапию; алкоголь — нет",
+  "caution": "Клиническая значимость спорная (биохимия vs. исходы).",
   "forms": null,
   "mechs": [
    [
@@ -4588,10 +4616,14 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "МАСЛД: есть Cochrane. Гепатит: ограниченная эффективность.",
+  "grade": "B",
+  "key_sources": [
+   "40552569",
+   "17943794",
+   "39855603"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -4611,14 +4643,15 @@
     "title": "Coadministration of silymarin with iron chelators in transfusion-dependent β-thalassemia patients: a systematic review and meta-analysis for effect on iron overload.",
     "year": 2021
    }
-  ]
+  ],
+  "pubmed_term": "(Silybum marianum OR milk thistle OR silymarin) AND (liver OR hepatitis OR metabolic)"
  },
  {
   "id": "Лактоферрин",
   "name": "Лактоферрин",
   "code": 0,
-  "verdict": "зависит от контекста",
-  "category": "Иммунитет",
+  "verdict": "работает",
+  "category": "Иммунитет/Дети",
   "price": null,
   "scienceIndex": 23,
   "metaCount": 2,
@@ -4632,7 +4665,7 @@
   ],
   "dosage": "100-200 мг/сут",
   "course": "—",
-  "caution": "мягче солей железа для ЖКТ",
+  "caution": "Осторожно: аллергия на молочный белок.",
   "forms": null,
   "mechs": [
    [
@@ -4653,10 +4686,14 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Недоношенные: профилактика сепсиса и НЭК (2 Cochrane). Железо: улучшает.",
+  "grade": "B",
+  "key_sources": [
+   "32232984",
+   "28658720",
+   "39841980"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -4676,7 +4713,8 @@
     "title": "Efficacy of lactoferrin supplementation in pediatric infections: a systematic review and meta-analysis.",
     "year": 2025
    }
-  ]
+  ],
+  "pubmed_term": "(lactoferrin supplementation) AND (iron OR immune OR infection OR infant)"
  },
  {
   "id": "SAMe",
@@ -4879,7 +4917,7 @@
   "name": "Чёрный тмин",
   "code": 0,
   "verdict": "зависит от контекста",
-  "category": "Общее",
+  "category": "Воспаление/Метаболизм",
   "price": null,
   "scienceIndex": 1,
   "metaCount": 0,
@@ -4893,7 +4931,7 @@
   ],
   "dosage": "1-2 г порошка семян/сут",
   "course": "—",
-  "caution": "снижает сахар — осторожно с препаратами",
+  "caution": "Данные разрозненные, качество РКИ часто низкое.",
   "forms": null,
   "mechs": [
    [
@@ -4916,10 +4954,14 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Воспаление: есть данные. Кардиометаболизм: смешанные. Астма: есть данные.",
+  "grade": "C",
+  "key_sources": [
+   "41858302",
+   "33559935",
+   "31892440"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -4939,7 +4981,8 @@
     "title": "Effect of Nigella sativa Supplementation on Oxidative Stress and Antioxidant Parameters: A Meta-Analysis of Randomized Controlled Trials.",
     "year": 2020
    }
-  ]
+  ],
+  "pubmed_term": "(Nigella sativa OR black seed OR thymoquinone) AND (inflammation OR metabolic OR asthma)"
  },
  {
   "id": "Трибулус",
@@ -5516,7 +5559,7 @@
   "name": "Берберин",
   "code": 1,
   "verdict": "работает",
-  "category": "Общее",
+  "category": "Метаболизм/Диабет",
   "price": null,
   "scienceIndex": 67,
   "metaCount": 10,
@@ -5530,7 +5573,7 @@
   ],
   "dosage": "500 мг 2-3 р/день до еды",
   "course": "—",
-  "caution": "только с врачом (гипогликемия с препаратами)",
+  "caution": "Доза 500 мг 2-3 раза/день. CYP3A4 ингибитор — взаимодействует с лекарствами.",
   "forms": null,
   "mechs": [
    [
@@ -5558,9 +5601,13 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
+  "effect_outcome": "Гликемический контроль: работает (сравним с метформином). Липиды: снижение.",
+  "grade": "B",
+  "key_sources": [
+   "38016844",
+   "36313096",
+   "32379652"
+  ],
   "about": "Алкалоид: снижает сахар, улучшает чувствительность к инсулину.",
   "who_needs": "Преддиабет, метаболический синдром, СПКЯ (умеренные данные).",
   "onset": "Сахар — 4-8 недель; инсулин — 8-12 недель.",
@@ -5569,7 +5616,7 @@
   "guidelines": "EFSA: claims не одобрены; ряд МА — эффект сопоставим с метформином.",
   "how_to_choose": "Berberine HCl или phytosome; 500 мг 3 раза/сут с едой.",
   "myths": "«Заменит метформин» — эффект схож, но данных меньше. «Безопасен со статинами» — взаимодействие.",
-  "updated": "2026-09-14",
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -5589,7 +5636,8 @@
     "title": "The effect of berberine on obesity indices: a systematic review and meta-analysis.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(berberine supplementation) AND (diabetes OR metabolic OR cholesterol OR weight)"
  },
  {
   "id": "Кверцетин",
