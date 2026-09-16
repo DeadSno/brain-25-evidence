@@ -341,3 +341,14 @@ body.dark .chip a:visited { color: #5dade2; }
 
 /* v2.8.0: кнопки-ссылки без подчёркивания в тёмной теме (F3) */
 body.dark a.btn{text-decoration:none}
+
+/* ===== v3.1: палитра грейдов A-D (зелёный/лайм/янтарь/красный) ===== */
+.grade.gA { background: #22c55e !important; color: #fff !important; border-color: #22c55e !important; }
+.grade.gB { background: #84cc16 !important; color: #fff !important; border-color: #84cc16 !important; }
+.grade.gC { background: #f59e0b !important; color: #fff !important; border-color: #f59e0b !important; }
+.grade.gD { background: #ef4444 !important; color: #fff !important; border-color: #ef4444 !important; }
+
+/* вердикты в тон палитре */
+.verdict.vworks   { background: #22c55e !important; color: #fff !important; }
+.verdict.vcontext { background: #f59e0b !important; color: #fff !important; }
+.verdict.vunproven{ background: #ef4444 !important; color: #fff !important; }
