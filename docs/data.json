@@ -4799,8 +4799,8 @@
   "id": "SAMe",
   "name": "SAMe",
   "code": 0,
-  "verdict": "зависит от контекста",
-  "category": "Настроение",
+  "verdict": "работает",
+  "category": "Психика/Суставы",
   "price": 3023,
   "scienceIndex": 110,
   "metaCount": 12,
@@ -4814,7 +4814,7 @@
   ],
   "dosage": "400-800 мг/сут натощак",
   "course": "—",
-  "caution": "с SSRI — риск серотонинового синдрома! дорог",
+  "caution": "Осторожно: биполярное (риск мании). Нужны кишечнорастворимые формы.",
   "forms": null,
   "mechs": [
    [
@@ -4832,10 +4832,14 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Депрессия: работает (сравнима с СИОЗС). ОА: Cochrane. Печень: есть.",
+  "grade": "B",
+  "key_sources": [
+   "19821403",
+   "16021987",
+   "39519500"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -4855,14 +4859,15 @@
     "title": "S-Adenosylmethionine (SAMe) as an adjuvant therapy for patients with depression: An updated systematic review and meta-analysis.",
     "year": 2024
    }
-  ]
+  ],
+  "pubmed_term": "(S-adenosylmethionine OR SAMe supplementation) AND (depression OR osteoarthritis OR liver OR mood)"
  },
  {
   "id": "Йохимбин",
   "name": "Йохимбин",
   "code": 0,
-  "verdict": "зависит от контекста",
-  "category": "Спорт",
+  "verdict": "не подтверждено",
+  "category": "Сексуальное здоровье",
   "price": null,
   "scienceIndex": 52,
   "metaCount": 6,
@@ -4876,7 +4881,7 @@
   ],
   "dosage": "2.5-10 мг (старт с 2.5!)",
   "course": "—",
-  "caution": "тахикардия, тревога, АД; НЕ с антидепрессантами",
+  "caution": "Серьёзные побочки. Запрещён в ЕС/Канаде как БАД. Не использовать без врача.",
   "forms": null,
   "mechs": [
    [
@@ -4899,10 +4904,10 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
+  "effect_outcome": "НЕТ систематических обзоров. Все данные — старые РКИ 1980-90х.",
+  "grade": "D",
   "key_sources": [],
-  "updated": "2026-09-14",
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -4922,14 +4927,15 @@
     "title": "The Potential Role of Arginine Supplements on Erectile Dysfunction: A Systemic Review and Meta-Analysis.",
     "year": 2019
    }
-  ]
+  ],
+  "pubmed_term": "(yohimbine supplementation) AND (erectile OR weight OR fat OR sexual)"
  },
  {
   "id": "Пажитник",
   "name": "Пажитник",
   "code": 0,
   "verdict": "зависит от контекста",
-  "category": "Общее",
+  "category": "Метаболизм/Сексуальное здоровье",
   "price": null,
   "scienceIndex": 88,
   "metaCount": 13,
@@ -4943,7 +4949,7 @@
   ],
   "dosage": "500 мг-6 г/сут",
   "course": "—",
-  "caution": "снижает сахар; запах пота",
+  "caution": "Данных мало (1 абстракт). Безопасен в стандартных дозах.",
   "forms": null,
   "mechs": [
    [
@@ -4966,10 +4972,12 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Гликемия: мета-анализ. Лактация: отдельные РКИ. Тестостерон: ограниченные.",
+  "grade": "C",
+  "key_sources": [
+   "24438170"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -4989,7 +4997,8 @@
     "title": "The Effect of Fenugreek in Type 2 Diabetes and Prediabetes: A Systematic Review and Meta-Analysis of Randomized Controlled Trials.",
     "year": 2023
    }
-  ]
+  ],
+  "pubmed_term": "(Trigonella foenum-graecum OR fenugreek supplementation) AND (diabetes OR testosterone OR lactation OR libido)"
  },
  {
   "id": "Чёрный тмин",
@@ -5068,7 +5077,7 @@
   "name": "Трибулус",
   "code": -1,
   "verdict": "не подтверждено",
-  "category": "Спорт",
+  "category": "Сексуальное здоровье/Спорт",
   "price": 666,
   "scienceIndex": 2,
   "metaCount": 0,
@@ -5082,7 +5091,7 @@
   ],
   "dosage": "750-1500 мг/сут",
   "course": "—",
-  "caution": "тестостерон у людей НЕ поднимает",
+  "caution": "Отдельные РКИ не показывают эффекта на тестостерон.",
   "forms": null,
   "mechs": [
    [
@@ -5100,10 +5109,10 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
+  "effect_outcome": "НЕТ систематических обзоров. Популярность не подтверждена.",
+  "grade": "D",
   "key_sources": [],
-  "updated": "2026-09-14",
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -5123,7 +5132,8 @@
     "title": "Beneficial effects of natural products on female sexual dysfunction: A systematic review and meta-analysis.",
     "year": 2021
    }
-  ]
+  ],
+  "pubmed_term": "(Tribulus terrestris supplementation) AND (testosterone OR libido OR sexual OR performance)"
  },
  {
   "id": "NMN",
@@ -5186,8 +5196,8 @@
   "id": "Кордицепс",
   "name": "Кордицепс",
   "code": -1,
-  "verdict": "не подтверждено",
-  "category": "Спорт",
+  "verdict": "работает",
+  "category": "Почки/Выносливость",
   "price": 386,
   "scienceIndex": 35,
   "metaCount": 5,
@@ -5201,7 +5211,7 @@
   ],
   "dosage": "1-3 г/сут",
   "course": "—",
-  "caution": "дикий — астроцена; культивируемый ок",
+  "caution": "Дорогой, часто подделывают. Адъювант, не монотерапия.",
   "forms": null,
   "mechs": [
    [
@@ -5219,10 +5229,14 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "ХБП: 2 Cochrane. Трансплантация почки: есть. Выносливость: ограниченные.",
+  "grade": "B",
+  "key_sources": [
+   "25519252",
+   "26457607",
+   "28137532"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -5242,14 +5256,15 @@
     "title": "The effects of Ophiocordyceps sinensis combined with ACEI/ARB on diabetic kidney disease: A systematic review and meta-analysis.",
     "year": 2023
    }
-  ]
+  ],
+  "pubmed_term": "(Cordyceps OR cordycepin supplementation) AND (exercise OR kidney OR respiratory OR fatigue)"
  },
  {
   "id": "Рейши",
   "name": "Рейши",
   "code": -1,
-  "verdict": "не подтверждено",
-  "category": "Сон",
+  "verdict": "зависит от контекста",
+  "category": "Иммунитет/Грибы",
   "price": null,
   "scienceIndex": 18,
   "metaCount": 2,
@@ -5263,7 +5278,7 @@
   ],
   "dosage": "1-2 г экстракта/сут",
   "course": "—",
-  "caution": "осторожно с антикоагулянтами",
+  "caution": "НЕ монотерапия рака — только адъювант к химиотерапии.",
   "forms": null,
   "mechs": [
    [
@@ -5286,10 +5301,13 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Рак (адъювант): Cochrane. Иммунитет: ограниченные.",
+  "grade": "C",
+  "key_sources": [
+   "27045603",
+   "22696372"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -5309,14 +5327,15 @@
     "title": "Ganoderma lucidum mushroom for the treatment of cardiovascular risk factors.",
     "year": 2015
    }
-  ]
+  ],
+  "pubmed_term": "(Ganoderma lucidum OR reishi mushroom) AND (immune OR cancer OR sleep OR antioxidant)"
  },
  {
   "id": "Хлорофилл",
   "name": "Хлорофилл",
   "code": -1,
   "verdict": "не подтверждено",
-  "category": "Общее",
+  "category": "Антиоксидант",
   "price": 448,
   "scienceIndex": 95,
   "metaCount": 17,
@@ -5330,7 +5349,7 @@
   ],
   "dosage": "100 мг/сут (TikTok-тренд)",
   "course": "—",
-  "caution": "«детокс» — маркетинг; безопасен, но пуст",
+  "caution": "В основном доклинические данные. Популярность в wellness ≠ доказательность.",
   "forms": null,
   "mechs": [
    [
@@ -5348,10 +5367,10 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
+  "effect_outcome": "НЕТ систематических обзоров. Популярность не подтверждена.",
+  "grade": "D",
   "key_sources": [],
-  "updated": "2026-09-14",
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -5371,14 +5390,15 @@
     "title": "Machine learning-assisted meta-analysis reveals melatonin crosstalk regulating plant growth plasticity under heavy metal stress.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(chlorophyll OR chlorophyllin supplementation) AND (antioxidant OR detox OR cancer OR weight)"
  },
  {
   "id": "Сывороточный протеин",
   "name": "Сывороточный протеин",
   "code": 1,
   "verdict": "работает",
-  "category": "Спорт",
+  "category": "Спорт/Мышцы",
   "price": null,
   "scienceIndex": 97,
   "metaCount": 11,
@@ -5392,7 +5412,7 @@
   ],
   "dosage": "20-40 г после тренировки; всего 1.6-2.2 г белка/кг/сут",
   "course": "—",
-  "caution": "при ХБП белок ограничивают — к врачу",
+  "caution": "Доза: 20-40 г/день. Осторожно: лактозная непереносимость.",
   "forms": null,
   "mechs": [
    [
@@ -5410,10 +5430,14 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Мышцы + тренировки: работает (A). Саркопения: работает. Гликемия: улучшение.",
+  "grade": "A",
+  "key_sources": [
+   "38350303",
+   "37571361",
+   "35871954"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -5433,7 +5457,8 @@
     "title": "Dose-dependent effect of milk proteins on body composition and lipid profile in overweight and obese individuals; A GRADE-assessed systematic review and meta-analysis of randomized controlled trials.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(whey protein supplementation) AND (muscle OR exercise OR weight OR sarcopenia)"
  },
  {
   "id": "Глутамин",
@@ -5506,7 +5531,7 @@
   "name": "Босвеллия",
   "code": 1,
   "verdict": "работает",
-  "category": "Кожа и суставы",
+  "category": "Воспаление/Суставы",
   "price": null,
   "scienceIndex": 38,
   "metaCount": 5,
@@ -5520,7 +5545,7 @@
   ],
   "dosage": "300-500 мг экстракта (AKBA 30%) 2-3 р/день",
   "course": "—",
-  "caution": "осторожно с НПВС и антикоагулянтами",
+  "caution": "Нужен стандартизированный экстракт (>=30% босвеллиевых кислот).",
   "forms": null,
   "mechs": [
    [
@@ -5543,10 +5568,13 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "ОА: есть данные (Aflapin). Воспаление: ингибирует 5-LOX.",
+  "grade": "C",
+  "key_sources": [
+   "38365549",
+   "41082950"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -5566,7 +5594,8 @@
     "title": "Effectiveness of Boswellia and Boswellia extract for osteoarthritis patients: a systematic review and meta-analysis.",
     "year": 2020
    }
-  ]
+  ],
+  "pubmed_term": "(Boswellia serrata OR boswellic acid supplementation) AND (osteoarthritis OR inflammation OR asthma)"
  },
  {
   "id": "Витамин K2",
@@ -5727,8 +5756,8 @@
   "id": "Кверцетин",
   "name": "Кверцетин",
   "code": -1,
-  "verdict": "не подтверждено",
-  "category": "Иммунитет",
+  "verdict": "работает",
+  "category": "Антиоксидант/Воспаление",
   "price": null,
   "scienceIndex": 12,
   "metaCount": 1,
@@ -5742,7 +5771,7 @@
   ],
   "dosage": "500-1000 мг/сут",
   "course": "—",
-  "caution": "биодоступность низкая",
+  "caution": "Биодоступность низкая — нужны формы с усилителями. Доза: 500-1000 мг/день.",
   "forms": null,
   "mechs": [
    [
@@ -5765,10 +5794,14 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Давление: умеренное снижение. Кардиометаболизм: улучшение. Спорт: есть.",
+  "grade": "B",
+  "key_sources": [
+   "35948195",
+   "37654199",
+   "22805526"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -5788,6 +5821,7 @@
     "title": "The effect of Quercetin supplementation on hyperuricemia-related biochemical and renal outcomes in animal models: a systematic review and meta-analysis.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(quercetin supplementation) AND (inflammation OR exercise OR cardiovascular OR immune OR antioxidant)"
  }
 ]
