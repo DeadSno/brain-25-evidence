@@ -1899,7 +1899,7 @@
   "name": "ГАБА",
   "code": -1,
   "verdict": "не подтверждено",
-  "category": "Сон",
+  "category": "Психика/Сон",
   "price": 593,
   "scienceIndex": 7,
   "metaCount": 1,
@@ -1913,7 +1913,7 @@
   ],
   "dosage": "100-300 мг (дозы исследований)",
   "course": "—",
-  "caution": "человеческих доказательств НЕТ (MA на курах)",
+  "caution": "Пероральный ГАБА плохо проходит ГЭБ. Данные смешанные, качество РКИ низкое. Клинический эффект сомнителен.",
   "forms": null,
   "mechs": [
    [
@@ -1936,10 +1936,12 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Стресс: ОГРАНИЧЕННЫЕ данные. Сон: ОЧЕНЬ ОГРАНИЧЕННЫЕ (14 РКИ).",
+  "grade": "D",
+  "key_sources": [
+   "33041752"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -2916,8 +2918,8 @@
   "id": "Триптофан",
   "name": "Триптофан",
   "code": 0,
-  "verdict": "зависит от контекста",
-  "category": "Сон",
+  "verdict": "работает",
+  "category": "Психика/Сон",
   "price": 591,
   "scienceIndex": 72,
   "metaCount": 5,
@@ -2931,7 +2933,7 @@
   ],
   "dosage": "500-1000 мг перед сном",
   "course": "—",
-  "caution": "не с антидепрессантами",
+  "caution": "L-триптофан - прекурсор серотонина. Эффект на сон ТОЛЬКО при ≥1 г/день. НЕ сочетать с SSRI/MAOI.",
   "forms": null,
   "mechs": [
    [
@@ -2949,10 +2951,13 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Сон: WASO -81 мин/г при дозах ≥1г. Настроение: уменьшает тревожность (11 РКИ).",
+  "grade": "C",
+  "key_sources": [
+   "33942088",
+   "32272859"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
