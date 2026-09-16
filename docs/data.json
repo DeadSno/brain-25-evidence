@@ -761,7 +761,7 @@
   "name": "Родиола",
   "code": 0,
   "verdict": "зависит от контекста",
-  "category": "Когниция",
+  "category": "Усталость/Адаптоген",
   "price": 299,
   "scienceIndex": 31,
   "metaCount": 4,
@@ -775,7 +775,7 @@
   ],
   "dosage": "200-400 мг экстракта",
   "course": "курсы с перерывами",
-  "caution": "слабая база у здоровых",
+  "caution": "Качество РКИ часто низкое. Для спорта: противоречивые данные. Доза: 200-600 мг/день (3-6% розавинов).",
   "forms": null,
   "mechs": [
    [
@@ -798,9 +798,13 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
+  "effect_outcome": "Умеренный эффект при физической/ментальной усталости.",
+  "grade": "C",
+  "key_sources": [
+   "22643043",
+   "37495266",
+   "21036578"
+  ],
   "about": "Адаптоген: снижает усталость, улучшает концентрацию при стрессе.",
   "who_needs": "Выгорание, умственная усталость, сменный график, студенты в сессию.",
   "onset": "Усталость — 1-2 недели; концентрация — 30-60 минут (острый эффект).",
@@ -809,7 +813,7 @@
   "guidelines": "EFSA: claims не одобрены; МА — умеренный эффект на усталость.",
   "how_to_choose": "Стандартизация 3% розавинов + 1% салидрозида; SHR-5 (шведский экстракт).",
   "myths": "«Заменит кофе» — механизм другой, не стимулятор. «Работает всем» — эффект зависит от baseline усталости.",
-  "updated": "2026-09-14",
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -829,14 +833,15 @@
     "title": "Neuroprotective Mechanisms of Salidroside in Alzheimer's Disease: A Systematic Review and Meta-analysis of Preclinical Studies.",
     "year": 2023
    }
-  ]
+  ],
+  "pubmed_term": "(Rhodiola rosea) AND (fatigue OR stress OR performance OR depression)"
  },
  {
   "id": "Ашваганда",
   "name": "Ашваганда",
   "code": 1,
   "verdict": "работает",
-  "category": "Когниция",
+  "category": "Стресс/Адаптоген",
   "price": null,
   "scienceIndex": 21,
   "metaCount": 2,
@@ -850,7 +855,7 @@
   ],
   "dosage": "300-600 мг (KSM-66)",
   "course": "4-8 недель",
-  "caution": "щитовидная; беременность — нельзя",
+  "caution": "Эффект значим для кортизола, но субъективный стресс может не измениться. Осторожно: аутоиммунные, беременность.",
   "forms": null,
   "mechs": [
    [
@@ -878,9 +883,13 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
+  "effect_outcome": "Снижает кортизол и тревожность. Улучшает сон.",
+  "grade": "B",
+  "key_sources": [
+   "39348746",
+   "34559859",
+   "31975514"
+  ],
   "about": "Адаптоген: снижает кортизол, тревогу, улучшает сон.",
   "who_needs": "Хронический стресс, тревожность, бессонница, спортсмены (восстановление).",
   "onset": "Тревога и сон — 4-8 недель; кортизол — 2-4 недели.",
@@ -889,7 +898,7 @@
   "guidelines": "EFSA: claims не одобрены; ряд МА — умеренный эффект на тревогу и сон.",
   "how_to_choose": "Стандартизация 5% withanolides (KSM-66, Sensoril); корень, не листья.",
   "myths": "«Работает сразу как транквилизатор» — эффект накопительный. «Любой экстракт одинаков» — withanolides решают.",
-  "updated": "2026-09-14",
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -909,7 +918,8 @@
     "title": "Effects of ashwagandha (Withania somnifera) on mental health in adults: A systematic review and dose-response meta-analysis of randomized controlled trials.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(Withania somnifera OR ashwagandha) AND (stress OR anxiety OR cortisol OR sleep)"
  },
  {
   "id": "Фосфатидилсерин",
@@ -1163,8 +1173,8 @@
   "id": "Куркумин",
   "name": "Куркумин",
   "code": -1,
-  "verdict": "не подтверждено",
-  "category": "Когниция",
+  "verdict": "зависит от контекста",
+  "category": "Воспаление/Суставы",
   "price": 820,
   "scienceIndex": 73,
   "metaCount": 12,
@@ -1178,7 +1188,7 @@
   ],
   "dosage": "500 мг с пиперином",
   "course": "курсы",
-  "caution": "без пиперина не всасывается",
+  "caution": "Биодоступность низкая без пиперина/липосом. Осторожно: желчнокаменная болезнь, антикоагулянты.",
   "forms": null,
   "mechs": [
    [
@@ -1217,10 +1227,14 @@
   "myths": "«Куркума в еде = доза добавки» — в 1-2 г порошка 30-60 мг куркумина с плохим всасыванием. «Полностью лечит воспаление» — эффект скромный.",
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Язвенный колит (ремиссия): работает (Cochrane). ОА: умеренный эффект.",
+  "grade": "B",
+  "key_sources": [
+   "23076948",
+   "41211694",
+   "41652864"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -1240,7 +1254,8 @@
     "title": "Effects of curcumin on inflammatory and oxidative stress related markers in rat models of experimental arthritis: a systematic review and meta-analysis.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(curcumin OR turmeric supplementation) AND (inflammation OR arthritis OR metabolic)"
  },
  {
   "id": "Ресвератрол",
@@ -1798,7 +1813,7 @@
   "name": "Мелатонин",
   "code": 1,
   "verdict": "работает",
-  "category": "Сон",
+  "category": "Сон/Циркадные ритмы",
   "price": 284,
   "scienceIndex": 139,
   "metaCount": 11,
@@ -1813,7 +1828,7 @@
   ],
   "dosage": "0.5-3 мг за 30-60 мин до сна",
   "course": "по необходимости",
-  "caution": "утром сонливость; не за руль; не с алкоголем",
+  "caution": "Оптимальная доза для пожилых: 1-3 мг. Не вызывает зависимости. Осторожно: аутоиммунные, беременность.",
   "forms": "формы с контролируемым высвобождением — для поддержания сна, обычная — для засыпания",
   "mechs": [
    [
@@ -1849,10 +1864,14 @@
   "myths": "«Больше — быстрее уснёшь» — кривая доза-эффект плоская после 1-3 мг. «Можно месяцами» — данных мало, лучше курсами.",
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Улучшает качество сна. Эффективен при джетлаге, сменной работе.",
+  "grade": "A",
+  "key_sources": [
+   "33417003",
+   "24802882",
+   "34999224"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -1872,7 +1891,8 @@
     "title": "Digital screen exposure and migraine burden: a systematic review and meta-analysis.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(melatonin supplementation) AND (sleep OR insomnia OR jet lag OR circadian)"
  },
  {
   "id": "ГАБА",
@@ -1939,7 +1959,8 @@
     "title": "Antidepressant-like effects of valproic acid in rodents go back to the 1980s: a comment to enrich the reviewed evidence by Goudarzi et al. (2026) \"Valproic acid effects on stress-induced depression-like behavior in rodent models: a systematic review and meta-analysis\".",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(GABA supplementation OR gamma-aminobutyric acid) AND (anxiety OR sleep OR stress)"
  },
  {
   "id": "Глицин",
@@ -2363,7 +2384,8 @@
     "title": "Echinacea Supplementation Does Not Impact Aerobic Capacity and Erythropoiesis in Athletes: A Meta-Analysis.",
     "year": 2024
    }
-  ]
+  ],
+  "pubmed_term": "(Echinacea) AND (common cold OR upper respiratory OR prevention)"
  },
  {
   "id": "Бузина",
@@ -2425,7 +2447,8 @@
     "title": "Black elderberry (Sambucus nigra) supplementation effectively treats upper respiratory symptoms: A meta-analysis of randomized, controlled clinical trials.",
     "year": 2019
    }
-  ]
+  ],
+  "pubmed_term": "(Sambucus OR elderberry) AND (influenza OR cold OR antiviral)"
  },
  {
   "id": "Зверобой",
@@ -2572,7 +2595,8 @@
     "title": "Are tryptophan and 5-hydroxytryptophan effective treatments for depression? A meta-analysis.",
     "year": 2002
    }
-  ]
+  ],
+  "pubmed_term": "(5-hydroxytryptophan OR 5-HTP) AND (depression OR sleep OR anxiety)"
  },
  {
   "id": "Коллаген",
@@ -2642,7 +2666,8 @@
     "title": "Efficacy and safety of microneedling with tranexamic acid versus microneedling with vitamin C in the treatment of melasma: a systematic review and meta-analysis.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(collagen supplementation OR hydrolyzed collagen) AND (skin OR joint OR bone)"
  },
  {
   "id": "Пробиотики",
@@ -2933,7 +2958,8 @@
     "title": "An umbrella review of inflammatory biomarkers and their relationship to treatment response in MDD.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(tryptophan supplementation) AND (sleep OR mood OR depression OR serotonin)"
  },
  {
   "id": "Глюкозамин + хондроитин",
