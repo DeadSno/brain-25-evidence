@@ -321,8 +321,8 @@
   "id": "Магний",
   "name": "Магний",
   "code": 0,
-  "verdict": "зависит от контекста",
-  "category": "Когниция",
+  "verdict": "работает",
+  "category": "Минерал/Сердце",
   "price": 330,
   "scienceIndex": 172,
   "metaCount": 23,
@@ -336,7 +336,7 @@
   ],
   "dosage": "200-400 мг (глицинат/цитрат)",
   "course": "постоянно при дефиците",
-  "caution": "высокие дозы = диарея",
+  "caution": "Форма: цитрат/глицинат/малат > оксид. Доза: 200-400 мг/день. Осторожно: почечная недостаточность.",
   "forms": "оксид — плохо усваивается; цитрат — слабит; глицинат — сон, мягкий для ЖКТ; треонат — «для мозга», доказательств слабо",
   "mechs": [
    [
@@ -376,10 +376,14 @@
   "myths": "«Успокаивает сразу» — эффект накопительный. «Любая форма одинакова» — оксид почти не поднимает уровни.",
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Давление: -2-4 мм рт.ст. (Cochrane). Диабет 2 типа: улучшение HbA1c. Судороги при беременности: есть.",
+  "grade": "B",
+  "key_sources": [
+   "16856052",
+   "27402922",
+   "22318649"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -1289,8 +1293,8 @@
   "id": "Ресвератрол",
   "name": "Ресвератрол",
   "code": -1,
-  "verdict": "не подтверждено",
-  "category": "Когниция",
+  "verdict": "зависит от контекста",
+  "category": "Антиоксидант/Метаболизм",
   "price": 599,
   "scienceIndex": 69,
   "metaCount": 9,
@@ -1304,7 +1308,7 @@
   ],
   "dosage": "100-500 мг",
   "course": "—",
-  "caution": "человеческих данных почти нет",
+  "caution": "Биодоступность низкая. Эффект часто клинически незначимый.",
   "forms": null,
   "mechs": [
    [
@@ -1327,10 +1331,14 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Метаболические маркеры: умеренное улучшение. Клинические исходы: данные ограниченные.",
+  "grade": "C",
+  "key_sources": [
+   "41987155",
+   "33480264",
+   "35833325"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -1350,14 +1358,15 @@
     "title": "Protective effect and possible mechanisms of resveratrol in animal models of spinal cord injury: a preclinical systematic review and meta-analysis.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(resveratrol supplementation) AND (cardiovascular OR metabolic OR antioxidant OR aging)"
  },
  {
   "id": "NAC",
   "name": "NAC",
   "code": 0,
-  "verdict": "зависит от контекста",
-  "category": "Когниция",
+  "verdict": "работает",
+  "category": "Антиоксидант/Психиатрия",
   "price": 1259,
   "scienceIndex": 111,
   "metaCount": 14,
@@ -1371,7 +1380,7 @@
   ],
   "dosage": "600-1200 мг",
   "course": "курсы",
-  "caution": "ЖКТ-расстройства",
+  "caution": "Доза: 600-1200 мг 2 раза/день. Безопасен.",
   "forms": null,
   "mechs": [
    [
@@ -1394,10 +1403,15 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "ХОБЛ: снижение обострений. Печень/H. pylori/сепсис: 4 Cochrane. Психиатрия: есть РКИ.",
+  "grade": "B",
+  "key_sources": [
+   "33294991",
+   "30746681",
+   "22972094",
+   "42473447"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -1417,7 +1431,8 @@
     "title": "N-acetylcysteine as Prophylaxis Against Contrast-Induced Nephropathy: A Meta-Analysis.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(N-acetylcysteine OR NAC supplementation) AND (respiratory OR psychiatric OR liver OR antioxidant)"
  },
  {
   "id": "Цинк",
@@ -2015,8 +2030,8 @@
   "id": "Глицин",
   "name": "Глицин",
   "code": 0,
-  "verdict": "зависит от контекста",
-  "category": "Сон",
+  "verdict": "не подтверждено",
+  "category": "Нейромедиатор/Сон",
   "price": 407,
   "scienceIndex": 22,
   "metaCount": 1,
@@ -2030,7 +2045,7 @@
   ],
   "dosage": "3 г перед сном",
   "course": "—",
-  "caution": "база очень слабая",
+  "caution": "Популярен в биохакерстве, но доказательная база слабая.",
   "forms": null,
   "mechs": [
    [
@@ -2053,10 +2068,10 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
+  "effect_outcome": "НЕТ ДАННЫХ в базе. Отдельные РКИ по сну/шизофрении без систематической оценки.",
+  "grade": "D",
   "key_sources": [],
-  "updated": "2026-09-14",
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -2076,14 +2091,15 @@
     "title": "Roxadustat for CKD-related anemia in patients undergoing peritoneal dialysis: a systematic review and meta-analysis.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(glycine supplementation) AND (sleep OR cognitive OR schizophrenia OR collagen)"
  },
  {
   "id": "Валериана",
   "name": "Валериана",
   "code": -1,
-  "verdict": "не подтверждено",
-  "category": "Сон",
+  "verdict": "зависит от контекста",
+  "category": "Сон/Тревожность",
   "price": 645,
   "scienceIndex": 89,
   "metaCount": 9,
@@ -2097,7 +2113,7 @@
   ],
   "dosage": "300-600 мг экстракта перед сном",
   "course": "2-4 недели",
-  "caution": "сонливость; не с седативными",
+  "caution": "Эффект через 2-4 недели. Не вызывает зависимости.",
   "forms": null,
   "mechs": [
    [
@@ -2120,10 +2136,14 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Бессонница: данные противоречивые. Тревожность: Cochrane ограниченные.",
+  "grade": "C",
+  "key_sources": [
+   "17054208",
+   "20347389",
+   "17517355"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -2143,7 +2163,8 @@
     "title": "Dietary supplements for dysmenorrhoea.",
     "year": 2016
    }
-  ]
+  ],
+  "pubmed_term": "(Valeriana officinalis OR valerian) AND (sleep OR insomnia OR anxiety)"
  },
  {
   "id": "Бета-аланин",
@@ -2216,7 +2237,7 @@
   "name": "L-цитруллин",
   "code": 1,
   "verdict": "работает",
-  "category": "Спорт",
+  "category": "Спорт/Сосуды",
   "price": 102,
   "scienceIndex": 117,
   "metaCount": 10,
@@ -2230,7 +2251,7 @@
   ],
   "dosage": "6-8 г малата за 60 мин до нагрузки",
   "course": "по необходимости",
-  "caution": "безопасен в дозах исследований",
+  "caution": "Эффективнее L-аргинина. Доза: 3-6 г/день.",
   "forms": null,
   "mechs": [
    [
@@ -2253,10 +2274,14 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Давление: умеренное снижение. Спорт: улучшение выносливости. Эректильная функция: есть.",
+  "grade": "B",
+  "key_sources": [
+   "30284051",
+   "31977835",
+   "39800868"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -2276,7 +2301,8 @@
     "title": "Neutrophil Extracellular Traps as Mediators of Acute Lung Injury: Bridging Clinical and Preclinical Evidence.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(L-citrulline OR citrulline supplementation) AND (exercise OR blood pressure OR erectile OR nitric oxide)"
  },
  {
   "id": "Витамин C",
@@ -3903,7 +3929,7 @@
   "name": "Пустырник",
   "code": -1,
   "verdict": "не подтверждено",
-  "category": "Сон",
+  "category": "Сердце/Растения",
   "price": null,
   "scienceIndex": 23,
   "metaCount": 4,
@@ -3917,7 +3943,7 @@
   ],
   "dosage": "чай/экстракт 2-3 р/день",
   "course": "—",
-  "caution": "седация с алкоголем и седативными",
+  "caution": "Популярность ≠ доказательность. Осторожно: антикоагулянты.",
   "forms": null,
   "mechs": [
    [
@@ -3940,10 +3966,10 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
+  "effect_outcome": "НЕТ ДАННЫХ в базе. Популярность в традиционной медицине не подтверждена.",
+  "grade": "D",
   "key_sources": [],
-  "updated": "2026-09-14",
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -3963,14 +3989,15 @@
     "title": "Motherwort injection for preventing postpartum hemorrhage in pregnant women with cesarean section: A systematic review and meta-analysis.",
     "year": 2018
    }
-  ]
+  ],
+  "pubmed_term": "(Leonurus cardiaca OR motherwort) AND (anxiety OR palpitation OR cardiovascular)"
  },
  {
   "id": "Боярышник",
   "name": "Боярышник",
   "code": 0,
-  "verdict": "зависит от контекста",
-  "category": "Общее",
+  "verdict": "работает",
+  "category": "Сердце/Растения",
   "price": null,
   "scienceIndex": 77,
   "metaCount": 7,
@@ -3984,7 +4011,7 @@
   ],
   "dosage": "600-1200 мг экстракта/сут",
   "course": "—",
-  "caution": "не заменяет терапию СН; с дигоксином — врач",
+  "caution": "Эффект через 4-8 недель. Осторожно: дигоксин.",
   "forms": null,
   "mechs": [
    [
@@ -4007,10 +4034,13 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "ХСН: Cochrane подтверждает улучшение симптомов и переносимости нагрузок.",
+  "grade": "B",
+  "key_sources": [
+   "18254076",
+   "12798455"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -4030,14 +4060,15 @@
     "title": "Does intranasal oxytocin reduce symptoms of mental disorders? A meta-analysis of clinical trials.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(Crataegus OR hawthorn) AND (heart failure OR blood pressure OR cardiovascular)"
  },
  {
   "id": "Бета-глюканы овса",
   "name": "Бета-глюканы овса",
   "code": 1,
   "verdict": "работает",
-  "category": "Общее",
+  "category": "Метаболизм/Холестерин",
   "price": null,
   "scienceIndex": 81,
   "metaCount": 8,
@@ -4051,7 +4082,7 @@
   ],
   "dosage": "3 г/сут (клим EFSA)",
   "course": "—",
-  "caution": "газы в начале",
+  "caution": "Доза: 3+ г/день. Безопасны.",
   "forms": null,
   "mechs": [
    [
@@ -4069,10 +4100,12 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Холестерин: снижение LDL (FDA health claim). Гликемия: есть данные.",
+  "grade": "B",
+  "key_sources": [
+   "35631184"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -4092,7 +4125,8 @@
     "title": "The separate effects of whole oats and isolated beta-glucan on lipid profile: A systematic review and meta-analysis of randomized controlled trials.",
     "year": 2023
    }
-  ]
+  ],
+  "pubmed_term": "(oat beta-glucan OR beta-glucan supplementation) AND (cholesterol OR immune OR glycemic)"
  },
  {
   "id": "Рибофлавин",
@@ -4370,8 +4404,8 @@
   "id": "D-манноза",
   "name": "D-манноза",
   "code": 0,
-  "verdict": "зависит от контекста",
-  "category": "Иммунитет",
+  "verdict": "не подтверждено",
+  "category": "Мочеполовая система",
   "price": null,
   "scienceIndex": 29,
   "metaCount": 3,
@@ -4385,7 +4419,7 @@
   ],
   "dosage": "2 г/сут",
   "course": "—",
-  "caution": "данных меньше, чем у клюквы, но РКИ есть",
+  "caution": "Доза: 1-2 г/день. Механизм правдоподобный, но нужны мета-анализы.",
   "forms": null,
   "mechs": [
    [
@@ -4403,10 +4437,10 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
+  "effect_outcome": "НЕТ ДАННЫХ в базе. Популярна для профилактики ИМП, но доказательная база слабая.",
+  "grade": "D",
   "key_sources": [],
-  "updated": "2026-09-14",
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -4426,14 +4460,15 @@
     "title": "Efficacy of D-mannose as prophylaxis of recurrent urinary tract infection: a systematic review and meta-analysis of randomized controlled trials.",
     "year": 2025
    }
-  ]
+  ],
+  "pubmed_term": "(D-mannose supplementation) AND (urinary tract infection OR prevention)"
  },
  {
   "id": "Мака",
   "name": "Мака",
   "code": 0,
   "verdict": "зависит от контекста",
-  "category": "Настроение",
+  "category": "Сексуальное здоровье/Энергия",
   "price": 76,
   "scienceIndex": 1,
   "metaCount": 0,
@@ -4447,7 +4482,7 @@
   ],
   "dosage": "1.5-3 г/сут",
   "course": "—",
-  "caution": "влияние на гормоны не доказано",
+  "caution": "Данных мало. Доза: 1.5-3 г/день. Безопасна.",
   "forms": null,
   "mechs": [
    [
@@ -4465,10 +4500,13 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Сексуальная функция: есть данные. Менопауза: есть. Фертильность: противоречиво.",
+  "grade": "C",
+  "key_sources": [
+   "20691074",
+   "21840656"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -4483,7 +4521,8 @@
     "title": "Effects of Maca (Lepidium meyenii Walp.) on Physical Performance in Animals and Humans: A Systematic Review and Meta-Analysis.",
     "year": 2024
    }
-  ]
+  ],
+  "pubmed_term": "(Lepidium meyenii OR maca) AND (fertility OR sexual OR mood OR energy OR menopause)"
  },
  {
   "id": "Хром",
