@@ -4,7 +4,7 @@
   "name": "Креатин",
   "code": 1,
   "verdict": "работает",
-  "category": "Когниция",
+  "category": "Спорт/Когниция",
   "price": 469,
   "scienceIndex": 240,
   "metaCount": 25,
@@ -18,7 +18,7 @@
   ],
   "dosage": "3-5 г/сут (моногидрат)",
   "course": "постоянно, эффект с 2-4 нед",
-  "caution": "при болезнях почек — к врачу",
+  "caution": "ЕДИНСТВЕННАЯ доказанная форма — КРЕАТИН МОНОГИДРАТ. HCl/эстер/буфер — маркетинг. Безопасен длительно у здоровых (ISSN). Миф про почки развенчан. Задержка воды 0.5-2 кг в первые недели — норма.",
   "forms": null,
   "mechs": [
    [
@@ -49,10 +49,14 @@
   "myths": "«Бьёт по почкам у здоровых» — на стандартных дозах не подтверждено. «Без загрузки не работает» — работает, просто медленнее.",
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "+3.4 кг FFM при RT; +71 Вт пиковая мощность; память у пожилых",
+  "grade": "A",
+  "key_sources": [
+   "42027564",
+   "39070254",
+   "35984306"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -72,14 +76,15 @@
     "title": "Effects of combined versus single supplementation of creatine and beta-alanine on aerobic and anerobic performance: a systematic review and network meta-analysis.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(creatine supplementation) AND (strength OR muscle OR cognitive)"
  },
  {
   "id": "Омега-3",
   "name": "Омега-3",
   "code": 1,
-  "verdict": "работает",
-  "category": "Когниция",
+  "verdict": "зависит от контекста",
+  "category": "Сердце",
   "price": 543,
   "scienceIndex": 862,
   "metaCount": 107,
@@ -93,7 +98,7 @@
   ],
   "dosage": "1-2 г EPA+DHA",
   "course": "8-12 недель",
-  "caution": "разжижает кровь",
+  "caution": "ОБЩИЕ омега-3 (DHA+EPA из рыбьего жира) имеют МАЛЫЙ эффект. Чистый EPA (icosapent ethyl, prescription) — СИЛЬНЫЙ у гиперТГ + ССЗ/диабет. >4 г/день: риск кровотечения + ФП. Дешёвые бренды: контаминация.",
   "forms": "смотри мг EPA+DHA на этикетке, а не «рыбий жир 1000 мг»",
   "mechs": [
    [
@@ -127,10 +132,14 @@
   "myths": "«Любой рыбий жир работает» — в капсуле 1000 мг может быть 300 мг EPA+DHA. «Растительная омега равноценна» — конверсия ALA низкая.",
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "CHD death RR 0.92; -25% MACE для чистого EPA у спец.группы",
+  "grade": "B",
+  "key_sources": [
+   "32114706",
+   "42070013",
+   "41870913"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -150,14 +159,15 @@
     "title": "The Impact of Omega Fatty Acids on DKD: A Multimodal Study Integrating Mendelian Randomization, Proteomic Mediation Analysis, and Meta-Analysis.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(omega-3 fatty acids OR eicosapentaenoic OR docosahexaenoic OR fish oil) AND (cardiovascular OR mortality)"
  },
  {
   "id": "Витамин D",
   "name": "Витамин D",
   "code": 0,
   "verdict": "зависит от контекста",
-  "category": "Когниция",
+  "category": "Кости/Иммунитет",
   "price": 205,
   "scienceIndex": 610,
   "metaCount": 87,
@@ -171,7 +181,7 @@
   ],
   "dosage": "1000-2000 МЕ/сут",
   "course": "зимой постоянно",
-  "caution": "мегадозы без анализа — риск",
+  "caution": "Эффект зависит от ИСХОДНОГО уровня 25(OH)D. При >50 нмоль/л — пользы почти нет. При <30 нмоль/л — значимая. Обязательно анализ перед приёмом. >4000 МЕ/длительно: гиперкальциемия, камни. Конфликт с тиазидами.",
   "forms": "D3 (холекальциферол) поднимает уровень лучше, чем D2",
   "mechs": [
    [
@@ -206,10 +216,14 @@
   "myths": "«Чем больше, тем лучше» — жирорастворимый, накапливается. «Летнего солнца хватает на зиму» — запаса на 2-3 месяца.",
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Профилактика переломов у институционализированных + Ca; смертность COVID",
+  "grade": "A",
+  "key_sources": [
+   "24729336",
+   "24953955",
+   "34029377"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -229,7 +243,8 @@
     "title": "Factors influencing abnormal bone mineral density in Chinese women aged 40 years and older: A meta-analysis.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(cholecalciferol OR vitamin D OR calcitriol) AND (fracture OR mortality OR deficiency)"
  },
  {
   "id": "B12",
@@ -296,7 +311,8 @@
     "title": "The Health and Environmental Impacts, Safety, and Affordability of the EAT-Lancet Planetary Health Diet: A Multidisciplinary Systematic Review and Meta-Analysis.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(cobalamin OR vitamin B12) AND (deficiency OR cognitive OR pernicious anemia)"
  },
  {
   "id": "Магний",
@@ -387,7 +403,7 @@
   "name": "Кофеин",
   "code": 1,
   "verdict": "работает",
-  "category": "Когниция",
+  "category": "Производительность",
   "price": 266,
   "scienceIndex": 580,
   "metaCount": 39,
@@ -402,7 +418,7 @@
   ],
   "dosage": "100-200 мг за 30-60 мин до задачи",
   "course": "по необходимости",
-  "caution": "тревожность, бессонница; беременность — ограничить",
+  "caution": "Полураспад 5-6 ч (у 30% людей — 9-10 ч). После 14:00 — нарушение сна. Безопасно ≤400 мг/день. Беременность: ≤200 мг. CYP1A2-медленные метаболизаторы чувствительнее. Подростки: осторожность.",
   "forms": null,
   "mechs": [
    [
@@ -441,22 +457,15 @@
    "lo": 0.14,
    "hi": 0.27
   },
-  "effect_outcome": "muscular strength (жевательная форма)",
-  "grade": "B",
+  "effect_outcome": "Эргоген +2-5% при 3-6 мг/кг; бдительность у сменных рабочих",
+  "grade": "A",
   "key_sources": [
-   {
-    "citation": "Varovic, D and Grgic, J. Fast-acting caffeine: Does caffeinated chewing gum enhance muscular strength, endurance, and jumping performance? A systematic review and meta-analysis. J Strength Cond Res 40(8): 1020-1029, 2026",
-    "pmid": "42228847",
-    "year": 2026,
-    "g": 0.21,
-    "ci": {
-     "lo": 0.14,
-     "hi": 0.27
-    }
-   }
+   "20464765",
+   "42356375",
+   "41945073"
   ],
   "year_last_ma": 2026,
-  "updated": "2026-09-14",
+  "updated": "2026-09-16",
   "price_source": null,
   "price_date": "дата неизвестна",
   "ma_top3": [
@@ -475,7 +484,8 @@
     "title": "Effects of Acute Caffeine Supplementation on Physical, Sport-Specific, Physiological, Perceptual, and Cognitive Outcomes in Female Team-Sport Athletes: A Three-Level Meta-Analysis.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(caffeine) AND (cognition OR athletic performance OR alertness)"
  },
  {
   "id": "L-Теанин",
@@ -739,7 +749,8 @@
     "title": "Therapeutic strategies in vascular cognitive impairment: A systematic review and meta-analysis.",
     "year": 2025
    }
-  ]
+  ],
+  "pubmed_term": "(ginkgo biloba OR ginkgo) AND (dementia OR cognitive OR memory)"
  },
  {
   "id": "Родиола",
@@ -1439,7 +1450,8 @@
     "title": "Can heavy metal accumulation in crops be mitigated by microbial inoculants? A meta-analysis and machine learning.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(zinc supplementation) AND (common cold OR diarrhea OR infection)"
  },
  {
   "id": "Тирозин",
@@ -1506,7 +1518,8 @@
     "title": "A systematic review and network meta-analysis of first-line EGFR-TKI-based combination strategies for EGFR-mutant non-small cell lung cancer with brain metastases.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(tyrosine OR L-tyrosine) AND (stress OR cognitive OR alertness)"
  },
  {
   "id": "Таурин",
@@ -2116,7 +2129,8 @@
     "title": "The novel anticoagulant dabigatran versus enoxaparin for thromboprophylaxis following total hip replacement: a meta-analysis.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(beta-alanine) AND (exercise OR performance OR high-intensity)"
  },
  {
   "id": "L-цитруллин",
@@ -2261,7 +2275,8 @@
     "title": "The effect of high-dose of vitamin C on mortality among aged patients with severe COVID-19: A systematic review and meta-analysis.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(ascorbic acid OR vitamin C) AND (common cold OR mortality OR infection)"
  },
  {
   "id": "Эхинацея",
@@ -2475,7 +2490,8 @@
     "title": "Herbal extracts in orofacial pain: a systematic review and direct and indirect meta-analysis.",
     "year": 2024
    }
-  ]
+  ],
+  "pubmed_term": "(hypericum perforatum OR st johns wort) AND (depression OR depressive disorder)"
  },
  {
   "id": "5-HTP",
@@ -2619,7 +2635,7 @@
   "name": "Пробиотики",
   "code": 0,
   "verdict": "зависит от контекста",
-  "category": "Кишечник",
+  "category": "ЖКТ",
   "price": 1672,
   "scienceIndex": 2059,
   "metaCount": 238,
@@ -2633,7 +2649,7 @@
   ],
   "dosage": "1-10 млрд КОЕ, штамм под задачу",
   "course": "4+ недели",
-  "caution": "осторожно при иммуносупрессии",
+  "caution": "Эффект ШТАММО-СПЕЦИФИЧЕН. Доказанные штаммы: Lactobacillus rhamnosus GG, Saccharomyces boulardii, Bifidobacterium infantis 35624. Противопоказаны: недоношенным (FDA warning 2023), пациентам с ЦВК, иммунокомпрометированным, остром панкреатите — риск бактериемии.",
   "forms": "эффект штаммозависим: L. rhamnosus GG — диарея; S. boulardii — антибиотико-ассоциированная; B. longum 1714 — стресс (мелкие RCT)",
   "mechs": [
    [
@@ -2664,10 +2680,14 @@
   "myths": "«Больше миллиардов КОЕ — лучше» — важнее штамм и доказательства. «Заселяет кишечник навсегда» — транзиторен по природе.",
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Антибиотик-диарея (RR 0.46); острая диарея у детей (-1 день)",
+  "grade": "B",
+  "key_sources": [
+   "31039287",
+   "33295643",
+   "40931979"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -2687,7 +2707,8 @@
     "title": "Probiotics for the prevention of ventilator-associated pneumonia and other outcomes in critically ill children: a systematic review and meta-analysis of randomized controlled trials.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(probiotics OR lactobacillus OR bifidobacterium) AND (irritable bowel OR diarrhea OR antibiotic-associated)"
  },
  {
   "id": "B9",
@@ -2831,7 +2852,8 @@
     "title": "Optimizing water management for cadmium mitigation in rice production: A global meta-analysis and application effectiveness assessment.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(iron supplementation OR ferrous) AND (anemia OR iron deficiency OR pregnancy)"
  },
  {
   "id": "Триптофан",
@@ -2960,7 +2982,8 @@
     "title": "Evaluation of efficacy and safety of glucosamine sulfate, chondroitin sulfate, and their combination regimen in the management of knee osteoarthritis: a systematic review and meta-analysis.",
     "year": 2024
    }
-  ]
+  ],
+  "pubmed_term": "(glucosamine OR chondroitin) AND (osteoarthritis OR knee OR joint pain)"
  },
  {
   "id": "Витамин E",
@@ -3156,7 +3179,8 @@
     "title": "Effects of Carnitine and Coenzyme Q10 on Sperm Quality and Pregnancy Rates in Men with Unexplained Infertility: A Systematic Review and Network Meta-Analysis.",
     "year": 2025
    }
-  ]
+  ],
+  "pubmed_term": "(L-carnitine OR acetyl-L-carnitine) AND (exercise OR cardiovascular OR diabetes)"
  },
  {
   "id": "BCAA",
@@ -3361,7 +3385,8 @@
     "title": "Effectiveness of anti-osteoporotic medications in the management of glucocorticoid-induced osteoporosis: a systematic review and network meta-analysis on behalf of the ECTS clinical action group.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(calcium supplementation) AND (fracture OR bone density OR cardiovascular)"
  },
  {
   "id": "Гиалуроновая кислота",
@@ -3423,7 +3448,8 @@
     "title": "Comparative efficacy of platelet-rich plasma monotherapy versus combination therapies for knee osteoarthritis: a systematic review and network meta-analysis.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(hyaluronic acid OR sodium hyaluronate) AND (osteoarthritis OR knee OR skin)"
  },
  {
   "id": "Псиллиум",
@@ -3493,7 +3519,8 @@
     "title": "Conservative, physical and surgical interventions for managing faecal incontinence and constipation in adults with central neurological diseases.",
     "year": 2024
    }
-  ]
+  ],
+  "pubmed_term": "(psyllium OR plantago ovata) AND (constipation OR cholesterol OR blood glucose)"
  },
  {
   "id": "Имбирь",
@@ -4087,7 +4114,8 @@
     "title": "Neurometabolites and Antipsychotic Response in Psychosis: A Mega-Analysis.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(myo-inositol OR inositol) AND (polycystic ovary OR insulin resistance OR gestational diabetes)"
  },
  {
   "id": "Альфа-липоевая кислота",
@@ -5216,7 +5244,8 @@
     "title": "Meta-analysis of blood metabolomics reveals dysregulated amino acid, neurotransmitter, and energy pathways in depression.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(glutamine OR L-glutamine) AND (exercise OR immune OR critical illness)"
  },
  {
   "id": "Босвеллия",
