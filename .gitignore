@@ -216,3 +216,8 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# ===== v3.0 audit cache (reproduced by scripts/fetch_meta.py) =====
+data/raw/pubmed/
+data/processed/all_lists.txt
+data/processed/list_pmids.py
