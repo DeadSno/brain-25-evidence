@@ -396,7 +396,8 @@
     "title": "Comprehensive Effects of Magnesium Supplementation on Cardiometabolic Risk Factors: A Systematic Review and Dose-Response Meta-Analysis.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(magnesium supplementation) AND (migraine OR blood pressure OR muscle cramp)"
  },
  {
   "id": "Кофеин",
@@ -1519,7 +1520,7 @@
     "year": 2026
    }
   ],
-  "pubmed_term": "(tyrosine OR L-tyrosine) AND (stress OR cognitive OR alertness)"
+  "pubmed_term": "(L-tyrosine OR tyrosine supplementation) AND (cognitive OR stress OR exercise OR alertness)"
  },
  {
   "id": "Таурин",
@@ -2781,8 +2782,8 @@
   "id": "Железо",
   "name": "Железо",
   "code": 0,
-  "verdict": "зависит от контекста",
-  "category": "Общее",
+  "verdict": "работает",
+  "category": "Кровь/Анемия",
   "price": 651,
   "scienceIndex": 1873,
   "metaCount": 197,
@@ -2796,7 +2797,7 @@
   ],
   "dosage": "ТОЛЬКО по анализу ферритина и назначению врача",
   "course": "курсы под контролем",
-  "caution": "⚠️ самолечение опасно: перегрузка, ЖКТ",
+  "caution": "Эффект зависит от ИСХОДНОГО уровня ферритина. У здоровых с нормальным Fe - пользы мало. При анемии или дефиците - значимая. GI-побочки частые. Беременность: рутинная рекомендация WHO.",
   "forms": "хелат/бисглицинат мягче для ЖКТ, чем сульфат; принимать с витамином C, не с кальцием",
   "mechs": [
    [
@@ -2829,10 +2830,14 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Анемия у беременных RR 0.30 (0.20-0.47); дефицит Fe RR 0.51",
+  "grade": "A",
+  "key_sources": [
+   "39145520",
+   "22161448",
+   "27087396"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -3119,7 +3124,7 @@
   "name": "L-карнитин",
   "code": 0,
   "verdict": "зависит от контекста",
-  "category": "Спорт",
+  "category": "Неврология/Спорт",
   "price": 466,
   "scienceIndex": 804,
   "metaCount": 92,
@@ -3133,7 +3138,7 @@
   ],
   "dosage": "1-2 г/сут",
   "course": "—",
-  "caution": "при болезнях щитовидной — к врачу",
+  "caution": "Acetyl-L-карнитин при диабетической нейропатии: эффект ТОЛЬКО при дозе >1500 мг/день, certainty VERY LOW. Для похудения/спорта: систематических пруфов НЕТ.",
   "forms": null,
   "mechs": [
    [
@@ -3156,10 +3161,14 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Диабетическая нейропатия: боль VAS MD -14.93 при дозе >1500 мг/день",
+  "grade": "C",
+  "key_sources": [
+   "31201734",
+   "34954832",
+   "38594107"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -3316,7 +3325,7 @@
   "name": "Кальций",
   "code": 0,
   "verdict": "зависит от контекста",
-  "category": "Общее",
+  "category": "Кости/Беременность",
   "price": 280,
   "scienceIndex": 425,
   "metaCount": 46,
@@ -3330,7 +3339,7 @@
   ],
   "dosage": "500-600 мг + D3, не больше",
   "course": "—",
-  "caution": ">1200 мг: камни почек, спор о ССЗ",
+  "caution": "При беременности: высокие дозы снижают преэклампсию, особенно при НИЗКОМ диетическом Ca. Риск HELLP повышен (RR 2.67, но редкое). Вне беременности: только с витамином D и при дефиците.",
   "forms": null,
   "mechs": [
    [
@@ -3362,10 +3371,14 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Преэклампсия RR 0.45 (0.31-0.65); преждевременные роды RR 0.76",
+  "grade": "A",
+  "key_sources": [
+   "30277579",
+   "39560075",
+   "35014026"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -4059,7 +4072,7 @@
   "name": "Инозитол",
   "code": 0,
   "verdict": "зависит от контекста",
-  "category": "Настроение",
+  "category": "Женское здоровье/СПКЯ",
   "price": 783,
   "scienceIndex": 292,
   "metaCount": 40,
@@ -4073,7 +4086,7 @@
   ],
   "dosage": "2-4 г/сут",
   "course": "—",
-  "caution": "при БАР — осторожно (мания)",
+  "caution": "При СПКЯ: может снижать выкидыши, НО данные VERY LOW quality. На живые роды эффекта не показано. НЕ замена метформину.",
   "forms": null,
   "mechs": [
    [
@@ -4091,10 +4104,14 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Живые роды OR 2.42 (0.75-7.83, незначимо); выкидыши OR 0.40 (0.19-0.86)",
+  "grade": "C",
+  "key_sources": [
+   "30570133",
+   "36790138",
+   "41792927"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
