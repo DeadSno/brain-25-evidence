@@ -352,3 +352,8 @@ body.dark a.btn{text-decoration:none}
 .verdict.vworks   { background: #22c55e !important; color: #fff !important; }
 .verdict.vcontext { background: #f59e0b !important; color: #fff !important; }
 .verdict.vunproven{ background: #ef4444 !important; color: #fff !important; }
+
+/* вердикты в тон палитре грейдов (v3.1) */
+.verdict.v1  { background: #22c55e !important; }
+.verdict.v0  { background: #f59e0b !important; }
+.verdict.v-1 { background: #ef4444 !important; }
