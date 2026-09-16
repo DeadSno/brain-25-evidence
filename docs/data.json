@@ -496,7 +496,7 @@
   "name": "L-Теанин",
   "code": 1,
   "verdict": "работает",
-  "category": "Когниция",
+  "category": "Когниция/Стресс",
   "price": 709,
   "scienceIndex": 54,
   "metaCount": 2,
@@ -511,7 +511,7 @@
   ],
   "dosage": "100-200 мг; с кофеином 2:1",
   "course": "по необходимости",
-  "caution": "редкая сонливость",
+  "caution": "Безопасен в дозах 100-200 мг/день. Не вызывает сонливости.",
   "forms": null,
   "mechs": [
    [
@@ -534,10 +534,14 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Внимание, снижение стресса (мета-анализ 31 РКИ). Синергия с кофеином.",
+  "grade": "B",
+  "key_sources": [
+   "42410082",
+   "31758301",
+   "41176609"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -557,14 +561,15 @@
     "title": "The effects of L-theanine consumption on sleep outcomes: A systematic review and meta-analysis.",
     "year": 2025
    }
-  ]
+  ],
+  "pubmed_term": "(L-theanine OR theanine) AND (cognitive OR stress OR attention OR sleep)"
  },
  {
   "id": "Бакопа",
   "name": "Бакопа",
   "code": 1,
   "verdict": "работает",
-  "category": "Когниция",
+  "category": "Когниция/Память",
   "price": 398,
   "scienceIndex": 36,
   "metaCount": 2,
@@ -578,7 +583,7 @@
   ],
   "dosage": "300 мг экстракта (50% бакозидов)",
   "course": "8-12 недель",
-  "caution": "тошнота натощак",
+  "caution": "Эффект НЕ мгновенный — накопительный. Оптимальная доза: 300 мг/день (50% бакозидов). Побочки: ЖКТ.",
   "forms": null,
   "mechs": [
    [
@@ -601,9 +606,13 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
+  "effect_outcome": "Улучшение памяти через 8-12 недель (мета-анализ 24252493).",
+  "grade": "B",
+  "key_sources": [
+   "24252493",
+   "22747190",
+   "41678913"
+  ],
   "about": "Ноотроп: улучшает память и обучение (адаптоген для мозга).",
   "who_needs": "Возрастное снижение памяти, студенты, СДВГ (умеренные данные).",
   "onset": "Память — 8-12 недель (накопительный эффект).",
@@ -612,7 +621,7 @@
   "guidelines": "EFSA: claims не одобрены; МА — умеренный эффект на память.",
   "how_to_choose": "Стандартизация 50% бакозидов; с едой (жирорастворимые).",
   "myths": "«Работает как пирацетам» — механизм другой, медленнее. «Мгновенный эффект» — 8-12 недель минимум.",
-  "updated": "2026-09-14",
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -627,14 +636,15 @@
     "title": "Meta-analysis of randomized controlled trials on cognitive effects of Bacopa monnieri extract.",
     "year": 2014
    }
-  ]
+  ],
+  "pubmed_term": "(Bacopa monnieri OR bacopa) AND (memory OR cognitive OR attention)"
  },
  {
   "id": "Ежовик",
   "name": "Ежовик",
   "code": -1,
   "verdict": "не подтверждено",
-  "category": "Когниция",
+  "category": "Когниция/Нервная система",
   "price": 539,
   "scienceIndex": 4,
   "metaCount": 0,
@@ -648,7 +658,7 @@
   ],
   "dosage": "дозы только из исследований на животных",
   "course": "—",
-  "caution": "НЕТ человеческих мета-анализов",
+  "caution": "Качественных РКИ по когнитивным функциям ОЧЕНЬ мало. Основные данные — доклинические.",
   "forms": null,
   "mechs": [
    [
@@ -666,14 +676,17 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Данных ОЧЕНЬ мало (1 обзор). Стимуляция синтеза белка роста нервов (доклиника).",
+  "grade": "D",
+  "key_sources": [
+   "40959699"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
-  "ma_top3": []
+  "ma_top3": [],
+  "pubmed_term": "(Hericium erinaceus OR lion mane mushroom) AND (cognitive OR memory OR nerve OR BDNF)"
  },
  {
   "id": "Гинкго",
@@ -926,7 +939,7 @@
   "name": "Фосфатидилсерин",
   "code": 0,
   "verdict": "зависит от контекста",
-  "category": "Когниция",
+  "category": "Когниция/Дети",
   "price": 1346,
   "scienceIndex": 35,
   "metaCount": 2,
@@ -940,7 +953,7 @@
   ],
   "dosage": "100-300 мг",
   "course": "курсы",
-  "caution": "данные на пожилых",
+  "caution": "Данных мало. Безопасен в дозах 100-300 мг/день.",
   "forms": null,
   "mechs": [
    [
@@ -958,10 +971,13 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "АДГД у детей: ограниченные данные. Когниция у взрослых: данных мало.",
+  "grade": "C",
+  "key_sources": [
+   "33539192",
+   "42538853"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -981,13 +997,14 @@
     "title": "Safety and efficacy of antioxidant therapy in children and adolescents with attention deficit hyperactivity disorder: A systematic review and network meta-analysis.",
     "year": 2024
    }
-  ]
+  ],
+  "pubmed_term": "(phosphatidylserine) AND (cognitive OR memory OR dementia OR ADHD)"
  },
  {
   "id": "Alpha-GPC",
   "name": "Alpha-GPC",
   "code": 0,
-  "verdict": "зависит от контекста",
+  "verdict": "не подтверждено",
   "category": "Когниция",
   "price": 1316,
   "scienceIndex": 18,
@@ -1002,7 +1019,7 @@
   ],
   "dosage": "300-600 мг",
   "course": "курсы",
-  "caution": "база на пациентах",
+  "caution": "Популярность в спортивном питании не подтверждена доказательной базой.",
   "forms": null,
   "mechs": [
    [
@@ -1020,10 +1037,10 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
+  "effect_outcome": "НЕТ ДАННЫХ в базе (0 абстрактов после скрининга).",
+  "grade": "D",
   "key_sources": [],
-  "updated": "2026-09-14",
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -1038,14 +1055,15 @@
     "title": "Activity of Choline Alphoscerate on Adult-Onset Cognitive Dysfunctions: A Systematic Review and Meta-Analysis.",
     "year": 2023
    }
-  ]
+  ],
+  "pubmed_term": "(alpha-glycerylphosphorylcholine OR alpha-GPC) AND (cognitive OR memory OR choline OR power)"
  },
  {
   "id": "CDP-холин",
   "name": "CDP-холин",
   "code": 0,
   "verdict": "зависит от контекста",
-  "category": "Когниция",
+  "category": "Когниция/Инсульт",
   "price": 1857,
   "scienceIndex": 88,
   "metaCount": 8,
@@ -1059,7 +1077,7 @@
   ],
   "dosage": "250-500 мг",
   "course": "курсы",
-  "caution": "база на пациентах",
+  "caution": "Для острого инсульта: эффективность ограниченная. Безопасен в дозах 1000-2000 мг/день.",
   "forms": null,
   "mechs": [
    [
@@ -1077,10 +1095,14 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Инсульт: есть данные (2 Cochrane). Когниция: данные смешанные.",
+  "grade": "B",
+  "key_sources": [
+   "32860632",
+   "15846601",
+   "36678257"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -1100,14 +1122,15 @@
     "title": "Pharmacologic neuroprotective agents for the treatment of perinatal asphyxia in low-income and lower-middle-income countries: A systematic review and meta-analysis of randomised controlled trials.",
     "year": 2025
    }
-  ]
+  ],
+  "pubmed_term": "(citicoline OR CDP-choline) AND (cognitive OR stroke OR memory OR dementia)"
  },
  {
   "id": "Гуперзин А",
   "name": "Гуперзин А",
   "code": 0,
   "verdict": "зависит от контекста",
-  "category": "Когниция",
+  "category": "Когниция/Деменция",
   "price": 958,
   "scienceIndex": 48,
   "metaCount": 8,
@@ -1121,7 +1144,7 @@
   ],
   "dosage": "50-200 мкг",
   "course": "циклы 2/1 нед",
-  "caution": "холинергический избыток",
+  "caution": "Побочки: холинергические (тошнота, брадикардия). Осторожно: брадикардия, астма.",
   "forms": null,
   "mechs": [
    [
@@ -1144,10 +1167,14 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Болезнь Альцгеймера: есть данные (3 Cochrane). Доза: 200-400 мкг/день.",
+  "grade": "B",
+  "key_sources": [
+   "18425924",
+   "19370686",
+   "23235666"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -1167,7 +1194,8 @@
     "title": "[Efficacy and safety of huperzine A in treating patients with mild cognitive impairment: a systematic review and Meta-analysis].",
     "year": 2019
    }
-  ]
+  ],
+  "pubmed_term": "(huperzine A) AND (cognitive OR Alzheimer OR memory OR acetylcholinesterase)"
  },
  {
   "id": "Куркумин",
@@ -1683,8 +1711,8 @@
   "id": "Пикногенол",
   "name": "Пикногенол",
   "code": -1,
-  "verdict": "не подтверждено",
-  "category": "Когниция",
+  "verdict": "зависит от контекста",
+  "category": "Сосуды/Антиоксидант",
   "price": 1718,
   "scienceIndex": 33,
   "metaCount": 5,
@@ -1698,7 +1726,7 @@
   ],
   "dosage": "50-100 мг",
   "course": "—",
-  "caution": "переплата за пустышку",
+  "caution": "Безопасен в дозах 50-200 мг/день. Антиоксидантные свойства изучены, клинические исходы часто ограничены.",
   "forms": null,
   "mechs": [
    [
@@ -1721,10 +1749,14 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Давление: умеренное снижение. Липиды: данные смешанные.",
+  "grade": "C",
+  "key_sources": [
+   "22513958",
+   "31637782",
+   "31585179"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -1744,14 +1776,15 @@
     "title": "Efficacy of L-arginine and Pycnogenol ® in the treatment of male erectile dysfunction: a systematic review and meta-analysis.",
     "year": 2023
    }
-  ]
+  ],
+  "pubmed_term": "(Pycnogenol OR Pinus pinaster extract OR maritime pine bark) AND (cognitive OR vascular OR antioxidant)"
  },
  {
   "id": "Готу кола",
   "name": "Готу кола",
   "code": -1,
-  "verdict": "не подтверждено",
-  "category": "Когниция",
+  "verdict": "зависит от контекста",
+  "category": "Когниция/Сосуды",
   "price": 339,
   "scienceIndex": 12,
   "metaCount": 2,
@@ -1765,7 +1798,7 @@
   ],
   "dosage": "300-600 мг",
   "course": "курсы",
-  "caution": "слабые данные",
+  "caution": "Данных мало. Осторожно: гепатотоксичность в редких случаях.",
   "forms": null,
   "mechs": [
    [
@@ -1783,10 +1816,13 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Когниция: ограниченные данные. Венозная недостаточность: данные есть.",
+  "grade": "C",
+  "key_sources": [
+   "28878245",
+   "35328954"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -1806,7 +1842,8 @@
     "title": "Phlebotonics for venous insufficiency.",
     "year": 2020
    }
-  ]
+  ],
+  "pubmed_term": "(Centella asiatica OR gotu kola) AND (cognitive OR wound OR venous OR anxiety)"
  },
  {
   "id": "Мелатонин",
@@ -4967,11 +5004,11 @@
   ]
  },
  {
-  "id": "NMN/NR",
-  "name": "NMN/NR",
+  "id": "NMN",
+  "name": "NMN",
   "code": -1,
   "verdict": "не подтверждено",
-  "category": "Общее",
+  "category": "Старение/Метаболизм",
   "price": null,
   "scienceIndex": 5,
   "metaCount": 1,
@@ -4985,7 +5022,7 @@
   ],
   "dosage": "250-1000 мг/сут (дорого)",
   "course": "—",
-  "caution": "NAD растёт, исходы не доказаны",
+  "caution": "Большинство данных — краткосрочные РКИ. Долгосрочные эффекты не изучены.",
   "forms": null,
   "mechs": [
    [
@@ -5003,10 +5040,14 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Безопасность: хорошая. Метаболизм: данные смешанные. Омоложение: НЕТ данных у людей.",
+  "grade": "C",
+  "key_sources": [
+   "42514320",
+   "39531138",
+   "40275690"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -5016,7 +5057,8 @@
     "title": "The Effect of Nicotinamide Mononucleotide and Riboside on Skeletal Muscle Mass and Function: A Systematic Review and Meta-Analysis.",
     "year": 2025
    }
-  ]
+  ],
+  "pubmed_term": "(nicotinamide mononucleotide OR nicotinamide riboside OR NMN OR NR) AND (aging OR NAD OR metabolic OR cognitive)"
  },
  {
   "id": "Кордицепс",
