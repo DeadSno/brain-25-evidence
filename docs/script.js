@@ -20,7 +20,7 @@ function gradeBadge(s) {
 
 // ===== v2.6: 5-точечный бейдж доверия (по греЙду, не смешиваем силу и контекст) =====
 const DOT_FILL = { A: 4, B: 3, C: 2, D: 1 };
-const DOT_COLOR = { A: '#2ecc71', B: '#7dcea0', C: '#f4d03f', D: '#eb984e' };
+const DOT_COLOR = { A: '#22c55e', B: '#84cc16', C: '#f59e0b', D: '#ef4444' };
 const DOT_TIP = "Грейд считает силу эффекта (Hedges' g) и объём науки (scienceIndex). Вердикт — ручная оценка по методологии.";
 const GRADE_PRIOR = { A: 0, B: 1, C: 2, D: 3 };   // v2.6.1: сортировка «по грейду» A<B<C<D<нет
 function gradeDots(s) {
