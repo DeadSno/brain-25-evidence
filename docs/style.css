@@ -317,3 +317,27 @@ body.dark .chip a:visited { color: #5dade2; }
 
 /* v2.7.3: поиск не обрезается */
 #search { min-width: 250px; flex: 1 1 250px; }
+
+/* v2.8.0: пресеты-чипы + активные фильтры (F1/F8) */
+.presetRow{display:flex;gap:.5rem;flex-wrap:wrap;margin:.5rem 0}
+.preset{padding:.4rem .8rem;border-radius:20px;background:var(--card-bg);border:1px solid var(--border);cursor:pointer;font-size:.85rem;transition:all .15s}
+.preset.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+.preset:hover{border-color:var(--accent)}
+.activeFilters{display:flex;gap:.4rem;flex-wrap:wrap;margin:.5rem 0;font-size:.85rem}
+.activeFilters .chip{background:var(--accent);color:#fff;padding:.25rem .6rem;border-radius:12px;display:inline-flex;align-items:center;gap:.3rem}
+.activeFilters .chip .x{cursor:pointer;opacity:.8}
+.activeFilters .chip .x:hover{opacity:1}
+
+/* v2.8.0: мобильная вёрстка <=480px */
+@media(max-width:480px){
+  #modal{position:fixed;inset:0;width:100vw;height:100dvh;max-height:100dvh;border-radius:0;overflow-y:auto}
+  #controls{flex-direction:column;gap:.5rem}
+  #search{width:100%!important;min-width:0!important}
+  #chartWrap{overflow-x:auto}
+  canvas#bubbleChart,canvas#quadrantChart{min-width:520px}
+  #compareResult{overflow-x:auto}
+  #compareResult table{min-width:520px}
+}
+
+/* v2.8.0: кнопки-ссылки без подчёркивания в тёмной теме (F3) */
+body.dark a.btn{text-decoration:none}

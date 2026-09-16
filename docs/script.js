@@ -1,5 +1,10 @@
 const $ = id => document.getElementById(id);
 let supplements = [], currentData = [], chartInstance = null, radarInstance = null, onlyFavs = false;
+// v2.8.0: пресеты-тумблеры (активны независимо от ручных фильтров, комбинация — AND)
+let presetScience = false, presetVerdict = false;      // scienceSort / verdictProven
+let presetCheap = false, presetOngoing = false;   // priceMax / ongoingMin
+let prevSort = '';                                     // для тумблера 🏆 Топ по науке
+let prevVerdict = '';                                  // для пресета 💎 Доказано
 let chartPts = [];
 let quadrantInstance = null, chartTab = 'price';   // v2.4: вкладки графика
 let scrollBeforeModal = 0;
@@ -148,6 +153,18 @@ function initApp() {
   if (supplements.length >= 2) { $('compareSelect1').value = supplements[0].id; $('compareSelect2').value = supplements[1].id; }
   $('search').addEventListener('input', applyFilters);
   ['verdictFilter', 'categoryFilter', 'sortSelect'].forEach(id => $(id).addEventListener('change', applyFilters));
+  document.querySelectorAll('.preset').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const p = btn.dataset.preset;
+      let on;
+      if (p === 'science') { presetScience = !presetScience; on = presetScience; if (on && !prevSort) prevSort = $('sortSelect').value; }
+      else if (p === 'verdict') { presetVerdict = !presetVerdict; on = presetVerdict; }
+      else if (p === 'cheap') { presetCheap = !presetCheap; on = presetCheap; }
+      else if (p === 'ongoing') { presetOngoing = !presetOngoing; on = presetOngoing; }
+      btn.classList.toggle('on', !!on);
+      applyFilters();
+    });
+  });
   $('themeToggle').onclick = () => { const on = !document.body.classList.contains('dark'); setDark(on); localStorage.setItem('theme', on ? 'dark' : 'light'); };
   $('compareBtn').onclick = renderCompare;
   const pageUrl = encodeURIComponent('https://deadsno.github.io/brain-25-evidence/');
@@ -287,10 +304,13 @@ function historyPriceBlock(s) {
 
 function applyFilters() {
   const q = $('search').value.toLowerCase().trim();
-  const v = $('verdictFilter').value, c = $('categoryFilter').value, sort = $('sortSelect').value;
+  const v = $('verdictFilter').value, c = $('categoryFilter').value, sort = presetScience ? 'science' : $('sortSelect').value;
   currentData = supplements.filter(s => {
-    if (v !== 'all' && String(s.code) !== v) return false;
+    if (presetVerdict && String(s.code) !== '1') return false;
+    if (!presetVerdict && v !== 'all' && String(s.code) !== v) return false;
     if (c !== 'all' && s.category !== c) return false;
+    if (presetCheap && !(s.price != null && s.price <= 500)) return false;
+    if (presetOngoing && !((s.ongoing || 0) >= 1)) return false;
     if (q && !(s.name.toLowerCase().includes(q) || (s.effects || []).join(' ').toLowerCase().includes(q))) return false;
     return true;
   });
@@ -647,7 +667,7 @@ function renderCompare() {
       return p;
     });
   };
-  const PROF_LABELS = ['Наука', 'База MA', 'Спрос (WB)', 'Интерес (trends)', 'Доступность'];
+  const PROF_LABELS = ['Наука', 'База МА', 'Спрос', 'Интерес', 'Доступность'];
   if (radarInstance) radarInstance.destroy();
   radarInstance = new Chart($('radarChart'), {
     type: 'radar',
