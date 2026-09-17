@@ -65,7 +65,6 @@ try {
   <select id="categoryFilter"><option value="all">Все категории</option></select>
   <select id="sortSelect">
     <option value="science">🔬 По доказательности (наука)</option>
-    <option value="price_asc">Сначала дешёвые</option>
     <option value="name">По алфавиту</option>
     <option value="grade">🎖 По грейду доказанности</option>
   </select>
@@ -118,11 +117,9 @@ try {
     <p>Индекс меряет <i>количество</i> науки, не силу эффекта. Вердикты ставим вручную по топ-2 мета-анализам.</p>
   </details>
   <div class="chartTabs">
-    <button id="tabPrice" class="chartTab on">Цена vs наука</button>
     <button id="tabQuadrant" class="chartTab">Квадрант доказательности</button>
   </div>
   <div class="chartTabs" id="axisRow">
-    <button id="axisPrice" class="chartTab">Цена ₽/мес</button>
     <button id="axisMA" class="chartTab on">Число МА</button>
     <button id="axisRCT" class="chartTab">Число РКИ</button>
     <button id="axisYear" class="chartTab">Год последнего МА</button>
@@ -141,7 +138,6 @@ try {
     <div class="presetRow" id="presetRow">
       <button class="preset" data-preset="science" title="Сортировка: доказательность ↓">🏆 Топ по науке</button>
       <button class="preset" data-preset="verdict" title="Вердикт только «работает»">💎 Доказано</button>
-      <button class="preset" data-preset="cheap" title="Цена до 500 ₽/мес">💰 До 500₽/мес</button>
       <button class="preset" data-preset="ongoing" title="Есть активные испытания на людях">🔥 Изучают сейчас</button>
     </div>
     <div class="activeFilters" id="activeFilters"></div>
