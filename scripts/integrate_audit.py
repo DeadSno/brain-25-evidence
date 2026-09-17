@@ -37,6 +37,6 @@ for s in data:
                 s[key] = a[key]
         updated += 1
 
-DATA_JSON.write_text(json.dumps(data, ensure_ascii=False, indent=1), encoding='utf-8')
+DATA_JSON.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding='utf-8')
 print(f'обновлено {updated}/81 добавок в docs/data.json')
 print(f'пропущено: {[s["name"] for s in data if s["name"] not in audit_by_name]}')
