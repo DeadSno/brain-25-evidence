@@ -594,33 +594,47 @@ function renderCompare() {
     return lo > 0 ? Math.round((lo / (vals.length - 1)) * 100) : 0;
   };
   const BASE_FOR_PCT = supplements;   // нормировка по всей базе 81
-  const rawVals = s => [
-    s.scienceIndex || 0,
-    s.metaCount || 0,
-    s.reviews || 0,
-    s.trends || 0,
-    s.price != null ? s.price : null
-  ];
   const prof = s => {
-    const r = rawVals(s);
-    return [
-      pctile(r[0], BASE_FOR_PCT.map(x => x.scienceIndex)),
-      pctile(r[1], BASE_FOR_PCT.map(x => x.metaCount)),
-      pctile(r[2], BASE_FOR_PCT.map(x => x.reviews)),
-      pctile(r[3], BASE_FOR_PCT.map(x => x.trends)),
-      r[4] != null ? pctile(r[4], BASE_FOR_PCT.map(x => x.price)) : 0
-      // Доступность = инверсия перцентиля цены (чем дороже — тем ниже)
-    ].map((p, i) => {
-      if (i === 4 && r[4] != null) return 100 - p;
-      return p;
-    });
+    // Ось 1: Наука — перцентиль по базе
+    const science = pctile(s.scienceIndex || 0, BASE_FOR_PCT.map(x => x.scienceIndex));
+    // Ось 2: База МА — перцентиль по базе
+    const maBase = pctile(s.metaCount || 0, BASE_FOR_PCT.map(x => x.metaCount));
+
+    // Ось 3: Верифицированность (грейд + бонус за key_sources)
+    const gradeMap = { A: 80, B: 60, C: 40, D: 20 };
+    const srcBonus = Math.min((s.key_sources || []).length, 5) * 4;
+    const verified = Math.min((gradeMap[s.grade] || 0) + srcBonus, 100);
+
+    // Ось 4: Полнота карточки (база 40% + премиум 60%)
+    const baseFields = ['verdict', 'effects', 'dosage', 'course', 'caution'];
+    const advFields = ['about', 'who_needs', 'onset', 'myths',
+                       'food_sources', 'guidelines', 'how_to_choose'];
+    const baseFilled = baseFields.filter(f => {
+      const v = s[f];
+      return Array.isArray(v) ? v.length > 0 : !!v;
+    }).length;
+    const advFilled = advFields.filter(f => {
+      const v = s[f];
+      return Array.isArray(v) ? v.length > 0 : (typeof v === 'string' && v.length > 0);
+    }).length;
+    const completeness = Math.round(
+      (baseFilled / baseFields.length) * 40 +
+      (advFilled / advFields.length) * 60
+    );
+
+    return [science, maBase, verified, completeness];
   };
-  const PROF_LABELS = ['Наука', 'База МА', 'Спрос', 'Интерес'];
+  const PROF_LABELS = ['Наука', 'База МА', 'Верифицированность', 'Полнота карточки'];
   if (radarInstance) radarInstance.destroy();
   radarInstance = new Chart($('radarChart'), {
     type: 'radar',
     data: {
-      labels: PROF_LABELS.map(l => l + ' (нормировано по базе)'),
+      labels: [
+        'Наука (перцентиль по базе)',
+        'База МА (перцентиль по базе)',
+        'Верифицированность (0-100)',
+        'Полнота карточки (0-100)'
+      ],
       datasets: [
         { label: a.name, data: prof(a), borderColor: '#3498db', backgroundColor: radarFill,
           pointBackgroundColor: '#3498db' },
@@ -638,10 +652,8 @@ function renderCompare() {
           callbacks: {
             label: ctx => {
               const s = ctx.datasetIndex === 0 ? a : b;
-              const raw = rawVals(s)[ctx.dataIndex];
               return ' ' + s.name + ' · ' + PROF_LABELS[ctx.dataIndex] + ': ' +
-                Math.round(ctx.parsed.r) + '/100' +
-                (raw != null ? ' · сырое: ' + (raw.toLocaleString ? raw.toLocaleString('ru-RU') : raw) : '');
+                Math.round(ctx.parsed.r) + '/100';
             }
           }
         }
