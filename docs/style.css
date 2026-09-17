@@ -358,3 +358,6 @@ body.dark a.btn{text-decoration:none}
 /* v3.1: плоские цвета вердиктов */
 
 /* v3.1: плоские цвета вердиктов */
+
+.cgroup{margin:0 0 1.1rem}
+.cgTitle{font-weight:700;font-size:1rem;margin:0 0 .4rem;padding:.35rem .6rem;background:var(--card-bg);border-left:3px solid var(--accent);border-radius:4px}
