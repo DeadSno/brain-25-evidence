@@ -378,23 +378,58 @@
     "grade": "B",
     "key_sources": [
       {
-        "pmid": "26695080",
-        "title": "Probiotics for the prevention of pediatric antibiotic-associated diarrhea.",
-        "year": 2015,
+        "pmid": "38231320",
+        "title": "Efficacy of different routes of vitamin B12 supplementation for the treatment of patients with vitamin B12 deficiency: A systematic review and network meta-analysis.",
+        "year": 2024,
+        "journal": "Irish journal of medical science",
+        "pubtype": [
+          "Journal Article",
+          "Systematic Review",
+          "Network Meta-Analysis"
+        ],
+        "source": "curated"
+      },
+      {
+        "pmid": "39373282",
+        "title": "A systematic review and meta-analysis of functional vitamin B12 status among adult vegans.",
+        "year": 2024,
+        "journal": "Nutrition bulletin",
+        "pubtype": [
+          "Journal Article",
+          "Systematic Review",
+          "Meta-Analysis",
+          "Research Support, Non-U.S. Gov't"
+        ],
+        "source": "curated"
+      },
+      {
+        "pmid": "38189492",
+        "title": "Vitamin B12 supplementation during pregnancy for maternal and child health outcomes.",
+        "year": 2024,
         "journal": "The Cochrane database of systematic reviews",
         "pubtype": [
           "Journal Article",
-          "Meta-Analysis",
-          "Research Support, Non-U.S. Gov't",
           "Systematic Review"
         ],
         "source": "curated"
       },
       {
-        "pmid": "26695595",
-        "title": "Probiotics for preventing urinary tract infections in adults and children.",
-        "year": 2015,
-        "journal": "The Cochrane database of systematic reviews",
+        "pmid": "37060552",
+        "title": "Vitamin B12 deficiency and use of proton pump inhibitors: a systematic review and meta-analysis.",
+        "year": 2023,
+        "journal": "Expert review of gastroenterology & hepatology",
+        "pubtype": [
+          "Meta-Analysis",
+          "Systematic Review",
+          "Journal Article"
+        ],
+        "source": "curated"
+      },
+      {
+        "pmid": "33809274",
+        "title": "Effects of Vitamin B12 Supplementation on Cognitive Function, Depressive Symptoms, and Fatigue: A Systematic Review, Meta-Analysis, and Meta-Regression.",
+        "year": 2021,
+        "journal": "Nutrients",
         "pubtype": [
           "Journal Article",
           "Meta-Analysis",
