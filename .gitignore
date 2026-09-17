@@ -233,3 +233,8 @@ scripts/check_price_*.py
 scripts/remove_price_*.py
 scripts/strip_price_*.py
 scripts/update_radar_*.py
+
+# одноразовые хелперы (использовались для чистки/фиксов)
+scripts/clean_*.py
+scripts/fix_*.py
+scripts/update_*.py
