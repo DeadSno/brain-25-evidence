@@ -2,7 +2,8 @@ const $ = id => document.getElementById(id);
 let supplements = [], currentData = [], chartInstance = null, radarInstance = null, onlyFavs = false;
 // v2.8.0: пресеты-тумблеры (активны независимо от ручных фильтров, комбинация — AND)
 let presetScience = false, presetVerdict = false;      // scienceSort / verdictProven
-let presetCheap = false, presetOngoing = false;   // priceMax / ongoingMin
+let presetOngoing = false;
+// priceMax / ongoingMin
 let prevSort = '';                                     // для тумблера 🏆 Топ по науке
 let prevVerdict = '';                                  // для пресета 💎 Доказано
 let chartPts = [];
@@ -157,7 +158,6 @@ function initApp() {
       let on;
       if (p === 'science') { presetScience = !presetScience; on = presetScience; if (on && !prevSort) prevSort = $('sortSelect').value; }
       else if (p === 'verdict') { presetVerdict = !presetVerdict; on = presetVerdict; }
-      else if (p === 'cheap') { presetCheap = !presetCheap; on = presetCheap; }
       else if (p === 'ongoing') { presetOngoing = !presetOngoing; on = presetOngoing; }
       btn.classList.toggle('on', !!on);
       applyFilters();
@@ -184,11 +184,9 @@ function initApp() {
   if (deep && supplements.some(s => s.id === deep)) setTimeout(() => openModal(deep), 300);
   applyFilters(); renderCompare(); checkInteractions();
   // v2.4: вкладки графика «Цена vs наука | Квадрант доказательности»
-  $('tabPrice').onclick = () => setChartTab('price');
-  $('tabQuadrant').onclick = () => setChartTab('quadrant');
+    $('tabQuadrant').onclick = () => setChartTab('quadrant');
   // v2.6: оси X графика
-  $('axisPrice').onclick = () => setAxisX('price');
-  $('axisMA').onclick = () => setAxisX('ma');
+    $('axisMA').onclick = () => setAxisX('ma');
   $('axisRCT').onclick = () => setAxisX('rct');
   $('axisYear').onclick = () => setAxisX('year');
   $('quadrantChart').style.display = 'none';
@@ -245,7 +243,6 @@ function setDark(on) {
 function setChartTab(tab) {
   if (tab === chartTab) return;
   chartTab = tab;
-  $('tabPrice').classList.toggle('on', tab === 'price');
   $('tabQuadrant').classList.toggle('on', tab === 'quadrant');
   $('bubbleChart').style.display = tab === 'price' ? 'block' : 'none';
   $('quadrantChart').style.display = tab === 'quadrant' ? 'block' : 'none';
@@ -306,16 +303,13 @@ function applyFilters() {
   currentData = supplements.filter(s => {
     if (presetVerdict && String(s.code) !== '1') return false;
     if (!presetVerdict && v !== 'all' && String(s.code) !== v) return false;
-    if (c !== 'all' && s.category !== c) return false;
-    if (presetCheap && !(s.price != null && s.price <= 500)) return false;
-    if (presetOngoing && !((s.ongoing || 0) >= 1)) return false;
+    if (c !== 'all' && s.category !== c) return false;    if (presetOngoing && !((s.ongoing || 0) >= 1)) return false;
     if (q && !(s.name.toLowerCase().includes(q) || (s.effects || []).join(' ').toLowerCase().includes(q))) return false;
     return true;
   });
   if (onlyFavs) currentData = currentData.filter(x => isFav(x.id));
   const cmp = {
     science: (a, b) => b.scienceIndex - a.scienceIndex,
-    price_asc: (a, b) => (a.price || 1e9) - (b.price || 1e9),
     name: (a, b) => a.name.localeCompare(b.name, 'ru'),
     grade: (a, b) => ((GRADE_PRIOR[a.grade] ?? 4) - (GRADE_PRIOR[b.grade] ?? 4)) || (b.scienceIndex - a.scienceIndex)
   };
@@ -428,10 +422,9 @@ function closeModal() {
 
 // ===== v2.6: сменная ось X графика (Цена/MА/РКИ/Год) =====
 let axisX = 'ma';
-const AXIS_IDS = { price: 'axisPrice', ma: 'axisMA', rct: 'axisRCT', year: 'axisYear' };
-const AXIS_LABEL = { price: 'Цена за месяц (₽)', ma: 'Число МА', rct: 'Число РКИ', year: 'Год последнего МА' };
+const AXIS_IDS = { ma: 'axisMA', rct: 'axisRCT', year: 'axisYear' };
+const AXIS_LABEL = { ma: 'Число МА', rct: 'Число РКИ', year: 'Год последнего МА' };
 function axisVal(s) {
-  if (axisX === 'price') return (s.price || 0) > 0 ? s.price : null;
   if (axisX === 'ma') return (s.metaCount || 0) > 0 ? s.metaCount : null;
   if (axisX === 'rct') { const r = Math.max(0, (s.scienceIndex || 0) - 5 * (s.metaCount || 0)); return r > 0 ? r : null; }
   return s.year_last_ma || null;
@@ -439,7 +432,7 @@ function axisVal(s) {
 function setAxisX(ax) {
   if (ax === axisX) return;
   axisX = ax;
-  ['price', 'ma', 'rct', 'year'].forEach(k => $(AXIS_IDS[k]).classList.toggle('on', k === ax));
+  ['ma', 'rct', 'year'].forEach(k => $(AXIS_IDS[k]).classList.toggle('on', k === ax));
   if (currentData.length && chartTab === 'price') renderBubble(currentData);
 }
 
