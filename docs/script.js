@@ -52,14 +52,7 @@ function wikiLink(s) {
   return ' <a class="srcIcon" target="_blank" rel="noopener" title="Википедия" href="https://ru.wikipedia.org/wiki/' +
     encodeURIComponent(s.name.replace(/\+/g, ' ')) + '">Wiki ↗</a>';
 }
-function priceSrcLink(s) {
-  const src = s.price_source || '';
-  if (!src) return '';
-  const href = src.indexOf('Ozon') >= 0
-    ? 'https://www.ozon.ru/search/?text=' + encodeURIComponent(s.name)
-    : 'https://www.wildberries.ru/catalog/0/search.aspx?search=' + encodeURIComponent(s.name);
-  return ' <a class="srcIcon" target="_blank" rel="noopener" title="Где собираема цена" href="' + href + '">' + src + ' ↗</a>';
-}
+function priceSrcLink(s) { return ''; }
 
 // ===== v2.6: кнопка «Нашли неточность?» (issue с добавка+поле) =====
 function issueUrl(s, field) {
@@ -107,10 +100,7 @@ const CARDBLOCKS = [
   { key: 'food',      title: 'Можно ли из еды',            get: s => s.food_sources || s.food || '' },
   { key: 'official',  title: 'Что говорят официалы',       get: s => s.guidelines || s.official || '' },
   { key: 'shop',      title: 'Как выбрать в магазине',     get: s => s.how_to_choose || s.forms || '' },
-  { key: 'myths',     title: 'Мифы и ловушки',             get: s => s.myths || '' },
-  { key: 'price',     title: 'Сколько стоит и откуда цена', get: s => (s.price != null ? s.price + ' ₽/мес' : 'цена не найдена') +
-    priceSrcLink(s) + (s.price_source ? ' · источник: ' + s.price_source : '') }
-];
+  { key: 'myths',     title: 'Мифы и ловушки',             get: s => s.myths || '' }];
 
 function renderConflicts(s) {
   const list = s.interactions || [];
@@ -168,7 +158,7 @@ function initApp() {
   $('themeToggle').onclick = () => { const on = !document.body.classList.contains('dark'); setDark(on); localStorage.setItem('theme', on ? 'dark' : 'light'); };
   $('compareBtn').onclick = renderCompare;
   const pageUrl = encodeURIComponent('https://deadsno.github.io/brain-25-evidence/');
-  const pageTitle = encodeURIComponent('БАДы: цена vs наука — 81 добавка через мета-анализы');
+  const pageTitle = encodeURIComponent('БАДы: что работает, а что нет — 81 добавка через мета-анализы');
   $('shareTg').href = 'https://t.me/share/url?url=' + pageUrl + '&text=' + pageTitle;
   $('shareVk').href = 'https://vk.com/share.php?url=' + pageUrl + '&title=' + pageTitle;
   $('modalClose').onclick = closeModal;
@@ -261,25 +251,10 @@ const vColor = c => c === 1 ? '#2d8a4e' : c === 0 ? '#d4a017' : '#c0392b';
 // ===== v2.6.1: демонтаж Value Score, честная экономика =====
 // ₽ за единицу эффекта = round(цена / Hedges' g) при обоих ненулевых;
 // иначе — честная причина, а не ноль/прочерк-обманка.
-function ppe(s) {
-  if (s.price != null && s.price > 0 && s.hedges_g != null) return Math.round(s.price / s.hedges_g);
-  return null;
-}
-function ppeReason(s) {
-  if (s.price == null) return 'цена не найдена — не считаем';
-  return 'Эффект ждёт верификации — ₽ за единицу эффекта не считаем';
-}
-function priceTip(s) {
-  const d = s.price_date || 'дата неизвестна';
-  return '<span class="priceTip" title="Цена на ' + d +
-    '; ночной сбор временно заблокирован TLS-фильтром маркетплейса, трек reliability в работе">' +
-    (s.price != null ? s.price + ' ₽/мес' : 'цена не найдена') + '</span>';
-}
-function ppeModalLine(s) {
-  const v = ppe(s);
-  if (v != null) return '<div class="mrow">📐 <b>₽ за единицу эффекта (цена / Hedges\' g):</b> ' + v + '</div>';
-  return '<div class="mrow">📐 ' + ppeReason(s) + '</div>';
-}
+function ppe(s) { return ''; }
+function ppeReason(s) { return ''; }
+function priceTip(s) { return ''; }
+function ppeModalLine(s) { return ''; }
 /* economicsBlock removed per v2.7.1 chunk 2 — price_per_effect gone, no "Экономика" block */
 function verifiedCount() {
   return supplements.filter(x => (x.key_sources || []).length).length;
@@ -297,10 +272,7 @@ function maTop3Block(s) {
      body +
      '<div class="mrow hint" style="font-size:.85rem;opacity:.9">' + note + '</div>';
 }
-function historyPriceBlock(s) {
-  return '<div class="blockTitle">💰 История цены</div>' +
-    '<div class="mrow history-price-canvas"></div>';
-}
+function historyPriceBlock(s) { return ''; }
 
 function applyFilters() {
   const q = $('search').value.toLowerCase().trim();
@@ -309,7 +281,6 @@ function applyFilters() {
     if (presetVerdict && String(s.code) !== '1') return false;
     if (!presetVerdict && v !== 'all' && String(s.code) !== v) return false;
     if (c !== 'all' && s.category !== c) return false;
-    if (presetCheap && !(s.price != null && s.price <= 500)) return false;
     if (presetOngoing && !((s.ongoing || 0) >= 1)) return false;
     if (q && !(s.name.toLowerCase().includes(q) || (s.effects || []).join(' ').toLowerCase().includes(q))) return false;
     return true;
@@ -317,7 +288,6 @@ function applyFilters() {
   if (onlyFavs) currentData = currentData.filter(x => isFav(x.id));
   const cmp = {
     science: (a, b) => b.scienceIndex - a.scienceIndex,
-    price_asc: (a, b) => (a.price || 1e9) - (b.price || 1e9),
     name: (a, b) => a.name.localeCompare(b.name, 'ru'),
     grade: (a, b) => ((GRADE_PRIOR[a.grade] ?? 4) - (GRADE_PRIOR[b.grade] ?? 4)) || (b.scienceIndex - a.scienceIndex)
   };
@@ -667,7 +637,7 @@ function renderCompare() {
       return p;
     });
   };
-  const PROF_LABELS = ['Наука', 'База МА', 'Спрос', 'Интерес', 'Доступность'];
+  const PROF_LABELS = ['Наука', 'База МА', 'Спрос', 'Интерес'];
   if (radarInstance) radarInstance.destroy();
   radarInstance = new Chart($('radarChart'), {
     type: 'radar',
