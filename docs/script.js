@@ -19,19 +19,7 @@ function gradeBadge(s) {
   return '<span class="grade g' + s.grade + '" title="Грейд ' + s.grade + ' — ' + (GRADE_LABEL[s.grade] || '') + '">грейд ' + s.grade + '</span>';
 }
 
-// ===== v2.6: 5-точечный бейдж доверия (по греЙду, не смешиваем силу и контекст) =====
-const DOT_FILL = { A: 4, B: 3, C: 2, D: 1 };
-const DOT_COLOR = { A: '#22c55e', B: '#84cc16', C: '#f59e0b', D: '#ef4444' };
-const DOT_TIP = "Грейд считает силу эффекта (Hedges' g) и объём науки (scienceIndex). Вердикт — ручная оценка по методологии.";
 const GRADE_PRIOR = { A: 0, B: 1, C: 2, D: 3 };   // v2.6.1: сортировка «по грейду» A<B<C<D<нет
-function gradeDots(s) {
-  const fill = s.grade ? (DOT_FILL[s.grade] || 0) : 0;
-  const color = s.grade ? (DOT_COLOR[s.grade] || '#bdc3c7') : '#bdc3c7';
-  return '<span class="gdots" title="' + DOT_TIP.replace(/"/g, '&quot;') + '">' +
-    [0, 1, 2, 3, 4].map(i =>
-      '<i class="dot' + (i < fill ? ' on' : '') + '"' + ((i < fill) ? ' style="background:' + color + '"' : '') + '></i>'
-    ).join('') + '</span>' + (s.grade ? '' : '<span class="vwait">ждёт верификации</span>');
-}
 
 // ===== v2.6: бейдж «ручная вычитка» (у карточек с ручным вердиктом — все вердикты ручные) =====
 function manualBadge(s) {
@@ -107,10 +95,22 @@ function renderConflicts(s) {
   if (!list.length) return '';
   return list.map(i => '<div class="sev sev-' + i.severity + '"><b>' + i.with + '</b> · ' + i.severity + (i.note ? ' — ' + i.note : '') + '</div>').join('');
 }
+const CARD_GROUPS = [
+  { title: '📋 Основное', keys: ['what','who','works','evidence'] },
+  { title: '💊 Как принимать', keys: ['how','onset'] },
+  { title: '⚠️ Осторожно', keys: ['notwho','conflicts','friends','ul'] },
+  { title: '📚 Дополнительно', keys: ['food','official','shop','myths'] }
+];
 function renderCardBlocks(s) {
-  return '<div class="cblocks">' + CARDBLOCKS.map(b =>
-    '<div class="cblock" data-block-key="' + b.key + '"><h4>' + b.title + '</h4><div class="cbbody">' +
-    (b.get(s) || BLOCK_EMPTY) + '</div></div>').join('') + '</div>';
+  return '<div class="cblocks">' + CARD_GROUPS.map(g => {
+    const inner = g.keys.map(k => {
+      const b = CARDBLOCKS.find(x => x.key === k);
+      if (!b) return '';
+      const content = b.get(s) || BLOCK_EMPTY;
+      return '<div class="cblock" data-block-key="' + b.key + '"><h4>' + b.title + '</h4><div class="cbbody">' + content + '</div></div>';
+    }).join('');
+    return '<div class="cgroup"><div class="cgTitle">' + g.title + '</div>' + inner + '</div>';
+  }).join('') + '</div>';
 }
 // ===== v2.3: баннеры избранного (critical/medium/synergy) =====
 
@@ -310,8 +310,7 @@ function renderCards(data) {
     (BEST.includes(s.id) ? '<span class="bestBadge">🔬 Топ-3 по доказательности</span>' : '') +
     '<span class="cat">' + (s.category || '') + '</span><h3>' + s.name + '</h3>' +
     updatedLine(s) + manualBadge(s) +
-    '<div class="verdict v' + s.code + '">' + s.verdict + '</div>' + gradeBadge(s) + gradeDots(s) +
-    '<div class="effects">' + (s.effects || []).map(e => '<span>' + e + '</span>').join('') + '</div></div>').join('');
+    '<div class="verdict v' + s.code + '">' + s.verdict + '</div>' + gradeBadge(s) +     '<div class="effects">' + (s.effects || []).map(e => '<span>' + e + '</span>').join('') + '</div></div>').join('');
   g.querySelectorAll('.card').forEach(el => el.onclick = (e) => {
     if (e.target.closest('a')) return;
     openModal(el.dataset.id);
@@ -341,8 +340,7 @@ function openModal(id) {
     : '';
 
   $('modalBody').innerHTML = '<h2>' + s.name + '</h2>' + updatedLine(s) + manualBadge(s) +
-    '<div class="mrow"><span class="verdict v' + s.code + '">' + s.verdict + '</span> · ' + (s.category || '') + (s.grade ? ' · <span class="grade g' + s.grade + '">грейд ' + s.grade + '</span> · ' + (GRADE_LABEL[s.grade] || '') : '') + '</div>' + gradeDots(s) +
-    '<div class="mrow">🔬 наука: <b>' + s.scienceIndex + '</b>' + pubmedLink(s) + ' · 📚 MA: <b>' + s.metaCount + '</b></div>' +
+    '<div class="mrow"><span class="verdict v' + s.code + '">' + s.verdict + '</span> · ' + (s.category || '') + (s.grade ? ' · <span class="grade g' + s.grade + '">грейд ' + s.grade + '</span> · ' + (GRADE_LABEL[s.grade] || '') : '') + '</div>' +     '<div class="mrow">🔬 наука: <b>' + s.scienceIndex + '</b>' + pubmedLink(s) + ' · 📚 MA: <b>' + s.metaCount + '</b></div>' +
     maTop3Block(s) +
     '<div class="mrow" style="font-size:.85rem;opacity:.9">⚠️ Проект не является медицинской рекомендацией. При болезнях, беременности и приёме лекарств — сначала к врачу.</div>' +
     trialsLine +
@@ -572,7 +570,6 @@ function renderCompare() {
   if (!a || !b) return;
   const rows = [
     ['Вердикт', a.verdict, b.verdict],
-    ['Цена (₽/мес)', a.price ?? '—', b.price ?? '—'],
         ['Индекс науки', a.scienceIndex, b.scienceIndex],
     ['Мета-анализов', a.metaCount, b.metaCount],
     ['🧪 Испытания сейчас', a.ongoing ?? '—', b.ongoing ?? '—'],
