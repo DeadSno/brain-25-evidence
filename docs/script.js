@@ -70,12 +70,12 @@ function compareBlock(s) {
 }
 
 // ===== v2.3: шаблон полной карточки (15 блоков, структура фиксирована) =====
-const BLOCK_EMPTY = '<span class="cbEmpty">данных пока нет — проверяем</span>';
+const BLOCK_EMPTY = '<span class="cbEmpty">для этой добавки проверяемых данных по пункту нет</span>';
 const CARDBLOCKS = [
   { key: 'what',      title: 'Что это',                    get: s => s.about || (s.effects || []).join(', ') || '' },
   { key: 'who',       title: 'Кому нужно',                 get: s => s.who_needs || s.who || '' },
   { key: 'works',     title: 'Работает ли',                get: s => '<span class="verdict v' + s.code + '">' + s.verdict + '</span> · ' + gradeBadge(s) },
-  { key: 'evidence',  title: 'На чём основано',            get: s => '<div>🔬 наука: ' + s.scienceIndex + pubmedLink(s) + ' · 📚 MA: ' + s.metaCount + ' · 📖 цитирований MA: ' + s.citations + '</div>' +
+  { key: 'evidence',  title: 'На чём основано',            get: s => '<div>🔬 наука: ' + s.scienceIndex + pubmedLink(s) + ' · 📚 MA: ' + s.metaCount + ' · 📖 цитирований MA: ' + (s.citations != null ? s.citations : '—') + '</div>' +
     ((s.mechs || []).length ? '<div class="hline">Механизмы: ' + s.mechs.map(m => m[0]).join('; ') + '</div>' : '') },
   { key: 'how',       title: 'Как принимать',              get: s => [s.dosage, s.course].filter(Boolean).join(' · ') || '' },
   { key: 'onset',     title: 'Когда почувствую',           get: s => s.onset || '' },
@@ -255,17 +255,37 @@ function verifiedCount() {
   return supplements.filter(x => (x.key_sources || []).length).length;
 }
 function maTop3Block(s) {
-  const list = s.ma_top3 || [];
-  const note = 'Автоматический топ-3 запроса PubMed. Ручная верификация эффекта — в грейде и key_sources; верифицированных добавок сейчас: ' + verifiedCount() + '.';
+  const curated = s.key_sources || [];
+  const auto = s.ma_top3 || [];
+
+  // Приоритет: ручной набор (curated). Fallback: автотоп с явной пометкой.
+  const useCurated = curated.length > 0;
+  const list = useCurated ? curated.slice(0, 3) : auto.slice(0, 3);
+
+  const title = useCurated
+    ? '📚 Проверенные источники (топ-3)'
+    : '📚 Мета-анализы (топ-3 авто-поиска)';
+
+  const note = useCurated
+    ? 'Отобраны вручную по топ-2 МА. Полный список — в блоке key_sources карточки.'
+    : '⚠ Автоматический топ-3 запроса PubMed — не верифицировано вручную. '
+      + 'Проверенные карточки помечены бейджем «ручная вычитка»; верифицировано сейчас: '
+      + verifiedCount() + ' из ' + supplements.length + '.';
+
   const body = list.length
-    ? '<div class="mrow">' + list.map(m =>
-        '<a class="srcIcon" target="_blank" rel="noopener" href="https://pubmed.ncbi.nlm.nih.gov/' + m.pmid + '/">' + m.title + ' (' + m.year + ') ↗</a>'
-      ).join('<br>') + '</div>'
-    : '<div class="mrow cbEmpty">Автотоп-3 PubMed пока не собран — нужен живой прогон (P-стоп)</div>';
-  return '<div class="blockTitle">📚 Ключевые мета-анализы (топ-3 поиска)</div>' +
-    '<div class="mrow hint" style="font-size:.85rem;opacity:.9">' + note + '</div>' +
-     body +
-     '<div class="mrow hint" style="font-size:.85rem;opacity:.9">' + note + '</div>';
+    ? '<div class="mrow">' + list.map(m => {
+        const pmid = m.pmid || m;
+        const t = m.title || pmid;
+        const yr = m.year ? ' (' + m.year + ')' : '';
+        return '<a class="srcIcon" target="_blank" rel="noopener" '
+          + 'href="https://pubmed.ncbi.nlm.nih.gov/' + pmid + '/">'
+          + t + yr + ' ↗</a>';
+      }).join('<br>') + '</div>'
+    : '<div class="mrow cbEmpty">Источники для этой добавки пока не собраны</div>';
+
+  return '<div class="blockTitle">' + title + '</div>'
+    + '<div class="mrow hint" style="font-size:.85rem;opacity:.9">' + note + '</div>'
+    + body;
 }
 function applyFilters() {
   const q = $('search').value.toLowerCase().trim();
