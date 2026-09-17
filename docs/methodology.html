@@ -29,7 +29,7 @@ try {
 
 <section style="background:var(--card-bg);padding:1.5rem;border-radius:12px;border:1px solid var(--border);margin-bottom:1.5rem">
 <h2>Что такое аудит v<span data-version="audit"></span></h2>
-<p><b>Аудит v3.0 — это полная ручная верификация 81 добавки</b> по методологии PRISMA (Preferred Reporting Items for Systematic Reviews and Meta-Analyses). Каждая добавка прошла через:</p>
+<p><b>Аудит v<span data-version="audit"></span> — это полная ручная верификация 81 добавки</b> по <b>адаптированной методологии PRISMA</b> (Preferred Reporting Items for Systematic Reviews and Meta-Analyses): реализовано 5 из 27 пунктов чеклиста — идентификация, скрининг, включение, оценка источников, синтез. Что мы <b>не</b> делаем: не читаем полные тексты (только абстракты топ-15), не проводим двойной слепой скрининг, не регистрируем протокол в PROSPERO. Это осознанное упрощение ради охвата 81 добавки силами одного человека. Каждая добавка прошла через:</p>
 <ol style="margin:.6rem 0 1rem 1.5rem;line-height:1.8">
   <li><b>Поиск в PubMed</b> — систематические обзоры и мета-анализы (MA/SR)</li>
   <li><b>Скрининг</b> — фильтрация по релевантности</li>
@@ -102,12 +102,14 @@ try {
 </section>
 
 <section style="background:var(--card-bg);padding:1.5rem;border-radius:12px;border:1px solid var(--border)">
-<h2>История версий</h2>
+<details>
+<summary style="cursor:pointer;font-weight:600;padding:.4rem 0">История разработки <span style="opacity:.6;font-weight:400">(до унификации в v1.0)</span></summary>
 <ul style="margin:.6rem 0 1rem 1.5rem;line-height:1.8">
   <li><b>v3.1 (сентябрь 2026):</b> чистка docs/ (33 файла удалено, 4 MD перенесены), палитра грейдов (зелёный/лайм/янтарь/красный), обновление methodology.html</li>
   <li><b>v3.0 (сентябрь 2026):</b> полный аудит 81/81 добавок, 14 коммитов, теги v3.0-audit-top20 и v3.0-audit-complete</li>
   <li><b>v2.x (2025-2026):</b> автоматический индекс науки, Hedges' g из абстрактов, грейды по формуле</li>
 </ul>
+</details>
 </section>
 
 <footer style="margin-top:2rem;padding-top:1rem;border-top:1px solid var(--border);font-size:.8rem;opacity:.75">

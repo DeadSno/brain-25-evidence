@@ -83,6 +83,14 @@
   </footer>
 </div>
 <script>
+// Склонение существительных: plural(n, 'мишень', 'мишени', 'мишеней')
+function plural(n, one, few, many) {
+  const m10 = n % 10, m100 = n % 100;
+  if (m10 === 1 && m100 !== 11) return one;
+  if (m10 >= 2 && m10 <= 4 && (m100 < 10 || m100 >= 20)) return few;
+  return many;
+}
+
 const TAGCLASS = {'сильно':'t-strong','умеренно':'t-mod','слабо':'t-weak','контекст':'t-ctx','маркетинг':'t-mkt'};
 let SUPS = [], cur = null;
 const $ = id => document.getElementById(id);
@@ -136,7 +144,7 @@ fetch('data.json?ts=' + Date.now())
     const targets = new Set(), effects = new Set();
     data.forEach(s => (s.mechs || []).forEach(m => { targets.add(m[0]); effects.add(m[1]); }));
     $('stats').textContent = data.length + ' добавка · ' + Object.keys(cats).length + ' категорий · ' +
-      targets.size + ' мишеней · ' + effects.size + ' эффектов';
+      targets.size + ' ' + plural(targets.size, 'мишень', 'мишени', 'мишеней') + ' · ' + effects.size + ' ' + plural(effects.size, 'эффект', 'эффекта', 'эффектов');
     let closed = [];
     try { closed = JSON.parse(localStorage.getItem('mapClosed') || '[]'); } catch(e){}
     $('list').innerHTML = Object.keys(cats).sort().map(c =>
