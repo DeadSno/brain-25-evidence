@@ -84,4 +84,150 @@
       });
   }
 
-  })();
+  // ========== C4: спарклайн цены (блок «Экономика» модалки) ==========
+  // Данные: docs/data_price_history.json (собрано из data/processed/price_history.csv
+  // скриптом scripts/build_ma_timeline.py). CSV живёт вне docs/ и в deploy не сервится —
+  // агрегируем при сборке, поле id сохраняется. Пустой/отсутствующий → фолбэк-текст.
+  function curId() {
+    try { if (curModal) return String(curModal); } catch (e) { /* другие части не трогаем */ }
+    const m = location.hash.match(/#sup=([^&]*)/);
+    if (m && m[1]) { try { return decodeURIComponent(m[1]); } catch (e) { return m[1]; } }
+    const h2 = document.querySelector('#modalBody h2');
+    return h2 ? h2.textContent.trim() : '';
+  }
+
+  function priceFor(id, doc) {
+    const pts = doc && doc[id];
+    if (!Array.isArray(pts)) return [];
+    const out = [];
+    for (const pair of pts) {
+      if (!Array.isArray(pair) || pair.length < 2) continue;
+      const d = String(pair[0] || '').trim();
+      const p = Number(pair[1]);
+      if (d && !isNaN(p) && p > 0) out.push({ d, p });
+    }
+    out.sort((a, b) => a.d.localeCompare(b.d));
+    return out.slice(-90);
+  }
+
+  function fetchPriceDoc() {
+    return fetch('data_price_history.json', { cache: 'no-store' })
+      .then(r => (r.ok ? r.json() : Promise.reject(new Error('http ' + r.status))))
+      .catch(() => ({}));
+  }
+
+  function drawSpark(cv, w, h, pts) {
+    const dpr = window.devicePixelRatio || 1;
+    cv.width = Math.round(w * dpr);
+    cv.height = Math.round(h * dpr);
+    const ctx = cv.getContext('2d');
+    ctx.scale(dpr, dpr);
+    ctx.clearRect(0, 0, w, h);
+    if (pts.length < 2) return;
+    const min = Math.min(...pts.map(p => p.p));
+    const max = Math.max(...pts.map(p => p.p));
+    const rng = (max - min) || 1;
+    const X = i => pts.length === 1 ? w / 2 : 2 + i / (pts.length - 1) * (w - 4);
+    const Y = v => h - 4 - ((v - min) / rng) * (h - 10);
+    ctx.beginPath();
+    pts.forEach((p, i) => {
+      const x = X(i), y = Y(p.p);
+      i ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
+    });
+    ctx.strokeStyle = '#007bff';
+    ctx.lineWidth = 1.6;
+    ctx.lineJoin = 'round';
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(X(pts.length - 1), Y(pts[pts.length - 1].p), 2.4, 0, Math.PI * 2);
+    ctx.fillStyle = '#007bff';
+    ctx.fill();
+  }
+
+  function renderSpark(id) {
+    const el = document.getElementById('ecoSpark');
+    if (!el || el.dataset.state) return;
+    el.innerHTML = '<span class="hint">…</span>';
+    fetchPriceDoc().then(doc => {
+      if (el.dataset.state) return;
+      const pts = priceFor(id, doc);
+      if (pts.length < 2) {
+        const have = pts.length;
+        const need = Math.max(90 - have, 2);
+        el.dataset.state = 'fallback';
+        el.dataset.points = String(have);
+        el.innerHTML =
+          '<span class="hint">история копится с v2.1, спарклайн появится после ' +
+          need + ' замеров' + (have ? ' (сейчас ' + have + ')' : '') + '</span>';
+        return;
+      }
+      el.dataset.state = 'canvas';
+      el.dataset.points = String(pts.length);
+      const box = el.parentNode;
+      const w = Math.max(140, (box.getBoundingClientRect().width || 200));
+      const h = 34;
+      el.innerHTML = '';
+      const cv = document.createElement('canvas');
+      cv.style.cssText = 'width:100%;height:' + h + 'px';
+      cv.setAttribute('data-eco-spark', 'canvas');
+      el.appendChild(cv);
+      drawSpark(cv, w, h, pts);
+      const fmt = new Intl.DateTimeFormat('ru-RU', { day: '2-digit', month: 'short', year: 'numeric' });
+      const s = document.createElement('div');
+      s.className = 'hint';
+      s.style.cssText = 'font-size:.7rem;margin-top:.2rem';
+      s.textContent = fmt.format(new Date(pts[0].d)) + ' → ' + fmt.format(new Date(pts[pts.length - 1].d));
+      el.appendChild(s);
+    });
+  }
+
+  function sparkContainer() {
+    const wrap = document.createElement('div');
+    wrap.style.cssText =
+      'margin-top:.45rem;padding:.5rem .6rem;background:var(--bg);' +
+      'border-radius:8px;border:1px solid var(--border)';
+    const head = document.createElement('div');
+    head.style.cssText =
+      'font-size:.72rem;font-weight:600;opacity:.7;text-transform:uppercase;' +
+      'letter-spacing:.02em;margin-bottom:.3rem';
+    head.textContent = '📈 Цена: динамика 90 дней';
+    wrap.appendChild(head);
+    const el = document.createElement('div');
+    el.id = 'ecoSpark';
+    wrap.appendChild(el);
+    return { wrap, el };
+  }
+
+  function hookSparkline() {
+    const overlay = document.getElementById('modalOverlay');
+    if (!overlay) return;
+    const obs = new MutationObserver(() => {
+      const body = document.getElementById('modalBody');
+      if (!body || document.getElementById('ecoSpark')) return;
+      const btns = body.querySelectorAll('.blockTitle');
+      let econ = null;
+      for (const b of btns) {
+        if ((b.textContent || '').includes('История цены')) { econ = b; break; }
+      }
+      if (!econ) return;
+      const id = curId();
+      if (!id) return;
+      const { wrap, el } = sparkContainer();
+      econ.insertAdjacentElement('afterend', wrap);
+      renderSpark(id);
+    });
+    obs.observe(overlay, { childList: true, subtree: true });
+  }
+
+  // ========== init ==========
+  function init() {
+    if (document.getElementById('chartSection')) loadPulse();
+    hookSparkline();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
