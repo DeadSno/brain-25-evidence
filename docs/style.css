@@ -368,3 +368,30 @@ body.dark a.btn{text-decoration:none}
 
 .cgroup{margin:0 0 1.1rem}
 .cgTitle{font-weight:700;font-size:1rem;margin:0 0 .4rem;padding:.35rem .6rem;background:var(--card-bg);border-left:3px solid var(--accent);border-radius:4px}
+
+/* PMID-чип рядом с источником: клик — копирование */
+.srcRow {
+  display: flex;
+  align-items: baseline;
+  gap: .35rem;
+  margin-bottom: .25rem;
+}
+.srcRow .srcIcon { flex: 0 1 auto; min-width: 0; }
+.chip-pmid {
+  flex: 0 0 auto;
+  display: inline-block;
+  font-size: .72rem;
+  font-family: ui-monospace, "SF Mono", Consolas, monospace;
+  padding: 1px 6px;
+  border-radius: 8px;
+  background: rgba(127,127,127,.15);
+  color: inherit;
+  opacity: .75;
+  cursor: pointer;
+  user-select: none;
+  transition: background .15s, opacity .15s;
+}
+.chip-pmid:hover {
+  background: rgba(127,127,127,.3);
+  opacity: 1;
+}

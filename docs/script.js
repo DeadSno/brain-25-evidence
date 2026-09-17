@@ -294,11 +294,16 @@ function maTop3Block(s) {
         const pmid = m.pmid || m;
         const t = m.title || pmid;
         const yr = m.year ? ' (' + m.year + ')' : '';
-        return '<a class="srcIcon" target="_blank" rel="noopener" '
-          + 'title="' + (m.title || pmid).replace('"', '&quot;') + '" '
+        const titleAttr = (m.title || pmid).replace(/"/g, '&quot;');
+        return '<div class="srcRow">'
+          + '<a class="srcIcon" target="_blank" rel="noopener" '
+          + 'title="' + titleAttr + '" '
           + 'href="https://pubmed.ncbi.nlm.nih.gov/' + pmid + '/">'
-          + t + yr + ' ↗</a>';
-      }).join('<br>') + '</div>'
+          + t + yr + ' ↗</a>'
+          + ' <span class="copyLink chip-pmid" data-copy="' + pmid + '" '
+          + 'title="Скопировать PMID ' + pmid + '">PMID ' + pmid + '</span>'
+          + '</div>';
+      }).join('') + '</div>'
     : '<div class="mrow cbEmpty">Источники для этой добавки пока не собраны</div>';
 
   return '<div class="blockTitle">' + title + '</div>'
