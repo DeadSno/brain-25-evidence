@@ -300,6 +300,7 @@ function maTop3Block(s) {
         const t = m.title || pmid;
         const yr = m.year ? ' (' + m.year + ')' : '';
         return '<a class="srcIcon" target="_blank" rel="noopener" '
+          + 'title="' + (m.title || pmid).replace('"', '&quot;') + '" '
           + 'href="https://pubmed.ncbi.nlm.nih.gov/' + pmid + '/">'
           + t + yr + ' ↗</a>';
       }).join('<br>') + '</div>'
