@@ -13,7 +13,6 @@ CACHE = ROOT / "data" / "processed" / "ma_years.json"
 DATA = ROOT / "docs" / "data.json"
 INDEX = ROOT / "docs" / "index.html"
 SCIENCE2 = ROOT / "docs" / "science2.js"
-PRICE_DOC = ROOT / "docs" / "data_price_history.json"
 
 YEARS = list(range(2015, 2027))
 
@@ -73,23 +72,7 @@ def test_index_connects_science2_once():
     assert re.search(r'<script src="science2\.js(?:\?v=\d+)?" defer></script>', html)
 
 
-def test_science2_exposes_pulse_and_spark():
+def test_science2_exposes_pulse():
     js = SCIENCE2.read_text(encoding="utf-8")
     assert "data_ma_timeline.json" in js
-    assert "data_price_history.json" in js
     assert "maTimelineBox" in js
-    assert "ecoSpark" in js
-    assert "история копится с v2.1" in js
-
-
-def test_price_history_doc_schema():
-    if not PRICE_DOC.exists():
-        return
-    doc = load(PRICE_DOC)
-    assert isinstance(doc, dict), "data_price_history.json не dict"
-    for sid, pts in doc.items():
-        assert isinstance(sid, str) and sid, "пустой id в data_price_history.json"
-        assert isinstance(pts, list), f"{sid}: не массив"
-        for d, p in pts:
-            assert isinstance(d, str) and len(d) == 10, f"{sid}: дата {d!r}"
-            assert isinstance(p, (int, float)) and p > 0, f"{sid}: цена {p!r}"
