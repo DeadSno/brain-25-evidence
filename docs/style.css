@@ -263,7 +263,7 @@ position:sticky;top:0;z-index:1000;animation:fadeIn .25s}
   border-radius:999px;background:var(--bg);border:1px solid var(--border);color:var(--text);
   text-decoration:none;vertical-align:middle;margin-left:.25rem
   display: inline-block;
-  max-width: 42ch;
+  max-width: 60ch;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
