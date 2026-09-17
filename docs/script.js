@@ -2,7 +2,7 @@ const $ = id => document.getElementById(id);
 let supplements = [], currentData = [], chartInstance = null, radarInstance = null, onlyFavs = false;
 // v2.8.0: пресеты-тумблеры (активны независимо от ручных фильтров, комбинация — AND)
 let presetScience = false, presetVerdict = false;      // scienceSort / verdictProven
-let presetCheap = false, presetOngoing = false;   // priceMax / ongoingMin
+let presetOngoing = false;   // priceMax / ongoingMin
 let prevSort = '';                                     // для тумблера 🏆 Топ по науке
 let prevVerdict = '';                                  // для пресета 💎 Доказано
 let chartPts = [];
@@ -174,12 +174,9 @@ function initApp() {
   });
   const deep = decodeURIComponent(location.hash.replace('#sup=', ''));
   if (deep && supplements.some(s => s.id === deep)) setTimeout(() => openModal(deep), 300);
-  applyFilters(); renderCompare(); checkInteractions();
-  // v2.4: вкладки графика «Цена vs наука | Квадрант доказательности»
-  $('tabPrice').onclick = () => setChartTab('price');
-  $('tabQuadrant').onclick = () => setChartTab('quadrant');
+  applyFilters(); renderCompare(); checkInteractions();  // v2.4: вкладка графика
+$('tabQuadrant').onclick = () => setChartTab('quadrant');
   // v2.6: оси X графика
-  $('axisPrice').onclick = () => setAxisX('price');
   $('axisMA').onclick = () => setAxisX('ma');
   $('axisRCT').onclick = () => setAxisX('rct');
   $('axisYear').onclick = () => setAxisX('year');
@@ -230,20 +227,17 @@ function initApp() {
 function setDark(on) {
   document.body.classList.toggle('dark', on);
   $('themeToggle').textContent = on ? '☀️ Светлая тема' : '🌙 Тёмная тема';
-  if (currentData.length) { if (chartTab === 'price') renderBubble(currentData); else renderQuadrant(currentData); }
+  if (currentData.length) { renderQuadrant(currentData); }
 }
 
 // v2.4: переключение вкладки графика
 function setChartTab(tab) {
   if (tab === chartTab) return;
   chartTab = tab;
-  $('tabPrice').classList.toggle('on', tab === 'price');
   $('tabQuadrant').classList.toggle('on', tab === 'quadrant');
-  $('bubbleChart').style.display = tab === 'price' ? 'block' : 'none';
   $('quadrantChart').style.display = tab === 'quadrant' ? 'block' : 'none';
-  $('chartNote').style.display = tab === 'price' ? '' : 'none';
   $('quadrantNote').style.display = tab === 'quadrant' ? '' : 'none';
-  if (currentData.length) { if (tab === 'price') renderBubble(currentData); else renderQuadrant(currentData); }
+  if (currentData.length) { renderQuadrant(currentData); }
 }
 
 const vColor = c => c === 1 ? '#2d8a4e' : c === 0 ? '#d4a017' : '#c0392b';
@@ -294,7 +288,7 @@ function applyFilters() {
   currentData.sort(cmp[sort]);
   $('countBadge').textContent = '(' + currentData.length + ' из ' + supplements.length + ')';
   renderCards(currentData);
-  if (chartTab === 'price') renderBubble(currentData); else renderQuadrant(currentData);
+  renderQuadrant(currentData);
   updateFavUI();
   // F2.2: подпись под чартом — показано N из M
   const filterParts = [];
@@ -319,8 +313,7 @@ function renderCards(data) {
     '<span class="cat">' + (s.category || '') + '</span><h3>' + s.name + '</h3>' +
     updatedLine(s) + manualBadge(s) +
     '<div class="verdict v' + s.code + '">' + s.verdict + '</div>' + gradeBadge(s) + gradeDots(s) +
-    (s.price != null
-      ? '<div class="price">' + s.price + ' ₽/мес</div>' + priceSrcLink(s)
+    (s.price != null ? ''
       : '<div class="price noPrice">цена не найдена · <a target="_blank" rel="noopener" href="' +
         'https://github.com/DeadSno/brain-25-evidence/issues/new?title=' +
         encodeURIComponent('Цена не найдена: ' + s.id) + '">предложить</a></div>') +
@@ -355,15 +348,15 @@ function openModal(id) {
 
   $('modalBody').innerHTML = '<h2>' + s.name + '</h2>' + updatedLine(s) + manualBadge(s) +
     '<div class="mrow"><span class="verdict v' + s.code + '">' + s.verdict + '</span> · ' + (s.category || '') + (s.grade ? ' · <span class="grade g' + s.grade + '">грейд ' + s.grade + '</span> · ' + (GRADE_LABEL[s.grade] || '') : '') + '</div>' + gradeDots(s) +
-    '<div class="mrow">💰 <b>' + (s.price ? s.price + ' ₽/мес' : '—') + '</b>' + priceSrcLink(s) + ' · 🔬 наука: <b>' + s.scienceIndex + '</b>' + pubmedLink(s) + ' · 📚 MA: <b>' + s.metaCount + '</b></div>' +
+    '' + ' · 🔬 наука: <b>' + s.scienceIndex + '</b>' + pubmedLink(s) + ' · 📚 MA: <b>' + s.metaCount + '</b></div>' +
     maTop3Block(s) +
     historyPriceBlock(s) +
     '<div class="mrow" style="font-size:.85rem;opacity:.9">⚠️ Проект не является медицинской рекомендацией. При болезнях, беременности и приёме лекарств — сначала к врачу.</div>' +
-    '<div class="mrow">🛒 <a class="wbLink" target="_blank" rel="noopener" href="https://www.wildberries.ru/catalog/0/search.aspx?search=' + encodeURIComponent(s.name) + '">Проверить актуальную цену на WB</a></div>' +
+    '' +
     trialsLine +
     calcLine +
     (s.citations != null ? '<div class="mrow">📖 Цитирований ключевого MA: ' + s.citations + '</div>' : '') +
-    (s.reviews != null ? '<div class="mrow">🛒 Отзывов WB: ' + s.reviews.toLocaleString('ru-RU') + ' · 📈 поиск 5 лет: ' + (s.trends ?? '—') + ' · 🌐 Wiki: ' + (s.wiki != null ? s.wiki.toLocaleString('ru-RU') : '—') + wikiLink(s) + '</div>' : '') +
+    ' · 📈 поиск 5 лет: ' + (s.trends ?? '—') + ' · 🌐 Wiki: ' + (s.wiki != null ? s.wiki.toLocaleString('ru-RU') : '—') + wikiLink(s) + '</div>' : '') +
     '<div class="mrow"><b>Эффекты:</b> ' + ((s.effects || []).join(', ') || '—') + '</div>' +
     '<div class="mrow">💊 <b>Дозировка:</b> ' + (s.dosage || '—') + '</div>' +
     '<div class="mrow">⏳ <b>Курс:</b> ' + (s.course || '—') + '</div>' +
@@ -405,10 +398,9 @@ function closeModal() {
 
 // ===== v2.6: сменная ось X графика (Цена/MА/РКИ/Год) =====
 let axisX = 'ma';
-const AXIS_IDS = { price: 'axisPrice', ma: 'axisMA', rct: 'axisRCT', year: 'axisYear' };
-const AXIS_LABEL = { price: 'Цена за месяц (₽)', ma: 'Число МА', rct: 'Число РКИ', year: 'Год последнего МА' };
+const AXIS_IDS = { ma: 'axisMA', rct: 'axisRCT', year: 'axisYear' };
+const AXIS_LABEL = { ma: 'Число МА', rct: 'Число РКИ', year: 'Год последнего МА' };
 function axisVal(s) {
-  if (axisX === 'price') return (s.price || 0) > 0 ? s.price : null;
   if (axisX === 'ma') return (s.metaCount || 0) > 0 ? s.metaCount : null;
   if (axisX === 'rct') { const r = Math.max(0, (s.scienceIndex || 0) - 5 * (s.metaCount || 0)); return r > 0 ? r : null; }
   return s.year_last_ma || null;
@@ -416,8 +408,8 @@ function axisVal(s) {
 function setAxisX(ax) {
   if (ax === axisX) return;
   axisX = ax;
-  ['price', 'ma', 'rct', 'year'].forEach(k => $(AXIS_IDS[k]).classList.toggle('on', k === ax));
-  if (currentData.length && chartTab === 'price') renderBubble(currentData);
+  ['ma', 'rct', 'year'].forEach(k => $(AXIS_IDS[k]).classList.toggle('on', k === ax));
+  if (currentData.length) renderQuadrant(currentData);
 }
 
 function gotoCompare(idA, idB) {
@@ -429,24 +421,8 @@ function gotoCompare(idA, idB) {
 }
 
 function renderBubble(data) {
-  const isPrice = axisX === 'price';
-  const priced = isPrice
-    ? data.filter(s => (s.price || 0) > 0)
-    : data.filter(s => axisVal(s) != null && axisVal(s) >= 0);
-  const nullPrice = isPrice ? data.filter(s => !((s.price || 0) > 0)) : [];
-  chartPts = priced.concat(nullPrice);
-  if (isPrice) {
-    $('chartNote').textContent = nullPrice.length
-      ? '💰 ' + nullPrice.length + ' добавок без цены — серые точки в зоне справа'
-      : '';
-  } else {
-    $('chartNote').textContent = priced.length < data.length
-      ? '⚠️ ' + (data.length - priced.length) + ' добавок без значения («' + AXIS_LABEL[axisX] + '») не показаны на графике' : '';
-  }
-  const ctx = $('bubbleChart').getContext('2d');
-  if (chartInstance) chartInstance.destroy();
-  const txt = getComputedStyle(document.body).getPropertyValue('--text');
-  const maxP = priced.reduce((m, s) => Math.max(m, s.price || 0), 0) || 1;
+  const priced = data;
+const maxP = 1;
   const band = isPrice && nullPrice.length
     ? { lo: maxP * 1.1, hi: maxP * 1.25, label: 'без цены (N=' + nullPrice.length + ')' }
     : null;
@@ -459,33 +435,7 @@ function renderBubble(data) {
         pointHoverRadius: Math.min(36, Math.sqrt(s.metaCount || 1) * 3.5)
       }))
     : [];
-  const noPriceBandPlugin = {
-    id: 'noPriceBand',
-    afterDraw(chart) {
-      const cfg = chart.config._config;
-      if (!cfg.$band) return;
-      const { lo, hi, label } = cfg.$band;
-      const xs = chart.scales.x;
-      const pxLo = xs.getPixelForValue(lo);
-      const pxHi = xs.getPixelForValue(hi);
-      const { top, bottom, left, right } = chart.chartArea;
-      const c = chart.ctx;
-      c.save();
-      c.fillStyle = 'rgba(128,128,128,.12)';
-      c.fillRect(pxLo, top, pxHi - pxLo, bottom - top);
-      c.strokeStyle = 'rgba(128,128,128,.4)';
-      c.setLineDash([4, 3]);
-      c.beginPath(); c.moveTo(pxLo, top); c.lineTo(pxLo, bottom);
-      c.moveTo(pxHi, top); c.lineTo(pxHi, bottom); c.stroke();
-      c.setLineDash([]);
-      c.fillStyle = 'rgba(128,128,128,.78)';
-      c.font = '11px sans-serif';
-      c.textAlign = 'center';
-      c.fillText(label, (pxLo + pxHi) / 2, bottom - 5);
-      c.restore();
-    }
-  };
-  chartInstance = new Chart(ctx, {
+    chartInstance = new Chart(ctx, {
     type: 'scatter',
     data: { datasets: priced.map(s => ({
       label: s.name,
@@ -509,7 +459,7 @@ function renderBubble(data) {
           callbacks: {
             label: ctx => {
               const s = chartSupByEl(ctx.chart, { datasetIndex: ctx.datasetIndex, index: ctx.dataIndex });
-              return s ? ' ' + s.name + ' · ' + (axisX === 'price' ? (s.price ?? '—') + ' ₽/мес' : AXIS_LABEL[axisX] + ': ' + axisVal(s)) + ' · ' + s.verdict : '';
+              return s ? ' ' + s.name + ' · ' + (s.scienceIndex ?? '—' : AXIS_LABEL[axisX] + ': ' + axisVal(s)) + ' · ' + s.verdict : '';
             }
           }
         }
@@ -524,7 +474,7 @@ function renderBubble(data) {
         e.native.target.style.cursor = els.length ? 'pointer' : 'default';
       }
     },
-    plugins: [noPriceBandPlugin],
+    plugins: [],
     $band: band
   });
   window.chart = chartInstance;
@@ -588,13 +538,11 @@ function renderCompare() {
   if (!a || !b) return;
   const rows = [
     ['Вердикт', a.verdict, b.verdict],
-    ['Цена (₽/мес)', a.price ?? '—', b.price ?? '—'],
-    ['₽ за единицу эффекта', ppe(a) != null ? ppe(a) : ppeReason(a), ppe(b) != null ? ppe(b) : ppeReason(b)],
     ['Индекс науки', a.scienceIndex, b.scienceIndex],
     ['Мета-анализов', a.metaCount, b.metaCount],
     ['🧪 Испытания сейчас', a.ongoing ?? '—', b.ongoing ?? '—'],
     ['Цитирований MA', a.citations ?? '—', b.citations ?? '—'],
-    ['Отзывов на WB', a.reviews ?? '—', b.reviews ?? '—'],
+    ['Отзывов', a.reviews ?? '—', b.reviews ?? '—'],
     ['Поиск (5 лет)', a.trends ?? '—', b.trends ?? '—'],
     ['Эффекты', (a.effects || []).join(', '), (b.effects || []).join(', ')],
     ['Дозировка', a.dosage ?? '—', b.dosage ?? '—'],
@@ -621,8 +569,7 @@ function renderCompare() {
     s.metaCount || 0,
     s.reviews || 0,
     s.trends || 0,
-    s.price != null ? s.price : null
-  ];
+    null ];
   const prof = s => {
     const r = rawVals(s);
     return [
@@ -630,8 +577,7 @@ function renderCompare() {
       pctile(r[1], BASE_FOR_PCT.map(x => x.metaCount)),
       pctile(r[2], BASE_FOR_PCT.map(x => x.reviews)),
       pctile(r[3], BASE_FOR_PCT.map(x => x.trends)),
-      r[4] != null ? pctile(r[4], BASE_FOR_PCT.map(x => x.price)) : 0
-      // Доступность = инверсия перцентиля цены (чем дороже — тем ниже)
+      0 // Доступность = инверсия перцентиля цены (чем дороже — тем ниже)
     ].map((p, i) => {
       if (i === 4 && r[4] != null) return 100 - p;
       return p;
