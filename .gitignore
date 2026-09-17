@@ -221,3 +221,9 @@ __marimo__/
 data/raw/pubmed/
 data/processed/all_lists.txt
 data/processed/list_pmids.py
+
+# временные хелперы для диагностики
+scripts/add_alias.py
+scripts/diag_*.py
+scripts/show_*.py
+scripts/fix_*.py
