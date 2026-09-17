@@ -5,7 +5,6 @@
   "code": 1,
   "verdict": "работает",
   "category": "Спорт/Когниция",
-  "price": 469,
   "scienceIndex": 240,
   "metaCount": 25,
   "citations": 42,
@@ -57,9 +56,6 @@
    "35984306"
   ],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "42473449",
@@ -85,7 +81,6 @@
   "code": 0,
   "verdict": "зависит от контекста",
   "category": "Сердце",
-  "price": 543,
   "scienceIndex": 862,
   "metaCount": 107,
   "citations": 0,
@@ -140,9 +135,6 @@
    "41870913"
   ],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "42614022",
@@ -168,7 +160,6 @@
   "code": 0,
   "verdict": "зависит от контекста",
   "category": "Кости/Иммунитет",
-  "price": 205,
   "scienceIndex": 610,
   "metaCount": 87,
   "citations": 0,
@@ -224,9 +215,6 @@
    "34029377"
   ],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "42700010",
@@ -252,7 +240,6 @@
   "code": 0,
   "verdict": "зависит от контекста",
   "category": "Нервная система/Кровь",
-  "price": 262,
   "scienceIndex": 374,
   "metaCount": 50,
   "citations": 1,
@@ -295,9 +282,6 @@
    "26695595"
   ],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "42669949",
@@ -323,7 +307,6 @@
   "code": 1,
   "verdict": "работает",
   "category": "Минерал/Сердце",
-  "price": 330,
   "scienceIndex": 172,
   "metaCount": 23,
   "citations": 30,
@@ -384,9 +367,6 @@
    "22318649"
   ],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "42689525",
@@ -412,7 +392,6 @@
   "code": 1,
   "verdict": "работает",
   "category": "Производительность",
-  "price": 266,
   "scienceIndex": 580,
   "metaCount": 39,
   "citations": 0,
@@ -472,10 +451,7 @@
    "42356375",
    "41945073"
   ],
-  "year_last_ma": 2026,
   "updated": "2026-09-16",
-  "price_source": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "42621780",
@@ -501,7 +477,6 @@
   "code": 1,
   "verdict": "работает",
   "category": "Когниция/Стресс",
-  "price": 709,
   "scienceIndex": 54,
   "metaCount": 2,
   "citations": 12,
@@ -546,9 +521,6 @@
    "41176609"
   ],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "42415270",
@@ -574,7 +546,6 @@
   "code": 1,
   "verdict": "работает",
   "category": "Когниция/Память",
-  "price": 398,
   "scienceIndex": 36,
   "metaCount": 2,
   "citations": 164,
@@ -626,9 +597,6 @@
   "how_to_choose": "Стандартизация 50% бакозидов; с едой (жирорастворимые).",
   "myths": "«Работает как пирацетам» — механизм другой, медленнее. «Мгновенный эффект» — 8-12 недель минимум.",
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "41678913",
@@ -649,7 +617,6 @@
   "code": -1,
   "verdict": "не подтверждено",
   "category": "Когниция/Нервная система",
-  "price": 539,
   "scienceIndex": 4,
   "metaCount": 0,
   "citations": null,
@@ -686,9 +653,6 @@
    "40959699"
   ],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [],
   "pubmed_term": "(Hericium erinaceus OR lion mane mushroom) AND (cognitive OR memory OR nerve OR BDNF)"
  },
@@ -698,7 +662,6 @@
   "code": -1,
   "verdict": "не подтверждено",
   "category": "Когниция/Сосуды",
-  "price": 326,
   "scienceIndex": 380,
   "metaCount": 47,
   "citations": 2,
@@ -751,9 +714,6 @@
   "how_to_choose": "Стандартизация 24% флавоноидов + 6% терпенов (EGb-761).",
   "myths": "«Улучшает память всем» — эффект при возрастном снижении, не у здоровых. «Безопасен с аспирином» — риск кровотечений.",
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "41678913",
@@ -779,7 +739,6 @@
   "code": 0,
   "verdict": "зависит от контекста",
   "category": "Усталость/Адаптоген",
-  "price": 299,
   "scienceIndex": 31,
   "metaCount": 4,
   "citations": 32,
@@ -831,9 +790,6 @@
   "how_to_choose": "Стандартизация 3% розавинов + 1% салидрозида; SHR-5 (шведский экстракт).",
   "myths": "«Заменит кофе» — механизм другой, не стимулятор. «Работает всем» — эффект зависит от baseline усталости.",
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "41535755",
@@ -859,7 +815,6 @@
   "code": 1,
   "verdict": "работает",
   "category": "Стресс/Адаптоген",
-  "price": null,
   "scienceIndex": 21,
   "metaCount": 2,
   "citations": 73,
@@ -916,9 +871,6 @@
   "how_to_choose": "Стандартизация 5% withanolides (KSM-66, Sensoril); корень, не листья.",
   "myths": "«Работает сразу как транквилизатор» — эффект накопительный. «Любой экстракт одинаков» — withanolides решают.",
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "42356302",
@@ -944,7 +896,6 @@
   "code": 0,
   "verdict": "зависит от контекста",
   "category": "Когниция/Дети",
-  "price": 1346,
   "scienceIndex": 35,
   "metaCount": 2,
   "citations": 14,
@@ -982,9 +933,6 @@
    "42538853"
   ],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "42497533",
@@ -1010,7 +958,6 @@
   "code": -1,
   "verdict": "не подтверждено",
   "category": "Когниция",
-  "price": 1316,
   "scienceIndex": 18,
   "metaCount": 2,
   "citations": 47,
@@ -1045,9 +992,6 @@
   "grade": "D",
   "key_sources": [],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "41362980",
@@ -1068,7 +1012,6 @@
   "code": 0,
   "verdict": "зависит от контекста",
   "category": "Когниция/Инсульт",
-  "price": 1857,
   "scienceIndex": 88,
   "metaCount": 8,
   "citations": 29,
@@ -1107,9 +1050,6 @@
    "36678257"
   ],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "42635820",
@@ -1135,7 +1075,6 @@
   "code": 0,
   "verdict": "зависит от контекста",
   "category": "Когниция/Деменция",
-  "price": 958,
   "scienceIndex": 48,
   "metaCount": 8,
   "citations": 235,
@@ -1179,9 +1118,6 @@
    "23235666"
   ],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "34924395",
@@ -1207,7 +1143,6 @@
   "code": 0,
   "verdict": "зависит от контекста",
   "category": "Воспаление/Суставы",
-  "price": 820,
   "scienceIndex": 73,
   "metaCount": 12,
   "citations": 13,
@@ -1267,9 +1202,6 @@
    "41652864"
   ],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "42711998",
@@ -1295,7 +1227,6 @@
   "code": 0,
   "verdict": "зависит от контекста",
   "category": "Антиоксидант/Метаболизм",
-  "price": 599,
   "scienceIndex": 69,
   "metaCount": 9,
   "citations": 0,
@@ -1339,9 +1270,6 @@
    "35833325"
   ],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "42451212",
@@ -1367,7 +1295,6 @@
   "code": 1,
   "verdict": "работает",
   "category": "Антиоксидант/Психиатрия",
-  "price": 1259,
   "scienceIndex": 111,
   "metaCount": 14,
   "citations": null,
@@ -1412,9 +1339,6 @@
    "42473447"
   ],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "42473447",
@@ -1440,7 +1364,6 @@
   "code": 0,
   "verdict": "зависит от контекста",
   "category": "Иммунитет/ОРВИ",
-  "price": 532,
   "scienceIndex": 318,
   "metaCount": 45,
   "citations": 1,
@@ -1493,9 +1416,6 @@
   "grade": "B",
   "key_sources": [],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "42711998",
@@ -1521,7 +1441,6 @@
   "code": -1,
   "verdict": "не подтверждено",
   "category": "Когниция/Стресс",
-  "price": 980,
   "scienceIndex": 459,
   "metaCount": 39,
   "citations": null,
@@ -1563,9 +1482,6 @@
    "25797188"
   ],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "42688407",
@@ -1591,7 +1507,6 @@
   "code": 0,
   "verdict": "зависит от контекста",
   "category": "Метаболизм/Антиоксидант",
-  "price": 526,
   "scienceIndex": 82,
   "metaCount": 7,
   "citations": 1,
@@ -1635,9 +1550,6 @@
    "40320621"
   ],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "42653271",
@@ -1663,7 +1575,6 @@
   "code": 1,
   "verdict": "работает",
   "category": "Сердце/Энергия",
-  "price": 357,
   "scienceIndex": 35,
   "metaCount": 3,
   "citations": 11,
@@ -1710,9 +1621,6 @@
    "26935713"
   ],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "42642774",
@@ -1738,7 +1646,6 @@
   "code": 0,
   "verdict": "зависит от контекста",
   "category": "Сосуды/Антиоксидант",
-  "price": 1718,
   "scienceIndex": 33,
   "metaCount": 5,
   "citations": 1,
@@ -1782,9 +1689,6 @@
    "31585179"
   ],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "39987124",
@@ -1810,7 +1714,6 @@
   "code": 0,
   "verdict": "зависит от контекста",
   "category": "Когниция/Сосуды",
-  "price": 339,
   "scienceIndex": 12,
   "metaCount": 2,
   "citations": 131,
@@ -1848,9 +1751,6 @@
    "35328954"
   ],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "33809656",
@@ -1876,7 +1776,6 @@
   "code": 1,
   "verdict": "работает",
   "category": "Сон/Циркадные ритмы",
-  "price": 284,
   "scienceIndex": 139,
   "metaCount": 11,
   "citations": null,
@@ -1934,9 +1833,6 @@
    "34999224"
   ],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "42726650",
@@ -1962,7 +1858,6 @@
   "code": -1,
   "verdict": "не подтверждено",
   "category": "Психика/Сон",
-  "price": 593,
   "scienceIndex": 7,
   "metaCount": 1,
   "citations": null,
@@ -2004,9 +1899,6 @@
    "33041752"
   ],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "42566840",
@@ -2032,7 +1924,6 @@
   "code": -1,
   "verdict": "не подтверждено",
   "category": "Нейромедиатор/Сон",
-  "price": 407,
   "scienceIndex": 22,
   "metaCount": 1,
   "citations": null,
@@ -2072,9 +1963,6 @@
   "grade": "D",
   "key_sources": [],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "42652314",
@@ -2100,7 +1988,6 @@
   "code": 0,
   "verdict": "зависит от контекста",
   "category": "Сон/Тревожность",
-  "price": 645,
   "scienceIndex": 89,
   "metaCount": 9,
   "citations": null,
@@ -2144,9 +2031,6 @@
    "17517355"
   ],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "35378276",
@@ -2172,7 +2056,6 @@
   "code": 0,
   "verdict": "зависит от контекста",
   "category": "Спорт/Выносливость",
-  "price": 228,
   "scienceIndex": 400,
   "metaCount": 45,
   "citations": null,
@@ -2210,9 +2093,6 @@
    "42370349"
   ],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "42384726",
@@ -2238,7 +2118,6 @@
   "code": 1,
   "verdict": "работает",
   "category": "Спорт/Сосуды",
-  "price": 102,
   "scienceIndex": 117,
   "metaCount": 10,
   "citations": null,
@@ -2282,9 +2161,6 @@
    "39800868"
   ],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "42382770",
@@ -2310,7 +2186,6 @@
   "code": 0,
   "verdict": "зависит от контекста",
   "category": "Иммунитет/Антиоксидант",
-  "price": 379,
   "scienceIndex": 747,
   "metaCount": 82,
   "citations": null,
@@ -2364,9 +2239,6 @@
    "28301692"
   ],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "42602406",
@@ -2392,7 +2264,6 @@
   "code": 0,
   "verdict": "зависит от контекста",
   "category": "Иммунитет/ОРВИ",
-  "price": 196,
   "scienceIndex": 81,
   "metaCount": 9,
   "citations": null,
@@ -2444,9 +2315,6 @@
   "how_to_choose": "E. purpurea (не angustifolia); спиртовой экстракт или сок.",
   "myths": "«Предотвращает простуду» — слегка сокращает длительность. «Работает всем» — эффект скромный.",
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "42528672",
@@ -2472,7 +2340,6 @@
   "code": 1,
   "verdict": "работает",
   "category": "Иммунитет/ОРВИ",
-  "price": 365,
   "scienceIndex": 14,
   "metaCount": 1,
   "citations": null,
@@ -2510,9 +2377,6 @@
    "30670267"
   ],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "35597998",
@@ -2538,7 +2402,6 @@
   "code": 1,
   "verdict": "работает",
   "category": "Психика/Депрессия",
-  "price": 241,
   "scienceIndex": 218,
   "metaCount": 31,
   "citations": null,
@@ -2590,9 +2453,6 @@
    "28064110"
   ],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "40083108",
@@ -2618,7 +2478,6 @@
   "code": -1,
   "verdict": "не подтверждено",
   "category": "Психика/Депрессия",
-  "price": 635,
   "scienceIndex": 37,
   "metaCount": 2,
   "citations": null,
@@ -2661,9 +2520,6 @@
    "31504850"
   ],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "31504850",
@@ -2689,7 +2545,6 @@
   "code": 1,
   "verdict": "работает",
   "category": "Кожа/Суставы",
-  "price": 166,
   "scienceIndex": 69,
   "metaCount": 4,
   "citations": null,
@@ -2736,9 +2591,6 @@
   "how_to_choose": "Гидролизат (пептиды), не желатин; типы I+III (кожа), II (суставы); с витамином C.",
   "myths": "«Желатин равноценен» — пептиды всасываются лучше. «Работает сразу» — 8-12 недель минимум.",
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "42709270",
@@ -2764,7 +2616,6 @@
   "code": 0,
   "verdict": "зависит от контекста",
   "category": "ЖКТ",
-  "price": 1672,
   "scienceIndex": 2059,
   "metaCount": 238,
   "citations": null,
@@ -2816,9 +2667,6 @@
    "40931979"
   ],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "42688031",
@@ -2844,7 +2692,6 @@
   "code": 1,
   "verdict": "работает",
   "category": "Беременность/Кровь",
-  "price": 281,
   "scienceIndex": 96,
   "metaCount": 13,
   "citations": null,
@@ -2888,9 +2735,6 @@
    "23543547"
   ],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "42490840",
@@ -2916,7 +2760,6 @@
   "code": 1,
   "verdict": "работает",
   "category": "Кровь/Анемия",
-  "price": 651,
   "scienceIndex": 1873,
   "metaCount": 197,
   "citations": null,
@@ -2970,9 +2813,6 @@
    "27087396"
   ],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "42720098",
@@ -2998,7 +2838,6 @@
   "code": 1,
   "verdict": "работает",
   "category": "Психика/Сон",
-  "price": 591,
   "scienceIndex": 72,
   "metaCount": 5,
   "citations": null,
@@ -3036,9 +2875,6 @@
    "32272859"
   ],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "42687557",
@@ -3064,7 +2900,6 @@
   "code": 0,
   "verdict": "зависит от контекста",
   "category": "Суставы/Остеоартрит",
-  "price": 478,
   "scienceIndex": 182,
   "metaCount": 26,
   "citations": null,
@@ -3108,9 +2943,6 @@
    "29713967"
   ],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "40005447",
@@ -3136,7 +2968,6 @@
   "code": 0,
   "verdict": "зависит от контекста",
   "category": "Антиоксидант/Неврология",
-  "price": 246,
   "scienceIndex": 14,
   "metaCount": 1,
   "citations": null,
@@ -3180,9 +3011,6 @@
    "29341067"
   ],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "42421296",
@@ -3208,7 +3036,6 @@
   "code": -1,
   "verdict": "не подтверждено",
   "category": "Кожа/Волосы",
-  "price": 605,
   "scienceIndex": 9,
   "metaCount": 1,
   "citations": null,
@@ -3243,9 +3070,6 @@
   "grade": "D",
   "key_sources": [],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "41124782",
@@ -3271,7 +3095,6 @@
   "code": 0,
   "verdict": "зависит от контекста",
   "category": "Неврология/Спорт",
-  "price": 466,
   "scienceIndex": 804,
   "metaCount": 92,
   "citations": null,
@@ -3315,9 +3138,6 @@
    "38594107"
   ],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "41177307",
@@ -3343,7 +3163,6 @@
   "code": 0,
   "verdict": "зависит от контекста",
   "category": "Печень/Спорт",
-  "price": 177,
   "scienceIndex": 5,
   "metaCount": 0,
   "citations": null,
@@ -3382,9 +3201,6 @@
    "26377410"
   ],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "42162431",
@@ -3410,7 +3226,6 @@
   "code": 0,
   "verdict": "зависит от контекста",
   "category": "Сосуды/Беременность",
-  "price": 230,
   "scienceIndex": 2,
   "metaCount": 0,
   "citations": null,
@@ -3454,9 +3269,6 @@
    "28399330"
   ],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "42520885",
@@ -3482,7 +3294,6 @@
   "code": 0,
   "verdict": "зависит от контекста",
   "category": "Кости/Беременность",
-  "price": 280,
   "scienceIndex": 425,
   "metaCount": 46,
   "citations": null,
@@ -3535,9 +3346,6 @@
    "35014026"
   ],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "42703738",
@@ -3563,7 +3371,6 @@
   "code": 0,
   "verdict": "зависит от контекста",
   "category": "Суставы/Кожа",
-  "price": 779,
   "scienceIndex": 2168,
   "metaCount": 266,
   "citations": null,
@@ -3602,9 +3409,6 @@
    "40069655"
   ],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "42402428",
@@ -3630,7 +3434,6 @@
   "code": 1,
   "verdict": "работает",
   "category": "ЖКТ/Метаболизм",
-  "price": 42,
   "scienceIndex": 214,
   "metaCount": 23,
   "citations": null,
@@ -3677,9 +3480,6 @@
   "how_to_choose": "Шелуха (husk), не цельные семена; порошок или капсулы.",
   "myths": "«Заменит овощи» — клетчатка есть, но нет витаминов. «Работает без воды» — без воды запор.",
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "42687548",
@@ -3705,7 +3505,6 @@
   "code": 1,
   "verdict": "работает",
   "category": "ЖКТ/Метаболизм",
-  "price": 135,
   "scienceIndex": 44,
   "metaCount": 6,
   "citations": null,
@@ -3757,9 +3556,6 @@
   "how_to_choose": "Стандартизация 5% гингеролов; капсулы или свежий корень.",
   "myths": "«Лечит простуду» — облегчает симптомы, не лечит. «Безопасен с антикоагулянтами» — риск кровотечений.",
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "42566667",
@@ -3785,7 +3581,6 @@
   "code": 1,
   "verdict": "работает",
   "category": "Сосуды/Метаболизм",
-  "price": 318,
   "scienceIndex": 1,
   "metaCount": 0,
   "citations": null,
@@ -3837,9 +3632,6 @@
   "how_to_choose": "Стандартизация 1.3% аллицина; aged garlic extract (AGE) лучше переносится.",
   "myths": "«Заменит статины» — эффект скромный. «Свежий чеснок равноценен» — добавки стабильнее.",
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "31660038",
@@ -3865,7 +3657,6 @@
   "code": 0,
   "verdict": "зависит от контекста",
   "category": "Мочеполовая система",
-  "price": null,
   "scienceIndex": 25,
   "metaCount": 3,
   "citations": null,
@@ -3902,9 +3693,6 @@
    "41676867"
   ],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "39579122",
@@ -3930,7 +3718,6 @@
   "code": -1,
   "verdict": "не подтверждено",
   "category": "Сердце/Растения",
-  "price": null,
   "scienceIndex": 23,
   "metaCount": 4,
   "citations": null,
@@ -3970,9 +3757,6 @@
   "grade": "D",
   "key_sources": [],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "40527062",
@@ -3998,7 +3782,6 @@
   "code": 1,
   "verdict": "работает",
   "category": "Сердце/Растения",
-  "price": null,
   "scienceIndex": 77,
   "metaCount": 7,
   "citations": null,
@@ -4041,9 +3824,6 @@
    "12798455"
   ],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "42521227",
@@ -4069,7 +3849,6 @@
   "code": 1,
   "verdict": "работает",
   "category": "Метаболизм/Холестерин",
-  "price": null,
   "scienceIndex": 81,
   "metaCount": 8,
   "citations": null,
@@ -4106,9 +3885,6 @@
    "35631184"
   ],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "41362998",
@@ -4134,7 +3910,6 @@
   "code": 1,
   "verdict": "работает",
   "category": "Неврология/Метаболизм",
-  "price": null,
   "scienceIndex": 5,
   "metaCount": 1,
   "citations": null,
@@ -4172,9 +3947,6 @@
    "28485121"
   ],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "41123035",
@@ -4200,7 +3972,6 @@
   "code": 1,
   "verdict": "работает",
   "category": "Глаза/Зрение",
-  "price": 536,
   "scienceIndex": 3,
   "metaCount": 0,
   "citations": null,
@@ -4239,9 +4010,6 @@
    "40292760"
   ],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "40292760",
@@ -4267,7 +4035,6 @@
   "code": 0,
   "verdict": "зависит от контекста",
   "category": "Женское здоровье/СПКЯ",
-  "price": 783,
   "scienceIndex": 292,
   "metaCount": 40,
   "citations": null,
@@ -4306,9 +4073,6 @@
    "41792927"
   ],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "42490840",
@@ -4334,7 +4098,6 @@
   "code": 1,
   "verdict": "работает",
   "category": "Неврология/Метаболизм",
-  "price": null,
   "scienceIndex": 95,
   "metaCount": 11,
   "citations": null,
@@ -4378,9 +4141,6 @@
    "37933068"
   ],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "42643396",
@@ -4406,7 +4166,6 @@
   "code": -1,
   "verdict": "не подтверждено",
   "category": "Мочеполовая система",
-  "price": null,
   "scienceIndex": 29,
   "metaCount": 3,
   "citations": null,
@@ -4441,9 +4200,6 @@
   "grade": "D",
   "key_sources": [],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "42437309",
@@ -4469,7 +4225,6 @@
   "code": 0,
   "verdict": "зависит от контекста",
   "category": "Сексуальное здоровье/Энергия",
-  "price": 76,
   "scienceIndex": 1,
   "metaCount": 0,
   "citations": null,
@@ -4507,9 +4262,6 @@
    "21840656"
   ],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "42356395",
@@ -4530,7 +4282,6 @@
   "code": 0,
   "verdict": "зависит от контекста",
   "category": "Метаболизм/Диабет",
-  "price": 205,
   "scienceIndex": 26,
   "metaCount": 1,
   "citations": null,
@@ -4569,9 +4320,6 @@
    "41067797"
   ],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "41651358",
@@ -4597,7 +4345,6 @@
   "code": 0,
   "verdict": "зависит от контекста",
   "category": "Антиоксидант/Кожа",
-  "price": 882,
   "scienceIndex": 79,
   "metaCount": 8,
   "citations": null,
@@ -4636,9 +4383,6 @@
    "42197030"
   ],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "42197030",
@@ -4664,7 +4408,6 @@
   "code": 0,
   "verdict": "зависит от контекста",
   "category": "Печень",
-  "price": null,
   "scienceIndex": 2,
   "metaCount": 0,
   "citations": null,
@@ -4703,9 +4446,6 @@
    "39855603"
   ],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "40886393",
@@ -4731,7 +4471,6 @@
   "code": 1,
   "verdict": "работает",
   "category": "Иммунитет/Дети",
-  "price": null,
   "scienceIndex": 23,
   "metaCount": 2,
   "citations": null,
@@ -4773,9 +4512,6 @@
    "39841980"
   ],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "42227920",
@@ -4801,7 +4537,6 @@
   "code": 1,
   "verdict": "работает",
   "category": "Психика/Суставы",
-  "price": 3023,
   "scienceIndex": 110,
   "metaCount": 12,
   "citations": null,
@@ -4840,9 +4575,6 @@
    "39519500"
   ],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "40014460",
@@ -4868,7 +4600,6 @@
   "code": -1,
   "verdict": "не подтверждено",
   "category": "Сексуальное здоровье",
-  "price": null,
   "scienceIndex": 52,
   "metaCount": 6,
   "citations": null,
@@ -4908,9 +4639,6 @@
   "grade": "D",
   "key_sources": [],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "42190597",
@@ -4936,7 +4664,6 @@
   "code": 0,
   "verdict": "зависит от контекста",
   "category": "Метаболизм/Сексуальное здоровье",
-  "price": null,
   "scienceIndex": 88,
   "metaCount": 13,
   "citations": null,
@@ -4978,9 +4705,6 @@
    "24438170"
   ],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "41539457",
@@ -5006,7 +4730,6 @@
   "code": 0,
   "verdict": "зависит от контекста",
   "category": "Воспаление/Метаболизм",
-  "price": null,
   "scienceIndex": 1,
   "metaCount": 0,
   "citations": null,
@@ -5050,9 +4773,6 @@
    "31892440"
   ],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "42522800",
@@ -5078,7 +4798,6 @@
   "code": -1,
   "verdict": "не подтверждено",
   "category": "Сексуальное здоровье/Спорт",
-  "price": 666,
   "scienceIndex": 2,
   "metaCount": 0,
   "citations": null,
@@ -5113,9 +4832,6 @@
   "grade": "D",
   "key_sources": [],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "40360723",
@@ -5141,7 +4857,6 @@
   "code": -1,
   "verdict": "не подтверждено",
   "category": "Старение/Метаболизм",
-  "price": null,
   "scienceIndex": 5,
   "metaCount": 1,
   "citations": null,
@@ -5180,9 +4895,6 @@
    "40275690"
   ],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "40275690",
@@ -5198,7 +4910,6 @@
   "code": 1,
   "verdict": "работает",
   "category": "Почки/Выносливость",
-  "price": 386,
   "scienceIndex": 35,
   "metaCount": 5,
   "citations": null,
@@ -5237,9 +4948,6 @@
    "28137532"
   ],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "39460586",
@@ -5265,7 +4973,6 @@
   "code": 0,
   "verdict": "зависит от контекста",
   "category": "Иммунитет/Грибы",
-  "price": null,
   "scienceIndex": 18,
   "metaCount": 2,
   "citations": null,
@@ -5308,9 +5015,6 @@
    "22696372"
   ],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "32325828",
@@ -5336,7 +5040,6 @@
   "code": -1,
   "verdict": "не подтверждено",
   "category": "Антиоксидант",
-  "price": 448,
   "scienceIndex": 95,
   "metaCount": 17,
   "citations": null,
@@ -5371,9 +5074,6 @@
   "grade": "D",
   "key_sources": [],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "42384465",
@@ -5399,7 +5099,6 @@
   "code": 1,
   "verdict": "работает",
   "category": "Спорт/Мышцы",
-  "price": null,
   "scienceIndex": 97,
   "metaCount": 11,
   "citations": null,
@@ -5438,9 +5137,6 @@
    "35871954"
   ],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "42700006",
@@ -5466,7 +5162,6 @@
   "code": 0,
   "verdict": "зависит от контекста",
   "category": "Критические состояния/Спорт",
-  "price": 165,
   "scienceIndex": 437,
   "metaCount": 34,
   "citations": null,
@@ -5504,9 +5199,6 @@
    "11687112"
   ],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "42340705",
@@ -5532,7 +5224,6 @@
   "code": 1,
   "verdict": "работает",
   "category": "Воспаление/Суставы",
-  "price": null,
   "scienceIndex": 38,
   "metaCount": 5,
   "citations": null,
@@ -5575,9 +5266,6 @@
    "41082950"
   ],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "41082950",
@@ -5603,7 +5291,6 @@
   "code": 0,
   "verdict": "зависит от контекста",
   "category": "Кости/Сосуды",
-  "price": null,
   "scienceIndex": 1,
   "metaCount": 0,
   "citations": null,
@@ -5645,9 +5332,6 @@
    "25516361"
   ],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "41388930",
@@ -5673,7 +5357,6 @@
   "code": 1,
   "verdict": "работает",
   "category": "Метаболизм/Диабет",
-  "price": null,
   "scienceIndex": 67,
   "metaCount": 10,
   "citations": null,
@@ -5730,9 +5413,6 @@
   "how_to_choose": "Berberine HCl или phytosome; 500 мг 3 раза/сут с едой.",
   "myths": "«Заменит метформин» — эффект схож, но данных меньше. «Безопасен со статинами» — взаимодействие.",
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "42213651",
@@ -5758,7 +5438,6 @@
   "code": 1,
   "verdict": "работает",
   "category": "Антиоксидант/Воспаление",
-  "price": null,
   "scienceIndex": 12,
   "metaCount": 1,
   "citations": null,
@@ -5802,9 +5481,6 @@
    "22805526"
   ],
   "updated": "2026-09-16",
-  "price_source": null,
-  "year_last_ma": null,
-  "price_date": "дата неизвестна",
   "ma_top3": [
    {
     "pmid": "42284759",

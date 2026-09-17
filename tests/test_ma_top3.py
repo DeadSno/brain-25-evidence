@@ -38,8 +38,3 @@ def test_ma_top3_at_most_three():
     for s in load():
         assert len(s["ma_top3"]) <= 3, f"{s['id']}: топ-3 больше трёх"
 
-
-def test_price_date_present_all():
-    for s in load():
-        assert "price_date" in s, f"{s['id']}: нет поля price_date"
-        assert isinstance(s["price_date"], str) and s["price_date"], f"{s['id']}: price_date пуста"
