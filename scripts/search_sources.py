@@ -128,6 +128,13 @@ MANUAL_PMIDS: dict[str, list[str]] = {
         "39683633",  # acute Alpha-GPC healthy men, RCT 2024
         "38875437",  # + donepezil combo, RCT 2024
     ],
+    "B12": [
+        "38231320",  # routes of supplementation, SR+NMA 2024
+        "39373282",  # B12 status in adult vegans, SR+MA 2024
+        "38189492",  # pregnancy, Cochrane SR 2024
+        "37060552",  # PPI-induced deficiency, SR+MA 2023
+        "33809274",  # cognition, depression, fatigue, SR+MA 2021
+    ],
     "Цинк": [
         "38719213",  # common cold, Cochrane 2024
         "39641338",  # diarrhoea in children, SR+MA 2024
@@ -193,6 +200,7 @@ PUBMED_QUERIES: dict[str, str] = {
     "Гинкго":    '(ginkgo biloba[tiab]) AND (supplement*[tiab] OR extract[tiab])',
     "Alpha-GPC": '(alpha-glycerylphosphorylcholine[tiab] OR choline alphoscerate[tiab] OR choline alfoscerate[tiab])',
     "Цинк":      '(zinc[tiab]) AND (supplement*[tiab] OR deficiency[tiab] OR immune[tiab])',
+    "B12":       '(vitamin b12[tiab] OR cobalamin[tiab] OR cyanocobalamin[tiab]) AND (deficiency[tiab] OR supplement*[tiab] OR cognitive[tiab])',
     "Глицин":    '(glycine[tiab]) AND (supplement*[tiab] OR sleep[tiab] OR cognitive[tiab])',
     "Биотин":    '(biotin[tiab] OR "vitamin B7"[tiab]) AND (supplement*[tiab] OR deficiency[tiab])',
     "Пустырник": '(leonurus[tiab] OR "motherwort"[tiab]) AND (anxiolytic[tiab] OR sedative[tiab] OR cardiac[tiab])',
@@ -209,6 +217,9 @@ ALIASES: dict[str, str] = {
     "alpha-gpc": "Alpha-GPC",
     "alpha_gpc": "Alpha-GPC",
     "alphagpc": "Alpha-GPC",
+    "b12": "B12",
+    "vitamin-b12": "B12",
+    "cobalamin": "B12",
     "zinc": "Цинк",
     "glycine": "Глицин",
     "biotin": "Биотин",
@@ -231,6 +242,7 @@ TITLE_TERMS: dict[str, tuple[str, ...]] = {
         "choline alphoscerate", "choline alfoscerate", "cholinergic precursor",
     ),
     "Цинк":      ("zinc",),
+    "B12":       ("vitamin b12", "cobalamin", "cyanocobalamin"),
     "Глицин":    ("glycine", "glynac"),
     "Биотин":    ("biotin", "vitamin b7"),
     "Пустырник": ("leonurus cardiaca", "motherwort"),
@@ -459,11 +471,18 @@ def cmd_search(name: str) -> int:
 
 def cmd_all_missing() -> int:
     data = json.loads(DATA_JSON.read_text(encoding="utf-8"))
-    missing = [s for s in data if not s.get("key_sources")]
-    print(f"Обрабатываю {len(missing)} карточек...\n")
+
+    # Обрабатываем две группы:
+    # 1) карточки без key_sources — изначально пустые
+    # 2) карточки с MANUAL_PMIDS — пересборка, чтобы применить свежий curated-набор
+    def _needs_rebuild(s: dict) -> bool:
+        return (not s.get("key_sources")) or (resolve_manual(s.get("id", "")) is not None)
+
+    cards = [s for s in data if _needs_rebuild(s)]
+    print(f"Обрабатываю {len(cards)} карточек...\n")
 
     out: dict[str, list[dict]] = {}
-    for s in missing:
+    for s in cards:
         sid = s.get("id", "?")
         print(f"— {sid}")
         try:

@@ -147,7 +147,7 @@ def render_card(s: dict, evidence: dict[str, dict[str, str]]) -> str:
 
 def process_card(s: dict) -> Path:
     """Обрабатывает одну карточку → сохраняет артефакт."""
-    pmids = [str(p) for p in (s.get("key_sources") or [])]
+    pmids = [str(k.get("pmid") if isinstance(k, dict) else k) for k in (s.get("key_sources") or []) if (k.get("pmid") if isinstance(k, dict) else k)]
     if not pmids:
         content = f"# Evidence check: {s['name']} (`{s['id']}`)\n\n⚠️ **Нет key_sources** — нечего проверять.\n"
         out = OUT_DIR / f"{safe_name(s['id'])}.md"
