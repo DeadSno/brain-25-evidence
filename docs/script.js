@@ -152,13 +152,8 @@ fetch('data.json?ts=' + Date.now())
 function initApp() {
   BEST = supplements.filter(s => s.scienceIndex != null).sort((x, y) => y.scienceIndex - x.scienceIndex).slice(0, 3).map(s => s.id);
   const saved = localStorage.getItem('theme');
-if (saved === 'light') setDark(false);
-else if (saved === 'dark') setDark(true);
-else {
-  // Пользователь не выбирал — уважаем prefers-color-scheme
-  const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
-  setDark(!prefersLight);
-}   // v1.3: по умолчанию тёмная; светлая — только по выбору
+// По умолчанию — тёмная. Светлая только если пользователь выбрал вручную.
+if (saved !== 'light') setDark(true);   // v1.3: по умолчанию тёмная; светлая — только по выбору
   [...new Set(supplements.map(s => s.category).filter(Boolean))].sort()
     .forEach(c => $('categoryFilter').add(new Option(c, c)));
   supplements.forEach(s => { $('compareSelect1').add(new Option(s.name, s.id)); $('compareSelect2').add(new Option(s.name, s.id)); });
