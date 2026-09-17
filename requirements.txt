@@ -1,3 +1,5 @@
+# Runtime-зависимости для скриптов (fetch_meta.py, build_ma_timeline.py и т.п.)
+# ля тестов достаточно requirements-dev.txt
 pandas
 numpy
 matplotlib
