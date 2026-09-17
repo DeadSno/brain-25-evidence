@@ -362,3 +362,8 @@ body.dark a.btn{text-decoration:none}
 .verdict.v1  { background: #22c55e !important; }
 .verdict.v0  { background: #f59e0b !important; }
 .verdict.v-1 { background: #ef4444 !important; }
+
+/* v3.1: плоские цвета вердиктов */
+.verdict.v1  { background: #22c55e !important; }
+.verdict.v0  { background: #f59e0b !important; }
+.verdict.v-1 { background: #ef4444 !important; }
