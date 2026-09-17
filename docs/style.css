@@ -210,7 +210,6 @@ position:sticky;top:0;z-index:1000;animation:fadeIn .25s}
 .cblock{border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem;background:var(--bg)}
 .cblock h4{font-size:.8rem;font-weight:700;opacity:.65;text-transform:uppercase;letter-spacing:.03em;margin-bottom:.2rem}
 .cblock[data-block-key="evidence"] h4{font-size:1.05rem;opacity:.95}
-.cblock[data-block-key="price"] h4{font-size:.8rem}
 .cbbody{font-size:.92rem}
 .cbEmpty{opacity:.55;font-style:italic}
 .hline{margin-top:.25rem;opacity:.85}
@@ -244,11 +243,6 @@ position:sticky;top:0;z-index:1000;animation:fadeIn .25s}
   padding:.45rem .5rem;letter-spacing:.02em}
 
 /* ===== v2.6: 5-точечный бейдж доверия (грейд) ===== */
-.gdots{display:inline-flex;gap:3px;vertical-align:middle;margin-left:.35rem}
-.gdots i{width:10px;height:10px;border-radius:50%;background:#bdc3c7;display:inline-block}
-.gdots i.on{box-shadow:0 0 4px rgba(0,0,0,.25)}
-.vwait{font-size:.72rem;opacity:.6;margin-left:.4rem;font-style:italic}
-
 /* ===== v2.6: ручная вычитка ===== */
 .manual-badge{display:inline-flex;align-items:center;gap:.25rem;font-size:.68rem;font-weight:700;
   padding:.15rem .5rem;border-radius:999px;border:1px solid var(--border);color:var(--text);
@@ -358,3 +352,8 @@ body.dark a.btn{text-decoration:none}
 /* v3.1: плоские цвета вердиктов */
 
 /* v3.1: плоские цвета вердиктов */
+
+.cgroup{margin-bottom:1.2rem}
+.cgTitle{font-size:1rem;font-weight:700;padding:.5rem .8rem;margin-bottom:.4rem;
+  background:var(--card-bg);border-left:3px solid var(--accent);border-radius:4px;
+  opacity:.9}
