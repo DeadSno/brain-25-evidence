@@ -184,7 +184,6 @@ function initApp() {
   if (deep && supplements.some(s => s.id === deep)) setTimeout(() => openModal(deep), 300);
   applyFilters(); renderCompare(); checkInteractions();
   // v2.4: вкладки графика «Цена vs наука | Квадрант доказательности»
-    $('tabQuadrant').onclick = () => setChartTab('quadrant');
   // v2.6: оси X графика
     $('axisMA').onclick = () => setAxisX('ma');
   $('axisRCT').onclick = () => setAxisX('rct');
@@ -243,7 +242,6 @@ function setDark(on) {
 function setChartTab(tab) {
   if (tab === chartTab) return;
   chartTab = tab;
-  $('tabQuadrant').classList.toggle('on', tab === 'quadrant');
   $('bubbleChart').style.display = tab === 'price' ? 'block' : 'none';
   $('quadrantChart').style.display = tab === 'quadrant' ? 'block' : 'none';
   $('chartNote').style.display = tab === 'price' ? '' : 'none';
