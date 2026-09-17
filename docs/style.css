@@ -395,3 +395,56 @@ body.dark a.btn{text-decoration:none}
   background: rgba(127,127,127,.3);
   opacity: 1;
 }
+
+/* Чипы тегов эффектов */
+.tagChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .25rem;
+  margin-top: .35rem;
+}
+.tagChip {
+  display: inline-block;
+  font-size: .7rem;
+  padding: 1px 7px;
+  border-radius: 10px;
+  background: rgba(127,127,127,.14);
+  color: inherit;
+  opacity: .8;
+  cursor: pointer;
+  user-select: none;
+  transition: background .15s, opacity .15s;
+}
+.tagChip:hover {
+  background: rgba(127,127,127,.3);
+  opacity: 1;
+}
+
+/* ????-??????? ???????? ??? ?????? ???????? */
+.tagPresets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .35rem;
+  margin: .5rem 0 .8rem;
+}
+.tagPreset {
+  font-size: .78rem;
+  padding: 3px 10px;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  background: rgba(127,127,127,.14);
+  color: inherit;
+  cursor: pointer;
+  opacity: .85;
+  transition: background .15s, opacity .15s, border-color .15s;
+}
+.tagPreset:hover {
+  background: rgba(127,127,127,.28);
+  opacity: 1;
+}
+.tagPreset.active {
+  background: rgba(80,140,220,.25);
+  border-color: rgba(80,140,220,.65);
+  opacity: 1;
+  font-weight: 600;
+}

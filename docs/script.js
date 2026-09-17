@@ -1,5 +1,7 @@
 const $ = id => document.getElementById(id);
 let supplements = [], currentData = [], chartInstance = null, radarInstance = null, onlyFavs = false;
+let effectTags = {}, effectLabels = {};
+let effectFilterCurrent = 'all';
 // v2.8.0: пресеты-тумблеры (активны независимо от ручных фильтров, комбинация — AND)
 let presetScience = false, presetVerdict = false;      // scienceSort / verdictProven
 let presetOngoing = false;
@@ -144,10 +146,19 @@ function chartSupByEl(chart, el) {
   $('cardsGrid').innerHTML = h;
 })();
 
-fetch('data.json?ts=' + Date.now())
-  .then(r => { if (!r.ok) throw new Error('no data'); return r.json(); })
-  .then(d => { supplements = d; initApp(); })
-  .catch(() => { document.body.innerHTML = '<p style="color:red">❌ Не удалось загрузить data.json</p>'; });
+const fetchJson = (url) => fetch(url + '?ts=' + Date.now())
+  .then(r => { if (!r.ok) throw new Error('no data for ' + url); return r.json(); });
+Promise.allSettled([fetchJson('data.json'), fetchJson('effect_tags.json'), fetchJson('effect_labels.json')])
+  .then(([d, tg, lb]) => {
+    if (d.status !== 'fulfilled') throw new Error('data.json ????????');
+    supplements = d.value;
+    effectTags = tg.status === 'fulfilled' ? tg.value : {};
+    effectLabels = lb.status === 'fulfilled' ? lb.value : {};
+    if (tg.status !== 'fulfilled') console.warn('[effect_tags.json] ?? ???????? ? ???? ?????????');
+    if (lb.status !== 'fulfilled') console.warn('[effect_labels.json] ?? ???????? ? ???? ?????????');
+    initApp();
+  })
+  .catch((err) => { console.error('[boot] фатально:', err); document.body.innerHTML = '<p style="color:red">❌ ' + (err && err.message ? err.message : err) + '</p>'; });
 
 function initApp() {
   BEST = supplements.filter(s => s.scienceIndex != null).sort((x, y) => y.scienceIndex - x.scienceIndex).slice(0, 3).map(s => s.id);
@@ -159,7 +170,7 @@ if (saved !== 'light') setDark(true);   // v1.3: по умолчанию тём�
   supplements.forEach(s => { $('compareSelect1').add(new Option(s.name, s.id)); $('compareSelect2').add(new Option(s.name, s.id)); });
   if (supplements.length >= 2) { $('compareSelect1').value = supplements[0].id; $('compareSelect2').value = supplements[1].id; }
   $('search').addEventListener('input', applyFilters);
-  ['verdictFilter', 'categoryFilter', 'sortSelect'].forEach(id => $(id).addEventListener('change', applyFilters));
+  ['verdictFilter', 'categoryFilter', 'sortSelect'].forEach(id => { const el = $(id); if (el) el.addEventListener('change', applyFilters); });
   document.querySelectorAll('.preset').forEach(btn => {
     btn.addEventListener('click', () => {
       const p = btn.dataset.preset;
@@ -181,6 +192,25 @@ if (saved !== 'light') setDark(true);   // v1.3: по умолчанию тём�
   $('modalOverlay').onclick = e => { if (e.target.id === 'modalOverlay') closeModal(); };
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
   document.addEventListener('click', e => {
+    const chip = e.target.closest('.tagChip');
+    if (!chip) return;
+    e.stopPropagation();
+    e.preventDefault();
+    effectFilterCurrent = chip.dataset.tag;
+    renderEffectChips();
+    applyFilters();
+  }, true);
+
+  document.addEventListener('click', e => {
+    const preset = e.target.closest('.tagPreset');
+    if (!preset) return;
+    const tag = preset.dataset.tag;
+    effectFilterCurrent = (tag === effectFilterCurrent || tag === 'all') ? 'all' : tag;
+    renderEffectChips();
+    applyFilters();
+  });
+
+  document.addEventListener('click', e => {
     const b = e.target.closest('.copyLink');
     if (!b) return;
     navigator.clipboard.writeText(b.dataset.copy).then(() => {
@@ -190,7 +220,7 @@ if (saved !== 'light') setDark(true);   // v1.3: по умолчанию тём�
   });
   const deep = decodeURIComponent(location.hash.replace('#sup=', ''));
   if (deep && supplements.some(s => s.id === deep)) setTimeout(() => openModal(deep), 300);
-  applyFilters(); renderCompare(); checkInteractions();
+  renderEffectChips(); applyFilters(); renderCompare(); checkInteractions();
   // v2.4: вкладки графика «Цена vs наука | Квадрант доказательности»
   // v2.6: оси X графика
     $('axisMA').onclick = () => setAxisX('ma');
@@ -312,11 +342,12 @@ function maTop3Block(s) {
 }
 function applyFilters() {
   const q = $('search').value.toLowerCase().trim();
-  const v = $('verdictFilter').value, c = $('categoryFilter').value, sort = presetScience ? 'science' : $('sortSelect').value;
+  const v = $('verdictFilter').value, c = $('categoryFilter').value, ef = effectFilterCurrent, sort = presetScience ? 'science' : $('sortSelect').value;
   currentData = supplements.filter(s => {
     if (presetVerdict && String(s.code) !== '1') return false;
     if (!presetVerdict && v !== 'all' && String(s.code) !== v) return false;
-    if (c !== 'all' && s.category !== c) return false;    if (presetOngoing && !((s.ongoing || 0) >= 1)) return false;
+    if (c !== 'all' && s.category !== c) return false;
+    if (ef !== 'all' && !(effectTags[s.id] || []).includes(ef)) return false;    if (presetOngoing && !((s.ongoing || 0) >= 1)) return false;
     if (q && !(s.name.toLowerCase().includes(q) || (s.effects || []).join(' ').toLowerCase().includes(q))) return false;
     return true;
   });
@@ -344,6 +375,18 @@ function applyFilters() {
   }
 }
 
+
+function renderEffectChips() {
+  const box = document.getElementById('tagPresets');
+  if (!box) return;
+  const order = ['all', ...Object.keys(effectLabels)];
+  box.innerHTML = order.map(slug => {
+    const label = slug === 'all' ? 'Все эффекты' : (effectLabels[slug] || slug);
+    const active = effectFilterCurrent === slug ? ' active' : '';
+    return '<button class="tagPreset' + active + '" data-tag="' + slug + '">' + label + '</button>';
+  }).join('');
+}
+
 function renderCards(data) {
   const g = $('cardsGrid');
   if (!data.length) { g.innerHTML = '<div class="empty">🔍 Ничего не найдено. ' +
@@ -353,7 +396,10 @@ function renderCards(data) {
     (BEST.includes(s.id) ? '<span class="bestBadge">🔬 Топ-3 по доказательности</span>' : '') +
     '<span class="cat">' + (s.category || '') + '</span><h3>' + s.name + '</h3>' +
     updatedLine(s) + manualBadge(s) +
-    '<div class="verdict v' + s.code + '">' + s.verdict + '</div>' + gradeBadge(s) +     '<div class="effects">' + (s.effects || []).map(e => '<span>' + e + '</span>').join('') + '</div></div>').join('');
+    '<div class="verdict v' + s.code + '">' + s.verdict + '</div>' + gradeBadge(s) +     '<div class="effects">' + (s.effects || []).map(e => '<span>' + e + '</span>').join('') + '</div>' +
+    '<div class="tagChips">' + (effectTags[s.id] || []).map(t =>
+      '<span class="tagChip" data-tag="' + t + '" title="' + (effectLabels[t] || t) + '">' + (effectLabels[t] || t) + '</span>'
+    ).join('') + '</div></div>').join('');
   g.querySelectorAll('.card').forEach(el => el.onclick = (e) => {
     if (e.target.closest('a')) return;
     openModal(el.dataset.id);

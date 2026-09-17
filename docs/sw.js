@@ -1,7 +1,10 @@
-/* v2.7 PWA: cache-first для статики, network-first для data.json, бейдж офлайн. */
-var CACHE_STATIC = 'v27-static';
-var CACHE_DATA = 'v27-data';
-var DATA_KEY = './data.json';
+/* v29 PWA: cache-first для статики, network-first для data.json.
+   Install через поштучный cache.add().catch() — один missing файл
+   не валит всю установку. Бамп CACHE_VERSION при изменении STATIC_ASSETS. */
+var CACHE_VERSION = 'v29';
+var CACHE_STATIC = CACHE_VERSION + '-static';
+var CACHE_DATA = CACHE_VERSION + '-data';
+var DATA_PATH = '/data.json';
 var FALLBACK_HTML = './index.html';
 
 var STATIC_ASSETS = [
@@ -9,32 +12,34 @@ var STATIC_ASSETS = [
   './map.html',
   './manifest.webmanifest',
   './pwa.js',
+  './version.js',
   './script.js',
   './style.css',
+  './effect_tags.json',
+  './effect_labels.json',
   './icons/192.png',
   './icons/512.png'
 ];
 
 function notifyOffline() {
   self.clients.matchAll().then(function (clients) {
-    clients.forEach(function (c) {
-      c.postMessage({ type: 'offline' });
-    });
+    clients.forEach(function (c) { c.postMessage({ type: 'offline' }); });
   });
 }
 
 async function networkFirstForData(req) {
   var cache = await caches.open(CACHE_DATA);
+  var dataKey = new URL(DATA_PATH, self.location.origin).toString();
   try {
-    var resp = await fetch(req);
+    var resp = await fetch(req, { cache: 'no-store' });
     if (resp && resp.ok) {
-      cache.put(DATA_KEY, resp.clone());
+      cache.put(dataKey, resp.clone());
       return resp;
     }
-    throw new Error('data.json не 200');
+    throw new Error('data.json not 200');
   } catch (err) {
     notifyOffline();
-    var cached = await cache.match(DATA_KEY);
+    var cached = await cache.match(dataKey);
     if (cached) return cached;
     return new Response('[]', {
       headers: { 'Content-Type': 'application/json; charset=utf-8', 'x-fallback': '1' }
@@ -49,10 +54,10 @@ async function cacheFirstForStatic(req) {
   try {
     var resp = await fetch(req);
     if (resp && resp.ok) {
-      cache.put(req.clone(), resp.clone());
+      cache.put(req, resp.clone());
       return resp;
     }
-    throw new Error('static не 200');
+    throw new Error('static not 200');
   } catch (err) {
     notifyOffline();
     var fallback = await cache.match(FALLBACK_HTML);
@@ -64,7 +69,13 @@ async function cacheFirstForStatic(req) {
 self.addEventListener('install', function (event) {
   event.waitUntil(
     caches.open(CACHE_STATIC).then(function (cache) {
-      return cache.addAll(STATIC_ASSETS);
+      return Promise.all(
+        STATIC_ASSETS.map(function (url) {
+          return cache.add(url).catch(function (err) {
+            console.warn('[sw] skip ' + url + ':', err.message || err);
+          });
+        })
+      );
     }).then(function () { return self.skipWaiting(); })
   );
 });
@@ -86,9 +97,10 @@ self.addEventListener('fetch', function (event) {
   if (req.method !== 'GET') return;
   var url = new URL(req.url);
   if (url.origin !== self.location.origin) return;
-  if (url.pathname.endsWith('/data.json')) {
+
+  if (url.pathname === DATA_PATH) {
     event.respondWith(networkFirstForData(req));
-    return;
+  } else {
+    event.respondWith(cacheFirstForStatic(req));
   }
-  event.respondWith(cacheFirstForStatic(req));
 });
