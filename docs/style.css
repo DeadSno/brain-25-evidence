@@ -259,9 +259,16 @@ position:sticky;top:0;z-index:1000;animation:fadeIn .25s}
 .updatedLine{font-size:.68rem;opacity:.55;display:block;margin:.1rem 0 .35rem}
 
 /* ===== v2.6: иконки источников ===== */
-.srcIcon{display:inline-block;font-size:.68rem;font-weight:700;padding:.1rem .45rem;
+.srcIcon {display:inline-block;font-size:.68rem;font-weight:700;padding:.1rem .45rem;
   border-radius:999px;background:var(--bg);border:1px solid var(--border);color:var(--text);
-  text-decoration:none;vertical-align:middle;margin-left:.25rem}
+  text-decoration:none;vertical-align:middle;margin-left:.25rem
+  display: inline-block;
+  max-width: 42ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: bottom;
+}
 .srcIcon:hover{border-color:var(--accent);color:var(--accent)}
 
 /* ===== v2.6: поделиться + сравнить в модалке ===== */
