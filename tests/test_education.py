@@ -30,7 +30,7 @@ def test_15_blocks_in_template():
 
 
 def test_empty_block_placeholder():
-    assert "данных пока нет — проверяем" in SCRIPT, "нет заглушки для пустых блоков"
+    assert "проверяемых данных по пункту нет" in SCRIPT, "нет заглушки для пустых блоков"
     assert "cbEmpty" in SCRIPT, "нет класса cbEmpty для пустых блоков"
 
 
