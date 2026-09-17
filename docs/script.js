@@ -22,6 +22,20 @@ function gradeBadge(s) {
 const GRADE_PRIOR = { A: 0, B: 1, C: 2, D: 3 };   // v2.6.1: сортировка «по грейду» A<B<C<D<нет
 
 // ===== v2.6: бейдж «ручная вычитка» (у карточек с ручным вердиктом — все вердикты ручные) =====
+// Tooltip-хелперы для метрик (наведение показывает формулу)
+function scienceSpan(s) {
+  return '<span title="Science Index = количество РКИ + 5 × количество мета-анализов. Показывает объём доказательной базы по добавке, а не силу её эффекта.">🔬 наука: ' + s.scienceIndex + '</span>';
+}
+function maSpan(s) {
+  return '<span title="Количество статей типа meta-analysis в PubMed по запросу для этой добавки. Это про объём литературы, а не про подтверждение эффекта.">📚 MA: ' + s.metaCount + '</span>';
+}
+function citationsSpan(s) {
+  if (s.citations == null) {
+    return '<span title="Цитирования не рассчитаны для этой добавки.">📖 цитирований MA: —</span>';
+  }
+  return '<span title="Сумма цитирований ключевого мета-анализа (по данным OpenAlex).">📖 цитирований MA: ' + s.citations + '</span>';
+}
+
 function manualBadge(s) {
   if (!s.verdict) return '';
   return '<span class="manual-badge" title="Вердикт выставлен вручную по топ-2 МА методологией проекта">✋ ручная вычитка</span>';
@@ -75,7 +89,7 @@ const CARDBLOCKS = [
   { key: 'what',      title: 'Что это',                    get: s => s.about || (s.effects || []).join(', ') || '' },
   { key: 'who',       title: 'Кому нужно',                 get: s => s.who_needs || s.who || '' },
   { key: 'works',     title: 'Работает ли',                get: s => '<span class="verdict v' + s.code + '">' + s.verdict + '</span> · ' + gradeBadge(s) },
-  { key: 'evidence',  title: 'На чём основано',            get: s => '<div>🔬 наука: ' + s.scienceIndex + pubmedLink(s) + ' · 📚 MA: ' + s.metaCount + ' · 📖 цитирований MA: ' + (s.citations != null ? s.citations : '—') + '</div>' +
+  { key: 'evidence',  title: 'На чём основано',            get: s => '<div>' + scienceSpan(s) + pubmedLink(s) + ' · ' + maSpan(s) + ' · ' + citationsSpan(s) + '</div>' +
     ((s.mechs || []).length ? '<div class="hline">Механизмы: ' + s.mechs.map(m => m[0]).join('; ') + '</div>' : '') },
   { key: 'how',       title: 'Как принимать',              get: s => [s.dosage, s.course].filter(Boolean).join(' · ') || '' },
   { key: 'onset',     title: 'Когда почувствую',           get: s => s.onset || '' },
@@ -360,7 +374,7 @@ function openModal(id) {
     : '';
 
   $('modalBody').innerHTML = '<h2>' + s.name + '</h2>' + updatedLine(s) + manualBadge(s) +
-    '<div class="mrow"><span class="verdict v' + s.code + '">' + s.verdict + '</span> · ' + (s.category || '') + (s.grade ? ' · <span class="grade g' + s.grade + '">грейд ' + s.grade + '</span> · ' + (GRADE_LABEL[s.grade] || '') : '') + '</div>' +     '<div class="mrow">🔬 наука: <b>' + s.scienceIndex + '</b>' + pubmedLink(s) + ' · 📚 MA: <b>' + s.metaCount + '</b></div>' +
+    '<div class="mrow"><span class="verdict v' + s.code + '">' + s.verdict + '</span> · ' + (s.category || '') + (s.grade ? ' · <span class="grade g' + s.grade + '">грейд ' + s.grade + '</span> · ' + (GRADE_LABEL[s.grade] || '') : '') + '</div>' +     '<div class="mrow">' + scienceSpan(s) + pubmedLink(s) + ' · ' + maSpan(s) + '</div>' +
     maTop3Block(s) +    trialsLine +
     calcLine +
     (s.citations != null ? '<div class="mrow">📖 Цитирований ключевого MA: ' + s.citations + '</div>' : '') +
