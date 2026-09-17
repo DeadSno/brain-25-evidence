@@ -121,7 +121,7 @@ def main() -> None:
     # ma_top3 добавляем в data.json только в случае хотя бы одного живого ответа:
     # ничего не выдумываем, пустые списки оставляем честными (0 = ещё не собрано).
     if ok:
-        DATA.write_text(json.dumps(data, ensure_ascii=False, indent=1) + "\n",
+        DATA.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n",
                         encoding="utf-8")
     print(f"done: {ok}/{len(data)} карточек получили ma_top3")
     if ok == 0:
