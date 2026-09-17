@@ -11,7 +11,7 @@ INDEX = (ROOT / "docs" / "index.html").read_text(encoding="utf-8")
 SCRIPT = (ROOT / "docs" / "script.js").read_text(encoding="utf-8")
 
 BLOCK_KEYS = ["what", "who", "works", "evidence", "how", "onset", "notwho",
-              "conflicts", "friends", "ul", "food", "official", "shop", "myths", "price"]
+              "conflicts", "friends", "ul", "food", "official", "shop", "myths"]
 
 
 def test_three_questions_in_dom():
@@ -26,7 +26,7 @@ def test_three_questions_in_dom():
 def test_15_blocks_in_template():
     for key in BLOCK_KEYS:
         assert f"key: '{key}'" in SCRIPT, f"блок {key} отсутствует в шаблоне"
-    assert SCRIPT.count("key: '") == 15, "должно быть ровно 15 блоков карточки"
+    assert SCRIPT.count("key: '") == 14, "должно быть ровно 14 блоков карточки"
 
 
 def test_empty_block_placeholder():

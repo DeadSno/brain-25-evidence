@@ -107,9 +107,7 @@ const CARDBLOCKS = [
   { key: 'food',      title: 'Можно ли из еды',            get: s => s.food_sources || s.food || '' },
   { key: 'official',  title: 'Что говорят официалы',       get: s => s.guidelines || s.official || '' },
   { key: 'shop',      title: 'Как выбрать в магазине',     get: s => s.how_to_choose || s.forms || '' },
-  { key: 'myths',     title: 'Мифы и ловушки',             get: s => s.myths || '' },
-  { key: 'price',     title: 'Сколько стоит и откуда цена', get: s => (s.price != null ? s.price + ' ₽/мес' : 'цена не найдена') +
-    priceSrcLink(s) + (s.price_source ? ' · источник: ' + s.price_source : '') }
+  { key: 'myths',     title: 'Мифы и ловушки',             get: s => s.myths || '' }
 ];
 
 function renderConflicts(s) {
