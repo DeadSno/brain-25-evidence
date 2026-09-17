@@ -6,7 +6,7 @@ let presetOngoing = false;   // priceMax / ongoingMin
 let prevSort = '';                                     // для тумблера 🏆 Топ по науке
 let prevVerdict = '';                                  // для пресета 💎 Доказано
 let chartPts = [];
-let quadrantInstance = null, chartTab = 'price';   // v2.4: вкладки графика
+let quadrantInstance = null, chartTab = 'quadrant';   // v2.4: вкладки графика
 let scrollBeforeModal = 0;
 let curModal = null;   // v2.6: id открытой модалки для «Сравнить с»
 let BEST = [];
@@ -52,7 +52,6 @@ function wikiLink(s) {
   return ' <a class="srcIcon" target="_blank" rel="noopener" title="Википедия" href="https://ru.wikipedia.org/wiki/' +
     encodeURIComponent(s.name.replace(/\+/g, ' ')) + '">Wiki ↗</a>';
 }
-function priceSrcLink(s) { return ''; }
 
 // ===== v2.6: кнопка «Нашли неточность?» (issue с добавка+поле) =====
 function issueUrl(s, field) {
@@ -243,11 +242,9 @@ function setChartTab(tab) {
 const vColor = c => c === 1 ? '#2d8a4e' : c === 0 ? '#d4a017' : '#c0392b';
 
 // ===== v2.6.1: демонтаж Value Score, честная экономика =====
-// ₽ за единицу эффекта = round(цена / Hedges' g) при обоих ненулевых;
 // иначе — честная причина, а не ноль/прочерк-обманка.
 function ppe(s) { return ''; }
 function ppeReason(s) { return ''; }
-function priceTip(s) { return ''; }
 function ppeModalLine(s) { return ''; }
 /* economicsBlock removed per v2.7.1 chunk 2 — price_per_effect gone, no "Экономика" block */
 function verifiedCount() {
@@ -266,7 +263,6 @@ function maTop3Block(s) {
      body +
      '<div class="mrow hint" style="font-size:.85rem;opacity:.9">' + note + '</div>';
 }
-function historyPriceBlock(s) { return ''; }
 
 function applyFilters() {
   const q = $('search').value.toLowerCase().trim();
@@ -313,11 +309,7 @@ function renderCards(data) {
     '<span class="cat">' + (s.category || '') + '</span><h3>' + s.name + '</h3>' +
     updatedLine(s) + manualBadge(s) +
     '<div class="verdict v' + s.code + '">' + s.verdict + '</div>' + gradeBadge(s) + gradeDots(s) +
-    (s.price != null ? ''
-      : '<div class="price noPrice">цена не найдена · <a target="_blank" rel="noopener" href="' +
-        'https://github.com/DeadSno/brain-25-evidence/issues/new?title=' +
-        encodeURIComponent('Цена не найдена: ' + s.id) + '">предложить</a></div>') +
-    '<div class="effects">' + (s.effects || []).map(e => '<span>' + e + '</span>').join('') + '</div></div>').join('');
+    
   g.querySelectorAll('.card').forEach(el => el.onclick = (e) => {
     if (e.target.closest('a')) return;
     openModal(el.dataset.id);
@@ -350,7 +342,7 @@ function openModal(id) {
     '<div class="mrow"><span class="verdict v' + s.code + '">' + s.verdict + '</span> · ' + (s.category || '') + (s.grade ? ' · <span class="grade g' + s.grade + '">грейд ' + s.grade + '</span> · ' + (GRADE_LABEL[s.grade] || '') : '') + '</div>' + gradeDots(s) +
     '' + ' · 🔬 наука: <b>' + s.scienceIndex + '</b>' + pubmedLink(s) + ' · 📚 MA: <b>' + s.metaCount + '</b></div>' +
     maTop3Block(s) +
-    historyPriceBlock(s) +
+    
     '<div class="mrow" style="font-size:.85rem;opacity:.9">⚠️ Проект не является медицинской рекомендацией. При болезнях, беременности и приёме лекарств — сначала к врачу.</div>' +
     '' +
     trialsLine +
@@ -396,7 +388,7 @@ function closeModal() {
   window.scrollTo({ top: scrollBeforeModal, behavior: 'smooth' });
 }
 
-// ===== v2.6: сменная ось X графика (Цена/MА/РКИ/Год) =====
+// ===== v2.6: сменная ось X графика (МА/РКИ/Год) =====
 let axisX = 'ma';
 const AXIS_IDS = { ma: 'axisMA', rct: 'axisRCT', year: 'axisYear' };
 const AXIS_LABEL = { ma: 'Число МА', rct: 'Число РКИ', year: 'Год последнего МА' };
@@ -418,66 +410,6 @@ function gotoCompare(idA, idB) {
   $('compareSelect2').value = idB;
   renderCompare();
   document.getElementById('compareSection').scrollIntoView({ behavior: 'smooth' });
-}
-
-function renderBubble(data) {
-  const priced = data;
-const maxP = 1;
-  const band = isPrice && nullPrice.length
-    ? { lo: maxP * 1.1, hi: maxP * 1.25, label: 'без цены (N=' + nullPrice.length + ')' }
-    : null;
-  const bandDatasets = band
-    ? nullPrice.map(s => ({
-        label: s.name,
-        data: [{ x: (band.lo + band.hi) / 2, y: Math.max(1, s.scienceIndex) }],
-        backgroundColor: 'rgba(150,150,150,.55)',
-        pointRadius: Math.min(30, Math.sqrt(s.metaCount || 1) * 2.5),
-        pointHoverRadius: Math.min(36, Math.sqrt(s.metaCount || 1) * 3.5)
-      }))
-    : [];
-    chartInstance = new Chart(ctx, {
-    type: 'scatter',
-    data: { datasets: priced.map(s => ({
-      label: s.name,
-      data: [{ x: axisVal(s), y: Math.max(1, s.scienceIndex) }],
-      backgroundColor: vColor(s.code),
-      pointRadius: Math.min(30, Math.sqrt(s.metaCount || 1) * 2.5),
-      pointHoverRadius: Math.min(36, Math.sqrt(s.metaCount || 1) * 3.5)
-    })).concat(bandDatasets) },
-    options: {
-      responsive: true, maintainAspectRatio: true,
-      scales: {
-        x: { title: { display: true, text: AXIS_LABEL[axisX], color: txt }, grid: { color: 'rgba(128,128,128,.15)' }, max: band ? band.hi * 1.02 : undefined },
-        y: { type: 'logarithmic',
-             title: { display: true, text: 'Индекс науки (лог)', color: txt },
-             grid: { color: 'rgba(128,128,128,.15)' },
-             ticks: { callback: v => [1, 10, 100, 1000, 10000].includes(v) ? v : '' } }
-      },
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          callbacks: {
-            label: ctx => {
-              const s = chartSupByEl(ctx.chart, { datasetIndex: ctx.datasetIndex, index: ctx.dataIndex });
-              return s ? ' ' + s.name + ' · ' + (s.scienceIndex ?? '—' : AXIS_LABEL[axisX] + ': ' + axisVal(s)) + ' · ' + s.verdict : '';
-            }
-          }
-        }
-      },
-      onClick: (e, els) => {
-        if (!els.length) return;
-        const s = chartSupByEl(e.chart, els[0]);
-        if (!s) return;
-        openModal(s.id);
-      },
-      onHover: (e, els) => {
-        e.native.target.style.cursor = els.length ? 'pointer' : 'default';
-      }
-    },
-    plugins: [],
-    $band: band
-  });
-  window.chart = chartInstance;
 }
 
 // ===== v2.4: квадрант доказательности (Hedges' g vs scienceIndex) =====
