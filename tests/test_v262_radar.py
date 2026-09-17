@@ -27,28 +27,22 @@ def _pctile(x, arr):
 
 
 def _prof(s):
-    """Профиль добавки s — 5 осей радара по script.js (нормировано по базе)."""
+    """Профиль добавки s — 4 оси радара по script.js (нормировано по базе)."""
     raw = [
         s.get("scienceIndex") or 0,
         s.get("metaCount") or 0,
         s.get("reviews") or 0,
         s.get("trends") or 0,
-        s.get("price"),
     ]
     arrays = [
         [x.get("scienceIndex") or 0 for x in DATA],
         [x.get("metaCount") or 0 for x in DATA],
         [x.get("reviews") or 0 for x in DATA],
         [x.get("trends") or 0 for x in DATA],
-        [x.get("price") for x in DATA],   # null → 0 в pctile (как в script.js)
     ]
     vals = []
-    for i in range(5):
-        if i == 4 and raw[i] is not None:
-            p = _pctile(raw[i], arrays[4])
-            vals.append(100 - p)
-        else:
-            vals.append(_pctile(raw[i], arrays[i]))
+    for i in range(4):
+        vals.append(_pctile(raw[i], arrays[i]))
     return vals
 
 
@@ -62,7 +56,7 @@ def test_all_supplements_radar_in_0_100():
 def test_kofein_radar_values():
     cof = next(s for s in DATA if s["id"] == "Кофеин")
     prof = _prof(cof)
-    labels = ["scienceIndex", "metaCount", "reviews", "trends", "price_inv"]
+    labels = ["scienceIndex", "metaCount", "reviews", "trends"]
     for i, v in enumerate(prof):
         assert 0 <= v <= 100, f"Кофеин {labels[i]} = {v}"
         assert v > 0, f"Кофеин {labels[i]} = 0 — likely bug in normalization"

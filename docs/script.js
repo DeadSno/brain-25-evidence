@@ -667,7 +667,7 @@ function renderCompare() {
       return p;
     });
   };
-  const PROF_LABELS = ['Наука', 'База МА', 'Спрос', 'Интерес', 'Доступность'];
+  const PROF_LABELS = ['Наука', 'База МА', 'Спрос', 'Интерес'];
   if (radarInstance) radarInstance.destroy();
   radarInstance = new Chart($('radarChart'), {
     type: 'radar',
