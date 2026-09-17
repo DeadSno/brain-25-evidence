@@ -2,11 +2,11 @@ const $ = id => document.getElementById(id);
 let supplements = [], currentData = [], chartInstance = null, radarInstance = null, onlyFavs = false;
 // v2.8.0: пресеты-тумблеры (активны независимо от ручных фильтров, комбинация — AND)
 let presetScience = false, presetVerdict = false;      // scienceSort / verdictProven
-let presetOngoing = false;   // priceMax / ongoingMin
+let presetCheap = false, presetOngoing = false;   // priceMax / ongoingMin
 let prevSort = '';                                     // для тумблера 🏆 Топ по науке
 let prevVerdict = '';                                  // для пресета 💎 Доказано
 let chartPts = [];
-let quadrantInstance = null, chartTab = 'quadrant';   // v2.4: вкладки графика
+let quadrantInstance = null, chartTab = 'price';   // v2.4: вкладки графика
 let scrollBeforeModal = 0;
 let curModal = null;   // v2.6: id открытой модалки для «Сравнить с»
 let BEST = [];
@@ -18,7 +18,20 @@ function gradeBadge(s) {
   return '<span class="grade g' + s.grade + '" title="Грейд ' + s.grade + ' — ' + (GRADE_LABEL[s.grade] || '') + '">грейд ' + s.grade + '</span>';
 }
 
+// ===== v2.6: 5-точечный бейдж доверия (по греЙду, не смешиваем силу и контекст) =====
+const DOT_FILL = { A: 4, B: 3, C: 2, D: 1 };
+const DOT_COLOR = { A: '#22c55e', B: '#84cc16', C: '#f59e0b', D: '#ef4444' };
+const DOT_TIP = "Грейд считает силу эффекта (Hedges' g) и объём науки (scienceIndex). Вердикт — ручная оценка по методологии.";
 const GRADE_PRIOR = { A: 0, B: 1, C: 2, D: 3 };   // v2.6.1: сортировка «по грейду» A<B<C<D<нет
+function gradeDots(s) {
+  const fill = s.grade ? (DOT_FILL[s.grade] || 0) : 0;
+  const color = s.grade ? (DOT_COLOR[s.grade] || '#bdc3c7') : '#bdc3c7';
+  return '<span class="gdots" title="' + DOT_TIP.replace(/"/g, '&quot;') + '">' +
+    [0, 1, 2, 3, 4].map(i =>
+      '<i class="dot' + (i < fill ? ' on' : '') + '"' + ((i < fill) ? ' style="background:' + color + '"' : '') + '></i>'
+    ).join('') + '</span>' + (s.grade ? '' : '<span class="vwait">ждёт верификации</span>');
+}
+
 // ===== v2.6: бейдж «ручная вычитка» (у карточек с ручным вердиктом — все вердикты ручные) =====
 function manualBadge(s) {
   if (!s.verdict) return '';
@@ -38,6 +51,14 @@ function pubmedLink(s) {
 function wikiLink(s) {
   return ' <a class="srcIcon" target="_blank" rel="noopener" title="Википедия" href="https://ru.wikipedia.org/wiki/' +
     encodeURIComponent(s.name.replace(/\+/g, ' ')) + '">Wiki ↗</a>';
+}
+function priceSrcLink(s) {
+  const src = s.price_source || '';
+  if (!src) return '';
+  const href = src.indexOf('Ozon') >= 0
+    ? 'https://www.ozon.ru/search/?text=' + encodeURIComponent(s.name)
+    : 'https://www.wildberries.ru/catalog/0/search.aspx?search=' + encodeURIComponent(s.name);
+  return ' <a class="srcIcon" target="_blank" rel="noopener" title="Где собираема цена" href="' + href + '">' + src + ' ↗</a>';
 }
 
 // ===== v2.6: кнопка «Нашли неточность?» (issue с добавка+поле) =====
@@ -86,18 +107,10 @@ const CARDBLOCKS = [
   { key: 'food',      title: 'Можно ли из еды',            get: s => s.food_sources || s.food || '' },
   { key: 'official',  title: 'Что говорят официалы',       get: s => s.guidelines || s.official || '' },
   { key: 'shop',      title: 'Как выбрать в магазине',     get: s => s.how_to_choose || s.forms || '' },
-  { key: 'myths',     title: 'Мифы и ловушки',             get: s => s.myths || '' }];
-
-
-const CARD_GROUPS = [
-  { title: '📋 Основное', blocks: ['what','who','works','evidence'] },
-  { title: '💊 Как принимать', blocks: ['how','onset','notwho'] },
-  { title: '⚠️ Осторожно', blocks: ['conflicts','friends','ul'] },
-  { title: '📚 Дополнительно', blocks: ['food','official','shop','myths'] }
+  { key: 'myths',     title: 'Мифы и ловушки',             get: s => s.myths || '' },
+  { key: 'price',     title: 'Сколько стоит и откуда цена', get: s => (s.price != null ? s.price + ' ₽/мес' : 'цена не найдена') +
+    priceSrcLink(s) + (s.price_source ? ' · источник: ' + s.price_source : '') }
 ];
-
-
-
 
 function renderConflicts(s) {
   const list = s.interactions || [];
@@ -105,16 +118,9 @@ function renderConflicts(s) {
   return list.map(i => '<div class="sev sev-' + i.severity + '"><b>' + i.with + '</b> · ' + i.severity + (i.note ? ' — ' + i.note : '') + '</div>').join('');
 }
 function renderCardBlocks(s) {
-  return '<div class="cblocks">' + CARD_GROUPS.map(g => {
-    const blocksHtml = g.blocks.map(k => {
-      const b = CARDBLOCKS.find(x => x.key === k);
-      if (!b) return '';
-      const content = b.get(s) || BLOCK_EMPTY;
-      const cls = (b.get(s)) ? 'cblock' : 'cblock cbEmpty';
-      return '<div class="' + cls + '" data-block-key="' + b.key + '"><h4>' + b.title + '</h4><div class="cbbody">' + content + '</div></div>';
-    }).join('');
-    return '<div class="cgroup"><div class="cgTitle">' + g.title + '</div>' + blocksHtml + '</div>';
-  }).join('') + '</div>';
+  return '<div class="cblocks">' + CARDBLOCKS.map(b =>
+    '<div class="cblock" data-block-key="' + b.key + '"><h4>' + b.title + '</h4><div class="cbbody">' +
+    (b.get(s) || BLOCK_EMPTY) + '</div></div>').join('') + '</div>';
 }
 // ===== v2.3: баннеры избранного (critical/medium/synergy) =====
 
@@ -162,7 +168,7 @@ function initApp() {
   $('themeToggle').onclick = () => { const on = !document.body.classList.contains('dark'); setDark(on); localStorage.setItem('theme', on ? 'dark' : 'light'); };
   $('compareBtn').onclick = renderCompare;
   const pageUrl = encodeURIComponent('https://deadsno.github.io/brain-25-evidence/');
-  const pageTitle = encodeURIComponent('БАДы: что работает, а что нет — 81 добавка через мета-анализы');
+  const pageTitle = encodeURIComponent('БАДы: цена vs наука — 81 добавка через мета-анализы');
   $('shareTg').href = 'https://t.me/share/url?url=' + pageUrl + '&text=' + pageTitle;
   $('shareVk').href = 'https://vk.com/share.php?url=' + pageUrl + '&title=' + pageTitle;
   $('modalClose').onclick = closeModal;
@@ -178,9 +184,12 @@ function initApp() {
   });
   const deep = decodeURIComponent(location.hash.replace('#sup=', ''));
   if (deep && supplements.some(s => s.id === deep)) setTimeout(() => openModal(deep), 300);
-  applyFilters(); renderCompare(); checkInteractions();  // v2.4: вкладка графика
-$('tabQuadrant').onclick = () => setChartTab('quadrant');
+  applyFilters(); renderCompare(); checkInteractions();
+  // v2.4: вкладки графика «Цена vs наука | Квадрант доказательности»
+  $('tabPrice').onclick = () => setChartTab('price');
+  $('tabQuadrant').onclick = () => setChartTab('quadrant');
   // v2.6: оси X графика
+  $('axisPrice').onclick = () => setAxisX('price');
   $('axisMA').onclick = () => setAxisX('ma');
   $('axisRCT').onclick = () => setAxisX('rct');
   $('axisYear').onclick = () => setAxisX('year');
@@ -231,26 +240,46 @@ $('tabQuadrant').onclick = () => setChartTab('quadrant');
 function setDark(on) {
   document.body.classList.toggle('dark', on);
   $('themeToggle').textContent = on ? '☀️ Светлая тема' : '🌙 Тёмная тема';
-  if (currentData.length) { renderQuadrant(currentData); }
+  if (currentData.length) { if (chartTab === 'price') renderBubble(currentData); else renderQuadrant(currentData); }
 }
 
 // v2.4: переключение вкладки графика
 function setChartTab(tab) {
   if (tab === chartTab) return;
   chartTab = tab;
+  $('tabPrice').classList.toggle('on', tab === 'price');
   $('tabQuadrant').classList.toggle('on', tab === 'quadrant');
+  $('bubbleChart').style.display = tab === 'price' ? 'block' : 'none';
   $('quadrantChart').style.display = tab === 'quadrant' ? 'block' : 'none';
+  $('chartNote').style.display = tab === 'price' ? '' : 'none';
   $('quadrantNote').style.display = tab === 'quadrant' ? '' : 'none';
-  if (currentData.length) { renderQuadrant(currentData); }
+  if (currentData.length) { if (tab === 'price') renderBubble(currentData); else renderQuadrant(currentData); }
 }
 
 const vColor = c => c === 1 ? '#2d8a4e' : c === 0 ? '#d4a017' : '#c0392b';
 
 // ===== v2.6.1: демонтаж Value Score, честная экономика =====
+// ₽ за единицу эффекта = round(цена / Hedges' g) при обоих ненулевых;
 // иначе — честная причина, а не ноль/прочерк-обманка.
-function ppe(s) { return ''; }
-function ppeReason(s) { return ''; }
-function ppeModalLine(s) { return ''; }
+function ppe(s) {
+  if (s.price != null && s.price > 0 && s.hedges_g != null) return Math.round(s.price / s.hedges_g);
+  return null;
+}
+function ppeReason(s) {
+  if (s.price == null) return 'цена не найдена — не считаем';
+  return 'Эффект ждёт верификации — ₽ за единицу эффекта не считаем';
+}
+function priceTip(s) {
+  const d = s.price_date || 'дата неизвестна';
+  return '<span class="priceTip" title="Цена на ' + d +
+    '; ночной сбор временно заблокирован TLS-фильтром маркетплейса, трек reliability в работе">' +
+    (s.price != null ? s.price + ' ₽/мес' : 'цена не найдена') + '</span>';
+}
+function ppeModalLine(s) {
+  const v = ppe(s);
+  if (v != null) return '<div class="mrow">📐 <b>₽ за единицу эффекта (цена / Hedges\' g):</b> ' + v + '</div>';
+  return '<div class="mrow">📐 ' + ppeReason(s) + '</div>';
+}
 /* economicsBlock removed per v2.7.1 chunk 2 — price_per_effect gone, no "Экономика" block */
 function verifiedCount() {
   return supplements.filter(x => (x.key_sources || []).length).length;
@@ -268,6 +297,10 @@ function maTop3Block(s) {
      body +
      '<div class="mrow hint" style="font-size:.85rem;opacity:.9">' + note + '</div>';
 }
+function historyPriceBlock(s) {
+  return '<div class="blockTitle">💰 История цены</div>' +
+    '<div class="mrow history-price-canvas"></div>';
+}
 
 function applyFilters() {
   const q = $('search').value.toLowerCase().trim();
@@ -276,6 +309,7 @@ function applyFilters() {
     if (presetVerdict && String(s.code) !== '1') return false;
     if (!presetVerdict && v !== 'all' && String(s.code) !== v) return false;
     if (c !== 'all' && s.category !== c) return false;
+    if (presetCheap && !(s.price != null && s.price <= 500)) return false;
     if (presetOngoing && !((s.ongoing || 0) >= 1)) return false;
     if (q && !(s.name.toLowerCase().includes(q) || (s.effects || []).join(' ').toLowerCase().includes(q))) return false;
     return true;
@@ -283,13 +317,14 @@ function applyFilters() {
   if (onlyFavs) currentData = currentData.filter(x => isFav(x.id));
   const cmp = {
     science: (a, b) => b.scienceIndex - a.scienceIndex,
+    price_asc: (a, b) => (a.price || 1e9) - (b.price || 1e9),
     name: (a, b) => a.name.localeCompare(b.name, 'ru'),
     grade: (a, b) => ((GRADE_PRIOR[a.grade] ?? 4) - (GRADE_PRIOR[b.grade] ?? 4)) || (b.scienceIndex - a.scienceIndex)
   };
   currentData.sort(cmp[sort]);
   $('countBadge').textContent = '(' + currentData.length + ' из ' + supplements.length + ')';
   renderCards(currentData);
-  renderQuadrant(currentData);
+  if (chartTab === 'price') renderBubble(currentData); else renderQuadrant(currentData);
   updateFavUI();
   // F2.2: подпись под чартом — показано N из M
   const filterParts = [];
@@ -313,8 +348,13 @@ function renderCards(data) {
     (BEST.includes(s.id) ? '<span class="bestBadge">🔬 Топ-3 по доказательности</span>' : '') +
     '<span class="cat">' + (s.category || '') + '</span><h3>' + s.name + '</h3>' +
     updatedLine(s) + manualBadge(s) +
-    '<div class="verdict v' + s.code + '">' + s.verdict + '</div>' + gradeBadge(s) +
-    
+    '<div class="verdict v' + s.code + '">' + s.verdict + '</div>' + gradeBadge(s) + gradeDots(s) +
+    (s.price != null
+      ? '<div class="price">' + s.price + ' ₽/мес</div>' + priceSrcLink(s)
+      : '<div class="price noPrice">цена не найдена · <a target="_blank" rel="noopener" href="' +
+        'https://github.com/DeadSno/brain-25-evidence/issues/new?title=' +
+        encodeURIComponent('Цена не найдена: ' + s.id) + '">предложить</a></div>') +
+    '<div class="effects">' + (s.effects || []).map(e => '<span>' + e + '</span>').join('') + '</div></div>').join('');
   g.querySelectorAll('.card').forEach(el => el.onclick = (e) => {
     if (e.target.closest('a')) return;
     openModal(el.dataset.id);
@@ -344,16 +384,16 @@ function openModal(id) {
     : '';
 
   $('modalBody').innerHTML = '<h2>' + s.name + '</h2>' + updatedLine(s) + manualBadge(s) +
-    '<div class="mrow"><span class="verdict v' + s.code + '">' + s.verdict + '</span> · ' + (s.category || '') + (s.grade ? ' · <span class="grade g' + s.grade + '">грейд ' + s.grade + '</span> · ' + (GRADE_LABEL[s.grade] || '') : '') + '</div>' +
-    '' + ' · 🔬 наука: <b>' + s.scienceIndex + '</b>' + pubmedLink(s) + ' · 📚 MA: <b>' + s.metaCount + '</b></div>' +
+    '<div class="mrow"><span class="verdict v' + s.code + '">' + s.verdict + '</span> · ' + (s.category || '') + (s.grade ? ' · <span class="grade g' + s.grade + '">грейд ' + s.grade + '</span> · ' + (GRADE_LABEL[s.grade] || '') : '') + '</div>' + gradeDots(s) +
+    '<div class="mrow">💰 <b>' + (s.price ? s.price + ' ₽/мес' : '—') + '</b>' + priceSrcLink(s) + ' · 🔬 наука: <b>' + s.scienceIndex + '</b>' + pubmedLink(s) + ' · 📚 MA: <b>' + s.metaCount + '</b></div>' +
     maTop3Block(s) +
-    
+    historyPriceBlock(s) +
     '<div class="mrow" style="font-size:.85rem;opacity:.9">⚠️ Проект не является медицинской рекомендацией. При болезнях, беременности и приёме лекарств — сначала к врачу.</div>' +
-    '' +
+    '<div class="mrow">🛒 <a class="wbLink" target="_blank" rel="noopener" href="https://www.wildberries.ru/catalog/0/search.aspx?search=' + encodeURIComponent(s.name) + '">Проверить актуальную цену на WB</a></div>' +
     trialsLine +
     calcLine +
     (s.citations != null ? '<div class="mrow">📖 Цитирований ключевого MA: ' + s.citations + '</div>' : '') +
-    ' · 📈 поиск 5 лет: ' + (s.trends ?? '—') + ' · 🌐 Wiki: ' + (s.wiki != null ? s.wiki.toLocaleString('ru-RU') : '—') + wikiLink(s) + '</div>' : '') +
+    (s.reviews != null ? '<div class="mrow">🛒 Отзывов WB: ' + s.reviews.toLocaleString('ru-RU') + ' · 📈 поиск 5 лет: ' + (s.trends ?? '—') + ' · 🌐 Wiki: ' + (s.wiki != null ? s.wiki.toLocaleString('ru-RU') : '—') + wikiLink(s) + '</div>' : '') +
     '<div class="mrow"><b>Эффекты:</b> ' + ((s.effects || []).join(', ') || '—') + '</div>' +
     '<div class="mrow">💊 <b>Дозировка:</b> ' + (s.dosage || '—') + '</div>' +
     '<div class="mrow">⏳ <b>Курс:</b> ' + (s.course || '—') + '</div>' +
@@ -393,11 +433,12 @@ function closeModal() {
   window.scrollTo({ top: scrollBeforeModal, behavior: 'smooth' });
 }
 
-// ===== v2.6: сменная ось X графика (МА/РКИ/Год) =====
+// ===== v2.6: сменная ось X графика (Цена/MА/РКИ/Год) =====
 let axisX = 'ma';
-const AXIS_IDS = { ma: 'axisMA', rct: 'axisRCT', year: 'axisYear' };
-const AXIS_LABEL = { ma: 'Число МА', rct: 'Число РКИ', year: 'Год последнего МА' };
+const AXIS_IDS = { price: 'axisPrice', ma: 'axisMA', rct: 'axisRCT', year: 'axisYear' };
+const AXIS_LABEL = { price: 'Цена за месяц (₽)', ma: 'Число МА', rct: 'Число РКИ', year: 'Год последнего МА' };
 function axisVal(s) {
+  if (axisX === 'price') return (s.price || 0) > 0 ? s.price : null;
   if (axisX === 'ma') return (s.metaCount || 0) > 0 ? s.metaCount : null;
   if (axisX === 'rct') { const r = Math.max(0, (s.scienceIndex || 0) - 5 * (s.metaCount || 0)); return r > 0 ? r : null; }
   return s.year_last_ma || null;
@@ -405,8 +446,8 @@ function axisVal(s) {
 function setAxisX(ax) {
   if (ax === axisX) return;
   axisX = ax;
-  ['ma', 'rct', 'year'].forEach(k => $(AXIS_IDS[k]).classList.toggle('on', k === ax));
-  if (currentData.length) renderQuadrant(currentData);
+  ['price', 'ma', 'rct', 'year'].forEach(k => $(AXIS_IDS[k]).classList.toggle('on', k === ax));
+  if (currentData.length && chartTab === 'price') renderBubble(currentData);
 }
 
 function gotoCompare(idA, idB) {
@@ -415,6 +456,108 @@ function gotoCompare(idA, idB) {
   $('compareSelect2').value = idB;
   renderCompare();
   document.getElementById('compareSection').scrollIntoView({ behavior: 'smooth' });
+}
+
+function renderBubble(data) {
+  const isPrice = axisX === 'price';
+  const priced = isPrice
+    ? data.filter(s => (s.price || 0) > 0)
+    : data.filter(s => axisVal(s) != null && axisVal(s) >= 0);
+  const nullPrice = isPrice ? data.filter(s => !((s.price || 0) > 0)) : [];
+  chartPts = priced.concat(nullPrice);
+  if (isPrice) {
+    $('chartNote').textContent = nullPrice.length
+      ? '💰 ' + nullPrice.length + ' добавок без цены — серые точки в зоне справа'
+      : '';
+  } else {
+    $('chartNote').textContent = priced.length < data.length
+      ? '⚠️ ' + (data.length - priced.length) + ' добавок без значения («' + AXIS_LABEL[axisX] + '») не показаны на графике' : '';
+  }
+  const ctx = $('bubbleChart').getContext('2d');
+  if (chartInstance) chartInstance.destroy();
+  const txt = getComputedStyle(document.body).getPropertyValue('--text');
+  const maxP = priced.reduce((m, s) => Math.max(m, s.price || 0), 0) || 1;
+  const band = isPrice && nullPrice.length
+    ? { lo: maxP * 1.1, hi: maxP * 1.25, label: 'без цены (N=' + nullPrice.length + ')' }
+    : null;
+  const bandDatasets = band
+    ? nullPrice.map(s => ({
+        label: s.name,
+        data: [{ x: (band.lo + band.hi) / 2, y: Math.max(1, s.scienceIndex) }],
+        backgroundColor: 'rgba(150,150,150,.55)',
+        pointRadius: Math.min(30, Math.sqrt(s.metaCount || 1) * 2.5),
+        pointHoverRadius: Math.min(36, Math.sqrt(s.metaCount || 1) * 3.5)
+      }))
+    : [];
+  const noPriceBandPlugin = {
+    id: 'noPriceBand',
+    afterDraw(chart) {
+      const cfg = chart.config._config;
+      if (!cfg.$band) return;
+      const { lo, hi, label } = cfg.$band;
+      const xs = chart.scales.x;
+      const pxLo = xs.getPixelForValue(lo);
+      const pxHi = xs.getPixelForValue(hi);
+      const { top, bottom, left, right } = chart.chartArea;
+      const c = chart.ctx;
+      c.save();
+      c.fillStyle = 'rgba(128,128,128,.12)';
+      c.fillRect(pxLo, top, pxHi - pxLo, bottom - top);
+      c.strokeStyle = 'rgba(128,128,128,.4)';
+      c.setLineDash([4, 3]);
+      c.beginPath(); c.moveTo(pxLo, top); c.lineTo(pxLo, bottom);
+      c.moveTo(pxHi, top); c.lineTo(pxHi, bottom); c.stroke();
+      c.setLineDash([]);
+      c.fillStyle = 'rgba(128,128,128,.78)';
+      c.font = '11px sans-serif';
+      c.textAlign = 'center';
+      c.fillText(label, (pxLo + pxHi) / 2, bottom - 5);
+      c.restore();
+    }
+  };
+  chartInstance = new Chart(ctx, {
+    type: 'scatter',
+    data: { datasets: priced.map(s => ({
+      label: s.name,
+      data: [{ x: axisVal(s), y: Math.max(1, s.scienceIndex) }],
+      backgroundColor: vColor(s.code),
+      pointRadius: Math.min(30, Math.sqrt(s.metaCount || 1) * 2.5),
+      pointHoverRadius: Math.min(36, Math.sqrt(s.metaCount || 1) * 3.5)
+    })).concat(bandDatasets) },
+    options: {
+      responsive: true, maintainAspectRatio: true,
+      scales: {
+        x: { title: { display: true, text: AXIS_LABEL[axisX], color: txt }, grid: { color: 'rgba(128,128,128,.15)' }, max: band ? band.hi * 1.02 : undefined },
+        y: { type: 'logarithmic',
+             title: { display: true, text: 'Индекс науки (лог)', color: txt },
+             grid: { color: 'rgba(128,128,128,.15)' },
+             ticks: { callback: v => [1, 10, 100, 1000, 10000].includes(v) ? v : '' } }
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: ctx => {
+              const s = chartSupByEl(ctx.chart, { datasetIndex: ctx.datasetIndex, index: ctx.dataIndex });
+              return s ? ' ' + s.name + ' · ' + (axisX === 'price' ? (s.price ?? '—') + ' ₽/мес' : AXIS_LABEL[axisX] + ': ' + axisVal(s)) + ' · ' + s.verdict : '';
+            }
+          }
+        }
+      },
+      onClick: (e, els) => {
+        if (!els.length) return;
+        const s = chartSupByEl(e.chart, els[0]);
+        if (!s) return;
+        openModal(s.id);
+      },
+      onHover: (e, els) => {
+        e.native.target.style.cursor = els.length ? 'pointer' : 'default';
+      }
+    },
+    plugins: [noPriceBandPlugin],
+    $band: band
+  });
+  window.chart = chartInstance;
 }
 
 // ===== v2.4: квадрант доказательности (Hedges' g vs scienceIndex) =====
@@ -475,11 +618,13 @@ function renderCompare() {
   if (!a || !b) return;
   const rows = [
     ['Вердикт', a.verdict, b.verdict],
+    ['Цена (₽/мес)', a.price ?? '—', b.price ?? '—'],
+    ['₽ за единицу эффекта', ppe(a) != null ? ppe(a) : ppeReason(a), ppe(b) != null ? ppe(b) : ppeReason(b)],
     ['Индекс науки', a.scienceIndex, b.scienceIndex],
     ['Мета-анализов', a.metaCount, b.metaCount],
     ['🧪 Испытания сейчас', a.ongoing ?? '—', b.ongoing ?? '—'],
     ['Цитирований MA', a.citations ?? '—', b.citations ?? '—'],
-    ['Отзывов', a.reviews ?? '—', b.reviews ?? '—'],
+    ['Отзывов на WB', a.reviews ?? '—', b.reviews ?? '—'],
     ['Поиск (5 лет)', a.trends ?? '—', b.trends ?? '—'],
     ['Эффекты', (a.effects || []).join(', '), (b.effects || []).join(', ')],
     ['Дозировка', a.dosage ?? '—', b.dosage ?? '—'],
@@ -505,19 +650,24 @@ function renderCompare() {
     s.scienceIndex || 0,
     s.metaCount || 0,
     s.reviews || 0,
-    s.trends || 0 ];
+    s.trends || 0,
+    s.price != null ? s.price : null
+  ];
   const prof = s => {
     const r = rawVals(s);
     return [
       pctile(r[0], BASE_FOR_PCT.map(x => x.scienceIndex)),
       pctile(r[1], BASE_FOR_PCT.map(x => x.metaCount)),
       pctile(r[2], BASE_FOR_PCT.map(x => x.reviews)),
-      pctile(r[3], BASE_FOR_PCT.map(x => x.trends))
-    ];
-  return prof;
+      pctile(r[3], BASE_FOR_PCT.map(x => x.trends)),
+      r[4] != null ? pctile(r[4], BASE_FOR_PCT.map(x => x.price)) : 0
+      // Доступность = инверсия перцентиля цены (чем дороже — тем ниже)
+    ].map((p, i) => {
+      if (i === 4 && r[4] != null) return 100 - p;
+      return p;
     });
   };
-  const PROF_LABELS = ['Наука', 'База МА', 'Спрос', 'Интерес'];
+  const PROF_LABELS = ['Наука', 'База МА', 'Спрос', 'Интерес', 'Доступность'];
   if (radarInstance) radarInstance.destroy();
   radarInstance = new Chart($('radarChart'), {
     type: 'radar',
