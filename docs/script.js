@@ -373,7 +373,6 @@ function openModal(id) {
     maTop3Block(s) +
     historyPriceBlock(s) +
     '<div class="mrow" style="font-size:.85rem;opacity:.9">⚠️ Проект не является медицинской рекомендацией. При болезнях, беременности и приёме лекарств — сначала к врачу.</div>' +
-    '<div class="mrow">🛒 <a class="wbLink" target="_blank" rel="noopener" href="https://www.wildberries.ru/catalog/0/search.aspx?search=' + encodeURIComponent(s.name) + '">Проверить актуальную цену на WB</a></div>' +
     trialsLine +
     calcLine +
     (s.citations != null ? '<div class="mrow">📖 Цитирований ключевого MA: ' + s.citations + '</div>' : '') +
