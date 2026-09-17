@@ -4,7 +4,7 @@
   "name": "Креатин",
   "code": 1,
   "verdict": "работает",
-  "category": "Когниция",
+  "category": "Спорт/Когниция",
   "price": 469,
   "scienceIndex": 240,
   "metaCount": 25,
@@ -18,7 +18,7 @@
   ],
   "dosage": "3-5 г/сут (моногидрат)",
   "course": "постоянно, эффект с 2-4 нед",
-  "caution": "при болезнях почек — к врачу",
+  "caution": "ЕДИНСТВЕННАЯ доказанная форма - КРЕАТИН МОНОГИДРАТ. HCl/эстер/буфер - маркетинг. Безопасен длительно у здоровых (ISSN). Миф про почки развенчан. Задержка воды 0.5-2 кг в первые недели - норма.",
   "forms": null,
   "mechs": [
    [
@@ -49,10 +49,14 @@
   "myths": "«Бьёт по почкам у здоровых» — на стандартных дозах не подтверждено. «Без загрузки не работает» — работает, просто медленнее.",
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "+3.4 кг FFM при RT; +71 Вт пиковая мощность; память у пожилых",
+  "grade": "A",
+  "key_sources": [
+   "42027564",
+   "39070254",
+   "35984306"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -72,14 +76,15 @@
     "title": "Effects of combined versus single supplementation of creatine and beta-alanine on aerobic and anerobic performance: a systematic review and network meta-analysis.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(creatine supplementation) AND (strength OR muscle OR cognitive)"
  },
  {
   "id": "Омега-3",
   "name": "Омега-3",
-  "code": 1,
-  "verdict": "работает",
-  "category": "Когниция",
+  "code": 0,
+  "verdict": "зависит от контекста",
+  "category": "Сердце",
   "price": 543,
   "scienceIndex": 862,
   "metaCount": 107,
@@ -93,7 +98,7 @@
   ],
   "dosage": "1-2 г EPA+DHA",
   "course": "8-12 недель",
-  "caution": "разжижает кровь",
+  "caution": "ОБЩИЕ омега-3 (DHA+EPA из рыбьего жира) имеют МАЛЫЙ эффект. Чистый EPA (icosapent ethyl, prescription) — СИЛЬНЫЙ у гиперТГ + ССЗ/диабет. >4 г/день: риск кровотечения + ФП. Дешёвые бренды: контаминация.",
   "forms": "смотри мг EPA+DHA на этикетке, а не «рыбий жир 1000 мг»",
   "mechs": [
    [
@@ -127,10 +132,14 @@
   "myths": "«Любой рыбий жир работает» — в капсуле 1000 мг может быть 300 мг EPA+DHA. «Растительная омега равноценна» — конверсия ALA низкая.",
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "CHD death RR 0.92; -25% MACE для чистого EPA у спец.группы",
+  "grade": "B",
+  "key_sources": [
+   "32114706",
+   "42070013",
+   "41870913"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -150,14 +159,15 @@
     "title": "The Impact of Omega Fatty Acids on DKD: A Multimodal Study Integrating Mendelian Randomization, Proteomic Mediation Analysis, and Meta-Analysis.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(omega-3 fatty acids OR eicosapentaenoic OR docosahexaenoic OR fish oil) AND (cardiovascular OR mortality)"
  },
  {
   "id": "Витамин D",
   "name": "Витамин D",
   "code": 0,
   "verdict": "зависит от контекста",
-  "category": "Когниция",
+  "category": "Кости/Иммунитет",
   "price": 205,
   "scienceIndex": 610,
   "metaCount": 87,
@@ -171,7 +181,7 @@
   ],
   "dosage": "1000-2000 МЕ/сут",
   "course": "зимой постоянно",
-  "caution": "мегадозы без анализа — риск",
+  "caution": "Эффект зависит от ИСХОДНОГО уровня 25(OH)D. При >50 нмоль/л - пользы почти нет. При <30 нмоль/л - значимая. Обязательно анализ перед приёмом. >4000 МЕ/длительно: гиперкальциемия, камни. Конфликт с тиазидами.",
   "forms": "D3 (холекальциферол) поднимает уровень лучше, чем D2",
   "mechs": [
    [
@@ -206,10 +216,14 @@
   "myths": "«Чем больше, тем лучше» — жирорастворимый, накапливается. «Летнего солнца хватает на зиму» — запаса на 2-3 месяца.",
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Профилактика переломов у институционализированных + Ca; смертность COVID",
+  "grade": "A",
+  "key_sources": [
+   "24729336",
+   "24953955",
+   "34029377"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -229,14 +243,15 @@
     "title": "Factors influencing abnormal bone mineral density in Chinese women aged 40 years and older: A meta-analysis.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(cholecalciferol OR vitamin D OR calcitriol) AND (fracture OR mortality OR deficiency)"
  },
  {
   "id": "B12",
   "name": "B12",
   "code": 0,
   "verdict": "зависит от контекста",
-  "category": "Когниция",
+  "category": "Нервная система/Кровь",
   "price": 262,
   "scienceIndex": 374,
   "metaCount": 50,
@@ -250,7 +265,7 @@
   ],
   "dosage": "500-1000 мкг",
   "course": "только при дефиците/веганам",
-  "caution": "здоровым бесполезен",
+  "caution": "Пероральный B12 (1000-2000 мкг/день) так же эффективен как инъекции для поддержания уровня (Cochrane). Для когнитивных функций у здоровых — НЕТ эффекта. Критичен для веганов и пожилых с атрофическим гастритом. При пернициозной анемии — инъекции.",
   "forms": null,
   "mechs": [
    [
@@ -273,10 +288,13 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Пероральный = инъекции для поддержания уровня. Когниция у здоровых: НЕТ эффекта.",
+  "grade": "B",
+  "key_sources": [
+   "26695080",
+   "26695595"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -296,14 +314,15 @@
     "title": "The Health and Environmental Impacts, Safety, and Affordability of the EAT-Lancet Planetary Health Diet: A Multidisciplinary Systematic Review and Meta-Analysis.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(cobalamin OR vitamin B12) AND (deficiency OR cognitive OR pernicious anemia)"
  },
  {
   "id": "Магний",
   "name": "Магний",
-  "code": 0,
-  "verdict": "зависит от контекста",
-  "category": "Когниция",
+  "code": 1,
+  "verdict": "работает",
+  "category": "Минерал/Сердце",
   "price": 330,
   "scienceIndex": 172,
   "metaCount": 23,
@@ -317,7 +336,7 @@
   ],
   "dosage": "200-400 мг (глицинат/цитрат)",
   "course": "постоянно при дефиците",
-  "caution": "высокие дозы = диарея",
+  "caution": "Магний — эссенциальный минерал. Для артериальной гипертензии: Cochrane (16856052) подтверждает снижение давления (особенно при исходном дефиците). Для диабета 2 типа: мета-анализы показывают улучшение HbA1c и инсулинорезистентности. Для судорог при беременности: есть данные. Для мигрени: есть данные вне базы. Форма имеет значение: цитрат/глицинат/малат лучше оксида. Доза: 200-400 мг/день. Осторожно: почечная недостаточность, брадикардия.",
   "forms": "оксид — плохо усваивается; цитрат — слабит; глицинат — сон, мягкий для ЖКТ; треонат — «для мозга», доказательств слабо",
   "mechs": [
    [
@@ -357,10 +376,14 @@
   "myths": "«Успокаивает сразу» — эффект накопительный. «Любая форма одинакова» — оксид почти не поднимает уровни.",
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Давление: снижение на 2-4 мм рт.ст. (Cochrane). Диабет 2 типа: улучшение гликемии. Судороги при беременности: есть данные.",
+  "grade": "B",
+  "key_sources": [
+   "16856052",
+   "27402922",
+   "22318649"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -380,14 +403,15 @@
     "title": "Comprehensive Effects of Magnesium Supplementation on Cardiometabolic Risk Factors: A Systematic Review and Dose-Response Meta-Analysis.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(magnesium supplementation) AND (migraine OR blood pressure OR muscle cramp)"
  },
  {
   "id": "Кофеин",
   "name": "Кофеин",
   "code": 1,
   "verdict": "работает",
-  "category": "Когниция",
+  "category": "Производительность",
   "price": 266,
   "scienceIndex": 580,
   "metaCount": 39,
@@ -402,7 +426,7 @@
   ],
   "dosage": "100-200 мг за 30-60 мин до задачи",
   "course": "по необходимости",
-  "caution": "тревожность, бессонница; беременность — ограничить",
+  "caution": "Полураспад 5-6 ч (у 30% людей - 9-10 ч). После 14:00 - нарушение сна. Безопасно до 400 мг/день. Беременность: до 200 мг. CYP1A2-медленные метаболизаторы чувствительнее. Подростки: осторожность.",
   "forms": null,
   "mechs": [
    [
@@ -441,22 +465,15 @@
    "lo": 0.14,
    "hi": 0.27
   },
-  "effect_outcome": "muscular strength (жевательная форма)",
-  "grade": "B",
+  "effect_outcome": "Эргоген +2-5% при 3-6 мг/кг; бдительность у сменных рабочих",
+  "grade": "A",
   "key_sources": [
-   {
-    "citation": "Varovic, D and Grgic, J. Fast-acting caffeine: Does caffeinated chewing gum enhance muscular strength, endurance, and jumping performance? A systematic review and meta-analysis. J Strength Cond Res 40(8): 1020-1029, 2026",
-    "pmid": "42228847",
-    "year": 2026,
-    "g": 0.21,
-    "ci": {
-     "lo": 0.14,
-     "hi": 0.27
-    }
-   }
+   "20464765",
+   "42356375",
+   "41945073"
   ],
   "year_last_ma": 2026,
-  "updated": "2026-09-14",
+  "updated": "2026-09-16",
   "price_source": null,
   "price_date": "дата неизвестна",
   "ma_top3": [
@@ -475,14 +492,15 @@
     "title": "Effects of Acute Caffeine Supplementation on Physical, Sport-Specific, Physiological, Perceptual, and Cognitive Outcomes in Female Team-Sport Athletes: A Three-Level Meta-Analysis.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(caffeine) AND (cognition OR athletic performance OR alertness)"
  },
  {
   "id": "L-Теанин",
   "name": "L-Теанин",
   "code": 1,
   "verdict": "работает",
-  "category": "Когниция",
+  "category": "Когниция/Стресс",
   "price": 709,
   "scienceIndex": 54,
   "metaCount": 2,
@@ -497,7 +515,7 @@
   ],
   "dosage": "100-200 мг; с кофеином 2:1",
   "course": "по необходимости",
-  "caution": "редкая сонливость",
+  "caution": "L-теанин — аминокислота из чая. Мета-анализ 31 РКИ показал: улучшение внимания и снижение стресса. Эффект на сон: данные смешанные. Синергия с кофеином — классический ноотропный стек. Безопасен в стандартных дозах (100-200 мг/день). Не вызывает сонливости. Хорошо переносится.",
   "forms": null,
   "mechs": [
    [
@@ -520,10 +538,14 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Мета-анализ 31 РКИ (42410082): улучшение внимания, снижение субъективного стресса. Синергия с кофеином: внимание без нервозности.",
+  "grade": "B",
+  "key_sources": [
+   "42410082",
+   "31758301",
+   "41176609"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -543,14 +565,15 @@
     "title": "The effects of L-theanine consumption on sleep outcomes: A systematic review and meta-analysis.",
     "year": 2025
    }
-  ]
+  ],
+  "pubmed_term": "(L-theanine OR theanine) AND (cognitive OR stress OR attention OR sleep)"
  },
  {
   "id": "Бакопа",
   "name": "Бакопа",
   "code": 1,
   "verdict": "работает",
-  "category": "Когниция",
+  "category": "Когниция/Память",
   "price": 398,
   "scienceIndex": 36,
   "metaCount": 2,
@@ -564,7 +587,7 @@
   ],
   "dosage": "300 мг экстракта (50% бакозидов)",
   "course": "8-12 недель",
-  "caution": "тошнота натощак",
+  "caution": "Bacopa monnieri — адаптоген из аюрведы. Мета-анализ 24252493 показал значимое улучшение памяти через 8-12 недель. Эффект НЕ ощущается сразу (в отличие от кофеина). Оптимальная доза: 300 мг/день стандартизированного экстракта (50% бакозидов). Безопасна в краткосрочных РКИ (4-12 недель). Побочки: желудочно-кишечные (тошнота, спазмы).",
   "forms": null,
   "mechs": [
    [
@@ -587,9 +610,13 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
+  "effect_outcome": "Улучшение памяти и обучения при приёме 8-12 недель (мета-анализ 24252493). Эффект НЕ мгновенный — накопительный.",
+  "grade": "B",
+  "key_sources": [
+   "24252493",
+   "22747190",
+   "41678913"
+  ],
   "about": "Ноотроп: улучшает память и обучение (адаптоген для мозга).",
   "who_needs": "Возрастное снижение памяти, студенты, СДВГ (умеренные данные).",
   "onset": "Память — 8-12 недель (накопительный эффект).",
@@ -598,7 +625,7 @@
   "guidelines": "EFSA: claims не одобрены; МА — умеренный эффект на память.",
   "how_to_choose": "Стандартизация 50% бакозидов; с едой (жирорастворимые).",
   "myths": "«Работает как пирацетам» — механизм другой, медленнее. «Мгновенный эффект» — 8-12 недель минимум.",
-  "updated": "2026-09-14",
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -613,14 +640,15 @@
     "title": "Meta-analysis of randomized controlled trials on cognitive effects of Bacopa monnieri extract.",
     "year": 2014
    }
-  ]
+  ],
+  "pubmed_term": "(Bacopa monnieri OR bacopa) AND (memory OR cognitive OR attention)"
  },
  {
   "id": "Ежовик",
   "name": "Ежовик",
   "code": -1,
   "verdict": "не подтверждено",
-  "category": "Когниция",
+  "category": "Когниция/Нервная система",
   "price": 539,
   "scienceIndex": 4,
   "metaCount": 0,
@@ -634,7 +662,7 @@
   ],
   "dosage": "дозы только из исследований на животных",
   "course": "—",
-  "caution": "НЕТ человеческих мета-анализов",
+  "caution": "Hericium erinaceus (lion's mane). Единственный абстракт в базе — обзор потенциальных свойств. Качественных РКИ по когнитивным функциям у людей ОЧЕНЬ мало. Основные данные — доклинические. Не путать с ноотропными эффектами без доказательной базы.",
   "forms": null,
   "mechs": [
    [
@@ -652,21 +680,24 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Данных ОЧЕНЬ мало (1 систематический обзор в базе). Стимуляция синтеза белка роста нервов (NGF) показана в доклинических моделях.",
+  "grade": "D",
+  "key_sources": [
+   "40959699"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
-  "ma_top3": []
+  "ma_top3": [],
+  "pubmed_term": "(Hericium erinaceus OR lion mane mushroom) AND (cognitive OR memory OR nerve OR BDNF)"
  },
  {
   "id": "Гинкго",
   "name": "Гинкго",
   "code": -1,
   "verdict": "не подтверждено",
-  "category": "Когниция",
+  "category": "Когниция/Сосуды",
   "price": 326,
   "scienceIndex": 380,
   "metaCount": 47,
@@ -680,7 +711,7 @@
   ],
   "dosage": "120-240 мг EGb761",
   "course": "8-12 недель",
-  "caution": "вердикт -1; разжижает кровь",
+  "caution": "Cochrane-обзоры по деменции: эффект СТАТИСТИЧЕСКИ малый, клинически НЕ значимый. Для когнитивных функций у здоровых — НЕТ эффекта. Риск кровотечений (антиагрегантное действие) — осторожно с антикоагулянтами. НЕ предотвращает деменцию (крупное РКИ GEM, n=3069).",
   "forms": null,
   "mechs": [
    [
@@ -708,8 +739,8 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
+  "effect_outcome": "Деменция: эффект малый/отсутствует. Когниция у здоровых: нет значимого эффекта.",
+  "grade": "D",
   "key_sources": [],
   "about": "Улучшает микроциркуляцию, когнитивные функции (умеренные данные).",
   "who_needs": "Возрастное снижение памяти, деменция (адъювант), шум в ушах.",
@@ -719,7 +750,7 @@
   "guidelines": "EFSA: claims не одобрены; Cochrane — скромный эффект при деменции.",
   "how_to_choose": "Стандартизация 24% флавоноидов + 6% терпенов (EGb-761).",
   "myths": "«Улучшает память всем» — эффект при возрастном снижении, не у здоровых. «Безопасен с аспирином» — риск кровотечений.",
-  "updated": "2026-09-14",
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -739,14 +770,15 @@
     "title": "Therapeutic strategies in vascular cognitive impairment: A systematic review and meta-analysis.",
     "year": 2025
    }
-  ]
+  ],
+  "pubmed_term": "(ginkgo biloba OR ginkgo) AND (dementia OR cognitive OR memory)"
  },
  {
   "id": "Родиола",
   "name": "Родиола",
   "code": 0,
   "verdict": "зависит от контекста",
-  "category": "Когниция",
+  "category": "Усталость/Адаптоген",
   "price": 299,
   "scienceIndex": 31,
   "metaCount": 4,
@@ -760,7 +792,7 @@
   ],
   "dosage": "200-400 мг экстракта",
   "course": "курсы с перерывами",
-  "caution": "слабая база у здоровых",
+  "caution": "Rhodiola rosea — адаптоген. Систематические обзоры показывают умеренный эффект при усталости, но качество РКИ часто низкое. Для спортивных результатов: данные противоречивые. Для депрессии: недостаточно данных. Безопасность: хорошая в краткосрочных РКИ. Оптимальная доза: 200-600 мг/день стандартизированного экстракта (3-6% розавинов).",
   "forms": null,
   "mechs": [
    [
@@ -783,9 +815,13 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
+  "effect_outcome": "Умеренный эффект при физической/ментальной усталости. Данные противоречивые, много малых РКИ.",
+  "grade": "C",
+  "key_sources": [
+   "22643043",
+   "37495266",
+   "21036578"
+  ],
   "about": "Адаптоген: снижает усталость, улучшает концентрацию при стрессе.",
   "who_needs": "Выгорание, умственная усталость, сменный график, студенты в сессию.",
   "onset": "Усталость — 1-2 недели; концентрация — 30-60 минут (острый эффект).",
@@ -794,7 +830,7 @@
   "guidelines": "EFSA: claims не одобрены; МА — умеренный эффект на усталость.",
   "how_to_choose": "Стандартизация 3% розавинов + 1% салидрозида; SHR-5 (шведский экстракт).",
   "myths": "«Заменит кофе» — механизм другой, не стимулятор. «Работает всем» — эффект зависит от baseline усталости.",
-  "updated": "2026-09-14",
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -814,14 +850,15 @@
     "title": "Neuroprotective Mechanisms of Salidroside in Alzheimer's Disease: A Systematic Review and Meta-analysis of Preclinical Studies.",
     "year": 2023
    }
-  ]
+  ],
+  "pubmed_term": "(Rhodiola rosea) AND (fatigue OR stress OR performance OR depression)"
  },
  {
   "id": "Ашваганда",
   "name": "Ашваганда",
   "code": 1,
   "verdict": "работает",
-  "category": "Когниция",
+  "category": "Стресс/Адаптоген",
   "price": null,
   "scienceIndex": 21,
   "metaCount": 2,
@@ -835,7 +872,7 @@
   ],
   "dosage": "300-600 мг (KSM-66)",
   "course": "4-8 недель",
-  "caution": "щитовидная; беременность — нельзя",
+  "caution": "Withania somnifera — адаптоген. Мета-анализы показывают: снижение кортизола значимо, но субъективное восприятие стресса может не улучшаться. Эффективен для сна. Безопасность: хорошая в краткосрочных РКИ (4-12 недель). Долгосрочные данные ограничены. Осторожно: аутоиммунные заболевания, беременность (тератогенность в доклинике).",
   "forms": null,
   "mechs": [
    [
@@ -863,9 +900,13 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
+  "effect_outcome": "Снижает кортизол и тревожность (мета-анализы РКИ). Улучшает сон. Умеренный эффект при стрессе.",
+  "grade": "B",
+  "key_sources": [
+   "39348746",
+   "34559859",
+   "31975514"
+  ],
   "about": "Адаптоген: снижает кортизол, тревогу, улучшает сон.",
   "who_needs": "Хронический стресс, тревожность, бессонница, спортсмены (восстановление).",
   "onset": "Тревога и сон — 4-8 недель; кортизол — 2-4 недели.",
@@ -874,7 +915,7 @@
   "guidelines": "EFSA: claims не одобрены; ряд МА — умеренный эффект на тревогу и сон.",
   "how_to_choose": "Стандартизация 5% withanolides (KSM-66, Sensoril); корень, не листья.",
   "myths": "«Работает сразу как транквилизатор» — эффект накопительный. «Любой экстракт одинаков» — withanolides решают.",
-  "updated": "2026-09-14",
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -894,14 +935,15 @@
     "title": "Effects of ashwagandha (Withania somnifera) on mental health in adults: A systematic review and dose-response meta-analysis of randomized controlled trials.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(Withania somnifera OR ashwagandha) AND (stress OR anxiety OR cortisol OR sleep)"
  },
  {
   "id": "Фосфатидилсерин",
   "name": "Фосфатидилсерин",
   "code": 0,
   "verdict": "зависит от контекста",
-  "category": "Когниция",
+  "category": "Когниция/Дети",
   "price": 1346,
   "scienceIndex": 35,
   "metaCount": 2,
@@ -915,7 +957,7 @@
   ],
   "dosage": "100-300 мг",
   "course": "курсы",
-  "caution": "данные на пожилых",
+  "caution": "Фосфатидилсерин — фосфолипид. Для детей с АДГД: есть данные об улучшении внимания и памяти (33539192). Для когнитивных функций у здоровых взрослых: данные ограниченные. Безопасен в стандартных дозах (100-300 мг/день). Исторически производится из сои (ранее — из коровьего мозга).",
   "forms": null,
   "mechs": [
    [
@@ -933,10 +975,13 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "АДГД у детей: есть ограниченные данные (33539192). Когнитивные функции: данные смешанные.",
+  "grade": "C",
+  "key_sources": [
+   "33539192",
+   "42538853"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -956,13 +1001,14 @@
     "title": "Safety and efficacy of antioxidant therapy in children and adolescents with attention deficit hyperactivity disorder: A systematic review and network meta-analysis.",
     "year": 2024
    }
-  ]
+  ],
+  "pubmed_term": "(phosphatidylserine) AND (cognitive OR memory OR dementia OR ADHD)"
  },
  {
   "id": "Alpha-GPC",
   "name": "Alpha-GPC",
-  "code": 0,
-  "verdict": "зависит от контекста",
+  "code": -1,
+  "verdict": "не подтверждено",
   "category": "Когниция",
   "price": 1316,
   "scienceIndex": 18,
@@ -977,7 +1023,7 @@
   ],
   "dosage": "300-600 мг",
   "course": "курсы",
-  "caution": "база на пациентах",
+  "caution": "Alpha-GPC (L-alpha-glycerylphosphorylcholine) — прекурсор ацетилхолина. В базе НЕТ мета-анализов или систематических обзоров. Возможно, данные есть в отдельных РКИ, но систематической оценки нет. Популярность в спортивном питании не подтверждена доказательной базой.",
   "forms": null,
   "mechs": [
    [
@@ -995,10 +1041,10 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
+  "effect_outcome": "НЕТ ДАННЫХ в базе (0 абстрактов после скрининга). Не проводились систематические обзоры или мета-анализы по когнитивным эффектам.",
+  "grade": "D",
   "key_sources": [],
-  "updated": "2026-09-14",
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -1013,14 +1059,15 @@
     "title": "Activity of Choline Alphoscerate on Adult-Onset Cognitive Dysfunctions: A Systematic Review and Meta-Analysis.",
     "year": 2023
    }
-  ]
+  ],
+  "pubmed_term": "(alpha-glycerylphosphorylcholine OR alpha-GPC) AND (cognitive OR memory OR choline OR power)"
  },
  {
   "id": "CDP-холин",
   "name": "CDP-холин",
   "code": 0,
   "verdict": "зависит от контекста",
-  "category": "Когниция",
+  "category": "Когниция/Инсульт",
   "price": 1857,
   "scienceIndex": 88,
   "metaCount": 8,
@@ -1034,7 +1081,7 @@
   ],
   "dosage": "250-500 мг",
   "course": "курсы",
-  "caution": "база на пациентах",
+  "caution": "Цитиколин (CDP-холин) — прекурсор фосфатидилхолина. Для острого ишемического инсульта: есть данные, но последние обзоры показывают ограниченную эффективность. Для когнитивных нарушений и деменции: данные смешанные. Безопасен в стандартных дозах (1000-2000 мг/день). Используется в Европе и Азии как лекарственное средство.",
   "forms": null,
   "mechs": [
    [
@@ -1052,10 +1099,14 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Инсульт: есть данные (2 Cochrane). Когнитивные нарушения: данные смешанные. Доза: 1000-2000 мг/день.",
+  "grade": "B",
+  "key_sources": [
+   "32860632",
+   "15846601",
+   "36678257"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -1075,14 +1126,15 @@
     "title": "Pharmacologic neuroprotective agents for the treatment of perinatal asphyxia in low-income and lower-middle-income countries: A systematic review and meta-analysis of randomised controlled trials.",
     "year": 2025
    }
-  ]
+  ],
+  "pubmed_term": "(citicoline OR CDP-choline) AND (cognitive OR stroke OR memory OR dementia)"
  },
  {
   "id": "Гуперзин А",
   "name": "Гуперзин А",
   "code": 0,
   "verdict": "зависит от контекста",
-  "category": "Когниция",
+  "category": "Когниция/Деменция",
   "price": 958,
   "scienceIndex": 48,
   "metaCount": 8,
@@ -1096,7 +1148,7 @@
   ],
   "dosage": "50-200 мкг",
   "course": "циклы 2/1 нед",
-  "caution": "холинергический избыток",
+  "caution": "Гуперзин А — ингибитор ацетилхолинэстеразы из растения плауна (китайская медицина). Есть 3 Cochrane-обзора: для болезни Альцгеймера, сосудистой деменции и лёгких когнитивных нарушений. Эффективность есть, но сравнима с другими ингибиторами АХЭ (донепезил). Побочки: холинергические (тошнота, брадикардия). Осторожно: брадикардия, астма, обструктивные заболевания лёгких.",
   "forms": null,
   "mechs": [
    [
@@ -1119,10 +1171,14 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Болезнь Альцгеймера: есть данные (3 Cochrane-обзора). Лёгкие когнитивные нарушения: есть данные. Доза: 200-400 мкг/день.",
+  "grade": "B",
+  "key_sources": [
+   "18425924",
+   "19370686",
+   "23235666"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -1142,14 +1198,15 @@
     "title": "[Efficacy and safety of huperzine A in treating patients with mild cognitive impairment: a systematic review and Meta-analysis].",
     "year": 2019
    }
-  ]
+  ],
+  "pubmed_term": "(huperzine A) AND (cognitive OR Alzheimer OR memory OR acetylcholinesterase)"
  },
  {
   "id": "Куркумин",
   "name": "Куркумин",
-  "code": -1,
-  "verdict": "не подтверждено",
-  "category": "Когниция",
+  "code": 0,
+  "verdict": "зависит от контекста",
+  "category": "Воспаление/Суставы",
   "price": 820,
   "scienceIndex": 73,
   "metaCount": 12,
@@ -1163,7 +1220,7 @@
   ],
   "dosage": "500 мг с пиперином",
   "course": "курсы",
-  "caution": "без пиперина не всасывается",
+  "caution": "Биодоступность куркумина ОЧЕНЬ низкая без усилителей (пиперин, липосомы, наночастицы). Cochrane: работает для поддержания ремиссии при язвенном колите. Для ОА: умеренный эффект. Для похудения/рака: данные слабые. Осторожно: желчнокаменная болезнь, антикоагулянты.",
   "forms": null,
   "mechs": [
    [
@@ -1202,10 +1259,14 @@
   "myths": "«Куркума в еде = доза добавки» — в 1-2 г порошка 30-60 мг куркумина с плохим всасыванием. «Полностью лечит воспаление» — эффект скромный.",
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Язвенный колит (ремиссия): работает (Cochrane). Остеоартрит: умеренный эффект. Метаболические маркеры: противоречивые данные.",
+  "grade": "B",
+  "key_sources": [
+   "23076948",
+   "41211694",
+   "41652864"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -1225,14 +1286,15 @@
     "title": "Effects of curcumin on inflammatory and oxidative stress related markers in rat models of experimental arthritis: a systematic review and meta-analysis.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(curcumin OR turmeric supplementation) AND (inflammation OR arthritis OR metabolic)"
  },
  {
   "id": "Ресвератрол",
   "name": "Ресвератрол",
-  "code": -1,
-  "verdict": "не подтверждено",
-  "category": "Когниция",
+  "code": 0,
+  "verdict": "зависит от контекста",
+  "category": "Антиоксидант/Метаболизм",
   "price": 599,
   "scienceIndex": 69,
   "metaCount": 9,
@@ -1246,7 +1308,7 @@
   ],
   "dosage": "100-500 мг",
   "course": "—",
-  "caution": "человеческих данных почти нет",
+  "caution": "Ресвератрол — полифенол из винограда. Много данных по биомаркерам (липиды, воспаление, оксидативный стресс, инсулинорезистентность), но клинические исходы часто незначимы. Биодоступность низкая (быстро метаболизируется). Дозы в РКИ часто очень высокие (500-1500 мг/день), в БАДах — 50-100 мг. Для ожирения/диабета 2 типа: есть данные. Для сердечно-сосудистых исходов: эффект не доказан. 'French paradox' — маркетинг.",
   "forms": null,
   "mechs": [
    [
@@ -1269,10 +1331,14 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Метаболические маркеры: умеренное улучшение (липиды, воспаление, инсулинорезистентность). Клинические исходы: данные ограниченные.",
+  "grade": "C",
+  "key_sources": [
+   "41987155",
+   "33480264",
+   "35833325"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -1292,14 +1358,15 @@
     "title": "Protective effect and possible mechanisms of resveratrol in animal models of spinal cord injury: a preclinical systematic review and meta-analysis.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(resveratrol supplementation) AND (cardiovascular OR metabolic OR antioxidant OR aging)"
  },
  {
   "id": "NAC",
   "name": "NAC",
-  "code": 0,
-  "verdict": "зависит от контекста",
-  "category": "Когниция",
+  "code": 1,
+  "verdict": "работает",
+  "category": "Антиоксидант/Психиатрия",
   "price": 1259,
   "scienceIndex": 111,
   "metaCount": 14,
@@ -1313,7 +1380,7 @@
   ],
   "dosage": "600-1200 мг",
   "course": "курсы",
-  "caution": "ЖКТ-расстройства",
+  "caution": "N-ацетилцистеин — прекурсор глутатиона. 4 Cochrane-обзора в базе! Для ХОБЛ: снижает частоту обострений. Для острой печёночной недостаточности (не-парацетамол): Cochrane. Для H. pylori (адъювант): Cochrane. Для сепсиса: Cochrane. Для психиатрии (ОКР, трихотилломания, биполярное): есть РКИ с положительными данными. Доза: 600-1200 мг 2 раза/день. Безопасен, побочки: GI.",
   "forms": null,
   "mechs": [
    [
@@ -1336,10 +1403,15 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "ХОБЛ: уменьшение обострений. Печень (не-парацетамол): Cochrane. H. pylori: Cochrane. Психиатрия: данные есть.",
+  "grade": "B",
+  "key_sources": [
+   "33294991",
+   "30746681",
+   "22972094",
+   "42473447"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -1359,14 +1431,15 @@
     "title": "N-acetylcysteine as Prophylaxis Against Contrast-Induced Nephropathy: A Meta-Analysis.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(N-acetylcysteine OR NAC supplementation) AND (respiratory OR psychiatric OR liver OR antioxidant)"
  },
  {
   "id": "Цинк",
   "name": "Цинк",
   "code": 0,
   "verdict": "зависит от контекста",
-  "category": "Когниция",
+  "category": "Иммунитет/ОРВИ",
   "price": 532,
   "scienceIndex": 318,
   "metaCount": 45,
@@ -1380,7 +1453,7 @@
   ],
   "dosage": "15-30 мг",
   "course": "курсы 4-8 нед",
-  "caution": "долгие курсы = дефицит меди",
+  "caution": "Эффект при ОРВИ: ТОЛЬКО если начать приём в первые 24 часа. Леденцы/сироп (не таблетки). Доза 75-100 мг/день. Побочки: тошнота, металлический привкус. >40 мг/день длительно → дефицит меди. Для детей в развивающихся странах при диарее — рекомендация WHO.",
   "forms": null,
   "mechs": [
    [
@@ -1416,10 +1489,10 @@
   "myths": "«Вылечит простуду за день» — пастилки слегка сокращают длительность. «Больше — больше тестостерона» — только при дефиците.",
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
+  "effect_outcome": "ОРВИ: сокращает длительность на ~1 день (приём в первые 24 ч). Диарея у детей: работает.",
+  "grade": "B",
   "key_sources": [],
-  "updated": "2026-09-14",
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -1439,14 +1512,15 @@
     "title": "Can heavy metal accumulation in crops be mitigated by microbial inoculants? A meta-analysis and machine learning.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(zinc supplementation) AND (common cold OR diarrhea OR infection)"
  },
  {
   "id": "Тирозин",
   "name": "Тирозин",
-  "code": 0,
-  "verdict": "зависит от контекста",
-  "category": "Когниция",
+  "code": -1,
+  "verdict": "не подтверждено",
+  "category": "Когниция/Стресс",
   "price": 980,
   "scienceIndex": 459,
   "metaCount": 39,
@@ -1460,7 +1534,7 @@
   ],
   "dosage": "500-2000 мг остро",
   "course": "ситуативно",
-  "caution": "НЕ с ингибиторами МАО",
+  "caution": "ВСЕГО 1 релевантный мета-анализ после скрининга (остальные — про ингибиторы тирозинкиназы в онкологии, не про аминокислоту). Для когнитивных функций при стрессе: данные единичных РКИ, низкое качество. Для спортивных результатов: нет систематических пруфов.",
   "forms": null,
   "mechs": [
    [
@@ -1483,10 +1557,12 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Мало данных: возможно улучшение когнитивных функций при стрессе/депривации сна, но РКИ единичные.",
+  "grade": "D",
+  "key_sources": [
+   "25797188"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -1506,14 +1582,15 @@
     "title": "A systematic review and network meta-analysis of first-line EGFR-TKI-based combination strategies for EGFR-mutant non-small cell lung cancer with brain metastases.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(L-tyrosine OR tyrosine supplementation) AND (cognitive OR stress OR exercise OR alertness)"
  },
  {
   "id": "Таурин",
   "name": "Таурин",
-  "code": -1,
-  "verdict": "не подтверждено",
-  "category": "Когниция",
+  "code": 0,
+  "verdict": "зависит от контекста",
+  "category": "Метаболизм/Антиоксидант",
   "price": 526,
   "scienceIndex": 82,
   "metaCount": 7,
@@ -1527,7 +1604,7 @@
   ],
   "dosage": "500-2000 мг",
   "course": "—",
-  "caution": "когнитивных пруфов нет",
+  "caution": "Таурин — сульфокислота с множеством функций. Для кардиометаболизма: мета-анализы показывают умеренное улучшение давления/липидов у людей с метаболическими проблемами. Для когнитивных функций: данные ограниченные (40320621). Для роста у детей с низкой массой при рождении: есть данные (29368111). Безопасен в дозах 1-6 г/день.",
   "forms": null,
   "mechs": [
    [
@@ -1550,10 +1627,14 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Кардиометаболические факторы: умеренное улучшение давления/липидов. Когниция: данные ограниченные. Рост у детей с НМТ: есть данные.",
+  "grade": "C",
+  "key_sources": [
+   "41275513",
+   "32871172",
+   "40320621"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -1573,14 +1654,15 @@
     "title": "Trans-organ net fluxes of essential amino acids and their calculated efficiency of utilization in dairy cows: A meta-analysis.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(taurine supplementation) AND (exercise OR performance OR cardiovascular OR antioxidant)"
  },
  {
   "id": "CoQ10",
   "name": "CoQ10",
-  "code": -1,
-  "verdict": "не подтверждено",
-  "category": "Когниция",
+  "code": 1,
+  "verdict": "работает",
+  "category": "Сердце/Энергия",
   "price": 357,
   "scienceIndex": 35,
   "metaCount": 3,
@@ -1594,7 +1676,7 @@
   ],
   "dosage": "100-200 мг",
   "course": "курсы",
-  "caution": "когнитивных пруфов нет",
+  "caution": "Коэнзим Q10 (убихинон/убихинол). Для сердечной недостаточности: 2 Cochrane-обзора подтверждают эффективность (снижение смертности, госпитализаций). Для артериального давления: 2 Cochrane-обзора показывают снижение. Для статиновой миопатии: данные противоречивые. Для мигрени: данные ограниченные. Доза: 100-300 мг/день. Убихинол (активная форма) биодоступнее, но дороже.",
   "forms": null,
   "mechs": [
    [
@@ -1620,10 +1702,14 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Сердечная недостаточность: работает (2 Cochrane). Артериальное давление: работает (2 Cochrane). Статиновая миопатия: данные противоречивые.",
+  "grade": "B",
+  "key_sources": [
+   "35608922",
+   "24049047",
+   "26935713"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -1643,14 +1729,15 @@
     "title": "Pharmacological treatments for Friedreich ataxia.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(coenzyme Q10 OR ubiquinol OR CoQ10 supplementation) AND (heart OR statin OR exercise OR fatigue OR migraine)"
  },
  {
   "id": "Пикногенол",
   "name": "Пикногенол",
-  "code": -1,
-  "verdict": "не подтверждено",
-  "category": "Когниция",
+  "code": 0,
+  "verdict": "зависит от контекста",
+  "category": "Сосуды/Антиоксидант",
   "price": 1718,
   "scienceIndex": 33,
   "metaCount": 5,
@@ -1664,7 +1751,7 @@
   ],
   "dosage": "50-100 мг",
   "course": "—",
-  "caution": "переплата за пустышку",
+  "caution": "Пикногенол — экстракт коры французской морской сосны (Pinus pinaster). Есть 1 Cochrane-обзор (22513958) по хроническим заболеваниям. Для давления: умеренное снижение. Для липидов: данные смешанные. Безопасен в стандартных дозах (50-200 мг/день). Антиоксидантные свойства хорошо изучены, но клинические исходы часто ограничены.",
   "forms": null,
   "mechs": [
    [
@@ -1687,10 +1774,14 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Давление: умеренное снижение (31637782). Липиды: данные смешанные. Кардиометаболическое здоровье: есть данные (31585179).",
+  "grade": "C",
+  "key_sources": [
+   "22513958",
+   "31637782",
+   "31585179"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -1710,14 +1801,15 @@
     "title": "Efficacy of L-arginine and Pycnogenol ® in the treatment of male erectile dysfunction: a systematic review and meta-analysis.",
     "year": 2023
    }
-  ]
+  ],
+  "pubmed_term": "(Pycnogenol OR Pinus pinaster extract OR maritime pine bark) AND (cognitive OR vascular OR antioxidant)"
  },
  {
   "id": "Готу кола",
   "name": "Готу кола",
-  "code": -1,
-  "verdict": "не подтверждено",
-  "category": "Когниция",
+  "code": 0,
+  "verdict": "зависит от контекста",
+  "category": "Когниция/Сосуды",
   "price": 339,
   "scienceIndex": 12,
   "metaCount": 2,
@@ -1731,7 +1823,7 @@
   ],
   "dosage": "300-600 мг",
   "course": "курсы",
-  "caution": "слабые данные",
+  "caution": "Готу кола (центелла азиатская) — адаптоген из аюрведы. Для когнитивных функций: есть данные, но качество РКИ часто низкое. Для венозной недостаточности: данные есть. Безопасна в стандартных дозах (60-240 мг/день). Осторожно: гепатотоксичность в редких случаях.",
   "forms": null,
   "mechs": [
    [
@@ -1749,10 +1841,13 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Когнитивные функции: есть ограниченные данные (28878245). Венозная недостаточность: есть данные.",
+  "grade": "C",
+  "key_sources": [
+   "28878245",
+   "35328954"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -1772,14 +1867,15 @@
     "title": "Phlebotonics for venous insufficiency.",
     "year": 2020
    }
-  ]
+  ],
+  "pubmed_term": "(Centella asiatica OR gotu kola) AND (cognitive OR wound OR venous OR anxiety)"
  },
  {
   "id": "Мелатонин",
   "name": "Мелатонин",
   "code": 1,
   "verdict": "работает",
-  "category": "Сон",
+  "category": "Сон/Циркадные ритмы",
   "price": 284,
   "scienceIndex": 139,
   "metaCount": 11,
@@ -1794,7 +1890,7 @@
   ],
   "dosage": "0.5-3 мг за 30-60 мин до сна",
   "course": "по необходимости",
-  "caution": "утром сонливость; не за руль; не с алкоголем",
+  "caution": "Оптимальная доза для пожилых: 1-3 мг (не мегадозы). Короткий период полураспада — лучше контролируемые формы. Не вызывает зависимости. Побочки: сонливость, головокружение. Осторожно: аутоиммунные заболевания, беременность.",
   "forms": "формы с контролируемым высвобождением — для поддержания сна, обычная — для засыпания",
   "mechs": [
    [
@@ -1830,10 +1926,14 @@
   "myths": "«Больше — быстрее уснёшь» — кривая доза-эффект плоская после 1-3 мг. «Можно месяцами» — данных мало, лучше курсами.",
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Улучшает качество сна (мета-анализы). Эффективен при джетлаге, сменной работе, бессоннице.",
+  "grade": "A",
+  "key_sources": [
+   "33417003",
+   "24802882",
+   "34999224"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -1853,14 +1953,15 @@
     "title": "Digital screen exposure and migraine burden: a systematic review and meta-analysis.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(melatonin supplementation) AND (sleep OR insomnia OR jet lag OR circadian)"
  },
  {
   "id": "ГАБА",
   "name": "ГАБА",
   "code": -1,
   "verdict": "не подтверждено",
-  "category": "Сон",
+  "category": "Психика/Сон",
   "price": 593,
   "scienceIndex": 7,
   "metaCount": 1,
@@ -1874,7 +1975,7 @@
   ],
   "dosage": "100-300 мг (дозы исследований)",
   "course": "—",
-  "caution": "человеческих доказательств НЕТ (MA на курах)",
+  "caution": "Гамма-аминомасляная кислота (GABA). Систематический обзор 14 плацебо-контролируемых РКИ показал: ОГРАНИЧЕННЫЕ данные для стресса, ОЧЕНЬ ОГРАНИЧЕННЫЕ для сна. Основная проблема: пероральный ГАБА плохо проходит гематоэнцефалический барьер (ГЭБ). Клинический эффект сомнителен. Данные смешанные, качество РКИ часто низкое.",
   "forms": null,
   "mechs": [
    [
@@ -1897,10 +1998,12 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Стресс: ОГРАНИЧЕННЫЕ данные. Сон: ОЧЕНЬ ОГРАНИЧЕННЫЕ данные (систематический обзор 14 РКИ).",
+  "grade": "D",
+  "key_sources": [
+   "33041752"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -1920,14 +2023,15 @@
     "title": "Antidepressant-like effects of valproic acid in rodents go back to the 1980s: a comment to enrich the reviewed evidence by Goudarzi et al. (2026) \"Valproic acid effects on stress-induced depression-like behavior in rodent models: a systematic review and meta-analysis\".",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(GABA supplementation OR gamma-aminobutyric acid) AND (anxiety OR sleep OR stress)"
  },
  {
   "id": "Глицин",
   "name": "Глицин",
-  "code": 0,
-  "verdict": "зависит от контекста",
-  "category": "Сон",
+  "code": -1,
+  "verdict": "не подтверждено",
+  "category": "Нейромедиатор/Сон",
   "price": 407,
   "scienceIndex": 22,
   "metaCount": 1,
@@ -1941,7 +2045,7 @@
   ],
   "dosage": "3 г перед сном",
   "course": "—",
-  "caution": "база очень слабая",
+  "caution": "Глицин — тормозной нейромедиатор. В базе НЕТ мета-анализов или систематических обзоров. Отдельные РКИ показали: улучшение качества сна (3 г перед сном), вспомогательное действие при шизофрении (как адъювант к антипсихотикам), поддержание синтеза коллагена. Но систематической оценки этих эффектов нет. Популярен в биохакерских кругах, но доказательная база слабая.",
   "forms": null,
   "mechs": [
    [
@@ -1964,10 +2068,10 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
+  "effect_outcome": "НЕТ ДАННЫХ в базе (0 систематических обзоров после скрининга). Есть отдельные РКИ по сну и шизофрении, но систематической оценки нет.",
+  "grade": "D",
   "key_sources": [],
-  "updated": "2026-09-14",
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -1987,14 +2091,15 @@
     "title": "Roxadustat for CKD-related anemia in patients undergoing peritoneal dialysis: a systematic review and meta-analysis.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(glycine supplementation) AND (sleep OR cognitive OR schizophrenia OR collagen)"
  },
  {
   "id": "Валериана",
   "name": "Валериана",
-  "code": -1,
-  "verdict": "не подтверждено",
-  "category": "Сон",
+  "code": 0,
+  "verdict": "зависит от контекста",
+  "category": "Сон/Тревожность",
   "price": 645,
   "scienceIndex": 89,
   "metaCount": 9,
@@ -2008,7 +2113,7 @@
   ],
   "dosage": "300-600 мг экстракта перед сном",
   "course": "2-4 недели",
-  "caution": "сонливость; не с седативными",
+  "caution": "Валериана лекарственная (Valeriana officinalis). Для бессонницы: мета-анализы противоречивы — одни показывают минимальное улучшение засыпания, другие — отсутствие эффекта. Обзор 17517355 буквально называется 'safe but not effective'. Для тревожности: Cochrane-обзор (17054208) показывает ограниченные данные. Эффект развивается через 2-4 недели (не мгновенный). Безопасна, не вызывает зависимости (в отличие от бензодиазепинов). Доза: 300-600 мг экстракта.",
   "forms": null,
   "mechs": [
    [
@@ -2031,10 +2136,14 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Бессонница: данные противоречивые ('safe but not effective'). Тревожность: Cochrane показывает ограниченные данные.",
+  "grade": "C",
+  "key_sources": [
+   "17054208",
+   "20347389",
+   "17517355"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -2054,14 +2163,15 @@
     "title": "Dietary supplements for dysmenorrhoea.",
     "year": 2016
    }
-  ]
+  ],
+  "pubmed_term": "(Valeriana officinalis OR valerian) AND (sleep OR insomnia OR anxiety)"
  },
  {
   "id": "Бета-аланин",
   "name": "Бета-аланин",
-  "code": 1,
-  "verdict": "работает",
-  "category": "Спорт",
+  "code": 0,
+  "verdict": "зависит от контекста",
+  "category": "Спорт/Выносливость",
   "price": 228,
   "scienceIndex": 400,
   "metaCount": 45,
@@ -2075,7 +2185,7 @@
   ],
   "dosage": "3.2-6.4 г/сут дробно",
   "course": "4+ недели (накопление карнозина)",
-  "caution": "парестезии (покалывание) — безопасно",
+  "caution": "Эффект ТОЛЬКО на активность 1-4 минуты (anaerobic threshold). Увеличивает карнозин в мышцах. Побочка: парестезия (покалывание кожи) — решается дроблением дозы (≤1.6 г за приём). Оптимум: 4-6 г/день, 4-6 недель.",
   "forms": null,
   "mechs": [
    [
@@ -2093,10 +2203,13 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Улучшает маркеры мышечной усталости (лактат, pH). Производительность: эффект незначимый в большинстве РКИ.",
+  "grade": "C",
+  "key_sources": [
+   "27377257",
+   "42370349"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -2116,14 +2229,15 @@
     "title": "The novel anticoagulant dabigatran versus enoxaparin for thromboprophylaxis following total hip replacement: a meta-analysis.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(beta-alanine) AND (exercise OR performance OR high-intensity)"
  },
  {
   "id": "L-цитруллин",
   "name": "L-цитруллин",
   "code": 1,
   "verdict": "работает",
-  "category": "Спорт",
+  "category": "Спорт/Сосуды",
   "price": 102,
   "scienceIndex": 117,
   "metaCount": 10,
@@ -2137,7 +2251,7 @@
   ],
   "dosage": "6-8 г малата за 60 мин до нагрузки",
   "course": "по необходимости",
-  "caution": "безопасен в дозах исследований",
+  "caution": "L-цитруллин — прекурсор аргинина и оксида азота (NO). Эффективнее самого аргинина (не метаболизируется в ЖКТ, поднимает уровень аргинина лучше). Для давления: мета-анализы показывают умеренное снижение. Для спорта: улучшение производительности и восстановления. Для эректильной функции: есть данные. Для преэклампсии: есть данные. Доза: 3-6 г/день. Безопасен.",
   "forms": null,
   "mechs": [
    [
@@ -2160,10 +2274,14 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Артериальное давление: умеренное снижение. Спорт: улучшение выносливости и восстановления. Эректильная функция: есть данные.",
+  "grade": "B",
+  "key_sources": [
+   "30284051",
+   "31977835",
+   "39800868"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -2183,14 +2301,15 @@
     "title": "Neutrophil Extracellular Traps as Mediators of Acute Lung Injury: Bridging Clinical and Preclinical Evidence.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(L-citrulline OR citrulline supplementation) AND (exercise OR blood pressure OR erectile OR nitric oxide)"
  },
  {
   "id": "Витамин C",
   "name": "Витамин C",
   "code": 0,
   "verdict": "зависит от контекста",
-  "category": "Иммунитет",
+  "category": "Иммунитет/Антиоксидант",
   "price": 379,
   "scienceIndex": 747,
   "metaCount": 82,
@@ -2204,7 +2323,7 @@
   ],
   "dosage": "500-1000 мг/сут",
   "course": "периоды нагрузок",
-  "caution": "мегадозы — риск камней в почках",
+  "caution": "Для ОРВИ: профилактика НЕ снижает заболеваемость у общей популяции (RR 0.96), НО у экстремальных нагрузок (марафон/лыжи/армия) снижает на 50%. Терапия после начала симптомов НЕ работает. Для ССЗ: крупные РКИ не показали пользы. >2000 мг/день: GI-побочки, риск оксалатных камней.",
   "forms": null,
   "mechs": [
    [
@@ -2238,10 +2357,13 @@
   "myths": "«Предотвращает простуду» — в общей популяции нет. «Мегадозы безопасны» — ЖКТ и камни.",
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "ОРВИ: -8% длительность у взрослых, -13.6% у детей (профилактика). Профилактика ССЗ: НЕТ эффекта.",
+  "grade": "B",
+  "key_sources": [
+   "17636648",
+   "28301692"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -2261,14 +2383,15 @@
     "title": "The effect of high-dose of vitamin C on mortality among aged patients with severe COVID-19: A systematic review and meta-analysis.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(ascorbic acid OR vitamin C) AND (common cold OR mortality OR infection)"
  },
  {
   "id": "Эхинацея",
   "name": "Эхинацея",
-  "code": -1,
-  "verdict": "не подтверждено",
-  "category": "Иммунитет",
+  "code": 0,
+  "verdict": "зависит от контекста",
+  "category": "Иммунитет/ОРВИ",
   "price": 196,
   "scienceIndex": 81,
   "metaCount": 9,
@@ -2282,7 +2405,7 @@
   ],
   "dosage": "по инструкции производителя",
   "course": "до 8 недель",
-  "caution": "аллергия (астровые)",
+  "caution": "Для ПРОФИЛАКТИКИ ОРВИ: значимый эффект (-22% заболеваемости, Cochrane 2014). Для ЛЕЧЕНИЯ после начала симптомов: НЕТ эффекта. Безопасность: хорошая в краткосрочной перспективе (RR 1.09, 0.95-1.25 — незначимо). Разные виды (E. purpurea, E. angustifolia) и экстракты — эффективность варьирует. Осторожно: аутоиммунные заболевания.",
   "forms": null,
   "mechs": [
    [
@@ -2305,9 +2428,13 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
+  "effect_outcome": "Профилактика ОРВИ: RR 0.78 (0.68-0.88) — снижение заболеваемости на 22%. Лечение: НЕТ эффекта на длительность (MD -0.45 дня, незначимо).",
+  "grade": "B",
+  "key_sources": [
+   "24554461",
+   "31126553",
+   "16678640"
+  ],
   "about": "Иммуномодулятор: умеренный эффект на длительность простуды.",
   "who_needs": "Частые простуды (профилактика), начало простуды (сокращение).",
   "onset": "Профилактика — 4-8 недель; лечение — 1-2 дня сокращения.",
@@ -2316,7 +2443,7 @@
   "guidelines": "EFSA: claims не одобрены; Cochrane — modest effect на длительность.",
   "how_to_choose": "E. purpurea (не angustifolia); спиртовой экстракт или сок.",
   "myths": "«Предотвращает простуду» — слегка сокращает длительность. «Работает всем» — эффект скромный.",
-  "updated": "2026-09-14",
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -2336,14 +2463,15 @@
     "title": "Echinacea Supplementation Does Not Impact Aerobic Capacity and Erythropoiesis in Athletes: A Meta-Analysis.",
     "year": 2024
    }
-  ]
+  ],
+  "pubmed_term": "(Echinacea) AND (common cold OR upper respiratory OR prevention)"
  },
  {
   "id": "Бузина",
   "name": "Бузина",
-  "code": 0,
-  "verdict": "зависит от контекста",
-  "category": "Иммунитет",
+  "code": 1,
+  "verdict": "работает",
+  "category": "Иммунитет/ОРВИ",
   "price": 365,
   "scienceIndex": 14,
   "metaCount": 1,
@@ -2357,7 +2485,7 @@
   ],
   "dosage": "по инструкции (сироп/экстракт)",
   "course": "5-7 дней",
-  "caution": "сырые ягоды токсичны",
+  "caution": "Sambucus nigra (чёрная бузина). Мета-анализ РКИ показывает значимое сокращение длительности симптомов ОРВИ (~4 дня). Эффективна при гриппе А/В и риновирусных инфекциях. Безопасна в краткосрочной перспективе. Осторожно: сырые ягоды/листья токсичны (цианогенные гликозиды) — только стандартизированные экстракты. Данных мало (всего 2 РКИ в базе).",
   "forms": null,
   "mechs": [
    [
@@ -2375,10 +2503,13 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Сокращает длительность симптомов ОРВИ на ~4 дня (мета-анализ 2019). Эффективна при гриппе и простуде.",
+  "grade": "B",
+  "key_sources": [
+   "33827515",
+   "30670267"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -2398,14 +2529,15 @@
     "title": "Black elderberry (Sambucus nigra) supplementation effectively treats upper respiratory symptoms: A meta-analysis of randomized, controlled clinical trials.",
     "year": 2019
    }
-  ]
+  ],
+  "pubmed_term": "(Sambucus OR elderberry) AND (influenza OR cold OR antiviral)"
  },
  {
   "id": "Зверобой",
   "name": "Зверобой",
   "code": 1,
   "verdict": "работает",
-  "category": "Настроение",
+  "category": "Психика/Депрессия",
   "price": 241,
   "scienceIndex": 218,
   "metaCount": 31,
@@ -2419,7 +2551,7 @@
   ],
   "dosage": "300 мг 3 р/день (0.3% гиперицина)",
   "course": "4-6 недель",
-  "caution": "⚠️ CYP3A4: снижает эффект контрацептивов, антикоагулянтов, антидепрессантов",
+  "caution": "Для лёгкой-умеренной депрессии: сравнимая эффективность с SSRI, НО меньше побочных. НЕ работает при тяжёлой депрессии/суицидальности. КРИТИЧНО: взаимодействие с лекарствами (индуктор CYP3A4) — снижает эффективность оральных контрацептивов, антикоагулянтов, антиретровирусных, иммуносупрессантов. Фотосенсибилизация.",
   "forms": null,
   "mechs": [
    [
@@ -2452,10 +2584,12 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Лёгкая-умеренная депрессия: сравним с SSRI (RR 0.98 для response), меньше побочных (OR 0.59 dropout).",
+  "grade": "B",
+  "key_sources": [
+   "28064110"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -2475,14 +2609,15 @@
     "title": "Herbal extracts in orofacial pain: a systematic review and direct and indirect meta-analysis.",
     "year": 2024
    }
-  ]
+  ],
+  "pubmed_term": "(hypericum perforatum OR st johns wort) AND (depression OR depressive disorder)"
  },
  {
   "id": "5-HTP",
   "name": "5-HTP",
-  "code": 0,
-  "verdict": "зависит от контекста",
-  "category": "Настроение",
+  "code": -1,
+  "verdict": "не подтверждено",
+  "category": "Психика/Депрессия",
   "price": 635,
   "scienceIndex": 37,
   "metaCount": 2,
@@ -2496,7 +2631,7 @@
   ],
   "dosage": "100-300 мг",
   "course": "курсы",
-  "caution": "⚠️ НЕ с антидепрессантами (серотониновый синдром)",
+  "caution": "5-гидрокситриптофан (прекурсор серотонина). Cochrane-обзор показывает: старые РКИ (1960-80е) имели методологические проблемы. Современные данные ограничены. Для депрессии: не рекомендуется как монотерапия. Осторожно: серотониновый синдром при комбинации с SSRI/MAOI. Побочки: тошнота, GI-расстройства. Качество добавок варьирует (загрязнение eosinophilia-myalgia syndrome в прошлом).",
   "forms": null,
   "mechs": [
    [
@@ -2519,10 +2654,13 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Депрессия: данные слабые, качество РКИ низкое (Cochrane). Эффективность не подтверждена современными стандартами.",
+  "grade": "C",
+  "key_sources": [
+   "11687048",
+   "31504850"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -2542,14 +2680,15 @@
     "title": "Are tryptophan and 5-hydroxytryptophan effective treatments for depression? A meta-analysis.",
     "year": 2002
    }
-  ]
+  ],
+  "pubmed_term": "(5-hydroxytryptophan OR 5-HTP) AND (depression OR sleep OR anxiety)"
  },
  {
   "id": "Коллаген",
   "name": "Коллаген",
   "code": 1,
   "verdict": "работает",
-  "category": "Кожа и суставы",
+  "category": "Кожа/Суставы",
   "price": 166,
   "scienceIndex": 69,
   "metaCount": 4,
@@ -2563,7 +2702,7 @@
   ],
   "dosage": "5-10 г гидролизата/сут",
   "course": "8-12 недель",
-  "caution": "безопасен",
+  "caution": "Гидролизованный коллаген 2.5-10 г/день, 8-24 недели. Эффект на кожу значимый, но качество РКИ часто низкое (высокий риск bias). Для суставов (ОА): данные противоречивые. Безопасен, без серьёзных побочных. Оптимально: гидролизат или пептиды (не нативный коллаген).",
   "forms": "гидролизат или пептиды — не «желатин пищевой»; тип I/III — кожа, II — суставы",
   "mechs": [
    [
@@ -2581,9 +2720,13 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
+  "effect_outcome": "Улучшает гидратацию (10/15 РКИ), эластичность (10/13 РКИ), морщины (9/10 РКИ). Эффект на суставы: данные ограниченные.",
+  "grade": "B",
+  "key_sources": [
+   "42342959",
+   "30681787",
+   "33742704"
+  ],
   "about": "Структурный белок: кожа, суставы, кости. Пептиды всасываются.",
   "who_needs": "Остеоартрит, морщины (25+), спортсмены (суставы), постменопауза (кости).",
   "onset": "Кожа — 8-12 недель; суставы — 12-24 недели.",
@@ -2592,7 +2735,7 @@
   "guidelines": "EFSA: claims не одобрены; ряд МА — умеренный эффект на кожу и суставы.",
   "how_to_choose": "Гидролизат (пептиды), не желатин; типы I+III (кожа), II (суставы); с витамином C.",
   "myths": "«Желатин равноценен» — пептиды всасываются лучше. «Работает сразу» — 8-12 недель минимум.",
-  "updated": "2026-09-14",
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -2612,14 +2755,15 @@
     "title": "Efficacy and safety of microneedling with tranexamic acid versus microneedling with vitamin C in the treatment of melasma: a systematic review and meta-analysis.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(collagen supplementation OR hydrolyzed collagen) AND (skin OR joint OR bone)"
  },
  {
   "id": "Пробиотики",
   "name": "Пробиотики",
   "code": 0,
   "verdict": "зависит от контекста",
-  "category": "Кишечник",
+  "category": "ЖКТ",
   "price": 1672,
   "scienceIndex": 2059,
   "metaCount": 238,
@@ -2633,7 +2777,7 @@
   ],
   "dosage": "1-10 млрд КОЕ, штамм под задачу",
   "course": "4+ недели",
-  "caution": "осторожно при иммуносупрессии",
+  "caution": "Эффект ШТАММО-СПЕЦИФИЧЕН. Доказанные штаммы: Lactobacillus rhamnosus GG, Saccharomyces boulardii, Bifidobacterium infantis 35624. Противопоказаны: недоношенным (FDA warning 2023), пациентам с ЦВК, иммунокомпрометированным, остром панкреатите — риск бактериемии.",
   "forms": "эффект штаммозависим: L. rhamnosus GG — диарея; S. boulardii — антибиотико-ассоциированная; B. longum 1714 — стресс (мелкие RCT)",
   "mechs": [
    [
@@ -2664,10 +2808,14 @@
   "myths": "«Больше миллиардов КОЕ — лучше» — важнее штамм и доказательства. «Заселяет кишечник навсегда» — транзиторен по природе.",
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Антибиотик-диарея (RR 0.46); острая диарея у детей (-1 день)",
+  "grade": "B",
+  "key_sources": [
+   "31039287",
+   "33295643",
+   "40931979"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -2687,14 +2835,15 @@
     "title": "Probiotics for the prevention of ventilator-associated pneumonia and other outcomes in critically ill children: a systematic review and meta-analysis of randomized controlled trials.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(probiotics OR lactobacillus OR bifidobacterium) AND (irritable bowel OR diarrhea OR antibiotic-associated)"
  },
  {
   "id": "B9",
   "name": "B9",
-  "code": 0,
-  "verdict": "зависит от контекста",
-  "category": "Общее",
+  "code": 1,
+  "verdict": "работает",
+  "category": "Беременность/Кровь",
   "price": 281,
   "scienceIndex": 96,
   "metaCount": 13,
@@ -2708,7 +2857,7 @@
   ],
   "dosage": "400-800 мкг",
   "course": "по назначению",
-  "caution": "маскирует B12-дефицит",
+  "caution": "Фолиевая кислота (витамин B9). 12 Cochrane-обзоров в базе! Для профилактики дефектов нейральной трубки: Cochrane подтверждает эффективность (400 мкг/день за 1-3 месяца до зачатия и в первом триместре). Для беременности: Cochrane. Для снижения гомоцистеина: работает. Для когнитивных функций у пожилых: Cochrane не показывает пользы. Осторожно: маскирует дефицит B12 у пожилых. Метилфолат (5-MTHF) — активная форма для людей с полиморфизмом MTHFR.",
   "forms": null,
   "mechs": [
    [
@@ -2731,10 +2880,14 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Дефекты нейральной трубки: работает (Cochrane, профилактика 400 мкг/день). Гомоцистеин: снижение. Беременность: работает.",
+  "grade": "A",
+  "key_sources": [
+   "26662928",
+   "20927767",
+   "23543547"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -2754,14 +2907,15 @@
     "title": "A systematic review on the role of diet in managing pre-existing diabetes during pregnancy.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(folic acid OR folate supplementation) AND (neural tube OR pregnancy OR homocysteine OR cardiovascular OR depression)"
  },
  {
   "id": "Железо",
   "name": "Железо",
-  "code": 0,
-  "verdict": "зависит от контекста",
-  "category": "Общее",
+  "code": 1,
+  "verdict": "работает",
+  "category": "Кровь/Анемия",
   "price": 651,
   "scienceIndex": 1873,
   "metaCount": 197,
@@ -2775,7 +2929,7 @@
   ],
   "dosage": "ТОЛЬКО по анализу ферритина и назначению врача",
   "course": "курсы под контролем",
-  "caution": "⚠️ самолечение опасно: перегрузка, ЖКТ",
+  "caution": "Эффект зависит от ИСХОДНОГО уровня ферритина. У здоровых с нормальным Fe - пользы мало. При анемии или дефиците - значимая. GI-побочки (запор, тошнота) частые. Беременность: рутинная рекомендация WHO.",
   "forms": "хелат/бисглицинат мягче для ЖКТ, чем сульфат; принимать с витамином C, не с кальцием",
   "mechs": [
    [
@@ -2808,10 +2962,14 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Анемия у беременных RR 0.30 (0.20-0.47); дефицит Fe RR 0.51",
+  "grade": "A",
+  "key_sources": [
+   "39145520",
+   "22161448",
+   "27087396"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -2831,14 +2989,15 @@
     "title": "Optimizing water management for cadmium mitigation in rice production: A global meta-analysis and application effectiveness assessment.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(iron supplementation OR ferrous) AND (anemia OR iron deficiency OR pregnancy)"
  },
  {
   "id": "Триптофан",
   "name": "Триптофан",
-  "code": 0,
-  "verdict": "зависит от контекста",
-  "category": "Сон",
+  "code": 1,
+  "verdict": "работает",
+  "category": "Психика/Сон",
   "price": 591,
   "scienceIndex": 72,
   "metaCount": 5,
@@ -2852,7 +3011,7 @@
   ],
   "dosage": "500-1000 мг перед сном",
   "course": "—",
-  "caution": "не с антидепрессантами",
+  "caution": "L-триптофан - прекурсор серотонина. Эффект на сон ТОЛЬКО при >=1 г/день. НЕ сочетать с SSRI/MAOI (серотониновый синдром). Доза: 0.14-3 г/день.",
   "forms": null,
   "mechs": [
    [
@@ -2870,10 +3029,13 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Сон: WASO -81 мин/г при дозах >=1г. Настроение: уменьшает тревожность (11 РКИ).",
+  "grade": "C",
+  "key_sources": [
+   "33942088",
+   "32272859"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -2893,14 +3055,15 @@
     "title": "An umbrella review of inflammatory biomarkers and their relationship to treatment response in MDD.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(tryptophan supplementation) AND (sleep OR mood OR depression OR serotonin)"
  },
  {
   "id": "Глюкозамин + хондроитин",
   "name": "Глюкозамин + хондроитин",
-  "code": -1,
-  "verdict": "не подтверждено",
-  "category": "Кожа и суставы",
+  "code": 0,
+  "verdict": "зависит от контекста",
+  "category": "Суставы/Остеоартрит",
   "price": 478,
   "scienceIndex": 182,
   "metaCount": 26,
@@ -2914,7 +3077,7 @@
   ],
   "dosage": "1500+1200 мг/сут, курс 3-6 мес",
   "course": "—",
-  "caution": "осторожно с варфарином (МНО)",
+  "caution": "ХОНДРОИТИН работает лучше, чем глюкозамин. Эффект небольшой, но клинически значимый (NNT=5). Качество РКИ в основном LOW. Глюкозамин сульфат работает лучше, чем гидрохлорид. Серьёзных побочных меньше, чем у плацебо (Peto OR 0.40).",
   "forms": null,
   "mechs": [
    [
@@ -2937,10 +3100,14 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Хондроитин: боль -10% (95% CI 15%-6%), NNT=5; WOMAC MCII RR 1.12 (1.01-1.24). Глюкозамин: эффект VAS малый, WOMAC незначим.",
+  "grade": "C",
+  "key_sources": [
+   "25629804",
+   "15846645",
+   "29713967"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -2960,14 +3127,15 @@
     "title": "Evaluation of efficacy and safety of glucosamine sulfate, chondroitin sulfate, and their combination regimen in the management of knee osteoarthritis: a systematic review and meta-analysis.",
     "year": 2024
    }
-  ]
+  ],
+  "pubmed_term": "(glucosamine OR chondroitin) AND (osteoarthritis OR knee OR joint pain)"
  },
  {
   "id": "Витамин E",
   "name": "Витамин E",
-  "code": -1,
-  "verdict": "не подтверждено",
-  "category": "Общее",
+  "code": 0,
+  "verdict": "зависит от контекста",
+  "category": "Антиоксидант/Неврология",
   "price": 246,
   "scienceIndex": 14,
   "metaCount": 1,
@@ -2981,7 +3149,7 @@
   ],
   "dosage": "не превышать 400 МЕ, лучше из еды",
   "course": "—",
-  "caution": "высокие дозы: риск смертности и геморр. инсульта",
+  "caution": "Витамин E — жирорастворимый антиоксидант. 15 Cochrane-обзоров в базе! Для поздней дискинезии (побочный эффект антипсихотиков): есть данные об улучшении. Для МАСЛД: есть Cochrane (2 года, 800 МЕ/день). Для Альцгеймера: есть Cochrane, но эффект клинически малый. Для профилактики ССЗ/рака у здоровых: НЕТ эффекта (крупные РКИ). Осторожно: >400 МЕ/день повышает смертность от всех причин в некоторых МА.",
   "forms": null,
   "mechs": [
    [
@@ -3004,10 +3172,14 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Поздняя дискинезия (антипсихотики): есть Cochrane-обзоры. МАСЛД: есть Cochrane. Альцгеймер: есть Cochrane, но эффект малый. Профилактика ССЗ/рака: НЕТ эффекта.",
+  "grade": "C",
+  "key_sources": [
+   "39412049",
+   "28418065",
+   "29341067"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -3027,14 +3199,15 @@
     "title": "Effects of Vitamin C and/or E Supplementation on Glycemic Control and Cardiovascular Risk Factors in Type 2 Diabetes: A Systematic Review and Subgroup Meta-analysis.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(vitamin E OR tocopherol OR tocotrienol supplementation) AND (cardiovascular OR antioxidant OR cognitive OR cancer)"
  },
  {
   "id": "Биотин",
   "name": "Биотин",
-  "code": 0,
-  "verdict": "зависит от контекста",
-  "category": "Кожа и суставы",
+  "code": -1,
+  "verdict": "не подтверждено",
+  "category": "Кожа/Волосы",
   "price": 605,
   "scienceIndex": 9,
   "metaCount": 1,
@@ -3048,7 +3221,7 @@
   ],
   "dosage": "30-100 мкг/сут",
   "course": "—",
-  "caution": "ЛОМАЕТ анализы (тропонин, ТТГ)! стоп за 3 дня",
+  "caution": "Биотин (витамин B7, витамин H). В базе НЕТ систематических обзоров или мета-анализов по клиническим эффектам у здоровых. Дефицит биотина редок (только при генетических заболеваниях, длительном парентеральном питании, употреблении сырых яичных белков). У здоровых людей с нормальным уровнем — добавки не имеют доказанного эффекта на волосы/ногти/кожу. Побочки: искажение лабораторных тестов (тропонин, гормоны щитовидки).",
   "forms": null,
   "mechs": [
    [
@@ -3066,10 +3239,10 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
+  "effect_outcome": "НЕТ ДАННЫХ в базе (0 систематических обзоров после скрининга). Популярность для волос/ногтей не подтверждена доказательной базой.",
+  "grade": "D",
   "key_sources": [],
-  "updated": "2026-09-14",
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -3089,14 +3262,15 @@
     "title": "Quantitative comparison of the efficacy of clinical drug treatments for primary progressive multiple sclerosis.",
     "year": 2023
    }
-  ]
+  ],
+  "pubmed_term": "(biotin supplementation) AND (hair OR nails OR skin OR metabolic OR diabetes)"
  },
  {
   "id": "L-карнитин",
   "name": "L-карнитин",
   "code": 0,
   "verdict": "зависит от контекста",
-  "category": "Спорт",
+  "category": "Неврология/Спорт",
   "price": 466,
   "scienceIndex": 804,
   "metaCount": 92,
@@ -3110,7 +3284,7 @@
   ],
   "dosage": "1-2 г/сут",
   "course": "—",
-  "caution": "при болезнях щитовидной — к врачу",
+  "caution": "Acetyl-L-карнитин при диабетической нейропатии: эффект ТОЛЬКО при дозе >1500 мг/день, certainty VERY LOW. При перемещающейся хромоте: эффект незначимый. Для похудения/спорта: систематических пруфов НЕТ. 2 из 4 исследований финансировались производителем.",
   "forms": null,
   "mechs": [
    [
@@ -3133,10 +3307,14 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Диабетическая нейропатия: боль VAS MD -14.93 (-19.16 до -10.70) при дозе >1500 мг/день",
+  "grade": "C",
+  "key_sources": [
+   "31201734",
+   "34954832",
+   "38594107"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -3156,14 +3334,15 @@
     "title": "Effects of Carnitine and Coenzyme Q10 on Sperm Quality and Pregnancy Rates in Men with Unexplained Infertility: A Systematic Review and Network Meta-Analysis.",
     "year": 2025
    }
-  ]
+  ],
+  "pubmed_term": "(L-carnitine OR acetyl-L-carnitine) AND (exercise OR cardiovascular OR diabetes)"
  },
  {
   "id": "BCAA",
   "name": "BCAA",
-  "code": -1,
-  "verdict": "не подтверждено",
-  "category": "Спорт",
+  "code": 0,
+  "verdict": "зависит от контекста",
+  "category": "Печень/Спорт",
   "price": 177,
   "scienceIndex": 5,
   "metaCount": 0,
@@ -3177,7 +3356,7 @@
   ],
   "dosage": "5-10 г вокруг тренировки",
   "course": "—",
-  "caution": "бессмысленны при норме белка",
+  "caution": "BCAA (лейцин/изолейцин/валин). Для печеночной энцефалопатии при циррозе: 4 Cochrane-обзора показывают эффективность. Для спорта: мета-анализы противоречивы — многие показывают отсутствие клинически значимого эффекта. Для саркопении при циррозе: есть данные. Для онкологии/операций: данные ограниченные.",
   "forms": null,
   "mechs": [
    [
@@ -3195,10 +3374,14 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Печеночная энцефалопатия при циррозе: работает (4 Cochrane). Спорт: данные противоречивые, клиническая ценность спорная.",
+  "grade": "B",
+  "key_sources": [
+   "41542879",
+   "28518283",
+   "26377410"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -3218,14 +3401,15 @@
     "title": "Treatment of Sleep Disorders Following Traumatic Brain Injury: A Systematic Review and Network Meta-Analysis.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(branched-chain amino acids OR BCAA supplementation) AND (exercise OR muscle OR recovery OR performance)"
  },
  {
   "id": "Аргинин",
   "name": "Аргинин",
   "code": 0,
   "verdict": "зависит от контекста",
-  "category": "Спорт",
+  "category": "Сосуды/Беременность",
   "price": 230,
   "scienceIndex": 2,
   "metaCount": 0,
@@ -3239,7 +3423,7 @@
   ],
   "dosage": "3-6 г/сут (часто ЖКТ-побочки)",
   "course": "—",
-  "caution": "осторожно при герпесе и гипотонии",
+  "caution": "L-аргинин — прекурсор оксида азота (NO). Для профилактики преэклампсии: данные есть. Для некротизирующего энтероколита (НЭК) у недоношенных: Cochrane подтверждает эффективность. Для оксид азота при стенокардии: Cochrane. Для давления: умеренное снижение. Для эректильной дисфункции: ограниченные данные (часто с пикногенолом). Для гликемического контроля: смешанные данные.",
   "forms": null,
   "mechs": [
    [
@@ -3262,10 +3446,14 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Преэклампсия: есть данные (профилактика). НЭК у недоношенных: работает (Cochrane). Давление: умеренное снижение.",
+  "grade": "B",
+  "key_sources": [
+   "39800868",
+   "39564822",
+   "28399330"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -3285,14 +3473,15 @@
     "title": "Nutritional supplements for preventing preeclampsia: A network meta-analysis.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(L-arginine OR arginine supplementation) AND (nitric oxide OR exercise OR blood pressure OR erectile)"
  },
  {
   "id": "Кальций",
   "name": "Кальций",
   "code": 0,
   "verdict": "зависит от контекста",
-  "category": "Общее",
+  "category": "Кости/Беременность",
   "price": 280,
   "scienceIndex": 425,
   "metaCount": 46,
@@ -3306,7 +3495,7 @@
   ],
   "dosage": "500-600 мг + D3, не больше",
   "course": "—",
-  "caution": ">1200 мг: камни почек, спор о ССЗ",
+  "caution": "Эффект при беременности: высокие дозы ≥1 г/день снижают преэклампсию, особенно при НИЗКОМ диетическом Ca. Риск HELLP-синдрома повышен (RR 2.67, но абсолютно редкое). Вне беременности: профилактика переломов только с витамином D.",
   "forms": null,
   "mechs": [
    [
@@ -3338,10 +3527,14 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Преэклампсия RR 0.45 (0.31-0.65); преждевременные роды RR 0.76",
+  "grade": "A",
+  "key_sources": [
+   "30277579",
+   "39560075",
+   "35014026"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -3361,14 +3554,15 @@
     "title": "Effectiveness of anti-osteoporotic medications in the management of glucocorticoid-induced osteoporosis: a systematic review and network meta-analysis on behalf of the ECTS clinical action group.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(calcium supplementation) AND (fracture OR bone density OR cardiovascular)"
  },
  {
   "id": "Гиалуроновая кислота",
   "name": "Гиалуроновая кислота",
   "code": 0,
   "verdict": "зависит от контекста",
-  "category": "Кожа и суставы",
+  "category": "Суставы/Кожа",
   "price": 779,
   "scienceIndex": 2168,
   "metaCount": 266,
@@ -3382,7 +3576,7 @@
   ],
   "dosage": "120-200 мг/сут",
   "course": "—",
-  "caution": "инъекции изучены лучше таблеток",
+  "caution": "Внутрисуставные инъекции при ОА колена: МАЛЫЙ эффект, и PRP (плазма) ПРЕВОСХОДИТ ГК (LP-PRP MD -10.54 WOMAC). Перорально (БАД): качественных РКИ с исходами НЕТ. Косметические филлеры: редкие тяжёлые сосудистые осложнения (некроз, потеря зрения).",
   "forms": null,
   "mechs": [
    [
@@ -3400,10 +3594,14 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Внутрисуставно при ОА: эффект малый, уступает PRP (сетевой МА 21 РКИ). Перорально: нет пруфов.",
+  "grade": "C",
+  "key_sources": [
+   "26475434",
+   "41629990",
+   "40069655"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -3423,14 +3621,15 @@
     "title": "Comparative efficacy of platelet-rich plasma monotherapy versus combination therapies for knee osteoarthritis: a systematic review and network meta-analysis.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(hyaluronic acid OR sodium hyaluronate) AND (osteoarthritis OR knee OR skin)"
  },
  {
   "id": "Псиллиум",
   "name": "Псиллиум",
   "code": 1,
   "verdict": "работает",
-  "category": "Кишечник",
+  "category": "ЖКТ/Метаболизм",
   "price": 42,
   "scienceIndex": 214,
   "metaCount": 23,
@@ -3444,7 +3643,7 @@
   ],
   "dosage": "5-10 г клетчатки/сут с водой",
   "course": "—",
-  "caution": "начинать с малого; отдельно от лекарств (2 ч)",
+  "caution": "ОДНА из самых доказанных клетчаток. Эффект дозозависимый: оптимум ≥10 г/день за 15 мин до еды. Безопасен длительно. GI-побочки (вздутие) в первые недели. Обязателен адекватный приём воды.",
   "forms": null,
   "mechs": [
    [
@@ -3462,9 +3661,13 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
+  "effect_outcome": "FBS -6.89 мг/дл (95% CI -10.62 до -3.16); HbA1c -0.75%; вес -2.1 кг; LDL -10-15%",
+  "grade": "B",
+  "key_sources": [
+   "38844885",
+   "37163454",
+   "31919936"
+  ],
   "about": "Растворимая клетчатка: холестерин, сахар, регулярность стула.",
   "who_needs": "Повышенный холестерин, запоры, преддиабет, контроль веса.",
   "onset": "Холестерин — 4-8 недель; стул — 1-3 дня.",
@@ -3473,7 +3676,7 @@
   "guidelines": "EFSA: 10 г/сут снижает холестерин; FDA: health claim для сердца.",
   "how_to_choose": "Шелуха (husk), не цельные семена; порошок или капсулы.",
   "myths": "«Заменит овощи» — клетчатка есть, но нет витаминов. «Работает без воды» — без воды запор.",
-  "updated": "2026-09-14",
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -3493,14 +3696,15 @@
     "title": "Conservative, physical and surgical interventions for managing faecal incontinence and constipation in adults with central neurological diseases.",
     "year": 2024
    }
-  ]
+  ],
+  "pubmed_term": "(psyllium OR plantago ovata) AND (constipation OR cholesterol OR blood glucose)"
  },
  {
   "id": "Имбирь",
   "name": "Имбирь",
   "code": 1,
   "verdict": "работает",
-  "category": "Общее",
+  "category": "ЖКТ/Метаболизм",
   "price": 135,
   "scienceIndex": 44,
   "metaCount": 6,
@@ -3514,7 +3718,7 @@
   ],
   "dosage": "1 г/сут сухого корня",
   "course": "—",
-  "caution": "осторожно с антикоагулянтами",
+  "caution": "Имбирь (Zingiber officinale). Для тошноты при беременности: систематические обзоры подтверждают эффективность (доза 1 г/день). Для послеоперационной тошноты: данные есть. Для гликемического контроля при диабете 2 типа: умеренное улучшение. Для воспаления/оксидативного стресса: данные есть. Безопасен в дозах до 4 г/день. Осторожно: антикоагулянты (антиагрегантный эффект).",
   "forms": null,
   "mechs": [
    [
@@ -3537,9 +3741,13 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
+  "effect_outcome": "Тошнота при беременности: работает (систематические обзоры). Послеоперационная тошнота: работает. Метаболические профили: умеренное улучшение.",
+  "grade": "B",
+  "key_sources": [
+   "42322087",
+   "37379959",
+   "35031435"
+  ],
   "about": "Противовоспалительное, противорвотное, умеренный эффект на боль.",
   "who_needs": "Остеоартрит, тошнота (беременность, химиотерапия), мышечная боль.",
   "onset": "Тошнота — 30-60 минут; боль — 4-8 недель.",
@@ -3548,7 +3756,7 @@
   "guidelines": "EFSA: claims не одобрены; МА — умеренный эффект на боль при остеоартрите.",
   "how_to_choose": "Стандартизация 5% гингеролов; капсулы или свежий корень.",
   "myths": "«Лечит простуду» — облегчает симптомы, не лечит. «Безопасен с антикоагулянтами» — риск кровотечений.",
-  "updated": "2026-09-14",
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -3568,14 +3776,15 @@
     "title": "[Different moxibustion therapies for primary dysmenorrhea: a network Meta-analysis].",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(Zingiber officinale OR ginger supplementation) AND (nausea OR inflammation OR pain OR metabolic)"
  },
  {
   "id": "Чеснок",
   "name": "Чеснок",
-  "code": 0,
-  "verdict": "зависит от контекста",
-  "category": "Общее",
+  "code": 1,
+  "verdict": "работает",
+  "category": "Сосуды/Метаболизм",
   "price": 318,
   "scienceIndex": 1,
   "metaCount": 0,
@@ -3589,7 +3798,7 @@
   ],
   "dosage": "600-1200 мг выдерж. экстракта/сут",
   "course": "—",
-  "caution": "усиливает антикоагулянты; запах",
+  "caution": "Чеснок (Allium sativum). Для давления: мета-анализы показывают умеренное снижение (-5-8 мм рт.ст. систолическое). Для холестерина: умеренное снижение. Для кардиометаболических факторов: есть данные. Эффект зависит от формы (aged garlic extract лучше). Безопасен в стандартных дозах. Осторожно: антикоагулянты, операции (антиагрегантный эффект).",
   "forms": null,
   "mechs": [
    [
@@ -3612,9 +3821,13 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
+  "effect_outcome": "Артериальное давление: умеренное снижение. Холестерин: умеренное снижение. Метаболический синдром: есть данные.",
+  "grade": "B",
+  "key_sources": [
+   "40628369",
+   "33792129",
+   "40580481"
+  ],
   "about": "Серосодержащие соединения: умеренный эффект на АД и холестерин.",
   "who_needs": "Повышенное АД (адъювант), повышенный холестерин, профилактика.",
   "onset": "АД — 8-12 недель; холестерин — 12-24 недели.",
@@ -3623,7 +3836,7 @@
   "guidelines": "EFSA: claims не одобрены; МА — modest effect на АД и холестерин.",
   "how_to_choose": "Стандартизация 1.3% аллицина; aged garlic extract (AGE) лучше переносится.",
   "myths": "«Заменит статины» — эффект скромный. «Свежий чеснок равноценен» — добавки стабильнее.",
-  "updated": "2026-09-14",
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -3643,14 +3856,15 @@
     "title": "Garlic as a lipid lowering agent--a meta-analysis.",
     "year": 1994
    }
-  ]
+  ],
+  "pubmed_term": "(Allium sativum OR garlic supplementation OR aged garlic extract) AND (cardiovascular OR blood pressure OR cholesterol)"
  },
  {
   "id": "Клюква",
   "name": "Клюква",
   "code": 0,
   "verdict": "зависит от контекста",
-  "category": "Иммунитет",
+  "category": "Мочеполовая система",
   "price": null,
   "scienceIndex": 25,
   "metaCount": 3,
@@ -3664,7 +3878,7 @@
   ],
   "dosage": "36 мг PAC/сут",
   "course": "—",
-  "caution": "профилактика, НЕ лечение",
+  "caution": "Клюква (Vaccinium macrocarpon). Для профилактики инфекций мочевыводящих путей: ранее считалась эффективной (проантоцианидины предотвращают адгезию бактерий), но современные мета-анализы показывают ограниченную эффективность. Для давления: данные очень ограниченные. Данных мало (всего 2 абстракта в базе).",
   "forms": null,
   "mechs": [
    [
@@ -3682,10 +3896,12 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Профилактика ИМП: данные ограниченные (ранее считалась эффективной, современные данные противоречивые).",
+  "grade": "C",
+  "key_sources": [
+   "41676867"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -3705,14 +3921,15 @@
     "title": "Cranberry Reduces the Risk of Urinary Tract Infection Recurrence in Otherwise Healthy Women: A Systematic Review and Meta-Analysis.",
     "year": 2017
    }
-  ]
+  ],
+  "pubmed_term": "(Vaccinium macrocarpon OR cranberry supplementation) AND (urinary tract infection OR prevention OR antioxidant)"
  },
  {
   "id": "Пустырник",
   "name": "Пустырник",
   "code": -1,
   "verdict": "не подтверждено",
-  "category": "Сон",
+  "category": "Сердце/Растения",
   "price": null,
   "scienceIndex": 23,
   "metaCount": 4,
@@ -3726,7 +3943,7 @@
   ],
   "dosage": "чай/экстракт 2-3 р/день",
   "course": "—",
-  "caution": "седация с алкоголем и седативными",
+  "caution": "Пустырник (Leonurus cardiaca). В базе НЕТ мета-анализов или систематических обзоров. Популярное средство в восточноевропейской традиционной медицине для 'успокоения сердца', тревожности, сердцебиения. Но доказательная база отсутствует. Не рекомендуется при серьёзных сердечно-сосудистых заболеваниях без врачебного наблюдения. Может взаимодействовать с антикоагулянтами.",
   "forms": null,
   "mechs": [
    [
@@ -3749,10 +3966,10 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
+  "effect_outcome": "НЕТ ДАННЫХ в базе (0 систематических обзоров после скрининга). Популярность в традиционной медицине не подтверждена доказательной базой.",
+  "grade": "D",
   "key_sources": [],
-  "updated": "2026-09-14",
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -3772,14 +3989,15 @@
     "title": "Motherwort injection for preventing postpartum hemorrhage in pregnant women with cesarean section: A systematic review and meta-analysis.",
     "year": 2018
    }
-  ]
+  ],
+  "pubmed_term": "(Leonurus cardiaca OR motherwort) AND (anxiety OR palpitation OR cardiovascular)"
  },
  {
   "id": "Боярышник",
   "name": "Боярышник",
-  "code": 0,
-  "verdict": "зависит от контекста",
-  "category": "Общее",
+  "code": 1,
+  "verdict": "работает",
+  "category": "Сердце/Растения",
   "price": null,
   "scienceIndex": 77,
   "metaCount": 7,
@@ -3793,7 +4011,7 @@
   ],
   "dosage": "600-1200 мг экстракта/сут",
   "course": "—",
-  "caution": "не заменяет терапию СН; с дигоксином — врач",
+  "caution": "Боярышник (Crataegus spp.). Для ХСН: Cochrane-обзор (18254076) подтверждает улучшение симптомов (одышка, утомляемость) и переносимости физических нагрузок. Используется в европейской фитотерапии как адъювант. Эффект развивается через 4-8 недель. Не заменяет стандартную терапию ХСН. Безопасен в стандартных дозах. Осторожно: дигоксин (усиливает эффект), антигипертензивные препараты.",
   "forms": null,
   "mechs": [
    [
@@ -3816,10 +4034,13 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Хроническая сердечная недостаточность (ХСН): Cochrane подтверждает улучшение симптомов и переносимости нагрузок.",
+  "grade": "B",
+  "key_sources": [
+   "18254076",
+   "12798455"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -3839,14 +4060,15 @@
     "title": "Does intranasal oxytocin reduce symptoms of mental disorders? A meta-analysis of clinical trials.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(Crataegus OR hawthorn) AND (heart failure OR blood pressure OR cardiovascular)"
  },
  {
   "id": "Бета-глюканы овса",
   "name": "Бета-глюканы овса",
   "code": 1,
   "verdict": "работает",
-  "category": "Общее",
+  "category": "Метаболизм/Холестерин",
   "price": null,
   "scienceIndex": 81,
   "metaCount": 8,
@@ -3860,7 +4082,7 @@
   ],
   "dosage": "3 г/сут (клим EFSA)",
   "course": "—",
-  "caution": "газы в начале",
+  "caution": "Бета-глюканы овса — растворимая клетчатка. FDA health claim (США) официально разрешён: 'растворимая клетчатка из овса может снизить риск ССЗ через снижение холестерина'. Мета-анализ (35631184) подтверждает снижение LDL у гиперхолестеринемичных. Эффект дозозависимый: оптимум 3+ г/день. Для гликемического контроля: есть данные. Безопасны.",
   "forms": null,
   "mechs": [
    [
@@ -3878,10 +4100,12 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Холестерин: снижение LDL (FDA health claim). Гликемический контроль: есть данные.",
+  "grade": "B",
+  "key_sources": [
+   "35631184"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -3901,14 +4125,15 @@
     "title": "The separate effects of whole oats and isolated beta-glucan on lipid profile: A systematic review and meta-analysis of randomized controlled trials.",
     "year": 2023
    }
-  ]
+  ],
+  "pubmed_term": "(oat beta-glucan OR beta-glucan supplementation) AND (cholesterol OR immune OR glycemic)"
  },
  {
   "id": "Рибофлавин",
   "name": "Рибофлавин",
   "code": 1,
   "verdict": "работает",
-  "category": "Когниция",
+  "category": "Неврология/Метаболизм",
   "price": null,
   "scienceIndex": 5,
   "metaCount": 1,
@@ -3922,7 +4147,7 @@
   ],
   "dosage": "400 мг/сут",
   "course": "—",
-  "caution": "жёлтая моча — норма",
+  "caution": "Рибофлавин (витамин B2). Для профилактики мигрени: систематические обзоры (33779525, 28485121) показывают эффективность при дозе 400 мг/день. Эффект развивается через 2-3 месяца. Безопасен, без серьёзных побочных (моча ярко-жёлтая — норма). Для наследственных метаболических заболеваний (дефицит комплекса I): есть данные. Для анемии — нет систематических данных.",
   "forms": null,
   "mechs": [
    [
@@ -3940,10 +4165,13 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Мигрень: профилактика (400 мг/день) — систематические обзоры подтверждают. Метаболические заболевания: есть данные.",
+  "grade": "B",
+  "key_sources": [
+   "33779525",
+   "28485121"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -3963,14 +4191,15 @@
     "title": "Associations of dietary vitamin B1, vitamin B2, vitamin B6, and vitamin B12 with the risk of depression: a systematic review and meta-analysis.",
     "year": 2022
    }
-  ]
+  ],
+  "pubmed_term": "(riboflavin OR vitamin B2 supplementation) AND (migraine OR anemia OR metabolic)"
  },
  {
   "id": "Лютеин + зеаксантин",
   "name": "Лютеин + зеаксантин",
-  "code": 0,
-  "verdict": "зависит от контекста",
-  "category": "Зрение",
+  "code": 1,
+  "verdict": "работает",
+  "category": "Глаза/Зрение",
   "price": 536,
   "scienceIndex": 3,
   "metaCount": 0,
@@ -3984,7 +4213,7 @@
   ],
   "dosage": "10+2 мг/сут с жирами",
   "course": "—",
-  "caution": "у здоровых профилактика слабее, чем при AMD",
+  "caution": "Лютеин и зеаксантин — каротиноиды сетчатки. Для возрастной макулярной дегенерации (ВМД): систематические обзоры показывают улучшение макулярного пигмента и замедление прогрессирования. Для катаракты: снижение риска. Для ретинопатии недоношенных: Cochrane (40292760). AREDS2 формула (лютеин+зеаксантин) — стандарт при ВМД. Доза: 10 мг лютеина + 2 мг зеаксантина/день. Безопасны.",
   "forms": null,
   "mechs": [
    [
@@ -4002,10 +4231,14 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "ВМД: улучшение макулярного пигмента, снижение прогрессирования. Катаракта: снижение риска. Есть Cochrane для недоношенных.",
+  "grade": "B",
+  "key_sources": [
+   "31887124",
+   "24451312",
+   "40292760"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -4025,14 +4258,15 @@
     "title": "Effect of xanthophyll-rich food and supplement intake on visual outcomes in healthy adults and those with eye disease: a systematic review, meta-analysis, and meta-regression of randomized controlled trials.",
     "year": 2023
    }
-  ]
+  ],
+  "pubmed_term": "(lutein OR zeaxanthin supplementation) AND (macular OR eye OR vision OR AMD OR cataract)"
  },
  {
   "id": "Инозитол",
   "name": "Инозитол",
   "code": 0,
   "verdict": "зависит от контекста",
-  "category": "Настроение",
+  "category": "Женское здоровье/СПКЯ",
   "price": 783,
   "scienceIndex": 292,
   "metaCount": 40,
@@ -4046,7 +4280,7 @@
   ],
   "dosage": "2-4 г/сут",
   "course": "—",
-  "caution": "при БАР — осторожно (мания)",
+  "caution": "При СПКЯ: может снижать выкидыши, НО данные VERY LOW quality. На живые роды эффекта не показано (OR 2.42, CI пересекает 1). При гестационном диабете: профилактический эффект возможен, но данных мало. НЕ замена метформину.",
   "forms": null,
   "mechs": [
    [
@@ -4064,10 +4298,14 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Живые роды OR 2.42 (0.75-7.83, незначимо); выкидыши OR 0.40 (0.19-0.86)",
+  "grade": "C",
+  "key_sources": [
+   "30570133",
+   "36790138",
+   "41792927"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -4087,14 +4325,15 @@
     "title": "Neurometabolites and Antipsychotic Response in Psychosis: A Mega-Analysis.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(myo-inositol OR inositol) AND (polycystic ovary OR insulin resistance OR gestational diabetes)"
  },
  {
   "id": "Альфа-липоевая кислота",
   "name": "Альфа-липоевая кислота",
-  "code": 0,
-  "verdict": "зависит от контекста",
-  "category": "Общее",
+  "code": 1,
+  "verdict": "работает",
+  "category": "Неврология/Метаболизм",
   "price": null,
   "scienceIndex": 95,
   "metaCount": 11,
@@ -4108,7 +4347,7 @@
   ],
   "dosage": "600 мг/сут",
   "course": "—",
-  "caution": "снижает сахар — осторожно с препаратами",
+  "caution": "Альфа-липоевая кислота (АЛК) — антиоксидант. Для диабетической периферической нейропатии: Cochrane-обзор подтверждает эффективность (600 мг/день внутривенно или перорально). Для кардиометаболических факторов: есть данные. Для веса: эффект малый. Для печени (МАСЛД): есть данные. Для фертильности: ограниченные данные. Безопасна в дозах 300-600 мг/день. Осторожно: диабет (снижает сахар, корректировать дозу инсулина).",
   "forms": null,
   "mechs": [
    [
@@ -4131,10 +4370,14 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Диабетическая периферическая нейропатия: работает (Cochrane). Кардиометаболические факторы: есть данные. Вес: эффект малый.",
+  "grade": "B",
+  "key_sources": [
+   "38205823",
+   "37630823",
+   "37933068"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -4154,14 +4397,15 @@
     "title": "Effects of alpha-lipoic acid supplementation on patients with nonalcoholic fatty liver disease: a systematic review and meta-analysis of randomized clinical trials.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(alpha-lipoic acid OR lipoic acid supplementation) AND (diabetes OR neuropathy OR antioxidant OR weight)"
  },
  {
   "id": "D-манноза",
   "name": "D-манноза",
-  "code": 0,
-  "verdict": "зависит от контекста",
-  "category": "Иммунитет",
+  "code": -1,
+  "verdict": "не подтверждено",
+  "category": "Мочеполовая система",
   "price": null,
   "scienceIndex": 29,
   "metaCount": 3,
@@ -4175,7 +4419,7 @@
   ],
   "dosage": "2 г/сут",
   "course": "—",
-  "caution": "данных меньше, чем у клюквы, но РКИ есть",
+  "caution": "D-манноза — простой сахар. Популярна для профилактики инфекций мочевыводящих путей (особенно при рецидивирующих ИМП). Механизм: препятствует адгезии E. coli к эпителию мочевого пузыря. Отдельные РКИ показывают эффективность, сравнимую с антибиотиками для профилактики, но в базе PubMed НЕТ систематических обзоров. Доза: 1-2 г/день. Безопасна. Нужны качественные мета-анализы.",
   "forms": null,
   "mechs": [
    [
@@ -4193,10 +4437,10 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
+  "effect_outcome": "НЕТ ДАННЫХ в базе (0 систематических обзоров после скрининга). Популярна для профилактики ИМП, но доказательная база слабая.",
+  "grade": "D",
   "key_sources": [],
-  "updated": "2026-09-14",
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -4216,14 +4460,15 @@
     "title": "Efficacy of D-mannose as prophylaxis of recurrent urinary tract infection: a systematic review and meta-analysis of randomized controlled trials.",
     "year": 2025
    }
-  ]
+  ],
+  "pubmed_term": "(D-mannose supplementation) AND (urinary tract infection OR prevention)"
  },
  {
   "id": "Мака",
   "name": "Мака",
   "code": 0,
   "verdict": "зависит от контекста",
-  "category": "Настроение",
+  "category": "Сексуальное здоровье/Энергия",
   "price": 76,
   "scienceIndex": 1,
   "metaCount": 0,
@@ -4237,7 +4482,7 @@
   ],
   "dosage": "1.5-3 г/сут",
   "course": "—",
-  "caution": "влияние на гормоны не доказано",
+  "caution": "Мака (Lepidium meyenii) - корнеплод из Анд. Для сексуальной функции: улучшение у мужчин и женщин. Для менопаузальных симптомов: есть данные. Для фертильности у мужчин: противоречивые данные. Данных мало (2 МА). Доза: 1.5-3 г/день.",
   "forms": null,
   "mechs": [
    [
@@ -4255,10 +4500,13 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Сексуальная функция: есть данные. Менопауза: есть. Фертильность: противоречиво.",
+  "grade": "C",
+  "key_sources": [
+   "20691074",
+   "21840656"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -4273,14 +4521,15 @@
     "title": "Effects of Maca (Lepidium meyenii Walp.) on Physical Performance in Animals and Humans: A Systematic Review and Meta-Analysis.",
     "year": 2024
    }
-  ]
+  ],
+  "pubmed_term": "(Lepidium meyenii OR maca) AND (fertility OR sexual OR mood OR energy OR menopause)"
  },
  {
   "id": "Хром",
   "name": "Хром",
-  "code": -1,
-  "verdict": "не подтверждено",
-  "category": "Общее",
+  "code": 0,
+  "verdict": "зависит от контекста",
+  "category": "Метаболизм/Диабет",
   "price": 205,
   "scienceIndex": 26,
   "metaCount": 1,
@@ -4294,7 +4543,7 @@
   ],
   "dosage": "200-400 мкг/сут",
   "course": "—",
-  "caution": "эффект минимален даже при дефиците",
+  "caution": "Хром (чаще пиколинат). Для диабета 2 типа: мета-анализы показывают небольшое снижение глюкозы натощак и HbA1c. Для ожирения: Cochrane (24293292) показывает НЕЗНАЧИМЫЙ эффект на вес. Для СПКЯ: есть данные. Для давления: эффект малый. Данные смешанные, клиническая значимость спорная. Безопасен в стандартных дозах (200-1000 мкг/день).",
   "forms": null,
   "mechs": [
    [
@@ -4312,10 +4561,14 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Диабет 2 типа: есть данные, но эффект малый. СПКЯ: есть данные. Вес/ожирение: Cochrane показывает НЕЗНАЧИМЫЙ эффект.",
+  "grade": "C",
+  "key_sources": [
+   "39541030",
+   "24293292",
+   "41067797"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -4335,14 +4588,15 @@
     "title": "Therapeutic effects of chromium supplementation on women with polycystic ovarian syndrome: A systematic review and meta-analysis.",
     "year": 2025
    }
-  ]
+  ],
+  "pubmed_term": "(chromium supplementation OR chromium picolinate) AND (diabetes OR insulin OR weight OR metabolic)"
  },
  {
   "id": "Астаксантин",
   "name": "Астаксантин",
   "code": 0,
   "verdict": "зависит от контекста",
-  "category": "Кожа и суставы",
+  "category": "Антиоксидант/Кожа",
   "price": 882,
   "scienceIndex": 79,
   "metaCount": 8,
@@ -4356,7 +4610,7 @@
   ],
   "dosage": "4-12 мг/сут с жирами",
   "course": "—",
-  "caution": "безопасен; в высоких дозах тон кожи",
+  "caution": "Астаксантин — каротиноид из водорослей Haematococcus pluvialis. Для кожи: систематический обзор (32202443) показывает улучшение параметров. Для фертильности: есть данные (39127677, 41714661). Для спорта/восстановления: данные ограниченные. Для печени: есть данные. Данных по клиническим исходам мало — в основном биомаркеры. Безопасен в дозах 4-12 мг/день.",
   "forms": null,
   "mechs": [
    [
@@ -4374,10 +4628,14 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Кожа: есть данные (систематический обзор). Фертильность: есть данные. Спорт/восстановление: данные ограниченные.",
+  "grade": "C",
+  "key_sources": [
+   "32202443",
+   "39127677",
+   "42197030"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -4397,14 +4655,15 @@
     "title": "A systematic review and meta-analysis of astaxanthin efficacy in male infertility: evidence from clinical and preclinical studies.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(astaxanthin supplementation) AND (antioxidant OR skin OR exercise OR cardiovascular)"
  },
  {
   "id": "Расторопша",
   "name": "Расторопша",
   "code": 0,
   "verdict": "зависит от контекста",
-  "category": "Общее",
+  "category": "Печень",
   "price": null,
   "scienceIndex": 2,
   "metaCount": 0,
@@ -4418,7 +4677,7 @@
   ],
   "dosage": "420 мг силимарина/сут",
   "course": "—",
-  "caution": "не заменяет терапию; алкоголь — нет",
+  "caution": "Расторопша (Silybum marianum, силимарин). Для метаболической дисфункции печени (МАСЛД): есть Cochrane-обзор. Для алкогольного/вирусного гепатита: Cochrane показывает ограниченную эффективность. Для инсулинорезистентности: есть данные. Клиническая значимость спорная — биохимические маркеры улучшаются, но клинические исходы часто незначимы. Безопасна.",
   "forms": null,
   "mechs": [
    [
@@ -4436,10 +4695,14 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "МАСЛД: есть данные (Cochrane). Алкогольный/вирусный гепатит: Cochrane показывает ограниченную эффективность. Инсулинорезистентность: есть данные.",
+  "grade": "B",
+  "key_sources": [
+   "40552569",
+   "17943794",
+   "39855603"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -4459,14 +4722,15 @@
     "title": "Coadministration of silymarin with iron chelators in transfusion-dependent β-thalassemia patients: a systematic review and meta-analysis for effect on iron overload.",
     "year": 2021
    }
-  ]
+  ],
+  "pubmed_term": "(Silybum marianum OR milk thistle OR silymarin) AND (liver OR hepatitis OR metabolic)"
  },
  {
   "id": "Лактоферрин",
   "name": "Лактоферрин",
-  "code": 0,
-  "verdict": "зависит от контекста",
-  "category": "Иммунитет",
+  "code": 1,
+  "verdict": "работает",
+  "category": "Иммунитет/Дети",
   "price": null,
   "scienceIndex": 23,
   "metaCount": 2,
@@ -4480,7 +4744,7 @@
   ],
   "dosage": "100-200 мг/сут",
   "course": "—",
-  "caution": "мягче солей железа для ЖКТ",
+  "caution": "Лактоферрин — гликопротеин молока. Для недоношенных: 2 Cochrane-обзора подтверждают профилактику позднего сепсиса и НЭК. Для педиатрических инфекций: есть данные. Для статуса железа: улучшает абсорбцию. Безопасен. Осторожно: аллергия на молочный белок.",
   "forms": null,
   "mechs": [
    [
@@ -4501,10 +4765,14 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Недоношенные: профилактика сепсиса и НЭК (2 Cochrane). Педиатрические инфекции: есть данные. Железо: улучшает статус.",
+  "grade": "B",
+  "key_sources": [
+   "32232984",
+   "28658720",
+   "39841980"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -4524,14 +4792,15 @@
     "title": "Efficacy of lactoferrin supplementation in pediatric infections: a systematic review and meta-analysis.",
     "year": 2025
    }
-  ]
+  ],
+  "pubmed_term": "(lactoferrin supplementation) AND (iron OR immune OR infection OR infant)"
  },
  {
   "id": "SAMe",
   "name": "SAMe",
-  "code": 0,
-  "verdict": "зависит от контекста",
-  "category": "Настроение",
+  "code": 1,
+  "verdict": "работает",
+  "category": "Психика/Суставы",
   "price": 3023,
   "scienceIndex": 110,
   "metaCount": 12,
@@ -4545,7 +4814,7 @@
   ],
   "dosage": "400-800 мг/сут натощак",
   "course": "—",
-  "caution": "с SSRI — риск серотонинового синдрома! дорог",
+  "caution": "SAMe (S-аденозилметионин) — универсальный донор метильных групп. Для депрессии: эффективность сравнима с СИОЗС в РКИ. Для остеоартрита: Cochrane-обзор (19821403) подтверждает обезболивающий эффект. Для печени: есть данные. Для биполярного расстройства: ОСТОРОЖНО (риск мании). Высокая цена, низкая стабильность — нужны кишечнорастворимые формы. Доза: 400-1600 мг/день.",
   "forms": null,
   "mechs": [
    [
@@ -4563,10 +4832,14 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Депрессия: работает (систематические обзоры). ОА: Cochrane подтверждает эффективность. Печень: есть данные.",
+  "grade": "B",
+  "key_sources": [
+   "19821403",
+   "16021987",
+   "39519500"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -4586,14 +4859,15 @@
     "title": "S-Adenosylmethionine (SAMe) as an adjuvant therapy for patients with depression: An updated systematic review and meta-analysis.",
     "year": 2024
    }
-  ]
+  ],
+  "pubmed_term": "(S-adenosylmethionine OR SAMe supplementation) AND (depression OR osteoarthritis OR liver OR mood)"
  },
  {
   "id": "Йохимбин",
   "name": "Йохимбин",
-  "code": 0,
-  "verdict": "зависит от контекста",
-  "category": "Спорт",
+  "code": -1,
+  "verdict": "не подтверждено",
+  "category": "Сексуальное здоровье",
   "price": null,
   "scienceIndex": 52,
   "metaCount": 6,
@@ -4607,7 +4881,7 @@
   ],
   "dosage": "2.5-10 мг (старт с 2.5!)",
   "course": "—",
-  "caution": "тахикардия, тревога, АД; НЕ с антидепрессантами",
+  "caution": "Йохимбин (альфа-2 адреноблокатор) из Pausinystalia yohimbe. Исторически использовался для эректильной дисфункции. FDA одобрил в 1990-х, но после появления виагры (1998) исследования прекратились. Современные систематические обзоры ОТСУТСТВУЮТ. Побочки серьёзные: тахикардия, тревожность, повышение давления. Взаимодействует с многими лекарствами. В ЕС и Канаде запрещён как БАД. Не рекомендуется без врачебного контроля.",
   "forms": null,
   "mechs": [
    [
@@ -4630,10 +4904,10 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
+  "effect_outcome": "НЕТ СИСТЕМАТИЧЕСКИХ ОБЗОРОВ в базе. Все данные — старые РКИ 1980-90х годов. Вытеснен PDE5-ингибиторами.",
+  "grade": "D",
   "key_sources": [],
-  "updated": "2026-09-14",
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -4653,14 +4927,15 @@
     "title": "The Potential Role of Arginine Supplements on Erectile Dysfunction: A Systemic Review and Meta-Analysis.",
     "year": 2019
    }
-  ]
+  ],
+  "pubmed_term": "(yohimbine supplementation) AND (erectile OR weight OR fat OR sexual)"
  },
  {
   "id": "Пажитник",
   "name": "Пажитник",
   "code": 0,
   "verdict": "зависит от контекста",
-  "category": "Общее",
+  "category": "Метаболизм/Сексуальное здоровье",
   "price": null,
   "scienceIndex": 88,
   "metaCount": 13,
@@ -4674,7 +4949,7 @@
   ],
   "dosage": "500 мг-6 г/сут",
   "course": "—",
-  "caution": "снижает сахар; запах пота",
+  "caution": "Пажитник (Trigonella foenum-graecum). Для гликемического контроля: мета-анализ (24438170) показывает снижение сахара натощак. Для лактации: отдельные РКИ показывают увеличение объёма молока. Для тестостерона/либидо: данные ограниченные и противоречивые. Данных мало (1 абстракт в базе). Безопасен в стандартных дозах (5-15 г семян или 500-1000 мг экстракта).",
   "forms": null,
   "mechs": [
    [
@@ -4697,10 +4972,12 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Гликемия: мета-анализ показывает улучшение (24438170). Тестостерон/либидо: данные ограниченные. Лактация: есть отдельные РКИ.",
+  "grade": "C",
+  "key_sources": [
+   "24438170"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -4720,14 +4997,15 @@
     "title": "The Effect of Fenugreek in Type 2 Diabetes and Prediabetes: A Systematic Review and Meta-Analysis of Randomized Controlled Trials.",
     "year": 2023
    }
-  ]
+  ],
+  "pubmed_term": "(Trigonella foenum-graecum OR fenugreek supplementation) AND (diabetes OR testosterone OR lactation OR libido)"
  },
  {
   "id": "Чёрный тмин",
   "name": "Чёрный тмин",
   "code": 0,
   "verdict": "зависит от контекста",
-  "category": "Общее",
+  "category": "Воспаление/Метаболизм",
   "price": null,
   "scienceIndex": 1,
   "metaCount": 0,
@@ -4741,7 +5019,7 @@
   ],
   "dosage": "1-2 г порошка семян/сут",
   "course": "—",
-  "caution": "снижает сахар — осторожно с препаратами",
+  "caution": "Чёрный тмин (Nigella sativa, тимохинон). Для воспаления и оксидативного стресса: есть данные. Для кардиометаболических факторов при метаболическом синдроме/диабете: смешанные данные. Для астмы: есть данные. Данные разрозненные, качество РКИ часто низкое. Безопасен в стандартных дозах.",
   "forms": null,
   "mechs": [
    [
@@ -4764,10 +5042,14 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Воспаление и оксидативный стресс: есть данные. Кардиометаболическое здоровье: смешанные данные. Астма: есть данные.",
+  "grade": "C",
+  "key_sources": [
+   "41858302",
+   "33559935",
+   "31892440"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -4787,14 +5069,15 @@
     "title": "Effect of Nigella sativa Supplementation on Oxidative Stress and Antioxidant Parameters: A Meta-Analysis of Randomized Controlled Trials.",
     "year": 2020
    }
-  ]
+  ],
+  "pubmed_term": "(Nigella sativa OR black seed OR thymoquinone) AND (inflammation OR metabolic OR asthma)"
  },
  {
   "id": "Трибулус",
   "name": "Трибулус",
   "code": -1,
   "verdict": "не подтверждено",
-  "category": "Спорт",
+  "category": "Сексуальное здоровье/Спорт",
   "price": 666,
   "scienceIndex": 2,
   "metaCount": 0,
@@ -4808,7 +5091,7 @@
   ],
   "dosage": "750-1500 мг/сут",
   "course": "—",
-  "caution": "тестостерон у людей НЕ поднимает",
+  "caution": "Трибулус (Tribulus terrestris). В базе PubMed НЕТ мета-анализов или систематических обзоров. Отдельные РКИ показывают отсутствие значимого эффекта на тестостерон у здоровых мужчин. Популярность как 'тестостеронового бустера' в спортивном питании НЕ подтверждена. Для либидо у женщин: данные ограниченные. Безопасен в стандартных дозах, но эффективность сомнительна.",
   "forms": null,
   "mechs": [
    [
@@ -4826,10 +5109,10 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
+  "effect_outcome": "НЕТ ДАННЫХ в базе (0 систематических обзоров). Популярность в спортивном питании не подтверждена доказательной базой.",
+  "grade": "D",
   "key_sources": [],
-  "updated": "2026-09-14",
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -4849,14 +5132,15 @@
     "title": "Beneficial effects of natural products on female sexual dysfunction: A systematic review and meta-analysis.",
     "year": 2021
    }
-  ]
+  ],
+  "pubmed_term": "(Tribulus terrestris supplementation) AND (testosterone OR libido OR sexual OR performance)"
  },
  {
-  "id": "NMN/NR",
-  "name": "NMN/NR",
+  "id": "NMN",
+  "name": "NMN",
   "code": -1,
   "verdict": "не подтверждено",
-  "category": "Общее",
+  "category": "Старение/Метаболизм",
   "price": null,
   "scienceIndex": 5,
   "metaCount": 1,
@@ -4870,7 +5154,7 @@
   ],
   "dosage": "250-1000 мг/сут (дорого)",
   "course": "—",
-  "caution": "NAD растёт, исходы не доказаны",
+  "caution": "NMN (никотинамидмононуклеотид) — предшественник NAD+. Для безопасности: есть данные (42514320) — хорошая переносимость. Для метаболизма глюкозы и липидов: данные смешанные (39531138). Для мышечной массы: данные ограниченные (40275690). Большинство данных — краткосрочные РКИ. Долгосрочные эффекты не изучены. НЕ подтверждена эффективность для 'омоложения' у людей.",
   "forms": null,
   "mechs": [
    [
@@ -4888,10 +5172,14 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Безопасность: хорошая (42514320). Метаболизм глюкозы и липидов: данные смешанные. Мышцы: данные ограниченные.",
+  "grade": "C",
+  "key_sources": [
+   "42514320",
+   "39531138",
+   "40275690"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -4901,14 +5189,15 @@
     "title": "The Effect of Nicotinamide Mononucleotide and Riboside on Skeletal Muscle Mass and Function: A Systematic Review and Meta-Analysis.",
     "year": 2025
    }
-  ]
+  ],
+  "pubmed_term": "(nicotinamide mononucleotide OR nicotinamide riboside OR NMN OR NR) AND (aging OR NAD OR metabolic OR cognitive)"
  },
  {
   "id": "Кордицепс",
   "name": "Кордицепс",
-  "code": -1,
-  "verdict": "не подтверждено",
-  "category": "Спорт",
+  "code": 1,
+  "verdict": "работает",
+  "category": "Почки/Выносливость",
   "price": 386,
   "scienceIndex": 35,
   "metaCount": 5,
@@ -4922,7 +5211,7 @@
   ],
   "dosage": "1-3 г/сут",
   "course": "—",
-  "caution": "дикий — астроцена; культивируемый ок",
+  "caution": "Кордицепс (Cordyceps sinensis) — гриб из традиционной китайской медицины. Для ХБП: 2 Cochrane-обзора (25519252, 26457607) показывают улучшение функции почек как адъювант к стандартной терапии. Для реципиентов трансплантата почки: есть данные. Для выносливости: данные ограниченные (отдельные РКИ, не систематизированы). Для лёгочных заболеваний: данные ограниченные. Дорогой препарат, часто подделывают.",
   "forms": null,
   "mechs": [
    [
@@ -4940,10 +5229,14 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Хроническая болезнь почек (ХБП): 2 Cochrane-обзора подтверждают улучшение функции. Трансплантация почек: есть данные.",
+  "grade": "B",
+  "key_sources": [
+   "25519252",
+   "26457607",
+   "28137532"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -4963,14 +5256,15 @@
     "title": "The effects of Ophiocordyceps sinensis combined with ACEI/ARB on diabetic kidney disease: A systematic review and meta-analysis.",
     "year": 2023
    }
-  ]
+  ],
+  "pubmed_term": "(Cordyceps OR cordycepin supplementation) AND (exercise OR kidney OR respiratory OR fatigue)"
  },
  {
   "id": "Рейши",
   "name": "Рейши",
-  "code": -1,
-  "verdict": "не подтверждено",
-  "category": "Сон",
+  "code": 0,
+  "verdict": "зависит от контекста",
+  "category": "Иммунитет/Грибы",
   "price": null,
   "scienceIndex": 18,
   "metaCount": 2,
@@ -4984,7 +5278,7 @@
   ],
   "dosage": "1-2 г экстракта/сут",
   "course": "—",
-  "caution": "осторожно с антикоагулянтами",
+  "caution": "Рейши (Ganoderma lucidum) — 'гриб бессмертия' из традиционной китайской медицины. Для рака: 2 Cochrane-обзора (27045603, 22696372) показывают возможную пользу как АДЪЮВАНТ к химиотерапии (улучшение иммунного ответа, качества жизни), но НЕ как монотерапия. Для общей иммунной функции: данные ограниченные. Для сна/тревожности: нет систематических данных. Безопасен в стандартных дозах.",
   "forms": null,
   "mechs": [
    [
@@ -5007,10 +5301,13 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Рак (адъювант): Cochrane показывает возможную пользу как дополнение к стандартной терапии. Иммунитет: данные ограниченные.",
+  "grade": "C",
+  "key_sources": [
+   "27045603",
+   "22696372"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -5030,14 +5327,15 @@
     "title": "Ganoderma lucidum mushroom for the treatment of cardiovascular risk factors.",
     "year": 2015
    }
-  ]
+  ],
+  "pubmed_term": "(Ganoderma lucidum OR reishi mushroom) AND (immune OR cancer OR sleep OR antioxidant)"
  },
  {
   "id": "Хлорофилл",
   "name": "Хлорофилл",
   "code": -1,
   "verdict": "не подтверждено",
-  "category": "Общее",
+  "category": "Антиоксидант",
   "price": 448,
   "scienceIndex": 95,
   "metaCount": 17,
@@ -5051,7 +5349,7 @@
   ],
   "dosage": "100 мг/сут (TikTok-тренд)",
   "course": "—",
-  "caution": "«детокс» — маркетинг; безопасен, но пуст",
+  "caution": "Хлорофилл/хлорофиллин. В базе PubMed НЕТ мета-анализов или систематических обзоров по клиническим эффектам. Популярные заявления: 'детокс', 'антиоксидант', 'заживление ран', 'антиканцерогенный' — не подтверждены систематическими данными. Хлорофиллин (полусинтетическая водорастворимая форма) изучался в контексте снижения абсорбции афлатоксинов, но систематических обзоров нет. Популярность в TikTok/Instagram ≠ доказательность.",
   "forms": null,
   "mechs": [
    [
@@ -5069,10 +5367,10 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
+  "effect_outcome": "НЕТ ДАННЫХ в базе (0 систематических обзоров). Популярность в wellness-индустрии не подтверждена доказательной базой.",
+  "grade": "D",
   "key_sources": [],
-  "updated": "2026-09-14",
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -5092,14 +5390,15 @@
     "title": "Machine learning-assisted meta-analysis reveals melatonin crosstalk regulating plant growth plasticity under heavy metal stress.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(chlorophyll OR chlorophyllin supplementation) AND (antioxidant OR detox OR cancer OR weight)"
  },
  {
   "id": "Сывороточный протеин",
   "name": "Сывороточный протеин",
   "code": 1,
   "verdict": "работает",
-  "category": "Спорт",
+  "category": "Спорт/Мышцы",
   "price": null,
   "scienceIndex": 97,
   "metaCount": 11,
@@ -5113,7 +5412,7 @@
   ],
   "dosage": "20-40 г после тренировки; всего 1.6-2.2 г белка/кг/сут",
   "course": "—",
-  "caution": "при ХБП белок ограничивают — к врачу",
+  "caution": "Сывороточный протеин (whey) — золотой стандарт белка для спортсменов и пожилых. Для мышечной массы: множество мета-анализов подтверждают эффективность при сочетании с силовыми тренировками. Для саркопении у пожилых: работает. Для гликемического контроля: улучшение постпрандиальной глюкозы. Для потери веса: есть данные при сочетании с диетой. Изолят vs. концентрат: изолят содержит больше белка. Доза: 20-40 г/день.",
   "forms": null,
   "mechs": [
    [
@@ -5131,10 +5430,14 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Мышечная масса: работает при сочетании с тренировками. Саркопения у пожилых: работает. Гликемия: улучшение постпрандиальной. Вес: есть данные.",
+  "grade": "A",
+  "key_sources": [
+   "38350303",
+   "37571361",
+   "35871954"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -5154,14 +5457,15 @@
     "title": "Dose-dependent effect of milk proteins on body composition and lipid profile in overweight and obese individuals; A GRADE-assessed systematic review and meta-analysis of randomized controlled trials.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(whey protein supplementation) AND (muscle OR exercise OR weight OR sarcopenia)"
  },
  {
   "id": "Глутамин",
   "name": "Глутамин",
   "code": 0,
   "verdict": "зависит от контекста",
-  "category": "Спорт",
+  "category": "Критические состояния/Спорт",
   "price": 165,
   "scienceIndex": 437,
   "metaCount": 34,
@@ -5175,7 +5479,7 @@
   ],
   "dosage": "5-10 г/сут",
   "course": "—",
-  "caution": "для мышц бесполезен при норме белка",
+  "caution": "Для критических состояний (ОРИТ, ожоги): Cochrane показывает НЕЯСНЫЙ эффект — одни РКИ положительны, другие нет. Для недоношенных: Cochrane не показал пользы. Для спорта/иммунитета после нагрузок: нет систематических данных с клиническими исходами. Перорально безопасен, но эффект сомнителен вне ОРИТ.",
   "forms": null,
   "mechs": [
    [
@@ -5193,10 +5497,13 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Критические состояния: противоречивые данные (Cochrane: неясный эффект). Спорт: нет систематических пруфов.",
+  "grade": "C",
+  "key_sources": [
+   "25199493",
+   "11687112"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -5216,14 +5523,15 @@
     "title": "Meta-analysis of blood metabolomics reveals dysregulated amino acid, neurotransmitter, and energy pathways in depression.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(glutamine OR L-glutamine) AND (exercise OR immune OR critical illness)"
  },
  {
   "id": "Босвеллия",
   "name": "Босвеллия",
   "code": 1,
   "verdict": "работает",
-  "category": "Кожа и суставы",
+  "category": "Воспаление/Суставы",
   "price": null,
   "scienceIndex": 38,
   "metaCount": 5,
@@ -5237,7 +5545,7 @@
   ],
   "dosage": "300-500 мг экстракта (AKBA 30%) 2-3 р/день",
   "course": "—",
-  "caution": "осторожно с НПВС и антикоагулянтами",
+  "caution": "Босвеллия (Boswellia serrata) — 'индийский ладан'. Для остеоартрита: стандартизированный экстракт Aflapin (38365549) показывает улучшение боли/функции. Для воспаления: ингибирует 5-липоксигеназу (5-LOX), альтернатива НПВП. Для астмы/ВЗК: данные ограниченные. Данных мало (2 абстракта в базе). Нужен стандартизированный экстракт с ≥30% босвеллиевых кислот. Доза: 100-250 мг 2-3 раза/день.",
   "forms": null,
   "mechs": [
    [
@@ -5260,10 +5568,13 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Остеоартрит: есть данные (стандартизированный экстракт Aflapin). Воспаление: работает (ингибирует 5-LOX).",
+  "grade": "C",
+  "key_sources": [
+   "38365549",
+   "41082950"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -5283,14 +5594,15 @@
     "title": "Effectiveness of Boswellia and Boswellia extract for osteoarthritis patients: a systematic review and meta-analysis.",
     "year": 2020
    }
-  ]
+  ],
+  "pubmed_term": "(Boswellia serrata OR boswellic acid supplementation) AND (osteoarthritis OR inflammation OR asthma)"
  },
  {
   "id": "Витамин K2",
   "name": "Витамин K2",
   "code": 0,
   "verdict": "зависит от контекста",
-  "category": "Общее",
+  "category": "Кости/Сосуды",
   "price": null,
   "scienceIndex": 1,
   "metaCount": 0,
@@ -5304,7 +5616,7 @@
   ],
   "dosage": "100-200 мкг/сут с жирами",
   "course": "—",
-  "caution": "ПРОТИВОПОКАЗАН с варфарином",
+  "caution": "Витамин K2 (менахинон, MK-7). Для остеопороза у женщин в постменопаузе: есть систематические обзоры (36033779, 35711002). Для переломов: данные смешанные (в Японии используется как лекарство от остеопороза). Для сосудистой кальцификации: данные ограниченные. Доза: 45-180 мкг/день. Осторожно: варфарин (антагонист витамина K). Данных мало (всего 5 абстрактов).",
   "forms": null,
   "mechs": [
    [
@@ -5325,10 +5637,14 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Остеопороз у женщин в постменопаузе: есть данные. Переломы: данные смешанные. Сосудистая кальцификация: данные ограниченные.",
+  "grade": "C",
+  "key_sources": [
+   "36033779",
+   "35711002",
+   "25516361"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -5348,14 +5664,15 @@
     "title": "Efficacy of vitamin K2 in the prevention and treatment of postmenopausal osteoporosis: A systematic review and meta-analysis of randomized controlled trials.",
     "year": 2022
    }
-  ]
+  ],
+  "pubmed_term": "(vitamin K2 OR menaquinone supplementation) AND (bone OR cardiovascular OR calcification OR osteoporosis)"
  },
  {
   "id": "Берберин",
   "name": "Берберин",
   "code": 1,
   "verdict": "работает",
-  "category": "Общее",
+  "category": "Метаболизм/Диабет",
   "price": null,
   "scienceIndex": 67,
   "metaCount": 10,
@@ -5369,7 +5686,7 @@
   ],
   "dosage": "500 мг 2-3 р/день до еды",
   "course": "—",
-  "caution": "только с врачом (гипогликемия с препаратами)",
+  "caution": "Берберин — алкалоид из растений. Для гликемического контроля: мета-анализы показывают эффективность, сравнимую с метформином в некоторых РКИ. Для липидов: умеренное снижение. Для ожирения и печени (NAFLD): есть данные. Доза: 500 мг 2-3 раза в день. Побочки: желудочно-кишечные. Осторожно: CYP3A4 ингибитор — взаимодействует с лекарствами.",
   "forms": null,
   "mechs": [
    [
@@ -5397,9 +5714,13 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
+  "effect_outcome": "Гликемический контроль: работает (сравним с метформином в некоторых РКИ). Липиды: снижение. Ожирение/печень: есть данные.",
+  "grade": "B",
+  "key_sources": [
+   "38016844",
+   "36313096",
+   "32379652"
+  ],
   "about": "Алкалоид: снижает сахар, улучшает чувствительность к инсулину.",
   "who_needs": "Преддиабет, метаболический синдром, СПКЯ (умеренные данные).",
   "onset": "Сахар — 4-8 недель; инсулин — 8-12 недель.",
@@ -5408,7 +5729,7 @@
   "guidelines": "EFSA: claims не одобрены; ряд МА — эффект сопоставим с метформином.",
   "how_to_choose": "Berberine HCl или phytosome; 500 мг 3 раза/сут с едой.",
   "myths": "«Заменит метформин» — эффект схож, но данных меньше. «Безопасен со статинами» — взаимодействие.",
-  "updated": "2026-09-14",
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -5428,14 +5749,15 @@
     "title": "The effect of berberine on obesity indices: a systematic review and meta-analysis.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(berberine supplementation) AND (diabetes OR metabolic OR cholesterol OR weight)"
  },
  {
   "id": "Кверцетин",
   "name": "Кверцетин",
-  "code": -1,
-  "verdict": "не подтверждено",
-  "category": "Иммунитет",
+  "code": 1,
+  "verdict": "работает",
+  "category": "Антиоксидант/Воспаление",
   "price": null,
   "scienceIndex": 12,
   "metaCount": 1,
@@ -5449,7 +5771,7 @@
   ],
   "dosage": "500-1000 мг/сут",
   "course": "—",
-  "caution": "биодоступность низкая",
+  "caution": "Кверцетин — флавоноид из лука/яблок. Для давления: мета-анализ (35948195) показывает умеренное снижение. Для кардиометаболических факторов: улучшение маркеров (umbrella review 37654199). Для выносливости: есть данные (22805526). Для гиперурикемии/подагры: есть данные (41514376). Биодоступность низкая — нужны формы с усилителями (пиперин, фосфолипиды). Доза: 500-1000 мг/день.",
   "forms": null,
   "mechs": [
    [
@@ -5472,10 +5794,14 @@
   ],
   "hedges_g": null,
   "hedges_g_ci": null,
-  "effect_outcome": null,
-  "grade": null,
-  "key_sources": [],
-  "updated": "2026-09-14",
+  "effect_outcome": "Давление: умеренное снижение (35948195). Кардиометаболизм: улучшение маркеров. Спорт: есть данные по выносливости. Подагра: есть данные (31514376).",
+  "grade": "B",
+  "key_sources": [
+   "35948195",
+   "37654199",
+   "22805526"
+  ],
+  "updated": "2026-09-16",
   "price_source": null,
   "year_last_ma": null,
   "price_date": "дата неизвестна",
@@ -5495,6 +5821,7 @@
     "title": "The effect of Quercetin supplementation on hyperuricemia-related biochemical and renal outcomes in animal models: a systematic review and meta-analysis.",
     "year": 2026
    }
-  ]
+  ],
+  "pubmed_term": "(quercetin supplementation) AND (inflammation OR exercise OR cardiovascular OR immune OR antioxidant)"
  }
 ]
