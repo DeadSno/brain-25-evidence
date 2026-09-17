@@ -349,11 +349,6 @@ function renderCards(data) {
     '<span class="cat">' + (s.category || '') + '</span><h3>' + s.name + '</h3>' +
     updatedLine(s) + manualBadge(s) +
     '<div class="verdict v' + s.code + '">' + s.verdict + '</div>' + gradeBadge(s) + gradeDots(s) +
-    (s.price != null
-      ? '<div class="price">' + s.price + ' ₽/мес</div>' + priceSrcLink(s)
-      : '<div class="price noPrice">цена не найдена · <a target="_blank" rel="noopener" href="' +
-        'https://github.com/DeadSno/brain-25-evidence/issues/new?title=' +
-        encodeURIComponent('Цена не найдена: ' + s.id) + '">предложить</a></div>') +
     '<div class="effects">' + (s.effects || []).map(e => '<span>' + e + '</span>').join('') + '</div></div>').join('');
   g.querySelectorAll('.card').forEach(el => el.onclick = (e) => {
     if (e.target.closest('a')) return;
