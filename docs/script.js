@@ -187,7 +187,6 @@ function initApp() {
   // v2.6: оси X графика
     $('axisMA').onclick = () => setAxisX('ma');
   $('axisRCT').onclick = () => setAxisX('rct');
-  $('axisYear').onclick = () => setAxisX('year');
   $('quadrantChart').style.display = 'none';
   $('quadrantNote').style.display = 'none';
   $('favFilter').addEventListener('click', () => {
@@ -378,7 +377,7 @@ function openModal(id) {
     trialsLine +
     calcLine +
     (s.citations != null ? '<div class="mrow">📖 Цитирований ключевого MA: ' + s.citations + '</div>' : '') +
-    (s.reviews != null ? '<div class="mrow">🛒 Отзывов WB: ' + s.reviews.toLocaleString('ru-RU') + ' · 📈 поиск 5 лет: ' + (s.trends ?? '—') + ' · 🌐 Wiki: ' + (s.wiki != null ? s.wiki.toLocaleString('ru-RU') : '—') + wikiLink(s) + '</div>' : '') +
+    (s.reviews != null ? '<div class="mrow">🛒 Популярность (WB): ' + s.reviews.toLocaleString('ru-RU') + ' · 📈 поиск 5 лет: ' + (s.trends ?? '—') + ' · 🌐 Wiki: ' + (s.wiki != null ? s.wiki.toLocaleString('ru-RU') : '—') + wikiLink(s) + '</div>' : '') +
     '<div class="mrow"><b>Эффекты:</b> ' + ((s.effects || []).join(', ') || '—') + '</div>' +
     '<div class="mrow">💊 <b>Дозировка:</b> ' + (s.dosage || '—') + '</div>' +
     '<div class="mrow">⏳ <b>Курс:</b> ' + (s.course || '—') + '</div>' +
@@ -420,8 +419,8 @@ function closeModal() {
 
 // ===== v2.6: сменная ось X графика (Цена/MА/РКИ/Год) =====
 let axisX = 'ma';
-const AXIS_IDS = { ma: 'axisMA', rct: 'axisRCT', year: 'axisYear' };
-const AXIS_LABEL = { ma: 'Число МА', rct: 'Число РКИ', year: 'Год последнего МА' };
+const AXIS_IDS = { ma: 'axisMA', rct: 'axisRCT' };
+const AXIS_LABEL = { ma: 'Число МА', rct: 'Число РКИ' };
 function axisVal(s) {
   if (axisX === 'ma') return (s.metaCount || 0) > 0 ? s.metaCount : null;
   if (axisX === 'rct') { const r = Math.max(0, (s.scienceIndex || 0) - 5 * (s.metaCount || 0)); return r > 0 ? r : null; }
@@ -430,7 +429,7 @@ function axisVal(s) {
 function setAxisX(ax) {
   if (ax === axisX) return;
   axisX = ax;
-  ['ma', 'rct', 'year'].forEach(k => $(AXIS_IDS[k]).classList.toggle('on', k === ax));
+  ['ma', 'rct'].forEach(k => $(AXIS_IDS[k]).classList.toggle('on', k === ax));
   if (currentData.length && chartTab === 'price') renderBubble(currentData);
 }
 
@@ -608,7 +607,7 @@ function renderCompare() {
     ['Мета-анализов', a.metaCount, b.metaCount],
     ['🧪 Испытания сейчас', a.ongoing ?? '—', b.ongoing ?? '—'],
     ['Цитирований MA', a.citations ?? '—', b.citations ?? '—'],
-    ['Отзывов на WB', a.reviews ?? '—', b.reviews ?? '—'],
+    ['🛒 Популярность (WB)', a.reviews ?? '—', b.reviews ?? '—'],
     ['Поиск (5 лет)', a.trends ?? '—', b.trends ?? '—'],
     ['Эффекты', (a.effects || []).join(', '), (b.effects || []).join(', ')],
     ['Дозировка', a.dosage ?? '—', b.dosage ?? '—'],
