@@ -1,0 +1,304 @@
+{
+  "5-HTP": [
+    "mood",
+    "sleep"
+  ],
+  "Alpha-GPC": [
+    "brain"
+  ],
+  "B12": [
+    "brain",
+    "blood",
+    "energy"
+  ],
+  "B9": [
+    "brain",
+    "blood"
+  ],
+  "BCAA": [
+    "muscle"
+  ],
+  "CDP-холин": [
+    "brain"
+  ],
+  "CoQ10": [
+    "energy",
+    "brain",
+    "heart"
+  ],
+  "D-манноза": [
+    "urinary"
+  ],
+  "L-Теанин": [
+    "stress",
+    "brain"
+  ],
+  "L-карнитин": [
+    "metabolism",
+    "muscle"
+  ],
+  "L-цитруллин": [
+    "heart",
+    "muscle",
+    "energy"
+  ],
+  "NAC": [
+    "brain"
+  ],
+  "NMN": [
+    "energy",
+    "brain",
+    "muscle"
+  ],
+  "SAMe": [
+    "mood"
+  ],
+  "Альфа-липоевая кислота": [
+    "brain",
+    "metabolism"
+  ],
+  "Аргинин": [
+    "heart",
+    "muscle"
+  ],
+  "Астаксантин": [
+    "skin",
+    "vision"
+  ],
+  "Ашваганда": [
+    "stress",
+    "sleep"
+  ],
+  "Бакопа": [
+    "brain"
+  ],
+  "Берберин": [
+    "metabolism"
+  ],
+  "Бета-аланин": [
+    "muscle",
+    "energy"
+  ],
+  "Бета-глюканы овса": [
+    "heart",
+    "metabolism"
+  ],
+  "Биотин": [
+    "skin"
+  ],
+  "Босвеллия": [
+    "joints"
+  ],
+  "Боярышник": [
+    "heart"
+  ],
+  "Бузина": [
+    "immunity"
+  ],
+  "Валериана": [
+    "sleep",
+    "stress"
+  ],
+  "Витамин C": [
+    "immunity"
+  ],
+  "Витамин D": [
+    "mood",
+    "bones",
+    "immunity"
+  ],
+  "Витамин E": [
+    "heart"
+  ],
+  "Витамин K2": [
+    "bones",
+    "heart"
+  ],
+  "ГАБА": [
+    "stress",
+    "sleep"
+  ],
+  "Гиалуроновая кислота": [
+    "skin",
+    "joints"
+  ],
+  "Гинкго": [
+    "brain",
+    "heart"
+  ],
+  "Глицин": [
+    "sleep"
+  ],
+  "Глутамин": [
+    "muscle",
+    "gut",
+    "immunity"
+  ],
+  "Глюкозамин + хондроитин": [
+    "joints"
+  ],
+  "Готу кола": [
+    "brain",
+    "stress"
+  ],
+  "Гуперзин А": [
+    "brain"
+  ],
+  "Ежовик": [
+    "brain"
+  ],
+  "Железо": [
+    "blood",
+    "energy"
+  ],
+  "Зверобой": [
+    "mood"
+  ],
+  "Имбирь": [
+    "gut"
+  ],
+  "Инозитол": [
+    "hormones",
+    "stress",
+    "metabolism"
+  ],
+  "Йохимбин": [
+    "metabolism",
+    "hormones"
+  ],
+  "Кальций": [
+    "bones"
+  ],
+  "Кверцетин": [
+    "immunity"
+  ],
+  "Клюква": [
+    "urinary"
+  ],
+  "Коллаген": [
+    "skin",
+    "joints"
+  ],
+  "Кордицепс": [
+    "muscle",
+    "energy"
+  ],
+  "Кофеин": [
+    "energy",
+    "brain",
+    "mood"
+  ],
+  "Креатин": [
+    "brain",
+    "muscle",
+    "energy"
+  ],
+  "Куркумин": [
+    "mood",
+    "brain",
+    "joints"
+  ],
+  "Лактоферрин": [
+    "immunity",
+    "blood"
+  ],
+  "Лютеин + зеаксантин": [
+    "vision"
+  ],
+  "Магний": [
+    "sleep",
+    "stress",
+    "heart"
+  ],
+  "Мака": [
+    "hormones"
+  ],
+  "Мелатонин": [
+    "sleep"
+  ],
+  "Омега-3": [
+    "brain",
+    "heart"
+  ],
+  "Пажитник": [
+    "metabolism",
+    "hormones"
+  ],
+  "Пикногенол": [
+    "brain"
+  ],
+  "Пробиотики": [
+    "gut",
+    "immunity"
+  ],
+  "Псиллиум": [
+    "heart",
+    "gut",
+    "metabolism"
+  ],
+  "Пустырник": [
+    "sleep",
+    "stress"
+  ],
+  "Расторопша": [
+    "liver"
+  ],
+  "Рейши": [
+    "sleep",
+    "immunity"
+  ],
+  "Ресвератрол": [
+    "metabolism",
+    "heart"
+  ],
+  "Рибофлавин": [
+    "brain"
+  ],
+  "Родиола": [
+    "energy",
+    "stress",
+    "mood"
+  ],
+  "Сывороточный протеин": [
+    "muscle"
+  ],
+  "Таурин": [
+    "stress",
+    "sleep"
+  ],
+  "Тирозин": [
+    "brain",
+    "stress"
+  ],
+  "Трибулус": [
+    "hormones",
+    "muscle"
+  ],
+  "Триптофан": [
+    "sleep",
+    "mood"
+  ],
+  "Фосфатидилсерин": [
+    "brain"
+  ],
+  "Хлорофилл": [
+    "skin"
+  ],
+  "Хром": [
+    "metabolism"
+  ],
+  "Цинк": [
+    "brain",
+    "immunity"
+  ],
+  "Чеснок": [
+    "heart"
+  ],
+  "Чёрный тмин": [
+    "metabolism",
+    "heart"
+  ],
+  "Эхинацея": [
+    "immunity"
+  ]
+}
