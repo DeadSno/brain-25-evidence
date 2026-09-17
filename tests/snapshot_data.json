@@ -51,9 +51,40 @@
   "effect_outcome": "+3.4 кг FFM при RT; +71 Вт пиковая мощность; память у пожилых",
   "grade": "A",
   "key_sources": [
-   "42027564",
-   "39070254",
-   "35984306"
+   {
+    "pmid": "42027564",
+    "title": "Creatine supplementation in young men under resistance versus non-resistance training: a systematic review and meta-analysis of strength, performance, and lean mass.",
+    "year": 2026,
+    "journal": "Frontiers in nutrition",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "39070254",
+    "title": "The effects of creatine supplementation on cognitive function in adults: a systematic review and meta-analysis.",
+    "year": 2024,
+    "journal": "Frontiers in nutrition",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "35984306",
+    "title": "Effects of creatine supplementation on memory in healthy individuals: a systematic review and meta-analysis of randomized controlled trials.",
+    "year": 2023,
+    "journal": "Nutrition reviews",
+    "pubtype": [
+     "Meta-Analysis",
+     "Systematic Review",
+     "Journal Article"
+    ],
+    "source": "curated"
+   }
   ],
   "updated": "2026-09-16",
   "ma_top3": [
@@ -130,9 +161,42 @@
   "effect_outcome": "CHD death RR 0.92; -25% MACE для чистого EPA у спец.группы",
   "grade": "B",
   "key_sources": [
-   "32114706",
-   "42070013",
-   "41870913"
+   {
+    "pmid": "32114706",
+    "title": "Omega-3 fatty acids for the primary and secondary prevention of cardiovascular disease.",
+    "year": 2020,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Research Support, Non-U.S. Gov't",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "42070013",
+    "title": "Formulation-Specific Cardiovascular Outcomes with High-Dose Eicosapentaenoic Acid: A Systematic Review and Meta-analysis.",
+    "year": 2026,
+    "journal": "American journal of cardiovascular drugs : drugs, devices, and other interventions",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review",
+     "Meta-Analysis"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "41870913",
+    "title": "Robustness of highly purified eicosapentaenoic acid trials and their cardiovascular outcomes.",
+    "year": 2026,
+    "journal": "Journal of cardiovascular medicine (Hagerstown, Md.)",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   }
   ],
   "updated": "2026-09-16",
   "ma_top3": [
@@ -210,9 +274,44 @@
   "effect_outcome": "Профилактика переломов у институционализированных + Ca; смертность COVID",
   "grade": "A",
   "key_sources": [
-   "24729336",
-   "24953955",
-   "34029377"
+   {
+    "pmid": "24729336",
+    "title": "Vitamin D and vitamin D analogues for preventing fractures in post-menopausal women and older men.",
+    "year": 2014,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Research Support, Non-U.S. Gov't",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "24953955",
+    "title": "Vitamin D supplementation for prevention of cancer in adults.",
+    "year": 2014,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Research Support, Non-U.S. Gov't",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "34029377",
+    "title": "Vitamin D supplementation for the treatment of COVID-19: a living systematic review.",
+    "year": 2021,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Journal Article",
+     "Research Support, Non-U.S. Gov't",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   }
   ],
   "updated": "2026-09-16",
   "ma_top3": [
@@ -278,8 +377,66 @@
   "effect_outcome": "Пероральный = инъекции для поддержания уровня. Когниция у здоровых: НЕТ эффекта.",
   "grade": "B",
   "key_sources": [
-   "26695080",
-   "26695595"
+   {
+    "pmid": "38231320",
+    "title": "Efficacy of different routes of vitamin B12 supplementation for the treatment of patients with vitamin B12 deficiency: A systematic review and network meta-analysis.",
+    "year": 2024,
+    "journal": "Irish journal of medical science",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review",
+     "Network Meta-Analysis"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "39373282",
+    "title": "A systematic review and meta-analysis of functional vitamin B12 status among adult vegans.",
+    "year": 2024,
+    "journal": "Nutrition bulletin",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review",
+     "Meta-Analysis",
+     "Research Support, Non-U.S. Gov't"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "38189492",
+    "title": "Vitamin B12 supplementation during pregnancy for maternal and child health outcomes.",
+    "year": 2024,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "37060552",
+    "title": "Vitamin B12 deficiency and use of proton pump inhibitors: a systematic review and meta-analysis.",
+    "year": 2023,
+    "journal": "Expert review of gastroenterology & hepatology",
+    "pubtype": [
+     "Meta-Analysis",
+     "Systematic Review",
+     "Journal Article"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "33809274",
+    "title": "Effects of Vitamin B12 Supplementation on Cognitive Function, Depressive Symptoms, and Fatigue: A Systematic Review, Meta-Analysis, and Meta-Regression.",
+    "year": 2021,
+    "journal": "Nutrients",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   }
   ],
   "updated": "2026-09-16",
   "ma_top3": [
@@ -362,9 +519,42 @@
   "effect_outcome": "Давление: снижение на 2-4 мм рт.ст. (Cochrane). Диабет 2 типа: улучшение гликемии. Судороги при беременности: есть данные.",
   "grade": "B",
   "key_sources": [
-   "16856052",
-   "27402922",
-   "22318649"
+   {
+    "pmid": "16856052",
+    "title": "Magnesium supplementation for the management of essential hypertension in adults.",
+    "year": 2006,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "27402922",
+    "title": "Effects of Magnesium Supplementation on Blood Pressure: A Meta-Analysis of Randomized Double-Blind Placebo-Controlled Trials.",
+    "year": 2016,
+    "journal": "Hypertension (Dallas, Tex. : 1979)",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Research Support, Non-U.S. Gov't"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "22318649",
+    "title": "Effect of magnesium supplementation on blood pressure: a meta-analysis.",
+    "year": 2012,
+    "journal": "European journal of clinical nutrition",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Review"
+    ],
+    "source": "curated"
+   }
   ],
   "updated": "2026-09-16",
   "ma_top3": [
@@ -447,9 +637,43 @@
   "effect_outcome": "Эргоген +2-5% при 3-6 мг/кг; бдительность у сменных рабочих",
   "grade": "A",
   "key_sources": [
-   "20464765",
-   "42356375",
-   "41945073"
+   {
+    "pmid": "20464765",
+    "title": "Caffeine for the prevention of injuries and errors in shift workers.",
+    "year": 2010,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "42356375",
+    "title": "Dose-Response Effect of Oral Caffeine Use on Aerobic Exercise Performance: A Systematic Review and Meta-Analysis.",
+    "year": 2026,
+    "journal": "Nutrients",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review",
+     "Meta-Analysis"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "41945073",
+    "title": "Impact of caffeine on neurodevelopmental outcomes in preterm infants: A systematic review and meta-analysis.",
+    "year": 2026,
+    "journal": "Pediatrics and neonatology",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review",
+     "Meta-Analysis",
+     "Research Support, Non-U.S. Gov't"
+    ],
+    "source": "curated"
+   }
   ],
   "updated": "2026-09-16",
   "ma_top3": [
@@ -516,9 +740,39 @@
   "effect_outcome": "Мета-анализ 31 РКИ (42410082): улучшение внимания, снижение субъективного стресса. Синергия с кофеином: внимание без нервозности.",
   "grade": "B",
   "key_sources": [
-   "42410082",
-   "31758301",
-   "41176609"
+   {
+    "pmid": "42410082",
+    "title": "Cognitive and affective effects of L-Theanine: a systematic review and meta-analysis of 31 randomized trials.",
+    "year": 2026,
+    "journal": "Molecular psychiatry",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "31758301",
+    "title": "The Effects of Green Tea Amino Acid L-Theanine Consumption on the Ability to Manage Stress and Anxiety Levels: a Systematic Review.",
+    "year": 2020,
+    "journal": "Plant foods for human nutrition (Dordrecht, Netherlands)",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "41176609",
+    "title": "Examining the effect of L-theanine on sleep: a systematic review of dietary supplementation trials.",
+    "year": 2026,
+    "journal": "Nutritional neuroscience",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   }
   ],
   "updated": "2026-09-16",
   "ma_top3": [
@@ -584,9 +838,43 @@
   "effect_outcome": "Улучшение памяти и обучения при приёме 8-12 недель (мета-анализ 24252493). Эффект НЕ мгновенный — накопительный.",
   "grade": "B",
   "key_sources": [
-   "24252493",
-   "22747190",
-   "41678913"
+   {
+    "pmid": "24252493",
+    "title": "Meta-analysis of randomized controlled trials on cognitive effects of Bacopa monnieri extract.",
+    "year": 2014,
+    "journal": "Journal of ethnopharmacology",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "22747190",
+    "title": "The cognitive-enhancing effects of Bacopa monnieri: a systematic review of randomized, controlled human clinical trials.",
+    "year": 2012,
+    "journal": "Journal of alternative and complementary medicine (New York, N.Y.)",
+    "pubtype": [
+     "Journal Article",
+     "Research Support, Non-U.S. Gov't",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "41678913",
+    "title": "Comparative effects of Bacopa monnieri and Ginkgo biloba on cognitive functions: A systematic review and network meta-analysis.",
+    "year": 2026,
+    "journal": "Phytomedicine : international journal of phytotherapy and phytopharmacology",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review",
+     "Network Meta-Analysis",
+     "Comparative Study"
+    ],
+    "source": "curated"
+   }
   ],
   "about": "Ноотроп: улучшает память и обучение (адаптоген для мозга).",
   "who_needs": "Возрастное снижение памяти, студенты, СДВГ (умеренные данные).",
@@ -650,7 +938,17 @@
   "effect_outcome": "Данных ОЧЕНЬ мало (1 систематический обзор в базе). Стимуляция синтеза белка роста нервов (NGF) показана в доклинических моделях.",
   "grade": "D",
   "key_sources": [
-   "40959699"
+   {
+    "pmid": "40959699",
+    "title": "Benefits, side effects, and uses of Hericium erinaceus as a supplement: a systematic review.",
+    "year": 2025,
+    "journal": "Frontiers in nutrition",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   }
   ],
   "updated": "2026-09-16",
   "ma_top3": [],
@@ -704,7 +1002,69 @@
   "hedges_g_ci": null,
   "effect_outcome": "Деменция: эффект малый/отсутствует. Когниция у здоровых: нет значимого эффекта.",
   "grade": "D",
-  "key_sources": [],
+  "key_sources": [
+   {
+    "pmid": "39895346",
+    "title": "Ginkgo biloba extract EGb 761 is safe and effective in the treatment of mild dementia - a meta-analysis of patient subgroups in randomised controlled trials.",
+    "year": 2025,
+    "journal": "The world journal of biological psychiatry : the official journal of the World Federation of Societies of Biological Psychiatry",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Research Support, Non-U.S. Gov't"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "38718890",
+    "title": "Efficacy and safety of Ginkgo biloba extract in the treatment of unstable angina pectoris: A systematic review and network meta-analysis.",
+    "year": 2024,
+    "journal": "Journal of ethnopharmacology",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review",
+     "Network Meta-Analysis"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "32349519",
+    "title": "Efficacy and Safety of Ginkgo biloba in Patients with Acute Ischemic Stroke: A Systematic Review and Meta-Analysis.",
+    "year": 2020,
+    "journal": "The American journal of Chinese medicine",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "26979525",
+    "title": "Extract of Ginkgo biloba for Tardive Dyskinesia: Meta-analysis of Randomized Controlled Trials.",
+    "year": 2016,
+    "journal": "Pharmacopsychiatry",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "25114079",
+    "title": "Efficacy and adverse effects of ginkgo biloba for cognitive impairment and dementia: a systematic review and meta-analysis.",
+    "year": 2015,
+    "journal": "Journal of Alzheimer's disease : JAD",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Research Support, Non-U.S. Gov't",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   }
+  ],
   "about": "Улучшает микроциркуляцию, когнитивные функции (умеренные данные).",
   "who_needs": "Возрастное снижение памяти, деменция (адъювант), шум в ушах.",
   "onset": "Когнитивные функции — 12-24 недели; шум в ушах — 4-8 недель.",
@@ -777,9 +1137,41 @@
   "effect_outcome": "Умеренный эффект при физической/ментальной усталости. Данные противоречивые, много малых РКИ.",
   "grade": "C",
   "key_sources": [
-   "22643043",
-   "37495266",
-   "21036578"
+   {
+    "pmid": "22643043",
+    "title": "Rhodiola rosea for physical and mental fatigue: a systematic review.",
+    "year": 2012,
+    "journal": "BMC complementary and alternative medicine",
+    "pubtype": [
+     "Journal Article",
+     "Research Support, Non-U.S. Gov't",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "37495266",
+    "title": "Rhodiola rosea supplementation on sports performance: A systematic review of randomized controlled trials.",
+    "year": 2023,
+    "journal": "Phytotherapy research : PTR",
+    "pubtype": [
+     "Systematic Review",
+     "Journal Article"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "21036578",
+    "title": "The effectiveness and efficacy of Rhodiola rosea L.: a systematic review of randomized clinical trials.",
+    "year": 2011,
+    "journal": "Phytomedicine : international journal of phytotherapy and phytopharmacology",
+    "pubtype": [
+     "Journal Article",
+     "Research Support, Non-U.S. Gov't",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   }
   ],
   "about": "Адаптоген: снижает усталость, улучшает концентрацию при стрессе.",
   "who_needs": "Выгорание, умственная усталость, сменный график, студенты в сессию.",
@@ -858,9 +1250,42 @@
   "effect_outcome": "Снижает кортизол и тревожность (мета-анализы РКИ). Улучшает сон. Умеренный эффект при стрессе.",
   "grade": "B",
   "key_sources": [
-   "39348746",
-   "34559859",
-   "31975514"
+   {
+    "pmid": "39348746",
+    "title": "Effects of Ashwagandha (Withania Somnifera) on stress and anxiety: A systematic review and meta-analysis.",
+    "year": 2024,
+    "journal": "Explore (New York, N.Y.)",
+    "pubtype": [
+     "Systematic Review",
+     "Journal Article",
+     "Meta-Analysis"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "34559859",
+    "title": "Effect of Ashwagandha (Withania somnifera) extract on sleep: A systematic review and meta-analysis.",
+    "year": 2021,
+    "journal": "PloS one",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "31975514",
+    "title": "Withania somnifera (Indian ginseng) in diabetes mellitus: A systematic review and meta-analysis of scientific evidence from experimental research to clinical application.",
+    "year": 2020,
+    "journal": "Phytotherapy research : PTR",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   }
   ],
   "about": "Адаптоген: снижает кортизол, тревогу, улучшает сон.",
   "who_needs": "Хронический стресс, тревожность, бессонница, спортсмены (восстановление).",
@@ -929,8 +1354,29 @@
   "effect_outcome": "АДГД у детей: есть ограниченные данные (33539192). Когнитивные функции: данные смешанные.",
   "grade": "C",
   "key_sources": [
-   "33539192",
-   "42538853"
+   {
+    "pmid": "33539192",
+    "title": "Phosphatidylserine for the Treatment of Pediatric Attention-Deficit/Hyperactivity Disorder: A Systematic Review and Meta-Analysis.",
+    "year": 2021,
+    "journal": "Journal of alternative and complementary medicine (New York, N.Y.)",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "42538853",
+    "title": "The Impact of Citicoline/Phosphatidylserine Supplementation on Cognitive Performance and Executive Functions in Mental Disorders: A Systematic Review of Controlled Trials.",
+    "year": 2026,
+    "journal": "Human psychopharmacology",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   }
   ],
   "updated": "2026-09-16",
   "ma_top3": [
@@ -990,7 +1436,66 @@
   "hedges_g_ci": null,
   "effect_outcome": "НЕТ ДАННЫХ в базе (0 абстрактов после скрининга). Не проводились систематические обзоры или мета-анализы по когнитивным эффектам.",
   "grade": "D",
-  "key_sources": [],
+  "key_sources": [
+   {
+    "pmid": "41426989",
+    "title": "Comparison of the effects of choline alphoscerate and citicoline in patients with dementia disorders: a systematic review and meta-analysis.",
+    "year": 2025,
+    "journal": "Frontiers in neurology",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "36683513",
+    "title": "Activity of Choline Alphoscerate on Adult-Onset Cognitive Dysfunctions: A Systematic Review and Meta-Analysis.",
+    "year": 2023,
+    "journal": "Journal of Alzheimer's disease : JAD",
+    "pubtype": [
+     "Meta-Analysis",
+     "Systematic Review",
+     "Journal Article"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "39703111",
+    "title": "Effects of choline alfoscerate on cognitive function and quality of life in type 2 diabetes: A double-blind, randomized, placebo-controlled trial.",
+    "year": 2025,
+    "journal": "Diabetes, obesity & metabolism",
+    "pubtype": [
+     "Journal Article",
+     "Randomized Controlled Trial"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "39683633",
+    "title": "Acute Alpha-Glycerylphosphorylcholine Supplementation Enhances Cognitive Performance in Healthy Men.",
+    "year": 2024,
+    "journal": "Nutrients",
+    "pubtype": [
+     "Journal Article",
+     "Randomized Controlled Trial"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "38875437",
+    "title": "Comparative study of choline alfoscerate as a combination therapy with donepezil: A mixed double-blind randomized controlled and open-label observation trial.",
+    "year": 2024,
+    "journal": "Medicine",
+    "pubtype": [
+     "Journal Article",
+     "Randomized Controlled Trial",
+     "Comparative Study",
+     "Observational Study"
+    ],
+    "source": "curated"
+   }
+  ],
   "updated": "2026-09-16",
   "ma_top3": [
    {
@@ -1045,9 +1550,43 @@
   "effect_outcome": "Инсульт: есть данные (2 Cochrane). Когнитивные нарушения: данные смешанные. Доза: 1000-2000 мг/день.",
   "grade": "B",
   "key_sources": [
-   "32860632",
-   "15846601",
-   "36678257"
+   {
+    "pmid": "32860632",
+    "title": "Citicoline for treating people with acute ischemic stroke.",
+    "year": 2020,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Research Support, Non-U.S. Gov't",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "15846601",
+    "title": "Cytidinediphosphocholine (CDP-choline) for cognitive and behavioural disturbances associated with chronic cerebral disorders in the elderly.",
+    "year": 2005,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "36678257",
+    "title": "Is Citicoline Effective in Preventing and Slowing Down Dementia?-A Systematic Review and a Meta-Analysis.",
+    "year": 2023,
+    "journal": "Nutrients",
+    "pubtype": [
+     "Systematic Review",
+     "Meta-Analysis",
+     "Journal Article"
+    ],
+    "source": "curated"
+   }
   ],
   "updated": "2026-09-16",
   "ma_top3": [
@@ -1113,9 +1652,41 @@
   "effect_outcome": "Болезнь Альцгеймера: есть данные (3 Cochrane-обзора). Лёгкие когнитивные нарушения: есть данные. Доза: 200-400 мкг/день.",
   "grade": "B",
   "key_sources": [
-   "18425924",
-   "19370686",
-   "23235666"
+   {
+    "pmid": "18425924",
+    "title": "Huperzine A for Alzheimer's disease.",
+    "year": 2008,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "19370686",
+    "title": "Huperzine A for vascular dementia.",
+    "year": 2009,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "23235666",
+    "title": "Huperzine A for mild cognitive impairment.",
+    "year": 2012,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Journal Article",
+     "Research Support, Non-U.S. Gov't",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   }
   ],
   "updated": "2026-09-16",
   "ma_top3": [
@@ -1197,9 +1768,43 @@
   "effect_outcome": "Язвенный колит (ремиссия): работает (Cochrane). Остеоартрит: умеренный эффект. Метаболические маркеры: противоречивые данные.",
   "grade": "B",
   "key_sources": [
-   "23076948",
-   "41211694",
-   "41652864"
+   {
+    "pmid": "23076948",
+    "title": "Curcumin for maintenance of remission in ulcerative colitis.",
+    "year": 2012,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Journal Article",
+     "Research Support, N.I.H., Extramural",
+     "Research Support, Non-U.S. Gov't",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "41211694",
+    "title": "The Effects of Curcumin Supplementation on Body Weight, Body Mass Index, and Waist Circumference in Patients With Type 2 Diabetes: A Systematic Review and Meta-Analysis of Randomized Controlled Trials.",
+    "year": 2026,
+    "journal": "Nutrition reviews",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review",
+     "Meta-Analysis"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "41652864",
+    "title": "Curcumin Supplementation in Critically Ill Patients: A GRADE-Assessed Systematic Review and Meta-Analysis of Randomized Controlled Trial.",
+    "year": 2026,
+    "journal": "Phytotherapy research : PTR",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   }
   ],
   "updated": "2026-09-16",
   "ma_top3": [
@@ -1265,9 +1870,42 @@
   "effect_outcome": "Метаболические маркеры: умеренное улучшение (липиды, воспаление, инсулинорезистентность). Клинические исходы: данные ограниченные.",
   "grade": "C",
   "key_sources": [
-   "41987155",
-   "33480264",
-   "35833325"
+   {
+    "pmid": "41987155",
+    "title": "Effects of resveratrol supplementation on multiple health outcomes: an umbrella review of systematic reviews and meta-analyses of randomized controlled trials.",
+    "year": 2026,
+    "journal": "Nutrition journal",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review",
+     "Meta-Analysis"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "33480264",
+    "title": "Resveratrol supplementation and type 2 diabetes: a systematic review and meta-analysis.",
+    "year": 2022,
+    "journal": "Critical reviews in food science and nutrition",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "35833325",
+    "title": "Resveratrol supplementation efficiently improves endothelial health: A systematic review and meta-analysis of randomized controlled trials.",
+    "year": 2022,
+    "journal": "Phytotherapy research : PTR",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   }
   ],
   "updated": "2026-09-16",
   "ma_top3": [
@@ -1333,10 +1971,55 @@
   "effect_outcome": "ХОБЛ: уменьшение обострений. Печень (не-парацетамол): Cochrane. H. pylori: Cochrane. Психиатрия: данные есть.",
   "grade": "B",
   "key_sources": [
-   "33294991",
-   "30746681",
-   "22972094",
-   "42473447"
+   {
+    "pmid": "33294991",
+    "title": "N-acetylcysteine for non-paracetamol (acetaminophen)-related acute liver failure.",
+    "year": 2020,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "30746681",
+    "title": "N-acetylcysteine as an adjuvant therapy for Helicobacter pylori eradication.",
+    "year": 2019,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "22972094",
+    "title": "N-acetylcysteine for sepsis and systemic inflammatory response in adults.",
+    "year": 2012,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Research Support, Non-U.S. Gov't",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "42473447",
+    "title": "The efficacy of N-acetylcysteine in the management of chronic obstructive pulmonary disease: a systematic review and meta-analysis.",
+    "year": 2026,
+    "journal": "PeerJ",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review",
+     "Meta-Analysis"
+    ],
+    "source": "curated"
+   }
   ],
   "updated": "2026-09-16",
   "ma_top3": [
@@ -1414,7 +2097,66 @@
   "hedges_g_ci": null,
   "effect_outcome": "ОРВИ: сокращает длительность на ~1 день (приём в первые 24 ч). Диарея у детей: работает.",
   "grade": "B",
-  "key_sources": [],
+  "key_sources": [
+   {
+    "pmid": "38719213",
+    "title": "Zinc for prevention and treatment of the common cold.",
+    "year": 2024,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Journal Article",
+     "Research Support, Non-U.S. Gov't",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "39641338",
+    "title": "Zinc supplementation for acute and persistent watery diarrhoea in children: A systematic review and meta-analysis.",
+    "year": 2024,
+    "journal": "Journal of global health",
+    "pubtype": [
+     "Systematic Review",
+     "Journal Article",
+     "Meta-Analysis"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "39683510",
+    "title": "Efficacy of Zinc Supplementation in the Management of Primary Dysmenorrhea: A Systematic Review and Meta-Analysis.",
+    "year": 2024,
+    "journal": "Nutrients",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "36577241",
+    "title": "Correlation between serum zinc and testosterone: A systematic review.",
+    "year": 2023,
+    "journal": "Journal of trace elements in medicine and biology : organ of the Society for Minerals and Trace Elements (GMS)",
+    "pubtype": [
+     "Systematic Review",
+     "Journal Article"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "37836377",
+    "title": "Zinc Deficiency and Therapeutic Value of Zinc Supplementation in Pediatric Gastrointestinal Diseases.",
+    "year": 2023,
+    "journal": "Nutrients",
+    "pubtype": [
+     "Systematic Review",
+     "Journal Article"
+    ],
+    "source": "curated"
+   }
+  ],
   "updated": "2026-09-16",
   "ma_top3": [
    {
@@ -1479,7 +2221,18 @@
   "effect_outcome": "Мало данных: возможно улучшение когнитивных функций при стрессе/депривации сна, но РКИ единичные.",
   "grade": "D",
   "key_sources": [
-   "25797188"
+   {
+    "pmid": "25797188",
+    "title": "Behavioral and cognitive effects of tyrosine intake in healthy human adults.",
+    "year": 2015,
+    "journal": "Pharmacology, biochemistry, and behavior",
+    "pubtype": [
+     "Journal Article",
+     "Research Support, Non-U.S. Gov't",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   }
   ],
   "updated": "2026-09-16",
   "ma_top3": [
@@ -1545,9 +2298,42 @@
   "effect_outcome": "Кардиометаболические факторы: умеренное улучшение давления/липидов. Когниция: данные ограниченные. Рост у детей с НМТ: есть данные.",
   "grade": "C",
   "key_sources": [
-   "41275513",
-   "32871172",
-   "40320621"
+   {
+    "pmid": "41275513",
+    "title": "Effects of Oral Taurine Supplementation on Cardiometabolic Risk Factors: A Meta-analysis and Systematic Review of Randomized Clinical Trials.",
+    "year": 2026,
+    "journal": "Nutrition reviews",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review",
+     "Meta-Analysis"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "32871172",
+    "title": "The effects of taurine supplementation on obesity, blood pressure and lipid profile: A meta-analysis of randomized controlled trials.",
+    "year": 2020,
+    "journal": "European journal of pharmacology",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "40320621",
+    "title": "Effects of taurine supplementation on cognitive function: a systematic review and meta-analysis of randomised controlled trials.",
+    "year": 2025,
+    "journal": "International journal of food sciences and nutrition",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   }
   ],
   "updated": "2026-09-16",
   "ma_top3": [
@@ -1616,9 +2402,45 @@
   "effect_outcome": "Сердечная недостаточность: работает (2 Cochrane). Артериальное давление: работает (2 Cochrane). Статиновая миопатия: данные противоречивые.",
   "grade": "B",
   "key_sources": [
-   "35608922",
-   "24049047",
-   "26935713"
+   {
+    "pmid": "35608922",
+    "title": "Coenzyme Q10 for heart failure.",
+    "year": 2021,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Research Support, Non-U.S. Gov't",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "24049047",
+    "title": "Coenzyme Q10 for heart failure.",
+    "year": 2014,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Research Support, Non-U.S. Gov't",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "26935713",
+    "title": "Blood pressure lowering efficacy of coenzyme Q10 for primary hypertension.",
+    "year": 2016,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Research Support, Non-U.S. Gov't",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   }
   ],
   "updated": "2026-09-16",
   "ma_top3": [
@@ -1684,9 +2506,42 @@
   "effect_outcome": "Давление: умеренное снижение (31637782). Липиды: данные смешанные. Кардиометаболическое здоровье: есть данные (31585179).",
   "grade": "C",
   "key_sources": [
-   "22513958",
-   "31637782",
-   "31585179"
+   {
+    "pmid": "22513958",
+    "title": "Pycnogenol® (extract of French maritime pine bark) for the treatment of chronic disorders.",
+    "year": 2012,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Journal Article",
+     "Research Support, U.S. Gov't, Non-P.H.S.",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "31637782",
+    "title": "Effect of pycnogenol supplementation on blood pressure: A systematic review and meta-analysis of clinical trials.",
+    "year": 2020,
+    "journal": "Phytotherapy research : PTR",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "31585179",
+    "title": "Effects of pycnogenol on cardiometabolic health: A systematic review and meta-analysis of randomized controlled trials.",
+    "year": 2019,
+    "journal": "Pharmacological research",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   }
   ],
   "updated": "2026-09-16",
   "ma_top3": [
@@ -1747,8 +2602,30 @@
   "effect_outcome": "Когнитивные функции: есть ограниченные данные (28878245). Венозная недостаточность: есть данные.",
   "grade": "C",
   "key_sources": [
-   "28878245",
-   "35328954"
+   {
+    "pmid": "28878245",
+    "title": "Effects of Centella asiatica (L.) Urb. on cognitive function and mood related outcomes: A Systematic Review and Meta-analysis.",
+    "year": 2017,
+    "journal": "Scientific reports",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Research Support, Non-U.S. Gov't",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "35328954",
+    "title": "A Systematic Review of the Effect of Centella asiatica on Wound Healing.",
+    "year": 2022,
+    "journal": "International journal of environmental research and public health",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   }
   ],
   "updated": "2026-09-16",
   "ma_top3": [
@@ -1828,9 +2705,41 @@
   "effect_outcome": "Улучшает качество сна (мета-анализы). Эффективен при джетлаге, сменной работе, бессоннице.",
   "grade": "A",
   "key_sources": [
-   "33417003",
-   "24802882",
-   "34999224"
+   {
+    "pmid": "33417003",
+    "title": "Effect of melatonin supplementation on sleep quality: a systematic review and meta-analysis of randomized controlled trials.",
+    "year": 2022,
+    "journal": "Journal of neurology",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "24802882",
+    "title": "Optimal dosages for melatonin supplementation therapy in older adults: a systematic review of current literature.",
+    "year": 2014,
+    "journal": "Drugs & aging",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "34999224",
+    "title": "Effects of exogenous melatonin supplementation on health outcomes: An umbrella review of meta-analyses based on randomized controlled trials.",
+    "year": 2022,
+    "journal": "Pharmacological research",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   }
   ],
   "updated": "2026-09-16",
   "ma_top3": [
@@ -1896,7 +2805,17 @@
   "effect_outcome": "Стресс: ОГРАНИЧЕННЫЕ данные. Сон: ОЧЕНЬ ОГРАНИЧЕННЫЕ данные (систематический обзор 14 РКИ).",
   "grade": "D",
   "key_sources": [
-   "33041752"
+   {
+    "pmid": "33041752",
+    "title": "Effects of Oral Gamma-Aminobutyric Acid (GABA) Administration on Stress and Sleep in Humans: A Systematic Review.",
+    "year": 2020,
+    "journal": "Frontiers in neuroscience",
+    "pubtype": [
+     "Systematic Review",
+     "Journal Article"
+    ],
+    "source": "curated"
+   }
   ],
   "updated": "2026-09-16",
   "ma_top3": [
@@ -1961,7 +2880,43 @@
   "hedges_g_ci": null,
   "effect_outcome": "НЕТ ДАННЫХ в базе (0 систематических обзоров после скрининга). Есть отдельные РКИ по сну и шизофрении, но систематической оценки нет.",
   "grade": "D",
-  "key_sources": [],
+  "key_sources": [
+   {
+    "pmid": "37851316",
+    "title": "The effect of glycine administration on the characteristics of physiological systems in human adults: A systematic review.",
+    "year": 2024,
+    "journal": "GeroScience",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "41109034",
+    "title": "The effect of enteral glycine on plasma glycine and muscle structure, size, and function in the critically ill: A randomized controlled trial.",
+    "year": 2025,
+    "journal": "Clinical nutrition (Edinburgh, Scotland)",
+    "pubtype": [
+     "Journal Article",
+     "Randomized Controlled Trial"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "35975308",
+    "title": "Supplementing Glycine and N-Acetylcysteine (GlyNAC) in Older Adults Improves Glutathione Deficiency, Oxidative Stress, Mitochondrial Dysfunction, Inflammation, Physical Function, and Aging Hallmarks: A Randomized Clinical Trial.",
+    "year": 2023,
+    "journal": "The journals of gerontology. Series A, Biological sciences and medical sciences",
+    "pubtype": [
+     "Randomized Controlled Trial",
+     "Journal Article",
+     "Research Support, N.I.H., Extramural",
+     "Research Support, Non-U.S. Gov't"
+    ],
+    "source": "curated"
+   }
+  ],
   "updated": "2026-09-16",
   "ma_top3": [
    {
@@ -2026,9 +2981,41 @@
   "effect_outcome": "Бессонница: данные противоречивые ('safe but not effective'). Тревожность: Cochrane показывает ограниченные данные.",
   "grade": "C",
   "key_sources": [
-   "17054208",
-   "20347389",
-   "17517355"
+   {
+    "pmid": "17054208",
+    "title": "Valerian for anxiety disorders.",
+    "year": 2006,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Journal Article",
+     "Research Support, Non-U.S. Gov't",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "20347389",
+    "title": "Effectiveness of Valerian on insomnia: a meta-analysis of randomized placebo-controlled trials.",
+    "year": 2010,
+    "journal": "Sleep medicine",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "17517355",
+    "title": "A systematic review of valerian as a sleep aid: safe but not effective.",
+    "year": 2007,
+    "journal": "Sleep medicine reviews",
+    "pubtype": [
+     "Journal Article",
+     "Research Support, N.I.H., Extramural",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   }
   ],
   "updated": "2026-09-16",
   "ma_top3": [
@@ -2089,8 +3076,28 @@
   "effect_outcome": "Улучшает маркеры мышечной усталости (лактат, pH). Производительность: эффект незначимый в большинстве РКИ.",
   "grade": "C",
   "key_sources": [
-   "27377257",
-   "42370349"
+   {
+    "pmid": "27377257",
+    "title": "Effects of beta-alanine supplementation on performance and muscle fatigue in athletes and non-athletes of different sports: a systematic review.",
+    "year": 2017,
+    "journal": "The Journal of sports medicine and physical fitness",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "42370349",
+    "title": "Effects of beta-alanine supplementation on exercise performance and related physiological outcomes in women: a systematic review and meta-analysis.",
+    "year": 2026,
+    "journal": "Frontiers in nutrition",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   }
   ],
   "updated": "2026-09-16",
   "ma_top3": [
@@ -2156,9 +3163,42 @@
   "effect_outcome": "Артериальное давление: умеренное снижение. Спорт: улучшение выносливости и восстановления. Эректильная функция: есть данные.",
   "grade": "B",
   "key_sources": [
-   "30284051",
-   "31977835",
-   "39800868"
+   {
+    "pmid": "30284051",
+    "title": "Effect of L-Citrulline Supplementation on Blood Pressure: a Systematic Review and Meta-Analysis of Clinical Trials.",
+    "year": 2018,
+    "journal": "Current hypertension reports",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Research Support, Non-U.S. Gov't",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "31977835",
+    "title": "Effects of Citrulline Supplementation on Exercise Performance in Humans: A Review of the Current Literature.",
+    "year": 2020,
+    "journal": "Journal of strength and conditioning research",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "39800868",
+    "title": "L-Arginine and L-Citrulline for Prevention and Treatment of Pre-Eclampsia: A Systematic Review and Meta-Analysis.",
+    "year": 2025,
+    "journal": "BJOG : an international journal of obstetrics and gynaecology",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review",
+     "Meta-Analysis"
+    ],
+    "source": "curated"
+   }
   ],
   "updated": "2026-09-16",
   "ma_top3": [
@@ -2235,8 +3275,29 @@
   "effect_outcome": "ОРВИ: -8% длительность у взрослых, -13.6% у детей (профилактика). Профилактика ССЗ: НЕТ эффекта.",
   "grade": "B",
   "key_sources": [
-   "17636648",
-   "28301692"
+   {
+    "pmid": "17636648",
+    "title": "Vitamin C for preventing and treating the common cold.",
+    "year": 2007,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "28301692",
+    "title": "Vitamin C supplementation for the primary prevention of cardiovascular disease.",
+    "year": 2017,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   }
   ],
   "updated": "2026-09-16",
   "ma_top3": [
@@ -2302,9 +3363,44 @@
   "effect_outcome": "Профилактика ОРВИ: RR 0.78 (0.68-0.88) — снижение заболеваемости на 22%. Лечение: НЕТ эффекта на длительность (MD -0.45 дня, незначимо).",
   "grade": "B",
   "key_sources": [
-   "24554461",
-   "31126553",
-   "16678640"
+   {
+    "pmid": "24554461",
+    "title": "Echinacea for preventing and treating the common cold.",
+    "year": 2014,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Research Support, N.I.H., Intramural",
+     "Research Support, Non-U.S. Gov't",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "31126553",
+    "title": "Echinacea for the prevention and treatment of upper respiratory tract infections: A systematic review and meta-analysis.",
+    "year": 2019,
+    "journal": "Complementary therapies in medicine",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "16678640",
+    "title": "Echinacea in the prevention of induced rhinovirus colds: a meta-analysis.",
+    "year": 2006,
+    "journal": "Clinical therapeutics",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Review"
+    ],
+    "source": "curated"
+   }
   ],
   "about": "Иммуномодулятор: умеренный эффект на длительность простуды.",
   "who_needs": "Частые простуды (профилактика), начало простуды (сокращение).",
@@ -2373,8 +3469,28 @@
   "effect_outcome": "Сокращает длительность симптомов ОРВИ на ~4 дня (мета-анализ 2019). Эффективна при гриппе и простуде.",
   "grade": "B",
   "key_sources": [
-   "33827515",
-   "30670267"
+   {
+    "pmid": "33827515",
+    "title": "Elderberry for prevention and treatment of viral respiratory illnesses: a systematic review.",
+    "year": 2021,
+    "journal": "BMC complementary medicine and therapies",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "30670267",
+    "title": "Black elderberry (Sambucus nigra) supplementation effectively treats upper respiratory symptoms: A meta-analysis of randomized, controlled clinical trials.",
+    "year": 2019,
+    "journal": "Complementary therapies in medicine",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis"
+    ],
+    "source": "curated"
+   }
   ],
   "updated": "2026-09-16",
   "ma_top3": [
@@ -2450,7 +3566,18 @@
   "effect_outcome": "Лёгкая-умеренная депрессия: сравним с SSRI (RR 0.98 для response), меньше побочных (OR 0.59 dropout).",
   "grade": "B",
   "key_sources": [
-   "28064110"
+   {
+    "pmid": "28064110",
+    "title": "Clinical use of Hypericum perforatum (St John's wort) in depression: A meta-analysis.",
+    "year": 2017,
+    "journal": "Journal of affective disorders",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Review"
+    ],
+    "source": "curated"
+   }
   ],
   "updated": "2026-09-16",
   "ma_top3": [
@@ -2516,8 +3643,29 @@
   "effect_outcome": "Депрессия: данные слабые, качество РКИ низкое (Cochrane). Эффективность не подтверждена современными стандартами.",
   "grade": "C",
   "key_sources": [
-   "11687048",
-   "31504850"
+   {
+    "pmid": "11687048",
+    "title": "Tryptophan and 5-hydroxytryptophan for depression.",
+    "year": 2001,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "31504850",
+    "title": "Effects of 5-hydroxytryptophan on distinct types of depression: a systematic review and meta-analysis.",
+    "year": 2020,
+    "journal": "Nutrition reviews",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   }
   ],
   "updated": "2026-09-16",
   "ma_top3": [
@@ -2578,9 +3726,41 @@
   "effect_outcome": "Улучшает гидратацию (10/15 РКИ), эластичность (10/13 РКИ), морщины (9/10 РКИ). Эффект на суставы: данные ограниченные.",
   "grade": "B",
   "key_sources": [
-   "42342959",
-   "30681787",
-   "33742704"
+   {
+    "pmid": "42342959",
+    "title": "Efficacy and safety of hydrolyzed collagen supplementation on skin health outcomes: a systematic literature review of randomized controlled trials.",
+    "year": 2026,
+    "journal": "European journal of clinical nutrition",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review",
+     "Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "30681787",
+    "title": "Oral Collagen Supplementation: A Systematic Review of Dermatological Applications.",
+    "year": 2019,
+    "journal": "Journal of drugs in dermatology : JDD",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "33742704",
+    "title": "Effects of hydrolyzed collagen supplementation on skin aging: a systematic review and meta-analysis.",
+    "year": 2021,
+    "journal": "International journal of dermatology",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   }
   ],
   "about": "Структурный белок: кожа, суставы, кости. Пептиды всасываются.",
   "who_needs": "Остеоартрит, морщины (25+), спортсмены (суставы), постменопауза (кости).",
@@ -2662,9 +3842,44 @@
   "effect_outcome": "Антибиотик-диарея (RR 0.46); острая диарея у детей (-1 день)",
   "grade": "B",
   "key_sources": [
-   "31039287",
-   "33295643",
-   "40931979"
+   {
+    "pmid": "31039287",
+    "title": "Probiotics for the prevention of pediatric antibiotic-associated diarrhea.",
+    "year": 2019,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Research Support, Non-U.S. Gov't",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "33295643",
+    "title": "Probiotics for treating acute infectious diarrhoea.",
+    "year": 2020,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Research Support, Non-U.S. Gov't",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "40931979",
+    "title": "Probiotics for the prevention of Clostridioides difficile-associated diarrhea in adults and children.",
+    "year": 2025,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   }
   ],
   "updated": "2026-09-16",
   "ma_top3": [
@@ -2730,9 +3945,45 @@
   "effect_outcome": "Дефекты нейральной трубки: работает (Cochrane, профилактика 400 мкг/день). Гомоцистеин: снижение. Беременность: работает.",
   "grade": "A",
   "key_sources": [
-   "26662928",
-   "20927767",
-   "23543547"
+   {
+    "pmid": "26662928",
+    "title": "Effects and safety of periconceptional oral folate supplementation for preventing birth defects.",
+    "year": 2015,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Research Support, N.I.H., Extramural",
+     "Research Support, Non-U.S. Gov't",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "20927767",
+    "title": "Effects and safety of periconceptional folate supplementation for preventing birth defects.",
+    "year": 2010,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "23543547",
+    "title": "Folic acid supplementation during pregnancy for maternal health and pregnancy outcomes.",
+    "year": 2013,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Research Support, Non-U.S. Gov't",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   }
   ],
   "updated": "2026-09-16",
   "ma_top3": [
@@ -2808,9 +4059,43 @@
   "effect_outcome": "Анемия у беременных RR 0.30 (0.20-0.47); дефицит Fe RR 0.51",
   "grade": "A",
   "key_sources": [
-   "39145520",
-   "22161448",
-   "27087396"
+   {
+    "pmid": "39145520",
+    "title": "Daily oral iron supplementation during pregnancy.",
+    "year": 2024,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "22161448",
+    "title": "Intermittent iron supplementation for reducing anaemia and its associated impairments in menstruating women.",
+    "year": 2011,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "27087396",
+    "title": "Daily iron supplementation for improving anaemia, iron status and health in menstruating women.",
+    "year": 2016,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Research Support, Non-U.S. Gov't",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   }
   ],
   "updated": "2026-09-16",
   "ma_top3": [
@@ -2871,8 +4156,30 @@
   "effect_outcome": "Сон: WASO -81 мин/г при дозах >=1г. Настроение: уменьшает тревожность (11 РКИ).",
   "grade": "C",
   "key_sources": [
-   "33942088",
-   "32272859"
+   {
+    "pmid": "33942088",
+    "title": "The impact of tryptophan supplementation on sleep quality: a systematic review, meta-analysis, and meta-regression.",
+    "year": 2022,
+    "journal": "Nutrition reviews",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Research Support, Non-U.S. Gov't",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "32272859",
+    "title": "A systematic review of the effect of L-tryptophan supplementation on mood and emotional functioning.",
+    "year": 2021,
+    "journal": "Journal of dietary supplements",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   }
   ],
   "updated": "2026-09-16",
   "ma_top3": [
@@ -2938,9 +4245,44 @@
   "effect_outcome": "Хондроитин: боль -10% (95% CI 15%-6%), NNT=5; WOMAC MCII RR 1.12 (1.01-1.24). Глюкозамин: эффект VAS малый, WOMAC незначим.",
   "grade": "C",
   "key_sources": [
-   "25629804",
-   "15846645",
-   "29713967"
+   {
+    "pmid": "25629804",
+    "title": "Chondroitin for osteoarthritis.",
+    "year": 2015,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Research Support, Non-U.S. Gov't",
+     "Research Support, U.S. Gov't, Non-P.H.S.",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "15846645",
+    "title": "Glucosamine therapy for treating osteoarthritis.",
+    "year": 2005,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "29713967",
+    "title": "Effects of glucosamine in patients with osteoarthritis of the knee: a systematic review and meta-analysis.",
+    "year": 2018,
+    "journal": "Clinical rheumatology",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   }
   ],
   "updated": "2026-09-16",
   "ma_top3": [
@@ -3006,9 +4348,41 @@
   "effect_outcome": "Поздняя дискинезия (антипсихотики): есть Cochrane-обзоры. МАСЛД: есть Cochrane. Альцгеймер: есть Cochrane, но эффект малый. Профилактика ССЗ/рака: НЕТ эффекта.",
   "grade": "C",
   "key_sources": [
-   "39412049",
-   "28418065",
-   "29341067"
+   {
+    "pmid": "39412049",
+    "title": "Vitamin E for people with non-alcoholic fatty liver disease.",
+    "year": 2024,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Systematic Review",
+     "Journal Article",
+     "Meta-Analysis"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "28418065",
+    "title": "Vitamin E for Alzheimer's dementia and mild cognitive impairment.",
+    "year": 2017,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "29341067",
+    "title": "Vitamin E for antipsychotic-induced tardive dyskinesia.",
+    "year": 2018,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   }
   ],
   "updated": "2026-09-16",
   "ma_top3": [
@@ -3068,7 +4442,69 @@
   "hedges_g_ci": null,
   "effect_outcome": "НЕТ ДАННЫХ в базе (0 систематических обзоров после скрининга). Популярность для волос/ногтей не подтверждена доказательной базой.",
   "grade": "D",
-  "key_sources": [],
+  "key_sources": [
+   {
+    "pmid": "36386951",
+    "title": "Influence of biotin intervention on glycemic control and lipid profile in patients with type 2 diabetes mellitus: A systematic review and meta-analysis.",
+    "year": 2022,
+    "journal": "Frontiers in nutrition",
+    "pubtype": [
+     "Systematic Review",
+     "Journal Article"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "27362288",
+    "title": "Factitious Graves' Disease Due to Biotin Immunoassay Interference-A Case and Review of the Literature.",
+    "year": 2016,
+    "journal": "The Journal of clinical endocrinology and metabolism",
+    "pubtype": [
+     "Case Reports",
+     "Journal Article",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "33171595",
+    "title": "PROVIT: Supplementary Probiotic Treatment and Vitamin B7 in Depression-A Randomized Controlled Trial.",
+    "year": 2020,
+    "journal": "Nutrients",
+    "pubtype": [
+     "Journal Article",
+     "Randomized Controlled Trial"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "11815321",
+    "title": "Marginal biotin deficiency during normal pregnancy.",
+    "year": 2002,
+    "journal": "The American journal of clinical nutrition",
+    "pubtype": [
+     "Clinical Trial",
+     "Journal Article",
+     "Randomized Controlled Trial",
+     "Research Support, Non-U.S. Gov't",
+     "Research Support, U.S. Gov't, P.H.S."
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "7840079",
+    "title": "Biotin supplementation affects lymphocyte carboxylases and plasma biotin in severe protein-energy malnutrition.",
+    "year": 1995,
+    "journal": "The American journal of clinical nutrition",
+    "pubtype": [
+     "Clinical Trial",
+     "Journal Article",
+     "Randomized Controlled Trial",
+     "Research Support, Non-U.S. Gov't"
+    ],
+    "source": "curated"
+   }
+  ],
   "updated": "2026-09-16",
   "ma_top3": [
    {
@@ -3133,9 +4569,44 @@
   "effect_outcome": "Диабетическая нейропатия: боль VAS MD -14.93 (-19.16 до -10.70) при дозе >1500 мг/день",
   "grade": "C",
   "key_sources": [
-   "31201734",
-   "34954832",
-   "38594107"
+   {
+    "pmid": "31201734",
+    "title": "Acetyl-L-carnitine for the treatment of diabetic peripheral neuropathy.",
+    "year": 2019,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Research Support, Non-U.S. Gov't",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "34954832",
+    "title": "Propionyl-L-carnitine for intermittent claudication.",
+    "year": 2021,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Research Support, Non-U.S. Gov't",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "38594107",
+    "title": "The Effects of L-Carnitine Supplementation on Weight Loss, Glycemic Control, and Cardiovascular Risk Factors in Patients With Type 2 Diabetes: A Systematic Review and Dose-response Meta-Analysis of Randomized Controlled Trials.",
+    "year": 2024,
+    "journal": "Clinical therapeutics",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review",
+     "Meta-Analysis"
+    ],
+    "source": "curated"
+   }
   ],
   "updated": "2026-09-16",
   "ma_top3": [
@@ -3196,9 +4667,42 @@
   "effect_outcome": "Печеночная энцефалопатия при циррозе: работает (4 Cochrane). Спорт: данные противоречивые, клиническая ценность спорная.",
   "grade": "B",
   "key_sources": [
-   "41542879",
-   "28518283",
-   "26377410"
+   {
+    "pmid": "41542879",
+    "title": "Branched-chain amino acids for people with cirrhosis and hepatic encephalopathy.",
+    "year": 2026,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review",
+     "Meta-Analysis"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "28518283",
+    "title": "Branched-chain amino acids for people with hepatic encephalopathy.",
+    "year": 2017,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "26377410",
+    "title": "Branched-chain amino acids for people with hepatic encephalopathy.",
+    "year": 2015,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   }
   ],
   "updated": "2026-09-16",
   "ma_top3": [
@@ -3264,9 +4768,41 @@
   "effect_outcome": "Преэклампсия: есть данные (профилактика). НЭК у недоношенных: работает (Cochrane). Давление: умеренное снижение.",
   "grade": "B",
   "key_sources": [
-   "39800868",
-   "39564822",
-   "28399330"
+   {
+    "pmid": "39800868",
+    "title": "L-Arginine and L-Citrulline for Prevention and Treatment of Pre-Eclampsia: A Systematic Review and Meta-Analysis.",
+    "year": 2025,
+    "journal": "BJOG : an international journal of obstetrics and gynaecology",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review",
+     "Meta-Analysis"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "39564822",
+    "title": "Efficacy of L-Arginine for Preventing Preeclampsia and Improving Maternal and Neonatal Outcomes in High-Risk Pregnancies: A Systematic Review and Meta-Analysis.",
+    "year": 2024,
+    "journal": "International journal of fertility & sterility",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "28399330",
+    "title": "Arginine supplementation for prevention of necrotising enterocolitis in preterm infants.",
+    "year": 2017,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   }
   ],
   "updated": "2026-09-16",
   "ma_top3": [
@@ -3341,9 +4877,44 @@
   "effect_outcome": "Преэклампсия RR 0.45 (0.31-0.65); преждевременные роды RR 0.76",
   "grade": "A",
   "key_sources": [
-   "30277579",
-   "39560075",
-   "35014026"
+   {
+    "pmid": "30277579",
+    "title": "Calcium supplementation during pregnancy for preventing hypertensive disorders and related problems.",
+    "year": 2018,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Research Support, Non-U.S. Gov't",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "39560075",
+    "title": "Calcium supplementation (other than for preventing or treating hypertension) for improving pregnancy and infant outcomes.",
+    "year": 2024,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Systematic Review",
+     "Journal Article",
+     "Meta-Analysis"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "35014026",
+    "title": "Calcium supplementation for prevention of primary hypertension.",
+    "year": 2022,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Research Support, Non-U.S. Gov't",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   }
   ],
   "updated": "2026-09-16",
   "ma_top3": [
@@ -3404,9 +4975,44 @@
   "effect_outcome": "Внутрисуставно при ОА: эффект малый, уступает PRP (сетевой МА 21 РКИ). Перорально: нет пруфов.",
   "grade": "C",
   "key_sources": [
-   "26475434",
-   "41629990",
-   "40069655"
+   {
+    "pmid": "26475434",
+    "title": "Hyaluronic acid and other conservative treatment options for osteoarthritis of the ankle.",
+    "year": 2015,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "41629990",
+    "title": "Leukocyte-rich versus leukocyte-poor platelet-rich plasma and hyaluronic acid for knee osteoarthritis: a systematic review and network meta-analysis.",
+    "year": 2026,
+    "journal": "Journal of orthopaedic surgery and research",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review",
+     "Network Meta-Analysis",
+     "Comparative Study"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "40069655",
+    "title": "Comparison of hyaluronic acid and platelet-rich plasma in knee osteoarthritis: a systematic review.",
+    "year": 2025,
+    "journal": "BMC musculoskeletal disorders",
+    "pubtype": [
+     "Comparative Study",
+     "Journal Article",
+     "Meta-Analysis",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   }
   ],
   "updated": "2026-09-16",
   "ma_top3": [
@@ -3467,9 +5073,42 @@
   "effect_outcome": "FBS -6.89 мг/дл (95% CI -10.62 до -3.16); HbA1c -0.75%; вес -2.1 кг; LDL -10-15%",
   "grade": "B",
   "key_sources": [
-   "38844885",
-   "37163454",
-   "31919936"
+   {
+    "pmid": "38844885",
+    "title": "The effect of psyllium on fasting blood sugar, HbA1c, HOMA IR, and insulin control: a GRADE-assessed systematic review and meta-analysis of randomized controlled trials.",
+    "year": 2024,
+    "journal": "BMC endocrine disorders",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review",
+     "Meta-Analysis"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "37163454",
+    "title": "Psyllium is a natural nonfermented gel-forming fiber that is effective for weight loss: A comprehensive review and meta-analysis.",
+    "year": 2023,
+    "journal": "Journal of the American Association of Nurse Practitioners",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "31919936",
+    "title": "The effect of psyllium consumption on weight, body mass index, lipid profile, and glucose metabolism in diabetic patients: A systematic review and dose-response meta-analysis of randomized controlled trials.",
+    "year": 2020,
+    "journal": "Phytotherapy research : PTR",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   }
   ],
   "about": "Растворимая клетчатка: холестерин, сахар, регулярность стула.",
   "who_needs": "Повышенный холестерин, запоры, преддиабет, контроль веса.",
@@ -3543,9 +5182,41 @@
   "effect_outcome": "Тошнота при беременности: работает (систематические обзоры). Послеоперационная тошнота: работает. Метаболические профили: умеренное улучшение.",
   "grade": "B",
   "key_sources": [
-   "42322087",
-   "37379959",
-   "35031435"
+   {
+    "pmid": "42322087",
+    "title": "Treatment of Nausea and Vomiting With Zingiber officinale in Pregnancy: An Umbrella Review of Systematic Reviews With Meta-Synthesis.",
+    "year": 2026,
+    "journal": "Phytotherapy research : PTR",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review",
+     "Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "37379959",
+    "title": "Ginger (Zingiber officinale Roscoe) preparations for prophylaxis of postoperative nausea and vomiting: A Bayesian network meta-analysis.",
+    "year": 2023,
+    "journal": "Journal of ethnopharmacology",
+    "pubtype": [
+     "Journal Article",
+     "Network Meta-Analysis"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "35031435",
+    "title": "The effect of ginger supplementation on metabolic profiles in patients with type 2 diabetes mellitus: A systematic review and meta-analysis of randomized controlled trials.",
+    "year": 2022,
+    "journal": "Complementary therapies in medicine",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   }
   ],
   "about": "Противовоспалительное, противорвотное, умеренный эффект на боль.",
   "who_needs": "Остеоартрит, тошнота (беременность, химиотерапия), мышечная боль.",
@@ -3619,9 +5290,42 @@
   "effect_outcome": "Артериальное давление: умеренное снижение. Холестерин: умеренное снижение. Метаболический синдром: есть данные.",
   "grade": "B",
   "key_sources": [
-   "40628369",
-   "33792129",
-   "40580481"
+   {
+    "pmid": "40628369",
+    "title": "The Effect of Aged Garlic Supplementation on Blood Pressure and Lipid Profile: A Dose-Response Grade-Assessed Systematic Review and Meta-Analysis of Randomized Controlled Trials.",
+    "year": 2025,
+    "journal": "Phytotherapy research : PTR",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review",
+     "Meta-Analysis"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "33792129",
+    "title": "Systematic review and meta-analysis of randomised, controlled trials on the effects of garlic supplementation on serum adiponectin and leptin levels.",
+    "year": 2021,
+    "journal": "International journal of clinical practice",
+    "pubtype": [
+     "Meta-Analysis",
+     "Systematic Review",
+     "Journal Article"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "40580481",
+    "title": "Effects of Garlic Supplementation on Cardiovascular Risk Factors in Adults: A Comprehensive Updated Systematic Review and Meta-Analysis of Randomized Controlled Trials.",
+    "year": 2026,
+    "journal": "Nutrition reviews",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review",
+     "Meta-Analysis"
+    ],
+    "source": "curated"
+   }
   ],
   "about": "Серосодержащие соединения: умеренный эффект на АД и холестерин.",
   "who_needs": "Повышенное АД (адъювант), повышенный холестерин, профилактика.",
@@ -3690,7 +5394,17 @@
   "effect_outcome": "Профилактика ИМП: данные ограниченные (ранее считалась эффективной, современные данные противоречивые).",
   "grade": "C",
   "key_sources": [
-   "41676867"
+   {
+    "pmid": "41676867",
+    "title": "Effectiveness of Cranberry Supplementation for Prevention and Treatment of Infectious Urinary Tract Disease in Dogs and Cats: A Systematic Review.",
+    "year": 2026,
+    "journal": "Journal of veterinary pharmacology and therapeutics",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   }
   ],
   "updated": "2026-09-16",
   "ma_top3": [
@@ -3755,7 +5469,61 @@
   "hedges_g_ci": null,
   "effect_outcome": "НЕТ ДАННЫХ в базе (0 систематических обзоров после скрининга). Популярность в традиционной медицине не подтверждена доказательной базой.",
   "grade": "D",
-  "key_sources": [],
+  "key_sources": [
+   {
+    "pmid": "23042598",
+    "title": "Leonurus cardiaca L. (motherwort): a review of its phytochemistry and pharmacology.",
+    "year": 2013,
+    "journal": "Phytotherapy research : PTR",
+    "pubtype": [
+     "Journal Article",
+     "Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "33494336",
+    "title": "Phytochemical Profile and Biological Activities of Crude and Purified Leonurus cardiaca Extracts.",
+    "year": 2021,
+    "journal": "Plants (Basel, Switzerland)",
+    "pubtype": [
+     "Journal Article"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "24841965",
+    "title": "The effect of Leonurus cardiaca herb extract and some of its flavonoids on mitochondrial oxidative phosphorylation in the heart.",
+    "year": 2014,
+    "journal": "Planta medica",
+    "pubtype": [
+     "Journal Article",
+     "Research Support, Non-U.S. Gov't"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "20839214",
+    "title": "Effect of Leonurus cardiaca oil extract in patients with arterial hypertension accompanied by anxiety and sleep disorders.",
+    "year": 2011,
+    "journal": "Phytotherapy research : PTR",
+    "pubtype": [
+     "Journal Article"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "19918711",
+    "title": "Cardiac and electrophysiological effects of primary and refined extracts from Leonurus cardiaca L. (Ph.Eur.).",
+    "year": 2010,
+    "journal": "Planta medica",
+    "pubtype": [
+     "Journal Article",
+     "Research Support, Non-U.S. Gov't"
+    ],
+    "source": "curated"
+   }
+  ],
   "updated": "2026-09-16",
   "ma_top3": [
    {
@@ -3820,8 +5588,29 @@
   "effect_outcome": "Хроническая сердечная недостаточность (ХСН): Cochrane подтверждает улучшение симптомов и переносимости нагрузок.",
   "grade": "B",
   "key_sources": [
-   "18254076",
-   "12798455"
+   {
+    "pmid": "18254076",
+    "title": "Hawthorn extract for treating chronic heart failure.",
+    "year": 2008,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "12798455",
+    "title": "Hawthorn extract for treating chronic heart failure: meta-analysis of randomized trials.",
+    "year": 2003,
+    "journal": "The American journal of medicine",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis"
+    ],
+    "source": "curated"
+   }
   ],
   "updated": "2026-09-16",
   "ma_top3": [
@@ -3882,7 +5671,18 @@
   "effect_outcome": "Холестерин: снижение LDL (FDA health claim). Гликемический контроль: есть данные.",
   "grade": "B",
   "key_sources": [
-   "35631184"
+   {
+    "pmid": "35631184",
+    "title": "Effects of Oat Beta-Glucan Intake on Lipid Profiles in Hypercholesterolemic Adults: A Systematic Review and Meta-Analysis of Randomized Controlled Trials.",
+    "year": 2022,
+    "journal": "Nutrients",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   }
   ],
   "updated": "2026-09-16",
   "ma_top3": [
@@ -3943,8 +5743,29 @@
   "effect_outcome": "Мигрень: профилактика (400 мг/день) — систематические обзоры подтверждают. Метаболические заболевания: есть данные.",
   "grade": "B",
   "key_sources": [
-   "33779525",
-   "28485121"
+   {
+    "pmid": "33779525",
+    "title": "Effect of Vitamin B2 supplementation on migraine prophylaxis: a systematic review and meta-analysis.",
+    "year": 2022,
+    "journal": "Nutritional neuroscience",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "28485121",
+    "title": "Prophylaxis of migraine headaches with riboflavin: A systematic review.",
+    "year": 2017,
+    "journal": "Journal of clinical pharmacy and therapeutics",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   }
   ],
   "updated": "2026-09-16",
   "ma_top3": [
@@ -4005,9 +5826,42 @@
   "effect_outcome": "ВМД: улучшение макулярного пигмента, снижение прогрессирования. Катаракта: снижение риска. Есть Cochrane для недоношенных.",
   "grade": "B",
   "key_sources": [
-   "31887124",
-   "24451312",
-   "40292760"
+   {
+    "pmid": "31887124",
+    "title": "Effects of lutein supplementation in age-related macular degeneration.",
+    "year": 2019,
+    "journal": "PloS one",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Research Support, Non-U.S. Gov't"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "24451312",
+    "title": "Association between lutein and zeaxanthin status and the risk of cataract: a meta-analysis.",
+    "year": 2014,
+    "journal": "Nutrients",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Research Support, Non-U.S. Gov't"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "40292760",
+    "title": "Lutein and zeaxanthin for reducing morbidity and mortality in preterm infants.",
+    "year": 2025,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review",
+     "Meta-Analysis"
+    ],
+    "source": "curated"
+   }
   ],
   "updated": "2026-09-16",
   "ma_top3": [
@@ -4068,9 +5922,44 @@
   "effect_outcome": "Живые роды OR 2.42 (0.75-7.83, незначимо); выкидыши OR 0.40 (0.19-0.86)",
   "grade": "C",
   "key_sources": [
-   "30570133",
-   "36790138",
-   "41792927"
+   {
+    "pmid": "30570133",
+    "title": "Inositol for subfertile women with polycystic ovary syndrome.",
+    "year": 2018,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Research Support, Non-U.S. Gov't",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "36790138",
+    "title": "Antenatal dietary supplementation with myo-inositol for preventing gestational diabetes.",
+    "year": 2023,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Meta-Analysis",
+     "Journal Article",
+     "Review",
+     "Research Support, Non-U.S. Gov't"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "41792927",
+    "title": "Efficacy of inositol supplementation for the prevention and treatment of gestational diabetes in pregnant women: Results from an umbrella meta-analysis.",
+    "year": 2026,
+    "journal": "International journal of gynaecology and obstetrics: the official organ of the International Federation of Gynaecology and Obstetrics",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   }
   ],
   "updated": "2026-09-16",
   "ma_top3": [
@@ -4136,9 +6025,41 @@
   "effect_outcome": "Диабетическая периферическая нейропатия: работает (Cochrane). Кардиометаболические факторы: есть данные. Вес: эффект малый.",
   "grade": "B",
   "key_sources": [
-   "38205823",
-   "37630823",
-   "37933068"
+   {
+    "pmid": "38205823",
+    "title": "Alpha-lipoic acid for diabetic peripheral neuropathy.",
+    "year": 2024,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Systematic Review",
+     "Journal Article"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "37630823",
+    "title": "Effects of Oral Alpha-Lipoic Acid Treatment on Diabetic Polyneuropathy: A Meta-Analysis and Systematic Review.",
+    "year": 2023,
+    "journal": "Nutrients",
+    "pubtype": [
+     "Meta-Analysis",
+     "Systematic Review",
+     "Journal Article"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "37933068",
+    "title": "Effectiveness of alpha-lipoic acid in patients with neuropathic pain associated with type I and type II diabetes mellitus: A systematic review and meta-analysis.",
+    "year": 2023,
+    "journal": "Medicine",
+    "pubtype": [
+     "Meta-Analysis",
+     "Systematic Review",
+     "Journal Article"
+    ],
+    "source": "curated"
+   }
   ],
   "updated": "2026-09-16",
   "ma_top3": [
@@ -4198,7 +6119,70 @@
   "hedges_g_ci": null,
   "effect_outcome": "НЕТ ДАННЫХ в базе (0 систематических обзоров после скрининга). Популярна для профилактики ИМП, но доказательная база слабая.",
   "grade": "D",
-  "key_sources": [],
+  "key_sources": [
+   {
+    "pmid": "41004704",
+    "title": "Efficacy of D-mannose as prophylaxis of recurrent urinary tract infection: a systematic review and meta-analysis of randomized controlled trials.",
+    "year": 2025,
+    "journal": "Jornal brasileiro de nefrologia",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review",
+     "Meta-Analysis"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "36041061",
+    "title": "D-mannose for preventing and treating urinary tract infections.",
+    "year": 2022,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Journal Article",
+     "Research Support, Non-U.S. Gov't",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "32972899",
+    "title": "Role of D-Mannose in the Prevention of Recurrent Urinary Tract Infections: Evidence from a Systematic Review of the Literature.",
+    "year": 2021,
+    "journal": "European urology focus",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "32497610",
+    "title": "D-mannose vs other agents for recurrent urinary tract infection prevention in adult women: a systematic review and meta-analysis.",
+    "year": 2020,
+    "journal": "American journal of obstetrics and gynecology",
+    "pubtype": [
+     "Comparative Study",
+     "Journal Article",
+     "Meta-Analysis",
+     "Research Support, N.I.H., Extramural",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "40853430",
+    "title": "Comparison of increased hydration, D-mannose, and antibiotic prophylaxis for recurrent urinary tract infection prevention in premenopausal women: a three-arm randomized-controlled study.",
+    "year": 2026,
+    "journal": "International urology and nephrology",
+    "pubtype": [
+     "Journal Article",
+     "Randomized Controlled Trial",
+     "Multicenter Study",
+     "Comparative Study"
+    ],
+    "source": "curated"
+   }
+  ],
   "updated": "2026-09-16",
   "ma_top3": [
    {
@@ -4258,8 +6242,29 @@
   "effect_outcome": "Сексуальная функция: есть данные. Менопауза: есть. Фертильность: противоречиво.",
   "grade": "C",
   "key_sources": [
-   "20691074",
-   "21840656"
+   {
+    "pmid": "20691074",
+    "title": "Maca (L. meyenii) for improving sexual function: a systematic review.",
+    "year": 2010,
+    "journal": "BMC complementary and alternative medicine",
+    "pubtype": [
+     "Journal Article",
+     "Research Support, Non-U.S. Gov't",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "21840656",
+    "title": "Maca (Lepidium meyenii) for treatment of menopausal symptoms: A systematic review.",
+    "year": 2011,
+    "journal": "Maturitas",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   }
   ],
   "updated": "2026-09-16",
   "ma_top3": [
@@ -4315,9 +6320,41 @@
   "effect_outcome": "Диабет 2 типа: есть данные, но эффект малый. СПКЯ: есть данные. Вес/ожирение: Cochrane показывает НЕЗНАЧИМЫЙ эффект.",
   "grade": "C",
   "key_sources": [
-   "39541030",
-   "24293292",
-   "41067797"
+   {
+    "pmid": "39541030",
+    "title": "Chromium supplementation and type 2 diabetes mellitus: an extensive systematic review.",
+    "year": 2024,
+    "journal": "Environmental geochemistry and health",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "24293292",
+    "title": "Chromium picolinate supplementation for overweight or obese adults.",
+    "year": 2013,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "41067797",
+    "title": "Therapeutic effects of chromium supplementation on women with polycystic ovarian syndrome: A systematic review and meta-analysis.",
+    "year": 2025,
+    "journal": "Endocrinologia, diabetes y nutricion",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   }
   ],
   "updated": "2026-09-16",
   "ma_top3": [
@@ -4378,9 +6415,41 @@
   "effect_outcome": "Кожа: есть данные (систематический обзор). Фертильность: есть данные. Спорт/восстановление: данные ограниченные.",
   "grade": "C",
   "key_sources": [
-   "32202443",
-   "39127677",
-   "42197030"
+   {
+    "pmid": "32202443",
+    "title": "Effects of Astaxanthin Supplementation on Skin Health: A Systematic Review of Clinical Studies.",
+    "year": 2021,
+    "journal": "Journal of dietary supplements",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "39127677",
+    "title": "Effect of astaxanthin supplementation on female fertility and reproductive outcomes: a systematic review and meta-analysis of clinical and animal studies.",
+    "year": 2024,
+    "journal": "Journal of ovarian research",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review",
+     "Meta-Analysis"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "42197030",
+    "title": "The Effects of Astaxanthin Supplementation on Exercise Recovery Biomarkers and Exercise Performance: A Systematic Review and Meta-Analysis.",
+    "year": 2026,
+    "journal": "Nutrients",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review",
+     "Meta-Analysis"
+    ],
+    "source": "curated"
+   }
   ],
   "updated": "2026-09-16",
   "ma_top3": [
@@ -4441,9 +6510,42 @@
   "effect_outcome": "МАСЛД: есть данные (Cochrane). Алкогольный/вирусный гепатит: Cochrane показывает ограниченную эффективность. Инсулинорезистентность: есть данные.",
   "grade": "B",
   "key_sources": [
-   "40552569",
-   "17943794",
-   "39855603"
+   {
+    "pmid": "40552569",
+    "title": "Silymarin for adults with metabolic dysfunction-associated steatotic liver disease.",
+    "year": 2025,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "17943794",
+    "title": "Milk thistle for alcoholic and/or hepatitis B or C virus liver diseases.",
+    "year": 2007,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "39855603",
+    "title": "Effects of silymarin on insulin resistance and sensitivity: A systematic review and meta-analysis of randomized controlled trials.",
+    "year": 2025,
+    "journal": "Diabetes research and clinical practice",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review",
+     "Meta-Analysis"
+    ],
+    "source": "curated"
+   }
   ],
   "updated": "2026-09-16",
   "ma_top3": [
@@ -4507,9 +6609,45 @@
   "effect_outcome": "Недоношенные: профилактика сепсиса и НЭК (2 Cochrane). Педиатрические инфекции: есть данные. Железо: улучшает статус.",
   "grade": "B",
   "key_sources": [
-   "32232984",
-   "28658720",
-   "39841980"
+   {
+    "pmid": "32232984",
+    "title": "Enteral lactoferrin supplementation for prevention of sepsis and necrotizing enterocolitis in preterm infants.",
+    "year": 2020,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Research Support, Non-U.S. Gov't",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "28658720",
+    "title": "Enteral lactoferrin supplementation for prevention of sepsis and necrotizing enterocolitis in preterm infants.",
+    "year": 2017,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Research Support, N.I.H., Extramural",
+     "Research Support, Non-U.S. Gov't",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "39841980",
+    "title": "Efficacy of lactoferrin supplementation in pediatric infections: a systematic review and meta-analysis.",
+    "year": 2025,
+    "journal": "Biochemistry and cell biology = Biochimie et biologie cellulaire",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review",
+     "Meta-Analysis"
+    ],
+    "source": "curated"
+   }
   ],
   "updated": "2026-09-16",
   "ma_top3": [
@@ -4570,9 +6708,41 @@
   "effect_outcome": "Депрессия: работает (систематические обзоры). ОА: Cochrane подтверждает эффективность. Печень: есть данные.",
   "grade": "B",
   "key_sources": [
-   "19821403",
-   "16021987",
-   "39519500"
+   {
+    "pmid": "19821403",
+    "title": "S-Adenosylmethionine for osteoarthritis of the knee or hip.",
+    "year": 2009,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "16021987",
+    "title": "S-adenosylmethionine (SAMe) as treatment for depression: a systematic review.",
+    "year": 2005,
+    "journal": "Clinical and investigative medicine. Medecine clinique et experimentale",
+    "pubtype": [
+     "Journal Article",
+     "Research Support, U.S. Gov't, P.H.S.",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "39519500",
+    "title": "S-Adenosylmethionine (SAMe) for Liver Health: A Systematic Review.",
+    "year": 2024,
+    "journal": "Nutrients",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   }
   ],
   "updated": "2026-09-16",
   "ma_top3": [
@@ -4637,7 +6807,69 @@
   "hedges_g_ci": null,
   "effect_outcome": "НЕТ СИСТЕМАТИЧЕСКИХ ОБЗОРОВ в базе. Все данные — старые РКИ 1980-90х годов. Вытеснен PDE5-ингибиторами.",
   "grade": "D",
-  "key_sources": [],
+  "key_sources": [
+   {
+    "pmid": "9649257",
+    "title": "Yohimbine for erectile dysfunction: a systematic review and meta-analysis of randomized clinical trials.",
+    "year": 1998,
+    "journal": "The Journal of urology",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "8836468",
+    "title": "Effectiveness of yohimbine in the treatment of erectile disorder: four meta-analytic integrations.",
+    "year": 1996,
+    "journal": "Archives of sexual behavior",
+    "pubtype": [
+     "Comparative Study",
+     "Journal Article",
+     "Meta-Analysis",
+     "Research Support, Non-U.S. Gov't",
+     "Research Support, U.S. Gov't, P.H.S."
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "35162339",
+    "title": "Effects of Acute Yohimbine Hydrochloride Supplementation on Repeated Supramaximal Sprint Performance.",
+    "year": 2022,
+    "journal": "International journal of environmental research and public health",
+    "pubtype": [
+     "Journal Article",
+     "Randomized Controlled Trial"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "23559222",
+    "title": "Norepinephrine and impulsivity: effects of acute yohimbine.",
+    "year": 2013,
+    "journal": "Psychopharmacology",
+    "pubtype": [
+     "Journal Article",
+     "Randomized Controlled Trial",
+     "Research Support, N.I.H., Extramural",
+     "Research Support, Non-U.S. Gov't"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "17214405",
+    "title": "Yohimbine: the effects on body composition and exercise performance in soccer players.",
+    "year": 2006,
+    "journal": "Research in sports medicine (Print)",
+    "pubtype": [
+     "Journal Article",
+     "Randomized Controlled Trial"
+    ],
+    "source": "curated"
+   }
+  ],
   "updated": "2026-09-16",
   "ma_top3": [
    {
@@ -4702,7 +6934,18 @@
   "effect_outcome": "Гликемия: мета-анализ показывает улучшение (24438170). Тестостерон/либидо: данные ограниченные. Лактация: есть отдельные РКИ.",
   "grade": "C",
   "key_sources": [
-   "24438170"
+   {
+    "pmid": "24438170",
+    "title": "Effect of fenugreek (Trigonella foenum-graecum L.) intake on glycemia: a meta-analysis of clinical trials.",
+    "year": 2014,
+    "journal": "Nutrition journal",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Research Support, Non-U.S. Gov't"
+    ],
+    "source": "curated"
+   }
   ],
   "updated": "2026-09-16",
   "ma_top3": [
@@ -4768,9 +7011,43 @@
   "effect_outcome": "Воспаление и оксидативный стресс: есть данные. Кардиометаболическое здоровье: смешанные данные. Астма: есть данные.",
   "grade": "C",
   "key_sources": [
-   "41858302",
-   "33559935",
-   "31892440"
+   {
+    "pmid": "41858302",
+    "title": "The Effect of Nigella sativa Supplementation on Cardiometabolic Health in Patients With Metabolic Diseases: A GRADE-Assessed Systematic Review and Meta-Analysis.",
+    "year": 2026,
+    "journal": "Endocrinology, diabetes & metabolism",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review",
+     "Meta-Analysis"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "33559935",
+    "title": "The effect of nigella sativa on biomarkers of inflammation and oxidative stress: A systematic review and meta-analysis of randomized controlled trials.",
+    "year": 2021,
+    "journal": "Journal of food biochemistry",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Research Support, Non-U.S. Gov't",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "31892440",
+    "title": "The influence of Nigella sativa for asthma control: A meta-analysis.",
+    "year": 2020,
+    "journal": "The American journal of emergency medicine",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   }
   ],
   "updated": "2026-09-16",
   "ma_top3": [
@@ -4830,7 +7107,64 @@
   "hedges_g_ci": null,
   "effect_outcome": "НЕТ ДАННЫХ в базе (0 систематических обзоров). Популярность в спортивном питании не подтверждена доказательной базой.",
   "grade": "D",
-  "key_sources": [],
+  "key_sources": [
+   {
+    "pmid": "40360723",
+    "title": "Tribulus terrestris for management of patients with erectile dysfunction: a systematic review and meta-analysis of randomized trials.",
+    "year": 2026,
+    "journal": "International journal of impotence research",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review",
+     "Meta-Analysis"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "40219032",
+    "title": "Effects of Tribulus (Tribulus terrestris L.) Supplementation on Erectile Dysfunction and Testosterone Levels in Men-A Systematic Review of Clinical Trials.",
+    "year": 2025,
+    "journal": "Nutrients",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "35954909",
+    "title": "Effects of Tribulus terrestris L. on Sport and Health Biomarkers in Physically Active Adult Males: A Systematic Review.",
+    "year": 2022,
+    "journal": "International journal of environmental research and public health",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "32736394",
+    "title": "Tribulus Terrestris for Female Sexual Dysfunction: A Systematic Review.",
+    "year": 2020,
+    "journal": "Revista brasileira de ginecologia e obstetricia : revista da Federacao Brasileira das Sociedades de Ginecologia e Obstetricia",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "24559105",
+    "title": "A systematic review on the herbal extract Tribulus terrestris and the roots of its putative aphrodisiac and performance enhancing effect.",
+    "year": 2014,
+    "journal": "Journal of dietary supplements",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   }
+  ],
   "updated": "2026-09-16",
   "ma_top3": [
    {
@@ -4890,9 +7224,42 @@
   "effect_outcome": "Безопасность: хорошая (42514320). Метаболизм глюкозы и липидов: данные смешанные. Мышцы: данные ограниченные.",
   "grade": "C",
   "key_sources": [
-   "42514320",
-   "39531138",
-   "40275690"
+   {
+    "pmid": "42514320",
+    "title": "Safety and Metabolism-Related Outcomes of Oral Nicotinamide Mononucleotide Supplementation in Adults: A Systematic Review and Meta-Analysis.",
+    "year": 2026,
+    "journal": "Nutrients",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review",
+     "Meta-Analysis"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "39531138",
+    "title": "Effects of Nicotinamide Mononucleotide on Glucose and Lipid Metabolism in Adults: A Systematic Review and Meta-analysis of Randomised Controlled Trials.",
+    "year": 2024,
+    "journal": "Current diabetes reports",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "40275690",
+    "title": "The Effect of Nicotinamide Mononucleotide and Riboside on Skeletal Muscle Mass and Function: A Systematic Review and Meta-Analysis.",
+    "year": 2025,
+    "journal": "Journal of cachexia, sarcopenia and muscle",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review",
+     "Meta-Analysis"
+    ],
+    "source": "curated"
+   }
   ],
   "updated": "2026-09-16",
   "ma_top3": [
@@ -4943,9 +7310,43 @@
   "effect_outcome": "Хроническая болезнь почек (ХБП): 2 Cochrane-обзора подтверждают улучшение функции. Трансплантация почек: есть данные.",
   "grade": "B",
   "key_sources": [
-   "25519252",
-   "26457607",
-   "28137532"
+   {
+    "pmid": "25519252",
+    "title": "Cordyceps sinensis (a traditional Chinese medicine) for treating chronic kidney disease.",
+    "year": 2014,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Research Support, Non-U.S. Gov't",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "26457607",
+    "title": "Cordyceps sinensis (a traditional Chinese medicine) for kidney transplant recipients.",
+    "year": 2015,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "28137532",
+    "title": "Efficacy of Cordyceps sinensis as an adjunctive treatment in kidney transplant patients: A systematic-review and meta-analysis.",
+    "year": 2017,
+    "journal": "Complementary therapies in medicine",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   }
   ],
   "updated": "2026-09-16",
   "ma_top3": [
@@ -5011,8 +7412,30 @@
   "effect_outcome": "Рак (адъювант): Cochrane показывает возможную пользу как дополнение к стандартной терапии. Иммунитет: данные ограниченные.",
   "grade": "C",
   "key_sources": [
-   "27045603",
-   "22696372"
+   {
+    "pmid": "27045603",
+    "title": "Ganoderma lucidum (Reishi mushroom) for cancer treatment.",
+    "year": 2016,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "22696372",
+    "title": "Ganoderma lucidum (Reishi mushroom) for cancer treatment.",
+    "year": 2012,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   }
   ],
   "updated": "2026-09-16",
   "ma_top3": [
@@ -5072,7 +7495,72 @@
   "hedges_g_ci": null,
   "effect_outcome": "НЕТ ДАННЫХ в базе (0 систематических обзоров). Популярность в wellness-индустрии не подтверждена доказательной базой.",
   "grade": "D",
-  "key_sources": [],
+  "key_sources": [
+   {
+    "pmid": "25844615",
+    "title": "Assessment of the safety and efficacy of topical copper chlorophyllin in women with photodamaged facial skin.",
+    "year": 2015,
+    "journal": "Journal of drugs in dermatology : JDD",
+    "pubtype": [
+     "Journal Article",
+     "Randomized Controlled Trial",
+     "Research Support, Non-U.S. Gov't"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "21541030",
+    "title": "Inhibition of fried meat-induced colorectal DNA damage and altered systemic genotoxicity in humans by crucifera, chlorophyllin, and yogurt.",
+    "year": 2011,
+    "journal": "PloS one",
+    "pubtype": [
+     "Journal Article",
+     "Randomized Controlled Trial",
+     "Research Support, N.I.H., Extramural",
+     "Research Support, N.I.H., Intramural",
+     "Research Support, U.S. Gov't, Non-P.H.S."
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "16417778",
+    "title": "Analysis of the therapeutic effect of sodium copper chlorophyllin tablet in treating 60 cases of leukopenia.",
+    "year": 2005,
+    "journal": "Chinese journal of integrative medicine",
+    "pubtype": [
+     "Comparative Study",
+     "Journal Article",
+     "Randomized Controlled Trial"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "12628519",
+    "title": "Chemoprevention with chlorophyllin in individuals exposed to dietary aflatoxin.",
+    "year": 2003,
+    "journal": "Mutation research",
+    "pubtype": [
+     "Clinical Trial",
+     "Journal Article",
+     "Randomized Controlled Trial",
+     "Research Support, U.S. Gov't, P.H.S."
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "11724948",
+    "title": "Chlorophyllin intervention reduces aflatoxin-DNA adducts in individuals at high risk for liver cancer.",
+    "year": 2001,
+    "journal": "Proceedings of the National Academy of Sciences of the United States of America",
+    "pubtype": [
+     "Clinical Trial",
+     "Journal Article",
+     "Randomized Controlled Trial",
+     "Research Support, U.S. Gov't, P.H.S."
+    ],
+    "source": "curated"
+   }
+  ],
   "updated": "2026-09-16",
   "ma_top3": [
    {
@@ -5132,9 +7620,41 @@
   "effect_outcome": "Мышечная масса: работает при сочетании с тренировками. Саркопения у пожилых: работает. Гликемия: улучшение постпрандиальной. Вес: есть данные.",
   "grade": "A",
   "key_sources": [
-   "38350303",
-   "37571361",
-   "35871954"
+   {
+    "pmid": "38350303",
+    "title": "Improving sarcopenia in older adults: a systematic review and meta-analysis of randomized controlled trials of whey protein supplementation with or without resistance training.",
+    "year": 2024,
+    "journal": "The journal of nutrition, health & aging",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "37571361",
+    "title": "Effectiveness of Whey Protein Supplementation during Resistance Exercise Training on Skeletal Muscle Mass and Strength in Older People with Sarcopenia: A Systematic Review and Meta-Analysis.",
+    "year": 2023,
+    "journal": "Nutrients",
+    "pubtype": [
+     "Meta-Analysis",
+     "Systematic Review",
+     "Journal Article"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "35871954",
+    "title": "Effect of whey protein supplementation on weight and body composition indicators: A meta-analysis of randomized clinical trials.",
+    "year": 2022,
+    "journal": "Clinical nutrition ESPEN",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   }
   ],
   "updated": "2026-09-16",
   "ma_top3": [
@@ -5195,8 +7715,29 @@
   "effect_outcome": "Критические состояния: противоречивые данные (Cochrane: неясный эффект). Спорт: нет систематических пруфов.",
   "grade": "C",
   "key_sources": [
-   "25199493",
-   "11687112"
+   {
+    "pmid": "25199493",
+    "title": "Glutamine supplementation for critically ill adults.",
+    "year": 2014,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "11687112",
+    "title": "Glutamine supplementation for prevention of morbidity in preterm infants.",
+    "year": 2001,
+    "journal": "The Cochrane database of systematic reviews",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   }
   ],
   "updated": "2026-09-16",
   "ma_top3": [
@@ -5262,8 +7803,30 @@
   "effect_outcome": "Остеоартрит: есть данные (стандартизированный экстракт Aflapin). Воспаление: работает (ингибирует 5-LOX).",
   "grade": "C",
   "key_sources": [
-   "38365549",
-   "41082950"
+   {
+    "pmid": "38365549",
+    "title": "Efficacy evaluation of standardized Boswellia serrata extract (Aflapin(Ⓡ)) in osteoarthritis: A systematic review and sub-group meta-analysis study.",
+    "year": 2024,
+    "journal": "Explore (New York, N.Y.)",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "41082950",
+    "title": "Evaluating the efficacy and safety of Curcuma longa, Boswellia serrata, and their mixed formulation in treating knee osteoarthritis: A systematic review and network meta-analysis.",
+    "year": 2026,
+    "journal": "Complementary therapies in medicine",
+    "pubtype": [
+     "Journal Article",
+     "Network Meta-Analysis",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   }
   ],
   "updated": "2026-09-16",
   "ma_top3": [
@@ -5327,9 +7890,43 @@
   "effect_outcome": "Остеопороз у женщин в постменопаузе: есть данные. Переломы: данные смешанные. Сосудистая кальцификация: данные ограниченные.",
   "grade": "C",
   "key_sources": [
-   "36033779",
-   "35711002",
-   "25516361"
+   {
+    "pmid": "36033779",
+    "title": "Efficacy of vitamin K2 in the prevention and treatment of postmenopausal osteoporosis: A systematic review and meta-analysis of randomized controlled trials.",
+    "year": 2022,
+    "journal": "Frontiers in public health",
+    "pubtype": [
+     "Meta-Analysis",
+     "Systematic Review",
+     "Research Support, Non-U.S. Gov't",
+     "Journal Article"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "35711002",
+    "title": "Efficacy and safety of vitamin K2 for postmenopausal women with osteoporosis at a long-term follow-up: meta-analysis and systematic review.",
+    "year": 2022,
+    "journal": "Journal of bone and mineral metabolism",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "25516361",
+    "title": "Does vitamin K2 play a role in the prevention and treatment of osteoporosis for postmenopausal women: a meta-analysis of randomized controlled trials.",
+    "year": 2015,
+    "journal": "Osteoporosis international : a journal established as result of cooperation between the European Foundation for Osteoporosis and the National Osteoporosis Foundation of the USA",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Research Support, Non-U.S. Gov't"
+    ],
+    "source": "curated"
+   }
   ],
   "updated": "2026-09-16",
   "ma_top3": [
@@ -5400,9 +7997,40 @@
   "effect_outcome": "Гликемический контроль: работает (сравним с метформином в некоторых РКИ). Липиды: снижение. Ожирение/печень: есть данные.",
   "grade": "B",
   "key_sources": [
-   "38016844",
-   "36313096",
-   "32379652"
+   {
+    "pmid": "38016844",
+    "title": "The Effect of Berberine Supplementation on Glycemic Control and Inflammatory Biomarkers in Metabolic Disorders: An Umbrella Meta-analysis of Randomized Controlled Trials.",
+    "year": 2024,
+    "journal": "Clinical therapeutics",
+    "pubtype": [
+     "Systematic Review",
+     "Journal Article"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "36313096",
+    "title": "The effects of berberine supplementation on cardiovascular risk factors in adults: A systematic review and dose-response meta-analysis.",
+    "year": 2022,
+    "journal": "Frontiers in nutrition",
+    "pubtype": [
+     "Systematic Review",
+     "Journal Article"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "32379652",
+    "title": "The effect of berberine supplementation on obesity indices: A dose- response meta-analysis and systematic review of randomized controlled trials.",
+    "year": 2020,
+    "journal": "Complementary therapies in clinical practice",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   }
   ],
   "about": "Алкалоид: снижает сахар, улучшает чувствительность к инсулину.",
   "who_needs": "Преддиабет, метаболический синдром, СПКЯ (умеренные данные).",
@@ -5476,9 +8104,40 @@
   "effect_outcome": "Давление: умеренное снижение (35948195). Кардиометаболизм: улучшение маркеров. Спорт: есть данные по выносливости. Подагра: есть данные (31514376).",
   "grade": "B",
   "key_sources": [
-   "35948195",
-   "37654199",
-   "22805526"
+   {
+    "pmid": "35948195",
+    "title": "The Effects of Quercetin Supplementation on Blood Pressure - Meta-Analysis.",
+    "year": 2022,
+    "journal": "Current problems in cardiology",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis",
+     "Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "37654199",
+    "title": "The effects of Quercetin supplementation on cardiometabolic outcomes: An umbrella review of meta-analyses of randomized controlled trials.",
+    "year": 2023,
+    "journal": "Phytotherapy research : PTR",
+    "pubtype": [
+     "Journal Article",
+     "Systematic Review"
+    ],
+    "source": "curated"
+   },
+   {
+    "pmid": "22805526",
+    "title": "Effects of quercetin supplementation on endurance performance and maximal oxygen consumption: a meta-analysis.",
+    "year": 2013,
+    "journal": "International journal of sport nutrition and exercise metabolism",
+    "pubtype": [
+     "Journal Article",
+     "Meta-Analysis"
+    ],
+    "source": "curated"
+   }
   ],
   "updated": "2026-09-16",
   "ma_top3": [
