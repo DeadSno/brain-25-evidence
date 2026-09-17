@@ -227,3 +227,9 @@ scripts/add_alias.py
 scripts/diag_*.py
 scripts/show_*.py
 scripts/fix_*.py
+
+# временные хелперы для чистки цен
+scripts/check_price_*.py
+scripts/remove_price_*.py
+scripts/strip_price_*.py
+scripts/update_radar_*.py
