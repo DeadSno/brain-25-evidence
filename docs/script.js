@@ -53,15 +53,6 @@ function wikiLink(s) {
   return ' <a class="srcIcon" target="_blank" rel="noopener" title="Википедия" href="https://ru.wikipedia.org/wiki/' +
     encodeURIComponent(s.name.replace(/\+/g, ' ')) + '">Wiki ↗</a>';
 }
-function priceSrcLink(s) {
-  const src = s.price_source || '';
-  if (!src) return '';
-  const href = src.indexOf('Ozon') >= 0
-    ? 'https://www.ozon.ru/search/?text=' + encodeURIComponent(s.name)
-    : 'https://www.wildberries.ru/catalog/0/search.aspx?search=' + encodeURIComponent(s.name);
-  return ' <a class="srcIcon" target="_blank" rel="noopener" title="Где собираема цена" href="' + href + '">' + src + ' ↗</a>';
-}
-
 // ===== v2.6: кнопка «Нашли неточность?» (issue с добавка+поле) =====
 function issueUrl(s, field) {
   const title = (s.name || 'добавка') + (field ? ': ' + field : '') + ' — неточность в данных';
@@ -253,24 +244,11 @@ const vColor = c => c === 1 ? '#2d8a4e' : c === 0 ? '#d4a017' : '#c0392b';
 // ===== v2.6.1: демонтаж Value Score, честная экономика =====
 // ₽ за единицу эффекта = round(цена / Hedges' g) при обоих ненулевых;
 // иначе — честная причина, а не ноль/прочерк-обманка.
-function ppe(s) {
-  if (s.price != null && s.price > 0 && s.hedges_g != null) return Math.round(s.price / s.hedges_g);
-  return null;
-}
-function ppeReason(s) {
-  if (s.price == null) return 'цена не найдена — не считаем';
-  return 'Эффект ждёт верификации — ₽ за единицу эффекта не считаем';
-}
 function priceTip(s) {
   const d = s.price_date || 'дата неизвестна';
   return '<span class="priceTip" title="Цена на ' + d +
     '; ночной сбор временно заблокирован TLS-фильтром маркетплейса, трек reliability в работе">' +
     (s.price != null ? s.price + ' ₽/мес' : 'цена не найдена') + '</span>';
-}
-function ppeModalLine(s) {
-  const v = ppe(s);
-  if (v != null) return '<div class="mrow">📐 <b>₽ за единицу эффекта (цена / Hedges\' g):</b> ' + v + '</div>';
-  return '<div class="mrow">📐 ' + ppeReason(s) + '</div>';
 }
 /* economicsBlock removed per v2.7.1 chunk 2 — price_per_effect gone, no "Экономика" block */
 function verifiedCount() {
@@ -289,11 +267,6 @@ function maTop3Block(s) {
      body +
      '<div class="mrow hint" style="font-size:.85rem;opacity:.9">' + note + '</div>';
 }
-function historyPriceBlock(s) {
-  return '<div class="blockTitle">💰 История цены</div>' +
-    '<div class="mrow history-price-canvas"></div>';
-}
-
 function applyFilters() {
   const q = $('search').value.toLowerCase().trim();
   const v = $('verdictFilter').value, c = $('categoryFilter').value, sort = presetScience ? 'science' : $('sortSelect').value;
@@ -369,9 +342,8 @@ function openModal(id) {
 
   $('modalBody').innerHTML = '<h2>' + s.name + '</h2>' + updatedLine(s) + manualBadge(s) +
     '<div class="mrow"><span class="verdict v' + s.code + '">' + s.verdict + '</span> · ' + (s.category || '') + (s.grade ? ' · <span class="grade g' + s.grade + '">грейд ' + s.grade + '</span> · ' + (GRADE_LABEL[s.grade] || '') : '') + '</div>' + gradeDots(s) +
-    '<div class="mrow">💰 <b>' + (s.price ? s.price + ' ₽/мес' : '—') + '</b>' + priceSrcLink(s) + ' · 🔬 наука: <b>' + s.scienceIndex + '</b>' + pubmedLink(s) + ' · 📚 MA: <b>' + s.metaCount + '</b></div>' +
+    '<div class="mrow">🔬 наука: <b>' + s.scienceIndex + '</b>' + pubmedLink(s) + ' · 📚 MA: <b>' + s.metaCount + '</b></div>' +
     maTop3Block(s) +
-    historyPriceBlock(s) +
     '<div class="mrow" style="font-size:.85rem;opacity:.9">⚠️ Проект не является медицинской рекомендацией. При болезнях, беременности и приёме лекарств — сначала к врачу.</div>' +
     trialsLine +
     calcLine +
@@ -449,7 +421,7 @@ function renderBubble(data) {
   chartPts = priced.concat(nullPrice);
   if (isPrice) {
     $('chartNote').textContent = nullPrice.length
-      ? '💰 ' + nullPrice.length + ' добавок без цены — серые точки в зоне справа'
+      ? ''
       : '';
   } else {
     $('chartNote').textContent = priced.length < data.length
@@ -601,8 +573,7 @@ function renderCompare() {
   const rows = [
     ['Вердикт', a.verdict, b.verdict],
     ['Цена (₽/мес)', a.price ?? '—', b.price ?? '—'],
-    ['₽ за единицу эффекта', ppe(a) != null ? ppe(a) : ppeReason(a), ppe(b) != null ? ppe(b) : ppeReason(b)],
-    ['Индекс науки', a.scienceIndex, b.scienceIndex],
+        ['Индекс науки', a.scienceIndex, b.scienceIndex],
     ['Мета-анализов', a.metaCount, b.metaCount],
     ['🧪 Испытания сейчас', a.ongoing ?? '—', b.ongoing ?? '—'],
     ['Цитирований MA', a.citations ?? '—', b.citations ?? '—'],
