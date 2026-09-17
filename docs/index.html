@@ -109,15 +109,14 @@ try {
 </section>
 
 <section id="chartSection">
-  <h2>Цена vs Доказательность <span class="hint">(пузырь = мета-анализы, ось Y — лог-шкала)</span></h2>
+  <h2>Доказательность: индекс науки vs объём исследований <span class="hint">(пузырь = мета-анализы, ось Y — лог-шкала)</span></h2>
   <details class="method">
-    <summary>📐 Что такое «индекс науки» и «₽ за единицу эффекта»?</summary>
+    <summary>📐 Что такое «индекс науки»?</summary>
     <p><b>Индекс науки = РКИ + 5 × мета-анализы</b> в PubMed по запросу «(добавка) AND (исход)».</p>
     <p><b>₽ за единицу эффекта = месячная цена ÷ Hedges' g</b> там, где эффект верифицирован (грейд A–D). Меньше — больше эффекта за каждый рубль.</p>
     <p>Индекс меряет <i>количество</i> науки, не силу эффекта. Вердикты ставим вручную по топ-2 мета-анализам.</p>
   </details>
   <div class="chartTabs">
-    <button id="tabQuadrant" class="chartTab">Квадрант доказательности</button>
   </div>
   <div class="chartTabs" id="axisRow">
     <button id="axisMA" class="chartTab on">Число МА</button>
