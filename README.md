@@ -5,12 +5,32 @@
 
 [Открыть сайт](https://deadsno.github.io/brain-25-evidence/) | [Карта механизмов](https://deadsno.github.io/brain-25-evidence/map.html) | [Задать вопрос](https://github.com/DeadSno/brain-25-evidence/issues/new/choose)
 
-![version](https://img.shields.io/badge/version-v2.0-blue)
+![version](https://img.shields.io/badge/version-v3.1.0-blue)
 ![supplements](https://img.shields.io/badge/supplements-81-orange)
-![tests](https://img.shields.io/badge/tests-24%20passed-brightgreen)
+![tests](https://img.shields.io/badge/tests-122%20passed-brightgreen)
 ![license](https://img.shields.io/badge/license-MIT-green)
 
 ![Превью: пузырьковая диаграмма цена vs наука](docs/og.png)
+
+---
+
+
+## 🎯 Аудит v3.0 (сентябрь 2026)
+
+**81/81 добавка верифицирована** по методологии PRISMA:
+
+| Грейд | Значение | Количество |
+|-------|----------|------------|
+| **A** | работает отлично | 8 (9.9%) |
+| **B** | работает | 35 (43.2%) |
+| **C** | зависит от контекста | 26 (32.1%) |
+| **D** | не подтверждено | 12 (14.8%) |
+
+**Результаты аудита:**
+- 14 коммитов, 81 карточка в `data/processed/audit/`
+- 2 тега релиза: `v3.0-audit-top20` (топ-20), `v3.0-audit-complete` (все 81)
+- Методология: [methodology.html](docs/methodology.html)
+- Скрипты прогона: `scripts/fetch_meta.py`, `scripts/integrate_audit.py`
 
 ---
 
