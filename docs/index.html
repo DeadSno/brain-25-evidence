@@ -80,21 +80,99 @@ try {
   <div class="qaGrid">
     <div class="qa">
       <h3>1. Чем БАД отличается от лекарства?</h3>
-      <p>Лекарство лечит болезнь и проходит жёсткую регистрацию. БАД — пищевой продукт. Мы показываем где эффект подтверждён мета-анализами, а где — маркетинг.</p>
+      <p>БАД дополняет питание, а не заменяет лечение. У БАД нет регистрации лекарства, но есть мета-анализы — считаем именно их.</p>
+      <a class="qaMore" href="faq.html">подробнее в FAQ</a>
     </div>
     <div class="qa">
       <h3>2. Зачем он мне?</h3>
-      <p>Чтобы не платить за пустышку. У 12 из 81 добавок эффект не подтверждён (грейд D), ещё у 26 — только в специфических условиях (грейд C).</p>
+      <p>Три честные причины: дефицит (витамин D зимой), цель (креатин при нагрузках), профилактика с доказательствами (омега-3).</p>
+      <a class="qaMore" href="faq.html">подробнее в FAQ</a>
     </div>
     <div class="qa">
       <h3>3. Как выбирать?</h3>
-      <p>По грейду и вердикту. A/B — работает при своей дозе; C — только при конкретных условиях; D — не тратить деньги. Доза и ограничения — в карточке каждой добавки.</p>
+      <p>Вердикт и грейд доказательности → дозировка из исследований → конфликты с лекарствами → и только потом цена.</p>
+      <a class="qaMore" href="faq.html">подробнее в FAQ</a>
     </div>
   </div>
 </section>
 
+<section id="trustSummary" style="background:var(--card-bg);padding:.75rem 1.2rem;border-radius:12px;border:1px solid var(--border)">
+  <div style="display:flex;flex-wrap:wrap;align-items:center;gap:.7rem">
+    <h2 style="margin:0;font-size:1rem">🔬 Как мы проверяем данные</h2>
+    <div class="trustChips">
+      <a class="chip" href="https://pubmed.ncbi.nlm.nih.gov/" target="_blank" rel="noopener">PubMed ↗</a>
+      <span class="chip">ручная вычитка</span>
+      <span class="chip">ночной бот</span>
+      <span class="chip">122 теста</span>
+      <a class="chip" href="https://github.com/DeadSno/brain-25-evidence" target="_blank" rel="noopener">код ↗</a>
+    </div>
+  </div>
+</section>
+
+<section id="chartSection">
+  <h2>Цена vs Доказательность <span class="hint">(пузырь = мета-анализы, ось Y — лог-шкала)</span></h2>
+  <details class="method">
+    <summary>📐 Что такое «индекс науки» и «₽ за единицу эффекта»?</summary>
+    <p><b>Индекс науки = РКИ + 5 × мета-анализы</b> в PubMed по запросу «(добавка) AND (исход)».</p>
+    <p><b>₽ за единицу эффекта = месячная цена ÷ Hedges' g</b> там, где эффект верифицирован (грейд A–D). Меньше — больше эффекта за каждый рубль.</p>
+    <p>Индекс меряет <i>количество</i> науки, не силу эффекта. Вердикты ставим вручную по топ-2 мета-анализам.</p>
+  </details>
+  <div class="chartTabs">
+    <button id="tabPrice" class="chartTab on">Цена vs наука</button>
+    <button id="tabQuadrant" class="chartTab">Квадрант доказательности</button>
+  </div>
+  <div class="chartTabs" id="axisRow">
+    <button id="axisPrice" class="chartTab">Цена ₽/мес</button>
+    <button id="axisMA" class="chartTab on">Число МА</button>
+    <button id="axisRCT" class="chartTab">Число РКИ</button>
+    <button id="axisYear" class="chartTab">Год последнего МА</button>
+  </div>
+  <div id="chartWrap">
+    <canvas id="bubbleChart"></canvas>
+    <canvas id="quadrantChart"></canvas>
+  </div>
+  <p id="chartNote" class="hint" style="margin-top:.5rem"></p>
+  <p id="quadrantNote" class="hint" style="margin-top:.5rem"></p>
+  <p id="chartSummary" class="hint" style="margin-top:.3rem;font-weight:500"></p>
+</section>
+
+<section id="cardsContainer">
+  <h2>Все добавки <span id="countBadge" class="hint"></span></h2>
+    <div class="presetRow" id="presetRow">
+      <button class="preset" data-preset="science" title="Сортировка: доказательность ↓">🏆 Топ по науке</button>
+      <button class="preset" data-preset="verdict" title="Вердикт только «работает»">💎 Доказано</button>
+      <button class="preset" data-preset="cheap" title="Цена до 500 ₽/мес">💰 До 500₽/мес</button>
+      <button class="preset" data-preset="ongoing" title="Есть активные испытания на людях">🔥 Изучают сейчас</button>
+    </div>
+    <div class="activeFilters" id="activeFilters"></div>
+    <div id="cardsGrid"></div>
+</section>
+
+<section id="compareSection">
+  <h2>Сравнить две добавки</h2>
+  <div class="row">
+    <div><label>Добавка 1</label><select id="compareSelect1"></select></div>
+    <div><label>Добавка 2</label><select id="compareSelect2"></select></div>
+    <button id="compareBtn">Сравнить</button>
+  </div>
+  <div id="compareResult"></div>
+  <h3 style="margin-top:1rem">📡 Радар профиля</h3>
+  <div style="position:relative;max-width:520px;margin:0 auto"><canvas id="radarChart"></canvas></div>
+</section>
+
 <footer>
-  <p>v3.1.0 · 81 добавка верифицирована · <a href="methodology.html">Методология</a></p>
+  <p><b>⚠️ Не медицинская рекомендация. Этот сайт предоставляет данные
+из открытых научных источников (PubMed, OpenAlex, ClinicalTrials)
+без медицинских рекомендаций. Данные предназначены для информирования
+пациентов, использования врачами как справочный инструмент
+и самостоятельного образования. Сайт НЕ заменяет медицинскую
+консультацию, диагноз и лечение. Ответственность за применение
+информации несёт пользователь или его лечащий врач.
+При любых сомнениях — обращайтесь к специалисту.</p>
+  <p>Цены рассчитаны по действующему веществу и дозировке из исследований. Мы НЕ учитывали: вспомогательные компоненты таблеток (диоксид кремния, стеарат магния, красители, оболочка), форму вещества (хелат/цитрат/оксид/липосомы), степень очистки, размер упаковки и брендовую наценку — всё это влияет на реальную цену на полке.</p>
+  <p>v2.8.0 • данные на 15.09.2026 • источники: PubMed, OpenAlex, Wildberries, Google Trends, Wikimedia</p>
+  <p style="margin-top:.6rem;font-size:.85rem;opacity:.85">© 2026 Vladislav "DeadSno" Pereshivalov</p>
+  <p style="margin-top:.6rem">🩺 <a href="for_doctors.html">Для врачей</a> · 📐 <a href="methodology.html">Методология и ошибки (цикл 4)</a> · ❓ <a href="faq.html">FAQ</a> · 📖 <a href="glossary.html">Глоссарий</a> · 📋 <a href="changelog_public.html">Журнал правок</a> · ❌ <a href="https://github.com/DeadSno/brain-25-evidence/issues/new?title=Неточность%20в%20данных&body=Что%20не%20так:%20">Нашли неточность? Сообщить</a> — исправим и отметим в чейнджлоге.</p>
 </footer>
 
 <div id="modalOverlay" style="display:none">
