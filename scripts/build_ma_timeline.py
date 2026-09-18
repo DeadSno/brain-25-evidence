@@ -1,7 +1,7 @@
 """v2.7-C1+C2: таймлайн мета-анализов PubMed по годам.
 
 C1: Для каждой добавки из docs/data.json esearch по запросу, который считает
-    scienceIndex (SUPPLEMENTS + OUTCOME/COG из src/config.py, фильтр
+    scienceIndex (термин из docs/data.json → pubmed_term, фильтр
     meta-analysis[pt]) с retmax=100 → esummary пачками по 50 → год
     публикации (pubdate → year) для каждого МА → кэш
     data/processed/ma_years.json: {id: {year: count}}.
@@ -24,15 +24,12 @@ from pathlib import Path
 
 import requests
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from src.config import SUPPLEMENTS, OUTCOME, COG, MAILTO  # noqa: E402
+MAILTO = "brain25-evidence@users.noreply.github.com"
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA_JSON = ROOT / "docs" / "data.json"
 CACHE_PATH = ROOT / "data" / "processed" / "ma_years.json"
 AGGREGATE_PATH = ROOT / "docs" / "data_ma_timeline.json"
-PRICE_HIST = ROOT / "data" / "processed" / "price_history.csv"
-PRICE_DOC = ROOT / "docs" / "data_price_history.json"
 
 ESEARCH = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi"
 ESUMMARY = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi"
@@ -40,6 +37,9 @@ SLEEP = 0.4
 RETRIES = 3
 MAX_YEAR = 2026
 MIN_YEAR = 2010  # реально earliest for supplements; range output 2015-2026
+
+BASE_RE = re.compile(r"^(.*?)\s+AND\s+\(", re.IGNORECASE)
+TERMS_JSON = ROOT / "docs" / "data_pubmed_terms.json"
 
 
 def _get(url: str, params: dict) -> requests.Response:
@@ -58,18 +58,21 @@ def _get(url: str, params: dict) -> requests.Response:
     raise RuntimeError(f"PubMed недоступен: {last}")
 
 
-def ma_query(name: str) -> str | None:
-    q = SUPPLEMENTS.get(name)
-    if not q:
+def ma_query(s: dict) -> str | None:
+    term = s.get("pubmed_term")
+    if not term:
         return None
-    outcome = OUTCOME.get(name, COG)
-    return f"({q}) AND ({outcome}) AND meta-analysis[pt]"
+    m = BASE_RE.match(term)
+    if not m:
+        return None
+    base = m.group(1).strip()
+    return f"({base}) AND meta-analysis[pt]"
 
 
 def search_pmids(term: str) -> list[str]:
     r = _get(ESEARCH, params={
         "db": "pubmed", "term": term, "retmode": "json",
-        "retmax": 100, "email": MAILTO, "tool": "brain25ma_timeline",
+        "retmax": 1500, "email": MAILTO, "tool": "brain25ma_timeline",
     })
     return r.json()["esearchresult"].get("idlist", [])
 
@@ -118,37 +121,6 @@ def build_timeline(cache: dict, id_name: dict,
     return rows
 
 
-def build_price_history_doc() -> dict:
-    """C4: id → последние 90 точек цены из data/processed/price_history.csv.
-
-    CSV может быть пустым/отсутствует — тогда честный пустой объект:
-    в браузере спарклайн покажет фолбэк «история копится с v2.1…».
-    """
-    out: dict[str, list] = {}
-    if not PRICE_HIST.exists():
-        return out
-    with open(PRICE_HIST, encoding="utf-8") as f:
-        text = f.read()
-    import csv
-    import io
-    for row in csv.DictReader(io.StringIO(text)):
-        sid = (row.get("id") or "").strip()
-        d = (row.get("date") or "").strip()
-        med = row.get("median") or ""
-        if not sid or not d or not med:
-            continue
-        try:
-            p = float(med)
-        except ValueError:
-            continue
-        if p > 0:
-            out.setdefault(sid, []).append([d, round(p, 1)])
-    for sid, pts in out.items():
-        pts.sort(key=lambda x: x[0])
-        out[sid] = pts[-90:]
-    return out
-
-
 def main() -> None:
     data = json.loads(DATA_JSON.read_text(encoding="utf-8"))
     id_name = {s["id"]: s["name"] for s in data}
@@ -159,7 +131,7 @@ def main() -> None:
     for s in data:
         name = s["name"]
         sid = s["id"]
-        q = ma_query(name)
+        q = ma_query(s)
         if not q:
             print(f"{name}: нет запроса — пропуск")
             continue
@@ -194,15 +166,6 @@ def main() -> None:
         encoding="utf-8"
     )
     print(f"✅ Агрегат: {AGGREGATE_PATH} ({len(timeline)} год(ов) → [{timeline[0]['year']}..{timeline[-1]['year']}])")
-
-    price_doc = build_price_history_doc()
-    PRICE_DOC.parent.mkdir(parents=True, exist_ok=True)
-    PRICE_DOC.write_text(
-        json.dumps(price_doc, ensure_ascii=False, indent=2) + "\n",
-        encoding="utf-8"
-    )
-    n_rows = sum(len(v) for v in price_doc.values())
-    print(f"✅ Спарклайн-агрегат: {PRICE_DOC} (id={len(price_doc)}, строк={n_rows})")
 
 
 if __name__ == "__main__":
