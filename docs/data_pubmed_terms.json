@@ -73,7 +73,7 @@
   "NMN": "(nicotinamide mononucleotide OR nicotinamide riboside OR NMN OR NR) AND (aging OR NAD OR metabolic OR cognitive)",
   "Кордицепс": "(Cordyceps OR cordycepin supplementation) AND (exercise OR kidney OR respiratory OR fatigue)",
   "Рейши": "(Ganoderma lucidum OR reishi mushroom) AND (immune OR cancer OR sleep OR antioxidant)",
-  "Хлорофилл": "(chlorophyll OR chlorophyllin supplementation) AND (antioxidant OR detox OR cancer OR weight)",
+  "Хлорофилл": "(chlorophyllin[tiab] OR \"sodium copper chlorophyllin\"[tiab] OR \"chlorophyll supplement\"[tiab]) AND (human[MeSH] OR cancer[tiab] OR aflatoxin[tiab] OR antioxidant[tiab] OR wound[tiab])",
   "Сывороточный протеин": "(whey protein supplementation) AND (muscle OR exercise OR weight OR sarcopenia)",
   "Глутамин": "(glutamine OR L-glutamine) AND (exercise OR immune OR critical illness)",
   "Босвеллия": "(Boswellia serrata OR boswellic acid supplementation) AND (osteoarthritis OR inflammation OR asthma)",
