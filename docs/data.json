@@ -5,8 +5,8 @@
     "code": 1,
     "verdict": "работает",
     "category": "Спорт/Когниция",
-    "scienceIndex": 240,
-    "metaCount": 25,
+    "scienceIndex": 1260,
+    "metaCount": 95,
     "citations": 118,
     "wiki": 181494,
     "ongoing": 78,
@@ -99,7 +99,9 @@
         "title": "Effects of combined versus single supplementation of creatine and beta-alanine on aerobic and anerobic performance: a systematic review and network meta-analysis.",
         "year": 2026
       }
-    ]
+    ],
+    "rct": 785,
+    "pubmed_term": "(creatine supplementation) AND (strength OR muscle OR cognitive)"
   },
   {
     "id": "Омега-3",
@@ -107,8 +109,8 @@
     "code": 0,
     "verdict": "зависит от контекста",
     "category": "Сердце",
-    "scienceIndex": 862,
-    "metaCount": 107,
+    "scienceIndex": 9778,
+    "metaCount": 1006,
     "citations": 0,
     "wiki": 49978,
     "ongoing": 329,
@@ -206,7 +208,9 @@
         "title": "The Impact of Omega Fatty Acids on DKD: A Multimodal Study Integrating Mendelian Randomization, Proteomic Mediation Analysis, and Meta-Analysis.",
         "year": 2026
       }
-    ]
+    ],
+    "rct": 4748,
+    "pubmed_term": "(omega-3 fatty acids OR eicosapentaenoic OR docosahexaenoic OR fish oil) AND (cardiovascular OR mortality)"
   },
   {
     "id": "Витамин D",
@@ -214,8 +218,8 @@
     "code": 0,
     "verdict": "зависит от контекста",
     "category": "Кости/Иммунитет",
-    "scienceIndex": 610,
-    "metaCount": 87,
+    "scienceIndex": 16493,
+    "metaCount": 2188,
     "citations": 818,
     "wiki": 145309,
     "ongoing": 393,
@@ -316,7 +320,9 @@
         "title": "Factors influencing abnormal bone mineral density in Chinese women aged 40 years and older: A meta-analysis.",
         "year": 2026
       }
-    ]
+    ],
+    "rct": 5553,
+    "pubmed_term": "(cholecalciferol OR vitamin D OR calcitriol) AND (fracture OR mortality OR deficiency)"
   },
   {
     "id": "B12",
@@ -324,8 +330,8 @@
     "code": 0,
     "verdict": "зависит от контекста",
     "category": "Нервная система/Кровь",
-    "scienceIndex": 374,
-    "metaCount": 50,
+    "scienceIndex": 2868,
+    "metaCount": 328,
     "citations": 247,
     "wiki": 108324,
     "ongoing": 110,
@@ -436,7 +442,9 @@
         "title": "The Health and Environmental Impacts, Safety, and Affordability of the EAT-Lancet Planetary Health Diet: A Multidisciplinary Systematic Review and Meta-Analysis.",
         "year": 2026
       }
-    ]
+    ],
+    "rct": 1228,
+    "pubmed_term": "(cobalamin OR vitamin B12) AND (deficiency OR cognitive OR pernicious anemia)"
   },
   {
     "id": "Магний",
@@ -444,8 +452,8 @@
     "code": 1,
     "verdict": "работает",
     "category": "Минерал/Сердце",
-    "scienceIndex": 172,
-    "metaCount": 23,
+    "scienceIndex": 923,
+    "metaCount": 90,
     "citations": 601,
     "wiki": 99800,
     "ongoing": 368,
@@ -549,7 +557,9 @@
         "title": "Comprehensive Effects of Magnesium Supplementation on Cardiometabolic Risk Factors: A Systematic Review and Dose-Response Meta-Analysis.",
         "year": 2026
       }
-    ]
+    ],
+    "rct": 473,
+    "pubmed_term": "(magnesium supplementation) AND (migraine OR blood pressure OR muscle cramp)"
   },
   {
     "id": "Кофеин",
@@ -557,8 +567,8 @@
     "code": 1,
     "verdict": "работает",
     "category": "Производительность",
-    "scienceIndex": 580,
-    "metaCount": 39,
+    "scienceIndex": 4125,
+    "metaCount": 387,
     "citations": 131,
     "wiki": 109842,
     "ongoing": 220,
@@ -660,7 +670,9 @@
         "title": "Effects of Acute Caffeine Supplementation on Physical, Sport-Specific, Physiological, Perceptual, and Cognitive Outcomes in Female Team-Sport Athletes: A Three-Level Meta-Analysis.",
         "year": 2026
       }
-    ]
+    ],
+    "rct": 2190,
+    "pubmed_term": "(caffeine) AND (cognition OR athletic performance OR alertness)"
   },
   {
     "id": "L-Теанин",
@@ -668,8 +680,8 @@
     "code": 1,
     "verdict": "работает",
     "category": "Когниция/Стресс",
-    "scienceIndex": 54,
-    "metaCount": 2,
+    "scienceIndex": 104,
+    "metaCount": 5,
     "citations": 136,
     "wiki": 20361,
     "ongoing": 9,
@@ -754,7 +766,9 @@
         "title": "The effects of L-theanine consumption on sleep outcomes: A systematic review and meta-analysis.",
         "year": 2025
       }
-    ]
+    ],
+    "rct": 79,
+    "pubmed_term": "(L-theanine OR theanine) AND (cognitive OR stress OR attention OR sleep)"
   },
   {
     "id": "Бакопа",
@@ -762,7 +776,7 @@
     "code": 1,
     "verdict": "работает",
     "category": "Когниция/Память",
-    "scienceIndex": 36,
+    "scienceIndex": 40,
     "metaCount": 2,
     "citations": 298,
     "wiki": 6894,
@@ -854,7 +868,9 @@
         "title": "Meta-analysis of randomized controlled trials on cognitive effects of Bacopa monnieri extract.",
         "year": 2014
       }
-    ]
+    ],
+    "rct": 30,
+    "pubmed_term": "(Bacopa monnieri OR bacopa) AND (memory OR cognitive OR attention)"
   },
   {
     "id": "Ежовик",
@@ -862,7 +878,7 @@
     "code": -1,
     "verdict": "не подтверждено",
     "category": "Когниция/Нервная система",
-    "scienceIndex": 4,
+    "scienceIndex": 5,
     "metaCount": 0,
     "citations": 17,
     "wiki": 145420,
@@ -904,7 +920,9 @@
       }
     ],
     "updated": "2026-09-16",
-    "ma_top3": []
+    "ma_top3": [],
+    "rct": 5,
+    "pubmed_term": "(Hericium erinaceus OR lion mane mushroom) AND (cognitive OR memory OR nerve OR BDNF)"
   },
   {
     "id": "Гинкго",
@@ -912,8 +930,8 @@
     "code": -1,
     "verdict": "не подтверждено",
     "category": "Когниция/Сосуды",
-    "scienceIndex": 380,
-    "metaCount": 47,
+    "scienceIndex": 933,
+    "metaCount": 113,
     "citations": 365,
     "wiki": 93074,
     "ongoing": 17,
@@ -1038,7 +1056,9 @@
         "title": "Therapeutic strategies in vascular cognitive impairment: A systematic review and meta-analysis.",
         "year": 2025
       }
-    ]
+    ],
+    "rct": 368,
+    "pubmed_term": "(ginkgo biloba OR ginkgo) AND (dementia OR cognitive OR memory)"
   },
   {
     "id": "Родиола",
@@ -1046,8 +1066,8 @@
     "code": 0,
     "verdict": "зависит от контекста",
     "category": "Усталость/Адаптоген",
-    "scienceIndex": 31,
-    "metaCount": 4,
+    "scienceIndex": 107,
+    "metaCount": 9,
     "citations": 246,
     "wiki": 63341,
     "ongoing": 2,
@@ -1141,7 +1161,9 @@
         "title": "Neuroprotective Mechanisms of Salidroside in Alzheimer's Disease: A Systematic Review and Meta-analysis of Preclinical Studies.",
         "year": 2023
       }
-    ]
+    ],
+    "rct": 62,
+    "pubmed_term": "(Rhodiola rosea) AND (fatigue OR stress OR performance OR depression)"
   },
   {
     "id": "Ашваганда",
@@ -1149,8 +1171,8 @@
     "code": 1,
     "verdict": "работает",
     "category": "Стресс/Адаптоген",
-    "scienceIndex": 21,
-    "metaCount": 2,
+    "scienceIndex": 148,
+    "metaCount": 17,
     "citations": 154,
     "wiki": 0,
     "ongoing": 18,
@@ -1250,7 +1272,9 @@
         "title": "Effects of ashwagandha (Withania somnifera) on mental health in adults: A systematic review and dose-response meta-analysis of randomized controlled trials.",
         "year": 2026
       }
-    ]
+    ],
+    "rct": 63,
+    "pubmed_term": "(Withania somnifera OR ashwagandha) AND (stress OR anxiety OR cortisol OR sleep)"
   },
   {
     "id": "Фосфатидилсерин",
@@ -1258,8 +1282,8 @@
     "code": 0,
     "verdict": "зависит от контекста",
     "category": "Когниция/Дети",
-    "scienceIndex": 35,
-    "metaCount": 2,
+    "scienceIndex": 131,
+    "metaCount": 7,
     "citations": 14,
     "wiki": 26129,
     "ongoing": 8,
@@ -1328,7 +1352,9 @@
         "title": "Safety and efficacy of antioxidant therapy in children and adolescents with attention deficit hyperactivity disorder: A systematic review and network meta-analysis.",
         "year": 2024
       }
-    ]
+    ],
+    "rct": 96,
+    "pubmed_term": "(phosphatidylserine) AND (cognitive OR memory OR dementia OR ADHD)"
   },
   {
     "id": "Alpha-GPC",
@@ -1337,7 +1363,7 @@
     "verdict": "не подтверждено",
     "category": "Когниция",
     "scienceIndex": 18,
-    "metaCount": 2,
+    "metaCount": 1,
     "citations": 72,
     "wiki": 16184,
     "ongoing": 2,
@@ -1436,7 +1462,9 @@
         "title": "Activity of Choline Alphoscerate on Adult-Onset Cognitive Dysfunctions: A Systematic Review and Meta-Analysis.",
         "year": 2023
       }
-    ]
+    ],
+    "rct": 13,
+    "pubmed_term": "(alpha-glycerylphosphorylcholine OR alpha-GPC) AND (cognitive OR memory OR choline OR power)"
   },
   {
     "id": "CDP-холин",
@@ -1444,8 +1472,8 @@
     "code": 0,
     "verdict": "зависит от контекста",
     "category": "Когниция/Инсульт",
-    "scienceIndex": 88,
-    "metaCount": 8,
+    "scienceIndex": 206,
+    "metaCount": 18,
     "citations": 268,
     "wiki": 32855,
     "ongoing": 12,
@@ -1528,7 +1556,9 @@
         "title": "Pharmacologic neuroprotective agents for the treatment of perinatal asphyxia in low-income and lower-middle-income countries: A systematic review and meta-analysis of randomised controlled trials.",
         "year": 2025
       }
-    ]
+    ],
+    "rct": 116,
+    "pubmed_term": "(citicoline OR CDP-choline) AND (cognitive OR stroke OR memory OR dementia)"
   },
   {
     "id": "Гуперзин А",
@@ -1536,7 +1566,7 @@
     "code": 0,
     "verdict": "зависит от контекста",
     "category": "Когниция/Деменция",
-    "scienceIndex": 48,
+    "scienceIndex": 55,
     "metaCount": 8,
     "citations": 182,
     "wiki": 349,
@@ -1623,7 +1653,9 @@
         "title": "[Efficacy and safety of huperzine A in treating patients with mild cognitive impairment: a systematic review and Meta-analysis].",
         "year": 2019
       }
-    ]
+    ],
+    "rct": 15,
+    "pubmed_term": "(huperzine A) AND (cognitive OR Alzheimer OR memory OR acetylcholinesterase)"
   },
   {
     "id": "Куркумин",
@@ -1631,8 +1663,8 @@
     "code": 0,
     "verdict": "зависит от контекста",
     "category": "Воспаление/Суставы",
-    "scienceIndex": 73,
-    "metaCount": 12,
+    "scienceIndex": 1696,
+    "metaCount": 230,
     "citations": 68,
     "wiki": 32745,
     "ongoing": 78,
@@ -1736,7 +1768,9 @@
         "title": "Effects of curcumin on inflammatory and oxidative stress related markers in rat models of experimental arthritis: a systematic review and meta-analysis.",
         "year": 2026
       }
-    ]
+    ],
+    "rct": 546,
+    "pubmed_term": "(curcumin OR turmeric supplementation) AND (inflammation OR arthritis OR metabolic)"
   },
   {
     "id": "Ресвератрол",
@@ -1744,8 +1778,8 @@
     "code": 0,
     "verdict": "зависит от контекста",
     "category": "Антиоксидант/Метаболизм",
-    "scienceIndex": 69,
-    "metaCount": 9,
+    "scienceIndex": 418,
+    "metaCount": 57,
     "citations": 84,
     "wiki": 79484,
     "ongoing": 27,
@@ -1832,7 +1866,9 @@
         "title": "Protective effect and possible mechanisms of resveratrol in animal models of spinal cord injury: a preclinical systematic review and meta-analysis.",
         "year": 2026
       }
-    ]
+    ],
+    "rct": 133,
+    "pubmed_term": "(resveratrol supplementation) AND (cardiovascular OR metabolic OR antioxidant OR aging)"
   },
   {
     "id": "NAC",
@@ -1840,8 +1876,8 @@
     "code": 1,
     "verdict": "работает",
     "category": "Антиоксидант/Психиатрия",
-    "scienceIndex": 111,
-    "metaCount": 14,
+    "scienceIndex": 2207,
+    "metaCount": 250,
     "citations": 118,
     "wiki": 69179,
     "ongoing": 104,
@@ -1941,7 +1977,9 @@
         "title": "N-acetylcysteine as Prophylaxis Against Contrast-Induced Nephropathy: A Meta-Analysis.",
         "year": 2026
       }
-    ]
+    ],
+    "rct": 957,
+    "pubmed_term": "(N-acetylcysteine OR NAC supplementation) AND (respiratory OR psychiatric OR liver OR antioxidant)"
   },
   {
     "id": "Цинк",
@@ -1949,8 +1987,8 @@
     "code": 0,
     "verdict": "зависит от контекста",
     "category": "Иммунитет/ОРВИ",
-    "scienceIndex": 318,
-    "metaCount": 45,
+    "scienceIndex": 2309,
+    "metaCount": 236,
     "citations": 114,
     "wiki": 79279,
     "ongoing": 161,
@@ -2072,7 +2110,9 @@
         "title": "Can heavy metal accumulation in crops be mitigated by microbial inoculants? A meta-analysis and machine learning.",
         "year": 2026
       }
-    ]
+    ],
+    "rct": 1129,
+    "pubmed_term": "(zinc supplementation) AND (common cold OR diarrhea OR infection)"
   },
   {
     "id": "Тирозин",
@@ -2080,8 +2120,8 @@
     "code": -1,
     "verdict": "не подтверждено",
     "category": "Когниция/Стресс",
-    "scienceIndex": 459,
-    "metaCount": 39,
+    "scienceIndex": 13717,
+    "metaCount": 1740,
     "citations": 91,
     "wiki": 44856,
     "ongoing": 538,
@@ -2144,7 +2184,9 @@
         "title": "A systematic review and network meta-analysis of first-line EGFR-TKI-based combination strategies for EGFR-mutant non-small cell lung cancer with brain metastases.",
         "year": 2026
       }
-    ]
+    ],
+    "rct": 5017,
+    "pubmed_term": "(L-tyrosine OR tyrosine supplementation) AND (cognitive OR stress OR exercise OR alertness)"
   },
   {
     "id": "Таурин",
@@ -2152,8 +2194,8 @@
     "code": 0,
     "verdict": "зависит от контекста",
     "category": "Метаболизм/Антиоксидант",
-    "scienceIndex": 82,
-    "metaCount": 7,
+    "scienceIndex": 197,
+    "metaCount": 18,
     "citations": 62,
     "wiki": 123000,
     "ongoing": 29,
@@ -2240,7 +2282,9 @@
         "title": "Trans-organ net fluxes of essential amino acids and their calculated efficiency of utilization in dairy cows: A meta-analysis.",
         "year": 2026
       }
-    ]
+    ],
+    "rct": 107,
+    "pubmed_term": "(taurine supplementation) AND (exercise OR performance OR cardiovascular OR antioxidant)"
   },
   {
     "id": "CoQ10",
@@ -2248,8 +2292,8 @@
     "code": 1,
     "verdict": "работает",
     "category": "Сердце/Энергия",
-    "scienceIndex": 35,
-    "metaCount": 3,
+    "scienceIndex": 1195,
+    "metaCount": 131,
     "citations": 248,
     "wiki": 1377,
     "ongoing": 48,
@@ -2342,7 +2386,9 @@
         "title": "Pharmacological treatments for Friedreich ataxia.",
         "year": 2026
       }
-    ]
+    ],
+    "rct": 540,
+    "pubmed_term": "(coenzyme Q10 OR ubiquinol OR CoQ10 supplementation) AND (heart OR statin OR exercise OR fatigue OR migraine)"
   },
   {
     "id": "Пикногенол",
@@ -2350,8 +2396,8 @@
     "code": 0,
     "verdict": "зависит от контекста",
     "category": "Сосуды/Антиоксидант",
-    "scienceIndex": 33,
-    "metaCount": 5,
+    "scienceIndex": 192,
+    "metaCount": 22,
     "citations": 85,
     "wiki": 2523,
     "ongoing": 4,
@@ -2438,7 +2484,9 @@
         "title": "Efficacy of L-arginine and Pycnogenol ® in the treatment of male erectile dysfunction: a systematic review and meta-analysis.",
         "year": 2023
       }
-    ]
+    ],
+    "rct": 82,
+    "pubmed_term": "(Pycnogenol OR Pinus pinaster extract OR maritime pine bark) AND (cognitive OR vascular OR antioxidant)"
   },
   {
     "id": "Готу кола",
@@ -2446,8 +2494,8 @@
     "code": 0,
     "verdict": "зависит от контекста",
     "category": "Когниция/Сосуды",
-    "scienceIndex": 12,
-    "metaCount": 2,
+    "scienceIndex": 88,
+    "metaCount": 6,
     "citations": 269,
     "wiki": 21003,
     "ongoing": 5,
@@ -2517,7 +2565,9 @@
         "title": "Phlebotonics for venous insufficiency.",
         "year": 2020
       }
-    ]
+    ],
+    "rct": 58,
+    "pubmed_term": "(Centella asiatica OR gotu kola) AND (cognitive OR wound OR venous OR anxiety)"
   },
   {
     "id": "Мелатонин",
@@ -2525,8 +2575,8 @@
     "code": 1,
     "verdict": "работает",
     "category": "Сон/Циркадные ритмы",
-    "scienceIndex": 139,
-    "metaCount": 11,
+    "scienceIndex": 390,
+    "metaCount": 52,
     "citations": 308,
     "wiki": 163405,
     "ongoing": 143,
@@ -2626,7 +2676,9 @@
         "title": "Digital screen exposure and migraine burden: a systematic review and meta-analysis.",
         "year": 2026
       }
-    ]
+    ],
+    "rct": 130,
+    "pubmed_term": "(melatonin supplementation) AND (sleep OR insomnia OR jet lag OR circadian)"
   },
   {
     "id": "ГАБА",
@@ -2634,8 +2686,8 @@
     "code": -1,
     "verdict": "не подтверждено",
     "category": "Психика/Сон",
-    "scienceIndex": 7,
-    "metaCount": 1,
+    "scienceIndex": 3656,
+    "metaCount": 365,
     "citations": 284,
     "wiki": 86607,
     "ongoing": 123,
@@ -2697,7 +2749,9 @@
         "title": "Antidepressant-like effects of valproic acid in rodents go back to the 1980s: a comment to enrich the reviewed evidence by Goudarzi et al. (2026) \"Valproic acid effects on stress-induced depression-like behavior in rodent models: a systematic review and meta-analysis\".",
         "year": 2026
       }
-    ]
+    ],
+    "rct": 1831,
+    "pubmed_term": "(GABA supplementation OR gamma-aminobutyric acid) AND (anxiety OR sleep OR stress)"
   },
   {
     "id": "Глицин",
@@ -2705,8 +2759,8 @@
     "code": -1,
     "verdict": "не подтверждено",
     "category": "Нейромедиатор/Сон",
-    "scienceIndex": 22,
-    "metaCount": 1,
+    "scienceIndex": 414,
+    "metaCount": 20,
     "citations": 182,
     "wiki": 105428,
     "ongoing": 36,
@@ -2792,7 +2846,9 @@
         "title": "Roxadustat for CKD-related anemia in patients undergoing peritoneal dialysis: a systematic review and meta-analysis.",
         "year": 2026
       }
-    ]
+    ],
+    "rct": 314,
+    "pubmed_term": "(glycine supplementation) AND (sleep OR cognitive OR schizophrenia OR collagen)"
   },
   {
     "id": "Валериана",
@@ -2800,8 +2856,8 @@
     "code": 0,
     "verdict": "зависит от контекста",
     "category": "Сон/Тревожность",
-    "scienceIndex": 89,
-    "metaCount": 9,
+    "scienceIndex": 126,
+    "metaCount": 12,
     "citations": 478,
     "wiki": 55048,
     "ongoing": 1,
@@ -2887,7 +2943,9 @@
         "title": "Dietary supplements for dysmenorrhoea.",
         "year": 2016
       }
-    ]
+    ],
+    "rct": 66,
+    "pubmed_term": "(Valeriana officinalis OR valerian) AND (sleep OR insomnia OR anxiety)"
   },
   {
     "id": "Бета-аланин",
@@ -2895,8 +2953,8 @@
     "code": 0,
     "verdict": "зависит от контекста",
     "category": "Спорт/Выносливость",
-    "scienceIndex": 400,
-    "metaCount": 45,
+    "scienceIndex": 864,
+    "metaCount": 81,
     "citations": 35,
     "wiki": 15134,
     "ongoing": 20,
@@ -2964,7 +3022,9 @@
         "title": "The novel anticoagulant dabigatran versus enoxaparin for thromboprophylaxis following total hip replacement: a meta-analysis.",
         "year": 2026
       }
-    ]
+    ],
+    "rct": 459,
+    "pubmed_term": "(beta-alanine) AND (exercise OR performance OR high-intensity)"
   },
   {
     "id": "L-цитруллин",
@@ -2972,8 +3032,8 @@
     "code": 1,
     "verdict": "работает",
     "category": "Спорт/Сосуды",
-    "scienceIndex": 117,
-    "metaCount": 10,
+    "scienceIndex": 404,
+    "metaCount": 26,
     "citations": 137,
     "wiki": 42147,
     "ongoing": 23,
@@ -3060,7 +3120,9 @@
         "title": "Neutrophil Extracellular Traps as Mediators of Acute Lung Injury: Bridging Clinical and Preclinical Evidence.",
         "year": 2026
       }
-    ]
+    ],
+    "rct": 274,
+    "pubmed_term": "(L-citrulline OR citrulline supplementation) AND (exercise OR blood pressure OR erectile OR nitric oxide)"
   },
   {
     "id": "Витамин C",
@@ -3068,8 +3130,8 @@
     "code": 0,
     "verdict": "зависит от контекста",
     "category": "Иммунитет/Антиоксидант",
-    "scienceIndex": 747,
-    "metaCount": 82,
+    "scienceIndex": 4595,
+    "metaCount": 439,
     "citations": 227,
     "wiki": 128313,
     "ongoing": 232,
@@ -3154,7 +3216,9 @@
         "title": "The effect of high-dose of vitamin C on mortality among aged patients with severe COVID-19: A systematic review and meta-analysis.",
         "year": 2026
       }
-    ]
+    ],
+    "rct": 2400,
+    "pubmed_term": "(ascorbic acid OR vitamin C) AND (common cold OR mortality OR infection)"
   },
   {
     "id": "Эхинацея",
@@ -3162,8 +3226,8 @@
     "code": 0,
     "verdict": "зависит от контекста",
     "category": "Иммунитет/ОРВИ",
-    "scienceIndex": 81,
-    "metaCount": 9,
+    "scienceIndex": 165,
+    "metaCount": 18,
     "citations": 569,
     "wiki": 22537,
     "ongoing": 2,
@@ -3260,7 +3324,9 @@
         "title": "Echinacea Supplementation Does Not Impact Aerobic Capacity and Erythropoiesis in Athletes: A Meta-Analysis.",
         "year": 2024
       }
-    ]
+    ],
+    "rct": 75,
+    "pubmed_term": "(Echinacea) AND (common cold OR upper respiratory OR prevention)"
   },
   {
     "id": "Бузина",
@@ -3268,8 +3334,8 @@
     "code": 1,
     "verdict": "работает",
     "category": "Иммунитет/ОРВИ",
-    "scienceIndex": 14,
-    "metaCount": 1,
+    "scienceIndex": 42,
+    "metaCount": 3,
     "citations": 211,
     "wiki": 76602,
     "ongoing": 76,
@@ -3337,7 +3403,9 @@
         "title": "Black elderberry (Sambucus nigra) supplementation effectively treats upper respiratory symptoms: A meta-analysis of randomized, controlled clinical trials.",
         "year": 2019
       }
-    ]
+    ],
+    "rct": 27,
+    "pubmed_term": "(Sambucus OR elderberry) AND (influenza OR cold OR antiviral)"
   },
   {
     "id": "Зверобой",
@@ -3345,8 +3413,8 @@
     "code": 1,
     "verdict": "работает",
     "category": "Психика/Депрессия",
-    "scienceIndex": 218,
-    "metaCount": 31,
+    "scienceIndex": 435,
+    "metaCount": 53,
     "citations": 319,
     "wiki": 31187,
     "ongoing": 3,
@@ -3419,7 +3487,9 @@
         "title": "Herbal extracts in orofacial pain: a systematic review and direct and indirect meta-analysis.",
         "year": 2024
       }
-    ]
+    ],
+    "rct": 170,
+    "pubmed_term": "(hypericum perforatum OR st johns wort) AND (depression OR depressive disorder)"
   },
   {
     "id": "5-HTP",
@@ -3427,8 +3497,8 @@
     "code": -1,
     "verdict": "не подтверждено",
     "category": "Психика/Депрессия",
-    "scienceIndex": 37,
-    "metaCount": 2,
+    "scienceIndex": 115,
+    "metaCount": 4,
     "citations": 142,
     "wiki": 953,
     "ongoing": 7,
@@ -3502,7 +3572,9 @@
         "title": "Are tryptophan and 5-hydroxytryptophan effective treatments for depression? A meta-analysis.",
         "year": 2002
       }
-    ]
+    ],
+    "rct": 95,
+    "pubmed_term": "(5-hydroxytryptophan OR 5-HTP) AND (depression OR sleep OR anxiety)"
   },
   {
     "id": "Коллаген",
@@ -3510,8 +3582,8 @@
     "code": 1,
     "verdict": "работает",
     "category": "Кожа/Суставы",
-    "scienceIndex": 69,
-    "metaCount": 4,
+    "scienceIndex": 567,
+    "metaCount": 28,
     "citations": 255,
     "wiki": 95617,
     "ongoing": 396,
@@ -3600,7 +3672,9 @@
         "title": "Efficacy and safety of microneedling with tranexamic acid versus microneedling with vitamin C in the treatment of melasma: a systematic review and meta-analysis.",
         "year": 2026
       }
-    ]
+    ],
+    "rct": 427,
+    "pubmed_term": "(collagen supplementation OR hydrolyzed collagen) AND (skin OR joint OR bone)"
   },
   {
     "id": "Пробиотики",
@@ -3608,8 +3682,8 @@
     "code": 0,
     "verdict": "зависит от контекста",
     "category": "ЖКТ",
-    "scienceIndex": 2059,
-    "metaCount": 238,
+    "scienceIndex": 12378,
+    "metaCount": 1486,
     "citations": 7,
     "wiki": 33804,
     "ongoing": 537,
@@ -3706,7 +3780,9 @@
         "title": "Probiotics for the prevention of ventilator-associated pneumonia and other outcomes in critically ill children: a systematic review and meta-analysis of randomized controlled trials.",
         "year": 2026
       }
-    ]
+    ],
+    "rct": 4948,
+    "pubmed_term": "(probiotics OR lactobacillus OR bifidobacterium) AND (irritable bowel OR diarrhea OR antibiotic-associated)"
   },
   {
     "id": "B9",
@@ -3714,8 +3790,8 @@
     "code": 1,
     "verdict": "работает",
     "category": "Беременность/Кровь",
-    "scienceIndex": 96,
-    "metaCount": 13,
+    "scienceIndex": 7301,
+    "metaCount": 738,
     "citations": 1278,
     "wiki": 78114,
     "ongoing": 580,
@@ -3805,7 +3881,9 @@
         "title": "A systematic review on the role of diet in managing pre-existing diabetes during pregnancy.",
         "year": 2026
       }
-    ]
+    ],
+    "rct": 3611,
+    "pubmed_term": "(folic acid OR folate supplementation) AND (neural tube OR pregnancy OR homocysteine OR cardiovascular OR depression)"
   },
   {
     "id": "Железо",
@@ -3813,8 +3891,8 @@
     "code": 1,
     "verdict": "работает",
     "category": "Кровь/Анемия",
-    "scienceIndex": 1873,
-    "metaCount": 197,
+    "scienceIndex": 3367,
+    "metaCount": 297,
     "citations": 288,
     "wiki": 28363,
     "ongoing": 90,
@@ -3912,7 +3990,9 @@
         "title": "Optimizing water management for cadmium mitigation in rice production: A global meta-analysis and application effectiveness assessment.",
         "year": 2026
       }
-    ]
+    ],
+    "rct": 1882,
+    "pubmed_term": "(iron supplementation OR ferrous) AND (anemia OR iron deficiency OR pregnancy)"
   },
   {
     "id": "Триптофан",
@@ -3920,7 +4000,7 @@
     "code": 1,
     "verdict": "работает",
     "category": "Психика/Сон",
-    "scienceIndex": 72,
+    "scienceIndex": 145,
     "metaCount": 5,
     "citations": 157,
     "wiki": 75754,
@@ -3991,7 +4071,9 @@
         "title": "An umbrella review of inflammatory biomarkers and their relationship to treatment response in MDD.",
         "year": 2026
       }
-    ]
+    ],
+    "rct": 120,
+    "pubmed_term": "(tryptophan supplementation) AND (sleep OR mood OR depression OR serotonin)"
   },
   {
     "id": "Глюкозамин + хондроитин",
@@ -3999,8 +4081,8 @@
     "code": 0,
     "verdict": "зависит от контекста",
     "category": "Суставы/Остеоартрит",
-    "scienceIndex": 182,
-    "metaCount": 26,
+    "scienceIndex": 1168,
+    "metaCount": 113,
     "citations": 994,
     "wiki": 33034,
     "ongoing": 26,
@@ -4089,7 +4171,9 @@
         "title": "Evaluation of efficacy and safety of glucosamine sulfate, chondroitin sulfate, and their combination regimen in the management of knee osteoarthritis: a systematic review and meta-analysis.",
         "year": 2024
       }
-    ]
+    ],
+    "rct": 603,
+    "pubmed_term": "(glucosamine OR chondroitin) AND (osteoarthritis OR knee OR joint pain)"
   },
   {
     "id": "Витамин E",
@@ -4097,8 +4181,8 @@
     "code": 0,
     "verdict": "зависит от контекста",
     "category": "Антиоксидант/Неврология",
-    "scienceIndex": 14,
-    "metaCount": 1,
+    "scienceIndex": 5337,
+    "metaCount": 477,
     "citations": 460,
     "wiki": 40584,
     "ongoing": 109,
@@ -4184,7 +4268,9 @@
         "title": "Effects of Vitamin C and/or E Supplementation on Glycemic Control and Cardiovascular Risk Factors in Type 2 Diabetes: A Systematic Review and Subgroup Meta-analysis.",
         "year": 2026
       }
-    ]
+    ],
+    "rct": 2952,
+    "pubmed_term": "(vitamin E OR tocopherol OR tocotrienol supplementation) AND (cardiovascular OR antioxidant OR cognitive OR cancer)"
   },
   {
     "id": "Биотин",
@@ -4192,8 +4278,8 @@
     "code": -1,
     "verdict": "не подтверждено",
     "category": "Кожа/Волосы",
-    "scienceIndex": 9,
-    "metaCount": 1,
+    "scienceIndex": 48,
+    "metaCount": 4,
     "citations": 454,
     "wiki": 37004,
     "ongoing": 25,
@@ -4300,7 +4386,9 @@
         "title": "Quantitative comparison of the efficacy of clinical drug treatments for primary progressive multiple sclerosis.",
         "year": 2023
       }
-    ]
+    ],
+    "rct": 28,
+    "pubmed_term": "(biotin supplementation) AND (hair OR nails OR skin OR metabolic OR diabetes)"
   },
   {
     "id": "L-карнитин",
@@ -4308,8 +4396,8 @@
     "code": 0,
     "verdict": "зависит от контекста",
     "category": "Неврология/Спорт",
-    "scienceIndex": 804,
-    "metaCount": 92,
+    "scienceIndex": 1525,
+    "metaCount": 153,
     "citations": 87,
     "wiki": 1542,
     "ongoing": 39,
@@ -4398,7 +4486,9 @@
         "title": "Effects of Carnitine and Coenzyme Q10 on Sperm Quality and Pregnancy Rates in Men with Unexplained Infertility: A Systematic Review and Network Meta-Analysis.",
         "year": 2025
       }
-    ]
+    ],
+    "rct": 760,
+    "pubmed_term": "(L-carnitine OR acetyl-L-carnitine) AND (exercise OR cardiovascular OR diabetes)"
   },
   {
     "id": "BCAA",
@@ -4406,8 +4496,8 @@
     "code": 0,
     "verdict": "зависит от контекста",
     "category": "Печень/Спорт",
-    "scienceIndex": 5,
-    "metaCount": 0,
+    "scienceIndex": 4008,
+    "metaCount": 337,
     "citations": 359,
     "wiki": 103667,
     "ongoing": 5429,
@@ -4489,7 +4579,9 @@
         "title": "Treatment of Sleep Disorders Following Traumatic Brain Injury: A Systematic Review and Network Meta-Analysis.",
         "year": 2026
       }
-    ]
+    ],
+    "rct": 2323,
+    "pubmed_term": "(branched-chain amino acids OR BCAA supplementation) AND (exercise OR muscle OR recovery OR performance)"
   },
   {
     "id": "Аргинин",
@@ -4497,8 +4589,8 @@
     "code": 0,
     "verdict": "зависит от контекста",
     "category": "Сосуды/Беременность",
-    "scienceIndex": 2,
-    "metaCount": 0,
+    "scienceIndex": 4412,
+    "metaCount": 371,
     "citations": 118,
     "wiki": 99193,
     "ongoing": 115,
@@ -4584,7 +4676,9 @@
         "title": "Nutritional supplements for preventing preeclampsia: A network meta-analysis.",
         "year": 2026
       }
-    ]
+    ],
+    "rct": 2557,
+    "pubmed_term": "(L-arginine OR arginine supplementation) AND (nitric oxide OR exercise OR blood pressure OR erectile)"
   },
   {
     "id": "Кальций",
@@ -4592,8 +4686,8 @@
     "code": 0,
     "verdict": "зависит от контекста",
     "category": "Кости/Беременность",
-    "scienceIndex": 425,
-    "metaCount": 46,
+    "scienceIndex": 3707,
+    "metaCount": 347,
     "citations": 37,
     "wiki": 79605,
     "ongoing": 55,
@@ -4691,7 +4785,9 @@
         "title": "Effectiveness of anti-osteoporotic medications in the management of glucocorticoid-induced osteoporosis: a systematic review and network meta-analysis on behalf of the ECTS clinical action group.",
         "year": 2026
       }
-    ]
+    ],
+    "rct": 1972,
+    "pubmed_term": "(calcium supplementation) AND (fracture OR bone density OR cardiovascular)"
   },
   {
     "id": "Гиалуроновая кислота",
@@ -4699,8 +4795,8 @@
     "code": 0,
     "verdict": "зависит от контекста",
     "category": "Суставы/Кожа",
-    "scienceIndex": 2168,
-    "metaCount": 266,
+    "scienceIndex": 4087,
+    "metaCount": 447,
     "citations": 99,
     "wiki": 56079,
     "ongoing": 341,
@@ -4784,7 +4880,9 @@
         "title": "Comparative efficacy of platelet-rich plasma monotherapy versus combination therapies for knee osteoarthritis: a systematic review and network meta-analysis.",
         "year": 2026
       }
-    ]
+    ],
+    "rct": 1852,
+    "pubmed_term": "(hyaluronic acid OR sodium hyaluronate) AND (osteoarthritis OR knee OR skin)"
   },
   {
     "id": "Псиллиум",
@@ -4792,8 +4890,8 @@
     "code": 1,
     "verdict": "работает",
     "category": "ЖКТ/Метаболизм",
-    "scienceIndex": 214,
-    "metaCount": 23,
+    "scienceIndex": 404,
+    "metaCount": 37,
     "citations": 102,
     "wiki": 4219,
     "ongoing": 16,
@@ -4883,7 +4981,9 @@
         "title": "Conservative, physical and surgical interventions for managing faecal incontinence and constipation in adults with central neurological diseases.",
         "year": 2024
       }
-    ]
+    ],
+    "rct": 219,
+    "pubmed_term": "(psyllium OR plantago ovata) AND (constipation OR cholesterol OR blood glucose)"
   },
   {
     "id": "Имбирь",
@@ -4891,8 +4991,8 @@
     "code": 1,
     "verdict": "работает",
     "category": "ЖКТ/Метаболизм",
-    "scienceIndex": 44,
-    "metaCount": 6,
+    "scienceIndex": 537,
+    "metaCount": 61,
     "citations": 52,
     "wiki": 2618,
     "ongoing": 47,
@@ -4986,7 +5086,9 @@
         "title": "[Different moxibustion therapies for primary dysmenorrhea: a network Meta-analysis].",
         "year": 2026
       }
-    ]
+    ],
+    "rct": 232,
+    "pubmed_term": "(Zingiber officinale OR ginger supplementation) AND (nausea OR inflammation OR pain OR metabolic)"
   },
   {
     "id": "Чеснок",
@@ -4994,8 +5096,8 @@
     "code": 1,
     "verdict": "работает",
     "category": "Сосуды/Метаболизм",
-    "scienceIndex": 1,
-    "metaCount": 0,
+    "scienceIndex": 639,
+    "metaCount": 82,
     "citations": 11,
     "wiki": 71650,
     "ongoing": 13,
@@ -5090,7 +5192,9 @@
         "title": "Garlic as a lipid lowering agent--a meta-analysis.",
         "year": 1994
       }
-    ]
+    ],
+    "rct": 229,
+    "pubmed_term": "(Allium sativum OR garlic supplementation OR aged garlic extract) AND (cardiovascular OR blood pressure OR cholesterol)"
   },
   {
     "id": "Клюква",
@@ -5098,8 +5202,8 @@
     "code": 0,
     "verdict": "зависит от контекста",
     "category": "Мочеполовая система",
-    "scienceIndex": 25,
-    "metaCount": 3,
+    "scienceIndex": 258,
+    "metaCount": 23,
     "citations": 0,
     "wiki": 80922,
     "ongoing": 10,
@@ -5156,7 +5260,9 @@
         "title": "Cranberry Reduces the Risk of Urinary Tract Infection Recurrence in Otherwise Healthy Women: A Systematic Review and Meta-Analysis.",
         "year": 2017
       }
-    ]
+    ],
+    "rct": 143,
+    "pubmed_term": "(Vaccinium macrocarpon OR cranberry supplementation) AND (urinary tract infection OR prevention OR antioxidant)"
   },
   {
     "id": "Пустырник",
@@ -5164,7 +5270,7 @@
     "code": -1,
     "verdict": "не подтверждено",
     "category": "Сердце/Растения",
-    "scienceIndex": 23,
+    "scienceIndex": 25,
     "metaCount": 4,
     "citations": 287,
     "wiki": 40762,
@@ -5269,7 +5375,9 @@
         "title": "Motherwort injection for preventing postpartum hemorrhage in pregnant women with cesarean section: A systematic review and meta-analysis.",
         "year": 2018
       }
-    ]
+    ],
+    "rct": 5,
+    "pubmed_term": "(Leonurus cardiaca OR motherwort) AND (anxiety OR palpitation OR cardiovascular)"
   },
   {
     "id": "Боярышник",
@@ -5277,8 +5385,8 @@
     "code": 1,
     "verdict": "работает",
     "category": "Сердце/Растения",
-    "scienceIndex": 77,
-    "metaCount": 7,
+    "scienceIndex": 589,
+    "metaCount": 73,
     "citations": 335,
     "wiki": 94758,
     "ongoing": 2,
@@ -5352,7 +5460,9 @@
         "title": "Does intranasal oxytocin reduce symptoms of mental disorders? A meta-analysis of clinical trials.",
         "year": 2026
       }
-    ]
+    ],
+    "rct": 224,
+    "pubmed_term": "(Crataegus OR hawthorn) AND (heart failure OR blood pressure OR cardiovascular)"
   },
   {
     "id": "Бета-глюканы овса",
@@ -5360,8 +5470,8 @@
     "code": 1,
     "verdict": "работает",
     "category": "Метаболизм/Холестерин",
-    "scienceIndex": 81,
-    "metaCount": 8,
+    "scienceIndex": 172,
+    "metaCount": 11,
     "citations": 54,
     "wiki": 6617,
     "ongoing": 17,
@@ -5419,7 +5529,9 @@
         "title": "The separate effects of whole oats and isolated beta-glucan on lipid profile: A systematic review and meta-analysis of randomized controlled trials.",
         "year": 2023
       }
-    ]
+    ],
+    "rct": 117,
+    "pubmed_term": "(oat beta-glucan OR beta-glucan supplementation) AND (cholesterol OR immune OR glycemic)"
   },
   {
     "id": "Рибофлавин",
@@ -5427,8 +5539,8 @@
     "code": 1,
     "verdict": "работает",
     "category": "Неврология/Метаболизм",
-    "scienceIndex": 5,
-    "metaCount": 1,
+    "scienceIndex": 818,
+    "metaCount": 65,
     "citations": 138,
     "wiki": 41235,
     "ongoing": 47,
@@ -5497,7 +5609,9 @@
         "title": "Associations of dietary vitamin B1, vitamin B2, vitamin B6, and vitamin B12 with the risk of depression: a systematic review and meta-analysis.",
         "year": 2022
       }
-    ]
+    ],
+    "rct": 493,
+    "pubmed_term": "(riboflavin OR vitamin B2 supplementation) AND (migraine OR anemia OR metabolic)"
   },
   {
     "id": "Лютеин + зеаксантин",
@@ -5505,8 +5619,8 @@
     "code": 1,
     "verdict": "работает",
     "category": "Глаза/Зрение",
-    "scienceIndex": 3,
-    "metaCount": 0,
+    "scienceIndex": 677,
+    "metaCount": 62,
     "citations": 152,
     "wiki": 17207,
     "ongoing": 16,
@@ -5588,7 +5702,9 @@
         "title": "Effect of xanthophyll-rich food and supplement intake on visual outcomes in healthy adults and those with eye disease: a systematic review, meta-analysis, and meta-regression of randomized controlled trials.",
         "year": 2023
       }
-    ]
+    ],
+    "rct": 367,
+    "pubmed_term": "(lutein OR zeaxanthin supplementation) AND (macular OR eye OR vision OR AMD OR cataract)"
   },
   {
     "id": "Инозитол",
@@ -5596,8 +5712,8 @@
     "code": 0,
     "verdict": "зависит от контекста",
     "category": "Женское здоровье/СПКЯ",
-    "scienceIndex": 292,
-    "metaCount": 40,
+    "scienceIndex": 1230,
+    "metaCount": 150,
     "citations": 109,
     "wiki": 70923,
     "ongoing": 30,
@@ -5681,7 +5797,9 @@
         "title": "Neurometabolites and Antipsychotic Response in Psychosis: A Mega-Analysis.",
         "year": 2026
       }
-    ]
+    ],
+    "rct": 480,
+    "pubmed_term": "(myo-inositol OR inositol) AND (polycystic ovary OR insulin resistance OR gestational diabetes)"
   },
   {
     "id": "Альфа-липоевая кислота",
@@ -5689,8 +5807,8 @@
     "code": 1,
     "verdict": "работает",
     "category": "Неврология/Метаболизм",
-    "scienceIndex": 95,
-    "metaCount": 11,
+    "scienceIndex": 590,
+    "metaCount": 58,
     "citations": 83,
     "wiki": 49017,
     "ongoing": 32,
@@ -5776,7 +5894,9 @@
         "title": "Effects of alpha-lipoic acid supplementation on patients with nonalcoholic fatty liver disease: a systematic review and meta-analysis of randomized clinical trials.",
         "year": 2026
       }
-    ]
+    ],
+    "rct": 300,
+    "pubmed_term": "(alpha-lipoic acid OR lipoic acid supplementation) AND (diabetes OR neuropathy OR antioxidant OR weight)"
   },
   {
     "id": "D-манноза",
@@ -5784,8 +5904,8 @@
     "code": -1,
     "verdict": "не подтверждено",
     "category": "Мочеполовая система",
-    "scienceIndex": 29,
-    "metaCount": 3,
+    "scienceIndex": 15,
+    "metaCount": 0,
     "citations": 284,
     "wiki": 8739,
     "ongoing": 6,
@@ -5893,7 +6013,9 @@
         "title": "Efficacy of D-mannose as prophylaxis of recurrent urinary tract infection: a systematic review and meta-analysis of randomized controlled trials.",
         "year": 2025
       }
-    ]
+    ],
+    "rct": 15,
+    "pubmed_term": "(D-mannose supplementation) AND (urinary tract infection OR prevention)"
   },
   {
     "id": "Мака",
@@ -5901,8 +6023,8 @@
     "code": 0,
     "verdict": "зависит от контекста",
     "category": "Сексуальное здоровье/Энергия",
-    "scienceIndex": 1,
-    "metaCount": 0,
+    "scienceIndex": 75,
+    "metaCount": 8,
     "citations": 190,
     "wiki": 18007,
     "ongoing": 2,
@@ -5966,7 +6088,9 @@
         "title": "Effects of Maca (Lepidium meyenii Walp.) on Physical Performance in Animals and Humans: A Systematic Review and Meta-Analysis.",
         "year": 2024
       }
-    ]
+    ],
+    "rct": 35,
+    "pubmed_term": "(Lepidium meyenii OR maca) AND (fertility OR sexual OR mood OR energy OR menopause)"
   },
   {
     "id": "Хром",
@@ -5974,8 +6098,8 @@
     "code": 0,
     "verdict": "зависит от контекста",
     "category": "Метаболизм/Диабет",
-    "scienceIndex": 26,
-    "metaCount": 1,
+    "scienceIndex": 348,
+    "metaCount": 39,
     "citations": 84,
     "wiki": 68985,
     "ongoing": 64,
@@ -6056,7 +6180,9 @@
         "title": "Therapeutic effects of chromium supplementation on women with polycystic ovarian syndrome: A systematic review and meta-analysis.",
         "year": 2025
       }
-    ]
+    ],
+    "rct": 153,
+    "pubmed_term": "(chromium supplementation OR chromium picolinate) AND (diabetes OR insulin OR weight OR metabolic)"
   },
   {
     "id": "Астаксантин",
@@ -6064,8 +6190,8 @@
     "code": 0,
     "verdict": "зависит от контекста",
     "category": "Антиоксидант/Кожа",
-    "scienceIndex": 79,
-    "metaCount": 8,
+    "scienceIndex": 140,
+    "metaCount": 17,
     "citations": 68,
     "wiki": 63093,
     "ongoing": 11,
@@ -6146,7 +6272,9 @@
         "title": "A systematic review and meta-analysis of astaxanthin efficacy in male infertility: evidence from clinical and preclinical studies.",
         "year": 2026
       }
-    ]
+    ],
+    "rct": 55,
+    "pubmed_term": "(astaxanthin supplementation) AND (antioxidant OR skin OR exercise OR cardiovascular)"
   },
   {
     "id": "Расторопша",
@@ -6154,8 +6282,8 @@
     "code": 0,
     "verdict": "зависит от контекста",
     "category": "Печень",
-    "scienceIndex": 2,
-    "metaCount": 0,
+    "scienceIndex": 414,
+    "metaCount": 49,
     "citations": 99,
     "wiki": 52028,
     "ongoing": 18,
@@ -6237,7 +6365,9 @@
         "title": "Coadministration of silymarin with iron chelators in transfusion-dependent β-thalassemia patients: a systematic review and meta-analysis for effect on iron overload.",
         "year": 2021
       }
-    ]
+    ],
+    "rct": 169,
+    "pubmed_term": "(Silybum marianum OR milk thistle OR silymarin) AND (liver OR hepatitis OR metabolic)"
   },
   {
     "id": "Лактоферрин",
@@ -6245,8 +6375,8 @@
     "code": 1,
     "verdict": "работает",
     "category": "Иммунитет/Дети",
-    "scienceIndex": 23,
-    "metaCount": 2,
+    "scienceIndex": 140,
+    "metaCount": 14,
     "citations": 227,
     "wiki": 16307,
     "ongoing": 21,
@@ -6334,7 +6464,9 @@
         "title": "Efficacy of lactoferrin supplementation in pediatric infections: a systematic review and meta-analysis.",
         "year": 2025
       }
-    ]
+    ],
+    "rct": 70,
+    "pubmed_term": "(lactoferrin supplementation) AND (iron OR immune OR infection OR infant)"
   },
   {
     "id": "SAMe",
@@ -6342,8 +6474,8 @@
     "code": 1,
     "verdict": "работает",
     "category": "Психика/Суставы",
-    "scienceIndex": 110,
-    "metaCount": 12,
+    "scienceIndex": 2504,
+    "metaCount": 161,
     "citations": 165,
     "wiki": 289,
     "ongoing": 13,
@@ -6424,7 +6556,9 @@
         "title": "S-Adenosylmethionine (SAMe) as an adjuvant therapy for patients with depression: An updated systematic review and meta-analysis.",
         "year": 2024
       }
-    ]
+    ],
+    "rct": 1699,
+    "pubmed_term": "(S-adenosylmethionine OR SAMe supplementation) AND (depression OR osteoarthritis OR liver OR mood)"
   },
   {
     "id": "Йохимбин",
@@ -6432,8 +6566,8 @@
     "code": -1,
     "verdict": "не подтверждено",
     "category": "Сексуальное здоровье",
-    "scienceIndex": 52,
-    "metaCount": 6,
+    "scienceIndex": 6,
+    "metaCount": 0,
     "citations": 458,
     "wiki": 1920,
     "ongoing": 3,
@@ -6545,7 +6679,9 @@
         "title": "The Potential Role of Arginine Supplements on Erectile Dysfunction: A Systemic Review and Meta-Analysis.",
         "year": 2019
       }
-    ]
+    ],
+    "rct": 6,
+    "pubmed_term": "(yohimbine supplementation) AND (erectile OR weight OR fat OR sexual)"
   },
   {
     "id": "Пажитник",
@@ -6553,8 +6689,8 @@
     "code": 0,
     "verdict": "зависит от контекста",
     "category": "Метаболизм/Сексуальное здоровье",
-    "scienceIndex": 88,
-    "metaCount": 13,
+    "scienceIndex": 151,
+    "metaCount": 21,
     "citations": 224,
     "wiki": 95849,
     "ongoing": 9,
@@ -6617,7 +6753,9 @@
         "title": "The Effect of Fenugreek in Type 2 Diabetes and Prediabetes: A Systematic Review and Meta-Analysis of Randomized Controlled Trials.",
         "year": 2023
       }
-    ]
+    ],
+    "rct": 46,
+    "pubmed_term": "(Trigonella foenum-graecum OR fenugreek supplementation) AND (diabetes OR testosterone OR lactation OR libido)"
   },
   {
     "id": "Чёрный тмин",
@@ -6625,8 +6763,8 @@
     "code": 0,
     "verdict": "зависит от контекста",
     "category": "Воспаление/Метаболизм",
-    "scienceIndex": 1,
-    "metaCount": 0,
+    "scienceIndex": 319,
+    "metaCount": 36,
     "citations": 54,
     "wiki": 27733,
     "ongoing": 7,
@@ -6714,7 +6852,9 @@
         "title": "Effect of Nigella sativa Supplementation on Oxidative Stress and Antioxidant Parameters: A Meta-Analysis of Randomized Controlled Trials.",
         "year": 2020
       }
-    ]
+    ],
+    "rct": 139,
+    "pubmed_term": "(Nigella sativa OR black seed OR thymoquinone) AND (inflammation OR metabolic OR asthma)"
   },
   {
     "id": "Трибулус",
@@ -6722,8 +6862,8 @@
     "code": -1,
     "verdict": "не подтверждено",
     "category": "Сексуальное здоровье/Спорт",
-    "scienceIndex": 2,
-    "metaCount": 0,
+    "scienceIndex": 14,
+    "metaCount": 1,
     "citations": 137,
     "wiki": 40089,
     "ongoing": 2,
@@ -6825,7 +6965,9 @@
         "title": "Beneficial effects of natural products on female sexual dysfunction: A systematic review and meta-analysis.",
         "year": 2021
       }
-    ]
+    ],
+    "rct": 9,
+    "pubmed_term": "(Tribulus terrestris supplementation) AND (testosterone OR libido OR sexual OR performance)"
   },
   {
     "id": "NMN",
@@ -6833,8 +6975,8 @@
     "code": -1,
     "verdict": "не подтверждено",
     "category": "Старение/Метаболизм",
-    "scienceIndex": 5,
-    "metaCount": 1,
+    "scienceIndex": 7131,
+    "metaCount": 688,
     "citations": 21,
     "wiki": 10155,
     "ongoing": 13,
@@ -6906,7 +7048,9 @@
         "title": "The Effect of Nicotinamide Mononucleotide and Riboside on Skeletal Muscle Mass and Function: A Systematic Review and Meta-Analysis.",
         "year": 2025
       }
-    ]
+    ],
+    "rct": 3691,
+    "pubmed_term": "(nicotinamide mononucleotide OR nicotinamide riboside OR NMN OR NR) AND (aging OR NAD OR metabolic OR cognitive)"
   },
   {
     "id": "Кордицепс",
@@ -6914,8 +7058,8 @@
     "code": 1,
     "verdict": "работает",
     "category": "Почки/Выносливость",
-    "scienceIndex": 35,
-    "metaCount": 5,
+    "scienceIndex": 94,
+    "metaCount": 12,
     "citations": 109,
     "wiki": 108976,
     "ongoing": 7,
@@ -6998,7 +7142,9 @@
         "title": "The effects of Ophiocordyceps sinensis combined with ACEI/ARB on diabetic kidney disease: A systematic review and meta-analysis.",
         "year": 2023
       }
-    ]
+    ],
+    "rct": 34,
+    "pubmed_term": "(Cordyceps OR cordycepin supplementation) AND (exercise OR kidney OR respiratory OR fatigue)"
   },
   {
     "id": "Рейши",
@@ -7006,8 +7152,8 @@
     "code": 0,
     "verdict": "зависит от контекста",
     "category": "Иммунитет/Грибы",
-    "scienceIndex": 18,
-    "metaCount": 2,
+    "scienceIndex": 49,
+    "metaCount": 4,
     "citations": 242,
     "wiki": 4545,
     "ongoing": 10,
@@ -7082,7 +7228,9 @@
         "title": "Ganoderma lucidum mushroom for the treatment of cardiovascular risk factors.",
         "year": 2015
       }
-    ]
+    ],
+    "rct": 29,
+    "pubmed_term": "(Ganoderma lucidum OR reishi mushroom) AND (immune OR cancer OR sleep OR antioxidant)"
   },
   {
     "id": "Хлорофилл",
@@ -7090,8 +7238,8 @@
     "code": -1,
     "verdict": "не подтверждено",
     "category": "Антиоксидант",
-    "scienceIndex": 95,
-    "metaCount": 17,
+    "scienceIndex": 323,
+    "metaCount": 58,
     "citations": 493,
     "wiki": 107249,
     "ongoing": 6,
@@ -7201,7 +7349,9 @@
         "title": "Machine learning-assisted meta-analysis reveals melatonin crosstalk regulating plant growth plasticity under heavy metal stress.",
         "year": 2026
       }
-    ]
+    ],
+    "rct": 33,
+    "pubmed_term": "(chlorophyll OR chlorophyllin supplementation) AND (antioxidant OR detox OR cancer OR weight)"
   },
   {
     "id": "Сывороточный протеин",
@@ -7209,8 +7359,8 @@
     "code": 1,
     "verdict": "работает",
     "category": "Спорт/Мышцы",
-    "scienceIndex": 97,
-    "metaCount": 11,
+    "scienceIndex": 792,
+    "metaCount": 65,
     "citations": 134,
     "wiki": 8328,
     "ongoing": 118,
@@ -7291,7 +7441,9 @@
         "title": "Dose-dependent effect of milk proteins on body composition and lipid profile in overweight and obese individuals; A GRADE-assessed systematic review and meta-analysis of randomized controlled trials.",
         "year": 2026
       }
-    ]
+    ],
+    "rct": 467,
+    "pubmed_term": "(whey protein supplementation) AND (muscle OR exercise OR weight OR sarcopenia)"
   },
   {
     "id": "Глутамин",
@@ -7299,8 +7451,8 @@
     "code": 0,
     "verdict": "зависит от контекста",
     "category": "Критические состояния/Спорт",
-    "scienceIndex": 437,
-    "metaCount": 34,
+    "scienceIndex": 2063,
+    "metaCount": 226,
     "citations": 90,
     "wiki": 31564,
     "ongoing": 38,
@@ -7369,7 +7521,9 @@
         "title": "Meta-analysis of blood metabolomics reveals dysregulated amino acid, neurotransmitter, and energy pathways in depression.",
         "year": 2026
       }
-    ]
+    ],
+    "rct": 933,
+    "pubmed_term": "(glutamine OR L-glutamine) AND (exercise OR immune OR critical illness)"
   },
   {
     "id": "Босвеллия",
@@ -7377,8 +7531,8 @@
     "code": 1,
     "verdict": "работает",
     "category": "Воспаление/Суставы",
-    "scienceIndex": 38,
-    "metaCount": 5,
+    "scienceIndex": 167,
+    "metaCount": 17,
     "citations": 12,
     "wiki": 13663,
     "ongoing": 8,
@@ -7453,7 +7607,9 @@
         "title": "Effectiveness of Boswellia and Boswellia extract for osteoarthritis patients: a systematic review and meta-analysis.",
         "year": 2020
       }
-    ]
+    ],
+    "rct": 82,
+    "pubmed_term": "(Boswellia serrata OR boswellic acid supplementation) AND (osteoarthritis OR inflammation OR asthma)"
   },
   {
     "id": "Витамин K2",
@@ -7461,8 +7617,8 @@
     "code": 0,
     "verdict": "зависит от контекста",
     "category": "Кости/Сосуды",
-    "scienceIndex": 1,
-    "metaCount": 0,
+    "scienceIndex": 211,
+    "metaCount": 18,
     "citations": 196,
     "wiki": 44041,
     "ongoing": 88,
@@ -7548,7 +7704,9 @@
         "title": "Efficacy of vitamin K2 in the prevention and treatment of postmenopausal osteoporosis: A systematic review and meta-analysis of randomized controlled trials.",
         "year": 2022
       }
-    ]
+    ],
+    "rct": 121,
+    "pubmed_term": "(vitamin K2 OR menaquinone supplementation) AND (bone OR cardiovascular OR calcification OR osteoporosis)"
   },
   {
     "id": "Берберин",
@@ -7556,8 +7714,8 @@
     "code": 1,
     "verdict": "работает",
     "category": "Метаболизм/Диабет",
-    "scienceIndex": 67,
-    "metaCount": 10,
+    "scienceIndex": 57,
+    "metaCount": 9,
     "citations": 103,
     "wiki": 73747,
     "ongoing": 24,
@@ -7655,7 +7813,9 @@
         "title": "The effect of berberine on obesity indices: a systematic review and meta-analysis.",
         "year": 2026
       }
-    ]
+    ],
+    "rct": 12,
+    "pubmed_term": "(berberine supplementation) AND (diabetes OR metabolic OR cholesterol OR weight)"
   },
   {
     "id": "Кверцетин",
@@ -7663,8 +7823,8 @@
     "code": 1,
     "verdict": "работает",
     "category": "Антиоксидант/Воспаление",
-    "scienceIndex": 12,
-    "metaCount": 1,
+    "scienceIndex": 194,
+    "metaCount": 19,
     "citations": 112,
     "wiki": 44001,
     "ongoing": 28,
@@ -7749,6 +7909,8 @@
         "title": "The effect of Quercetin supplementation on hyperuricemia-related biochemical and renal outcomes in animal models: a systematic review and meta-analysis.",
         "year": 2026
       }
-    ]
+    ],
+    "rct": 99,
+    "pubmed_term": "(quercetin supplementation) AND (inflammation OR exercise OR cardiovascular OR immune OR antioxidant)"
   }
 ]

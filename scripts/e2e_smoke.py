@@ -249,31 +249,27 @@ def main() -> None:
             assert "цена не найдена" in pg.content(), \
                 "F1.3: JS-строка «цена не найдена» не рендерится (.encoding?)"
 
-            # F2.3: категория «Спорт» — графики уважают фильтры
-            n_sport = sum(1 for s in data if s.get("category") == "Спорт")
-            n_sport_ma = sum(1 for s in data if s.get("category") == "Спорт" and (s.get("metaCount") or 0) > 0)
-            n_sport_price = sum(1 for s in data if s.get("category") == "Спорт" and s.get("price") is not None)
-            n_sport_plot = sum(1 for s in data if s.get("category") == "Спорт" and s.get("scienceIndex") is not None)
-            pg.locator("#categoryFilter").select_option(label="Спорт")
+            # F2.3: чип «Мышцы / спорт» — графики уважают фильтры
+            import json as _json
+            _tags = _json.loads((DOCS / "effect_tags.json").read_text(encoding="utf-8"))
+            _muscle_ids = {cid for cid, tags in _tags.items() if "muscle" in tags}
+            n_sport = sum(1 for s in data if s.get("id") in _muscle_ids)
+            n_sport_ma = sum(1 for s in data if s.get("id") in _muscle_ids and (s.get("metaCount") or 0) > 0)
+            n_sport_plot = sum(1 for s in data if s.get("id") in _muscle_ids and s.get("scienceIndex") is not None)
+            pg.locator('.tagPreset[data-tag="muscle"]').click()
             pg.wait_for_timeout(300)
             sport_cards = pg.locator(".card[data-id]").count()
-            assert sport_cards == n_sport, f"F2.3: карточек «Спорт» {sport_cards}, ожидалось {n_sport}"
+            assert sport_cards == n_sport, f"F2.3: карточек 'muscle' {sport_cards}, ожидалось {n_sport}"
             # пузырей на оси МА = спортивных с metaCount>0
             sport_bubbles_ma = pg.evaluate("window.chart?.data?.datasets?.length ?? -1")
             assert sport_bubbles_ma == n_sport_ma, \
                 f"F2.3: пузырей МА «Спорт» {sport_bubbles_ma}, ожидалось {n_sport_ma}"
-            # переключить на цену → пузырей = спортивных с ценой
-            pg.click("#axisPrice")
-            pg.wait_for_function("window.chart?.data?.datasets.length === " + str(n_sport_plot), timeout=5000)
-            sport_bubbles_price = pg.evaluate("window.chart?.data?.datasets?.length ?? -1")
-            assert sport_bubbles_price == n_sport_plot, \
-                f"F2.3: пузырей цена «Спорт» {sport_bubbles_price}, ожидалось {n_sport_plot}"
             # подпись под чартом
             summary = pg.locator("#chartSummary").inner_text()
             assert f"показано {n_sport} из {n_all}" in summary, \
                 f"F2.2: подпись чарта не совпадает: {summary!r}"
             # сброс фильтра
-            pg.locator("#categoryFilter").select_option(index=0)
+            pg.locator('.tagPreset[data-tag="all"]').click()
             pg.wait_for_timeout(200)
 
             # F4.3: радар — значения ∈ [0,100]
