@@ -1,6 +1,6 @@
-﻿"""Конфигурация проекта: список добавок, запросы PubMed/OpenAlex."""
+﻿"""Конфигурация проекта: список добавок, PubMed-запросы, MAILTO."""
 
-MAILTO = "brain25-evidence@users.noreply.github.com"  # для PubMed E-utilities
+MAILTO = "brain25-evidence@users.noreply.github.com"
 
 # ============ БАЗОВЫЕ 25 КОГНИТИВНЫХ ДОБАВОК (v1.0) ============
 SUPPLEMENTS = {
@@ -31,44 +31,10 @@ SUPPLEMENTS = {
     "Готу кола":          "Centella asiatica OR gotu kola",
 }
 
+# ============ Исходы (для PubMed-запросов) ============
 COG = '(cognition OR cognitive OR memory OR attention OR "executive function" OR "reaction time" OR "working memory")'
 
-EN = {
-    "Креатин": "creatine", "Омега-3": "omega-3", "Витамин D": "vitamin D",
-    "B12": "vitamin B12", "Магний": "magnesium", "Кофеин": "caffeine",
-    "L-Теанин": "L-theanine", "Бакопа": "Bacopa monnieri",
-    "Ежовик": "lion's mane", "Гинкго": "Ginkgo biloba",
-    "Родиола": "Rhodiola rosea", "Ашваганда": "ashwagandha",
-    "Фосфатидилсерин": "phosphatidylserine", "Alpha-GPC": "alpha-GPC",
-    "CDP-холин": "citicoline", "Гуперзин А": "huperzine A",
-    "Куркумин": "curcumin", "Ресвератрол": "resveratrol",
-    "NAC": "N-acetylcysteine", "Цинк": "zinc",
-    "Тирозин": "tyrosine", "Таурин": "taurine",
-    "CoQ10": "coenzyme Q10", "Пикногенол": "pycnogenol",
-    "Готу кола": "gotu kola",
-}
-
-# ============ v1.2: РАСШИРЕНИЕ (16 добавок + новые оси) ============
-SUPPLEMENTS_V12 = {
-    "Мелатонин":     "melatonin[Title/Abstract]",
-    "ГАБА":          "GABA OR gamma-aminobutyric acid",
-    "Глицин":        "glycine",
-    "Валериана":     "valerian OR Valeriana",
-    "Бета-аланин":   "beta-alanine",
-    "L-цитруллин":   "citrulline",
-    "Витамин C":     "ascorbic acid OR vitamin C",
-    "Эхинацея":      "echinacea",
-    "Бузина":        "elderberry OR Sambucus",
-    "Зверобой":      "St John's wort OR Hypericum",
-    "5-HTP":         "5-hydroxytryptophan",
-    "Коллаген":      "collagen",
-    "Пробиотики":    "probiotics",
-    "B9":            "folic acid OR folate",
-    "Железо":        "iron",
-    "Триптофан":     "tryptophan",
-}
-
-OUTCOME_V12 = {
+OUTCOME = {
     "Мелатонин":     '(sleep OR insomnia OR "sleep latency")',
     "ГАБА":          '(sleep OR anxiety OR stress)',
     "Глицин":        '(sleep OR insomnia)',
@@ -78,158 +44,7 @@ OUTCOME_V12 = {
     "Витамин C":     '(immune OR "common cold" OR infection)',
     "Эхинацея":      '(immune OR "common cold")',
     "Бузина":        '(immune OR "common cold" OR influenza)',
-    "Зверобой":      '(depression OR depressive)',
-    "5-HTP":         '(depression OR anxiety)',
-    "Коллаген":      '(skin OR joint OR osteoarthritis)',
-    "Пробиотики":    '(gut OR IBS OR diarrhea OR immune)',
-    "B9":            '(cognition OR depression)',
-    "Железо":        '(fatigue OR anemia OR cognition)',
-    "Триптофан":     '(sleep OR depression)',
 }
 
-EN_V12 = {
-    "Мелатонин": "melatonin", "ГАБА": "GABA", "Глицин": "glycine",
-    "Валериана": "valerian", "Бета-аланин": "beta-alanine",
-    "L-цитруллин": "citrulline", "Витамин C": "vitamin C",
-    "Эхинацея": "echinacea", "Бузина": "elderberry",
-    "Зверобой": "St John's wort", "5-HTP": "5-HTP",
-    "Коллаген": "collagen", "Пробиотики": "probiotics",
-    "B9": "folic acid", "Железо": "iron", "Триптофан": "tryptophan",
-}
-
-# ============ v2.0: КОНТЕНТ-ПАК (40 добавок) ============
-SUPPLEMENTS_V20 = {
-    'Глюкозамин + хондроитин': 'glucosamine AND chondroitin',
-    'Витамин E': 'vitamin AND E AND tocopherol',
-    'Витамин K2': 'vitamin AND K2 AND menaquinone',
-    'Биотин': 'biotin',
-    'L-карнитин': 'L-carnitine',
-    'BCAA': 'branched-chain AND amino AND acids',
-    'Аргинин': 'L-arginine',
-    'Кальций': 'calcium AND supplementation',
-    'Гиалуроновая кислота': 'hyaluronic acid',
-    'Псиллиум': 'psyllium',
-    'Имбирь': 'ginger',
-    'Чеснок': 'garlic AND allicin',
-    'Клюква': 'cranberry AND proanthocyanidins',
-    'Пустырник': 'Leonurus OR motherwort',
-    'Боярышник': 'hawthorn OR Crataegus',
-    'Берберин': 'berberine',
-    'Бета-глюканы овса': 'oat AND beta-glucan',
-    'Рибофлавин': 'riboflavin AND vitamin AND B2',
-    'Лютеин + зеаксантин': 'lutein AND zeaxanthin',
-    'Инозитол': 'inositol OR myo-inositol',
-    'Альфа-липоевая кислота': 'alpha-lipoic AND acid',
-    'D-манноза': 'D-mannose',
-    'Мака': 'maca AND Lepidium AND meyenii',
-    'Хром': 'chromium AND picolinate',
-    'Кверцетин': 'quercetin',
-    'Астаксантин': 'astaxanthin',
-    'Расторопша': 'silymarin AND milk AND thistle',
-    'Лактоферрин': 'lactoferrin',
-    'SAMe': 'S-adenosylmethionine',
-    'Йохимбин': 'yohimbine',
-    'Пажитник': 'fenugreek OR Trigonella',
-    'Чёрный тмин': 'Nigella AND sativa AND thymoquinone',
-    'Трибулус': 'Tribulus AND terrestris',
-    'NMN/NR': 'nicotinamide AND riboside AND NMN AND NAD',
-    'Кордицепс': 'cordyceps',
-    'Рейши': 'reishi OR Ganoderma lucidum',
-    'Хлорофилл': 'chlorophyll OR chlorophyllin',
-    'Сывороточный протеин': 'whey AND protein',
-    'Глутамин': 'glutamine',
-    'Босвеллия': 'Boswellia AND serrata',
-}
-
-OUTCOME_V20 = {
-    'Глюкозамин + хондроитин': 'osteoarthritis AND pain',
-    'Витамин E': 'cardiovascular AND events AND primary AND prevention',
-    'Витамин K2': '(arterial stiffness OR vascular) AND bone',
-    'Биотин': '(hair OR nails OR brittle)',
-    'L-карнитин': '(weight OR obesity OR performance)',
-    'BCAA': 'muscle AND protein AND synthesis AND soreness',
-    'Аргинин': 'blood AND pressure AND erectile AND function',
-    'Кальций': 'fractures AND bone AND density',
-    'Гиалуроновая кислота': '(skin OR osteoarthritis OR joint)',
-    'Псиллиум': '(LDL OR cholesterol OR constipation)',
-    'Имбирь': 'nausea AND vomiting AND pregnancy AND chemotherapy',
-    'Чеснок': 'blood AND pressure AND lipids',
-    'Клюква': 'urinary AND tract AND infection AND recurrence',
-    'Пустырник': '(women OR menopause OR pregnancy)',
-    'Боярышник': '(heart failure OR blood pressure OR hypertension)',
-    'Берберин': '(glucose OR HbA1c) AND diabetes',
-    'Бета-глюканы овса': 'LDL AND cholesterol',
-    'Рибофлавин': 'migraine AND prophylaxis',
-    'Лютеин + зеаксантин': 'age-related AND macular AND degeneration AND blue AND light',
-    'Инозитол': '(polycystic ovary OR PCOS OR insulin resistance)',
-    'Альфа-липоевая кислота': 'diabetic AND neuropathy',
-    'D-манноза': 'urinary AND tract AND infection AND recurrence',
-    'Мака': 'libido AND sexual AND function',
-    'Хром': 'glucose AND weight',
-    'Кверцетин': '(allergy OR allergic) AND (rhinitis OR asthma OR respiratory)',
-    'Астаксантин': '(skin OR endurance OR oxidative stress)',
-    'Расторопша': 'liver AND enzymes AND NAFLD',
-    'Лактоферрин': 'iron AND deficiency AND anemia',
-    'SAMe': '(depression OR osteoarthritis OR mood)',
-    'Йохимбин': '(obesity OR erectile dysfunction)',
-    'Пажитник': '(glycemic OR glucose OR lipids)',
-    'Чёрный тмин': 'glucose AND lipids',
-    'Трибулус': 'testosterone AND strength',
-    'NMN/NR': 'physical AND function AND cognition AND aging',
-    'Кордицепс': '(exercise OR VO2 OR fatigue OR performance)',
-    'Рейши': '(sleep OR immunity OR fatigue)',
-    'Хлорофилл': '(wound OR acne OR odor OR antioxidant)',
-    'Сывороточный протеин': 'muscle AND mass AND strength AND elderly AND sarcopenia',
-    'Глутамин': '(sarcopenia OR muscle OR recovery OR immunity)',
-    'Босвеллия': 'osteoarthritis AND joint AND pain',
-}
-
-EN_V20 = {
-    "Глюкозамин + хондроитин": "glucosamine chondroitin",
-    "Витамин E": "vitamin E tocopherol",
-    "Витамин K2": "vitamin K2",
-    "Биотин": "biotin",
-    "L-карнитин": "L-carnitine",
-    "BCAA": "branched-chain amino acids",
-    "Аргинин": "L-arginine",
-    "Кальций": "calcium supplement",
-    "Гиалуроновая кислота": "hyaluronic acid",
-    "Псиллиум": "psyllium husk",
-    "Имбирь": "ginger",
-    "Чеснок": "garlic",
-    "Клюква": "cranberry",
-    "Пустырник": "motherwort",
-    "Боярышник": "hawthorn",
-    "Берберин": "berberine",
-    "Бета-глюканы овса": "beta-glucan",
-    "Рибофлавин": "riboflavin",
-    "Лютеин + зеаксантин": "lutein zeaxanthin",
-    "Инозитол": "inositol",
-    "Альфа-липоевая кислота": "alpha-lipoic acid",
-    "D-манноза": "D-mannose",
-    "Мака": "maca",
-    "Хром": "chromium picolinate",
-    "Кверцетин": "quercetin",
-    "Астаксантин": "astaxanthin",
-    "Расторопша": "milk thistle",
-    "Лактоферрин": "lactoferrin",
-    "SAMe": "SAMe",
-    "Йохимбин": "yohimbine",
-    "Пажитник": "fenugreek",
-    "Чёрный тмин": "black seed",
-    "Трибулус": "tribulus",
-    "NMN/NR": "nicotinamide riboside",
-    "Кордицепс": "cordyceps",
-    "Рейши": "reishi",
-    "Хлорофилл": "chlorophyll",
-    "Сывороточный протеин": "whey protein",
-    "Глутамин": "glutamine",
-    "Босвеллия": "boswellia",
-}
-
-# ============ ОБЪЕДИНЕНИЕ v1.0 + v1.2 + v2.0 ============
-SUPPLEMENTS.update(SUPPLEMENTS_V12)
-EN.update(EN_V12)
-SUPPLEMENTS.update(SUPPLEMENTS_V20)
-EN.update(EN_V20)
-OUTCOME = {**OUTCOME_V12, **OUTCOME_V20}
+# Значения по умолчанию, если карточки нет в OUTCOME
+DEFAULT_OUTCOME = COG
