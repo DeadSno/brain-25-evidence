@@ -113,7 +113,9 @@ try {
     <p><b>Индекс науки = РКИ + 5 × мета-анализы</b> в PubMed по запросу «(добавка) AND (исход)».</p>
     <p>Индекс меряет <i>количество</i> науки, не силу эффекта. Вердикты ставим вручную по топ-2 мета-анализам.</p>
   </details>
-  <div class="chartTabs">
+  <div class="chartTabs" id="viewTabs">
+    <button class="chartTab on" data-view="price">📊 Доказательность</button>
+    <button class="chartTab" data-view="quadrant">🎯 Сила эффекта (g)</button>
   </div>
   <div class="chartTabs" id="axisRow">
     <button id="axisMA" class="chartTab on">Число МА</button>

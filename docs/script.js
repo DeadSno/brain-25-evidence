@@ -243,6 +243,10 @@ if (saved !== 'light') setDark(true);   // v1.3: по умолчанию тём�
   // v2.6: оси X графика
     $('axisMA').onclick = () => setAxisX('ma');
   $('axisRCT').onclick = () => setAxisX('rct');
+  $('viewTabs').addEventListener('click', e => {
+    const btn = e.target.closest('.chartTab');
+    if (btn && btn.dataset.view) setChartTab(btn.dataset.view);
+  });
   $('quadrantChart').style.display = 'none';
   $('quadrantNote').style.display = 'none';
   $('favFilter').addEventListener('click', () => {
@@ -301,6 +305,16 @@ function setChartTab(tab) {
   $('quadrantChart').style.display = tab === 'quadrant' ? 'block' : 'none';
   $('chartNote').style.display = tab === 'price' ? '' : 'none';
   $('quadrantNote').style.display = tab === 'quadrant' ? '' : 'none';
+
+  // axisRow (МА/РКИ) относится только к bubble — в quadrant скрываем
+  const axisRow = $('axisRow');
+  if (axisRow) axisRow.style.display = tab === 'price' ? '' : 'none';
+
+  // подсветка активной кнопки
+  document.querySelectorAll('#viewTabs .chartTab').forEach(b => {
+    b.classList.toggle('on', b.dataset.view === tab);
+  });
+
   if (currentData.length) { if (tab === 'price') renderBubble(currentData); else renderQuadrant(currentData); }
 }
 
@@ -688,13 +702,17 @@ function renderQuadrant(data) {
     options: {
       responsive: true, maintainAspectRatio: true,
       scales: {
-        x: { min: -0.2, max: 0.6,
-             title: { display: true, text: "Hedges' g (сила эффекта)", color: txt },
-             grid: { color: 'rgba(128,128,128,.15)' } },
-        y: { type: 'logarithmic',
-             title: { display: true, text: 'Индекс науки (лог)', color: txt },
-             grid: { color: 'rgba(128,128,128,.15)' },
-             ticks: { callback: v => [1,10,100,1000,10000].includes(v) ? v : '' } }
+        x: {
+          title: { display: true, text: "Hedges' g (сила эффекта)", color: txt },
+          suggestedMin: -2.5,
+          suggestedMax: 2.5,
+          grid: { color: ctx => ctx.tick.value === 0 ? 'rgba(128,128,128,.5)' : 'rgba(128,128,128,.15)' }
+        },
+        y: {
+          type: 'logarithmic',
+          title: { display: true, text: 'Индекс науки (log)', color: txt },
+          grid: { color: 'rgba(128,128,128,.15)' }
+        }
       },
       plugins: {
         legend: { display: false },
