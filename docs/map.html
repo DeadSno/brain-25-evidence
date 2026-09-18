@@ -50,6 +50,84 @@
   .sim{margin-top:1.2rem;padding-top:.9rem;border-top:1px dashed var(--aborder);animation:rise .4s ease both}
   .sim h4{margin:.2rem 0 .5rem;font-size:.85rem;opacity:.75}
   kbd{border:1px solid var(--aborder);border-radius:4px;padding:0 .3rem;font-size:.75rem;opacity:.7}
+  /* ── Overlay details ─────────────────────────────── */
+#details-backdrop {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.55);
+  backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px);
+  opacity: 0; pointer-events: none;
+  transition: opacity .2s;
+  z-index: 999;
+}
+#details-backdrop.open { opacity: 1; pointer-events: auto; }
+
+#details {
+  position: fixed; top: 50%; left: 50%;
+  transform: translate(-50%, -50%) scale(.96);
+  width: min(620px, 92vw);
+  max-height: 85vh; overflow-y: auto;
+  background: var(--apanel);
+  border: 1px solid var(--aborder);
+  border-radius: 14px;
+  padding: 1.4rem 1.6rem 1.6rem;
+  color: var(--atext);
+  box-shadow: 0 24px 80px rgba(0,0,0,.55);
+  opacity: 0; pointer-events: none;
+  transition: opacity .2s, transform .2s;
+  z-index: 1000;
+}
+#details.open {
+  opacity: 1; pointer-events: auto;
+  transform: translate(-50%, -50%) scale(1);
+}
+#details h2 { margin: 0 0 .5rem; padding-right: 2.2rem; font-size: 1.15rem; }
+#details h3 {
+  margin: 1.2rem 0 .4rem; font-size: .78rem;
+  text-transform: uppercase; letter-spacing: .06em;
+  opacity: .55; font-weight: 600;
+}
+#details p { margin: .3rem 0; line-height: 1.5; }
+#details .close-x {
+  position: absolute; top: .7rem; right: .9rem;
+  background: none; border: none;
+  color: var(--amut); font-size: 1.7rem; line-height: 1;
+  cursor: pointer; padding: .2rem .4rem; border-radius: 6px;
+}
+#details .close-x:hover { background: rgba(127,127,127,.15); color: var(--atext); }
+#details .modal-badges {
+  margin: .2rem 0 .6rem; display: flex; gap: .4rem;
+  align-items: center; flex-wrap: wrap;
+}
+#details .badge-cat {
+  display: inline-block; padding: .15rem .55rem; border-radius: 999px;
+  font-size: .75rem; background: rgba(127,127,127,.15); opacity: .85;
+}
+#details .rel-list { list-style: none; padding: 0; margin: 0; }
+#details .rel-list li {
+  padding: .55rem .6rem; margin: .3rem 0;
+  border: 1px solid var(--aborder); border-radius: 8px;
+  cursor: pointer; transition: border-color .15s, background .15s;
+}
+#details .rel-list li:hover {
+  border-color: #888; background: rgba(127,127,127,.06);
+}
+#details .rel-list a { color: #3498db; text-decoration: none; font-weight: 500; }
+#details .rel-list li:hover a { text-decoration: underline; }
+#details .rel-desc {
+  font-size: .82rem; opacity: .65; margin-top: .25rem; line-height: 1.4;
+}
+#details .rel-overlap {
+  display: inline-block; margin-left: .4rem;
+  font-size: .72rem; opacity: .7;
+  border: 1px solid var(--aborder); border-radius: 999px;
+  padding: 0 .4rem;
+}
+#details .cta {
+  display: inline-block; padding: .5rem 1rem;
+  background: #3498db; color: #fff; border-radius: 8px;
+  text-decoration: none; font-weight: 500;
+}
+#details .cta:hover { opacity: .9; }
 </style>
 </head>
 <body>
@@ -207,5 +285,180 @@ $('themeBtn').addEventListener('click', () => {
 });
 </script>
 <script src="pwa.js?v=273" defer></script>
+<script>
+(function () {
+  // ── Backdrop + modal ─────────────────────────────────────────
+  const bd = document.createElement('div');
+  bd.id = 'details-backdrop';
+  bd.onclick = closeDetails;
+  const modal = document.createElement('aside');
+  modal.id = 'details';
+  modal.setAttribute('role', 'dialog');
+  modal.setAttribute('aria-modal', 'true');
+  document.body.append(bd, modal);
+
+  function closeDetails() {
+    modal.classList.remove('open');
+    bd.classList.remove('open');
+  }
+  function openDetails(html) {
+    modal.innerHTML = html +
+      '<button class="close-x" aria-label="Закрыть">×</button>';
+    modal.querySelector('.close-x').onclick = closeDetails;
+    modal.classList.add('open');
+    bd.classList.add('open');
+    modal.scrollTop = 0;
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeDetails();
+  });
+
+  // ── Helpers ──────────────────────────────────────────────────
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, c => (
+      { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
+    ));
+  }
+  // грубый «стеммер»: первые 5 символов как корень (для рус.)
+  function stem(w) {
+    return w.length >= 6 ? w.slice(0, 5) : w;
+  }
+  function tokens(text, minLen) {
+    const n = minLen || 5;
+    return (text || '').toLowerCase()
+      .replace(/[^\p{L}\p{N}\s]/gu, ' ')
+      .split(/\s+/)
+      .filter(w => w.length >= n);
+  }
+
+  function relatedByMech(s, mechText, effectText) {
+    // корни из механизма (длинные слова → режем)
+    const myMech = new Set(tokens(mechText, 6).map(stem));
+    // слова из эффекта (порог меньше — эффекты короткие)
+    const myEff = new Set(tokens(effectText, 5));
+    if (!myMech.size && !myEff.size) return [];
+
+    return SUPS
+      .filter(x => x.id !== s.id && x.mechs && x.mechs[0])
+      .map(x => {
+        const xMech = tokens(x.mechs[0][0], 6).map(stem);
+        const xEff = tokens(x.mechs[0][1] || '', 5);
+        const mechOverlap = xMech.filter(t => myMech.has(t)).length;
+        const effOverlap = xEff.filter(t => myEff.has(t)).length;
+        const sameCat = x.category && x.category === s.category ? 1 : 0;
+        return {
+          s: x,
+          overlap: mechOverlap * 2 + effOverlap + sameCat,
+          mechOverlap, effOverlap, sameCat,
+        };
+      })
+      .filter(r => r.overlap > 0)
+      .sort((a, b) => b.overlap - a.overlap)
+      .slice(0, 8);
+  }
+
+  // ── Views ────────────────────────────────────────────────────
+  function verdictBadge(s) {
+    return '<span class="verdict v' + s.code + '">' + esc(s.verdict) + '</span>';
+  }
+
+  function relList(rel) {
+    if (!rel.length) {
+      return '<p style="opacity:.6">Похожих механизмов не найдено</p>';
+    }
+    return '<ul class="rel-list">' + rel.map(r =>
+      '<li data-open-supp="' + esc(r.s.id) + '">' +
+      '<a>' + esc(r.s.name) + '</a>' +
+      '<div class="rel-desc">' + esc((r.s.mechs[0][0] || '').slice(0, 140)) +
+      '<span class="rel-overlap" title="мех×2 + эфф + категория">' +
+      'мех:' + r.mechOverlap + ' эфф:' + r.effOverlap +
+      (r.sameCat ? ' кат:1' : '') + '</span></div>' +
+      '</li>'
+    ).join('') + '</ul>';
+  }
+
+  function showSupplement(id) {
+    const s = SUPS.find(x => x.id === id);
+    if (!s) return;
+    const m = (s.mechs && s.mechs[0]) || [];
+    const rel = m[0] ? relatedByMech(s, m[0], m[1]) : [];
+
+    openDetails(
+      '<h2>💊 ' + esc(s.name) + '</h2>' +
+      '<div class="modal-badges">' +
+      '<span class="badge-cat">' + esc(s.category || '') + '</span>' +
+      verdictBadge(s) +
+      '</div>' +
+      '<h3>Механизм</h3><p>' + esc(m[0] || '—') + '</p>' +
+      '<h3>Эффект</h3><p>' + esc(m[1] || '—') + '</p>' +
+      (m[2] ? '<p style="opacity:.7;font-size:.85rem">Сила: <b>' + esc(m[2]) + '</b></p>' : '') +
+      '<h3>Похожие добавки (' + rel.length + ')</h3>' + relList(rel) +
+      '<p style="margin-top:1.2rem"><a class="cta" href="index.html#sup=' +
+      encodeURIComponent(s.id) + '">Открыть карточку →</a></p>'
+    );
+  }
+
+  function showMechanism(id) {
+    const s = SUPS.find(x => x.id === id);
+    if (!s) return;
+    const m = (s.mechs && s.mechs[0]) || [];
+    if (!m[0]) return showSupplement(id);
+    const rel = relatedByMech(s, m[0], m[1]);
+
+    openDetails(
+      '<h2>⚙️ Механизм</h2>' +
+      '<p style="font-size:1rem;line-height:1.55">' + esc(m[0]) + '</p>' +
+      '<h3>У добавки: ' + esc(s.name) + '</h3>' +
+      '<p style="opacity:.85">' + esc(m[1] || '—') + '</p>' +
+      (m[2] ? '<p style="opacity:.7;font-size:.85rem">Сила: <b>' + esc(m[2]) + '</b></p>' : '') +
+      '<h3>Добавки с похожим механизмом (' + rel.length + ')</h3>' + relList(rel) +
+      '<p style="margin-top:1.2rem"><a class="cta" href="index.html#sup=' +
+      encodeURIComponent(s.id) + '">Открыть карточку →</a></p>'
+    );
+  }
+
+  function showEffect(id) {
+    const s = SUPS.find(x => x.id === id);
+    if (!s) return;
+    const m = (s.mechs && s.mechs[0]) || [];
+    if (!m[1]) return showSupplement(id);
+
+    openDetails(
+      '<h2>✨ Эффект</h2>' +
+      '<p style="font-size:1rem;line-height:1.55">' + esc(m[1]) + '</p>' +
+      (m[2] ? '<p style="opacity:.7">Сила: <b>' + esc(m[2]) + '</b></p>' : '') +
+      '<h3>У добавки: ' + esc(s.name) + '</h3>' +
+      '<p style="opacity:.85">Механизм: ' + esc(m[0] || '—') + '</p>' +
+      '<p style="margin-top:1.2rem"><a class="cta" href="index.html#sup=' +
+      encodeURIComponent(s.id) + '">Открыть карточку →</a></p>'
+    );
+  }
+
+  // ── Click handlers ───────────────────────────────────────────
+  document.getElementById('chain').addEventListener('click', e => {
+    const step = e.target.closest('.step');
+    if (!step) return;
+    const id = (typeof cur !== 'undefined' && cur)
+      ? cur
+      : new URLSearchParams(location.search).get('supplement');
+    if (!id) return;
+    if (step.classList.contains('sup')) showSupplement(id);
+    else if (step.classList.contains('mech')) showMechanism(id);
+    else if (step.classList.contains('eff')) showEffect(id);
+  });
+
+  // Клик по «похожей добавке» внутри оверлея
+  modal.addEventListener('click', e => {
+    const el = e.target.closest('[data-open-supp]');
+    if (el) showSupplement(el.dataset.openSupp);
+  });
+
+  // Курсор на шагах
+  const st = document.createElement('style');
+  st.textContent = '.step{cursor:pointer;transition:filter .15s}.step:hover{filter:brightness(1.18)}';
+  document.head.appendChild(st);
+})();
+</script>
 </body>
 </html>
