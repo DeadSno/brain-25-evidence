@@ -11,7 +11,7 @@
     "trends": 43.1,
     "wiki": 181494,
     "reviews": 191221,
-    "ongoing": 196,
+    "ongoing": 78,
     "effects": [
       "Рабочая память под нагрузкой"
     ],
@@ -118,7 +118,7 @@
     "trends": 13.1,
     "wiki": 49978,
     "reviews": 447,
-    "ongoing": 0,
+    "ongoing": 329,
     "effects": [
       "Нейропластичность"
     ],
@@ -230,7 +230,7 @@
     "trends": 10.9,
     "wiki": 145309,
     "reviews": 13623,
-    "ongoing": 0,
+    "ongoing": 393,
     "effects": [
       "Настроение (при дефиците)"
     ],
@@ -345,7 +345,7 @@
     "trends": 17.3,
     "wiki": 108324,
     "reviews": 7796,
-    "ongoing": 0,
+    "ongoing": 110,
     "effects": [
       "Когниция (при дефиците)"
     ],
@@ -470,7 +470,7 @@
     "trends": 146.2,
     "wiki": 99800,
     "reviews": 302,
-    "ongoing": 160,
+    "ongoing": 368,
     "effects": [
       "Сон, расслабление"
     ],
@@ -588,7 +588,7 @@
     "trends": 17.6,
     "wiki": 109842,
     "reviews": 2187,
-    "ongoing": 129,
+    "ongoing": 220,
     "effects": [
       "Бодрость, скорость реакции",
       "Настроение, мотивация"
@@ -707,7 +707,7 @@
     "trends": 0.0,
     "wiki": 20361,
     "reviews": 297236,
-    "ongoing": 0,
+    "ongoing": 9,
     "effects": [
       "Спокойный фокус",
       "Внимание без джиттеров"
@@ -911,7 +911,7 @@
     "trends": 13.1,
     "wiki": 145420,
     "reviews": 9561,
-    "ongoing": 0,
+    "ongoing": 4,
     "effects": [
       "Нейрогенез"
     ],
@@ -966,7 +966,7 @@
     "trends": 11.6,
     "wiki": 93074,
     "reviews": 2315,
-    "ongoing": 10,
+    "ongoing": 17,
     "effects": [
       "Внимание"
     ],
@@ -1105,7 +1105,7 @@
     "trends": 3.2,
     "wiki": 63341,
     "reviews": 77292,
-    "ongoing": 1,
+    "ongoing": 2,
     "effects": [
       "Устойчивость к усталости"
     ],
@@ -1213,7 +1213,7 @@
     "trends": 7.4,
     "wiki": 0,
     "reviews": 551,
-    "ongoing": 0,
+    "ongoing": 18,
     "effects": [
       "Стрессоустойчивость"
     ],
@@ -1327,7 +1327,7 @@
     "trends": 0.7,
     "wiki": 26129,
     "reviews": 1598,
-    "ongoing": 7,
+    "ongoing": 8,
     "effects": [
       "Память (пожилые)"
     ],
@@ -1410,7 +1410,7 @@
     "trends": 0.0,
     "wiki": 16184,
     "reviews": 933,
-    "ongoing": 0,
+    "ongoing": 2,
     "effects": [
       "Память (у пациентов)"
     ],
@@ -1523,7 +1523,7 @@
     "trends": 0.0,
     "wiki": 32855,
     "reviews": 379,
-    "ongoing": 0,
+    "ongoing": 12,
     "effects": [
       "Память (у пациентов)"
     ],
@@ -1620,7 +1620,7 @@
     "trends": 0.0,
     "wiki": 349,
     "reviews": 892,
-    "ongoing": 3,
+    "ongoing": 8,
     "effects": [
       "Память (Альцгеймер)"
     ],
@@ -1720,7 +1720,7 @@
     "trends": 5.5,
     "wiki": 32745,
     "reviews": 1516,
-    "ongoing": 0,
+    "ongoing": 78,
     "effects": [
       "Настроение, когниция"
     ],
@@ -1838,7 +1838,7 @@
     "trends": 4.9,
     "wiki": 79484,
     "reviews": 2269,
-    "ongoing": 9,
+    "ongoing": 27,
     "effects": [
       "Антивозрастной эффект"
     ],
@@ -1939,7 +1939,7 @@
     "trends": 3.4,
     "wiki": 69179,
     "reviews": 2054,
-    "ongoing": 25,
+    "ongoing": 104,
     "effects": [
       "Когниция (психиатрия)"
     ],
@@ -2053,7 +2053,7 @@
     "trends": 65.6,
     "wiki": 79279,
     "reviews": 3354,
-    "ongoing": 75,
+    "ongoing": 161,
     "effects": [
       "Когниция (при дефиците)"
     ],
@@ -2189,7 +2189,7 @@
     "trends": 5.5,
     "wiki": 44856,
     "reviews": 4945,
-    "ongoing": 169,
+    "ongoing": 538,
     "effects": [
       "Когниция под стрессом"
     ],
@@ -2266,7 +2266,7 @@
     "trends": 25.0,
     "wiki": 123000,
     "reviews": 160751,
-    "ongoing": 20,
+    "ongoing": 29,
     "effects": [
       "Спокойствие"
     ],
@@ -2367,7 +2367,7 @@
     "trends": 0.1,
     "wiki": 1377,
     "reviews": 21117,
-    "ongoing": 0,
+    "ongoing": 48,
     "effects": [
       "Энергия, когниция"
     ],
@@ -2474,7 +2474,7 @@
     "trends": 0.0,
     "wiki": 2523,
     "reviews": 92,
-    "ongoing": 0,
+    "ongoing": 4,
     "effects": [
       "Когниция"
     ],
@@ -2575,7 +2575,7 @@
     "trends": 0.8,
     "wiki": 21003,
     "reviews": 70449,
-    "ongoing": 0,
+    "ongoing": 5,
     "effects": [
       "Когниция"
     ],
@@ -2659,7 +2659,7 @@
     "trends": 24.8,
     "wiki": 163405,
     "reviews": null,
-    "ongoing": 0,
+    "ongoing": 143,
     "effects": [
       "Засыпание",
       "Джетлаг"
@@ -2773,7 +2773,7 @@
     "trends": 38.4,
     "wiki": 86607,
     "reviews": null,
-    "ongoing": 0,
+    "ongoing": 123,
     "effects": [
       "Спокойствие (заявлено)"
     ],
@@ -2849,7 +2849,7 @@
     "trends": 3.3,
     "wiki": 105428,
     "reviews": null,
-    "ongoing": 4,
+    "ongoing": 36,
     "effects": [
       "Сон (заявлено)"
     ],
@@ -2949,7 +2949,7 @@
     "trends": 1.5,
     "wiki": 55048,
     "reviews": null,
-    "ongoing": 0,
+    "ongoing": 1,
     "effects": [
       "Сон, тревога (заявлено)"
     ],
@@ -3049,7 +3049,7 @@
     "trends": 0.1,
     "wiki": 15134,
     "reviews": null,
-    "ongoing": 5,
+    "ongoing": 20,
     "effects": [
       "Выносливость в интенсивной работе"
     ],
@@ -3131,7 +3131,7 @@
     "trends": 0.5,
     "wiki": 42147,
     "reviews": null,
-    "ongoing": 7,
+    "ongoing": 23,
     "effects": [
       "Кровоток, производительность"
     ],
@@ -3232,7 +3232,7 @@
     "trends": 46.9,
     "wiki": 128313,
     "reviews": null,
-    "ongoing": 0,
+    "ongoing": 232,
     "effects": [
       "Иммунитет (при нагрузках)"
     ],
@@ -3331,7 +3331,7 @@
     "trends": 0.6,
     "wiki": 22537,
     "reviews": null,
-    "ongoing": 1,
+    "ongoing": 2,
     "effects": [
       "Профилактика ОРВИ (заявлено)"
     ],
@@ -3442,7 +3442,7 @@
     "trends": 1.5,
     "wiki": 76602,
     "reviews": null,
-    "ongoing": 0,
+    "ongoing": 76,
     "effects": [
       "Симптомы ОРВИ"
     ],
@@ -3524,7 +3524,7 @@
     "trends": 0.0,
     "wiki": 31187,
     "reviews": null,
-    "ongoing": 0,
+    "ongoing": 3,
     "effects": [
       "Настроение (лёгкая депрессия)"
     ],
@@ -3611,7 +3611,7 @@
     "trends": 1.7,
     "wiki": 953,
     "reviews": null,
-    "ongoing": 4,
+    "ongoing": 7,
     "effects": [
       "Настроение"
     ],
@@ -3699,7 +3699,7 @@
     "trends": 13.6,
     "wiki": 95617,
     "reviews": null,
-    "ongoing": 333,
+    "ongoing": 396,
     "effects": [
       "Кожа, суставы"
     ],
@@ -3802,7 +3802,7 @@
     "trends": 1.6,
     "wiki": 33804,
     "reviews": null,
-    "ongoing": 470,
+    "ongoing": 537,
     "effects": [
       "Кишечник, иммунитет"
     ],
@@ -3913,7 +3913,7 @@
     "trends": 0.4,
     "wiki": 78114,
     "reviews": null,
-    "ongoing": 0,
+    "ongoing": 580,
     "effects": [
       "Когниция (при дефиците/MCI)"
     ],
@@ -4017,7 +4017,7 @@
     "trends": 45.3,
     "wiki": 28363,
     "reviews": null,
-    "ongoing": 461,
+    "ongoing": 90,
     "effects": [
       "Энергия (при анемии)"
     ],
@@ -4129,7 +4129,7 @@
     "trends": 2.5,
     "wiki": 75754,
     "reviews": null,
-    "ongoing": 27,
+    "ongoing": 45,
     "effects": [
       "Сон, настроение"
     ],
@@ -4213,7 +4213,7 @@
     "trends": null,
     "wiki": 33034,
     "reviews": null,
-    "ongoing": 0,
+    "ongoing": 26,
     "effects": [
       "Боль при остеоартрите: эффект ≈ плацебо"
     ],
@@ -4316,7 +4316,7 @@
     "trends": null,
     "wiki": 40584,
     "reviews": null,
-    "ongoing": 1,
+    "ongoing": 109,
     "effects": [
       "Профилактика ССЗ и смертности: не подтверждён"
     ],
@@ -4416,7 +4416,7 @@
     "trends": null,
     "wiki": 37004,
     "reviews": null,
-    "ongoing": 0,
+    "ongoing": 25,
     "effects": [
       "Волосы/ногти только при дефиците; мешает анализам"
     ],
@@ -4537,7 +4537,7 @@
     "trends": null,
     "wiki": 1542,
     "reviews": null,
-    "ongoing": 0,
+    "ongoing": 39,
     "effects": [
       "Вес: минимально (~1 кг); восстановление слабо"
     ],
@@ -4640,7 +4640,7 @@
     "trends": null,
     "wiki": 103667,
     "reviews": null,
-    "ongoing": 2,
+    "ongoing": 5429,
     "effects": [
       "При достатке белка эффекта нет"
     ],
@@ -4736,7 +4736,7 @@
     "trends": null,
     "wiki": 99193,
     "reviews": null,
-    "ongoing": 1,
+    "ongoing": 115,
     "effects": [
       "АД/пампинг: слабее цитруллина, контекст"
     ],
@@ -4836,7 +4836,7 @@
     "trends": null,
     "wiki": 79605,
     "reviews": null,
-    "ongoing": 1,
+    "ongoing": 55,
     "effects": [
       "Переломы: МА противоречивы; без дефицита бесполезен"
     ],
@@ -4948,7 +4948,7 @@
     "trends": null,
     "wiki": 56079,
     "reviews": null,
-    "ongoing": 0,
+    "ongoing": 341,
     "effects": [
       "Кожа слабо, колено контекст (японские МА)"
     ],
@@ -5046,7 +5046,7 @@
     "trends": null,
     "wiki": 4219,
     "reviews": null,
-    "ongoing": 1,
+    "ongoing": 16,
     "effects": [
       "ЛНП и стул: стабильный эффект"
     ],
@@ -5150,7 +5150,7 @@
     "trends": null,
     "wiki": 2618,
     "reviews": null,
-    "ongoing": 0,
+    "ongoing": 47,
     "effects": [
       "Тошнота (беременность, укачивание, химия): работает"
     ],
@@ -5258,7 +5258,7 @@
     "trends": null,
     "wiki": 71650,
     "reviews": null,
-    "ongoing": 0,
+    "ongoing": 13,
     "effects": [
       "АД −2-4 мм рт.ст., липиды чуть: умеренно"
     ],
@@ -5367,7 +5367,7 @@
     "trends": null,
     "wiki": 80922,
     "reviews": null,
-    "ongoing": 0,
+    "ongoing": 10,
     "effects": [
       "Рецидивы ИМП: −30% в группах риска"
     ],
@@ -5438,7 +5438,7 @@
     "trends": null,
     "wiki": 40762,
     "reviews": null,
-    "ongoing": 0,
+    "ongoing": 4,
     "effects": [
       "Тревога/сон: субъективно, РКИ мало"
     ],
@@ -5556,7 +5556,7 @@
     "trends": null,
     "wiki": 94758,
     "reviews": null,
-    "ongoing": 0,
+    "ongoing": 2,
     "effects": [
       "СН адъюнкт слабо; здоровым — нет"
     ],
@@ -5644,7 +5644,7 @@
     "trends": null,
     "wiki": 6617,
     "reviews": null,
-    "ongoing": 0,
+    "ongoing": 17,
     "effects": [
       "ЛНП −5-10%: стабильно, одобрено EFSA"
     ],
@@ -5716,7 +5716,7 @@
     "trends": null,
     "wiki": 41235,
     "reviews": null,
-    "ongoing": 0,
+    "ongoing": 47,
     "effects": [
       "Профилактика мигрени: умеренные МА"
     ],
@@ -5799,7 +5799,7 @@
     "trends": null,
     "wiki": 17207,
     "reviews": null,
-    "ongoing": 0,
+    "ongoing": 16,
     "effects": [
       "AMD тормозит; «синий свет экранов» — маркетинг"
     ],
@@ -5895,7 +5895,7 @@
     "trends": null,
     "wiki": 70923,
     "reviews": null,
-    "ongoing": 0,
+    "ongoing": 30,
     "effects": [
       "СПКЯ умеренно; тревога смешанно"
     ],
@@ -5993,7 +5993,7 @@
     "trends": null,
     "wiki": 49017,
     "reviews": null,
-    "ongoing": 2,
+    "ongoing": 32,
     "effects": [
       "Нейропатия: умеренно; похудение — нет"
     ],
@@ -6093,7 +6093,7 @@
     "trends": null,
     "wiki": 8739,
     "reviews": null,
-    "ongoing": 3,
+    "ongoing": 6,
     "effects": [
       "Рецидивы ИМП: перспективно, МА мало"
     ],
@@ -6215,7 +6215,7 @@
     "trends": null,
     "wiki": 18007,
     "reviews": null,
-    "ongoing": 0,
+    "ongoing": 2,
     "effects": [
       "Либидо: малые положительные МА; гормоны — нет"
     ],
@@ -6293,7 +6293,7 @@
     "trends": null,
     "wiki": 68985,
     "reviews": null,
-    "ongoing": 5,
+    "ongoing": 64,
     "effects": [
       "Гликемия/вес: не подтверждён"
     ],
@@ -6388,7 +6388,7 @@
     "trends": null,
     "wiki": 63093,
     "reviews": null,
-    "ongoing": 0,
+    "ongoing": 11,
     "effects": [
       "Кожа/глаза: слабо-положительно, контекст"
     ],
@@ -6483,7 +6483,7 @@
     "trends": null,
     "wiki": 52028,
     "reviews": null,
-    "ongoing": 0,
+    "ongoing": 18,
     "effects": [
       "НАЖБП: малый нестабильный эффект"
     ],
@@ -6579,7 +6579,7 @@
     "trends": null,
     "wiki": 16307,
     "reviews": null,
-    "ongoing": 5,
+    "ongoing": 21,
     "effects": [
       "Железо: контекст (адъюнкт)"
     ],
@@ -6681,7 +6681,7 @@
     "trends": null,
     "wiki": 289,
     "reviews": null,
-    "ongoing": 0,
+    "ongoing": 13,
     "effects": [
       "Депрессия адъюнкт: малые МА"
     ],
@@ -6776,7 +6776,7 @@
     "trends": null,
     "wiki": 1920,
     "reviews": null,
-    "ongoing": 0,
+    "ongoing": 3,
     "effects": [
       "Жиросжигание слабо, цена — побочки"
     ],
@@ -6902,7 +6902,7 @@
     "trends": null,
     "wiki": 95849,
     "reviews": null,
-    "ongoing": 0,
+    "ongoing": 9,
     "effects": [
       "Гликемия умеренно; либидо слабо"
     ],
@@ -6979,7 +6979,7 @@
     "trends": null,
     "wiki": 27733,
     "reviews": null,
-    "ongoing": 0,
+    "ongoing": 7,
     "effects": [
       "Гликемия/липиды: умеренные МА"
     ],
@@ -7081,7 +7081,7 @@
     "trends": null,
     "wiki": 40089,
     "reviews": null,
-    "ongoing": 0,
+    "ongoing": 2,
     "effects": [
       "Тестостерон/сила: не подтверждён"
     ],
@@ -7197,7 +7197,7 @@
     "trends": null,
     "wiki": 10155,
     "reviews": null,
-    "ongoing": 0,
+    "ongoing": 13,
     "effects": [
       "Исходы (сила, когниция): не подтверждён"
     ],
@@ -7283,7 +7283,7 @@
     "trends": null,
     "wiki": 108976,
     "reviews": null,
-    "ongoing": 0,
+    "ongoing": 7,
     "effects": [
       "VO2: слабо у пожилых, у спортсменов нет"
     ],
@@ -7380,7 +7380,7 @@
     "trends": null,
     "wiki": 4545,
     "reviews": null,
-    "ongoing": 0,
+    "ongoing": 10,
     "effects": [
       "Сон/иммунитет: не подтверждён у людей"
     ],
@@ -7469,7 +7469,7 @@
     "trends": null,
     "wiki": 107249,
     "reviews": null,
-    "ongoing": 0,
+    "ongoing": 6,
     "effects": [
       "Акне/запах/детокс: не подтверждён"
     ],
@@ -7593,7 +7593,7 @@
     "trends": null,
     "wiki": 8328,
     "reviews": null,
-    "ongoing": 5,
+    "ongoing": 118,
     "effects": [
       "Мышцы и профилактика саркопении: обширные МА"
     ],
@@ -7688,7 +7688,7 @@
     "trends": null,
     "wiki": 31564,
     "reviews": null,
-    "ongoing": 0,
+    "ongoing": 38,
     "effects": [
       "Мышцы: не подтверждён; кишка/иммунитет — только в клинике"
     ],
@@ -7771,7 +7771,7 @@
     "trends": null,
     "wiki": 13663,
     "reviews": null,
-    "ongoing": 0,
+    "ongoing": 8,
     "effects": [
       "Боль при остеоартрите: умеренно, в МА сравнима с НПВС"
     ],
@@ -7860,7 +7860,7 @@
     "trends": null,
     "wiki": 44041,
     "reviews": null,
-    "ongoing": 0,
+    "ongoing": 88,
     "effects": [
       "Кости/сосуды: мало РКИ, контекст"
     ],
@@ -7960,7 +7960,7 @@
     "trends": null,
     "wiki": 73747,
     "reviews": null,
-    "ongoing": 3,
+    "ongoing": 24,
     "effects": [
       "Гликемия: МА сопоставимы с метформином"
     ],
@@ -8072,7 +8072,7 @@
     "trends": null,
     "wiki": 44001,
     "reviews": null,
-    "ongoing": 0,
+    "ongoing": 28,
     "effects": [
       "Аллергия/ОРВИ: не подтверждён у людей"
     ],
