@@ -79,12 +79,93 @@ header .actions { margin-left: auto; display: flex; gap: .5rem; }
 .legend .int::before  { background: #ff9800; }
 .legend .sup::before  { background: #3d7eff; }
 .legend .drug::before { background: #9e9e9e; }
-#graph {
-  width: 100%; height: calc(100vh - 220px); min-height: 500px;
-  background: var(--card-bg);
+.layout {
+  display: flex;
+  height: calc(100vh - 220px); min-height: 500px;
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
 }
+#graph {
+  flex: 1; min-width: 0;
+  background: var(--card-bg);
+}
+
+/* Сайдбар справа */
+#sidebar {
+  width: 360px; flex-shrink: 0;
+  background: var(--card-bg);
+  border-left: 1px solid var(--border);
+  overflow-y: auto;
+  padding: 1rem 1.2rem;
+  display: none;
+}
+#sidebar.open { display: block; }
+#sidebar h2 {
+  margin: 0 0 .3rem; font-size: 1.15rem;
+  padding-right: 2rem;
+}
+.sb-head { position: relative; }
+.sb-close {
+  position: absolute; right: -.4rem; top: -.4rem;
+  background: transparent; border: none; color: var(--muted);
+  font-size: 1.4rem; cursor: pointer; padding: .2rem .5rem;
+  border-radius: 6px;
+}
+.sb-close:hover { background: rgba(127,127,127,.15); color: var(--fg); }
+.sb-meta {
+  display: flex; gap: .5rem; align-items: center;
+  margin-bottom: 1rem; font-size: .85rem; color: var(--muted);
+  flex-wrap: wrap;
+}
+.sb-section { margin: 1rem 0; }
+.sb-section h3 {
+  margin: 0 0 .5rem; font-size: .85rem;
+  text-transform: uppercase; letter-spacing: .05em;
+  color: var(--muted); font-weight: 600;
+}
+.sb-links { list-style: none; padding: 0; margin: 0; }
+.sb-links li {
+  padding: .5rem 0;
+  border-bottom: 1px solid var(--border);
+}
+.sb-links li:last-child { border-bottom: none; }
+.sb-links a {
+  color: var(--accent); text-decoration: none;
+  font-weight: 500; cursor: pointer;
+}
+.sb-links a:hover { text-decoration: underline; }
+.sb-sev {
+  display: inline-block; font-size: .7rem;
+  padding: 1px 6px; border-radius: 6px; margin-left: .4rem;
+  background: rgba(127,127,127,.15); color: inherit; opacity: .8;
+}
+.sb-sev.medium { background: rgba(255,112,67,.2); color: #ff7043; opacity: 1; }
+.sb-sev.high { background: rgba(229,57,53,.2); color: #e53935; opacity: 1; }
+.sb-sev.critical { background: rgba(183,28,28,.3); color: #ff5252; opacity: 1; }
+.sb-note {
+  font-size: .8rem; color: var(--muted);
+  margin-top: .2rem; line-height: 1.4;
+}
+.sb-cta {
+  display: block; margin-top: 1.2rem;
+  padding: .6rem 1rem; text-align: center;
+  background: var(--accent); color: #fff;
+  border-radius: 8px; text-decoration: none;
+  font-weight: 500;
+}
+.sb-cta:hover { opacity: .9; }
+
+/* Severity filter */
+.severityFilter {
+  display: none; align-items: center; gap: .8rem;
+  padding: .3rem 1.5rem; font-size: .8rem; color: var(--muted);
+}
+.severityFilter.visible { display: flex; }
+.severityFilter label {
+  display: flex; align-items: center; gap: .3rem;
+  cursor: pointer;
+}
+.severityFilter input { cursor: pointer; }
 footer {
   padding: 1rem 1.5rem;
   font-size: .8rem; color: var(--muted);
@@ -99,6 +180,7 @@ footer a { color: var(--accent); }
 <header>
   <h1>🔗 Карта связей БАДов</h1>
   <div class="actions">
+    <button class="btn" id="pngBtn" title="Скачать как PNG">📷 Скачать PNG</button>
     <a class="btn" href="index.html">← На главную</a>
     <button class="btn" id="themeToggle">🌙 Тёмная тема</button>
   </div>
@@ -112,8 +194,19 @@ footer a { color: var(--accent); }
 </div>
 
 <div class="legend" id="legend"></div>
-<div id="hint">Кликните узел — увидите связи. Колёсико — масштаб. Тяните фон — сдвиг.</div>
-<div id="graph"></div>
+<div class="severityFilter" id="sevFilter">
+  <span>Уровень риска:</span>
+  <label><input type="checkbox" data-sev="low" checked><span>низкая</span></label>
+  <label><input type="checkbox" data-sev="medium" checked><span>средняя</span></label>
+  <label><input type="checkbox" data-sev="high" checked><span>высокая</span></label>
+  <label><input type="checkbox" data-sev="critical" checked><span>критичная</span></label>
+</div>
+<div id="hint">Кликните узел — справа откроются детали. Колёсико — масштаб. Тяните фон — сдвиг.</div>
+
+<div class="layout">
+  <div id="graph"></div>
+  <aside id="sidebar"></aside>
+</div>
 <footer>
   Источник: <code>docs/interactions_graph.json</code> (сгенерирован из
   <code>docs/data.json</code>). Связи показывают <b>известные взаимодействия</b>,
@@ -126,12 +219,15 @@ const state = {
   graph: null,
   network: null,
   data: null,
-  searchQuery: ''
+  searchQuery: '',
+  activeSeverity: new Set(['low', 'medium', 'high', 'critical'])
 };
 
 const GRADE_COLOR = { A: '#4caf50', B: '#8bc34a', C: '#ff9800', D: '#e53935' };
 const SEV_COLOR = { low: '#ff9800', medium: '#ff7043', high: '#e53935', critical: '#b71c1c' };
 const TYPE_COLOR = { synergy: '#4caf50', antagonist: '#e53935', interaction: null };
+const SEV_LABEL = { low: 'низкий', medium: 'средний', high: 'высокий', critical: 'критичный' };
+const TYPE_LABEL = { synergy: 'синергия', antagonist: 'антагонизм', interaction: 'взаимодействие' };
 
 function isDark() { return document.body.classList.contains('dark'); }
 
@@ -140,7 +236,22 @@ function lighten(hex, amt) {
   return hex;
 }
 
-function buildNodes(mode) {
+function computeDegrees(edges) {
+  const deg = {};
+  for (const e of edges) {
+    deg[e.from] = (deg[e.from] || 0) + 1;
+    deg[e.to] = (deg[e.to] || 0) + 1;
+  }
+  return deg;
+}
+
+function sizeForDegree(d, isDrug) {
+  // log-шкала: 1 связь → ~12, 20 связей → ~28
+  const base = isDrug ? 8 : 14;
+  return Math.min(40, Math.round(base + Math.log2(d + 1) * 3));
+}
+
+function buildNodes(mode, degrees) {
   const nodes = [];
   const raw = mode === 'supplements'
     ? state.data.supplements.nodes
@@ -154,11 +265,16 @@ function buildNodes(mode) {
     nodes.push({
       id: n.id,
       label: n.label,
-      title: n.kind === 'drug' ? 'Лекарственный класс' : (n.grade ? 'Грейд ' + n.grade : ''),
-      color: { background: color, border: color, highlight: { background: '#ffeb3b', border: '#333' } },
+      title: n.kind === 'drug'
+        ? 'Лекарственный класс · клик = подсветить связи'
+        : (n.grade ? 'Грейд ' + n.grade + ' · клик = открыть карточку' : ''),
+      color: {
+        background: color, border: color,
+        highlight: { background: '#ffeb3b', border: '#333' }
+      },
       font: { color: isDark() ? '#e8ebee' : '#1a1d21' },
       shape: 'dot',
-      size: n.kind === 'drug' ? 14 : 20
+      size: sizeForDegree(degrees[n.id] || 0, n.kind === 'drug')
     });
   }
   return nodes;
@@ -169,22 +285,23 @@ function buildEdges(mode) {
     ? state.data.supplements.edges
     : state.data.drugs.edges;
 
-  return raw.map(e => {
-    let color = TYPE_COLOR[e.type] || SEV_COLOR[e.severity] || '#888';
-    const isDrugEdge = mode === 'drugs';
-    return {
-      from: e.from,
-      to: e.to,
-      color: { color, highlight: '#ffeb3b' },
-      width: e.severity === 'critical' ? 3 : e.severity === 'high' ? 2.5 : 1.5,
-      dashes: e.type === 'synergy',
-      title: (e.note || '').replace(/</g, '&lt;') ||
-             (e.type === 'synergy' ? 'Синергия' :
-              e.type === 'antagonist' ? 'Антагонизм' :
-              'Взаимодействие · ' + (e.severity || '')),
-      arrows: isDrugEdge ? { to: { enabled: true, scaleFactor: 0.5 } } : undefined
-    };
-  });
+  return raw
+    .filter(e => state.activeSeverity.has(e.severity || 'medium'))
+    .map(e => {
+      let color = TYPE_COLOR[e.type] || SEV_COLOR[e.severity] || '#888';
+      return {
+        from: e.from,
+        to: e.to,
+        color: { color, highlight: '#ffeb3b' },
+        width: e.severity === 'critical' ? 3 : e.severity === 'high' ? 2.5 : 1.5,
+        dashes: e.type === 'synergy',
+        title: (e.note || '').replace(/</g, '&lt;') ||
+               (e.type === 'synergy' ? 'Синергия' :
+                e.type === 'antagonist' ? 'Антагонизм' :
+                'Взаимодействие · риск ' + (SEV_LABEL[e.severity] || e.severity || '')),
+        arrows: mode === 'drugs' ? { to: { enabled: true, scaleFactor: 0.5 } } : undefined
+      };
+    });
 }
 
 function renderLegend(mode) {
@@ -224,12 +341,104 @@ function applySearch(nodes, edges, query) {
   };
 }
 
+function renderSidebar(id) {
+  const sidebar = document.getElementById('sidebar');
+  const supp = state.data.drugs.nodes.find(n => n.id === id && n.kind !== 'drug')
+            || state.data.supplements.nodes.find(n => n.id === id);
+  const isDrug = !supp;
+
+  if (!supp && !isDrug) { sidebar.classList.remove('open'); return; }
+
+  const edges = state.mode === 'drugs' ? state.data.drugs.edges : state.data.supplements.edges;
+
+  if (isDrug) {
+    // лекарственный класс
+    const related = edges.filter(e => e.to === id || e.from === id)
+      .map(e => ({
+        other: e.to === id ? e.from : e.to,
+        severity: e.severity,
+        note: e.note
+      }));
+    sidebar.innerHTML =
+      '<div class="sb-head"><h2>' + id + '</h2>' +
+      '<button class="sb-close" data-close>×</button></div>' +
+      '<div class="sb-meta">Лекарственный класс</div>' +
+      '<div class="sb-section"><h3>Связанные добавки (' + related.length + ')</h3>' +
+      '<ul class="sb-links">' +
+      related.map(r =>
+        '<li>' +
+        '<a data-goto="' + r.other + '">' + r.other + '</a>' +
+        '<span class="sb-sev ' + (r.severity || '') + '">' + (SEV_LABEL[r.severity] || r.severity || '') + '</span>' +
+        (r.note ? '<div class="sb-note">' + r.note + '</div>' : '') +
+        '</li>'
+      ).join('') +
+      '</ul></div>';
+  } else {
+    // добавка
+    const related = edges.filter(e => e.to === id || e.from === id)
+      .map(e => ({
+        other: e.to === id ? e.from : e.to,
+        severity: e.severity,
+        note: e.note,
+        type: e.type
+      }));
+    const gradeLabel = supp.grade ? 'Грейд ' + supp.grade : '';
+    const verdictLabel = supp.code === 1 ? 'работает' :
+                         supp.code === 0 ? 'зависит от контекста' :
+                         supp.code === -1 ? 'не подтверждено' : '';
+
+    sidebar.innerHTML =
+      '<div class="sb-head"><h2>' + supp.label + '</h2>' +
+      '<button class="sb-close" data-close>×</button></div>' +
+      '<div class="sb-meta">' + [gradeLabel, verdictLabel].filter(Boolean).join(' · ') + '</div>' +
+      '<div class="sb-section"><h3>Связи (' + related.length + ')</h3>' +
+      '<ul class="sb-links">' +
+      related.map(r =>
+        '<li>' +
+        '<span class="sb-sev ' + (r.severity || '') + '" style="margin-right:.4rem;margin-left:0">' +
+          (r.type === 'synergy' ? '✓ ' :
+           r.type === 'antagonist' ? '⚠ ' :
+           '') + (TYPE_LABEL[r.type] || r.type || '') + '</span>' +
+        '<a data-goto="' + r.other + '">' + r.other + '</a>' +
+        (r.note ? '<div class="sb-note">' + r.note + '</div>' : '') +
+        '</li>'
+      ).join('') +
+      '</ul></div>' +
+      '<a class="sb-cta" href="index.html#sup=' + encodeURIComponent(id) + '" target="_blank">' +
+        'Открыть карточку →</a>';
+  }
+
+  sidebar.classList.add('open');
+
+  // обработчики внутри сайдбара
+  sidebar.querySelector('[data-close]').onclick = () => {
+    sidebar.classList.remove('open');
+    state.network.unselectAll();
+  };
+  sidebar.querySelectorAll('[data-goto]').forEach(el => {
+    el.onclick = () => {
+      const targetId = el.dataset.goto;
+      const supp = state.data.drugs.nodes.find(n => n.id === targetId && n.kind !== 'drug')
+                || state.data.supplements.nodes.find(n => n.id === targetId);
+      if (supp) {
+        renderSidebar(targetId);
+        state.network.selectNodes([targetId]);
+      } else {
+        // это лекарство — открываем его сайдбар
+        renderSidebar(targetId);
+        state.network.selectNodes([targetId]);
+      }
+    };
+  });
+}
+
 function drawGraph() {
   const container = document.getElementById('graph');
   const mode = state.mode;
 
-  const allNodes = buildNodes(mode);
   const allEdges = buildEdges(mode);
+  const degrees = computeDegrees(allEdges);
+  const allNodes = buildNodes(mode, degrees);
   const filtered = applySearch(allNodes, allEdges, state.searchQuery);
 
   if (state.network) {
@@ -257,13 +466,21 @@ function drawGraph() {
   );
 
   state.network.on('click', params => {
-    if (params.nodes.length === 1) {
-      const id = params.nodes[0];
-      if (state.data.supplements.nodes.some(n => n.id === id) ||
-          state.data.drugs.nodes.some(n => n.id === id && n.kind !== 'drug')) {
-        window.open('index.html?s=' + encodeURIComponent(id), '_blank');
-      }
+    // клик по пустому месту — сброс
+    if (params.nodes.length === 0) {
+      document.getElementById('sidebar').classList.remove('open');
+      return;
     }
+    const id = params.nodes[0];
+    renderSidebar(id);
+    // подсветить узел и соседей
+    const edges = mode === 'drugs' ? state.data.drugs.edges : state.data.supplements.edges;
+    const connected = new Set([id]);
+    for (const e of edges) {
+      if (e.from === id) connected.add(e.to);
+      if (e.to === id) connected.add(e.from);
+    }
+    state.network.selectNodes([...connected]);
   });
 }
 
@@ -272,6 +489,9 @@ function setMode(mode) {
   document.querySelectorAll('.tab').forEach(t =>
     t.classList.toggle('active', t.dataset.mode === mode));
   renderLegend(mode);
+  document.getElementById('sevFilter').classList.toggle('visible', mode === 'drugs');
+  // закрыть сайдбар при переключении
+  document.getElementById('sidebar').classList.remove('open');
   drawGraph();
 }
 
@@ -294,6 +514,27 @@ document.getElementById('search').addEventListener('input', e => {
 const saved = localStorage.getItem('theme');
 if (saved === 'light') setDark(false);
 else setDark(true);
+
+// Severity фильтр
+document.querySelectorAll('#sevFilter input[data-sev]').forEach(cb => {
+  cb.addEventListener('change', () => {
+    const sev = cb.dataset.sev;
+    if (cb.checked) state.activeSeverity.add(sev);
+    else state.activeSeverity.delete(sev);
+    drawGraph();
+  });
+});
+
+// Кнопка PNG
+document.getElementById('pngBtn').onclick = () => {
+  const canvas = document.querySelector('#graph canvas');
+  if (!canvas) return;
+  const url = canvas.toDataURL('image/png');
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'interactions-' + state.mode + '.png';
+  a.click();
+};
 
 fetch('interactions_graph.json')
   .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
