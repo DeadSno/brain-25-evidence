@@ -3790,8 +3790,8 @@
     "code": 1,
     "verdict": "работает",
     "category": "Беременность/Кровь",
-    "scienceIndex": 7301,
-    "metaCount": 738,
+    "scienceIndex": 2687,
+    "metaCount": 303,
     "citations": 1278,
     "wiki": 78114,
     "ongoing": 580,
@@ -3882,8 +3882,8 @@
         "year": 2026
       }
     ],
-    "rct": 3611,
-    "pubmed_term": "(folic acid OR folate supplementation) AND (neural tube OR pregnancy OR homocysteine OR cardiovascular OR depression)"
+    "rct": 1172,
+    "pubmed_term": "(folic acid supplementation OR folate supplementation) AND (neural tube OR pregnancy OR homocysteine OR cardiovascular OR depression)"
   },
   {
     "id": "Железо",
