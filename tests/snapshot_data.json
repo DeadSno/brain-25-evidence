@@ -218,8 +218,8 @@
     "code": 0,
     "verdict": "зависит от контекста",
     "category": "Кости/Иммунитет",
-    "scienceIndex": 16493,
-    "metaCount": 2188,
+    "scienceIndex": 8990,
+    "metaCount": 997,
     "citations": 818,
     "wiki": 145309,
     "ongoing": 393,
@@ -321,8 +321,8 @@
         "year": 2026
       }
     ],
-    "rct": 5553,
-    "pubmed_term": "(cholecalciferol OR vitamin D OR calcitriol) AND (fracture OR mortality OR deficiency)"
+    "rct": 4005,
+    "pubmed_term": "(vitamin D supplementation OR cholecalciferol) AND (fracture OR mortality OR deficiency)"
   },
   {
     "id": "B12",
@@ -330,8 +330,8 @@
     "code": 0,
     "verdict": "зависит от контекста",
     "category": "Нервная система/Кровь",
-    "scienceIndex": 2868,
-    "metaCount": 328,
+    "scienceIndex": 994,
+    "metaCount": 96,
     "citations": 247,
     "wiki": 108324,
     "ongoing": 110,
@@ -443,8 +443,8 @@
         "year": 2026
       }
     ],
-    "rct": 1228,
-    "pubmed_term": "(cobalamin OR vitamin B12) AND (deficiency OR cognitive OR pernicious anemia)"
+    "rct": 514,
+    "pubmed_term": "(vitamin B12 supplementation OR cobalamin supplementation) AND (deficiency OR cognitive OR pernicious anemia)"
   },
   {
     "id": "Магний",
@@ -2120,8 +2120,8 @@
     "code": -1,
     "verdict": "не подтверждено",
     "category": "Когниция/Стресс",
-    "scienceIndex": 13717,
-    "metaCount": 1740,
+    "scienceIndex": 289,
+    "metaCount": 21,
     "citations": 91,
     "wiki": 44856,
     "ongoing": 538,
@@ -2185,8 +2185,8 @@
         "year": 2026
       }
     ],
-    "rct": 5017,
-    "pubmed_term": "(L-tyrosine OR tyrosine supplementation) AND (cognitive OR stress OR exercise OR alertness)"
+    "rct": 184,
+    "pubmed_term": "(L-tyrosine supplementation OR tyrosine supplement) AND (cognitive OR stress OR exercise OR alertness)"
   },
   {
     "id": "Таурин",
@@ -3130,8 +3130,8 @@
     "code": 0,
     "verdict": "зависит от контекста",
     "category": "Иммунитет/Антиоксидант",
-    "scienceIndex": 4595,
-    "metaCount": 439,
+    "scienceIndex": 1667,
+    "metaCount": 159,
     "citations": 227,
     "wiki": 128313,
     "ongoing": 232,
@@ -3217,8 +3217,8 @@
         "year": 2026
       }
     ],
-    "rct": 2400,
-    "pubmed_term": "(ascorbic acid OR vitamin C) AND (common cold OR mortality OR infection)"
+    "rct": 872,
+    "pubmed_term": "(vitamin C supplementation OR ascorbic acid supplementation) AND (common cold OR mortality OR infection)"
   },
   {
     "id": "Эхинацея",
@@ -3682,8 +3682,8 @@
     "code": 0,
     "verdict": "зависит от контекста",
     "category": "ЖКТ",
-    "scienceIndex": 12378,
-    "metaCount": 1486,
+    "scienceIndex": 10632,
+    "metaCount": 1342,
     "citations": 7,
     "wiki": 33804,
     "ongoing": 537,
@@ -3781,8 +3781,8 @@
         "year": 2026
       }
     ],
-    "rct": 4948,
-    "pubmed_term": "(probiotics OR lactobacillus OR bifidobacterium) AND (irritable bowel OR diarrhea OR antibiotic-associated)"
+    "rct": 3922,
+    "pubmed_term": "(probiotic supplementation OR probiotics) AND (irritable bowel OR diarrhea OR antibiotic-associated)"
   },
   {
     "id": "B9",
