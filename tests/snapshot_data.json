@@ -44,7 +44,7 @@
     "guidelines": "Позиция ISSN: эффективен и безопасен; EFSA health claims для спорта не требует.",
     "how_to_choose": "Моногидрат (знак Creapure); без «транспортных систем» и переплаты за экзотические формы.",
     "myths": "«Бьёт по почкам у здоровых» — на стандартных дозах не подтверждено. «Без загрузки не работает» — работает, просто медленнее.",
-    "hedges_g": null,
+    "hedges_g": -0.45,
     "grade": "A",
     "key_sources": [
       {
@@ -101,7 +101,13 @@
       }
     ],
     "rct": 785,
-    "pubmed_term": "(creatine supplementation) AND (strength OR muscle OR cognitive)"
+    "pubmed_term": "(creatine supplementation) AND (strength OR muscle OR cognitive)",
+    "hedges_g_ci": [
+      -0.83,
+      -0.07
+    ],
+    "hedges_g_outcome": "interleukin",
+    "hedges_g_pmid": "42197030"
   },
   {
     "id": "Омега-3",
@@ -151,7 +157,7 @@
     "guidelines": "EFSA: DHA для мозга и зрения; AHA: рыба 2 раза в неделю; Cochrane: скромный эффект на сердечно-сосудистые события.",
     "how_to_choose": "На банке мг EPA+DHA, а не «рыбий жир 1000 мг»; формы TG/rTG; окисление (TOTOX) если указано.",
     "myths": "«Любой рыбий жир работает» — в капсуле 1000 мг может быть 300 мг EPA+DHA. «Растительная омега равноценна» — конверсия ALA низкая.",
-    "hedges_g": null,
+    "hedges_g": 0.21,
     "grade": "B",
     "key_sources": [
       {
@@ -210,7 +216,13 @@
       }
     ],
     "rct": 4748,
-    "pubmed_term": "(omega-3 fatty acids OR eicosapentaenoic OR docosahexaenoic OR fish oil) AND (cardiovascular OR mortality)"
+    "pubmed_term": "(omega-3 fatty acids OR eicosapentaenoic OR docosahexaenoic OR fish oil) AND (cardiovascular OR mortality)",
+    "hedges_g_ci": [
+      0.04,
+      0.38
+    ],
+    "hedges_g_outcome": "",
+    "hedges_g_pmid": "42433395"
   },
   {
     "id": "Витамин D",
@@ -261,7 +273,7 @@
     "guidelines": "EFSA: кости и мышцы; NIH: рекомендует контролировать уровень в крови.",
     "how_to_choose": "D3 (холекальциферол), не D2; масляные капсулы; дозировка в МЕ на этикетке.",
     "myths": "«Чем больше, тем лучше» — жирорастворимый, накапливается. «Летнего солнца хватает на зиму» — запаса на 2-3 месяца.",
-    "hedges_g": null,
+    "hedges_g": 0.13,
     "grade": "A",
     "key_sources": [
       {
@@ -322,7 +334,13 @@
       }
     ],
     "rct": 4005,
-    "pubmed_term": "(vitamin D supplementation OR cholecalciferol) AND (fracture OR mortality OR deficiency)"
+    "pubmed_term": "(vitamin D supplementation OR cholecalciferol) AND (fracture OR mortality OR deficiency)",
+    "hedges_g_ci": [
+      -0.22,
+      0.49
+    ],
+    "hedges_g_outcome": "bone",
+    "hedges_g_pmid": "42746921"
   },
   {
     "id": "B12",
@@ -361,7 +379,7 @@
         "note": "снижает всасывание"
       }
     ],
-    "hedges_g": null,
+    "hedges_g": 0.0,
     "grade": "B",
     "key_sources": [
       {
@@ -444,7 +462,13 @@
       }
     ],
     "rct": 514,
-    "pubmed_term": "(vitamin B12 supplementation OR cobalamin supplementation) AND (deficiency OR cognitive OR pernicious anemia)"
+    "pubmed_term": "(vitamin B12 supplementation OR cobalamin supplementation) AND (deficiency OR cognitive OR pernicious anemia)",
+    "hedges_g_ci": [
+      -0.13,
+      0.13
+    ],
+    "hedges_g_outcome": "attention",
+    "hedges_g_pmid": "42227307"
   },
   {
     "id": "Магний",
@@ -500,7 +524,7 @@
     "guidelines": "EFSA: функция мышц и нервной системы; NIH: дефицит чаще после 70 лет.",
     "how_to_choose": "Цитрат, глицинат, бисглицинат — усвоение и переносимость; оксид — дёшев, всасывается плохо, слабит.",
     "myths": "«Успокаивает сразу» — эффект накопительный. «Любая форма одинакова» — оксид почти не поднимает уровни.",
-    "hedges_g": null,
+    "hedges_g": -0.67,
     "grade": "B",
     "key_sources": [
       {
@@ -559,7 +583,13 @@
       }
     ],
     "rct": 473,
-    "pubmed_term": "(magnesium supplementation) AND (migraine OR blood pressure OR muscle cramp)"
+    "pubmed_term": "(magnesium supplementation) AND (migraine OR blood pressure OR muscle cramp)",
+    "hedges_g_ci": [
+      -0.89,
+      -0.45
+    ],
+    "hedges_g_outcome": "",
+    "hedges_g_pmid": "42515920"
   },
   {
     "id": "Кофеин",
@@ -612,7 +642,7 @@
     "guidelines": "EFSA: 400 мг/сут безопасно; позиция ISSN: эргогеник 3-6 мг/кг.",
     "how_to_choose": "Таблетки для точной дозы перед тренировкой; в кофе доза плавает (эспрессо 60-80 мг).",
     "myths": "«Кофе обезвоживает» — умеренный диурез не ведёт к дегидратации. «После 18:00 можно всем» — генотип CYP1A2 решает, сон страдает даже без ощущений.",
-    "hedges_g": 0.21,
+    "hedges_g": 0.24,
     "grade": "A",
     "key_sources": [
       {
@@ -672,7 +702,13 @@
       }
     ],
     "rct": 2190,
-    "pubmed_term": "(caffeine) AND (cognition OR athletic performance OR alertness)"
+    "pubmed_term": "(caffeine) AND (cognition OR athletic performance OR alertness)",
+    "hedges_g_ci": [
+      0.13,
+      0.35
+    ],
+    "hedges_g_outcome": "performance",
+    "hedges_g_pmid": "42588052"
   },
   {
     "id": "L-Теанин",
@@ -712,7 +748,7 @@
         "note": "смягчает эффекты, не опасно"
       }
     ],
-    "hedges_g": null,
+    "hedges_g": 0.15,
     "grade": "B",
     "key_sources": [
       {
@@ -768,7 +804,13 @@
       }
     ],
     "rct": 79,
-    "pubmed_term": "(L-theanine OR theanine) AND (cognitive OR stress OR attention OR sleep)"
+    "pubmed_term": "(L-theanine OR theanine) AND (cognitive OR stress OR attention OR sleep)",
+    "hedges_g_ci": [
+      0.01,
+      0.29
+    ],
+    "hedges_g_outcome": "sleep",
+    "hedges_g_pmid": "40056718"
   },
   {
     "id": "Бакопа",
@@ -966,7 +1008,7 @@
         "note": "возможна серотониновая нагрузка"
       }
     ],
-    "hedges_g": null,
+    "hedges_g": 0.83,
     "grade": "D",
     "key_sources": [
       {
@@ -1058,7 +1100,13 @@
       }
     ],
     "rct": 368,
-    "pubmed_term": "(ginkgo biloba OR ginkgo) AND (dementia OR cognitive OR memory)"
+    "pubmed_term": "(ginkgo biloba OR ginkgo) AND (dementia OR cognitive OR memory)",
+    "hedges_g_ci": [
+      0.0,
+      1.67
+    ],
+    "hedges_g_outcome": "cognition",
+    "hedges_g_pmid": "41198594"
   },
   {
     "id": "Родиола",
@@ -1207,7 +1255,7 @@
         "note": "может повышать T3/T4, контроль ТТГ"
       }
     ],
-    "hedges_g": null,
+    "hedges_g": 0.6,
     "grade": "B",
     "key_sources": [
       {
@@ -1274,7 +1322,13 @@
       }
     ],
     "rct": 63,
-    "pubmed_term": "(Withania somnifera OR ashwagandha) AND (stress OR anxiety OR cortisol OR sleep)"
+    "pubmed_term": "(Withania somnifera OR ashwagandha) AND (stress OR anxiety OR cortisol OR sleep)",
+    "hedges_g_ci": [
+      0.2,
+      1.01
+    ],
+    "hedges_g_outcome": "",
+    "hedges_g_pmid": "42738987"
   },
   {
     "id": "Фосфатидилсерин",
@@ -1498,7 +1552,7 @@
         "note": "известных взаимодействий нет"
       }
     ],
-    "hedges_g": null,
+    "hedges_g": -1.05,
     "grade": "B",
     "key_sources": [
       {
@@ -1558,7 +1612,13 @@
       }
     ],
     "rct": 116,
-    "pubmed_term": "(citicoline OR CDP-choline) AND (cognitive OR stroke OR memory OR dementia)"
+    "pubmed_term": "(citicoline OR CDP-choline) AND (cognitive OR stroke OR memory OR dementia)",
+    "hedges_g_ci": [
+      -1.85,
+      -0.24
+    ],
+    "hedges_g_outcome": "",
+    "hedges_g_pmid": "39026098"
   },
   {
     "id": "Гуперзин А",
@@ -1710,7 +1770,7 @@
     "guidelines": "EFSA: claims не одобрены; ряд МА — скромный эффект при остеоартрите, сопоставимый с НПВС в малых trials.",
     "how_to_choose": "Стандартизация 95% куркуминоидов + пиперин либо фосфосомные/жидкие формы; «порошок куркумы в капсуле» слаб.",
     "myths": "«Куркума в еде = доза добавки» — в 1-2 г порошка 30-60 мг куркумина с плохим всасыванием. «Полностью лечит воспаление» — эффект скромный.",
-    "hedges_g": null,
+    "hedges_g": 0.033,
     "grade": "B",
     "key_sources": [
       {
@@ -1770,7 +1830,13 @@
       }
     ],
     "rct": 546,
-    "pubmed_term": "(curcumin OR turmeric supplementation) AND (inflammation OR arthritis OR metabolic)"
+    "pubmed_term": "(curcumin OR turmeric supplementation) AND (inflammation OR arthritis OR metabolic)",
+    "hedges_g_ci": [
+      -0.216,
+      0.281
+    ],
+    "hedges_g_outcome": "",
+    "hedges_g_pmid": "42499105"
   },
   {
     "id": "Ресвератрол",
@@ -1809,7 +1875,7 @@
         "note": "дополнительный антиагрегантный эффект"
       }
     ],
-    "hedges_g": null,
+    "hedges_g": 0.05,
     "grade": "C",
     "key_sources": [
       {
@@ -1868,7 +1934,13 @@
       }
     ],
     "rct": 133,
-    "pubmed_term": "(resveratrol supplementation) AND (cardiovascular OR metabolic OR antioxidant OR aging)"
+    "pubmed_term": "(resveratrol supplementation) AND (cardiovascular OR metabolic OR antioxidant OR aging)",
+    "hedges_g_ci": [
+      -0.24,
+      0.344
+    ],
+    "hedges_g_outcome": "",
+    "hedges_g_pmid": "40158656"
   },
   {
     "id": "NAC",
@@ -1907,7 +1979,7 @@
         "note": "снижает всасывание"
       }
     ],
-    "hedges_g": null,
+    "hedges_g": -1.75,
     "grade": "B",
     "key_sources": [
       {
@@ -1979,7 +2051,13 @@
       }
     ],
     "rct": 957,
-    "pubmed_term": "(N-acetylcysteine OR NAC supplementation) AND (respiratory OR psychiatric OR liver OR antioxidant)"
+    "pubmed_term": "(N-acetylcysteine OR NAC supplementation) AND (respiratory OR psychiatric OR liver OR antioxidant)",
+    "hedges_g_ci": [
+      -2.19,
+      -1.3
+    ],
+    "hedges_g_outcome": "",
+    "hedges_g_pmid": "41546714"
   },
   {
     "id": "Цинк",
@@ -2031,7 +2109,7 @@
     "guidelines": "EFSA: иммунитет и кожа; NIH: вегетарианцы в группе риска дефицита.",
     "how_to_choose": "Пиколинат, цитрат, глюконат; 15-25 мг элементарного цинка; «50 мг + медь» без показаний не брать.",
     "myths": "«Вылечит простуду за день» — пастилки слегка сокращают длительность. «Больше — больше тестостерона» — только при дефиците.",
-    "hedges_g": null,
+    "hedges_g": -0.24,
     "grade": "B",
     "key_sources": [
       {
@@ -2112,7 +2190,13 @@
       }
     ],
     "rct": 1129,
-    "pubmed_term": "(zinc supplementation) AND (common cold OR diarrhea OR infection)"
+    "pubmed_term": "(zinc supplementation) AND (common cold OR diarrhea OR infection)",
+    "hedges_g_ci": [
+      -0.37,
+      -0.1
+    ],
+    "hedges_g_outcome": "sleep",
+    "hedges_g_pmid": "41470897"
   },
   {
     "id": "Тирозин",
@@ -2151,7 +2235,7 @@
         "note": "конкурируют за всасывание"
       }
     ],
-    "hedges_g": null,
+    "hedges_g": 0.02,
     "grade": "D",
     "key_sources": [
       {
@@ -2186,7 +2270,10 @@
       }
     ],
     "rct": 184,
-    "pubmed_term": "(L-tyrosine supplementation OR tyrosine supplement) AND (cognitive OR stress OR exercise OR alertness)"
+    "pubmed_term": "(L-tyrosine supplementation OR tyrosine supplement) AND (cognitive OR stress OR exercise OR alertness)",
+    "hedges_g_ci": null,
+    "hedges_g_outcome": "performance",
+    "hedges_g_pmid": "38290812"
   },
   {
     "id": "Таурин",
@@ -2225,7 +2312,7 @@
         "note": "возможно влияние на концентрацию"
       }
     ],
-    "hedges_g": null,
+    "hedges_g": 0.18,
     "grade": "C",
     "key_sources": [
       {
@@ -2284,7 +2371,13 @@
       }
     ],
     "rct": 107,
-    "pubmed_term": "(taurine supplementation) AND (exercise OR performance OR cardiovascular OR antioxidant)"
+    "pubmed_term": "(taurine supplementation) AND (exercise OR performance OR cardiovascular OR antioxidant)",
+    "hedges_g_ci": [
+      0.007,
+      0.352
+    ],
+    "hedges_g_outcome": "performance",
+    "hedges_g_pmid": "34129223"
   },
   {
     "id": "CoQ10",
@@ -2326,7 +2419,7 @@
     "synergists": [
       "Витамин E"
     ],
-    "hedges_g": null,
+    "hedges_g": -1.01,
     "grade": "B",
     "key_sources": [
       {
@@ -2388,7 +2481,13 @@
       }
     ],
     "rct": 540,
-    "pubmed_term": "(coenzyme Q10 OR ubiquinol OR CoQ10 supplementation) AND (heart OR statin OR exercise OR fatigue OR migraine)"
+    "pubmed_term": "(coenzyme Q10 OR ubiquinol OR CoQ10 supplementation) AND (heart OR statin OR exercise OR fatigue OR migraine)",
+    "hedges_g_ci": [
+      -1.56,
+      -0.64
+    ],
+    "hedges_g_outcome": "interleukin",
+    "hedges_g_pmid": "42192187"
   },
   {
     "id": "Пикногенол",
@@ -2427,7 +2526,7 @@
         "note": "иммуностимулирующий эффект"
       }
     ],
-    "hedges_g": null,
+    "hedges_g": -0.06,
     "grade": "C",
     "key_sources": [
       {
@@ -2486,7 +2585,13 @@
       }
     ],
     "rct": 82,
-    "pubmed_term": "(Pycnogenol OR Pinus pinaster extract OR maritime pine bark) AND (cognitive OR vascular OR antioxidant)"
+    "pubmed_term": "(Pycnogenol OR Pinus pinaster extract OR maritime pine bark) AND (cognitive OR vascular OR antioxidant)",
+    "hedges_g_ci": [
+      -0.22,
+      0.1
+    ],
+    "hedges_g_outcome": "",
+    "hedges_g_pmid": "33141449"
   },
   {
     "id": "Готу кола",
@@ -2520,7 +2625,7 @@
         "note": "известных взаимодействий нет"
       }
     ],
-    "hedges_g": null,
+    "hedges_g": -0.06,
     "grade": "C",
     "key_sources": [
       {
@@ -2567,7 +2672,13 @@
       }
     ],
     "rct": 58,
-    "pubmed_term": "(Centella asiatica OR gotu kola) AND (cognitive OR wound OR venous OR anxiety)"
+    "pubmed_term": "(Centella asiatica OR gotu kola) AND (cognitive OR wound OR venous OR anxiety)",
+    "hedges_g_ci": [
+      -0.22,
+      0.1
+    ],
+    "hedges_g_outcome": "",
+    "hedges_g_pmid": "33141449"
   },
   {
     "id": "Мелатонин",
@@ -2620,7 +2731,7 @@
     "guidelines": "EFSA: 0.5 мг перед сном уменьшает джетлаг; NIH: коротким курсом для засыпания.",
     "how_to_choose": "Низкие дозы 0.5-1 мг; без связок «10 мг + травы».",
     "myths": "«Больше — быстрее уснёшь» — кривая доза-эффект плоская после 1-3 мг. «Можно месяцами» — данных мало, лучше курсами.",
-    "hedges_g": null,
+    "hedges_g": -0.43,
     "grade": "A",
     "key_sources": [
       {
@@ -2678,7 +2789,13 @@
       }
     ],
     "rct": 130,
-    "pubmed_term": "(melatonin supplementation) AND (sleep OR insomnia OR jet lag OR circadian)"
+    "pubmed_term": "(melatonin supplementation) AND (sleep OR insomnia OR jet lag OR circadian)",
+    "hedges_g_ci": [
+      -0.65,
+      -0.2
+    ],
+    "hedges_g_outcome": "fatigue",
+    "hedges_g_pmid": "42726650"
   },
   {
     "id": "ГАБА",
@@ -2717,7 +2834,7 @@
         "note": "может усиливать седацию"
       }
     ],
-    "hedges_g": null,
+    "hedges_g": -0.6,
     "grade": "D",
     "key_sources": [
       {
@@ -2751,7 +2868,13 @@
       }
     ],
     "rct": 1831,
-    "pubmed_term": "(GABA supplementation OR gamma-aminobutyric acid) AND (anxiety OR sleep OR stress)"
+    "pubmed_term": "(GABA supplementation OR gamma-aminobutyric acid) AND (anxiety OR sleep OR stress)",
+    "hedges_g_ci": [
+      -0.91,
+      -0.28
+    ],
+    "hedges_g_outcome": "pain",
+    "hedges_g_pmid": "42562184"
   },
   {
     "id": "Глицин",
@@ -2790,7 +2913,7 @@
         "note": "усиливает седацию"
       }
     ],
-    "hedges_g": null,
+    "hedges_g": 0.08,
     "grade": "D",
     "key_sources": [
       {
@@ -2848,7 +2971,13 @@
       }
     ],
     "rct": 314,
-    "pubmed_term": "(glycine supplementation) AND (sleep OR cognitive OR schizophrenia OR collagen)"
+    "pubmed_term": "(glycine supplementation) AND (sleep OR cognitive OR schizophrenia OR collagen)",
+    "hedges_g_ci": [
+      -0.05,
+      0.2
+    ],
+    "hedges_g_outcome": "",
+    "hedges_g_pmid": "29129666"
   },
   {
     "id": "Валериана",
@@ -2887,7 +3016,7 @@
         "note": "усиливает седацию"
       }
     ],
-    "hedges_g": null,
+    "hedges_g": -0.48,
     "grade": "C",
     "key_sources": [
       {
@@ -2945,7 +3074,13 @@
       }
     ],
     "rct": 66,
-    "pubmed_term": "(Valeriana officinalis OR valerian) AND (sleep OR insomnia OR anxiety)"
+    "pubmed_term": "(Valeriana officinalis OR valerian) AND (sleep OR insomnia OR anxiety)",
+    "hedges_g_ci": [
+      -0.53,
+      -0.2
+    ],
+    "hedges_g_outcome": "insomnia",
+    "hedges_g_pmid": "35378276"
   },
   {
     "id": "Бета-аланин",
@@ -2979,7 +3114,7 @@
         "note": "нет известных взаимодействий"
       }
     ],
-    "hedges_g": null,
+    "hedges_g": -0.53,
     "grade": "C",
     "key_sources": [
       {
@@ -3024,7 +3159,13 @@
       }
     ],
     "rct": 459,
-    "pubmed_term": "(beta-alanine) AND (exercise OR performance OR high-intensity)"
+    "pubmed_term": "(beta-alanine) AND (exercise OR performance OR high-intensity)",
+    "hedges_g_ci": [
+      -0.75,
+      -0.31
+    ],
+    "hedges_g_outcome": "glucose",
+    "hedges_g_pmid": "40999397"
   },
   {
     "id": "L-цитруллин",
@@ -3063,7 +3204,7 @@
         "note": "усиливает вазодилатацию"
       }
     ],
-    "hedges_g": null,
+    "hedges_g": -0.21,
     "grade": "B",
     "key_sources": [
       {
@@ -3122,7 +3263,13 @@
       }
     ],
     "rct": 274,
-    "pubmed_term": "(L-citrulline OR citrulline supplementation) AND (exercise OR blood pressure OR erectile OR nitric oxide)"
+    "pubmed_term": "(L-citrulline OR citrulline supplementation) AND (exercise OR blood pressure OR erectile OR nitric oxide)",
+    "hedges_g_ci": [
+      -0.4,
+      -0.01
+    ],
+    "hedges_g_outcome": "exercis",
+    "hedges_g_pmid": "41786156"
   },
   {
     "id": "Витамин C",
@@ -3172,7 +3319,7 @@
     "guidelines": "EFSA: иммунитет и коллаген; Cochrane: простуда — чуть короче длится, но не реже в общей популяции.",
     "how_to_choose": "Обычная аскорбиновая кислота достаточна; «липосомальные и эстерифицированные» — переплата без сильных данных.",
     "myths": "«Предотвращает простуду» — в общей популяции нет. «Мегадозы безопасны» — ЖКТ и камни.",
-    "hedges_g": null,
+    "hedges_g": -2.28,
     "grade": "B",
     "key_sources": [
       {
@@ -3218,7 +3365,13 @@
       }
     ],
     "rct": 872,
-    "pubmed_term": "(vitamin C supplementation OR ascorbic acid supplementation) AND (common cold OR mortality OR infection)"
+    "pubmed_term": "(vitamin C supplementation OR ascorbic acid supplementation) AND (common cold OR mortality OR infection)",
+    "hedges_g_ci": [
+      -3.01,
+      -1.56
+    ],
+    "hedges_g_outcome": "hba1c",
+    "hedges_g_pmid": "41158097"
   },
   {
     "id": "Эхинацея",
@@ -3257,7 +3410,7 @@
         "note": "теоретический риск"
       }
     ],
-    "hedges_g": null,
+    "hedges_g": -0.19,
     "grade": "B",
     "key_sources": [
       {
@@ -3326,7 +3479,13 @@
       }
     ],
     "rct": 75,
-    "pubmed_term": "(Echinacea) AND (common cold OR upper respiratory OR prevention)"
+    "pubmed_term": "(Echinacea) AND (common cold OR upper respiratory OR prevention)",
+    "hedges_g_ci": [
+      -0.3,
+      -0.09
+    ],
+    "hedges_g_outcome": "",
+    "hedges_g_pmid": "40311928"
   },
   {
     "id": "Бузина",
@@ -3454,7 +3613,7 @@
         "note": "снижает эффект, контроль МНО"
       }
     ],
-    "hedges_g": null,
+    "hedges_g": -0.068,
     "grade": "B",
     "key_sources": [
       {
@@ -3489,7 +3648,13 @@
       }
     ],
     "rct": 170,
-    "pubmed_term": "(hypericum perforatum OR st johns wort) AND (depression OR depressive disorder)"
+    "pubmed_term": "(hypericum perforatum OR st johns wort) AND (depression OR depressive disorder)",
+    "hedges_g_ci": [
+      -0.127,
+      0.021
+    ],
+    "hedges_g_outcome": "depressive",
+    "hedges_g_pmid": "28064110"
   },
   {
     "id": "5-HTP",
@@ -3608,7 +3773,7 @@
         "note": "нет известных взаимодействий"
       }
     ],
-    "hedges_g": null,
+    "hedges_g": -0.35,
     "grade": "B",
     "key_sources": [
       {
@@ -3674,7 +3839,13 @@
       }
     ],
     "rct": 427,
-    "pubmed_term": "(collagen supplementation OR hydrolyzed collagen) AND (skin OR joint OR bone)"
+    "pubmed_term": "(collagen supplementation OR hydrolyzed collagen) AND (skin OR joint OR bone)",
+    "hedges_g_ci": [
+      -0.52,
+      -0.18
+    ],
+    "hedges_g_outcome": "bone",
+    "hedges_g_pmid": "41574289"
   },
   {
     "id": "Пробиотики",
@@ -3721,7 +3892,7 @@
     "guidelines": "Cochrane: умеренные данные по L. rhamnosus GG и S. boulardii при антибиотик-диарее; EFSA: claims «иммунитет» не одобрены.",
     "how_to_choose": "Штамм на этикетке (LGG, а не просто Lactobacillus); КОЕ на срок годности, не на выпуск; условия хранения.",
     "myths": "«Больше миллиардов КОЕ — лучше» — важнее штамм и доказательства. «Заселяет кишечник навсегда» — транзиторен по природе.",
-    "hedges_g": null,
+    "hedges_g": 0.71,
     "grade": "B",
     "key_sources": [
       {
@@ -3782,7 +3953,13 @@
       }
     ],
     "rct": 3922,
-    "pubmed_term": "(probiotic supplementation OR probiotics) AND (irritable bowel OR diarrhea OR antibiotic-associated)"
+    "pubmed_term": "(probiotic supplementation OR probiotics) AND (irritable bowel OR diarrhea OR antibiotic-associated)",
+    "hedges_g_ci": [
+      0.29,
+      1.13
+    ],
+    "hedges_g_outcome": "",
+    "hedges_g_pmid": "42614164"
   },
   {
     "id": "B9",
@@ -3821,7 +3998,7 @@
         "note": "может снижать концентрацию препаратов"
       }
     ],
-    "hedges_g": null,
+    "hedges_g": 0.0,
     "grade": "A",
     "key_sources": [
       {
@@ -3883,7 +4060,13 @@
       }
     ],
     "rct": 1172,
-    "pubmed_term": "(folic acid supplementation OR folate supplementation) AND (neural tube OR pregnancy OR homocysteine OR cardiovascular OR depression)"
+    "pubmed_term": "(folic acid supplementation OR folate supplementation) AND (neural tube OR pregnancy OR homocysteine OR cardiovascular OR depression)",
+    "hedges_g_ci": [
+      -0.13,
+      0.13
+    ],
+    "hedges_g_outcome": "attention",
+    "hedges_g_pmid": "42227307"
   },
   {
     "id": "Железо",
@@ -3932,7 +4115,7 @@
       "Цинк",
       "Магний"
     ],
-    "hedges_g": null,
+    "hedges_g": 2.05,
     "grade": "A",
     "key_sources": [
       {
@@ -3992,7 +4175,13 @@
       }
     ],
     "rct": 1882,
-    "pubmed_term": "(iron supplementation OR ferrous) AND (anemia OR iron deficiency OR pregnancy)"
+    "pubmed_term": "(iron supplementation OR ferrous) AND (anemia OR iron deficiency OR pregnancy)",
+    "hedges_g_ci": [
+      0.91,
+      3.2
+    ],
+    "hedges_g_outcome": "ferritin",
+    "hedges_g_pmid": "42313570"
   },
   {
     "id": "Триптофан",
@@ -4026,7 +4215,7 @@
         "note": "серотониновый синдром, ОПАСНО"
       }
     ],
-    "hedges_g": null,
+    "hedges_g": -0.24,
     "grade": "C",
     "key_sources": [
       {
@@ -4073,7 +4262,13 @@
       }
     ],
     "rct": 120,
-    "pubmed_term": "(tryptophan supplementation) AND (sleep OR mood OR depression OR serotonin)"
+    "pubmed_term": "(tryptophan supplementation) AND (sleep OR mood OR depression OR serotonin)",
+    "hedges_g_ci": [
+      -0.37,
+      -0.1
+    ],
+    "hedges_g_outcome": "sleep",
+    "hedges_g_pmid": "41470897"
   },
   {
     "id": "Глюкозамин + хондроитин",
@@ -4112,7 +4307,7 @@
         "note": "может влиять на гликемию"
       }
     ],
-    "hedges_g": null,
+    "hedges_g": 1.95,
     "grade": "C",
     "key_sources": [
       {
@@ -4173,7 +4368,13 @@
       }
     ],
     "rct": 603,
-    "pubmed_term": "(glucosamine OR chondroitin) AND (osteoarthritis OR knee OR joint pain)"
+    "pubmed_term": "(glucosamine OR chondroitin) AND (osteoarthritis OR knee OR joint pain)",
+    "hedges_g_ci": [
+      0.71,
+      3.2
+    ],
+    "hedges_g_outcome": "",
+    "hedges_g_pmid": "36307768"
   },
   {
     "id": "Витамин E",
@@ -4212,7 +4413,7 @@
         "note": "может снижать эффект (спорно)"
       }
     ],
-    "hedges_g": null,
+    "hedges_g": -0.4,
     "grade": "C",
     "key_sources": [
       {
@@ -4270,7 +4471,13 @@
       }
     ],
     "rct": 2952,
-    "pubmed_term": "(vitamin E OR tocopherol OR tocotrienol supplementation) AND (cardiovascular OR antioxidant OR cognitive OR cancer)"
+    "pubmed_term": "(vitamin E OR tocopherol OR tocotrienol supplementation) AND (cardiovascular OR antioxidant OR cognitive OR cancer)",
+    "hedges_g_ci": [
+      -0.48,
+      -0.32
+    ],
+    "hedges_g_outcome": "immune",
+    "hedges_g_pmid": "42254024"
   },
   {
     "id": "Биотин",
@@ -4304,7 +4511,7 @@
         "note": "искажает результаты, стоп за 3 дня"
       }
     ],
-    "hedges_g": null,
+    "hedges_g": 0.15,
     "grade": "D",
     "key_sources": [
       {
@@ -4388,7 +4595,13 @@
       }
     ],
     "rct": 28,
-    "pubmed_term": "(biotin supplementation) AND (hair OR nails OR skin OR metabolic OR diabetes)"
+    "pubmed_term": "(biotin supplementation) AND (hair OR nails OR skin OR metabolic OR diabetes)",
+    "hedges_g_ci": [
+      -0.33,
+      0.64
+    ],
+    "hedges_g_outcome": "",
+    "hedges_g_pmid": "41124782"
   },
   {
     "id": "L-карнитин",
@@ -4522,7 +4735,7 @@
         "note": "конкурируют за всасывание"
       }
     ],
-    "hedges_g": null,
+    "hedges_g": -0.74,
     "grade": "B",
     "key_sources": [
       {
@@ -4581,7 +4794,13 @@
       }
     ],
     "rct": 2323,
-    "pubmed_term": "(branched-chain amino acids OR BCAA supplementation) AND (exercise OR muscle OR recovery OR performance)"
+    "pubmed_term": "(branched-chain amino acids OR BCAA supplementation) AND (exercise OR muscle OR recovery OR performance)",
+    "hedges_g_ci": [
+      -1.15,
+      -0.33
+    ],
+    "hedges_g_outcome": "",
+    "hedges_g_pmid": "41731200"
   },
   {
     "id": "Аргинин",
@@ -4726,7 +4945,7 @@
       "Железо",
       "Цинк"
     ],
-    "hedges_g": null,
+    "hedges_g": -0.67,
     "grade": "A",
     "key_sources": [
       {
@@ -4787,7 +5006,13 @@
       }
     ],
     "rct": 1972,
-    "pubmed_term": "(calcium supplementation) AND (fracture OR bone density OR cardiovascular)"
+    "pubmed_term": "(calcium supplementation) AND (fracture OR bone density OR cardiovascular)",
+    "hedges_g_ci": [
+      -0.89,
+      -0.45
+    ],
+    "hedges_g_outcome": "",
+    "hedges_g_pmid": "42515920"
   },
   {
     "id": "Гиалуроновая кислота",
@@ -4821,7 +5046,7 @@
         "note": "теоретический риск (инъекции)"
       }
     ],
-    "hedges_g": null,
+    "hedges_g": -0.38,
     "grade": "C",
     "key_sources": [
       {
@@ -4882,7 +5107,10 @@
       }
     ],
     "rct": 1852,
-    "pubmed_term": "(hyaluronic acid OR sodium hyaluronate) AND (osteoarthritis OR knee OR skin)"
+    "pubmed_term": "(hyaluronic acid OR sodium hyaluronate) AND (osteoarthritis OR knee OR skin)",
+    "hedges_g_ci": null,
+    "hedges_g_outcome": "pain",
+    "hedges_g_pmid": "42287090"
   },
   {
     "id": "Псиллиум",
@@ -4916,7 +5144,7 @@
         "note": "снижает всасывание, раздельный приём 2 часа"
       }
     ],
-    "hedges_g": null,
+    "hedges_g": -0.67,
     "grade": "B",
     "key_sources": [
       {
@@ -4983,7 +5211,13 @@
       }
     ],
     "rct": 219,
-    "pubmed_term": "(psyllium OR plantago ovata) AND (constipation OR cholesterol OR blood glucose)"
+    "pubmed_term": "(psyllium OR plantago ovata) AND (constipation OR cholesterol OR blood glucose)",
+    "hedges_g_ci": [
+      -0.78,
+      -0.56
+    ],
+    "hedges_g_outcome": "",
+    "hedges_g_pmid": "42687548"
   },
   {
     "id": "Имбирь",
@@ -5022,7 +5256,7 @@
         "note": "может усиливать эффект"
       }
     ],
-    "hedges_g": null,
+    "hedges_g": -1.13,
     "grade": "B",
     "key_sources": [
       {
@@ -5088,7 +5322,13 @@
       }
     ],
     "rct": 232,
-    "pubmed_term": "(Zingiber officinale OR ginger supplementation) AND (nausea OR inflammation OR pain OR metabolic)"
+    "pubmed_term": "(Zingiber officinale OR ginger supplementation) AND (nausea OR inflammation OR pain OR metabolic)",
+    "hedges_g_ci": [
+      -1.59,
+      -0.68
+    ],
+    "hedges_g_outcome": "pain",
+    "hedges_g_pmid": "38770631"
   },
   {
     "id": "Чеснок",
@@ -5127,7 +5367,7 @@
         "note": "снижает концентрацию"
       }
     ],
-    "hedges_g": null,
+    "hedges_g": 0.18,
     "grade": "B",
     "key_sources": [
       {
@@ -5194,7 +5434,13 @@
       }
     ],
     "rct": 229,
-    "pubmed_term": "(Allium sativum OR garlic supplementation OR aged garlic extract) AND (cardiovascular OR blood pressure OR cholesterol)"
+    "pubmed_term": "(Allium sativum OR garlic supplementation OR aged garlic extract) AND (cardiovascular OR blood pressure OR cholesterol)",
+    "hedges_g_ci": [
+      -0.0,
+      0.37
+    ],
+    "hedges_g_outcome": "",
+    "hedges_g_pmid": "36640154"
   },
   {
     "id": "Клюква",
@@ -5228,7 +5474,7 @@
         "note": "усиливает эффект, контроль МНО"
       }
     ],
-    "hedges_g": null,
+    "hedges_g": -2.23,
     "grade": "C",
     "key_sources": [
       {
@@ -5262,7 +5508,13 @@
       }
     ],
     "rct": 143,
-    "pubmed_term": "(Vaccinium macrocarpon OR cranberry supplementation) AND (urinary tract infection OR prevention OR antioxidant)"
+    "pubmed_term": "(Vaccinium macrocarpon OR cranberry supplementation) AND (urinary tract infection OR prevention OR antioxidant)",
+    "hedges_g_ci": [
+      -4.34,
+      -1.37
+    ],
+    "hedges_g_outcome": "",
+    "hedges_g_pmid": "37352393"
   },
   {
     "id": "Пустырник",
@@ -5416,7 +5668,7 @@
         "note": "усиливает эффект"
       }
     ],
-    "hedges_g": null,
+    "hedges_g": 0.19,
     "grade": "B",
     "key_sources": [
       {
@@ -5462,7 +5714,13 @@
       }
     ],
     "rct": 224,
-    "pubmed_term": "(Crataegus OR hawthorn) AND (heart failure OR blood pressure OR cardiovascular)"
+    "pubmed_term": "(Crataegus OR hawthorn) AND (heart failure OR blood pressure OR cardiovascular)",
+    "hedges_g_ci": [
+      0.0,
+      0.37
+    ],
+    "hedges_g_outcome": "",
+    "hedges_g_pmid": "40132324"
   },
   {
     "id": "Бета-глюканы овса",
@@ -5496,7 +5754,7 @@
         "note": "нет известных взаимодействий"
       }
     ],
-    "hedges_g": null,
+    "hedges_g": 0.86,
     "grade": "B",
     "key_sources": [
       {
@@ -5531,7 +5789,13 @@
       }
     ],
     "rct": 117,
-    "pubmed_term": "(oat beta-glucan OR beta-glucan supplementation) AND (cholesterol OR immune OR glycemic)"
+    "pubmed_term": "(oat beta-glucan OR beta-glucan supplementation) AND (cholesterol OR immune OR glycemic)",
+    "hedges_g_ci": [
+      0.46,
+      1.25
+    ],
+    "hedges_g_outcome": "acetate",
+    "hedges_g_pmid": "34152334"
   },
   {
     "id": "Рибофлавин",
@@ -5565,7 +5829,7 @@
         "note": "нет известных взаимодействий"
       }
     ],
-    "hedges_g": null,
+    "hedges_g": -0.16,
     "grade": "B",
     "key_sources": [
       {
@@ -5611,7 +5875,13 @@
       }
     ],
     "rct": 493,
-    "pubmed_term": "(riboflavin OR vitamin B2 supplementation) AND (migraine OR anemia OR metabolic)"
+    "pubmed_term": "(riboflavin OR vitamin B2 supplementation) AND (migraine OR anemia OR metabolic)",
+    "hedges_g_ci": [
+      -0.28,
+      -0.04
+    ],
+    "hedges_g_outcome": "",
+    "hedges_g_pmid": "40708203"
   },
   {
     "id": "Лютеин + зеаксантин",
@@ -5645,7 +5915,7 @@
         "note": "нет известных взаимодействий"
       }
     ],
-    "hedges_g": null,
+    "hedges_g": -0.521,
     "grade": "B",
     "key_sources": [
       {
@@ -5704,7 +5974,13 @@
       }
     ],
     "rct": 367,
-    "pubmed_term": "(lutein OR zeaxanthin supplementation) AND (macular OR eye OR vision OR AMD OR cataract)"
+    "pubmed_term": "(lutein OR zeaxanthin supplementation) AND (macular OR eye OR vision OR AMD OR cataract)",
+    "hedges_g_ci": [
+      -0.741,
+      -0.301
+    ],
+    "hedges_g_outcome": "",
+    "hedges_g_pmid": "36997905"
   },
   {
     "id": "Инозитол",
@@ -5738,7 +6014,7 @@
         "note": "может снижать эффект"
       }
     ],
-    "hedges_g": null,
+    "hedges_g": 0.04,
     "grade": "C",
     "key_sources": [
       {
@@ -5799,7 +6075,13 @@
       }
     ],
     "rct": 480,
-    "pubmed_term": "(myo-inositol OR inositol) AND (polycystic ovary OR insulin resistance OR gestational diabetes)"
+    "pubmed_term": "(myo-inositol OR inositol) AND (polycystic ovary OR insulin resistance OR gestational diabetes)",
+    "hedges_g_ci": [
+      -0.04,
+      0.11
+    ],
+    "hedges_g_outcome": "",
+    "hedges_g_pmid": "41871887"
   },
   {
     "id": "Альфа-липоевая кислота",
@@ -5838,7 +6120,7 @@
         "note": "может влиять на метаболизм"
       }
     ],
-    "hedges_g": null,
+    "hedges_g": -0.76,
     "grade": "B",
     "key_sources": [
       {
@@ -5896,7 +6178,13 @@
       }
     ],
     "rct": 300,
-    "pubmed_term": "(alpha-lipoic acid OR lipoic acid supplementation) AND (diabetes OR neuropathy OR antioxidant OR weight)"
+    "pubmed_term": "(alpha-lipoic acid OR lipoic acid supplementation) AND (diabetes OR neuropathy OR antioxidant OR weight)",
+    "hedges_g_ci": [
+      -0.98,
+      -0.54
+    ],
+    "hedges_g_outcome": "",
+    "hedges_g_pmid": "42147097"
   },
   {
     "id": "D-манноза",
@@ -6049,7 +6337,7 @@
         "note": "известных взаимодействий нет"
       }
     ],
-    "hedges_g": null,
+    "hedges_g": 0.08,
     "grade": "C",
     "key_sources": [
       {
@@ -6090,7 +6378,13 @@
       }
     ],
     "rct": 35,
-    "pubmed_term": "(Lepidium meyenii OR maca) AND (fertility OR sexual OR mood OR energy OR menopause)"
+    "pubmed_term": "(Lepidium meyenii OR maca) AND (fertility OR sexual OR mood OR energy OR menopause)",
+    "hedges_g_ci": [
+      -0.2,
+      0.36
+    ],
+    "hedges_g_outcome": "pain",
+    "hedges_g_pmid": "25062981"
   },
   {
     "id": "Хром",
@@ -6124,7 +6418,7 @@
         "note": "известных взаимодействий нет"
       }
     ],
-    "hedges_g": null,
+    "hedges_g": 0.303,
     "grade": "C",
     "key_sources": [
       {
@@ -6182,7 +6476,13 @@
       }
     ],
     "rct": 153,
-    "pubmed_term": "(chromium supplementation OR chromium picolinate) AND (diabetes OR insulin OR weight OR metabolic)"
+    "pubmed_term": "(chromium supplementation OR chromium picolinate) AND (diabetes OR insulin OR weight OR metabolic)",
+    "hedges_g_ci": [
+      0.116,
+      0.489
+    ],
+    "hedges_g_outcome": "concentration",
+    "hedges_g_pmid": "37709042"
   },
   {
     "id": "Астаксантин",
@@ -6216,7 +6516,7 @@
         "note": "теоретический риск"
       }
     ],
-    "hedges_g": null,
+    "hedges_g": -0.45,
     "grade": "C",
     "key_sources": [
       {
@@ -6274,7 +6574,13 @@
       }
     ],
     "rct": 55,
-    "pubmed_term": "(astaxanthin supplementation) AND (antioxidant OR skin OR exercise OR cardiovascular)"
+    "pubmed_term": "(astaxanthin supplementation) AND (antioxidant OR skin OR exercise OR cardiovascular)",
+    "hedges_g_ci": [
+      -0.83,
+      -0.07
+    ],
+    "hedges_g_outcome": "interleukin",
+    "hedges_g_pmid": "42197030"
   },
   {
     "id": "Расторопша",
@@ -6308,7 +6614,7 @@
         "note": "может влиять на метаболизм"
       }
     ],
-    "hedges_g": null,
+    "hedges_g": -0.39,
     "grade": "B",
     "key_sources": [
       {
@@ -6367,7 +6673,10 @@
       }
     ],
     "rct": 169,
-    "pubmed_term": "(Silybum marianum OR milk thistle OR silymarin) AND (liver OR hepatitis OR metabolic)"
+    "pubmed_term": "(Silybum marianum OR milk thistle OR silymarin) AND (liver OR hepatitis OR metabolic)",
+    "hedges_g_ci": null,
+    "hedges_g_outcome": "cholesterol",
+    "hedges_g_pmid": "40738719"
   },
   {
     "id": "Лактоферрин",
@@ -6404,7 +6713,7 @@
     "synergists": [
       "Железо"
     ],
-    "hedges_g": null,
+    "hedges_g": -0.09,
     "grade": "B",
     "key_sources": [
       {
@@ -6466,7 +6775,13 @@
       }
     ],
     "rct": 70,
-    "pubmed_term": "(lactoferrin supplementation) AND (iron OR immune OR infection OR infant)"
+    "pubmed_term": "(lactoferrin supplementation) AND (iron OR immune OR infection OR infant)",
+    "hedges_g_ci": [
+      -0.82,
+      0.65
+    ],
+    "hedges_g_outcome": "crp",
+    "hedges_g_pmid": "35481594"
   },
   {
     "id": "SAMe",
@@ -6500,7 +6815,7 @@
         "note": "серотониновый синдром"
       }
     ],
-    "hedges_g": null,
+    "hedges_g": 0.0,
     "grade": "B",
     "key_sources": [
       {
@@ -6558,7 +6873,13 @@
       }
     ],
     "rct": 1699,
-    "pubmed_term": "(S-adenosylmethionine OR SAMe supplementation) AND (depression OR osteoarthritis OR liver OR mood)"
+    "pubmed_term": "(S-adenosylmethionine OR SAMe supplementation) AND (depression OR osteoarthritis OR liver OR mood)",
+    "hedges_g_ci": [
+      -0.13,
+      0.13
+    ],
+    "hedges_g_outcome": "attention",
+    "hedges_g_pmid": "42227307"
   },
   {
     "id": "Йохимбин",
@@ -6720,7 +7041,7 @@
         "note": "усиливает эффект"
       }
     ],
-    "hedges_g": null,
+    "hedges_g": 0.24,
     "grade": "C",
     "key_sources": [
       {
@@ -6755,7 +7076,13 @@
       }
     ],
     "rct": 46,
-    "pubmed_term": "(Trigonella foenum-graecum OR fenugreek supplementation) AND (diabetes OR testosterone OR lactation OR libido)"
+    "pubmed_term": "(Trigonella foenum-graecum OR fenugreek supplementation) AND (diabetes OR testosterone OR lactation OR libido)",
+    "hedges_g_ci": [
+      -0.04,
+      0.52
+    ],
+    "hedges_g_outcome": "testosterone",
+    "hedges_g_pmid": "37253363"
   },
   {
     "id": "Чёрный тмин",
@@ -6794,7 +7121,7 @@
         "note": "может усиливать эффект"
       }
     ],
-    "hedges_g": null,
+    "hedges_g": -1.71,
     "grade": "C",
     "key_sources": [
       {
@@ -6854,7 +7181,13 @@
       }
     ],
     "rct": 139,
-    "pubmed_term": "(Nigella sativa OR black seed OR thymoquinone) AND (inflammation OR metabolic OR asthma)"
+    "pubmed_term": "(Nigella sativa OR black seed OR thymoquinone) AND (inflammation OR metabolic OR asthma)",
+    "hedges_g_ci": [
+      -2.11,
+      -1.31
+    ],
+    "hedges_g_outcome": "a1c",
+    "hedges_g_pmid": "39181437"
   },
   {
     "id": "Трибулус",
@@ -7001,7 +7334,7 @@
         "note": "мало данных, нет известных взаимодействий"
       }
     ],
-    "hedges_g": null,
+    "hedges_g": 0.22,
     "grade": "C",
     "key_sources": [
       {
@@ -7050,7 +7383,10 @@
       }
     ],
     "rct": 3691,
-    "pubmed_term": "(nicotinamide mononucleotide OR nicotinamide riboside OR NMN OR NR) AND (aging OR NAD OR metabolic OR cognitive)"
+    "pubmed_term": "(nicotinamide mononucleotide OR nicotinamide riboside OR NMN OR NR) AND (aging OR NAD OR metabolic OR cognitive)",
+    "hedges_g_ci": null,
+    "hedges_g_outcome": "",
+    "hedges_g_pmid": "42163202"
   },
   {
     "id": "Кордицепс",
@@ -7385,7 +7721,7 @@
         "note": "белок снижает всасывание, раздельный приём"
       }
     ],
-    "hedges_g": null,
+    "hedges_g": 0.18,
     "grade": "A",
     "key_sources": [
       {
@@ -7443,7 +7779,13 @@
       }
     ],
     "rct": 467,
-    "pubmed_term": "(whey protein supplementation) AND (muscle OR exercise OR weight OR sarcopenia)"
+    "pubmed_term": "(whey protein supplementation) AND (muscle OR exercise OR weight OR sarcopenia)",
+    "hedges_g_ci": [
+      -0.13,
+      0.49
+    ],
+    "hedges_g_outcome": "",
+    "hedges_g_pmid": "39303495"
   },
   {
     "id": "Глутамин",
@@ -7477,7 +7819,7 @@
         "note": "может снижать токсичность (адъювант)"
       }
     ],
-    "hedges_g": null,
+    "hedges_g": -0.16,
     "grade": "C",
     "key_sources": [
       {
@@ -7523,7 +7865,13 @@
       }
     ],
     "rct": 933,
-    "pubmed_term": "(glutamine OR L-glutamine) AND (exercise OR immune OR critical illness)"
+    "pubmed_term": "(glutamine OR L-glutamine) AND (exercise OR immune OR critical illness)",
+    "hedges_g_ci": [
+      -0.299,
+      -0.03
+    ],
+    "hedges_g_outcome": "concentration",
+    "hedges_g_pmid": "41679103"
   },
   {
     "id": "Босвеллия",
@@ -7562,7 +7910,7 @@
         "note": "может влиять на свёртываемость"
       }
     ],
-    "hedges_g": null,
+    "hedges_g": 0.08,
     "grade": "C",
     "key_sources": [
       {
@@ -7609,7 +7957,13 @@
       }
     ],
     "rct": 82,
-    "pubmed_term": "(Boswellia serrata OR boswellic acid supplementation) AND (osteoarthritis OR inflammation OR asthma)"
+    "pubmed_term": "(Boswellia serrata OR boswellic acid supplementation) AND (osteoarthritis OR inflammation OR asthma)",
+    "hedges_g_ci": [
+      -0.2,
+      0.36
+    ],
+    "hedges_g_outcome": "pain",
+    "hedges_g_pmid": "25062981"
   },
   {
     "id": "Витамин K2",
@@ -7646,7 +8000,7 @@
     "synergists": [
       "Витамин D"
     ],
-    "hedges_g": null,
+    "hedges_g": -0.56,
     "grade": "C",
     "key_sources": [
       {
@@ -7706,7 +8060,13 @@
       }
     ],
     "rct": 121,
-    "pubmed_term": "(vitamin K2 OR menaquinone supplementation) AND (bone OR cardiovascular OR calcification OR osteoporosis)"
+    "pubmed_term": "(vitamin K2 OR menaquinone supplementation) AND (bone OR cardiovascular OR calcification OR osteoporosis)",
+    "hedges_g_ci": [
+      -0.77,
+      -0.36
+    ],
+    "hedges_g_outcome": "hba1c",
+    "hedges_g_pmid": "40054729"
   },
   {
     "id": "Берберин",
@@ -7854,7 +8214,7 @@
         "note": "может повышать концентрацию"
       }
     ],
-    "hedges_g": null,
+    "hedges_g": -0.24,
     "grade": "B",
     "key_sources": [
       {
@@ -7911,6 +8271,12 @@
       }
     ],
     "rct": 99,
-    "pubmed_term": "(quercetin supplementation) AND (inflammation OR exercise OR cardiovascular OR immune OR antioxidant)"
+    "pubmed_term": "(quercetin supplementation) AND (inflammation OR exercise OR cardiovascular OR immune OR antioxidant)",
+    "hedges_g_ci": [
+      -0.49,
+      0.0
+    ],
+    "hedges_g_outcome": "crp",
+    "hedges_g_pmid": "31213101"
   }
 ]
