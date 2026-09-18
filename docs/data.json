@@ -8,9 +8,7 @@
     "scienceIndex": 240,
     "metaCount": 25,
     "citations": 118,
-    "trends": 43.1,
     "wiki": 181494,
-    "reviews": 191221,
     "ongoing": 78,
     "effects": [
       "Рабочая память под нагрузкой"
@@ -47,8 +45,6 @@
     "how_to_choose": "Моногидрат (знак Creapure); без «транспортных систем» и переплаты за экзотические формы.",
     "myths": "«Бьёт по почкам у здоровых» — на стандартных дозах не подтверждено. «Без загрузки не работает» — работает, просто медленнее.",
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "+3.4 кг FFM при RT; +71 Вт пиковая мощность; память у пожилых",
     "grade": "A",
     "key_sources": [
       {
@@ -103,8 +99,7 @@
         "title": "Effects of combined versus single supplementation of creatine and beta-alanine on aerobic and anerobic performance: a systematic review and network meta-analysis.",
         "year": 2026
       }
-    ],
-    "pubmed_term": "(creatine supplementation) AND (strength OR muscle OR cognitive)"
+    ]
   },
   {
     "id": "Омега-3",
@@ -115,9 +110,7 @@
     "scienceIndex": 862,
     "metaCount": 107,
     "citations": 0,
-    "trends": 13.1,
     "wiki": 49978,
-    "reviews": 447,
     "ongoing": 329,
     "effects": [
       "Нейропластичность"
@@ -157,8 +150,6 @@
     "how_to_choose": "На банке мг EPA+DHA, а не «рыбий жир 1000 мг»; формы TG/rTG; окисление (TOTOX) если указано.",
     "myths": "«Любой рыбий жир работает» — в капсуле 1000 мг может быть 300 мг EPA+DHA. «Растительная омега равноценна» — конверсия ALA низкая.",
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "CHD death RR 0.92; -25% MACE для чистого EPA у спец.группы",
     "grade": "B",
     "key_sources": [
       {
@@ -215,8 +206,7 @@
         "title": "The Impact of Omega Fatty Acids on DKD: A Multimodal Study Integrating Mendelian Randomization, Proteomic Mediation Analysis, and Meta-Analysis.",
         "year": 2026
       }
-    ],
-    "pubmed_term": "(omega-3 fatty acids OR eicosapentaenoic OR docosahexaenoic OR fish oil) AND (cardiovascular OR mortality)"
+    ]
   },
   {
     "id": "Витамин D",
@@ -227,9 +217,7 @@
     "scienceIndex": 610,
     "metaCount": 87,
     "citations": 818,
-    "trends": 10.9,
     "wiki": 145309,
-    "reviews": 13623,
     "ongoing": 393,
     "effects": [
       "Настроение (при дефиците)"
@@ -270,8 +258,6 @@
     "how_to_choose": "D3 (холекальциферол), не D2; масляные капсулы; дозировка в МЕ на этикетке.",
     "myths": "«Чем больше, тем лучше» — жирорастворимый, накапливается. «Летнего солнца хватает на зиму» — запаса на 2-3 месяца.",
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "Профилактика переломов у институционализированных + Ca; смертность COVID",
     "grade": "A",
     "key_sources": [
       {
@@ -330,8 +316,7 @@
         "title": "Factors influencing abnormal bone mineral density in Chinese women aged 40 years and older: A meta-analysis.",
         "year": 2026
       }
-    ],
-    "pubmed_term": "(cholecalciferol OR vitamin D OR calcitriol) AND (fracture OR mortality OR deficiency)"
+    ]
   },
   {
     "id": "B12",
@@ -342,9 +327,7 @@
     "scienceIndex": 374,
     "metaCount": 50,
     "citations": 247,
-    "trends": 17.3,
     "wiki": 108324,
-    "reviews": 7796,
     "ongoing": 110,
     "effects": [
       "Когниция (при дефиците)"
@@ -373,8 +356,6 @@
       }
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "Пероральный = инъекции для поддержания уровня. Когниция у здоровых: НЕТ эффекта.",
     "grade": "B",
     "key_sources": [
       {
@@ -455,8 +436,7 @@
         "title": "The Health and Environmental Impacts, Safety, and Affordability of the EAT-Lancet Planetary Health Diet: A Multidisciplinary Systematic Review and Meta-Analysis.",
         "year": 2026
       }
-    ],
-    "pubmed_term": "(cobalamin OR vitamin B12) AND (deficiency OR cognitive OR pernicious anemia)"
+    ]
   },
   {
     "id": "Магний",
@@ -467,9 +447,7 @@
     "scienceIndex": 172,
     "metaCount": 23,
     "citations": 601,
-    "trends": 146.2,
     "wiki": 99800,
-    "reviews": 302,
     "ongoing": 368,
     "effects": [
       "Сон, расслабление"
@@ -515,8 +493,6 @@
     "how_to_choose": "Цитрат, глицинат, бисглицинат — усвоение и переносимость; оксид — дёшев, всасывается плохо, слабит.",
     "myths": "«Успокаивает сразу» — эффект накопительный. «Любая форма одинакова» — оксид почти не поднимает уровни.",
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "Давление: снижение на 2-4 мм рт.ст. (Cochrane). Диабет 2 типа: улучшение гликемии. Судороги при беременности: есть данные.",
     "grade": "B",
     "key_sources": [
       {
@@ -573,8 +549,7 @@
         "title": "Comprehensive Effects of Magnesium Supplementation on Cardiometabolic Risk Factors: A Systematic Review and Dose-Response Meta-Analysis.",
         "year": 2026
       }
-    ],
-    "pubmed_term": "(magnesium supplementation) AND (migraine OR blood pressure OR muscle cramp)"
+    ]
   },
   {
     "id": "Кофеин",
@@ -585,9 +560,7 @@
     "scienceIndex": 580,
     "metaCount": 39,
     "citations": 131,
-    "trends": 17.6,
     "wiki": 109842,
-    "reviews": 2187,
     "ongoing": 220,
     "effects": [
       "Бодрость, скорость реакции",
@@ -630,11 +603,6 @@
     "how_to_choose": "Таблетки для точной дозы перед тренировкой; в кофе доза плавает (эспрессо 60-80 мг).",
     "myths": "«Кофе обезвоживает» — умеренный диурез не ведёт к дегидратации. «После 18:00 можно всем» — генотип CYP1A2 решает, сон страдает даже без ощущений.",
     "hedges_g": 0.21,
-    "hedges_g_ci": {
-      "lo": 0.14,
-      "hi": 0.27
-    },
-    "effect_outcome": "Эргоген +2-5% при 3-6 мг/кг; бдительность у сменных рабочих",
     "grade": "A",
     "key_sources": [
       {
@@ -692,8 +660,7 @@
         "title": "Effects of Acute Caffeine Supplementation on Physical, Sport-Specific, Physiological, Perceptual, and Cognitive Outcomes in Female Team-Sport Athletes: A Three-Level Meta-Analysis.",
         "year": 2026
       }
-    ],
-    "pubmed_term": "(caffeine) AND (cognition OR athletic performance OR alertness)"
+    ]
   },
   {
     "id": "L-Теанин",
@@ -704,9 +671,7 @@
     "scienceIndex": 54,
     "metaCount": 2,
     "citations": 136,
-    "trends": 0.0,
     "wiki": 20361,
-    "reviews": 297236,
     "ongoing": 9,
     "effects": [
       "Спокойный фокус",
@@ -736,8 +701,6 @@
       }
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "Мета-анализ 31 РКИ (42410082): улучшение внимания, снижение субъективного стресса. Синергия с кофеином: внимание без нервозности.",
     "grade": "B",
     "key_sources": [
       {
@@ -791,8 +754,7 @@
         "title": "The effects of L-theanine consumption on sleep outcomes: A systematic review and meta-analysis.",
         "year": 2025
       }
-    ],
-    "pubmed_term": "(L-theanine OR theanine) AND (cognitive OR stress OR attention OR sleep)"
+    ]
   },
   {
     "id": "Бакопа",
@@ -803,9 +765,7 @@
     "scienceIndex": 36,
     "metaCount": 2,
     "citations": 298,
-    "trends": 3.4,
     "wiki": 6894,
-    "reviews": 6397,
     "ongoing": 1,
     "effects": [
       "Память (курсом)"
@@ -834,8 +794,6 @@
       }
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "Улучшение памяти и обучения при приёме 8-12 недель (мета-анализ 24252493). Эффект НЕ мгновенный — накопительный.",
     "grade": "B",
     "key_sources": [
       {
@@ -896,8 +854,7 @@
         "title": "Meta-analysis of randomized controlled trials on cognitive effects of Bacopa monnieri extract.",
         "year": 2014
       }
-    ],
-    "pubmed_term": "(Bacopa monnieri OR bacopa) AND (memory OR cognitive OR attention)"
+    ]
   },
   {
     "id": "Ежовик",
@@ -908,9 +865,7 @@
     "scienceIndex": 4,
     "metaCount": 0,
     "citations": 17,
-    "trends": 13.1,
     "wiki": 145420,
-    "reviews": 9561,
     "ongoing": 4,
     "effects": [
       "Нейрогенез"
@@ -934,8 +889,6 @@
       }
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "Данных ОЧЕНЬ мало (1 систематический обзор в базе). Стимуляция синтеза белка роста нервов (NGF) показана в доклинических моделях.",
     "grade": "D",
     "key_sources": [
       {
@@ -951,8 +904,7 @@
       }
     ],
     "updated": "2026-09-16",
-    "ma_top3": [],
-    "pubmed_term": "(Hericium erinaceus OR lion mane mushroom) AND (cognitive OR memory OR nerve OR BDNF)"
+    "ma_top3": []
   },
   {
     "id": "Гинкго",
@@ -963,9 +915,7 @@
     "scienceIndex": 380,
     "metaCount": 47,
     "citations": 365,
-    "trends": 11.6,
     "wiki": 93074,
-    "reviews": 2315,
     "ongoing": 17,
     "effects": [
       "Внимание"
@@ -999,8 +949,6 @@
       }
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "Деменция: эффект малый/отсутствует. Когниция у здоровых: нет значимого эффекта.",
     "grade": "D",
     "key_sources": [
       {
@@ -1090,8 +1038,7 @@
         "title": "Therapeutic strategies in vascular cognitive impairment: A systematic review and meta-analysis.",
         "year": 2025
       }
-    ],
-    "pubmed_term": "(ginkgo biloba OR ginkgo) AND (dementia OR cognitive OR memory)"
+    ]
   },
   {
     "id": "Родиола",
@@ -1102,9 +1049,7 @@
     "scienceIndex": 31,
     "metaCount": 4,
     "citations": 246,
-    "trends": 3.2,
     "wiki": 63341,
-    "reviews": 77292,
     "ongoing": 2,
     "effects": [
       "Устойчивость к усталости"
@@ -1133,8 +1078,6 @@
       }
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "Умеренный эффект при физической/ментальной усталости. Данные противоречивые, много малых РКИ.",
     "grade": "C",
     "key_sources": [
       {
@@ -1198,8 +1141,7 @@
         "title": "Neuroprotective Mechanisms of Salidroside in Alzheimer's Disease: A Systematic Review and Meta-analysis of Preclinical Studies.",
         "year": 2023
       }
-    ],
-    "pubmed_term": "(Rhodiola rosea) AND (fatigue OR stress OR performance OR depression)"
+    ]
   },
   {
     "id": "Ашваганда",
@@ -1210,9 +1152,7 @@
     "scienceIndex": 21,
     "metaCount": 2,
     "citations": 154,
-    "trends": 7.4,
     "wiki": 0,
-    "reviews": 551,
     "ongoing": 18,
     "effects": [
       "Стрессоустойчивость"
@@ -1246,8 +1186,6 @@
       }
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "Снижает кортизол и тревожность (мета-анализы РКИ). Улучшает сон. Умеренный эффект при стрессе.",
     "grade": "B",
     "key_sources": [
       {
@@ -1312,8 +1250,7 @@
         "title": "Effects of ashwagandha (Withania somnifera) on mental health in adults: A systematic review and dose-response meta-analysis of randomized controlled trials.",
         "year": 2026
       }
-    ],
-    "pubmed_term": "(Withania somnifera OR ashwagandha) AND (stress OR anxiety OR cortisol OR sleep)"
+    ]
   },
   {
     "id": "Фосфатидилсерин",
@@ -1324,9 +1261,7 @@
     "scienceIndex": 35,
     "metaCount": 2,
     "citations": 14,
-    "trends": 0.7,
     "wiki": 26129,
-    "reviews": 1598,
     "ongoing": 8,
     "effects": [
       "Память (пожилые)"
@@ -1350,8 +1285,6 @@
       }
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "АДГД у детей: есть ограниченные данные (33539192). Когнитивные функции: данные смешанные.",
     "grade": "C",
     "key_sources": [
       {
@@ -1395,8 +1328,7 @@
         "title": "Safety and efficacy of antioxidant therapy in children and adolescents with attention deficit hyperactivity disorder: A systematic review and network meta-analysis.",
         "year": 2024
       }
-    ],
-    "pubmed_term": "(phosphatidylserine) AND (cognitive OR memory OR dementia OR ADHD)"
+    ]
   },
   {
     "id": "Alpha-GPC",
@@ -1407,9 +1339,7 @@
     "scienceIndex": 18,
     "metaCount": 2,
     "citations": 72,
-    "trends": 0.0,
     "wiki": 16184,
-    "reviews": 933,
     "ongoing": 2,
     "effects": [
       "Память (у пациентов)"
@@ -1433,8 +1363,6 @@
       }
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "НЕТ ДАННЫХ в базе (0 абстрактов после скрининга). Не проводились систематические обзоры или мета-анализы по когнитивным эффектам.",
     "grade": "D",
     "key_sources": [
       {
@@ -1508,8 +1436,7 @@
         "title": "Activity of Choline Alphoscerate on Adult-Onset Cognitive Dysfunctions: A Systematic Review and Meta-Analysis.",
         "year": 2023
       }
-    ],
-    "pubmed_term": "(alpha-glycerylphosphorylcholine OR alpha-GPC) AND (cognitive OR memory OR choline OR power)"
+    ]
   },
   {
     "id": "CDP-холин",
@@ -1520,9 +1447,7 @@
     "scienceIndex": 88,
     "metaCount": 8,
     "citations": 268,
-    "trends": 0.0,
     "wiki": 32855,
-    "reviews": 379,
     "ongoing": 12,
     "effects": [
       "Память (у пациентов)"
@@ -1546,8 +1471,6 @@
       }
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "Инсульт: есть данные (2 Cochrane). Когнитивные нарушения: данные смешанные. Доза: 1000-2000 мг/день.",
     "grade": "B",
     "key_sources": [
       {
@@ -1605,8 +1528,7 @@
         "title": "Pharmacologic neuroprotective agents for the treatment of perinatal asphyxia in low-income and lower-middle-income countries: A systematic review and meta-analysis of randomised controlled trials.",
         "year": 2025
       }
-    ],
-    "pubmed_term": "(citicoline OR CDP-choline) AND (cognitive OR stroke OR memory OR dementia)"
+    ]
   },
   {
     "id": "Гуперзин А",
@@ -1617,9 +1539,7 @@
     "scienceIndex": 48,
     "metaCount": 8,
     "citations": 182,
-    "trends": 0.0,
     "wiki": 349,
-    "reviews": 892,
     "ongoing": 8,
     "effects": [
       "Память (Альцгеймер)"
@@ -1648,8 +1568,6 @@
       }
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "Болезнь Альцгеймера: есть данные (3 Cochrane-обзора). Лёгкие когнитивные нарушения: есть данные. Доза: 200-400 мкг/день.",
     "grade": "B",
     "key_sources": [
       {
@@ -1705,8 +1623,7 @@
         "title": "[Efficacy and safety of huperzine A in treating patients with mild cognitive impairment: a systematic review and Meta-analysis].",
         "year": 2019
       }
-    ],
-    "pubmed_term": "(huperzine A) AND (cognitive OR Alzheimer OR memory OR acetylcholinesterase)"
+    ]
   },
   {
     "id": "Куркумин",
@@ -1717,9 +1634,7 @@
     "scienceIndex": 73,
     "metaCount": 12,
     "citations": 68,
-    "trends": 5.5,
     "wiki": 32745,
-    "reviews": 1516,
     "ongoing": 78,
     "effects": [
       "Настроение, когниция"
@@ -1764,8 +1679,6 @@
     "how_to_choose": "Стандартизация 95% куркуминоидов + пиперин либо фосфосомные/жидкие формы; «порошок куркумы в капсуле» слаб.",
     "myths": "«Куркума в еде = доза добавки» — в 1-2 г порошка 30-60 мг куркумина с плохим всасыванием. «Полностью лечит воспаление» — эффект скромный.",
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "Язвенный колит (ремиссия): работает (Cochrane). Остеоартрит: умеренный эффект. Метаболические маркеры: противоречивые данные.",
     "grade": "B",
     "key_sources": [
       {
@@ -1823,8 +1736,7 @@
         "title": "Effects of curcumin on inflammatory and oxidative stress related markers in rat models of experimental arthritis: a systematic review and meta-analysis.",
         "year": 2026
       }
-    ],
-    "pubmed_term": "(curcumin OR turmeric supplementation) AND (inflammation OR arthritis OR metabolic)"
+    ]
   },
   {
     "id": "Ресвератрол",
@@ -1835,9 +1747,7 @@
     "scienceIndex": 69,
     "metaCount": 9,
     "citations": 84,
-    "trends": 4.9,
     "wiki": 79484,
-    "reviews": 2269,
     "ongoing": 27,
     "effects": [
       "Антивозрастной эффект"
@@ -1866,8 +1776,6 @@
       }
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "Метаболические маркеры: умеренное улучшение (липиды, воспаление, инсулинорезистентность). Клинические исходы: данные ограниченные.",
     "grade": "C",
     "key_sources": [
       {
@@ -1924,8 +1832,7 @@
         "title": "Protective effect and possible mechanisms of resveratrol in animal models of spinal cord injury: a preclinical systematic review and meta-analysis.",
         "year": 2026
       }
-    ],
-    "pubmed_term": "(resveratrol supplementation) AND (cardiovascular OR metabolic OR antioxidant OR aging)"
+    ]
   },
   {
     "id": "NAC",
@@ -1936,9 +1843,7 @@
     "scienceIndex": 111,
     "metaCount": 14,
     "citations": 118,
-    "trends": 3.4,
     "wiki": 69179,
-    "reviews": 2054,
     "ongoing": 104,
     "effects": [
       "Когниция (психиатрия)"
@@ -1967,8 +1872,6 @@
       }
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "ХОБЛ: уменьшение обострений. Печень (не-парацетамол): Cochrane. H. pylori: Cochrane. Психиатрия: данные есть.",
     "grade": "B",
     "key_sources": [
       {
@@ -2038,8 +1941,7 @@
         "title": "N-acetylcysteine as Prophylaxis Against Contrast-Induced Nephropathy: A Meta-Analysis.",
         "year": 2026
       }
-    ],
-    "pubmed_term": "(N-acetylcysteine OR NAC supplementation) AND (respiratory OR psychiatric OR liver OR antioxidant)"
+    ]
   },
   {
     "id": "Цинк",
@@ -2050,9 +1952,7 @@
     "scienceIndex": 318,
     "metaCount": 45,
     "citations": 114,
-    "trends": 65.6,
     "wiki": 79279,
-    "reviews": 3354,
     "ongoing": 161,
     "effects": [
       "Когниция (при дефиците)"
@@ -2094,8 +1994,6 @@
     "how_to_choose": "Пиколинат, цитрат, глюконат; 15-25 мг элементарного цинка; «50 мг + медь» без показаний не брать.",
     "myths": "«Вылечит простуду за день» — пастилки слегка сокращают длительность. «Больше — больше тестостерона» — только при дефиците.",
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "ОРВИ: сокращает длительность на ~1 день (приём в первые 24 ч). Диарея у детей: работает.",
     "grade": "B",
     "key_sources": [
       {
@@ -2174,8 +2072,7 @@
         "title": "Can heavy metal accumulation in crops be mitigated by microbial inoculants? A meta-analysis and machine learning.",
         "year": 2026
       }
-    ],
-    "pubmed_term": "(zinc supplementation) AND (common cold OR diarrhea OR infection)"
+    ]
   },
   {
     "id": "Тирозин",
@@ -2186,9 +2083,7 @@
     "scienceIndex": 459,
     "metaCount": 39,
     "citations": 91,
-    "trends": 5.5,
     "wiki": 44856,
-    "reviews": 4945,
     "ongoing": 538,
     "effects": [
       "Когниция под стрессом"
@@ -2217,8 +2112,6 @@
       }
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "Мало данных: возможно улучшение когнитивных функций при стрессе/депривации сна, но РКИ единичные.",
     "grade": "D",
     "key_sources": [
       {
@@ -2251,8 +2144,7 @@
         "title": "A systematic review and network meta-analysis of first-line EGFR-TKI-based combination strategies for EGFR-mutant non-small cell lung cancer with brain metastases.",
         "year": 2026
       }
-    ],
-    "pubmed_term": "(L-tyrosine OR tyrosine supplementation) AND (cognitive OR stress OR exercise OR alertness)"
+    ]
   },
   {
     "id": "Таурин",
@@ -2263,9 +2155,7 @@
     "scienceIndex": 82,
     "metaCount": 7,
     "citations": 62,
-    "trends": 25.0,
     "wiki": 123000,
-    "reviews": 160751,
     "ongoing": 29,
     "effects": [
       "Спокойствие"
@@ -2294,8 +2184,6 @@
       }
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "Кардиометаболические факторы: умеренное улучшение давления/липидов. Когниция: данные ограниченные. Рост у детей с НМТ: есть данные.",
     "grade": "C",
     "key_sources": [
       {
@@ -2352,8 +2240,7 @@
         "title": "Trans-organ net fluxes of essential amino acids and their calculated efficiency of utilization in dairy cows: A meta-analysis.",
         "year": 2026
       }
-    ],
-    "pubmed_term": "(taurine supplementation) AND (exercise OR performance OR cardiovascular OR antioxidant)"
+    ]
   },
   {
     "id": "CoQ10",
@@ -2364,9 +2251,7 @@
     "scienceIndex": 35,
     "metaCount": 3,
     "citations": 248,
-    "trends": 0.1,
     "wiki": 1377,
-    "reviews": 21117,
     "ongoing": 48,
     "effects": [
       "Энергия, когниция"
@@ -2398,8 +2283,6 @@
       "Витамин E"
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "Сердечная недостаточность: работает (2 Cochrane). Артериальное давление: работает (2 Cochrane). Статиновая миопатия: данные противоречивые.",
     "grade": "B",
     "key_sources": [
       {
@@ -2459,8 +2342,7 @@
         "title": "Pharmacological treatments for Friedreich ataxia.",
         "year": 2026
       }
-    ],
-    "pubmed_term": "(coenzyme Q10 OR ubiquinol OR CoQ10 supplementation) AND (heart OR statin OR exercise OR fatigue OR migraine)"
+    ]
   },
   {
     "id": "Пикногенол",
@@ -2471,9 +2353,7 @@
     "scienceIndex": 33,
     "metaCount": 5,
     "citations": 85,
-    "trends": 0.0,
     "wiki": 2523,
-    "reviews": 92,
     "ongoing": 4,
     "effects": [
       "Когниция"
@@ -2502,8 +2382,6 @@
       }
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "Давление: умеренное снижение (31637782). Липиды: данные смешанные. Кардиометаболическое здоровье: есть данные (31585179).",
     "grade": "C",
     "key_sources": [
       {
@@ -2560,8 +2438,7 @@
         "title": "Efficacy of L-arginine and Pycnogenol ® in the treatment of male erectile dysfunction: a systematic review and meta-analysis.",
         "year": 2023
       }
-    ],
-    "pubmed_term": "(Pycnogenol OR Pinus pinaster extract OR maritime pine bark) AND (cognitive OR vascular OR antioxidant)"
+    ]
   },
   {
     "id": "Готу кола",
@@ -2572,9 +2449,7 @@
     "scienceIndex": 12,
     "metaCount": 2,
     "citations": 269,
-    "trends": 0.8,
     "wiki": 21003,
-    "reviews": 70449,
     "ongoing": 5,
     "effects": [
       "Когниция"
@@ -2598,8 +2473,6 @@
       }
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "Когнитивные функции: есть ограниченные данные (28878245). Венозная недостаточность: есть данные.",
     "grade": "C",
     "key_sources": [
       {
@@ -2644,8 +2517,7 @@
         "title": "Phlebotonics for venous insufficiency.",
         "year": 2020
       }
-    ],
-    "pubmed_term": "(Centella asiatica OR gotu kola) AND (cognitive OR wound OR venous OR anxiety)"
+    ]
   },
   {
     "id": "Мелатонин",
@@ -2656,9 +2528,7 @@
     "scienceIndex": 139,
     "metaCount": 11,
     "citations": 308,
-    "trends": 24.8,
     "wiki": 163405,
-    "reviews": null,
     "ongoing": 143,
     "effects": [
       "Засыпание",
@@ -2701,8 +2571,6 @@
     "how_to_choose": "Низкие дозы 0.5-1 мг; без связок «10 мг + травы».",
     "myths": "«Больше — быстрее уснёшь» — кривая доза-эффект плоская после 1-3 мг. «Можно месяцами» — данных мало, лучше курсами.",
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "Улучшает качество сна (мета-анализы). Эффективен при джетлаге, сменной работе, бессоннице.",
     "grade": "A",
     "key_sources": [
       {
@@ -2758,8 +2626,7 @@
         "title": "Digital screen exposure and migraine burden: a systematic review and meta-analysis.",
         "year": 2026
       }
-    ],
-    "pubmed_term": "(melatonin supplementation) AND (sleep OR insomnia OR jet lag OR circadian)"
+    ]
   },
   {
     "id": "ГАБА",
@@ -2770,9 +2637,7 @@
     "scienceIndex": 7,
     "metaCount": 1,
     "citations": 284,
-    "trends": 38.4,
     "wiki": 86607,
-    "reviews": null,
     "ongoing": 123,
     "effects": [
       "Спокойствие (заявлено)"
@@ -2801,8 +2666,6 @@
       }
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "Стресс: ОГРАНИЧЕННЫЕ данные. Сон: ОЧЕНЬ ОГРАНИЧЕННЫЕ данные (систематический обзор 14 РКИ).",
     "grade": "D",
     "key_sources": [
       {
@@ -2834,8 +2697,7 @@
         "title": "Antidepressant-like effects of valproic acid in rodents go back to the 1980s: a comment to enrich the reviewed evidence by Goudarzi et al. (2026) \"Valproic acid effects on stress-induced depression-like behavior in rodent models: a systematic review and meta-analysis\".",
         "year": 2026
       }
-    ],
-    "pubmed_term": "(GABA supplementation OR gamma-aminobutyric acid) AND (anxiety OR sleep OR stress)"
+    ]
   },
   {
     "id": "Глицин",
@@ -2846,9 +2708,7 @@
     "scienceIndex": 22,
     "metaCount": 1,
     "citations": 182,
-    "trends": 3.3,
     "wiki": 105428,
-    "reviews": null,
     "ongoing": 36,
     "effects": [
       "Сон (заявлено)"
@@ -2877,8 +2737,6 @@
       }
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "НЕТ ДАННЫХ в базе (0 систематических обзоров после скрининга). Есть отдельные РКИ по сну и шизофрении, но систематической оценки нет.",
     "grade": "D",
     "key_sources": [
       {
@@ -2934,8 +2792,7 @@
         "title": "Roxadustat for CKD-related anemia in patients undergoing peritoneal dialysis: a systematic review and meta-analysis.",
         "year": 2026
       }
-    ],
-    "pubmed_term": "(glycine supplementation) AND (sleep OR cognitive OR schizophrenia OR collagen)"
+    ]
   },
   {
     "id": "Валериана",
@@ -2946,9 +2803,7 @@
     "scienceIndex": 89,
     "metaCount": 9,
     "citations": 478,
-    "trends": 1.5,
     "wiki": 55048,
-    "reviews": null,
     "ongoing": 1,
     "effects": [
       "Сон, тревога (заявлено)"
@@ -2977,8 +2832,6 @@
       }
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "Бессонница: данные противоречивые ('safe but not effective'). Тревожность: Cochrane показывает ограниченные данные.",
     "grade": "C",
     "key_sources": [
       {
@@ -3034,8 +2887,7 @@
         "title": "Dietary supplements for dysmenorrhoea.",
         "year": 2016
       }
-    ],
-    "pubmed_term": "(Valeriana officinalis OR valerian) AND (sleep OR insomnia OR anxiety)"
+    ]
   },
   {
     "id": "Бета-аланин",
@@ -3046,9 +2898,7 @@
     "scienceIndex": 400,
     "metaCount": 45,
     "citations": 35,
-    "trends": 0.1,
     "wiki": 15134,
-    "reviews": null,
     "ongoing": 20,
     "effects": [
       "Выносливость в интенсивной работе"
@@ -3072,8 +2922,6 @@
       }
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "Улучшает маркеры мышечной усталости (лактат, pH). Производительность: эффект незначимый в большинстве РКИ.",
     "grade": "C",
     "key_sources": [
       {
@@ -3116,8 +2964,7 @@
         "title": "The novel anticoagulant dabigatran versus enoxaparin for thromboprophylaxis following total hip replacement: a meta-analysis.",
         "year": 2026
       }
-    ],
-    "pubmed_term": "(beta-alanine) AND (exercise OR performance OR high-intensity)"
+    ]
   },
   {
     "id": "L-цитруллин",
@@ -3128,9 +2975,7 @@
     "scienceIndex": 117,
     "metaCount": 10,
     "citations": 137,
-    "trends": 0.5,
     "wiki": 42147,
-    "reviews": null,
     "ongoing": 23,
     "effects": [
       "Кровоток, производительность"
@@ -3159,8 +3004,6 @@
       }
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "Артериальное давление: умеренное снижение. Спорт: улучшение выносливости и восстановления. Эректильная функция: есть данные.",
     "grade": "B",
     "key_sources": [
       {
@@ -3217,8 +3060,7 @@
         "title": "Neutrophil Extracellular Traps as Mediators of Acute Lung Injury: Bridging Clinical and Preclinical Evidence.",
         "year": 2026
       }
-    ],
-    "pubmed_term": "(L-citrulline OR citrulline supplementation) AND (exercise OR blood pressure OR erectile OR nitric oxide)"
+    ]
   },
   {
     "id": "Витамин C",
@@ -3229,9 +3071,7 @@
     "scienceIndex": 747,
     "metaCount": 82,
     "citations": 227,
-    "trends": 46.9,
     "wiki": 128313,
-    "reviews": null,
     "ongoing": 232,
     "effects": [
       "Иммунитет (при нагрузках)"
@@ -3271,8 +3111,6 @@
     "how_to_choose": "Обычная аскорбиновая кислота достаточна; «липосомальные и эстерифицированные» — переплата без сильных данных.",
     "myths": "«Предотвращает простуду» — в общей популяции нет. «Мегадозы безопасны» — ЖКТ и камни.",
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "ОРВИ: -8% длительность у взрослых, -13.6% у детей (профилактика). Профилактика ССЗ: НЕТ эффекта.",
     "grade": "B",
     "key_sources": [
       {
@@ -3316,8 +3154,7 @@
         "title": "The effect of high-dose of vitamin C on mortality among aged patients with severe COVID-19: A systematic review and meta-analysis.",
         "year": 2026
       }
-    ],
-    "pubmed_term": "(ascorbic acid OR vitamin C) AND (common cold OR mortality OR infection)"
+    ]
   },
   {
     "id": "Эхинацея",
@@ -3328,9 +3165,7 @@
     "scienceIndex": 81,
     "metaCount": 9,
     "citations": 569,
-    "trends": 0.6,
     "wiki": 22537,
-    "reviews": null,
     "ongoing": 2,
     "effects": [
       "Профилактика ОРВИ (заявлено)"
@@ -3359,8 +3194,6 @@
       }
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "Профилактика ОРВИ: RR 0.78 (0.68-0.88) — снижение заболеваемости на 22%. Лечение: НЕТ эффекта на длительность (MD -0.45 дня, незначимо).",
     "grade": "B",
     "key_sources": [
       {
@@ -3427,8 +3260,7 @@
         "title": "Echinacea Supplementation Does Not Impact Aerobic Capacity and Erythropoiesis in Athletes: A Meta-Analysis.",
         "year": 2024
       }
-    ],
-    "pubmed_term": "(Echinacea) AND (common cold OR upper respiratory OR prevention)"
+    ]
   },
   {
     "id": "Бузина",
@@ -3439,9 +3271,7 @@
     "scienceIndex": 14,
     "metaCount": 1,
     "citations": 211,
-    "trends": 1.5,
     "wiki": 76602,
-    "reviews": null,
     "ongoing": 76,
     "effects": [
       "Симптомы ОРВИ"
@@ -3465,8 +3295,6 @@
       }
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "Сокращает длительность симптомов ОРВИ на ~4 дня (мета-анализ 2019). Эффективна при гриппе и простуде.",
     "grade": "B",
     "key_sources": [
       {
@@ -3509,8 +3337,7 @@
         "title": "Black elderberry (Sambucus nigra) supplementation effectively treats upper respiratory symptoms: A meta-analysis of randomized, controlled clinical trials.",
         "year": 2019
       }
-    ],
-    "pubmed_term": "(Sambucus OR elderberry) AND (influenza OR cold OR antiviral)"
+    ]
   },
   {
     "id": "Зверобой",
@@ -3521,9 +3348,7 @@
     "scienceIndex": 218,
     "metaCount": 31,
     "citations": 319,
-    "trends": 0.0,
     "wiki": 31187,
-    "reviews": null,
     "ongoing": 3,
     "effects": [
       "Настроение (лёгкая депрессия)"
@@ -3562,8 +3387,6 @@
       }
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "Лёгкая-умеренная депрессия: сравним с SSRI (RR 0.98 для response), меньше побочных (OR 0.59 dropout).",
     "grade": "B",
     "key_sources": [
       {
@@ -3596,8 +3419,7 @@
         "title": "Herbal extracts in orofacial pain: a systematic review and direct and indirect meta-analysis.",
         "year": 2024
       }
-    ],
-    "pubmed_term": "(hypericum perforatum OR st johns wort) AND (depression OR depressive disorder)"
+    ]
   },
   {
     "id": "5-HTP",
@@ -3608,9 +3430,7 @@
     "scienceIndex": 37,
     "metaCount": 2,
     "citations": 142,
-    "trends": 1.7,
     "wiki": 953,
-    "reviews": null,
     "ongoing": 7,
     "effects": [
       "Настроение"
@@ -3639,8 +3459,6 @@
       }
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "Депрессия: данные слабые, качество РКИ низкое (Cochrane). Эффективность не подтверждена современными стандартами.",
     "grade": "C",
     "key_sources": [
       {
@@ -3684,8 +3502,7 @@
         "title": "Are tryptophan and 5-hydroxytryptophan effective treatments for depression? A meta-analysis.",
         "year": 2002
       }
-    ],
-    "pubmed_term": "(5-hydroxytryptophan OR 5-HTP) AND (depression OR sleep OR anxiety)"
+    ]
   },
   {
     "id": "Коллаген",
@@ -3696,9 +3513,7 @@
     "scienceIndex": 69,
     "metaCount": 4,
     "citations": 255,
-    "trends": 13.6,
     "wiki": 95617,
-    "reviews": null,
     "ongoing": 396,
     "effects": [
       "Кожа, суставы"
@@ -3722,8 +3537,6 @@
       }
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "Улучшает гидратацию (10/15 РКИ), эластичность (10/13 РКИ), морщины (9/10 РКИ). Эффект на суставы: данные ограниченные.",
     "grade": "B",
     "key_sources": [
       {
@@ -3787,8 +3600,7 @@
         "title": "Efficacy and safety of microneedling with tranexamic acid versus microneedling with vitamin C in the treatment of melasma: a systematic review and meta-analysis.",
         "year": 2026
       }
-    ],
-    "pubmed_term": "(collagen supplementation OR hydrolyzed collagen) AND (skin OR joint OR bone)"
+    ]
   },
   {
     "id": "Пробиотики",
@@ -3799,9 +3611,7 @@
     "scienceIndex": 2059,
     "metaCount": 238,
     "citations": 7,
-    "trends": 1.6,
     "wiki": 33804,
-    "reviews": null,
     "ongoing": 537,
     "effects": [
       "Кишечник, иммунитет"
@@ -3838,8 +3648,6 @@
     "how_to_choose": "Штамм на этикетке (LGG, а не просто Lactobacillus); КОЕ на срок годности, не на выпуск; условия хранения.",
     "myths": "«Больше миллиардов КОЕ — лучше» — важнее штамм и доказательства. «Заселяет кишечник навсегда» — транзиторен по природе.",
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "Антибиотик-диарея (RR 0.46); острая диарея у детей (-1 день)",
     "grade": "B",
     "key_sources": [
       {
@@ -3898,8 +3706,7 @@
         "title": "Probiotics for the prevention of ventilator-associated pneumonia and other outcomes in critically ill children: a systematic review and meta-analysis of randomized controlled trials.",
         "year": 2026
       }
-    ],
-    "pubmed_term": "(probiotics OR lactobacillus OR bifidobacterium) AND (irritable bowel OR diarrhea OR antibiotic-associated)"
+    ]
   },
   {
     "id": "B9",
@@ -3910,9 +3717,7 @@
     "scienceIndex": 96,
     "metaCount": 13,
     "citations": 1278,
-    "trends": 0.4,
     "wiki": 78114,
-    "reviews": null,
     "ongoing": 580,
     "effects": [
       "Когниция (при дефиците/MCI)"
@@ -3941,8 +3746,6 @@
       }
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "Дефекты нейральной трубки: работает (Cochrane, профилактика 400 мкг/день). Гомоцистеин: снижение. Беременность: работает.",
     "grade": "A",
     "key_sources": [
       {
@@ -4002,8 +3805,7 @@
         "title": "A systematic review on the role of diet in managing pre-existing diabetes during pregnancy.",
         "year": 2026
       }
-    ],
-    "pubmed_term": "(folic acid OR folate supplementation) AND (neural tube OR pregnancy OR homocysteine OR cardiovascular OR depression)"
+    ]
   },
   {
     "id": "Железо",
@@ -4014,9 +3816,7 @@
     "scienceIndex": 1873,
     "metaCount": 197,
     "citations": 288,
-    "trends": 45.3,
     "wiki": 28363,
-    "reviews": null,
     "ongoing": 90,
     "effects": [
       "Энергия (при анемии)"
@@ -4055,8 +3855,6 @@
       "Магний"
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "Анемия у беременных RR 0.30 (0.20-0.47); дефицит Fe RR 0.51",
     "grade": "A",
     "key_sources": [
       {
@@ -4114,8 +3912,7 @@
         "title": "Optimizing water management for cadmium mitigation in rice production: A global meta-analysis and application effectiveness assessment.",
         "year": 2026
       }
-    ],
-    "pubmed_term": "(iron supplementation OR ferrous) AND (anemia OR iron deficiency OR pregnancy)"
+    ]
   },
   {
     "id": "Триптофан",
@@ -4126,9 +3923,7 @@
     "scienceIndex": 72,
     "metaCount": 5,
     "citations": 157,
-    "trends": 2.5,
     "wiki": 75754,
-    "reviews": null,
     "ongoing": 45,
     "effects": [
       "Сон, настроение"
@@ -4152,8 +3947,6 @@
       }
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "Сон: WASO -81 мин/г при дозах >=1г. Настроение: уменьшает тревожность (11 РКИ).",
     "grade": "C",
     "key_sources": [
       {
@@ -4198,8 +3991,7 @@
         "title": "An umbrella review of inflammatory biomarkers and their relationship to treatment response in MDD.",
         "year": 2026
       }
-    ],
-    "pubmed_term": "(tryptophan supplementation) AND (sleep OR mood OR depression OR serotonin)"
+    ]
   },
   {
     "id": "Глюкозамин + хондроитин",
@@ -4210,9 +4002,7 @@
     "scienceIndex": 182,
     "metaCount": 26,
     "citations": 994,
-    "trends": null,
     "wiki": 33034,
-    "reviews": null,
     "ongoing": 26,
     "effects": [
       "Боль при остеоартрите: эффект ≈ плацебо"
@@ -4241,8 +4031,6 @@
       }
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "Хондроитин: боль -10% (95% CI 15%-6%), NNT=5; WOMAC MCII RR 1.12 (1.01-1.24). Глюкозамин: эффект VAS малый, WOMAC незначим.",
     "grade": "C",
     "key_sources": [
       {
@@ -4301,8 +4089,7 @@
         "title": "Evaluation of efficacy and safety of glucosamine sulfate, chondroitin sulfate, and their combination regimen in the management of knee osteoarthritis: a systematic review and meta-analysis.",
         "year": 2024
       }
-    ],
-    "pubmed_term": "(glucosamine OR chondroitin) AND (osteoarthritis OR knee OR joint pain)"
+    ]
   },
   {
     "id": "Витамин E",
@@ -4313,9 +4100,7 @@
     "scienceIndex": 14,
     "metaCount": 1,
     "citations": 460,
-    "trends": null,
     "wiki": 40584,
-    "reviews": null,
     "ongoing": 109,
     "effects": [
       "Профилактика ССЗ и смертности: не подтверждён"
@@ -4344,8 +4129,6 @@
       }
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "Поздняя дискинезия (антипсихотики): есть Cochrane-обзоры. МАСЛД: есть Cochrane. Альцгеймер: есть Cochrane, но эффект малый. Профилактика ССЗ/рака: НЕТ эффекта.",
     "grade": "C",
     "key_sources": [
       {
@@ -4401,8 +4184,7 @@
         "title": "Effects of Vitamin C and/or E Supplementation on Glycemic Control and Cardiovascular Risk Factors in Type 2 Diabetes: A Systematic Review and Subgroup Meta-analysis.",
         "year": 2026
       }
-    ],
-    "pubmed_term": "(vitamin E OR tocopherol OR tocotrienol supplementation) AND (cardiovascular OR antioxidant OR cognitive OR cancer)"
+    ]
   },
   {
     "id": "Биотин",
@@ -4413,9 +4195,7 @@
     "scienceIndex": 9,
     "metaCount": 1,
     "citations": 454,
-    "trends": null,
     "wiki": 37004,
-    "reviews": null,
     "ongoing": 25,
     "effects": [
       "Волосы/ногти только при дефиците; мешает анализам"
@@ -4439,8 +4219,6 @@
       }
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "НЕТ ДАННЫХ в базе (0 систематических обзоров после скрининга). Популярность для волос/ногтей не подтверждена доказательной базой.",
     "grade": "D",
     "key_sources": [
       {
@@ -4522,8 +4300,7 @@
         "title": "Quantitative comparison of the efficacy of clinical drug treatments for primary progressive multiple sclerosis.",
         "year": 2023
       }
-    ],
-    "pubmed_term": "(biotin supplementation) AND (hair OR nails OR skin OR metabolic OR diabetes)"
+    ]
   },
   {
     "id": "L-карнитин",
@@ -4534,9 +4311,7 @@
     "scienceIndex": 804,
     "metaCount": 92,
     "citations": 87,
-    "trends": null,
     "wiki": 1542,
-    "reviews": null,
     "ongoing": 39,
     "effects": [
       "Вес: минимально (~1 кг); восстановление слабо"
@@ -4565,8 +4340,6 @@
       }
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "Диабетическая нейропатия: боль VAS MD -14.93 (-19.16 до -10.70) при дозе >1500 мг/день",
     "grade": "C",
     "key_sources": [
       {
@@ -4625,8 +4398,7 @@
         "title": "Effects of Carnitine and Coenzyme Q10 on Sperm Quality and Pregnancy Rates in Men with Unexplained Infertility: A Systematic Review and Network Meta-Analysis.",
         "year": 2025
       }
-    ],
-    "pubmed_term": "(L-carnitine OR acetyl-L-carnitine) AND (exercise OR cardiovascular OR diabetes)"
+    ]
   },
   {
     "id": "BCAA",
@@ -4637,9 +4409,7 @@
     "scienceIndex": 5,
     "metaCount": 0,
     "citations": 359,
-    "trends": null,
     "wiki": 103667,
-    "reviews": null,
     "ongoing": 5429,
     "effects": [
       "При достатке белка эффекта нет"
@@ -4663,8 +4433,6 @@
       }
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "Печеночная энцефалопатия при циррозе: работает (4 Cochrane). Спорт: данные противоречивые, клиническая ценность спорная.",
     "grade": "B",
     "key_sources": [
       {
@@ -4721,8 +4489,7 @@
         "title": "Treatment of Sleep Disorders Following Traumatic Brain Injury: A Systematic Review and Network Meta-Analysis.",
         "year": 2026
       }
-    ],
-    "pubmed_term": "(branched-chain amino acids OR BCAA supplementation) AND (exercise OR muscle OR recovery OR performance)"
+    ]
   },
   {
     "id": "Аргинин",
@@ -4733,9 +4500,7 @@
     "scienceIndex": 2,
     "metaCount": 0,
     "citations": 118,
-    "trends": null,
     "wiki": 99193,
-    "reviews": null,
     "ongoing": 115,
     "effects": [
       "АД/пампинг: слабее цитруллина, контекст"
@@ -4764,8 +4529,6 @@
       }
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "Преэклампсия: есть данные (профилактика). НЭК у недоношенных: работает (Cochrane). Давление: умеренное снижение.",
     "grade": "B",
     "key_sources": [
       {
@@ -4821,8 +4584,7 @@
         "title": "Nutritional supplements for preventing preeclampsia: A network meta-analysis.",
         "year": 2026
       }
-    ],
-    "pubmed_term": "(L-arginine OR arginine supplementation) AND (nitric oxide OR exercise OR blood pressure OR erectile)"
+    ]
   },
   {
     "id": "Кальций",
@@ -4833,9 +4595,7 @@
     "scienceIndex": 425,
     "metaCount": 46,
     "citations": 37,
-    "trends": null,
     "wiki": 79605,
-    "reviews": null,
     "ongoing": 55,
     "effects": [
       "Переломы: МА противоречивы; без дефицита бесполезен"
@@ -4873,8 +4633,6 @@
       "Цинк"
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "Преэклампсия RR 0.45 (0.31-0.65); преждевременные роды RR 0.76",
     "grade": "A",
     "key_sources": [
       {
@@ -4933,8 +4691,7 @@
         "title": "Effectiveness of anti-osteoporotic medications in the management of glucocorticoid-induced osteoporosis: a systematic review and network meta-analysis on behalf of the ECTS clinical action group.",
         "year": 2026
       }
-    ],
-    "pubmed_term": "(calcium supplementation) AND (fracture OR bone density OR cardiovascular)"
+    ]
   },
   {
     "id": "Гиалуроновая кислота",
@@ -4945,9 +4702,7 @@
     "scienceIndex": 2168,
     "metaCount": 266,
     "citations": 99,
-    "trends": null,
     "wiki": 56079,
-    "reviews": null,
     "ongoing": 341,
     "effects": [
       "Кожа слабо, колено контекст (японские МА)"
@@ -4971,8 +4726,6 @@
       }
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "Внутрисуставно при ОА: эффект малый, уступает PRP (сетевой МА 21 РКИ). Перорально: нет пруфов.",
     "grade": "C",
     "key_sources": [
       {
@@ -5031,8 +4784,7 @@
         "title": "Comparative efficacy of platelet-rich plasma monotherapy versus combination therapies for knee osteoarthritis: a systematic review and network meta-analysis.",
         "year": 2026
       }
-    ],
-    "pubmed_term": "(hyaluronic acid OR sodium hyaluronate) AND (osteoarthritis OR knee OR skin)"
+    ]
   },
   {
     "id": "Псиллиум",
@@ -5043,9 +4795,7 @@
     "scienceIndex": 214,
     "metaCount": 23,
     "citations": 102,
-    "trends": null,
     "wiki": 4219,
-    "reviews": null,
     "ongoing": 16,
     "effects": [
       "ЛНП и стул: стабильный эффект"
@@ -5069,8 +4819,6 @@
       }
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "FBS -6.89 мг/дл (95% CI -10.62 до -3.16); HbA1c -0.75%; вес -2.1 кг; LDL -10-15%",
     "grade": "B",
     "key_sources": [
       {
@@ -5135,8 +4883,7 @@
         "title": "Conservative, physical and surgical interventions for managing faecal incontinence and constipation in adults with central neurological diseases.",
         "year": 2024
       }
-    ],
-    "pubmed_term": "(psyllium OR plantago ovata) AND (constipation OR cholesterol OR blood glucose)"
+    ]
   },
   {
     "id": "Имбирь",
@@ -5147,9 +4894,7 @@
     "scienceIndex": 44,
     "metaCount": 6,
     "citations": 52,
-    "trends": null,
     "wiki": 2618,
-    "reviews": null,
     "ongoing": 47,
     "effects": [
       "Тошнота (беременность, укачивание, химия): работает"
@@ -5178,8 +4923,6 @@
       }
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "Тошнота при беременности: работает (систематические обзоры). Послеоперационная тошнота: работает. Метаболические профили: умеренное улучшение.",
     "grade": "B",
     "key_sources": [
       {
@@ -5243,8 +4986,7 @@
         "title": "[Different moxibustion therapies for primary dysmenorrhea: a network Meta-analysis].",
         "year": 2026
       }
-    ],
-    "pubmed_term": "(Zingiber officinale OR ginger supplementation) AND (nausea OR inflammation OR pain OR metabolic)"
+    ]
   },
   {
     "id": "Чеснок",
@@ -5255,9 +4997,7 @@
     "scienceIndex": 1,
     "metaCount": 0,
     "citations": 11,
-    "trends": null,
     "wiki": 71650,
-    "reviews": null,
     "ongoing": 13,
     "effects": [
       "АД −2-4 мм рт.ст., липиды чуть: умеренно"
@@ -5286,8 +5026,6 @@
       }
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "Артериальное давление: умеренное снижение. Холестерин: умеренное снижение. Метаболический синдром: есть данные.",
     "grade": "B",
     "key_sources": [
       {
@@ -5352,8 +5090,7 @@
         "title": "Garlic as a lipid lowering agent--a meta-analysis.",
         "year": 1994
       }
-    ],
-    "pubmed_term": "(Allium sativum OR garlic supplementation OR aged garlic extract) AND (cardiovascular OR blood pressure OR cholesterol)"
+    ]
   },
   {
     "id": "Клюква",
@@ -5364,9 +5101,7 @@
     "scienceIndex": 25,
     "metaCount": 3,
     "citations": 0,
-    "trends": null,
     "wiki": 80922,
-    "reviews": null,
     "ongoing": 10,
     "effects": [
       "Рецидивы ИМП: −30% в группах риска"
@@ -5390,8 +5125,6 @@
       }
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "Профилактика ИМП: данные ограниченные (ранее считалась эффективной, современные данные противоречивые).",
     "grade": "C",
     "key_sources": [
       {
@@ -5423,8 +5156,7 @@
         "title": "Cranberry Reduces the Risk of Urinary Tract Infection Recurrence in Otherwise Healthy Women: A Systematic Review and Meta-Analysis.",
         "year": 2017
       }
-    ],
-    "pubmed_term": "(Vaccinium macrocarpon OR cranberry supplementation) AND (urinary tract infection OR prevention OR antioxidant)"
+    ]
   },
   {
     "id": "Пустырник",
@@ -5435,9 +5167,7 @@
     "scienceIndex": 23,
     "metaCount": 4,
     "citations": 287,
-    "trends": null,
     "wiki": 40762,
-    "reviews": null,
     "ongoing": 4,
     "effects": [
       "Тревога/сон: субъективно, РКИ мало"
@@ -5466,8 +5196,6 @@
       }
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "НЕТ ДАННЫХ в базе (0 систематических обзоров после скрининга). Популярность в традиционной медицине не подтверждена доказательной базой.",
     "grade": "D",
     "key_sources": [
       {
@@ -5541,8 +5269,7 @@
         "title": "Motherwort injection for preventing postpartum hemorrhage in pregnant women with cesarean section: A systematic review and meta-analysis.",
         "year": 2018
       }
-    ],
-    "pubmed_term": "(Leonurus cardiaca OR motherwort) AND (anxiety OR palpitation OR cardiovascular)"
+    ]
   },
   {
     "id": "Боярышник",
@@ -5553,9 +5280,7 @@
     "scienceIndex": 77,
     "metaCount": 7,
     "citations": 335,
-    "trends": null,
     "wiki": 94758,
-    "reviews": null,
     "ongoing": 2,
     "effects": [
       "СН адъюнкт слабо; здоровым — нет"
@@ -5584,8 +5309,6 @@
       }
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "Хроническая сердечная недостаточность (ХСН): Cochrane подтверждает улучшение симптомов и переносимости нагрузок.",
     "grade": "B",
     "key_sources": [
       {
@@ -5629,8 +5352,7 @@
         "title": "Does intranasal oxytocin reduce symptoms of mental disorders? A meta-analysis of clinical trials.",
         "year": 2026
       }
-    ],
-    "pubmed_term": "(Crataegus OR hawthorn) AND (heart failure OR blood pressure OR cardiovascular)"
+    ]
   },
   {
     "id": "Бета-глюканы овса",
@@ -5641,9 +5363,7 @@
     "scienceIndex": 81,
     "metaCount": 8,
     "citations": 54,
-    "trends": null,
     "wiki": 6617,
-    "reviews": null,
     "ongoing": 17,
     "effects": [
       "ЛНП −5-10%: стабильно, одобрено EFSA"
@@ -5667,8 +5387,6 @@
       }
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "Холестерин: снижение LDL (FDA health claim). Гликемический контроль: есть данные.",
     "grade": "B",
     "key_sources": [
       {
@@ -5701,8 +5419,7 @@
         "title": "The separate effects of whole oats and isolated beta-glucan on lipid profile: A systematic review and meta-analysis of randomized controlled trials.",
         "year": 2023
       }
-    ],
-    "pubmed_term": "(oat beta-glucan OR beta-glucan supplementation) AND (cholesterol OR immune OR glycemic)"
+    ]
   },
   {
     "id": "Рибофлавин",
@@ -5713,9 +5430,7 @@
     "scienceIndex": 5,
     "metaCount": 1,
     "citations": 138,
-    "trends": null,
     "wiki": 41235,
-    "reviews": null,
     "ongoing": 47,
     "effects": [
       "Профилактика мигрени: умеренные МА"
@@ -5739,8 +5454,6 @@
       }
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "Мигрень: профилактика (400 мг/день) — систематические обзоры подтверждают. Метаболические заболевания: есть данные.",
     "grade": "B",
     "key_sources": [
       {
@@ -5784,8 +5497,7 @@
         "title": "Associations of dietary vitamin B1, vitamin B2, vitamin B6, and vitamin B12 with the risk of depression: a systematic review and meta-analysis.",
         "year": 2022
       }
-    ],
-    "pubmed_term": "(riboflavin OR vitamin B2 supplementation) AND (migraine OR anemia OR metabolic)"
+    ]
   },
   {
     "id": "Лютеин + зеаксантин",
@@ -5796,9 +5508,7 @@
     "scienceIndex": 3,
     "metaCount": 0,
     "citations": 152,
-    "trends": null,
     "wiki": 17207,
-    "reviews": null,
     "ongoing": 16,
     "effects": [
       "AMD тормозит; «синий свет экранов» — маркетинг"
@@ -5822,8 +5532,6 @@
       }
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "ВМД: улучшение макулярного пигмента, снижение прогрессирования. Катаракта: снижение риска. Есть Cochrane для недоношенных.",
     "grade": "B",
     "key_sources": [
       {
@@ -5880,8 +5588,7 @@
         "title": "Effect of xanthophyll-rich food and supplement intake on visual outcomes in healthy adults and those with eye disease: a systematic review, meta-analysis, and meta-regression of randomized controlled trials.",
         "year": 2023
       }
-    ],
-    "pubmed_term": "(lutein OR zeaxanthin supplementation) AND (macular OR eye OR vision OR AMD OR cataract)"
+    ]
   },
   {
     "id": "Инозитол",
@@ -5892,9 +5599,7 @@
     "scienceIndex": 292,
     "metaCount": 40,
     "citations": 109,
-    "trends": null,
     "wiki": 70923,
-    "reviews": null,
     "ongoing": 30,
     "effects": [
       "СПКЯ умеренно; тревога смешанно"
@@ -5918,8 +5623,6 @@
       }
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "Живые роды OR 2.42 (0.75-7.83, незначимо); выкидыши OR 0.40 (0.19-0.86)",
     "grade": "C",
     "key_sources": [
       {
@@ -5978,8 +5681,7 @@
         "title": "Neurometabolites and Antipsychotic Response in Psychosis: A Mega-Analysis.",
         "year": 2026
       }
-    ],
-    "pubmed_term": "(myo-inositol OR inositol) AND (polycystic ovary OR insulin resistance OR gestational diabetes)"
+    ]
   },
   {
     "id": "Альфа-липоевая кислота",
@@ -5990,9 +5692,7 @@
     "scienceIndex": 95,
     "metaCount": 11,
     "citations": 83,
-    "trends": null,
     "wiki": 49017,
-    "reviews": null,
     "ongoing": 32,
     "effects": [
       "Нейропатия: умеренно; похудение — нет"
@@ -6021,8 +5721,6 @@
       }
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "Диабетическая периферическая нейропатия: работает (Cochrane). Кардиометаболические факторы: есть данные. Вес: эффект малый.",
     "grade": "B",
     "key_sources": [
       {
@@ -6078,8 +5776,7 @@
         "title": "Effects of alpha-lipoic acid supplementation on patients with nonalcoholic fatty liver disease: a systematic review and meta-analysis of randomized clinical trials.",
         "year": 2026
       }
-    ],
-    "pubmed_term": "(alpha-lipoic acid OR lipoic acid supplementation) AND (diabetes OR neuropathy OR antioxidant OR weight)"
+    ]
   },
   {
     "id": "D-манноза",
@@ -6090,9 +5787,7 @@
     "scienceIndex": 29,
     "metaCount": 3,
     "citations": 284,
-    "trends": null,
     "wiki": 8739,
-    "reviews": null,
     "ongoing": 6,
     "effects": [
       "Рецидивы ИМП: перспективно, МА мало"
@@ -6116,8 +5811,6 @@
       }
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "НЕТ ДАННЫХ в базе (0 систематических обзоров после скрининга). Популярна для профилактики ИМП, но доказательная база слабая.",
     "grade": "D",
     "key_sources": [
       {
@@ -6200,8 +5893,7 @@
         "title": "Efficacy of D-mannose as prophylaxis of recurrent urinary tract infection: a systematic review and meta-analysis of randomized controlled trials.",
         "year": 2025
       }
-    ],
-    "pubmed_term": "(D-mannose supplementation) AND (urinary tract infection OR prevention)"
+    ]
   },
   {
     "id": "Мака",
@@ -6212,9 +5904,7 @@
     "scienceIndex": 1,
     "metaCount": 0,
     "citations": 190,
-    "trends": null,
     "wiki": 18007,
-    "reviews": null,
     "ongoing": 2,
     "effects": [
       "Либидо: малые положительные МА; гормоны — нет"
@@ -6238,8 +5928,6 @@
       }
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "Сексуальная функция: есть данные. Менопауза: есть. Фертильность: противоречиво.",
     "grade": "C",
     "key_sources": [
       {
@@ -6278,8 +5966,7 @@
         "title": "Effects of Maca (Lepidium meyenii Walp.) on Physical Performance in Animals and Humans: A Systematic Review and Meta-Analysis.",
         "year": 2024
       }
-    ],
-    "pubmed_term": "(Lepidium meyenii OR maca) AND (fertility OR sexual OR mood OR energy OR menopause)"
+    ]
   },
   {
     "id": "Хром",
@@ -6290,9 +5977,7 @@
     "scienceIndex": 26,
     "metaCount": 1,
     "citations": 84,
-    "trends": null,
     "wiki": 68985,
-    "reviews": null,
     "ongoing": 64,
     "effects": [
       "Гликемия/вес: не подтверждён"
@@ -6316,8 +6001,6 @@
       }
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "Диабет 2 типа: есть данные, но эффект малый. СПКЯ: есть данные. Вес/ожирение: Cochrane показывает НЕЗНАЧИМЫЙ эффект.",
     "grade": "C",
     "key_sources": [
       {
@@ -6373,8 +6056,7 @@
         "title": "Therapeutic effects of chromium supplementation on women with polycystic ovarian syndrome: A systematic review and meta-analysis.",
         "year": 2025
       }
-    ],
-    "pubmed_term": "(chromium supplementation OR chromium picolinate) AND (diabetes OR insulin OR weight OR metabolic)"
+    ]
   },
   {
     "id": "Астаксантин",
@@ -6385,9 +6067,7 @@
     "scienceIndex": 79,
     "metaCount": 8,
     "citations": 68,
-    "trends": null,
     "wiki": 63093,
-    "reviews": null,
     "ongoing": 11,
     "effects": [
       "Кожа/глаза: слабо-положительно, контекст"
@@ -6411,8 +6091,6 @@
       }
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "Кожа: есть данные (систематический обзор). Фертильность: есть данные. Спорт/восстановление: данные ограниченные.",
     "grade": "C",
     "key_sources": [
       {
@@ -6468,8 +6146,7 @@
         "title": "A systematic review and meta-analysis of astaxanthin efficacy in male infertility: evidence from clinical and preclinical studies.",
         "year": 2026
       }
-    ],
-    "pubmed_term": "(astaxanthin supplementation) AND (antioxidant OR skin OR exercise OR cardiovascular)"
+    ]
   },
   {
     "id": "Расторопша",
@@ -6480,9 +6157,7 @@
     "scienceIndex": 2,
     "metaCount": 0,
     "citations": 99,
-    "trends": null,
     "wiki": 52028,
-    "reviews": null,
     "ongoing": 18,
     "effects": [
       "НАЖБП: малый нестабильный эффект"
@@ -6506,8 +6181,6 @@
       }
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "МАСЛД: есть данные (Cochrane). Алкогольный/вирусный гепатит: Cochrane показывает ограниченную эффективность. Инсулинорезистентность: есть данные.",
     "grade": "B",
     "key_sources": [
       {
@@ -6564,8 +6237,7 @@
         "title": "Coadministration of silymarin with iron chelators in transfusion-dependent β-thalassemia patients: a systematic review and meta-analysis for effect on iron overload.",
         "year": 2021
       }
-    ],
-    "pubmed_term": "(Silybum marianum OR milk thistle OR silymarin) AND (liver OR hepatitis OR metabolic)"
+    ]
   },
   {
     "id": "Лактоферрин",
@@ -6576,9 +6248,7 @@
     "scienceIndex": 23,
     "metaCount": 2,
     "citations": 227,
-    "trends": null,
     "wiki": 16307,
-    "reviews": null,
     "ongoing": 21,
     "effects": [
       "Железо: контекст (адъюнкт)"
@@ -6605,8 +6275,6 @@
       "Железо"
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "Недоношенные: профилактика сепсиса и НЭК (2 Cochrane). Педиатрические инфекции: есть данные. Железо: улучшает статус.",
     "grade": "B",
     "key_sources": [
       {
@@ -6666,8 +6334,7 @@
         "title": "Efficacy of lactoferrin supplementation in pediatric infections: a systematic review and meta-analysis.",
         "year": 2025
       }
-    ],
-    "pubmed_term": "(lactoferrin supplementation) AND (iron OR immune OR infection OR infant)"
+    ]
   },
   {
     "id": "SAMe",
@@ -6678,9 +6345,7 @@
     "scienceIndex": 110,
     "metaCount": 12,
     "citations": 165,
-    "trends": null,
     "wiki": 289,
-    "reviews": null,
     "ongoing": 13,
     "effects": [
       "Депрессия адъюнкт: малые МА"
@@ -6704,8 +6369,6 @@
       }
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "Депрессия: работает (систематические обзоры). ОА: Cochrane подтверждает эффективность. Печень: есть данные.",
     "grade": "B",
     "key_sources": [
       {
@@ -6761,8 +6424,7 @@
         "title": "S-Adenosylmethionine (SAMe) as an adjuvant therapy for patients with depression: An updated systematic review and meta-analysis.",
         "year": 2024
       }
-    ],
-    "pubmed_term": "(S-adenosylmethionine OR SAMe supplementation) AND (depression OR osteoarthritis OR liver OR mood)"
+    ]
   },
   {
     "id": "Йохимбин",
@@ -6773,9 +6435,7 @@
     "scienceIndex": 52,
     "metaCount": 6,
     "citations": 458,
-    "trends": null,
     "wiki": 1920,
-    "reviews": null,
     "ongoing": 3,
     "effects": [
       "Жиросжигание слабо, цена — побочки"
@@ -6804,8 +6464,6 @@
       }
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "НЕТ СИСТЕМАТИЧЕСКИХ ОБЗОРОВ в базе. Все данные — старые РКИ 1980-90х годов. Вытеснен PDE5-ингибиторами.",
     "grade": "D",
     "key_sources": [
       {
@@ -6887,8 +6545,7 @@
         "title": "The Potential Role of Arginine Supplements on Erectile Dysfunction: A Systemic Review and Meta-Analysis.",
         "year": 2019
       }
-    ],
-    "pubmed_term": "(yohimbine supplementation) AND (erectile OR weight OR fat OR sexual)"
+    ]
   },
   {
     "id": "Пажитник",
@@ -6899,9 +6556,7 @@
     "scienceIndex": 88,
     "metaCount": 13,
     "citations": 224,
-    "trends": null,
     "wiki": 95849,
-    "reviews": null,
     "ongoing": 9,
     "effects": [
       "Гликемия умеренно; либидо слабо"
@@ -6930,8 +6585,6 @@
       }
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "Гликемия: мета-анализ показывает улучшение (24438170). Тестостерон/либидо: данные ограниченные. Лактация: есть отдельные РКИ.",
     "grade": "C",
     "key_sources": [
       {
@@ -6964,8 +6617,7 @@
         "title": "The Effect of Fenugreek in Type 2 Diabetes and Prediabetes: A Systematic Review and Meta-Analysis of Randomized Controlled Trials.",
         "year": 2023
       }
-    ],
-    "pubmed_term": "(Trigonella foenum-graecum OR fenugreek supplementation) AND (diabetes OR testosterone OR lactation OR libido)"
+    ]
   },
   {
     "id": "Чёрный тмин",
@@ -6976,9 +6628,7 @@
     "scienceIndex": 1,
     "metaCount": 0,
     "citations": 54,
-    "trends": null,
     "wiki": 27733,
-    "reviews": null,
     "ongoing": 7,
     "effects": [
       "Гликемия/липиды: умеренные МА"
@@ -7007,8 +6657,6 @@
       }
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "Воспаление и оксидативный стресс: есть данные. Кардиометаболическое здоровье: смешанные данные. Астма: есть данные.",
     "grade": "C",
     "key_sources": [
       {
@@ -7066,8 +6714,7 @@
         "title": "Effect of Nigella sativa Supplementation on Oxidative Stress and Antioxidant Parameters: A Meta-Analysis of Randomized Controlled Trials.",
         "year": 2020
       }
-    ],
-    "pubmed_term": "(Nigella sativa OR black seed OR thymoquinone) AND (inflammation OR metabolic OR asthma)"
+    ]
   },
   {
     "id": "Трибулус",
@@ -7078,9 +6725,7 @@
     "scienceIndex": 2,
     "metaCount": 0,
     "citations": 137,
-    "trends": null,
     "wiki": 40089,
-    "reviews": null,
     "ongoing": 2,
     "effects": [
       "Тестостерон/сила: не подтверждён"
@@ -7104,8 +6749,6 @@
       }
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "НЕТ ДАННЫХ в базе (0 систематических обзоров). Популярность в спортивном питании не подтверждена доказательной базой.",
     "grade": "D",
     "key_sources": [
       {
@@ -7182,8 +6825,7 @@
         "title": "Beneficial effects of natural products on female sexual dysfunction: A systematic review and meta-analysis.",
         "year": 2021
       }
-    ],
-    "pubmed_term": "(Tribulus terrestris supplementation) AND (testosterone OR libido OR sexual OR performance)"
+    ]
   },
   {
     "id": "NMN",
@@ -7194,9 +6836,7 @@
     "scienceIndex": 5,
     "metaCount": 1,
     "citations": 21,
-    "trends": null,
     "wiki": 10155,
-    "reviews": null,
     "ongoing": 13,
     "effects": [
       "Исходы (сила, когниция): не подтверждён"
@@ -7220,8 +6860,6 @@
       }
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "Безопасность: хорошая (42514320). Метаболизм глюкозы и липидов: данные смешанные. Мышцы: данные ограниченные.",
     "grade": "C",
     "key_sources": [
       {
@@ -7268,8 +6906,7 @@
         "title": "The Effect of Nicotinamide Mononucleotide and Riboside on Skeletal Muscle Mass and Function: A Systematic Review and Meta-Analysis.",
         "year": 2025
       }
-    ],
-    "pubmed_term": "(nicotinamide mononucleotide OR nicotinamide riboside OR NMN OR NR) AND (aging OR NAD OR metabolic OR cognitive)"
+    ]
   },
   {
     "id": "Кордицепс",
@@ -7280,9 +6917,7 @@
     "scienceIndex": 35,
     "metaCount": 5,
     "citations": 109,
-    "trends": null,
     "wiki": 108976,
-    "reviews": null,
     "ongoing": 7,
     "effects": [
       "VO2: слабо у пожилых, у спортсменов нет"
@@ -7306,8 +6941,6 @@
       }
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "Хроническая болезнь почек (ХБП): 2 Cochrane-обзора подтверждают улучшение функции. Трансплантация почек: есть данные.",
     "grade": "B",
     "key_sources": [
       {
@@ -7365,8 +6998,7 @@
         "title": "The effects of Ophiocordyceps sinensis combined with ACEI/ARB on diabetic kidney disease: A systematic review and meta-analysis.",
         "year": 2023
       }
-    ],
-    "pubmed_term": "(Cordyceps OR cordycepin supplementation) AND (exercise OR kidney OR respiratory OR fatigue)"
+    ]
   },
   {
     "id": "Рейши",
@@ -7377,9 +7009,7 @@
     "scienceIndex": 18,
     "metaCount": 2,
     "citations": 242,
-    "trends": null,
     "wiki": 4545,
-    "reviews": null,
     "ongoing": 10,
     "effects": [
       "Сон/иммунитет: не подтверждён у людей"
@@ -7408,8 +7038,6 @@
       }
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "Рак (адъювант): Cochrane показывает возможную пользу как дополнение к стандартной терапии. Иммунитет: данные ограниченные.",
     "grade": "C",
     "key_sources": [
       {
@@ -7454,8 +7082,7 @@
         "title": "Ganoderma lucidum mushroom for the treatment of cardiovascular risk factors.",
         "year": 2015
       }
-    ],
-    "pubmed_term": "(Ganoderma lucidum OR reishi mushroom) AND (immune OR cancer OR sleep OR antioxidant)"
+    ]
   },
   {
     "id": "Хлорофилл",
@@ -7466,9 +7093,7 @@
     "scienceIndex": 95,
     "metaCount": 17,
     "citations": 493,
-    "trends": null,
     "wiki": 107249,
-    "reviews": null,
     "ongoing": 6,
     "effects": [
       "Акне/запах/детокс: не подтверждён"
@@ -7492,8 +7117,6 @@
       }
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "НЕТ ДАННЫХ в базе (0 систематических обзоров). Популярность в wellness-индустрии не подтверждена доказательной базой.",
     "grade": "D",
     "key_sources": [
       {
@@ -7578,8 +7201,7 @@
         "title": "Machine learning-assisted meta-analysis reveals melatonin crosstalk regulating plant growth plasticity under heavy metal stress.",
         "year": 2026
       }
-    ],
-    "pubmed_term": "(chlorophyll OR chlorophyllin supplementation) AND (antioxidant OR detox OR cancer OR weight)"
+    ]
   },
   {
     "id": "Сывороточный протеин",
@@ -7590,9 +7212,7 @@
     "scienceIndex": 97,
     "metaCount": 11,
     "citations": 134,
-    "trends": null,
     "wiki": 8328,
-    "reviews": null,
     "ongoing": 118,
     "effects": [
       "Мышцы и профилактика саркопении: обширные МА"
@@ -7616,8 +7236,6 @@
       }
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "Мышечная масса: работает при сочетании с тренировками. Саркопения у пожилых: работает. Гликемия: улучшение постпрандиальной. Вес: есть данные.",
     "grade": "A",
     "key_sources": [
       {
@@ -7673,8 +7291,7 @@
         "title": "Dose-dependent effect of milk proteins on body composition and lipid profile in overweight and obese individuals; A GRADE-assessed systematic review and meta-analysis of randomized controlled trials.",
         "year": 2026
       }
-    ],
-    "pubmed_term": "(whey protein supplementation) AND (muscle OR exercise OR weight OR sarcopenia)"
+    ]
   },
   {
     "id": "Глутамин",
@@ -7685,9 +7302,7 @@
     "scienceIndex": 437,
     "metaCount": 34,
     "citations": 90,
-    "trends": null,
     "wiki": 31564,
-    "reviews": null,
     "ongoing": 38,
     "effects": [
       "Мышцы: не подтверждён; кишка/иммунитет — только в клинике"
@@ -7711,8 +7326,6 @@
       }
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "Критические состояния: противоречивые данные (Cochrane: неясный эффект). Спорт: нет систематических пруфов.",
     "grade": "C",
     "key_sources": [
       {
@@ -7756,8 +7369,7 @@
         "title": "Meta-analysis of blood metabolomics reveals dysregulated amino acid, neurotransmitter, and energy pathways in depression.",
         "year": 2026
       }
-    ],
-    "pubmed_term": "(glutamine OR L-glutamine) AND (exercise OR immune OR critical illness)"
+    ]
   },
   {
     "id": "Босвеллия",
@@ -7768,9 +7380,7 @@
     "scienceIndex": 38,
     "metaCount": 5,
     "citations": 12,
-    "trends": null,
     "wiki": 13663,
-    "reviews": null,
     "ongoing": 8,
     "effects": [
       "Боль при остеоартрите: умеренно, в МА сравнима с НПВС"
@@ -7799,8 +7409,6 @@
       }
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "Остеоартрит: есть данные (стандартизированный экстракт Aflapin). Воспаление: работает (ингибирует 5-LOX).",
     "grade": "C",
     "key_sources": [
       {
@@ -7845,8 +7453,7 @@
         "title": "Effectiveness of Boswellia and Boswellia extract for osteoarthritis patients: a systematic review and meta-analysis.",
         "year": 2020
       }
-    ],
-    "pubmed_term": "(Boswellia serrata OR boswellic acid supplementation) AND (osteoarthritis OR inflammation OR asthma)"
+    ]
   },
   {
     "id": "Витамин K2",
@@ -7857,9 +7464,7 @@
     "scienceIndex": 1,
     "metaCount": 0,
     "citations": 196,
-    "trends": null,
     "wiki": 44041,
-    "reviews": null,
     "ongoing": 88,
     "effects": [
       "Кости/сосуды: мало РКИ, контекст"
@@ -7886,8 +7491,6 @@
       "Витамин D"
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "Остеопороз у женщин в постменопаузе: есть данные. Переломы: данные смешанные. Сосудистая кальцификация: данные ограниченные.",
     "grade": "C",
     "key_sources": [
       {
@@ -7945,8 +7548,7 @@
         "title": "Efficacy of vitamin K2 in the prevention and treatment of postmenopausal osteoporosis: A systematic review and meta-analysis of randomized controlled trials.",
         "year": 2022
       }
-    ],
-    "pubmed_term": "(vitamin K2 OR menaquinone supplementation) AND (bone OR cardiovascular OR calcification OR osteoporosis)"
+    ]
   },
   {
     "id": "Берберин",
@@ -7957,9 +7559,7 @@
     "scienceIndex": 67,
     "metaCount": 10,
     "citations": 103,
-    "trends": null,
     "wiki": 73747,
-    "reviews": null,
     "ongoing": 24,
     "effects": [
       "Гликемия: МА сопоставимы с метформином"
@@ -7993,8 +7593,6 @@
       }
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "Гликемический контроль: работает (сравним с метформином в некоторых РКИ). Липиды: снижение. Ожирение/печень: есть данные.",
     "grade": "B",
     "key_sources": [
       {
@@ -8057,8 +7655,7 @@
         "title": "The effect of berberine on obesity indices: a systematic review and meta-analysis.",
         "year": 2026
       }
-    ],
-    "pubmed_term": "(berberine supplementation) AND (diabetes OR metabolic OR cholesterol OR weight)"
+    ]
   },
   {
     "id": "Кверцетин",
@@ -8069,9 +7666,7 @@
     "scienceIndex": 12,
     "metaCount": 1,
     "citations": 112,
-    "trends": null,
     "wiki": 44001,
-    "reviews": null,
     "ongoing": 28,
     "effects": [
       "Аллергия/ОРВИ: не подтверждён у людей"
@@ -8100,8 +7695,6 @@
       }
     ],
     "hedges_g": null,
-    "hedges_g_ci": null,
-    "effect_outcome": "Давление: умеренное снижение (35948195). Кардиометаболизм: улучшение маркеров. Спорт: есть данные по выносливости. Подагра: есть данные (31514376).",
     "grade": "B",
     "key_sources": [
       {
@@ -8156,7 +7749,6 @@
         "title": "The effect of Quercetin supplementation on hyperuricemia-related biochemical and renal outcomes in animal models: a systematic review and meta-analysis.",
         "year": 2026
       }
-    ],
-    "pubmed_term": "(quercetin supplementation) AND (inflammation OR exercise OR cardiovascular OR immune OR antioxidant)"
+    ]
   }
 ]
