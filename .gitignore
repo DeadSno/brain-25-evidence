@@ -115,9 +115,7 @@ celerybeat.pid
 # RabbitMQ
 mnesia/
 rabbitmq/
-rabbitmq-data/
 # ActiveMQ
-activemq-data/
 # SageMath parsed files
 *.sage.py
 # Environments
@@ -176,20 +174,19 @@ __marimo__/
 # Streamlit
 .streamlit/secrets.toml
 # ===== v3.0 audit cache (reproduced by scripts/fetch_meta.py) =====
-data/raw/pubmed/
 data/processed/all_lists.txt
 data/processed/list_pmids.py
-# временные хелперы для диагностики
+# пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 scripts/add_alias.py
 scripts/diag_*.py
 scripts/show_*.py
 scripts/fix_*.py
-# временные хелперы для чистки цен
+# пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ
 scripts/check_price_*.py
 scripts/remove_price_*.py
 scripts/strip_price_*.py
 scripts/update_radar_*.py
-# одноразовые хелперы (использовались для чистки/фиксов)
+# пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ/пїЅпїЅпїЅпїЅпїЅпїЅ)
 scripts/clean_*.py
 scripts/update_*.py
 # brain-25-evidence: runtime reports
@@ -197,3 +194,11 @@ reports/.last_validation
 reports/validation_report.json
 reports/sources_candidates.json
 reports/evidence/
+
+# Runtime Р°СЂС‚РµС„Р°РєС‚С‹ data/raw (СЂРµРіРµРЅРµСЂРёСЂСѓСЋС‚СЃСЏ СЃРєСЂРёРїС‚Р°РјРё)
+data/raw/*
+!data/raw/.gitkeep
+
+# Р‘СЌРєР°РїС‹ data.json Рё РјРµС‚СЂРёРєРё-РѕС‚С‡С‘С‚С‹ (СЂРµРіРµРЅРµСЂРёСЂСѓСЋС‚СЃСЏ СЃРєСЂРёРїС‚Р°РјРё)
+docs/data.json.bak-*
+reports/metrics_report.json
