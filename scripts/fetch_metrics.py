@@ -28,6 +28,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from src.wiki_map import WIKI_RU  # noqa: E402
+from src.ct_terms import CT_TERMS  # noqa: E402
 
 DATA_JSON = ROOT / "docs" / "data.json"
 REPORT_JSON = ROOT / "reports" / "metrics_report.json"
@@ -38,6 +39,12 @@ WIKI_URL = (
     "ru.wikipedia/all-access/user/{title}/monthly/{start}/{end}"
 )
 OPENALEX_URL = "https://api.openalex.org/works"
+CT_URL = "https://clinicaltrials.gov/api/v2/studies"
+
+# Активные статусы ClinicalTrials.gov (все, кроме завершённых/отменённых)
+CT_ACTIVE_STATUSES = (
+    "RECRUITING,ACTIVE_NOT_RECRUITING,NOT_YET_RECRUITING,ENROLLING_BY_INVITATION"
+)
 
 # Период для wiki: последние 12 полных месяцев
 WIKI_START = "2025090100"
@@ -103,11 +110,40 @@ def fetch_citations(pmids: list[str]) -> tuple[int, int | None, int]:
     return 200, total, len(results)
 
 
+def fetch_ongoing(term: str) -> tuple[int, int | None]:
+    """ClinicalTrials.gov: количество активных исследований по термину."""
+    params = {
+        "query.intr": term,
+        "filter.overallStatus": CT_ACTIVE_STATUSES,
+        "pageSize": 1,
+        "countTotal": "true",
+        "format": "json",
+    }
+    url = f"{CT_URL}?{urllib.parse.urlencode(params)}"
+    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+    for attempt in range(3):
+        try:
+            with urllib.request.urlopen(req, timeout=25) as resp:
+                data = json.loads(resp.read().decode("utf-8"))
+                return 200, int(data.get("totalCount", 0))
+        except urllib.error.HTTPError as e:
+            if e.code in (429, 500, 502, 503) and attempt < 2:
+                time.sleep(2 ** attempt)
+                continue
+            return e.code, None
+        except (urllib.error.URLError, TimeoutError):
+            if attempt < 2:
+                time.sleep(2 ** attempt)
+                continue
+            return 0, None
+    return 0, None
+
+
 # ---------------- main ----------------
 
 def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--only", nargs="+", choices=["wiki", "citations"],
+    ap.add_argument("--only", nargs="+", choices=["wiki", "citations", "ongoing"],
                     help="какие метрики обновлять")
     ap.add_argument("--all", action="store_true", help="все метрики")
     ap.add_argument("--dry-run", action="store_true", help="не записывать")
@@ -115,7 +151,7 @@ def main() -> int:
     args = ap.parse_args()
 
     if args.all:
-        metrics = ["wiki", "citations"]
+        metrics = ["wiki", "citations", "ongoing"]
     elif args.only:
         metrics = args.only
     else:
@@ -187,6 +223,27 @@ def main() -> int:
                         report["totals"]["changed"] += 1
                         if args.apply:
                             c["citations"] = total
+                    else:
+                        report["totals"]["ok"] += 1
+                time.sleep(0.4)
+
+        if "ongoing" in metrics:
+            term = CT_TERMS.get(cid)
+            if not term:
+                changes["ongoing"] = {"status": "no_term"}
+                report["totals"]["missing"] += 1
+            else:
+                status, total = fetch_ongoing(term)
+                old = c.get("ongoing")
+                if status != 200:
+                    changes["ongoing"] = {"status": f"http_{status}"}
+                    report["totals"]["error"] += 1
+                else:
+                    changes["ongoing"] = {"status": "ok", "old": old, "new": total}
+                    if old != total:
+                        report["totals"]["changed"] += 1
+                        if args.apply:
+                            c["ongoing"] = total
                     else:
                         report["totals"]["ok"] += 1
                 time.sleep(0.4)
