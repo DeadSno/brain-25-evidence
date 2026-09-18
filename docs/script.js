@@ -91,7 +91,7 @@ function compareBlock(s) {
 const BLOCK_EMPTY = '<span class="cbEmpty">для этой добавки проверяемых данных по пункту нет</span>';
 const CARDBLOCKS = [
   { key: 'what',      title: 'Что это',                    get: s => s.about || (s.effects || []).join(', ') || '' },
-  { key: 'who',       title: 'Кому нужно',                 get: s => s.who_needs || s.who || '' },
+  { key: 'who',       title: 'Кому нужно',                 get: s => s.who_needs || '' },
   { key: 'works',     title: 'Работает ли',                get: s => '<span class="verdict v' + s.code + '">' + s.verdict + '</span> · ' + gradeBadge(s) },
   { key: 'evidence',  title: 'На чём основано',            get: s => '<div>' + scienceSpan(s) + pubmedLink(s) + ' · ' + maSpan(s) + ' · ' + citationsSpan(s) + '</div>' +
     ((s.mechs || []).length ? '<div class="hline">Механизмы: ' + s.mechs.map(m => m[0]).join('; ') + '</div>' : '') },
@@ -101,9 +101,9 @@ const CARDBLOCKS = [
   { key: 'conflicts', title: 'С чем конфликтует',          get: renderConflicts },
   { key: 'friends',   title: 'С чем дружит',               get: s => (s.synergists || []).length
     ? '<span class="goodPair">🤝 Хорошая пара: ' + s.synergists.join(', ') + '</span>' : '' },
-  { key: 'ul',        title: 'Передозировка (UL)',         get: s => s.upper_limit || s.ul || '' },
-  { key: 'food',      title: 'Можно ли из еды',            get: s => s.food_sources || s.food || '' },
-  { key: 'official',  title: 'Что говорят официалы',       get: s => s.guidelines || s.official || '' },
+  { key: 'ul',        title: 'Передозировка (UL)',         get: s => s.upper_limit || '' },
+  { key: 'food',      title: 'Можно ли из еды',            get: s => s.food_sources || '' },
+  { key: 'official',  title: 'Что говорят официалы',       get: s => s.guidelines || '' },
   { key: 'shop',      title: 'Как выбрать в магазине',     get: s => s.how_to_choose || s.forms || '' },
   { key: 'myths',     title: 'Мифы и ловушки',             get: s => s.myths || '' }
 ];
@@ -433,7 +433,7 @@ function openModal(id) {
     maTop3Block(s) +    trialsLine +
     calcLine +
     (s.citations != null ? '<div class="mrow">📖 Цитирований ключевого MA: ' + s.citations + '</div>' : '') +
-    (s.reviews != null ? '<div class="mrow">🛒 Популярность (WB): ' + s.reviews.toLocaleString('ru-RU') + ' · 📈 поиск 5 лет: ' + (s.trends ?? '—') + ' · 🌐 Wiki: ' + (s.wiki != null ? s.wiki.toLocaleString('ru-RU') : '—') + wikiLink(s) + '</div>' : '') +
+    (s.wiki != null ? '<div class="mrow">🌐 Просмотров в Википедии (12 мес): ' + s.wiki.toLocaleString('ru-RU') + wikiLink(s) + '</div>' : '') +
     '<div class="mrow"><b>Эффекты:</b> ' + ((s.effects || []).join(', ') || '—') + '</div>' +
     '<div class="mrow">💊 <b>Дозировка:</b> ' + (s.dosage || '—') + '</div>' +
     '<div class="mrow">⏳ <b>Курс:</b> ' + (s.course || '—') + '</div>' +
@@ -480,7 +480,7 @@ const AXIS_LABEL = { ma: 'Число МА', rct: 'Число РКИ' };
 function axisVal(s) {
   if (axisX === 'ma') return (s.metaCount || 0) > 0 ? s.metaCount : null;
   if (axisX === 'rct') { const r = Math.max(0, (s.scienceIndex || 0) - 5 * (s.metaCount || 0)); return r > 0 ? r : null; }
-  return s.year_last_ma || null;
+  return null;
 }
 function setAxisX(ax) {
   if (ax === axisX) return;
@@ -661,8 +661,6 @@ function renderCompare() {
     ['Мета-анализов', a.metaCount, b.metaCount],
     ['🧪 Испытания сейчас', a.ongoing ?? '—', b.ongoing ?? '—'],
     ['Цитирований MA', a.citations ?? '—', b.citations ?? '—'],
-    ['🛒 Популярность (WB)', a.reviews ?? '—', b.reviews ?? '—'],
-    ['Поиск (5 лет)', a.trends ?? '—', b.trends ?? '—'],
     ['Эффекты', (a.effects || []).join(', '), (b.effects || []).join(', ')],
     ['Дозировка', a.dosage ?? '—', b.dosage ?? '—'],
     ['Курс', a.course ?? '—', b.course ?? '—'],
