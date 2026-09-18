@@ -1,0 +1,810 @@
+{
+  "timestamp": "2026-09-18T13:06:28.477654+00:00",
+  "dry_run": false,
+  "cards": {
+    "Креатин": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": -0.45,
+      "ci": [
+        -0.83,
+        -0.07
+      ],
+      "outcome": "interleukin",
+      "pmid": "42197030",
+      "candidates_count": 9
+    },
+    "Омега-3": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": 0.21,
+      "ci": [
+        0.04,
+        0.38
+      ],
+      "outcome": "",
+      "pmid": "42433395",
+      "candidates_count": 3
+    },
+    "Витамин D": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": 0.13,
+      "ci": [
+        -0.22,
+        0.49
+      ],
+      "outcome": "bone",
+      "pmid": "42746921",
+      "candidates_count": 4
+    },
+    "B12": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": 0.0,
+      "ci": [
+        -0.13,
+        0.13
+      ],
+      "outcome": "attention",
+      "pmid": "42227307",
+      "candidates_count": 6
+    },
+    "Магний": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": -0.67,
+      "ci": [
+        -0.89,
+        -0.45
+      ],
+      "outcome": "",
+      "pmid": "42515920",
+      "candidates_count": 3
+    },
+    "Кофеин": {
+      "status": "ok",
+      "old_g": 0.21,
+      "new_g": 0.24,
+      "ci": [
+        0.13,
+        0.35
+      ],
+      "outcome": "performance",
+      "pmid": "42588052",
+      "candidates_count": 5
+    },
+    "L-Теанин": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": 0.15,
+      "ci": [
+        0.01,
+        0.29
+      ],
+      "outcome": "sleep",
+      "pmid": "40056718",
+      "candidates_count": 2
+    },
+    "Бакопа": {
+      "status": "no_candidates"
+    },
+    "Ежовик": {
+      "status": "no_candidates"
+    },
+    "Гинкго": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": 0.83,
+      "ci": [
+        0.0,
+        1.67
+      ],
+      "outcome": "cognition",
+      "pmid": "41198594",
+      "candidates_count": 5
+    },
+    "Родиола": {
+      "status": "no_candidates"
+    },
+    "Ашваганда": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": 0.6,
+      "ci": [
+        0.2,
+        1.01
+      ],
+      "outcome": "",
+      "pmid": "42738987",
+      "candidates_count": 7
+    },
+    "Фосфатидилсерин": {
+      "status": "no_candidates"
+    },
+    "Alpha-GPC": {
+      "status": "no_candidates"
+    },
+    "CDP-холин": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": -1.05,
+      "ci": [
+        -1.85,
+        -0.24
+      ],
+      "outcome": "",
+      "pmid": "39026098",
+      "candidates_count": 2
+    },
+    "Гуперзин А": {
+      "status": "no_candidates"
+    },
+    "Куркумин": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": 0.033,
+      "ci": [
+        -0.216,
+        0.281
+      ],
+      "outcome": "",
+      "pmid": "42499105",
+      "candidates_count": 5
+    },
+    "Ресвератрол": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": 0.05,
+      "ci": [
+        -0.24,
+        0.344
+      ],
+      "outcome": "",
+      "pmid": "40158656",
+      "candidates_count": 5
+    },
+    "NAC": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": -1.75,
+      "ci": [
+        -2.19,
+        -1.3
+      ],
+      "outcome": "",
+      "pmid": "41546714",
+      "candidates_count": 2
+    },
+    "Цинк": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": -0.24,
+      "ci": [
+        -0.37,
+        -0.1
+      ],
+      "outcome": "sleep",
+      "pmid": "41470897",
+      "candidates_count": 4
+    },
+    "Тирозин": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": 0.02,
+      "ci": null,
+      "outcome": "performance",
+      "pmid": "38290812",
+      "candidates_count": 1
+    },
+    "Таурин": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": 0.18,
+      "ci": [
+        0.007,
+        0.352
+      ],
+      "outcome": "performance",
+      "pmid": "34129223",
+      "candidates_count": 4
+    },
+    "CoQ10": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": -1.01,
+      "ci": [
+        -1.56,
+        -0.64
+      ],
+      "outcome": "interleukin",
+      "pmid": "42192187",
+      "candidates_count": 5
+    },
+    "Пикногенол": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": -0.06,
+      "ci": [
+        -0.22,
+        0.1
+      ],
+      "outcome": "",
+      "pmid": "33141449",
+      "candidates_count": 3
+    },
+    "Готу кола": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": -0.06,
+      "ci": [
+        -0.22,
+        0.1
+      ],
+      "outcome": "",
+      "pmid": "33141449",
+      "candidates_count": 2
+    },
+    "Мелатонин": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": -0.43,
+      "ci": [
+        -0.65,
+        -0.2
+      ],
+      "outcome": "fatigue",
+      "pmid": "42726650",
+      "candidates_count": 8
+    },
+    "ГАБА": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": -0.6,
+      "ci": [
+        -0.91,
+        -0.28
+      ],
+      "outcome": "pain",
+      "pmid": "42562184",
+      "candidates_count": 3
+    },
+    "Глицин": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": 0.08,
+      "ci": [
+        -0.05,
+        0.2
+      ],
+      "outcome": "",
+      "pmid": "29129666",
+      "candidates_count": 1
+    },
+    "Валериана": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": -0.48,
+      "ci": [
+        -0.53,
+        -0.2
+      ],
+      "outcome": "insomnia",
+      "pmid": "35378276",
+      "candidates_count": 1
+    },
+    "Бета-аланин": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": -0.53,
+      "ci": [
+        -0.75,
+        -0.31
+      ],
+      "outcome": "glucose",
+      "pmid": "40999397",
+      "candidates_count": 7
+    },
+    "L-цитруллин": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": -0.21,
+      "ci": [
+        -0.4,
+        -0.01
+      ],
+      "outcome": "exercis",
+      "pmid": "41786156",
+      "candidates_count": 8
+    },
+    "Витамин C": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": -2.28,
+      "ci": [
+        -3.01,
+        -1.56
+      ],
+      "outcome": "hba1c",
+      "pmid": "41158097",
+      "candidates_count": 2
+    },
+    "Эхинацея": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": -0.19,
+      "ci": [
+        -0.3,
+        -0.09
+      ],
+      "outcome": "",
+      "pmid": "40311928",
+      "candidates_count": 2
+    },
+    "Бузина": {
+      "status": "no_candidates"
+    },
+    "Зверобой": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": -0.068,
+      "ci": [
+        -0.127,
+        0.021
+      ],
+      "outcome": "depressive",
+      "pmid": "28064110",
+      "candidates_count": 3
+    },
+    "5-HTP": {
+      "status": "no_candidates"
+    },
+    "Коллаген": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": -0.35,
+      "ci": [
+        -0.52,
+        -0.18
+      ],
+      "outcome": "bone",
+      "pmid": "41574289",
+      "candidates_count": 4
+    },
+    "Пробиотики": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": 0.71,
+      "ci": [
+        0.29,
+        1.13
+      ],
+      "outcome": "",
+      "pmid": "42614164",
+      "candidates_count": 4
+    },
+    "B9": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": 0.0,
+      "ci": [
+        -0.13,
+        0.13
+      ],
+      "outcome": "attention",
+      "pmid": "42227307",
+      "candidates_count": 1
+    },
+    "Железо": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": 2.05,
+      "ci": [
+        0.91,
+        3.2
+      ],
+      "outcome": "ferritin",
+      "pmid": "42313570",
+      "candidates_count": 1
+    },
+    "Триптофан": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": -0.24,
+      "ci": [
+        -0.37,
+        -0.1
+      ],
+      "outcome": "sleep",
+      "pmid": "41470897",
+      "candidates_count": 1
+    },
+    "Глюкозамин + хондроитин": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": 1.95,
+      "ci": [
+        0.71,
+        3.2
+      ],
+      "outcome": "",
+      "pmid": "36307768",
+      "candidates_count": 3
+    },
+    "Витамин E": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": -0.4,
+      "ci": [
+        -0.48,
+        -0.32
+      ],
+      "outcome": "immune",
+      "pmid": "42254024",
+      "candidates_count": 6
+    },
+    "Биотин": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": 0.15,
+      "ci": [
+        -0.33,
+        0.64
+      ],
+      "outcome": "",
+      "pmid": "41124782",
+      "candidates_count": 1
+    },
+    "L-карнитин": {
+      "status": "no_candidates"
+    },
+    "BCAA": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": -0.74,
+      "ci": [
+        -1.15,
+        -0.33
+      ],
+      "outcome": "",
+      "pmid": "41731200",
+      "candidates_count": 4
+    },
+    "Аргинин": {
+      "status": "no_candidates"
+    },
+    "Кальций": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": -0.67,
+      "ci": [
+        -0.89,
+        -0.45
+      ],
+      "outcome": "",
+      "pmid": "42515920",
+      "candidates_count": 4
+    },
+    "Гиалуроновая кислота": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": -0.38,
+      "ci": null,
+      "outcome": "pain",
+      "pmid": "42287090",
+      "candidates_count": 1
+    },
+    "Псиллиум": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": -0.67,
+      "ci": [
+        -0.78,
+        -0.56
+      ],
+      "outcome": "",
+      "pmid": "42687548",
+      "candidates_count": 4
+    },
+    "Имбирь": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": -1.13,
+      "ci": [
+        -1.59,
+        -0.68
+      ],
+      "outcome": "pain",
+      "pmid": "38770631",
+      "candidates_count": 5
+    },
+    "Чеснок": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": 0.18,
+      "ci": [
+        -0.0,
+        0.37
+      ],
+      "outcome": "",
+      "pmid": "36640154",
+      "candidates_count": 3
+    },
+    "Клюква": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": -2.23,
+      "ci": [
+        -4.34,
+        -1.37
+      ],
+      "outcome": "",
+      "pmid": "37352393",
+      "candidates_count": 2
+    },
+    "Пустырник": {
+      "status": "no_candidates"
+    },
+    "Боярышник": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": 0.19,
+      "ci": [
+        0.0,
+        0.37
+      ],
+      "outcome": "",
+      "pmid": "40132324",
+      "candidates_count": 2
+    },
+    "Бета-глюканы овса": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": 0.86,
+      "ci": [
+        0.46,
+        1.25
+      ],
+      "outcome": "acetate",
+      "pmid": "34152334",
+      "candidates_count": 1
+    },
+    "Рибофлавин": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": -0.16,
+      "ci": [
+        -0.28,
+        -0.04
+      ],
+      "outcome": "",
+      "pmid": "40708203",
+      "candidates_count": 2
+    },
+    "Лютеин + зеаксантин": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": -0.521,
+      "ci": [
+        -0.741,
+        -0.301
+      ],
+      "outcome": "",
+      "pmid": "36997905",
+      "candidates_count": 4
+    },
+    "Инозитол": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": 0.04,
+      "ci": [
+        -0.04,
+        0.11
+      ],
+      "outcome": "",
+      "pmid": "41871887",
+      "candidates_count": 6
+    },
+    "Альфа-липоевая кислота": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": -0.76,
+      "ci": [
+        -0.98,
+        -0.54
+      ],
+      "outcome": "",
+      "pmid": "42147097",
+      "candidates_count": 5
+    },
+    "D-манноза": {
+      "status": "no_candidates"
+    },
+    "Мака": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": 0.08,
+      "ci": [
+        -0.2,
+        0.36
+      ],
+      "outcome": "pain",
+      "pmid": "25062981",
+      "candidates_count": 3
+    },
+    "Хром": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": 0.303,
+      "ci": [
+        0.116,
+        0.489
+      ],
+      "outcome": "concentration",
+      "pmid": "37709042",
+      "candidates_count": 2
+    },
+    "Астаксантин": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": -0.45,
+      "ci": [
+        -0.83,
+        -0.07
+      ],
+      "outcome": "interleukin",
+      "pmid": "42197030",
+      "candidates_count": 6
+    },
+    "Расторопша": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": -0.39,
+      "ci": null,
+      "outcome": "cholesterol",
+      "pmid": "40738719",
+      "candidates_count": 1
+    },
+    "Лактоферрин": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": -0.09,
+      "ci": [
+        -0.82,
+        0.65
+      ],
+      "outcome": "crp",
+      "pmid": "35481594",
+      "candidates_count": 1
+    },
+    "SAMe": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": 0.0,
+      "ci": [
+        -0.13,
+        0.13
+      ],
+      "outcome": "attention",
+      "pmid": "42227307",
+      "candidates_count": 5
+    },
+    "Йохимбин": {
+      "status": "no_candidates"
+    },
+    "Пажитник": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": 0.24,
+      "ci": [
+        -0.04,
+        0.52
+      ],
+      "outcome": "testosterone",
+      "pmid": "37253363",
+      "candidates_count": 4
+    },
+    "Чёрный тмин": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": -1.71,
+      "ci": [
+        -2.11,
+        -1.31
+      ],
+      "outcome": "a1c",
+      "pmid": "39181437",
+      "candidates_count": 5
+    },
+    "Трибулус": {
+      "status": "no_candidates"
+    },
+    "NMN": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": 0.22,
+      "ci": null,
+      "outcome": "",
+      "pmid": "42163202",
+      "candidates_count": 1
+    },
+    "Кордицепс": {
+      "status": "no_candidates"
+    },
+    "Рейши": {
+      "status": "no_candidates"
+    },
+    "Хлорофилл": {
+      "status": "no_candidates"
+    },
+    "Сывороточный протеин": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": 0.18,
+      "ci": [
+        -0.13,
+        0.49
+      ],
+      "outcome": "",
+      "pmid": "39303495",
+      "candidates_count": 6
+    },
+    "Глутамин": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": -0.16,
+      "ci": [
+        -0.299,
+        -0.03
+      ],
+      "outcome": "concentration",
+      "pmid": "41679103",
+      "candidates_count": 2
+    },
+    "Босвеллия": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": 0.08,
+      "ci": [
+        -0.2,
+        0.36
+      ],
+      "outcome": "pain",
+      "pmid": "25062981",
+      "candidates_count": 1
+    },
+    "Витамин K2": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": -0.56,
+      "ci": [
+        -0.77,
+        -0.36
+      ],
+      "outcome": "hba1c",
+      "pmid": "40054729",
+      "candidates_count": 2
+    },
+    "Берберин": {
+      "status": "no_candidates"
+    },
+    "Кверцетин": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": -0.24,
+      "ci": [
+        -0.49,
+        0.0
+      ],
+      "outcome": "crp",
+      "pmid": "31213101",
+      "candidates_count": 3
+    }
+  },
+  "totals": {
+    "found": 63,
+    "with_ci": 59,
+    "no_candidates": 18,
+    "error": 0
+  }
+}

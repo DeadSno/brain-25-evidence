@@ -39,20 +39,24 @@ def _clean_text(text: str) -> str:
     return html.unescape(TAG_RE.sub(" ", text))
 
 
-def ma_pmids(query: str, n: int = 5) -> list[str]:
+def ma_pmids(query: str, n: int = 20) -> list[str]:
+    import time
     r = requests.get(ESEARCH, params={"db": "pubmed", "retmode": "json", "retmax": n,
                                       "term": f"({query}) AND meta-analysis[pt]"}, timeout=30)
     r.raise_for_status()
+    time.sleep(0.4)
     return r.json()["esearchresult"].get("idlist", [])
 
 
 def abstract(pmid: str) -> str | None:
+    import time
     r = requests.get(EFETCH, params={"db": "pubmed", "id": pmid,
                                      "rettype": "abstract", "retmode": "xml"}, timeout=30)
     if r.status_code in (400, 404):
-        return None  # efetch-глюк конкретного id: пропустить PMID, не валить пересборку
+        return None
     r.raise_for_status()
     raw = " ".join(re.findall(r"<AbstractText[^>]*>(.*?)</AbstractText>", r.text, re.S))
+    time.sleep(0.4)
     return _clean_text(raw)
 
 
@@ -123,10 +127,20 @@ def candidates(sid: str, query: str) -> list[dict]:
             continue
         if _is_range(text, m.end()):
             continue
-        g = float(m.group(1))
+        g_val = float(m.group(1))
+        if abs(g_val) > 3:
+            continue
+
+        # CI должен содержать g и быть разумной ширины
         ci = _paired_ci(text, m.start(), m.end())
+        if ci:
+            lo, hi = ci
+            if not (lo - 0.05 <= g_val <= hi + 0.05):
+                continue  # CI и g из разных результатов
+            if (hi - lo) > 4:
+                continue  # шумовой CI
         out.append({
-            "id": sid, "pmid": pmid, "g": g,
+            "id": sid, "pmid": pmid, "g": float(m.group(1)),
             "ci": ci,
             "outcome": _outcome(text, m.start()),
             "snippet": text[max(0, m.start() - 80):m.end() + 80],
