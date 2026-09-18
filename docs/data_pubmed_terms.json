@@ -37,7 +37,7 @@
   "5-HTP": "(5-hydroxytryptophan OR 5-HTP) AND (depression OR sleep OR anxiety)",
   "Коллаген": "(collagen supplementation OR hydrolyzed collagen) AND (skin OR joint OR bone)",
   "Пробиотики": "(probiotic supplementation OR probiotics) AND (irritable bowel OR diarrhea OR antibiotic-associated)",
-  "B9": "(folic acid OR folate supplementation) AND (neural tube OR pregnancy OR homocysteine OR cardiovascular OR depression)",
+  "B9": "(folic acid supplementation OR folate supplementation) AND (neural tube OR pregnancy OR homocysteine OR cardiovascular OR depression)",
   "Железо": "(iron supplementation OR ferrous) AND (anemia OR iron deficiency OR pregnancy)",
   "Триптофан": "(tryptophan supplementation) AND (sleep OR mood OR depression OR serotonin)",
   "Глюкозамин + хондроитин": "(glucosamine OR chondroitin) AND (osteoarthritis OR knee OR joint pain)",
