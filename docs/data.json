@@ -9,7 +9,7 @@
     "metaCount": 95,
     "citations": 118,
     "wiki": 181494,
-    "ongoing": 78,
+    "ongoing": 79,
     "effects": [
       "Рабочая память под нагрузкой"
     ],
@@ -44,7 +44,7 @@
     "guidelines": "Позиция ISSN: эффективен и безопасен; EFSA health claims для спорта не требует.",
     "how_to_choose": "Моногидрат (знак Creapure); без «транспортных систем» и переплаты за экзотические формы.",
     "myths": "«Бьёт по почкам у здоровых» — на стандартных дозах не подтверждено. «Без загрузки не работает» — работает, просто медленнее.",
-    "hedges_g": -0.45,
+    "hedges_g": -0.75,
     "grade": "A",
     "key_sources": [
       {
@@ -103,11 +103,11 @@
     "rct": 785,
     "pubmed_term": "(creatine supplementation) AND (strength OR muscle OR cognitive)",
     "hedges_g_ci": [
-      -0.83,
-      -0.07
+      -1.14,
+      -0.36
     ],
-    "hedges_g_outcome": "interleukin",
-    "hedges_g_pmid": "42197030"
+    "hedges_g_outcome": "exercis",
+    "hedges_g_pmid": "42124047"
   },
   {
     "id": "Омега-3",
@@ -119,7 +119,7 @@
     "metaCount": 1006,
     "citations": 0,
     "wiki": 49978,
-    "ongoing": 329,
+    "ongoing": 330,
     "effects": [
       "Нейропластичность"
     ],
@@ -230,8 +230,8 @@
     "code": 0,
     "verdict": "зависит от контекста",
     "category": "Кости/Иммунитет",
-    "scienceIndex": 8990,
-    "metaCount": 997,
+    "scienceIndex": 8995,
+    "metaCount": 998,
     "citations": 818,
     "wiki": 145309,
     "ongoing": 393,
@@ -348,9 +348,9 @@
     "code": 0,
     "verdict": "зависит от контекста",
     "category": "Нервная система/Кровь",
-    "scienceIndex": 994,
-    "metaCount": 96,
-    "citations": 247,
+    "scienceIndex": 999,
+    "metaCount": 97,
+    "citations": 248,
     "wiki": 108324,
     "ongoing": 110,
     "effects": [
@@ -379,7 +379,7 @@
         "note": "снижает всасывание"
       }
     ],
-    "hedges_g": 0.0,
+    "hedges_g": 0.423,
     "grade": "B",
     "key_sources": [
       {
@@ -464,11 +464,11 @@
     "rct": 514,
     "pubmed_term": "(vitamin B12 supplementation OR cobalamin supplementation) AND (deficiency OR cognitive OR pernicious anemia)",
     "hedges_g_ci": [
-      -0.13,
-      0.13
+      0.188,
+      0.657
     ],
-    "hedges_g_outcome": "attention",
-    "hedges_g_pmid": "42227307"
+    "hedges_g_outcome": "cognitive",
+    "hedges_g_pmid": "40966571"
   },
   {
     "id": "Магний",
@@ -480,7 +480,7 @@
     "metaCount": 90,
     "citations": 601,
     "wiki": 99800,
-    "ongoing": 368,
+    "ongoing": 367,
     "effects": [
       "Сон, расслабление"
     ],
@@ -1223,7 +1223,7 @@
     "metaCount": 17,
     "citations": 154,
     "wiki": 0,
-    "ongoing": 18,
+    "ongoing": 19,
     "effects": [
       "Стрессоустойчивость"
     ],
@@ -1848,7 +1848,7 @@
     "metaCount": 57,
     "citations": 84,
     "wiki": 79484,
-    "ongoing": 27,
+    "ongoing": 28,
     "effects": [
       "Антивозрастной эффект"
     ],
@@ -2069,7 +2069,7 @@
     "metaCount": 236,
     "citations": 114,
     "wiki": 79279,
-    "ongoing": 161,
+    "ongoing": 160,
     "effects": [
       "Когниция (при дефиците)"
     ],
@@ -2109,7 +2109,7 @@
     "guidelines": "EFSA: иммунитет и кожа; NIH: вегетарианцы в группе риска дефицита.",
     "how_to_choose": "Пиколинат, цитрат, глюконат; 15-25 мг элементарного цинка; «50 мг + медь» без показаний не брать.",
     "myths": "«Вылечит простуду за день» — пастилки слегка сокращают длительность. «Больше — больше тестостерона» — только при дефиците.",
-    "hedges_g": -0.24,
+    "hedges_g": -0.95,
     "grade": "B",
     "key_sources": [
       {
@@ -2192,11 +2192,11 @@
     "rct": 1129,
     "pubmed_term": "(zinc supplementation) AND (common cold OR diarrhea OR infection)",
     "hedges_g_ci": [
-      -0.37,
-      -0.1
+      -1.22,
+      -0.68
     ],
-    "hedges_g_outcome": "sleep",
-    "hedges_g_pmid": "41470897"
+    "hedges_g_outcome": "",
+    "hedges_g_pmid": "41372683"
   },
   {
     "id": "Тирозин",
@@ -2283,7 +2283,7 @@
     "category": "Метаболизм/Антиоксидант",
     "scienceIndex": 197,
     "metaCount": 18,
-    "citations": 62,
+    "citations": 63,
     "wiki": 123000,
     "ongoing": 29,
     "effects": [
@@ -2526,7 +2526,7 @@
         "note": "иммуностимулирующий эффект"
       }
     ],
-    "hedges_g": -0.06,
+    "hedges_g": -0.59,
     "grade": "C",
     "key_sources": [
       {
@@ -2587,11 +2587,11 @@
     "rct": 82,
     "pubmed_term": "(Pycnogenol OR Pinus pinaster extract OR maritime pine bark) AND (cognitive OR vascular OR antioxidant)",
     "hedges_g_ci": [
-      -0.22,
-      0.1
+      -1.25,
+      0.06
     ],
     "hedges_g_outcome": "",
-    "hedges_g_pmid": "33141449"
+    "hedges_g_pmid": "33460048"
   },
   {
     "id": "Готу кола",
@@ -2803,7 +2803,7 @@
     "code": -1,
     "verdict": "не подтверждено",
     "category": "Психика/Сон",
-    "scienceIndex": 3656,
+    "scienceIndex": 3657,
     "metaCount": 365,
     "citations": 284,
     "wiki": 86607,
@@ -2867,7 +2867,7 @@
         "year": 2026
       }
     ],
-    "rct": 1831,
+    "rct": 1832,
     "pubmed_term": "(GABA supplementation OR gamma-aminobutyric acid) AND (anxiety OR sleep OR stress)",
     "hedges_g_ci": [
       -0.91,
@@ -3175,7 +3175,7 @@
     "category": "Спорт/Сосуды",
     "scienceIndex": 404,
     "metaCount": 26,
-    "citations": 137,
+    "citations": 138,
     "wiki": 42147,
     "ongoing": 23,
     "effects": [
@@ -3281,7 +3281,7 @@
     "metaCount": 159,
     "citations": 227,
     "wiki": 128313,
-    "ongoing": 232,
+    "ongoing": 231,
     "effects": [
       "Иммунитет (при нагрузках)"
     ],
@@ -3751,7 +3751,7 @@
     "metaCount": 28,
     "citations": 255,
     "wiki": 95617,
-    "ongoing": 396,
+    "ongoing": 398,
     "effects": [
       "Кожа, суставы"
     ],
@@ -3857,7 +3857,7 @@
     "metaCount": 1342,
     "citations": 7,
     "wiki": 33804,
-    "ongoing": 537,
+    "ongoing": 536,
     "effects": [
       "Кишечник, иммунитет"
     ],
@@ -3967,8 +3967,8 @@
     "code": 1,
     "verdict": "работает",
     "category": "Беременность/Кровь",
-    "scienceIndex": 2687,
-    "metaCount": 303,
+    "scienceIndex": 2692,
+    "metaCount": 304,
     "citations": 1278,
     "wiki": 78114,
     "ongoing": 580,
@@ -4386,7 +4386,7 @@
     "metaCount": 477,
     "citations": 460,
     "wiki": 40584,
-    "ongoing": 109,
+    "ongoing": 108,
     "effects": [
       "Профилактика ССЗ и смертности: не подтверждён"
     ],
@@ -4489,7 +4489,7 @@
     "metaCount": 4,
     "citations": 454,
     "wiki": 37004,
-    "ongoing": 25,
+    "ongoing": 24,
     "effects": [
       "Волосы/ногти только при дефиците; мешает анализам"
     ],
@@ -4711,9 +4711,9 @@
     "category": "Печень/Спорт",
     "scienceIndex": 4008,
     "metaCount": 337,
-    "citations": 359,
+    "citations": 360,
     "wiki": 103667,
-    "ongoing": 5429,
+    "ongoing": 5433,
     "effects": [
       "При достатке белка эффекта нет"
     ],
@@ -4810,7 +4810,7 @@
     "category": "Сосуды/Беременность",
     "scienceIndex": 4412,
     "metaCount": 371,
-    "citations": 118,
+    "citations": 119,
     "wiki": 99193,
     "ongoing": 115,
     "effects": [
@@ -4905,8 +4905,8 @@
     "code": 0,
     "verdict": "зависит от контекста",
     "category": "Кости/Беременность",
-    "scienceIndex": 3707,
-    "metaCount": 347,
+    "scienceIndex": 3712,
+    "metaCount": 348,
     "citations": 37,
     "wiki": 79605,
     "ongoing": 55,
@@ -4945,7 +4945,7 @@
       "Железо",
       "Цинк"
     ],
-    "hedges_g": -0.67,
+    "hedges_g": 0.31,
     "grade": "A",
     "key_sources": [
       {
@@ -5008,11 +5008,11 @@
     "rct": 1972,
     "pubmed_term": "(calcium supplementation) AND (fracture OR bone density OR cardiovascular)",
     "hedges_g_ci": [
-      -0.89,
-      -0.45
+      0.06,
+      0.55
     ],
     "hedges_g_outcome": "",
-    "hedges_g_pmid": "42515920"
+    "hedges_g_pmid": "41470812"
   },
   {
     "id": "Гиалуроновая кислота",
@@ -5641,7 +5641,7 @@
     "metaCount": 73,
     "citations": 335,
     "wiki": 94758,
-    "ongoing": 2,
+    "ongoing": 3,
     "effects": [
       "СН адъюнкт слабо; здоровым — нет"
     ],
@@ -6337,7 +6337,7 @@
         "note": "известных взаимодействий нет"
       }
     ],
-    "hedges_g": 0.08,
+    "hedges_g": -1.37,
     "grade": "C",
     "key_sources": [
       {
@@ -6380,11 +6380,11 @@
     "rct": 35,
     "pubmed_term": "(Lepidium meyenii OR maca) AND (fertility OR sexual OR mood OR energy OR menopause)",
     "hedges_g_ci": [
-      -0.2,
-      0.36
+      -3.34,
+      0.59
     ],
-    "hedges_g_outcome": "pain",
-    "hedges_g_pmid": "25062981"
+    "hedges_g_outcome": "",
+    "hedges_g_pmid": "42356395"
   },
   {
     "id": "Хром",
@@ -6815,7 +6815,7 @@
         "note": "серотониновый синдром"
       }
     ],
-    "hedges_g": 0.0,
+    "hedges_g": 0.15,
     "grade": "B",
     "key_sources": [
       {
@@ -6875,11 +6875,11 @@
     "rct": 1699,
     "pubmed_term": "(S-adenosylmethionine OR SAMe supplementation) AND (depression OR osteoarthritis OR liver OR mood)",
     "hedges_g_ci": [
-      -0.13,
-      0.13
+      0.07,
+      0.24
     ],
-    "hedges_g_outcome": "attention",
-    "hedges_g_pmid": "42227307"
+    "hedges_g_outcome": "cognitive",
+    "hedges_g_pmid": "41999780"
   },
   {
     "id": "Йохимбин",
@@ -7574,8 +7574,8 @@
     "code": -1,
     "verdict": "не подтверждено",
     "category": "Антиоксидант",
-    "scienceIndex": 323,
-    "metaCount": 58,
+    "scienceIndex": 7,
+    "metaCount": 0,
     "citations": 493,
     "wiki": 107249,
     "ongoing": 6,
@@ -7686,8 +7686,8 @@
         "year": 2026
       }
     ],
-    "rct": 33,
-    "pubmed_term": "(chlorophyll OR chlorophyllin supplementation) AND (antioxidant OR detox OR cancer OR weight)"
+    "rct": 7,
+    "pubmed_term": "(chlorophyllin[tiab] OR \"sodium copper chlorophyllin\"[tiab] OR \"chlorophyll supplement\"[tiab]) AND (human[MeSH] OR cancer[tiab] OR aflatoxin[tiab] OR antioxidant[tiab] OR wound[tiab])"
   },
   {
     "id": "Сывороточный протеин",

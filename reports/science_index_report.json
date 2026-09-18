@@ -1,0 +1,1146 @@
+{
+  "timestamp": "2026-09-18T16:21:56.398738+00:00",
+  "dry_run": false,
+  "cards": {
+    "Креатин": {
+      "status": "ok",
+      "old": {
+        "rct": 785,
+        "meta": 95,
+        "si": 1260
+      },
+      "new": {
+        "rct": 785,
+        "meta": 95,
+        "si": 1260
+      },
+      "base": "(creatine supplementation)"
+    },
+    "Омега-3": {
+      "status": "ok",
+      "old": {
+        "rct": 4748,
+        "meta": 1006,
+        "si": 9778
+      },
+      "new": {
+        "rct": 4748,
+        "meta": 1006,
+        "si": 9778
+      },
+      "base": "(omega-3 fatty acids OR eicosapentaenoic OR docosahexaenoic OR fish oil)"
+    },
+    "Витамин D": {
+      "status": "ok",
+      "old": {
+        "rct": 4005,
+        "meta": 998,
+        "si": 8995
+      },
+      "new": {
+        "rct": 4005,
+        "meta": 998,
+        "si": 8995
+      },
+      "base": "(vitamin D supplementation OR cholecalciferol)"
+    },
+    "B12": {
+      "status": "ok",
+      "old": {
+        "rct": 514,
+        "meta": 97,
+        "si": 999
+      },
+      "new": {
+        "rct": 514,
+        "meta": 97,
+        "si": 999
+      },
+      "base": "(vitamin B12 supplementation OR cobalamin supplementation)"
+    },
+    "Магний": {
+      "status": "ok",
+      "old": {
+        "rct": 473,
+        "meta": 90,
+        "si": 923
+      },
+      "new": {
+        "rct": 473,
+        "meta": 90,
+        "si": 923
+      },
+      "base": "(magnesium supplementation)"
+    },
+    "Кофеин": {
+      "status": "ok",
+      "old": {
+        "rct": 2190,
+        "meta": 387,
+        "si": 4125
+      },
+      "new": {
+        "rct": 2190,
+        "meta": 387,
+        "si": 4125
+      },
+      "base": "(caffeine)"
+    },
+    "L-Теанин": {
+      "status": "ok",
+      "old": {
+        "rct": 79,
+        "meta": 5,
+        "si": 104
+      },
+      "new": {
+        "rct": 79,
+        "meta": 5,
+        "si": 104
+      },
+      "base": "(L-theanine OR theanine)"
+    },
+    "Бакопа": {
+      "status": "ok",
+      "old": {
+        "rct": 30,
+        "meta": 2,
+        "si": 40
+      },
+      "new": {
+        "rct": 30,
+        "meta": 2,
+        "si": 40
+      },
+      "base": "(Bacopa monnieri OR bacopa)"
+    },
+    "Ежовик": {
+      "status": "ok",
+      "old": {
+        "rct": 5,
+        "meta": 0,
+        "si": 5
+      },
+      "new": {
+        "rct": 5,
+        "meta": 0,
+        "si": 5
+      },
+      "base": "(Hericium erinaceus OR lion mane mushroom)"
+    },
+    "Гинкго": {
+      "status": "ok",
+      "old": {
+        "rct": 368,
+        "meta": 113,
+        "si": 933
+      },
+      "new": {
+        "rct": 368,
+        "meta": 113,
+        "si": 933
+      },
+      "base": "(ginkgo biloba OR ginkgo)"
+    },
+    "Родиола": {
+      "status": "ok",
+      "old": {
+        "rct": 62,
+        "meta": 9,
+        "si": 107
+      },
+      "new": {
+        "rct": 62,
+        "meta": 9,
+        "si": 107
+      },
+      "base": "(Rhodiola rosea)"
+    },
+    "Ашваганда": {
+      "status": "ok",
+      "old": {
+        "rct": 63,
+        "meta": 17,
+        "si": 148
+      },
+      "new": {
+        "rct": 63,
+        "meta": 17,
+        "si": 148
+      },
+      "base": "(Withania somnifera OR ashwagandha)"
+    },
+    "Фосфатидилсерин": {
+      "status": "ok",
+      "old": {
+        "rct": 96,
+        "meta": 7,
+        "si": 131
+      },
+      "new": {
+        "rct": 96,
+        "meta": 7,
+        "si": 131
+      },
+      "base": "(phosphatidylserine)"
+    },
+    "Alpha-GPC": {
+      "status": "ok",
+      "old": {
+        "rct": 13,
+        "meta": 1,
+        "si": 18
+      },
+      "new": {
+        "rct": 13,
+        "meta": 1,
+        "si": 18
+      },
+      "base": "(alpha-glycerylphosphorylcholine OR alpha-GPC)"
+    },
+    "CDP-холин": {
+      "status": "ok",
+      "old": {
+        "rct": 116,
+        "meta": 18,
+        "si": 206
+      },
+      "new": {
+        "rct": 116,
+        "meta": 18,
+        "si": 206
+      },
+      "base": "(citicoline OR CDP-choline)"
+    },
+    "Гуперзин А": {
+      "status": "ok",
+      "old": {
+        "rct": 15,
+        "meta": 8,
+        "si": 55
+      },
+      "new": {
+        "rct": 15,
+        "meta": 8,
+        "si": 55
+      },
+      "base": "(huperzine A)"
+    },
+    "Куркумин": {
+      "status": "ok",
+      "old": {
+        "rct": 546,
+        "meta": 230,
+        "si": 1696
+      },
+      "new": {
+        "rct": 546,
+        "meta": 230,
+        "si": 1696
+      },
+      "base": "(curcumin OR turmeric supplementation)"
+    },
+    "Ресвератрол": {
+      "status": "ok",
+      "old": {
+        "rct": 133,
+        "meta": 57,
+        "si": 418
+      },
+      "new": {
+        "rct": 133,
+        "meta": 57,
+        "si": 418
+      },
+      "base": "(resveratrol supplementation)"
+    },
+    "NAC": {
+      "status": "ok",
+      "old": {
+        "rct": 957,
+        "meta": 250,
+        "si": 2207
+      },
+      "new": {
+        "rct": 957,
+        "meta": 250,
+        "si": 2207
+      },
+      "base": "(N-acetylcysteine OR NAC supplementation)"
+    },
+    "Цинк": {
+      "status": "ok",
+      "old": {
+        "rct": 1129,
+        "meta": 236,
+        "si": 2309
+      },
+      "new": {
+        "rct": 1129,
+        "meta": 236,
+        "si": 2309
+      },
+      "base": "(zinc supplementation)"
+    },
+    "Тирозин": {
+      "status": "ok",
+      "old": {
+        "rct": 184,
+        "meta": 21,
+        "si": 289
+      },
+      "new": {
+        "rct": 184,
+        "meta": 21,
+        "si": 289
+      },
+      "base": "(L-tyrosine supplementation OR tyrosine supplement)"
+    },
+    "Таурин": {
+      "status": "ok",
+      "old": {
+        "rct": 107,
+        "meta": 18,
+        "si": 197
+      },
+      "new": {
+        "rct": 107,
+        "meta": 18,
+        "si": 197
+      },
+      "base": "(taurine supplementation)"
+    },
+    "CoQ10": {
+      "status": "ok",
+      "old": {
+        "rct": 540,
+        "meta": 131,
+        "si": 1195
+      },
+      "new": {
+        "rct": 540,
+        "meta": 131,
+        "si": 1195
+      },
+      "base": "(coenzyme Q10 OR ubiquinol OR CoQ10 supplementation)"
+    },
+    "Пикногенол": {
+      "status": "ok",
+      "old": {
+        "rct": 82,
+        "meta": 22,
+        "si": 192
+      },
+      "new": {
+        "rct": 82,
+        "meta": 22,
+        "si": 192
+      },
+      "base": "(Pycnogenol OR Pinus pinaster extract OR maritime pine bark)"
+    },
+    "Готу кола": {
+      "status": "ok",
+      "old": {
+        "rct": 58,
+        "meta": 6,
+        "si": 88
+      },
+      "new": {
+        "rct": 58,
+        "meta": 6,
+        "si": 88
+      },
+      "base": "(Centella asiatica OR gotu kola)"
+    },
+    "Мелатонин": {
+      "status": "ok",
+      "old": {
+        "rct": 130,
+        "meta": 52,
+        "si": 390
+      },
+      "new": {
+        "rct": 130,
+        "meta": 52,
+        "si": 390
+      },
+      "base": "(melatonin supplementation)"
+    },
+    "ГАБА": {
+      "status": "ok",
+      "old": {
+        "rct": 1832,
+        "meta": 365,
+        "si": 3657
+      },
+      "new": {
+        "rct": 1832,
+        "meta": 365,
+        "si": 3657
+      },
+      "base": "(GABA supplementation OR gamma-aminobutyric acid)"
+    },
+    "Глицин": {
+      "status": "ok",
+      "old": {
+        "rct": 314,
+        "meta": 20,
+        "si": 414
+      },
+      "new": {
+        "rct": 314,
+        "meta": 20,
+        "si": 414
+      },
+      "base": "(glycine supplementation)"
+    },
+    "Валериана": {
+      "status": "ok",
+      "old": {
+        "rct": 66,
+        "meta": 12,
+        "si": 126
+      },
+      "new": {
+        "rct": 66,
+        "meta": 12,
+        "si": 126
+      },
+      "base": "(Valeriana officinalis OR valerian)"
+    },
+    "Бета-аланин": {
+      "status": "ok",
+      "old": {
+        "rct": 459,
+        "meta": 81,
+        "si": 864
+      },
+      "new": {
+        "rct": 459,
+        "meta": 81,
+        "si": 864
+      },
+      "base": "(beta-alanine)"
+    },
+    "L-цитруллин": {
+      "status": "ok",
+      "old": {
+        "rct": 274,
+        "meta": 26,
+        "si": 404
+      },
+      "new": {
+        "rct": 274,
+        "meta": 26,
+        "si": 404
+      },
+      "base": "(L-citrulline OR citrulline supplementation)"
+    },
+    "Витамин C": {
+      "status": "ok",
+      "old": {
+        "rct": 872,
+        "meta": 159,
+        "si": 1667
+      },
+      "new": {
+        "rct": 872,
+        "meta": 159,
+        "si": 1667
+      },
+      "base": "(vitamin C supplementation OR ascorbic acid supplementation)"
+    },
+    "Эхинацея": {
+      "status": "ok",
+      "old": {
+        "rct": 75,
+        "meta": 18,
+        "si": 165
+      },
+      "new": {
+        "rct": 75,
+        "meta": 18,
+        "si": 165
+      },
+      "base": "(Echinacea)"
+    },
+    "Бузина": {
+      "status": "ok",
+      "old": {
+        "rct": 27,
+        "meta": 3,
+        "si": 42
+      },
+      "new": {
+        "rct": 27,
+        "meta": 3,
+        "si": 42
+      },
+      "base": "(Sambucus OR elderberry)"
+    },
+    "Зверобой": {
+      "status": "ok",
+      "old": {
+        "rct": 170,
+        "meta": 53,
+        "si": 435
+      },
+      "new": {
+        "rct": 170,
+        "meta": 53,
+        "si": 435
+      },
+      "base": "(hypericum perforatum OR st johns wort)"
+    },
+    "5-HTP": {
+      "status": "ok",
+      "old": {
+        "rct": 95,
+        "meta": 4,
+        "si": 115
+      },
+      "new": {
+        "rct": 95,
+        "meta": 4,
+        "si": 115
+      },
+      "base": "(5-hydroxytryptophan OR 5-HTP)"
+    },
+    "Коллаген": {
+      "status": "ok",
+      "old": {
+        "rct": 427,
+        "meta": 28,
+        "si": 567
+      },
+      "new": {
+        "rct": 427,
+        "meta": 28,
+        "si": 567
+      },
+      "base": "(collagen supplementation OR hydrolyzed collagen)"
+    },
+    "Пробиотики": {
+      "status": "ok",
+      "old": {
+        "rct": 3922,
+        "meta": 1342,
+        "si": 10632
+      },
+      "new": {
+        "rct": 3922,
+        "meta": 1342,
+        "si": 10632
+      },
+      "base": "(probiotic supplementation OR probiotics)"
+    },
+    "B9": {
+      "status": "ok",
+      "old": {
+        "rct": 1172,
+        "meta": 304,
+        "si": 2692
+      },
+      "new": {
+        "rct": 1172,
+        "meta": 304,
+        "si": 2692
+      },
+      "base": "(folic acid supplementation OR folate supplementation)"
+    },
+    "Железо": {
+      "status": "ok",
+      "old": {
+        "rct": 1882,
+        "meta": 297,
+        "si": 3367
+      },
+      "new": {
+        "rct": 1882,
+        "meta": 297,
+        "si": 3367
+      },
+      "base": "(iron supplementation OR ferrous)"
+    },
+    "Триптофан": {
+      "status": "ok",
+      "old": {
+        "rct": 120,
+        "meta": 5,
+        "si": 145
+      },
+      "new": {
+        "rct": 120,
+        "meta": 5,
+        "si": 145
+      },
+      "base": "(tryptophan supplementation)"
+    },
+    "Глюкозамин + хондроитин": {
+      "status": "ok",
+      "old": {
+        "rct": 603,
+        "meta": 113,
+        "si": 1168
+      },
+      "new": {
+        "rct": 603,
+        "meta": 113,
+        "si": 1168
+      },
+      "base": "(glucosamine OR chondroitin)"
+    },
+    "Витамин E": {
+      "status": "ok",
+      "old": {
+        "rct": 2952,
+        "meta": 477,
+        "si": 5337
+      },
+      "new": {
+        "rct": 2952,
+        "meta": 477,
+        "si": 5337
+      },
+      "base": "(vitamin E OR tocopherol OR tocotrienol supplementation)"
+    },
+    "Биотин": {
+      "status": "ok",
+      "old": {
+        "rct": 28,
+        "meta": 4,
+        "si": 48
+      },
+      "new": {
+        "rct": 28,
+        "meta": 4,
+        "si": 48
+      },
+      "base": "(biotin supplementation)"
+    },
+    "L-карнитин": {
+      "status": "ok",
+      "old": {
+        "rct": 760,
+        "meta": 153,
+        "si": 1525
+      },
+      "new": {
+        "rct": 760,
+        "meta": 153,
+        "si": 1525
+      },
+      "base": "(L-carnitine OR acetyl-L-carnitine)"
+    },
+    "BCAA": {
+      "status": "ok",
+      "old": {
+        "rct": 2323,
+        "meta": 337,
+        "si": 4008
+      },
+      "new": {
+        "rct": 2323,
+        "meta": 337,
+        "si": 4008
+      },
+      "base": "(branched-chain amino acids OR BCAA supplementation)"
+    },
+    "Аргинин": {
+      "status": "ok",
+      "old": {
+        "rct": 2557,
+        "meta": 371,
+        "si": 4412
+      },
+      "new": {
+        "rct": 2557,
+        "meta": 371,
+        "si": 4412
+      },
+      "base": "(L-arginine OR arginine supplementation)"
+    },
+    "Кальций": {
+      "status": "ok",
+      "old": {
+        "rct": 1972,
+        "meta": 348,
+        "si": 3712
+      },
+      "new": {
+        "rct": 1972,
+        "meta": 348,
+        "si": 3712
+      },
+      "base": "(calcium supplementation)"
+    },
+    "Гиалуроновая кислота": {
+      "status": "ok",
+      "old": {
+        "rct": 1852,
+        "meta": 447,
+        "si": 4087
+      },
+      "new": {
+        "rct": 1852,
+        "meta": 447,
+        "si": 4087
+      },
+      "base": "(hyaluronic acid OR sodium hyaluronate)"
+    },
+    "Псиллиум": {
+      "status": "ok",
+      "old": {
+        "rct": 219,
+        "meta": 37,
+        "si": 404
+      },
+      "new": {
+        "rct": 219,
+        "meta": 37,
+        "si": 404
+      },
+      "base": "(psyllium OR plantago ovata)"
+    },
+    "Имбирь": {
+      "status": "ok",
+      "old": {
+        "rct": 232,
+        "meta": 61,
+        "si": 537
+      },
+      "new": {
+        "rct": 232,
+        "meta": 61,
+        "si": 537
+      },
+      "base": "(Zingiber officinale OR ginger supplementation)"
+    },
+    "Чеснок": {
+      "status": "ok",
+      "old": {
+        "rct": 229,
+        "meta": 82,
+        "si": 639
+      },
+      "new": {
+        "rct": 229,
+        "meta": 82,
+        "si": 639
+      },
+      "base": "(Allium sativum OR garlic supplementation OR aged garlic extract)"
+    },
+    "Клюква": {
+      "status": "ok",
+      "old": {
+        "rct": 143,
+        "meta": 23,
+        "si": 258
+      },
+      "new": {
+        "rct": 143,
+        "meta": 23,
+        "si": 258
+      },
+      "base": "(Vaccinium macrocarpon OR cranberry supplementation)"
+    },
+    "Пустырник": {
+      "status": "ok",
+      "old": {
+        "rct": 5,
+        "meta": 4,
+        "si": 25
+      },
+      "new": {
+        "rct": 5,
+        "meta": 4,
+        "si": 25
+      },
+      "base": "(Leonurus cardiaca OR motherwort)"
+    },
+    "Боярышник": {
+      "status": "ok",
+      "old": {
+        "rct": 224,
+        "meta": 73,
+        "si": 589
+      },
+      "new": {
+        "rct": 224,
+        "meta": 73,
+        "si": 589
+      },
+      "base": "(Crataegus OR hawthorn)"
+    },
+    "Бета-глюканы овса": {
+      "status": "ok",
+      "old": {
+        "rct": 117,
+        "meta": 11,
+        "si": 172
+      },
+      "new": {
+        "rct": 117,
+        "meta": 11,
+        "si": 172
+      },
+      "base": "(oat beta-glucan OR beta-glucan supplementation)"
+    },
+    "Рибофлавин": {
+      "status": "ok",
+      "old": {
+        "rct": 493,
+        "meta": 65,
+        "si": 818
+      },
+      "new": {
+        "rct": 493,
+        "meta": 65,
+        "si": 818
+      },
+      "base": "(riboflavin OR vitamin B2 supplementation)"
+    },
+    "Лютеин + зеаксантин": {
+      "status": "ok",
+      "old": {
+        "rct": 367,
+        "meta": 62,
+        "si": 677
+      },
+      "new": {
+        "rct": 367,
+        "meta": 62,
+        "si": 677
+      },
+      "base": "(lutein OR zeaxanthin supplementation)"
+    },
+    "Инозитол": {
+      "status": "ok",
+      "old": {
+        "rct": 480,
+        "meta": 150,
+        "si": 1230
+      },
+      "new": {
+        "rct": 480,
+        "meta": 150,
+        "si": 1230
+      },
+      "base": "(myo-inositol OR inositol)"
+    },
+    "Альфа-липоевая кислота": {
+      "status": "ok",
+      "old": {
+        "rct": 300,
+        "meta": 58,
+        "si": 590
+      },
+      "new": {
+        "rct": 300,
+        "meta": 58,
+        "si": 590
+      },
+      "base": "(alpha-lipoic acid OR lipoic acid supplementation)"
+    },
+    "D-манноза": {
+      "status": "ok",
+      "old": {
+        "rct": 15,
+        "meta": 0,
+        "si": 15
+      },
+      "new": {
+        "rct": 15,
+        "meta": 0,
+        "si": 15
+      },
+      "base": "(D-mannose supplementation)"
+    },
+    "Мака": {
+      "status": "ok",
+      "old": {
+        "rct": 35,
+        "meta": 8,
+        "si": 75
+      },
+      "new": {
+        "rct": 35,
+        "meta": 8,
+        "si": 75
+      },
+      "base": "(Lepidium meyenii OR maca)"
+    },
+    "Хром": {
+      "status": "ok",
+      "old": {
+        "rct": 153,
+        "meta": 39,
+        "si": 348
+      },
+      "new": {
+        "rct": 153,
+        "meta": 39,
+        "si": 348
+      },
+      "base": "(chromium supplementation OR chromium picolinate)"
+    },
+    "Астаксантин": {
+      "status": "ok",
+      "old": {
+        "rct": 55,
+        "meta": 17,
+        "si": 140
+      },
+      "new": {
+        "rct": 55,
+        "meta": 17,
+        "si": 140
+      },
+      "base": "(astaxanthin supplementation)"
+    },
+    "Расторопша": {
+      "status": "ok",
+      "old": {
+        "rct": 169,
+        "meta": 49,
+        "si": 414
+      },
+      "new": {
+        "rct": 169,
+        "meta": 49,
+        "si": 414
+      },
+      "base": "(Silybum marianum OR milk thistle OR silymarin)"
+    },
+    "Лактоферрин": {
+      "status": "ok",
+      "old": {
+        "rct": 70,
+        "meta": 14,
+        "si": 140
+      },
+      "new": {
+        "rct": 70,
+        "meta": 14,
+        "si": 140
+      },
+      "base": "(lactoferrin supplementation)"
+    },
+    "SAMe": {
+      "status": "ok",
+      "old": {
+        "rct": 1699,
+        "meta": 161,
+        "si": 2504
+      },
+      "new": {
+        "rct": 1699,
+        "meta": 161,
+        "si": 2504
+      },
+      "base": "(S-adenosylmethionine OR SAMe supplementation)"
+    },
+    "Йохимбин": {
+      "status": "ok",
+      "old": {
+        "rct": 6,
+        "meta": 0,
+        "si": 6
+      },
+      "new": {
+        "rct": 6,
+        "meta": 0,
+        "si": 6
+      },
+      "base": "(yohimbine supplementation)"
+    },
+    "Пажитник": {
+      "status": "ok",
+      "old": {
+        "rct": 46,
+        "meta": 21,
+        "si": 151
+      },
+      "new": {
+        "rct": 46,
+        "meta": 21,
+        "si": 151
+      },
+      "base": "(Trigonella foenum-graecum OR fenugreek supplementation)"
+    },
+    "Чёрный тмин": {
+      "status": "ok",
+      "old": {
+        "rct": 139,
+        "meta": 36,
+        "si": 319
+      },
+      "new": {
+        "rct": 139,
+        "meta": 36,
+        "si": 319
+      },
+      "base": "(Nigella sativa OR black seed OR thymoquinone)"
+    },
+    "Трибулус": {
+      "status": "ok",
+      "old": {
+        "rct": 9,
+        "meta": 1,
+        "si": 14
+      },
+      "new": {
+        "rct": 9,
+        "meta": 1,
+        "si": 14
+      },
+      "base": "(Tribulus terrestris supplementation)"
+    },
+    "NMN": {
+      "status": "ok",
+      "old": {
+        "rct": 3691,
+        "meta": 688,
+        "si": 7131
+      },
+      "new": {
+        "rct": 3691,
+        "meta": 688,
+        "si": 7131
+      },
+      "base": "(nicotinamide mononucleotide OR nicotinamide riboside OR NMN OR NR)"
+    },
+    "Кордицепс": {
+      "status": "ok",
+      "old": {
+        "rct": 34,
+        "meta": 12,
+        "si": 94
+      },
+      "new": {
+        "rct": 34,
+        "meta": 12,
+        "si": 94
+      },
+      "base": "(Cordyceps OR cordycepin supplementation)"
+    },
+    "Рейши": {
+      "status": "ok",
+      "old": {
+        "rct": 29,
+        "meta": 4,
+        "si": 49
+      },
+      "new": {
+        "rct": 29,
+        "meta": 4,
+        "si": 49
+      },
+      "base": "(Ganoderma lucidum OR reishi mushroom)"
+    },
+    "Хлорофилл": {
+      "status": "ok",
+      "old": {
+        "rct": 7,
+        "meta": 0,
+        "si": 7
+      },
+      "new": {
+        "rct": 7,
+        "meta": 0,
+        "si": 7
+      },
+      "base": "(chlorophyllin[tiab] OR \"sodium copper chlorophyllin\"[tiab] OR \"chlorophyll supplement\"[tiab])"
+    },
+    "Сывороточный протеин": {
+      "status": "ok",
+      "old": {
+        "rct": 467,
+        "meta": 65,
+        "si": 792
+      },
+      "new": {
+        "rct": 467,
+        "meta": 65,
+        "si": 792
+      },
+      "base": "(whey protein supplementation)"
+    },
+    "Глутамин": {
+      "status": "ok",
+      "old": {
+        "rct": 933,
+        "meta": 226,
+        "si": 2063
+      },
+      "new": {
+        "rct": 933,
+        "meta": 226,
+        "si": 2063
+      },
+      "base": "(glutamine OR L-glutamine)"
+    },
+    "Босвеллия": {
+      "status": "ok",
+      "old": {
+        "rct": 82,
+        "meta": 17,
+        "si": 167
+      },
+      "new": {
+        "rct": 82,
+        "meta": 17,
+        "si": 167
+      },
+      "base": "(Boswellia serrata OR boswellic acid supplementation)"
+    },
+    "Витамин K2": {
+      "status": "ok",
+      "old": {
+        "rct": 121,
+        "meta": 18,
+        "si": 211
+      },
+      "new": {
+        "rct": 121,
+        "meta": 18,
+        "si": 211
+      },
+      "base": "(vitamin K2 OR menaquinone supplementation)"
+    },
+    "Берберин": {
+      "status": "ok",
+      "old": {
+        "rct": 12,
+        "meta": 9,
+        "si": 57
+      },
+      "new": {
+        "rct": 12,
+        "meta": 9,
+        "si": 57
+      },
+      "base": "(berberine supplementation)"
+    },
+    "Кверцетин": {
+      "status": "ok",
+      "old": {
+        "rct": 99,
+        "meta": 19,
+        "si": 194
+      },
+      "new": {
+        "rct": 99,
+        "meta": 19,
+        "si": 194
+      },
+      "base": "(quercetin supplementation)"
+    }
+  },
+  "totals": {
+    "ok": 81,
+    "changed": 0,
+    "no_base": 0,
+    "error": 0
+  }
+}
