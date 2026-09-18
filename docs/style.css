@@ -448,3 +448,71 @@ body.dark a.btn{text-decoration:none}
   opacity: 1;
   font-weight: 600;
 }
+
+/* ===== v1.0: секции фильтров ===== */
+.filterSection {
+  margin-bottom: 1rem;
+}
+.filterLabel {
+  display: block;
+  font-size: .72rem;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  opacity: .5;
+  font-weight: 600;
+  margin-bottom: .5rem;
+  color: inherit;
+}
+.tagPresetMore {
+  opacity: .7;
+  font-style: italic;
+}
+.tagPresetMore:hover {
+  opacity: 1;
+}
+#resetFilters:disabled {
+  cursor: default;
+}
+
+/* ===== v1.0: активные фильтры над сеткой ===== */
+.activeFilters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4rem;
+  margin: .5rem 0 1rem;
+}
+.activeFilters:empty {
+  margin: 0;
+}
+.activeFilter {
+  display: inline-flex;
+  align-items: center;
+  gap: .3rem;
+  font-size: .8rem;
+  padding: 4px 10px;
+  border-radius: 12px;
+  background: rgba(80,140,220,.18);
+  border: 1px solid rgba(80,140,220,.4);
+  cursor: pointer;
+  color: inherit;
+}
+.activeFilter:hover {
+  background: rgba(80,140,220,.3);
+}
+.activeFilterX {
+  opacity: .7;
+  font-weight: 600;
+}
+.activeFilterClear {
+  font-size: .8rem;
+  padding: 4px 10px;
+  border-radius: 12px;
+  background: transparent;
+  border: 1px solid rgba(127,127,127,.3);
+  cursor: pointer;
+  color: inherit;
+  opacity: .7;
+}
+.activeFilterClear:hover {
+  opacity: 1;
+}

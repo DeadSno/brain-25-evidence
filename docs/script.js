@@ -165,12 +165,10 @@ function initApp() {
   const saved = localStorage.getItem('theme');
 // По умолчанию — тёмная. Светлая только если пользователь выбрал вручную.
 if (saved !== 'light') setDark(true);   // v1.3: по умолчанию тёмная; светлая — только по выбору
-  [...new Set(supplements.map(s => s.category).filter(Boolean))].sort()
-    .forEach(c => $('categoryFilter').add(new Option(c, c)));
   supplements.forEach(s => { $('compareSelect1').add(new Option(s.name, s.id)); $('compareSelect2').add(new Option(s.name, s.id)); });
   if (supplements.length >= 2) { $('compareSelect1').value = supplements[0].id; $('compareSelect2').value = supplements[1].id; }
   $('search').addEventListener('input', applyFilters);
-  ['verdictFilter', 'categoryFilter', 'sortSelect'].forEach(id => { const el = $(id); if (el) el.addEventListener('change', applyFilters); });
+  ['verdictFilter', 'sortSelect'].forEach(id => { const el = $(id); if (el) el.addEventListener('change', applyFilters); });
   document.querySelectorAll('.preset').forEach(btn => {
     btn.addEventListener('click', () => {
       const p = btn.dataset.preset;
@@ -184,10 +182,6 @@ if (saved !== 'light') setDark(true);   // v1.3: по умолчанию тём�
   });
   $('themeToggle').onclick = () => { const on = !document.body.classList.contains('dark'); setDark(on); localStorage.setItem('theme', on ? 'dark' : 'light'); };
   $('compareBtn').onclick = renderCompare;
-  const pageUrl = encodeURIComponent('https://deadsno.github.io/brain-25-evidence/');
-  const pageTitle = encodeURIComponent('БАДы: цена vs наука — 81 добавка через мета-анализы');
-  $('shareTg').href = 'https://t.me/share/url?url=' + pageUrl + '&text=' + pageTitle;
-  $('shareVk').href = 'https://vk.com/share.php?url=' + pageUrl + '&title=' + pageTitle;
   $('modalClose').onclick = closeModal;
   $('modalOverlay').onclick = e => { if (e.target.id === 'modalOverlay') closeModal(); };
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
@@ -202,13 +196,37 @@ if (saved !== 'light') setDark(true);   // v1.3: по умолчанию тём�
   }, true);
 
   document.addEventListener('click', e => {
-    const preset = e.target.closest('.tagPreset');
-    if (!preset) return;
+  const preset = e.target.closest('.tagPreset');
+  if (preset) {
+    if (preset.dataset.more) {
+      effectChipsExpanded = !effectChipsExpanded;
+      renderEffectChips();
+      return;
+    }
     const tag = preset.dataset.tag;
     effectFilterCurrent = (tag === effectFilterCurrent || tag === 'all') ? 'all' : tag;
     renderEffectChips();
     applyFilters();
-  });
+    return;
+  }
+  const clearEl = e.target.closest('[data-clear]');
+  if (clearEl) {
+    const c = clearEl.dataset.clear;
+    if (c === 'effect') effectFilterCurrent = 'all';
+    if (c === 'verdict') $('verdictFilter').value = 'all';
+    if (c === 'search') $('search').value = '';
+    renderEffectChips();
+    applyFilters();
+    return;
+  }
+  if (e.target.id === 'clearAllFilters') {
+    effectFilterCurrent = 'all';
+    $('verdictFilter').value = 'all';
+    $('search').value = '';
+    renderEffectChips();
+    applyFilters();
+  }
+});
 
   document.addEventListener('click', e => {
     const b = e.target.closest('.copyLink');
@@ -342,11 +360,10 @@ function maTop3Block(s) {
 }
 function applyFilters() {
   const q = $('search').value.toLowerCase().trim();
-  const v = $('verdictFilter').value, c = $('categoryFilter').value, ef = effectFilterCurrent, sort = presetScience ? 'science' : $('sortSelect').value;
+  const v = $('verdictFilter').value, ef = effectFilterCurrent, sort = presetScience ? 'science' : $('sortSelect').value;
   currentData = supplements.filter(s => {
     if (presetVerdict && String(s.code) !== '1') return false;
     if (!presetVerdict && v !== 'all' && String(s.code) !== v) return false;
-    if (c !== 'all' && s.category !== c) return false;
     if (ef !== 'all' && !(effectTags[s.id] || []).includes(ef)) return false;    if (presetOngoing && !((s.ongoing || 0) >= 1)) return false;
     if (q && !(s.name.toLowerCase().includes(q) || (s.effects || []).join(' ').toLowerCase().includes(q))) return false;
     return true;
@@ -358,6 +375,7 @@ function applyFilters() {
     grade: (a, b) => ((GRADE_PRIOR[a.grade] ?? 4) - (GRADE_PRIOR[b.grade] ?? 4)) || (b.scienceIndex - a.scienceIndex)
   };
   currentData.sort(cmp[sort]);
+  renderActiveFilters();
   $('countBadge').textContent = '(' + currentData.length + ' из ' + supplements.length + ')';
   renderCards(currentData);
   if (chartTab === 'price') renderBubble(currentData); else renderQuadrant(currentData);
@@ -365,7 +383,6 @@ function applyFilters() {
   // F2.2: подпись под чартом — показано N из M
   const filterParts = [];
   if (v !== 'all') filterParts.push('вердикт');
-  if (c !== 'all') filterParts.push(c);
   if (q) filterParts.push('поиск');
   if (onlyFavs) filterParts.push('избранное');
   const summary = $('chartSummary');
@@ -376,15 +393,67 @@ function applyFilters() {
 }
 
 
+const EFFECT_PRIORITY = [
+  'sleep', 'stress', 'mood', 'brain', 'energy', 'immunity',
+  'heart', 'blood', 'muscle', 'joints', 'skin'
+];
+let effectChipsExpanded = false;
+
 function renderEffectChips() {
   const box = document.getElementById('tagPresets');
   if (!box) return;
-  const order = ['all', ...Object.keys(effectLabels)];
-  box.innerHTML = order.map(slug => {
-    const label = slug === 'all' ? 'Все эффекты' : (effectLabels[slug] || slug);
+
+  const allTags = Object.keys(effectLabels);
+  const primary = EFFECT_PRIORITY.filter(t => allTags.includes(t));
+  const rest = allTags.filter(t => !primary.includes(t));
+  const visible = effectChipsExpanded ? [...primary, ...rest] : primary;
+
+  const allBtn = '<button class="tagPreset' + (effectFilterCurrent === 'all' ? ' active' : '') +
+                 '" data-tag="all">Все эффекты</button>';
+
+  const chips = visible.map(slug => {
+    const label = effectLabels[slug] || slug;
     const active = effectFilterCurrent === slug ? ' active' : '';
     return '<button class="tagPreset' + active + '" data-tag="' + slug + '">' + label + '</button>';
   }).join('');
+
+  const more = rest.length
+    ? (effectChipsExpanded
+        ? '<button class="tagPreset tagPresetMore" data-more="1">Свернуть ▴</button>'
+        : '<button class="tagPreset tagPresetMore" data-more="1">+ ещё ' + rest.length + ' ▾</button>')
+    : '';
+
+  box.innerHTML = allBtn + chips + more;
+}
+
+function renderActiveFilters() {
+  const box = document.getElementById('activeFilters');
+  if (!box) return;
+  const chips = [];
+
+  if (effectFilterCurrent !== 'all') {
+    chips.push({ label: 'Эффект: ' + (effectLabels[effectFilterCurrent] || effectFilterCurrent), clear: 'effect' });
+  }
+  const v = $('verdictFilter').value;
+  if (v !== 'all') {
+    const map = { '1': 'работает', '0': 'зависит от контекста', '-1': 'не подтверждено' };
+    chips.push({ label: 'Вердикт: ' + (map[v] || v), clear: 'verdict' });
+  }
+  const q = $('search').value.trim();
+  if (q) chips.push({ label: 'Поиск: ' + q, clear: 'search' });
+
+  if (!chips.length) { box.innerHTML = ''; return; }
+
+  box.innerHTML = chips.map(c =>
+    '<span class="activeFilter" data-clear="' + c.clear + '">' + c.label +
+    ' <span class="activeFilterX">×</span></span>'
+  ).join('') + '<button class="activeFilterClear" id="clearAllFilters">Очистить</button>';
+
+  const reset = $('resetFilters');
+  if (reset) {
+    const hasFilters = chips.length > 0 || presetScience || presetVerdict || presetOngoing || onlyFavs;
+    reset.disabled = !hasFilters;
+  }
 }
 
 function renderCards(data) {
