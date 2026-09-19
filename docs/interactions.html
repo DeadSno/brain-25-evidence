@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>🔗 Карта связей — brain-25-evidence</title>
+<script defer src="version.js"></script>
 <script src="https://unpkg.com/vis-network@9.1.9/standalone/umd/vis-network.min.js"></script>
 <style>
 :root {
@@ -13,6 +14,9 @@
   --border: #d8dde3;
   --muted: #6a7280;
   --accent: #3d7eff;
+  --apanel: var(--card-bg);
+  --aborder: var(--border);
+  --atext: var(--fg);
 }
 body.dark {
   --bg: #14171c;
@@ -21,6 +25,9 @@ body.dark {
   --border: #2c3138;
   --muted: #8a92a0;
   --accent: #6ba4ff;
+  --apanel: var(--card-bg);
+  --aborder: var(--border);
+  --atext: var(--fg);
 }
 * { box-sizing: border-box; }
 body {
@@ -30,12 +37,12 @@ body {
   transition: background .2s, color .2s;
 }
 header {
-  padding: 1rem 1.5rem;
-  border-bottom: 1px solid var(--border);
+  padding: 0;
+  border-bottom: none;
   display: flex; align-items: center; gap: 1rem;
   flex-wrap: wrap;
 }
-header h1 { margin: 0; font-size: 1.3rem; }
+header h1 { margin: 0; font-size: 1.35rem; }
 header .actions { margin-left: auto; display: flex; gap: .5rem; }
 .btn {
   padding: .4rem .8rem; border: 1px solid var(--border);
@@ -174,17 +181,43 @@ footer a { color: var(--accent); }
 #hint {
   padding: .5rem 1.5rem; font-size: .85rem; color: var(--muted);
 }
+
+/* Перебиваем body{max-width:1200px} из style.css — для fullwidth-графов */
+body { max-width: none !important; margin: 0 !important; }
+
+/* Единая шапка для всех страниц */
+.trustbar{
+  text-align:center;padding:.5rem 1rem;margin:0 0 1rem;
+  background:var(--apanel);border:1px solid var(--aborder);
+  border-radius:8px;font-size:.85rem;opacity:.85;
+}
+.top{
+  display:flex;justify-content:space-between;align-items:center;
+  gap:1rem;flex-wrap:wrap;margin:0 0 1rem;
+}
+.top h1{font-size:1.35rem;margin:0;font-weight:700}
+.top h1 a{color:inherit;text-decoration:none}
+.top .v{opacity:.5;font-size:.8rem;font-weight:400;margin-left:.5rem}
+.actions{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center}
+.btn{
+  padding:.45rem .8rem;border:1px solid var(--aborder);border-radius:8px;
+  background:var(--apanel);color:var(--atext);cursor:pointer;
+  font-size:.85rem;text-decoration:none;line-height:1.2;
+}
+.btn:hover{border-color:#888}
+body { padding: 1.5rem 1.5rem 0 !important; margin: 0 !important; }
 </style>
 </head>
 <body>
-<header>
-  <h1>🔗 Карта связей БАДов</h1>
+<div class="trustbar">🧬 Открытые данные · Бесплатно · Без рекламы</div>
+<header class="top">
+  <h1><a href="index.html">🔗 Карта связей БАДов</a> <span class="v">v<span data-version="app"></span></span></h1>
   <div class="actions">
     <button class="btn" id="pngBtn" title="Скачать как PNG">📷 Скачать PNG</button>
     <a class="btn" href="index.html">← На главную</a>
     <a class="btn" href="map.html">🧩 Карта механизмов</a>
     <a class="btn" href="atlas.html">🌐 Атлас</a>
-    <button class="btn" id="themeToggle">🌙 Тёмная тема</button>
+    <button class="btn" id="themeToggle">🌞 Светлая тема</button>
   </div>
 </header>
 
@@ -510,7 +543,7 @@ function setMode(mode) {
 function setDark(on) {
   document.body.classList.toggle('dark', on);
   localStorage.setItem('theme', on ? 'dark' : 'light');
-  document.getElementById('themeToggle').textContent = on ? '☀ Светлая тема' : '🌙 Тёмная тема';
+  document.getElementById('themeToggle').textContent = on ? '🌞 Светлая тема' : '🌙 Тёмная тема';
   if (state.network) drawGraph();
 }
 

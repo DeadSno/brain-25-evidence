@@ -21,7 +21,7 @@ try {
     document.addEventListener('DOMContentLoaded', function () {
       document.body.classList.add('dark');
       var b = document.getElementById('themeToggle');
-      if (b) b.textContent = '☀️ Светлая тема';
+      if (b) b.textContent = '🌞 Светлая тема';
     });
   }
 } catch (e) {}
@@ -31,6 +31,29 @@ try {
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css?v=281"/>
+<style>
+:root{--apanel:var(--card-bg);--aborder:var(--border);--atext:var(--text)}
+/* Единая шапка для всех страниц */
+.trustbar{
+  text-align:center;padding:.5rem 1rem;margin:0 0 1rem;
+  background:var(--card-bg);border:1px solid var(--border);
+  border-radius:8px;font-size:.85rem;opacity:.85;
+}
+.top{
+  display:flex;justify-content:space-between;align-items:center;
+  gap:1rem;flex-wrap:wrap;margin:0 0 1rem;
+}
+.top h1{font-size:1.35rem;margin:0;font-weight:700}
+.top h1 a{color:inherit;text-decoration:none}
+.top .v{opacity:.5;font-size:.8rem;font-weight:400;margin-left:.5rem}
+.actions{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center}
+.btn{
+  padding:.45rem .8rem;border:1px solid var(--border);border-radius:8px;
+  background:var(--card-bg);color:var(--text);cursor:pointer;
+  font-size:.85rem;text-decoration:none;line-height:1.2;
+}
+.btn:hover{border-color:#888}
+</style>
 </head>
 <body>
 <!-- Yandex.Metrika counter -->
@@ -47,10 +70,10 @@ try {
 <noscript><div><img src="https://mc.yandex.ru/watch/112465667" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
 <div class="trustbar">🧬 Открытые данные · Бесплатно · Без рекламы</div>
-<header>
-  <h1><a href="index.html" style="color:inherit;text-decoration:none" title="На главную">🧠 БАДы: что работает, а что нет</a></h1>
-  <div class="hdr">
-    <button id="themeToggle">🌙 Тёмная тема</button>
+<header class="top">
+  <h1><a href="index.html">🧠 БАДы: доказательства и механизмы</a> <span class="v">v<span data-version="app"></span></span></h1>
+  <div class="actions">
+    <button class="btn" id="themeToggle">🌞 Светлая тема</button>
   </div>
 </header>
 
