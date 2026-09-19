@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <script defer src="version.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Атлас механизмов БАДов — 25 тегов × 81 добавка</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌐</text></svg>">
+  <script>try{if(localStorage.getItem('theme')!=='light'){document.addEventListener('DOMContentLoaded',function(){document.body.classList.add('dark');});}}catch(e){}</script>
+  <link rel="stylesheet" href="style.css?v=273">
+  <style>
+    body{--apanel:#15171c;--aborder:#2b2e35;--atext:#e9eaee;--amut:#9aa0aa;margin:0}
+    body:not(.dark){--apanel:#ffffff;--aborder:#d9dde3;--atext:#1b1d22;--amut:#5c6370}
+    .wrap{max-width:100%;margin:0;padding:1rem 1.5rem;color:var(--atext)}
+    .top{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:.6rem}
+    .top h1{font-size:1.3rem;margin:.2rem 0}
+    .top a{color:inherit;text-decoration:none}
+    #stats{opacity:.6;font-size:.85rem;margin:.2rem 0}
+    .btn{padding:.45rem .8rem;border:1px solid var(--aborder);border-radius:8px;background:var(--apanel);color:var(--atext);cursor:pointer;font-size:.85rem;text-decoration:none}
+    .btn:hover{border-color:#888}
+    .btn.on{border-color:#f1c40f;color:#f1c40f;font-weight:600}
+    .filterbar{display:flex;gap:.4rem;flex-wrap:wrap;margin:.8rem 0;align-items:center}
+    .filterbar .lbl{opacity:.55;font-size:.8rem;margin-right:.4rem}
+
+    .layout{display:flex;height:calc(100vh - 240px);min-height:600px;border:1px solid var(--aborder);border-radius:12px;overflow:hidden;background:var(--apanel);position:relative}
+    .atlas-legend{
+      position:absolute;left:1rem;bottom:1rem;
+      background:var(--apanel);border:1px solid var(--aborder);border-radius:10px;
+      padding:.6rem .85rem;font-size:.75rem;line-height:1.7;z-index:10;
+      opacity:.9;backdrop-filter:blur(4px);box-shadow:0 4px 12px rgba(0,0,0,.2);
+      pointer-events:none;
+    }
+    .atlas-legend .dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:.5rem;vertical-align:middle}
+    .atlas-legend .box{display:inline-block;width:14px;height:9px;border:1.5px solid #3498db;border-radius:2px;margin-right:.5rem;vertical-align:middle;background:rgba(52,152,219,.15)}
+    #graph{flex:1;min-width:0}
+    #sidebar{width:340px;flex-shrink:0;border-left:1px solid var(--aborder);padding:1rem 1.2rem;overflow-y:auto;display:none}
+    #sidebar.open{display:block}
+    #sidebar h2{margin:0 0 .5rem;padding-right:1.8rem;font-size:1.1rem;position:relative}
+    #sidebar h3{margin:1rem 0 .4rem;font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;opacity:.55;font-weight:600}
+    #sidebar .close-x{position:absolute;right:0;top:-.3rem;background:none;border:none;color:var(--amut);font-size:1.5rem;line-height:1;cursor:pointer;padding:.2rem .4rem;border-radius:6px}
+    #sidebar .close-x:hover{background:rgba(127,127,127,.15);color:var(--atext)}
+    #sidebar ul{list-style:none;padding:0;margin:0}
+    #sidebar li{padding:.45rem .5rem;margin:.25rem 0;border:1px solid var(--aborder);border-radius:8px;cursor:pointer;font-size:.9rem}
+    #sidebar li:hover{border-color:#888;background:rgba(127,127,127,.06)}
+    #sidebar .badge{display:inline-block;padding:.1rem .45rem;border-radius:6px;font-size:.72rem;background:rgba(127,127,127,.15);margin-left:.4rem;opacity:.85}
+    #sidebar .badge.A{background:rgba(76,175,80,.25);color:#7fc784}
+    #sidebar .badge.B{background:rgba(139,195,74,.25);color:#b7d68b}
+    #sidebar .badge.C{background:rgba(255,152,0,.22);color:#ffb74d}
+    #sidebar .badge.D{background:rgba(229,57,53,.2);color:#ef5350}
+    #sidebar .cta{display:inline-block;margin-top:1rem;padding:.5rem 1rem;background:#3498db;color:#fff;border-radius:8px;text-decoration:none;font-weight:500}
+    #sidebar .cta:hover{opacity:.9}
+    #sidebar .mech{margin:.5rem 0;padding:.55rem .7rem;border:1px solid var(--aborder);border-radius:8px;font-size:.85rem;line-height:1.4}
+    #sidebar .mech .str{display:inline-block;padding:.05rem .4rem;border-radius:999px;font-size:.7rem;margin-left:.4rem;background:rgba(127,127,127,.2)}
+    body.fs .wrap{max-width:100%;padding:0}
+    body.fs .top,
+    body.fs .filterbar,
+    body.fs footer,
+    body.fs .trustbar{display:none}
+    body.fs .layout{height:100vh;border-radius:0;border:none}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <div class="trustbar">🧬 Открытые данные · Бесплатно · Без рекламы</div>
+  <header class="top">
+    <h1><a href="index.html">🌐 Атлас механизмов</a> <span style="opacity:.5;font-size:.85rem">v<span data-version="app"></span> · 25 тегов × 81 добавка</span></h1>
+    <div style="display:flex;gap:.6rem;flex-wrap:wrap">
+      <a class="btn" href="index.html">← На главную</a>
+      <a class="btn" href="map.html">🧩 Карта механизмов</a>
+      <a class="btn" href="interactions.html">🔗 Карта связей</a>
+      <button class="btn" id="themeBtn">☀️ Светлая тема</button>
+    </div>
+  </header>
+  <div id="stats">Загрузка…</div>
+
+  <div class="filterbar">
+    <span class="lbl">Грейд:</span>
+    <button class="btn gr on" data-grade="A">A</button>
+    <button class="btn gr on" data-grade="B">B</button>
+    <button class="btn gr on" data-grade="C">C</button>
+    <button class="btn gr on" data-grade="D">D</button>
+    <span class="lbl" style="margin-left:1rem">Поиск:</span>
+    <input id="q" placeholder="добавка или тег…" style="padding:.4rem .7rem;border:1px solid var(--aborder);border-radius:8px;background:var(--apanel);color:var(--atext);min-width:180px">
+    <button class="btn" id="fsBtn" title="Развернуть на весь экран">⛶ На весь экран</button>
+  </div>
+
+  <div class="layout">
+    <div id="graph"></div>
+    <div class="atlas-legend">
+      <div><span class="dot" style="background:#2d8a4e"></span>работает</div>
+      <div><span class="dot" style="background:#d4a017"></span>зависит от контекста</div>
+      <div><span class="dot" style="background:#c0392b"></span>не подтверждено</div>
+      <div style="margin-top:.3rem"><span class="box"></span>тег-хаб (размер = добавок)</div>
+      <div><span class="dot" style="background:#888;width:8px;height:8px"></span>размер = кол-во тегов</div>
+    </div>
+    <aside id="sidebar"></aside>
+  </div>
+
+  <footer style="margin-top:1.5rem;padding-top:1rem;border-top:1px solid var(--aborder);color:var(--amut);font-size:.82rem">
+    <p><b>⚠️ Не медицинская рекомендация.</b> Данные из открытых источников (PubMed, OpenAlex, ClinicalTrials.gov). Сайт НЕ заменяет консультацию врача.</p>
+    <p>© 2026 Vladislav "DeadSno" Pereshivalov</p>
+  </footer>
+</div>
+
+<script src="https://unpkg.com/vis-network@9.1.9/standalone/umd/vis-network.min.js"></script>
+<script>
+(function () {
+  const $ = id => document.getElementById(id);
+  const isDark = () => document.body.classList.contains('dark');
+
+  // ── Тема ─────────────────────────────────────────────────────────
+  document.addEventListener('DOMContentLoaded', () => {
+    $('themeBtn').textContent = isDark() ? '☀️ Светлая тема' : '🌙 Тёмная тема';
+  });
+  $('themeBtn').onclick = () => {
+    document.body.classList.toggle('dark');
+    const dark = isDark();
+    localStorage.setItem('theme', dark ? 'dark' : 'light');
+    $('themeBtn').textContent = dark ? '☀️ Светлая тема' : '🌙 Тёмная тема';
+    if (network) { render(); }
+  };
+
+  // ── Канонизация тегов ────────────────────────────────────────────
+  const CANON = {
+    'Зрение': 'Глаза', 'Депрессия': 'Психика', 'Тревожность': 'Психика',
+    'Психиатрия': 'Психика', 'Циркадные ритмы': 'Сон',
+    'Усталость': 'Энергия', 'Производительность': 'Энергия',
+    'Выносливость': 'Спорт', 'Мышцы': 'Спорт',
+    'Остеоартрит': 'Суставы', 'Кости': 'Суставы',
+    'Волосы': 'Кожа', 'Нервная система': 'Неврология',
+    'Нейромедиатор': 'Неврология', 'Диабет': 'Метаболизм',
+    'СПКЯ': 'Женское здоровье', 'Деменция': 'Когниция',
+    'Память': 'Когниция', 'Инсульт': 'Сосуды',
+    'Старение': 'Антиоксидант', 'Минерал': 'Метаболизм',
+  };
+  const MANUAL_TAGS = {
+    'Лютеин + зеаксантин': ['Антиоксидант'],
+    'Инозитол': ['Метаболизм', 'Женское здоровье'],
+  };
+  const canon = t => CANON[t] || t;
+  const tagsOf = c => {
+    if (MANUAL_TAGS[c.id]) return new Set(MANUAL_TAGS[c.id]);
+    const out = new Set();
+    (c.category || '').split('/').forEach(p => { p = p.trim(); if (p) out.add(canon(p)); });
+    return out;
+  };
+
+  // ── Цвета ────────────────────────────────────────────────────────
+  // Единая палитра проекта: цвет = вердикт (не грейд)
+  const VERDICT_COLOR = {
+    1: '#2d8a4e',   // работает
+    0: '#d4a017',   // зависит от контекста
+    '-1': '#c0392b', // не подтверждено
+  };
+  const TAG_COLOR = '#3498db';
+  const TAG_COLOR_LIGHT = 'rgba(52,152,219,.5)';
+
+  // ── State ────────────────────────────────────────────────────────
+  let SUPS = [], HUB_TAGS = new Set();
+  let filterGrades = new Set(['A', 'B', 'C', 'D']);  // мультивыбор
+  let filterQuery = '';
+  let network = null;
+
+  // ── Build graph data ─────────────────────────────────────────────
+  function buildGraph() {
+    const tagCount = {};
+    SUPS.forEach(c => tagsOf(c).forEach(t => { tagCount[t] = (tagCount[t] || 0) + 1; }));
+    HUB_TAGS = new Set(Object.entries(tagCount).filter(([_, n]) => n >= 2).map(([t]) => t));
+
+    const nodes = [];
+    const edges = [];
+
+    // Ноды тегов
+    HUB_TAGS.forEach(t => {
+      const n = tagCount[t];
+      nodes.push({
+        id: 'tag:' + t,
+        label: t,
+        kind: 'tag',
+        value: n,
+        shape: 'box',
+        color: { background: isDark() ? '#1c3a52' : '#d6ebfa', border: TAG_COLOR,
+                 highlight: { background: '#f1c40f', border: '#333' } },
+        font: { color: isDark() ? '#e8ebee' : '#1a1d21', size: 14, bold: true },
+        margin: 10,
+        borderWidth: 2,
+        borderWidthSelected: 3,
+        size: 20 + Math.min(n, 12) * 3,
+      });
+    });
+
+    // Ноды добавок
+    SUPS.forEach(c => {
+      if (!filterGrades.has(c.grade)) return;
+      if (filterQuery && !(c.id.toLowerCase().includes(filterQuery) ||
+                          (c.category || '').toLowerCase().includes(filterQuery))) return;
+
+      const tags = [...tagsOf(c)].filter(t => HUB_TAGS.has(t));
+      const size = 10 + Math.max(0, tags.length - 1) * 3;
+      nodes.push({
+        id: 'sup:' + c.id,
+        label: c.id,
+        kind: 'sup',
+        value: tags.length || 1,
+        shape: 'dot',
+        color: { background: VERDICT_COLOR[c.code] || '#888',
+                 border: VERDICT_COLOR[c.code] || '#888',
+                 highlight: { background: '#f1c40f', border: '#333' } },
+        font: { color: isDark() ? '#c8cdd5' : '#3a3d42', size: 11 },
+        size: size,
+      });
+      tags.forEach(t => {
+        edges.push({
+          from: 'sup:' + c.id, to: 'tag:' + t,
+          color: { color: isDark() ? 'rgba(120,140,160,.35)' : 'rgba(80,100,120,.35)',
+                   highlight: '#f1c40f' },
+          width: 1,
+        });
+      });
+    });
+
+    return { nodes, edges };
+  }
+
+  // ── Sidebar ──────────────────────────────────────────────────────
+  function openSidebar(html) {
+    const sb = $('sidebar');
+    sb.innerHTML = html;
+    sb.classList.add('open');
+    const x = sb.querySelector('.close-x');
+    if (x) x.onclick = () => sb.classList.remove('open');
+  }
+  function closeSidebar() { $('sidebar').classList.remove('open'); }
+
+  function showTag(t) {
+    const related = SUPS.filter(c => tagsOf(c).has(t))
+                        .sort((a, b) => (b.grade || '').localeCompare(a.grade || ''));
+    openSidebar(
+      '<h2>' + t + '<button class="close-x" aria-label="Закрыть">×</button></h2>' +
+      '<p style="opacity:.7;font-size:.85rem">' + related.length + ' добавок с этим тегом</p>' +
+      '<ul>' + related.map(c =>
+        '<li data-sup="' + c.id + '">' + c.id +
+        '<span class="badge ' + (c.grade || '') + '">' + (c.grade || '—') + '</span>' +
+        '<span class="badge">' + (c.verdict || '') + '</span>' +
+        '</li>'
+      ).join('') + '</ul>'
+    );
+  }
+
+  function showSup(id) {
+    const c = SUPS.find(x => x.id === id);
+    if (!c) return;
+    const mechs = c.mechs || [];
+    openSidebar(
+      '<h2>' + c.name + '<button class="close-x" aria-label="Закрыть">×</button></h2>' +
+      '<p style="opacity:.75;font-size:.85rem">' + (c.category || '') +
+      ' · грейд <b>' + (c.grade || '—') + '</b> · ' + (c.verdict || '') + '</p>' +
+      '<h3>Механизмы (' + mechs.length + ')</h3>' +
+      mechs.map(m =>
+        '<div class="mech">' + m[0] +
+        '<div style="opacity:.75;font-size:.82rem;margin-top:.25rem">✨ ' + m[1] +
+        '<span class="str">' + m[2] + '</span></div></div>'
+      ).join('') +
+      '<a class="cta" href="index.html#sup=' + encodeURIComponent(c.id) + '" target="_blank">Открыть карточку →</a>'
+    );
+  }
+
+  // ── Render ───────────────────────────────────────────────────────
+  function render() {
+    const data = buildGraph();
+    const container = $('graph');
+    if (network) network.destroy();
+    network = new vis.Network(container, data, {
+      physics: {
+        enabled: true,
+        solver: 'forceAtlas2Based',
+        forceAtlas2Based: {
+          gravitationalConstant: -45,
+          centralGravity: 0.01,
+          springLength: 100,
+          springConstant: 0.06,
+          damping: 0.55,
+          avoidOverlap: 0.6,
+        },
+        stabilization: false,   // ← сразу живой граф, без предварительной стабилизации
+        maxVelocity: 8,
+        minVelocity: 0.05,      // ← почти никогда не «успокаивается»
+      },
+      interaction: { hover: true, tooltipDelay: 200 },
+      nodes: { borderWidth: 1, borderWidthSelected: 3 },
+      edges: { smooth: { type: 'continuous' } },
+    });
+
+    network.on('click', params => {
+      if (!params.nodes.length) { closeSidebar(); return; }
+      const id = params.nodes[0];
+      if (id.startsWith('tag:')) showTag(id.slice(4));
+      else showSup(id.slice(4));
+      // центрирование
+      network.focus(id, {
+        scale: Math.max(network.getScale(), 0.8),
+        animation: { duration: 600, easingFunction: 'easeInOutQuad' },
+      });
+    });
+
+    // Клик по элементу внутри сайдбара
+    $('sidebar').addEventListener('click', e => {
+      const li = e.target.closest('[data-sup]');
+      if (li) showSup(li.dataset.sup);
+    }, { once: false });
+
+    // Обновляем статистику
+    $('stats').textContent = SUPS.length + ' добавок · ' +
+      HUB_TAGS.size + ' хабов-тегов · ' +
+      data.edges.length + ' связей';
+  }
+
+  // ── Filters ──────────────────────────────────────────────────────
+  document.querySelectorAll('.btn.gr').forEach(b => {
+    b.onclick = () => {
+      const g = b.dataset.grade;
+      if (filterGrades.has(g)) filterGrades.delete(g);
+      else filterGrades.add(g);
+      b.classList.toggle('on', filterGrades.has(g));
+      render();
+    };
+  });
+  $('q').addEventListener('input', e => {
+    filterQuery = e.target.value.trim().toLowerCase();
+    render();
+  });
+
+  // Fullscreen
+  $('fsBtn').onclick = () => {
+    document.body.classList.toggle('fs');
+    const isFs = document.body.classList.contains('fs');
+    $('fsBtn').textContent = isFs ? '✕ Выйти' : '⛶ На весь экран';
+    setTimeout(() => {
+      if (network) {
+        network.setSize('100%', '100%');
+        network.redraw();
+        network.fit({ animation: { duration: 400, easingFunction: 'easeInOutQuad' } });
+      }
+    }, 100);
+  };
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && document.body.classList.contains('fs')) {
+      document.body.classList.remove('fs');
+      $('fsBtn').textContent = '⛶ На весь экран';
+      setTimeout(() => { if (network) { network.setSize('100%', '100%'); network.redraw(); } }, 100);
+    }
+  });
+
+  window.addEventListener('resize', () => {
+    if (!network) return;
+    network.setSize('100%', '100%');
+    network.redraw();
+  });
+
+  // ── Load data ────────────────────────────────────────────────────
+  fetch('data.json?ts=' + Date.now())
+    .then(r => r.json())
+    .then(data => {
+      SUPS = data;
+      render();
+    })
+    .catch(err => {
+      $('stats').textContent = '❌ Не удалось загрузить data.json';
+      console.error(err);
+    });
+})();
+</script>
+</body>
+</html>
