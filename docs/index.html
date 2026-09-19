@@ -50,8 +50,6 @@ try {
 <header>
   <h1><a href="index.html" style="color:inherit;text-decoration:none" title="На главную">🧠 БАДы: что работает, а что нет</a></h1>
   <div class="hdr">
-    <a class="btn" href="map.html">🕸 Карта механизмов</a>
-    <a class="btn" href="interactions.html">🔗 Карта связей</a>
     <button id="themeToggle">🌙 Тёмная тема</button>
   </div>
 </header>
@@ -94,6 +92,26 @@ try {
   </div>
 </section>
 
+<section style="margin:1.5rem 0">
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:.8rem">
+    <a class="card-link" href="map.html" style="display:block;padding:1rem 1.2rem;border:1px solid var(--border);border-radius:12px;text-decoration:none;color:inherit">
+      <div style="font-size:1.4rem">🧩</div>
+      <div style="font-weight:600;margin:.3rem 0">Карта механизмов</div>
+      <div style="opacity:.7;font-size:.85rem">Как каждая добавка работает: вещество → мишень → эффект</div>
+    </a>
+    <a class="card-link" href="interactions.html" style="display:block;padding:1rem 1.2rem;border:1px solid var(--border);border-radius:12px;text-decoration:none;color:inherit">
+      <div style="font-size:1.4rem">🔗</div>
+      <div style="font-weight:600;margin:.3rem 0">Карта связей</div>
+      <div style="opacity:.7;font-size:.85rem">Синергии, антагонизмы и конфликты с лекарствами</div>
+    </a>
+    <a class="card-link" href="atlas.html" style="display:block;padding:1rem 1.2rem;border:1px solid var(--border);border-radius:12px;text-decoration:none;color:inherit">
+      <div style="font-size:1.4rem">🌐</div>
+      <div style="font-weight:600;margin:.3rem 0">Атлас механизмов</div>
+      <div style="opacity:.7;font-size:.85rem">25 тегов × 81 добавка: что работает для Сна, Памяти, Иммунитета</div>
+    </a>
+  </div>
+</section>
+
 <section id="trustSummary" style="background:var(--card-bg);padding:.75rem 1.2rem;border-radius:12px;border:1px solid var(--border)">
   <div style="display:flex;flex-wrap:wrap;align-items:center;gap:.7rem">
     <h2 style="margin:0;font-size:1rem">🔬 Как мы проверяем данные</h2>
@@ -112,6 +130,19 @@ try {
     <summary>📐 Что такое «индекс науки»?</summary>
     <p><b>Индекс науки = РКИ + 5 × мета-анализы</b> в PubMed по запросу «(добавка) AND (исход)».</p>
     <p>Индекс меряет <i>количество</i> науки, не силу эффекта. Вердикты ставим вручную по топ-2 мета-анализам.</p>
+  </details>
+  <details class="method">
+    <summary>🎯 Что такое «сила эффекта» (Hedges' g)?</summary>
+    <p><b>Hedges' g</b> — это стандартная метрика того, насколько добавка <i>реально помогает</i>, по сравнению с плацебо.</p>
+    <p style="margin-top:.5rem"><b>Как читать:</b></p>
+    <ul style="margin:.3rem 0 .5rem 1.2rem">
+      <li><b>0</b> — эффекта нет (как плацебо)</li>
+      <li><b>±0.2</b> — маленький эффект (заметен, но скромный)</li>
+      <li><b>±0.5</b> — средний эффект (клинически значимый)</li>
+      <li><b>±0.8+</b> — большой эффект (заметен всем)</li>
+      <li><b>Отрицательный</b> — не значит «плохо». Зависит от того, что измеряли: например, у Магния g = −0.67 по шкале тревожности — это <i>снижение</i> тревоги, то есть хорошо</li>
+    </ul>
+    <p>Мы берём g из первого релевантного мета-анализа по каждой добавке. У одной добавки может быть много g по разным исходам (сон, сила, память) — мы показываем один пример, а не «главный эффект».</p>
   </details>
   <div class="chartTabs" id="viewTabs">
     <button class="chartTab on" data-view="price">📊 Доказательность</button>
