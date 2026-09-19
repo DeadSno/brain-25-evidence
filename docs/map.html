@@ -191,17 +191,31 @@ function select(id, push){
     '<span class="verdict v' + s.code + '">' + s.verdict + '</span> ' +
     '<span style="opacity:.6;font-size:.85rem">' + s.category + '</span>';
   if (mechs.length) {
-    html += mechs.map(m => {
-      const blk =
-        '<div class="step sup" style="animation-delay:' + (d) + 's">💊 <b>' + s.name + '</b></div>' +
-        '<div class="arrow" style="animation-delay:' + (d + 0.12) + 's">↓</div>' +
-        '<div class="step mech" style="animation-delay:' + (d + 0.24) + 's">🎯 ' + m[0] + '</div>' +
-        '<div class="arrow" style="animation-delay:' + (d + 0.36) + 's">↓</div>' +
-        '<div class="step eff" style="animation-delay:' + (d + 0.48) + 's">✨ ' + m[1] +
-          '<span class="tag ' + (TAGCLASS[m[2]] || 't-ctx') + '">' + m[2] + '</span></div>';
-      d += 0.65;
-      return blk;
-    }).join('<div style="height:1.1rem"></div>');
+    // Один 💊 сверху
+    html += '<div class="step sup" style="animation-delay:' + d + 's">💊 <b>' + s.name + '</b>' +
+            (mechs.length > 1 ? ' <span style="opacity:.6;font-size:.85rem">· ' + mechs.length + ' механизма</span>' : '') +
+            '</div>';
+    d += 0.12;
+
+    // Затем каждая ветка: механизм → эффект
+    mechs.forEach((m, i) => {
+      const strengthClass = {
+        'сильно': 't-strong', 'умеренно': 't-mod', 'слабо': 't-weak',
+        'контекст': 't-ctx', 'маркетинг': 't-mkt'
+      }[m[2]] || 't-ctx';
+
+      html +=
+        '<div class="arrow" style="animation-delay:' + d + 's">↓</div>' +
+        '<div class="step mech" style="animation-delay:' + (d + 0.1) + 's" data-mech-idx="' + i + '">' +
+          '⚙️ ' + m[0] +
+        '</div>' +
+        '<div class="arrow" style="animation-delay:' + (d + 0.2) + 's">↓</div>' +
+        '<div class="step eff" style="animation-delay:' + (d + 0.3) + 's" data-mech-idx="' + i + '">' +
+          '✨ ' + m[1] +
+          ' <span class="tag ' + strengthClass + '">' + m[2] + '</span>' +
+        '</div>';
+      d += 0.4;
+    });
   } else {
     html += '<p style="opacity:.6">Для этой добавки механизмы ещё уточняются.</p>';
   }
@@ -332,20 +346,27 @@ $('themeBtn').addEventListener('click', () => {
       .filter(w => w.length >= n);
   }
 
-  function relatedByMech(s, mechText, effectText) {
-    // корни из механизма (длинные слова → режем)
-    const myMech = new Set(tokens(mechText, 6).map(stem));
-    // слова из эффекта (порог меньше — эффекты короткие)
-    const myEff = new Set(tokens(effectText, 5));
+  function relatedByMech(s, mechsArr) {
+    const myMech = new Set();
+    const myEff = new Set();
+    (mechsArr || []).forEach(m => {
+      tokens(m[0], 6).map(stem).forEach(t => myMech.add(t));
+      tokens(m[1] || '', 5).forEach(t => myEff.add(t));
+    });
     if (!myMech.size && !myEff.size) return [];
 
     return SUPS
       .filter(x => x.id !== s.id && x.mechs && x.mechs[0])
       .map(x => {
-        const xMech = tokens(x.mechs[0][0], 6).map(stem);
-        const xEff = tokens(x.mechs[0][1] || '', 5);
-        const mechOverlap = xMech.filter(t => myMech.has(t)).length;
-        const effOverlap = xEff.filter(t => myEff.has(t)).length;
+        // у других карточек проверяем ВСЕ их mechs
+        const xMech = new Set();
+        const xEff = new Set();
+        (x.mechs || []).forEach(m => {
+          tokens(m[0], 6).map(stem).forEach(t => xMech.add(t));
+          tokens(m[1] || '', 5).forEach(t => xEff.add(t));
+        });
+        const mechOverlap = [...xMech].filter(t => myMech.has(t)).length;
+        const effOverlap = [...xEff].filter(t => myEff.has(t)).length;
         const sameCat = x.category && x.category === s.category ? 1 : 0;
         return {
           s: x,
@@ -381,8 +402,9 @@ $('themeBtn').addEventListener('click', () => {
   function showSupplement(id) {
     const s = SUPS.find(x => x.id === id);
     if (!s) return;
-    const m = (s.mechs && s.mechs[0]) || [];
-    const rel = m[0] ? relatedByMech(s, m[0], m[1]) : [];
+    const mechs = s.mechs || [];
+    // считаем связи по ВСЕМ механизмам
+    const rel = mechs.length ? relatedByMech(s, mechs) : [];
 
     openDetails(
       '<h2>💊 ' + esc(s.name) + '</h2>' +
@@ -390,27 +412,38 @@ $('themeBtn').addEventListener('click', () => {
       '<span class="badge-cat">' + esc(s.category || '') + '</span>' +
       verdictBadge(s) +
       '</div>' +
-      '<h3>Механизм</h3><p>' + esc(m[0] || '—') + '</p>' +
-      '<h3>Эффект</h3><p>' + esc(m[1] || '—') + '</p>' +
-      (m[2] ? '<p style="opacity:.7;font-size:.85rem">Сила: <b>' + esc(m[2]) + '</b></p>' : '') +
+      (mechs.length === 1
+        ? '<h3>Механизм</h3><p>' + esc(mechs[0][0]) + '</p>' +
+          '<h3>Эффект</h3><p>' + esc(mechs[0][1]) + '</p>' +
+          (mechs[0][2] ? '<p style="opacity:.7;font-size:.85rem">Сила: <b>' + esc(mechs[0][2]) + '</b></p>' : '')
+        : '<h3>Механизмы (' + mechs.length + ')</h3>' +
+          mechs.map((m, i) =>
+            '<div style="margin:.7rem 0;padding:.6rem .8rem;border:1px solid var(--aborder);border-radius:8px">' +
+            '<div style="font-weight:600">' + (i + 1) + '. ' + esc(m[0]) + '</div>' +
+            '<div style="opacity:.8;font-size:.9rem;margin-top:.3rem">✨ ' + esc(m[1]) +
+            (m[2] ? ' · <b>' + esc(m[2]) + '</b>' : '') + '</div>' +
+            '</div>'
+          ).join('')
+      ) +
       '<h3>Похожие добавки (' + rel.length + ')</h3>' + relList(rel) +
       '<p style="margin-top:1.2rem"><a class="cta" href="index.html#sup=' +
       encodeURIComponent(s.id) + '">Открыть карточку →</a></p>'
     );
   }
 
-  function showMechanism(id) {
+  function showMechanism(id, idx) {
     const s = SUPS.find(x => x.id === id);
     if (!s) return;
-    const m = (s.mechs && s.mechs[0]) || [];
-    if (!m[0]) return showSupplement(id);
-    const rel = relatedByMech(s, m[0], m[1]);
+    const mechs = s.mechs || [];
+    const m = mechs[idx];
+    if (!m) return showSupplement(id);
+    const rel = relatedByMech(s, [m]);
 
     openDetails(
-      '<h2>⚙️ Механизм</h2>' +
+      '<h2>⚙️ Механизм' + (mechs.length > 1 ? ' ' + (idx + 1) + '/' + mechs.length : '') + '</h2>' +
       '<p style="font-size:1rem;line-height:1.55">' + esc(m[0]) + '</p>' +
       '<h3>У добавки: ' + esc(s.name) + '</h3>' +
-      '<p style="opacity:.85">' + esc(m[1] || '—') + '</p>' +
+      '<p style="opacity:.85">' + esc(m[1]) + '</p>' +
       (m[2] ? '<p style="opacity:.7;font-size:.85rem">Сила: <b>' + esc(m[2]) + '</b></p>' : '') +
       '<h3>Добавки с похожим механизмом (' + rel.length + ')</h3>' + relList(rel) +
       '<p style="margin-top:1.2rem"><a class="cta" href="index.html#sup=' +
@@ -418,18 +451,19 @@ $('themeBtn').addEventListener('click', () => {
     );
   }
 
-  function showEffect(id) {
+  function showEffect(id, idx) {
     const s = SUPS.find(x => x.id === id);
     if (!s) return;
-    const m = (s.mechs && s.mechs[0]) || [];
-    if (!m[1]) return showSupplement(id);
+    const mechs = s.mechs || [];
+    const m = mechs[idx];
+    if (!m) return showSupplement(id);
 
     openDetails(
-      '<h2>✨ Эффект</h2>' +
+      '<h2>✨ Эффект' + (mechs.length > 1 ? ' ' + (idx + 1) + '/' + mechs.length : '') + '</h2>' +
       '<p style="font-size:1rem;line-height:1.55">' + esc(m[1]) + '</p>' +
       (m[2] ? '<p style="opacity:.7">Сила: <b>' + esc(m[2]) + '</b></p>' : '') +
       '<h3>У добавки: ' + esc(s.name) + '</h3>' +
-      '<p style="opacity:.85">Механизм: ' + esc(m[0] || '—') + '</p>' +
+      '<p style="opacity:.85">Механизм: ' + esc(m[0]) + '</p>' +
       '<p style="margin-top:1.2rem"><a class="cta" href="index.html#sup=' +
       encodeURIComponent(s.id) + '">Открыть карточку →</a></p>'
     );
@@ -443,9 +477,10 @@ $('themeBtn').addEventListener('click', () => {
       ? cur
       : new URLSearchParams(location.search).get('supplement');
     if (!id) return;
+    const idx = parseInt(step.dataset.mechIdx || '0', 10);
     if (step.classList.contains('sup')) showSupplement(id);
-    else if (step.classList.contains('mech')) showMechanism(id);
-    else if (step.classList.contains('eff')) showEffect(id);
+    else if (step.classList.contains('mech')) showMechanism(id, idx);
+    else if (step.classList.contains('eff')) showEffect(id, idx);
   });
 
   // Клик по «похожей добавке» внутри оверлея
