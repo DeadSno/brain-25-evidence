@@ -202,3 +202,5 @@ data/raw/*
 # Бэкапы data.json и метрики-отчёты (регенерируются скриптами)
 docs/data.json.bak-*
 reports/metrics_report.json
+
+docs/�.md
