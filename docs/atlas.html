@@ -118,6 +118,7 @@
       <div><span class="dot" style="background:#c0392b"></span>не подтверждено</div>
       <div style="margin-top:.3rem"><span class="box"></span>тег-хаб (размер = добавок)</div>
       <div><span class="dot" style="background:#888;width:8px;height:8px"></span>размер = кол-во тегов</div>
+  <div style="margin-top:.3rem;opacity:.7;font-size:.9em">двойной клик → открыть карточку / список</div>
     </div>
     <aside id="sidebar"></aside>
   </div>
@@ -253,6 +254,26 @@
     return q.split(/\s+/).filter(Boolean).every(w => hay.includes(w));
   }
 
+  // ── Тултип для добавки ───────────────────────────────────────────
+  function buildTooltip(c) {
+    const grade = c.grade ? 'грейд ' + c.grade : '';
+    const verdict = c.verdict || '';
+    const mechs = (c.mechs || []).length;
+    const eff = (c.effects || []).slice(0, 3).join(' · ');
+    const el = document.createElement('div');
+    const dark = document.body.classList.contains('dark');
+    el.style.cssText = 'padding:.4rem .6rem;font-size:.85rem;line-height:1.4;max-width:280px;border-radius:8px;' +
+      (dark
+        ? 'color:#e9eaee;background:#1c1f26;border:1px solid #3a3f48'
+        : 'color:#1a1d21;background:#fff;border:1px solid #d9dde3');
+    el.innerHTML =
+      '<b style="font-size:.95rem">' + c.id + '</b><br>' +
+      '<span style="opacity:.75">' + verdict + (grade ? ' · ' + grade : '') + '</span><br>' +
+      (eff ? '<i style="opacity:.85">' + eff + '</i><br>' : '') +
+      '<span style="opacity:.65;font-size:.8rem">' + mechs + ' механизмов</span>';
+    return el;
+  }
+
   // ── Build graph data ─────────────────────────────────────────────
   function buildGraph() {
     const tagCount = {};
@@ -308,6 +329,7 @@
                  highlight: { background: '#f1c40f', border: '#333' } },
         font: { color: isDark() ? '#c8cdd5' : '#3a3d42', size: 11 },
         size: size,
+        title: buildTooltip(c),
       });
       tags.forEach(t => {
         edges.push({
@@ -407,6 +429,17 @@
           scale: Math.max(network.getScale(), 0.8),
           animation: { duration: 600, easingFunction: 'easeInOutQuad' },
         });
+      }
+    });
+
+    network.on('doubleClick', params => {
+      if (!params.nodes.length) return;
+      const id = params.nodes[0];
+      if (id.startsWith('sup:')) {
+        const supId = id.slice(4);
+        window.open('index.html#sup=' + encodeURIComponent(supId), '_blank');
+      } else if (id.startsWith('tag:')) {
+        showTag(id.slice(4));
       }
     });
 
