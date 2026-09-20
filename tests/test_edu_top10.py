@@ -17,7 +17,7 @@ EDU_FIELDS = ["about", "who_needs", "onset", "upper_limit",
 # Q1.4: adv-поля теперь добавляются ко всем 81 карточке.
 # Этот порог — «сколько минимум карточек имеют adv-поля».
 # Растёт по мере прохождения батчей.
-MIN_WITH_EDU = 25
+MIN_WITH_EDU = 81  # Q1.4 завершён
 
 
 def test_edu_top10_all_fields_nonempty_in_data():
