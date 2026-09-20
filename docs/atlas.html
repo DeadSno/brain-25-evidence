@@ -104,6 +104,7 @@
     <button class="btn gr on" data-grade="D">D</button>
     <span class="lbl" style="margin-left:1rem">Поиск:</span>
     <input id="q" placeholder="добавка или тег…" style="padding:.4rem .7rem;border:1px solid var(--aborder);border-radius:8px;background:var(--apanel);color:var(--atext);min-width:180px">
+    <button class="btn" id="clearTagsBtn" style="display:none">✕ Сбросить теги</button>
     <button class="btn" id="fsBtn" title="Развернуть на весь экран">⛶ На весь экран</button>
   </div>
 
@@ -178,11 +179,39 @@
   const TAG_COLOR = '#3498db';
   const TAG_COLOR_LIGHT = 'rgba(52,152,219,.5)';
 
-  // ── State ────────────────────────────────────────────────────────
-  let SUPS = [], HUB_TAGS = new Set();
-  let filterGrades = new Set(['A', 'B', 'C', 'D']);  // мультивыбор
-  let filterQuery = '';
+  // ── State + localStorage ─────────────────────────────────────────
+  const LS_KEY = 'atlas_filters_v1';
+
+  function loadState() {
+    try {
+      const raw = localStorage.getItem(LS_KEY);
+      if (!raw) return null;
+      const s = JSON.parse(raw);
+      return {
+        grades: new Set(s.grades || ['A', 'B', 'C', 'D']),
+        tags: new Set(s.tags || []),
+        query: s.query || '',
+      };
+    } catch (e) { return null; }
+  }
+
+  function saveState() {
+    try {
+      localStorage.setItem(LS_KEY, JSON.stringify({
+        grades: [...filterGrades],
+        tags: [...activeTags],
+        query: filterQuery,
+      }));
+    } catch (e) { /* quota / disabled — игнорируем */ }
+  }
+
+  const saved = loadState();
+  let filterGrades = saved ? saved.grades : new Set(['A', 'B', 'C', 'D']);
+  let filterQuery = saved ? saved.query : '';
+  let activeTags = saved ? saved.tags : new Set();
   let network = null;
+
+  let SUPS = [], HUB_TAGS = new Set();
 
   // ── Build graph data ─────────────────────────────────────────────
   function buildGraph() {
@@ -196,14 +225,21 @@
     // Ноды тегов
     HUB_TAGS.forEach(t => {
       const n = tagCount[t];
+      const isActive = activeTags.has(t);
+      const isDimmed = activeTags.size > 0 && !isActive;
       nodes.push({
         id: 'tag:' + t,
         label: t,
         kind: 'tag',
         value: n,
         shape: 'box',
-        color: { background: isDark() ? '#1c3a52' : '#d6ebfa', border: TAG_COLOR,
-                 highlight: { background: '#f1c40f', border: '#333' } },
+        color: isActive
+          ? { background: '#f1c40f', border: '#333', highlight: { background: '#f39c12', border: '#222' } }
+          : isDimmed
+            ? { background: 'rgba(52,152,219,.15)', border: 'rgba(52,152,219,.4)',
+                highlight: { background: '#f1c40f', border: '#333' } }
+            : { background: isDark() ? '#1c3a52' : '#d6ebfa', border: TAG_COLOR,
+                highlight: { background: '#f1c40f', border: '#333' } },
         font: { color: isDark() ? '#e8ebee' : '#1a1d21', size: 14, bold: true },
         margin: 10,
         borderWidth: 2,
@@ -219,6 +255,8 @@
                           (c.category || '').toLowerCase().includes(filterQuery))) return;
 
       const tags = [...tagsOf(c)].filter(t => HUB_TAGS.has(t));
+      // Фильтр по активным тегам: если выбрано ≥1 — оставляем только релевантные
+      if (activeTags.size > 0 && !tags.some(t => activeTags.has(t))) return;
       const size = 10 + Math.max(0, tags.length - 1) * 3;
       nodes.push({
         id: 'sup:' + c.id,
@@ -317,13 +355,20 @@
     network.on('click', params => {
       if (!params.nodes.length) { closeSidebar(); return; }
       const id = params.nodes[0];
-      if (id.startsWith('tag:')) showTag(id.slice(4));
-      else showSup(id.slice(4));
-      // центрирование
-      network.focus(id, {
-        scale: Math.max(network.getScale(), 0.8),
-        animation: { duration: 600, easingFunction: 'easeInOutQuad' },
-      });
+      if (id.startsWith('tag:')) {
+        const tag = id.slice(4);
+        // toggle: клик добавляет/убирает тег из фильтра
+        if (activeTags.has(tag)) activeTags.delete(tag);
+        else activeTags.add(tag);
+        saveState();
+        render();
+      } else {
+        showSup(id.slice(4));
+        network.focus(id, {
+          scale: Math.max(network.getScale(), 0.8),
+          animation: { duration: 600, easingFunction: 'easeInOutQuad' },
+        });
+      }
     });
 
     // Клик по элементу внутри сайдбара
@@ -336,20 +381,37 @@
     $('stats').textContent = SUPS.length + ' добавок · ' +
       HUB_TAGS.size + ' хабов-тегов · ' +
       data.edges.length + ' связей';
+
+    // Обновляем UI активных тегов
+    const clearBtn = $('clearTagsBtn');
+    if (clearBtn) {
+      if (activeTags.size > 0) {
+        clearBtn.style.display = '';
+        clearBtn.textContent = '✕ Сбросить теги (' + activeTags.size + ')';
+      } else {
+        clearBtn.style.display = 'none';
+      }
+    }
   }
 
   // ── Filters ──────────────────────────────────────────────────────
+  // Применяем сохранённые фильтры к UI до первого render()
   document.querySelectorAll('.btn.gr').forEach(b => {
+    const g = b.dataset.grade;
+    b.classList.toggle('on', filterGrades.has(g));
     b.onclick = () => {
-      const g = b.dataset.grade;
       if (filterGrades.has(g)) filterGrades.delete(g);
       else filterGrades.add(g);
       b.classList.toggle('on', filterGrades.has(g));
+      saveState();
       render();
     };
   });
+  // Восстановить текст поиска
+  if (filterQuery) $('q').value = filterQuery;
   $('q').addEventListener('input', e => {
     filterQuery = e.target.value.trim().toLowerCase();
+    saveState();
     render();
   });
 
@@ -379,6 +441,13 @@
     network.setSize('100%', '100%');
     network.redraw();
   });
+
+  // Кнопка сброса тегов
+  $('clearTagsBtn').onclick = () => {
+    activeTags.clear();
+    saveState();
+    render();
+  };
 
   // ── Load data ────────────────────────────────────────────────────
   fetch('data.json?ts=' + Date.now())
