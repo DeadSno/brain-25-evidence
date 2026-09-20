@@ -1,4 +1,4 @@
-"""v2.3.1+v2.5: контент для 15 блоков (брифы v2.3b, v2.5 — контент №1+№2)."""
+"""v2.3.1+v2.5: контент для 15 блоков (брифинги v2.3b, v2.5 — контент №1+№2)."""
 import json
 import sys
 from pathlib import Path
@@ -13,11 +13,16 @@ SCRIPT = (ROOT / "docs" / "script.js").read_text(encoding="utf-8")
 
 EDU_FIELDS = ["about", "who_needs", "onset", "upper_limit",
               "food_sources", "guidelines", "how_to_choose", "myths"]
-EXPECTED = 20
+
+# Q1.4: adv-поля теперь добавляются ко всем 81 карточке.
+# Этот порог — «сколько минимум карточек имеют adv-поля».
+# Растёт по мере прохождения батчей.
+MIN_WITH_EDU = 25
 
 
 def test_edu_top10_all_fields_nonempty_in_data():
-    assert len(content.EDU_TOP10) == EXPECTED, f"EDU_TOP10: {len(content.EDU_TOP10)}, ожидалось {EXPECTED}"
+    """Первые 20 карточек из content.EDU_TOP10 должны иметь все поля заполнены и совпадать."""
+    assert len(content.EDU_TOP10) == 20, f"EDU_TOP10: {len(content.EDU_TOP10)}, ожидалось 20"
     for key, fields in content.EDU_TOP10.items():
         assert key in by_id, f"нет карточки в data.json: {key}"
         card = by_id[key]
@@ -27,13 +32,15 @@ def test_edu_top10_all_fields_nonempty_in_data():
             assert card[f] == fields[f], f"{key}: текст {f} разошёлся с EDU_TOP10 (редактура?!)"
 
 
-def test_edu_top10_only_top10_fields_attached():
-    with_edu = [d for d in data if any(f in d for f in EDU_FIELDS)]
-    assert len(with_edu) == EXPECTED, (
-        f"edu-поля у {len(with_edu)} карточек, ожидалось только у {EXPECTED}")
+def test_q14_progress_at_least_min():
+    """Q1.4 в процессе: минимум MIN_WITH_EDU карточек имеют adv-поля (растёт по мере батчей)."""
+    with_edu = [d for d in data if any(d.get(f) for f in EDU_FIELDS)]
+    assert len(with_edu) >= MIN_WITH_EDU, (
+        f"adv-поля только у {len(with_edu)} карточек, ожидалось ≥ {MIN_WITH_EDU}")
 
 
 def test_modal_renders_edu_fields_in_blocks():
+    """Модалка читает все adv-поля."""
     mapping = {
         "about": "s.about",
         "who_needs": "s.who_needs",
@@ -45,4 +52,4 @@ def test_modal_renders_edu_fields_in_blocks():
         "myths": "s.myths",
     }
     for f, expr in mapping.items():
-        assert expr in SCRIPT, f"модалка не читает новое поле: {expr} (поле {f})"
+        assert expr in SCRIPT, f"модалка не читает поле: {expr} (поле {f})"
