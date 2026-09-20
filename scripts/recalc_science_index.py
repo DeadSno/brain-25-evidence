@@ -35,9 +35,18 @@ UA = "brain-25-evidence/1.0"
 
 BASE_RE = re.compile(r"^(.*?)\s+AND\s+\(", re.IGNORECASE)
 
+# Явные базовые запросы для карточек, где regex отрезает лишнее
+# (составные запросы с 2+ AND-группами)
+EXPLICIT_BASE = {
+    "Клюква": "(Vaccinium macrocarpon OR cranberry supplementation) AND (urinary tract infection)",
+    # добавляется по результатам диагностики
+}
 
-def base_from_term(term: str) -> str | None:
-    """Извлекает base_query: всё до первого ` AND (`."""
+
+def base_from_term(term: str, card_id: str = "") -> str | None:
+    """base_query: явный из EXPLICIT_BASE или всё до первого ` AND (`."""
+    if card_id and card_id in EXPLICIT_BASE:
+        return EXPLICIT_BASE[card_id]
     m = BASE_RE.match(term)
     if not m:
         return None
@@ -97,7 +106,7 @@ def main() -> int:
             report["cards"][cid] = {"status": "no_term"}
             continue
 
-        base = base_from_term(term)
+        base = base_from_term(term, cid)
         if not base:
             print(f"  {cid:30s} | не удалось извлечь base")
             report["totals"]["no_base"] += 1

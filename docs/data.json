@@ -128,8 +128,8 @@
     "code": 0,
     "verdict": "зависит от контекста",
     "category": "Сердце",
-    "scienceIndex": 9778,
-    "metaCount": 1006,
+    "scienceIndex": 9783,
+    "metaCount": 1007,
     "citations": 0,
     "wiki": 49978,
     "ongoing": 330,
@@ -251,7 +251,7 @@
     "code": 0,
     "verdict": "зависит от контекста",
     "category": "Кости/Иммунитет",
-    "scienceIndex": 8995,
+    "scienceIndex": 8996,
     "metaCount": 998,
     "citations": 818,
     "wiki": 145309,
@@ -367,7 +367,7 @@
         "year": 2026
       }
     ],
-    "rct": 4005,
+    "rct": 4006,
     "pubmed_term": "(vitamin D supplementation OR cholecalciferol) AND (fracture OR mortality OR deficiency)",
     "hedges_g_ci": [
       -0.22,
@@ -532,8 +532,8 @@
     "code": 1,
     "verdict": "работает",
     "category": "Минерал/Сердце",
-    "scienceIndex": 923,
-    "metaCount": 90,
+    "scienceIndex": 928,
+    "metaCount": 91,
     "citations": 601,
     "wiki": 99800,
     "ongoing": 367,
@@ -2387,7 +2387,7 @@
     "code": 0,
     "verdict": "зависит от контекста",
     "category": "Иммунитет/ОРВИ",
-    "scienceIndex": 2309,
+    "scienceIndex": 2310,
     "metaCount": 236,
     "citations": 114,
     "wiki": 79279,
@@ -2531,7 +2531,7 @@
         "year": 2026
       }
     ],
-    "rct": 1129,
+    "rct": 1130,
     "pubmed_term": "(zinc supplementation) AND (common cold OR diarrhea OR infection)",
     "hedges_g_ci": [
       -1.22,
@@ -3265,7 +3265,7 @@
     "code": -1,
     "verdict": "не подтверждено",
     "category": "Психика/Сон",
-    "scienceIndex": 3657,
+    "scienceIndex": 3658,
     "metaCount": 365,
     "citations": 284,
     "wiki": 86607,
@@ -3340,7 +3340,7 @@
         "year": 2026
       }
     ],
-    "rct": 1832,
+    "rct": 1833,
     "pubmed_term": "(GABA supplementation OR gamma-aminobutyric acid) AND (anxiety OR sleep OR stress)",
     "hedges_g_ci": [
       -0.91,
@@ -3836,7 +3836,7 @@
     "code": 0,
     "verdict": "зависит от контекста",
     "category": "Иммунитет/Антиоксидант",
-    "scienceIndex": 1667,
+    "scienceIndex": 1668,
     "metaCount": 159,
     "citations": 227,
     "wiki": 128313,
@@ -3935,7 +3935,7 @@
         "year": 2026
       }
     ],
-    "rct": 872,
+    "rct": 873,
     "pubmed_term": "(vitamin C supplementation OR ascorbic acid supplementation) AND (common cold OR mortality OR infection)",
     "hedges_g_ci": [
       -3.01,
@@ -4505,8 +4505,8 @@
     "code": 0,
     "verdict": "зависит от контекста",
     "category": "ЖКТ",
-    "scienceIndex": 10632,
-    "metaCount": 1342,
+    "scienceIndex": 10644,
+    "metaCount": 1344,
     "citations": 7,
     "wiki": 33804,
     "ongoing": 536,
@@ -4622,7 +4622,7 @@
         "year": 2026
       }
     ],
-    "rct": 3922,
+    "rct": 3924,
     "pubmed_term": "(probiotic supplementation OR probiotics) AND (irritable bowel OR diarrhea OR antibiotic-associated)",
     "hedges_g_ci": [
       0.29,
@@ -4637,7 +4637,7 @@
     "code": 1,
     "verdict": "работает",
     "category": "Беременность/Кровь",
-    "scienceIndex": 2692,
+    "scienceIndex": 2693,
     "metaCount": 304,
     "citations": 1278,
     "wiki": 78114,
@@ -4729,7 +4729,7 @@
         "year": 2026
       }
     ],
-    "rct": 1172,
+    "rct": 1173,
     "pubmed_term": "(folic acid supplementation OR folate supplementation) AND (neural tube OR pregnancy OR homocysteine OR cardiovascular OR depression)",
     "hedges_g_ci": [
       -0.13,
@@ -4751,8 +4751,8 @@
     "code": 1,
     "verdict": "работает",
     "category": "Кровь/Анемия",
-    "scienceIndex": 3367,
-    "metaCount": 297,
+    "scienceIndex": 3378,
+    "metaCount": 299,
     "citations": 288,
     "wiki": 28363,
     "ongoing": 90,
@@ -4869,7 +4869,7 @@
         "year": 2026
       }
     ],
-    "rct": 1882,
+    "rct": 1883,
     "pubmed_term": "(iron supplementation OR ferrous) AND (anemia OR iron deficiency OR pregnancy)",
     "hedges_g_ci": [
       0.91,
@@ -5123,7 +5123,7 @@
     "code": 0,
     "verdict": "зависит от контекста",
     "category": "Антиоксидант/Неврология",
-    "scienceIndex": 5337,
+    "scienceIndex": 5338,
     "metaCount": 477,
     "citations": 460,
     "wiki": 40584,
@@ -5224,7 +5224,7 @@
         "year": 2026
       }
     ],
-    "rct": 2952,
+    "rct": 2953,
     "pubmed_term": "(vitamin E OR tocopherol OR tocotrienol supplementation) AND (cardiovascular OR antioxidant OR cognitive OR cancer)",
     "hedges_g_ci": [
       -0.48,
@@ -5735,7 +5735,7 @@
     "code": 0,
     "verdict": "зависит от контекста",
     "category": "Кости/Беременность",
-    "scienceIndex": 3712,
+    "scienceIndex": 3713,
     "metaCount": 348,
     "citations": 37,
     "wiki": 79605,
@@ -5848,7 +5848,7 @@
         "year": 2026
       }
     ],
-    "rct": 1972,
+    "rct": 1973,
     "pubmed_term": "(calcium supplementation) AND (fracture OR bone density OR cardiovascular)",
     "hedges_g_ci": [
       0.06,
@@ -5870,7 +5870,7 @@
     "code": 0,
     "verdict": "зависит от контекста",
     "category": "Суставы/Кожа",
-    "scienceIndex": 4087,
+    "scienceIndex": 4088,
     "metaCount": 447,
     "citations": 99,
     "wiki": 56079,
@@ -5969,7 +5969,7 @@
         "year": 2026
       }
     ],
-    "rct": 1852,
+    "rct": 1853,
     "pubmed_term": "(hyaluronic acid OR sodium hyaluronate) AND (osteoarthritis OR knee OR skin)",
     "hedges_g_ci": null,
     "hedges_g_outcome": "pain",
@@ -5988,7 +5988,7 @@
     "code": 1,
     "verdict": "работает",
     "category": "ЖКТ/Метаболизм",
-    "scienceIndex": 404,
+    "scienceIndex": 405,
     "metaCount": 37,
     "citations": 102,
     "wiki": 4219,
@@ -6093,7 +6093,7 @@
         "year": 2024
       }
     ],
-    "rct": 219,
+    "rct": 220,
     "pubmed_term": "(psyllium OR plantago ovata) AND (constipation OR cholesterol OR blood glucose)",
     "hedges_g_ci": [
       -0.78,
@@ -6357,8 +6357,8 @@
     "code": 0,
     "verdict": "зависит от контекста",
     "category": "Мочеполовая система",
-    "scienceIndex": 258,
-    "metaCount": 23,
+    "scienceIndex": 136,
+    "metaCount": 13,
     "citations": 0,
     "wiki": 80922,
     "ongoing": 10,
@@ -6448,8 +6448,8 @@
         "year": 2017
       }
     ],
-    "rct": 143,
-    "pubmed_term": "(Vaccinium macrocarpon OR cranberry supplementation) AND (urinary tract infection OR prevention OR antioxidant)",
+    "rct": 71,
+    "pubmed_term": "(Vaccinium macrocarpon OR cranberry supplementation) AND (urinary tract infection) AND human[MeSH] AND (meta-analysis[pt] OR systematic review[pt])",
     "hedges_g_ci": [
       -4.34,
       -1.37
@@ -6915,7 +6915,7 @@
     "code": 1,
     "verdict": "работает",
     "category": "Глаза/Зрение",
-    "scienceIndex": 677,
+    "scienceIndex": 678,
     "metaCount": 62,
     "citations": 152,
     "wiki": 17207,
@@ -7017,7 +7017,7 @@
         "year": 2023
       }
     ],
-    "rct": 367,
+    "rct": 368,
     "pubmed_term": "(lutein OR zeaxanthin supplementation) AND (macular OR eye OR vision OR AMD OR cataract)",
     "hedges_g_ci": [
       -0.741,
@@ -8366,8 +8366,8 @@
     "code": 0,
     "verdict": "зависит от контекста",
     "category": "Воспаление/Метаболизм",
-    "scienceIndex": 319,
-    "metaCount": 36,
+    "scienceIndex": 324,
+    "metaCount": 37,
     "citations": 54,
     "wiki": 27733,
     "ongoing": 7,
@@ -8626,7 +8626,7 @@
     "code": -1,
     "verdict": "не подтверждено",
     "category": "Старение/Метаболизм",
-    "scienceIndex": 7131,
+    "scienceIndex": 7132,
     "metaCount": 688,
     "citations": 21,
     "wiki": 10155,
@@ -8713,7 +8713,7 @@
         "year": 2025
       }
     ],
-    "rct": 3691,
+    "rct": 3692,
     "pubmed_term": "(nicotinamide mononucleotide OR nicotinamide riboside OR NMN OR NR) AND (aging OR NAD OR metabolic OR cognitive)",
     "hedges_g_ci": null,
     "hedges_g_outcome": "",
@@ -9322,7 +9322,7 @@
     "code": 1,
     "verdict": "работает",
     "category": "Воспаление/Суставы",
-    "scienceIndex": 167,
+    "scienceIndex": 168,
     "metaCount": 17,
     "citations": 12,
     "wiki": 13663,
@@ -9411,7 +9411,7 @@
         "year": 2020
       }
     ],
-    "rct": 82,
+    "rct": 83,
     "pubmed_term": "(Boswellia serrata OR boswellic acid supplementation) AND (osteoarthritis OR inflammation OR asthma)",
     "hedges_g_ci": [
       -0.2,
