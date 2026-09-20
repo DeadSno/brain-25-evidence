@@ -727,19 +727,6 @@
     "grade": "A",
     "key_sources": [
       {
-        "pmid": "20464765",
-        "title": "Caffeine for the prevention of injuries and errors in shift workers.",
-        "year": 2010,
-        "journal": "The Cochrane database of systematic reviews",
-        "pubtype": [
-          "Journal Article",
-          "Meta-Analysis",
-          "Systematic Review"
-        ],
-        "source": "curated",
-        "doi": "10.1002/14651858.CD008508"
-      },
-      {
         "pmid": "42356375",
         "title": "Dose-Response Effect of Oral Caffeine Use on Aerobic Exercise Performance: A Systematic Review and Meta-Analysis.",
         "year": 2026,
@@ -765,6 +752,18 @@
         ],
         "source": "curated",
         "doi": "10.1016/j.pedneo.2026.02.003"
+      },
+      {
+        "pmid": "36870101",
+        "title": "The effect of caffeine on subsequent sleep: A systematic review and meta-analysis.",
+        "year": 2023,
+        "journal": "Sleep medicine reviews",
+        "pubtype": [
+          "Journal Article",
+          "Meta-Analysis",
+          "Systematic Review"
+        ],
+        "source": "curated"
       }
     ],
     "updated": "2026-09-16",
@@ -1334,17 +1333,15 @@
         "doi": "10.1002/ptr.7950"
       },
       {
-        "pmid": "21036578",
-        "title": "The effectiveness and efficacy of Rhodiola rosea L.: a systematic review of randomized clinical trials.",
-        "year": 2011,
-        "journal": "Phytomedicine : international journal of phytotherapy and phytopharmacology",
+        "pmid": "41080184",
+        "title": "The effect of Rhodiola rosea supplementation on endurance performance and related biomarkers.",
+        "year": 2025,
+        "journal": "Frontiers in nutrition",
         "pubtype": [
           "Journal Article",
-          "Research Support, Non-U.S. Gov't",
           "Systematic Review"
         ],
-        "source": "curated",
-        "doi": "10.1016/j.phymed.2010.08.014"
+        "source": "curated"
       }
     ],
     "about": "Адаптоген: снижает усталость, улучшает концентрацию при стрессе.",
@@ -2047,20 +2044,6 @@
     "grade": "B",
     "key_sources": [
       {
-        "pmid": "23076948",
-        "title": "Curcumin for maintenance of remission in ulcerative colitis.",
-        "year": 2012,
-        "journal": "The Cochrane database of systematic reviews",
-        "pubtype": [
-          "Journal Article",
-          "Research Support, N.I.H., Extramural",
-          "Research Support, Non-U.S. Gov't",
-          "Systematic Review"
-        ],
-        "source": "curated",
-        "doi": "10.1002/14651858.CD008424.pub2"
-      },
-      {
         "pmid": "41211694",
         "title": "The Effects of Curcumin Supplementation on Body Weight, Body Mass Index, and Waist Circumference in Patients With Type 2 Diabetes: A Systematic Review and Meta-Analysis of Randomized Controlled Trials.",
         "year": 2026,
@@ -2085,6 +2068,18 @@
         ],
         "source": "curated",
         "doi": "10.1002/ptr.70238"
+      },
+      {
+        "pmid": "35935936",
+        "title": "Efficacy and Safety of Curcumin and Curcuma longa Extract in the Treatment of Arthritis: A Systematic Review and Meta-analysis.",
+        "year": 2022,
+        "journal": "Frontiers in immunology",
+        "pubtype": [
+          "Journal Article",
+          "Meta-Analysis",
+          "Systematic Review"
+        ],
+        "source": "curated"
       }
     ],
     "updated": "2026-09-16",
@@ -2320,20 +2315,6 @@
         "doi": "10.1002/14651858.CD012357.pub2"
       },
       {
-        "pmid": "22972094",
-        "title": "N-acetylcysteine for sepsis and systemic inflammatory response in adults.",
-        "year": 2012,
-        "journal": "The Cochrane database of systematic reviews",
-        "pubtype": [
-          "Journal Article",
-          "Meta-Analysis",
-          "Research Support, Non-U.S. Gov't",
-          "Systematic Review"
-        ],
-        "source": "curated",
-        "doi": "10.1002/14651858.CD006616.pub2"
-      },
-      {
         "pmid": "42473447",
         "title": "The efficacy of N-acetylcysteine in the management of chronic obstructive pulmonary disease: a systematic review and meta-analysis.",
         "year": 2026,
@@ -2345,6 +2326,17 @@
         ],
         "source": "curated",
         "doi": "10.7717/peerj.21448"
+      },
+      {
+        "pmid": "38555190",
+        "title": "N-acetylcysteine Treatment in Chronic Obstructive Pulmonary Disease (COPD) and Chronic Bronchitis.",
+        "year": 2024,
+        "journal": "Archivos de bronconeumologia",
+        "pubtype": [
+          "Journal Article",
+          "Meta-Analysis"
+        ],
+        "source": "curated"
       }
     ],
     "updated": "2026-09-16",
@@ -3207,18 +3199,6 @@
         "doi": "10.1007/s00415-020-10381-w"
       },
       {
-        "pmid": "24802882",
-        "title": "Optimal dosages for melatonin supplementation therapy in older adults: a systematic review of current literature.",
-        "year": 2014,
-        "journal": "Drugs & aging",
-        "pubtype": [
-          "Journal Article",
-          "Systematic Review"
-        ],
-        "source": "curated",
-        "doi": "10.1007/s40266-014-0178-0"
-      },
-      {
         "pmid": "34999224",
         "title": "Effects of exogenous melatonin supplementation on health outcomes: An umbrella review of meta-analyses based on randomized controlled trials.",
         "year": 2022,
@@ -3230,6 +3210,18 @@
         ],
         "source": "curated",
         "doi": "10.1016/j.phrs.2021.106052"
+      },
+      {
+        "pmid": "40662882",
+        "title": "Melatonin Use in the ICU: A Systematic Review and Meta-Analysis.",
+        "year": 2025,
+        "journal": "Critical care medicine",
+        "pubtype": [
+          "Journal Article",
+          "Meta-Analysis",
+          "Systematic Review"
+        ],
+        "source": "curated"
       }
     ],
     "updated": "2026-09-16",
