@@ -4,6 +4,12 @@
   <script defer src="version.js"></script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#1c1c1e">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="БАДы">
+  <link rel="apple-touch-icon" href="icons/192.png">
   <title>Атлас механизмов БАДов — 25 тегов × 81 добавка</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌐</text></svg>">
   <script>try{if(localStorage.getItem('theme')!=='light'){document.addEventListener('DOMContentLoaded',function(){document.body.classList.add('dark');});}}catch(e){}</script>
@@ -80,6 +86,105 @@
       font-size:.85rem;text-decoration:none;line-height:1.2;
     }
     .btn:hover{border-color:#888}
+    /* ── Mobile (≤640px) ─────────────────────────────────────── */
+    @media (max-width: 640px) {
+      body { padding: 0.6rem !important; }
+      .wrap { padding: 0.6rem !important; }
+      .trustbar { font-size: .75rem; padding: .35rem .5rem; margin: 0 0 .6rem; }
+      .top { flex-direction: column; align-items: stretch; gap: .5rem; margin: 0 0 .6rem; }
+      .top h1 { font-size: 1.05rem; line-height: 1.25; }
+      .top h1 a { display: inline-block; }
+      .top .v { font-size: .7rem; }
+      .actions { gap: .35rem; }
+      .btn { padding: .4rem .6rem; font-size: .78rem; }
+      footer { font-size: .78rem !important; }
+    }
+    @media (max-width: 640px) {
+      /* Фильтрбар — компактнее */
+      .filterbar { gap: .3rem; margin: .5rem 0; font-size: .8rem; }
+      .filterbar .lbl { display: none; }  /* убираем подписи «Грейд:», «Поиск:» */
+      .btn.gr { padding: .35rem .55rem; }
+      #q { min-width: 0; flex: 1; font-size: .8rem; }
+
+      /* Layout — сайдбар снизу */
+      .layout {
+        height: calc(100vh - 200px);
+        min-height: 420px;
+        flex-direction: column;
+      }
+      #graph { flex: 1; min-height: 300px; }
+      #sidebar {
+        width: 100% !important;
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: auto;
+        max-height: 70vh;
+        border-left: none;
+        border-top: 1px solid var(--aborder);
+        border-radius: 12px 12px 0 0;
+        z-index: 100;
+        box-shadow: 0 -8px 32px rgba(0,0,0,.4);
+        transform: translateY(0);
+        transition: transform .2s ease, max-height .2s ease;
+      }
+      #sidebar::before {
+        content: '';
+        display: block;
+        width: 36px;
+        height: 4px;
+        background: rgba(127,127,127,.5);
+        border-radius: 2px;
+        margin: .3rem auto .6rem;
+        cursor: grab;
+      }
+      #sidebar.sheet-full { max-height: 85vh !important; }
+
+      /* Легенда сворачивается в кнопку */
+      .atlas-legend {
+        position: absolute;
+        bottom: 8px; left: 8px;
+        max-width: 150px;
+        font-size: .65rem;
+        padding: .35rem .5rem;
+        line-height: 1.35;
+      }
+      .atlas-legend > div:nth-child(4),
+      .atlas-legend > div:nth-child(5),
+      .atlas-legend > div:nth-child(6) { display: none; }  /* оставить только цвета */
+      .atlas-legend::after {
+        content: '⚙︎ легенда';
+        display: block;
+        margin-top: .3rem;
+        opacity: .5;
+        font-size: .7rem;
+        cursor: pointer;
+      }
+      /* Кнопки — только иконки */
+      #pngBtn, #shareBtn, #fsBtn { font-size: 0; padding: .4rem .5rem; }
+      #pngBtn::before { content: '📷'; font-size: .95rem; }
+      #shareBtn::before { content: '🔗'; font-size: .95rem; }
+      #fsBtn::before { content: '⛶'; font-size: .95rem; }
+    }
+    /* ── Touch UX ──────────────────────────────────────── */
+    button, .btn, .chip, a, .chartTab, [role="button"] {
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+    button, .btn, .chip, .chartTab { user-select: none; -webkit-user-select: none; }
+    body { -webkit-font-smoothing: antialiased; overscroll-behavior-y: none; }
+    /* Safe area (iPhone с вырезом) */
+    @supports (padding: env(safe-area-inset-bottom)) {
+      body { padding-bottom: env(safe-area-inset-bottom); }
+      #sidebar { padding-bottom: calc(1rem + env(safe-area-inset-bottom)); }
+    }
+    #graph, #chainbox canvas, .vis-network {
+      touch-action: pan-y;   /* скролл страницы вертикально; граф — только внутри */
+    }
+    @media (max-width: 640px) {
+      #graph, .vis-network { touch-action: none; }   /* граф сам ловит жесты */
+    }
   </style>
 </head>
 <body>
@@ -408,7 +513,9 @@
         maxVelocity: 8,
         minVelocity: 0.05,      // ← почти никогда не «успокаивается»
       },
-      interaction: { hover: true, tooltipDelay: 200 },
+      interaction: { hover: true, tooltipDelay: 200,
+        dragView: true, zoomView: true, dragNodes: true,
+        zoomSpeed: 0.5, },
       nodes: { borderWidth: 1, borderWidthSelected: 3 },
       edges: { smooth: { type: 'continuous' } },
     });
@@ -558,6 +665,57 @@
       $('stats').textContent = '❌ Не удалось загрузить data.json';
       console.error(err);
     });
+  // ── Haptic feedback (Android) ───────────────────────
+  function haptic(ms) {
+    if (!('vibrate' in navigator)) return;
+    try { navigator.vibrate(ms || 8); } catch(e) {}
+  }
+  document.addEventListener('click', e => {
+    const el = e.target.closest('button, .btn, .chip, .chartTab, a.cta');
+    if (el) haptic(8);
+  }, { passive: true });
+
+  // Bottom sheet: свайп ручки вверх/вниз (только мобильные)
+  (function initSheetDrag() {
+    let startY = 0, startH = 0, active = false;
+    const isMobile = () => window.innerWidth <= 640;
+
+    document.addEventListener('touchstart', e => {
+      if (!isMobile()) return;
+      const sb = document.getElementById('sidebar');
+      if (!sb || !sb.classList.contains('open')) return;
+      const rect = sb.getBoundingClientRect();
+      if (e.touches[0].clientY - rect.top > 50) return;
+      startY = e.touches[0].clientY;
+      startH = rect.height;
+      active = true;
+    }, { passive: true });
+
+    document.addEventListener('touchmove', e => {
+      if (!active) return;
+      const sb = document.getElementById('sidebar');
+      if (!sb) return;
+      const dy = e.touches[0].clientY - startY;
+      const newH = Math.max(140, Math.min(window.innerHeight * 0.85, startH - dy));
+      sb.style.maxHeight = newH + 'px';
+      e.preventDefault();
+    }, { passive: false });
+
+    document.addEventListener('touchend', () => {
+      if (!active) return;
+      active = false;
+      const sb = document.getElementById('sidebar');
+      if (!sb) return;
+      const h = sb.getBoundingClientRect().height;
+      sb.style.maxHeight = '';
+      if (h > window.innerHeight * 0.65) sb.classList.add('sheet-full');
+      else if (h < window.innerHeight * 0.25) {
+        sb.classList.remove('open');
+        sb.classList.remove('sheet-full');
+      } else sb.classList.remove('sheet-full');
+      startY = 0;
+    });
+  })();
 })();
 </script>
 </body>

@@ -647,7 +647,7 @@ function renderBubble(data) {
       pointHoverRadius: Math.min(36, Math.sqrt(s.metaCount || 1) * 3.5)
     })).concat(bandDatasets) },
     options: {
-      responsive: true, maintainAspectRatio: true,
+      responsive: true, maintainAspectRatio: false,
       scales: {
         x: { title: { display: true, text: AXIS_LABEL[axisX], color: txt }, grid: { color: 'rgba(128,128,128,.15)' }, max: band ? band.hi * 1.02 : undefined },
         y: { type: 'logarithmic',
@@ -700,10 +700,10 @@ function renderQuadrant(data) {
       pointHoverRadius: Math.min(36, Math.sqrt(s.metaCount || 1) * 3.5)
     })) },
     options: {
-      responsive: true, maintainAspectRatio: true,
+      responsive: true, maintainAspectRatio: false,
       scales: {
         x: {
-          title: { display: true, text: "Hedges' g (сила эффекта)", color: txt },
+          title: { display: true, text: "Сила эффекта (g)", color: txt },
           suggestedMin: -2.5,
           suggestedMax: 2.5,
           grid: { color: ctx => ctx.tick.value === 0 ? 'rgba(128,128,128,.5)' : 'rgba(128,128,128,.15)' }
@@ -817,6 +817,7 @@ function renderCompare() {
       ]
     },
     options: {
+      responsive: true, maintainAspectRatio: false,
       layout: { padding: 30 },
       scales: { r: { min: 0, max: 100, ticks: { display: false },
                pointLabels: { font: { size: 10 } } } },
@@ -905,3 +906,13 @@ function checkInteractions() {
 ['addFav', 'removeFav'].forEach(event => {
   window.addEventListener(event, checkInteractions);
 });
+
+// ── Haptic feedback (Android) ───────────────────────
+function haptic(ms) {
+  if (!('vibrate' in navigator)) return;
+  try { navigator.vibrate(ms || 8); } catch(e) {}
+}
+document.addEventListener('click', e => {
+  const el = e.target.closest('button, .btn, .chip, .chartTab, a.cta');
+  if (el) haptic(8);
+}, { passive: true });

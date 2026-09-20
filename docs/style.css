@@ -340,8 +340,8 @@ body.dark .chip a:visited { color: #5dade2; }
   #modal{position:fixed;inset:0;width:100vw;height:100dvh;max-height:100dvh;border-radius:0;overflow-y:auto}
   #controls{flex-direction:column;gap:.5rem}
   #search{width:100%!important;min-width:0!important}
-  #chartWrap{overflow-x:auto}
-  canvas#bubbleChart,canvas#quadrantChart{min-width:520px}
+  #chartWrap{overflow-x:hidden}
+  canvas#bubbleChart,canvas#quadrantChart{min-width:0!important;max-width:100%!important}
   #compareResult{overflow-x:auto}
   #compareResult table{min-width:520px}
 }
