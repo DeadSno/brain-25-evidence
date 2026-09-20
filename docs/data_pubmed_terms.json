@@ -51,7 +51,7 @@
   "Псиллиум": "(psyllium OR plantago ovata) AND (constipation OR cholesterol OR blood glucose)",
   "Имбирь": "(Zingiber officinale OR ginger supplementation) AND (nausea OR inflammation OR pain OR metabolic)",
   "Чеснок": "(Allium sativum OR garlic supplementation OR aged garlic extract) AND (cardiovascular OR blood pressure OR cholesterol)",
-  "Клюква": "(Vaccinium macrocarpon OR cranberry supplementation) AND (urinary tract infection OR prevention OR antioxidant)",
+  "Клюква": "(Vaccinium macrocarpon OR cranberry supplementation) AND (urinary tract infection) AND human[MeSH] AND (meta-analysis[pt] OR systematic review[pt])",
   "Пустырник": "(Leonurus cardiaca OR motherwort) AND (anxiety OR palpitation OR cardiovascular)",
   "Боярышник": "(Crataegus OR hawthorn) AND (heart failure OR blood pressure OR cardiovascular)",
   "Бета-глюканы овса": "(oat beta-glucan OR beta-glucan supplementation) AND (cholesterol OR immune OR glycemic)",
