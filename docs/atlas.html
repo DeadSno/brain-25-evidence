@@ -104,7 +104,9 @@
     <button class="btn gr on" data-grade="D">D</button>
     <span class="lbl" style="margin-left:1rem">Поиск:</span>
     <input id="q" placeholder="название, эффект, механизм…" style="padding:.4rem .7rem;border:1px solid var(--aborder);border-radius:8px;background:var(--apanel);color:var(--atext);min-width:180px">
-    <button class="btn" id="clearTagsBtn" style="display:none">✕ Сбросить теги</button>
+    <button class="btn" id="pngBtn" title="Скачать картинку">📷 PNG</button>
+    <button class="btn" id="shareBtn" title="Копировать ссылку с фильтрами">🔗 Ссылка</button>
+    <button class="btn" id="clearAllBtn" style="display:none">✕ Сбросить всё</button>
     <button class="btn" id="fsBtn" title="Развернуть на весь экран">⛶ На весь экран</button>
   </div>
 
@@ -195,6 +197,16 @@
     } catch (e) { return null; }
   }
 
+  function syncURL() {
+    const p = new URLSearchParams();
+    if (filterGrades.size < 4) p.set('grades', [...filterGrades].sort().join(''));
+    if (activeTags.size > 0)   p.set('tags',   [...activeTags].join(','));
+    if (filterQuery)           p.set('q',      filterQuery);
+    const qs = p.toString();
+    const newURL = location.pathname + (qs ? '?' + qs : '');
+    history.replaceState(null, '', newURL);
+  }
+
   function saveState() {
     try {
       localStorage.setItem(LS_KEY, JSON.stringify({
@@ -203,12 +215,24 @@
         query: filterQuery,
       }));
     } catch (e) { /* quota / disabled — игнорируем */ }
+    syncURL();
   }
 
+  // Приоритет: URL → localStorage → дефолт
+  function parseURL() {
+    const p = new URLSearchParams(location.search);
+    return {
+      grades: p.has('grades') ? new Set((p.get('grades') || '').split('').filter(x => 'ABCD'.includes(x))) : null,
+      tags:   p.has('tags')   ? new Set((p.get('tags')   || '').split(',').filter(Boolean)) : null,
+      query:  p.has('q')      ? p.get('q') : null,
+    };
+  }
+
+  const url = parseURL();
   const saved = loadState();
-  let filterGrades = saved ? saved.grades : new Set(['A', 'B', 'C', 'D']);
-  let filterQuery = saved ? saved.query : '';
-  let activeTags = saved ? saved.tags : new Set();
+  let filterGrades = url.grades || (saved ? saved.grades : new Set(['A', 'B', 'C', 'D']));
+  let filterQuery  = url.query  !== null ? url.query : (saved ? saved.query : '');
+  let activeTags   = url.tags   || (saved ? saved.tags : new Set());
   let network = null;
 
   let SUPS = [], HUB_TAGS = new Set();
@@ -401,14 +425,10 @@
       data.edges.length + ' связей' + suffix;
 
     // Обновляем UI активных тегов
-    const clearBtn = $('clearTagsBtn');
+    const clearBtn = $('clearAllBtn');
     if (clearBtn) {
-      if (activeTags.size > 0) {
-        clearBtn.style.display = '';
-        clearBtn.textContent = '✕ Сбросить теги (' + activeTags.size + ')';
-      } else {
-        clearBtn.style.display = 'none';
-      }
+      const active = activeTags.size > 0 || filterQuery || filterGrades.size < 4;
+      clearBtn.style.display = active ? '' : 'none';
     }
   }
 
@@ -432,6 +452,29 @@
     saveState();
     render();
   });
+
+  // PNG-экспорт
+  $('pngBtn').onclick = () => {
+    const canvas = document.querySelector('#graph canvas');
+    if (!canvas) return;
+    const url = canvas.toDataURL('image/png');
+    const a = document.createElement('a');
+    const ts = new Date().toISOString().slice(0, 10);
+    a.href = url;
+    a.download = 'atlas-' + ts + '.png';
+    a.click();
+  };
+
+  $('shareBtn').onclick = () => {
+    navigator.clipboard.writeText(location.href).then(() => {
+      const b = $('shareBtn');
+      const old = b.textContent;
+      b.textContent = '✓ Скопировано';
+      setTimeout(() => { b.textContent = old; }, 1500);
+    }).catch(() => {
+      prompt('Скопируй ссылку:', location.href);
+    });
+  };
 
   // Fullscreen
   $('fsBtn').onclick = () => {
@@ -461,8 +504,12 @@
   });
 
   // Кнопка сброса тегов
-  $('clearTagsBtn').onclick = () => {
+  $('clearAllBtn').onclick = () => {
+    filterGrades = new Set(['A', 'B', 'C', 'D']);
     activeTags.clear();
+    filterQuery = '';
+    $('q').value = '';
+    document.querySelectorAll('.btn.gr').forEach(b => b.classList.add('on'));
     saveState();
     render();
   };
