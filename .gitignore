@@ -206,3 +206,7 @@ reports/metrics_report.json
 docs/р.md
 
 docs/српн.md
+
+docs/*.bak-*
+
+reports/*.bak-*
