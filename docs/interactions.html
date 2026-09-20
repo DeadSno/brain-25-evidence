@@ -3,6 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#1c1c1e">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="БАДы">
+<link rel="apple-touch-icon" href="icons/192.png">
 <title>🔗 Карта связей — brain-25-evidence</title>
 <script defer src="version.js"></script>
 <script src="https://unpkg.com/vis-network@9.1.9/standalone/umd/vis-network.min.js"></script>
@@ -206,6 +212,95 @@ body { max-width: none !important; margin: 0 !important; }
 }
 .btn:hover{border-color:#888}
 body { padding: 1.5rem 1.5rem 0 !important; margin: 0 !important; }
+  /* ── Mobile (≤640px) ─────────────────────────────────────── */
+  @media (max-width: 640px) {
+    body { padding: 0.6rem !important; }
+    .wrap { padding: 0.6rem !important; }
+    .trustbar { font-size: .75rem; padding: .35rem .5rem; margin: 0 0 .6rem; }
+    .top { flex-direction: column; align-items: stretch; gap: .5rem; margin: 0 0 .6rem; }
+    .top h1 { font-size: 1.05rem; line-height: 1.25; }
+    .top h1 a { display: inline-block; }
+    .top .v { font-size: .7rem; }
+    .actions { gap: .35rem; }
+    .btn { padding: .4rem .6rem; font-size: .78rem; }
+    footer { font-size: .78rem !important; }
+  }
+  @media (max-width: 640px) {
+    /* Сайдбар — full-screen overlay снизу */
+    #sidebar {
+      width: 100% !important;
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      top: auto;
+      max-height: 70vh;
+      border-left: none;
+      border-top: 1px solid var(--aborder);
+      border-radius: 12px 12px 0 0;
+      z-index: 100;
+      box-shadow: 0 -8px 32px rgba(0,0,0,.4);
+      transform: translateY(0);
+      transition: transform .2s ease, max-height .2s ease;
+    }
+    #sidebar::before {
+      content: '';
+      display: block;
+      width: 36px;
+      height: 4px;
+      background: rgba(127,127,127,.5);
+      border-radius: 2px;
+      margin: .3rem auto .6rem;
+      cursor: grab;
+    }
+    #sidebar.sheet-full { max-height: 85vh !important; }
+    /* Граф растягиваем */
+    .layout { min-height: 60vh; width: 100% !important; }
+    #graph { min-height: 60vh; width: 100% !important; }
+    .layout {
+      display: block !important;
+      height: auto !important;
+    }
+    #graph {
+      width: 100% !important;
+      height: 60vh !important;
+      min-height: 400px !important;
+    }
+    /* Табы и легенда — компактнее */
+    .chartTabs { flex-wrap: wrap; }
+    .severityFilter { flex-wrap: wrap; }
+    /* Поиск на всю ширину */
+    #q, #search { width: 100% !important; }
+    /* Легенда — в одну строку с обёрткой */
+    .legend, [class*="legend"] { flex-wrap: wrap; font-size: .75rem; }
+    /* Тултип — меньше, не по центру */
+    .vis-tooltip {
+      max-width: 200px !important;
+      font-size: .75rem !important;
+      padding: .35rem .5rem !important;
+    }
+    /* Убрать пустоту после графа */
+    #graph { margin-bottom: 0 !important; }
+    footer { margin-top: .5rem !important; padding-top: .5rem !important; }
+  }
+  /* ── Touch UX ──────────────────────────────────────── */
+  button, .btn, .chip, a, .chartTab, [role="button"] {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+  button, .btn, .chip, .chartTab { user-select: none; -webkit-user-select: none; }
+  body { -webkit-font-smoothing: antialiased; overscroll-behavior-y: none; }
+  /* Safe area (iPhone с вырезом) */
+  @supports (padding: env(safe-area-inset-bottom)) {
+    body { padding-bottom: env(safe-area-inset-bottom); }
+    #sidebar { padding-bottom: calc(1rem + env(safe-area-inset-bottom)); }
+  }
+  #graph, #chainbox canvas, .vis-network {
+    touch-action: pan-y;   /* скролл страницы вертикально; граф — только внутри */
+  }
+  @media (max-width: 640px) {
+    #graph, .vis-network { touch-action: none; }   /* граф сам ловит жесты */
+  }
 </style>
 </head>
 <body>
@@ -498,7 +593,9 @@ function drawGraph() {
       minVelocity: 0.05,
     },
     interaction: {
-      hover: true, tooltipDelay: 150, navigationButtons: false, keyboard: false
+      hover: true, tooltipDelay: 150, navigationButtons: false, keyboard: false,
+      dragView: true, zoomView: true, dragNodes: true,
+      zoomSpeed: 0.5,
     },
     edges: { smooth: { type: 'continuous', roundness: 0.4 } },
     nodes: { borderWidth: 2 }
@@ -592,6 +689,58 @@ fetch('interactions_graph.json')
       '<p style="padding:2rem;color:#e53935">Не удалось загрузить interactions_graph.json: ' +
       err.message + '</p>';
   });
+
+// ── Haptic feedback (Android) ───────────────────────
+function haptic(ms) {
+  if (!('vibrate' in navigator)) return;
+  try { navigator.vibrate(ms || 8); } catch(e) {}
+}
+document.addEventListener('click', e => {
+  const el = e.target.closest('button, .btn, .chip, .chartTab, a.cta');
+  if (el) haptic(8);
+}, { passive: true });
+
+// Bottom sheet: свайп ручки вверх/вниз (только мобильные)
+(function initSheetDrag() {
+  let startY = 0, startH = 0, active = false;
+  const isMobile = () => window.innerWidth <= 640;
+
+  document.addEventListener('touchstart', e => {
+    if (!isMobile()) return;
+    const sb = document.getElementById('sidebar');
+    if (!sb || !sb.classList.contains('open')) return;
+    const rect = sb.getBoundingClientRect();
+    if (e.touches[0].clientY - rect.top > 50) return;
+    startY = e.touches[0].clientY;
+    startH = rect.height;
+    active = true;
+  }, { passive: true });
+
+  document.addEventListener('touchmove', e => {
+    if (!active) return;
+    const sb = document.getElementById('sidebar');
+    if (!sb) return;
+    const dy = e.touches[0].clientY - startY;
+    const newH = Math.max(140, Math.min(window.innerHeight * 0.85, startH - dy));
+    sb.style.maxHeight = newH + 'px';
+    e.preventDefault();
+  }, { passive: false });
+
+  document.addEventListener('touchend', () => {
+    if (!active) return;
+    active = false;
+    const sb = document.getElementById('sidebar');
+    if (!sb) return;
+    const h = sb.getBoundingClientRect().height;
+    sb.style.maxHeight = '';
+    if (h > window.innerHeight * 0.65) sb.classList.add('sheet-full');
+    else if (h < window.innerHeight * 0.25) {
+      sb.classList.remove('open');
+      sb.classList.remove('sheet-full');
+    } else sb.classList.remove('sheet-full');
+    startY = 0;
+  });
+})();
 </script>
 </body>
 </html>

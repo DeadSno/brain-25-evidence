@@ -1,7 +1,7 @@
 /* v29 PWA: cache-first для статики, network-first для data.json.
    Install через поштучный cache.add().catch() — один missing файл
    не валит всю установку. Бамп CACHE_VERSION при изменении STATIC_ASSETS. */
-var CACHE_VERSION = 'v29';
+var CACHE_VERSION = 'v31';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 var DATA_PATH = '/data.json';
@@ -10,6 +10,8 @@ var FALLBACK_HTML = './index.html';
 var STATIC_ASSETS = [
   './index.html',
   './map.html',
+  './interactions.html',
+  './atlas.html',
   './manifest.webmanifest',
   './pwa.js',
   './version.js',

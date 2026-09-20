@@ -15,6 +15,10 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧠</text></svg>"/>
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#1c1c1e">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="БАДы">
+<link rel="apple-touch-icon" href="icons/192.png">
 <script>
 try {
   if (localStorage.getItem('theme') !== 'light') {
@@ -53,6 +57,107 @@ try {
   font-size:.85rem;text-decoration:none;line-height:1.2;
 }
 .btn:hover{border-color:#888}
+  /* ── Mobile (≤640px) ─────────────────────────────────────── */
+  @media (max-width: 640px) {
+    body { padding: 0.6rem !important; }
+    .wrap { padding: 0.6rem !important; }
+    .trustbar { font-size: .75rem; padding: .35rem .5rem; margin: 0 0 .6rem; }
+    .top { flex-direction: column; align-items: stretch; gap: .5rem; margin: 0 0 .6rem; }
+    .top h1 { font-size: 1.05rem; line-height: 1.25; }
+    .top h1 a { display: inline-block; }
+    .top .v { font-size: .7rem; }
+    .actions { gap: .35rem; }
+    .btn { padding: .4rem .6rem; font-size: .78rem; }
+    .actions { width: 100%; justify-content: flex-end; }
+    #themeToggle { margin-left: auto; }
+    footer { font-size: .78rem !important; }
+    #chartWrap, .chartWrap { height: 320px !important; }
+    #quadrantChart, #bubbleChart { max-width: 100% !important; }
+    #quadrantChart, #bubbleChart { font-size: 11px; }
+    /* Радар */
+    #radarChart { max-width: 100% !important; }
+    .top { position: relative; padding-top: .5rem; }
+    #themeToggle {
+      position: absolute !important;
+      top: 0;
+      right: 0;
+      z-index: 10;
+    }
+    .top h1 { font-size: 1rem !important; }
+    .top h1 a { white-space: normal; }
+    .top h1 { font-size: .95rem !important; max-width: 100%; }
+    .top h1 .v { display: none; }   /* версия на мобилке не нужна */
+    #chartSection h2 { font-size: 1rem !important; }
+    canvas { max-width: 100% !important; }
+    h1 { font-size: 1.05rem !important; line-height: 1.3; }
+    h1 br { display: none; }  /* если есть принудительные переносы */
+    #compareResult {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    #compareResult table {
+      min-width: 520px;
+      font-size: .82rem;
+    }
+    #compareResult th, #compareResult td {
+      padding: .5rem .6rem;
+      white-space: normal;
+    }
+    .top h1 { font-size: .92rem !important; line-height: 1.2; }
+    .top h1 {
+      font-size: .85rem !important;
+      white-space: normal !important;
+      overflow: visible !important;
+      max-width: 100%;
+      line-height: 1.25;
+    }
+    .top h1 a {
+      white-space: normal !important;
+      display: inline;
+    }
+    .top { padding-top: .3rem; margin-bottom: .8rem; gap: .3rem; }
+    .top .actions { justify-content: flex-end; width: auto; }
+    /* Карточка добавки = fullscreen */
+    #modalOverlay {
+      padding: 0 !important;
+      align-items: stretch !important;
+    }
+    #modal {
+      max-width: 100% !important;
+      width: 100% !important;
+      max-height: 100dvh !important;
+      height: 100dvh !important;
+      border-radius: 0 !important;
+      padding: 1rem !important;
+    }
+    #modalClose {
+      width: 44px !important;
+      height: 44px !important;
+      padding: 0 !important;
+      top: .5rem !important;
+      right: .5rem !important;
+      font-size: 1.4rem !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,.35) !important;
+      color: #fff !important;
+      border-radius: 50% !important;
+      z-index: 10 !important;
+    }
+  }
+  /* ── Touch UX ──────────────────────────────────────── */
+  button, .btn, .chip, a, .chartTab, [role="button"] {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+  button, .btn, .chip, .chartTab { user-select: none; -webkit-user-select: none; }
+  body { -webkit-font-smoothing: antialiased; overscroll-behavior-y: none; }
+  /* Safe area (iPhone с вырезом) */
+  @supports (padding: env(safe-area-inset-bottom)) {
+    body { padding-bottom: env(safe-area-inset-bottom); }
+    #sidebar { padding-bottom: calc(1rem + env(safe-area-inset-bottom)); }
+  }
 </style>
 </head>
 <body>

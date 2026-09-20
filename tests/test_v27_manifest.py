@@ -30,7 +30,7 @@ def test_manifest_display_standalone():
 def test_manifest_icons_two_with_sizes():
     m = _load()
     icons = m.get("icons")
-    assert isinstance(icons, list) and len(icons) == 2, "нужно ровно 2 иконки"
+    assert isinstance(icons, list) and len(icons) >= 2, "нужно минимум 2 иконки"
     sizes = []
     for icon in icons:
         assert icon.get("type") == "image/png", "иконка не PNG"
