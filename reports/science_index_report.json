@@ -1,6 +1,6 @@
 {
-  "timestamp": "2026-09-18T16:21:56.398738+00:00",
-  "dry_run": false,
+  "timestamp": "2026-09-20T03:44:21.014074+00:00",
+  "dry_run": true,
   "cards": {
     "Креатин": {
       "status": "ok",
@@ -17,7 +17,7 @@
       "base": "(creatine supplementation)"
     },
     "Омега-3": {
-      "status": "ok",
+      "status": "changed",
       "old": {
         "rct": 4748,
         "meta": 1006,
@@ -25,22 +25,22 @@
       },
       "new": {
         "rct": 4748,
-        "meta": 1006,
-        "si": 9778
+        "meta": 1007,
+        "si": 9783
       },
       "base": "(omega-3 fatty acids OR eicosapentaenoic OR docosahexaenoic OR fish oil)"
     },
     "Витамин D": {
-      "status": "ok",
+      "status": "changed",
       "old": {
         "rct": 4005,
         "meta": 998,
         "si": 8995
       },
       "new": {
-        "rct": 4005,
+        "rct": 4006,
         "meta": 998,
-        "si": 8995
+        "si": 8996
       },
       "base": "(vitamin D supplementation OR cholecalciferol)"
     },
@@ -59,7 +59,7 @@
       "base": "(vitamin B12 supplementation OR cobalamin supplementation)"
     },
     "Магний": {
-      "status": "ok",
+      "status": "changed",
       "old": {
         "rct": 473,
         "meta": 90,
@@ -67,8 +67,8 @@
       },
       "new": {
         "rct": 473,
-        "meta": 90,
-        "si": 923
+        "meta": 91,
+        "si": 928
       },
       "base": "(magnesium supplementation)"
     },
@@ -269,16 +269,16 @@
       "base": "(N-acetylcysteine OR NAC supplementation)"
     },
     "Цинк": {
-      "status": "ok",
+      "status": "changed",
       "old": {
         "rct": 1129,
         "meta": 236,
         "si": 2309
       },
       "new": {
-        "rct": 1129,
+        "rct": 1130,
         "meta": 236,
-        "si": 2309
+        "si": 2310
       },
       "base": "(zinc supplementation)"
     },
@@ -367,16 +367,16 @@
       "base": "(melatonin supplementation)"
     },
     "ГАБА": {
-      "status": "ok",
+      "status": "changed",
       "old": {
         "rct": 1832,
         "meta": 365,
         "si": 3657
       },
       "new": {
-        "rct": 1832,
+        "rct": 1833,
         "meta": 365,
-        "si": 3657
+        "si": 3658
       },
       "base": "(GABA supplementation OR gamma-aminobutyric acid)"
     },
@@ -437,16 +437,16 @@
       "base": "(L-citrulline OR citrulline supplementation)"
     },
     "Витамин C": {
-      "status": "ok",
+      "status": "changed",
       "old": {
         "rct": 872,
         "meta": 159,
         "si": 1667
       },
       "new": {
-        "rct": 872,
+        "rct": 873,
         "meta": 159,
-        "si": 1667
+        "si": 1668
       },
       "base": "(vitamin C supplementation OR ascorbic acid supplementation)"
     },
@@ -521,44 +521,44 @@
       "base": "(collagen supplementation OR hydrolyzed collagen)"
     },
     "Пробиотики": {
-      "status": "ok",
+      "status": "changed",
       "old": {
         "rct": 3922,
         "meta": 1342,
         "si": 10632
       },
       "new": {
-        "rct": 3922,
+        "rct": 3925,
         "meta": 1342,
-        "si": 10632
+        "si": 10635
       },
       "base": "(probiotic supplementation OR probiotics)"
     },
     "B9": {
-      "status": "ok",
+      "status": "changed",
       "old": {
         "rct": 1172,
         "meta": 304,
         "si": 2692
       },
       "new": {
-        "rct": 1172,
+        "rct": 1173,
         "meta": 304,
-        "si": 2692
+        "si": 2693
       },
       "base": "(folic acid supplementation OR folate supplementation)"
     },
     "Железо": {
-      "status": "ok",
+      "status": "changed",
       "old": {
         "rct": 1882,
         "meta": 297,
         "si": 3367
       },
       "new": {
-        "rct": 1882,
-        "meta": 297,
-        "si": 3367
+        "rct": 1883,
+        "meta": 299,
+        "si": 3378
       },
       "base": "(iron supplementation OR ferrous)"
     },
@@ -591,16 +591,16 @@
       "base": "(glucosamine OR chondroitin)"
     },
     "Витамин E": {
-      "status": "ok",
+      "status": "changed",
       "old": {
         "rct": 2952,
         "meta": 477,
         "si": 5337
       },
       "new": {
-        "rct": 2952,
+        "rct": 2953,
         "meta": 477,
-        "si": 5337
+        "si": 5338
       },
       "base": "(vitamin E OR tocopherol OR tocotrienol supplementation)"
     },
@@ -661,16 +661,16 @@
       "base": "(L-arginine OR arginine supplementation)"
     },
     "Кальций": {
-      "status": "ok",
+      "status": "changed",
       "old": {
         "rct": 1972,
         "meta": 348,
         "si": 3712
       },
       "new": {
-        "rct": 1972,
+        "rct": 1973,
         "meta": 348,
-        "si": 3712
+        "si": 3713
       },
       "base": "(calcium supplementation)"
     },
@@ -689,16 +689,16 @@
       "base": "(hyaluronic acid OR sodium hyaluronate)"
     },
     "Псиллиум": {
-      "status": "ok",
+      "status": "changed",
       "old": {
         "rct": 219,
         "meta": 37,
         "si": 404
       },
       "new": {
-        "rct": 219,
+        "rct": 220,
         "meta": 37,
-        "si": 404
+        "si": 405
       },
       "base": "(psyllium OR plantago ovata)"
     },
@@ -801,16 +801,16 @@
       "base": "(riboflavin OR vitamin B2 supplementation)"
     },
     "Лютеин + зеаксантин": {
-      "status": "ok",
+      "status": "changed",
       "old": {
         "rct": 367,
         "meta": 62,
         "si": 677
       },
       "new": {
-        "rct": 367,
+        "rct": 368,
         "meta": 62,
-        "si": 677
+        "si": 678
       },
       "base": "(lutein OR zeaxanthin supplementation)"
     },
@@ -1081,16 +1081,16 @@
       "base": "(glutamine OR L-glutamine)"
     },
     "Босвеллия": {
-      "status": "ok",
+      "status": "changed",
       "old": {
         "rct": 82,
         "meta": 17,
         "si": 167
       },
       "new": {
-        "rct": 82,
+        "rct": 83,
         "meta": 17,
-        "si": 167
+        "si": 168
       },
       "base": "(Boswellia serrata OR boswellic acid supplementation)"
     },
@@ -1138,8 +1138,8 @@
     }
   },
   "totals": {
-    "ok": 81,
-    "changed": 0,
+    "ok": 67,
+    "changed": 14,
     "no_base": 0,
     "error": 0
   }

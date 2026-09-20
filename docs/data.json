@@ -1447,7 +1447,8 @@
     "wiki": 26129,
     "ongoing": 8,
     "effects": [
-      "Память (пожилые)"
+      "Память (пожилые, слабо)",
+      "Внимание при СДВГ у детей"
     ],
     "dosage": "100-300 мг",
     "course": "курсы",
@@ -1528,8 +1529,8 @@
   {
     "id": "Alpha-GPC",
     "name": "Alpha-GPC",
-    "code": -1,
-    "verdict": "не подтверждено",
+    "code": 0,
+    "verdict": "зависит от контекста",
     "category": "Когниция",
     "scienceIndex": 18,
     "metaCount": 1,
@@ -1537,7 +1538,7 @@
     "wiki": 16184,
     "ongoing": 2,
     "effects": [
-      "Память (у пациентов)"
+      "Память (только в комбинации с донепезилом у пациентов)"
     ],
     "dosage": "300-600 мг",
     "course": "курсы",
@@ -1573,7 +1574,7 @@
       }
     ],
     "hedges_g": null,
-    "grade": "D",
+    "grade": "C",
     "key_sources": [
       {
         "pmid": "41426989",
@@ -6023,12 +6024,36 @@
     "grade": "C",
     "key_sources": [
       {
-        "pmid": "41676867",
-        "title": "Effectiveness of Cranberry Supplementation for Prevention and Treatment of Infectious Urinary Tract Disease in Dogs and Cats: A Systematic Review.",
-        "year": 2026,
-        "journal": "Journal of veterinary pharmacology and therapeutics",
+        "pmid": "37947276",
+        "title": "Cranberries for preventing urinary tract infections.",
+        "year": 2023,
+        "journal": "The Cochrane database of systematic reviews",
         "pubtype": [
           "Journal Article",
+          "Systematic Review",
+          "Meta-Analysis"
+        ],
+        "source": "curated"
+      },
+      {
+        "pmid": "38096261",
+        "title": "Cranberries for treating urinary tract infections.",
+        "year": 2023,
+        "journal": "The Cochrane database of systematic reviews",
+        "pubtype": [
+          "Journal Article",
+          "Systematic Review"
+        ],
+        "source": "curated"
+      },
+      {
+        "pmid": "29046404",
+        "title": "Cranberry Reduces the Risk of Urinary Tract Infection Recurrence in Otherwise Healthy Women: A Systematic Review and Meta-Analysis.",
+        "year": 2017,
+        "journal": "The Journal of nutrition",
+        "pubtype": [
+          "Journal Article",
+          "Meta-Analysis",
           "Systematic Review"
         ],
         "source": "curated"
@@ -6037,18 +6062,18 @@
     "updated": "2026-09-16",
     "ma_top3": [
       {
-        "pmid": "39579122",
-        "title": "Effects of cross-linking agents on hydroxyproline release and root caries lesion size: Systematic review and network meta-analysis of in vitro studies.",
-        "year": 2024
+        "pmid": "37947276",
+        "title": "Cranberries for preventing urinary tract infections.",
+        "year": 2023
       },
       {
-        "pmid": "34473789",
-        "title": "Consumption of cranberry as adjuvant therapy for urinary tract infections in susceptible populations: A systematic review and meta-analysis with trial sequential analysis.",
-        "year": 2021
+        "pmid": "38096261",
+        "title": "Cranberries for treating urinary tract infections.",
+        "year": 2023
       },
       {
         "pmid": "29046404",
-        "title": "Cranberry Reduces the Risk of Urinary Tract Infection Recurrence in Otherwise Healthy Women: A Systematic Review and Meta-Analysis.",
+        "title": "Cranberry Reduces the Risk of UTI Recurrence in Otherwise Healthy Women.",
         "year": 2017
       }
     ],
@@ -8331,8 +8356,8 @@
   {
     "id": "Хлорофилл",
     "name": "Хлорофилл",
-    "code": -1,
-    "verdict": "не подтверждено",
+    "code": 0,
+    "verdict": "зависит от контекста",
     "category": "Антиоксидант",
     "scienceIndex": 7,
     "metaCount": 0,
@@ -8340,7 +8365,8 @@
     "wiki": 107249,
     "ongoing": 6,
     "effects": [
-      "Акне/запах/детокс: не подтверждён"
+      "Детокс от афлатоксина (подтверждён)",
+      "Акне/запах — не подтверждено"
     ],
     "dosage": "100 мг/сут (TikTok-тренд)",
     "course": "—",
@@ -8376,7 +8402,7 @@
       }
     ],
     "hedges_g": null,
-    "grade": "D",
+    "grade": "C",
     "key_sources": [
       {
         "pmid": "25844615",
