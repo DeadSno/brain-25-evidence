@@ -103,7 +103,7 @@
     <button class="btn gr on" data-grade="C">C</button>
     <button class="btn gr on" data-grade="D">D</button>
     <span class="lbl" style="margin-left:1rem">Поиск:</span>
-    <input id="q" placeholder="добавка или тег…" style="padding:.4rem .7rem;border:1px solid var(--aborder);border-radius:8px;background:var(--apanel);color:var(--atext);min-width:180px">
+    <input id="q" placeholder="название, эффект, механизм…" style="padding:.4rem .7rem;border:1px solid var(--aborder);border-radius:8px;background:var(--apanel);color:var(--atext);min-width:180px">
     <button class="btn" id="clearTagsBtn" style="display:none">✕ Сбросить теги</button>
     <button class="btn" id="fsBtn" title="Развернуть на весь экран">⛶ На весь экран</button>
   </div>
@@ -213,6 +213,22 @@
 
   let SUPS = [], HUB_TAGS = new Set();
 
+  // ── Поиск по добавке: id, category, effects, mechs, verdict ──────
+  function matchesQuery(c, q) {
+    if (!q) return true;
+    const hay = [
+      c.id || '',
+      c.name || '',
+      c.category || '',
+      c.verdict || '',
+      c.about || '',
+      ...(c.effects || []),
+      ...((c.mechs || []).flat()),  // механизм + эффект + сила
+    ].join(' ').toLowerCase();
+    // все слова из запроса должны встречаться (AND)
+    return q.split(/\s+/).filter(Boolean).every(w => hay.includes(w));
+  }
+
   // ── Build graph data ─────────────────────────────────────────────
   function buildGraph() {
     const tagCount = {};
@@ -251,8 +267,7 @@
     // Ноды добавок
     SUPS.forEach(c => {
       if (!filterGrades.has(c.grade)) return;
-      if (filterQuery && !(c.id.toLowerCase().includes(filterQuery) ||
-                          (c.category || '').toLowerCase().includes(filterQuery))) return;
+      if (filterQuery && !matchesQuery(c, filterQuery)) return;
 
       const tags = [...tagsOf(c)].filter(t => HUB_TAGS.has(t));
       // Фильтр по активным тегам: если выбрано ≥1 — оставляем только релевантные
@@ -378,9 +393,12 @@
     }, { once: false });
 
     // Обновляем статистику
-    $('stats').textContent = SUPS.length + ' добавок · ' +
+    const visibleSups = data.nodes.filter(n => n.kind === 'sup').length;
+    const suffix = (filterQuery || activeTags.size > 0 || filterGrades.size < 4)
+      ? ' (отфильтровано)' : '';
+    $('stats').textContent = visibleSups + ' из ' + SUPS.length + ' добавок · ' +
       HUB_TAGS.size + ' хабов-тегов · ' +
-      data.edges.length + ' связей';
+      data.edges.length + ' связей' + suffix;
 
     // Обновляем UI активных тегов
     const clearBtn = $('clearTagsBtn');
