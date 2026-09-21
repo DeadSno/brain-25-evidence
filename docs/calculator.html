@@ -549,7 +549,7 @@ function esc(s) {
           cntUl++;
           warnings.push({
             severity: 'high',
-            text: `<b>${id}</b>: ${v} ${d.unit} — выше безопасного предела ${ul} (${c.upper_limit.slice(0, 80)}…)`,
+            text: `<b>${esc(id)}</b>: ${esc(v)} ${esc(d.unit)} — выше безопасного предела ${esc(ul)} (${esc(c.upper_limit.slice(0, 80))}…)`,
           });
         }
       }
@@ -640,7 +640,7 @@ function esc(s) {
       if (hasAge.length) {
         warnings.push({
           severity: 'low',
-          text: `В возрасте 60+: особенно важны <b>${hasAge.join(', ')}</b> (профилактика остеопороза, саркопении, дефицита B12).`
+          text: `В возрасте 60+: особенно важны <b>${hasAge.map(esc).join(', ')}</b> (профилактика остеопороза, саркопении, дефицита B12).`
         });
       }
     }
@@ -653,7 +653,7 @@ function esc(s) {
       if (risky.length) {
         warnings.push({
           severity: 'high',
-          text: `⚠️ При беременности/лактации <b>избегайте</b>: ${risky.join(', ')}. Проконсультируйтесь с врачом.`
+          text: `⚠️ При беременности/лактации <b>избегайте</b>: ${risky.map(esc).join(', ')}. Проконсультируйтесь с врачом.`
         });
       }
       // Полезные при беременности
@@ -662,7 +662,7 @@ function esc(s) {
       if (helpful.length) {
         warnings.push({
           severity: 'low',
-          text: `<b>${helpful.join(', ')}</b> часто рекомендованы при беременности (по назначению врача).`
+          text: `<b>${helpful.map(esc).join(', ')}</b> часто рекомендованы при беременности (по назначению врача).`
         });
       }
     }
