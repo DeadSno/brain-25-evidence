@@ -294,7 +294,7 @@ function esc(s) {
   let PAIRS = {};
 
   Promise.all([
-    fetch('data.json?ts=' + Date.now()).then(r => r.json()),
+    fetch('data_index.json?ts=' + Date.now()).then(r => r.json()).then(idx => idx.supplements || idx),
     fetch('dosage_parsed.json?ts=' + Date.now()).then(r => r.json()).catch(() => ({})),
     fetch('profiles.json?ts=' + Date.now()).then(r => r.json()).catch(() => ({})),
     fetch('pairs.json?ts=' + Date.now()).then(r => r.json()).catch(() => ({})),

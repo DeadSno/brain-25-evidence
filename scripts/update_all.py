@@ -31,10 +31,11 @@ REPORTS = ROOT / "reports"
 # Конвенция: у большинства скриптов "no flag" = dry-run, --apply = запись.
 # У fetch_metrics.py свой флаг --dry-run/--apply.
 STEPS = [
-    ("metrics",   "fetch_metrics.py",        ["--all", "--apply"], ["--all", "--dry-run"], 8),
-    ("science",   "recalc_science_index.py", ["--apply"],          [],                      5),
-    ("hedges_g",  "fetch_hedges_g.py",       ["--apply"],          [],                     20),
-    ("dois",      "enrich_dois.py",          ["--apply"],          [],                      3),
+    ("metrics",     "fetch_metrics.py",        ["--all", "--apply"], ["--all", "--dry-run"], 8),
+    ("science",     "recalc_science_index.py", ["--apply"],          [],                      5),
+    ("hedges_g",    "fetch_hedges_g.py",       ["--apply"],          [],                     20),
+    ("dois",        "enrich_dois.py",          ["--apply"],          [],                      3),
+    ("build_index", "build_index.py",          [],                   [],                      1),
 ]
 
 
@@ -162,7 +163,7 @@ def main() -> int:
     print("\nДалее (вручную):")
     print("  $env:UPDATE_SNAPSHOT='1'; python -m pytest tests/test_snapshot.py -q; Remove-Item Env:UPDATE_SNAPSHOT")
     print("  python -m pytest -q")
-    print("  git add docs/data.json docs/data_pubmed_terms.json tests/snapshot_data.json")
+    print("  git add docs/data.json docs/data_index.json docs/data_pubmed_terms.json tests/snapshot_data.json")
     print("  git commit -m 'chore(metrics): обновление данных'")
 
     return 0
