@@ -323,6 +323,7 @@ if (saved !== 'light') setDark(true);   // v1.3: по умолчанию тём�
     supplementsFullPromise = fetchJson('data.json').then(data => {
       supplementsFull = Object.fromEntries(data.map(c => [c.id, c]));
       console.log('[prefetch] готово, ' + data.length + ' карточек');
+      autoRenderCompare();
       return supplementsFull;
     }).catch(err => {
       console.warn('[prefetch] не удалось:', err);
@@ -336,6 +337,14 @@ if (saved !== 'light') setDark(true);   // v1.3: по умолчанию тём�
   } else {
     setTimeout(prefetch, 1500);
   }
+
+  // Радар: рендерим автоматически когда данные готовы
+  const autoRenderCompare = () => {
+    const s1 = $('compareSelect1'), s2 = $('compareSelect2');
+    if (s1 && s2 && s1.value && s2.value) {
+      try { renderCompare(); } catch (e) { console.warn('[compare auto]', e); }
+    }
+  };
 }
 
 function setDark(on) {
@@ -366,6 +375,7 @@ function setChartTab(tab) {
 }
 
 const vColor = c => c === 1 ? '#2d8a4e' : c === 0 ? '#d4a017' : '#c0392b';
+const vColorAlpha = c => c === 1 ? 'rgba(45,138,78,0.75)' : c === 0 ? 'rgba(212,160,23,0.75)' : 'rgba(192,57,43,0.75)';
 
 // ===== v2.6.1: демонтаж Value Score, честная экономика =====
 // ₽ за единицу эффекта = round(цена / Hedges' g) при обоих ненулевых;
@@ -651,20 +661,25 @@ function gotoCompare(idA, idB) {
   document.getElementById('compareSection').scrollIntoView({ behavior: 'smooth' });
 }
 
-function renderBubble(data) {
-  const isPrice = axisX === 'price';
-
-  // ── Адаптивные размеры пузырей: на мобильном меньше ─────────
+// ── Адаптивные размеры пузырей: на мобильном меньше ─────────
+function bubbleRadii() {
   const isMobile = window.innerWidth < 640;
-  const R_MAX = isMobile ? 12 : 30;
-  const R_HOVER_MAX = isMobile ? 16 : 36;
+  const R_MAX = isMobile ? 12 : 22;
+  const R_HOVER_MAX = isMobile ? 16 : 28;
   const R_SCALE = isMobile ? 1.0 : 2.5;
   const R_HOVER_SCALE = isMobile ? 1.4 : 3.5;
-  const rFor = (s) => Math.max(3, Math.min(R_MAX, Math.sqrt(s.metaCount || 1) * R_SCALE));
-  const rHoverFor = (s) => Math.max(4, Math.min(R_HOVER_MAX, Math.sqrt(s.metaCount || 1) * R_HOVER_SCALE));
+  return {
+    rFor:      (s) => Math.max(3, Math.min(R_MAX, Math.sqrt(s.metaCount || 1) * R_SCALE)),
+    rHoverFor: (s) => Math.max(4, Math.min(R_HOVER_MAX, Math.sqrt(s.metaCount || 1) * R_HOVER_SCALE)),
+  };
+}
+
+function renderBubble(data) {
+  const isPrice = axisX === 'price';
+  const { rFor, rHoverFor } = bubbleRadii();
   const priced = isPrice
     ? data.filter(s => (s.price || 0) > 0)
-    : data.filter(s => axisVal(s) != null && axisVal(s) >= 0);
+    : data.filter(s => { const v = axisVal(s); return v != null && v > 0; });
   const nullPrice = isPrice ? data.filter(s => !((s.price || 0) > 0)) : [];
   chartPts = priced.concat(nullPrice);
   if (isPrice) {
@@ -722,14 +737,21 @@ function renderBubble(data) {
     data: { datasets: priced.map(s => ({
       label: s.name,
       data: [{ x: axisVal(s), y: Math.max(1, s.scienceIndex) }],
-      backgroundColor: vColor(s.code),
+      backgroundColor: vColorAlpha(s.code),
       pointRadius: rFor(s),
       pointHoverRadius: rHoverFor(s)
     })).concat(bandDatasets) },
     options: {
       responsive: true, maintainAspectRatio: false,
       scales: {
-        x: { title: { display: true, text: AXIS_LABEL[axisX], color: txt }, grid: { color: 'rgba(128,128,128,.15)' }, max: band ? band.hi * 1.02 : undefined },
+        x: isPrice
+          ? { title: { display: true, text: AXIS_LABEL[axisX], color: txt },
+              grid: { color: 'rgba(128,128,128,.15)' },
+              max: band ? band.hi * 1.02 : undefined }
+          : { type: 'logarithmic', min: 1,
+              title: { display: true, text: AXIS_LABEL[axisX] + ' (лог)', color: txt },
+              grid: { color: 'rgba(128,128,128,.15)' },
+              ticks: { callback: v => [1, 10, 100, 1000, 10000].includes(v) ? v : '' } },
         y: { type: 'logarithmic',
              title: { display: true, text: 'Индекс науки (лог)', color: txt },
              grid: { color: 'rgba(128,128,128,.15)' },
@@ -772,13 +794,16 @@ function renderQuadrant(data) {
   const txt = getComputedStyle(document.body).getPropertyValue('--text');
   quadrantInstance = new Chart(ctx, {
     type: 'scatter',
-    data: { datasets: verified.map(s => ({
-      label: s.name,
-      data: [{ x: s.hedges_g, y: Math.max(1, s.scienceIndex) }],
-      backgroundColor: vColor(s.code),
-      pointRadius: Math.min(30, Math.sqrt(s.metaCount || 1) * 2.5),
-      pointHoverRadius: Math.min(36, Math.sqrt(s.metaCount || 1) * 3.5)
-    })) },
+    data: { datasets: (() => {
+      const { rFor, rHoverFor } = bubbleRadii();
+      return verified.map(s => ({
+        label: s.name,
+        data: [{ x: s.hedges_g, y: Math.max(1, s.scienceIndex) }],
+        backgroundColor: vColorAlpha(s.code),
+        pointRadius: rFor(s),
+        pointHoverRadius: rHoverFor(s),
+      }));
+    })() },
     options: {
       responsive: true, maintainAspectRatio: false,
       scales: {
