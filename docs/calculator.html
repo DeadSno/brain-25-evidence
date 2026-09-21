@@ -1,0 +1,557 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <script defer src="version.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1c1c1e">
+  <title>Калькулятор БАДов — проверка доз и конфликтов</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧮</text></svg>">
+  <script>try{if(localStorage.getItem('theme')!=='light'){document.addEventListener('DOMContentLoaded',function(){document.body.classList.add('dark');});}}catch(e){}</script>
+  <link rel="stylesheet" href="style.css?v=273">
+  <style>
+    body{--apanel:#15171c;--aborder:#2b2e35;--atext:#e9eaee;--amut:#9aa0aa;margin:0}
+    body:not(.dark){--apanel:#ffffff;--aborder:#d9dde3;--atext:#1b1d22;--amut:#5c6370}
+    body{max-width:none!important;margin:0!important}
+    .wrap{max-width:1200px;margin:0 auto;padding:1rem 1.5rem;color:var(--atext)}
+
+    .trustbar{text-align:center;padding:.5rem 1rem;margin:0 0 1rem;background:var(--apanel);border:1px solid var(--aborder);border-radius:8px;font-size:.85rem;opacity:.85}
+    .top{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;margin:0 0 1rem}
+    .top h1{font-size:1.3rem;margin:0;font-weight:700}
+    .top h1 a{color:inherit;text-decoration:none}
+    .actions{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center}
+    .btn{padding:.45rem .8rem;border:1px solid var(--aborder);border-radius:8px;background:var(--apanel);color:var(--atext);cursor:pointer;font-size:.85rem;text-decoration:none;line-height:1.2}
+    .btn:hover{border-color:#888}
+    .btn.primary{background:#3498db;border-color:#3498db;color:#fff}
+
+    .params{background:var(--apanel);border:1px solid var(--aborder);border-radius:12px;padding:1rem 1.2rem;margin:0 0 1rem}
+    .params h2{margin:0 0 .6rem;font-size:1rem}
+    .params-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.7rem}
+    .params label{display:block;font-size:.8rem;opacity:.7;margin-bottom:.2rem}
+    .params input,.params select{width:100%;padding:.45rem .6rem;border:1px solid var(--aborder);border-radius:8px;background:var(--apanel);color:var(--atext);font-size:.9rem;box-sizing:border-box}
+
+    .add-row{display:flex;gap:.5rem;margin:0 0 1rem}
+    .add-row input{flex:1;padding:.5rem .8rem;border:1px solid var(--aborder);border-radius:8px;background:var(--apanel);color:var(--atext);font-size:.9rem}
+
+    .cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:1.2rem}
+    @media(max-width:860px){.cols{grid-template-columns:1fr}}
+
+    .panel{background:var(--apanel);border:1px solid var(--aborder);border-radius:12px;padding:1rem 1.2rem}
+    .panel h2{margin:0 0 .7rem;font-size:1rem;display:flex;justify-content:space-between;align-items:center}
+    .panel h2 .count{opacity:.6;font-size:.85rem;font-weight:400}
+
+    .item{display:grid;grid-template-columns:1fr 90px 30px;gap:.5rem;align-items:center;padding:.5rem 0;border-bottom:1px solid var(--aborder);font-size:.9rem}
+    .item:last-child{border-bottom:none}
+    .item .name{cursor:pointer;color:var(--atext)}
+    .item .name:hover{color:#3498db}
+    .item input{padding:.35rem .5rem;border:1px solid var(--aborder);border-radius:6px;background:var(--apanel);color:var(--atext);font-size:.85rem;text-align:right;width:100%;box-sizing:border-box}
+    .item .unit{opacity:.6;font-size:.78rem;margin-left:.2rem}
+    .item .rm{background:none;border:none;color:#e74c3c;font-size:1.2rem;cursor:pointer;padding:0}
+
+    .status{margin:.4rem 0 0;font-size:.8rem}
+    .st-ok{color:#2ecc71}
+    .st-warn{color:#f39c12}
+    .st-bad{color:#e74c3c}
+
+    .result-panel{position:sticky;top:1rem;align-self:start}
+    @media(max-width:860px){.result-panel{position:static}}
+
+    .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:.6rem;margin:0 0 1rem}
+    .kpi{background:var(--apanel);border:1px solid var(--aborder);border-radius:8px;padding:.6rem .7rem;text-align:center}
+    .kpi .val{font-size:1.4rem;font-weight:700;line-height:1}
+    .kpi .lbl{font-size:.72rem;opacity:.65;margin-top:.3rem}
+    .kpi.ok .val{color:#2ecc71}
+    .kpi.warn .val{color:#f39c12}
+    .kpi.bad .val{color:#e74c3c}
+    .kpi.muted .val{color:var(--amut)}
+
+    .block{margin:0 0 1rem}
+    .block h3{margin:0 0 .5rem;font-size:.85rem;text-transform:uppercase;letter-spacing:.05em;opacity:.6}
+    .block-item{padding:.55rem .7rem;margin:.3rem 0;border:1px solid var(--aborder);border-radius:8px;font-size:.85rem;line-height:1.4}
+    .block-item.sev-low{border-color:rgba(241,196,15,.4);background:rgba(241,196,15,.07)}
+    .block-item.sev-medium{border-color:rgba(230,126,34,.5);background:rgba(230,126,34,.08)}
+    .block-item.sev-high{border-color:rgba(231,76,60,.5);background:rgba(231,76,60,.08)}
+    .block-item.synergy{border-color:rgba(46,204,113,.5);background:rgba(46,204,113,.08)}
+    .block-item .pair{font-weight:600;margin-bottom:.2rem}
+    .block-item .note{opacity:.8;font-size:.82rem}
+
+    .row-actions{display:flex;gap:.5rem;margin-top:1rem;flex-wrap:wrap}
+    .empty{opacity:.55;font-style:italic;font-size:.85rem;padding:.5rem 0}
+
+    @media (max-width: 640px) {
+      .wrap{padding:.6rem}
+      .trustbar{font-size:.75rem;padding:.35rem .5rem}
+      .top{flex-direction:column;align-items:stretch}
+      .top h1{font-size:1rem;line-height:1.2}
+      .params-grid{grid-template-columns:1fr 1fr}
+      .item{grid-template-columns:1fr 80px 26px}
+      .add-row{flex-wrap:wrap}
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <div class="trustbar">🧮 Открытые данные · Бесплатно · Без рекламы</div>
+  <header class="top">
+    <h1><a href="index.html">🧮 Калькулятор БАДов</a> <span style="opacity:.5;font-size:.85rem">v<span data-version="app"></span></span></h1>
+    <div class="actions">
+      <a class="btn" href="index.html">← На главную</a>
+      <a class="btn" href="atlas.html">🌐 Атлас</a>
+      <a class="btn" href="map.html">🧩 Карта механизмов</a>
+      <a class="btn" href="interactions.html">🔗 Карта связей</a>
+      <button class="btn" id="themeBtn">🌞 Светлая тема</button>
+    </div>
+  </header>
+
+  <!-- Параметры пользователя -->
+  <div class="params">
+    <h2>Ваши параметры</h2>
+    <div class="params-grid">
+      <div>
+        <label for="pWeight">Вес (кг)</label>
+        <input type="number" id="pWeight" min="20" max="200" step="1" value="70">
+      </div>
+      <div>
+        <label for="pSex">Пол</label>
+        <select id="pSex">
+          <option value="m">Мужской</option>
+          <option value="f">Женский</option>
+        </select>
+      </div>
+      <div>
+        <label for="pAge">Возраст</label>
+        <input type="number" id="pAge" min="14" max="100" step="1" value="30">
+      </div>
+      <div>
+        <label for="pPregnant">Особое состояние</label>
+        <select id="pPregnant">
+          <option value="">Нет</option>
+          <option value="pregnant">Беременность</option>
+          <option value="lactation">Лактация</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Добавление -->
+  <div class="add-row">
+    <input id="q" placeholder="Поиск добавки для добавления…" autocomplete="off">
+    <button class="btn primary" id="addBtn">＋ Добавить</button>
+  </div>
+  <div id="searchResults" style="margin:-.5rem 0 1rem"></div>
+
+  <!-- Двухколоночный layout -->
+  <div class="cols">
+    <!-- Выбранные -->
+    <div class="panel">
+      <h2>Выбрано <span class="count" id="cntSel">0</span></h2>
+      <div id="selectedList"><div class="empty">Пока ничего не выбрано. Начните с поиска выше.</div></div>
+      <div class="row-actions">
+        <button class="btn" id="clearBtn">Очистить всё</button>
+        <button class="btn" id="shareBtn">🔗 Скопировать ссылку</button>
+      </div>
+    </div>
+
+    <!-- Результат -->
+    <div class="panel result-panel">
+      <h2>Результат <span class="count" id="cntResult"></span></h2>
+      <p style="font-size:.78rem;opacity:.65;margin:-.4rem 0 .8rem;line-height:1.4">
+        «Верхний предел» — максимальная суточная доза, безопасная для большинства.
+        Превышение не означает отравление, но требует консультации с врачом.
+      </p>
+
+      <div class="kpis">
+        <div class="kpi ok" id="kpiOk">
+          <div class="val">0</div>
+          <div class="lbl">в норме</div>
+        </div>
+        <div class="kpi warn" id="kpiAbove">
+          <div class="val">0</div>
+          <div class="lbl">выше оптимума</div>
+        </div>
+        <div class="kpi warn" id="kpiBelow">
+          <div class="val">0</div>
+          <div class="lbl">ниже минимума</div>
+        </div>
+        <div class="kpi bad" id="kpiUl">
+          <div class="val">0</div>
+          <div class="lbl">выше предела</div>
+        </div>
+      </div>
+
+      <div class="block">
+        <h3>Конфликты (<span id="cntConf">0</span>)</h3>
+        <div id="confList"><div class="empty">—</div></div>
+      </div>
+
+      <div class="block">
+        <h3>Синергии (<span id="cntSyn">0</span>)</h3>
+        <div id="synList"><div class="empty">—</div></div>
+      </div>
+
+      <div class="block">
+        <h3>Предупреждения (<span id="cntWarn">0</span>)</h3>
+        <div id="warnList"><div class="empty">—</div></div>
+      </div>
+    </div>
+  </div>
+
+  <footer style="margin-top:2rem;border-top:1px solid var(--aborder);padding-top:1rem;color:var(--amut);font-size:.82rem">
+    <p><b>⚠️ Не медицинская рекомендация.</b> Проверяйте дозы по инструкции и с врачом. Данные из PubMed, OpenAlex, ClinicalTrials.gov.</p>
+    <p>© 2026 Vladislav "DeadSno" Pereshivalov</p>
+  </footer>
+</div>
+
+<script>
+(function () {
+  const $ = id => document.getElementById(id);
+  const isDark = () => document.body.classList.contains('dark');
+
+  // Тема
+  document.addEventListener('DOMContentLoaded', () => {
+    $('themeBtn').textContent = isDark() ? '🌞 Светлая тема' : '🌙 Тёмная тема';
+  });
+  $('themeBtn').onclick = () => {
+    document.body.classList.toggle('dark');
+    const dark = isDark();
+    localStorage.setItem('theme', dark ? 'dark' : 'light');
+    $('themeBtn').textContent = dark ? '🌞 Светлая тема' : '🌙 Тёмная тема';
+  };
+
+  // ── State ─────────────────────────────────────────
+  const LS_KEY = 'calc_list_v1';
+  let DATA = [];             // data.json
+  let DOSAGE = {};           // dosage_parsed.json
+  let byId = {};
+  // selected: { id: dosageInputValue }
+  let selected = {};
+
+  // ── Загрузка данных ───────────────────────────────
+  Promise.all([
+    fetch('data.json?ts=' + Date.now()).then(r => r.json()),
+    fetch('dosage_parsed.json?ts=' + Date.now()).then(r => r.json()).catch(() => ({})),
+  ]).then(([data, dosage]) => {
+    DATA = data;
+    DOSAGE = dosage;
+    byId = Object.fromEntries(data.map(c => [c.id, c]));
+    loadFromLS();
+    loadFromURL();
+    render();
+  });
+
+  // ── localStorage ──────────────────────────────────
+  function saveLS() {
+    try { localStorage.setItem(LS_KEY, JSON.stringify(selected)); } catch(e){}
+  }
+  function loadFromLS() {
+    try {
+      const raw = localStorage.getItem(LS_KEY);
+      if (raw) selected = JSON.parse(raw) || {};
+    } catch(e){}
+  }
+
+  // ── URL-шаринг: ?list=Креатин:5,Омега-3:2 ────────
+  function loadFromURL() {
+    const p = new URLSearchParams(location.search);
+    const list = p.get('list');
+    if (!list) return;
+    const out = {};
+    for (const item of list.split(',')) {
+      const [id, dose] = item.split(':');
+      if (byId[id]) out[id] = dose ? parseFloat(dose) : null;
+    }
+    selected = out;
+  }
+  function syncURL() {
+    const parts = Object.entries(selected)
+      .map(([id, v]) => v != null ? `${id}:${v}` : id);
+    const p = new URLSearchParams();
+    if (parts.length) p.set('list', parts.join(','));
+    const url = location.pathname + (p.toString() ? '?' + p.toString() : '');
+    history.replaceState(null, '', url);
+  }
+
+  // ── Поиск и добавление ────────────────────────────
+  $('q').addEventListener('input', e => {
+    const q = e.target.value.trim().toLowerCase();
+    if (!q) { $('searchResults').innerHTML = ''; return; }
+    const res = DATA
+      .filter(c => !selected[c.id] &&
+        (c.id.toLowerCase().includes(q) ||
+         (c.category || '').toLowerCase().includes(q) ||
+         (c.effects || []).join(' ').toLowerCase().includes(q)))
+      .slice(0, 8);
+    $('searchResults').innerHTML = res.length
+      ? res.map(c => `<button class="btn" data-add="${c.id}" style="margin:.2rem .3rem .2rem 0">＋ ${c.id}</button>`).join('')
+      : '<div class="empty">Ничего не найдено</div>';
+  });
+  $('searchResults').addEventListener('click', e => {
+    const b = e.target.closest('[data-add]');
+    if (!b) return;
+    addSupp(b.dataset.add);
+  });
+  $('addBtn').onclick = () => {
+    const q = $('q').value.trim();
+    if (!q) return;
+    const hit = DATA.find(c => c.id.toLowerCase() === q.toLowerCase());
+    if (hit) addSupp(hit.id);
+  };
+
+  function addSupp(id) {
+    if (!byId[id]) return;
+    // Дефолтная доза = среднее из диапазона или min
+    const d = DOSAGE[id];
+    let def = null;
+    if (d) def = d.max != null ? Math.round(((d.min + d.max) / 2) * 100) / 100 : d.min;
+    selected[id] = def;
+    $('q').value = '';
+    $('searchResults').innerHTML = '';
+    saveLS();
+    syncURL();
+    render();
+  }
+
+  function removeSupp(id) {
+    delete selected[id];
+    saveLS();
+    syncURL();
+    render();
+  }
+
+  // ── Рендер ────────────────────────────────────────
+  function render() {
+    renderSelected();
+    renderResult();
+  }
+
+  function renderSelected() {
+    const ids = Object.keys(selected);
+    $('cntSel').textContent = ids.length;
+    if (!ids.length) {
+      $('selectedList').innerHTML = '<div class="empty">Пока ничего не выбрано. Начните с поиска выше.</div>';
+      return;
+    }
+    $('selectedList').innerHTML = ids.map(id => {
+      const c = byId[id];
+      const d = DOSAGE[id];
+      const unit = d?.unit || 'mg';
+      const val = selected[id] != null ? selected[id] : '';
+      const range = d ? `${d.min}–${d.max} ${unit}` : '—';
+      return `
+        <div class="item" data-id="${id}">
+          <div>
+            <span class="name" data-open="${id}">${c.id}</span>
+            <div style="font-size:.72rem;opacity:.6">норма: ${range}</div>
+          </div>
+          <div>
+            <input type="number" data-input="${id}" min="0" step="any" value="${val}">
+            <span class="unit">${unit}</span>
+          </div>
+          <button class="rm" data-rm="${id}" title="Удалить">×</button>
+        </div>`;
+    }).join('');
+
+    // Обработчики
+    $('selectedList').querySelectorAll('[data-input]').forEach(inp => {
+      inp.addEventListener('input', e => {
+        const id = e.target.dataset.input;
+        const v = e.target.value === '' ? null : parseFloat(e.target.value);
+        selected[id] = v;
+        saveLS();
+        syncURL();
+        renderResult();
+      });
+    });
+    $('selectedList').querySelectorAll('[data-rm]').forEach(b => {
+      b.addEventListener('click', e => removeSupp(e.target.dataset.rm));
+    });
+    $('selectedList').querySelectorAll('[data-open]').forEach(n => {
+      n.addEventListener('click', e => {
+        window.open('index.html#sup=' + encodeURIComponent(e.target.dataset.open), '_blank');
+      });
+    });
+  }
+
+  function renderResult() {
+    const ids = Object.keys(selected);
+    $('cntResult').textContent = ids.length;
+
+    let cntOk = 0, cntAbove = 0, cntBelow = 0, cntUl = 0;
+    const conflicts = [];
+    const synergies = [];
+    const warnings = [];
+
+    // Проверка каждой дозы
+    for (const id of ids) {
+      const c = byId[id];
+      const d = DOSAGE[id];
+      const v = selected[id];
+      if (v == null || !d) continue;
+
+      // Сравнение с диапазоном
+      if (v < d.min * 0.9) { cntBelow++; }
+      else if (v > d.max * 1.1) { cntAbove++; }
+      else { cntOk++; }
+
+      // UL — только если явно указан UL, а не «нет UL» / «безопасно до X»
+      const ulText = (c.upper_limit || '').toLowerCase();
+      // Пропускаем если «нет UL» или «формального UL нет»
+      const noUl = /нет ul|формального ul нет|не установлен|безопасн/i.test(ulText);
+      if (!noUl) {
+        // Ищем шаблоны: «UL X», «не выше X», «>X риск», «до X безоп»
+        const patterns = [
+          /(?:^|\s)ul\s+(\d+(?:[.,]\d+)?)/i,
+          /не выше\s+(\d+(?:[.,]\d+)?)/i,
+          /выше\s+(\d+(?:[.,]\d+)?)\s*[-–]/i,
+          />\s*(\d+(?:[.,]\d+)?)\s*[-–]?\s*(?:риск|диарея|дискомфорт)/i,
+        ];
+        let ul = null;
+        for (const p of patterns) {
+          const m = ulText.match(p);
+          if (m) { ul = parseFloat(m[1].replace(',', '.')); break; }
+        }
+        if (ul != null && v > ul) {
+          cntUl++;
+          warnings.push({
+            severity: 'high',
+            text: `<b>${id}</b>: ${v} ${d.unit} — выше безопасного предела ${ul} (${c.upper_limit.slice(0, 80)}…)`,
+          });
+        }
+      }
+    }
+
+    // Конфликты — двойной цикл по interactions
+    for (let i = 0; i < ids.length; i++) {
+      for (let j = i + 1; j < ids.length; j++) {
+        const a = byId[ids[i]], b = byId[ids[j]];
+        // interactions карточки a — есть ли b в поле with?
+        checkInteraction(a, b, conflicts);
+        checkInteraction(b, a, conflicts);
+      }
+    }
+
+    // Синергии — поле friends (если есть)
+    for (let i = 0; i < ids.length; i++) {
+      for (let j = i + 1; j < ids.length; j++) {
+        const a = byId[ids[i]], b = byId[ids[j]];
+        checkFriend(a, b, synergies);
+        checkFriend(b, a, synergies);
+      }
+    }
+
+    // Особые состояния
+    const state = $('pPregnant').value;
+    if (state) {
+      for (const id of ids) {
+        const c = byId[id];
+        const caution = (c.caution || '').toLowerCase();
+        if (state === 'pregnant' && /беремен|лактац/.test(caution)) {
+          warnings.push({ severity: 'high', text: `<b>${id}</b>: осторожно при беременности/лактации` });
+        }
+        if (state === 'lactation' && /лактац/.test(caution)) {
+          warnings.push({ severity: 'high', text: `<b>${id}</b>: осторожно при лактации` });
+        }
+      }
+    }
+
+    // Железо × пол (пример контекстной логики)
+    const sex = $('pSex').value;
+    if (sex === 'm' && ids.includes('Железо')) {
+      const v = selected['Железо'];
+      if (v && v > 20 && !$('pPregnant').value) {
+        // у мужчин без дефицита железо опасно
+        warnings.push({ severity: 'medium', text: `<b>Железо</b>: у мужчин без дефицита добавки не рекомендованы (риск перегрузки)` });
+      }
+    }
+
+    // KPI
+    $('kpiOk').querySelector('.val').textContent = cntOk;
+    $('kpiAbove').querySelector('.val').textContent = cntAbove;
+    $('kpiBelow').querySelector('.val').textContent = cntBelow;
+    $('kpiUl').querySelector('.val').textContent = cntUl;
+
+    // Конфликты
+    $('cntConf').textContent = conflicts.length;
+    $('confList').innerHTML = conflicts.length
+      ? conflicts.map(c => `
+          <div class="block-item sev-${c.severity}">
+            <div class="pair">${c.pair}</div>
+            <div class="note">${c.note}</div>
+          </div>`).join('')
+      : '<div class="empty">—</div>';
+
+    // Синергии
+    $('cntSyn').textContent = synergies.length;
+    $('synList').innerHTML = synergies.length
+      ? synergies.map(s => `
+          <div class="block-item synergy">
+            <div class="pair">${s.pair}</div>
+            <div class="note">${s.note}</div>
+          </div>`).join('')
+      : '<div class="empty">—</div>';
+
+    // Предупреждения
+    $('cntWarn').textContent = warnings.length;
+    $('warnList').innerHTML = warnings.length
+      ? warnings.map(w => `<div class="block-item sev-${w.severity}">${w.text}</div>`).join('')
+      : '<div class="empty">—</div>';
+  }
+
+  // Проверка: есть ли y в interactions карточки x
+  function checkInteraction(a, b, out) {
+    const i = a.interactions || [];
+    const b_lower = b.id.toLowerCase();
+    const b_short = b_lower.split(/[\s(]/)[0];
+    for (const item of i) {
+      const w = (item.with || '').toLowerCase();
+      if (w.includes(b_short) || b_lower.includes(w) || w === b_lower) {
+        // не дублируем
+        if (out.some(x => x.pair === `${a.id} × ${b.id}` || x.pair === `${b.id} × ${a.id}`)) return;
+        out.push({
+          pair: `${a.id} × ${b.id}`,
+          severity: item.severity || 'low',
+          note: item.note || '',
+        });
+      }
+    }
+  }
+  function checkFriend(a, b, out) {
+    const f = a.friends || a.synergies || [];
+    const b_lower = b.id.toLowerCase();
+    for (const item of f) {
+      const name = typeof item === 'string' ? item : (item.with || '');
+      if (name.toLowerCase().includes(b_lower)) {
+        if (out.some(x => x.pair === `${a.id} + ${b.id}`)) return;
+        out.push({
+          pair: `${a.id} + ${b.id}`,
+          note: typeof item === 'string' ? '' : (item.note || ''),
+        });
+      }
+    }
+  }
+
+  // ── Кнопки ────────────────────────────────────────
+  $('clearBtn').onclick = () => {
+    if (!confirm('Очистить список?')) return;
+    selected = {};
+    saveLS();
+    syncURL();
+    render();
+  };
+  $('shareBtn').onclick = () => {
+    navigator.clipboard.writeText(location.href).then(() => {
+      const b = $('shareBtn');
+      const old = b.textContent;
+      b.textContent = '✓ Скопировано';
+      setTimeout(() => { b.textContent = old; }, 1500);
+    }).catch(() => prompt('Скопируйте ссылку:', location.href));
+  };
+
+  // Параметры — пересчёт при изменении
+  ['pWeight', 'pSex', 'pAge', 'pPregnant'].forEach(id => {
+    $(id).addEventListener('change', renderResult);
+  });
+})();
+</script>
+</body>
+</html>
