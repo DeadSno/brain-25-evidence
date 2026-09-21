@@ -5,6 +5,8 @@ function esc(s) {
 }
 const $ = id => document.getElementById(id);
 let supplements = [], currentData = [], chartInstance = null, radarInstance = null, onlyFavs = false;
+let supplementsFull = null;         // {id: {...}} — загружается при первом клике
+let supplementsFullPromise = null;  // in-flight запрос data.json
 let effectTags = {}, effectLabels = {};
 let effectFilterCurrent = 'all';
 // v2.8.0: пресеты-тумблеры (активны независимо от ручных фильтров, комбинация — AND)
@@ -164,10 +166,11 @@ function chartSupByEl(chart, el) {
 
 const fetchJson = (url) => fetch(url + '?ts=' + Date.now())
   .then(r => { if (!r.ok) throw new Error('no data for ' + url); return r.json(); });
-Promise.allSettled([fetchJson('data.json'), fetchJson('effect_tags.json'), fetchJson('effect_labels.json')])
+Promise.allSettled([fetchJson('data_index.json'), fetchJson('effect_tags.json'), fetchJson('effect_labels.json')])
   .then(([d, tg, lb]) => {
-    if (d.status !== 'fulfilled') throw new Error('data.json ????????');
-    supplements = d.value;
+    if (d.status !== 'fulfilled') throw new Error('data_index.json не загружен');
+    const idx = d.value;
+    supplements = Array.isArray(idx) ? idx : (idx.supplements || []);
     effectTags = tg.status === 'fulfilled' ? tg.value : {};
     effectLabels = lb.status === 'fulfilled' ? lb.value : {};
     if (tg.status !== 'fulfilled') console.warn('[effect_tags.json] ?? ???????? ? ???? ?????????');
@@ -183,6 +186,11 @@ function initApp() {
 if (saved !== 'light') setDark(true);   // v1.3: по умолчанию тёмная; светлая — только по выбору
   supplements.forEach(s => { $('compareSelect1').add(new Option(s.name, s.id)); $('compareSelect2').add(new Option(s.name, s.id)); });
   if (supplements.length >= 2) { $('compareSelect1').value = supplements[0].id; $('compareSelect2').value = supplements[1].id; }
+  // v3.3: сравнение — по кнопке «Сравнить» или смене селекта (не на загрузке:
+  // data.json догружается prefetch'ем, главная рендерится без ожидания 472 KB)
+  $('compareBtn').addEventListener('click', renderCompare);
+  $('compareSelect1').addEventListener('change', renderCompare);
+  $('compareSelect2').addEventListener('change', renderCompare);
   $('search').addEventListener('input', applyFilters);
   ['verdictFilter', 'sortSelect'].forEach(id => { const el = $(id); if (el) el.addEventListener('change', applyFilters); });
   document.querySelectorAll('.preset').forEach(btn => {
@@ -254,7 +262,7 @@ if (saved !== 'light') setDark(true);   // v1.3: по умолчанию тём�
   });
   const deep = decodeURIComponent(location.hash.replace('#sup=', ''));
   if (deep && supplements.some(s => s.id === deep)) setTimeout(() => openModal(deep), 300);
-  renderEffectChips(); applyFilters(); renderCompare(); checkInteractions();
+  renderEffectChips(); applyFilters(); checkInteractions();
   // v2.4: вкладки графика «Цена vs наука | Квадрант доказательности»
   // v2.6: оси X графика
     $('axisMA').onclick = () => setAxisX('ma');
@@ -305,6 +313,29 @@ if (saved !== 'light') setDark(true);   // v1.3: по умолчанию тём�
   up.onclick = () => scrollTo({top: 0, behavior: 'smooth'});
   document.body.appendChild(up);
   addEventListener('scroll', () => up.classList.toggle('show', scrollY > 500));
+
+  // ── Prefetch полного data.json в простое ─────────────────────
+  // Главная нарисована, теперь догружаем 472 KB когда браузер свободен.
+  // К моменту клика на карточку/сравнение — данные уже в памяти.
+  const prefetch = () => {
+    if (supplementsFull || supplementsFullPromise) return;
+    console.log('[prefetch] загружаем полный data.json в фоне…');
+    supplementsFullPromise = fetchJson('data.json').then(data => {
+      supplementsFull = Object.fromEntries(data.map(c => [c.id, c]));
+      console.log('[prefetch] готово, ' + data.length + ' карточек');
+      return supplementsFull;
+    }).catch(err => {
+      console.warn('[prefetch] не удалось:', err);
+      supplementsFullPromise = null;  // разрешим retry при следующем клике
+      throw err;
+    });
+  };
+
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(prefetch, { timeout: 3000 });
+  } else {
+    setTimeout(prefetch, 1500);
+  }
 }
 
 function setDark(on) {
@@ -347,7 +378,8 @@ function priceTip(s) {
 }
 /* economicsBlock removed per v2.7.1 chunk 2 — price_per_effect gone, no "Экономика" block */
 function verifiedCount() {
-  return supplements.filter(x => (x.key_sources || []).length).length;
+  const pool = supplementsFull ? Object.values(supplementsFull) : [];
+  return pool.filter(s => (s.key_sources || []).length > 0).length;
 }
 function maTop3Block(s) {
   const curated = s.key_sources || [];
@@ -506,9 +538,31 @@ function renderCards(data) {
   });
 }
 
-function openModal(id) {
+async function openModal(id) {
   scrollBeforeModal = window.scrollY || 0;
-  const s = supplements.find(x => x.id === id); if (!s) return;
+
+  // Lazy load полного data.json при первом клике (кешируется в памяти)
+  let s = supplementsFull ? supplementsFull[id] : null;
+  if (!s) {
+    if (!supplementsFullPromise) {
+      console.log('[modal] загружаем полный data.json (один раз за сессию)…');
+      supplementsFullPromise = fetchJson('data.json').then(data => {
+        supplementsFull = Object.fromEntries(data.map(c => [c.id, c]));
+        return supplementsFull;
+      }).catch(err => {
+        console.error('[modal] не удалось загрузить data.json:', err);
+        supplementsFullPromise = null;  // разрешим retry
+        throw err;
+      });
+    }
+    try {
+      const map = await supplementsFullPromise;
+      s = map[id];
+    } catch {
+      return;  // уже залогировано
+    }
+  }
+  if (!s) return;
   curModal = id;
 
   const trialsLine = s.ongoing != null
@@ -755,9 +809,32 @@ function radarFill(ctx) {
   return g;
 }
 
-function renderCompare() {
-  const a = supplements.find(s => s.id === $('compareSelect1').value);
-  const b = supplements.find(s => s.id === $('compareSelect2').value);
+async function renderCompare() {
+  const idA = $('compareSelect1').value;
+  const idB = $('compareSelect2').value;
+
+  // Ленивая загрузка полного data.json если prefetch ещё не отработал
+  let a = supplementsFull ? supplementsFull[idA] : null;
+  let b = supplementsFull ? supplementsFull[idB] : null;
+  if (!a || !b) {
+    if (!supplementsFullPromise) {
+      supplementsFullPromise = fetchJson('data.json').then(data => {
+        supplementsFull = Object.fromEntries(data.map(c => [c.id, c]));
+        return supplementsFull;
+      }).catch(err => {
+        console.error('[compare] не удалось загрузить data.json:', err);
+        supplementsFullPromise = null;
+        throw err;
+      });
+    }
+    try {
+      const map = await supplementsFullPromise;
+      a = map[idA];
+      b = map[idB];
+    } catch {
+      return;
+    }
+  }
   if (!a || !b) return;
   const rows = [
     ['Вердикт', a.verdict, b.verdict],
