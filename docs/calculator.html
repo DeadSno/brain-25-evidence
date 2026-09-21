@@ -482,7 +482,6 @@
     $('cntResult').textContent = ids.length;
 
     let cntOk = 0, cntAbove = 0, cntBelow = 0, cntUl = 0;
-    const synergies = [];
     const warnings = [];
 
     // Проверка каждой дозы
@@ -575,8 +574,18 @@
       }
     }
 
-    // Синергии — если кто-то из выбранных в списке «with» у другого
-    // (пока без friends — оставляем пусто, будет позже)
+    // Синергии: взаимные рекомендации из pairs.json
+    const synergies = [];
+    for (let i = 0; i < ids.length; i++) {
+      for (let j = i + 1; j < ids.length; j++) {
+        const a = ids[i], b = ids[j];
+        const aPairs = PAIRS[a] || [];
+        const bPairs = PAIRS[b] || [];
+        if (aPairs.includes(b) || bPairs.includes(a)) {
+          synergies.push({ pair: `${a} + ${b}` });
+        }
+      }
+    }
 
     // Пол + железо
     const sex = $('pSex').value;
@@ -658,8 +667,8 @@
     $('synList').innerHTML = synergies.length
       ? synergies.map(s => `
           <div class="block-item synergy">
-            <div class="pair">${s.pair}</div>
-            <div class="note">${s.note}</div>
+            <div class="pair">✅ ${s.pair}</div>
+            <div class="note">часто принимают вместе</div>
           </div>`).join('')
       : '<div class="empty">—</div>';
 
