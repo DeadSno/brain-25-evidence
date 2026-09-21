@@ -8,6 +8,14 @@ let presetOngoing = false;
 // priceMax / ongoingMin
 let prevSort = '';                                     // для тумблера 🏆 Топ по науке
 let prevVerdict = '';                                  // для пресета 💎 Доказано
+// i18n: severity на русском
+const SEV_LABEL = {
+  low: 'низкий',
+  medium: 'средний',
+  high: 'высокий',
+  critical: 'критичный',
+};
+const sevRu = s => SEV_LABEL[(s || '').toLowerCase()] || s || '';
 let chartPts = [];
 let quadrantInstance = null, chartTab = 'price';   // v2.4: вкладки графика
 let scrollBeforeModal = 0;
@@ -111,7 +119,7 @@ const CARDBLOCKS = [
 function renderConflicts(s) {
   const list = s.interactions || [];
   if (!list.length) return '';
-  return list.map(i => '<div class="sev sev-' + i.severity + '"><b>' + i.with + '</b> · ' + i.severity + (i.note ? ' — ' + i.note : '') + '</div>').join('');
+  return list.map(i => '<div class="sev sev-' + i.severity + '"><b>' + i.with + '</b> · ' + sevRu(i.severity) + (i.note ? ' — ' + i.note : '') + '</div>').join('');
 }
 const CARD_GROUPS = [
   { title: '📋 Основное', keys: ['what','who','works','evidence'] },

@@ -180,8 +180,18 @@
       </div>
 
       <div class="block">
-        <h3>Конфликты (<span id="cntConf">0</span>)</h3>
-        <div id="confList"><div class="empty">—</div></div>
+        <h3>🌿 Конфликты с добавками (<span id="cntConfSupp">0</span>)</h3>
+        <div id="confListSupp"><div class="empty">—</div></div>
+      </div>
+
+      <div class="block">
+        <h3>💊 Конфликты с лекарствами (<span id="cntConfDrug">0</span>)</h3>
+        <div id="confListDrug"><div class="empty">—</div></div>
+      </div>
+
+      <div class="block">
+        <h3>🍷 Вещества (<span id="cntConfSubs">0</span>)</h3>
+        <div id="confListSubs"><div class="empty">—</div></div>
       </div>
 
       <div class="block">
@@ -377,7 +387,6 @@
     $('cntResult').textContent = ids.length;
 
     let cntOk = 0, cntAbove = 0, cntBelow = 0, cntUl = 0;
-    const conflicts = [];
     const synergies = [];
     const warnings = [];
 
@@ -420,24 +429,53 @@
       }
     }
 
-    // Конфликты — двойной цикл по interactions
-    for (let i = 0; i < ids.length; i++) {
-      for (let j = i + 1; j < ids.length; j++) {
-        const a = byId[ids[i]], b = byId[ids[j]];
-        // interactions карточки a — есть ли b в поле with?
-        checkInteraction(a, b, conflicts);
-        checkInteraction(b, a, conflicts);
+    // Классификатор with → тип
+    const SUPP_IDS = new Set(DATA.map(c => c.id.toLowerCase()));
+    const SUBSTANCES = ['алкоголь', 'кофеин', 'никотин', 'соль'];
+    const DRUG_MARKERS = [
+      'анти', 'варфарин', 'ибупрофен', 'метформин', 'статины',
+      'диуретик', 'нпвс', 'сиозс', 'мао', 'бета-блок', 'блокатор',
+      'ингибитор', 'глюкокортик', 'тироксин', 'левотироксин',
+      'теофиллин', 'дигоксин', 'ципрофлоксацин', 'тетрациклин',
+      'пеницилламин', 'литий', 'фенитоин', 'карбамазепин',
+      'иммунодепрессант', 'седатив', 'сахароснижающ', 'леводопа',
+      'циклоспорин', 'бисфосфонат', 'нитрат', 'щитовидн',
+      'стимулятор', 'нитроглицерин', 'активированный', 'медь',
+      'клозапин', 'гепатотоксич', 'контрацептив', 'трамадол',
+      'метотрексат', 'противоэпилепт', 'саквинавир', 'инсулин',
+      'цитохром', 'химиотерап', 'препарат', 'варфарин',
+    ];
+    function classifyWith(w) {
+      const wl = w.toLowerCase();
+      if (SUPP_IDS.has(wl)) return 'supp';
+      if (SUBSTANCES.includes(wl)) return 'substance';
+      if (DRUG_MARKERS.some(m => wl.includes(m))) return 'drug';
+      return 'drug';  // по умолчанию — лекарство
+    }
+
+    // Конфликты — все interactions всех выбранных карточек
+    const confSupp = [], confDrug = [], confSubs = [];
+    for (const id of ids) {
+      const c = byId[id];
+      for (const item of (c.interactions || [])) {
+        const w = (item.with || '').trim();
+        // Пропускаем заглушки «нет взаимодействий»
+        if (!w || w === '—' || w === '-') continue;
+        const kind = classifyWith(w);
+        const entry = {
+          from: id,
+          with: w,
+          severity: item.severity || 'low',
+          note: item.note || '',
+        };
+        if (kind === 'supp') confSupp.push(entry);
+        else if (kind === 'substance') confSubs.push(entry);
+        else confDrug.push(entry);
       }
     }
 
-    // Синергии — поле friends (если есть)
-    for (let i = 0; i < ids.length; i++) {
-      for (let j = i + 1; j < ids.length; j++) {
-        const a = byId[ids[i]], b = byId[ids[j]];
-        checkFriend(a, b, synergies);
-        checkFriend(b, a, synergies);
-      }
-    }
+    // Синергии — если кто-то из выбранных в списке «with» у другого
+    // (пока без friends — оставляем пусто, будет позже)
 
     // Особые состояния
     const state = $('pPregnant').value;
@@ -470,15 +508,20 @@
     $('kpiBelow').querySelector('.val').textContent = cntBelow;
     $('kpiUl').querySelector('.val').textContent = cntUl;
 
-    // Конфликты
-    $('cntConf').textContent = conflicts.length;
-    $('confList').innerHTML = conflicts.length
-      ? conflicts.map(c => `
-          <div class="block-item sev-${c.severity}">
-            <div class="pair">${c.pair}</div>
-            <div class="note">${c.note}</div>
-          </div>`).join('')
-      : '<div class="empty">—</div>';
+    // Хелпер рендера
+    function renderConf(list, cntId, listId) {
+      $(cntId).textContent = list.length;
+      $(listId).innerHTML = list.length
+        ? list.map(c => `
+            <div class="block-item sev-${c.severity}">
+              <div class="pair"><b>${c.from}</b> × ${c.with}</div>
+              <div class="note">${c.note}</div>
+            </div>`).join('')
+        : '<div class="empty">—</div>';
+    }
+    renderConf(confSupp, 'cntConfSupp', 'confListSupp');
+    renderConf(confDrug, 'cntConfDrug', 'confListDrug');
+    renderConf(confSubs, 'cntConfSubs', 'confListSubs');
 
     // Синергии
     $('cntSyn').textContent = synergies.length;
@@ -495,39 +538,6 @@
     $('warnList').innerHTML = warnings.length
       ? warnings.map(w => `<div class="block-item sev-${w.severity}">${w.text}</div>`).join('')
       : '<div class="empty">—</div>';
-  }
-
-  // Проверка: есть ли y в interactions карточки x
-  function checkInteraction(a, b, out) {
-    const i = a.interactions || [];
-    const b_lower = b.id.toLowerCase();
-    const b_short = b_lower.split(/[\s(]/)[0];
-    for (const item of i) {
-      const w = (item.with || '').toLowerCase();
-      if (w.includes(b_short) || b_lower.includes(w) || w === b_lower) {
-        // не дублируем
-        if (out.some(x => x.pair === `${a.id} × ${b.id}` || x.pair === `${b.id} × ${a.id}`)) return;
-        out.push({
-          pair: `${a.id} × ${b.id}`,
-          severity: item.severity || 'low',
-          note: item.note || '',
-        });
-      }
-    }
-  }
-  function checkFriend(a, b, out) {
-    const f = a.friends || a.synergies || [];
-    const b_lower = b.id.toLowerCase();
-    for (const item of f) {
-      const name = typeof item === 'string' ? item : (item.with || '');
-      if (name.toLowerCase().includes(b_lower)) {
-        if (out.some(x => x.pair === `${a.id} + ${b.id}`)) return;
-        out.push({
-          pair: `${a.id} + ${b.id}`,
-          note: typeof item === 'string' ? '' : (item.note || ''),
-        });
-      }
-    }
   }
 
   // ── Кнопки ────────────────────────────────────────
