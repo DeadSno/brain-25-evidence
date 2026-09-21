@@ -189,6 +189,7 @@ scripts/update_radar_*.py
 # О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫ О©╫О©╫О©╫О©╫О©╫О©╫О©╫ (О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫ О©╫О©╫О©╫ О©╫О©╫О©╫О©╫О©╫О©╫/О©╫О©╫О©╫О©╫О©╫О©╫)
 scripts/clean_*.py
 scripts/update_*.py
+!scripts/update_all.py
 # brain-25-evidence: runtime reports
 reports/.last_validation
 reports/validation_report.json
@@ -203,9 +204,9 @@ data/raw/*
 docs/data.json.bak-*
 reports/metrics_report.json
 
-docs/р.md
+docs/О©╫.md
 
-docs/српн.md
+docs/О©╫О©╫О©╫О©╫.md
 
 docs/*.bak-*
 
