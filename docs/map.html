@@ -318,6 +318,13 @@ function select(id, push){
   $('chain').innerHTML = html;
 }
 
+// ── XSS protection ─────────────────────────────────────────────
+function esc(s) {
+  return String(s == null ? '' : s).replace(/[&<>"']/g, c => (
+    { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
+  ));
+}
+
 fetch('data.json?ts=' + Date.now())
   .then(r => { if (!r.ok) throw new Error('no data'); return r.json(); })
   .then(data => {
@@ -428,11 +435,6 @@ document.addEventListener('click', e => {
   });
 
   // ── Helpers ──────────────────────────────────────────────────
-  function esc(s) {
-    return String(s == null ? '' : s).replace(/[&<>"']/g, c => (
-      { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
-    ));
-  }
   // грубый «стеммер»: первые 5 символов как корень (для рус.)
   function stem(w) {
     return w.length >= 6 ? w.slice(0, 5) : w;
