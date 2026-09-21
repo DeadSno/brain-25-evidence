@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ru">
 <head>
   <script defer src="version.js"></script>
@@ -95,8 +95,30 @@ try {
 <h3>Можно ли полностью полагаться на вердикты?</h3>
 <p>Вердикты — ручная оценка на основе абстрактов систематических обзоров, а не клиническая рекомендация. Ограничения: мы читаем абстракты, а не полные тексты; часть обзоров сама имеет низкое качество. Для решений о приёме консультируйтесь с врачом. Проект не даёт медицинских рекомендаций — только данные.</p>
 </section>
+<h2 style="margin-top:2rem">🧮 Калькулятор БАДов</h2>
+
+<details class="qa">
+  <summary>Как работает калькулятор?</summary>
+  <p>Выбираете добавки → задаёте вес, пол, возраст, состояние → калькулятор показывает: дозы (для weight_based — пересчитываются по весу), конфликты с лекарствами, синергии из 16 проверенных пар, предупреждения (железо у мужчин, 60+, беременность).</p>
+</details>
+
+<details class="qa">
+  <summary>Можно ли сохранить свой набор?</summary>
+  <p>Да. Набор сохраняется в localStorage (браузер), плюс есть кнопка «Скопировать ссылку» — URL вида <code>?list=Креатин:5,Омега-3:2</code> восстанавливает список в любом браузере.</p>
+</details>
+
+<details class="qa">
+  <summary>Откуда берутся дозы и конфликты?</summary>
+  <p>Дозы — из <code>dosage_parsed.json</code> (81 карточка, распарсено из поля <code>dosage</code> + ручные для 5 карточек). Конфликты — из поля <code>interactions</code> в data.json (81 карточка × до 4 пар, с severity).</p>
+</details>
+
+<details class="qa">
+  <summary>Это медицинская рекомендация?</summary>
+  <p>Нет. Калькулятор показывает дозы из исследований и известные конфликты, но не учитывает вашу историю болезней, лекарства и анализы. Для решений — к врачу.</p>
+</details>
+
 <footer style="margin-top:2rem;padding-top:1rem;border-top:1px solid var(--border);font-size:.8rem;opacity:.75">
-  <p><a href="index.html">← Дашборд «БАДы: цена vs наука»</a></p>
+  <p><a href="index.html">← Дашборд «БАДы: что работает, а что нет»</a></p>
   <p>v<span data-version="app"></span> · источники: PubMed, OpenAlex, Wikimedia, ClinicalTrials.gov</p>
   <p style="margin-top:.6rem;font-size:.85rem;opacity:.85">© 2026 Vladislav "DeadSno" Pereshivalov</p>
 </footer>

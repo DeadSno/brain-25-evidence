@@ -21,7 +21,7 @@ try {
 </head>
 <body>
 <header>
-  <h1><a href="index.html" style="color:inherit;text-decoration:none" title="На главную">📚 Методология аудита v<span data-version="audit"></span></a></h1>
+  <h1><a href="index.html" style="color:inherit;text-decoration:none" title="На главную">📚 Методология аудита</a></h1>
   <div class="hdr">
     <a class="btn" href="index.html">← Назад к дашборду</a>
     <a class="btn" href="interactions.html">🔗 Карта связей</a>
@@ -31,7 +31,9 @@ try {
 
 <section style="background:var(--card-bg);padding:1.5rem;border-radius:12px;border:1px solid var(--border);margin-bottom:1.5rem">
 <h2>Что такое аудит v<span data-version="audit"></span></h2>
-<p><b>Аудит v<span data-version="audit"></span> — это полная ручная верификация 81 добавки</b> по <b>адаптированной методологии PRISMA</b> (Preferred Reporting Items for Systematic Reviews and Meta-Analyses): реализовано 5 из 27 пунктов чеклиста — идентификация, скрининг, включение, оценка источников, синтез. Что мы <b>не</b> делаем: не читаем полные тексты (только абстракты топ-15), не проводим двойной слепой скрининг, не регистрируем протокол в PROSPERO. Это осознанное упрощение ради охвата 81 добавки силами одного человека. Каждая добавка прошла через:</p>
+<p><b>Аудит — это полная ручная верификация 81 добавки</b> по <b>адаптированной методологии PRISMA</b> (Preferred Reporting Items for Systematic Reviews and Meta-Analyses). Мы реализовали <b>6 ключевых этапов</b>: идентификация → скрининг → дедупликация → чтение абстрактов → оценка источников → синтез.
+<br><br>
+<b>Что мы не делаем:</b> не читаем полные тексты (только абстракты топ-15), не проводим двойной слепой скрининг, не регистрируем протокол в PROSPERO, не оцениваем риск систематической ошибки формально. Это осознанное упрощение ради охвата 81 добавки силами одного человека. Каждая добавка прошла через:</p>
 <ol style="margin:.6rem 0 1rem 1.5rem;line-height:1.8">
   <li><b>Поиск в PubMed</b> — систематические обзоры и мета-анализы (MA/SR)</li>
   <li><b>Скрининг</b> — фильтрация по релевантности</li>
@@ -103,20 +105,9 @@ try {
 <p>Это честное распределение: не "всё работает", а реальная картина доказательности.</p>
 </section>
 
-<section style="background:var(--card-bg);padding:1.5rem;border-radius:12px;border:1px solid var(--border)">
-<details>
-<summary style="cursor:pointer;font-weight:600;padding:.4rem 0">История разработки <span style="opacity:.6;font-weight:400">(до унификации в v1.0)</span></summary>
-<ul style="margin:.6rem 0 1rem 1.5rem;line-height:1.8">
-  <li><b>v3.1 (сентябрь 2026):</b> чистка docs/ (33 файла удалено, 4 MD перенесены), палитра грейдов (зелёный/лайм/янтарь/красный), обновление methodology.html</li>
-  <li><b>v3.0 (сентябрь 2026):</b> полный аудит 81/81 добавок, 14 коммитов, теги v3.0-audit-top20 и v3.0-audit-complete</li>
-  <li><b>v2.x (2025-2026):</b> автоматический индекс науки, Hedges' g из абстрактов, грейды по формуле</li>
-</ul>
-</details>
-</section>
-
 <footer style="margin-top:2rem;padding-top:1rem;border-top:1px solid var(--border);font-size:.8rem;opacity:.75">
-  <p><a href="index.html">← Дашборд «БАДы: цена vs наука»</a></p>
-  <p>v<span data-version="app"></span> · источники: PubMed (систематические обзоры и мета-анализы)</p>
+  <p><a href="index.html">← Дашборд «БАДы: что работает, а что нет»</a></p>
+  <p>v3.2 · источники: PubMed, OpenAlex, Wikipedia, ClinicalTrials.gov</p>
   <p style="margin-top:.6rem;font-size:.85rem;opacity:.85">© 2026 Vladislav "DeadSno" Pereshivalov</p>
 </footer>
 <script>
@@ -129,3 +120,4 @@ $('themeToggle').onclick = () => {
 </script>
 </body>
 </html>
+
