@@ -669,8 +669,8 @@ function bubbleRadii() {
   const R_SCALE = isMobile ? 1.0 : 2.5;
   const R_HOVER_SCALE = isMobile ? 1.4 : 3.5;
   return {
-    rFor:      (s) => Math.max(3, Math.min(R_MAX, Math.sqrt(s.metaCount || 1) * R_SCALE)),
-    rHoverFor: (s) => Math.max(4, Math.min(R_HOVER_MAX, Math.sqrt(s.metaCount || 1) * R_HOVER_SCALE)),
+    rFor:      (s) => Math.max(5, Math.min(R_MAX, Math.sqrt(s.metaCount || 1) * R_SCALE)),
+    rHoverFor: (s) => Math.max(7, Math.min(R_HOVER_MAX, Math.sqrt(s.metaCount || 1) * R_HOVER_SCALE)),
   };
 }
 
@@ -681,6 +681,11 @@ function renderBubble(data) {
     ? data.filter(s => (s.price || 0) > 0)
     : data.filter(s => { const v = axisVal(s); return v != null && v > 0; });
   const nullPrice = isPrice ? data.filter(s => !((s.price || 0) > 0)) : [];
+  // Явный max по данным для X-оси (Chart.js на лог-шкале оставляет большой запас)
+  // min/max по данным — плотная посадка точек в обоих табах
+  const xVals = priced.map(s => axisVal(s)).filter(v => v != null && v > 0);
+  const xMax = xVals.length ? xVals.reduce((m, v) => Math.max(m, v), 1) : 1;
+  const xMin = xVals.length ? xVals.reduce((m, v) => Math.min(m, v), Infinity) : 1;
   chartPts = priced.concat(nullPrice);
   if (isPrice) {
     $('chartNote').textContent = nullPrice.length
@@ -743,12 +748,13 @@ function renderBubble(data) {
     })).concat(bandDatasets) },
     options: {
       responsive: true, maintainAspectRatio: false,
+      layout: { padding: { left: 12, right: 8, top: 4, bottom: 4 } },
       scales: {
         x: isPrice
           ? { title: { display: true, text: AXIS_LABEL[axisX], color: txt },
               grid: { color: 'rgba(128,128,128,.15)' },
               max: band ? band.hi * 1.02 : undefined }
-          : { type: 'logarithmic', min: 1,
+          : { type: 'logarithmic', min: xMin * 0.75, max: xMax * 1.25,
               title: { display: true, text: AXIS_LABEL[axisX] + ' (лог)', color: txt },
               grid: { color: 'rgba(128,128,128,.15)' },
               ticks: { callback: v => [1, 10, 100, 1000, 10000].includes(v) ? v : '' } },
