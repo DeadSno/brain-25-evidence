@@ -9,6 +9,7 @@
 ![supplements](https://img.shields.io/badge/supplements-81-orange)
 ![tests](https://img.shields.io/badge/tests-112%20passed-brightgreen)
 ![license](https://img.shields.io/badge/license-MIT-green)
+![CI](https://github.com/DeadSno/brain-25-evidence/actions/workflows/tests.yml/badge.svg)
 
 ![Превью дашборда](docs/og.png)
 
