@@ -680,7 +680,7 @@ function esc(s) {
         ? list.map(c => `
             <div class="block-item sev-${esc(c.severity)}">
               <div class="pair"><b>${esc(c.from)}</b> × ${esc(c.with)}</div>
-              <div class="note">${esc(c.note)}</div>
+              <div class="note">${esc(c.note || '')}</div>
             </div>`).join('')
         : '<div class="empty">—</div>';
     }
