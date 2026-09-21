@@ -362,6 +362,12 @@ body { padding: 1.5rem 1.5rem 0 !important; margin: 0 !important; }
 </footer>
 
 <script>
+// ── XSS protection ─────────────────────────────────────────────
+function esc(s) {
+  return String(s == null ? '' : s).replace(/[&<>"']/g, c => (
+    { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
+  ));
+}
 const state = {
   mode: 'supplements',
   graph: null,
@@ -508,7 +514,7 @@ function renderSidebar(id) {
         note: e.note
       }));
     sidebar.innerHTML =
-      '<div class="sb-head"><h2>' + id + '</h2>' +
+      '<div class="sb-head"><h2>' + esc(id) + '</h2>' +
       '<button class="sb-close" data-close>×</button></div>' +
       '<div class="sb-meta">Лекарственный класс</div>' +
       '<div class="sb-section"><h3>Связанные добавки (' + related.length + ')</h3>' +
@@ -536,9 +542,9 @@ function renderSidebar(id) {
                          supp.code === -1 ? 'не подтверждено' : '';
 
     sidebar.innerHTML =
-      '<div class="sb-head"><h2>' + supp.label + '</h2>' +
+      '<div class="sb-head"><h2>' + esc(supp.label) + '</h2>' +
       '<button class="sb-close" data-close>×</button></div>' +
-      '<div class="sb-meta">' + [gradeLabel, verdictLabel].filter(Boolean).join(' · ') + '</div>' +
+      '<div class="sb-meta">' + esc([gradeLabel, verdictLabel].filter(Boolean).join(' · ')) + '</div>' +
       '<div class="sb-section"><h3>Связи (' + related.length + ')</h3>' +
       '<ul class="sb-links">' +
       related.map(r =>
@@ -705,7 +711,7 @@ fetch('interactions_graph.json')
   .catch(err => {
     document.getElementById('graph').innerHTML =
       '<p style="padding:2rem;color:#e53935">Не удалось загрузить interactions_graph.json: ' +
-      err.message + '</p>';
+      esc(err.message) + '</p>';
   });
 
 // ── Haptic feedback (Android) ───────────────────────

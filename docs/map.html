@@ -331,8 +331,8 @@ fetch('data.json?ts=' + Date.now())
     let closed = [];
     try { closed = JSON.parse(localStorage.getItem('mapClosed') || '[]'); } catch(e){}
     $('list').innerHTML = Object.keys(cats).sort().map(c =>
-      '<div class="cat' + (closed.includes(c) ? ' closed' : '') + '"><h3>' + c + ' ▾</h3>' +
-      cats[c].map(s => '<span class="chip" data-id="' + s.id + '">' + s.name + '</span>').join('') +
+      '<div class="cat' + (closed.includes(c) ? ' closed' : '') + '"><h3>' + esc(c) + ' ▾</h3>' +
+      cats[c].map(s => '<span class="chip" data-id="' + esc(s.id) + '">' + esc(s.name) + '</span>').join('') +
       '</div>').join('');
     const p = new URLSearchParams(location.search).get('supplement');
     select(p && SUPS.some(s => s.id === p) ? p : 'Креатин', false);

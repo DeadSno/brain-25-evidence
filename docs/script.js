@@ -1,3 +1,8 @@
+function esc(s) {
+  return String(s == null ? '' : s).replace(/[&<>"']/g, c => (
+    { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
+  ));
+}
 const $ = id => document.getElementById(id);
 let supplements = [], currentData = [], chartInstance = null, radarInstance = null, onlyFavs = false;
 let effectTags = {}, effectLabels = {};
@@ -55,7 +60,7 @@ function manualBadge(s) {
 function updatedLine(s) {
   const fromVersion = (window.APP_VERSION && window.APP_VERSION.data) || null;
   const d = fromVersion || s.updated || '—';
-  return '<div class="updated" title="Дата последнего обновления данных проекта">Обновлено: ' + d + '</div>';
+  return '<div class="updated" title="Дата последнего обновления данных проекта">Обновлено: ' + esc(d) + '</div>';
 }
 
 // ===== v2.6: иконки источников =====
@@ -166,7 +171,7 @@ Promise.allSettled([fetchJson('data.json'), fetchJson('effect_tags.json'), fetch
     if (lb.status !== 'fulfilled') console.warn('[effect_labels.json] ?? ???????? ? ???? ?????????');
     initApp();
   })
-  .catch((err) => { console.error('[boot] фатально:', err); document.body.innerHTML = '<p style="color:red">❌ ' + (err && err.message ? err.message : err) + '</p>'; });
+  .catch((err) => { console.error('[boot] фатально:', err); document.body.innerHTML = '<p style="color:red">❌ ' + esc(err && err.message ? err.message : err) + '</p>'; });
 
 function initApp() {
   BEST = supplements.filter(s => s.scienceIndex != null).sort((x, y) => y.scienceIndex - x.scienceIndex).slice(0, 3).map(s => s.id);
@@ -467,7 +472,7 @@ function renderActiveFilters() {
   if (!chips.length) { box.innerHTML = ''; return; }
 
   box.innerHTML = chips.map(c =>
-    '<span class="activeFilter" data-clear="' + c.clear + '">' + c.label +
+    '<span class="activeFilter" data-clear="' + esc(c.clear) + '">' + esc(c.label) +
     ' <span class="activeFilterX">×</span></span>'
   ).join('') + '<button class="activeFilterClear" id="clearAllFilters">Очистить</button>';
 
@@ -482,14 +487,14 @@ function renderCards(data) {
   const g = $('cardsGrid');
   if (!data.length) { g.innerHTML = '<div class="empty">🔍 Ничего не найдено. ' +
       '<button id="resetAll" class="favFilter">✖ Сбросить фильтры</button></div>'; return; }
-  g.innerHTML = data.map(s => '<div class="card" data-id="' + s.id + '">' +
-    '<button class="favBtn' + (isFav(s.id) ? ' on' : '') + '" data-fav="' + s.id + '" title="В избранное">' + (isFav(s.id) ? '★' : '☆') + '</button>' +
+  g.innerHTML = data.map(s => '<div class="card" data-id="' + esc(s.id) + '">' +
+    '<button class="favBtn' + (isFav(s.id) ? ' on' : '') + '" data-fav="' + esc(s.id) + '" title="В избранное">' + (isFav(s.id) ? '★' : '☆') + '</button>' +
     (BEST.includes(s.id) ? '<span class="bestBadge">🔬 Топ-3 по доказательности</span>' : '') +
-    '<span class="cat">' + (s.category || '') + '</span><h3>' + s.name + '</h3>' +
+    '<span class="cat">' + esc(s.category || '') + '</span><h3>' + esc(s.name) + '</h3>' +
     updatedLine(s) + manualBadge(s) +
-    '<div class="verdict v' + s.code + '">' + s.verdict + '</div>' + gradeBadge(s) +     '<div class="effects">' + (s.effects || []).map(e => '<span>' + e + '</span>').join('') + '</div>' +
+    '<div class="verdict v' + esc(s.code) + '">' + esc(s.verdict) + '</div>' + gradeBadge(s) +     '<div class="effects">' + (s.effects || []).map(e => '<span>' + esc(e) + '</span>').join('') + '</div>' +
     '<div class="tagChips">' + (effectTags[s.id] || []).map(t =>
-      '<span class="tagChip" data-tag="' + t + '" title="' + (effectLabels[t] || t) + '">' + (effectLabels[t] || t) + '</span>'
+      '<span class="tagChip" data-tag="' + esc(t) + '" title="' + esc(effectLabels[t] || t) + '">' + esc(effectLabels[t] || t) + '</span>'
     ).join('') + '</div></div>').join('');
   g.querySelectorAll('.card').forEach(el => el.onclick = (e) => {
     if (e.target.closest('a')) return;
@@ -519,8 +524,8 @@ function openModal(id) {
       '</div>'
     : '';
 
-  $('modalBody').innerHTML = '<h2>' + s.name + '</h2>' + updatedLine(s) + manualBadge(s) +
-    '<div class="mrow"><span class="verdict v' + s.code + '">' + s.verdict + '</span> · ' + (s.category || '') + (s.grade ? ' · <span class="grade g' + s.grade + '">грейд ' + s.grade + '</span> · ' + (GRADE_LABEL[s.grade] || '') : '') + '</div>' +     '<div class="mrow">' + scienceSpan(s) + pubmedLink(s) + ' · ' + maSpan(s) + '</div>' +
+  $('modalBody').innerHTML = '<h2>' + esc(s.name) + '</h2>' + updatedLine(s) + manualBadge(s) +
+    '<div class="mrow"><span class="verdict v' + esc(s.code) + '">' + esc(s.verdict) + '</span> · ' + esc(s.category || '') + (s.grade ? ' · <span class="grade g' + esc(s.grade) + '">грейд ' + esc(s.grade) + '</span> · ' + esc(GRADE_LABEL[s.grade] || '') : '') + '</div>' +     '<div class="mrow">' + scienceSpan(s) + pubmedLink(s) + ' · ' + maSpan(s) + '</div>' +
     maTop3Block(s) +    trialsLine +
     calcLine +
     (s.citations != null ? '<div class="mrow">📖 Цитирований ключевого MA: ' + s.citations + '</div>' : '') +
@@ -761,8 +766,8 @@ function renderCompare() {
     ['Курс', a.course ?? '—', b.course ?? '—'],
     ['⚠️ Осторожно', a.caution ?? '—', b.caution ?? '—']
   ];
-  $('compareResult').innerHTML = '<table><tr><th>Параметр</th><th>' + a.name + '</th><th>' + b.name + '</th></tr>' +
-    rows.map(r => '<tr><td>' + r[0] + '</td><td>' + r[1] + '</td><td>' + r[2] + '</td></tr>').join('') + '</table>';
+  $('compareResult').innerHTML = '<table><tr><th>Параметр</th><th>' + esc(a.name) + '</th><th>' + esc(b.name) + '</th></tr>' +
+    rows.map(r => '<tr><td>' + esc(r[0]) + '</td><td>' + esc(r[1]) + '</td><td>' + esc(r[2]) + '</td></tr>').join('') + '</table>';
 
   // F4: перцентиль внутри метрики по базе (0-100); значение 100% — максимум базы
   const pctile = (x, arr) => {

@@ -3,9 +3,9 @@
 > Интерактивный дашборд и карта механизмов для 81 биологически активной добавки.
 > Вердикты по мета-анализам PubMed, механизмы, атлас, карта связей, активные клинические испытания.
 
-[Открыть сайт](https://deadsno.github.io/brain-25-evidence/) | [Карта механизмов](https://deadsno.github.io/brain-25-evidence/map.html) | [Карта связей](https://deadsno.github.io/brain-25-evidence/interactions.html) | [Атлас](https://deadsno.github.io/brain-25-evidence/atlas.html) | [Задать вопрос](https://github.com/DeadSno/brain-25-evidence/issues/new/choose)
+[Открыть сайт](https://deadsno.github.io/brain-25-evidence/) | [🧮 Калькулятор](https://deadsno.github.io/brain-25-evidence/calculator.html) | [Карта механизмов](https://deadsno.github.io/brain-25-evidence/map.html) | [Карта связей](https://deadsno.github.io/brain-25-evidence/interactions.html) | [Атлас](https://deadsno.github.io/brain-25-evidence/atlas.html) | [Задать вопрос](https://github.com/DeadSno/brain-25-evidence/issues/new/choose)
 
-![version](https://img.shields.io/badge/version-v3.1-blue)
+![version](https://img.shields.io/badge/version-v3.2-blue)
 ![supplements](https://img.shields.io/badge/supplements-81-orange)
 ![tests](https://img.shields.io/badge/tests-112%20passed-brightgreen)
 ![license](https://img.shields.io/badge/license-MIT-green)
@@ -16,7 +16,7 @@
 ---
 
 
-## 🎯 Аудит данных v3.1 (сентябрь 2026)
+## 🎯 Аудит данных v3.2 (сентябрь 2026)
 
 **81/81 добавка** — полная ручная верификация по методологии PRISMA:
 
@@ -30,10 +30,12 @@
 **Что сделано в v3.x:**
 - **Q1.4**: adv-поля 81/81 (about, who_needs, onset, myths, food_sources, guidelines, how_to_choose)
 - **Механизмы**: 81/81, среднее 3.07 на карточку
-- **Hedges' g**: 63/81 (59 с CI)
-- **Аудит 30 карточек**: группы A/B/C/D — 0 критичных
+- **Hedges' g**: 63/81 (59 с CI), двухпроходный алгоритм без cross-matching
+- **Аудиты q14 D1/D2**: 5 + 10 PMIDs заменены свежими, follow-up по 51 карточке
 - **DOI**: 236 key_sources обогащены через PubMed esummary
+- **`audit_stale.py`**: квартальный аудит PMIDs >5 лет (8 карточек без свежих МА — оставлены сознательно)
 - Методология: [methodology.html](docs/methodology.html)
+- Архитектура: [ARCHITECTURE.md](ARCHITECTURE.md)
 
 ---
 
@@ -139,7 +141,7 @@
 
 ---
 
-## Данные (v1.2, сентябрь 2026)
+## Данные (сентябрь 2026)
 
 | Метрика | Значение |
 |---|---|
@@ -147,7 +149,7 @@
 | Категорий | 8: когниция, сон, спорт, иммунитет, настроение, кожа/суставы, кишечник, общее |
 | Учёных работ учтено | 2000+ (РКИ и мета-анализы PubMed) |
 | Активных испытаний | проверены все 81 добавка |
-| Источники науки | PubMed E-utilities, OpenAlex, Semantic Scholar |
+| Источники науки | PubMed E-utilities, OpenAlex, Wikipedia, ClinicalTrials.gov |
 
 ---
 
@@ -252,6 +254,17 @@ python docs/serve.py
 ### Просто поддержать
 
 Звёздочка на GitHub и ссылка друзьям — уже помощь.
+
+---
+
+## Документация
+
+- [ARCHITECTURE.md](ARCHITECTURE.md) — как устроен проект: PubMed → data.json → HTML
+- [CONTRIBUTING.md](CONTRIBUTING.md) — как внести вклад: правила данных, PR-процесс
+- [DATA_SOURCES.md](DATA_SOURCES.md) — откуда данные, лицензии, как воспроизвести
+- [CHANGELOG.md](CHANGELOG.md) — история версий
+- [ROADMAP.md](ROADMAP.md) — планы
+- [methodology.html](docs/methodology.html) — методология расчёта индекса и грейдов
 
 ---
 
