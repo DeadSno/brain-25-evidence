@@ -1,0 +1,81 @@
+name: sync version.json (tests count)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tests/**'
+      - 'docs/version.json'
+      - '.github/workflows/sync_version.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync-tests-count:
+    runs-on: ubuntu-latest
+    # Не запускаем на собственные коммиты (защита от loop)
+    if: github.actor != 'github-actions[bot]'
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-dev.txt
+
+      - name: Count collected tests
+        id: count
+        run: |
+          COUNT=$(python -m pytest --co -q 2>/dev/null | tail -1 | grep -oP '\d+(?= test)' || echo "0")
+          echo "count=$COUNT" >> "$GITHUB_OUTPUT"
+          echo "Собрано тестов: $COUNT"
+
+      - name: Update version.json if needed
+        run: |
+          python - <<'PY'
+          import json, os, sys
+          from pathlib import Path
+
+          count = int(os.environ["NEW_COUNT"])
+          path = Path("docs/version.json")
+          data = json.loads(path.read_text(encoding="utf-8"))
+          old = data.get("tests")
+
+          if old == count:
+              print(f"[OK] version.json.tests = {count} (не изменилось)")
+              sys.exit(0)
+
+          data["tests"] = count
+          # Сохраняем в стиле файла (2-space indent, ensure_ascii=False, LF)
+          path.write_text(
+              json.dumps(data, ensure_ascii=False, indent=2) + "\n",
+              encoding="utf-8",
+          )
+          print(f"[OK] version.json.tests: {old} → {count}")
+          PY
+        env:
+          NEW_COUNT: ${{ steps.count.outputs.count }}
+
+      - name: Commit & push if changed
+        run: |
+          if git diff --quiet docs/version.json; then
+            echo "[SKIP] нет изменений"
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/version.json
+          git commit -m "chore(ci): version.json.tests → $(python -c 'import json; print(json.load(open(\"docs/version.json\"))[\"tests\"])')"
+          git push
