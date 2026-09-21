@@ -13,7 +13,7 @@ jobs:
         with: {python-version: "3.12"}
       - run: pip install requests pytest
       - run: python scripts/audit_links.py
-      - run: pytest tests/test_prices_guards.py tests/test_schema.py -q
+      - run: pytest tests/test_schema.py tests/test_site_data.py -q
       - name: issue on failure
         if: failure()
         env: {GH_TOKEN: "${{ secrets.GITHUB_TOKEN }}"}
