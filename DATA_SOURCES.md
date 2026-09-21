@@ -1,190 +1,131 @@
-Источники данных
-Все данные в проекте — из открытых источников. Никаких платных баз, никаких «серых» выгрузок.
+# Источники данных
 
-Принцип: любой читатель может повторить запрос и получить тот же результат.
+Все данные — из открытых API. Никаких платных баз, никаких «серых» выгрузок.
 
-Сводная таблица
-Источник	Что берём	API	Лицензия / ToS	Файлы
-PubMed (NCBI)	PMIDs, метаданные статей, abstracts, типы публикаций	E-utilities (esearch, esummary, efetch)	Public domain (US Gov), NCBI ToS	data/raw/pubmed_evidence.csv, docs/data_pubmed_terms.json
-OpenAlex	Цитирования (cited_by_count)	REST API v1	CC0 (public domain)	в data.json → citations
-Wikipedia	Просмотры страниц (pageviews)	REST API (/metrics/pageviews)	CC BY-SA 3.0	в data.json → wiki_views
-ClinicalTrials.gov	Активные испытания	API v2 (/api/v2/studies)	Public domain	в data.json → ongoing
-DOI.org	Метаданные DOI (для key_sources)	Content Negotiation	Открытый	в data.json → key_sources[].doi
-1. PubMed / NCBI E-utilities
-Что берём:
+**Принцип:** любой может повторить запрос и получить тот же результат.
 
-PMIDs по поисковым запросам (81 запрос — по одному на добавку)
+## 1. PubMed (NCBI E-utilities)
 
-Тип публикации: Meta-Analysis, Randomized Controlled Trial, Review
+**Берём:** PMIDs, типы публикаций (MA, RCT), abstracts.
 
-Abstract (для ручного анализа)
+**Эндпоинты:**
+- `esearch` — поиск PMIDs
+- `esummary` — метаданные
+- `efetch` — abstracts
 
-Эндпоинты:
+**База:** `https://eutils.ncbi.nlm.nih.gov/entrez/eutils/`
 
-text
-esearch:  https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi
-esummary: https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi
-efetch:   https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi
-Параметры запроса (пример для Креатина):
-
-text
+**Пример запроса (Креатин):**
+```
 db=pubmed
 term=creatine[Title/Abstract] AND (meta-analysis[PT] OR randomized controlled trial[PT])
 retmax=200
 retmode=json
-Все 81 запроса лежат в docs/data_pubmed_terms.json — их можно перепроверить вручную.
+```
 
-ToS: NCBI просит:
+**Все 81 запрос:** `docs/data_pubmed_terms.json`
 
-не более 3 запросов/сек без API key
+**ToS:** ≤3 req/s без API key, ≤10 с key, указывать `tool` + `email`.
 
-не более 10 запросов/сек с API key
+**Код:** `scripts/fetch_metrics.py`
 
-указывать tool и email в запросе
+## 2. OpenAlex
 
-Наш код это соблюдает — см. scripts/fetch_metrics.py.
+**Берём:** количество цитирований топ-1 источника каждой добавки.
 
-Ограничения:
+**Эндпоинт:** `https://api.openalex.org/works/pmid:{PMID}`
 
-PubMed не отдаёт полный текст — только abstract
+**Параметры:** `select=id,doi,cited_by_count,publication_year`, `mailto=...` (polite pool).
 
-Ретракции не отслеживаются автоматически
+**Лицензия:** CC0.
 
-2. OpenAlex
-Что берём:
+**Лимиты:** 100 000/день, 10/сек. Мы делаем ~81 запрос.
 
-Количество цитирований для топ-1 ключевого источника каждой добавки
+**Код:** `scripts/fetch_metrics.py`
 
-Эндпоинт:
+## 3. Wikipedia REST API
 
-text
-https://api.openalex.org/works/pmid:{PMID}
-Параметры:
+**Берём:** просмотры страницы за последние 30 дней.
 
-text
-select=id,doi,cited_by_count,publication_year
-mailto=your@email  # вежливое использование (polite pool)
-Лицензия: CC0 — данные в public domain.
-
-Лимиты: 100 000 запросов/день, 10 запросов/сек. Мы делаем ~81 запрос — с запасом.
-
-Код: scripts/fetch_metrics.py
-
-3. Wikipedia REST API
-Что берём:
-
-Просмотры страницы добавки за последние 30 дней (интерес аудитории)
-
-Эндпоинт:
-
-text
+**Эндпоинт:**
+```
 https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/{project}/{lang}/{title}/daily/{start}/{end}
-Пример (Креатин, en.wikipedia):
+```
 
-text
-en.wikipedia/all-access/user/Creatine/daily/20260801/20260831
-Лицензия: CC BY-SA 3.0 для контента, метрики — открытые.
+**Пример:** `en.wikipedia/all-access/user/Creatine/daily/20260801/20260831`
 
-Лимиты: 100 запросов/сек на IP, с User-Agent обязателен.
+**Лицензия:** CC BY-SA 3.0.
 
-Код: scripts/fetch_metrics.py
+**Лимиты:** 100/сек, User-Agent обязателен.
 
-4. ClinicalTrials.gov
-Что берём:
+**Код:** `scripts/fetch_metrics.py`
 
-Число активных испытаний по добавке (статус: RECRUITING, ACTIVE_NOT_RECRUITING)
+## 4. ClinicalTrials.gov
 
-Эндпоинт:
+**Берём:** число активных испытаний (RECRUITING, ACTIVE_NOT_RECRUITING).
 
-text
-https://clinicaltrials.gov/api/v2/studies
-Параметры:
+**Эндпоинт:** `https://clinicaltrials.gov/api/v2/studies`
 
-text
-query.term=creatine
-filter.overallStatus=RECRUITING|ACTIVE_NOT_RECRUITING
-countTotal=true
-Лицензия: Public domain (US Gov).
+**Параметры:** `query.term=...`, `filter.overallStatus=...`, `countTotal=true`.
 
-Лимиты: нет жёстких, но есть rate limit 50/сек.
+**Лицензия:** Public domain (US Gov).
 
-Код: scripts/fetch_metrics.py
+**Код:** `scripts/fetch_metrics.py`
 
-5. DOI.org
-Что берём:
+## 5. DOI.org
 
-Метаданные DOI (title, journal, year) для валидации key_sources
+**Берём:** метаданные DOI (title, journal, year) — для валидации `key_sources`.
 
-Эндпоинт:
+**Эндпоинт:** `https://doi.org/{DOI}` + заголовок `Accept: application/vnd.citationstyles.csl+json`
 
-text
-https://doi.org/{DOI}
-Accept: application/vnd.citationstyles.csl+json
-Лицензия: открытая.
+**Код:** `scripts/enrich_dois.py`
 
-Код: scripts/enrich_dois.py
+## Что НЕ используем
 
-Что НЕ используем (и почему)
-Источник	Почему нет
-Cochrane Library	Платный доступ к полным обзорам
-UpToDate	Платный
-Google Scholar	Запрещает скрейпинг, ToS нарушать не будем
-Scopus / Web of Science	Платные
-Роспотребнадзор / РЛС	Нет открытых API
-Wildberries / Ozon	ToS запрещает автоматические запросы
-Бренды БАДов	Маркетинговые данные, не evidence
-Как воспроизвести
-Полный пайплайн
-bash
+- **Cochrane Library** — платный доступ к полным обзорам
+- **UpToDate** — платный
+- **Google Scholar** — запрещает скрейпинг
+- **Scopus / Web of Science** — платные
+- **Wildberries / Ozon** — ToS запрещает автозапросы
+- **Бренды БАДов** — маркетинг, не evidence
+
+## Как воспроизвести
+
+Полный пайплайн:
+```bash
 python scripts/update_all.py --apply
-Это последовательно дёргает 4 источника: PubMed → OpenAlex → Wikipedia → ClinicalTrials → DOI.
+```
 
-Отдельные шаги
-bash
-# Только PubMed-метрики
-python scripts/fetch_metrics.py --all --apply
+Отдельные шаги:
+```bash
+python scripts/fetch_metrics.py --all --apply                      # всё
+python scripts/fetch_metrics.py --all --apply --metrics citations  # только OpenAlex
+python scripts/fetch_metrics.py --all --apply --metrics wiki       # только Wikipedia
+```
 
-# Только цитирования (OpenAlex)
-python scripts/fetch_metrics.py --all --apply --metrics citations
-
-# Только Wikipedia pageviews
-python scripts/fetch_metrics.py --all --apply --metrics wiki
-Прямая проверка одной добавки
-bash
-# 1. PMIDs
+Проверка одной добавки напрямую:
+```bash
 curl "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=creatine[Title/Abstract]+AND+meta-analysis[PT]&retmode=json"
-
-# 2. Цитирования
 curl "https://api.openalex.org/works/pmid:34567890?mailto=test@example.com"
+```
 
-# 3. Просмотры
-curl "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Creatine/daily/20260801/20260831"
-Резервные копии
-Каждый прогон update_all.py пишет лог в reports/update_all_<timestamp>.log.
+## Резервные копии
 
-Snapshot data.json — в tests/snapshot_data.json. Любое изменение фиксируется в git.
+- Логи: `reports/update_all_<timestamp>.log`
+- Snapshot: `tests/snapshot_data.json`
+- История правок: `git log --oneline docs/data.json`
 
-История данных: git log --oneline docs/data.json — полная история правок.
+## Юридический дисклеймер
 
-Юридический дисклеймер
-Проект не является медицинским советом. Все данные — из открытых публикаций, но:
+Проект **не является медицинским советом**.
 
-PubMed abstracts могут содержать ошибки в исходных статьях
+- PubMed abstracts могут содержать ошибки исходных статей
+- Проверяем только метаданные — не каждый abstract вручную
+- Verdict — авторская интерпретация, не заключение врача
 
-Мы не проверяем каждую статью вручную — только метаданные
+Подробнее: `methodology.html` на сайте.
 
-Verdict — авторская интерпретация, не заключение врача
+## Лицензии
 
-См. methodology.html на сайте — там полное описание методологии.
-
-Как сообщить о проблеме с источником
-Если нашли:
-
-Битая ссылка в key_sources → issue
-
-PMID не существует → issue с тегом data-error
-
-Нарушение ToS в нашем коде → issue с тегом bug — это серьёзно
-
-Лицензия данных
-Все данные — из открытых источников. Наш код — MIT. Данные в data.json можно использовать свободно с указанием источника.
+- Код: MIT
+- Данные: из открытых источников, используйте свободно с указанием источника
