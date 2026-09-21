@@ -33,7 +33,7 @@ SINGLE = ["за 30", "за час", "разово", "до задачи", "пер
 PER_WEEK = ["/нед", "в неделю"]
 
 
-def parse_dosage(text: str) -> dict:
+def parse_dosage(text: str) -> dict | None:
     """Извлекает числовой диапазон + единицу."""
     if not text or not isinstance(text, str):
         return None

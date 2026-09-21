@@ -1,0 +1,1241 @@
+{
+  "generated_at": "2026-09-21T06:42:08.330436+00:00",
+  "current_year": 2026,
+  "age_limit": 5,
+  "totals": {
+    "cards": 81,
+    "old_pmids": 86,
+    "cards_only_old": 8,
+    "cards_mixed": 44
+  },
+  "only_old": [
+    {
+      "id": "Тирозин",
+      "pmids": [
+        {
+          "pmid": "25797188",
+          "year": 2015,
+          "title": "Behavioral and cognitive effects of tyrosine intake in healthy human adults."
+        }
+      ]
+    },
+    {
+      "id": "ГАБА",
+      "pmids": [
+        {
+          "pmid": "33041752",
+          "year": 2020,
+          "title": "Effects of Oral Gamma-Aminobutyric Acid (GABA) Administration on Stress and Slee"
+        }
+      ]
+    },
+    {
+      "id": "Витамин C",
+      "pmids": [
+        {
+          "pmid": "17636648",
+          "year": 2007,
+          "title": "Vitamin C for preventing and treating the common cold."
+        },
+        {
+          "pmid": "28301692",
+          "year": 2017,
+          "title": "Vitamin C supplementation for the primary prevention of cardiovascular disease."
+        }
+      ]
+    },
+    {
+      "id": "Эхинацея",
+      "pmids": [
+        {
+          "pmid": "24554461",
+          "year": 2014,
+          "title": "Echinacea for preventing and treating the common cold."
+        },
+        {
+          "pmid": "31126553",
+          "year": 2019,
+          "title": "Echinacea for the prevention and treatment of upper respiratory tract infections"
+        },
+        {
+          "pmid": "16678640",
+          "year": 2006,
+          "title": "Echinacea in the prevention of induced rhinovirus colds: a meta-analysis."
+        }
+      ]
+    },
+    {
+      "id": "5-HTP",
+      "pmids": [
+        {
+          "pmid": "11687048",
+          "year": 2001,
+          "title": "Tryptophan and 5-hydroxytryptophan for depression."
+        },
+        {
+          "pmid": "31504850",
+          "year": 2020,
+          "title": "Effects of 5-hydroxytryptophan on distinct types of depression: a systematic rev"
+        }
+      ]
+    },
+    {
+      "id": "B9",
+      "pmids": [
+        {
+          "pmid": "26662928",
+          "year": 2015,
+          "title": "Effects and safety of periconceptional oral folate supplementation for preventin"
+        },
+        {
+          "pmid": "23543547",
+          "year": 2013,
+          "title": "Folic acid supplementation during pregnancy for maternal health and pregnancy ou"
+        }
+      ]
+    },
+    {
+      "id": "Боярышник",
+      "pmids": [
+        {
+          "pmid": "18254076",
+          "year": 2008,
+          "title": "Hawthorn extract for treating chronic heart failure."
+        },
+        {
+          "pmid": "12798455",
+          "year": 2003,
+          "title": "Hawthorn extract for treating chronic heart failure: meta-analysis of randomized"
+        }
+      ]
+    },
+    {
+      "id": "Хлорофилл",
+      "pmids": [
+        {
+          "pmid": "25844615",
+          "year": 2015,
+          "title": "Assessment of the safety and efficacy of topical copper chlorophyllin in women w"
+        },
+        {
+          "pmid": "21541030",
+          "year": 2011,
+          "title": "Inhibition of fried meat-induced colorectal DNA damage and altered systemic geno"
+        },
+        {
+          "pmid": "16417778",
+          "year": 2005,
+          "title": "Analysis of the therapeutic effect of sodium copper chlorophyllin tablet in trea"
+        },
+        {
+          "pmid": "12628519",
+          "year": 2003,
+          "title": "Chemoprevention with chlorophyllin in individuals exposed to dietary aflatoxin."
+        },
+        {
+          "pmid": "11724948",
+          "year": 2001,
+          "title": "Chlorophyllin intervention reduces aflatoxin-DNA adducts in individuals at high "
+        }
+      ]
+    }
+  ],
+  "mixed": [
+    {
+      "id": "Омега-3",
+      "old_pmids": [
+        {
+          "pmid": "32114706",
+          "year": 2020
+        }
+      ]
+    },
+    {
+      "id": "Магний",
+      "old_pmids": [
+        {
+          "pmid": "27402922",
+          "year": 2016
+        },
+        {
+          "pmid": "22318649",
+          "year": 2012
+        }
+      ]
+    },
+    {
+      "id": "L-Теанин",
+      "old_pmids": [
+        {
+          "pmid": "31758301",
+          "year": 2020
+        }
+      ]
+    },
+    {
+      "id": "Бакопа",
+      "old_pmids": [
+        {
+          "pmid": "24252493",
+          "year": 2014
+        },
+        {
+          "pmid": "22747190",
+          "year": 2012
+        }
+      ]
+    },
+    {
+      "id": "Гинкго",
+      "old_pmids": [
+        {
+          "pmid": "32349519",
+          "year": 2020
+        },
+        {
+          "pmid": "26979525",
+          "year": 2016
+        },
+        {
+          "pmid": "25114079",
+          "year": 2015
+        }
+      ]
+    },
+    {
+      "id": "Родиола",
+      "old_pmids": [
+        {
+          "pmid": "22643043",
+          "year": 2012
+        }
+      ]
+    },
+    {
+      "id": "Ашваганда",
+      "old_pmids": [
+        {
+          "pmid": "31975514",
+          "year": 2020
+        }
+      ]
+    },
+    {
+      "id": "CDP-холин",
+      "old_pmids": [
+        {
+          "pmid": "32860632",
+          "year": 2020
+        },
+        {
+          "pmid": "15846601",
+          "year": 2005
+        }
+      ]
+    },
+    {
+      "id": "NAC",
+      "old_pmids": [
+        {
+          "pmid": "33294991",
+          "year": 2020
+        },
+        {
+          "pmid": "30746681",
+          "year": 2019
+        }
+      ]
+    },
+    {
+      "id": "Таурин",
+      "old_pmids": [
+        {
+          "pmid": "32871172",
+          "year": 2020
+        }
+      ]
+    },
+    {
+      "id": "CoQ10",
+      "old_pmids": [
+        {
+          "pmid": "24049047",
+          "year": 2014
+        },
+        {
+          "pmid": "26935713",
+          "year": 2016
+        }
+      ]
+    },
+    {
+      "id": "Пикногенол",
+      "old_pmids": [
+        {
+          "pmid": "31637782",
+          "year": 2020
+        }
+      ]
+    },
+    {
+      "id": "Готу кола",
+      "old_pmids": [
+        {
+          "pmid": "28878245",
+          "year": 2017
+        }
+      ]
+    },
+    {
+      "id": "Бета-аланин",
+      "old_pmids": [
+        {
+          "pmid": "27377257",
+          "year": 2017
+        }
+      ]
+    },
+    {
+      "id": "L-цитруллин",
+      "old_pmids": [
+        {
+          "pmid": "30284051",
+          "year": 2018
+        },
+        {
+          "pmid": "31977835",
+          "year": 2020
+        }
+      ]
+    },
+    {
+      "id": "Бузина",
+      "old_pmids": [
+        {
+          "pmid": "30670267",
+          "year": 2019
+        }
+      ]
+    },
+    {
+      "id": "Коллаген",
+      "old_pmids": [
+        {
+          "pmid": "30681787",
+          "year": 2019
+        }
+      ]
+    },
+    {
+      "id": "Пробиотики",
+      "old_pmids": [
+        {
+          "pmid": "31039287",
+          "year": 2019
+        },
+        {
+          "pmid": "33295643",
+          "year": 2020
+        }
+      ]
+    },
+    {
+      "id": "Железо",
+      "old_pmids": [
+        {
+          "pmid": "22161448",
+          "year": 2011
+        },
+        {
+          "pmid": "27087396",
+          "year": 2016
+        }
+      ]
+    },
+    {
+      "id": "Глюкозамин + хондроитин",
+      "old_pmids": [
+        {
+          "pmid": "25629804",
+          "year": 2015
+        }
+      ]
+    },
+    {
+      "id": "Витамин E",
+      "old_pmids": [
+        {
+          "pmid": "28418065",
+          "year": 2017
+        },
+        {
+          "pmid": "29341067",
+          "year": 2018
+        }
+      ]
+    },
+    {
+      "id": "Биотин",
+      "old_pmids": [
+        {
+          "pmid": "27362288",
+          "year": 2016
+        },
+        {
+          "pmid": "33171595",
+          "year": 2020
+        },
+        {
+          "pmid": "11815321",
+          "year": 2002
+        },
+        {
+          "pmid": "7840079",
+          "year": 1995
+        }
+      ]
+    },
+    {
+      "id": "L-карнитин",
+      "old_pmids": [
+        {
+          "pmid": "31201734",
+          "year": 2019
+        }
+      ]
+    },
+    {
+      "id": "BCAA",
+      "old_pmids": [
+        {
+          "pmid": "28518283",
+          "year": 2017
+        }
+      ]
+    },
+    {
+      "id": "Аргинин",
+      "old_pmids": [
+        {
+          "pmid": "28399330",
+          "year": 2017
+        }
+      ]
+    },
+    {
+      "id": "Кальций",
+      "old_pmids": [
+        {
+          "pmid": "30277579",
+          "year": 2018
+        }
+      ]
+    },
+    {
+      "id": "Гиалуроновая кислота",
+      "old_pmids": [
+        {
+          "pmid": "26475434",
+          "year": 2015
+        }
+      ]
+    },
+    {
+      "id": "Псиллиум",
+      "old_pmids": [
+        {
+          "pmid": "31919936",
+          "year": 2020
+        }
+      ]
+    },
+    {
+      "id": "Клюква",
+      "old_pmids": [
+        {
+          "pmid": "29046404",
+          "year": 2017
+        }
+      ]
+    },
+    {
+      "id": "Пустырник",
+      "old_pmids": [
+        {
+          "pmid": "23042598",
+          "year": 2013
+        },
+        {
+          "pmid": "24841965",
+          "year": 2014
+        },
+        {
+          "pmid": "20839214",
+          "year": 2011
+        },
+        {
+          "pmid": "19918711",
+          "year": 2010
+        }
+      ]
+    },
+    {
+      "id": "Рибофлавин",
+      "old_pmids": [
+        {
+          "pmid": "28485121",
+          "year": 2017
+        }
+      ]
+    },
+    {
+      "id": "Лютеин + зеаксантин",
+      "old_pmids": [
+        {
+          "pmid": "31887124",
+          "year": 2019
+        },
+        {
+          "pmid": "24451312",
+          "year": 2014
+        }
+      ]
+    },
+    {
+      "id": "Инозитол",
+      "old_pmids": [
+        {
+          "pmid": "30570133",
+          "year": 2018
+        }
+      ]
+    },
+    {
+      "id": "D-манноза",
+      "old_pmids": [
+        {
+          "pmid": "32497610",
+          "year": 2020
+        }
+      ]
+    },
+    {
+      "id": "Хром",
+      "old_pmids": [
+        {
+          "pmid": "24293292",
+          "year": 2013
+        }
+      ]
+    },
+    {
+      "id": "Расторопша",
+      "old_pmids": [
+        {
+          "pmid": "17943794",
+          "year": 2007
+        }
+      ]
+    },
+    {
+      "id": "Лактоферрин",
+      "old_pmids": [
+        {
+          "pmid": "32232984",
+          "year": 2020
+        },
+        {
+          "pmid": "28658720",
+          "year": 2017
+        }
+      ]
+    },
+    {
+      "id": "SAMe",
+      "old_pmids": [
+        {
+          "pmid": "19821403",
+          "year": 2009
+        },
+        {
+          "pmid": "16021987",
+          "year": 2005
+        }
+      ]
+    },
+    {
+      "id": "Йохимбин",
+      "old_pmids": [
+        {
+          "pmid": "9649257",
+          "year": 1998
+        },
+        {
+          "pmid": "8836468",
+          "year": 1996
+        },
+        {
+          "pmid": "23559222",
+          "year": 2013
+        },
+        {
+          "pmid": "17214405",
+          "year": 2006
+        }
+      ]
+    },
+    {
+      "id": "Чёрный тмин",
+      "old_pmids": [
+        {
+          "pmid": "31892440",
+          "year": 2020
+        }
+      ]
+    },
+    {
+      "id": "Трибулус",
+      "old_pmids": [
+        {
+          "pmid": "32736394",
+          "year": 2020
+        },
+        {
+          "pmid": "24559105",
+          "year": 2014
+        }
+      ]
+    },
+    {
+      "id": "Витамин K2",
+      "old_pmids": [
+        {
+          "pmid": "25516361",
+          "year": 2015
+        }
+      ]
+    },
+    {
+      "id": "Берберин",
+      "old_pmids": [
+        {
+          "pmid": "32379652",
+          "year": 2020
+        }
+      ]
+    },
+    {
+      "id": "Кверцетин",
+      "old_pmids": [
+        {
+          "pmid": "22805526",
+          "year": 2013
+        }
+      ]
+    }
+  ],
+  "all_old_pmids": [
+    {
+      "card": "Биотин",
+      "pmid": "7840079",
+      "year": 1995,
+      "age": 31,
+      "title": "Biotin supplementation affects lymphocyte carboxylases and plasma biotin in seve"
+    },
+    {
+      "card": "Йохимбин",
+      "pmid": "8836468",
+      "year": 1996,
+      "age": 30,
+      "title": "Effectiveness of yohimbine in the treatment of erectile disorder: four meta-anal"
+    },
+    {
+      "card": "Йохимбин",
+      "pmid": "9649257",
+      "year": 1998,
+      "age": 28,
+      "title": "Yohimbine for erectile dysfunction: a systematic review and meta-analysis of ran"
+    },
+    {
+      "card": "5-HTP",
+      "pmid": "11687048",
+      "year": 2001,
+      "age": 25,
+      "title": "Tryptophan and 5-hydroxytryptophan for depression."
+    },
+    {
+      "card": "Хлорофилл",
+      "pmid": "11724948",
+      "year": 2001,
+      "age": 25,
+      "title": "Chlorophyllin intervention reduces aflatoxin-DNA adducts in individuals at high "
+    },
+    {
+      "card": "Биотин",
+      "pmid": "11815321",
+      "year": 2002,
+      "age": 24,
+      "title": "Marginal biotin deficiency during normal pregnancy."
+    },
+    {
+      "card": "Боярышник",
+      "pmid": "12798455",
+      "year": 2003,
+      "age": 23,
+      "title": "Hawthorn extract for treating chronic heart failure: meta-analysis of randomized"
+    },
+    {
+      "card": "Хлорофилл",
+      "pmid": "12628519",
+      "year": 2003,
+      "age": 23,
+      "title": "Chemoprevention with chlorophyllin in individuals exposed to dietary aflatoxin."
+    },
+    {
+      "card": "CDP-холин",
+      "pmid": "15846601",
+      "year": 2005,
+      "age": 21,
+      "title": "Cytidinediphosphocholine (CDP-choline) for cognitive and behavioural disturbance"
+    },
+    {
+      "card": "SAMe",
+      "pmid": "16021987",
+      "year": 2005,
+      "age": 21,
+      "title": "S-adenosylmethionine (SAMe) as treatment for depression: a systematic review."
+    },
+    {
+      "card": "Хлорофилл",
+      "pmid": "16417778",
+      "year": 2005,
+      "age": 21,
+      "title": "Analysis of the therapeutic effect of sodium copper chlorophyllin tablet in trea"
+    },
+    {
+      "card": "Эхинацея",
+      "pmid": "16678640",
+      "year": 2006,
+      "age": 20,
+      "title": "Echinacea in the prevention of induced rhinovirus colds: a meta-analysis."
+    },
+    {
+      "card": "Йохимбин",
+      "pmid": "17214405",
+      "year": 2006,
+      "age": 20,
+      "title": "Yohimbine: the effects on body composition and exercise performance in soccer pl"
+    },
+    {
+      "card": "Витамин C",
+      "pmid": "17636648",
+      "year": 2007,
+      "age": 19,
+      "title": "Vitamin C for preventing and treating the common cold."
+    },
+    {
+      "card": "Расторопша",
+      "pmid": "17943794",
+      "year": 2007,
+      "age": 19,
+      "title": "Milk thistle for alcoholic and/or hepatitis B or C virus liver diseases."
+    },
+    {
+      "card": "Боярышник",
+      "pmid": "18254076",
+      "year": 2008,
+      "age": 18,
+      "title": "Hawthorn extract for treating chronic heart failure."
+    },
+    {
+      "card": "SAMe",
+      "pmid": "19821403",
+      "year": 2009,
+      "age": 17,
+      "title": "S-Adenosylmethionine for osteoarthritis of the knee or hip."
+    },
+    {
+      "card": "Пустырник",
+      "pmid": "19918711",
+      "year": 2010,
+      "age": 16,
+      "title": "Cardiac and electrophysiological effects of primary and refined extracts from Le"
+    },
+    {
+      "card": "Железо",
+      "pmid": "22161448",
+      "year": 2011,
+      "age": 15,
+      "title": "Intermittent iron supplementation for reducing anaemia and its associated impair"
+    },
+    {
+      "card": "Пустырник",
+      "pmid": "20839214",
+      "year": 2011,
+      "age": 15,
+      "title": "Effect of Leonurus cardiaca oil extract in patients with arterial hypertension a"
+    },
+    {
+      "card": "Хлорофилл",
+      "pmid": "21541030",
+      "year": 2011,
+      "age": 15,
+      "title": "Inhibition of fried meat-induced colorectal DNA damage and altered systemic geno"
+    },
+    {
+      "card": "Магний",
+      "pmid": "22318649",
+      "year": 2012,
+      "age": 14,
+      "title": "Effect of magnesium supplementation on blood pressure: a meta-analysis."
+    },
+    {
+      "card": "Бакопа",
+      "pmid": "22747190",
+      "year": 2012,
+      "age": 14,
+      "title": "The cognitive-enhancing effects of Bacopa monnieri: a systematic review of rando"
+    },
+    {
+      "card": "Родиола",
+      "pmid": "22643043",
+      "year": 2012,
+      "age": 14,
+      "title": "Rhodiola rosea for physical and mental fatigue: a systematic review."
+    },
+    {
+      "card": "B9",
+      "pmid": "23543547",
+      "year": 2013,
+      "age": 13,
+      "title": "Folic acid supplementation during pregnancy for maternal health and pregnancy ou"
+    },
+    {
+      "card": "Пустырник",
+      "pmid": "23042598",
+      "year": 2013,
+      "age": 13,
+      "title": "Leonurus cardiaca L. (motherwort): a review of its phytochemistry and pharmacolo"
+    },
+    {
+      "card": "Хром",
+      "pmid": "24293292",
+      "year": 2013,
+      "age": 13,
+      "title": "Chromium picolinate supplementation for overweight or obese adults."
+    },
+    {
+      "card": "Йохимбин",
+      "pmid": "23559222",
+      "year": 2013,
+      "age": 13,
+      "title": "Norepinephrine and impulsivity: effects of acute yohimbine."
+    },
+    {
+      "card": "Кверцетин",
+      "pmid": "22805526",
+      "year": 2013,
+      "age": 13,
+      "title": "Effects of quercetin supplementation on endurance performance and maximal oxygen"
+    },
+    {
+      "card": "Бакопа",
+      "pmid": "24252493",
+      "year": 2014,
+      "age": 12,
+      "title": "Meta-analysis of randomized controlled trials on cognitive effects of Bacopa mon"
+    },
+    {
+      "card": "CoQ10",
+      "pmid": "24049047",
+      "year": 2014,
+      "age": 12,
+      "title": "Coenzyme Q10 for heart failure."
+    },
+    {
+      "card": "Эхинацея",
+      "pmid": "24554461",
+      "year": 2014,
+      "age": 12,
+      "title": "Echinacea for preventing and treating the common cold."
+    },
+    {
+      "card": "Пустырник",
+      "pmid": "24841965",
+      "year": 2014,
+      "age": 12,
+      "title": "The effect of Leonurus cardiaca herb extract and some of its flavonoids on mitoc"
+    },
+    {
+      "card": "Лютеин + зеаксантин",
+      "pmid": "24451312",
+      "year": 2014,
+      "age": 12,
+      "title": "Association between lutein and zeaxanthin status and the risk of cataract: a met"
+    },
+    {
+      "card": "Трибулус",
+      "pmid": "24559105",
+      "year": 2014,
+      "age": 12,
+      "title": "A systematic review on the herbal extract Tribulus terrestris and the roots of i"
+    },
+    {
+      "card": "Гинкго",
+      "pmid": "25114079",
+      "year": 2015,
+      "age": 11,
+      "title": "Efficacy and adverse effects of ginkgo biloba for cognitive impairment and demen"
+    },
+    {
+      "card": "Тирозин",
+      "pmid": "25797188",
+      "year": 2015,
+      "age": 11,
+      "title": "Behavioral and cognitive effects of tyrosine intake in healthy human adults."
+    },
+    {
+      "card": "B9",
+      "pmid": "26662928",
+      "year": 2015,
+      "age": 11,
+      "title": "Effects and safety of periconceptional oral folate supplementation for preventin"
+    },
+    {
+      "card": "Глюкозамин + хондроитин",
+      "pmid": "25629804",
+      "year": 2015,
+      "age": 11,
+      "title": "Chondroitin for osteoarthritis."
+    },
+    {
+      "card": "Гиалуроновая кислота",
+      "pmid": "26475434",
+      "year": 2015,
+      "age": 11,
+      "title": "Hyaluronic acid and other conservative treatment options for osteoarthritis of t"
+    },
+    {
+      "card": "Хлорофилл",
+      "pmid": "25844615",
+      "year": 2015,
+      "age": 11,
+      "title": "Assessment of the safety and efficacy of topical copper chlorophyllin in women w"
+    },
+    {
+      "card": "Витамин K2",
+      "pmid": "25516361",
+      "year": 2015,
+      "age": 11,
+      "title": "Does vitamin K2 play a role in the prevention and treatment of osteoporosis for "
+    },
+    {
+      "card": "Магний",
+      "pmid": "27402922",
+      "year": 2016,
+      "age": 10,
+      "title": "Effects of Magnesium Supplementation on Blood Pressure: A Meta-Analysis of Rando"
+    },
+    {
+      "card": "Гинкго",
+      "pmid": "26979525",
+      "year": 2016,
+      "age": 10,
+      "title": "Extract of Ginkgo biloba for Tardive Dyskinesia: Meta-analysis of Randomized Con"
+    },
+    {
+      "card": "CoQ10",
+      "pmid": "26935713",
+      "year": 2016,
+      "age": 10,
+      "title": "Blood pressure lowering efficacy of coenzyme Q10 for primary hypertension."
+    },
+    {
+      "card": "Железо",
+      "pmid": "27087396",
+      "year": 2016,
+      "age": 10,
+      "title": "Daily iron supplementation for improving anaemia, iron status and health in mens"
+    },
+    {
+      "card": "Биотин",
+      "pmid": "27362288",
+      "year": 2016,
+      "age": 10,
+      "title": "Factitious Graves' Disease Due to Biotin Immunoassay Interference-A Case and Rev"
+    },
+    {
+      "card": "Готу кола",
+      "pmid": "28878245",
+      "year": 2017,
+      "age": 9,
+      "title": "Effects of Centella asiatica (L.) Urb. on cognitive function and mood related ou"
+    },
+    {
+      "card": "Бета-аланин",
+      "pmid": "27377257",
+      "year": 2017,
+      "age": 9,
+      "title": "Effects of beta-alanine supplementation on performance and muscle fatigue in ath"
+    },
+    {
+      "card": "Витамин C",
+      "pmid": "28301692",
+      "year": 2017,
+      "age": 9,
+      "title": "Vitamin C supplementation for the primary prevention of cardiovascular disease."
+    },
+    {
+      "card": "Витамин E",
+      "pmid": "28418065",
+      "year": 2017,
+      "age": 9,
+      "title": "Vitamin E for Alzheimer's dementia and mild cognitive impairment."
+    },
+    {
+      "card": "BCAA",
+      "pmid": "28518283",
+      "year": 2017,
+      "age": 9,
+      "title": "Branched-chain amino acids for people with hepatic encephalopathy."
+    },
+    {
+      "card": "Аргинин",
+      "pmid": "28399330",
+      "year": 2017,
+      "age": 9,
+      "title": "Arginine supplementation for prevention of necrotising enterocolitis in preterm "
+    },
+    {
+      "card": "Клюква",
+      "pmid": "29046404",
+      "year": 2017,
+      "age": 9,
+      "title": "Cranberry Reduces the Risk of Urinary Tract Infection Recurrence in Otherwise He"
+    },
+    {
+      "card": "Рибофлавин",
+      "pmid": "28485121",
+      "year": 2017,
+      "age": 9,
+      "title": "Prophylaxis of migraine headaches with riboflavin: A systematic review."
+    },
+    {
+      "card": "Лактоферрин",
+      "pmid": "28658720",
+      "year": 2017,
+      "age": 9,
+      "title": "Enteral lactoferrin supplementation for prevention of sepsis and necrotizing ent"
+    },
+    {
+      "card": "L-цитруллин",
+      "pmid": "30284051",
+      "year": 2018,
+      "age": 8,
+      "title": "Effect of L-Citrulline Supplementation on Blood Pressure: a Systematic Review an"
+    },
+    {
+      "card": "Витамин E",
+      "pmid": "29341067",
+      "year": 2018,
+      "age": 8,
+      "title": "Vitamin E for antipsychotic-induced tardive dyskinesia."
+    },
+    {
+      "card": "Кальций",
+      "pmid": "30277579",
+      "year": 2018,
+      "age": 8,
+      "title": "Calcium supplementation during pregnancy for preventing hypertensive disorders a"
+    },
+    {
+      "card": "Инозитол",
+      "pmid": "30570133",
+      "year": 2018,
+      "age": 8,
+      "title": "Inositol for subfertile women with polycystic ovary syndrome."
+    },
+    {
+      "card": "NAC",
+      "pmid": "30746681",
+      "year": 2019,
+      "age": 7,
+      "title": "N-acetylcysteine as an adjuvant therapy for Helicobacter pylori eradication."
+    },
+    {
+      "card": "Эхинацея",
+      "pmid": "31126553",
+      "year": 2019,
+      "age": 7,
+      "title": "Echinacea for the prevention and treatment of upper respiratory tract infections"
+    },
+    {
+      "card": "Бузина",
+      "pmid": "30670267",
+      "year": 2019,
+      "age": 7,
+      "title": "Black elderberry (Sambucus nigra) supplementation effectively treats upper respi"
+    },
+    {
+      "card": "Коллаген",
+      "pmid": "30681787",
+      "year": 2019,
+      "age": 7,
+      "title": "Oral Collagen Supplementation: A Systematic Review of Dermatological Application"
+    },
+    {
+      "card": "Пробиотики",
+      "pmid": "31039287",
+      "year": 2019,
+      "age": 7,
+      "title": "Probiotics for the prevention of pediatric antibiotic-associated diarrhea."
+    },
+    {
+      "card": "L-карнитин",
+      "pmid": "31201734",
+      "year": 2019,
+      "age": 7,
+      "title": "Acetyl-L-carnitine for the treatment of diabetic peripheral neuropathy."
+    },
+    {
+      "card": "Лютеин + зеаксантин",
+      "pmid": "31887124",
+      "year": 2019,
+      "age": 7,
+      "title": "Effects of lutein supplementation in age-related macular degeneration."
+    },
+    {
+      "card": "Омега-3",
+      "pmid": "32114706",
+      "year": 2020,
+      "age": 6,
+      "title": "Omega-3 fatty acids for the primary and secondary prevention of cardiovascular d"
+    },
+    {
+      "card": "L-Теанин",
+      "pmid": "31758301",
+      "year": 2020,
+      "age": 6,
+      "title": "The Effects of Green Tea Amino Acid L-Theanine Consumption on the Ability to Man"
+    },
+    {
+      "card": "Гинкго",
+      "pmid": "32349519",
+      "year": 2020,
+      "age": 6,
+      "title": "Efficacy and Safety of Ginkgo biloba in Patients with Acute Ischemic Stroke: A S"
+    },
+    {
+      "card": "Ашваганда",
+      "pmid": "31975514",
+      "year": 2020,
+      "age": 6,
+      "title": "Withania somnifera (Indian ginseng) in diabetes mellitus: A systematic review an"
+    },
+    {
+      "card": "CDP-холин",
+      "pmid": "32860632",
+      "year": 2020,
+      "age": 6,
+      "title": "Citicoline for treating people with acute ischemic stroke."
+    },
+    {
+      "card": "NAC",
+      "pmid": "33294991",
+      "year": 2020,
+      "age": 6,
+      "title": "N-acetylcysteine for non-paracetamol (acetaminophen)-related acute liver failure"
+    },
+    {
+      "card": "Таурин",
+      "pmid": "32871172",
+      "year": 2020,
+      "age": 6,
+      "title": "The effects of taurine supplementation on obesity, blood pressure and lipid prof"
+    },
+    {
+      "card": "Пикногенол",
+      "pmid": "31637782",
+      "year": 2020,
+      "age": 6,
+      "title": "Effect of pycnogenol supplementation on blood pressure: A systematic review and "
+    },
+    {
+      "card": "ГАБА",
+      "pmid": "33041752",
+      "year": 2020,
+      "age": 6,
+      "title": "Effects of Oral Gamma-Aminobutyric Acid (GABA) Administration on Stress and Slee"
+    },
+    {
+      "card": "L-цитруллин",
+      "pmid": "31977835",
+      "year": 2020,
+      "age": 6,
+      "title": "Effects of Citrulline Supplementation on Exercise Performance in Humans: A Revie"
+    },
+    {
+      "card": "5-HTP",
+      "pmid": "31504850",
+      "year": 2020,
+      "age": 6,
+      "title": "Effects of 5-hydroxytryptophan on distinct types of depression: a systematic rev"
+    },
+    {
+      "card": "Пробиотики",
+      "pmid": "33295643",
+      "year": 2020,
+      "age": 6,
+      "title": "Probiotics for treating acute infectious diarrhoea."
+    },
+    {
+      "card": "Биотин",
+      "pmid": "33171595",
+      "year": 2020,
+      "age": 6,
+      "title": "PROVIT: Supplementary Probiotic Treatment and Vitamin B7 in Depression-A Randomi"
+    },
+    {
+      "card": "Псиллиум",
+      "pmid": "31919936",
+      "year": 2020,
+      "age": 6,
+      "title": "The effect of psyllium consumption on weight, body mass index, lipid profile, an"
+    },
+    {
+      "card": "D-манноза",
+      "pmid": "32497610",
+      "year": 2020,
+      "age": 6,
+      "title": "D-mannose vs other agents for recurrent urinary tract infection prevention in ad"
+    },
+    {
+      "card": "Лактоферрин",
+      "pmid": "32232984",
+      "year": 2020,
+      "age": 6,
+      "title": "Enteral lactoferrin supplementation for prevention of sepsis and necrotizing ent"
+    },
+    {
+      "card": "Чёрный тмин",
+      "pmid": "31892440",
+      "year": 2020,
+      "age": 6,
+      "title": "The influence of Nigella sativa for asthma control: A meta-analysis."
+    },
+    {
+      "card": "Трибулус",
+      "pmid": "32736394",
+      "year": 2020,
+      "age": 6,
+      "title": "Tribulus Terrestris for Female Sexual Dysfunction: A Systematic Review."
+    },
+    {
+      "card": "Берберин",
+      "pmid": "32379652",
+      "year": 2020,
+      "age": 6,
+      "title": "The effect of berberine supplementation on obesity indices: A dose- response met"
+    }
+  ]
+}
