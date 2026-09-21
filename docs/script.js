@@ -105,15 +105,15 @@ const BLOCK_EMPTY = '<span class="cbEmpty">для этой добавки про
 const CARDBLOCKS = [
   { key: 'what',      title: 'Что это',                    get: s => s.about || (s.effects || []).join(', ') || '' },
   { key: 'who',       title: 'Кому нужно',                 get: s => s.who_needs || '' },
-  { key: 'works',     title: 'Работает ли',                get: s => '<span class="verdict v' + s.code + '">' + s.verdict + '</span> · ' + gradeBadge(s) },
+  { key: 'works',     title: 'Работает ли',                get: s => '<span class="verdict v' + esc(s.code) + '">' + esc(s.verdict) + '</span> · ' + gradeBadge(s) },
   { key: 'evidence',  title: 'На чём основано',            get: s => '<div>' + scienceSpan(s) + pubmedLink(s) + ' · ' + maSpan(s) + ' · ' + citationsSpan(s) + '</div>' +
-    ((s.mechs || []).length ? '<div class="hline">Механизмы: ' + s.mechs.map(m => m[0]).join('; ') + '</div>' : '') },
+    ((s.mechs || []).length ? '<div class="hline">Механизмы: ' + s.mechs.map(m => esc(m[0])).join('; ') + '</div>' : '') },
   { key: 'how',       title: 'Как принимать',              get: s => [s.dosage, s.course].filter(v => v && v !== '—' && v !== '-').join(' · ') || 'данных нет' },
   { key: 'onset',     title: 'Когда почувствую',           get: s => s.onset || '' },
   { key: 'notwho',    title: 'Кому нельзя',                get: s => s.caution || '' },
   { key: 'conflicts', title: 'С чем конфликтует',          get: renderConflicts },
   { key: 'friends',   title: 'С чем дружит',               get: s => (s.synergists || []).length
-    ? '<span class="goodPair">🤝 Хорошая пара: ' + s.synergists.join(', ') + '</span>' : '' },
+    ? '<span class="goodPair">🤝 Хорошая пара: ' + s.synergists.map(esc).join(', ') + '</span>' : '' },
   { key: 'ul',        title: 'Передозировка (UL)',         get: s => s.upper_limit || '' },
   { key: 'food',      title: 'Можно ли из еды',            get: s => s.food_sources || '' },
   { key: 'official',  title: 'Что говорят официалы',       get: s => s.guidelines || '' },
@@ -124,7 +124,7 @@ const CARDBLOCKS = [
 function renderConflicts(s) {
   const list = s.interactions || [];
   if (!list.length) return '';
-  return list.map(i => '<div class="sev sev-' + i.severity + '"><b>' + i.with + '</b> · ' + sevRu(i.severity) + (i.note ? ' — ' + i.note : '') + '</div>').join('');
+  return list.map(i => '<div class="sev sev-' + esc(i.severity) + '"><b>' + esc(i.with) + '</b> · ' + esc(sevRu(i.severity)) + (i.note ? ' — ' + esc(i.note) : '') + '</div>').join('');
 }
 const CARD_GROUPS = [
   { title: '📋 Основное', keys: ['what','who','works','evidence'] },
@@ -137,8 +137,11 @@ function renderCardBlocks(s) {
     const inner = g.keys.map(k => {
       const b = CARDBLOCKS.find(x => x.key === k);
       if (!b) return '';
-      const content = b.get(s) || BLOCK_EMPTY;
-      return '<div class="cblock" data-block-key="' + b.key + '"><h4>' + b.title + '</h4><div class="cbbody">' + content + '</div></div>';
+      // HTML-блоки рендерят свой HTML (esc внутри get). Остальные — экранируем.
+      const RAW_HTML_KEYS = new Set(['works', 'evidence', 'conflicts', 'friends']);
+      const raw = b.get(s);
+      const content = raw ? (RAW_HTML_KEYS.has(b.key) ? raw : esc(raw)) : BLOCK_EMPTY;
+      return '<div class="cblock" data-block-key="' + esc(b.key) + '"><h4>' + esc(b.title) + '</h4><div class="cbbody">' + content + '</div></div>';
     }).join('');
     return '<div class="cgroup"><div class="cgTitle">' + g.title + '</div>' + inner + '</div>';
   }).join('') + '</div>';
@@ -366,17 +369,18 @@ function maTop3Block(s) {
 
   const body = list.length
     ? '<div class="mrow">' + list.map(m => {
-        const pmid = m.pmid || m;
-        const t = m.title || pmid;
+        const pmid = String(m.pmid || m);
+        const t = String(m.title || pmid);
         const yr = m.year ? ' (' + m.year + ')' : '';
-        const titleAttr = (m.title || pmid).replace(/"/g, '&quot;');
+        const pmidEsc = esc(pmid);
+        const titleEsc = esc(t);
         return '<div class="srcRow">'
           + '<a class="srcIcon" target="_blank" rel="noopener" '
-          + 'title="' + titleAttr + '" '
-          + 'href="https://pubmed.ncbi.nlm.nih.gov/' + pmid + '/">'
-          + t + yr + ' ↗</a>'
-          + ' <span class="copyLink chip-pmid" data-copy="' + pmid + '" '
-          + 'title="Скопировать PMID ' + pmid + '">PMID ' + pmid + '</span>'
+          + 'title="' + titleEsc + '" '
+          + 'href="https://pubmed.ncbi.nlm.nih.gov/' + pmidEsc + '/">'
+          + titleEsc + yr + ' ↗</a>'
+          + ' <span class="copyLink chip-pmid" data-copy="' + pmidEsc + '" '
+          + 'title="Скопировать PMID ' + pmidEsc + '">PMID ' + pmidEsc + '</span>'
           + '</div>';
       }).join('') + '</div>'
     : '<div class="mrow cbEmpty">Источники для этой добавки пока не собраны</div>';
