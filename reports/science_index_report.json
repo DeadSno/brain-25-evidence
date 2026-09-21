@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-09-20T13:14:32.868113+00:00",
+  "timestamp": "2026-09-21T08:06:17.010395+00:00",
   "dry_run": false,
   "cards": {
     "Креатин": {
@@ -997,16 +997,16 @@
       "base": "(Tribulus terrestris supplementation)"
     },
     "NMN": {
-      "status": "ok",
+      "status": "changed",
       "old": {
         "rct": 3692,
         "meta": 688,
         "si": 7132
       },
       "new": {
-        "rct": 3692,
+        "rct": 3693,
         "meta": 688,
-        "si": 7132
+        "si": 7133
       },
       "base": "(nicotinamide mononucleotide OR nicotinamide riboside OR NMN OR NR)"
     },
@@ -1138,8 +1138,8 @@
     }
   },
   "totals": {
-    "ok": 81,
-    "changed": 0,
+    "ok": 80,
+    "changed": 1,
     "no_base": 0,
     "error": 0
   }
