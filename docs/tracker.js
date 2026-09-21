@@ -3,10 +3,10 @@
 (function () {
   'use strict';
 
-  var TRACKER_VERSION = '2.7-a';
-  var STORAGE_KEY = 'myCourse';
-  var DEFAULT_DAYS = 30;
-  var _supplementsCache = null;
+  let TRACKER_VERSION = '2.7-a';
+  let STORAGE_KEY = 'myCourse';
+  let DEFAULT_DAYS = 30;
+  let _supplementsCache = null;
 
   function fetchSupplements() {
     if (_supplementsCache) return Promise.resolve(_supplementsCache);
@@ -32,17 +32,17 @@
      ================================================================ */
   function getMyCourses() {
     try {
-      var raw = localStorage.getItem(STORAGE_KEY);
+      let raw = localStorage.getItem(STORAGE_KEY);
       if (!raw) return {};
-      var parsed = JSON.parse(raw);
+      let parsed = JSON.parse(raw);
       if (typeof parsed !== 'object' || parsed === null || Array.isArray(parsed)) {
         console.warn('[tracker] myCourse: невалидная структура, сброс');
         localStorage.removeItem(STORAGE_KEY);
         return {};
       }
-      var cleaned = {};
-      for (var id in parsed) {
-        var c = parsed[id];
+      let cleaned = {};
+      for (let id in parsed) {
+        let c = parsed[id];
         if (!c || typeof c !== 'object' || Array.isArray(c)) {
           console.warn('[tracker] myCourse[' + id + ']: невалидный объект, пропуск');
           continue;
@@ -88,27 +88,27 @@
      Не трогает script.js. Реагирует на смену style.display у #modalOverlay.
      ================================================================ */
   function injectCourseButton() {
-    var modalBody = document.getElementById('modalBody');
+    let modalBody = document.getElementById('modalBody');
     if (!modalBody || !modalBody.innerHTML) return;
 
     // Уже есть кнопка — не дублируем
     if (modalBody.querySelector('[data-tracker-btn]')) return;
 
     // Определяем id добавки из хэша URL (openModal ставит #sup=<id>)
-    var hash = decodeURIComponent((location.hash || '').replace('#sup=', ''));
+    let hash = decodeURIComponent((location.hash || '').replace('#sup=', ''));
     if (!hash) return;
-    var sup = findSup(hash);
+    let sup = findSup(hash);
     if (!sup) return;
 
     // Кнопка «📅 В мой курс»
-    var btn = document.createElement('button');
+    let btn = document.createElement('button');
     btn.className = 'favFilter';
     btn.dataset.trackerBtn = sup.id;
     btn.style.marginTop = '0.5rem';
     btn.style.marginRight = '0.5rem';
 
-    var courses = getMyCourses();
-    var existing = courses[sup.id];
+    let courses = getMyCourses();
+    let existing = courses[sup.id];
     if (existing && isCourseActive(existing)) {
       btn.textContent = '📅 В курсе (' + existing.taken.length + '/' + existing.days + ')';
       btn.disabled = false;
@@ -121,9 +121,9 @@
     }
 
     btn.addEventListener('click', function () {
-      var courses = getMyCourses();
-      var dosage = sup.dosage || '';
-      var course = courses[sup.id];
+      let courses = getMyCourses();
+      let dosage = sup.dosage || '';
+      let course = courses[sup.id];
       if (!course) {
         course = {
           start: new Date().toISOString(),
@@ -140,14 +140,14 @@
     });
 
     // Приватность-пометка
-    var privacy = document.createElement('div');
+    let privacy = document.createElement('div');
     privacy.style.fontSize = '0.75rem';
     privacy.style.opacity = '0.6';
     privacy.style.marginTop = '0.25rem';
     privacy.textContent = '\u{1F512} Данные хранятся только в вашем браузере, никуда не отправляются';
 
     // Вставляем перед ссылкой «Нашли неточность?» или в конец
-    var issueLink = modalBody.querySelector('a[href*="issues/new"]');
+    let issueLink = modalBody.querySelector('a[href*="issues/new"]');
     if (issueLink && issueLink.parentElement) {
       issueLink.parentElement.insertBefore(btn, issueLink);
       issueLink.parentElement.insertBefore(privacy, issueLink);
@@ -158,9 +158,9 @@
   }
 
   function setupModalObserver() {
-    var overlay = document.getElementById('modalOverlay');
+    let overlay = document.getElementById('modalOverlay');
     if (!overlay) return;
-    var observer = new MutationObserver(function () {
+    let observer = new MutationObserver(function () {
       if (overlay.style.display === 'flex') {
         setTimeout(injectCourseButton, 100);
       }
@@ -172,16 +172,16 @@
      A3. Секция «Мои добавки» на главной — DOM-контейнер из JS
      ================================================================ */
   function createMyCoursesSection() {
-    var section = document.createElement('section');
+    let section = document.createElement('section');
     section.id = 'myCoursesSection';
     section.style.cssText = 'background:var(--card-bg);padding:1.2rem 1.5rem;border-radius:12px;border:1px solid var(--border);display:none;';
     return section;
   }
 
   function renderMyCourses() {
-    var courses = getMyCourses();
-    var ids = Object.keys(courses);
-    var section = document.getElementById('myCoursesSection');
+    let courses = getMyCourses();
+    let ids = Object.keys(courses);
+    let section = document.getElementById('myCoursesSection');
     if (!section) return;
 
     if (ids.length === 0) {
@@ -191,14 +191,14 @@
 
     section.style.display = '';
 
-    var html = '<h2>\u{1F4C5} Мои добавки</h2>';
+    let html = '<h2>\u{1F4C5} Мои добавки</h2>';
     ids.forEach(function (id) {
-      var c = courses[id];
-      var sup = findSup(id);
-      var name = sup ? sup.name : id;
-      var pct = Math.min(100, Math.round((c.taken.length / c.days) * 100));
-      var done = isCourseDone(c);
-      var statusColor = done ? '#2ecc71' : '#3498db';
+      let c = courses[id];
+      let sup = findSup(id);
+      let name = sup ? sup.name : id;
+      let pct = Math.min(100, Math.round((c.taken.length / c.days) * 100));
+      let done = isCourseDone(c);
+      let statusColor = done ? '#2ecc71' : '#3498db';
 
       html += '<div class="card" style="margin-bottom:0.8rem;padding:1rem;border-left:4px solid ' + statusColor + '">';
       html += '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem">';
@@ -230,9 +230,9 @@
     // Обработчики кнопок
     section.querySelectorAll('[data-tracker-take]').forEach(function (btn) {
       btn.addEventListener('click', function () {
-        var courses = getMyCourses();
-        var id = btn.dataset.trackerTake;
-        var c = courses[id];
+        let courses = getMyCourses();
+        let id = btn.dataset.trackerTake;
+        let c = courses[id];
         if (!c) return;
         c.taken.push(new Date().toISOString());
         saveMyCourses(courses);
@@ -243,8 +243,8 @@
 
     section.querySelectorAll('[data-tracker-remove]').forEach(function (btn) {
       btn.addEventListener('click', function () {
-        var courses = getMyCourses();
-        var id = btn.dataset.trackerRemove;
+        let courses = getMyCourses();
+        let id = btn.dataset.trackerRemove;
         delete courses[id];
         saveMyCourses(courses);
         renderMyCourses();
@@ -258,12 +258,12 @@
       renderMyCourses();
       return;
     }
-    var section = createMyCoursesSection();
-    var chartSection = document.getElementById('chartSection');
+    let section = createMyCoursesSection();
+    let chartSection = document.getElementById('chartSection');
     if (chartSection && chartSection.parentElement) {
       chartSection.parentElement.insertBefore(section, chartSection);
     } else {
-      var footer = document.querySelector('footer');
+      let footer = document.querySelector('footer');
       if (footer) {
         footer.parentElement.insertBefore(section, footer);
       } else {
