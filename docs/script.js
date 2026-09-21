@@ -653,6 +653,15 @@ function gotoCompare(idA, idB) {
 
 function renderBubble(data) {
   const isPrice = axisX === 'price';
+
+  // ── Адаптивные размеры пузырей: на мобильном меньше ─────────
+  const isMobile = window.innerWidth < 640;
+  const R_MAX = isMobile ? 12 : 30;
+  const R_HOVER_MAX = isMobile ? 16 : 36;
+  const R_SCALE = isMobile ? 1.0 : 2.5;
+  const R_HOVER_SCALE = isMobile ? 1.4 : 3.5;
+  const rFor = (s) => Math.max(3, Math.min(R_MAX, Math.sqrt(s.metaCount || 1) * R_SCALE));
+  const rHoverFor = (s) => Math.max(4, Math.min(R_HOVER_MAX, Math.sqrt(s.metaCount || 1) * R_HOVER_SCALE));
   const priced = isPrice
     ? data.filter(s => (s.price || 0) > 0)
     : data.filter(s => axisVal(s) != null && axisVal(s) >= 0);
@@ -678,8 +687,8 @@ function renderBubble(data) {
         label: s.name,
         data: [{ x: (band.lo + band.hi) / 2, y: Math.max(1, s.scienceIndex) }],
         backgroundColor: 'rgba(150,150,150,.55)',
-        pointRadius: Math.min(30, Math.sqrt(s.metaCount || 1) * 2.5),
-        pointHoverRadius: Math.min(36, Math.sqrt(s.metaCount || 1) * 3.5)
+        pointRadius: rFor(s),
+        pointHoverRadius: rHoverFor(s)
       }))
     : [];
   const noPriceBandPlugin = {
@@ -714,8 +723,8 @@ function renderBubble(data) {
       label: s.name,
       data: [{ x: axisVal(s), y: Math.max(1, s.scienceIndex) }],
       backgroundColor: vColor(s.code),
-      pointRadius: Math.min(30, Math.sqrt(s.metaCount || 1) * 2.5),
-      pointHoverRadius: Math.min(36, Math.sqrt(s.metaCount || 1) * 3.5)
+      pointRadius: rFor(s),
+      pointHoverRadius: rHoverFor(s)
     })).concat(bandDatasets) },
     options: {
       responsive: true, maintainAspectRatio: false,
