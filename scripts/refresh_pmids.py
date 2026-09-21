@@ -23,8 +23,8 @@ TERMS_JSON = ROOT / "docs" / "data_pubmed_terms.json"
 EUTILS = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils"
 MAILTO = "brain25-evidence@users.noreply.github.com"
 
-# Карточки с устаревшими PMIDs
-TARGETS = ["Магний", "Витамин C", "Витамин D", "B9"]
+# Карточки с устаревшими PMIDs (D1 аудита)
+TARGETS = ["Кофеин", "Родиола", "Куркумин", "NAC", "Мелатонин"]
 
 
 def _get(url: str, retries: int = 3) -> str:
