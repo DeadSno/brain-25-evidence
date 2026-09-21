@@ -6,6 +6,18 @@ header{display:flex;justify-content:space-between;align-items:center;margin-bott
 h1{font-size:1.8rem;font-weight:600}
 .hdr{display:flex;gap:.6rem;align-items:center}
 .btn{background:var(--card-bg);color:var(--text);border:1px solid var(--border);padding:.5rem 1rem;border-radius:8px;text-decoration:none;font-size:.95rem}
+.btn.calc {
+  background: linear-gradient(135deg, #3498db, #2980b9);
+  color: #fff !important;
+  border: none;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(52,152,219,.35);
+}
+.btn.calc:hover {
+  opacity: .92;
+  border: none;
+  box-shadow: 0 2px 12px rgba(52,152,219,.5);
+}
 button{background:var(--card-bg);color:var(--text);border:1px solid var(--border);padding:.5rem 1rem;border-radius:8px;cursor:pointer;font-size:.95rem}
 button:hover,.btn:hover{background:var(--border)}
 section{margin-bottom:2rem}
