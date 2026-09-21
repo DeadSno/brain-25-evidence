@@ -253,7 +253,7 @@
     "category": "Кости/Иммунитет",
     "scienceIndex": 8996,
     "metaCount": 998,
-    "citations": 818,
+    "citations": 212,
     "wiki": 145309,
     "ongoing": 393,
     "effects": [
@@ -384,7 +384,7 @@
     "category": "Нервная система/Кровь",
     "scienceIndex": 999,
     "metaCount": 97,
-    "citations": 248,
+    "citations": 249,
     "wiki": 108324,
     "ongoing": 110,
     "effects": [
@@ -534,7 +534,7 @@
     "category": "Минерал/Сердце",
     "scienceIndex": 928,
     "metaCount": 91,
-    "citations": 601,
+    "citations": 585,
     "wiki": 99800,
     "ongoing": 367,
     "effects": [
@@ -670,7 +670,7 @@
     "category": "Производительность",
     "scienceIndex": 4125,
     "metaCount": 387,
-    "citations": 131,
+    "citations": 306,
     "wiki": 109842,
     "ongoing": 220,
     "effects": [
@@ -1038,7 +1038,7 @@
     "category": "Когниция/Нервная система",
     "scienceIndex": 5,
     "metaCount": 0,
-    "citations": 17,
+    "citations": 18,
     "wiki": 145420,
     "ongoing": 4,
     "effects": [
@@ -1265,7 +1265,7 @@
     "category": "Усталость/Адаптоген",
     "scienceIndex": 107,
     "metaCount": 9,
-    "citations": 246,
+    "citations": 135,
     "wiki": 63341,
     "ongoing": 2,
     "effects": [
@@ -1868,7 +1868,7 @@
     "category": "Когниция/Деменция",
     "scienceIndex": 55,
     "metaCount": 8,
-    "citations": 182,
+    "citations": 72,
     "wiki": 349,
     "ongoing": 8,
     "effects": [
@@ -1971,7 +1971,7 @@
     "category": "Воспаление/Суставы",
     "scienceIndex": 1696,
     "metaCount": 230,
-    "citations": 68,
+    "citations": 151,
     "wiki": 32745,
     "ongoing": 78,
     "effects": [
@@ -2227,7 +2227,7 @@
     "category": "Антиоксидант/Психиатрия",
     "scienceIndex": 2207,
     "metaCount": 250,
-    "citations": 118,
+    "citations": 71,
     "wiki": 69179,
     "ongoing": 104,
     "effects": [
@@ -2367,7 +2367,7 @@
     "category": "Иммунитет/ОРВИ",
     "scienceIndex": 2310,
     "metaCount": 236,
-    "citations": 114,
+    "citations": 115,
     "wiki": 79279,
     "ongoing": 160,
     "effects": [
@@ -2880,7 +2880,7 @@
     "category": "Сосуды/Антиоксидант",
     "scienceIndex": 192,
     "metaCount": 22,
-    "citations": 85,
+    "citations": 40,
     "wiki": 2523,
     "ongoing": 4,
     "effects": [
@@ -3114,7 +3114,7 @@
     "category": "Сон/Циркадные ритмы",
     "scienceIndex": 390,
     "metaCount": 52,
-    "citations": 308,
+    "citations": 231,
     "wiki": 163405,
     "ongoing": 143,
     "effects": [
@@ -3244,7 +3244,7 @@
     "category": "Психика/Сон",
     "scienceIndex": 3658,
     "metaCount": 365,
-    "citations": 284,
+    "citations": 285,
     "wiki": 86607,
     "ongoing": 123,
     "effects": [
@@ -3464,7 +3464,7 @@
     "category": "Сон/Тревожность",
     "scienceIndex": 126,
     "metaCount": 12,
-    "citations": 478,
+    "citations": 38,
     "wiki": 55048,
     "ongoing": 1,
     "effects": [
@@ -4139,7 +4139,7 @@
     "category": "Психика/Депрессия",
     "scienceIndex": 435,
     "metaCount": 53,
-    "citations": 319,
+    "citations": 200,
     "wiki": 31187,
     "ongoing": 3,
     "effects": [
@@ -4479,7 +4479,7 @@
     "category": "ЖКТ",
     "scienceIndex": 10644,
     "metaCount": 1344,
-    "citations": 7,
+    "citations": 9,
     "wiki": 33804,
     "ongoing": 536,
     "effects": [
@@ -4611,7 +4611,7 @@
     "category": "Беременность/Кровь",
     "scienceIndex": 2693,
     "metaCount": 304,
-    "citations": 1278,
+    "citations": 1011,
     "wiki": 78114,
     "ongoing": 580,
     "effects": [
@@ -4865,7 +4865,7 @@
     "category": "Психика/Сон",
     "scienceIndex": 145,
     "metaCount": 5,
-    "citations": 157,
+    "citations": 158,
     "wiki": 75754,
     "ongoing": 45,
     "effects": [
@@ -4971,7 +4971,7 @@
     "category": "Суставы/Остеоартрит",
     "scienceIndex": 1168,
     "metaCount": 113,
-    "citations": 994,
+    "citations": 336,
     "wiki": 33034,
     "ongoing": 26,
     "effects": [
@@ -5094,7 +5094,7 @@
     "category": "Антиоксидант/Неврология",
     "scienceIndex": 5338,
     "metaCount": 477,
-    "citations": 460,
+    "citations": 461,
     "wiki": 40584,
     "ongoing": 108,
     "effects": [
@@ -5488,7 +5488,7 @@
     "category": "Печень/Спорт",
     "scienceIndex": 4008,
     "metaCount": 337,
-    "citations": 360,
+    "citations": 289,
     "wiki": 103667,
     "ongoing": 5433,
     "effects": [
@@ -6328,7 +6328,7 @@
     "category": "Мочеполовая система",
     "scienceIndex": 136,
     "metaCount": 13,
-    "citations": 0,
+    "citations": 201,
     "wiki": 80922,
     "ongoing": 10,
     "effects": [
@@ -7395,7 +7395,7 @@
     "category": "Сексуальное здоровье/Энергия",
     "scienceIndex": 75,
     "metaCount": 8,
-    "citations": 190,
+    "citations": 22,
     "wiki": 18007,
     "ongoing": 2,
     "effects": [
@@ -8242,7 +8242,7 @@
     "category": "Метаболизм/Сексуальное здоровье",
     "scienceIndex": 151,
     "metaCount": 21,
-    "citations": 224,
+    "citations": 79,
     "wiki": 95849,
     "ongoing": 9,
     "effects": [
@@ -8604,7 +8604,7 @@
     "code": -1,
     "verdict": "не подтверждено",
     "category": "Старение/Метаболизм",
-    "scienceIndex": 7132,
+    "scienceIndex": 7133,
     "metaCount": 688,
     "citations": 21,
     "wiki": 10155,
@@ -8691,7 +8691,7 @@
         "year": 2025
       }
     ],
-    "rct": 3692,
+    "rct": 3693,
     "pubmed_term": "(nicotinamide mononucleotide OR nicotinamide riboside OR NMN OR NR) AND (aging OR NAD OR metabolic OR cognitive)",
     "hedges_g_ci": null,
     "hedges_g_outcome": "",
@@ -8712,7 +8712,7 @@
     "category": "Почки/Выносливость",
     "scienceIndex": 94,
     "metaCount": 12,
-    "citations": 109,
+    "citations": 19,
     "wiki": 108976,
     "ongoing": 7,
     "effects": [
@@ -8809,7 +8809,7 @@
     "category": "Иммунитет/Грибы",
     "scienceIndex": 49,
     "metaCount": 4,
-    "citations": 242,
+    "citations": 43,
     "wiki": 4545,
     "ongoing": 10,
     "effects": [
@@ -9176,7 +9176,7 @@
     "category": "Критические состояния/Спорт",
     "scienceIndex": 2063,
     "metaCount": 226,
-    "citations": 90,
+    "citations": 79,
     "wiki": 31564,
     "ongoing": 38,
     "effects": [

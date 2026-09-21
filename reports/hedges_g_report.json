@@ -1,6 +1,6 @@
 {
-  "timestamp": "2026-09-18T16:12:53.019285+00:00",
-  "dry_run": false,
+  "timestamp": "2026-09-21T08:02:46.769189+00:00",
+  "dry_run": true,
   "cards": {
     "Бакопа": {
       "status": "no_candidates"
@@ -213,6 +213,19 @@
       "candidates_count": 1,
       "reused_shared": false
     },
+    "Магний": {
+      "status": "ok",
+      "old_g": -0.67,
+      "new_g": -0.67,
+      "ci": [
+        -0.89,
+        -0.45
+      ],
+      "outcome": "",
+      "pmid": "42515920",
+      "candidates_count": 2,
+      "reused_shared": false
+    },
     "L-Теанин": {
       "status": "ok",
       "old_g": 0.15,
@@ -382,22 +395,9 @@
       "candidates_count": 3,
       "reused_shared": false
     },
-    "Магний": {
-      "status": "ok",
-      "old_g": -0.67,
-      "new_g": -0.67,
-      "ci": [
-        -0.89,
-        -0.45
-      ],
-      "outcome": "",
-      "pmid": "42515920",
-      "candidates_count": 3,
-      "reused_shared": false
-    },
     "Пикногенол": {
       "status": "ok",
-      "old_g": -0.06,
+      "old_g": -0.59,
       "new_g": -0.59,
       "ci": [
         -1.25,
@@ -462,7 +462,7 @@
     },
     "Мака": {
       "status": "ok",
-      "old_g": 0.08,
+      "old_g": -1.37,
       "new_g": -1.37,
       "ci": [
         -3.34,
@@ -501,7 +501,7 @@
     },
     "Цинк": {
       "status": "ok",
-      "old_g": -0.24,
+      "old_g": -0.95,
       "new_g": -0.95,
       "ci": [
         -1.22,
@@ -538,19 +538,6 @@
       "candidates_count": 4,
       "reused_shared": false
     },
-    "Пробиотики": {
-      "status": "ok",
-      "old_g": 0.71,
-      "new_g": 0.71,
-      "ci": [
-        0.29,
-        1.13
-      ],
-      "outcome": "",
-      "pmid": "42614164",
-      "candidates_count": 4,
-      "reused_shared": false
-    },
     "BCAA": {
       "status": "ok",
       "old_g": -0.74,
@@ -566,7 +553,7 @@
     },
     "Кальций": {
       "status": "ok",
-      "old_g": -0.67,
+      "old_g": 0.31,
       "new_g": 0.31,
       "ci": [
         0.06,
@@ -681,6 +668,19 @@
       "candidates_count": 5,
       "reused_shared": false
     },
+    "Пробиотики": {
+      "status": "ok",
+      "old_g": 0.71,
+      "new_g": 0.71,
+      "ci": [
+        0.29,
+        1.13
+      ],
+      "outcome": "",
+      "pmid": "42614164",
+      "candidates_count": 5,
+      "reused_shared": false
+    },
     "Имбирь": {
       "status": "ok",
       "old_g": -1.13,
@@ -709,7 +709,7 @@
     },
     "SAMe": {
       "status": "ok",
-      "old_g": 0.0,
+      "old_g": 0.15,
       "new_g": 0.15,
       "ci": [
         0.07,
@@ -735,7 +735,7 @@
     },
     "B12": {
       "status": "ok",
-      "old_g": 0.0,
+      "old_g": 0.423,
       "new_g": 0.423,
       "ci": [
         0.188,
@@ -852,7 +852,7 @@
     },
     "Креатин": {
       "status": "ok",
-      "old_g": -0.45,
+      "old_g": -0.75,
       "new_g": -0.75,
       "ci": [
         -1.14,
