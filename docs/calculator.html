@@ -86,6 +86,30 @@
     .row-actions{display:flex;gap:.5rem;margin-top:1rem;flex-wrap:wrap}
     .empty{opacity:.55;font-style:italic;font-size:.85rem;padding:.5rem 0}
 
+    /* Профили */
+    .profiles{display:flex;flex-wrap:wrap;gap:.4rem;margin:0 0 1rem}
+    .profile-btn{
+      padding:.4rem .8rem;border:1px solid var(--aborder);border-radius:999px;
+      background:var(--apanel);color:var(--atext);cursor:pointer;
+      font-size:.82rem;display:flex;align-items:center;gap:.35rem;
+      transition:all .15s;
+    }
+    .profile-btn:hover{border-color:#3498db;background:rgba(52,152,219,.08)}
+    .profile-btn .icon{font-size:1rem}
+    .profile-btn .lbl{font-weight:500}
+
+    /* Рекомендации */
+    .reco-list{list-style:none;padding:0;margin:0}
+    .reco-list li{
+      padding:.45rem .6rem;margin:.25rem 0;
+      border:1px solid var(--aborder);border-radius:8px;
+      background:rgba(52,152,219,.05);
+      display:flex;justify-content:space-between;align-items:center;
+      font-size:.85rem;cursor:pointer;
+    }
+    .reco-list li:hover{border-color:#3498db;background:rgba(52,152,219,.1)}
+    .reco-list li .plus{color:#3498db;font-weight:700;font-size:1rem}
+
     @media (max-width: 640px) {
       .wrap{padding:.6rem}
       .trustbar{font-size:.75rem;padding:.35rem .5rem}
@@ -141,6 +165,9 @@
     </div>
   </div>
 
+  <!-- Профили -->
+  <div class="profiles" id="profiles"></div>
+
   <!-- Добавление -->
   <div class="add-row">
     <input id="q" placeholder="Поиск добавки для добавления…" autocomplete="off">
@@ -186,6 +213,11 @@
           <div class="val">0</div>
           <div class="lbl">выше предела</div>
         </div>
+      </div>
+
+      <div class="block" id="recoBlock" style="display:none">
+        <h3>💡 Полезно добавить (<span id="cntReco">0</span>)</h3>
+        <ul class="reco-list" id="recoList"></ul>
       </div>
 
       <div class="block">
@@ -246,17 +278,50 @@
   let selected = {};
 
   // ── Загрузка данных ───────────────────────────────
+  let PROFILES = {};
+  let PAIRS = {};
+
   Promise.all([
     fetch('data.json?ts=' + Date.now()).then(r => r.json()),
     fetch('dosage_parsed.json?ts=' + Date.now()).then(r => r.json()).catch(() => ({})),
-  ]).then(([data, dosage]) => {
+    fetch('profiles.json?ts=' + Date.now()).then(r => r.json()).catch(() => ({})),
+    fetch('pairs.json?ts=' + Date.now()).then(r => r.json()).catch(() => ({})),
+  ]).then(([data, dosage, profiles, pairs]) => {
     DATA = data;
     DOSAGE = dosage;
+    PROFILES = profiles;
+    PAIRS = pairs;
     byId = Object.fromEntries(data.map(c => [c.id, c]));
     loadFromLS();
     loadFromURL();
+    renderProfiles();
     render();
   });
+
+  // ── Профили ────────────────────────────────────────
+  function renderProfiles() {
+    const html = Object.entries(PROFILES).map(([name, p]) => 
+      `<button class="profile-btn" data-profile="${name}" title="${p.desc}">
+        <span class="icon">${p.icon}</span>
+        <span class="lbl">${name}</span>
+      </button>`
+    ).join('');
+    $('profiles').innerHTML = html;
+    $('profiles').querySelectorAll('[data-profile]').forEach(b => {
+      b.addEventListener('click', () => loadProfile(b.dataset.profile));
+    });
+  }
+
+  function loadProfile(name) {
+    const p = PROFILES[name];
+    if (!p) return;
+    // Добавляем все добавки из профиля (не удаляя уже выбранные)
+    for (const id of p.ids) {
+      if (byId[id] && !selected[id]) {
+        addSupp(id);
+      }
+    }
+  }
 
   // ── localStorage ──────────────────────────────────
   function saveLS() {
@@ -603,6 +668,33 @@
     $('warnList').innerHTML = warnings.length
       ? warnings.map(w => `<div class="block-item sev-${w.severity}">${w.text}</div>`).join('')
       : '<div class="empty">—</div>';
+
+    // Рекомендации
+    renderRecos(ids);
+  }
+
+  function renderRecos(ids) {
+    const recoSet = new Set();
+    for (const id of ids) {
+      const pairs = PAIRS[id] || [];
+      for (const rec of pairs) {
+        if (!selected[rec] && byId[rec]) recoSet.add(rec);
+      }
+    }
+    const list = [...recoSet].slice(0, 5);
+    $('cntReco').textContent = list.length;
+    $('recoBlock').style.display = list.length ? '' : 'none';
+    $('recoList').innerHTML = list.map(rec => {
+      const c = byId[rec];
+      const grade = c.grade ? `<span class="grade-badge grade-${c.grade}">${c.grade}</span>` : '';
+      return `<li data-add-reco="${rec}">
+        <span>${rec}${grade}</span>
+        <span class="plus">＋</span>
+      </li>`;
+    }).join('');
+    $('recoList').querySelectorAll('[data-add-reco]').forEach(el => {
+      el.addEventListener('click', () => addSupp(el.dataset.addReco));
+    });
   }
 
   // ── Кнопки ────────────────────────────────────────
