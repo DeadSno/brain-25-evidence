@@ -96,12 +96,20 @@ def main() -> int:
                     help="пропустить шаг (можно несколько раз)")
     ap.add_argument("--only", action="append", default=[],
                     help="только эти шаги (можно несколько раз)")
+    ap.add_argument("--apply", action="store_true",
+                    help="записать изменения (по умолчанию — dry-run)")
     ap.add_argument("--dry-run", action="store_true",
-                    help="не писать в data.json")
+                    help="алиас для default (для явности)")
     args = ap.parse_args()
 
+    # Конвенция как у recalc/fetch_hedges/enrich: no flag = dry-run, --apply = запись
+    is_dry = not args.apply
+    if args.dry_run and args.apply:
+        print("[!] --dry-run и --apply взаимоисключающие", file=sys.stderr)
+        return 2
+
     log = [f"update_all.py — {datetime.now(timezone.utc).isoformat()}",
-           f"mode: {'DRY-RUN' if args.dry_run else 'APPLY'}",
+           f"mode: {'DRY-RUN' if is_dry else 'APPLY'}",
            f"skip: {args.skip}  only: {args.only}"]
 
     steps = STEPS
@@ -116,15 +124,15 @@ def main() -> int:
 
     total_est = sum(s[4] for s in steps)
     print(f"[Pipeline] {len(steps)} шагов, оценка времени ~{total_est} мин")
-    if args.dry_run:
-        print("[Pipeline] DRY-RUN — data.json не будет изменён")
+    if is_dry:
+        print("[Pipeline] DRY-RUN — data.json не будет изменён (для записи: --apply)")
 
     t_all = time.time()
     ok_steps = []
     fail_steps = []
 
     for name, script, apply_args, dry_args, _ in steps:
-        step_args = dry_args if args.dry_run else apply_args
+        step_args = dry_args if is_dry else apply_args
         ok, elapsed = run_step(name, script, step_args, log)
         if ok:
             ok_steps.append((name, elapsed))
