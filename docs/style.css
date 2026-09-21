@@ -349,6 +349,9 @@ body.dark .chip a:visited { color: #5dade2; }
 
 /* v2.8.0: мобильная вёрстка <=480px */
 @media(max-width:480px){
+  h1{font-size:1.05rem}
+  h1 a{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:inline-block;max-width:100%}
+  h1 .v{font-size:.7rem;opacity:.5}
   #modal{position:fixed;inset:0;width:100vw;height:100dvh;max-height:100dvh;border-radius:0;overflow-y:auto}
   #controls{flex-direction:column;gap:.5rem}
   #search{width:100%!important;min-width:0!important}

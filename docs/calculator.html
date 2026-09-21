@@ -676,13 +676,17 @@ function esc(s) {
     // Хелпер рендера
     function renderConf(list, cntId, listId) {
       $(cntId).textContent = list.length;
-      $(listId).innerHTML = list.length
-        ? list.map(c => `
-            <div class="block-item sev-${esc(c.severity)}">
-              <div class="pair"><b>${esc(c.from)}</b> × ${esc(c.with)}</div>
-              <div class="note">${esc(c.note || '')}</div>
-            </div>`).join('')
-        : '<div class="empty">—</div>';
+      const block = $(listId).closest('.block');
+      if (!list.length) {
+        if (block) block.style.display = 'none';
+        return;
+      }
+      if (block) block.style.display = '';
+      $(listId).innerHTML = list.map(c => `
+        <div class="block-item sev-${esc(c.severity)}">
+          <div class="pair"><b>${esc(c.from)}</b> × ${esc(c.with)}</div>
+          <div class="note">${esc(c.note || '')}</div>
+        </div>`).join('');
     }
     renderConf(confSupp, 'cntConfSupp', 'confListSupp');
     renderConf(confDrug, 'cntConfDrug', 'confListDrug');
@@ -690,19 +694,27 @@ function esc(s) {
 
     // Синергии
     $('cntSyn').textContent = synergies.length;
-    $('synList').innerHTML = synergies.length
-      ? synergies.map(s => `
-          <div class="block-item synergy">
-            <div class="pair">✅ ${esc(s.pair)}</div>
-            <div class="note">часто принимают вместе</div>
-          </div>`).join('')
-      : '<div class="empty">—</div>';
+    const synBlock = $('synList').closest('.block');
+    if (!synergies.length) {
+      synBlock.style.display = 'none';
+    } else {
+      synBlock.style.display = '';
+      $('synList').innerHTML = synergies.map(s => `
+        <div class="block-item synergy">
+          <div class="pair">✅ ${esc(s.pair)}</div>
+          <div class="note">часто принимают вместе</div>
+        </div>`).join('');
+    }
 
     // Предупреждения
     $('cntWarn').textContent = warnings.length;
-    $('warnList').innerHTML = warnings.length
-      ? warnings.map(w => `<div class="block-item sev-${w.severity}">${w.text}</div>`).join('')
-      : '<div class="empty">—</div>';
+    const warnBlock = $('warnList').closest('.block');
+    if (!warnings.length) {
+      warnBlock.style.display = 'none';
+    } else {
+      warnBlock.style.display = '';
+      $('warnList').innerHTML = warnings.map(w => `<div class="block-item sev-${w.severity}">${w.text}</div>`).join('');
+    }
 
     // Рекомендации
     renderRecos(ids);
