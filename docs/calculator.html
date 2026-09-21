@@ -48,6 +48,12 @@
     .item .unit{opacity:.6;font-size:.78rem;margin-left:.2rem}
     .item .rm{background:none;border:none;color:#e74c3c;font-size:1.2rem;cursor:pointer;padding:0}
 
+    .grade-badge{display:inline-block;padding:0 .4rem;border-radius:6px;font-size:.68rem;font-weight:700;margin-left:.35rem;vertical-align:middle}
+    .grade-A{background:rgba(46,204,113,.2);color:#2ecc71}
+    .grade-B{background:rgba(139,195,74,.2);color:#8bc34a}
+    .grade-C{background:rgba(241,196,15,.2);color:#f1c40f}
+    .grade-D{background:rgba(231,76,60,.2);color:#e74c3c}
+
     .status{margin:.4rem 0 0;font-size:.8rem}
     .st-ok{color:#2ecc71}
     .st-warn{color:#f39c12}
@@ -71,6 +77,8 @@
     .block-item.sev-low{border-color:rgba(241,196,15,.4);background:rgba(241,196,15,.07)}
     .block-item.sev-medium{border-color:rgba(230,126,34,.5);background:rgba(230,126,34,.08)}
     .block-item.sev-high{border-color:rgba(231,76,60,.5);background:rgba(231,76,60,.08)}
+    .block-item.sev-critical{border-color:rgba(183,28,28,.7);background:rgba(183,28,28,.15)}
+    .block-item.sev-critical .pair::before{content:'⚠️ '}
     .block-item.synergy{border-color:rgba(46,204,113,.5);background:rgba(46,204,113,.08)}
     .block-item .pair{font-weight:600;margin-bottom:.2rem}
     .block-item .note{opacity:.8;font-size:.82rem}
@@ -149,6 +157,7 @@
       <div class="row-actions">
         <button class="btn" id="clearBtn">Очистить всё</button>
         <button class="btn" id="shareBtn">🔗 Скопировать ссылку</button>
+        <button class="btn" id="shareTextBtn">📋 Скопировать как текст</button>
       </div>
     </div>
 
@@ -371,6 +380,7 @@
         <div class="item" data-id="${id}">
           <div>
             <span class="name" data-open="${id}">${c.id}</span>
+        ${c.grade ? `<span class="grade-badge grade-${c.grade}">${c.grade}</span>` : ''}
             <div style="font-size:.72rem;opacity:.6">норма: ${range}</div>
           </div>
           <div>
@@ -417,9 +427,15 @@
       const v = selected[id];
       if (v == null || !d) continue;
 
-      // Сравнение с диапазоном
-      if (v < d.min * 0.9) { cntBelow++; }
-      else if (v > d.max * 1.1) { cntAbove++; }
+      // Диапазон: weight_based → считаем от веса
+      let rangeMin = d.min, rangeMax = d.max;
+      if (d.weight_based && d.per_kg) {
+        const w = parseFloat($('pWeight').value) || 70;
+        rangeMin = w * d.per_kg.min;
+        rangeMax = w * d.per_kg.max;
+      }
+      if (v < rangeMin * 0.9) { cntBelow++; }
+      else if (v > rangeMax * 1.1) { cntAbove++; }
       else { cntOk++; }
 
       // UL — только если явно указан UL, а не «нет UL» / «безопасно до X»
@@ -597,6 +613,30 @@
     syncURL();
     render();
   };
+  $('shareTextBtn').onclick = () => {
+    const ids = Object.keys(selected);
+    if (!ids.length) return alert('Список пуст');
+    const w = parseFloat($('pWeight').value) || 70;
+    const lines = ['Мой набор БАДов (вес ' + w + ' кг):'];
+    for (const id of ids) {
+      const c = byId[id];
+      const d = DOSAGE[id];
+      const v = selected[id];
+      const unit = d?.unit || '';
+      const grade = c.grade ? ` [${c.grade}]` : '';
+      lines.push(`• ${id}${grade} — ${v != null ? v + ' ' + unit : 'доза не указана'}`);
+    }
+    const text = lines.join('\n');
+    navigator.clipboard.writeText(text).then(() => {
+      const b = $('shareTextBtn');
+      const old = b.textContent;
+      b.textContent = '✓ Скопировано';
+      setTimeout(() => { b.textContent = old; }, 1500);
+    }).catch(() => {
+      prompt('Скопируйте текст:', text);
+    });
+  };
+
   $('shareBtn').onclick = () => {
     navigator.clipboard.writeText(location.href).then(() => {
       const b = $('shareBtn');
