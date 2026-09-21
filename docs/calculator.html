@@ -260,6 +260,12 @@
 </div>
 
 <script>
+// ── XSS protection ─────────────────────────────────────────────
+function esc(s) {
+  return String(s == null ? '' : s).replace(/[&<>"']/g, c => (
+    { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
+  ));
+}
 (function () {
   const $ = id => document.getElementById(id);
   const isDark = () => document.body.classList.contains('dark');
@@ -307,9 +313,9 @@
   // ── Профили ────────────────────────────────────────
   function renderProfiles() {
     const html = Object.entries(PROFILES).map(([name, p]) => 
-      `<button class="profile-btn" data-profile="${name}" title="${p.desc}">
-        <span class="icon">${p.icon}</span>
-        <span class="lbl">${name}</span>
+      `<button class="profile-btn" data-profile="${esc(name)}" title="${esc(p.desc)}">
+        <span class="icon">${esc(p.icon)}</span>
+        <span class="lbl">${esc(name)}</span>
       </button>`
     ).join('');
     $('profiles').innerHTML = html;
@@ -372,7 +378,7 @@
          (c.effects || []).join(' ').toLowerCase().includes(q)))
       .slice(0, 8);
     $('searchResults').innerHTML = res.length
-      ? res.map(c => `<button class="btn" data-add="${c.id}" style="margin:.2rem .3rem .2rem 0">＋ ${c.id}</button>`).join('')
+      ? res.map(c => `<button class="btn" data-add="${esc(c.id)}" style="margin:.2rem .3rem .2rem 0">＋ ${esc(c.id)}</button>`).join('')
       : '<div class="empty">Ничего не найдено</div>';
   });
   $('searchResults').addEventListener('click', e => {
@@ -462,17 +468,17 @@
         range = d ? `${d.min}–${d.max} ${unit}` : '—';
       }
       return `
-        <div class="item" data-id="${id}">
+        <div class="item" data-id="${esc(id)}">
           <div>
-            <span class="name" data-open="${id}">${c.id}</span>
-        ${c.grade ? `<span class="grade-badge grade-${c.grade}">${c.grade}</span>` : ''}
-            <div style="font-size:.72rem;opacity:.6">норма: ${range}</div>
+            <span class="name" data-open="${esc(id)}">${esc(c.id)}</span>
+        ${c.grade ? `<span class="grade-badge grade-${esc(c.grade)}">${esc(c.grade)}</span>` : ''}
+            <div style="font-size:.72rem;opacity:.6">норма: ${esc(range)}</div>
           </div>
           <div>
-            <input type="number" data-input="${id}" min="0" step="any" value="${val}">
-            <span class="unit">${unit}</span>
+            <input type="number" data-input="${esc(id)}" min="0" step="any" value="${esc(val)}">
+            <span class="unit">${esc(unit)}</span>
           </div>
-          <button class="rm" data-rm="${id}" title="Удалить">×</button>
+          <button class="rm" data-rm="${esc(id)}" title="Удалить">×</button>
         </div>`;
     }).join('');
 
@@ -672,9 +678,9 @@
       $(cntId).textContent = list.length;
       $(listId).innerHTML = list.length
         ? list.map(c => `
-            <div class="block-item sev-${c.severity}">
-              <div class="pair"><b>${c.from}</b> × ${c.with}</div>
-              <div class="note">${c.note}</div>
+            <div class="block-item sev-${esc(c.severity)}">
+              <div class="pair"><b>${esc(c.from)}</b> × ${esc(c.with)}</div>
+              <div class="note">${esc(c.note)}</div>
             </div>`).join('')
         : '<div class="empty">—</div>';
     }
@@ -687,7 +693,7 @@
     $('synList').innerHTML = synergies.length
       ? synergies.map(s => `
           <div class="block-item synergy">
-            <div class="pair">✅ ${s.pair}</div>
+            <div class="pair">✅ ${esc(s.pair)}</div>
             <div class="note">часто принимают вместе</div>
           </div>`).join('')
       : '<div class="empty">—</div>';
@@ -715,9 +721,9 @@
     $('recoBlock').style.display = list.length ? '' : 'none';
     $('recoList').innerHTML = list.map(rec => {
       const c = byId[rec];
-      const grade = c.grade ? `<span class="grade-badge grade-${c.grade}">${c.grade}</span>` : '';
-      return `<li data-add-reco="${rec}">
-        <span>${rec}${grade}</span>
+      const grade = c.grade ? `<span class="grade-badge grade-${esc(c.grade)}">${esc(c.grade)}</span>` : '';
+      return `<li data-add-reco="${esc(rec)}">
+        <span>${esc(rec)}${grade}</span>
         <span class="plus">＋</span>
       </li>`;
     }).join('');
