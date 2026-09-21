@@ -323,7 +323,6 @@ body:not(.dark) .compareChips .chipbx{color:var(--accent)}
 /* ===== F5.3: 375px — карточки в столбец, чипы переносятся ===== */
 @media (max-width:375px){
   #qaSection .qa{display:block}
-  .qaGrid{grid-template-columns:1fr}
   .trustChips{flex-direction:column;align-items:stretch}
   .trustChips .chip{text-align:center}
 }
@@ -349,10 +348,20 @@ body.dark .chip a:visited { color: #5dade2; }
 
 /* v2.8.0: мобильная вёрстка <=480px */
 @media(max-width:480px){
-  h1{font-size:1.05rem}
-  h1 a{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:inline-block;max-width:100%}
-  h1 .v{font-size:.7rem;opacity:.5}
+  /* Шапка: H1 на всю ширину (перенос), actions под ним */
+  /* Шапка: block layout — H1 сверху, actions снизу. Надёжнее flex-wrap */
+  header.top,header.hdr{display:block!important}
+  header.top>h1,header.hdr>h1{font-size:1.05rem!important;line-height:1.2!important;margin:0 0 .5rem!important;white-space:normal!important;overflow:visible!important}
+  header.top>h1>a,header.hdr>h1>a{white-space:normal!important;display:inline!important}
+  header.top .actions,header.hdr .actions{display:flex!important;flex-wrap:wrap!important;gap:.4rem!important;justify-content:flex-end!important}
+  h1 .v,h1>span[style*="opacity"]{display:none!important}
+
   #modal{position:fixed;inset:0;width:100vw;height:100dvh;max-height:100dvh;border-radius:0;overflow-y:auto}
+  #modal,#modalBody{overflow-x:hidden!important;word-break:break-word}
+  #modal *{max-width:100%!important;min-width:0!important;box-sizing:border-box}
+  #modal a,#modal .srcIcon,#modal .chip-pmid,#modal .mrow{word-break:break-word;overflow-wrap:anywhere}
+  #modal .srcRow,#modal .shareRow{flex-wrap:wrap!important}
+  #modal img,#modal canvas{max-width:100%!important;height:auto}
   #controls{flex-direction:column;gap:.5rem}
   #search{width:100%!important;min-width:0!important}
   #chartWrap{overflow-x:hidden}
@@ -530,4 +539,45 @@ body.dark a.btn{text-decoration:none}
 }
 .activeFilterClear:hover {
   opacity: 1;
+}
+
+/* ===== Мобильная адаптация (в конце файла — перебивает базовые правила) ===== */
+@media(max-width:768px){
+  .qaGrid{grid-template-columns:1fr!important}
+}
+
+/* ═══ Мобильная шапка: H1 сверху, кнопка темы снизу ═══ */
+@media (max-width: 640px) {
+  header.top {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    grid-template-areas: "title" "actions" !important;
+    gap: .5rem !important;
+    width: 100% !important;
+  }
+  header.top > h1 {
+    grid-area: title !important;
+    font-size: 1.05rem !important;
+    line-height: 1.25 !important;
+    margin: 0 !important;
+    white-space: normal !important;
+    overflow: visible !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+  header.top > h1 > a {
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    display: inline !important;
+    max-width: none !important;
+  }
+  header.top .actions {
+    grid-area: actions !important;
+    display: flex !important;
+    justify-content: flex-end !important;
+    flex-wrap: wrap !important;
+    gap: .4rem !important;
+  }
+  header.top h1 .v { display: none !important; }
 }
