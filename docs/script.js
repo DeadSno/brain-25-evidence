@@ -103,7 +103,7 @@ const CARDBLOCKS = [
   { key: 'works',     title: 'Работает ли',                get: s => '<span class="verdict v' + s.code + '">' + s.verdict + '</span> · ' + gradeBadge(s) },
   { key: 'evidence',  title: 'На чём основано',            get: s => '<div>' + scienceSpan(s) + pubmedLink(s) + ' · ' + maSpan(s) + ' · ' + citationsSpan(s) + '</div>' +
     ((s.mechs || []).length ? '<div class="hline">Механизмы: ' + s.mechs.map(m => m[0]).join('; ') + '</div>' : '') },
-  { key: 'how',       title: 'Как принимать',              get: s => [s.dosage, s.course].filter(Boolean).join(' · ') || '' },
+  { key: 'how',       title: 'Как принимать',              get: s => [s.dosage, s.course].filter(v => v && v !== '—' && v !== '-').join(' · ') || 'данных нет' },
   { key: 'onset',     title: 'Когда почувствую',           get: s => s.onset || '' },
   { key: 'notwho',    title: 'Кому нельзя',                get: s => s.caution || '' },
   { key: 'conflicts', title: 'С чем конфликтует',          get: renderConflicts },

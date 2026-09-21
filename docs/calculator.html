@@ -309,10 +309,22 @@
 
   function addSupp(id) {
     if (!byId[id]) return;
-    // Дефолтная доза = среднее из диапазона или min
     const d = DOSAGE[id];
     let def = null;
-    if (d) def = d.max != null ? Math.round(((d.min + d.max) / 2) * 100) / 100 : d.min;
+    if (d) {
+      if (d.weight_based && d.per_kg) {
+        // Доза от веса: берём среднее per_kg × вес
+        const w = parseFloat($('pWeight').value) || 70;
+        const mid = (d.per_kg.min + d.per_kg.max) / 2;
+        def = Math.round(w * mid * 100) / 100;
+        // Переводим в граммы если per_kg в g/kg
+        if (d.per_kg.unit === 'g/kg' && d.unit === 'g') {
+          def = Math.round(def * 100) / 100;
+        }
+      } else {
+        def = d.max != null ? Math.round(((d.min + d.max) / 2) * 100) / 100 : d.min;
+      }
+    }
     selected[id] = def;
     $('q').value = '';
     $('searchResults').innerHTML = '';
@@ -346,7 +358,15 @@
       const d = DOSAGE[id];
       const unit = d?.unit || 'mg';
       const val = selected[id] != null ? selected[id] : '';
-      const range = d ? `${d.min}–${d.max} ${unit}` : '—';
+      let range;
+      if (d?.weight_based && d.per_kg) {
+        const w = parseFloat($('pWeight').value) || 70;
+        const mn = Math.round(w * d.per_kg.min * 100) / 100;
+        const mx = Math.round(w * d.per_kg.max * 100) / 100;
+        range = `${mn}–${mx} ${d.per_kg.unit.replace('/kg', '')} (для ${w} кг)`;
+      } else {
+        range = d ? `${d.min}–${d.max} ${unit}` : '—';
+      }
       return `
         <div class="item" data-id="${id}">
           <div>
@@ -477,28 +497,57 @@
     // Синергии — если кто-то из выбранных в списке «with» у другого
     // (пока без friends — оставляем пусто, будет позже)
 
-    // Особые состояния
+    // Пол + железо
+    const sex = $('pSex').value;
+    const age = parseInt($('pAge').value) || 30;
     const state = $('pPregnant').value;
-    if (state) {
-      for (const id of ids) {
-        const c = byId[id];
-        const caution = (c.caution || '').toLowerCase();
-        if (state === 'pregnant' && /беремен|лактац/.test(caution)) {
-          warnings.push({ severity: 'high', text: `<b>${id}</b>: осторожно при беременности/лактации` });
-        }
-        if (state === 'lactation' && /лактац/.test(caution)) {
-          warnings.push({ severity: 'high', text: `<b>${id}</b>: осторожно при лактации` });
-        }
+
+    if (ids.includes('Железо') && !state) {
+      if (sex === 'm' && age >= 18 && age < 60) {
+        warnings.push({
+          severity: 'medium',
+          text: '<b>Железо</b>: у мужчин без подтверждённого дефицита добавки не рекомендованы (риск перегрузки). Сдайте ферритин.'
+        });
+      }
+      if (sex === 'f' && age >= 18 && age <= 50) {
+        warnings.push({
+          severity: 'low',
+          text: '<b>Железо</b>: у женщин репродуктивного возраста дефицит част — проверьте ферритин, прежде чем принимать.'
+        });
       }
     }
 
-    // Железо × пол (пример контекстной логики)
-    const sex = $('pSex').value;
-    if (sex === 'm' && ids.includes('Железо')) {
-      const v = selected['Железо'];
-      if (v && v > 20 && !$('pPregnant').value) {
-        // у мужчин без дефицита железо опасно
-        warnings.push({ severity: 'medium', text: `<b>Железо</b>: у мужчин без дефицита добавки не рекомендованы (риск перегрузки)` });
+    // Возраст 60+
+    if (age >= 60) {
+      const ageImportant = ['Витамин D', 'B12', 'Кальций', 'Магний'];
+      const hasAge = ids.filter(x => ageImportant.includes(x));
+      if (hasAge.length) {
+        warnings.push({
+          severity: 'low',
+          text: `В возрасте 60+: особенно важны <b>${hasAge.join(', ')}</b> (профилактика остеопороза, саркопении, дефицита B12).`
+        });
+      }
+    }
+
+    // Беременность / лактация
+    if (state === 'pregnant' || state === 'lactation') {
+      // Список потенциально опасных при беременности
+      const riskyPregnant = ['Кофеин', 'Гинкго', 'Ашваганда', 'Йохимбин', 'Зверобой', 'Гуперзин А', 'Бакопа'];
+      const risky = ids.filter(x => riskyPregnant.includes(x));
+      if (risky.length) {
+        warnings.push({
+          severity: 'high',
+          text: `⚠️ При беременности/лактации <b>избегайте</b>: ${risky.join(', ')}. Проконсультируйтесь с врачом.`
+        });
+      }
+      // Полезные при беременности
+      const helpfulPregnant = ['B9', 'Витамин D', 'Железо', 'Омега-3'];
+      const helpful = ids.filter(x => helpfulPregnant.includes(x));
+      if (helpful.length) {
+        warnings.push({
+          severity: 'low',
+          text: `<b>${helpful.join(', ')}</b> часто рекомендованы при беременности (по назначению врача).`
+        });
       }
     }
 
@@ -559,7 +608,21 @@
 
   // Параметры — пересчёт при изменении
   ['pWeight', 'pSex', 'pAge', 'pPregnant'].forEach(id => {
-    $(id).addEventListener('change', renderResult);
+    $(id).addEventListener('change', () => {
+      // Если изменился вес — пересчитать дозы weight_based
+      if (id === 'pWeight') {
+        const w = parseFloat($('pWeight').value) || 70;
+        for (const cid of Object.keys(selected)) {
+          const d = DOSAGE[cid];
+          if (d?.weight_based && d.per_kg) {
+            const mid = (d.per_kg.min + d.per_kg.max) / 2;
+            selected[cid] = Math.round(w * mid * 100) / 100;
+          }
+        }
+        saveLS();
+      }
+      render();
+    });
   });
 })();
 </script>
