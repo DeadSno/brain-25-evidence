@@ -413,6 +413,20 @@
     render();
   }
 
+  function showToast(msg) {
+    const t = document.createElement('div');
+    t.textContent = msg;
+    t.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);' +
+      'padding:.6rem 1.2rem;background:rgba(0,0,0,.85);color:#fff;border-radius:8px;' +
+      'font-size:.9rem;z-index:9999;opacity:0;transition:opacity .2s';
+    document.body.appendChild(t);
+    requestAnimationFrame(() => { t.style.opacity = '1'; });
+    setTimeout(() => {
+      t.style.opacity = '0';
+      setTimeout(() => t.remove(), 200);
+    }, 2000);
+  }
+
   function removeSupp(id) {
     delete selected[id];
     saveLS();
@@ -722,7 +736,7 @@
   };
   $('shareTextBtn').onclick = () => {
     const ids = Object.keys(selected);
-    if (!ids.length) return alert('Список пуст');
+    if (!ids.length) return showToast('Список пуст');
     const w = parseFloat($('pWeight').value) || 70;
     const lines = ['Мой набор БАДов (вес ' + w + ' кг):'];
     for (const id of ids) {
