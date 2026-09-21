@@ -5,6 +5,12 @@
    (не воюем с веткой A трекера) — только MutationObserver. */
 (() => {
   'use strict';
+// ── XSS protection ─────────────────────────────────────────────
+function esc(s) {
+  return String(s == null ? '' : s).replace(/[&<>"']/g, c => (
+    { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
+  ));
+}
   if (window.__science2Loaded) return;
   window.__science2Loaded = true;
 
