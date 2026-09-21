@@ -37,7 +37,7 @@ jobs:
       - name: Count collected tests
         id: count
         run: |
-          COUNT=$(python -m pytest --co -q 2>/dev/null | tail -1 | grep -oP '\d+(?= test)' || echo "0")
+          COUNT=$(python -m pytest --co 2>/dev/null | grep -c '::')
           echo "count=$COUNT" >> "$GITHUB_OUTPUT"
           echo "Собрано тестов: $COUNT"
 
