@@ -1911,42 +1911,28 @@
     "grade": "B",
     "key_sources": [
       {
-        "pmid": "18425924",
-        "title": "Huperzine A for Alzheimer's disease.",
-        "year": 2008,
-        "journal": "The Cochrane database of systematic reviews",
+        "pmid": "39239652",
+        "title": "Pharmacological treatments for vascular dementia: a systematic review and Bayesian network meta-analysis.",
+        "year": 2024,
+        "journal": "Frontiers in pharmacology",
+        "pubtype": [
+          "Journal Article",
+          "Systematic Review"
+        ],
+        "source": "curated"
+      },
+      {
+        "pmid": "34924395",
+        "title": "The Efficacy and Safety of Alzheimer's Disease Therapies: An Updated Umbrella Review.",
+        "year": 2022,
+        "journal": "Journal of Alzheimer's disease : JAD",
         "pubtype": [
           "Journal Article",
           "Meta-Analysis",
-          "Systematic Review"
-        ],
-        "source": "curated",
-        "doi": "10.1002/14651858.CD005592.pub2"
-      },
-      {
-        "pmid": "19370686",
-        "title": "Huperzine A for vascular dementia.",
-        "year": 2009,
-        "journal": "The Cochrane database of systematic reviews",
-        "pubtype": [
-          "Journal Article",
-          "Systematic Review"
-        ],
-        "source": "curated",
-        "doi": "10.1002/14651858.CD007365.pub2"
-      },
-      {
-        "pmid": "23235666",
-        "title": "Huperzine A for mild cognitive impairment.",
-        "year": 2012,
-        "journal": "The Cochrane database of systematic reviews",
-        "pubtype": [
-          "Journal Article",
           "Research Support, Non-U.S. Gov't",
           "Systematic Review"
         ],
-        "source": "curated",
-        "doi": "10.1002/14651858.CD008827.pub2"
+        "source": "curated"
       }
     ],
     "updated": "2026-09-16",
@@ -2942,19 +2928,6 @@
     "grade": "C",
     "key_sources": [
       {
-        "pmid": "22513958",
-        "title": "Pycnogenol® (extract of French maritime pine bark) for the treatment of chronic disorders.",
-        "year": 2012,
-        "journal": "The Cochrane database of systematic reviews",
-        "pubtype": [
-          "Journal Article",
-          "Research Support, U.S. Gov't, Non-P.H.S.",
-          "Systematic Review"
-        ],
-        "source": "curated",
-        "doi": "10.1002/14651858.CD008294.pub4"
-      },
-      {
         "pmid": "31637782",
         "title": "Effect of pycnogenol supplementation on blood pressure: A systematic review and meta-analysis of clinical trials.",
         "year": 2020,
@@ -2968,17 +2941,29 @@
         "doi": "10.1002/ptr.6515"
       },
       {
-        "pmid": "31585179",
-        "title": "Effects of pycnogenol on cardiometabolic health: A systematic review and meta-analysis of randomized controlled trials.",
-        "year": 2019,
-        "journal": "Pharmacological research",
+        "pmid": "39987124",
+        "title": "Does supplementation with pine bark extract improve cardiometabolic risk factors? A systematic review and meta-analysis.",
+        "year": 2025,
+        "journal": "BMC complementary medicine and therapies",
         "pubtype": [
           "Journal Article",
-          "Meta-Analysis",
-          "Systematic Review"
+          "Systematic Review",
+          "Meta-Analysis"
         ],
-        "source": "curated",
-        "doi": "10.1016/j.phrs.2019.104472"
+        "source": "curated"
+      },
+      {
+        "pmid": "37908749",
+        "title": "Efficacy of L-arginine and Pycnogenol ® in the treatment of male erectile dysfunction: a systematic review and meta-analysis.",
+        "year": 2023,
+        "journal": "Frontiers in endocrinology",
+        "pubtype": [
+          "Meta-Analysis",
+          "Systematic Review",
+          "Research Support, Non-U.S. Gov't",
+          "Journal Article"
+        ],
+        "source": "curated"
       }
     ],
     "updated": "2026-09-16",
@@ -3522,42 +3507,27 @@
     "grade": "C",
     "key_sources": [
       {
-        "pmid": "17054208",
-        "title": "Valerian for anxiety disorders.",
-        "year": 2006,
-        "journal": "The Cochrane database of systematic reviews",
+        "pmid": "38359657",
+        "title": "Does valerian work for insomnia? An umbrella review of the evidence.",
+        "year": 2024,
+        "journal": "European neuropsychopharmacology : the journal of the European College of Neuropsychopharmacology",
         "pubtype": [
           "Journal Article",
           "Research Support, Non-U.S. Gov't",
           "Systematic Review"
         ],
-        "source": "curated",
-        "doi": "10.1002/14651858.CD004515.pub2"
+        "source": "curated"
       },
       {
-        "pmid": "20347389",
-        "title": "Effectiveness of Valerian on insomnia: a meta-analysis of randomized placebo-controlled trials.",
-        "year": 2010,
-        "journal": "Sleep medicine",
+        "pmid": "37527850",
+        "title": "Complementary and alternative treatments for insomnia disorder: a systematic umbrella review.",
+        "year": 2023,
+        "journal": "Journal of sleep research",
         "pubtype": [
           "Journal Article",
-          "Meta-Analysis"
-        ],
-        "source": "curated",
-        "doi": "10.1016/j.sleep.2009.12.009"
-      },
-      {
-        "pmid": "17517355",
-        "title": "A systematic review of valerian as a sleep aid: safe but not effective.",
-        "year": 2007,
-        "journal": "Sleep medicine reviews",
-        "pubtype": [
-          "Journal Article",
-          "Research Support, N.I.H., Extramural",
           "Systematic Review"
         ],
-        "source": "curated",
-        "doi": "10.1016/j.smrv.2007.03.002"
+        "source": "curated"
       }
     ],
     "updated": "2026-09-16",
@@ -4222,17 +4192,27 @@
     "grade": "B",
     "key_sources": [
       {
-        "pmid": "28064110",
-        "title": "Clinical use of Hypericum perforatum (St John's wort) in depression: A meta-analysis.",
-        "year": 2017,
-        "journal": "Journal of affective disorders",
+        "pmid": "36226689",
+        "title": "The efficacy and safety of St. John's wort extract in depression therapy compared to SSRIs in adults: A meta-analysis of randomized clinical trials.",
+        "year": 2023,
+        "journal": "Advances in clinical and experimental medicine : official organ Wroclaw Medical University",
+        "pubtype": [
+          "Meta-Analysis",
+          "Journal Article"
+        ],
+        "source": "curated"
+      },
+      {
+        "pmid": "32478963",
+        "title": "Warfarin and food, herbal or dietary supplement interactions: A systematic review.",
+        "year": 2021,
+        "journal": "British journal of clinical pharmacology",
         "pubtype": [
           "Journal Article",
-          "Meta-Analysis",
-          "Review"
+          "Research Support, Non-U.S. Gov't",
+          "Systematic Review"
         ],
-        "source": "curated",
-        "doi": "10.1016/j.jad.2016.12.048"
+        "source": "curated"
       }
     ],
     "updated": "2026-09-16",
@@ -5049,30 +5029,27 @@
         "doi": "10.1002/14651858.CD005614.pub2"
       },
       {
-        "pmid": "15846645",
-        "title": "Glucosamine therapy for treating osteoarthritis.",
-        "year": 2005,
-        "journal": "The Cochrane database of systematic reviews",
+        "pmid": "40647198",
+        "title": "The Safety and Efficacy of Glucosamine and/or Chondroitin in Humans: A Systematic Review.",
+        "year": 2025,
+        "journal": "Nutrients",
         "pubtype": [
           "Journal Article",
-          "Meta-Analysis",
           "Systematic Review"
         ],
-        "source": "curated",
-        "doi": "10.1002/14651858.CD002946.pub2"
+        "source": "curated"
       },
       {
-        "pmid": "29713967",
-        "title": "Effects of glucosamine in patients with osteoarthritis of the knee: a systematic review and meta-analysis.",
-        "year": 2018,
-        "journal": "Clinical rheumatology",
+        "pmid": "35024906",
+        "title": "Efficacy and safety of the combination of glucosamine and chondroitin for knee osteoarthritis: a systematic review and meta-analysis.",
+        "year": 2023,
+        "journal": "Archives of orthopaedic and trauma surgery",
         "pubtype": [
-          "Journal Article",
           "Meta-Analysis",
-          "Systematic Review"
+          "Systematic Review",
+          "Journal Article"
         ],
-        "source": "curated",
-        "doi": "10.1007/s10067-018-4106-2"
+        "source": "curated"
       }
     ],
     "updated": "2026-09-16",
@@ -7456,29 +7433,27 @@
     "grade": "C",
     "key_sources": [
       {
-        "pmid": "20691074",
-        "title": "Maca (L. meyenii) for improving sexual function: a systematic review.",
-        "year": 2010,
-        "journal": "BMC complementary and alternative medicine",
+        "pmid": "36110519",
+        "title": "Maca (Lepidium meyenii Walp.) on semen quality parameters: A systematic review and meta-analysis.",
+        "year": 2022,
+        "journal": "Frontiers in pharmacology",
         "pubtype": [
-          "Journal Article",
-          "Research Support, Non-U.S. Gov't",
-          "Systematic Review"
+          "Systematic Review",
+          "Journal Article"
         ],
-        "source": "curated",
-        "doi": "10.1186/1472-6882-10-44"
+        "source": "curated"
       },
       {
-        "pmid": "21840656",
-        "title": "Maca (Lepidium meyenii) for treatment of menopausal symptoms: A systematic review.",
-        "year": 2011,
-        "journal": "Maturitas",
+        "pmid": "39796542",
+        "title": "Effects of Maca (Lepidium meyenii Walp.) on Physical Performance in Animals and Humans: A Systematic Review and Meta-Analysis.",
+        "year": 2024,
+        "journal": "Nutrients",
         "pubtype": [
           "Journal Article",
-          "Systematic Review"
+          "Systematic Review",
+          "Meta-Analysis"
         ],
-        "source": "curated",
-        "doi": "10.1016/j.maturitas.2011.07.017"
+        "source": "curated"
       }
     ],
     "updated": "2026-09-16",
@@ -8305,17 +8280,28 @@
     "grade": "C",
     "key_sources": [
       {
-        "pmid": "24438170",
-        "title": "Effect of fenugreek (Trigonella foenum-graecum L.) intake on glycemia: a meta-analysis of clinical trials.",
-        "year": 2014,
-        "journal": "Nutrition journal",
+        "pmid": "36837450",
+        "title": "Effect of Fenugreek on Hyperglycemia: A Systematic Review and Meta-Analysis.",
+        "year": 2023,
+        "journal": "Medicina (Kaunas, Lithuania)",
         "pubtype": [
-          "Journal Article",
           "Meta-Analysis",
-          "Research Support, Non-U.S. Gov't"
+          "Systematic Review",
+          "Journal Article"
         ],
-        "source": "curated",
-        "doi": "10.1186/1475-2891-13-7"
+        "source": "curated"
+      },
+      {
+        "pmid": "36470549",
+        "title": "Effects of fenugreek supplementation on the components of metabolic syndrome: A systematic review and dose-response meta-analysis of randomized clinical trials.",
+        "year": 2023,
+        "journal": "Pharmacological research",
+        "pubtype": [
+          "Systematic Review",
+          "Meta-Analysis",
+          "Journal Article"
+        ],
+        "source": "curated"
       }
     ],
     "updated": "2026-09-16",
@@ -8764,44 +8750,27 @@
     "grade": "B",
     "key_sources": [
       {
-        "pmid": "25519252",
-        "title": "Cordyceps sinensis (a traditional Chinese medicine) for treating chronic kidney disease.",
-        "year": 2014,
-        "journal": "The Cochrane database of systematic reviews",
+        "pmid": "38484953",
+        "title": "Adjuvant treatment with Cordyceps sinensis for lung cancer: A systematic review and meta-analysis of randomized controlled trials.",
+        "year": 2024,
+        "journal": "Journal of ethnopharmacology",
         "pubtype": [
           "Journal Article",
           "Meta-Analysis",
-          "Research Support, Non-U.S. Gov't",
           "Systematic Review"
         ],
-        "source": "curated",
-        "doi": "10.1002/14651858.CD008353.pub2"
+        "source": "curated"
       },
       {
-        "pmid": "26457607",
-        "title": "Cordyceps sinensis (a traditional Chinese medicine) for kidney transplant recipients.",
-        "year": 2015,
-        "journal": "The Cochrane database of systematic reviews",
+        "pmid": "39460586",
+        "title": "Therapeutic efficacy and pharmacological mechanism of Bailing capsule on chronic obstructive pulmonary disease: a meta-analysis and network pharmacology.",
+        "year": 2024,
+        "journal": "Pharmaceutical biology",
         "pubtype": [
           "Journal Article",
-          "Meta-Analysis",
-          "Systematic Review"
+          "Meta-Analysis"
         ],
-        "source": "curated",
-        "doi": "10.1002/14651858.CD009698.pub2"
-      },
-      {
-        "pmid": "28137532",
-        "title": "Efficacy of Cordyceps sinensis as an adjunctive treatment in kidney transplant patients: A systematic-review and meta-analysis.",
-        "year": 2017,
-        "journal": "Complementary therapies in medicine",
-        "pubtype": [
-          "Journal Article",
-          "Meta-Analysis",
-          "Systematic Review"
-        ],
-        "source": "curated",
-        "doi": "10.1016/j.ctim.2016.12.007"
+        "source": "curated"
       }
     ],
     "updated": "2026-09-16",
@@ -8878,30 +8847,26 @@
     "grade": "C",
     "key_sources": [
       {
-        "pmid": "27045603",
-        "title": "Ganoderma lucidum (Reishi mushroom) for cancer treatment.",
-        "year": 2016,
-        "journal": "The Cochrane database of systematic reviews",
+        "pmid": "42147328",
+        "title": "Mechanism of Ganoderma lucidum polysaccharides in the mangement of diabetes and its complications.",
+        "year": 2026,
+        "journal": "Frontiers in pharmacology",
         "pubtype": [
           "Journal Article",
-          "Meta-Analysis",
           "Systematic Review"
         ],
-        "source": "curated",
-        "doi": "10.1002/14651858.CD007731.pub3"
+        "source": "curated"
       },
       {
-        "pmid": "22696372",
-        "title": "Ganoderma lucidum (Reishi mushroom) for cancer treatment.",
-        "year": 2012,
-        "journal": "The Cochrane database of systematic reviews",
+        "pmid": "36995535",
+        "title": "Medicinal Mushroom Supplements in Cancer: A Systematic Review of Clinical Studies.",
+        "year": 2023,
+        "journal": "Current oncology reports",
         "pubtype": [
-          "Journal Article",
-          "Meta-Analysis",
-          "Systematic Review"
+          "Systematic Review",
+          "Journal Article"
         ],
-        "source": "curated",
-        "doi": "10.1002/14651858.CD007731.pub2"
+        "source": "curated"
       }
     ],
     "updated": "2026-09-16",
@@ -9249,29 +9214,29 @@
     "grade": "C",
     "key_sources": [
       {
-        "pmid": "25199493",
-        "title": "Glutamine supplementation for critically ill adults.",
-        "year": 2014,
-        "journal": "The Cochrane database of systematic reviews",
+        "pmid": "39397201",
+        "title": "A systematic review and meta-analysis of clinical trials on the effects of glutamine supplementation on gut permeability in adults.",
+        "year": 2024,
+        "journal": "Amino acids",
         "pubtype": [
           "Journal Article",
           "Meta-Analysis",
           "Systematic Review"
         ],
-        "source": "curated",
-        "doi": "10.1002/14651858.CD010050.pub2"
+        "source": "curated"
       },
       {
-        "pmid": "11687112",
-        "title": "Glutamine supplementation for prevention of morbidity in preterm infants.",
-        "year": 2001,
-        "journal": "The Cochrane database of systematic reviews",
+        "pmid": "37882375",
+        "title": "Impact of Perioperative Immunonutrition on Postoperative Outcomes for Patients Undergoing Head and Neck or Gastrointestinal Cancer Surgeries: A Systematic Review and Meta-analysis of Randomized Controlled Trials.",
+        "year": 2024,
+        "journal": "Annals of surgery",
         "pubtype": [
+          "Meta-Analysis",
+          "Systematic Review",
           "Journal Article",
-          "Systematic Review"
+          "Research Support, Non-U.S. Gov't"
         ],
-        "source": "curated",
-        "doi": "10.1002/14651858.CD001457"
+        "source": "curated"
       }
     ],
     "updated": "2026-09-16",
