@@ -21,6 +21,7 @@ import numpy as np
 ROOT = Path(__file__).resolve().parents[1]
 PUBMED = ROOT / "data" / "timeseries" / "pubmed.json"
 WIKI = ROOT / "data" / "timeseries" / "wiki.json"
+CITATIONS = ROOT / "data" / "timeseries" / "citations.json"
 DATA = ROOT / "docs" / "data.json"
 OUT = ROOT / "reports" / "trends.png"
 
@@ -159,6 +160,25 @@ def plot_scatter(ax, pubmed: dict, wiki: dict, data: list[dict]) -> None:
             ax.annotate(labels[i], (xs[i], ys[i]), fontsize=7, alpha=0.8)
 
 
+def plot_citations_total(ax, citations: dict) -> None:
+    """Общая сумма цитат по всем добавкам за год — глобальный тренд."""
+    years = sorted({y for s in citations.values() for y in s.keys()})
+    totals = {y: sum(s.get(y, 0) for s in citations.values()) for y in years}
+    values = [totals[y] for y in years]
+
+    bars = ax.bar(years, values, color="#3498db", alpha=0.85, edgecolor="#2980b9")
+    ax.set_ylabel("Цитат в год (сумма по 94)", color=FG)
+    ax.set_title(
+        "Общий поток цитат по всем добавкам (ключевые источники)", 
+        color=FG, fontsize=11,
+    )
+    ax.grid(True, axis="y", alpha=0.3)
+
+    for i, y in enumerate(years):
+        ax.text(i, values[i] + max(values) * 0.015, f"{values[i]:,}",
+                ha="center", fontsize=7, color=FG)
+
+
 def main() -> int:
     if not PUBMED.exists():
         print(f"[ERROR] {PUBMED} не найден", file=sys.stderr)
@@ -166,19 +186,24 @@ def main() -> int:
 
     pubmed = load_json(PUBMED)
     wiki = load_json(WIKI) if WIKI.exists() else {}
+    citations = load_json(CITATIONS) if CITATIONS.exists() else {}
     data = load_json(DATA)
 
-    fig = plt.figure(figsize=(14, 10))
-    gs = fig.add_gridspec(2, 2, hspace=0.35, wspace=0.25)
+    fig = plt.figure(figsize=(14, 12))
+    gs = fig.add_gridspec(3, 2, hspace=0.4, wspace=0.25,
+                          width_ratios=[1.1, 1], height_ratios=[1, 1, 1])
 
     ax1 = fig.add_subplot(gs[:, 0])  # левая колонка — топ-15
     ax2 = fig.add_subplot(gs[0, 1])  # верх справа — wiki
-    ax3 = fig.add_subplot(gs[1, 1])  # низ справа — scatter
+    ax3 = fig.add_subplot(gs[1, 1])  # середина — scatter
+    ax4 = fig.add_subplot(gs[2, :])  # низ — цитаты (на всю ширину)
 
     plot_top_growth(ax1, pubmed, data)
     if wiki:
         plot_wiki_top(ax2, wiki, data)
         plot_scatter(ax3, pubmed, wiki, data)
+    if citations:
+        plot_citations_total(ax4, citations)
 
     fig.suptitle(
         "brain-25-evidence: тренды популярности добавок 2015-2025",
