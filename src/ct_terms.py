@@ -92,4 +92,19 @@ CT_TERMS: dict[str, str] = {
     "Витамин K2":           "vitamin K2 OR menaquinone",
     "Берберин":             "berberine",
     "Кверцетин":            "quercetin",
+
+    # ---------- v2.0 (13) ----------
+    "Шатавари":             "Asparagus racemosus",
+    "Астрагал":             "Astragalus",
+    "Шлемник":              "Scutellaria baicalensis",
+    "Пассифлора":           "Passiflora incarnata",
+    "Мелисса":              "Melissa officinalis",
+    "Лаванда":              "Lavandula angustifolia",
+    "Чага":                 "Inonotus obliquus OR chaga",
+    "Шиитаке":              "Lentinula edodes OR shiitake",
+    "Глутатион":            "glutathione",
+    "PQQ":                  "pyrroloquinoline quinone",
+    "Сульфорафан":          "sulforaphane",
+    "MSM":                  "methylsulfonylmethane",
+    "Гимнема":              "Gymnema sylvestre",
 }
