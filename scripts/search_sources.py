@@ -208,6 +208,21 @@ PUBMED_QUERIES: dict[str, str] = {
     "Йохимбин":  '(yohimbine[tiab]) AND (performance[tiab] OR "fat loss"[tiab] OR erectile[tiab])',
     "Трибулус":  '("Tribulus terrestris"[tiab]) AND (testosterone[tiab] OR performance[tiab] OR libido[tiab])',
     "Хлорофилл": '(chlorophyllin[tiab] OR "copper chlorophyllin"[tiab] OR "sodium copper chlorophyllin"[tiab] OR (chlorophyll[tiab] AND supplement*[tiab]))',
+
+    # ---------- v2.0 (13) ----------
+    "Шатавари":    '(Asparagus racemosus[tiab]) AND (lactation[tiab] OR menopause[tiab] OR hormone*[tiab])',
+    "Астрагал":    '(Astragalus[tiab]) AND (immune[tiab] OR inflammation[tiab] OR fatigue[tiab])',
+    "Шлемник":     '(Scutellaria baicalensis[tiab] OR baicalin[tiab]) AND (anxiety[tiab] OR cognition[tiab] OR neuroprotect*[tiab])',
+    "Пассифлора":  '(Passiflora incarnata[tiab] OR passionflower[tiab]) AND (sleep[tiab] OR anxiety[tiab])',
+    "Мелисса":     '(Melissa officinalis[tiab] OR lemon balm[tiab]) AND (sleep[tiab] OR anxiety[tiab] OR cognition[tiab])',
+    "Лаванда":     '(Lavandula[tiab] OR lavender[tiab] OR Silexan[tiab]) AND (anxiety[tiab] OR sleep[tiab])',
+    "Чага":        '(Inonotus obliquus[tiab] OR chaga[tiab]) AND (immune[tiab] OR inflammation[tiab] OR antioxidant[tiab])',
+    "Шиитаке":     '(Lentinula edodes[tiab] OR shiitake[tiab] OR lentinan[tiab]) AND (immune[tiab] OR cholesterol[tiab])',
+    "Глутатион":   '(glutathione[tiab]) AND (supplement*[tiab] OR antioxidant[tiab] OR oral[tiab])',
+    "PQQ":         '(pyrroloquinoline quinone[tiab] OR PQQ[tiab]) AND (mitochondri*[tiab] OR cognition[tiab])',
+    "Сульфорафан": '(sulforaphane[tiab]) AND (supplement*[tiab] OR antioxidant[tiab] OR detox*[tiab])',
+    "MSM":         '(methylsulfonylmethane[tiab] OR MSM[tiab]) AND (joint[tiab] OR inflammation[tiab] OR osteoarthritis[tiab])',
+    "Гимнема":     '(Gymnema sylvestre[tiab]) AND (glucose[tiab] OR diabetes[tiab] OR insulin[tiab])',
 }
 
 ALIASES: dict[str, str] = {
