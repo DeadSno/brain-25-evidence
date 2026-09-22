@@ -1,0 +1,14 @@
+name,term,category,query,code
+Шатавари,Asparagus racemosus,Общее,(Asparagus racemosus) AND (hormone OR menopause OR lactation),0
+Астрагал,Astragalus membranaceus,Иммунитет,(Astragalus membranaceus) AND (immune OR inflammation),1
+Шлемник,Scutellaria baicalensis,Настроение,(Scutellaria baicalensis) AND (anxiety OR cognition),0
+Пассифлора,Passiflora incarnata,Сон,(Passiflora incarnata) AND (sleep OR anxiety),0
+Мелисса,Melissa officinalis,Сон,(Melissa officinalis) AND (sleep OR anxiety OR cognition),0
+Лаванда,Lavandula angustifolia,Настроение,(Lavandula angustifolia) AND (anxiety OR sleep),0
+Чага,Inonotus obliquus,Иммунитет,(Inonotus obliquus OR chaga) AND (immune OR inflammation),0
+Шиитаке,Lentinula edodes,Иммунитет,(Lentinula edodes OR shiitake) AND (immune),0
+Глутатион,glutathione,Общее,(glutathione supplementation) AND (antioxidant OR detox),0
+PQQ,pyrroloquinoline quinone,Когниция,(pyrroloquinoline quinone OR PQQ) AND (cognition OR mitochondria),0
+Сульфорафан,sulforaphane,Общее,(sulforaphane) AND (cancer OR detox OR antioxidant),0
+MSM,methylsulfonylmethane,Кожа и суставы,(methylsulfonylmethane OR MSM) AND (joint OR inflammation),1
+Гимнема,Gymnema sylvestre,Метаболизм,(Gymnema sylvestre) AND (glucose OR diabetes),0
