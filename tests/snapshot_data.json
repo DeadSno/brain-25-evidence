@@ -7,7 +7,7 @@
     "category": "Спорт/Когниция",
     "scienceIndex": 1265,
     "metaCount": 96,
-    "citations": 118,
+    "citations": 119,
     "wiki": 181494,
     "ongoing": 79,
     "effects": [
@@ -539,7 +539,7 @@
     "metaCount": 91,
     "citations": 585,
     "wiki": 99800,
-    "ongoing": 367,
+    "ongoing": 366,
     "effects": [
       "Сон, расслабление"
     ],
@@ -677,7 +677,7 @@
     "metaCount": 387,
     "citations": 306,
     "wiki": 109842,
-    "ongoing": 219,
+    "ongoing": 218,
     "effects": [
       "Бодрость, скорость реакции",
       "Настроение, мотивация"
@@ -807,7 +807,7 @@
     "category": "Когниция/Стресс",
     "scienceIndex": 104,
     "metaCount": 5,
-    "citations": 136,
+    "citations": 137,
     "wiki": 20361,
     "ongoing": 9,
     "effects": [
@@ -1980,9 +1980,9 @@
     "category": "Воспаление/Суставы",
     "scienceIndex": 1696,
     "metaCount": 230,
-    "citations": 151,
+    "citations": 152,
     "wiki": 32745,
-    "ongoing": 78,
+    "ongoing": 79,
     "effects": [
       "Настроение, когниция"
     ],
@@ -2539,7 +2539,7 @@
     "metaCount": 21,
     "citations": 91,
     "wiki": 44856,
-    "ongoing": 539,
+    "ongoing": 538,
     "effects": [
       "Когниция под стрессом"
     ],
@@ -4381,7 +4381,7 @@
     "metaCount": 28,
     "citations": 255,
     "wiki": 95617,
-    "ongoing": 398,
+    "ongoing": 399,
     "effects": [
       "Кожа, суставы"
     ],
@@ -4499,7 +4499,7 @@
     "metaCount": 1346,
     "citations": 9,
     "wiki": 33804,
-    "ongoing": 538,
+    "ongoing": 539,
     "effects": [
       "Кишечник, иммунитет"
     ],
@@ -5510,7 +5510,7 @@
     "metaCount": 337,
     "citations": 289,
     "wiki": 103667,
-    "ongoing": 5433,
+    "ongoing": 5434,
     "effects": [
       "При достатке белка эффекта нет"
     ],
@@ -5863,7 +5863,7 @@
     "metaCount": 448,
     "citations": 99,
     "wiki": 56079,
-    "ongoing": 341,
+    "ongoing": 338,
     "effects": [
       "Кожа слабо, колено контекст (японские МА)"
     ],
@@ -6101,7 +6101,7 @@
     "metaCount": 61,
     "citations": 52,
     "wiki": 2618,
-    "ongoing": 47,
+    "ongoing": 48,
     "effects": [
       "Тошнота (беременность, укачивание, химия): работает"
     ],
@@ -6225,7 +6225,7 @@
     "metaCount": 82,
     "citations": 11,
     "wiki": 71650,
-    "ongoing": 13,
+    "ongoing": 14,
     "effects": [
       "АД −2-4 мм рт.ст., липиды чуть: умеренно"
     ],
@@ -7151,7 +7151,7 @@
     "category": "Неврология/Метаболизм",
     "scienceIndex": 590,
     "metaCount": 58,
-    "citations": 83,
+    "citations": 84,
     "wiki": 49017,
     "ongoing": 32,
     "effects": [
@@ -7763,7 +7763,7 @@
     "metaCount": 49,
     "citations": 99,
     "wiki": 52028,
-    "ongoing": 18,
+    "ongoing": 19,
     "effects": [
       "НАЖБП: малый нестабильный эффект"
     ],
@@ -9081,7 +9081,7 @@
     "category": "Спорт/Мышцы",
     "scienceIndex": 792,
     "metaCount": 65,
-    "citations": 134,
+    "citations": 135,
     "wiki": 8328,
     "ongoing": 118,
     "effects": [
@@ -9669,7 +9669,7 @@
     "metaCount": 19,
     "citations": 112,
     "wiki": 44001,
-    "ongoing": 28,
+    "ongoing": 29,
     "effects": [
       "Аллергия/ОРВИ: не подтверждён у людей"
     ],
@@ -9789,9 +9789,9 @@
     "category": "Общее",
     "scienceIndex": 8,
     "metaCount": 0,
-    "citations": null,
+    "citations": 24,
     "wiki": null,
-    "ongoing": 5,
+    "ongoing": 6,
     "effects": [
       "Лактация",
       "Женское здоровье",
@@ -9835,7 +9835,64 @@
     "myths": "«Стимулирует женские гормоны у мужчин» — нет данных. «Работает для фертильности у всех» — только ограниченные данные для конкретных групп.",
     "hedges_g": null,
     "grade": "C",
-    "key_sources": [],
+    "key_sources": [
+      {
+        "pmid": "41816216",
+        "title": "Efficacy and safety of Shatavari root extract in women with Polycystic Ovarian Syndrome: a randomized, double-blind, placebo-controlled trial.",
+        "year": 2026,
+        "journal": "Frontiers in endocrinology",
+        "pubtype": [
+          "Journal Article",
+          "Randomized Controlled Trial"
+        ],
+        "source": "auto"
+      },
+      {
+        "pmid": "42751626",
+        "title": "Safety and efficacy of Shatavari in women with low libido: a randomized, double-blind, placebo-controlled trial.",
+        "year": 2026,
+        "journal": "Journal of medicine and life",
+        "pubtype": [
+          "Journal Article",
+          "Randomized Controlled Trial"
+        ],
+        "source": "auto"
+      },
+      {
+        "pmid": "41055223",
+        "title": "Shatavari (Asparagus racemosus Willd) root extract for postpartum lactation: A randomised, double-blind, placebo-controlled study.",
+        "year": 2025,
+        "journal": "Journal of obstetrics and gynaecology : the journal of the Institute of Obstetrics and Gynaecology",
+        "pubtype": [
+          "Journal Article",
+          "Randomized Controlled Trial"
+        ],
+        "source": "auto"
+      },
+      {
+        "pmid": "40434025",
+        "title": "A Standardized Asparagus Racemosus Root Extract Improves Hormonal Balance and Menstrual Health and Reduces Vasomotor Symptoms in Perimenopausal Women: A Randomized, Double-Blind, Placebo-Controlled Study.",
+        "year": 2025,
+        "journal": "Journal of the American Nutrition Association",
+        "pubtype": [
+          "Journal Article",
+          "Randomized Controlled Trial",
+          "Research Support, Non-U.S. Gov't"
+        ],
+        "source": "auto"
+      },
+      {
+        "pmid": "38558676",
+        "title": "Ayurvedic Herbal Medicines: A Literature Review of Their Applications in Female Reproductive Health.",
+        "year": 2024,
+        "journal": "Cureus",
+        "pubtype": [
+          "Journal Article",
+          "Review"
+        ],
+        "source": "auto"
+      }
+    ],
     "updated": "2026-09-22",
     "rct": 8,
     "pubmed_term": "(Asparagus racemosus) AND (hormone OR menopause OR lactation)"
@@ -9848,7 +9905,7 @@
     "category": "Иммунитет",
     "scienceIndex": 258,
     "metaCount": 35,
-    "citations": null,
+    "citations": 52,
     "wiki": 1852,
     "ongoing": 55,
     "effects": [
@@ -9899,7 +9956,68 @@
     "myths": "«Лечит все болезни от старения до рака» — нет, только иммуномодуляция. «Работает всем» — эффект заметен у людей с исходной усталостью, не у здоровых.",
     "hedges_g": 0.47,
     "grade": "B",
-    "key_sources": [],
+    "key_sources": [
+      {
+        "pmid": "40302232",
+        "title": "Efficacy of Astragalus Membranaceus (Huang Qi) for Cancer-Related Fatigue: A Systematic Review and Meta-Analysis of Randomized Controlled Studies.",
+        "year": 2025,
+        "journal": "Integrative cancer therapies",
+        "pubtype": [
+          "Journal Article",
+          "Systematic Review",
+          "Meta-Analysis"
+        ],
+        "source": "auto"
+      },
+      {
+        "pmid": "41286474",
+        "title": "Effects of TA-65 on telomere length, functional outcomes, and inflammation: a systematic review and meta-analysis.",
+        "year": 2025,
+        "journal": "Cell biology and toxicology",
+        "pubtype": [
+          "Journal Article",
+          "Systematic Review",
+          "Meta-Analysis",
+          "Research Support, Non-U.S. Gov't"
+        ],
+        "source": "auto"
+      },
+      {
+        "pmid": "41306775",
+        "title": "Astragalus polysaccharides combined with radiochemotherapy for cervical cancer: a systematic review and meta-analysis of randomized controlled studies.",
+        "year": 2025,
+        "journal": "Frontiers in pharmacology",
+        "pubtype": [
+          "Journal Article",
+          "Systematic Review"
+        ],
+        "source": "auto"
+      },
+      {
+        "pmid": "40208321",
+        "title": "Efficacy and safety of astragalus polysaccharides in patients with malignant tumors: A systematic review and meta-analysis.",
+        "year": 2025,
+        "journal": "Naunyn-Schmiedeberg's archives of pharmacology",
+        "pubtype": [
+          "Systematic Review",
+          "Journal Article",
+          "Meta-Analysis"
+        ],
+        "source": "auto"
+      },
+      {
+        "pmid": "38733903",
+        "title": "Renal protective effects and mechanisms of Astragalus membranaceus for diabetic kidney disease in animal models: An updated systematic review and meta-analysis.",
+        "year": 2024,
+        "journal": "Phytomedicine : international journal of phytotherapy and phytopharmacology",
+        "pubtype": [
+          "Journal Article",
+          "Meta-Analysis",
+          "Systematic Review"
+        ],
+        "source": "auto"
+      }
+    ],
     "updated": "2026-09-22",
     "rct": 83,
     "pubmed_term": "(Astragalus membranaceus) AND (immune OR inflammation)",
@@ -9918,7 +10036,7 @@
     "category": "Настроение",
     "scienceIndex": 43,
     "metaCount": 5,
-    "citations": null,
+    "citations": 179,
     "wiki": 7238,
     "ongoing": 10,
     "effects": [
@@ -9969,7 +10087,63 @@
     "myths": "«Заменяет антидепрессанты» — нет, при клинической депрессии не работает. «Мгновенно успокаивает» — эффект накапливается.",
     "hedges_g": null,
     "grade": "C",
-    "key_sources": [],
+    "key_sources": [
+      {
+        "pmid": "38849327",
+        "title": "Review on the pharmacological effects and pharmacokinetics of scutellarein.",
+        "year": 2024,
+        "journal": "Archiv der Pharmazie",
+        "pubtype": [
+          "Journal Article",
+          "Systematic Review"
+        ],
+        "source": "auto"
+      },
+      {
+        "pmid": "32739568",
+        "title": "Traditional uses, ten-years research progress on phytochemistry and pharmacology, and clinical studies of the genus Scutellaria.",
+        "year": 2021,
+        "journal": "Journal of ethnopharmacology",
+        "pubtype": [
+          "Journal Article",
+          "Systematic Review"
+        ],
+        "source": "auto"
+      },
+      {
+        "pmid": "33101006",
+        "title": "Preclinical Evidence and Possible Mechanisms of Baicalein for Rats and Mice With Parkinson's Disease: A Systematic Review and Meta-Analysis.",
+        "year": 2020,
+        "journal": "Frontiers in aging neuroscience",
+        "pubtype": [
+          "Systematic Review",
+          "Journal Article"
+        ],
+        "source": "auto"
+      },
+      {
+        "pmid": "41194549",
+        "title": "Effects of a Scutellaria baicalensis/Crataegus laevigata, magnesium and chromium supplement on stressed individuals: A randomised, double-blind, placebo-controlled, crossover trial.",
+        "year": 2025,
+        "journal": "Journal of psychopharmacology (Oxford, England)",
+        "pubtype": [
+          "Journal Article",
+          "Randomized Controlled Trial"
+        ],
+        "source": "auto"
+      },
+      {
+        "pmid": "40077679",
+        "title": "The Effects of Combined Scutellaria and Saffron Supplementation on Mood Regulation in Participants with Mild-to-Moderate Depressive Symptoms: A Randomized, Double-Blind, Placebo-Controlled Study.",
+        "year": 2025,
+        "journal": "Nutrients",
+        "pubtype": [
+          "Journal Article",
+          "Randomized Controlled Trial"
+        ],
+        "source": "auto"
+      }
+    ],
     "updated": "2026-09-22",
     "rct": 18,
     "pubmed_term": "(Scutellaria baicalensis) AND (anxiety OR cognition)"
@@ -9982,7 +10156,7 @@
     "category": "Сон",
     "scienceIndex": 38,
     "metaCount": 3,
-    "citations": null,
+    "citations": 323,
     "wiki": 586,
     "ongoing": 1,
     "effects": [
@@ -10033,7 +10207,65 @@
     "myths": "«Заменяет снотворное» — нет, эффект слабее и мягче. «Мгновенно вырубает» — не работает как бензодиазепины.",
     "hedges_g": null,
     "grade": "C",
-    "key_sources": [],
+    "key_sources": [
+      {
+        "pmid": "37039741",
+        "title": "Systematic review on the anxiolytic and hypnotic effects of flower extracts in in vivo pre-clinical studies published from 2010 to 2020.",
+        "year": 2023,
+        "journal": "Phytotherapy research : PTR",
+        "pubtype": [
+          "Systematic Review",
+          "Journal Article"
+        ],
+        "source": "auto"
+      },
+      {
+        "pmid": "35378276",
+        "title": "Medicinal herbs for the treatment of anxiety: A systematic review and network meta-analysis.",
+        "year": 2022,
+        "journal": "Pharmacological research",
+        "pubtype": [
+          "Journal Article",
+          "Systematic Review",
+          "Research Support, Non-U.S. Gov't",
+          "Network Meta-Analysis"
+        ],
+        "source": "auto"
+      },
+      {
+        "pmid": "33561990",
+        "title": "Herbal Remedies and Their Possible Effect on the GABAergic System and Sleep.",
+        "year": 2021,
+        "journal": "Nutrients",
+        "pubtype": [
+          "Journal Article",
+          "Systematic Review"
+        ],
+        "source": "auto"
+      },
+      {
+        "pmid": "33495257",
+        "title": "Effectiveness and safety of oral sedation in adult patients undergoing dental procedures: a systematic review.",
+        "year": 2021,
+        "journal": "BMJ open",
+        "pubtype": [
+          "Journal Article",
+          "Systematic Review"
+        ],
+        "source": "auto"
+      },
+      {
+        "pmid": "33352740",
+        "title": "Passiflora incarnata in Neuropsychiatric Disorders-A Systematic Review.",
+        "year": 2020,
+        "journal": "Nutrients",
+        "pubtype": [
+          "Journal Article",
+          "Systematic Review"
+        ],
+        "source": "auto"
+      }
+    ],
     "updated": "2026-09-22",
     "rct": 23,
     "pubmed_term": "(Passiflora incarnata) AND (sleep OR anxiety)"
@@ -10046,7 +10278,7 @@
     "category": "Сон",
     "scienceIndex": 597,
     "metaCount": 69,
-    "citations": null,
+    "citations": 241,
     "wiki": 28556,
     "ongoing": 6,
     "effects": [
@@ -10097,7 +10329,65 @@
     "myths": "«Заменяет снотворное» — нет, эффект мягкий. «Всем помогает от тревожности» — работает в основном при ситуативной тревожности, не при клинических расстройствах.",
     "hedges_g": -1.25,
     "grade": "C",
-    "key_sources": [],
+    "key_sources": [
+      {
+        "pmid": "41226670",
+        "title": "Natural Products in Alzheimer's Disease: A Systematic Review of Clinical Trials and Underlying Molecular Mechanisms.",
+        "year": 2025,
+        "journal": "International journal of molecular sciences",
+        "pubtype": [
+          "Journal Article",
+          "Systematic Review"
+        ],
+        "source": "auto"
+      },
+      {
+        "pmid": "35960461",
+        "title": "Natural remedies for Alzheimer's disease: A systematic review of randomized controlled trials.",
+        "year": 2023,
+        "journal": "Metabolic brain disease",
+        "pubtype": [
+          "Journal Article",
+          "Systematic Review"
+        ],
+        "source": "auto"
+      },
+      {
+        "pmid": "34449930",
+        "title": "The effects of lemon balm (Melissa officinalis L.) on depression and anxiety in clinical trials: A systematic review and meta-analysis.",
+        "year": 2021,
+        "journal": "Phytotherapy research : PTR",
+        "pubtype": [
+          "Journal Article",
+          "Meta-Analysis",
+          "Systematic Review"
+        ],
+        "source": "auto"
+      },
+      {
+        "pmid": "33561990",
+        "title": "Herbal Remedies and Their Possible Effect on the GABAergic System and Sleep.",
+        "year": 2021,
+        "journal": "Nutrients",
+        "pubtype": [
+          "Journal Article",
+          "Systematic Review"
+        ],
+        "source": "auto"
+      },
+      {
+        "pmid": "30806589",
+        "title": "Treatments of sleep bruxism in children: A systematic review and meta-analysis.",
+        "year": 2021,
+        "journal": "Cranio : the journal of craniomandibular practice",
+        "pubtype": [
+          "Journal Article",
+          "Meta-Analysis",
+          "Systematic Review"
+        ],
+        "source": "auto"
+      }
+    ],
     "updated": "2026-09-22",
     "rct": 252,
     "pubmed_term": "(Melissa officinalis) AND (sleep OR anxiety OR cognition)",
@@ -10116,7 +10406,7 @@
     "category": "Настроение",
     "scienceIndex": 371,
     "metaCount": 25,
-    "citations": null,
+    "citations": 93,
     "wiki": 13546,
     "ongoing": 9,
     "effects": [
@@ -10162,7 +10452,69 @@
     "myths": "«Все эфирные масла одинаковы» — нет, работает только стандартизированное с линалилацетатом. «Мгновенно вырубает» — мягкий эффект, не снотворное.",
     "hedges_g": -0.56,
     "grade": "C",
-    "key_sources": [],
+    "key_sources": [
+      {
+        "pmid": "40600743",
+        "title": "The Sleep-Enhancing Effect of Lavender Essential Oil in Adults: A Systematic Review and Meta-Analysis.",
+        "year": 2026,
+        "journal": "Holistic nursing practice",
+        "pubtype": [
+          "Journal Article",
+          "Systematic Review",
+          "Meta-Analysis"
+        ],
+        "source": "auto"
+      },
+      {
+        "pmid": "40788541",
+        "title": "Comparative efficacy and acceptability of anxiolytic drugs for the treatment of anxiety disorders: a systematic review and network meta-analysis.",
+        "year": 2026,
+        "journal": "European archives of psychiatry and clinical neuroscience",
+        "pubtype": [
+          "Journal Article",
+          "Systematic Review",
+          "Network Meta-Analysis",
+          "Comparative Study"
+        ],
+        "source": "auto"
+      },
+      {
+        "pmid": "39654196",
+        "title": "Effects of aromatherapy on sleep quality in older adults: A meta-analysis.",
+        "year": 2024,
+        "journal": "Medicine",
+        "pubtype": [
+          "Journal Article",
+          "Meta-Analysis",
+          "Systematic Review"
+        ],
+        "source": "auto"
+      },
+      {
+        "pmid": "37325306",
+        "title": "Essential oils for treating anxiety: a systematic review of randomized controlled trials and network meta-analysis.",
+        "year": 2023,
+        "journal": "Frontiers in public health",
+        "pubtype": [
+          "Systematic Review",
+          "Research Support, Non-U.S. Gov't",
+          "Journal Article",
+          "Network Meta-Analysis"
+        ],
+        "source": "auto"
+      },
+      {
+        "pmid": "37008995",
+        "title": "Restless Legs Syndrome in Chronic Kidney Disease- a Systematic Review.",
+        "year": 2023,
+        "journal": "Tremor and other hyperkinetic movements (New York, N.Y.)",
+        "pubtype": [
+          "Systematic Review",
+          "Journal Article"
+        ],
+        "source": "auto"
+      }
+    ],
     "updated": "2026-09-22",
     "rct": 246,
     "pubmed_term": "(Lavandula angustifolia) AND (anxiety OR sleep)",
@@ -10181,7 +10533,7 @@
     "category": "Иммунитет",
     "scienceIndex": 1450,
     "metaCount": 214,
-    "citations": null,
+    "citations": 471,
     "wiki": 957,
     "ongoing": 8,
     "effects": [
@@ -10232,7 +10584,63 @@
     "myths": "«Лечит рак» — нет, ни одного подтверждённого РКИ. «Советская таблетка от всего» — исторический миф, эффект скромный.",
     "hedges_g": -1.24,
     "grade": "C",
-    "key_sources": [],
+    "key_sources": [
+      {
+        "pmid": "38813471",
+        "title": "Therapeutic properties of Inonotus obliquus (Chaga mushroom): A review.",
+        "year": 2024,
+        "journal": "Mycology",
+        "pubtype": [
+          "Journal Article",
+          "Review"
+        ],
+        "source": "auto"
+      },
+      {
+        "pmid": "39170453",
+        "title": "A brief overview of the medicinal and nutraceutical importance of Inonotus obliquus (chaga) mushrooms.",
+        "year": 2024,
+        "journal": "Heliyon",
+        "pubtype": [
+          "Journal Article",
+          "Review"
+        ],
+        "source": "auto"
+      },
+      {
+        "pmid": "38116085",
+        "title": "Chaga mushroom: a super-fungus with countless facets and untapped potential.",
+        "year": 2023,
+        "journal": "Frontiers in pharmacology",
+        "pubtype": [
+          "Journal Article",
+          "Review"
+        ],
+        "source": "auto"
+      },
+      {
+        "pmid": "37513265",
+        "title": "Medicinal Mushrooms: Their Bioactive Components, Nutritional Value and Application in Functional Food Production-A Review.",
+        "year": 2023,
+        "journal": "Molecules (Basel, Switzerland)",
+        "pubtype": [
+          "Journal Article",
+          "Review"
+        ],
+        "source": "auto"
+      },
+      {
+        "pmid": "33947037",
+        "title": "Recent Developments in Inonotus obliquus (Chaga mushroom) Polysaccharides: Isolation, Structural Characteristics, Biological Activities and Application.",
+        "year": 2021,
+        "journal": "Polymers",
+        "pubtype": [
+          "Journal Article",
+          "Review"
+        ],
+        "source": "auto"
+      }
+    ],
     "updated": "2026-09-22",
     "rct": 380,
     "pubmed_term": "(Inonotus obliquus OR chaga) AND (immune OR inflammation)",
@@ -10251,7 +10659,7 @@
     "category": "Иммунитет",
     "scienceIndex": 18,
     "metaCount": 1,
-    "citations": null,
+    "citations": 201,
     "wiki": 60140,
     "ongoing": 3,
     "effects": [
@@ -10296,7 +10704,64 @@
     "myths": "«Работает от всех видов рака» — преувеличение, только адъювант при конкретных типах. «Сырые грибы полезнее» — сырые содержат неперевариваемый лентинан + риск отравления.",
     "hedges_g": null,
     "grade": "C",
-    "key_sources": [],
+    "key_sources": [
+      {
+        "pmid": "40994647",
+        "title": "Efficacy and safety of commercial Chinese polyherbal preparation combined with oxaliplatin-based chemotherapy for gastric cancer: a systematic review and network meta-analysis.",
+        "year": 2025,
+        "journal": "Frontiers in pharmacology",
+        "pubtype": [
+          "Journal Article",
+          "Systematic Review"
+        ],
+        "source": "auto"
+      },
+      {
+        "pmid": "33876798",
+        "title": "Effects of fungal beta-glucans on health - a systematic review of randomized controlled trials.",
+        "year": 2021,
+        "journal": "Food & function",
+        "pubtype": [
+          "Journal Article",
+          "Systematic Review"
+        ],
+        "source": "auto"
+      },
+      {
+        "pmid": "33309412",
+        "title": "Fungal beta-glucans as adjuvants for treating cancer patients - A systematic review of clinical trials.",
+        "year": 2021,
+        "journal": "Clinical nutrition (Edinburgh, Scotland)",
+        "pubtype": [
+          "Journal Article",
+          "Research Support, Non-U.S. Gov't",
+          "Systematic Review"
+        ],
+        "source": "auto"
+      },
+      {
+        "pmid": "34375514",
+        "title": "Effects of Shiitake Culinary-Medicinal Mushroom, Lentinus edodes (Agaricomycetes), Bars on Lipid and Antioxidant Profiles in Individuals with Borderline High Cholesterol: A Double-Blind Randomized Clinical Trial.",
+        "year": 2021,
+        "journal": "International journal of medicinal mushrooms",
+        "pubtype": [
+          "Journal Article",
+          "Randomized Controlled Trial"
+        ],
+        "source": "auto"
+      },
+      {
+        "pmid": "33580297",
+        "title": "Modulation of human intestinal microbiota in a clinical trial by consumption of a β-D-glucan-enriched extract obtained from Lentinula edodes.",
+        "year": 2021,
+        "journal": "European journal of nutrition",
+        "pubtype": [
+          "Journal Article",
+          "Randomized Controlled Trial"
+        ],
+        "source": "auto"
+      }
+    ],
     "updated": "2026-09-22",
     "rct": 13,
     "pubmed_term": "(Lentinula edodes OR shiitake) AND (immune)"
@@ -10309,9 +10774,9 @@
     "category": "Общее",
     "scienceIndex": 1214,
     "metaCount": 97,
-    "citations": null,
+    "citations": 195,
     "wiki": 39620,
-    "ongoing": 44,
+    "ongoing": 45,
     "effects": [
       "Антиоксидант",
       "Детокс (контекст)",
@@ -10355,7 +10820,64 @@
     "myths": "«Отбеливает кожу» — популярный в Азии миф, нет РКИ. «Улучшает всё» — преувеличение. NAC работает часто лучше и дешевле.",
     "hedges_g": 0.74,
     "grade": "C",
-    "key_sources": [],
+    "key_sources": [
+      {
+        "pmid": "39444151",
+        "title": "Glutathione as a skin-lightening agent and in melasma: a systematic review.",
+        "year": 2025,
+        "journal": "International journal of dermatology",
+        "pubtype": [
+          "Journal Article",
+          "Systematic Review"
+        ],
+        "source": "auto"
+      },
+      {
+        "pmid": "40611279",
+        "title": "The effectiveness of nutritional supplements in improving polycystic ovary syndrome in women: a systematic review and network meta-analysis.",
+        "year": 2025,
+        "journal": "Reproductive biology and endocrinology : RB&E",
+        "pubtype": [
+          "Journal Article",
+          "Network Meta-Analysis",
+          "Systematic Review"
+        ],
+        "source": "auto"
+      },
+      {
+        "pmid": "40808693",
+        "title": "Pharmacological properties of ginger (Zingiber officinale): what do meta-analyses say? a systematic review.",
+        "year": 2025,
+        "journal": "Frontiers in pharmacology",
+        "pubtype": [
+          "Journal Article",
+          "Systematic Review"
+        ],
+        "source": "auto"
+      },
+      {
+        "pmid": "38999792",
+        "title": "Omega-3 Fatty Acid Supplementation on Post-Exercise Inflammation, Muscle Damage, Oxidative Response, and Sports Performance in Physically Healthy Adults-A Systematic Review of Randomized Controlled Trials.",
+        "year": 2024,
+        "journal": "Nutrients",
+        "pubtype": [
+          "Journal Article",
+          "Systematic Review"
+        ],
+        "source": "auto"
+      },
+      {
+        "pmid": "39150724",
+        "title": "Dietary glycation compounds - implications for human health.",
+        "year": 2024,
+        "journal": "Critical reviews in toxicology",
+        "pubtype": [
+          "Systematic Review",
+          "Journal Article"
+        ],
+        "source": "auto"
+      }
+    ],
     "updated": "2026-09-22",
     "rct": 729,
     "pubmed_term": "(glutathione supplementation) AND (antioxidant OR detox)",
@@ -10374,7 +10896,7 @@
     "category": "Когниция",
     "scienceIndex": 12,
     "metaCount": 0,
-    "citations": null,
+    "citations": 144,
     "wiki": null,
     "ongoing": 1,
     "effects": [
@@ -10420,7 +10942,67 @@
     "myths": "«Обращает старение митохондрий» — преувеличение. «Улучшает память мгновенно» — нет, эффект слабый и накопительный. CoQ10 имеет гораздо больше доказательств.",
     "hedges_g": null,
     "grade": "D",
-    "key_sources": [],
+    "key_sources": [
+      {
+        "pmid": "38908296",
+        "title": "The impact of six-week dihydrogen-pyrroloquinoline quinone supplementation on mitochondrial biomarkers, brain metabolism, and cognition in elderly individuals with mild cognitive impairment: a randomized controlled trial.",
+        "year": 2024,
+        "journal": "The journal of nutrition, health & aging",
+        "pubtype": [
+          "Journal Article",
+          "Randomized Controlled Trial",
+          "Research Support, Non-U.S. Gov't"
+        ],
+        "source": "auto"
+      },
+      {
+        "pmid": "36807425",
+        "title": "Pyrroloquinoline quinone disodium salt improves brain function in both younger and older adults.",
+        "year": 2023,
+        "journal": "Food & function",
+        "pubtype": [
+          "Randomized Controlled Trial",
+          "Journal Article"
+        ],
+        "source": "auto"
+      },
+      {
+        "pmid": "34415830",
+        "title": "Effect of Dietary Pyrroloquinoline Quinone Disodium Salt on Cognitive Function in Healthy Volunteers: A Randomized, Double-Blind, Placebo-Controlled, Parallel-Group Study.",
+        "year": 2022,
+        "journal": "Journal of the American Nutrition Association",
+        "pubtype": [
+          "Randomized Controlled Trial",
+          "Journal Article",
+          "Research Support, Non-U.S. Gov't"
+        ],
+        "source": "auto"
+      },
+      {
+        "pmid": "31860387",
+        "title": "Effects of Pyrroloquinoline Quinone (PQQ) Supplementation on Aerobic Exercise Performance and Indices of Mitochondrial Biogenesis in Untrained Men.",
+        "year": 2020,
+        "journal": "Journal of the American College of Nutrition",
+        "pubtype": [
+          "Journal Article",
+          "Randomized Controlled Trial",
+          "Research Support, Non-U.S. Gov't"
+        ],
+        "source": "auto"
+      },
+      {
+        "pmid": "25609689",
+        "title": "Effects of dietary pyrroloquinoline quinone disodium on growth, carcass characteristics, redox status, and mitochondria metabolism in broilers.",
+        "year": 2015,
+        "journal": "Poultry science",
+        "pubtype": [
+          "Journal Article",
+          "Randomized Controlled Trial",
+          "Research Support, Non-U.S. Gov't"
+        ],
+        "source": "auto"
+      }
+    ],
     "updated": "2026-09-22",
     "rct": 12,
     "pubmed_term": "(pyrroloquinoline quinone OR PQQ) AND (cognition OR mitochondria)"
@@ -10433,7 +11015,7 @@
     "category": "Общее",
     "scienceIndex": 127,
     "metaCount": 10,
-    "citations": null,
+    "citations": 43,
     "wiki": 10719,
     "ongoing": 15,
     "effects": [
@@ -10479,7 +11061,67 @@
     "myths": "«Лечит рак» — преувеличение, in vitro ≠ in vivo. «Заменяет брокколи» — нет, эффект от еды может быть сильнее и безопаснее.",
     "hedges_g": 0.27,
     "grade": "C",
-    "key_sources": [],
+    "key_sources": [
+      {
+        "pmid": "42614280",
+        "title": "Dietary sulforaphane in cancer chemoprevention: epigenetic regulation and PRMT5-MEP50 complex inhibition-a systematic review.",
+        "year": 2026,
+        "journal": "Frontiers in pharmacology",
+        "pubtype": [
+          "Journal Article",
+          "Systematic Review"
+        ],
+        "source": "auto"
+      },
+      {
+        "pmid": "39490514",
+        "title": "The pediatric psychopharmacology of autism spectrum disorder: A systematic review - Part II: The future.",
+        "year": 2025,
+        "journal": "Progress in neuro-psychopharmacology & biological psychiatry",
+        "pubtype": [
+          "Systematic Review",
+          "Journal Article",
+          "Research Support, N.I.H., Extramural",
+          "Research Support, Non-U.S. Gov't"
+        ],
+        "source": "auto"
+      },
+      {
+        "pmid": "41184790",
+        "title": "Efficacy and safety of sulforaphane in schizophrenia: a systematic review and meta-analysis of randomized controlled trials.",
+        "year": 2025,
+        "journal": "BMC psychiatry",
+        "pubtype": [
+          "Journal Article",
+          "Meta-Analysis",
+          "Systematic Review"
+        ],
+        "source": "auto"
+      },
+      {
+        "pmid": "41275316",
+        "title": "Investigating the clinical efficacy, safety and molecular mechanism of sulforaphane in autism spectrum disorder: an integrated study combining meta-analysis, network pharmacology, and computational biology.",
+        "year": 2025,
+        "journal": "BMC pharmacology & toxicology",
+        "pubtype": [
+          "Journal Article",
+          "Meta-Analysis",
+          "Systematic Review"
+        ],
+        "source": "auto"
+      },
+      {
+        "pmid": "38824824",
+        "title": "Protective effects of sulforaphane against toxic substances and contaminants: A systematic review.",
+        "year": 2024,
+        "journal": "Phytomedicine : international journal of phytotherapy and phytopharmacology",
+        "pubtype": [
+          "Journal Article",
+          "Systematic Review"
+        ],
+        "source": "auto"
+      }
+    ],
     "updated": "2026-09-22",
     "rct": 77,
     "pubmed_term": "(sulforaphane) AND (cancer OR detox OR antioxidant)",
@@ -10498,7 +11140,7 @@
     "category": "Кожа и суставы",
     "scienceIndex": 1939,
     "metaCount": 279,
-    "citations": null,
+    "citations": 63,
     "wiki": null,
     "ongoing": 0,
     "effects": [
@@ -10544,7 +11186,67 @@
     "myths": "«Убирает морщины» — нет данных. «Работает за 3 дня» — эффект накопительный, первые изменения через 2-4 недели. «Улучшает всё сразу» — только суставы и воспаление.",
     "hedges_g": null,
     "grade": "B",
-    "key_sources": [],
+    "key_sources": [
+      {
+        "pmid": "42672112",
+        "title": "Prospects of HIV elimination among men who have sex with men: A systematic review of modeling studies.",
+        "year": 2026,
+        "journal": "PLoS computational biology",
+        "pubtype": [
+          "Journal Article",
+          "Systematic Review",
+          "Research Support, Non-U.S. Gov't"
+        ],
+        "source": "auto"
+      },
+      {
+        "pmid": "40425393",
+        "title": "Effects of dietary supplements on patients with osteoarthritis: A systematic review and network meta-analysis.",
+        "year": 2025,
+        "journal": "Journal of integrative medicine",
+        "pubtype": [
+          "Journal Article",
+          "Network Meta-Analysis",
+          "Systematic Review"
+        ],
+        "source": "auto"
+      },
+      {
+        "pmid": "40123938",
+        "title": "Efficacy of dietary supplements for treating knee osteoarthritis: a systematic review and network meta-analysis.",
+        "year": 2025,
+        "journal": "Frontiers in nutrition",
+        "pubtype": [
+          "Journal Article",
+          "Systematic Review"
+        ],
+        "source": "auto"
+      },
+      {
+        "pmid": "34080979",
+        "title": "A narrative review on the outcome of primary cutaneous melanomas arising in solid organ transplant recipients.",
+        "year": 2021,
+        "journal": "European journal of dermatology : EJD",
+        "pubtype": [
+          "Journal Article",
+          "Systematic Review"
+        ],
+        "source": "auto"
+      },
+      {
+        "pmid": "32396477",
+        "title": "HIV Nonoccupational Postexposure Prophylaxis Among Men Who Have Sex with Men: A Systematic Review and Meta-Analysis of Global Data.",
+        "year": 2020,
+        "journal": "AIDS patient care and STDs",
+        "pubtype": [
+          "Journal Article",
+          "Meta-Analysis",
+          "Research Support, Non-U.S. Gov't",
+          "Systematic Review"
+        ],
+        "source": "auto"
+      }
+    ],
     "updated": "2026-09-22",
     "rct": 544,
     "pubmed_term": "(methylsulfonylmethane OR MSM) AND (joint OR inflammation)"
@@ -10557,7 +11259,7 @@
     "category": "Метаболизм",
     "scienceIndex": 24,
     "metaCount": 2,
-    "citations": null,
+    "citations": 1126,
     "wiki": null,
     "ongoing": 3,
     "effects": [
@@ -10607,7 +11309,65 @@
     "myths": "«Лечит диабет» — нет, только вспомогательное средство. «Убирает тягу к сладкому полностью» — эффект умеренный, у части людей.",
     "hedges_g": null,
     "grade": "C",
-    "key_sources": [],
+    "key_sources": [
+      {
+        "pmid": "34467577",
+        "title": "The effect of Gymnema sylvestre supplementation on glycemic control in type 2 diabetes patients: A systematic review and meta-analysis.",
+        "year": 2021,
+        "journal": "Phytotherapy research : PTR",
+        "pubtype": [
+          "Journal Article",
+          "Meta-Analysis",
+          "Systematic Review"
+        ],
+        "source": "auto"
+      },
+      {
+        "pmid": "33475054",
+        "title": "Ethnomedicinal Plants for the Management of Diabetes Worldwide: A Systematic Review.",
+        "year": 2021,
+        "journal": "Current medicinal chemistry",
+        "pubtype": [
+          "Journal Article",
+          "Systematic Review"
+        ],
+        "source": "auto"
+      },
+      {
+        "pmid": "24166097",
+        "title": "A systematic review of Gymnema sylvestre in obesity and diabetes management.",
+        "year": 2014,
+        "journal": "Journal of the science of food and agriculture",
+        "pubtype": [
+          "Comparative Study",
+          "Journal Article",
+          "Systematic Review"
+        ],
+        "source": "auto"
+      },
+      {
+        "pmid": "18047444",
+        "title": "Gymnema sylvestre for diabetes mellitus: a systematic review.",
+        "year": 2007,
+        "journal": "Journal of alternative and complementary medicine (New York, N.Y.)",
+        "pubtype": [
+          "Journal Article",
+          "Systematic Review"
+        ],
+        "source": "auto"
+      },
+      {
+        "pmid": "12663610",
+        "title": "Systematic review of herbs and dietary supplements for glycemic control in diabetes.",
+        "year": 2003,
+        "journal": "Diabetes care",
+        "pubtype": [
+          "Journal Article",
+          "Systematic Review"
+        ],
+        "source": "auto"
+      }
+    ],
     "updated": "2026-09-22",
     "rct": 14,
     "pubmed_term": "(Gymnema sylvestre) AND (glucose OR diabetes)"
