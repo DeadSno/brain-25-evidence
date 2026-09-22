@@ -37,6 +37,9 @@ WIKI_API = (
     "ru.wikipedia/all-access/user/{title}/monthly/{start}/{end}"
 )
 WIKI_DELAY = 0.1  # Wikimedia разрешает 100 req/s
+OPENALEX_WORK = "https://api.openalex.org/works/pmid:{pmid}"
+OPENALEX_CITES = "https://api.openalex.org/works"
+OPENALEX_DELAY = 0.15  # polite pool, 10 req/s лимит
 
 
 def esearch_count(term: str, year: int) -> int | None:
@@ -101,6 +104,49 @@ def fetch_wiki_for_card(name: str, wiki_title: str, months: list[str]) -> dict[s
     return result
 
 
+def openalex_work_id(pmid: str) -> str | None:
+    """PMID → OpenAlex Work ID (например 'W1234567890')."""
+    url = OPENALEX_WORK.format(pmid=pmid) + f"?mailto={MAILTO}&select=id"
+    req = urllib.request.Request(url, headers={"User-Agent": f"brain25/1.0 ({MAILTO})"})
+    try:
+        with urllib.request.urlopen(req, timeout=30) as r:
+            data = json.loads(r.read())
+        wid = data.get("id")  # "https://openalex.org/W1234567890"
+        return wid.rsplit("/", 1)[-1] if wid else None
+    except urllib.error.HTTPError as e:
+        if e.code == 404:
+            return None
+        print(f"    [HTTP {e.code}] work_id pmid={pmid}", file=sys.stderr)
+        return None
+    except Exception as e:
+        print(f"    [ERROR work_id] {type(e).__name__}: {e}", file=sys.stderr)
+        return None
+
+
+def openalex_citations_by_year(work_id: str) -> dict[str, int]:
+    """Распределение цитирующих работ по годам для одного Work ID."""
+    url = (
+        f"{OPENALEX_CITES}?filter=cites:{work_id}"
+        f"&group_by=publication_year&mailto={MAILTO}"
+    )
+    req = urllib.request.Request(url, headers={"User-Agent": f"brain25/1.0 ({MAILTO})"})
+    try:
+        with urllib.request.urlopen(req, timeout=30) as r:
+            data = json.loads(r.read())
+        out: dict[str, int] = {}
+        for g in data.get("group_by", []):
+            year = str(g.get("key", ""))
+            if year.isdigit() and 2000 <= int(year) <= 2030:
+                out[year] = g.get("count", 0)
+        return out
+    except urllib.error.HTTPError as e:
+        print(f"    [HTTP {e.code}] cites {work_id}", file=sys.stderr)
+        return {}
+    except Exception as e:
+        print(f"    [ERROR cites] {type(e).__name__}: {e}", file=sys.stderr)
+        return {}
+
+
 def make_months(years: list[int]) -> list[str]:
     """[2015, 2016] → ['2015-01', ..., '2016-12']."""
     return [f"{y}-{m:02d}" for y in years for m in range(1, 13)]
@@ -108,7 +154,7 @@ def make_months(years: list[int]) -> list[str]:
 
 def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--source", default="pubmed", choices=["pubmed", "wiki"])
+    ap.add_argument("--source", default="pubmed", choices=["pubmed", "wiki", "citations"])
     ap.add_argument("--years", default="2015-2025",
                     help="Диапазон лет: YYYY-YYYY или список 2015,2018,2020")
     ap.add_argument("--only", default=None, help="Только одна карточка (для теста)")
@@ -169,6 +215,57 @@ def main() -> int:
             )
         print(f"\n[OK] {out_file}")
         print(f"     Карточек: {len(existing)}, месяцев: {len(months)}")
+        return 0
+
+    # ── CITATIONS (OpenAlex: цитаты по годам) ────────────────
+    if args.source == "citations":
+        data_json = json.loads((ROOT / "docs" / "data.json").read_text(encoding="utf-8"))
+        years_set = {str(y) for y in years}
+
+        for c in data_json:
+            cid = c["id"]
+            cached = existing.get(cid, {})
+            # Если для всех лет уже есть — пропускаем
+            if cached and all(y in cached for y in years_set):
+                print(f"  {cid:20} [cached]")
+                continue
+
+            sources = c.get("key_sources") or []
+            pmids = [str(s["pmid"]) for s in sources if s.get("pmid")]
+            if not pmids:
+                print(f"  {cid:20} [no key_sources]")
+                existing[cid] = {y: 0 for y in years_set}
+                out_file.write_text(
+                    json.dumps(existing, ensure_ascii=False, indent=2) + "\n",
+                    encoding="utf-8",
+                )
+                continue
+
+            print(f"— {cid} ({len(pmids)} sources)")
+            total_by_year: dict[str, int] = {y: 0 for y in years_set}
+
+            for pmid in pmids:
+                wid = openalex_work_id(pmid)
+                time.sleep(OPENALEX_DELAY)
+                if not wid:
+                    continue
+                cites = openalex_citations_by_year(wid)
+                time.sleep(OPENALEX_DELAY)
+                for y, n in cites.items():
+                    if y in total_by_year:
+                        total_by_year[y] += n
+                print(f"    PMID {pmid} → {wid}: {sum(cites.values())} цитат")
+
+            existing[cid] = {**cached, **total_by_year}
+
+            out_file.write_text(
+                json.dumps(existing, ensure_ascii=False, indent=2) + "\n",
+                encoding="utf-8",
+            )
+
+        print(f"\n[OK] {out_file}")
+        print(f"     Карточек: {len(existing)}")
+        print(f"     Лет:      {len(years)}")
         return 0
 
     # ── PUBMED ──────────────────────────────────────────────
