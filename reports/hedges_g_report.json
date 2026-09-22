@@ -1,6 +1,6 @@
 {
-  "timestamp": "2026-09-21T08:02:46.769189+00:00",
-  "dry_run": true,
+  "timestamp": "2026-09-22T05:52:31.285189+00:00",
+  "dry_run": false,
   "cards": {
     "Бакопа": {
       "status": "no_candidates"
@@ -54,6 +54,27 @@
       "status": "no_candidates"
     },
     "Берберин": {
+      "status": "no_candidates"
+    },
+    "Шатавари": {
+      "status": "no_candidates"
+    },
+    "Шлемник": {
+      "status": "no_candidates"
+    },
+    "Пассифлора": {
+      "status": "no_candidates"
+    },
+    "Шиитаке": {
+      "status": "no_candidates"
+    },
+    "PQQ": {
+      "status": "no_candidates"
+    },
+    "MSM": {
+      "status": "no_candidates"
+    },
+    "Гимнема": {
       "status": "no_candidates"
     },
     "Тирозин": {
@@ -210,6 +231,32 @@
       ],
       "outcome": "pain",
       "pmid": "25062981",
+      "candidates_count": 1,
+      "reused_shared": false
+    },
+    "Мелисса": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": -1.25,
+      "ci": [
+        -2.13,
+        -0.37
+      ],
+      "outcome": "",
+      "pmid": "38588450",
+      "candidates_count": 1,
+      "reused_shared": false
+    },
+    "Чага": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": -1.24,
+      "ci": [
+        -2.72,
+        0.24
+      ],
+      "outcome": "bone",
+      "pmid": "41632265",
       "candidates_count": 1,
       "reused_shared": false
     },
@@ -379,6 +426,19 @@
       ],
       "outcome": "hba1c",
       "pmid": "40054729",
+      "candidates_count": 2,
+      "reused_shared": false
+    },
+    "Сульфорафан": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": 0.27,
+      "ci": [
+        0.09,
+        0.44
+      ],
+      "outcome": "",
+      "pmid": "35246237",
       "candidates_count": 2,
       "reused_shared": false
     },
@@ -733,6 +793,19 @@
       "candidates_count": 5,
       "reused_shared": false
     },
+    "Глутатион": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": 0.74,
+      "ci": [
+        0.42,
+        1.05
+      ],
+      "outcome": "",
+      "pmid": "42413192",
+      "candidates_count": 5,
+      "reused_shared": false
+    },
     "B12": {
       "status": "ok",
       "old_g": 0.423,
@@ -798,6 +871,19 @@
       "candidates_count": 6,
       "reused_shared": false
     },
+    "Астрагал": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": 0.47,
+      "ci": [
+        0.31,
+        0.62
+      ],
+      "outcome": "crp",
+      "pmid": "41286474",
+      "candidates_count": 6,
+      "reused_shared": false
+    },
     "Ашваганда": {
       "status": "ok",
       "old_g": 0.6,
@@ -822,6 +908,19 @@
       "outcome": "glucose",
       "pmid": "40999397",
       "candidates_count": 7,
+      "reused_shared": false
+    },
+    "Креатин": {
+      "status": "ok",
+      "old_g": -0.75,
+      "new_g": -0.75,
+      "ci": [
+        -1.14,
+        -0.36
+      ],
+      "outcome": "exercis",
+      "pmid": "42124047",
+      "candidates_count": 8,
       "reused_shared": false
     },
     "Мелатонин": {
@@ -850,24 +949,24 @@
       "candidates_count": 8,
       "reused_shared": false
     },
-    "Креатин": {
+    "Лаванда": {
       "status": "ok",
-      "old_g": -0.75,
-      "new_g": -0.75,
+      "old_g": null,
+      "new_g": -0.56,
       "ci": [
-        -1.14,
-        -0.36
+        -0.96,
+        -0.17
       ],
-      "outcome": "exercis",
-      "pmid": "42124047",
+      "outcome": "sleep",
+      "pmid": "40600743",
       "candidates_count": 9,
       "reused_shared": false
     }
   },
   "totals": {
-    "found": 63,
-    "with_ci": 59,
-    "no_candidates": 18,
+    "found": 69,
+    "with_ci": 65,
+    "no_candidates": 25,
     "error": 0,
     "reused_shared": 0
   }
