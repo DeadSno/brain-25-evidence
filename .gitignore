@@ -213,3 +213,6 @@ docs/*.bak-*
 reports/*.bak-*
 
 README.md.bak-*
+
+# Backup files
+*.bak
