@@ -29,19 +29,6 @@ SUPPLEMENTS = {
     "CoQ10":              "coenzyme Q10 OR ubiquinol",
     "Пикногенол":         "pycnogenol OR pine bark extract",
     "Готу кола":          "Centella asiatica OR gotu kola",
-    "Шатавари":                    "Asparagus racemosus",
-    "Астрагал":                    "Astragalus membranaceus",
-    "Шлемник":                     "Scutellaria baicalensis",
-    "Пассифлора":                  "Passiflora incarnata",
-    "Мелисса":                     "Melissa officinalis",
-    "Лаванда":                     "Lavandula angustifolia",
-    "Чага":                        "Inonotus obliquus",
-    "Шиитаке":                     "Lentinula edodes",
-    "Глутатион":                   "glutathione",
-    "PQQ":                         "pyrroloquinoline quinone",
-    "Сульфорафан":                 "sulforaphane",
-    "MSM":                         "methylsulfonylmethane",
-    "Гимнема":                     "Gymnema sylvestre",
 }
 
 # ============ Исходы (для PubMed-запросов) ============

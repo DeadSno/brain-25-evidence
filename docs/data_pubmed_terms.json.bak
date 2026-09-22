@@ -79,18 +79,5 @@
   "Босвеллия": "(Boswellia serrata OR boswellic acid supplementation) AND (osteoarthritis OR inflammation OR asthma)",
   "Витамин K2": "(vitamin K2 OR menaquinone supplementation) AND (bone OR cardiovascular OR calcification OR osteoporosis)",
   "Берберин": "(berberine supplementation) AND (diabetes OR metabolic OR cholesterol OR weight)",
-  "Кверцетин": "(quercetin supplementation) AND (inflammation OR exercise OR cardiovascular OR immune OR antioxidant)",
-  "Шатавари": "(Asparagus racemosus) AND (hormone OR menopause OR lactation)",
-  "Астрагал": "(Astragalus membranaceus) AND (immune OR inflammation)",
-  "Шлемник": "(Scutellaria baicalensis) AND (anxiety OR cognition)",
-  "Пассифлора": "(Passiflora incarnata) AND (sleep OR anxiety)",
-  "Мелисса": "(Melissa officinalis) AND (sleep OR anxiety OR cognition)",
-  "Лаванда": "(Lavandula angustifolia) AND (anxiety OR sleep)",
-  "Чага": "(Inonotus obliquus OR chaga) AND (immune OR inflammation)",
-  "Шиитаке": "(Lentinula edodes OR shiitake) AND (immune)",
-  "Глутатион": "(glutathione supplementation) AND (antioxidant OR detox)",
-  "PQQ": "(pyrroloquinoline quinone OR PQQ) AND (cognition OR mitochondria)",
-  "Сульфорафан": "(sulforaphane) AND (cancer OR detox OR antioxidant)",
-  "MSM": "(methylsulfonylmethane OR MSM) AND (joint OR inflammation)",
-  "Гимнема": "(Gymnema sylvestre) AND (glucose OR diabetes)"
+  "Кверцетин": "(quercetin supplementation) AND (inflammation OR exercise OR cardiovascular OR immune OR antioxidant)"
 }
