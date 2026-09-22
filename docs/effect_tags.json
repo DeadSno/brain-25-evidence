@@ -42,6 +42,10 @@
     "muscle",
     "energy"
   ],
+  "MSM": [
+    "joints",
+    "skin"
+  ],
   "NAC": [
     "brain"
   ],
@@ -49,6 +53,10 @@
     "energy",
     "brain",
     "muscle"
+  ],
+  "PQQ": [
+    "brain",
+    "energy"
   ],
   "SAMe": [
     "mood"
@@ -64,6 +72,10 @@
   "Астаксантин": [
     "skin",
     "vision"
+  ],
+  "Астрагал": [
+    "immunity",
+    "heart"
   ],
   "Ашваганда": [
     "stress",
@@ -122,6 +134,10 @@
     "skin",
     "joints"
   ],
+  "Гимнема": [
+    "metabolism",
+    "blood"
+  ],
   "Гинкго": [
     "brain",
     "heart"
@@ -133,6 +149,10 @@
     "muscle",
     "gut",
     "immunity"
+  ],
+  "Глутатион": [
+    "liver",
+    "brain"
   ],
   "Глюкозамин + хондроитин": [
     "joints"
@@ -198,6 +218,10 @@
     "brain",
     "joints"
   ],
+  "Лаванда": [
+    "sleep",
+    "stress"
+  ],
   "Лактоферрин": [
     "immunity",
     "blood"
@@ -216,6 +240,11 @@
   "Мелатонин": [
     "sleep"
   ],
+  "Мелисса": [
+    "sleep",
+    "stress",
+    "brain"
+  ],
   "Омега-3": [
     "brain",
     "heart"
@@ -223,6 +252,10 @@
   "Пажитник": [
     "metabolism",
     "hormones"
+  ],
+  "Пассифлора": [
+    "sleep",
+    "stress"
   ],
   "Пикногенол": [
     "brain"
@@ -259,6 +292,9 @@
     "stress",
     "mood"
   ],
+  "Сульфорафан": [
+    "liver"
+  ],
   "Сывороточный протеин": [
     "muscle"
   ],
@@ -291,12 +327,25 @@
     "brain",
     "immunity"
   ],
+  "Чага": [
+    "immunity"
+  ],
   "Чеснок": [
     "heart"
   ],
   "Чёрный тмин": [
     "metabolism",
     "heart"
+  ],
+  "Шатавари": [
+    "hormones"
+  ],
+  "Шиитаке": [
+    "immunity"
+  ],
+  "Шлемник": [
+    "stress",
+    "brain"
   ],
   "Эхинацея": [
     "immunity"

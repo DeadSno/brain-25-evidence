@@ -107,4 +107,19 @@ TAGS: dict[str, list[str]] = {
     "Витамин K2":            ["bones", "heart"],
     "Берберин":              ["metabolism"],
     "Кверцетин":             ["immunity"],
+
+    # ---------- v2.0 (13) ----------
+    "Шатавари":              ["hormones"],
+    "Астрагал":              ["immunity", "heart"],
+    "Шлемник":               ["stress", "brain"],
+    "Пассифлора":            ["sleep", "stress"],
+    "Мелисса":               ["sleep", "stress", "brain"],
+    "Лаванда":               ["sleep", "stress"],
+    "Чага":                  ["immunity"],
+    "Шиитаке":               ["immunity"],
+    "Глутатион":             ["liver", "brain"],
+    "PQQ":                   ["brain", "energy"],
+    "Сульфорафан":           ["liver"],
+    "MSM":                   ["joints", "skin"],
+    "Гимнема":               ["metabolism", "blood"],
 }
