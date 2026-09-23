@@ -216,3 +216,6 @@ README.md.bak-*
 
 # Backup files
 *.bak
+
+# A3.1: heavy data, regenerable via fetch_papers.py
+data/papers/papers.json
