@@ -34,7 +34,7 @@ try {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=300"/>
+<link rel="stylesheet" href="style.css?v=380"/>
 <style>
 :root{--apanel:var(--card-bg);--aborder:var(--border);--atext:var(--text)}
 /* Единая шапка для всех страниц */
@@ -175,8 +175,8 @@ try {
 <!-- /Yandex.Metrika counter -->
 <div class="trustbar">🧬 Открытые данные · Бесплатно · Без рекламы</div>
 <header class="top">
-  <h1><a href="index.html">🧠 БАДы: доказательства и механизмы</a> <span class="v">v<span data-version="app"></span></span></h1>
-  <div class="actions">
+  <h1><a href="index.html"><span class="h1-emoji">🧠</span> БАДы: доказательства и механизмы</a> <span class="v">v<span data-version="app"></span></span></h1>
+<div class="actions">
     <button class="btn" id="themeToggle">🌞 Светлая тема</button>
   </div>
 </header>
@@ -220,26 +220,31 @@ try {
 </section>
 
 <section style="margin:1.5rem 0">
-  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:.8rem">
-    <a class="card-link" href="calculator.html" style="display:block;padding:1rem 1.2rem;border:2px solid #3498db;border-radius:12px;text-decoration:none;color:inherit;background:linear-gradient(135deg,rgba(52,152,219,.12),rgba(52,152,219,.04))">
+  <div class="quick-links">
+    <a class="card-link" href="calculator.html" style="display:block;border:2px solid #3498db;border-radius:12px;text-decoration:none;color:inherit;background:linear-gradient(135deg,rgba(52,152,219,.12),rgba(52,152,219,.04))">
       <div style="font-size:1.4rem">🧮</div>
       <div style="font-weight:600;margin:.3rem 0">Калькулятор БАДов</div>
       <div style="opacity:.75;font-size:.85rem">Проверить дозы, конфликты с лекарствами и совместимость ваших добавок</div>
     </a>
-    <a class="card-link" href="map.html" style="display:block;padding:1rem 1.2rem;border:1px solid var(--border);border-radius:12px;text-decoration:none;color:inherit">
+    <a class="card-link" href="map.html" style="display:block;border:1px solid var(--border);border-radius:12px;text-decoration:none;color:inherit">
       <div style="font-size:1.4rem">🧩</div>
       <div style="font-weight:600;margin:.3rem 0">Карта механизмов</div>
       <div style="opacity:.7;font-size:.85rem">Как каждая добавка работает: вещество → мишень → эффект</div>
     </a>
-    <a class="card-link" href="interactions.html" style="display:block;padding:1rem 1.2rem;border:1px solid var(--border);border-radius:12px;text-decoration:none;color:inherit">
+    <a class="card-link" href="interactions.html" style="display:block;border:1px solid var(--border);border-radius:12px;text-decoration:none;color:inherit">
       <div style="font-size:1.4rem">🔗</div>
       <div style="font-weight:600;margin:.3rem 0">Карта связей</div>
       <div style="opacity:.7;font-size:.85rem">Синергии, антагонизмы и конфликты с лекарствами</div>
     </a>
-    <a class="card-link" href="atlas.html" style="display:block;padding:1rem 1.2rem;border:1px solid var(--border);border-radius:12px;text-decoration:none;color:inherit">
+    <a class="card-link" href="atlas.html" style="display:block;border:1px solid var(--border);border-radius:12px;text-decoration:none;color:inherit">
       <div style="font-size:1.4rem">🌐</div>
       <div style="font-weight:600;margin:.3rem 0">Атлас механизмов</div>
       <div style="opacity:.7;font-size:.85rem">25 тегов × 81 добавка: что работает для Сна, Памяти, Иммунитета</div>
+    </a>
+    <a class="card-link" href="trends.html" style="display:block;border:2px solid #8b5cf6;border-radius:12px;text-decoration:none;color:inherit;background:linear-gradient(135deg,rgba(139,92,246,.12),rgba(139,92,246,.04))">
+      <div style="font-size:1.4rem">📈</div>
+      <div style="font-weight:600;margin:.3rem 0">Тренды популярности</div>
+      <div style="opacity:.75;font-size:.85rem">10 лет данных: публикации в PubMed, Wikipedia, цитаты</div>
     </a>
   </div>
 </section>
