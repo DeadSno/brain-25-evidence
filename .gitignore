@@ -232,3 +232,9 @@ scripts/_*.py
 # A3.2.3: heavy full texts, regenerable
 data/pmc/text/
 data/pmc/tmp/
+
+# Диагностические/экспериментальные скрипты
+scripts/fetch_pmc_s3*.py
+scripts/fetch_pmc_oa.py
+scripts/fetch_bioc.py
+
