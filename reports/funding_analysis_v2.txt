@@ -1,0 +1,53 @@
+=== ТОП-25 FUNDERS (после нормализации) ===
+  101  National Natural Science Foundation of China
+   27  National Key R&D Program of China
+   23  National Institutes of Health (NIH)
+   19  European Union
+   13  National Research Foundation of Korea (NRF)
+   10  European Regional Development Fund (ERDF)
+    9  CAPES (Brazil)
+    9  National Science Foundation (NSF)
+    8  Canadian Institutes of Health Research (CIHR)
+    8  China Postdoctoral Science Foundation
+    7  Ministry of Science and Technology of China
+    7  DFG (Germany)
+    6  Ministry of Education of China
+    5  NHMRC (Australia)
+    5  CNPq (Brazil)
+    5  CAMS Innovation Fund for Medical Sciences
+    5  Natural Science Foundation of Hunan Province
+    5  Ministry of Science and ICT (Korea)
+    4  NIH — NCI
+    4  FAPESP (Brazil)
+    4  NIH — NIDDK
+    4  Instituto de Salud Carlos III (Spain)
+    4  Korea government
+    4  China Agriculture Research System of MOF and MARA
+    4  National Science and Technology Council (Taiwan)
+
+=== ТОП-20 СТРАН ===
+ 1097  China
+  852  USA
+  428  Italy
+  357  UK
+  282  India
+  241  Poland
+  238  Spain
+  214  Korea
+  212  Germany
+  206  Japan
+  204  Australia
+  188  Iran
+  160  Canada
+  151  France
+  149  Taiwan
+  138  Brazil
+  121  Netherlands
+  105  Saudi Arabia
+   96  Switzerland
+   84  Egypt
+
+=== SUMMARY ===
+Всего:       5059
+С funding:   1342 (26.5%)
+С COI:       341 (6.7%)
