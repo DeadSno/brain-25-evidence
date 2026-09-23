@@ -74,6 +74,91 @@
     header.top h1{font-size:1.05rem}
     header.top h1 .v{display:none}
   }
+/* ===== Executive Summary ===== */
+.executive-summary{margin:1.5rem 0}
+.executive-summary h2{margin:0 0 .3rem;font-size:1.15rem}
+.executive-summary .hint{margin:0 0 .8rem;opacity:.7;font-size:.88rem}
+.insights-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:.8rem;margin:1rem 0;
+}
+.insight-card{
+  background:var(--card-bg);border:1px solid var(--border);
+  border-radius:12px;padding:.9rem 1rem;display:flex;gap:.8rem;align-items:flex-start;
+}
+.insight-card[data-tone="blue"]{border-left:3px solid #3498db}
+.insight-card[data-tone="green"]{border-left:3px solid #10b981}
+.insight-card[data-tone="red"]{border-left:3px solid #ef4444}
+.insight-card[data-tone="orange"]{border-left:3px solid #f59e0b}
+.insight-icon{font-size:1.6rem;line-height:1;flex-shrink:0}
+.insight-title{font-weight:600;margin-bottom:.25rem;font-size:.95rem}
+.insight-text{font-size:.85rem;opacity:.85;line-height:1.45}
+
+/* ===== Scatter Matrix ===== */
+.scatter-section{margin:2rem 0}
+.scatter-section h2{margin:0 0 .3rem;font-size:1.15rem}
+.scatter-section .hint{margin:0 0 .8rem;opacity:.7;font-size:.88rem}
+.scatter-wrap{
+  background:var(--card-bg);border:1px solid var(--border);
+  border-radius:12px;padding:1rem;position:relative;
+}
+.scatter-canvas-box{position:relative;height:560px}
+.scatter-legend{
+  display:flex;gap:1rem;flex-wrap:wrap;margin-top:.7rem;
+  font-size:.82rem;opacity:.85;
+}
+.scatter-legend span::before{
+  content:"";display:inline-block;width:10px;height:10px;
+  border-radius:50%;margin-right:.35rem;vertical-align:middle;
+}
+.scatter-legend [data-g="A"]::before{background:rgba(16,185,129,.9)}
+.scatter-legend [data-g="B"]::before{background:rgba(132,204,22,.9)}
+.scatter-legend [data-g="C"]::before{background:rgba(245,158,11,.9)}
+.scatter-legend [data-g="D"]::before{background:rgba(239,68,68,.9)}
+@media (max-width:700px){.scatter-canvas-box{height:400px}}
+
+/* ===== Categories ===== */
+.categories-section{margin:2rem 0}
+.categories-section h2{margin:0 0 .3rem;font-size:1.15rem}
+.categories-section .hint{margin:0 0 .8rem;opacity:.7;font-size:.88rem}
+.categories-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:.8rem;margin:1rem 0;
+}
+.category-card{
+  background:var(--card-bg);border:1px solid var(--border);
+  border-radius:12px;padding:.9rem 1rem;
+}
+.category-name{font-weight:600;font-size:.98rem;margin-bottom:.6rem}
+.cat-count{
+  background:var(--border);color:var(--text);font-size:.72rem;
+  padding:.1rem .45rem;border-radius:6px;margin-left:.4rem;font-weight:400;
+}
+.cat-row{
+  display:flex;justify-content:space-between;font-size:.85rem;
+  padding:.2rem 0;
+}
+.cat-label{opacity:.65}
+.cat-warn{
+  margin-top:.55rem;font-size:.8rem;color:#f59e0b;
+  border-top:1px solid var(--border);padding-top:.55rem;
+}
+
+/* ===== Methodology ===== */
+.methodology{
+  background:var(--card-bg);border:1px solid var(--border);
+  border-radius:12px;padding:.5rem 1.2rem;margin:1.5rem 0;
+}
+.methodology summary{cursor:pointer;font-weight:600;padding:.6rem 0;font-size:.95rem}
+.method-body{font-size:.88rem;line-height:1.6;padding-bottom:.8rem}
+.method-body h4{margin:1rem 0 .35rem;font-size:.92rem;color:var(--text)}
+.method-body ul{margin:.3rem 0;padding-left:1.3rem}
+.method-body li{margin:.2rem 0}
+.method-body pre{
+  background:rgba(128,128,128,.1);padding:.7rem .9rem;border-radius:8px;
+  font-size:.82rem;overflow-x:auto;margin:.4rem 0;
+}
+.method-footer{margin-top:1rem;opacity:.7;font-size:.82rem}
 </style>
 </head>
 <body>
@@ -96,6 +181,18 @@
   10 лет данных о 94 добавках: публикации в PubMed, просмотры ru.wikipedia, цитирования ключевых исследований.
   Клик по столбцу — открыть карточку добавки.
 </p>
+
+<section class="executive-summary">
+  <h2>🎯 Executive Summary</h2>
+  <p class="hint">Автоматические выводы из данных: что растёт, что переоценено, где наука опережает хайп.</p>
+  <div class="insights-grid" id="insightsGrid">
+    <div class="insight-card" data-tone="blue">
+      <div class="insight-icon">⏳</div>
+      <div><div class="insight-title">Загрузка…</div>
+      <div class="insight-text">Анализирую 94 добавки по двум метрикам</div></div>
+    </div>
+  </div>
+</section>
 
 <!-- KPI-карточки -->
 <div class="stat-cards" id="statCards">
@@ -551,6 +648,302 @@ function openModal(id) {
 function closeModal() {
   document.getElementById('modalOverlay').style.display = 'none';
 }
+</script>
+<section class="scatter-section">
+  <h2>🎯 Матрица «Наука × Интерес»</h2>
+  <p class="hint">
+    Каждая точка — добавка. X = рост публикаций (2015→2025), Y = рост просмотров wiki.
+    Размер = объём публикаций в 2025. Цвет = грейд доказательности. Клик по точке — карточка.
+  </p>
+  <div class="scatter-wrap">
+    <div class="scatter-canvas-box"><canvas id="scatterMatrix"></canvas></div>
+    <div class="scatter-legend">
+      <span data-g="A">грейд A — крепко доказано</span>
+      <span data-g="B">грейд B — умеренно</span>
+      <span data-g="C">грейд C — изучено много, эффект мал</span>
+      <span data-g="D">грейд D — данных мало</span>
+    </div>
+  </div>
+</section>
+
+<section class="categories-section">
+  <h2>📊 Категориальный разрез</h2>
+  <p class="hint">Сравнение 8 категорий по среднему росту публикаций, лидеру, провалу и хайп-риску.</p>
+  <div class="categories-grid" id="categoryCards"></div>
+</section>
+
+<details class="methodology">
+  <summary>📐 Методология и ограничения данных</summary>
+  <div class="method-body">
+    <h4>Источники</h4>
+    <ul>
+      <li><b>PubMed E-utilities</b> — число публикаций по годам 2015–2025 для 94 добавок</li>
+      <li><b>Wikipedia REST API</b> — просмотры ru.wikipedia помесячно (90 из 94 добавок)</li>
+      <li><b>OpenAlex</b> — цитирования (данные неполные до 2023, в scatter не используются)</li>
+    </ul>
+    <h4>Формула роста</h4>
+    <pre>growth_pub  = pubmed[id][2025] / pubmed[id][2015]
+growth_wiki = avg(wiki[id][последние 6 мес]) / avg(wiki[id][первые 6 мес])</pre>
+    <h4>Допущения</h4>
+    <ul>
+      <li>Рост &gt; ×1.5 — «значимый», &gt; ×2.0 — «аномальный»</li>
+      <li>Z-score &gt; 2σ — статистический выброс (аномалия)</li>
+      <li>Для wiki берём первые/последние 6 месяцев — сглаживает сезонность</li>
+    </ul>
+    <h4>Ограничения</h4>
+    <ul>
+      <li>PubMed индексирует препринты с 2019 — часть роста 2020–2022 может быть артефактом</li>
+      <li>Wiki-просмотры ≠ потребление БАД, а интерес (иногда — из-за новостных событий)</li>
+      <li>OpenAlex неполный до 2023 — сравнение цитат по годам некорректно</li>
+      <li>N=94. Категории «Спорт» (2) и «Сон» (3) — маленькие, выводы менее устойчивы чем для «Когниции» (26)</li>
+    </ul>
+    <p class="method-footer">
+      Полная методология — <a href="methodology.html">methodology.html</a> ·
+      Исходные данные — <a href="https://github.com/DeadSno/brain-25-evidence" target="_blank" rel="noopener">GitHub ↗</a>
+    </p>
+  </div>
+</details>
+
+<script>
+(function(){
+  let TS_ = null, SUPP_ = null, scatterChart_ = null;
+
+  const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => (
+    { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
+  ));
+  const mean = a => a.reduce((x, y) => x + y, 0) / a.length;
+  const std = a => { const m = mean(a); return Math.sqrt(a.reduce((s, v) => s + (v - m) ** 2, 0) / a.length); };
+
+  function growthPub(id) {
+    const p = (TS_.pubmed || {})[id] || {};
+    const y0 = p['2015'], y1 = p['2025'];
+    if (!y0 || !y1) return null;
+    return y1 / y0;
+  }
+  function growthWiki(id) {
+    const w = (TS_.wiki || {})[id] || {};
+    const months = Object.keys(w).sort();
+    if (months.length < 12) return null;
+    const first = months.slice(0, 6), last = months.slice(-6);
+    const avg = arr => arr.reduce((s, m) => s + (w[m] || 0), 0) / arr.length;
+    const v0 = avg(first), v1 = avg(last);
+    if (!v0 || !v1) return null;
+    return v1 / v0;
+  }
+
+  function computeItems() {
+    return SUPP_.map(s => ({
+      id: s.id, name: s.name, grade: s.grade, category: s.category,
+      pub: growthPub(s.id),
+      wiki: growthWiki(s.id),
+      size: ((TS_.pubmed || {})[s.id] || {})['2025'] || 0,
+    })).filter(x => x.pub && x.wiki);
+  }
+
+  function computeInsights(items) {
+    const mP = mean(items.map(x => x.pub)), sP = std(items.map(x => x.pub));
+    const mW = mean(items.map(x => x.wiki)), sW = std(items.map(x => x.wiki));
+    items.forEach(x => {
+      x.zP = (x.pub - mP) / sP;
+      x.zW = (x.wiki - mW) / sW;
+    });
+    const out = [];
+
+    const sci = items.filter(x => x.pub > x.wiki * 1.5 && x.pub > 1.5)
+                     .sort((a, b) => (b.pub - b.wiki) - (a.pub - a.wiki));
+    if (sci[0]) out.push({
+      icon: '🔬', title: 'Наука опережает хайп', tone: 'blue',
+      text: `${sci[0].name}: публикации ×${sci[0].pub.toFixed(2)}, wiki ×${sci[0].wiki.toFixed(2)} — наука растёт быстрее интереса`
+    });
+
+    const hype = items.filter(x => x.wiki > x.pub * 1.5 && ['C','D'].includes(x.grade))
+                      .sort((a, b) => (b.wiki - b.pub) - (a.wiki - a.pub));
+    if (hype[0]) out.push({
+      icon: '🔥', title: 'Хайп без науки', tone: 'red',
+      text: `${hype[0].name}: wiki ×${hype[0].wiki.toFixed(2)}, публикации ×${hype[0].pub.toFixed(2)} (грейд ${hype[0].grade}) — рост на маркетинге`
+    });
+
+    const hid = items.filter(x => x.pub > 1.5 && x.wiki < 1.1).sort((a, b) => b.pub - a.pub);
+    if (hid[0]) out.push({
+      icon: '❄️', title: 'Наука без хайпа', tone: 'blue',
+      text: `${hid[0].name}: публикации ×${hid[0].pub.toFixed(2)}, wiki ×${hid[0].wiki.toFixed(2)} — недооценённая добавка`
+    });
+
+    const lead = items.filter(x => x.pub > 1.3 && x.wiki > 1.3 && ['A','B'].includes(x.grade))
+                      .sort((a, b) => (b.pub + b.wiki) - (a.pub + a.wiki));
+    if (lead[0]) out.push({
+      icon: '⭐', title: 'Устойчивый лидер', tone: 'green',
+      text: `${lead[0].name}: ×${lead[0].pub.toFixed(2)} публикации, ×${lead[0].wiki.toFixed(2)} wiki, грейд ${lead[0].grade}`
+    });
+
+    const ano = items.filter(x => Math.abs(x.zP) > 2 || Math.abs(x.zW) > 2)
+                     .sort((a, b) => Math.max(Math.abs(b.zP), Math.abs(b.zW)) - Math.max(Math.abs(a.zP), Math.abs(a.zW)));
+    if (ano[0]) {
+      const z = Math.max(Math.abs(ano[0].zP), Math.abs(ano[0].zW));
+      out.push({
+        icon: '⚠️', title: 'Статистический выброс', tone: 'orange',
+        text: `${ano[0].name}: z-score ${z.toFixed(2)}σ от среднего — уникальный случай`
+      });
+    }
+    return { out, mP, mW };
+  }
+
+  function renderInsights(insights) {
+    const grid = document.getElementById('insightsGrid');
+    if (!grid) return;
+    grid.innerHTML = insights.map(i => `
+      <div class="insight-card" data-tone="${i.tone}">
+        <div class="insight-icon">${i.icon}</div>
+        <div>
+          <div class="insight-title">${esc(i.title)}</div>
+          <div class="insight-text">${esc(i.text)}</div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // Плагин квадрантов
+  const quadrantPlugin = {
+    id: 'quadrantLabels',
+    beforeDraw(chart) {
+      const { ctx, chartArea, scales: { x, y } } = chart;
+      if (!chartArea || chart.__mP == null || chart.__mW == null) return;
+      const mx = x.getPixelForValue(chart.__mP);
+      const my = y.getPixelForValue(chart.__mW);
+      ctx.save();
+      ctx.font = 'bold 13px system-ui, sans-serif';
+      ctx.fillStyle = 'rgba(160,160,160,.4)';
+      ctx.textAlign = 'left';
+      ctx.fillText('🔥 ХАЙП БЕЗ НАУКИ', chartArea.left + 12, chartArea.top + 22);
+      ctx.textAlign = 'right';
+      ctx.fillText('⭐ ЛИДЕРЫ', chartArea.right - 12, chartArea.top + 22);
+      ctx.textAlign = 'left';
+      ctx.fillText('⚪ ЗАБВЕНИЕ', chartArea.left + 12, chartArea.bottom - 10);
+      ctx.textAlign = 'right';
+      ctx.fillText('❄️ НАУКА БЕЗ ХАЙПА', chartArea.right - 12, chartArea.bottom - 10);
+      ctx.strokeStyle = 'rgba(160,160,160,.35)';
+      ctx.setLineDash([5, 5]);
+      ctx.beginPath();
+      ctx.moveTo(mx, chartArea.top); ctx.lineTo(mx, chartArea.bottom);
+      ctx.moveTo(chartArea.left, my); ctx.lineTo(chartArea.right, my);
+      ctx.stroke();
+      ctx.restore();
+    }
+  };
+  if (window.Chart) Chart.register(quadrantPlugin);
+
+  const GRADE_COLOR = {
+    A: 'rgba(16,185,129,.8)',
+    B: 'rgba(132,204,22,.8)',
+    C: 'rgba(245,158,11,.8)',
+    D: 'rgba(239,68,68,.8)',
+  };
+
+  function renderScatter(items, mP, mW) {
+    const cvs = document.getElementById('scatterMatrix');
+    if (!cvs) return;
+    if (scatterChart_) scatterChart_.destroy();
+
+    // Цвета под текущую тему
+    const cs = getComputedStyle(document.body);
+    const gridColor = 'rgba(128,128,128,.15)';
+    const textColor = cs.getPropertyValue('--text').trim() || '#e6e6e6';
+
+    const data = items.map(x => ({
+      x: x.pub, y: x.wiki,
+      r: Math.max(5, Math.min(22, Math.sqrt(x.size) / 1.8)),
+      label: x.name, grade: x.grade,
+      bg: GRADE_COLOR[x.grade] || 'rgba(128,128,128,.6)',
+    }));
+
+    scatterChart_ = new Chart(cvs.getContext('2d'), {
+      type: 'bubble',
+      data: { datasets: [{ data, backgroundColor: data.map(d => d.bg), borderColor: data.map(d => d.bg), borderWidth: 1 }] },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: (ctx) => {
+                const d = ctx.raw;
+                return `${d.label} · ×${d.x.toFixed(2)} pub · ×${d.y.toFixed(2)} wiki · грейд ${d.grade}`;
+              },
+            },
+          },
+        },
+        scales: {
+          x: {
+            title: { display: true, text: 'Рост публикаций (× к 2015)', color: textColor },
+            grid: { color: gridColor }, ticks: { color: textColor },
+          },
+          y: {
+            title: { display: true, text: 'Рост wiki (× к базе)', color: textColor },
+            grid: { color: gridColor }, ticks: { color: textColor },
+          },
+        },
+      },
+    });
+    scatterChart_.__mP = mP;
+    scatterChart_.__mW = mW;
+    scatterChart_.update('none');
+  }
+
+  function renderCategories(items) {
+    const box = document.getElementById('categoryCards');
+    if (!box) return;
+
+    // Разбиваем "Спорт/Когниция" → ["Спорт", "Когниция"]
+    const byCat = {};
+    items.forEach(x => {
+      const cats = String(x.category || '').split('/').map(s => s.trim()).filter(Boolean);
+      cats.forEach(c => { (byCat[c] = byCat[c] || []).push(x); });
+    });
+
+    // Оставляем только категории с 3+ добавками, сортируем по размеру
+    const rows = Object.entries(byCat)
+      .filter(([, arr]) => arr.length >= 3)
+      .sort((a, b) => b[1].length - a[1].length);
+
+    box.innerHTML = rows.map(([cat, arr]) => {
+      const avg = arr.reduce((s, x) => s + x.pub, 0) / arr.length;
+      const leader = arr.slice().sort((a, b) => b.pub - a.pub)[0];
+      const loser = arr.slice().sort((a, b) => a.pub - b.pub)[0];
+      const dShare = arr.filter(x => x.grade === 'D').length / arr.length;
+      return `
+        <div class="category-card">
+          <div class="category-name">${esc(cat)} <span class="cat-count">${arr.length}</span></div>
+          <div class="cat-row"><span class="cat-label">Средний рост</span><span>×${avg.toFixed(2)}</span></div>
+          <div class="cat-row"><span class="cat-label">Лидер</span><span>${esc(leader.name)} ×${leader.pub.toFixed(2)}</span></div>
+          <div class="cat-row"><span class="cat-label">Провал</span><span>${esc(loser.name)} ×${loser.pub.toFixed(2)}</span></div>
+          ${dShare > 0.3 ? `<div class="cat-warn">⚠️ ${Math.round(dShare * 100)}% без доказательств (грейд D)</div>` : ''}
+        </div>`;
+    }).join('');
+  }
+
+  async function init() {
+    const [ts, idx] = await Promise.all([
+      fetch('timeseries.json?v=' + Date.now()).then(r => r.json()),
+      fetch('data_index.json?v=' + Date.now()).then(r => r.json()),
+    ]);
+    TS_ = ts;
+    SUPP_ = idx.supplements || [];
+
+    const items = computeItems();
+    if (!items.length) return;
+
+    const { out, mP, mW } = computeInsights(items);
+    renderInsights(out);
+    renderCategories(items);
+    renderScatter(items, mP, mW);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
 </script>
 </body>
 </html>
