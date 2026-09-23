@@ -175,6 +175,7 @@ def parse_one(path: Path) -> dict | None:
     coi = extract_coi(root)
     countries = extract_countries(affs)
 
+    meta["affiliations"] = affs  # сырые строки для анализа стран
     meta["n_affiliations"] = len(affs)
     meta["countries"] = countries
     meta["funding_sources"] = funding["sources"][:20]
