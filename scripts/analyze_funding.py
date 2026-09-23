@@ -14,15 +14,32 @@ META = ROOT / "data" / "processed" / "xml_meta.json"
 
 
 def main() -> int:
+    import io, sys
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace")
     meta = json.loads(META.read_text(encoding="utf-8"))
 
     # 1. Топ funders (нормализованные)
     funders = Counter()
     for r in meta.values():
         for src in r.get("funding_sources", []):
-            # Нормализация
-            name = re.sub(r"\s+", " ", src).strip()
-            if len(name) > 3 and len(name) < 200:
+            name = src
+
+            # 1. Убираем http://dx.doi.org/10.13039/...
+            name = re.sub(r"https?://dx\.doi\.org/10\.13039/\d+", "", name)
+            # 2. Убираем просто 10.13039/... в любом месте
+            name = re.sub(r"10\.13039/\d+", "", name)
+            # 3. Убираем префиксы вида http://...
+            name = re.sub(r"https?://\S+", "", name)
+            # 4. Убираем ведущие цифры+пробелы в начале
+            name = re.sub(r"^\d+\.?\s*", "", name)
+            # 5. Убираем хвосты вроде "10.13039" без префикса
+            name = re.sub(r"\b10\.\d{4,}/\S*", "", name)
+            # 6. Сжимаем пробелы
+            name = re.sub(r"\s+", " ", name).strip()
+            # 7. Убираем кавычки, точки, запятые в конце
+            name = name.rstrip(".,;:").strip()
+
+            if 3 < len(name) < 200:
                 funders[name] += 1
 
     print("=== ТОП-25 FUNDERS (Europe PMC XML) ===")
