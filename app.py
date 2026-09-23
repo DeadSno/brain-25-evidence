@@ -26,7 +26,7 @@ ROOT = Path(__file__).parent
 @st.cache_data(ttl=3600)
 def load_papers() -> pd.DataFrame:
     """Все 37618 papers."""
-    data = json.loads((ROOT / "data" / "papers" / "papers.json").read_text(encoding="utf-8"))
+    data = json.loads((ROOT / "data" / "papers" / "papers_slim.json").read_text(encoding="utf-8"))
     rows = []
     for pmid, p in data.items():
         rows.append({
@@ -40,7 +40,7 @@ def load_papers() -> pd.DataFrame:
             "sjr_quartile": p.get("sjr_quartile"),
             "is_retracted": p.get("is_retracted"),
             "pubtype": ", ".join(p.get("pubtype") or [])[:100],
-            "abstract": (p.get("abstract") or "")[:300],
+            "abstract": "",
         })
     return pd.DataFrame(rows)
 
