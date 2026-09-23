@@ -226,7 +226,25 @@ def main() -> int:
         for name, n in countries.most_common(100):
             w.writerow([name, n])
 
-    print(f"\n[OK] CSV: {OUT_FUND}")
+    # Сохраняем отчёт в файл
+    OUT_TXT.parent.mkdir(parents=True, exist_ok=True)
+    lines = []
+    lines.append(f"=== ТОП-25 FUNDERS (после нормализации) ===")
+    for name, n in funders.most_common(25):
+        lines.append(f"{n:5}  {name}")
+    lines.append("")
+    lines.append(f"=== ТОП-20 СТРАН ===")
+    for c, n in countries.most_common(20):
+        lines.append(f"{n:5}  {c}")
+    lines.append("")
+    lines.append(f"=== SUMMARY ===")
+    lines.append(f"Всего:       {total}")
+    lines.append(f"С funding:   {with_fund} ({with_fund/total*100:.1f}%)")
+    lines.append(f"С COI:       {with_coi} ({with_coi/total*100:.1f}%)")
+    OUT_TXT.write_text("\n".join(lines), encoding="utf-8")
+
+    print(f"\n[OK] TXT: {OUT_TXT}")
+    print(f"[OK] CSV: {OUT_FUND}")
     print(f"[OK] CSV: {OUT_CTRY}")
     return 0
 
