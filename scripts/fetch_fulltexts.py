@@ -79,7 +79,7 @@ def _referer_for(url: str) -> str:
 BM_VERIFY_RE = re.compile(r'URL=[\'"]([^\'"]+)[\'"]')
 
 
-def _follow_bm_verify(original_url: str, r) -> object:
+def _follow_bm_verify(original_url: str, r):
     """Если пришёл bm-verify challenge — делаем второй запрос с токеном."""
     ct = r.headers.get("Content-Type", "")
     if not ct.startswith("text/html"):

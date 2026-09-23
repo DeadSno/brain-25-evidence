@@ -228,3 +228,7 @@ data/pmc/tmp/
 
 # Разовые скрипты (диагностика, миграции, фиксы)
 scripts/_*.py
+
+# A3.2.3: heavy full texts, regenerable
+data/pmc/text/
+data/pmc/tmp/
