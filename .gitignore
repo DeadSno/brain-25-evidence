@@ -238,3 +238,5 @@ scripts/fetch_pmc_s3*.py
 scripts/fetch_pmc_oa.py
 scripts/fetch_bioc.py
 
+
+docs/*.bak*

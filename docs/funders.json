@@ -1,0 +1,360 @@
+{
+  "summary": {
+    "total_papers": 5059,
+    "with_funding": 1342,
+    "funding_rate": 26.5,
+    "with_coi": 341,
+    "coi_rate": 6.7,
+    "china_funders_papers": 158,
+    "usa_funders_papers": 35,
+    "china_vs_usa": 4.51
+  },
+  "funders": [
+    {
+      "name": "National Natural Science Foundation of China",
+      "n": 101
+    },
+    {
+      "name": "National Key R&D Program of China",
+      "n": 27
+    },
+    {
+      "name": "National Institutes of Health (NIH)",
+      "n": 23
+    },
+    {
+      "name": "European Union",
+      "n": 19
+    },
+    {
+      "name": "National Research Foundation of Korea (NRF)",
+      "n": 13
+    },
+    {
+      "name": "European Regional Development Fund (ERDF)",
+      "n": 10
+    },
+    {
+      "name": "CAPES (Brazil)",
+      "n": 9
+    },
+    {
+      "name": "National Science Foundation (NSF)",
+      "n": 9
+    },
+    {
+      "name": "Canadian Institutes of Health Research (CIHR)",
+      "n": 8
+    },
+    {
+      "name": "China Postdoctoral Science Foundation",
+      "n": 8
+    },
+    {
+      "name": "Ministry of Science and Technology of China",
+      "n": 7
+    },
+    {
+      "name": "DFG (Germany)",
+      "n": 7
+    },
+    {
+      "name": "Ministry of Education of China",
+      "n": 6
+    },
+    {
+      "name": "NHMRC (Australia)",
+      "n": 5
+    },
+    {
+      "name": "CNPq (Brazil)",
+      "n": 5
+    },
+    {
+      "name": "CAMS Innovation Fund for Medical Sciences",
+      "n": 5
+    },
+    {
+      "name": "Natural Science Foundation of Hunan Province",
+      "n": 5
+    },
+    {
+      "name": "Ministry of Science and ICT (Korea)",
+      "n": 5
+    },
+    {
+      "name": "NIH — NCI",
+      "n": 4
+    },
+    {
+      "name": "FAPESP (Brazil)",
+      "n": 4
+    },
+    {
+      "name": "NIH — NIDDK",
+      "n": 4
+    },
+    {
+      "name": "Instituto de Salud Carlos III (Spain)",
+      "n": 4
+    },
+    {
+      "name": "Korea government",
+      "n": 4
+    },
+    {
+      "name": "China Agriculture Research System of MOF and MARA",
+      "n": 4
+    },
+    {
+      "name": "National Science and Technology Council (Taiwan)",
+      "n": 4
+    },
+    {
+      "name": "NIH — NIGMS",
+      "n": 4
+    },
+    {
+      "name": "U.S. Department of Veterans Affairs",
+      "n": 3
+    },
+    {
+      "name": "Ministry of Science and Technology (Taiwan)",
+      "n": 3
+    },
+    {
+      "name": "Dutch Heart Foundation",
+      "n": 3
+    },
+    {
+      "name": "Natural Science Foundation of Jiangsu Province",
+      "n": 3
+    }
+  ],
+  "countries": [
+    {
+      "name": "China",
+      "n": 1097
+    },
+    {
+      "name": "USA",
+      "n": 852
+    },
+    {
+      "name": "Italy",
+      "n": 428
+    },
+    {
+      "name": "UK",
+      "n": 357
+    },
+    {
+      "name": "India",
+      "n": 282
+    },
+    {
+      "name": "Poland",
+      "n": 241
+    },
+    {
+      "name": "Spain",
+      "n": 238
+    },
+    {
+      "name": "Korea",
+      "n": 214
+    },
+    {
+      "name": "Germany",
+      "n": 212
+    },
+    {
+      "name": "Japan",
+      "n": 206
+    },
+    {
+      "name": "Australia",
+      "n": 204
+    },
+    {
+      "name": "Iran",
+      "n": 188
+    },
+    {
+      "name": "Canada",
+      "n": 160
+    },
+    {
+      "name": "France",
+      "n": 151
+    },
+    {
+      "name": "Taiwan",
+      "n": 149
+    },
+    {
+      "name": "Brazil",
+      "n": 138
+    },
+    {
+      "name": "Netherlands",
+      "n": 121
+    },
+    {
+      "name": "Saudi Arabia",
+      "n": 105
+    },
+    {
+      "name": "Switzerland",
+      "n": 96
+    },
+    {
+      "name": "Egypt",
+      "n": 84
+    },
+    {
+      "name": "Turkey",
+      "n": 72
+    },
+    {
+      "name": "Norway",
+      "n": 56
+    },
+    {
+      "name": "Denmark",
+      "n": 53
+    },
+    {
+      "name": "Austria",
+      "n": 53
+    },
+    {
+      "name": "Sweden",
+      "n": 52
+    },
+    {
+      "name": "Mexico",
+      "n": 52
+    },
+    {
+      "name": "Greece",
+      "n": 51
+    },
+    {
+      "name": "Portugal",
+      "n": 49
+    },
+    {
+      "name": "Belgium",
+      "n": 43
+    },
+    {
+      "name": "Russia",
+      "n": 33
+    }
+  ],
+  "by_year": [
+    {
+      "year": 2010,
+      "total": 45,
+      "with_funding": 8,
+      "rate": 17.8
+    },
+    {
+      "year": 2011,
+      "total": 46,
+      "with_funding": 8,
+      "rate": 17.4
+    },
+    {
+      "year": 2012,
+      "total": 70,
+      "with_funding": 16,
+      "rate": 22.9
+    },
+    {
+      "year": 2013,
+      "total": 103,
+      "with_funding": 19,
+      "rate": 18.4
+    },
+    {
+      "year": 2014,
+      "total": 108,
+      "with_funding": 30,
+      "rate": 27.8
+    },
+    {
+      "year": 2015,
+      "total": 133,
+      "with_funding": 38,
+      "rate": 28.6
+    },
+    {
+      "year": 2016,
+      "total": 152,
+      "with_funding": 36,
+      "rate": 23.7
+    },
+    {
+      "year": 2017,
+      "total": 188,
+      "with_funding": 49,
+      "rate": 26.1
+    },
+    {
+      "year": 2018,
+      "total": 233,
+      "with_funding": 53,
+      "rate": 22.7
+    },
+    {
+      "year": 2019,
+      "total": 269,
+      "with_funding": 38,
+      "rate": 14.1
+    },
+    {
+      "year": 2020,
+      "total": 396,
+      "with_funding": 49,
+      "rate": 12.4
+    },
+    {
+      "year": 2021,
+      "total": 450,
+      "with_funding": 67,
+      "rate": 14.9
+    },
+    {
+      "year": 2022,
+      "total": 553,
+      "with_funding": 154,
+      "rate": 27.8
+    },
+    {
+      "year": 2023,
+      "total": 456,
+      "with_funding": 169,
+      "rate": 37.1
+    },
+    {
+      "year": 2024,
+      "total": 596,
+      "with_funding": 191,
+      "rate": 32.0
+    },
+    {
+      "year": 2025,
+      "total": 654,
+      "with_funding": 220,
+      "rate": 33.6
+    },
+    {
+      "year": 2026,
+      "total": 540,
+      "with_funding": 187,
+      "rate": 34.6
+    }
+  ]
+}

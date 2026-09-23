@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Финансирование исследований БАДов — brain-25-evidence</title>
+<meta name="description" content="Кто платит за науку о добавках: 1342 статьи с фондами, топ-25 funders, 20 стран, тренд 2010-2026."/>
+<meta property="og:title" content="Кто финансирует исследования БАДов — разбор 5059 статей"/>
+<meta property="og:description" content="Китай в 4.5× больше США. Россия не в топ-20. Funding rate вырос ×2.5 за 5 лет."/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://deadsno.github.io/brain-25-evidence/funders.html"/>
+<meta property="og:image" content="https://deadsno.github.io/brain-25-evidence/og.png"/>
+<meta name="theme-color" content="#1c1c1e"/>
+<script>try{if(localStorage.getItem('theme')!=='light'){document.addEventListener('DOMContentLoaded',function(){document.body.classList.add('dark')})}else{document.addEventListener('DOMContentLoaded',function(){document.body.classList.add('light')})}}catch(e){document.addEventListener('DOMContentLoaded',function(){document.body.classList.add('dark')})}</script>
+<link rel="stylesheet" href="style.css?v=380">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="version.js?v=310"></script>
+<style>
+  body{max-width:1200px;margin:0 auto;padding:1.5rem}
+  .chart-wrap{
+    background:var(--card-bg);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:1rem 1.2rem;
+    margin:1rem 0;
+  }
+  .chart-wrap h2{
+    margin:0 0 .4rem;
+    font-size:1.05rem;
+    font-weight:600;
+  }
+  .chart-wrap p.hint{
+    margin:0 0 .8rem;
+    opacity:.65;
+    font-size:.85rem;
+  }
+  .canvas-box{position:relative;height:420px}
+  .canvas-box.tall{height:560px}
+  .canvas-box.short{height:320px}
+  @media (max-width:700px){
+    .canvas-box{height:340px}
+    .canvas-box.tall{height:480px}
+  }
+</style>
+</head>
+<body>
+
+<div class="trustbar">📊 Открытые данные · Бесплатно · Без рекламы</div>
+
+<header class="top">
+  <h1><a href="index.html"><span class="h1-emoji">💰</span> Финансирование исследований БАДов</a> <span class="v">v<span data-version="app"></span></span></h1>
+  <div class="actions">
+      <a class="btn" href="index.html">← На главную</a>
+      <a class="btn calc" href="calculator.html">🧮 Калькулятор</a>
+      <a class="btn" href="map.html">🧩 Карта механизмов</a>
+      <a class="btn" href="interactions.html">🔗 Карта связей</a>
+      <a class="btn" href="atlas.html">🌐 Атлас</a>
+      <a class="btn" href="trends.html">📈 Тренды</a>
+      <button class="btn" id="themeToggle">🌞 Светлая тема</button>
+  </div>
+</header>
+
+<p class="hint" style="opacity:.75;margin:.4rem 0 .8rem">
+  Кто платит за науку о добавках. Разбор <b>5 059 полных текстов</b> из Europe PMC — секция <code>&lt;funding-group&gt;</code> + данные CrossRef по 33 789 DOI.
+</p>
+
+<!-- KPI-карточки -->
+<div class="stat-cards" id="statCards">
+  <div class="stat-card">
+    <div class="label">Полных текстов проанализировано</div>
+    <div class="value" id="kpiTotal">—</div>
+    <div class="delta">из 37 618 papers</div>
+  </div>
+  <div class="stat-card">
+    <div class="label">С указанным финансированием</div>
+    <div class="value" id="kpiFunding">—</div>
+    <div class="delta" id="kpiFundingRate">—</div>
+  </div>
+  <div class="stat-card">
+    <div class="label">С конфликтом интересов (COI)</div>
+    <div class="value" id="kpiCoi">—</div>
+    <div class="delta" id="kpiCoiRate">—</div>
+  </div>
+  <div class="stat-card">
+    <div class="label">Китай vs США (госфонды)</div>
+    <div class="value" id="kpiChinaUsa">—</div>
+    <div class="delta">китайских грантов / NIH</div>
+  </div>
+</div>
+
+<!-- График 1: Топ-15 funders -->
+<div class="chart-wrap">
+  <h2>🏛️ Топ-15 фондов по числу статей</h2>
+  <p class="hint">Считалось только явное упоминание в structured funding. NSFC — в 4.5× больше NIH.</p>
+  <div class="canvas-box tall"><canvas id="chartFunders"></canvas></div>
+</div>
+
+<!-- График 2: Топ-20 стран -->
+<div class="chart-wrap">
+  <h2>🌍 Топ-20 стран по аффилиациям авторов</h2>
+  <p class="hint">Из <code>&lt;aff&gt;</code> в JATS XML. Россия не входит в топ-20.</p>
+  <div class="canvas-box tall"><canvas id="chartCountries"></canvas></div>
+</div>
+
+<!-- График 3: Funding rate по годам -->
+<div class="chart-wrap">
+  <h2>📈 Доля статей с указанным финансированием (по годам)</h2>
+  <p class="hint">С 2022 года — более трети статей явно указывают источник финансирования. До 2021 — 12-15%.</p>
+  <div class="canvas-box short"><canvas id="chartByYear"></canvas></div>
+</div>
+
+<!-- Footnote -->
+<div class="chart-wrap" style="font-size:.9rem;opacity:.85">
+  <p style="margin:0">
+    <b>Как считалось:</b> секция <code>&lt;funding-group&gt;</code> в JATS XML из Europe PMC. Всего 5 059 полных текстов,
+    из них 1 342 (26.5%) содержат явное финансирование. Funders нормализованы: NSFC, NIH, NRF — унифицированы
+    из 130+ написаний. Страны определены регексом по <code>&lt;aff&gt;</code>.
+  </p>
+  <p style="margin:.6rem 0 0">
+    <b>Источники:</b>
+    <a href="https://europepmc.org" target="_blank" rel="noopener">Europe PMC</a> ·
+    <a href="https://www.crossref.org" target="_blank" rel="noopener">CrossRef REST</a> ·
+    <a href="https://github.com/DeadSno/brain-25-evidence" target="_blank" rel="noopener">исходный код и данные ↗</a>
+  </p>
+</div>
+
+<script>
+// ===== Загрузка данных =====
+let FUNDERS = null;
+
+async function loadFunders() {
+  if (FUNDERS) return FUNDERS;
+  const r = await fetch('funders.json?v=' + Date.now());
+  FUNDERS = await r.json();
+  return FUNDERS;
+}
+
+// ===== Тема =====
+(function(){
+  const btn = document.getElementById('themeToggle');
+  if (!btn) return;
+  const isDark = () => document.body.classList.contains('dark');
+  btn.textContent = isDark() ? '🌞 Светлая тема' : '🌙 Тёмная тема';
+  btn.addEventListener('click', () => {
+    document.body.classList.toggle('dark');
+    document.body.classList.toggle('light');
+    try { localStorage.setItem('theme', isDark() ? 'dark' : 'light'); } catch(e){}
+    btn.textContent = isDark() ? '🌞 Светлая тема' : '🌙 Тёмная тема';
+    // перерисуем графики при смене темы
+    if (window.__renderAllCharts) window.__renderAllCharts();
+  });
+})();
+
+// ===== Цвета (из CSS-переменных) =====
+function colors() {
+  const cs = getComputedStyle(document.body);
+  return {
+    text: cs.getPropertyValue('--text').trim() || '#e6e6e6',
+    border: cs.getPropertyValue('--border').trim() || '#333',
+    card: cs.getPropertyValue('--card-bg').trim() || '#1c1c1e',
+  };
+}
+
+// ===== Формат чисел =====
+const fmt = n => new Intl.NumberFormat('ru-RU').format(n);
+
+// ===== Chart 1: funders =====
+let chartFunders = null;
+function renderFunders(rows, C) {
+  const ctx = document.getElementById('chartFunders').getContext('2d');
+  if (chartFunders) chartFunders.destroy();
+
+  const labels = rows.slice(0, 15).map(r => r.name.length > 45 ? r.name.slice(0, 43) + '…' : r.name);
+  const values = rows.slice(0, 15).map(r => r.n);
+  const bgColors = rows.slice(0, 15).map(r => {
+    if (r.name.includes('China') || r.name.includes('Chinese') || r.name.startsWith('National Natural Science Foundation of China')) return 'rgba(220,38,38,.75)';
+    if (r.name.startsWith('NIH') || r.name.startsWith('National Institutes of Health')) return 'rgba(37,99,235,.75)';
+    if (r.name.startsWith('European')) return 'rgba(5,150,105,.7)';
+    return 'rgba(139,92,246,.6)';
+  });
+
+  chartFunders = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [{
+        label: 'Статей',
+        data: values,
+        backgroundColor: bgColors,
+        borderRadius: 4,
+      }],
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: (ctx) => `${fmt(ctx.parsed.x)} статей`,
+          },
+        },
+      },
+      scales: {
+        x: {
+          grid: { color: C.border },
+          ticks: { color: C.text },
+          title: { display: true, text: 'Число статей', color: C.text },
+        },
+        y: {
+          grid: { display: false },
+          ticks: { color: C.text, font: { size: 11 } },
+        },
+      },
+    },
+  });
+}
+
+// ===== Chart 2: countries =====
+let chartCountries = null;
+function renderCountries(rows, C) {
+  const ctx = document.getElementById('chartCountries').getContext('2d');
+  if (chartCountries) chartCountries.destroy();
+
+  const labels = rows.slice(0, 20).map(r => r.name);
+  const values = rows.slice(0, 20).map(r => r.n);
+  const bgColors = rows.slice(0, 20).map(r => {
+    if (r.name === 'China') return 'rgba(220,38,38,.75)';
+    if (r.name === 'USA') return 'rgba(37,99,235,.75)';
+    if (r.name === 'Russia') return 'rgba(234,179,8,.85)';
+    return 'rgba(139,92,246,.5)';
+  });
+
+  chartCountries = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [{
+        label: 'Статей',
+        data: values,
+        backgroundColor: bgColors,
+        borderRadius: 4,
+      }],
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: (ctx) => `${fmt(ctx.parsed.x)} статей`,
+          },
+        },
+      },
+      scales: {
+        x: {
+          grid: { color: C.border },
+          ticks: { color: C.text },
+          title: { display: true, text: 'Число статей', color: C.text },
+        },
+        y: {
+          grid: { display: false },
+          ticks: { color: C.text, font: { size: 11 } },
+        },
+      },
+    },
+  });
+}
+
+// ===== Chart 3: by year =====
+let chartByYear = null;
+function renderByYear(rows, C) {
+  const ctx = document.getElementById('chartByYear').getContext('2d');
+  if (chartByYear) chartByYear.destroy();
+
+  const labels = rows.map(r => r.year);
+  const rate = rows.map(r => r.rate);
+  const total = rows.map(r => r.total);
+
+  chartByYear = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [
+        {
+          label: '% статей с funding',
+          data: rate,
+          borderColor: 'rgba(16,185,129,1)',
+          backgroundColor: 'rgba(16,185,129,.15)',
+          tension: 0.3,
+          fill: true,
+          yAxisID: 'y',
+        },
+        {
+          label: 'Всего статей в год',
+          data: total,
+          borderColor: 'rgba(139,92,246,.7)',
+          backgroundColor: 'transparent',
+          tension: 0.3,
+          borderDash: [4, 4],
+          yAxisID: 'y1',
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { labels: { color: C.text } },
+        tooltip: {
+          callbacks: {
+            label: (ctx) => {
+              if (ctx.dataset.yAxisID === 'y') return `${ctx.parsed.y}% с funding`;
+              return `${ctx.parsed.y} статей`;
+            },
+          },
+        },
+      },
+      scales: {
+        x: { grid: { color: C.border }, ticks: { color: C.text } },
+        y: {
+          position: 'left',
+          grid: { color: C.border },
+          ticks: { color: C.text, callback: v => v + '%' },
+          title: { display: true, text: '% с funding', color: C.text },
+        },
+        y1: {
+          position: 'right',
+          grid: { display: false },
+          ticks: { color: C.text, font: { size: 10 } },
+          title: { display: true, text: 'статей', color: C.text },
+        },
+      },
+    },
+  });
+}
+
+// ===== Main =====
+async function main() {
+  const data = await loadFunders();
+  const C = colors();
+
+  // KPI
+  document.getElementById('kpiTotal').textContent = fmt(data.summary.total_papers);
+  document.getElementById('kpiFunding').textContent = fmt(data.summary.with_funding);
+  document.getElementById('kpiFundingRate').textContent = data.summary.funding_rate + '% с явным funding';
+  document.getElementById('kpiCoi').textContent = fmt(data.summary.with_coi);
+  document.getElementById('kpiCoiRate').textContent = data.summary.coi_rate + '% указали COI';
+  document.getElementById('kpiChinaUsa').textContent = data.summary.china_vs_usa + '×';
+
+  // Charts
+  renderFunders(data.funders, C);
+  renderCountries(data.countries, C);
+  renderByYear(data.by_year, C);
+
+  window.__renderAllCharts = () => {
+    const C2 = colors();
+    renderFunders(data.funders, C2);
+    renderCountries(data.countries, C2);
+    renderByYear(data.by_year, C2);
+  };
+}
+
+main().catch(e => {
+  console.error(e);
+  document.getElementById('statCards').insertAdjacentHTML('afterend',
+    '<div class="chart-wrap" style="color:#f87171">Ошибка загрузки funders.json: ' + e.message + '</div>');
+});
+</script>
+
+</body>
+</html>
