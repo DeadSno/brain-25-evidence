@@ -219,3 +219,6 @@ README.md.bak-*
 
 # A3.1: heavy data, regenerable via fetch_papers.py
 data/papers/papers.json
+
+# A3.2.2: regen via fetch_unpaywall.py (~30 min)
+data/papers/unpaywall.json
