@@ -9,6 +9,7 @@
 Интерактивный дашборд и карта механизмов для 81 биологически активной добавки. Вердикты по мета-анализам PubMed, механизмы, атлас, карта связей, калькулятор доз, активные клинические испытания.
 
 **🌐 Streamlit Live demo:** [brain-25-evidence.streamlit.app](https://brain-25-evidence.streamlit.app)
+
 **📖 Статический сайт:** [Открыть сайт](https://deadsno.github.io/brain-25-evidence/) | [🧮 Калькулятор](https://deadsno.github.io/brain-25-evidence/calculator.html) | [Карта механизмов](https://deadsno.github.io/brain-25-evidence/map.html) | [Карта связей](https://deadsno.github.io/brain-25-evidence/interactions.html) | [Атлас](https://deadsno.github.io/brain-25-evidence/atlas.html) | [Задать вопрос](https://deadsno.github.io/brain-25-evidence/faq.html)
 
 ![Превью дашборда](docs/og.png)
@@ -212,9 +213,13 @@ brain-25-evidence/
 ├── CHANGELOG.md
 ├── ROADMAP.md
 └── serve.py                       # локальный HTTP-сервер (root)
-Локальный запуск
-Статический сайт (docs/)
-bash
+```
+
+## Локальный запуск
+
+### Статический сайт (docs/)
+
+```bash
 # 1. Клонируй
 git clone https://github.com/DeadSno/brain-25-evidence.git
 cd brain-25-evidence
@@ -228,18 +233,18 @@ python -m pytest tests/ -q
 # 4. Подними сайт локально
 python docs/serve.py
 # → http://localhost:8000/
-Важно для headless-проверок:
+```
 
-Используй http://localhost:8000, НЕ file:// — fetch() не работает в файловом протоколе (CORS)
+**Важно для headless-проверок:**
 
-После старта сервера: Ctrl+Shift+R в браузере для обхода кэша data.json
+- Используй `http://localhost:8000`, **НЕ** `file://` — `fetch()` не работает в файловом протоколе (CORS)
+- После старта сервера: `Ctrl+Shift+R` в браузере для обхода кэша `data.json`
+- На GitHub Pages (https) `fetch` работает без проблем
+- `docs/serve.py` автоматически добавляет заголовки `Content-Type: text/html; charset=utf-8` (и для JS/CSS/JSON) — лечит локальные кракозябры
 
-На GitHub Pages (https) fetch работает без проблем
+### Streamlit dashboard (app.py)
 
-docs/serve.py автоматически добавляет заголовки Content-Type: text/html; charset=utf-8 (и для JS/CSS/JSON) — лечит локальные кракозябры
-
-Streamlit dashboard (app.py)
-bash
+```bash
 # Локально
 pip install streamlit pandas
 streamlit run app.py
@@ -249,87 +254,83 @@ streamlit run app.py
 # 1. https://share.streamlit.io → New app
 # 2. Repo: DeadSno/brain-25-evidence, Branch: main, Main file: app.py
 # 3. Deploy → получаешь https://brain-25-evidence.streamlit.app
-Roadmap
-v3.2 — ✅ текущая (21.09.2026)
-Калькулятор БАДов — вес/пол/возраст, UL, конфликты, синергии, 8 профилей
+```
 
-Аудиты q14 D1/D2 — 5 + 10 PMIDs заменены, follow-up по 51 карточке
+## Roadmap
 
-XSS-fix — esc() во всех точках рендера
+### v3.2 — ✅ текущая (21.09.2026)
 
-Производительность — data_index.json (48 KB vs 473 KB, ×10)
+- Калькулятор БАДов — вес/пол/возраст, UL, конфликты, синергии, 8 профилей
+- Аудиты q14 D1/D2 — 5 + 10 PMIDs заменены, follow-up по 51 карточке
+- XSS-fix — `esc()` во всех точках рендера
+- Производительность — `data_index.json` (48 KB vs 473 KB, ×10)
+- SEO — sitemap 8 страниц, og-мета, robots.txt
+- Документация — ARCHITECTURE / CONTRIBUTING / DATA_SOURCES
+- CI — автозаполнение `version.json.tests`
+- Mobile — адаптив всех страниц, H1 переносится, модалка fullscreen
+- **Streamlit dashboard** — интерактивные фильтры + CSV export
 
-SEO — sitemap 8 страниц, og-мета, robots.txt
+### v4.0 — план
 
-Документация — ARCHITECTURE / CONTRIBUTING / DATA_SOURCES
+- Разбивка `data.json` (полностью перейти на index+full split)
+- Публичный API (`docs/api/v1/supplements.json`)
+- Расширение базы до 100+ добавок
+- Отдельные страницы под каждую добавку (SSG)
 
-CI — автозаполнение version.json.tests
+## Как помочь проекту
 
-Mobile — адаптив всех страниц, H1 переносится, модалка fullscreen
+### Нашли ошибку в данных?
 
-Streamlit dashboard — интерактивные фильтры + CSV export
+Создайте [issue](https://github.com/DeadSno/brain-25-evidence/issues) по шаблону — исправим и отметим в CHANGELOG.
 
-v4.0 — план
-Разбивка data.json (полностью перейти на index+full split)
+### Хотите добавить добавку?
 
-Публичный API (docs/api/v1/supplements.json)
+1. Форкните репозиторий
+2. Дополните `src/config.py` (запросы, нормы) и `src/content.py` (категории, эффекты, протоколы)
+3. Прогоните `python scripts/update_all.py --apply` для регенерации `data.json`
+4. Прогоните `python scripts/build_index.py` для синхронизации `data_index.json`
+5. Откройте PR в `main`
 
-Расширение базы до 100+ добавок
+Полные правила — в [CONTRIBUTING.md](CONTRIBUTING.md).
 
-Отдельные страницы под каждую добавку (SSG)
+### Просто поддержать
 
-Как помочь проекту
-Нашли ошибку в данных?
-Создайте issue по шаблону — исправим и отметим в CHANGELOG.
-
-Хотите добавить добавку?
-Форкните репозиторий
-
-Дополните src/config.py (запросы, нормы) и src/content.py (категории, эффекты, протоколы)
-
-Прогоните python scripts/update_all.py --apply для регенерации data.json
-
-Прогоните python scripts/build_index.py для синхронизации data_index.json
-
-Откройте PR в main
-
-Полные правила — в CONTRIBUTING.md.
-
-Просто поддержать
 Звёздочка на GitHub и ссылка друзьям — уже помощь.
 
-Документация
-ARCHITECTURE.md — как устроен проект: PubMed → data.json → HTML
+## Документация
 
-CONTRIBUTING.md — как внести вклад: правила данных, PR-процесс
+- [ARCHITECTURE.md](ARCHITECTURE.md) — как устроен проект: PubMed → data.json → HTML
+- [CONTRIBUTING.md](CONTRIBUTING.md) — как внести вклад: правила данных, PR-процесс
+- [DATA_SOURCES.md](DATA_SOURCES.md) — откуда данные, лицензии, как воспроизвести
+- [CHANGELOG.md](CHANGELOG.md) — история версий
+- [ROADMAP.md](ROADMAP.md) — планы
+- [methodology.html](https://deadsno.github.io/brain-25-evidence/methodology.html) — методология расчёта индекса и грейдов
 
-DATA_SOURCES.md — откуда данные, лицензии, как воспроизвести
+## Дисклеймер и лицензия
 
-CHANGELOG.md — история версий
+### Дисклеймер
 
-ROADMAP.md — планы
+**Проект не является медицинской рекомендацией.**
 
-methodology.html — методология расчёта индекса и грейдов
+- При болезнях, беременности и приёме лекарств — сначала к врачу
+- Дефицит определяется анализом крови, а не самочувствием и не этим сайтом
+- Вердикт «+1» не значит «пейте всем», а «-1» не значит «опасно»
 
-Дисклеймер и лицензия
-Дисклеймер
-Проект не является медицинской рекомендацией.
+### Лицензия
 
-При болезнях, беременности и приёме лекарств — сначала к врачу
-
-Дефицит определяется анализом крови, а не самочувствием и не этим сайтом
-
-Вердикт «+1» не значит «пейте всем», а «-1» не значит «опасно»
-
-Лицензия
 MIT — используйте данные как угодно, указывайте источник.
 
-Источники данных
-Данные	Источник
-РКИ и мета-анализы	PubMed E-utilities
-Цитирования	OpenAlex
-Просмотры	Wikipedia REST API
-Активные испытания	ClinicalTrials.gov API v2
-Сделано с любопытством к доказательной медицине. v3.2.0, 21.09.2026.
+### Источники данных
 
-© 2026 Vladislav "DeadSno" Pereshivalov · Открытые данные без медицинских рекомендаций (манифест проекта).
+| Данные | Источник |
+|--------|----------|
+| РКИ и мета-анализы | PubMed E-utilities |
+| Цитирования | OpenAlex |
+| Просмотры | Wikipedia REST API |
+| Активные испытания | ClinicalTrials.gov API v2 |
+
+---
+
+*Сделано с любопытством к доказательной медицине. v3.2.0, 21.09.2026.*
+
+© 2026 Vladislav "DeadSno" Pereshivalov · [Открытые данные без медицинских рекомендаций](https://deadsno.github.io/brain-25-evidence/) (манифест проекта).
