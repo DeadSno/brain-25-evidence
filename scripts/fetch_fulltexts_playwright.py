@@ -125,13 +125,18 @@ def main() -> int:
     unpaywall = json.loads(UNPAYWALL.read_text(encoding="utf-8"))
     index: dict = json.loads(INDEX.read_text(encoding="utf-8")) if INDEX.exists() else {}
 
-    # Собираем failed с 403
+    # Расширенный фильтр: включаем все ошибки, кроме пропускаемых
+    SKIP_ERRORS = ("404", "http_401", "http_418", "too_big", "DNSError")
     tasks: list[tuple[str, str]] = []
     for pmid, rec in index.items():
         if rec.get("status") == "ok":
             continue
         err = rec.get("pdf_error") or rec.get("error") or ""
-        if "403" not in err:
+        # Пропускаем если хоть одна из SKIP_ERRORS встречается
+        if any(s in err for s in SKIP_ERRORS):
+            continue
+        # Пропускаем уже неуспешные через Playwright (не зацикливаемся)
+        if rec.get("type") == "pdf_playwright":
             continue
         doi = (papers.get(pmid) or {}).get("doi")
         if not doi:
