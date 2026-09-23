@@ -1,14 +1,27 @@
 name,term,category,query,code
-Шатавари,Asparagus racemosus,Общее,(Asparagus racemosus) AND (hormone OR menopause OR lactation),0
-Астрагал,Astragalus membranaceus,Иммунитет,(Astragalus membranaceus) AND (immune OR inflammation),1
-Шлемник,Scutellaria baicalensis,Настроение,(Scutellaria baicalensis) AND (anxiety OR cognition),0
-Пассифлора,Passiflora incarnata,Сон,(Passiflora incarnata) AND (sleep OR anxiety),0
-Мелисса,Melissa officinalis,Сон,(Melissa officinalis) AND (sleep OR anxiety OR cognition),0
-Лаванда,Lavandula angustifolia,Настроение,(Lavandula angustifolia) AND (anxiety OR sleep),0
-Чага,Inonotus obliquus,Иммунитет,(Inonotus obliquus OR chaga) AND (immune OR inflammation),0
-Шиитаке,Lentinula edodes,Иммунитет,(Lentinula edodes OR shiitake) AND (immune),0
-Глутатион,glutathione,Общее,(glutathione supplementation) AND (antioxidant OR detox),0
-PQQ,pyrroloquinoline quinone,Когниция,(pyrroloquinoline quinone OR PQQ) AND (cognition OR mitochondria),0
-Сульфорафан,sulforaphane,Общее,(sulforaphane) AND (cancer OR detox OR antioxidant),0
-MSM,methylsulfonylmethane,Кожа и суставы,(methylsulfonylmethane OR MSM) AND (joint OR inflammation),1
-Гимнема,Gymnema sylvestre,Метаболизм,(Gymnema sylvestre) AND (glucose OR diabetes),0
+Витамин A,retinol OR "vitamin A",Общее,(vitamin A OR retinol) AND (deficiency OR vision OR immune),0
+B1,thiamine OR "vitamin B1",Неврология/Метаболизм,(thiamine OR vitamin B1) AND (deficiency OR neuropathy OR cognition),0
+B2,riboflavin OR "vitamin B2",Общее,(riboflavin OR vitamin B2) AND (deficiency OR migraine),0
+B3,niacin OR nicotinamide,Метаболизм,(niacin OR nicotinamide OR vitamin B3) AND (lipid OR cholesterol OR skin),0
+B5,pantothenic acid,Общее,(pantothenic acid OR vitamin B5) AND (deficiency OR skin OR wound),0
+B6,pyridoxine OR "vitamin B6",Неврология/Метаболизм,(pyridoxine OR vitamin B6) AND (homocysteine OR neuropathy OR nausea),0
+Холин,choline,Когниция,(choline) AND (cognition OR liver OR pregnancy),0
+Медь,copper,Общее,(copper) AND (deficiency OR anemia OR immune),0
+Марганец,manganese,Общее,(manganese) AND (deficiency OR bone OR antioxidant),0
+Калий,potassium,Сердце/сосуды,(potassium) AND (blood pressure OR hypertension),0
+Бор,boron,Кости/Иммунитет,(boron) AND (bone OR testosterone OR inflammation),0
+Кремний,silicon OR "orthosilicic acid",Кости/Иммунитет,(silicon OR choline-stabilized orthosilicic acid) AND (bone OR collagen),0
+Лизин,lysine,Иммунитет,(lysine) AND (herpes OR "cold sore" OR "calcium absorption"),0
+Метионин,methionine,Метаболизм,(methionine) AND (homocysteine OR liver),0
+Орнитин,ornithine,Спорт,(ornithine) AND (exercise OR ammonia OR performance),0
+HMB,"beta-hydroxy beta-methylbutyrate" OR HMB,Спорт,(HMB OR "beta-hydroxy-beta-methylbutyrate") AND (muscle OR strength),0
+Карнозин,carnosine,Когниция,(carnosine) AND (muscle OR cognition OR aging),0
+Женьшень,Panax ginseng OR ginseng,Когниция,(Panax ginseng OR ginseng) AND (cognition OR fatigue OR immune),0
+Майтаке,Grifola frondosa OR maitake,Иммунитет,(Grifola frondosa OR maitake) AND (immune OR glucose),0
+S. boulardii,Saccharomyces boulardii,Кишечник,(Saccharomyces boulardii) AND (diarrhea OR antibiotic),0
+LGG,"Lactobacillus rhamnosus GG",Кишечник,("Lactobacillus rhamnosus GG") AND (diarrhea OR immune),0
+B. lactis,Bifidobacterium lactis OR Bifidobacterium animalis,Кишечник,(Bifidobacterium lactis OR Bifidobacterium animalis) AND (gut OR immune),0
+EPA,eicosapentaenoic acid,Сердце/сосуды,(eicosapentaenoic acid OR EPA) AND (cardiovascular OR depression),0
+DHA,docosahexaenoic acid,Когниция,(docosahexaenoic acid OR DHA) AND (cognition OR brain OR infant),0
+GLA,gamma-linolenic acid,Кожа и суставы,(gamma-linolenic acid OR GLA) AND (skin OR inflammation),0
+Бетаин,betaine OR trimethylglycine,Метаболизм,(betaine OR trimethylglycine) AND (homocysteine OR liver OR performance),0

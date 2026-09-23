@@ -106,7 +106,7 @@ def add_to_config(text: str, name: str, term: str) -> tuple[str, bool]:
 
 def read_csv(path: Path) -> list[dict]:
     rows = []
-    with path.open(encoding="utf-8") as f:
+    with path.open(encoding="utf-8-sig") as f:
         reader = csv.DictReader(f)
         for row in reader:
             name = (row.get("name") or "").strip()
