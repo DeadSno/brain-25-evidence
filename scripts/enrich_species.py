@@ -2,7 +2,7 @@
 """Определить species из MeSH-терминов в papers.
 
 Пишет поля:
-  species: "human" | "animal" | "both" | "in_vitro" | "unknown"
+  species: "human" | "animal" | "both" | "unknown" | "no_mesh"
   species_tags: ["Humans", "Mice", ...]
 """
 import json

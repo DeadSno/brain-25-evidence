@@ -38,7 +38,7 @@ def load_papers() -> pd.DataFrame:
             "design": p.get("design"),
             "species": p.get("species"),
             "sjr_quartile": p.get("sjr_quartile"),
-            "is_retracted": p.get("is_retracted"),
+            "is_retracted": bool(p.get("is_retracted")),
             "pubtype": ", ".join(p.get("pubtype") or [])[:100],
         })
     return pd.DataFrame(rows)
@@ -47,7 +47,7 @@ def load_papers() -> pd.DataFrame:
 @st.cache_data(ttl=3600)
 def load_supplements() -> pd.DataFrame:
     """94 БАДа."""
-    data = json.loads((ROOT / "data" / "data.json").read_text(encoding="utf-8"))
+    data = json.loads((ROOT / "data" / "supplements_slim.json").read_text(encoding="utf-8"))
     if isinstance(data, dict):
         rows = [{"slug": k, **v} for k, v in data.items()]
     else:
@@ -109,7 +109,7 @@ def main() -> None:
     if quartile_filter:
         f = f[f["sjr_quartile"].isin(quartile_filter)]
     if only_not_retracted:
-        f = f[~f["is_retracted"].fillna(False)]
+        f = f[f["is_retracted"].fillna(False).astype(bool) != True]
 
     # ===== Метрики =====
     c1, c2, c3, c4 = st.columns(4)
@@ -150,14 +150,11 @@ def main() -> None:
     # ===== Таблица =====
     st.subheader(f"Papers ({len(f):,})")
 
-    search = st.text_input("Поиск по title / abstract", "")
+    search = st.text_input("Поиск по title", "")
 
     show = f.copy()
     if search:
-        mask = (
-            show["title"].str.contains(search, case=False, na=False)
-            | show["abstract"].str.contains(search, case=False, na=False)
-        )
+        mask = show["title"].str.contains(search, case=False, na=False)
         show = show[mask]
 
     st.dataframe(
