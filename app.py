@@ -177,6 +177,46 @@ def main() -> None:
     with st.expander("🔬 94 добавки — сырые данные"):
         st.dataframe(supplements, use_container_width=True)
 
+    st.divider()
+
+    # ===== 💰 ФИНАНСИРОВАНИЕ =====
+    st.header("💰 Кто финансирует исследования")
+    st.caption("Данные из Europe PMC (JATS XML) + CrossRef. Из 5 059 полных текстов 1 342 указывают funding.")
+
+    try:
+        funders_csv = pd.read_csv(ROOT / "data" / "processed" / "funders_top.csv")
+        countries_csv = pd.read_csv(ROOT / "data" / "processed" / "countries_top.csv")
+
+        c1, c2, c3, c4 = st.columns(4)
+        c1.metric("Всего статей (XML)", "5 059")
+        c2.metric("С финансированием", "1 342", "26.5%")
+        c3.metric("С COI", "341", "6.7%")
+        c4.metric("Китай vs США", "4.51×", "госфонды")
+
+        col1, col2 = st.columns(2)
+        with col1:
+            st.subheader("Топ-15 фондов")
+            top_f = funders_csv.head(15).set_index("funder")["papers"]
+            st.bar_chart(top_f, height=400)
+
+        with col2:
+            st.subheader("Топ-20 стран (по affiliations)")
+            top_c = countries_csv.head(20).set_index("country")["papers"]
+            st.bar_chart(top_c, height=400)
+
+        # Funding rate по годам — данные из reports
+        st.subheader("📈 Доля статей с указанным финансированием")
+        funding_by_year = pd.DataFrame({
+            "year":  [2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026],
+            "rate":  [17.8,17.4,22.9,18.4,27.8,28.6,23.7,26.1,22.7,14.1,12.4,14.9,27.8,37.1,32.0,33.6,34.6],
+            "total": [45,46,70,103,108,133,152,188,233,269,396,450,553,456,596,654,540],
+        }).set_index("year")
+        st.line_chart(funding_by_year["rate"], height=250)
+
+        st.caption("📊 Источник: Europe PMC REST · [funders_top.csv](https://github.com/DeadSno/brain-25-evidence/blob/main/data/processed/funders_top.csv)")
+    except FileNotFoundError:
+        st.warning("Файлы funders_top.csv не найдены. Запусти `python scripts/build_funders_index.py`")
+
 
 if __name__ == "__main__":
     main()
