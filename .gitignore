@@ -222,3 +222,9 @@ data/papers/papers.json
 
 # A3.2.2: regen via fetch_unpaywall.py (~30 min)
 data/papers/unpaywall.json
+
+# Playwright temp
+data/pmc/tmp/
+
+# Разовые скрипты (диагностика, миграции, фиксы)
+scripts/_*.py
