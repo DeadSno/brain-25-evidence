@@ -9,3 +9,5 @@ duckdb
 scikit-learn>=1.4
 streamlit>=1.30
 plotly>=5.18
+
+streamlit>=1.30

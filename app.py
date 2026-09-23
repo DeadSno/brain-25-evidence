@@ -40,7 +40,6 @@ def load_papers() -> pd.DataFrame:
             "sjr_quartile": p.get("sjr_quartile"),
             "is_retracted": p.get("is_retracted"),
             "pubtype": ", ".join(p.get("pubtype") or [])[:100],
-            "abstract": "",
         })
     return pd.DataFrame(rows)
 
