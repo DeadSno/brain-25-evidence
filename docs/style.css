@@ -581,3 +581,67 @@ body.dark a.btn{text-decoration:none}
   }
   header.top h1 .v { display: none !important; }
 }
+
+/* ═══ Быстрые ссылки: 5 карточек в один ряд ═══ */
+.quick-links{
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:.7rem;
+}
+.quick-links .card-link{
+  padding:.85rem 1rem !important;
+  min-width:0;
+}
+.quick-links .card-link > div:nth-child(2){
+  font-size:.9rem !important;
+  margin:.25rem 0 !important;
+}
+.quick-links .card-link > div:nth-child(3){
+  font-size:.76rem !important;
+  line-height:1.3 !important;
+}
+@media(max-width:1000px){
+  .quick-links{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:600px){
+  .quick-links{grid-template-columns:repeat(2,minmax(0,1fr));gap:.5rem}
+  .quick-links .card-link{padding:.7rem .8rem !important}
+  .quick-links .card-link > div:first-child{font-size:1.15rem !important}
+}
+
+/* ═══ H1: графит в light, тёплый белый в dark ═══ */
+h1, h1 a {
+  font-weight: 800 !important;
+  letter-spacing: -.015em !important;
+}
+h1 a, .top h1 a {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", Roboto, Arial, sans-serif !important;
+}
+/* Эмодзи не поддерживают weight 800 — рендерятся как квадрат */
+h1 a > :first-child,
+h1 a:first-child::before {
+  font-weight: 400 !important;
+}
+body.light h1,
+body.light h1 a {
+  color: #1a1d21 !important;
+}
+body.dark h1,
+body.dark h1 a {
+  color: #fafafa !important;
+}
+.top .v,
+header.top .v {
+  color: var(--muted) !important;
+  opacity: .65 !important;
+  font-weight: 400 !important;
+}
+
+/* ═══ Emoji в H1: отдельный font-family (weight 400) ═══ */
+.h1-emoji {
+  font-family: "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", "Segoe UI Symbol", sans-serif !important;
+  font-weight: 400 !important;
+  font-style: normal !important;
+  font-variant: normal !important;
+  letter-spacing: 0 !important;
+}
