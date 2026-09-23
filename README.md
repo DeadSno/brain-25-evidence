@@ -113,6 +113,7 @@ Streamlit — это витрина «сырых» данных: 37 618 papers �
 | Общее | 0 | 2 | 0 | Витамины — только при дефиците |
 
 **Топ-5 рабочих:** креатин, кофеин, мелатонин, бакопа, омега-3 (с нюансами).
+
 **Топ-5 пустышек:** ежовик, ГАБА, гинкго, ресвератрол, пикногенол.
 
 ## Методология
@@ -152,71 +153,68 @@ Streamlit — это витрина «сырых» данных: 37 618 papers �
 | Источники науки | PubMed E-utilities, OpenAlex, Wikipedia, ClinicalTrials.gov |
 
 ## Структура репозитория
+
+```text
 brain-25-evidence/
-├── app.py # Streamlit dashboard (фильтры + CSV)
-├── requirements.txt # зависимости (streamlit, pandas, ...)
-├── docs/ # статический сайт (GitHub Pages)
-│ ├── index.html # дашборд: фильтры, поиск, модалки, радар
-│ ├── calculator.html # калькулятор доз и конфликтов
-│ ├── map.html # карта механизмов (81 узел + оверлей + кросс-связи)
-│ ├── atlas.html # атлас: 25 хабов × 81 добавка
-│ ├── interactions.html # карта связей (синергии/конфликты)
-│ ├── methodology.html # методология аудита (PRISMA, грейды)
-│ ├── faq.html # частые вопросы
-│ ├── glossary.html # глоссарий терминов
-│ ├── script.js / science2.js / tracker.js
-│ ├── style.css # стили (+ мобильная адаптация)
-│ ├── data.json # ГЕНЕРИРУЕТСЯ (не править руками)
-│ ├── data_index.json # лёгкая проекция для главной (48 KB)
-│ ├── dosage_parsed.json # распарсенные дозы (81)
-│ ├── pairs.json # 16 пар синергий
-│ ├── profiles.json # 8 профилей-пресетов
-│ ├── interactions_graph.json # граф связей
-│ ├── sw.js # Service Worker (PWA)
-│ └── og.png # превью для соцсетей
-├── src/ # переиспользуемые модули
-│ ├── config.py # 81 добавка: запросы, нормы
-│ ├── content.py # категории, эффекты, протоколы, механизмы
-│ └── parsers.py # PubMed, OpenAlex, Wiki, ClinicalTrials
-├── scripts/ # пайплайн и утилиты
-│ ├── update_all.py # 4 шага: metrics → science → hedges_g → DOIs
-│ ├── build_index.py # data.json → data_index.json
-│ ├── fetch_metrics.py # wiki / citations / ongoing
-│ ├── recalc_science_index.py # scienceIndex = RCT + 5×MA
-│ ├── fetch_hedges_g.py # двухпроходный алгоритм g
-│ ├── enrich_dois.py # DOI в key_sources
-│ ├── audit_stale.py # квартальный аудит PMIDs >5 лет
-│ ├── make_og.py # генерация og.png
-│ ├── build_slim.py # slim JSON для Streamlit Cloud
-│ └── e2e_smoke.py # headless smoke-тесты сайта
-├── tests/ # 113 тестов
-│ ├── test_schema.py # JSON-схема data.json
-│ ├── test_snapshot.py # data.json не изменился без UPDATE_SNAPSHOT=1
-│ ├── test_index_sync.py # data_index.json == проекция data.json
-│ ├── test_js_syntax.py # node --check для script.js
-│ └── ... (ещё 30+ файлов)
+├── app.py                         # Streamlit dashboard (фильтры + CSV)
+├── requirements.txt               # зависимости (streamlit, pandas, ...)
+├── docs/                          # статический сайт (GitHub Pages)
+│   ├── index.html                 # дашборд: фильтры, поиск, модалки, радар
+│   ├── calculator.html            # калькулятор доз и конфликтов
+│   ├── map.html                   # карта механизмов (81 узел + оверлей + кросс-связи)
+│   ├── atlas.html                 # атлас: 25 хабов × 81 добавка
+│   ├── interactions.html          # карта связей (синергии/конфликты)
+│   ├── methodology.html           # методология аудита (PRISMA, грейды)
+│   ├── faq.html                   # частые вопросы
+│   ├── glossary.html              # глоссарий терминов
+│   ├── script.js / science2.js / tracker.js
+│   ├── style.css                  # стили (+ мобильная адаптация)
+│   ├── data.json                  # ГЕНЕРИРУЕТСЯ (не править руками)
+│   ├── data_index.json            # лёгкая проекция для главной (48 KB)
+│   ├── dosage_parsed.json         # распарсенные дозы (81)
+│   ├── pairs.json                 # 16 пар синергий
+│   ├── profiles.json              # 8 профилей-пресетов
+│   ├── interactions_graph.json    # граф связей
+│   ├── sw.js                      # Service Worker (PWA)
+│   └── og.png                     # превью для соцсетей
+├── src/                           # переиспользуемые модули
+│   ├── config.py                  # 81 добавка: запросы, нормы
+│   ├── content.py                 # категории, эффекты, протоколы, механизмы
+│   └── parsers.py                 # PubMed, OpenAlex, Wiki, ClinicalTrials
+├── scripts/                       # пайплайн и утилиты
+│   ├── update_all.py              # 4 шага: metrics → science → hedges_g → DOIs
+│   ├── build_index.py             # data.json → data_index.json
+│   ├── fetch_metrics.py           # wiki / citations / ongoing
+│   ├── recalc_science_index.py    # scienceIndex = RCT + 5×MA
+│   ├── fetch_hedges_g.py          # двухпроходный алгоритм g
+│   ├── enrich_dois.py             # DOI в key_sources
+│   ├── audit_stale.py             # квартальный аудит PMIDs >5 лет
+│   ├── make_og.py                 # генерация og.png
+│   ├── build_slim.py              # slim JSON для Streamlit Cloud
+│   └── e2e_smoke.py               # headless smoke-тесты сайта
+├── tests/                         # 113 тестов
+│   ├── test_schema.py             # JSON-схема data.json
+│   ├── test_snapshot.py           # data.json не изменился без UPDATE_SNAPSHOT=1
+│   ├── test_index_sync.py         # data_index.json == проекция data.json
+│   ├── test_js_syntax.py          # node --check для script.js
+│   └── ... (ещё 30+ файлов)
 ├── data/
-│ ├── raw/ # сырьё: PubMed, OpenAlex, Wiki
-│ └── processed/ # производные
-├── reports/ # логи запусков, отчёты
+│   ├── raw/                       # сырьё: PubMed, OpenAlex, Wiki
+│   └── processed/                 # производные
+├── reports/                       # логи запусков, отчёты
 ├── .github/workflows/
-│ ├── tests.yml # pytest + node --check на push
-│ ├── sync_version.yml # автозаполнение version.json.tests
-│ └── watchdog.yml # недельная проверка links + schema
+│   ├── tests.yml                  # pytest + node --check на push
+│   ├── sync_version.yml           # автозаполнение version.json.tests
+│   └── watchdog.yml               # недельная проверка links + schema
 ├── ARCHITECTURE.md
 ├── CONTRIBUTING.md
 ├── DATA_SOURCES.md
 ├── CHANGELOG.md
 ├── ROADMAP.md
-└── serve.py # локальный HTTP-сервер (root)
-
-text
-
-## Локальный запуск
-
-### Статический сайт (docs/)
-
-```bash
+└── serve.py                       # локальный HTTP-сервер (root)
+Локальный запуск
+Статический сайт (docs/)
+bash
 # 1. Клонируй
 git clone https://github.com/DeadSno/brain-25-evidence.git
 cd brain-25-evidence
