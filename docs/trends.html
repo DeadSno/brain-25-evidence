@@ -1,0 +1,556 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Тренды популярности БАДов 2015-2025 — brain-25-evidence</title>
+<meta name="description" content="10 лет данных: публикации PubMed, просмотры Wikipedia, цитирования ключевых исследований для 94 добавок."/>
+<meta property="og:title" content="Тренды БАДов 2015-2025: рост публикаций, Wikipedia, цитаты"/>
+<meta property="og:description" content="NMN ×3.3, COVID-спайк у витамина D, рост научного интереса ×6.7 — интерактивный дашборд."/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://deadsno.github.io/brain-25-evidence/trends.html"/>
+<meta property="og:image" content="https://deadsno.github.io/brain-25-evidence/og.png"/>
+<meta name="theme-color" content="#1c1c1e"/>
+<script>try{if(localStorage.getItem('theme')!=='light'){document.addEventListener('DOMContentLoaded',function(){document.body.classList.add('dark')})}else{document.addEventListener('DOMContentLoaded',function(){document.body.classList.add('light')})}}catch(e){document.addEventListener('DOMContentLoaded',function(){document.body.classList.add('dark')})}</script>
+<link rel="stylesheet" href="style.css?v=380">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="version.js?v=310"></script>
+<style>
+  body{max-width:1200px;margin:0 auto;padding:1.5rem}
+  .filters{display:flex;flex-wrap:wrap;gap:.8rem 1.2rem;margin:1rem 0;padding:.8rem 1rem;
+    background:var(--card-bg);border:1px solid var(--border);border-radius:10px}
+  .filters label{display:flex;align-items:center;gap:.4rem;font-size:.9rem}
+  .filters select{background:var(--card-bg);color:var(--text);border:1px solid var(--border);
+    border-radius:6px;padding:.3rem .5rem;font-size:.9rem}
+  .tabs{display:flex;gap:.4rem;margin:1rem 0 .6rem;flex-wrap:wrap}
+  .tab{background:var(--card-bg);color:var(--text);border:1px solid var(--border);
+    padding:.5rem 1rem;border-radius:8px;cursor:pointer;font-size:.92rem}
+  .tab.on{background:linear-gradient(135deg,#3498db,#2980b9);color:#fff;border:none;font-weight:600}
+
+  /* Выравнивание кнопок — единый стиль, без special-casing для .calc */
+  header.top .actions > a.btn,
+  header.top .actions > button.btn {
+    padding:.5rem 1rem !important;
+    font-size:.95rem !important;
+    line-height:1.2 !important;
+    height:2.25rem !important;
+    display:inline-flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    box-sizing:border-box !important;
+    margin:0 !important;
+  }
+  /* Сброс специальных правил для .btn.calc в шапке — чтобы не съезжал */
+  header.top .actions .btn.calc {
+    padding:.5rem 1rem !important;
+    height:2.25rem !important;
+    border-radius:8px !important;
+  }
+  .chart-wrap{position:relative;height:600px;background:var(--card-bg);
+    border:1px solid var(--border);border-radius:12px;padding:1rem;margin-bottom:1rem}
+  @media(max-width:640px){.chart-wrap{height:500px}}
+  .chart-note{font-size:.85rem;opacity:.7;margin:.4rem 0 1rem}
+  .stat-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:.8rem;margin:1rem 0}
+  .stat-card{background:var(--card-bg);border:1px solid var(--border);
+    border-radius:10px;padding:.9rem 1rem}
+  .stat-card .label{font-size:.8rem;opacity:.7;margin-bottom:.3rem}
+  .stat-card .value{font-size:1.5rem;font-weight:700}
+  .stat-card .delta{font-size:.85rem;color:#22c55e;margin-top:.2rem}
+  .stat-card .delta.down{color:#ef4444}
+
+  /* Убираем sticky-шапку — на странице с графиками она мешает */
+  header.top{position:static!important;top:auto!important}
+  header.top{display:flex;flex-wrap:wrap;gap:.4rem .6rem}
+  header.top h1{flex:1 1 100%;font-size:1.3rem;line-height:1.2;margin:0 0 .4rem;color:var(--text)!important}
+  header.top h1 a{color:var(--text)!important;text-decoration:none!important}
+  body.light header.top h1,
+  body.light header.top h1 a{color:#1c1c1e!important}
+  body.dark header.top h1,
+  body.dark header.top h1 a{color:#f5f5f7!important}
+  header.top h1 a{white-space:normal;overflow:visible}
+  header.top .actions{flex:1 1 100%;display:flex;flex-wrap:wrap;gap:.4rem;justify-content:flex-end}
+  @media(max-width:640px){
+    header.top h1{font-size:1.05rem}
+    header.top h1 .v{display:none}
+  }
+</style>
+</head>
+<body>
+
+<div class="trustbar">📊 Открытые данные · Бесплатно · Без рекламы</div>
+
+<header class="top">
+  <h1><a href="index.html"><span class="h1-emoji">📈</span> Тренды популярности БАДов</a> <span class="v">v<span data-version="app"></span></span></h1>
+  <div class="actions">
+      <a class="btn" href="index.html">← На главную</a>
+      <a class="btn calc" href="calculator.html">🧮 Калькулятор</a>
+      <a class="btn" href="map.html">🧩 Карта механизмов</a>
+      <a class="btn" href="interactions.html">🔗 Карта связей</a>
+      <a class="btn" href="atlas.html">🌐 Атлас</a>
+      <button class="btn" id="themeToggle">🌞 Светлая тема</button>
+  </div>
+</header>
+
+<p class="hint" style="opacity:.75;margin:.4rem 0 0">
+  10 лет данных о 94 добавках: публикации в PubMed, просмотры ru.wikipedia, цитирования ключевых исследований.
+  Клик по столбцу — открыть карточку добавки.
+</p>
+
+<!-- KPI-карточки -->
+<div class="stat-cards" id="statCards">
+  <div class="stat-card">
+    <div class="label">Публикаций 2025</div>
+    <div class="value" id="kpiPubs2025">—</div>
+    <div class="delta" id="kpiPubsDelta">—</div>
+  </div>
+  <div class="stat-card">
+    <div class="label">Просмотров wiki/мес (дек 2025)</div>
+    <div class="value" id="kpiWiki">—</div>
+    <div class="delta" id="kpiWikiDelta">—</div>
+  </div>
+  <div class="stat-card">
+    <div class="label">Цитат 2025</div>
+    <div class="value" id="kpiCites2025">—</div>
+    <div class="delta" id="kpiCitesDelta">—</div>
+  </div>
+  <div class="stat-card">
+    <div class="label">Топ по росту</div>
+    <div class="value" id="kpiTop" style="font-size:1.1rem">—</div>
+    <div class="delta" id="kpiTopDelta">—</div>
+  </div>
+</div>
+
+<!-- Фильтры -->
+<div class="filters">
+  <label>Период:
+    <select id="periodFilter">
+      <option value="2015-2025">2015–2025</option>
+      <option value="2018-2025">2018–2025</option>
+      <option value="2020-2025">2020–2025</option>
+    </select>
+  </label>
+  <label>Категория:
+    <select id="categoryFilter"><option value="all">Все</option></select>
+  </label>
+  <label>Грейд:
+    <select id="gradeFilter">
+      <option value="all">Все</option>
+      <option value="A">A</option>
+      <option value="B">B</option>
+      <option value="C">C</option>
+      <option value="D">D</option>
+    </select>
+  </label>
+  <label>Топ:
+    <select id="topFilter">
+      <option value="10">10</option>
+      <option value="20" selected>20</option>
+      <option value="30">30</option>
+      <option value="50">50</option>
+    </select>
+  </label>
+</div>
+
+<!-- Табы -->
+<div class="tabs">
+  <button class="tab on" data-tab="growth">Рост публикаций</button>
+  <button class="tab" data-tab="wiki">Wikipedia</button>
+  <button class="tab" data-tab="citations">Цитаты</button>
+</div>
+
+<div class="chart-wrap">
+  <canvas id="trendsChart"></canvas>
+</div>
+<p class="chart-note" id="chartNote"></p>
+
+<footer style="margin-top:2rem;border-top:1px solid var(--aborder);padding-top:1rem;color:var(--amut);font-size:.85rem">
+  <p>⚠️ Данные из открытых источников: PubMed, Wikimedia, OpenAlex. Вердикты не являются медицинскими рекомендациями.</p>
+  <p>v<span data-version="app"></span> · данные на <span data-version="data"></span></p>
+</footer>
+
+<!-- Модалка -->
+<div id="modalOverlay" style="display:none">
+  <div id="modal">
+    <button id="modalClose" class="btn">×</button>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+'use strict';
+
+// ── XSS protection ────────────────────────────────────────────
+function esc(s) {
+  if (s == null) return '';
+  return String(s).replace(/[&<>"']/g, c => (
+    { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
+  ));
+}
+
+const GRADE_COLOR = { A: '#22c55e', B: '#84cc16', C: '#f59e0b', D: '#ef4444' };
+const GRADE_BG = { A: 'rgba(34,197,94,.7)', B: 'rgba(132,204,22,.7)', C: 'rgba(245,158,11,.7)', D: 'rgba(239,68,68,.7)' };
+
+let SUPP = [];           // data_index.json
+let TS = {};             // timeseries.json
+let byId = {};
+let chart = null;
+let currentTab = 'growth';
+
+// ── Тема ──────────────────────────────────────────────────────
+function setTheme(light) {
+  document.body.classList.toggle('light', light);
+  document.body.classList.toggle('dark', !light);
+  const btn = document.getElementById('themeToggle');
+  if (btn) btn.textContent = light ? '🌙 Тёмная тема' : '🌞 Светлая тема';
+  try { localStorage.setItem('theme', light ? 'light' : 'dark'); } catch (e) {}
+  // перерисовываем чтобы цвета подписей обновились
+  if (TS.pubmed) renderChart();
+}
+
+function getTheme() {
+  let saved = null;
+  try { saved = localStorage.getItem('theme'); } catch (e) {}
+  return saved === 'light';
+}
+
+// ── Загрузка данных ───────────────────────────────────────────
+const fetchJson = (url) => fetch(url + '?ts=' + Date.now())
+  .then(r => { if (!r.ok) throw new Error(url + ': ' + r.status); return r.json(); });
+
+Promise.all([
+  fetchJson('data_index.json'),
+  fetchJson('timeseries.json'),
+]).then(([data, ts]) => {
+  SUPP = (data.supplements || data).sort((a, b) => a.id.localeCompare(b.id, 'ru'));
+  TS = ts;
+  byId = Object.fromEntries(SUPP.map(c => [c.id, c]));
+  initApp();
+}).catch(err => {
+  console.error('[boot]', err);
+  document.querySelector('.chart-wrap').innerHTML =
+    '<p style="color:#e74c3c;padding:2rem;text-align:center">Не удалось загрузить данные: ' + esc(err.message) + '</p>';
+});
+
+// ── Инициализация ─────────────────────────────────────────────
+function initApp() {
+  // категории в фильтр
+  const cats = [...new Set(SUPP.map(c => c.category))].sort();
+  const sel = document.getElementById('categoryFilter');
+  cats.forEach(c => {
+    const o = document.createElement('option');
+    o.value = c; o.textContent = c;
+    sel.appendChild(o);
+  });
+
+  // тема
+  setTheme(getTheme());
+
+  // события
+  document.querySelectorAll('.tab').forEach(b =>
+    b.addEventListener('click', () => setTab(b.dataset.tab)));
+  ['periodFilter', 'categoryFilter', 'gradeFilter', 'topFilter'].forEach(id =>
+    document.getElementById(id).addEventListener('change', renderChart));
+  document.getElementById('themeToggle').addEventListener('click', () => setTheme(!document.body.classList.contains('light')));
+  document.getElementById('modalClose').addEventListener('click', closeModal);
+  document.getElementById('modalOverlay').addEventListener('click', e => {
+    if (e.target.id === 'modalOverlay') closeModal();
+  });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+  renderStats();
+  renderChart();
+}
+
+function setTab(tab) {
+  currentTab = tab;
+  document.querySelectorAll('.tab').forEach(b => b.classList.toggle('on', b.dataset.tab === tab));
+  renderChart();
+}
+
+// ── KPI карточки ──────────────────────────────────────────────
+function renderStats() {
+  // Публикации 2025
+  const pubTotals = {};
+  Object.entries(TS.pubmed || {}).forEach(([id, s]) => {
+    pubTotals[id] = { y2025: s['2025'] || 0, y2015: s['2015'] || 0 };
+  });
+  const sumPubs2025 = Object.values(pubTotals).reduce((sum, x) => sum + x.y2025, 0);
+  const sumPubs2015 = Object.values(pubTotals).reduce((sum, x) => sum + x.y2015, 0);
+  document.getElementById('kpiPubs2025').textContent = sumPubs2025.toLocaleString('ru-RU');
+  const pubsDelta = sumPubs2015 ? Math.round((sumPubs2025 / sumPubs2015 - 1) * 100) : 0;
+  const pubsDEl = document.getElementById('kpiPubsDelta');
+  pubsDEl.textContent = (pubsDelta >= 0 ? '↑ ' : '↓ ') + Math.abs(pubsDelta) + '% к 2015';
+  pubsDEl.className = 'delta' + (pubsDelta < 0 ? ' down' : '');
+
+  // Wiki декабрь 2025 (последний месяц)
+  let sumWiki = 0, lastMonth = null;
+  Object.values(TS.wiki || {}).forEach(s => {
+    const m = Object.keys(s).sort().pop();
+    if (m) { sumWiki += s[m] || 0; lastMonth = m; }
+  });
+  document.getElementById('kpiWiki').textContent = sumWiki.toLocaleString('ru-RU');
+
+  // Цитаты 2025
+  const cite2025 = Object.values(TS.citations || {}).reduce((s, c) => s + (c['2025'] || 0), 0);
+  const cite2015 = Object.values(TS.citations || {}).reduce((s, c) => s + (c['2015'] || 0), 0);
+  document.getElementById('kpiCites2025').textContent = cite2025.toLocaleString('ru-RU');
+  const citeDelta = cite2015 ? Math.round((cite2025 / cite2015 - 1) * 100) : 0;
+  const citeEl = document.getElementById('kpiCitesDelta');
+  citeEl.textContent = (citeDelta >= 0 ? '↑ ' : '↓ ') + Math.abs(citeDelta) + '% к 2015';
+  citeEl.className = 'delta' + (citeDelta < 0 ? ' down' : '');
+
+  // Топ по росту
+  const growth = Object.entries(TS.pubmed || {}).map(([id, s]) => {
+    const first = (s['2015'] || 0) + (s['2016'] || 0) + (s['2017'] || 0);
+    const last = (s['2023'] || 0) + (s['2024'] || 0) + (s['2025'] || 0);
+    const g = first > 0 ? last / first : 0;
+    return { id, growth: g, first };
+  }).filter(x => x.first >= 20);  // фильтр от шума
+
+  growth.sort((a, b) => b.growth - a.growth);
+  const top = growth[0];
+  if (top) {
+    document.getElementById('kpiTop').textContent = top.id;
+    document.getElementById('kpiTopDelta').textContent = '×' + top.growth.toFixed(2) + ' за 10 лет';
+  }
+}
+
+// ── Фильтрация ────────────────────────────────────────────────
+function getFiltered() {
+  const cat = document.getElementById('categoryFilter').value;
+  const grade = document.getElementById('gradeFilter').value;
+  return SUPP.filter(c => {
+    if (cat !== 'all' && c.category !== cat) return false;
+    if (grade !== 'all' && c.grade !== grade) return false;
+    return true;
+  });
+}
+
+function getYears() {
+  const range = document.getElementById('periodFilter').value;
+  const [a, b] = range.split('-').map(Number);
+  return Array.from({ length: b - a + 1 }, (_, i) => String(a + i));
+}
+
+// ── Отрисовка ─────────────────────────────────────────────────
+function renderChart() {
+  const years = getYears();
+  const top = parseInt(document.getElementById('topFilter').value, 10);
+  const filtered = getFiltered();
+  const filteredIds = new Set(filtered.map(c => c.id));
+
+  const ctx = document.getElementById('trendsChart').getContext('2d');
+  if (chart) { chart.destroy(); chart = null; }
+
+  const isLight = document.body.classList.contains('light');
+  const txt = isLight ? '#1c1c1e' : '#e9eaee';
+  const grid = isLight ? 'rgba(0,0,0,.08)' : 'rgba(128,128,128,.15)';
+
+  const note = document.getElementById('chartNote');
+
+  if (currentTab === 'growth') {
+    const rows = Object.entries(TS.pubmed || {})
+      .filter(([id]) => filteredIds.has(id))
+      .map(([id, s]) => {
+        const first = years.slice(0, 3).reduce((sum, y) => sum + (s[y] || 0), 0) / 3;
+        const last = years.slice(-3).reduce((sum, y) => sum + (s[y] || 0), 0) / 3;
+        const growth = first > 0 ? last / first : 0;
+        return { id, growth, first };
+      })
+      .filter(x => x.first >= 5 && x.growth > 1.05)
+      .sort((a, b) => b.growth - a.growth)
+      .slice(0, top);
+
+    const labels = rows.map(r => r.id);
+    const values = rows.map(r => r.growth);
+    const colors = rows.map(r => GRADE_BG[byId[r.id]?.grade] || 'rgba(128,128,128,.7)');
+
+    chart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels,
+        datasets: [{
+          label: 'Рост публикаций',
+          data: values,
+          backgroundColor: colors,
+          borderRadius: 4,
+        }],
+      },
+      options: {
+        indexAxis: 'y',
+        responsive: true,
+        maintainAspectRatio: false,
+        onClick: (e, els) => { if (els[0]) openModal(rows[els[0].index].id); },
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: (ctx) => {
+                const r = rows[ctx.dataIndex];
+                const s = TS.pubmed[r.id] || {};
+                return `×${r.growth.toFixed(2)} · ${s[years[0]] || 0} → ${s[years[years.length-1]] || 0}`;
+              },
+            },
+          },
+        },
+        scales: {
+          x: { grid: { color: grid }, ticks: { color: txt }, title: { display: true, text: 'Рост (× к базе)', color: txt } },
+          y: { grid: { display: false }, ticks: { color: txt, font: { size: 11 } } },
+        },
+      },
+    });
+    note.textContent = `Показано ${rows.length} добавок · клик по столбцу → карточка · цвет = грейд доказательности`;
+  }
+
+  else if (currentTab === 'wiki') {
+    const rows = Object.entries(TS.wiki || {})
+      .filter(([id]) => filteredIds.has(id))
+      .map(([id, s]) => {
+        const lastMonth = Object.keys(s).sort().pop();
+        return { id, last: lastMonth ? s[lastMonth] : 0 };
+      })
+      .filter(x => x.last > 0)
+      .sort((a, b) => b.last - a.last)
+      .slice(0, Math.min(top, 10));  // wiki читается лучше с меньшим
+
+    // Собираем все уникальные месяцы в выбранном периоде
+    const allMonths = new Set();
+    rows.forEach(r => Object.keys(TS.wiki[r.id] || {}).forEach(m => {
+      if (m >= years[0] + '-01' && m <= years[years.length-1] + '-12') allMonths.add(m);
+    }));
+    const months = [...allMonths].sort();
+
+    const datasets = rows.map(r => {
+      const s = TS.wiki[r.id] || {};
+      const values = months.map(m => s[m] || 0);
+      const c = byId[r.id];
+      return {
+        label: `${r.id}${c?.grade ? ' [' + c.grade + ']' : ''}`,
+        data: values,
+        borderColor: GRADE_COLOR[c?.grade] || '#888',
+        backgroundColor: 'transparent',
+        borderWidth: 1.4,
+        tension: 0.3,
+        pointRadius: 0,
+        pointHoverRadius: 4,
+      };
+    });
+
+    chart = new Chart(ctx, {
+      type: 'line',
+      data: { labels: months, datasets },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
+        plugins: {
+          legend: { labels: { color: txt, font: { size: 10 } }, position: 'top' },
+        },
+        scales: {
+          x: {
+            grid: { color: grid },
+            ticks: {
+              color: txt, maxRotation: 0,
+              callback: function(v) {
+                const m = this.getLabelForValue(v);
+                return m && m.endsWith('-01') ? m.slice(0, 4) : '';
+              },
+            },
+          },
+          y: { grid: { color: grid }, ticks: { color: txt } },
+        },
+      },
+    });
+    note.textContent = `Топ-${rows.length} по просмотрам · линия = добавка (цвет = грейд) · наведение — точное значение`;
+  }
+
+  else if (currentTab === 'citations') {
+    // Сумма по всем добавкам за каждый год
+    const totals = {};
+    years.forEach(y => {
+      totals[y] = Object.entries(TS.citations || {})
+        .filter(([id]) => filteredIds.has(id))
+        .reduce((sum, [, s]) => sum + (s[y] || 0), 0);
+    });
+
+    chart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: years,
+        datasets: [{
+          label: 'Цитат за год (сумма)',
+          data: years.map(y => totals[y]),
+          backgroundColor: 'rgba(52,152,219,.8)',
+          borderColor: '#2980b9',
+          borderWidth: 1,
+          borderRadius: 4,
+        }],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: (ctx) => `${ctx.parsed.y.toLocaleString('ru-RU')} цитат`,
+            },
+          },
+        },
+        scales: {
+          x: { grid: { color: grid }, ticks: { color: txt } },
+          y: { grid: { color: grid }, ticks: { color: txt, callback: v => v.toLocaleString('ru-RU') } },
+        },
+      },
+    });
+
+    const first = totals[years[0]] || 0;
+    const last = totals[years[years.length - 1]] || 0;
+    const d = first > 0 ? Math.round((last / first - 1) * 100) : 0;
+    note.textContent = `Сумма цитат по всем отфильтрованным добавкам · рост ${d >= 0 ? '+' : ''}${d}% за период`;
+  }
+}
+
+// ── Модалка ───────────────────────────────────────────────────
+function openModal(id) {
+  const c = byId[id];
+  if (!c) return;
+
+  const parts = [];
+  parts.push(`<h2>${esc(c.name)}</h2>`);
+  parts.push(`<div class="mrow"><span class="verdict v${esc(c.code)}">${esc(c.verdict)}</span>` +
+    (c.grade ? ` · <span class="grade g${esc(c.grade)}">грейд ${esc(c.grade)}</span>` : '') +
+    ` · ${esc(c.category)}</div>`);
+  if (c.scienceIndex) parts.push(`<div class="mrow">📊 Индекс науки: <b>${c.scienceIndex}</b> (MA: ${c.metaCount || 0})</div>`);
+  if (c.citations != null) parts.push(`<div class="mrow">📖 Цитат ключевого источника: ${c.citations}</div>`);
+  if (c.wiki != null) parts.push(`<div class="mrow">🌐 Wiki-просмотров/мес: ${c.wiki.toLocaleString('ru-RU')}</div>`);
+  if (c.ongoing != null) parts.push(`<div class="mrow">🧪 Активных испытаний: ${c.ongoing}</div>`);
+  if (c.effects?.length) parts.push(`<div class="mrow"><b>Эффекты:</b> ${c.effects.map(esc).join(', ')}</div>`);
+
+  // мини-график динамики
+  const pubS = TS.pubmed[id] || {};
+  const wikiS = TS.wiki[id] || {};
+  const citeS = TS.citations[id] || {};
+  if (Object.keys(pubS).length) {
+    const ys = Object.keys(pubS).sort();
+    parts.push(`<div class="mrow" style="margin-top:.8rem"><b>Публикации по годам:</b> ` +
+      ys.map(y => `<span style="opacity:.7">${y}:</span> ${pubS[y]}`).join(' · ') + `</div>`);
+  }
+  if (Object.keys(citeS).length) {
+    const total = Object.values(citeS).reduce((s, x) => s + x, 0);
+    parts.push(`<div class="mrow"><b>Всего цитат:</b> ${total.toLocaleString('ru-RU')}</div>`);
+  }
+
+  parts.push(`<div class="mrow" style="margin-top:1rem"><a class="btn" href="index.html#sup=${encodeURIComponent(id)}">Открыть полную карточку →</a></div>`);
+
+  document.getElementById('modalBody').innerHTML = parts.join('');
+  document.getElementById('modalOverlay').style.display = 'flex';
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').style.display = 'none';
+}
+</script>
+</body>
+</html>
