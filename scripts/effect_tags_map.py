@@ -30,6 +30,11 @@ TAGS: dict[str, list[str]] = {
     "Омега-3":               ["brain", "heart"],
     "Витамин D":             ["mood", "bones", "immunity"],
     "B12":                   ["brain", "blood", "energy"],
+    # ---------- v2.3 (batch 15) ----------
+    "B2":                    ["energy", "brain"],
+    "B3":                    ["metabolism", "skin"],
+    "B5":                    ["energy", "skin"],
+    "B6":                    ["brain", "mood", "blood"],
     "Магний":                ["sleep", "stress", "heart"],
     "Кофеин":                ["energy", "brain", "mood"],
     "L-Теанин":              ["stress", "brain"],
@@ -57,6 +62,8 @@ TAGS: dict[str, list[str]] = {
     "Валериана":             ["sleep", "stress"],
     "Бета-аланин":           ["muscle", "energy"],
     "L-цитруллин":           ["heart", "muscle", "energy"],
+    # ---------- v2.3 (batch 15, кириллица) ----------
+    "Витамин A":             ["vision", "immunity", "skin"],
     "Витамин C":             ["immunity"],
     "Эхинацея":              ["immunity"],
     "Бузина":                ["immunity"],
@@ -92,6 +99,7 @@ TAGS: dict[str, list[str]] = {
     "Астаксантин":           ["skin", "vision"],
     "Расторопша":            ["liver"],
     "Лактоферрин":           ["immunity", "blood"],
+    "Лизин":                 ["immunity", "bones"],
     "SAMe":                  ["mood"],
     "Йохимбин":              ["metabolism", "hormones"],
     "Пажитник":              ["metabolism", "hormones"],
