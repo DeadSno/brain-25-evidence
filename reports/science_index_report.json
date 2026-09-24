@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-09-22T05:26:36.117774+00:00",
+  "timestamp": "2026-09-24T07:35:20.769710+00:00",
   "dry_run": false,
   "cards": {
     "Креатин": {
-      "status": "changed",
+      "status": "ok",
       "old": {
         "rct": 785,
-        "meta": 95,
-        "si": 1260
+        "meta": 96,
+        "si": 1265
       },
       "new": {
         "rct": 785,
@@ -17,30 +17,30 @@
       "base": "(creatine supplementation)"
     },
     "Омега-3": {
-      "status": "changed",
+      "status": "ok",
       "old": {
-        "rct": 4748,
-        "meta": 1007,
-        "si": 9783
+        "rct": 4751,
+        "meta": 1008,
+        "si": 9791
       },
       "new": {
-        "rct": 4749,
+        "rct": 4751,
         "meta": 1008,
-        "si": 9789
+        "si": 9791
       },
       "base": "(omega-3 fatty acids OR eicosapentaenoic OR docosahexaenoic OR fish oil)"
     },
     "Витамин D": {
-      "status": "changed",
+      "status": "ok",
       "old": {
-        "rct": 4006,
-        "meta": 998,
-        "si": 8996
+        "rct": 4007,
+        "meta": 999,
+        "si": 9002
       },
       "new": {
-        "rct": 4006,
+        "rct": 4007,
         "meta": 999,
-        "si": 9001
+        "si": 9002
       },
       "base": "(vitamin D supplementation OR cholecalciferol)"
     },
@@ -73,11 +73,11 @@
       "base": "(magnesium supplementation)"
     },
     "Кофеин": {
-      "status": "changed",
+      "status": "ok",
       "old": {
-        "rct": 2190,
+        "rct": 2191,
         "meta": 387,
-        "si": 4125
+        "si": 4126
       },
       "new": {
         "rct": 2191,
@@ -257,28 +257,28 @@
     "NAC": {
       "status": "ok",
       "old": {
-        "rct": 957,
+        "rct": 958,
         "meta": 250,
-        "si": 2207
+        "si": 2208
       },
       "new": {
-        "rct": 957,
+        "rct": 958,
         "meta": 250,
-        "si": 2207
+        "si": 2208
       },
       "base": "(N-acetylcysteine OR NAC supplementation)"
     },
     "Цинк": {
       "status": "ok",
       "old": {
-        "rct": 1130,
+        "rct": 1131,
         "meta": 236,
-        "si": 2310
+        "si": 2311
       },
       "new": {
-        "rct": 1130,
+        "rct": 1131,
         "meta": 236,
-        "si": 2310
+        "si": 2311
       },
       "base": "(zinc supplementation)"
     },
@@ -381,16 +381,16 @@
       "base": "(GABA supplementation OR gamma-aminobutyric acid)"
     },
     "Глицин": {
-      "status": "changed",
+      "status": "ok",
       "old": {
-        "rct": 314,
+        "rct": 316,
         "meta": 20,
-        "si": 414
+        "si": 416
       },
       "new": {
-        "rct": 315,
+        "rct": 316,
         "meta": 20,
-        "si": 415
+        "si": 416
       },
       "base": "(glycine supplementation)"
     },
@@ -411,14 +411,14 @@
     "Бета-аланин": {
       "status": "ok",
       "old": {
-        "rct": 459,
+        "rct": 460,
         "meta": 81,
-        "si": 864
+        "si": 865
       },
       "new": {
-        "rct": 459,
+        "rct": 460,
         "meta": 81,
-        "si": 864
+        "si": 865
       },
       "base": "(beta-alanine)"
     },
@@ -437,11 +437,11 @@
       "base": "(L-citrulline OR citrulline supplementation)"
     },
     "Витамин C": {
-      "status": "changed",
+      "status": "ok",
       "old": {
-        "rct": 873,
+        "rct": 874,
         "meta": 159,
-        "si": 1668
+        "si": 1669
       },
       "new": {
         "rct": 874,
@@ -521,16 +521,16 @@
       "base": "(collagen supplementation OR hydrolyzed collagen)"
     },
     "Пробиотики": {
-      "status": "changed",
+      "status": "ok",
       "old": {
-        "rct": 3924,
-        "meta": 1344,
-        "si": 10644
+        "rct": 3926,
+        "meta": 1348,
+        "si": 10666
       },
       "new": {
-        "rct": 3924,
-        "meta": 1346,
-        "si": 10654
+        "rct": 3926,
+        "meta": 1348,
+        "si": 10666
       },
       "base": "(probiotic supplementation OR probiotics)"
     },
@@ -633,16 +633,16 @@
       "base": "(L-carnitine OR acetyl-L-carnitine)"
     },
     "BCAA": {
-      "status": "changed",
+      "status": "ok",
       "old": {
-        "rct": 2323,
-        "meta": 337,
-        "si": 4008
+        "rct": 2321,
+        "meta": 338,
+        "si": 4011
       },
       "new": {
         "rct": 2321,
-        "meta": 337,
-        "si": 4006
+        "meta": 338,
+        "si": 4011
       },
       "base": "(branched-chain amino acids OR BCAA supplementation)"
     },
@@ -663,28 +663,28 @@
     "Кальций": {
       "status": "ok",
       "old": {
-        "rct": 1973,
+        "rct": 1974,
         "meta": 348,
-        "si": 3713
+        "si": 3714
       },
       "new": {
-        "rct": 1973,
+        "rct": 1974,
         "meta": 348,
-        "si": 3713
+        "si": 3714
       },
       "base": "(calcium supplementation)"
     },
     "Гиалуроновая кислота": {
-      "status": "changed",
+      "status": "ok",
       "old": {
-        "rct": 1853,
-        "meta": 447,
-        "si": 4088
+        "rct": 1855,
+        "meta": 449,
+        "si": 4100
       },
       "new": {
         "rct": 1855,
-        "meta": 448,
-        "si": 4095
+        "meta": 449,
+        "si": 4100
       },
       "base": "(hyaluronic acid OR sodium hyaluronate)"
     },
@@ -773,11 +773,11 @@
       "base": "(Crataegus OR hawthorn)"
     },
     "Бета-глюканы овса": {
-      "status": "changed",
+      "status": "ok",
       "old": {
-        "rct": 117,
+        "rct": 116,
         "meta": 11,
-        "si": 172
+        "si": 171
       },
       "new": {
         "rct": 116,
@@ -997,16 +997,16 @@
       "base": "(Tribulus terrestris supplementation)"
     },
     "NMN": {
-      "status": "changed",
+      "status": "ok",
       "old": {
-        "rct": 3693,
-        "meta": 688,
-        "si": 7133
+        "rct": 3696,
+        "meta": 689,
+        "si": 7141
       },
       "new": {
-        "rct": 3694,
-        "meta": 688,
-        "si": 7134
+        "rct": 3696,
+        "meta": 689,
+        "si": 7141
       },
       "base": "(nicotinamide mononucleotide OR nicotinamide riboside OR NMN OR NR)"
     },
@@ -1067,16 +1067,16 @@
       "base": "(whey protein supplementation)"
     },
     "Глутамин": {
-      "status": "changed",
+      "status": "ok",
       "old": {
         "rct": 933,
         "meta": 226,
         "si": 2063
       },
       "new": {
-        "rct": 932,
+        "rct": 933,
         "meta": 226,
-        "si": 2062
+        "si": 2063
       },
       "base": "(glutamine OR L-glutamine)"
     },
@@ -1137,11 +1137,11 @@
       "base": "(quercetin supplementation)"
     },
     "Шатавари": {
-      "status": "changed",
+      "status": "ok",
       "old": {
-        "rct": null,
-        "meta": null,
-        "si": null
+        "rct": 8,
+        "meta": 0,
+        "si": 8
       },
       "new": {
         "rct": 8,
@@ -1151,11 +1151,11 @@
       "base": "(Asparagus racemosus)"
     },
     "Астрагал": {
-      "status": "changed",
+      "status": "ok",
       "old": {
-        "rct": null,
-        "meta": null,
-        "si": null
+        "rct": 83,
+        "meta": 35,
+        "si": 258
       },
       "new": {
         "rct": 83,
@@ -1165,11 +1165,11 @@
       "base": "(Astragalus membranaceus)"
     },
     "Шлемник": {
-      "status": "changed",
+      "status": "ok",
       "old": {
-        "rct": null,
-        "meta": null,
-        "si": null
+        "rct": 18,
+        "meta": 5,
+        "si": 43
       },
       "new": {
         "rct": 18,
@@ -1179,11 +1179,11 @@
       "base": "(Scutellaria baicalensis)"
     },
     "Пассифлора": {
-      "status": "changed",
+      "status": "ok",
       "old": {
-        "rct": null,
-        "meta": null,
-        "si": null
+        "rct": 23,
+        "meta": 3,
+        "si": 38
       },
       "new": {
         "rct": 23,
@@ -1193,11 +1193,11 @@
       "base": "(Passiflora incarnata)"
     },
     "Мелисса": {
-      "status": "changed",
+      "status": "ok",
       "old": {
-        "rct": null,
-        "meta": null,
-        "si": null
+        "rct": 252,
+        "meta": 69,
+        "si": 597
       },
       "new": {
         "rct": 252,
@@ -1207,11 +1207,11 @@
       "base": "(Melissa officinalis)"
     },
     "Лаванда": {
-      "status": "changed",
+      "status": "ok",
       "old": {
-        "rct": null,
-        "meta": null,
-        "si": null
+        "rct": 246,
+        "meta": 25,
+        "si": 371
       },
       "new": {
         "rct": 246,
@@ -1221,11 +1221,11 @@
       "base": "(Lavandula angustifolia)"
     },
     "Чага": {
-      "status": "changed",
+      "status": "ok",
       "old": {
-        "rct": null,
-        "meta": null,
-        "si": null
+        "rct": 380,
+        "meta": 214,
+        "si": 1450
       },
       "new": {
         "rct": 380,
@@ -1235,11 +1235,11 @@
       "base": "(Inonotus obliquus OR chaga)"
     },
     "Шиитаке": {
-      "status": "changed",
+      "status": "ok",
       "old": {
-        "rct": null,
-        "meta": null,
-        "si": null
+        "rct": 13,
+        "meta": 1,
+        "si": 18
       },
       "new": {
         "rct": 13,
@@ -1249,11 +1249,11 @@
       "base": "(Lentinula edodes OR shiitake)"
     },
     "Глутатион": {
-      "status": "changed",
+      "status": "ok",
       "old": {
-        "rct": null,
-        "meta": null,
-        "si": null
+        "rct": 729,
+        "meta": 97,
+        "si": 1214
       },
       "new": {
         "rct": 729,
@@ -1263,11 +1263,11 @@
       "base": "(glutathione supplementation)"
     },
     "PQQ": {
-      "status": "changed",
+      "status": "ok",
       "old": {
-        "rct": null,
-        "meta": null,
-        "si": null
+        "rct": 12,
+        "meta": 0,
+        "si": 12
       },
       "new": {
         "rct": 12,
@@ -1277,11 +1277,11 @@
       "base": "(pyrroloquinoline quinone OR PQQ)"
     },
     "Сульфорафан": {
-      "status": "changed",
+      "status": "ok",
       "old": {
-        "rct": null,
-        "meta": null,
-        "si": null
+        "rct": 77,
+        "meta": 10,
+        "si": 127
       },
       "new": {
         "rct": 77,
@@ -1291,11 +1291,11 @@
       "base": "(sulforaphane)"
     },
     "MSM": {
-      "status": "changed",
+      "status": "ok",
       "old": {
-        "rct": null,
-        "meta": null,
-        "si": null
+        "rct": 544,
+        "meta": 279,
+        "si": 1939
       },
       "new": {
         "rct": 544,
@@ -1305,11 +1305,11 @@
       "base": "(methylsulfonylmethane OR MSM)"
     },
     "Гимнема": {
-      "status": "changed",
+      "status": "ok",
       "old": {
-        "rct": null,
-        "meta": null,
-        "si": null
+        "rct": 14,
+        "meta": 2,
+        "si": 24
       },
       "new": {
         "rct": 14,
@@ -1317,11 +1317,137 @@
         "si": 24
       },
       "base": "(Gymnema sylvestre)"
+    },
+    "B1": {
+      "status": "ok",
+      "old": {
+        "rct": 390,
+        "meta": 64,
+        "si": 710
+      },
+      "new": {
+        "rct": 390,
+        "meta": 64,
+        "si": 710
+      },
+      "base": "(thiamine OR vitamin B1)"
+    },
+    "Холин": {
+      "status": "ok",
+      "old": {
+        "rct": 1392,
+        "meta": 194,
+        "si": 2362
+      },
+      "new": {
+        "rct": 1392,
+        "meta": 194,
+        "si": 2362
+      },
+      "base": "(choline)"
+    },
+    "EPA": {
+      "status": "ok",
+      "old": {
+        "rct": 2125,
+        "meta": 414,
+        "si": 4195
+      },
+      "new": {
+        "rct": 2125,
+        "meta": 414,
+        "si": 4195
+      },
+      "base": "(eicosapentaenoic acid OR EPA)"
+    },
+    "Витамин A": {
+      "status": "changed",
+      "old": {
+        "rct": null,
+        "meta": null,
+        "si": null
+      },
+      "new": {
+        "rct": 2309,
+        "meta": 371,
+        "si": 4164
+      },
+      "base": "(vitamin A OR retinol)"
+    },
+    "B2": {
+      "status": "changed",
+      "old": {
+        "rct": null,
+        "meta": null,
+        "si": null
+      },
+      "new": {
+        "rct": 537,
+        "meta": 76,
+        "si": 917
+      },
+      "base": "(riboflavin OR vitamin B2)"
+    },
+    "B3": {
+      "status": "changed",
+      "old": {
+        "rct": null,
+        "meta": null,
+        "si": null
+      },
+      "new": {
+        "rct": 1450,
+        "meta": 354,
+        "si": 3220
+      },
+      "base": "(niacin OR nicotinamide OR vitamin B3)"
+    },
+    "B5": {
+      "status": "changed",
+      "old": {
+        "rct": null,
+        "meta": null,
+        "si": null
+      },
+      "new": {
+        "rct": 100,
+        "meta": 6,
+        "si": 130
+      },
+      "base": "(pantothenic acid OR vitamin B5)"
+    },
+    "B6": {
+      "status": "changed",
+      "old": {
+        "rct": null,
+        "meta": null,
+        "si": null
+      },
+      "new": {
+        "rct": 782,
+        "meta": 166,
+        "si": 1612
+      },
+      "base": "(pyridoxine OR vitamin B6)"
+    },
+    "Лизин": {
+      "status": "changed",
+      "old": {
+        "rct": null,
+        "meta": null,
+        "si": null
+      },
+      "new": {
+        "rct": 749,
+        "meta": 114,
+        "si": 1319
+      },
+      "base": "(lysine)"
     }
   },
   "totals": {
-    "ok": 69,
-    "changed": 25,
+    "ok": 97,
+    "changed": 6,
     "no_base": 0,
     "error": 0
   }
