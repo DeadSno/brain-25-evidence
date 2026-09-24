@@ -54,7 +54,7 @@
     "guidelines": "Позиция ISSN: эффективен и безопасен; EFSA health claims для спорта не требует.",
     "how_to_choose": "Моногидрат (знак Creapure); без «транспортных систем» и переплаты за экзотические формы.",
     "myths": "«Бьёт по почкам у здоровых» — на стандартных дозах не подтверждено. «Без загрузки не работает» — работает, просто медленнее.",
-    "hedges_g": -0.75,
+    "hedges_g": 0.46,
     "grade": "A",
     "key_sources": [
       {
@@ -116,11 +116,11 @@
     "rct": 785,
     "pubmed_term": "(creatine supplementation) AND (strength OR muscle OR cognitive)",
     "hedges_g_ci": [
-      -1.14,
-      -0.36
+      0.29,
+      0.63
     ],
-    "hedges_g_outcome": "exercis",
-    "hedges_g_pmid": "42124047"
+    "hedges_g_outcome": "strength",
+    "hedges_g_pmid": "41901084"
   },
   {
     "id": "Омега-3",
@@ -128,7 +128,7 @@
     "code": 0,
     "verdict": "зависит от контекста",
     "category": "Сердце",
-    "scienceIndex": 9789,
+    "scienceIndex": 9791,
     "metaCount": 1008,
     "citations": 0,
     "wiki": 49978,
@@ -236,7 +236,7 @@
         "year": 2026
       }
     ],
-    "rct": 4749,
+    "rct": 4751,
     "pubmed_term": "(omega-3 fatty acids OR eicosapentaenoic OR docosahexaenoic OR fish oil) AND (cardiovascular OR mortality)",
     "hedges_g_ci": [
       0.04,
@@ -251,11 +251,11 @@
     "code": 0,
     "verdict": "зависит от контекста",
     "category": "Кости/Иммунитет",
-    "scienceIndex": 9001,
+    "scienceIndex": 9002,
     "metaCount": 999,
     "citations": 212,
     "wiki": 145309,
-    "ongoing": 392,
+    "ongoing": 393,
     "effects": [
       "Настроение (при дефиците)"
     ],
@@ -370,7 +370,7 @@
         "year": 2026
       }
     ],
-    "rct": 4006,
+    "rct": 4007,
     "pubmed_term": "(vitamin D supplementation OR cholecalciferol) AND (fracture OR mortality OR deficiency)",
     "hedges_g_ci": [
       -0.22,
@@ -537,9 +537,9 @@
     "category": "Минерал/Сердце",
     "scienceIndex": 928,
     "metaCount": 91,
-    "citations": 585,
+    "citations": 588,
     "wiki": 99800,
-    "ongoing": 366,
+    "ongoing": 368,
     "effects": [
       "Сон, расслабление"
     ],
@@ -675,7 +675,7 @@
     "category": "Производительность",
     "scienceIndex": 4126,
     "metaCount": 387,
-    "citations": 306,
+    "citations": 308,
     "wiki": 109842,
     "ongoing": 218,
     "effects": [
@@ -2235,7 +2235,7 @@
     "code": 1,
     "verdict": "работает",
     "category": "Антиоксидант/Психиатрия",
-    "scienceIndex": 2207,
+    "scienceIndex": 2208,
     "metaCount": 250,
     "citations": 71,
     "wiki": 69179,
@@ -2354,7 +2354,7 @@
         "year": 2026
       }
     ],
-    "rct": 957,
+    "rct": 958,
     "pubmed_term": "(N-acetylcysteine OR NAC supplementation) AND (respiratory OR psychiatric OR liver OR antioxidant)",
     "hedges_g_ci": [
       -2.19,
@@ -2376,7 +2376,7 @@
     "code": 0,
     "verdict": "зависит от контекста",
     "category": "Иммунитет/ОРВИ",
-    "scienceIndex": 2310,
+    "scienceIndex": 2311,
     "metaCount": 236,
     "citations": 116,
     "wiki": 79279,
@@ -2520,7 +2520,7 @@
         "year": 2026
       }
     ],
-    "rct": 1130,
+    "rct": 1131,
     "pubmed_term": "(zinc supplementation) AND (common cold OR diarrhea OR infection)",
     "hedges_g_ci": [
       -1.22,
@@ -3021,7 +3021,7 @@
     "category": "Когниция/Сосуды",
     "scienceIndex": 88,
     "metaCount": 6,
-    "citations": 269,
+    "citations": 270,
     "wiki": 21003,
     "ongoing": 5,
     "effects": [
@@ -3353,7 +3353,7 @@
     "code": -1,
     "verdict": "не подтверждено",
     "category": "Нейромедиатор/Сон",
-    "scienceIndex": 415,
+    "scienceIndex": 416,
     "metaCount": 20,
     "citations": 182,
     "wiki": 105428,
@@ -3454,7 +3454,7 @@
         "year": 2026
       }
     ],
-    "rct": 315,
+    "rct": 316,
     "pubmed_term": "(glycine supplementation) AND (sleep OR cognitive OR schizophrenia OR collagen)",
     "hedges_g_ci": [
       -0.05,
@@ -3586,7 +3586,7 @@
     "code": 0,
     "verdict": "зависит от контекста",
     "category": "Спорт/Выносливость",
-    "scienceIndex": 864,
+    "scienceIndex": 865,
     "metaCount": 81,
     "citations": 35,
     "wiki": 15134,
@@ -3668,7 +3668,7 @@
         "year": 2026
       }
     ],
-    "rct": 459,
+    "rct": 460,
     "pubmed_term": "(beta-alanine) AND (exercise OR performance OR high-intensity)",
     "hedges_g_ci": [
       -0.75,
@@ -4275,7 +4275,7 @@
     "category": "Психика/Депрессия",
     "scienceIndex": 115,
     "metaCount": 4,
-    "citations": 142,
+    "citations": 143,
     "wiki": 953,
     "ongoing": 7,
     "effects": [
@@ -4379,7 +4379,7 @@
     "category": "Кожа/Суставы",
     "scienceIndex": 567,
     "metaCount": 28,
-    "citations": 255,
+    "citations": 256,
     "wiki": 95617,
     "ongoing": 399,
     "effects": [
@@ -4495,8 +4495,8 @@
     "code": 0,
     "verdict": "зависит от контекста",
     "category": "ЖКТ",
-    "scienceIndex": 10654,
-    "metaCount": 1346,
+    "scienceIndex": 10666,
+    "metaCount": 1348,
     "citations": 9,
     "wiki": 33804,
     "ongoing": 539,
@@ -4612,7 +4612,7 @@
         "year": 2026
       }
     ],
-    "rct": 3924,
+    "rct": 3926,
     "pubmed_term": "(probiotic supplementation OR probiotics) AND (irritable bowel OR diarrhea OR antibiotic-associated)",
     "hedges_g_ci": [
       0.29,
@@ -4629,9 +4629,9 @@
     "category": "Беременность/Кровь",
     "scienceIndex": 2693,
     "metaCount": 304,
-    "citations": 1011,
+    "citations": 1012,
     "wiki": 78114,
-    "ongoing": 582,
+    "ongoing": 581,
     "effects": [
       "Когниция (при дефиците/MCI)"
     ],
@@ -4989,7 +4989,7 @@
     "category": "Суставы/Остеоартрит",
     "scienceIndex": 1168,
     "metaCount": 113,
-    "citations": 336,
+    "citations": 338,
     "wiki": 33034,
     "ongoing": 26,
     "effects": [
@@ -5237,7 +5237,7 @@
     "category": "Кожа/Волосы",
     "scienceIndex": 48,
     "metaCount": 4,
-    "citations": 454,
+    "citations": 456,
     "wiki": 37004,
     "ongoing": 23,
     "effects": [
@@ -5506,8 +5506,8 @@
     "code": 0,
     "verdict": "зависит от контекста",
     "category": "Печень/Спорт",
-    "scienceIndex": 4006,
-    "metaCount": 337,
+    "scienceIndex": 4011,
+    "metaCount": 338,
     "citations": 289,
     "wiki": 103667,
     "ongoing": 5434,
@@ -5724,7 +5724,7 @@
     "code": 0,
     "verdict": "зависит от контекста",
     "category": "Кости/Беременность",
-    "scienceIndex": 3713,
+    "scienceIndex": 3714,
     "metaCount": 348,
     "citations": 37,
     "wiki": 79605,
@@ -5837,7 +5837,7 @@
         "year": 2026
       }
     ],
-    "rct": 1973,
+    "rct": 1974,
     "pubmed_term": "(calcium supplementation) AND (fracture OR bone density OR cardiovascular)",
     "hedges_g_ci": [
       0.06,
@@ -5859,11 +5859,11 @@
     "code": 0,
     "verdict": "зависит от контекста",
     "category": "Суставы/Кожа",
-    "scienceIndex": 4095,
-    "metaCount": 448,
+    "scienceIndex": 4100,
+    "metaCount": 449,
     "citations": 99,
     "wiki": 56079,
-    "ongoing": 338,
+    "ongoing": 333,
     "effects": [
       "Кожа слабо, колено контекст (японские МА)"
     ],
@@ -6598,7 +6598,7 @@
     "category": "Сердце/Растения",
     "scienceIndex": 589,
     "metaCount": 73,
-    "citations": 335,
+    "citations": 336,
     "wiki": 94758,
     "ongoing": 3,
     "effects": [
@@ -8119,7 +8119,7 @@
     "category": "Сексуальное здоровье",
     "scienceIndex": 6,
     "metaCount": 0,
-    "citations": 458,
+    "citations": 460,
     "wiki": 1920,
     "ongoing": 3,
     "effects": [
@@ -8628,8 +8628,8 @@
     "code": -1,
     "verdict": "не подтверждено",
     "category": "Старение/Метаболизм",
-    "scienceIndex": 7134,
-    "metaCount": 688,
+    "scienceIndex": 7141,
+    "metaCount": 689,
     "citations": 21,
     "wiki": 10155,
     "ongoing": 13,
@@ -8715,7 +8715,7 @@
         "year": 2025
       }
     ],
-    "rct": 3694,
+    "rct": 3696,
     "pubmed_term": "(nicotinamide mononucleotide OR nicotinamide riboside OR NMN OR NR) AND (aging OR NAD OR metabolic OR cognitive)",
     "hedges_g_ci": null,
     "hedges_g_outcome": "",
@@ -8935,7 +8935,7 @@
     "metaCount": 0,
     "citations": 493,
     "wiki": 107249,
-    "ongoing": 6,
+    "ongoing": 7,
     "effects": [
       "Детокс от афлатоксина (подтверждён)",
       "Акне/запах — не подтверждено"
@@ -9083,7 +9083,7 @@
     "metaCount": 65,
     "citations": 135,
     "wiki": 8328,
-    "ongoing": 118,
+    "ongoing": 119,
     "effects": [
       "Мышцы и профилактика саркопении: обширные МА"
     ],
@@ -9202,7 +9202,7 @@
     "code": 0,
     "verdict": "зависит от контекста",
     "category": "Критические состояния/Спорт",
-    "scienceIndex": 2062,
+    "scienceIndex": 2063,
     "metaCount": 226,
     "citations": 79,
     "wiki": 31564,
@@ -9287,7 +9287,7 @@
         "year": 2026
       }
     ],
-    "rct": 932,
+    "rct": 933,
     "pubmed_term": "(glutamine OR L-glutamine) AND (exercise OR immune OR critical illness)",
     "hedges_g_ci": [
       -0.299,
@@ -9667,7 +9667,7 @@
     "category": "Антиоксидант/Воспаление",
     "scienceIndex": 194,
     "metaCount": 19,
-    "citations": 112,
+    "citations": 113,
     "wiki": 44001,
     "ongoing": 29,
     "effects": [
@@ -9845,7 +9845,8 @@
           "Journal Article",
           "Randomized Controlled Trial"
         ],
-        "source": "auto"
+        "source": "auto",
+        "doi": "10.3389/fendo.2026.1769773"
       },
       {
         "pmid": "42751626",
@@ -9856,7 +9857,8 @@
           "Journal Article",
           "Randomized Controlled Trial"
         ],
-        "source": "auto"
+        "source": "auto",
+        "doi": "10.25122/jml-2026-0041"
       },
       {
         "pmid": "41055223",
@@ -9867,7 +9869,8 @@
           "Journal Article",
           "Randomized Controlled Trial"
         ],
-        "source": "auto"
+        "source": "auto",
+        "doi": "10.1080/01443615.2025.2564168"
       },
       {
         "pmid": "40434025",
@@ -9879,7 +9882,8 @@
           "Randomized Controlled Trial",
           "Research Support, Non-U.S. Gov't"
         ],
-        "source": "auto"
+        "source": "auto",
+        "doi": "10.1080/27697061.2025.2510474"
       },
       {
         "pmid": "38558676",
@@ -9890,7 +9894,8 @@
           "Journal Article",
           "Review"
         ],
-        "source": "auto"
+        "source": "auto",
+        "doi": "10.7759/cureus.55240"
       }
     ],
     "updated": "2026-09-22",
@@ -9907,7 +9912,7 @@
     "metaCount": 35,
     "citations": 52,
     "wiki": 1852,
-    "ongoing": 55,
+    "ongoing": 54,
     "effects": [
       "Иммунитет",
       "Усталость",
@@ -9967,7 +9972,8 @@
           "Systematic Review",
           "Meta-Analysis"
         ],
-        "source": "auto"
+        "source": "auto",
+        "doi": "10.1177/15347354241313344"
       },
       {
         "pmid": "41286474",
@@ -9980,7 +9986,8 @@
           "Meta-Analysis",
           "Research Support, Non-U.S. Gov't"
         ],
-        "source": "auto"
+        "source": "auto",
+        "doi": "10.1007/s10565-025-10115-6"
       },
       {
         "pmid": "41306775",
@@ -9991,7 +9998,8 @@
           "Journal Article",
           "Systematic Review"
         ],
-        "source": "auto"
+        "source": "auto",
+        "doi": "10.3389/fphar.2025.1699902"
       },
       {
         "pmid": "40208321",
@@ -10003,7 +10011,8 @@
           "Journal Article",
           "Meta-Analysis"
         ],
-        "source": "auto"
+        "source": "auto",
+        "doi": "10.1007/s00210-025-04074-2"
       },
       {
         "pmid": "38733903",
@@ -10015,7 +10024,8 @@
           "Meta-Analysis",
           "Systematic Review"
         ],
-        "source": "auto"
+        "source": "auto",
+        "doi": "10.1016/j.phymed.2024.155646"
       }
     ],
     "updated": "2026-09-22",
@@ -10038,7 +10048,7 @@
     "metaCount": 5,
     "citations": 179,
     "wiki": 7238,
-    "ongoing": 10,
+    "ongoing": 11,
     "effects": [
       "Тревожность",
       "Сон",
@@ -10097,7 +10107,8 @@
           "Journal Article",
           "Systematic Review"
         ],
-        "source": "auto"
+        "source": "auto",
+        "doi": "10.1002/ardp.202400053"
       },
       {
         "pmid": "32739568",
@@ -10108,7 +10119,8 @@
           "Journal Article",
           "Systematic Review"
         ],
-        "source": "auto"
+        "source": "auto",
+        "doi": "10.1016/j.jep.2020.113198"
       },
       {
         "pmid": "33101006",
@@ -10119,7 +10131,8 @@
           "Systematic Review",
           "Journal Article"
         ],
-        "source": "auto"
+        "source": "auto",
+        "doi": "10.3389/fnagi.2020.00277"
       },
       {
         "pmid": "41194549",
@@ -10130,7 +10143,8 @@
           "Journal Article",
           "Randomized Controlled Trial"
         ],
-        "source": "auto"
+        "source": "auto",
+        "doi": "10.1177/02698811251381261"
       },
       {
         "pmid": "40077679",
@@ -10141,7 +10155,8 @@
           "Journal Article",
           "Randomized Controlled Trial"
         ],
-        "source": "auto"
+        "source": "auto",
+        "doi": "10.3390/nu17050809"
       }
     ],
     "updated": "2026-09-22",
@@ -10217,7 +10232,8 @@
           "Systematic Review",
           "Journal Article"
         ],
-        "source": "auto"
+        "source": "auto",
+        "doi": "10.1002/ptr.7830"
       },
       {
         "pmid": "35378276",
@@ -10230,7 +10246,8 @@
           "Research Support, Non-U.S. Gov't",
           "Network Meta-Analysis"
         ],
-        "source": "auto"
+        "source": "auto",
+        "doi": "10.1016/j.phrs.2022.106204"
       },
       {
         "pmid": "33561990",
@@ -10241,7 +10258,8 @@
           "Journal Article",
           "Systematic Review"
         ],
-        "source": "auto"
+        "source": "auto",
+        "doi": "10.3390/nu13020530"
       },
       {
         "pmid": "33495257",
@@ -10252,7 +10270,8 @@
           "Journal Article",
           "Systematic Review"
         ],
-        "source": "auto"
+        "source": "auto",
+        "doi": "10.1136/bmjopen-2020-043363"
       },
       {
         "pmid": "33352740",
@@ -10263,7 +10282,8 @@
           "Journal Article",
           "Systematic Review"
         ],
-        "source": "auto"
+        "source": "auto",
+        "doi": "10.3390/nu12123894"
       }
     ],
     "updated": "2026-09-22",
@@ -10339,7 +10359,8 @@
           "Journal Article",
           "Systematic Review"
         ],
-        "source": "auto"
+        "source": "auto",
+        "doi": "10.3390/ijms262110631"
       },
       {
         "pmid": "35960461",
@@ -10350,7 +10371,8 @@
           "Journal Article",
           "Systematic Review"
         ],
-        "source": "auto"
+        "source": "auto",
+        "doi": "10.1007/s11011-022-01063-9"
       },
       {
         "pmid": "34449930",
@@ -10362,7 +10384,8 @@
           "Meta-Analysis",
           "Systematic Review"
         ],
-        "source": "auto"
+        "source": "auto",
+        "doi": "10.1002/ptr.7252"
       },
       {
         "pmid": "33561990",
@@ -10373,7 +10396,8 @@
           "Journal Article",
           "Systematic Review"
         ],
-        "source": "auto"
+        "source": "auto",
+        "doi": "10.3390/nu13020530"
       },
       {
         "pmid": "30806589",
@@ -10385,7 +10409,8 @@
           "Meta-Analysis",
           "Systematic Review"
         ],
-        "source": "auto"
+        "source": "auto",
+        "doi": "10.1080/08869634.2019.1581470"
       }
     ],
     "updated": "2026-09-22",
@@ -10463,7 +10488,8 @@
           "Systematic Review",
           "Meta-Analysis"
         ],
-        "source": "auto"
+        "source": "auto",
+        "doi": "10.1097/HNP.0000000000000734"
       },
       {
         "pmid": "40788541",
@@ -10476,7 +10502,8 @@
           "Network Meta-Analysis",
           "Comparative Study"
         ],
-        "source": "auto"
+        "source": "auto",
+        "doi": "10.1007/s00406-025-02082-0"
       },
       {
         "pmid": "39654196",
@@ -10488,7 +10515,8 @@
           "Meta-Analysis",
           "Systematic Review"
         ],
-        "source": "auto"
+        "source": "auto",
+        "doi": "10.1097/MD.0000000000040688"
       },
       {
         "pmid": "37325306",
@@ -10501,7 +10529,8 @@
           "Journal Article",
           "Network Meta-Analysis"
         ],
-        "source": "auto"
+        "source": "auto",
+        "doi": "10.3389/fpubh.2023.1144404"
       },
       {
         "pmid": "37008995",
@@ -10512,7 +10541,8 @@
           "Systematic Review",
           "Journal Article"
         ],
-        "source": "auto"
+        "source": "auto",
+        "doi": "10.5334/tohm.752"
       }
     ],
     "updated": "2026-09-22",
@@ -10594,7 +10624,8 @@
           "Journal Article",
           "Review"
         ],
-        "source": "auto"
+        "source": "auto",
+        "doi": "10.1080/21501203.2023.2260408"
       },
       {
         "pmid": "39170453",
@@ -10605,7 +10636,8 @@
           "Journal Article",
           "Review"
         ],
-        "source": "auto"
+        "source": "auto",
+        "doi": "10.1016/j.heliyon.2024.e35638"
       },
       {
         "pmid": "38116085",
@@ -10616,7 +10648,8 @@
           "Journal Article",
           "Review"
         ],
-        "source": "auto"
+        "source": "auto",
+        "doi": "10.3389/fphar.2023.1273786"
       },
       {
         "pmid": "37513265",
@@ -10627,7 +10660,8 @@
           "Journal Article",
           "Review"
         ],
-        "source": "auto"
+        "source": "auto",
+        "doi": "10.3390/molecules28145393"
       },
       {
         "pmid": "33947037",
@@ -10638,7 +10672,8 @@
           "Journal Article",
           "Review"
         ],
-        "source": "auto"
+        "source": "auto",
+        "doi": "10.3390/polym13091441"
       }
     ],
     "updated": "2026-09-22",
@@ -10714,7 +10749,8 @@
           "Journal Article",
           "Systematic Review"
         ],
-        "source": "auto"
+        "source": "auto",
+        "doi": "10.3389/fphar.2025.1645079"
       },
       {
         "pmid": "33876798",
@@ -10725,7 +10761,8 @@
           "Journal Article",
           "Systematic Review"
         ],
-        "source": "auto"
+        "source": "auto",
+        "doi": "10.1039/d1fo00122a"
       },
       {
         "pmid": "33309412",
@@ -10737,7 +10774,8 @@
           "Research Support, Non-U.S. Gov't",
           "Systematic Review"
         ],
-        "source": "auto"
+        "source": "auto",
+        "doi": "10.1016/j.clnu.2020.11.029"
       },
       {
         "pmid": "34375514",
@@ -10748,7 +10786,8 @@
           "Journal Article",
           "Randomized Controlled Trial"
         ],
-        "source": "auto"
+        "source": "auto",
+        "doi": "10.1615/IntJMedMushrooms.2021038773"
       },
       {
         "pmid": "33580297",
@@ -10759,7 +10798,8 @@
           "Journal Article",
           "Randomized Controlled Trial"
         ],
-        "source": "auto"
+        "source": "auto",
+        "doi": "10.1007/s00394-021-02504-4"
       }
     ],
     "updated": "2026-09-22",
@@ -10830,7 +10870,8 @@
           "Journal Article",
           "Systematic Review"
         ],
-        "source": "auto"
+        "source": "auto",
+        "doi": "10.1111/ijd.17535"
       },
       {
         "pmid": "40611279",
@@ -10842,7 +10883,8 @@
           "Network Meta-Analysis",
           "Systematic Review"
         ],
-        "source": "auto"
+        "source": "auto",
+        "doi": "10.1186/s12958-025-01409-9"
       },
       {
         "pmid": "40808693",
@@ -10853,7 +10895,8 @@
           "Journal Article",
           "Systematic Review"
         ],
-        "source": "auto"
+        "source": "auto",
+        "doi": "10.3389/fphar.2025.1619655"
       },
       {
         "pmid": "38999792",
@@ -10864,7 +10907,8 @@
           "Journal Article",
           "Systematic Review"
         ],
-        "source": "auto"
+        "source": "auto",
+        "doi": "10.3390/nu16132044"
       },
       {
         "pmid": "39150724",
@@ -10875,7 +10919,8 @@
           "Systematic Review",
           "Journal Article"
         ],
-        "source": "auto"
+        "source": "auto",
+        "doi": "10.1080/10408444.2024.2362985"
       }
     ],
     "updated": "2026-09-22",
@@ -10953,7 +10998,8 @@
           "Randomized Controlled Trial",
           "Research Support, Non-U.S. Gov't"
         ],
-        "source": "auto"
+        "source": "auto",
+        "doi": "10.1016/j.jnha.2024.100287"
       },
       {
         "pmid": "36807425",
@@ -10964,7 +11010,8 @@
           "Randomized Controlled Trial",
           "Journal Article"
         ],
-        "source": "auto"
+        "source": "auto",
+        "doi": "10.1039/d2fo01515c"
       },
       {
         "pmid": "34415830",
@@ -10976,7 +11023,8 @@
           "Journal Article",
           "Research Support, Non-U.S. Gov't"
         ],
-        "source": "auto"
+        "source": "auto",
+        "doi": "10.1080/07315724.2021.1962770"
       },
       {
         "pmid": "31860387",
@@ -10988,7 +11036,8 @@
           "Randomized Controlled Trial",
           "Research Support, Non-U.S. Gov't"
         ],
-        "source": "auto"
+        "source": "auto",
+        "doi": "10.1080/07315724.2019.1705203"
       },
       {
         "pmid": "25609689",
@@ -11000,7 +11049,8 @@
           "Randomized Controlled Trial",
           "Research Support, Non-U.S. Gov't"
         ],
-        "source": "auto"
+        "source": "auto",
+        "doi": "10.3382/ps/peu050"
       }
     ],
     "updated": "2026-09-22",
@@ -11071,7 +11121,8 @@
           "Journal Article",
           "Systematic Review"
         ],
-        "source": "auto"
+        "source": "auto",
+        "doi": "10.3389/fphar.2026.1865620"
       },
       {
         "pmid": "39490514",
@@ -11084,7 +11135,8 @@
           "Research Support, N.I.H., Extramural",
           "Research Support, Non-U.S. Gov't"
         ],
-        "source": "auto"
+        "source": "auto",
+        "doi": "10.1016/j.pnpbp.2024.111176"
       },
       {
         "pmid": "41184790",
@@ -11096,7 +11148,8 @@
           "Meta-Analysis",
           "Systematic Review"
         ],
-        "source": "auto"
+        "source": "auto",
+        "doi": "10.1186/s12888-025-07515-7"
       },
       {
         "pmid": "41275316",
@@ -11108,7 +11161,8 @@
           "Meta-Analysis",
           "Systematic Review"
         ],
-        "source": "auto"
+        "source": "auto",
+        "doi": "10.1186/s40360-025-01052-5"
       },
       {
         "pmid": "38824824",
@@ -11119,7 +11173,8 @@
           "Journal Article",
           "Systematic Review"
         ],
-        "source": "auto"
+        "source": "auto",
+        "doi": "10.1016/j.phymed.2024.155731"
       }
     ],
     "updated": "2026-09-22",
@@ -11197,7 +11252,8 @@
           "Systematic Review",
           "Research Support, Non-U.S. Gov't"
         ],
-        "source": "auto"
+        "source": "auto",
+        "doi": "10.1371/journal.pcbi.1014596"
       },
       {
         "pmid": "40425393",
@@ -11209,7 +11265,8 @@
           "Network Meta-Analysis",
           "Systematic Review"
         ],
-        "source": "auto"
+        "source": "auto",
+        "doi": "10.1016/j.joim.2025.04.008"
       },
       {
         "pmid": "40123938",
@@ -11220,7 +11277,8 @@
           "Journal Article",
           "Systematic Review"
         ],
-        "source": "auto"
+        "source": "auto",
+        "doi": "10.3389/fnut.2025.1556133"
       },
       {
         "pmid": "34080979",
@@ -11231,7 +11289,8 @@
           "Journal Article",
           "Systematic Review"
         ],
-        "source": "auto"
+        "source": "auto",
+        "doi": "10.1684/ejd.2021.4067"
       },
       {
         "pmid": "32396477",
@@ -11244,7 +11303,8 @@
           "Research Support, Non-U.S. Gov't",
           "Systematic Review"
         ],
-        "source": "auto"
+        "source": "auto",
+        "doi": "10.1089/apc.2019.0313"
       }
     ],
     "updated": "2026-09-22",
@@ -11320,7 +11380,8 @@
           "Meta-Analysis",
           "Systematic Review"
         ],
-        "source": "auto"
+        "source": "auto",
+        "doi": "10.1002/ptr.7265"
       },
       {
         "pmid": "33475054",
@@ -11331,7 +11392,8 @@
           "Journal Article",
           "Systematic Review"
         ],
-        "source": "auto"
+        "source": "auto",
+        "doi": "10.2174/0929867328666210121123037"
       },
       {
         "pmid": "24166097",
@@ -11343,7 +11405,8 @@
           "Journal Article",
           "Systematic Review"
         ],
-        "source": "auto"
+        "source": "auto",
+        "doi": "10.1002/jsfa.6458"
       },
       {
         "pmid": "18047444",
@@ -11354,7 +11417,8 @@
           "Journal Article",
           "Systematic Review"
         ],
-        "source": "auto"
+        "source": "auto",
+        "doi": "10.1089/acm.2006.6387"
       },
       {
         "pmid": "12663610",
@@ -11365,11 +11429,258 @@
           "Journal Article",
           "Systematic Review"
         ],
-        "source": "auto"
+        "source": "auto",
+        "doi": "10.2337/diacare.26.4.1277"
       }
     ],
     "updated": "2026-09-22",
     "rct": 14,
     "pubmed_term": "(Gymnema sylvestre) AND (glucose OR diabetes)"
+  },
+  {
+    "id": "B1",
+    "name": "B1",
+    "code": 0,
+    "verdict": "зависит от контекста",
+    "category": "Неврология/Метаболизм",
+    "scienceIndex": 710,
+    "metaCount": 64,
+    "citations": 870,
+    "wiki": null,
+    "ongoing": null,
+    "effects": [
+      "Нейропатия",
+      "Алкогольная нейропатия"
+    ],
+    "dosage": "В абстрактах дозы не приводятся; в МА использовались B-комплексы с тиамином — дозировка требует сверки с полным текстом.",
+    "course": "Недели-месяцы, параллельно устранению причины (отказ от алкоголя).",
+    "caution": "В обычных дозах тиамин безопасен; ESPEN указывает на важность корректной оценки статуса; при алкогольной нейропатии ключевое — отказ от алкоголя.",
+    "forms": null,
+    "mechs": [
+      [
+        "Восполнение B1 при дефиците: кофермент энергетического метаболизма нервной ткани",
+        "улучшение симптомов периферической нейропатии (OR 5.34)",
+        "слабо"
+      ],
+      [
+        "B-комплекс с тиамином при алкогольной полинейропатии",
+        "облегчение сенсорной нейропатии у хронических потребителей алкоголя",
+        "контекст"
+      ],
+      [
+        "Лечение B-витаминами без учёта исходного статуса (общий пул РКИ)",
+        "тренд к улучшению без статистической значимости (OR 2.58)",
+        "контекст"
+      ]
+    ],
+    "interactions": [
+      {
+        "with": "нет данных",
+        "severity": "low",
+        "note": "известных взаимодействий нет"
+      }
+    ],
+    "about": "Тиамин (B1) — витамин нервной ткани: при периферической нейропатии, включая алкогольную, лечение B1 улучшает симптомы; у здоровых без дефицита данных нет.",
+    "who_needs": "Хронические потребители алкоголя (риск нейропатии 46.3%); пациенты с периферической нейропатией — улучшение симптомов (OR 5.34); при нормальном статусе B1 доказательств нет.",
+    "onset": "Курсом — недели: при нейропатии лечение B1 значимо улучшало симптомы (МА 2021); острого эффекта, как у стимуляторов, нет.",
+    "upper_limit": "не установлен (в абстрактах не приводится)",
+    "food_sources": "Цельнозерновые крупы, бобовые, свинина, орехи, дрожжи; при алкоголизме и термообработке усвоение падает.",
+    "guidelines": "СР 2019: при алкогольной полинейропатии — B-комплекс с тиамином. МА 2021: B1 улучшает симптомы (OR 5.34 [1.87-15.19]). ESPEN 2022: контроль микронутриентного статуса.",
+    "how_to_choose": "Бенфотиамин или тиамин в B-комплексе; доза — по подтверждённому дефициту; при алкоголизме профилактика от недостатка, а не «на всякий случай».",
+    "myths": "«B1 прокачивает здоровый мозг» — в МА 2021 эффект лишь у пациентов с нейропатией (n=3). «Алкоголику витаминов хватает» — нейропатия при алкоголизме у 46%. «Чем больше, тем лучше» — статус проверяют, не мегадозы.",
+    "hedges_g": -0.373,
+    "grade": "C",
+    "key_sources": [
+      {
+        "pmid": "33619867",
+        "doi": "10.1111/ene.14786",
+        "title": "Association between neuropathy and B-vitamins: A systematic review and meta-analysis.",
+        "year": 2021,
+        "journal": "European journal of neurology"
+      },
+      {
+        "pmid": "30467601",
+        "doi": "10.1007/s00415-018-9123-1",
+        "title": "Alcohol-related peripheral neuropathy: a systematic review and meta-analysis.",
+        "year": 2019,
+        "journal": "Journal of neurology"
+      },
+      {
+        "pmid": "35365361",
+        "doi": "10.1016/j.clnu.2022.02.015",
+        "title": "ESPEN micronutrient guideline.",
+        "year": 2022,
+        "journal": "Clinical nutrition (Edinburgh, Scotland)"
+      }
+    ],
+    "updated": "2026-09-23",
+    "rct": 390,
+    "pubmed_term": "(thiamine OR vitamin B1) AND (deficiency OR neuropathy OR cognition)",
+    "hedges_g_ci": [
+      -0.619,
+      -0.128
+    ],
+    "hedges_g_outcome": "",
+    "hedges_g_pmid": "38265393"
+  },
+  {
+    "id": "Холин",
+    "name": "Холин",
+    "code": 0,
+    "verdict": "зависит от контекста",
+    "category": "Когниция",
+    "scienceIndex": 2362,
+    "metaCount": 194,
+    "citations": 54,
+    "wiki": null,
+    "ongoing": null,
+    "effects": [
+      "Когниция",
+      "Нервная трубка плода",
+      "Функция и поведение"
+    ],
+    "dosage": "В абстрактах дозировки не указаны; α-GPC в клинике — сотни мг/сут (сверка с полным текстом).",
+    "course": "Курс — недели-месяцы; устойчивый эффект описан в сочетании с донепезилом.",
+    "caution": "В абстрактах безопасность отдельно не разбиралась; в ряде стран α-GPC — лекарственное средство (МА 2023); при беременности доза — по рекомендациям врача.",
+    "forms": null,
+    "mechs": [
+      [
+        "α-GPC — предшественник фосфатидилхолина и ацетилхолина",
+        "улучшение когнитивных исходов (MD 1.72 с донепезилом)",
+        "умеренно"
+      ],
+      [
+        "Холин в метаболизме фолата и развитии нервной трубки",
+        "ниже риск дефектов нервной трубки при достаточном приёме",
+        "слабо"
+      ],
+      [
+        "Комбинация с ингибитором холинэстеразы у пациентов с нейрокогнитивными расстройствами",
+        "лучше функция и поведение (MD 0.79, −7.61)",
+        "контекст"
+      ]
+    ],
+    "interactions": [
+      {
+        "with": "нет данных",
+        "severity": "low",
+        "note": "известных взаимодействий нет"
+      }
+    ],
+    "about": "Холин — источник ацетилхолина и метильных групп: α-GPC улучшает когниции при возрастных/сосудистых расстройствах (МА 2023), в беременности — для мозга плода.",
+    "who_needs": "Взрослые с когнитивными нарушениями (сосудистые/возрастные) — α-GPC; беременные и кормящие с низким холином в рационе; у здоровых с нормальным статусом доказательств нет.",
+    "onset": "МА 2023: эффект на когниции — при курсе (недели-месяцы), особенно в сочетании с донепезилом; острого действия у здоровых не показано.",
+    "upper_limit": "не установлен (в абстрактах не приводится)",
+    "food_sources": "Желток яйца, печень, мясо, соя; при растительных рационах холина часто не хватает — особенно в беременности (SR 2025).",
+    "guidelines": "МА 2023 (7 РКИ): α-GPC + донепезил — когниции MD 1.72 [0.20-3.25], поведение MD −7.61; SR 2025: холин в беременности — ниже риск дефектов нервной трубки.",
+    "how_to_choose": "По данным — форма α-GPC; в беременности доза — по рекомендациям врача; у здоровых полагаться на отсутствие доказательств для когниций.",
+    "myths": "«Холин делает всех умнее» — в МА 2023 эффект у пациентов с когнитивными расстройствами. «Соевого лецитина хватает» — формы разные, данные в основном по α-GPC. «Норму даёт еда» — беременные недобирают холин (SR 2025).",
+    "hedges_g": 0.23,
+    "grade": "C",
+    "key_sources": [
+      {
+        "pmid": "36683513",
+        "doi": "10.3233/JAD-221189",
+        "title": "Activity of Choline Alphoscerate on Adult-Onset Cognitive Dysfunctions: A Systematic Review and Meta-Analysis.",
+        "year": 2023,
+        "journal": "Journal of Alzheimer's disease : JAD"
+      },
+      {
+        "pmid": "40362867",
+        "doi": "10.3390/nu17091558",
+        "title": "Choline in Pregnancy and Lactation: Essential Knowledge for Clinical Practice.",
+        "year": 2025,
+        "journal": "Nutrients"
+      }
+    ],
+    "updated": "2026-09-23",
+    "rct": 1392,
+    "pubmed_term": "(choline) AND (cognition OR liver OR pregnancy)",
+    "hedges_g_ci": [
+      0.12,
+      0.33
+    ],
+    "hedges_g_outcome": "",
+    "hedges_g_pmid": "42108701"
+  },
+  {
+    "id": "EPA",
+    "name": "EPA",
+    "code": 1,
+    "verdict": "работает",
+    "category": "Сердце/сосуды",
+    "scienceIndex": 4195,
+    "metaCount": 414,
+    "citations": 494,
+    "wiki": null,
+    "ongoing": null,
+    "effects": [
+      "Депрессия",
+      "Триглицериды",
+      "Кардиориск"
+    ],
+    "dosage": "Депрессия: EPA ≤1 г/сут (формы с EPA ≥60%); липиды: общая доза омега-3 >2 г/сут.",
+    "course": "Курс — недели-месяцы; снижение триглицеридов держится на фоне приёма.",
+    "caution": "Безопасность высоких доз в абстрактах не разбиралась; на фоне антикоагулянтов и высоких доз (>2-4 г/сут) — консультация врача.",
+    "forms": null,
+    "mechs": [
+      [
+        "EPA ≥60%: противовоспалительная модуляция при депрессии",
+        "снижение симптомов депрессии (SMD −0.28, EPA-pure −0.50)",
+        "умеренно"
+      ],
+      [
+        "Дозозависимое подавление синтеза триглицеридов",
+        "ТГ и не-ЛПВП — линейно при дозах >2 г/сут (90 РКИ)",
+        "сильно"
+      ],
+      [
+        "DHA-pure формулы при депрессии",
+        "значимого улучшения нет — эффект связывают с EPA",
+        "контекст"
+      ]
+    ],
+    "interactions": [
+      {
+        "with": "нет данных",
+        "severity": "low",
+        "note": "известных взаимодействий нет"
+      }
+    ],
+    "about": "EPA — омега-3 с противовоспалительным эффектом: линейно снижает триглицериды и не-ЛПВП (90 РКИ) и смягчает депрессию формулами с EPA ≥60% в дозе ≤1 г/сут.",
+    "who_needs": "Гипертриглицеридемия, особенно при ожирении — омега-3 >2 г/сут; депрессия — формулы ≥60% EPA ≤1 г/сут; эффект именно EPA: DHA-pure не показал пользы для ментальных целей.",
+    "onset": "Липиды — дозозависимо, курсом (недели) при дозах >2 г/сут; депрессия — недели-месяцы приёма, эффект по МА 2019 набегает не остро.",
+    "upper_limit": "не установлен (в абстрактах не приводится)",
+    "food_sources": "В абстрактах продукты не перечислены; стандартно — жирная рыба и рыбий жир, но доказательства относятся к добавкам с указанной дозой ЭПК.",
+    "guidelines": "МА 2023 (90 РКИ, 72 598): омега-3 линейно снижает ТГ и не-ЛПВП, отчётливо при дозах >2 г/сут; МА 2019 (26, 2160): EPA ≥60% ≤1 г/сут при депрессии (SMD −0.28).",
+    "how_to_choose": "Смотреть мг ЭПК и долю EPA ≥60%; при депрессии ≤1 г/сут EPA; при липидах >2 г/сут; избегать DHA-доминирующих формул для ментальных целей.",
+    "myths": "«Любая омега-3 одинакова» — DHA-pure депрессию не улучшал (МА 2019). «Снижает холестерин» — нет: триглицериды и не-ЛПВП, ЛПНП — J-образно. «1 г в сутки всем» — для липидов нужно больше 2 г/сут.",
+    "hedges_g": -0.75,
+    "grade": "B",
+    "key_sources": [
+      {
+        "pmid": "31383846",
+        "doi": "10.1038/s41398-019-0515-5",
+        "title": "Efficacy of omega-3 PUFAs in depression: A meta-analysis.",
+        "year": 2019,
+        "journal": "Translational psychiatry"
+      },
+      {
+        "pmid": "37264945",
+        "doi": "10.1161/JAHA.123.029512",
+        "title": "Association Between Omega-3 Fatty Acid Intake and Dyslipidemia: A Continuous Dose-Response Meta-Analysis of Randomized Controlled Trials.",
+        "year": 2023,
+        "journal": "Journal of the American Heart Association"
+      }
+    ],
+    "updated": "2026-09-23",
+    "rct": 2125,
+    "pubmed_term": "(eicosapentaenoic acid OR EPA) AND (cardiovascular OR depression)",
+    "hedges_g_ci": [
+      -1.14,
+      -0.36
+    ],
+    "hedges_g_outcome": "exercis",
+    "hedges_g_pmid": "42124047"
   }
 ]
