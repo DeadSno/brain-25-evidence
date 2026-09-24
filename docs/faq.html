@@ -20,12 +20,17 @@ try {
 </script>
 </head>
 <body>
-<header>
-  <h1><a href="index.html" style="color:inherit;text-decoration:none" title="На главную">❓ Часто задаваемые вопросы</a></h1>
-  <div class="hdr">
-    <a class="btn" href="index.html">← Назад к дашборду</a>
-    <a class="btn" href="interactions.html">🔗 Карта связей</a>
-    <button id="themeToggle">🌙 Тёмная тема</button>
+<header class="top">
+  <h1><a href="index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a> <span class="v">v<span data-version="app"></span></span></h1>
+  <div class="actions">
+    <a class="btn c-home" href="index.html">🏠 Главная</a>
+    <a class="btn c-calc" href="calculator.html">🧮 Калькулятор</a>
+    <a class="btn c-mech" href="map.html">🧩 Механизмы</a>
+    <a class="btn c-links" href="interactions.html">🔗 Связи</a>
+    <a class="btn c-atlas" href="atlas.html">🌐 Атлас</a>
+    <a class="btn c-trends" href="trends.html">📈 Тренды</a>
+    <a class="btn c-bi" href="https://brain-25-evidence.streamlit.app" target="_blank" rel="noopener">🧠 BI ↗</a>
+    <button class="btn" id="themeToggle">🌞 Светлая тема</button>
   </div>
 </header>
 
@@ -87,7 +92,7 @@ try {
 <b style="color:#ef4444">D</b> — не подтверждено: систематических данных нет или эффект не найден — Биотин, Йохимбин, Трибулус.</p>
 
 <h3>Как именно вы проверяли добавки?</h3>
-<p>По адаптированной методологии PRISMA (5 из 27 пунктов): поиск систематических обзоров и мета-анализов в PubMed → скрининг по релевантности → дедупликация → ручное чтение топ-15 абстрактов → выставление грейда и вердикта. Все 81 карточка аудита лежат в открытом виде в <code>data/processed/audit/</code> с PMID ключевых источников.</p>
+<p>По адаптированной методологии PRISMA (5 из 27 пунктов): поиск систематических обзоров и мета-анализов в PubMed → скрининг по релевантности → дедупликация → ручное чтение топ-15 абстрактов → выставление грейда и вердикта. Все 103 карточки аудита лежат в открытом виде в <code>data/processed/audit/</code> с PMID ключевых источников.</p>
 
 <h3>Почему у популярной добавки грейд D?</h3>
 <p>Популярность ≠ доказательность. Биотин «для волос и ногтей» не имеет ни одного систематического обзора с положительным исходом у здоровых людей. Йохимбин изучался в 1980-90-х, после появления виагры исследования прекратились. Грейд D — это не «добавка плохая», а «доказательств нет».</p>
@@ -99,7 +104,7 @@ try {
 
 <details class="qa">
   <summary>Как работает калькулятор?</summary>
-  <p>Выбираете добавки → задаёте вес, пол, возраст, состояние → калькулятор показывает: дозы (для weight_based — пересчитываются по весу), конфликты с лекарствами, синергии из 16 проверенных пар, предупреждения (железо у мужчин, 60+, беременность).</p>
+  <p>Выбираете добавки → задаёте вес, пол, возраст, состояние → калькулятор показывает: дозы (для weight_based — пересчитываются по весу), конфликты с лекарствами, синергии из 7 проверенных пар, предупреждения (железо у мужчин, 60+, беременность).</p>
 </details>
 
 <details class="qa">
@@ -109,7 +114,7 @@ try {
 
 <details class="qa">
   <summary>Откуда берутся дозы и конфликты?</summary>
-  <p>Дозы — из <code>dosage_parsed.json</code> (81 карточка, распарсено из поля <code>dosage</code> + ручные для 5 карточек). Конфликты — из поля <code>interactions</code> в data.json (81 карточка × до 4 пар, с severity).</p>
+  <p>Дозы — из <code>dosage_parsed.json</code> (81 из 103 карточек; для остальных — fallback по норме). Конфликты — из поля <code>interactions</code> в data.json (103 карточки, 169 пар всего, с severity).</p>
 </details>
 
 <details class="qa">
@@ -117,10 +122,28 @@ try {
   <p>Нет. Калькулятор показывает дозы из исследований и известные конфликты, но не учитывает вашу историю болезней, лекарства и анализы. Для решений — к врачу.</p>
 </details>
 
-<footer style="margin-top:2rem;padding-top:1rem;border-top:1px solid var(--border);font-size:.8rem;opacity:.75">
-  <p><a href="index.html">← Дашборд «БАДы: что работает, а что нет»</a></p>
-  <p>v<span data-version="app"></span> · источники: PubMed, OpenAlex, Wikimedia, ClinicalTrials.gov</p>
-  <p style="margin-top:.6rem;font-size:.85rem;opacity:.85">© 2026 Vladislav "DeadSno" Pereshivalov</p>
+<footer class="site-footer">
+  <p class="disc">
+    <b>⚠️ Не медицинская рекомендация.</b>
+    Сайт предоставляет данные из открытых научных источников
+    (PubMed, Europe PMC, CrossRef, OpenAlex, ClinicalTrials.gov, Wikimedia)
+    для информирования и самостоятельного образования.
+    <b>НЕ заменяет</b> консультацию, диагноз и лечение.
+    При любых сомнениях — обращайтесь к специалисту.
+  </p>
+  <p class="meta">
+    v<span data-version="app"></span> ·
+    данные на <span data-version="data"></span> ·
+    тестов: <span data-version="tests"></span>
+  </p>
+  <p class="links">
+    <a href="methodology.html">📐 Методология</a> ·
+    <a href="faq.html">❓ FAQ</a> ·
+    <a href="glossary.html">📖 Глоссарий</a> ·
+    <a href="https://github.com/DeadSno/brain-25-evidence/issues/new?title=Неточность%20в%20данных">❌ Сообщить о неточности</a> ·
+    <a href="?" onclick="location.reload(true); return false;">🔄 Обновить</a>
+  </p>
+  <p class="copy">© 2026 Vladislav "DeadSno" Pereshivalov · MIT</p>
 </footer>
 <script>
 const $ = id => document.getElementById(id);
@@ -130,6 +153,19 @@ $('themeToggle').onclick = () => {
   $('themeToggle').textContent = on ? '☀️ Светлая тема' : '🌙 Тёмная тема';
   localStorage.setItem('theme', on ? 'dark' : 'light');
 };
+</script>
+<button class="toBottom" id="toBottom" onclick="scrollTo({top:document.body.scrollHeight,behavior:'smooth'})" title="Вниз">↓</button>
+<script>
+window.addEventListener('scroll', () => {
+  const btn = document.getElementById('toBottom');
+  if (!btn) return;
+  const atBottom = window.scrollY + window.innerHeight >= document.body.scrollHeight - 100;
+  if (window.scrollY > 400 && !atBottom) {
+    btn.classList.add('show');
+  } else {
+    btn.classList.remove('show');
+  }
+});
 </script>
 </body>
 </html>

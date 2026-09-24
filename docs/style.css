@@ -645,3 +645,81 @@ header.top .v {
   font-variant: normal !important;
   letter-spacing: 0 !important;
 }
+
+/* ═══ Единый навбар (общие базовые стили) ═══ */
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin: 0 0 1rem;
+}
+.top h1 { font-size: 1.35rem; margin: 0; font-weight: 700; }
+.top h1 a { color: inherit; text-decoration: none; }
+.top .v {
+  opacity: .5;
+  font-size: .8rem;
+  font-weight: 400;
+  margin-left: .5rem;
+}
+.actions { display: flex; gap: .5rem; flex-wrap: wrap; align-items: center; }
+
+/* ═══ Кнопка «вниз» ═══ */
+.toBottom {
+  position: fixed;
+  right: 1.2rem;
+  bottom: 5rem;
+  width: 2.8rem;
+  height: 2.8rem;
+  border-radius: 50%;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  color: var(--text);
+  cursor: pointer;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0,0,0,.15);
+}
+.toBottom.show { display: flex; }
+.toBottom:hover { background: var(--border); }
+
+/* ═══ Единый футер ═══ */
+.site-footer {
+  max-width: 1200px;
+  margin: 3rem auto 1.5rem;
+  padding: 1.5rem 1.5rem 1rem;
+  border-top: 1px solid var(--border);
+  font-size: .82rem;
+  color: var(--text);
+  opacity: .85;
+  line-height: 1.55;
+}
+.site-footer p { margin: .5rem 0; }
+.site-footer .disc { opacity: .9; }
+.site-footer .meta { opacity: .7; font-size: .78rem; }
+.site-footer .links { opacity: .85; }
+.site-footer .links a { color: inherit; text-decoration: none; }
+.site-footer .links a:hover { text-decoration: underline; }
+.site-footer .copy { opacity: .6; font-size: .78rem; }
+
+/* ═══ Цветные кнопки навбара (палитра карточек главной) ═══ */
+.btn.c-home   { border-color: #64748b; background: rgba(100,116,139,.12); }
+.btn.c-calc   { border-color: #3b82f6; background: rgba(59,130,246,.12); }
+.btn.c-mech   { border-color: #10b981; background: rgba(16,185,129,.12); }
+.btn.c-links  { border-color: #f59e0b; background: rgba(245,158,11,.12); }
+.btn.c-atlas  { border-color: #8b5cf6; background: rgba(139,92,246,.12); }
+.btn.c-trends { border-color: #ec4899; background: rgba(236,72,153,.12); }
+.btn.c-bi     { border-color: #06b6d4; background: rgba(6,182,212,.12); }
+
+/* В светлой теме — чуть плотнее фон для контраста */
+body.light .btn.c-home   { background: rgba(100,116,139,.08); }
+body.light .btn.c-calc   { background: rgba(59,130,246,.08); }
+body.light .btn.c-mech   { background: rgba(16,185,129,.08); }
+body.light .btn.c-links  { background: rgba(245,158,11,.08); }
+body.light .btn.c-atlas  { background: rgba(139,92,246,.08); }
+body.light .btn.c-trends { background: rgba(236,72,153,.08); }
+body.light .btn.c-bi     { background: rgba(6,182,212,.08); }
