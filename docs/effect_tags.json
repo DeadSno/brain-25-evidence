@@ -6,6 +6,9 @@
   "Alpha-GPC": [
     "brain"
   ],
+  "B1": [
+    "brain"
+  ],
   "B12": [
     "brain",
     "blood",
@@ -28,6 +31,11 @@
   ],
   "D-манноза": [
     "urinary"
+  ],
+  "EPA": [
+    "heart",
+    "brain",
+    "mood"
   ],
   "L-Теанин": [
     "stress",
@@ -319,6 +327,9 @@
   ],
   "Хлорофилл": [
     "skin"
+  ],
+  "Холин": [
+    "brain"
   ],
   "Хром": [
     "metabolism"

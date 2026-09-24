@@ -122,4 +122,9 @@ TAGS: dict[str, list[str]] = {
     "Сульфорафан":           ["liver"],
     "MSM":                   ["joints", "skin"],
     "Гимнема":               ["metabolism", "blood"],
+
+    # ---------- v2.1 (3) ----------
+    "B1":                    ["brain"],
+    "EPA":                   ["heart", "brain", "mood"],
+    "Холин":                 ["brain"],
 }
