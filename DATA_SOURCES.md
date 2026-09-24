@@ -23,7 +23,7 @@ retmax=200
 retmode=json
 ```
 
-**Все 81 запрос:** `docs/data_pubmed_terms.json`
+**Все 120 запросов:** `docs/data_pubmed_terms.json`
 
 **ToS:** ≤3 req/s без API key, ≤10 с key, указывать `tool` + `email`.
 
@@ -39,7 +39,7 @@ retmode=json
 
 **Лицензия:** CC0.
 
-**Лимиты:** 100 000/день, 10/сек. Мы делаем ~81 запрос.
+**Лимиты:** 100 000/день, 10/сек. Мы делаем ~120 запросов.
 
 **Код:** `scripts/fetch_metrics.py`
 

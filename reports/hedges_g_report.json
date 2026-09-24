@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-09-24T04:03:31.046740+00:00",
+  "timestamp": "2026-09-24T10:14:28.926164+00:00",
   "dry_run": false,
   "cards": {
     "Бакопа": {
@@ -41,6 +41,10 @@
     "Йохимбин": {
       "status": "no_candidates"
     },
+    "Пажитник": {
+      "status": "error",
+      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=32087319&rettype=abstract&retmode=xml"
+    },
     "Трибулус": {
       "status": "no_candidates"
     },
@@ -59,24 +63,11 @@
     "Шатавари": {
       "status": "no_candidates"
     },
-    "Астрагал": {
-      "status": "error",
-      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=37274344&rettype=abstract&retmode=xml"
-    },
     "Шлемник": {
       "status": "no_candidates"
     },
     "Пассифлора": {
-      "status": "error",
-      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=17253512&rettype=abstract&retmode=xml"
-    },
-    "Мелисса": {
-      "status": "error",
-      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=42252432&rettype=abstract&retmode=xml"
-    },
-    "Лаванда": {
-      "status": "error",
-      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=37325306&rettype=abstract&retmode=xml"
+      "status": "no_candidates"
     },
     "Шиитаке": {
       "status": "no_candidates"
@@ -244,6 +235,19 @@
       ],
       "outcome": "pain",
       "pmid": "25062981",
+      "candidates_count": 1,
+      "reused_shared": false
+    },
+    "Мелисса": {
+      "status": "ok",
+      "old_g": -1.25,
+      "new_g": -1.25,
+      "ci": [
+        -2.13,
+        -0.37
+      ],
+      "outcome": "",
+      "pmid": "38588450",
       "candidates_count": 1,
       "reused_shared": false
     },
@@ -442,6 +446,58 @@
       "candidates_count": 2,
       "reused_shared": false
     },
+    "B2": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": -1.573,
+      "ci": [
+        -2.897,
+        -0.248
+      ],
+      "outcome": "",
+      "pmid": "39539159",
+      "candidates_count": 2,
+      "reused_shared": false
+    },
+    "B3": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": -0.7,
+      "ci": [
+        -1.03,
+        -0.36
+      ],
+      "outcome": "",
+      "pmid": "41876058",
+      "candidates_count": 2,
+      "reused_shared": false
+    },
+    "B5": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": -2.31,
+      "ci": [
+        -2.67,
+        -1.96
+      ],
+      "outcome": "",
+      "pmid": "34154361",
+      "candidates_count": 2,
+      "reused_shared": false
+    },
+    "Лизин": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": -0.48,
+      "ci": [
+        -0.66,
+        -0.29
+      ],
+      "outcome": "",
+      "pmid": "39862003",
+      "candidates_count": 2,
+      "reused_shared": false
+    },
     "Омега-3": {
       "status": "ok",
       "old_g": 0.21,
@@ -548,7 +604,7 @@
     },
     "B1": {
       "status": "ok",
-      "old_g": null,
+      "old_g": -0.373,
       "new_g": -0.373,
       "ci": [
         -0.619,
@@ -561,7 +617,7 @@
     },
     "Холин": {
       "status": "ok",
-      "old_g": null,
+      "old_g": 0.23,
       "new_g": 0.23,
       "ci": [
         0.12,
@@ -676,22 +732,9 @@
       "candidates_count": 4,
       "reused_shared": false
     },
-    "Пажитник": {
-      "status": "ok",
-      "old_g": 0.24,
-      "new_g": 0.24,
-      "ci": [
-        -0.04,
-        0.52
-      ],
-      "outcome": "testosterone",
-      "pmid": "37253363",
-      "candidates_count": 4,
-      "reused_shared": false
-    },
     "EPA": {
       "status": "ok",
-      "old_g": null,
+      "old_g": -0.75,
       "new_g": -0.75,
       "ci": [
         -1.14,
@@ -845,9 +888,22 @@
       "candidates_count": 5,
       "reused_shared": false
     },
-    "B12": {
+    "Витамин A": {
       "status": "ok",
-      "old_g": 0.423,
+      "old_g": null,
+      "new_g": 0.29,
+      "ci": [
+        0.004,
+        0.576
+      ],
+      "outcome": "",
+      "pmid": "41470877",
+      "candidates_count": 5,
+      "reused_shared": false
+    },
+    "B6": {
+      "status": "ok",
+      "old_g": null,
       "new_g": 0.423,
       "ci": [
         0.188,
@@ -855,6 +911,19 @@
       ],
       "outcome": "cognitive",
       "pmid": "40966571",
+      "candidates_count": 5,
+      "reused_shared": false
+    },
+    "B12": {
+      "status": "ok",
+      "old_g": 0.423,
+      "new_g": 0.33,
+      "ci": [
+        0.02,
+        0.63
+      ],
+      "outcome": "concentration",
+      "pmid": "40752545",
       "candidates_count": 6,
       "reused_shared": false
     },
@@ -910,6 +979,19 @@
       "candidates_count": 6,
       "reused_shared": false
     },
+    "Астрагал": {
+      "status": "ok",
+      "old_g": 0.47,
+      "new_g": 0.47,
+      "ci": [
+        0.31,
+        0.62
+      ],
+      "outcome": "crp",
+      "pmid": "41286474",
+      "candidates_count": 6,
+      "reused_shared": false
+    },
     "Ашваганда": {
       "status": "ok",
       "old_g": 0.6,
@@ -938,7 +1020,7 @@
     },
     "Креатин": {
       "status": "ok",
-      "old_g": -0.75,
+      "old_g": 0.46,
       "new_g": 0.46,
       "ci": [
         0.29,
@@ -974,13 +1056,26 @@
       "pmid": "41786156",
       "candidates_count": 8,
       "reused_shared": false
+    },
+    "Лаванда": {
+      "status": "ok",
+      "old_g": -0.56,
+      "new_g": -0.56,
+      "ci": [
+        -0.96,
+        -0.17
+      ],
+      "outcome": "sleep",
+      "pmid": "40600743",
+      "candidates_count": 9,
+      "reused_shared": false
     }
   },
   "totals": {
-    "found": 69,
-    "with_ci": 65,
-    "no_candidates": 24,
-    "error": 4,
+    "found": 77,
+    "with_ci": 73,
+    "no_candidates": 25,
+    "error": 1,
     "reused_shared": 0
   }
 }

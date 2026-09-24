@@ -21,7 +21,7 @@
                              ▼
         ┌────────────────────────────────────────────────────┐
         │  docs/data.json — единый источник для фронта      │
-        │  81 карточка, 484 KB                              │
+        │  103 карточки, 595 KB                              │
         │  Поля: verdict, grade, mechs, effects, dosage,    │
         │         key_sources, hedges_g, interactions,       │
         │         about, who_needs, onset, myths, ...        │
@@ -33,7 +33,7 @@
         │  • index.html       — дашборд, радар, сравнение  │
         │  • map.html         — карта механизмов           │
         │  • interactions.html — карта связей (vis-network)│
-        │  • atlas.html       — атлас 25×81                │
+        │  • atlas.html       — атлас 25×103                │
         │  • calculator.html  — калькулятор БАДов          │
         └────────────────────┬───────────────────────────────┘
                              │
@@ -47,18 +47,19 @@
 
 ### 1. Сырьё (`data/raw/`)
 
-- `pubmed_evidence.csv` — результат массового esearch по 81 запросу
-- `prices_wb_history.csv` — историческая цена WB (архив, не используется)
+- `pubmed_evidence.csv` — результат массового esearch по 103 запросам
+- `prices_wb_history.csv` — архив (не используется)
 
 ### 2. Обработка (`data/processed/`)
 
-- `evidence_scored.csv` — промежуточные оценки
-- `pubmed_v12.csv` — метрики PubMed по каждой карточке (всего_публикаций, RCT, MA)
+- `archive/pubmed_v12.csv` — метрики PubMed по каждой карточке (архив)
+- `xml_meta.json` — parsed XML из Europe PMC (funding/COI)
+- `funders_top.csv`, `countries_top.csv` — топ фандеров и стран
 
 ### 3. Публичный фронт (`docs/`)
 
-- **`data.json`** — 81 карточка, ~484 KB. Единый источник для всех страниц
-- `data_pubmed_terms.json` — поисковые запросы для PubMed (81 запрос)
+- **`data.json`** — 103 карточки, ~595 KB. Единый источник для всех страниц
+- `data_pubmed_terms.json` — поисковые запросы для PubMed (120 записей)
 - `dosage_parsed.json` — распарсенные дозы (min/max/unit/freq, weight_based)
 - `interactions_graph.json` — граф связей между добавками и лекарствами
 - `pairs.json` — рекомендуемые пары добавок (для калькулятора)
@@ -79,7 +80,7 @@ python scripts/update_all.py --apply
 
 | Шаг | Скрипт | Что делает |
 |-----|--------|------------|
-| 1 | `fetch_metrics.py --all --apply` | wiki / citations / ongoing для 81 |
+| 1 | `fetch_metrics.py --all --apply` | wiki / citations / ongoing для 103 |
 | 2 | `recalc_science_index.py --apply` | scienceIndex = RCT + 5×MA |
 | 3 | `fetch_hedges_g.py --apply` | Hedges' g из топ-MA (2 прохода) |
 | 4 | `enrich_dois.py --apply` | DOI в key_sources |
@@ -119,7 +120,7 @@ python scripts/update_all.py --apply
 | `script.js` | 926 | Main-логика index.html: карточки, модалка, графики, фильтры |
 | `calculator.html` | 777 | Калькулятор: дозы, конфликты, профили, рекомендации |
 | `interactions.html` | 764 | Vis-network граф связей |
-| `atlas.html` | 729 | Vis-network атлас 25 тегов × 81 добавка |
+| `atlas.html` | 729 | Vis-network атлас 25 тегов × 103 добавки |
 | `map.html` | 598 | Цепочки механизмов + оверлей |
 | `style.css` | 530 | Общие стили |
 | `index.html` | 362 | Дашборд |
@@ -135,8 +136,8 @@ python scripts/update_all.py --apply
 
 ### Данные
 
-- **`dosage_parsed.json`** — 81 доза, распарсено регуляркой + ручные для 5 карточек
-- **`interactions`** в `data.json` — 81 карточка × до 4 пар
+- **`dosage_parsed.json`** — 81 доза (для 22 новых — fallback), распарсено регуляркой + ручные
+- **`interactions`** в `data.json` — 103 карточки, 169 пар всего
 - **`pairs.json`** — 16 пар для рекомендаций
 - **`profiles.json`** — 8 профилей
 
