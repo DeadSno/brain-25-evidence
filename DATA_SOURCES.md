@@ -80,6 +80,52 @@ https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/{project}/{lang}
 
 **Код:** `scripts/enrich_dois.py`
 
+## 6. Europe PMC REST API
+
+**Для чего:** полные тексты статей в формате JATS XML — секции Funding, COI, Methods.
+
+**Endpoint:** `https://www.ebi.ac.uk/europepmc/webservices/rest/{PMCID}/fullTextXML`
+
+**Объём:** 5 059 полных текстов (из 11 175 PMCID)
+
+**ToS:** свободный доступ, рекомендуют email в User-Agent. Rate limit не публикуется, но вежливо — ≤2 req/s.
+
+**Код:** `scripts/fetch_europepmc.py`
+
+## 7. CrossRef REST API
+
+**Для чего:** метаданные DOI + funders (список организаций, финансировавших статью).
+
+**Endpoint:** `https://api.crossref.org/works/{DOI}`
+
+**Объём:** 33 789 статей, из них 5 135 с funders
+
+**ToS:** свободный доступ, указать `mailto` в User-Agent. Rate limit — «вежливый пул», ~50 req/s.
+
+**Код:** `scripts/fetch_funders.py`, `scripts/analyze_crossref.py`
+
+## 8. NLM Catalog (FTP)
+
+**Для чего:** аббревиатуры названий журналов → полные названия. Нужно для матчинга SCImago.
+
+**Источник:** `https://ftp.ncbi.nlm.nih.gov/pubmed/J_Medline.txt`
+
+**Объём:** 38 048 аббревиатур
+
+**Код:** `scripts/fetch_nlm_catalog.py`
+
+## 9. SCImago Journal Rank (CSV)
+
+**Для чего:** квартили Q1-Q4 для журналов.
+
+**Источник:** `https://www.scimagojr.com/journalrank.php` (годовой CSV дамп)
+
+**Объём:** 32 045 журналов
+
+**Лицензия:** CC BY-NC — только для некоммерческого использования, что ок для проекта.
+
+**Код:** `scripts/fetch_scimago.py`
+
 ## Что НЕ используем
 
 - **Cochrane Library** — платный доступ к полным обзорам
