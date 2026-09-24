@@ -1,6 +1,6 @@
 """brain-25-evidence — интерактивный дашборд.
 
-Streamlit app: 94 БАДа, 37618 papers, поиск и фильтры.
+Streamlit app: 103 БАД, 37618 papers, поиск и фильтры.
 
 Локально: streamlit run app.py
 Деплой:   https://streamlit.io/cloud → public repo → main file: app.py
@@ -46,7 +46,7 @@ def load_papers() -> pd.DataFrame:
 
 @st.cache_data(ttl=3600)
 def load_supplements() -> pd.DataFrame:
-    """94 БАДа."""
+    """103 БАД."""
     data = json.loads((ROOT / "data" / "supplements_slim.json").read_text(encoding="utf-8"))
     if isinstance(data, dict):
         rows = [{"slug": k, **v} for k, v in data.items()]
@@ -62,7 +62,7 @@ def load_sample_sizes() -> dict:
 
 def main() -> None:
     st.title("🧠 brain-25-evidence")
-    st.caption("Открытая база данных о 94 добавках на основе PubMed · 37 618 papers")
+    st.caption("Открытая база данных о 103 добавках на основе PubMed · 37 618 papers")
 
     with st.spinner("Загружаю данные..."):
         papers = load_papers()
@@ -174,7 +174,7 @@ def main() -> None:
     )
 
     # ===== БАДы =====
-    with st.expander("🔬 94 добавки — сырые данные"):
+    with st.expander("🔬 103 добавки — сырые данные"):
         st.dataframe(supplements, use_container_width=True)
 
     st.divider()
