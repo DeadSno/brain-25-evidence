@@ -901,7 +901,7 @@ async function renderCompare() {
     }
     return lo > 0 ? Math.round((lo / (vals.length - 1)) * 100) : 0;
   };
-  const BASE_FOR_PCT = supplements;   // нормировка по всей базе 81
+  const BASE_FOR_PCT = supplements;   // нормировка по всей базе 103
   const prof = s => {
     // Ось 1: Наука — перцентиль по базе
     const science = pctile(s.scienceIndex || 0, BASE_FOR_PCT.map(x => x.scienceIndex));
@@ -1050,3 +1050,49 @@ document.addEventListener('click', e => {
   const el = e.target.closest('button, .btn, .chip, .chartTab, a.cta');
   if (el) haptic(8);
 }, { passive: true });
+
+// ===== Автообновление при выходе новой версии =====
+(function () {
+  const CHECK_INTERVAL = 2 * 60 * 1000; // 2 минуты
+  const STORAGE_KEY = 'brain25_version_seen';
+
+  async function checkVersion() {
+    try {
+      const r = await fetch('version.json?_=' + Date.now(), { cache: 'no-store' });
+      if (!r.ok) return;
+      const v = await r.json();
+
+      // Считаем «слепок» из app + data — меняются при каждом релизе
+      const current = `${v.app}|${v.data}|${v.tests}`;
+      const last = localStorage.getItem(STORAGE_KEY);
+
+      if (last && last !== current) {
+        // Новая версия доступна — перезагружаем
+        console.log('[auto-update] Новая версия:', current, '(было', last + ')');
+        localStorage.setItem(STORAGE_KEY, current);
+        // Небольшая пауза, чтобы пользователь увидел уведомление
+        showUpdateToast();
+      } else if (!last) {
+        localStorage.setItem(STORAGE_KEY, current);
+      }
+    } catch (e) {
+      // тихо игнорируем — нет связи, нет version.json
+    }
+  }
+
+  function showUpdateToast() {
+    const el = document.createElement('div');
+    el.textContent = '🔄 Доступно обновление — перезагружаю…';
+    el.style.cssText = `
+      position:fixed;bottom:1rem;left:50%;transform:translateX(-50%);
+      background:#3498db;color:#fff;padding:.6rem 1.2rem;border-radius:8px;
+      font-size:.9rem;z-index:99999;box-shadow:0 4px 12px rgba(0,0,0,.3);
+    `;
+    document.body.appendChild(el);
+    setTimeout(() => location.reload(true), 1200);
+  }
+
+  // Проверяем сразу + каждые 2 минуты
+  setTimeout(checkVersion, 3000);
+  setInterval(checkVersion, CHECK_INTERVAL);
+})();
