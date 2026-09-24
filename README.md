@@ -4,9 +4,8 @@
 [![Static site](https://img.shields.io/badge/📖_Статический_сайт-GitHub_Pages-222?logo=github)](https://deadsno.github.io/brain-25-evidence/)
 [![Tests](https://github.com/DeadSno/brain-25-evidence/actions/workflows/tests.yml/badge.svg)](https://github.com/DeadSno/brain-25-evidence/actions/workflows/tests.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-v3.2.0-blue)](CHANGELOG.md)
 
-Интерактивный дашборд и карта механизмов для 81 биологически активной добавки. Вердикты по мета-анализам PubMed, механизмы, атлас, карта связей, калькулятор доз, активные клинические испытания.
+Интерактивный дашборд и карта механизмов для 103 биологически активных добавок. Вердикты по мета-анализам PubMed, механизмы, атлас, карта связей, калькулятор доз, активные клинические испытания.
 
 **🌐 Streamlit Live demo:** [brain-25-evidence.streamlit.app](https://brain-25-evidence.streamlit.app)
 
@@ -27,25 +26,25 @@ Streamlit — это витрина «сырых» данных: 37 618 papers �
 
 ---
 
-## 🎯 Аудит данных v3.2 (сентябрь 2026)
+## 🎯 Аудит данных (сентябрь 2026)
 
-81/81 добавка — полная ручная верификация по методологии PRISMA:
+103/103 добавки — полная ручная верификация по методологии PRISMA:
 
 | Грейд | Значение | Количество |
 |-------|----------|------------|
-| A | работает отлично | 8 (9.9%) |
-| B | работает | 35 (43.2%) |
-| C | зависит от контекста | 26 (32.1%) |
-| D | не подтверждено | 12 (14.8%) |
+| A | работает отлично | 8 (7.8%) |
+| B | работает | 40 (38.8%) |
+| C | зависит от контекста | 42 (40.8%) |
+| D | не подтверждено | 13 (12.6%) |
 
-**Что сделано в v3.x:**
+**Что сделано:**
 
 - **Калькулятор БАДов** — вес/пол/возраст, UL-проверка, конфликты, синергии, 8 профилей
-- **Q1.4**: adv-поля 81/81 (about, who_needs, onset, myths, food_sources, guidelines, how_to_choose)
-- **Механизмы**: 81/81, среднее 3.07 на карточку
-- **Hedges' g**: 63/81 (59 с CI), двухпроходный алгоритм без cross-matching
+- **Q1.4**: adv-поля 103/103 (about, who_needs, onset, myths, food_sources, guidelines, how_to_choose)
+- **Механизмы**: 103/103, среднее 3.02 на карточку
+- **Hedges' g**: 72/103 (68 с CI), двухпроходный алгоритм без cross-matching
 - **Аудиты q14 D1/D2**: 5 + 10 PMIDs заменены свежими, follow-up по 51 карточке
-- **DOI**: 236 key_sources обогащены через PubMed esummary
+- **DOI**: 322/325 key_sources обогащены через PubMed esummary
 - **audit_stale.py**: квартальный аудит PMIDs >5 лет (8 карточек без свежих МА — оставлены сознательно)
 - **XSS-fix**: esc() во всех точках рендера (37 мест + внутренние хелперы)
 - **Производительность**: data_index.json (48 KB vs 473 KB, ×10 быстрее)
@@ -258,24 +257,21 @@ streamlit run app.py
 
 ## Roadmap
 
-### v3.2 — ✅ текущая (21.09.2026)
+### Текущее состояние
 
-- Калькулятор БАДов — вес/пол/возраст, UL, конфликты, синергии, 8 профилей
-- Аудиты q14 D1/D2 — 5 + 10 PMIDs заменены, follow-up по 51 карточке
-- XSS-fix — `esc()` во всех точках рендера
-- Производительность — `data_index.json` (48 KB vs 473 KB, ×10)
-- SEO — sitemap 8 страниц, og-мета, robots.txt
-- Документация — ARCHITECTURE / CONTRIBUTING / DATA_SOURCES
-- CI — автозаполнение `version.json.tests`
-- Mobile — адаптив всех страниц, H1 переносится, модалка fullscreen
-- **Streamlit dashboard** — интерактивные фильтры + CSV export
+- 103 добавки, 113 тестов, 37 618 papers
+- Funders analysis (CrossRef + Europe PMC)
+- Streamlit BI + статический сайт
+- trends.html: executive summary, scatter-матрица, категории
 
-### v4.0 — план
+### Дальше
 
-- Разбивка `data.json` (полностью перейти на index+full split)
+- Досчитать Hedges' g для оставшихся карточек
+- Расширить базу до 120 добавок
 - Публичный API (`docs/api/v1/supplements.json`)
-- Расширение базы до 100+ добавок
-- Отдельные страницы под каждую добавку (SSG)
+- DWH на DuckDB + dbt
+
+Полный план — [ROADMAP.md](ROADMAP.md).
 
 ## Как помочь проекту
 
@@ -331,6 +327,6 @@ MIT — используйте данные как угодно, указыва�
 
 ---
 
-*Сделано с любопытством к доказательной медицине. v3.2.0, 21.09.2026.*
+*Сделано с любопытством к доказательной медицине. 2026.*
 
 © 2026 Vladislav "DeadSno" Pereshivalov · [Открытые данные без медицинских рекомендаций](https://deadsno.github.io/brain-25-evidence/) (манифест проекта).
