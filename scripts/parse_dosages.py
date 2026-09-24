@@ -87,6 +87,21 @@ def parse_dosage(text: str) -> dict | None:
                 unit = ucanon
                 break
 
+    # 5. Множитель частоты: "2 раза/сут" → ×2, "2-3 раза/сут" → ×(2..3)
+    m_range_times = re.search(
+        r"(\d+)\s*[-–]\s*(\d+)\s*раз(?:а)?\s*/\s*сут", lower
+    )
+    m_single_times = re.search(
+        r"(?<![-\d.])(\d+)\s*раз(?:а)?\s*/\s*сут", lower
+    )
+    if m_range_times:
+        mn *= float(m_range_times.group(1))
+        mx *= float(m_range_times.group(2))
+    elif m_single_times:
+        t = float(m_single_times.group(1))
+        mn *= t
+        mx *= t
+
     return {
         "min": mn * mult,
         "max": mx * mult,
