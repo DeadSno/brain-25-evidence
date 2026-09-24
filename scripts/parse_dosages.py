@@ -71,19 +71,23 @@ def parse_dosage(text: str) -> dict | None:
             return None
         mn = mx = float(single.group(1).replace(",", "."))
 
-    # 4. Единица — ищем сразу после чисел
+    # 4. Единица — ищем сразу после чисел (в первой клаузе до запятой)
     unit = None
-    # Проверяем после диапазона
-    after = text[range_match.end() if range_match else 0:]
+    after_full = text[range_match.end() if range_match else 0:]
+    # отсекаем по первой запятой/точке с запятой, чтобы не подхватить
+    # "или ... 100-200 г брокколи" из второй части
+    after = re.split(r"[,;.]\s", after_full, maxsplit=1)[0]
     for uname, ucanon in UNITS.items():
         if re.search(rf"\b{re.escape(uname)}\b", after[:30], re.IGNORECASE):
             unit = ucanon
             break
 
-    # Fallback — общий поиск единицы в строке
+    # Fallback — ищем единицу ТОЛЬКО до первой запятой/точки с запятой,
+    # чтобы не подхватить единицу из второй части ("или ... 100-200 г")
     if not unit:
+        first_clause = re.split(r"[,;.]\s", text, maxsplit=1)[0]
         for uname, ucanon in UNITS.items():
-            if re.search(rf"\b{re.escape(uname)}\b", text, re.IGNORECASE):
+            if re.search(rf"\b{re.escape(uname)}\b", first_clause, re.IGNORECASE):
                 unit = ucanon
                 break
 
