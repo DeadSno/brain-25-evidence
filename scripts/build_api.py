@@ -118,7 +118,6 @@ def main() -> int:
     print(f"[OK] docs/api/v1/index.json")
     print(f"     Грейды: {dict(grades)}")
     print(f"     Атомарных категорий: {len(cats_atomic)}")
-    print(f"     Составных категорий: {len(cats_combined)}")
     return 0
 
 
