@@ -29,7 +29,7 @@ ENRICH_FIELDS = [
     "about", "who_needs", "onset", "myths",
     "food_sources", "guidelines", "how_to_choose",
     # структура
-    "effects", "mechs", "key_sources",
+    "effects", "mechs", "key_sources", "interactions",
 ]
 
 # Валидация длин adv-полей (совпадает с apply_adv.py)

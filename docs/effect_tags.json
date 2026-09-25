@@ -6,6 +6,10 @@
   "Alpha-GPC": [
     "brain"
   ],
+  "B. lactis": [
+    "gut",
+    "immunity"
+  ],
   "B1": [
     "brain"
   ],
@@ -49,10 +53,17 @@
   "D-манноза": [
     "urinary"
   ],
+  "DHA": [
+    "brain",
+    "heart"
+  ],
   "EPA": [
     "heart",
     "brain",
     "mood"
+  ],
+  "GLA": [
+    "skin"
   ],
   "HMB": [
     "muscle",
@@ -71,6 +82,10 @@
     "muscle",
     "energy"
   ],
+  "LGG": [
+    "gut",
+    "immunity"
+  ],
   "MSM": [
     "joints",
     "skin"
@@ -86,6 +101,10 @@
   "PQQ": [
     "brain",
     "energy"
+  ],
+  "S. boulardii": [
+    "gut",
+    "immunity"
   ],
   "SAMe": [
     "mood"
