@@ -844,7 +844,7 @@ function radarFill(ctx) {
   if (!chartArea) return 'rgba(52,152,219,.25)';
   const cx = (chartArea.left + chartArea.right) / 2, cy = (chartArea.top + chartArea.bottom) / 2;
   const g = c.createRadialGradient(cx, cy, 8, cx, cy, Math.max(chartArea.width, chartArea.height) / 2);
-  g.addColorStop(0, 'rgba(46,204,113,.38)');
+  g.addColorStop(0, 'rgba(46,204,130,.38)');
   g.addColorStop(1, 'rgba(52,152,219,.12)');
   return g;
 }
@@ -901,7 +901,7 @@ async function renderCompare() {
     }
     return lo > 0 ? Math.round((lo / (vals.length - 1)) * 100) : 0;
   };
-  const BASE_FOR_PCT = supplements;   // нормировка по всей базе 103
+  const BASE_FOR_PCT = supplements;   // нормировка по всей базе 130
   const prof = s => {
     // Ось 1: Наука — перцентиль по базе
     const science = pctile(s.scienceIndex || 0, BASE_FOR_PCT.map(x => x.scienceIndex));

@@ -5,7 +5,7 @@
 
 ## Проект
 
-**brain-25-evidence** — открытая база о **113 БАДах** (цель 130-200).
+**brain-25-evidence** — открытая база о **130 БАДах** (цель 130-200).
 - Live: https://deadsno.github.io/brain-25-evidence/
 - BI:   https://brain-25-evidence.streamlit.app
 - Repo: https://github.com/DeadSno/brain-25-evidence
