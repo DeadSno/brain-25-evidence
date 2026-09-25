@@ -161,4 +161,13 @@ TAGS: dict[str, list[str]] = {
     "Калий":                 ["heart", "blood"],
     "Марганец":              ["bones"],
     "Медь":                  ["immunity", "blood"],
+
+    # ---------- v2.7 (batch 17c) ----------
+    "PABA":                  ["skin"],
+    "Аланин":                ["muscle"],
+    "Майтаке":               ["immunity"],
+    "Метионин":              ["metabolism"],
+    "Орнитин":               ["metabolism", "muscle"],
+    "Пролин":                ["joints", "skin"],
+    "Серин":                 ["brain"],
 }

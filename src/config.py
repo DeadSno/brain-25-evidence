@@ -73,7 +73,7 @@ SUPPLEMENTS = {
     "Молибден":                    "molybdenum",
     "Витамин K1":                  "phylloquinone OR vitamin K1",
     "Ниацинамид":                  "niacinamide",
-    "PABA":                        "PABA supplementation",
+    "PABA":                        "PABA OR para-aminobenzoic acid",
     "Цистеин":                     "cysteine",
     "Пролин":                      "proline supplementation",
     "Серин":                       "L-serine supplementation",

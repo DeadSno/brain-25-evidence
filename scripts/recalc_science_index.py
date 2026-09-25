@@ -40,6 +40,8 @@ BASE_RE = re.compile(r"^(.*?)\s+AND\s+\(", re.IGNORECASE)
 EXPLICIT_BASE = {
     "Клюква": "(Vaccinium macrocarpon OR cranberry supplementation) AND (urinary tract infection)",
     "Кремний": "((choline stabilized orthosilicic acid) OR (silicon supplementation))",
+    "Серин": '("L-serine supplementation")',
+    "Аланин": '(("L-alanine supplementation") OR ("alpha-alanine"))',
 }
 
 

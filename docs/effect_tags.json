@@ -98,6 +98,9 @@
     "brain",
     "muscle"
   ],
+  "PABA": [
+    "skin"
+  ],
   "PQQ": [
     "brain",
     "energy"
@@ -108,6 +111,9 @@
   ],
   "SAMe": [
     "mood"
+  ],
+  "Аланин": [
+    "muscle"
   ],
   "Альфа-липоевая кислота": [
     "brain",
@@ -321,6 +327,9 @@
     "stress",
     "heart"
   ],
+  "Майтаке": [
+    "immunity"
+  ],
   "Мака": [
     "hormones"
   ],
@@ -339,6 +348,9 @@
     "stress",
     "brain"
   ],
+  "Метионин": [
+    "metabolism"
+  ],
   "Молибден": [
     "metabolism"
   ],
@@ -349,6 +361,10 @@
   "Омега-3": [
     "brain",
     "heart"
+  ],
+  "Орнитин": [
+    "metabolism",
+    "muscle"
   ],
   "Пажитник": [
     "metabolism",
@@ -364,6 +380,10 @@
   "Пробиотики": [
     "gut",
     "immunity"
+  ],
+  "Пролин": [
+    "joints",
+    "skin"
   ],
   "Псиллиум": [
     "heart",
@@ -396,6 +416,9 @@
   "Селен": [
     "immunity",
     "hormones"
+  ],
+  "Серин": [
+    "brain"
   ],
   "Сульфорафан": [
     "liver"
