@@ -1,0 +1,55 @@
+{
+  "total_files": 11934,
+  "files_by_type": {
+    "xml": 7918,
+    "txt": 4016
+  },
+  "coi": {
+    "declared_yes": 13,
+    "declared_none": 118,
+    "unclear": 70,
+    "missing": 11733,
+    "declared_total": 201,
+    "yes_share_of_declared_pct": 6.47
+  },
+  "funding": {
+    "has_funding_section": 3044,
+    "pct": 25.51
+  },
+  "pharma_mention": {
+    "count": 135,
+    "pct": 1.13
+  },
+  "top_funders": {
+    "National Natural Science Foundation of China": 68,
+    "National Institutes of Health": 40,
+    "National Heart, Lung, and Blood Institute : NHLBI": 30,
+    "National Natural Science Foundation of China  10.13039/501100001809": 27,
+    "NIH": 24,
+    "National Cancer Institute : NCI": 21,
+    "National Institute of Diabetes and Digestive and Kidney Diseases : NIDDK": 21,
+    "National Institutes of Health  10.13039/100000002": 20,
+    "National Institute on Aging : NIA": 18,
+    "National Institute on Alcohol Abuse and Alcoholism : NIAAA": 16,
+    "National Institute of Child Health &amp; Human Development : NICHD": 13,
+    "National Heart, Lung, and Blood Institute  : NHLBI": 13,
+    "National Institute of General Medical Sciences : NIGMS": 12,
+    "National Center for Complementary and Alternative Medicine : NCCAM": 11,
+    "Canadian Institutes of Health Research  10.13039/501100000024": 11,
+    "10.13039/501100001809  National Natural Science Foundation of China": 11,
+    "National Center for Research Resources : NCRR": 10,
+    "National Cancer Institute  : NCI": 10,
+    "National Eye Institute : NEI": 10,
+    "National Key Research and Development Program of China": 10,
+    "National Key R&amp;D Program of China": 10,
+    "National Institute of Neurological Disorders and Stroke : NINDS": 9,
+    "National Institute of Mental Health : NIMH": 9,
+    "National Natural Science Foundation of China\n  10.13039/501100001809": 9,
+    "http://dx.doi.org/10.13039/501100001809  National Natural Science Foundation of China": 8,
+    "NIH  10.13039/100000002": 8,
+    "National Institute of Allergy and Infectious Diseases Extramural Activities : NIAID": 7,
+    "National Center for Complementary and Alternative Medicine  : NCCAM": 7,
+    "Conselho Nacional de Desenvolvimento Científico e Tecnológico": 7,
+    "National Institute on Drug Abuse : NIDA": 6
+  }
+}
