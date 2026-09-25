@@ -12,6 +12,7 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+import random
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
@@ -25,7 +26,10 @@ OUT_DIR = ROOT / "data" / "pmc"
 TEXT_DIR = OUT_DIR / "text"
 INDEX = OUT_DIR / "index.json"
 
-API = "https://www.ebi.ac.uk/europepmc/webservices/rest"
+EBI_API = "https://www.ebi.ac.uk/europepmc/webservices/rest"
+NCBI_API = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi"
+EMAIL = "deadsno1613@gmail.com"
+TOOL = "brain-25-evidence"
 MIN_SIZE = 500  # минимальный размер XML в байтах
 
 SESSION = requests.Session()
@@ -34,21 +38,67 @@ SESSION.headers.update({
 })
 
 
-def fetch_fulltext(pmcid: str) -> tuple[str | None, str]:
-    """Скачивает XML. HTTP 500 = статья не в OA — не retry'им."""
-    url = f"{API}/{pmcid}/fullTextXML"
-    params = {"email": "deadsno1613@gmail.com", "tool": "brain-25-evidence"}
+def _fetch_ebi(pmcid: str) -> tuple[str | None, str]:
+    """EBI Europe PMC. Быстро, но 500 на части PMCID."""
+    url = f"{EBI_API}/{pmcid}/fullTextXML"
+    params = {"email": EMAIL, "tool": TOOL}
     try:
         r = SESSION.get(url, params=params, timeout=30)
     except requests.RequestException as e:
-        return None, f"http_{type(e).__name__}"
+        return None, f"ebi_{type(e).__name__}"
 
     if r.status_code == 200:
         xml = r.text.strip()
         if len(xml) < MIN_SIZE:
-            return None, "too_small"
+            return None, "ebi_too_small"
         return xml, ""
-    return None, f"http_{r.status_code}"
+    return None, f"ebi_http_{r.status_code}"
+
+
+def _fetch_ncbi(pmcid: str) -> tuple[str | None, str]:
+    """NCBI efetch — fallback, работает там где EBI 500."""
+    num = pmcid.replace("PMC", "")
+    params = {
+        "db": "pmc",
+        "id": num,
+        "rettype": "xml",
+        "retmode": "xml",
+        "email": EMAIL,
+        "tool": TOOL,
+    }
+    try:
+        r = SESSION.get(NCBI_API, params=params, timeout=30)
+    except requests.RequestException as e:
+        return None, f"ncbi_{type(e).__name__}"
+
+    if r.status_code != 200:
+        return None, f"ncbi_http_{r.status_code}"
+
+    xml = r.text.strip()
+    if len(xml) < MIN_SIZE:
+        return None, "ncbi_too_small"
+    if "<ERROR>" in xml[:2000] or "cannot be found" in xml[:2000]:
+        return None, "ncbi_not_in_oa"
+    return xml, ""
+
+
+def fetch_fulltext(pmcid: str) -> tuple[str | None, str]:
+    """Каскад: EBI → NCBI. Нормализация PMCID от NBSP/zero-width."""
+    pmcid = (pmcid.strip()
+             .replace("\u00a0", "")
+             .replace("\u200b", "")
+             .replace("\ufeff", ""))
+
+    xml, err_ebi = _fetch_ebi(pmcid)
+    if xml:
+        return xml, ""
+
+    time.sleep(random.uniform(0.3, 0.6))
+    xml, err_ncbi = _fetch_ncbi(pmcid)
+    if xml:
+        return xml, ""
+
+    return None, f"{err_ebi}|{err_ncbi}"
 
 
 def process_one(pmid: str, pmcid: str) -> dict:
@@ -87,8 +137,7 @@ def main() -> int:
         rec = index.get(pmid, {})
         if rec.get("status") == "ok":
             continue
-        if rec.get("type") == "europepmc":
-            continue
+        # Failed'ы пересматриваются через каскад
         tasks.append((pmid, pmcid))
 
     if args.limit:
