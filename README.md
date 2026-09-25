@@ -3,6 +3,7 @@
 [![Streamlit Live](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://brain-25-evidence.streamlit.app)
 [![Static site](https://img.shields.io/badge/📖_Статический_сайт-GitHub_Pages-222?logo=github)](https://deadsno.github.io/brain-25-evidence/)
 [![Tests](https://github.com/DeadSno/brain-25-evidence/actions/workflows/tests.yml/badge.svg)](https://github.com/DeadSno/brain-25-evidence/actions/workflows/tests.yml)
+![Postman](https://github.com/DeadSno/brain-25-evidence/actions/workflows/postman.yml/badge.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 Интерактивный дашборд и карта механизмов для 130 биологически активных добавок. Вердикты по мета-анализам PubMed, механизмы, атлас, карта связей, калькулятор доз, активные клинические испытания.

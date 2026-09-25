@@ -245,3 +245,6 @@ reports/ui/*.png
 reports/q14_batch_*.md
 reports/mechs_batch_*.md
 data/db/
+.postman/
+postman/
+*.postman_environment.json
