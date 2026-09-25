@@ -39,7 +39,7 @@ BASE_RE = re.compile(r"^(.*?)\s+AND\s+\(", re.IGNORECASE)
 # (составные запросы с 2+ AND-группами)
 EXPLICIT_BASE = {
     "Клюква": "(Vaccinium macrocarpon OR cranberry supplementation) AND (urinary tract infection)",
-    # добавляется по результатам диагностики
+    "Кремний": "((choline stabilized orthosilicic acid) OR (silicon supplementation))",
 }
 
 

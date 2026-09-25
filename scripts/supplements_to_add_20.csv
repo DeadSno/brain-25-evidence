@@ -1,0 +1,11 @@
+name,term,category,query,code
+Селен,selenium,Общее,(selenium) AND (thyroid OR antioxidant OR cancer),0
+Йод,iodine,Гормоны,(iodine) AND (thyroid OR deficiency),0
+Молибден,molybdenum,Общее,(molybdenum) AND (deficiency OR metabolism),0
+Витамин K1,phylloquinone OR vitamin K1,Кости/Иммунитет,(phylloquinone OR vitamin K1) AND (blood OR bone),0
+Ниацинамид,niacinamide,Кожа и суставы,(niacinamide) AND (skin OR NAD OR acne),0
+PABA,"para-aminobenzoic acid OR PABA",Общее,(PABA OR para-aminobenzoic acid),0
+Цистеин,cysteine,Общее,(cysteine) AND (glutathione OR antioxidant),0
+Пролин,proline,Кожа и суставы,(proline) AND (collagen OR wound),0
+Серин,serine,Неврология/Метаболизм,(serine) AND (neurotransmitter OR brain),0
+Аланин,alanine,Спорт,(alanine) AND (muscle OR glucose),0
