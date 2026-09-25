@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-09-24T10:14:28.926164+00:00",
+  "timestamp": "2026-09-25T06:28:21.415884+00:00",
   "dry_run": false,
   "cards": {
     "Бакопа": {
@@ -41,10 +41,6 @@
     "Йохимбин": {
       "status": "no_candidates"
     },
-    "Пажитник": {
-      "status": "error",
-      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=32087319&rettype=abstract&retmode=xml"
-    },
     "Трибулус": {
       "status": "no_candidates"
     },
@@ -79,6 +75,12 @@
       "status": "no_candidates"
     },
     "Гимнема": {
+      "status": "no_candidates"
+    },
+    "Кремний": {
+      "status": "no_candidates"
+    },
+    "Молибден": {
       "status": "no_candidates"
     },
     "Тирозин": {
@@ -264,6 +266,45 @@
       "candidates_count": 1,
       "reused_shared": false
     },
+    "Селен": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": 0.35,
+      "ci": [
+        0.02,
+        0.68
+      ],
+      "outcome": "",
+      "pmid": "41946026",
+      "candidates_count": 1,
+      "reused_shared": false
+    },
+    "Витамин K1": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": -0.22,
+      "ci": [
+        -1.92,
+        -0.07
+      ],
+      "outcome": "hba1c",
+      "pmid": "41599883",
+      "candidates_count": 1,
+      "reused_shared": false
+    },
+    "Цистеин": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": -1.75,
+      "ci": [
+        -2.19,
+        -1.3
+      ],
+      "outcome": "",
+      "pmid": "41546714",
+      "candidates_count": 1,
+      "reused_shared": false
+    },
     "Магний": {
       "status": "ok",
       "old_g": -0.67,
@@ -306,13 +347,13 @@
     "NAC": {
       "status": "ok",
       "old_g": -1.75,
-      "new_g": -1.75,
+      "new_g": -0.43,
       "ci": [
-        -2.19,
-        -1.3
+        -0.71,
+        -0.16
       ],
       "outcome": "",
-      "pmid": "41546714",
+      "pmid": "40945815",
       "candidates_count": 2,
       "reused_shared": false
     },
@@ -448,7 +489,7 @@
     },
     "B2": {
       "status": "ok",
-      "old_g": null,
+      "old_g": -1.573,
       "new_g": -1.573,
       "ci": [
         -2.897,
@@ -461,7 +502,7 @@
     },
     "B3": {
       "status": "ok",
-      "old_g": null,
+      "old_g": -0.7,
       "new_g": -0.7,
       "ci": [
         -1.03,
@@ -474,7 +515,7 @@
     },
     "B5": {
       "status": "ok",
-      "old_g": null,
+      "old_g": -2.31,
       "new_g": -2.31,
       "ci": [
         -2.67,
@@ -487,7 +528,7 @@
     },
     "Лизин": {
       "status": "ok",
-      "old_g": null,
+      "old_g": -0.48,
       "new_g": -0.48,
       "ci": [
         -0.66,
@@ -495,6 +536,19 @@
       ],
       "outcome": "",
       "pmid": "39862003",
+      "candidates_count": 2,
+      "reused_shared": false
+    },
+    "Ниацинамид": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": -0.03,
+      "ci": [
+        -0.13,
+        0.06
+      ],
+      "outcome": "",
+      "pmid": "39854748",
       "candidates_count": 2,
       "reused_shared": false
     },
@@ -628,6 +682,19 @@
       "candidates_count": 3,
       "reused_shared": false
     },
+    "Йод": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": -0.14,
+      "ci": [
+        -0.23,
+        -0.05
+      ],
+      "outcome": "",
+      "pmid": "42359139",
+      "candidates_count": 3,
+      "reused_shared": false
+    },
     "Витамин D": {
       "status": "ok",
       "old_g": 0.13,
@@ -732,6 +799,19 @@
       "candidates_count": 4,
       "reused_shared": false
     },
+    "Пажитник": {
+      "status": "ok",
+      "old_g": 0.24,
+      "new_g": 0.24,
+      "ci": [
+        -0.04,
+        0.52
+      ],
+      "outcome": "testosterone",
+      "pmid": "37253363",
+      "candidates_count": 4,
+      "reused_shared": false
+    },
     "EPA": {
       "status": "ok",
       "old_g": -0.75,
@@ -742,6 +822,32 @@
       ],
       "outcome": "exercis",
       "pmid": "42124047",
+      "candidates_count": 4,
+      "reused_shared": false
+    },
+    "Карнозин": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": -0.53,
+      "ci": [
+        -0.75,
+        -0.31
+      ],
+      "outcome": "glucose",
+      "pmid": "40999397",
+      "candidates_count": 4,
+      "reused_shared": false
+    },
+    "Женьшень": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": -0.13,
+      "ci": [
+        -0.44,
+        0.19
+      ],
+      "outcome": "crp",
+      "pmid": "41992789",
       "candidates_count": 4,
       "reused_shared": false
     },
@@ -890,7 +996,7 @@
     },
     "Витамин A": {
       "status": "ok",
-      "old_g": null,
+      "old_g": 0.29,
       "new_g": 0.29,
       "ci": [
         0.004,
@@ -903,7 +1009,7 @@
     },
     "B6": {
       "status": "ok",
-      "old_g": null,
+      "old_g": 0.423,
       "new_g": 0.423,
       "ci": [
         0.188,
@@ -916,7 +1022,7 @@
     },
     "B12": {
       "status": "ok",
-      "old_g": 0.423,
+      "old_g": 0.33,
       "new_g": 0.33,
       "ci": [
         0.02,
@@ -1008,13 +1114,26 @@
     "Бета-аланин": {
       "status": "ok",
       "old_g": -0.53,
-      "new_g": -0.53,
+      "new_g": -1.66,
       "ci": [
-        -0.75,
-        -0.31
+        -2.92,
+        -0.44
       ],
-      "outcome": "glucose",
-      "pmid": "40999397",
+      "outcome": "performance",
+      "pmid": "39796467",
+      "candidates_count": 7,
+      "reused_shared": false
+    },
+    "HMB": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": 0.24,
+      "ci": [
+        -0.01,
+        0.49
+      ],
+      "outcome": "strength",
+      "pmid": "41934514",
       "candidates_count": 7,
       "reused_shared": false
     },
@@ -1072,10 +1191,10 @@
     }
   },
   "totals": {
-    "found": 77,
-    "with_ci": 73,
-    "no_candidates": 25,
-    "error": 1,
+    "found": 86,
+    "with_ci": 82,
+    "no_candidates": 27,
+    "error": 0,
     "reused_shared": 0
   }
 }

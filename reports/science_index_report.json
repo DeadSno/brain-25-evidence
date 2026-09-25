@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-09-24T07:35:20.769710+00:00",
+  "timestamp": "2026-09-25T06:53:45.395003+00:00",
   "dry_run": false,
   "cards": {
     "Креатин": {
@@ -76,13 +76,13 @@
       "status": "ok",
       "old": {
         "rct": 2191,
-        "meta": 387,
-        "si": 4126
+        "meta": 388,
+        "si": 4131
       },
       "new": {
         "rct": 2191,
-        "meta": 387,
-        "si": 4126
+        "meta": 388,
+        "si": 4131
       },
       "base": "(caffeine)"
     },
@@ -257,14 +257,14 @@
     "NAC": {
       "status": "ok",
       "old": {
-        "rct": 958,
-        "meta": 250,
-        "si": 2208
+        "rct": 959,
+        "meta": 251,
+        "si": 2214
       },
       "new": {
-        "rct": 958,
-        "meta": 250,
-        "si": 2208
+        "rct": 959,
+        "meta": 251,
+        "si": 2214
       },
       "base": "(N-acetylcysteine OR NAC supplementation)"
     },
@@ -1349,23 +1349,23 @@
     "EPA": {
       "status": "ok",
       "old": {
-        "rct": 2125,
+        "rct": 2126,
         "meta": 414,
-        "si": 4195
+        "si": 4196
       },
       "new": {
-        "rct": 2125,
+        "rct": 2126,
         "meta": 414,
-        "si": 4195
+        "si": 4196
       },
       "base": "(eicosapentaenoic acid OR EPA)"
     },
     "Витамин A": {
-      "status": "changed",
+      "status": "ok",
       "old": {
-        "rct": null,
-        "meta": null,
-        "si": null
+        "rct": 2309,
+        "meta": 371,
+        "si": 4164
       },
       "new": {
         "rct": 2309,
@@ -1375,11 +1375,11 @@
       "base": "(vitamin A OR retinol)"
     },
     "B2": {
-      "status": "changed",
+      "status": "ok",
       "old": {
-        "rct": null,
-        "meta": null,
-        "si": null
+        "rct": 537,
+        "meta": 76,
+        "si": 917
       },
       "new": {
         "rct": 537,
@@ -1389,11 +1389,11 @@
       "base": "(riboflavin OR vitamin B2)"
     },
     "B3": {
-      "status": "changed",
+      "status": "ok",
       "old": {
-        "rct": null,
-        "meta": null,
-        "si": null
+        "rct": 1450,
+        "meta": 354,
+        "si": 3220
       },
       "new": {
         "rct": 1450,
@@ -1403,11 +1403,11 @@
       "base": "(niacin OR nicotinamide OR vitamin B3)"
     },
     "B5": {
-      "status": "changed",
+      "status": "ok",
       "old": {
-        "rct": null,
-        "meta": null,
-        "si": null
+        "rct": 100,
+        "meta": 6,
+        "si": 130
       },
       "new": {
         "rct": 100,
@@ -1417,11 +1417,11 @@
       "base": "(pantothenic acid OR vitamin B5)"
     },
     "B6": {
-      "status": "changed",
+      "status": "ok",
       "old": {
-        "rct": null,
-        "meta": null,
-        "si": null
+        "rct": 782,
+        "meta": 166,
+        "si": 1612
       },
       "new": {
         "rct": 782,
@@ -1431,11 +1431,11 @@
       "base": "(pyridoxine OR vitamin B6)"
     },
     "Лизин": {
-      "status": "changed",
+      "status": "ok",
       "old": {
-        "rct": null,
-        "meta": null,
-        "si": null
+        "rct": 749,
+        "meta": 114,
+        "si": 1319
       },
       "new": {
         "rct": 749,
@@ -1443,11 +1443,151 @@
         "si": 1319
       },
       "base": "(lysine)"
+    },
+    "Кремний": {
+      "status": "changed",
+      "old": {
+        "rct": null,
+        "meta": null,
+        "si": null
+      },
+      "new": {
+        "rct": 15,
+        "meta": 2,
+        "si": 25
+      },
+      "base": "((choline stabilized orthosilicic acid) OR (silicon supplementation))"
+    },
+    "HMB": {
+      "status": "ok",
+      "old": {
+        "rct": 230,
+        "meta": 54,
+        "si": 500
+      },
+      "new": {
+        "rct": 230,
+        "meta": 54,
+        "si": 500
+      },
+      "base": "(HMB OR \"beta-hydroxy-beta-methylbutyrate\")"
+    },
+    "Карнозин": {
+      "status": "ok",
+      "old": {
+        "rct": 94,
+        "meta": 15,
+        "si": 169
+      },
+      "new": {
+        "rct": 94,
+        "meta": 15,
+        "si": 169
+      },
+      "base": "(carnosine supplementation)"
+    },
+    "Женьшень": {
+      "status": "ok",
+      "old": {
+        "rct": 390,
+        "meta": 126,
+        "si": 1020
+      },
+      "new": {
+        "rct": 390,
+        "meta": 126,
+        "si": 1020
+      },
+      "base": "(Panax ginseng OR ginseng)"
+    },
+    "Селен": {
+      "status": "ok",
+      "old": {
+        "rct": 993,
+        "meta": 328,
+        "si": 2633
+      },
+      "new": {
+        "rct": 993,
+        "meta": 328,
+        "si": 2633
+      },
+      "base": "(selenium)"
+    },
+    "Йод": {
+      "status": "ok",
+      "old": {
+        "rct": 130,
+        "meta": 33,
+        "si": 295
+      },
+      "new": {
+        "rct": 130,
+        "meta": 33,
+        "si": 295
+      },
+      "base": "(iodine supplementation)"
+    },
+    "Молибден": {
+      "status": "ok",
+      "old": {
+        "rct": 55,
+        "meta": 12,
+        "si": 115
+      },
+      "new": {
+        "rct": 55,
+        "meta": 12,
+        "si": 115
+      },
+      "base": "(molybdenum)"
+    },
+    "Витамин K1": {
+      "status": "ok",
+      "old": {
+        "rct": 146,
+        "meta": 17,
+        "si": 231
+      },
+      "new": {
+        "rct": 146,
+        "meta": 17,
+        "si": 231
+      },
+      "base": "(phylloquinone OR vitamin K1)"
+    },
+    "Ниацинамид": {
+      "status": "ok",
+      "old": {
+        "rct": 831,
+        "meta": 220,
+        "si": 1931
+      },
+      "new": {
+        "rct": 831,
+        "meta": 220,
+        "si": 1931
+      },
+      "base": "(niacinamide)"
+    },
+    "Цистеин": {
+      "status": "ok",
+      "old": {
+        "rct": 1363,
+        "meta": 284,
+        "si": 2783
+      },
+      "new": {
+        "rct": 1363,
+        "meta": 284,
+        "si": 2783
+      },
+      "base": "(cysteine)"
     }
   },
   "totals": {
-    "ok": 97,
-    "changed": 6,
+    "ok": 112,
+    "changed": 1,
     "no_base": 0,
     "error": 0
   }
