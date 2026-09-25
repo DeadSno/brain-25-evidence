@@ -147,4 +147,11 @@ TAGS: dict[str, list[str]] = {
     "Ниацинамид":            ["skin", "energy"],
     "Селен":                 ["immunity", "hormones"],
     "Цистеин":               ["liver", "immunity"],
+
+    # ---------- v2.5 (batch 17a) ----------
+    "B. lactis":             ["gut", "immunity"],
+    "DHA":                   ["brain", "heart"],
+    "GLA":                   ["skin"],
+    "LGG":                   ["gut", "immunity"],
+    "S. boulardii":          ["gut", "immunity"],
 }
