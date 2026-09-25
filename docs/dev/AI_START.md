@@ -26,6 +26,18 @@
 - Не редактировать `effect_tags.json` — только через `effect_tags_map.py`
 - Тесты: `pytest -q -m "not network"`, без `--no-verify`
 - **Двойные кавычки в `pubmed_term` ломают scienceIndex** → использовать скобки
+- **Никогда не оборачивать Markdown с Mermaid/кодом в `"""..."""`** — при копировании через PowerShell теряются закрывающие backticks. Собирать текст списком строк и создавать fence через ``BT3 = "`" * 3``:
+
+  ```python
+  BT3 = "`" * 3
+  lines = [
+      "...",
+      BT3 + "mermaid",
+      "...",
+      BT3,
+  ]
+  content = "\n".join(lines) + "\n"
+  ```
 
 ## Что скинуть AI в начале
 
@@ -49,4 +61,4 @@
 | Кириллица в commit | Писать латиницей |
 | PowerShell ломает UTF-8 | `@'...'@ \| Out-File -Encoding UTF8` |
 
-**Версия:** v1.1 (2026-09-25)
+**Версия:** v1.2 (2026-09-25)
