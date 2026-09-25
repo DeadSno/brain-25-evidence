@@ -54,6 +54,10 @@
     "brain",
     "mood"
   ],
+  "HMB": [
+    "muscle",
+    "energy"
+  ],
   "L-Теанин": [
     "stress",
     "brain"
@@ -152,6 +156,10 @@
   "Витамин E": [
     "heart"
   ],
+  "Витамин K1": [
+    "bones",
+    "heart"
+  ],
   "Витамин K2": [
     "bones",
     "heart"
@@ -201,6 +209,10 @@
     "blood",
     "energy"
   ],
+  "Женьшень": [
+    "brain",
+    "energy"
+  ],
   "Зверобой": [
     "mood"
   ],
@@ -212,12 +224,19 @@
     "stress",
     "metabolism"
   ],
+  "Йод": [
+    "hormones"
+  ],
   "Йохимбин": [
     "metabolism",
     "hormones"
   ],
   "Кальций": [
     "bones"
+  ],
+  "Карнозин": [
+    "muscle",
+    "brain"
   ],
   "Кверцетин": [
     "immunity"
@@ -242,6 +261,10 @@
     "brain",
     "muscle",
     "energy"
+  ],
+  "Кремний": [
+    "bones",
+    "skin"
   ],
   "Куркумин": [
     "mood",
@@ -278,6 +301,13 @@
     "sleep",
     "stress",
     "brain"
+  ],
+  "Молибден": [
+    "metabolism"
+  ],
+  "Ниацинамид": [
+    "skin",
+    "energy"
   ],
   "Омега-3": [
     "brain",
@@ -326,6 +356,10 @@
     "stress",
     "mood"
   ],
+  "Селен": [
+    "immunity",
+    "hormones"
+  ],
   "Сульфорафан": [
     "liver"
   ],
@@ -362,6 +396,10 @@
   ],
   "Цинк": [
     "brain",
+    "immunity"
+  ],
+  "Цистеин": [
+    "liver",
     "immunity"
   ],
   "Чага": [

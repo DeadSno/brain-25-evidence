@@ -135,4 +135,16 @@ TAGS: dict[str, list[str]] = {
     "B1":                    ["brain"],
     "EPA":                   ["heart", "brain", "mood"],
     "Холин":                 ["brain"],
+
+    # ---------- v2.4 (batch 16) ----------
+    "HMB":                   ["muscle", "energy"],
+    "Витамин K1":            ["bones", "heart"],
+    "Женьшень":              ["brain", "energy"],
+    "Йод":                   ["hormones"],
+    "Карнозин":              ["muscle", "brain"],
+    "Кремний":               ["bones", "skin"],
+    "Молибден":              ["metabolism"],
+    "Ниацинамид":            ["skin", "energy"],
+    "Селен":                 ["immunity", "hormones"],
+    "Цистеин":               ["liver", "immunity"],
 }
