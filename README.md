@@ -99,6 +99,22 @@ NCCAM, NIAAA, NICHD, NIGMS. **Ни одной фарм-компании в ТО�
 
 📄 Полный отчёт: [`reports/coi_report.json`](reports/coi_report.json)
 
+## Тестирование API (Postman)
+
+Импортируйте готовую коллекцию для тестирования REST API:
+
+1. Скачайте: [`docs/api/v1/postman_collection.json`](docs/api/v1/postman_collection.json)
+2. Импортируйте в Postman (File → Import)
+3. Импортируйте окружение: [`docs/api/v1/postman_environment.json`](docs/api/v1/postman_environment.json)
+4. Запустите Collection Runner — 2 запроса, 15 тестов
+
+**Что проверяется:**
+- Статус 200, Content-Type
+- Count = 130 карточек
+- Обязательные поля (id, grade, verdict)
+- Grades A/B/C/D, вердикты — из допустимых
+- scienceIndex — число
+
 ## Быстрый старт
 
 - **Хочешь посмотреть результаты?** Открой [сайт](https://deadsno.github.io/brain-25-evidence/) — фильтры, поиск, модалки, радар сравнения.
