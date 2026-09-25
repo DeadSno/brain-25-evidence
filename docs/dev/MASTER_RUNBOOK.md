@@ -29,6 +29,94 @@ S9 [NEW SESSION] ранбук шаги 6-8: e2e ALIGN, пирамида, snapsho
 Отчёт каждой фазы: путь/хэши + топ-5 + хвост pytest + строка следующего запуска.
 
 ---
+## BATCH WORKFLOW — добавление 5-10 карточек
+
+> Пройдено 16 раз. Полный цикл за ~70 минут.
+
+### Схема
+
+```
+CSV → add_supplements_batch → _drafts.json
+  → fetch_evidence_abstracts → reports/evidence/*.md
+  → review_evidence (проверка релевантности)
+  → бриф → агент → q14_batch_N_proposal.json
+  → validate_proposal
+  → enrich_drafts → apply_drafts → data.json (+N)
+  → update_all --apply → build_index
+  → теги в effect_tags_map → build_effect_tags
+  → snapshot + tests → commit
+```
+
+### Шаги
+
+**1. CSV → _drafts**
+```powershell
+python scripts\add_supplements_batch.py --input scripts\supplements_to_add_N.csv --dry-run
+python scripts\add_supplements_batch.py --input scripts\supplements_to_add_N.csv
+```
+⚠️ Запрос — с `supplementation` если термин контекстный (Бор, Кремний, Серин).
+
+**2. Abstracts**
+```powershell
+python scripts\fetch_evidence_abstracts.py --all
+```
+
+**3. Ревью (КРИТИЧНО)**
+```powershell
+python scripts\review_evidence.py
+```
+Мусорные MA → править `query` в `data_pubmed_terms.json` + `SUPPLEMENTS` в config.py →
+```powershell
+python scripts\sync_draft_terms.py
+python scripts\refetch_evidence.py
+```
+
+**4. Бриф → агент**
+Скопировать `docs/briefs/q14_batch_16.md` → `q14_batch_N.md`. Заменить список карточек.
+
+**5. Валидация**
+```powershell
+python scripts\validate_proposal.py --proposal q14_batch_N_proposal.json
+```
+
+**6. Enrich + apply**
+```powershell
+python scripts\enrich_drafts.py --proposal q14_batch_N_proposal.json --apply
+python scripts\apply_drafts.py
+```
+
+**7. Метрики (~35 мин)**
+```powershell
+python scripts\update_all.py --apply
+python scripts\build_index.py
+```
+
+**8. Теги** — вручную в `scripts/effect_tags_map.py`, порядок алфавитный.
+```powershell
+python scripts\build_effect_tags.py
+python scripts\build_index.py
+```
+
+**9. Тесты + commit**
+```powershell
+$env:UPDATE_SNAPSHOT='1'; python -m pytest tests\test_snapshot.py -q; Remove-Item Env:UPDATE_SNAPSHOT
+python -m pytest -q -m "not network"
+git add docs/ src/ scripts/ reports/ tests/snapshot_data.json
+git commit -m "feat(vX.Y): batch N — +K cards"
+git push
+```
+
+### Известные грабли
+
+| # | Симптом | Фикс |
+|---|---------|------|
+| 1 | `scienceIndex: None` | Добавить в `EXPLICIT_BASE` (recalc_science_index.py) |
+| 2 | `test_low_block` падает | Добавить `{with: "нет данных", severity: "low", note: "известных взаимодействий нет"}` |
+| 3 | `test_all_interactions_attached` | Пары из `content.py` не попали → прописать вручную |
+| 4 | `test_map_matches_json` | `build_effect_tags.py` + `build_index.py` |
+| 5 | Мусорные MA | Уточнить `pubmed_term` |
+
+---
 ## ПРИЛОЖЕНИЕ 1. AGENT BRIEF
 Миссия: «одна точка правды по БАДам для СНГ», осознанный выбор ≠ экономия.
 Манифест: польза выше денег · язык фактов · null честнее выдумки ·
