@@ -36,9 +36,9 @@ try {
 
 <section style="background:var(--card-bg);padding:1.5rem;border-radius:12px;border:1px solid var(--border);margin-bottom:1.5rem">
 <h2>Что такое аудит v<span data-version="audit"></span></h2>
-<p><b>Аудит — это полная ручная верификация 103 добавок</b> по <b>адаптированной методологии PRISMA</b> (Preferred Reporting Items for Systematic Reviews and Meta-Analyses). Мы реализовали <b>6 ключевых этапов</b>: идентификация → скрининг → дедупликация → чтение абстрактов → оценка источников → синтез.
+<p><b>Аудит — это полная ручная верификация 130 добавок</b> по <b>адаптированной методологии PRISMA</b> (Preferred Reporting Items for Systematic Reviews and Meta-Analyses). Мы реализовали <b>6 ключевых этапов</b>: идентификация → скрининг → дедупликация → чтение абстрактов → оценка источников → синтез.
 <br><br>
-<b>Что мы не делаем:</b> не читаем полные тексты (только абстракты топ-15), не проводим двойной слепой скрининг, не регистрируем протокол в PROSPERO, не оцениваем риск систематической ошибки формально. Это осознанное упрощение ради охвата 103 добавок силами одного человека. Каждая добавка прошла через:</p>
+<b>Что мы не делаем:</b> не читаем полные тексты (только абстракты топ-15), не проводим двойной слепой скрининг, не регистрируем протокол в PROSPERO, не оцениваем риск систематической ошибки формально. Это осознанное упрощение ради охвата 130 добавок силами одного человека. Каждая добавка прошла через:</p>
 <ol style="margin:.6rem 0 1rem 1.5rem;line-height:1.8">
   <li><b>Поиск в PubMed</b> — систематические обзоры и мета-анализы (MA/SR)</li>
   <li><b>Скрининг</b> — фильтрация по релевантности</li>
@@ -46,7 +46,7 @@ try {
   <li><b>Чтение топ-15 абстрактов</b> — извлечение данных об эффектах</li>
   <li><b>Выставление грейда A-D</b> — на основе силы доказательств</li>
 </ol>
-<p><b>Результат:</b> 103 карточки аудита в <code>data/processed/audit/</code>, 14 коммитов аудита, теги <code>v3.0-audit-top20</code> и <code>v3.0-audit-complete</code>.</p>
+<p><b>Результат:</b> 130 карточки аудита в <code>data/processed/audit/</code>, 14 коммитов аудита, теги <code>v3.0-audit-top20</code> и <code>v3.0-audit-complete</code>.</p>
 </section>
 
 <section style="background:var(--card-bg);padding:1.5rem;border-radius:12px;border:1px solid var(--border);margin-bottom:1.5rem">
@@ -90,7 +90,7 @@ try {
 
 <section style="background:var(--card-bg);padding:1.5rem;border-radius:12px;border:1px solid var(--border);margin-bottom:1.5rem">
 <h2>Что в карточке аудита</h2>
-<p>Каждая из 103 карточек (<code>data/processed/audit/*.md</code>) содержит:</p>
+<p>Каждая из 130 карточек (<code>data/processed/audit/*.md</code>) содержит:</p>
 <ul style="margin:.6rem 0 1rem 1.5rem;line-height:1.8">
   <li><b>PRISMA-воронка:</b> найдено → скрининг → уникальных → читано</li>
   <li><b>JSON-блок:</b> id, category, verdict, grade, effect_outcome, caution, key_sources (PMID), updated</li>
@@ -100,7 +100,7 @@ try {
 </section>
 
 <section style="background:var(--card-bg);padding:1.5rem;border-radius:12px;border:1px solid var(--border);margin-bottom:1.5rem">
-<h2>Распределение грейдов (103 добавки)</h2>
+<h2>Распределение грейдов (130 добавки)</h2>
 <ul style="margin:.6rem 0 1rem 1.5rem;line-height:1.8">
   <li><b style="color:#22c55e">A (работает отлично):</b> 8 добавок (7.8%)</li>
   <li><b style="color:#84cc16">B (работает):</b> 40 добавок (38.8%)</li>
