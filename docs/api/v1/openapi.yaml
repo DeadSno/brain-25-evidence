@@ -1,0 +1,315 @@
+openapi: 3.0.3
+
+info:
+  title: Brain 25 Evidence API
+  version: 1.0.0
+  description: |
+    Публичный API базы знаний о 130 биологически активных добавках.
+    
+    Данные: вердикты по мета-анализам PubMed, механизмы, взаимодействия,
+    грейды доказательности, научный индекс.
+    
+    Источники: PubMed, Europe PMC, OpenAlex, Wikipedia.
+    
+    **Лицензия:** CC BY 4.0 — свободное использование с указанием авторства.
+  contact:
+    name: DeadSno
+    url: https://github.com/DeadSno/brain-25-evidence
+  license:
+    name: CC BY 4.0
+    url: https://creativecommons.org/licenses/by/4.0/
+
+servers:
+  - url: https://deadsno.github.io/brain-25-evidence
+    description: Production (GitHub Pages)
+  - url: http://localhost:8000
+    description: Local development
+
+tags:
+  - name: Supplements
+    description: Данные о добавках
+  - name: Meta
+    description: Метаданные и статистика
+
+paths:
+  /api/v1/index.json:
+    get:
+      tags: [Meta]
+      summary: Метаданные API
+      description: |
+        Возвращает статистику базы: количество карточек, распределение грейдов,
+        список ID, эндпоинты. Лёгкий запрос — используй для проверки доступности.
+      operationId: getIndex
+      responses:
+        '200':
+          description: Метаданные
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiIndex'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /api/v1/supplements.json:
+    get:
+      tags: [Supplements]
+      summary: Все добавки
+      description: |
+        Полный список 130 карточек с adv-полями, механизмами, взаимодействиями,
+        ключевыми источниками. Размер ~660 KB.
+        
+        Рекомендуется кэшировать на клиенте — данные обновляются раз в неделю.
+      operationId: getSupplements
+      responses:
+        '200':
+          description: Все добавки
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SupplementsPayload'
+
+components:
+  responses:
+    NotFound:
+      description: Ресурс не найден
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+  schemas:
+    ApiIndex:
+      type: object
+      required: [version, generated_at, count, license, source, endpoints, stats, ids]
+      properties:
+        version:
+          type: string
+          example: "v1"
+        generated_at:
+          type: string
+          format: date-time
+          example: "2026-09-25T09:06:14.764540+00:00"
+        count:
+          type: integer
+          minimum: 0
+          example: 130
+        license:
+          type: string
+          example: "CC BY 4.0"
+        source:
+          type: string
+          format: uri
+          example: "https://github.com/DeadSno/brain-25-evidence"
+        endpoints:
+          type: object
+          properties:
+            supplements:
+              type: string
+              example: "/api/v1/supplements.json"
+            full_data:
+              type: string
+              example: "/data.json"
+        stats:
+          $ref: '#/components/schemas/Stats'
+        ids:
+          type: array
+          items:
+            type: string
+          description: Список ID всех добавок
+          example: ["Креатин", "Омега-3", "Витамин D"]
+
+    Stats:
+      type: object
+      properties:
+        grades:
+          type: object
+          additionalProperties:
+            type: integer
+          example: {"A": 8, "B": 45, "C": 52, "D": 25}
+        categories_atomic:
+          type: object
+          additionalProperties:
+            type: integer
+        categories_combined:
+          type: object
+          additionalProperties:
+            type: integer
+        categories_atomic_count:
+          type: integer
+
+    SupplementsPayload:
+      type: object
+      required: [version, generated_at, count, supplements]
+      properties:
+        version:
+          type: string
+        generated_at:
+          type: string
+          format: date-time
+        count:
+          type: integer
+        license:
+          type: string
+        source:
+          type: string
+          format: uri
+        site:
+          type: string
+          format: uri
+        schema:
+          type: object
+          description: Описание полей карточки
+          additionalProperties:
+            type: string
+        supplements:
+          type: array
+          items:
+            $ref: '#/components/schemas/Supplement'
+
+    Supplement:
+      type: object
+      required: [id, category, grade, verdict, code]
+      properties:
+        id:
+          type: string
+          description: Название добавки (русский)
+          example: "Креатин"
+        category:
+          type: string
+          description: Категория (может содержать "/")
+          example: "Спорт/Когниция"
+        grade:
+          type: string
+          enum: [A, B, C, D]
+          description: |
+            Уровень доказательности:
+            - A — MA показывают эффект у здоровых
+            - B — эффект есть с оговорками
+            - C — только при дефиците/в подгруппах
+            - D — нет MA на людях / отрицательные
+        verdict:
+          type: string
+          enum: [работает, "зависит от контекста", "не подтверждено"]
+        code:
+          type: integer
+          enum: [-1, 0, 1]
+          description: -1 = не подтверждено, 0 = контекст, 1 = работает
+        about:
+          type: string
+          maxLength: 160
+        who_needs:
+          type: string
+          maxLength: 180
+        onset:
+          type: string
+          maxLength: 150
+        myths:
+          type: string
+          maxLength: 220
+        food_sources:
+          type: string
+          maxLength: 180
+        guidelines:
+          type: string
+          maxLength: 180
+        how_to_choose:
+          type: string
+          maxLength: 180
+        dosage:
+          type: string
+        course:
+          type: string
+        caution:
+          type: string
+        upper_limit:
+          type: string
+        effects:
+          type: array
+          minItems: 1
+          maxItems: 3
+          items:
+            type: string
+            minLength: 5
+            maxLength: 40
+          example: ["Рабочая память под нагрузкой"]
+        mechs:
+          type: array
+          minItems: 2
+          maxItems: 4
+          items:
+            type: array
+            minItems: 3
+            maxItems: 3
+            items:
+              type: string
+            description: "[механизм, эффект, сила]"
+        interactions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Interaction'
+        key_sources:
+          type: array
+          minItems: 1
+          maxItems: 3
+          items:
+            $ref: '#/components/schemas/KeySource'
+        scienceIndex:
+          type: integer
+          description: Индекс научной изученности (0-∞)
+          example: 1265
+        rct:
+          type: integer
+          description: Количество РКИ в PubMed
+        metaCount:
+          type: integer
+          description: Количество мета-анализов
+        citations:
+          type: integer
+          description: Цитирований (OpenAlex)
+
+    Interaction:
+      type: object
+      required: [with, severity, note]
+      properties:
+        with:
+          type: string
+          description: С чем взаимодействует (препарат / добавка / "нет данных")
+          example: "антикоагулянты"
+        severity:
+          type: string
+          enum: [low, medium, high, critical]
+        note:
+          type: string
+          maxLength: 200
+
+    KeySource:
+      type: object
+      required: [pmid, title, year, journal]
+      properties:
+        pmid:
+          type: string
+          pattern: '^[0-9]+$'
+          example: "12345678"
+        doi:
+          type: string
+          example: "10.1016/j.example.2024.01.001"
+        title:
+          type: string
+        year:
+          type: integer
+          minimum: 1900
+          maximum: 2100
+          example: 2024
+        journal:
+          type: string
+          example: "The Lancet"
+
+    Error:
+      type: object
+      required: [error, message]
+      properties:
+        error:
+          type: string
+          example: "Not Found"
+        message:
+          type: string
