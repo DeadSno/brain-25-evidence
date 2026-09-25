@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-09-25T07:53:40.860973+00:00",
+  "timestamp": "2026-09-25T08:26:24.964420+00:00",
   "dry_run": false,
   "cards": {
     "Креатин": {
@@ -1655,11 +1655,11 @@
       "base": "(gamma-linolenic acid OR evening primrose)"
     },
     "Медь": {
-      "status": "changed",
+      "status": "ok",
       "old": {
-        "rct": null,
-        "meta": null,
-        "si": null
+        "rct": 1125,
+        "meta": 309,
+        "si": 2670
       },
       "new": {
         "rct": 1125,
@@ -1669,11 +1669,11 @@
       "base": "(copper)"
     },
     "Марганец": {
-      "status": "changed",
+      "status": "ok",
       "old": {
-        "rct": null,
-        "meta": null,
-        "si": null
+        "rct": 161,
+        "meta": 76,
+        "si": 541
       },
       "new": {
         "rct": 161,
@@ -1683,11 +1683,11 @@
       "base": "(manganese)"
     },
     "Калий": {
-      "status": "changed",
+      "status": "ok",
       "old": {
-        "rct": null,
-        "meta": null,
-        "si": null
+        "rct": 5889,
+        "meta": 745,
+        "si": 9614
       },
       "new": {
         "rct": 5889,
@@ -1697,11 +1697,11 @@
       "base": "(potassium)"
     },
     "Бор": {
-      "status": "changed",
+      "status": "ok",
       "old": {
-        "rct": null,
-        "meta": null,
-        "si": null
+        "rct": 13,
+        "meta": 1,
+        "si": 18
       },
       "new": {
         "rct": 13,
@@ -1711,11 +1711,11 @@
       "base": "(boron supplementation)"
     },
     "Бетаин": {
-      "status": "changed",
+      "status": "ok",
       "old": {
-        "rct": null,
-        "meta": null,
-        "si": null
+        "rct": 92,
+        "meta": 10,
+        "si": 142
       },
       "new": {
         "rct": 92,
@@ -1723,11 +1723,109 @@
         "si": 142
       },
       "base": "(betaine supplementation)"
+    },
+    "Метионин": {
+      "status": "ok",
+      "old": {
+        "rct": 18,
+        "meta": 5,
+        "si": 43
+      },
+      "new": {
+        "rct": 18,
+        "meta": 5,
+        "si": 43
+      },
+      "base": "\"methionine supplementation\""
+    },
+    "Орнитин": {
+      "status": "ok",
+      "old": {
+        "rct": 37,
+        "meta": 3,
+        "si": 52
+      },
+      "new": {
+        "rct": 37,
+        "meta": 3,
+        "si": 52
+      },
+      "base": "(ornithine supplementation)"
+    },
+    "Майтаке": {
+      "status": "ok",
+      "old": {
+        "rct": 6,
+        "meta": 2,
+        "si": 16
+      },
+      "new": {
+        "rct": 6,
+        "meta": 2,
+        "si": 16
+      },
+      "base": "(Grifola frondosa OR maitake)"
+    },
+    "PABA": {
+      "status": "ok",
+      "old": {
+        "rct": 38,
+        "meta": 5,
+        "si": 63
+      },
+      "new": {
+        "rct": 38,
+        "meta": 5,
+        "si": 63
+      },
+      "base": "(PABA OR \"para-aminobenzoic acid\")"
+    },
+    "Пролин": {
+      "status": "ok",
+      "old": {
+        "rct": 56,
+        "meta": 3,
+        "si": 71
+      },
+      "new": {
+        "rct": 56,
+        "meta": 3,
+        "si": 71
+      },
+      "base": "(proline supplementation)"
+    },
+    "Серин": {
+      "status": "changed",
+      "old": {
+        "rct": null,
+        "meta": null,
+        "si": null
+      },
+      "new": {
+        "rct": 2,
+        "meta": 0,
+        "si": 2
+      },
+      "base": "(\"L-serine supplementation\")"
+    },
+    "Аланин": {
+      "status": "changed",
+      "old": {
+        "rct": null,
+        "meta": null,
+        "si": null
+      },
+      "new": {
+        "rct": 0,
+        "meta": 1,
+        "si": 5
+      },
+      "base": "((\"L-alanine supplementation\") OR (\"alpha-alanine\"))"
     }
   },
   "totals": {
-    "ok": 118,
-    "changed": 5,
+    "ok": 128,
+    "changed": 2,
     "no_base": 0,
     "error": 0
   }

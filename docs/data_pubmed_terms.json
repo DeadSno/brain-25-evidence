@@ -124,7 +124,7 @@
  "Молибден": "(molybdenum) AND (deficiency OR metabolism)",
  "Витамин K1": "(phylloquinone OR vitamin K1) AND (blood OR bone)",
  "Ниацинамид": "(niacinamide) AND (skin OR NAD OR acne)",
- "PABA": "(PABA supplementation) AND (skin OR inflammation)",
+  "PABA": "(PABA OR \"para-aminobenzoic acid\") AND (skin OR inflammation OR scleroderma)",
  "Цистеин": "(cysteine) AND (glutathione OR antioxidant)",
  "Пролин": "(proline supplementation) AND (collagen OR wound OR skin)",
  "Серин": "\"L-serine supplementation\"",
