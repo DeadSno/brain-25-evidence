@@ -42,13 +42,11 @@ RE_CONFLICT_TAG = re.compile(
     re.DOTALL | re.IGNORECASE,
 )
 
-# --- Свободный текст: ищем предложения вокруг COI-триггеров ---
-RE_COI_SENTENCE = re.compile(
-    r"[^.<>]{0,300}"
-    r"(?:conflicts? of interest|competing interests?|"
+# --- Свободный текст: ищем маркеры COI ---
+COI_MARKERS = re.compile(
+    r"conflicts? of interest|competing interests?|"
     r"declarations? of interest|financial disclosure|"
-    r"conflict[s]? of interests?|competing financial interests?)"
-    r"[^.<>]{0,400}",
+    r"conflicts? of interests?|competing financial interests?",
     re.IGNORECASE,
 )
 
@@ -69,24 +67,41 @@ RE_FUNDING_WORD = re.compile(
 
 # --- Классификация по ключевым словам ---
 NEGATIVE = re.compile(
-    r"\b(no\s+(?:potential\s+)?conflicts?|no\s+competing|"
+    r"\b("
+    r"no\s+(?:potential\s+)?conflicts?|no\s+competing|"
     r"nothing to disclose|declares? no|declare no|"
     r"none of the authors|no financial|no relevant|"
     r"authors have no|no conflict|not have any|"
-    r"no competing financial)\b",
+    r"no competing financial|"
+    # Добавлено: «none declared», «none to declare», «none reported»
+    r"none (?:declared|to declare|reported|disclosed)|"
+    r"no interests? (?:to declare|declared)|"
+    r"nothing (?:declared|to declare|reported)|"
+    r"no personal (?:financial )?interests?"
+    r")\b",
     re.IGNORECASE,
 )
+# Настоящий COI — личная выгода автора (НЕ funding исследования)
 POSITIVE = re.compile(
     r"\b("
-    r"received .{0,60}(honoraria|fees|funding|grants?|support|payment)|"
+    # Личные выплаты
+    r"received .{0,60}(honoraria|speaker.{0,20}fee|consulting fee|"
+    r"consultancy fee|personal fee|payment for lecture)|"
+    r"honoraria from|fees from|"
+    # Роли в компаниях
     r"serves? as .{0,30}(consultant|advisor|advisory)|"
-    r"advisory board|speaker.{0,30}fee|"
-    r"stock|equity|shareholder|patent(s)?|"
-    r"is an employee|are employees|employee of|"
-    r"fees from|honoraria from|grants? from|"
+    r"advisory board|board member|"
     r"consultant for|consulting fees|"
-    r"financial interest|"
-    r"board member"
+    # Владение
+    r"stock|equity|shareholder|shareholders|stockholder|"
+    r"patent(s)? (?:holder|pending)|"
+    # Работа
+    r"is an employee|are employees|employee of|"
+    r"employed by .{0,40}(Inc|Ltd|LLC|Corp|GmbH|SA|AG)|"
+    # (двусмысленные убраны: могут совпасть с negative-формулировками)
+    r"has a financial interest|has financial interests|"
+    r"holds? (?:stock|equity|shares?)|"
+    r"received (?:speaker|consulting|consultancy) fees?"
     r")\b",
     re.IGNORECASE,
 )
@@ -108,6 +123,21 @@ def strip_tags(s: str) -> str:
     return s.strip()
 
 
+def extract_coi_windows(txt: str, before: int = 100, after: int = 800) -> list[str]:
+    """O(n): маркеры через finditer, окно before/after символов.
+
+    after=800 — захватываем текст декларации после заголовка
+    ('Competing interests: The authors declare no...')
+    before=100 — контекст перед заголовком
+    """
+    results = []
+    for m in COI_MARKERS.finditer(txt):
+        start = max(0, m.start() - before)
+        end = min(len(txt), m.end() + after)
+        results.append(txt[start:end])
+    return results
+
+
 def extract_coi_texts(txt: str) -> tuple[list[str], list[str]]:
     """Возвращает (coi_blocks, funding_blocks) — список текстов."""
     coi_blocks: list[str] = []
@@ -118,9 +148,9 @@ def extract_coi_texts(txt: str) -> tuple[list[str], list[str]]:
         for m in regex.finditer(txt):
             coi_blocks.append(strip_tags(m.group(1)))
 
-    # 2. Текстовые упоминания (в <p>, свободный текст)
-    for m in RE_COI_SENTENCE.finditer(txt):
-        coi_blocks.append(strip_tags(m.group(0)))
+    # 2. Текстовые упоминания — окно 100/800
+    for window in extract_coi_windows(txt, before=100, after=800):
+        coi_blocks.append(strip_tags(window))
 
     # 3. Funding
     for regex in (RE_FUNDING_SRC, RE_FUNDING_STMT):
@@ -135,29 +165,40 @@ def extract_coi_texts(txt: str) -> tuple[list[str], list[str]]:
 def classify_coi(coi_blocks: list[str]) -> tuple[str, str]:
     """Возвращает (type, sample_text).
 
-    type: none / yes / unclear / missing
-    sample_text: первый блок COI (до 300 символов)
+    Разбивает блоки на предложения, каждое классифицирует независимо:
+      - есть хоть одно positive → yes (у одного из авторов конфликт)
+      - только negative → none
+      - ни то, ни другое → unclear
+      - пусто → missing
     """
     if not coi_blocks:
         return "missing", ""
 
     sample = coi_blocks[0][:300]
 
-    # Проверяем каждый блок на негатив/позитив
-    # Сначала — есть ли негативные формулировки
-    has_negative = False
-    has_positive = False
+    # Разбиваем каждый блок на предложения
+    sentences: list[str] = []
     for block in coi_blocks:
-        if NEGATIVE.search(block):
+        # Грубое деление по ., ;, новым строкам
+        for s in re.split(r"[.;\n]+", block):
+            s = s.strip()
+            if len(s) >= 5:
+                sentences.append(s)
+
+    has_positive = False
+    has_negative = False
+    for s in sentences:
+        # Если в предложении есть negation — оно negative, даже если есть грант
+        if NEGATIVE.search(s):
             has_negative = True
-        if POSITIVE.search(block):
+            continue
+        if POSITIVE.search(s):
             has_positive = True
 
     # Логика:
-    # — если есть только негатив → "none"
-    # — если есть только позитив → "yes"
-    # — если оба (напр. "автор A: no conflict, автор B: получил грант") → "yes"
-    # — иначе unclear
+    # — хоть одно положительное → yes (личный конфликт хотя бы у одного автора)
+    # — только негативные → none
+    # — пусто → unclear
     if has_positive:
         return "yes", sample
     if has_negative:
