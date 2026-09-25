@@ -1,0 +1,32 @@
+name: Postman API Tests
+
+on:
+  push:
+    paths:
+      - 'docs/api/**'
+      - 'docs/data.json'
+      - 'scripts/build_api.py'
+      - '.github/workflows/postman.yml'
+  schedule:
+    - cron: '0 6 * * 1'  # каждый понедельник 06:00 UTC
+  workflow_dispatch:
+
+jobs:
+  newman:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Newman
+        run: npm install -g newman
+
+      - name: Run Postman collection
+        run: |
+          newman run docs/api/v1/postman_collection.json \
+            -e docs/api/v1/postman_environment.json \
+            --reporters cli \
+            --timeout-request 30000
