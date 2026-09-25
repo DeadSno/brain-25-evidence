@@ -1,55 +1,77 @@
 {
-  "total_files": 11934,
-  "files_by_type": {
-    "xml": 7918,
-    "txt": 4016
-  },
+  "total_full_texts": 6310,
+  "total_xml": 7918,
+  "threshold_bytes": 20000,
   "coi": {
-    "declared_yes": 13,
-    "declared_none": 118,
-    "unclear": 70,
-    "missing": 11733,
-    "declared_total": 201,
-    "yes_share_of_declared_pct": 6.47
+    "declared_yes": 173,
+    "declared_none": 4179,
+    "unclear": 1138,
+    "missing": 820,
+    "declared_total": 5490,
+    "declared_pct": 87.0,
+    "yes_share_of_declared_pct": 3.15
   },
   "funding": {
-    "has_funding_section": 3044,
-    "pct": 25.51
+    "count": 3500,
+    "pct": 55.47
   },
-  "pharma_mention": {
-    "count": 135,
-    "pct": 1.13
+  "pharma": {
+    "count": 119,
+    "pct": 1.89
   },
   "top_funders": {
-    "National Natural Science Foundation of China": 68,
-    "National Institutes of Health": 40,
-    "National Heart, Lung, and Blood Institute : NHLBI": 30,
-    "National Natural Science Foundation of China  10.13039/501100001809": 27,
-    "NIH": 24,
-    "National Cancer Institute : NCI": 21,
-    "National Institute of Diabetes and Digestive and Kidney Diseases : NIDDK": 21,
-    "National Institutes of Health  10.13039/100000002": 20,
-    "National Institute on Aging : NIA": 18,
+    "National Natural Science Foundation of China": 65,
+    "National Heart, Lung, and Blood Institute : NHLBI": 43,
+    "National Natural Science Foundation of China 10.13039/501100001809": 32,
+    "National Cancer Institute : NCI": 30,
+    "National Institute of Diabetes and Digestive and Kidney Diseases : NIDDK": 23,
+    "National Institute on Aging : NIA": 21,
+    "National Center for Complementary and Alternative Medicine : NCCAM": 18,
     "National Institute on Alcohol Abuse and Alcoholism : NIAAA": 16,
     "National Institute of Child Health &amp; Human Development : NICHD": 13,
-    "National Heart, Lung, and Blood Institute  : NHLBI": 13,
     "National Institute of General Medical Sciences : NIGMS": 12,
-    "National Center for Complementary and Alternative Medicine : NCCAM": 11,
-    "Canadian Institutes of Health Research  10.13039/501100000024": 11,
-    "10.13039/501100001809  National Natural Science Foundation of China": 11,
+    "National Institutes of Health": 12,
+    "National Institute on Drug Abuse : NIDA": 11,
+    "10.13039/501100001809 National Natural Science Foundation of China": 11,
+    "National Institute of Mental Health : NIMH": 10,
     "National Center for Research Resources : NCRR": 10,
-    "National Cancer Institute  : NCI": 10,
     "National Eye Institute : NEI": 10,
-    "National Key Research and Development Program of China": 10,
-    "National Key R&amp;D Program of China": 10,
-    "National Institute of Neurological Disorders and Stroke : NINDS": 9,
-    "National Institute of Mental Health : NIMH": 9,
-    "National Natural Science Foundation of China\n  10.13039/501100001809": 9,
-    "http://dx.doi.org/10.13039/501100001809  National Natural Science Foundation of China": 8,
-    "NIH  10.13039/100000002": 8,
+    "National Institute of Environmental Health Sciences : NIEHS": 10,
+    "http://dx.doi.org/10.13039/501100001809 National Natural Science Foundation of China": 9,
+    "National Key R&amp;D Program of China": 9,
+    "National Institute of Arthritis and Musculoskeletal and Skin Diseases : NIAMS": 8,
+    "National Institute of Neurological Disorders and Stroke : NINDS": 8,
+    "National Key Research and Development Program of China": 8,
     "National Institute of Allergy and Infectious Diseases Extramural Activities : NIAID": 7,
-    "National Center for Complementary and Alternative Medicine  : NCCAM": 7,
-    "Conselho Nacional de Desenvolvimento Científico e Tecnológico": 7,
-    "National Institute on Drug Abuse : NIDA": 6
+    "NIH": 6,
+    "Conselho Nacional de Desenvolvimento Científico e Tecnológico": 6,
+    "National Institutes of Health 10.13039/100000002": 6,
+    "National Institute of Diabetes and Digestive and Kidney Diseases": 6,
+    "HHS | NIH | National Institute of Allergy and Infectious Diseases (NIAID) https://doi.org/10.13039/1": 5,
+    "China Agriculture Research System of MOF and MARA": 5,
+    "National Science and Technology Council 10.13039/501100020950": 5
+  },
+  "samples": {
+    "yes": [
+      "Conflict of Interest Statement KA Luabeya, N Mpontshane, J Van den Broeck and M L Bennish all received salary and travel support form the National Institutes of Health.",
+      "Financial &amp; competing interests disclosure This project was supported (or supported in part) by an Agency for Healthcare Research and Quality (AHRQ) Centers for Education and Research on Therapeutics cooperative agreement #5 U18 HSO16094. Jennifer G Robinson has received in the past year: grants",
+      "Disclosure of Conflict of Interest A. S. is a part-time employee of Oregon’s Wild Harvest, a company which manufactures botanical extracts and has provided Passiflora incarnata fresh herb and some of the extracts for these studies.",
+      "Dr. Drevets has served as a consultant for Pfizer. Drs. Hasler, van der Veen, Grillon, and Shen report no financial relationships with commercial interests.",
+      "Conflict of Interest Disclosures: Elements of Financial/Personal Conflicts * Author 1 MMG Author 2 RLK Author 3 MK Author 4 RAK Yes No Yes No Yes No Yes No Employment or Affiliation x x x x Grants/Funds x x x x Honoraria x x x x Speaker Forum x x x x Consultant x x x x Stocks x x x x Royalties x x x"
+    ],
+    "none": [
+      "Competing interests",
+      "Conflicts of interest",
+      "Competing interests",
+      "Competing interests",
+      "has declared no conflicts of interest"
+    ],
+    "unclear": [
+      "Competing interests",
+      "Acknowledgment/Conflict of Interest",
+      "Financial Disclosure:",
+      "Financial Disclosures:",
+      "Declaration of interest:"
+    ]
   }
 }
