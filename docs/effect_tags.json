@@ -143,8 +143,15 @@
     "heart",
     "metabolism"
   ],
+  "Бетаин": [
+    "metabolism",
+    "muscle"
+  ],
   "Биотин": [
     "skin"
+  ],
+  "Бор": [
+    "bones"
   ],
   "Босвеллия": [
     "joints"
@@ -250,6 +257,10 @@
     "metabolism",
     "hormones"
   ],
+  "Калий": [
+    "heart",
+    "blood"
+  ],
   "Кальций": [
     "bones"
   ],
@@ -312,6 +323,13 @@
   ],
   "Мака": [
     "hormones"
+  ],
+  "Марганец": [
+    "bones"
+  ],
+  "Медь": [
+    "immunity",
+    "blood"
   ],
   "Мелатонин": [
     "sleep"

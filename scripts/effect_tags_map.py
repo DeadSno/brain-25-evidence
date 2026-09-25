@@ -154,4 +154,11 @@ TAGS: dict[str, list[str]] = {
     "GLA":                   ["skin"],
     "LGG":                   ["gut", "immunity"],
     "S. boulardii":          ["gut", "immunity"],
+
+    # ---------- v2.6 (batch 17b) ----------
+    "Бетаин":                ["metabolism", "muscle"],
+    "Бор":                   ["bones"],
+    "Калий":                 ["heart", "blood"],
+    "Марганец":              ["bones"],
+    "Медь":                  ["immunity", "blood"],
 }

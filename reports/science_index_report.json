@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-09-25T06:53:45.395003+00:00",
+  "timestamp": "2026-09-25T07:53:40.860973+00:00",
   "dry_run": false,
   "cards": {
     "Креатин": {
@@ -1445,11 +1445,11 @@
       "base": "(lysine)"
     },
     "Кремний": {
-      "status": "changed",
+      "status": "ok",
       "old": {
-        "rct": null,
-        "meta": null,
-        "si": null
+        "rct": 15,
+        "meta": 2,
+        "si": 25
       },
       "new": {
         "rct": 15,
@@ -1583,11 +1583,151 @@
         "si": 2783
       },
       "base": "(cysteine)"
+    },
+    "S. boulardii": {
+      "status": "ok",
+      "old": {
+        "rct": 128,
+        "meta": 48,
+        "si": 368
+      },
+      "new": {
+        "rct": 128,
+        "meta": 48,
+        "si": 368
+      },
+      "base": "(Saccharomyces boulardii)"
+    },
+    "LGG": {
+      "status": "ok",
+      "old": {
+        "rct": 172,
+        "meta": 25,
+        "si": 297
+      },
+      "new": {
+        "rct": 172,
+        "meta": 25,
+        "si": 297
+      },
+      "base": "(\"Lactobacillus rhamnosus GG\")"
+    },
+    "B. lactis": {
+      "status": "ok",
+      "old": {
+        "rct": 463,
+        "meta": 25,
+        "si": 588
+      },
+      "new": {
+        "rct": 463,
+        "meta": 25,
+        "si": 588
+      },
+      "base": "(Bifidobacterium lactis OR Bifidobacterium animalis)"
+    },
+    "DHA": {
+      "status": "ok",
+      "old": {
+        "rct": 2376,
+        "meta": 320,
+        "si": 3976
+      },
+      "new": {
+        "rct": 2376,
+        "meta": 320,
+        "si": 3976
+      },
+      "base": "(docosahexaenoic acid OR DHA)"
+    },
+    "GLA": {
+      "status": "ok",
+      "old": {
+        "rct": 264,
+        "meta": 41,
+        "si": 469
+      },
+      "new": {
+        "rct": 264,
+        "meta": 41,
+        "si": 469
+      },
+      "base": "(gamma-linolenic acid OR evening primrose)"
+    },
+    "Медь": {
+      "status": "changed",
+      "old": {
+        "rct": null,
+        "meta": null,
+        "si": null
+      },
+      "new": {
+        "rct": 1125,
+        "meta": 309,
+        "si": 2670
+      },
+      "base": "(copper)"
+    },
+    "Марганец": {
+      "status": "changed",
+      "old": {
+        "rct": null,
+        "meta": null,
+        "si": null
+      },
+      "new": {
+        "rct": 161,
+        "meta": 76,
+        "si": 541
+      },
+      "base": "(manganese)"
+    },
+    "Калий": {
+      "status": "changed",
+      "old": {
+        "rct": null,
+        "meta": null,
+        "si": null
+      },
+      "new": {
+        "rct": 5889,
+        "meta": 745,
+        "si": 9614
+      },
+      "base": "(potassium)"
+    },
+    "Бор": {
+      "status": "changed",
+      "old": {
+        "rct": null,
+        "meta": null,
+        "si": null
+      },
+      "new": {
+        "rct": 13,
+        "meta": 1,
+        "si": 18
+      },
+      "base": "(boron supplementation)"
+    },
+    "Бетаин": {
+      "status": "changed",
+      "old": {
+        "rct": null,
+        "meta": null,
+        "si": null
+      },
+      "new": {
+        "rct": 92,
+        "meta": 10,
+        "si": 142
+      },
+      "base": "(betaine supplementation)"
     }
   },
   "totals": {
-    "ok": 112,
-    "changed": 1,
+    "ok": 118,
+    "changed": 5,
     "no_base": 0,
     "error": 0
   }
