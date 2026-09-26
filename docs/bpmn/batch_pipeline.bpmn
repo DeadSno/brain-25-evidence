@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_Brain25" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.51.0">
+  <bpmn:collaboration id="Collaboration_1">
+    <bpmn:participant id="Participant_Brain25" name="Brain 25 Evidence" processRef="Process_Pipeline" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_Pipeline" name="Batch Pipeline" isExecutable="false">
+    <bpmn:laneSet id="LaneSet_1">
+      <bpmn:lane id="Lane_CI" name="Scheduler / CI">
+        <bpmn:flowNodeRef>Gateway_TestsPass</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ServiceTask_GitPush</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EndEvent_Published</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ServiceTask_Rollback</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EndEvent_Failed</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ServiceTask_RunTests</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_Python" name="Python Scripts">
+        <bpmn:flowNodeRef>ServiceTask_FetchPapers</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ServiceTask_FetchFullTexts</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ServiceTask_Enrich</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ServiceTask_Apply</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ServiceTask_Update</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ServiceTask_BuildAPI</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_Maintainer" name="Maintainer">
+        <bpmn:flowNodeRef>StartEvent_New</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>UserTask_AddToConfig</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>UserTask_RunBatch</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>UserTask_ReviewProposal</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:startEvent id="StartEvent_New" name="Новая добавка">
+      <bpmn:outgoing>Flow_1</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:userTask id="UserTask_AddToConfig" name="Добавить в config.py">
+      <bpmn:incoming>Flow_1</bpmn:incoming>
+      <bpmn:outgoing>Flow_2</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="UserTask_RunBatch" name="Запустить batch">
+      <bpmn:incoming>Flow_2</bpmn:incoming>
+      <bpmn:outgoing>Flow_3</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:serviceTask id="ServiceTask_FetchPapers" name="fetch_papers.py">
+      <bpmn:incoming>Flow_3</bpmn:incoming>
+      <bpmn:outgoing>Flow_4</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="ServiceTask_FetchFullTexts" name="fetch_europepmc.py">
+      <bpmn:incoming>Flow_4</bpmn:incoming>
+      <bpmn:outgoing>Flow_5</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="ServiceTask_Enrich" name="enrich_drafts.py">
+      <bpmn:incoming>Flow_5</bpmn:incoming>
+      <bpmn:outgoing>Flow_6</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:userTask id="UserTask_ReviewProposal" name="Review proposal">
+      <bpmn:incoming>Flow_6</bpmn:incoming>
+      <bpmn:outgoing>Flow_7</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:serviceTask id="ServiceTask_Apply" name="apply_drafts.py">
+      <bpmn:incoming>Flow_7</bpmn:incoming>
+      <bpmn:outgoing>Flow_8</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="ServiceTask_Update" name="update_all.py">
+      <bpmn:incoming>Flow_8</bpmn:incoming>
+      <bpmn:outgoing>Flow_9</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="ServiceTask_BuildAPI" name="build_api.py">
+      <bpmn:incoming>Flow_9</bpmn:incoming>
+      <bpmn:outgoing>Flow_10</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="Gateway_TestsPass" name="Тесты прошли?">
+      <bpmn:incoming>Flow_11</bpmn:incoming>
+      <bpmn:outgoing>Flow_12_Yes</bpmn:outgoing>
+      <bpmn:outgoing>Flow_12_No</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:serviceTask id="ServiceTask_GitPush" name="git push">
+      <bpmn:incoming>Flow_12_Yes</bpmn:incoming>
+      <bpmn:outgoing>Flow_13</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:endEvent id="EndEvent_Published" name="Опубликовано">
+      <bpmn:incoming>Flow_13</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:serviceTask id="ServiceTask_Rollback" name="Откат">
+      <bpmn:incoming>Flow_12_No</bpmn:incoming>
+      <bpmn:outgoing>Flow_14</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:endEvent id="EndEvent_Failed" name="FAIL">
+      <bpmn:incoming>Flow_14</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1" sourceRef="StartEvent_New" targetRef="UserTask_AddToConfig" />
+    <bpmn:sequenceFlow id="Flow_2" sourceRef="UserTask_AddToConfig" targetRef="UserTask_RunBatch" />
+    <bpmn:sequenceFlow id="Flow_3" sourceRef="UserTask_RunBatch" targetRef="ServiceTask_FetchPapers" />
+    <bpmn:sequenceFlow id="Flow_4" sourceRef="ServiceTask_FetchPapers" targetRef="ServiceTask_FetchFullTexts" />
+    <bpmn:sequenceFlow id="Flow_5" sourceRef="ServiceTask_FetchFullTexts" targetRef="ServiceTask_Enrich" />
+    <bpmn:sequenceFlow id="Flow_6" sourceRef="ServiceTask_Enrich" targetRef="UserTask_ReviewProposal" />
+    <bpmn:sequenceFlow id="Flow_7" sourceRef="UserTask_ReviewProposal" targetRef="ServiceTask_Apply" />
+    <bpmn:sequenceFlow id="Flow_8" sourceRef="ServiceTask_Apply" targetRef="ServiceTask_Update" />
+    <bpmn:sequenceFlow id="Flow_9" sourceRef="ServiceTask_Update" targetRef="ServiceTask_BuildAPI" />
+    <bpmn:sequenceFlow id="Flow_10" sourceRef="ServiceTask_BuildAPI" targetRef="ServiceTask_RunTests" />
+    <bpmn:sequenceFlow id="Flow_11" sourceRef="ServiceTask_RunTests" targetRef="Gateway_TestsPass" />
+    <bpmn:sequenceFlow id="Flow_12_Yes" name="Да" sourceRef="Gateway_TestsPass" targetRef="ServiceTask_GitPush" />
+    <bpmn:sequenceFlow id="Flow_12_No" name="Нет" sourceRef="Gateway_TestsPass" targetRef="ServiceTask_Rollback" />
+    <bpmn:sequenceFlow id="Flow_13" sourceRef="ServiceTask_GitPush" targetRef="EndEvent_Published" />
+    <bpmn:sequenceFlow id="Flow_14" sourceRef="ServiceTask_Rollback" targetRef="EndEvent_Failed" />
+    <bpmn:serviceTask id="ServiceTask_RunTests" name="pytest">
+      <bpmn:incoming>Flow_10</bpmn:incoming>
+      <bpmn:outgoing>Flow_11</bpmn:outgoing>
+    </bpmn:serviceTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1">
+      <bpmndi:BPMNShape id="Shape_Participant" bpmnElement="Participant_Brain25" isHorizontal="true">
+        <dc:Bounds x="150" y="80" width="1180" height="560" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Lane_CI" bpmnElement="Lane_CI" isHorizontal="true">
+        <dc:Bounds x="180" y="400" width="1150" height="240" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Lane_Python" bpmnElement="Lane_Python" isHorizontal="true">
+        <dc:Bounds x="180" y="240" width="1150" height="160" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Lane_Maintainer" bpmnElement="Lane_Maintainer" isHorizontal="true">
+        <dc:Bounds x="180" y="80" width="1150" height="160" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Start" bpmnElement="StartEvent_New">
+        <dc:Bounds x="230" y="142" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="210" y="178" width="77" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_AddConfig" bpmnElement="UserTask_AddToConfig">
+        <dc:Bounds x="320" y="120" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_RunBatch" bpmnElement="UserTask_RunBatch">
+        <dc:Bounds x="490" y="120" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_FetchPapers" bpmnElement="ServiceTask_FetchPapers">
+        <dc:Bounds x="320" y="280" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_FetchFullTexts" bpmnElement="ServiceTask_FetchFullTexts">
+        <dc:Bounds x="490" y="280" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Enrich" bpmnElement="ServiceTask_Enrich">
+        <dc:Bounds x="660" y="280" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Review" bpmnElement="UserTask_ReviewProposal">
+        <dc:Bounds x="830" y="120" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Apply" bpmnElement="ServiceTask_Apply">
+        <dc:Bounds x="830" y="280" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Update" bpmnElement="ServiceTask_Update">
+        <dc:Bounds x="1000" y="280" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_BuildAPI" bpmnElement="ServiceTask_BuildAPI">
+        <dc:Bounds x="1170" y="280" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Gateway" bpmnElement="Gateway_TestsPass" isMarkerVisible="true">
+        <dc:Bounds x="490" y="455" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="420" y="503" width="80" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_GitPush" bpmnElement="ServiceTask_GitPush">
+        <dc:Bounds x="580" y="440" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_EndPub" bpmnElement="EndEvent_Published">
+        <dc:Bounds x="740" y="462" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="721" y="498" width="74" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Rollback" bpmnElement="ServiceTask_Rollback">
+        <dc:Bounds x="580" y="540" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_EndFail" bpmnElement="EndEvent_Failed">
+        <dc:Bounds x="740" y="562" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="747" y="598" width="23" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_RunTests" bpmnElement="ServiceTask_RunTests">
+        <dc:Bounds x="290" y="440" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Edge_1" bpmnElement="Flow_1">
+        <di:waypoint x="266" y="160" />
+        <di:waypoint x="320" y="160" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_2" bpmnElement="Flow_2">
+        <di:waypoint x="440" y="160" />
+        <di:waypoint x="490" y="160" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_3" bpmnElement="Flow_3">
+        <di:waypoint x="550" y="200" />
+        <di:waypoint x="550" y="240" />
+        <di:waypoint x="380" y="240" />
+        <di:waypoint x="380" y="280" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_4" bpmnElement="Flow_4">
+        <di:waypoint x="440" y="320" />
+        <di:waypoint x="490" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_5" bpmnElement="Flow_5">
+        <di:waypoint x="610" y="320" />
+        <di:waypoint x="660" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_6" bpmnElement="Flow_6">
+        <di:waypoint x="720" y="280" />
+        <di:waypoint x="720" y="240" />
+        <di:waypoint x="890" y="240" />
+        <di:waypoint x="890" y="200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_7" bpmnElement="Flow_7">
+        <di:waypoint x="890" y="200" />
+        <di:waypoint x="890" y="280" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_8" bpmnElement="Flow_8">
+        <di:waypoint x="950" y="320" />
+        <di:waypoint x="1000" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_9" bpmnElement="Flow_9">
+        <di:waypoint x="1120" y="320" />
+        <di:waypoint x="1170" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_10" bpmnElement="Flow_10">
+        <di:waypoint x="1230" y="360" />
+        <di:waypoint x="1230" y="400" />
+        <di:waypoint x="350" y="400" />
+        <di:waypoint x="350" y="440" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_11" bpmnElement="Flow_11">
+        <di:waypoint x="410" y="480" />
+        <di:waypoint x="490" y="480" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_12_Yes" bpmnElement="Flow_12_Yes">
+        <di:waypoint x="540" y="480" />
+        <di:waypoint x="580" y="480" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="553" y="455" width="14" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_12_No" bpmnElement="Flow_12_No">
+        <di:waypoint x="515" y="505" />
+        <di:waypoint x="515" y="580" />
+        <di:waypoint x="580" y="580" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="521" y="533" width="19" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_13" bpmnElement="Flow_13">
+        <di:waypoint x="700" y="480" />
+        <di:waypoint x="740" y="480" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_14" bpmnElement="Flow_14">
+        <di:waypoint x="700" y="580" />
+        <di:waypoint x="740" y="580" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
