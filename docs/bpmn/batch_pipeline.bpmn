@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_Brain25" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.51.0">
+<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Definitions_Brain25" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.51.0">
   <bpmn:collaboration id="Collaboration_1">
-    <bpmn:participant id="Participant_Brain25" name="Brain 25 Evidence" processRef="Process_Pipeline" />
+    <bpmn:participant id="Participant_Brain25" name="Brain 25 Evidence - Batch Pipeline" processRef="Process_Pipeline" />
   </bpmn:collaboration>
   <bpmn:process id="Process_Pipeline" name="Batch Pipeline" isExecutable="false">
+    <bpmn:documentation>Пайплайн добавления новых добавок в базу Brain 25 Evidence. От стартового CSV до публикации API на GitHub Pages.</bpmn:documentation>
     <bpmn:laneSet id="LaneSet_1">
       <bpmn:lane id="Lane_CI" name="Scheduler / CI">
+        <bpmn:documentation>Контроль качества и публикация: тесты, git push, откат при ошибках</bpmn:documentation>
         <bpmn:flowNodeRef>Gateway_TestsPass</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>ServiceTask_GitPush</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>EndEvent_Published</bpmn:flowNodeRef>
@@ -14,6 +16,7 @@
         <bpmn:flowNodeRef>ServiceTask_RunTests</bpmn:flowNodeRef>
       </bpmn:lane>
       <bpmn:lane id="Lane_Python" name="Python Scripts">
+        <bpmn:documentation>Автоматизированные ETL-скрипты: fetch метаданных, full texts, обогащение, публикация</bpmn:documentation>
         <bpmn:flowNodeRef>ServiceTask_FetchPapers</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>ServiceTask_FetchFullTexts</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>ServiceTask_Enrich</bpmn:flowNodeRef>
@@ -22,48 +25,59 @@
         <bpmn:flowNodeRef>ServiceTask_BuildAPI</bpmn:flowNodeRef>
       </bpmn:lane>
       <bpmn:lane id="Lane_Maintainer" name="Maintainer">
+        <bpmn:documentation>Ручные действия владельца проекта: добавление записи, запуск batch, ревью результата</bpmn:documentation>
         <bpmn:flowNodeRef>StartEvent_New</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>UserTask_AddToConfig</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>UserTask_RunBatch</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>UserTask_ReviewProposal</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
-    <bpmn:startEvent id="StartEvent_New" name="Новая добавка">
+    <bpmn:startEvent id="StartEvent_New" name="Новая добавка в CSV">
+      <bpmn:documentation>Триггер: добавлена запись в supplements_to_add_N.csv</bpmn:documentation>
       <bpmn:outgoing>Flow_1</bpmn:outgoing>
     </bpmn:startEvent>
     <bpmn:userTask id="UserTask_AddToConfig" name="Добавить в config.py">
+      <bpmn:documentation>Регистрация добавки в SUPPLEMENTS dict (src/config.py)</bpmn:documentation>
       <bpmn:incoming>Flow_1</bpmn:incoming>
       <bpmn:outgoing>Flow_2</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:userTask id="UserTask_RunBatch" name="Запустить batch">
+      <bpmn:documentation>python scripts/add_supplements_batch.py + fetch_evidence</bpmn:documentation>
       <bpmn:incoming>Flow_2</bpmn:incoming>
       <bpmn:outgoing>Flow_3</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:serviceTask id="ServiceTask_FetchPapers" name="fetch_papers.py">
+      <bpmn:documentation>Сбор метаданных из PubMed API: 37 618 papers</bpmn:documentation>
       <bpmn:incoming>Flow_3</bpmn:incoming>
       <bpmn:outgoing>Flow_4</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:serviceTask id="ServiceTask_FetchFullTexts" name="fetch_europepmc.py">
+      <bpmn:documentation>Каскад EBI → NCBI: 11 940 full texts (87% покрытие PMCID)</bpmn:documentation>
       <bpmn:incoming>Flow_4</bpmn:incoming>
       <bpmn:outgoing>Flow_5</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:serviceTask id="ServiceTask_Enrich" name="enrich_drafts.py">
+      <bpmn:documentation>Заполнение adv-полей через proposal JSON от LLM-агента</bpmn:documentation>
       <bpmn:incoming>Flow_5</bpmn:incoming>
       <bpmn:outgoing>Flow_6</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:userTask id="UserTask_ReviewProposal" name="Review proposal">
+      <bpmn:documentation>Human-in-the-loop: ручная проверка сгенерированных полей и грейдов</bpmn:documentation>
       <bpmn:incoming>Flow_6</bpmn:incoming>
       <bpmn:outgoing>Flow_7</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:serviceTask id="ServiceTask_Apply" name="apply_drafts.py">
+      <bpmn:documentation>Merge _drafts.json → docs/data.json (130 карточек)</bpmn:documentation>
       <bpmn:incoming>Flow_7</bpmn:incoming>
       <bpmn:outgoing>Flow_8</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:serviceTask id="ServiceTask_Update" name="update_all.py">
+      <bpmn:documentation>Пересчёт метрик: scienceIndex, hedges_g, DOI, citations</bpmn:documentation>
       <bpmn:incoming>Flow_8</bpmn:incoming>
       <bpmn:outgoing>Flow_9</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:serviceTask id="ServiceTask_BuildAPI" name="build_api.py">
+      <bpmn:documentation>Генерация публичного REST API: index.json + supplements.json</bpmn:documentation>
       <bpmn:incoming>Flow_9</bpmn:incoming>
       <bpmn:outgoing>Flow_10</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -73,19 +87,26 @@
       <bpmn:outgoing>Flow_12_No</bpmn:outgoing>
     </bpmn:exclusiveGateway>
     <bpmn:serviceTask id="ServiceTask_GitPush" name="git push">
+      <bpmn:documentation>Публикация на GitHub + GitHub Pages rebuild</bpmn:documentation>
       <bpmn:incoming>Flow_12_Yes</bpmn:incoming>
       <bpmn:outgoing>Flow_13</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:endEvent id="EndEvent_Published" name="Опубликовано">
       <bpmn:incoming>Flow_13</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:serviceTask id="ServiceTask_Rollback" name="Откат">
+    <bpmn:serviceTask id="ServiceTask_Rollback" name="Откат коммита">
+      <bpmn:documentation>git reset --hard HEAD~1</bpmn:documentation>
       <bpmn:incoming>Flow_12_No</bpmn:incoming>
       <bpmn:outgoing>Flow_14</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:endEvent id="EndEvent_Failed" name="FAIL">
       <bpmn:incoming>Flow_14</bpmn:incoming>
     </bpmn:endEvent>
+    <bpmn:serviceTask id="ServiceTask_RunTests" name="pytest">
+      <bpmn:documentation>118 + 35 тестов: schema, SQL, API contract, snapshot</bpmn:documentation>
+      <bpmn:incoming>Flow_10</bpmn:incoming>
+      <bpmn:outgoing>Flow_11</bpmn:outgoing>
+    </bpmn:serviceTask>
     <bpmn:sequenceFlow id="Flow_1" sourceRef="StartEvent_New" targetRef="UserTask_AddToConfig" />
     <bpmn:sequenceFlow id="Flow_2" sourceRef="UserTask_AddToConfig" targetRef="UserTask_RunBatch" />
     <bpmn:sequenceFlow id="Flow_3" sourceRef="UserTask_RunBatch" targetRef="ServiceTask_FetchPapers" />
@@ -101,157 +122,153 @@
     <bpmn:sequenceFlow id="Flow_12_No" name="Нет" sourceRef="Gateway_TestsPass" targetRef="ServiceTask_Rollback" />
     <bpmn:sequenceFlow id="Flow_13" sourceRef="ServiceTask_GitPush" targetRef="EndEvent_Published" />
     <bpmn:sequenceFlow id="Flow_14" sourceRef="ServiceTask_Rollback" targetRef="EndEvent_Failed" />
-    <bpmn:serviceTask id="ServiceTask_RunTests" name="pytest">
-      <bpmn:incoming>Flow_10</bpmn:incoming>
-      <bpmn:outgoing>Flow_11</bpmn:outgoing>
-    </bpmn:serviceTask>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1">
-      <bpmndi:BPMNShape id="Shape_Participant" bpmnElement="Participant_Brain25" isHorizontal="true">
-        <dc:Bounds x="150" y="80" width="1180" height="560" />
+      <bpmndi:BPMNShape id="Shape_Participant" bpmnElement="Participant_Brain25" isHorizontal="true" bioc:stroke="#1F2937" bioc:fill="#FFFFFF">
+        <dc:Bounds x="150" y="110" width="1330" height="630" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Shape_Lane_CI" bpmnElement="Lane_CI" isHorizontal="true">
-        <dc:Bounds x="180" y="400" width="1150" height="240" />
+      <bpmndi:BPMNShape id="Shape_Lane_CI" bpmnElement="Lane_CI" isHorizontal="true" bioc:stroke="#F59E0B" bioc:fill="#FFFBEB">
+        <dc:Bounds x="180" y="480" width="1300" height="260" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Shape_Lane_Python" bpmnElement="Lane_Python" isHorizontal="true">
-        <dc:Bounds x="180" y="240" width="1150" height="160" />
+      <bpmndi:BPMNShape id="Shape_Lane_Python" bpmnElement="Lane_Python" isHorizontal="true" bioc:stroke="#22C55E" bioc:fill="#F0FDF4">
+        <dc:Bounds x="180" y="280" width="1300" height="200" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Shape_Lane_Maintainer" bpmnElement="Lane_Maintainer" isHorizontal="true">
-        <dc:Bounds x="180" y="80" width="1150" height="160" />
+      <bpmndi:BPMNShape id="Shape_Lane_Maintainer" bpmnElement="Lane_Maintainer" isHorizontal="true" bioc:stroke="#3B82F6" bioc:fill="#EFF6FF">
+        <dc:Bounds x="180" y="110" width="1300" height="170" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Shape_Start" bpmnElement="StartEvent_New">
-        <dc:Bounds x="230" y="142" width="36" height="36" />
+      <bpmndi:BPMNShape id="Shape_Start" bpmnElement="StartEvent_New" bioc:stroke="#16A34A" bioc:fill="#DCFCE7">
+        <dc:Bounds x="230" y="162" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="210" y="178" width="77" height="14" />
+          <dc:Bounds x="205" y="198" width="86" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Shape_AddConfig" bpmnElement="UserTask_AddToConfig">
-        <dc:Bounds x="320" y="120" width="120" height="80" />
+      <bpmndi:BPMNShape id="Shape_AddConfig" bpmnElement="UserTask_AddToConfig" bioc:stroke="#2563EB" bioc:fill="#DBEAFE">
+        <dc:Bounds x="330" y="140" width="140" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Shape_RunBatch" bpmnElement="UserTask_RunBatch">
-        <dc:Bounds x="490" y="120" width="120" height="80" />
+      <bpmndi:BPMNShape id="Shape_RunBatch" bpmnElement="UserTask_RunBatch" bioc:stroke="#2563EB" bioc:fill="#DBEAFE">
+        <dc:Bounds x="520" y="140" width="140" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Shape_FetchPapers" bpmnElement="ServiceTask_FetchPapers">
-        <dc:Bounds x="320" y="280" width="120" height="80" />
+      <bpmndi:BPMNShape id="Shape_FetchPapers" bpmnElement="ServiceTask_FetchPapers" bioc:stroke="#16A34A" bioc:fill="#DCFCE7">
+        <dc:Bounds x="330" y="340" width="140" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Shape_FetchFullTexts" bpmnElement="ServiceTask_FetchFullTexts">
-        <dc:Bounds x="490" y="280" width="120" height="80" />
+      <bpmndi:BPMNShape id="Shape_FetchFullTexts" bpmnElement="ServiceTask_FetchFullTexts" bioc:stroke="#16A34A" bioc:fill="#DCFCE7">
+        <dc:Bounds x="520" y="340" width="140" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Shape_Enrich" bpmnElement="ServiceTask_Enrich">
-        <dc:Bounds x="660" y="280" width="120" height="80" />
+      <bpmndi:BPMNShape id="Shape_Enrich" bpmnElement="ServiceTask_Enrich" bioc:stroke="#16A34A" bioc:fill="#DCFCE7">
+        <dc:Bounds x="710" y="340" width="140" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Shape_Review" bpmnElement="UserTask_ReviewProposal">
-        <dc:Bounds x="830" y="120" width="120" height="80" />
+      <bpmndi:BPMNShape id="Shape_Review" bpmnElement="UserTask_ReviewProposal" bioc:stroke="#2563EB" bioc:fill="#DBEAFE">
+        <dc:Bounds x="900" y="140" width="140" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Shape_Apply" bpmnElement="ServiceTask_Apply">
-        <dc:Bounds x="830" y="280" width="120" height="80" />
+      <bpmndi:BPMNShape id="Shape_Apply" bpmnElement="ServiceTask_Apply" bioc:stroke="#16A34A" bioc:fill="#DCFCE7">
+        <dc:Bounds x="900" y="340" width="140" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Shape_Update" bpmnElement="ServiceTask_Update">
-        <dc:Bounds x="1000" y="280" width="120" height="80" />
+      <bpmndi:BPMNShape id="Shape_Update" bpmnElement="ServiceTask_Update" bioc:stroke="#16A34A" bioc:fill="#DCFCE7">
+        <dc:Bounds x="1090" y="340" width="140" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Shape_BuildAPI" bpmnElement="ServiceTask_BuildAPI">
-        <dc:Bounds x="1170" y="280" width="120" height="80" />
+      <bpmndi:BPMNShape id="Shape_BuildAPI" bpmnElement="ServiceTask_BuildAPI" bioc:stroke="#16A34A" bioc:fill="#DCFCE7">
+        <dc:Bounds x="1280" y="340" width="140" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Shape_Gateway" bpmnElement="Gateway_TestsPass" isMarkerVisible="true">
-        <dc:Bounds x="490" y="455" width="50" height="50" />
+      <bpmndi:BPMNShape id="Shape_Gateway" bpmnElement="Gateway_TestsPass" isMarkerVisible="true" bioc:stroke="#DC2626" bioc:fill="#FEE2E2">
+        <dc:Bounds x="530" y="575" width="50" height="50" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="420" y="503" width="80" height="14" />
+          <dc:Bounds x="470" y="625" width="80" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Shape_GitPush" bpmnElement="ServiceTask_GitPush">
-        <dc:Bounds x="580" y="440" width="120" height="80" />
+      <bpmndi:BPMNShape id="Shape_GitPush" bpmnElement="ServiceTask_GitPush" bioc:stroke="#D97706" bioc:fill="#FEF3C7">
+        <dc:Bounds x="640" y="540" width="140" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Shape_EndPub" bpmnElement="EndEvent_Published">
-        <dc:Bounds x="740" y="462" width="36" height="36" />
+      <bpmndi:BPMNShape id="Shape_EndPub" bpmnElement="EndEvent_Published" bioc:stroke="#16A34A" bioc:fill="#BBF7D0">
+        <dc:Bounds x="830" y="562" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="721" y="498" width="74" height="14" />
+          <dc:Bounds x="811" y="598" width="74" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Shape_Rollback" bpmnElement="ServiceTask_Rollback">
-        <dc:Bounds x="580" y="540" width="120" height="80" />
+      <bpmndi:BPMNShape id="Shape_Rollback" bpmnElement="ServiceTask_Rollback" bioc:stroke="#DC2626" bioc:fill="#FEE2E2">
+        <dc:Bounds x="640" y="640" width="140" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Shape_EndFail" bpmnElement="EndEvent_Failed">
-        <dc:Bounds x="740" y="562" width="36" height="36" />
+      <bpmndi:BPMNShape id="Shape_EndFail" bpmnElement="EndEvent_Failed" bioc:stroke="#DC2626" bioc:fill="#FECACA">
+        <dc:Bounds x="830" y="662" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="747" y="598" width="23" height="14" />
+          <dc:Bounds x="837" y="698" width="23" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Shape_RunTests" bpmnElement="ServiceTask_RunTests">
-        <dc:Bounds x="290" y="440" width="120" height="80" />
+      <bpmndi:BPMNShape id="Shape_RunTests" bpmnElement="ServiceTask_RunTests" bioc:stroke="#D97706" bioc:fill="#FEF3C7">
+        <dc:Bounds x="320" y="560" width="140" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Edge_1" bpmnElement="Flow_1">
-        <di:waypoint x="266" y="160" />
-        <di:waypoint x="320" y="160" />
+      <bpmndi:BPMNEdge id="Edge_1" bpmnElement="Flow_1" bioc:stroke="#6B7280">
+        <di:waypoint x="266" y="180" />
+        <di:waypoint x="330" y="180" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Edge_2" bpmnElement="Flow_2">
-        <di:waypoint x="440" y="160" />
-        <di:waypoint x="490" y="160" />
+      <bpmndi:BPMNEdge id="Edge_2" bpmnElement="Flow_2" bioc:stroke="#6B7280">
+        <di:waypoint x="470" y="180" />
+        <di:waypoint x="520" y="180" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Edge_3" bpmnElement="Flow_3">
-        <di:waypoint x="550" y="200" />
-        <di:waypoint x="550" y="240" />
-        <di:waypoint x="380" y="240" />
-        <di:waypoint x="380" y="280" />
+      <bpmndi:BPMNEdge id="Edge_3" bpmnElement="Flow_3" bioc:stroke="#6B7280">
+        <di:waypoint x="590" y="220" />
+        <di:waypoint x="590" y="280" />
+        <di:waypoint x="400" y="280" />
+        <di:waypoint x="400" y="340" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Edge_4" bpmnElement="Flow_4">
-        <di:waypoint x="440" y="320" />
-        <di:waypoint x="490" y="320" />
+      <bpmndi:BPMNEdge id="Edge_4" bpmnElement="Flow_4" bioc:stroke="#6B7280">
+        <di:waypoint x="470" y="380" />
+        <di:waypoint x="520" y="380" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Edge_5" bpmnElement="Flow_5">
-        <di:waypoint x="610" y="320" />
-        <di:waypoint x="660" y="320" />
+      <bpmndi:BPMNEdge id="Edge_5" bpmnElement="Flow_5" bioc:stroke="#6B7280">
+        <di:waypoint x="660" y="380" />
+        <di:waypoint x="710" y="380" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Edge_6" bpmnElement="Flow_6">
-        <di:waypoint x="720" y="280" />
-        <di:waypoint x="720" y="240" />
-        <di:waypoint x="890" y="240" />
-        <di:waypoint x="890" y="200" />
+      <bpmndi:BPMNEdge id="Edge_6" bpmnElement="Flow_6" bioc:stroke="#6B7280">
+        <di:waypoint x="780" y="340" />
+        <di:waypoint x="780" y="280" />
+        <di:waypoint x="970" y="280" />
+        <di:waypoint x="970" y="220" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Edge_7" bpmnElement="Flow_7">
-        <di:waypoint x="890" y="200" />
-        <di:waypoint x="890" y="280" />
+      <bpmndi:BPMNEdge id="Edge_7" bpmnElement="Flow_7" bioc:stroke="#6B7280">
+        <di:waypoint x="970" y="220" />
+        <di:waypoint x="970" y="340" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Edge_8" bpmnElement="Flow_8">
-        <di:waypoint x="950" y="320" />
-        <di:waypoint x="1000" y="320" />
+      <bpmndi:BPMNEdge id="Edge_8" bpmnElement="Flow_8" bioc:stroke="#6B7280">
+        <di:waypoint x="1040" y="380" />
+        <di:waypoint x="1090" y="380" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Edge_9" bpmnElement="Flow_9">
-        <di:waypoint x="1120" y="320" />
-        <di:waypoint x="1170" y="320" />
+      <bpmndi:BPMNEdge id="Edge_9" bpmnElement="Flow_9" bioc:stroke="#6B7280">
+        <di:waypoint x="1230" y="380" />
+        <di:waypoint x="1280" y="380" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Edge_10" bpmnElement="Flow_10">
-        <di:waypoint x="1230" y="360" />
-        <di:waypoint x="1230" y="400" />
-        <di:waypoint x="350" y="400" />
-        <di:waypoint x="350" y="440" />
+      <bpmndi:BPMNEdge id="Edge_10" bpmnElement="Flow_10" bioc:stroke="#6B7280">
+        <di:waypoint x="1350" y="420" />
+        <di:waypoint x="1350" y="480" />
+        <di:waypoint x="390" y="480" />
+        <di:waypoint x="390" y="560" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Edge_11" bpmnElement="Flow_11">
-        <di:waypoint x="410" y="480" />
-        <di:waypoint x="490" y="480" />
+      <bpmndi:BPMNEdge id="Edge_11" bpmnElement="Flow_11" bioc:stroke="#6B7280">
+        <di:waypoint x="460" y="600" />
+        <di:waypoint x="530" y="600" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Edge_12_Yes" bpmnElement="Flow_12_Yes">
-        <di:waypoint x="540" y="480" />
-        <di:waypoint x="580" y="480" />
+      <bpmndi:BPMNEdge id="Edge_12_Yes" bpmnElement="Flow_12_Yes" bioc:stroke="#16A34A">
+        <di:waypoint x="580" y="600" />
+        <di:waypoint x="640" y="580" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="553" y="455" width="14" height="14" />
+          <dc:Bounds x="603" y="565" width="14" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Edge_12_No" bpmnElement="Flow_12_No">
-        <di:waypoint x="515" y="505" />
-        <di:waypoint x="515" y="580" />
-        <di:waypoint x="580" y="580" />
+      <bpmndi:BPMNEdge id="Edge_12_No" bpmnElement="Flow_12_No" bioc:stroke="#DC2626">
+        <di:waypoint x="555" y="625" />
+        <di:waypoint x="555" y="680" />
+        <di:waypoint x="640" y="680" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="521" y="533" width="19" height="14" />
+          <dc:Bounds x="561" y="643" width="19" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Edge_13" bpmnElement="Flow_13">
-        <di:waypoint x="700" y="480" />
-        <di:waypoint x="740" y="480" />
+      <bpmndi:BPMNEdge id="Edge_13" bpmnElement="Flow_13" bioc:stroke="#6B7280">
+        <di:waypoint x="780" y="580" />
+        <di:waypoint x="830" y="580" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Edge_14" bpmnElement="Flow_14">
-        <di:waypoint x="700" y="580" />
-        <di:waypoint x="740" y="580" />
+      <bpmndi:BPMNEdge id="Edge_14" bpmnElement="Flow_14" bioc:stroke="#6B7280">
+        <di:waypoint x="780" y="680" />
+        <di:waypoint x="830" y="680" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
