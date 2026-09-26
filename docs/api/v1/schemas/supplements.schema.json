@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://deadsno.github.io/brain-25-evidence/api/v1/schemas/supplements.schema.json",
+  "title": "Brain 25 Evidence Supplements",
+  "type": "object",
+  "required": [
+    "version",
+    "count",
+    "supplements"
+  ],
+  "properties": {
+    "version": {
+      "type": "string"
+    },
+    "count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "supplements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "category",
+          "grade",
+          "verdict",
+          "code"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 64
+          },
+          "category": {
+            "type": "string"
+          },
+          "grade": {
+            "type": "string",
+            "enum": [
+              "A",
+              "B",
+              "C",
+              "D"
+            ]
+          },
+          "verdict": {
+            "type": "string"
+          },
+          "code": {
+            "type": "integer",
+            "enum": [
+              -1,
+              0,
+              1
+            ]
+          },
+          "scienceIndex": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "rct": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "metaCount": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "effects": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "interactions": {
+            "type": "array"
+          },
+          "key_sources": {
+            "type": "array"
+          }
+        }
+      }
+    }
+  }
+}

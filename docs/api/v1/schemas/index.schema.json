@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://deadsno.github.io/brain-25-evidence/api/v1/schemas/index.schema.json",
+  "title": "Brain 25 Evidence Index",
+  "type": "object",
+  "required": [
+    "version",
+    "generated_at",
+    "count",
+    "license",
+    "source",
+    "endpoints",
+    "stats",
+    "ids"
+  ],
+  "properties": {
+    "version": {
+      "type": "string"
+    },
+    "generated_at": {
+      "type": "string"
+    },
+    "count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "license": {
+      "type": "string"
+    },
+    "source": {
+      "type": "string"
+    },
+    "endpoints": {
+      "type": "object"
+    },
+    "stats": {
+      "type": "object"
+    },
+    "ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}
