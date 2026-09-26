@@ -1,0 +1,17 @@
+{
+  "404_not_found": {
+    "status": 404,
+    "content_type": "text/html",
+    "body": "<!DOCTYPE html><html><head><title>404</title></head><body><h1>404</h1></body></html>"
+  },
+  "500_error": {
+    "status": 500,
+    "content_type": "text/html",
+    "body": "<!DOCTYPE html><html><head><title>500</title></head><body><h1>Internal Server Error</h1></body></html>"
+  },
+  "empty_body": {
+    "status": 200,
+    "content_type": "application/json",
+    "body": ""
+  }
+}

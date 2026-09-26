@@ -1,0 +1,125 @@
+{
+  "version": "v1-test",
+  "generated_at": "2026-09-26T00:00:00Z",
+  "count": 3,
+  "license": "CC BY 4.0",
+  "source": "https://github.com/DeadSno/brain-25-evidence",
+  "site": "https://deadsno.github.io/brain-25-evidence",
+  "schema": {
+    "id": "string",
+    "grade": "A|B|C|D"
+  },
+  "supplements": [
+    {
+      "id": "Креатин",
+      "category": "Спорт/Когниция",
+      "grade": "A",
+      "verdict": "работает",
+      "code": 1,
+      "about": "Улучшает память под нагрузкой (мок для тестов)",
+      "scienceIndex": 1265,
+      "rct": 450,
+      "metaCount": 68,
+      "effects": [
+        "Рабочая память под нагрузкой"
+      ],
+      "mechs": [
+        [
+          "Фосфокреатиновый буфер",
+          "Повышение силы",
+          "умеренно"
+        ]
+      ],
+      "interactions": [
+        {
+          "with": "нет данных",
+          "severity": "low",
+          "note": "известных взаимодействий нет"
+        }
+      ],
+      "key_sources": [
+        {
+          "pmid": "12345678",
+          "year": 2024,
+          "journal": "Test Journal",
+          "title": "Test",
+          "doi": "10.1000/test"
+        }
+      ]
+    },
+    {
+      "id": "Цинк",
+      "category": "Иммунитет",
+      "grade": "B",
+      "verdict": "работает",
+      "code": 1,
+      "about": "Поддерживает иммунитет (мок)",
+      "scienceIndex": 890,
+      "rct": 200,
+      "metaCount": 30,
+      "effects": [
+        "Иммунитет"
+      ],
+      "mechs": [
+        [
+          "Кофактор ферментов",
+          "Иммунная функция",
+          "умеренно"
+        ]
+      ],
+      "interactions": [
+        {
+          "with": "нет данных",
+          "severity": "low",
+          "note": "известных взаимодействий нет"
+        }
+      ],
+      "key_sources": [
+        {
+          "pmid": "87654321",
+          "year": 2023,
+          "journal": "Test Journal",
+          "title": "Test",
+          "doi": "10.1000/test2"
+        }
+      ]
+    },
+    {
+      "id": "PABA",
+      "category": "Общее",
+      "grade": "D",
+      "verdict": "не подтверждено",
+      "code": -1,
+      "about": "Не подтверждён (мок для тестов)",
+      "scienceIndex": 63,
+      "rct": 1,
+      "metaCount": 0,
+      "effects": [
+        "Нет подтверждённых эффектов"
+      ],
+      "mechs": [
+        [
+          "Неизвестен",
+          "Нет данных",
+          "слабо"
+        ]
+      ],
+      "interactions": [
+        {
+          "with": "нет данных",
+          "severity": "low",
+          "note": "известных взаимодействий нет"
+        }
+      ],
+      "key_sources": [
+        {
+          "pmid": "8151563",
+          "year": 1993,
+          "journal": "Test Journal",
+          "title": "Test",
+          "doi": "10.1000/test3"
+        }
+      ]
+    }
+  ]
+}
