@@ -7,7 +7,7 @@
 ## Файлы
 
 - **Camunda Modeler:** [`docs/bpmn/batch_pipeline.bpmn`](bpmn/batch_pipeline.bpmn) — открывается в Camunda Modeler
-- **Скриншот:** [`docs/bpmn/screenshot.png`](bpmn/screenshot.png) — экспорт из Camunda (сделать вручную)
+- **Скриншот:** [`docs/bpmn/screenshot.png`](bpmn/screenshot.png) — цветная схема из Camunda Modeler (2x)
 
 ## 1. Основной pipeline — от метаданных до публикации
 
