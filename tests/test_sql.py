@@ -71,3 +71,23 @@ def test_top_science_index(db):
     """).fetchall()
     assert len(rows) == 1
     assert rows[0][1] > 5000, f"Топ SI={rows[0][1]}, ожидалось >5000"
+
+def test_coi_count(db):
+    """COI импортирован в БД (не 0 строк)."""
+    n = db.execute("SELECT COUNT(*) FROM coi").fetchone()[0]
+    assert n > 6000, f"COI в БД: {n}, ожидалось > 6000"
+
+
+def test_coi_types_valid(db):
+    """Все coi_type из допустимых."""
+    rows = db.execute("SELECT DISTINCT coi_type FROM coi").fetchall()
+    types = {r[0] for r in rows}
+    valid = {"none", "yes", "unclear", "missing"}
+    assert types <= valid, f"Невалидные типы: {types - valid}"
+
+
+def test_coi_has_funding(db):
+    """Часть записей имеет funding."""
+    n = db.execute("SELECT COUNT(*) FROM coi WHERE has_funding").fetchone()[0]
+    assert n > 3000, f"Записей с funding: {n}"
+

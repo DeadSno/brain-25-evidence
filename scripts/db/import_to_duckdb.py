@@ -23,6 +23,7 @@ ROOT = Path(__file__).resolve().parents[2]
 DATA_JSON = ROOT / "docs" / "data.json"
 PAPERS_JSON = ROOT / "data" / "papers" / "papers.json"
 COI_JSON = ROOT / "reports" / "coi_report.json"
+COI_PER_PAPER = ROOT / "reports" / "coi_per_paper.json"
 SCHEMA_SQL = ROOT / "scripts" / "db" / "schema.sql"
 DB_PATH = ROOT / "data" / "db" / "brain.duckdb"
 
@@ -169,16 +170,39 @@ def import_papers(con: duckdb.DuckDBPyConnection) -> int:
 
 
 def import_coi(con: duckdb.DuckDBPyConnection) -> int:
-    if not COI_JSON.exists():
-        print("[SKIP] coi_report.json не найден")
+    """Импорт per-paper COI из coi_per_paper.json."""
+    if not COI_PER_PAPER.exists():
+        print(f"[SKIP] {COI_PER_PAPER.name} не найден — запусти analyze_coi.py")
         return 0
-    coi = json.loads(COI_JSON.read_text(encoding="utf-8"))
-    samples = coi.get("samples", [])
 
-    # samples содержит только 20 примеров, реальных данных нет в отчёте.
-    # Для полноценного импорта COI нужен отдельный dump. Пока — заглушка.
-    print(f"[INFO] COI: samples {len(samples)} (полные данные не в отчёте)")
-    return 0
+    records = json.loads(COI_PER_PAPER.read_text(encoding="utf-8"))
+    print(f"COI записей в файле: {len(records)}")
+
+    # Проверяем, что все pmid есть в paper (FK constraint)
+    paper_pmids = {r[0] for r in con.execute("SELECT pmid FROM paper").fetchall()}
+    valid_rows = []
+    skipped = 0
+    for r in records:
+        if r["pmid"] in paper_pmids:
+            valid_rows.append((
+                r["pmid"],
+                r["coi_type"],
+                r["has_funding"],
+                r["has_pharma"],
+            ))
+        else:
+            skipped += 1
+
+    if skipped:
+        print(f"[WARN] coi: {skipped} записей без paper.pmid — пропущено")
+
+    if valid_rows:
+        con.executemany(
+            "INSERT INTO coi (pmid, coi_type, has_funding, has_pharma) VALUES (?,?,?,?)",
+            valid_rows,
+        )
+    print(f"[OK] coi: {len(valid_rows)}")
+    return len(valid_rows)
 
 
 def main() -> int:

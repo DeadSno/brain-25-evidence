@@ -25,6 +25,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 TEXT_DIR = ROOT / "data" / "pmc" / "text"
 OUT = ROOT / "reports" / "coi_report.json"
+COI_PER_PAPER = ROOT / "reports" / "coi_per_paper.json"
 
 MIN_SIZE = 20_000  # меньше — это front matter, не full text
 
@@ -309,6 +310,25 @@ def main() -> int:
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n",
                    encoding="utf-8")
+
+    # Per-paper dump для импорта в DuckDB
+    per_paper = []
+    for r in results:
+        fname = r.get("file", "")
+        pmid = fname.rsplit(".", 1)[0] if "." in fname else fname
+        if not pmid.isdigit():
+            continue
+        per_paper.append({
+            "pmid": pmid,
+            "coi_type": r["coi_type"],
+            "has_funding": r["has_funding"],
+            "has_pharma": r["has_pharma"],
+        })
+    COI_PER_PAPER.write_text(
+        json.dumps(per_paper, ensure_ascii=False, separators=(",", ":")) + "\n",
+        encoding="utf-8",
+    )
+    print(f"[OK] {COI_PER_PAPER} ({len(per_paper)} записей)")
 
     print(f"\n=== Результаты ({n} full texts) ===")
     print(f"COI — указан конфликт:      {coi_yes:>6} ({coi_yes/n*100:.1f}%)")
