@@ -1,4 +1,4 @@
-﻿"""Конфигурация проекта: список добавок, PubMed-запросы, MAILTO."""
+"""Конфигурация проекта: список добавок, PubMed-запросы, MAILTO."""
 
 MAILTO = "brain25-evidence@users.noreply.github.com"
 

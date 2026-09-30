@@ -1,4 +1,4 @@
-﻿"""Считает число тестов и обновляет version.json.
+"""Считает число тестов и обновляет version.json.
 
 Использование:
     python scripts/sync_test_count.py           # показать
