@@ -718,6 +718,7 @@ header.top .v {
 .btn.c-graph     { border-color: #ef4444; background: rgba(239,68,68,.12); }
 .btn.c-feedback  { border-color: #84cc16; background: rgba(132,204,22,.12); }
 .btn.c-refresh  { border-color: #6366f1; background: rgba(99,102,241,.12); }
+.btn.c-support  { border-color: #7b61ff; background: rgba(123,97,255,.12); }
 
 /* В светлой теме — чуть плотнее фон для контраста */
 body.light .btn.c-home   { background: rgba(100,116,139,.08); }
@@ -730,3 +731,4 @@ body.light .btn.c-bi     { background: rgba(6,182,212,.08); }
 body.light .btn.c-graph     { background: rgba(239,68,68,.08); }
 body.light .btn.c-feedback  { background: rgba(132,204,22,.08); }
 body.light .btn.c-refresh  { background: rgba(99,102,241,.08); }
+body.light .btn.c-support  { background: rgba(123,97,255,.08); }
