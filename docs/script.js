@@ -164,6 +164,18 @@ function chartSupByEl(chart, el) {
   $('cardsGrid').innerHTML = h;
 })();
 
+// v4.0: переключатель темы вынесен из initApp() на верхний уровень,
+// чтобы работал даже если данные не загрузились (шапка живёт всегда)
+function initTheme() {
+  const b = $('themeBtn');
+  if (!b) return;
+  const saved = localStorage.getItem('theme');
+  // По умолчанию — тёмная. Светлая только если пользователь выбрал вручную.
+  if (saved !== 'light') setDark(true);   // v1.3: по умолчанию тёмная; светлая — только по выбору
+  b.onclick = () => { const on = !document.body.classList.contains('dark'); setDark(on); localStorage.setItem('theme', on ? 'dark' : 'light'); };
+}
+initTheme();
+
 const fetchJson = (url) => fetch(url + '?ts=' + Date.now())
   .then(r => { if (!r.ok) throw new Error('no data for ' + url); return r.json(); });
 Promise.allSettled([fetchJson('data_index.json'), fetchJson('effect_tags.json'), fetchJson('effect_labels.json')])
@@ -177,13 +189,17 @@ Promise.allSettled([fetchJson('data_index.json'), fetchJson('effect_tags.json'),
     if (lb.status !== 'fulfilled') console.warn('[effect_labels.json] ?? ???????? ? ???? ?????????');
     initApp();
   })
-  .catch((err) => { console.error('[boot] фатально:', err); document.body.innerHTML = '<p style="color:red">❌ ' + esc(err && err.message ? err.message : err) + '</p>'; });
+  .catch((err) => {
+    console.error('[boot] фатально:', err);
+    // Страницу не стираем: шапка, футер и навигация остаются на месте
+    const msg = '<div style="padding:40px;text-align:center;color:var(--muted)">⚠ Не удалось загрузить данные. Попробуйте обновить страницу.</div>';
+    const grid = $('cardsGrid');
+    if (grid) grid.innerHTML = msg;
+    else document.body.insertAdjacentHTML('afterbegin', msg);
+  });
 
 function initApp() {
   BEST = supplements.filter(s => s.scienceIndex != null).sort((x, y) => y.scienceIndex - x.scienceIndex).slice(0, 3).map(s => s.id);
-  const saved = localStorage.getItem('theme');
-// По умолчанию — тёмная. Светлая только если пользователь выбрал вручную.
-if (saved !== 'light') setDark(true);   // v1.3: по умолчанию тёмная; светлая — только по выбору
   supplements.forEach(s => { $('compareSelect1').add(new Option(s.name, s.id)); $('compareSelect2').add(new Option(s.name, s.id)); });
   if (supplements.length >= 2) { $('compareSelect1').value = supplements[0].id; $('compareSelect2').value = supplements[1].id; }
   // v3.3: сравнение — по кнопке «Сравнить» или смене селекта (не на загрузке:
@@ -204,7 +220,6 @@ if (saved !== 'light') setDark(true);   // v1.3: по умолчанию тём�
       applyFilters();
     });
   });
-  $('themeBtn').onclick = () => { const on = !document.body.classList.contains('dark'); setDark(on); localStorage.setItem('theme', on ? 'dark' : 'light'); };
   $('compareBtn').onclick = renderCompare;
   $('modalClose').onclick = closeModal;
   $('modalOverlay').onclick = e => { if (e.target.id === 'modalOverlay') closeModal(); };

@@ -5,7 +5,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-s
 header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;flex-wrap:wrap;gap:1rem}
 h1{font-size:1.8rem;font-weight:600}
 .hdr{display:flex;gap:.6rem;align-items:center}
-.btn{background:var(--card-bg);color:var(--text);border:1px solid var(--border);padding:.5rem 1rem;border-radius:8px;text-decoration:none;font-size:.95rem}
+.btn{background:var(--card-bg);color:var(--text);border:1px solid var(--border);padding:.7rem 1.1rem;min-height:44px;display:inline-flex;align-items:center;justify-content:center;border-radius:8px;text-decoration:none;font-size:.95rem}
 .btn.calc {
   background: linear-gradient(135deg, #3498db, #2980b9);
   color: #fff !important;
