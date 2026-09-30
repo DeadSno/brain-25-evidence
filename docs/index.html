@@ -189,6 +189,8 @@ try {
 <header class="top">
   <h1><a href="index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a> <span class="v">v<span data-version="app"></span></span></h1>
   <div class="actions">
+    <a class="btn c-feedback" href="feedback.html">💬 Обратная связь</a>
+    <button class="btn c-refresh" id="refreshBtn">🔄 Обновить</button>
     <button class="btn" id="themeToggle">🌞 Светлая тема</button>
   </div>
 </header>
@@ -249,6 +251,12 @@ try {
     <div style="font-size:1.4rem">🔗</div>
     <div style="font-weight:600;margin:.3rem 0">Карта связей</div>
     <div style="opacity:.75;font-size:.85rem">Синергии, антагонизмы и конфликты с лекарствами</div>
+  </a>
+
+  <a class="card-link" href="graph.html" style="display:block;border:2px solid #ef4444;border-radius:12px;text-decoration:none;color:inherit;background:linear-gradient(135deg,rgba(239,68,68,.15),rgba(239,68,68,.04))">
+    <div style="font-size:1.4rem">🕸️</div>
+    <div style="font-weight:600;margin:.3rem 0">Граф связей</div>
+    <div style="opacity:.75;font-size:.85rem">Интерактивный граф: 130 добавок и 1982 связи</div>
   </a>
 
   <a class="card-link" href="atlas.html" style="display:block;border:2px solid #8b5cf6;border-radius:12px;text-decoration:none;color:inherit;background:linear-gradient(135deg,rgba(139,92,246,.15),rgba(139,92,246,.04))">
@@ -371,9 +379,7 @@ try {
   <p class="links">
     <a href="methodology.html">📐 Методология</a> ·
     <a href="faq.html">❓ FAQ</a> ·
-    <a href="glossary.html">📖 Глоссарий</a> ·
-    <a href="https://github.com/DeadSno/brain-25-evidence/issues/new?title=Неточность%20в%20данных">❌ Сообщить о неточности</a> ·
-    <a href="?" onclick="location.reload(true); return false;">🔄 Обновить</a>
+    <a href="glossary.html">📖 Глоссарий</a>
   </p>
   <p class="copy">© 2026 Vladislav "DeadSno" Pereshivalov · MIT</p>
 </footer>
@@ -399,6 +405,12 @@ window.addEventListener('scroll', () => {
   } else {
     btn.classList.remove('show');
   }
+});
+
+// 🔄 Обновить в шапке: та же логика, что была inline onclick в футере.
+// location.reload(true) игнорировался браузерами, поэтому без аргумента.
+document.getElementById('refreshBtn')?.addEventListener('click', () => {
+  location.reload();
 });
 </script>
 </body>
