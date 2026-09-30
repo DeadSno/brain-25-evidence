@@ -1,5 +1,5 @@
 # Runtime-зависимости для скриптов (fetch_meta.py, build_ma_timeline.py и т.п.)
-# ля тестов достаточно requirements-dev.txt
+# Для тестов достаточно requirements-dev.txt
 pandas
 numpy
 matplotlib
@@ -10,4 +10,12 @@ scikit-learn>=1.4
 streamlit>=1.30
 plotly>=5.18
 
-streamlit>=1.30
+# Дополнительные зависимости (аудит 2026-09-30)
+beautifulsoup4>=4.12
+curl_cffi>=0.7
+PyMuPDF>=1.24
+networkx>=3.2
+pyvis>=0.3
+playwright>=1.40
+playwright-stealth>=1.0
+jsonschema>=4.20

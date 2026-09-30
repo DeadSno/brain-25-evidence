@@ -119,7 +119,7 @@ def fetch_json(url, retries=3):
 
 - [OpenAPI spec](openapi.yaml)
 - [Sequence diagrams](sequence.md)
-- [NFR, раздел Доступность](../../docs/nfr.md)
+- [NFR, раздел Доступность](../../nfr.md)
 
 ## Версия
 
