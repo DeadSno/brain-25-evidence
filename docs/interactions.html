@@ -17,6 +17,14 @@
 <link rel="apple-touch-icon" href="icons/192.png">
 <title>🔗 Карта связей — brain-25-evidence</title>
 <script defer src="version.js"></script>
+<script>
+// Тема: ставим .dark на <html> до загрузки CSS — иначе вспышка светлого фона.
+try {
+  if (localStorage.getItem('theme') !== 'light') {
+    document.documentElement.classList.add('dark');
+  }
+} catch (e) {}
+</script>
 <link rel="stylesheet" href="style.css?v=381"/>
 <script src="https://unpkg.com/vis-network@9.1.9/standalone/umd/vis-network.min.js"></script>
 <style>
@@ -31,7 +39,7 @@
   --aborder: var(--border);
   --atext: var(--fg);
 }
-body.dark {
+html.dark, body.dark {
   --bg: #14171c;
   --fg: #e8ebee;
   --card-bg: #1e2228;
@@ -335,7 +343,7 @@ body { padding: 1.5rem 1.5rem 0 !important; margin: 0 !important; }
     <a class="btn c-graph" href="graph.html">🕸️ Граф связей</a>
     <a class="btn c-feedback" href="feedback.html">💬 Обратная связь</a>
     <button class="btn" id="pngBtn" title="Скачать как PNG">📷 Скачать PNG</button>
-    <button class="btn" id="themeToggle">🌞 Светлая тема</button>
+    <button class="btn" id="themeBtn">🌞 Светлая тема</button>
   </div>
 </header>
 
@@ -371,15 +379,12 @@ body { padding: 1.5rem 1.5rem 0 !important; margin: 0 !important; }
   </p>
   <p class="meta">
     v<span data-version="app"></span> ·
-    данные на <span data-version="data"></span> ·
-    тестов: <span data-version="tests"></span>
+    данные на <span data-version="data"></span>
   </p>
   <p class="links">
     <a href="methodology.html">📐 Методология</a> ·
     <a href="faq.html">❓ FAQ</a> ·
-    <a href="glossary.html">📖 Глоссарий</a> ·
-    <a href="https://github.com/DeadSno/brain-25-evidence/issues/new?title=Неточность%20в%20данных">❌ Сообщить о неточности</a> ·
-    <a href="?" onclick="location.reload(true); return false;">🔄 Обновить</a>
+    <a href="glossary.html">📖 Глоссарий</a>
   </p>
   <p class="copy">© 2026 Vladislav "DeadSno" Pereshivalov · MIT</p>
 </footer>
@@ -686,15 +691,16 @@ function setMode(mode) {
 
 function setDark(on) {
   document.body.classList.toggle('dark', on);
+  document.documentElement.classList.toggle('dark', on);
   localStorage.setItem('theme', on ? 'dark' : 'light');
-  document.getElementById('themeToggle').textContent = on ? '🌞 Светлая тема' : '🌙 Тёмная тема';
+  document.getElementById('themeBtn').textContent = on ? '🌞 Светлая тема' : '🌙 Тёмная тема';
   if (state.network) drawGraph();
 }
 
 document.querySelectorAll('.tab').forEach(t =>
   t.addEventListener('click', () => setMode(t.dataset.mode)));
 
-document.getElementById('themeToggle').onclick = () => setDark(!isDark());
+document.getElementById('themeBtn').onclick = () => setDark(!isDark());
 document.getElementById('search').addEventListener('input', e => {
   state.searchQuery = e.target.value.trim();
   drawGraph();
@@ -789,7 +795,7 @@ document.addEventListener('click', e => {
   });
 })();
 </script>
-<button class="toBottom" id="toBottom" onclick="scrollTo({top:document.body.scrollHeight,behavior:'smooth'})" title="Вниз">↓</button>
+<button class="toBottom" id="toBottom" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})" title="Вниз">↓</button>
 <script>
 window.addEventListener('scroll', () => {
   const btn = document.getElementById('toBottom');

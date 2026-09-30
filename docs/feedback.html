@@ -1,25 +1,75 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+    <script defer src="version.js"></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Обратная связь — Brain 25 Evidence</title>
     <meta name="description" content="Сообщить об ошибке, предложить добавку или оставить отзыв о проекте Brain 25 Evidence">
-    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.webmanifest">
+    <meta name="theme-color" content="#1c1c1e">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="БАДы">
+    <link rel="apple-touch-icon" href="icons/192.png">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
+    <script>
+    // Тема: светлая по умолчанию, тёмная если в localStorage не 'light'
+    try {
+      document.addEventListener('DOMContentLoaded', function () {
+        var light = localStorage.getItem('theme') === 'light';
+        if (!light) { document.body.classList.add('dark'); }
+        var b = document.getElementById('themeBtn');
+        if (b) b.textContent = light ? '🌙 Тёмная тема' : '🌞 Светлая тема';
+      });
+    } catch (e) {}
+    </script>
+    <script>
+// Тема: ставим .dark на <html> до загрузки CSS — иначе вспышка светлого фона.
+try {
+  if (localStorage.getItem('theme') !== 'light') {
+    document.documentElement.classList.add('dark');
+  }
+} catch (e) {}
+</script>
+<link rel="stylesheet" href="style.css?v=381">
     <style>
+        :root{--apanel:var(--card-bg);--aborder:var(--border);--atext:var(--text)}
+        /* ── Единая шапка (копия index.html) ───────────────── */
+        .trustbar{
+          text-align:center;padding:.5rem 1rem;margin:0 0 1rem;
+          background:var(--card-bg);border:1px solid var(--border);
+          border-radius:8px;font-size:.85rem;opacity:.85;
+        }
+        .top{
+          display:flex;justify-content:space-between;align-items:center;
+          gap:1rem;flex-wrap:wrap;margin:0 0 1rem;
+        }
+        .top h1{font-size:1.35rem;margin:0;font-weight:700}
+        .top h1 a{color:inherit;text-decoration:none}
+        .top .v{opacity:.5;font-size:.8rem;font-weight:400;margin-left:.5rem}
+        .actions{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center}
+        .btn{
+          padding:.45rem .8rem;border:1px solid var(--border);border-radius:8px;
+          background:var(--card-bg);color:var(--text);cursor:pointer;
+          font-size:.85rem;text-decoration:none;line-height:1.2;
+        }
+        .btn:hover{border-color:#888}
+        /* ── Форма обратной связи ──────────────────────────── */
         .feedback-wrap { max-width: 640px; margin: 40px auto; padding: 0 20px; }
         .feedback-wrap h1 { margin-bottom: 8px; }
-        .feedback-wrap .lead { color: #666; margin-bottom: 32px; }
+        .feedback-wrap .lead { color: var(--muted); margin-bottom: 32px; }
         .f-form { display: flex; flex-direction: column; gap: 20px; }
         .f-field { display: flex; flex-direction: column; gap: 6px; }
         .f-field label { font-weight: 600; font-size: 14px; }
-        .f-field .hint { font-size: 12px; color: #888; }
+        .f-field .hint { font-size: 12px; color: var(--muted); }
         .f-field input, .f-field select, .f-field textarea {
-            padding: 10px 12px; border: 1px solid #ccc; border-radius: 6px;
-            font-size: 15px; font-family: inherit; background: #fff;
+            padding: 10px 12px; border: 1px solid var(--border); border-radius: 6px;
+            font-size: 15px; font-family: inherit;
+            background: var(--card-bg); color: var(--text);
         }
         .f-field input:focus, .f-field select:focus, .f-field textarea:focus {
-            outline: 2px solid #4a90e2; outline-offset: -1px; border-color: #4a90e2;
+            outline: 2px solid var(--accent); outline-offset: -1px; border-color: var(--accent);
         }
         .f-field textarea { min-height: 140px; resize: vertical; }
         .f-field input:invalid:not(:placeholder-shown),
@@ -30,17 +80,29 @@
         .f-actions { display: flex; gap: 12px; align-items: center; margin-top: 8px; }
         .f-btn {
             padding: 12px 24px; border: none; border-radius: 6px;
-            background: #4a90e2; color: #fff; font-size: 16px;
+            background: var(--accent); color: #fff; font-size: 16px;
             font-weight: 600; cursor: pointer;
         }
-        .f-btn:hover { background: #357abd; }
-        .f-btn:disabled { background: #aaa; cursor: not-allowed; }
-        .f-privacy { font-size: 12px; color: #888; margin-top: 12px; }
-        .f-privacy a { color: #4a90e2; }
+        .f-btn:hover { filter: brightness(.92); }
+        .f-btn:disabled { background: var(--muted); cursor: not-allowed; }
+        .f-privacy { font-size: 12px; color: var(--muted); margin-top: 12px; }
+        .f-privacy a { color: var(--accent); }
         .f-note { padding: 12px 16px; background: #f0f8ff; border-left: 3px solid #4a90e2;
                   border-radius: 4px; margin-bottom: 24px; font-size: 14px; }
+        body.dark .f-note { background: rgba(10,132,255,.12); border-left-color: #0a84ff; }
         .f-success { padding: 20px; background: #e8f5e9; border-left: 4px solid #4caf50;
                      border-radius: 4px; margin-top: 24px; }
+        body.dark .f-success { background: rgba(52,199,89,.14); border-left-color: #34c759; }
+        /* ── Mobile (≤640px) ──────────────────────────────── */
+        @media (max-width: 640px) {
+            body { padding: 0.6rem !important; }
+            .trustbar { font-size: .75rem; padding: .35rem .5rem; margin: 0 0 .6rem; }
+            .top { flex-direction: column; align-items: stretch; gap: .5rem; margin: 0 0 .6rem; }
+            .top h1 { font-size: 1.05rem; line-height: 1.25; }
+            .top h1 .v { display: none; }
+            .actions { gap: .35rem; }
+            .btn { padding: .4rem .6rem; font-size: .78rem; }
+        }
         @media (max-width: 600px) {
             .feedback-wrap { margin: 20px auto; }
             .f-actions { flex-direction: column; align-items: stretch; }
@@ -49,15 +111,21 @@
 </head>
 <body>
 
-<header>
-    <nav>
-        <a href="index.html">Главная</a>
-        <a href="map.html">Карта механизмов</a>
-        <a href="interactions.html">Взаимодействия</a>
-        <a href="calculator.html">Калькулятор</a>
-        <a href="methodology.html">Методология</a>
-        <a href="faq.html">FAQ</a>
-    </nav>
+<div class="trustbar">🧬 Открытые данные · Бесплатно · Без рекламы</div>
+<header class="top">
+    <h1><a href="index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a> <span class="v">v<span data-version="app"></span></span></h1>
+    <div class="actions">
+        <a class="btn c-home" href="index.html">🏠 Главная</a>
+        <a class="btn c-calc" href="calculator.html">🧮 Калькулятор</a>
+        <a class="btn c-mech" href="map.html">🧩 Механизмы</a>
+        <a class="btn c-links" href="interactions.html">🔗 Связи</a>
+        <a class="btn c-graph" href="graph.html">🕸️ Граф связей</a>
+        <a class="btn c-atlas" href="atlas.html">🌐 Атлас</a>
+        <a class="btn c-trends" href="trends.html">📈 Тренды</a>
+        <a class="btn c-bi" href="https://brain-25-evidence.streamlit.app" target="_blank" rel="noopener">🧠 BI ↗</a>
+
+        <button class="btn" id="themeBtn">🌞 Светлая тема</button>
+    </div>
 </header>
 
 <main class="feedback-wrap">
@@ -129,11 +197,40 @@
     </form>
 </main>
 
-<footer>
-    <p>&copy; 2026 Brain 25 Evidence · <a href="index.html">Главная</a> · <a href="feedback.html">Обратная связь</a></p>
+<footer class="site-footer">
+  <p class="disc">
+    <b>⚠️ Не медицинская рекомендация.</b>
+    Сайт предоставляет данные из открытых научных источников
+    (PubMed, Europe PMC, CrossRef, OpenAlex, ClinicalTrials.gov, Wikimedia)
+    для информирования и самостоятельного образования.
+    <b>НЕ заменяет</b> консультацию, диагноз и лечение.
+    При любых сомнениях — обращайтесь к специалисту.
+  </p>
+  <p class="meta">
+    v<span data-version="app"></span> ·
+    данные на <span data-version="data"></span>
+  </p>
+  <p class="links">
+    <a href="methodology.html">📐 Методология</a> ·
+    <a href="faq.html">❓ FAQ</a> ·
+    <a href="glossary.html">📖 Глоссарий</a>
+  </p>
+  <p class="copy">© 2026 Vladislav "DeadSno" Pereshivalov · MIT</p>
 </footer>
 
 <script>
+// Переключение темы (тот же паттерн, что в map.html)
+const themeBtn = document.getElementById('themeBtn');
+if (themeBtn) {
+    themeBtn.addEventListener('click', () => {
+        const dark = !document.body.classList.contains('dark');
+        document.body.classList.toggle('dark', dark);
+        document.documentElement.classList.toggle('dark', dark);
+        localStorage.setItem('theme', dark ? 'dark' : 'light');
+        themeBtn.textContent = dark ? '🌞 Светлая тема' : '🌙 Тёмная тема';
+    });
+}
+
 // Валидация на клиенте
 document.querySelector('.f-form').addEventListener('submit', function(e) {
     const message = document.getElementById('message').value.trim();
@@ -157,6 +254,7 @@ if (params.get('ok') === '1') {
     window.scrollTo(0, 0);
 }
 </script>
+<script src="pwa.js?v=280" defer></script>
 
 </body>
 </html>

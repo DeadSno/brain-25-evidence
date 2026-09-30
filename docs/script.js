@@ -204,7 +204,7 @@ if (saved !== 'light') setDark(true);   // v1.3: по умолчанию тём�
       applyFilters();
     });
   });
-  $('themeToggle').onclick = () => { const on = !document.body.classList.contains('dark'); setDark(on); localStorage.setItem('theme', on ? 'dark' : 'light'); };
+  $('themeBtn').onclick = () => { const on = !document.body.classList.contains('dark'); setDark(on); localStorage.setItem('theme', on ? 'dark' : 'light'); };
   $('compareBtn').onclick = renderCompare;
   $('modalClose').onclick = closeModal;
   $('modalOverlay').onclick = e => { if (e.target.id === 'modalOverlay') closeModal(); };
@@ -349,7 +349,8 @@ if (saved !== 'light') setDark(true);   // v1.3: по умолчанию тём�
 
 function setDark(on) {
   document.body.classList.toggle('dark', on);
-  $('themeToggle').textContent = on ? '☀️ Светлая тема' : '🌙 Тёмная тема';
+  document.documentElement.classList.toggle('dark', on);
+  $('themeBtn').textContent = on ? '🌞 Светлая тема' : '🌙 Тёмная тема';
   if (currentData.length) { if (chartTab === 'price') renderBubble(currentData); else renderQuadrant(currentData); }
 }
 
