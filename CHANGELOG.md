@@ -1,3 +1,91 @@
+# Changelog
+
+Все значимые изменения проекта. Формат: [Keep a Changelog](https://keepachangelog.com/ru/1.0.0/).
+
+## [v4.0.0] — 2026-09-30
+
+### Добавлено
+- **PWA** — установка на телефон, офлайн-режим (sw.js v42)
+- **Граф связей** — 1982 ребра, встроен в сайт как отдельная страница
+- **Форма обратной связи** — Web3Forms вместо FormSubmit
+- **7 карточек в один ряд** на главной (было 5)
+- **Русские теги** в графе (brain → Мозг, skin → Кожа и т.д.)
+- **CLI-аудит** — OpenCode skills (7) + agents (4) + MCP (context7, exa)
+- **42 артефакта СА** — SRS, RTM, ERD, DFD, DMN, BPMN, Gherkin, DoR, Impact Analysis
+
+### Изменено
+- **Тёмная тема** — единый механизм через `html.dark` + `body.dark` (без вспышки)
+- **Единый id `themeBtn`** на всех 11 страницах (было `themeToggle` + `themeBtn`)
+- **Футеры** байт-идентичны на всех страницах
+- **`scrollTo`** — фикс затенения (было у 9 страниц не работала кнопка ↓)
+- **COI в DuckDB** — 6310 записей (было 0 в таблице coi)
+- **BOM снят** с 7 Python-файлов
+- **README/ROADMAP/ARCHITECTURE** — актуальные цифры (130 карточек, 143 теста)
+
+### Исправлено
+- `DATA_PATH` в sw.js — работа на GitHub Pages (было `/data.json`)
+- 3 CI-проблемы: requirements.txt, watchdog.yml, tests.yml
+- Битые ссылки в docs (6 мест)
+- Незакрытый code fence в mechs_pilot.md
+
+### Документация
+- `docs/dev/AI_CONTEXT.md` — контекст для AI-ассистента
+- `docs/dev/ROADMAP_NEW.md` — актуальный роадмап
+- `reports/AUDIT_REPORT.md` — полный аудит (40 находок, 33 исправлено)
+- `reports/PRODUCT_AUDIT.md` — в плане
+
+## [v3.7.0] — 2026-09-25
+
+### Добавлено
+- **Системный анализ** — OpenAPI 3.0 spec, 5 UML-диаграмм, граф 1982 ребра
+- **COI v4** — 87% указали COI, 7.4% реальный конфликт
+- **README** — секция «Анализ конфликтов интересов»
+- **DuckDB** — 9 таблиц, 10 SQL-запросов
+
+## [v3.6.0] — 2026-09-25
+
+### Добавлено
+- **Batch 17c** — +7 карточек (D-группа: Орнитин, Майтаке, PABA, Пролин, Серин, Метионин, Аланин)
+- **Batch 17b** — +5 карточек (Cu, Mn, K, B, Betaine)
+- **Batch 17a** — +5 карточек (S. boulardii, LGG, B. lactis, DHA, GLA)
+- **130 карточек** в базе (было 113)
+
+### Исправлено
+- `EXPLICIT_BASE` в recalc_science_index (Серин, Аланин)
+- `interactions` в ENRICH_FIELDS (enrich_drafts.py)
+
+## [v3.5.0] — 2026-09-25
+
+### Добавлено
+- **REST API v1** — `docs/api/v1/supplements.json` + `index.json`
+- **Postman Collection** — 16 assertions (все passed)
+- **JSON Schema** — валидация ответов API
+
+## [v3.4.0] — 2026-09-25
+
+### Добавлено
+- **Graph analysis** — 1982 ребра, 7 сообществ (Louvain)
+- **COI-анализ** — 6310 full texts, 87% указали COI
+
+### Исправлено
+- `interactions` — восстановлены для 5 карточек batch 17a
+- `scienceIndex` — recalc для 5 карточек
+
+## [v3.3.0] — 2026-09-24
+
+### Добавлено
+- **Batch 16** — +10 карточек (Селен, Йод, Молибден, Витамин K1, Ниацинамид, Цистеин, Кремний, HMB, Карнозин, Женьшень)
+- **Camunda BPMN 2.0** — pipeline с цветами и ролями
+- **AS-IS vs TO-BE** — эволюция процесса
+
+### Исправлено
+- `scienceIndex=None` для новых карточек
+- Low-блоки для 5 карточек
+
+---
+
+## [v3.2.0] — 2026-09-21
+
 ## [v3.2.0] — 2026-09-21
 ### 🧮 Калькулятор БАДов + документация для Хабра + ops
 
