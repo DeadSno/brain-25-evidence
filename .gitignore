@@ -248,3 +248,8 @@ data/db/
 .postman/
 postman/
 *.postman_environment.json
+
+# Node (только для opencode-plugin-openspec)
+node_modules/
+package-lock.json
+package.json
