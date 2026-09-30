@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Обратная связь — Brain 25 Evidence</title>
+    <meta name="description" content="Сообщить об ошибке, предложить добавку или оставить отзыв о проекте Brain 25 Evidence">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .feedback-wrap { max-width: 640px; margin: 40px auto; padding: 0 20px; }
+        .feedback-wrap h1 { margin-bottom: 8px; }
+        .feedback-wrap .lead { color: #666; margin-bottom: 32px; }
+        .f-form { display: flex; flex-direction: column; gap: 20px; }
+        .f-field { display: flex; flex-direction: column; gap: 6px; }
+        .f-field label { font-weight: 600; font-size: 14px; }
+        .f-field .hint { font-size: 12px; color: #888; }
+        .f-field input, .f-field select, .f-field textarea {
+            padding: 10px 12px; border: 1px solid #ccc; border-radius: 6px;
+            font-size: 15px; font-family: inherit; background: #fff;
+        }
+        .f-field input:focus, .f-field select:focus, .f-field textarea:focus {
+            outline: 2px solid #4a90e2; outline-offset: -1px; border-color: #4a90e2;
+        }
+        .f-field textarea { min-height: 140px; resize: vertical; }
+        .f-field input:invalid:not(:placeholder-shown),
+        .f-field textarea:invalid:not(:placeholder-shown) {
+            border-color: #e74c3c;
+        }
+        .f-required::after { content: " *"; color: #e74c3c; }
+        .f-actions { display: flex; gap: 12px; align-items: center; margin-top: 8px; }
+        .f-btn {
+            padding: 12px 24px; border: none; border-radius: 6px;
+            background: #4a90e2; color: #fff; font-size: 16px;
+            font-weight: 600; cursor: pointer;
+        }
+        .f-btn:hover { background: #357abd; }
+        .f-btn:disabled { background: #aaa; cursor: not-allowed; }
+        .f-privacy { font-size: 12px; color: #888; margin-top: 12px; }
+        .f-privacy a { color: #4a90e2; }
+        .f-note { padding: 12px 16px; background: #f0f8ff; border-left: 3px solid #4a90e2;
+                  border-radius: 4px; margin-bottom: 24px; font-size: 14px; }
+        .f-success { padding: 20px; background: #e8f5e9; border-left: 4px solid #4caf50;
+                     border-radius: 4px; margin-top: 24px; }
+        @media (max-width: 600px) {
+            .feedback-wrap { margin: 20px auto; }
+            .f-actions { flex-direction: column; align-items: stretch; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <nav>
+        <a href="index.html">Главная</a>
+        <a href="map.html">Карта механизмов</a>
+        <a href="interactions.html">Взаимодействия</a>
+        <a href="calculator.html">Калькулятор</a>
+        <a href="methodology.html">Методология</a>
+        <a href="faq.html">FAQ</a>
+    </nav>
+</header>
+
+<main class="feedback-wrap">
+    <h1>Обратная связь</h1>
+    <p class="lead">
+        Сообщите об ошибке, предложите новую добавку или оставьте отзыв.
+        Каждое сообщение читаю лично — отвечаю в течение 2-3 дней.
+    </p>
+
+    <div class="f-note">
+        <strong>Что можно написать:</strong><br>
+        • Ошибка в данных карточки<br>
+        • Предложение новой добавки<br>
+        • Идея по улучшению сайта<br>
+        • Отзыв о проекте
+    </div>
+
+    <form class="f-form" action="https://api.web3forms.com/submit" method="POST">
+        <!-- Web3Forms: ключ + настройки -->
+        <input type="hidden" name="access_key" value="9befbd42-d2e0-4812-b63b-7ef95b0173f3">
+        <input type="hidden" name="subject" value="Brain 25 Evidence — новое сообщение">
+        <input type="hidden" name="from_name" value="Brain 25 Evidence">
+        <input type="hidden" name="redirect" value="https://deadsno.github.io/brain-25-evidence/feedback.html?ok=1">
+        <!-- Ловушка для спама -->
+        <input type="checkbox" name="botcheck" style="display:none">
+
+        <div class="f-field">
+            <label for="type" class="f-required">Тип сообщения</label>
+            <select id="type" name="type" required>
+                <option value="">— выберите —</option>
+                <option value="error">Ошибка в данных</option>
+                <option value="add">Предложить добавку</option>
+                <option value="idea">Идея по улучшению</option>
+                <option value="review">Отзыв о проекте</option>
+                <option value="other">Другое</option>
+            </select>
+        </div>
+
+        <div class="f-field">
+            <label for="topic" class="f-required">О чём речь</label>
+            <input type="text" id="topic" name="topic" required minlength="3" maxlength="120"
+                   placeholder="Например: Креатин, карточка, dosage" autocomplete="off">
+            <span class="hint">Укажите название добавки или раздел сайта</span>
+        </div>
+
+        <div class="f-field">
+            <label for="message" class="f-required">Сообщение</label>
+            <textarea id="message" name="message" required minlength="10" maxlength="2000"
+                      placeholder="Опишите проблему или предложение как можно подробнее"></textarea>
+            <span class="hint">От 10 до 2000 символов</span>
+        </div>
+
+        <div class="f-field">
+            <label for="email">Email для ответа</label>
+            <input type="email" id="email" name="email" maxlength="200"
+                   placeholder="name@example.com" autocomplete="email">
+            <span class="hint">Необязательно. Оставьте, если хотите получить ответ</span>
+        </div>
+
+        <div class="f-actions">
+            <button type="submit" class="f-btn" id="f-submit">Отправить</button>
+        </div>
+
+        <p class="f-privacy">
+            Отправляя форму, вы соглашаетесь с передачей данных через сервис
+            <a href="https://web3forms.com" target="_blank" rel="noopener">Web3Forms</a>.
+            Email не публикуется на сайте и не используется для рассылок.
+        </p>
+    </form>
+</main>
+
+<footer>
+    <p>&copy; 2026 Brain 25 Evidence · <a href="index.html">Главная</a> · <a href="feedback.html">Обратная связь</a></p>
+</footer>
+
+<script>
+// Валидация на клиенте
+document.querySelector('.f-form').addEventListener('submit', function(e) {
+    const message = document.getElementById('message').value.trim();
+    if (message.length < 10) {
+        e.preventDefault();
+        alert('Сообщение должно содержать минимум 10 символов');
+        return false;
+    }
+    const btn = document.getElementById('f-submit');
+    btn.disabled = true;
+    btn.textContent = 'Отправка…';
+});
+
+// Показать "спасибо" после редиректа ?ok=1
+const params = new URLSearchParams(window.location.search);
+if (params.get('ok') === '1') {
+    const box = document.createElement('div');
+    box.className = 'f-success';
+    box.innerHTML = '<strong>Спасибо!</strong> Ваше сообщение получено. Если указали email — отвечу в течение 2-3 дней.';
+    document.querySelector('.feedback-wrap').insertBefore(box, document.querySelector('.f-form'));
+    window.scrollTo(0, 0);
+}
+</script>
+
+</body>
+</html>

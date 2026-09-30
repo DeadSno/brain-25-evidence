@@ -10,10 +10,10 @@ self.addEventListener('activate', event => {
 /* v29 PWA: cache-first для статики, network-first для data.json.
    Install через поштучный cache.add().catch() — один missing файл
    не валит всю установку. Бамп CACHE_VERSION при изменении STATIC_ASSETS. */
-var CACHE_VERSION = 'v39';
+var CACHE_VERSION = 'v42';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
-var DATA_PATH = '/data.json';
+var DATA_SUFFIX = '/data.json';  // GitHub Pages кладёт сайт в /brain-25-evidence/
 var FALLBACK_HTML = './index.html';
 
 var STATIC_ASSETS = [
@@ -45,7 +45,7 @@ function notifyOffline() {
 
 async function networkFirstForData(req) {
   var cache = await caches.open(CACHE_DATA);
-  var dataKey = new URL(DATA_PATH, self.location.origin).toString();
+  var dataKey = new URL('./data.json', self.registration.scope).href;
   try {
     var resp = await fetch(req, { cache: 'no-store' });
     if (resp && resp.ok) {
@@ -114,7 +114,7 @@ self.addEventListener('fetch', function (event) {
   var url = new URL(req.url);
   if (url.origin !== self.location.origin) return;
 
-  if (url.pathname === DATA_PATH) {
+  if (url.pathname.endsWith(DATA_SUFFIX)) {
     event.respondWith(networkFirstForData(req));
   } else {
     event.respondWith(cacheFirstForStatic(req));
