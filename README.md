@@ -33,10 +33,10 @@ Streamlit — это витрина «сырых» данных: 37 618 papers �
 
 | Грейд | Значение | Количество |
 |-------|----------|------------|
-| A | работает отлично | 8 (7.8%) |
-| B | работает | 40 (38.8%) |
-| C | зависит от контекста | 42 (40.8%) |
-| D | не подтверждено | 13 (12.6%) |
+| A | работает отлично | 8 (6.2%) |
+| B | работает | 45 (34.6%) |
+| C | зависит от контекста | 52 (40.0%) |
+| D | не подтверждено | 25 (19.2%) |
 
 **Что сделано:**
 
@@ -228,7 +228,7 @@ brain-25-evidence/
 │   ├── make_og.py                 # генерация og.png
 │   ├── build_slim.py              # slim JSON для Streamlit Cloud
 │   └── e2e_smoke.py               # headless smoke-тесты сайта
-├── tests/                         # 118 тестов
+├── tests/                         # 140 тестов
 │   ├── test_schema.py             # JSON-схема data.json
 │   ├── test_snapshot.py           # data.json не изменился без UPDATE_SNAPSHOT=1
 │   ├── test_index_sync.py         # data_index.json == проекция data.json
@@ -262,7 +262,7 @@ cd brain-25-evidence
 # 2. Установи зависимости
 pip install -r requirements.txt
 
-# 3. Прогони тесты (должно быть 118 passed)
+# 3. Прогони тесты (должно быть 140 passed)
 python -m pytest tests/ -q
 
 # 4. Подними сайт локально
@@ -303,7 +303,7 @@ streamlit run app.py
 ### Дальше
 
 - Досчитать Hedges' g для оставшихся карточек
-- Расширить базу до 120 добавок
+- Расширить базу до 150 добавок
 - Публичный API (`docs/api/v1/supplements.json`)
 - DWH на DuckDB + dbt
 
