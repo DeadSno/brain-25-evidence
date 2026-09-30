@@ -137,8 +137,8 @@ python scripts/update_all.py --apply
 ### Данные
 
 - **`dosage_parsed.json`** — 81 доза из 130 (остальные — fallback), распарсено регуляркой + ручные для 5 карточек
-- **`interactions`** в `data.json` — 130 карточки, 169 пар всего
-- **`pairs.json`** — 16 пар для рекомендаций
+- **`interactions`** в `data.json` — 130 карточки, 199 пар всего
+- **`pairs.json`** — 19 пар для рекомендаций
 - **`profiles.json`** — 8 профилей
 
 ### Логика

@@ -171,7 +171,7 @@ Feature: CI проверяет и публикует изменения
 
 - [User Stories](user_stories.md) — источник требований
 - [RTM](rtm.md) — трассировка
-- [Test SQL](tests/test_sql.py), [Test API](tests/test_api_contract.py) — реализация
+- [Test SQL](../tests/test_sql.py), [Test API](../tests/test_api_contract.py) — реализация
 
 ## Версия
 

@@ -295,7 +295,7 @@ streamlit run app.py
 
 ### Текущее состояние
 
-- 130 добавок, 118 тестов, 37 618 papers
+- 130 добавок, 140 тестов, 37 618 papers
 - Funders analysis (CrossRef + Europe PMC)
 - Streamlit BI + статический сайт
 - trends.html: executive summary, scatter-матрица, категории
