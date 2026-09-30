@@ -6,17 +6,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <meta name="theme-color" content="#1c1c1e">
 <title>Методология аудита v<span data-version="audit"></span> — brain-25-evidence</title>
-<link rel="stylesheet" href="style.css"/>
 <script>
+// Тема: ставим .dark на <html> до загрузки CSS — иначе вспышка светлого фона.
 try {
   if (localStorage.getItem('theme') !== 'light') {
-    document.addEventListener('DOMContentLoaded', function () {
-      document.body.classList.add('dark');
-      var b = document.getElementById('themeToggle');
-      if (b) b.textContent = '☀️ Светлая тема';
-    });
+    document.documentElement.classList.add('dark');
   }
 } catch (e) {}
+</script>
+<link rel="stylesheet" href="style.css"/>
+<script>
+  try {
+    document.addEventListener('DOMContentLoaded', function () {
+      var light = localStorage.getItem('theme') === 'light';
+      if (!light) { document.body.classList.add('dark'); }
+      var b = document.getElementById('themeBtn');
+      if (b) b.textContent = light ? '🌙 Тёмная тема' : '🌞 Светлая тема';
+    });
+  } catch (e) {}
 </script>
 </head>
 <body>
@@ -32,7 +39,7 @@ try {
     <a class="btn c-bi" href="https://brain-25-evidence.streamlit.app" target="_blank" rel="noopener">🧠 BI ↗</a>
     <a class="btn c-graph" href="graph.html">🕸️ Граф связей</a>
     <a class="btn c-feedback" href="feedback.html">💬 Обратная связь</a>
-    <button class="btn" id="themeToggle">🌞 Светлая тема</button>
+    <button class="btn" id="themeBtn">🌞 Светлая тема</button>
   </div>
 </header>
 
@@ -123,27 +130,26 @@ try {
   </p>
   <p class="meta">
     v<span data-version="app"></span> ·
-    данные на <span data-version="data"></span> ·
-    тестов: <span data-version="tests"></span>
+    данные на <span data-version="data"></span>
   </p>
   <p class="links">
     <a href="methodology.html">📐 Методология</a> ·
     <a href="faq.html">❓ FAQ</a> ·
-    <a href="glossary.html">📖 Глоссарий</a> ·
-    <a href="https://github.com/DeadSno/brain-25-evidence/issues/new?title=Неточность%20в%20данных">❌ Сообщить о неточности</a> ·
-    <a href="?" onclick="location.reload(true); return false;">🔄 Обновить</a>
+    <a href="glossary.html">📖 Глоссарий</a>
   </p>
   <p class="copy">© 2026 Vladislav "DeadSno" Pereshivalov · MIT</p>
 </footer>
 <script>
-$('themeToggle').onclick = () => {
+const $ = id => document.getElementById(id);
+$('themeBtn').onclick = () => {
   const on = !document.body.classList.contains('dark');
   document.body.classList.toggle('dark', on);
-  $('themeToggle').textContent = on ? '☀️ Светлая тема' : '🌙 Тёмная тема';
+  document.documentElement.classList.toggle('dark', on);
+  $('themeBtn').textContent = on ? '🌞 Светлая тема' : '🌙 Тёмная тема';
   localStorage.setItem('theme', on ? 'dark' : 'light');
 };
 </script>
-<button class="toBottom" id="toBottom" onclick="scrollTo({top:document.body.scrollHeight,behavior:'smooth'})" title="Вниз">↓</button>
+<button class="toBottom" id="toBottom" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})" title="Вниз">↓</button>
 <script>
 window.addEventListener('scroll', () => {
   const btn = document.getElementById('toBottom');
