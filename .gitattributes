@@ -1,0 +1,21 @@
+# Нормализация line endings — LF везде
+* text=auto eol=lf
+
+# Бинарные файлы
+*.png binary
+*.jpg binary
+*.duckdb binary
+*.gexf binary
+
+# Windows-специфичные
+*.bat text eol=crlf
+*.ps1 text eol=crlf
+*.cmd text eol=crlf
+
+# Явно text для скриптов
+*.py text eol=lf
+*.md text eol=lf
+*.json text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.sql text eol=lf
