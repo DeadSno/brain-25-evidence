@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Поддержать проект — Brain 25 Evidence</title>
+    <meta name="description" content="Поддержать открытый проект Brain 25 Evidence — база данных о 130 БАДах на основе PubMed.">
+    <link rel="manifest" href="manifest.webmanifest">
+    <meta name="theme-color" content="#1c1c1e">
+    <link rel="apple-touch-icon" href="icons/192.png">
+    <script>
+    try {
+      if (localStorage.getItem('theme') !== 'light') {
+        document.documentElement.classList.add('dark');
+      }
+    } catch(e) {}
+    </script>
+    <link rel="stylesheet" href="style.css?v=381">
+    <script src="version.js"></script>
+    <script src="pwa.js?v=280" defer></script>
+    <style>
+        .support-wrap { max-width: 720px; margin: 40px auto; padding: 0 20px; }
+        .support-wrap h1 { margin-bottom: 8px; }
+        .support-wrap .lead { color: var(--muted); margin-bottom: 32px; font-size: 1.05rem; }
+        .support-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 20px; }
+        .support-card h2 { margin-bottom: 12px; font-size: 1.2rem; }
+        .support-card p { margin-bottom: 12px; line-height: 1.6; }
+        .support-card ul { margin-left: 20px; margin-bottom: 12px; }
+        .support-card li { margin-bottom: 6px; line-height: 1.5; }
+        .support-btn { display: inline-block; padding: 14px 28px; background: linear-gradient(135deg, #7b61ff, #5e40e0); color: #fff !important; border-radius: 10px; text-decoration: none; font-weight: 600; font-size: 1.05rem; margin-top: 12px; box-shadow: 0 4px 12px rgba(123, 97, 255, .35); transition: transform .15s, box-shadow .15s; }
+        .support-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(123, 97, 255, .5); }
+        .support-thanks { color: var(--muted); font-size: .9rem; margin-top: 8px; }
+        .support-note { padding: 12px 16px; background: var(--card-bg); border-left: 3px solid var(--accent); border-radius: 6px; margin-bottom: 24px; font-size: .95rem; }
+        @media (max-width: 600px) { .support-wrap { margin: 20px auto; } .support-card { padding: 18px; } }
+    </style>
+</head>
+<body>
+
+<div class="trustbar">🧬 Открытые данные · Бесплатно · Без рекламы</div>
+<header class="top">
+  <h1><a href="index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a> <span class="v">v<span data-version="app"></span></span></h1>
+  <div class="actions">
+    <a class="btn c-home" href="index.html">🏠 Главная</a>
+    <a class="btn c-calc" href="calculator.html">🧮 Калькулятор</a>
+    <a class="btn c-mech" href="map.html">🧩 Механизмы</a>
+    <a class="btn c-links" href="interactions.html">🔗 Связи</a>
+    <a class="btn c-graph" href="graph.html">🕸️ Граф связей</a>
+    <a class="btn c-atlas" href="atlas.html">🌐 Атлас</a>
+    <a class="btn c-trends" href="trends.html">📈 Тренды</a>
+    <a class="btn c-bi" href="https://brain-25-evidence.streamlit.app" target="_blank" rel="noopener">🧠 BI ↗</a>
+    <a class="btn c-feedback" href="feedback.html">💬 Обратная связь</a>
+    <button class="btn" id="themeBtn">🌞 Светлая тема</button>
+  </div>
+</header>
+
+<main class="support-wrap">
+    <h1>Поддержать проект</h1>
+    <p class="lead">Brain 25 Evidence — открытый проект о 130 биологически активных добавках на основе 37 618 статей из PubMed. Без рекламы, без подписок, без монетизации.</p>
+
+    <div class="support-note">Проект делает один человек в свободное время. Донат помогает оплачивать хостинг и мотивирует продолжать.</div>
+
+    <div class="support-card">
+        <h2>💚 Что даёт ваша поддержка</h2>
+        <ul>
+            <li>Серверные расходы (пока 0 ₽ — GitHub Pages)</li>
+            <li>Домен .ru или .org (в планах)</li>
+            <li>Время на добавление новых карточек</li>
+            <li>Развитие функций: сравнение, поиск по симптому, экспорт</li>
+        </ul>
+    </div>
+
+    <div class="support-card">
+        <h2>☕ Поддержать</h2>
+        <p>Любая сумма — от 50 ₽ до бесконечности. Это не подписка, не обязательство, просто спасибо.</p>
+        <a href="https://yoomoney.ru/fundraise/1KKDKB0O1EC.260930" target="_blank" rel="noopener" class="support-btn">💚 Поддержать в ЮMoney</a>
+        <p class="support-thanks">Спасибо всем, кто поддерживает проект. Ваша помощь видна.</p>
+    </div>
+
+    <div class="support-card">
+        <h2>🤝 Другие способы помочь</h2>
+        <ul>
+            <li><b>Нашли ошибку?</b> → <a href="feedback.html">Сообщите</a></li>
+            <li><b>Хотите добавить добавку?</b> → через форму обратной связи</li>
+            <li><b>Поделиться с друзьями</b> → лучшая бесплатная поддержка</li>
+            <li><b>Ссылка на сайт</b> → если ведёте блог, добавьте ссылку</li>
+        </ul>
+    </div>
+</main>
+
+<footer class="site-footer">
+  <p class="disc">⚠ Не медицинская рекомендация. Сайт предоставляет данные из открытых научных источников (PubMed, Europe PMC, Crossref, OpenAlex, ClinicalTrials.gov, Wikipedia) для информирования и самостоятельного образования. <b>НЕ заменяет</b> консультацию, диагноз и лечение. При любых сомнениях — обращайтесь к специалисту.</p>
+  <p class="meta">v<span data-version="app"></span> · данные на <span data-version="data"></span></p>
+  <p class="links">
+    <a href="methodology.html">📐 Методология</a> ·
+    <a href="faq.html">❓ FAQ</a> ·
+    <a href="glossary.html">📖 Глоссарий</a> ·
+    <a href="support.html">💚 Поддержать</a>
+  </p>
+  <p class="copy">© 2026 Vladislav "DeadSno" Pereshivalov · MIT</p>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var light = localStorage.getItem('theme') === 'light';
+  if (!light) { document.body.classList.add('dark'); document.documentElement.classList.add('dark'); }
+  var b = document.getElementById('themeBtn');
+  if (b) b.textContent = light ? '🌙 Тёмная тема' : '🌞 Светлая тема';
+  if (b) b.onclick = function () {
+    var on = !document.body.classList.contains('dark');
+    document.body.classList.toggle('dark', on);
+    document.documentElement.classList.toggle('dark', on);
+    b.textContent = on ? '🌞 Светлая тема' : '🌙 Тёмная тема';
+    localStorage.setItem('theme', on ? 'dark' : 'light');
+  };
+});
+</script>
+
+</body>
+</html>
