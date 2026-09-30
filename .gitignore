@@ -176,17 +176,14 @@ __marimo__/
 # ===== v3.0 audit cache (reproduced by scripts/fetch_meta.py) =====
 data/processed/all_lists.txt
 data/processed/list_pmids.py
-# пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 scripts/add_alias.py
 scripts/diag_*.py
 scripts/show_*.py
 scripts/fix_*.py
-# пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ
 scripts/check_price_*.py
 scripts/remove_price_*.py
 scripts/strip_price_*.py
 scripts/update_radar_*.py
-# пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ/пїЅпїЅпїЅпїЅпїЅпїЅ)
 scripts/clean_*.py
 scripts/update_*.py
 !scripts/update_all.py
@@ -222,14 +219,12 @@ data/papers/unpaywall.json
 # Playwright temp
 data/pmc/tmp/
 
-# пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ)
 scripts/_*.py
 
 # A3.2.3: heavy full texts, regenerable
 data/pmc/text/
 data/pmc/tmp/
 
-# пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ/пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 scripts/fetch_pmc_s3*.py
 scripts/fetch_pmc_oa.py
 scripts/fetch_bioc.py
@@ -249,7 +244,6 @@ data/db/
 postman/
 *.postman_environment.json
 
-# Node (только для opencode-plugin-openspec)
 node_modules/
 package-lock.json
 package.json
@@ -257,3 +251,9 @@ package.json
 # Audit fixes 2026-09-30
 !scripts/__init__.py
 !scripts/_fix_reyshi.py
+
+# Large binary files (>10 MB)
+data/db/
+data/papers/papers.json
+data/journals/scimago.json
+data/papers/papers_slim.json
