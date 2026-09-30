@@ -1,4 +1,4 @@
-﻿"""Гард: все JS в docs/ должны парситься (node --check)."""
+"""Гард: все JS в docs/ должны парситься (node --check)."""
 import shutil
 import subprocess
 from pathlib import Path

@@ -1,4 +1,4 @@
-﻿"""онтракт effect_tags.json и effect_tags_map.py."""
+"""онтракт effect_tags.json и effect_tags_map.py."""
 import json
 from pathlib import Path
 

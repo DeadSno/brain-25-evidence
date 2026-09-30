@@ -1,4 +1,4 @@
-﻿import json, sys, pathlib
+import json, sys, pathlib
 from pathlib import Path
 
 files = sorted(pathlib.Path("data/raw/pubmed").glob("*_catalog.json"))

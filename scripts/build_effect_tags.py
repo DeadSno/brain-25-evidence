@@ -1,4 +1,4 @@
-﻿"""Собирает docs/effect_tags.json из scripts/effect_tags_map.py.
+"""Собирает docs/effect_tags.json из scripts/effect_tags_map.py.
 
 роверяет, что все id из TAGS есть в data.json и наоборот.
 """
