@@ -714,6 +714,9 @@ header.top .v {
 .btn.c-atlas  { border-color: #8b5cf6; background: rgba(139,92,246,.12); }
 .btn.c-trends { border-color: #ec4899; background: rgba(236,72,153,.12); }
 .btn.c-bi     { border-color: #06b6d4; background: rgba(6,182,212,.12); }
+.btn.c-graph     { border-color: #ef4444; background: rgba(239,68,68,.12); }
+.btn.c-feedback  { border-color: #84cc16; background: rgba(132,204,22,.12); }
+.btn.c-refresh  { border-color: #6366f1; background: rgba(99,102,241,.12); }
 
 /* В светлой теме — чуть плотнее фон для контраста */
 body.light .btn.c-home   { background: rgba(100,116,139,.08); }
@@ -723,3 +726,6 @@ body.light .btn.c-links  { background: rgba(245,158,11,.08); }
 body.light .btn.c-atlas  { background: rgba(139,92,246,.08); }
 body.light .btn.c-trends { background: rgba(236,72,153,.08); }
 body.light .btn.c-bi     { background: rgba(6,182,212,.08); }
+body.light .btn.c-graph     { background: rgba(239,68,68,.08); }
+body.light .btn.c-feedback  { background: rgba(132,204,22,.08); }
+body.light .btn.c-refresh  { background: rgba(99,102,241,.08); }
