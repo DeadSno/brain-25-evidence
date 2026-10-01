@@ -16,10 +16,14 @@ self.addEventListener('activate', event => {
    v47: safe-area для #modal, массовые тап-таргеты 44px, иконки atlas, theme-color.
    v48: порог 44px только для интерактивных .chip (+min-width по WCAG 2.5.5).
    v49: офлайн без подмены контента + 3 страницы в precache + data_index.json.
+   v50: cache.match без ignoreSearch — ?v=NNN bust-ит кэш. ignoreSearch остался
+        только как офлайн-страховка в ветке catch.
 
-   ВАЖНО: cacheFirstForStatic ищет по ignoreSearch:true, поэтому query-версия
-   в <link href="style.css?v=NNN"> НЕ bust-ит кэш — только бамп CACHE_VERSION. */
-var CACHE_VERSION = 'v49';
+   С v50 query-версия в <link href="style.css?v=NNN"> bust-ит кэш: точный
+   cache.match идёт ПЕРВЫМ. ignoreSearch остался только офлайн-страховкой
+   (cacheFirstForStatic, ветка catch) — там он нужен, потому что precache
+   кладёт './style.css' без версии, а страницы просят 'style.css?v=NNN'. */
+var CACHE_VERSION = 'v50';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
@@ -117,19 +121,64 @@ async function networkFirstForData(req) {
   }
 }
 
+/* Ключ кэша для статики. Различаем два вида query-строки:
+
+   ?v=NNN  — номер версии файла. Значимый: style.css?v=392 и style.css?v=391 —
+             разные файлы, и бамп ?v= должен bust-ить кэш (иначе правки CSS
+             не доходят до пользователей, и приходится вручную бампить
+             CACHE_VERSION — три раунда подряд так и вышло).
+
+   ?ts=<Date.now()> / ?_=<Date.now()> — АНТИХЕШ-метка времени, добавляется
+             скриптами при каждой загрузке (script.js: fetch(url + '?ts=' +
+             Date.now()), version.js: '?_='). Содержимого не меняет. Если
+             оставить её в ключе, каждая загрузка страницы создаёт НОВУЮ
+             запись кэша: 5 открытий дали 6 копий version.json?ts=..., и кэш
+             рос бы бесконечно. Поэтому ts/_ отбрасываем.
+
+   Итог: версия значима, метка времени — нет. */
+var IGNORABLE_PARAMS = ['ts', '_', 't'];
+
+function staticCacheKey(req) {
+  var u = new URL(req.url);
+  if (!u.search) return u.href;
+  var changed = false;
+  IGNORABLE_PARAMS.forEach(function (p) {
+    if (u.searchParams.has(p)) { u.searchParams.delete(p); changed = true; }
+  });
+  // остались только значимые параметры (например v) — версия различает версии
+  return changed ? u.href : new URL(req.url).href;
+}
+
 async function cacheFirstForStatic(req) {
   var cache = await caches.open(CACHE_STATIC);
-  var cached = await cache.match(req, { ignoreSearch: true });
+
+  /* v50: сначала ТОЧНОЕ совпадение (по ключу staticCacheKey), БЕЗ
+     ignoreSearch на входе. Раньше здесь стоял ignoreSearch:true, и из-за
+     этого query-версия <link href="style.css?v=NNN"> не bust-ила кэш.
+
+     ignoreSearch НЕ удалён из проекта целиком, а перенесён ниже в ветку
+     офлайна: там он остаётся страховкой (см. комментарий после catch). */
+  var key = staticCacheKey(req);
+  var cached = await cache.match(key);
   if (cached) return cached;
+
   try {
     var resp = await fetch(req);
     if (resp && resp.ok) {
-      cache.put(req, resp.clone());
+      cache.put(key, resp.clone());
       return resp;
     }
     throw new Error('static not 200');
   } catch (err) {
     notifyOffline();
+
+    /* Офлайн-страховка. Точное совпадение не нашлось (или сеть упала), но
+       ресурс мог лежать в кэше под ДРУГИМ query —precache кладёт './style.css'
+       без версии, а страницы просят 'style.css?v=NNN'. Раньше это закрывал
+       ignoreSearch в самом начале функции; теперь — здесь, чтобы офлайн не
+       потерял стили, а онлайн при этом честно уважал ?v=. */
+    var loose = await cache.match(req, { ignoreSearch: true });
+    if (loose) return loose;
 
     /* Навигация. Отдаём СВОЮ страницу, а не подменяем главной:
        - корень сайта -> index.html (это его штатный адрес);

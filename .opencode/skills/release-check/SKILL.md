@@ -21,7 +21,7 @@ project: brain-25-evidence
 - 3 JS: script.js, science2.js, tracker.js, version.js
 - 1 PWA: manifest.webmanifest, sw.js (v42), pwa.js
 - API: docs/api/v1/index.json + supplements.json
-- Тесты: 143 (pytest -q -m "not network")
+- Тесты: 722 (pytest -q)
 
 **Структура данных:**
 - docs/data.json — 130 карточек (источник правды)
@@ -57,7 +57,7 @@ project: brain-25-evidence
 - Нет больших файлов > 10 MB в staged
 
 ### 2. Тесты
-- Все тесты проходят: `pytest -q -m "not network"`
+- Все тесты проходят: `pytest -q`
 - Snapshot актуален
 - Newman-тесты (если менялся API)
 
