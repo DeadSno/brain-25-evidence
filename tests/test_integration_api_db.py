@@ -5,7 +5,10 @@
 
 Это связывает два слоя: публичный API и внутреннюю аналитику.
 
-Skip если duckdb не установлен или БД не создана.
+Skip если duckdb не установлен, БД не создана, или файл держит другой
+процесс (QA_AUDIT P0-3 — например запущенный MCP-сервер duckdb). Подключение
+и обработка лока — в фикстуре db_conn из conftest.py; здесь она переименована
+в `db`, чтобы не трогать сигнатуры тестов ниже.
 """
 import json
 from pathlib import Path
@@ -16,18 +19,10 @@ ROOT = Path(__file__).resolve().parents[1]
 API = ROOT / "docs" / "api" / "v1"
 DB_PATH = ROOT / "data" / "db" / "brain.duckdb"
 
-pytestmark = pytest.mark.skipif(
-    not DB_PATH.exists(),
-    reason="DuckDB не создана. Запусти python scripts/db/import_to_duckdb.py"
-)
-
 
 @pytest.fixture(scope="module")
-def db():
-    duckdb = pytest.importorskip("duckdb")
-    con = duckdb.connect(str(DB_PATH), read_only=True)
-    yield con
-    con.close()
+def db(db_conn):
+    return db_conn
 
 
 @pytest.fixture(scope="module")

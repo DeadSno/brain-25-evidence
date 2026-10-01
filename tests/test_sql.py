@@ -3,7 +3,10 @@
 Проверяет что queries.sql выполняется, возвращает данные,
 и основные инварианты БД соблюдены.
 
-Skip если duckdb не установлена или БД не создана.
+Skip если duckdb не установлена, БД не создана, или файл держит
+другой процесс (QA_AUDIT P0-3). Подключение и обработка лока — в
+фикстуре db_conn из conftest.py; здесь она переименована в `db`,
+чтобы не трогать сигнатуры всех тестов ниже.
 """
 import sys
 from pathlib import Path
@@ -13,18 +16,10 @@ import pytest
 ROOT = Path(__file__).resolve().parents[1]
 DB_PATH = ROOT / "data" / "db" / "brain.duckdb"
 
-pytestmark = pytest.mark.skipif(
-    not DB_PATH.exists(),
-    reason="DuckDB не создана. Запусти python scripts/db/import_to_duckdb.py"
-)
-
 
 @pytest.fixture(scope="module")
-def db():
-    duckdb = pytest.importorskip("duckdb")
-    con = duckdb.connect(str(DB_PATH), read_only=True)
-    yield con
-    con.close()
+def db(db_conn):
+    return db_conn
 
 
 def test_supplement_count(db):

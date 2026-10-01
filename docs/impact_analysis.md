@@ -58,7 +58,7 @@ python scripts/build_index.py
 python scripts/build_api.py
 python scripts/db/import_to_duckdb.py
 # 5. Тесты
-pytest -q -m 'not network'
+pytest -q
 # 6. Коммит
 git add . && git commit -m 'feat: +N cards' && git push
 ```
