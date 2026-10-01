@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#1c1c1e">
-<meta name="description" content="Карта связей БАДов: синергии, антагонизмы и конфликты с лекарствами. Интерактивный граф 130 добавок."/>
+<meta name="description" content="Карта связей 130 БАД: синергии, антагонизмы и конфликты с лекарствами. Интерактивный граф по общим механизмам, с фильтрами по эффекту и риску."/>
 <meta property="og:type" content="website"/>
 <meta property="og:title" content="Карта связей БАДов — синергии и конфликты"/>
 <meta property="og:description" content="Какие добавки усиливают или ослабляют друг друга."/>
@@ -25,7 +25,7 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=382"/>
+<link rel="stylesheet" href="style.css?v=387"/>
 <script src="https://unpkg.com/vis-network@9.1.9/standalone/umd/vis-network.min.js"></script>
 <style>
 :root {
@@ -83,8 +83,10 @@ header .actions { margin-left: auto; display: flex; gap: .5rem; }
   border-radius: 10px; cursor: pointer; font-size: .9rem;
   font-weight: 500;
 }
+/* v4.1: белый на var(--accent) давал 5.80:1 в светлой и 3.82:1 в тёмной.
+   Заливка фиксированная, поэтому одно правило корректно в обеих темах. */
 .tab.active {
-  background: var(--accent); color: #fff; border-color: var(--accent);
+  background: #1f5fbf; color: #fff; border-color: #1f5fbf;
 }
 .tabs .spacer { flex: 1; }
 #search {
@@ -177,7 +179,9 @@ header .actions { margin-left: auto; display: flex; gap: .5rem; }
 .sb-cta {
   display: block; margin-top: 1.2rem;
   padding: .6rem 1rem; text-align: center;
-  background: var(--accent); color: #fff;
+  /* v4.1: var(--accent) давал белым 3.65:1 в тёмной теме — фиксированная
+     заливка #0a6bc9 даёт 5.30:1 в обеих (как у .f-btn) */
+  background: #0a6bc9; color: #fff;
   border-radius: 8px; text-decoration: none;
   font-weight: 500;
 }
@@ -226,15 +230,15 @@ body { max-width: none !important; margin: 0 !important; }
   font-size:.85rem;text-decoration:none;line-height:1.2;
 }
 .btn.calc {
-  background: linear-gradient(135deg, #3498db, #2980b9) !important;
+  background: linear-gradient(135deg, #1f6fa5, #175a86) !important;
   color: #fff !important;
   border: none !important;
   font-weight: 600;
-  box-shadow: 0 2px 8px rgba(52,152,219,.35);
+  box-shadow: 0 2px 8px rgba(31,111,165,.35);
 }
 .btn.calc:hover {
   opacity: .92;
-  box-shadow: 0 2px 12px rgba(52,152,219,.5);
+  box-shadow: 0 2px 12px rgba(31,111,165,.5);
 }
 .btn:hover{border-color:#888}
 body { padding: 1.5rem 1.5rem 0 !important; margin: 0 !important; }
@@ -348,10 +352,13 @@ body { padding: 1.5rem 1.5rem 0 !important; margin: 0 !important; }
   </div>
 </header>
 
+<main>
+
 <div class="tabs">
   <button class="tab active" data-mode="supplements">Добавки между собой</button>
   <button class="tab" data-mode="drugs">Добавки и лекарства</button>
   <div class="spacer"></div>
+  <label for="search" class="sr-only">Поиск добавки или лекарства</label>
   <input id="search" placeholder="🔍 Поиск добавки или лекарства…">
 </div>
 
@@ -369,6 +376,8 @@ body { padding: 1.5rem 1.5rem 0 !important; margin: 0 !important; }
   <div id="graph"></div>
   <aside id="sidebar"></aside>
 </div>
+</main>
+
 <footer class="site-footer">
   <p class="disc">
     <b>⚠️ Не медицинская рекомендация.</b>
@@ -544,7 +553,7 @@ function renderSidebar(id) {
       }));
     sidebar.innerHTML =
       '<div class="sb-head"><h2>' + esc(id) + '</h2>' +
-      '<button class="sb-close" data-close>×</button></div>' +
+      '<button class="sb-close" data-close aria-label="Закрыть панель">×</button></div>' +
       '<div class="sb-meta">Лекарственный класс</div>' +
       '<div class="sb-section"><h3>Связанные добавки (' + related.length + ')</h3>' +
       '<ul class="sb-links">' +
@@ -572,7 +581,7 @@ function renderSidebar(id) {
 
     sidebar.innerHTML =
       '<div class="sb-head"><h2>' + esc(supp.label) + '</h2>' +
-      '<button class="sb-close" data-close>×</button></div>' +
+      '<button class="sb-close" data-close aria-label="Закрыть панель">×</button></div>' +
       '<div class="sb-meta">' + esc([gradeLabel, verdictLabel].filter(Boolean).join(' · ')) + '</div>' +
       '<div class="sb-section"><h3>Связи (' + related.length + ')</h3>' +
       '<ul class="sb-links">' +
@@ -796,13 +805,16 @@ document.addEventListener('click', e => {
   });
 })();
 </script>
-<button class="toBottom" id="toBottom" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})" title="Вниз">↓</button>
+<button class="toBottom" id="toBottom" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})" title="Вниз" aria-label="Прокрутить страницу вниз">↓</button>
 <script>
 window.addEventListener('scroll', () => {
   const btn = document.getElementById('toBottom');
   if (!btn) return;
+  // Раньше порог был 400px: на коротких страницах (atlas, calculator, glossary,
+  // map) он недостижим и кнопка не появлялась. Проверяем прокручиваемость.
+  const scrollable = document.body.scrollHeight > window.innerHeight + 100;
   const atBottom = window.scrollY + window.innerHeight >= document.body.scrollHeight - 100;
-  if (window.scrollY > 400 && !atBottom) {
+  if (scrollable && window.scrollY > 100 && !atBottom) {
     btn.classList.add('show');
   } else {
     btn.classList.remove('show');

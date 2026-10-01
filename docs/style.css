@@ -1,22 +1,31 @@
 :root{--bg:#f5f5f7;--text:#1c1c1e;--card-bg:#fff;--border:#d1d1d6;--shadow:rgba(0,0,0,.08);--accent:#0062cc;--muted:#6e6e73}
 html.dark,body.dark{--bg:#1c1c1e;--text:#f5f5f7;--card-bg:#2c2c2e;--border:#3a3a3c;--shadow:rgba(0,0,0,.4);--accent:#0a84ff;--muted:#9a9aa0}
 *{box-sizing:border-box;margin:0;padding:0}
+
+/* ===== v4.1: навигация с клавиатуры — видимый фокус (WCAG 2.4.7) ===== */
+/* Раньше outline не задавался нигде: фокус ставился, но был не виден */
+*:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+/* Метка для скринридера: скрыта визуально, но доступна озвучке */
+.sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;
+  overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--text);padding:1.5rem;transition:background .25s,color .25s;max-width:1200px;margin:0 auto;line-height:1.5}
 header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;flex-wrap:wrap;gap:1rem}
 h1{font-size:1.8rem;font-weight:600}
 .hdr{display:flex;gap:.6rem;align-items:center}
 .btn{background:var(--card-bg);color:var(--text);border:1px solid var(--border);padding:.7rem 1.1rem;min-height:44px;display:inline-flex;align-items:center;justify-content:center;border-radius:8px;text-decoration:none;font-size:.95rem}
+/* v4.1: белый на #3498db давал 3.15:1 — заливка затемнена до 5.42:1 в обеих темах */
 .btn.calc {
-  background: linear-gradient(135deg, #3498db, #2980b9);
+  background: linear-gradient(135deg, #1f6fa5, #175a86);
   color: #fff !important;
   border: none;
   font-weight: 600;
-  box-shadow: 0 2px 8px rgba(52,152,219,.35);
+  box-shadow: 0 2px 8px rgba(31,111,165,.35);
 }
 .btn.calc:hover {
   opacity: .92;
   border: none;
-  box-shadow: 0 2px 12px rgba(52,152,219,.5);
+  box-shadow: 0 2px 12px rgba(31,111,165,.5);
 }
 button{background:var(--card-bg);color:var(--text);border:1px solid var(--border);padding:.5rem 1rem;border-radius:8px;cursor:pointer;font-size:.95rem}
 button:hover,.btn:hover{background:var(--border)}
@@ -53,6 +62,8 @@ footer p{margin-bottom:.5rem}
 #modal h2{margin-bottom:.4rem}
 #modal .mrow{margin:.35rem 0;font-size:.92rem}
 #modal .warn{color:#c0392b}
+/* v4.3: в тёмной теме #c0392b даёт 2.56:1 на карточке */
+body.dark #modal .warn{color:#f26d6d}
 .skeleton { min-height: 170px; border-radius: 12px;
   background: linear-gradient(100deg, rgba(128,128,128,.12) 40%, rgba(128,128,128,.28) 50%, rgba(128,128,128,.12) 60%);
   background-size: 200% 100%; animation: sh 1.2s infinite; }
@@ -103,6 +114,8 @@ footer p{margin-bottom:.5rem}
   color: #c0392b;
   font-size: 0.9rem;
 }
+/* v4.3: в тёмной теме #c0392b не читается на карточке */
+body.dark .calcResult .warn { color: #f26d6d; }
 /* ===== v1.3: избранное ===== */
 .favBtn {
   position: absolute; top: .5rem; right: .6rem;
@@ -112,10 +125,14 @@ footer p{margin-bottom:.5rem}
   transition: color .15s, transform .15s;
 }
 .favBtn:hover { color: #aaa; transform: scale(1.2); }
-.favBtn.on { color: #f1c40f; text-shadow: 0 0 8px rgba(241, 196, 15, .55); }
+/* v4.2: в светлой теме #f1c40f давал 1.53:1 — тёмное золото, в тёмной теме
+   возвращаем исходный яркий оттенок (там он даёт 8.4:1). */
+.favBtn.on { color: #8a6800; text-shadow: 0 0 8px rgba(138, 104, 0, .45); }
 .favFilter { margin-left: .5rem; padding: .5rem .8rem; border: 1px solid var(--border);
              border-radius: 6px; background: var(--card-bg); color: var(--text); cursor: pointer; }
-.favFilter.on { border-color: #f1c40f; color: #f1c40f; }
+.favFilter.on { border-color: #8a6800; color: #8a6800; }
+body.dark .favBtn.on { color: #f1c40f; text-shadow: 0 0 8px rgba(241, 196, 15, .55); }
+body.dark .favFilter.on { border-color: #f1c40f; color: #f1c40f; }
 /* ===== v1.3: подсветка карточки после модалки ===== */
 .card.flash {
   box-shadow: 0 0 0 3px #f1c40f, 0 0 20px rgba(241, 196, 15, .45);
@@ -168,9 +185,8 @@ body.dark header, body.dark .header { background: rgba(18,18,18,.65); }
 
 /* 3. Градиентные бейджи вердиктов */
 .verdict { border: none; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.3); font-weight: 600; }
-.verdict.v1  { background: linear-gradient(135deg, #1e8e4e, #2ecc71); }
-.verdict.v0  { background: linear-gradient(135deg, #b7791f, #f1c40f); }
-.verdict.v-1 { background: linear-gradient(135deg, #a93226, #e74c3c); }
+/* v4.1: градиентные правила .verdict ниже перебиваются сплошными !important
+   из блока v3.1 выше; удалены как мёртвые. */
 
 /* 5. pop-in модалки */
 @keyframes popIn { from { opacity: 0; transform: scale(.96) translateY(10px); } to { opacity: 1; transform: none; } }
@@ -200,7 +216,10 @@ font-size:1.2rem;cursor:pointer;opacity:0;pointer-events:none;transition:.25s}
 #toTop.show{opacity:1;pointer-events:auto}
 
 /* ===== v2.2: баннер конфликтов избранного ===== */
-.conflict-banner{background:#ff4757;color:#fff;padding:1rem;text-align:center;font-weight:600;
+/* v4.3: белый на заливке — контраст от темы не зависит, поэтому затемняем
+   базовые правила. Замеры: .conflict-banner было 3.34:1, .conflict-banner.medium
+   2.85:1, .synergy-banner 4.32:1. */
+.conflict-banner{background:#d62839;color:#fff;padding:1rem;text-align:center;font-weight:600;
 position:sticky;top:0;z-index:1000;animation:fadeIn .25s}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 
@@ -226,16 +245,26 @@ position:sticky;top:0;z-index:1000;animation:fadeIn .25s}
 .cbbody{font-size:.92rem}
 .cbEmpty{opacity:.55;font-style:italic}
 .hline{margin-top:.25rem;opacity:.85}
-.goodPair{color:#2d8a4e;font-weight:600}
+/* v4.3: цвет текста на фоне темы — в светлой теме нужен тёмный зелёный
+   (было 3.97:1), в тёмной — светлый (было 3.22:1). */
+.goodPair{color:#2f7d4f;font-weight:600}
+body.dark .goodPair{color:#3aa863}
 .sev{font-size:.88rem;margin:.15rem 0}
-.sev-critical{color:#e74c3c;font-weight:600}
-.sev-high{color:#e67e22}
-.sev-medium{color:#d4a017}
+/* v4.2: цвет текста на фоне темы (фактически --bg, не карточка) — в светлой
+   теме нужны тёмные варианты. Замеры: .sev-critical было 3.51:1,
+   .sev-high 2.62:1, .sev-medium 2.72:1. */
+.sev-critical{color:#c0392b;font-weight:600}
+.sev-high{color:#b45309}
+.sev-medium{color:#8a6800}
+/* в тёмной теме обратно к светлым оттенкам */
+body.dark .sev-critical{color:#f26d6d}
+body.dark .sev-high{color:#e67e22}
+body.dark .sev-medium{color:#d4a017}
 .sev-low{color:var(--text);opacity:.7}
 
 /* ===== v2.3: живой баннер — medium (оранжевый), synergy (зелёный) ===== */
-.conflict-banner.medium{background:#e67e22}
-.synergy-banner{background:#2d8a4e;color:#fff;padding:1rem;text-align:center;font-weight:600;
+.conflict-banner.medium{background:#b45309}
+.synergy-banner{background:#2a8046;color:#fff;padding:1rem;text-align:center;font-weight:600;
 position:sticky;top:0;z-index:1000;animation:fadeIn .25s}
 
 /* ===== v2.4: вкладки графика, грейды A–D ===== */
@@ -245,10 +274,8 @@ position:sticky;top:0;z-index:1000;animation:fadeIn .25s}
 .chartTab.on{border-color:var(--accent);color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
 .grade{display:inline-block;font-size:.72rem;font-weight:700;padding:.15rem .55rem;
   border-radius:999px;color:#fff;vertical-align:middle;margin-left:.3rem}
-.gA{background:linear-gradient(135deg,#1e8e4e,#27ae60)}
-.gB{background:linear-gradient(135deg,#2980b9,#3498db)}
-.gC{background:linear-gradient(135deg,#b7791f,#d4a017)}
-.gD{background:linear-gradient(135deg,#666,#999)}
+/* v4.1: .gA–.gD перебивались .grade.gX с !important (специфичность 0,2,0
+   против 0,1,0) и в разметке не использовались — удалены как мёртвые. */
 
 /* ===== v2.6: add-on trust ===== */
 .trustbar{position:sticky;top:0;z-index:100;background:var(--card-bg);color:var(--text);
@@ -295,7 +322,7 @@ position:sticky;top:0;z-index:1000;animation:fadeIn .25s}
 
 /* ===== F5: горизонтальные чипы доверия ===== */
 .trustChips{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.6rem}
-.trustChips .chip{display:inline-block;padding:.35rem .75rem;border-radius:999px;
+.trustChips .chip{display:inline-flex;align-items:center;min-height:44px;padding:.35rem .75rem;border-radius:999px;
   font-size:.82rem;font-weight:600;text-decoration:none;border:1px solid var(--border);
   background:var(--bg);color:var(--accent);transition:border-color .15s,color .15s}
 .trustChips .chip:hover{border-color:var(--accent);color:var(--accent)}
@@ -339,10 +366,12 @@ body.dark .chip a:visited { color: #5dade2; }
 /* v2.8.0: пресеты-чипы + активные фильтры (F1/F8) */
 .presetRow{display:flex;gap:.5rem;flex-wrap:wrap;margin:.5rem 0}
 .preset{padding:.4rem .8rem;border-radius:20px;background:var(--card-bg);border:1px solid var(--border);cursor:pointer;font-size:.85rem;transition:all .15s}
-.preset.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+/* v4.1: var(--accent) давал белым 3.65:1 в тёмной теме — фиксированная
+   заливка #1f5fbf даёт 6.09:1 в обеих */
+.preset.on{background:#1f5fbf;color:#fff;border-color:#1f5fbf}
 .preset:hover{border-color:var(--accent)}
 .activeFilters{display:flex;gap:.4rem;flex-wrap:wrap;margin:.5rem 0;font-size:.85rem}
-.activeFilters .chip{background:var(--accent);color:#fff;padding:.25rem .6rem;border-radius:12px;display:inline-flex;align-items:center;gap:.3rem}
+.activeFilters .chip{background:#1f5fbf;color:#fff;padding:.25rem .6rem;border-radius:12px;display:inline-flex;align-items:center;gap:.3rem;min-height:44px}
 .activeFilters .chip .x{cursor:pointer;opacity:.8}
 .activeFilters .chip .x:hover{opacity:1}
 
@@ -374,17 +403,34 @@ body.dark .chip a:visited { color: #5dade2; }
 body.dark a.btn{text-decoration:none}
 
 /* ===== v3.1: палитра грейдов A-D (зелёный/лайм/янтарь/красный) ===== */
-.grade.gA { background: #22c55e !important; color: #fff !important; border-color: #22c55e !important; }
-.grade.gB { background: #84cc16 !important; color: #fff !important; border-color: #84cc16 !important; }
-.grade.gC { background: #f59e0b !important; color: #fff !important; border-color: #f59e0b !important; }
-.grade.gD { background: #ef4444 !important; color: #fff !important; border-color: #ef4444 !important; }
+.grade.gA { background: #15803d !important; color: #fff !important; border-color: #15803d !important; }
+.grade.gB { background: #4d7c0f !important; color: #fff !important; border-color: #4d7c0f !important; }
+.grade.gC { background: #b45309 !important; color: #fff !important; border-color: #b45309 !important; }
+.grade.gD { background: #b91c1c !important; color: #fff !important; border-color: #b91c1c !important; }
 
 /* вердикты в тон палитре */
 
 /* вердикты в тон палитре грейдов (v3.1) */
-.verdict.v1  { background: #22c55e !important; }
-.verdict.v0  { background: #f59e0b !important; }
-.verdict.v-1 { background: #ef4444 !important; }
+.verdict.v1  { background: #15803d !important; }
+.verdict.v0  { background: #b45309 !important; }
+.verdict.v-1 { background: #b91c1c !important; }
+
+/* ===== v4.1: контраст белого текста на заливке — обе темы (WCAG AA) ===== */
+/* Замеры до правки: .grade.gB 1.98:1, .grade.gC 2.15:1, .grade.gA 2.28:1,
+   .grade.gD и .verdict.v-1 3.76:1, .verdict.v0 2.15:1, .btn.calc 3.15:1,
+   .t-strong 2.10:1, .t-mod 2.40:1, .t-weak 2.85:1, .t-mkt 3.82:1, .t-ctx 4.37:1.
+   Заливка затемнена в базовых правилах выше: контраст пары «белый на цвете» не
+   зависит от фона вокруг, поэтому одно правило корректно в обеих темах.
+   --accent не трогаем: он объявлен в :root и body.dark, и его затемнение
+   сломало бы 6 страниц.
+
+   .chartTab.on — исключение: там ЦВЕТ ТЕКСТА, а не заливка. #5aa9ff нужен
+   для тёмной карточки (#2c2c2e -> 5.68:1) и дал бы в светлой 2.46:1, поэтому
+   переопределение остаётся только для тёмной темы. В светлой var(--accent)
+   #0062cc на белом даёт 5.80:1 и проходит без правок. */
+html.dark .chartTab.on, body.dark .chartTab.on {
+  border-color: #5aa9ff; color: #5aa9ff; box-shadow: 0 0 0 1px #5aa9ff;
+}
 
 /* v3.1: плоские цвета вердиктов */
 

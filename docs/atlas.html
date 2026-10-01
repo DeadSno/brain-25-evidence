@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="manifest" href="manifest.webmanifest">
   <meta name="theme-color" content="#1c1c1e">
-  <meta name="description" content="Атлас механизмов: 25 тегов-хабов × 130 добавки. Что работает для Сна, Памяти, Иммунитета, Спорта."/>
+  <meta name="description" content="Атлас механизмов: 25 тегов-хабов и 130 добавок. Что работает для сна, памяти, иммунитета и спорта - с разбором пути «вещество - мишень - эффект»."/>
   <meta property="og:type" content="website"/>
   <meta property="og:title" content="Атлас механизмов БАДов"/>
   <meta property="og:description" content="25 тегов × 130 добавки: что работает для какой цели."/>
@@ -27,7 +27,7 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=382">
+<link rel="stylesheet" href="style.css?v=387">
   <style>
     body{--apanel:#15171c;--aborder:#2b2e35;--atext:#e9eaee;--amut:#9aa0aa;margin:0}
     body:not(.dark){--apanel:#ffffff;--aborder:#d9dde3;--atext:#1b1d22;--amut:#5c6370}
@@ -219,15 +219,17 @@ try {
     <button class="btn" id="themeBtn">🌞 Светлая тема</button>
   </div>
 </header>
+
+<main>
   <div id="stats">Загрузка…</div>
 
   <div class="filterbar">
     <span class="lbl">Грейд:</span>
-    <button class="btn gr on" data-grade="A">A</button>
-    <button class="btn gr on" data-grade="B">B</button>
-    <button class="btn gr on" data-grade="C">C</button>
-    <button class="btn gr on" data-grade="D">D</button>
-    <span class="lbl" style="margin-left:1rem">Поиск:</span>
+    <button class="btn gr on" data-grade="A" aria-label="Грейд A">A</button>
+    <button class="btn gr on" data-grade="B" aria-label="Грейд B">B</button>
+    <button class="btn gr on" data-grade="C" aria-label="Грейд C">C</button>
+    <button class="btn gr on" data-grade="D" aria-label="Грейд D">D</button>
+    <label class="lbl" for="q" style="margin-left:1rem">Поиск:</label>
     <input id="q" placeholder="название, эффект, механизм…" style="padding:.4rem .7rem;border:1px solid var(--aborder);border-radius:8px;background:var(--apanel);color:var(--atext);min-width:180px">
     <button class="btn" id="pngBtn" title="Скачать картинку">📷 PNG</button>
     <button class="btn" id="shareBtn" title="Копировать ссылку с фильтрами">🔗 Ссылка</button>
@@ -247,6 +249,8 @@ try {
     </div>
     <aside id="sidebar"></aside>
   </div>
+
+</main>
 
   <footer class="site-footer">
   <p class="disc">
@@ -699,7 +703,7 @@ function esc(s) {
 
   // ── Load data ────────────────────────────────────────────────────
   fetch('data.json?ts=' + Date.now())
-    .then(r => r.json())
+    .then(r => (r.ok ? r.json() : Promise.reject(new Error('HTTP ' + r.status))))
     .then(data => {
       SUPS = data;
       render();
@@ -761,13 +765,16 @@ function esc(s) {
   })();
 })();
 </script>
-<button class="toBottom" id="toBottom" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})" title="Вниз">↓</button>
+<button class="toBottom" id="toBottom" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})" title="Вниз" aria-label="Прокрутить страницу вниз">↓</button>
 <script>
 window.addEventListener('scroll', () => {
   const btn = document.getElementById('toBottom');
   if (!btn) return;
+  // Раньше порог был 400px: на коротких страницах (atlas, calculator, glossary,
+  // map) он недостижим и кнопка не появлялась. Проверяем прокручиваемость.
+  const scrollable = document.body.scrollHeight > window.innerHeight + 100;
   const atBottom = window.scrollY + window.innerHeight >= document.body.scrollHeight - 100;
-  if (window.scrollY > 400 && !atBottom) {
+  if (scrollable && window.scrollY > 100 && !atBottom) {
     btn.classList.add('show');
   } else {
     btn.classList.remove('show');

@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Обратная связь — Brain 25 Evidence</title>
-    <meta name="description" content="Сообщить об ошибке, предложить добавку или оставить отзыв о проекте Brain 25 Evidence">
+    <meta name="description" content="Сообщить об ошибке в данных, предложить новую добавку или оставить отзыв о проекте Brain 25 Evidence. Форма отправляется напрямую.">
     <link rel="manifest" href="manifest.webmanifest">
     <meta name="theme-color" content="#1c1c1e">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -32,7 +32,7 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=382">
+<link rel="stylesheet" href="style.css?v=387">
     <style>
         :root{--apanel:var(--card-bg);--aborder:var(--border);--atext:var(--text)}
         /* ── Единая шапка (копия index.html) ───────────────── */
@@ -57,7 +57,9 @@ try {
         .btn:hover{border-color:#888}
         /* ── Форма обратной связи ──────────────────────────── */
         .feedback-wrap { max-width: 640px; margin: 40px auto; padding: 0 20px; }
-        .feedback-wrap h1 { margin-bottom: 8px; }
+        /* v4.1: заголовок страницы стал h2 (в шапке остаётся единственный h1).
+   Размер 1.8rem сохранён от старого h1, чтобы не менять вид. */
+.feedback-wrap h2 { margin-bottom: 8px; font-size: 1.8rem; font-weight: 600; }
         .feedback-wrap .lead { color: var(--muted); margin-bottom: 32px; }
         .f-form { display: flex; flex-direction: column; gap: 20px; }
         .f-field { display: flex; flex-direction: column; gap: 6px; }
@@ -77,10 +79,17 @@ try {
             border-color: #e74c3c;
         }
         .f-required::after { content: " *"; color: #e74c3c; }
-        .f-actions { display: flex; gap: 12px; align-items: center; margin-top: 8px; }
+        .f-actions { display: flex; gap: 12px; align-items: center; margin-top: 8px; flex-wrap: wrap; }
+        /* v4.1: сообщение об ошибке под полем + живой регион для скринридера */
+        .f-error { font-size: 12px; color: #c0392b; font-weight: 600; }
+        .f-error:empty { display: none; }
+        body.dark .f-error { color: #ff8a80; }
+        .f-status { flex-basis: 100%; font-size: 13px; color: var(--muted); min-height: 1.2em; }
+        /* v4.1: var(--accent) давал белым 3.65:1 в тёмной теме —
+           фиксированная заливка работает в обеих темах (5.30:1) */
         .f-btn {
             padding: 12px 24px; border: none; border-radius: 6px;
-            background: var(--accent); color: #fff; font-size: 16px;
+            background: #0a6bc9; color: #fff; font-size: 16px;
             font-weight: 600; cursor: pointer;
         }
         .f-btn:hover { filter: brightness(.92); }
@@ -140,7 +149,7 @@ try {
 </header>
 
 <main class="feedback-wrap">
-    <h1>Обратная связь</h1>
+    <h2>Обратная связь</h2>
     <p class="lead">
         Сообщите об ошибке, предложите новую добавку или оставьте отзыв.
         Каждое сообщение читаю лично — отвечаю в течение 2-3 дней.
@@ -161,11 +170,12 @@ try {
         <input type="hidden" name="from_name" value="Brain 25 Evidence">
         <input type="hidden" name="redirect" value="https://deadsno.github.io/brain-25-evidence/feedback.html?ok=1">
         <!-- Ловушка для спама -->
-        <input type="checkbox" name="botcheck" style="display:none">
+        <input type="checkbox" name="botcheck" style="display:none"
+               aria-hidden="true" tabindex="-1">
 
         <div class="f-field">
             <label for="type" class="f-required">Тип сообщения</label>
-            <select id="type" name="type" required>
+            <select id="type" name="type" required aria-describedby="typeError">
                 <option value="">— выберите —</option>
                 <option value="error">Ошибка в данных</option>
                 <option value="add">Предложить добавку</option>
@@ -173,31 +183,39 @@ try {
                 <option value="review">Отзыв о проекте</option>
                 <option value="other">Другое</option>
             </select>
+            <span class="f-error" id="typeError"></span>
         </div>
 
         <div class="f-field">
             <label for="topic" class="f-required">О чём речь</label>
             <input type="text" id="topic" name="topic" required minlength="3" maxlength="120"
+                   aria-describedby="topicHint topicError"
                    placeholder="Например: Креатин, карточка, dosage" autocomplete="off">
-            <span class="hint">Укажите название добавки или раздел сайта</span>
+            <span class="hint" id="topicHint">Укажите название добавки или раздел сайта</span>
+            <span class="f-error" id="topicError"></span>
         </div>
 
         <div class="f-field">
             <label for="message" class="f-required">Сообщение</label>
             <textarea id="message" name="message" required minlength="10" maxlength="2000"
+                      aria-describedby="messageHint messageError"
                       placeholder="Опишите проблему или предложение как можно подробнее"></textarea>
-            <span class="hint">От 10 до 2000 символов</span>
+            <span class="hint" id="messageHint">От 10 до 2000 символов</span>
+            <span class="f-error" id="messageError"></span>
         </div>
 
         <div class="f-field">
             <label for="email">Email для ответа</label>
             <input type="email" id="email" name="email" maxlength="200"
+                   aria-describedby="emailHint emailError"
                    placeholder="name@example.com" autocomplete="email">
-            <span class="hint">Необязательно. Оставьте, если хотите получить ответ</span>
+            <span class="hint" id="emailHint">Необязательно. Оставьте, если хотите получить ответ</span>
+            <span class="f-error" id="emailError"></span>
         </div>
 
         <div class="f-actions">
             <button type="submit" class="f-btn" id="f-submit">Отправить</button>
+            <span class="f-status" id="fStatus" role="status" aria-live="polite"></span>
         </div>
 
         <p class="f-privacy">
@@ -242,17 +260,53 @@ if (themeBtn) {
     });
 }
 
-// Валидация на клиенте
-document.querySelector('.f-form').addEventListener('submit', function(e) {
-    const message = document.getElementById('message').value.trim();
-    if (message.length < 10) {
-        e.preventDefault();
-        alert('Сообщение должно содержать минимум 10 символов');
+// Валидация на клиенте: без alert() — ошибка живёт в разметке и озвучивается
+// скринридером через role="status", а на поле ставится aria-invalid.
+document.querySelector('.f-form').addEventListener('submit', function (e) {
+    var status = document.getElementById('fStatus');
+    var errors = [];
+
+    function check(id, errId, ok, text) {
+        var field = document.getElementById(id);
+        var err = document.getElementById(errId);
+        if (ok) {
+            field.removeAttribute('aria-invalid');
+            err.textContent = '';
+            return true;
+        }
+        field.setAttribute('aria-invalid', 'true');
+        err.textContent = text;
+        errors.push(field);
         return false;
     }
-    const btn = document.getElementById('f-submit');
+
+    var type = document.getElementById('type').value;
+    var topic = document.getElementById('topic').value.trim();
+    var message = document.getElementById('message').value.trim();
+    var email = document.getElementById('email').value.trim();
+
+    check('type', 'typeError', type !== '', 'Выберите тип сообщения');
+    check('topic', 'topicError', topic.length >= 3, 'Укажите не менее 3 символов');
+    check('message', 'messageError', message.length >= 10,
+          'Сообщение должно содержать минимум 10 символов');
+    // email необязателен, но если заполнен — должен быть корректным
+    check('email', 'emailError', email === '' || /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email),
+          'Похоже, в email опечатка');
+
+    if (errors.length) {
+        e.preventDefault();
+        status.textContent = errors.length === 1
+            ? 'Форма не отправлена: исправьте одно поле.'
+            : 'Форма не отправлена: исправьте ' + errors.length + ' пол.';
+        errors[0].focus();
+        return false;
+    }
+
+    var btn = document.getElementById('f-submit');
     btn.disabled = true;
-    btn.textContent = 'Отправка…';
+    btn.textContent = 'Отправляется…';
+    status.textContent = 'Отправляется…';
+    return true;
 });
 
 // Показать "спасибо" после редиректа ?ok=1
@@ -265,7 +319,7 @@ if (params.get('ok') === '1') {
     window.scrollTo(0, 0);
 }
 </script>
-<script src="pwa.js?v=280" defer></script>
+<script src="pwa.js?v=281" defer></script>
 
 </body>
 </html>

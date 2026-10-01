@@ -22,9 +22,9 @@
       }
     } catch(e) {}
     </script>
-    <link rel="stylesheet" href="../style.css?v=381">
+    <link rel="stylesheet" href="../style.css?v=387">
     <script src="../version.js"></script>
-    <script src="../pwa.js?v=280" defer></script>
+    <script src="../pwa.js?v=281" defer></script>
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -45,7 +45,9 @@
         .breadcrumbs { font-size: .9rem; color: var(--muted); margin-bottom: 16px; }
         .breadcrumbs a { color: var(--accent); text-decoration: none; }
         .sup-header { display: flex; gap: 16px; align-items: center; margin-bottom: 24px; flex-wrap: wrap; }
-        .sup-header h1 { margin: 0; font-size: 2rem; }
+        /* v4.2: h1 -> h2 (второй h1 на странице), font-weight:600 сохраняет
+           вид прежнего h1 из style.css */
+        .sup-header h2 { margin: 0; font-size: 2rem; font-weight: 600; }
         .grade-badge { display: inline-block; padding: 6px 14px; border-radius: 8px; color: #fff; font-weight: 700; font-size: 1.1rem; }
         .verdict { color: var(--muted); font-size: 1rem; }
         .sup-section { margin-bottom: 28px; padding: 20px; background: var(--card-bg); border-radius: 12px; border: 1px solid var(--border); }
@@ -75,7 +77,7 @@
         .back-link { display: inline-block; margin-top: 24px; color: var(--accent); text-decoration: none; }
         @media (max-width: 600px) {
             .sup-wrap { margin: 20px auto; }
-            .sup-header h1 { font-size: 1.5rem; }
+            .sup-header h2 { font-size: 1.5rem; }
         }
     </style>
 </head>
@@ -98,7 +100,7 @@
     </nav>
 
     <div class="sup-header">
-        <h1>Витамин D</h1>
+        <h2>Витамин D</h2>
         <span class="grade-badge" style="background:#22c55e">Грейд A</span>
         <span class="verdict">— зависит от контекста</span>
     </div>

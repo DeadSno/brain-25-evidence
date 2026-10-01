@@ -325,6 +325,10 @@ function initApp() {
 
   const up = document.createElement('button');
   up.id = 'toTop'; up.textContent = '↑';
+  // v4.1 — находка №12: одиночный символ без доступного имени.
+  // Статический скан аудита эту кнопку не видел: её создаёт скрипт.
+  up.setAttribute('aria-label', 'Наверх к началу страницы');
+  up.title = 'Наверх';
   up.onclick = () => scrollTo({top: 0, behavior: 'smooth'});
   document.body.appendChild(up);
   addEventListener('scroll', () => up.classList.toggle('show', scrollY > 500));

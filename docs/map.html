@@ -26,7 +26,7 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=382">
+<link rel="stylesheet" href="style.css?v=387">
 <script>
   try {
     document.addEventListener('DOMContentLoaded', function () {
@@ -59,7 +59,9 @@ try {
   .cat.closed .chip{display:none!important}
   .chip{display:inline-block;margin:0 .3rem .3rem 0;padding:.32rem .65rem;border:1px solid var(--aborder);border-radius:999px;cursor:pointer;font-size:.82rem;background:var(--apanel);color:var(--atext)}
   .chip:hover{border-color:#888}
-  .chip.on{border-color:#f1c40f;color:#f1c40f;font-weight:700}
+  /* v4.2: #f1c40f в светлой теме давал 1.53:1 — тёмное золото */
+  .chip.on{border-color:#8a6800;color:#8a6800;font-weight:700}
+  body.dark .chip.on{border-color:#f1c40f;color:#f1c40f}
   .chainbox{border:1px solid var(--aborder);border-radius:14px;padding:1.1rem 1.2rem;background:var(--apanel);height:100%;overflow-y:auto}
   @keyframes rise{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
   .step{padding:.7rem .95rem;border-radius:10px;margin:.35rem 0;font-size:.93rem;line-height:1.5;
@@ -70,15 +72,16 @@ try {
   .arrow{text-align:center;opacity:.5;font-size:1.05rem;margin:.05rem 0;animation:rise .3s ease both}
   .tag{display:inline-block;padding:.14rem .55rem;border-radius:999px;font-size:.72rem;font-weight:800;color:#fff;
        margin-left:.5rem;vertical-align:middle;text-shadow:0 1px 2px rgba(0,0,0,.35)}
-  .t-strong{background:linear-gradient(135deg,#1e8e4e,#2ecc71);box-shadow:0 0 10px rgba(46,204,130,.45)}
-  .t-mod{background:linear-gradient(135deg,#5d8a1a,#7fb800)}
-  .t-weak{background:linear-gradient(135deg,#b3541e,#e67e22)}
-  .t-ctx{background:linear-gradient(135deg,#b7791f,#f1c40f);color:#222;text-shadow:none}
-  .t-mkt{background:linear-gradient(135deg,#a93226,#e74c3c);box-shadow:0 0 10px rgba(231,76,60,.4)}
+  /* v4.1: белый текст на затемнённом градиенте — контраст ≥ 4.5:1 в обеих темах */
+  .t-strong{background:linear-gradient(135deg,#166534,#15803d);box-shadow:0 0 10px rgba(21,128,61,.45)}
+  .t-mod{background:linear-gradient(135deg,#3f6310,#4d7c0f)}
+  .t-weak{background:linear-gradient(135deg,#8a3d10,#9a4a08)}
+  /* .t-ctx был с тёмным текстом #222 на жёлтом — теперь белый на тёмном */
+  .t-ctx{background:linear-gradient(135deg,#8a5a10,#b45309);color:#fff;text-shadow:none}
+  .t-mkt{background:linear-gradient(135deg,#7f2318,#b91c1c);box-shadow:0 0 10px rgba(185,28,28,.4)}
   .verdict{display:inline-block;padding:.2rem .6rem;border-radius:6px;color:#fff;font-size:.8rem;font-weight:700}
-  .verdict.v1{background:linear-gradient(135deg,#1e8e4e,#2ecc71)}
-  .verdict.v0{background:linear-gradient(135deg,#b7791f,#f1c40f)}
-  .verdict.v-1{background:linear-gradient(135deg,#a93226,#e74c3c)}
+  /* v4.2: правила .verdict.v1/v0/v-1 перебивались сплошными !important из
+     style.css (стр. 393–395) — удалены как мёртвые. */
   .chainbox a{color:#3498db}
   .sim{margin-top:1.2rem;padding-top:.9rem;border-top:1px dashed var(--aborder);animation:rise .4s ease both}
   .sim h4{margin:.2rem 0 .5rem;font-size:.85rem;opacity:.75}
@@ -252,12 +255,16 @@ try {
     <button class="btn" id="themeBtn">🌞 Светлая тема</button>
   </div>
 </header>
+
+<main>
   <p id="stats"></p>
   <p style="opacity:.65;margin:.4rem 0 0">Выбери добавку слева — справа её цепочка: вещество → молекулярная мишень → эффект. <kbd>↑</kbd><kbd>↓</kbd> навигация, <kbd>/</kbd> поиск, <kbd>Esc</kbd> сброс.</p>
   <div class="cols">
     <div class="list" id="list"></div>
     <div class="chainbox" id="chain"></div>
   </div>
+</main>
+
   <footer class="site-footer">
   <p class="disc">
     <b>⚠️ Не медицинская рекомендация.</b>
@@ -435,7 +442,7 @@ document.addEventListener('click', e => {
   if (el) haptic(8);
 }, { passive: true });
 </script>
-<script src="pwa.js?v=273" defer></script>
+<script src="pwa.js?v=281" defer></script>
 <script>
 (function () {
   // ── Backdrop + modal ─────────────────────────────────────────
@@ -627,13 +634,16 @@ document.addEventListener('click', e => {
   document.head.appendChild(st);
 })();
 </script>
-<button class="toBottom" id="toBottom" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})" title="Вниз">↓</button>
+<button class="toBottom" id="toBottom" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})" title="Вниз" aria-label="Прокрутить страницу вниз">↓</button>
 <script>
 window.addEventListener('scroll', () => {
   const btn = document.getElementById('toBottom');
   if (!btn) return;
+  // Раньше порог был 400px: на коротких страницах (atlas, calculator, glossary,
+  // map) он недостижим и кнопка не появлялась. Проверяем прокручиваемость.
+  const scrollable = document.body.scrollHeight > window.innerHeight + 100;
   const atBottom = window.scrollY + window.innerHeight >= document.body.scrollHeight - 100;
-  if (window.scrollY > 400 && !atBottom) {
+  if (scrollable && window.scrollY > 100 && !atBottom) {
     btn.classList.add('show');
   } else {
     btn.classList.remove('show');

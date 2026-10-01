@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <meta name="theme-color" content="#1c1c1e">
 <title>❓ Часто задаваемые вопросы — brain-25-evidence</title>
+<meta name="description" content="Частые вопросы о доказательности БАДов: как считается индекс scienceIndex, что означают грейды A-D, можно ли доверять вердиктам и как проверить источник."/>
 <script>
 // Тема: ставим .dark на <html> до загрузки CSS — иначе вспышка светлого фона.
 try {
@@ -14,7 +15,7 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=382"/>
+<link rel="stylesheet" href="style.css?v=387"/>
 <script>
   try {
     document.addEventListener('DOMContentLoaded', function () {
@@ -53,6 +54,8 @@ try {
     <button class="btn" id="themeBtn">🌞 Светлая тема</button>
   </div>
 </header>
+
+<main>
 
 <details class="qa" open>
   <summary>1. Что такое мета-анализ?</summary>
@@ -142,6 +145,8 @@ try {
   <p>Нет. Калькулятор показывает дозы из исследований и известные конфликты, но не учитывает вашу историю болезней, лекарства и анализы. Для решений — к врачу.</p>
 </details>
 
+</main>
+
 <footer class="site-footer">
   <p class="disc">
     <b>⚠️ Не медицинская рекомендация.</b>
@@ -172,13 +177,16 @@ $('themeBtn').onclick = () => {
   localStorage.setItem('theme', on ? 'dark' : 'light');
 };
 </script>
-<button class="toBottom" id="toBottom" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})" title="Вниз">↓</button>
+<button class="toBottom" id="toBottom" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})" title="Вниз" aria-label="Прокрутить страницу вниз">↓</button>
 <script>
 window.addEventListener('scroll', () => {
   const btn = document.getElementById('toBottom');
   if (!btn) return;
+  // Раньше порог был 400px: на коротких страницах (atlas, calculator, glossary,
+  // map) он недостижим и кнопка не появлялась. Проверяем прокручиваемость.
+  const scrollable = document.body.scrollHeight > window.innerHeight + 100;
   const atBottom = window.scrollY + window.innerHeight >= document.body.scrollHeight - 100;
-  if (window.scrollY > 400 && !atBottom) {
+  if (scrollable && window.scrollY > 100 && !atBottom) {
     btn.classList.add('show');
   } else {
     btn.classList.remove('show');
