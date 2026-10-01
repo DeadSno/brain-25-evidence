@@ -4,9 +4,10 @@
   <script defer src="version.js"></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>БАДы: доказательства и механизмы</title>
-<meta property="og:title" content="БАДы: доказательства и механизмы"/>
-<meta property="og:description" content="Интерактивный дашборд и карта механизмов: вердикты по мета-анализам PubMed, цены за месяц, ongoing trials. Без медицинских советов — только данные."/>
+<title>БАДы: доказательства и механизмы - 130 добавок | Brain 25 Evidence</title>
+<meta name="description" content="130 БАД с разбором механизмов, ссылками на PubMed, оценкой доказательности и текущими исследованиями. Открытые данные без рекламы."/>
+<meta property="og:title" content="БАДы: доказательства и механизмы - 130 добавок | Brain 25 Evidence"/>
+<meta property="og:description" content="130 БАД с разбором механизмов, ссылками на PubMed, оценкой доказательности и текущими исследованиями. Открытые данные без рекламы."/>
 <meta property="og:type" content="website"/>
 <meta property="og:url" content="https://deadsno.github.io/brain-25-evidence/"/>
 <meta property="og:image" content="https://deadsno.github.io/brain-25-evidence/og.png"/>
@@ -41,7 +42,7 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=382"/>
+<link rel="stylesheet" href="style.css?v=387"/>
 <style>
 :root{--apanel:var(--card-bg);--aborder:var(--border);--atext:var(--text)}
 /* Единая шапка для всех страниц */
@@ -191,21 +192,31 @@ try {
   </div>
 </header>
 
+<main>
+<div style="display:flex;flex-wrap:wrap;gap:.5rem;margin:0 0 1.5rem">
+  <a class="btn" href="calculator.html">🧮 Проверить дозы и совместимость</a>
+  <a class="btn c-support" href="support.html">💚 Поддержать проект</a>
+  <a class="btn" href="map.html">🧩 Как это работает</a>
+</div>
+
 <section id="controls">
+  <label for="search" class="sr-only">Поиск по названию или эффекту</label>
   <input id="search" placeholder="🔍 Поиск: название или эффект..."/>
+  <label for="verdictFilter" class="sr-only">Фильтр: вердикт</label>
   <select id="verdictFilter">
     <option value="all">Любой вердикт</option>
     <option value="1">✅ работает</option>
     <option value="0">⚖️ зависит от контекста</option>
     <option value="-1">❌ не подтверждено</option>
   </select>
+  <label for="sortSelect" class="sr-only">Сортировка списка</label>
   <select id="sortSelect">
     <option value="science">🔬 По доказательности (наука)</option>
     <option value="name">По алфавиту</option>
     <option value="grade">🎖 По грейду доказанности</option>
   </select>
-  <button id="favFilter" class="favFilter" title="Показать только избранные">⭐ <span id="favCount">0</span></button>
-  <button id="resetFilters" class="favFilter" title="Сбросить все фильтры и поиск">✕</button>
+  <button id="favFilter" class="favFilter" title="Показать только избранные" aria-label="Показать только избранные">⭐ <span id="favCount">0</span></button>
+  <button id="resetFilters" class="favFilter" title="Сбросить все фильтры и поиск" aria-label="Сбросить все фильтры и поиск">✕</button>
 </section>
 
 <section id="qaSection" style="background:var(--card-bg);padding:1.2rem 1.5rem;border-radius:12px;border:1px solid var(--border)">
@@ -349,15 +360,26 @@ try {
 <section id="compareSection">
   <h2>Сравнить две добавки</h2>
   <div class="row">
-    <div><label>Добавка 1</label><select id="compareSelect1"></select></div>
-    <div><label>Добавка 2</label><select id="compareSelect2"></select></div>
+    <div><label for="compareSelect1">Добавка 1</label><select id="compareSelect1"></select></div>
+    <div><label for="compareSelect2">Добавка 2</label><select id="compareSelect2"></select></div>
     <button id="compareBtn">Сравнить</button>
   </div>
   <div id="compareResult"></div>
   <h3 style="margin-top:1rem">📡 Радар профиля</h3>
   <div style="position:relative;max-width:520px;margin:0 auto"><canvas id="radarChart"></canvas></div>
+
 </section>
 
+<section id="helpProject" style="background:var(--card-bg);padding:1.2rem 1.5rem;border-radius:12px;border:1px solid var(--border)">
+  <h2>💚 Как помочь проекту</h2>
+  <p class="hint">Проект бесплатный: без рекламы, подписок и продажи данных. Помощь ускоряет обновление карточек и разработку.</p>
+  <div style="display:flex;flex-wrap:wrap;gap:.5rem">
+    <a class="btn c-support" href="https://yoomoney.ru/fundraise/1KKDKB0O1EC.260930" target="_blank" rel="noopener">💚 Поддержать в ЮMoney</a>
+    <a class="btn c-feedback" href="feedback.html">💬 Сообщить об ошибке</a>
+    <a class="btn" href="https://github.com/DeadSno/brain-25-evidence" target="_blank" rel="noopener">⭐ Доработать на GitHub</a>
+  </div>
+</section>
+</main>
 <footer class="site-footer">
   <p class="disc">
     <b>⚠️ Не медицинская рекомендация.</b>
@@ -381,21 +403,24 @@ try {
 
 <div id="modalOverlay" style="display:none">
   <div id="modal">
-    <button id="modalClose">✕</button>
+    <button id="modalClose" aria-label="Закрыть окно">✕</button>
     <div id="modalBody"></div>
   </div>
 </div>
-<script src="script.js?v=283"></script>
+<script src="script.js?v=284"></script>
 <script src="science2.js?v=281" defer></script>
 <script src="tracker.js?v=281" defer></script>
-<script src="pwa.js?v=280" defer></script>
-<button class="toBottom" id="toBottom" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})" title="Вниз">↓</button>
+<script src="pwa.js?v=281" defer></script>
+<button class="toBottom" id="toBottom" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})" title="Вниз" aria-label="Прокрутить страницу вниз">↓</button>
 <script>
 window.addEventListener('scroll', () => {
   const btn = document.getElementById('toBottom');
   if (!btn) return;
+  // Раньше порог был 400px: на коротких страницах (atlas, calculator, glossary,
+  // map) он недостижим и кнопка не появлялась. Проверяем прокручиваемость.
+  const scrollable = document.body.scrollHeight > window.innerHeight + 100;
   const atBottom = window.scrollY + window.innerHeight >= document.body.scrollHeight - 100;
-  if (window.scrollY > 400 && !atBottom) {
+  if (scrollable && window.scrollY > 100 && !atBottom) {
     btn.classList.add('show');
   } else {
     btn.classList.remove('show');

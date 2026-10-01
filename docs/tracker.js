@@ -11,7 +11,10 @@
   function fetchSupplements() {
     if (_supplementsCache) return Promise.resolve(_supplementsCache);
     return fetch('data.json?ts=' + Date.now())
-      .then(function (r) { return r.json(); })
+      .then(function (r) {
+        if (!r.ok) throw new Error('data.json HTTP ' + r.status);
+        return r.json();
+      })
       .then(function (d) { _supplementsCache = d; return d; })
       .catch(function () { return []; });
   }

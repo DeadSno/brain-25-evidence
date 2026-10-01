@@ -1,6 +1,15 @@
-/* v2.7 PWA: регистрация SW + бейдж «офлайн-режим». */
+/* v2.8 PWA: регистрация SW + бейдж «офлайн-режим». */
 (function () {
   var badge = null;
+
+  /* v2.8: pwa.js подключается и из корня (./pwa.js), и со страниц /sup/*.html
+     (../pwa.js). Регистрировать надо sw.js рядом со скриптом, а не
+     относительно страницы: на /sup/kreatin.html './sw.js' резолвился
+     в /sup/sw.js → 404, и офлайн-режим на этих страницах не работал.
+     URL запоминаем сразу на верхнем уровне: document.currentScript валиден
+     только во время синхронного выполнения скрипта, а в обработчике 'load'
+     он уже равен null. */
+  var PWA_BASE = (document.currentScript && document.currentScript.src) || location.href;
 
   function showBadge() {
     if (badge) return;
@@ -33,7 +42,7 @@
 
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', function () {
-      navigator.serviceWorker.register('./sw.js').catch(function (err) {
+      navigator.serviceWorker.register(new URL('sw.js', PWA_BASE).href).catch(function (err) {
         console.warn('[pwa] service worker не зарегистрирован:', err.message || err);
       });
     });

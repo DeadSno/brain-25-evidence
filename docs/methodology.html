@@ -5,7 +5,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <meta name="theme-color" content="#1c1c1e">
-<title>Методология аудита v<span data-version="audit"></span> — brain-25-evidence</title>
+<title>Методология — как мы оцениваем БАДы | Brain 25 Evidence</title>
+<meta name="description" content="Методология проекта: как отбираются публикации PubMed, считается индекс доказательности scienceIndex, присваиваются грейды A-D и вердикты."/>
 <script>
 // Тема: ставим .dark на <html> до загрузки CSS — иначе вспышка светлого фона.
 try {
@@ -14,7 +15,7 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=382"/>
+<link rel="stylesheet" href="style.css?v=387"/>
 <script>
   try {
     document.addEventListener('DOMContentLoaded', function () {
@@ -53,6 +54,8 @@ try {
     <button class="btn" id="themeBtn">🌞 Светлая тема</button>
   </div>
 </header>
+
+<main>
 
 <section style="background:var(--card-bg);padding:1.5rem;border-radius:12px;border:1px solid var(--border);margin-bottom:1.5rem">
 <h2>Что такое аудит v<span data-version="audit"></span></h2>
@@ -130,6 +133,8 @@ try {
 <p>Это честное распределение: не "всё работает", а реальная картина доказательности.</p>
 </section>
 
+</main>
+
 <footer class="site-footer">
   <p class="disc">
     <b>⚠️ Не медицинская рекомендация.</b>
@@ -160,13 +165,16 @@ $('themeBtn').onclick = () => {
   localStorage.setItem('theme', on ? 'dark' : 'light');
 };
 </script>
-<button class="toBottom" id="toBottom" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})" title="Вниз">↓</button>
+<button class="toBottom" id="toBottom" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})" title="Вниз" aria-label="Прокрутить страницу вниз">↓</button>
 <script>
 window.addEventListener('scroll', () => {
   const btn = document.getElementById('toBottom');
   if (!btn) return;
+  // Раньше порог был 400px: на коротких страницах (atlas, calculator, glossary,
+  // map) он недостижим и кнопка не появлялась. Проверяем прокручиваемость.
+  const scrollable = document.body.scrollHeight > window.innerHeight + 100;
   const atBottom = window.scrollY + window.innerHeight >= document.body.scrollHeight - 100;
-  if (window.scrollY > 400 && !atBottom) {
+  if (scrollable && window.scrollY > 100 && !atBottom) {
     btn.classList.add('show');
   } else {
     btn.classList.remove('show');

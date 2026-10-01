@@ -4,7 +4,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Поддержать проект — Brain 25 Evidence</title>
-    <meta name="description" content="Поддержать открытый проект Brain 25 Evidence — база данных о 130 БАДах на основе PubMed.">
+    <meta property="og:title" content="Поддержать проект - Brain 25 Evidence"/>
+    <meta property="og:description" content="Поддержать открытый проект Brain 25 Evidence: база данных о 130 БАДах на основе публикаций PubMed. Пожертвование на хостинг и обновление данных."/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="https://deadsno.github.io/brain-25-evidence/support.html"/>
+    <meta property="og:image" content="https://deadsno.github.io/brain-25-evidence/og.png"/>
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="description" content="Поддержать открытый проект Brain 25 Evidence: база данных о 130 БАДах на основе публикаций PubMed. Пожертвование на хостинг и обновление данных.">
     <link rel="manifest" href="manifest.webmanifest">
     <meta name="theme-color" content="#1c1c1e">
     <link rel="apple-touch-icon" href="icons/192.png">
@@ -15,12 +21,15 @@
       }
     } catch(e) {}
     </script>
-    <link rel="stylesheet" href="style.css?v=382">
+    <link rel="stylesheet" href="style.css?v=387">
     <script src="version.js"></script>
-    <script src="pwa.js?v=280" defer></script>
+    <script src="pwa.js?v=281" defer></script>
     <style>
         .support-wrap { max-width: 720px; margin: 40px auto; padding: 0 20px; }
-        .support-wrap h1 { margin-bottom: 8px; }
+        /* v4.1: заголовок страницы стал h2 (в шапке остаётся единственный h1).
+   Размер 1.8rem сохранён от старого h1; подзаголовки ниже переопределены
+   правилом .support-card h2, которое идёт после. */
+.support-wrap h2 { margin-bottom: 8px; font-size: 1.8rem; font-weight: 600; }
         .support-wrap .lead { color: var(--muted); margin-bottom: 32px; font-size: 1.05rem; }
         .support-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 20px; }
         .support-card h2 { margin-bottom: 12px; font-size: 1.2rem; }
@@ -54,7 +63,7 @@
 </header>
 
 <main class="support-wrap">
-    <h1>Поддержать проект</h1>
+    <h2>Поддержать проект</h2>
     <p class="lead">Brain 25 Evidence — открытый проект о 130 биологически активных добавках на основе 37 618 статей из PubMed. Без рекламы, без подписок, без монетизации.</p>
 
     <div class="support-note">Проект делает один человек в свободное время. Донат помогает оплачивать хостинг и мотивирует продолжать.</div>

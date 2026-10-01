@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Тренды популярности БАДов 2015-2025 — brain-25-evidence</title>
-<meta name="description" content="10 лет данных: публикации PubMed, просмотры Wikipedia, цитирования ключевых исследований для 94 добавок."/>
+<meta name="description" content="10 лет данных по 94 добавкам: публикации PubMed, просмотры Wikipedia и цитирования исследований. Как менялась доказательная база и где появились новые работы."/>
 <meta property="og:title" content="Тренды БАДов 2015-2025: рост публикаций, Wikipedia, цитаты"/>
 <meta property="og:description" content="NMN ×3.3, COVID-спайк у витамина D, рост научного интереса ×6.7 — интерактивный дашборд."/>
 <meta property="og:type" content="website"/>
@@ -20,7 +20,7 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=382">
+<link rel="stylesheet" href="style.css?v=387">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <script src="version.js?v=310"></script>
 <style>
@@ -33,7 +33,8 @@ try {
   .tabs{display:flex;gap:.4rem;margin:1rem 0 .6rem;flex-wrap:wrap}
   .tab{background:var(--card-bg);color:var(--text);border:1px solid var(--border);
     padding:.5rem 1rem;border-radius:8px;cursor:pointer;font-size:.92rem}
-  .tab.on{background:linear-gradient(135deg,#3498db,#2980b9);color:#fff;border:none;font-weight:600}
+  /* v4.1: белый на #3498db давал 3.15:1 — затемнено до 5.42:1 в обеих темах */
+  .tab.on{background:linear-gradient(135deg,#1f6fa5,#175a86);color:#fff;border:none;font-weight:600}
 
   /* Выравнивание кнопок — единый стиль, без special-casing для .calc */
   header.top .actions > a.btn,
@@ -147,10 +148,13 @@ try {
   padding:.2rem 0;
 }
 .cat-label{opacity:.65}
+/* v4.3: #f59e0b на белой карточке давал 2.15:1. Базовое правило — тёмный
+   вариант (5.02:1), в тёмной теме возвращаем исходный (6.49:1 на --card-bg). */
 .cat-warn{
-  margin-top:.55rem;font-size:.8rem;color:#f59e0b;
+  margin-top:.55rem;font-size:.8rem;color:#b45309;
   border-top:1px solid var(--border);padding-top:.55rem;
 }
+body.dark .cat-warn{color:#f59e0b}
 
 /* ===== Methodology ===== */
 .methodology{
@@ -188,6 +192,8 @@ try {
     <button class="btn" id="themeBtn">🌞 Светлая тема</button>
   </div>
 </header>
+
+<main>
 
 <p class="hint" style="opacity:.75;margin:.4rem 0 0">
   10 лет данных о 130 добавках: публикации в PubMed, просмотры ru.wikipedia, цитирования ключевых исследований.
@@ -273,6 +279,8 @@ try {
 </div>
 <p class="chart-note" id="chartNote"></p>
 
+</main>
+
 <footer class="site-footer">
   <p class="disc">
     <b>⚠️ Не медицинская рекомендация.</b>
@@ -297,7 +305,7 @@ try {
 <!-- Модалка -->
 <div id="modalOverlay" style="display:none">
   <div id="modal">
-    <button id="modalClose" class="btn">×</button>
+    <button id="modalClose" class="btn" aria-label="Закрыть окно">×</button>
     <div id="modalBody"></div>
   </div>
 </div>
@@ -952,9 +960,14 @@ growth_wiki = avg(wiki[id][последние 6 мес]) / avg(wiki[id][перв
 
   async function init() {
     const [ts, idx] = await Promise.all([
-      fetch('timeseries.json?v=' + Date.now()).then(r => r.json()),
-      fetch('data_index.json?v=' + Date.now()).then(r => r.json()),
-    ]);
+      fetch('timeseries.json?v=' + Date.now())
+        .then(r => (r.ok ? r.json() : Promise.reject(new Error('HTTP ' + r.status)))),
+      fetch('data_index.json?v=' + Date.now())
+        .then(r => (r.ok ? r.json() : Promise.reject(new Error('HTTP ' + r.status)))),
+    ]).catch(function (err) {
+      // Без этого необработанный промис молча ломал рендер страницы
+      console.warn('Тренды: данные не загрузились —', err);
+    });
     TS_ = ts;
     SUPP_ = idx.supplements || [];
 
@@ -974,13 +987,16 @@ growth_wiki = avg(wiki[id][последние 6 мес]) / avg(wiki[id][перв
   }
 })();
 </script>
-<button class="toBottom" id="toBottom" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})" title="Вниз">↓</button>
+<button class="toBottom" id="toBottom" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})" title="Вниз" aria-label="Прокрутить страницу вниз">↓</button>
 <script>
 window.addEventListener('scroll', () => {
   const btn = document.getElementById('toBottom');
   if (!btn) return;
+  // Раньше порог был 400px: на коротких страницах (atlas, calculator, glossary,
+  // map) он недостижим и кнопка не появлялась. Проверяем прокручиваемость.
+  const scrollable = document.body.scrollHeight > window.innerHeight + 100;
   const atBottom = window.scrollY + window.innerHeight >= document.body.scrollHeight - 100;
-  if (window.scrollY > 400 && !atBottom) {
+  if (scrollable && window.scrollY > 100 && !atBottom) {
     btn.classList.add('show');
   } else {
     btn.classList.remove('show');

@@ -10,7 +10,7 @@ self.addEventListener('activate', event => {
 /* v29 PWA: cache-first для статики, network-first для data.json.
    Install через поштучный cache.add().catch() — один missing файл
    не валит всю установку. Бамп CACHE_VERSION при изменении STATIC_ASSETS. */
-var CACHE_VERSION = 'v42';
+var CACHE_VERSION = 'v44';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 var DATA_SUFFIX = '/data.json';  // GitHub Pages кладёт сайт в /brain-25-evidence/
@@ -33,6 +33,11 @@ var STATIC_ASSETS = [
   './style.css',
   './effect_tags.json',
   './effect_labels.json',
+  './sup/kreatin.html',
+  './sup/magniy.html',
+  './sup/omega-3.html',
+  './sup/paba.html',
+  './sup/vitamin-d.html',
   './icons/192.png',
   './icons/512.png'
 ];
