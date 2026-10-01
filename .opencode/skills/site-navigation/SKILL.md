@@ -21,7 +21,7 @@ project: brain-25-evidence
 - 3 JS: script.js, science2.js, tracker.js, version.js
 - 1 PWA: manifest.webmanifest, sw.js (v42), pwa.js
 - API: docs/api/v1/index.json + supplements.json
-- Тесты: 143 (pytest -q -m "not network")
+- Тесты: 722 (pytest -q)
 
 **Структура данных:**
 - docs/data.json — 130 карточек (источник правды)

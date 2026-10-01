@@ -19,13 +19,17 @@ project: brain-25-evidence
 - 5 sup-страниц: kreatin, omega-3, vitamin-d, magniy, paba
 - 1 CSS: style.css (v=383)
 - 3 JS: script.js, science2.js, tracker.js, version.js
-- 1 PWA: manifest.webmanifest, sw.js (v42), pwa.js
+- 1 PWA: manifest.webmanifest, sw.js (v50), pwa.js
 - API: docs/api/v1/index.json + supplements.json
-- Тесты: 171 (pytest -q). Метка `network` удалена 2026-10-01: сетевых
+- Тесты: 722 (pytest -q). Метка `network` удалена 2026-10-01: сетевых
   тестов в проекте нет, `-m "not network"` ничего не исключал.
 - Браузерные e2e (scripts/e2e_smoke.py, scripts/ui_verify.py) подключены
   к pytest как `tests/test_e2e_smoke.py` и `tests/test_ui_verify.py`,
-  метка `e2e`, по умолчанию исключены. Запуск: `pytest -m e2e`
+  метка `e2e`, по умолчанию выключены через RUN_E2E=1 в conftest.
+  Запуск: `RUN_E2E=1 pytest -m e2e` (на 2026-10-01 падают: ui_verify ждёт
+  удалённый коммитом a1f1653 бейдж .noPrice)
+- DuckDB: при живом MCP-сервере 16 тестов БД дают SKIP, а не ERROR
+  (tests/conftest.py, db_conn)
 
 **Структура данных:**
 - docs/data.json — 130 карточек (источник правды)
