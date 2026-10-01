@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Тренды популярности БАДов 2015-2025 — brain-25-evidence</title>
 <meta name="description" content="10 лет данных по 94 добавкам: публикации PubMed, просмотры Wikipedia и цитирования исследований. Как менялась доказательная база и где появились новые работы."/>
 <meta property="og:title" content="Тренды БАДов 2015-2025: рост публикаций, Wikipedia, цитаты"/>
@@ -10,7 +10,8 @@
 <meta property="og:type" content="website"/>
 <meta property="og:url" content="https://deadsno.github.io/brain-25-evidence/trends.html"/>
 <meta property="og:image" content="https://deadsno.github.io/brain-25-evidence/og.png"/>
-<meta name="theme-color" content="#1c1c1e"/>
+<meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1c1c1e" media="(prefers-color-scheme: dark)">
 <script>try{if(localStorage.getItem('theme')!=='light'){document.addEventListener('DOMContentLoaded',function(){document.body.classList.add('dark')})}else{document.addEventListener('DOMContentLoaded',function(){document.body.classList.add('light')})}}catch(e){document.addEventListener('DOMContentLoaded',function(){document.body.classList.add('dark')})}</script>
 <script>
 // Тема: ставим .dark на <html> до загрузки CSS — иначе вспышка светлого фона.
@@ -20,7 +21,7 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=387">
+<link rel="stylesheet" href="style.css?v=391">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <script src="version.js?v=310"></script>
 <style>
@@ -29,7 +30,7 @@ try {
     background:var(--card-bg);border:1px solid var(--border);border-radius:10px}
   .filters label{display:flex;align-items:center;gap:.4rem;font-size:.9rem}
   .filters select{background:var(--card-bg);color:var(--text);border:1px solid var(--border);
-    border-radius:6px;padding:.3rem .5rem;font-size:.9rem}
+    border-radius:6px;padding:.3rem .5rem;font-size:16px}
   .tabs{display:flex;gap:.4rem;margin:1rem 0 .6rem;flex-wrap:wrap}
   .tab{background:var(--card-bg);color:var(--text);border:1px solid var(--border);
     padding:.5rem 1rem;border-radius:8px;cursor:pointer;font-size:.92rem}

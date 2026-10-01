@@ -9,8 +9,14 @@ self.addEventListener('activate', event => {
 
 /* v29 PWA: cache-first для статики, network-first для data.json.
    Install через поштучный cache.add().catch() — один missing файл
-   не валит всю установку. Бамп CACHE_VERSION при изменении STATIC_ASSETS. */
-var CACHE_VERSION = 'v44';
+   не валит всю установку. Бамп CACHE_VERSION при изменении STATIC_ASSETS.
+   v45: тач-таргеты 44px, шрифты полей 16px.
+   v46: регресс звезды (.cat), viewport-fit=cover, safe-area, tap-highlight.
+   v47: safe-area для #modal, массовые тап-таргеты 44px, иконки atlas, theme-color.
+   v48: порог 44px только для интерактивных .chip (+min-width по WCAG 2.5.5).
+   ВАЖНО: cacheFirstForStatic ищет по ignoreSearch:true, поэтому query-версия
+   в <link href="style.css?v=NNN"> НЕ bust-ит кэш — только бамп CACHE_VERSION. */
+var CACHE_VERSION = 'v48';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 var DATA_SUFFIX = '/data.json';  // GitHub Pages кладёт сайт в /brain-25-evidence/
