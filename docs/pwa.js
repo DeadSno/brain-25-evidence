@@ -16,11 +16,16 @@
     badge = document.createElement('div');
     badge.id = 'pwaOfflineBadge';
     badge.setAttribute('role', 'status');
-    badge.textContent = '📴 Офлайн-режим: показываем данные из кэша';
+    badge.setAttribute('aria-live', 'polite');
+    badge.textContent = '📴 Офлайн-режим: данные могут быть устаревшими';
     var st = badge.style;
     st.position = 'fixed';
-    st.bottom = '16px';
-    st.left = '16px';
+    /* v49: bottom считается от safe-area. На iPhone с home indicator плашка
+       bottom:16px наезжала бы на индикатор жестов — ровно то, что мы уже
+       починили для футера и модалки. */
+    st.bottom = 'calc(16px + env(safe-area-inset-bottom, 0px))';
+    st.left = 'calc(16px + env(safe-area-inset-left, 0px))';
+    st.right = '16px';
     st.zIndex = '2000';
     st.background = '#1c1c1e';
     st.color = '#f5f5f7';
@@ -30,6 +35,8 @@
     st.fontSize = '.82rem';
     st.fontWeight = '600';
     st.boxShadow = '0 4px 14px rgba(0,0,0,.35)';
+    st.maxWidth = 'calc(100% - 32px)';
+    st.webkitTapHighlightColor = 'transparent';
     document.body.appendChild(badge);
   }
 

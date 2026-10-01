@@ -21,7 +21,11 @@ project: brain-25-evidence
 - 3 JS: script.js, science2.js, tracker.js, version.js
 - 1 PWA: manifest.webmanifest, sw.js (v42), pwa.js
 - API: docs/api/v1/index.json + supplements.json
-- Тесты: 143 (pytest -q -m "not network")
+- Тесты: 171 (pytest -q). Метка `network` удалена 2026-10-01: сетевых
+  тестов в проекте нет, `-m "not network"` ничего не исключал.
+- Браузерные e2e (scripts/e2e_smoke.py, scripts/ui_verify.py) подключены
+  к pytest как `tests/test_e2e_smoke.py` и `tests/test_ui_verify.py`,
+  метка `e2e`, по умолчанию исключены. Запуск: `pytest -m e2e`
 
 **Структура данных:**
 - docs/data.json — 130 карточек (источник правды)
@@ -67,7 +71,12 @@ project: brain-25-evidence
   - graph_interactions.py
   - build_api.py
   - content.py
-  - parsers.py
+  - src/config.py
+  - src/ct_terms.py
+  - src/wiki_map.py
+  # Планируется, модуля пока нет: parsers.py — общего парсера в репозитории
+  # не существует (ни в src/, ни в scripts/). Проверено 2026-10-01. Если он
+  # появится — добавить в этот список.
 
 ### 2. Edge cases
 - Пустой массив данных

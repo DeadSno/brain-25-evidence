@@ -196,7 +196,9 @@ components:
           description: -1 = не подтверждено, 0 = контекст, 1 = работает
         about:
           type: string
-          maxLength: 160
+          # 160 -> 200 (QA_AUDIT P0-4): в данных «Сульфорафан» = 183 символа,
+          # «Лаванда» = 163, то есть 160 нарушалось 2 карточками. Запас на будущее.
+          maxLength: 200
         who_needs:
           type: string
           maxLength: 180
@@ -229,8 +231,15 @@ components:
           maxItems: 3
           items:
             type: string
-            minLength: 5
-            maxLength: 40
+            # 5 -> 3 (QA_AUDIT P0-5): в данных есть эффект "Сон" (3 символа) —
+            # у Шлемника, Мелиссы, Лаванды, Кальция. 5 символов отсекало валидные
+            # короткие названия эффектов.
+            minLength: 3
+            # 40 -> 60 (QA_AUDIT, найдено новым контрактным тестом): 12 элементов
+            # длиннее 40, максимум 57 («Глутамин»: "Мышцы: не подтверждён;
+            # кишка/иммунитет — только в клинике"). Реальные формулировки
+            # эффектов описывают условия применения и в 40 символов не влезают.
+            maxLength: 60
           example: ["Рабочая память под нагрузкой"]
         mechs:
           type: array
@@ -250,7 +259,10 @@ components:
         key_sources:
           type: array
           minItems: 1
-          maxItems: 3
+          # 3 -> 5 (QA_AUDIT P0-2): 26 карточек имеют больше 3 источников
+          # (23 по 5 штук, 3 по 4). build_api.py:slim() копирует поле целиком,
+          # без обрезки, — 5 это фактический максимум в данных.
+          maxItems: 5
           items:
             $ref: '#/components/schemas/KeySource'
         scienceIndex:
@@ -265,7 +277,12 @@ components:
           description: Количество мета-анализов
         citations:
           type: integer
-          description: Цитирований (OpenAlex)
+          # nullable (найдено новым контрактным тестом, QA_AUDIT): 17 из 130
+          # карточек отдают null — у пробиотиков (S. boulardii, LGG, B. lactis)
+          # и микроэлементов, где счётчик OpenAlex не собирался. Спецификация
+          # обязана это отражать, иначе валидатор отвергает реальный ответ.
+          nullable: true
+          description: Цитирований (OpenAlex), null если не собиралось
 
     Interaction:
       type: object
