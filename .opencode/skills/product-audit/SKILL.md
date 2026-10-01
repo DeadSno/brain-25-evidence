@@ -2,8 +2,8 @@
 name: product-audit
 description: Аудит проекта brain-25-evidence по 4 направлениям (UI/UX, маркетинг, QA, mobile). Лимит 15-20 мин, максимум 50 находок.
 license: MIT
-version: v1.0
-updated: 2026-09-30
+version: v1.1
+updated: 2026-10-01
 project: brain-25-evidence
 ---
 
@@ -35,9 +35,9 @@ project: brain-25-evidence
 **Структура (актуально на 2026-09-30):**
 - 12 основных HTML: index, map, interactions, graph, atlas, calculator, trends, methodology, faq, glossary, feedback, support
 - 5 sup-страниц: kreatin, omega-3, vitamin-d, magniy, paba
-- 1 CSS: style.css (v=383)
-- 3 JS: script.js, science2.js, tracker.js, version.js
-- 1 PWA: manifest.webmanifest, sw.js (v42), pwa.js
+- 1 CSS: style.css (v=391)
+- 6 JS: script.js, science2.js, tracker.js, version.js, pwa.js, sw.js
+- 1 PWA: manifest.webmanifest, sw.js (v51), pwa.js
 - API: docs/api/v1/index.json + supplements.json
 - Тесты: 727 (pytest -q)
 
@@ -126,7 +126,7 @@ project: brain-25-evidence
 - 11 основных HTML: index, map, interactions, graph, atlas, calculator, trends, methodology, faq, glossary, feedback
 - support.html — новая страница (в основной навигации нет)
 - 5 тестовых sup/*.html: kreatin, omega-3, vitamin-d, magniy, paba (остальные 125 — в разработке)
-- PWA: manifest.webmanifest, sw.js (CACHE_VERSION v42), pwa.js
+- PWA: manifest.webmanifest, sw.js (CACHE_VERSION v51), pwa.js
 - Форма: Web3Forms в feedback.html
 - Донат: ЮMoney в support.html
 - Граф: vis-network в graph.html
