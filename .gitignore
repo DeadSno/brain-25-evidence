@@ -257,3 +257,8 @@ data/db/
 data/papers/papers.json
 data/journals/scimago.json
 data/papers/papers_slim.json
+
+# Logs
+logs/
+*.log
+
