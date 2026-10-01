@@ -86,6 +86,10 @@ try {
         .f-error:empty { display: none; }
         body.dark .f-error { color: #ff8a80; }
         .f-status { flex-basis: 100%; font-size: 13px; color: var(--muted); min-height: 1.2em; }
+            /* Состояние ошибки в строке статуса — тот же красный, что у .f-error,
+               но мягче по весу: это не ошибка поля, а итог отправки. */
+            .f-status.is-error { color: #c0392b; font-weight: 600; }
+            body.dark .f-status.is-error { color: #ff8a80; }
         /* v4.1: var(--accent) давал белым 3.65:1 в тёмной теме —
            фиксированная заливка работает в обеих темах (5.30:1) */
         .f-btn {
@@ -164,12 +168,18 @@ try {
         • Отзыв о проекте
     </div>
 
-    <form class="f-form" action="https://api.web3forms.com/submit" method="POST">
-        <!-- Web3Forms: ключ + настройки -->
+    <!-- novalidate: нативный required блокирует submit ДО нашего обработчика,
+         из-за чего кастомная валидация (aria-invalid + свои сообщения) была
+         недостижима для пустых полей. Проверяем сами, см. обработчик ниже. -->
+    <form class="f-form" action="https://api.web3forms.com/submit" method="POST" novalidate>
+        <!-- Web3Forms: ключ виден в исходнике — это штатный режим сервиса,
+             иначе отправка без JS была бы невозможна. При отправке через fetch
+             ключ уходит в теле POST, а не в URL, и не светится в referer. -->
         <input type="hidden" name="access_key" value="9befbd42-d2e0-4812-b63b-7ef95b0173f3">
         <input type="hidden" name="subject" value="Brain 25 Evidence — новое сообщение">
         <input type="hidden" name="from_name" value="Brain 25 Evidence">
-        <input type="hidden" name="redirect" value="https://deadsno.github.io/brain-25-evidence/feedback.html?ok=1">
+        <!-- Поле redirect удалено: отправка идёт через fetch, навигации не происходит,
+             а значит Web3Forms некуда возвращать пользователя. -->
         <!-- Ловушка для спама -->
         <input type="checkbox" name="botcheck" style="display:none"
                aria-hidden="true" tabindex="-1">
@@ -261,10 +271,42 @@ if (themeBtn) {
     });
 }
 
+// Отправка формы через fetch.
+//
+// ДО этого здесь был нативный сабмит: e.preventDefault() вызывался ТОЛЬКО внутри
+// ветки ошибки валидации, поэтому при успешной проверке браузер уходил с сайта
+// на api.web3forms.com, а тот отдавал свою страницу вместо редиректа —
+// пользователь терял шапку, навигацию и футер и видел чужой английский текст.
+// Разбор: reports/P0_FEEDBACK_DIAGNOSIS.md.
+//
+// Теперь: preventDefault() безусловно, отправка через fetch, все состояния
+// («Отправляется…» / «Спасибо» / ошибка) рисуются в нашей разметке по-русски.
+
+const WEB3FORMS_ENDPOINT = 'https://api.web3forms.com/submit';
+const form = document.querySelector('.f-form');
+const status = document.getElementById('fStatus');
+const btn = document.getElementById('f-submit');
+
+function showSuccess(message) {
+    var box = document.createElement('div');
+    box.className = 'f-success';
+    box.setAttribute('role', 'status');
+    box.innerHTML = '<strong>Спасибо!</strong> ' + message;
+    form.parentNode.insertBefore(box, form);
+    form.style.display = 'none';
+    window.scrollTo(0, 0);
+}
+
+function showError(message) {
+    btn.disabled = false;
+    btn.textContent = 'Отправить';
+    status.textContent = message;
+    status.classList.add('is-error');
+}
+
 // Валидация на клиенте: без alert() — ошибка живёт в разметке и озвучивается
 // скринридером через role="status", а на поле ставится aria-invalid.
-document.querySelector('.f-form').addEventListener('submit', function (e) {
-    var status = document.getElementById('fStatus');
+function validate() {
     var errors = [];
 
     function check(id, errId, ok, text) {
@@ -295,30 +337,47 @@ document.querySelector('.f-form').addEventListener('submit', function (e) {
           'Похоже, в email опечатка');
 
     if (errors.length) {
-        e.preventDefault();
+        status.classList.add('is-error');
         status.textContent = errors.length === 1
             ? 'Форма не отправлена: исправьте одно поле.'
             : 'Форма не отправлена: исправьте ' + errors.length + ' пол.';
         errors[0].focus();
         return false;
     }
+    status.classList.remove('is-error');
+    return true;
+}
 
-    var btn = document.getElementById('f-submit');
+form.addEventListener('submit', function (e) {
+    // Безусловно и первым: нативный сабмит уводит с сайта.
+    e.preventDefault();
+
+    if (!validate()) return;
+
     btn.disabled = true;
     btn.textContent = 'Отправляется…';
     status.textContent = 'Отправляется…';
-    return true;
+
+    fetch(WEB3FORMS_ENDPOINT, { method: 'POST', body: new FormData(form) })
+        .then(function (r) {
+            if (!r.ok) throw new Error('HTTP ' + r.status);
+            showSuccess('Отзыв отправлен. Если указали email — отвечу в течение 2-3 дней.');
+        })
+        .catch(function () {
+            showError('Не удалось отправить. Попробуйте ещё раз.');
+        });
 });
 
-// Показать "спасибо" после редиректа ?ok=1
-const params = new URLSearchParams(window.location.search);
-if (params.get('ok') === '1') {
-    const box = document.createElement('div');
-    box.className = 'f-success';
-    box.innerHTML = '<strong>Спасибо!</strong> Ваше сообщение получено. Если указали email — отвечу в течение 2-3 дней.';
-    document.querySelector('.feedback-wrap').insertBefore(box, document.querySelector('.f-form'));
-    window.scrollTo(0, 0);
-}
+// Снимаем ошибку поля, как только пользователь его правит.
+['type', 'topic', 'message', 'email'].forEach(function (id) {
+    var field = document.getElementById(id);
+    if (!field) return;
+    field.addEventListener('input', function () {
+        field.removeAttribute('aria-invalid');
+        var err = document.getElementById(id + 'Error');
+        if (err) err.textContent = '';
+    });
+});
 </script>
 <script src="pwa.js?v=282" defer></script>
 
