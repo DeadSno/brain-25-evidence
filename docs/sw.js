@@ -18,12 +18,16 @@ self.addEventListener('activate', event => {
    v49: офлайн без подмены контента + 3 страницы в precache + data_index.json.
    v50: cache.match без ignoreSearch — ?v=NNN bust-ит кэш. ignoreSearch остался
         только как офлайн-страховка в ветке catch.
+   v51: version.js считает адрес version.json от URL скрипта, а не от
+        документа — на sup/*.html больше не 404 (было 5 страниц).
+   v51: version.js считает адрес version.json от URL скрипта, а не от
+        документа — на sup/*.html больше не 404 (было 5 страниц).
 
    С v50 query-версия в <link href="style.css?v=NNN"> bust-ит кэш: точный
    cache.match идёт ПЕРВЫМ. ignoreSearch остался только офлайн-страховкой
    (cacheFirstForStatic, ветка catch) — там он нужен, потому что precache
    кладёт './style.css' без версии, а страницы просят 'style.css?v=NNN'. */
-var CACHE_VERSION = 'v50';
+var CACHE_VERSION = 'v51';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
