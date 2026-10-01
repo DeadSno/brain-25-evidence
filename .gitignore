@@ -218,6 +218,8 @@ data/papers/unpaywall.json
 
 # Playwright temp
 data/pmc/tmp/
+# Playwright MCP: снимки, логи консоли и accessibility-снапшоты при аудите
+.playwright-mcp/
 
 scripts/_*.py
 

@@ -3,9 +3,10 @@
 <head>
   <script defer src="version.js"></script>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <link rel="manifest" href="manifest.webmanifest">
-  <meta name="theme-color" content="#1c1c1e">
+  <meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1c1c1e" media="(prefers-color-scheme: dark)">
   <meta name="description" content="Атлас механизмов: 25 тегов-хабов и 130 добавок. Что работает для сна, памяти, иммунитета и спорта - с разбором пути «вещество - мишень - эффект»."/>
   <meta property="og:type" content="website"/>
   <meta property="og:title" content="Атлас механизмов БАДов"/>
@@ -27,7 +28,7 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=387">
+<link rel="stylesheet" href="style.css?v=391">
   <style>
     body{--apanel:#15171c;--aborder:#2b2e35;--atext:#e9eaee;--amut:#9aa0aa;margin:0}
     body:not(.dark){--apanel:#ffffff;--aborder:#d9dde3;--atext:#1b1d22;--amut:#5c6370}
@@ -118,7 +119,7 @@ try {
       .filterbar { gap: .3rem; margin: .5rem 0; font-size: .8rem; }
       .filterbar .lbl { display: none; }  /* убираем подписи «Грейд:», «Поиск:» */
       .btn.gr { padding: .35rem .55rem; }
-      #q { min-width: 0; flex: 1; font-size: .8rem; }
+      #q { min-width: 0; flex: 1; font-size: 16px; }
 
       /* Layout — сайдбар снизу */
       .layout {
