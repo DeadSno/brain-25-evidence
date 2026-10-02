@@ -22,7 +22,7 @@
       }
     } catch(e) {}
     </script>
-    <link rel="stylesheet" href="style.css?v=392">
+    <link rel="stylesheet" href="style.css?v=394">
     <script src="version.js?v=311"></script>
     <script src="pwa.js?v=282" defer></script>
     <style>
@@ -30,7 +30,7 @@
         /* v4.1: заголовок страницы стал h2 (в шапке остаётся единственный h1).
    Размер 1.8rem сохранён от старого h1; подзаголовки ниже переопределены
    правилом .support-card h2, которое идёт после. */
-.support-wrap h2 { margin-bottom: 8px; font-size: 1.3rem; font-weight: 600; }
+.support-wrap h2 { margin-bottom: 8px; font-size: 1.125rem; font-weight: 600; }
         .support-wrap .lead { color: var(--muted); margin-bottom: 32px; font-size: 1.05rem; }
         .support-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 20px; }
         .support-card h2 { margin-bottom: 12px; font-size: 1.2rem; }
@@ -45,6 +45,7 @@
     </style>
 </head>
 <body>
+<a href="#main" class="skip-link">Перейти к содержимому</a>
 
 <div class="trustbar">🧬 Открытые данные · Бесплатно · Без рекламы</div>
 <header class="top">
@@ -63,7 +64,7 @@
   </div>
 </header>
 
-<main class="support-wrap">
+<main id="main" class="support-wrap">
     <h2>Поддержать проект</h2>
     <p class="lead">Brain 25 Evidence — открытый проект о 130 биологически активных добавках на основе 37 618 статей из PubMed. Без рекламы, без подписок, без монетизации.</p>
 
@@ -98,8 +99,18 @@
 </main>
 
 <footer class="site-footer">
-  <p class="disc">⚠ Не медицинская рекомендация. Сайт предоставляет данные из открытых научных источников (PubMed, Europe PMC, Crossref, OpenAlex, ClinicalTrials.gov, Wikipedia) для информирования и самостоятельного образования. <b>НЕ заменяет</b> консультацию, диагноз и лечение. При любых сомнениях — обращайтесь к специалисту.</p>
-  <p class="meta">v<span data-version="app"></span> · данные на <span data-version="data"></span></p>
+  <p class="disc">
+    <b>⚠️ Не медицинская рекомендация.</b>
+    Сайт предоставляет данные из открытых научных источников
+    (PubMed, Europe PMC, CrossRef, OpenAlex, ClinicalTrials.gov, Wikimedia)
+    для информирования и самостоятельного образования.
+    <b>НЕ заменяет</b> консультацию, диагноз и лечение.
+    При любых сомнениях — обращайтесь к специалисту.
+  </p>
+  <p class="meta">
+    v<span data-version="app"></span> ·
+    данные на <span data-version="data"></span>
+  </p>
   <p class="links">
     <a href="methodology.html">📐 Методология</a> ·
     <a href="faq.html">❓ FAQ</a> ·

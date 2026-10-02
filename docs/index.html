@@ -43,7 +43,7 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=392"/>
+<link rel="stylesheet" href="style.css?v=394"/>
 <style>
 :root{--apanel:var(--card-bg);--aborder:var(--border);--atext:var(--text)}
 /* Единая шапка для всех страниц */
@@ -138,9 +138,15 @@ try {
       border-radius: 0 !important;
       padding: 1rem !important;
     }
+    /* E2-1: 44px vy neseny iz @media(max-width:640px) NARUZHU. Ranshe razmer
+       kraski dejstvoval tolko na mobilnom, a na desktope razmer zavisel ot
+       obshchego padding vsekh knopok — i lomalsya ot pravki postoronnego
+       pravila. Teper 44px garantirany na vsekh shirinakh. */
     #modalClose {
       width: 44px !important;
+      min-width: 44px !important;
       height: 44px !important;
+      min-height: 44px !important;
       padding: 0 !important;
       top: .5rem !important;
       right: .5rem !important;
@@ -166,9 +172,14 @@ try {
     body { padding-bottom: env(safe-area-inset-bottom); }
     #sidebar { padding-bottom: calc(1rem + env(safe-area-inset-bottom)); }
   }
+  /* P2-10: h1 (21.6px, название сайта в шапке) и h2 (20.8px) отличались
+     на 0.8px — иерархия не читалась. Разводим h2 до 18px (зазор 3.6px).
+     Правило локальное: на остальных страницах h2 остаётся 1.3rem. */
+  h2 { font-size: 1.125rem; }
 </style>
 </head>
 <body>
+<a href="#main" class="skip-link">Перейти к содержимому</a>
 <!-- Yandex.Metrika counter -->
 <script type="text/javascript">
     (function(m,e,t,r,i,k,a){
@@ -187,13 +198,14 @@ try {
   <h1><a href="index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a> <span class="v">v<span data-version="app"></span></span></h1>
   <div class="actions">
     <a class="btn c-feedback" href="feedback.html">💬 Обратная связь</a>
-    <button class="btn c-refresh" id="refreshBtn">🔄 Обновить</button>
+    <button class="btn c-refresh" id="refreshBtn" title="Обновить данные с сервера"
+            aria-label="Обновить данные с сервера">🔄 Обновить</button>
     <a class="btn c-support" href="support.html">💚 Поддержать</a>
     <button class="btn" id="themeBtn">🌞 Светлая тема</button>
   </div>
 </header>
 
-<main>
+<main id="main">
 <!-- Блок быстрых кнопок под шапкой удалён: все три ссылки дублировали
      «Поддержать» в шапке и карточки «Калькулятор» / «Карта механизмов» в сетке.
      Главный CTA теперь один, см. блок «Сначала ответим на 3 вопроса». -->

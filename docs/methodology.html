@@ -16,7 +16,14 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=392"/>
+<link rel="stylesheet" href="style.css?v=394"/>
+<style>
+  /* P2-10: h1 (21.6px, nazvanie saita v shapke) i h2 (20.8px) otlichalis na
+     0.8px — ierarhiya ne chitalas. Razvodim h2 do 18px (zazor 3.6px).
+     Pravilo lokalnoe: na ostalnyh stranicah h2 ostayotsya 1.3rem. */
+  h2 { font-size: 1.125rem; }
+</style>
+
 <script>
   try {
     document.addEventListener('DOMContentLoaded', function () {
@@ -39,6 +46,7 @@ try {
     <meta name="twitter:image" content="https://deadsno.github.io/brain-25-evidence/og.png">
 </head>
 <body>
+<a href="#main" class="skip-link">Перейти к содержимому</a>
 <header class="top">
   <h1><a href="index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a> <span class="v">v<span data-version="app"></span></span></h1>
   <div class="actions">
@@ -56,7 +64,7 @@ try {
   </div>
 </header>
 
-<main>
+<main id="main">
 
 <section style="background:var(--card-bg);padding:1.5rem;border-radius:12px;border:1px solid var(--border);margin-bottom:1.5rem">
 <h2>Что такое аудит v<span data-version="audit"></span></h2>
