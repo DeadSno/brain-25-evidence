@@ -27,7 +27,7 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=392">
+<link rel="stylesheet" href="style.css?v=394">
 <script>
   try {
     document.addEventListener('DOMContentLoaded', function () {
@@ -236,9 +236,14 @@ try {
     body { padding-bottom: env(safe-area-inset-bottom); }
     #sidebar { padding-bottom: calc(1rem + env(safe-area-inset-bottom)); }
   }
+  /* P2-10: h1 (21.6px, название сайта в шапке) и h2 (20.8px) отличались
+     на 0.8px — иерархия не читалась. Разводим h2 до 18px (зазор 3.6px).
+     Правило локальное: на остальных страницах h2 остаётся 1.3rem. */
+  h2 { font-size: 1.125rem; }
 </style>
 </head>
 <body>
+<a href="#main" class="skip-link">Перейти к содержимому</a>
 <div class="wrap">
   <div class="trustbar">🧬 Открытые данные · Бесплатно · Без рекламы</div>
   <header class="top">
@@ -257,7 +262,7 @@ try {
   </div>
 </header>
 
-<main>
+<main id="main">
   <p id="stats"></p>
   <p style="opacity:.65;margin:.4rem 0 0">Выбери добавку слева — справа её цепочка: вещество → молекулярная мишень → эффект. <kbd>↑</kbd><kbd>↓</kbd> навигация, <kbd>/</kbd> поиск, <kbd>Esc</kbd> сброс.</p>
   <div class="cols">

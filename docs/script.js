@@ -564,7 +564,10 @@ function renderCards(data) {
   g.innerHTML = data.map(s => '<div class="card" data-id="' + esc(s.id) + '">' +
     '<button class="favBtn' + (isFav(s.id) ? ' on' : '') + '" data-fav="' + esc(s.id) + '" title="В избранное">' + (isFav(s.id) ? '★' : '☆') + '</button>' +
     (BEST.includes(s.id) ? '<span class="bestBadge">🔬 Топ-3 по доказательности</span>' : '') +
-    '<span class="cat">' + esc(s.category || '') + '</span><h3>' + esc(s.name) + '</h3>' +
+    // Заголовок карточки — НЕ h3: на index их было 134 (по одной на добавку),
+    // из-за чего структура документа переставала отражать реальные разделы.
+    // Название добавки — strong, разделы остались h2 (P2-16).
+    '<span class="cat">' + esc(s.category || '') + '</span><strong class="card-title">' + esc(s.name) + '</strong>' +
     updatedLine(s) + manualBadge(s) +
     '<div class="verdict v' + esc(s.code) + '">' + esc(s.verdict) + '</div>' + gradeBadge(s) +     '<div class="effects">' + (s.effects || []).map(e => '<span>' + esc(e) + '</span>').join('') + '</div>' +
     '<div class="tagChips">' + (effectTags[s.id] || []).map(t =>

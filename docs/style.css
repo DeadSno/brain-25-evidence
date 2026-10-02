@@ -54,7 +54,7 @@ input,select,textarea{font-size:16px}
 #chartWrap canvas{width:100%!important;max-height:500px}
 #cardsGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.2rem}
 .card{background:var(--card-bg);border:1px solid var(--border);border-radius:10px;padding:1rem 1.2rem;box-shadow:0 2px 6px var(--shadow);position:relative}
-.card h3{font-size:1.1rem;margin-bottom:.3rem}
+.card .card-title{display:block;font-size:1.1rem;font-weight:700;margin-bottom:.3rem}
 .card .verdict{display:inline-block;font-size:.75rem;padding:.2rem .6rem;border-radius:20px;color:#fff;margin-bottom:.5rem}
 .card .price{font-weight:500;color:var(--accent)}
 .card .effects{font-size:.9rem;margin-top:.4rem;opacity:.8}
@@ -978,3 +978,10 @@ body.light .btn.c-support  { background: rgba(123,97,255,.08); }
    не растягивается), вертикальное центрирование глифа вместо базовой
    линии — визуально ровно то же для однострочного текста. */
 header.top > h1 > a, header.hdr > h1 > a { display: inline-flex !important; align-items: center; }
+
+/* P2-13: skip-link. Na index v setke 130 kartochek, kazhdaya so svoey linkom i
+   knopkoi — Tab do soderzhimogo idyot desyatki sekund. Ssylka pervoelementnaya
+   v body, vizualno skryta do polucheniya fokusa. */
+.skip-link{position:absolute;left:-9999px;top:0}
+.skip-link:focus{position:fixed;left:0;top:0;z-index:9999;background:#000;color:#fff;
+  padding:8px 16px;font-size:14px;border-radius:0 0 6px 0;text-decoration:none}
