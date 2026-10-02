@@ -1,26 +1,37 @@
 # SKILLS_INDEX — карта всех скиллов
 
 > Куда смотреть: какой скилл использовать в какой ситуации.
-> Обновлено: 2026-10-01. **Скиллов: 12.**
+> Обновлено: 2026-10-02. **Скиллов: 18.**
 
 ## Порядок применения для полного ревью
 
+Порядок — по приоритету применения, а не по происхождению скилла: внешние
+(cyberaudit, accessibility-check, seo-check, core-web-vitals, i18n-rtl-audit,
+data-quality-auditor) стоят там, где они бьют по общему фундаменту.
+Установлены 2026-10-02, см. `reports/SKILLS_INSTALL.md`.
+
 1. **project-audit** — архитектура и структура
 2. **data-validation** — корректность данных
-3. **docs-sync** — синхронизация документации
-4. **product-audit** — быстрый обзор UI/UX + marketing + QA + mobile
-5. **visual-design-audit** — цветокор, типографика, отступы, тени, темы
-6. **ui-ux-deep-audit** — состояния, иерархия, микроинтеракции
-7. **mobile-deep-audit** — глубокая мобильная адаптация (10 разрешений)
-8. **marketing-deep-audit** — воронка, CTA, соцдоказательства
-9. **qa-deep-audit** — покрытие, edge cases, error handling
-10. **pwa-audit** — PWA-специфика
-11. **site-navigation** — единый набор кнопок и навигации
-12. **release-check** — перед коммитом
+3. **cyberaudit** — безопасность (OWASP Top 10, секреты, API)
+4. **data-quality-auditor** — полнота, выбросы, аномалии в датасете
+5. **docs-sync** — синхронизация документации
+6. **product-audit** — быстрый обзор UI/UX + marketing + QA + mobile
+7. **visual-design-audit** — цветокор, типографика, отступы, тени, темы
+8. **ui-ux-deep-audit** — состояния, иерархия, микроинтеракции
+9. **accessibility-check** — WCAG 2.1 A/AA: контраст, alt, клавиатура, ARIA
+10. **mobile-deep-audit** — глубокая мобильная адаптация (10 разрешений)
+11. **marketing-deep-audit** — воронка, CTA, соцдоказательства
+12. **seo-check** — meta, OG, canonical, JSON-LD, robots/sitemap
+13. **qa-deep-audit** — покрытие, edge cases, error handling
+14. **core-web-vitals** — LCP/CLS и бюджет веса страницы
+15. **pwa-audit** — PWA-спецификация
+16. **site-navigation** — единый набор кнопок и навигации
+17. **i18n-rtl-audit** — локализация и RTL (перед v5.3)
+18. **release-check** — перед коммитом
 
-Порядок не случаен: сначала структура и данные (дешёвое, ломает всё остальное),
-затем визуал и поведение, в конце PWA и навигация, и только потом release-check —
-он имеет смысл, когда остальные уже отработали.
+Порядок не случаен: сначала структура, данные и безопасность (дешёвое, ломает
+всё остальное), затем визуал и поведение, в конце PWA и навигация, и только
+потом release-check — он имеет смысл, когда остальные уже отработали.
 
 ## Скиллы по назначению
 
@@ -34,11 +45,22 @@
 | ui-ux-deep-audit | Иерархия, состояния, микроинтеракции | Когда «что-то не так» в UI |
 | marketing-deep-audit | Воронка, CTA, тексты | Раз в квартал |
 | qa-deep-audit | Покрытие, edge cases | После новой фичи |
-| pwa-audit | PWA специфика | После изменения sw.js / manifest |
+| pwa-audit | PWA спецификация | После изменения sw.js / manifest |
 | data-validation | data.json, effect_tags, БД | После batch добавления карточек |
+| data-quality-auditor | Полнота, консистентность, выбросы (CSV) | Когда нужен профиль датасета |
 | docs-sync | Синхронизация документации | После правок docs/ |
 | release-check | Готовность к коммиту | Перед каждым push |
 | site-navigation | Единый набор кнопок | После правки навигации |
+
+### Установленные 2026-10-02 (внешние)
+| Скилл | Что делает | Источник | Когда вызывать |
+|-------|-----------|----------|----------------|
+| cyberaudit | OWASP Top 10, секреты в коде, API/web/mobile/cloud. **Покрывает и security-audit, и api-audit** | `cyberaudit-skill@3.2.1` | Перед релизом, при работе с внешним вводом |
+| accessibility-check | WCAG 2.1 A/AA: контраст, alt, заголовки, клавиатура, ARIA, фокус | `Quality-Max/free-qa-skills` | После любой вёрстки; обязательно перед релизом |
+| seo-check | meta/OG, canonical, JSON-LD, robots.txt, sitemap | `Quality-Max/free-qa-skills` | При изменении `<head>` или структуры страниц |
+| core-web-vitals | LCP/CLS, вес страницы, ленивая загрузка, third-party | `Quality-Max/free-qa-skills` | Перед релизом; при жалобах «медленно» |
+| i18n-rtl-audit | Локализация, RTL, lang-атрибуты | `Quality-Max/free-qa-skills` | **Перед v5.3** — до того локализации нет |
+| data-quality-auditor | Профиль, missingness (MCAR/MAR/MNAR), выбросы IQR/Z-score | `alirezarezvani/claude-skills` | Когда нужен численный профиль датасета |
 
 ### Границы между скиллами
 
@@ -52,13 +74,60 @@
 | «Кликабельно ли в воронке, понятен ли текст» | marketing-deep-audit |
 | «Тот грейд значит то, что кажется?» | product-audit |
 
+Новые скиллы перекрываются с существующими — важно не запускать оба:
+
+| Вопрос | Кто отвечает |
+|---|---|
+| «Контраст / alt / клавиатура» | **accessibility-check**, а не mobile-deep-audit |
+| «Кнопка меньше пальца, safe-area» | mobile-deep-audit (touch target), accessibility-check (если это WCAG-критерий) |
+| «data.json корректен» | **data-validation** (умеет JSON + DuckDB) |
+| «выбросы и аномалии в числах» | **data-quality-auditor** (но у него CSV, не JSON — см. ниже) |
+| «meta / canonical / JSON-LD» | seo-check, а не docs-sync |
+| «Core Web Vitals, вес страницы» | core-web-vitals |
+| «секрет в коде, XSS, CSRF» | cyberaudit |
+| «дублируется CSS, мёртвые зависимости» | project-audit (cyberaudit тоже ловит `npm audit`) |
+
+### Известные ограничения новых скиллов
+
+1. **`data-quality-auditor` работает с CSV, не с JSON.** Наш `docs/data.json`
+   он читает как плоский текст: 14 336 «строк», 1 «колонка». DQS 97/100 на таком
+   входе — бессмысленное число. Для наших данных — `data-validation`.
+2. **Скрипты `data-quality-auditor` не работают в консоли Windows** без
+   `$env:PYTHONIOENCODING="utf-8"`: печатают эмодзи 🟢, а cp1251 их не кодирует.
+3. **`accessibility-check` требует Playwright MCP**; в этом окружении доступен
+   `playwright`-сервер, MCP-имя в скилле может отличаться.
+4. **`cyberaudit` — 131 файл, 556 КБ.** Установлен и глобально
+   (`~/.config/opencode/skills/`), и в репозитории. Глобальная копия старее
+   (v3.1.5 против v3.2.1 в репозитории).
+
+### Отложенные скиллы
+
+| Скилл | Статус | Причина |
+|---|---|---|
+| llm-security-audit (`dacuma-labs/agent-security-audit`) | Найден, **не установлен** | Его собственный description: «Do NOT use for: projects with no agentic components». У нас статический сайт без агентов. Ставить перед v6.0, когда появятся LLM-компоненты |
+| i18n-audit (собственный) | Не нужен | Готовый `i18n-rtl-audit` уже стоит; писать свой не требуется |
+
+### Внешний инструмент (не скилл)
+
+| Инструмент | Что делает | Как запускать |
+|---|---|---|
+| vortix-cli | Статический аудит сайта: performance, security, accessibility, bugs, seo, maintainability, privacy. Считает оценку 0-100 и грейд A-F | `npx -y vortix-cli@0.1.3 check` |
+
+Конфиг: `.vortix/config.json` (`outputDir: docs`, `build: false`, категории:
+performance, security, accessibility, bugs, seo, maintainability, privacy). **Это CLI, а не скилл** — агентом он сам не вызывается, его
+надо запускать вручную и читать вывод.
+
+При первом прогоне на 2026-10-02: **77/100, Grade C**, 18 страниц,
+338 errors / 26 warnings / 38 notices; хуже всего accessibility и bugs.
+
 ### По триггерам
 
 **«Что-то сломалось»:**
 - project-audit → product-audit → mobile-deep-audit
 
 **«Готовим релиз»:**
-- release-check → data-validation → docs-sync → product-audit
+- release-check → cyberaudit → accessibility-check → seo-check →
+  core-web-vitals → data-validation → docs-sync → product-audit
 
 **«Пользователь жалуется на мобилку»:**
 - mobile-deep-audit → pwa-audit
@@ -72,24 +141,36 @@
 **«Выглядит несолидно / стыдно смотреть»:**
 - visual-design-audit → ui-ux-deep-audit
 
+**«Жалобы на скорость»:**
+- core-web-vitals → project-audit
+
+**«Приёмка на безопасность»:**
+- cyberaudit (web) → cyberaudit (api) → secret-scan при необходимости
+
 ## Правила использования
 
 1. **Один скилл — одно направление.** Не смешивать.
-2. **Только чтение** — скилл не меняет файлы.
+2. **Только чтение** — скилл не меняет файлы. (Исключение: `data-quality-auditor`
+   запускает свои скрипты, но только на чтение входных данных.)
 3. **Один отчёт** на запуск (в reports/).
 4. **Единый лимит находок — ориентир 60.** При превышении группировать однотипные (130 звёзд = 1 находка), P0/P1 не резать никогда, P2 сжимать до паттернов. Число в отчёте — что нашлось, а не что влезло. Формулировка одинакова во всех скиллах, см. раздел «Лимит находок» в SKILL.md.
 5. **После отчёта — обсудить, потом фиксить.**
 6. **Находка без воспроизведения не считается находкой.** Правило и почему —
    в каждом SKILL.md, раздел «Правило верификации находок».
+7. **Внешний скилл — не значит проверенный.** `cyberaudit`, `seo-check`,
+   `core-web-vitals` пришли из чужих репозиториев; их находки проходят то же
+   правило верификации, что и наши.
 
 ## Команды
 
 ```bash
-pytest -q                     # все тесты (727 passed, 18 skipped)
+pytest -q                     # все тесты (736 passed, 18 skipped)
 pytest -q tests/test_api_contract.py       # контракт API
 pytest -q -m e2e              # браузерные e2e, требует RUN_E2E=1
+RUN_SNAPSHOTS=1 pytest -q -m snapshots      # визуальные снапшоты, 37 шт.
 node --check docs/script.js   # синтаксис JS без сборщиков
 python scripts/ui_verify.py   # браузерная проверка UI
+npx -y vortix-cli@0.1.3 check # внешний статический аудит сайта
 ```
 
 `pytest -q -m "not network"` — **устаревшая команда**. Метка `network` удалена
@@ -120,5 +201,27 @@ python scripts/ui_verify.py   # браузерная проверка UI
 | mobile-deep-audit | reports/MOBILE_AUDIT.md |
 | qa-deep-audit | reports/QA_AUDIT.md |
 | ревизия скиллов | reports/SKILLS_REVISION.md |
+| установка скиллов | reports/SKILLS_INSTALL.md |
 
-**Версия:** v1.1 (2026-10-01)
+## Полный список (18)
+
+- accessibility-check
+- core-web-vitals
+- cyberaudit
+- data-quality-auditor
+- data-validation
+- docs-sync
+- i18n-rtl-audit
+- marketing-deep-audit
+- mobile-deep-audit
+- product-audit
+- project-audit
+- pwa-audit
+- qa-deep-audit
+- release-check
+- seo-check
+- site-navigation
+- ui-ux-deep-audit
+- visual-design-audit
+
+**Версия:** v2.0 (2026-10-02)
