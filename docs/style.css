@@ -464,14 +464,14 @@ p > a:only-child { min-height: 44px; display: inline-flex; align-items: center; 
 h1 a { min-height: 44px; }
 
 /* Логотип-ссылка h1 a внутри <header class="top">. Перебивает
-   style.css:504 (header.top>h1>a{display:inline!important}), который стоит
+   style.css:504 (header.top>.site-title>a{display:inline!important}), который стоит
    ПОЗЖЕ и имеет ту же специфичность (0,1,1) — поэтому нужен !important.
    На десктопе это тоже работает: inline-flex центрирует глиф по вертикали,
    ширина остаётся по содержимому, layout шапки не меняется (проверено
    замерами на 6 ширинах).
 
    ВАЖНО, почему это правило стоит В КОНЦЕ ФАЙЛА, а не здесь: правило
-   style.css:504 (внутри @media max-width:480px) — `header.top>h1>a{
+   style.css:504 (внутри @media max-width:480px) — `header.top>.site-title>a{
    display:inline!important}` — имеет ТУ ЖЕ специфичность (0,1,3) и стоит
    ПОЗЖЕ, поэтому при равенстве побеждает оно. Отсюда две причины, почему
    логотип оставался 22px:
@@ -557,10 +557,10 @@ body.dark .chip a:visited { color: #5dade2; }
   /* Шапка: H1 на всю ширину (перенос), actions под ним */
   /* Шапка: block layout — H1 сверху, actions снизу. Надёжнее flex-wrap */
   header.top,header.hdr{display:block!important}
-  header.top>h1,header.hdr>h1{font-size:1.3rem!important;line-height:1.2!important;margin:0 0 .5rem!important;white-space:normal!important;overflow:visible!important}
-  header.top>h1>a,header.hdr>h1>a{white-space:normal!important;display:inline!important}
+  header.top>.site-title,header.hdr>.site-title{font-size:1.3rem!important;line-height:1.2!important;margin:0 0 .5rem!important;white-space:normal!important;overflow:visible!important}
+  header.top>.site-title>a,header.hdr>.site-title>a{white-space:normal!important;display:inline!important}
   header.top .actions,header.hdr .actions{display:flex!important;flex-wrap:wrap!important;gap:.4rem!important;justify-content:flex-end!important}
-  h1 .v,h1>span[style*="opacity"]{display:none!important}
+  .top .site-title .v,.top .site-title>span[style*="opacity"]{display:none!important}
 
   #modal{position:fixed;inset:0;width:100vw;height:100dvh;max-height:100dvh;border-radius:0;overflow-y:auto}
 /* v5.0.0 (iPhone 17): safe-area для полноэкранной модалки на ≤480px.
@@ -804,7 +804,7 @@ body.dark .btn.is-share-error { border-color: #ff5252; color: #ff5252; }
     gap: .5rem !important;
     width: 100% !important;
   }
-  header.top > h1 {
+  header.top > .site-title {
     grid-area: title !important;
     font-size: 1.3rem !important;
     line-height: 1.25 !important;
@@ -814,7 +814,7 @@ body.dark .btn.is-share-error { border-color: #ff5252; color: #ff5252; }
     max-width: 100% !important;
     min-width: 0 !important;
   }
-  header.top > h1 > a {
+  header.top > .site-title > a {
     white-space: normal !important;
     overflow: visible !important;
     text-overflow: clip !important;
@@ -828,7 +828,7 @@ body.dark .btn.is-share-error { border-color: #ff5252; color: #ff5252; }
     flex-wrap: wrap !important;
     gap: .4rem !important;
   }
-  header.top h1 .v { display: none !important; }
+  header.top .site-title .v { display: none !important; }
 }
 
 /* ═══ Быстрые ссылки: auto-fit, 7 карточек в один ряд на широком экране ═══ */
@@ -860,24 +860,24 @@ body.dark .btn.is-share-error { border-color: #ff5252; color: #ff5252; }
 }
 
 /* ═══ H1: графит в light, тёплый белый в dark ═══ */
-h1, h1 a {
+h1, h1 a, .top .site-title, .top .site-title a {
   font-weight: 800 !important;
   letter-spacing: -.015em !important;
 }
-h1 a, .top h1 a {
+h1 a, .top .site-title a {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", Roboto, Arial, sans-serif !important;
 }
 /* Эмодзи не поддерживают weight 800 — рендерятся как квадрат */
 h1 a > :first-child,
-h1 a:first-child::before {
+h1 a:first-child::before, .top .site-title a:first-child::before {
   font-weight: 400 !important;
 }
 body.light h1,
-body.light h1 a {
+body.light h1 a, body.light .top .site-title a {
   color: #1a1d21 !important;
 }
 body.dark h1,
-body.dark h1 a {
+body.dark h1 a, body.dark .top .site-title a {
   color: #fafafa !important;
 }
 .top .v,
@@ -905,8 +905,8 @@ header.top .v {
   flex-wrap: wrap;
   margin: 0 0 1rem;
 }
-.top h1 { font-size: 1.35rem; margin: 0; font-weight: 700; }
-.top h1 a { color: inherit; text-decoration: none; }
+.top .site-title { font-size: 1.35rem; margin: 0; font-weight: 700; }
+.top .site-title a { color: inherit; text-decoration: none; }
 .top .v {
   opacity: .5;
   font-size: .8rem;
@@ -984,7 +984,7 @@ body.light .btn.c-support  { background: rgba(123,97,255,.08); }
 
 /* ===== v5.0.0 mobile: логотип-ссылка в шапке (тап-таргет 44px) =====
    Правило стоит ПОСЛЕ @media(max-width:480px), потому что там
-   `header.top>h1>a{display:inline!important}` имеет ту же специфичность
+   `header.top>.site-title>a{display:inline!important}` имеет ту же специфичность
    (0,1,3) и при равенстве побеждает последнее правило.
 
    Зачем inline-flex, а не только min-height: min-height не применяется к
@@ -995,7 +995,7 @@ body.light .btn.c-support  { background: rgba(123,97,255,.08); }
    Побочный эффект приемлемый: ширина остаётся по содержимому (inline-flex
    не растягивается), вертикальное центрирование глифа вместо базовой
    линии — визуально ровно то же для однострочного текста. */
-header.top > h1 > a, header.hdr > h1 > a { display: inline-flex !important; align-items: center; }
+header.top > .site-title > a, header.hdr > .site-title > a { display: inline-flex !important; align-items: center; }
 
 /* P2-13: skip-link. Na index v setke 130 kartochek, kazhdaya so svoey linkom i
    knopkoi — Tab do soderzhimogo idyot desyatki sekund. Ssylka pervoelementnaya
@@ -1003,3 +1003,23 @@ header.top > h1 > a, header.hdr > h1 > a { display: inline-flex !important; alig
 .skip-link{position:absolute;left:-9999px;top:0}
 .skip-link:focus{position:fixed;left:0;top:0;z-index:9999;background:#000;color:#fff;
   padding:8px 16px;font-size:14px;border-radius:0 0 6px 0;text-decoration:none}
+
+/* ===== h1 semantika: v shapke eto NE zagolovok stranicy =====================
+   Do 3a vse 17 stranic imeli edinyj h1 = «brain-25-evidence» v shapke. Eto
+   neverno semanticheski: h1 dolzhen byt zagolovkom STRANICY.
+
+   Raskopka svyazej s h1:
+   - chastnye header.top > h1 pereimenovany v .site-title;
+   - skupnye (h1, h1 a, ody.dark h1 a, h1 .v) rasshireny na
+     .top .site-title, inache shapka poteryala ves, letter-spacing i
+     temnyu tsvet.
+
+   main h1 zafiksirovan na 1.35rem (21.6px), ctoby byt' bolshe h2
+   (1.15rem / 18.4px) i ne popast' pod strannye
+   h1 { font-size: 1.05rem !important } iz lokalnyh stiliev index/map —
+   inache na teh stranicah h1 byl by 16.8px, to est MENWE, chem h2. */
+/* Ottsutstvuet: .top .site-title nasleduet 1.35rem (21.6px) iz pravil,
+   byvshih .top h1. explicitly font-size zdes lomal razmer logotipa
+   s 21.6px na 20.8px. */
+main h1 { font-size: 1.35rem !important; font-weight: 700 !important;
+  line-height: 1.25 !important; margin: 0 0 .8rem !important; color: var(--text) !important; }

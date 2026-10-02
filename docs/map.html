@@ -27,7 +27,7 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=397">
+<link rel="stylesheet" href="style.css?v=398">
 <script>
   try {
     document.addEventListener('DOMContentLoaded', function () {
@@ -43,7 +43,7 @@ try {
   body:not(.dark){--apanel:#ffffff;--aborder:#d9dde3;--atext:#1b1d22;--amut:#5c6370}
   .wrap{max-width:100%;margin:0;padding:0 1.5rem 1rem;color:var(--atext)}
   .top{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}
-  .top h1{font-size:1.45rem;margin:.2rem 0}
+  .top .site-title{font-size:1.45rem;margin:.2rem 0}
   .top a{color:inherit;text-decoration:none}
   #stats{opacity:.6;font-size:.85rem;margin:.3rem 0 0}
   #q{padding:.5rem .8rem;border:1px solid var(--aborder);border-radius:8px;background:var(--apanel);color:var(--atext);min-width:220px}
@@ -174,8 +174,8 @@ try {
     display:flex;justify-content:space-between;align-items:center;
     gap:1rem;flex-wrap:wrap;margin:0 0 1rem;
   }
-  .top h1{font-size:1.35rem;margin:0;font-weight:700}
-  .top h1 a{color:inherit;text-decoration:none}
+  .top .site-title{font-size:1.35rem;margin:0;font-weight:700}
+  .top .site-title a{color:inherit;text-decoration:none}
   .top .v{opacity:.5;font-size:.8rem;font-weight:400;margin-left:.5rem}
   .actions{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center}
   .btn{
@@ -188,8 +188,8 @@ try {
   @media (max-width: 640px) { body { padding: 0.6rem !important; }
     .wrap { padding: 0.6rem !important; }
     .top { flex-direction: column; align-items: stretch; gap: .5rem; margin: 0 0 .6rem; }
-    .top h1 { font-size: 1.05rem; line-height: 1.25; }
-    .top h1 a { display: inline-block; }
+    .top .site-title { font-size: 1.05rem; line-height: 1.25; }
+    .top .site-title a { display: inline-block; }
     .top .v { font-size: .7rem; }
     .actions { gap: .35rem; }
     .btn { padding: .4rem .6rem; font-size: .78rem; }
@@ -241,7 +241,7 @@ try {
 <div class="wrap">
   <div class="trustbar">🧬 Открытые данные · Бесплатно · Без рекламы</div>
   <header class="top">
-  <h1><a href="index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a> <span class="v">v<span data-version="app"></span></span></h1>
+  <div class="site-title"><a href="index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a> <span class="v">v<span data-version="app"></span></span></div>
   <div class="actions">
     <a class="btn c-home" href="index.html">🏠 Главная</a>
     <a class="btn c-calc" href="calculator.html">🧮 Калькулятор</a>
@@ -257,7 +257,7 @@ try {
 </header>
 
 <main id="main">
-  <h2 class="pageTopic">Карта механизмов</h2>
+  <h1>Карта механизмов</h1>
 
   <p id="stats"></p>
   <p style="opacity:.65;margin:.4rem 0 0">Выбери добавку слева — справа её цепочка: вещество → молекулярная мишень → эффект. <kbd>↑</kbd><kbd>↓</kbd> навигация, <kbd>/</kbd> поиск, <kbd>Esc</kbd> сброс.</p>
