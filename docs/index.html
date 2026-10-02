@@ -43,7 +43,7 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=391"/>
+<link rel="stylesheet" href="style.css?v=392"/>
 <style>
 :root{--apanel:var(--card-bg);--aborder:var(--border);--atext:var(--text)}
 /* Единая шапка для всех страниц */
@@ -194,11 +194,9 @@ try {
 </header>
 
 <main>
-<div style="display:flex;flex-wrap:wrap;gap:.5rem;margin:0 0 1.5rem">
-  <a class="btn" href="calculator.html">🧮 Проверить дозы и совместимость</a>
-  <a class="btn c-support" href="support.html">💚 Поддержать проект</a>
-  <a class="btn" href="map.html">🧩 Как это работает</a>
-</div>
+<!-- Блок быстрых кнопок под шапкой удалён: все три ссылки дублировали
+     «Поддержать» в шапке и карточки «Калькулятор» / «Карта механизмов» в сетке.
+     Главный CTA теперь один, см. блок «Сначала ответим на 3 вопроса». -->
 
 <section id="controls">
   <label for="search" class="sr-only">Поиск по названию или эффекту</label>
@@ -226,19 +224,17 @@ try {
     <div class="qa">
       <h3>1. Чем БАД отличается от лекарства?</h3>
       <p>БАД дополняет питание, а не заменяет лечение. У БАД нет регистрации лекарства, но есть мета-анализы — считаем именно их.</p>
-      <a class="qaMore" href="faq.html">подробнее в FAQ</a>
     </div>
     <div class="qa">
       <h3>2. Зачем он мне?</h3>
       <p>Три честные причины: дефицит (витамин D зимой), цель (креатин при нагрузках), профилактика с доказательствами (омега-3).</p>
-      <a class="qaMore" href="faq.html">подробнее в FAQ</a>
     </div>
     <div class="qa">
       <h3>3. Как выбирать?</h3>
       <p>Вердикт и грейд доказательности → дозировка из исследований → конфликты с лекарствами → и только потом цена.</p>
-      <a class="qaMore" href="faq.html">подробнее в FAQ</a>
     </div>
   </div>
+  <p style="margin:1rem 0 0"><a href="methodology.html">Полное объяснение методологии →</a></p>
 </section>
 
 <section style="margin:1.5rem 0">
@@ -294,7 +290,6 @@ try {
       <a class="chip" href="https://pubmed.ncbi.nlm.nih.gov/" target="_blank" rel="noopener">PubMed ↗</a>
       <span class="chip">ручная вычитка</span>
       <span class="chip">тестов: <span data-version="tests"></span></span>
-      <a class="chip" href="https://github.com/DeadSno/brain-25-evidence" target="_blank" rel="noopener">код ↗</a>
     </div>
   </div>
 </section>
@@ -376,7 +371,6 @@ try {
   <p class="hint">Проект бесплатный: без рекламы, подписок и продажи данных. Помощь ускоряет обновление карточек и разработку.</p>
   <div style="display:flex;flex-wrap:wrap;gap:.5rem">
     <a class="btn c-support" href="https://yoomoney.ru/fundraise/1KKDKB0O1EC.260930" target="_blank" rel="noopener">💚 Поддержать в ЮMoney</a>
-    <a class="btn c-feedback" href="feedback.html">💬 Сообщить об ошибке</a>
     <a class="btn" href="https://github.com/DeadSno/brain-25-evidence" target="_blank" rel="noopener">⭐ Доработать на GitHub</a>
   </div>
 </section>
