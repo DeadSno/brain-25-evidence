@@ -356,8 +356,7 @@ position:sticky;top:0;z-index:1000;animation:fadeIn .25s}
 /* ===== v2.6: иконки источников ===== */
 .srcIcon {display:inline-flex;align-items:center;justify-content:center;min-height:44px;min-width:44px;font-size:.68rem;font-weight:700;padding:.1rem .45rem;
   border-radius:999px;background:var(--bg);border:1px solid var(--border);color:var(--text);
-  text-decoration:none;vertical-align:middle;margin-left:.25rem
-  display: inline-block;
+  text-decoration:none;vertical-align:middle;margin-left:.25rem;
   max-width: 60ch;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -624,6 +623,12 @@ html.dark .chartTab.on, body.dark .chartTab.on {
 .cgTitle{font-weight:700;font-size:1rem;margin:0 0 .4rem;padding:.35rem .6rem;background:var(--card-bg);border-left:3px solid var(--accent);border-radius:4px}
 
 /* PMID-чип рядом с источником: клик — копирование */
+/* Кнопка «Поделиться» в футере (см. share.js). Не в шапку: состав шапки разнойтся 14 способови во семинаше, а футер един. Стока не выше 44px как у остальных кнопок. */
+.share-row { margin: .5rem 0 0; }
+.share-row .btn { min-height: 44px; }
+.btn.is-share-error { border-color: #ef4444; color: #ef4444; }
+body.dark .btn.is-share-error { border-color: #ff5252; color: #ff5252; }
+
 .srcRow {
   display: flex;
   align-items: baseline;
@@ -777,7 +782,13 @@ html.dark .chartTab.on, body.dark .chartTab.on {
 
 /* ===== Мобильная адаптация (в конце файла — перебивает базовые правила) ===== */
 @media(max-width:768px){
-  .qaGrid{grid-template-columns:1fr!important}
+  /* Мобильно: три вопроса в колонку ставили 728px и вытаскивали калькулятор из первого экрана
+   за 4.4 экрана. Делаем горизонтальную полосу со снапом и scroll-snap: видимое колово,
+   прокрутивается свастивом. На desktop не трогаем. */
+  .qaGrid{grid-template-columns:none!important;display:flex;gap:.6rem;overflow-x:auto;
+    scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding-bottom:.5rem;
+    scrollbar-width:thin}
+  .qaGrid .qa{flex:0 0 84%;scroll-snap-align:start;margin:0}
 }
 
 /* ═══ Мобильная шапка: H1 сверху, кнопка темы снизу ═══ */
