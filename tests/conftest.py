@@ -12,24 +12,43 @@ DB_PATH = ROOT / "data" / "db" / "brain.duckdb"
 
 
 def pytest_collection_modifyitems(config, items):
-    """Выключить браузерные e2e по умолчанию.
+    """Выключить браузерные e2e и визуальные снапшоты по умолчанию.
 
-    Гейт сделан на переменной окружения, а НЕ на `-m "not e2e"` в addopts,
-    потому что `-m`, переданный в командной строке, ПЕРЕКРЫВАЕТ addopts.
-    С `-m` в addopts команда `pytest -q -m "not network"` (а она встречается
-    в инструкциях проекта) неожиданно включала e2e и роняла прогон.
+    Оба гейта — на переменной окружения, а НЕ на `-m` в addopts: `-m`,
+    переданный в командной строке, ПЕРЕКРЫВАЕТ addopts. Это не теория,
+    измерено на этой копии:
 
-    Включить: RUN_E2E=1 pytest -q -m e2e
+        pytest --collect-only -q                    -> 754/791 (37 deselected)
+        pytest --collect-only -q -m "not e2e"       -> 789/791 (2 deselected)
+
+    То есть с `-m "not snapshots"` в addopts любая другая `-m` в командной
+    строке (а такая команда есть в инструкциях проекта) возвращала 37
+    тяжёлых тестов и превращала быстрый прогон в 100-секундный.
+
+    Снапшоты — самые тяжёлые тесты в проекте: 37 попиксельных сравнений PNG
+    против эталонов, полный прогон ~100 с против ~4 с без них. Для быстрых
+    коммитов они не нужны, для миграции дизайн-системы — обязательны.
+
+    Включить: RUN_SNAPSHOTS=1 pytest -q -m snapshots
     """
     if os.environ.get("RUN_E2E") == "1":
-        return
-    skip = pytest.mark.skip(
-        reason="e2e выключены по умолчанию (долгий прогон, нужен браузер). "
-               "Запуск: RUN_E2E=1 pytest -q -m e2e"
-    )
-    for item in items:
-        if "e2e" in item.keywords:
-            item.add_marker(skip)
+        pass  # e2e-гейт ниже
+    else:
+        skip = pytest.mark.skip(
+            reason="e2e выключены по умолчанию (долгий прогон, нужен браузер). "
+                   "Запуск: RUN_E2E=1 pytest -q -m e2e"
+        )
+        for item in items:
+            if "e2e" in item.keywords:
+                item.add_marker(skip)
+
+    # Снапшоты УДАЛЯЮТСЯ из коллекции, а не помечаются skipif. Причина:
+    # skipif оставляет тесты видимыми в `--collect-only`, и
+    # test_version_json_counts_match_reality считает именно collect-only —
+    # он насчитал бы 791 и упал бы. Удаление даёт честные 754, то есть
+    # число тестов, которые реально бегут в обычном прогоне.
+    if not os.environ.get("RUN_SNAPSHOTS"):
+        items[:] = [item for item in items if "snapshots" not in item.keywords]
 
 
 @pytest.fixture(scope="session")
