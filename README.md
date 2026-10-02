@@ -228,7 +228,7 @@ brain-25-evidence/
 │   ├── make_og.py                 # генерация og.png
 │   ├── build_slim.py              # slim JSON для Streamlit Cloud
 │   └── e2e_smoke.py               # headless smoke-тесты сайта
-├── tests/                         # 140 тестов
+├── tests/                         # 753 тестов
 │   ├── test_schema.py             # JSON-схема data.json
 │   ├── test_snapshot.py           # data.json не изменился без UPDATE_SNAPSHOT=1
 │   ├── test_index_sync.py         # data_index.json == проекция data.json
@@ -262,7 +262,7 @@ cd brain-25-evidence
 # 2. Установи зависимости
 pip install -r requirements.txt
 
-# 3. Прогони тесты (должно быть 140 passed)
+# 3. Прогони тесты (должно быть 753 passed)
 python -m pytest tests/ -q
 
 # 4. Подними сайт локально
@@ -295,7 +295,7 @@ streamlit run app.py
 
 ### Текущее состояние
 
-- 130 добавок, 140 тестов, 37 618 papers
+- 130 добавок, 753 тестов, 37 618 papers
 - Funders analysis (CrossRef + Europe PMC)
 - Streamlit BI + статический сайт
 - trends.html: executive summary, scatter-матрица, категории
