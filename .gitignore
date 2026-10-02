@@ -268,3 +268,6 @@ logs/
 # Cyberaudit skill (устанавливается локально)
 .opencode/skills/cyberaudit/
 
+# vortix-cli: cache with per-machine content hashes - not committable.
+# Config in .vortix/config.json is the setting and IS committable.
+.vortix/cache.json

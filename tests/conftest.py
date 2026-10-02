@@ -30,6 +30,10 @@ def pytest_collection_modifyitems(config, items):
     коммитов они не нужны, для миграции дизайн-системы — обязательны.
 
     Включить: RUN_SNAPSHOTS=1 pytest -q -m snapshots
+
+    Тесты доступности (tests/test_a11y_axe.py) несут только маркер `a11y` и
+    снимаются отдельным фильтром: им тоже нужен браузер и сервер, но команда
+    запуска у них своя — RUN_A11Y=1 pytest -q -m a11y.
     """
     if os.environ.get("RUN_E2E") == "1":
         pass  # e2e-гейт ниже
@@ -42,13 +46,19 @@ def pytest_collection_modifyitems(config, items):
             if "e2e" in item.keywords:
                 item.add_marker(skip)
 
-    # Снапшоты УДАЛЯЮТСЯ из коллекции, а не помечаются skipif. Причина:
-    # skipif оставляет тесты видимыми в `--collect-only`, и
-    # test_version_json_counts_match_reality считает именно collect-only —
-    # он насчитал бы 791 и упал бы. Удаление даёт честные 754, то есть
-    # число тестов, которые реально бегут в обычном прогоне.
+    # Снапшоты и тесты доступности снимаются НЕЗАВИСИМЫМИ фильтрами: у них
+    # разные маркеры и разные команды. Раньше a11y-тесты несли оба маркера, и
+    # фильтр по `snapshots` отбрасывал их — замерено: `RUN_A11Y=1 pytest -m a11y`
+    # давал «754 deselected, 0 selected», то есть гейт был зелёным вхолостую.
+    # Теперь пересечения нет, и каждый гейт включается своей переменной:
+    #   RUN_SNAPSHOTS=1 -> только снапшоты
+    #   RUN_A11Y=1      -> только доступность
+    #   ничего          -> быстрый прогон без браузера
     if not os.environ.get("RUN_SNAPSHOTS"):
         items[:] = [item for item in items if "snapshots" not in item.keywords]
+
+    if not os.environ.get("RUN_A11Y"):
+        items[:] = [item for item in items if "a11y" not in item.keywords]
 
 
 @pytest.fixture(scope="session")
