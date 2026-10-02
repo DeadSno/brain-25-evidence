@@ -28,7 +28,7 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=394">
+<link rel="stylesheet" href="style.css?v=395">
   <style>
     body{--apanel:#15171c;--aborder:#2b2e35;--atext:#e9eaee;--amut:#9aa0aa;margin:0}
     body:not(.dark){--apanel:#ffffff;--aborder:#d9dde3;--atext:#1b1d22;--amut:#5c6370}
@@ -82,11 +82,7 @@ try {
     /* Перебиваем body{max-width:1200px} из style.css — для fullwidth-графов */
     body { max-width: none !important; margin: 0 !important; }
     /* Единая шапка для всех страниц */
-    .trustbar{
-      text-align:center;padding:.5rem 1rem;margin:0 0 1rem;
-      background:var(--apanel);border:1px solid var(--aborder);
-      border-radius:8px;font-size:.85rem;opacity:.85;
-    }
+    
     .top{
       display:flex;justify-content:space-between;align-items:center;
       gap:1rem;flex-wrap:wrap;margin:0 0 1rem;
@@ -102,10 +98,8 @@ try {
     }
     .btn:hover{border-color:#888}
     /* ── Mobile (≤640px) ─────────────────────────────────────── */
-    @media (max-width: 640px) {
-      body { padding: 0.6rem !important; }
+    @media (max-width: 640px) { body { padding: 0.6rem !important; }
       .wrap { padding: 0.6rem !important; }
-      .trustbar { font-size: .75rem; padding: .35rem .5rem; margin: 0 0 .6rem; }
       .top { flex-direction: column; align-items: stretch; gap: .5rem; margin: 0 0 .6rem; }
       .top h1 { font-size: 1.05rem; line-height: 1.25; }
       .top h1 a { display: inline-block; }
@@ -226,7 +220,7 @@ try {
   <div id="stats">Загрузка…</div>
 
   <div class="filterbar">
-    <span class="lbl">Грейд:</span>
+    <span class="lbl"><abbr title="Грейд A-D — шкала доказательности (см. glossary.html)">Грейд</abbr>:</span>
     <button class="btn gr on" data-grade="A" aria-label="Грейд A">A</button>
     <button class="btn gr on" data-grade="B" aria-label="Грейд B">B</button>
     <button class="btn gr on" data-grade="C" aria-label="Грейд C">C</button>
