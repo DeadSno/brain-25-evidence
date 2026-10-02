@@ -30,23 +30,23 @@ try {
 <script src="https://unpkg.com/vis-network@9.1.9/standalone/umd/vis-network.min.js"></script>
 <style>
 :root {
-  --bg: #f5f6f8;
-  --fg: #1a1d21;
+  --bg: #f5f5f7;
+  --fg: #1c1c1e;
   --card-bg: #ffffff;
-  --border: #d8dde3;
-  --muted: #6a7280;
-  --accent: #3d7eff;
+  --border: #d1d1d6;
+  --muted: #6e6e73;
+  --accent: #0062cc;
   --apanel: var(--card-bg);
   --aborder: var(--border);
   --atext: var(--fg);
 }
 html.dark, body.dark {
-  --bg: #14171c;
-  --fg: #e8ebee;
+  --bg: #1c1c1e;
+  --fg: #f5f5f7;
   --card-bg: #1e2228;
-  --border: #2c3138;
-  --muted: #8a92a0;
-  --accent: #6ba4ff;
+  --border: #3a3a3c;
+  --muted: #9a9aa0;
+  --accent: #0a84ff;
   --apanel: var(--card-bg);
   --aborder: var(--border);
   --atext: var(--fg);
@@ -466,7 +466,7 @@ function buildNodes(mode, degrees) {
         background: color, border: color,
         highlight: { background: '#ffeb3b', border: '#333' }
       },
-      font: { color: isDark() ? '#e8ebee' : '#1a1d21' },
+      font: { color: isDark() ? '#f5f5f7' : '#1c1c1e' },
       shape: 'dot',
       size: sizeForDegree(degrees[n.id] || 0, n.kind === 'drug')
     });
