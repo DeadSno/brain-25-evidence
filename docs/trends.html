@@ -21,7 +21,7 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=397">
+<link rel="stylesheet" href="style.css?v=398">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <script src="version.js?v=311"></script>
 <style>
@@ -72,17 +72,17 @@ try {
   /* Убираем sticky-шапку — на странице с графиками она мешает */
   header.top{position:static!important;top:auto!important}
   header.top{display:flex;flex-wrap:wrap;gap:.4rem .6rem}
-  header.top h1{flex:1 1 100%;font-size:1.3rem;line-height:1.2;margin:0 0 .4rem;color:var(--text)!important}
-  header.top h1 a{color:var(--text)!important;text-decoration:none!important}
-  body.light header.top h1,
-  body.light header.top h1 a{color:#1c1c1e!important}
-  body.dark header.top h1,
-  body.dark header.top h1 a{color:#f5f5f7!important}
-  header.top h1 a{white-space:normal;overflow:visible}
+  header.top .site-title{flex:1 1 100%;font-size:1.3rem;line-height:1.2;margin:0 0 .4rem;color:var(--text)!important}
+  header.top .site-title a{color:var(--text)!important;text-decoration:none!important}
+  body.light header.top .site-title,
+  body.light header.top .site-title a{color:#1c1c1e!important}
+  body.dark header.top .site-title,
+  body.dark header.top .site-title a{color:#f5f5f7!important}
+  header.top .site-title a{white-space:normal;overflow:visible}
   header.top .actions{flex:1 1 100%;display:flex;flex-wrap:wrap;gap:.4rem;justify-content:flex-end}
   @media(max-width:640px){
-    header.top h1{font-size:1.05rem}
-    header.top h1 .v{display:none}
+    header.top .site-title{font-size:1.05rem}
+    header.top .site-title .v{display:none}
   }
 /* ===== Executive Summary ===== */
 .executive-summary{margin:1.5rem 0}
@@ -180,7 +180,7 @@ body.dark .cat-warn{color:#f59e0b}
 <div class="trustbar">📊 Открытые данные · Бесплатно · Без рекламы</div>
 
 <header class="top">
-  <h1><a href="index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a> <span class="v">v<span data-version="app"></span></span></h1>
+  <div class="site-title"><a href="index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a> <span class="v">v<span data-version="app"></span></span></div>
   <div class="actions">
     <a class="btn c-home" href="index.html">🏠 Главная</a>
     <a class="btn c-calc" href="calculator.html">🧮 Калькулятор</a>
@@ -196,6 +196,8 @@ body.dark .cat-warn{color:#f59e0b}
 </header>
 
 <main id="main">
+  <h1>Тренды популярности</h1>
+
 
 <p class="hint" style="opacity:.75;margin:.4rem 0 0">
   10 лет данных о 130 добавках: публикации в PubMed, просмотры ru.wikipedia, цитирования ключевых исследований.

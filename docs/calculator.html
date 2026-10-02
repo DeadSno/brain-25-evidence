@@ -23,7 +23,7 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=397">
+<link rel="stylesheet" href="style.css?v=398">
   <style>
     body{--apanel:#15171c;--aborder:#2b2e35;--atext:#e9eaee;--amut:#9aa0aa;margin:0}
     body:not(.dark){--apanel:#ffffff;--aborder:#d9dde3;--atext:#1b1d22;--amut:#5c6370}
@@ -32,8 +32,8 @@ try {
 
     .trustbar{text-align:center;padding:.5rem 1rem;margin:0 0 1rem;background:var(--apanel);border:1px solid var(--aborder);border-radius:8px;font-size:.85rem;opacity:.85}
     .top{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;margin:0 0 1rem}
-    .top h1{font-size:1.3rem;margin:0;font-weight:700}
-    .top h1 a{color:inherit;text-decoration:none}
+    .top .site-title{font-size:1.3rem;margin:0;font-weight:700}
+    .top .site-title a{color:inherit;text-decoration:none}
     .actions{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center}
     .btn{padding:.45rem .8rem;border:1px solid var(--aborder);border-radius:8px;background:var(--apanel);color:var(--atext);cursor:pointer;font-size:.85rem;text-decoration:none;line-height:1.2}
     .btn:hover{border-color:#888}
@@ -138,7 +138,7 @@ try {
       .wrap{padding:.6rem}
       .trustbar{font-size:.75rem;padding:.35rem .5rem}
       .top{flex-direction:column;align-items:stretch}
-      .top h1{font-size:1rem;line-height:1.2}
+      .top .site-title{font-size:1rem;line-height:1.2}
       .params-grid{grid-template-columns:1fr 1fr}
       .item{grid-template-columns:1fr 80px 26px}
       .add-row{flex-wrap:wrap}
@@ -150,7 +150,7 @@ try {
 <div class="wrap">
   <div class="trustbar">🧮 Открытые данные · Бесплатно · Без рекламы</div>
   <header class="top">
-  <h1><a href="index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a> <span class="v">v<span data-version="app"></span></span></h1>
+  <div class="site-title"><a href="index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a> <span class="v">v<span data-version="app"></span></span></div>
   <div class="actions">
     <a class="btn c-home" href="index.html">🏠 Главная</a>
     <a class="btn c-mech" href="map.html">🧩 Механизмы</a>
@@ -166,6 +166,8 @@ try {
 </header>
 
 <main id="main">
+  <h1>Калькулятор БАДов</h1>
+
 
   <!-- Параметры пользователя -->
   <div class="params">
