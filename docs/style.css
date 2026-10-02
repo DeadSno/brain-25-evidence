@@ -354,7 +354,7 @@ position:sticky;top:0;z-index:1000;animation:fadeIn .25s}
 .updatedLine{font-size:.68rem;opacity:.55;display:block;margin:.1rem 0 .35rem}
 
 /* ===== v2.6: иконки источников ===== */
-.srcIcon {display:inline-block;font-size:.68rem;font-weight:700;padding:.1rem .45rem;
+.srcIcon {display:inline-flex;align-items:center;justify-content:center;min-height:44px;min-width:44px;font-size:.68rem;font-weight:700;padding:.1rem .45rem;
   border-radius:999px;background:var(--bg);border:1px solid var(--border);color:var(--text);
   text-decoration:none;vertical-align:middle;margin-left:.25rem
   display: inline-block;
@@ -364,6 +364,9 @@ position:sticky;top:0;z-index:1000;animation:fadeIn .25s}
   white-space: nowrap;
   vertical-align: bottom;
 }
+/* .srcIcon nosit dva russla: pikchi («PubMed ↗») и заголовки статьи стороками (в .srcRow). Минимум 44px дают паддинг-аа; для заголовков обязано вернуть старый размер: они растягивались с 22 до 44px и модаль стала длиннее на 133px. */
+.srcRow .srcIcon { min-height: 0; min-width: 0; }
+
 .srcIcon:hover{border-color:var(--accent);color:var(--accent)}
 
 /* ===== v2.6: поделиться + сравнить в модалке ===== */
