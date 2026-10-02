@@ -192,10 +192,18 @@ Promise.allSettled([fetchJson('data_index.json'), fetchJson('effect_tags.json'),
   .catch((err) => {
     console.error('[boot] фатально:', err);
     // Страницу не стираем: шапка, футер и навигация остаются на месте
-    const msg = '<div style="padding:40px;text-align:center;color:var(--muted)">⚠ Не удалось загрузить данные. Попробуйте обновить страницу.</div>';
+    // Раньше текст звал «обновите страницу», но кнопки рядом не было —
+    // единственный «Обновить» находился в шапке. Теперь она рядом (P1-6).
+    const msg = '<div style="padding:40px;text-align:center;color:var(--muted)">' +
+                '⚠ Не удалось загрузить данные.<br>' +
+                '<button id="dataRetry" class="btn" style="margin-top:12px">🔄 Обновить</button></div>';
     const grid = $('cardsGrid');
     if (grid) grid.innerHTML = msg;
     else document.body.insertAdjacentHTML('afterbegin', msg);
+    // Кнопка рядом с сообщением: полная перезагрузка — единственный способ
+    // перезапустить цепочку загрузки, initApp повторно не подходит.
+    const retry = $('dataRetry');
+    if (retry) retry.onclick = () => location.reload();
   });
 
 function initApp() {
@@ -325,6 +333,10 @@ function initApp() {
 
   const up = document.createElement('button');
   up.id = 'toTop'; up.textContent = '↑';
+  // v4.1 — находка №12: одиночный символ без доступного имени.
+  // Статический скан аудита эту кнопку не видел: её создаёт скрипт.
+  up.setAttribute('aria-label', 'Наверх к началу страницы');
+  up.title = 'Наверх';
   up.onclick = () => scrollTo({top: 0, behavior: 'smooth'});
   document.body.appendChild(up);
   addEventListener('scroll', () => up.classList.toggle('show', scrollY > 500));
@@ -552,7 +564,10 @@ function renderCards(data) {
   g.innerHTML = data.map(s => '<div class="card" data-id="' + esc(s.id) + '">' +
     '<button class="favBtn' + (isFav(s.id) ? ' on' : '') + '" data-fav="' + esc(s.id) + '" title="В избранное">' + (isFav(s.id) ? '★' : '☆') + '</button>' +
     (BEST.includes(s.id) ? '<span class="bestBadge">🔬 Топ-3 по доказательности</span>' : '') +
-    '<span class="cat">' + esc(s.category || '') + '</span><h3>' + esc(s.name) + '</h3>' +
+    // Заголовок карточки — НЕ h3: на index их было 134 (по одной на добавку),
+    // из-за чего структура документа переставала отражать реальные разделы.
+    // Название добавки — strong, разделы остались h2 (P2-16).
+    '<span class="cat">' + esc(s.category || '') + '</span><strong class="card-title">' + esc(s.name) + '</strong>' +
     updatedLine(s) + manualBadge(s) +
     '<div class="verdict v' + esc(s.code) + '">' + esc(s.verdict) + '</div>' + gradeBadge(s) +     '<div class="effects">' + (s.effects || []).map(e => '<span>' + esc(e) + '</span>').join('') + '</div>' +
     '<div class="tagChips">' + (effectTags[s.id] || []).map(t =>
@@ -621,7 +636,8 @@ async function openModal(id) {
     shareRow(s) +
     compareBlock(s) +
     '<div class="mrow warn">⚠️ ' + (s.caution || '—') + '</div>' +
-    '<div class="mrow"><button class="copyLink" data-copy="' + location.origin + location.pathname + '#sup=' + encodeURIComponent(s.id) + '">🔗 Скопировать ссылку на карточку</button>' +
+    // Кнопку копирования ссылки здесь убрали как дубль: выше, в shareRow(),
+    // уже есть «🔗 копировать» с тем же действием (docs/script.js, P1-3).
     ' <a class="favFilter" target="_blank" rel="noopener" href="' + issueUrl(s, '') + '">❌ Нашли неточность? Сообщить</a></div>' +
     '<div class="blockTitle">🧩 Полная карточка добавки</div>' + renderCardBlocks(s);
   history.replaceState(null, '', '#sup=' + encodeURIComponent(s.id));

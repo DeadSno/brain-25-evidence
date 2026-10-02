@@ -7,14 +7,44 @@ self.addEventListener('activate', event => {
   event.waitUntil(self.clients.claim());
 });
 
-/* v29 PWA: cache-first для статики, network-first для data.json.
+/* PWA: cache-first для статики, network-first для data*.json.
    Install через поштучный cache.add().catch() — один missing файл
-   не валит всю установку. Бамп CACHE_VERSION при изменении STATIC_ASSETS. */
-var CACHE_VERSION = 'v42';
+   не валит всю установку. Бамп CACHE_VERSION при изменении STATIC_ASSETS.
+
+   v45: тач-таргеты 44px, шрифт полей 16px.
+   v46: регресс звезды (.cat), viewport-fit=cover, safe-area, tap-highlight.
+   v47: safe-area для #modal, массовые тап-таргеты 44px, иконки atlas, theme-color.
+   v48: порог 44px только для интерактивных .chip (+min-width по WCAG 2.5.5).
+   v49: офлайн без подмены контента + 3 страницы в precache + data_index.json.
+   v50: cache.match без ignoreSearch — ?v=NNN bust-ит кэш. ignoreSearch остался
+        только как офлайн-страховка в ветке catch.
+   v51: version.js считает адрес version.json от URL скрипта, а не от
+        документа — на sup/*.html больше не 404 (было 5 страниц).
+   v51: version.js считает адрес version.json от URL скрипта, а не от
+        документа — на sup/*.html больше не 404 (было 5 страниц).
+
+   С v50 query-версия в <link href="style.css?v=NNN"> bust-ит кэш: точный
+   cache.match идёт ПЕРВЫМ. ignoreSearch остался только офлайн-страховкой
+   (cacheFirstForStatic, ветка catch) — там он нужен, потому что precache
+   кладёт './style.css' без версии, а страницы просят 'style.css?v=NNN'. */
+var CACHE_VERSION = 'v62';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
-var DATA_SUFFIX = '/data.json';  // GitHub Pages кладёт сайт в /brain-25-evidence/
-var FALLBACK_HTML = './index.html';
+
+/* GitHub Pages кладёт сайт в /brain-25-evidence/, поэтому сравниваем по хвосту
+   пути, а не по имени файла. data_index.json тоже идёт сюда: раньше он уходил в
+   cacheFirstForStatic и при отказе получал HTML вместо JSON, r.json() падал, и
+   boot показывал «не загрузились данные» даже когда файл был на диске.
+   Именно /^data(_index)?\.json$/ — data_ma_timeline.json и data_price_history.json
+   под это НЕ подходят (там после /data идёт _ma_timeline / _price_history) и
+   остаются в статике, как и раньше. */
+var DATA_RE = /\/data(_index)?\.json$/;
+
+/* Главная — единственный допустимый fallback для навигации на корень.
+   Раньше FALLBACK_HTML подставлялся ЛЮБОМУ упавшему GET, из-за чего офлайн
+   на graph.html показывал главную страницу по URL graph.html со статусом 200. */
+var INDEX_URL = './index.html';
+var OFFLINE_URL = './offline.html';
 
 var STATIC_ASSETS = [
   './index.html',
@@ -26,6 +56,10 @@ var STATIC_ASSETS = [
   './methodology.html',
   './faq.html',
   './glossary.html',
+  './feedback.html',
+  './graph.html',
+  './support.html',
+  './offline.html',
   './manifest.webmanifest',
   './pwa.js',
   './version.js',
@@ -33,9 +67,14 @@ var STATIC_ASSETS = [
   './style.css',
   './effect_tags.json',
   './effect_labels.json',
+  './sup/kreatin.html',
+  './sup/magniy.html',
+  './sup/omega-3.html',
+  './sup/paba.html',
+  './sup/vitamin-d.html',
   './icons/192.png',
-  './icons/512.png'
-];
+  './icons/512.png',
+  './share.js?v=1'];
 
 function notifyOffline() {
   self.clients.matchAll().then(function (clients) {
@@ -43,42 +82,124 @@ function notifyOffline() {
   });
 }
 
+/* Ключ кэша данных: путь без query. Скрипты грузят данные как
+   data_index.json?ts=<Date.now()>, поэтому search надо срезать, иначе каждый
+   вызов создавал бы новую запись кэша. */
+function dataCacheKey(req) {
+  var u = new URL(req.url);
+  u.search = '';
+  return u.href;
+}
+
 async function networkFirstForData(req) {
   var cache = await caches.open(CACHE_DATA);
-  var dataKey = new URL('./data.json', self.registration.scope).href;
+  /* v49: ключ берётся из САМОГО запроса. Раньше здесь жёстко стояло
+     './data.json' и для cache.put, и для cache.match — и как только в эту
+     ветку начали бы попадать и data.json, и data_index.json, второй запрос
+     перезаписал бы кэш data.json содержимым data_index.json. */
+  var key = dataCacheKey(req);
   try {
     var resp = await fetch(req, { cache: 'no-store' });
     if (resp && resp.ok) {
-      cache.put(dataKey, resp.clone());
+      cache.put(key, resp.clone());
       return resp;
     }
-    throw new Error('data.json not 200');
+    throw new Error('data not 200');
   } catch (err) {
     notifyOffline();
-    var cached = await cache.match(dataKey);
+    var cached = await cache.match(key);
     if (cached) return cached;
+    /* Оба файла — JSON-массивы, поэтому пустой массив остаётся валидным ответом
+       для обоих: index.html на [] показывает честное пустое состояние
+       («ничего не найдено» + сброс фильтров), а не падает.
+
+       Статус здесь ИМЕННО 200, и это не опечатка. script.js:180 делает
+       `if (!r.ok) throw`, поэтому 503 приводил бы к тому, что тело `[]` вообще
+       не парсится, d.status === 'rejected' и пользователь видит «Не удалось
+       загрузить данные» — то есть ХУЖЕ, чем было до v49. Пустой результат —
+       валидный ответ, а не ошибка; observability даёт заголовок x-fallback. */
     return new Response('[]', {
-      headers: { 'Content-Type': 'application/json; charset=utf-8', 'x-fallback': '1' }
+      status: 200,
+      headers: { 'Content-Type': 'application/json; charset=utf-8', 'x-fallback': 'empty' }
     });
   }
 }
 
+/* Ключ кэша для статики. Различаем два вида query-строки:
+
+   ?v=NNN  — номер версии файла. Значимый: style.css?v=392 и style.css?v=391 —
+             разные файлы, и бамп ?v= должен bust-ить кэш (иначе правки CSS
+             не доходят до пользователей, и приходится вручную бампить
+             CACHE_VERSION — три раунда подряд так и вышло).
+
+   ?ts=<Date.now()> / ?_=<Date.now()> — АНТИХЕШ-метка времени, добавляется
+             скриптами при каждой загрузке (script.js: fetch(url + '?ts=' +
+             Date.now()), version.js: '?_='). Содержимого не меняет. Если
+             оставить её в ключе, каждая загрузка страницы создаёт НОВУЮ
+             запись кэша: 5 открытий дали 6 копий version.json?ts=..., и кэш
+             рос бы бесконечно. Поэтому ts/_ отбрасываем.
+
+   Итог: версия значима, метка времени — нет. */
+var IGNORABLE_PARAMS = ['ts', '_', 't'];
+
+function staticCacheKey(req) {
+  var u = new URL(req.url);
+  if (!u.search) return u.href;
+  var changed = false;
+  IGNORABLE_PARAMS.forEach(function (p) {
+    if (u.searchParams.has(p)) { u.searchParams.delete(p); changed = true; }
+  });
+  // остались только значимые параметры (например v) — версия различает версии
+  return changed ? u.href : new URL(req.url).href;
+}
+
 async function cacheFirstForStatic(req) {
   var cache = await caches.open(CACHE_STATIC);
-  var cached = await cache.match(req, { ignoreSearch: true });
+
+  /* v50: сначала ТОЧНОЕ совпадение (по ключу staticCacheKey), БЕЗ
+     ignoreSearch на входе. Раньше здесь стоял ignoreSearch:true, и из-за
+     этого query-версия <link href="style.css?v=NNN"> не bust-ила кэш.
+
+     ignoreSearch НЕ удалён из проекта целиком, а перенесён ниже в ветку
+     офлайна: там он остаётся страховкой (см. комментарий после catch). */
+  var key = staticCacheKey(req);
+  var cached = await cache.match(key);
   if (cached) return cached;
+
   try {
     var resp = await fetch(req);
     if (resp && resp.ok) {
-      cache.put(req, resp.clone());
+      cache.put(key, resp.clone());
       return resp;
     }
     throw new Error('static not 200');
   } catch (err) {
     notifyOffline();
-    var fallback = await cache.match(FALLBACK_HTML);
-    if (fallback) return fallback;
-    return new Response('offline', { status: 503 });
+
+    /* Офлайн-страховка. Точное совпадение не нашлось (или сеть упала), но
+       ресурс мог лежать в кэше под ДРУГИМ query —precache кладёт './style.css'
+       без версии, а страницы просят 'style.css?v=NNN'. Раньше это закрывал
+       ignoreSearch в самом начале функции; теперь — здесь, чтобы офлайн не
+       потерял стили, а онлайн при этом честно уважал ?v=. */
+    var loose = await cache.match(req, { ignoreSearch: true });
+    if (loose) return loose;
+
+    /* Навигация. Отдаём СВОЮ страницу, а не подменяем главной:
+       - корень сайта -> index.html (это его штатный адрес);
+       - любой другой URL -> offline.html с честным «нет соединения».
+       Никогда не отдаём контент другой страницы: пользователь должен видеть,
+       что запрошенной страницы нет офлайн, а не читать чужую. */
+    if (req.mode === 'navigate') {
+      var isRoot = new URL(req.url).pathname === new URL(INDEX_URL, self.registration.scope).pathname;
+      var page = await cache.match(isRoot ? INDEX_URL : OFFLINE_URL);
+      if (page) return page;
+      return new Response('offline', { status: 503, headers: { 'Content-Type': 'text/plain; charset=utf-8' } });
+    }
+
+    /* Подресурс (CSS/JS/JSON/иконка). Response.error() даёт настоящую сетевую
+       ошибку, а не 200 с чужим телом: так срабатывают обработчики страницы
+       (например, catch в script.js покажет «не загрузились данные»). */
+    return Response.error();
   }
 }
 
@@ -114,7 +235,7 @@ self.addEventListener('fetch', function (event) {
   var url = new URL(req.url);
   if (url.origin !== self.location.origin) return;
 
-  if (url.pathname.endsWith(DATA_SUFFIX)) {
+  if (DATA_RE.test(url.pathname)) {
     event.respondWith(networkFirstForData(req));
   } else {
     event.respondWith(cacheFirstForStatic(req));

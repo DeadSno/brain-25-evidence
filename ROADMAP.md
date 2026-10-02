@@ -1,7 +1,7 @@
 # ROADMAP — brain-25-evidence
 
 **Обновлено:** 2026-09-24
-**Состояние:** 130 добавок, 140 тестов зелёные
+**Состояние:** 130 добавок, 753 тестов зелёные
 
 ## 📊 Текущее состояние
 
@@ -12,7 +12,7 @@
 | Full texts | 9 075 (TXT + XML) |
 | Funders | 5 135 (CrossRef) + 1 342 (Europe PMC) |
 | Теги эффектов | 18 тегов, 130 покрыты |
-| Тесты | 118 passed |
+| Тесты | 753 passed |
 | Live demo | https://deadsno.github.io/brain-25-evidence/ |
 | BI dashboard | https://brain-25-evidence.streamlit.app |
 

@@ -1,15 +1,114 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  17 страниц: 12 корневых + 5 sup/*. offline.html намеренно не указан —
+  это не контентная страница, а офлайн-заглушка, которую сервис-воркер
+  отдаёт при отсутствии сети. В индексации ей не место.
+
+  lastmod проставлен по дате последнего коммита файла (git log, формат
+  короткой даты). Двойное дефис в комментариях XML запрещено, поэтому команда
+  здесь описана словами.
+-->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://deadsno.github.io/brain-25-evidence/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://deadsno.github.io/brain-25-evidence/calculator.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://deadsno.github.io/brain-25-evidence/trends.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://deadsno.github.io/brain-25-evidence/map.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://deadsno.github.io/brain-25-evidence/interactions.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://deadsno.github.io/brain-25-evidence/graph.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://deadsno.github.io/brain-25-evidence/atlas.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://deadsno.github.io/brain-25-evidence/methodology.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://deadsno.github.io/brain-25-evidence/faq.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://deadsno.github.io/brain-25-evidence/glossary.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://deadsno.github.io/brain-25-evidence/feedback.html</loc><changefreq>monthly</changefreq><priority>0.4</priority></url>
-  <url><loc>https://deadsno.github.io/brain-25-evidence/support.html</loc><changefreq>monthly</changefreq><priority>0.3</priority></url>
+  <url>
+    <loc>https://deadsno.github.io/brain-25-evidence/</loc>
+    <lastmod>2026-10-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://deadsno.github.io/brain-25-evidence/calculator.html</loc>
+    <lastmod>2026-10-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://deadsno.github.io/brain-25-evidence/trends.html</loc>
+    <lastmod>2026-10-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://deadsno.github.io/brain-25-evidence/map.html</loc>
+    <lastmod>2026-10-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://deadsno.github.io/brain-25-evidence/interactions.html</loc>
+    <lastmod>2026-10-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://deadsno.github.io/brain-25-evidence/graph.html</loc>
+    <lastmod>2026-10-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://deadsno.github.io/brain-25-evidence/atlas.html</loc>
+    <lastmod>2026-10-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://deadsno.github.io/brain-25-evidence/sup/kreatin.html</loc>
+    <lastmod>2026-10-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://deadsno.github.io/brain-25-evidence/sup/omega-3.html</loc>
+    <lastmod>2026-10-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://deadsno.github.io/brain-25-evidence/sup/vitamin-d.html</loc>
+    <lastmod>2026-10-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://deadsno.github.io/brain-25-evidence/sup/magniy.html</loc>
+    <lastmod>2026-10-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://deadsno.github.io/brain-25-evidence/sup/paba.html</loc>
+    <lastmod>2026-10-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://deadsno.github.io/brain-25-evidence/methodology.html</loc>
+    <lastmod>2026-10-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://deadsno.github.io/brain-25-evidence/faq.html</loc>
+    <lastmod>2026-10-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://deadsno.github.io/brain-25-evidence/glossary.html</loc>
+    <lastmod>2026-10-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://deadsno.github.io/brain-25-evidence/feedback.html</loc>
+    <lastmod>2026-10-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://deadsno.github.io/brain-25-evidence/support.html</loc>
+    <lastmod>2026-10-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
 </urlset>

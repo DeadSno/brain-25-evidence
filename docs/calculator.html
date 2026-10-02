@@ -1,10 +1,11 @@
 ﻿<!doctype html>
 <html lang="ru">
 <head>
-  <script defer src="version.js"></script>
+  <script defer src="version.js?v=311"></script>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#1c1c1e">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1c1c1e" media="(prefers-color-scheme: dark)">
   <meta name="description" content="Калькулятор БАДов: проверка доз, конфликтов с лекарствами и совместимости добавок. Индивидуальные параметры — вес, пол, возраст, беременность."/>
   <meta property="og:type" content="website"/>
   <meta property="og:title" content="Калькулятор БАДов — дозы, конфликты, синергии"/>
@@ -22,7 +23,7 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=382">
+<link rel="stylesheet" href="style.css?v=398">
   <style>
     body{--apanel:#15171c;--aborder:#2b2e35;--atext:#e9eaee;--amut:#9aa0aa;margin:0}
     body:not(.dark){--apanel:#ffffff;--aborder:#d9dde3;--atext:#1b1d22;--amut:#5c6370}
@@ -31,8 +32,8 @@ try {
 
     .trustbar{text-align:center;padding:.5rem 1rem;margin:0 0 1rem;background:var(--apanel);border:1px solid var(--aborder);border-radius:8px;font-size:.85rem;opacity:.85}
     .top{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;margin:0 0 1rem}
-    .top h1{font-size:1.3rem;margin:0;font-weight:700}
-    .top h1 a{color:inherit;text-decoration:none}
+    .top .site-title{font-size:1.3rem;margin:0;font-weight:700}
+    .top .site-title a{color:inherit;text-decoration:none}
     .actions{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center}
     .btn{padding:.45rem .8rem;border:1px solid var(--aborder);border-radius:8px;background:var(--apanel);color:var(--atext);cursor:pointer;font-size:.85rem;text-decoration:none;line-height:1.2}
     .btn:hover{border-color:#888}
@@ -42,10 +43,10 @@ try {
     .params h2{margin:0 0 .6rem;font-size:1rem}
     .params-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.7rem}
     .params label{display:block;font-size:.8rem;opacity:.7;margin-bottom:.2rem}
-    .params input,.params select{width:100%;padding:.45rem .6rem;border:1px solid var(--aborder);border-radius:8px;background:var(--apanel);color:var(--atext);font-size:.9rem;box-sizing:border-box}
+    .params input,.params select{width:100%;padding:.45rem .6rem;border:1px solid var(--aborder);border-radius:8px;background:var(--apanel);color:var(--atext);font-size:16px;box-sizing:border-box}
 
     .add-row{display:flex;gap:.5rem;margin:0 0 1rem}
-    .add-row input{flex:1;padding:.5rem .8rem;border:1px solid var(--aborder);border-radius:8px;background:var(--apanel);color:var(--atext);font-size:.9rem}
+    .add-row input{flex:1;padding:.5rem .8rem;border:1px solid var(--aborder);border-radius:8px;background:var(--apanel);color:var(--atext);font-size:16px}
 
     .cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:1.2rem}
     @media(max-width:860px){.cols{grid-template-columns:1fr}}
@@ -58,20 +59,23 @@ try {
     .item:last-child{border-bottom:none}
     .item .name{cursor:pointer;color:var(--atext)}
     .item .name:hover{color:#3498db}
-    .item input{padding:.35rem .5rem;border:1px solid var(--aborder);border-radius:6px;background:var(--apanel);color:var(--atext);font-size:.85rem;text-align:right;width:100%;box-sizing:border-box}
+    .item input{padding:.35rem .5rem;border:1px solid var(--aborder);border-radius:6px;background:var(--apanel);color:var(--atext);font-size:16px;text-align:right;width:100%;box-sizing:border-box}
     .item .unit{opacity:.6;font-size:.78rem;margin-left:.2rem}
     .item .rm{background:none;border:none;color:#e74c3c;font-size:1.2rem;cursor:pointer;padding:0}
 
     .grade-badge{display:inline-block;padding:0 .4rem;border-radius:6px;font-size:.68rem;font-weight:700;margin-left:.35rem;vertical-align:middle}
-    .grade-A{background:rgba(46,204,113,.2);color:#2ecc71}
-    .grade-B{background:rgba(139,195,74,.2);color:#8bc34a}
-    .grade-C{background:rgba(241,196,15,.2);color:#f1c40f}
-    .grade-D{background:rgba(231,76,60,.2);color:#e74c3c}
-
-    .status{margin:.4rem 0 0;font-size:.8rem}
-    .st-ok{color:#2ecc71}
-    .st-warn{color:#f39c12}
-    .st-bad{color:#e74c3c}
+    /* v4.3: бейдж — текст на 20%-заливке своего же цвета, контраст падал в обеих
+       темах: в светлой 1.80 / 1.83 / 1.49 / 2.95:1, в тёмной .grade-D 3.76:1.
+       Заливки не трогаем. Базовый цвет — тёмный текст (светлая тема), body.dark —
+       светлый. Замеры на подложке «заливка 20% поверх #ffffff / #15171c». */
+    .grade-A{background:rgba(46,204,113,.2);color:#146b38}
+    .grade-B{background:rgba(139,195,74,.2);color:#417015}
+    .grade-C{background:rgba(241,196,15,.2);color:#7d5f00}
+    .grade-D{background:rgba(231,76,60,.2);color:#b91c1c}
+    body.dark .grade-A{color:#2ecc71}
+    body.dark .grade-B{color:#8bc34a}
+    body.dark .grade-C{color:#f1c40f}
+    body.dark .grade-D{color:#f26d6d}
 
     .result-panel{position:sticky;top:1rem;align-self:start}
     @media(max-width:860px){.result-panel{position:static}}
@@ -80,10 +84,16 @@ try {
     .kpi{background:var(--apanel);border:1px solid var(--aborder);border-radius:8px;padding:.6rem .7rem;text-align:center}
     .kpi .val{font-size:1.4rem;font-weight:700;line-height:1}
     .kpi .lbl{font-size:.72rem;opacity:.65;margin-top:.3rem}
-    .kpi.ok .val{color:#2ecc71}
-    .kpi.warn .val{color:#f39c12}
-    .kpi.bad .val{color:#e74c3c}
-    .kpi.muted .val{color:var(--amut)}
+    /* v4.3: контраст текста на фоне темы. Базовые правила — тёмный вариант
+       (светлая тема), body.dark — светлый. Замеры на .kpi (--apanel #fff / #15171c):
+       было 2.10 / 2.19 / 3.82:1 в светлой, стало 5.37 / 5.02 / 5.44:1;
+       в тёмной теме 8.53 / 8.18 / 4.69:1 — без изменений. */
+    .kpi.ok .val{color:#1f7a3f}
+    .kpi.warn .val{color:#b45309}
+    .kpi.bad .val{color:#c0392b}
+    body.dark .kpi.ok .val{color:#2ecc71}
+    body.dark .kpi.warn .val{color:#f39c12}
+    body.dark .kpi.bad .val{color:#e74c3c}
 
     .block{margin:0 0 1rem}
     .block h3{margin:0 0 .5rem;font-size:.85rem;text-transform:uppercase;letter-spacing:.05em;opacity:.6}
@@ -128,7 +138,7 @@ try {
       .wrap{padding:.6rem}
       .trustbar{font-size:.75rem;padding:.35rem .5rem}
       .top{flex-direction:column;align-items:stretch}
-      .top h1{font-size:1rem;line-height:1.2}
+      .top .site-title{font-size:1rem;line-height:1.2}
       .params-grid{grid-template-columns:1fr 1fr}
       .item{grid-template-columns:1fr 80px 26px}
       .add-row{flex-wrap:wrap}
@@ -136,10 +146,11 @@ try {
   </style>
 </head>
 <body>
+<a href="#main" class="skip-link">Перейти к содержимому</a>
 <div class="wrap">
   <div class="trustbar">🧮 Открытые данные · Бесплатно · Без рекламы</div>
   <header class="top">
-  <h1><a href="index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a> <span class="v">v<span data-version="app"></span></span></h1>
+  <div class="site-title"><a href="index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a> <span class="v">v<span data-version="app"></span></span></div>
   <div class="actions">
     <a class="btn c-home" href="index.html">🏠 Главная</a>
     <a class="btn c-mech" href="map.html">🧩 Механизмы</a>
@@ -153,6 +164,10 @@ try {
     <button class="btn" id="themeBtn">🌞 Светлая тема</button>
   </div>
 </header>
+
+<main id="main">
+  <h1>Калькулятор БАДов</h1>
+
 
   <!-- Параметры пользователя -->
   <div class="params">
@@ -189,6 +204,7 @@ try {
 
   <!-- Добавление -->
   <div class="add-row">
+    <label for="q" class="sr-only">Поиск добавки для расчёта</label>
     <input id="q" placeholder="Поиск добавки для добавления…" autocomplete="off">
     <button class="btn primary" id="addBtn">＋ Добавить</button>
   </div>
@@ -210,7 +226,7 @@ try {
     <!-- Результат -->
     <div class="panel result-panel">
       <h2>Результат <span class="count" id="cntResult"></span></h2>
-      <p style="font-size:.78rem;opacity:.65;margin:-.4rem 0 .8rem;line-height:1.4">
+      <p style="font-size:1rem;opacity:.65;margin:-.4rem 0 .8rem;line-height:1.4">
         «Верхний предел» — максимальная суточная доза, безопасная для большинства.
         Превышение не означает отравление, но требует консультации с врачом.
       </p>
@@ -265,6 +281,8 @@ try {
       </div>
     </div>
   </div>
+
+</main>
 
   <footer class="site-footer">
   <p class="disc">
@@ -324,10 +342,18 @@ function esc(s) {
   let PAIRS = {};
 
   Promise.all([
-    fetch('data_index.json?ts=' + Date.now()).then(r => r.json()).then(idx => idx.supplements || idx),
-    fetch('dosage_parsed.json?ts=' + Date.now()).then(r => r.json()).catch(() => ({})),
-    fetch('profiles.json?ts=' + Date.now()).then(r => r.json()).catch(() => ({})),
-    fetch('pairs.json?ts=' + Date.now()).then(r => r.json()).catch(() => ({})),
+    fetch('data_index.json?ts=' + Date.now())
+      .then(r => (r.ok ? r.json() : Promise.reject(new Error('HTTP ' + r.status))))
+      .then(idx => idx.supplements || idx),
+    fetch('dosage_parsed.json?ts=' + Date.now())
+      .then(r => (r.ok ? r.json() : Promise.reject(new Error('HTTP ' + r.status))))
+      .catch(() => ({})),
+    fetch('profiles.json?ts=' + Date.now())
+      .then(r => (r.ok ? r.json() : Promise.reject(new Error('HTTP ' + r.status))))
+      .catch(() => ({})),
+    fetch('pairs.json?ts=' + Date.now())
+      .then(r => (r.ok ? r.json() : Promise.reject(new Error('HTTP ' + r.status))))
+      .catch(() => ({})),
   ]).then(([data, dosage, profiles, pairs]) => {
     DATA = data;
     DOSAGE = dosage;
@@ -508,7 +534,7 @@ function esc(s) {
             <input type="number" data-input="${esc(id)}" min="0" step="any" value="${esc(val)}">
             <span class="unit">${esc(unit)}</span>
           </div>
-          <button class="rm" data-rm="${esc(id)}" title="Удалить">×</button>
+          <button class="rm" data-rm="${esc(id)}" title="Удалить" aria-label="Удалить ${esc(c.id)}">×</button>
         </div>`;
     }).join('');
 
@@ -835,18 +861,22 @@ function esc(s) {
   });
 })();
 </script>
-<button class="toBottom" id="toBottom" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})" title="Вниз">↓</button>
+<button class="toBottom" id="toBottom" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})" title="Вниз" aria-label="Прокрутить страницу вниз">↓</button>
 <script>
 window.addEventListener('scroll', () => {
   const btn = document.getElementById('toBottom');
   if (!btn) return;
+  // Раньше порог был 400px: на коротких страницах (atlas, calculator, glossary,
+  // map) он недостижим и кнопка не появлялась. Проверяем прокручиваемость.
+  const scrollable = document.body.scrollHeight > window.innerHeight + 100;
   const atBottom = window.scrollY + window.innerHeight >= document.body.scrollHeight - 100;
-  if (window.scrollY > 400 && !atBottom) {
+  if (scrollable && window.scrollY > 100 && !atBottom) {
     btn.classList.add('show');
   } else {
     btn.classList.remove('show');
   }
 });
 </script>
+<script src="pwa.js?v=282" defer></script>
 </body>
 </html>

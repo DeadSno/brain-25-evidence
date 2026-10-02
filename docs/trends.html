@@ -2,15 +2,16 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Тренды популярности БАДов 2015-2025 — brain-25-evidence</title>
-<meta name="description" content="10 лет данных: публикации PubMed, просмотры Wikipedia, цитирования ключевых исследований для 94 добавок."/>
+<meta name="description" content="10 лет данных по 94 добавкам: публикации PubMed, просмотры Wikipedia и цитирования исследований. Как менялась доказательная база и где появились новые работы."/>
 <meta property="og:title" content="Тренды БАДов 2015-2025: рост публикаций, Wikipedia, цитаты"/>
 <meta property="og:description" content="NMN ×3.3, COVID-спайк у витамина D, рост научного интереса ×6.7 — интерактивный дашборд."/>
 <meta property="og:type" content="website"/>
 <meta property="og:url" content="https://deadsno.github.io/brain-25-evidence/trends.html"/>
 <meta property="og:image" content="https://deadsno.github.io/brain-25-evidence/og.png"/>
-<meta name="theme-color" content="#1c1c1e"/>
+<meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1c1c1e" media="(prefers-color-scheme: dark)">
 <script>try{if(localStorage.getItem('theme')!=='light'){document.addEventListener('DOMContentLoaded',function(){document.body.classList.add('dark')})}else{document.addEventListener('DOMContentLoaded',function(){document.body.classList.add('light')})}}catch(e){document.addEventListener('DOMContentLoaded',function(){document.body.classList.add('dark')})}</script>
 <script>
 // Тема: ставим .dark на <html> до загрузки CSS — иначе вспышка светлого фона.
@@ -20,20 +21,21 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=382">
+<link rel="stylesheet" href="style.css?v=398">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-<script src="version.js?v=310"></script>
+<script src="version.js?v=311"></script>
 <style>
   body{max-width:1200px;margin:0 auto;padding:1.5rem}
   .filters{display:flex;flex-wrap:wrap;gap:.8rem 1.2rem;margin:1rem 0;padding:.8rem 1rem;
     background:var(--card-bg);border:1px solid var(--border);border-radius:10px}
   .filters label{display:flex;align-items:center;gap:.4rem;font-size:.9rem}
   .filters select{background:var(--card-bg);color:var(--text);border:1px solid var(--border);
-    border-radius:6px;padding:.3rem .5rem;font-size:.9rem}
+    border-radius:6px;padding:.3rem .5rem;font-size:16px}
   .tabs{display:flex;gap:.4rem;margin:1rem 0 .6rem;flex-wrap:wrap}
   .tab{background:var(--card-bg);color:var(--text);border:1px solid var(--border);
     padding:.5rem 1rem;border-radius:8px;cursor:pointer;font-size:.92rem}
-  .tab.on{background:linear-gradient(135deg,#3498db,#2980b9);color:#fff;border:none;font-weight:600}
+  /* v4.1: белый на #3498db давал 3.15:1 — затемнено до 5.42:1 в обеих темах */
+  .tab.on{background:linear-gradient(135deg,#1f6fa5,#175a86);color:#fff;border:none;font-weight:600}
 
   /* Выравнивание кнопок — единый стиль, без special-casing для .calc */
   header.top .actions > a.btn,
@@ -70,17 +72,17 @@ try {
   /* Убираем sticky-шапку — на странице с графиками она мешает */
   header.top{position:static!important;top:auto!important}
   header.top{display:flex;flex-wrap:wrap;gap:.4rem .6rem}
-  header.top h1{flex:1 1 100%;font-size:1.3rem;line-height:1.2;margin:0 0 .4rem;color:var(--text)!important}
-  header.top h1 a{color:var(--text)!important;text-decoration:none!important}
-  body.light header.top h1,
-  body.light header.top h1 a{color:#1c1c1e!important}
-  body.dark header.top h1,
-  body.dark header.top h1 a{color:#f5f5f7!important}
-  header.top h1 a{white-space:normal;overflow:visible}
+  header.top .site-title{flex:1 1 100%;font-size:1.3rem;line-height:1.2;margin:0 0 .4rem;color:var(--text)!important}
+  header.top .site-title a{color:var(--text)!important;text-decoration:none!important}
+  body.light header.top .site-title,
+  body.light header.top .site-title a{color:#1c1c1e!important}
+  body.dark header.top .site-title,
+  body.dark header.top .site-title a{color:#f5f5f7!important}
+  header.top .site-title a{white-space:normal;overflow:visible}
   header.top .actions{flex:1 1 100%;display:flex;flex-wrap:wrap;gap:.4rem;justify-content:flex-end}
   @media(max-width:640px){
-    header.top h1{font-size:1.05rem}
-    header.top h1 .v{display:none}
+    header.top .site-title{font-size:1.05rem}
+    header.top .site-title .v{display:none}
   }
 /* ===== Executive Summary ===== */
 .executive-summary{margin:1.5rem 0}
@@ -99,8 +101,8 @@ try {
 .insight-card[data-tone="red"]{border-left:3px solid #ef4444}
 .insight-card[data-tone="orange"]{border-left:3px solid #f59e0b}
 .insight-icon{font-size:1.6rem;line-height:1;flex-shrink:0}
-.insight-title{font-weight:600;margin-bottom:.25rem;font-size:.95rem}
-.insight-text{font-size:.85rem;opacity:.85;line-height:1.45}
+.insight-title{font-weight:600;margin-bottom:.25rem;font-size:1rem}
+.insight-text{font-size:1rem;opacity:.85;line-height:1.45}
 
 /* ===== Scatter Matrix ===== */
 .scatter-section{margin:2rem 0}
@@ -147,10 +149,13 @@ try {
   padding:.2rem 0;
 }
 .cat-label{opacity:.65}
+/* v4.3: #f59e0b на белой карточке давал 2.15:1. Базовое правило — тёмный
+   вариант (5.02:1), в тёмной теме возвращаем исходный (6.49:1 на --card-bg). */
 .cat-warn{
-  margin-top:.55rem;font-size:.8rem;color:#f59e0b;
+  margin-top:.55rem;font-size:.8rem;color:#b45309;
   border-top:1px solid var(--border);padding-top:.55rem;
 }
+body.dark .cat-warn{color:#f59e0b}
 
 /* ===== Methodology ===== */
 .methodology{
@@ -170,11 +175,12 @@ try {
 </style>
 </head>
 <body>
+<a href="#main" class="skip-link">Перейти к содержимому</a>
 
 <div class="trustbar">📊 Открытые данные · Бесплатно · Без рекламы</div>
 
 <header class="top">
-  <h1><a href="index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a> <span class="v">v<span data-version="app"></span></span></h1>
+  <div class="site-title"><a href="index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a> <span class="v">v<span data-version="app"></span></span></div>
   <div class="actions">
     <a class="btn c-home" href="index.html">🏠 Главная</a>
     <a class="btn c-calc" href="calculator.html">🧮 Калькулятор</a>
@@ -188,6 +194,10 @@ try {
     <button class="btn" id="themeBtn">🌞 Светлая тема</button>
   </div>
 </header>
+
+<main id="main">
+  <h1>Тренды популярности</h1>
+
 
 <p class="hint" style="opacity:.75;margin:.4rem 0 0">
   10 лет данных о 130 добавках: публикации в PubMed, просмотры ru.wikipedia, цитирования ключевых исследований.
@@ -242,7 +252,7 @@ try {
   <label>Категория:
     <select id="categoryFilter"><option value="all">Все</option></select>
   </label>
-  <label>Грейд:
+  <label><abbr title="Грейд A-D — шкала доказательности (см. glossary.html)">Грейд</abbr>:
     <select id="gradeFilter">
       <option value="all">Все</option>
       <option value="A">A</option>
@@ -273,6 +283,8 @@ try {
 </div>
 <p class="chart-note" id="chartNote"></p>
 
+</main>
+
 <footer class="site-footer">
   <p class="disc">
     <b>⚠️ Не медицинская рекомендация.</b>
@@ -292,12 +304,13 @@ try {
     <a href="glossary.html">📖 Глоссарий</a>
   </p>
   <p class="copy">© 2026 Vladislav "DeadSno" Pereshivalov · MIT</p>
+  <p class="share-row"><button class="btn share-page" type="button">🔗 Поделиться</button></p>
 </footer>
 
 <!-- Модалка -->
 <div id="modalOverlay" style="display:none">
   <div id="modal">
-    <button id="modalClose" class="btn">×</button>
+    <button id="modalClose" class="btn" aria-label="Закрыть окно">×</button>
     <div id="modalBody"></div>
   </div>
 </div>
@@ -952,9 +965,14 @@ growth_wiki = avg(wiki[id][последние 6 мес]) / avg(wiki[id][перв
 
   async function init() {
     const [ts, idx] = await Promise.all([
-      fetch('timeseries.json?v=' + Date.now()).then(r => r.json()),
-      fetch('data_index.json?v=' + Date.now()).then(r => r.json()),
-    ]);
+      fetch('timeseries.json?v=' + Date.now())
+        .then(r => (r.ok ? r.json() : Promise.reject(new Error('HTTP ' + r.status)))),
+      fetch('data_index.json?v=' + Date.now())
+        .then(r => (r.ok ? r.json() : Promise.reject(new Error('HTTP ' + r.status)))),
+    ]).catch(function (err) {
+      // Без этого необработанный промис молча ломал рендер страницы
+      console.warn('Тренды: данные не загрузились —', err);
+    });
     TS_ = ts;
     SUPP_ = idx.supplements || [];
 
@@ -974,18 +992,23 @@ growth_wiki = avg(wiki[id][последние 6 мес]) / avg(wiki[id][перв
   }
 })();
 </script>
-<button class="toBottom" id="toBottom" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})" title="Вниз">↓</button>
+<button class="toBottom" id="toBottom" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})" title="Вниз" aria-label="Прокрутить страницу вниз">↓</button>
 <script>
 window.addEventListener('scroll', () => {
   const btn = document.getElementById('toBottom');
   if (!btn) return;
+  // Раньше порог был 400px: на коротких страницах (atlas, calculator, glossary,
+  // map) он недостижим и кнопка не появлялась. Проверяем прокручиваемость.
+  const scrollable = document.body.scrollHeight > window.innerHeight + 100;
   const atBottom = window.scrollY + window.innerHeight >= document.body.scrollHeight - 100;
-  if (window.scrollY > 400 && !atBottom) {
+  if (scrollable && window.scrollY > 100 && !atBottom) {
     btn.classList.add('show');
   } else {
     btn.classList.remove('show');
   }
 });
 </script>
+<script src="pwa.js?v=282" defer></script>
+<script src="share.js?v=1" defer></script>
 </body>
 </html>
