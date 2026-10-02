@@ -26,314 +26,79 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=399"/>
+<link rel="stylesheet" href="style.css?v=400"/>
 <script src="https://unpkg.com/vis-network@9.1.9/standalone/umd/vis-network.min.js"></script>
 <style>
-:root {
-  --bg: #f5f5f7;
-  --fg: #1c1c1e;
-  --card-bg: #fff;
-  --border: #d1d1d6;
-  --muted: #6e6e73;
-  --accent: #0062cc;
-  --apanel: var(--card-bg);
-  --aborder: var(--border);
-  --atext: var(--fg);
-}
-html.dark, body.dark {
-  --bg: #1c1c1e;
-  --fg: #f5f5f7;
-  --card-bg: #2c2c2e;
-  --border: #3a3a3c;
-  --muted: #9a9aa0;
-  --accent: #0a84ff;
-  --apanel: var(--card-bg);
-  --aborder: var(--border);
-  --atext: var(--fg);
-}
-* { box-sizing: border-box; }
-body {
-  margin: 0; padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  background: var(--bg); color: var(--fg);
-  transition: background .2s, color .2s;
-}
-header {
-  padding: 0;
-  border-bottom: none;
-  display: flex; align-items: center; gap: 1rem;
-  flex-wrap: wrap;
-}
-header .site-title { margin: 0; font-size: 1.35rem; }
-header .actions { margin-left: auto; display: flex; gap: .5rem; }
-.btn {
-  padding: .4rem .8rem; border: 1px solid var(--border);
-  background: var(--card-bg); color: var(--fg);
-  border-radius: 8px; cursor: pointer; font-size: .9rem;
-  text-decoration: none;
-}
-.btn:hover { border-color: var(--accent); }
-.tabs {
-  padding: 1rem 1.5rem .5rem;
-  display: flex; gap: .5rem; align-items: center;
-  flex-wrap: wrap;
-}
-.tab {
-  padding: .5rem 1rem; border: 1px solid var(--border);
-  background: var(--card-bg); color: var(--fg);
-  border-radius: 10px; cursor: pointer; font-size: .9rem;
-  font-weight: 500;
-}
-/* v4.1: белый на var(--accent) давал 5.80:1 в светлой и 3.82:1 в тёмной.
-   Заливка фиксированная, поэтому одно правило корректно в обеих темах. */
-.tab.active {
-  background: #1f5fbf; color: #fff; border-color: #1f5fbf;
-}
-.tabs .spacer { flex: 1; }
-#search {
-  padding: .4rem .8rem; border: 1px solid var(--border);
-  background: var(--card-bg); color: var(--fg);
-  border-radius: 8px; font-size: 16px; min-width: 200px;
-}
-.legend {
-  padding: .5rem 1.5rem;
-  display: flex; gap: 1rem; flex-wrap: wrap;
-  font-size: .8rem; color: var(--muted);
-}
-.legend span::before {
-  content: ''; display: inline-block;
-  width: 10px; height: 10px; border-radius: 50%;
-  margin-right: .35rem; vertical-align: middle;
-}
-.legend .syn::before  { background: #4caf50; }
-.legend .ant::before  { background: #e53935; }
-.legend .int::before  { background: #ff9800; }
-.legend .sup::before  { background: #3d7eff; }
-.legend .drug::before { background: #9e9e9e; }
-.layout {
-  display: flex;
-  height: calc(100vh - 200px); min-height: 600px;
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-}
-#graph {
-  flex: 1; min-width: 0;
-  background: var(--card-bg);
-}
-
-/* Сайдбар справа */
-#sidebar {
-  width: 360px; flex-shrink: 0;
-  background: var(--card-bg);
-  border-left: 1px solid var(--border);
-  overflow-y: auto;
-  padding: 1rem 1.2rem;
-  display: none;
-}
-#sidebar.open { display: block; }
-#sidebar h2 {
-  margin: 0 0 .3rem; font-size: 1.15rem;
-  padding-right: 2rem;
-}
-.sb-head { position: relative; }
-.sb-close {
-  position: absolute; right: -.4rem; top: -.4rem;
-  background: transparent; border: none; color: var(--muted);
-  font-size: 1.4rem; cursor: pointer; padding: .2rem .5rem;
-  border-radius: 6px;
-}
-.sb-close:hover { background: rgba(127,127,127,.15); color: var(--fg); }
-.sb-meta {
-  display: flex; gap: .5rem; align-items: center;
-  margin-bottom: 1rem; font-size: .85rem; color: var(--muted);
-  flex-wrap: wrap;
-}
-.sb-section { margin: 1rem 0; }
-.sb-section h3 {
-  margin: 0 0 .5rem; font-size: .85rem;
-  text-transform: uppercase; letter-spacing: .05em;
-  color: var(--muted); font-weight: 600;
-}
-.sb-links { list-style: none; padding: 0; margin: 0; }
-.sb-links li {
-  padding: .5rem 0;
-  border-bottom: 1px solid var(--border);
-}
-.sb-links li:last-child { border-bottom: none; }
-.sb-links a {
-  color: var(--accent); text-decoration: none;
-  font-weight: 500; cursor: pointer;
-}
-.sb-links a:hover { text-decoration: underline; }
-.sb-sev {
-  display: inline-block; font-size: .7rem;
-  padding: 1px 6px; border-radius: 6px; margin-left: .4rem;
-  background: rgba(127,127,127,.15); color: inherit; opacity: .8;
-}
-.sb-sev.medium { background: rgba(255,112,67,.2); color: #ff7043; opacity: 1; }
-.sb-sev.high { background: rgba(229,57,53,.2); color: #e53935; opacity: 1; }
-.sb-sev.critical { background: rgba(183,28,28,.3); color: #ff5252; opacity: 1; }
-.sb-note {
-  font-size: .8rem; color: var(--muted);
-  margin-top: .2rem; line-height: 1.4;
-}
-.sb-cta {
-  display: block; margin-top: 1.2rem;
-  padding: .6rem 1rem; text-align: center;
-  /* v4.1: var(--accent) давал белым 3.65:1 в тёмной теме — фиксированная
-     заливка #0a6bc9 даёт 5.30:1 в обеих (как у .f-btn) */
-  background: #0a6bc9; color: #fff;
-  border-radius: 8px; text-decoration: none;
-  font-weight: 500;
-}
-.sb-cta:hover { opacity: .9; }
-
-/* Severity filter */
-.severityFilter {
-  display: none; align-items: center; gap: .8rem;
-  padding: .3rem 1.5rem; font-size: .8rem; color: var(--muted);
-}
-.severityFilter.visible { display: flex; }
-.severityFilter label {
-  display: flex; align-items: center; gap: .3rem;
-  cursor: pointer;
-}
-.severityFilter input { cursor: pointer; }
-footer {
-  padding: 1rem 1.5rem;
-  font-size: .8rem; color: var(--muted);
-}
-footer a { color: var(--accent); }
-#hint {
-  padding: .5rem 1.5rem; font-size: .85rem; color: var(--muted);
-}
-
-/* Перебиваем body{max-width:1200px} из style.css — для fullwidth-графов. 
-     Потолок снимается обоснованно: здесь действительно живёт vis-network,
-     и #graph/canvas должны занимать всю ширину.
-
-     Но следствие: на 2560 растягивается и текст. Замер до правки —
-     h1, .tabs, .legend, #hint по 2497px, то есть строка заголовка шла через полвексной монитор.
-
-     Поэтому ограничиваем ТОЛЬКО текстовые блоки, а .layout и канвас не трогаем. Тот же приём, что на atlas.html;
-     1200px — общий потолок из style.css. */
-  body { max-width: none !important; margin: 0 !important; }
-  main h1, .tabs, .legend, #hint { max-width: 1200px; margin-left: auto; margin-right: auto; }
-
-/* Единая шапка для всех страниц */
-.trustbar{
-  text-align:center;padding:.5rem 1rem;margin:0 0 1rem;
-  background:var(--apanel);border:1px solid var(--aborder);
-  border-radius:8px;font-size:.85rem;opacity:.85;
-}
-.btn{
-  padding:.45rem .8rem;border:1px solid var(--aborder);border-radius:8px;
-  background:var(--apanel);color:var(--atext);cursor:pointer;
-  font-size:.85rem;text-decoration:none;line-height:1.2;
-}
-.btn.calc {
-  background: linear-gradient(135deg, #1f6fa5, #175a86) !important;
-  color: #fff !important;
-  border: none !important;
-  font-weight: 600;
-  box-shadow: 0 2px 8px rgba(31,111,165,.35);
-}
-.btn.calc:hover {
-  opacity: .92;
-  box-shadow: 0 2px 12px rgba(31,111,165,.5);
-}
-.btn:hover{border-color:#888}
-body { padding: 1.5rem 1.5rem 0 !important; margin: 0 !important; }
-  /* ── Mobile (≤640px) ─────────────────────────────────────── */
-  @media (max-width: 640px) {
-    body { padding: 0.6rem !important; }
-    .wrap { padding: 0.6rem !important; }
-    .trustbar { font-size: .75rem; padding: .35rem .5rem; margin: 0 0 .6rem; }
-    .top { flex-direction: column; align-items: stretch; gap: .5rem; margin: 0 0 .6rem; }
-    .top .site-title { font-size: 1.05rem; line-height: 1.25; }
-    .top .site-title a { display: inline-block; }
-    .top .v { font-size: .7rem; }
-    .actions { gap: .35rem; }
-    .btn { padding: .4rem .6rem; font-size: .78rem; }
-    footer { font-size: .78rem !important; }
-  }
-  @media (max-width: 640px) {
-    /* Сайдбар — full-screen overlay снизу */
-    #sidebar {
-      width: 100% !important;
-      position: fixed;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      top: auto;
-      max-height: 70vh;
-      border-left: none;
-      border-top: 1px solid var(--aborder);
-      border-radius: 12px 12px 0 0;
-      z-index: 100;
-      box-shadow: 0 -8px 32px rgba(0,0,0,.4);
-      transform: translateY(0);
-      transition: transform .2s ease, max-height .2s ease;
+    :root { --bg: #f5f5f7; --fg: #1c1c1e; --card-bg: #fff; --border: #d1d1d6; --muted: #6e6e73; --accent: #0062cc; --apanel: var(--card-bg); --aborder: var(--border); --atext: var(--fg); }
+    html.dark, body.dark { --bg: #1c1c1e; --fg: #f5f5f7; --card-bg: #2c2c2e; --border: #3a3a3c; --muted: #9a9aa0; --accent: #0a84ff; --apanel: var(--card-bg); --aborder: var(--border); --atext: var(--fg); }
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--fg); transition: background .2s, color .2s; }
+    header { padding: 0; border-bottom: none; display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    header .site-title { margin: 0; font-size: 1.35rem; }
+    header .actions { margin-left: auto; display: flex; gap: .5rem; }
+    .btn { padding: .4rem .8rem; border: 1px solid var(--border); background: var(--card-bg); color: var(--fg); border-radius: 8px; cursor: pointer; font-size: .9rem; text-decoration: none; }
+    .btn:hover { border-color: var(--accent); }
+    .tabs { padding: 1rem 1.5rem .5rem; display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; }
+    .tab { padding: .5rem 1rem; border: 1px solid var(--border); background: var(--card-bg); color: var(--fg); border-radius: 10px; cursor: pointer; font-size: .9rem; font-weight: 500; }
+    .tab.active { background: #1f5fbf; color: #fff; border-color: #1f5fbf; }
+    .tabs .spacer { flex: 1; }
+    #search { padding: .4rem .8rem; border: 1px solid var(--border); background: var(--card-bg); color: var(--fg); border-radius: 8px; font-size: 16px; min-width: 200px; }
+    .legend .sup::before { background: #3d7eff; }
+    .layout { display: flex; height: calc(100vh - 200px); min-height: 600px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    #graph { flex: 1; min-width: 0; background: var(--card-bg); }
+    #sidebar { width: 360px; flex-shrink: 0; background: var(--card-bg); border-left: 1px solid var(--border); overflow-y: auto; padding: 1rem 1.2rem; display: none; }
+    #sidebar.open { display: block; }
+    #sidebar h2 { margin: 0 0 .3rem; font-size: 1.15rem; padding-right: 2rem; }
+    footer { padding: 1rem 1.5rem; font-size: .8rem; color: var(--muted); }
+    footer a { color: var(--accent); }
+    #hint { padding: .5rem 1.5rem; font-size: .85rem; color: var(--muted); }
+    body { max-width: none !important; margin: 0 !important; }
+    main h1, .tabs, .legend, #hint { max-width: 1200px; margin-left: auto; margin-right: auto; }
+    .trustbar { text-align:center;padding:.5rem 1rem;margin:0 0 1rem; background:var(--apanel);border:1px solid var(--aborder); border-radius:8px;font-size:.85rem;opacity:.85; }
+    .btn { padding:.45rem .8rem;border:1px solid var(--aborder);border-radius:8px; background:var(--apanel);color:var(--atext);cursor:pointer; font-size:.85rem;text-decoration:none;line-height:1.2; }
+    .btn.calc { background: linear-gradient(135deg, #1f6fa5, #175a86) !important; color: #fff !important; border: none !important; font-weight: 600; box-shadow: 0 2px 8px rgba(31,111,165,.35); }
+    .btn.calc:hover { opacity: .92; box-shadow: 0 2px 12px rgba(31,111,165,.5); }
+    .btn:hover { border-color:#888 }
+    body { padding: 1.5rem 1.5rem 0 !important; margin: 0 !important; }
+    @media (max-width: 640px) {
+      body { padding: 0.6rem !important; }
+      .wrap { padding: 0.6rem !important; }
+      .trustbar { font-size: .75rem; padding: .35rem .5rem; margin: 0 0 .6rem; }
+      .top { flex-direction: column; align-items: stretch; gap: .5rem; margin: 0 0 .6rem; }
+      .top .site-title { font-size: 1.05rem; line-height: 1.25; }
+      .top .site-title a { display: inline-block; }
+      .top .v { font-size: .7rem; }
+      .actions { gap: .35rem; }
+      .btn { padding: .4rem .6rem; font-size: .78rem; }
+      footer { font-size: .78rem !important; }
     }
-    #sidebar::before {
-      content: '';
-      display: block;
-      width: 36px;
-      height: 4px;
-      background: rgba(127,127,127,.5);
-      border-radius: 2px;
-      margin: .3rem auto .6rem;
-      cursor: grab;
+    @media (max-width: 640px) {
+      #sidebar { width: 100% !important; position: fixed; left: 0; right: 0; bottom: 0; top: auto; max-height: 70vh; border-left: none; border-top: 1px solid var(--aborder); border-radius: 12px 12px 0 0; z-index: 100; box-shadow: 0 -8px 32px rgba(0,0,0,.4); transform: translateY(0); transition: transform .2s ease, max-height .2s ease; }
+      #sidebar::before { content: ''; display: block; width: 36px; height: 4px; background: rgba(127,127,127,.5); border-radius: 2px; margin: .3rem auto .6rem; cursor: grab; }
+      #sidebar.sheet-full { max-height: 85vh !important; }
+      .layout { min-height: 60vh; width: 100% !important; }
+      #graph { min-height: 60vh; width: 100% !important; }
+      .layout { display: block !important; height: auto !important; }
+      #graph { width: 100% !important; height: 60vh !important; min-height: 400px !important; }
+      .chartTabs { flex-wrap: wrap; }
+      #q, #search { width: 100% !important; }
+      .legend, [class*="legend"] { flex-wrap: wrap; font-size: .75rem; }
+      .vis-tooltip { max-width: 200px !important; font-size: .75rem !important; padding: .35rem .5rem !important; }
+      #graph { margin-bottom: 0 !important; }
+      footer { margin-top: .5rem !important; padding-top: .5rem !important; }
     }
-    #sidebar.sheet-full { max-height: 85vh !important; }
-    /* Граф растягиваем */
-    .layout { min-height: 60vh; width: 100% !important; }
-    #graph { min-height: 60vh; width: 100% !important; }
-    .layout {
-      display: block !important;
-      height: auto !important;
+    button, .btn, .chip, a, .chartTab, [role="button"] { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+    button, .btn, .chip, .chartTab { user-select: none; -webkit-user-select: none; }
+    body { -webkit-font-smoothing: antialiased; overscroll-behavior-y: none; }
+    @supports (padding: env(safe-area-inset-bottom)) {
+      body { padding-bottom: env(safe-area-inset-bottom); }
+      #sidebar { padding-bottom: calc(1rem + env(safe-area-inset-bottom)); }
     }
-    #graph {
-      width: 100% !important;
-      height: 60vh !important;
-      min-height: 400px !important;
+    #graph, #chainbox canvas, .vis-network { touch-action: pan-y; }
+    @media (max-width: 640px) {
+      #graph, .vis-network { touch-action: none; }
     }
-    /* Табы и легенда — компактнее */
-    .chartTabs { flex-wrap: wrap; }
-    .severityFilter { flex-wrap: wrap; }
-    /* Поиск на всю ширину */
-    #q, #search { width: 100% !important; }
-    /* Легенда — в одну строку с обёрткой */
-    .legend, [class*="legend"] { flex-wrap: wrap; font-size: .75rem; }
-    /* Тултип — меньше, не по центру */
-    .vis-tooltip {
-      max-width: 200px !important;
-      font-size: .75rem !important;
-      padding: .35rem .5rem !important;
-    }
-    /* Убрать пустоту после графа */
-    #graph { margin-bottom: 0 !important; }
-    footer { margin-top: .5rem !important; padding-top: .5rem !important; }
-  }
-  /* ── Touch UX ──────────────────────────────────────── */
-  button, .btn, .chip, a, .chartTab, [role="button"] {
-    touch-action: manipulation;
-    -webkit-tap-highlight-color: transparent;
-  }
-  button, .btn, .chip, .chartTab { user-select: none; -webkit-user-select: none; }
-  body { -webkit-font-smoothing: antialiased; overscroll-behavior-y: none; }
-  /* Safe area (iPhone с вырезом) */
-  @supports (padding: env(safe-area-inset-bottom)) {
-    body { padding-bottom: env(safe-area-inset-bottom); }
-    #sidebar { padding-bottom: calc(1rem + env(safe-area-inset-bottom)); }
-  }
-  #graph, #chainbox canvas, .vis-network {
-    touch-action: pan-y;   /* скролл страницы вертикально; граф — только внутри */
-  }
-  @media (max-width: 640px) {
-    #graph, .vis-network { touch-action: none; }   /* граф сам ловит жесты */
-  }
-</style>
+  </style>
 </head>
 <body>
 <a href="#main" class="skip-link">Перейти к содержимому</a>

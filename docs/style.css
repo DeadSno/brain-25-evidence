@@ -1065,3 +1065,43 @@ main h1 { font-size: 1.35rem !important; font-weight: 700 !important;
   .sup-wrap { margin: 20px auto; }
   .sup-header h2 { font-size: 1.25rem; }
 }
+
+/* ===== interactions.html — вынесено из локального <style>
+   Только правила, уникальные для страницы: сайдбар графа (.sb-*),
+   легенда (.legend*) и фильтр тяжести (.severityFilter*), с сохранением
+   их @media-контекста.
+   Локальными остались: :root/--fg (это цвета, отдельный шаг), body,
+   header, footer, .btn, .tab(s), #search, #hint, .trustbar, .top,
+   а также vis-network (#graph, #sidebar, .layout, .vis-tooltip) —
+   эти селекторы заняты другими страницами. */
+.legend { padding: .5rem 1.5rem; display: flex; gap: 1rem; flex-wrap: wrap; font-size: .8rem; color: var(--muted); }
+.legend span::before { content: ''; display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: .35rem; vertical-align: middle; }
+.legend .syn::before { background: #4caf50; }
+.legend .ant::before { background: #e53935; }
+.legend .int::before { background: #ff9800; }
+.legend .drug::before { background: #9e9e9e; }
+.sb-head { position: relative; }
+.sb-close { position: absolute; right: -.4rem; top: -.4rem; background: transparent; border: none; color: var(--muted); font-size: 1.4rem; cursor: pointer; padding: .2rem .5rem; border-radius: 6px; }
+.sb-close:hover { background: rgba(127,127,127,.15); color: var(--fg); }
+.sb-meta { display: flex; gap: .5rem; align-items: center; margin-bottom: 1rem; font-size: .85rem; color: var(--muted); flex-wrap: wrap; }
+.sb-section { margin: 1rem 0; }
+.sb-section h3 { margin: 0 0 .5rem; font-size: .85rem; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); font-weight: 600; }
+.sb-links { list-style: none; padding: 0; margin: 0; }
+.sb-links li { padding: .5rem 0; border-bottom: 1px solid var(--border); }
+.sb-links li:last-child { border-bottom: none; }
+.sb-links a { color: var(--accent); text-decoration: none; font-weight: 500; cursor: pointer; }
+.sb-links a:hover { text-decoration: underline; }
+.sb-sev { display: inline-block; font-size: .7rem; padding: 1px 6px; border-radius: 6px; margin-left: .4rem; background: rgba(127,127,127,.15); color: inherit; opacity: .8; }
+.sb-sev.medium { background: rgba(255,112,67,.2); color: #ff7043; opacity: 1; }
+.sb-sev.high { background: rgba(229,57,53,.2); color: #e53935; opacity: 1; }
+.sb-sev.critical { background: rgba(183,28,28,.3); color: #ff5252; opacity: 1; }
+.sb-note { font-size: .8rem; color: var(--muted); margin-top: .2rem; line-height: 1.4; }
+.sb-cta { display: block; margin-top: 1.2rem; padding: .6rem 1rem; text-align: center; background: #0a6bc9; color: #fff; border-radius: 8px; text-decoration: none; font-weight: 500; }
+.sb-cta:hover { opacity: .9; }
+.severityFilter { display: none; align-items: center; gap: .8rem; padding: .3rem 1.5rem; font-size: .8rem; color: var(--muted); }
+.severityFilter.visible { display: flex; }
+.severityFilter label { display: flex; align-items: center; gap: .3rem; cursor: pointer; }
+.severityFilter input { cursor: pointer; }
+@media (max-width: 640px) {
+  .severityFilter { flex-wrap: wrap; }
+}
