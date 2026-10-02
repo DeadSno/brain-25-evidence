@@ -27,7 +27,7 @@ self.addEventListener('activate', event => {
    cache.match идёт ПЕРВЫМ. ignoreSearch остался только офлайн-страховкой
    (cacheFirstForStatic, ветка catch) — там он нужен, потому что precache
    кладёт './style.css' без версии, а страницы просят 'style.css?v=NNN'. */
-var CACHE_VERSION = 'v56';
+var CACHE_VERSION = 'v57';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
@@ -73,8 +73,8 @@ var STATIC_ASSETS = [
   './sup/paba.html',
   './sup/vitamin-d.html',
   './icons/192.png',
-  './icons/512.png'
-];
+  './icons/512.png',
+  './share.js?v=1'];
 
 function notifyOffline() {
   self.clients.matchAll().then(function (clients) {
