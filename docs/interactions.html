@@ -208,8 +208,17 @@ footer a { color: var(--accent); }
   padding: .5rem 1.5rem; font-size: .85rem; color: var(--muted);
 }
 
-/* Перебиваем body{max-width:1200px} из style.css — для fullwidth-графов */
-body { max-width: none !important; margin: 0 !important; }
+/* Перебиваем body{max-width:1200px} из style.css — для fullwidth-графов. 
+     Потолок снимается обоснованно: здесь действительно живёт vis-network,
+     и #graph/canvas должны занимать всю ширину.
+
+     Но следствие: на 2560 растягивается и текст. Замер до правки —
+     h1, .tabs, .legend, #hint по 2497px, то есть строка заголовка шла через полвексной монитор.
+
+     Поэтому ограничиваем ТОЛЬКО текстовые блоки, а .layout и канвас не трогаем. Тот же приём, что на atlas.html;
+     1200px — общий потолок из style.css. */
+  body { max-width: none !important; margin: 0 !important; }
+  main h1, .tabs, .legend, #hint { max-width: 1200px; margin-left: auto; margin-right: auto; }
 
 /* Единая шапка для всех страниц */
 .trustbar{
