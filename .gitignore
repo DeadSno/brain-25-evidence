@@ -264,3 +264,7 @@ data/papers/papers_slim.json
 logs/
 *.log
 
+
+# Cyberaudit skill (устанавливается локально)
+.opencode/skills/cyberaudit/
+
