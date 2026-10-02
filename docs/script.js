@@ -192,10 +192,18 @@ Promise.allSettled([fetchJson('data_index.json'), fetchJson('effect_tags.json'),
   .catch((err) => {
     console.error('[boot] фатально:', err);
     // Страницу не стираем: шапка, футер и навигация остаются на месте
-    const msg = '<div style="padding:40px;text-align:center;color:var(--muted)">⚠ Не удалось загрузить данные. Попробуйте обновить страницу.</div>';
+    // Раньше текст звал «обновите страницу», но кнопки рядом не было —
+    // единственный «Обновить» находился в шапке. Теперь она рядом (P1-6).
+    const msg = '<div style="padding:40px;text-align:center;color:var(--muted)">' +
+                '⚠ Не удалось загрузить данные.<br>' +
+                '<button id="dataRetry" class="btn" style="margin-top:12px">🔄 Обновить</button></div>';
     const grid = $('cardsGrid');
     if (grid) grid.innerHTML = msg;
     else document.body.insertAdjacentHTML('afterbegin', msg);
+    // Кнопка рядом с сообщением: полная перезагрузка — единственный способ
+    // перезапустить цепочку загрузки, initApp повторно не подходит.
+    const retry = $('dataRetry');
+    if (retry) retry.onclick = () => location.reload();
   });
 
 function initApp() {
@@ -625,7 +633,8 @@ async function openModal(id) {
     shareRow(s) +
     compareBlock(s) +
     '<div class="mrow warn">⚠️ ' + (s.caution || '—') + '</div>' +
-    '<div class="mrow"><button class="copyLink" data-copy="' + location.origin + location.pathname + '#sup=' + encodeURIComponent(s.id) + '">🔗 Скопировать ссылку на карточку</button>' +
+    // Кнопку копирования ссылки здесь убрали как дубль: выше, в shareRow(),
+    // уже есть «🔗 копировать» с тем же действием (docs/script.js, P1-3).
     ' <a class="favFilter" target="_blank" rel="noopener" href="' + issueUrl(s, '') + '">❌ Нашли неточность? Сообщить</a></div>' +
     '<div class="blockTitle">🧩 Полная карточка добавки</div>' + renderCardBlocks(s);
   history.replaceState(null, '', '#sup=' + encodeURIComponent(s.id));

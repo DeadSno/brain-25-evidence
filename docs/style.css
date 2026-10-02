@@ -555,7 +555,7 @@ body.dark .chip a:visited { color: #5dade2; }
   /* Шапка: H1 на всю ширину (перенос), actions под ним */
   /* Шапка: block layout — H1 сверху, actions снизу. Надёжнее flex-wrap */
   header.top,header.hdr{display:block!important}
-  header.top>h1,header.hdr>h1{font-size:1.05rem!important;line-height:1.2!important;margin:0 0 .5rem!important;white-space:normal!important;overflow:visible!important}
+  header.top>h1,header.hdr>h1{font-size:1.3rem!important;line-height:1.2!important;margin:0 0 .5rem!important;white-space:normal!important;overflow:visible!important}
   header.top>h1>a,header.hdr>h1>a{white-space:normal!important;display:inline!important}
   header.top .actions,header.hdr .actions{display:flex!important;flex-wrap:wrap!important;gap:.4rem!important;justify-content:flex-end!important}
   h1 .v,h1>span[style*="opacity"]{display:none!important}
@@ -788,7 +788,7 @@ html.dark .chartTab.on, body.dark .chartTab.on {
   }
   header.top > h1 {
     grid-area: title !important;
-    font-size: 1.05rem !important;
+    font-size: 1.3rem !important;
     line-height: 1.25 !important;
     margin: 0 !important;
     white-space: normal !important;
