@@ -166,8 +166,15 @@ try {
 }
 #details .cta:hover { opacity: .9; }
 
-  /* Перебиваем body{max-width:1200px} из style.css — для fullwidth-графов */
-  body { max-width: none !important; margin: 0 !important; }
+  /* body{max-width:1200px} из style.css здесь НЕ снимается — в отличие от
+     atlas.html и interactions.html, где это оправдано: там реально есть
+     vis-network и ему нужна полная ширина.
+
+     На map.html канвасов нет вообще (0 <canvas>, ни vis-network, ни chart.js),
+     так что «fullwidth-графы» здесь нечего растягивать. Без снятия ограничения
+     на 2560 экране .wrap достигал 2497px, .cols — 2449px (колонки 340 + 2090),
+     а самые широкие текстовые блоки — заголовки 2034px: текст распадался на
+     полвексной монитор. Здесь body остаётся с общим потолком 1200px. */
   /* Единая шапка для всех страниц */
   
   .top{
