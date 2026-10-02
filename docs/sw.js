@@ -23,11 +23,16 @@ self.addEventListener('activate', event => {
    v51: version.js считает адрес version.json от URL скрипта, а не от
         документа — на sup/*.html больше не 404 (было 5 страниц).
 
+   v63: 33 правила sup/* вынесены из локальных <style> пяти страниц
+        в style.css. Селекторы .verdict/.tag/.grade-badge ограничены
+        .sup-wrap, чтобы не задеть trends/map/calculator.
+
    С v50 query-версия в <link href="style.css?v=NNN"> bust-ит кэш: точный
    cache.match идёт ПЕРВЫМ. ignoreSearch остался только офлайн-страховкой
    (cacheFirstForStatic, ветка catch) — там он нужен, потому что precache
    кладёт './style.css' без версии, а страницы просят 'style.css?v=NNN'. */
-var CACHE_VERSION = 'v62';
+
+var CACHE_VERSION = 'v63';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
