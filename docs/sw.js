@@ -32,7 +32,7 @@ self.addEventListener('activate', event => {
    (cacheFirstForStatic, ветка catch) — там он нужен, потому что precache
    кладёт './style.css' без версии, а страницы просят 'style.css?v=NNN'. */
 
-var CACHE_VERSION = 'v63';
+var CACHE_VERSION = 'v64';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
@@ -203,7 +203,12 @@ async function cacheFirstForStatic(req) {
 
     /* Подресурс (CSS/JS/JSON/иконка). Response.error() даёт настоящую сетевую
        ошибку, а не 200 с чужим телом: так срабатывают обработчики страницы
-       (например, catch в script.js покажет «не загрузились данные»). */
+       (например, catch в script.js покажет «не загрузились данные»). 
+   v64: 29 правил interactions.html вынесены в style.css (.sb-*,
+        .legend*, .severityFilter*) с сохранением @media-контекста.
+        Локальными остались :root/--fg, body/header/footer, .btn/.tab,
+        vis-network - эти селекторы заняты другими страницами.
+*/
     return Response.error();
   }
 }
