@@ -282,13 +282,13 @@ position:sticky;top:0;z-index:1000;animation:fadeIn .25s}
 /* ===== v2.3: раздел «3 вопроса» ===== */
 #qaSection .qa{margin:.6rem 0 1rem}
 #qaSection .qa h3{font-size:1.02rem;margin-bottom:.25rem}
-#qaSection .qa p{font-size:.95rem;opacity:.88;max-width:72ch}
+#qaSection .qa p{font-size:1rem;opacity:.88;max-width:72ch}
 
 /* ===== F5.1: три карточки в одну строку ===== */
 .qaGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:.4rem}
 .qaGrid .qa{margin:0;padding:.9rem 1rem;background:var(--bg);border:1px solid var(--border);border-radius:10px}
 .qaGrid .qa h3{font-size:1rem;margin-bottom:.4rem}
-.qaGrid .qa p{font-size:.9rem;opacity:.85;max-width:60ch}
+.qaGrid .qa p{font-size:1rem;opacity:.85;max-width:60ch}
 .qaGrid .qaMore{display:inline-block;margin-top:.5rem;font-size:.82rem;font-weight:600}
 
 /* ===== v2.3: шаблон полной карточки (15 блоков) ===== */
@@ -628,6 +628,10 @@ html.dark .chartTab.on, body.dark .chartTab.on {
 .share-row .btn { min-height: 44px; }
 .btn.is-share-error { border-color: #ef4444; color: #ef4444; }
 body.dark .btn.is-share-error { border-color: #ff5252; color: #ff5252; }
+
+/* Заголовок темы страницы — раньше у h2 было 0, и h1 на всех страницах — это название сайта.
+   1.15rem = 18.4px: между body 16px и h1 21.6px, то иерархия сохраняется. */
+.pageTopic { font-size: 1.15rem; font-weight: 700; margin: 0 0 .7rem; }
 
 .srcRow {
   display: flex;
