@@ -100,7 +100,7 @@ python scripts\build_index.py
 **9. Тесты + commit**
 ```powershell
 $env:UPDATE_SNAPSHOT='1'; python -m pytest tests\test_snapshot.py -q; Remove-Item Env:UPDATE_SNAPSHOT
-python -m pytest -q -m "not network"
+python -m pytest -q
 git add docs/ src/ scripts/ reports/ tests/snapshot_data.json
 git commit -m "feat(vX.Y): batch N — +K cards"
 git push

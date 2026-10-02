@@ -1,12 +1,13 @@
 ﻿<!DOCTYPE html>
 <html lang="ru">
 <head>
-  <script defer src="version.js"></script>
+  <script defer src="version.js?v=311"></script>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>БАДы: доказательства и механизмы</title>
-<meta property="og:title" content="БАДы: доказательства и механизмы"/>
-<meta property="og:description" content="Интерактивный дашборд и карта механизмов: вердикты по мета-анализам PubMed, цены за месяц, ongoing trials. Без медицинских советов — только данные."/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>БАДы: доказательства и механизмы - 130 добавок | Brain 25 Evidence</title>
+<meta name="description" content="130 БАД с разбором механизмов, ссылками на PubMed, оценкой доказательности и текущими исследованиями. Открытые данные без рекламы."/>
+<meta property="og:title" content="БАДы: доказательства и механизмы - 130 добавок | Brain 25 Evidence"/>
+<meta property="og:description" content="130 БАД с разбором механизмов, ссылками на PubMed, оценкой доказательности и текущими исследованиями. Открытые данные без рекламы."/>
 <meta property="og:type" content="website"/>
 <meta property="og:url" content="https://deadsno.github.io/brain-25-evidence/"/>
 <meta property="og:image" content="https://deadsno.github.io/brain-25-evidence/og.png"/>
@@ -14,7 +15,8 @@
 <link rel="canonical" href="https://deadsno.github.io/brain-25-evidence/">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧠</text></svg>"/>
 <link rel="manifest" href="manifest.webmanifest">
-<meta name="theme-color" content="#1c1c1e">
+<meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1c1c1e" media="(prefers-color-scheme: dark)">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="БАДы">
@@ -41,21 +43,16 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=382"/>
+<link rel="stylesheet" href="style.css?v=398"/>
 <style>
 :root{--apanel:var(--card-bg);--aborder:var(--border);--atext:var(--text)}
 /* Единая шапка для всех страниц */
-.trustbar{
-  text-align:center;padding:.5rem 1rem;margin:0 0 1rem;
-  background:var(--card-bg);border:1px solid var(--border);
-  border-radius:8px;font-size:.85rem;opacity:.85;
-}
 .top{
   display:flex;justify-content:space-between;align-items:center;
   gap:1rem;flex-wrap:wrap;margin:0 0 1rem;
 }
-.top h1{font-size:1.35rem;margin:0;font-weight:700}
-.top h1 a{color:inherit;text-decoration:none}
+.top .site-title{font-size:1.35rem;margin:0;font-weight:700}
+.top .site-title a{color:inherit;text-decoration:none}
 .top .v{opacity:.5;font-size:.8rem;font-weight:400;margin-left:.5rem}
 .actions{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center}
 .btn{
@@ -65,17 +62,15 @@ try {
 }
 .btn:hover{border-color:#888}
   /* ── Mobile (≤640px) ─────────────────────────────────────── */
-  @media (max-width: 640px) {
-    body { padding: 0.6rem !important; }
+  @media (max-width: 640px) { body { padding: 0.6rem !important; }
     .wrap { padding: 0.6rem !important; }
-    .trustbar { font-size: .75rem; padding: .35rem .5rem; margin: 0 0 .6rem; }
     .top { flex-direction: column; align-items: stretch; gap: .5rem; margin: 0 0 .6rem; }
-    .top h1 { font-size: 1.05rem; line-height: 1.25; }
-    .top h1 a { display: inline-block; }
+    .top .site-title { font-size: 1.05rem; line-height: 1.25; }
+    .top .site-title a { display: inline-block; }
     .top .v { font-size: .7rem; }
     .top { flex-wrap: wrap; gap: .3rem; }
-    .top h1 { font-size: .9rem !important; line-height: 1.2; flex: 1 1 100% !important; max-width: 100% !important; white-space: normal !important; }
-    .top h1 a { white-space: normal !important; }
+    .top .site-title { font-size: .9rem !important; line-height: 1.2; flex: 1 1 100% !important; max-width: 100% !important; white-space: normal !important; }
+    .top .site-title a { white-space: normal !important; }
     .top .actions { flex: 1 1 100% !important; justify-content: flex-start !important; }
     #compareResult { overflow-x: auto !important; -webkit-overflow-scrolling: touch; max-width: 100%; display: block; }
     #compareResult table { min-width: 520px !important; display: table; }
@@ -89,10 +84,10 @@ try {
     #quadrantChart, #bubbleChart { font-size: 11px; }
     /* Радар */
     #radarChart { max-width: 100% !important; }
-    .top h1 { font-size: 1rem !important; }
-    .top h1 a { white-space: normal; }
-    .top h1 { font-size: .95rem !important; max-width: 100%; }
-    .top h1 .v { display: none; }   /* версия на мобилке не нужна */
+    .top .site-title { font-size: 1rem !important; }
+    .top .site-title a { white-space: normal; }
+    .top .site-title { font-size: .95rem !important; max-width: 100%; }
+    .top .site-title .v { display: none; }   /* версия на мобилке не нужна */
     #chartSection h2 { font-size: 1rem !important; }
     canvas { max-width: 100% !important; }
     h1 { font-size: 1.05rem !important; line-height: 1.3; }
@@ -109,15 +104,15 @@ try {
       padding: .5rem .6rem;
       white-space: normal;
     }
-    .top h1 { font-size: .92rem !important; line-height: 1.2; }
-    .top h1 {
+    .top .site-title { font-size: .92rem !important; line-height: 1.2; }
+    .top .site-title {
       font-size: .85rem !important;
       white-space: normal !important;
       overflow: visible !important;
       max-width: 100%;
       line-height: 1.25;
     }
-    .top h1 a {
+    .top .site-title a {
       white-space: normal !important;
       display: inline;
     }
@@ -136,9 +131,15 @@ try {
       border-radius: 0 !important;
       padding: 1rem !important;
     }
+    /* E2-1: 44px vy neseny iz @media(max-width:640px) NARUZHU. Ranshe razmer
+       kraski dejstvoval tolko na mobilnom, a na desktope razmer zavisel ot
+       obshchego padding vsekh knopok — i lomalsya ot pravki postoronnego
+       pravila. Teper 44px garantirany na vsekh shirinakh. */
     #modalClose {
       width: 44px !important;
+      min-width: 44px !important;
       height: 44px !important;
+      min-height: 44px !important;
       padding: 0 !important;
       top: .5rem !important;
       right: .5rem !important;
@@ -164,9 +165,14 @@ try {
     body { padding-bottom: env(safe-area-inset-bottom); }
     #sidebar { padding-bottom: calc(1rem + env(safe-area-inset-bottom)); }
   }
+  /* P2-10: h1 (21.6px, название сайта в шапке) и h2 (20.8px) отличались
+     на 0.8px — иерархия не читалась. Разводим h2 до 18px (зазор 3.6px).
+     Правило локальное: на остальных страницах h2 остаётся 1.3rem. */
+  h2 { font-size: 1.125rem; }
 </style>
 </head>
 <body>
+<a href="#main" class="skip-link">Перейти к содержимому</a>
 <!-- Yandex.Metrika counter -->
 <script type="text/javascript">
     (function(m,e,t,r,i,k,a){
@@ -182,30 +188,41 @@ try {
 <!-- /Yandex.Metrika counter -->
 <div class="trustbar">🧬 Открытые данные · Бесплатно · Без рекламы</div>
 <header class="top">
-  <h1><a href="index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a> <span class="v">v<span data-version="app"></span></span></h1>
+  <div class="site-title"><a href="index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a> <span class="v">v<span data-version="app"></span></span></div>
   <div class="actions">
     <a class="btn c-feedback" href="feedback.html">💬 Обратная связь</a>
-    <button class="btn c-refresh" id="refreshBtn">🔄 Обновить</button>
+    <button class="btn c-refresh" id="refreshBtn" title="Обновить данные с сервера"
+            aria-label="Обновить данные с сервера">🔄 Обновить</button>
     <a class="btn c-support" href="support.html">💚 Поддержать</a>
     <button class="btn" id="themeBtn">🌞 Светлая тема</button>
   </div>
 </header>
 
+<main id="main">
+  <h1>БАДы: доказательства и механизмы</h1>
+
+<!-- Блок быстрых кнопок под шапкой удалён: все три ссылки дублировали
+     «Поддержать» в шапке и карточки «Калькулятор» / «Карта механизмов» в сетке.
+     Главный CTA теперь один, см. блок «Сначала ответим на 3 вопроса». -->
+
 <section id="controls">
+  <label for="search" class="sr-only">Поиск по названию или эффекту</label>
   <input id="search" placeholder="🔍 Поиск: название или эффект..."/>
+  <label for="verdictFilter" class="sr-only">Фильтр: вердикт</label>
   <select id="verdictFilter">
     <option value="all">Любой вердикт</option>
     <option value="1">✅ работает</option>
     <option value="0">⚖️ зависит от контекста</option>
     <option value="-1">❌ не подтверждено</option>
   </select>
+  <label for="sortSelect" class="sr-only">Сортировка списка</label>
   <select id="sortSelect">
     <option value="science">🔬 По доказательности (наука)</option>
     <option value="name">По алфавиту</option>
     <option value="grade">🎖 По грейду доказанности</option>
   </select>
-  <button id="favFilter" class="favFilter" title="Показать только избранные">⭐ <span id="favCount">0</span></button>
-  <button id="resetFilters" class="favFilter" title="Сбросить все фильтры и поиск">✕</button>
+  <button id="favFilter" class="favFilter" title="Показать только избранные" aria-label="Показать только избранные">⭐ <span id="favCount">0</span></button>
+  <button id="resetFilters" class="favFilter" title="Сбросить все фильтры и поиск" aria-label="Сбросить все фильтры и поиск">✕</button>
 </section>
 
 <section id="qaSection" style="background:var(--card-bg);padding:1.2rem 1.5rem;border-radius:12px;border:1px solid var(--border)">
@@ -214,19 +231,17 @@ try {
     <div class="qa">
       <h3>1. Чем БАД отличается от лекарства?</h3>
       <p>БАД дополняет питание, а не заменяет лечение. У БАД нет регистрации лекарства, но есть мета-анализы — считаем именно их.</p>
-      <a class="qaMore" href="faq.html">подробнее в FAQ</a>
     </div>
     <div class="qa">
       <h3>2. Зачем он мне?</h3>
       <p>Три честные причины: дефицит (витамин D зимой), цель (креатин при нагрузках), профилактика с доказательствами (омега-3).</p>
-      <a class="qaMore" href="faq.html">подробнее в FAQ</a>
     </div>
     <div class="qa">
       <h3>3. Как выбирать?</h3>
       <p>Вердикт и грейд доказательности → дозировка из исследований → конфликты с лекарствами → и только потом цена.</p>
-      <a class="qaMore" href="faq.html">подробнее в FAQ</a>
     </div>
   </div>
+  <p style="margin:1rem 0 0"><a href="methodology.html">Полное объяснение методологии →</a></p>
 </section>
 
 <section style="margin:1.5rem 0">
@@ -270,7 +285,7 @@ try {
   <a class="card-link" href="https://brain-25-evidence.streamlit.app" target="_blank" rel="noopener" style="display:block;border:2px solid #06b6d4;border-radius:12px;text-decoration:none;color:inherit;background:linear-gradient(135deg,rgba(6,182,212,.15),rgba(6,182,212,.04))">
     <div style="font-size:1.4rem">🧠</div>
     <div style="font-weight:600;margin:.3rem 0">brain-25-evidence BI <span style="opacity:.6;font-weight:400;font-size:.8rem">↗</span></div>
-    <div style="opacity:.75;font-size:.85rem">Интерактивный BI-дашборд: 37 618 papers, фильтры, экспорт CSV</div>
+    <div style="opacity:.75;font-size:.85rem">Отдельное приложение: 37 618 papers, фильтры, экспорт CSV</div>
   </a>
 </div>
 </section>
@@ -282,7 +297,6 @@ try {
       <a class="chip" href="https://pubmed.ncbi.nlm.nih.gov/" target="_blank" rel="noopener">PubMed ↗</a>
       <span class="chip">ручная вычитка</span>
       <span class="chip">тестов: <span data-version="tests"></span></span>
-      <a class="chip" href="https://github.com/DeadSno/brain-25-evidence" target="_blank" rel="noopener">код ↗</a>
     </div>
   </div>
 </section>
@@ -349,15 +363,26 @@ try {
 <section id="compareSection">
   <h2>Сравнить две добавки</h2>
   <div class="row">
-    <div><label>Добавка 1</label><select id="compareSelect1"></select></div>
-    <div><label>Добавка 2</label><select id="compareSelect2"></select></div>
+    <div><label for="compareSelect1">Добавка 1</label><select id="compareSelect1"></select></div>
+    <div><label for="compareSelect2">Добавка 2</label><select id="compareSelect2"></select></div>
     <button id="compareBtn">Сравнить</button>
   </div>
   <div id="compareResult"></div>
   <h3 style="margin-top:1rem">📡 Радар профиля</h3>
   <div style="position:relative;max-width:520px;margin:0 auto"><canvas id="radarChart"></canvas></div>
+
 </section>
 
+<section id="helpProject" style="background:var(--card-bg);padding:1.2rem 1.5rem;border-radius:12px;border:1px solid var(--border)">
+  <h2>💚 Как помочь проекту</h2>
+  <p class="hint">Проект бесплатный: без рекламы, подписок и продажи данных. Помощь ускоряет обновление карточек и разработку.</p>
+  <div style="display:flex;flex-wrap:wrap;gap:.5rem">
+    <a class="btn c-support" href="https://yoomoney.ru/fundraise/1KKDKB0O1EC.260930" target="_blank" rel="noopener">💚 Поддержать в ЮMoney</a>
+    <a class="btn c-feedback" href="feedback.html">💬 Обратная связь</a>
+    <a class="btn" href="https://github.com/DeadSno/brain-25-evidence" target="_blank" rel="noopener">⭐ Доработать на GitHub</a>
+  </div>
+</section>
+</main>
 <footer class="site-footer">
   <p class="disc">
     <b>⚠️ Не медицинская рекомендация.</b>
@@ -377,25 +402,30 @@ try {
     <a href="glossary.html">📖 Глоссарий</a>
   </p>
   <p class="copy">© 2026 Vladislav "DeadSno" Pereshivalov · MIT</p>
+  <p class="share-row"><button class="btn share-page" type="button">🔗 Поделиться</button></p>
 </footer>
 
 <div id="modalOverlay" style="display:none">
   <div id="modal">
-    <button id="modalClose">✕</button>
+    <button id="modalClose" aria-label="Закрыть окно">✕</button>
     <div id="modalBody"></div>
   </div>
 </div>
-<script src="script.js?v=283"></script>
+<script src="script.js?v=284"></script>
 <script src="science2.js?v=281" defer></script>
 <script src="tracker.js?v=281" defer></script>
-<script src="pwa.js?v=280" defer></script>
-<button class="toBottom" id="toBottom" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})" title="Вниз">↓</button>
+<script src="pwa.js?v=282" defer></script>
+<script src="share.js?v=1" defer></script>
+<button class="toBottom" id="toBottom" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})" title="Вниз" aria-label="Прокрутить страницу вниз">↓</button>
 <script>
 window.addEventListener('scroll', () => {
   const btn = document.getElementById('toBottom');
   if (!btn) return;
+  // Раньше порог был 400px: на коротких страницах (atlas, calculator, glossary,
+  // map) он недостижим и кнопка не появлялась. Проверяем прокручиваемость.
+  const scrollable = document.body.scrollHeight > window.innerHeight + 100;
   const atBottom = window.scrollY + window.innerHeight >= document.body.scrollHeight - 100;
-  if (window.scrollY > 400 && !atBottom) {
+  if (scrollable && window.scrollY > 100 && !atBottom) {
     btn.classList.add('show');
   } else {
     btn.classList.remove('show');

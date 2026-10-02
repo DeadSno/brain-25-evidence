@@ -35,4 +35,4 @@ jobs:
           node-version: "20"
 
       - name: Run tests
-        run: python -m pytest -q -m "not network" --no-header
+        run: python -m pytest -q --no-header

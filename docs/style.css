@@ -1,41 +1,71 @@
 :root{--bg:#f5f5f7;--text:#1c1c1e;--card-bg:#fff;--border:#d1d1d6;--shadow:rgba(0,0,0,.08);--accent:#0062cc;--muted:#6e6e73}
 html.dark,body.dark{--bg:#1c1c1e;--text:#f5f5f7;--card-bg:#2c2c2e;--border:#3a3a3c;--shadow:rgba(0,0,0,.4);--accent:#0a84ff;--muted:#9a9aa0}
 *{box-sizing:border-box;margin:0;padding:0}
+
+/* v5.0.0 (Android): серый tap-highlight браузера проступал поверх фирменных
+   цветов карточек и кнопок. touch-action:manipulation убирает задержку 300ms
+   и двойной-тап-зум, но НЕ отключает :hover-эффекты (в отличие от none). */
+*{-webkit-tap-highlight-color:transparent}
+button,a,.chip,.tab,.favBtn,.preset,.chartTab,.profile-btn,.tagPreset{touch-action:manipulation}
+
+/* ===== v4.1: навигация с клавиатуры — видимый фокус (WCAG 2.4.7) ===== */
+/* Раньше outline не задавался нигде: фокус ставился, но был не виден */
+*:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+/* Метка для скринридера: скрыта визуально, но доступна озвучке */
+.sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;
+  overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--text);padding:1.5rem;transition:background .25s,color .25s;max-width:1200px;margin:0 auto;line-height:1.5}
 header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;flex-wrap:wrap;gap:1rem}
 h1{font-size:1.8rem;font-weight:600}
 .hdr{display:flex;gap:.6rem;align-items:center}
 .btn{background:var(--card-bg);color:var(--text);border:1px solid var(--border);padding:.7rem 1.1rem;min-height:44px;display:inline-flex;align-items:center;justify-content:center;border-radius:8px;text-decoration:none;font-size:.95rem}
+/* v4.1: белый на #3498db давал 3.15:1 — заливка затемнена до 5.42:1 в обеих темах */
 .btn.calc {
-  background: linear-gradient(135deg, #3498db, #2980b9);
+  background: linear-gradient(135deg, #1f6fa5, #175a86);
   color: #fff !important;
   border: none;
   font-weight: 600;
-  box-shadow: 0 2px 8px rgba(52,152,219,.35);
+  box-shadow: 0 2px 8px rgba(31,111,165,.35);
 }
 .btn.calc:hover {
   opacity: .92;
   border: none;
-  box-shadow: 0 2px 12px rgba(52,152,219,.5);
+  box-shadow: 0 2px 12px rgba(31,111,165,.5);
 }
-button{background:var(--card-bg);color:var(--text);border:1px solid var(--border);padding:.5rem 1rem;border-radius:8px;cursor:pointer;font-size:.95rem}
+/* v5.0.0 mobile: min-height:44px на базовом button. Покрывает кнопки без класса
+   (в проекте — #compareBtn на index, 35px). Специфичность button (0,0,1) ниже,
+   чем у любого класса, поэтому .btn/.favBtn/.chip/.tab со своими правилами
+   не задеваются. Растёт только высота, ширина и горизонтальные отступы те же. */
+button{background:var(--card-bg);color:var(--text);border:1px solid var(--border);padding:.5rem 1rem;border-radius:8px;cursor:pointer;font-size:.95rem;min-height:44px}
 button:hover,.btn:hover{background:var(--border)}
 section{margin-bottom:2rem}
 h2{font-size:1.3rem;font-weight:500;margin-bottom:1rem}
 label{font-weight:500;margin-right:.5rem}
-select{background:var(--card-bg);color:var(--text);border:1px solid var(--border);padding:.4rem .8rem;border-radius:6px;font-size:.95rem}
+select{background:var(--card-bg);color:var(--text);border:1px solid var(--border);padding:.4rem .8rem;border-radius:6px;font-size:16px}
+/* v5.0.0 mobile: iOS Safari зумит страницу при фокусе на поле с font-size < 16px,
+   после чего появляется горизонтальный скролл. Базовый порог 16px для всех полей.
+   Страничные правила вида `.params input{font-size:.9rem}` (calculator.html:45,48,61),
+   `.f-field input{font-size:15px}` (feedback.html:70), `.filters select` (trends.html:32)
+   имеют специфичность выше — они тоже переведены на 16px. */
+input,select,textarea{font-size:16px}
 #symptomFilter{display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
 #chartSection,#compareSection{background:var(--card-bg);padding:1.5rem;border-radius:12px;border:1px solid var(--border)}
 #chartWrap canvas{width:100%!important;max-height:500px}
 #cardsGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.2rem}
 .card{background:var(--card-bg);border:1px solid var(--border);border-radius:10px;padding:1rem 1.2rem;box-shadow:0 2px 6px var(--shadow);position:relative}
-.card h3{font-size:1.1rem;margin-bottom:.3rem}
+.card .card-title{display:block;font-size:1.1rem;font-weight:700;margin-bottom:.3rem}
 .card .verdict{display:inline-block;font-size:.75rem;padding:.2rem .6rem;border-radius:20px;color:#fff;margin-bottom:.5rem}
 .card .price{font-weight:500;color:var(--accent)}
 .card .effects{font-size:.9rem;margin-top:.4rem;opacity:.8}
 .card .effects span{background:var(--bg);padding:.1rem .5rem;border-radius:12px;margin-right:.3rem;display:inline-block;margin-bottom:.2rem}
 .row{display:flex;gap:1rem;flex-wrap:wrap;align-items:end}
 #compareResult{margin-top:1rem;overflow-x:auto}
+/* v5.0.0 mobile: скролл-обёртка для широких таблиц. Без неё <table> с width:100%
+   всё равно не shrinks ниже min-content ширины и уводит документ вбок
+   (glossary.html @320px: scrollWidth 345 при clientWidth 305). */
+.table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%}
+.table-wrap>table{width:100%}
 #compareResult table{width:100%;border-collapse:collapse;font-size:.95rem}
 #compareResult th,#compareResult td{padding:.6rem .8rem;border-bottom:1px solid var(--border);text-align:left}
 #compareResult th{background:var(--bg);font-weight:500}
@@ -49,10 +79,19 @@ footer p{margin-bottom:.5rem}
 .card .cat{font-size:.7rem;opacity:.55;display:block;margin-bottom:.2rem}
 #modalOverlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:50;display:flex;align-items:center;justify-content:center;padding:1rem}
 #modal{background:var(--card-bg);color:var(--text);border-radius:12px;max-width:min(820px,92vw);width:100%;max-height:85vh;overflow-y:auto;padding:1.4rem;position:relative}
-#modalClose{position:absolute;top:.6rem;right:.6rem;width:auto}
+/* v5.0.0 (iPhone 17): раньше top:.6rem — кнопка закрытия оказывалась на
+   y 8..52, то есть ПОД Dynamic Island (safe-area-inset-top = 59px) и была
+   недоступна. max() вместо голого env(): на десктопе/планшете env() = 0,
+   поэтому max() сохраняет исходные .6rem и ничего не ломает вне iPhone.
+   ВАЖНО: padding-top у #modal НЕ сдвигает абсолютно спозиционированную
+   кнопку (для abs-потомков containing block — padding box родителя),
+   поэтому правило для кнопки нужно отдельное. */
+#modalClose{position:absolute;top:max(.6rem,env(safe-area-inset-top,0px));right:.6rem;width:auto}
 #modal h2{margin-bottom:.4rem}
 #modal .mrow{margin:.35rem 0;font-size:.92rem}
 #modal .warn{color:#c0392b}
+/* v4.3: в тёмной теме #c0392b даёт 2.56:1 на карточке */
+body.dark #modal .warn{color:#f26d6d}
 .skeleton { min-height: 170px; border-radius: 12px;
   background: linear-gradient(100deg, rgba(128,128,128,.12) 40%, rgba(128,128,128,.28) 50%, rgba(128,128,128,.12) 60%);
   background-size: 200% 100%; animation: sh 1.2s infinite; }
@@ -103,6 +142,8 @@ footer p{margin-bottom:.5rem}
   color: #c0392b;
   font-size: 0.9rem;
 }
+/* v4.3: в тёмной теме #c0392b не читается на карточке */
+body.dark .calcResult .warn { color: #f26d6d; }
 /* ===== v1.3: избранное ===== */
 .favBtn {
   position: absolute; top: .5rem; right: .6rem;
@@ -110,12 +151,27 @@ footer p{margin-bottom:.5rem}
   color: #666; font-size: 1.35rem; line-height: 1;
   cursor: pointer; z-index: 2;
   transition: color .15s, transform .15s;
+  /* v5.0.0 mobile: было 18×22px (ширина = ширина глифа ☆ при padding:0) против
+     порога 44×44. Глиф остаётся 1.35rem — растёт только область тапа.
+     v5.0.0 (a11y): сдвинули к краю — область тапа 44×44 перекрывала подпись .cat. */
+  top: 4px; right: 4px;
+  min-width: 44px; min-height: 44px;
+  display: inline-flex; align-items: center; justify-content: center;
 }
+/* v5.0.0 (a11y): .cat — display:block на всю ширину строки, поэтому её невидимый
+   бокс заезжал под область тапа звезды (перекрытие ~180px² полосой 5px по высоте).
+   Сам текст подписи короткий и прижат влево, визуально наезд не был виден —
+   правило убирает именно зону тапа. 52px = 44px звезда + 4px отступ + запас. */
+.card .cat { max-width: calc(100% - 52px); }
 .favBtn:hover { color: #aaa; transform: scale(1.2); }
-.favBtn.on { color: #f1c40f; text-shadow: 0 0 8px rgba(241, 196, 15, .55); }
+/* v4.2: в светлой теме #f1c40f давал 1.53:1 — тёмное золото, в тёмной теме
+   возвращаем исходный яркий оттенок (там он даёт 8.4:1). */
+.favBtn.on { color: #8a6800; text-shadow: 0 0 8px rgba(138, 104, 0, .45); }
 .favFilter { margin-left: .5rem; padding: .5rem .8rem; border: 1px solid var(--border);
              border-radius: 6px; background: var(--card-bg); color: var(--text); cursor: pointer; }
-.favFilter.on { border-color: #f1c40f; color: #f1c40f; }
+.favFilter.on { border-color: #8a6800; color: #8a6800; }
+body.dark .favBtn.on { color: #f1c40f; text-shadow: 0 0 8px rgba(241, 196, 15, .55); }
+body.dark .favFilter.on { border-color: #f1c40f; color: #f1c40f; }
 /* ===== v1.3: подсветка карточки после модалки ===== */
 .card.flash {
   box-shadow: 0 0 0 3px #f1c40f, 0 0 20px rgba(241, 196, 15, .45);
@@ -163,14 +219,30 @@ header, .header {
   position: sticky; top: 0; z-index: 50;
   backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
   background: rgba(255,255,255,.65);
+  /* v5.0.0 (iPhone 17 / Dynamic Island): шапка липнет к top:0, поэтому без
+     этого отступа её содержимое уходило бы под вырез. Работает только вместе
+     с viewport-fit=cover в <meta viewport> (добавлен во всех 17 HTML).
+     env() с фолбэком: в браузерах без safe-area (десктоп) — 0px. */
+  padding-top: env(safe-area-inset-top, 0px);
 }
 body.dark header, body.dark .header { background: rgba(18,18,18,.65); }
 
+/* v5.0.0 (iPhone 17): home indicator. Футер — последний блок на странице,
+   ему нужен нижний отступ, иначе последняя строка дисклеймера перекрывается. */
+footer, .site-footer { padding-bottom: env(safe-area-inset-bottom, 0px); }
+
+/* v5.0.0 (iPhone 17): остальные липкие блоки, которые тоже уходят под вырез.
+   Селекторы совпадают с position:sticky;top:0 ниже. `.sticky-bottom` в проекте
+   НЕ существует (проверено по всем 17 HTML + style.css), `.actions` — не липкий
+   (это ряд кнопок навигации внутри шапки), поэтому padding-bottom ему не задан. */
+.trustbar, .conflict-banner, .synergy-banner {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
 /* 3. Градиентные бейджи вердиктов */
 .verdict { border: none; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.3); font-weight: 600; }
-.verdict.v1  { background: linear-gradient(135deg, #1e8e4e, #2ecc71); }
-.verdict.v0  { background: linear-gradient(135deg, #b7791f, #f1c40f); }
-.verdict.v-1 { background: linear-gradient(135deg, #a93226, #e74c3c); }
+/* v4.1: градиентные правила .verdict ниже перебиваются сплошными !important
+   из блока v3.1 выше; удалены как мёртвые. */
 
 /* 5. pop-in модалки */
 @keyframes popIn { from { opacity: 0; transform: scale(.96) translateY(10px); } to { opacity: 1; transform: none; } }
@@ -200,20 +272,23 @@ font-size:1.2rem;cursor:pointer;opacity:0;pointer-events:none;transition:.25s}
 #toTop.show{opacity:1;pointer-events:auto}
 
 /* ===== v2.2: баннер конфликтов избранного ===== */
-.conflict-banner{background:#ff4757;color:#fff;padding:1rem;text-align:center;font-weight:600;
+/* v4.3: белый на заливке — контраст от темы не зависит, поэтому затемняем
+   базовые правила. Замеры: .conflict-banner было 3.34:1, .conflict-banner.medium
+   2.85:1, .synergy-banner 4.32:1. */
+.conflict-banner{background:#d62839;color:#fff;padding:1rem;text-align:center;font-weight:600;
 position:sticky;top:0;z-index:1000;animation:fadeIn .25s}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 
 /* ===== v2.3: раздел «3 вопроса» ===== */
 #qaSection .qa{margin:.6rem 0 1rem}
 #qaSection .qa h3{font-size:1.02rem;margin-bottom:.25rem}
-#qaSection .qa p{font-size:.95rem;opacity:.88;max-width:72ch}
+#qaSection .qa p{font-size:1rem;opacity:.88;max-width:72ch}
 
 /* ===== F5.1: три карточки в одну строку ===== */
 .qaGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:.4rem}
 .qaGrid .qa{margin:0;padding:.9rem 1rem;background:var(--bg);border:1px solid var(--border);border-radius:10px}
 .qaGrid .qa h3{font-size:1rem;margin-bottom:.4rem}
-.qaGrid .qa p{font-size:.9rem;opacity:.85;max-width:60ch}
+.qaGrid .qa p{font-size:1rem;opacity:.85;max-width:60ch}
 .qaGrid .qaMore{display:inline-block;margin-top:.5rem;font-size:.82rem;font-weight:600}
 
 /* ===== v2.3: шаблон полной карточки (15 блоков) ===== */
@@ -226,16 +301,26 @@ position:sticky;top:0;z-index:1000;animation:fadeIn .25s}
 .cbbody{font-size:.92rem}
 .cbEmpty{opacity:.55;font-style:italic}
 .hline{margin-top:.25rem;opacity:.85}
-.goodPair{color:#2d8a4e;font-weight:600}
+/* v4.3: цвет текста на фоне темы — в светлой теме нужен тёмный зелёный
+   (было 3.97:1), в тёмной — светлый (было 3.22:1). */
+.goodPair{color:#2f7d4f;font-weight:600}
+body.dark .goodPair{color:#3aa863}
 .sev{font-size:.88rem;margin:.15rem 0}
-.sev-critical{color:#e74c3c;font-weight:600}
-.sev-high{color:#e67e22}
-.sev-medium{color:#d4a017}
+/* v4.2: цвет текста на фоне темы (фактически --bg, не карточка) — в светлой
+   теме нужны тёмные варианты. Замеры: .sev-critical было 3.51:1,
+   .sev-high 2.62:1, .sev-medium 2.72:1. */
+.sev-critical{color:#c0392b;font-weight:600}
+.sev-high{color:#b45309}
+.sev-medium{color:#8a6800}
+/* в тёмной теме обратно к светлым оттенкам */
+body.dark .sev-critical{color:#f26d6d}
+body.dark .sev-high{color:#e67e22}
+body.dark .sev-medium{color:#d4a017}
 .sev-low{color:var(--text);opacity:.7}
 
 /* ===== v2.3: живой баннер — medium (оранжевый), synergy (зелёный) ===== */
-.conflict-banner.medium{background:#e67e22}
-.synergy-banner{background:#2d8a4e;color:#fff;padding:1rem;text-align:center;font-weight:600;
+.conflict-banner.medium{background:#b45309}
+.synergy-banner{background:#2a8046;color:#fff;padding:1rem;text-align:center;font-weight:600;
 position:sticky;top:0;z-index:1000;animation:fadeIn .25s}
 
 /* ===== v2.4: вкладки графика, грейды A–D ===== */
@@ -245,10 +330,8 @@ position:sticky;top:0;z-index:1000;animation:fadeIn .25s}
 .chartTab.on{border-color:var(--accent);color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
 .grade{display:inline-block;font-size:.72rem;font-weight:700;padding:.15rem .55rem;
   border-radius:999px;color:#fff;vertical-align:middle;margin-left:.3rem}
-.gA{background:linear-gradient(135deg,#1e8e4e,#27ae60)}
-.gB{background:linear-gradient(135deg,#2980b9,#3498db)}
-.gC{background:linear-gradient(135deg,#b7791f,#d4a017)}
-.gD{background:linear-gradient(135deg,#666,#999)}
+/* v4.1: .gA–.gD перебивались .grade.gX с !important (специфичность 0,2,0
+   против 0,1,0) и в разметке не использовались — удалены как мёртвые. */
 
 /* ===== v2.6: add-on trust ===== */
 .trustbar{position:sticky;top:0;z-index:100;background:var(--card-bg);color:var(--text);
@@ -271,16 +354,18 @@ position:sticky;top:0;z-index:1000;animation:fadeIn .25s}
 .updatedLine{font-size:.68rem;opacity:.55;display:block;margin:.1rem 0 .35rem}
 
 /* ===== v2.6: иконки источников ===== */
-.srcIcon {display:inline-block;font-size:.68rem;font-weight:700;padding:.1rem .45rem;
+.srcIcon {display:inline-flex;align-items:center;justify-content:center;min-height:44px;min-width:44px;font-size:.68rem;font-weight:700;padding:.1rem .45rem;
   border-radius:999px;background:var(--bg);border:1px solid var(--border);color:var(--text);
-  text-decoration:none;vertical-align:middle;margin-left:.25rem
-  display: inline-block;
+  text-decoration:none;vertical-align:middle;margin-left:.25rem;
   max-width: 60ch;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   vertical-align: bottom;
 }
+/* .srcIcon nosit dva russla: pikchi («PubMed ↗») и заголовки статьи стороками (в .srcRow). Минимум 44px дают паддинг-аа; для заголовков обязано вернуть старый размер: они растягивались с 22 до 44px и модаль стала длиннее на 133px. */
+.srcRow .srcIcon { min-height: 0; min-width: 0; }
+
 .srcIcon:hover{border-color:var(--accent);color:var(--accent)}
 
 /* ===== v2.6: поделиться + сравнить в модалке ===== */
@@ -293,9 +378,128 @@ position:sticky;top:0;z-index:1000;animation:fadeIn .25s}
 #trustSummary ul{margin:.4rem 0 0 1.2rem;opacity:.9}
 #trustSummary li{margin:.2rem 0}
 
+/* v5.0.0 mobile: порог 44×44 ТОЛЬКО для интерактивных .chip.
+   Список «интерактивных» нельзя взять по тегу — проверено фактически:
+     - map.html: 130 <span class="chip" data-id> внутри .cat. Кажущаяся
+       безактивность была ошибкой первого замера: обработчик ЕСТЬ —
+       map.html:385-396, $('list').addEventListener('click') ловит
+       e.target.closest('.chip') → select(ch.dataset.id). Настоящий клик
+       Playwright по такому чипу реально переключает выбранную добавку
+       (Креатин → Астаксантин), пишет ?supplement=… в URL и перерисовывает
+       #chain. Поэтому .chip[data-id] ВКЛЮЧЁН в список ниже, иначе 130
+       тап-таргетов на map регрессируют с 44px обратно в 22px.
+     - index.html: 2 <a class="chip href> в .trustChips — обычные ссылки.
+   НЕинтерактивные — 2 <span class="chip> без data-id и без href на index
+   («Открытые данные», «Тесты: N»): для них порог не применяется.
+
+   min-width:44px там же — 13 чипов на map имели высоту 44px, но ширину 33-44px
+   («B9» 33px, «LGG» 41px, «Йод» 42px), то есть проваливали WCAG 2.5.5 по
+   ШИРИНЕ. Эти чипы не попадали в селектор прошлых прогонов (там не было
+   [data-id]), поэтому находка была не видна до сужения правила. */
+.chip[role="button"], a.chip, button.chip, .chip.is-clickable, .chip[data-id] { min-height:44px; min-width:44px; display:inline-flex; align-items:center; justify-content:center }
+
+/* ===== v5.0.0 mobile: массовый порог тап-таргета 44px =====
+   Оставшиеся 6 групп из аудита (~124 элемента на 6 страницах). У всех
+   узкая высота — вертикальный padding 6-8px при line-height шрифта.
+   min-height НЕ трогает горизонтальные отступы и шрифт — растёт только
+   вертикальная область тапа, ширина элементов не меняется.
+
+   Разделено на 3 блока по месту определения, потому что специфичность
+   одинаковая (0,1,0) и побеждает ПОСЛЕДНИЙ по порядку:
+   - .chartTab/.favFilter объявлены здесь, в style.css → правятся здесь;
+   - .profile-btn/.f-btn объявлены в <style> страниц, но тот <style>
+     идёт ПОСЛЕ <link href="style.css"> → правило ниже перебивает их;
+   - .tab объявлен сразу в ДВУХ файлах (interactions.html:80, trends.html:34)
+     с разными padding/шрифтом → общий селектор покрывает обе страницы. */
+.chartTab, .favFilter { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
+/* min-width для #resetFilters: кнопка «✕ Сбросить» с коротким глифом была
+   40×44 — высоты хватало, ширины нет (padding .8rem + глиф ≈ 40px).
+   Ровно 44px без запасных пикселей, чтобы не ломать раскладку <section>. */
+.favFilter { min-width: 44px; }
+.profile-btn, .f-btn { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
+.preset, .tab { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
+
+/* v5.0.0 mobile: .tagChip в карточке (index, 15 на страницу × 6 ширин = 226 замеров)
+   реально интерактивен: script.js:227-235 ловит клик по .tagChip, фильтрует
+   эффекты и вызывает e.stopPropagation() — то есть тап НЕ открывает карточку,
+   это самостоятельная кнопка-фильтр. Проверено: высота была 19px, ширина
+   коротких чипов («Сон») — 36px, поэтому нужен и min-width. */
+.card .tagChip { min-height: 44px; min-width: 44px; display: inline-flex; align-items: center; justify-content: center; }
+
+/* v5.0.0 mobile: .qaMore — ссылка «подробнее в FAQ» внутри блока вопрос-ответ
+   (index, 3 шт). Отдельная кнопка, не часть предложения, поэтому 44px. */
+.qaMore { min-height: 44px; display: inline-flex; align-items: center; }
+
+/* v5.0.0 mobile: ещё три одиночные ссылки, которые не являются частью
+   предложения (проверено по childNodes родителя — только TEXT + сама ссылка):
+
+   1. h1 a — логотип-ссылка на главную. Единственный интерактив в <h1>.
+   2. nav.breadcrumbs a — хлебные крошки sup/* (5 страниц × 2 ссылки).
+      ВАЖНО: разделяются текстом « → », т.е. формально это «inline in a
+      sentence» (WCAG 2.5.8 exempt) — но это полноценная навигационная
+      цепочка, а не ссылка внутри абзаца, поэтому размер поднят.
+   3. .src-meta a — «PMID 42027564» в строке источника sup/*.
+      Здесь ссылка идёт В КОНЦЕ строки после текста журнала, поэтому
+      увеличение безопасно: перенос строки не ломается.
+
+   map.html «Открыть карточку добавки» — единственный потомок <p>, тоже
+   одиночная ссылка, но она уже 216×21px и покрывается общим правилом ниже. */
+nav.breadcrumbs a, .src-meta a { min-height: 44px; display: inline-flex; align-items: center; }
+
+/* 4. .back-link — «← Вернуться к списку» внизу sup/* (5 страниц). Класс
+   объявлен в каждом sup-файле как display:inline-block, поэтому здесь
+   только размеры: display не меняю, чтобы не ломать раскладку. */
+.back-link { min-height: 44px; display: inline-flex !important; align-items: center; }
+
+/* 5. map.html «Открыть карточку добавки» — единственный <a> внутри <p>,
+   генерируется в JS (map.html:353,570,590,608) без класса, поэтому селектор
+   по структуре: ссылка — единственный потомок абзаца. */
+p > a:only-child { min-height: 44px; display: inline-flex; align-items: center; }
+
+/* Логотип-ссылка h1 a. Отдельное правило, потому что её перебивают ДВА более
+   поздних правила с !important: style.css:495 и style.css:739 оба ставят
+   display:inline!important (для переноса заголовка в блочную раскладку шапки).
+   Поэтому здесь тоже !important — иначе правило просто не применится.
+   min-height без !important: его никто не перебивает. */
+h1 a { min-height: 44px; }
+
+/* Логотип-ссылка h1 a внутри <header class="top">. Перебивает
+   style.css:504 (header.top>.site-title>a{display:inline!important}), который стоит
+   ПОЗЖЕ и имеет ту же специфичность (0,1,1) — поэтому нужен !important.
+   На десктопе это тоже работает: inline-flex центрирует глиф по вертикали,
+   ширина остаётся по содержимому, layout шапки не меняется (проверено
+   замерами на 6 ширинах).
+
+   ВАЖНО, почему это правило стоит В КОНЦЕ ФАЙЛА, а не здесь: правило
+   style.css:504 (внутри @media max-width:480px) — `header.top>.site-title>a{
+   display:inline!important}` — имеет ТУ ЖЕ специфичность (0,1,3) и стоит
+   ПОЗЖЕ, поэтому при равенстве побеждает оно. Отсюда две причины, почему
+   логотип оставался 22px:
+     1. нужен !important (у 504 он есть, у нашего тоже);
+     2. наше правило должно идти после 504 — иначе 504 перебьёт.
+   Плюс сам факт: min-height НЕ действует на `display:inline` (незамещаемый
+   строчный элемент) — поэтому одного min-height:44px было недостаточно,
+   обязательно нужен inline-flex. */
+
+/* v5.0.0 mobile: иконочные кнопки atlas (atlas.html:179) — font-size:0 с
+   глифом в ::before, из-за чего бокс схлопывался до ширины иконки 29-39px.
+   min-width тянет только область тапа, глиф .95rem остаётся как есть. */
+#pngBtn, #shareBtn, #fsBtn { min-width: 44px; }
+.btn.gr { min-width: 44px; }
+
 /* ===== F5: горизонтальные чипы доверия ===== */
-.trustChips{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.6rem}
-.trustChips .chip{display:inline-block;padding:.35rem .75rem;border-radius:999px;
+.trustChips{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.6rem;align-items:center}
+/* v5.0.0 mobile: min-height:44px перенесён с .trustChips .chip на .trustChips a.chip.
+   Иначе сужение базового правила выше не дало бы эффекта на index: у 4 чипов
+   в .trustChips было собственное правило с min-height:44px, и два из них —
+   статичные <span> без href и без обработчика, то есть не тап-таргеты.
+
+   align-items:center обязателен и не косметика: .trustChips — flex-контейнер,
+   а дефолт align-items:stretch РАСТЯГИВАЛ span-чипы до высоты соседних
+   ссылок (44px) даже при min-height:auto. Без этого объявления статичные
+   чипы остаются 44px — проверено замером computedMinH:auto при h:44. */
+.trustChips a.chip{min-height:44px}
+.trustChips .chip{display:inline-flex;align-items:center;padding:.35rem .75rem;border-radius:999px;
   font-size:.82rem;font-weight:600;text-decoration:none;border:1px solid var(--border);
   background:var(--bg);color:var(--accent);transition:border-color .15s,color .15s}
 .trustChips .chip:hover{border-color:var(--accent);color:var(--accent)}
@@ -339,10 +543,12 @@ body.dark .chip a:visited { color: #5dade2; }
 /* v2.8.0: пресеты-чипы + активные фильтры (F1/F8) */
 .presetRow{display:flex;gap:.5rem;flex-wrap:wrap;margin:.5rem 0}
 .preset{padding:.4rem .8rem;border-radius:20px;background:var(--card-bg);border:1px solid var(--border);cursor:pointer;font-size:.85rem;transition:all .15s}
-.preset.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+/* v4.1: var(--accent) давал белым 3.65:1 в тёмной теме — фиксированная
+   заливка #1f5fbf даёт 6.09:1 в обеих */
+.preset.on{background:#1f5fbf;color:#fff;border-color:#1f5fbf}
 .preset:hover{border-color:var(--accent)}
 .activeFilters{display:flex;gap:.4rem;flex-wrap:wrap;margin:.5rem 0;font-size:.85rem}
-.activeFilters .chip{background:var(--accent);color:#fff;padding:.25rem .6rem;border-radius:12px;display:inline-flex;align-items:center;gap:.3rem}
+.activeFilters .chip{background:#1f5fbf;color:#fff;padding:.25rem .6rem;border-radius:12px;display:inline-flex;align-items:center;gap:.3rem;min-height:44px}
 .activeFilters .chip .x{cursor:pointer;opacity:.8}
 .activeFilters .chip .x:hover{opacity:1}
 
@@ -351,12 +557,18 @@ body.dark .chip a:visited { color: #5dade2; }
   /* Шапка: H1 на всю ширину (перенос), actions под ним */
   /* Шапка: block layout — H1 сверху, actions снизу. Надёжнее flex-wrap */
   header.top,header.hdr{display:block!important}
-  header.top>h1,header.hdr>h1{font-size:1.05rem!important;line-height:1.2!important;margin:0 0 .5rem!important;white-space:normal!important;overflow:visible!important}
-  header.top>h1>a,header.hdr>h1>a{white-space:normal!important;display:inline!important}
+  header.top>.site-title,header.hdr>.site-title{font-size:1.3rem!important;line-height:1.2!important;margin:0 0 .5rem!important;white-space:normal!important;overflow:visible!important}
+  header.top>.site-title>a,header.hdr>.site-title>a{white-space:normal!important;display:inline!important}
   header.top .actions,header.hdr .actions{display:flex!important;flex-wrap:wrap!important;gap:.4rem!important;justify-content:flex-end!important}
-  h1 .v,h1>span[style*="opacity"]{display:none!important}
+  .top .site-title .v,.top .site-title>span[style*="opacity"]{display:none!important}
 
   #modal{position:fixed;inset:0;width:100vw;height:100dvh;max-height:100dvh;border-radius:0;overflow-y:auto}
+/* v5.0.0 (iPhone 17): safe-area для полноэкранной модалки на ≤480px.
+   box-sizing:border-box обязателен — иначе padding добавится К 100dvh
+   и появятся два скроллбара. На десктопе/планшете env() = 0 → 0px,
+   поведение не меняется. */
+#modal{padding-top:max(1rem,env(safe-area-inset-top,0px));
+  padding-bottom:max(1rem,env(safe-area-inset-bottom,0px));box-sizing:border-box}
   #modal,#modalBody{overflow-x:hidden!important;word-break:break-word}
   #modal *{max-width:100%!important;min-width:0!important;box-sizing:border-box}
   #modal a,#modal .srcIcon,#modal .chip-pmid,#modal .mrow{word-break:break-word;overflow-wrap:anywhere}
@@ -374,17 +586,34 @@ body.dark .chip a:visited { color: #5dade2; }
 body.dark a.btn{text-decoration:none}
 
 /* ===== v3.1: палитра грейдов A-D (зелёный/лайм/янтарь/красный) ===== */
-.grade.gA { background: #22c55e !important; color: #fff !important; border-color: #22c55e !important; }
-.grade.gB { background: #84cc16 !important; color: #fff !important; border-color: #84cc16 !important; }
-.grade.gC { background: #f59e0b !important; color: #fff !important; border-color: #f59e0b !important; }
-.grade.gD { background: #ef4444 !important; color: #fff !important; border-color: #ef4444 !important; }
+.grade.gA { background: #15803d !important; color: #fff !important; border-color: #15803d !important; }
+.grade.gB { background: #4d7c0f !important; color: #fff !important; border-color: #4d7c0f !important; }
+.grade.gC { background: #b45309 !important; color: #fff !important; border-color: #b45309 !important; }
+.grade.gD { background: #b91c1c !important; color: #fff !important; border-color: #b91c1c !important; }
 
 /* вердикты в тон палитре */
 
 /* вердикты в тон палитре грейдов (v3.1) */
-.verdict.v1  { background: #22c55e !important; }
-.verdict.v0  { background: #f59e0b !important; }
-.verdict.v-1 { background: #ef4444 !important; }
+.verdict.v1  { background: #15803d !important; }
+.verdict.v0  { background: #b45309 !important; }
+.verdict.v-1 { background: #b91c1c !important; }
+
+/* ===== v4.1: контраст белого текста на заливке — обе темы (WCAG AA) ===== */
+/* Замеры до правки: .grade.gB 1.98:1, .grade.gC 2.15:1, .grade.gA 2.28:1,
+   .grade.gD и .verdict.v-1 3.76:1, .verdict.v0 2.15:1, .btn.calc 3.15:1,
+   .t-strong 2.10:1, .t-mod 2.40:1, .t-weak 2.85:1, .t-mkt 3.82:1, .t-ctx 4.37:1.
+   Заливка затемнена в базовых правилах выше: контраст пары «белый на цвете» не
+   зависит от фона вокруг, поэтому одно правило корректно в обеих темах.
+   --accent не трогаем: он объявлен в :root и body.dark, и его затемнение
+   сломало бы 6 страниц.
+
+   .chartTab.on — исключение: там ЦВЕТ ТЕКСТА, а не заливка. #5aa9ff нужен
+   для тёмной карточки (#2c2c2e -> 5.68:1) и дал бы в светлой 2.46:1, поэтому
+   переопределение остаётся только для тёмной темы. В светлой var(--accent)
+   #0062cc на белом даёт 5.80:1 и проходит без правок. */
+html.dark .chartTab.on, body.dark .chartTab.on {
+  border-color: #5aa9ff; color: #5aa9ff; box-shadow: 0 0 0 1px #5aa9ff;
+}
 
 /* v3.1: плоские цвета вердиктов */
 
@@ -394,6 +623,16 @@ body.dark a.btn{text-decoration:none}
 .cgTitle{font-weight:700;font-size:1rem;margin:0 0 .4rem;padding:.35rem .6rem;background:var(--card-bg);border-left:3px solid var(--accent);border-radius:4px}
 
 /* PMID-чип рядом с источником: клик — копирование */
+/* Кнопка «Поделиться» в футере (см. share.js). Не в шапку: состав шапки разнойтся 14 способови во семинаше, а футер един. Стока не выше 44px как у остальных кнопок. */
+.share-row { margin: .5rem 0 0; }
+.share-row .btn { min-height: 44px; }
+.btn.is-share-error { border-color: #ef4444; color: #ef4444; }
+body.dark .btn.is-share-error { border-color: #ff5252; color: #ff5252; }
+
+/* Заголовок темы страницы — раньше у h2 было 0, и h1 на всех страницах — это название сайта.
+   1.15rem = 18.4px: между body 16px и h1 21.6px, то иерархия сохраняется. */
+.pageTopic { font-size: 1.15rem; font-weight: 700; margin: 0 0 .7rem; }
+
 .srcRow {
   display: flex;
   align-items: baseline;
@@ -459,6 +698,10 @@ body.dark a.btn{text-decoration:none}
   background: rgba(127,127,127,.14);
   color: inherit;
   cursor: pointer;
+  /* v5.0.0 mobile: чипы эффектов («Все эффекты», «Сон», «Стресс / тревога»…) были
+     22-23px по высоте при padding:3px. Это 13 кнопок на index. */
+  min-height: 44px;
+  display: inline-flex; align-items: center;
   opacity: .85;
   transition: background .15s, opacity .15s, border-color .15s;
 }
@@ -543,7 +786,13 @@ body.dark a.btn{text-decoration:none}
 
 /* ===== Мобильная адаптация (в конце файла — перебивает базовые правила) ===== */
 @media(max-width:768px){
-  .qaGrid{grid-template-columns:1fr!important}
+  /* Мобильно: три вопроса в колонку ставили 728px и вытаскивали калькулятор из первого экрана
+   за 4.4 экрана. Делаем горизонтальную полосу со снапом и scroll-snap: видимое колово,
+   прокрутивается свастивом. На desktop не трогаем. */
+  .qaGrid{grid-template-columns:none!important;display:flex;gap:.6rem;overflow-x:auto;
+    scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding-bottom:.5rem;
+    scrollbar-width:thin}
+  .qaGrid .qa{flex:0 0 84%;scroll-snap-align:start;margin:0}
 }
 
 /* ═══ Мобильная шапка: H1 сверху, кнопка темы снизу ═══ */
@@ -555,9 +804,9 @@ body.dark a.btn{text-decoration:none}
     gap: .5rem !important;
     width: 100% !important;
   }
-  header.top > h1 {
+  header.top > .site-title {
     grid-area: title !important;
-    font-size: 1.05rem !important;
+    font-size: 1.3rem !important;
     line-height: 1.25 !important;
     margin: 0 !important;
     white-space: normal !important;
@@ -565,7 +814,7 @@ body.dark a.btn{text-decoration:none}
     max-width: 100% !important;
     min-width: 0 !important;
   }
-  header.top > h1 > a {
+  header.top > .site-title > a {
     white-space: normal !important;
     overflow: visible !important;
     text-overflow: clip !important;
@@ -579,7 +828,7 @@ body.dark a.btn{text-decoration:none}
     flex-wrap: wrap !important;
     gap: .4rem !important;
   }
-  header.top h1 .v { display: none !important; }
+  header.top .site-title .v { display: none !important; }
 }
 
 /* ═══ Быстрые ссылки: auto-fit, 7 карточек в один ряд на широком экране ═══ */
@@ -611,24 +860,24 @@ body.dark a.btn{text-decoration:none}
 }
 
 /* ═══ H1: графит в light, тёплый белый в dark ═══ */
-h1, h1 a {
+h1, h1 a, .top .site-title, .top .site-title a {
   font-weight: 800 !important;
   letter-spacing: -.015em !important;
 }
-h1 a, .top h1 a {
+h1 a, .top .site-title a {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", Roboto, Arial, sans-serif !important;
 }
 /* Эмодзи не поддерживают weight 800 — рендерятся как квадрат */
 h1 a > :first-child,
-h1 a:first-child::before {
+h1 a:first-child::before, .top .site-title a:first-child::before {
   font-weight: 400 !important;
 }
 body.light h1,
-body.light h1 a {
+body.light h1 a, body.light .top .site-title a {
   color: #1a1d21 !important;
 }
 body.dark h1,
-body.dark h1 a {
+body.dark h1 a, body.dark .top .site-title a {
   color: #fafafa !important;
 }
 .top .v,
@@ -656,8 +905,8 @@ header.top .v {
   flex-wrap: wrap;
   margin: 0 0 1rem;
 }
-.top h1 { font-size: 1.35rem; margin: 0; font-weight: 700; }
-.top h1 a { color: inherit; text-decoration: none; }
+.top .site-title { font-size: 1.35rem; margin: 0; font-weight: 700; }
+.top .site-title a { color: inherit; text-decoration: none; }
 .top .v {
   opacity: .5;
   font-size: .8rem;
@@ -732,3 +981,45 @@ body.light .btn.c-graph     { background: rgba(239,68,68,.08); }
 body.light .btn.c-feedback  { background: rgba(132,204,22,.08); }
 body.light .btn.c-refresh  { background: rgba(99,102,241,.08); }
 body.light .btn.c-support  { background: rgba(123,97,255,.08); }
+
+/* ===== v5.0.0 mobile: логотип-ссылка в шапке (тап-таргет 44px) =====
+   Правило стоит ПОСЛЕ @media(max-width:480px), потому что там
+   `header.top>.site-title>a{display:inline!important}` имеет ту же специфичность
+   (0,1,3) и при равенстве побеждает последнее правило.
+
+   Зачем inline-flex, а не только min-height: min-height не применяется к
+   `display:inline` — это незамещаемый строчный элемент, его бокс по вертикали
+   задаётся только line-height. Поэтому без inline-flex логотип остаётся
+   22px, сколько min-height ни ставь (проверено замером).
+
+   Побочный эффект приемлемый: ширина остаётся по содержимому (inline-flex
+   не растягивается), вертикальное центрирование глифа вместо базовой
+   линии — визуально ровно то же для однострочного текста. */
+header.top > .site-title > a, header.hdr > .site-title > a { display: inline-flex !important; align-items: center; }
+
+/* P2-13: skip-link. Na index v setke 130 kartochek, kazhdaya so svoey linkom i
+   knopkoi — Tab do soderzhimogo idyot desyatki sekund. Ssylka pervoelementnaya
+   v body, vizualno skryta do polucheniya fokusa. */
+.skip-link{position:absolute;left:-9999px;top:0}
+.skip-link:focus{position:fixed;left:0;top:0;z-index:9999;background:#000;color:#fff;
+  padding:8px 16px;font-size:14px;border-radius:0 0 6px 0;text-decoration:none}
+
+/* ===== h1 semantika: v shapke eto NE zagolovok stranicy =====================
+   Do 3a vse 17 stranic imeli edinyj h1 = «brain-25-evidence» v shapke. Eto
+   neverno semanticheski: h1 dolzhen byt zagolovkom STRANICY.
+
+   Raskopka svyazej s h1:
+   - chastnye header.top > h1 pereimenovany v .site-title;
+   - skupnye (h1, h1 a, ody.dark h1 a, h1 .v) rasshireny na
+     .top .site-title, inache shapka poteryala ves, letter-spacing i
+     temnyu tsvet.
+
+   main h1 zafiksirovan na 1.35rem (21.6px), ctoby byt' bolshe h2
+   (1.15rem / 18.4px) i ne popast' pod strannye
+   h1 { font-size: 1.05rem !important } iz lokalnyh stiliev index/map —
+   inache na teh stranicah h1 byl by 16.8px, to est MENWE, chem h2. */
+/* Ottsutstvuet: .top .site-title nasleduet 1.35rem (21.6px) iz pravil,
+   byvshih .top h1. explicitly font-size zdes lomal razmer logotipa
+   s 21.6px na 20.8px. */
+main h1 { font-size: 1.35rem !important; font-weight: 700 !important;
+  line-height: 1.25 !important; margin: 0 0 .8rem !important; color: var(--text) !important; }

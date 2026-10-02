@@ -1,18 +1,84 @@
 ---
 name: product-audit
-description: Аудит проекта brain-25-evidence по 4 направлениям (UI/UX, маркетинг, QA, mobile). Лимит 15-20 мин, максимум 50 находок.
+description: Аудит проекта brain-25-evidence по 4 направлениям (UI/UX, маркетинг, QA, mobile). Лимит 15-20 мин, лимит находок общий — см. раздел «Лимит находок».
 license: MIT
+version: v1.1
+updated: 2026-10-01
+project: brain-25-evidence
 ---
 
 # Product Audit
 
 Триггер: "проведи product audit", "аудит UI/UX", "product-аудит".
 
+
+## Правило верификации находок
+
+Прежде чем фиксить находку — воспроизведи её:
+- mobile: реальный viewport в Playwright
+- touch: getBoundingClientRect() с реальным кликом
+- тест: мутация (сломать → тест падает)
+- JS: node --check + реальный прогон
+- данные: запрос к файлу, не к памяти
+
+Если не можешь воспроизвести — находка не подтверждена,
+в отчёт идёт со статусом «требует верификации».
+
+Не «починил бы» и не «добавил бы clearRect на всякий случай» — сначала
+воспроизвёл. В QA-аудите этого проекта **5 находок из 42** оказались ложными,
+и все пять я бы выдала как критичные: `cv.width = ...` уже чистит canvas,
+`Рёбер` не есть мозгибаки, `lib/` жив и нужен генератору отчёта.
+
+
+
+## Лимит находок
+Ориентир — 60 в отчёте. При превышении:
+- группировать однотипные (130 звёзд = 1 находка, не 130)
+- P0/P1 — не резать никогда
+- P2 — сжимать до паттернов
+Число в отчёте — что нашлось, а не что влезло.
+## Специфика проекта brain-25-evidence
+
+**Структура (актуально на 2026-09-30):**
+- 12 основных HTML: index, map, interactions, graph, atlas, calculator, trends, methodology, faq, glossary, feedback, support
+- 5 sup-страниц: kreatin, omega-3, vitamin-d, magniy, paba
+- 1 CSS: style.css (v=391)
+- 6 JS: script.js, science2.js, tracker.js, version.js, pwa.js, sw.js
+- 1 PWA: manifest.webmanifest, sw.js (v51), pwa.js
+- API: docs/api/v1/index.json + supplements.json
+- Тесты: 727 (pytest -q)
+
+**Структура данных:**
+- docs/data.json — 130 карточек (источник правды)
+- docs/data_index.json — лёгкая проекция
+- docs/effect_tags.json — 18 нормализованных тегов
+- data/db/brain.duckdb — аналитическая БД
+
+**Правила проекта:**
+- На каждой странице в .actions НЕТ ссылки на себя
+- Единый набор кнопок на 11 основных страницах
+- Футеры байт-идентичны
+- Тема через html.dark + body.dark
+- Тесты перед коммитом обязательны
+- Файлы >30 строк — только через Python (PowerShell heredoc ломает backticks)
+
+**Что НЕ трогать:**
+- data.json вручную
+- effect_tags.json вручную
+- sw.js без причины
+- sup/*.html при работе в других ветках
+
+**Связанные документы:**
+- docs/dev/AI_CONTEXT.md — контекст для AI
+- docs/dev/ROADMAP_NEW.md — план развития
+- reports/PRODUCT_AUDIT.md — свежий аудит
+- reports/AUDIT_REPORT.md — аудит 2026-09-30
+
 ## Жёсткие ограничения
 
 1. НИЧЕГО НЕ УДАЛЯЙ И НЕ МЕНЯЙ в проекте
 2. Единственный создаваемый файл — reports/PRODUCT_AUDIT.md
-3. Максимум 50 находок. Если больше — топ-50 по приоритету
+3. Лимит находок — см. раздел «Лимит находок»
 4. Время обхода: 15-20 мин максимум
 5. Обход: 12 основных HTML + 5 sup + style.css + script.js. НЕ обходить все 130 sup (только 5 тестовых)
 6. Работай read-only
@@ -67,7 +133,7 @@ license: MIT
 - 11 основных HTML: index, map, interactions, graph, atlas, calculator, trends, methodology, faq, glossary, feedback
 - support.html — новая страница (в основной навигации нет)
 - 5 тестовых sup/*.html: kreatin, omega-3, vitamin-d, magniy, paba (остальные 125 — в разработке)
-- PWA: manifest.webmanifest, sw.js (CACHE_VERSION v42), pwa.js
+- PWA: manifest.webmanifest, sw.js (CACHE_VERSION v51), pwa.js
 - Форма: Web3Forms в feedback.html
 - Донат: ЮMoney в support.html
 - Граф: vis-network в graph.html
@@ -131,7 +197,7 @@ license: MIT
 - [ ] Все 4 направления покрыты
 - [ ] У каждой находки: файл:строка + фикс + приоритет
 - [ ] Нет находок без цифр
-- [ ] Не больше 50 находок
+- [ ] Однотипные находки сгруппированы, а не перечислены поштучно
 - [ ] Есть раздел "Рекомендации"
 
 Если что-то из чек-листа не выполнено — исправь отчёт до сдачи.

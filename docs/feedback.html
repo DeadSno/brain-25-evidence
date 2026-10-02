@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <script defer src="version.js"></script>
+    <script defer src="version.js?v=311"></script>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>Обратная связь — Brain 25 Evidence</title>
-    <meta name="description" content="Сообщить об ошибке, предложить добавку или оставить отзыв о проекте Brain 25 Evidence">
+    <meta name="description" content="Сообщить об ошибке в данных, предложить новую добавку или оставить отзыв о проекте Brain 25 Evidence. Форма отправляется напрямую.">
     <link rel="manifest" href="manifest.webmanifest">
-    <meta name="theme-color" content="#1c1c1e">
+    <meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1c1c1e" media="(prefers-color-scheme: dark)">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="БАДы">
@@ -32,7 +33,7 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=382">
+<link rel="stylesheet" href="style.css?v=398">
     <style>
         :root{--apanel:var(--card-bg);--aborder:var(--border);--atext:var(--text)}
         /* ── Единая шапка (копия index.html) ───────────────── */
@@ -45,8 +46,8 @@ try {
           display:flex;justify-content:space-between;align-items:center;
           gap:1rem;flex-wrap:wrap;margin:0 0 1rem;
         }
-        .top h1{font-size:1.35rem;margin:0;font-weight:700}
-        .top h1 a{color:inherit;text-decoration:none}
+        .top .site-title{font-size:1.35rem;margin:0;font-weight:700}
+        .top .site-title a{color:inherit;text-decoration:none}
         .top .v{opacity:.5;font-size:.8rem;font-weight:400;margin-left:.5rem}
         .actions{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center}
         .btn{
@@ -57,7 +58,9 @@ try {
         .btn:hover{border-color:#888}
         /* ── Форма обратной связи ──────────────────────────── */
         .feedback-wrap { max-width: 640px; margin: 40px auto; padding: 0 20px; }
-        .feedback-wrap h1 { margin-bottom: 8px; }
+        /* v4.1: заголовок страницы стал h2 (в шапке остаётся единственный h1).
+   Размер 1.8rem сохранён от старого h1, чтобы не менять вид. */
+.feedback-wrap h2 { margin-bottom: 8px; font-size: 1.125rem; font-weight: 600; }
         .feedback-wrap .lead { color: var(--muted); margin-bottom: 32px; }
         .f-form { display: flex; flex-direction: column; gap: 20px; }
         .f-field { display: flex; flex-direction: column; gap: 6px; }
@@ -65,7 +68,7 @@ try {
         .f-field .hint { font-size: 12px; color: var(--muted); }
         .f-field input, .f-field select, .f-field textarea {
             padding: 10px 12px; border: 1px solid var(--border); border-radius: 6px;
-            font-size: 15px; font-family: inherit;
+            font-size: 16px; font-family: inherit;
             background: var(--card-bg); color: var(--text);
         }
         .f-field input:focus, .f-field select:focus, .f-field textarea:focus {
@@ -77,10 +80,21 @@ try {
             border-color: #e74c3c;
         }
         .f-required::after { content: " *"; color: #e74c3c; }
-        .f-actions { display: flex; gap: 12px; align-items: center; margin-top: 8px; }
+        .f-actions { display: flex; gap: 12px; align-items: center; margin-top: 8px; flex-wrap: wrap; }
+        /* v4.1: сообщение об ошибке под полем + живой регион для скринридера */
+        .f-error { font-size: 12px; color: #c0392b; font-weight: 600; }
+        .f-error:empty { display: none; }
+        body.dark .f-error { color: #ff8a80; }
+        .f-status { flex-basis: 100%; font-size: 13px; color: var(--muted); min-height: 1.2em; }
+            /* Состояние ошибки в строке статуса — тот же красный, что у .f-error,
+               но мягче по весу: это не ошибка поля, а итог отправки. */
+            .f-status.is-error { color: #c0392b; font-weight: 600; }
+            body.dark .f-status.is-error { color: #ff8a80; }
+        /* v4.1: var(--accent) давал белым 3.65:1 в тёмной теме —
+           фиксированная заливка работает в обеих темах (5.30:1) */
         .f-btn {
             padding: 12px 24px; border: none; border-radius: 6px;
-            background: var(--accent); color: #fff; font-size: 16px;
+            background: #0a6bc9; color: #fff; font-size: 16px;
             font-weight: 600; cursor: pointer;
         }
         .f-btn:hover { filter: brightness(.92); }
@@ -98,8 +112,8 @@ try {
             body { padding: 0.6rem !important; }
             .trustbar { font-size: .75rem; padding: .35rem .5rem; margin: 0 0 .6rem; }
             .top { flex-direction: column; align-items: stretch; gap: .5rem; margin: 0 0 .6rem; }
-            .top h1 { font-size: 1.05rem; line-height: 1.25; }
-            .top h1 .v { display: none; }
+            .top .site-title { font-size: 1.05rem; line-height: 1.25; }
+            .top .site-title .v { display: none; }
             .actions { gap: .35rem; }
             .btn { padding: .4rem .6rem; font-size: .78rem; }
         }
@@ -120,10 +134,11 @@ try {
     <meta name="twitter:image" content="https://deadsno.github.io/brain-25-evidence/og.png">
 </head>
 <body>
+<a href="#main" class="skip-link">Перейти к содержимому</a>
 
 <div class="trustbar">🧬 Открытые данные · Бесплатно · Без рекламы</div>
 <header class="top">
-    <h1><a href="index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a> <span class="v">v<span data-version="app"></span></span></h1>
+    <div class="site-title"><a href="index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a> <span class="v">v<span data-version="app"></span></span></div>
     <div class="actions">
         <a class="btn c-home" href="index.html">🏠 Главная</a>
         <a class="btn c-calc" href="calculator.html">🧮 Калькулятор</a>
@@ -139,8 +154,10 @@ try {
     </div>
 </header>
 
-<main class="feedback-wrap">
-    <h1>Обратная связь</h1>
+<main id="main" class="feedback-wrap">
+  <h1>Обратная связь</h1>
+
+    <h2>Обратная связь</h2>
     <p class="lead">
         Сообщите об ошибке, предложите новую добавку или оставьте отзыв.
         Каждое сообщение читаю лично — отвечаю в течение 2-3 дней.
@@ -154,18 +171,25 @@ try {
         • Отзыв о проекте
     </div>
 
-    <form class="f-form" action="https://api.web3forms.com/submit" method="POST">
-        <!-- Web3Forms: ключ + настройки -->
+    <!-- novalidate: нативный required блокирует submit ДО нашего обработчика,
+         из-за чего кастомная валидация (aria-invalid + свои сообщения) была
+         недостижима для пустых полей. Проверяем сами, см. обработчик ниже. -->
+    <form class="f-form" action="https://api.web3forms.com/submit" method="POST" novalidate>
+        <!-- Web3Forms: ключ виден в исходнике — это штатный режим сервиса,
+             иначе отправка без JS была бы невозможна. При отправке через fetch
+             ключ уходит в теле POST, а не в URL, и не светится в referer. -->
         <input type="hidden" name="access_key" value="9befbd42-d2e0-4812-b63b-7ef95b0173f3">
         <input type="hidden" name="subject" value="Brain 25 Evidence — новое сообщение">
         <input type="hidden" name="from_name" value="Brain 25 Evidence">
-        <input type="hidden" name="redirect" value="https://deadsno.github.io/brain-25-evidence/feedback.html?ok=1">
+        <!-- Поле redirect удалено: отправка идёт через fetch, навигации не происходит,
+             а значит Web3Forms некуда возвращать пользователя. -->
         <!-- Ловушка для спама -->
-        <input type="checkbox" name="botcheck" style="display:none">
+        <input type="checkbox" name="botcheck" style="display:none"
+               aria-hidden="true" tabindex="-1">
 
         <div class="f-field">
             <label for="type" class="f-required">Тип сообщения</label>
-            <select id="type" name="type" required>
+            <select id="type" name="type" required aria-describedby="typeError">
                 <option value="">— выберите —</option>
                 <option value="error">Ошибка в данных</option>
                 <option value="add">Предложить добавку</option>
@@ -173,31 +197,39 @@ try {
                 <option value="review">Отзыв о проекте</option>
                 <option value="other">Другое</option>
             </select>
+            <span class="f-error" id="typeError"></span>
         </div>
 
         <div class="f-field">
             <label for="topic" class="f-required">О чём речь</label>
             <input type="text" id="topic" name="topic" required minlength="3" maxlength="120"
+                   aria-describedby="topicHint topicError"
                    placeholder="Например: Креатин, карточка, dosage" autocomplete="off">
-            <span class="hint">Укажите название добавки или раздел сайта</span>
+            <span class="hint" id="topicHint">Укажите название добавки или раздел сайта</span>
+            <span class="f-error" id="topicError"></span>
         </div>
 
         <div class="f-field">
             <label for="message" class="f-required">Сообщение</label>
             <textarea id="message" name="message" required minlength="10" maxlength="2000"
+                      aria-describedby="messageHint messageError"
                       placeholder="Опишите проблему или предложение как можно подробнее"></textarea>
-            <span class="hint">От 10 до 2000 символов</span>
+            <span class="hint" id="messageHint">От 10 до 2000 символов</span>
+            <span class="f-error" id="messageError"></span>
         </div>
 
         <div class="f-field">
             <label for="email">Email для ответа</label>
             <input type="email" id="email" name="email" maxlength="200"
+                   aria-describedby="emailHint emailError"
                    placeholder="name@example.com" autocomplete="email">
-            <span class="hint">Необязательно. Оставьте, если хотите получить ответ</span>
+            <span class="hint" id="emailHint">Необязательно. Оставьте, если хотите получить ответ</span>
+            <span class="f-error" id="emailError"></span>
         </div>
 
         <div class="f-actions">
             <button type="submit" class="f-btn" id="f-submit">Отправить</button>
+            <span class="f-status" id="fStatus" role="status" aria-live="polite"></span>
         </div>
 
         <p class="f-privacy">
@@ -227,6 +259,7 @@ try {
     <a href="glossary.html">📖 Глоссарий</a>
   </p>
   <p class="copy">© 2026 Vladislav "DeadSno" Pereshivalov · MIT</p>
+  <p class="share-row"><button class="btn share-page" type="button">🔗 Поделиться</button></p>
 </footer>
 
 <script>
@@ -242,30 +275,116 @@ if (themeBtn) {
     });
 }
 
-// Валидация на клиенте
-document.querySelector('.f-form').addEventListener('submit', function(e) {
-    const message = document.getElementById('message').value.trim();
-    if (message.length < 10) {
-        e.preventDefault();
-        alert('Сообщение должно содержать минимум 10 символов');
-        return false;
-    }
-    const btn = document.getElementById('f-submit');
-    btn.disabled = true;
-    btn.textContent = 'Отправка…';
-});
+// Отправка формы через fetch.
+//
+// ДО этого здесь был нативный сабмит: e.preventDefault() вызывался ТОЛЬКО внутри
+// ветки ошибки валидации, поэтому при успешной проверке браузер уходил с сайта
+// на api.web3forms.com, а тот отдавал свою страницу вместо редиректа —
+// пользователь терял шапку, навигацию и футер и видел чужой английский текст.
+// Разбор: reports/P0_FEEDBACK_DIAGNOSIS.md.
+//
+// Теперь: preventDefault() безусловно, отправка через fetch, все состояния
+// («Отправляется…» / «Спасибо» / ошибка) рисуются в нашей разметке по-русски.
 
-// Показать "спасибо" после редиректа ?ok=1
-const params = new URLSearchParams(window.location.search);
-if (params.get('ok') === '1') {
-    const box = document.createElement('div');
+const WEB3FORMS_ENDPOINT = 'https://api.web3forms.com/submit';
+const form = document.querySelector('.f-form');
+const status = document.getElementById('fStatus');
+const btn = document.getElementById('f-submit');
+
+function showSuccess(message) {
+    var box = document.createElement('div');
     box.className = 'f-success';
-    box.innerHTML = '<strong>Спасибо!</strong> Ваше сообщение получено. Если указали email — отвечу в течение 2-3 дней.';
-    document.querySelector('.feedback-wrap').insertBefore(box, document.querySelector('.f-form'));
+    box.setAttribute('role', 'status');
+    box.innerHTML = '<strong>Спасибо!</strong> ' + message;
+    form.parentNode.insertBefore(box, form);
+    form.style.display = 'none';
     window.scrollTo(0, 0);
 }
+
+function showError(message) {
+    btn.disabled = false;
+    btn.textContent = 'Отправить';
+    status.textContent = message;
+    status.classList.add('is-error');
+}
+
+// Валидация на клиенте: без alert() — ошибка живёт в разметке и озвучивается
+// скринридером через role="status", а на поле ставится aria-invalid.
+function validate() {
+    var errors = [];
+
+    function check(id, errId, ok, text) {
+        var field = document.getElementById(id);
+        var err = document.getElementById(errId);
+        if (ok) {
+            field.removeAttribute('aria-invalid');
+            err.textContent = '';
+            return true;
+        }
+        field.setAttribute('aria-invalid', 'true');
+        err.textContent = text;
+        errors.push(field);
+        return false;
+    }
+
+    var type = document.getElementById('type').value;
+    var topic = document.getElementById('topic').value.trim();
+    var message = document.getElementById('message').value.trim();
+    var email = document.getElementById('email').value.trim();
+
+    check('type', 'typeError', type !== '', 'Выберите тип сообщения');
+    check('topic', 'topicError', topic.length >= 3, 'Укажите не менее 3 символов');
+    check('message', 'messageError', message.length >= 10,
+          'Сообщение должно содержать минимум 10 символов');
+    // email необязателен, но если заполнен — должен быть корректным
+    check('email', 'emailError', email === '' || /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email),
+          'Похоже, в email опечатка');
+
+    if (errors.length) {
+        status.classList.add('is-error');
+        status.textContent = errors.length === 1
+            ? 'Форма не отправлена: исправьте одно поле.'
+            : 'Форма не отправлена: исправьте ' + errors.length + ' пол.';
+        errors[0].focus();
+        return false;
+    }
+    status.classList.remove('is-error');
+    return true;
+}
+
+form.addEventListener('submit', function (e) {
+    // Безусловно и первым: нативный сабмит уводит с сайта.
+    e.preventDefault();
+
+    if (!validate()) return;
+
+    btn.disabled = true;
+    btn.textContent = 'Отправляется…';
+    status.textContent = 'Отправляется…';
+
+    fetch(WEB3FORMS_ENDPOINT, { method: 'POST', body: new FormData(form) })
+        .then(function (r) {
+            if (!r.ok) throw new Error('HTTP ' + r.status);
+            showSuccess('Отзыв отправлен. Если указали email — отвечу в течение 2-3 дней.');
+        })
+        .catch(function () {
+            showError('Не удалось отправить. Попробуйте ещё раз.');
+        });
+});
+
+// Снимаем ошибку поля, как только пользователь его правит.
+['type', 'topic', 'message', 'email'].forEach(function (id) {
+    var field = document.getElementById(id);
+    if (!field) return;
+    field.addEventListener('input', function () {
+        field.removeAttribute('aria-invalid');
+        var err = document.getElementById(id + 'Error');
+        if (err) err.textContent = '';
+    });
+});
 </script>
-<script src="pwa.js?v=280" defer></script>
+<script src="pwa.js?v=282" defer></script>
+<script src="share.js?v=1" defer></script>
 
 </body>
 </html>

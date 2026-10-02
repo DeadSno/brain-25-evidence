@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Нет соединения — Brain 25 Evidence</title>
+<meta name="description" content="Страница недоступна офлайн. Проверьте соединение и обновите.">
+<meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1c1c1e" media="(prefers-color-scheme: dark)">
+<meta name="robots" content="noindex">
+<link rel="icon" href="icons/192.png">
+<!--
+  Страница отдаётся service worker'ом, когда пользователь офлайн открывает
+  адрес, которого нет в кэше (docs/sw.js, cacheFirstForStatic).
+
+  Полностью автономная: стили и скрипт инлайновые, БЕЗ внешних <link> и <script>.
+  Иначе офлайн она сама не отрисовалась бы — те самые CSS/JS, которые не
+  загрузились, и не дали бы ей показаться. Разметка намеренно не использует
+  style.css, чтобы не тянуть в кэш ещё один зависимый ресурс.
+-->
+<style>
+  :root { color-scheme: light dark; }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    padding: max(24px, env(safe-area-inset-top)) 20px
+             max(24px, env(safe-area-inset-bottom));
+    display: flex; align-items: center; justify-content: center;
+    background: #f5f5f7; color: #1c1c1e;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                 "Helvetica Neue", Arial, sans-serif;
+    -webkit-text-size-adjust: 100%;
+  }
+  @media (prefers-color-scheme: dark) {
+    body { background: #1c1c1e; color: #f5f5f7; }
+    .card { background: #2c2c2e; border-color: #3a3a3c; }
+    .hint  { color: #a1a1a6; }
+    .btn   { background: #0a84ff; }
+  }
+  .card {
+    width: 100%; max-width: 460px; text-align: center;
+    background: #fff; border: 1px solid #d1d1d6; border-radius: 16px;
+    padding: 32px 24px;
+  }
+  .logo { font-size: 2rem; line-height: 1; margin-bottom: 12px; }
+  h1 { font-size: 1.3rem; font-weight: 600; margin: 0 0 10px; }
+  p  { font-size: .95rem; line-height: 1.55; margin: 0 0 8px; }
+  .hint { color: #6e6e73; font-size: .85rem; margin-bottom: 22px; }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    /* 44px — не ниже порога тап-таргета (WCAG 2.5.5) */
+    min-height: 44px; min-width: 44px;
+    padding: 10px 22px; border: none; border-radius: 10px;
+    background: #0062cc; color: #fff;
+    font-size: .95rem; font-weight: 600;
+    text-decoration: none; cursor: pointer;
+    -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+  }
+  .btn:active { filter: brightness(.92); }
+  a:focus-visible, button:focus-visible { outline: 2px solid #0a84ff; outline-offset: 3px; }
+  .links { margin-top: 22px; font-size: .85rem; line-height: 2; }
+  .links a { color: inherit; text-decoration: none; border-bottom: 1px solid currentColor; }
+  @media (prefers-reduced-motion: no-preference) {
+    .btn { transition: filter .15s; }
+  }
+</style>
+</head>
+<body>
+<main class="card">
+  <div class="logo" aria-hidden="true">🧠</div>
+  <h1>Нет соединения</h1>
+  <p>Страница <strong id="path">не найдена</strong> ещё не сохранена на этом
+     устройстве, поэтому офлайн её показать нечем.</p>
+  <p class="hint">Уже загруженные страницы продолжают работать. Появится связь —
+     обновите, и всё вернётся.</p>
+  <button class="btn" id="retry" type="button">Обновить</button>
+  <p class="links"><a href="index.html">На главную</a></p>
+</main>
+<script>
+  // Показываем, какой именно адрес не нашёлся в кэше.
+  (function () {
+    var p = location.pathname.split('/').pop() || location.pathname;
+    var el = document.getElementById('path');
+    if (el) el.textContent = p;
+  })();
+
+  document.getElementById('retry').addEventListener('click', function () {
+    location.reload();
+  });
+</script>
+</body>
+</html>

@@ -2,10 +2,11 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="manifest" href="manifest.webmanifest">
-<meta name="theme-color" content="#1c1c1e">
-<meta name="description" content="Карта связей БАДов: синергии, антагонизмы и конфликты с лекарствами. Интерактивный граф 130 добавок."/>
+<meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1c1c1e" media="(prefers-color-scheme: dark)">
+<meta name="description" content="Карта связей 130 БАД: синергии, антагонизмы и конфликты с лекарствами. Интерактивный граф по общим механизмам, с фильтрами по эффекту и риску."/>
 <meta property="og:type" content="website"/>
 <meta property="og:title" content="Карта связей БАДов — синергии и конфликты"/>
 <meta property="og:description" content="Какие добавки усиливают или ослабляют друг друга."/>
@@ -16,7 +17,7 @@
 <meta name="apple-mobile-web-app-title" content="БАДы">
 <link rel="apple-touch-icon" href="icons/192.png">
 <title>🔗 Карта связей — brain-25-evidence</title>
-<script defer src="version.js"></script>
+<script defer src="version.js?v=311"></script>
 <script>
 // Тема: ставим .dark на <html> до загрузки CSS — иначе вспышка светлого фона.
 try {
@@ -25,27 +26,27 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=382"/>
+<link rel="stylesheet" href="style.css?v=398"/>
 <script src="https://unpkg.com/vis-network@9.1.9/standalone/umd/vis-network.min.js"></script>
 <style>
 :root {
-  --bg: #f5f6f8;
-  --fg: #1a1d21;
-  --card-bg: #ffffff;
-  --border: #d8dde3;
-  --muted: #6a7280;
-  --accent: #3d7eff;
+  --bg: #f5f5f7;
+  --fg: #1c1c1e;
+  --card-bg: #fff;
+  --border: #d1d1d6;
+  --muted: #6e6e73;
+  --accent: #0062cc;
   --apanel: var(--card-bg);
   --aborder: var(--border);
   --atext: var(--fg);
 }
 html.dark, body.dark {
-  --bg: #14171c;
-  --fg: #e8ebee;
-  --card-bg: #1e2228;
-  --border: #2c3138;
-  --muted: #8a92a0;
-  --accent: #6ba4ff;
+  --bg: #1c1c1e;
+  --fg: #f5f5f7;
+  --card-bg: #2c2c2e;
+  --border: #3a3a3c;
+  --muted: #9a9aa0;
+  --accent: #0a84ff;
   --apanel: var(--card-bg);
   --aborder: var(--border);
   --atext: var(--fg);
@@ -63,7 +64,7 @@ header {
   display: flex; align-items: center; gap: 1rem;
   flex-wrap: wrap;
 }
-header h1 { margin: 0; font-size: 1.35rem; }
+header .site-title { margin: 0; font-size: 1.35rem; }
 header .actions { margin-left: auto; display: flex; gap: .5rem; }
 .btn {
   padding: .4rem .8rem; border: 1px solid var(--border);
@@ -83,14 +84,16 @@ header .actions { margin-left: auto; display: flex; gap: .5rem; }
   border-radius: 10px; cursor: pointer; font-size: .9rem;
   font-weight: 500;
 }
+/* v4.1: белый на var(--accent) давал 5.80:1 в светлой и 3.82:1 в тёмной.
+   Заливка фиксированная, поэтому одно правило корректно в обеих темах. */
 .tab.active {
-  background: var(--accent); color: #fff; border-color: var(--accent);
+  background: #1f5fbf; color: #fff; border-color: #1f5fbf;
 }
 .tabs .spacer { flex: 1; }
 #search {
   padding: .4rem .8rem; border: 1px solid var(--border);
   background: var(--card-bg); color: var(--fg);
-  border-radius: 8px; font-size: .9rem; min-width: 200px;
+  border-radius: 8px; font-size: 16px; min-width: 200px;
 }
 .legend {
   padding: .5rem 1.5rem;
@@ -177,7 +180,9 @@ header .actions { margin-left: auto; display: flex; gap: .5rem; }
 .sb-cta {
   display: block; margin-top: 1.2rem;
   padding: .6rem 1rem; text-align: center;
-  background: var(--accent); color: #fff;
+  /* v4.1: var(--accent) давал белым 3.65:1 в тёмной теме — фиксированная
+     заливка #0a6bc9 даёт 5.30:1 в обеих (как у .f-btn) */
+  background: #0a6bc9; color: #fff;
   border-radius: 8px; text-decoration: none;
   font-weight: 500;
 }
@@ -203,8 +208,17 @@ footer a { color: var(--accent); }
   padding: .5rem 1.5rem; font-size: .85rem; color: var(--muted);
 }
 
-/* Перебиваем body{max-width:1200px} из style.css — для fullwidth-графов */
-body { max-width: none !important; margin: 0 !important; }
+/* Перебиваем body{max-width:1200px} из style.css — для fullwidth-графов. 
+     Потолок снимается обоснованно: здесь действительно живёт vis-network,
+     и #graph/canvas должны занимать всю ширину.
+
+     Но следствие: на 2560 растягивается и текст. Замер до правки —
+     h1, .tabs, .legend, #hint по 2497px, то есть строка заголовка шла через полвексной монитор.
+
+     Поэтому ограничиваем ТОЛЬКО текстовые блоки, а .layout и канвас не трогаем. Тот же приём, что на atlas.html;
+     1200px — общий потолок из style.css. */
+  body { max-width: none !important; margin: 0 !important; }
+  main h1, .tabs, .legend, #hint { max-width: 1200px; margin-left: auto; margin-right: auto; }
 
 /* Единая шапка для всех страниц */
 .trustbar{
@@ -216,8 +230,8 @@ body { max-width: none !important; margin: 0 !important; }
   display:flex;justify-content:space-between;align-items:center;
   gap:1rem;flex-wrap:wrap;margin:0 0 1rem;
 }
-.top h1{font-size:1.35rem;margin:0;font-weight:700}
-.top h1 a{color:inherit;text-decoration:none}
+.top .site-title{font-size:1.35rem;margin:0;font-weight:700}
+.top .site-title a{color:inherit;text-decoration:none}
 .top .v{opacity:.5;font-size:.8rem;font-weight:400;margin-left:.5rem}
 .actions{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center}
 .btn{
@@ -226,15 +240,15 @@ body { max-width: none !important; margin: 0 !important; }
   font-size:.85rem;text-decoration:none;line-height:1.2;
 }
 .btn.calc {
-  background: linear-gradient(135deg, #3498db, #2980b9) !important;
+  background: linear-gradient(135deg, #1f6fa5, #175a86) !important;
   color: #fff !important;
   border: none !important;
   font-weight: 600;
-  box-shadow: 0 2px 8px rgba(52,152,219,.35);
+  box-shadow: 0 2px 8px rgba(31,111,165,.35);
 }
 .btn.calc:hover {
   opacity: .92;
-  box-shadow: 0 2px 12px rgba(52,152,219,.5);
+  box-shadow: 0 2px 12px rgba(31,111,165,.5);
 }
 .btn:hover{border-color:#888}
 body { padding: 1.5rem 1.5rem 0 !important; margin: 0 !important; }
@@ -244,8 +258,8 @@ body { padding: 1.5rem 1.5rem 0 !important; margin: 0 !important; }
     .wrap { padding: 0.6rem !important; }
     .trustbar { font-size: .75rem; padding: .35rem .5rem; margin: 0 0 .6rem; }
     .top { flex-direction: column; align-items: stretch; gap: .5rem; margin: 0 0 .6rem; }
-    .top h1 { font-size: 1.05rem; line-height: 1.25; }
-    .top h1 a { display: inline-block; }
+    .top .site-title { font-size: 1.05rem; line-height: 1.25; }
+    .top .site-title a { display: inline-block; }
     .top .v { font-size: .7rem; }
     .actions { gap: .35rem; }
     .btn { padding: .4rem .6rem; font-size: .78rem; }
@@ -330,9 +344,10 @@ body { padding: 1.5rem 1.5rem 0 !important; margin: 0 !important; }
 </style>
 </head>
 <body>
+<a href="#main" class="skip-link">Перейти к содержимому</a>
 <div class="trustbar">🧬 Открытые данные · Бесплатно · Без рекламы</div>
 <header class="top">
-  <h1><a href="index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a> <span class="v">v<span data-version="app"></span></span></h1>
+  <div class="site-title"><a href="index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a> <span class="v">v<span data-version="app"></span></span></div>
   <div class="actions">
     <a class="btn c-home" href="index.html">🏠 Главная</a>
     <a class="btn c-calc" href="calculator.html">🧮 Калькулятор</a>
@@ -348,10 +363,15 @@ body { padding: 1.5rem 1.5rem 0 !important; margin: 0 !important; }
   </div>
 </header>
 
+<main id="main">
+  <h1>Карта связей</h1>
+
+
 <div class="tabs">
   <button class="tab active" data-mode="supplements">Добавки между собой</button>
   <button class="tab" data-mode="drugs">Добавки и лекарства</button>
   <div class="spacer"></div>
+  <label for="search" class="sr-only">Поиск добавки или лекарства</label>
   <input id="search" placeholder="🔍 Поиск добавки или лекарства…">
 </div>
 
@@ -369,6 +389,8 @@ body { padding: 1.5rem 1.5rem 0 !important; margin: 0 !important; }
   <div id="graph"></div>
   <aside id="sidebar"></aside>
 </div>
+</main>
+
 <footer class="site-footer">
   <p class="disc">
     <b>⚠️ Не медицинская рекомендация.</b>
@@ -388,6 +410,7 @@ body { padding: 1.5rem 1.5rem 0 !important; margin: 0 !important; }
     <a href="glossary.html">📖 Глоссарий</a>
   </p>
   <p class="copy">© 2026 Vladislav "DeadSno" Pereshivalov · MIT</p>
+  <p class="share-row"><button class="btn share-page" type="button">🔗 Поделиться</button></p>
 </footer>
 
 <script>
@@ -455,7 +478,7 @@ function buildNodes(mode, degrees) {
         background: color, border: color,
         highlight: { background: '#ffeb3b', border: '#333' }
       },
-      font: { color: isDark() ? '#e8ebee' : '#1a1d21' },
+      font: { color: isDark() ? '#f5f5f7' : '#1c1c1e' },
       shape: 'dot',
       size: sizeForDegree(degrees[n.id] || 0, n.kind === 'drug')
     });
@@ -544,7 +567,7 @@ function renderSidebar(id) {
       }));
     sidebar.innerHTML =
       '<div class="sb-head"><h2>' + esc(id) + '</h2>' +
-      '<button class="sb-close" data-close>×</button></div>' +
+      '<button class="sb-close" data-close aria-label="Закрыть панель">×</button></div>' +
       '<div class="sb-meta">Лекарственный класс</div>' +
       '<div class="sb-section"><h3>Связанные добавки (' + related.length + ')</h3>' +
       '<ul class="sb-links">' +
@@ -572,7 +595,7 @@ function renderSidebar(id) {
 
     sidebar.innerHTML =
       '<div class="sb-head"><h2>' + esc(supp.label) + '</h2>' +
-      '<button class="sb-close" data-close>×</button></div>' +
+      '<button class="sb-close" data-close aria-label="Закрыть панель">×</button></div>' +
       '<div class="sb-meta">' + esc([gradeLabel, verdictLabel].filter(Boolean).join(' · ')) + '</div>' +
       '<div class="sb-section"><h3>Связи (' + related.length + ')</h3>' +
       '<ul class="sb-links">' +
@@ -796,18 +819,23 @@ document.addEventListener('click', e => {
   });
 })();
 </script>
-<button class="toBottom" id="toBottom" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})" title="Вниз">↓</button>
+<button class="toBottom" id="toBottom" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})" title="Вниз" aria-label="Прокрутить страницу вниз">↓</button>
 <script>
 window.addEventListener('scroll', () => {
   const btn = document.getElementById('toBottom');
   if (!btn) return;
+  // Раньше порог был 400px: на коротких страницах (atlas, calculator, glossary,
+  // map) он недостижим и кнопка не появлялась. Проверяем прокручиваемость.
+  const scrollable = document.body.scrollHeight > window.innerHeight + 100;
   const atBottom = window.scrollY + window.innerHeight >= document.body.scrollHeight - 100;
-  if (window.scrollY > 400 && !atBottom) {
+  if (scrollable && window.scrollY > 100 && !atBottom) {
     btn.classList.add('show');
   } else {
     btn.classList.remove('show');
   }
 });
 </script>
+<script src="pwa.js?v=282" defer></script>
+<script src="share.js?v=1" defer></script>
 </body>
 </html>

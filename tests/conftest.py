@@ -1,4 +1,5 @@
 """Общие фикстуры для тестов brain-25-evidence."""
+import os
 import sys
 from pathlib import Path
 
@@ -6,6 +7,29 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
+
+DB_PATH = ROOT / "data" / "db" / "brain.duckdb"
+
+
+def pytest_collection_modifyitems(config, items):
+    """Выключить браузерные e2e по умолчанию.
+
+    Гейт сделан на переменной окружения, а НЕ на `-m "not e2e"` в addopts,
+    потому что `-m`, переданный в командной строке, ПЕРЕКРЫВАЕТ addopts.
+    С `-m` в addopts команда `pytest -q -m "not network"` (а она встречается
+    в инструкциях проекта) неожиданно включала e2e и роняла прогон.
+
+    Включить: RUN_E2E=1 pytest -q -m e2e
+    """
+    if os.environ.get("RUN_E2E") == "1":
+        return
+    skip = pytest.mark.skip(
+        reason="e2e выключены по умолчанию (долгий прогон, нужен браузер). "
+               "Запуск: RUN_E2E=1 pytest -q -m e2e"
+    )
+    for item in items:
+        if "e2e" in item.keywords:
+            item.add_marker(skip)
 
 
 @pytest.fixture(scope="session")
@@ -16,3 +40,73 @@ def project_root() -> Path:
 @pytest.fixture(scope="session")
 def data_json_path(project_root: Path) -> Path:
     return project_root / "docs" / "data.json"
+
+
+# ──────────────────────── DuckDB: лок от внешнего процесса ────────────────────────
+#
+# QA_AUDIT P0-3. brain.duckdb открывается в read_only, но DuckDB всё равно берёт
+# на файл блокировку, и если файл держит посторонний процесс (в нашем случае —
+# MCP-сервер `duckdb-mcp-stdio.mjs`), connect() бросает IOException. Прежние
+# фикстуры в test_sql.py и test_integration_api_db.py проверяли только
+# DB_PATH.exists(), поэтому 16 тестов падали с ERROR, и результат прогона зависел
+# от того, запущен ли у разработчика фоновый MCP-процесс.
+#
+# Теперь это SKIP: «замаскировать» ошибку нельзя, но «замаскировать» её как
+# зелёный прогон тоже неправильно — skip честнее, потому что видно, что тесты
+# не выполнялись.
+
+#: Маркеры сообщения о блокировке. Проверено на трёх платформах/локалях:
+#:   Windows RU: "Процесс не может получить доступ к файлу, так как этот файл
+#:               занят другим процессом.\n\nFile is already open in <path> (PID n)"
+#:   Windows EN: "...because it is being used by another process"
+#:   Linux CI:   "Device or resource busy" / "Resource temporarily unavailable"
+#:   DuckDB:     "Could not set lock on file" / "Conflicting lock is held"
+#: ВАЖНО: подстроки "lock"/"held" НЕ срабатывают на сообщениях Windows — там их
+#: просто нет, поэтому список шире и включает русские варианты.
+LOCK_MARKERS = (
+    "lock",
+    "already open in",
+    "being used by another process",
+    "used by another process",
+    "device or resource busy",
+    "resource temporarily unavailable",
+    "занят другим процессом",
+    "не может получить доступ",
+)
+
+
+def is_lock_error(exc: BaseException) -> bool:
+    """Похоже ли исключение на блокировку файла посторонним процессом?
+
+    Ложноотрицательный результат означает 16 ERROR вместо SKIP, поэтому список
+    маркеров намеренно широкий. Ложноположительный (например, «битый файл»,
+    где в тексте случайно есть «lock») вернёт skip вместо падения — поэтому
+    всё, что НЕ распознано как лок, пробрасывается наружу и падает как раньше.
+    """
+    return any(m in str(exc).lower() for m in LOCK_MARKERS)
+
+
+@pytest.fixture(scope="module")
+def db_conn():
+    """Read-only соединение с brain.duckdb.
+
+    Skip, если файл держит другой процесс. Любая другая ошибка подключения
+    (битый файл, нет прав, несовместимая версия) пробрасывается как есть.
+    """
+    if not DB_PATH.exists():
+        pytest.skip(f"DuckDB не создан: {DB_PATH} (python scripts/db/import_to_duckdb.py)")
+    duckdb = pytest.importorskip("duckdb")
+    try:
+        conn = duckdb.connect(str(DB_PATH), read_only=True)
+    except Exception as exc:  # noqa: BLE001 — классифицируем и решаем ниже
+        if is_lock_error(exc):
+            # Текст исключения многострочный («File is already open in\n<PATH>»),
+            # а reason в skip попадает в прогресс-строку pytest — схлопываем в
+            # одну строку, иначе ломается вывод и итоговая сводка.
+            detail = " ".join(str(exc).split())
+            pytest.skip(f"brain.duckdb занят другим процессом (MCP duckdb?) — тесты БД пропущены: {detail}")
+        raise
+    try:
+        yield conn
+    finally:
+        conn.close()

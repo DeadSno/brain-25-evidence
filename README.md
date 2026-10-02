@@ -228,7 +228,7 @@ brain-25-evidence/
 │   ├── make_og.py                 # генерация og.png
 │   ├── build_slim.py              # slim JSON для Streamlit Cloud
 │   └── e2e_smoke.py               # headless smoke-тесты сайта
-├── tests/                         # 140 тестов
+├── tests/                         # 754 теста
 │   ├── test_schema.py             # JSON-схема data.json
 │   ├── test_snapshot.py           # data.json не изменился без UPDATE_SNAPSHOT=1
 │   ├── test_index_sync.py         # data_index.json == проекция data.json
@@ -262,7 +262,7 @@ cd brain-25-evidence
 # 2. Установи зависимости
 pip install -r requirements.txt
 
-# 3. Прогони тесты (должно быть 140 passed)
+# 3. Прогони тесты (должно быть 754 passed)
 python -m pytest tests/ -q
 
 # 4. Подними сайт локально
@@ -291,11 +291,38 @@ streamlit run app.py
 # 3. Deploy → получаешь https://brain-25-evidence.streamlit.app
 ```
 
+## Статус релиза
+
+| | |
+|---|---|
+| **Версия** | **v5.0.0** — стабильный релиз |
+| **Дата данных** | **2026-09-30** (`docs/version.json`), последняя карточка обновлена 2026-09-25 |
+| **Карточек** | **130** (100 % ручной верификации по PRISMA) |
+| **Тестов** | **754** (`pytest -q`: 736 passed + 18 skipped) |
+| **Публикаций** | **37 618** из PubMed, из них с абстрактом — 35 377 |
+| **Тегов эффектов** | 18 нормализованных |
+| **PWA** | офлайн-режим, установка на телефон |
+| **Лицензия** | MIT (данные — CC BY 4.0) |
+
+**Ссылки:**
+
+| Что | Где |
+|---|---|
+| Статический сайт | <https://deadsno.github.io/brain-25-evidence/> |
+| BI (отдельное приложение) | <https://brain-25-evidence.streamlit.app> |
+| API | <https://deadsno.github.io/brain-25-evidence/api/v1/supplements.json> |
+| Репозиторий | <https://github.com/DeadSno/brain-25-evidence> |
+| Ошибки в данных | [issue `data-error`](.github/ISSUE_TEMPLATE/data-error.md) |
+
+Подробности изменений — в [CHANGELOG.md](CHANGELOG.md).
+
+---
+
 ## Roadmap
 
 ### Текущее состояние
 
-- 130 добавок, 140 тестов, 37 618 papers
+- 130 добавок, 754 теста, 37 618 papers
 - Funders analysis (CrossRef + Europe PMC)
 - Streamlit BI + статический сайт
 - trends.html: executive summary, scatter-матрица, категории

@@ -24,7 +24,7 @@
 - JSON UTF-8 без BOM
 - Не писать в data.json вручную — только через скрипты
 - Не редактировать `effect_tags.json` — только через `effect_tags_map.py`
-- Тесты: `pytest -q -m "not network"`, без `--no-verify`
+- Тесты: `pytest -q`, без `--no-verify`
 - **Двойные кавычки в `pubmed_term` ломают scienceIndex** → использовать скобки
 - **Никогда не оборачивать Markdown с Mermaid/кодом в `"""..."""`** — при копировании через PowerShell теряются закрывающие backticks. Собирать текст списком строк и создавать fence через ``BT3 = "`" * 3``:
 

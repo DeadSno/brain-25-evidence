@@ -124,6 +124,13 @@ function esc(s) {
 
   function drawSpark(cv, w, h, pts) {
     const dpr = window.devicePixelRatio || 1;
+    /* Присваивание canvas.width/height СБРАСЫВАЕТ содержимое canvas в прозрачное
+       по спецификации HTML — даже если значение не изменилось. Поэтому повторный
+       рендер с одной точкой (pts.length < 2) НЕ оставляет старую линию:
+       проверено замером пикселей в Chromium, 493 непрозрачных -> 0.
+       Если когда-нибудь убрать эти две строки ради «оптимизации», очистку
+       придётся делать явно (ctx.clearRect) — иначе вернётся баг, которого
+       сейчас нет. */
     cv.width = Math.round(w * dpr);
     cv.height = Math.round(h * dpr);
     const ctx = cv.getContext('2d');
