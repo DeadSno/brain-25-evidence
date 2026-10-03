@@ -21,7 +21,7 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=403">
+<link rel="stylesheet" href="style.css?v=404">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <script src="version.js?v=312"></script>
 <style>
@@ -30,10 +30,10 @@ try {
     background:var(--card-bg);border:1px solid var(--border);border-radius:10px}
   .filters label{display:flex;align-items:center;gap:.4rem;font-size:.9rem}
   .filters select{background:var(--card-bg);color:var(--text);border:1px solid var(--border);
-    border-radius:6px;padding:var(--space-0-3) var(--space-2);font-size:16px}
+    border-radius:var(--radius-md);padding:var(--space-0-3) var(--space-2);font-size:16px}
   .tabs{display:flex;gap:.4rem;margin:var(--space-4) 0 .6rem;flex-wrap:wrap}
   .tab{background:var(--card-bg);color:var(--text);border:1px solid var(--border);
-    padding:var(--space-2) var(--space-4);border-radius:8px;cursor:pointer;font-size:.92rem}
+    padding:var(--space-2) var(--space-4);border-radius:var(--radius-lg);cursor:pointer;font-size:.92rem}
   /* v4.1: белый на #3498db давал 3.15:1 — затемнено до 5.42:1 в обеих темах */
   .tab.on{background:linear-gradient(135deg,#1f6fa5,#175a86);color:#fff;border:none;font-weight:600}
 
@@ -54,10 +54,10 @@ try {
   header.top .actions .btn.calc {
     padding:var(--space-2) var(--space-4) !important;
     height:2.25rem !important;
-    border-radius:8px !important;
+    border-radius:var(--radius-lg) !important;
   }
   .chart-wrap{position:relative;height:600px;background:var(--card-bg);
-    border:1px solid var(--border);border-radius:12px;padding:var(--space-4);margin-bottom:var(--space-4)}
+    border:1px solid var(--border);border-radius:var(--radius-xl);padding:var(--space-4);margin-bottom:var(--space-4)}
   @media(max-width:640px){.chart-wrap{height:500px}}
   .chart-note{font-size:.85rem;opacity:.7;margin:.4rem 0 var(--space-4)}
   .stat-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
@@ -94,7 +94,7 @@ try {
 }
 .insight-card{
   background:var(--card-bg);border:1px solid var(--border);
-  border-radius:12px;padding:.9rem var(--space-4);display:flex;gap:.8rem;align-items:flex-start;
+  border-radius:var(--radius-xl);padding:.9rem var(--space-4);display:flex;gap:.8rem;align-items:flex-start;
 }
 .insight-card[data-tone="blue"]{border-left:3px solid #3498db}
 .insight-card[data-tone="green"]{border-left:3px solid #10b981}
@@ -110,7 +110,7 @@ try {
 .scatter-section .hint{margin:0 0 .8rem;opacity:.7;font-size:.88rem}
 .scatter-wrap{
   background:var(--card-bg);border:1px solid var(--border);
-  border-radius:12px;padding:var(--space-4);position:relative;
+  border-radius:var(--radius-xl);padding:var(--space-4);position:relative;
 }
 .scatter-canvas-box{position:relative;height:560px}
 .scatter-legend{
@@ -137,12 +137,12 @@ try {
 }
 .category-card{
   background:var(--card-bg);border:1px solid var(--border);
-  border-radius:12px;padding:.9rem var(--space-4);
+  border-radius:var(--radius-xl);padding:.9rem var(--space-4);
 }
 .category-name{font-weight:600;font-size:.98rem;margin-bottom:.6rem}
 .cat-count{
   background:var(--border);color:var(--text);font-size:.72rem;
-  padding:.1rem .45rem;border-radius:6px;margin-left:.4rem;font-weight:400;
+  padding:.1rem .45rem;border-radius:var(--radius-md);margin-left:.4rem;font-weight:400;
 }
 .cat-row{
   display:flex;justify-content:space-between;font-size:.85rem;
@@ -160,7 +160,7 @@ body.dark .cat-warn{color:#f59e0b}
 /* ===== Methodology ===== */
 .methodology{
   background:var(--card-bg);border:1px solid var(--border);
-  border-radius:12px;padding:var(--space-2) 1.2rem;margin:var(--space-6) 0;
+  border-radius:var(--radius-xl);padding:var(--space-2) 1.2rem;margin:var(--space-6) 0;
 }
 .methodology summary{cursor:pointer;font-weight:600;padding:.6rem 0;font-size:.95rem}
 .method-body{font-size:.88rem;line-height:1.6;padding-bottom:.8rem}
@@ -168,7 +168,7 @@ body.dark .cat-warn{color:#f59e0b}
 .method-body ul{margin:var(--space-0-3) 0;padding-left:1.3rem}
 .method-body li{margin:var(--space-0-2) 0}
 .method-body pre{
-  background:rgba(128,128,128,.1);padding:.7rem .9rem;border-radius:8px;
+  background:rgba(128,128,128,.1);padding:.7rem .9rem;border-radius:var(--radius-lg);
   font-size:.82rem;overflow-x:auto;margin:.4rem 0;
 }
 .method-footer{margin-top:var(--space-4);opacity:.7;font-size:.82rem}

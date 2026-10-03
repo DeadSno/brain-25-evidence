@@ -23,32 +23,32 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=403">
+<link rel="stylesheet" href="style.css?v=404">
   <style>
     body{--apanel:#15171c;--aborder:#2b2e35;--atext:#e9eaee;--amut:#9aa0aa;margin:0}
     body:not(.dark){--apanel:#ffffff;--aborder:#d9dde3;--atext:#1b1d22;--amut:#5c6370}
     body{max-width:none!important;margin:0!important}
     .wrap{max-width:1200px;margin:0 auto;padding:var(--space-4) var(--space-6);color:var(--atext)}
 
-    .trustbar{text-align:center;padding:var(--space-2) var(--space-4);margin:0 0 var(--space-4);background:var(--apanel);border:1px solid var(--aborder);border-radius:8px;font-size:.85rem;opacity:.85}
+    .trustbar{text-align:center;padding:var(--space-2) var(--space-4);margin:0 0 var(--space-4);background:var(--apanel);border:1px solid var(--aborder);border-radius:var(--radius-lg);font-size:.85rem;opacity:.85}
     .top .site-title{font-size:1.3rem;margin:0;font-weight:700}
-    .btn{padding:.45rem .8rem;border:1px solid var(--aborder);border-radius:8px;background:var(--apanel);color:var(--atext);cursor:pointer;font-size:.85rem;text-decoration:none;line-height:1.2}
+    .btn{padding:.45rem .8rem;border:1px solid var(--aborder);border-radius:var(--radius-lg);background:var(--apanel);color:var(--atext);cursor:pointer;font-size:.85rem;text-decoration:none;line-height:1.2}
     .btn:hover{border-color:#888}
     .btn.primary{background:#3498db;border-color:#3498db;color:#fff}
 
-    .params{background:var(--apanel);border:1px solid var(--aborder);border-radius:12px;padding:var(--space-4) 1.2rem;margin:0 0 var(--space-4)}
+    .params{background:var(--apanel);border:1px solid var(--aborder);border-radius:var(--radius-xl);padding:var(--space-4) 1.2rem;margin:0 0 var(--space-4)}
     .params h2{margin:0 0 .6rem;font-size:1rem}
     .params-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.7rem}
     .params label{display:block;font-size:.8rem;opacity:.7;margin-bottom:var(--space-0-2)}
-    .params input,.params select{width:100%;padding:.45rem .6rem;border:1px solid var(--aborder);border-radius:8px;background:var(--apanel);color:var(--atext);font-size:16px;box-sizing:border-box}
+    .params input,.params select{width:100%;padding:.45rem .6rem;border:1px solid var(--aborder);border-radius:var(--radius-lg);background:var(--apanel);color:var(--atext);font-size:16px;box-sizing:border-box}
 
     .add-row{display:flex;gap:var(--space-2);margin:0 0 var(--space-4)}
-    .add-row input{flex:1;padding:var(--space-2) .8rem;border:1px solid var(--aborder);border-radius:8px;background:var(--apanel);color:var(--atext);font-size:16px}
+    .add-row input{flex:1;padding:var(--space-2) .8rem;border:1px solid var(--aborder);border-radius:var(--radius-lg);background:var(--apanel);color:var(--atext);font-size:16px}
 
     .cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:1.2rem}
     @media(max-width:860px){.cols{grid-template-columns:1fr}}
 
-    .panel{background:var(--apanel);border:1px solid var(--aborder);border-radius:12px;padding:var(--space-4) 1.2rem}
+    .panel{background:var(--apanel);border:1px solid var(--aborder);border-radius:var(--radius-xl);padding:var(--space-4) 1.2rem}
     .panel h2{margin:0 0 .7rem;font-size:1rem;display:flex;justify-content:space-between;align-items:center}
     .panel h2 .count{opacity:.6;font-size:.85rem;font-weight:400}
 
@@ -56,11 +56,11 @@ try {
     .item:last-child{border-bottom:none}
     .item .name{cursor:pointer;color:var(--atext)}
     .item .name:hover{color:#3498db}
-    .item input{padding:.35rem var(--space-2);border:1px solid var(--aborder);border-radius:6px;background:var(--apanel);color:var(--atext);font-size:16px;text-align:right;width:100%;box-sizing:border-box}
+    .item input{padding:.35rem var(--space-2);border:1px solid var(--aborder);border-radius:var(--radius-md);background:var(--apanel);color:var(--atext);font-size:16px;text-align:right;width:100%;box-sizing:border-box}
     .item .unit{opacity:.6;font-size:.78rem;margin-left:var(--space-0-2)}
     .item .rm{background:none;border:none;color:#e74c3c;font-size:1.2rem;cursor:pointer;padding:0}
 
-    .grade-badge{display:inline-block;padding:0 .4rem;border-radius:6px;font-size:.68rem;font-weight:700;margin-left:.35rem;vertical-align:middle}
+    .grade-badge{display:inline-block;padding:0 .4rem;border-radius:var(--radius-md);font-size:.68rem;font-weight:700;margin-left:.35rem;vertical-align:middle}
     /* v4.3: бейдж — текст на 20%-заливке своего же цвета, контраст падал в обеих
        темах: в светлой 1.80 / 1.83 / 1.49 / 2.95:1, в тёмной .grade-D 3.76:1.
        Заливки не трогаем. Базовый цвет — тёмный текст (светлая тема), body.dark —
@@ -78,7 +78,7 @@ try {
     @media(max-width:860px){.result-panel{position:static}}
 
     .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:.6rem;margin:0 0 var(--space-4)}
-    .kpi{background:var(--apanel);border:1px solid var(--aborder);border-radius:8px;padding:.6rem .7rem;text-align:center}
+    .kpi{background:var(--apanel);border:1px solid var(--aborder);border-radius:var(--radius-lg);padding:.6rem .7rem;text-align:center}
     .kpi .val{font-size:1.4rem;font-weight:700;line-height:1}
     .kpi .lbl{font-size:.72rem;opacity:.65;margin-top:var(--space-0-3)}
     /* v4.3: контраст текста на фоне темы. Базовые правила — тёмный вариант
@@ -94,7 +94,7 @@ try {
 
     .block{margin:0 0 var(--space-4)}
     .block h3{margin:0 0 var(--space-2);font-size:.85rem;text-transform:uppercase;letter-spacing:.05em;opacity:.6}
-    .block-item{padding:.55rem .7rem;margin:var(--space-0-3) 0;border:1px solid var(--aborder);border-radius:8px;font-size:.85rem;line-height:1.4}
+    .block-item{padding:.55rem .7rem;margin:var(--space-0-3) 0;border:1px solid var(--aborder);border-radius:var(--radius-lg);font-size:.85rem;line-height:1.4}
     .block-item.sev-low{border-color:rgba(241,196,15,.4);background:rgba(241,196,15,.07)}
     .block-item.sev-medium{border-color:rgba(230,126,34,.5);background:rgba(230,126,34,.08)}
     .block-item.sev-high{border-color:rgba(231,76,60,.5);background:rgba(231,76,60,.08)}
@@ -110,7 +110,7 @@ try {
     /* Профили */
     .profiles{display:flex;flex-wrap:wrap;gap:.4rem;margin:0 0 var(--space-4)}
     .profile-btn{
-      padding:.4rem .8rem;border:1px solid var(--aborder);border-radius:999px;
+      padding:.4rem .8rem;border:1px solid var(--aborder);border-radius:var(--radius-pill);
       background:var(--apanel);color:var(--atext);cursor:pointer;
       font-size:.82rem;display:flex;align-items:center;gap:.35rem;
       transition:all .15s;
@@ -123,7 +123,7 @@ try {
     .reco-list{list-style:none;padding:0;margin:0}
     .reco-list li{
       padding:.45rem .6rem;margin:var(--space-1) 0;
-      border:1px solid var(--aborder);border-radius:8px;
+      border:1px solid var(--aborder);border-radius:var(--radius-lg);
       background:rgba(52,152,219,.05);
       display:flex;justify-content:space-between;align-items:center;
       font-size:.85rem;cursor:pointer;

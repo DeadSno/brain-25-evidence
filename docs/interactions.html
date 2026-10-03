@@ -26,7 +26,7 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=403"/>
+<link rel="stylesheet" href="style.css?v=404"/>
 <script src="https://unpkg.com/vis-network@9.1.9/standalone/umd/vis-network.min.js"></script>
 <style>
     :root { --bg: #f5f5f7; --fg: #1c1c1e; --card-bg: #fff; --border: #d1d1d6; --muted: #6e6e73; --accent: #0062cc; --apanel: var(--card-bg); --aborder: var(--border); --atext: var(--fg); }
@@ -36,13 +36,13 @@ try {
     header { padding: 0; border-bottom: none; display: flex; align-items: center; gap: var(--space-4); flex-wrap: wrap; }
     header .site-title { margin: 0; font-size: 1.35rem; }
     header .actions { margin-left: auto; display: flex; gap: var(--space-2); }
-    .btn { padding: .4rem .8rem; border: 1px solid var(--border); background: var(--card-bg); color: var(--fg); border-radius: 8px; cursor: pointer; font-size: .9rem; text-decoration: none; }
+    .btn { padding: .4rem .8rem; border: 1px solid var(--border); background: var(--card-bg); color: var(--fg); border-radius: var(--radius-lg); cursor: pointer; font-size: .9rem; text-decoration: none; }
     .btn:hover { border-color: var(--accent); }
     .tabs { padding: var(--space-4) var(--space-6) var(--space-2); display: flex; gap: var(--space-2); align-items: center; flex-wrap: wrap; }
     .tab { padding: var(--space-2) var(--space-4); border: 1px solid var(--border); background: var(--card-bg); color: var(--fg); border-radius: 10px; cursor: pointer; font-size: .9rem; font-weight: 500; }
     .tab.active { background: #1f5fbf; color: #fff; border-color: #1f5fbf; }
     .tabs .spacer { flex: 1; }
-    #search { padding: .4rem .8rem; border: 1px solid var(--border); background: var(--card-bg); color: var(--fg); border-radius: 8px; font-size: 16px; min-width: 200px; }
+    #search { padding: .4rem .8rem; border: 1px solid var(--border); background: var(--card-bg); color: var(--fg); border-radius: var(--radius-lg); font-size: 16px; min-width: 200px; }
     .legend .sup::before { background: #3d7eff; }
     .layout { display: flex; height: calc(100vh - 200px); min-height: 600px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
     #graph { flex: 1; min-width: 0; background: var(--card-bg); }
@@ -51,8 +51,8 @@ try {
     #hint { padding: var(--space-2) var(--space-6); font-size: .85rem; color: var(--muted); }
     body { max-width: none !important; margin: 0 !important; }
     main h1, .tabs, .legend, #hint { max-width: 1200px; margin-left: auto; margin-right: auto; }
-    .trustbar { text-align:center;padding:var(--space-2) var(--space-4);margin:0 0 var(--space-4); background:var(--apanel);border:1px solid var(--aborder); border-radius:8px;font-size:.85rem;opacity:.85; }
-    .btn { padding:.45rem .8rem;border:1px solid var(--aborder);border-radius:8px; background:var(--apanel);color:var(--atext);cursor:pointer; font-size:.85rem;text-decoration:none;line-height:1.2; }
+    .trustbar { text-align:center;padding:var(--space-2) var(--space-4);margin:0 0 var(--space-4); background:var(--apanel);border:1px solid var(--aborder); border-radius:var(--radius-lg);font-size:.85rem;opacity:.85; }
+    .btn { padding:.45rem .8rem;border:1px solid var(--aborder);border-radius:var(--radius-lg); background:var(--apanel);color:var(--atext);cursor:pointer; font-size:.85rem;text-decoration:none;line-height:1.2; }
     .btn.calc { background: linear-gradient(135deg, #1f6fa5, #175a86) !important; color: #fff !important; border: none !important; font-weight: 600; box-shadow: 0 2px 8px rgba(31,111,165,.35); }
     .btn.calc:hover { opacity: .92; box-shadow: 0 2px 12px rgba(31,111,165,.5); }
     .btn:hover { border-color:#888 }
