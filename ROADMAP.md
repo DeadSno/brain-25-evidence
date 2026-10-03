@@ -81,17 +81,50 @@
 ## v5.1.6 — Cross-browser 🔥🔥
 
 **Что:**
-- Расширить `tests/test_visual_snapshots.py`: Firefox + WebKit
-- GitHub Actions: снапшоты в 3 браузерах
-- Точечные фиксы: `-webkit-` префиксы, scroll-snap в Safari, backdrop-filter в Firefox
+- Расширить `tests/test_visual_snapshots.py`: **Chromium + WebKit**
+- Firefox — в инфру, но не блокирует PR (nightly)
+- GitHub Actions: Chromium + WebKit в основном прогоне
+- Точечные фиксы: `-webkit-` префиксы, scroll-snap, backdrop-filter, 100dvh, safe-area
 
-**Почему:** iPhone = **15-20% мобильного трафика РФ**. Playwright WebKit ≠ реальный Safari, но лучше чем ничего. Реальные iOS quirks — отдельно.
+**Статистика браузеров РФ (2026):**
+
+| Браузер | Доля (моб.) | Движок |
+|---------|:-----------:|:------:|
+| Яндекс Браузер | 38% | Chromium |
+| Chrome | 31% | Chromium |
+| Safari (iOS) | 13% | WebKit |
+| Edge | 2.8% | Chromium |
+| Opera | 2.4% | Chromium |
+| Samsung Internet | 1.5% | Chromium |
+| Firefox | 1.2% | Firefox |
+
+**Ключевое:** Яндекс Браузер = Chromium. Отдельно тестировать не нужно.
+Покрытие: Chromium (38 + 31 + 2.8 + 2.4 + 1.5 = **75.7%**) + WebKit (13%) = **88.7%**.
+Firefox 1.2% и неразобранный остаток до 100% — вне блокирующего гейта.
+
+**Почему Safari критичен:** iPhone = **13%** мобильного трафика РФ по таблице
+выше. Mobile Safari использует WebKit. Playwright WebKit — не реальный Safari
+и метрики их совпадения не существует, но он ловит большинство CSS-различий
+движков; quirks реального iOS (`100dvh`, safe-area, PWA install) проверяются
+вручную.
+
+**Ручная проверка Яндекс Браузера:**
+- Открыть сайт, проверить: блокировщик рекламы не ломает формы, встроенный
+  перевод не конфликтует
+- 15 минут, разово
+
+**Что НЕ делать:**
+- Отдельные тесты под Яндекс Браузер (он Chromium)
+- Отдельные тесты под Samsung Internet (Chromium)
+- Firefox в блокирующем CI (1.2%, nightly достаточно)
 
 **Время:** 2-3 дня
+**Приоритет:** 🔥🔥 (мобильный трафик — 50%, iOS — 13%)
 
 **Аудиты:**
-- После: снапшоты × 3 браузера
+- После: снапшоты × 2 движка (Chromium + WebKit)
 - После: PWA standalone на iOS (другой install flow)
+- После: ручная проверка Яндекс Браузера
 
 ---
 
@@ -365,25 +398,22 @@ accessibility-check, seo-check, core-web-vitals, data-audit.
 
 ## Кроссбраузерность (с v5.1.6)
 
-Приоритеты браузеров (РФ):
-1. Chrome (Android) — 40% мобильного
-2. Safari (iOS) — 15-20%
-3. Yandex Browser — 10%
-4. Firefox — 5%
-5. Edge — 5%
+Доли и приоритеты — в разделе **v5.1.6**, чтобы числа не расходились в двух
+местах. Здесь только требования и ограничения.
 
-**Требования:** Safari ≥ 15 · Firefox ≥ 120 · Chrome/Edge ≥ 120
+**Требования:** Safari ≥ 15 · Chrome/Edge ≥ 120 · Firefox ≥ 120 (не блокирует)
 
 **Ограничения:**
-- Playwright WebKit ≠ реальный Safari (95%)
-- iOS quirks — только на устройстве
-- Firefox отличается в scrollbar, form styling
+- Playwright WebKit — не реальный Safari; метрики совпадения не существует
+- iOS quirks (`100dvh`, safe-area, PWA install) — только на устройстве
+- Firefox отличается в scrollbar и стилизации форм — вне блокирующего гейта
+- Яндекс Браузер и Samsung Internet — Chromium, отдельных тестов не требуют
 
 ## Снапшоты
 
 - После каждого изменения CSS: `RUN_SNAPSHOTS=1 pytest -q -m snapshots`
 - 37 PNG (18 страниц × 2 разрешения + модалка)
-- С v5.1.6 — × 3 браузера = 111 эталонов
+- С v5.1.6 — × 2 движка (Chromium + WebKit) = **74 эталона**; Firefox — ночной
 
 ---
 
