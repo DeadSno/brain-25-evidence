@@ -32,7 +32,7 @@ self.addEventListener('activate', event => {
    (cacheFirstForStatic, ветка catch) — там он нужен, потому что precache
    кладёт './style.css' без версии, а страницы просят 'style.css?v=NNN'. */
 
-var CACHE_VERSION = 'v65';
+var CACHE_VERSION = 'v66';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
@@ -215,6 +215,15 @@ async function cacheFirstForStatic(req) {
         29 CSS-правил; снято 2 мёртвых правила на index и map.
         id оставлен id: перевод в класс уронил бы специфичность
         (1,0,0) -> (0,1,0) и ширину сайдбара перестала бы выигрывать.
+
+   v66: 29 правил сайдбара вынесены из локальных <style> atlas и
+        interactions в style.css (#atl-sidebar, #int-sidebar).
+        Стало возможно после переименования id на Шаге 3: под общим
+        #sidebar жили два разных сайдбара. @media(640px) и
+        @supports(safe-area-inset-bottom) сохранены как были.
+        Перед переносом проверено: ни один токен этих селекторов не
+        встречается в style.css, и ни одно оставшееся локальное правило
+        страницы не делит с переносимыми ни одного свойства.
 */
     return Response.error();
   }

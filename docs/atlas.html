@@ -28,7 +28,7 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=401">
+<link rel="stylesheet" href="style.css?v=402">
   <style>
     body{--apanel:#15171c;--aborder:#2b2e35;--atext:#e9eaee;--amut:#9aa0aa;margin:0}
     body:not(.dark){--apanel:#ffffff;--aborder:#d9dde3;--atext:#1b1d22;--amut:#5c6370}
@@ -68,24 +68,6 @@ try {
     .atlas-legend .dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:.5rem;vertical-align:middle}
     .atlas-legend .box{display:inline-block;width:14px;height:9px;border:1.5px solid #3498db;border-radius:2px;margin-right:.5rem;vertical-align:middle;background:rgba(52,152,219,.15)}
     #graph{flex:1;min-width:0}
-    #atl-sidebar{width:340px;flex-shrink:0;border-left:1px solid var(--aborder);padding:1rem 1.2rem;overflow-y:auto;display:none}
-    #atl-sidebar.open{display:block}
-    #atl-sidebar h2{margin:0 0 .5rem;padding-right:1.8rem;font-size:1.1rem;position:relative}
-    #atl-sidebar h3{margin:1rem 0 .4rem;font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;opacity:.55;font-weight:600}
-    #atl-sidebar .close-x{position:absolute;right:0;top:-.3rem;background:none;border:none;color:var(--amut);font-size:1.5rem;line-height:1;cursor:pointer;padding:.2rem .4rem;border-radius:6px}
-    #atl-sidebar .close-x:hover{background:rgba(127,127,127,.15);color:var(--atext)}
-    #atl-sidebar ul{list-style:none;padding:0;margin:0}
-    #atl-sidebar li{padding:.45rem .5rem;margin:.25rem 0;border:1px solid var(--aborder);border-radius:8px;cursor:pointer;font-size:.9rem}
-    #atl-sidebar li:hover{border-color:#888;background:rgba(127,127,127,.06)}
-    #atl-sidebar .badge{display:inline-block;padding:.1rem .45rem;border-radius:6px;font-size:.72rem;background:rgba(127,127,127,.15);margin-left:.4rem;opacity:.85}
-    #atl-sidebar .badge.A{background:rgba(76,175,80,.25);color:#7fc784}
-    #atl-sidebar .badge.B{background:rgba(139,195,74,.25);color:#b7d68b}
-    #atl-sidebar .badge.C{background:rgba(255,152,0,.22);color:#ffb74d}
-    #atl-sidebar .badge.D{background:rgba(229,57,53,.2);color:#ef5350}
-    #atl-sidebar .cta{display:inline-block;margin-top:1rem;padding:.5rem 1rem;background:#3498db;color:#fff;border-radius:8px;text-decoration:none;font-weight:500}
-    #atl-sidebar .cta:hover{opacity:.9}
-    #atl-sidebar .mech{margin:.5rem 0;padding:.55rem .7rem;border:1px solid var(--aborder);border-radius:8px;font-size:.85rem;line-height:1.4}
-    #atl-sidebar .mech .str{display:inline-block;padding:.05rem .4rem;border-radius:999px;font-size:.7rem;margin-left:.4rem;background:rgba(127,127,127,.2)}
     body.fs .wrap{max-width:100%;padding:0}
     body.fs .top,
     body.fs .filterbar,
@@ -133,33 +115,6 @@ try {
         flex-direction: column;
       }
       #graph { flex: 1; min-height: 300px; }
-      #atl-sidebar {
-        width: 100% !important;
-        position: fixed;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        top: auto;
-        max-height: 70vh;
-        border-left: none;
-        border-top: 1px solid var(--aborder);
-        border-radius: 12px 12px 0 0;
-        z-index: 100;
-        box-shadow: 0 -8px 32px rgba(0,0,0,.4);
-        transform: translateY(0);
-        transition: transform .2s ease, max-height .2s ease;
-      }
-      #atl-sidebar::before {
-        content: '';
-        display: block;
-        width: 36px;
-        height: 4px;
-        background: rgba(127,127,127,.5);
-        border-radius: 2px;
-        margin: .3rem auto .6rem;
-        cursor: grab;
-      }
-      #atl-sidebar.sheet-full { max-height: 85vh !important; }
 
       /* Легенда сворачивается в кнопку */
       .atlas-legend {
@@ -197,7 +152,6 @@ try {
     /* Safe area (iPhone с вырезом) */
     @supports (padding: env(safe-area-inset-bottom)) {
       body { padding-bottom: env(safe-area-inset-bottom); }
-      #atl-sidebar { padding-bottom: calc(1rem + env(safe-area-inset-bottom)); }
     }
     #graph, #chainbox canvas, .vis-network {
       touch-action: pan-y;   /* скролл страницы вертикально; граф — только внутри */
@@ -205,6 +159,7 @@ try {
     @media (max-width: 640px) {
       #graph, .vis-network { touch-action: none; }   /* граф сам ловит жесты */
     }
+  
   </style>
 </head>
 <body>
