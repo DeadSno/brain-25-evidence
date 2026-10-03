@@ -18,7 +18,7 @@ pytest -q → 736 passed, 18 skipped
 | 3 | `seo-check` | `Quality-Max/free-qa-skills` | 1 | 2,8 КБ | **установлен** |
 | 4 | `core-web-vitals` | `Quality-Max/free-qa-skills` | 1 | 3,2 КБ | **установлен** |
 | 5 | `i18n-rtl-audit` | `Quality-Max/free-qa-skills` | 1 | 3,0 КБ | **установлен** |
-| 6 | `data-quality-auditor` | `alirezarezvani/claude-skills` | 5 | 42,6 КБ | **установлен** |
+| 6 | `data-quality-auditor` | `alirezarezvani/claude-skills` | 5 | 42,6 КБ | ⛔ **удалён 2026-10-03**, заменён на `data-audit` |
 
 Из восьми запрошенных закрыто **пять** (security-audit, accessibility-audit,
 seo-audit, performance-audit, data-quality-audit) — и шестая сверх списка
@@ -108,8 +108,10 @@ Data Quality Score (DQS): 97.0/100  PASS — Production-ready
 **Это число бессмысленно.** Скрипт прочитал JSON как плоский текст: 14 336
 «строк» — это строки файла, одна «колонка». Проверять наши данные нужно
 существующим скиллом `data-validation` (он умеет JSON + DuckDB).
-`data-quality-auditor` оставлен для CSV-источников и для численного
-профиля, когда появится такой формат.
+
+> **Обновление 2026-10-03.** Скилл удалён, заменён на `data-audit` — он
+> работает с JSON и DuckDB natively и покрывает 5 слоёв. Абзац выше сохранён
+> как объяснение, почему удаление состоялось.
 
 ---
 
