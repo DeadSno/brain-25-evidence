@@ -37,6 +37,11 @@
    2-5 = 2.5 x 4px = 10px. */
 :root{--space-1:4px;--space-0-3:.3rem;--space-0-2:.2rem;--space-2:8px;--space-2-5:10px;--space-3:12px;--space-4:16px;--space-5:20px;--space-6:24px;--space-8:32px;--space-12:48px;}
 html.dark,body.dark{
+  /* Шаг 8.4: акцент тёмной темы. Токен ТОЛЬКО тёмный — замер показал,
+     что в светлой теме #8ecbff не рисуется ни на одной из 17 страниц
+     (0 вхождений), а в тёмной 24-54. Поэтому в :root его нет: там он
+     был бы утверждением, которое никто не проверяет. */
+  --accent-2: #8ecbff;
   /* Тени карточки в тёмной теме плотнее: .16 -> .5 */  --shadow-lg: 0 12px 32px rgba(0,0,0,.5);--bg:#1c1c1e;--text:#f5f5f7;--card-bg:#2c2c2e;--border:#3a3a3c;--shadow:rgba(0,0,0,.4);--accent:#0a84ff;--muted:#9a9aa0}
 *{box-sizing:border-box;margin:0;padding:0}
 
@@ -545,21 +550,21 @@ h1 a { min-height: 44px; }
 
 /* ===== F3: контраст ссылок ≥4.5:1 ===== */
 a{color:var(--accent)}
-body.dark a{color:#8ecbff;text-decoration:underline}
+body.dark a{color:var(--accent-2);text-decoration:underline}
 body.dark a:hover{color:var(--accent-hover)}
-body.dark .trustbar a{color:#8ecbff;text-decoration:underline}
-body.dark footer a{color:#8ecbff;text-decoration:underline}
-body.dark #modal a{color:#8ecbff}
-body.dark .srcIcon{color:#8ecbff;border-color:#8ecbff}
+body.dark .trustbar a{color:var(--accent-2);text-decoration:underline}
+body.dark footer a{color:var(--accent-2);text-decoration:underline}
+body.dark #modal a{color:var(--accent-2)}
+body.dark .srcIcon{color:var(--accent-2);border-color:var(--accent-2)}
 body.dark .srcIcon:hover{color:var(--accent-hover);border-color:var(--accent-hover)}
-body.dark .trustChips .chip{color:#8ecbff;border-color:#8ecbff}
+body.dark .trustChips .chip{color:var(--accent-2);border-color:var(--accent-2)}
 body.dark .trustChips .chip:hover{color:var(--accent-hover);border-color:var(--accent-hover)}
-body.dark .copyLink{color:#8ecbff}
+body.dark .copyLink{color:var(--accent-2)}
 body.dark .copyLink:hover{color:var(--accent-hover)}
-body.dark .noPrice a{color:#8ecbff}
-body.dark .qaMore{color:#8ecbff}
-body.dark .wbLink{color:#8ecbff;border-bottom-color:#8ecbff}
-body.dark .compareChips .chipbx{color:#8ecbff;border-color:#8ecbff}
+body.dark .noPrice a{color:var(--accent-2)}
+body.dark .qaMore{color:var(--accent-2)}
+body.dark .wbLink{color:var(--accent-2);border-bottom-color:var(--accent-2)}
+body.dark .compareChips .chipbx{color:var(--accent-2);border-color:var(--accent-2)}
 body:not(.dark) .qaMore{color:var(--accent)}
 body:not(.dark) .compareChips .chipbx{color:var(--accent)}
 

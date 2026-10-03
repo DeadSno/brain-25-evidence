@@ -25,6 +25,10 @@ self.addEventListener('activate', event => {
         --info, --warn, --error НЕ применены: литералы лежат в
         правилах без указания темы, а значение токена различается
         по веткам, и подстановка меняла картинку в тёмной теме.
+   v72: Шаг 8 завершён. Применено 3 токена из 5: --border-hover,
+        --accent-hover, --accent-2 (тёмная ветка, #8ecbff).
+        --info, --warn, --error отложены в v5.1.7: литералы лежат
+        в правилах без указания темы, а ветки токена различаются.
    v47: safe-area для #modal, массовые тап-таргеты 44px, иконки atlas, theme-color.
    v48: порог 44px только для интерактивных .chip (+min-width по WCAG 2.5.5).
    v49: офлайн без подмены контента + 3 страницы в precache + data_index.json.
@@ -44,7 +48,7 @@ self.addEventListener('activate', event => {
    (cacheFirstForStatic, ветка catch) — там он нужен, потому что precache
    кладёт './style.css' без версии, а страницы просят 'style.css?v=NNN'. */
 
-var CACHE_VERSION = 'v71';
+var CACHE_VERSION = 'v72';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
