@@ -21,7 +21,7 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=404">
+<link rel="stylesheet" href="style.css?v=405">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <script src="version.js?v=312"></script>
 <style>
@@ -42,7 +42,7 @@ try {
   header.top .actions > button.btn {
     padding:var(--space-2) var(--space-4) !important;
     font-size:.95rem !important;
-    line-height:1.2 !important;
+    line-height:var(--lh-tight) !important;
     height:2.25rem !important;
     display:inline-flex !important;
     align-items:center !important;
@@ -72,7 +72,7 @@ try {
   /* Убираем sticky-шапку — на странице с графиками она мешает */
   header.top{position:static!important;top:auto!important}
   header.top{display:flex;flex-wrap:wrap;gap:.4rem .6rem}
-  header.top .site-title{flex:1 1 100%;font-size:1.3rem;line-height:1.2;margin:0 0 .4rem;color:var(--text)!important}
+  header.top .site-title{flex:1 1 100%;font-size:1.3rem;line-height:var(--lh-tight);margin:0 0 .4rem;color:var(--text)!important}
   header.top .site-title a{color:var(--text)!important;text-decoration:none!important}
   body.light header.top .site-title,
   body.light header.top .site-title a{color:#1c1c1e!important}
@@ -163,7 +163,7 @@ body.dark .cat-warn{color:#f59e0b}
   border-radius:var(--radius-xl);padding:var(--space-2) 1.2rem;margin:var(--space-6) 0;
 }
 .methodology summary{cursor:pointer;font-weight:600;padding:.6rem 0;font-size:.95rem}
-.method-body{font-size:.88rem;line-height:1.6;padding-bottom:.8rem}
+.method-body{font-size:.88rem;line-height:var(--lh-loose);padding-bottom:.8rem}
 .method-body h4{margin:var(--space-4) 0 .35rem;font-size:.92rem;color:var(--text)}
 .method-body ul{margin:var(--space-0-3) 0;padding-left:1.3rem}
 .method-body li{margin:var(--space-0-2) 0}

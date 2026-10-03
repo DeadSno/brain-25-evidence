@@ -27,7 +27,7 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=404">
+<link rel="stylesheet" href="style.css?v=405">
 <script>
   try {
     document.addEventListener('DOMContentLoaded', function () {
@@ -65,7 +65,7 @@ try {
   body.dark .chip.on{border-color:#f1c40f;color:#f1c40f}
   .chainbox{border:1px solid var(--aborder);border-radius:14px;padding:1.1rem 1.2rem;background:var(--apanel);height:100%;overflow-y:auto}
   @keyframes rise{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
-  .step{padding:.7rem .95rem;border-radius:10px;margin:.35rem 0;font-size:.93rem;line-height:1.5;
+  .step{padding:.7rem .95rem;border-radius:10px;margin:.35rem 0;font-size:.93rem;line-height:var(--lh-normal);
         backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);animation:rise .35s ease both}
   .step.sup{background:rgba(52,152,219,.16);border:1px solid rgba(52,152,219,.5)}
   .step.mech{background:rgba(155,89,182,.15);border:1px solid rgba(155,89,182,.5)}
@@ -123,7 +123,7 @@ try {
   text-transform: uppercase; letter-spacing: .06em;
   opacity: .55; font-weight: 600;
 }
-#details p { margin: var(--space-0-3) 0; line-height: 1.5; }
+#details p { margin: var(--space-0-3) 0; line-height: var(--lh-normal); }
 #details .close-x {
   position: absolute; top: .7rem; right: .9rem;
   background: none; border: none;
@@ -185,7 +185,7 @@ try {
   .btn{
     padding:.45rem .8rem;border:1px solid var(--aborder);border-radius:var(--radius-lg);
     background:var(--apanel);color:var(--atext);cursor:pointer;
-    font-size:.85rem;text-decoration:none;line-height:1.2;
+    font-size:.85rem;text-decoration:none;line-height:var(--lh-tight);
   }
   .btn:hover{border-color:#888}
   /* ── Mobile (≤640px) ─────────────────────────────────────── */
