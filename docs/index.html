@@ -43,14 +43,14 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=404"/>
+<link rel="stylesheet" href="style.css?v=405"/>
 <style>
 :root{--apanel:var(--card-bg);--aborder:var(--border);--atext:var(--text)}
 /* Единая шапка для всех страниц */
 .btn{
   padding:.45rem .8rem;border:1px solid var(--border);border-radius:var(--radius-lg);
   background:var(--card-bg);color:var(--text);cursor:pointer;
-  font-size:.85rem;text-decoration:none;line-height:1.2;
+  font-size:.85rem;text-decoration:none;line-height:var(--lh-tight);
 }
 .btn:hover{border-color:#888}
   /* ── Mobile (≤640px) ─────────────────────────────────────── */
@@ -61,7 +61,7 @@ try {
     .top .site-title a { display: inline-block; }
     .top .v { font-size: .7rem; }
     .top { flex-wrap: wrap; gap: var(--space-0-3); }
-    .top .site-title { font-size: .9rem !important; line-height: 1.2; flex: 1 1 100% !important; max-width: 100% !important; white-space: normal !important; }
+    .top .site-title { font-size: .9rem !important; line-height: var(--lh-tight); flex: 1 1 100% !important; max-width: 100% !important; white-space: normal !important; }
     .top .site-title a { white-space: normal !important; }
     .top .actions { flex: 1 1 100% !important; justify-content: flex-start !important; }
     #compareResult { overflow-x: auto !important; -webkit-overflow-scrolling: touch; max-width: 100%; display: block; }
@@ -96,7 +96,7 @@ try {
       padding: var(--space-2) .6rem;
       white-space: normal;
     }
-    .top .site-title { font-size: .92rem !important; line-height: 1.2; }
+    .top .site-title { font-size: .92rem !important; line-height: var(--lh-tight); }
     .top .site-title {
       font-size: .85rem !important;
       white-space: normal !important;

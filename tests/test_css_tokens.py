@@ -72,6 +72,17 @@ EXPECTED_SHAPE_DARK = {"--shadow-lg": "0 12px 32px rgba(0,0,0,.5)"}
 SHAPE_USE = re.compile(r"var\(\s*(--(?:radius|shadow)-[^)\s]+)")
 SHAPE_DECL = re.compile(r"(--(?:radius|shadow)-[\w-]+)\s*:\s*([^;}]+)")
 
+#: Шаг 9 — межстрочный интервал. План §2.6 предлагает ровно три токена.
+#: Покрытие 19 из 46: остальные значения вне предложенной шкалы, и вводить
+#: для них новые ступени или округлять — решения дизайна, не миграции.
+EXPECTED_LH = {
+    "--lh-tight": "1.2",
+    "--lh-normal": "1.5",
+    "--lh-loose": "1.6",
+}
+LH_USE = re.compile(r"var\(\s*(--lh[^)\s]*)")
+LH_DECL = re.compile(r"(--lh[\w-]+)\s*:\s*([^;}]+)")
+
 
 def _css_sources() -> list[tuple[str, str]]:
     out = [("style.css", STYLE.read_text(encoding="utf-8"))]
@@ -160,12 +171,60 @@ def test_offline_page_has_no_token_dependency(page):
         f"подключает style.css и не объявляет шкалу. Такие ссылки без "
         f"объявления молча ломают отступы."
     )
-    shape = SHAPE_USE.findall(text)
+    shape = SHAPE_USE.findall(text) + LH_USE.findall(text)
     assert not shape, (
         f"{page}.html использует {', '.join(sorted(set(shape)))}, но не "
-        f"подключает style.css. Радиусы и тени без объявления ломаются так "
-        f"же тихо, как отступы."
+        f"подключает style.css. Радиусы, тени и межстрочный без объявления "
+        f"ломаются так же тихо, как отступы."
     )
+
+
+def test_line_height_tokens_are_declared_and_resolve():
+    """Три токена межстрочного объявлены, используются и не содержат точек."""
+    css = STYLE.read_text(encoding="utf-8")
+    root = re.search(r":root\s*\{(.*?)\}", css, re.S)
+    assert root, "в style.css нет блока :root"
+    found = {m.group(1): " ".join(m.group(2).split())
+             for m in LH_DECL.finditer(root.group(1))}
+    missing = sorted(set(EXPECTED_LH) - set(found))
+    assert not missing, f"не объявлены в :root: {', '.join(missing)}"
+    wrong = {k: (found[k], v) for k, v in EXPECTED_LH.items() if found[k] != v}
+    assert not wrong, f"значения не совпадают (получено, ожидалось): {wrong}"
+
+    dotted = sorted({m.group(1) for m in LH_DECL.finditer(css) if "." in m.group(1)})
+    assert not dotted, f"токены с точкой в имени: {', '.join(dotted)}"
+
+    used = {v for _src, css2 in _css_sources() for v in LH_USE.findall(css2)}
+    undeclared = sorted(used - set(found))
+    assert not undeclared, (
+        f"используются, но не объявлены: {', '.join(undeclared)}. Такое "
+        f"правило уходит в invalid-at-computed-value-time, и межстрочный "
+        f"молча становится normal."
+    )
+    unused = sorted(set(found) - used)
+    assert not unused, (
+        f"объявлены, но не используются: {', '.join(unused)}. Мёртвый токен "
+        f"обманчиво выглядит как часть шкалы."
+    )
+
+
+def test_line_height_tokens_stay_on_line_height():
+    """--lh-* имеет смысл только в line-height.
+
+    Тот же класс ошибок, что шаг 6 поймал с --space-* в опциях vis-network:
+    токен отступа попал в объект графа и сломал скрипт. Здесь обратная
+    сторона - токен межстрочного не должен уехать в font-size или height.
+    """
+    forbidden = ("font-size", "width", "height", "margin", "padding",
+                 "border-radius", "box-shadow", "top", "left")
+    bad = []
+    for src, css in _css_sources():
+        stripped = re.sub(r"/\*.*?\*/", " ", css, flags=re.S)
+        for m in re.finditer(r"([a-z-]+)\s*:\s*([^;{}]*var\(--lh[^;{}]*)", stripped):
+            if m.group(1) in forbidden:
+                bad.append(f"{src}: {m.group(1)}: {m.group(2).strip()[:40]}")
+    assert not bad, "токен межстрочного попал в несвойственное свойство:\n  " + \
+                    "\n  ".join(bad[:10])
 
 
 def test_shape_tokens_are_declared():

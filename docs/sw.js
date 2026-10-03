@@ -16,6 +16,9 @@ self.addEventListener('activate', event => {
    v69: Шаг 7 — токены радиусов и теней в style.css (--radius-*,
         --shadow-*). Пиксели не сменились: токен объявлен значением того же
         литерала, который заменил.
+   v70: Шаг 9 — токены межстрочного (--lh-tight/normal/loose).
+        Покрытие 19 из 46 вхождений; значения вне шкалы оставлены
+        литералами, потому что округление сдвинуло бы высоту строки.
    v47: safe-area для #modal, массовые тап-таргеты 44px, иконки atlas, theme-color.
    v48: порог 44px только для интерактивных .chip (+min-width по WCAG 2.5.5).
    v49: офлайн без подмены контента + 3 страницы в precache + data_index.json.
@@ -35,7 +38,7 @@ self.addEventListener('activate', event => {
    (cacheFirstForStatic, ветка catch) — там он нужен, потому что precache
    кладёт './style.css' без версии, а страницы просят 'style.css?v=NNN'. */
 
-var CACHE_VERSION = 'v69';
+var CACHE_VERSION = 'v70';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
