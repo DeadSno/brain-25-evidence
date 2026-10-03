@@ -33,14 +33,14 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=403">
+<link rel="stylesheet" href="style.css?v=404">
     <style>
         :root{--apanel:var(--card-bg);--aborder:var(--border);--atext:var(--text)}
         /* ── Единая шапка (копия index.html) ───────────────── */
         .trustbar{
           text-align:center;padding:var(--space-2) var(--space-4);margin:0 0 var(--space-4);
           background:var(--card-bg);border:1px solid var(--border);
-          border-radius:8px;font-size:.85rem;opacity:.85;
+          border-radius:var(--radius-lg);font-size:.85rem;opacity:.85;
         }
         .top{
           display:flex;justify-content:space-between;align-items:center;
@@ -51,7 +51,7 @@ try {
         .top .v{opacity:.5;font-size:.8rem;font-weight:400;margin-left:var(--space-2)}
         .actions{display:flex;gap:var(--space-2);flex-wrap:wrap;align-items:center}
         .btn{
-          padding:.45rem .8rem;border:1px solid var(--border);border-radius:8px;
+          padding:.45rem .8rem;border:1px solid var(--border);border-radius:var(--radius-lg);
           background:var(--card-bg);color:var(--text);cursor:pointer;
           font-size:.85rem;text-decoration:none;line-height:1.2;
         }
@@ -67,7 +67,7 @@ try {
         .f-field label { font-weight: 600; font-size: 14px; }
         .f-field .hint { font-size: 12px; color: var(--muted); }
         .f-field input, .f-field select, .f-field textarea {
-            padding: var(--space-2-5) var(--space-3); border: 1px solid var(--border); border-radius: 6px;
+            padding: var(--space-2-5) var(--space-3); border: 1px solid var(--border); border-radius: var(--radius-md);
             font-size: 16px; font-family: inherit;
             background: var(--card-bg); color: var(--text);
         }
@@ -93,7 +93,7 @@ try {
         /* v4.1: var(--accent) давал белым 3.65:1 в тёмной теме —
            фиксированная заливка работает в обеих темах (5.30:1) */
         .f-btn {
-            padding: var(--space-3) var(--space-6); border: none; border-radius: 6px;
+            padding: var(--space-3) var(--space-6); border: none; border-radius: var(--radius-md);
             background: #0a6bc9; color: #fff; font-size: 16px;
             font-weight: 600; cursor: pointer;
         }
@@ -102,10 +102,10 @@ try {
         .f-privacy { font-size: 12px; color: var(--muted); margin-top: var(--space-3); }
         .f-privacy a { color: var(--accent); }
         .f-note { padding: var(--space-3) var(--space-4); background: #f0f8ff; border-left: 3px solid #4a90e2;
-                  border-radius: 4px; margin-bottom: var(--space-6); font-size: 14px; }
+                  border-radius: var(--radius-sm); margin-bottom: var(--space-6); font-size: 14px; }
         body.dark .f-note { background: rgba(10,132,255,.12); border-left-color: #0a84ff; }
         .f-success { padding: var(--space-5); background: #e8f5e9; border-left: 4px solid #4caf50;
-                     border-radius: 4px; margin-top: var(--space-6); }
+                     border-radius: var(--radius-sm); margin-top: var(--space-6); }
         body.dark .f-success { background: rgba(52,199,89,.14); border-left-color: #34c759; }
         /* ── Mobile (≤640px) ──────────────────────────────── */
         @media (max-width: 640px) {

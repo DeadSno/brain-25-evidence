@@ -51,6 +51,26 @@ EXPECTED = {
 STYLE_BLOCK = re.compile(r"<style[^>]*>(.*?)</style>", re.S | re.I)
 VAR_USE = re.compile(r"var\(\s*(--space-[^)\s]+)")
 DECL = re.compile(r"(--space-[\w-]+)\s*:\s*([^;}]+)")
+#: Шаг 7 добавил шкалы радиусов и теней. Проверки те же: объявлено ровно
+#: один раз, значение совпадает, точек в именах нет. Значения взяты из
+#: reports/DESIGN_SYSTEM_PLAN.md §2.4-2.5 и совпадают с литералами, которые
+#: заменили, - иначе токенизация сдвинула бы пиксели.
+EXPECTED_SHAPE = {
+    "--radius-sm": "4px",
+    "--radius-md": "6px",
+    "--radius-lg": "8px",
+    "--radius-xl": "12px",
+    "--radius-pill": "999px",
+    "--shadow-sm": "0 2px 6px var(--shadow)",
+    "--shadow-md": "0 2px 8px rgba(0,0,0,.15)",
+    "--shadow-lg": "0 12px 32px rgba(0,0,0,.16)",
+    "--shadow-xl": "0 24px 80px rgba(0,0,0,.55)",
+}
+#: --shadow-lg переобъявляется в тёмной ветке: .16 -> .5. Это единственный
+#: токен тени, который зависит от темы, поэтому объявлен дважды.
+EXPECTED_SHAPE_DARK = {"--shadow-lg": "0 12px 32px rgba(0,0,0,.5)"}
+SHAPE_USE = re.compile(r"var\(\s*(--(?:radius|shadow)-[^)\s]+)")
+SHAPE_DECL = re.compile(r"(--(?:radius|shadow)-[\w-]+)\s*:\s*([^;}]+)")
 
 
 def _css_sources() -> list[tuple[str, str]]:
@@ -140,3 +160,81 @@ def test_offline_page_has_no_token_dependency(page):
         f"подключает style.css и не объявляет шкалу. Такие ссылки без "
         f"объявления молча ломают отступы."
     )
+    shape = SHAPE_USE.findall(text)
+    assert not shape, (
+        f"{page}.html использует {', '.join(sorted(set(shape)))}, но не "
+        f"подключает style.css. Радиусы и тени без объявления ломаются так "
+        f"же тихо, как отступы."
+    )
+
+
+def test_shape_tokens_are_declared():
+    """Шкалы радиусов и теней объявлены с ожидаемыми значениями.
+
+    Значения читаются из блока :root, а не со всего файла: --shadow-lg
+    переобъявлен в тёмной ветке, и при поиске по всему CSS последнее
+    вхождение (.5) вытесняло бы светлое (.16).
+    """
+    css = STYLE.read_text(encoding="utf-8")
+    root = re.search(r":root\s*\{(.*?)\}", css, re.S)
+    assert root, "в style.css нет блока :root"
+    found = {m.group(1): " ".join(m.group(2).split())
+             for m in SHAPE_DECL.finditer(root.group(1))}
+    missing = sorted(set(EXPECTED_SHAPE) - set(found))
+    assert not missing, f"не объявлены в :root: {', '.join(missing)}"
+    wrong = {k: (found[k], v) for k, v in EXPECTED_SHAPE.items() if found[k] != v}
+    assert not wrong, f"значения не совпадают (получено, ожидалось): {wrong}"
+
+    dark = re.search(r"html\.dark\s*,\s*body\.dark\s*\{(.*?)\}", css, re.S)
+    assert dark, "в style.css нет блока html.dark,body.dark"
+    dfound = {m.group(1): " ".join(m.group(2).split())
+              for m in SHAPE_DECL.finditer(dark.group(1))}
+    for k, v in EXPECTED_SHAPE_DARK.items():
+        assert dfound.get(k) == v, (
+            f"в тёмной ветке {k} = {dfound.get(k)!r}, ожидалось {v!r}. "
+            f"Без этого карточка в тёмной теме получит светлую тень."
+        )
+
+
+def test_shape_tokens_resolve_and_have_no_dots():
+    """Каждый var(--radius-*/--shadow-*) имеет объявление, точек нет."""
+    css = STYLE.read_text(encoding="utf-8")
+    dotted = sorted({m.group(1) for m in SHAPE_DECL.finditer(css) if "." in m.group(1)})
+    assert not dotted, f"токены с точкой в имени: {', '.join(dotted)}"
+    used = {v for _src, css2 in _css_sources() for v in SHAPE_USE.findall(css2)}
+    bad = sorted(t for t in used if "." in t)
+    assert not bad, f"используются токены с точкой: {', '.join(bad)}"
+    declared = {m.group(1) for m in SHAPE_DECL.finditer(css)}
+    undeclared = sorted(used - declared)
+    assert not undeclared, (
+        f"используются, но не объявлены: {', '.join(undeclared)}. Такие "
+        f"правила уходят в invalid-at-computed-value-time."
+    )
+
+
+def test_shape_tokens_do_not_leak_into_other_properties():
+    """Токен радиуса не должен попасть в отступы, а токен тени — куда-то ещё.
+
+    Шаг 6 уже ловил такое для отступов: подстановка var() в опции vis-network
+    внутри <script> давала `Unexpected token 'var'`, и граф на atlas просто
+    не рисовался. Здесь та же проверка в обратную сторону - токен формы не
+    должен оказаться в несвойственном свойстве.
+    """
+    forbidden_for_radius = ("padding", "margin", "font-size", "width", "height",
+                            "top", "left", "right", "bottom", "line-height",
+                            "gap", "box-shadow", "border-width")
+    forbidden_for_shadow = ("border-radius", "padding", "margin", "width",
+                            "height", "font-size", "line-height")
+    bad = []
+    for src, css2 in _css_sources():
+        stripped = re.sub(r"/\*.*?\*/", " ", css2, flags=re.S)
+        for m in re.finditer(r"([a-z-]+)\s*:\s*([^;{}]*var\(--(?:radius|shadow)-[^;{}]*)",
+                             stripped):
+            prop = m.group(1)
+            body = m.group(2)
+            forb = (forbidden_for_radius if "--radius-" in body
+                    else forbidden_for_shadow)
+            if prop in forb:
+                bad.append(f"{src}: {prop}: {body.strip()[:40]}")
+    assert not bad, "токен формы попал в несвойственное свойство:\n  " + \
+                    "\n  ".join(bad[:10])
