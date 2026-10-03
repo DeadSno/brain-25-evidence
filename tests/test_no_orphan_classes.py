@@ -1,0 +1,196 @@
+"""Классы не должны оставаться в CSS без разметки, а JS не должен искать того,
+чего в разметке нет.
+
+Зачем именно эти два правила
+----------------------------
+Ошибки тут несимметричны, и это определяет всё разделение на warning/error.
+
+**JS-селектор без разметки — ошибка.** `querySelector('.foo')` ищет элемент,
+которого нет: код молча работает, ветка не выполняется никогда. Именно это
+ломается при переименовании класса в разметке и CSS, если забыть JS: страница
+теряет поведение без единой ошибки в консоли. Это ровно тот класс регрессий,
+ради которого затевалась подготовка к переименованию, поэтому здесь — падение.
+
+**Класс в CSS без разметки — предупреждение.** Правило `.foo` при отсутствии
+`.foo` в разметке ничего не ломает: оно просто не применяется. Но оно
+накапливается — мёртвый CSS переживает любой рефакторинг и мешает читать
+правила, которые действительно что-то делают.
+
+Число «сирот» не ноль, и это не ошибка анализа
+----------------------------------------------
+На текущем коде мёртвых имён 10, и каждое проверено вручную по исходникам:
+
+  .hdr, .flash, .wbLink, .inter-critical   старые хвосты после переделок
+  .qaMore, .noPrice, .is-clickable          удалённые фичи, CSS остался
+                                           (.noPrice — бейдж снят коммитом
+                                            a1f1653, это зафиксировано в
+                                            комментарии pytest.ini)
+  .x                                        кнопка-крестик переименована в
+                                           .activeFilterX (script.js:550),
+                                           а `.activeFilters .chip .x` осталось
+  .updatedLine                              правило для класса, которого нет;
+                                           сегодня updatedLine — это JS-функция
+                                           (script.js:62), а не класс
+  .header                                   мёртвая альтернатива в списке
+                                           селекторов `header, .header`:
+                                           элементную часть правила браузер
+                                           применяет, классовую — никогда
+
+Тест падает только на НОВЫХ сиротах, сверх этого списка. Так он остаётся
+зелёным сегодня и начинает ловить регрессии завтра.
+
+Что тест НЕ проверяет и почему это честно
+-----------------------------------------
+Классы, собираемые скриптом в рантайме (`gA`, `v0`, `sev-high`, `down`),
+в разметке отсутствуют по построению. Разбор регулярками их не выводит, и
+скрипт аудита помечает их как `dynamic` — по префиксу, а не по факту. Такие
+имена НЕ считаются сиротами: иначе тест завалил бы живые классы, и его
+отключили бы, как любой неверно настроенный тест. Проверено: на первой модели
+без этого правила было 88 ложных срабатываний.
+
+Запуск: тест не требует браузера и сервера, поэтому живёт в обычном прогоне.
+"""
+from __future__ import annotations
+
+import sys
+import warnings
+from pathlib import Path
+
+import pytest
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "scripts"))
+
+audit = pytest.importorskip("audit_classes",
+                            reason="scripts/audit_classes.py не на месте")
+
+#: Ожидаемое число страниц. Страховка от тихого охвата 0 страниц: если glob
+#: перестанет что-то находить, все проверки станут тривиально зелёными.
+EXPECTED_PAGES = 18
+
+#: Мёртвые классы, принятые осознанно. Каждый проверен по исходникам; список
+#: НЕ является «белым флагом вообще» — любое новое имя мимо него валит тест.
+KNOWN_DEAD_CSS = {
+    "hdr": "хвост после переделки шапки",
+    "flash": "хвост после переделки шапки",
+    "wbLink": "хвост после переделки шапки",
+    "inter-critical": "страница перешла на .sb-sev.critical",
+    "qaMore": "фича удалена, CSS остался",
+    "noPrice": "бейдж снят коммитом a1f1653 (см. комментарий в pytest.ini)",
+    "is-clickable": "фича удалена, CSS остался",
+    "x": "кнопка-крестик переименована в .activeFilterX (script.js:550)",
+    "updatedLine": "updatedLine сегодня — JS-функция (script.js:62), не класс",
+    "header": "мёртвая альтернатива в `header, .header`",
+}
+
+
+@pytest.fixture(scope="module")
+def audit_data():
+    data = audit.collect()
+    rows = audit.build_rows(data)
+    return data, rows
+
+
+@pytest.fixture(scope="module")
+def audit_result(audit_data):
+    data, rows = audit_data
+    css_only, js_only = audit.orphans(rows)
+    return data, rows, css_only, js_only
+
+
+def test_audit_covers_every_page(audit_result):
+    """Аудит обязан видеть все 18 страниц, включая sup/*.
+
+    Без этого тесты ниже проходят на пустом наборе: нет страниц — нет сирот,
+    и зелёный результат не значит ничего.
+    """
+    data, _, _, _ = audit_result
+    rels = {p["rel"] for p in data["pages"]}
+    assert len(rels) == EXPECTED_PAGES, (
+        f"аудит разобрал {len(rels)} страниц вместо {EXPECTED_PAGES}: "
+        f"{sorted(rels)}"
+    )
+    assert len([r for r in rels if r.startswith("sup/")]) == 5, (
+        "страницы sup/* не попали в разбор — их локальные правила "
+        "переехали в style.css на шаге 2, но проверить это надо"
+    )
+
+
+def test_no_js_selector_without_markup(audit_result):
+    """ОШИБКА: скрипт читает селектор, которого нет ни в разметке, ни в коде.
+
+    Зелёный статус означает, что каждый селектор в JS находит что-то.
+    После переименования класса это первое, что падает: если переименование
+    дойдёт до разметки и CSS, но не дойдёт до скрипта, тест упадёт сразу.
+    """
+    _, _, _, js_only = audit_result
+    assert not js_only, (
+        "JS читает селектор, но элемента с таким классом не существует:\n"
+        + "\n".join(
+            f"  .{r['name']} — ищется в {sorted({s for v in r['js'].values() for s in v})}"
+            for r in js_only)
+        + "\n  Селектор не сработает никогда, и код отработает молча."
+    )
+
+
+def test_no_new_orphan_classes(audit_result):
+    """WARNING: класс в CSS без разметки. Падает только на новых, сверх списка."""
+    _, _, css_only, _ = audit_result
+    new = sorted({r["name"] for r in css_only} - set(KNOWN_DEAD_CSS))
+    assert not new, (
+        f"появились новые мёртвые классы: {', '.join('.' + n for n in new)}\n"
+        f"  Либо разметка потеряла класс, либо правило осталось после удаления "
+        f"фичи. Если класс создаётся скриптом — скажите об этом в "
+        f"KNOWN_DEAD_CSS с причиной, иначе проверка останется в списке надолго."
+    )
+    known = sorted({r["name"] for r in css_only} & set(KNOWN_DEAD_CSS))
+    dropped = sorted(set(KNOWN_DEAD_CSS) - set(known))
+    if dropped:
+        warnings.warn(
+            f"классы из KNOWN_DEAD_CSS больше не мёртвые — вычистите список: "
+            f"{', '.join('.' + n for n in dropped)}",
+            UserWarning, stacklevel=2)
+    rules = sum(r["css_rules"] for r in css_only)
+    warnings.warn(
+        f"мёртвых классов в CSS: {len(css_only)} ({rules} правил), "
+        f"все из списка KNOWN_DEAD_CSS: {', '.join('.' + n for n in known)}",
+        UserWarning, stacklevel=2)
+
+
+def test_known_dead_list_matches_measured(audit_result):
+    """Список KNOWN_DEAD_CSS не должен разъезжаться с реальностью.
+
+    Если класс из списка снова начал использоваться, запись протухла и
+    начала бы молча разрешать настоящие сироты с тем же именем.
+    """
+    _, _, css_only, _ = audit_result
+    measured = {r["name"] for r in css_only}
+    stale = sorted(set(KNOWN_DEAD_CSS) - measured)
+    assert not stale, (
+        f"в KNOWN_DEAD_CSS есть имена, которые больше не мёртвые: "
+        f"{', '.join('.' + n for n in stale)}. Удалите их из списка."
+    )
+    undocumented = sorted(measured - set(KNOWN_DEAD_CSS))
+    assert not undocumented, (
+        f"мёртвые классы без записи в KNOWN_DEAD_CSS: "
+        f"{', '.join('.' + n for n in undocumented)}"
+    )
+
+
+def test_conflict_detection_is_not_vacuous(audit_result):
+    """Проверка конфликтов обязана что-то находить, иначе она декоративна.
+
+    Конфликт — имя на 2+ страницах с РАЗНЫМИ локальными правилами. Именно они
+    ломаются при выносе в общий style.css: локальное правило перебивает
+    глобальное по каскаду, и страница меняет вид. Сейчас таких имён 21.
+    """
+    _, rows, _, _ = audit_result
+    conflicts = audit.find_conflicts(rows)
+    assert conflicts, (
+        "не найдено ни одного конфликта — либо разбор сломался, либо "
+        "локальные правила действительно стали одинаковыми. Второе означает, "
+        "что шаги миграции доведены до конца, и это стоит проверить глазами."
+    )
+    for c in conflicts[:3]:
+        assert c["variants"] > 1, f"{c['token']}: вариантов {c['variants']}, ожидалось >1"
+        assert len(c["pages"]) >= 2, f"{c['token']}: страниц {len(c['pages'])}"
