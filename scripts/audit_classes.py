@@ -206,8 +206,17 @@ JS_READS = [
     re.compile(r"""(?:querySelectorAll|querySelector|closest|matches|getElementsByClassName)\s*\(\s*(['"`])(.+?)\1"""),
     re.compile(r"""\$\$?\s*\(\s*(['"`])(.+?)\1"""),
 ]
-#: getElementById — отдельный класс чтения: возвращает id, а не класс.
-JS_BY_ID = re.compile(r"""getElementById\s*\(\s*(['"])(.+?)\1""")
+#: ЧТЕНИЕ по id: getElementById и локальный хелпер `$`.
+#: script.js:6 — `const $ = id => document.getElementById(id)`. Раньше ловился
+#: только spelled-out вызов, и из подсчёта выпадали 3 обращения к сайдбару
+#: (`$('sidebar')` в atlas.html:510, 516, 610). Из-за этого PREPARE_RENAME
+#: утверждал «0 чтений из JS», а на деле их 12. Проверено перед правкой: все
+#: 147 вызовов `$(...)` в проекте принимают id-подобный аргумент, ни одного
+#: селектора, так что трактовка безопасна.
+JS_BY_ID = [
+    re.compile(r"""getElementById\s*\(\s*(['"])(.+?)\1"""),
+    re.compile(r"""(?<![\\\w$])\$\(\s*(['"])([A-Za-z][\w-]*)\1"""),
+]
 
 #: ЗАПИСЬ: classList.add/remove/replace — класс СОЗДАЁтся, его нет в HTML по
 #: построению. Пример: `documentElement.classList.add('dark')`.
@@ -275,8 +284,11 @@ def parse_js(text: str) -> dict:
         for m in rx.finditer(text):
             for t in tokens(m.group(2)):
                 (ids if t.startswith("#") else reads).add(bare(t))
-    for m in JS_BY_ID.finditer(text):
+    for m in JS_BY_ID[0].finditer(text):
         ids.add(bare(m.group(2)))
+    for rx in JS_BY_ID[1:]:
+        for m in rx.finditer(text):
+            ids.add(bare(m.group(2)))
     for rx in JS_WRITES:
         for m in rx.finditer(text):
             for tok in m.group(2).split():
@@ -538,12 +550,14 @@ def render(rows: dict, conflicts: list, css_only: list, js_only: list,
           f"{r['css_rules']} |")
     A("")
     A("## Полная таблица\n")
-    A("| Имя | Тип | Вхождений HTML | Страниц | Правил CSS (из них локальных) | В JS |")
-    A("|---|---|---:|---:|---:|---|")
+    A("| Имя | Тип | Вхождений HTML | Страниц | Правил CSS (из них локальных) "
+      "| JS: селектор | JS: id-lookup |")
+    A("|---|---|---:|---:|---:|---|---|")
     for t in sorted(rows, key=lambda x: (-rows[x]["html_total"], x)):
         r = rows[t]
-        A(f"| `{r['token']}` | {r['kind']} | {r['html_total']} | {len(r['html_pages'])} | "
-          f"{r['css_rules']} ({r['css_local']}) | {'да' if r['js_any'] else '—'} |")
+        A(f"| `{r['token']}` | {r['kind']} | {r['html_total']} | "
+          f"{len(r['html_pages'])} | {r['css_rules']} ({r['css_local']}) | "
+          f"{'да' if r['js'] else '—'} | {'да' if r['js_ids'] else '—'} |")
     return "\n".join(L) + "\n"
 
 

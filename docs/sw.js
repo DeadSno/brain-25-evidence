@@ -32,7 +32,7 @@ self.addEventListener('activate', event => {
    (cacheFirstForStatic, ветка catch) — там он нужен, потому что precache
    кладёт './style.css' без версии, а страницы просят 'style.css?v=NNN'. */
 
-var CACHE_VERSION = 'v64';
+var CACHE_VERSION = 'v65';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
@@ -208,6 +208,13 @@ async function cacheFirstForStatic(req) {
         .legend*, .severityFilter*) с сохранением @media-контекста.
         Локальными остались :root/--fg, body/header/footer, .btn/.tab,
         vis-network - эти селекторы заняты другими страницами.
+
+   v65: #sidebar переименован в #atl-sidebar (atlas) и #int-sidebar
+        (interactions) - под одним id жили два разных сайдбара.
+        Обновлено 12 обращений из JS (9 getElementById + 3 $) и
+        29 CSS-правил; снято 2 мёртвых правила на index и map.
+        id оставлен id: перевод в класс уронил бы специфичность
+        (1,0,0) -> (0,1,0) и ширину сайдбара перестала бы выигрывать.
 */
     return Response.error();
   }
