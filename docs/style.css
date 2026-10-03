@@ -14,6 +14,10 @@
   --shadow-md: 0 2px 8px rgba(0,0,0,.15);
   --shadow-lg: 0 12px 32px rgba(0,0,0,.16);
   --shadow-xl: 0 24px 80px rgba(0,0,0,.55);
+
+  /* Шаг 8.1: рамка при наведении. Значение одно для обеих тем —
+     замер: .btn:hover даёт rgb(136,136,136) и в светлой, и в тёмной. */
+  --border-hover: #888888;
 --bg:#f5f5f7;--text:#1c1c1e;--card-bg:#fff;--border:#d1d1d6;--shadow:rgba(0,0,0,.08);--accent:#0062cc;--muted:#6e6e73}
 
 /* v5.1 Шаг 6 — шкала отступов (DESIGN_SYSTEM_PLAN.md §2.1).
@@ -70,6 +74,7 @@ h1{font-size:1.8rem;font-weight:600}
    не задеваются. Растёт только высота, ширина и горизонтальные отступы те же. */
 button{background:var(--card-bg);color:var(--text);border:1px solid var(--border);padding:var(--space-2) var(--space-4);border-radius:var(--radius-lg);cursor:pointer;font-size:.95rem;min-height:44px}
 button:hover,.btn:hover{background:var(--border)}
+
 section{margin-bottom:var(--space-8)}
 h2{font-size:1.3rem;font-weight:500;margin-bottom:var(--space-4)}
 label{font-weight:500;margin-right:var(--space-2)}
@@ -1000,6 +1005,14 @@ header.top .v {
 .btn.c-refresh  { border-color: #6366f1; background: rgba(99,102,241,.12); }
 .btn.c-support  { border-color: #7b61ff; background: rgba(123,97,255,.12); }
 
+/* Рамка при наведении. Правило одно здесь, а не в локальных
+   <style> на 6 страницах (на atlas — дважды); на 11 страницах его
+   не было вовсе. Стоит ПОСЛЕ блока .btn.c-*: у .btn:hover и
+   .btn.c-home одинаковая специфичность (0,2,0), и без этого
+   порядка .btn.c-home перебивал бы наведение. */
+.btn:hover{border-color:var(--border-hover)}
+
+
 /* В светлой теме — чуть плотнее фон для контраста */
 body.light .btn.c-home   { background: rgba(100,116,139,.08); }
 body.light .btn.c-calc   { background: rgba(59,130,246,.08); }
@@ -1175,7 +1188,7 @@ main h1 { font-size: 1.35rem !important; font-weight: 700 !important;
 #atl-sidebar .close-x:hover { background:rgba(127,127,127,.15);color:var(--atext) }
 #atl-sidebar ul { list-style:none;padding:0;margin:0 }
 #atl-sidebar li { padding:.45rem var(--space-2);margin:var(--space-1) 0;border:1px solid var(--aborder);border-radius:var(--radius-lg);cursor:pointer;font-size:.9rem }
-#atl-sidebar li:hover { border-color:#888;background:rgba(127,127,127,.06) }
+#atl-sidebar li:hover { border-color: var(--border-hover);background:rgba(127,127,127,.06) }
 #atl-sidebar .badge { display:inline-block;padding:.1rem .45rem;border-radius:var(--radius-md);font-size:.72rem;background:rgba(127,127,127,.15);margin-left:.4rem;opacity:.85 }
 #atl-sidebar .badge.A { background:rgba(76,175,80,.25);color:#7fc784 }
 #atl-sidebar .badge.B { background:rgba(139,195,74,.25);color:#b7d68b }
