@@ -7,6 +7,14 @@ self.addEventListener('activate', event => {
   event.waitUntil(self.clients.claim());
 });
 
+/* v73 (2026-10-03, v5.1.5-fix): снята Яндекс.Метрика с index.html — счётчик
+   tag.js и пиксель <noscript>; удалён мёртвый tracker.js; в форму обратной
+   связи добавлен обязательный чекбокс согласия на обработку email.
+   Изменились docs/index.html и docs/feedback.html — оба входят в
+   STATIC_ASSETS, отдаются cacheFirstForStatic, поэтому бамп обязателен.
+   style.css НЕ менялся, поэтому ?v= в страницах оставлен как был (v407).
+   Запись вынесена сюда отдельно от длинного changelog-комментария,
+   чтобы не править чужой блок по границам регулярки. */
 /* PWA: cache-first для статики, network-first для data*.json.
    Install через поштучный cache.add().catch() — один missing файл
    не валит всю установку. Бамп CACHE_VERSION при изменении STATIC_ASSETS.
@@ -48,7 +56,7 @@ self.addEventListener('activate', event => {
    (cacheFirstForStatic, ветка catch) — там он нужен, потому что precache
    кладёт './style.css' без версии, а страницы просят 'style.css?v=NNN'. */
 
-var CACHE_VERSION = 'v72';
+var CACHE_VERSION = 'v73';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 

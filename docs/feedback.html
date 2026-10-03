@@ -99,6 +99,9 @@ try {
         }
         .f-btn:hover { filter: brightness(.92); }
         .f-btn:disabled { background: var(--muted); cursor: not-allowed; }
+        .f-consent { display: flex; gap: 8px; align-items: flex-start; margin-top: var(--space-3); font-size: 13px; cursor: pointer; }
+    .f-consent input { margin-top: 2px; flex: 0 0 auto; width: 16px; height: 16px; }
+    .f-consent a { color: inherit; }
         .f-privacy { font-size: 12px; color: var(--muted); margin-top: var(--space-3); }
         .f-privacy a { color: var(--accent); }
         .f-note { padding: var(--space-3) var(--space-4); background: #f0f8ff; border-left: 3px solid #4a90e2;
@@ -227,15 +230,27 @@ try {
             <span class="f-error" id="emailError"></span>
         </div>
 
+        <div class="f-field">
+            <label class="f-consent">
+                <input type="checkbox" id="consent" name="consent" value="1" required
+                       aria-describedby="consentError">
+                <span>Согласен на обработку email для ответа.
+                    Передача идёт через сервис
+                    <a href="https://web3forms.com" target="_blank" rel="noopener">Web3Forms</a>
+                    (третья страна). Email не публикуется и не используется для рассылок.
+                </span>
+            </label>
+            <span class="f-error" id="consentError"></span>
+        </div>
+
         <div class="f-actions">
             <button type="submit" class="f-btn" id="f-submit">Отправить</button>
             <span class="f-status" id="fStatus" role="status" aria-live="polite"></span>
         </div>
 
         <p class="f-privacy">
-            Отправляя форму, вы соглашаетесь с передачей данных через сервис
-            <a href="https://web3forms.com" target="_blank" rel="noopener">Web3Forms</a>.
-            Email не публикуется на сайте и не используется для рассылок.
+            Согласие на обработку персональных данных даётся чекбоксом выше —
+            без него форма не отправляется.
         </p>
     </form>
 </main>
@@ -340,6 +355,13 @@ function validate() {
     check('email', 'emailError', email === '' || /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email),
           'Похоже, в email опечатка');
 
+    // Согласие обязательно: без него персональные данные уходить не должны.
+    // Проверка на клиенте — не замена согласию как таковому, а видимое
+    // требование выразить его до отправки.
+    check('consent', 'consentError',
+          document.getElementById('consent').checked,
+          'Без согласия на обработку email форму отправить нельзя');
+
     if (errors.length) {
         status.classList.add('is-error');
         status.textContent = errors.length === 1
@@ -373,10 +395,11 @@ form.addEventListener('submit', function (e) {
 });
 
 // Снимаем ошибку поля, как только пользователь его правит.
-['type', 'topic', 'message', 'email'].forEach(function (id) {
+['type', 'topic', 'message', 'email', 'consent'].forEach(function (id) {
     var field = document.getElementById(id);
     if (!field) return;
-    field.addEventListener('input', function () {
+    var evt = field.type === 'checkbox' ? 'change' : 'input';
+    field.addEventListener(evt, function () {
         field.removeAttribute('aria-invalid');
         var err = document.getElementById(id + 'Error');
         if (err) err.textContent = '';
