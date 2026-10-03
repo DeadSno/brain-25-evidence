@@ -1072,8 +1072,10 @@ main h1 { font-size: 1.35rem !important; font-weight: 700 !important;
    их @media-контекста.
    Локальными остались: :root/--fg (это цвета, отдельный шаг), body,
    header, footer, .btn, .tab(s), #search, #hint, .trustbar, .top,
-   а также vis-network (#graph, #sidebar, .layout, .vis-tooltip) —
-   эти селекторы заняты другими страницами. */
+   а также vis-network (#graph, #int-sidebar, .layout, .vis-tooltip) —
+   эти селекторы заняты другими страницами.
+   #sidebar был переименован в #int-sidebar / #atl-sidebar 2026-10-03,
+   когда выяснилось, что под этим id жили ДВА разных сайдбара. */
 .legend { padding: .5rem 1.5rem; display: flex; gap: 1rem; flex-wrap: wrap; font-size: .8rem; color: var(--muted); }
 .legend span::before { content: ''; display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: .35rem; vertical-align: middle; }
 .legend .syn::before { background: #4caf50; }

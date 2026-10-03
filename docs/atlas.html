@@ -28,7 +28,7 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=400">
+<link rel="stylesheet" href="style.css?v=401">
   <style>
     body{--apanel:#15171c;--aborder:#2b2e35;--atext:#e9eaee;--amut:#9aa0aa;margin:0}
     body:not(.dark){--apanel:#ffffff;--aborder:#d9dde3;--atext:#1b1d22;--amut:#5c6370}
@@ -68,24 +68,24 @@ try {
     .atlas-legend .dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:.5rem;vertical-align:middle}
     .atlas-legend .box{display:inline-block;width:14px;height:9px;border:1.5px solid #3498db;border-radius:2px;margin-right:.5rem;vertical-align:middle;background:rgba(52,152,219,.15)}
     #graph{flex:1;min-width:0}
-    #sidebar{width:340px;flex-shrink:0;border-left:1px solid var(--aborder);padding:1rem 1.2rem;overflow-y:auto;display:none}
-    #sidebar.open{display:block}
-    #sidebar h2{margin:0 0 .5rem;padding-right:1.8rem;font-size:1.1rem;position:relative}
-    #sidebar h3{margin:1rem 0 .4rem;font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;opacity:.55;font-weight:600}
-    #sidebar .close-x{position:absolute;right:0;top:-.3rem;background:none;border:none;color:var(--amut);font-size:1.5rem;line-height:1;cursor:pointer;padding:.2rem .4rem;border-radius:6px}
-    #sidebar .close-x:hover{background:rgba(127,127,127,.15);color:var(--atext)}
-    #sidebar ul{list-style:none;padding:0;margin:0}
-    #sidebar li{padding:.45rem .5rem;margin:.25rem 0;border:1px solid var(--aborder);border-radius:8px;cursor:pointer;font-size:.9rem}
-    #sidebar li:hover{border-color:#888;background:rgba(127,127,127,.06)}
-    #sidebar .badge{display:inline-block;padding:.1rem .45rem;border-radius:6px;font-size:.72rem;background:rgba(127,127,127,.15);margin-left:.4rem;opacity:.85}
-    #sidebar .badge.A{background:rgba(76,175,80,.25);color:#7fc784}
-    #sidebar .badge.B{background:rgba(139,195,74,.25);color:#b7d68b}
-    #sidebar .badge.C{background:rgba(255,152,0,.22);color:#ffb74d}
-    #sidebar .badge.D{background:rgba(229,57,53,.2);color:#ef5350}
-    #sidebar .cta{display:inline-block;margin-top:1rem;padding:.5rem 1rem;background:#3498db;color:#fff;border-radius:8px;text-decoration:none;font-weight:500}
-    #sidebar .cta:hover{opacity:.9}
-    #sidebar .mech{margin:.5rem 0;padding:.55rem .7rem;border:1px solid var(--aborder);border-radius:8px;font-size:.85rem;line-height:1.4}
-    #sidebar .mech .str{display:inline-block;padding:.05rem .4rem;border-radius:999px;font-size:.7rem;margin-left:.4rem;background:rgba(127,127,127,.2)}
+    #atl-sidebar{width:340px;flex-shrink:0;border-left:1px solid var(--aborder);padding:1rem 1.2rem;overflow-y:auto;display:none}
+    #atl-sidebar.open{display:block}
+    #atl-sidebar h2{margin:0 0 .5rem;padding-right:1.8rem;font-size:1.1rem;position:relative}
+    #atl-sidebar h3{margin:1rem 0 .4rem;font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;opacity:.55;font-weight:600}
+    #atl-sidebar .close-x{position:absolute;right:0;top:-.3rem;background:none;border:none;color:var(--amut);font-size:1.5rem;line-height:1;cursor:pointer;padding:.2rem .4rem;border-radius:6px}
+    #atl-sidebar .close-x:hover{background:rgba(127,127,127,.15);color:var(--atext)}
+    #atl-sidebar ul{list-style:none;padding:0;margin:0}
+    #atl-sidebar li{padding:.45rem .5rem;margin:.25rem 0;border:1px solid var(--aborder);border-radius:8px;cursor:pointer;font-size:.9rem}
+    #atl-sidebar li:hover{border-color:#888;background:rgba(127,127,127,.06)}
+    #atl-sidebar .badge{display:inline-block;padding:.1rem .45rem;border-radius:6px;font-size:.72rem;background:rgba(127,127,127,.15);margin-left:.4rem;opacity:.85}
+    #atl-sidebar .badge.A{background:rgba(76,175,80,.25);color:#7fc784}
+    #atl-sidebar .badge.B{background:rgba(139,195,74,.25);color:#b7d68b}
+    #atl-sidebar .badge.C{background:rgba(255,152,0,.22);color:#ffb74d}
+    #atl-sidebar .badge.D{background:rgba(229,57,53,.2);color:#ef5350}
+    #atl-sidebar .cta{display:inline-block;margin-top:1rem;padding:.5rem 1rem;background:#3498db;color:#fff;border-radius:8px;text-decoration:none;font-weight:500}
+    #atl-sidebar .cta:hover{opacity:.9}
+    #atl-sidebar .mech{margin:.5rem 0;padding:.55rem .7rem;border:1px solid var(--aborder);border-radius:8px;font-size:.85rem;line-height:1.4}
+    #atl-sidebar .mech .str{display:inline-block;padding:.05rem .4rem;border-radius:999px;font-size:.7rem;margin-left:.4rem;background:rgba(127,127,127,.2)}
     body.fs .wrap{max-width:100%;padding:0}
     body.fs .top,
     body.fs .filterbar,
@@ -133,7 +133,7 @@ try {
         flex-direction: column;
       }
       #graph { flex: 1; min-height: 300px; }
-      #sidebar {
+      #atl-sidebar {
         width: 100% !important;
         position: fixed;
         left: 0;
@@ -149,7 +149,7 @@ try {
         transform: translateY(0);
         transition: transform .2s ease, max-height .2s ease;
       }
-      #sidebar::before {
+      #atl-sidebar::before {
         content: '';
         display: block;
         width: 36px;
@@ -159,7 +159,7 @@ try {
         margin: .3rem auto .6rem;
         cursor: grab;
       }
-      #sidebar.sheet-full { max-height: 85vh !important; }
+      #atl-sidebar.sheet-full { max-height: 85vh !important; }
 
       /* Легенда сворачивается в кнопку */
       .atlas-legend {
@@ -197,7 +197,7 @@ try {
     /* Safe area (iPhone с вырезом) */
     @supports (padding: env(safe-area-inset-bottom)) {
       body { padding-bottom: env(safe-area-inset-bottom); }
-      #sidebar { padding-bottom: calc(1rem + env(safe-area-inset-bottom)); }
+      #atl-sidebar { padding-bottom: calc(1rem + env(safe-area-inset-bottom)); }
     }
     #graph, #chainbox canvas, .vis-network {
       touch-action: pan-y;   /* скролл страницы вертикально; граф — только внутри */
@@ -256,7 +256,7 @@ try {
       <div><span class="dot" style="background:#888;width:8px;height:8px"></span>размер = кол-во тегов</div>
   <div style="margin-top:.3rem;opacity:.7;font-size:.9em">двойной клик → открыть карточку / список</div>
     </div>
-    <aside id="sidebar"></aside>
+    <aside id="atl-sidebar"></aside>
   </div>
 
 </main>
@@ -507,13 +507,13 @@ function esc(s) {
 
   // ── Sidebar ──────────────────────────────────────────────────────
   function openSidebar(html) {
-    const sb = $('sidebar');
+    const sb = $('atl-sidebar');
     sb.innerHTML = html;
     sb.classList.add('open');
     const x = sb.querySelector('.close-x');
     if (x) x.onclick = () => sb.classList.remove('open');
   }
-  function closeSidebar() { $('sidebar').classList.remove('open'); }
+  function closeSidebar() { $('atl-sidebar').classList.remove('open'); }
 
   function showTag(t) {
     const related = SUPS.filter(c => tagsOf(c).has(t))
@@ -607,7 +607,7 @@ function esc(s) {
     });
 
     // Клик по элементу внутри сайдбара
-    $('sidebar').addEventListener('click', e => {
+    $('atl-sidebar').addEventListener('click', e => {
       const li = e.target.closest('[data-sup]');
       if (li) showSup(li.dataset.sup);
     }, { once: false });
@@ -738,7 +738,7 @@ function esc(s) {
 
     document.addEventListener('touchstart', e => {
       if (!isMobile()) return;
-      const sb = document.getElementById('sidebar');
+      const sb = document.getElementById('atl-sidebar');
       if (!sb || !sb.classList.contains('open')) return;
       const rect = sb.getBoundingClientRect();
       if (e.touches[0].clientY - rect.top > 50) return;
@@ -749,7 +749,7 @@ function esc(s) {
 
     document.addEventListener('touchmove', e => {
       if (!active) return;
-      const sb = document.getElementById('sidebar');
+      const sb = document.getElementById('atl-sidebar');
       if (!sb) return;
       const dy = e.touches[0].clientY - startY;
       const newH = Math.max(140, Math.min(window.innerHeight * 0.85, startH - dy));
@@ -760,7 +760,7 @@ function esc(s) {
     document.addEventListener('touchend', () => {
       if (!active) return;
       active = false;
-      const sb = document.getElementById('sidebar');
+      const sb = document.getElementById('atl-sidebar');
       if (!sb) return;
       const h = sb.getBoundingClientRect().height;
       sb.style.maxHeight = '';

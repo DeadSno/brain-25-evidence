@@ -27,7 +27,7 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=400">
+<link rel="stylesheet" href="style.css?v=401">
 <script>
   try {
     document.addEventListener('DOMContentLoaded', function () {
@@ -232,7 +232,6 @@ try {
   /* Safe area (iPhone с вырезом) */
   @supports (padding: env(safe-area-inset-bottom)) {
     body { padding-bottom: env(safe-area-inset-bottom); }
-    #sidebar { padding-bottom: calc(1rem + env(safe-area-inset-bottom)); }
   }
   /* P2-10: h1 (21.6px, название сайта в шапке) и h2 (20.8px) отличались
      на 0.8px — иерархия не читалась. Разводим h2 до 18px (зазор 3.6px).
