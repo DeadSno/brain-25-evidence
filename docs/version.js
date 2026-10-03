@@ -35,8 +35,21 @@ fetch(VERSION_JSON_URL + '?ts=' + Date.now())
     if (v.app) {
       document.title = document.title.replace(/v\d+(\.\d+)+[-\w.]*/, 'v' + v.app);
     }
-    // Перерисовать карточки с новой датой
-    if (typeof applyFilters === 'function' && window.supplements && supplements.length) {
+    // Перерисовать карточки с новой датой.
+    //
+    // v52: раньше здесь стояло `window.supplements && supplements.length`.
+    // Гейт был мёртв всегда: script.js:7 объявляет `let supplements`, а
+    // top-level let не создаёт свойство на window (в отличие от var), поэтому
+    // window.supplements === undefined и условие не проходило НИКОГДА.
+    // Последствие: карточки рисовались до прихода version.json и навсегда
+    // оставались со своим s.updated из data.json — 120 из 130 показывали
+    // 2026-09-16/-22/-23 вместо 2026-09-25, и перерисовка их не спасала.
+    //
+    // typeof applyFilters === 'function' достаточно: applyFilters (script.js:462)
+    // и supplements (script.js:7) объявлены в одном classic script, поэтому
+    // если первое есть, второе тоже. Короткое замыкание не даёт коснуться
+    // несуществующего supplements на страницах без script.js.
+    if (typeof applyFilters === 'function' && supplements.length) {
       try { applyFilters(); } catch (e) { console.warn('[version] applyFilters:', e); }
     }
   })
