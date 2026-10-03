@@ -1,4 +1,18 @@
 :root{--bg:#f5f5f7;--text:#1c1c1e;--card-bg:#fff;--border:#d1d1d6;--shadow:rgba(0,0,0,.08);--accent:#0062cc;--muted:#6e6e73}
+
+/* v5.1 Шаг 6 — шкала отступов (DESIGN_SYSTEM_PLAN.md §2.1).
+   Заменены только те литералы, которые УЖЕ равны ступени:
+   округления не делались, поэтому пиксели не изменились.
+   Объявлено один раз в :root — он покрывает и тёмную тему, а
+   значения от темы не зависят (план предлагал дублировать в
+   html.dark — это было бы дублированием без эффекта).
+   Имена с ДЕФИСОМ, не с точкой: имя кастомного свойства не
+   может содержать '.', браузер выбрасывает такое объявление молча,
+   а var() от него проваливает всё объявление. План предлагал
+   --space-2.5 и --space-1.5 — в браузере они не работают.
+   Доли названы по значению: 0-2 = .2rem = 3.2px, 0-3 = .3rem = 4.8px;
+   2-5 = 2.5 x 4px = 10px. */
+:root{--space-1:4px;--space-0-3:.3rem;--space-0-2:.2rem;--space-2:8px;--space-2-5:10px;--space-3:12px;--space-4:16px;--space-5:20px;--space-6:24px;--space-8:32px;--space-12:48px;}
 html.dark,body.dark{--bg:#1c1c1e;--text:#f5f5f7;--card-bg:#2c2c2e;--border:#3a3a3c;--shadow:rgba(0,0,0,.4);--accent:#0a84ff;--muted:#9a9aa0}
 *{box-sizing:border-box;margin:0;padding:0}
 
@@ -15,8 +29,8 @@ button,a,.chip,.tab,.favBtn,.preset,.chartTab,.profile-btn,.tagPreset{touch-acti
 .sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;
   overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--text);padding:1.5rem;transition:background .25s,color .25s;max-width:1200px;margin:0 auto;line-height:1.5}
-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;flex-wrap:wrap;gap:1rem}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--text);padding:var(--space-6);transition:background .25s,color .25s;max-width:1200px;margin:0 auto;line-height:1.5}
+header{display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-6);flex-wrap:wrap;gap:var(--space-4)}
 h1{font-size:1.8rem;font-weight:600}
 .hdr{display:flex;gap:.6rem;align-items:center}
 .btn{background:var(--card-bg);color:var(--text);border:1px solid var(--border);padding:.7rem 1.1rem;min-height:44px;display:inline-flex;align-items:center;justify-content:center;border-radius:8px;text-decoration:none;font-size:.95rem}
@@ -37,11 +51,11 @@ h1{font-size:1.8rem;font-weight:600}
    (в проекте — #compareBtn на index, 35px). Специфичность button (0,0,1) ниже,
    чем у любого класса, поэтому .btn/.favBtn/.chip/.tab со своими правилами
    не задеваются. Растёт только высота, ширина и горизонтальные отступы те же. */
-button{background:var(--card-bg);color:var(--text);border:1px solid var(--border);padding:.5rem 1rem;border-radius:8px;cursor:pointer;font-size:.95rem;min-height:44px}
+button{background:var(--card-bg);color:var(--text);border:1px solid var(--border);padding:var(--space-2) var(--space-4);border-radius:8px;cursor:pointer;font-size:.95rem;min-height:44px}
 button:hover,.btn:hover{background:var(--border)}
-section{margin-bottom:2rem}
-h2{font-size:1.3rem;font-weight:500;margin-bottom:1rem}
-label{font-weight:500;margin-right:.5rem}
+section{margin-bottom:var(--space-8)}
+h2{font-size:1.3rem;font-weight:500;margin-bottom:var(--space-4)}
+label{font-weight:500;margin-right:var(--space-2)}
 select{background:var(--card-bg);color:var(--text);border:1px solid var(--border);padding:.4rem .8rem;border-radius:6px;font-size:16px}
 /* v5.0.0 mobile: iOS Safari зумит страницу при фокусе на поле с font-size < 16px,
    после чего появляется горизонтальный скролл. Базовый порог 16px для всех полей.
@@ -49,18 +63,18 @@ select{background:var(--card-bg);color:var(--text);border:1px solid var(--border
    `.f-field input{font-size:15px}` (feedback.html:70), `.filters select` (trends.html:32)
    имеют специфичность выше — они тоже переведены на 16px. */
 input,select,textarea{font-size:16px}
-#symptomFilter{display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
-#chartSection,#compareSection{background:var(--card-bg);padding:1.5rem;border-radius:12px;border:1px solid var(--border)}
+#symptomFilter{display:flex;align-items:center;gap:var(--space-4);flex-wrap:wrap}
+#chartSection,#compareSection{background:var(--card-bg);padding:var(--space-6);border-radius:12px;border:1px solid var(--border)}
 #chartWrap canvas{width:100%!important;max-height:500px}
 #cardsGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.2rem}
-.card{background:var(--card-bg);border:1px solid var(--border);border-radius:10px;padding:1rem 1.2rem;box-shadow:0 2px 6px var(--shadow);position:relative}
-.card .card-title{display:block;font-size:1.1rem;font-weight:700;margin-bottom:.3rem}
-.card .verdict{display:inline-block;font-size:.75rem;padding:.2rem .6rem;border-radius:20px;color:#fff;margin-bottom:.5rem}
+.card{background:var(--card-bg);border:1px solid var(--border);border-radius:10px;padding:var(--space-4) 1.2rem;box-shadow:0 2px 6px var(--shadow);position:relative}
+.card .card-title{display:block;font-size:1.1rem;font-weight:700;margin-bottom:var(--space-0-3)}
+.card .verdict{display:inline-block;font-size:.75rem;padding:var(--space-0-2) .6rem;border-radius:20px;color:#fff;margin-bottom:var(--space-2)}
 .card .price{font-weight:500;color:var(--accent)}
 .card .effects{font-size:.9rem;margin-top:.4rem;opacity:.8}
-.card .effects span{background:var(--bg);padding:.1rem .5rem;border-radius:12px;margin-right:.3rem;display:inline-block;margin-bottom:.2rem}
-.row{display:flex;gap:1rem;flex-wrap:wrap;align-items:end}
-#compareResult{margin-top:1rem;overflow-x:auto}
+.card .effects span{background:var(--bg);padding:.1rem var(--space-2);border-radius:12px;margin-right:var(--space-0-3);display:inline-block;margin-bottom:var(--space-0-2)}
+.row{display:flex;gap:var(--space-4);flex-wrap:wrap;align-items:end}
+#compareResult{margin-top:var(--space-4);overflow-x:auto}
 /* v5.0.0 mobile: скролл-обёртка для широких таблиц. Без неё <table> с width:100%
    всё равно не shrinks ниже min-content ширины и уводит документ вбок
    (glossary.html @320px: scrollWidth 345 при clientWidth 305). */
@@ -69,15 +83,15 @@ input,select,textarea{font-size:16px}
 #compareResult table{width:100%;border-collapse:collapse;font-size:.95rem}
 #compareResult th,#compareResult td{padding:.6rem .8rem;border-bottom:1px solid var(--border);text-align:left}
 #compareResult th{background:var(--bg);font-weight:500}
-footer{margin-top:2rem;padding-top:1rem;border-top:1px solid var(--border);font-size:.8rem;color:var(--muted)}
-footer p{margin-bottom:.5rem}
+footer{margin-top:var(--space-8);padding-top:var(--space-4);border-top:1px solid var(--border);font-size:.8rem;color:var(--muted)}
+footer p{margin-bottom:var(--space-2)}
 /* ===== v1.2: контролы, модалка, skeleton ===== */
-#controls{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:1rem}
+#controls{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:var(--space-4)}
 #controls input,#controls select{flex:1;min-width:150px}
 .hint{font-size:.8rem;opacity:.6;font-weight:400}
 .card{cursor:pointer}
-.card .cat{font-size:.7rem;opacity:.55;display:block;margin-bottom:.2rem}
-#modalOverlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:50;display:flex;align-items:center;justify-content:center;padding:1rem}
+.card .cat{font-size:.7rem;opacity:.55;display:block;margin-bottom:var(--space-0-2)}
+#modalOverlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:50;display:flex;align-items:center;justify-content:center;padding:var(--space-4)}
 #modal{background:var(--card-bg);color:var(--text);border-radius:12px;max-width:min(820px,92vw);width:100%;max-height:85vh;overflow-y:auto;padding:1.4rem;position:relative}
 /* v5.0.0 (iPhone 17): раньше top:.6rem — кнопка закрытия оказывалась на
    y 8..52, то есть ПОД Dynamic Island (safe-area-inset-top = 59px) и была
@@ -98,7 +112,7 @@ body.dark #modal .warn{color:#f26d6d}
 @keyframes sh { to { background-position: -200% 0; } }
 /* ===== v1.2: мобильная адаптация нового UI ===== */
 @media (max-width: 768px) {
-  body { padding: 1rem; }
+  body { padding: var(--space-4); }
   h1 { font-size: 1.4rem; }
   header { flex-direction: column; align-items: flex-start; gap: .6rem; }
   .hdr { width: 100%; justify-content: space-between; }
@@ -111,7 +125,7 @@ body.dark #modal .warn{color:#f26d6d}
   select { width: 100%; }
   #compareResult { font-size: .85rem; overflow-x: auto; }
   #compareResult th, #compareResult td { padding: .4rem; }
-  #modal { padding: 1rem; max-height: 90vh; }
+  #modal { padding: var(--space-4); max-height: 90vh; }
 }
 /* ===== v1.3: калькулятор дозировки ===== */
 .calc {
@@ -128,7 +142,7 @@ body.dark #modal .warn{color:#f26d6d}
 }
 .calcRow input {
   flex: 1;
-  padding: 0.5rem;
+  padding: var(--space-2);
   border: 1px solid var(--border);
   border-radius: 4px;
   background: var(--bg);
@@ -167,7 +181,7 @@ body.dark .calcResult .warn { color: #f26d6d; }
 /* v4.2: в светлой теме #f1c40f давал 1.53:1 — тёмное золото, в тёмной теме
    возвращаем исходный яркий оттенок (там он даёт 8.4:1). */
 .favBtn.on { color: #8a6800; text-shadow: 0 0 8px rgba(138, 104, 0, .45); }
-.favFilter { margin-left: .5rem; padding: .5rem .8rem; border: 1px solid var(--border);
+.favFilter { margin-left: var(--space-2); padding: var(--space-2) .8rem; border: 1px solid var(--border);
              border-radius: 6px; background: var(--card-bg); color: var(--text); cursor: pointer; }
 .favFilter.on { border-color: #8a6800; color: #8a6800; }
 body.dark .favBtn.on { color: #f1c40f; text-shadow: 0 0 8px rgba(241, 196, 15, .55); }
@@ -253,19 +267,19 @@ footer, .site-footer { padding-bottom: env(safe-area-inset-bottom, 0px); }
 .bestBadge {
   display: inline-block; margin: 0 0 .35rem 0;
   font-size: .68rem; font-weight: 700;
-  padding: .18rem .5rem; border-radius: 999px; color: #222;
+  padding: .18rem var(--space-2); border-radius: 999px; color: #222;
   background: linear-gradient(135deg, #f1c40f, #f39c12);
   box-shadow: 0 2px 8px rgba(243,156,18,.4);
 }
 
 /* ===== v1.3.1: кнопка «Скопировать ссылку» ===== */
 .copyLink { background: none; border: 1px dashed var(--border); border-radius: 6px;
-  color: var(--text); padding: .3rem .6rem; cursor: pointer; }
+  color: var(--text); padding: var(--space-0-3) .6rem; cursor: pointer; }
 .copyLink:hover { border-color: #3498db; color: #3498db; }
 
 /* ===== v2.1: бейдж «цена не найдена», пустое состояние, «Наверх» ===== */
 .noPrice{color:var(--text);opacity:.8;font-size:.85rem}.noPrice a{color:var(--accent)}
-.empty{grid-column:1/-1;text-align:center;padding:3rem 1rem;opacity:.8}
+.empty{grid-column:1/-1;text-align:center;padding:var(--space-12) var(--space-4);opacity:.8}
 #toTop{position:fixed;right:1.2rem;bottom:1.2rem;z-index:60;width:44px;height:44px;
 border-radius:50%;border:1px solid var(--border);background:var(--card-bg);color:var(--text);
 font-size:1.2rem;cursor:pointer;opacity:0;pointer-events:none;transition:.25s}
@@ -275,32 +289,32 @@ font-size:1.2rem;cursor:pointer;opacity:0;pointer-events:none;transition:.25s}
 /* v4.3: белый на заливке — контраст от темы не зависит, поэтому затемняем
    базовые правила. Замеры: .conflict-banner было 3.34:1, .conflict-banner.medium
    2.85:1, .synergy-banner 4.32:1. */
-.conflict-banner{background:#d62839;color:#fff;padding:1rem;text-align:center;font-weight:600;
+.conflict-banner{background:#d62839;color:#fff;padding:var(--space-4);text-align:center;font-weight:600;
 position:sticky;top:0;z-index:1000;animation:fadeIn .25s}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 
 /* ===== v2.3: раздел «3 вопроса» ===== */
-#qaSection .qa{margin:.6rem 0 1rem}
-#qaSection .qa h3{font-size:1.02rem;margin-bottom:.25rem}
+#qaSection .qa{margin:.6rem 0 var(--space-4)}
+#qaSection .qa h3{font-size:1.02rem;margin-bottom:var(--space-1)}
 #qaSection .qa p{font-size:1rem;opacity:.88;max-width:72ch}
 
 /* ===== F5.1: три карточки в одну строку ===== */
-.qaGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:.4rem}
-.qaGrid .qa{margin:0;padding:.9rem 1rem;background:var(--bg);border:1px solid var(--border);border-radius:10px}
+.qaGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-4);margin-top:.4rem}
+.qaGrid .qa{margin:0;padding:.9rem var(--space-4);background:var(--bg);border:1px solid var(--border);border-radius:10px}
 .qaGrid .qa h3{font-size:1rem;margin-bottom:.4rem}
 .qaGrid .qa p{font-size:1rem;opacity:.85;max-width:60ch}
-.qaGrid .qaMore{display:inline-block;margin-top:.5rem;font-size:.82rem;font-weight:600}
+.qaGrid .qaMore{display:inline-block;margin-top:var(--space-2);font-size:.82rem;font-weight:600}
 
 /* ===== v2.3: шаблон полной карточки (15 блоков) ===== */
-.blockTitle{font-weight:700;margin:1rem 0 .4rem;font-size:1.05rem}
-.cblocks{display:flex;flex-direction:column;gap:.5rem}
+.blockTitle{font-weight:700;margin:var(--space-4) 0 .4rem;font-size:1.05rem}
+.cblocks{display:flex;flex-direction:column;gap:var(--space-2)}
 .cblock{border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem;background:var(--bg)}
-.cblock h4{font-size:.8rem;font-weight:700;opacity:.65;text-transform:uppercase;letter-spacing:.03em;margin-bottom:.2rem}
+.cblock h4{font-size:.8rem;font-weight:700;opacity:.65;text-transform:uppercase;letter-spacing:.03em;margin-bottom:var(--space-0-2)}
 .cblock[data-block-key="evidence"] h4{font-size:1.05rem;opacity:.95}
 .cblock[data-block-key="price"] h4{font-size:.8rem}
 .cbbody{font-size:.92rem}
 .cbEmpty{opacity:.55;font-style:italic}
-.hline{margin-top:.25rem;opacity:.85}
+.hline{margin-top:var(--space-1);opacity:.85}
 /* v4.3: цвет текста на фоне темы — в светлой теме нужен тёмный зелёный
    (было 3.97:1), в тёмной — светлый (было 3.22:1). */
 .goodPair{color:#2f7d4f;font-weight:600}
@@ -320,23 +334,23 @@ body.dark .sev-medium{color:#d4a017}
 
 /* ===== v2.3: живой баннер — medium (оранжевый), synergy (зелёный) ===== */
 .conflict-banner.medium{background:#b45309}
-.synergy-banner{background:#2a8046;color:#fff;padding:1rem;text-align:center;font-weight:600;
+.synergy-banner{background:#2a8046;color:#fff;padding:var(--space-4);text-align:center;font-weight:600;
 position:sticky;top:0;z-index:1000;animation:fadeIn .25s}
 
 /* ===== v2.4: вкладки графика, грейды A–D ===== */
-.chartTabs{display:flex;gap:.5rem;margin-bottom:.8rem}
+.chartTabs{display:flex;gap:var(--space-2);margin-bottom:.8rem}
 .chartTab{background:var(--card-bg);color:var(--text);border:1px solid var(--border);
   padding:.45rem .9rem;border-radius:6px;cursor:pointer;font-size:.88rem;font-weight:500}
 .chartTab.on{border-color:var(--accent);color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
 .grade{display:inline-block;font-size:.72rem;font-weight:700;padding:.15rem .55rem;
-  border-radius:999px;color:#fff;vertical-align:middle;margin-left:.3rem}
+  border-radius:999px;color:#fff;vertical-align:middle;margin-left:var(--space-0-3)}
 /* v4.1: .gA–.gD перебивались .grade.gX с !important (специфичность 0,2,0
    против 0,1,0) и в разметке не использовались — удалены как мёртвые. */
 
 /* ===== v2.6: add-on trust ===== */
 .trustbar{position:sticky;top:0;z-index:100;background:var(--card-bg);color:var(--text);
   border-bottom:1px solid var(--border);text-align:center;font-size:.8rem;font-weight:600;
-  padding:.45rem .5rem;letter-spacing:.02em}
+  padding:.45rem var(--space-2);letter-spacing:.02em}
 
 /* ===== v2.6: 5-точечный бейдж доверия (грейд) ===== */
 .gdots{display:inline-flex;gap:3px;vertical-align:middle;margin-left:.35rem}
@@ -345,8 +359,8 @@ position:sticky;top:0;z-index:1000;animation:fadeIn .25s}
 .vwait{font-size:.72rem;opacity:.6;margin-left:.4rem;font-style:italic}
 
 /* ===== v2.6: ручная вычитка ===== */
-.manual-badge{display:inline-flex;align-items:center;gap:.25rem;font-size:.68rem;font-weight:700;
-  padding:.15rem .5rem;border-radius:999px;border:1px solid var(--border);color:var(--text);
+.manual-badge{display:inline-flex;align-items:center;gap:var(--space-1);font-size:.68rem;font-weight:700;
+  padding:.15rem var(--space-2);border-radius:999px;border:1px solid var(--border);color:var(--text);
   cursor:help;vertical-align:middle;margin-left:.4rem}
 .manual-badge:hover{border-color:var(--accent);color:var(--accent)}
 
@@ -356,7 +370,7 @@ position:sticky;top:0;z-index:1000;animation:fadeIn .25s}
 /* ===== v2.6: иконки источников ===== */
 .srcIcon {display:inline-flex;align-items:center;justify-content:center;min-height:44px;min-width:44px;font-size:.68rem;font-weight:700;padding:.1rem .45rem;
   border-radius:999px;background:var(--bg);border:1px solid var(--border);color:var(--text);
-  text-decoration:none;vertical-align:middle;margin-left:.25rem;
+  text-decoration:none;vertical-align:middle;margin-left:var(--space-1);
   max-width: 60ch;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -371,12 +385,12 @@ position:sticky;top:0;z-index:1000;animation:fadeIn .25s}
 /* ===== v2.6: поделиться + сравнить в модалке ===== */
 .shareRow{display:flex;gap:.4rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
 .shareRow a{text-decoration:none}
-.compareChips{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.3rem}
+.compareChips{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:var(--space-0-3)}
 .compareChips .chipbx{background:var(--bg);border:1px solid var(--border);border-radius:999px;
-  padding:.2rem .6rem;font-size:.8rem;cursor:pointer}
+  padding:var(--space-0-2) .6rem;font-size:.8rem;cursor:pointer}
 .compareChips .chipbx:hover{border-color:var(--accent);color:var(--accent)}
 #trustSummary ul{margin:.4rem 0 0 1.2rem;opacity:.9}
-#trustSummary li{margin:.2rem 0}
+#trustSummary li{margin:var(--space-0-2) 0}
 
 /* v5.0.0 mobile: порог 44×44 ТОЛЬКО для интерактивных .chip.
    Список «интерактивных» нельзя взять по тегу — проверено фактически:
@@ -488,7 +502,7 @@ h1 a { min-height: 44px; }
 .btn.gr { min-width: 44px; }
 
 /* ===== F5: горизонтальные чипы доверия ===== */
-.trustChips{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.6rem;align-items:center}
+.trustChips{display:flex;flex-wrap:wrap;gap:var(--space-2);margin-top:.6rem;align-items:center}
 /* v5.0.0 mobile: min-height:44px перенесён с .trustChips .chip на .trustChips a.chip.
    Иначе сужение базового правила выше не дало бы эффекта на index: у 4 чипов
    в .trustChips было собственное правило с min-height:44px, и два из них —
@@ -499,7 +513,7 @@ h1 a { min-height: 44px; }
    ссылок (44px) даже при min-height:auto. Без этого объявления статичные
    чипы остаются 44px — проверено замером computedMinH:auto при h:44. */
 .trustChips a.chip{min-height:44px}
-.trustChips .chip{display:inline-flex;align-items:center;padding:.35rem .75rem;border-radius:999px;
+.trustChips .chip{display:inline-flex;align-items:center;padding:.35rem var(--space-3);border-radius:999px;
   font-size:.82rem;font-weight:600;text-decoration:none;border:1px solid var(--border);
   background:var(--bg);color:var(--accent);transition:border-color .15s,color .15s}
 .trustChips .chip:hover{border-color:var(--accent);color:var(--accent)}
@@ -541,14 +555,14 @@ body.dark .chip a:visited { color: #5dade2; }
 #search { min-width: 250px; flex: 1 1 250px; }
 
 /* v2.8.0: пресеты-чипы + активные фильтры (F1/F8) */
-.presetRow{display:flex;gap:.5rem;flex-wrap:wrap;margin:.5rem 0}
+.presetRow{display:flex;gap:var(--space-2);flex-wrap:wrap;margin:var(--space-2) 0}
 .preset{padding:.4rem .8rem;border-radius:20px;background:var(--card-bg);border:1px solid var(--border);cursor:pointer;font-size:.85rem;transition:all .15s}
 /* v4.1: var(--accent) давал белым 3.65:1 в тёмной теме — фиксированная
    заливка #1f5fbf даёт 6.09:1 в обеих */
 .preset.on{background:#1f5fbf;color:#fff;border-color:#1f5fbf}
 .preset:hover{border-color:var(--accent)}
-.activeFilters{display:flex;gap:.4rem;flex-wrap:wrap;margin:.5rem 0;font-size:.85rem}
-.activeFilters .chip{background:#1f5fbf;color:#fff;padding:.25rem .6rem;border-radius:12px;display:inline-flex;align-items:center;gap:.3rem;min-height:44px}
+.activeFilters{display:flex;gap:.4rem;flex-wrap:wrap;margin:var(--space-2) 0;font-size:.85rem}
+.activeFilters .chip{background:#1f5fbf;color:#fff;padding:var(--space-1) .6rem;border-radius:12px;display:inline-flex;align-items:center;gap:var(--space-0-3);min-height:44px}
 .activeFilters .chip .x{cursor:pointer;opacity:.8}
 .activeFilters .chip .x:hover{opacity:1}
 
@@ -557,7 +571,7 @@ body.dark .chip a:visited { color: #5dade2; }
   /* Шапка: H1 на всю ширину (перенос), actions под ним */
   /* Шапка: block layout — H1 сверху, actions снизу. Надёжнее flex-wrap */
   header.top,header.hdr{display:block!important}
-  header.top>.site-title,header.hdr>.site-title{font-size:1.3rem!important;line-height:1.2!important;margin:0 0 .5rem!important;white-space:normal!important;overflow:visible!important}
+  header.top>.site-title,header.hdr>.site-title{font-size:1.3rem!important;line-height:1.2!important;margin:0 0 var(--space-2)!important;white-space:normal!important;overflow:visible!important}
   header.top>.site-title>a,header.hdr>.site-title>a{white-space:normal!important;display:inline!important}
   header.top .actions,header.hdr .actions{display:flex!important;flex-wrap:wrap!important;gap:.4rem!important;justify-content:flex-end!important}
   .top .site-title .v,.top .site-title>span[style*="opacity"]{display:none!important}
@@ -567,14 +581,14 @@ body.dark .chip a:visited { color: #5dade2; }
    box-sizing:border-box обязателен — иначе padding добавится К 100dvh
    и появятся два скроллбара. На десктопе/планшете env() = 0 → 0px,
    поведение не меняется. */
-#modal{padding-top:max(1rem,env(safe-area-inset-top,0px));
-  padding-bottom:max(1rem,env(safe-area-inset-bottom,0px));box-sizing:border-box}
+#modal{padding-top:max(var(--space-4),env(safe-area-inset-top,0px));
+  padding-bottom:max(var(--space-4),env(safe-area-inset-bottom,0px));box-sizing:border-box}
   #modal,#modalBody{overflow-x:hidden!important;word-break:break-word}
   #modal *{max-width:100%!important;min-width:0!important;box-sizing:border-box}
   #modal a,#modal .srcIcon,#modal .chip-pmid,#modal .mrow{word-break:break-word;overflow-wrap:anywhere}
   #modal .srcRow,#modal .shareRow{flex-wrap:wrap!important}
   #modal img,#modal canvas{max-width:100%!important;height:auto}
-  #controls{flex-direction:column;gap:.5rem}
+  #controls{flex-direction:column;gap:var(--space-2)}
   #search{width:100%!important;min-width:0!important}
   #chartWrap{overflow-x:hidden}
   canvas#bubbleChart,canvas#quadrantChart{min-width:0!important;max-width:100%!important}
@@ -624,7 +638,7 @@ html.dark .chartTab.on, body.dark .chartTab.on {
 
 /* PMID-чип рядом с источником: клик — копирование */
 /* Кнопка «Поделиться» в футере (см. share.js). Не в шапку: состав шапки разнойтся 14 способови во семинаше, а футер един. Стока не выше 44px как у остальных кнопок. */
-.share-row { margin: .5rem 0 0; }
+.share-row { margin: var(--space-2) 0 0; }
 .share-row .btn { min-height: 44px; }
 .btn.is-share-error { border-color: #ef4444; color: #ef4444; }
 body.dark .btn.is-share-error { border-color: #ff5252; color: #ff5252; }
@@ -637,7 +651,7 @@ body.dark .btn.is-share-error { border-color: #ff5252; color: #ff5252; }
   display: flex;
   align-items: baseline;
   gap: .35rem;
-  margin-bottom: .25rem;
+  margin-bottom: var(--space-1);
 }
 .srcRow .srcIcon { flex: 0 1 auto; min-width: 0; }
 .chip-pmid {
@@ -663,7 +677,7 @@ body.dark .btn.is-share-error { border-color: #ff5252; color: #ff5252; }
 .tagChips {
   display: flex;
   flex-wrap: wrap;
-  gap: .25rem;
+  gap: var(--space-1);
   margin-top: .35rem;
 }
 .tagChip {
@@ -688,11 +702,11 @@ body.dark .btn.is-share-error { border-color: #ff5252; color: #ff5252; }
   display: flex;
   flex-wrap: wrap;
   gap: .35rem;
-  margin: .5rem 0 .8rem;
+  margin: var(--space-2) 0 .8rem;
 }
 .tagPreset {
   font-size: .78rem;
-  padding: 3px 10px;
+  padding: 3px var(--space-2-5);
   border-radius: 12px;
   border: 1px solid transparent;
   background: rgba(127,127,127,.14);
@@ -718,7 +732,7 @@ body.dark .btn.is-share-error { border-color: #ff5252; color: #ff5252; }
 
 /* ===== v1.0: секции фильтров ===== */
 .filterSection {
-  margin-bottom: 1rem;
+  margin-bottom: var(--space-4);
 }
 .filterLabel {
   display: block;
@@ -727,7 +741,7 @@ body.dark .btn.is-share-error { border-color: #ff5252; color: #ff5252; }
   letter-spacing: .06em;
   opacity: .5;
   font-weight: 600;
-  margin-bottom: .5rem;
+  margin-bottom: var(--space-2);
   color: inherit;
 }
 .tagPresetMore {
@@ -746,7 +760,7 @@ body.dark .btn.is-share-error { border-color: #ff5252; color: #ff5252; }
   display: flex;
   flex-wrap: wrap;
   gap: .4rem;
-  margin: .5rem 0 1rem;
+  margin: var(--space-2) 0 var(--space-4);
 }
 .activeFilters:empty {
   margin: 0;
@@ -754,9 +768,9 @@ body.dark .btn.is-share-error { border-color: #ff5252; color: #ff5252; }
 .activeFilter {
   display: inline-flex;
   align-items: center;
-  gap: .3rem;
+  gap: var(--space-0-3);
   font-size: .8rem;
-  padding: 4px 10px;
+  padding: var(--space-1) var(--space-2-5);
   border-radius: 12px;
   background: rgba(80,140,220,.18);
   border: 1px solid rgba(80,140,220,.4);
@@ -772,7 +786,7 @@ body.dark .btn.is-share-error { border-color: #ff5252; color: #ff5252; }
 }
 .activeFilterClear {
   font-size: .8rem;
-  padding: 4px 10px;
+  padding: var(--space-1) var(--space-2-5);
   border-radius: 12px;
   background: transparent;
   border: 1px solid rgba(127,127,127,.3);
@@ -790,7 +804,7 @@ body.dark .btn.is-share-error { border-color: #ff5252; color: #ff5252; }
    за 4.4 экрана. Делаем горизонтальную полосу со снапом и scroll-snap: видимое колово,
    прокрутивается свастивом. На desktop не трогаем. */
   .qaGrid{grid-template-columns:none!important;display:flex;gap:.6rem;overflow-x:auto;
-    scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding-bottom:.5rem;
+    scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding-bottom:var(--space-2);
     scrollbar-width:thin}
   .qaGrid .qa{flex:0 0 84%;scroll-snap-align:start;margin:0}
 }
@@ -801,7 +815,7 @@ body.dark .btn.is-share-error { border-color: #ff5252; color: #ff5252; }
     display: grid !important;
     grid-template-columns: 1fr !important;
     grid-template-areas: "title" "actions" !important;
-    gap: .5rem !important;
+    gap: var(--space-2) !important;
     width: 100% !important;
   }
   header.top > .site-title {
@@ -842,19 +856,19 @@ body.dark .btn.is-share-error { border-color: #ff5252; color: #ff5252; }
   gap:.7rem;
 }
 .quick-links .card-link{
-  padding:.85rem 1rem !important;
+  padding:.85rem var(--space-4) !important;
   min-width:0;
 }
 .quick-links .card-link > div:nth-child(2){
   font-size:.9rem !important;
-  margin:.25rem 0 !important;
+  margin:var(--space-1) 0 !important;
 }
 .quick-links .card-link > div:nth-child(3){
   font-size:.76rem !important;
   line-height:1.3 !important;
 }
 @media(max-width:600px){
-  .quick-links{gap:.5rem}
+  .quick-links{gap:var(--space-2)}
   .quick-links .card-link{padding:.7rem .8rem !important}
   .quick-links .card-link > div:first-child{font-size:1.15rem !important}
 }
@@ -901,9 +915,9 @@ header.top .v {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 1rem;
+  gap: var(--space-4);
   flex-wrap: wrap;
-  margin: 0 0 1rem;
+  margin: 0 0 var(--space-4);
 }
 .top .site-title { font-size: 1.35rem; margin: 0; font-weight: 700; }
 .top .site-title a { color: inherit; text-decoration: none; }
@@ -911,9 +925,9 @@ header.top .v {
   opacity: .5;
   font-size: .8rem;
   font-weight: 400;
-  margin-left: .5rem;
+  margin-left: var(--space-2);
 }
-.actions { display: flex; gap: .5rem; flex-wrap: wrap; align-items: center; }
+.actions { display: flex; gap: var(--space-2); flex-wrap: wrap; align-items: center; }
 
 /* ═══ Кнопка «вниз» ═══ */
 .toBottom {
@@ -940,15 +954,15 @@ header.top .v {
 /* ═══ Единый футер ═══ */
 .site-footer {
   max-width: 1200px;
-  margin: 3rem auto 1.5rem;
-  padding: 1.5rem 1.5rem 1rem;
+  margin: var(--space-12) auto var(--space-6);
+  padding: var(--space-6) var(--space-6) var(--space-4);
   border-top: 1px solid var(--border);
   font-size: .82rem;
   color: var(--text);
   opacity: .85;
   line-height: 1.55;
 }
-.site-footer p { margin: .5rem 0; }
+.site-footer p { margin: var(--space-2) 0; }
 .site-footer .disc { opacity: .9; }
 .site-footer .meta { opacity: .7; font-size: .78rem; }
 .site-footer .links { opacity: .85; }
@@ -1002,7 +1016,7 @@ header.top > .site-title > a, header.hdr > .site-title > a { display: inline-fle
    v body, vizualno skryta do polucheniya fokusa. */
 .skip-link{position:absolute;left:-9999px;top:0}
 .skip-link:focus{position:fixed;left:0;top:0;z-index:9999;background:#000;color:#fff;
-  padding:8px 16px;font-size:14px;border-radius:0 0 6px 0;text-decoration:none}
+  padding:var(--space-2) var(--space-4);font-size:14px;border-radius:0 0 6px 0;text-decoration:none}
 
 /* ===== h1 semantika: v shapke eto NE zagolovok stranicy =====================
    Do 3a vse 17 stranic imeli edinyj h1 = «brain-25-evidence» v shapke. Eto
@@ -1029,40 +1043,40 @@ main h1 { font-size: 1.35rem !important; font-weight: 700 !important;
    перенесён один раз, а не пять. Селекторы, встречающиеся и на других
    страницах, ограничены .sup-wrap: иначе .verdict испортил бы бейджи
    trends, .tag — карточки map, .grade-badge — бейдж calculator. */
-.sup-wrap { max-width: 840px; margin: 40px auto; padding: 0 20px; }
-.breadcrumbs { font-size: .9rem; color: var(--muted); margin-bottom: 16px; }
+.sup-wrap { max-width: 840px; margin: 40px auto; padding: 0 var(--space-5); }
+.breadcrumbs { font-size: .9rem; color: var(--muted); margin-bottom: var(--space-4); }
 .breadcrumbs a { color: var(--accent); text-decoration: none; }
-.sup-header { display: flex; gap: 16px; align-items: center; margin-bottom: 24px; flex-wrap: wrap; }
+.sup-header { display: flex; gap: var(--space-4); align-items: center; margin-bottom: var(--space-6); flex-wrap: wrap; }
 .sup-header h2 { margin: 0; font-size: 1.3rem; font-weight: 600; }
 .sup-wrap .grade-badge { display: inline-block; padding: 6px 14px; border-radius: 8px; color: #fff; font-weight: 700; font-size: 1.1rem; }  /* было: .grade-badge */
 .sup-wrap .verdict { color: var(--muted); font-size: 1rem; }  /* было: .verdict */
-.sup-section { margin-bottom: 28px; padding: 20px; background: var(--card-bg); border-radius: 12px; border: 1px solid var(--border); }
-.sup-section h2 { font-size: 1.15rem; margin-bottom: 12px; }
-.sup-section p { line-height: 1.6; margin-bottom: 8px; }
-.sup-wrap .tag { display: inline-block; padding: 4px 10px; margin: 4px 6px 4px 0; background: var(--bg); border: 1px solid var(--border); border-radius: 6px; font-size: .85rem; }  /* было: .tag */
-.mech-card { padding: 12px; margin-bottom: 8px; background: var(--bg); border-left: 3px solid var(--accent); border-radius: 6px; }
+.sup-section { margin-bottom: 28px; padding: var(--space-5); background: var(--card-bg); border-radius: 12px; border: 1px solid var(--border); }
+.sup-section h2 { font-size: 1.15rem; margin-bottom: var(--space-3); }
+.sup-section p { line-height: 1.6; margin-bottom: var(--space-2); }
+.sup-wrap .tag { display: inline-block; padding: var(--space-1) var(--space-2-5); margin: var(--space-1) 6px var(--space-1) 0; background: var(--bg); border: 1px solid var(--border); border-radius: 6px; font-size: .85rem; }  /* было: .tag */
+.mech-card { padding: var(--space-3); margin-bottom: var(--space-2); background: var(--bg); border-left: 3px solid var(--accent); border-radius: 6px; }
 .mech-body { font-size: .95rem; margin-bottom: 6px; }
 .mech-effect { color: var(--muted); font-size: .9rem; }
-.mech-strength { display: inline-block; margin-top: 6px; padding: 2px 8px; border-radius: 4px; font-size: .75rem; text-transform: uppercase; }
+.mech-strength { display: inline-block; margin-top: 6px; padding: 2px var(--space-2); border-radius: 4px; font-size: .75rem; text-transform: uppercase; }
 .s-strong { background: #22c55e33; color: #22c55e; }
 .s-medium { background: #84cc1633; color: #84cc16; }
 .s-weak { background: #f59e0b33; color: #f59e0b; }
 .s-context { background: #88888833; color: var(--muted); }
-.inter-card { padding: 12px; margin-bottom: 8px; background: var(--bg); border-radius: 6px; border-left: 3px solid; }
+.inter-card { padding: var(--space-3); margin-bottom: var(--space-2); background: var(--bg); border-radius: 6px; border-left: 3px solid; }
 .inter-low { border-color: #84cc16; }
 .inter-medium { border-color: #f59e0b; }
 .inter-high { border-color: #ef4444; }
 .inter-critical { border-color: #991b1b; }
 .inter-with { font-weight: 600; }
-.inter-sev { font-size: .8rem; color: var(--muted); text-transform: uppercase; margin: 4px 0; }
+.inter-sev { font-size: .8rem; color: var(--muted); text-transform: uppercase; margin: var(--space-1) 0; }
 .inter-note { font-size: .9rem; }
-.src-card { padding: 10px; margin-bottom: 6px; border-bottom: 1px solid var(--border); }
-.src-title { font-size: .9rem; margin-bottom: 4px; }
+.src-card { padding: var(--space-2-5); margin-bottom: 6px; border-bottom: 1px solid var(--border); }
+.src-title { font-size: .9rem; margin-bottom: var(--space-1); }
 .src-meta { font-size: .8rem; color: var(--muted); }
 .src-meta a { color: var(--accent); }
-.back-link { display: inline-block; margin-top: 24px; color: var(--accent); text-decoration: none; }
+.back-link { display: inline-block; margin-top: var(--space-6); color: var(--accent); text-decoration: none; }
 @media (max-width: 600px) {
-  .sup-wrap { margin: 20px auto; }
+  .sup-wrap { margin: var(--space-5) auto; }
   .sup-header h2 { font-size: 1.25rem; }
 }
 
@@ -1076,20 +1090,20 @@ main h1 { font-size: 1.35rem !important; font-weight: 700 !important;
    эти селекторы заняты другими страницами.
    #sidebar был переименован в #int-sidebar / #atl-sidebar 2026-10-03,
    когда выяснилось, что под этим id жили ДВА разных сайдбара. */
-.legend { padding: .5rem 1.5rem; display: flex; gap: 1rem; flex-wrap: wrap; font-size: .8rem; color: var(--muted); }
+.legend { padding: var(--space-2) var(--space-6); display: flex; gap: var(--space-4); flex-wrap: wrap; font-size: .8rem; color: var(--muted); }
 .legend span::before { content: ''; display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: .35rem; vertical-align: middle; }
 .legend .syn::before { background: #4caf50; }
 .legend .ant::before { background: #e53935; }
 .legend .int::before { background: #ff9800; }
 .legend .drug::before { background: #9e9e9e; }
 .sb-head { position: relative; }
-.sb-close { position: absolute; right: -.4rem; top: -.4rem; background: transparent; border: none; color: var(--muted); font-size: 1.4rem; cursor: pointer; padding: .2rem .5rem; border-radius: 6px; }
+.sb-close { position: absolute; right: -.4rem; top: -.4rem; background: transparent; border: none; color: var(--muted); font-size: 1.4rem; cursor: pointer; padding: var(--space-0-2) var(--space-2); border-radius: 6px; }
 .sb-close:hover { background: rgba(127,127,127,.15); color: var(--fg); }
-.sb-meta { display: flex; gap: .5rem; align-items: center; margin-bottom: 1rem; font-size: .85rem; color: var(--muted); flex-wrap: wrap; }
-.sb-section { margin: 1rem 0; }
-.sb-section h3 { margin: 0 0 .5rem; font-size: .85rem; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); font-weight: 600; }
+.sb-meta { display: flex; gap: var(--space-2); align-items: center; margin-bottom: var(--space-4); font-size: .85rem; color: var(--muted); flex-wrap: wrap; }
+.sb-section { margin: var(--space-4) 0; }
+.sb-section h3 { margin: 0 0 var(--space-2); font-size: .85rem; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); font-weight: 600; }
 .sb-links { list-style: none; padding: 0; margin: 0; }
-.sb-links li { padding: .5rem 0; border-bottom: 1px solid var(--border); }
+.sb-links li { padding: var(--space-2) 0; border-bottom: 1px solid var(--border); }
 .sb-links li:last-child { border-bottom: none; }
 .sb-links a { color: var(--accent); text-decoration: none; font-weight: 500; cursor: pointer; }
 .sb-links a:hover { text-decoration: underline; }
@@ -1097,12 +1111,12 @@ main h1 { font-size: 1.35rem !important; font-weight: 700 !important;
 .sb-sev.medium { background: rgba(255,112,67,.2); color: #ff7043; opacity: 1; }
 .sb-sev.high { background: rgba(229,57,53,.2); color: #e53935; opacity: 1; }
 .sb-sev.critical { background: rgba(183,28,28,.3); color: #ff5252; opacity: 1; }
-.sb-note { font-size: .8rem; color: var(--muted); margin-top: .2rem; line-height: 1.4; }
-.sb-cta { display: block; margin-top: 1.2rem; padding: .6rem 1rem; text-align: center; background: #0a6bc9; color: #fff; border-radius: 8px; text-decoration: none; font-weight: 500; }
+.sb-note { font-size: .8rem; color: var(--muted); margin-top: var(--space-0-2); line-height: 1.4; }
+.sb-cta { display: block; margin-top: 1.2rem; padding: .6rem var(--space-4); text-align: center; background: #0a6bc9; color: #fff; border-radius: 8px; text-decoration: none; font-weight: 500; }
 .sb-cta:hover { opacity: .9; }
-.severityFilter { display: none; align-items: center; gap: .8rem; padding: .3rem 1.5rem; font-size: .8rem; color: var(--muted); }
+.severityFilter { display: none; align-items: center; gap: .8rem; padding: var(--space-0-3) var(--space-6); font-size: .8rem; color: var(--muted); }
 .severityFilter.visible { display: flex; }
-.severityFilter label { display: flex; align-items: center; gap: .3rem; cursor: pointer; }
+.severityFilter label { display: flex; align-items: center; gap: var(--space-0-3); cursor: pointer; }
 .severityFilter input { cursor: pointer; }
 @media (max-width: 640px) {
   .severityFilter { flex-wrap: wrap; }
@@ -1116,12 +1130,12 @@ main h1 { font-size: 1.35rem !important; font-weight: 700 !important;
    встречается в style.css, и ни одно оставшееся локальное правило
    страницы не делит с ними ни одного свойства — порядок каскада
    на результат не влияет. */
-#int-sidebar { width: 360px; flex-shrink: 0; background: var(--card-bg); border-left: 1px solid var(--border); overflow-y: auto; padding: 1rem 1.2rem; display: none; }
+#int-sidebar { width: 360px; flex-shrink: 0; background: var(--card-bg); border-left: 1px solid var(--border); overflow-y: auto; padding: var(--space-4) 1.2rem; display: none; }
 #int-sidebar.open { display: block; }
-#int-sidebar h2 { margin: 0 0 .3rem; font-size: 1.15rem; padding-right: 2rem; }
+#int-sidebar h2 { margin: 0 0 var(--space-0-3); font-size: 1.15rem; padding-right: var(--space-8); }
 @media (max-width: 640px) {
   #int-sidebar { width: 100% !important; position: fixed; left: 0; right: 0; bottom: 0; top: auto; max-height: 70vh; border-left: none; border-top: 1px solid var(--aborder); border-radius: 12px 12px 0 0; z-index: 100; box-shadow: 0 -8px 32px rgba(0,0,0,.4); transform: translateY(0); transition: transform .2s ease, max-height .2s ease; }
-  #int-sidebar::before { content: ''; display: block; width: 36px; height: 4px; background: rgba(127,127,127,.5); border-radius: 2px; margin: .3rem auto .6rem; cursor: grab; }
+  #int-sidebar::before { content: ''; display: block; width: 36px; height: 4px; background: rgba(127,127,127,.5); border-radius: 2px; margin: var(--space-0-3) auto .6rem; cursor: grab; }
   #int-sidebar.sheet-full { max-height: 85vh !important; }
 }
 @supports (padding: env(safe-area-inset-bottom)) {
@@ -1136,27 +1150,27 @@ main h1 { font-size: 1.35rem !important; font-weight: 700 !important;
    встречается в style.css, и ни одно оставшееся локальное правило
    страницы не делит с ними ни одного свойства — порядок каскада
    на результат не влияет. */
-#atl-sidebar { width:340px;flex-shrink:0;border-left:1px solid var(--aborder);padding:1rem 1.2rem;overflow-y:auto;display:none }
+#atl-sidebar { width:340px;flex-shrink:0;border-left:1px solid var(--aborder);padding:var(--space-4) 1.2rem;overflow-y:auto;display:none }
 #atl-sidebar.open { display:block }
-#atl-sidebar h2 { margin:0 0 .5rem;padding-right:1.8rem;font-size:1.1rem;position:relative }
-#atl-sidebar h3 { margin:1rem 0 .4rem;font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;opacity:.55;font-weight:600 }
-#atl-sidebar .close-x { position:absolute;right:0;top:-.3rem;background:none;border:none;color:var(--amut);font-size:1.5rem;line-height:1;cursor:pointer;padding:.2rem .4rem;border-radius:6px }
+#atl-sidebar h2 { margin:0 0 var(--space-2);padding-right:1.8rem;font-size:1.1rem;position:relative }
+#atl-sidebar h3 { margin:var(--space-4) 0 .4rem;font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;opacity:.55;font-weight:600 }
+#atl-sidebar .close-x { position:absolute;right:0;top:-.3rem;background:none;border:none;color:var(--amut);font-size:1.5rem;line-height:1;cursor:pointer;padding:var(--space-0-2) .4rem;border-radius:6px }
 #atl-sidebar .close-x:hover { background:rgba(127,127,127,.15);color:var(--atext) }
 #atl-sidebar ul { list-style:none;padding:0;margin:0 }
-#atl-sidebar li { padding:.45rem .5rem;margin:.25rem 0;border:1px solid var(--aborder);border-radius:8px;cursor:pointer;font-size:.9rem }
+#atl-sidebar li { padding:.45rem var(--space-2);margin:var(--space-1) 0;border:1px solid var(--aborder);border-radius:8px;cursor:pointer;font-size:.9rem }
 #atl-sidebar li:hover { border-color:#888;background:rgba(127,127,127,.06) }
 #atl-sidebar .badge { display:inline-block;padding:.1rem .45rem;border-radius:6px;font-size:.72rem;background:rgba(127,127,127,.15);margin-left:.4rem;opacity:.85 }
 #atl-sidebar .badge.A { background:rgba(76,175,80,.25);color:#7fc784 }
 #atl-sidebar .badge.B { background:rgba(139,195,74,.25);color:#b7d68b }
 #atl-sidebar .badge.C { background:rgba(255,152,0,.22);color:#ffb74d }
 #atl-sidebar .badge.D { background:rgba(229,57,53,.2);color:#ef5350 }
-#atl-sidebar .cta { display:inline-block;margin-top:1rem;padding:.5rem 1rem;background:#3498db;color:#fff;border-radius:8px;text-decoration:none;font-weight:500 }
+#atl-sidebar .cta { display:inline-block;margin-top:var(--space-4);padding:var(--space-2) var(--space-4);background:#3498db;color:#fff;border-radius:8px;text-decoration:none;font-weight:500 }
 #atl-sidebar .cta:hover { opacity:.9 }
-#atl-sidebar .mech { margin:.5rem 0;padding:.55rem .7rem;border:1px solid var(--aborder);border-radius:8px;font-size:.85rem;line-height:1.4 }
+#atl-sidebar .mech { margin:var(--space-2) 0;padding:.55rem .7rem;border:1px solid var(--aborder);border-radius:8px;font-size:.85rem;line-height:1.4 }
 #atl-sidebar .mech .str { display:inline-block;padding:.05rem .4rem;border-radius:999px;font-size:.7rem;margin-left:.4rem;background:rgba(127,127,127,.2) }
 @media (max-width: 640px) {
   #atl-sidebar { width: 100% !important; position: fixed; left: 0; right: 0; bottom: 0; top: auto; max-height: 70vh; border-left: none; border-top: 1px solid var(--aborder); border-radius: 12px 12px 0 0; z-index: 100; box-shadow: 0 -8px 32px rgba(0,0,0,.4); transform: translateY(0); transition: transform .2s ease, max-height .2s ease; }
-  #atl-sidebar::before { content: ''; display: block; width: 36px; height: 4px; background: rgba(127,127,127,.5); border-radius: 2px; margin: .3rem auto .6rem; cursor: grab; }
+  #atl-sidebar::before { content: ''; display: block; width: 36px; height: 4px; background: rgba(127,127,127,.5); border-radius: 2px; margin: var(--space-0-3) auto .6rem; cursor: grab; }
   #atl-sidebar.sheet-full { max-height: 85vh !important; }
 }
 @supports (padding: env(safe-area-inset-bottom)) {

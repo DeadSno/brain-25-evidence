@@ -27,7 +27,7 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=402">
+<link rel="stylesheet" href="style.css?v=403">
 <script>
   try {
     document.addEventListener('DOMContentLoaded', function () {
@@ -41,16 +41,16 @@ try {
 <style>
   body{--apanel:#15171c;--aborder:#2b2e35;--atext:#e9eaee;--amut:#9aa0aa;margin:0}
   body:not(.dark){--apanel:#ffffff;--aborder:#d9dde3;--atext:#1b1d22;--amut:#5c6370}
-  .wrap{max-width:100%;margin:0;padding:0 1.5rem 1rem;color:var(--atext)}
-  .top{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}
-  .top .site-title{font-size:1.45rem;margin:.2rem 0}
+  .wrap{max-width:100%;margin:0;padding:0 var(--space-6) var(--space-4);color:var(--atext)}
+  .top{display:flex;justify-content:space-between;align-items:center;gap:var(--space-4);flex-wrap:wrap}
+  .top .site-title{font-size:1.45rem;margin:var(--space-0-2) 0}
   .top a{color:inherit;text-decoration:none}
-  #stats{opacity:.6;font-size:.85rem;margin:.3rem 0 0}
-  #q{padding:.5rem .8rem;border:1px solid var(--aborder);border-radius:8px;background:var(--apanel);color:var(--atext);min-width:220px}
-  #themeBtn{padding:.5rem .8rem;border:1px solid var(--aborder);border-radius:8px;background:var(--apanel);color:var(--atext);cursor:pointer}
+  #stats{opacity:.6;font-size:.85rem;margin:var(--space-0-3) 0 0}
+  #q{padding:var(--space-2) .8rem;border:1px solid var(--aborder);border-radius:8px;background:var(--apanel);color:var(--atext);min-width:220px}
+  #themeBtn{padding:var(--space-2) .8rem;border:1px solid var(--aborder);border-radius:8px;background:var(--apanel);color:var(--atext);cursor:pointer}
   .cols{
   display:grid;grid-template-columns:340px minmax(0,1fr);
-  gap:1.2rem;margin-top:1rem;width:100%;
+  gap:1.2rem;margin-top:var(--space-4);width:100%;
   height:calc(100vh - 240px);min-height:520px;
 }
   @media(max-width:860px){.cols{grid-template-columns:1fr}}
@@ -58,7 +58,7 @@ try {
   .cat h3{font-size:.75rem;text-transform:uppercase;letter-spacing:.06em;opacity:.55;margin:.8rem 0 .35rem;cursor:pointer;user-select:none}
   .cat h3:hover{opacity:.9}
   .cat.closed .chip{display:none!important}
-  .chip{display:inline-block;margin:0 .3rem .3rem 0;padding:.32rem .65rem;border:1px solid var(--aborder);border-radius:999px;cursor:pointer;font-size:.82rem;background:var(--apanel);color:var(--atext)}
+  .chip{display:inline-block;margin:0 var(--space-0-3) var(--space-0-3) 0;padding:.32rem .65rem;border:1px solid var(--aborder);border-radius:999px;cursor:pointer;font-size:.82rem;background:var(--apanel);color:var(--atext)}
   .chip:hover{border-color:#888}
   /* v4.2: #f1c40f в светлой теме давал 1.53:1 — тёмное золото */
   .chip.on{border-color:#8a6800;color:#8a6800;font-weight:700}
@@ -72,7 +72,7 @@ try {
   .step.eff{background:rgba(46,204,130,.13);border:1px solid rgba(46,204,130,.45)}
   .arrow{text-align:center;opacity:.5;font-size:1.05rem;margin:.05rem 0;animation:rise .3s ease both}
   .tag{display:inline-block;padding:.14rem .55rem;border-radius:999px;font-size:.72rem;font-weight:800;color:#fff;
-       margin-left:.5rem;vertical-align:middle;text-shadow:0 1px 2px rgba(0,0,0,.35)}
+       margin-left:var(--space-2);vertical-align:middle;text-shadow:0 1px 2px rgba(0,0,0,.35)}
   /* v4.1: белый текст на затемнённом градиенте — контраст ≥ 4.5:1 в обеих темах */
   .t-strong{background:linear-gradient(135deg,#166534,#15803d);box-shadow:0 0 10px rgba(21,128,61,.45)}
   .t-mod{background:linear-gradient(135deg,#3f6310,#4d7c0f)}
@@ -80,13 +80,13 @@ try {
   /* .t-ctx был с тёмным текстом #222 на жёлтом — теперь белый на тёмном */
   .t-ctx{background:linear-gradient(135deg,#8a5a10,#b45309);color:#fff;text-shadow:none}
   .t-mkt{background:linear-gradient(135deg,#7f2318,#b91c1c);box-shadow:0 0 10px rgba(185,28,28,.4)}
-  .verdict{display:inline-block;padding:.2rem .6rem;border-radius:6px;color:#fff;font-size:.8rem;font-weight:700}
+  .verdict{display:inline-block;padding:var(--space-0-2) .6rem;border-radius:6px;color:#fff;font-size:.8rem;font-weight:700}
   /* v4.2: правила .verdict.v1/v0/v-1 перебивались сплошными !important из
      style.css (стр. 393–395) — удалены как мёртвые. */
   .chainbox a{color:#3498db}
   .sim{margin-top:1.2rem;padding-top:.9rem;border-top:1px dashed var(--aborder);animation:rise .4s ease both}
-  .sim h4{margin:.2rem 0 .5rem;font-size:.85rem;opacity:.75}
-  kbd{border:1px solid var(--aborder);border-radius:4px;padding:0 .3rem;font-size:.75rem;opacity:.7}
+  .sim h4{margin:var(--space-0-2) 0 var(--space-2);font-size:.85rem;opacity:.75}
+  kbd{border:1px solid var(--aborder);border-radius:4px;padding:0 var(--space-0-3);font-size:.75rem;opacity:.7}
   /* ── Overlay details ─────────────────────────────── */
 #details-backdrop {
   position: fixed; inset: 0;
@@ -117,22 +117,22 @@ try {
   opacity: 1; pointer-events: auto;
   transform: translate(-50%, -50%) scale(1);
 }
-#details h2 { margin: 0 0 .5rem; padding-right: 2.2rem; font-size: 1.15rem; }
+#details h2 { margin: 0 0 var(--space-2); padding-right: 2.2rem; font-size: 1.15rem; }
 #details h3 {
   margin: 1.2rem 0 .4rem; font-size: .78rem;
   text-transform: uppercase; letter-spacing: .06em;
   opacity: .55; font-weight: 600;
 }
-#details p { margin: .3rem 0; line-height: 1.5; }
+#details p { margin: var(--space-0-3) 0; line-height: 1.5; }
 #details .close-x {
   position: absolute; top: .7rem; right: .9rem;
   background: none; border: none;
   color: var(--amut); font-size: 1.7rem; line-height: 1;
-  cursor: pointer; padding: .2rem .4rem; border-radius: 6px;
+  cursor: pointer; padding: var(--space-0-2) .4rem; border-radius: 6px;
 }
 #details .close-x:hover { background: rgba(127,127,127,.15); color: var(--atext); }
 #details .modal-badges {
-  margin: .2rem 0 .6rem; display: flex; gap: .4rem;
+  margin: var(--space-0-2) 0 .6rem; display: flex; gap: .4rem;
   align-items: center; flex-wrap: wrap;
 }
 #details .badge-cat {
@@ -141,7 +141,7 @@ try {
 }
 #details .rel-list { list-style: none; padding: 0; margin: 0; }
 #details .rel-list li {
-  padding: .55rem .6rem; margin: .3rem 0;
+  padding: .55rem .6rem; margin: var(--space-0-3) 0;
   border: 1px solid var(--aborder); border-radius: 8px;
   cursor: pointer; transition: border-color .15s, background .15s;
 }
@@ -151,7 +151,7 @@ try {
 #details .rel-list a { color: #3498db; text-decoration: none; font-weight: 500; }
 #details .rel-list li:hover a { text-decoration: underline; }
 #details .rel-desc {
-  font-size: .82rem; opacity: .65; margin-top: .25rem; line-height: 1.4;
+  font-size: .82rem; opacity: .65; margin-top: var(--space-1); line-height: 1.4;
 }
 #details .rel-overlap {
   display: inline-block; margin-left: .4rem;
@@ -160,7 +160,7 @@ try {
   padding: 0 .4rem;
 }
 #details .cta {
-  display: inline-block; padding: .5rem 1rem;
+  display: inline-block; padding: var(--space-2) var(--space-4);
   background: #3498db; color: #fff; border-radius: 8px;
   text-decoration: none; font-weight: 500;
 }
@@ -179,7 +179,7 @@ try {
   
   .top{
     display:flex;justify-content:space-between;align-items:center;
-    gap:1rem;flex-wrap:wrap;margin:0 0 1rem;
+    gap:var(--space-4);flex-wrap:wrap;margin:0 0 var(--space-4);
   }
   .top .site-title{font-size:1.35rem;margin:0;font-weight:700}
   .btn{
@@ -191,7 +191,7 @@ try {
   /* ── Mobile (≤640px) ─────────────────────────────────────── */
   @media (max-width: 640px) { body { padding: 0.6rem !important; }
     .wrap { padding: 0.6rem !important; }
-    .top { flex-direction: column; align-items: stretch; gap: .5rem; margin: 0 0 .6rem; }
+    .top { flex-direction: column; align-items: stretch; gap: var(--space-2); margin: 0 0 .6rem; }
     .top .site-title { font-size: 1.05rem; line-height: 1.25; }
     .top .site-title a { display: inline-block; }
     .top .v { font-size: .7rem; }
