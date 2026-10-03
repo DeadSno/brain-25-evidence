@@ -27,7 +27,8 @@
 15. **pwa-audit** — PWA-спецификация
 16. **site-navigation** — единый набор кнопок и навигации
 17. **i18n-rtl-audit** — локализация и RTL (перед v5.3)
-18. **release-check** — перед коммитом
+18. **legal-compliance-audit** — юридические риски (чек-лист, не консультация)
+19. **release-check** — перед коммитом
 
 Порядок не случаен: сначала структура, данные и безопасность (дешёвое, ломает
 всё остальное), затем визуал и поведение, в конце PWA и навигация, и только
@@ -48,6 +49,7 @@
 | pwa-audit | PWA спецификация | После изменения sw.js / manifest |
 | data-validation | data.json, effect_tags, БД | После batch добавления карточек |
 | data-audit | 5 слоёв: data.json, производные, DuckDB, сырые, внешний | Когда нужен полный аудит данных, а не только корректность |
+| legal-compliance-audit | Дисклеймеры, attribution, cookie, 152-ФЗ, ФЗ «О рекламе», GDPR, отзывы | Перед релизом и **до публикации отзывов (v5.8)** |
 | docs-sync | Синхронизация документации | После правок docs/ |
 | release-check | Готовность к коммиту | Перед каждым push |
 | site-navigation | Единый набор кнопок | После правки навигации |
@@ -209,7 +211,7 @@ npx -y vortix-cli@0.1.3 check # внешний статический аудит
 | ревизия скиллов | reports/SKILLS_REVISION.md |
 | установка скиллов | reports/SKILLS_INSTALL.md |
 
-## Полный список (18)
+## Полный список (19)
 
 - accessibility-check
 - core-web-vitals
@@ -218,6 +220,7 @@ npx -y vortix-cli@0.1.3 check # внешний статический аудит
 - data-validation
 - docs-sync
 - i18n-rtl-audit
+- legal-compliance-audit
 - marketing-deep-audit
 - mobile-deep-audit
 - product-audit
