@@ -6,14 +6,14 @@
 ## Порядок применения для полного ревью
 
 Порядок — по приоритету применения, а не по происхождению скилла: внешние
-(cyberaudit, accessibility-check, seo-check, core-web-vitals, i18n-rtl-audit,
-data-quality-auditor) стоят там, где они бьют по общему фундаменту.
+(cyberaudit, accessibility-check, seo-check, core-web-vitals, i18n-rtl-audit)
+стоят там, где они бьют по общему фундаменту.
 Установлены 2026-10-02, см. `reports/SKILLS_INSTALL.md`.
 
 1. **project-audit** — архитектура и структура
 2. **data-validation** — корректность данных
 3. **cyberaudit** — безопасность (OWASP Top 10, секреты, API)
-4. **data-quality-auditor** — полнота, выбросы, аномалии в датасете
+4. **data-audit** — полный аудит данных в 5 слоёв (заменил `data-quality-auditor` 2026-10-03)
 5. **docs-sync** — синхронизация документации
 6. **product-audit** — быстрый обзор UI/UX + marketing + QA + mobile
 7. **visual-design-audit** — цветокор, типографика, отступы, тени, темы
@@ -47,7 +47,7 @@ data-quality-auditor) стоят там, где они бьют по общем�
 | qa-deep-audit | Покрытие, edge cases | После новой фичи |
 | pwa-audit | PWA спецификация | После изменения sw.js / manifest |
 | data-validation | data.json, effect_tags, БД | После batch добавления карточек |
-| data-quality-auditor | Полнота, консистентность, выбросы (CSV) | Когда нужен профиль датасета |
+| data-audit | 5 слоёв: data.json, производные, DuckDB, сырые, внешний | Когда нужен полный аудит данных, а не только корректность |
 | docs-sync | Синхронизация документации | После правок docs/ |
 | release-check | Готовность к коммиту | Перед каждым push |
 | site-navigation | Единый набор кнопок | После правки навигации |
@@ -60,7 +60,11 @@ data-quality-auditor) стоят там, где они бьют по общем�
 | seo-check | meta/OG, canonical, JSON-LD, robots.txt, sitemap | `Quality-Max/free-qa-skills` | При изменении `<head>` или структуры страниц |
 | core-web-vitals | LCP/CLS, вес страницы, ленивая загрузка, third-party | `Quality-Max/free-qa-skills` | Перед релизом; при жалобах «медленно» |
 | i18n-rtl-audit | Локализация, RTL, lang-атрибуты | `Quality-Max/free-qa-skills` | **Перед v5.3** — до того локализации нет |
-| data-quality-auditor | Профиль, missingness (MCAR/MAR/MNAR), выбросы IQR/Z-score | `alirezarezvani/claude-skills` | Когда нужен численный профиль датасета |
+
+> `data-quality-auditor` (`alirezarezvani/claude-skills`) удалён 2026-10-03,
+> заменён на `data-audit`. Причина: работал только с CSV, а на нашем
+> `docs/data.json` читал его как плоский текст — DQS 97/100 на таком входе
+> бессмысленен.
 
 ### Границы между скиллами
 
@@ -81,7 +85,8 @@ data-quality-auditor) стоят там, где они бьют по общем�
 | «Контраст / alt / клавиатура» | **accessibility-check**, а не mobile-deep-audit |
 | «Кнопка меньше пальца, safe-area» | mobile-deep-audit (touch target), accessibility-check (если это WCAG-критерий) |
 | «data.json корректен» | **data-validation** (умеет JSON + DuckDB) |
-| «выбросы и аномалии в числах» | **data-quality-auditor** (но у него CSV, не JSON — см. ниже) |
+| «полный аудит данных по всем слоям» | **data-audit** (5 слоёв, один отчёт) |
+| «выбросы и аномалии в числах» | **data-audit**, слой 1 (3σ) и слой 3 |
 | «meta / canonical / JSON-LD» | seo-check, а не docs-sync |
 | «Core Web Vitals, вес страницы» | core-web-vitals |
 | «секрет в коде, XSS, CSRF» | cyberaudit |
@@ -89,11 +94,13 @@ data-quality-auditor) стоят там, где они бьют по общем�
 
 ### Известные ограничения новых скиллов
 
-1. **`data-quality-auditor` работает с CSV, не с JSON.** Наш `docs/data.json`
-   он читает как плоский текст: 14 336 «строк», 1 «колонка». DQS 97/100 на таком
-   входе — бессмысленное число. Для наших данных — `data-validation`.
-2. **Скрипты `data-quality-auditor` не работают в консоли Windows** без
-   `$env:PYTHONIOENCODING="utf-8"`: печатают эмодзи 🟢, а cp1251 их не кодирует.
+1. **`data-audit` требует доступа к DuckDB, а файл может быть занят.**
+   `data/db/brain.duckdb` держит рабочий процесс (в нашей среде — `node.exe`),
+   и тогда `duckdb.connect(..., read_only=True)` падает с `WinError 32`, а
+   `shutil.copy2` — тоже. Запрашивать БД через MCP `query_duckdb`: он открывает
+   файл read-only и работает при занятой копии.
+2. **Скрипты, печатающие эмодзи, не работают в консоли Windows** без
+   `$env:PYTHONIOENCODING="utf-8"`: cp1251 их не кодирует.
 3. **`accessibility-check` требует Playwright MCP**; в этом окружении доступен
    `playwright`-сервер, MCP-имя в скилле может отличаться.
 4. **`cyberaudit` — 131 файл, 556 КБ.** Установлен и глобально
@@ -150,8 +157,7 @@ performance, security, accessibility, bugs, seo, maintainability, privacy). **Э
 ## Правила использования
 
 1. **Один скилл — одно направление.** Не смешивать.
-2. **Только чтение** — скилл не меняет файлы. (Исключение: `data-quality-auditor`
-   запускает свои скрипты, но только на чтение входных данных.)
+2. **Только чтение** — скилл не меняет файлы.
 3. **Один отчёт** на запуск (в reports/).
 4. **Единый лимит находок — ориентир 60.** При превышении группировать однотипные (130 звёзд = 1 находка), P0/P1 не резать никогда, P2 сжимать до паттернов. Число в отчёте — что нашлось, а не что влезло. Формулировка одинакова во всех скиллах, см. раздел «Лимит находок» в SKILL.md.
 5. **После отчёта — обсудить, потом фиксить.**
@@ -208,7 +214,7 @@ npx -y vortix-cli@0.1.3 check # внешний статический аудит
 - accessibility-check
 - core-web-vitals
 - cyberaudit
-- data-quality-auditor
+- data-audit
 - data-validation
 - docs-sync
 - i18n-rtl-audit
