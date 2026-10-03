@@ -23,41 +23,41 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=402">
+<link rel="stylesheet" href="style.css?v=403">
   <style>
     body{--apanel:#15171c;--aborder:#2b2e35;--atext:#e9eaee;--amut:#9aa0aa;margin:0}
     body:not(.dark){--apanel:#ffffff;--aborder:#d9dde3;--atext:#1b1d22;--amut:#5c6370}
     body{max-width:none!important;margin:0!important}
-    .wrap{max-width:1200px;margin:0 auto;padding:1rem 1.5rem;color:var(--atext)}
+    .wrap{max-width:1200px;margin:0 auto;padding:var(--space-4) var(--space-6);color:var(--atext)}
 
-    .trustbar{text-align:center;padding:.5rem 1rem;margin:0 0 1rem;background:var(--apanel);border:1px solid var(--aborder);border-radius:8px;font-size:.85rem;opacity:.85}
+    .trustbar{text-align:center;padding:var(--space-2) var(--space-4);margin:0 0 var(--space-4);background:var(--apanel);border:1px solid var(--aborder);border-radius:8px;font-size:.85rem;opacity:.85}
     .top .site-title{font-size:1.3rem;margin:0;font-weight:700}
     .btn{padding:.45rem .8rem;border:1px solid var(--aborder);border-radius:8px;background:var(--apanel);color:var(--atext);cursor:pointer;font-size:.85rem;text-decoration:none;line-height:1.2}
     .btn:hover{border-color:#888}
     .btn.primary{background:#3498db;border-color:#3498db;color:#fff}
 
-    .params{background:var(--apanel);border:1px solid var(--aborder);border-radius:12px;padding:1rem 1.2rem;margin:0 0 1rem}
+    .params{background:var(--apanel);border:1px solid var(--aborder);border-radius:12px;padding:var(--space-4) 1.2rem;margin:0 0 var(--space-4)}
     .params h2{margin:0 0 .6rem;font-size:1rem}
     .params-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.7rem}
-    .params label{display:block;font-size:.8rem;opacity:.7;margin-bottom:.2rem}
+    .params label{display:block;font-size:.8rem;opacity:.7;margin-bottom:var(--space-0-2)}
     .params input,.params select{width:100%;padding:.45rem .6rem;border:1px solid var(--aborder);border-radius:8px;background:var(--apanel);color:var(--atext);font-size:16px;box-sizing:border-box}
 
-    .add-row{display:flex;gap:.5rem;margin:0 0 1rem}
-    .add-row input{flex:1;padding:.5rem .8rem;border:1px solid var(--aborder);border-radius:8px;background:var(--apanel);color:var(--atext);font-size:16px}
+    .add-row{display:flex;gap:var(--space-2);margin:0 0 var(--space-4)}
+    .add-row input{flex:1;padding:var(--space-2) .8rem;border:1px solid var(--aborder);border-radius:8px;background:var(--apanel);color:var(--atext);font-size:16px}
 
     .cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:1.2rem}
     @media(max-width:860px){.cols{grid-template-columns:1fr}}
 
-    .panel{background:var(--apanel);border:1px solid var(--aborder);border-radius:12px;padding:1rem 1.2rem}
+    .panel{background:var(--apanel);border:1px solid var(--aborder);border-radius:12px;padding:var(--space-4) 1.2rem}
     .panel h2{margin:0 0 .7rem;font-size:1rem;display:flex;justify-content:space-between;align-items:center}
     .panel h2 .count{opacity:.6;font-size:.85rem;font-weight:400}
 
-    .item{display:grid;grid-template-columns:1fr 90px 30px;gap:.5rem;align-items:center;padding:.5rem 0;border-bottom:1px solid var(--aborder);font-size:.9rem}
+    .item{display:grid;grid-template-columns:1fr 90px 30px;gap:var(--space-2);align-items:center;padding:var(--space-2) 0;border-bottom:1px solid var(--aborder);font-size:.9rem}
     .item:last-child{border-bottom:none}
     .item .name{cursor:pointer;color:var(--atext)}
     .item .name:hover{color:#3498db}
-    .item input{padding:.35rem .5rem;border:1px solid var(--aborder);border-radius:6px;background:var(--apanel);color:var(--atext);font-size:16px;text-align:right;width:100%;box-sizing:border-box}
-    .item .unit{opacity:.6;font-size:.78rem;margin-left:.2rem}
+    .item input{padding:.35rem var(--space-2);border:1px solid var(--aborder);border-radius:6px;background:var(--apanel);color:var(--atext);font-size:16px;text-align:right;width:100%;box-sizing:border-box}
+    .item .unit{opacity:.6;font-size:.78rem;margin-left:var(--space-0-2)}
     .item .rm{background:none;border:none;color:#e74c3c;font-size:1.2rem;cursor:pointer;padding:0}
 
     .grade-badge{display:inline-block;padding:0 .4rem;border-radius:6px;font-size:.68rem;font-weight:700;margin-left:.35rem;vertical-align:middle}
@@ -77,10 +77,10 @@ try {
     .result-panel{position:sticky;top:1rem;align-self:start}
     @media(max-width:860px){.result-panel{position:static}}
 
-    .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:.6rem;margin:0 0 1rem}
+    .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:.6rem;margin:0 0 var(--space-4)}
     .kpi{background:var(--apanel);border:1px solid var(--aborder);border-radius:8px;padding:.6rem .7rem;text-align:center}
     .kpi .val{font-size:1.4rem;font-weight:700;line-height:1}
-    .kpi .lbl{font-size:.72rem;opacity:.65;margin-top:.3rem}
+    .kpi .lbl{font-size:.72rem;opacity:.65;margin-top:var(--space-0-3)}
     /* v4.3: контраст текста на фоне темы. Базовые правила — тёмный вариант
        (светлая тема), body.dark — светлый. Замеры на .kpi (--apanel #fff / #15171c):
        было 2.10 / 2.19 / 3.82:1 в светлой, стало 5.37 / 5.02 / 5.44:1;
@@ -92,23 +92,23 @@ try {
     body.dark .kpi.warn .val{color:#f39c12}
     body.dark .kpi.bad .val{color:#e74c3c}
 
-    .block{margin:0 0 1rem}
-    .block h3{margin:0 0 .5rem;font-size:.85rem;text-transform:uppercase;letter-spacing:.05em;opacity:.6}
-    .block-item{padding:.55rem .7rem;margin:.3rem 0;border:1px solid var(--aborder);border-radius:8px;font-size:.85rem;line-height:1.4}
+    .block{margin:0 0 var(--space-4)}
+    .block h3{margin:0 0 var(--space-2);font-size:.85rem;text-transform:uppercase;letter-spacing:.05em;opacity:.6}
+    .block-item{padding:.55rem .7rem;margin:var(--space-0-3) 0;border:1px solid var(--aborder);border-radius:8px;font-size:.85rem;line-height:1.4}
     .block-item.sev-low{border-color:rgba(241,196,15,.4);background:rgba(241,196,15,.07)}
     .block-item.sev-medium{border-color:rgba(230,126,34,.5);background:rgba(230,126,34,.08)}
     .block-item.sev-high{border-color:rgba(231,76,60,.5);background:rgba(231,76,60,.08)}
     .block-item.sev-critical{border-color:rgba(183,28,28,.7);background:rgba(183,28,28,.15)}
     .block-item.sev-critical .pair::before{content:'⚠️ '}
     .block-item.synergy{border-color:rgba(46,204,113,.5);background:rgba(46,204,113,.08)}
-    .block-item .pair{font-weight:600;margin-bottom:.2rem}
+    .block-item .pair{font-weight:600;margin-bottom:var(--space-0-2)}
     .block-item .note{opacity:.8;font-size:.82rem}
 
-    .row-actions{display:flex;gap:.5rem;margin-top:1rem;flex-wrap:wrap}
-    .empty{opacity:.55;font-style:italic;font-size:.85rem;padding:.5rem 0}
+    .row-actions{display:flex;gap:var(--space-2);margin-top:var(--space-4);flex-wrap:wrap}
+    .empty{opacity:.55;font-style:italic;font-size:.85rem;padding:var(--space-2) 0}
 
     /* Профили */
-    .profiles{display:flex;flex-wrap:wrap;gap:.4rem;margin:0 0 1rem}
+    .profiles{display:flex;flex-wrap:wrap;gap:.4rem;margin:0 0 var(--space-4)}
     .profile-btn{
       padding:.4rem .8rem;border:1px solid var(--aborder);border-radius:999px;
       background:var(--apanel);color:var(--atext);cursor:pointer;
@@ -122,7 +122,7 @@ try {
     /* Рекомендации */
     .reco-list{list-style:none;padding:0;margin:0}
     .reco-list li{
-      padding:.45rem .6rem;margin:.25rem 0;
+      padding:.45rem .6rem;margin:var(--space-1) 0;
       border:1px solid var(--aborder);border-radius:8px;
       background:rgba(52,152,219,.05);
       display:flex;justify-content:space-between;align-items:center;
@@ -133,7 +133,7 @@ try {
 
     @media (max-width: 640px) {
       .wrap{padding:.6rem}
-      .trustbar{font-size:.75rem;padding:.35rem .5rem}
+      .trustbar{font-size:.75rem;padding:.35rem var(--space-2)}
       .top{flex-direction:column;align-items:stretch}
       .top .site-title{font-size:1rem;line-height:1.2}
       .params-grid{grid-template-columns:1fr 1fr}

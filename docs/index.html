@@ -43,7 +43,7 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=402"/>
+<link rel="stylesheet" href="style.css?v=403"/>
 <style>
 :root{--apanel:var(--card-bg);--aborder:var(--border);--atext:var(--text)}
 /* Единая шапка для всех страниц */
@@ -56,11 +56,11 @@ try {
   /* ── Mobile (≤640px) ─────────────────────────────────────── */
   @media (max-width: 640px) { body { padding: 0.6rem !important; }
     .wrap { padding: 0.6rem !important; }
-    .top { flex-direction: column; align-items: stretch; gap: .5rem; margin: 0 0 .6rem; }
+    .top { flex-direction: column; align-items: stretch; gap: var(--space-2); margin: 0 0 .6rem; }
     .top .site-title { font-size: 1.05rem; line-height: 1.25; }
     .top .site-title a { display: inline-block; }
     .top .v { font-size: .7rem; }
-    .top { flex-wrap: wrap; gap: .3rem; }
+    .top { flex-wrap: wrap; gap: var(--space-0-3); }
     .top .site-title { font-size: .9rem !important; line-height: 1.2; flex: 1 1 100% !important; max-width: 100% !important; white-space: normal !important; }
     .top .site-title a { white-space: normal !important; }
     .top .actions { flex: 1 1 100% !important; justify-content: flex-start !important; }
@@ -93,7 +93,7 @@ try {
       font-size: .82rem;
     }
     #compareResult th, #compareResult td {
-      padding: .5rem .6rem;
+      padding: var(--space-2) .6rem;
       white-space: normal;
     }
     .top .site-title { font-size: .92rem !important; line-height: 1.2; }
@@ -108,7 +108,7 @@ try {
       white-space: normal !important;
       display: inline;
     }
-    .top { padding-top: .3rem; margin-bottom: .8rem; gap: .3rem; }
+    .top { padding-top: var(--space-0-3); margin-bottom: .8rem; gap: var(--space-0-3); }
     .top .actions { justify-content: flex-end; width: auto; }
     /* Карточка добавки = fullscreen */
     #modalOverlay {
@@ -121,7 +121,7 @@ try {
       max-height: 100dvh !important;
       height: 100dvh !important;
       border-radius: 0 !important;
-      padding: 1rem !important;
+      padding: var(--space-4) !important;
     }
     /* E2-1: 44px vy neseny iz @media(max-width:640px) NARUZHU. Ranshe razmer
        kraski dejstvoval tolko na mobilnom, a na desktope razmer zavisel ot
