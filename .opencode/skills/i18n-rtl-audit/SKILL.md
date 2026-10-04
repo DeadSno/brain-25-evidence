@@ -1,9 +1,10 @@
 ---
 name: i18n-rtl-audit
-description: >
-  Audit a page for internationalization readiness — layout breaks under long
-  translations (pseudo-localization), RTL rendering issues, hardcoded UI
-  strings, and missing lang/dir attributes. Playwright MCP only, no signup.
+description: "Аудит готовности страницы к интернационализации: разъезды вёрстки на длинных переводах (псевдолокализация), проблемы RTL, зашитые строки интерфейса, отсутствующие lang и dir. Работает только через Playwright MCP, без регистрации."
+license: MIT
+version: v1.0
+updated: 2026-10-04
+project: brain-25-evidence
 ---
 
 # i18n & RTL Audit

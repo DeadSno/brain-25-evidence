@@ -1,9 +1,10 @@
 ---
 name: core-web-vitals
-description: >
-  Measure Core Web Vitals on any URL — LCP, CLS, INP, TTFB, FCP — using the
-  browser's own performance APIs. Grades each metric against Google's
-  thresholds and produces an A-F report. Playwright MCP only, no signup.
+description: "Замер Core Web Vitals на любом URL — LCP, CLS, INP, TTFB, FCP — через собственные performance API браузера. Каждая метрика оценивается по порогам Google, выводится отчёт A-F. Работает только через Playwright MCP, без регистрации."
+license: MIT
+version: v1.0
+updated: 2026-10-04
+project: brain-25-evidence
 ---
 
 # Core Web Vitals

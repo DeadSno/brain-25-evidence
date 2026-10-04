@@ -1,9 +1,10 @@
 ---
 name: accessibility-check
-description: >
-  Quick WCAG accessibility scan of any URL. Checks color contrast, missing
-  alt text, keyboard navigation, ARIA labels, heading hierarchy, and focus
-  indicators. Produces a graded report. Uses Playwright MCP only — no signup.
+description: "Быстрая проверка доступности по WCAG для любого URL: контраст, отсутствующий alt, навигация с клавиатуры, ARIA-метки, иерархия заголовков, фокус. Отчёт с оценкой. Работает только через Playwright MCP, без регистрации."
+license: MIT
+version: v1.0
+updated: 2026-10-04
+project: brain-25-evidence
 ---
 
 # Accessibility Check
