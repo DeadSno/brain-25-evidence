@@ -55,8 +55,8 @@ body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); transitio
     .tr-tabs .spacer { flex: 1; }
     #search { padding: .4rem .8rem; border: 1px solid var(--border); background: var(--card-bg); color: var(--fg); border-radius: var(--radius-lg); font-size: 16px; min-width: 200px; }
     .legend .sup::before { background: #3d7eff; }
-    .layout { display: flex; height: calc(100vh - 200px); min-height: 600px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-    #graph { flex: 1; min-width: 0; background: var(--card-bg); }
+    .int-layout { display: flex; height: calc(100vh - 200px); min-height: 600px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    #int-graph { flex: 1; min-width: 0; background: var(--card-bg); }
     footer { padding: var(--space-4) var(--space-6); font-size: .8rem; color: var(--muted); }
     footer a { color: var(--accent); }
     #hint { padding: var(--space-2) var(--space-6); font-size: .85rem; color: var(--muted); }
@@ -81,15 +81,15 @@ body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); transitio
       footer { font-size: .78rem !important; }
     }
     @media (max-width: 640px) {
-      .layout { min-height: 60vh; width: 100% !important; }
-      #graph { min-height: 60vh; width: 100% !important; }
-      .layout { display: block !important; height: auto !important; }
-      #graph { width: 100% !important; height: 60vh !important; min-height: 400px !important; }
+      .int-layout { min-height: 60vh; width: 100% !important; }
+      #int-graph { min-height: 60vh; width: 100% !important; }
+      .int-layout { display: block !important; height: auto !important; }
+      #int-graph { width: 100% !important; height: 60vh !important; min-height: 400px !important; }
       .chartTabs { flex-wrap: wrap; }
       #q, #search { width: 100% !important; }
       .legend, [class*="legend"] { flex-wrap: wrap; font-size: .75rem; }
       .vis-tooltip { max-width: 200px !important; font-size: .75rem !important; padding: .35rem var(--space-2) !important; }
-      #graph { margin-bottom: 0 !important; }
+      #int-graph { margin-bottom: 0 !important; }
       footer { margin-top: var(--space-2) !important; padding-top: var(--space-2) !important; }
     }
     button, .btn, .chip, a, .chartTab, [role="button"] { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
@@ -98,9 +98,9 @@ body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); transitio
     @supports (padding: env(safe-area-inset-bottom)) {
       body { padding-bottom: env(safe-area-inset-bottom); }
     }
-    #graph, #chainbox canvas, .vis-network { touch-action: pan-y; }
+    #int-graph, #chainbox canvas, .vis-network { touch-action: pan-y; }
     @media (max-width: 640px) {
-      #graph, .vis-network { touch-action: none; }
+      #int-graph, .vis-network { touch-action: none; }
     }
   
   </style>
@@ -147,8 +147,8 @@ body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); transitio
 </div>
 <div id="hint">Кликните узел — справа откроются детали. Колёсико — масштаб. Тяните фон — сдвиг.</div>
 
-<div class="layout">
-  <div id="graph"></div>
+<div class="int-layout">
+  <div id="int-graph"></div>
   <aside id="int-sidebar"></aside>
 </div>
 </main>
@@ -402,7 +402,7 @@ function renderSidebar(id) {
 }
 
 function drawGraph() {
-  const container = document.getElementById('graph');
+  const container = document.getElementById('int-graph');
   const mode = state.mode;
 
   const allEdges = buildEdges(mode);
@@ -514,7 +514,7 @@ document.querySelectorAll('#sevFilter input[data-sev]').forEach(cb => {
 
 // Кнопка PNG
 document.getElementById('pngBtn').onclick = () => {
-  const canvas = document.querySelector('#graph canvas');
+  const canvas = document.querySelector('#int-graph canvas');
   if (!canvas) return;
   const url = canvas.toDataURL('image/png');
   const a = document.createElement('a');
@@ -530,7 +530,7 @@ fetch('interactions_graph.json')
     setMode('supplements');
   })
   .catch(err => {
-    document.getElementById('graph').innerHTML =
+    document.getElementById('int-graph').innerHTML =
       '<p style="padding:2rem;color:#e53935">Не удалось загрузить interactions_graph.json: ' +
       esc(err.message) + '</p>';
   });
