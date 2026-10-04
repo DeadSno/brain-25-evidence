@@ -69,6 +69,14 @@ def pytest_collection_modifyitems(config, items):
     if not os.environ.get("RUN_TABS"):
         items[:] = [item for item in items if "tabs" not in item.keywords]
 
+    # `graph` (tests/test_graph_interaction.py, v5.4.1): экспорт PNG и
+    # раскладка графа. Нужен живой сервер и браузеры Playwright,
+    # поэтому снят здесь по той же причине, что tabs.
+    # Запуск: $env:RUN_TABS="1" не включает его — гейты независимы.
+    # Запуск: $env:RUN_GRAPH="1"; pytest -q -m graph
+    if not os.environ.get("RUN_GRAPH"):
+        items[:] = [item for item in items if "graph" not in item.keywords]
+
 
 @pytest.fixture(scope="session")
 def project_root() -> Path:
