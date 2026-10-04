@@ -12,24 +12,70 @@ DB_PATH = ROOT / "data" / "db" / "brain.duckdb"
 
 
 def pytest_collection_modifyitems(config, items):
-    """Выключить браузерные e2e по умолчанию.
+    """Выключить браузерные e2e и визуальные снапшоты по умолчанию.
 
-    Гейт сделан на переменной окружения, а НЕ на `-m "not e2e"` в addopts,
-    потому что `-m`, переданный в командной строке, ПЕРЕКРЫВАЕТ addopts.
-    С `-m` в addopts команда `pytest -q -m "not network"` (а она встречается
-    в инструкциях проекта) неожиданно включала e2e и роняла прогон.
+    Оба гейта — на переменной окружения, а НЕ на `-m` в addopts: `-m`,
+    переданный в командной строке, ПЕРЕКРЫВАЕТ addopts. Это не теория,
+    измерено на этой копии:
 
-    Включить: RUN_E2E=1 pytest -q -m e2e
+        pytest --collect-only -q                    -> 754/791 (37 deselected)
+        pytest --collect-only -q -m "not e2e"       -> 789/791 (2 deselected)
+
+    То есть с `-m "not snapshots"` в addopts любая другая `-m` в командной
+    строке (а такая команда есть в инструкциях проекта) возвращала 37
+    тяжёлых тестов и превращала быстрый прогон в 100-секундный.
+
+    Снапшоты — самые тяжёлые тесты в проекте: 37 попиксельных сравнений PNG
+    против эталонов, полный прогон ~100 с против ~4 с без них. Для быстрых
+    коммитов они не нужны, для миграции дизайн-системы — обязательны.
+
+    Включить: RUN_SNAPSHOTS=1 pytest -q -m snapshots
+
+    Тесты доступности (tests/test_a11y_axe.py) несут только маркер `a11y` и
+    снимаются отдельным фильтром: им тоже нужен браузер и сервер, но команда
+    запуска у них своя — RUN_A11Y=1 pytest -q -m a11y.
     """
     if os.environ.get("RUN_E2E") == "1":
-        return
-    skip = pytest.mark.skip(
-        reason="e2e выключены по умолчанию (долгий прогон, нужен браузер). "
-               "Запуск: RUN_E2E=1 pytest -q -m e2e"
-    )
-    for item in items:
-        if "e2e" in item.keywords:
-            item.add_marker(skip)
+        pass  # e2e-гейт ниже
+    else:
+        skip = pytest.mark.skip(
+            reason="e2e выключены по умолчанию (долгий прогон, нужен браузер). "
+                   "Запуск: RUN_E2E=1 pytest -q -m e2e"
+        )
+        for item in items:
+            if "e2e" in item.keywords:
+                item.add_marker(skip)
+
+    # Снапшоты и тесты доступности снимаются НЕЗАВИСИМЫМИ фильтрами: у них
+    # разные маркеры и разные команды. Раньше a11y-тесты несли оба маркера, и
+    # фильтр по `snapshots` отбрасывал их — замерено: `RUN_A11Y=1 pytest -m a11y`
+    # давал «754 deselected, 0 selected», то есть гейт был зелёным вхолостую.
+    # Теперь пересечения нет, и каждый гейт включается своей переменной:
+    #   RUN_SNAPSHOTS=1 -> только снапшоты
+    #   RUN_A11Y=1      -> только доступность
+    #   ничего          -> быстрый прогон без браузера
+    if not os.environ.get("RUN_SNAPSHOTS"):
+        items[:] = [item for item in items if "snapshots" not in item.keywords]
+
+    if not os.environ.get("RUN_A11Y"):
+        items[:] = [item for item in items if "a11y" not in item.keywords]
+
+    # 	abs (tests/test_tabs_interaction.py, v5.4.1): клик по вкладкам.
+    # Требует живого сервера на :8000 и браузеров Playwright, поэтому
+    # снят здесь, а не через -m в addopts: командная строка -m "..."
+    # перекрывает addopts и включила бы 42 теста неожиданно — ровно то,
+    # из-за чего e2e вынесен в отдельную настройку.
+    # Запуск: \="1"; pytest -q -m tabs
+    if not os.environ.get("RUN_TABS"):
+        items[:] = [item for item in items if "tabs" not in item.keywords]
+
+    # `graph` (tests/test_graph_interaction.py, v5.4.1): экспорт PNG и
+    # раскладка графа. Нужен живой сервер и браузеры Playwright,
+    # поэтому снят здесь по той же причине, что tabs.
+    # Запуск: $env:RUN_TABS="1" не включает его — гейты независимы.
+    # Запуск: $env:RUN_GRAPH="1"; pytest -q -m graph
+    if not os.environ.get("RUN_GRAPH"):
+        items[:] = [item for item in items if "graph" not in item.keywords]
 
 
 @pytest.fixture(scope="session")

@@ -1,12 +1,86 @@
-:root{--bg:#f5f5f7;--text:#1c1c1e;--card-bg:#fff;--border:#d1d1d6;--shadow:rgba(0,0,0,.08);--accent:#0062cc;--muted:#6e6e73}
-html.dark,body.dark{--bg:#1c1c1e;--text:#f5f5f7;--card-bg:#2c2c2e;--border:#3a3a3c;--shadow:rgba(0,0,0,.4);--accent:#0a84ff;--muted:#9a9aa0}
+/* v5.4.0 — Inter локально, из репозитория (было: только index.html через
+   Google Fonts, остальные 17 страниц шли системным шрифтом, и Chromium с
+   WebKit выбирали разный — расхождение 2-11% пикселей между движками).
+
+   Именно СТАТИЧЕСКИЕ начертания, а не переменный шрифт. Замерено: с
+   InterVariable.woff2 оба движка рапортуют одно и то же начертание
+   ('Inter', weight '100 900', status 'loaded') и грузят один и тот же файл,
+   но ширины кириллицы расходятся на всех пяти весах — 400: 328.84 против
+   354.78, 700: 347.43 против 366.68. То есть ось веса они инстанцируют
+   по-разному, и вариативный шрифт расхождение усиливает, а не снимает.
+   У статики оси нет, инстанцировать нечего, результат воспроизводим.
+   Цена — 556 КБ против 343 КБ у переменного: +213 КБ за предсказуемость
+   между движками, что и было целью этапа.
+
+   Лицензия SIL OFL 1.1 лежит рядом, в docs/fonts/LICENSE-Inter.txt —
+   по условию OFL лицензия обязана сопровождать шрифт. */
+@font-face { font-family: 'Inter'; font-weight: 400; font-style: normal;
+  src: url('fonts/inter-regular.woff2') format('woff2'); font-display: swap; }
+@font-face { font-family: 'Inter'; font-weight: 500; font-style: normal;
+  src: url('fonts/inter-medium.woff2') format('woff2'); font-display: swap; }
+@font-face { font-family: 'Inter'; font-weight: 600; font-style: normal;
+  src: url('fonts/inter-semibold.woff2') format('woff2'); font-display: swap; }
+@font-face { font-family: 'Inter'; font-weight: 700; font-style: normal;
+  src: url('fonts/inter-bold.woff2') format('woff2'); font-display: swap; }
+@font-face { font-family: 'Inter'; font-weight: 800; font-style: normal;
+  src: url('fonts/inter-extrabold.woff2') format('woff2'); font-display: swap; }
+
+:root{
+  /* ── Шаг 9: межстрочный интервал ── */
+  --lh-tight: 1.2;
+  --lh-normal: 1.5;
+  --lh-loose: 1.6;
+
+  /* ── Шаг 7: радиусы и тени ── */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-pill: 999px;
+  /* Шаг 8.4, перенесено в v5.4.0: акцент тёмной темы. Токен ТОЛЬКО
+     тёмный — замер показал, что в светлой теме #8ecbff не рисуется
+     ни на одной из 17 страниц (0 вхождений), а в тёмной 24-54. */
+  --accent-2: #8ecbff;
+  --shadow-sm: 0 2px 6px var(--shadow);
+  --shadow-md: 0 2px 8px rgba(0,0,0,.15);
+  --shadow-lg: 0 12px 32px rgba(0,0,0,.5);  /* v5.4.0: тёмное по умолчанию */
+  --shadow-xl: 0 24px 80px rgba(0,0,0,.55);
+
+  /* Шаг 8.1: рамка при наведении. Значение одно для обеих тем —
+     замер: .btn:hover даёт rgb(136,136,136) и в светлой, и в тёмной. */
+  --border-hover: #888888;
+
+  /* Шаг 8.accent-hover: hover ссылки в тёмной теме. */
+  --accent-hover: #b8d8ff;
+--bg:#1c1c1e;--text:#f5f5f7;--card-bg:#2c2c2e;--border:#3a3a3c;--shadow:rgba(0,0,0,.4);--accent:#0a84ff;--muted:#9a9aa0}
+
+/* v5.1 Шаг 6 — шкала отступов (DESIGN_SYSTEM_PLAN.md §2.1).
+   Заменены только те литералы, которые УЖЕ равны ступени:
+   округления не делались, поэтому пиксели не изменились.
+   Объявлено один раз в :root — он покрывает и тёмную тему, а
+   значения от темы не зависят (план предлагал дублировать в
+   html.dark — это было бы дублированием без эффекта).
+   Имена с ДЕФИСОМ, не с точкой: имя кастомного свойства не
+   может содержать '.', браузер выбрасывает такое объявление молча,
+   а var() от него проваливает всё объявление. План предлагал
+   --space-2.5 и --space-1.5 — в браузере они не работают.
+   Доли названы по значению: 0-2 = .2rem = 3.2px, 0-3 = .3rem = 4.8px;
+   2-5 = 2.5 x 4px = 10px. */
+:root{--space-1:4px;--space-0-3:.3rem;--space-0-2:.2rem;--space-2:8px;--space-2-5:10px;--space-3:12px;--space-4:16px;--space-5:20px;--space-6:24px;--space-8:32px;--space-12:48px;}
+/* v5.4.0 (dark-first): светлая палитра переехала из :root сюда.
+   Тёмная — в :root и применяется по умолчанию, класс .dark больше
+   не нужен ни в CSS, ни в разметке. --accent-2 здесь отсутствует
+   намеренно: по замеру Шага 8.4 #8ecbff не рисуется ни на одной из
+   17 страниц в светлой теме (0 вхождений), а в тёмной 24-54.
+   Объявлять его для светлой — утверждение, которое ничего не проверяет. */
+html.light{--bg:#f5f5f7;--text:#1c1c1e;--card-bg:#fff;--border:#d1d1d6;--shadow:rgba(0,0,0,.08);--accent:#0062cc;--muted:#6e6e73;--shadow-lg: 0 12px 32px rgba(0,0,0,.16)}
 *{box-sizing:border-box;margin:0;padding:0}
 
 /* v5.0.0 (Android): серый tap-highlight браузера проступал поверх фирменных
    цветов карточек и кнопок. touch-action:manipulation убирает задержку 300ms
    и двойной-тап-зум, но НЕ отключает :hover-эффекты (в отличие от none). */
 *{-webkit-tap-highlight-color:transparent}
-button,a,.chip,.tab,.favBtn,.preset,.chartTab,.profile-btn,.tagPreset{touch-action:manipulation}
+button,a,.chip,.tr-tab,.favBtn,.preset,.chartTab,.profile-btn,.tagPreset{touch-action:manipulation}
 
 /* ===== v4.1: навигация с клавиатуры — видимый фокус (WCAG 2.4.7) ===== */
 /* Раньше outline не задавался нигде: фокус ставился, но был не виден */
@@ -15,11 +89,11 @@ button,a,.chip,.tab,.favBtn,.preset,.chartTab,.profile-btn,.tagPreset{touch-acti
 .sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;
   overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--text);padding:1.5rem;transition:background .25s,color .25s;max-width:1200px;margin:0 auto;line-height:1.5}
-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;flex-wrap:wrap;gap:1rem}
+body{background:var(--bg);color:var(--text);padding:var(--space-6);transition:background .25s,color .25s;max-width:1200px;margin:0 auto;line-height:var(--lh-normal)}
+header{display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-6);flex-wrap:wrap;gap:var(--space-4)}
 h1{font-size:1.8rem;font-weight:600}
 .hdr{display:flex;gap:.6rem;align-items:center}
-.btn{background:var(--card-bg);color:var(--text);border:1px solid var(--border);padding:.7rem 1.1rem;min-height:44px;display:inline-flex;align-items:center;justify-content:center;border-radius:8px;text-decoration:none;font-size:.95rem}
+.btn{background:var(--card-bg);color:var(--text);border:1px solid var(--border);padding:.7rem 1.1rem;min-height:44px;display:inline-flex;align-items:center;justify-content:center;border-radius:var(--radius-lg);text-decoration:none;font-size:.95rem}
 /* v4.1: белый на #3498db давал 3.15:1 — заливка затемнена до 5.42:1 в обеих темах */
 .btn.calc {
   background: linear-gradient(135deg, #1f6fa5, #175a86);
@@ -35,32 +109,38 @@ h1{font-size:1.8rem;font-weight:600}
 }
 /* v5.0.0 mobile: min-height:44px на базовом button. Покрывает кнопки без класса
    (в проекте — #compareBtn на index, 35px). Специфичность button (0,0,1) ниже,
-   чем у любого класса, поэтому .btn/.favBtn/.chip/.tab со своими правилами
+   чем у любого класса, поэтому .btn/.favBtn/.chip/.tr-tab со своими правилами
    не задеваются. Растёт только высота, ширина и горизонтальные отступы те же. */
-button{background:var(--card-bg);color:var(--text);border:1px solid var(--border);padding:.5rem 1rem;border-radius:8px;cursor:pointer;font-size:.95rem;min-height:44px}
+/* v5.4.0: font-family: inherit обязателен для контролов. UA-стиль
+   задаёт button/input/select/textarea СИСТЕМНЫЙ шрифт, и они не
+   наследуют его от body — поэтому 112 контролов на сайте рисовались
+   мимо Inter. Это и был корень расхождения из v5.3.0: подпись вкладки
+   146.5px в Chromium против 135.25px в WebKit. */
+button{font-family:inherit;background:var(--card-bg);color:var(--text);border:1px solid var(--border);padding:var(--space-2) var(--space-4);border-radius:var(--radius-lg);cursor:pointer;font-size:.95rem;min-height:44px}
 button:hover,.btn:hover{background:var(--border)}
-section{margin-bottom:2rem}
-h2{font-size:1.3rem;font-weight:500;margin-bottom:1rem}
-label{font-weight:500;margin-right:.5rem}
-select{background:var(--card-bg);color:var(--text);border:1px solid var(--border);padding:.4rem .8rem;border-radius:6px;font-size:16px}
+
+section{margin-bottom:var(--space-8)}
+h2{font-size:1.3rem;font-weight:500;margin-bottom:var(--space-4)}
+label{font-weight:500;margin-right:var(--space-2)}
+select{background:var(--card-bg);color:var(--text);border:1px solid var(--border);padding:.4rem .8rem;border-radius:var(--radius-md);font-size:16px}
 /* v5.0.0 mobile: iOS Safari зумит страницу при фокусе на поле с font-size < 16px,
    после чего появляется горизонтальный скролл. Базовый порог 16px для всех полей.
    Страничные правила вида `.params input{font-size:.9rem}` (calculator.html:45,48,61),
    `.f-field input{font-size:15px}` (feedback.html:70), `.filters select` (trends.html:32)
    имеют специфичность выше — они тоже переведены на 16px. */
-input,select,textarea{font-size:16px}
-#symptomFilter{display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
-#chartSection,#compareSection{background:var(--card-bg);padding:1.5rem;border-radius:12px;border:1px solid var(--border)}
+input,select,textarea{font-family:inherit;font-size:16px}
+#symptomFilter{display:flex;align-items:center;gap:var(--space-4);flex-wrap:wrap}
+#chartSection,#compareSection{background:var(--card-bg);padding:var(--space-6);border-radius:var(--radius-xl);border:1px solid var(--border)}
 #chartWrap canvas{width:100%!important;max-height:500px}
 #cardsGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.2rem}
-.card{background:var(--card-bg);border:1px solid var(--border);border-radius:10px;padding:1rem 1.2rem;box-shadow:0 2px 6px var(--shadow);position:relative}
-.card .card-title{display:block;font-size:1.1rem;font-weight:700;margin-bottom:.3rem}
-.card .verdict{display:inline-block;font-size:.75rem;padding:.2rem .6rem;border-radius:20px;color:#fff;margin-bottom:.5rem}
+.card{background:var(--card-bg);border:1px solid var(--border);border-radius:10px;padding:var(--space-4) 1.2rem;box-shadow:var(--shadow-sm);position:relative}
+.card .card-title{display:block;font-size:1.1rem;font-weight:700;margin-bottom:var(--space-0-3)}
+.card .verdict{display:inline-block;font-size:.75rem;padding:var(--space-0-2) .6rem;border-radius:20px;color:#fff;margin-bottom:var(--space-2)}
 .card .price{font-weight:500;color:var(--accent)}
 .card .effects{font-size:.9rem;margin-top:.4rem;opacity:.8}
-.card .effects span{background:var(--bg);padding:.1rem .5rem;border-radius:12px;margin-right:.3rem;display:inline-block;margin-bottom:.2rem}
-.row{display:flex;gap:1rem;flex-wrap:wrap;align-items:end}
-#compareResult{margin-top:1rem;overflow-x:auto}
+.card .effects span{background:var(--bg);padding:.1rem var(--space-2);border-radius:var(--radius-xl);margin-right:var(--space-0-3);display:inline-block;margin-bottom:var(--space-0-2)}
+.row{display:flex;gap:var(--space-4);flex-wrap:wrap;align-items:end}
+#compareResult{margin-top:var(--space-4);overflow-x:auto}
 /* v5.0.0 mobile: скролл-обёртка для широких таблиц. Без неё <table> с width:100%
    всё равно не shrinks ниже min-content ширины и уводит документ вбок
    (glossary.html @320px: scrollWidth 345 при clientWidth 305). */
@@ -69,16 +149,16 @@ input,select,textarea{font-size:16px}
 #compareResult table{width:100%;border-collapse:collapse;font-size:.95rem}
 #compareResult th,#compareResult td{padding:.6rem .8rem;border-bottom:1px solid var(--border);text-align:left}
 #compareResult th{background:var(--bg);font-weight:500}
-footer{margin-top:2rem;padding-top:1rem;border-top:1px solid var(--border);font-size:.8rem;color:var(--muted)}
-footer p{margin-bottom:.5rem}
+footer{margin-top:var(--space-8);padding-top:var(--space-4);border-top:1px solid var(--border);font-size:.8rem;color:var(--muted)}
+footer p{margin-bottom:var(--space-2)}
 /* ===== v1.2: контролы, модалка, skeleton ===== */
-#controls{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:1rem}
+#controls{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:var(--space-4)}
 #controls input,#controls select{flex:1;min-width:150px}
 .hint{font-size:.8rem;opacity:.6;font-weight:400}
 .card{cursor:pointer}
-.card .cat{font-size:.7rem;opacity:.55;display:block;margin-bottom:.2rem}
-#modalOverlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:50;display:flex;align-items:center;justify-content:center;padding:1rem}
-#modal{background:var(--card-bg);color:var(--text);border-radius:12px;max-width:min(820px,92vw);width:100%;max-height:85vh;overflow-y:auto;padding:1.4rem;position:relative}
+.card .cat{font-size:.7rem;opacity:.55;display:block;margin-bottom:var(--space-0-2)}
+#modalOverlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:50;display:flex;align-items:center;justify-content:center;padding:var(--space-4)}
+#modal{background:var(--card-bg);color:var(--text);border-radius:var(--radius-xl);max-width:min(820px,92vw);width:100%;max-height:85vh;overflow-y:auto;padding:1.4rem;position:relative}
 /* v5.0.0 (iPhone 17): раньше top:.6rem — кнопка закрытия оказывалась на
    y 8..52, то есть ПОД Dynamic Island (safe-area-inset-top = 59px) и была
    недоступна. max() вместо голого env(): на десктопе/планшете env() = 0,
@@ -91,14 +171,14 @@ footer p{margin-bottom:.5rem}
 #modal .mrow{margin:.35rem 0;font-size:.92rem}
 #modal .warn{color:#c0392b}
 /* v4.3: в тёмной теме #c0392b даёт 2.56:1 на карточке */
-body.dark #modal .warn{color:#f26d6d}
-.skeleton { min-height: 170px; border-radius: 12px;
+html:not(.light) #modal .warn{color:#f26d6d}
+.skeleton { min-height: 170px; border-radius: var(--radius-xl);
   background: linear-gradient(100deg, rgba(128,128,128,.12) 40%, rgba(128,128,128,.28) 50%, rgba(128,128,128,.12) 60%);
   background-size: 200% 100%; animation: sh 1.2s infinite; }
 @keyframes sh { to { background-position: -200% 0; } }
 /* ===== v1.2: мобильная адаптация нового UI ===== */
 @media (max-width: 768px) {
-  body { padding: 1rem; }
+  body { padding: var(--space-4); }
   h1 { font-size: 1.4rem; }
   header { flex-direction: column; align-items: flex-start; gap: .6rem; }
   .hdr { width: 100%; justify-content: space-between; }
@@ -111,7 +191,7 @@ body.dark #modal .warn{color:#f26d6d}
   select { width: 100%; }
   #compareResult { font-size: .85rem; overflow-x: auto; }
   #compareResult th, #compareResult td { padding: .4rem; }
-  #modal { padding: 1rem; max-height: 90vh; }
+  #modal { padding: var(--space-4); max-height: 90vh; }
 }
 /* ===== v1.3: калькулятор дозировки ===== */
 .calc {
@@ -128,9 +208,9 @@ body.dark #modal .warn{color:#f26d6d}
 }
 .calcRow input {
   flex: 1;
-  padding: 0.5rem;
+  padding: var(--space-2);
   border: 1px solid var(--border);
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
   background: var(--bg);
   color: var(--text);
 }
@@ -143,7 +223,7 @@ body.dark #modal .warn{color:#f26d6d}
   font-size: 0.9rem;
 }
 /* v4.3: в тёмной теме #c0392b не читается на карточке */
-body.dark .calcResult .warn { color: #f26d6d; }
+html:not(.light) .calcResult .warn { color: #f26d6d; }
 /* ===== v1.3: избранное ===== */
 .favBtn {
   position: absolute; top: .5rem; right: .6rem;
@@ -167,11 +247,11 @@ body.dark .calcResult .warn { color: #f26d6d; }
 /* v4.2: в светлой теме #f1c40f давал 1.53:1 — тёмное золото, в тёмной теме
    возвращаем исходный яркий оттенок (там он даёт 8.4:1). */
 .favBtn.on { color: #8a6800; text-shadow: 0 0 8px rgba(138, 104, 0, .45); }
-.favFilter { margin-left: .5rem; padding: .5rem .8rem; border: 1px solid var(--border);
-             border-radius: 6px; background: var(--card-bg); color: var(--text); cursor: pointer; }
+.favFilter { margin-left: var(--space-2); padding: var(--space-2) .8rem; border: 1px solid var(--border);
+             border-radius: var(--radius-md); background: var(--card-bg); color: var(--text); cursor: pointer; }
 .favFilter.on { border-color: #8a6800; color: #8a6800; }
-body.dark .favBtn.on { color: #f1c40f; text-shadow: 0 0 8px rgba(241, 196, 15, .55); }
-body.dark .favFilter.on { border-color: #f1c40f; color: #f1c40f; }
+html:not(.light) .favBtn.on { color: #f1c40f; text-shadow: 0 0 8px rgba(241, 196, 15, .55); }
+html:not(.light) .favFilter.on { border-color: #f1c40f; color: #f1c40f; }
 /* ===== v1.3: подсветка карточки после модалки ===== */
 .card.flash {
   box-shadow: 0 0 0 3px #f1c40f, 0 0 20px rgba(241, 196, 15, .45);
@@ -207,12 +287,12 @@ body::after {
   border: 1px solid rgba(255,255,255,.4);
   transition: transform .18s ease, box-shadow .18s ease;   /* 5. микро-анимации */
 }
-body.dark .card {
+html:not(.light) .card {
   background: rgba(255,255,255,.05);
   border: 1px solid rgba(255,255,255,.09);
 }
-.card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,.16); }
-body.dark .card:hover { box-shadow: 0 12px 32px rgba(0,0,0,.5); }
+.card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+html:not(.light) .card:hover { box-shadow: var(--shadow-lg); }
 
 /* 12. Плавающая шапка */
 header, .header {
@@ -225,7 +305,7 @@ header, .header {
      env() с фолбэком: в браузерах без safe-area (десктоп) — 0px. */
   padding-top: env(safe-area-inset-top, 0px);
 }
-body.dark header, body.dark .header { background: rgba(18,18,18,.65); }
+html:not(.light) header, html:not(.light) .header { background: rgba(18,18,18,.65); }
 
 /* v5.0.0 (iPhone 17): home indicator. Футер — последний блок на странице,
    ему нужен нижний отступ, иначе последняя строка дисклеймера перекрывается. */
@@ -253,19 +333,19 @@ footer, .site-footer { padding-bottom: env(safe-area-inset-bottom, 0px); }
 .bestBadge {
   display: inline-block; margin: 0 0 .35rem 0;
   font-size: .68rem; font-weight: 700;
-  padding: .18rem .5rem; border-radius: 999px; color: #222;
+  padding: .18rem var(--space-2); border-radius: var(--radius-pill); color: #222;
   background: linear-gradient(135deg, #f1c40f, #f39c12);
   box-shadow: 0 2px 8px rgba(243,156,18,.4);
 }
 
 /* ===== v1.3.1: кнопка «Скопировать ссылку» ===== */
-.copyLink { background: none; border: 1px dashed var(--border); border-radius: 6px;
-  color: var(--text); padding: .3rem .6rem; cursor: pointer; }
+.copyLink { background: none; border: 1px dashed var(--border); border-radius: var(--radius-md);
+  color: var(--text); padding: var(--space-0-3) .6rem; cursor: pointer; }
 .copyLink:hover { border-color: #3498db; color: #3498db; }
 
 /* ===== v2.1: бейдж «цена не найдена», пустое состояние, «Наверх» ===== */
 .noPrice{color:var(--text);opacity:.8;font-size:.85rem}.noPrice a{color:var(--accent)}
-.empty{grid-column:1/-1;text-align:center;padding:3rem 1rem;opacity:.8}
+.empty{grid-column:1/-1;text-align:center;padding:var(--space-12) var(--space-4);opacity:.8}
 #toTop{position:fixed;right:1.2rem;bottom:1.2rem;z-index:60;width:44px;height:44px;
 border-radius:50%;border:1px solid var(--border);background:var(--card-bg);color:var(--text);
 font-size:1.2rem;cursor:pointer;opacity:0;pointer-events:none;transition:.25s}
@@ -275,36 +355,36 @@ font-size:1.2rem;cursor:pointer;opacity:0;pointer-events:none;transition:.25s}
 /* v4.3: белый на заливке — контраст от темы не зависит, поэтому затемняем
    базовые правила. Замеры: .conflict-banner было 3.34:1, .conflict-banner.medium
    2.85:1, .synergy-banner 4.32:1. */
-.conflict-banner{background:#d62839;color:#fff;padding:1rem;text-align:center;font-weight:600;
+.conflict-banner{background:#d62839;color:#fff;padding:var(--space-4);text-align:center;font-weight:600;
 position:sticky;top:0;z-index:1000;animation:fadeIn .25s}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 
 /* ===== v2.3: раздел «3 вопроса» ===== */
-#qaSection .qa{margin:.6rem 0 1rem}
-#qaSection .qa h3{font-size:1.02rem;margin-bottom:.25rem}
+#qaSection .qa{margin:.6rem 0 var(--space-4)}
+#qaSection .qa h3{font-size:1.02rem;margin-bottom:var(--space-1)}
 #qaSection .qa p{font-size:1rem;opacity:.88;max-width:72ch}
 
 /* ===== F5.1: три карточки в одну строку ===== */
-.qaGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:.4rem}
-.qaGrid .qa{margin:0;padding:.9rem 1rem;background:var(--bg);border:1px solid var(--border);border-radius:10px}
+.qaGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-4);margin-top:.4rem}
+.qaGrid .qa{margin:0;padding:.9rem var(--space-4);background:var(--bg);border:1px solid var(--border);border-radius:10px}
 .qaGrid .qa h3{font-size:1rem;margin-bottom:.4rem}
 .qaGrid .qa p{font-size:1rem;opacity:.85;max-width:60ch}
-.qaGrid .qaMore{display:inline-block;margin-top:.5rem;font-size:.82rem;font-weight:600}
+.qaGrid .qaMore{display:inline-block;margin-top:var(--space-2);font-size:.82rem;font-weight:600}
 
 /* ===== v2.3: шаблон полной карточки (15 блоков) ===== */
-.blockTitle{font-weight:700;margin:1rem 0 .4rem;font-size:1.05rem}
-.cblocks{display:flex;flex-direction:column;gap:.5rem}
-.cblock{border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem;background:var(--bg)}
-.cblock h4{font-size:.8rem;font-weight:700;opacity:.65;text-transform:uppercase;letter-spacing:.03em;margin-bottom:.2rem}
+.blockTitle{font-weight:700;margin:var(--space-4) 0 .4rem;font-size:1.05rem}
+.cblocks{display:flex;flex-direction:column;gap:var(--space-2)}
+.cblock{border:1px solid var(--border);border-radius:var(--radius-lg);padding:.6rem .8rem;background:var(--bg)}
+.cblock h4{font-size:.8rem;font-weight:700;opacity:.65;text-transform:uppercase;letter-spacing:.03em;margin-bottom:var(--space-0-2)}
 .cblock[data-block-key="evidence"] h4{font-size:1.05rem;opacity:.95}
 .cblock[data-block-key="price"] h4{font-size:.8rem}
 .cbbody{font-size:.92rem}
 .cbEmpty{opacity:.55;font-style:italic}
-.hline{margin-top:.25rem;opacity:.85}
+.hline{margin-top:var(--space-1);opacity:.85}
 /* v4.3: цвет текста на фоне темы — в светлой теме нужен тёмный зелёный
    (было 3.97:1), в тёмной — светлый (было 3.22:1). */
 .goodPair{color:#2f7d4f;font-weight:600}
-body.dark .goodPair{color:#3aa863}
+html:not(.light) .goodPair{color:#3aa863}
 .sev{font-size:.88rem;margin:.15rem 0}
 /* v4.2: цвет текста на фоне темы (фактически --bg, не карточка) — в светлой
    теме нужны тёмные варианты. Замеры: .sev-critical было 3.51:1,
@@ -313,30 +393,30 @@ body.dark .goodPair{color:#3aa863}
 .sev-high{color:#b45309}
 .sev-medium{color:#8a6800}
 /* в тёмной теме обратно к светлым оттенкам */
-body.dark .sev-critical{color:#f26d6d}
-body.dark .sev-high{color:#e67e22}
-body.dark .sev-medium{color:#d4a017}
+html:not(.light) .sev-critical{color:#f26d6d}
+html:not(.light) .sev-high{color:#e67e22}
+html:not(.light) .sev-medium{color:#d4a017}
 .sev-low{color:var(--text);opacity:.7}
 
 /* ===== v2.3: живой баннер — medium (оранжевый), synergy (зелёный) ===== */
 .conflict-banner.medium{background:#b45309}
-.synergy-banner{background:#2a8046;color:#fff;padding:1rem;text-align:center;font-weight:600;
+.synergy-banner{background:#2a8046;color:#fff;padding:var(--space-4);text-align:center;font-weight:600;
 position:sticky;top:0;z-index:1000;animation:fadeIn .25s}
 
 /* ===== v2.4: вкладки графика, грейды A–D ===== */
-.chartTabs{display:flex;gap:.5rem;margin-bottom:.8rem}
+.chartTabs{display:flex;gap:var(--space-2);margin-bottom:.8rem}
 .chartTab{background:var(--card-bg);color:var(--text);border:1px solid var(--border);
-  padding:.45rem .9rem;border-radius:6px;cursor:pointer;font-size:.88rem;font-weight:500}
+  padding:.45rem .9rem;border-radius:var(--radius-md);cursor:pointer;font-size:.88rem;font-weight:500}
 .chartTab.on{border-color:var(--accent);color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
 .grade{display:inline-block;font-size:.72rem;font-weight:700;padding:.15rem .55rem;
-  border-radius:999px;color:#fff;vertical-align:middle;margin-left:.3rem}
+  border-radius:var(--radius-pill);color:#fff;vertical-align:middle;margin-left:var(--space-0-3)}
 /* v4.1: .gA–.gD перебивались .grade.gX с !important (специфичность 0,2,0
    против 0,1,0) и в разметке не использовались — удалены как мёртвые. */
 
 /* ===== v2.6: add-on trust ===== */
 .trustbar{position:sticky;top:0;z-index:100;background:var(--card-bg);color:var(--text);
   border-bottom:1px solid var(--border);text-align:center;font-size:.8rem;font-weight:600;
-  padding:.45rem .5rem;letter-spacing:.02em}
+  padding:.45rem var(--space-2);letter-spacing:.02em}
 
 /* ===== v2.6: 5-точечный бейдж доверия (грейд) ===== */
 .gdots{display:inline-flex;gap:3px;vertical-align:middle;margin-left:.35rem}
@@ -345,8 +425,8 @@ position:sticky;top:0;z-index:1000;animation:fadeIn .25s}
 .vwait{font-size:.72rem;opacity:.6;margin-left:.4rem;font-style:italic}
 
 /* ===== v2.6: ручная вычитка ===== */
-.manual-badge{display:inline-flex;align-items:center;gap:.25rem;font-size:.68rem;font-weight:700;
-  padding:.15rem .5rem;border-radius:999px;border:1px solid var(--border);color:var(--text);
+.manual-badge{display:inline-flex;align-items:center;gap:var(--space-1);font-size:.68rem;font-weight:700;
+  padding:.15rem var(--space-2);border-radius:var(--radius-pill);border:1px solid var(--border);color:var(--text);
   cursor:help;vertical-align:middle;margin-left:.4rem}
 .manual-badge:hover{border-color:var(--accent);color:var(--accent)}
 
@@ -355,8 +435,8 @@ position:sticky;top:0;z-index:1000;animation:fadeIn .25s}
 
 /* ===== v2.6: иконки источников ===== */
 .srcIcon {display:inline-flex;align-items:center;justify-content:center;min-height:44px;min-width:44px;font-size:.68rem;font-weight:700;padding:.1rem .45rem;
-  border-radius:999px;background:var(--bg);border:1px solid var(--border);color:var(--text);
-  text-decoration:none;vertical-align:middle;margin-left:.25rem;
+  border-radius:var(--radius-pill);background:var(--bg);border:1px solid var(--border);color:var(--text);
+  text-decoration:none;vertical-align:middle;margin-left:var(--space-1);
   max-width: 60ch;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -371,12 +451,12 @@ position:sticky;top:0;z-index:1000;animation:fadeIn .25s}
 /* ===== v2.6: поделиться + сравнить в модалке ===== */
 .shareRow{display:flex;gap:.4rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
 .shareRow a{text-decoration:none}
-.compareChips{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.3rem}
-.compareChips .chipbx{background:var(--bg);border:1px solid var(--border);border-radius:999px;
-  padding:.2rem .6rem;font-size:.8rem;cursor:pointer}
+.compareChips{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:var(--space-0-3)}
+.compareChips .chipbx{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-pill);
+  padding:var(--space-0-2) .6rem;font-size:.8rem;cursor:pointer}
 .compareChips .chipbx:hover{border-color:var(--accent);color:var(--accent)}
 #trustSummary ul{margin:.4rem 0 0 1.2rem;opacity:.9}
-#trustSummary li{margin:.2rem 0}
+#trustSummary li{margin:var(--space-0-2) 0}
 
 /* v5.0.0 mobile: порог 44×44 ТОЛЬКО для интерактивных .chip.
    Список «интерактивных» нельзя взять по тегу — проверено фактически:
@@ -409,7 +489,8 @@ position:sticky;top:0;z-index:1000;animation:fadeIn .25s}
    - .chartTab/.favFilter объявлены здесь, в style.css → правятся здесь;
    - .profile-btn/.f-btn объявлены в <style> страниц, но тот <style>
      идёт ПОСЛЕ <link href="style.css"> → правило ниже перебивает их;
-   - .tab объявлен сразу в ДВУХ файлах (interactions.html:80, trends.html:34)
+   - .tr-tab объявлен сразу в ДВУХ файлах (interactions.html:53,
+     trends.html:37)
      с разными padding/шрифтом → общий селектор покрывает обе страницы. */
 .chartTab, .favFilter { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
 /* min-width для #resetFilters: кнопка «✕ Сбросить» с коротким глифом была
@@ -417,7 +498,7 @@ position:sticky;top:0;z-index:1000;animation:fadeIn .25s}
    Ровно 44px без запасных пикселей, чтобы не ломать раскладку <section>. */
 .favFilter { min-width: 44px; }
 .profile-btn, .f-btn { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
-.preset, .tab { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
+.preset, .tr-tab { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
 
 /* v5.0.0 mobile: .tagChip в карточке (index, 15 на страницу × 6 ширин = 226 замеров)
    реально интерактивен: script.js:227-235 ловит клик по .tagChip, фильтрует
@@ -488,7 +569,7 @@ h1 a { min-height: 44px; }
 .btn.gr { min-width: 44px; }
 
 /* ===== F5: горизонтальные чипы доверия ===== */
-.trustChips{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.6rem;align-items:center}
+.trustChips{display:flex;flex-wrap:wrap;gap:var(--space-2);margin-top:.6rem;align-items:center}
 /* v5.0.0 mobile: min-height:44px перенесён с .trustChips .chip на .trustChips a.chip.
    Иначе сужение базового правила выше не дало бы эффекта на index: у 4 чипов
    в .trustChips было собственное правило с min-height:44px, и два из них —
@@ -499,30 +580,30 @@ h1 a { min-height: 44px; }
    ссылок (44px) даже при min-height:auto. Без этого объявления статичные
    чипы остаются 44px — проверено замером computedMinH:auto при h:44. */
 .trustChips a.chip{min-height:44px}
-.trustChips .chip{display:inline-flex;align-items:center;padding:.35rem .75rem;border-radius:999px;
+.trustChips .chip{display:inline-flex;align-items:center;padding:.35rem var(--space-3);border-radius:var(--radius-pill);
   font-size:.82rem;font-weight:600;text-decoration:none;border:1px solid var(--border);
   background:var(--bg);color:var(--accent);transition:border-color .15s,color .15s}
 .trustChips .chip:hover{border-color:var(--accent);color:var(--accent)}
 
 /* ===== F3: контраст ссылок ≥4.5:1 ===== */
 a{color:var(--accent)}
-body.dark a{color:#8ecbff;text-decoration:underline}
-body.dark a:hover{color:#b8d8ff}
-body.dark .trustbar a{color:#8ecbff;text-decoration:underline}
-body.dark footer a{color:#8ecbff;text-decoration:underline}
-body.dark #modal a{color:#8ecbff}
-body.dark .srcIcon{color:#8ecbff;border-color:#8ecbff}
-body.dark .srcIcon:hover{color:#b8d8ff;border-color:#b8d8ff}
-body.dark .trustChips .chip{color:#8ecbff;border-color:#8ecbff}
-body.dark .trustChips .chip:hover{color:#b8d8ff;border-color:#b8d8ff}
-body.dark .copyLink{color:#8ecbff}
-body.dark .copyLink:hover{color:#b8d8ff}
-body.dark .noPrice a{color:#8ecbff}
-body.dark .qaMore{color:#8ecbff}
-body.dark .wbLink{color:#8ecbff;border-bottom-color:#8ecbff}
-body.dark .compareChips .chipbx{color:#8ecbff;border-color:#8ecbff}
-body:not(.dark) .qaMore{color:var(--accent)}
-body:not(.dark) .compareChips .chipbx{color:var(--accent)}
+html:not(.light) a{color:var(--accent-2);text-decoration:underline}
+html:not(.light) a:hover{color:var(--accent-hover)}
+html:not(.light) .trustbar a{color:var(--accent-2);text-decoration:underline}
+html:not(.light) footer a{color:var(--accent-2);text-decoration:underline}
+html:not(.light) #modal a{color:var(--accent-2)}
+html:not(.light) .srcIcon{color:var(--accent-2);border-color:var(--accent-2)}
+html:not(.light) .srcIcon:hover{color:var(--accent-hover);border-color:var(--accent-hover)}
+html:not(.light) .trustChips .chip{color:var(--accent-2);border-color:var(--accent-2)}
+html:not(.light) .trustChips .chip:hover{color:var(--accent-hover);border-color:var(--accent-hover)}
+html:not(.light) .copyLink{color:var(--accent-2)}
+html:not(.light) .copyLink:hover{color:var(--accent-hover)}
+html:not(.light) .noPrice a{color:var(--accent-2)}
+html:not(.light) .qaMore{color:var(--accent-2)}
+html:not(.light) .wbLink{color:var(--accent-2);border-bottom-color:var(--accent-2)}
+html:not(.light) .compareChips .chipbx{color:var(--accent-2);border-color:var(--accent-2)}
+html.light .qaMore{color:var(--accent)}
+html.light .compareChips .chipbx{color:var(--accent)}
 
 /* ===== F5.3: 375px — карточки в столбец, чипы переносятся ===== */
 @media (max-width:375px){
@@ -533,22 +614,22 @@ body:not(.dark) .compareChips .chipbx{color:var(--accent)}
 
 /* v2.7.2 hotfix */
 .trustbar { text-align: center; }
-body.dark .qaMore { color: #5dade2; }
-body.dark .chip a,
-body.dark .chip a:visited { color: #5dade2; }
+html:not(.light) .qaMore { color: #5dade2; }
+html:not(.light) .chip a,
+html:not(.light) .chip a:visited { color: #5dade2; }
 
 /* v2.7.3: поиск не обрезается */
 #search { min-width: 250px; flex: 1 1 250px; }
 
 /* v2.8.0: пресеты-чипы + активные фильтры (F1/F8) */
-.presetRow{display:flex;gap:.5rem;flex-wrap:wrap;margin:.5rem 0}
+.presetRow{display:flex;gap:var(--space-2);flex-wrap:wrap;margin:var(--space-2) 0}
 .preset{padding:.4rem .8rem;border-radius:20px;background:var(--card-bg);border:1px solid var(--border);cursor:pointer;font-size:.85rem;transition:all .15s}
 /* v4.1: var(--accent) давал белым 3.65:1 в тёмной теме — фиксированная
    заливка #1f5fbf даёт 6.09:1 в обеих */
 .preset.on{background:#1f5fbf;color:#fff;border-color:#1f5fbf}
 .preset:hover{border-color:var(--accent)}
-.activeFilters{display:flex;gap:.4rem;flex-wrap:wrap;margin:.5rem 0;font-size:.85rem}
-.activeFilters .chip{background:#1f5fbf;color:#fff;padding:.25rem .6rem;border-radius:12px;display:inline-flex;align-items:center;gap:.3rem;min-height:44px}
+.activeFilters{display:flex;gap:.4rem;flex-wrap:wrap;margin:var(--space-2) 0;font-size:.85rem}
+.activeFilters .chip{background:#1f5fbf;color:#fff;padding:var(--space-1) .6rem;border-radius:var(--radius-xl);display:inline-flex;align-items:center;gap:var(--space-0-3);min-height:44px}
 .activeFilters .chip .x{cursor:pointer;opacity:.8}
 .activeFilters .chip .x:hover{opacity:1}
 
@@ -557,7 +638,7 @@ body.dark .chip a:visited { color: #5dade2; }
   /* Шапка: H1 на всю ширину (перенос), actions под ним */
   /* Шапка: block layout — H1 сверху, actions снизу. Надёжнее flex-wrap */
   header.top,header.hdr{display:block!important}
-  header.top>.site-title,header.hdr>.site-title{font-size:1.3rem!important;line-height:1.2!important;margin:0 0 .5rem!important;white-space:normal!important;overflow:visible!important}
+  header.top>.site-title,header.hdr>.site-title{font-size:1.3rem!important;line-height:var(--lh-tight)!important;margin:0 0 var(--space-2)!important;white-space:normal!important;overflow:visible!important}
   header.top>.site-title>a,header.hdr>.site-title>a{white-space:normal!important;display:inline!important}
   header.top .actions,header.hdr .actions{display:flex!important;flex-wrap:wrap!important;gap:.4rem!important;justify-content:flex-end!important}
   .top .site-title .v,.top .site-title>span[style*="opacity"]{display:none!important}
@@ -567,15 +648,25 @@ body.dark .chip a:visited { color: #5dade2; }
    box-sizing:border-box обязателен — иначе padding добавится К 100dvh
    и появятся два скроллбара. На десктопе/планшете env() = 0 → 0px,
    поведение не меняется. */
-#modal{padding-top:max(1rem,env(safe-area-inset-top,0px));
-  padding-bottom:max(1rem,env(safe-area-inset-bottom,0px));box-sizing:border-box}
+#modal{padding-top:max(var(--space-4),env(safe-area-inset-top,0px));
+  padding-bottom:max(var(--space-4),env(safe-area-inset-bottom,0px));box-sizing:border-box}
   #modal,#modalBody{overflow-x:hidden!important;word-break:break-word}
   #modal *{max-width:100%!important;min-width:0!important;box-sizing:border-box}
   #modal a,#modal .srcIcon,#modal .chip-pmid,#modal .mrow{word-break:break-word;overflow-wrap:anywhere}
   #modal .srcRow,#modal .shareRow{flex-wrap:wrap!important}
   #modal img,#modal canvas{max-width:100%!important;height:auto}
-  #controls{flex-direction:column;gap:.5rem}
+  #controls{flex-direction:column;gap:var(--space-2)}
   #search{width:100%!important;min-width:0!important}
+  /* v5.1.6 (cross-browser): width:100% у #search не работал. У него
+     flex:1 1 250px (строка выше), а flex-basis выигрывает у width — поэтому
+     ширина поля зависела от того, как встал перенос в .tr-tabs: замерено
+     344.81px в Chromium против 293.41px в WebKit на interactions@412, то
+     есть одно и то же поле поиска на iOS было на 51px уже. Здесь задаём
+     basis 100%, чтобы поле всегда занимало свою строку.
+     Селектор .tr-tabs #search, а не просто #search: на index.html #search
+     лежит в #controls, который на <=480px становится flex-direction:column,
+     и basis 100% там означал бы 100% ВЫСОТЫ контейнера. Не расширяем. */
+  .tr-tabs #search{flex-basis:100%!important}
   #chartWrap{overflow-x:hidden}
   canvas#bubbleChart,canvas#quadrantChart{min-width:0!important;max-width:100%!important}
   #compareResult{overflow-x:auto}
@@ -583,7 +674,7 @@ body.dark .chip a:visited { color: #5dade2; }
 }
 
 /* v2.8.0: кнопки-ссылки без подчёркивания в тёмной теме (F3) */
-body.dark a.btn{text-decoration:none}
+html:not(.light) a.btn{text-decoration:none}
 
 /* ===== v3.1: палитра грейдов A-D (зелёный/лайм/янтарь/красный) ===== */
 .grade.gA { background: #15803d !important; color: #fff !important; border-color: #15803d !important; }
@@ -611,7 +702,7 @@ body.dark a.btn{text-decoration:none}
    для тёмной карточки (#2c2c2e -> 5.68:1) и дал бы в светлой 2.46:1, поэтому
    переопределение остаётся только для тёмной темы. В светлой var(--accent)
    #0062cc на белом даёт 5.80:1 и проходит без правок. */
-html.dark .chartTab.on, body.dark .chartTab.on {
+html:not(.light) .chartTab.on {
   border-color: #5aa9ff; color: #5aa9ff; box-shadow: 0 0 0 1px #5aa9ff;
 }
 
@@ -620,14 +711,14 @@ html.dark .chartTab.on, body.dark .chartTab.on {
 /* v3.1: плоские цвета вердиктов */
 
 .cgroup{margin:0 0 1.1rem}
-.cgTitle{font-weight:700;font-size:1rem;margin:0 0 .4rem;padding:.35rem .6rem;background:var(--card-bg);border-left:3px solid var(--accent);border-radius:4px}
+.cgTitle{font-weight:700;font-size:1rem;margin:0 0 .4rem;padding:.35rem .6rem;background:var(--card-bg);border-left:3px solid var(--accent);border-radius:var(--radius-sm)}
 
 /* PMID-чип рядом с источником: клик — копирование */
 /* Кнопка «Поделиться» в футере (см. share.js). Не в шапку: состав шапки разнойтся 14 способови во семинаше, а футер един. Стока не выше 44px как у остальных кнопок. */
-.share-row { margin: .5rem 0 0; }
+.share-row { margin: var(--space-2) 0 0; }
 .share-row .btn { min-height: 44px; }
 .btn.is-share-error { border-color: #ef4444; color: #ef4444; }
-body.dark .btn.is-share-error { border-color: #ff5252; color: #ff5252; }
+html:not(.light) .btn.is-share-error { border-color: #ff5252; color: #ff5252; }
 
 /* Заголовок темы страницы — раньше у h2 было 0, и h1 на всех страницах — это название сайта.
    1.15rem = 18.4px: между body 16px и h1 21.6px, то иерархия сохраняется. */
@@ -637,7 +728,7 @@ body.dark .btn.is-share-error { border-color: #ff5252; color: #ff5252; }
   display: flex;
   align-items: baseline;
   gap: .35rem;
-  margin-bottom: .25rem;
+  margin-bottom: var(--space-1);
 }
 .srcRow .srcIcon { flex: 0 1 auto; min-width: 0; }
 .chip-pmid {
@@ -646,7 +737,7 @@ body.dark .btn.is-share-error { border-color: #ff5252; color: #ff5252; }
   font-size: .72rem;
   font-family: ui-monospace, "SF Mono", Consolas, monospace;
   padding: 1px 6px;
-  border-radius: 8px;
+  border-radius: var(--radius-lg);
   background: rgba(127,127,127,.15);
   color: inherit;
   opacity: .75;
@@ -663,7 +754,7 @@ body.dark .btn.is-share-error { border-color: #ff5252; color: #ff5252; }
 .tagChips {
   display: flex;
   flex-wrap: wrap;
-  gap: .25rem;
+  gap: var(--space-1);
   margin-top: .35rem;
 }
 .tagChip {
@@ -688,12 +779,12 @@ body.dark .btn.is-share-error { border-color: #ff5252; color: #ff5252; }
   display: flex;
   flex-wrap: wrap;
   gap: .35rem;
-  margin: .5rem 0 .8rem;
+  margin: var(--space-2) 0 .8rem;
 }
 .tagPreset {
   font-size: .78rem;
-  padding: 3px 10px;
-  border-radius: 12px;
+  padding: 3px var(--space-2-5);
+  border-radius: var(--radius-xl);
   border: 1px solid transparent;
   background: rgba(127,127,127,.14);
   color: inherit;
@@ -718,7 +809,7 @@ body.dark .btn.is-share-error { border-color: #ff5252; color: #ff5252; }
 
 /* ===== v1.0: секции фильтров ===== */
 .filterSection {
-  margin-bottom: 1rem;
+  margin-bottom: var(--space-4);
 }
 .filterLabel {
   display: block;
@@ -727,7 +818,7 @@ body.dark .btn.is-share-error { border-color: #ff5252; color: #ff5252; }
   letter-spacing: .06em;
   opacity: .5;
   font-weight: 600;
-  margin-bottom: .5rem;
+  margin-bottom: var(--space-2);
   color: inherit;
 }
 .tagPresetMore {
@@ -746,7 +837,7 @@ body.dark .btn.is-share-error { border-color: #ff5252; color: #ff5252; }
   display: flex;
   flex-wrap: wrap;
   gap: .4rem;
-  margin: .5rem 0 1rem;
+  margin: var(--space-2) 0 var(--space-4);
 }
 .activeFilters:empty {
   margin: 0;
@@ -754,10 +845,10 @@ body.dark .btn.is-share-error { border-color: #ff5252; color: #ff5252; }
 .activeFilter {
   display: inline-flex;
   align-items: center;
-  gap: .3rem;
+  gap: var(--space-0-3);
   font-size: .8rem;
-  padding: 4px 10px;
-  border-radius: 12px;
+  padding: var(--space-1) var(--space-2-5);
+  border-radius: var(--radius-xl);
   background: rgba(80,140,220,.18);
   border: 1px solid rgba(80,140,220,.4);
   cursor: pointer;
@@ -772,8 +863,8 @@ body.dark .btn.is-share-error { border-color: #ff5252; color: #ff5252; }
 }
 .activeFilterClear {
   font-size: .8rem;
-  padding: 4px 10px;
-  border-radius: 12px;
+  padding: var(--space-1) var(--space-2-5);
+  border-radius: var(--radius-xl);
   background: transparent;
   border: 1px solid rgba(127,127,127,.3);
   cursor: pointer;
@@ -790,7 +881,7 @@ body.dark .btn.is-share-error { border-color: #ff5252; color: #ff5252; }
    за 4.4 экрана. Делаем горизонтальную полосу со снапом и scroll-snap: видимое колово,
    прокрутивается свастивом. На desktop не трогаем. */
   .qaGrid{grid-template-columns:none!important;display:flex;gap:.6rem;overflow-x:auto;
-    scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding-bottom:.5rem;
+    scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding-bottom:var(--space-2);
     scrollbar-width:thin}
   .qaGrid .qa{flex:0 0 84%;scroll-snap-align:start;margin:0}
 }
@@ -801,7 +892,7 @@ body.dark .btn.is-share-error { border-color: #ff5252; color: #ff5252; }
     display: grid !important;
     grid-template-columns: 1fr !important;
     grid-template-areas: "title" "actions" !important;
-    gap: .5rem !important;
+    gap: var(--space-2) !important;
     width: 100% !important;
   }
   header.top > .site-title {
@@ -842,19 +933,19 @@ body.dark .btn.is-share-error { border-color: #ff5252; color: #ff5252; }
   gap:.7rem;
 }
 .quick-links .card-link{
-  padding:.85rem 1rem !important;
+  padding:.85rem var(--space-4) !important;
   min-width:0;
 }
 .quick-links .card-link > div:nth-child(2){
   font-size:.9rem !important;
-  margin:.25rem 0 !important;
+  margin:var(--space-1) 0 !important;
 }
 .quick-links .card-link > div:nth-child(3){
   font-size:.76rem !important;
   line-height:1.3 !important;
 }
 @media(max-width:600px){
-  .quick-links{gap:.5rem}
+  .quick-links{gap:var(--space-2)}
   .quick-links .card-link{padding:.7rem .8rem !important}
   .quick-links .card-link > div:first-child{font-size:1.15rem !important}
 }
@@ -872,12 +963,12 @@ h1 a > :first-child,
 h1 a:first-child::before, .top .site-title a:first-child::before {
   font-weight: 400 !important;
 }
-body.light h1,
-body.light h1 a, body.light .top .site-title a {
+html.light h1,
+html.light h1 a, html.light .top .site-title a {
   color: #1a1d21 !important;
 }
-body.dark h1,
-body.dark h1 a, body.dark .top .site-title a {
+html:not(.light) h1,
+html:not(.light) h1 a, html:not(.light) .top .site-title a {
   color: #fafafa !important;
 }
 .top .v,
@@ -901,9 +992,9 @@ header.top .v {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 1rem;
+  gap: var(--space-4);
   flex-wrap: wrap;
-  margin: 0 0 1rem;
+  margin: 0 0 var(--space-4);
 }
 .top .site-title { font-size: 1.35rem; margin: 0; font-weight: 700; }
 .top .site-title a { color: inherit; text-decoration: none; }
@@ -911,9 +1002,9 @@ header.top .v {
   opacity: .5;
   font-size: .8rem;
   font-weight: 400;
-  margin-left: .5rem;
+  margin-left: var(--space-2);
 }
-.actions { display: flex; gap: .5rem; flex-wrap: wrap; align-items: center; }
+.actions { display: flex; gap: var(--space-2); flex-wrap: wrap; align-items: center; }
 
 /* ═══ Кнопка «вниз» ═══ */
 .toBottom {
@@ -932,7 +1023,7 @@ header.top .v {
   justify-content: center;
   font-size: 1.2rem;
   z-index: 100;
-  box-shadow: 0 2px 8px rgba(0,0,0,.15);
+  box-shadow: var(--shadow-md);
 }
 .toBottom.show { display: flex; }
 .toBottom:hover { background: var(--border); }
@@ -940,21 +1031,78 @@ header.top .v {
 /* ═══ Единый футер ═══ */
 .site-footer {
   max-width: 1200px;
-  margin: 3rem auto 1.5rem;
-  padding: 1.5rem 1.5rem 1rem;
+  margin: var(--space-12) auto var(--space-6);
+  padding: var(--space-6) var(--space-6) var(--space-4);
   border-top: 1px solid var(--border);
-  font-size: .82rem;
+  /* v5.5.0 A1: было .82rem = 13.12px, ниже порога читаемости 14px.
+     Подвал — единственное место, где кегль был задан на весь текст,
+     включая дисклеймер «⚠️ Не медицинская рекомендация». Поднято до
+     1rem = 16px. Замер и обоснование: reports/V550.md, A1. */
+  font-size: 1rem;
   color: var(--text);
   opacity: .85;
   line-height: 1.55;
 }
-.site-footer p { margin: .5rem 0; }
+.site-footer p { margin: var(--space-2) 0; }
 .site-footer .disc { opacity: .9; }
-.site-footer .meta { opacity: .7; font-size: .78rem; }
+/* v5.5.0 A1: .78rem = 12.48px -> 1rem. Служебные строки версии и
+   копирайта были самым мелким текстом на всех 17 страницах. */
+.site-footer .meta { opacity: .7; font-size: 1rem; }
 .site-footer .links { opacity: .85; }
 .site-footer .links a { color: inherit; text-decoration: none; }
 .site-footer .links a:hover { text-decoration: underline; }
-.site-footer .copy { opacity: .6; font-size: .78rem; }
+.site-footer .copy { opacity: .6; font-size: 1rem; }
+
+/* Свёрнутый блок вопросов на главной (v5.5.0 A3) */
+.qa-details > summary {
+  cursor: pointer;
+  padding: .55rem var(--space-3);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg);
+  font-weight: 600;
+  font-size: .95rem;
+  user-select: none;
+}
+.qa-details > summary:hover { border-color: var(--accent); }
+.qa-details > summary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.qa-details[open] > summary { margin-bottom: var(--space-3); }
+
+/* ═══ Главная: кнопки фильтра в один ряд (v5.5.0 A3) ═══ */
+/* Раньше favFilter и resetFilters стояли стопкой и занимали 96px.
+   В ряд занимают 52px, и блок .quick-links с навигационными карточками
+   поднимается с 904 на 852 — попадает в первый экран на телефоне
+   (412x852). На широком экране кнопки и так были в ряд, поэтому
+   правило ограничено мобильной шириной. */
+@media (max-width: 600px) {
+  .filter-actions {
+    display: flex;
+    gap: var(--space-2);
+    align-items: stretch;
+  }
+  .filter-actions > .favFilter { flex: 1 1 0; min-width: 0; }
+
+  /* Блок «Сначала ответим на 3 вопроса» на мобильном превращается в
+     горизонтальную ленту высотой 237px, и он отодвигал навигационные
+     карточки за первый экран. Уплотнение на 32px поднимает
+     .quick-links с 852 на 820 — карточка начинает попадать в экран. */
+  #qaSection { margin-bottom: var(--space-4); }
+  .qaGrid { gap: .4rem; margin-top: 0; }
+  .qaGrid .qa { padding: .6rem var(--space-3); }
+}
+
+/* ═══ Глоссарий: разделы ═══ */
+/* v5.5.0 A2: страница была единственной без h2/h3 и без секций —
+   12 терминов лежали одной таблицей. Разбивка на три группы дала
+   структуру, но заголовки разделов слипаются с таблицей вплотную,
+   поэтому между ними нужен воздух. */
+.glossary-section { margin-top: var(--space-8); }
+.glossary-section:first-of-type { margin-top: var(--space-6); }
+.glossary-section > h2 { margin-bottom: var(--space-2); }
+.glossary-section > p { max-width: 72ch; margin-bottom: var(--space-4); }
 
 /* ═══ Цветные кнопки навбара (палитра карточек главной) ═══ */
 .btn.c-home   { border-color: #64748b; background: rgba(100,116,139,.12); }
@@ -969,18 +1117,26 @@ header.top .v {
 .btn.c-refresh  { border-color: #6366f1; background: rgba(99,102,241,.12); }
 .btn.c-support  { border-color: #7b61ff; background: rgba(123,97,255,.12); }
 
+/* Рамка при наведении. Правило одно здесь, а не в локальных
+   <style> на 6 страницах (на atlas — дважды); на 11 страницах его
+   не было вовсе. Стоит ПОСЛЕ блока .btn.c-*: у .btn:hover и
+   .btn.c-home одинаковая специфичность (0,2,0), и без этого
+   порядка .btn.c-home перебивал бы наведение. */
+.btn:hover{border-color:var(--border-hover)}
+
+
 /* В светлой теме — чуть плотнее фон для контраста */
-body.light .btn.c-home   { background: rgba(100,116,139,.08); }
-body.light .btn.c-calc   { background: rgba(59,130,246,.08); }
-body.light .btn.c-mech   { background: rgba(16,185,129,.08); }
-body.light .btn.c-links  { background: rgba(245,158,11,.08); }
-body.light .btn.c-atlas  { background: rgba(139,92,246,.08); }
-body.light .btn.c-trends { background: rgba(236,72,153,.08); }
-body.light .btn.c-bi     { background: rgba(6,182,212,.08); }
-body.light .btn.c-graph     { background: rgba(239,68,68,.08); }
-body.light .btn.c-feedback  { background: rgba(132,204,22,.08); }
-body.light .btn.c-refresh  { background: rgba(99,102,241,.08); }
-body.light .btn.c-support  { background: rgba(123,97,255,.08); }
+html.light .btn.c-home   { background: rgba(100,116,139,.08); }
+html.light .btn.c-calc   { background: rgba(59,130,246,.08); }
+html.light .btn.c-mech   { background: rgba(16,185,129,.08); }
+html.light .btn.c-links  { background: rgba(245,158,11,.08); }
+html.light .btn.c-atlas  { background: rgba(139,92,246,.08); }
+html.light .btn.c-trends { background: rgba(236,72,153,.08); }
+html.light .btn.c-bi     { background: rgba(6,182,212,.08); }
+html.light .btn.c-graph     { background: rgba(239,68,68,.08); }
+html.light .btn.c-feedback  { background: rgba(132,204,22,.08); }
+html.light .btn.c-refresh  { background: rgba(99,102,241,.08); }
+html.light .btn.c-support  { background: rgba(123,97,255,.08); }
 
 /* ===== v5.0.0 mobile: логотип-ссылка в шапке (тап-таргет 44px) =====
    Правило стоит ПОСЛЕ @media(max-width:480px), потому что там
@@ -1002,7 +1158,7 @@ header.top > .site-title > a, header.hdr > .site-title > a { display: inline-fle
    v body, vizualno skryta do polucheniya fokusa. */
 .skip-link{position:absolute;left:-9999px;top:0}
 .skip-link:focus{position:fixed;left:0;top:0;z-index:9999;background:#000;color:#fff;
-  padding:8px 16px;font-size:14px;border-radius:0 0 6px 0;text-decoration:none}
+  padding:var(--space-2) var(--space-4);font-size:14px;border-radius:0 0 6px 0;text-decoration:none}
 
 /* ===== h1 semantika: v shapke eto NE zagolovok stranicy =====================
    Do 3a vse 17 stranic imeli edinyj h1 = «brain-25-evidence» v shapke. Eto
@@ -1023,3 +1179,147 @@ header.top > .site-title > a, header.hdr > .site-title > a { display: inline-fle
    s 21.6px na 20.8px. */
 main h1 { font-size: 1.35rem !important; font-weight: 700 !important;
   line-height: 1.25 !important; margin: 0 0 .8rem !important; color: var(--text) !important; }
+
+/* ===== sup/* страницы (5 файлов) — вынесено из локальных <style>
+   Набор был побайтово идентичен на всех пяти (sha256 совпал), поэтому
+   перенесён один раз, а не пять. Селекторы, встречающиеся и на других
+   страницах, ограничены .sup-wrap: иначе .verdict испортил бы бейджи
+   trends, .tag — карточки map, .grade-badge — бейдж calculator. */
+.sup-wrap { max-width: 840px; margin: 40px auto; padding: 0 var(--space-5); }
+.breadcrumbs { font-size: .9rem; color: var(--muted); margin-bottom: var(--space-4); }
+.breadcrumbs a { color: var(--accent); text-decoration: none; }
+.sup-header { display: flex; gap: var(--space-4); align-items: center; margin-bottom: var(--space-6); flex-wrap: wrap; }
+.sup-header h2 { margin: 0; font-size: 1.3rem; font-weight: 600; }
+.sup-wrap .grade-badge { display: inline-block; padding: 6px 14px; border-radius: var(--radius-lg); color: #fff; font-weight: 700; font-size: 1.1rem; }  /* было: .grade-badge */
+.sup-wrap .verdict { color: var(--muted); font-size: 1rem; }  /* было: .verdict */
+.sup-section { margin-bottom: 28px; padding: var(--space-5); background: var(--card-bg); border-radius: var(--radius-xl); border: 1px solid var(--border); }
+.sup-section h2 { font-size: 1.15rem; margin-bottom: var(--space-3); }
+.sup-section p { line-height: var(--lh-loose); margin-bottom: var(--space-2); }
+.sup-wrap .tag { display: inline-block; padding: var(--space-1) var(--space-2-5); margin: var(--space-1) 6px var(--space-1) 0; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-md); font-size: .85rem; }  /* было: .tag */
+.mech-card { padding: var(--space-3); margin-bottom: var(--space-2); background: var(--bg); border-left: 3px solid var(--accent); border-radius: var(--radius-md); }
+.mech-body { font-size: .95rem; margin-bottom: 6px; }
+.mech-effect { color: var(--muted); font-size: .9rem; }
+.mech-strength { display: inline-block; margin-top: 6px; padding: 2px var(--space-2); border-radius: var(--radius-sm); font-size: .75rem; text-transform: uppercase; }
+.s-strong { background: #22c55e33; color: #22c55e; }
+.s-medium { background: #84cc1633; color: #84cc16; }
+.s-weak { background: #f59e0b33; color: #f59e0b; }
+.s-context { background: #88888833; color: var(--muted); }
+.inter-card { padding: var(--space-3); margin-bottom: var(--space-2); background: var(--bg); border-radius: var(--radius-md); border-left: 3px solid; }
+.inter-low { border-color: #84cc16; }
+.inter-medium { border-color: #f59e0b; }
+.inter-high { border-color: #ef4444; }
+.inter-critical { border-color: #991b1b; }
+.inter-with { font-weight: 600; }
+.inter-sev { font-size: .8rem; color: var(--muted); text-transform: uppercase; margin: var(--space-1) 0; }
+.inter-note { font-size: .9rem; }
+.src-card { padding: var(--space-2-5); margin-bottom: 6px; border-bottom: 1px solid var(--border); }
+.src-title { font-size: .9rem; margin-bottom: var(--space-1); }
+.src-meta { font-size: .8rem; color: var(--muted); }
+.src-meta a { color: var(--accent); }
+.back-link { display: inline-block; margin-top: var(--space-6); color: var(--accent); text-decoration: none; }
+@media (max-width: 600px) {
+  .sup-wrap { margin: var(--space-5) auto; }
+  .sup-header h2 { font-size: 1.25rem; }
+}
+
+/* ===== interactions.html — вынесено из локального <style>
+   Только правила, уникальные для страницы: сайдбар графа (.sb-*),
+   легенда (.legend*) и фильтр тяжести (.severityFilter*), с сохранением
+   их @media-контекста.
+   Локальными остались: :root/--fg (это цвета, отдельный шаг), body,
+   header, footer, .btn, .tr-tab / .tr-tabs, #search, #hint, .trustbar, .top,
+   а также vis-network (#int-graph / #atl-graph, #int-sidebar,
+   .int-layout / .atl-layout,
+   .int-layout / .atl-layout,
+   .vis-tooltip) —
+   .vis-tooltip) —
+   эти селекторы заняты другими страницами.
+   #sidebar был переименован в #int-sidebar / #atl-sidebar 2026-10-03,
+   когда выяснилось, что под этим id жили ДВА разных сайдбара. */
+.legend { padding: var(--space-2) var(--space-6); display: flex; gap: var(--space-4); flex-wrap: wrap; font-size: .8rem; color: var(--muted); }
+.legend span::before { content: ''; display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: .35rem; vertical-align: middle; }
+.legend .syn::before { background: #4caf50; }
+.legend .ant::before { background: #e53935; }
+.legend .int::before { background: #ff9800; }
+.legend .drug::before { background: #9e9e9e; }
+.sb-head { position: relative; }
+.sb-close { position: absolute; right: -.4rem; top: -.4rem; background: transparent; border: none; color: var(--muted); font-size: 1.4rem; cursor: pointer; padding: var(--space-0-2) var(--space-2); border-radius: var(--radius-md); }
+.sb-close:hover { background: rgba(127,127,127,.15); color: var(--fg); }
+.sb-meta { display: flex; gap: var(--space-2); align-items: center; margin-bottom: var(--space-4); font-size: .85rem; color: var(--muted); flex-wrap: wrap; }
+.sb-section { margin: var(--space-4) 0; }
+.sb-section h3 { margin: 0 0 var(--space-2); font-size: .85rem; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); font-weight: 600; }
+.sb-links { list-style: none; padding: 0; margin: 0; }
+.sb-links li { padding: var(--space-2) 0; border-bottom: 1px solid var(--border); }
+.sb-links li:last-child { border-bottom: none; }
+.sb-links a { color: var(--accent); text-decoration: none; font-weight: 500; cursor: pointer; }
+.sb-links a:hover { text-decoration: underline; }
+.sb-sev { display: inline-block; font-size: .7rem; padding: 1px 6px; border-radius: var(--radius-md); margin-left: .4rem; background: rgba(127,127,127,.15); color: inherit; opacity: .8; }
+.sb-sev.medium { background: rgba(255,112,67,.2); color: #ff7043; opacity: 1; }
+.sb-sev.high { background: rgba(229,57,53,.2); color: #e53935; opacity: 1; }
+.sb-sev.critical { background: rgba(183,28,28,.3); color: #ff5252; opacity: 1; }
+.sb-note { font-size: .8rem; color: var(--muted); margin-top: var(--space-0-2); line-height: 1.4; }
+.sb-cta { display: block; margin-top: 1.2rem; padding: .6rem var(--space-4); text-align: center; background: #0a6bc9; color: #fff; border-radius: var(--radius-lg); text-decoration: none; font-weight: 500; }
+.sb-cta:hover { opacity: .9; }
+.severityFilter { display: none; align-items: center; gap: .8rem; padding: var(--space-0-3) var(--space-6); font-size: .8rem; color: var(--muted); }
+.severityFilter.visible { display: flex; }
+.severityFilter label { display: flex; align-items: center; gap: var(--space-0-3); cursor: pointer; }
+.severityFilter input { cursor: pointer; }
+@media (max-width: 640px) {
+  .severityFilter { flex-wrap: wrap; }
+}
+
+/* ===== interactions.html — сайдбар (вынесено из локального <style>)
+   Идентификаторы уникальны для страницы, поэтому конфликта с
+   соседними страницами больше нет и правила можно держать в общем
+   файле. @media/@supports сохранены как были.
+   Проверено перед переносом: ни один токен этих селекторов не
+   встречается в style.css, и ни одно оставшееся локальное правило
+   страницы не делит с ними ни одного свойства — порядок каскада
+   на результат не влияет. */
+#int-sidebar { width: 360px; flex-shrink: 0; background: var(--card-bg); border-left: 1px solid var(--border); overflow-y: auto; padding: var(--space-4) 1.2rem; display: none; }
+#int-sidebar.open { display: block; }
+#int-sidebar h2 { margin: 0 0 var(--space-0-3); font-size: 1.15rem; padding-right: var(--space-8); }
+@media (max-width: 640px) {
+  #int-sidebar { width: 100% !important; position: fixed; left: 0; right: 0; bottom: 0; top: auto; max-height: 70vh; border-left: none; border-top: 1px solid var(--aborder); border-radius: 12px 12px 0 0; z-index: 100; box-shadow: 0 -8px 32px rgba(0,0,0,.4); transform: translateY(0); transition: transform .2s ease, max-height .2s ease; }
+  #int-sidebar::before { content: ''; display: block; width: 36px; height: 4px; background: rgba(127,127,127,.5); border-radius: 2px; margin: var(--space-0-3) auto .6rem; cursor: grab; }
+  #int-sidebar.sheet-full { max-height: 85vh !important; }
+}
+@supports (padding: env(safe-area-inset-bottom)) {
+  #int-sidebar { padding-bottom: calc(1rem + env(safe-area-inset-bottom)); }
+}
+
+/* ===== atlas.html — сайдбар (вынесено из локального <style>)
+   Идентификаторы уникальны для страницы, поэтому конфликта с
+   соседними страницами больше нет и правила можно держать в общем
+   файле. @media/@supports сохранены как были.
+   Проверено перед переносом: ни один токен этих селекторов не
+   встречается в style.css, и ни одно оставшееся локальное правило
+   страницы не делит с ними ни одного свойства — порядок каскада
+   на результат не влияет. */
+#atl-sidebar { width:340px;flex-shrink:0;border-left:1px solid var(--aborder);padding:var(--space-4) 1.2rem;overflow-y:auto;display:none }
+#atl-sidebar.open { display:block }
+#atl-sidebar h2 { margin:0 0 var(--space-2);padding-right:1.8rem;font-size:1.1rem;position:relative }
+#atl-sidebar h3 { margin:var(--space-4) 0 .4rem;font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;opacity:.55;font-weight:600 }
+#atl-sidebar .close-x { position:absolute;right:0;top:-.3rem;background:none;border:none;color:var(--amut);font-size:1.5rem;line-height:1;cursor:pointer;padding:var(--space-0-2) .4rem;border-radius:var(--radius-md)}
+#atl-sidebar .close-x:hover { background:rgba(127,127,127,.15);color:var(--atext) }
+#atl-sidebar ul { list-style:none;padding:0;margin:0 }
+#atl-sidebar li { padding:.45rem var(--space-2);margin:var(--space-1) 0;border:1px solid var(--aborder);border-radius:var(--radius-lg);cursor:pointer;font-size:.9rem }
+#atl-sidebar li:hover { border-color: var(--border-hover);background:rgba(127,127,127,.06) }
+#atl-sidebar .badge { display:inline-block;padding:.1rem .45rem;border-radius:var(--radius-md);font-size:.72rem;background:rgba(127,127,127,.15);margin-left:.4rem;opacity:.85 }
+#atl-sidebar .badge.A { background:rgba(76,175,80,.25);color:#7fc784 }
+#atl-sidebar .badge.B { background:rgba(139,195,74,.25);color:#b7d68b }
+#atl-sidebar .badge.C { background:rgba(255,152,0,.22);color:#ffb74d }
+#atl-sidebar .badge.D { background:rgba(229,57,53,.2);color:#ef5350 }
+#atl-sidebar .cta { display:inline-block;margin-top:var(--space-4);padding:var(--space-2) var(--space-4);background:#3498db;color:#fff;border-radius:var(--radius-lg);text-decoration:none;font-weight:500 }
+#atl-sidebar .cta:hover { opacity:.9 }
+#atl-sidebar .mech { margin:var(--space-2) 0;padding:.55rem .7rem;border:1px solid var(--aborder);border-radius:var(--radius-lg);font-size:.85rem;line-height:1.4 }
+#atl-sidebar .mech .str { display:inline-block;padding:.05rem .4rem;border-radius:var(--radius-pill);font-size:.7rem;margin-left:.4rem;background:rgba(127,127,127,.2) }
+@media (max-width: 640px) {
+  #atl-sidebar { width: 100% !important; position: fixed; left: 0; right: 0; bottom: 0; top: auto; max-height: 70vh; border-left: none; border-top: 1px solid var(--aborder); border-radius: 12px 12px 0 0; z-index: 100; box-shadow: 0 -8px 32px rgba(0,0,0,.4); transform: translateY(0); transition: transform .2s ease, max-height .2s ease; }
+  #atl-sidebar::before { content: ''; display: block; width: 36px; height: 4px; background: rgba(127,127,127,.5); border-radius: 2px; margin: var(--space-0-3) auto .6rem; cursor: grab; }
+  #atl-sidebar.sheet-full { max-height: 85vh !important; }
+}
+@supports (padding: env(safe-area-inset-bottom)) {
+  #atl-sidebar { padding-bottom: calc(1rem + env(safe-area-inset-bottom)); }
+}
+

@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "skills": {
+    "accessibility-check": {
+      "source": "Quality-Max/free-qa-skills",
+      "sourceType": "github",
+      "skillPath": "skills/accessibility-check/SKILL.md",
+      "computedHash": "6effe1abde4c9441e1d81896fe76b739f01318e0cfa150b1fe470184c2845d41"
+    },
+    "core-web-vitals": {
+      "source": "Quality-Max/free-qa-skills",
+      "sourceType": "github",
+      "skillPath": "skills/core-web-vitals/SKILL.md",
+      "computedHash": "deddf010a594deba01f5365499c7fc8deb2be43f101d9feed13990b05bbf917e"
+    },
+    "i18n-rtl-audit": {
+      "source": "Quality-Max/free-qa-skills",
+      "sourceType": "github",
+      "skillPath": "skills/i18n-rtl-audit/SKILL.md",
+      "computedHash": "6c99bf16a62a42e300172f201ddd02d864ba40a4bc6576707b9461b82782b632"
+    },
+    "seo-check": {
+      "source": "Quality-Max/free-qa-skills",
+      "sourceType": "github",
+      "skillPath": "skills/seo-check/SKILL.md",
+      "computedHash": "c25430f11770863d4bca7d6e61557392e98e08ba3c25f17aafcdf7b1c8e238a3"
+    }
+  }
+}

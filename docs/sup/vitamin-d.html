@@ -18,13 +18,13 @@
     <link rel="apple-touch-icon" href="../icons/192.png">
     <script>
     try {
-      if (localStorage.getItem('theme') !== 'light') {
-        document.documentElement.classList.add('dark');
+      if (localStorage.getItem('theme') === 'light') {
+        document.documentElement.classList.add('light');
       }
     } catch(e) {}
     </script>
-    <link rel="stylesheet" href="../style.css?v=398">
-    <script src="../version.js?v=311"></script>
+    <link rel="stylesheet" href="../style.css?v=412">
+    <script src="../version.js?v=312"></script>
     <script src="../pwa.js?v=282" defer></script>
 <script src="../share.js?v=1" defer></script>
     <script type="application/ld+json">
@@ -42,46 +42,7 @@
       }
     }
     </script>
-    <style>
-        .sup-wrap { max-width: 840px; margin: 40px auto; padding: 0 20px; }
-        .breadcrumbs { font-size: .9rem; color: var(--muted); margin-bottom: 16px; }
-        .breadcrumbs a { color: var(--accent); text-decoration: none; }
-        .sup-header { display: flex; gap: 16px; align-items: center; margin-bottom: 24px; flex-wrap: wrap; }
-        /* v4.2: h1 -> h2 (второй h1 на странице), font-weight:600 сохраняет
-           вид прежнего h1 из style.css */
-        .sup-header h2 { margin: 0; font-size: 1.3rem; font-weight: 600; }
-        .grade-badge { display: inline-block; padding: 6px 14px; border-radius: 8px; color: #fff; font-weight: 700; font-size: 1.1rem; }
-        .verdict { color: var(--muted); font-size: 1rem; }
-        .sup-section { margin-bottom: 28px; padding: 20px; background: var(--card-bg); border-radius: 12px; border: 1px solid var(--border); }
-        .sup-section h2 { font-size: 1.15rem; margin-bottom: 12px; }
-        .sup-section p { line-height: 1.6; margin-bottom: 8px; }
-        .tag { display: inline-block; padding: 4px 10px; margin: 4px 6px 4px 0; background: var(--bg); border: 1px solid var(--border); border-radius: 6px; font-size: .85rem; }
-        .mech-card { padding: 12px; margin-bottom: 8px; background: var(--bg); border-left: 3px solid var(--accent); border-radius: 6px; }
-        .mech-body { font-size: .95rem; margin-bottom: 6px; }
-        .mech-effect { color: var(--muted); font-size: .9rem; }
-        .mech-strength { display: inline-block; margin-top: 6px; padding: 2px 8px; border-radius: 4px; font-size: .75rem; text-transform: uppercase; }
-        .s-strong { background: #22c55e33; color: #22c55e; }
-        .s-medium { background: #84cc1633; color: #84cc16; }
-        .s-weak { background: #f59e0b33; color: #f59e0b; }
-        .s-context { background: #88888833; color: var(--muted); }
-        .inter-card { padding: 12px; margin-bottom: 8px; background: var(--bg); border-radius: 6px; border-left: 3px solid; }
-        .inter-low { border-color: #84cc16; }
-        .inter-medium { border-color: #f59e0b; }
-        .inter-high { border-color: #ef4444; }
-        .inter-critical { border-color: #991b1b; }
-        .inter-with { font-weight: 600; }
-        .inter-sev { font-size: .8rem; color: var(--muted); text-transform: uppercase; margin: 4px 0; }
-        .inter-note { font-size: .9rem; }
-        .src-card { padding: 10px; margin-bottom: 6px; border-bottom: 1px solid var(--border); }
-        .src-title { font-size: .9rem; margin-bottom: 4px; }
-        .src-meta { font-size: .8rem; color: var(--muted); }
-        .src-meta a { color: var(--accent); }
-        .back-link { display: inline-block; margin-top: 24px; color: var(--accent); text-decoration: none; }
-        @media (max-width: 600px) {
-            .sup-wrap { margin: 20px auto; }
-            .sup-header h2 { font-size: 1.25rem; }
-        }
-    </style>
+    
 </head>
 <body>
 <a href="#main" class="skip-link">Перейти к содержимому</a>
@@ -230,16 +191,19 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
+  // v5.4.0 (dark-first): тёмная тема — это ОТСУТСТВИЕ класса light.
+  // Раньше здесь стояло add('dark'), и тема задавалась явно; теперь
+  // light добавляется только когда пользователь выбрал светлую.
   var light = localStorage.getItem('theme') === 'light';
-  if (!light) { document.body.classList.add('dark'); document.documentElement.classList.add('dark'); }
+  if (light) { document.body.classList.add('light'); document.documentElement.classList.add('light'); }
   var b = document.getElementById('themeBtn');
   if (b) b.textContent = light ? '🌙 Тёмная тема' : '🌞 Светлая тема';
   if (b) b.onclick = function () {
-    var on = !document.body.classList.contains('dark');
-    document.body.classList.toggle('dark', on);
-    document.documentElement.classList.toggle('dark', on);
-    b.textContent = on ? '🌞 Светлая тема' : '🌙 Тёмная тема';
-    localStorage.setItem('theme', on ? 'dark' : 'light');
+    var on = !document.documentElement.classList.contains('light');
+    document.documentElement.classList.toggle('light', on);
+    document.body.classList.toggle('light', on);
+    b.textContent = on ? '🌙 Тёмная тема' : '🌞 Светлая тема';
+    localStorage.setItem('theme', on ? 'light' : 'dark');
   };
 });
 </script>
