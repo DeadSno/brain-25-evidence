@@ -26,7 +26,7 @@
 14. **core-web-vitals** — LCP/CLS и бюджет веса страницы
 15. **pwa-audit** — PWA-спецификация
 16. **site-navigation** — единый набор кнопок и навигации
-17. **i18n-rtl-audit** — локализация и RTL (перед v5.3)
+17. **i18n-rtl-audit** — локализация и RTL (перед v5.7.0)
 18. **legal-compliance-audit** — юридические риски (чек-лист, не консультация)
 19. **release-check** — перед коммитом
 
@@ -49,7 +49,7 @@
 | pwa-audit | PWA спецификация | После изменения sw.js / manifest |
 | data-validation | data.json, effect_tags, БД | После batch добавления карточек |
 | data-audit | 5 слоёв: data.json, производные, DuckDB, сырые, внешний | Когда нужен полный аудит данных, а не только корректность |
-| legal-compliance-audit | Дисклеймеры, attribution, cookie, 152-ФЗ, ФЗ «О рекламе», GDPR, отзывы | Перед релизом и **до публикации отзывов (v5.8)** |
+| legal-compliance-audit | Дисклеймеры, attribution, cookie, 152-ФЗ, ФЗ «О рекламе», GDPR, отзывы | Перед релизом и **до публикации отзывов (v5.12.0)** |
 | docs-sync | Синхронизация документации | После правок docs/ |
 | release-check | Готовность к коммиту | Перед каждым push |
 | site-navigation | Единый набор кнопок | После правки навигации |
@@ -61,7 +61,7 @@
 | accessibility-check | WCAG 2.1 A/AA: контраст, alt, заголовки, клавиатура, ARIA, фокус | `Quality-Max/free-qa-skills` | После любой вёрстки; обязательно перед релизом |
 | seo-check | meta/OG, canonical, JSON-LD, robots.txt, sitemap | `Quality-Max/free-qa-skills` | При изменении `<head>` или структуры страниц |
 | core-web-vitals | LCP/CLS, вес страницы, ленивая загрузка, third-party | `Quality-Max/free-qa-skills` | Перед релизом; при жалобах «медленно» |
-| i18n-rtl-audit | Локализация, RTL, lang-атрибуты | `Quality-Max/free-qa-skills` | **Перед v5.3** — до того локализации нет |
+| i18n-rtl-audit | Локализация, RTL, lang-атрибуты | `Quality-Max/free-qa-skills` | **Перед v5.7.0** — до того локализации нет |
 
 > `data-quality-auditor` (`alirezarezvani/claude-skills`) удалён 2026-10-03,
 > заменён на `data-audit`. Причина: работал только с CSV, а на нашем
@@ -113,7 +113,7 @@
 
 | Скилл | Статус | Причина |
 |---|---|---|
-| llm-security-audit (`dacuma-labs/agent-security-audit`) | Найден, **не установлен** | Его собственный description: «Do NOT use for: projects with no agentic components». У нас статический сайт без агентов. Ставить перед v6.0, когда появятся LLM-компоненты |
+| llm-security-audit (`dacuma-labs/agent-security-audit`) | Найден, **не установлен** | Его собственный description: «Do NOT use for: projects with no agentic components». У нас статический сайт без агентов. Ставить перед v6.0.0, когда появятся LLM-компоненты |
 | i18n-audit (собственный) | Не нужен | Готовый `i18n-rtl-audit` уже стоит; писать свой не требуется |
 
 ### Внешний инструмент (не скилл)
