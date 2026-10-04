@@ -1,3 +1,12 @@
+---
+name: data-audit
+description: "Аудит данных brain-25-evidence в 5 слоёв: целостность, схема, качество, происхождение, DQS. Заменяет data-quality-auditor, который работал только с CSV и на нашем JSON давал бессмысленный балл."
+license: MIT
+version: v1.0
+updated: 2026-10-04
+project: brain-25-evidence
+---
+
 # Data Audit — 5 слоёв
 
 Комплексный аудит данных brain-25-evidence: один скилл, 5 слоёв, один отчёт.

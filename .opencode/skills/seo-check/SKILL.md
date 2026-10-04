@@ -1,9 +1,10 @@
 ---
 name: seo-check
-description: >
-  Quick SEO health check of any URL. Checks meta tags, headings, image alts,
-  structured data, open graph, and common SEO issues. Uses Playwright MCP
-  only — no signup.
+description: "Быстрая SEO-проверка любого URL: meta-теги, заголовки, alt у изображений, структурные данные, Open Graph, типовые ошибки. Работает только через Playwright MCP, без регистрации."
+license: MIT
+version: v1.0
+updated: 2026-10-04
+project: brain-25-evidence
 ---
 
 # SEO Quick Check
