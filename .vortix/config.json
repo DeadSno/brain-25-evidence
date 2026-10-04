@@ -1,0 +1,23 @@
+{
+  "target": {
+    "outputDir": "docs"
+  },
+  "build": false,
+  "categories": {
+    "performance": true,
+    "security": true,
+    "accessibility": true,
+    "bugs": true,
+    "seo": true,
+    "maintainability": true,
+    "privacy": true
+  },
+  "failOn": "error",
+  "performance": {
+    "budgets": {
+      "lcpMs": 2500,
+      "cls": 0.1,
+      "maxPageWeightKb": 1500
+    }
+  }
+}

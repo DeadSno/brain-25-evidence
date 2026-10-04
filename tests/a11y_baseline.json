@@ -1,0 +1,93 @@
+{
+ "atlas-1280": {
+  "color-contrast": 1
+ },
+ "atlas-412": {},
+ "calculator-1280": {
+  "color-contrast": 2
+ },
+ "calculator-412": {
+  "color-contrast": 1
+ },
+ "faq-1280": {
+  "color-contrast": 1
+ },
+ "faq-412": {},
+ "feedback-1280": {
+  "color-contrast": 4
+ },
+ "feedback-412": {
+  "color-contrast": 3
+ },
+ "glossary-1280": {
+  "color-contrast": 1
+ },
+ "glossary-412": {},
+ "graph-1280": {},
+ "graph-412": {},
+ "index-1280": {
+  "color-contrast": 1
+ },
+ "index-412": {
+  "scrollable-region-focusable": 2
+ },
+ "interactions-1280": {
+  "color-contrast": 1
+ },
+ "interactions-412": {},
+ "map-1280": {
+  "color-contrast": 2,
+  "scrollable-region-focusable": 1
+ },
+ "map-412": {
+  "color-contrast": 1,
+  "scrollable-region-focusable": 1
+ },
+ "methodology-1280": {
+  "color-contrast": 6
+ },
+ "methodology-412": {
+  "color-contrast": 5,
+  "scrollable-region-focusable": 1
+ },
+ "offline-1280": {},
+ "offline-412": {},
+ "sup-kreatin-1280": {
+  "color-contrast": 1
+ },
+ "sup-kreatin-412": {
+  "color-contrast": 1
+ },
+ "sup-magniy-1280": {
+  "color-contrast": 1
+ },
+ "sup-magniy-412": {
+  "color-contrast": 1
+ },
+ "sup-omega-3-1280": {
+  "color-contrast": 1
+ },
+ "sup-omega-3-412": {
+  "color-contrast": 1
+ },
+ "sup-paba-1280": {
+  "color-contrast": 1
+ },
+ "sup-paba-412": {
+  "color-contrast": 1
+ },
+ "sup-vitamin-d-1280": {
+  "color-contrast": 1
+ },
+ "sup-vitamin-d-412": {
+  "color-contrast": 1
+ },
+ "support-1280": {
+  "color-contrast": 1
+ },
+ "support-412": {},
+ "trends-1280": {
+  "color-contrast": 1
+ },
+ "trends-412": {}
+}

@@ -7,12 +7,86 @@ self.addEventListener('activate', event => {
   event.waitUntil(self.clients.claim());
 });
 
+/* v73 (2026-10-03, v5.1.5-fix): снята Яндекс.Метрика с index.html — счётчик
+   tag.js и пиксель <noscript>; удалён мёртвый tracker.js; в форму обратной
+   связи добавлен обязательный чекбокс согласия на обработку email.
+   Изменились docs/index.html и docs/feedback.html — оба входят в
+   STATIC_ASSETS, отдаются cacheFirstForStatic, поэтому бамп обязателен.
+   style.css НЕ менялся, поэтому ?v= в страницах оставлен как был (v407).
+   Запись вынесена сюда отдельно от длинного changelog-комментария,
+   чтобы не править чужой блок по границам регулярки. */
+/* v74 (2026-10-04, v5.1.6 cross-browser): в style.css добавлено
+   .tabs #search{flex-basis:100%} в @media(max-width:480px). Правка чинит
+   измеренное расхождение: поле поиска на interactions@412 было 344.81px в
+   Chromium и 293.41px в WebKit, потому что flex-basis:250px из #search
+   выигрывал у мобильного width:100%!important. Изменился style.css, поэтому
+   ?v= в 17 страницах поднят с 407 на 408. HTML по содержимому не менялся,
+   но бамп CACHE_VERSION всё равно нужен: style.css входит в STATIC_ASSETS
+   и отдаётся cacheFirstForStatic, а ?v= браузер при кэшировании через SW
+   не различает. */
+/* v75 (2026-10-04, v5.4.0 Inter): шрифт перенесён из Google Fonts в
+   репозиторий. Удалены preconnect на fonts.googleapis.com и fonts.gstatic.com
+   и <link> на css2?family=Inter из docs/index.html; вместо них в style.css
+   добавлено пять @font-face на статические начертания в docs/fonts/
+   (Inter 4.1: Regular, Medium, SemiBold, Bold, ExtraBold — 561 КБ).
+   Вариативный InterVariable.woff2 был отвергнут после замера: оба движка
+   грузят его одинаково и рапортуют status 'loaded', но ширины кириллицы
+   расходятся на всех пяти весах (400: 328.84 против 354.78) — ось веса они
+   инстанцируют по-разному. У статики оси нет, и ширины сошлись.
+   Причина переноса не в размере: fonts.googleapis.com отдавал шрифт
+   с IP посетителя, то есть третья сторона получала данные о визите —
+   та же причина, по которой снята Метрика.
+
+   Побочный эффект: Inter теперь применяется на всех 18 страницах, а не на
+   одной. До этого 17 страниц шли системным шрифтом, и Chromium с WebKit
+   выбирали разный — расхождение 2-11% пикселей между движками.
+
+   Файл добавлен в STATIC_ASSETS, иначе офлайн-PWA остался бы без шрифта.
+   Изменились style.css и index.html, поэтому ?v= в 17 страницах поднят
+   с 408 на 409. Бамп CACHE_VERSION обязателен: style.css, index.html и
+   сам шрифт входят в STATIC_ASSETS и отдаются cacheFirstForStatic. */
+/* v76 (2026-10-04, v5.4.0 dark-first): тёмная тема стала состоянием
+   по умолчанию. Палитра переехала из html.dark,body.dark в :root, светлая
+   — в html.light; класс .dark убран из разметки и из JS полностью.
+
+   Что переписано: style.css (палитра и 35 селекторов), 17 страниц
+   (предзагрузка в <head> и переключатели), script.js (initTheme/setLight),
+   trends.html (своя setTheme), interactions.html (своя палитра),
+   atlas/calculator/map (--apanel/--aborder/--atext/--amut) и inline
+   <style> в calculator, feedback, graph, map, trends.
+
+   Почему селекторы стали html:not(.light), а не голыми X: расчёт
+   специфичности показал, что у html:not(.light) ровно (0,1,1) — столько же,
+   сколько у body.dark. Голое X дало бы (0,1,0) и сломало бы 4 правила:
+   #modal a, .trustChips .chip, h1 a и .top .site-title a — каждое
+   перебивается более поздним правилом с меньшей специфичностью.
+
+   Проверка: снапшоты 73 passed, 1 skipped, и картинки совпали с эталонами,
+   снятыми ДО переворота. Значит инверсия визуально нейтральна.
+
+   Изменились style.css и 17 страниц, поэтому ?v= поднят с 409 на 410. */
 /* PWA: cache-first для статики, network-first для data*.json.
    Install через поштучный cache.add().catch() — один missing файл
    не валит всю установку. Бамп CACHE_VERSION при изменении STATIC_ASSETS.
 
    v45: тач-таргеты 44px, шрифт полей 16px.
    v46: регресс звезды (.cat), viewport-fit=cover, safe-area, tap-highlight.
+   v69: Шаг 7 — токены радиусов и теней в style.css (--radius-*,
+        --shadow-*). Пиксели не сменились: токен объявлен значением того же
+        литерала, который заменил.
+   v70: Шаг 9 — токены межстрочного (--lh-tight/normal/loose).
+        Покрытие 19 из 46 вхождений; значения вне шкалы оставлены
+        литералами, потому что округление сдвинуло бы высоту строки.
+   v71: Шаг 8 (этап 2) — токены --border-hover и --accent-hover.
+        Пиксели не сменились: первый объявлен одним значением для
+        обеих тем, второй заменил литерал на тождественный. Токены
+        --info, --warn, --error НЕ применены: литералы лежат в
+        правилах без указания темы, а значение токена различается
+        по веткам, и подстановка меняла картинку в тёмной теме.
+   v72: Шаг 8 завершён. Применено 3 токена из 5: --border-hover,
+        --accent-hover, --accent-2 (тёмная ветка, #8ecbff).
+        --info, --warn, --error отложены в v5.1.7: литералы лежат
+        в правилах без указания темы, а ветки токена различаются.
    v47: safe-area для #modal, массовые тап-таргеты 44px, иконки atlas, theme-color.
    v48: порог 44px только для интерактивных .chip (+min-width по WCAG 2.5.5).
    v49: офлайн без подмены контента + 3 страницы в precache + data_index.json.
@@ -23,11 +97,16 @@ self.addEventListener('activate', event => {
    v51: version.js считает адрес version.json от URL скрипта, а не от
         документа — на sup/*.html больше не 404 (было 5 страниц).
 
+   v63: 33 правила sup/* вынесены из локальных <style> пяти страниц
+        в style.css. Селекторы .verdict/.tag/.grade-badge ограничены
+        .sup-wrap, чтобы не задеть trends/map/calculator.
+
    С v50 query-версия в <link href="style.css?v=NNN"> bust-ит кэш: точный
    cache.match идёт ПЕРВЫМ. ignoreSearch остался только офлайн-страховкой
    (cacheFirstForStatic, ветка catch) — там он нужен, потому что precache
    кладёт './style.css' без версии, а страницы просят 'style.css?v=NNN'. */
-var CACHE_VERSION = 'v62';
+
+var CACHE_VERSION = 'v78';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
@@ -74,6 +153,11 @@ var STATIC_ASSETS = [
   './sup/vitamin-d.html',
   './icons/192.png',
   './icons/512.png',
+  './fonts/inter-regular.woff2',
+  './fonts/inter-medium.woff2',
+  './fonts/inter-semibold.woff2',
+  './fonts/inter-bold.woff2',
+  './fonts/inter-extrabold.woff2',
   './share.js?v=1'];
 
 function notifyOffline() {
@@ -198,7 +282,38 @@ async function cacheFirstForStatic(req) {
 
     /* Подресурс (CSS/JS/JSON/иконка). Response.error() даёт настоящую сетевую
        ошибку, а не 200 с чужим телом: так срабатывают обработчики страницы
-       (например, catch в script.js покажет «не загрузились данные»). */
+       (например, catch в script.js покажет «не загрузились данные»). 
+   v64: 29 правил interactions.html вынесены в style.css (.sb-*,
+        .legend*, .severityFilter*) с сохранением @media-контекста.
+        Локальными остались :root/--fg, body/header/footer, .btn/.tab,
+        vis-network - эти селекторы заняты другими страницами.
+
+   v65: #sidebar переименован в #atl-sidebar (atlas) и #int-sidebar
+        (interactions) - под одним id жили два разных сайдбара.
+        Обновлено 12 обращений из JS (9 getElementById + 3 $) и
+        29 CSS-правил; снято 2 мёртвых правила на index и map.
+        id оставлен id: перевод в класс уронил бы специфичность
+        (1,0,0) -> (0,1,0) и ширину сайдбара перестала бы выигрывать.
+
+   v66: 29 правил сайдбара вынесены из локальных <style> atlas и
+        interactions в style.css (#atl-sidebar, #int-sidebar).
+        Стало возможно после переименования id на Шаге 3: под общим
+        #sidebar жили два разных сайдбара. @media(640px) и
+        @supports(safe-area-inset-bottom) сохранены как были.
+        Перед переносом проверено: ни один токен этих селекторов не
+        встречается в style.css, и ни одно оставшееся локальное правило
+        страницы не делит с переносимыми ни одного свойства.
+
+   v67: шкала отступов объявлена в :root (11 токенов) и применена
+        к 324 литералам, которые УЖЕ равны ступени. Пиксели не
+        изменились: 0 различий на 13 ширинах x 18 страницах.
+        ВАЖНО: имена токенов с ДЕФИСОМ, не с точкой. Имя кастомного
+        свойства не может содержать '.', браузер выбрасывает такое
+        объявление молча, а var() от него проваливает всё правило -
+        измерено, это уронило 23 снапшота из 37.
+        offline.html исключён: он намеренно не подключает style.css,
+        и var() там сломал бы отступы без ошибки в консоли.
+*/
     return Response.error();
   }
 }

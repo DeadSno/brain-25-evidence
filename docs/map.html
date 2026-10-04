@@ -1,7 +1,7 @@
-﻿<!doctype html>
+﻿﻿<!doctype html>
 <html lang="ru">
 <head>
-  <script defer src="version.js?v=311"></script>
+  <script defer src="version.js?v=312"></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="manifest" href="manifest.webmanifest">
@@ -20,19 +20,24 @@
 <title>Карта механизмов БАДов — 130 добавки</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
 <script>
-// Тема: ставим .dark на <html> до загрузки CSS — иначе вспышка светлого фона.
+// v5.4.0 (dark-first): тёмная тема — это ОТСУТСТВИЕ класса light.
+// До загрузки CSS ничего добавлять не нужно: :root уже тёмный.
+// light ставится только если пользователь выбрал светлую тему.
 try {
-  if (localStorage.getItem('theme') !== 'light') {
-    document.documentElement.classList.add('dark');
+  if (localStorage.getItem('theme') === 'light') {
+    document.documentElement.classList.add('light');
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=398">
+<link rel="stylesheet" href="style.css?v=412">
 <script>
   try {
     document.addEventListener('DOMContentLoaded', function () {
       var light = localStorage.getItem('theme') === 'light';
-      if (!light) { document.body.classList.add('dark'); }
+      // v5.4.0 (dark-first): светлая тема добавляется только когда
+    // пользователь её выбрал. Раньше здесь стояло add('dark') при !light,
+    // то есть класс задавался явно; теперь тёмная — это его отсутствие.
+    if (light) { document.body.classList.add('light'); }
       var b = document.getElementById('themeBtn');
       if (b) b.textContent = light ? '🌙 Тёмная тема' : '🌞 Светлая тема';
     });
@@ -40,17 +45,17 @@ try {
 </script>
 <style>
   body{--apanel:#15171c;--aborder:#2b2e35;--atext:#e9eaee;--amut:#9aa0aa;margin:0}
-  body:not(.dark){--apanel:#ffffff;--aborder:#d9dde3;--atext:#1b1d22;--amut:#5c6370}
-  .wrap{max-width:100%;margin:0;padding:0 1.5rem 1rem;color:var(--atext)}
-  .top{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}
-  .top .site-title{font-size:1.45rem;margin:.2rem 0}
+  html.light{--apanel:#ffffff;--aborder:#d9dde3;--atext:#1b1d22;--amut:#5c6370}
+  .wrap{max-width:100%;margin:0;padding:0 var(--space-6) var(--space-4);color:var(--atext)}
+  .top{display:flex;justify-content:space-between;align-items:center;gap:var(--space-4);flex-wrap:wrap}
+  .top .site-title{font-size:1.45rem;margin:var(--space-0-2) 0}
   .top a{color:inherit;text-decoration:none}
-  #stats{opacity:.6;font-size:.85rem;margin:.3rem 0 0}
-  #q{padding:.5rem .8rem;border:1px solid var(--aborder);border-radius:8px;background:var(--apanel);color:var(--atext);min-width:220px}
-  #themeBtn{padding:.5rem .8rem;border:1px solid var(--aborder);border-radius:8px;background:var(--apanel);color:var(--atext);cursor:pointer}
+  #stats{opacity:.6;font-size:.85rem;margin:var(--space-0-3) 0 0}
+  #q{padding:var(--space-2) .8rem;border:1px solid var(--aborder);border-radius:var(--radius-lg);background:var(--apanel);color:var(--atext);min-width:220px}
+  #themeBtn{padding:var(--space-2) .8rem;border:1px solid var(--aborder);border-radius:var(--radius-lg);background:var(--apanel);color:var(--atext);cursor:pointer}
   .cols{
   display:grid;grid-template-columns:340px minmax(0,1fr);
-  gap:1.2rem;margin-top:1rem;width:100%;
+  gap:1.2rem;margin-top:var(--space-4);width:100%;
   height:calc(100vh - 240px);min-height:520px;
 }
   @media(max-width:860px){.cols{grid-template-columns:1fr}}
@@ -58,21 +63,21 @@ try {
   .cat h3{font-size:.75rem;text-transform:uppercase;letter-spacing:.06em;opacity:.55;margin:.8rem 0 .35rem;cursor:pointer;user-select:none}
   .cat h3:hover{opacity:.9}
   .cat.closed .chip{display:none!important}
-  .chip{display:inline-block;margin:0 .3rem .3rem 0;padding:.32rem .65rem;border:1px solid var(--aborder);border-radius:999px;cursor:pointer;font-size:.82rem;background:var(--apanel);color:var(--atext)}
-  .chip:hover{border-color:#888}
+  .chip{display:inline-block;margin:0 var(--space-0-3) var(--space-0-3) 0;padding:.32rem .65rem;border:1px solid var(--aborder);border-radius:var(--radius-pill);cursor:pointer;font-size:.82rem;background:var(--apanel);color:var(--atext)}
+  .chip:hover{border-color: var(--border-hover)}
   /* v4.2: #f1c40f в светлой теме давал 1.53:1 — тёмное золото */
   .chip.on{border-color:#8a6800;color:#8a6800;font-weight:700}
-  body.dark .chip.on{border-color:#f1c40f;color:#f1c40f}
+  html:not(.light) .chip.on{border-color:#f1c40f;color:#f1c40f}
   .chainbox{border:1px solid var(--aborder);border-radius:14px;padding:1.1rem 1.2rem;background:var(--apanel);height:100%;overflow-y:auto}
   @keyframes rise{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
-  .step{padding:.7rem .95rem;border-radius:10px;margin:.35rem 0;font-size:.93rem;line-height:1.5;
+  .step{padding:.7rem .95rem;border-radius:10px;margin:.35rem 0;font-size:.93rem;line-height:var(--lh-normal);
         backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);animation:rise .35s ease both}
   .step.sup{background:rgba(52,152,219,.16);border:1px solid rgba(52,152,219,.5)}
   .step.mech{background:rgba(155,89,182,.15);border:1px solid rgba(155,89,182,.5)}
   .step.eff{background:rgba(46,204,130,.13);border:1px solid rgba(46,204,130,.45)}
   .arrow{text-align:center;opacity:.5;font-size:1.05rem;margin:.05rem 0;animation:rise .3s ease both}
-  .tag{display:inline-block;padding:.14rem .55rem;border-radius:999px;font-size:.72rem;font-weight:800;color:#fff;
-       margin-left:.5rem;vertical-align:middle;text-shadow:0 1px 2px rgba(0,0,0,.35)}
+  .tag{display:inline-block;padding:.14rem .55rem;border-radius:var(--radius-pill);font-size:.72rem;font-weight:800;color:#fff;
+       margin-left:var(--space-2);vertical-align:middle;text-shadow:0 1px 2px rgba(0,0,0,.35)}
   /* v4.1: белый текст на затемнённом градиенте — контраст ≥ 4.5:1 в обеих темах */
   .t-strong{background:linear-gradient(135deg,#166534,#15803d);box-shadow:0 0 10px rgba(21,128,61,.45)}
   .t-mod{background:linear-gradient(135deg,#3f6310,#4d7c0f)}
@@ -80,13 +85,13 @@ try {
   /* .t-ctx был с тёмным текстом #222 на жёлтом — теперь белый на тёмном */
   .t-ctx{background:linear-gradient(135deg,#8a5a10,#b45309);color:#fff;text-shadow:none}
   .t-mkt{background:linear-gradient(135deg,#7f2318,#b91c1c);box-shadow:0 0 10px rgba(185,28,28,.4)}
-  .verdict{display:inline-block;padding:.2rem .6rem;border-radius:6px;color:#fff;font-size:.8rem;font-weight:700}
+  .verdict{display:inline-block;padding:var(--space-0-2) .6rem;border-radius:var(--radius-md);color:#fff;font-size:.8rem;font-weight:700}
   /* v4.2: правила .verdict.v1/v0/v-1 перебивались сплошными !important из
      style.css (стр. 393–395) — удалены как мёртвые. */
   .chainbox a{color:#3498db}
   .sim{margin-top:1.2rem;padding-top:.9rem;border-top:1px dashed var(--aborder);animation:rise .4s ease both}
-  .sim h4{margin:.2rem 0 .5rem;font-size:.85rem;opacity:.75}
-  kbd{border:1px solid var(--aborder);border-radius:4px;padding:0 .3rem;font-size:.75rem;opacity:.7}
+  .sim h4{margin:var(--space-0-2) 0 var(--space-2);font-size:.85rem;opacity:.75}
+  kbd{border:1px solid var(--aborder);border-radius:var(--radius-sm);padding:0 var(--space-0-3);font-size:.75rem;opacity:.7}
   /* ── Overlay details ─────────────────────────────── */
 #details-backdrop {
   position: fixed; inset: 0;
@@ -108,7 +113,7 @@ try {
   border-radius: 14px;
   padding: 1.4rem 1.6rem 1.6rem;
   color: var(--atext);
-  box-shadow: 0 24px 80px rgba(0,0,0,.55);
+  box-shadow: var(--shadow-xl);
   opacity: 0; pointer-events: none;
   transition: opacity .2s, transform .2s;
   z-index: 1000;
@@ -117,51 +122,51 @@ try {
   opacity: 1; pointer-events: auto;
   transform: translate(-50%, -50%) scale(1);
 }
-#details h2 { margin: 0 0 .5rem; padding-right: 2.2rem; font-size: 1.15rem; }
+#details h2 { margin: 0 0 var(--space-2); padding-right: 2.2rem; font-size: 1.15rem; }
 #details h3 {
   margin: 1.2rem 0 .4rem; font-size: .78rem;
   text-transform: uppercase; letter-spacing: .06em;
   opacity: .55; font-weight: 600;
 }
-#details p { margin: .3rem 0; line-height: 1.5; }
+#details p { margin: var(--space-0-3) 0; line-height: var(--lh-normal); }
 #details .close-x {
   position: absolute; top: .7rem; right: .9rem;
   background: none; border: none;
   color: var(--amut); font-size: 1.7rem; line-height: 1;
-  cursor: pointer; padding: .2rem .4rem; border-radius: 6px;
+  cursor: pointer; padding: var(--space-0-2) .4rem; border-radius: var(--radius-md);
 }
 #details .close-x:hover { background: rgba(127,127,127,.15); color: var(--atext); }
 #details .modal-badges {
-  margin: .2rem 0 .6rem; display: flex; gap: .4rem;
+  margin: var(--space-0-2) 0 .6rem; display: flex; gap: .4rem;
   align-items: center; flex-wrap: wrap;
 }
 #details .badge-cat {
-  display: inline-block; padding: .15rem .55rem; border-radius: 999px;
+  display: inline-block; padding: .15rem .55rem; border-radius: var(--radius-pill);
   font-size: .75rem; background: rgba(127,127,127,.15); opacity: .85;
 }
 #details .rel-list { list-style: none; padding: 0; margin: 0; }
 #details .rel-list li {
-  padding: .55rem .6rem; margin: .3rem 0;
-  border: 1px solid var(--aborder); border-radius: 8px;
+  padding: .55rem .6rem; margin: var(--space-0-3) 0;
+  border: 1px solid var(--aborder); border-radius: var(--radius-lg);
   cursor: pointer; transition: border-color .15s, background .15s;
 }
 #details .rel-list li:hover {
-  border-color: #888; background: rgba(127,127,127,.06);
+  border-color: var(--border-hover); background: rgba(127,127,127,.06);
 }
 #details .rel-list a { color: #3498db; text-decoration: none; font-weight: 500; }
 #details .rel-list li:hover a { text-decoration: underline; }
 #details .rel-desc {
-  font-size: .82rem; opacity: .65; margin-top: .25rem; line-height: 1.4;
+  font-size: .82rem; opacity: .65; margin-top: var(--space-1); line-height: 1.4;
 }
 #details .rel-overlap {
   display: inline-block; margin-left: .4rem;
   font-size: .72rem; opacity: .7;
-  border: 1px solid var(--aborder); border-radius: 999px;
+  border: 1px solid var(--aborder); border-radius: var(--radius-pill);
   padding: 0 .4rem;
 }
 #details .cta {
-  display: inline-block; padding: .5rem 1rem;
-  background: #3498db; color: #fff; border-radius: 8px;
+  display: inline-block; padding: var(--space-2) var(--space-4);
+  background: #3498db; color: #fff; border-radius: var(--radius-lg);
   text-decoration: none; font-weight: 500;
 }
 #details .cta:hover { opacity: .9; }
@@ -179,28 +184,27 @@ try {
   
   .top{
     display:flex;justify-content:space-between;align-items:center;
-    gap:1rem;flex-wrap:wrap;margin:0 0 1rem;
+    gap:var(--space-4);flex-wrap:wrap;margin:0 0 var(--space-4);
   }
   .top .site-title{font-size:1.35rem;margin:0;font-weight:700}
-  .top .site-title a{color:inherit;text-decoration:none}
-  .top .v{opacity:.5;font-size:.8rem;font-weight:400;margin-left:.5rem}
-  .actions{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center}
   .btn{
-    padding:.45rem .8rem;border:1px solid var(--aborder);border-radius:8px;
+    padding:.45rem .8rem;border:1px solid var(--aborder);border-radius:var(--radius-lg);
     background:var(--apanel);color:var(--atext);cursor:pointer;
-    font-size:.85rem;text-decoration:none;line-height:1.2;
+    font-size:.85rem;text-decoration:none;line-height:var(--lh-tight);
   }
-  .btn:hover{border-color:#888}
+  
   /* ── Mobile (≤640px) ─────────────────────────────────────── */
   @media (max-width: 640px) { body { padding: 0.6rem !important; }
     .wrap { padding: 0.6rem !important; }
-    .top { flex-direction: column; align-items: stretch; gap: .5rem; margin: 0 0 .6rem; }
+    .top { flex-direction: column; align-items: stretch; gap: var(--space-2); margin: 0 0 .6rem; }
     .top .site-title { font-size: 1.05rem; line-height: 1.25; }
     .top .site-title a { display: inline-block; }
     .top .v { font-size: .7rem; }
     .actions { gap: .35rem; }
     .btn { padding: .4rem .6rem; font-size: .78rem; }
-    footer { font-size: .78rem !important; }
+    /* v5.5.0 A1: было .78rem (12.48px) — локальное правило перебивало
+   .site-footer в style.css. Поднято до 1rem вместе с ним. */
+footer { font-size: 1rem !important; }
   }
   @media (max-width: 640px) {
     .cols {
@@ -235,7 +239,6 @@ try {
   /* Safe area (iPhone с вырезом) */
   @supports (padding: env(safe-area-inset-bottom)) {
     body { padding-bottom: env(safe-area-inset-bottom); }
-    #sidebar { padding-bottom: calc(1rem + env(safe-area-inset-bottom)); }
   }
   /* P2-10: h1 (21.6px, название сайта в шапке) и h2 (20.8px) отличались
      на 0.8px — иерархия не читалась. Разводим h2 до 18px (зазор 3.6px).
@@ -436,11 +439,11 @@ document.addEventListener('keydown', e => {
   }
 });
 $('themeBtn').addEventListener('click', () => {
-  const dark = !document.body.classList.contains('dark');
-  document.body.classList.toggle('dark', dark);
-  document.documentElement.classList.toggle('dark', dark);
-  localStorage.setItem('theme', dark ? 'dark' : 'light');
-  $('themeBtn').textContent = dark ? '🌞 Светлая тема' : '🌙 Тёмная тема';
+  const light = !document.documentElement.classList.contains('light');
+  document.documentElement.classList.toggle('light', light);
+  document.body.classList.toggle('light', light);
+  localStorage.setItem('theme', light ? 'light' : 'dark');
+  $('themeBtn').textContent = light ? '🌙 Тёмная тема' : '🌞 Светлая тема';
 });
 // ── Haptic feedback (Android) ───────────────────────
 function haptic(ms) {
