@@ -1,11 +1,10 @@
 name: tests
 
 on:
-  # v5.4.1 (2026-10-04): v5.1-dev убран из push.branches. До этого каждый
-  # пуш в ветку разработки запускал джоб snapshots, который на этой ветке
-  # всегда красный — эталонов под раннер нет (раздел ниже). Ветка осталась
-  # в pull_request.branches: PR к ней запускает проверку сознательно,
-  # человек сделал это руками, и результат он увидит.
+  # v5.4.2 (2026-10-04): джоб snapshots снят, в CI остался pytest. Ветка
+  # v5.1-dev убрана из push.branches ещё в v5.4.1 — там джоб был красным
+  # всегда. В pull_request ветка оставлена: PR к ней запускает проверку
+  # сознательно, человек сделал это руками и результат увидит.
   push:
     branches: [main]
   pull_request:
@@ -43,81 +42,22 @@ jobs:
         run: python -m pytest -q --no-header
 
   # ─────────────────────────── визуальные снапшоты ───────────────────────────
-  # Chromium + WebKit, 74 теста (37 на движок), порог DIFF_TOL_PCT = 0.05%.
-  # Firefox сознательно не добавлен: 1.2% трафика, отложено.
+  # Сняты из CI 2026-10-04 (v5.4.2). Эталоны привязаны к конкретной
+  # Windows-машине: метрики шрифтов, субпиксельное позиционирование и
+  # сглаживание зависят от платформы. Под раннер ubuntu их пришлось бы
+  # снимать заново отдельным набором, а запас по порогу нулевой
+  # (DIFF_TOL_PCT = 0.05%), так что первый прогон был бы красным по
+  # платформенным причинам, а не по коду. Красная отметка, которая ничего
+  # не проверяет, хуже её отсутствия — тот же урок, что «не нашёл
+  # селектор ≠ мёртвый код».
   #
-  # ПОЧЕМУ windows-latest, А НЕ ubuntu-latest
-  # Эталоны сняты на Windows. Метрики шрифтов, субпиксельное позиционирование и
-  # сглашивание зависят от платформы, поэтому ubuntu-эталоны разошлись бы с
-  # windows-этими на десятки процентов, и проверка потеряла бы смысл. Чтобы
-  # получить эталоны под Linux, их надо снять на Linux и положить в
-  # tests/snapshots/<движок>/ отдельным набором — это отдельная задача.
+  # Тесты остались и работают локально, это 73 снимка на 38.94 МБ:
+  #   $env:RUN_SNAPSHOTS="1"; pytest -q -m snapshots
+  # Гейт срабатывает по переменной окружения (tests/conftest.py), поэтому в
+  # обычном `pytest -q` их нет. Переснять базу:
+  #   $env:UPDATE_SNAPSHOTS="1"; $env:RUN_SNAPSHOTS="1"; pytest -q -m snapshots
+  # Проверить, что снапшоты выполнились, а не молча пропустились
+  # (importorskip иначе вернул бы 0 при пустом прогоне):
+  #   python scripts/check_snapshot_run.py snapshots.xml
   #
-  # ПЕРВЫЙ ПРОГОН НА ГЛАВНОЙ БУДЕТ КРАСНЫМ — ЭТО ОЖИДАЕМО, И ВОТ ПОЧЕМУ
-  # Запас по порогу нулевой («замеренный шум на чистом коде — ровно ноль»), а
-  # метрики шрифтов, субпиксельное позиционирование и сглаживание зависят от
-  # платформы. Сглаживание на образе windows-latest не совпадёт с той машиной,
-  # где эталоны сняты. Это расхождение платформы, а не регрессия кода.
-  # (До v5.4.0 причиной считался Inter с Google Fonts — это устранено, шрифт
-  # лежит в репозитории, и расхождение от этого источника ушло.)
-  # Чтобы джоб стал зелёным и начал ловить настоящие изменения:
-  #   1. локально: $env:UPDATE_SNAPSHOTS="1"; python -m pytest -q -m snapshots
-  #   2. закоммитить переснятые tests/snapshots/<движок>/*.png
-  #   3. убедиться, что на раннере картинка идентична, и только тогда считать
-  #      джоб рабочим.
-  # До этого джоб честно падает. Это правильнее зелёной отметки, которая
-  # ничего не проверяет, — урок «не нашёл селектор ≠ мёртвый код» здесь тот же.
-  # До появления баз под раннер джоб с push в v5.1-dev не запускается.
-  snapshots:
-    runs-on: windows-latest
-    timeout-minutes: 30
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.13"
-          cache: pip
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements-dev.txt
-
-      - name: Install Playwright browsers (chromium + webkit)
-        run: python -m playwright install chromium webkit
-
-      - name: Serve docs on :8000
-        shell: pwsh
-        run: |
-          Start-Process -FilePath python `
-            -ArgumentList "-m","http.server","8000","--directory","docs" `
-            -WindowStyle Hidden
-          Start-Sleep -Seconds 5
-          python -c "import urllib.request as u; print('HTTP', u.urlopen('http://localhost:8000/index.html', timeout=10).status)"
-
-      - name: Snapshot tests (chromium + webkit)
-        shell: pwsh
-        run: |
-          $env:RUN_SNAPSHOTS = "1"
-          python -m pytest -q -m snapshots --no-header --junitxml=snapshots.xml
-
-      # importorskip молча пропускает все 74 теста, если нет playwright или
-      # Pillow, и pytest при этом возвращает 0. Этот шаг не даёт CI позеленеть
-      # на пустом прогоне. Идёт always(): полезен именно тогда, когда pytest
-      # ничего не сказал.
-      - name: Проверить, что снапшоты выполнились, а не пропустились
-        if: always()
-        shell: pwsh
-        run: python scripts/check_snapshot_run.py snapshots.xml
-
-      - name: Upload snapshot diff artifacts
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: snapshot-diffs-${{ github.run_id }}
-          path: tests/snapshots/*/_actual/
-          if-no-files-found: ignore
-          retention-days: 7
+  # Вернуть джоб, когда появится Windows-runner с поднятыми эталонами.
