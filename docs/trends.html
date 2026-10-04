@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+﻿﻿<!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="utf-8">
@@ -23,7 +23,7 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=411">
+<link rel="stylesheet" href="style.css?v=412">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <script src="version.js?v=312"></script>
 <style>
@@ -174,6 +174,26 @@ html:not(.light) .cat-warn{color:#f59e0b}
   font-size:.82rem;overflow-x:auto;margin:.4rem 0;
 }
 .method-footer{margin-top:var(--space-4);opacity:.7;font-size:.82rem}
+
+  /* v5.5.0 A4: длина строки была 165 символов при ширине контейнера
+     1152px — вдвое больше читаемой нормы.
+
+     Селектор намеренно без привязки к секциям: один из четырёх hint
+     стоит сразу после <h1> и ни в executive-summary, ни в
+     scatter-section, ни в categories-section не попадает. Правило с
+     перечислением секций оставляло его на исходной ширине 1152px.
+
+     Почему 64ch, а не 72ch: ch — ширина глифа «0», а длина строки
+     считается по средней ширине строчных. Цифры шире «x», и при 72ch
+     фактически выходило 83 символа — выше заявленной нормы в 80.
+     Значение подобрано перебором по замеру, а не рассчитано: при 64ch
+     фактически выходит 74 символа.
+
+     Графики, сетка .insight-card и таблицы не затрагиваются: правило
+     действует только на p, а не на контейнеры. */
+  .hint,
+  .chart-note,
+  .method-footer{max-width:64ch}
 </style>
 </head>
 <body>

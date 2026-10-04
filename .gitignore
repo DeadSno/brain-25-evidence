@@ -265,7 +265,7 @@ logs/
 *.log
 
 
-# Cyberaudit skill (устанавливается локально)
+# Cyberaudit skill (СѓСЃС‚Р°РЅР°РІР»РёРІР°РµС‚СЃСЏ Р»РѕРєР°Р»СЊРЅРѕ)
 .opencode/skills/cyberaudit/
 
 # vortix-cli: cache with per-machine content hashes - not committable.

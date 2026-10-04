@@ -55,7 +55,7 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=411"/>
+<link rel="stylesheet" href="style.css?v=412"/>
 <style>
 :root{--apanel:var(--card-bg);--aborder:var(--border);--atext:var(--text)}
 /* Единая шапка для всех страниц */
@@ -82,7 +82,9 @@ try {
     .btn { padding: .4rem .6rem; font-size: .78rem; }
     .actions { width: 100%; justify-content: flex-end; }
     #themeBtn { margin-left: auto; }
-    footer { font-size: .78rem !important; }
+    /* v5.5.0 A1: было .78rem (12.48px) — локальное правило перебивало
+   .site-footer в style.css. Поднято до 1rem вместе с ним. */
+footer { font-size: 1rem !important; }
     #chartWrap, .chartWrap { height: 320px !important; }
     #quadrantChart, #bubbleChart { max-width: 100% !important; }
     #quadrantChart, #bubbleChart { font-size: 11px; }
@@ -211,26 +213,53 @@ try {
     <option value="name">По алфавиту</option>
     <option value="grade">🎖 По грейду доказанности</option>
   </select>
-  <button id="favFilter" class="favFilter" title="Показать только избранные" aria-label="Показать только избранные">⭐ <span id="favCount">0</span></button>
-  <button id="resetFilters" class="favFilter" title="Сбросить все фильтры и поиск" aria-label="Сбросить все фильтры и поиск">✕</button>
+  <!-- v5.5.0 A3: кнопки фильтра стояли стопкой и занимали 96px
+       (44 + 8 зазор + 44). В один ряд — 52px, и навигационные карточки
+       (.quick-links) поднимаются с 904 на 852, то есть попадают на
+       первый экран при высоте 852. Замер: reports/V550_FINAL.md, A3. -->
+  <div class="filter-actions">
+    <button id="favFilter" class="favFilter" title="Показать только избранные" aria-label="Показать только избранные">⭐ <span id="favCount">0</span></button>
+    <button id="resetFilters" class="favFilter" title="Сбросить все фильтры и поиск" aria-label="Сбросить все фильтры и поиск">✕</button>
+  </div>
 </section>
 
 <section id="qaSection" style="background:var(--card-bg);padding:1.2rem 1.5rem;border-radius:12px;border:1px solid var(--border)">
-  <h2>Сначала ответим на 3 вопроса</h2>
-  <div class="qaGrid">
-    <div class="qa">
-      <h3>1. Чем БАД отличается от лекарства?</h3>
-      <p>БАД дополняет питание, а не заменяет лечение. У БАД нет регистрации лекарства, но есть мета-анализы — считаем именно их.</p>
+  <!-- v5.5.0 A3: блок ленты вопросов занимал 371px и полностью вытеснял
+       навигационные карточки за первый экран (они начинались на 904 при
+       высоте экрана 852). Свёрнут нативным details: работает без JS,
+       доступен с клавиатуры, состояние запоминает браузер.
+
+       v5.5.0 (финал): заголовок секции раньше стоял над details отдельным
+       h2, а внутри висел второй текст «Показать ответы» — на экране это
+       читалось как два заголовка подряд. h2 убран, его текст перенесён в
+       summary, который и служит подписью свёрнутого блока. Совпадает со
+       стилем остальных details на странице (`details.method`).
+
+       Известная цена: секция больше не имеет собственного заголовка, и
+       три вопроса (h3) остаются без заголовка уровнем выше. Подпись
+       summary не является заголовком — её роль disclosure button.
+       Заголовок при необходимости возвращается внутрь summary: модель
+       содержимого summary разрешает заголовки. Точный пример не пишу
+       здесь текстом — иначе подсчёт заголовков страницы примет его за
+       настоящий, ровно как случилось с предыдущей правкой этого
+       комментария. -->
+  <details class="qa-details">
+    <summary>Сначала ответим на 3 вопроса</summary>
+    <div class="qaGrid">
+      <div class="qa">
+        <h3>1. Чем БАД отличается от лекарства?</h3>
+        <p>БАД дополняет питание, а не заменяет лечение. У БАД нет регистрации лекарства, но есть мета-анализы — считаем именно их.</p>
+      </div>
+      <div class="qa">
+        <h3>2. Зачем он мне?</h3>
+        <p>Три честные причины: дефицит (витамин D зимой), цель (креатин при нагрузках), профилактика с доказательствами (омега-3).</p>
+      </div>
+      <div class="qa">
+        <h3>3. Как выбирать?</h3>
+        <p>Вердикт и грейд доказательности → дозировка из исследований → конфликты с лекарствами → и только потом цена.</p>
+      </div>
     </div>
-    <div class="qa">
-      <h3>2. Зачем он мне?</h3>
-      <p>Три честные причины: дефицит (витамин D зимой), цель (креатин при нагрузках), профилактика с доказательствами (омега-3).</p>
-    </div>
-    <div class="qa">
-      <h3>3. Как выбирать?</h3>
-      <p>Вердикт и грейд доказательности → дозировка из исследований → конфликты с лекарствами → и только потом цена.</p>
-    </div>
-  </div>
+  </details>
   <p style="margin:1rem 0 0"><a href="methodology.html">Полное объяснение методологии →</a></p>
 </section>
 

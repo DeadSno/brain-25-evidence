@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+﻿﻿<!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="utf-8">
@@ -28,7 +28,7 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=411"/>
+<link rel="stylesheet" href="style.css?v=412"/>
 <script src="https://unpkg.com/vis-network@9.1.9/standalone/umd/vis-network.min.js"></script>
 <style>
     :root { --bg: #1c1c1e; --fg: #f5f5f7; --card-bg: #2c2c2e; --border: #3a3a3c; --muted: #9a9aa0; --accent: #0a84ff; --apanel: var(--card-bg); --aborder: var(--border); --atext: var(--fg); }
@@ -57,7 +57,7 @@ body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); transitio
     .legend .sup::before { background: #3d7eff; }
     .int-layout { display: flex; height: calc(100vh - 200px); min-height: 600px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
     #int-graph { flex: 1; min-width: 0; background: var(--card-bg); }
-    footer { padding: var(--space-4) var(--space-6); font-size: .8rem; color: var(--muted); }
+    footer { padding: var(--space-4) var(--space-6); font-size: 1rem; color: var(--muted); }
     footer a { color: var(--accent); }
     #hint { padding: var(--space-2) var(--space-6); font-size: .85rem; color: var(--muted); }
     body { max-width: none !important; margin: 0 !important; }
@@ -78,7 +78,9 @@ body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); transitio
       .top .v { font-size: .7rem; }
       .actions { gap: .35rem; }
       .btn { padding: .4rem .6rem; font-size: .78rem; }
-      footer { font-size: .78rem !important; }
+      /* v5.5.0 A1: было .78rem (12.48px) — локальное правило перебивало
+   .site-footer в style.css. Поднято до 1rem вместе с ним. */
+footer { font-size: 1rem !important; }
     }
     @media (max-width: 640px) {
       .int-layout { min-height: 60vh; width: 100% !important; }
