@@ -38,7 +38,7 @@
 - **PubMed / MeSH** — для статей и мета-анализов
 - **DrugBank** (drugbank.ca) — взаимодействия с лекарствами
 - **Natural Medicines Database** — грейды (платный, использовать осторожно)
-- **EFSA Health Claims Register** — официальные健康 claims ЕС
+- **EFSA Health Claims Register** — официальные заявления о здоровье ЕС
 - **NIH ODS** (Office of Dietary Supplements) — американский аналог
 - **Examine.com** — грейдирования (использовать как reference, не копировать)
 - **supp.ai** (Allen Institute) — взаимодействия добавок (открытый датасет)
