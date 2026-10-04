@@ -15,6 +15,15 @@ self.addEventListener('activate', event => {
    style.css НЕ менялся, поэтому ?v= в страницах оставлен как был (v407).
    Запись вынесена сюда отдельно от длинного changelog-комментария,
    чтобы не править чужой блок по границам регулярки. */
+/* v74 (2026-10-04, v5.1.6 cross-browser): в style.css добавлено
+   .tabs #search{flex-basis:100%} в @media(max-width:480px). Правка чинит
+   измеренное расхождение: поле поиска на interactions@412 было 344.81px в
+   Chromium и 293.41px в WebKit, потому что flex-basis:250px из #search
+   выигрывал у мобильного width:100%!important. Изменился style.css, поэтому
+   ?v= в 17 страницах поднят с 407 на 408. HTML по содержимому не менялся,
+   но бамп CACHE_VERSION всё равно нужен: style.css входит в STATIC_ASSETS
+   и отдаётся cacheFirstForStatic, а ?v= браузер при кэшировании через SW
+   не различает. */
 /* PWA: cache-first для статики, network-first для data*.json.
    Install через поштучный cache.add().catch() — один missing файл
    не валит всю установку. Бамп CACHE_VERSION при изменении STATIC_ASSETS.
@@ -56,7 +65,7 @@ self.addEventListener('activate', event => {
    (cacheFirstForStatic, ветка catch) — там он нужен, потому что precache
    кладёт './style.css' без версии, а страницы просят 'style.css?v=NNN'. */
 
-var CACHE_VERSION = 'v73';
+var CACHE_VERSION = 'v74';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
