@@ -170,9 +170,13 @@ function initTheme() {
   const b = $('themeBtn');
   if (!b) return;
   const saved = localStorage.getItem('theme');
-  // По умолчанию — тёмная. Светлая только если пользователь выбрал вручную.
-  if (saved !== 'light') setDark(true);   // v1.3: по умолчанию тёмная; светлая — только по выбору
-  b.onclick = () => { const on = !document.body.classList.contains('dark'); setDark(on); localStorage.setItem('theme', on ? 'dark' : 'light'); };
+  // v5.4.0 (dark-first): светлая только по выбору пользователя.
+  // Тёмная — по умолчанию, то есть класс light просто снимается.
+  if (saved === 'light') setLight(true);
+  // v5.4.0 (dark-first): on означает «переключаем В светлую», а не
+  // «включаем тёмную», как раньше. Поэтому в localStorage пишется
+  // on ? 'light' : 'dark' — наоборот прежнего.
+  b.onclick = () => { const on = !document.documentElement.classList.contains('light'); setLight(on); localStorage.setItem('theme', on ? 'light' : 'dark'); };
 }
 initTheme();
 
@@ -374,10 +378,14 @@ function initApp() {
   };
 }
 
-function setDark(on) {
-  document.body.classList.toggle('dark', on);
-  document.documentElement.classList.toggle('dark', on);
-  $('themeBtn').textContent = on ? '🌞 Светлая тема' : '🌙 Тёмная тема';
+// v5.4.0 (dark-first): параметр переименован в on, но смысл тот же —
+// true = светлая тема. Тёмная теперь это ОТСУТСТВИЕ класса, поэтому
+// setLight(false) ничего не добавляет. Название setDark вводило в
+// заблуждение: при on=true включалась светлая тема.
+function setLight(on) {
+  document.documentElement.classList.toggle('light', on);
+  document.body.classList.toggle('light', on);
+  $('themeBtn').textContent = on ? '🌙 Тёмная тема' : '🌞 Светлая тема';
   if (currentData.length) { if (chartTab === 'price') renderBubble(currentData); else renderQuadrant(currentData); }
 }
 

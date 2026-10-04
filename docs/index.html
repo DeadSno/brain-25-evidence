@@ -29,25 +29,33 @@
   try {
     document.addEventListener('DOMContentLoaded', function () {
       var light = localStorage.getItem('theme') === 'light';
-      if (!light) { document.body.classList.add('dark'); }
+      // v5.4.0 (dark-first): светлая тема добавляется только когда
+    // пользователь её выбрал. Раньше здесь стояло add('dark') при !light,
+    // то есть класс задавался явно; теперь тёмная — это его отсутствие.
+    if (light) { document.body.classList.add('light'); }
       var b = document.getElementById('themeBtn');
       if (b) b.textContent = light ? '🌙 Тёмная тема' : '🌞 Светлая тема';
     });
   } catch (e) {}
 </script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- v5.4.0: Inter убран с Google Fonts. Причина не в размере — в приватности:
+       fonts.googleapis.com отдавал шрифт с IP посетителя на каждой загрузке,
+       то есть третья сторона получала данные о визите. Метрика с index.html
+       снята по той же причине. Шрифт теперь лежит в docs/fonts/ и подключён
+       через @font-face в style.css, поэтому работает на всех 18 страницах,
+       а не только на index.html. Лицензия SIL OFL 1.1: docs/fonts/LICENSE-Inter.txt -->
 <script>
-// Тема: ставим .dark на <html> до загрузки CSS — иначе вспышка светлого фона.
+// v5.4.0 (dark-first): тёмная тема — это ОТСУТСТВИЕ класса light.
+// До загрузки CSS ничего добавлять не нужно: :root уже тёмный.
+// light ставится только если пользователь выбрал светлую тему.
 try {
-  if (localStorage.getItem('theme') !== 'light') {
-    document.documentElement.classList.add('dark');
+  if (localStorage.getItem('theme') === 'light') {
+    document.documentElement.classList.add('light');
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=408"/>
+<link rel="stylesheet" href="style.css?v=410"/>
 <style>
 :root{--apanel:var(--card-bg);--aborder:var(--border);--atext:var(--text)}
 /* Единая шапка для всех страниц */

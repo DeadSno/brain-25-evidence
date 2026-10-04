@@ -14,19 +14,21 @@
   <meta property="og:image" content="https://deadsno.github.io/brain-25-evidence/og.png"/>
   <title>Калькулятор БАДов — проверка доз и конфликтов</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧮</text></svg>">
-  <script>try{if(localStorage.getItem('theme')!=='light'){document.addEventListener('DOMContentLoaded',function(){document.body.classList.add('dark');});}}catch(e){}</script>
+  <script>try{if(localStorage.getItem('theme')==='light'){document.addEventListener('DOMContentLoaded',function(){document.body.classList.add('light');});}}catch(e){}</script>
   <script>
-// Тема: ставим .dark на <html> до загрузки CSS — иначе вспышка светлого фона.
+// v5.4.0 (dark-first): тёмная тема — это ОТСУТСТВИЕ класса light.
+// До загрузки CSS ничего добавлять не нужно: :root уже тёмный.
+// light ставится только если пользователь выбрал светлую тему.
 try {
-  if (localStorage.getItem('theme') !== 'light') {
-    document.documentElement.classList.add('dark');
+  if (localStorage.getItem('theme') === 'light') {
+    document.documentElement.classList.add('light');
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=408">
+<link rel="stylesheet" href="style.css?v=410">
   <style>
     body{--apanel:#15171c;--aborder:#2b2e35;--atext:#e9eaee;--amut:#9aa0aa;margin:0}
-    body:not(.dark){--apanel:#ffffff;--aborder:#d9dde3;--atext:#1b1d22;--amut:#5c6370}
+    html.light{--apanel:#ffffff;--aborder:#d9dde3;--atext:#1b1d22;--amut:#5c6370}
     body{max-width:none!important;margin:0!important}
     .wrap{max-width:1200px;margin:0 auto;padding:var(--space-4) var(--space-6);color:var(--atext)}
 
@@ -63,16 +65,16 @@ try {
     .grade-badge{display:inline-block;padding:0 .4rem;border-radius:var(--radius-md);font-size:.68rem;font-weight:700;margin-left:.35rem;vertical-align:middle}
     /* v4.3: бейдж — текст на 20%-заливке своего же цвета, контраст падал в обеих
        темах: в светлой 1.80 / 1.83 / 1.49 / 2.95:1, в тёмной .grade-D 3.76:1.
-       Заливки не трогаем. Базовый цвет — тёмный текст (светлая тема), body.dark —
+       Заливки не трогаем. Базовый цвет — тёмный текст (светлая тема), html:not(.light) —
        светлый. Замеры на подложке «заливка 20% поверх #ffffff / #15171c». */
     .grade-A{background:rgba(46,204,113,.2);color:#146b38}
     .grade-B{background:rgba(139,195,74,.2);color:#417015}
     .grade-C{background:rgba(241,196,15,.2);color:#7d5f00}
     .grade-D{background:rgba(231,76,60,.2);color:#b91c1c}
-    body.dark .grade-A{color:#2ecc71}
-    body.dark .grade-B{color:#8bc34a}
-    body.dark .grade-C{color:#f1c40f}
-    body.dark .grade-D{color:#f26d6d}
+    html:not(.light) .grade-A{color:#2ecc71}
+    html:not(.light) .grade-B{color:#8bc34a}
+    html:not(.light) .grade-C{color:#f1c40f}
+    html:not(.light) .grade-D{color:#f26d6d}
 
     .result-panel{position:sticky;top:1rem;align-self:start}
     @media(max-width:860px){.result-panel{position:static}}
@@ -82,15 +84,15 @@ try {
     .kpi .val{font-size:1.4rem;font-weight:700;line-height:1}
     .kpi .lbl{font-size:.72rem;opacity:.65;margin-top:var(--space-0-3)}
     /* v4.3: контраст текста на фоне темы. Базовые правила — тёмный вариант
-       (светлая тема), body.dark — светлый. Замеры на .kpi (--apanel #fff / #15171c):
+       (светлая тема), html:not(.light) — светлый. Замеры на .kpi (--apanel #fff / #15171c):
        было 2.10 / 2.19 / 3.82:1 в светлой, стало 5.37 / 5.02 / 5.44:1;
        в тёмной теме 8.53 / 8.18 / 4.69:1 — без изменений. */
     .kpi.ok .val{color:#1f7a3f}
     .kpi.warn .val{color:#b45309}
     .kpi.bad .val{color:#c0392b}
-    body.dark .kpi.ok .val{color:#2ecc71}
-    body.dark .kpi.warn .val{color:#f39c12}
-    body.dark .kpi.bad .val{color:#e74c3c}
+    html:not(.light) .kpi.ok .val{color:#2ecc71}
+    html:not(.light) .kpi.warn .val{color:#f39c12}
+    html:not(.light) .kpi.bad .val{color:#e74c3c}
 
     .block{margin:0 0 var(--space-4)}
     .block h3{margin:0 0 var(--space-2);font-size:.85rem;text-transform:uppercase;letter-spacing:.05em;opacity:.6}
@@ -312,18 +314,19 @@ function esc(s) {
 }
 (function () {
   const $ = id => document.getElementById(id);
-  const isDark = () => document.body.classList.contains('dark');
+  // v5.4.0 (dark-first): тёмная тема — отсутствие класса light.
+  const isDark = () => !document.documentElement.classList.contains('light');
 
   // Тема
   document.addEventListener('DOMContentLoaded', () => {
     $('themeBtn').textContent = isDark() ? '🌞 Светлая тема' : '🌙 Тёмная тема';
   });
   $('themeBtn').onclick = () => {
-    document.body.classList.toggle('dark');
-    const dark = isDark();
-    document.documentElement.classList.toggle('dark', dark);
-    localStorage.setItem('theme', dark ? 'dark' : 'light');
-    $('themeBtn').textContent = dark ? '🌞 Светлая тема' : '🌙 Тёмная тема';
+    const light = !document.documentElement.classList.contains('light');
+    document.documentElement.classList.toggle('light', light);
+    document.body.classList.toggle('light', light);
+    localStorage.setItem('theme', light ? 'light' : 'dark');
+    $('themeBtn').textContent = light ? '🌙 Тёмная тема' : '🌞 Светлая тема';
   };
 
   // ── State ─────────────────────────────────────────

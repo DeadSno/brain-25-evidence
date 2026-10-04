@@ -9,14 +9,16 @@
 <title>❓ Часто задаваемые вопросы — brain-25-evidence</title>
 <meta name="description" content="Частые вопросы о доказательности БАДов: как считается индекс scienceIndex, что означают грейды A-D, можно ли доверять вердиктам и как проверить источник."/>
 <script>
-// Тема: ставим .dark на <html> до загрузки CSS — иначе вспышка светлого фона.
+// v5.4.0 (dark-first): тёмная тема — это ОТСУТСТВИЕ класса light.
+// До загрузки CSS ничего добавлять не нужно: :root уже тёмный.
+// light ставится только если пользователь выбрал светлую тему.
 try {
-  if (localStorage.getItem('theme') !== 'light') {
-    document.documentElement.classList.add('dark');
+  if (localStorage.getItem('theme') === 'light') {
+    document.documentElement.classList.add('light');
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=408"/>
+<link rel="stylesheet" href="style.css?v=410"/>
 <style>
   /* P2-10: h1 (21.6px, nazvanie saita v shapke) i h2 (20.8px) otlichalis na
      0.8px — ierarhiya ne chitalas. Razvodim h2 do 18px (zazor 3.6px).
@@ -29,7 +31,10 @@ try {
   try {
     document.addEventListener('DOMContentLoaded', function () {
       var light = localStorage.getItem('theme') === 'light';
-      if (!light) { document.body.classList.add('dark'); }
+      // v5.4.0 (dark-first): светлая тема добавляется только когда
+    // пользователь её выбрал. Раньше здесь стояло add('dark') при !light,
+    // то есть класс задавался явно; теперь тёмная — это его отсутствие.
+    if (light) { document.body.classList.add('light'); }
       var b = document.getElementById('themeBtn');
       if (b) b.textContent = light ? '🌙 Тёмная тема' : '🌞 Светлая тема';
     });
@@ -184,11 +189,15 @@ try {
 <script>
 const $ = id => document.getElementById(id);
 $('themeBtn').onclick = () => {
-  const on = !document.body.classList.contains('dark');
-  document.body.classList.toggle('dark', on);
-  document.documentElement.classList.toggle('dark', on);
-  $('themeBtn').textContent = on ? '🌞 Светлая тема' : '🌙 Тёмная тема';
-  localStorage.setItem('theme', on ? 'dark' : 'light');
+  // v5.4.0 (dark-first): тёмная = нет класса light на <html>
+    // v5.4.0 (dark-first): light означает «переключаем В светлую».
+    // До этого здесь стояло !on, где on = «сейчас тёмная», —
+    // новое состояние совпадало с текущим и клик ничего не менял.
+    const light = !document.documentElement.classList.contains('light');
+    document.documentElement.classList.toggle('light', light);
+    document.body.classList.toggle('light', light);
+  $('themeBtn').textContent = light ? '🌙 Тёмная тема' : '🌞 Светлая тема';
+    localStorage.setItem('theme', light ? 'light' : 'dark');
 };
 </script>
 <button class="toBottom" id="toBottom" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})" title="Вниз" aria-label="Прокрутить страницу вниз">↓</button>

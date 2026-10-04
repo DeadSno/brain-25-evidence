@@ -19,19 +19,21 @@
   <link rel="apple-touch-icon" href="icons/192.png">
   <title>Атлас механизмов БАДов — 25 тегов × 130 добавки</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌐</text></svg>">
-  <script>try{if(localStorage.getItem('theme')!=='light'){document.addEventListener('DOMContentLoaded',function(){document.body.classList.add('dark');});}}catch(e){}</script>
+  <script>try{if(localStorage.getItem('theme')==='light'){document.addEventListener('DOMContentLoaded',function(){document.body.classList.add('light');});}}catch(e){}</script>
   <script>
-// Тема: ставим .dark на <html> до загрузки CSS — иначе вспышка светлого фона.
+// v5.4.0 (dark-first): тёмная тема — это ОТСУТСТВИЕ класса light.
+// До загрузки CSS ничего добавлять не нужно: :root уже тёмный.
+// light ставится только если пользователь выбрал светлую тему.
 try {
-  if (localStorage.getItem('theme') !== 'light') {
-    document.documentElement.classList.add('dark');
+  if (localStorage.getItem('theme') === 'light') {
+    document.documentElement.classList.add('light');
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=408">
+<link rel="stylesheet" href="style.css?v=410">
   <style>
     body{--apanel:#15171c;--aborder:#2b2e35;--atext:#e9eaee;--amut:#9aa0aa;margin:0}
-    body:not(.dark){--apanel:#ffffff;--aborder:#d9dde3;--atext:#1b1d22;--amut:#5c6370}
+    html.light{--apanel:#ffffff;--aborder:#d9dde3;--atext:#1b1d22;--amut:#5c6370}
     /* Tekst na shirokix monitorah. atlas.html snimaet potolok s body
      (max-width:none) potomu chto zdes realno zhivet setka vis-network:
      #graph/.vis-network/canvas dolzhny zanimat vsu shirinu. No iz-za etogo
@@ -248,18 +250,19 @@ function esc(s) {
 }
 (function () {
   const $ = id => document.getElementById(id);
-  const isDark = () => document.body.classList.contains('dark');
+  // v5.4.0 (dark-first): тёмная тема — отсутствие класса light.
+  const isDark = () => !document.documentElement.classList.contains('light');
 
   // ── Тема ─────────────────────────────────────────────────────────
   document.addEventListener('DOMContentLoaded', () => {
     $('themeBtn').textContent = isDark() ? '🌞 Светлая тема' : '🌙 Тёмная тема';
   });
   $('themeBtn').onclick = () => {
-    document.body.classList.toggle('dark');
-    const dark = isDark();
-    document.documentElement.classList.toggle('dark', dark);
-    localStorage.setItem('theme', dark ? 'dark' : 'light');
-    $('themeBtn').textContent = dark ? '🌞 Светлая тема' : '🌙 Тёмная тема';
+    const light = !document.documentElement.classList.contains('light');
+    document.documentElement.classList.toggle('light', light);
+    document.body.classList.toggle('light', light);
+    localStorage.setItem('theme', light ? 'light' : 'dark');
+    $('themeBtn').textContent = light ? '🌙 Тёмная тема' : '🌞 Светлая тема';
     if (network) { render(); }
   };
 
@@ -377,7 +380,7 @@ function esc(s) {
     const mechs = (c.mechs || []).length;
     const eff = (c.effects || []).slice(0, 3).join(' · ');
     const el = document.createElement('div');
-    const dark = document.body.classList.contains('dark');
+    const dark = !document.documentElement.classList.contains('light');
     el.style.cssText = 'padding:.4rem .6rem;font-size:.85rem;line-height:1.4;max-width:280px;border-radius:8px;' +
       (dark
         ? 'color:#e9eaee;background:#1c1f26;border:1px solid #3a3f48'
