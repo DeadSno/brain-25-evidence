@@ -620,6 +620,16 @@ body.dark .chip a:visited { color: #5dade2; }
   #modal img,#modal canvas{max-width:100%!important;height:auto}
   #controls{flex-direction:column;gap:var(--space-2)}
   #search{width:100%!important;min-width:0!important}
+  /* v5.1.6 (cross-browser): width:100% у #search не работал. У него
+     flex:1 1 250px (строка выше), а flex-basis выигрывает у width — поэтому
+     ширина поля зависела от того, как встал перенос в .tabs: замерено
+     344.81px в Chromium против 293.41px в WebKit на interactions@412, то
+     есть одно и то же поле поиска на iOS было на 51px уже. Здесь задаём
+     basis 100%, чтобы поле всегда занимало свою строку.
+     Селектор .tabs #search, а не просто #search: на index.html #search
+     лежит в #controls, который на <=480px становится flex-direction:column,
+     и basis 100% там означал бы 100% ВЫСОТЫ контейнера. Не расширяем. */
+  .tabs #search{flex-basis:100%!important}
   #chartWrap{overflow-x:hidden}
   canvas#bubbleChart,canvas#quadrantChart{min-width:0!important;max-width:100%!important}
   #compareResult{overflow-x:auto}

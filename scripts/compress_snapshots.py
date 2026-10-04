@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """
-Сжатие эталонов tests/snapshots/*.PNG без потери пикселей.
+Сжатие эталонов tests/snapshots/<движок>/*.PNG без потери пикселей.
+С v5.1.6 эталоны разложены по движкам (chromium/, webkit/), скан идёт
+на уровень вглубь и пропускает _actual/ с артефактами падений.
 
 Зачем
 -----
@@ -237,9 +239,15 @@ def main() -> int:
         print(f"Нет каталога эталонов: {SNAP_DIR}", file=sys.stderr)
         return 2
 
-    files = sorted(SNAP_DIR.glob("*.png"))
+    # С v5.1.6 эталоны разложены по движкам: snapshots/chromium/*.png и
+    # snapshots/webkit/*.png. Сканируем на уровень глубже, но НЕ заходим в
+    # _actual/ — там артефакты падений, они в git игнорируются и жать их нельзя.
+    files = sorted(
+        p for p in SNAP_DIR.glob("*/*.png")
+        if p.parent.name != "_actual")
     if not files:
-        print(f"В {SNAP_DIR} нет PNG", file=sys.stderr)
+        print(f"В {SNAP_DIR} нет PNG (ищем один уровень вглубь: "
+              f"<движок>/*.png)", file=sys.stderr)
         return 2
 
     total_before = sum(f.stat().st_size for f in files)

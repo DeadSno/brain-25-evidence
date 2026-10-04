@@ -11,9 +11,19 @@ index и шапку на всех страницах, и это видно то�
 Что здесь
 ---------
 18 страниц x 2 разрешения (412x852 — Tecno CAMON 40 Premier, 1280x900) + 1
-снапшот модалки на index = 37 PNG-эталонов в tests/snapshots/.
+снапшот модалки на index = 37 PNG-эталонов НА ДВИЖОК.
 Шапка и подвал байт-идентичны всем страницам, поэтому проверяются 18 раз —
 это не раздувание, а дешёвая страховка.
+
+Движки (v5.1.6)
+-------------
+Эталоны разложены по движкам: tests/snapshots/chromium/ и tests/snapshots/
+webkit/. Один и тот же снимок в разных движках — РАЗНЫЕ файлы и разные
+пиксели: у WebKit свои метрики шрифтов, свои скругления, свой рендеринг
+SVG. Сравнивать их между собой нельзя, сравнивать с эталоном своего движка —
+можно и нужно.
+Покрытие: Chromium (Chrome, Яндекс Браузер, Edge, Opera, Samsung Internet) и
+WebKit (Safari iOS, Mobile Safari). Firefox отложен.
 
 Как запускать
 -------------
@@ -78,8 +88,8 @@ from pathlib import Path
 import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
-SNAP_DIR = Path(__file__).resolve().parent / "snapshots"
-ART_DIR = SNAP_DIR / "_actual"
+SNAPSHOT_ROOT = Path(__file__).resolve().parent / "snapshots"
+BROWSERS = ("chromium", "webkit")   # Firefox отложен: 1.2% трафика РФ
 
 BASE_URL = os.environ.get("SNAPSHOT_BASE_URL", "http://localhost:8000").rstrip("/")
 UPDATE = os.environ.get("UPDATE_SNAPSHOTS") == "1"
@@ -121,6 +131,19 @@ COLOR_SCHEME = "light"
 CHANNEL_TOL = 8
 DIFF_TOL_PCT = 0.05
 SETTLE_MS = 600
+# Сколько ждать наполнения #compareResult на index. Замерено: webkit ровняется
+# между 1000 и 1500 мс после networkidle, chromium — к 300 мс. Порог с запасом.
+COMPARE_READY_TIMEOUT_MS = 8000
+
+# Потолок высоты full-page снимка, заданный самим Playwright, — и он РАЗНЫЙ
+# у движков. Замерено на v5.1.6: webkit отказывается снимать страницу выше
+# 32767 px («Cannot take screenshot larger than 32767 pixels on any
+# dimension»), тогда как chromium спокойно отдаёт index@412 = 38321 px.
+# Единственная страница, которая в webkit не помещается, — index@412
+# (37402 px). Chromium в таблице не указан сознательно: его предел не
+# измерен и для наших высот не достигается, а выдумывать число хуже, чем
+# не задавать ограничения.
+FULL_PAGE_CAP_PX = {"webkit": 32767}
 NAV_TIMEOUT_MS = 60_000
 CONVERGE_TIMEOUT_MS = 15_000
 
@@ -252,16 +275,31 @@ def _check_server() -> None:
         )
 
 
-@pytest.fixture(scope="session")
-def browser():
+@pytest.fixture(scope="session", params=BROWSERS, ids=lambda b: b)
+def browser(request):
+    """Движок Playwright. Параметризована, поэтому каждый тест, который
+    берёт browser, прогоняется по всем движкам. Имя движка доступно как
+    browser.name — по нему выбирается каталог эталонов."""
+    engine = request.param
     with playwright_api.sync_playwright() as pw:
         try:
-            b = pw.chromium.launch()
+            b = getattr(pw, engine).launch()
         except Exception as exc:  # noqa: BLE001 — причина попадёт в текст skip
-            pytest.skip(f"Chromium не запускается: {exc}. "
-                        f"Поставь: playwright install chromium")
+            pytest.skip(f"{engine} не запускается: {exc}. "
+                        f"Поставь: playwright install {engine}")
+        # У Browser из sync_api нет .name/.browser_name, а имя движка нужно
+        # фикстуре snap_dir. Вешаем своё: у объекта нет __slots__, аутентичное
+        # поле Playwright не даёт.
+        b.engine = engine
         yield b
         b.close()
+
+
+@pytest.fixture(scope="session")
+def snap_dir(browser):
+    """Каталог эталонов этого движка. Существует только с v5.1.6: до него
+    все 37 файлов лежали плоско в tests/snapshots/."""
+    return SNAPSHOT_ROOT / browser.engine
 
 
 @pytest.fixture(scope="session")
@@ -319,6 +357,47 @@ def _await_version(page) -> None:
         )
     except Exception:  # noqa: BLE001 — решение принимает проверка ниже
         pass
+
+
+def _await_compare_result(page) -> None:
+    """Дождаться, пока блок сравнения наполнится таблицей.
+
+    Замер (v5.1.6, index, шаг от 600 мс): Chromium рисует 10 строк через
+    300 мс, WebKit — только между 1000 и 1500 мс после networkidle. При
+    прежнем SETTLE_MS=600 эталон webkit/index-1280 снимался с ПУСТЫМ блоком
+    сравнения: 13986 px против 14742 px у settled-страницы. Такое состояние
+    в живом браузере не встречается — значит эталон сравнивал бы страницу,
+    которой нет.
+
+    Поэтому здесь не увеличение таймера, а ожидание признака: если блок есть,
+    в нём обязана появиться таблица с хотя бы одной строкой.
+    """
+    if not page.evaluate("() => !!document.querySelector('#compareResult')"):
+        return          # блока на странице нет — ждать нечего
+    try:
+        page.wait_for_function(
+            """() => {
+                const r = document.querySelector('#compareResult');
+                if (!r) return true;
+                const t = r.querySelector('table');
+                return !!t && t.querySelectorAll('tr').length > 0;
+            }""",
+            timeout=COMPARE_READY_TIMEOUT_MS,
+        )
+    except Exception:  # noqa: BLE001 — решение принимает проверка ниже
+        rows = page.evaluate(
+            """() => {
+                const t = document.querySelector('#compareResult table');
+                return t ? t.querySelectorAll('tr').length : -1;
+            }"""
+        )
+        pytest.fail(
+            f"{BASE_URL}/index.html: блок сравнения не наполнился за "
+            f"{COMPARE_READY_TIMEOUT_MS} мс (строк в таблице: {rows}). "
+            f"Снимок получится с пустым блоком — он не соответствует ни одному "
+            f"реальному состоянию страницы. Либо script.js не отработал, либо "
+            f"данные не пришли."
+        )
 
 
 def _assert_version_consistent(page, url: str) -> None:
@@ -382,8 +461,29 @@ def _capture(page, page_name: str, *, full_page: bool) -> bytes:
             pytest.fail(f"{url}: не удалось заморозить vis-network: {err}")
 
     _await_version(page)
+    _await_compare_result(page)
     page.wait_for_timeout(SETTLE_MS)
     _assert_version_consistent(page, url)
+
+    if full_page:
+        engine = getattr(page.context.browser, "engine", "?")
+        cap = FULL_PAGE_CAP_PX.get(engine)
+        if cap:
+            sh = page.evaluate(
+                """() => Math.max(document.documentElement.scrollHeight,
+                                  document.body.scrollHeight)"""
+            )
+            if sh > cap:
+                pytest.skip(
+                    f"[{engine}] {url} не помещается в full-page снимок: "
+                    f"высота {sh} px при потолке Playwright {cap} px. "
+                    f"Это ограничение движка, не регрессия вёрстки: на "
+                    f"index@412 высота {sh} px против ~38 000 px в chromium, "
+                    f"и там страница снимается целиком. Чтобы покрыть эту "
+                    f"страницу в webkit, нужен другой способ съёмки "
+                    f"(тайлы по вертикали или снимок только шапки) — это "
+                    f"отдельная задача, а не молчаливое урезание эталона."
+                )
     return page.screenshot(full_page=full_page)
 
 
@@ -415,7 +515,9 @@ def _compare(actual_png: bytes, expected_png: bytes):
     return 100.0 * n / mask.size, bbox, n, None
 
 
-def _write_artifacts(name: str, actual_png: bytes, expected_png: bytes) -> list[str]:
+def _write_artifacts(name: str, actual_png: bytes, expected_png: bytes,
+                     art_dir: Path) -> list[str]:
+    ART_DIR = art_dir
     ART_DIR.mkdir(parents=True, exist_ok=True)
     # `!.gitignore` обязателен: без него правило `*` игнорирует сам .gitignore,
     # каталог не попадает в индекс и после клона артефакты падения окажутся
@@ -436,10 +538,10 @@ def _write_artifacts(name: str, actual_png: bytes, expected_png: bytes) -> list[
     return written
 
 
-def _assert_snapshot(name: str, actual_png: bytes) -> None:
-    path = SNAP_DIR / f"{name}.png"
+def _assert_snapshot(name: str, actual_png: bytes, snap_dir: Path) -> None:
+    path = snap_dir / f"{name}.png"
     if UPDATE or not path.exists():
-        SNAP_DIR.mkdir(parents=True, exist_ok=True)
+        snap_dir.mkdir(parents=True, exist_ok=True)
         path.write_bytes(actual_png)
         size_kb = path.stat().st_size / 1024
         if not UPDATE:
@@ -449,14 +551,16 @@ def _assert_snapshot(name: str, actual_png: bytes) -> None:
     pct, bbox, n, sizes = _compare(actual_png, path.read_bytes())
     if pct <= DIFF_TOL_PCT:
         return
-    files = _write_artifacts(name, actual_png, path.read_bytes())
+    files = _write_artifacts(name, actual_png, path.read_bytes(),
+                             snap_dir / "_actual")
     if sizes:
         why = (f"размер страницы изменился: стало {sizes[0][0]}x{sizes[0][1]}, "
                f"эталон {sizes[1][0]}x{sizes[1][1]} — это само по себе причина "
                f"остановиться, а не «100% пикселей»")
     else:
         why = f"{n} пикселей, область x[{bbox[0]}..{bbox[2]}] y[{bbox[1]}..{bbox[3]}]"
-    pytest.fail(f"{name}: расхождение {pct:.3f}% при пороге {DIFF_TOL_PCT}%\n"
+    pytest.fail(f"[{snap_dir.name}] {name}: расхождение {pct:.3f}% при пороге "
+                f"{DIFF_TOL_PCT}%\n"
                 f"    {why}\n    эталон: {path}\n"
                 f"    артефакты: {', '.join(files)}\n"
                 f"    Если правка намеренная — перезапиши эталон:\n"
@@ -467,7 +571,7 @@ def _assert_snapshot(name: str, actual_png: bytes) -> None:
 
 @pytest.mark.parametrize("page_name", PAGES)
 @pytest.mark.parametrize("width,height", VIEWPORTS, ids=lambda v: str(v))
-def test_page_snapshot(_env_checked, browser, page_name, width, height):
+def test_page_snapshot(_env_checked, browser, snap_dir, page_name, width, height):
     ctx = browser.new_context(
         viewport={"width": width, "height": height},
         service_workers="block",  # sw.js кэширует HTML — лишний источник расхождений
@@ -481,10 +585,10 @@ def test_page_snapshot(_env_checked, browser, page_name, width, height):
         png = _capture(page, page_name, full_page=True)
     finally:
         ctx.close()
-    _assert_snapshot(f"{_slug(page_name)}-{width}", png)
+    _assert_snapshot(f"{_slug(page_name)}-{width}", png, snap_dir)
 
 
-def test_modal_index_snapshot(_env_checked, browser):
+def test_modal_index_snapshot(_env_checked, browser, snap_dir):
     """Модалка на index: самая частая точка отказа при смене токенов."""
     ctx = browser.new_context(viewport={"width": 1280, "height": 900},
                               service_workers="block", reduced_motion="reduce",
@@ -501,6 +605,7 @@ def test_modal_index_snapshot(_env_checked, browser):
         # Сначала дождаться, пока страница САМА перерисует карточки: пока сетка
         # не сошлась, клик может попасть в ещё не перерисованную карточку.
         _await_version(page)
+        _await_compare_result(page)
         _assert_version_consistent(page, url)
         # На index заголовок карточки — не h3, а strong.card-title (v2.6, P2-16):
         # h3 убрали, чтобы структура документа отражала разделы, а не 130 карточек.
@@ -517,4 +622,4 @@ def test_modal_index_snapshot(_env_checked, browser):
         png = page.screenshot(full_page=False)
     finally:
         ctx.close()
-    _assert_snapshot("modal-index", png)
+    _assert_snapshot("modal-index", png, snap_dir)

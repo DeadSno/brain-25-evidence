@@ -3,3 +3,7 @@ pandas
 numpy
 requests
 openpyxl
+# Снапшоты (tests/test_visual_snapshots.py). Браузеры ставятся отдельно:
+# python -m playwright install chromium webkit
+Pillow
+playwright==1.63.0
