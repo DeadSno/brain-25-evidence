@@ -80,7 +80,7 @@ html.light{--bg:#f5f5f7;--text:#1c1c1e;--card-bg:#fff;--border:#d1d1d6;--shadow:
    цветов карточек и кнопок. touch-action:manipulation убирает задержку 300ms
    и двойной-тап-зум, но НЕ отключает :hover-эффекты (в отличие от none). */
 *{-webkit-tap-highlight-color:transparent}
-button,a,.chip,.tab,.favBtn,.preset,.chartTab,.profile-btn,.tagPreset{touch-action:manipulation}
+button,a,.chip,.tr-tab,.favBtn,.preset,.chartTab,.profile-btn,.tagPreset{touch-action:manipulation}
 
 /* ===== v4.1: навигация с клавиатуры — видимый фокус (WCAG 2.4.7) ===== */
 /* Раньше outline не задавался нигде: фокус ставился, но был не виден */
@@ -109,7 +109,7 @@ h1{font-size:1.8rem;font-weight:600}
 }
 /* v5.0.0 mobile: min-height:44px на базовом button. Покрывает кнопки без класса
    (в проекте — #compareBtn на index, 35px). Специфичность button (0,0,1) ниже,
-   чем у любого класса, поэтому .btn/.favBtn/.chip/.tab со своими правилами
+   чем у любого класса, поэтому .btn/.favBtn/.chip/.tr-tab со своими правилами
    не задеваются. Растёт только высота, ширина и горизонтальные отступы те же. */
 /* v5.4.0: font-family: inherit обязателен для контролов. UA-стиль
    задаёт button/input/select/textarea СИСТЕМНЫЙ шрифт, и они не
@@ -489,7 +489,8 @@ position:sticky;top:0;z-index:1000;animation:fadeIn .25s}
    - .chartTab/.favFilter объявлены здесь, в style.css → правятся здесь;
    - .profile-btn/.f-btn объявлены в <style> страниц, но тот <style>
      идёт ПОСЛЕ <link href="style.css"> → правило ниже перебивает их;
-   - .tab объявлен сразу в ДВУХ файлах (interactions.html:80, trends.html:34)
+   - .tr-tab объявлен сразу в ДВУХ файлах (interactions.html:53,
+     trends.html:37)
      с разными padding/шрифтом → общий селектор покрывает обе страницы. */
 .chartTab, .favFilter { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
 /* min-width для #resetFilters: кнопка «✕ Сбросить» с коротким глифом была
@@ -497,7 +498,7 @@ position:sticky;top:0;z-index:1000;animation:fadeIn .25s}
    Ровно 44px без запасных пикселей, чтобы не ломать раскладку <section>. */
 .favFilter { min-width: 44px; }
 .profile-btn, .f-btn { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
-.preset, .tab { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
+.preset, .tr-tab { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
 
 /* v5.0.0 mobile: .tagChip в карточке (index, 15 на страницу × 6 ширин = 226 замеров)
    реально интерактивен: script.js:227-235 ловит клик по .tagChip, фильтрует
@@ -658,14 +659,14 @@ html:not(.light) .chip a:visited { color: #5dade2; }
   #search{width:100%!important;min-width:0!important}
   /* v5.1.6 (cross-browser): width:100% у #search не работал. У него
      flex:1 1 250px (строка выше), а flex-basis выигрывает у width — поэтому
-     ширина поля зависела от того, как встал перенос в .tabs: замерено
+     ширина поля зависела от того, как встал перенос в .tr-tabs: замерено
      344.81px в Chromium против 293.41px в WebKit на interactions@412, то
      есть одно и то же поле поиска на iOS было на 51px уже. Здесь задаём
      basis 100%, чтобы поле всегда занимало свою строку.
-     Селектор .tabs #search, а не просто #search: на index.html #search
+     Селектор .tr-tabs #search, а не просто #search: на index.html #search
      лежит в #controls, который на <=480px становится flex-direction:column,
      и basis 100% там означал бы 100% ВЫСОТЫ контейнера. Не расширяем. */
-  .tabs #search{flex-basis:100%!important}
+  .tr-tabs #search{flex-basis:100%!important}
   #chartWrap{overflow-x:hidden}
   canvas#bubbleChart,canvas#quadrantChart{min-width:0!important;max-width:100%!important}
   #compareResult{overflow-x:auto}
@@ -1169,7 +1170,7 @@ main h1 { font-size: 1.35rem !important; font-weight: 700 !important;
    легенда (.legend*) и фильтр тяжести (.severityFilter*), с сохранением
    их @media-контекста.
    Локальными остались: :root/--fg (это цвета, отдельный шаг), body,
-   header, footer, .btn, .tab(s), #search, #hint, .trustbar, .top,
+   header, footer, .btn, .tr-tab / .tr-tabs, #search, #hint, .trustbar, .top,
    а также vis-network (#graph, #int-sidebar, .layout, .vis-tooltip) —
    эти селекторы заняты другими страницами.
    #sidebar был переименован в #int-sidebar / #atl-sidebar 2026-10-03,

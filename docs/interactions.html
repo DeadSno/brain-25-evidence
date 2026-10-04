@@ -28,7 +28,7 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=410"/>
+<link rel="stylesheet" href="style.css?v=411"/>
 <script src="https://unpkg.com/vis-network@9.1.9/standalone/umd/vis-network.min.js"></script>
 <style>
     :root { --bg: #1c1c1e; --fg: #f5f5f7; --card-bg: #2c2c2e; --border: #3a3a3c; --muted: #9a9aa0; --accent: #0a84ff; --apanel: var(--card-bg); --aborder: var(--border); --atext: var(--fg); }
@@ -49,10 +49,10 @@ body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); transitio
     header .actions { margin-left: auto; display: flex; gap: var(--space-2); }
     .btn { padding: .4rem .8rem; border: 1px solid var(--border); background: var(--card-bg); color: var(--fg); border-radius: var(--radius-lg); cursor: pointer; font-size: .9rem; text-decoration: none; }
     
-    .tabs { padding: var(--space-4) var(--space-6) var(--space-2); display: flex; gap: var(--space-2); align-items: center; flex-wrap: wrap; }
-    .tab { padding: var(--space-2) var(--space-4); border: 1px solid var(--border); background: var(--card-bg); color: var(--fg); border-radius: 10px; cursor: pointer; font-size: .9rem; font-weight: 500; }
-    .tab.active { background: #1f5fbf; color: #fff; border-color: #1f5fbf; }
-    .tabs .spacer { flex: 1; }
+    .tr-tabs { padding: var(--space-4) var(--space-6) var(--space-2); display: flex; gap: var(--space-2); align-items: center; flex-wrap: wrap; }
+    .tr-tab { padding: var(--space-2) var(--space-4); border: 1px solid var(--border); background: var(--card-bg); color: var(--fg); border-radius: 10px; cursor: pointer; font-size: .9rem; font-weight: 500; }
+    .tr-tab.active { background: #1f5fbf; color: #fff; border-color: #1f5fbf; }
+    .tr-tabs .spacer { flex: 1; }
     #search { padding: .4rem .8rem; border: 1px solid var(--border); background: var(--card-bg); color: var(--fg); border-radius: var(--radius-lg); font-size: 16px; min-width: 200px; }
     .legend .sup::before { background: #3d7eff; }
     .layout { display: flex; height: calc(100vh - 200px); min-height: 600px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
@@ -61,7 +61,7 @@ body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); transitio
     footer a { color: var(--accent); }
     #hint { padding: var(--space-2) var(--space-6); font-size: .85rem; color: var(--muted); }
     body { max-width: none !important; margin: 0 !important; }
-    main h1, .tabs, .legend, #hint { max-width: 1200px; margin-left: auto; margin-right: auto; }
+    main h1, .tr-tabs, .legend, #hint { max-width: 1200px; margin-left: auto; margin-right: auto; }
     .trustbar { text-align:center;padding:var(--space-2) var(--space-4);margin:0 0 var(--space-4); background:var(--apanel);border:1px solid var(--aborder); border-radius:var(--radius-lg);font-size:.85rem;opacity:.85; }
     .btn { padding:.45rem .8rem;border:1px solid var(--aborder);border-radius:var(--radius-lg); background:var(--apanel);color:var(--atext);cursor:pointer; font-size:.85rem;text-decoration:none;line-height:var(--lh-tight); }
     .btn.calc { background: linear-gradient(135deg, #1f6fa5, #175a86) !important; color: #fff !important; border: none !important; font-weight: 600; box-shadow: 0 2px 8px rgba(31,111,165,.35); }
@@ -129,9 +129,9 @@ body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); transitio
   <h1>Карта связей</h1>
 
 
-<div class="tabs">
-  <button class="tab active" data-mode="supplements">Добавки между собой</button>
-  <button class="tab" data-mode="drugs">Добавки и лекарства</button>
+<div class="tr-tabs">
+  <button class="tr-tab active" data-mode="supplements">Добавки между собой</button>
+  <button class="tr-tab" data-mode="drugs">Добавки и лекарства</button>
   <div class="spacer"></div>
   <label for="search" class="sr-only">Поиск добавки или лекарства</label>
   <input id="search" placeholder="🔍 Поиск добавки или лекарства…">
@@ -467,7 +467,7 @@ function drawGraph() {
 
 function setMode(mode) {
   state.mode = mode;
-  document.querySelectorAll('.tab').forEach(t =>
+  document.querySelectorAll('.tr-tab').forEach(t =>
     t.classList.toggle('active', t.dataset.mode === mode));
   renderLegend(mode);
   document.getElementById('sevFilter').classList.toggle('visible', mode === 'drugs');
@@ -486,7 +486,7 @@ function setLight(light) {
   if (state.network) drawGraph();
 }
 
-document.querySelectorAll('.tab').forEach(t =>
+document.querySelectorAll('.tr-tab').forEach(t =>
   t.addEventListener('click', () => setMode(t.dataset.mode)));
 
 document.getElementById('themeBtn').onclick = () => setLight(!isDark());

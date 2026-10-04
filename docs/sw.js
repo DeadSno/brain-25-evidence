@@ -106,7 +106,7 @@ self.addEventListener('activate', event => {
    (cacheFirstForStatic, ветка catch) — там он нужен, потому что precache
    кладёт './style.css' без версии, а страницы просят 'style.css?v=NNN'. */
 
-var CACHE_VERSION = 'v76';
+var CACHE_VERSION = 'v77';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 

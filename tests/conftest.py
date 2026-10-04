@@ -60,6 +60,15 @@ def pytest_collection_modifyitems(config, items):
     if not os.environ.get("RUN_A11Y"):
         items[:] = [item for item in items if "a11y" not in item.keywords]
 
+    # 	abs (tests/test_tabs_interaction.py, v5.4.1): клик по вкладкам.
+    # Требует живого сервера на :8000 и браузеров Playwright, поэтому
+    # снят здесь, а не через -m в addopts: командная строка -m "..."
+    # перекрывает addopts и включила бы 42 теста неожиданно — ровно то,
+    # из-за чего e2e вынесен в отдельную настройку.
+    # Запуск: \="1"; pytest -q -m tabs
+    if not os.environ.get("RUN_TABS"):
+        items[:] = [item for item in items if "tabs" not in item.keywords]
+
 
 @pytest.fixture(scope="session")
 def project_root() -> Path:
