@@ -36,7 +36,7 @@ try {
     html.light{--apanel:#ffffff;--aborder:#d9dde3;--atext:#1b1d22;--amut:#5c6370}
     /* Tekst na shirokix monitorah. atlas.html snimaet potolok s body
      (max-width:none) potomu chto zdes realno zhivet setka vis-network:
-     #graph/.vis-network/canvas dolzhny zanimat vsu shirinu. No iz-za etogo
+     #atl-graph/.vis-network/canvas dolzhny zanimat vsu shirinu. No iz-za etogo
      strechitsya i tekst — na 2560 h1, #stats i .filterbar dostigali 2449px,
      a polosat zagolovka shla cherez polveksnoy monitor.
 
@@ -59,7 +59,7 @@ try {
     .filterbar{display:flex;gap:.4rem;flex-wrap:wrap;margin:.8rem 0;align-items:center}
     .filterbar .lbl{opacity:.55;font-size:.8rem;margin-right:.4rem}
 
-    .layout{display:flex;height:calc(100vh - 240px);min-height:600px;border:1px solid var(--aborder);border-radius:var(--radius-xl);overflow:hidden;background:var(--apanel);position:relative}
+    .atl-layout{display:flex;height:calc(100vh - 240px);min-height:600px;border:1px solid var(--aborder);border-radius:var(--radius-xl);overflow:hidden;background:var(--apanel);position:relative}
     .atlas-legend{
       position:absolute;left:1rem;bottom:1rem;
       background:var(--apanel);border:1px solid var(--aborder);border-radius:10px;
@@ -69,13 +69,13 @@ try {
     }
     .atlas-legend .dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:var(--space-2);vertical-align:middle}
     .atlas-legend .box{display:inline-block;width:14px;height:9px;border:1.5px solid #3498db;border-radius:2px;margin-right:var(--space-2);vertical-align:middle;background:rgba(52,152,219,.15)}
-    #graph{flex:1;min-width:0}
+    #atl-graph{flex:1;min-width:0}
     body.fs .wrap{max-width:100%;padding:0}
     body.fs .top,
     body.fs .filterbar,
     body.fs footer,
     body.fs .trustbar{display:none}
-    body.fs .layout{height:100vh;border-radius:0;border:none}
+    body.fs .atl-layout{height:100vh;border-radius:0;border:none}
 
     /* Перебиваем body{max-width:1200px} из style.css — для fullwidth-графов */
     body { max-width: none !important; margin: 0 !important; }
@@ -111,12 +111,12 @@ try {
       #q { min-width: 0; flex: 1; font-size: 16px; }
 
       /* Layout — сайдбар снизу */
-      .layout {
+      .atl-layout {
         height: calc(100vh - 200px);
         min-height: 420px;
         flex-direction: column;
       }
-      #graph { flex: 1; min-height: 300px; }
+      #atl-graph { flex: 1; min-height: 300px; }
 
       /* Легенда сворачивается в кнопку */
       .atlas-legend {
@@ -155,11 +155,11 @@ try {
     @supports (padding: env(safe-area-inset-bottom)) {
       body { padding-bottom: env(safe-area-inset-bottom); }
     }
-    #graph, #chainbox canvas, .vis-network {
+    #atl-graph, #chainbox canvas, .vis-network {
       touch-action: pan-y;   /* скролл страницы вертикально; граф — только внутри */
     }
     @media (max-width: 640px) {
-      #graph, .vis-network { touch-action: none; }   /* граф сам ловит жесты */
+      #atl-graph, .vis-network { touch-action: none; }   /* граф сам ловит жесты */
     }
   
   </style>
@@ -203,8 +203,8 @@ try {
     <button class="btn" id="fsBtn" title="Развернуть на весь экран">⛶ На весь экран</button>
   </div>
 
-  <div class="layout">
-    <div id="graph"></div>
+  <div class="atl-layout">
+    <div id="atl-graph"></div>
     <div class="atlas-legend">
       <div><span class="dot" style="background:#2d8a4e"></span>работает</div>
       <div><span class="dot" style="background:#d4a017"></span>зависит от контекста</div>
@@ -509,7 +509,7 @@ function esc(s) {
   // ── Render ───────────────────────────────────────────────────────
   function render() {
     const data = buildGraph();
-    const container = $('graph');
+    const container = $('atl-graph');
     if (network) network.destroy();
     network = new vis.Network(container, data, {
       physics: {
@@ -609,7 +609,7 @@ function esc(s) {
 
   // PNG-экспорт
   $('pngBtn').onclick = () => {
-    const canvas = document.querySelector('#graph canvas');
+    const canvas = document.querySelector('#atl-graph canvas');
     if (!canvas) return;
     const url = canvas.toDataURL('image/png');
     const a = document.createElement('a');

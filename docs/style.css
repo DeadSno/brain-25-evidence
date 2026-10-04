@@ -1171,7 +1171,11 @@ main h1 { font-size: 1.35rem !important; font-weight: 700 !important;
    их @media-контекста.
    Локальными остались: :root/--fg (это цвета, отдельный шаг), body,
    header, footer, .btn, .tr-tab / .tr-tabs, #search, #hint, .trustbar, .top,
-   а также vis-network (#graph, #int-sidebar, .layout, .vis-tooltip) —
+   а также vis-network (#int-graph / #atl-graph, #int-sidebar,
+   .int-layout / .atl-layout,
+   .int-layout / .atl-layout,
+   .vis-tooltip) —
+   .vis-tooltip) —
    эти селекторы заняты другими страницами.
    #sidebar был переименован в #int-sidebar / #atl-sidebar 2026-10-03,
    когда выяснилось, что под этим id жили ДВА разных сайдбара. */
