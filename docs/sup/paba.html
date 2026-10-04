@@ -18,12 +18,12 @@
     <link rel="apple-touch-icon" href="../icons/192.png">
     <script>
     try {
-      if (localStorage.getItem('theme') !== 'light') {
-        document.documentElement.classList.add('dark');
+      if (localStorage.getItem('theme') === 'light') {
+        document.documentElement.classList.add('light');
       }
     } catch(e) {}
     </script>
-    <link rel="stylesheet" href="../style.css?v=408">
+    <link rel="stylesheet" href="../style.css?v=410">
     <script src="../version.js?v=312"></script>
     <script src="../pwa.js?v=282" defer></script>
 <script src="../share.js?v=1" defer></script>
@@ -178,16 +178,19 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
+  // v5.4.0 (dark-first): тёмная тема — это ОТСУТСТВИЕ класса light.
+  // Раньше здесь стояло add('dark'), и тема задавалась явно; теперь
+  // light добавляется только когда пользователь выбрал светлую.
   var light = localStorage.getItem('theme') === 'light';
-  if (!light) { document.body.classList.add('dark'); document.documentElement.classList.add('dark'); }
+  if (light) { document.body.classList.add('light'); document.documentElement.classList.add('light'); }
   var b = document.getElementById('themeBtn');
   if (b) b.textContent = light ? '🌙 Тёмная тема' : '🌞 Светлая тема';
   if (b) b.onclick = function () {
-    var on = !document.body.classList.contains('dark');
-    document.body.classList.toggle('dark', on);
-    document.documentElement.classList.toggle('dark', on);
-    b.textContent = on ? '🌞 Светлая тема' : '🌙 Тёмная тема';
-    localStorage.setItem('theme', on ? 'dark' : 'light');
+    var on = !document.documentElement.classList.contains('light');
+    document.documentElement.classList.toggle('light', on);
+    document.body.classList.toggle('light', on);
+    b.textContent = on ? '🌙 Тёмная тема' : '🌞 Светлая тема';
+    localStorage.setItem('theme', on ? 'light' : 'dark');
   };
 });
 </script>

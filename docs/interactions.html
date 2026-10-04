@@ -19,20 +19,31 @@
 <title>🔗 Карта связей — brain-25-evidence</title>
 <script defer src="version.js?v=312"></script>
 <script>
-// Тема: ставим .dark на <html> до загрузки CSS — иначе вспышка светлого фона.
+// v5.4.0 (dark-first): тёмная тема — это ОТСУТСТВИЕ класса light.
+// До загрузки CSS ничего добавлять не нужно: :root уже тёмный.
+// light ставится только если пользователь выбрал светлую тему.
 try {
-  if (localStorage.getItem('theme') !== 'light') {
-    document.documentElement.classList.add('dark');
+  if (localStorage.getItem('theme') === 'light') {
+    document.documentElement.classList.add('light');
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=408"/>
+<link rel="stylesheet" href="style.css?v=410"/>
 <script src="https://unpkg.com/vis-network@9.1.9/standalone/umd/vis-network.min.js"></script>
 <style>
-    :root { --bg: #f5f5f7; --fg: #1c1c1e; --card-bg: #fff; --border: #d1d1d6; --muted: #6e6e73; --accent: #0062cc; --apanel: var(--card-bg); --aborder: var(--border); --atext: var(--fg); }
-    html.dark, body.dark { --bg: #1c1c1e; --fg: #f5f5f7; --card-bg: #2c2c2e; --border: #3a3a3c; --muted: #9a9aa0; --accent: #0a84ff; --apanel: var(--card-bg); --aborder: var(--border); --atext: var(--fg); }
+    :root { --bg: #1c1c1e; --fg: #f5f5f7; --card-bg: #2c2c2e; --border: #3a3a3c; --muted: #9a9aa0; --accent: #0a84ff; --apanel: var(--card-bg); --aborder: var(--border); --atext: var(--fg); }
+    /* v5.4.0 (dark-first): палитра страницы. Раньше здесь была своя
+       :root со светлыми значениями и отдельная html.dark,body.dark —
+       «четвёртая тема», из-за которой interactions выглядела иначе всех
+       остальных. Теперь тёмная в :root и по умолчанию, светлая под
+       html.light. --fg на этой странице вместо --text, как и раньше. */
+    html.light { --bg: #f5f5f7; --fg: #1c1c1e; --card-bg: #fff; --border: #d1d1d6; --muted: #6e6e73; --accent: #0062cc; --apanel: var(--card-bg); --aborder: var(--border); --atext: var(--fg); }
     * { box-sizing: border-box; }
-    body { margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--fg); transition: background .2s, color .2s; }
+    /* v5.4.0: font-family убран из этого правила. Инлайн объявлялся ПОСЛЕ
+   style.css и перебивал общий Inter — страница шла системным шрифтом.
+   Именно это было причиной расхождения: подпись вкладки 146.5px в
+   Chromium против 135.25px в WebKit (v5.3.0, техдолг 29). */
+body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); transition: background .2s, color .2s; }
     header { padding: 0; border-bottom: none; display: flex; align-items: center; gap: var(--space-4); flex-wrap: wrap; }
     header .site-title { margin: 0; font-size: 1.35rem; }
     header .actions { margin-left: auto; display: flex; gap: var(--space-2); }
@@ -186,7 +197,8 @@ const TYPE_COLOR = { synergy: '#4caf50', antagonist: '#e53935', interaction: nul
 const SEV_LABEL = { low: 'низкий', medium: 'средний', high: 'высокий', critical: 'критичный' };
 const TYPE_LABEL = { synergy: 'синергия', antagonist: 'антагонизм', interaction: 'взаимодействие' };
 
-function isDark() { return document.body.classList.contains('dark'); }
+// v5.4.0 (dark-first): тёмная тема — отсутствие класса light
+function isDark() { return !document.documentElement.classList.contains('light'); }
 
 function lighten(hex, amt) {
   // простая аппроксимация для тёмной темы — оставляем как есть
@@ -464,26 +476,31 @@ function setMode(mode) {
   drawGraph();
 }
 
-function setDark(on) {
-  document.body.classList.toggle('dark', on);
-  document.documentElement.classList.toggle('dark', on);
-  localStorage.setItem('theme', on ? 'dark' : 'light');
-  document.getElementById('themeBtn').textContent = on ? '🌞 Светлая тема' : '🌙 Тёмная тема';
+// v5.4.0 (dark-first): было setDark(on), где on = «сейчас тёмная».
+// Теперь light = «переключаем в светлую» — иначе клик был no-op.
+function setLight(light) {
+  document.documentElement.classList.toggle('light', light);
+  document.body.classList.toggle('light', light);
+  localStorage.setItem('theme', light ? 'light' : 'dark');
+  document.getElementById('themeBtn').textContent = light ? '🌙 Тёмная тема' : '🌞 Светлая тема';
   if (state.network) drawGraph();
 }
 
 document.querySelectorAll('.tab').forEach(t =>
   t.addEventListener('click', () => setMode(t.dataset.mode)));
 
-document.getElementById('themeBtn').onclick = () => setDark(!isDark());
+document.getElementById('themeBtn').onclick = () => setLight(!isDark());
 document.getElementById('search').addEventListener('input', e => {
   state.searchQuery = e.target.value.trim();
   drawGraph();
 });
 
 const saved = localStorage.getItem('theme');
-if (saved === 'light') setDark(false);
-else setDark(true);
+if (saved === 'light') setLight(true);
+// v5.4.0: раньше здесь стояло else setDark(true) — вызов функции, которая
+// больше не существует, и светлая тема сбрасывалась бы на тёмную при
+// первой загрузке. В dark-first тёмная тема — это отсутствие класса,
+// поэтому ветка else не нужна вовсе.
 
 // Severity фильтр
 document.querySelectorAll('#sevFilter input[data-sev]').forEach(cb => {

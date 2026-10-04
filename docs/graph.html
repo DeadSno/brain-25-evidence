@@ -36,16 +36,16 @@
                  float: left;
              }
              /* Светлая тема: подложка графа под --bg, иначе остаётся чёрной */
-             body:not(.dark) #mynetwork {
+             html.light #mynetwork {
                  background-color: var(--bg, #f5f5f7);
                  border-color: var(--border, #d1d1d6);
              }
              /* Плашка загрузки pyvis — светлые цвета, в тёмной теме нечитаемы */
-             body.dark #loadingBar {
+             html:not(.light) #loadingBar {
                  background-color: rgba(28,28,30,.9);
              }
-             body.dark #text { color: #f5f5f7; }
-             body.dark div.outerBorder {
+             html:not(.light) #text { color: #f5f5f7; }
+             html:not(.light) div.outerBorder {
                  background: rgba(44,44,46,.95);
                  border-color: rgba(255,255,255,.15);
              }
@@ -121,10 +121,12 @@
 
         </style>
     <script>
-// Тема: ставим .dark на <html> до загрузки CSS — иначе вспышка светлого фона.
+// v5.4.0 (dark-first): тёмная тема — это ОТСУТСТВИЕ класса light.
+// До загрузки CSS ничего добавлять не нужно: :root уже тёмный.
+// light ставится только если пользователь выбрал светлую тему.
 try {
-  if (localStorage.getItem('theme') !== 'light') {
-    document.documentElement.classList.add('dark');
+  if (localStorage.getItem('theme') === 'light') {
+    document.documentElement.classList.add('light');
   }
 } catch (e) {}
 </script>
@@ -132,16 +134,16 @@ try {
 // Тема: тот же класс на <body>
 // и подпись кнопки — после разбора DOM.
 try {
-  if (localStorage.getItem('theme') !== 'light') {
+  if (localStorage.getItem('theme') === 'light') {
     document.addEventListener('DOMContentLoaded', function () {
-      document.body.classList.add('dark');
+      document.body.classList.add('light');
       var b = document.getElementById('themeBtn');
       if (b) b.textContent = '🌞 Светлая тема';
     });
   }
 } catch (e) {}
 </script>
-    <link rel="stylesheet" href="style.css?v=408">
+    <link rel="stylesheet" href="style.css?v=410">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://deadsno.github.io/brain-25-evidence/graph.html">
     <meta property="og:title" content="Граф связей — 130 добавок и 1982 ребра">
@@ -353,11 +355,11 @@ try {
         const themeBtn = document.getElementById('themeBtn');
         if (themeBtn) {
             themeBtn.addEventListener('click', () => {
-                const dark = !document.body.classList.contains('dark');
-                document.body.classList.toggle('dark', dark);
-                document.documentElement.classList.toggle('dark', dark);
-                localStorage.setItem('theme', dark ? 'dark' : 'light');
-                themeBtn.textContent = dark ? '🌞 Светлая тема' : '🌙 Тёмная тема';
+                const light = !document.documentElement.classList.contains('light');
+                document.body.classList.toggle('light', light);
+                document.documentElement.classList.toggle('light', light);
+                localStorage.setItem('theme', light ? 'light' : 'dark');
+                themeBtn.textContent = light ? '🌙 Тёмная тема' : '🌞 Светлая тема';
             });
         }
         </script>

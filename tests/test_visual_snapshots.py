@@ -103,15 +103,15 @@ PAGES = (
 )
 VIEWPORTS = ((412, 852), (1280, 900))
 
-# Тема, которую обязана иметь страница на момент съёмки. 17 страниц сайта
-# переключают тему кодом (`localStorage.getItem('theme') !== 'light'` → класс
-# `dark` на <html>), поэтому в свежем контексте они всегда тёмные.
+# Тема, которую обязана иметь страница на момент съёмки. С v5.4.0 (dark-first)
+# тёмная тема — это ОТСУТСТВИЕ класса: 17 страниц сайта ставят `light` на <html>
+# только если `localStorage.getItem('theme') === 'light'`, поэтому в свежем
+# контексте класс пустой и страница тёмная.
 # offline.html — исключение, и это измерено, а не предположено: в нём нет
-# ни скрипта темы, ни класса `.dark`, тёмная тема задана только через
+# ни скрипта темы, ни класса `light`, тёмная тема задана только через
 # `@media (prefers-color-scheme: dark)` (offline.html:35), поэтому при
 # color_scheme=light она светлая.
-EXPECTED_HTML_CLASS = {p: "dark" for p in PAGES}
-EXPECTED_HTML_CLASS["offline"] = ""
+EXPECTED_HTML_CLASS = {p: "" for p in PAGES}
 
 # Chromium по умолчанию отдаёт prefers-color-scheme: light. Фиксируем явно:
 # для 17 страниц это не важно (тема от localStorage), а для offline.html

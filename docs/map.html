@@ -20,19 +20,24 @@
 <title>Карта механизмов БАДов — 130 добавки</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
 <script>
-// Тема: ставим .dark на <html> до загрузки CSS — иначе вспышка светлого фона.
+// v5.4.0 (dark-first): тёмная тема — это ОТСУТСТВИЕ класса light.
+// До загрузки CSS ничего добавлять не нужно: :root уже тёмный.
+// light ставится только если пользователь выбрал светлую тему.
 try {
-  if (localStorage.getItem('theme') !== 'light') {
-    document.documentElement.classList.add('dark');
+  if (localStorage.getItem('theme') === 'light') {
+    document.documentElement.classList.add('light');
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=408">
+<link rel="stylesheet" href="style.css?v=410">
 <script>
   try {
     document.addEventListener('DOMContentLoaded', function () {
       var light = localStorage.getItem('theme') === 'light';
-      if (!light) { document.body.classList.add('dark'); }
+      // v5.4.0 (dark-first): светлая тема добавляется только когда
+    // пользователь её выбрал. Раньше здесь стояло add('dark') при !light,
+    // то есть класс задавался явно; теперь тёмная — это его отсутствие.
+    if (light) { document.body.classList.add('light'); }
       var b = document.getElementById('themeBtn');
       if (b) b.textContent = light ? '🌙 Тёмная тема' : '🌞 Светлая тема';
     });
@@ -40,7 +45,7 @@ try {
 </script>
 <style>
   body{--apanel:#15171c;--aborder:#2b2e35;--atext:#e9eaee;--amut:#9aa0aa;margin:0}
-  body:not(.dark){--apanel:#ffffff;--aborder:#d9dde3;--atext:#1b1d22;--amut:#5c6370}
+  html.light{--apanel:#ffffff;--aborder:#d9dde3;--atext:#1b1d22;--amut:#5c6370}
   .wrap{max-width:100%;margin:0;padding:0 var(--space-6) var(--space-4);color:var(--atext)}
   .top{display:flex;justify-content:space-between;align-items:center;gap:var(--space-4);flex-wrap:wrap}
   .top .site-title{font-size:1.45rem;margin:var(--space-0-2) 0}
@@ -62,7 +67,7 @@ try {
   .chip:hover{border-color: var(--border-hover)}
   /* v4.2: #f1c40f в светлой теме давал 1.53:1 — тёмное золото */
   .chip.on{border-color:#8a6800;color:#8a6800;font-weight:700}
-  body.dark .chip.on{border-color:#f1c40f;color:#f1c40f}
+  html:not(.light) .chip.on{border-color:#f1c40f;color:#f1c40f}
   .chainbox{border:1px solid var(--aborder);border-radius:14px;padding:1.1rem 1.2rem;background:var(--apanel);height:100%;overflow-y:auto}
   @keyframes rise{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
   .step{padding:.7rem .95rem;border-radius:10px;margin:.35rem 0;font-size:.93rem;line-height:var(--lh-normal);
@@ -432,11 +437,11 @@ document.addEventListener('keydown', e => {
   }
 });
 $('themeBtn').addEventListener('click', () => {
-  const dark = !document.body.classList.contains('dark');
-  document.body.classList.toggle('dark', dark);
-  document.documentElement.classList.toggle('dark', dark);
-  localStorage.setItem('theme', dark ? 'dark' : 'light');
-  $('themeBtn').textContent = dark ? '🌞 Светлая тема' : '🌙 Тёмная тема';
+  const light = !document.documentElement.classList.contains('light');
+  document.documentElement.classList.toggle('light', light);
+  document.body.classList.toggle('light', light);
+  localStorage.setItem('theme', light ? 'light' : 'dark');
+  $('themeBtn').textContent = light ? '🌙 Тёмная тема' : '🌞 Светлая тема';
 });
 // ── Haptic feedback (Android) ───────────────────────
 function haptic(ms) {

@@ -19,21 +19,26 @@
     try {
       document.addEventListener('DOMContentLoaded', function () {
         var light = localStorage.getItem('theme') === 'light';
-        if (!light) { document.body.classList.add('dark'); }
+        // v5.4.0 (dark-first): светлая тема добавляется только когда
+    // пользователь её выбрал. Раньше здесь стояло add('dark') при !light,
+    // то есть класс задавался явно; теперь тёмная — это его отсутствие.
+    if (light) { document.body.classList.add('light'); }
         var b = document.getElementById('themeBtn');
         if (b) b.textContent = light ? '🌙 Тёмная тема' : '🌞 Светлая тема';
       });
     } catch (e) {}
     </script>
     <script>
-// Тема: ставим .dark на <html> до загрузки CSS — иначе вспышка светлого фона.
+// v5.4.0 (dark-first): тёмная тема — это ОТСУТСТВИЕ класса light.
+// До загрузки CSS ничего добавлять не нужно: :root уже тёмный.
+// light ставится только если пользователь выбрал светлую тему.
 try {
-  if (localStorage.getItem('theme') !== 'light') {
-    document.documentElement.classList.add('dark');
+  if (localStorage.getItem('theme') === 'light') {
+    document.documentElement.classList.add('light');
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=408">
+<link rel="stylesheet" href="style.css?v=410">
     <style>
         :root{--apanel:var(--card-bg);--aborder:var(--border);--atext:var(--text)}
         /* ── Единая шапка (копия index.html) ───────────────── */
@@ -84,12 +89,12 @@ try {
         /* v4.1: сообщение об ошибке под полем + живой регион для скринридера */
         .f-error { font-size: 12px; color: #c0392b; font-weight: 600; }
         .f-error:empty { display: none; }
-        body.dark .f-error { color: #ff8a80; }
+        html:not(.light) .f-error { color: #ff8a80; }
         .f-status { flex-basis: 100%; font-size: 13px; color: var(--muted); min-height: 1.2em; }
             /* Состояние ошибки в строке статуса — тот же красный, что у .f-error,
                но мягче по весу: это не ошибка поля, а итог отправки. */
             .f-status.is-error { color: #c0392b; font-weight: 600; }
-            body.dark .f-status.is-error { color: #ff8a80; }
+            html:not(.light) .f-status.is-error { color: #ff8a80; }
         /* v4.1: var(--accent) давал белым 3.65:1 в тёмной теме —
            фиксированная заливка работает в обеих темах (5.30:1) */
         .f-btn {
@@ -106,10 +111,10 @@ try {
         .f-privacy a { color: var(--accent); }
         .f-note { padding: var(--space-3) var(--space-4); background: #f0f8ff; border-left: 3px solid #4a90e2;
                   border-radius: var(--radius-sm); margin-bottom: var(--space-6); font-size: 14px; }
-        body.dark .f-note { background: rgba(10,132,255,.12); border-left-color: #0a84ff; }
+        html:not(.light) .f-note { background: rgba(10,132,255,.12); border-left-color: #0a84ff; }
         .f-success { padding: var(--space-5); background: #e8f5e9; border-left: 4px solid #4caf50;
                      border-radius: var(--radius-sm); margin-top: var(--space-6); }
-        body.dark .f-success { background: rgba(52,199,89,.14); border-left-color: #34c759; }
+        html:not(.light) .f-success { background: rgba(52,199,89,.14); border-left-color: #34c759; }
         /* ── Mobile (≤640px) ──────────────────────────────── */
         @media (max-width: 640px) {
             body { padding: 0.6rem !important; }
@@ -282,11 +287,11 @@ try {
 const themeBtn = document.getElementById('themeBtn');
 if (themeBtn) {
     themeBtn.addEventListener('click', () => {
-        const dark = !document.body.classList.contains('dark');
-        document.body.classList.toggle('dark', dark);
-        document.documentElement.classList.toggle('dark', dark);
-        localStorage.setItem('theme', dark ? 'dark' : 'light');
-        themeBtn.textContent = dark ? '🌞 Светлая тема' : '🌙 Тёмная тема';
+        const light = !document.documentElement.classList.contains('light');
+        document.body.classList.toggle('light', light);
+        document.documentElement.classList.toggle('light', light);
+        localStorage.setItem('theme', light ? 'light' : 'dark');
+        themeBtn.textContent = light ? '🌙 Тёмная тема' : '🌞 Светлая тема';
     });
 }
 

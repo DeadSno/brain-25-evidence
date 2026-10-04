@@ -24,6 +24,47 @@ self.addEventListener('activate', event => {
    но бамп CACHE_VERSION всё равно нужен: style.css входит в STATIC_ASSETS
    и отдаётся cacheFirstForStatic, а ?v= браузер при кэшировании через SW
    не различает. */
+/* v75 (2026-10-04, v5.4.0 Inter): шрифт перенесён из Google Fonts в
+   репозиторий. Удалены preconnect на fonts.googleapis.com и fonts.gstatic.com
+   и <link> на css2?family=Inter из docs/index.html; вместо них в style.css
+   добавлено пять @font-face на статические начертания в docs/fonts/
+   (Inter 4.1: Regular, Medium, SemiBold, Bold, ExtraBold — 561 КБ).
+   Вариативный InterVariable.woff2 был отвергнут после замера: оба движка
+   грузят его одинаково и рапортуют status 'loaded', но ширины кириллицы
+   расходятся на всех пяти весах (400: 328.84 против 354.78) — ось веса они
+   инстанцируют по-разному. У статики оси нет, и ширины сошлись.
+   Причина переноса не в размере: fonts.googleapis.com отдавал шрифт
+   с IP посетителя, то есть третья сторона получала данные о визите —
+   та же причина, по которой снята Метрика.
+
+   Побочный эффект: Inter теперь применяется на всех 18 страницах, а не на
+   одной. До этого 17 страниц шли системным шрифтом, и Chromium с WebKit
+   выбирали разный — расхождение 2-11% пикселей между движками.
+
+   Файл добавлен в STATIC_ASSETS, иначе офлайн-PWA остался бы без шрифта.
+   Изменились style.css и index.html, поэтому ?v= в 17 страницах поднят
+   с 408 на 409. Бамп CACHE_VERSION обязателен: style.css, index.html и
+   сам шрифт входят в STATIC_ASSETS и отдаются cacheFirstForStatic. */
+/* v76 (2026-10-04, v5.4.0 dark-first): тёмная тема стала состоянием
+   по умолчанию. Палитра переехала из html.dark,body.dark в :root, светлая
+   — в html.light; класс .dark убран из разметки и из JS полностью.
+
+   Что переписано: style.css (палитра и 35 селекторов), 17 страниц
+   (предзагрузка в <head> и переключатели), script.js (initTheme/setLight),
+   trends.html (своя setTheme), interactions.html (своя палитра),
+   atlas/calculator/map (--apanel/--aborder/--atext/--amut) и inline
+   <style> в calculator, feedback, graph, map, trends.
+
+   Почему селекторы стали html:not(.light), а не голыми X: расчёт
+   специфичности показал, что у html:not(.light) ровно (0,1,1) — столько же,
+   сколько у body.dark. Голое X дало бы (0,1,0) и сломало бы 4 правила:
+   #modal a, .trustChips .chip, h1 a и .top .site-title a — каждое
+   перебивается более поздним правилом с меньшей специфичностью.
+
+   Проверка: снапшоты 73 passed, 1 skipped, и картинки совпали с эталонами,
+   снятыми ДО переворота. Значит инверсия визуально нейтральна.
+
+   Изменились style.css и 17 страниц, поэтому ?v= поднят с 409 на 410. */
 /* PWA: cache-first для статики, network-first для data*.json.
    Install через поштучный cache.add().catch() — один missing файл
    не валит всю установку. Бамп CACHE_VERSION при изменении STATIC_ASSETS.
@@ -65,7 +106,7 @@ self.addEventListener('activate', event => {
    (cacheFirstForStatic, ветка catch) — там он нужен, потому что precache
    кладёт './style.css' без версии, а страницы просят 'style.css?v=NNN'. */
 
-var CACHE_VERSION = 'v74';
+var CACHE_VERSION = 'v76';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
@@ -112,6 +153,11 @@ var STATIC_ASSETS = [
   './sup/vitamin-d.html',
   './icons/192.png',
   './icons/512.png',
+  './fonts/inter-regular.woff2',
+  './fonts/inter-medium.woff2',
+  './fonts/inter-semibold.woff2',
+  './fonts/inter-bold.woff2',
+  './fonts/inter-extrabold.woff2',
   './share.js?v=1'];
 
 function notifyOffline() {

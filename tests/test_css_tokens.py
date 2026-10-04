@@ -66,9 +66,16 @@ EXPECTED_SHAPE = {
     "--shadow-lg": "0 12px 32px rgba(0,0,0,.16)",
     "--shadow-xl": "0 24px 80px rgba(0,0,0,.55)",
 }
-#: --shadow-lg переобъявляется в тёмной ветке: .16 -> .5. Это единственный
-#: токен тени, который зависит от темы, поэтому объявлен дважды.
-EXPECTED_SHAPE_DARK = {"--shadow-lg": "0 12px 32px rgba(0,0,0,.5)"}
+#: --shadow-lg зависит от темы, поэтому объявлен дважды. v5.4.0 (dark-first)
+#: поменял ветки местами: тёмная тема живёт в :root и применяется по
+#: умолчанию, светлая — в html.light. Раньше наоборот: :root был светлым,
+#: а тёмная ветка переобъявляла .16 -> .5. Проверка ниже ловит и старый
+#: баг (токен без темы), и новый (перепутаны ветки).
+EXPECTED_SHAPE_ROOT = dict(EXPECTED_SHAPE, **{"--shadow-lg": "0 12px 32px rgba(0,0,0,.5)"})
+#: В html.light переопределяется ТОЛЬКО токен, зависящий от темы. Остальные
+#: (радиусы, --shadow-sm/md/xl) не зависят от темы и наследуются из :root
+#: каскадом — их отсутствие здесь правильно, и требовать их нельзя.
+EXPECTED_SHAPE_LIGHT = {"--shadow-lg": "0 12px 32px rgba(0,0,0,.16)"}
 SHAPE_USE = re.compile(r"var\(\s*(--(?:radius|shadow)-[^)\s]+)")
 SHAPE_DECL = re.compile(r"(--(?:radius|shadow)-[\w-]+)\s*:\s*([^;}]+)")
 
@@ -231,27 +238,33 @@ def test_shape_tokens_are_declared():
     """Шкалы радиусов и теней объявлены с ожидаемыми значениями.
 
     Значения читаются из блока :root, а не со всего файла: --shadow-lg
-    переобъявлен в тёмной ветке, и при поиске по всему CSS последнее
-    вхождение (.5) вытесняло бы светлое (.16).
+    переобъявлен в html.light, и при поиске по всему CSS последнее
+    вхождение вытесняло бы значение из :root.
+
+    С v5.4.0 :root — тёмная тема (значение по умолчанию), светлая
+    переопределяет в html.light.
     """
     css = STYLE.read_text(encoding="utf-8")
     root = re.search(r":root\s*\{(.*?)\}", css, re.S)
     assert root, "в style.css нет блока :root"
     found = {m.group(1): " ".join(m.group(2).split())
              for m in SHAPE_DECL.finditer(root.group(1))}
-    missing = sorted(set(EXPECTED_SHAPE) - set(found))
+    missing = sorted(set(EXPECTED_SHAPE_ROOT) - set(found))
     assert not missing, f"не объявлены в :root: {', '.join(missing)}"
-    wrong = {k: (found[k], v) for k, v in EXPECTED_SHAPE.items() if found[k] != v}
-    assert not wrong, f"значения не совпадают (получено, ожидалось): {wrong}"
+    wrong = {k: (found[k], v) for k, v in EXPECTED_SHAPE_ROOT.items() if found[k] != v}
+    assert not wrong, (
+        f"значения в :root не совпадают (получено, ожидалось): {wrong}. "
+        f":root — это тёмная тема, тени в ней плотнее."
+    )
 
-    dark = re.search(r"html\.dark\s*,\s*body\.dark\s*\{(.*?)\}", css, re.S)
-    assert dark, "в style.css нет блока html.dark,body.dark"
-    dfound = {m.group(1): " ".join(m.group(2).split())
-              for m in SHAPE_DECL.finditer(dark.group(1))}
-    for k, v in EXPECTED_SHAPE_DARK.items():
-        assert dfound.get(k) == v, (
-            f"в тёмной ветке {k} = {dfound.get(k)!r}, ожидалось {v!r}. "
-            f"Без этого карточка в тёмной теме получит светлую тень."
+    light = re.search(r"html\.light\s*\{(.*?)\}", css, re.S)
+    assert light, "в style.css нет блока html.light"
+    lfound = {m.group(1): " ".join(m.group(2).split())
+              for m in SHAPE_DECL.finditer(light.group(1))}
+    for k, v in EXPECTED_SHAPE_LIGHT.items():
+        assert lfound.get(k) == v, (
+            f"в светлой ветке {k} = {lfound.get(k)!r}, ожидалось {v!r}. "
+            f"Без этого карточка в светлой теме получит тёмную тень."
         )
 
 
