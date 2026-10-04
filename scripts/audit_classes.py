@@ -329,10 +329,43 @@ def parse_js(text: str) -> dict:
 
 # ──────────────────────────── сборка данных ────────────────────────────
 
+#: Признак того, что файл — страница, а не служебная заглушка.
+#:
+#: Раньше отбор шёл только по расширению (`*.html`), и в 2026-10-04 в
+#: `docs/` появился `google4a9d23e35c6c3e23.html` — файл верификации
+#: Google Search Console из одной строки `google-site-verification: ...`.
+#: Аудит принял его за страницу, и `tests/test_no_orphan_classes.py`
+#: упал: «разобрал 19 страниц вместо 18».
+#:
+#: Отбор сделан по наличию тега <html>, а НЕ по имени файла. Разница
+#: видна на изменении: перечисление `google*.html` пришлось бы
+#: дополнять для каждой следующей верификации (Bing, Яндекс) и оно
+#: накрыло бы настоящую страницу с таким именем. Тег <html> отвечает на
+#: вопрос по существу: аудит разбирает СТРАНИЦЫ, а файл без полного HTML
+#: документа страницей не является.
+#:
+#: Риск обратного (настоящая страница без тега) не проходит молча: тест
+#: `test_audit_covers_every_page` требует ровно 18 страниц, и страница
+#: без тега уронила бы счётчик до 17 с падением теста.
+#:
+#: Замерено 2026-10-04: тег <html> есть у всех 18 страниц (включая
+#: offline.html и sup/*) и отсутствует только у файла верификации.
+HTML_DOC = re.compile(r"<\s*html[\s>]", re.I)
+
+
+def is_page(path: Path) -> bool:
+    """Страница ли это. Читает начало файла: файл верификации — 53 байта."""
+    try:
+        head = path.read_text(encoding="utf-8", errors="replace")[:4096]
+    except OSError:
+        return False
+    return HTML_DOC.search(head) is not None
+
+
 def collect(include_sup: bool = True) -> dict:
-    pages = sorted(DOCS.glob("*.html"))
+    pages = [p for p in sorted(DOCS.glob("*.html")) if is_page(p)]
     if include_sup:
-        pages += sorted(DOCS.glob("sup/*.html"))
+        pages += [p for p in sorted(DOCS.glob("sup/*.html")) if is_page(p)]
 
     parsed = [parse_page(p) for p in pages]
 

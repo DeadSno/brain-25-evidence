@@ -1,0 +1,121 @@
+name: Daily backup
+
+# ── Честно о границах ────────────────────────────────────────────────────────
+# ПОКРЫТО: docs/data.json (732 КБ) и docs/api/v1/supplements.json (660 КБ).
+# Это 2 файла из 15 json в docs/. НЕ покрыты, хотя тоже генерируются и
+# теряются при перегенерации:
+#   docs/data_index.json          86 КБ  — поиск на trends.html
+#   docs/graph_data.json          416 КБ
+#   docs/timeseries.json          192 КБ  — графики на trends.html
+#   docs/interactions_graph.json   52 КБ  — граф на interactions.html
+#   docs/api/v1/index.json          9 КБ  — индекс API
+# Расширить список — одна правка массива FILES ниже.
+#
+# РАЗМЕР: 1 424 931 байт в день. `find -mtime +30 -delete` убирает файлы
+# из рабочей копии, но блобы остаются в истории НАВСЕГДА: на них ссылаются
+# коммиты, и git gc не умеет их выкинуть. Итого +40.8 МиБ за 30 дней,
+# монотонно, плюс столько же в каждом полном клоне.
+# Если место важно — сжать gzip -9 (остаётся 8.5 МиБ, сжатие 4.8x,
+# JSON восстановим gunzip) либо складывать в артефакты Actions, что
+# истории не касается вообще.
+#
+# ЕСЛИ ПУШ ОТКЛОНЁН: `git pull --rebase` ниже перетягивает чужие коммиты.
+# Без него любой пуш в репозиторий между checkout и push делал бы push
+# отклонённым, и копия за этот день просто не появлялась бы.
+#
+# ПРОВЕРКА РАБОТЫ: залить изменения в ветку с этим workflow, затем
+# Actions → Daily backup → Run workflow. После прогона в `backup/` должны
+# появиться файлы за сегодня.
+
+on:
+  schedule:
+    # 03:00 UTC ежедневно. GitHub запускает по расписанию с задержкой
+    # до нескольких минут и может пропустить запуск при высокой нагрузке;
+    # для бэкапа это не критично, данные меняются раз в сутки.
+    - cron: '0 3 * * *'
+  workflow_dispatch:
+
+# Два прогона в один момент не должны накладываться: второй упрётся в
+# non-fast-forward. cancel-in-progress отменяет предыдущий, а не ставит
+# его в очередь.
+concurrency:
+  group: daily-backup
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Скопировать json-файлы
+        run: |
+          set -euo pipefail
+          mkdir -p backup
+          DATE=$(date -u +%Y-%m-%d)
+          # Список источников. Пути относительные от корня репозитория.
+          # После копирования проверяется, что файл не пустой: иначе
+          # ежедневно коммитилась бы пустая заглушка, и по дате в имени
+          # нельзя было бы понять, что записи на самом деле нет.
+          FILES=(
+            "docs/data.json"
+            "docs/api/v1/supplements.json"
+          )
+          for src in "${FILES[@]}"; do
+            if [ ! -f "$src" ]; then
+              echo "::error file=$src::источник не найден, копия не создана"
+              exit 1
+            fi
+            name=$(basename "$src" .json)
+            cp "$src" "backup/${name}-${DATE}.json"
+            size=$(wc -c < "backup/${name}-${DATE}.json")
+            echo "backup/${name}-${DATE}.json  ${size} байт"
+            if [ "$size" -lt 1024 ]; then
+              echo "::error file=$src::копия подозрительно мала (${size} байт) — возможно, источник пуст"
+              exit 1
+            fi
+          done
+
+      - name: Удалить копии старше 30 дней
+        run: |
+          set -euo pipefail
+          # Удаляются ТОЛЬКО файлы в рабочей копии. История git при этом
+          # не уменьшается: блобы остаются в коммитах навсегда.
+          find backup -name '*.json' -mtime +30 -print -delete
+          left=$(find backup -name '*.json' | wc -l)
+          echo "копий в рабочей копии после уборки: ${left}"
+
+      - name: Закоммитить и отправить
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add backup/
+          if git diff --cached --quiet; then
+            echo "изменений нет — коммитить нечего"
+          else
+            # Ветку берём явно, а не через `origin HEAD`: после
+            # actions/checkout HEAD может быть и detached ref, и
+            # `git pull origin HEAD` в этом случае не находит ветку и
+            # валит джоб ПОСЛЕ коммита — то есть копия уже создана,
+            # но осталась только в локальном клонике.
+            BRANCH="${GITHUB_REF_NAME:-$(git rev-parse --abbrev-ref HEAD)}"
+            if [ "$BRANCH" = "HEAD" ]; then
+              echo "::error::не удалось определить ветку; используется имя из GITHUB_REF"
+              BRANCH="${{ github.event.repository.default_branch }}"
+            fi
+            git commit -m "chore(backup): снимок данных $(date -u +%Y-%m-%d)"
+            git pull --rebase --autostash origin "$BRANCH"
+            git push origin "HEAD:$BRANCH"
+          fi
+
+      - name: Отчитаться, что именно закоммичено
+        if: always()
+        run: |
+          set -euo pipefail
+          git show --stat --oneline HEAD | head -20
+          echo "---"
+          ls -la backup/ | tail -10
