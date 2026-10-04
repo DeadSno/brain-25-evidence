@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+﻿﻿<!DOCTYPE html>
 <html lang="ru">
 <head>
   <script defer src="version.js?v=312"></script>
@@ -18,7 +18,7 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=411"/>
+<link rel="stylesheet" href="style.css?v=412"/>
 <script>
   try {
     document.addEventListener('DOMContentLoaded', function () {
@@ -66,28 +66,67 @@ try {
 <main id="main">
   <h1>Термины доказательной медицины</h1>
 
+  <!-- v5.5.0 A2: страница была единственной без h2/h3 и без секций.
+       12 терминов разложены по трём группам; порядок исходной таблицы
+       сохранён, разметка ячеек не тронута.
 
-<div class="table-wrap">
-<table style="width:100%;border-collapse:collapse;margin-bottom:2rem">
-<thead>
-<tr style="border-bottom:2px solid var(--border)"><th style="text-align:left;padding:.6rem .8rem">Термин</th><th style="text-align:left;padding:.6rem .8rem">Определение</th></tr>
-</thead>
-<tbody>
-<tr style="border-bottom:1px solid var(--border)"><td style="padding:.55rem .8rem;font-weight:600">Мета-анализ</td><td style="padding:.55rem .8rem">Статистическое объединение 10-50 исследований для среднего эффекта</td></tr>
-<tr style="border-bottom:1px solid var(--border)"><td style="padding:.55rem .8rem;font-weight:600">РКИ</td><td style="padding:.55rem .8rem">Рандомизированное контролируемое исследование: золотой стандарт доказательств</td></tr>
-<tr style="border-bottom:1px solid var(--border)"><td style="padding:.55rem .8rem;font-weight:600">Hedges' g</td><td style="padding:.55rem .8rem">Размер эффекта в стандартных отклонениях (0.2=малый, 0.5=средний, 0.8+=большой)</td></tr>
-<tr style="border-bottom:1px solid var(--border)"><td style="padding:.55rem .8rem;font-weight:600">CI (доверительный интервал)</td><td style="padding:.55rem .8rem">Диапазон, в котором с 95% вероятностью лежит истинный эффект</td></tr>
-<tr style="border-bottom:1px solid var(--border)"><td style="padding:.55rem .8rem;font-weight:600">Science Index</td><td style="padding:.55rem .8rem">Сумма РКИ + 5×мета-анализы: объём науки по добавке</td></tr>
-<tr style="border-bottom:1px solid var(--border)"><td style="padding:.55rem .8rem;font-weight:600">Грейд</td><td style="padding:.55rem .8rem">A-D: крепко доказано / умеренно / много науки мало эффекта / данных мало</td></tr>
-<tr style="border-bottom:1px solid var(--border)"><td style="padding:.55rem .8rem;font-weight:600">Вердикт</td><td style="padding:.55rem .8rem">Работает / зависит от контекста / не подтверждено / данных недостаточно</td></tr>
-<tr style="border-bottom:1px solid var(--border)"><td style="padding:.55rem .8rem;font-weight:600">Биодоступность</td><td style="padding:.55rem .8rem">Процент вещества, доходящий до крови (зависит от формы)</td></tr>
-<tr style="border-bottom:1px solid var(--border)"><td style="padding:.55rem .8rem;font-weight:600">Синергист</td><td style="padding:.55rem .8rem">Добавка, усиливающая эффект другой (Омега-3 + Витамин D)</td></tr>
-<tr style="border-bottom:1px solid var(--border)"><td style="padding:.55rem .8rem;font-weight:600">Антагонист</td><td style="padding:.55rem .8rem">Добавка, конкурирующая за всасывание (кальций+железо)</td></tr>
-<tr style="border-bottom:1px solid var(--border)"><td style="padding:.55rem .8rem;font-weight:600">UL (upper limit)</td><td style="padding:.55rem .8rem">Верхний безопасный предел суточной дозы</td></tr>
-<tr><td style="padding:.55rem .8rem;font-weight:600">Onset</td><td style="padding:.55rem .8rem">Время до начала эффекта (30 мин / 2-4 недели / не ощущается)</td></tr>
-</tbody>
-</table>
-</div>
+       В комментарии намеренно не написано имя тега секции буквально:
+       grep по '<section' находит его и даёт ложное срабатывание при
+       подсчёте структуры страницы. -->
+
+  <section class="glossary-section" id="glossary-methods">
+    <h2>Методы и статистика</h2>
+    <p>Как вообще оценивают эффект добавки и что означают числа в таблице.</p>
+    <div class="table-wrap">
+    <table style="width:100%;border-collapse:collapse;margin-bottom:2rem">
+    <thead>
+    <tr style="border-bottom:2px solid var(--border)"><th style="text-align:left;padding:.6rem .8rem">Термин</th><th style="text-align:left;padding:.6rem .8rem">Определение</th></tr>
+    </thead>
+    <tbody>
+    <tr style="border-bottom:1px solid var(--border)"><td style="padding:.55rem .8rem;font-weight:600">Мета-анализ</td><td style="padding:.55rem .8rem">Статистическое объединение 10-50 исследований для среднего эффекта</td></tr>
+    <tr style="border-bottom:1px solid var(--border)"><td style="padding:.55rem .8rem;font-weight:600">РКИ</td><td style="padding:.55rem .8rem">Рандомизированное контролируемое исследование: золотой стандарт доказательств</td></tr>
+    <tr style="border-bottom:1px solid var(--border)"><td style="padding:.55rem .8rem;font-weight:600">Hedges' g</td><td style="padding:.55rem .8rem">Размер эффекта в стандартных отклонениях (0.2=малый, 0.5=средний, 0.8+=большой)</td></tr>
+    <tr><td style="padding:.55rem .8rem;font-weight:600">CI (доверительный интервал)</td><td style="padding:.55rem .8rem">Диапазон, в котором с 95% вероятностью лежит истинный эффект</td></tr>
+    </tbody>
+    </table>
+    </div>
+  </section>
+
+  <section class="glossary-section" id="glossary-metrics">
+    <h2>Метрики проекта</h2>
+    <p>Шкалы, которыми этот сайт заменяет слово «работает».</p>
+    <div class="table-wrap">
+    <table style="width:100%;border-collapse:collapse;margin-bottom:2rem">
+    <thead>
+    <tr style="border-bottom:2px solid var(--border)"><th style="text-align:left;padding:.6rem .8rem">Термин</th><th style="text-align:left;padding:.6rem .8rem">Определение</th></tr>
+    </thead>
+    <tbody>
+    <tr style="border-bottom:1px solid var(--border)"><td style="padding:.55rem .8rem;font-weight:600">Science Index</td><td style="padding:.55rem .8rem">Сумма РКИ + 5×мета-анализы: объём науки по добавке</td></tr>
+    <tr style="border-bottom:1px solid var(--border)"><td style="padding:.55rem .8rem;font-weight:600">Грейд</td><td style="padding:.55rem .8rem">A-D: крепко доказано / умеренно / много науки мало эффекта / данных мало</td></tr>
+    <tr><td style="padding:.55rem .8rem;font-weight:600">Вердикт</td><td style="padding:.55rem .8rem">Работает / зависит от контекста / не подтверждено / данных недостаточно</td></tr>
+    </tbody>
+    </table>
+    </div>
+  </section>
+
+  <section class="glossary-section" id="glossary-properties">
+    <h2>Свойства и взаимодействия</h2>
+    <p>Чем добавки отличаются друг от друга и как они сочетаются.</p>
+    <div class="table-wrap">
+    <table style="width:100%;border-collapse:collapse;margin-bottom:2rem">
+    <thead>
+    <tr style="border-bottom:2px solid var(--border)"><th style="text-align:left;padding:.6rem .8rem">Термин</th><th style="text-align:left;padding:.6rem .8rem">Определение</th></tr>
+    </thead>
+    <tbody>
+    <tr style="border-bottom:1px solid var(--border)"><td style="padding:.55rem .8rem;font-weight:600">Биодоступность</td><td style="padding:.55rem .8rem">Процент вещества, доходящий до крови (зависит от формы)</td></tr>
+    <tr style="border-bottom:1px solid var(--border)"><td style="padding:.55rem .8rem;font-weight:600">Синергист</td><td style="padding:.55rem .8rem">Добавка, усиливающая эффект другой (Омега-3 + Витамин D)</td></tr>
+    <tr style="border-bottom:1px solid var(--border)"><td style="padding:.55rem .8rem;font-weight:600">Антагонист</td><td style="padding:.55rem .8rem">Добавка, конкурирующая за всасывание (кальций+железо)</td></tr>
+    <tr style="border-bottom:1px solid var(--border)"><td style="padding:.55rem .8rem;font-weight:600">UL (upper limit)</td><td style="padding:.55rem .8rem">Верхний безопасный предел суточной дозы</td></tr>
+    <tr><td style="padding:.55rem .8rem;font-weight:600">Onset</td><td style="padding:.55rem .8rem">Время до начала эффекта (30 мин / 2-4 недели / не ощущается)</td></tr>
+    </tbody>
+    </table>
+    </div>
+  </section>
 
 </main>
 

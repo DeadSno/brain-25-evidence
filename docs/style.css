@@ -1034,18 +1034,75 @@ header.top .v {
   margin: var(--space-12) auto var(--space-6);
   padding: var(--space-6) var(--space-6) var(--space-4);
   border-top: 1px solid var(--border);
-  font-size: .82rem;
+  /* v5.5.0 A1: было .82rem = 13.12px, ниже порога читаемости 14px.
+     Подвал — единственное место, где кегль был задан на весь текст,
+     включая дисклеймер «⚠️ Не медицинская рекомендация». Поднято до
+     1rem = 16px. Замер и обоснование: reports/V550.md, A1. */
+  font-size: 1rem;
   color: var(--text);
   opacity: .85;
   line-height: 1.55;
 }
 .site-footer p { margin: var(--space-2) 0; }
 .site-footer .disc { opacity: .9; }
-.site-footer .meta { opacity: .7; font-size: .78rem; }
+/* v5.5.0 A1: .78rem = 12.48px -> 1rem. Служебные строки версии и
+   копирайта были самым мелким текстом на всех 17 страницах. */
+.site-footer .meta { opacity: .7; font-size: 1rem; }
 .site-footer .links { opacity: .85; }
 .site-footer .links a { color: inherit; text-decoration: none; }
 .site-footer .links a:hover { text-decoration: underline; }
-.site-footer .copy { opacity: .6; font-size: .78rem; }
+.site-footer .copy { opacity: .6; font-size: 1rem; }
+
+/* Свёрнутый блок вопросов на главной (v5.5.0 A3) */
+.qa-details > summary {
+  cursor: pointer;
+  padding: .55rem var(--space-3);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg);
+  font-weight: 600;
+  font-size: .95rem;
+  user-select: none;
+}
+.qa-details > summary:hover { border-color: var(--accent); }
+.qa-details > summary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.qa-details[open] > summary { margin-bottom: var(--space-3); }
+
+/* ═══ Главная: кнопки фильтра в один ряд (v5.5.0 A3) ═══ */
+/* Раньше favFilter и resetFilters стояли стопкой и занимали 96px.
+   В ряд занимают 52px, и блок .quick-links с навигационными карточками
+   поднимается с 904 на 852 — попадает в первый экран на телефоне
+   (412x852). На широком экране кнопки и так были в ряд, поэтому
+   правило ограничено мобильной шириной. */
+@media (max-width: 600px) {
+  .filter-actions {
+    display: flex;
+    gap: var(--space-2);
+    align-items: stretch;
+  }
+  .filter-actions > .favFilter { flex: 1 1 0; min-width: 0; }
+
+  /* Блок «Сначала ответим на 3 вопроса» на мобильном превращается в
+     горизонтальную ленту высотой 237px, и он отодвигал навигационные
+     карточки за первый экран. Уплотнение на 32px поднимает
+     .quick-links с 852 на 820 — карточка начинает попадать в экран. */
+  #qaSection { margin-bottom: var(--space-4); }
+  .qaGrid { gap: .4rem; margin-top: 0; }
+  .qaGrid .qa { padding: .6rem var(--space-3); }
+}
+
+/* ═══ Глоссарий: разделы ═══ */
+/* v5.5.0 A2: страница была единственной без h2/h3 и без секций —
+   12 терминов лежали одной таблицей. Разбивка на три группы дала
+   структуру, но заголовки разделов слипаются с таблицей вплотную,
+   поэтому между ними нужен воздух. */
+.glossary-section { margin-top: var(--space-8); }
+.glossary-section:first-of-type { margin-top: var(--space-6); }
+.glossary-section > h2 { margin-bottom: var(--space-2); }
+.glossary-section > p { max-width: 72ch; margin-bottom: var(--space-4); }
 
 /* ═══ Цветные кнопки навбара (палитра карточек главной) ═══ */
 .btn.c-home   { border-color: #64748b; background: rgba(100,116,139,.12); }
