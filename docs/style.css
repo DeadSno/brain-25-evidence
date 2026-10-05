@@ -1191,6 +1191,15 @@ main h1 { font-size: 1.35rem !important; font-weight: 700 !important;
 .sup-header { display: flex; gap: var(--space-4); align-items: center; margin-bottom: var(--space-6); flex-wrap: wrap; }
 .sup-header h2 { margin: 0; font-size: 1.3rem; font-weight: 600; }
 .sup-wrap .grade-badge { display: inline-block; padding: 6px 14px; border-radius: var(--radius-lg); color: #fff; font-weight: 700; font-size: 1.1rem; }  /* было: .grade-badge */
+/* v5.6.0 этап 1.5: под текстом бейджа шёл ряд точек — это браузерное
+   text-decoration: underline dotted у <abbr title>, а не сломанный border.
+   Замерено в DevTools: у .grade-badge text-decoration: none, у вложенного
+   ABBR — underline dotted; других элементов с dotted на странице нет,
+   списков и псевдоэлементов бейджа тоже нет. Подавляем только у abbr
+   внутри бейджа: сам <abbr> и его подсказка (title объясняет шкалу
+   грейдов A-D и ведёт в glossary.html) остаются. Вне .grade-badge
+   dotted-подчёркивание у abbr не трогаем — там оно читается правильно. */
+.sup-wrap .grade-badge abbr { text-decoration: none; }
 .sup-wrap .verdict { color: var(--muted); font-size: 1rem; }  /* было: .verdict */
 .sup-section { margin-bottom: 28px; padding: var(--space-5); background: var(--card-bg); border-radius: var(--radius-xl); border: 1px solid var(--border); }
 .sup-section h2 { font-size: 1.15rem; margin-bottom: var(--space-3); }
