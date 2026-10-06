@@ -1,4 +1,4 @@
-﻿﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="utf-8">
@@ -23,7 +23,7 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=413">
+<link rel="stylesheet" href="style.css?v=414">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <script src="version.js?v=312"></script>
 <style>
@@ -71,8 +71,14 @@ try {
   .stat-card .delta{font-size:.85rem;color:#22c55e;margin-top:var(--space-0-2)}
   .stat-card .delta.down{color:#ef4444}
 
-  /* Убираем sticky-шапку — на странице с графиками она мешает */
-  header.top{position:static!important;top:auto!important}
+  /* Убираем sticky-шапку — на странице с графиками она мешает.
+     v5.6.0: липкой теперь обёртка .site-header (style.css), а не сам
+     .top. Поэтому отключаем липкость у обёртки, а не у header.top —
+     старое правило header.top{position:static} стало беспредметным и
+     оставляло страницу единственной, где шапка не липнет.
+     Намерение сохранено: на графиках шапка мешает, поэтому она уезжает
+     вместе с прокруткой. */
+  body.trends-page .site-header{position:static!important}
   header.top{display:flex;flex-wrap:wrap;gap:.4rem .6rem}
   header.top .site-title{flex:1 1 100%;font-size:1.3rem;line-height:var(--lh-tight);margin:0 0 .4rem;color:var(--text)!important}
   header.top .site-title a{color:var(--text)!important;text-decoration:none!important}
@@ -196,26 +202,28 @@ html:not(.light) .cat-warn{color:#f59e0b}
   .method-footer{max-width:64ch}
 </style>
 </head>
-<body>
+<body class="trends-page">
 <a href="#main" class="skip-link">Перейти к содержимому</a>
 
-<div class="trustbar">📊 Открытые данные · Бесплатно · Без рекламы</div>
+<div class="site-header">
+  <div class="trustbar">📊 Открытые данные · Бесплатно · Без рекламы</div>
 
-<header class="top">
-  <div class="site-title"><a href="index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a> <span class="v">v<span data-version="app"></span></span></div>
-  <div class="actions">
-    <a class="btn c-home" href="index.html">🏠 Главная</a>
-    <a class="btn c-calc" href="calculator.html">🧮 Калькулятор</a>
-    <a class="btn c-mech" href="map.html">🧩 Механизмы</a>
-    <a class="btn c-links" href="interactions.html">🔗 Связи</a>
-    <a class="btn c-atlas" href="atlas.html">🌐 Атлас</a>
-    <a class="btn c-bi" href="https://brain-25-evidence.streamlit.app" target="_blank" rel="noopener">🧠 BI ↗</a>
-    <a class="btn c-graph" href="graph.html">🕸️ Граф связей</a>
-    <a class="btn c-feedback" href="feedback.html">💬 Обратная связь</a>
-    <a class="btn c-support" href="support.html">💚 Поддержать</a>
-    <button class="btn" id="themeBtn">🌞 Светлая тема</button>
-  </div>
-</header>
+  <header class="top">
+    <div class="site-title"><a href="index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a> <span class="v">v<span data-version="app"></span></span></div>
+    <div class="actions">
+      <a class="btn c-home" href="index.html">🏠 Главная</a>
+      <a class="btn c-calc" href="calculator.html">🧮 Калькулятор</a>
+      <a class="btn c-mech" href="map.html">🧩 Механизмы</a>
+      <a class="btn c-links" href="interactions.html">🔗 Связи</a>
+      <a class="btn c-atlas" href="atlas.html">🌐 Атлас</a>
+      <a class="btn c-bi" href="https://brain-25-evidence.streamlit.app" target="_blank" rel="noopener">🧠 BI ↗</a>
+      <a class="btn c-graph" href="graph.html">🕸️ Граф связей</a>
+      <a class="btn c-feedback" href="feedback.html">💬 Обратная связь</a>
+      <a class="btn c-support" href="support.html">💚 Поддержать</a>
+      <button class="btn" id="themeBtn">🌞 Светлая тема</button>
+    </div>
+  </header>
+</div>
 
 <main id="main">
   <h1>Тренды популярности</h1>

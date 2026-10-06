@@ -1,3 +1,11 @@
+/*
+Даже если конец неизбежен, если дальше идти невозможно
+Переломан был — но не повержен, обесточен — но не обезвожен
+Когда ветер срывает одежду, вероломно проникнув под кожу
+Моё сердце согреет надежда, и, я верю, нам небо поможет
+(c) Честер Небро
+*/
+
 /* v5.4.0 — Inter локально, из репозитория (было: только index.html через
    Google Fonts, остальные 17 страниц шли системным шрифтом, и Chromium с
    WebKit выбирали разный — расхождение 2-11% пикселей между движками).
@@ -295,6 +303,12 @@ html:not(.light) .card {
 html:not(.light) .card:hover { box-shadow: var(--shadow-lg); }
 
 /* 12. Плавающая шапка */
+/* v5.6.0: правило сохранено — селектор тега `header` попал бы в любой
+   будущий <header>, и его удаление сломало бы те страницы, где липкость
+   ещё нужна. Но липкой шапку теперь делает .site-header (см. .trustbar
+   ниже), а для .top внутри обёртки это правило перебито:
+   .site-header .top специфичностью 0,2,0 против 0,1,0 здесь.
+   Замерено: все 142 <header> в проекте имеют class="top", других нет. */
 header, .header {
   position: sticky; top: 0; z-index: 50;
   backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
@@ -414,7 +428,90 @@ position:sticky;top:0;z-index:1000;animation:fadeIn .25s}
    против 0,1,0) и в разметке не использовались — удалены как мёртвые. */
 
 /* ===== v2.6: add-on trust ===== */
-.trustbar{position:sticky;top:0;z-index:100;background:var(--card-bg);color:var(--text);
+/* v5.6.0: sticky перенесён с самой плашки на обёртку .site-header.
+   До этого и .trustbar (здесь), и .top (через `header, .header` на
+   строке 298) липли к top:0. Два липких блока подряд перекрывали
+   друг друга: у плашки z-index 100, у шапки 50, и при прокрутке
+   логотип в шапке оказывался под плашкой. Замерено: 39 скрытых
+   кнопок в 11 комбинациях из 25 (5 страниц × 5 вьюпортов).
+
+   Теперь липкий один — обёртка, а оба блока внутри неё static. */
+.site-header { position: sticky; top: 0; z-index: 100; }
+.site-header .trustbar,
+.site-header .top { position: static; }
+
+/* v5.6.0: открытая модалка должна перекрывать шапку.
+   #modalOverlay имеет z-index 50 (строка выше), а обёртка шапки — 100,
+   поэтому шапка рисовалась поверх диалога. Замерено на modal-index:
+   2.921% (chromium) и 2.642% (webkit) расхождения, вся полоса y[35..78].
+
+   Сигнал открытой модалки — класс modal-open на <body>, который ставит
+   openModal() и снимает closeModal() (docs/script.js). Первая версия
+   правила опиралась на body:has(#modalOverlay[style*="display: flex"]).
+   Работала, но зависела от сериализации инлайнового style: замена
+   display:'flex' на 'block' или 'grid' в openModal() молча отключила бы
+   правило, и шапка снова легла бы поверх диалога без единой ошибки в
+   консоли. Класс от такого не зависит.
+
+
+   Правка локальна: вне открытой модалки шапка остаётся на 100, а внутри
+   состояния порядок с #toTop (60) и #toBottom (100) не важен — их
+   перекрывает оверлей на 50. */
+body.modal-open .site-header { z-index: 1; }
+
+/* trends.html: графики несовместимы со sticky-шапкой.
+   Сохранён intent локального правила, которое было на странице до
+   v5.6.0 («на странице с графиками она мешает»): липкой теперь
+   обёртка .site-header, а не сам .top, поэтому отключать липкость
+   нужно у обёртки. Раньше локальное правило снимало sticky с
+   header.top, и после переноса липкости на обёртку оно перестало
+   действовать — страница стала единственной, где шапка липла
+   вместе со всеми. Класс .trends-page стоит на <body> в trends.html. */
+/* Замер 2026-10-05: position:static на обёртке НЕ воспроизводит прежнее
+   поведение. До v5.6.0 плашка была прямым потомком <body> со своим
+   sticky, и липла к вьюпорту; header.top липкости не имел (локальное
+   правило снимало её), то есть плашка оставалась на экране, а шапка с
+   кнопками уезжала.
+
+   Проверено два варианта, оба неверные:
+   1. position:static на обёртке — уводит и плашку: её sticky
+      рассчитывается относительно обёртки, а та уехала со страницей.
+      Замер: scrollY=600, top плашки -392px.
+   2. position:sticky у плашки поверх статичной обёртки — то же самое
+      (замер тот же), потому что sticky ограничен containing block.
+
+   Решение: display:contents у обёртки. Бокса у неё не остаётся, оба
+   блока участвуют в потоке <body> напрямую — ровно как до появления
+   обёртки. Тогда .trustbar липнет к вьюпорту сам, а .top остаётся
+   статичным по локальному правилу trends. Прежнее поведение
+   возвращено без правки разметки.
+
+   Побочный замер, который стоит знать: с появлением обёртки стра
+   trends стала на 24px короче. Причина не в этом правиле — она была
+   и до него, когда обёртка была обычным блоком. В версии без
+   обёртки между </a> skip-link и <div class="trustbar"> браузер
+   создаёт анонимный инлайн-бокс 24px прямо в <body>: elementsFrom-
+   Point в этой зоне возвращает только body, то есть там нет ни одного
+   элемента, а getClientRects() на текстовом узле body даёт прямоугольник
+   высотой 20px в line-height 24px. С блочной обёрткой этот бокс
+   исчезает, и верх контента поднимается с top:48 на top:24. Полоса
+   была пустым фоном страницы, а не контентом, поэтому потери нет —
+   но эталоны trends@412 и @1280 пришлось переснять. */
+body.trends-page .site-header { display: contents; }
+/* display:contents сам по себе недостаточен — это замерено. Селектор
+   `.site-header .trustbar{position:static}` (строка 440) продолжает
+   матчиться, потому что display:contents не исключает элемент из
+   селекторов, и липкость плашки не возвращается: замер scrollY=600,
+   computed position = static, верх плашки -576px.
+
+   Оба правила нужны вместе: display:contents убирает ограничение
+   containing block (плашка липнет к вьюпорту, как до появления
+   обёртки), а явное правило ниже возвращает ей липкость, которую
+   снимает общий для обёртки static. Итоговый замер: scrollY=600,
+   position=sticky, верх плашки 0, шапка -541. */
+body.trends-page .trustbar { position: sticky; top: 0; z-index: 100; }
+
+.trustbar{background:var(--card-bg);color:var(--text);
   border-bottom:1px solid var(--border);text-align:center;font-size:.8rem;font-weight:600;
   padding:.45rem var(--space-2);letter-spacing:.02em}
 
@@ -1320,6 +1417,11 @@ main h1 { font-size: 1.35rem !important; font-weight: 700 !important;
 #atl-sidebar .badge.C { background:rgba(255,152,0,.22);color:#ffb74d }
 #atl-sidebar .badge.D { background:rgba(229,57,53,.2);color:#ef5350 }
 #atl-sidebar .cta { display:inline-block;margin-top:var(--space-4);padding:var(--space-2) var(--space-4);background:#3498db;color:#fff;border-radius:var(--radius-lg);text-decoration:none;font-weight:500 }
+/* v5.6.1: белый на #3498db = 3.15:1. Заливка затемняется до #1f6fa5
+   (белый на ней = 5.42:1) — тем же приёмом, что у .btn.calc выше.
+   Только светлая тема: sidebar скрыт (display:none до .open), а в тёмной
+   #3498db на тёмном фоне даёт 5.69:1 и трогать её нечего. */
+html.light #atl-sidebar .cta { background:#1f6fa5 }
 #atl-sidebar .cta:hover { opacity:.9 }
 #atl-sidebar .mech { margin:var(--space-2) 0;padding:.55rem .7rem;border:1px solid var(--aborder);border-radius:var(--radius-lg);font-size:.85rem;line-height:1.4 }
 #atl-sidebar .mech .str { display:inline-block;padding:.05rem .4rem;border-radius:var(--radius-pill);font-size:.7rem;margin-left:.4rem;background:rgba(127,127,127,.2) }
