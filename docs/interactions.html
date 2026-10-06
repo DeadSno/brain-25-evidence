@@ -29,7 +29,8 @@ try {
 } catch (e) {}
 </script>
 <link rel="stylesheet" href="style.css?v=414"/>
-<script src="https://unpkg.com/vis-network@9.1.9/standalone/umd/vis-network.min.js"></script>
+<!-- v5.6.1: vis-network вендорен в docs/vendor/ — снапшоты страницы больше не зависят от unpkg -->
+<script src="vendor/vis-network-9.1.9.min.js"></script>
 <style>
     :root { --bg: #1c1c1e; --fg: #f5f5f7; --card-bg: #2c2c2e; --border: #3a3a3c; --muted: #9a9aa0; --accent: #0a84ff; --apanel: var(--card-bg); --aborder: var(--border); --atext: var(--fg); }
     /* v5.4.0 (dark-first): палитра страницы. Раньше здесь была своя
@@ -192,6 +193,11 @@ const state = {
   network: null,
   data: null,
   searchQuery: '',
+  // v5.6.1: предрасчётные позиции (docs/graph_positions.json) и счётчик
+  // узлов, которым координаты реально подставились. Пока fixedCount 0,
+  // физика остаётся включённой — на случай 404 файла или несовпадения id.
+  positions: null,
+  fixedCount: 0,
   activeSeverity: new Set(['low', 'medium', 'high', 'critical'])
 };
 
@@ -414,6 +420,33 @@ function drawGraph() {
   const allNodes = buildNodes(mode, degrees);
   const filtered = applySearch(allNodes, allEdges, state.searchQuery);
 
+  /* v5.6.1: предрасчётные позиции. Замер на странице с 121 узлом и
+     124 связями: физика прогоняла раскладку десятки секунд, тогда как
+     страница открывалась за 119 мс. Здесь набор вершин фиксирован в
+     interactions_graph.json по режимам, а поиск только прячет узлы полем
+     hidden, не добавляя новых, — значит статический файл покрывает всё.
+     Координаты нормированы (nx/ny в долях от 1) и подставляются под
+     фактический canvas. Если файла нет, физика остаётся включённой. */
+  var fixedCount = 0;
+  if (state.positions && state.positions.layouts) {
+    var layKey = 'interactions_' + mode;
+    var lay = state.positions.layouts[layKey];
+    if (lay && lay.positions) {
+      var cv = container.querySelector('canvas');
+      var cw = (cv && cv.width) || container.clientWidth || 540;
+      var ch = (cv && cv.height) || container.clientHeight || 540;
+      filtered.nodes = filtered.nodes.map(function (n) {
+        var p = lay.positions[String(n.id)];
+        if (!p) return n;
+        fixedCount++;
+        return Object.assign({}, n, {
+          x: p.nx * cw, y: p.ny * ch, fixed: true
+        });
+      });
+    }
+  }
+  state.fixedCount = fixedCount;
+
   if (state.network) {
     state.network.destroy();
     state.network = null;
@@ -421,7 +454,10 @@ function drawGraph() {
 
   const options = {
     physics: {
-      enabled: true,
+      // v5.6.1: выключается, только если позиции предрасчитаны и все узлы
+      // получили координаты. Иначе (файл 404 или часть id не найдена)
+      // остаётся как было — страница работает, просто считает дольше.
+      enabled: !(state.fixedCount > 0 && state.fixedCount >= filtered.nodes.length),
       solver: 'barnesHut',
       barnesHut: {
         gravitationalConstant: -5000,
@@ -493,7 +529,15 @@ function setLight(light) {
 document.querySelectorAll('.tr-tab').forEach(t =>
   t.addEventListener('click', () => setMode(t.dataset.mode)));
 
-document.getElementById('themeBtn').onclick = () => setLight(!isDark());
+// v5.6.1: было setLight(!isDark()) — инверсия была лишней. isDark()
+// уже возвращает «сейчас тёмная», поэтому клик по тёмной теме давал
+// !true = false, то есть setLight(false) и оставался тёмным: кнопка не
+// переключала ничего. Замерено 2026-10-06: клик давал html.className=''
+// и localStorage.theme='dark' при html.className='' до клика, тогда как
+// на остальных шести страницах тот же клик даёт 'light' (у них в
+// обработчике стоит !contains('light'), что как раз и означает «переключаем
+// в светлую»). Теперь аргумент — сам isDark(): тёмная -> светлая.
+document.getElementById('themeBtn').onclick = () => setLight(isDark());
 document.getElementById('search').addEventListener('input', e => {
   state.searchQuery = e.target.value.trim();
   drawGraph();
@@ -527,10 +571,24 @@ document.getElementById('pngBtn').onclick = () => {
   a.click();
 };
 
-fetch('interactions_graph.json')
-  .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
-  .then(d => {
-    state.data = d;
+/* v5.6.1: позиции грузятся параллельно данным. Ошибка загрузки файла
+   позиций не должна ронять страницу — тогда просто остаётся физика. */
+/* v5.6.1: отладочный доступ к состоянию. state объявлен как const внутри
+   скрипта, поэтому с консоли и из тестов до него не дотянуться. Ссылка
+   нужна для замеров предрасчёта (сколько узлов зафиксировано, выключена
+   ли физика) — без неё проверять пришлось бы по картинке. */
+window.__intState = state;
+
+Promise.all([
+    fetch('interactions_graph.json')
+      .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); }),
+    fetch('graph_positions.json')
+      .then(r => (r.ok ? r.json() : null))
+      .catch(() => null)
+  ])
+  .then(function (both) {
+    state.data = both[0];
+    state.positions = both[1];
     setMode('supplements');
   })
   .catch(err => {
