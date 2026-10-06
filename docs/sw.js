@@ -118,8 +118,37 @@ self.addEventListener('activate', event => {
    а CACHE_VERSION — с v78 на v79: style.css входит в STATIC_ASSETS и
    отдаётся cacheFirstForStatic, а ?v= при кэшировании через SW не
    различается. Без обоих бампов фикс не дошёл бы до пользователей. */
+/* v81 (2026-10-06, v5.6.1): в STATIC_ASSETS добавлен './sup/index.html' —
+   каталог 130 страниц sup/*.html. До этого в прекеше лежали пять отдельных
+   страниц (kreatin, magniy, omega-3, paba, vitamin-d): по прямой ссылке
+   извне они открывались офлайн, но сам каталог — точка входа, из которой
+   на них переходят, — не открывался вообще.
 
-var CACHE_VERSION = 'v80';
+   Путь записан как './sup/index.html' — с './' и без ведущего слэша, как у
+   остальных записей списка. cache.add() разрешает относительный URL по
+   scope регистрации worker'а, поэтому ключом кэша становится
+   http://<host>/sup/index.html — ровно тот адрес, которым приходит
+   навигация, и точное совпадение в cacheFirstForStatic срабатывает без
+   ignoreSearch. С ведущим слэшем ключ уехал бы в /sup/... от корня
+   сервера, и на GitHub Pages (сайт лежит в /brain-25-evidence/) совпадение
+   сломалось бы молча.
+
+   Чего это НЕ даёт: каталог ссылается на 130 страниц, в прекеше их пять.
+   Офлайн остальные 125 ссылок попадают в ветку навигации и получают
+   offline.html — честное «нет соединения», а не чужая страница (блок про
+   FALLBACK_HTML выше). Полный офлайн-каталог — это 130 файлов в кэше;
+   решение за владельцем, здесь оно не принято.
+
+   ?v= нигде не поднят: sup/index.html — HTML, а версионируются в страницах
+   только CSS и скрипты (style.css?v=414). Бамп CACHE_VERSION v80 -> v81
+   обязателен по правилу из шапки файла: install кладёт STATIC_ASSETS в кэш
+   с именем CACHE_VERSION, а activate удаляет все кэши, кроме двух текущих,
+   то есть новый кэш собирается с нуля. Без бампа новый список лёг бы в
+   старый v80-static, где удалённые из STATIC_ASSETS файлы остались бы
+   навсегда: чистит их только activate, а он без смены имени не чистит
+   ничего. */
+
+var CACHE_VERSION = 'v81';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
@@ -159,6 +188,7 @@ var STATIC_ASSETS = [
   './style.css',
   './effect_tags.json',
   './effect_labels.json',
+  './sup/index.html',
   './sup/kreatin.html',
   './sup/magniy.html',
   './sup/omega-3.html',
