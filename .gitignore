@@ -191,7 +191,11 @@ scripts/update_*.py
 reports/.last_validation
 reports/validation_report.json
 reports/sources_candidates.json
-reports/evidence/
+# reports/evidence/ снят с игнора: 117 .md = проверенные выдержки PubMed
+# (все 117 имеют секцию "## Abstracts" и ссылки pubmed.ncbi.nlm.nih.gov;
+#  336 ссылок / 317 уникальных PMID, верифицированы через NCBI E-utilities).
+# Это ДАННЫЕ, а не runtime-артефакт: регенерировать их нечем без обхода PubMed,
+# и без них невоспроизводим grade/verdict в reports/.
 
 # Runtime артефакты data/raw (регенерируются скриптами)
 data/raw/*
