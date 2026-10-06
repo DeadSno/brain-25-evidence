@@ -38,7 +38,8 @@
     });
   } catch (e) {}
 </script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<!-- v5.6.1: chart.js вендорен в docs/vendor/ — без сети графики на странице не рисуются -->
+<script src="vendor/chart.umd-4.4.1.min.js"></script>
   <!-- v5.4.0: Inter убран с Google Fonts. Причина не в размере — в приватности:
        fonts.googleapis.com отдавал шрифт с IP посетителя на каждой загрузке,
        то есть третья сторона получала данные о визите. Метрика с index.html
