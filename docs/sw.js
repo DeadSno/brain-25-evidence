@@ -148,7 +148,7 @@ self.addEventListener('activate', event => {
    навсегда: чистит их только activate, а он без смены имени не чистит
    ничего. */
 
-var CACHE_VERSION = 'v81';
+var CACHE_VERSION = 'v82';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
@@ -160,6 +160,13 @@ var CACHE_DATA = CACHE_VERSION + '-data';
    под это НЕ подходят (там после /data идёт _ma_timeline / _price_history) и
    остаются в статике, как и раньше. */
 var DATA_RE = /\/data(_index)?\.json$/;
+
+/* sup/*.html, кроме sup/index.html. Каталог и пять прекешенных страниц
+   (kreatin, magniy, omega-3, paba, vitamin-d) остаются в STATIC_ASSETS и
+   идут через cacheFirstForStatic. Остальные 125 страниц — stale-while-revalidate:
+   при первом визите кэш пуст, запрос идёт в сеть и кэшируется; при повторном
+   кэш отдаётся сразу, а свежая копия догружается в фоне. */
+var SUP_HTML_RE = /\/sup\/[^\/]+\.html$/;
 
 /* Главная — единственный допустимый fallback для навигации на корень.
    Раньше FALLBACK_HTML подставлялся ЛЮБОМУ упавшему GET, из-за чего офлайн
@@ -361,6 +368,45 @@ async function cacheFirstForStatic(req) {
   }
 }
 
+/* Stale-while-revalidate для sup/*.html (кроме sup/index.html).
+   При первом визите страницы нет в кэше — запрос идёт в сеть, ответ
+   кэшируется. При повторном визите кэш отдаётся сразу (без задержки),
+   а в фоне догружается свежая копия и заменяет кэш. Так правки страниц
+   доходят до пользователей при следующей загрузке, а не после сброса
+   кэша или бампа CACHE_VERSION. */
+async function staleWhileRevalidateForSup(req) {
+  var cache = await caches.open(CACHE_STATIC);
+  var key = staticCacheKey(req);
+  var cached = await cache.match(key);
+
+  /* Фоновая загрузка свежей копии. Запускается всегда, но результат
+     используется только при первом визите (в кэше пусто). При повторном
+     визите ошибка фоновой загрузки не страшна: кэш уже отдан пользователю. */
+  var fetchPromise = fetch(req).then(function (resp) {
+    if (resp && resp.ok) cache.put(key, resp.clone());
+    return resp;
+  }).catch(function () {
+    /* Фон не смог обновить кэш — молча, пользователь уже видит кэш. */
+  });
+
+  if (cached) {
+    /* Повторный визит: отдаём кэш сразу, свежесть — при следующей загрузке. */
+    return cached;
+  }
+
+  /* Первый визит: в кэше пусто, ждём сеть. Офлайн — честный offline.html. */
+  try {
+    var resp = await fetchPromise;
+    if (resp && resp.ok) return resp;
+    throw new Error('sup not 200');
+  } catch (err) {
+    notifyOffline();
+    var loose = await cache.match(req, { ignoreSearch: true });
+    if (loose) return loose;
+    return cache.match(OFFLINE_URL);
+  }
+}
+
 self.addEventListener('install', function (event) {
   event.waitUntil(
     caches.open(CACHE_STATIC).then(function (cache) {
@@ -395,7 +441,35 @@ self.addEventListener('fetch', function (event) {
 
   if (DATA_RE.test(url.pathname)) {
     event.respondWith(networkFirstForData(req));
+  } else if (SUP_HTML_RE.test(url.pathname) && url.pathname.indexOf('/sup/index.html') === -1) {
+    event.respondWith(staleWhileRevalidateForSup(req));
   } else {
     event.respondWith(cacheFirstForStatic(req));
   }
 });
+
+/* v82 (2026-10-06, v5.6.1): sup/*.html (кроме sup/index.html) переведены
+   на stale-while-revalidate. До этого все HTML страницы шли через
+   cacheFirstForStatic: при повторном визите отдавалась копия с момента
+   первого посещения, и правки страниц не доходили до пользователей,
+   пока они сами не сбрасывали кэш. Это приемлемо для корневых страниц и
+   пяти прекешенных sup (kreatin, magniy, omega-3, paba, vitamin-d) — они
+   меняются редко, а их кэш чистит бамп CACHE_VERSION. Остальные 125 страниц
+   каталога менялись чаще (правки текстов, ссылок, данных), и каждый бамп
+   CACHE_VERSION из-за правки одной страницы — это пересборка кэша у всех
+   пользователей.
+
+   Стратегия stale-while-revalidate: при первом визите страницы нет в
+   кэше, запрос идёт в сеть, ответ кэшируется; при повторном визите
+   отдаётся кэш сразу (без задержки), а в фоне идёт загрузка свежей копии,
+   которая заменяет кэш. Пользователь всегда получает страницу мгновенно,
+   а правки доходят до него при следующей загрузке.
+
+   sup/index.html не тронут: он в прекеше STATIC_ASSETS и остаётся
+   cacheFirstForStatic. Каталог — точка входа, и его офлайн-доступность
+   важнее свежести. Пять прекешенных страниц тоже не тронуты: их кэш
+   чистится бампом CACHE_VERSION, и SWR не нужен.
+
+   Бамп CACHE_VERSION v81 -> v82 обязателен: без него существующие
+   пользователи не получат новый sw.js, потому что браузер проверяет
+   файл на изменение, а sw.js уже у них в кэше под старой версией. */
