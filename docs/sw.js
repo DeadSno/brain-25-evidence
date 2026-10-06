@@ -104,9 +104,22 @@ self.addEventListener('activate', event => {
    С v50 query-версия в <link href="style.css?v=NNN"> bust-ит кэш: точный
    cache.match идёт ПЕРВЫМ. ignoreSearch остался только офлайн-страховкой
    (cacheFirstForStatic, ветка catch) — там он нужен, потому что precache
-   кладёт './style.css' без версии, а страницы просят 'style.css?v=NNN'. */
+   кладёт './style.css' без версии, а страницы просят 'style.css?v=NNN'.
 
-var CACHE_VERSION = 'v78';
+   v79 (2026-10-05, v5.6.0 этап 1.5): под текстом бейджа «Грейд A-D» на
+   sup/*.html шёл ряд точек. Замерено в DevTools, а не найдено на глаз:
+   у .grade-badge text-decoration: none, у вложенного <abbr> —
+   underline dotted, то есть браузерное умолчание для abbr с title.
+   Других элементов с dotted на странице нет, списков и псевдоэлементов
+   бейджа нет. Добавлено .sup-wrap .grade-badge abbr{text-decoration:none} —
+   точечно, вне бейджа dotted-подчёркивание у abbr осталось.
+
+   Изменился style.css, поэтому ?v= в 17 страницах поднят с 412 на 413,
+   а CACHE_VERSION — с v78 на v79: style.css входит в STATIC_ASSETS и
+   отдаётся cacheFirstForStatic, а ?v= при кэшировании через SW не
+   различается. Без обоих бампов фикс не дошёл бы до пользователей. */
+
+var CACHE_VERSION = 'v80';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 

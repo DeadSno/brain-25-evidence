@@ -1,4 +1,4 @@
-﻿﻿<!doctype html>
+<!doctype html>
 <html lang="ru">
 <head>
   <script defer src="version.js?v=312"></script>
@@ -29,7 +29,7 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=412">
+<link rel="stylesheet" href="style.css?v=414">
 <script>
   try {
     document.addEventListener('DOMContentLoaded', function () {
@@ -44,8 +44,44 @@ try {
   } catch (e) {}
 </script>
 <style>
-  body{--apanel:#15171c;--aborder:#2b2e35;--atext:#e9eaee;--amut:#9aa0aa;margin:0}
+  /* Палитра объявлена на :root, а не на body. На body она перекрывала
+     html.light ниже: значение для var(--atext) уже задано на body, и
+     наследование от html его не отменяет — в светлой теме весь текст
+     страницы оставался тёмным-по-палитре (светлый #e9eaee на светлом фоне,
+     1.05:1). :root (0,1,0) уступает html.light (0,1,1), поэтому светлая
+     палитра наконец применяется. Тот же приём в style.css: тёмная палитра
+     лежит в :root, светлая переопределяет в html.light. */
+  :root{--apanel:#15171c;--aborder:#2b2e35;--atext:#e9eaee;--amut:#9aa0aa}
+  body{margin:0}
   html.light{--apanel:#ffffff;--aborder:#d9dde3;--atext:#1b1d22;--amut:#5c6370}
+
+  /* v5.6.1: акценты, которые стали светлыми вместе с панелью.
+     .chainbox и #details рисуют фон через --apanel. Пока палитра была на
+     body, --apanel оставался тёмным и литерал #3498db на нём давал
+     5.69:1; на белой панели тот же литерал даёт 3.15:1. Всё ниже —
+     только для светлой темы: тёмная не меняется ни на пиксель. */
+  /* Акцент-ссылка. Светлый --accent #0062cc даёт 5.80:1 на белом.
+     Селектора два, а литерал и фон один и тот же: .chainbox видна сразу,
+     а .rel-list внутри закрытой #details — те же 9 ссылок на том же фоне.
+     Замерено с открытой панелью, а не выведено из того, что «наверное». */
+  html.light .chainbox a,
+  html.light #details .rel-list a { color: var(--accent); }
+  /* Заливка кнопки: белый на #3498db = 3.15:1. Затемняем заливку, а не
+     текст — тем же приёмом, что .btn.calc в style.css (там до #1f6fa5
+     ради 5.42:1). */
+  html.light #details .cta { background: #1f6fa5; border-color: #1f6fa5; }
+  /* Приглушённые подписи. Приглушение задано ИНЛАЙНО в JS
+     (`<span style="opacity:.6;font-size:.85rem">`, map.html ниже), поэтому
+     переопределить его можно только !important. Вместо приглушения берём
+     цвет из палитры: приглушённый #1b1d22 на белом = 4.48:1, то есть ниже
+     порога на 0.02 — запас, который съедает смена сглаживания шрифта.
+     var(--muted) на белом = 5.07:1; на подложке .step.sup (#dfeff9) он
+     даёт 4.31:1, поэтому там взят акцент #0062cc = 4.93:1.
+     :not([class]) обязателен: прямым span-потомком #chain является и
+     зелёный бейдж вердикта (span.verdict, белый на #15803d), и перекрасить
+     его в серый значило бы снести смысл, а не починить контраст. */
+  html.light #chain > span:not([class]) { opacity: 1 !important; color: var(--muted); }
+  html.light #chain .sup > span { opacity: 1 !important; color: var(--accent); }
   .wrap{max-width:100%;margin:0;padding:0 var(--space-6) var(--space-4);color:var(--atext)}
   .top{display:flex;justify-content:space-between;align-items:center;gap:var(--space-4);flex-wrap:wrap}
   .top .site-title{font-size:1.45rem;margin:var(--space-0-2) 0}
@@ -249,22 +285,24 @@ footer { font-size: 1rem !important; }
 <body>
 <a href="#main" class="skip-link">Перейти к содержимому</a>
 <div class="wrap">
-  <div class="trustbar">🧬 Открытые данные · Бесплатно · Без рекламы</div>
-  <header class="top">
-  <div class="site-title"><a href="index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a> <span class="v">v<span data-version="app"></span></span></div>
-  <div class="actions">
-    <a class="btn c-home" href="index.html">🏠 Главная</a>
-    <a class="btn c-calc" href="calculator.html">🧮 Калькулятор</a>
-    <a class="btn c-links" href="interactions.html">🔗 Связи</a>
-    <a class="btn c-atlas" href="atlas.html">🌐 Атлас</a>
-    <a class="btn c-trends" href="trends.html">📈 Тренды</a>
-    <a class="btn c-bi" href="https://brain-25-evidence.streamlit.app" target="_blank" rel="noopener">🧠 BI ↗</a>
-    <a class="btn c-graph" href="graph.html">🕸️ Граф связей</a>
-    <a class="btn c-feedback" href="feedback.html">💬 Обратная связь</a>
-    <a class="btn c-support" href="support.html">💚 Поддержать</a>
-    <button class="btn" id="themeBtn">🌞 Светлая тема</button>
+  <div class="site-header">
+    <div class="trustbar">🧬 Открытые данные · Бесплатно · Без рекламы</div>
+    <header class="top">
+    <div class="site-title"><a href="index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a> <span class="v">v<span data-version="app"></span></span></div>
+    <div class="actions">
+      <a class="btn c-home" href="index.html">🏠 Главная</a>
+      <a class="btn c-calc" href="calculator.html">🧮 Калькулятор</a>
+      <a class="btn c-links" href="interactions.html">🔗 Связи</a>
+      <a class="btn c-atlas" href="atlas.html">🌐 Атлас</a>
+      <a class="btn c-trends" href="trends.html">📈 Тренды</a>
+      <a class="btn c-bi" href="https://brain-25-evidence.streamlit.app" target="_blank" rel="noopener">🧠 BI ↗</a>
+      <a class="btn c-graph" href="graph.html">🕸️ Граф связей</a>
+      <a class="btn c-feedback" href="feedback.html">💬 Обратная связь</a>
+      <a class="btn c-support" href="support.html">💚 Поддержать</a>
+      <button class="btn" id="themeBtn">🌞 Светлая тема</button>
+    </div>
+  </header>
   </div>
-</header>
 
 <main id="main">
   <h1>Карта механизмов</h1>

@@ -1,4 +1,4 @@
-﻿﻿<!doctype html>
+<!doctype html>
 <html lang="ru">
 <head>
   <script defer src="version.js?v=312"></script>
@@ -25,10 +25,23 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=412">
+<link rel="stylesheet" href="style.css?v=414">
   <style>
-    body{--apanel:#15171c;--aborder:#2b2e35;--atext:#e9eaee;--amut:#9aa0aa;margin:0}
+    /* Палитра на :root, не на body: объявление на body перекрывало html.light
+       ниже, и в светлой теме текст оставался светлым на светлом (1.05:1),
+       а .trustbar — тёмным на тёмном (--apanel не светлел). Подробности —
+       в map.html, откуда взято это объявление. */
+    :root{--apanel:#15171c;--aborder:#2b2e35;--atext:#e9eaee;--amut:#9aa0aa}
+    body{margin:0}
     html.light{--apanel:#ffffff;--aborder:#d9dde3;--atext:#1b1d22;--amut:#5c6370}
+    /* v5.6.1: пустое состояние в #selectedList. Панель рисует фон через
+       --apanel, который до переноса палитры на :root оставался тёмным;
+       приглушённый .empty на тёмном читался, на белом дал 3.79:1.
+       Приглушение задано opacity:.55 ниже по файлу, поэтому в светлой теме
+       заменяем его на цвет из палитры: var(--muted) на белом = 5.07:1
+       вместо 3.79:1. Иерархия сохраняется — muted и так светлее var(--text).
+       Тёмная тема не затронута. */
+    html.light #selectedList .empty { opacity: 1; color: var(--muted); }
     body{max-width:none!important;margin:0!important}
     .wrap{max-width:1200px;margin:0 auto;padding:var(--space-4) var(--space-6);color:var(--atext)}
 
@@ -147,22 +160,24 @@ try {
 <body>
 <a href="#main" class="skip-link">Перейти к содержимому</a>
 <div class="wrap">
-  <div class="trustbar">🧮 Открытые данные · Бесплатно · Без рекламы</div>
-  <header class="top">
-  <div class="site-title"><a href="index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a> <span class="v">v<span data-version="app"></span></span></div>
-  <div class="actions">
-    <a class="btn c-home" href="index.html">🏠 Главная</a>
-    <a class="btn c-mech" href="map.html">🧩 Механизмы</a>
-    <a class="btn c-links" href="interactions.html">🔗 Связи</a>
-    <a class="btn c-atlas" href="atlas.html">🌐 Атлас</a>
-    <a class="btn c-trends" href="trends.html">📈 Тренды</a>
-    <a class="btn c-bi" href="https://brain-25-evidence.streamlit.app" target="_blank" rel="noopener">🧠 BI ↗</a>
-    <a class="btn c-graph" href="graph.html">🕸️ Граф связей</a>
-    <a class="btn c-feedback" href="feedback.html">💬 Обратная связь</a>
-    <a class="btn c-support" href="support.html">💚 Поддержать</a>
-    <button class="btn" id="themeBtn">🌞 Светлая тема</button>
+  <div class="site-header">
+    <div class="trustbar">🧮 Открытые данные · Бесплатно · Без рекламы</div>
+    <header class="top">
+    <div class="site-title"><a href="index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a> <span class="v">v<span data-version="app"></span></span></div>
+    <div class="actions">
+      <a class="btn c-home" href="index.html">🏠 Главная</a>
+      <a class="btn c-mech" href="map.html">🧩 Механизмы</a>
+      <a class="btn c-links" href="interactions.html">🔗 Связи</a>
+      <a class="btn c-atlas" href="atlas.html">🌐 Атлас</a>
+      <a class="btn c-trends" href="trends.html">📈 Тренды</a>
+      <a class="btn c-bi" href="https://brain-25-evidence.streamlit.app" target="_blank" rel="noopener">🧠 BI ↗</a>
+      <a class="btn c-graph" href="graph.html">🕸️ Граф связей</a>
+      <a class="btn c-feedback" href="feedback.html">💬 Обратная связь</a>
+      <a class="btn c-support" href="support.html">💚 Поддержать</a>
+      <button class="btn" id="themeBtn">🌞 Светлая тема</button>
+    </div>
+  </header>
   </div>
-</header>
 
 <main id="main">
   <h1>Калькулятор БАДов</h1>
