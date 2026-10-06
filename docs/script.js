@@ -650,6 +650,12 @@ async function openModal(id) {
     '<div class="blockTitle">🧩 Полная карточка добавки</div>' + renderCardBlocks(s);
   history.replaceState(null, '', '#sup=' + encodeURIComponent(s.id));
   $('modalOverlay').style.display = 'flex';
+  // Класс на <body> — сигнал открытой модалки для CSS. Раньше приходилось
+  // ловить состояние селектором body:has(#modalOverlay[style*="display: flex"]),
+  // а он зависит от того, как движок сериализует инлайновый style: замена
+  // 'flex' на 'block' в строке выше молча сломала бы правило, и шапка снова
+  // легла бы поверх диалога. Класс от такого не зависит.
+  document.body.classList.add('modal-open');
 
   if (s.dosagePerKg != null) {
     const weightInput = $('weightInput');
@@ -673,6 +679,7 @@ async function openModal(id) {
 function closeModal() {
   curModal = null;
   $('modalOverlay').style.display = 'none';
+  document.body.classList.remove('modal-open');
   history.replaceState(null, '', location.pathname);
   window.scrollTo({ top: scrollBeforeModal, behavior: 'smooth' });
 }
