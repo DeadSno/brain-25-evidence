@@ -168,6 +168,11 @@ SCRIPT_SRC_RE = re.compile(r"""<script[^>]*\bsrc\s*=\s*(["'])(.*?)\1""", re.I)
 STYLE_BLOCK_RE = re.compile(r"<style[^>]*>(.*?)</style>", re.S | re.I)
 SCRIPT_BLOCK_RE = re.compile(r"<script(?![^>]*\bsrc)[^>]*>(.*?)</script>", re.S | re.I)
 
+#: Каталог вендоренных библиотек: третий код, лежащий внутри репозитория.
+#: Скрипты оттуда не разбираются как наши — иначе классы библиотеки
+#: начинают выглядеть сиротами (см. комментарий в parse_page).
+VENDOR_PREFIX = "vendor/"
+
 
 def parse_page(path: Path) -> dict:
     text = path.read_text(encoding="utf-8")
@@ -182,6 +187,15 @@ def parse_page(path: Path) -> dict:
     for m in SCRIPT_SRC_RE.finditer(text):
         src = m.group(2).split("?")[0]
         if src.startswith(("http://", "https://", "//")):
+            scripts.append(("cdn", src))
+            continue
+        # v5.6.1: вендоренные библиотеки лежат локально, но остаются
+        # чужим кодом. Без этой ветки аудит разбирал 688 КБ vis-network
+        # и 80 КБ bootstrap как код проекта: из bootstrap приходила
+        # ложная сирота .list-group (161 вхождение в его CSS, ни одного
+        # в нашей разметке), а из сводного разбора выпадали из списка
+        # мёртвых .noPrice, .updatedLine и .x.
+        if src.startswith(VENDOR_PREFIX):
             scripts.append(("cdn", src))
             continue
         scripts.append(("file", (path.parent / src).resolve()))

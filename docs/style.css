@@ -360,7 +360,12 @@ footer, .site-footer { padding-bottom: env(safe-area-inset-bottom, 0px); }
 /* ===== v2.1: бейдж «цена не найдена», пустое состояние, «Наверх» ===== */
 .noPrice{color:var(--text);opacity:.8;font-size:.85rem}.noPrice a{color:var(--accent)}
 .empty{grid-column:1/-1;text-align:center;padding:var(--space-12) var(--space-4);opacity:.8}
-#toTop{position:fixed;right:1.2rem;bottom:1.2rem;z-index:60;width:44px;height:44px;
+/* v5.6.1: z-index поднят с 60 до 110 — раньше он делил значение с
+   липкой шапкой .site-header (100) и .toBottom (100), и при равном
+   z-index порядок определялся DOM-порядком, то есть случайно.
+   Теперь обе кнопки выше шапки, и их скрытие под открытой модалкой
+   описано правилом с body.modal-open ниже. */
+#toTop{position:fixed;right:1.2rem;bottom:1.2rem;z-index:110;width:44px;height:44px;
 border-radius:50%;border:1px solid var(--border);background:var(--card-bg);color:var(--text);
 font-size:1.2rem;cursor:pointer;opacity:0;pointer-events:none;transition:.25s}
 #toTop.show{opacity:1;pointer-events:auto}
@@ -1119,11 +1124,23 @@ header.top .v {
   align-items: center;
   justify-content: center;
   font-size: 1.2rem;
-  z-index: 100;
+  z-index: 110;
   box-shadow: var(--shadow-md);
 }
 .toBottom.show { display: flex; }
 .toBottom:hover { background: var(--border); }
+
+/* v5.6.1: поднятие до 110 (см. #toTop выше) подняло кнопки выше
+   .site-header, но оверлей модалки остался на 50 — то есть при
+   z-index 110 кнопки оказались бы ПОВЕРХ затемнения, а диалог на
+   index открывается во весь экран. Замерено на живых страницах при
+   открытой модалке: #toTop пересекается с оверлеем на 1936 px²,
+   .toBottom — на 2025 px². Поэтому при открытой модалке обе кнопки
+   скрываются. Класс modal-open ставит openModal() и снимает
+   closeModal() (docs/script.js) — тот же сигнал, по которому
+   .site-header уходит под оверлей. */
+body.modal-open #toTop,
+body.modal-open .toBottom { display: none; }
 
 /* ═══ Единый футер ═══ */
 .site-footer {

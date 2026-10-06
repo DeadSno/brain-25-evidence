@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Каталог БАДов: {{ total }} добавок с оценкой доказательности | Brain 25 Evidence</title>
+    <meta name="description" content="Каталог из {{ total }} БАД: название, категория, вердикт и грейд доказательности A-D. Карточка ведёт на страницу добавки с механизмами, дозировкой, взаимодействиями и источниками.">
+    <link rel="canonical" href="{{ url }}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url }}">
+    <meta property="og:title" content="Каталог БАДов: {{ total }} добавок | Brain 25 Evidence">
+    <meta property="og:description" content="Каталог из {{ total }} БАД: название, категория, вердикт и грейд доказательности A-D. Карточка ведёт на страницу добавки с механизмами, дозировкой, взаимодействиями и источниками.">
+    <meta property="og:image" content="{{ base_url }}/og.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="manifest" href="../manifest.webmanifest">
+    <meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#1c1c1e" media="(prefers-color-scheme: dark)">
+    <link rel="apple-touch-icon" href="../icons/192.png">
+    <script>
+    try {
+      if (localStorage.getItem('theme') === 'light') {
+        document.documentElement.classList.add('light');
+      }
+    } catch(e) {}
+    </script>
+    <link rel="stylesheet" href="../style.css?v=414">
+    <script src="../version.js?v=312"></script>
+    <script src="../pwa.js?v=282" defer></script>
+    <script src="../share.js?v=1" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "name": "Каталог БАДов — Brain 25 Evidence",
+      "description": "Каталог из {{ total }} БАД: название, категория, вердикт и грейд доказательности A-D.",
+      "url": "{{ url }}",
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Главная",
+            "item": "{{ base_url }}/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Каталог БАДов",
+            "item": "{{ url }}"
+          }
+        ]
+      }
+    }
+    </script>
+    <style>
+    /* Локальных правил два, и второе обязательное.
+       Первое: карточка каталога — это ссылка, а в style.css есть голое
+       правило `a`, которое красит любую ссылку в акцентный цвет и
+       подчёркивает её. Без этих трёх свойств сетка из {{ total }} карточек
+       читалась бы как список синих ссылок, а не как сетка главной
+       страницы.
+       Второе: `display:block` выше перебивает пользовательский агент —
+       [hidden]{display:none} специфичностью 0,1,0 против 1,1,0 здесь, и
+       фильтр прятал бы карточки по счётчику, но не по факту: они остались
+       бы на экране. Замерено в Playwright, а не предположено.
+       Всё остальное (сетка, стекло, hover, тени, цвета, шрифты) берётся
+       из style.css — своих цветов страница не вводит и обе темы
+       наследует оттуда же. */
+    #cardsGrid .card{display:block;color:inherit;text-decoration:none}
+    #cardsGrid .card[hidden]{display:none}
+    </style>
+</head>
+<body>
+<a href="#main" class="skip-link">Перейти к содержимому</a>
+
+<div class="site-header">
+  <div class="trustbar">🧬 Открытые данные · Бесплатно · Без рекламы</div>
+  <header class="top">
+    <div class="site-title"><a href="../index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a></div>
+    <div class="actions">
+      <a class="btn c-home" href="../index.html">🏠 Главная</a>
+      <a class="btn c-feedback" href="../feedback.html">💬 Обратная связь</a>
+      <a class="btn c-support" href="../support.html">💚 Поддержать</a>
+      <button class="btn" id="themeBtn">🌞 Светлая тема</button>
+    </div>
+  </header>
+</div>
+
+<main id="main">
+  <h1>Каталог БАДов</h1>
+
+    <nav class="breadcrumbs">
+        <a href="../index.html">Назад</a> → <a href="../index.html">Главная</a> → <strong>Каталог БАДов</strong>
+    </nav>
+
+    <p class="hint">{{ total }} добавок: название, категория, вердикт и грейд доказательности A-D. Карточка ведёт на страницу добавки.</p>
+
+    <section id="controls">
+      <label for="supSearch" class="sr-only">Поиск по названию, категории или вердикту</label>
+      <input id="supSearch" placeholder="🔍 Поиск: название или категория..."/>
+      <label for="supCategory" class="sr-only">Фильтр: категория</label>
+      <select id="supCategory">
+        <option value="all">Любая категория</option>
+        {% for cat in categories %}<option value="{{ cat.name }}">{{ cat.name }} ({{ cat.count }})</option>{% endfor %}
+      </select>
+      <label for="supGrade" class="sr-only">Фильтр: грейд доказательности</label>
+      <select id="supGrade">
+        <option value="all">Любой грейд</option>
+        {% for g in grades %}<option value="{{ g.value }}">Грейд {{ g.value }} ({{ g.count }})</option>{% endfor %}
+      </select>
+    </section>
+
+    <section id="cardsContainer">
+      <h2>Все добавки <span id="countBadge" class="hint">показано {{ total }} из {{ total }}</span></h2>
+
+      <div id="cardsGrid">
+        {% for c in cards %}
+        <a class="card" href="{{ c.slug }}.html" data-slug="{{ c.slug }}" data-cat="{{ c.category }}" data-grade="{{ c.grade }}" data-code="{{ c.code }}" data-hay="{{ c.hay }}">
+          <span class="cat">{{ c.category }}</span>
+          <strong class="card-title">{{ c.name }}</strong>
+          <div class="verdict v{{ c.code }}">{{ c.verdict }}</div>
+          <span class="grade g{{ c.grade }}" title="Грейд {{ c.grade }} — шкала доказательности (см. glossary.html)">Грейд {{ c.grade }}</span>
+        </a>
+        {% endfor %}
+      </div>
+
+      <p class="hint">Шкала доказательности A-D расшифрована в <a href="../glossary.html">глоссарии</a>, методика подсчёта — в <a href="../methodology.html">методологии</a>.</p>
+    </section>
+</main>
+
+<footer class="site-footer">
+  <p class="disc">
+    <b>⚠️ Не медицинская рекомендация.</b>
+    Сайт предоставляет данные из открытых научных источников
+    (PubMed, Europe PMC, CrossRef, OpenAlex, ClinicalTrials.gov, Wikimedia)
+    для информирования и самостоятельного образования.
+    <b>НЕ заменяет</b> консультацию, диагноз и лечение.
+    При любых сомнениях — обращайтесь к специалисту.
+  </p>
+  <p class="meta">
+    v<span data-version="app"></span> ·
+    данные на <span data-version="data"></span>
+  </p>
+  <p class="links">
+    <a href="../methodology.html">📐 Методология</a> ·
+    <a href="../faq.html">❓ FAQ</a> ·
+    <a href="../glossary.html">📖 Глоссарий</a>
+  </p>
+  <p class="copy">© 2026 Vladislav "DeadSno" Pereshivalov · MIT</p>
+  <p class="share-row"><button class="btn share-page" type="button">🔗 Поделиться</button></p>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  // v5.4.0 (dark-first): тёмная тема — это ОТСУТСТВИЕ класса light.
+  // Раньше здесь стояло add('dark'), и тема задавалась явно; теперь
+  // light добавляется только когда пользователь выбрал светлую.
+  var light = localStorage.getItem('theme') === 'light';
+  if (light) { document.body.classList.add('light'); document.documentElement.classList.add('light'); }
+  var b = document.getElementById('themeBtn');
+  if (b) b.textContent = light ? '🌙 Тёмная тема' : '🌞 Светлая тема';
+  if (b) b.onclick = function () {
+    var on = !document.documentElement.classList.contains('light');
+    document.documentElement.classList.toggle('light', on);
+    document.body.classList.toggle('light', on);
+    b.textContent = on ? '🌙 Тёмная тема' : '🌞 Светлая тема';
+    localStorage.setItem('theme', on ? 'light' : 'dark');
+  };
+
+  // Фильтры каталога. Карточки уже в разметке — скрипт только прячет
+  // несовпавшие, поэтому страница читается и работает без JS: без него
+  // видны все {{ total }} карточек и текст счётчика уже верный.
+  var cards = [].slice.call(document.querySelectorAll('#cardsGrid .card'));
+  var search = document.getElementById('supSearch');
+  var category = document.getElementById('supCategory');
+  var grade = document.getElementById('supGrade');
+  var badge = document.getElementById('countBadge');
+
+  function apply() {
+    var needle = (search.value || '').trim().toLowerCase();
+    var cat = category.value;
+    var gr = grade.value;
+    var shown = 0;
+    for (var i = 0; i < cards.length; i++) {
+      var c = cards[i];
+      var ok = true;
+      if (needle && c.getAttribute('data-hay').indexOf(needle) === -1) ok = false;
+      if (ok && cat !== 'all' && c.getAttribute('data-cat') !== cat) ok = false;
+      if (ok && gr !== 'all' && c.getAttribute('data-grade') !== gr) ok = false;
+      if (ok) { c.removeAttribute('hidden'); shown++; }
+      else { c.setAttribute('hidden', ''); }
+    }
+    badge.textContent = 'показано ' + shown + ' из ' + cards.length;
+  }
+
+  search.addEventListener('input', apply);
+  category.addEventListener('change', apply);
+  grade.addEventListener('change', apply);
+});
+</script>
+
+</body>
+</html>
