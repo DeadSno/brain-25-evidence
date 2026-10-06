@@ -119,7 +119,7 @@ self.addEventListener('activate', event => {
    отдаётся cacheFirstForStatic, а ?v= при кэшировании через SW не
    различается. Без обоих бампов фикс не дошёл бы до пользователей. */
 
-var CACHE_VERSION = 'v79';
+var CACHE_VERSION = 'v80';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 

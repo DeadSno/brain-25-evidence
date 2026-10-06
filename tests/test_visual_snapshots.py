@@ -180,8 +180,20 @@ FREEZE_JS = r"""
           const a = (2 * Math.PI * i) / n - Math.PI / 2;
           return Object.assign({}, nd, {x: cx + R * Math.cos(a), y: cy + R * Math.sin(a)});
         });
+        // Физику выключаем ДО подмены данных. Обратный порядок был причиной
+        // недетерминизма: setData перезапускает стабилизацию (1000 итераций
+        // на graph.html), и разлетевшийся граф успевал отрисоваться поверх
+        // только что выставленных координат. Замерено 2026-10-06: при старом
+        // порядке graph-1280/412 расходились в 4 прогонах из 6 на 18.427%
+        // при неизменном размере холста. stabilization выключается тоже —
+        // иначе она может стартовать позже, уже по обновлённым данным.
+        net.setOptions({physics: {enabled: false,
+                                  stabilization: {enabled: false}}});
         net.setData({nodes: new vis.DataSet(fixed), edges: net.body.data.edges});
-        net.setOptions({physics: {enabled: false}});
+        // Прибиваем координаты через moveNode: setPositions в vis-network
+        // 9.1.2 нет вообще (проверено по библиотеке), а setData сбрасывает
+        // позиции. moveNode при выключенной физике ставит узел жёстко.
+        fixed.forEach((nd) => net.moveNode(nd.id, nd.x, nd.y));
         net.fit();
         net.redraw();
         window.__snap.frozen = 1;
