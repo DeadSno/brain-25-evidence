@@ -477,6 +477,17 @@ def _capture(page, page_name: str, *, full_page: bool) -> bytes:
     page.wait_for_timeout(SETTLE_MS)
     _assert_version_consistent(page, url)
 
+    # Маскировка версии — после того как version.js подставил значение.
+    # Без неё смена app в docs/version.json роняет ~50 эталонов (версия
+    # выводится дважды на каждой странице: в .site-title и в <footer>).
+    page.evaluate(
+        """() => {
+            document.querySelectorAll('[data-version="app"]').forEach(el => {
+                el.textContent = 'vX.X.X';
+            });
+        }"""
+    )
+
     if full_page:
         engine = getattr(page.context.browser, "engine", "?")
         cap = FULL_PAGE_CAP_PX.get(engine)
@@ -619,6 +630,14 @@ def test_modal_index_snapshot(_env_checked, browser, snap_dir):
         _await_version(page)
         _await_compare_result(page)
         _assert_version_consistent(page, url)
+        # Маскировка версии — см. комментарий в _capture выше.
+        page.evaluate(
+            """() => {
+                document.querySelectorAll('[data-version="app"]').forEach(el => {
+                    el.textContent = 'vX.X.X';
+                });
+            }"""
+        )
         # На index заголовок карточки — не h3, а strong.card-title (v2.6, P2-16):
         # h3 убрали, чтобы структура документа отражала разделы, а не 130 карточек.
         card = page.locator("#cardsGrid .card").first
