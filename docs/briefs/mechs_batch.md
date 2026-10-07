@@ -50,12 +50,12 @@
 
 ## Отчёт
 
-`reports/mechs_batch_1.md` — обоснование каждого нового механизма со ссылками на PMID.
+`reports/archive/mechs_batch_1.md` — обоснование каждого нового механизма со ссылками на PMID.
 
 ## DoD
 
 - `reports/mechs_batch_1_proposal.json` создан, валидный JSON
-- `reports/mechs_batch_1.md` создан, есть ссылки на PMIDs
+- `reports/archive/mechs_batch_1.md` создан, есть ссылки на PMIDs
 - `docs/data.json` НЕ тронут
 - Никаких коммитов (пользователь сам закоммитит после ревью)
 
