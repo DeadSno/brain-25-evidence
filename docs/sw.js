@@ -161,7 +161,17 @@ self.addEventListener('activate', event => {
    нужен: иначе старый v83-static живёт вечно и cache.add() не перезапишет
    ключ, для которого файл не изменился. */
 
-var CACHE_VERSION = 'v84';
+/* Бамп CACHE_VERSION v84 -> v85 обязателен по правилу из шапки файла
+   (то же, что для v80 -> v81 и v82 -> v83): install кладёт STATIC_ASSETS в
+   кэш с именем CACHE_VERSION, а activate удаляет всё, кроме двух текущих.
+
+   Причина — правки style.css в v5.6.2: компактная шапка на мобильном
+   (T1, #96), тач-таргет селектов (#94). В ссылках на style.css ?v поднят
+   с 415 на 416 в тех же 143 файлах (12 страниц и 131 в sup/ — 130 карточек
+   плюс sup/index.html). Без бампа activate не почистит старый v84-static,
+   и удалённые из STATIC_ASSETS файлы остались бы в кэше навсегда. */
+
+var CACHE_VERSION = 'v85';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
