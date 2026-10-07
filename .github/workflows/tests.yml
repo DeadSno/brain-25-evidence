@@ -68,6 +68,17 @@ jobs:
       - name: Feed check
         run: python scripts/build_feed.py --check
 
+      # Диагностика падения Feed check: пересобираем фид и показываем diff,
+      # чтобы увидеть, какое именно расхождение не даёт пройти проверке.
+      # Шаг стоит ПОСЛЕ Feed check с if: failure() — только так он
+      # сработает именно при падении проверки фида.
+      - name: Feed diff (diagnostic)
+        if: failure()
+        run: |
+          python scripts/build_feed.py
+          git diff docs/feed.xml || true
+          python scripts/build_feed.py --check || echo "check failed"
+
   # ─────────────────────────── визуальные снапшоты ───────────────────────────
   # Сняты из CI 2026-10-04 (v5.4.2). Эталоны привязаны к конкретной
   # Windows-машине: метрики шрифтов, субпиксельное позиционирование и
