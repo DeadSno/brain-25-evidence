@@ -1142,6 +1142,18 @@ header.top .v {
 body.modal-open #toTop,
 body.modal-open .toBottom { display: none; }
 
+/* v5.6.2 P1: открытая модалка должна блокировать прокрутку фона. Класс
+   modal-open ставил openModal() и снимал closeModal(), но правил на
+   overflow у него не было — только z-index шапки и display кнопок выше.
+   Замерено 2026-10-07 на index@412: при scrollY 2500 и открытой модалке
+   window.scrollBy(0, 600) уводил страницу на 3100, то есть фон ехал под
+   диалогом.
+
+   Ставится на body, а не на html: overflow:hidden на <html> ломает
+   position:sticky у шапки (.site-header, липкая) — она перестаёт липнуть.
+   На body sticky сохраняется, проверено замером headerTop после прокрутки. */
+body.modal-open { overflow: hidden; }
+
 /* ═══ Единый футер ═══ */
 .site-footer {
   max-width: 1200px;
@@ -1163,9 +1175,39 @@ body.modal-open .toBottom { display: none; }
    копирайта были самым мелким текстом на всех 17 страницах. */
 .site-footer .meta { opacity: .7; font-size: 1rem; }
 .site-footer .links { opacity: .85; }
-.site-footer .links a { color: inherit; text-decoration: none; }
+/* v5.6.2 P1 (тач-таргеты): ссылки строки «Методология · FAQ · Глоссарий ·
+   Каталог» были инлайновыми с высотой бокса 20px — замерено на 12 страницах
+   при 320 и 412 (offline.html без подвала, 13-я страница, не затронут).
+   Ниже порога WCAG 2.5.8 (AA, 24×24) и намного ниже 44px.
+   inline-block + вертикальный padding поднимают бокс до 45.6px и не трогают
+   горизонтальную раскладку строки: разделители «·» остаются на базовой линии.
+   Побочный эффект — подвал выше примерно на 26px, это видно на полностраничных
+   снимках и переснимается. */
+.site-footer .links a {
+  color: inherit;
+  text-decoration: none;
+  display: inline-block;
+  padding: .8rem 0;
+}
 .site-footer .links a:hover { text-decoration: underline; }
 .site-footer .copy { opacity: .6; font-size: 1rem; }
+
+/* v5.6.2 P1 (тач-таргеты): <summary> без собственного правила даёт бокс 24px.
+   Замерено 2026-10-07 (Playwright, Chromium): 12 штук на faq.html — это
+   details.qa, и 2 на index.html — details.method; у .qa-details и
+   details.methodology свои правила есть. Правило глобальное, потому что
+   класс .qa-details покрывает только один из вариантов разметки, а
+   перечислять четыре селектора в каждой из 18 страниц дороже и хрупче.
+   min-height, а не один padding: у .qa-details > summary padding уже свой
+   и более специфичный, общий padding он бы перекрыл — и бокс остался бы
+   ниже порога. cursor:pointer дублирует поведение оформленного summary,
+   чтобы голый details.qa вёл себя так же. */
+summary {
+  min-height: 44px;
+  box-sizing: border-box;
+  padding: .7rem .75rem;
+  cursor: pointer;
+}
 
 /* Свёрнутый блок вопросов на главной (v5.5.0 A3) */
 .qa-details > summary {

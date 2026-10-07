@@ -148,7 +148,20 @@ self.addEventListener('activate', event => {
    навсегда: чистит их только activate, а он без смены имени не чистит
    ничего. */
 
-var CACHE_VERSION = 'v83';
+/* Бамп CACHE_VERSION v83 -> v84 обязателен по правилу из шапки файла
+   (то же, что для v80 -> v81 на строке выше и v82 -> v83 ниже): install
+   кладёт STATIC_ASSETS в кэш с именем CACHE_VERSION, а activate удаляет всё,
+   кроме двух текущих. Без бампа новый список лёг бы в старый v83-static.
+
+   Причина этого бампа — правки style.css в v5.6.2: тач-таргеты ссылок
+   подвала и <summary>, плюс замок прокрутки body.modal-open. В ссылках на
+   style.css ?v поднят с 414 на 415 в 143 файлах (12 страниц и 131 в sup/ —
+   130 карточек плюс sup/index.html, не 130, как считал план). Обновлённый CSS
+   пришёл бы в кэш только по новому ключу запроса, но activate всё равно
+   нужен: иначе старый v83-static живёт вечно и cache.add() не перезапишет
+   ключ, для которого файл не изменился. */
+
+var CACHE_VERSION = 'v84';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
