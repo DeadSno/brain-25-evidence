@@ -9,21 +9,46 @@
         <title>Граф связей механизмов — brain-25-evidence</title>
         <meta name="description" content="Интерактивный граф связей 130 БАД и 1982 рёбер: общие механизмы, теги эффектов, прямые взаимодействия. Наглядная карта доказательной базы.">
 
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-            <script defer src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            <!-- v5.6.1: vis-network вендорен в docs/vendor/ и приведён к 9.1.9
+                 (на этой странице раньше была 9.1.2 с cdnjs, на atlas и
+                 interactions — 9.1.9 с unpkg). Причина: снапшоты graph зависели
+                 от того, что отдаст CDN; версия 9.1.2 — patch-релиз, но при
+                 смене патча перерисовывается сеть, и эталоны нужно было снять
+                 заново. Заодно страница перестала зависеть от сети: integrity
+                 на локальный файл не нужен, crossorigin тоже.
 
-<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vis-network@9.1.2/styles/vis-network.min.css" type="text/css" />
-<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+                 v5.6.1 (задача VENDOR_CLOSE): <link> на
+                 vendor/vis-network-9.1.9.min.css УДАЛЁН, 220 КБ из
+                 репозитория. Файл был мёртвым, и это доказано замером, а
+                 не отсутствием ссылок (reports/VENDOR_CLOSE.md §4):
+                 сам vis-network.min.js внедряет те же строки через
+                 document.createElement("style") — 7 вызовов, 220 163
+                 символа, все 88 селекторов внешнего CSS найдены во
+                 внедрениях. Скриншоты страницы с этим <link> и без него
+                 побайтово идентичны при 1280 и 412, в тёмной и светлой
+                 темах. То же касается atlas.html и interactions.html:
+                 они рисуют сеть vis-network и никогда этот CSS не
+                 подключали. -->
+            <script defer src="vendor/vis-network-9.1.9.min.js"></script>
+
+        <!-- v5.6.1: bootstrap вендорен. Проверено измерением, а не чтением:
+             обращений к JS API нет и data-bs-* нет, но класс .card-body на
+             <div id="mynetwork"> даёт контейнеру графа 16px внутренних
+             отступов — без них canvas становится 1110x798 вместо 1078x766.
+             То есть CSS нужен, удалять было бы нельзя.
+
+             Уточнение задачи VENDOR_CLOSE: фон #222 и рамку 1px контейнеру
+             задаёт НЕ bootstrap, а локальное правило #mynetwork ниже по
+             файлу — без bootstrap оба значения не меняются. От bootstrap
+             идёт только отступ. Косвенное подтверждение: 0 обращений к
+             JS API при 0 data-bs-* — то есть используется ровно одно
+             правило CSS, и оно про отступы. -->
         <link
-          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          href="vendor/bootstrap-5.0.0-beta3.min.css"
           rel="stylesheet"
-          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
-          crossorigin="anonymous"
         />
         <script
-          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
-          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
-          crossorigin="anonymous"
+          src="vendor/bootstrap-5.0.0-beta3.min.js"
         ></script>
 
         <style type="text/css">
@@ -147,6 +172,8 @@ try {
     <link rel="stylesheet" href="style.css?v=414">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://deadsno.github.io/brain-25-evidence/graph.html">
+    <link rel="canonical" href="https://deadsno.github.io/brain-25-evidence/graph.html">
+    <link rel="alternate" type="application/rss+xml" title="brain-25-evidence" href="https://deadsno.github.io/brain-25-evidence/feed.xml">
     <meta property="og:title" content="Граф связей — 130 добавок и 1982 ребра">
     <meta property="og:description" content="Интерактивный граф: 130 БАД и 1982 связи между ними (общие механизмы, теги эффектов, прямые взаимодействия).">
     <meta property="og:image" content="https://deadsno.github.io/brain-25-evidence/og.png">
@@ -220,14 +247,41 @@ try {
               // This method is responsible for drawing the graph, returns the drawn network
               function drawGraph() {
                 // Данные графа вынесены в graph_data.json — грузим асинхронно
-                fetch('./graph_data.json')
-                  .then(function (r) {
-                    if (!r.ok) throw new Error('graph_data.json: HTTP ' + r.status);
-                    return r.json();
-                  })
-                  .then(function (g) {
-                    nodes = new vis.DataSet(g.nodes || []);
+                Promise.all([
+                    fetch('./graph_data.json').then(function (r) {
+                      if (!r.ok) throw new Error('graph_data.json: HTTP ' + r.status);
+                      return r.json();
+                    }),
+                    /* v5.6.1: предрасчётные позиции. Замер 2026-10-06: при
+                       130 узлах и 1982 связях стабилизация физики шла 21 229 мс,
+                       тогда как DCL — 74 мс. То есть страница открывалась быстро,
+                       а граф дольше минуты пересобирал раскладку. Позиции
+                       приходят готовыми и нормированными (nx/ny в долях от 1),
+                       поэтому подставляются под текущий размер canvas. */
+                    fetch('./graph_positions.json').then(function (r) {
+                      return r.ok ? r.json() : null;
+                    }).catch(function () { return null; })
+                  ])
+                  .then(function (both) {
+                    var g = both[0];
+                    var posData = both[1];
+                    var prepared = (g.nodes || []).map(function (n) {
+                      var p = posData && posData.layouts
+                        && posData.layouts.graph
+                        && posData.layouts.graph.positions[String(n.id)];
+                      if (!p) return n;
+                      var c = document.querySelector('#mynetwork canvas');
+                      var w = (c && c.width) || 1078;
+                      var h = (c && c.height) || 766;
+                      return Object.assign({}, n, {
+                        x: p.nx * w, y: p.ny * h, fixed: true
+                      });
+                    });
+                    nodes = new vis.DataSet(prepared);
                     edges = new vis.DataSet(g.edges || []);
+                    window.__posApplied = prepared.filter(function (n) {
+                      return n.fixed;
+                    }).length;
                     renderGraph();
                   })
                   .catch(function (err) {
@@ -313,9 +367,14 @@ try {
             "springConstant": 0.001,
             "springLength": 250
         },
-        "enabled": true,
+        /* v5.6.1: выключено. Узлы приходят с фиксированными координатами
+           из graph_positions.json, поэтому считать раскладку нечего, а
+           стабилизация на 1982 связях занимала 21 секунду. Если файла
+           позиций нет (404), физика включается обратно — страница
+           остаётся рабочей, просто медленнее. */
+        "enabled": !(window.__posApplied > 0),
         "stabilization": {
-            "enabled": true,
+            "enabled": !(window.__posApplied > 0),
             "fit": true,
             "iterations": 1000,
             "onlyDynamicEdges": false,

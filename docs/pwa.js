@@ -11,8 +11,29 @@
      он уже равен null. */
   var PWA_BASE = (document.currentScript && document.currentScript.src) || location.href;
 
+  /* v5.6.1: баннер показывается ТОЛЬКО при реальном офлайне.
+     Раньше pwa.js реагировал и на сообщение service worker'а
+     ({type:'offline'}), и sw.js слал его из двух мест — при упавшем
+     fetch данных (строка 206) и при упавшем запросе статики (строка 274).
+     Но эти catch срабатывают не только без сети: тот же путь даёт любой
+     сетевой сбой одного запроса — 404 постороннего файла, таймаут
+     опроса data.json с cache:'no-store', отказ CORS. Плашка «Офлайн-режим:
+     данные могут быть устаревшими» появлялась при полностью рабочей сети,
+     а по навигации online её никто не гасил, если браузер не послал
+     событие online.
+
+     Теперь признак один и проверяемый: navigator.onLine === false.
+     События online/offline остались — они и меняют состояние, но решает
+     не сообщение, а факт. Автоскрытия через 5 секунд нет намеренно:
+     офлайн не проходит сам, и плашка, исчезнувшая без причины, вводила
+     бы в заблуждение сильнее, чем её отсутствие. */
+  function isReallyOffline() {
+    return navigator.onLine === false;
+  }
+
   function showBadge() {
     if (badge) return;
+    if (!isReallyOffline()) return;      // ложное срабатывание от sw.js
     badge = document.createElement('div');
     badge.id = 'pwaOfflineBadge';
     badge.setAttribute('role', 'status');
@@ -58,7 +79,16 @@
     });
   }
 
-  window.addEventListener('offline', showBadge);
-  window.addEventListener('online', hideBadge);
-  if (!navigator.onLine) showBadge();
+  /* События остались, но теперь решает navigator.onLine, а не факт
+     события: событие offline может прийти при сбое одного запроса,
+     и тогда navigator.onLine по-прежнему true. */
+  window.addEventListener('offline', function () {
+    if (isReallyOffline()) showBadge();
+  });
+  window.addEventListener('online', function () {
+    // Гасим по факту, а не по факту события: событие online может не прийти,
+    // если вкладка была свёрнута, тогда как navigator.onLine уже true.
+    if (!isReallyOffline()) hideBadge();
+  });
+  if (isReallyOffline()) showBadge();
 })();

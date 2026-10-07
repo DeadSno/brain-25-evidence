@@ -12,6 +12,8 @@
   <meta property="og:title" content="Атлас механизмов БАДов"/>
   <meta property="og:description" content="25 тегов × 130 добавки: что работает для какой цели."/>
   <meta property="og:url" content="https://deadsno.github.io/brain-25-evidence/atlas.html"/>
+  <link rel="canonical" href="https://deadsno.github.io/brain-25-evidence/atlas.html">
+  <link rel="alternate" type="application/rss+xml" title="brain-25-evidence" href="https://deadsno.github.io/brain-25-evidence/feed.xml">
   <meta property="og:image" content="https://deadsno.github.io/brain-25-evidence/og.png"/>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -248,7 +250,8 @@ footer { font-size: 1rem !important; }
 </footer>
 </div>
 
-<script src="https://unpkg.com/vis-network@9.1.9/standalone/umd/vis-network.min.js"></script>
+<!-- v5.6.1: vis-network вендорен в docs/vendor/ — снапшоты страницы больше не зависят от unpkg -->
+<script src="vendor/vis-network-9.1.9.min.js"></script>
 <script>
 // ── XSS protection ─────────────────────────────────────────────
 function esc(s) {

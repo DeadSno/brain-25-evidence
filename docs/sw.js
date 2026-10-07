@@ -118,8 +118,37 @@ self.addEventListener('activate', event => {
    а CACHE_VERSION — с v78 на v79: style.css входит в STATIC_ASSETS и
    отдаётся cacheFirstForStatic, а ?v= при кэшировании через SW не
    различается. Без обоих бампов фикс не дошёл бы до пользователей. */
+/* v81 (2026-10-06, v5.6.1): в STATIC_ASSETS добавлен './sup/index.html' —
+   каталог 130 страниц sup/*.html. До этого в прекеше лежали пять отдельных
+   страниц (kreatin, magniy, omega-3, paba, vitamin-d): по прямой ссылке
+   извне они открывались офлайн, но сам каталог — точка входа, из которой
+   на них переходят, — не открывался вообще.
 
-var CACHE_VERSION = 'v80';
+   Путь записан как './sup/index.html' — с './' и без ведущего слэша, как у
+   остальных записей списка. cache.add() разрешает относительный URL по
+   scope регистрации worker'а, поэтому ключом кэша становится
+   http://<host>/sup/index.html — ровно тот адрес, которым приходит
+   навигация, и точное совпадение в cacheFirstForStatic срабатывает без
+   ignoreSearch. С ведущим слэшем ключ уехал бы в /sup/... от корня
+   сервера, и на GitHub Pages (сайт лежит в /brain-25-evidence/) совпадение
+   сломалось бы молча.
+
+   Чего это НЕ даёт: каталог ссылается на 130 страниц, в прекеше их пять.
+   Офлайн остальные 125 ссылок попадают в ветку навигации и получают
+   offline.html — честное «нет соединения», а не чужая страница (блок про
+   FALLBACK_HTML выше). Полный офлайн-каталог — это 130 файлов в кэше;
+   решение за владельцем, здесь оно не принято.
+
+   ?v= нигде не поднят: sup/index.html — HTML, а версионируются в страницах
+   только CSS и скрипты (style.css?v=414). Бамп CACHE_VERSION v80 -> v81
+   обязателен по правилу из шапки файла: install кладёт STATIC_ASSETS в кэш
+   с именем CACHE_VERSION, а activate удаляет все кэши, кроме двух текущих,
+   то есть новый кэш собирается с нуля. Без бампа новый список лёг бы в
+   старый v80-static, где удалённые из STATIC_ASSETS файлы остались бы
+   навсегда: чистит их только activate, а он без смены имени не чистит
+   ничего. */
+
+var CACHE_VERSION = 'v83';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
@@ -131,6 +160,13 @@ var CACHE_DATA = CACHE_VERSION + '-data';
    под это НЕ подходят (там после /data идёт _ma_timeline / _price_history) и
    остаются в статике, как и раньше. */
 var DATA_RE = /\/data(_index)?\.json$/;
+
+/* sup/*.html, кроме sup/index.html. Каталог и пять прекешенных страниц
+   (kreatin, magniy, omega-3, paba, vitamin-d) остаются в STATIC_ASSETS и
+   идут через cacheFirstForStatic. Остальные 125 страниц — stale-while-revalidate:
+   при первом визите кэш пуст, запрос идёт в сеть и кэшируется; при повторном
+   кэш отдаётся сразу, а свежая копия догружается в фоне. */
+var SUP_HTML_RE = /\/sup\/[^\/]+\.html$/;
 
 /* Главная — единственный допустимый fallback для навигации на корень.
    Раньше FALLBACK_HTML подставлялся ЛЮБОМУ упавшему GET, из-за чего офлайн
@@ -153,12 +189,14 @@ var STATIC_ASSETS = [
   './support.html',
   './offline.html',
   './manifest.webmanifest',
+  './feed.xml',
   './pwa.js',
   './version.js',
   './script.js',
   './style.css',
   './effect_tags.json',
   './effect_labels.json',
+  './sup/index.html',
   './sup/kreatin.html',
   './sup/magniy.html',
   './sup/omega-3.html',
@@ -331,6 +369,45 @@ async function cacheFirstForStatic(req) {
   }
 }
 
+/* Stale-while-revalidate для sup/*.html (кроме sup/index.html).
+   При первом визите страницы нет в кэше — запрос идёт в сеть, ответ
+   кэшируется. При повторном визите кэш отдаётся сразу (без задержки),
+   а в фоне догружается свежая копия и заменяет кэш. Так правки страниц
+   доходят до пользователей при следующей загрузке, а не после сброса
+   кэша или бампа CACHE_VERSION. */
+async function staleWhileRevalidateForSup(req) {
+  var cache = await caches.open(CACHE_STATIC);
+  var key = staticCacheKey(req);
+  var cached = await cache.match(key);
+
+  /* Фоновая загрузка свежей копии. Запускается всегда, но результат
+     используется только при первом визите (в кэше пусто). При повторном
+     визите ошибка фоновой загрузки не страшна: кэш уже отдан пользователю. */
+  var fetchPromise = fetch(req).then(function (resp) {
+    if (resp && resp.ok) cache.put(key, resp.clone());
+    return resp;
+  }).catch(function () {
+    /* Фон не смог обновить кэш — молча, пользователь уже видит кэш. */
+  });
+
+  if (cached) {
+    /* Повторный визит: отдаём кэш сразу, свежесть — при следующей загрузке. */
+    return cached;
+  }
+
+  /* Первый визит: в кэше пусто, ждём сеть. Офлайн — честный offline.html. */
+  try {
+    var resp = await fetchPromise;
+    if (resp && resp.ok) return resp;
+    throw new Error('sup not 200');
+  } catch (err) {
+    notifyOffline();
+    var loose = await cache.match(req, { ignoreSearch: true });
+    if (loose) return loose;
+    return cache.match(OFFLINE_URL);
+  }
+}
+
 self.addEventListener('install', function (event) {
   event.waitUntil(
     caches.open(CACHE_STATIC).then(function (cache) {
@@ -365,7 +442,64 @@ self.addEventListener('fetch', function (event) {
 
   if (DATA_RE.test(url.pathname)) {
     event.respondWith(networkFirstForData(req));
+  } else if (SUP_HTML_RE.test(url.pathname) && url.pathname.indexOf('/sup/index.html') === -1) {
+    event.respondWith(staleWhileRevalidateForSup(req));
   } else {
     event.respondWith(cacheFirstForStatic(req));
   }
 });
+
+/* v82 (2026-10-06, v5.6.1): sup/*.html (кроме sup/index.html) переведены
+   на stale-while-revalidate. До этого все HTML страницы шли через
+   cacheFirstForStatic: при повторном визите отдавалась копия с момента
+   первого посещения, и правки страниц не доходили до пользователей,
+   пока они сами не сбрасывали кэш. Это приемлемо для корневых страниц и
+   пяти прекешенных sup (kreatin, magniy, omega-3, paba, vitamin-d) — они
+   меняются редко, а их кэш чистит бамп CACHE_VERSION. Остальные 125 страниц
+   каталога менялись чаще (правки текстов, ссылок, данных), и каждый бамп
+   CACHE_VERSION из-за правки одной страницы — это пересборка кэша у всех
+   пользователей.
+
+   Стратегия stale-while-revalidate: при первом визите страницы нет в
+   кэше, запрос идёт в сеть, ответ кэшируется; при повторном визите
+   отдаётся кэш сразу (без задержки), а в фоне идёт загрузка свежей копии,
+   которая заменяет кэш. Пользователь всегда получает страницу мгновенно,
+   а правки доходят до него при следующей загрузке.
+
+   sup/index.html не тронут: он в прекеше STATIC_ASSETS и остаётся
+   cacheFirstForStatic. Каталог — точка входа, и его офлайн-доступность
+   важнее свежести. Пять прекешенных страниц тоже не тронуты: их кэш
+   чистится бампом CACHE_VERSION, и SWR не нужен.
+
+   Бамп CACHE_VERSION v81 -> v82 обязателен: без него существующие
+   пользователи не получат новый sw.js, потому что браузер проверяет
+   файл на изменение, а sw.js уже у них в кэше под старой версией. */
+
+/* v83 (2026-10-07, v5.6.1): в STATIC_ASSETS добавлен './feed.xml' —
+   RSS-фид из scripts/build_feed.py (131 запись: каталог + 130 карточек).
+
+   Зачем: фид не входил в precache, поэтому офлайн отдавал по нему
+   offline.html — подписчик, у которого пропал интернет, получал вместо
+   ленты страницу «нет соединения». Для автоопределения фида браузеру
+   достаточно <link rel="alternate"> в head (он есть на всех 143
+   страницах), но кеша за этой ссылкой не было.
+
+   Стратегия: feed.xml не подпадает ни под DATA_RE, ни под SUP_HTML_RE,
+   поэтому уходит в общую ветку cacheFirstForStatic. Для статического
+   файла, меняющегося раз в месяц, это правильный выбор: stale-while-
+   revalidate как у 125 карточек тут не нужен, а свежесть и так
+   обеспечивается бампом CACHE_VERSION ниже.
+
+   Путь записан как './feed.xml' — с './' и без ведущего слэша, по той же
+   причине, что и у './sup/index.html' (см. запись v81): cache.add()
+   разрешает относительный URL по scope worker'а, поэтому ключом кэша
+   становится http://<host>/feed.xml — ровно тот адрес, которым приходит
+   запрос. На GitHub Pages (сайт лежит в /brain-25-evidence/) это
+   единственная форма, при которой точное совпадение в cacheFirstForStatic
+   срабатывает без ignoreSearch.
+
+   Бамп CACHE_VERSION v82 -> v83 обязателен по правилу из шапки файла:
+   install кладёт STATIC_ASSETS в кэш с именем CACHE_VERSION, а activate
+   удаляет всё, кроме двух текущих. Без бампа новый список лёг бы в старый
+   v82-static и офлайн-фид так и не появился бы: cache.add() не перезаписывает
+   уже закешированный ключ, если файл не менялся. */
