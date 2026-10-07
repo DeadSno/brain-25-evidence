@@ -27,6 +27,6 @@ guidelines, how_to_choose). Писались вручную на старте п
 
 ## Выход
 
-Один файл: `reports/q14_audit_existing.md`.
+Один файл: `reports/archive/q14_audit.md`.
 
 Формат — по каждой карточке:

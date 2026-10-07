@@ -46,13 +46,21 @@
 ## MCP
 
 - `context7` — документация библиотек, remote
-- `playwright` — браузерная автоматизация, local (`@playwright/mcp`)
+- `playwright` — браузерная автоматика, local (`@playwright/mcp`)
+- `serena` — LSP-навигация и семантический анализ кода, local (29 tools)
 - `exa` — выключен (`enabled: false`)
 - `duckdb` — выключен (`enabled: false`), путь в `data/db/brain.duckdb`
 
 ## LSP
 
-Подхватываются автоматически, отдельного блока `lsp` в конфиге нет.
+Навигацию по коду даёт Serena MCP (29 tools): определения, references,
+символы, структура. Работает через semantic retrieval, а не regex по
+тексту. Для навигации Serena — основной инструмент; ручной `grep` по коду
+использовать только как fallback.
+
+Отдельные языковые серверы тоже подключены — блок `lsp` в `opencode.json`
+явный, а не автоматический (устаревшая версия этого раздела утверждала
+обратное):
 
 - `pyright` / `pyright-langserver` — Python
 - `typescript-language-server` — TypeScript
@@ -96,13 +104,22 @@
 - Fallback-плагин `@azumag/opencode-rate-limit-fallback@1.70.11`
   переключает модель при rate limit (конфиг `rate-limit-fallback.json`,
   резерв — `longcat-2.5-preview-free`).
-- **GigaChat как резервный канал — ЗАПЛАНИРОВАНО, не настроен.**
-  Статус: заблокировано, ждёт данных от владельца. Работать не будет,
-  пока в конфиге нет провайдера.
-  Что мешает: в задании указан `baseURL: https://api.gigachat.local/v1` —
-  домен `.local` не резолвится, это нерабочий адрес. Плюс в npm нет
-  ни `@ai-sdk/gigachat`, ни `opencode-gigachat` (оба E404).
-  Нужно от владельца: рабочий `baseURL` GigaChat и решение, где хранить
-  credentials. Authorization Key прислан в чат 2026-10-07 — в конфиг он
-  НЕ записан: это означало бы положить секрет в открытый репозиторий.
-  Подробности: `reports/V1_CLEANUP.md`, `reports/V2_SINGLE_AGENT_SETUP.md`.
+- **GigaChat как резервный канал — отложено.** Подробности в разделе
+  «GigaChat» ниже.
+
+## GigaChat (отложено)
+
+Плагин GigaChat для OpenCode — V1, несовместим с Desktop V2. Решение
+владельца 2026-10-07: **не устанавливать**, вернуться к вопросу позже.
+
+- Статус: отложено до появления V2-плагина или настройки gpt2giga.
+- Пересмотр: **2027-01-07** (через 3 месяца).
+- Отчёт с разбором: `reports/V561_GIGACHAT.md`.
+
+Что мешало: в задании указан `baseURL: https://api.gigachat.local/v1` —
+домен `.local` не резолвится, это нерабочий адрес. Плюс в npm нет
+ни `@ai-sdk/gigachat`, ни `opencode-gigachat` (оба E404). Authorization Key
+прислан в чат 2026-10-07 — в конфиг НЕ записан: это означало бы положить
+секрет в открытый репозиторий.
+
+Прежние упоминания: `reports/V1_CLEANUP.md`, `reports/V2_SINGLE_AGENT_SETUP.md`.
