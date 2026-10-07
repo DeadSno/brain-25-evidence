@@ -96,8 +96,13 @@
 - Fallback-плагин `@azumag/opencode-rate-limit-fallback@1.70.11`
   переключает модель при rate limit (конфиг `rate-limit-fallback.json`,
   резерв — `longcat-2.5-preview-free`).
-- **GigaChat как резервный канал — не настроен.** В задании был указан
-  `baseURL: https://api.gigachat.local/v1`; это нерабочий адрес
-  (домен `.local` не резолвится), и переменная `GIGACHAT_CREDENTIALS` не
-  задана. Настройка требует реальных учётных данных — см.
-  `reports/V2_SINGLE_AGENT_SETUP.md` §2.
+- **GigaChat как резервный канал — ЗАПЛАНИРОВАНО, не настроен.**
+  Статус: заблокировано, ждёт данных от владельца. Работать не будет,
+  пока в конфиге нет провайдера.
+  Что мешает: в задании указан `baseURL: https://api.gigachat.local/v1` —
+  домен `.local` не резолвится, это нерабочий адрес. Плюс в npm нет
+  ни `@ai-sdk/gigachat`, ни `opencode-gigachat` (оба E404).
+  Нужно от владельца: рабочий `baseURL` GigaChat и решение, где хранить
+  credentials. Authorization Key прислан в чат 2026-10-07 — в конфиг он
+  НЕ записан: это означало бы положить секрет в открытый репозиторий.
+  Подробности: `reports/V1_CLEANUP.md`, `reports/V2_SINGLE_AGENT_SETUP.md`.

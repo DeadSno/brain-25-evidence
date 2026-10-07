@@ -148,7 +148,7 @@ self.addEventListener('activate', event => {
    навсегда: чистит их только activate, а он без смены имени не чистит
    ничего. */
 
-var CACHE_VERSION = 'v82';
+var CACHE_VERSION = 'v83';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
@@ -189,6 +189,7 @@ var STATIC_ASSETS = [
   './support.html',
   './offline.html',
   './manifest.webmanifest',
+  './feed.xml',
   './pwa.js',
   './version.js',
   './script.js',
@@ -473,3 +474,32 @@ self.addEventListener('fetch', function (event) {
    Бамп CACHE_VERSION v81 -> v82 обязателен: без него существующие
    пользователи не получат новый sw.js, потому что браузер проверяет
    файл на изменение, а sw.js уже у них в кэше под старой версией. */
+
+/* v83 (2026-10-07, v5.6.1): в STATIC_ASSETS добавлен './feed.xml' —
+   RSS-фид из scripts/build_feed.py (131 запись: каталог + 130 карточек).
+
+   Зачем: фид не входил в precache, поэтому офлайн отдавал по нему
+   offline.html — подписчик, у которого пропал интернет, получал вместо
+   ленты страницу «нет соединения». Для автоопределения фида браузеру
+   достаточно <link rel="alternate"> в head (он есть на всех 143
+   страницах), но кеша за этой ссылкой не было.
+
+   Стратегия: feed.xml не подпадает ни под DATA_RE, ни под SUP_HTML_RE,
+   поэтому уходит в общую ветку cacheFirstForStatic. Для статического
+   файла, меняющегося раз в месяц, это правильный выбор: stale-while-
+   revalidate как у 125 карточек тут не нужен, а свежесть и так
+   обеспечивается бампом CACHE_VERSION ниже.
+
+   Путь записан как './feed.xml' — с './' и без ведущего слэша, по той же
+   причине, что и у './sup/index.html' (см. запись v81): cache.add()
+   разрешает относительный URL по scope worker'а, поэтому ключом кэша
+   становится http://<host>/feed.xml — ровно тот адрес, которым приходит
+   запрос. На GitHub Pages (сайт лежит в /brain-25-evidence/) это
+   единственная форма, при которой точное совпадение в cacheFirstForStatic
+   срабатывает без ignoreSearch.
+
+   Бамп CACHE_VERSION v82 -> v83 обязателен по правилу из шапки файла:
+   install кладёт STATIC_ASSETS в кэш с именем CACHE_VERSION, а activate
+   удаляет всё, кроме двух текущих. Без бампа новый список лёг бы в старый
+   v82-static и офлайн-фид так и не появился бы: cache.add() не перезаписывает
+   уже закешированный ключ, если файл не менялся. */
