@@ -5,10 +5,16 @@ on:
   # v5.1-dev убрана из push.branches ещё в v5.4.1 — там джоб был красным
   # всегда. В pull_request ветка оставлена: PR к ней запускает проверку
   # сознательно, человек сделал это руками и результат увидит.
+  #
+  # 2026-10-07: добавлена v5.6-dev, убрана v5.1-dev из обоих списков.
+  # Причина, измеренная на этой ветке: ветки v5.6-dev в списке не было,
+  # поэтому CI не запускался на ней вообще — вся работа шагов DATA_P1_FIX,
+  # DATA_LIVE_RUN, DATA_COMMIT и DOCS_COMMIT проверялась только локальным
+  # pytest. Ветка v5.1-dev числилась с v5.4.1 как остаток и была мёртвой.
   push:
-    branches: [main]
+    branches: [main, v5.6-dev]
   pull_request:
-    branches: [main, v5.1-dev]
+    branches: [main, v5.6-dev]
   workflow_dispatch:
 
 jobs:
