@@ -289,3 +289,6 @@ logs/
 # project.local.yml, поэтому каталог целиком виден git — здесь он
 # исключён явно.
 .serena/
+
+# Локальный Modelfile для Ollama (не часть проекта)
+Modelfile
