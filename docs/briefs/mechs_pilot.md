@@ -60,12 +60,12 @@
 
 ## Отчёт
 
-`reports/mechs_pilot.md` — с обоснованием каждого нового механизма (какая PMID, какая цитата).
+`reports/archive/mechs_pilot.md` — с обоснованием каждого нового механизма (какая PMID, какая цитата).
 
 ## DoD
 
 - `reports/mechs_pilot_proposal.json` создан, валидный JSON
-- `reports/mechs_pilot.md` создан, есть ссылки на PMIDs
+- `reports/archive/mechs_pilot.md` создан, есть ссылки на PMIDs
 - `docs/data.json` НЕ тронут
 - Никаких коммитов (пользователь сам закоммитит после ревью)
 

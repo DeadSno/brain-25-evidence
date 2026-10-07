@@ -29,6 +29,6 @@ guidelines, how_to_choose) заполнены у 30 карточек:
 
 ## Выход
 
-Один файл: `reports/q14_audit.md`.
+Один файл: `reports/archive/q14_audit.md`.
 
 Формат — **по каждой карточке**:
