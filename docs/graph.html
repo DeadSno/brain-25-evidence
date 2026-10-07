@@ -126,10 +126,20 @@
                  color: #000000;
              }
 
+             /* v5.6.2 (P0): ширина была жёсткими 600px. #loadingBar — position:absolute
+                с width:100% от initial containing block, то есть от ширины экрана.
+                На узком экране плашка шире родителя и её правый край уезжает за
+                границу документа: замер 2026-10-07 (Playwright, Chromium) —
+                scrollWidth 600 при clientWidth 305 на 320px и при 397 на 412px,
+                то есть горизонтальный скролл на всех экранах уже 600px.
+                На 768+ 600px помещались, поэтому баг был не виден на десктопе.
+                600px — это размер, который pyvis рассчитывал под десктопную
+                подложку; сохраняем его как потолок, но разрешаем ужиматься. */
              div.outerBorder {
                  position:relative;
                  top:400px;
-                 width:600px;
+                 width:100%;
+                 max-width:600px;
                  height:44px;
                  margin:auto auto auto auto;
                  border:8px solid rgba(0,0,0,0.1);
@@ -143,6 +153,31 @@
                  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfcfc', endColorstr='#ededed',GradientType=0 ); /* IE6-9 */
                  border-radius:72px;
                  box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+             }
+
+             /* v5.6.2 (P0): одной границы контейнера мало — #border и #text
+                внутри плашки заданы в пикселях (#border 500px от левого края,
+                #text 530px от левого края), поэтому на узком экране они сами
+                вылезали за плашку и горизонтальный скролл возвращался.
+                Переводим их в проценты от padding box плашки: 100% минус 10px
+                слева, 10px справа и 30px под #text. 60px — это 10 + 30 + 10
+                плюс зазор 10px между дорожкой и процентом, чтобы они
+                не наезжали друг на друга.
+
+                Порог 620px, а не 600px, — с запасом на вертикальный скролл:
+                при ширине окна 620px initial containing block уже 605px, и без
+                медиазапроса плашка получила бы 600px при выключенных
+                процентах. Выше порога плашка равна 600px, и правила в пикселях
+                дают ровно ту же картинку, что была до правки: #border 10→510,
+                #text 530→560 при padding box 584px. */
+             @media (max-width: 620px) {
+                 #border {
+                     width: calc(100% - 60px);
+                 }
+                 #text {
+                     left: auto;
+                     right: 10px;
+                 }
              }
 
         </style>
@@ -169,7 +204,7 @@ try {
   }
 } catch (e) {}
 </script>
-    <link rel="stylesheet" href="style.css?v=414">
+    <link rel="stylesheet" href="style.css?v=415">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://deadsno.github.io/brain-25-evidence/graph.html">
     <link rel="canonical" href="https://deadsno.github.io/brain-25-evidence/graph.html">
@@ -385,6 +420,34 @@ try {
 
                   network = new vis.Network(container, data, options);
 
+                      /* v5.6.2 (найдено при P0-фиксе): плашка загрузки
+                         оставалась поверх страницы навсегда.
+
+                         Причина: выше stabilization.enabled = !(window.__posApplied > 0),
+                         то есть при предрасчётных позициях стабилизация выключена.
+                         А событие stabilizationIterationsDone при выключенной
+                         стабилизации не приходит вовсе — значит код, который
+                         прячет плашку, не выполнялся никогда. Замерено 2026-10-07
+                         на 320/412/768/1280/1920: display:block, opacity:1,
+                         бокс 397x800 в точке (0,0), фон rgba(28,28,30,.95).
+                         Плашка не просто видна — она перехватывала тапы:
+                         elementFromPoint в центре <h1> попадал в DIV#loadingBar.
+                         Регрессия пришла вместе с предрасчётом позиций
+                         (v5.6.0/v5.6.1, graph_positions.json).
+
+                         Тесты её не ловили: в tests/test_visual_snapshots.py:158
+                         есть KILL_CSS с #loadingBar{display:none!important},
+                         и комментарий над ним утверждал, что «в покое у плашки
+                         display:none». Это предположение было неверным — маска
+                         скрывала баг от всех снимков. */
+                      var hideLoadingBar = function () {
+                          var lb = document.getElementById('loadingBar');
+                          if (!lb) return;
+                          lb.style.opacity = 0;
+                          // really clean the dom element
+                          setTimeout(function () { lb.style.display = 'none'; }, 500);
+                      };
+
                       network.on("stabilizationProgress", function(params) {
                           document.getElementById('loadingBar').removeAttribute("style");
                           var maxWidth = 496;
@@ -397,10 +460,25 @@ try {
                       network.once("stabilizationIterationsDone", function() {
                           document.getElementById('text').innerHTML = '100%';
                           document.getElementById('bar').style.width = '496px';
-                          document.getElementById('loadingBar').style.opacity = 0;
-                          // really clean the dom element
-                          setTimeout(function () {document.getElementById('loadingBar').style.display = 'none';}, 500);
+                          hideLoadingBar();
                       });
+
+                      /* Основной путь для страницы: стабилизации нет, потому
+                         что координаты пришли готовыми, и событие
+                         stabilizationIterationsDone не сработает никогда.
+                         Прячем плашку по первому отрисованному кадру.
+
+                         Условие __posApplied > 0 здесь не формальность: без него
+                         кадр пришёл бы и на медленном пути (файла позиций нет,
+                         стабилизация считается до 21 секунды) — плашка исчезла
+                         бы на первом же кадре, и человек 21 секунду смотрел бы
+                         на разлетающийся граф без индикатора. Условие совпадает
+                         со стабилизацией в options выше: она тоже включается по
+                         !(__posApplied > 0), так что пути взаимно исключают
+                         друг друга и на медленном пути поведение прежнее. */
+                      if (window.__posApplied > 0) {
+                          network.once("afterDrawing", hideLoadingBar);
+                      }
 
                   return network;
 

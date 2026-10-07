@@ -25,7 +25,7 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=414">
+<link rel="stylesheet" href="style.css?v=415">
 <!-- v5.6.1: chart.js вендорен в docs/vendor/ — без сети графики на странице не рисуются -->
 <script src="vendor/chart.umd-4.4.1.min.js"></script>
 <script src="version.js?v=312"></script>
@@ -34,8 +34,14 @@ try {
   .filters{display:flex;flex-wrap:wrap;gap:.8rem 1.2rem;margin:var(--space-4) 0;padding:.8rem var(--space-4);
     background:var(--card-bg);border:1px solid var(--border);border-radius:10px}
   .filters label{display:flex;align-items:center;gap:.4rem;font-size:.9rem}
+  /* v5.6.2 P1 (тач-таргеты): было 34px — замерено на всех четырёх селектах
+     при 320 и 412. padding был var(--space-0-3) = .3rem = 4.8px; при .7rem
+     бокс становится 46.8px, плюс min-height как страховка от смены шрифта.
+     Горизонтальный padding не тронут — иначе съехала бы ширина узких
+     селектов (gradeFilter 67px, topFilter 58px) и фильтры перестали бы
+     помещаться в строку на 320. */
   .filters select{background:var(--card-bg);color:var(--text);border:1px solid var(--border);
-    border-radius:var(--radius-md);padding:var(--space-0-3) var(--space-2);font-size:16px}
+    border-radius:var(--radius-md);padding:.7rem var(--space-2);font-size:16px;min-height:44px}
   .tr-tabs{display:flex;gap:.4rem;margin:var(--space-4) 0 .6rem;flex-wrap:wrap}
   .tr-tab{background:var(--card-bg);color:var(--text);border:1px solid var(--border);
     padding:var(--space-2) var(--space-4);border-radius:var(--radius-lg);cursor:pointer;font-size:.92rem}
