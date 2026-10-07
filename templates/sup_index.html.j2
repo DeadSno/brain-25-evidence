@@ -6,6 +6,10 @@
     <title>Каталог БАДов: {{ total }} добавок с оценкой доказательности | Brain 25 Evidence</title>
     <meta name="description" content="Каталог из {{ total }} БАД: название, категория, вердикт и грейд доказательности A-D. Карточка ведёт на страницу добавки с механизмами, дозировкой, взаимодействиями и источниками.">
     <link rel="canonical" href="{{ url }}">
+    {# v5.6.0 этап 5: RSS-фид docs/feed.xml. Каталог — вход в раздел,
+       поэтому ссылка на фид здесь нужна не меньше, чем на карточках.
+       Комментарий закрыт без перевода строки, иначе в вывод попала бы
+       строка из одних пробелов. #}<link rel="alternate" type="application/rss+xml" title="brain-25-evidence" href="{{ base_url }}/feed.xml">
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ url }}">
     <meta property="og:title" content="Каталог БАДов: {{ total }} добавок | Brain 25 Evidence">

@@ -6,6 +6,12 @@
     <title>{{ name }} — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
     <meta name="description" content="{{ about }}">
     <link rel="canonical" href="{{ url }}">
+    {# v5.6.0 этап 5: RSS-фид docs/feed.xml (scripts/build_feed.py).
+       Ссылка на него — в <head> каждой страницы: без неё фид не находится
+       ни автообнаружением, ни вкладкой «RSS» в браузере. Адрес абсолютный,
+       потому что фид лежит в корне docs/, а карточка — на уровень ниже.
+       Комментарий закрыт без перевода строки, как у style.css ниже, иначе
+       в 130 страниц попала бы строка из одних пробелов. #}<link rel="alternate" type="application/rss+xml" title="brain-25-evidence" href="{{ base_url }}/feed.xml">
     <meta property="og:type" content="article">
     <meta property="og:url" content="{{ url }}">
     <meta property="og:title" content="{{ name }} — Brain 25 Evidence">
