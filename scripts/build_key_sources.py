@@ -57,7 +57,11 @@ def _get(url: str, params: dict) -> requests.Response:
 
 
 def top3_ma(query: str) -> list[str]:
+    # DATA-P1-4: sort=relevance обязателен. Без него PubMed отдаёт записи
+    # в произвольном порядке (по умолчанию — дата), и top-3 забивается
+    # нерелевантными статьями.
     r = _get(ESEARCH, params={"db": "pubmed", "retmode": "json", "retmax": 3,
+                              "sort": "relevance",
                               "term": f"({query}) AND meta-analysis[pt]"})
     return r.json()["esearchresult"].get("idlist", [])
 
@@ -100,10 +104,20 @@ def main() -> None:
     ok = 0
     for s in data:
         name = s["name"]
-        s["price_date"] = pdates.get(s["id"], "дата неизвестна")
+        # DATA-P1-5: price_date пишем ТОЛЬКО когда есть реальные данные.
+        # Раньше строка была безусловной, и при отсутствующем
+        # data/processed/price_history.csv все 130 карточек получали
+        # заглушку "дата неизвестна" — она ничем не подкреплялась и
+        # только засоряла файл. Пустой price_dates() = нет CSV = не пишем
+        # поле вовсе; docs/script.js:420 умеет показывать заглушку сам
+        # (s.price_date || 'цена неизвестна').
+        if pdates:
+            s["price_date"] = pdates.get(s["id"], "дата неизвестна")
         q = SUPPLEMENTS.get(name)
         if not q:
-            s["ma_top3"] = []
+            # DATA-P1-1: нет запроса в SUPPLEMENTS — ma_top3 НЕ трогаем.
+            # Раньше здесь стояло s["ma_top3"] = [], из-за чего повторный
+            # прогон обнулял 165 PMID у 56 карточек без query.
             continue
         try:
             pmids = top3_ma(q)
@@ -111,8 +125,9 @@ def main() -> None:
             s["ma_top3"] = summaries(pmids)
             time.sleep(SLEEP)
         except RuntimeError as e:
+            # DATA-P1-1: сбой сети — сохраняем прежнее ma_top3, только лог.
+            # Раньше здесь стояло s["ma_top3"] = [].
             print(f"⚠️ {name}: {e}")
-            s["ma_top3"] = []
             continue
         if s["ma_top3"]:
             ok += 1
