@@ -131,7 +131,7 @@
 
 **Документация:**
 - docs/dev/AI_CONTEXT.md ← этот файл
-- docs/dev/ROADMAP_NEW.md — план
+- reports/archive/v560/ROADMAP_NEW.md — план (архив; актуальный план — корневой `ROADMAP.md`)
 - reports/PRODUCT_AUDIT.md — 50 находок
 - reports/AUDIT_REPORT.md — технический аудит
 - .opencode/skills/SKILLS_INDEX.md — карта скиллов
