@@ -21,6 +21,7 @@ DATA = ROOT / "docs" / "data.json"
 SNAP = ROOT / "tests" / "snapshot_data.json"
 
 
+@pytest.mark.snapshot_data
 def test_snapshot_unchanged():
     assert DATA.exists(), f"нет файла данных: {DATA}"
     cur = json.loads(DATA.read_text(encoding="utf-8"))
