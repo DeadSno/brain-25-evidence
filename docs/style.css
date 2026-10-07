@@ -131,6 +131,13 @@ section{margin-bottom:var(--space-8)}
 h2{font-size:1.3rem;font-weight:500;margin-bottom:var(--space-4)}
 label{font-weight:500;margin-right:var(--space-2)}
 select{background:var(--card-bg);color:var(--text);border:1px solid var(--border);padding:.4rem .8rem;border-radius:var(--radius-md);font-size:16px}
+/* v5.6.2 (#94): тач-таргет селектов. Замер 2026-10-07: 4 селекта на index
+   давали 37px, 2 на calculator — 38px, при пороге 44px (WCAG 2.5.5 AA).
+   min-height надёжнее, чем подгонка padding: у select высота зависит от
+   padding и font-size, и на разных шрифтах плато гуляет. min-height
+   задаёт нижнюю границу, а если padding уже даёт больше — не мешает.
+   trends.html с 34px до 46px поднят отдельно, локальным правилом. */
+select{min-height:44px}
 /* v5.0.0 mobile: iOS Safari зумит страницу при фокусе на поле с font-size < 16px,
    после чего появляется горизонтальный скролл. Базовый порог 16px для всех полей.
    Страничные правила вида `.params input{font-size:.9rem}` (calculator.html:45,48,61),
@@ -1020,6 +1027,13 @@ html:not(.light) .btn.is-share-error { border-color: #ff5252; color: #ff5252; }
     justify-content: flex-end !important;
     flex-wrap: wrap !important;
     gap: .4rem !important;
+    /* v5.6.2 (#96): min-width:0 обязателен и здесь. Обёртка header.top
+       на мобильном — display:grid с grid-template-areas, а .actions лежит
+       в именованной области "actions". Без min-width:0 грид-элемент не
+       сжимается: замер на interactions.html давал бокс .actions 873px
+       при колонке 286px, и вся страница уезжала в горизонтальный скролл
+       (scrollWidth 882 при clientWidth 305). */
+    min-width: 0 !important;
   }
   header.top .site-title .v { display: none !important; }
 }
@@ -1107,6 +1121,74 @@ header.top .v {
   margin-left: var(--space-2);
 }
 .actions { display: flex; gap: var(--space-2); flex-wrap: wrap; align-items: center; }
+
+/* v5.6.2 (#96, T1 P0): компактная шапка на телефоне.
+   Замер 2026-10-07 на 13 страницах: .site-header занимал 294-511px при
+   высоте вьюпорта 640px, то есть до 80% экрана. Причина — 11 кнопок
+   навигации в .actions с flex-wrap: на 320px они давали 8 рядов и 419px
+   высоты. Свободной полосы оставалось 129-132px, при глубоком скролле
+   читаемых элементов в ней было 0 из 35.
+
+   Лечится одной строкой: кнопки в один ряд с горизонтальной прокруткой.
+   Шапка становится ~90px вместо 419-511px.
+
+   !important здесь обязателен, а не по привычке: на строке 745 стоит
+   header.top .actions{flex-wrap:wrap!important} внутри @media(max-width:480px).
+   Без !important наше правило проиграло бы на всех экранах ≤480px — то есть
+   ровно там, где проблема острее всего, и правка молча не сработала бы.
+   Селектор взят шире исходного (.site-header .actions), чтобы накрыть и
+   обёртку, и внутренний header.top.
+
+   Скроллбар спрятан намеренно: иначе он сам съедает ~15px высоты, ради
+   которой правка и делается. Полосу прокрутки у .actions нет и на десктопе
+   (правило действует только ≤620px), так что скролл выглядит как свайп
+   пальцем — обычный приём для горизонтального меню.
+
+   scrollbar-width — Firefox, ::-webkit-scrollbar — Chrome/Safari/Edge. */
+@media (max-width: 620px) {
+  .site-header .actions,
+  .top .actions,
+  header.top .actions {
+    flex-wrap: nowrap !important;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+
+    /* min-width:0 — обязателен, найдено замером на interactions.html.
+       Там .top это display:grid, а .actions — grid-item. У грид-элемента
+       min-width:auto, то есть он отказывается сжиматься уже содержимого.
+       Из-за этого overflow-x:auto не давал ничего: бокс .actions был
+       873px при родителе 286px, и горизонтальный скролл уезжал на всю
+       страницу (scrollWidth 882 при clientWidth 305). min-width:0 снимает
+       это ограничение, и скролл остаётся внутри шапки.
+
+       justify-content:flex-start — по той же строке 745 стоит
+       justify-content:flex-end!important. При nowrap с переполнением
+       flex-end выталкивает начало списка за левый край, и до него
+       нельзя доскроллить (scrollLeft не увеличивается). */
+
+    min-width: 0;
+    justify-content: flex-start !important;
+
+    /* width:100% — тоже обязателен, и это второй слой того же бага.
+       На interactions.html один min-width:0 не помог: бокс оставался
+       873px при колонке 286px, страница уезжала в горизонтальный скролл
+       (scrollWidth 882 при clientWidth 305). Причина в том, что .actions
+       — грид-элемент в области "actions", и сам грид отдаёт ему ширину
+       по содержимому. min-width:0 снимает нижнюю границу размера, но не
+       задаёт верхнюю: нужен явный width. Проверено подстановкой
+       width:100% — бокс стал 286px, scrollWidth документа 305 при
+       clientWidth 305, скролл ушёл.
+
+       max-width:100% — страховка от повторения на других грид-шапках. */
+    width: 100%;
+    max-width: 100%;
+  }
+  .site-header .actions::-webkit-scrollbar,
+  .top .actions::-webkit-scrollbar {
+    display: none;
+  }
+}
 
 /* ═══ Кнопка «вниз» ═══ */
 .toBottom {

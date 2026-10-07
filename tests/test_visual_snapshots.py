@@ -155,7 +155,20 @@ CONVERGE_TIMEOUT_MS = 15_000
 KILL_CSS = (
     "*,*::before,*::after{transition:none!important;animation:none!important;"
     "caret-color:transparent!important;scroll-behavior:auto!important}"
-    "#loadingBar{display:none!important}"
+    # v5.6.2 (#95): правило `#loadingBar{display:none!important}` УДАЛЕНО.
+    # Оно маскировало баг, который поэтому и не был пойман: при
+    # предрасчётных позициях stabilization.enabled=false, событие
+    # stabilizationIterationsDone не приходит, и плашка оставалась
+    # display:block навсегда — вуаль rgba(28,28,30,.95) поверх страницы,
+    # перехватывавшая тапы. Комментарий над этим местом утверждал, что
+    # «в покое у плашки display:none», и это было неверно: маска делала
+    # утверждение непроверяемым прямо в том тесте, который должен был
+    # ловить регрессию.
+    #
+    # Маску можно снять, потому что баг починен (docs/graph.html,
+    # hideLoadingBar + network.once("afterDrawing")) и плашка прячется
+    # сама за ~800 мс — задолго до момента съёмки. Проверено: снятие
+    # маски не изменило ни одного эталона graph.
 )
 
 # Заморозка vis-network. Ставится через add_init_script, т.е. ДО любого скрипта
