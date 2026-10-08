@@ -627,6 +627,44 @@ function renderActiveFilters() {
   }
 }
 
+// v5.6.2 E2: разбор названия категории на группу для цветного значка.
+// Берём ПЕРВЫЙ сегмент: «Сердце/сосуды», «Сердце / сосуды» и
+// «Кожа и суставы» должны попасть в одну групму, а не в разные.
+// Порядок словаря важен: «иммунитет/антиоксидант» проверяется по
+// первому слову, «антиоксидант» без «иммунитет» — тоже immune.
+// Замер: 76 разных строк категории на главной сводятся к 13 группам,
+// покрыты все; нераспознанное даёт neutral (серый), как раньше.
+const CAT_GROUPS = [
+  ['gut',      ['жкт', 'кишечник', 'пищевар']],
+  ['cardio',   ['сердце', 'сосуд', 'кров', 'почки', 'мочеполов', 'мочевывод',
+                'вены', 'давлен']],
+  ['bone',     ['кост', 'сустав', 'минерал', 'кожа', 'остео']],
+  ['liver',    ['печень']],
+  ['brain',    ['мозг', 'когни', 'невролог', 'нервн', 'психи', 'сон', 'настроен',
+                'стресс', 'усталость', 'адаптоген', 'памят', 'деменц']],
+  ['immune',   ['иммунитет', 'орви', 'антиоксид', 'воспален', 'грибы', 'грипп']],
+  ['metab',    ['метабол', 'гормон', 'энерг', 'сексуальн', 'производительн',
+                'диабет', 'холестерин', 'вес', 'инсулин']],
+  ['sport',    ['спорт', 'мышц', 'выносл', 'бодрость']],
+  ['women',    ['беременн', 'женск', 'спкя', 'дети']],
+  ['vision',   ['зрени', 'глаза', 'сетчат', 'зрительн']],
+  ['general',  ['общее', 'старени', 'долголет', 'гериатр']],
+  ['critical', ['критическ', 'реанимац', 'интенсив']],
+];
+const catGroup = (raw) => {
+  const s = String(raw || '').toLowerCase();
+  // Первый сегмент: до «/», до « и », до запятой.
+  const head = s.split(/[\/,]|[ ]и[ ]/)[0].trim();
+  for (const [g, keys] of CAT_GROUPS) {
+    if (keys.some(k => head.includes(k))) return g;
+  }
+  // Заголовок мог не разделиться — проверяем по всей строке.
+  for (const [g, keys] of CAT_GROUPS) {
+    if (keys.some(k => s.includes(k))) return g;
+  }
+  return 'neutral';
+};
+
 function renderCards(data) {
   const g = $('cardsGrid');
   if (!data.length) { g.innerHTML = '<div class="empty">🔍 Ничего не найдено. ' +
@@ -641,11 +679,11 @@ function renderCards(data) {
     // Заголовок карточки — НЕ h3: на index их было 134 (по одной на добавку),
     // из-за чего структура документа переставала отражать реальные разделы.
     // Название добавки — strong, разделы остались h2 (P2-16).
-    '<span class="cat">' + esc(s.category || '') + '</span><strong class="card-title">' + esc(s.name) + '</strong>' +
+    '<span class="cat" data-cat-group="' + catGroup(s.category) + '">' + esc(s.category || '') + '</span><strong class="card-title">' + esc(s.name) + '</strong>' +
     updatedLine(s) + manualBadge(s) +
     '<div class="verdict v' + esc(s.code) + '">' + esc(s.verdict) + '</div>' + gradeBadge(s) +     '<div class="effects">' + (s.effects || []).map(e => '<span>' + esc(e) + '</span>').join('') + '</div>' +
     '<div class="tagChips">' + (effectTags[s.id] || []).map(t =>
-      '<span class="tagChip" data-tag="' + esc(t) + '" title="' + esc(effectLabels[t] || t) + '">' + esc(effectLabels[t] || t) + '</span>'
+      '<span class="tagChip" data-cat-group="' + catGroup(effectLabels[t] || t) + '" data-tag="' + esc(t) + '" title="' + esc(effectLabels[t] || t) + '">' + esc(effectLabels[t] || t) + '</span>'
     ).join('') + '</div></div>').join('');
   g.querySelectorAll('.card').forEach(el => {
     el.onclick = (e) => {
