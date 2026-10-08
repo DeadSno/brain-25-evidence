@@ -24,7 +24,7 @@
       }
     } catch(e) {}
     </script>
-    <link rel="stylesheet" href="../style.css?v=419">
+    <link rel="stylesheet" href="../style.css?v=420">
     <script src="../version.js?v=312"></script>
     <script src="../pwa.js?v=282" defer></script>
 <script src="../share.js?v=1" defer></script>
@@ -169,7 +169,8 @@
   <p class="links">
     <a href="../methodology.html">📐 Методология</a> ·
     <a href="../faq.html">❓ FAQ</a> ·
-    <a href="../glossary.html">📖 Глоссарий</a>
+    <a href="../glossary.html">📖 Глоссарий</a> ·
+    <a href="../privacy.html">🔐 Приватность</a>
   </p>
   <p class="copy">© 2026 Vladislav "DeadSno" Pereshivalov · MIT</p>
   <p class="share-row"><button class="btn share-page" type="button">🔗 Поделиться</button></p>
@@ -194,5 +195,22 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 </script>
 
+<!-- v5.6.2: cookie-согласие + Яндекс.Метрика (счётчик 112465667).
+     Метрика грузится ТОЛЬКО после нажатия «Принять»: до согласия
+     ни одного запроса к mc.yandex.ru не происходит. -->
+<div id="cookieBanner" role="dialog" aria-label="Согласие на использование cookie" hidden>
+  <div class="cb-text">
+    Мы используем cookie и Яндекс.Метрику, чтобы понять, какие материалы полезны.
+    Аналитика включается только после вашего согласия.
+    <a href="../privacy.html">Политика конфиденциальности</a>
+  </div>
+  <div class="cb-actions">
+    <button type="button" id="cookieAccept" class="cb-btn cb-accept">Принять</button>
+    <button type="button" id="cookieReject" class="cb-btn cb-reject">Отклонить</button>
+  </div>
+</div>
+<script src="../cookie-banner.js?v=1"></script>
+<script src="../metrika.js?v=1"></script>
+<script>initCookieBanner();</script>
 </body>
 </html>

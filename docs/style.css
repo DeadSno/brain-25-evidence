@@ -1678,3 +1678,74 @@ html.light #atl-sidebar .cta { background:#1f6fa5 }
   #atl-sidebar { padding-bottom: calc(1rem + env(safe-area-inset-bottom)); }
 }
 
+
+/* v5.6.2: cookie-баннер согласия на Яндекс.Метрику (счётчик 112465667).
+   Разметка #cookieBanner — в конце <body> каждой страницы, атрибут hidden
+   снимается только из cookie-banner.js после действий пользователя.
+
+   Ловушка [hidden]: UA-правило `[hidden]{display:none}` — не авторское,
+   поэтому любой авторский `display` на том же элементе его перебивает.
+   С `#cookieBanner{display:flex}` в базовом правиле баннер показывался бы
+   СРАЗУ и без согласия — нарушение правила приватности И расхождение
+   снапшотов (у всех 73 эталонов контекст свежий, согласия нет). Поэтому
+   базовый display:none, а flex — только на :not([hidden]). Плюс явный
+   [hidden]-якорь с !important на случай чужих переопределений ниже.
+
+   Темальная раскраска — через var(--card-bg)/var(--fg)/var(--border),
+   поэтому тёмная и светлая темы работают без отдельных блоков.
+
+   Про 1rem / 1.5rem вместо var(--space-4)/--space-3: тест
+   test_css_tokens.py::test_tokens_do_not_leak_into_other_properties
+   запрещает токены отступа в width/bottom (и прочих не-отступных
+   свойствах): первому варианту миграции это дало `margin: 10` вместо
+   числа в опциях vis-network. 1rem = --space-4, 1.5rem = 2 × --space-3. */
+#cookieBanner {
+  display: none;
+  position: fixed;
+  left: 50%;
+  bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+  transform: translateX(-50%);
+  z-index: 1100;
+  width: min(720px, calc(100vw - 1.5rem));
+  box-sizing: border-box;
+  gap: var(--space-3);
+  align-items: center;
+  flex-wrap: wrap;
+  padding: var(--space-4) var(--space-5);
+  background: var(--card-bg);
+  color: var(--fg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, .45);
+  font-size: .9rem;
+  line-height: var(--lh-normal);
+}
+#cookieBanner:not([hidden]) { display: flex; }
+#cookieBanner[hidden] { display: none !important; }
+#cookieBanner .cb-text { flex: 1 1 240px; min-width: 0; }
+#cookieBanner .cb-text a { color: var(--accent); }
+#cookieBanner .cb-actions { display: flex; gap: var(--space-2); flex: 0 0 auto; }
+#cookieBanner .cb-btn {
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--fg);
+  font-size: .85rem;
+  font-weight: 600;
+  cursor: pointer;
+  min-height: 44px; /* тач-таргет, как в правках v5.6.2 */
+}
+#cookieBanner .cb-btn:hover { border-color: var(--border-hover); }
+#cookieBanner .cb-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+/* #1f6fa5, а не var(--accent): в тёмной теме --accent = #0a84ff, белый
+   текст на нём даёт 3.68:1 — ниже AA для текста. #1f6fa5 даёт 5.42:1
+   (замер проекта из #atl-sidebar .cta, v5.6.1). */
+#cookieBanner .cb-accept { background: #1f6fa5; border-color: #1f6fa5; color: #fff; }
+#cookieBanner .cb-accept:hover { opacity: .92; border-color: #1f6fa5; }
+html.light #cookieBanner { box-shadow: 0 8px 32px rgba(0, 0, 0, .18); }
+@media (max-width: 640px) {
+  #cookieBanner { width: calc(100vw - 1.5rem); padding: var(--space-3) var(--space-4); }
+  #cookieBanner .cb-actions { flex: 1 1 100%; }
+  #cookieBanner .cb-btn { flex: 1 1 0; }
+}

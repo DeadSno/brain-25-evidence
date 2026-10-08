@@ -260,6 +260,27 @@ CHART_PATCH_JS = r"""
 })()
 """
 
+# v5.6.2: cookie-согласие для съёмки страниц — 'rejected'.
+#
+# ЗАЧЕМ (обоснование под задачу D5). Баннер согласия (#cookieBanner)
+# показывается только при ПУСТОМ localStorage['cookie-consent'] — то есть
+# на первом визите. Свежий контекст теста по умолчанию именно такой, и в
+# полностраничном снимке баннер (position:fixed, дно вьюпорта) попал бы
+# в кадр каждого из эталонов. Эталон тогда зависел бы от отсутствия
+# согласия: правка текста или стилей баннера роняла бы ВСЕ страницы, а не
+# свою.
+#
+# Выбран не KILL_CSS с `#cookieBanner{display:none!important}` (урок #95:
+# маска через CSS делала баг непроверяемым прямо в том тесте, который
+# должен был его ловить), а явное состояние: до загрузки страниц тест
+# объявляет отказ. Метрика при 'rejected' не загружается — прогон
+# снапшотов не шлёт запросов к mc.yandex.ru и не засоряет статистику
+# счётчика. Сам баннер проверяется отдельным тестом
+# test_cookie_banner_visible_first_visit со своим эталоном.
+CONSENT_INIT_JS = r"""
+try { localStorage.setItem('cookie-consent', 'rejected'); } catch (e) {}
+"""
+
 pytestmark = pytest.mark.snapshots
 
 playwright_api = pytest.importorskip("playwright.sync_api",
@@ -616,6 +637,7 @@ def test_page_snapshot(_env_checked, browser, snap_dir, page_name, width, height
     )
     ctx.add_init_script(FREEZE_JS)
     ctx.add_init_script(CHART_PATCH_JS)
+    ctx.add_init_script(CONSENT_INIT_JS)
     page = ctx.new_page()
     try:
         png = _capture(page, page_name, full_page=True)
@@ -631,6 +653,7 @@ def test_modal_index_snapshot(_env_checked, browser, snap_dir):
                               color_scheme=COLOR_SCHEME)
     ctx.add_init_script(FREEZE_JS)
     ctx.add_init_script(CHART_PATCH_JS)
+    ctx.add_init_script(CONSENT_INIT_JS)
     page = ctx.new_page()
     try:
         url = f"{BASE_URL}/index.html"
@@ -667,3 +690,70 @@ def test_modal_index_snapshot(_env_checked, browser, snap_dir):
     finally:
         ctx.close()
     _assert_snapshot("modal-index", png, snap_dir)
+
+def test_cookie_banner_visible_first_visit(_env_checked, browser, snap_dir):
+    """v5.6.2: cookie-баннер виден на первом визите, Метрика молчит.
+
+    Зеркало остальной съёмки: там localStorage['cookie-consent'] заранее
+    'rejected' (CONSENT_INIT_JS), здесь — контекст БЕЗ всякого выбора, то
+    есть самое состояние «первый визит». Проверяется ровно то, что обязано
+    быть до согласия:
+
+      1. баннер виден (display не none, непустой бокс);
+      2. НИ ОДНОГО запроса к mc.yandex.ru — loadMetrika() цепляет tag.js
+         только из обработчика «Принять»;
+      3. свой эталон баннера (по движкам, как все остальные снимки).
+
+    Ниже — клик «Принять»: после него запрос tag.js обязан появиться.
+    Проверяется факт запроса, а не ответа: без сети request-событие всё
+    равно срабатывает, тест остаётся честным.
+
+    Эталон баннера отдельный НЕ для красоты: пока он один на движок,
+    правка текста или стилей баннер горёт только своим снимком, а не 73
+    страничными (именно поэтому страницы снимаются с 'rejected').
+    """
+    ctx = browser.new_context(viewport={"width": 1280, "height": 900},
+                              service_workers="block", reduced_motion="reduce",
+                              color_scheme=COLOR_SCHEME)
+    ctx.add_init_script(CHART_PATCH_JS)
+    page = ctx.new_page()
+    yandex = []
+    page.on("request",
+            lambda r: yandex.append(r.url) if "mc.yandex.ru" in r.url else None)
+    try:
+        _open(page, f"{BASE_URL}/index.html")
+        page.wait_for_timeout(SETTLE_MS)
+
+        # Свежий контекст: выбора ещё не было.
+        assert page.evaluate(
+            "() => localStorage.getItem('cookie-consent')") is None
+
+        banner = page.locator("#cookieBanner")
+        assert banner.is_visible(), (
+            "cookie-баннер не виден на первом визите: либо нет разметки "
+            "#cookieBanner, либо CSS держит его скрытым ([hidden] vs "
+            "display), либо style.css не применился."
+        )
+
+        assert not yandex, (
+            "Метрика загрузилась ДО согласия — нарушение правила "
+            "приватности: " + ", ".join(yandex[:3])
+        )
+
+        _assert_snapshot("cookie-banner", banner.screenshot(), snap_dir)
+
+        # «Принять» — и только теперь Метрика имеет право стартовать.
+        page.click("#cookieAccept")
+        page.wait_for_timeout(2000)
+        assert any("metrika/tag.js" in u for u in yandex), (
+            "после «Принять» tag.js не запрошен: loadMetrika() не "
+            "вызван из cookie-banner.js"
+        )
+        assert page.evaluate(
+            "() => localStorage.getItem('cookie-consent')") == "accepted"
+        assert page.evaluate(
+            "() => document.getElementById('cookieBanner').hidden"), (
+            "баннер не скрылся после «Принять»"
+        )
+    finally:
+        ctx.close()

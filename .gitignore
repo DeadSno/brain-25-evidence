@@ -292,3 +292,6 @@ logs/
 
 # Локальный Modelfile для Ollama (не часть проекта)
 Modelfile
+
+# Temp diagnostic scripts
+_tmp_*.py
