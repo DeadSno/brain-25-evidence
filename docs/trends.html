@@ -109,6 +109,16 @@ try {
   display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
   gap:.8rem;margin:var(--space-4) 0;
 }
+/* v5.6.2 — резерв высоты под асинхронное наполнение insightsGrid.
+   Без него grid растёт со 105px (одна карточка «Загрузка…») до ~620px после
+   подстановки пяти карточек и сдвигает всё нижележащее содержимое: CLS 0.11
+   на продакшене и 0.22–0.25 локально с задержкой данных.
+   Значения — минимальные измеренные финальные высоты в каждой зоне числа
+   колонок. Они НЕ превышают финальную высоту, поэтому итоговая высота
+   страницы не меняется и визуальные эталоны остаются валидными. */
+.insights-grid{min-height:530px}
+@media (min-width:700px) and (max-width:1023px){.insights-grid{min-height:341px}}
+@media (min-width:1024px){.insights-grid{min-height:246px}}
 .insight-card{
   background:var(--card-bg);border:1px solid var(--border);
   border-radius:var(--radius-xl);padding:.9rem var(--space-4);display:flex;gap:.8rem;align-items:flex-start;
