@@ -79,6 +79,7 @@ ROOT_PAGES: list[tuple[str, str, str]] = [
     ("glossary.html", "monthly", "0.5"),
     ("feedback.html", "monthly", "0.4"),
     ("support.html", "monthly", "0.3"),
+    ("privacy.html", "monthly", "0.3"),
 ]
 
 # Каталог секции добавок — вузел над карточками, поэтому выше их.
