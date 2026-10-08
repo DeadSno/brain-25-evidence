@@ -111,5 +111,12 @@ rate-limit-fallback упомянуты) ✓; ловушки проекта ак�
 
 ## 9. Коммит и CI
 
-Основной коммит: `fix(v5.6.2): safe-area P1 + infra check` — хеш и статус
-CI фиксируются отдельным коммитом отчёта (паттерн коммита 0b7e0ab).
+- Основной коммит: `7da9e5c` — `fix(v5.6.2): safe-area P1 + infra check`
+  (223 файла: 142 HTML с бампом `?v=418`, `docs/style.css`, `docs/sw.js`,
+  `.opencode/skills/SKILLS_INDEX.md`, отчёты). Pre-commit: 809 passed,
+  sitemap пересобран (143 URL).
+- CI на `7da9e5c`: **failure** — шаг «Feed check»: `build_feed.py --check`
+  требует пересобранный `feed.xml` под дату коммита (08 Oct 2026).
+- Исправление: `2881bbc` — `docs: пересобрать feed.xml — дата коммита
+  08 Oct 2026` (2 строки: lastBuildDate/pubDate 07→08 Oct).
+- Итог: CI на `2881bbc` — **success** (оба job: Python 3.12 и 3.13).
