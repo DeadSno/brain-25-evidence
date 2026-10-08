@@ -278,10 +278,9 @@ footer { font-size: 1rem !important; }
   @supports (padding: env(safe-area-inset-bottom)) {
     body { padding-bottom: env(safe-area-inset-bottom); }
   }
-  /* P2-10: h1 (21.6px, название сайта в шапке) и h2 (20.8px) отличались
-     на 0.8px — иерархия не читалась. Разводим h2 до 18px (зазор 3.6px).
-     Правило локальное: на остальных страницах h2 остаётся 1.3rem. */
-  h2 { font-size: 1.125rem; }
+  /* P2-10 / v5.6.2 батч C (V1): локальное «h2 { font-size: 1.125rem }»
+     удалено — значение переехало в общий токен style.css. Источник
+     истины один. */
 </style>
 </head>
 <body>

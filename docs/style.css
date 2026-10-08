@@ -128,7 +128,14 @@ button{font-family:inherit;background:var(--card-bg);color:var(--text);border:1p
 button:hover,.btn:hover{background:var(--border)}
 
 section{margin-bottom:var(--space-8)}
-h2{font-size:1.3rem;font-weight:500;margin-bottom:var(--space-4)}
+/* P2-10 + v5.6.2 батч C (V1): h2 было 1.3rem = 20.8px при h1 21.6px —
+   разрыв 0.8px, иерархия не читалась. Правка вынесена из index.html в
+   общий токен: шесть страниц дублировали «h2 { font-size: 1.125rem }»
+   локально, а glossary — единственная без своего правила — осталась
+   единственной со сломанной иерархией (замер: 21.6 / 20.8).
+   Теперь 1.125rem = 18px на всех страницах, локальные копии избыточны
+   и удалены. Токен здесь — единственный источник истины. */
+h2{font-size:1.125rem;font-weight:500;margin-bottom:var(--space-4)}
 label{font-weight:500;margin-right:var(--space-2)}
 select{background:var(--card-bg);color:var(--text);border:1px solid var(--border);padding:.4rem .8rem;border-radius:var(--radius-md);font-size:16px}
 /* v5.6.2 (#94): тач-таргет селектов. Замер 2026-10-07: 4 селекта на index
