@@ -309,9 +309,26 @@
 |---|---|
 | Ветка | `v5.6-dev` |
 | Сообщение | `fix(v5.6.2): UI — interactions perf, map, trends, feedback, index colors + Serena report` |
-| Хеш | _заполняется после коммита_ |
-| Push | `origin v5.6-dev` |
-| CI | _заполняется после push_ |
+| Хеш | `fab27a6` |
+| Push | `1a8bee8..fab27a6` → `origin v5.6-dev` |
+| Файлов в коммите | 18 (6 правок + 9 эталонов + 2 отчёта + 1 тест) |
+| Тесты локально | **811 passed, 2 skipped** |
+| CI `tests` | **success** — [run 37738762588](https://github.com/DeadSno/brain-25-evidence/actions/runs/37738762588) |
+
+### Побочная правка: `tests/test_silent_handlers.py`
+
+Pre-commit hook заблокировал первый коммит: тест пин-кодит номера строк
+в `script.js` через ключи `ACCEPTED_NON_ELEMENT_GUARDS`. Вставка
+`CAT_GROUPS` + `catGroup()` и двух атрибутов `data-cat-group` в
+`renderCards` сдвинула все девять записей ровно на +38 строк.
+
+Проверено, что это не регресс, а только сдвиг: каждая из девяти строк на
+новом месте содержит ровно ту конструкцию, что описана в её комментарии
+(`$('modalOverlay')` → 727, `!list.length` → 730, `supplementsFull[id]` → 762,
+`!cfg.$band` → 925, `!els.length` → 985, `chartSupByEl` → 987,
+`!a || !b` → 1085, `!html` → 1213, `!r.ok` → 1269). Номера пересчитаны,
+причины оставлены прежними. Это ровно тот же техдолг, что **#52** для
+`sw.js`: пин-код номеров строк в тестах ломается на любой вставке.
 
 ---
 
