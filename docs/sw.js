@@ -171,7 +171,7 @@ self.addEventListener('activate', event => {
    плюс sup/index.html). Без бампа activate не почистит старый v84-static,
    и удалённые из STATIC_ASSETS файлы остались бы в кэше навсегда. */
 
-var CACHE_VERSION = 'v88';
+var CACHE_VERSION = 'v89';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
@@ -232,7 +232,12 @@ var STATIC_ASSETS = [
   './fonts/inter-semibold.woff2',
   './fonts/inter-bold.woff2',
   './fonts/inter-extrabold.woff2',
-  './share.js?v=1'];
+  './share.js?v=1',
+  /* v5.6.2: cookie-согласие и загрузчик Метрики. С query — ровно тем, что
+     просят страницы: staticCacheKey сохраняет v как значимый параметр, и
+     точное совпадение в cacheFirstForStatic срабатывает без ignoreSearch. */
+  './cookie-banner.js?v=1',
+  './metrika.js?v=1'];
 
 function notifyOffline() {
   self.clients.matchAll().then(function (clients) {
