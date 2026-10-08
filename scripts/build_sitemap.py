@@ -27,6 +27,21 @@
     python scripts/build_sitemap.py            # пересобрать docs/sitemap.xml
     python scripts/build_sitemap.py --check    # только проверить, не трогая файл
 
+`--check` — это ровно то, что делает CI: на чистом checkout из коммита,
+где индекс пуст и ни один файл не ждёт включения в коммит, поэтому
+lastmod целиком берётся из истории и результат детерминирован.
+
+Запуск с датой коммита:
+
+    python scripts/build_sitemap.py --commit-date 2026-10-08
+
+Нужен pre-commit хуку, и только ему. `git log` не видит незакоммиченные
+правки, поэтому файл, уже поставленный в индекс, получил бы в lastmod дату
+своего ПРЕДЫДУЩЕГО коммита: генерация до коммита дала бы 2026-10-07 там,
+где CI после коммита посчитает 2026-10-08, и проверка упала бы на ровном
+месте. Отсюда правило: файл из индекса получает дату коммита, остальные —
+дату из истории. Замерено 2026-10-08.
+
 Идемпотентность: два прогона подряд дают 0 diff по sha256.
 """
 
@@ -92,8 +107,45 @@ HEADER = """<?xml version="1.0" encoding="UTF-8"?>
 """
 
 
+def _staged_docs_paths() -> set[str]:
+    """Пути под docs/, уже поставленные в индекс и ждущие коммита.
+
+    Нужны, чтобы отличить «файл изменён, но ещё не закоммичен» от «файл
+    лежит в коммите». Первые получают дату коммита (см. `--commit-date`),
+    вторые — дату из истории. Ключи — пути относительно docs/, как их
+    ожидает collect().
+    """
+    try:
+        out = subprocess.run(
+            ["git", "diff", "--cached", "--name-only", "--diff-filter=ACMR", "--", "docs/"],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+            timeout=15,
+            check=False,
+        )
+    except (OSError, subprocess.SubprocessError):
+        return set()
+    if out.returncode != 0:
+        return set()
+    staged: set[str] = set()
+    for line in out.stdout.splitlines():
+        name = line.strip().replace("\\", "/")
+        if name.startswith("docs/"):
+            staged.add(name[len("docs/"):])
+    return staged
+
+
 def _last_commit_date(rel_to_docs: str, fallback: str) -> str:
     """Дата последнего коммита файла. Для файлов вне git — fallback."""
+    # Главная страница в sitemap значится пустым loc (её canonical — с
+    # косой чертой), но путь к файлу от этого не становится docs/: такой
+    # pathspec означал бы «любой файл в docs», и lastmod главной двигался бы
+    # от правки чего угодно, включая сам sitemap.xml. Тогда каждый коммит,
+    # чинящий sitemap, делает его снова устаревшим — проверено 2026-10-08.
+    # Поэтому путь строим от имени файла, а не от loc.
+    if not rel_to_docs:
+        rel_to_docs = "index.html"
     path = f"docs/{rel_to_docs}"
     try:
         out = subprocess.run(
@@ -123,14 +175,20 @@ def _entry(loc: str, lastmod: str, changefreq: str, priority: str) -> str:
     )
 
 
-def collect() -> list[tuple[str, str, str]]:
-    """Список (loc, changefreq, priority) — в порядке sitemap.xml.
+def collect() -> list[tuple[str, str, str, str]]:
+    """Список (loc, source, changefreq, priority) — в порядке sitemap.xml.
+
+    `source` — путь относительно docs/, по которому берётся lastmod. Он
+    совпадает с loc у всех страниц, КРОМЕ главной: у неё loc пустой (см.
+    ниже), а дата нужна по файлу docs/index.html. Держать оба поля
+    отдельно — единственный способ не превратить lastmod главной в
+    самоссылку.
 
     Порядок разделов и приоритеты заданы ROOT_PAGES и SUP_INDEX; сами
     карточки берутся из каталога и сортируются по имени, чтобы два
     прогона давали байт-в-байт одинаковый файл.
     """
-    collected: list[tuple[str, str, str]] = []
+    collected: list[tuple[str, str, str, str]] = []
 
     for name, changefreq, priority in ROOT_PAGES:
         if not (DOCS / name).is_file():
@@ -140,7 +198,7 @@ def collect() -> list[tuple[str, str, str]]:
         # тот же адрес, что в canonical: два разных написания одной
         # страницы Google считает двумя URL.
         loc = "" if name == "index.html" else name
-        collected.append((loc, changefreq, priority))
+        collected.append((loc, name, changefreq, priority))
 
     sup_dir = DOCS / "sup"
     if not sup_dir.is_dir():
@@ -155,28 +213,41 @@ def collect() -> list[tuple[str, str, str]]:
         raise SystemExit("docs/sup/ пуст — список карточек пуст")
 
     index_name, index_freq, index_priority = SUP_INDEX
-    collected.append((index_name, index_freq, index_priority))
+    collected.append((index_name, index_name, index_freq, index_priority))
 
     changefreq, priority = SUP_CARD
     for name in cards:
-        collected.append((f"sup/{name}", changefreq, priority))
+        collected.append((f"sup/{name}", f"sup/{name}", changefreq, priority))
 
     return collected
 
 
-def render() -> str:
+def render(commit_date: str | None = None) -> str:
+    """Текст sitemap.xml.
+
+    `commit_date` — дата, которую получают файлы, уже лежащие в индексе
+    (см. `--commit-date`). Без неё генерация полностью опирается на
+    историю git и детерминирована: это и есть режим CI.
+    """
     entries = collect()
-    today = date.today().isoformat()
-    n_sup = sum(1 for loc, _, _ in entries if loc.startswith("sup/"))
+    today = commit_date or date.today().isoformat()
+    n_sup = sum(1 for loc, _src, _f, _p in entries if loc.startswith("sup/"))
     n_root = len(entries) - n_sup
+
+    staged = _staged_docs_paths() if commit_date else set()
 
     chunks = [
         HEADER.format(count=len(entries), n_root=n_root, n_sup=n_sup)
     ]
-    for loc, changefreq, priority in entries:
-        chunks.append(
-            _entry(loc, _last_commit_date(loc, today), changefreq, priority)
-        )
+    for loc, source, changefreq, priority in entries:
+        # Файл из индекса ещё не имеет коммита — `git log` вернул бы дату
+        # его ПРЕДЫДУЩЕЙ правки, и sitemap разошёлся бы с CI сразу после
+        # коммита. Поэтому для индекса берём дату коммита.
+        if source in staged:
+            lastmod = today
+        else:
+            lastmod = _last_commit_date(source, today)
+        chunks.append(_entry(loc, lastmod, changefreq, priority))
     chunks.append("</urlset>\n")
     return "".join(chunks)
 
@@ -188,9 +259,31 @@ def main() -> int:
         action="store_true",
         help="не записывать файл, только сообщить о расхождении",
     )
+    parser.add_argument(
+        "--commit-date",
+        metavar="YYYY-MM-DD",
+        help=(
+            "дата коммита для файлов, уже добавленных в индекс; "
+            "нужно pre-commit хуку, не нужно CI"
+        ),
+    )
     args = parser.parse_args()
 
-    content = render()
+    if args.check and args.commit_date:
+        print(
+            "FAIL: --check и --commit-date вместе не имеют смысла — "
+            "проверка должна быть детерминированной"
+        )
+        return 1
+
+    if args.commit_date:
+        try:
+            date.fromisoformat(args.commit_date)
+        except ValueError:
+            print(f"FAIL: не дата: {args.commit_date}")
+            return 1
+
+    content = render(args.commit_date)
     digest = hashlib.sha256(content.encode("utf-8")).hexdigest()
     count = content.count("<loc>")
 
@@ -212,7 +305,6 @@ def main() -> int:
     SITEMAP.write_text(content, encoding="utf-8", newline="\n")
     print(f"Записан {SITEMAP.relative_to(ROOT)}: {count} URL, sha256 {digest[:16]}")
     return 0
-
 
 if __name__ == "__main__":
     sys.exit(main())
