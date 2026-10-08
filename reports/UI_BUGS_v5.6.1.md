@@ -155,14 +155,16 @@ support.html нет** (в отличие от остальных страниц,
 
 ## 6. Коммит и CI
 
-- Коммит: `fix(v5.6.1): graph hang + trends disclaimer + support dup`
-  (`git commit -F _tmp_msg.txt`), ветка `v5.6-dev`, запушен.
-- CI (`tests.yml` на push в `v5.6-dev`): шаги `pytest -q --no-header`
-  (3.12/3.13), `build_sitemap.py --check` (143 URL), `build_feed.py
-  --check` (131 запись) прогнаны локально перед пушем — все зелёные.
-  Снапшот-джоб в CI снят с v5.4.2 (эталоны привязаны к Windows-машине),
-  поэтому полный прогон сделан локально.
-- Статус CI после пуша: см. комментарий к коммиту / раздел ниже.
+- Коммит: **`79be795`** — `fix(v5.6.1): graph hang + trends disclaimer +
+  support dup` (`git commit -F _tmp_msg.txt`), ветка `v5.6-dev`, запушен
+  (`89eb614..79be795`). Pre-commit hook (pytest + sitemap rebuild) прогнан
+  и пройден.
+- CI (`tests.yml`, run 37807210784): **completed/success** — оба джоба
+  `pytest (3.12)` и `pytest (3.13)` зелёные; шаги `build_sitemap.py
+  --check` (143 URL) и `build_feed.py --check` (131 запись) также прошли
+  (прогнаны и локально перед пушем — OK).
+- Снапшот-джоб в CI снят с v5.4.2 (эталоны привязаны к Windows-машине),
+  поэтому полный снапшот-прогон сделан локально: 73 passed, 1 skipped.
 
 ---
 
