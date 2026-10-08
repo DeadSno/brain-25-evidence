@@ -25,7 +25,7 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=418">
+<link rel="stylesheet" href="style.css?v=419">
 <!-- v5.6.1: chart.js вендорен в docs/vendor/ — без сети графики на странице не рисуются -->
 <script src="vendor/chart.umd-4.4.1.min.js"></script>
 <script src="version.js?v=312"></script>
@@ -219,6 +219,10 @@ html:not(.light) .cat-warn{color:#f59e0b}
   .hint,
   .chart-note,
   .method-footer{max-width:64ch}
+
+  /* v5.6.1: дисклеймер переехал из футера сразу под h1. Стиль
+     .site-footer .disc на него больше не действует — повторяем вид. */
+  main > p.disc{opacity:.9;margin:var(--space-2) 0 var(--space-4)}
 </style>
 </head>
 <body class="trends-page">
@@ -246,6 +250,18 @@ html:not(.light) .cat-warn{color:#f59e0b}
 
 <main id="main">
   <h1>Тренды популярности</h1>
+
+<!-- v5.6.1: дисклеймер поднят из футера сразу под h1. Раньше он был
+     в футере, который стоял между чартом и секциями ниже, — пользователь
+     видел предупреждение посреди страницы, а после него снова контент. -->
+<p class="disc">
+  <b>⚠️ Не медицинская рекомендация.</b>
+  Сайт предоставляет данные из открытых научных источников
+  (PubMed, Europe PMC, CrossRef, OpenAlex, ClinicalTrials.gov, Wikimedia)
+  для информирования и самостоятельного образования.
+  <b>НЕ заменяет</b> консультацию, диагноз и лечение.
+  При любых сомнениях — обращайтесь к специалисту.
+</p>
 
 
 <p class="hint" style="opacity:.75;margin:.4rem 0 0">
@@ -334,27 +350,10 @@ html:not(.light) .cat-warn{color:#f59e0b}
 
 </main>
 
-<footer class="site-footer">
-  <p class="disc">
-    <b>⚠️ Не медицинская рекомендация.</b>
-    Сайт предоставляет данные из открытых научных источников
-    (PubMed, Europe PMC, CrossRef, OpenAlex, ClinicalTrials.gov, Wikimedia)
-    для информирования и самостоятельного образования.
-    <b>НЕ заменяет</b> консультацию, диагноз и лечение.
-    При любых сомнениях — обращайтесь к специалисту.
-  </p>
-  <p class="meta">
-    v<span data-version="app"></span> ·
-    данные на <span data-version="data"></span>
-  </p>
-  <p class="links">
-    <a href="methodology.html">📐 Методология</a> ·
-    <a href="faq.html">❓ FAQ</a> ·
-    <a href="glossary.html">📖 Глоссарий</a>
-  </p>
-  <p class="copy">© 2026 Vladislav "DeadSno" Pereshivalov · MIT</p>
-  <p class="share-row"><button class="btn share-page" type="button">🔗 Поделиться</button></p>
-</footer>
+<!-- v5.6.1: футер стоял здесь, между чартом и секциями «Матрица» /
+     «Категории» — то есть буквально в середине страницы, и рвал контент.
+     Перенесён в конец страницы (после methodology), дисклеймер поднят
+     под h1. -->
 
 <!-- Модалка -->
 <div id="modalOverlay" style="display:none">
@@ -793,6 +792,20 @@ growth_wiki = avg(wiki[id][последние 6 мес]) / avg(wiki[id][перв
     </p>
   </div>
 </details>
+
+<footer class="site-footer">
+  <p class="meta">
+    v<span data-version="app"></span> ·
+    данные на <span data-version="data"></span>
+  </p>
+  <p class="links">
+    <a href="methodology.html">📐 Методология</a> ·
+    <a href="faq.html">❓ FAQ</a> ·
+    <a href="glossary.html">📖 Глоссарий</a>
+  </p>
+  <p class="copy">© 2026 Vladislav "DeadSno" Pereshivalov · MIT</p>
+  <p class="share-row"><button class="btn share-page" type="button">🔗 Поделиться</button></p>
+</footer>
 
 <script>
 (function(){

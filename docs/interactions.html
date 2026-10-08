@@ -30,7 +30,7 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=418"/>
+<link rel="stylesheet" href="style.css?v=419"/>
 <!-- v5.6.1: vis-network вендорен в docs/vendor/ — снапшоты страницы больше не зависят от unpkg -->
 <script src="vendor/vis-network-9.1.9.min.js"></script>
 <style>
@@ -147,10 +147,12 @@ footer { font-size: 1rem !important; }
 <div class="legend" id="legend"></div>
 <div class="severityFilter" id="sevFilter">
   <span>Уровень риска:</span>
-  <label><input type="checkbox" data-sev="low" checked><span>низкая</span></label>
-  <label><input type="checkbox" data-sev="medium" checked><span>средняя</span></label>
-  <label><input type="checkbox" data-sev="high" checked><span>высокая</span></label>
-  <label><input type="checkbox" data-sev="critical" checked><span>критичная</span></label>
+  <select id="sevThreshold">
+    <option value="low">Все</option>
+    <option value="medium">Средняя и выше</option>
+    <option value="high" selected>Высокая и выше</option>
+    <option value="critical">Только критичная</option>
+  </select>
 </div>
 <div id="hint">Кликните узел — справа откроются детали. Колёсико — масштаб. Тяните фон — сдвиг.</div>
 
@@ -189,6 +191,13 @@ function esc(s) {
     { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
   ));
 }
+const GRADE_COLOR = { A: '#4caf50', B: '#8bc34a', C: '#ff9800', D: '#e53935' };
+const SEV_COLOR = { low: '#ff9800', medium: '#ff7043', high: '#e53935', critical: '#b71c1c' };
+const TYPE_COLOR = { synergy: '#4caf50', antagonist: '#e53935', interaction: null };
+const SEV_LABEL = { low: 'низкий', medium: 'средний', high: 'высокий', critical: 'критичный' };
+const SEV_ORDER = { low: 0, medium: 1, high: 2, critical: 3 };
+const TYPE_LABEL = { synergy: 'синергия', antagonist: 'антагонизм', interaction: 'взаимодействие' };
+
 const state = {
   mode: 'supplements',
   graph: null,
@@ -200,14 +209,10 @@ const state = {
   // физика остаётся включённой — на случай 404 файла или несовпадения id.
   positions: null,
   fixedCount: 0,
-  activeSeverity: new Set(['low', 'medium', 'high', 'critical'])
+  minSeverity: SEV_ORDER['high'],
+  // набор рёбер последней отрисовки (см. drawGraph) — для подсветки соседей
+  currentEdges: null
 };
-
-const GRADE_COLOR = { A: '#4caf50', B: '#8bc34a', C: '#ff9800', D: '#e53935' };
-const SEV_COLOR = { low: '#ff9800', medium: '#ff7043', high: '#e53935', critical: '#b71c1c' };
-const TYPE_COLOR = { synergy: '#4caf50', antagonist: '#e53935', interaction: null };
-const SEV_LABEL = { low: 'низкий', medium: 'средний', high: 'высокий', critical: 'критичный' };
-const TYPE_LABEL = { synergy: 'синергия', antagonist: 'антагонизм', interaction: 'взаимодействие' };
 
 // v5.4.0 (dark-first): тёмная тема — отсутствие класса light
 function isDark() { return !document.documentElement.classList.contains('light'); }
@@ -266,13 +271,24 @@ function buildEdges(mode) {
     ? state.data.supplements.edges
     : state.data.drugs.edges;
 
+  /* Порог severity — только для вкладки «Добавки и лекарства».
+     В supplements-графе рёбер с severity high/critical нет вовсе:
+     все 10 штук — low/medium (проверено по interactions_graph.json),
+     поэтому общий порог оставлял бы вкладку «Добавки между собой»
+     с нулём узлов. UI-контрол фильтра (.severityFilter) показывается
+     только в drugs-режиме — состояние фильтра должно быть таким же. */
   return raw
-    .filter(e => state.activeSeverity.has(e.severity || 'medium'))
+    .filter(e => mode !== 'drugs' ||
+                 SEV_ORDER[e.severity || 'medium'] >= state.minSeverity)
     .map(e => {
       let color = TYPE_COLOR[e.type] || SEV_COLOR[e.severity] || '#888';
       return {
         from: e.from,
         to: e.to,
+        // severity обязан доехать до узловой фильтрации в drawGraph:
+        // без него nodeSev считает все рёбра 'medium' и порог high/critical
+        // оставлял граф пустым.
+        severity: e.severity,
         color: { color, highlight: '#ffeb3b' },
         width: e.severity === 'critical' ? 3 : e.severity === 'high' ? 2.5 : 1.5,
         dashes: e.type === 'synergy',
@@ -399,14 +415,11 @@ function renderSidebar(id) {
   sidebar.querySelectorAll('[data-goto]').forEach(el => {
     el.onclick = () => {
       const targetId = el.dataset.goto;
-      const supp = state.data.drugs.nodes.find(n => n.id === targetId && n.kind !== 'drug')
-                || state.data.supplements.nodes.find(n => n.id === targetId);
-      if (supp) {
-        renderSidebar(targetId);
-        state.network.selectNodes([targetId]);
-      } else {
-        // это лекарство — открываем его сайдбар
-        renderSidebar(targetId);
+      renderSidebar(targetId);
+      // узел мог не пройти порог severity и быть скрыт — selectNodes()
+      // на несуществующем узле бросает RangeError
+      const nodes = state.network.body.nodes;
+      if (Object.prototype.hasOwnProperty.call(nodes, targetId)) {
         state.network.selectNodes([targetId]);
       }
     };
@@ -420,7 +433,34 @@ function drawGraph() {
   const allEdges = buildEdges(mode);
   const degrees = computeDegrees(allEdges);
   const allNodes = buildNodes(mode, degrees);
-  const filtered = applySearch(allNodes, allEdges, state.searchQuery);
+
+  // Фильтрация узлов drugs-вкладки по максимальному severity среди их рёбер.
+  // Для supplements не применяется — обоснование в buildEdges: там просто
+  // нечему фильтроваться (все рёбра low/medium).
+  let visibleNodes = allNodes;
+  if (mode === 'drugs') {
+    const nodeSev = {};
+    for (const e of allEdges) {
+      const sev = e.severity || 'medium';
+      if (!nodeSev[e.from] || SEV_ORDER[sev] > SEV_ORDER[nodeSev[e.from]]) {
+        nodeSev[e.from] = sev;
+      }
+      if (!nodeSev[e.to] || SEV_ORDER[sev] > SEV_ORDER[nodeSev[e.to]]) {
+        nodeSev[e.to] = sev;
+      }
+    }
+    visibleNodes = allNodes.filter(n => {
+      const sev = nodeSev[n.id] || 'low';
+      return SEV_ORDER[sev] >= state.minSeverity;
+    });
+  }
+
+  const filtered = applySearch(visibleNodes, allEdges, state.searchQuery);
+  // Текущий набор рёбер графа — для подсветки соседей по клику. Берём
+  // именно его, а не state.data.*.edges: на пороге severity часть рёбер
+  // отфильтрована, и selectNodes() с id несуществующего узла бросает
+  // RangeError (проверено на v5.6.1: клик по узлу ронял обработчик).
+  state.currentEdges = filtered.edges;
 
   /* v5.6.1: предрасчётные позиции. Замер на странице с 121 узлом и
      124 связями: физика прогоняла раскладку десятки секунд, тогда как
@@ -496,8 +536,8 @@ function drawGraph() {
     }
     const id = params.nodes[0];
     renderSidebar(id);
-    // подсветить узел и соседей
-    const edges = mode === 'drugs' ? state.data.drugs.edges : state.data.supplements.edges;
+    // подсветить узел и соседей — только среди реально показанных рёбер
+    const edges = state.currentEdges || [];
     const connected = new Set([id]);
     for (const e of edges) {
       if (e.from === id) connected.add(e.to);
@@ -553,13 +593,9 @@ if (saved === 'light') setLight(true);
 // поэтому ветка else не нужна вовсе.
 
 // Severity фильтр
-document.querySelectorAll('#sevFilter input[data-sev]').forEach(cb => {
-  cb.addEventListener('change', () => {
-    const sev = cb.dataset.sev;
-    if (cb.checked) state.activeSeverity.add(sev);
-    else state.activeSeverity.delete(sev);
-    drawGraph();
-  });
+document.getElementById('sevThreshold').addEventListener('change', e => {
+  state.minSeverity = SEV_ORDER[e.target.value];
+  drawGraph();
 });
 
 // Кнопка PNG

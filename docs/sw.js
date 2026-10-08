@@ -171,7 +171,7 @@ self.addEventListener('activate', event => {
    плюс sup/index.html). Без бампа activate не почистит старый v84-static,
    и удалённые из STATIC_ASSETS файлы остались бы в кэше навсегда. */
 
-var CACHE_VERSION = 'v87';
+var CACHE_VERSION = 'v88';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
