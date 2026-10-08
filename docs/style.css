@@ -429,7 +429,7 @@ footer, .site-footer { padding-bottom: env(safe-area-inset-bottom, 0px); }
    z-index порядок определялся DOM-порядком, то есть случайно.
    Теперь обе кнопки выше шапки, и их скрытие под открытой модалкой
    описано правилом с body.modal-open ниже. */
-#toTop{position:fixed;right:1.2rem;bottom:1.2rem;z-index:110;width:44px;height:44px;
+#toTop{position:fixed;right:1.2rem;bottom:calc(1.2rem + env(safe-area-inset-bottom, 0px));z-index:110;width:44px;height:44px;
 border-radius:50%;border:1px solid var(--border);background:var(--card-bg);color:var(--text);
 font-size:1.2rem;cursor:pointer;opacity:0;pointer-events:none;transition:.25s}
 #toTop.show{opacity:1;pointer-events:auto}
@@ -1499,7 +1499,7 @@ header.top > .site-title > a, header.hdr > .site-title > a { display: inline-fle
    v body, vizualno skryta do polucheniya fokusa. */
 .skip-link{position:absolute;left:-9999px;top:0}
 .skip-link:focus{position:fixed;left:0;top:0;z-index:9999;background:#000;color:#fff;
-  padding:var(--space-2) var(--space-4);font-size:14px;border-radius:0 0 6px 0;text-decoration:none}
+  padding:var(--space-2) var(--space-4);padding-top: env(safe-area-inset-top, 0px);font-size:14px;border-radius:0 0 6px 0;text-decoration:none}
 
 /* ===== h1 semantika: v shapke eto NE zagolovok stranicy =====================
    Do 3a vse 17 stranic imeli edinyj h1 = «brain-25-evidence» v shapke. Eto

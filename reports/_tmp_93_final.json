@@ -1,0 +1,819 @@
+{
+ "inputs": {
+  "index": {
+   "320": [
+    {
+     "id": "search",
+     "t": "text",
+     "w": 301,
+     "h": 24,
+     "minH": "auto"
+    },
+    {
+     "id": "verdictFilter",
+     "t": "select-one",
+     "w": 301,
+     "h": 45,
+     "minH": "44px"
+    },
+    {
+     "id": "sortSelect",
+     "t": "select-one",
+     "w": 301,
+     "h": 46,
+     "minH": "44px"
+    },
+    {
+     "id": "compareSelect1",
+     "t": "select-one",
+     "w": 251,
+     "h": 45,
+     "minH": "44px"
+    },
+    {
+     "id": "compareSelect2",
+     "t": "select-one",
+     "w": 251,
+     "h": 45,
+     "minH": "44px"
+    }
+   ],
+   "360": [
+    {
+     "id": "search",
+     "t": "text",
+     "w": 341,
+     "h": 24,
+     "minH": "auto"
+    },
+    {
+     "id": "verdictFilter",
+     "t": "select-one",
+     "w": 341,
+     "h": 45,
+     "minH": "44px"
+    },
+    {
+     "id": "sortSelect",
+     "t": "select-one",
+     "w": 341,
+     "h": 46,
+     "minH": "44px"
+    },
+    {
+     "id": "compareSelect1",
+     "t": "select-one",
+     "w": 291,
+     "h": 45,
+     "minH": "44px"
+    },
+    {
+     "id": "compareSelect2",
+     "t": "select-one",
+     "w": 291,
+     "h": 45,
+     "minH": "44px"
+    }
+   ],
+   "375": [
+    {
+     "id": "search",
+     "t": "text",
+     "w": 356,
+     "h": 24,
+     "minH": "auto"
+    },
+    {
+     "id": "verdictFilter",
+     "t": "select-one",
+     "w": 356,
+     "h": 45,
+     "minH": "44px"
+    },
+    {
+     "id": "sortSelect",
+     "t": "select-one",
+     "w": 356,
+     "h": 46,
+     "minH": "44px"
+    },
+    {
+     "id": "compareSelect1",
+     "t": "select-one",
+     "w": 306,
+     "h": 45,
+     "minH": "44px"
+    },
+    {
+     "id": "compareSelect2",
+     "t": "select-one",
+     "w": 306,
+     "h": 45,
+     "minH": "44px"
+    }
+   ],
+   "390": [
+    {
+     "id": "search",
+     "t": "text",
+     "w": 371,
+     "h": 24,
+     "minH": "auto"
+    },
+    {
+     "id": "verdictFilter",
+     "t": "select-one",
+     "w": 371,
+     "h": 45,
+     "minH": "44px"
+    },
+    {
+     "id": "sortSelect",
+     "t": "select-one",
+     "w": 371,
+     "h": 46,
+     "minH": "44px"
+    },
+    {
+     "id": "compareSelect1",
+     "t": "select-one",
+     "w": 321,
+     "h": 45,
+     "minH": "44px"
+    },
+    {
+     "id": "compareSelect2",
+     "t": "select-one",
+     "w": 321,
+     "h": 45,
+     "minH": "44px"
+    }
+   ],
+   "393": [
+    {
+     "id": "search",
+     "t": "text",
+     "w": 374,
+     "h": 24,
+     "minH": "auto"
+    },
+    {
+     "id": "verdictFilter",
+     "t": "select-one",
+     "w": 374,
+     "h": 45,
+     "minH": "44px"
+    },
+    {
+     "id": "sortSelect",
+     "t": "select-one",
+     "w": 374,
+     "h": 46,
+     "minH": "44px"
+    },
+    {
+     "id": "compareSelect1",
+     "t": "select-one",
+     "w": 324,
+     "h": 45,
+     "minH": "44px"
+    },
+    {
+     "id": "compareSelect2",
+     "t": "select-one",
+     "w": 324,
+     "h": 45,
+     "minH": "44px"
+    }
+   ],
+   "412": [
+    {
+     "id": "search",
+     "t": "text",
+     "w": 393,
+     "h": 24,
+     "minH": "auto"
+    },
+    {
+     "id": "verdictFilter",
+     "t": "select-one",
+     "w": 393,
+     "h": 45,
+     "minH": "44px"
+    },
+    {
+     "id": "sortSelect",
+     "t": "select-one",
+     "w": 393,
+     "h": 46,
+     "minH": "44px"
+    },
+    {
+     "id": "compareSelect1",
+     "t": "select-one",
+     "w": 343,
+     "h": 45,
+     "minH": "44px"
+    },
+    {
+     "id": "compareSelect2",
+     "t": "select-one",
+     "w": 343,
+     "h": 45,
+     "minH": "44px"
+    }
+   ],
+   "428": [
+    {
+     "id": "search",
+     "t": "text",
+     "w": 409,
+     "h": 24,
+     "minH": "auto"
+    },
+    {
+     "id": "verdictFilter",
+     "t": "select-one",
+     "w": 409,
+     "h": 45,
+     "minH": "44px"
+    },
+    {
+     "id": "sortSelect",
+     "t": "select-one",
+     "w": 409,
+     "h": 46,
+     "minH": "44px"
+    },
+    {
+     "id": "compareSelect1",
+     "t": "select-one",
+     "w": 359,
+     "h": 45,
+     "minH": "44px"
+    },
+    {
+     "id": "compareSelect2",
+     "t": "select-one",
+     "w": 359,
+     "h": 45,
+     "minH": "44px"
+    }
+   ],
+   "768": [
+    {
+     "id": "search",
+     "t": "text",
+     "w": 736,
+     "h": 24,
+     "minH": "auto"
+    },
+    {
+     "id": "verdictFilter",
+     "t": "select-one",
+     "w": 736,
+     "h": 45,
+     "minH": "44px"
+    },
+    {
+     "id": "sortSelect",
+     "t": "select-one",
+     "w": 736,
+     "h": 46,
+     "minH": "44px"
+    },
+    {
+     "id": "compareSelect1",
+     "t": "select-one",
+     "w": 686,
+     "h": 45,
+     "minH": "44px"
+    },
+    {
+     "id": "compareSelect2",
+     "t": "select-one",
+     "w": 686,
+     "h": 45,
+     "minH": "44px"
+    }
+   ],
+   "1024": [
+    {
+     "id": "search",
+     "t": "text",
+     "w": 262,
+     "h": 46,
+     "minH": "auto"
+    },
+    {
+     "id": "verdictFilter",
+     "t": "select-one",
+     "w": 285,
+     "h": 46,
+     "minH": "44px"
+    },
+    {
+     "id": "sortSelect",
+     "t": "select-one",
+     "w": 285,
+     "h": 46,
+     "minH": "44px"
+    },
+    {
+     "id": "compareSelect1",
+     "t": "select-one",
+     "w": 265,
+     "h": 45,
+     "minH": "44px"
+    },
+    {
+     "id": "compareSelect2",
+     "t": "select-one",
+     "w": 265,
+     "h": 45,
+     "minH": "44px"
+    }
+   ]
+  },
+  "calculator": {
+   "320": [
+    {
+     "id": "pWeight",
+     "t": "number",
+     "w": 109,
+     "h": 36,
+     "minH": "0px"
+    },
+    {
+     "id": "pSex",
+     "t": "select-one",
+     "w": 109,
+     "h": 46,
+     "minH": "44px"
+    },
+    {
+     "id": "pAge",
+     "t": "number",
+     "w": 109,
+     "h": 36,
+     "minH": "0px"
+    },
+    {
+     "id": "pPregnant",
+     "t": "select-one",
+     "w": 109,
+     "h": 46,
+     "minH": "44px"
+    },
+    {
+     "id": "q",
+     "t": "text",
+     "w": 269,
+     "h": 38,
+     "minH": "auto"
+    }
+   ],
+   "360": [
+    {
+     "id": "pWeight",
+     "t": "number",
+     "w": 129,
+     "h": 36,
+     "minH": "0px"
+    },
+    {
+     "id": "pSex",
+     "t": "select-one",
+     "w": 129,
+     "h": 46,
+     "minH": "44px"
+    },
+    {
+     "id": "pAge",
+     "t": "number",
+     "w": 129,
+     "h": 36,
+     "minH": "0px"
+    },
+    {
+     "id": "pPregnant",
+     "t": "select-one",
+     "w": 129,
+     "h": 46,
+     "minH": "44px"
+    },
+    {
+     "id": "q",
+     "t": "text",
+     "w": 309,
+     "h": 38,
+     "minH": "auto"
+    }
+   ],
+   "375": [
+    {
+     "id": "pWeight",
+     "t": "number",
+     "w": 136,
+     "h": 36,
+     "minH": "0px"
+    },
+    {
+     "id": "pSex",
+     "t": "select-one",
+     "w": 136,
+     "h": 46,
+     "minH": "44px"
+    },
+    {
+     "id": "pAge",
+     "t": "number",
+     "w": 136,
+     "h": 36,
+     "minH": "0px"
+    },
+    {
+     "id": "pPregnant",
+     "t": "select-one",
+     "w": 136,
+     "h": 46,
+     "minH": "44px"
+    },
+    {
+     "id": "q",
+     "t": "text",
+     "w": 324,
+     "h": 38,
+     "minH": "auto"
+    }
+   ],
+   "390": [
+    {
+     "id": "pWeight",
+     "t": "number",
+     "w": 144,
+     "h": 36,
+     "minH": "0px"
+    },
+    {
+     "id": "pSex",
+     "t": "select-one",
+     "w": 144,
+     "h": 46,
+     "minH": "44px"
+    },
+    {
+     "id": "pAge",
+     "t": "number",
+     "w": 144,
+     "h": 36,
+     "minH": "0px"
+    },
+    {
+     "id": "pPregnant",
+     "t": "select-one",
+     "w": 144,
+     "h": 46,
+     "minH": "44px"
+    },
+    {
+     "id": "q",
+     "t": "text",
+     "w": 339,
+     "h": 38,
+     "minH": "auto"
+    }
+   ],
+   "393": [
+    {
+     "id": "pWeight",
+     "t": "number",
+     "w": 145,
+     "h": 36,
+     "minH": "0px"
+    },
+    {
+     "id": "pSex",
+     "t": "select-one",
+     "w": 145,
+     "h": 46,
+     "minH": "44px"
+    },
+    {
+     "id": "pAge",
+     "t": "number",
+     "w": 145,
+     "h": 36,
+     "minH": "0px"
+    },
+    {
+     "id": "pPregnant",
+     "t": "select-one",
+     "w": 145,
+     "h": 46,
+     "minH": "44px"
+    },
+    {
+     "id": "q",
+     "t": "text",
+     "w": 342,
+     "h": 38,
+     "minH": "auto"
+    }
+   ],
+   "412": [
+    {
+     "id": "pWeight",
+     "t": "number",
+     "w": 155,
+     "h": 36,
+     "minH": "0px"
+    },
+    {
+     "id": "pSex",
+     "t": "select-one",
+     "w": 155,
+     "h": 46,
+     "minH": "44px"
+    },
+    {
+     "id": "pAge",
+     "t": "number",
+     "w": 155,
+     "h": 36,
+     "minH": "0px"
+    },
+    {
+     "id": "pPregnant",
+     "t": "select-one",
+     "w": 155,
+     "h": 46,
+     "minH": "44px"
+    },
+    {
+     "id": "q",
+     "t": "text",
+     "w": 243,
+     "h": 44,
+     "minH": "auto"
+    }
+   ],
+   "428": [
+    {
+     "id": "pWeight",
+     "t": "number",
+     "w": 163,
+     "h": 36,
+     "minH": "0px"
+    },
+    {
+     "id": "pSex",
+     "t": "select-one",
+     "w": 163,
+     "h": 46,
+     "minH": "44px"
+    },
+    {
+     "id": "pAge",
+     "t": "number",
+     "w": 163,
+     "h": 36,
+     "minH": "0px"
+    },
+    {
+     "id": "pPregnant",
+     "t": "select-one",
+     "w": 163,
+     "h": 46,
+     "minH": "44px"
+    },
+    {
+     "id": "q",
+     "t": "text",
+     "w": 259,
+     "h": 44,
+     "minH": "auto"
+    }
+   ],
+   "768": [
+    {
+     "id": "pWeight",
+     "t": "number",
+     "w": 154,
+     "h": 36,
+     "minH": "0px"
+    },
+    {
+     "id": "pSex",
+     "t": "select-one",
+     "w": 154,
+     "h": 46,
+     "minH": "44px"
+    },
+    {
+     "id": "pAge",
+     "t": "number",
+     "w": 154,
+     "h": 36,
+     "minH": "0px"
+    },
+    {
+     "id": "pPregnant",
+     "t": "select-one",
+     "w": 154,
+     "h": 46,
+     "minH": "44px"
+    },
+    {
+     "id": "q",
+     "t": "text",
+     "w": 570,
+     "h": 44,
+     "minH": "auto"
+    }
+   ],
+   "1024": [
+    {
+     "id": "pWeight",
+     "t": "number",
+     "w": 214,
+     "h": 36,
+     "minH": "0px"
+    },
+    {
+     "id": "pSex",
+     "t": "select-one",
+     "w": 214,
+     "h": 46,
+     "minH": "44px"
+    },
+    {
+     "id": "pAge",
+     "t": "number",
+     "w": 214,
+     "h": 36,
+     "minH": "0px"
+    },
+    {
+     "id": "pPregnant",
+     "t": "select-one",
+     "w": 214,
+     "h": 46,
+     "minH": "44px"
+    },
+    {
+     "id": "q",
+     "t": "text",
+     "w": 810,
+     "h": 44,
+     "minH": "auto"
+    }
+   ]
+  },
+  "map": {
+   "320": [],
+   "360": [],
+   "375": [],
+   "390": [],
+   "393": [],
+   "412": [],
+   "428": [],
+   "768": [],
+   "1024": []
+  },
+  "graph": {
+   "320": [],
+   "360": [],
+   "375": [],
+   "390": [],
+   "393": [],
+   "412": [],
+   "428": [],
+   "768": [],
+   "1024": []
+  },
+  "sup/kreatin": {
+   "320": [],
+   "360": [],
+   "375": [],
+   "390": [],
+   "393": [],
+   "412": [],
+   "428": [],
+   "768": [],
+   "1024": []
+  }
+ },
+ "skip": {
+  "index": {
+   "320": {
+    "left": -9999,
+    "top": 0,
+    "w": 197,
+    "h": 24,
+    "pos": "absolute",
+    "leftCss": "-9999px",
+    "offscreen": true,
+    "visibleInViewport": false
+   },
+   "412": {
+    "left": -9999,
+    "top": 0,
+    "w": 197,
+    "h": 24,
+    "pos": "absolute",
+    "leftCss": "-9999px",
+    "offscreen": true,
+    "visibleInViewport": false
+   }
+  },
+  "calculator": {
+   "320": {
+    "left": -9999,
+    "top": 0,
+    "w": 197,
+    "h": 24,
+    "pos": "absolute",
+    "leftCss": "-9999px",
+    "offscreen": true,
+    "visibleInViewport": false
+   },
+   "412": {
+    "left": -9999,
+    "top": 0,
+    "w": 197,
+    "h": 24,
+    "pos": "absolute",
+    "leftCss": "-9999px",
+    "offscreen": true,
+    "visibleInViewport": false
+   }
+  },
+  "map": {
+   "320": {
+    "left": -9999,
+    "top": 0,
+    "w": 197,
+    "h": 24,
+    "pos": "absolute",
+    "leftCss": "-9999px",
+    "offscreen": true,
+    "visibleInViewport": false
+   },
+   "412": {
+    "left": -9999,
+    "top": 0,
+    "w": 197,
+    "h": 24,
+    "pos": "absolute",
+    "leftCss": "-9999px",
+    "offscreen": true,
+    "visibleInViewport": false
+   }
+  },
+  "graph": {
+   "320": {
+    "left": -9999,
+    "top": 0,
+    "w": 197,
+    "h": 24,
+    "pos": "absolute",
+    "leftCss": "-9999px",
+    "offscreen": true,
+    "visibleInViewport": false
+   },
+   "412": {
+    "left": -9999,
+    "top": 0,
+    "w": 197,
+    "h": 24,
+    "pos": "absolute",
+    "leftCss": "-9999px",
+    "offscreen": true,
+    "visibleInViewport": false
+   }
+  },
+  "sup/kreatin": {
+   "320": {
+    "left": -9999,
+    "top": 0,
+    "w": 197,
+    "h": 24,
+    "pos": "absolute",
+    "leftCss": "-9999px",
+    "offscreen": true,
+    "visibleInViewport": false
+   },
+   "412": {
+    "left": -9999,
+    "top": 0,
+    "w": 197,
+    "h": 24,
+    "pos": "absolute",
+    "leftCss": "-9999px",
+    "offscreen": true,
+    "visibleInViewport": false
+   }
+  }
+ }
+}

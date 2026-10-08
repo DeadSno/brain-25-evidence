@@ -1,0 +1,2146 @@
+{
+ "orientation": [
+  {
+   "page": "index",
+   "orientation": "portrait",
+   "w": 412,
+   "h": 915,
+   "status": 200,
+   "data": {
+    "scrollW": 412,
+    "clientW": 412,
+    "bodyScrollW": 412,
+    "overflow": 0,
+    "title": "БАДы: доказательства и механизмы - 130 добавок | Brain 25 Evidence",
+    "h": 37374,
+    "culprits": [
+     {
+      "sel": "div.qa",
+      "right": 617,
+      "w": 288,
+      "left": 329
+     },
+     {
+      "sel": "div.qa",
+      "right": 911,
+      "w": 288,
+      "left": 623
+     },
+     {
+      "sel": "h3",
+      "right": 604,
+      "w": 262,
+      "left": 342
+     },
+     {
+      "sel": "p",
+      "right": 604,
+      "w": 262,
+      "left": 342
+     },
+     {
+      "sel": "h3",
+      "right": 898,
+      "w": 262,
+      "left": 636
+     },
+     {
+      "sel": "p",
+      "right": 898,
+      "w": 262,
+      "left": 636
+     }
+    ],
+    "tapTotal": 189,
+    "small44": [
+     {
+      "sel": "a.skip-link",
+      "w": 197.1,
+      "h": 24,
+      "text": "Перейти к содержимому",
+      "y": 0
+     },
+     {
+      "sel": "a",
+      "w": 208.9,
+      "h": 26,
+      "text": "🧠 brain-25-evidence",
+      "y": 49
+     },
+     {
+      "sel": "label.sr-only",
+      "w": 1,
+      "h": 1,
+      "text": "Поиск по названию или эффект",
+      "y": 207
+     },
+     {
+      "sel": "input#search",
+      "w": 392.8,
+      "h": 24,
+      "text": "",
+      "y": 208
+     },
+     {
+      "sel": "label.sr-only",
+      "w": 1,
+      "h": 1,
+      "text": "Фильтр: вердикт",
+      "y": 207
+     },
+     {
+      "sel": "label.sr-only",
+      "w": 1,
+      "h": 1,
+      "text": "Сортировка списка",
+      "y": 207
+     },
+     {
+      "sel": "label",
+      "w": 79.7,
+      "h": 20,
+      "text": "Добавка 1",
+      "y": 36040
+     },
+     {
+      "sel": "label",
+      "w": 82.9,
+      "h": 20,
+      "text": "Добавка 2",
+      "y": 36124
+     }
+    ],
+    "small44n": 8,
+    "small24n": 5,
+    "tiny": [
+     {
+      "sel": "span.bestBadge",
+      "fs": 10.88,
+      "n": 3,
+      "text": "🔬 Топ-3 по доказательности"
+     },
+     {
+      "sel": "span.manual-badge",
+      "fs": 10.88,
+      "n": 130,
+      "text": "✋ ручная вычитка"
+     },
+     {
+      "sel": "span.cat",
+      "fs": 11.2,
+      "n": 130,
+      "text": "ЖКТ"
+     },
+     {
+      "sel": "span.tagChip",
+      "fs": 11.2,
+      "n": 226,
+      "text": "ЖКТ / кишечник"
+     },
+     {
+      "sel": "span.filterLabel",
+      "fs": 11.52,
+      "n": 2,
+      "text": "Быстрые подборки"
+     },
+     {
+      "sel": "span.grade.gB",
+      "fs": 11.52,
+      "n": 45,
+      "text": "грейд B"
+     },
+     {
+      "sel": "span.grade.gA",
+      "fs": 11.52,
+      "n": 8,
+      "text": "грейд A"
+     },
+     {
+      "sel": "span.grade.gC",
+      "fs": 11.52,
+      "n": 52,
+      "text": "грейд C"
+     },
+     {
+      "sel": "span.grade.gD",
+      "fs": 11.52,
+      "n": 25,
+      "text": "грейд D"
+     }
+    ],
+    "tinyN": 9,
+    "fontsLoaded": [
+     "Inter|400|loaded",
+     "Inter|500|loaded",
+     "Inter|600|loaded",
+     "Inter|700|loaded",
+     "Inter|800|loaded"
+    ],
+    "interOK": true,
+    "bodyFont": "Inter, system-ui, -apple-system, Segoe UI, sans-serif",
+    "header": {
+     "present": true,
+     "h": 119,
+     "actions": [
+      {
+       "t": "💬 Обратная связь",
+       "w": 102,
+       "h": 45,
+       "vis": true,
+       "inView": true,
+       "y": 84
+      },
+      {
+       "t": "🔄 Обновить",
+       "w": 80,
+       "h": 45,
+       "vis": true,
+       "inView": true,
+       "y": 84
+      },
+      {
+       "t": "💚 Поддержать",
+       "w": 98,
+       "h": 45,
+       "vis": true,
+       "inView": true,
+       "y": 84
+      },
+      {
+       "t": "🌞 Светлая тема",
+       "w": 93,
+       "h": 45,
+       "vis": true,
+       "inView": true,
+       "y": 84
+      }
+     ],
+     "actionsVisible": 4,
+     "actionsOffscreen": 0
+    },
+    "bottomFixed": [
+     {
+      "sel": "div.site-header",
+      "position": "sticky",
+      "bottom": 129,
+      "h": 119,
+      "padBottom": "0px"
+     },
+     {
+      "sel": "button#toTop",
+      "position": "fixed",
+      "bottom": 896,
+      "h": 44,
+      "padBottom": "8px"
+     }
+    ]
+   }
+  },
+  {
+   "page": "index",
+   "orientation": "landscape",
+   "w": 915,
+   "h": 412,
+   "status": 200,
+   "data": {
+    "scrollW": 915,
+    "clientW": 915,
+    "bodyScrollW": 915,
+    "overflow": 0,
+    "title": "БАДы: доказательства и механизмы - 130 добавок | Brain 25 Evidence",
+    "h": 17469,
+    "culprits": [],
+    "tapTotal": 189,
+    "small44": [
+     {
+      "sel": "a.skip-link",
+      "w": 197.1,
+      "h": 24,
+      "text": "Перейти к содержимому",
+      "y": 0
+     },
+     {
+      "sel": "a",
+      "w": 217,
+      "h": 32.4,
+      "text": "🧠 brain-25-evidence",
+      "y": 64
+     },
+     {
+      "sel": "label.sr-only",
+      "w": 1,
+      "h": 1,
+      "text": "Поиск по названию или эффект",
+      "y": 157
+     },
+     {
+      "sel": "label.sr-only",
+      "w": 1,
+      "h": 1,
+      "text": "Фильтр: вердикт",
+      "y": 157
+     },
+     {
+      "sel": "label.sr-only",
+      "w": 1,
+      "h": 1,
+      "text": "Сортировка списка",
+      "y": 157
+     },
+     {
+      "sel": "label",
+      "w": 79.7,
+      "h": 20,
+      "text": "Добавка 1",
+      "y": 16552
+     },
+     {
+      "sel": "label",
+      "w": 82.9,
+      "h": 20,
+      "text": "Добавка 2",
+      "y": 16552
+     }
+    ],
+    "small44n": 7,
+    "small24n": 5,
+    "tiny": [
+     {
+      "sel": "span.bestBadge",
+      "fs": 10.88,
+      "n": 3,
+      "text": "🔬 Топ-3 по доказательности"
+     },
+     {
+      "sel": "span.manual-badge",
+      "fs": 10.88,
+      "n": 130,
+      "text": "✋ ручная вычитка"
+     },
+     {
+      "sel": "span.cat",
+      "fs": 11.2,
+      "n": 130,
+      "text": "ЖКТ"
+     },
+     {
+      "sel": "span.tagChip",
+      "fs": 11.2,
+      "n": 226,
+      "text": "ЖКТ / кишечник"
+     },
+     {
+      "sel": "span.filterLabel",
+      "fs": 11.52,
+      "n": 2,
+      "text": "Быстрые подборки"
+     },
+     {
+      "sel": "span.grade.gB",
+      "fs": 11.52,
+      "n": 45,
+      "text": "грейд B"
+     },
+     {
+      "sel": "span.grade.gA",
+      "fs": 11.52,
+      "n": 8,
+      "text": "грейд A"
+     },
+     {
+      "sel": "span.grade.gC",
+      "fs": 11.52,
+      "n": 52,
+      "text": "грейд C"
+     },
+     {
+      "sel": "span.grade.gD",
+      "fs": 11.52,
+      "n": 25,
+      "text": "грейд D"
+     }
+    ],
+    "tinyN": 9,
+    "fontsLoaded": [
+     "Inter|400|loaded",
+     "Inter|500|loaded",
+     "Inter|600|loaded",
+     "Inter|700|loaded",
+     "Inter|800|loaded"
+    ],
+    "interOK": true,
+    "bodyFont": "Inter, system-ui, -apple-system, Segoe UI, sans-serif",
+    "header": {
+     "present": true,
+     "h": 79,
+     "actions": [
+      {
+       "t": "💬 Обратная связь",
+       "w": 156,
+       "h": 44,
+       "vis": true,
+       "inView": true,
+       "y": 59
+      },
+      {
+       "t": "🔄 Обновить",
+       "w": 115,
+       "h": 44,
+       "vis": true,
+       "inView": true,
+       "y": 59
+      },
+      {
+       "t": "💚 Поддержать",
+       "w": 134,
+       "h": 44,
+       "vis": true,
+       "inView": true,
+       "y": 59
+      },
+      {
+       "t": "🌞 Светлая тема",
+       "w": 141,
+       "h": 44,
+       "vis": true,
+       "inView": true,
+       "y": 59
+      }
+     ],
+     "actionsVisible": 4,
+     "actionsOffscreen": 0
+    },
+    "bottomFixed": [
+     {
+      "sel": "div.site-header",
+      "position": "sticky",
+      "bottom": 103,
+      "h": 79,
+      "padBottom": "0px"
+     },
+     {
+      "sel": "button#toTop",
+      "position": "fixed",
+      "bottom": 393,
+      "h": 44,
+      "padBottom": "8px"
+     }
+    ]
+   }
+  },
+  {
+   "page": "calculator",
+   "orientation": "portrait",
+   "w": 412,
+   "h": 915,
+   "status": 200,
+   "data": {
+    "scrollW": 412,
+    "clientW": 412,
+    "bodyScrollW": 412,
+    "overflow": 0,
+    "title": "Калькулятор БАДов — проверка доз и конфликтов",
+    "h": 1877,
+    "culprits": [
+     {
+      "sel": "a.btn.c-support",
+      "right": 799,
+      "w": 111,
+      "left": 688
+     },
+     {
+      "sel": "a.btn.c-feedback",
+      "right": 681,
+      "w": 92,
+      "left": 589
+     },
+     {
+      "sel": "button#themeBtn.btn",
+      "right": 887,
+      "w": 82,
+      "left": 805
+     },
+     {
+      "sel": "a.btn.c-trends",
+      "right": 451,
+      "w": 78,
+      "left": 372
+     },
+     {
+      "sel": "a.btn.c-graph",
+      "right": 583,
+      "w": 73,
+      "left": 510
+     },
+     {
+      "sel": "a.btn.c-bi",
+      "right": 503,
+      "w": 46,
+      "left": 457
+     }
+    ],
+    "tapTotal": 37,
+    "small44": [
+     {
+      "sel": "a.skip-link",
+      "w": 197.1,
+      "h": 24,
+      "text": "Перейти к содержимому",
+      "y": 0
+     },
+     {
+      "sel": "a",
+      "w": 208.9,
+      "h": 26,
+      "text": "🧠 brain-25-evidence",
+      "y": 73
+     },
+     {
+      "sel": "label",
+      "w": 146.6,
+      "h": 19.2,
+      "text": "Вес (кг)",
+      "y": 279
+     },
+     {
+      "sel": "input#pWeight",
+      "w": 154.6,
+      "h": 36.4,
+      "text": "",
+      "y": 302
+     },
+     {
+      "sel": "label",
+      "w": 146.6,
+      "h": 19.2,
+      "text": "Пол",
+      "y": 279
+     },
+     {
+      "sel": "label",
+      "w": 146.6,
+      "h": 19.2,
+      "text": "Возраст",
+      "y": 359
+     },
+     {
+      "sel": "input#pAge",
+      "w": 154.6,
+      "h": 36.4,
+      "text": "",
+      "y": 382
+     },
+     {
+      "sel": "label",
+      "w": 146.6,
+      "h": 19.2,
+      "text": "Особое состояние",
+      "y": 359
+     },
+     {
+      "sel": "label.sr-only",
+      "w": 1,
+      "h": 1,
+      "text": "Поиск добавки для расчёта",
+      "y": 621
+     }
+    ],
+    "small44n": 9,
+    "small24n": 5,
+    "tiny": [
+     {
+      "sel": "div.lbl",
+      "fs": 11.52,
+      "n": 4,
+      "text": "в норме"
+     }
+    ],
+    "tinyN": 1,
+    "fontsLoaded": [
+     "Inter|400|loaded",
+     "Inter|500|loaded",
+     "Inter|600|loaded",
+     "Inter|700|loaded",
+     "Inter|800|loaded"
+    ],
+    "interOK": true,
+    "bodyFont": "Inter, system-ui, -apple-system, Segoe UI, sans-serif",
+    "header": {
+     "present": true,
+     "h": 147,
+     "actions": [
+      {
+       "t": "🏠 Главная",
+       "w": 82,
+       "h": 49,
+       "vis": true,
+       "inView": true,
+       "y": 116
+      },
+      {
+       "t": "🧩 Механизмы",
+       "w": 106,
+       "h": 49,
+       "vis": true,
+       "inView": true,
+       "y": 116
+      },
+      {
+       "t": "🔗 Связи",
+       "w": 68,
+       "h": 49,
+       "vis": true,
+       "inView": true,
+       "y": 116
+      },
+      {
+       "t": "🌐 Атлас",
+       "w": 66,
+       "h": 49,
+       "vis": true,
+       "inView": true,
+       "y": 116
+      },
+      {
+       "t": "📈 Тренды",
+       "w": 78,
+       "h": 49,
+       "vis": true,
+       "inView": false,
+       "y": 116
+      },
+      {
+       "t": "🧠 BI ↗",
+       "w": 46,
+       "h": 65,
+       "vis": true,
+       "inView": false,
+       "y": 108
+      },
+      {
+       "t": "🕸️ Граф связей",
+       "w": 73,
+       "h": 65,
+       "vis": true,
+       "inView": false,
+       "y": 108
+      },
+      {
+       "t": "💬 Обратная связь",
+       "w": 92,
+       "h": 65,
+       "vis": true,
+       "inView": false,
+       "y": 108
+      },
+      {
+       "t": "💚 Поддержать",
+       "w": 111,
+       "h": 49,
+       "vis": true,
+       "inView": false,
+       "y": 116
+      },
+      {
+       "t": "🌞 Светлая тема",
+       "w": 82,
+       "h": 65,
+       "vis": true,
+       "inView": false,
+       "y": 108
+      }
+     ],
+     "actionsVisible": 10,
+     "actionsOffscreen": 6
+    },
+    "bottomFixed": [
+     {
+      "sel": "div.site-header",
+      "position": "sticky",
+      "bottom": 173,
+      "h": 147,
+      "padBottom": "0px"
+     }
+    ]
+   }
+  },
+  {
+   "page": "calculator",
+   "orientation": "landscape",
+   "w": 915,
+   "h": 412,
+   "status": 200,
+   "data": {
+    "scrollW": 915,
+    "clientW": 915,
+    "bodyScrollW": 915,
+    "overflow": 0,
+    "title": "Калькулятор БАДов — проверка доз и конфликтов",
+    "h": 1323,
+    "culprits": [],
+    "tapTotal": 37,
+    "small44": [
+     {
+      "sel": "a.skip-link",
+      "w": 197.1,
+      "h": 24,
+      "text": "Перейти к содержимому",
+      "y": 0
+     },
+     {
+      "sel": "a",
+      "w": 208.9,
+      "h": 31.2,
+      "text": "🧠 brain-25-evidence",
+      "y": 94
+     },
+     {
+      "sel": "label",
+      "w": 178.3,
+      "h": 19.2,
+      "text": "Вес (кг)",
+      "y": 345
+     },
+     {
+      "sel": "input#pWeight",
+      "w": 186.3,
+      "h": 36.4,
+      "text": "",
+      "y": 367
+     },
+     {
+      "sel": "label",
+      "w": 178.3,
+      "h": 19.2,
+      "text": "Пол",
+      "y": 345
+     },
+     {
+      "sel": "label",
+      "w": 178.3,
+      "h": 19.2,
+      "text": "Возраст",
+      "y": 345
+     },
+     {
+      "sel": "input#pAge",
+      "w": 186.3,
+      "h": 36.4,
+      "text": "",
+      "y": 367
+     },
+     {
+      "sel": "label",
+      "w": 178.3,
+      "h": 19.2,
+      "text": "Особое состояние",
+      "y": 345
+     },
+     {
+      "sel": "label.sr-only",
+      "w": 1,
+      "h": 1,
+      "text": "Поиск добавки для расчёта",
+      "y": 556
+     }
+    ],
+    "small44n": 9,
+    "small24n": 5,
+    "tiny": [
+     {
+      "sel": "div.lbl",
+      "fs": 11.52,
+      "n": 4,
+      "text": "в норме"
+     }
+    ],
+    "tinyN": 1,
+    "fontsLoaded": [
+     "Inter|400|loaded",
+     "Inter|500|loaded",
+     "Inter|600|loaded",
+     "Inter|700|loaded",
+     "Inter|800|loaded"
+    ],
+    "interOK": true,
+    "bodyFont": "Inter, system-ui, -apple-system, Segoe UI, sans-serif",
+    "header": {
+     "present": true,
+     "h": 199,
+     "actions": [
+      {
+       "t": "🏠 Главная",
+       "w": 102,
+       "h": 44,
+       "vis": true,
+       "inView": true,
+       "y": 143
+      },
+      {
+       "t": "🧩 Механизмы",
+       "w": 128,
+       "h": 44,
+       "vis": true,
+       "inView": true,
+       "y": 143
+      },
+      {
+       "t": "🔗 Связи",
+       "w": 90,
+       "h": 44,
+       "vis": true,
+       "inView": true,
+       "y": 143
+      },
+      {
+       "t": "🌐 Атлас",
+       "w": 88,
+       "h": 44,
+       "vis": true,
+       "inView": true,
+       "y": 143
+      },
+      {
+       "t": "📈 Тренды",
+       "w": 100,
+       "h": 44,
+       "vis": true,
+       "inView": true,
+       "y": 143
+      },
+      {
+       "t": "🧠 BI ↗",
+       "w": 77,
+       "h": 44,
+       "vis": true,
+       "inView": true,
+       "y": 143
+      },
+      {
+       "t": "🕸️ Граф связей",
+       "w": 132,
+       "h": 44,
+       "vis": true,
+       "inView": true,
+       "y": 143
+      },
+      {
+       "t": "💬 Обратная связь",
+       "w": 156,
+       "h": 44,
+       "vis": true,
+       "inView": true,
+       "y": 195
+      },
+      {
+       "t": "💚 Поддержать",
+       "w": 134,
+       "h": 44,
+       "vis": true,
+       "inView": true,
+       "y": 195
+      },
+      {
+       "t": "🌞 Светлая тема",
+       "w": 141,
+       "h": 44,
+       "vis": true,
+       "inView": true,
+       "y": 195
+      }
+     ],
+     "actionsVisible": 10,
+     "actionsOffscreen": 0
+    },
+    "bottomFixed": [
+     {
+      "sel": "div.site-header",
+      "position": "sticky",
+      "bottom": 239,
+      "h": 199,
+      "padBottom": "0px"
+     },
+     {
+      "sel": "div.panel.result-panel",
+      "position": "sticky",
+      "bottom": 931,
+      "h": 322,
+      "padBottom": "16px"
+     }
+    ]
+   }
+  },
+  {
+   "page": "map",
+   "orientation": "portrait",
+   "w": 412,
+   "h": 915,
+   "status": 200,
+   "data": {
+    "scrollW": 412,
+    "clientW": 412,
+    "bodyScrollW": 412,
+    "overflow": 0,
+    "title": "Карта механизмов БАДов — 130 добавки",
+    "h": 2060,
+    "culprits": [
+     {
+      "sel": "a.btn.c-support",
+      "right": 701,
+      "w": 98,
+      "left": 604
+     },
+     {
+      "sel": "a.btn.c-feedback",
+      "right": 597,
+      "w": 80,
+      "left": 517
+     },
+     {
+      "sel": "button#themeBtn.btn",
+      "right": 786,
+      "w": 78,
+      "left": 708
+     },
+     {
+      "sel": "a.btn.c-graph",
+      "right": 511,
+      "w": 63,
+      "left": 448
+     },
+     {
+      "sel": "a.btn.c-bi",
+      "right": 441,
+      "w": 38,
+      "left": 403
+     }
+    ],
+    "tapTotal": 17,
+    "small44": [
+     {
+      "sel": "a.skip-link",
+      "w": 197.1,
+      "h": 24,
+      "text": "Перейти к содержимому",
+      "y": 0
+     },
+     {
+      "sel": "a",
+      "w": 208.9,
+      "h": 26,
+      "text": "🧠 brain-25-evidence",
+      "y": 54
+     },
+     {
+      "sel": "a.btn.c-bi",
+      "w": 38.3,
+      "h": 59.6,
+      "text": "🧠 BI ↗",
+      "y": 90
+     }
+    ],
+    "small44n": 3,
+    "small24n": 0,
+    "tiny": [
+     {
+      "sel": "h3",
+      "fs": 11.2,
+      "n": 79,
+      "text": "Антиоксидант ▾"
+     },
+     {
+      "sel": "span.tag.t-strong",
+      "fs": 11.52,
+      "n": 1,
+      "text": "сильно"
+     },
+     {
+      "sel": "span.tag.t-mod",
+      "fs": 11.52,
+      "n": 1,
+      "text": "умеренно"
+     },
+     {
+      "sel": "span.tag.t-ctx",
+      "fs": 11.52,
+      "n": 1,
+      "text": "контекст"
+     }
+    ],
+    "tinyN": 4,
+    "fontsLoaded": [
+     "Inter|400|loaded",
+     "Inter|500|loaded",
+     "Inter|600|loaded",
+     "Inter|700|loaded",
+     "Inter|800|loaded"
+    ],
+    "interOK": true,
+    "bodyFont": "Inter, system-ui, -apple-system, Segoe UI, sans-serif",
+    "header": {
+     "present": true,
+     "h": 132,
+     "actions": [
+      {
+       "t": "🏠 Главная",
+       "w": 71,
+       "h": 45,
+       "vis": true,
+       "inView": true,
+       "y": 98
+      },
+      {
+       "t": "🧮 Калькулятор",
+       "w": 99,
+       "h": 45,
+       "vis": true,
+       "inView": true,
+       "y": 98
+      },
+      {
+       "t": "🔗 Связи",
+       "w": 58,
+       "h": 45,
+       "vis": true,
+       "inView": true,
+       "y": 98
+      },
+      {
+       "t": "🌐 Атлас",
+       "w": 57,
+       "h": 45,
+       "vis": true,
+       "inView": true,
+       "y": 98
+      },
+      {
+       "t": "📈 Тренды",
+       "w": 68,
+       "h": 45,
+       "vis": true,
+       "inView": true,
+       "y": 98
+      },
+      {
+       "t": "🧠 BI ↗",
+       "w": 38,
+       "h": 60,
+       "vis": true,
+       "inView": false,
+       "y": 90
+      },
+      {
+       "t": "🕸️ Граф связей",
+       "w": 63,
+       "h": 60,
+       "vis": true,
+       "inView": false,
+       "y": 90
+      },
+      {
+       "t": "💬 Обратная связь",
+       "w": 80,
+       "h": 60,
+       "vis": true,
+       "inView": false,
+       "y": 90
+      },
+      {
+       "t": "💚 Поддержать",
+       "w": 98,
+       "h": 45,
+       "vis": true,
+       "inView": false,
+       "y": 98
+      },
+      {
+       "t": "🌞 Светлая тема",
+       "w": 78,
+       "h": 63,
+       "vis": true,
+       "inView": false,
+       "y": 89
+      }
+     ],
+     "actionsVisible": 10,
+     "actionsOffscreen": 5
+    },
+    "bottomFixed": [
+     {
+      "sel": "div.site-header",
+      "position": "sticky",
+      "bottom": 152,
+      "h": 132,
+      "padBottom": "0px"
+     },
+     {
+      "sel": "div#details-backdrop",
+      "position": "fixed",
+      "bottom": 915,
+      "h": 915,
+      "padBottom": "0px"
+     },
+     {
+      "sel": "aside#details",
+      "position": "fixed",
+      "bottom": 481,
+      "h": 48,
+      "padBottom": "25.6px"
+     }
+    ]
+   }
+  },
+  {
+   "page": "map",
+   "orientation": "landscape",
+   "w": 915,
+   "h": 412,
+   "status": 200,
+   "data": {
+    "scrollW": 915,
+    "clientW": 915,
+    "bodyScrollW": 915,
+    "overflow": 0,
+    "title": "Карта механизмов БАДов — 130 добавки",
+    "h": 1291,
+    "culprits": [],
+    "tapTotal": 17,
+    "small44": [
+     {
+      "sel": "a.skip-link",
+      "w": 197.1,
+      "h": 24,
+      "text": "Перейти к содержимому",
+      "y": 0
+     },
+     {
+      "sel": "a",
+      "w": 217,
+      "h": 32.4,
+      "text": "🧠 brain-25-evidence",
+      "y": 59
+     }
+    ],
+    "small44n": 2,
+    "small24n": 0,
+    "tiny": [
+     {
+      "sel": "span.tag.t-strong",
+      "fs": 11.52,
+      "n": 1,
+      "text": "сильно"
+     },
+     {
+      "sel": "span.tag.t-mod",
+      "fs": 11.52,
+      "n": 1,
+      "text": "умеренно"
+     },
+     {
+      "sel": "span.tag.t-ctx",
+      "fs": 11.52,
+      "n": 1,
+      "text": "контекст"
+     }
+    ],
+    "tinyN": 3,
+    "fontsLoaded": [
+     "Inter|400|loaded",
+     "Inter|500|loaded",
+     "Inter|600|loaded",
+     "Inter|700|loaded",
+     "Inter|800|loaded"
+    ],
+    "interOK": true,
+    "bodyFont": "Inter, system-ui, -apple-system, Segoe UI, sans-serif",
+    "header": {
+     "present": true,
+     "h": 180,
+     "actions": [
+      {
+       "t": "🏠 Главная",
+       "w": 102,
+       "h": 44,
+       "vis": true,
+       "inView": true,
+       "y": 108
+      },
+      {
+       "t": "🧮 Калькулятор",
+       "w": 135,
+       "h": 44,
+       "vis": true,
+       "inView": true,
+       "y": 108
+      },
+      {
+       "t": "🔗 Связи",
+       "w": 90,
+       "h": 44,
+       "vis": true,
+       "inView": true,
+       "y": 108
+      },
+      {
+       "t": "🌐 Атлас",
+       "w": 88,
+       "h": 44,
+       "vis": true,
+       "inView": true,
+       "y": 108
+      },
+      {
+       "t": "📈 Тренды",
+       "w": 100,
+       "h": 44,
+       "vis": true,
+       "inView": true,
+       "y": 108
+      },
+      {
+       "t": "🧠 BI ↗",
+       "w": 77,
+       "h": 44,
+       "vis": true,
+       "inView": true,
+       "y": 108
+      },
+      {
+       "t": "🕸️ Граф связей",
+       "w": 132,
+       "h": 44,
+       "vis": true,
+       "inView": true,
+       "y": 108
+      },
+      {
+       "t": "💬 Обратная связь",
+       "w": 156,
+       "h": 44,
+       "vis": true,
+       "inView": true,
+       "y": 160
+      },
+      {
+       "t": "💚 Поддержать",
+       "w": 134,
+       "h": 44,
+       "vis": true,
+       "inView": true,
+       "y": 160
+      },
+      {
+       "t": "🌞 Светлая тема",
+       "w": 141,
+       "h": 44,
+       "vis": true,
+       "inView": true,
+       "y": 160
+      }
+     ],
+     "actionsVisible": 10,
+     "actionsOffscreen": 0
+    },
+    "bottomFixed": [
+     {
+      "sel": "div.site-header",
+      "position": "sticky",
+      "bottom": 204,
+      "h": 180,
+      "padBottom": "0px"
+     },
+     {
+      "sel": "div#details-backdrop",
+      "position": "fixed",
+      "bottom": 412,
+      "h": 412,
+      "padBottom": "0px"
+     },
+     {
+      "sel": "aside#details",
+      "position": "fixed",
+      "bottom": 230,
+      "h": 48,
+      "padBottom": "25.6px"
+     }
+    ]
+   }
+  },
+  {
+   "page": "graph",
+   "orientation": "portrait",
+   "w": 412,
+   "h": 915,
+   "status": 200,
+   "data": {
+    "scrollW": 412,
+    "clientW": 412,
+    "bodyScrollW": 412,
+    "overflow": 0,
+    "title": "Граф связей механизмов — brain-25-evidence",
+    "h": 1687,
+    "culprits": [
+     {
+      "sel": "a.btn.c-support",
+      "right": 975,
+      "w": 131,
+      "left": 844
+     },
+     {
+      "sel": "a.btn.c-feedback",
+      "right": 838,
+      "w": 109,
+      "left": 729
+     },
+     {
+      "sel": "button#themeBtn.btn",
+      "right": 1079,
+      "w": 98,
+      "left": 981
+     },
+     {
+      "sel": "a.btn.c-trends",
+      "right": 658,
+      "w": 94,
+      "left": 564
+     },
+     {
+      "sel": "a.btn.c-links",
+      "right": 471,
+      "w": 82,
+      "left": 389
+     },
+     {
+      "sel": "a.btn.c-atlas",
+      "right": 558,
+      "w": 80,
+      "left": 477
+     },
+     {
+      "sel": "a.btn.c-bi",
+      "right": 722,
+      "w": 58,
+      "left": 664
+     }
+    ],
+    "tapTotal": 16,
+    "small44": [
+     {
+      "sel": "a.skip-link",
+      "w": 197.1,
+      "h": 24,
+      "text": "Перейти к содержимому",
+      "y": 0
+     },
+     {
+      "sel": "a",
+      "w": 208.9,
+      "h": 26,
+      "text": "🧠 brain-25-evidence",
+      "y": 51
+     }
+    ],
+    "small44n": 2,
+    "small24n": 0,
+    "tiny": [],
+    "tinyN": 0,
+    "fontsLoaded": [
+     "Inter|400|loaded",
+     "Inter|500|unloaded",
+     "Inter|600|loaded",
+     "Inter|700|loaded",
+     "Inter|800|loaded"
+    ],
+    "interOK": true,
+    "bodyFont": "Inter, system-ui, -apple-system, Segoe UI, sans-serif",
+    "header": {
+     "present": true,
+     "h": 162,
+     "actions": [
+      {
+       "t": "🏠 Главная",
+       "w": 98,
+       "h": 70,
+       "vis": true,
+       "inView": true,
+       "y": 97
+      },
+      {
+       "t": "🧮 Калькулятор",
+       "w": 132,
+       "h": 70,
+       "vis": true,
+       "inView": true,
+       "y": 97
+      },
+      {
+       "t": "🧩 Механизмы",
+       "w": 125,
+       "h": 70,
+       "vis": true,
+       "inView": true,
+       "y": 97
+      },
+      {
+       "t": "🔗 Связи",
+       "w": 82,
+       "h": 70,
+       "vis": true,
+       "inView": false,
+       "y": 97
+      },
+      {
+       "t": "🌐 Атлас",
+       "w": 80,
+       "h": 70,
+       "vis": true,
+       "inView": false,
+       "y": 97
+      },
+      {
+       "t": "📈 Тренды",
+       "w": 94,
+       "h": 70,
+       "vis": true,
+       "inView": false,
+       "y": 97
+      },
+      {
+       "t": "🧠 BI ↗",
+       "w": 58,
+       "h": 93,
+       "vis": true,
+       "inView": false,
+       "y": 86
+      },
+      {
+       "t": "💬 Обратная связь",
+       "w": 109,
+       "h": 93,
+       "vis": true,
+       "inView": false,
+       "y": 86
+      },
+      {
+       "t": "💚 Поддержать",
+       "w": 131,
+       "h": 70,
+       "vis": true,
+       "inView": false,
+       "y": 97
+      },
+      {
+       "t": "🌞 Светлая тема",
+       "w": 98,
+       "h": 93,
+       "vis": true,
+       "inView": false,
+       "y": 86
+      }
+     ],
+     "actionsVisible": 10,
+     "actionsOffscreen": 7
+    },
+    "bottomFixed": [
+     {
+      "sel": "div.site-header",
+      "position": "sticky",
+      "bottom": 178,
+      "h": 162,
+      "padBottom": "0px"
+     }
+    ]
+   }
+  },
+  {
+   "page": "graph",
+   "orientation": "landscape",
+   "w": 915,
+   "h": 412,
+   "status": 200,
+   "data": {
+    "scrollW": 915,
+    "clientW": 915,
+    "bodyScrollW": 915,
+    "overflow": 0,
+    "title": "Граф связей механизмов — brain-25-evidence",
+    "h": 1553,
+    "culprits": [],
+    "tapTotal": 16,
+    "small44": [
+     {
+      "sel": "a.skip-link",
+      "w": 197.1,
+      "h": 24,
+      "text": "Перейти к содержимому",
+      "y": 0
+     },
+     {
+      "sel": "a",
+      "w": 217,
+      "h": 32.4,
+      "text": "🧠 brain-25-evidence",
+      "y": 59
+     }
+    ],
+    "small44n": 2,
+    "small24n": 0,
+    "tiny": [],
+    "tinyN": 0,
+    "fontsLoaded": [
+     "Inter|400|loaded",
+     "Inter|500|unloaded",
+     "Inter|600|loaded",
+     "Inter|700|loaded",
+     "Inter|800|loaded"
+    ],
+    "interOK": true,
+    "bodyFont": "Inter, system-ui, -apple-system, Segoe UI, sans-serif",
+    "header": {
+     "present": true,
+     "h": 186,
+     "actions": [
+      {
+       "t": "🏠 Главная",
+       "w": 121,
+       "h": 47,
+       "vis": true,
+       "inView": true,
+       "y": 108
+      },
+      {
+       "t": "🧮 Калькулятор",
+       "w": 157,
+       "h": 47,
+       "vis": true,
+       "inView": true,
+       "y": 108
+      },
+      {
+       "t": "🧩 Механизмы",
+       "w": 150,
+       "h": 47,
+       "vis": true,
+       "inView": true,
+       "y": 108
+      },
+      {
+       "t": "🔗 Связи",
+       "w": 107,
+       "h": 47,
+       "vis": true,
+       "inView": true,
+       "y": 108
+      },
+      {
+       "t": "🌐 Атлас",
+       "w": 104,
+       "h": 47,
+       "vis": true,
+       "inView": true,
+       "y": 108
+      },
+      {
+       "t": "📈 Тренды",
+       "w": 118,
+       "h": 47,
+       "vis": true,
+       "inView": true,
+       "y": 108
+      },
+      {
+       "t": "🧠 BI ↗",
+       "w": 92,
+       "h": 47,
+       "vis": true,
+       "inView": true,
+       "y": 163
+      },
+      {
+       "t": "💬 Обратная связь",
+       "w": 180,
+       "h": 47,
+       "vis": true,
+       "inView": true,
+       "y": 163
+      },
+      {
+       "t": "💚 Поддержать",
+       "w": 156,
+       "h": 47,
+       "vis": true,
+       "inView": true,
+       "y": 163
+      },
+      {
+       "t": "🌞 Светлая тема",
+       "w": 164,
+       "h": 47,
+       "vis": true,
+       "inView": true,
+       "y": 163
+      }
+     ],
+     "actionsVisible": 10,
+     "actionsOffscreen": 0
+    },
+    "bottomFixed": [
+     {
+      "sel": "div.site-header",
+      "position": "sticky",
+      "bottom": 210,
+      "h": 186,
+      "padBottom": "0px"
+     }
+    ]
+   }
+  },
+  {
+   "page": "sup/kreatin",
+   "orientation": "portrait",
+   "w": 412,
+   "h": 915,
+   "status": 200,
+   "data": {
+    "scrollW": 412,
+    "clientW": 412,
+    "bodyScrollW": 412,
+    "overflow": 0,
+    "title": "Креатин — БАДы, доказательства, механизмы | Brain 25 Evidence",
+    "h": 4586,
+    "culprits": [
+     {
+      "sel": "button#themeBtn.btn",
+      "right": 471,
+      "w": 98,
+      "left": 372
+     }
+    ],
+    "tapTotal": 16,
+    "small44": [
+     {
+      "sel": "a.skip-link",
+      "w": 197.1,
+      "h": 24,
+      "text": "Перейти к содержимому",
+      "y": 0
+     },
+     {
+      "sel": "a",
+      "w": 208.9,
+      "h": 26,
+      "text": "🧠 brain-25-evidence",
+      "y": 51
+     }
+    ],
+    "small44n": 2,
+    "small24n": 0,
+    "tiny": [],
+    "tinyN": 0,
+    "fontsLoaded": [
+     "Inter|400|loaded",
+     "Inter|500|loaded",
+     "Inter|600|loaded",
+     "Inter|700|loaded",
+     "Inter|800|loaded"
+    ],
+    "interOK": true,
+    "bodyFont": "Inter, system-ui, -apple-system, Segoe UI, sans-serif",
+    "header": {
+     "present": true,
+     "h": 162,
+     "actions": [
+      {
+       "t": "🏠 Главная",
+       "w": 98,
+       "h": 70,
+       "vis": true,
+       "inView": true,
+       "y": 97
+      },
+      {
+       "t": "💬 Обратная связь",
+       "w": 109,
+       "h": 93,
+       "vis": true,
+       "inView": true,
+       "y": 86
+      },
+      {
+       "t": "💚 Поддержать",
+       "w": 131,
+       "h": 70,
+       "vis": true,
+       "inView": true,
+       "y": 97
+      },
+      {
+       "t": "🌞 Светлая тема",
+       "w": 98,
+       "h": 82,
+       "vis": true,
+       "inView": false,
+       "y": 91
+      }
+     ],
+     "actionsVisible": 4,
+     "actionsOffscreen": 1
+    },
+    "bottomFixed": [
+     {
+      "sel": "div.site-header",
+      "position": "sticky",
+      "bottom": 178,
+      "h": 162,
+      "padBottom": "0px"
+     }
+    ]
+   }
+  },
+  {
+   "page": "sup/kreatin",
+   "orientation": "landscape",
+   "w": 915,
+   "h": 412,
+   "status": 200,
+   "data": {
+    "scrollW": 915,
+    "clientW": 915,
+    "bodyScrollW": 915,
+    "overflow": 0,
+    "title": "Креатин — БАДы, доказательства, механизмы | Brain 25 Evidence",
+    "h": 3550,
+    "culprits": [],
+    "tapTotal": 16,
+    "small44": [
+     {
+      "sel": "a.skip-link",
+      "w": 197.1,
+      "h": 24,
+      "text": "Перейти к содержимому",
+      "y": 0
+     },
+     {
+      "sel": "a",
+      "w": 217,
+      "h": 32.4,
+      "text": "🧠 brain-25-evidence",
+      "y": 59
+     }
+    ],
+    "small44n": 2,
+    "small24n": 0,
+    "tiny": [],
+    "tinyN": 0,
+    "fontsLoaded": [
+     "Inter|400|loaded",
+     "Inter|500|loaded",
+     "Inter|600|loaded",
+     "Inter|700|loaded",
+     "Inter|800|loaded"
+    ],
+    "interOK": true,
+    "bodyFont": "Inter, system-ui, -apple-system, Segoe UI, sans-serif",
+    "header": {
+     "present": true,
+     "h": 131,
+     "actions": [
+      {
+       "t": "🏠 Главная",
+       "w": 121,
+       "h": 47,
+       "vis": true,
+       "inView": true,
+       "y": 108
+      },
+      {
+       "t": "💬 Обратная связь",
+       "w": 180,
+       "h": 47,
+       "vis": true,
+       "inView": true,
+       "y": 108
+      },
+      {
+       "t": "💚 Поддержать",
+       "w": 156,
+       "h": 47,
+       "vis": true,
+       "inView": true,
+       "y": 108
+      },
+      {
+       "t": "🌞 Светлая тема",
+       "w": 164,
+       "h": 44,
+       "vis": true,
+       "inView": true,
+       "y": 109
+      }
+     ],
+     "actionsVisible": 4,
+     "actionsOffscreen": 0
+    },
+    "bottomFixed": [
+     {
+      "sel": "div.site-header",
+      "position": "sticky",
+      "bottom": 155,
+      "h": 131,
+      "padBottom": "0px"
+     }
+    ]
+   }
+  }
+ ],
+ "textRect": [
+  {
+   "cfg": {
+    "top": 59,
+    "bottom": 34
+   },
+   "notchTextHits": [
+    {
+     "el": "a.skip-link",
+     "top": 2,
+     "bottom": 22,
+     "overlap": 57,
+     "text": "Перейти к содержимому"
+    }
+   ],
+   "n": 1,
+   "device": "iPhone 14 Pro Max",
+   "page": "index",
+   "mode": "emulated"
+  },
+  {
+   "cfg": {
+    "top": 59,
+    "bottom": 34
+   },
+   "notchTextHits": [
+    {
+     "el": "a.skip-link",
+     "top": 2,
+     "bottom": 22,
+     "overlap": 57,
+     "text": "Перейти к содержимому"
+    }
+   ],
+   "n": 1,
+   "device": "iPhone 14 Pro Max",
+   "page": "calculator",
+   "mode": "emulated"
+  },
+  {
+   "cfg": {
+    "top": 59,
+    "bottom": 34
+   },
+   "notchTextHits": [
+    {
+     "el": "a.skip-link",
+     "top": 2,
+     "bottom": 22,
+     "overlap": 57,
+     "text": "Перейти к содержимому"
+    }
+   ],
+   "n": 1,
+   "device": "iPhone 14 Pro Max",
+   "page": "map",
+   "mode": "emulated"
+  },
+  {
+   "cfg": {
+    "top": 59,
+    "bottom": 34
+   },
+   "notchTextHits": [
+    {
+     "el": "a.skip-link",
+     "top": 2,
+     "bottom": 22,
+     "overlap": 57,
+     "text": "Перейти к содержимому"
+    }
+   ],
+   "n": 1,
+   "device": "iPhone 14 Pro Max",
+   "page": "graph",
+   "mode": "emulated"
+  },
+  {
+   "cfg": {
+    "top": 59,
+    "bottom": 34
+   },
+   "notchTextHits": [
+    {
+     "el": "a.skip-link",
+     "top": 2,
+     "bottom": 22,
+     "overlap": 57,
+     "text": "Перейти к содержимому"
+    }
+   ],
+   "n": 1,
+   "device": "iPhone 14 Pro Max",
+   "page": "sup/kreatin",
+   "mode": "emulated"
+  },
+  {
+   "cfg": {
+    "top": 20,
+    "bottom": 0
+   },
+   "notchTextHits": [
+    {
+     "el": "a.skip-link",
+     "top": 2,
+     "bottom": 22,
+     "overlap": 18,
+     "text": "Перейти к содержимому"
+    }
+   ],
+   "n": 1,
+   "device": "iPhone SE",
+   "page": "index",
+   "mode": "emulated"
+  },
+  {
+   "cfg": {
+    "top": 20,
+    "bottom": 0
+   },
+   "notchTextHits": [
+    {
+     "el": "a.skip-link",
+     "top": 2,
+     "bottom": 22,
+     "overlap": 18,
+     "text": "Перейти к содержимому"
+    }
+   ],
+   "n": 1,
+   "device": "iPhone SE",
+   "page": "calculator",
+   "mode": "emulated"
+  },
+  {
+   "cfg": {
+    "top": 20,
+    "bottom": 0
+   },
+   "notchTextHits": [
+    {
+     "el": "a.skip-link",
+     "top": 2,
+     "bottom": 22,
+     "overlap": 18,
+     "text": "Перейти к содержимому"
+    }
+   ],
+   "n": 1,
+   "device": "iPhone SE",
+   "page": "map",
+   "mode": "emulated"
+  },
+  {
+   "cfg": {
+    "top": 20,
+    "bottom": 0
+   },
+   "notchTextHits": [
+    {
+     "el": "a.skip-link",
+     "top": 2,
+     "bottom": 22,
+     "overlap": 18,
+     "text": "Перейти к содержимому"
+    }
+   ],
+   "n": 1,
+   "device": "iPhone SE",
+   "page": "graph",
+   "mode": "emulated"
+  },
+  {
+   "cfg": {
+    "top": 20,
+    "bottom": 0
+   },
+   "notchTextHits": [
+    {
+     "el": "a.skip-link",
+     "top": 2,
+     "bottom": 22,
+     "overlap": 18,
+     "text": "Перейти к содержимому"
+    }
+   ],
+   "n": 1,
+   "device": "iPhone SE",
+   "page": "sup/kreatin",
+   "mode": "emulated"
+  }
+ ],
+ "bottomBtns": [
+  {
+   "H": 932,
+   "homeTop": 898,
+   "buttons": [
+    {
+     "sel": "#toTop",
+     "pos": "fixed",
+     "bottom": 913,
+     "h": 44,
+     "w": 44,
+     "cssBottom": "19.200001px",
+     "overlapHome": 15,
+     "clear": false
+    },
+    {
+     "sel": ".toBottom",
+     "pos": "fixed",
+     "bottom": 852,
+     "h": 45,
+     "w": 45,
+     "cssBottom": "80px",
+     "overlapHome": -46,
+     "clear": true
+    }
+   ],
+   "device": "iPhone 14 Pro Max",
+   "page": "index"
+  },
+  {
+   "H": 932,
+   "homeTop": 898,
+   "buttons": [
+    {
+     "sel": ".toBottom",
+     "pos": "fixed",
+     "bottom": 852,
+     "h": 45,
+     "w": 45,
+     "cssBottom": "80px",
+     "overlapHome": -46,
+     "clear": true
+    }
+   ],
+   "device": "iPhone 14 Pro Max",
+   "page": "calculator"
+  },
+  {
+   "H": 932,
+   "homeTop": 898,
+   "buttons": [
+    {
+     "sel": ".toBottom",
+     "pos": "fixed",
+     "bottom": 852,
+     "h": 45,
+     "w": 45,
+     "cssBottom": "80px",
+     "overlapHome": -46,
+     "clear": true
+    }
+   ],
+   "device": "iPhone 14 Pro Max",
+   "page": "map"
+  },
+  {
+   "H": 932,
+   "homeTop": 898,
+   "buttons": [],
+   "device": "iPhone 14 Pro Max",
+   "page": "graph"
+  },
+  {
+   "H": 932,
+   "homeTop": 898,
+   "buttons": [],
+   "device": "iPhone 14 Pro Max",
+   "page": "sup/kreatin"
+  },
+  {
+   "H": 667,
+   "homeTop": 667,
+   "buttons": [
+    {
+     "sel": "#toTop",
+     "pos": "fixed",
+     "bottom": 648,
+     "h": 44,
+     "w": 44,
+     "cssBottom": "19.200001px",
+     "overlapHome": -19,
+     "clear": true
+    },
+    {
+     "sel": ".toBottom",
+     "pos": "fixed",
+     "bottom": 587,
+     "h": 45,
+     "w": 45,
+     "cssBottom": "80px",
+     "overlapHome": -80,
+     "clear": true
+    }
+   ],
+   "device": "iPhone SE",
+   "page": "index"
+  },
+  {
+   "H": 667,
+   "homeTop": 667,
+   "buttons": [
+    {
+     "sel": ".toBottom",
+     "pos": "fixed",
+     "bottom": 587,
+     "h": 45,
+     "w": 45,
+     "cssBottom": "80px",
+     "overlapHome": -80,
+     "clear": true
+    }
+   ],
+   "device": "iPhone SE",
+   "page": "calculator"
+  },
+  {
+   "H": 667,
+   "homeTop": 667,
+   "buttons": [
+    {
+     "sel": ".toBottom",
+     "pos": "fixed",
+     "bottom": 587,
+     "h": 45,
+     "w": 45,
+     "cssBottom": "80px",
+     "overlapHome": -80,
+     "clear": true
+    }
+   ],
+   "device": "iPhone SE",
+   "page": "map"
+  },
+  {
+   "H": 667,
+   "homeTop": 667,
+   "buttons": [],
+   "device": "iPhone SE",
+   "page": "graph"
+  },
+  {
+   "H": 667,
+   "homeTop": 667,
+   "buttons": [],
+   "device": "iPhone SE",
+   "page": "sup/kreatin"
+  }
+ ]
+}
