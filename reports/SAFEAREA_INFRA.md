@@ -120,3 +120,6 @@ rate-limit-fallback упомянуты) ✓; ловушки проекта ак�
 - Исправление: `2881bbc` — `docs: пересобрать feed.xml — дата коммита
   08 Oct 2026` (2 строки: lastBuildDate/pubDate 07→08 Oct).
 - Итог: CI на `2881bbc` — **success** (оба job: Python 3.12 и 3.13).
+- Дополнительно: `eabe080` — этот отчёт; `22e2efe` — правка
+  `.opencode/skills/SKILLS_INDEX.md` («Скиллов: 19»), не попавшая в
+  `7da9e5c` из-за `git add docs/ reports/` без `.opencode/`.
