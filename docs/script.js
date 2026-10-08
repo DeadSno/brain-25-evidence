@@ -7,6 +7,66 @@ const $ = id => document.getElementById(id);
 let supplements = [], currentData = [], chartInstance = null, radarInstance = null, onlyFavs = false;
 let supplementsFull = null;         // {id: {...}} — загружается при первом клике
 let supplementsFullPromise = null;  // in-flight запрос data.json
+// v5.6.2 (батч C, T4): поиск по PMID возвращал 0 результатов. Причина —
+// PMID лежит в data.json (key_sources[].pmid), а фильтр работал по
+// data_index.json, где таких полей нет: index отдаёт только id / name /
+// category / code / verdict / grade / scienceIndex / metaCount / citations /
+// wiki / ongoing / effects / updated / interactions / upper_limit / hedges_g.
+// Поэтому «42027564» не совпадало ни с именем, ни с effects.
+// Решение — не тянуть 0.73 МБ на каждый ввод: индекс PMID строится один
+// раз лениво, по общему supplementsFullPromise, и только когда запрос
+// похож на PMID (цифры). matchPmidIds возвращает null, пока индекс не
+// готов, — тогда запрос не сужает выборку и пользователь получает
+// обычный список, а не ложные нули.
+let pmidIndex = null, pmidIndexPromise = null;
+const PMID_QUERY_RE = /^\d{4,}$/;
+
+// v5.6.2 (батч C, T4): единая точка загрузки полного data.json.
+// Раньше одинаковый код был продублирован в трёх местах (prefetch,
+// openModal, compare) и различался только текстом ошибки. Здесь retry
+// после неудачи общий: supplementsFullPromise сбрасывается, поэтому
+// следующий вызов действительно повторит запрос.
+function ensureFullData() {
+  if (supplementsFull) return Promise.resolve(supplementsFull);
+  if (!supplementsFullPromise) {
+    supplementsFullPromise = fetchJson('data.json').then(data => {
+      supplementsFull = Object.fromEntries(data.map(c => [c.id, c]));
+      return supplementsFull;
+    }).catch(err => {
+      supplementsFullPromise = null;   // разрешаем retry
+      throw err;
+    });
+  }
+  return supplementsFullPromise;
+}
+
+function buildPmidIndex(map) {
+  const idx = new Map();
+  for (const card of Object.values(map)) {
+    for (const src of card.key_sources || []) {
+      const p = String(src.pmid || src);
+      if (!p) continue;
+      if (!idx.has(p)) idx.set(p, []);
+      if (!idx.get(p).includes(card.id)) idx.get(p).push(card.id);
+    }
+  }
+  return idx;
+}
+
+function ensurePmidIndex() {
+  if (pmidIndex) return Promise.resolve(pmidIndex);
+  if (!pmidIndexPromise) {
+    pmidIndexPromise = ensureFullData()
+      .then(map => { pmidIndex = buildPmidIndex(map); return pmidIndex; })
+      .catch(() => null);   // индекс — улучшение поиска, его отсутствие не ломает остальное
+  }
+  return pmidIndexPromise;
+}
+
+function matchPmidIds(q) {
+  if (!pmidIndex || !pmidIndex.size) return null;
+  return pmidIndex.get(q) || [];
+}
 let effectTags = {}, effectLabels = {};
 let effectFilterCurrent = 'all';
 // v2.8.0: пресеты-тумблеры (активны независимо от ручных фильтров, комбинация — AND)
@@ -26,6 +86,7 @@ const sevRu = s => SEV_LABEL[(s || '').toLowerCase()] || s || '';
 let chartPts = [];
 let quadrantInstance = null, chartTab = 'price';   // v2.4: вкладки графика
 let scrollBeforeModal = 0;
+let modalPrevFocus = null;   // v5.6.2 (T3): элемент, получивший фокус до открытия модалки
 let curModal = null;   // v2.6: id открытой модалки для «Сравнить с»
 let BEST = [];
 
@@ -235,7 +296,10 @@ function initApp() {
   $('compareBtn').onclick = renderCompare;
   $('modalClose').onclick = closeModal;
   $('modalOverlay').onclick = e => { if (e.target.id === 'modalOverlay') closeModal(); };
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeModal();
+    else trapModalFocus(e);   // v5.6.2 (T3): Tab/Shift+Tab не покидают модалку
+  });
   document.addEventListener('click', e => {
     const chip = e.target.closest('.tagChip');
     if (!chip) return;
@@ -351,16 +415,7 @@ function initApp() {
   const prefetch = () => {
     if (supplementsFull || supplementsFullPromise) return;
     console.log('[prefetch] загружаем полный data.json в фоне…');
-    supplementsFullPromise = fetchJson('data.json').then(data => {
-      supplementsFull = Object.fromEntries(data.map(c => [c.id, c]));
-      console.log('[prefetch] готово, ' + data.length + ' карточек');
-      autoRenderCompare();
-      return supplementsFull;
-    }).catch(err => {
-      console.warn('[prefetch] не удалось:', err);
-      supplementsFullPromise = null;  // разрешим retry при следующем клике
-      throw err;
-    });
+    ensureFullData().then(() => autoRenderCompare()).catch(() => {});
   };
 
   if ('requestIdleCallback' in window) {
@@ -470,11 +525,18 @@ function maTop3Block(s) {
 function applyFilters() {
   const q = $('search').value.toLowerCase().trim();
   const v = $('verdictFilter').value, ef = effectFilterCurrent, sort = presetScience ? 'science' : $('sortSelect').value;
+  // v5.6.2 (T4): запрос-цифра ищем по PMID через ленивый индекс. Пока
+  // индекс не построен, pmidIds === null и ветка пропускается — выборка
+  // остаётся полной, а не схлопывается в ноль. Догрузив индекс, заново
+  // прогоняем фильтр: пользователь не должен жать Enter второй раз.
+  const pmidIds = q && PMID_QUERY_RE.test(q) ? matchPmidIds(q) : null;
+  if (q && PMID_QUERY_RE.test(q) && pmidIds === null) ensurePmidIndex().then(() => applyFilters());
   currentData = supplements.filter(s => {
     if (presetVerdict && String(s.code) !== '1') return false;
     if (!presetVerdict && v !== 'all' && String(s.code) !== v) return false;
     if (ef !== 'all' && !(effectTags[s.id] || []).includes(ef)) return false;    if (presetOngoing && !((s.ongoing || 0) >= 1)) return false;
-    if (q && !(s.name.toLowerCase().includes(q) || (s.effects || []).join(' ').toLowerCase().includes(q))) return false;
+    if (pmidIds) { if (!pmidIds.includes(s.id)) return false; }
+    else if (q && !(s.name.toLowerCase().includes(q) || (s.effects || []).join(' ').toLowerCase().includes(q))) return false;
     return true;
   });
   if (onlyFavs) currentData = currentData.filter(x => isFav(x.id));
@@ -569,7 +631,11 @@ function renderCards(data) {
   const g = $('cardsGrid');
   if (!data.length) { g.innerHTML = '<div class="empty">🔍 Ничего не найдено. ' +
       '<button id="resetAll" class="favFilter">✖ Сбросить фильтры</button></div>'; return; }
-  g.innerHTML = data.map(s => '<div class="card" data-id="' + esc(s.id) + '">' +
+  // v5.6.2 батч C (T3): карточка получает tabindex="-1" — она становится
+  // фокусируемой (фокус возвращается на неё после закрытия модалки), но
+  // НЕ входит в порядок обхода Tab: перебор 130 карточек стрелками не
+  // нужен, открывать их с клавиатуры можно в любом случае через Enter.
+  g.innerHTML = data.map(s => '<div class="card" data-id="' + esc(s.id) + '" tabindex="-1">' +
     '<button class="favBtn' + (isFav(s.id) ? ' on' : '') + '" data-fav="' + esc(s.id) + '" title="В избранное">' + (isFav(s.id) ? '★' : '☆') + '</button>' +
     (BEST.includes(s.id) ? '<span class="bestBadge">🔬 Топ-3 по доказательности</span>' : '') +
     // Заголовок карточки — НЕ h3: на index их было 134 (по одной на добавку),
@@ -581,10 +647,54 @@ function renderCards(data) {
     '<div class="tagChips">' + (effectTags[s.id] || []).map(t =>
       '<span class="tagChip" data-tag="' + esc(t) + '" title="' + esc(effectLabels[t] || t) + '">' + esc(effectLabels[t] || t) + '</span>'
     ).join('') + '</div></div>').join('');
-  g.querySelectorAll('.card').forEach(el => el.onclick = (e) => {
-    if (e.target.closest('a')) return;
-    openModal(el.dataset.id);
+  g.querySelectorAll('.card').forEach(el => {
+    el.onclick = (e) => {
+      if (e.target.closest('a')) return;
+      openModal(el.dataset.id);
+    };
+    // v5.6.2 батч C (T3): карточка — div с onclick, без него она
+    // недостижима с клавиатуры: ни Enter, ни Пробел ничего не делали.
+    // Роли не назначаем — div-карточка не диалог и не ссылка.
+    el.onkeydown = (e) => {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      if (e.target.closest('a, button')) return;   // свои элементы обработают сами
+      e.preventDefault();
+      openModal(el.dataset.id);
+    };
   });
+}
+
+// v5.6.2 (батч C, T3): ловушка фокуса внутри модалки. Без неё Tab
+// выходил из диалога на элементы страницы под ним — то есть модалка
+// выглядела открытой, но клавиатурный пользователь управлял уже
+// невидимым интерфейсом. Список фокусируемых собирается на каждый
+// вызов, потому что содержимое #modalBody перерисовывается при открытии.
+const FOCUSABLE_SEL =
+  'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), ' +
+  'textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+function modalFocusables() {
+  const box = $('modalOverlay');
+  if (!box) return [];
+  return Array.from(box.querySelectorAll(FOCUSABLE_SEL))
+    .filter(el => el.offsetParent !== null || el === document.activeElement);
+}
+
+function focusModalFirst() {
+  const list = modalFocusables();
+  if (list.length) list[0].focus();
+}
+
+function trapModalFocus(e) {
+  if (!$('modalOverlay') || $('modalOverlay').style.display === 'none') return;
+  if (e.key !== 'Tab') return;
+  const list = modalFocusables();
+  if (!list.length) return;
+  const first = list[0], last = list[list.length - 1];
+  const active = document.activeElement;
+  if (!list.includes(active)) { e.preventDefault(); first.focus(); return; }
+  if (e.shiftKey && active === first) { e.preventDefault(); last.focus(); }
+  else if (!e.shiftKey && active === last) { e.preventDefault(); first.focus(); }
 }
 
 async function openModal(id) {
@@ -631,7 +741,7 @@ async function openModal(id) {
       '</div>'
     : '';
 
-  $('modalBody').innerHTML = '<h2>' + esc(s.name) + '</h2>' + updatedLine(s) + manualBadge(s) +
+  $('modalBody').innerHTML = '<h2 id="modalTitle">' + esc(s.name) + '</h2>' + updatedLine(s) + manualBadge(s) +
     '<div class="mrow"><span class="verdict v' + esc(s.code) + '">' + esc(s.verdict) + '</span> · ' + esc(s.category || '') + (s.grade ? ' · <span class="grade g' + esc(s.grade) + '">грейд ' + esc(s.grade) + '</span> · ' + esc(GRADE_LABEL[s.grade] || '') : '') + '</div>' +     '<div class="mrow">' + scienceSpan(s) + pubmedLink(s) + ' · ' + maSpan(s) + '</div>' +
     maTop3Block(s) +    trialsLine +
     calcLine +
@@ -650,6 +760,13 @@ async function openModal(id) {
     '<div class="blockTitle">🧩 Полная карточка добавки</div>' + renderCardBlocks(s);
   history.replaceState(null, '', '#sup=' + encodeURIComponent(s.id));
   $('modalOverlay').style.display = 'flex';
+  // v5.6.2 (батч C, T3): модалка без role="dialog" и без ловушки фокуса —
+  // клавиатурный пользователь уходил из диалога на страницу под ним, не
+  // возвращаясь. ARIA-атрибуты на #modal проставлены в index.html:433,
+  // заголовок-подпись получает id в innerHTML выше. Фокус переносим внутрь
+  // и держим Tab/Shift+Tab внутри, пока диалог открыт.
+  modalPrevFocus = document.activeElement;
+  focusModalFirst();
   // Класс на <body> — сигнал открытой модалки для CSS. Раньше приходилось
   // ловить состояние селектором body:has(#modalOverlay[style*="display: flex"]),
   // а он зависит от того, как движок сериализует инлайновый style: замена
@@ -682,6 +799,11 @@ function closeModal() {
   document.body.classList.remove('modal-open');
   history.replaceState(null, '', location.pathname);
   window.scrollTo({ top: scrollBeforeModal, behavior: 'smooth' });
+  // v5.6.2 (T3): вернуть фокус на карточку, из которой модалка открыта,
+  // иначе после закрытия фокус падал на <body> и Tab начинал снова
+  // с шапки — пользователь терял место в списке.
+  if (modalPrevFocus && document.contains(modalPrevFocus)) modalPrevFocus.focus();
+  modalPrevFocus = null;
 }
 
 // ===== v2.6: сменная ось X графика (Цена/MА/РКИ/Год) =====
