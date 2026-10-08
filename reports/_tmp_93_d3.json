@@ -1,0 +1,272 @@
+{
+ "skipLink": [
+  {
+   "device": "iPhone SE",
+   "page": "index",
+   "insetTop": 20,
+   "raw": {
+    "top": 0,
+    "bottom": 49,
+    "h": 49,
+    "left": 0,
+    "pos": "fixed",
+    "padT": "20px",
+    "z": "9999",
+    "fontSize": "14px",
+    "focused": true
+   }
+  },
+  {
+   "device": "iPhone SE",
+   "page": "sup/kreatin",
+   "insetTop": 20,
+   "raw": {
+    "top": 0,
+    "bottom": 49,
+    "h": 49,
+    "left": 0,
+    "pos": "fixed",
+    "padT": "20px",
+    "z": "9999",
+    "fontSize": "14px",
+    "focused": true
+   }
+  },
+  {
+   "device": "iPhone 14 Pro Max",
+   "page": "index",
+   "insetTop": 59,
+   "raw": {
+    "top": 0,
+    "bottom": 88,
+    "h": 88,
+    "left": 0,
+    "pos": "fixed",
+    "padT": "59px",
+    "z": "9999",
+    "fontSize": "14px",
+    "focused": true
+   }
+  },
+  {
+   "device": "iPhone 14 Pro Max",
+   "page": "sup/kreatin",
+   "insetTop": 59,
+   "raw": {
+    "top": 0,
+    "bottom": 88,
+    "h": 88,
+    "left": 0,
+    "pos": "fixed",
+    "padT": "59px",
+    "z": "9999",
+    "fontSize": "14px",
+    "focused": true
+   }
+  }
+ ],
+ "skipLinkNoFix": [
+  {
+   "device": "iPhone SE",
+   "page": "index",
+   "insetTop": 20,
+   "raw": {
+    "top": 0,
+    "bottom": 37,
+    "h": 37,
+    "left": 0,
+    "pos": "fixed",
+    "padT": "8px",
+    "z": "9999",
+    "fontSize": "14px",
+    "focused": true
+   }
+  },
+  {
+   "device": "iPhone SE",
+   "page": "sup/kreatin",
+   "insetTop": 20,
+   "raw": {
+    "top": 0,
+    "bottom": 37,
+    "h": 37,
+    "left": 0,
+    "pos": "fixed",
+    "padT": "8px",
+    "z": "9999",
+    "fontSize": "14px",
+    "focused": true
+   }
+  },
+  {
+   "device": "iPhone 14 Pro Max",
+   "page": "index",
+   "insetTop": 59,
+   "raw": {
+    "top": 0,
+    "bottom": 37,
+    "h": 37,
+    "left": 0,
+    "pos": "fixed",
+    "padT": "8px",
+    "z": "9999",
+    "fontSize": "14px",
+    "focused": true
+   }
+  },
+  {
+   "device": "iPhone 14 Pro Max",
+   "page": "sup/kreatin",
+   "insetTop": 59,
+   "raw": {
+    "top": 0,
+    "bottom": 37,
+    "h": 37,
+    "left": 0,
+    "pos": "fixed",
+    "padT": "8px",
+    "z": "9999",
+    "fontSize": "14px",
+    "focused": true
+   }
+  }
+ ],
+ "mapBottom": {
+  "beyondBottom": [
+   {
+    "sel": "div.cat",
+    "top": 862,
+    "bottom": 933,
+    "text": "Кишечник ▾S. boulardiiLGGB. la",
+    "pos": "static",
+    "scrollParent": {
+     "sel": "div#list.list",
+     "scrollH": 6829,
+     "clientH": 239,
+     "canScrollToEnd": 6590
+    }
+   },
+   {
+    "sel": "div.cat",
+    "top": 946,
+    "bottom": 1066,
+    "text": "Когниция ▾Alpha-GPCPQQХолинКар",
+    "pos": "static",
+    "scrollParent": {
+     "sel": "div#list.list",
+     "scrollH": 6829,
+     "clientH": 239,
+     "canScrollToEnd": 6590
+    }
+   },
+   {
+    "sel": "h3",
+    "top": 946,
+    "bottom": 963,
+    "text": "Когниция ▾",
+    "pos": "static",
+    "scrollParent": {
+     "sel": "div#list.list",
+     "scrollH": 6829,
+     "clientH": 239,
+     "canScrollToEnd": 6590
+    }
+   },
+   {
+    "sel": "span.chip",
+    "top": 968,
+    "bottom": 1012,
+    "text": "Alpha-GPC",
+    "pos": "static",
+    "scrollParent": {
+     "sel": "div#list.list",
+     "scrollH": 6829,
+     "clientH": 239,
+     "canScrollToEnd": 6590
+    }
+   },
+   {
+    "sel": "span.chip",
+    "top": 968,
+    "bottom": 1012,
+    "text": "PQQ",
+    "pos": "static",
+    "scrollParent": {
+     "sel": "div#list.list",
+     "scrollH": 6829,
+     "clientH": 239,
+     "canScrollToEnd": 6590
+    }
+   },
+   {
+    "sel": "span.chip",
+    "top": 968,
+    "bottom": 1012,
+    "text": "Холин",
+    "pos": "static",
+    "scrollParent": {
+     "sel": "div#list.list",
+     "scrollH": 6829,
+     "clientH": 239,
+     "canScrollToEnd": 6590
+    }
+   },
+   {
+    "sel": "span.chip",
+    "top": 968,
+    "bottom": 1012,
+    "text": "Карнозин",
+    "pos": "static",
+    "scrollParent": {
+     "sel": "div#list.list",
+     "scrollH": 6829,
+     "clientH": 239,
+     "canScrollToEnd": 6590
+    }
+   },
+   {
+    "sel": "span.chip",
+    "top": 968,
+    "bottom": 1012,
+    "text": "Женьшень",
+    "pos": "static",
+    "scrollParent": {
+     "sel": "div#list.list",
+     "scrollH": 6829,
+     "clientH": 239,
+     "canScrollToEnd": 6590
+    }
+   },
+   {
+    "sel": "span.chip",
+    "top": 1017,
+    "bottom": 1061,
+    "text": "DHA",
+    "pos": "static",
+    "scrollParent": {
+     "sel": "div#list.list",
+     "scrollH": 6829,
+     "clientH": 239,
+     "canScrollToEnd": 6590
+    }
+   },
+   {
+    "sel": "div.cat",
+    "top": 1079,
+    "bottom": 1150,
+    "text": "Когниция/Деменция ▾Гуперзин А",
+    "pos": "static",
+    "scrollParent": {
+     "sel": "div#list.list",
+     "scrollH": 6829,
+     "clientH": 239,
+     "canScrollToEnd": 6590
+    }
+   }
+  ],
+  "docScrollH": 1994,
+  "innerH": 932,
+  "scrollY": 1062,
+  "atBottom": true
+ }
+}

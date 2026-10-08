@@ -1,0 +1,1706 @@
+[
+ {
+  "device": "iPhone 14 Pro Max",
+  "mode": "emulated",
+  "page": "index",
+  "inset": {
+   "top": 59,
+   "bottom": 34
+  },
+  "w": 430,
+  "h": 932,
+  "status": 200,
+  "topState": {
+   "cfg": {
+    "top": 59,
+    "bottom": 34
+   },
+   "H": 932,
+   "notch": [
+    {
+     "el": "div.trustbar",
+     "top": 10,
+     "bottom": 96,
+     "overlap": 49,
+     "text": "🧬 Открытые данные · Бесплатно · Б",
+     "inScrollPane": null
+    }
+   ],
+   "home": [],
+   "fixedInHome": [
+    {
+     "el": "button#toTop",
+     "pos": "fixed",
+     "top": 869,
+     "bottom": 913,
+     "overlap": 15,
+     "text": "↑"
+    }
+   ],
+   "notchN": 1,
+   "footer": {
+    "h": 500,
+    "padB": "34px",
+    "padT": "24px",
+    "bottom": 38124,
+    "bottomGap": -37192
+   },
+   "siteHeader": {
+    "h": 225,
+    "padT": "0px",
+    "top": 10
+   },
+   "trustbar": {
+    "h": 86,
+    "padT": "59px",
+    "top": 10,
+    "textTop": 69
+   },
+   "headerEl": {
+    "h": 139,
+    "padT": "59px",
+    "top": 96
+   }
+  },
+  "skipLink": {
+   "top": 0,
+   "bottom": 37,
+   "h": 37,
+   "left": 0,
+   "padT": "8px",
+   "focused": true,
+   "text": "Перейти к содержимому"
+  },
+  "bottomState": {
+   "cfg": {
+    "top": 59,
+    "bottom": 34
+   },
+   "H": 932,
+   "homeTop": 898,
+   "lastLine": {
+    "score": 912793.299999,
+    "el": "button#toTop.show",
+    "top": 869,
+    "bottom": 913,
+    "fs": 19.2,
+    "text": "↑"
+   },
+   "lastLineClear": false,
+   "atBottom": true
+  }
+ },
+ {
+  "device": "iPhone 14 Pro Max",
+  "mode": "emulated",
+  "page": "calculator",
+  "inset": {
+   "top": 59,
+   "bottom": 34
+  },
+  "w": 430,
+  "h": 932,
+  "status": 200,
+  "topState": {
+   "cfg": {
+    "top": 59,
+    "bottom": 34
+   },
+   "H": 932,
+   "notch": [
+    {
+     "el": "div.trustbar",
+     "top": 26,
+     "bottom": 110,
+     "overlap": 33,
+     "text": "🧮 Открытые данные · Бесплатно · Б",
+     "inScrollPane": null
+    }
+   ],
+   "home": [],
+   "fixedInHome": [],
+   "notchN": 1,
+   "footer": {
+    "h": 472,
+    "padB": "34px",
+    "padT": "24px",
+    "bottom": 1887,
+    "bottomGap": -955
+   },
+   "siteHeader": {
+    "h": 260,
+    "padT": "0px",
+    "top": 26
+   },
+   "trustbar": {
+    "h": 85,
+    "padT": "59px",
+    "top": 26,
+    "textTop": 85
+   },
+   "headerEl": {
+    "h": 159,
+    "padT": "59px",
+    "top": 126
+   }
+  },
+  "skipLink": {
+   "top": 0,
+   "bottom": 37,
+   "h": 37,
+   "left": 0,
+   "padT": "8px",
+   "focused": true,
+   "text": "Перейти к содержимому"
+  },
+  "bottomState": {
+   "cfg": {
+    "top": 59,
+    "bottom": 34
+   },
+   "H": 932,
+   "homeTop": 898,
+   "lastLine": {
+    "score": 840234,
+    "el": "p.copy",
+    "top": 791,
+    "bottom": 840,
+    "fs": 16,
+    "text": "© 2026 Vladislav \"DeadSno\" Pereshivalov · MIT"
+   },
+   "lastLineClear": true,
+   "atBottom": true
+  }
+ },
+ {
+  "device": "iPhone 14 Pro Max",
+  "mode": "emulated",
+  "page": "map",
+  "inset": {
+   "top": 59,
+   "bottom": 34
+  },
+  "w": 430,
+  "h": 932,
+  "status": 200,
+  "topState": {
+   "cfg": {
+    "top": 59,
+    "bottom": 34
+   },
+   "H": 932,
+   "notch": [
+    {
+     "el": "div.trustbar",
+     "top": 19,
+     "bottom": 106,
+     "overlap": 40,
+     "text": "🧬 Открытые данные · Бесплатно · Б",
+     "inScrollPane": null
+    }
+   ],
+   "home": [],
+   "fixedInHome": [],
+   "notchN": 1,
+   "footer": {
+    "h": 499,
+    "padB": "34px",
+    "padT": "24px",
+    "bottom": 2079,
+    "bottomGap": -1147
+   },
+   "siteHeader": {
+    "h": 243,
+    "padT": "0px",
+    "top": 19
+   },
+   "trustbar": {
+    "h": 86,
+    "padT": "59px",
+    "top": 19,
+    "textTop": 78
+   },
+   "headerEl": {
+    "h": 157,
+    "padT": "59px",
+    "top": 106
+   }
+  },
+  "skipLink": {
+   "top": 0,
+   "bottom": 37,
+   "h": 37,
+   "left": 0,
+   "padT": "8px",
+   "focused": true,
+   "text": "Перейти к содержимому"
+  },
+  "bottomState": {
+   "cfg": {
+    "top": 59,
+    "bottom": 34
+   },
+   "H": 932,
+   "homeTop": 898,
+   "lastLine": {
+    "score": 847237.52,
+    "el": "button.btn.share-page",
+    "top": 803,
+    "bottom": 847,
+    "fs": 12.5,
+    "text": "🔗 Поделиться"
+   },
+   "lastLineClear": true,
+   "atBottom": true
+  }
+ },
+ {
+  "device": "iPhone 14 Pro Max",
+  "mode": "emulated",
+  "page": "graph",
+  "inset": {
+   "top": 59,
+   "bottom": 34
+  },
+  "w": 430,
+  "h": 932,
+  "status": 200,
+  "topState": {
+   "cfg": {
+    "top": 59,
+    "bottom": 34
+   },
+   "H": 932,
+   "notch": [
+    {
+     "el": "div.trustbar",
+     "top": 16,
+     "bottom": 102,
+     "overlap": 43,
+     "text": "🧬 Открытые данные · Бесплатно · Б",
+     "inScrollPane": null
+    }
+   ],
+   "home": [],
+   "fixedInHome": [],
+   "notchN": 1,
+   "footer": {
+    "h": 502,
+    "padB": "34px",
+    "padT": "24px",
+    "bottom": 1751,
+    "bottomGap": -819
+   },
+   "siteHeader": {
+    "h": 273,
+    "padT": "0px",
+    "top": 16
+   },
+   "trustbar": {
+    "h": 86,
+    "padT": "59px",
+    "top": 16,
+    "textTop": 75
+   },
+   "headerEl": {
+    "h": 187,
+    "padT": "59px",
+    "top": 102
+   }
+  },
+  "skipLink": {
+   "top": 0,
+   "bottom": 37,
+   "h": 37,
+   "left": 0,
+   "padT": "8px",
+   "focused": true,
+   "text": "Перейти к содержимому"
+  },
+  "bottomState": {
+   "cfg": {
+    "top": 59,
+    "bottom": 34
+   },
+   "H": 932,
+   "homeTop": 898,
+   "lastLine": {
+    "score": 850000.425,
+    "el": "button.btn.share-page",
+    "top": 803,
+    "bottom": 850,
+    "fs": 15.2,
+    "text": "🔗 Поделиться"
+   },
+   "lastLineClear": true,
+   "atBottom": true
+  }
+ },
+ {
+  "device": "iPhone 14 Pro Max",
+  "mode": "emulated",
+  "page": "sup/kreatin",
+  "inset": {
+   "top": 59,
+   "bottom": 34
+  },
+  "w": 430,
+  "h": 932,
+  "status": 200,
+  "topState": {
+   "cfg": {
+    "top": 59,
+    "bottom": 34
+   },
+   "H": 932,
+   "notch": [
+    {
+     "el": "div.trustbar",
+     "top": 16,
+     "bottom": 102,
+     "overlap": 43,
+     "text": "🧬 Открытые данные · Бесплатно · Б",
+     "inScrollPane": null
+    }
+   ],
+   "home": [],
+   "fixedInHome": [],
+   "notchN": 1,
+   "footer": {
+    "h": 499,
+    "padB": "34px",
+    "padT": "24px",
+    "bottom": 4552,
+    "bottomGap": -3620
+   },
+   "siteHeader": {
+    "h": 273,
+    "padT": "0px",
+    "top": 16
+   },
+   "trustbar": {
+    "h": 86,
+    "padT": "59px",
+    "top": 16,
+    "textTop": 75
+   },
+   "headerEl": {
+    "h": 187,
+    "padT": "59px",
+    "top": 102
+   }
+  },
+  "skipLink": {
+   "top": 0,
+   "bottom": 37,
+   "h": 37,
+   "left": 0,
+   "padT": "8px",
+   "focused": true,
+   "text": "Перейти к содержимому"
+  },
+  "bottomState": {
+   "cfg": {
+    "top": 59,
+    "bottom": 34
+   },
+   "H": 932,
+   "homeTop": 898,
+   "lastLine": {
+    "score": 849656.675,
+    "el": "button.btn.share-page",
+    "top": 805,
+    "bottom": 850,
+    "fs": 15.2,
+    "text": "🔗 Поделиться"
+   },
+   "lastLineClear": true,
+   "atBottom": true
+  }
+ },
+ {
+  "device": "iPhone 14 Pro Max",
+  "mode": "control",
+  "page": "index",
+  "inset": {
+   "top": 59,
+   "bottom": 34
+  },
+  "w": 430,
+  "h": 932,
+  "status": 200,
+  "topState": {
+   "cfg": {
+    "top": 59,
+    "bottom": 34
+   },
+   "H": 932,
+   "notch": [
+    {
+     "el": "div.trustbar",
+     "top": 10,
+     "bottom": 44,
+     "overlap": 49,
+     "text": "🧬 Открытые данные · Бесплатно · Б",
+     "inScrollPane": null
+    },
+    {
+     "el": "a",
+     "top": 49,
+     "bottom": 75,
+     "overlap": 10,
+     "text": "🧠 brain-25-evidence",
+     "inScrollPane": null
+    },
+    {
+     "el": "span.h1-emoji",
+     "top": 49,
+     "bottom": 75,
+     "overlap": 10,
+     "text": "🧠",
+     "inScrollPane": null
+    }
+   ],
+   "home": [],
+   "fixedInHome": [
+    {
+     "el": "button#toTop",
+     "pos": "fixed",
+     "top": 869,
+     "bottom": 913,
+     "overlap": 15,
+     "text": "↑"
+    }
+   ],
+   "notchN": 3,
+   "footer": {
+    "h": 482,
+    "padB": "16px",
+    "padT": "24px",
+    "bottom": 37178,
+    "bottomGap": -36246
+   },
+   "siteHeader": {
+    "h": 119,
+    "padT": "0px",
+    "top": 10
+   },
+   "trustbar": {
+    "h": 35,
+    "padT": "7.2px",
+    "top": 10,
+    "textTop": 17
+   },
+   "headerEl": {
+    "h": 84,
+    "padT": "4.8px",
+    "top": 44
+   }
+  },
+  "skipLink": {
+   "top": 0,
+   "bottom": 37,
+   "h": 37,
+   "left": 0,
+   "padT": "8px",
+   "focused": true,
+   "text": "Перейти к содержимому"
+  },
+  "bottomState": {
+   "cfg": {
+    "top": 59,
+    "bottom": 34
+   },
+   "H": 932,
+   "homeTop": 898,
+   "lastLine": {
+    "score": 932874.625,
+    "el": "p.links",
+    "top": 832,
+    "bottom": 933,
+    "fs": 16,
+    "text": "📐 Методология ·\n    ❓ FAQ ·\n    📖 Глоссарий ·\n    💊 Катал"
+   },
+   "lastLineClear": false,
+   "atBottom": false
+  }
+ },
+ {
+  "device": "iPhone 14 Pro Max",
+  "mode": "control",
+  "page": "calculator",
+  "inset": {
+   "top": 59,
+   "bottom": 34
+  },
+  "w": 430,
+  "h": 932,
+  "status": 200,
+  "topState": {
+   "cfg": {
+    "top": 59,
+    "bottom": 34
+   },
+   "H": 932,
+   "notch": [
+    {
+     "el": "div.trustbar",
+     "top": 26,
+     "bottom": 57,
+     "overlap": 33,
+     "text": "🧮 Открытые данные · Бесплатно · Б",
+     "inScrollPane": null
+    }
+   ],
+   "home": [],
+   "fixedInHome": [],
+   "notchN": 1,
+   "footer": {
+    "h": 454,
+    "padB": "16px",
+    "padT": "24px",
+    "bottom": 1757,
+    "bottomGap": -825
+   },
+   "siteHeader": {
+    "h": 147,
+    "padT": "0px",
+    "top": 26
+   },
+   "trustbar": {
+    "h": 31,
+    "padT": "5.6px",
+    "top": 26,
+    "textTop": 31
+   },
+   "headerEl": {
+    "h": 100,
+    "padT": "0px",
+    "top": 73
+   }
+  },
+  "skipLink": {
+   "top": 0,
+   "bottom": 37,
+   "h": 37,
+   "left": 0,
+   "padT": "8px",
+   "focused": true,
+   "text": "Перейти к содержимому"
+  },
+  "bottomState": {
+   "cfg": {
+    "top": 59,
+    "bottom": 34
+   },
+   "H": 932,
+   "homeTop": 898,
+   "lastLine": {
+    "score": 858827.75,
+    "el": "p.copy",
+    "top": 809,
+    "bottom": 859,
+    "fs": 16,
+    "text": "© 2026 Vladislav \"DeadSno\" Pereshivalov · MIT"
+   },
+   "lastLineClear": true,
+   "atBottom": true
+  }
+ },
+ {
+  "device": "iPhone 14 Pro Max",
+  "mode": "control",
+  "page": "map",
+  "inset": {
+   "top": 59,
+   "bottom": 34
+  },
+  "w": 430,
+  "h": 932,
+  "status": 200,
+  "topState": {
+   "cfg": {
+    "top": 59,
+    "bottom": 34
+   },
+   "H": 932,
+   "notch": [
+    {
+     "el": "div.trustbar",
+     "top": 19,
+     "bottom": 54,
+     "overlap": 40,
+     "text": "🧬 Открытые данные · Бесплатно · Б",
+     "inScrollPane": null
+    },
+    {
+     "el": "a",
+     "top": 54,
+     "bottom": 80,
+     "overlap": 5,
+     "text": "🧠 brain-25-evidence",
+     "inScrollPane": null
+    },
+    {
+     "el": "span.h1-emoji",
+     "top": 54,
+     "bottom": 80,
+     "overlap": 5,
+     "text": "🧠",
+     "inScrollPane": null
+    }
+   ],
+   "home": [],
+   "fixedInHome": [],
+   "notchN": 3,
+   "footer": {
+    "h": 481,
+    "padB": "16px",
+    "padT": "24px",
+    "bottom": 1950,
+    "bottomGap": -1018
+   },
+   "siteHeader": {
+    "h": 132,
+    "padT": "0px",
+    "top": 19
+   },
+   "trustbar": {
+    "h": 35,
+    "padT": "7.2px",
+    "top": 19,
+    "textTop": 26
+   },
+   "headerEl": {
+    "h": 98,
+    "padT": "0px",
+    "top": 54
+   }
+  },
+  "skipLink": {
+   "top": 0,
+   "bottom": 37,
+   "h": 37,
+   "left": 0,
+   "padT": "8px",
+   "focused": true,
+   "text": "Перейти к содержимому"
+  },
+  "bottomState": {
+   "cfg": {
+    "top": 59,
+    "bottom": 34
+   },
+   "H": 932,
+   "homeTop": 898,
+   "lastLine": {
+    "score": 864425.02,
+    "el": "button.btn.share-page",
+    "top": 820,
+    "bottom": 864,
+    "fs": 12.5,
+    "text": "🔗 Поделиться"
+   },
+   "lastLineClear": true,
+   "atBottom": true
+  }
+ },
+ {
+  "device": "iPhone 14 Pro Max",
+  "mode": "control",
+  "page": "graph",
+  "inset": {
+   "top": 59,
+   "bottom": 34
+  },
+  "w": 430,
+  "h": 932,
+  "status": 200,
+  "topState": {
+   "cfg": {
+    "top": 59,
+    "bottom": 34
+   },
+   "H": 932,
+   "notch": [
+    {
+     "el": "div.trustbar",
+     "top": 16,
+     "bottom": 51,
+     "overlap": 43,
+     "text": "🧬 Открытые данные · Бесплатно · Б",
+     "inScrollPane": null
+    },
+    {
+     "el": "a",
+     "top": 51,
+     "bottom": 77,
+     "overlap": 8,
+     "text": "🧠 brain-25-evidence",
+     "inScrollPane": null
+    },
+    {
+     "el": "span.h1-emoji",
+     "top": 51,
+     "bottom": 77,
+     "overlap": 8,
+     "text": "🧠",
+     "inScrollPane": null
+    }
+   ],
+   "home": [],
+   "fixedInHome": [],
+   "notchN": 3,
+   "footer": {
+    "h": 484,
+    "padB": "16px",
+    "padT": "24px",
+    "bottom": 1622,
+    "bottomGap": -690
+   },
+   "siteHeader": {
+    "h": 162,
+    "padT": "0px",
+    "top": 16
+   },
+   "trustbar": {
+    "h": 35,
+    "padT": "7.2px",
+    "top": 16,
+    "textTop": 23
+   },
+   "headerEl": {
+    "h": 128,
+    "padT": "0px",
+    "top": 51
+   }
+  },
+  "skipLink": {
+   "top": 0,
+   "bottom": 37,
+   "h": 37,
+   "left": 0,
+   "padT": "8px",
+   "focused": true,
+   "text": "Перейти к содержимому"
+  },
+  "bottomState": {
+   "cfg": {
+    "top": 59,
+    "bottom": 34
+   },
+   "H": 932,
+   "homeTop": 898,
+   "lastLine": {
+    "score": 868187.925,
+    "el": "button.btn.share-page",
+    "top": 821,
+    "bottom": 868,
+    "fs": 15.2,
+    "text": "🔗 Поделиться"
+   },
+   "lastLineClear": true,
+   "atBottom": true
+  }
+ },
+ {
+  "device": "iPhone 14 Pro Max",
+  "mode": "control",
+  "page": "sup/kreatin",
+  "inset": {
+   "top": 59,
+   "bottom": 34
+  },
+  "w": 430,
+  "h": 932,
+  "status": 200,
+  "topState": {
+   "cfg": {
+    "top": 59,
+    "bottom": 34
+   },
+   "H": 932,
+   "notch": [
+    {
+     "el": "div.trustbar",
+     "top": 16,
+     "bottom": 51,
+     "overlap": 43,
+     "text": "🧬 Открытые данные · Бесплатно · Б",
+     "inScrollPane": null
+    },
+    {
+     "el": "a",
+     "top": 51,
+     "bottom": 77,
+     "overlap": 8,
+     "text": "🧠 brain-25-evidence",
+     "inScrollPane": null
+    },
+    {
+     "el": "span.h1-emoji",
+     "top": 51,
+     "bottom": 77,
+     "overlap": 8,
+     "text": "🧠",
+     "inScrollPane": null
+    }
+   ],
+   "home": [],
+   "fixedInHome": [],
+   "notchN": 3,
+   "footer": {
+    "h": 481,
+    "padB": "16px",
+    "padT": "24px",
+    "bottom": 4423,
+    "bottomGap": -3491
+   },
+   "siteHeader": {
+    "h": 162,
+    "padT": "0px",
+    "top": 16
+   },
+   "trustbar": {
+    "h": 35,
+    "padT": "7.2px",
+    "top": 16,
+    "textTop": 23
+   },
+   "headerEl": {
+    "h": 128,
+    "padT": "0px",
+    "top": 51
+   }
+  },
+  "skipLink": {
+   "top": 0,
+   "bottom": 37,
+   "h": 37,
+   "left": 0,
+   "padT": "8px",
+   "focused": true,
+   "text": "Перейти к содержимому"
+  },
+  "bottomState": {
+   "cfg": {
+    "top": 59,
+    "bottom": 34
+   },
+   "H": 932,
+   "homeTop": 898,
+   "lastLine": {
+    "score": 867844.175,
+    "el": "button.btn.share-page",
+    "top": 823,
+    "bottom": 868,
+    "fs": 15.2,
+    "text": "🔗 Поделиться"
+   },
+   "lastLineClear": true,
+   "atBottom": true
+  }
+ },
+ {
+  "device": "iPhone SE",
+  "mode": "emulated",
+  "page": "index",
+  "inset": {
+   "top": 20,
+   "bottom": 0
+  },
+  "w": 375,
+  "h": 667,
+  "status": 200,
+  "topState": {
+   "cfg": {
+    "top": 20,
+    "bottom": 0
+   },
+   "H": 667,
+   "notch": [
+    {
+     "el": "div.trustbar",
+     "top": 10,
+     "bottom": 57,
+     "overlap": 10,
+     "text": "🧬 Открытые данные · Бесплатно · Б",
+     "inScrollPane": null
+    }
+   ],
+   "home": [],
+   "fixedInHome": [],
+   "notchN": 1,
+   "footer": {
+    "h": 532,
+    "padB": "0px",
+    "padT": "24px",
+    "bottom": 41534,
+    "bottomGap": -40867
+   },
+   "siteHeader": {
+    "h": 162,
+    "padT": "0px",
+    "top": 10
+   },
+   "trustbar": {
+    "h": 47,
+    "padT": "20px",
+    "top": 10,
+    "textTop": 30
+   },
+   "headerEl": {
+    "h": 115,
+    "padT": "20px",
+    "top": 57
+   }
+  },
+  "skipLink": {
+   "top": 0,
+   "bottom": 37,
+   "h": 37,
+   "left": 0,
+   "padT": "8px",
+   "focused": true,
+   "text": "Перейти к содержимому"
+  },
+  "bottomState": {
+   "cfg": {
+    "top": 20,
+    "bottom": 0
+   },
+   "H": 667,
+   "homeTop": 667,
+   "lastLine": {
+    "score": 647793.299999,
+    "el": "button#toTop.show",
+    "top": 604,
+    "bottom": 648,
+    "fs": 19.2,
+    "text": "↑"
+   },
+   "lastLineClear": true,
+   "atBottom": true
+  }
+ },
+ {
+  "device": "iPhone SE",
+  "mode": "emulated",
+  "page": "calculator",
+  "inset": {
+   "top": 20,
+   "bottom": 0
+  },
+  "w": 375,
+  "h": 667,
+  "status": 200,
+  "topState": {
+   "cfg": {
+    "top": 20,
+    "bottom": 0
+   },
+   "H": 667,
+   "notch": [],
+   "home": [],
+   "fixedInHome": [],
+   "notchN": 0,
+   "footer": {
+    "h": 530,
+    "padB": "0px",
+    "padT": "24px",
+    "bottom": 2008,
+    "bottomGap": -1341
+   },
+   "siteHeader": {
+    "h": 182,
+    "padT": "0px",
+    "top": 26
+   },
+   "trustbar": {
+    "h": 46,
+    "padT": "20px",
+    "top": 26,
+    "textTop": 46
+   },
+   "headerEl": {
+    "h": 120,
+    "padT": "20px",
+    "top": 87
+   }
+  },
+  "skipLink": {
+   "top": 0,
+   "bottom": 37,
+   "h": 37,
+   "left": 0,
+   "padT": "8px",
+   "focused": true,
+   "text": "Перейти к содержимому"
+  },
+  "bottomState": {
+   "cfg": {
+    "top": 20,
+    "bottom": 0
+   },
+   "H": 667,
+   "homeTop": 667,
+   "lastLine": {
+    "score": 616999.625,
+    "el": "p.copy",
+    "top": 567,
+    "bottom": 617,
+    "fs": 16,
+    "text": "© 2026 Vladislav \"DeadSno\" Pereshivalov · MIT"
+   },
+   "lastLineClear": true,
+   "atBottom": true
+  }
+ },
+ {
+  "device": "iPhone SE",
+  "mode": "emulated",
+  "page": "map",
+  "inset": {
+   "top": 20,
+   "bottom": 0
+  },
+  "w": 375,
+  "h": 667,
+  "status": 200,
+  "topState": {
+   "cfg": {
+    "top": 20,
+    "bottom": 0
+   },
+   "H": 667,
+   "notch": [
+    {
+     "el": "div.trustbar",
+     "top": 19,
+     "bottom": 86,
+     "overlap": 1,
+     "text": "🧬 Открытые данные · Бесплатно · Б",
+     "inScrollPane": null
+    }
+   ],
+   "home": [],
+   "fixedInHome": [],
+   "notchN": 1,
+   "footer": {
+    "h": 557,
+    "padB": "0px",
+    "padT": "24px",
+    "bottom": 2165,
+    "bottomGap": -1498
+   },
+   "siteHeader": {
+    "h": 184,
+    "padT": "0px",
+    "top": 19
+   },
+   "trustbar": {
+    "h": 67,
+    "padT": "20px",
+    "top": 19,
+    "textTop": 39
+   },
+   "headerEl": {
+    "h": 118,
+    "padT": "20px",
+    "top": 86
+   }
+  },
+  "skipLink": {
+   "top": 0,
+   "bottom": 37,
+   "h": 37,
+   "left": 0,
+   "padT": "8px",
+   "focused": true,
+   "text": "Перейти к содержимому"
+  },
+  "bottomState": {
+   "cfg": {
+    "top": 20,
+    "bottom": 0
+   },
+   "H": 667,
+   "homeTop": 667,
+   "lastLine": {
+    "score": 624018.77,
+    "el": "button.btn.share-page",
+    "top": 580,
+    "bottom": 624,
+    "fs": 12.5,
+    "text": "🔗 Поделиться"
+   },
+   "lastLineClear": true,
+   "atBottom": true
+  }
+ },
+ {
+  "device": "iPhone SE",
+  "mode": "emulated",
+  "page": "graph",
+  "inset": {
+   "top": 20,
+   "bottom": 0
+  },
+  "w": 375,
+  "h": 667,
+  "status": 200,
+  "topState": {
+   "cfg": {
+    "top": 20,
+    "bottom": 0
+   },
+   "H": 667,
+   "notch": [
+    {
+     "el": "div.trustbar",
+     "top": 16,
+     "bottom": 63,
+     "overlap": 4,
+     "text": "🧬 Открытые данные · Бесплатно · Б",
+     "inScrollPane": null
+    }
+   ],
+   "home": [],
+   "fixedInHome": [],
+   "notchN": 1,
+   "footer": {
+    "h": 535,
+    "padB": "0px",
+    "padT": "24px",
+    "bottom": 1706,
+    "bottomGap": -1039
+   },
+   "siteHeader": {
+    "h": 195,
+    "padT": "0px",
+    "top": 16
+   },
+   "trustbar": {
+    "h": 47,
+    "padT": "20px",
+    "top": 16,
+    "textTop": 36
+   },
+   "headerEl": {
+    "h": 148,
+    "padT": "20px",
+    "top": 63
+   }
+  },
+  "skipLink": {
+   "top": 0,
+   "bottom": 37,
+   "h": 37,
+   "left": 0,
+   "padT": "8px",
+   "focused": true,
+   "text": "Перейти к содержимому"
+  },
+  "bottomState": {
+   "cfg": {
+    "top": 20,
+    "bottom": 0
+   },
+   "H": 667,
+   "homeTop": 667,
+   "lastLine": {
+    "score": 627187.925,
+    "el": "button.btn.share-page",
+    "top": 580,
+    "bottom": 627,
+    "fs": 15.2,
+    "text": "🔗 Поделиться"
+   },
+   "lastLineClear": true,
+   "atBottom": true
+  }
+ },
+ {
+  "device": "iPhone SE",
+  "mode": "emulated",
+  "page": "sup/kreatin",
+  "inset": {
+   "top": 20,
+   "bottom": 0
+  },
+  "w": 375,
+  "h": 667,
+  "status": 200,
+  "topState": {
+   "cfg": {
+    "top": 20,
+    "bottom": 0
+   },
+   "H": 667,
+   "notch": [
+    {
+     "el": "div.trustbar",
+     "top": 16,
+     "bottom": 63,
+     "overlap": 4,
+     "text": "🧬 Открытые данные · Бесплатно · Б",
+     "inScrollPane": null
+    }
+   ],
+   "home": [],
+   "fixedInHome": [],
+   "notchN": 1,
+   "footer": {
+    "h": 533,
+    "padB": "0px",
+    "padT": "24px",
+    "bottom": 4991,
+    "bottomGap": -4324
+   },
+   "siteHeader": {
+    "h": 195,
+    "padT": "0px",
+    "top": 16
+   },
+   "trustbar": {
+    "h": 47,
+    "padT": "20px",
+    "top": 16,
+    "textTop": 36
+   },
+   "headerEl": {
+    "h": 148,
+    "padT": "20px",
+    "top": 63
+   }
+  },
+  "skipLink": {
+   "top": 0,
+   "bottom": 37,
+   "h": 37,
+   "left": 0,
+   "padT": "8px",
+   "focused": true,
+   "text": "Перейти к содержимому"
+  },
+  "bottomState": {
+   "cfg": {
+    "top": 20,
+    "bottom": 0
+   },
+   "H": 667,
+   "homeTop": 667,
+   "lastLine": {
+    "score": 627016.05,
+    "el": "button.btn.share-page",
+    "top": 583,
+    "bottom": 627,
+    "fs": 15.2,
+    "text": "🔗 Поделиться"
+   },
+   "lastLineClear": true,
+   "atBottom": true
+  }
+ },
+ {
+  "device": "iPhone SE",
+  "mode": "control",
+  "page": "index",
+  "inset": {
+   "top": 20,
+   "bottom": 0
+  },
+  "w": 375,
+  "h": 667,
+  "status": 200,
+  "topState": {
+   "cfg": {
+    "top": 20,
+    "bottom": 0
+   },
+   "H": 667,
+   "notch": [
+    {
+     "el": "div.trustbar",
+     "top": 10,
+     "bottom": 44,
+     "overlap": 10,
+     "text": "🧬 Открытые данные · Бесплатно · Б",
+     "inScrollPane": null
+    }
+   ],
+   "home": [],
+   "fixedInHome": [],
+   "notchN": 1,
+   "footer": {
+    "h": 556,
+    "padB": "16px",
+    "padT": "24px",
+    "bottom": 40705,
+    "bottomGap": -40038
+   },
+   "siteHeader": {
+    "h": 134,
+    "padT": "0px",
+    "top": 10
+   },
+   "trustbar": {
+    "h": 35,
+    "padT": "7.2px",
+    "top": 10,
+    "textTop": 17
+   },
+   "headerEl": {
+    "h": 99,
+    "padT": "4.8px",
+    "top": 44
+   }
+  },
+  "skipLink": {
+   "top": 0,
+   "bottom": 37,
+   "h": 37,
+   "left": 0,
+   "padT": "8px",
+   "focused": true,
+   "text": "Перейти к содержимому"
+  },
+  "bottomState": {
+   "cfg": {
+    "top": 20,
+    "bottom": 0
+   },
+   "H": 667,
+   "homeTop": 667,
+   "lastLine": {
+    "score": 647793.299999,
+    "el": "button#toTop.show",
+    "top": 604,
+    "bottom": 648,
+    "fs": 19.2,
+    "text": "↑"
+   },
+   "lastLineClear": true,
+   "atBottom": true
+  }
+ },
+ {
+  "device": "iPhone SE",
+  "mode": "control",
+  "page": "calculator",
+  "inset": {
+   "top": 20,
+   "bottom": 0
+  },
+  "w": 375,
+  "h": 667,
+  "status": 200,
+  "topState": {
+   "cfg": {
+    "top": 20,
+    "bottom": 0
+   },
+   "H": 667,
+   "notch": [],
+   "home": [],
+   "fixedInHome": [],
+   "notchN": 0,
+   "footer": {
+    "h": 554,
+    "padB": "16px",
+    "padT": "24px",
+    "bottom": 1998,
+    "bottomGap": -1331
+   },
+   "siteHeader": {
+    "h": 147,
+    "padT": "0px",
+    "top": 26
+   },
+   "trustbar": {
+    "h": 31,
+    "padT": "5.6px",
+    "top": 26,
+    "textTop": 31
+   },
+   "headerEl": {
+    "h": 100,
+    "padT": "0px",
+    "top": 73
+   }
+  },
+  "skipLink": {
+   "top": 0,
+   "bottom": 37,
+   "h": 37,
+   "left": 0,
+   "padT": "8px",
+   "focused": true,
+   "text": "Перейти к содержимому"
+  },
+  "bottomState": {
+   "cfg": {
+    "top": 20,
+    "bottom": 0
+   },
+   "H": 667,
+   "homeTop": 667,
+   "lastLine": {
+    "score": 593593.375,
+    "el": "p.copy",
+    "top": 544,
+    "bottom": 594,
+    "fs": 16,
+    "text": "© 2026 Vladislav \"DeadSno\" Pereshivalov · MIT"
+   },
+   "lastLineClear": true,
+   "atBottom": true
+  }
+ },
+ {
+  "device": "iPhone SE",
+  "mode": "control",
+  "page": "map",
+  "inset": {
+   "top": 20,
+   "bottom": 0
+  },
+  "w": 375,
+  "h": 667,
+  "status": 200,
+  "topState": {
+   "cfg": {
+    "top": 20,
+    "bottom": 0
+   },
+   "H": 667,
+   "notch": [
+    {
+     "el": "div.trustbar",
+     "top": 19,
+     "bottom": 73,
+     "overlap": 1,
+     "text": "🧬 Открытые данные · Бесплатно · Б",
+     "inScrollPane": null
+    }
+   ],
+   "home": [],
+   "fixedInHome": [],
+   "notchN": 1,
+   "footer": {
+    "h": 581,
+    "padB": "16px",
+    "padT": "24px",
+    "bottom": 2156,
+    "bottomGap": -1489
+   },
+   "siteHeader": {
+    "h": 152,
+    "padT": "0px",
+    "top": 19
+   },
+   "trustbar": {
+    "h": 54,
+    "padT": "7.2px",
+    "top": 19,
+    "textTop": 26
+   },
+   "headerEl": {
+    "h": 98,
+    "padT": "0px",
+    "top": 73
+   }
+  },
+  "skipLink": {
+   "top": 0,
+   "bottom": 37,
+   "h": 37,
+   "left": 0,
+   "padT": "8px",
+   "focused": true,
+   "text": "Перейти к содержимому"
+  },
+  "bottomState": {
+   "cfg": {
+    "top": 20,
+    "bottom": 0
+   },
+   "H": 667,
+   "homeTop": 667,
+   "lastLine": {
+    "score": 600206.27,
+    "el": "button.btn.share-page",
+    "top": 556,
+    "bottom": 600,
+    "fs": 12.5,
+    "text": "🔗 Поделиться"
+   },
+   "lastLineClear": true,
+   "atBottom": true
+  }
+ },
+ {
+  "device": "iPhone SE",
+  "mode": "control",
+  "page": "graph",
+  "inset": {
+   "top": 20,
+   "bottom": 0
+  },
+  "w": 375,
+  "h": 667,
+  "status": 200,
+  "topState": {
+   "cfg": {
+    "top": 20,
+    "bottom": 0
+   },
+   "H": 667,
+   "notch": [
+    {
+     "el": "div.trustbar",
+     "top": 16,
+     "bottom": 51,
+     "overlap": 4,
+     "text": "🧬 Открытые данные · Бесплатно · Б",
+     "inScrollPane": null
+    }
+   ],
+   "home": [],
+   "fixedInHome": [],
+   "notchN": 1,
+   "footer": {
+    "h": 559,
+    "padB": "16px",
+    "padT": "24px",
+    "bottom": 1697,
+    "bottomGap": -1030
+   },
+   "siteHeader": {
+    "h": 162,
+    "padT": "0px",
+    "top": 16
+   },
+   "trustbar": {
+    "h": 35,
+    "padT": "7.2px",
+    "top": 16,
+    "textTop": 23
+   },
+   "headerEl": {
+    "h": 128,
+    "padT": "0px",
+    "top": 51
+   }
+  },
+  "skipLink": {
+   "top": 0,
+   "bottom": 37,
+   "h": 37,
+   "left": 0,
+   "padT": "8px",
+   "focused": true,
+   "text": "Перейти к содержимому"
+  },
+  "bottomState": {
+   "cfg": {
+    "top": 20,
+    "bottom": 0
+   },
+   "H": 667,
+   "homeTop": 667,
+   "lastLine": {
+    "score": 603375.425,
+    "el": "button.btn.share-page",
+    "top": 556,
+    "bottom": 603,
+    "fs": 15.2,
+    "text": "🔗 Поделиться"
+   },
+   "lastLineClear": true,
+   "atBottom": true
+  }
+ },
+ {
+  "device": "iPhone SE",
+  "mode": "control",
+  "page": "sup/kreatin",
+  "inset": {
+   "top": 20,
+   "bottom": 0
+  },
+  "w": 375,
+  "h": 667,
+  "status": 200,
+  "topState": {
+   "cfg": {
+    "top": 20,
+    "bottom": 0
+   },
+   "H": 667,
+   "notch": [
+    {
+     "el": "div.trustbar",
+     "top": 16,
+     "bottom": 51,
+     "overlap": 4,
+     "text": "🧬 Открытые данные · Бесплатно · Б",
+     "inScrollPane": null
+    }
+   ],
+   "home": [],
+   "fixedInHome": [],
+   "notchN": 1,
+   "footer": {
+    "h": 557,
+    "padB": "16px",
+    "padT": "24px",
+    "bottom": 4982,
+    "bottomGap": -4315
+   },
+   "siteHeader": {
+    "h": 162,
+    "padT": "0px",
+    "top": 16
+   },
+   "trustbar": {
+    "h": 35,
+    "padT": "7.2px",
+    "top": 16,
+    "textTop": 23
+   },
+   "headerEl": {
+    "h": 128,
+    "padT": "0px",
+    "top": 51
+   }
+  },
+  "skipLink": {
+   "top": 0,
+   "bottom": 37,
+   "h": 37,
+   "left": 0,
+   "padT": "8px",
+   "focused": true,
+   "text": "Перейти к содержимому"
+  },
+  "bottomState": {
+   "cfg": {
+    "top": 20,
+    "bottom": 0
+   },
+   "H": 667,
+   "homeTop": 667,
+   "lastLine": {
+    "score": 603203.55,
+    "el": "button.btn.share-page",
+    "top": 559,
+    "bottom": 603,
+    "fs": 15.2,
+    "text": "🔗 Поделиться"
+   },
+   "lastLineClear": true,
+   "atBottom": true
+  }
+ }
+]

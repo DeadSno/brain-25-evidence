@@ -1,0 +1,8675 @@
+[
+ {
+  "page": "index",
+  "width": 320,
+  "url": "http://localhost:8000/index.html",
+  "status": 200,
+  "data": {
+   "scrollW": 320,
+   "clientW": 320,
+   "bodyScrollW": 320,
+   "overflow": 0,
+   "title": "БАДы: доказательства и механизмы - 130 добавок | Brain 25 Evidence",
+   "h": 44209,
+   "culprits": [
+    {
+     "sel": "table",
+     "right": 555,
+     "w": 520,
+     "left": 35
+    },
+    {
+     "sel": "tbody",
+     "right": 555,
+     "w": 520,
+     "left": 35
+    },
+    {
+     "sel": "tr",
+     "right": 555,
+     "w": 520,
+     "left": 35
+    },
+    {
+     "sel": "tr",
+     "right": 555,
+     "w": 520,
+     "left": 35
+    },
+    {
+     "sel": "tr",
+     "right": 555,
+     "w": 520,
+     "left": 35
+    },
+    {
+     "sel": "tr",
+     "right": 555,
+     "w": 520,
+     "left": 35
+    },
+    {
+     "sel": "tr",
+     "right": 555,
+     "w": 520,
+     "left": 35
+    },
+    {
+     "sel": "tr",
+     "right": 555,
+     "w": 520,
+     "left": 35
+    }
+   ],
+   "tapTotal": 189,
+   "small44": [
+    {
+     "sel": "a.skip-link",
+     "w": 197.1,
+     "h": 24,
+     "text": "Перейти к содержимому",
+     "y": 0
+    },
+    {
+     "sel": "a",
+     "w": 208.9,
+     "h": 26,
+     "text": "🧠 brain-25-evidence",
+     "y": 68
+    },
+    {
+     "sel": "label.sr-only",
+     "w": 1,
+     "h": 1,
+     "text": "Поиск по названию или эффект",
+     "y": 241
+    },
+    {
+     "sel": "input#search",
+     "w": 300.8,
+     "h": 24,
+     "text": "",
+     "y": 242
+    },
+    {
+     "sel": "label.sr-only",
+     "w": 1,
+     "h": 1,
+     "text": "Фильтр: вердикт",
+     "y": 241
+    },
+    {
+     "sel": "label.sr-only",
+     "w": 1,
+     "h": 1,
+     "text": "Сортировка списка",
+     "y": 241
+    },
+    {
+     "sel": "label",
+     "w": 79.7,
+     "h": 20,
+     "text": "Добавка 1",
+     "y": 41854
+    },
+    {
+     "sel": "label",
+     "w": 82.9,
+     "h": 20,
+     "text": "Добавка 2",
+     "y": 41939
+    }
+   ],
+   "small44n": 8,
+   "small24n": 5,
+   "tiny": [
+    {
+     "sel": "span.bestBadge",
+     "fs": 10.88,
+     "n": 3,
+     "text": "🔬 Топ-3 по доказательности"
+    },
+    {
+     "sel": "span.manual-badge",
+     "fs": 10.88,
+     "n": 130,
+     "text": "✋ ручная вычитка"
+    },
+    {
+     "sel": "span.cat",
+     "fs": 11.2,
+     "n": 130,
+     "text": "ЖКТ"
+    },
+    {
+     "sel": "span.tagChip",
+     "fs": 11.2,
+     "n": 226,
+     "text": "ЖКТ / кишечник"
+    },
+    {
+     "sel": "span.filterLabel",
+     "fs": 11.52,
+     "n": 2,
+     "text": "Быстрые подборки"
+    },
+    {
+     "sel": "span.grade.gB",
+     "fs": 11.52,
+     "n": 45,
+     "text": "грейд B"
+    },
+    {
+     "sel": "span.grade.gA",
+     "fs": 11.52,
+     "n": 8,
+     "text": "грейд A"
+    },
+    {
+     "sel": "span.grade.gC",
+     "fs": 11.52,
+     "n": 52,
+     "text": "грейд C"
+    },
+    {
+     "sel": "span.grade.gD",
+     "fs": 11.52,
+     "n": 25,
+     "text": "грейд D"
+    }
+   ],
+   "tinyN": 9,
+   "fontsLoaded": [
+    "Inter|400|loaded",
+    "Inter|500|loaded",
+    "Inter|600|loaded",
+    "Inter|700|loaded",
+    "Inter|800|loaded"
+   ],
+   "interOK": true,
+   "bodyFont": "Inter, system-ui, -apple-system, Segoe UI, sans-serif",
+   "header": {
+    "present": true,
+    "h": 153,
+    "actions": [
+     {
+      "t": "💬 Обратная связь",
+      "w": 80,
+      "h": 60,
+      "vis": true,
+      "inView": true,
+      "y": 103
+     },
+     {
+      "t": "🔄 Обновить",
+      "w": 80,
+      "h": 45,
+      "vis": true,
+      "inView": true,
+      "y": 111
+     },
+     {
+      "t": "💚 Поддержать",
+      "w": 98,
+      "h": 45,
+      "vis": true,
+      "inView": true,
+      "y": 111
+     },
+     {
+      "t": "🌞 Светлая тема",
+      "w": 71,
+      "h": 60,
+      "vis": true,
+      "inView": false,
+      "y": 103
+     }
+    ],
+    "actionsVisible": 4,
+    "actionsOffscreen": 1
+   },
+   "bottomFixed": [
+    {
+     "sel": "div.site-header",
+     "position": "sticky",
+     "bottom": 163,
+     "h": 153,
+     "padBottom": "0px"
+    },
+    {
+     "sel": "button#toTop",
+     "position": "fixed",
+     "bottom": 621,
+     "h": 44,
+     "padBottom": "8px"
+    }
+   ]
+  }
+ },
+ {
+  "page": "index",
+  "width": 360,
+  "url": "http://localhost:8000/index.html",
+  "status": 200,
+  "data": {
+   "scrollW": 360,
+   "clientW": 360,
+   "bodyScrollW": 360,
+   "overflow": 0,
+   "title": "БАДы: доказательства и механизмы - 130 добавок | Brain 25 Evidence",
+   "h": 41859,
+   "culprits": [
+    {
+     "sel": "table",
+     "right": 555,
+     "w": 520,
+     "left": 35
+    },
+    {
+     "sel": "tbody",
+     "right": 555,
+     "w": 520,
+     "left": 35
+    },
+    {
+     "sel": "tr",
+     "right": 555,
+     "w": 520,
+     "left": 35
+    },
+    {
+     "sel": "tr",
+     "right": 555,
+     "w": 520,
+     "left": 35
+    },
+    {
+     "sel": "tr",
+     "right": 555,
+     "w": 520,
+     "left": 35
+    },
+    {
+     "sel": "tr",
+     "right": 555,
+     "w": 520,
+     "left": 35
+    },
+    {
+     "sel": "tr",
+     "right": 555,
+     "w": 520,
+     "left": 35
+    },
+    {
+     "sel": "tr",
+     "right": 555,
+     "w": 520,
+     "left": 35
+    }
+   ],
+   "tapTotal": 189,
+   "small44": [
+    {
+     "sel": "a.skip-link",
+     "w": 197.1,
+     "h": 24,
+     "text": "Перейти к содержимому",
+     "y": 0
+    },
+    {
+     "sel": "a",
+     "w": 208.9,
+     "h": 26,
+     "text": "🧠 brain-25-evidence",
+     "y": 49
+    },
+    {
+     "sel": "label.sr-only",
+     "w": 1,
+     "h": 1,
+     "text": "Поиск по названию или эффект",
+     "y": 222
+    },
+    {
+     "sel": "input#search",
+     "w": 340.8,
+     "h": 24,
+     "text": "",
+     "y": 223
+    },
+    {
+     "sel": "label.sr-only",
+     "w": 1,
+     "h": 1,
+     "text": "Фильтр: вердикт",
+     "y": 222
+    },
+    {
+     "sel": "label.sr-only",
+     "w": 1,
+     "h": 1,
+     "text": "Сортировка списка",
+     "y": 222
+    },
+    {
+     "sel": "label",
+     "w": 79.7,
+     "h": 20,
+     "text": "Добавка 1",
+     "y": 39632
+    },
+    {
+     "sel": "label",
+     "w": 82.9,
+     "h": 20,
+     "text": "Добавка 2",
+     "y": 39717
+    }
+   ],
+   "small44n": 8,
+   "small24n": 5,
+   "tiny": [
+    {
+     "sel": "span.bestBadge",
+     "fs": 10.88,
+     "n": 3,
+     "text": "🔬 Топ-3 по доказательности"
+    },
+    {
+     "sel": "span.manual-badge",
+     "fs": 10.88,
+     "n": 130,
+     "text": "✋ ручная вычитка"
+    },
+    {
+     "sel": "span.cat",
+     "fs": 11.2,
+     "n": 130,
+     "text": "ЖКТ"
+    },
+    {
+     "sel": "span.tagChip",
+     "fs": 11.2,
+     "n": 226,
+     "text": "ЖКТ / кишечник"
+    },
+    {
+     "sel": "span.filterLabel",
+     "fs": 11.52,
+     "n": 2,
+     "text": "Быстрые подборки"
+    },
+    {
+     "sel": "span.grade.gB",
+     "fs": 11.52,
+     "n": 45,
+     "text": "грейд B"
+    },
+    {
+     "sel": "span.grade.gA",
+     "fs": 11.52,
+     "n": 8,
+     "text": "грейд A"
+    },
+    {
+     "sel": "span.grade.gC",
+     "fs": 11.52,
+     "n": 52,
+     "text": "грейд C"
+    },
+    {
+     "sel": "span.grade.gD",
+     "fs": 11.52,
+     "n": 25,
+     "text": "грейд D"
+    }
+   ],
+   "tinyN": 9,
+   "fontsLoaded": [
+    "Inter|400|loaded",
+    "Inter|500|loaded",
+    "Inter|600|loaded",
+    "Inter|700|loaded",
+    "Inter|800|loaded"
+   ],
+   "interOK": true,
+   "bodyFont": "Inter, system-ui, -apple-system, Segoe UI, sans-serif",
+   "header": {
+    "present": true,
+    "h": 134,
+    "actions": [
+     {
+      "t": "💬 Обратная связь",
+      "w": 80,
+      "h": 60,
+      "vis": true,
+      "inView": true,
+      "y": 84
+     },
+     {
+      "t": "🔄 Обновить",
+      "w": 80,
+      "h": 45,
+      "vis": true,
+      "inView": true,
+      "y": 91
+     },
+     {
+      "t": "💚 Поддержать",
+      "w": 98,
+      "h": 45,
+      "vis": true,
+      "inView": true,
+      "y": 91
+     },
+     {
+      "t": "🌞 Светлая тема",
+      "w": 71,
+      "h": 60,
+      "vis": true,
+      "inView": true,
+      "y": 84
+     }
+    ],
+    "actionsVisible": 4,
+    "actionsOffscreen": 0
+   },
+   "bottomFixed": [
+    {
+     "sel": "div.site-header",
+     "position": "sticky",
+     "bottom": 144,
+     "h": 134,
+     "padBottom": "0px"
+    },
+    {
+     "sel": "button#toTop",
+     "position": "fixed",
+     "bottom": 721,
+     "h": 44,
+     "padBottom": "8px"
+    }
+   ]
+  }
+ },
+ {
+  "page": "index",
+  "width": 375,
+  "url": "http://localhost:8000/index.html",
+  "status": 200,
+  "data": {
+   "scrollW": 375,
+   "clientW": 375,
+   "bodyScrollW": 375,
+   "overflow": 0,
+   "title": "БАДы: доказательства и механизмы - 130 добавок | Brain 25 Evidence",
+   "h": 41564,
+   "culprits": [
+    {
+     "sel": "table",
+     "right": 555,
+     "w": 520,
+     "left": 35
+    },
+    {
+     "sel": "tbody",
+     "right": 555,
+     "w": 520,
+     "left": 35
+    },
+    {
+     "sel": "tr",
+     "right": 555,
+     "w": 520,
+     "left": 35
+    },
+    {
+     "sel": "tr",
+     "right": 555,
+     "w": 520,
+     "left": 35
+    },
+    {
+     "sel": "tr",
+     "right": 555,
+     "w": 520,
+     "left": 35
+    },
+    {
+     "sel": "tr",
+     "right": 555,
+     "w": 520,
+     "left": 35
+    },
+    {
+     "sel": "tr",
+     "right": 555,
+     "w": 520,
+     "left": 35
+    },
+    {
+     "sel": "tr",
+     "right": 555,
+     "w": 520,
+     "left": 35
+    }
+   ],
+   "tapTotal": 189,
+   "small44": [
+    {
+     "sel": "a.skip-link",
+     "w": 197.1,
+     "h": 24,
+     "text": "Перейти к содержимому",
+     "y": 0
+    },
+    {
+     "sel": "a",
+     "w": 208.9,
+     "h": 26,
+     "text": "🧠 brain-25-evidence",
+     "y": 49
+    },
+    {
+     "sel": "label.sr-only",
+     "w": 1,
+     "h": 1,
+     "text": "Поиск по названию или эффект",
+     "y": 222
+    },
+    {
+     "sel": "input#search",
+     "w": 355.8,
+     "h": 24,
+     "text": "",
+     "y": 223
+    },
+    {
+     "sel": "label.sr-only",
+     "w": 1,
+     "h": 1,
+     "text": "Фильтр: вердикт",
+     "y": 222
+    },
+    {
+     "sel": "label.sr-only",
+     "w": 1,
+     "h": 1,
+     "text": "Сортировка списка",
+     "y": 222
+    },
+    {
+     "sel": "label",
+     "w": 79.7,
+     "h": 20,
+     "text": "Добавка 1",
+     "y": 39327
+    },
+    {
+     "sel": "label",
+     "w": 82.9,
+     "h": 20,
+     "text": "Добавка 2",
+     "y": 39412
+    }
+   ],
+   "small44n": 8,
+   "small24n": 5,
+   "tiny": [
+    {
+     "sel": "span.bestBadge",
+     "fs": 10.88,
+     "n": 3,
+     "text": "🔬 Топ-3 по доказательности"
+    },
+    {
+     "sel": "span.manual-badge",
+     "fs": 10.88,
+     "n": 130,
+     "text": "✋ ручная вычитка"
+    },
+    {
+     "sel": "span.cat",
+     "fs": 11.2,
+     "n": 130,
+     "text": "ЖКТ"
+    },
+    {
+     "sel": "span.tagChip",
+     "fs": 11.2,
+     "n": 226,
+     "text": "ЖКТ / кишечник"
+    },
+    {
+     "sel": "span.filterLabel",
+     "fs": 11.52,
+     "n": 2,
+     "text": "Быстрые подборки"
+    },
+    {
+     "sel": "span.grade.gB",
+     "fs": 11.52,
+     "n": 45,
+     "text": "грейд B"
+    },
+    {
+     "sel": "span.grade.gA",
+     "fs": 11.52,
+     "n": 8,
+     "text": "грейд A"
+    },
+    {
+     "sel": "span.grade.gC",
+     "fs": 11.52,
+     "n": 52,
+     "text": "грейд C"
+    },
+    {
+     "sel": "span.grade.gD",
+     "fs": 11.52,
+     "n": 25,
+     "text": "грейд D"
+    }
+   ],
+   "tinyN": 9,
+   "fontsLoaded": [
+    "Inter|400|loaded",
+    "Inter|500|loaded",
+    "Inter|600|loaded",
+    "Inter|700|loaded",
+    "Inter|800|loaded"
+   ],
+   "interOK": true,
+   "bodyFont": "Inter, system-ui, -apple-system, Segoe UI, sans-serif",
+   "header": {
+    "present": true,
+    "h": 134,
+    "actions": [
+     {
+      "t": "💬 Обратная связь",
+      "w": 83,
+      "h": 60,
+      "vis": true,
+      "inView": true,
+      "y": 84
+     },
+     {
+      "t": "🔄 Обновить",
+      "w": 80,
+      "h": 45,
+      "vis": true,
+      "inView": true,
+      "y": 91
+     },
+     {
+      "t": "💚 Поддержать",
+      "w": 98,
+      "h": 45,
+      "vis": true,
+      "inView": true,
+      "y": 91
+     },
+     {
+      "t": "🌞 Светлая тема",
+      "w": 76,
+      "h": 60,
+      "vis": true,
+      "inView": true,
+      "y": 84
+     }
+    ],
+    "actionsVisible": 4,
+    "actionsOffscreen": 0
+   },
+   "bottomFixed": [
+    {
+     "sel": "div.site-header",
+     "position": "sticky",
+     "bottom": 144,
+     "h": 134,
+     "padBottom": "0px"
+    },
+    {
+     "sel": "button#toTop",
+     "position": "fixed",
+     "bottom": 793,
+     "h": 44,
+     "padBottom": "8px"
+    }
+   ]
+  }
+ },
+ {
+  "page": "index",
+  "width": 390,
+  "url": "http://localhost:8000/index.html",
+  "status": 200,
+  "data": {
+   "scrollW": 390,
+   "clientW": 390,
+   "bodyScrollW": 390,
+   "overflow": 0,
+   "title": "БАДы: доказательства и механизмы - 130 добавок | Brain 25 Evidence",
+   "h": 40184,
+   "culprits": [
+    {
+     "sel": "table",
+     "right": 555,
+     "w": 520,
+     "left": 35
+    },
+    {
+     "sel": "tbody",
+     "right": 555,
+     "w": 520,
+     "left": 35
+    },
+    {
+     "sel": "tr",
+     "right": 555,
+     "w": 520,
+     "left": 35
+    },
+    {
+     "sel": "tr",
+     "right": 555,
+     "w": 520,
+     "left": 35
+    },
+    {
+     "sel": "tr",
+     "right": 555,
+     "w": 520,
+     "left": 35
+    },
+    {
+     "sel": "tr",
+     "right": 555,
+     "w": 520,
+     "left": 35
+    },
+    {
+     "sel": "tr",
+     "right": 555,
+     "w": 520,
+     "left": 35
+    },
+    {
+     "sel": "tr",
+     "right": 555,
+     "w": 520,
+     "left": 35
+    }
+   ],
+   "tapTotal": 189,
+   "small44": [
+    {
+     "sel": "a.skip-link",
+     "w": 197.1,
+     "h": 24,
+     "text": "Перейти к содержимому",
+     "y": 0
+    },
+    {
+     "sel": "a",
+     "w": 208.9,
+     "h": 26,
+     "text": "🧠 brain-25-evidence",
+     "y": 49
+    },
+    {
+     "sel": "label.sr-only",
+     "w": 1,
+     "h": 1,
+     "text": "Поиск по названию или эффект",
+     "y": 222
+    },
+    {
+     "sel": "input#search",
+     "w": 370.8,
+     "h": 24,
+     "text": "",
+     "y": 223
+    },
+    {
+     "sel": "label.sr-only",
+     "w": 1,
+     "h": 1,
+     "text": "Фильтр: вердикт",
+     "y": 222
+    },
+    {
+     "sel": "label.sr-only",
+     "w": 1,
+     "h": 1,
+     "text": "Сортировка списка",
+     "y": 222
+    },
+    {
+     "sel": "label",
+     "w": 79.7,
+     "h": 20,
+     "text": "Добавка 1",
+     "y": 38000
+    },
+    {
+     "sel": "label",
+     "w": 82.9,
+     "h": 20,
+     "text": "Добавка 2",
+     "y": 38085
+    }
+   ],
+   "small44n": 8,
+   "small24n": 5,
+   "tiny": [
+    {
+     "sel": "span.bestBadge",
+     "fs": 10.88,
+     "n": 3,
+     "text": "🔬 Топ-3 по доказательности"
+    },
+    {
+     "sel": "span.manual-badge",
+     "fs": 10.88,
+     "n": 130,
+     "text": "✋ ручная вычитка"
+    },
+    {
+     "sel": "span.cat",
+     "fs": 11.2,
+     "n": 130,
+     "text": "ЖКТ"
+    },
+    {
+     "sel": "span.tagChip",
+     "fs": 11.2,
+     "n": 226,
+     "text": "ЖКТ / кишечник"
+    },
+    {
+     "sel": "span.filterLabel",
+     "fs": 11.52,
+     "n": 2,
+     "text": "Быстрые подборки"
+    },
+    {
+     "sel": "span.grade.gB",
+     "fs": 11.52,
+     "n": 45,
+     "text": "грейд B"
+    },
+    {
+     "sel": "span.grade.gA",
+     "fs": 11.52,
+     "n": 8,
+     "text": "грейд A"
+    },
+    {
+     "sel": "span.grade.gC",
+     "fs": 11.52,
+     "n": 52,
+     "text": "грейд C"
+    },
+    {
+     "sel": "span.grade.gD",
+     "fs": 11.52,
+     "n": 25,
+     "text": "грейд D"
+    }
+   ],
+   "tinyN": 9,
+   "fontsLoaded": [
+    "Inter|400|loaded",
+    "Inter|500|loaded",
+    "Inter|600|loaded",
+    "Inter|700|loaded",
+    "Inter|800|loaded"
+   ],
+   "interOK": true,
+   "bodyFont": "Inter, system-ui, -apple-system, Segoe UI, sans-serif",
+   "header": {
+    "present": true,
+    "h": 134,
+    "actions": [
+     {
+      "t": "💬 Обратная связь",
+      "w": 91,
+      "h": 60,
+      "vis": true,
+      "inView": true,
+      "y": 84
+     },
+     {
+      "t": "🔄 Обновить",
+      "w": 80,
+      "h": 45,
+      "vis": true,
+      "inView": true,
+      "y": 91
+     },
+     {
+      "t": "💚 Поддержать",
+      "w": 98,
+      "h": 45,
+      "vis": true,
+      "inView": true,
+      "y": 91
+     },
+     {
+      "t": "🌞 Светлая тема",
+      "w": 83,
+      "h": 60,
+      "vis": true,
+      "inView": true,
+      "y": 84
+     }
+    ],
+    "actionsVisible": 4,
+    "actionsOffscreen": 0
+   },
+   "bottomFixed": [
+    {
+     "sel": "div.site-header",
+     "position": "sticky",
+     "bottom": 144,
+     "h": 134,
+     "padBottom": "0px"
+    },
+    {
+     "sel": "button#toTop",
+     "position": "fixed",
+     "bottom": 825,
+     "h": 44,
+     "padBottom": "8px"
+    }
+   ]
+  }
+ },
+ {
+  "page": "index",
+  "width": 393,
+  "url": "http://localhost:8000/index.html",
+  "status": 200,
+  "data": {
+   "scrollW": 393,
+   "clientW": 393,
+   "bodyScrollW": 393,
+   "overflow": 0,
+   "title": "БАДы: доказательства и механизмы - 130 добавок | Brain 25 Evidence",
+   "h": 40184,
+   "culprits": [
+    {
+     "sel": "table",
+     "right": 555,
+     "w": 520,
+     "left": 35
+    },
+    {
+     "sel": "tbody",
+     "right": 555,
+     "w": 520,
+     "left": 35
+    },
+    {
+     "sel": "tr",
+     "right": 555,
+     "w": 520,
+     "left": 35
+    },
+    {
+     "sel": "tr",
+     "right": 555,
+     "w": 520,
+     "left": 35
+    },
+    {
+     "sel": "tr",
+     "right": 555,
+     "w": 520,
+     "left": 35
+    },
+    {
+     "sel": "tr",
+     "right": 555,
+     "w": 520,
+     "left": 35
+    },
+    {
+     "sel": "tr",
+     "right": 555,
+     "w": 520,
+     "left": 35
+    },
+    {
+     "sel": "tr",
+     "right": 555,
+     "w": 520,
+     "left": 35
+    }
+   ],
+   "tapTotal": 189,
+   "small44": [
+    {
+     "sel": "a.skip-link",
+     "w": 197.1,
+     "h": 24,
+     "text": "Перейти к содержимому",
+     "y": 0
+    },
+    {
+     "sel": "a",
+     "w": 208.9,
+     "h": 26,
+     "text": "🧠 brain-25-evidence",
+     "y": 49
+    },
+    {
+     "sel": "label.sr-only",
+     "w": 1,
+     "h": 1,
+     "text": "Поиск по названию или эффект",
+     "y": 222
+    },
+    {
+     "sel": "input#search",
+     "w": 373.8,
+     "h": 24,
+     "text": "",
+     "y": 223
+    },
+    {
+     "sel": "label.sr-only",
+     "w": 1,
+     "h": 1,
+     "text": "Фильтр: вердикт",
+     "y": 222
+    },
+    {
+     "sel": "label.sr-only",
+     "w": 1,
+     "h": 1,
+     "text": "Сортировка списка",
+     "y": 222
+    },
+    {
+     "sel": "label",
+     "w": 79.7,
+     "h": 20,
+     "text": "Добавка 1",
+     "y": 38000
+    },
+    {
+     "sel": "label",
+     "w": 82.9,
+     "h": 20,
+     "text": "Добавка 2",
+     "y": 38085
+    }
+   ],
+   "small44n": 8,
+   "small24n": 5,
+   "tiny": [
+    {
+     "sel": "span.bestBadge",
+     "fs": 10.88,
+     "n": 3,
+     "text": "🔬 Топ-3 по доказательности"
+    },
+    {
+     "sel": "span.manual-badge",
+     "fs": 10.88,
+     "n": 130,
+     "text": "✋ ручная вычитка"
+    },
+    {
+     "sel": "span.cat",
+     "fs": 11.2,
+     "n": 130,
+     "text": "ЖКТ"
+    },
+    {
+     "sel": "span.tagChip",
+     "fs": 11.2,
+     "n": 226,
+     "text": "ЖКТ / кишечник"
+    },
+    {
+     "sel": "span.filterLabel",
+     "fs": 11.52,
+     "n": 2,
+     "text": "Быстрые подборки"
+    },
+    {
+     "sel": "span.grade.gB",
+     "fs": 11.52,
+     "n": 45,
+     "text": "грейд B"
+    },
+    {
+     "sel": "span.grade.gA",
+     "fs": 11.52,
+     "n": 8,
+     "text": "грейд A"
+    },
+    {
+     "sel": "span.grade.gC",
+     "fs": 11.52,
+     "n": 52,
+     "text": "грейд C"
+    },
+    {
+     "sel": "span.grade.gD",
+     "fs": 11.52,
+     "n": 25,
+     "text": "грейд D"
+    }
+   ],
+   "tinyN": 9,
+   "fontsLoaded": [
+    "Inter|400|loaded",
+    "Inter|500|loaded",
+    "Inter|600|loaded",
+    "Inter|700|loaded",
+    "Inter|800|loaded"
+   ],
+   "interOK": true,
+   "bodyFont": "Inter, system-ui, -apple-system, Segoe UI, sans-serif",
+   "header": {
+    "present": true,
+    "h": 134,
+    "actions": [
+     {
+      "t": "💬 Обратная связь",
+      "w": 92,
+      "h": 60,
+      "vis": true,
+      "inView": true,
+      "y": 84
+     },
+     {
+      "t": "🔄 Обновить",
+      "w": 80,
+      "h": 45,
+      "vis": true,
+      "inView": true,
+      "y": 91
+     },
+     {
+      "t": "💚 Поддержать",
+      "w": 98,
+      "h": 45,
+      "vis": true,
+      "inView": true,
+      "y": 91
+     },
+     {
+      "t": "🌞 Светлая тема",
+      "w": 84,
+      "h": 60,
+      "vis": true,
+      "inView": true,
+      "y": 84
+     }
+    ],
+    "actionsVisible": 4,
+    "actionsOffscreen": 0
+   },
+   "bottomFixed": [
+    {
+     "sel": "div.site-header",
+     "position": "sticky",
+     "bottom": 144,
+     "h": 134,
+     "padBottom": "0px"
+    },
+    {
+     "sel": "button#toTop",
+     "position": "fixed",
+     "bottom": 833,
+     "h": 44,
+     "padBottom": "8px"
+    }
+   ]
+  }
+ },
+ {
+  "page": "index",
+  "width": 412,
+  "url": "http://localhost:8000/index.html",
+  "status": 200,
+  "data": {
+   "scrollW": 412,
+   "clientW": 412,
+   "bodyScrollW": 412,
+   "overflow": 0,
+   "title": "БАДы: доказательства и механизмы - 130 добавок | Brain 25 Evidence",
+   "h": 38199,
+   "culprits": [
+    {
+     "sel": "table",
+     "right": 555,
+     "w": 520,
+     "left": 35
+    },
+    {
+     "sel": "tbody",
+     "right": 555,
+     "w": 520,
+     "left": 35
+    },
+    {
+     "sel": "tr",
+     "right": 555,
+     "w": 520,
+     "left": 35
+    },
+    {
+     "sel": "tr",
+     "right": 555,
+     "w": 520,
+     "left": 35
+    },
+    {
+     "sel": "tr",
+     "right": 555,
+     "w": 520,
+     "left": 35
+    },
+    {
+     "sel": "tr",
+     "right": 555,
+     "w": 520,
+     "left": 35
+    },
+    {
+     "sel": "tr",
+     "right": 555,
+     "w": 520,
+     "left": 35
+    },
+    {
+     "sel": "tr",
+     "right": 555,
+     "w": 520,
+     "left": 35
+    }
+   ],
+   "tapTotal": 189,
+   "small44": [
+    {
+     "sel": "a.skip-link",
+     "w": 197.1,
+     "h": 24,
+     "text": "Перейти к содержимому",
+     "y": 0
+    },
+    {
+     "sel": "a",
+     "w": 208.9,
+     "h": 26,
+     "text": "🧠 brain-25-evidence",
+     "y": 49
+    },
+    {
+     "sel": "label.sr-only",
+     "w": 1,
+     "h": 1,
+     "text": "Поиск по названию или эффект",
+     "y": 207
+    },
+    {
+     "sel": "input#search",
+     "w": 392.8,
+     "h": 24,
+     "text": "",
+     "y": 208
+    },
+    {
+     "sel": "label.sr-only",
+     "w": 1,
+     "h": 1,
+     "text": "Фильтр: вердикт",
+     "y": 207
+    },
+    {
+     "sel": "label.sr-only",
+     "w": 1,
+     "h": 1,
+     "text": "Сортировка списка",
+     "y": 207
+    },
+    {
+     "sel": "label",
+     "w": 79.7,
+     "h": 20,
+     "text": "Добавка 1",
+     "y": 36040
+    },
+    {
+     "sel": "label",
+     "w": 82.9,
+     "h": 20,
+     "text": "Добавка 2",
+     "y": 36124
+    }
+   ],
+   "small44n": 8,
+   "small24n": 5,
+   "tiny": [
+    {
+     "sel": "span.bestBadge",
+     "fs": 10.88,
+     "n": 3,
+     "text": "🔬 Топ-3 по доказательности"
+    },
+    {
+     "sel": "span.manual-badge",
+     "fs": 10.88,
+     "n": 130,
+     "text": "✋ ручная вычитка"
+    },
+    {
+     "sel": "span.cat",
+     "fs": 11.2,
+     "n": 130,
+     "text": "ЖКТ"
+    },
+    {
+     "sel": "span.tagChip",
+     "fs": 11.2,
+     "n": 226,
+     "text": "ЖКТ / кишечник"
+    },
+    {
+     "sel": "span.filterLabel",
+     "fs": 11.52,
+     "n": 2,
+     "text": "Быстрые подборки"
+    },
+    {
+     "sel": "span.grade.gB",
+     "fs": 11.52,
+     "n": 45,
+     "text": "грейд B"
+    },
+    {
+     "sel": "span.grade.gA",
+     "fs": 11.52,
+     "n": 8,
+     "text": "грейд A"
+    },
+    {
+     "sel": "span.grade.gC",
+     "fs": 11.52,
+     "n": 52,
+     "text": "грейд C"
+    },
+    {
+     "sel": "span.grade.gD",
+     "fs": 11.52,
+     "n": 25,
+     "text": "грейд D"
+    }
+   ],
+   "tinyN": 9,
+   "fontsLoaded": [
+    "Inter|400|loaded",
+    "Inter|500|loaded",
+    "Inter|600|loaded",
+    "Inter|700|loaded",
+    "Inter|800|loaded"
+   ],
+   "interOK": true,
+   "bodyFont": "Inter, system-ui, -apple-system, Segoe UI, sans-serif",
+   "header": {
+    "present": true,
+    "h": 119,
+    "actions": [
+     {
+      "t": "💬 Обратная связь",
+      "w": 102,
+      "h": 45,
+      "vis": true,
+      "inView": true,
+      "y": 84
+     },
+     {
+      "t": "🔄 Обновить",
+      "w": 80,
+      "h": 45,
+      "vis": true,
+      "inView": true,
+      "y": 84
+     },
+     {
+      "t": "💚 Поддержать",
+      "w": 98,
+      "h": 45,
+      "vis": true,
+      "inView": true,
+      "y": 84
+     },
+     {
+      "t": "🌞 Светлая тема",
+      "w": 93,
+      "h": 45,
+      "vis": true,
+      "inView": true,
+      "y": 84
+     }
+    ],
+    "actionsVisible": 4,
+    "actionsOffscreen": 0
+   },
+   "bottomFixed": [
+    {
+     "sel": "div.site-header",
+     "position": "sticky",
+     "bottom": 129,
+     "h": 119,
+     "padBottom": "0px"
+    },
+    {
+     "sel": "button#toTop",
+     "position": "fixed",
+     "bottom": 896,
+     "h": 44,
+     "padBottom": "8px"
+    }
+   ]
+  }
+ },
+ {
+  "page": "index",
+  "width": 428,
+  "url": "http://localhost:8000/index.html",
+  "status": 200,
+  "data": {
+   "scrollW": 428,
+   "clientW": 428,
+   "bodyScrollW": 428,
+   "overflow": 0,
+   "title": "БАДы: доказательства и механизмы - 130 добавок | Brain 25 Evidence",
+   "h": 38062,
+   "culprits": [
+    {
+     "sel": "table",
+     "right": 555,
+     "w": 520,
+     "left": 35
+    },
+    {
+     "sel": "tbody",
+     "right": 555,
+     "w": 520,
+     "left": 35
+    },
+    {
+     "sel": "tr",
+     "right": 555,
+     "w": 520,
+     "left": 35
+    },
+    {
+     "sel": "tr",
+     "right": 555,
+     "w": 520,
+     "left": 35
+    },
+    {
+     "sel": "tr",
+     "right": 555,
+     "w": 520,
+     "left": 35
+    },
+    {
+     "sel": "tr",
+     "right": 555,
+     "w": 520,
+     "left": 35
+    },
+    {
+     "sel": "tr",
+     "right": 555,
+     "w": 520,
+     "left": 35
+    },
+    {
+     "sel": "tr",
+     "right": 555,
+     "w": 520,
+     "left": 35
+    }
+   ],
+   "tapTotal": 189,
+   "small44": [
+    {
+     "sel": "a.skip-link",
+     "w": 197.1,
+     "h": 24,
+     "text": "Перейти к содержимому",
+     "y": 0
+    },
+    {
+     "sel": "a",
+     "w": 208.9,
+     "h": 26,
+     "text": "🧠 brain-25-evidence",
+     "y": 49
+    },
+    {
+     "sel": "label.sr-only",
+     "w": 1,
+     "h": 1,
+     "text": "Поиск по названию или эффект",
+     "y": 180
+    },
+    {
+     "sel": "input#search",
+     "w": 408.8,
+     "h": 24,
+     "text": "",
+     "y": 181
+    },
+    {
+     "sel": "label.sr-only",
+     "w": 1,
+     "h": 1,
+     "text": "Фильтр: вердикт",
+     "y": 180
+    },
+    {
+     "sel": "label.sr-only",
+     "w": 1,
+     "h": 1,
+     "text": "Сортировка списка",
+     "y": 180
+    },
+    {
+     "sel": "label",
+     "w": 79.7,
+     "h": 20,
+     "text": "Добавка 1",
+     "y": 35927
+    },
+    {
+     "sel": "label",
+     "w": 82.9,
+     "h": 20,
+     "text": "Добавка 2",
+     "y": 36012
+    }
+   ],
+   "small44n": 8,
+   "small24n": 5,
+   "tiny": [
+    {
+     "sel": "span.bestBadge",
+     "fs": 10.88,
+     "n": 3,
+     "text": "🔬 Топ-3 по доказательности"
+    },
+    {
+     "sel": "span.manual-badge",
+     "fs": 10.88,
+     "n": 130,
+     "text": "✋ ручная вычитка"
+    },
+    {
+     "sel": "span.cat",
+     "fs": 11.2,
+     "n": 130,
+     "text": "ЖКТ"
+    },
+    {
+     "sel": "span.tagChip",
+     "fs": 11.2,
+     "n": 226,
+     "text": "ЖКТ / кишечник"
+    },
+    {
+     "sel": "span.filterLabel",
+     "fs": 11.52,
+     "n": 2,
+     "text": "Быстрые подборки"
+    },
+    {
+     "sel": "span.grade.gB",
+     "fs": 11.52,
+     "n": 45,
+     "text": "грейд B"
+    },
+    {
+     "sel": "span.grade.gA",
+     "fs": 11.52,
+     "n": 8,
+     "text": "грейд A"
+    },
+    {
+     "sel": "span.grade.gC",
+     "fs": 11.52,
+     "n": 52,
+     "text": "грейд C"
+    },
+    {
+     "sel": "span.grade.gD",
+     "fs": 11.52,
+     "n": 25,
+     "text": "грейд D"
+    }
+   ],
+   "tinyN": 9,
+   "fontsLoaded": [
+    "Inter|400|loaded",
+    "Inter|500|loaded",
+    "Inter|600|loaded",
+    "Inter|700|loaded",
+    "Inter|800|loaded"
+   ],
+   "interOK": true,
+   "bodyFont": "Inter, system-ui, -apple-system, Segoe UI, sans-serif",
+   "header": {
+    "present": true,
+    "h": 119,
+    "actions": [
+     {
+      "t": "💬 Обратная связь",
+      "w": 110,
+      "h": 45,
+      "vis": true,
+      "inView": true,
+      "y": 84
+     },
+     {
+      "t": "🔄 Обновить",
+      "w": 82,
+      "h": 45,
+      "vis": true,
+      "inView": true,
+      "y": 84
+     },
+     {
+      "t": "💚 Поддержать",
+      "w": 98,
+      "h": 45,
+      "vis": true,
+      "inView": true,
+      "y": 84
+     },
+     {
+      "t": "🌞 Светлая тема",
+      "w": 100,
+      "h": 45,
+      "vis": true,
+      "inView": true,
+      "y": 84
+     }
+    ],
+    "actionsVisible": 4,
+    "actionsOffscreen": 0
+   },
+   "bottomFixed": [
+    {
+     "sel": "div.site-header",
+     "position": "sticky",
+     "bottom": 129,
+     "h": 119,
+     "padBottom": "0px"
+    },
+    {
+     "sel": "button#toTop",
+     "position": "fixed",
+     "bottom": 907,
+     "h": 44,
+     "padBottom": "8px"
+    }
+   ]
+  }
+ },
+ {
+  "page": "index",
+  "width": 768,
+  "url": "http://localhost:8000/index.html",
+  "status": 200,
+  "data": {
+   "scrollW": 768,
+   "clientW": 768,
+   "bodyScrollW": 768,
+   "overflow": 0,
+   "title": "БАДы: доказательства и механизмы - 130 добавок | Brain 25 Evidence",
+   "h": 36578,
+   "culprits": [
+    {
+     "sel": "div.qa",
+     "right": 1203,
+     "w": 576,
+     "left": 627
+    },
+    {
+     "sel": "div.qa",
+     "right": 1789,
+     "w": 576,
+     "left": 1213
+    },
+    {
+     "sel": "h3",
+     "right": 1186,
+     "w": 542,
+     "left": 644
+    },
+    {
+     "sel": "p",
+     "right": 1186,
+     "w": 542,
+     "left": 644
+    },
+    {
+     "sel": "h3",
+     "right": 1772,
+     "w": 542,
+     "left": 1230
+    },
+    {
+     "sel": "p",
+     "right": 1772,
+     "w": 542,
+     "left": 1230
+    }
+   ],
+   "tapTotal": 189,
+   "small44": [
+    {
+     "sel": "a.skip-link",
+     "w": 197.1,
+     "h": 24,
+     "text": "Перейти к содержимому",
+     "y": 0
+    },
+    {
+     "sel": "a",
+     "w": 217,
+     "h": 32.4,
+     "text": "🧠 brain-25-evidence",
+     "y": 51
+    },
+    {
+     "sel": "label.sr-only",
+     "w": 1,
+     "h": 1,
+     "text": "Поиск по названию или эффект",
+     "y": 199
+    },
+    {
+     "sel": "input#search",
+     "w": 736,
+     "h": 24,
+     "text": "",
+     "y": 200
+    },
+    {
+     "sel": "label.sr-only",
+     "w": 1,
+     "h": 1,
+     "text": "Фильтр: вердикт",
+     "y": 199
+    },
+    {
+     "sel": "label.sr-only",
+     "w": 1,
+     "h": 1,
+     "text": "Сортировка списка",
+     "y": 199
+    },
+    {
+     "sel": "label",
+     "w": 79.7,
+     "h": 20,
+     "text": "Добавка 1",
+     "y": 34739
+    },
+    {
+     "sel": "label",
+     "w": 82.9,
+     "h": 20,
+     "text": "Добавка 2",
+     "y": 34823
+    }
+   ],
+   "small44n": 8,
+   "small24n": 5,
+   "tiny": [
+    {
+     "sel": "span.bestBadge",
+     "fs": 10.88,
+     "n": 3,
+     "text": "🔬 Топ-3 по доказательности"
+    },
+    {
+     "sel": "span.manual-badge",
+     "fs": 10.88,
+     "n": 130,
+     "text": "✋ ручная вычитка"
+    },
+    {
+     "sel": "span.cat",
+     "fs": 11.2,
+     "n": 130,
+     "text": "ЖКТ"
+    },
+    {
+     "sel": "span.tagChip",
+     "fs": 11.2,
+     "n": 226,
+     "text": "ЖКТ / кишечник"
+    },
+    {
+     "sel": "span.filterLabel",
+     "fs": 11.52,
+     "n": 2,
+     "text": "Быстрые подборки"
+    },
+    {
+     "sel": "span.grade.gB",
+     "fs": 11.52,
+     "n": 45,
+     "text": "грейд B"
+    },
+    {
+     "sel": "span.grade.gA",
+     "fs": 11.52,
+     "n": 8,
+     "text": "грейд A"
+    },
+    {
+     "sel": "span.grade.gC",
+     "fs": 11.52,
+     "n": 52,
+     "text": "грейд C"
+    },
+    {
+     "sel": "span.grade.gD",
+     "fs": 11.52,
+     "n": 25,
+     "text": "грейд D"
+    }
+   ],
+   "tinyN": 9,
+   "fontsLoaded": [
+    "Inter|400|loaded",
+    "Inter|500|loaded",
+    "Inter|600|loaded",
+    "Inter|700|loaded",
+    "Inter|800|loaded"
+   ],
+   "interOK": true,
+   "bodyFont": "Inter, system-ui, -apple-system, Segoe UI, sans-serif",
+   "header": {
+    "present": true,
+    "h": 128,
+    "actions": [
+     {
+      "t": "💬 Обратная связь",
+      "w": 156,
+      "h": 44,
+      "vis": true,
+      "inView": true,
+      "y": 100
+     },
+     {
+      "t": "🔄 Обновить",
+      "w": 115,
+      "h": 44,
+      "vis": true,
+      "inView": true,
+      "y": 100
+     },
+     {
+      "t": "💚 Поддержать",
+      "w": 134,
+      "h": 44,
+      "vis": true,
+      "inView": true,
+      "y": 100
+     },
+     {
+      "t": "🌞 Светлая тема",
+      "w": 141,
+      "h": 44,
+      "vis": true,
+      "inView": true,
+      "y": 100
+     }
+    ],
+    "actionsVisible": 4,
+    "actionsOffscreen": 0
+   },
+   "bottomFixed": [
+    {
+     "sel": "div.site-header",
+     "position": "sticky",
+     "bottom": 144,
+     "h": 128,
+     "padBottom": "0px"
+    },
+    {
+     "sel": "button#toTop",
+     "position": "fixed",
+     "bottom": 1005,
+     "h": 44,
+     "padBottom": "8px"
+    }
+   ]
+  }
+ },
+ {
+  "page": "index",
+  "width": 1024,
+  "url": "http://localhost:8000/index.html",
+  "status": 200,
+  "data": {
+   "scrollW": 1024,
+   "clientW": 1024,
+   "bodyScrollW": 1024,
+   "overflow": 0,
+   "title": "БАДы: доказательства и механизмы - 130 добавок | Brain 25 Evidence",
+   "h": 17441,
+   "culprits": [],
+   "tapTotal": 189,
+   "small44": [
+    {
+     "sel": "a.skip-link",
+     "w": 197.1,
+     "h": 24,
+     "text": "Перейти к содержимому",
+     "y": 0
+    },
+    {
+     "sel": "a",
+     "w": 217,
+     "h": 32.4,
+     "text": "🧠 brain-25-evidence",
+     "y": 64
+    },
+    {
+     "sel": "label.sr-only",
+     "w": 1,
+     "h": 1,
+     "text": "Поиск по названию или эффект",
+     "y": 157
+    },
+    {
+     "sel": "label.sr-only",
+     "w": 1,
+     "h": 1,
+     "text": "Фильтр: вердикт",
+     "y": 157
+    },
+    {
+     "sel": "label.sr-only",
+     "w": 1,
+     "h": 1,
+     "text": "Сортировка списка",
+     "y": 157
+    },
+    {
+     "sel": "label",
+     "w": 79.7,
+     "h": 20,
+     "text": "Добавка 1",
+     "y": 15831
+    },
+    {
+     "sel": "label",
+     "w": 82.9,
+     "h": 20,
+     "text": "Добавка 2",
+     "y": 15831
+    }
+   ],
+   "small44n": 7,
+   "small24n": 5,
+   "tiny": [
+    {
+     "sel": "span.bestBadge",
+     "fs": 10.88,
+     "n": 3,
+     "text": "🔬 Топ-3 по доказательности"
+    },
+    {
+     "sel": "span.manual-badge",
+     "fs": 10.88,
+     "n": 130,
+     "text": "✋ ручная вычитка"
+    },
+    {
+     "sel": "span.cat",
+     "fs": 11.2,
+     "n": 130,
+     "text": "ЖКТ"
+    },
+    {
+     "sel": "span.tagChip",
+     "fs": 11.2,
+     "n": 226,
+     "text": "ЖКТ / кишечник"
+    },
+    {
+     "sel": "span.filterLabel",
+     "fs": 11.52,
+     "n": 2,
+     "text": "Быстрые подборки"
+    },
+    {
+     "sel": "span.grade.gB",
+     "fs": 11.52,
+     "n": 45,
+     "text": "грейд B"
+    },
+    {
+     "sel": "span.grade.gA",
+     "fs": 11.52,
+     "n": 8,
+     "text": "грейд A"
+    },
+    {
+     "sel": "span.grade.gC",
+     "fs": 11.52,
+     "n": 52,
+     "text": "грейд C"
+    },
+    {
+     "sel": "span.grade.gD",
+     "fs": 11.52,
+     "n": 25,
+     "text": "грейд D"
+    }
+   ],
+   "tinyN": 9,
+   "fontsLoaded": [
+    "Inter|400|loaded",
+    "Inter|500|loaded",
+    "Inter|600|loaded",
+    "Inter|700|loaded",
+    "Inter|800|loaded"
+   ],
+   "interOK": true,
+   "bodyFont": "Inter, system-ui, -apple-system, Segoe UI, sans-serif",
+   "header": {
+    "present": true,
+    "h": 79,
+    "actions": [
+     {
+      "t": "💬 Обратная связь",
+      "w": 156,
+      "h": 44,
+      "vis": true,
+      "inView": true,
+      "y": 59
+     },
+     {
+      "t": "🔄 Обновить",
+      "w": 115,
+      "h": 44,
+      "vis": true,
+      "inView": true,
+      "y": 59
+     },
+     {
+      "t": "💚 Поддержать",
+      "w": 134,
+      "h": 44,
+      "vis": true,
+      "inView": true,
+      "y": 59
+     },
+     {
+      "t": "🌞 Светлая тема",
+      "w": 141,
+      "h": 44,
+      "vis": true,
+      "inView": true,
+      "y": 59
+     }
+    ],
+    "actionsVisible": 4,
+    "actionsOffscreen": 0
+   },
+   "bottomFixed": [
+    {
+     "sel": "div.site-header",
+     "position": "sticky",
+     "bottom": 103,
+     "h": 79,
+     "padBottom": "0px"
+    },
+    {
+     "sel": "button#toTop",
+     "position": "fixed",
+     "bottom": 749,
+     "h": 44,
+     "padBottom": "8px"
+    }
+   ]
+  }
+ },
+ {
+  "page": "calculator",
+  "width": 320,
+  "url": "http://localhost:8000/calculator.html",
+  "status": 200,
+  "data": {
+   "scrollW": 320,
+   "clientW": 320,
+   "bodyScrollW": 320,
+   "overflow": 0,
+   "title": "Калькулятор БАДов — проверка доз и конфликтов",
+   "h": 2457,
+   "culprits": [
+    {
+     "sel": "a.btn.c-support",
+     "right": 799,
+     "w": 111,
+     "left": 688
+    },
+    {
+     "sel": "a.btn.c-feedback",
+     "right": 681,
+     "w": 92,
+     "left": 589
+    },
+    {
+     "sel": "button#themeBtn.btn",
+     "right": 887,
+     "w": 82,
+     "left": 805
+    },
+    {
+     "sel": "a.btn.c-trends",
+     "right": 451,
+     "w": 78,
+     "left": 372
+    },
+    {
+     "sel": "a.btn.c-graph",
+     "right": 583,
+     "w": 73,
+     "left": 510
+    },
+    {
+     "sel": "a.btn.c-atlas",
+     "right": 366,
+     "w": 66,
+     "left": 300
+    },
+    {
+     "sel": "a.btn.c-bi",
+     "right": 503,
+     "w": 46,
+     "left": 457
+    }
+   ],
+   "tapTotal": 37,
+   "small44": [
+    {
+     "sel": "a.skip-link",
+     "w": 197.1,
+     "h": 24,
+     "text": "Перейти к содержимому",
+     "y": 0
+    },
+    {
+     "sel": "a",
+     "w": 208.9,
+     "h": 26,
+     "text": "🧠 brain-25-evidence",
+     "y": 91
+    },
+    {
+     "sel": "label",
+     "w": 100.6,
+     "h": 19.2,
+     "text": "Вес (кг)",
+     "y": 297
+    },
+    {
+     "sel": "input#pWeight",
+     "w": 108.6,
+     "h": 36.4,
+     "text": "",
+     "y": 320
+    },
+    {
+     "sel": "label",
+     "w": 100.6,
+     "h": 19.2,
+     "text": "Пол",
+     "y": 297
+    },
+    {
+     "sel": "label",
+     "w": 100.6,
+     "h": 19.2,
+     "text": "Возраст",
+     "y": 377
+    },
+    {
+     "sel": "input#pAge",
+     "w": 108.6,
+     "h": 36.4,
+     "text": "",
+     "y": 400
+    },
+    {
+     "sel": "label",
+     "w": 100.6,
+     "h": 38.4,
+     "text": "Особое состояние",
+     "y": 377
+    },
+    {
+     "sel": "label.sr-only",
+     "w": 1,
+     "h": 1,
+     "text": "Поиск добавки для расчёта",
+     "y": 759
+    },
+    {
+     "sel": "input#q",
+     "w": 268.8,
+     "h": 38,
+     "text": "",
+     "y": 760
+    }
+   ],
+   "small44n": 10,
+   "small24n": 4,
+   "tiny": [
+    {
+     "sel": "div.lbl",
+     "fs": 11.52,
+     "n": 4,
+     "text": "в норме"
+    }
+   ],
+   "tinyN": 1,
+   "fontsLoaded": [
+    "Inter|400|loaded",
+    "Inter|500|loaded",
+    "Inter|600|loaded",
+    "Inter|700|loaded",
+    "Inter|800|loaded"
+   ],
+   "interOK": true,
+   "bodyFont": "Inter, system-ui, -apple-system, Segoe UI, sans-serif",
+   "header": {
+    "present": true,
+    "h": 165,
+    "actions": [
+     {
+      "t": "🏠 Главная",
+      "w": 82,
+      "h": 49,
+      "vis": true,
+      "inView": true,
+      "y": 134
+     },
+     {
+      "t": "🧩 Механизмы",
+      "w": 106,
+      "h": 49,
+      "vis": true,
+      "inView": true,
+      "y": 134
+     },
+     {
+      "t": "🔗 Связи",
+      "w": 68,
+      "h": 49,
+      "vis": true,
+      "inView": true,
+      "y": 134
+     },
+     {
+      "t": "🌐 Атлас",
+      "w": 66,
+      "h": 49,
+      "vis": true,
+      "inView": false,
+      "y": 134
+     },
+     {
+      "t": "📈 Тренды",
+      "w": 78,
+      "h": 49,
+      "vis": true,
+      "inView": false,
+      "y": 134
+     },
+     {
+      "t": "🧠 BI ↗",
+      "w": 46,
+      "h": 65,
+      "vis": true,
+      "inView": false,
+      "y": 126
+     },
+     {
+      "t": "🕸️ Граф связей",
+      "w": 73,
+      "h": 65,
+      "vis": true,
+      "inView": false,
+      "y": 126
+     },
+     {
+      "t": "💬 Обратная связь",
+      "w": 92,
+      "h": 65,
+      "vis": true,
+      "inView": false,
+      "y": 126
+     },
+     {
+      "t": "💚 Поддержать",
+      "w": 111,
+      "h": 49,
+      "vis": true,
+      "inView": false,
+      "y": 134
+     },
+     {
+      "t": "🌞 Светлая тема",
+      "w": 82,
+      "h": 65,
+      "vis": true,
+      "inView": false,
+      "y": 126
+     }
+    ],
+    "actionsVisible": 10,
+    "actionsOffscreen": 7
+   },
+   "bottomFixed": [
+    {
+     "sel": "div.site-header",
+     "position": "sticky",
+     "bottom": 191,
+     "h": 165,
+     "padBottom": "0px"
+    }
+   ]
+  }
+ },
+ {
+  "page": "calculator",
+  "width": 360,
+  "url": "http://localhost:8000/calculator.html",
+  "status": 200,
+  "data": {
+   "scrollW": 360,
+   "clientW": 360,
+   "bodyScrollW": 360,
+   "overflow": 0,
+   "title": "Калькулятор БАДов — проверка доз и конфликтов",
+   "h": 2116,
+   "culprits": [
+    {
+     "sel": "a.btn.c-support",
+     "right": 799,
+     "w": 111,
+     "left": 688
+    },
+    {
+     "sel": "a.btn.c-feedback",
+     "right": 681,
+     "w": 92,
+     "left": 589
+    },
+    {
+     "sel": "button#themeBtn.btn",
+     "right": 887,
+     "w": 82,
+     "left": 805
+    },
+    {
+     "sel": "a.btn.c-trends",
+     "right": 451,
+     "w": 78,
+     "left": 372
+    },
+    {
+     "sel": "a.btn.c-graph",
+     "right": 583,
+     "w": 73,
+     "left": 510
+    },
+    {
+     "sel": "a.btn.c-atlas",
+     "right": 366,
+     "w": 66,
+     "left": 300
+    },
+    {
+     "sel": "a.btn.c-bi",
+     "right": 503,
+     "w": 46,
+     "left": 457
+    }
+   ],
+   "tapTotal": 37,
+   "small44": [
+    {
+     "sel": "a.skip-link",
+     "w": 197.1,
+     "h": 24,
+     "text": "Перейти к содержимому",
+     "y": 0
+    },
+    {
+     "sel": "a",
+     "w": 208.9,
+     "h": 26,
+     "text": "🧠 brain-25-evidence",
+     "y": 91
+    },
+    {
+     "sel": "label",
+     "w": 120.6,
+     "h": 19.2,
+     "text": "Вес (кг)",
+     "y": 297
+    },
+    {
+     "sel": "input#pWeight",
+     "w": 128.6,
+     "h": 36.4,
+     "text": "",
+     "y": 320
+    },
+    {
+     "sel": "label",
+     "w": 120.6,
+     "h": 19.2,
+     "text": "Пол",
+     "y": 297
+    },
+    {
+     "sel": "label",
+     "w": 120.6,
+     "h": 19.2,
+     "text": "Возраст",
+     "y": 377
+    },
+    {
+     "sel": "input#pAge",
+     "w": 128.6,
+     "h": 36.4,
+     "text": "",
+     "y": 400
+    },
+    {
+     "sel": "label",
+     "w": 120.6,
+     "h": 19.2,
+     "text": "Особое состояние",
+     "y": 377
+    },
+    {
+     "sel": "label.sr-only",
+     "w": 1,
+     "h": 1,
+     "text": "Поиск добавки для расчёта",
+     "y": 689
+    },
+    {
+     "sel": "input#q",
+     "w": 308.8,
+     "h": 38,
+     "text": "",
+     "y": 690
+    }
+   ],
+   "small44n": 10,
+   "small24n": 5,
+   "tiny": [
+    {
+     "sel": "div.lbl",
+     "fs": 11.52,
+     "n": 4,
+     "text": "в норме"
+    }
+   ],
+   "tinyN": 1,
+   "fontsLoaded": [
+    "Inter|400|loaded",
+    "Inter|500|loaded",
+    "Inter|600|loaded",
+    "Inter|700|loaded",
+    "Inter|800|loaded"
+   ],
+   "interOK": true,
+   "bodyFont": "Inter, system-ui, -apple-system, Segoe UI, sans-serif",
+   "header": {
+    "present": true,
+    "h": 165,
+    "actions": [
+     {
+      "t": "🏠 Главная",
+      "w": 82,
+      "h": 49,
+      "vis": true,
+      "inView": true,
+      "y": 134
+     },
+     {
+      "t": "🧩 Механизмы",
+      "w": 106,
+      "h": 49,
+      "vis": true,
+      "inView": true,
+      "y": 134
+     },
+     {
+      "t": "🔗 Связи",
+      "w": 68,
+      "h": 49,
+      "vis": true,
+      "inView": true,
+      "y": 134
+     },
+     {
+      "t": "🌐 Атлас",
+      "w": 66,
+      "h": 49,
+      "vis": true,
+      "inView": false,
+      "y": 134
+     },
+     {
+      "t": "📈 Тренды",
+      "w": 78,
+      "h": 49,
+      "vis": true,
+      "inView": false,
+      "y": 134
+     },
+     {
+      "t": "🧠 BI ↗",
+      "w": 46,
+      "h": 65,
+      "vis": true,
+      "inView": false,
+      "y": 126
+     },
+     {
+      "t": "🕸️ Граф связей",
+      "w": 73,
+      "h": 65,
+      "vis": true,
+      "inView": false,
+      "y": 126
+     },
+     {
+      "t": "💬 Обратная связь",
+      "w": 92,
+      "h": 65,
+      "vis": true,
+      "inView": false,
+      "y": 126
+     },
+     {
+      "t": "💚 Поддержать",
+      "w": 111,
+      "h": 49,
+      "vis": true,
+      "inView": false,
+      "y": 134
+     },
+     {
+      "t": "🌞 Светлая тема",
+      "w": 82,
+      "h": 65,
+      "vis": true,
+      "inView": false,
+      "y": 126
+     }
+    ],
+    "actionsVisible": 10,
+    "actionsOffscreen": 7
+   },
+   "bottomFixed": [
+    {
+     "sel": "div.site-header",
+     "position": "sticky",
+     "bottom": 191,
+     "h": 165,
+     "padBottom": "0px"
+    }
+   ]
+  }
+ },
+ {
+  "page": "calculator",
+  "width": 375,
+  "url": "http://localhost:8000/calculator.html",
+  "status": 200,
+  "data": {
+   "scrollW": 375,
+   "clientW": 375,
+   "bodyScrollW": 375,
+   "overflow": 0,
+   "title": "Калькулятор БАДов — проверка доз и конфликтов",
+   "h": 2047,
+   "culprits": [
+    {
+     "sel": "a.btn.c-support",
+     "right": 799,
+     "w": 111,
+     "left": 688
+    },
+    {
+     "sel": "a.btn.c-feedback",
+     "right": 681,
+     "w": 92,
+     "left": 589
+    },
+    {
+     "sel": "button#themeBtn.btn",
+     "right": 887,
+     "w": 82,
+     "left": 805
+    },
+    {
+     "sel": "a.btn.c-trends",
+     "right": 451,
+     "w": 78,
+     "left": 372
+    },
+    {
+     "sel": "a.btn.c-graph",
+     "right": 583,
+     "w": 73,
+     "left": 510
+    },
+    {
+     "sel": "a.btn.c-bi",
+     "right": 503,
+     "w": 46,
+     "left": 457
+    }
+   ],
+   "tapTotal": 37,
+   "small44": [
+    {
+     "sel": "a.skip-link",
+     "w": 197.1,
+     "h": 24,
+     "text": "Перейти к содержимому",
+     "y": 0
+    },
+    {
+     "sel": "a",
+     "w": 208.9,
+     "h": 26,
+     "text": "🧠 brain-25-evidence",
+     "y": 73
+    },
+    {
+     "sel": "label",
+     "w": 128.1,
+     "h": 19.2,
+     "text": "Вес (кг)",
+     "y": 279
+    },
+    {
+     "sel": "input#pWeight",
+     "w": 136.1,
+     "h": 36.4,
+     "text": "",
+     "y": 302
+    },
+    {
+     "sel": "label",
+     "w": 128.1,
+     "h": 19.2,
+     "text": "Пол",
+     "y": 279
+    },
+    {
+     "sel": "label",
+     "w": 128.1,
+     "h": 19.2,
+     "text": "Возраст",
+     "y": 359
+    },
+    {
+     "sel": "input#pAge",
+     "w": 136.1,
+     "h": 36.4,
+     "text": "",
+     "y": 382
+    },
+    {
+     "sel": "label",
+     "w": 128.1,
+     "h": 19.2,
+     "text": "Особое состояние",
+     "y": 359
+    },
+    {
+     "sel": "label.sr-only",
+     "w": 1,
+     "h": 1,
+     "text": "Поиск добавки для расчёта",
+     "y": 621
+    },
+    {
+     "sel": "input#q",
+     "w": 323.8,
+     "h": 38,
+     "text": "",
+     "y": 622
+    }
+   ],
+   "small44n": 10,
+   "small24n": 5,
+   "tiny": [
+    {
+     "sel": "div.lbl",
+     "fs": 11.52,
+     "n": 4,
+     "text": "в норме"
+    }
+   ],
+   "tinyN": 1,
+   "fontsLoaded": [
+    "Inter|400|loaded",
+    "Inter|500|loaded",
+    "Inter|600|loaded",
+    "Inter|700|loaded",
+    "Inter|800|loaded"
+   ],
+   "interOK": true,
+   "bodyFont": "Inter, system-ui, -apple-system, Segoe UI, sans-serif",
+   "header": {
+    "present": true,
+    "h": 147,
+    "actions": [
+     {
+      "t": "🏠 Главная",
+      "w": 82,
+      "h": 49,
+      "vis": true,
+      "inView": true,
+      "y": 116
+     },
+     {
+      "t": "🧩 Механизмы",
+      "w": 106,
+      "h": 49,
+      "vis": true,
+      "inView": true,
+      "y": 116
+     },
+     {
+      "t": "🔗 Связи",
+      "w": 68,
+      "h": 49,
+      "vis": true,
+      "inView": true,
+      "y": 116
+     },
+     {
+      "t": "🌐 Атлас",
+      "w": 66,
+      "h": 49,
+      "vis": true,
+      "inView": true,
+      "y": 116
+     },
+     {
+      "t": "📈 Тренды",
+      "w": 78,
+      "h": 49,
+      "vis": true,
+      "inView": false,
+      "y": 116
+     },
+     {
+      "t": "🧠 BI ↗",
+      "w": 46,
+      "h": 65,
+      "vis": true,
+      "inView": false,
+      "y": 108
+     },
+     {
+      "t": "🕸️ Граф связей",
+      "w": 73,
+      "h": 65,
+      "vis": true,
+      "inView": false,
+      "y": 108
+     },
+     {
+      "t": "💬 Обратная связь",
+      "w": 92,
+      "h": 65,
+      "vis": true,
+      "inView": false,
+      "y": 108
+     },
+     {
+      "t": "💚 Поддержать",
+      "w": 111,
+      "h": 49,
+      "vis": true,
+      "inView": false,
+      "y": 116
+     },
+     {
+      "t": "🌞 Светлая тема",
+      "w": 82,
+      "h": 65,
+      "vis": true,
+      "inView": false,
+      "y": 108
+     }
+    ],
+    "actionsVisible": 10,
+    "actionsOffscreen": 6
+   },
+   "bottomFixed": [
+    {
+     "sel": "div.site-header",
+     "position": "sticky",
+     "bottom": 173,
+     "h": 147,
+     "padBottom": "0px"
+    }
+   ]
+  }
+ },
+ {
+  "page": "calculator",
+  "width": 390,
+  "url": "http://localhost:8000/calculator.html",
+  "status": 200,
+  "data": {
+   "scrollW": 390,
+   "clientW": 390,
+   "bodyScrollW": 390,
+   "overflow": 0,
+   "title": "Калькулятор БАДов — проверка доз и конфликтов",
+   "h": 2000,
+   "culprits": [
+    {
+     "sel": "a.btn.c-support",
+     "right": 799,
+     "w": 111,
+     "left": 688
+    },
+    {
+     "sel": "a.btn.c-feedback",
+     "right": 681,
+     "w": 92,
+     "left": 589
+    },
+    {
+     "sel": "button#themeBtn.btn",
+     "right": 887,
+     "w": 82,
+     "left": 805
+    },
+    {
+     "sel": "a.btn.c-trends",
+     "right": 451,
+     "w": 78,
+     "left": 372
+    },
+    {
+     "sel": "a.btn.c-graph",
+     "right": 583,
+     "w": 73,
+     "left": 510
+    },
+    {
+     "sel": "a.btn.c-bi",
+     "right": 503,
+     "w": 46,
+     "left": 457
+    }
+   ],
+   "tapTotal": 37,
+   "small44": [
+    {
+     "sel": "a.skip-link",
+     "w": 197.1,
+     "h": 24,
+     "text": "Перейти к содержимому",
+     "y": 0
+    },
+    {
+     "sel": "a",
+     "w": 208.9,
+     "h": 26,
+     "text": "🧠 brain-25-evidence",
+     "y": 73
+    },
+    {
+     "sel": "label",
+     "w": 135.6,
+     "h": 19.2,
+     "text": "Вес (кг)",
+     "y": 279
+    },
+    {
+     "sel": "input#pWeight",
+     "w": 143.6,
+     "h": 36.4,
+     "text": "",
+     "y": 302
+    },
+    {
+     "sel": "label",
+     "w": 135.6,
+     "h": 19.2,
+     "text": "Пол",
+     "y": 279
+    },
+    {
+     "sel": "label",
+     "w": 135.6,
+     "h": 19.2,
+     "text": "Возраст",
+     "y": 359
+    },
+    {
+     "sel": "input#pAge",
+     "w": 143.6,
+     "h": 36.4,
+     "text": "",
+     "y": 382
+    },
+    {
+     "sel": "label",
+     "w": 135.6,
+     "h": 19.2,
+     "text": "Особое состояние",
+     "y": 359
+    },
+    {
+     "sel": "label.sr-only",
+     "w": 1,
+     "h": 1,
+     "text": "Поиск добавки для расчёта",
+     "y": 621
+    },
+    {
+     "sel": "input#q",
+     "w": 338.8,
+     "h": 38,
+     "text": "",
+     "y": 622
+    }
+   ],
+   "small44n": 10,
+   "small24n": 5,
+   "tiny": [
+    {
+     "sel": "div.lbl",
+     "fs": 11.52,
+     "n": 4,
+     "text": "в норме"
+    }
+   ],
+   "tinyN": 1,
+   "fontsLoaded": [
+    "Inter|400|loaded",
+    "Inter|500|loaded",
+    "Inter|600|loaded",
+    "Inter|700|loaded",
+    "Inter|800|loaded"
+   ],
+   "interOK": true,
+   "bodyFont": "Inter, system-ui, -apple-system, Segoe UI, sans-serif",
+   "header": {
+    "present": true,
+    "h": 147,
+    "actions": [
+     {
+      "t": "🏠 Главная",
+      "w": 82,
+      "h": 49,
+      "vis": true,
+      "inView": true,
+      "y": 116
+     },
+     {
+      "t": "🧩 Механизмы",
+      "w": 106,
+      "h": 49,
+      "vis": true,
+      "inView": true,
+      "y": 116
+     },
+     {
+      "t": "🔗 Связи",
+      "w": 68,
+      "h": 49,
+      "vis": true,
+      "inView": true,
+      "y": 116
+     },
+     {
+      "t": "🌐 Атлас",
+      "w": 66,
+      "h": 49,
+      "vis": true,
+      "inView": true,
+      "y": 116
+     },
+     {
+      "t": "📈 Тренды",
+      "w": 78,
+      "h": 49,
+      "vis": true,
+      "inView": false,
+      "y": 116
+     },
+     {
+      "t": "🧠 BI ↗",
+      "w": 46,
+      "h": 65,
+      "vis": true,
+      "inView": false,
+      "y": 108
+     },
+     {
+      "t": "🕸️ Граф связей",
+      "w": 73,
+      "h": 65,
+      "vis": true,
+      "inView": false,
+      "y": 108
+     },
+     {
+      "t": "💬 Обратная связь",
+      "w": 92,
+      "h": 65,
+      "vis": true,
+      "inView": false,
+      "y": 108
+     },
+     {
+      "t": "💚 Поддержать",
+      "w": 111,
+      "h": 49,
+      "vis": true,
+      "inView": false,
+      "y": 116
+     },
+     {
+      "t": "🌞 Светлая тема",
+      "w": 82,
+      "h": 65,
+      "vis": true,
+      "inView": false,
+      "y": 108
+     }
+    ],
+    "actionsVisible": 10,
+    "actionsOffscreen": 6
+   },
+   "bottomFixed": [
+    {
+     "sel": "div.site-header",
+     "position": "sticky",
+     "bottom": 173,
+     "h": 147,
+     "padBottom": "0px"
+    }
+   ]
+  }
+ },
+ {
+  "page": "calculator",
+  "width": 393,
+  "url": "http://localhost:8000/calculator.html",
+  "status": 200,
+  "data": {
+   "scrollW": 393,
+   "clientW": 393,
+   "bodyScrollW": 393,
+   "overflow": 0,
+   "title": "Калькулятор БАДов — проверка доз и конфликтов",
+   "h": 1975,
+   "culprits": [
+    {
+     "sel": "a.btn.c-support",
+     "right": 799,
+     "w": 111,
+     "left": 688
+    },
+    {
+     "sel": "a.btn.c-feedback",
+     "right": 681,
+     "w": 92,
+     "left": 589
+    },
+    {
+     "sel": "button#themeBtn.btn",
+     "right": 887,
+     "w": 82,
+     "left": 805
+    },
+    {
+     "sel": "a.btn.c-trends",
+     "right": 451,
+     "w": 78,
+     "left": 372
+    },
+    {
+     "sel": "a.btn.c-graph",
+     "right": 583,
+     "w": 73,
+     "left": 510
+    },
+    {
+     "sel": "a.btn.c-bi",
+     "right": 503,
+     "w": 46,
+     "left": 457
+    }
+   ],
+   "tapTotal": 37,
+   "small44": [
+    {
+     "sel": "a.skip-link",
+     "w": 197.1,
+     "h": 24,
+     "text": "Перейти к содержимому",
+     "y": 0
+    },
+    {
+     "sel": "a",
+     "w": 208.9,
+     "h": 26,
+     "text": "🧠 brain-25-evidence",
+     "y": 73
+    },
+    {
+     "sel": "label",
+     "w": 137.1,
+     "h": 19.2,
+     "text": "Вес (кг)",
+     "y": 279
+    },
+    {
+     "sel": "input#pWeight",
+     "w": 145.1,
+     "h": 36.4,
+     "text": "",
+     "y": 302
+    },
+    {
+     "sel": "label",
+     "w": 137.1,
+     "h": 19.2,
+     "text": "Пол",
+     "y": 279
+    },
+    {
+     "sel": "label",
+     "w": 137.1,
+     "h": 19.2,
+     "text": "Возраст",
+     "y": 359
+    },
+    {
+     "sel": "input#pAge",
+     "w": 145.1,
+     "h": 36.4,
+     "text": "",
+     "y": 382
+    },
+    {
+     "sel": "label",
+     "w": 137.1,
+     "h": 19.2,
+     "text": "Особое состояние",
+     "y": 359
+    },
+    {
+     "sel": "label.sr-only",
+     "w": 1,
+     "h": 1,
+     "text": "Поиск добавки для расчёта",
+     "y": 621
+    },
+    {
+     "sel": "input#q",
+     "w": 341.8,
+     "h": 38,
+     "text": "",
+     "y": 622
+    }
+   ],
+   "small44n": 10,
+   "small24n": 5,
+   "tiny": [
+    {
+     "sel": "div.lbl",
+     "fs": 11.52,
+     "n": 4,
+     "text": "в норме"
+    }
+   ],
+   "tinyN": 1,
+   "fontsLoaded": [
+    "Inter|400|loaded",
+    "Inter|500|loaded",
+    "Inter|600|loaded",
+    "Inter|700|loaded",
+    "Inter|800|loaded"
+   ],
+   "interOK": true,
+   "bodyFont": "Inter, system-ui, -apple-system, Segoe UI, sans-serif",
+   "header": {
+    "present": true,
+    "h": 147,
+    "actions": [
+     {
+      "t": "🏠 Главная",
+      "w": 82,
+      "h": 49,
+      "vis": true,
+      "inView": true,
+      "y": 116
+     },
+     {
+      "t": "🧩 Механизмы",
+      "w": 106,
+      "h": 49,
+      "vis": true,
+      "inView": true,
+      "y": 116
+     },
+     {
+      "t": "🔗 Связи",
+      "w": 68,
+      "h": 49,
+      "vis": true,
+      "inView": true,
+      "y": 116
+     },
+     {
+      "t": "🌐 Атлас",
+      "w": 66,
+      "h": 49,
+      "vis": true,
+      "inView": true,
+      "y": 116
+     },
+     {
+      "t": "📈 Тренды",
+      "w": 78,
+      "h": 49,
+      "vis": true,
+      "inView": false,
+      "y": 116
+     },
+     {
+      "t": "🧠 BI ↗",
+      "w": 46,
+      "h": 65,
+      "vis": true,
+      "inView": false,
+      "y": 108
+     },
+     {
+      "t": "🕸️ Граф связей",
+      "w": 73,
+      "h": 65,
+      "vis": true,
+      "inView": false,
+      "y": 108
+     },
+     {
+      "t": "💬 Обратная связь",
+      "w": 92,
+      "h": 65,
+      "vis": true,
+      "inView": false,
+      "y": 108
+     },
+     {
+      "t": "💚 Поддержать",
+      "w": 111,
+      "h": 49,
+      "vis": true,
+      "inView": false,
+      "y": 116
+     },
+     {
+      "t": "🌞 Светлая тема",
+      "w": 82,
+      "h": 65,
+      "vis": true,
+      "inView": false,
+      "y": 108
+     }
+    ],
+    "actionsVisible": 10,
+    "actionsOffscreen": 6
+   },
+   "bottomFixed": [
+    {
+     "sel": "div.site-header",
+     "position": "sticky",
+     "bottom": 173,
+     "h": 147,
+     "padBottom": "0px"
+    }
+   ]
+  }
+ },
+ {
+  "page": "calculator",
+  "width": 412,
+  "url": "http://localhost:8000/calculator.html",
+  "status": 200,
+  "data": {
+   "scrollW": 412,
+   "clientW": 412,
+   "bodyScrollW": 412,
+   "overflow": 0,
+   "title": "Калькулятор БАДов — проверка доз и конфликтов",
+   "h": 1877,
+   "culprits": [
+    {
+     "sel": "a.btn.c-support",
+     "right": 799,
+     "w": 111,
+     "left": 688
+    },
+    {
+     "sel": "a.btn.c-feedback",
+     "right": 681,
+     "w": 92,
+     "left": 589
+    },
+    {
+     "sel": "button#themeBtn.btn",
+     "right": 887,
+     "w": 82,
+     "left": 805
+    },
+    {
+     "sel": "a.btn.c-trends",
+     "right": 451,
+     "w": 78,
+     "left": 372
+    },
+    {
+     "sel": "a.btn.c-graph",
+     "right": 583,
+     "w": 73,
+     "left": 510
+    },
+    {
+     "sel": "a.btn.c-bi",
+     "right": 503,
+     "w": 46,
+     "left": 457
+    }
+   ],
+   "tapTotal": 37,
+   "small44": [
+    {
+     "sel": "a.skip-link",
+     "w": 197.1,
+     "h": 24,
+     "text": "Перейти к содержимому",
+     "y": 0
+    },
+    {
+     "sel": "a",
+     "w": 208.9,
+     "h": 26,
+     "text": "🧠 brain-25-evidence",
+     "y": 73
+    },
+    {
+     "sel": "label",
+     "w": 146.6,
+     "h": 19.2,
+     "text": "Вес (кг)",
+     "y": 279
+    },
+    {
+     "sel": "input#pWeight",
+     "w": 154.6,
+     "h": 36.4,
+     "text": "",
+     "y": 302
+    },
+    {
+     "sel": "label",
+     "w": 146.6,
+     "h": 19.2,
+     "text": "Пол",
+     "y": 279
+    },
+    {
+     "sel": "label",
+     "w": 146.6,
+     "h": 19.2,
+     "text": "Возраст",
+     "y": 359
+    },
+    {
+     "sel": "input#pAge",
+     "w": 154.6,
+     "h": 36.4,
+     "text": "",
+     "y": 382
+    },
+    {
+     "sel": "label",
+     "w": 146.6,
+     "h": 19.2,
+     "text": "Особое состояние",
+     "y": 359
+    },
+    {
+     "sel": "label.sr-only",
+     "w": 1,
+     "h": 1,
+     "text": "Поиск добавки для расчёта",
+     "y": 621
+    }
+   ],
+   "small44n": 9,
+   "small24n": 5,
+   "tiny": [
+    {
+     "sel": "div.lbl",
+     "fs": 11.52,
+     "n": 4,
+     "text": "в норме"
+    }
+   ],
+   "tinyN": 1,
+   "fontsLoaded": [
+    "Inter|400|loaded",
+    "Inter|500|loaded",
+    "Inter|600|loaded",
+    "Inter|700|loaded",
+    "Inter|800|loaded"
+   ],
+   "interOK": true,
+   "bodyFont": "Inter, system-ui, -apple-system, Segoe UI, sans-serif",
+   "header": {
+    "present": true,
+    "h": 147,
+    "actions": [
+     {
+      "t": "🏠 Главная",
+      "w": 82,
+      "h": 49,
+      "vis": true,
+      "inView": true,
+      "y": 116
+     },
+     {
+      "t": "🧩 Механизмы",
+      "w": 106,
+      "h": 49,
+      "vis": true,
+      "inView": true,
+      "y": 116
+     },
+     {
+      "t": "🔗 Связи",
+      "w": 68,
+      "h": 49,
+      "vis": true,
+      "inView": true,
+      "y": 116
+     },
+     {
+      "t": "🌐 Атлас",
+      "w": 66,
+      "h": 49,
+      "vis": true,
+      "inView": true,
+      "y": 116
+     },
+     {
+      "t": "📈 Тренды",
+      "w": 78,
+      "h": 49,
+      "vis": true,
+      "inView": false,
+      "y": 116
+     },
+     {
+      "t": "🧠 BI ↗",
+      "w": 46,
+      "h": 65,
+      "vis": true,
+      "inView": false,
+      "y": 108
+     },
+     {
+      "t": "🕸️ Граф связей",
+      "w": 73,
+      "h": 65,
+      "vis": true,
+      "inView": false,
+      "y": 108
+     },
+     {
+      "t": "💬 Обратная связь",
+      "w": 92,
+      "h": 65,
+      "vis": true,
+      "inView": false,
+      "y": 108
+     },
+     {
+      "t": "💚 Поддержать",
+      "w": 111,
+      "h": 49,
+      "vis": true,
+      "inView": false,
+      "y": 116
+     },
+     {
+      "t": "🌞 Светлая тема",
+      "w": 82,
+      "h": 65,
+      "vis": true,
+      "inView": false,
+      "y": 108
+     }
+    ],
+    "actionsVisible": 10,
+    "actionsOffscreen": 6
+   },
+   "bottomFixed": [
+    {
+     "sel": "div.site-header",
+     "position": "sticky",
+     "bottom": 173,
+     "h": 147,
+     "padBottom": "0px"
+    }
+   ]
+  }
+ },
+ {
+  "page": "calculator",
+  "width": 428,
+  "url": "http://localhost:8000/calculator.html",
+  "status": 200,
+  "data": {
+   "scrollW": 428,
+   "clientW": 428,
+   "bodyScrollW": 428,
+   "overflow": 0,
+   "title": "Калькулятор БАДов — проверка доз и конфликтов",
+   "h": 1806,
+   "culprits": [
+    {
+     "sel": "a.btn.c-support",
+     "right": 799,
+     "w": 111,
+     "left": 688
+    },
+    {
+     "sel": "a.btn.c-feedback",
+     "right": 681,
+     "w": 92,
+     "left": 589
+    },
+    {
+     "sel": "button#themeBtn.btn",
+     "right": 887,
+     "w": 82,
+     "left": 805
+    },
+    {
+     "sel": "a.btn.c-trends",
+     "right": 451,
+     "w": 78,
+     "left": 372
+    },
+    {
+     "sel": "a.btn.c-graph",
+     "right": 583,
+     "w": 73,
+     "left": 510
+    },
+    {
+     "sel": "a.btn.c-bi",
+     "right": 503,
+     "w": 46,
+     "left": 457
+    }
+   ],
+   "tapTotal": 37,
+   "small44": [
+    {
+     "sel": "a.skip-link",
+     "w": 197.1,
+     "h": 24,
+     "text": "Перейти к содержимому",
+     "y": 0
+    },
+    {
+     "sel": "a",
+     "w": 208.9,
+     "h": 26,
+     "text": "🧠 brain-25-evidence",
+     "y": 73
+    },
+    {
+     "sel": "label",
+     "w": 154.6,
+     "h": 19.2,
+     "text": "Вес (кг)",
+     "y": 279
+    },
+    {
+     "sel": "input#pWeight",
+     "w": 162.6,
+     "h": 36.4,
+     "text": "",
+     "y": 302
+    },
+    {
+     "sel": "label",
+     "w": 154.6,
+     "h": 19.2,
+     "text": "Пол",
+     "y": 279
+    },
+    {
+     "sel": "label",
+     "w": 154.6,
+     "h": 19.2,
+     "text": "Возраст",
+     "y": 359
+    },
+    {
+     "sel": "input#pAge",
+     "w": 162.6,
+     "h": 36.4,
+     "text": "",
+     "y": 382
+    },
+    {
+     "sel": "label",
+     "w": 154.6,
+     "h": 19.2,
+     "text": "Особое состояние",
+     "y": 359
+    },
+    {
+     "sel": "label.sr-only",
+     "w": 1,
+     "h": 1,
+     "text": "Поиск добавки для расчёта",
+     "y": 621
+    }
+   ],
+   "small44n": 9,
+   "small24n": 5,
+   "tiny": [
+    {
+     "sel": "div.lbl",
+     "fs": 11.52,
+     "n": 4,
+     "text": "в норме"
+    }
+   ],
+   "tinyN": 1,
+   "fontsLoaded": [
+    "Inter|400|loaded",
+    "Inter|500|loaded",
+    "Inter|600|loaded",
+    "Inter|700|loaded",
+    "Inter|800|loaded"
+   ],
+   "interOK": true,
+   "bodyFont": "Inter, system-ui, -apple-system, Segoe UI, sans-serif",
+   "header": {
+    "present": true,
+    "h": 147,
+    "actions": [
+     {
+      "t": "🏠 Главная",
+      "w": 82,
+      "h": 49,
+      "vis": true,
+      "inView": true,
+      "y": 116
+     },
+     {
+      "t": "🧩 Механизмы",
+      "w": 106,
+      "h": 49,
+      "vis": true,
+      "inView": true,
+      "y": 116
+     },
+     {
+      "t": "🔗 Связи",
+      "w": 68,
+      "h": 49,
+      "vis": true,
+      "inView": true,
+      "y": 116
+     },
+     {
+      "t": "🌐 Атлас",
+      "w": 66,
+      "h": 49,
+      "vis": true,
+      "inView": true,
+      "y": 116
+     },
+     {
+      "t": "📈 Тренды",
+      "w": 78,
+      "h": 49,
+      "vis": true,
+      "inView": false,
+      "y": 116
+     },
+     {
+      "t": "🧠 BI ↗",
+      "w": 46,
+      "h": 65,
+      "vis": true,
+      "inView": false,
+      "y": 108
+     },
+     {
+      "t": "🕸️ Граф связей",
+      "w": 73,
+      "h": 65,
+      "vis": true,
+      "inView": false,
+      "y": 108
+     },
+     {
+      "t": "💬 Обратная связь",
+      "w": 92,
+      "h": 65,
+      "vis": true,
+      "inView": false,
+      "y": 108
+     },
+     {
+      "t": "💚 Поддержать",
+      "w": 111,
+      "h": 49,
+      "vis": true,
+      "inView": false,
+      "y": 116
+     },
+     {
+      "t": "🌞 Светлая тема",
+      "w": 82,
+      "h": 65,
+      "vis": true,
+      "inView": false,
+      "y": 108
+     }
+    ],
+    "actionsVisible": 10,
+    "actionsOffscreen": 6
+   },
+   "bottomFixed": [
+    {
+     "sel": "div.site-header",
+     "position": "sticky",
+     "bottom": 173,
+     "h": 147,
+     "padBottom": "0px"
+    }
+   ]
+  }
+ },
+ {
+  "page": "calculator",
+  "width": 768,
+  "url": "http://localhost:8000/calculator.html",
+  "status": 200,
+  "data": {
+   "scrollW": 768,
+   "clientW": 768,
+   "bodyScrollW": 768,
+   "overflow": 0,
+   "title": "Калькулятор БАДов — проверка доз и конфликтов",
+   "h": 1419,
+   "culprits": [],
+   "tapTotal": 37,
+   "small44": [
+    {
+     "sel": "a.skip-link",
+     "w": 197.1,
+     "h": 24,
+     "text": "Перейти к содержимому",
+     "y": 0
+    },
+    {
+     "sel": "a",
+     "w": 208.9,
+     "h": 31.2,
+     "text": "🧠 brain-25-evidence",
+     "y": 86
+    },
+    {
+     "sel": "label",
+     "w": 145.5,
+     "h": 19.2,
+     "text": "Вес (кг)",
+     "y": 337
+    },
+    {
+     "sel": "input#pWeight",
+     "w": 153.5,
+     "h": 36.4,
+     "text": "",
+     "y": 359
+    },
+    {
+     "sel": "label",
+     "w": 145.5,
+     "h": 19.2,
+     "text": "Пол",
+     "y": 337
+    },
+    {
+     "sel": "label",
+     "w": 145.5,
+     "h": 19.2,
+     "text": "Возраст",
+     "y": 337
+    },
+    {
+     "sel": "input#pAge",
+     "w": 153.5,
+     "h": 36.4,
+     "text": "",
+     "y": 359
+    },
+    {
+     "sel": "label",
+     "w": 145.5,
+     "h": 19.2,
+     "text": "Особое состояние",
+     "y": 337
+    },
+    {
+     "sel": "label.sr-only",
+     "w": 1,
+     "h": 1,
+     "text": "Поиск добавки для расчёта",
+     "y": 548
+    }
+   ],
+   "small44n": 9,
+   "small24n": 5,
+   "tiny": [
+    {
+     "sel": "div.lbl",
+     "fs": 11.52,
+     "n": 4,
+     "text": "в норме"
+    }
+   ],
+   "tinyN": 1,
+   "fontsLoaded": [
+    "Inter|400|loaded",
+    "Inter|500|loaded",
+    "Inter|600|loaded",
+    "Inter|700|loaded",
+    "Inter|800|loaded"
+   ],
+   "interOK": true,
+   "bodyFont": "Inter, system-ui, -apple-system, Segoe UI, sans-serif",
+   "header": {
+    "present": true,
+    "h": 199,
+    "actions": [
+     {
+      "t": "🏠 Главная",
+      "w": 102,
+      "h": 44,
+      "vis": true,
+      "inView": true,
+      "y": 135
+     },
+     {
+      "t": "🧩 Механизмы",
+      "w": 128,
+      "h": 44,
+      "vis": true,
+      "inView": true,
+      "y": 135
+     },
+     {
+      "t": "🔗 Связи",
+      "w": 90,
+      "h": 44,
+      "vis": true,
+      "inView": true,
+      "y": 135
+     },
+     {
+      "t": "🌐 Атлас",
+      "w": 88,
+      "h": 44,
+      "vis": true,
+      "inView": true,
+      "y": 135
+     },
+     {
+      "t": "📈 Тренды",
+      "w": 100,
+      "h": 44,
+      "vis": true,
+      "inView": true,
+      "y": 135
+     },
+     {
+      "t": "🧠 BI ↗",
+      "w": 77,
+      "h": 44,
+      "vis": true,
+      "inView": true,
+      "y": 135
+     },
+     {
+      "t": "🕸️ Граф связей",
+      "w": 132,
+      "h": 44,
+      "vis": true,
+      "inView": true,
+      "y": 187
+     },
+     {
+      "t": "💬 Обратная связь",
+      "w": 156,
+      "h": 44,
+      "vis": true,
+      "inView": true,
+      "y": 187
+     },
+     {
+      "t": "💚 Поддержать",
+      "w": 134,
+      "h": 44,
+      "vis": true,
+      "inView": true,
+      "y": 187
+     },
+     {
+      "t": "🌞 Светлая тема",
+      "w": 141,
+      "h": 44,
+      "vis": true,
+      "inView": true,
+      "y": 187
+     }
+    ],
+    "actionsVisible": 10,
+    "actionsOffscreen": 0
+   },
+   "bottomFixed": [
+    {
+     "sel": "div.site-header",
+     "position": "sticky",
+     "bottom": 231,
+     "h": 199,
+     "padBottom": "0px"
+    }
+   ]
+  }
+ },
+ {
+  "page": "calculator",
+  "width": 1024,
+  "url": "http://localhost:8000/calculator.html",
+  "status": 200,
+  "data": {
+   "scrollW": 1024,
+   "clientW": 1024,
+   "bodyScrollW": 1024,
+   "overflow": 0,
+   "title": "Калькулятор БАДов — проверка доз и конфликтов",
+   "h": 1251,
+   "culprits": [],
+   "tapTotal": 37,
+   "small44": [
+    {
+     "sel": "a.skip-link",
+     "w": 197.1,
+     "h": 24,
+     "text": "Перейти к содержимому",
+     "y": 0
+    },
+    {
+     "sel": "a",
+     "w": 208.9,
+     "h": 31.2,
+     "text": "🧠 brain-25-evidence",
+     "y": 94
+    },
+    {
+     "sel": "label",
+     "w": 205.5,
+     "h": 19.2,
+     "text": "Вес (кг)",
+     "y": 345
+    },
+    {
+     "sel": "input#pWeight",
+     "w": 213.5,
+     "h": 36.4,
+     "text": "",
+     "y": 367
+    },
+    {
+     "sel": "label",
+     "w": 205.5,
+     "h": 19.2,
+     "text": "Пол",
+     "y": 345
+    },
+    {
+     "sel": "label",
+     "w": 205.5,
+     "h": 19.2,
+     "text": "Возраст",
+     "y": 345
+    },
+    {
+     "sel": "input#pAge",
+     "w": 213.5,
+     "h": 36.4,
+     "text": "",
+     "y": 367
+    },
+    {
+     "sel": "label",
+     "w": 205.5,
+     "h": 19.2,
+     "text": "Особое состояние",
+     "y": 345
+    },
+    {
+     "sel": "label.sr-only",
+     "w": 1,
+     "h": 1,
+     "text": "Поиск добавки для расчёта",
+     "y": 506
+    }
+   ],
+   "small44n": 9,
+   "small24n": 5,
+   "tiny": [
+    {
+     "sel": "div.lbl",
+     "fs": 11.52,
+     "n": 4,
+     "text": "в норме"
+    }
+   ],
+   "tinyN": 1,
+   "fontsLoaded": [
+    "Inter|400|loaded",
+    "Inter|500|loaded",
+    "Inter|600|loaded",
+    "Inter|700|loaded",
+    "Inter|800|loaded"
+   ],
+   "interOK": true,
+   "bodyFont": "Inter, system-ui, -apple-system, Segoe UI, sans-serif",
+   "header": {
+    "present": true,
+    "h": 199,
+    "actions": [
+     {
+      "t": "🏠 Главная",
+      "w": 102,
+      "h": 44,
+      "vis": true,
+      "inView": true,
+      "y": 143
+     },
+     {
+      "t": "🧩 Механизмы",
+      "w": 128,
+      "h": 44,
+      "vis": true,
+      "inView": true,
+      "y": 143
+     },
+     {
+      "t": "🔗 Связи",
+      "w": 90,
+      "h": 44,
+      "vis": true,
+      "inView": true,
+      "y": 143
+     },
+     {
+      "t": "🌐 Атлас",
+      "w": 88,
+      "h": 44,
+      "vis": true,
+      "inView": true,
+      "y": 143
+     },
+     {
+      "t": "📈 Тренды",
+      "w": 100,
+      "h": 44,
+      "vis": true,
+      "inView": true,
+      "y": 143
+     },
+     {
+      "t": "🧠 BI ↗",
+      "w": 77,
+      "h": 44,
+      "vis": true,
+      "inView": true,
+      "y": 143
+     },
+     {
+      "t": "🕸️ Граф связей",
+      "w": 132,
+      "h": 44,
+      "vis": true,
+      "inView": true,
+      "y": 143
+     },
+     {
+      "t": "💬 Обратная связь",
+      "w": 156,
+      "h": 44,
+      "vis": true,
+      "inView": true,
+      "y": 195
+     },
+     {
+      "t": "💚 Поддержать",
+      "w": 134,
+      "h": 44,
+      "vis": true,
+      "inView": true,
+      "y": 195
+     },
+     {
+      "t": "🌞 Светлая тема",
+      "w": 141,
+      "h": 44,
+      "vis": true,
+      "inView": true,
+      "y": 195
+     }
+    ],
+    "actionsVisible": 10,
+    "actionsOffscreen": 0
+   },
+   "bottomFixed": [
+    {
+     "sel": "div.site-header",
+     "position": "sticky",
+     "bottom": 239,
+     "h": 199,
+     "padBottom": "0px"
+    },
+    {
+     "sel": "div.panel.result-panel",
+     "position": "sticky",
+     "bottom": 858,
+     "h": 300,
+     "padBottom": "16px"
+    }
+   ]
+  }
+ },
+ {
+  "page": "map",
+  "width": 320,
+  "url": "http://localhost:8000/map.html",
+  "status": 200,
+  "data": {
+   "scrollW": 320,
+   "clientW": 320,
+   "bodyScrollW": 320,
+   "overflow": 0,
+   "title": "Карта механизмов БАДов — 130 добавки",
+   "h": 2386,
+   "culprits": [
+    {
+     "sel": "a.btn.c-support",
+     "right": 701,
+     "w": 98,
+     "left": 604
+    },
+    {
+     "sel": "a.btn.c-feedback",
+     "right": 597,
+     "w": 80,
+     "left": 517
+    },
+    {
+     "sel": "button#themeBtn.btn",
+     "right": 786,
+     "w": 78,
+     "left": 708
+    },
+    {
+     "sel": "a.btn.c-trends",
+     "right": 396,
+     "w": 68,
+     "left": 329
+    },
+    {
+     "sel": "a.btn.c-graph",
+     "right": 511,
+     "w": 63,
+     "left": 448
+    },
+    {
+     "sel": "a.btn.c-atlas",
+     "right": 322,
+     "w": 57,
+     "left": 266
+    },
+    {
+     "sel": "a.btn.c-bi",
+     "right": 441,
+     "w": 38,
+     "left": 403
+    }
+   ],
+   "tapTotal": 17,
+   "small44": [
+    {
+     "sel": "a.skip-link",
+     "w": 197.1,
+     "h": 24,
+     "text": "Перейти к содержимому",
+     "y": 0
+    },
+    {
+     "sel": "a",
+     "w": 208.9,
+     "h": 26,
+     "text": "🧠 brain-25-evidence",
+     "y": 73
+    },
+    {
+     "sel": "a.btn.c-bi",
+     "w": 38.3,
+     "h": 59.6,
+     "text": "🧠 BI ↗",
+     "y": 110
+    }
+   ],
+   "small44n": 3,
+   "small24n": 0,
+   "tiny": [
+    {
+     "sel": "h3",
+     "fs": 11.2,
+     "n": 79,
+     "text": "Антиоксидант ▾"
+    },
+    {
+     "sel": "span.tag.t-strong",
+     "fs": 11.52,
+     "n": 1,
+     "text": "сильно"
+    },
+    {
+     "sel": "span.tag.t-mod",
+     "fs": 11.52,
+     "n": 1,
+     "text": "умеренно"
+    },
+    {
+     "sel": "span.tag.t-ctx",
+     "fs": 11.52,
+     "n": 1,
+     "text": "контекст"
+    }
+   ],
+   "tinyN": 4,
+   "fontsLoaded": [
+    "Inter|400|loaded",
+    "Inter|500|loaded",
+    "Inter|600|loaded",
+    "Inter|700|loaded",
+    "Inter|800|loaded"
+   ],
+   "interOK": true,
+   "bodyFont": "Inter, system-ui, -apple-system, Segoe UI, sans-serif",
+   "header": {
+    "present": true,
+    "h": 152,
+    "actions": [
+     {
+      "t": "🏠 Главная",
+      "w": 71,
+      "h": 45,
+      "vis": true,
+      "inView": true,
+      "y": 117
+     },
+     {
+      "t": "🧮 Калькулятор",
+      "w": 99,
+      "h": 45,
+      "vis": true,
+      "inView": true,
+      "y": 117
+     },
+     {
+      "t": "🔗 Связи",
+      "w": 58,
+      "h": 45,
+      "vis": true,
+      "inView": true,
+      "y": 117
+     },
+     {
+      "t": "🌐 Атлас",
+      "w": 57,
+      "h": 45,
+      "vis": true,
+      "inView": false,
+      "y": 117
+     },
+     {
+      "t": "📈 Тренды",
+      "w": 68,
+      "h": 45,
+      "vis": true,
+      "inView": false,
+      "y": 117
+     },
+     {
+      "t": "🧠 BI ↗",
+      "w": 38,
+      "h": 60,
+      "vis": true,
+      "inView": false,
+      "y": 110
+     },
+     {
+      "t": "🕸️ Граф связей",
+      "w": 63,
+      "h": 60,
+      "vis": true,
+      "inView": false,
+      "y": 110
+     },
+     {
+      "t": "💬 Обратная связь",
+      "w": 80,
+      "h": 60,
+      "vis": true,
+      "inView": false,
+      "y": 110
+     },
+     {
+      "t": "💚 Поддержать",
+      "w": 98,
+      "h": 45,
+      "vis": true,
+      "inView": false,
+      "y": 117
+     },
+     {
+      "t": "🌞 Светлая тема",
+      "w": 78,
+      "h": 63,
+      "vis": true,
+      "inView": false,
+      "y": 108
+     }
+    ],
+    "actionsVisible": 10,
+    "actionsOffscreen": 7
+   },
+   "bottomFixed": [
+    {
+     "sel": "div.site-header",
+     "position": "sticky",
+     "bottom": 171,
+     "h": 152,
+     "padBottom": "0px"
+    },
+    {
+     "sel": "div#details-backdrop",
+     "position": "fixed",
+     "bottom": 640,
+     "h": 640,
+     "padBottom": "0px"
+    },
+    {
+     "sel": "aside#details",
+     "position": "fixed",
+     "bottom": 344,
+     "h": 48,
+     "padBottom": "25.6px"
+    }
+   ]
+  }
+ },
+ {
+  "page": "map",
+  "width": 360,
+  "url": "http://localhost:8000/map.html",
+  "status": 200,
+  "data": {
+   "scrollW": 360,
+   "clientW": 360,
+   "bodyScrollW": 360,
+   "overflow": 0,
+   "title": "Карта механизмов БАДов — 130 добавки",
+   "h": 2224,
+   "culprits": [
+    {
+     "sel": "a.btn.c-support",
+     "right": 701,
+     "w": 98,
+     "left": 604
+    },
+    {
+     "sel": "a.btn.c-feedback",
+     "right": 597,
+     "w": 80,
+     "left": 517
+    },
+    {
+     "sel": "button#themeBtn.btn",
+     "right": 786,
+     "w": 78,
+     "left": 708
+    },
+    {
+     "sel": "a.btn.c-trends",
+     "right": 396,
+     "w": 68,
+     "left": 329
+    },
+    {
+     "sel": "a.btn.c-graph",
+     "right": 511,
+     "w": 63,
+     "left": 448
+    },
+    {
+     "sel": "a.btn.c-bi",
+     "right": 441,
+     "w": 38,
+     "left": 403
+    }
+   ],
+   "tapTotal": 17,
+   "small44": [
+    {
+     "sel": "a.skip-link",
+     "w": 197.1,
+     "h": 24,
+     "text": "Перейти к содержимому",
+     "y": 0
+    },
+    {
+     "sel": "a",
+     "w": 208.9,
+     "h": 26,
+     "text": "🧠 brain-25-evidence",
+     "y": 73
+    },
+    {
+     "sel": "a.btn.c-bi",
+     "w": 38.3,
+     "h": 59.6,
+     "text": "🧠 BI ↗",
+     "y": 110
+    }
+   ],
+   "small44n": 3,
+   "small24n": 0,
+   "tiny": [
+    {
+     "sel": "h3",
+     "fs": 11.2,
+     "n": 79,
+     "text": "Антиоксидант ▾"
+    },
+    {
+     "sel": "span.tag.t-strong",
+     "fs": 11.52,
+     "n": 1,
+     "text": "сильно"
+    },
+    {
+     "sel": "span.tag.t-mod",
+     "fs": 11.52,
+     "n": 1,
+     "text": "умеренно"
+    },
+    {
+     "sel": "span.tag.t-ctx",
+     "fs": 11.52,
+     "n": 1,
+     "text": "контекст"
+    }
+   ],
+   "tinyN": 4,
+   "fontsLoaded": [
+    "Inter|400|loaded",
+    "Inter|500|loaded",
+    "Inter|600|loaded",
+    "Inter|700|loaded",
+    "Inter|800|loaded"
+   ],
+   "interOK": true,
+   "bodyFont": "Inter, system-ui, -apple-system, Segoe UI, sans-serif",
+   "header": {
+    "present": true,
+    "h": 152,
+    "actions": [
+     {
+      "t": "🏠 Главная",
+      "w": 71,
+      "h": 45,
+      "vis": true,
+      "inView": true,
+      "y": 117
+     },
+     {
+      "t": "🧮 Калькулятор",
+      "w": 99,
+      "h": 45,
+      "vis": true,
+      "inView": true,
+      "y": 117
+     },
+     {
+      "t": "🔗 Связи",
+      "w": 58,
+      "h": 45,
+      "vis": true,
+      "inView": true,
+      "y": 117
+     },
+     {
+      "t": "🌐 Атлас",
+      "w": 57,
+      "h": 45,
+      "vis": true,
+      "inView": true,
+      "y": 117
+     },
+     {
+      "t": "📈 Тренды",
+      "w": 68,
+      "h": 45,
+      "vis": true,
+      "inView": false,
+      "y": 117
+     },
+     {
+      "t": "🧠 BI ↗",
+      "w": 38,
+      "h": 60,
+      "vis": true,
+      "inView": false,
+      "y": 110
+     },
+     {
+      "t": "🕸️ Граф связей",
+      "w": 63,
+      "h": 60,
+      "vis": true,
+      "inView": false,
+      "y": 110
+     },
+     {
+      "t": "💬 Обратная связь",
+      "w": 80,
+      "h": 60,
+      "vis": true,
+      "inView": false,
+      "y": 110
+     },
+     {
+      "t": "💚 Поддержать",
+      "w": 98,
+      "h": 45,
+      "vis": true,
+      "inView": false,
+      "y": 117
+     },
+     {
+      "t": "🌞 Светлая тема",
+      "w": 78,
+      "h": 63,
+      "vis": true,
+      "inView": false,
+      "y": 108
+     }
+    ],
+    "actionsVisible": 10,
+    "actionsOffscreen": 6
+   },
+   "bottomFixed": [
+    {
+     "sel": "div.site-header",
+     "position": "sticky",
+     "bottom": 171,
+     "h": 152,
+     "padBottom": "0px"
+    },
+    {
+     "sel": "div#details-backdrop",
+     "position": "fixed",
+     "bottom": 740,
+     "h": 740,
+     "padBottom": "0px"
+    },
+    {
+     "sel": "aside#details",
+     "position": "fixed",
+     "bottom": 394,
+     "h": 48,
+     "padBottom": "25.6px"
+    }
+   ]
+  }
+ },
+ {
+  "page": "map",
+  "width": 375,
+  "url": "http://localhost:8000/map.html",
+  "status": 200,
+  "data": {
+   "scrollW": 375,
+   "clientW": 375,
+   "bodyScrollW": 375,
+   "overflow": 0,
+   "title": "Карта механизмов БАДов — 130 добавки",
+   "h": 2199,
+   "culprits": [
+    {
+     "sel": "a.btn.c-support",
+     "right": 701,
+     "w": 98,
+     "left": 604
+    },
+    {
+     "sel": "a.btn.c-feedback",
+     "right": 597,
+     "w": 80,
+     "left": 517
+    },
+    {
+     "sel": "button#themeBtn.btn",
+     "right": 786,
+     "w": 78,
+     "left": 708
+    },
+    {
+     "sel": "a.btn.c-trends",
+     "right": 396,
+     "w": 68,
+     "left": 329
+    },
+    {
+     "sel": "a.btn.c-graph",
+     "right": 511,
+     "w": 63,
+     "left": 448
+    },
+    {
+     "sel": "a.btn.c-bi",
+     "right": 441,
+     "w": 38,
+     "left": 403
+    }
+   ],
+   "tapTotal": 17,
+   "small44": [
+    {
+     "sel": "a.skip-link",
+     "w": 197.1,
+     "h": 24,
+     "text": "Перейти к содержимому",
+     "y": 0
+    },
+    {
+     "sel": "a",
+     "w": 208.9,
+     "h": 26,
+     "text": "🧠 brain-25-evidence",
+     "y": 73
+    },
+    {
+     "sel": "a.btn.c-bi",
+     "w": 38.3,
+     "h": 59.6,
+     "text": "🧠 BI ↗",
+     "y": 110
+    }
+   ],
+   "small44n": 3,
+   "small24n": 0,
+   "tiny": [
+    {
+     "sel": "h3",
+     "fs": 11.2,
+     "n": 79,
+     "text": "Антиоксидант ▾"
+    },
+    {
+     "sel": "span.tag.t-strong",
+     "fs": 11.52,
+     "n": 1,
+     "text": "сильно"
+    },
+    {
+     "sel": "span.tag.t-mod",
+     "fs": 11.52,
+     "n": 1,
+     "text": "умеренно"
+    },
+    {
+     "sel": "span.tag.t-ctx",
+     "fs": 11.52,
+     "n": 1,
+     "text": "контекст"
+    }
+   ],
+   "tinyN": 4,
+   "fontsLoaded": [
+    "Inter|400|loaded",
+    "Inter|500|loaded",
+    "Inter|600|loaded",
+    "Inter|700|loaded",
+    "Inter|800|loaded"
+   ],
+   "interOK": true,
+   "bodyFont": "Inter, system-ui, -apple-system, Segoe UI, sans-serif",
+   "header": {
+    "present": true,
+    "h": 152,
+    "actions": [
+     {
+      "t": "🏠 Главная",
+      "w": 71,
+      "h": 45,
+      "vis": true,
+      "inView": true,
+      "y": 117
+     },
+     {
+      "t": "🧮 Калькулятор",
+      "w": 99,
+      "h": 45,
+      "vis": true,
+      "inView": true,
+      "y": 117
+     },
+     {
+      "t": "🔗 Связи",
+      "w": 58,
+      "h": 45,
+      "vis": true,
+      "inView": true,
+      "y": 117
+     },
+     {
+      "t": "🌐 Атлас",
+      "w": 57,
+      "h": 45,
+      "vis": true,
+      "inView": true,
+      "y": 117
+     },
+     {
+      "t": "📈 Тренды",
+      "w": 68,
+      "h": 45,
+      "vis": true,
+      "inView": false,
+      "y": 117
+     },
+     {
+      "t": "🧠 BI ↗",
+      "w": 38,
+      "h": 60,
+      "vis": true,
+      "inView": false,
+      "y": 110
+     },
+     {
+      "t": "🕸️ Граф связей",
+      "w": 63,
+      "h": 60,
+      "vis": true,
+      "inView": false,
+      "y": 110
+     },
+     {
+      "t": "💬 Обратная связь",
+      "w": 80,
+      "h": 60,
+      "vis": true,
+      "inView": false,
+      "y": 110
+     },
+     {
+      "t": "💚 Поддержать",
+      "w": 98,
+      "h": 45,
+      "vis": true,
+      "inView": false,
+      "y": 117
+     },
+     {
+      "t": "🌞 Светлая тема",
+      "w": 78,
+      "h": 63,
+      "vis": true,
+      "inView": false,
+      "y": 108
+     }
+    ],
+    "actionsVisible": 10,
+    "actionsOffscreen": 6
+   },
+   "bottomFixed": [
+    {
+     "sel": "div.site-header",
+     "position": "sticky",
+     "bottom": 171,
+     "h": 152,
+     "padBottom": "0px"
+    },
+    {
+     "sel": "div#details-backdrop",
+     "position": "fixed",
+     "bottom": 812,
+     "h": 812,
+     "padBottom": "0px"
+    },
+    {
+     "sel": "aside#details",
+     "position": "fixed",
+     "bottom": 430,
+     "h": 48,
+     "padBottom": "25.6px"
+    }
+   ]
+  }
+ },
+ {
+  "page": "map",
+  "width": 390,
+  "url": "http://localhost:8000/map.html",
+  "status": 200,
+  "data": {
+   "scrollW": 390,
+   "clientW": 390,
+   "bodyScrollW": 390,
+   "overflow": 0,
+   "title": "Карта механизмов БАДов — 130 добавки",
+   "h": 2155,
+   "culprits": [
+    {
+     "sel": "a.btn.c-support",
+     "right": 701,
+     "w": 98,
+     "left": 604
+    },
+    {
+     "sel": "a.btn.c-feedback",
+     "right": 597,
+     "w": 80,
+     "left": 517
+    },
+    {
+     "sel": "button#themeBtn.btn",
+     "right": 786,
+     "w": 78,
+     "left": 708
+    },
+    {
+     "sel": "a.btn.c-trends",
+     "right": 396,
+     "w": 68,
+     "left": 329
+    },
+    {
+     "sel": "a.btn.c-graph",
+     "right": 511,
+     "w": 63,
+     "left": 448
+    },
+    {
+     "sel": "a.btn.c-bi",
+     "right": 441,
+     "w": 38,
+     "left": 403
+    }
+   ],
+   "tapTotal": 17,
+   "small44": [
+    {
+     "sel": "a.skip-link",
+     "w": 197.1,
+     "h": 24,
+     "text": "Перейти к содержимому",
+     "y": 0
+    },
+    {
+     "sel": "a",
+     "w": 208.9,
+     "h": 26,
+     "text": "🧠 brain-25-evidence",
+     "y": 54
+    },
+    {
+     "sel": "a.btn.c-bi",
+     "w": 38.3,
+     "h": 59.6,
+     "text": "🧠 BI ↗",
+     "y": 90
+    }
+   ],
+   "small44n": 3,
+   "small24n": 0,
+   "tiny": [
+    {
+     "sel": "h3",
+     "fs": 11.2,
+     "n": 79,
+     "text": "Антиоксидант ▾"
+    },
+    {
+     "sel": "span.tag.t-strong",
+     "fs": 11.52,
+     "n": 1,
+     "text": "сильно"
+    },
+    {
+     "sel": "span.tag.t-mod",
+     "fs": 11.52,
+     "n": 1,
+     "text": "умеренно"
+    },
+    {
+     "sel": "span.tag.t-ctx",
+     "fs": 11.52,
+     "n": 1,
+     "text": "контекст"
+    }
+   ],
+   "tinyN": 4,
+   "fontsLoaded": [
+    "Inter|400|loaded",
+    "Inter|500|loaded",
+    "Inter|600|loaded",
+    "Inter|700|loaded",
+    "Inter|800|loaded"
+   ],
+   "interOK": true,
+   "bodyFont": "Inter, system-ui, -apple-system, Segoe UI, sans-serif",
+   "header": {
+    "present": true,
+    "h": 132,
+    "actions": [
+     {
+      "t": "🏠 Главная",
+      "w": 71,
+      "h": 45,
+      "vis": true,
+      "inView": true,
+      "y": 98
+     },
+     {
+      "t": "🧮 Калькулятор",
+      "w": 99,
+      "h": 45,
+      "vis": true,
+      "inView": true,
+      "y": 98
+     },
+     {
+      "t": "🔗 Связи",
+      "w": 58,
+      "h": 45,
+      "vis": true,
+      "inView": true,
+      "y": 98
+     },
+     {
+      "t": "🌐 Атлас",
+      "w": 57,
+      "h": 45,
+      "vis": true,
+      "inView": true,
+      "y": 98
+     },
+     {
+      "t": "📈 Тренды",
+      "w": 68,
+      "h": 45,
+      "vis": true,
+      "inView": false,
+      "y": 98
+     },
+     {
+      "t": "🧠 BI ↗",
+      "w": 38,
+      "h": 60,
+      "vis": true,
+      "inView": false,
+      "y": 90
+     },
+     {
+      "t": "🕸️ Граф связей",
+      "w": 63,
+      "h": 60,
+      "vis": true,
+      "inView": false,
+      "y": 90
+     },
+     {
+      "t": "💬 Обратная связь",
+      "w": 80,
+      "h": 60,
+      "vis": true,
+      "inView": false,
+      "y": 90
+     },
+     {
+      "t": "💚 Поддержать",
+      "w": 98,
+      "h": 45,
+      "vis": true,
+      "inView": false,
+      "y": 98
+     },
+     {
+      "t": "🌞 Светлая тема",
+      "w": 78,
+      "h": 63,
+      "vis": true,
+      "inView": false,
+      "y": 89
+     }
+    ],
+    "actionsVisible": 10,
+    "actionsOffscreen": 6
+   },
+   "bottomFixed": [
+    {
+     "sel": "div.site-header",
+     "position": "sticky",
+     "bottom": 152,
+     "h": 132,
+     "padBottom": "0px"
+    },
+    {
+     "sel": "div#details-backdrop",
+     "position": "fixed",
+     "bottom": 844,
+     "h": 844,
+     "padBottom": "0px"
+    },
+    {
+     "sel": "aside#details",
+     "position": "fixed",
+     "bottom": 446,
+     "h": 48,
+     "padBottom": "25.6px"
+    }
+   ]
+  }
+ },
+ {
+  "page": "map",
+  "width": 393,
+  "url": "http://localhost:8000/map.html",
+  "status": 200,
+  "data": {
+   "scrollW": 393,
+   "clientW": 393,
+   "bodyScrollW": 393,
+   "overflow": 0,
+   "title": "Карта механизмов БАДов — 130 добавки",
+   "h": 2155,
+   "culprits": [
+    {
+     "sel": "a.btn.c-support",
+     "right": 701,
+     "w": 98,
+     "left": 604
+    },
+    {
+     "sel": "a.btn.c-feedback",
+     "right": 597,
+     "w": 80,
+     "left": 517
+    },
+    {
+     "sel": "button#themeBtn.btn",
+     "right": 786,
+     "w": 78,
+     "left": 708
+    },
+    {
+     "sel": "a.btn.c-trends",
+     "right": 396,
+     "w": 68,
+     "left": 329
+    },
+    {
+     "sel": "a.btn.c-graph",
+     "right": 511,
+     "w": 63,
+     "left": 448
+    },
+    {
+     "sel": "a.btn.c-bi",
+     "right": 441,
+     "w": 38,
+     "left": 403
+    }
+   ],
+   "tapTotal": 17,
+   "small44": [
+    {
+     "sel": "a.skip-link",
+     "w": 197.1,
+     "h": 24,
+     "text": "Перейти к содержимому",
+     "y": 0
+    },
+    {
+     "sel": "a",
+     "w": 208.9,
+     "h": 26,
+     "text": "🧠 brain-25-evidence",
+     "y": 54
+    },
+    {
+     "sel": "a.btn.c-bi",
+     "w": 38.3,
+     "h": 59.6,
+     "text": "🧠 BI ↗",
+     "y": 90
+    }
+   ],
+   "small44n": 3,
+   "small24n": 0,
+   "tiny": [
+    {
+     "sel": "h3",
+     "fs": 11.2,
+     "n": 79,
+     "text": "Антиоксидант ▾"
+    },
+    {
+     "sel": "span.tag.t-strong",
+     "fs": 11.52,
+     "n": 1,
+     "text": "сильно"
+    },
+    {
+     "sel": "span.tag.t-mod",
+     "fs": 11.52,
+     "n": 1,
+     "text": "умеренно"
+    },
+    {
+     "sel": "span.tag.t-ctx",
+     "fs": 11.52,
+     "n": 1,
+     "text": "контекст"
+    }
+   ],
+   "tinyN": 4,
+   "fontsLoaded": [
+    "Inter|400|loaded",
+    "Inter|500|loaded",
+    "Inter|600|loaded",
+    "Inter|700|loaded",
+    "Inter|800|loaded"
+   ],
+   "interOK": true,
+   "bodyFont": "Inter, system-ui, -apple-system, Segoe UI, sans-serif",
+   "header": {
+    "present": true,
+    "h": 132,
+    "actions": [
+     {
+      "t": "🏠 Главная",
+      "w": 71,
+      "h": 45,
+      "vis": true,
+      "inView": true,
+      "y": 98
+     },
+     {
+      "t": "🧮 Калькулятор",
+      "w": 99,
+      "h": 45,
+      "vis": true,
+      "inView": true,
+      "y": 98
+     },
+     {
+      "t": "🔗 Связи",
+      "w": 58,
+      "h": 45,
+      "vis": true,
+      "inView": true,
+      "y": 98
+     },
+     {
+      "t": "🌐 Атлас",
+      "w": 57,
+      "h": 45,
+      "vis": true,
+      "inView": true,
+      "y": 98
+     },
+     {
+      "t": "📈 Тренды",
+      "w": 68,
+      "h": 45,
+      "vis": true,
+      "inView": false,
+      "y": 98
+     },
+     {
+      "t": "🧠 BI ↗",
+      "w": 38,
+      "h": 60,
+      "vis": true,
+      "inView": false,
+      "y": 90
+     },
+     {
+      "t": "🕸️ Граф связей",
+      "w": 63,
+      "h": 60,
+      "vis": true,
+      "inView": false,
+      "y": 90
+     },
+     {
+      "t": "💬 Обратная связь",
+      "w": 80,
+      "h": 60,
+      "vis": true,
+      "inView": false,
+      "y": 90
+     },
+     {
+      "t": "💚 Поддержать",
+      "w": 98,
+      "h": 45,
+      "vis": true,
+      "inView": false,
+      "y": 98
+     },
+     {
+      "t": "🌞 Светлая тема",
+      "w": 78,
+      "h": 63,
+      "vis": true,
+      "inView": false,
+      "y": 89
+     }
+    ],
+    "actionsVisible": 10,
+    "actionsOffscreen": 6
+   },
+   "bottomFixed": [
+    {
+     "sel": "div.site-header",
+     "position": "sticky",
+     "bottom": 152,
+     "h": 132,
+     "padBottom": "0px"
+    },
+    {
+     "sel": "div#details-backdrop",
+     "position": "fixed",
+     "bottom": 852,
+     "h": 852,
+     "padBottom": "0px"
+    },
+    {
+     "sel": "aside#details",
+     "position": "fixed",
+     "bottom": 450,
+     "h": 48,
+     "padBottom": "25.6px"
+    }
+   ]
+  }
+ },
+ {
+  "page": "map",
+  "width": 412,
+  "url": "http://localhost:8000/map.html",
+  "status": 200,
+  "data": {
+   "scrollW": 412,
+   "clientW": 412,
+   "bodyScrollW": 412,
+   "overflow": 0,
+   "title": "Карта механизмов БАДов — 130 добавки",
+   "h": 2060,
+   "culprits": [
+    {
+     "sel": "a.btn.c-support",
+     "right": 701,
+     "w": 98,
+     "left": 604
+    },
+    {
+     "sel": "a.btn.c-feedback",
+     "right": 597,
+     "w": 80,
+     "left": 517
+    },
+    {
+     "sel": "button#themeBtn.btn",
+     "right": 786,
+     "w": 78,
+     "left": 708
+    },
+    {
+     "sel": "a.btn.c-graph",
+     "right": 511,
+     "w": 63,
+     "left": 448
+    },
+    {
+     "sel": "a.btn.c-bi",
+     "right": 441,
+     "w": 38,
+     "left": 403
+    }
+   ],
+   "tapTotal": 17,
+   "small44": [
+    {
+     "sel": "a.skip-link",
+     "w": 197.1,
+     "h": 24,
+     "text": "Перейти к содержимому",
+     "y": 0
+    },
+    {
+     "sel": "a",
+     "w": 208.9,
+     "h": 26,
+     "text": "🧠 brain-25-evidence",
+     "y": 54
+    },
+    {
+     "sel": "a.btn.c-bi",
+     "w": 38.3,
+     "h": 59.6,
+     "text": "🧠 BI ↗",
+     "y": 90
+    }
+   ],
+   "small44n": 3,
+   "small24n": 0,
+   "tiny": [
+    {
+     "sel": "h3",
+     "fs": 11.2,
+     "n": 79,
+     "text": "Антиоксидант ▾"
+    },
+    {
+     "sel": "span.tag.t-strong",
+     "fs": 11.52,
+     "n": 1,
+     "text": "сильно"
+    },
+    {
+     "sel": "span.tag.t-mod",
+     "fs": 11.52,
+     "n": 1,
+     "text": "умеренно"
+    },
+    {
+     "sel": "span.tag.t-ctx",
+     "fs": 11.52,
+     "n": 1,
+     "text": "контекст"
+    }
+   ],
+   "tinyN": 4,
+   "fontsLoaded": [
+    "Inter|400|loaded",
+    "Inter|500|loaded",
+    "Inter|600|loaded",
+    "Inter|700|loaded",
+    "Inter|800|loaded"
+   ],
+   "interOK": true,
+   "bodyFont": "Inter, system-ui, -apple-system, Segoe UI, sans-serif",
+   "header": {
+    "present": true,
+    "h": 132,
+    "actions": [
+     {
+      "t": "🏠 Главная",
+      "w": 71,
+      "h": 45,
+      "vis": true,
+      "inView": true,
+      "y": 98
+     },
+     {
+      "t": "🧮 Калькулятор",
+      "w": 99,
+      "h": 45,
+      "vis": true,
+      "inView": true,
+      "y": 98
+     },
+     {
+      "t": "🔗 Связи",
+      "w": 58,
+      "h": 45,
+      "vis": true,
+      "inView": true,
+      "y": 98
+     },
+     {
+      "t": "🌐 Атлас",
+      "w": 57,
+      "h": 45,
+      "vis": true,
+      "inView": true,
+      "y": 98
+     },
+     {
+      "t": "📈 Тренды",
+      "w": 68,
+      "h": 45,
+      "vis": true,
+      "inView": true,
+      "y": 98
+     },
+     {
+      "t": "🧠 BI ↗",
+      "w": 38,
+      "h": 60,
+      "vis": true,
+      "inView": false,
+      "y": 90
+     },
+     {
+      "t": "🕸️ Граф связей",
+      "w": 63,
+      "h": 60,
+      "vis": true,
+      "inView": false,
+      "y": 90
+     },
+     {
+      "t": "💬 Обратная связь",
+      "w": 80,
+      "h": 60,
+      "vis": true,
+      "inView": false,
+      "y": 90
+     },
+     {
+      "t": "💚 Поддержать",
+      "w": 98,
+      "h": 45,
+      "vis": true,
+      "inView": false,
+      "y": 98
+     },
+     {
+      "t": "🌞 Светлая тема",
+      "w": 78,
+      "h": 63,
+      "vis": true,
+      "inView": false,
+      "y": 89
+     }
+    ],
+    "actionsVisible": 10,
+    "actionsOffscreen": 5
+   },
+   "bottomFixed": [
+    {
+     "sel": "div.site-header",
+     "position": "sticky",
+     "bottom": 152,
+     "h": 132,
+     "padBottom": "0px"
+    },
+    {
+     "sel": "div#details-backdrop",
+     "position": "fixed",
+     "bottom": 915,
+     "h": 915,
+     "padBottom": "0px"
+    },
+    {
+     "sel": "aside#details",
+     "position": "fixed",
+     "bottom": 481,
+     "h": 48,
+     "padBottom": "25.6px"
+    }
+   ]
+  }
+ },
+ {
+  "page": "map",
+  "width": 428,
+  "url": "http://localhost:8000/map.html",
+  "status": 200,
+  "data": {
+   "scrollW": 428,
+   "clientW": 428,
+   "bodyScrollW": 428,
+   "overflow": 0,
+   "title": "Карта механизмов БАДов — 130 добавки",
+   "h": 2015,
+   "culprits": [
+    {
+     "sel": "a.btn.c-support",
+     "right": 701,
+     "w": 98,
+     "left": 604
+    },
+    {
+     "sel": "a.btn.c-feedback",
+     "right": 597,
+     "w": 80,
+     "left": 517
+    },
+    {
+     "sel": "button#themeBtn.btn",
+     "right": 786,
+     "w": 78,
+     "left": 708
+    },
+    {
+     "sel": "a.btn.c-graph",
+     "right": 511,
+     "w": 63,
+     "left": 448
+    },
+    {
+     "sel": "a.btn.c-bi",
+     "right": 441,
+     "w": 38,
+     "left": 403
+    }
+   ],
+   "tapTotal": 17,
+   "small44": [
+    {
+     "sel": "a.skip-link",
+     "w": 197.1,
+     "h": 24,
+     "text": "Перейти к содержимому",
+     "y": 0
+    },
+    {
+     "sel": "a",
+     "w": 208.9,
+     "h": 26,
+     "text": "🧠 brain-25-evidence",
+     "y": 54
+    },
+    {
+     "sel": "a.btn.c-bi",
+     "w": 38.3,
+     "h": 59.6,
+     "text": "🧠 BI ↗",
+     "y": 90
+    }
+   ],
+   "small44n": 3,
+   "small24n": 0,
+   "tiny": [
+    {
+     "sel": "h3",
+     "fs": 11.2,
+     "n": 79,
+     "text": "Антиоксидант ▾"
+    },
+    {
+     "sel": "span.tag.t-strong",
+     "fs": 11.52,
+     "n": 1,
+     "text": "сильно"
+    },
+    {
+     "sel": "span.tag.t-mod",
+     "fs": 11.52,
+     "n": 1,
+     "text": "умеренно"
+    },
+    {
+     "sel": "span.tag.t-ctx",
+     "fs": 11.52,
+     "n": 1,
+     "text": "контекст"
+    }
+   ],
+   "tinyN": 4,
+   "fontsLoaded": [
+    "Inter|400|loaded",
+    "Inter|500|loaded",
+    "Inter|600|loaded",
+    "Inter|700|loaded",
+    "Inter|800|loaded"
+   ],
+   "interOK": true,
+   "bodyFont": "Inter, system-ui, -apple-system, Segoe UI, sans-serif",
+   "header": {
+    "present": true,
+    "h": 132,
+    "actions": [
+     {
+      "t": "🏠 Главная",
+      "w": 71,
+      "h": 45,
+      "vis": true,
+      "inView": true,
+      "y": 98
+     },
+     {
+      "t": "🧮 Калькулятор",
+      "w": 99,
+      "h": 45,
+      "vis": true,
+      "inView": true,
+      "y": 98
+     },
+     {
+      "t": "🔗 Связи",
+      "w": 58,
+      "h": 45,
+      "vis": true,
+      "inView": true,
+      "y": 98
+     },
+     {
+      "t": "🌐 Атлас",
+      "w": 57,
+      "h": 45,
+      "vis": true,
+      "inView": true,
+      "y": 98
+     },
+     {
+      "t": "📈 Тренды",
+      "w": 68,
+      "h": 45,
+      "vis": true,
+      "inView": true,
+      "y": 98
+     },
+     {
+      "t": "🧠 BI ↗",
+      "w": 38,
+      "h": 60,
+      "vis": true,
+      "inView": false,
+      "y": 90
+     },
+     {
+      "t": "🕸️ Граф связей",
+      "w": 63,
+      "h": 60,
+      "vis": true,
+      "inView": false,
+      "y": 90
+     },
+     {
+      "t": "💬 Обратная связь",
+      "w": 80,
+      "h": 60,
+      "vis": true,
+      "inView": false,
+      "y": 90
+     },
+     {
+      "t": "💚 Поддержать",
+      "w": 98,
+      "h": 45,
+      "vis": true,
+      "inView": false,
+      "y": 98
+     },
+     {
+      "t": "🌞 Светлая тема",
+      "w": 78,
+      "h": 63,
+      "vis": true,
+      "inView": false,
+      "y": 89
+     }
+    ],
+    "actionsVisible": 10,
+    "actionsOffscreen": 5
+   },
+   "bottomFixed": [
+    {
+     "sel": "div.site-header",
+     "position": "sticky",
+     "bottom": 152,
+     "h": 132,
+     "padBottom": "0px"
+    },
+    {
+     "sel": "div#details-backdrop",
+     "position": "fixed",
+     "bottom": 926,
+     "h": 926,
+     "padBottom": "0px"
+    },
+    {
+     "sel": "aside#details",
+     "position": "fixed",
+     "bottom": 487,
+     "h": 48,
+     "padBottom": "25.6px"
+    }
+   ]
+  }
+ },
+ {
+  "page": "map",
+  "width": 768,
+  "url": "http://localhost:8000/map.html",
+  "status": 200,
+  "data": {
+   "scrollW": 768,
+   "clientW": 768,
+   "bodyScrollW": 768,
+   "overflow": 0,
+   "title": "Карта механизмов БАДов — 130 добавки",
+   "h": 1571,
+   "culprits": [],
+   "tapTotal": 17,
+   "small44": [
+    {
+     "sel": "a.skip-link",
+     "w": 197.1,
+     "h": 24,
+     "text": "Перейти к содержимому",
+     "y": 0
+    },
+    {
+     "sel": "a",
+     "w": 217,
+     "h": 32.4,
+     "text": "🧠 brain-25-evidence",
+     "y": 51
+    }
+   ],
+   "small44n": 2,
+   "small24n": 0,
+   "tiny": [
+    {
+     "sel": "span.tag.t-strong",
+     "fs": 11.52,
+     "n": 1,
+     "text": "сильно"
+    },
+    {
+     "sel": "span.tag.t-mod",
+     "fs": 11.52,
+     "n": 1,
+     "text": "умеренно"
+    },
+    {
+     "sel": "span.tag.t-ctx",
+     "fs": 11.52,
+     "n": 1,
+     "text": "контекст"
+    }
+   ],
+   "tinyN": 3,
+   "fontsLoaded": [
+    "Inter|400|loaded",
+    "Inter|500|loaded",
+    "Inter|600|loaded",
+    "Inter|700|loaded",
+    "Inter|800|loaded"
+   ],
+   "interOK": true,
+   "bodyFont": "Inter, system-ui, -apple-system, Segoe UI, sans-serif",
+   "header": {
+    "present": true,
+    "h": 180,
+    "actions": [
+     {
+      "t": "🏠 Главная",
+      "w": 102,
+      "h": 44,
+      "vis": true,
+      "inView": true,
+      "y": 100
+     },
+     {
+      "t": "🧮 Калькулятор",
+      "w": 135,
+      "h": 44,
+      "vis": true,
+      "inView": true,
+      "y": 100
+     },
+     {
+      "t": "🔗 Связи",
+      "w": 90,
+      "h": 44,
+      "vis": true,
+      "inView": true,
+      "y": 100
+     },
+     {
+      "t": "🌐 Атлас",
+      "w": 88,
+      "h": 44,
+      "vis": true,
+      "inView": true,
+      "y": 100
+     },
+     {
+      "t": "📈 Тренды",
+      "w": 100,
+      "h": 44,
+      "vis": true,
+      "inView": true,
+      "y": 100
+     },
+     {
+      "t": "🧠 BI ↗",
+      "w": 77,
+      "h": 44,
+      "vis": true,
+      "inView": true,
+      "y": 100
+     },
+     {
+      "t": "🕸️ Граф связей",
+      "w": 132,
+      "h": 44,
+      "vis": true,
+      "inView": true,
+      "y": 152
+     },
+     {
+      "t": "💬 Обратная связь",
+      "w": 156,
+      "h": 44,
+      "vis": true,
+      "inView": true,
+      "y": 152
+     },
+     {
+      "t": "💚 Поддержать",
+      "w": 134,
+      "h": 44,
+      "vis": true,
+      "inView": true,
+      "y": 152
+     },
+     {
+      "t": "🌞 Светлая тема",
+      "w": 141,
+      "h": 44,
+      "vis": true,
+      "inView": true,
+      "y": 152
+     }
+    ],
+    "actionsVisible": 10,
+    "actionsOffscreen": 0
+   },
+   "bottomFixed": [
+    {
+     "sel": "div.site-header",
+     "position": "sticky",
+     "bottom": 196,
+     "h": 180,
+     "padBottom": "0px"
+    },
+    {
+     "sel": "div#details-backdrop",
+     "position": "fixed",
+     "bottom": 1024,
+     "h": 1024,
+     "padBottom": "0px"
+    },
+    {
+     "sel": "aside#details",
+     "position": "fixed",
+     "bottom": 536,
+     "h": 48,
+     "padBottom": "25.6px"
+    }
+   ]
+  }
+ },
+ {
+  "page": "map",
+  "width": 1024,
+  "url": "http://localhost:8000/map.html",
+  "status": 200,
+  "data": {
+   "scrollW": 1024,
+   "clientW": 1024,
+   "bodyScrollW": 1024,
+   "overflow": 0,
+   "title": "Карта механизмов БАДов — 130 добавки",
+   "h": 1299,
+   "culprits": [],
+   "tapTotal": 17,
+   "small44": [
+    {
+     "sel": "a.skip-link",
+     "w": 197.1,
+     "h": 24,
+     "text": "Перейти к содержимому",
+     "y": 0
+    },
+    {
+     "sel": "a",
+     "w": 217,
+     "h": 32.4,
+     "text": "🧠 brain-25-evidence",
+     "y": 59
+    }
+   ],
+   "small44n": 2,
+   "small24n": 0,
+   "tiny": [
+    {
+     "sel": "span.tag.t-strong",
+     "fs": 11.52,
+     "n": 1,
+     "text": "сильно"
+    },
+    {
+     "sel": "span.tag.t-mod",
+     "fs": 11.52,
+     "n": 1,
+     "text": "умеренно"
+    },
+    {
+     "sel": "span.tag.t-ctx",
+     "fs": 11.52,
+     "n": 1,
+     "text": "контекст"
+    }
+   ],
+   "tinyN": 3,
+   "fontsLoaded": [
+    "Inter|400|loaded",
+    "Inter|500|loaded",
+    "Inter|600|loaded",
+    "Inter|700|loaded",
+    "Inter|800|loaded"
+   ],
+   "interOK": true,
+   "bodyFont": "Inter, system-ui, -apple-system, Segoe UI, sans-serif",
+   "header": {
+    "present": true,
+    "h": 180,
+    "actions": [
+     {
+      "t": "🏠 Главная",
+      "w": 102,
+      "h": 44,
+      "vis": true,
+      "inView": true,
+      "y": 108
+     },
+     {
+      "t": "🧮 Калькулятор",
+      "w": 135,
+      "h": 44,
+      "vis": true,
+      "inView": true,
+      "y": 108
+     },
+     {
+      "t": "🔗 Связи",
+      "w": 90,
+      "h": 44,
+      "vis": true,
+      "inView": true,
+      "y": 108
+     },
+     {
+      "t": "🌐 Атлас",
+      "w": 88,
+      "h": 44,
+      "vis": true,
+      "inView": true,
+      "y": 108
+     },
+     {
+      "t": "📈 Тренды",
+      "w": 100,
+      "h": 44,
+      "vis": true,
+      "inView": true,
+      "y": 108
+     },
+     {
+      "t": "🧠 BI ↗",
+      "w": 77,
+      "h": 44,
+      "vis": true,
+      "inView": true,
+      "y": 108
+     },
+     {
+      "t": "🕸️ Граф связей",
+      "w": 132,
+      "h": 44,
+      "vis": true,
+      "inView": true,
+      "y": 108
+     },
+     {
+      "t": "💬 Обратная связь",
+      "w": 156,
+      "h": 44,
+      "vis": true,
+      "inView": true,
+      "y": 160
+     },
+     {
+      "t": "💚 Поддержать",
+      "w": 134,
+      "h": 44,
+      "vis": true,
+      "inView": true,
+      "y": 160
+     },
+     {
+      "t": "🌞 Светлая тема",
+      "w": 141,
+      "h": 44,
+      "vis": true,
+      "inView": true,
+      "y": 160
+     }
+    ],
+    "actionsVisible": 10,
+    "actionsOffscreen": 0
+   },
+   "bottomFixed": [
+    {
+     "sel": "div.site-header",
+     "position": "sticky",
+     "bottom": 204,
+     "h": 180,
+     "padBottom": "0px"
+    },
+    {
+     "sel": "div#details-backdrop",
+     "position": "fixed",
+     "bottom": 768,
+     "h": 768,
+     "padBottom": "0px"
+    },
+    {
+     "sel": "aside#details",
+     "position": "fixed",
+     "bottom": 408,
+     "h": 48,
+     "padBottom": "25.6px"
+    }
+   ]
+  }
+ },
+ {
+  "page": "graph",
+  "width": 320,
+  "url": "http://localhost:8000/graph.html",
+  "status": 200,
+  "data": {
+   "scrollW": 320,
+   "clientW": 320,
+   "bodyScrollW": 320,
+   "overflow": 0,
+   "title": "Граф связей механизмов — brain-25-evidence",
+   "h": 1856,
+   "culprits": [
+    {
+     "sel": "a.btn.c-support",
+     "right": 975,
+     "w": 131,
+     "left": 844
+    },
+    {
+     "sel": "a.btn.c-mech",
+     "right": 383,
+     "w": 125,
+     "left": 258
+    },
+    {
+     "sel": "a.btn.c-feedback",
+     "right": 838,
+     "w": 109,
+     "left": 729
+    },
+    {
+     "sel": "button#themeBtn.btn",
+     "right": 1079,
+     "w": 98,
+     "left": 981
+    },
+    {
+     "sel": "a.btn.c-trends",
+     "right": 658,
+     "w": 94,
+     "left": 564
+    },
+    {
+     "sel": "a.btn.c-links",
+     "right": 471,
+     "w": 82,
+     "left": 389
+    },
+    {
+     "sel": "a.btn.c-atlas",
+     "right": 558,
+     "w": 80,
+     "left": 477
+    },
+    {
+     "sel": "a.btn.c-bi",
+     "right": 722,
+     "w": 58,
+     "left": 664
+    }
+   ],
+   "tapTotal": 16,
+   "small44": [
+    {
+     "sel": "a.skip-link",
+     "w": 197.1,
+     "h": 24,
+     "text": "Перейти к содержимому",
+     "y": 0
+    },
+    {
+     "sel": "a",
+     "w": 208.9,
+     "h": 26,
+     "text": "🧠 brain-25-evidence",
+     "y": 70
+    }
+   ],
+   "small44n": 2,
+   "small24n": 0,
+   "tiny": [],
+   "tinyN": 0,
+   "fontsLoaded": [
+    "Inter|400|loaded",
+    "Inter|500|unloaded",
+    "Inter|600|loaded",
+    "Inter|700|loaded",
+    "Inter|800|loaded"
+   ],
+   "interOK": true,
+   "bodyFont": "Inter, system-ui, -apple-system, Segoe UI, sans-serif",
+   "header": {
+    "present": true,
+    "h": 181,
+    "actions": [
+     {
+      "t": "🏠 Главная",
+      "w": 98,
+      "h": 70,
+      "vis": true,
+      "inView": true,
+      "y": 116
+     },
+     {
+      "t": "🧮 Калькулятор",
+      "w": 132,
+      "h": 70,
+      "vis": true,
+      "inView": true,
+      "y": 116
+     },
+     {
+      "t": "🧩 Механизмы",
+      "w": 125,
+      "h": 70,
+      "vis": true,
+      "inView": false,
+      "y": 116
+     },
+     {
+      "t": "🔗 Связи",
+      "w": 82,
+      "h": 70,
+      "vis": true,
+      "inView": false,
+      "y": 116
+     },
+     {
+      "t": "🌐 Атлас",
+      "w": 80,
+      "h": 70,
+      "vis": true,
+      "inView": false,
+      "y": 116
+     },
+     {
+      "t": "📈 Тренды",
+      "w": 94,
+      "h": 70,
+      "vis": true,
+      "inView": false,
+      "y": 116
+     },
+     {
+      "t": "🧠 BI ↗",
+      "w": 58,
+      "h": 93,
+      "vis": true,
+      "inView": false,
+      "y": 105
+     },
+     {
+      "t": "💬 Обратная связь",
+      "w": 109,
+      "h": 93,
+      "vis": true,
+      "inView": false,
+      "y": 105
+     },
+     {
+      "t": "💚 Поддержать",
+      "w": 131,
+      "h": 70,
+      "vis": true,
+      "inView": false,
+      "y": 116
+     },
+     {
+      "t": "🌞 Светлая тема",
+      "w": 98,
+      "h": 93,
+      "vis": true,
+      "inView": false,
+      "y": 105
+     }
+    ],
+    "actionsVisible": 10,
+    "actionsOffscreen": 8
+   },
+   "bottomFixed": [
+    {
+     "sel": "div.site-header",
+     "position": "sticky",
+     "bottom": 197,
+     "h": 181,
+     "padBottom": "0px"
+    }
+   ]
+  }
+ },
+ {
+  "page": "graph",
+  "width": 360,
+  "url": "http://localhost:8000/graph.html",
+  "status": 200,
+  "data": {
+   "scrollW": 360,
+   "clientW": 360,
+   "bodyScrollW": 360,
+   "overflow": 0,
+   "title": "Граф связей механизмов — brain-25-evidence",
+   "h": 1806,
+   "culprits": [
+    {
+     "sel": "a.btn.c-support",
+     "right": 975,
+     "w": 131,
+     "left": 844
+    },
+    {
+     "sel": "a.btn.c-mech",
+     "right": 383,
+     "w": 125,
+     "left": 258
+    },
+    {
+     "sel": "a.btn.c-feedback",
+     "right": 838,
+     "w": 109,
+     "left": 729
+    },
+    {
+     "sel": "button#themeBtn.btn",
+     "right": 1079,
+     "w": 98,
+     "left": 981
+    },
+    {
+     "sel": "a.btn.c-trends",
+     "right": 658,
+     "w": 94,
+     "left": 564
+    },
+    {
+     "sel": "a.btn.c-links",
+     "right": 471,
+     "w": 82,
+     "left": 389
+    },
+    {
+     "sel": "a.btn.c-atlas",
+     "right": 558,
+     "w": 80,
+     "left": 477
+    },
+    {
+     "sel": "a.btn.c-bi",
+     "right": 722,
+     "w": 58,
+     "left": 664
+    }
+   ],
+   "tapTotal": 16,
+   "small44": [
+    {
+     "sel": "a.skip-link",
+     "w": 197.1,
+     "h": 24,
+     "text": "Перейти к содержимому",
+     "y": 0
+    },
+    {
+     "sel": "a",
+     "w": 208.9,
+     "h": 26,
+     "text": "🧠 brain-25-evidence",
+     "y": 70
+    }
+   ],
+   "small44n": 2,
+   "small24n": 0,
+   "tiny": [],
+   "tinyN": 0,
+   "fontsLoaded": [
+    "Inter|400|loaded",
+    "Inter|500|unloaded",
+    "Inter|600|loaded",
+    "Inter|700|loaded",
+    "Inter|800|loaded"
+   ],
+   "interOK": true,
+   "bodyFont": "Inter, system-ui, -apple-system, Segoe UI, sans-serif",
+   "header": {
+    "present": true,
+    "h": 181,
+    "actions": [
+     {
+      "t": "🏠 Главная",
+      "w": 98,
+      "h": 70,
+      "vis": true,
+      "inView": true,
+      "y": 116
+     },
+     {
+      "t": "🧮 Калькулятор",
+      "w": 132,
+      "h": 70,
+      "vis": true,
+      "inView": true,
+      "y": 116
+     },
+     {
+      "t": "🧩 Механизмы",
+      "w": 125,
+      "h": 70,
+      "vis": true,
+      "inView": false,
+      "y": 116
+     },
+     {
+      "t": "🔗 Связи",
+      "w": 82,
+      "h": 70,
+      "vis": true,
+      "inView": false,
+      "y": 116
+     },
+     {
+      "t": "🌐 Атлас",
+      "w": 80,
+      "h": 70,
+      "vis": true,
+      "inView": false,
+      "y": 116
+     },
+     {
+      "t": "📈 Тренды",
+      "w": 94,
+      "h": 70,
+      "vis": true,
+      "inView": false,
+      "y": 116
+     },
+     {
+      "t": "🧠 BI ↗",
+      "w": 58,
+      "h": 93,
+      "vis": true,
+      "inView": false,
+      "y": 105
+     },
+     {
+      "t": "💬 Обратная связь",
+      "w": 109,
+      "h": 93,
+      "vis": true,
+      "inView": false,
+      "y": 105
+     },
+     {
+      "t": "💚 Поддержать",
+      "w": 131,
+      "h": 70,
+      "vis": true,
+      "inView": false,
+      "y": 116
+     },
+     {
+      "t": "🌞 Светлая тема",
+      "w": 98,
+      "h": 93,
+      "vis": true,
+      "inView": false,
+      "y": 105
+     }
+    ],
+    "actionsVisible": 10,
+    "actionsOffscreen": 8
+   },
+   "bottomFixed": [
+    {
+     "sel": "div.site-header",
+     "position": "sticky",
+     "bottom": 197,
+     "h": 181,
+     "padBottom": "0px"
+    }
+   ]
+  }
+ },
+ {
+  "page": "graph",
+  "width": 375,
+  "url": "http://localhost:8000/graph.html",
+  "status": 200,
+  "data": {
+   "scrollW": 375,
+   "clientW": 375,
+   "bodyScrollW": 375,
+   "overflow": 0,
+   "title": "Граф связей механизмов — brain-25-evidence",
+   "h": 1737,
+   "culprits": [
+    {
+     "sel": "a.btn.c-support",
+     "right": 975,
+     "w": 131,
+     "left": 844
+    },
+    {
+     "sel": "a.btn.c-mech",
+     "right": 383,
+     "w": 125,
+     "left": 258
+    },
+    {
+     "sel": "a.btn.c-feedback",
+     "right": 838,
+     "w": 109,
+     "left": 729
+    },
+    {
+     "sel": "button#themeBtn.btn",
+     "right": 1079,
+     "w": 98,
+     "left": 981
+    },
+    {
+     "sel": "a.btn.c-trends",
+     "right": 658,
+     "w": 94,
+     "left": 564
+    },
+    {
+     "sel": "a.btn.c-links",
+     "right": 471,
+     "w": 82,
+     "left": 389
+    },
+    {
+     "sel": "a.btn.c-atlas",
+     "right": 558,
+     "w": 80,
+     "left": 477
+    },
+    {
+     "sel": "a.btn.c-bi",
+     "right": 722,
+     "w": 58,
+     "left": 664
+    }
+   ],
+   "tapTotal": 16,
+   "small44": [
+    {
+     "sel": "a.skip-link",
+     "w": 197.1,
+     "h": 24,
+     "text": "Перейти к содержимому",
+     "y": 0
+    },
+    {
+     "sel": "a",
+     "w": 208.9,
+     "h": 26,
+     "text": "🧠 brain-25-evidence",
+     "y": 51
+    }
+   ],
+   "small44n": 2,
+   "small24n": 0,
+   "tiny": [],
+   "tinyN": 0,
+   "fontsLoaded": [
+    "Inter|400|loaded",
+    "Inter|500|unloaded",
+    "Inter|600|loaded",
+    "Inter|700|loaded",
+    "Inter|800|loaded"
+   ],
+   "interOK": true,
+   "bodyFont": "Inter, system-ui, -apple-system, Segoe UI, sans-serif",
+   "header": {
+    "present": true,
+    "h": 162,
+    "actions": [
+     {
+      "t": "🏠 Главная",
+      "w": 98,
+      "h": 70,
+      "vis": true,
+      "inView": true,
+      "y": 97
+     },
+     {
+      "t": "🧮 Калькулятор",
+      "w": 132,
+      "h": 70,
+      "vis": true,
+      "inView": true,
+      "y": 97
+     },
+     {
+      "t": "🧩 Механизмы",
+      "w": 125,
+      "h": 70,
+      "vis": true,
+      "inView": false,
+      "y": 97
+     },
+     {
+      "t": "🔗 Связи",
+      "w": 82,
+      "h": 70,
+      "vis": true,
+      "inView": false,
+      "y": 97
+     },
+     {
+      "t": "🌐 Атлас",
+      "w": 80,
+      "h": 70,
+      "vis": true,
+      "inView": false,
+      "y": 97
+     },
+     {
+      "t": "📈 Тренды",
+      "w": 94,
+      "h": 70,
+      "vis": true,
+      "inView": false,
+      "y": 97
+     },
+     {
+      "t": "🧠 BI ↗",
+      "w": 58,
+      "h": 93,
+      "vis": true,
+      "inView": false,
+      "y": 86
+     },
+     {
+      "t": "💬 Обратная связь",
+      "w": 109,
+      "h": 93,
+      "vis": true,
+      "inView": false,
+      "y": 86
+     },
+     {
+      "t": "💚 Поддержать",
+      "w": 131,
+      "h": 70,
+      "vis": true,
+      "inView": false,
+      "y": 97
+     },
+     {
+      "t": "🌞 Светлая тема",
+      "w": 98,
+      "h": 93,
+      "vis": true,
+      "inView": false,
+      "y": 86
+     }
+    ],
+    "actionsVisible": 10,
+    "actionsOffscreen": 8
+   },
+   "bottomFixed": [
+    {
+     "sel": "div.site-header",
+     "position": "sticky",
+     "bottom": 178,
+     "h": 162,
+     "padBottom": "0px"
+    }
+   ]
+  }
+ },
+ {
+  "page": "graph",
+  "width": 390,
+  "url": "http://localhost:8000/graph.html",
+  "status": 200,
+  "data": {
+   "scrollW": 390,
+   "clientW": 390,
+   "bodyScrollW": 390,
+   "overflow": 0,
+   "title": "Граф связей механизмов — brain-25-evidence",
+   "h": 1737,
+   "culprits": [
+    {
+     "sel": "a.btn.c-support",
+     "right": 975,
+     "w": 131,
+     "left": 844
+    },
+    {
+     "sel": "a.btn.c-feedback",
+     "right": 838,
+     "w": 109,
+     "left": 729
+    },
+    {
+     "sel": "button#themeBtn.btn",
+     "right": 1079,
+     "w": 98,
+     "left": 981
+    },
+    {
+     "sel": "a.btn.c-trends",
+     "right": 658,
+     "w": 94,
+     "left": 564
+    },
+    {
+     "sel": "a.btn.c-links",
+     "right": 471,
+     "w": 82,
+     "left": 389
+    },
+    {
+     "sel": "a.btn.c-atlas",
+     "right": 558,
+     "w": 80,
+     "left": 477
+    },
+    {
+     "sel": "a.btn.c-bi",
+     "right": 722,
+     "w": 58,
+     "left": 664
+    }
+   ],
+   "tapTotal": 16,
+   "small44": [
+    {
+     "sel": "a.skip-link",
+     "w": 197.1,
+     "h": 24,
+     "text": "Перейти к содержимому",
+     "y": 0
+    },
+    {
+     "sel": "a",
+     "w": 208.9,
+     "h": 26,
+     "text": "🧠 brain-25-evidence",
+     "y": 51
+    }
+   ],
+   "small44n": 2,
+   "small24n": 0,
+   "tiny": [],
+   "tinyN": 0,
+   "fontsLoaded": [
+    "Inter|400|loaded",
+    "Inter|500|unloaded",
+    "Inter|600|loaded",
+    "Inter|700|loaded",
+    "Inter|800|loaded"
+   ],
+   "interOK": true,
+   "bodyFont": "Inter, system-ui, -apple-system, Segoe UI, sans-serif",
+   "header": {
+    "present": true,
+    "h": 162,
+    "actions": [
+     {
+      "t": "🏠 Главная",
+      "w": 98,
+      "h": 70,
+      "vis": true,
+      "inView": true,
+      "y": 97
+     },
+     {
+      "t": "🧮 Калькулятор",
+      "w": 132,
+      "h": 70,
+      "vis": true,
+      "inView": true,
+      "y": 97
+     },
+     {
+      "t": "🧩 Механизмы",
+      "w": 125,
+      "h": 70,
+      "vis": true,
+      "inView": true,
+      "y": 97
+     },
+     {
+      "t": "🔗 Связи",
+      "w": 82,
+      "h": 70,
+      "vis": true,
+      "inView": false,
+      "y": 97
+     },
+     {
+      "t": "🌐 Атлас",
+      "w": 80,
+      "h": 70,
+      "vis": true,
+      "inView": false,
+      "y": 97
+     },
+     {
+      "t": "📈 Тренды",
+      "w": 94,
+      "h": 70,
+      "vis": true,
+      "inView": false,
+      "y": 97
+     },
+     {
+      "t": "🧠 BI ↗",
+      "w": 58,
+      "h": 93,
+      "vis": true,
+      "inView": false,
+      "y": 86
+     },
+     {
+      "t": "💬 Обратная связь",
+      "w": 109,
+      "h": 93,
+      "vis": true,
+      "inView": false,
+      "y": 86
+     },
+     {
+      "t": "💚 Поддержать",
+      "w": 131,
+      "h": 70,
+      "vis": true,
+      "inView": false,
+      "y": 97
+     },
+     {
+      "t": "🌞 Светлая тема",
+      "w": 98,
+      "h": 93,
+      "vis": true,
+      "inView": false,
+      "y": 86
+     }
+    ],
+    "actionsVisible": 10,
+    "actionsOffscreen": 7
+   },
+   "bottomFixed": [
+    {
+     "sel": "div.site-header",
+     "position": "sticky",
+     "bottom": 178,
+     "h": 162,
+     "padBottom": "0px"
+    }
+   ]
+  }
+ },
+ {
+  "page": "graph",
+  "width": 393,
+  "url": "http://localhost:8000/graph.html",
+  "status": 200,
+  "data": {
+   "scrollW": 393,
+   "clientW": 393,
+   "bodyScrollW": 393,
+   "overflow": 0,
+   "title": "Граф связей механизмов — brain-25-evidence",
+   "h": 1737,
+   "culprits": [
+    {
+     "sel": "a.btn.c-support",
+     "right": 975,
+     "w": 131,
+     "left": 844
+    },
+    {
+     "sel": "a.btn.c-feedback",
+     "right": 838,
+     "w": 109,
+     "left": 729
+    },
+    {
+     "sel": "button#themeBtn.btn",
+     "right": 1079,
+     "w": 98,
+     "left": 981
+    },
+    {
+     "sel": "a.btn.c-trends",
+     "right": 658,
+     "w": 94,
+     "left": 564
+    },
+    {
+     "sel": "a.btn.c-links",
+     "right": 471,
+     "w": 82,
+     "left": 389
+    },
+    {
+     "sel": "a.btn.c-atlas",
+     "right": 558,
+     "w": 80,
+     "left": 477
+    },
+    {
+     "sel": "a.btn.c-bi",
+     "right": 722,
+     "w": 58,
+     "left": 664
+    }
+   ],
+   "tapTotal": 16,
+   "small44": [
+    {
+     "sel": "a.skip-link",
+     "w": 197.1,
+     "h": 24,
+     "text": "Перейти к содержимому",
+     "y": 0
+    },
+    {
+     "sel": "a",
+     "w": 208.9,
+     "h": 26,
+     "text": "🧠 brain-25-evidence",
+     "y": 51
+    }
+   ],
+   "small44n": 2,
+   "small24n": 0,
+   "tiny": [],
+   "tinyN": 0,
+   "fontsLoaded": [
+    "Inter|400|loaded",
+    "Inter|500|unloaded",
+    "Inter|600|loaded",
+    "Inter|700|loaded",
+    "Inter|800|loaded"
+   ],
+   "interOK": true,
+   "bodyFont": "Inter, system-ui, -apple-system, Segoe UI, sans-serif",
+   "header": {
+    "present": true,
+    "h": 162,
+    "actions": [
+     {
+      "t": "🏠 Главная",
+      "w": 98,
+      "h": 70,
+      "vis": true,
+      "inView": true,
+      "y": 97
+     },
+     {
+      "t": "🧮 Калькулятор",
+      "w": 132,
+      "h": 70,
+      "vis": true,
+      "inView": true,
+      "y": 97
+     },
+     {
+      "t": "🧩 Механизмы",
+      "w": 125,
+      "h": 70,
+      "vis": true,
+      "inView": true,
+      "y": 97
+     },
+     {
+      "t": "🔗 Связи",
+      "w": 82,
+      "h": 70,
+      "vis": true,
+      "inView": false,
+      "y": 97
+     },
+     {
+      "t": "🌐 Атлас",
+      "w": 80,
+      "h": 70,
+      "vis": true,
+      "inView": false,
+      "y": 97
+     },
+     {
+      "t": "📈 Тренды",
+      "w": 94,
+      "h": 70,
+      "vis": true,
+      "inView": false,
+      "y": 97
+     },
+     {
+      "t": "🧠 BI ↗",
+      "w": 58,
+      "h": 93,
+      "vis": true,
+      "inView": false,
+      "y": 86
+     },
+     {
+      "t": "💬 Обратная связь",
+      "w": 109,
+      "h": 93,
+      "vis": true,
+      "inView": false,
+      "y": 86
+     },
+     {
+      "t": "💚 Поддержать",
+      "w": 131,
+      "h": 70,
+      "vis": true,
+      "inView": false,
+      "y": 97
+     },
+     {
+      "t": "🌞 Светлая тема",
+      "w": 98,
+      "h": 93,
+      "vis": true,
+      "inView": false,
+      "y": 86
+     }
+    ],
+    "actionsVisible": 10,
+    "actionsOffscreen": 7
+   },
+   "bottomFixed": [
+    {
+     "sel": "div.site-header",
+     "position": "sticky",
+     "bottom": 178,
+     "h": 162,
+     "padBottom": "0px"
+    }
+   ]
+  }
+ },
+ {
+  "page": "graph",
+  "width": 412,
+  "url": "http://localhost:8000/graph.html",
+  "status": 200,
+  "data": {
+   "scrollW": 412,
+   "clientW": 412,
+   "bodyScrollW": 412,
+   "overflow": 0,
+   "title": "Граф связей механизмов — brain-25-evidence",
+   "h": 1687,
+   "culprits": [
+    {
+     "sel": "a.btn.c-support",
+     "right": 975,
+     "w": 131,
+     "left": 844
+    },
+    {
+     "sel": "a.btn.c-feedback",
+     "right": 838,
+     "w": 109,
+     "left": 729
+    },
+    {
+     "sel": "button#themeBtn.btn",
+     "right": 1079,
+     "w": 98,
+     "left": 981
+    },
+    {
+     "sel": "a.btn.c-trends",
+     "right": 658,
+     "w": 94,
+     "left": 564
+    },
+    {
+     "sel": "a.btn.c-links",
+     "right": 471,
+     "w": 82,
+     "left": 389
+    },
+    {
+     "sel": "a.btn.c-atlas",
+     "right": 558,
+     "w": 80,
+     "left": 477
+    },
+    {
+     "sel": "a.btn.c-bi",
+     "right": 722,
+     "w": 58,
+     "left": 664
+    }
+   ],
+   "tapTotal": 16,
+   "small44": [
+    {
+     "sel": "a.skip-link",
+     "w": 197.1,
+     "h": 24,
+     "text": "Перейти к содержимому",
+     "y": 0
+    },
+    {
+     "sel": "a",
+     "w": 208.9,
+     "h": 26,
+     "text": "🧠 brain-25-evidence",
+     "y": 51
+    }
+   ],
+   "small44n": 2,
+   "small24n": 0,
+   "tiny": [],
+   "tinyN": 0,
+   "fontsLoaded": [
+    "Inter|400|loaded",
+    "Inter|500|unloaded",
+    "Inter|600|loaded",
+    "Inter|700|loaded",
+    "Inter|800|loaded"
+   ],
+   "interOK": true,
+   "bodyFont": "Inter, system-ui, -apple-system, Segoe UI, sans-serif",
+   "header": {
+    "present": true,
+    "h": 162,
+    "actions": [
+     {
+      "t": "🏠 Главная",
+      "w": 98,
+      "h": 70,
+      "vis": true,
+      "inView": true,
+      "y": 97
+     },
+     {
+      "t": "🧮 Калькулятор",
+      "w": 132,
+      "h": 70,
+      "vis": true,
+      "inView": true,
+      "y": 97
+     },
+     {
+      "t": "🧩 Механизмы",
+      "w": 125,
+      "h": 70,
+      "vis": true,
+      "inView": true,
+      "y": 97
+     },
+     {
+      "t": "🔗 Связи",
+      "w": 82,
+      "h": 70,
+      "vis": true,
+      "inView": false,
+      "y": 97
+     },
+     {
+      "t": "🌐 Атлас",
+      "w": 80,
+      "h": 70,
+      "vis": true,
+      "inView": false,
+      "y": 97
+     },
+     {
+      "t": "📈 Тренды",
+      "w": 94,
+      "h": 70,
+      "vis": true,
+      "inView": false,
+      "y": 97
+     },
+     {
+      "t": "🧠 BI ↗",
+      "w": 58,
+      "h": 93,
+      "vis": true,
+      "inView": false,
+      "y": 86
+     },
+     {
+      "t": "💬 Обратная связь",
+      "w": 109,
+      "h": 93,
+      "vis": true,
+      "inView": false,
+      "y": 86
+     },
+     {
+      "t": "💚 Поддержать",
+      "w": 131,
+      "h": 70,
+      "vis": true,
+      "inView": false,
+      "y": 97
+     },
+     {
+      "t": "🌞 Светлая тема",
+      "w": 98,
+      "h": 93,
+      "vis": true,
+      "inView": false,
+      "y": 86
+     }
+    ],
+    "actionsVisible": 10,
+    "actionsOffscreen": 7
+   },
+   "bottomFixed": [
+    {
+     "sel": "div.site-header",
+     "position": "sticky",
+     "bottom": 178,
+     "h": 162,
+     "padBottom": "0px"
+    }
+   ]
+  }
+ },
+ {
+  "page": "graph",
+  "width": 428,
+  "url": "http://localhost:8000/graph.html",
+  "status": 200,
+  "data": {
+   "scrollW": 428,
+   "clientW": 428,
+   "bodyScrollW": 428,
+   "overflow": 0,
+   "title": "Граф связей механизмов — brain-25-evidence",
+   "h": 1662,
+   "culprits": [
+    {
+     "sel": "a.btn.c-support",
+     "right": 975,
+     "w": 131,
+     "left": 844
+    },
+    {
+     "sel": "a.btn.c-feedback",
+     "right": 838,
+     "w": 109,
+     "left": 729
+    },
+    {
+     "sel": "button#themeBtn.btn",
+     "right": 1079,
+     "w": 98,
+     "left": 981
+    },
+    {
+     "sel": "a.btn.c-trends",
+     "right": 658,
+     "w": 94,
+     "left": 564
+    },
+    {
+     "sel": "a.btn.c-links",
+     "right": 471,
+     "w": 82,
+     "left": 389
+    },
+    {
+     "sel": "a.btn.c-atlas",
+     "right": 558,
+     "w": 80,
+     "left": 477
+    },
+    {
+     "sel": "a.btn.c-bi",
+     "right": 722,
+     "w": 58,
+     "left": 664
+    }
+   ],
+   "tapTotal": 16,
+   "small44": [
+    {
+     "sel": "a.skip-link",
+     "w": 197.1,
+     "h": 24,
+     "text": "Перейти к содержимому",
+     "y": 0
+    },
+    {
+     "sel": "a",
+     "w": 208.9,
+     "h": 26,
+     "text": "🧠 brain-25-evidence",
+     "y": 51
+    }
+   ],
+   "small44n": 2,
+   "small24n": 0,
+   "tiny": [],
+   "tinyN": 0,
+   "fontsLoaded": [
+    "Inter|400|loaded",
+    "Inter|500|unloaded",
+    "Inter|600|loaded",
+    "Inter|700|loaded",
+    "Inter|800|loaded"
+   ],
+   "interOK": true,
+   "bodyFont": "Inter, system-ui, -apple-system, Segoe UI, sans-serif",
+   "header": {
+    "present": true,
+    "h": 162,
+    "actions": [
+     {
+      "t": "🏠 Главная",
+      "w": 98,
+      "h": 70,
+      "vis": true,
+      "inView": true,
+      "y": 97
+     },
+     {
+      "t": "🧮 Калькулятор",
+      "w": 132,
+      "h": 70,
+      "vis": true,
+      "inView": true,
+      "y": 97
+     },
+     {
+      "t": "🧩 Механизмы",
+      "w": 125,
+      "h": 70,
+      "vis": true,
+      "inView": true,
+      "y": 97
+     },
+     {
+      "t": "🔗 Связи",
+      "w": 82,
+      "h": 70,
+      "vis": true,
+      "inView": false,
+      "y": 97
+     },
+     {
+      "t": "🌐 Атлас",
+      "w": 80,
+      "h": 70,
+      "vis": true,
+      "inView": false,
+      "y": 97
+     },
+     {
+      "t": "📈 Тренды",
+      "w": 94,
+      "h": 70,
+      "vis": true,
+      "inView": false,
+      "y": 97
+     },
+     {
+      "t": "🧠 BI ↗",
+      "w": 58,
+      "h": 93,
+      "vis": true,
+      "inView": false,
+      "y": 86
+     },
+     {
+      "t": "💬 Обратная связь",
+      "w": 109,
+      "h": 93,
+      "vis": true,
+      "inView": false,
+      "y": 86
+     },
+     {
+      "t": "💚 Поддержать",
+      "w": 131,
+      "h": 70,
+      "vis": true,
+      "inView": false,
+      "y": 97
+     },
+     {
+      "t": "🌞 Светлая тема",
+      "w": 98,
+      "h": 93,
+      "vis": true,
+      "inView": false,
+      "y": 86
+     }
+    ],
+    "actionsVisible": 10,
+    "actionsOffscreen": 7
+   },
+   "bottomFixed": [
+    {
+     "sel": "div.site-header",
+     "position": "sticky",
+     "bottom": 178,
+     "h": 162,
+     "padBottom": "0px"
+    }
+   ]
+  }
+ },
+ {
+  "page": "graph",
+  "width": 768,
+  "url": "http://localhost:8000/graph.html",
+  "status": 200,
+  "data": {
+   "scrollW": 768,
+   "clientW": 768,
+   "bodyScrollW": 768,
+   "overflow": 0,
+   "title": "Граф связей механизмов — brain-25-evidence",
+   "h": 1617,
+   "culprits": [],
+   "tapTotal": 16,
+   "small44": [
+    {
+     "sel": "a.skip-link",
+     "w": 197.1,
+     "h": 24,
+     "text": "Перейти к содержимому",
+     "y": 0
+    },
+    {
+     "sel": "a",
+     "w": 217,
+     "h": 32.4,
+     "text": "🧠 brain-25-evidence",
+     "y": 51
+    }
+   ],
+   "small44n": 2,
+   "small24n": 0,
+   "tiny": [],
+   "tinyN": 0,
+   "fontsLoaded": [
+    "Inter|400|loaded",
+    "Inter|500|unloaded",
+    "Inter|600|loaded",
+    "Inter|700|loaded",
+    "Inter|800|loaded"
+   ],
+   "interOK": true,
+   "bodyFont": "Inter, system-ui, -apple-system, Segoe UI, sans-serif",
+   "header": {
+    "present": true,
+    "h": 241,
+    "actions": [
+     {
+      "t": "🏠 Главная",
+      "w": 121,
+      "h": 47,
+      "vis": true,
+      "inView": true,
+      "y": 100
+     },
+     {
+      "t": "🧮 Калькулятор",
+      "w": 157,
+      "h": 47,
+      "vis": true,
+      "inView": true,
+      "y": 100
+     },
+     {
+      "t": "🧩 Механизмы",
+      "w": 150,
+      "h": 47,
+      "vis": true,
+      "inView": true,
+      "y": 100
+     },
+     {
+      "t": "🔗 Связи",
+      "w": 107,
+      "h": 47,
+      "vis": true,
+      "inView": true,
+      "y": 100
+     },
+     {
+      "t": "🌐 Атлас",
+      "w": 104,
+      "h": 47,
+      "vis": true,
+      "inView": true,
+      "y": 100
+     },
+     {
+      "t": "📈 Тренды",
+      "w": 118,
+      "h": 47,
+      "vis": true,
+      "inView": true,
+      "y": 155
+     },
+     {
+      "t": "🧠 BI ↗",
+      "w": 92,
+      "h": 47,
+      "vis": true,
+      "inView": true,
+      "y": 155
+     },
+     {
+      "t": "💬 Обратная связь",
+      "w": 180,
+      "h": 47,
+      "vis": true,
+      "inView": true,
+      "y": 155
+     },
+     {
+      "t": "💚 Поддержать",
+      "w": 156,
+      "h": 47,
+      "vis": true,
+      "inView": true,
+      "y": 155
+     },
+     {
+      "t": "🌞 Светлая тема",
+      "w": 164,
+      "h": 47,
+      "vis": true,
+      "inView": true,
+      "y": 210
+     }
+    ],
+    "actionsVisible": 10,
+    "actionsOffscreen": 0
+   },
+   "bottomFixed": [
+    {
+     "sel": "div.site-header",
+     "position": "sticky",
+     "bottom": 257,
+     "h": 241,
+     "padBottom": "0px"
+    }
+   ]
+  }
+ },
+ {
+  "page": "graph",
+  "width": 1024,
+  "url": "http://localhost:8000/graph.html",
+  "status": 200,
+  "data": {
+   "scrollW": 1024,
+   "clientW": 1024,
+   "bodyScrollW": 1024,
+   "overflow": 0,
+   "title": "Граф связей механизмов — brain-25-evidence",
+   "h": 1529,
+   "culprits": [],
+   "tapTotal": 16,
+   "small44": [
+    {
+     "sel": "a.skip-link",
+     "w": 197.1,
+     "h": 24,
+     "text": "Перейти к содержимому",
+     "y": 0
+    },
+    {
+     "sel": "a",
+     "w": 217,
+     "h": 32.4,
+     "text": "🧠 brain-25-evidence",
+     "y": 59
+    }
+   ],
+   "small44n": 2,
+   "small24n": 0,
+   "tiny": [],
+   "tinyN": 0,
+   "fontsLoaded": [
+    "Inter|400|loaded",
+    "Inter|500|unloaded",
+    "Inter|600|loaded",
+    "Inter|700|loaded",
+    "Inter|800|loaded"
+   ],
+   "interOK": true,
+   "bodyFont": "Inter, system-ui, -apple-system, Segoe UI, sans-serif",
+   "header": {
+    "present": true,
+    "h": 186,
+    "actions": [
+     {
+      "t": "🏠 Главная",
+      "w": 121,
+      "h": 47,
+      "vis": true,
+      "inView": true,
+      "y": 108
+     },
+     {
+      "t": "🧮 Калькулятор",
+      "w": 157,
+      "h": 47,
+      "vis": true,
+      "inView": true,
+      "y": 108
+     },
+     {
+      "t": "🧩 Механизмы",
+      "w": 150,
+      "h": 47,
+      "vis": true,
+      "inView": true,
+      "y": 108
+     },
+     {
+      "t": "🔗 Связи",
+      "w": 107,
+      "h": 47,
+      "vis": true,
+      "inView": true,
+      "y": 108
+     },
+     {
+      "t": "🌐 Атлас",
+      "w": 104,
+      "h": 47,
+      "vis": true,
+      "inView": true,
+      "y": 108
+     },
+     {
+      "t": "📈 Тренды",
+      "w": 118,
+      "h": 47,
+      "vis": true,
+      "inView": true,
+      "y": 108
+     },
+     {
+      "t": "🧠 BI ↗",
+      "w": 92,
+      "h": 47,
+      "vis": true,
+      "inView": true,
+      "y": 108
+     },
+     {
+      "t": "💬 Обратная связь",
+      "w": 180,
+      "h": 47,
+      "vis": true,
+      "inView": true,
+      "y": 163
+     },
+     {
+      "t": "💚 Поддержать",
+      "w": 156,
+      "h": 47,
+      "vis": true,
+      "inView": true,
+      "y": 163
+     },
+     {
+      "t": "🌞 Светлая тема",
+      "w": 164,
+      "h": 47,
+      "vis": true,
+      "inView": true,
+      "y": 163
+     }
+    ],
+    "actionsVisible": 10,
+    "actionsOffscreen": 0
+   },
+   "bottomFixed": [
+    {
+     "sel": "div.site-header",
+     "position": "sticky",
+     "bottom": 210,
+     "h": 186,
+     "padBottom": "0px"
+    }
+   ]
+  }
+ },
+ {
+  "page": "sup/kreatin",
+  "width": 320,
+  "url": "http://localhost:8000/sup/kreatin.html",
+  "status": 200,
+  "data": {
+   "scrollW": 320,
+   "clientW": 320,
+   "bodyScrollW": 320,
+   "overflow": 0,
+   "title": "Креатин — БАДы, доказательства, механизмы | Brain 25 Evidence",
+   "h": 5861,
+   "culprits": [
+    {
+     "sel": "a.btn.c-support",
+     "right": 366,
+     "w": 131,
+     "left": 236
+    },
+    {
+     "sel": "button#themeBtn.btn",
+     "right": 471,
+     "w": 98,
+     "left": 372
+    }
+   ],
+   "tapTotal": 16,
+   "small44": [
+    {
+     "sel": "a.skip-link",
+     "w": 197.1,
+     "h": 24,
+     "text": "Перейти к содержимому",
+     "y": 0
+    },
+    {
+     "sel": "a",
+     "w": 208.9,
+     "h": 26,
+     "text": "🧠 brain-25-evidence",
+     "y": 70
+    }
+   ],
+   "small44n": 2,
+   "small24n": 0,
+   "tiny": [],
+   "tinyN": 0,
+   "fontsLoaded": [
+    "Inter|400|loaded",
+    "Inter|500|loaded",
+    "Inter|600|loaded",
+    "Inter|700|loaded",
+    "Inter|800|loaded"
+   ],
+   "interOK": true,
+   "bodyFont": "Inter, system-ui, -apple-system, Segoe UI, sans-serif",
+   "header": {
+    "present": true,
+    "h": 181,
+    "actions": [
+     {
+      "t": "🏠 Главная",
+      "w": 98,
+      "h": 70,
+      "vis": true,
+      "inView": true,
+      "y": 116
+     },
+     {
+      "t": "💬 Обратная связь",
+      "w": 109,
+      "h": 93,
+      "vis": true,
+      "inView": true,
+      "y": 105
+     },
+     {
+      "t": "💚 Поддержать",
+      "w": 131,
+      "h": 70,
+      "vis": true,
+      "inView": false,
+      "y": 116
+     },
+     {
+      "t": "🌞 Светлая тема",
+      "w": 98,
+      "h": 82,
+      "vis": true,
+      "inView": false,
+      "y": 110
+     }
+    ],
+    "actionsVisible": 4,
+    "actionsOffscreen": 2
+   },
+   "bottomFixed": [
+    {
+     "sel": "div.site-header",
+     "position": "sticky",
+     "bottom": 197,
+     "h": 181,
+     "padBottom": "0px"
+    }
+   ]
+  }
+ },
+ {
+  "page": "sup/kreatin",
+  "width": 360,
+  "url": "http://localhost:8000/sup/kreatin.html",
+  "status": 200,
+  "data": {
+   "scrollW": 360,
+   "clientW": 360,
+   "bodyScrollW": 360,
+   "overflow": 0,
+   "title": "Креатин — БАДы, доказательства, механизмы | Brain 25 Evidence",
+   "h": 5184,
+   "culprits": [
+    {
+     "sel": "a.btn.c-support",
+     "right": 366,
+     "w": 131,
+     "left": 236
+    },
+    {
+     "sel": "button#themeBtn.btn",
+     "right": 471,
+     "w": 98,
+     "left": 372
+    }
+   ],
+   "tapTotal": 16,
+   "small44": [
+    {
+     "sel": "a.skip-link",
+     "w": 197.1,
+     "h": 24,
+     "text": "Перейти к содержимому",
+     "y": 0
+    },
+    {
+     "sel": "a",
+     "w": 208.9,
+     "h": 26,
+     "text": "🧠 brain-25-evidence",
+     "y": 70
+    }
+   ],
+   "small44n": 2,
+   "small24n": 0,
+   "tiny": [],
+   "tinyN": 0,
+   "fontsLoaded": [
+    "Inter|400|loaded",
+    "Inter|500|loaded",
+    "Inter|600|loaded",
+    "Inter|700|loaded",
+    "Inter|800|loaded"
+   ],
+   "interOK": true,
+   "bodyFont": "Inter, system-ui, -apple-system, Segoe UI, sans-serif",
+   "header": {
+    "present": true,
+    "h": 181,
+    "actions": [
+     {
+      "t": "🏠 Главная",
+      "w": 98,
+      "h": 70,
+      "vis": true,
+      "inView": true,
+      "y": 116
+     },
+     {
+      "t": "💬 Обратная связь",
+      "w": 109,
+      "h": 93,
+      "vis": true,
+      "inView": true,
+      "y": 105
+     },
+     {
+      "t": "💚 Поддержать",
+      "w": 131,
+      "h": 70,
+      "vis": true,
+      "inView": false,
+      "y": 116
+     },
+     {
+      "t": "🌞 Светлая тема",
+      "w": 98,
+      "h": 82,
+      "vis": true,
+      "inView": false,
+      "y": 110
+     }
+    ],
+    "actionsVisible": 4,
+    "actionsOffscreen": 2
+   },
+   "bottomFixed": [
+    {
+     "sel": "div.site-header",
+     "position": "sticky",
+     "bottom": 197,
+     "h": 181,
+     "padBottom": "0px"
+    }
+   ]
+  }
+ },
+ {
+  "page": "sup/kreatin",
+  "width": 375,
+  "url": "http://localhost:8000/sup/kreatin.html",
+  "status": 200,
+  "data": {
+   "scrollW": 375,
+   "clientW": 375,
+   "bodyScrollW": 375,
+   "overflow": 0,
+   "title": "Креатин — БАДы, доказательства, механизмы | Brain 25 Evidence",
+   "h": 5022,
+   "culprits": [
+    {
+     "sel": "button#themeBtn.btn",
+     "right": 471,
+     "w": 98,
+     "left": 372
+    }
+   ],
+   "tapTotal": 16,
+   "small44": [
+    {
+     "sel": "a.skip-link",
+     "w": 197.1,
+     "h": 24,
+     "text": "Перейти к содержимому",
+     "y": 0
+    },
+    {
+     "sel": "a",
+     "w": 208.9,
+     "h": 26,
+     "text": "🧠 brain-25-evidence",
+     "y": 51
+    }
+   ],
+   "small44n": 2,
+   "small24n": 0,
+   "tiny": [],
+   "tinyN": 0,
+   "fontsLoaded": [
+    "Inter|400|loaded",
+    "Inter|500|loaded",
+    "Inter|600|loaded",
+    "Inter|700|loaded",
+    "Inter|800|loaded"
+   ],
+   "interOK": true,
+   "bodyFont": "Inter, system-ui, -apple-system, Segoe UI, sans-serif",
+   "header": {
+    "present": true,
+    "h": 162,
+    "actions": [
+     {
+      "t": "🏠 Главная",
+      "w": 98,
+      "h": 70,
+      "vis": true,
+      "inView": true,
+      "y": 97
+     },
+     {
+      "t": "💬 Обратная связь",
+      "w": 109,
+      "h": 93,
+      "vis": true,
+      "inView": true,
+      "y": 86
+     },
+     {
+      "t": "💚 Поддержать",
+      "w": 131,
+      "h": 70,
+      "vis": true,
+      "inView": true,
+      "y": 97
+     },
+     {
+      "t": "🌞 Светлая тема",
+      "w": 98,
+      "h": 82,
+      "vis": true,
+      "inView": false,
+      "y": 91
+     }
+    ],
+    "actionsVisible": 4,
+    "actionsOffscreen": 1
+   },
+   "bottomFixed": [
+    {
+     "sel": "div.site-header",
+     "position": "sticky",
+     "bottom": 178,
+     "h": 162,
+     "padBottom": "0px"
+    }
+   ]
+  }
+ },
+ {
+  "page": "sup/kreatin",
+  "width": 390,
+  "url": "http://localhost:8000/sup/kreatin.html",
+  "status": 200,
+  "data": {
+   "scrollW": 390,
+   "clientW": 390,
+   "bodyScrollW": 390,
+   "overflow": 0,
+   "title": "Креатин — БАДы, доказательства, механизмы | Brain 25 Evidence",
+   "h": 4890,
+   "culprits": [
+    {
+     "sel": "button#themeBtn.btn",
+     "right": 471,
+     "w": 98,
+     "left": 372
+    }
+   ],
+   "tapTotal": 16,
+   "small44": [
+    {
+     "sel": "a.skip-link",
+     "w": 197.1,
+     "h": 24,
+     "text": "Перейти к содержимому",
+     "y": 0
+    },
+    {
+     "sel": "a",
+     "w": 208.9,
+     "h": 26,
+     "text": "🧠 brain-25-evidence",
+     "y": 51
+    }
+   ],
+   "small44n": 2,
+   "small24n": 0,
+   "tiny": [],
+   "tinyN": 0,
+   "fontsLoaded": [
+    "Inter|400|loaded",
+    "Inter|500|loaded",
+    "Inter|600|loaded",
+    "Inter|700|loaded",
+    "Inter|800|loaded"
+   ],
+   "interOK": true,
+   "bodyFont": "Inter, system-ui, -apple-system, Segoe UI, sans-serif",
+   "header": {
+    "present": true,
+    "h": 162,
+    "actions": [
+     {
+      "t": "🏠 Главная",
+      "w": 98,
+      "h": 70,
+      "vis": true,
+      "inView": true,
+      "y": 97
+     },
+     {
+      "t": "💬 Обратная связь",
+      "w": 109,
+      "h": 93,
+      "vis": true,
+      "inView": true,
+      "y": 86
+     },
+     {
+      "t": "💚 Поддержать",
+      "w": 131,
+      "h": 70,
+      "vis": true,
+      "inView": true,
+      "y": 97
+     },
+     {
+      "t": "🌞 Светлая тема",
+      "w": 98,
+      "h": 82,
+      "vis": true,
+      "inView": false,
+      "y": 91
+     }
+    ],
+    "actionsVisible": 4,
+    "actionsOffscreen": 1
+   },
+   "bottomFixed": [
+    {
+     "sel": "div.site-header",
+     "position": "sticky",
+     "bottom": 178,
+     "h": 162,
+     "padBottom": "0px"
+    }
+   ]
+  }
+ },
+ {
+  "page": "sup/kreatin",
+  "width": 393,
+  "url": "http://localhost:8000/sup/kreatin.html",
+  "status": 200,
+  "data": {
+   "scrollW": 393,
+   "clientW": 393,
+   "bodyScrollW": 393,
+   "overflow": 0,
+   "title": "Креатин — БАДы, доказательства, механизмы | Brain 25 Evidence",
+   "h": 4843,
+   "culprits": [
+    {
+     "sel": "button#themeBtn.btn",
+     "right": 471,
+     "w": 98,
+     "left": 372
+    }
+   ],
+   "tapTotal": 16,
+   "small44": [
+    {
+     "sel": "a.skip-link",
+     "w": 197.1,
+     "h": 24,
+     "text": "Перейти к содержимому",
+     "y": 0
+    },
+    {
+     "sel": "a",
+     "w": 208.9,
+     "h": 26,
+     "text": "🧠 brain-25-evidence",
+     "y": 51
+    }
+   ],
+   "small44n": 2,
+   "small24n": 0,
+   "tiny": [],
+   "tinyN": 0,
+   "fontsLoaded": [
+    "Inter|400|loaded",
+    "Inter|500|loaded",
+    "Inter|600|loaded",
+    "Inter|700|loaded",
+    "Inter|800|loaded"
+   ],
+   "interOK": true,
+   "bodyFont": "Inter, system-ui, -apple-system, Segoe UI, sans-serif",
+   "header": {
+    "present": true,
+    "h": 162,
+    "actions": [
+     {
+      "t": "🏠 Главная",
+      "w": 98,
+      "h": 70,
+      "vis": true,
+      "inView": true,
+      "y": 97
+     },
+     {
+      "t": "💬 Обратная связь",
+      "w": 109,
+      "h": 93,
+      "vis": true,
+      "inView": true,
+      "y": 86
+     },
+     {
+      "t": "💚 Поддержать",
+      "w": 131,
+      "h": 70,
+      "vis": true,
+      "inView": true,
+      "y": 97
+     },
+     {
+      "t": "🌞 Светлая тема",
+      "w": 98,
+      "h": 82,
+      "vis": true,
+      "inView": false,
+      "y": 91
+     }
+    ],
+    "actionsVisible": 4,
+    "actionsOffscreen": 1
+   },
+   "bottomFixed": [
+    {
+     "sel": "div.site-header",
+     "position": "sticky",
+     "bottom": 178,
+     "h": 162,
+     "padBottom": "0px"
+    }
+   ]
+  }
+ },
+ {
+  "page": "sup/kreatin",
+  "width": 412,
+  "url": "http://localhost:8000/sup/kreatin.html",
+  "status": 200,
+  "data": {
+   "scrollW": 412,
+   "clientW": 412,
+   "bodyScrollW": 412,
+   "overflow": 0,
+   "title": "Креатин — БАДы, доказательства, механизмы | Brain 25 Evidence",
+   "h": 4586,
+   "culprits": [
+    {
+     "sel": "button#themeBtn.btn",
+     "right": 471,
+     "w": 98,
+     "left": 372
+    }
+   ],
+   "tapTotal": 16,
+   "small44": [
+    {
+     "sel": "a.skip-link",
+     "w": 197.1,
+     "h": 24,
+     "text": "Перейти к содержимому",
+     "y": 0
+    },
+    {
+     "sel": "a",
+     "w": 208.9,
+     "h": 26,
+     "text": "🧠 brain-25-evidence",
+     "y": 51
+    }
+   ],
+   "small44n": 2,
+   "small24n": 0,
+   "tiny": [],
+   "tinyN": 0,
+   "fontsLoaded": [
+    "Inter|400|loaded",
+    "Inter|500|loaded",
+    "Inter|600|loaded",
+    "Inter|700|loaded",
+    "Inter|800|loaded"
+   ],
+   "interOK": true,
+   "bodyFont": "Inter, system-ui, -apple-system, Segoe UI, sans-serif",
+   "header": {
+    "present": true,
+    "h": 162,
+    "actions": [
+     {
+      "t": "🏠 Главная",
+      "w": 98,
+      "h": 70,
+      "vis": true,
+      "inView": true,
+      "y": 97
+     },
+     {
+      "t": "💬 Обратная связь",
+      "w": 109,
+      "h": 93,
+      "vis": true,
+      "inView": true,
+      "y": 86
+     },
+     {
+      "t": "💚 Поддержать",
+      "w": 131,
+      "h": 70,
+      "vis": true,
+      "inView": true,
+      "y": 97
+     },
+     {
+      "t": "🌞 Светлая тема",
+      "w": 98,
+      "h": 82,
+      "vis": true,
+      "inView": false,
+      "y": 91
+     }
+    ],
+    "actionsVisible": 4,
+    "actionsOffscreen": 1
+   },
+   "bottomFixed": [
+    {
+     "sel": "div.site-header",
+     "position": "sticky",
+     "bottom": 178,
+     "h": 162,
+     "padBottom": "0px"
+    }
+   ]
+  }
+ },
+ {
+  "page": "sup/kreatin",
+  "width": 428,
+  "url": "http://localhost:8000/sup/kreatin.html",
+  "status": 200,
+  "data": {
+   "scrollW": 428,
+   "clientW": 428,
+   "bodyScrollW": 428,
+   "overflow": 0,
+   "title": "Креатин — БАДы, доказательства, механизмы | Brain 25 Evidence",
+   "h": 4463,
+   "culprits": [
+    {
+     "sel": "button#themeBtn.btn",
+     "right": 471,
+     "w": 98,
+     "left": 372
+    }
+   ],
+   "tapTotal": 16,
+   "small44": [
+    {
+     "sel": "a.skip-link",
+     "w": 197.1,
+     "h": 24,
+     "text": "Перейти к содержимому",
+     "y": 0
+    },
+    {
+     "sel": "a",
+     "w": 208.9,
+     "h": 26,
+     "text": "🧠 brain-25-evidence",
+     "y": 51
+    }
+   ],
+   "small44n": 2,
+   "small24n": 0,
+   "tiny": [],
+   "tinyN": 0,
+   "fontsLoaded": [
+    "Inter|400|loaded",
+    "Inter|500|loaded",
+    "Inter|600|loaded",
+    "Inter|700|loaded",
+    "Inter|800|loaded"
+   ],
+   "interOK": true,
+   "bodyFont": "Inter, system-ui, -apple-system, Segoe UI, sans-serif",
+   "header": {
+    "present": true,
+    "h": 162,
+    "actions": [
+     {
+      "t": "🏠 Главная",
+      "w": 98,
+      "h": 70,
+      "vis": true,
+      "inView": true,
+      "y": 97
+     },
+     {
+      "t": "💬 Обратная связь",
+      "w": 109,
+      "h": 93,
+      "vis": true,
+      "inView": true,
+      "y": 86
+     },
+     {
+      "t": "💚 Поддержать",
+      "w": 131,
+      "h": 70,
+      "vis": true,
+      "inView": true,
+      "y": 97
+     },
+     {
+      "t": "🌞 Светлая тема",
+      "w": 98,
+      "h": 82,
+      "vis": true,
+      "inView": false,
+      "y": 91
+     }
+    ],
+    "actionsVisible": 4,
+    "actionsOffscreen": 1
+   },
+   "bottomFixed": [
+    {
+     "sel": "div.site-header",
+     "position": "sticky",
+     "bottom": 178,
+     "h": 162,
+     "padBottom": "0px"
+    }
+   ]
+  }
+ },
+ {
+  "page": "sup/kreatin",
+  "width": 768,
+  "url": "http://localhost:8000/sup/kreatin.html",
+  "status": 200,
+  "data": {
+   "scrollW": 768,
+   "clientW": 768,
+   "bodyScrollW": 768,
+   "overflow": 0,
+   "title": "Креатин — БАДы, доказательства, механизмы | Brain 25 Evidence",
+   "h": 3607,
+   "culprits": [],
+   "tapTotal": 16,
+   "small44": [
+    {
+     "sel": "a.skip-link",
+     "w": 197.1,
+     "h": 24,
+     "text": "Перейти к содержимому",
+     "y": 0
+    },
+    {
+     "sel": "a",
+     "w": 217,
+     "h": 32.4,
+     "text": "🧠 brain-25-evidence",
+     "y": 51
+    }
+   ],
+   "small44n": 2,
+   "small24n": 0,
+   "tiny": [],
+   "tinyN": 0,
+   "fontsLoaded": [
+    "Inter|400|loaded",
+    "Inter|500|loaded",
+    "Inter|600|loaded",
+    "Inter|700|loaded",
+    "Inter|800|loaded"
+   ],
+   "interOK": true,
+   "bodyFont": "Inter, system-ui, -apple-system, Segoe UI, sans-serif",
+   "header": {
+    "present": true,
+    "h": 131,
+    "actions": [
+     {
+      "t": "🏠 Главная",
+      "w": 121,
+      "h": 47,
+      "vis": true,
+      "inView": true,
+      "y": 100
+     },
+     {
+      "t": "💬 Обратная связь",
+      "w": 180,
+      "h": 47,
+      "vis": true,
+      "inView": true,
+      "y": 100
+     },
+     {
+      "t": "💚 Поддержать",
+      "w": 156,
+      "h": 47,
+      "vis": true,
+      "inView": true,
+      "y": 100
+     },
+     {
+      "t": "🌞 Светлая тема",
+      "w": 164,
+      "h": 44,
+      "vis": true,
+      "inView": true,
+      "y": 101
+     }
+    ],
+    "actionsVisible": 4,
+    "actionsOffscreen": 0
+   },
+   "bottomFixed": [
+    {
+     "sel": "div.site-header",
+     "position": "sticky",
+     "bottom": 147,
+     "h": 131,
+     "padBottom": "0px"
+    }
+   ]
+  }
+ },
+ {
+  "page": "sup/kreatin",
+  "width": 1024,
+  "url": "http://localhost:8000/sup/kreatin.html",
+  "status": 200,
+  "data": {
+   "scrollW": 1024,
+   "clientW": 1024,
+   "bodyScrollW": 1024,
+   "overflow": 0,
+   "title": "Креатин — БАДы, доказательства, механизмы | Brain 25 Evidence",
+   "h": 3476,
+   "culprits": [],
+   "tapTotal": 16,
+   "small44": [
+    {
+     "sel": "a.skip-link",
+     "w": 197.1,
+     "h": 24,
+     "text": "Перейти к содержимому",
+     "y": 0
+    },
+    {
+     "sel": "a",
+     "w": 217,
+     "h": 32.4,
+     "text": "🧠 brain-25-evidence",
+     "y": 65
+    }
+   ],
+   "small44n": 2,
+   "small24n": 0,
+   "tiny": [],
+   "tinyN": 0,
+   "fontsLoaded": [
+    "Inter|400|loaded",
+    "Inter|500|loaded",
+    "Inter|600|loaded",
+    "Inter|700|loaded",
+    "Inter|800|loaded"
+   ],
+   "interOK": true,
+   "bodyFont": "Inter, system-ui, -apple-system, Segoe UI, sans-serif",
+   "header": {
+    "present": true,
+    "h": 82,
+    "actions": [
+     {
+      "t": "🏠 Главная",
+      "w": 121,
+      "h": 47,
+      "vis": true,
+      "inView": true,
+      "y": 59
+     },
+     {
+      "t": "💬 Обратная связь",
+      "w": 180,
+      "h": 47,
+      "vis": true,
+      "inView": true,
+      "y": 59
+     },
+     {
+      "t": "💚 Поддержать",
+      "w": 156,
+      "h": 47,
+      "vis": true,
+      "inView": true,
+      "y": 59
+     },
+     {
+      "t": "🌞 Светлая тема",
+      "w": 164,
+      "h": 44,
+      "vis": true,
+      "inView": true,
+      "y": 60
+     }
+    ],
+    "actionsVisible": 4,
+    "actionsOffscreen": 0
+   },
+   "bottomFixed": [
+    {
+     "sel": "div.site-header",
+     "position": "sticky",
+     "bottom": 106,
+     "h": 82,
+     "padBottom": "0px"
+    }
+   ]
+  }
+ }
+]

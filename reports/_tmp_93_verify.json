@@ -1,0 +1,556 @@
+{
+ "footerLinks": {
+  "index": [
+   {
+    "t": "📐 Методология",
+    "w": 129,
+    "h": 50
+   },
+   {
+    "t": "❓ FAQ",
+    "w": 50,
+    "h": 50
+   },
+   {
+    "t": "📖 Глоссарий",
+    "w": 111,
+    "h": 50
+   },
+   {
+    "t": "💊 Каталог БАДов",
+    "w": 146,
+    "h": 50
+   }
+  ],
+  "calculator": [
+   {
+    "t": "📐 Методология",
+    "w": 129,
+    "h": 50
+   },
+   {
+    "t": "❓ FAQ",
+    "w": 50,
+    "h": 50
+   },
+   {
+    "t": "📖 Глоссарий",
+    "w": 111,
+    "h": 50
+   }
+  ],
+  "map": [
+   {
+    "t": "📐 Методология",
+    "w": 129,
+    "h": 50
+   },
+   {
+    "t": "❓ FAQ",
+    "w": 50,
+    "h": 50
+   },
+   {
+    "t": "📖 Глоссарий",
+    "w": 111,
+    "h": 50
+   }
+  ],
+  "graph": [
+   {
+    "t": "📐 Методология",
+    "w": 129,
+    "h": 50
+   },
+   {
+    "t": "❓ FAQ",
+    "w": 50,
+    "h": 50
+   },
+   {
+    "t": "📖 Глоссарий",
+    "w": 111,
+    "h": 50
+   }
+  ],
+  "trends": [
+   {
+    "t": "📐 Методология",
+    "w": 129,
+    "h": 50
+   },
+   {
+    "t": "❓ FAQ",
+    "w": 50,
+    "h": 50
+   },
+   {
+    "t": "📖 Глоссарий",
+    "w": 111,
+    "h": 50
+   }
+  ],
+  "faq": [
+   {
+    "t": "📐 Методология",
+    "w": 129,
+    "h": 50
+   },
+   {
+    "t": "❓ FAQ",
+    "w": 50,
+    "h": 50
+   },
+   {
+    "t": "📖 Глоссарий",
+    "w": 111,
+    "h": 50
+   }
+  ],
+  "glossary": [
+   {
+    "t": "📐 Методология",
+    "w": 129,
+    "h": 50
+   },
+   {
+    "t": "❓ FAQ",
+    "w": 50,
+    "h": 50
+   },
+   {
+    "t": "📖 Глоссарий",
+    "w": 111,
+    "h": 50
+   }
+  ],
+  "methodology": [
+   {
+    "t": "📐 Методология",
+    "w": 129,
+    "h": 50
+   },
+   {
+    "t": "❓ FAQ",
+    "w": 50,
+    "h": 50
+   },
+   {
+    "t": "📖 Глоссарий",
+    "w": 111,
+    "h": 50
+   }
+  ],
+  "sup/kreatin": [
+   {
+    "t": "📐 Методология",
+    "w": 129,
+    "h": 50
+   },
+   {
+    "t": "❓ FAQ",
+    "w": 50,
+    "h": 50
+   },
+   {
+    "t": "📖 Глоссарий",
+    "w": 111,
+    "h": 50
+   }
+  ]
+ },
+ "summary": {
+  "faq": [
+   {
+    "h": 46,
+    "pad": "11.2px 12px",
+    "minH": "44px",
+    "cursor": "pointer",
+    "parent": "details.qa",
+    "text": "1. Что такое мета-анализ"
+   },
+   {
+    "h": 46,
+    "pad": "11.2px 12px",
+    "minH": "44px",
+    "cursor": "pointer",
+    "parent": "details.qa",
+    "text": "2. Что такое Hedges' g?"
+   },
+   {
+    "h": 46,
+    "pad": "11.2px 12px",
+    "minH": "44px",
+    "cursor": "pointer",
+    "parent": "details.qa",
+    "text": "3. Что такое грейд A-D?"
+   },
+   {
+    "h": 70,
+    "pad": "11.2px 12px",
+    "minH": "44px",
+    "cursor": "pointer",
+    "parent": "details.qa",
+    "text": "4. Почему некоторые доба"
+   },
+   {
+    "h": 46,
+    "pad": "11.2px 12px",
+    "minH": "44px",
+    "cursor": "pointer",
+    "parent": "details.qa",
+    "text": "5. Как читать квадрант д"
+   },
+   {
+    "h": 46,
+    "pad": "11.2px 12px",
+    "minH": "44px",
+    "cursor": "pointer",
+    "parent": "details.qa",
+    "text": "6. Что делать если цена "
+   },
+   {
+    "h": 46,
+    "pad": "11.2px 12px",
+    "minH": "44px",
+    "cursor": "pointer",
+    "parent": "details.qa",
+    "text": "7. Можно ли принимать вс"
+   },
+   {
+    "h": 46,
+    "pad": "11.2px 12px",
+    "minH": "44px",
+    "cursor": "pointer",
+    "parent": "details.qa",
+    "text": "8. Когда ждать эффект?"
+   },
+   {
+    "h": 46,
+    "pad": "11.2px 12px",
+    "minH": "44px",
+    "cursor": "pointer",
+    "parent": "details.qa",
+    "text": "Как работает калькулятор"
+   },
+   {
+    "h": 46,
+    "pad": "11.2px 12px",
+    "minH": "44px",
+    "cursor": "pointer",
+    "parent": "details.qa",
+    "text": "Можно ли сохранить свой "
+   },
+   {
+    "h": 46,
+    "pad": "11.2px 12px",
+    "minH": "44px",
+    "cursor": "pointer",
+    "parent": "details.qa",
+    "text": "Откуда берутся дозы и ко"
+   },
+   {
+    "h": 46,
+    "pad": "11.2px 12px",
+    "minH": "44px",
+    "cursor": "pointer",
+    "parent": "details.qa",
+    "text": "Это медицинская рекоменд"
+   }
+  ],
+  "index": [
+   {
+    "h": 44,
+    "pad": "8.8px 12px",
+    "minH": "44px",
+    "cursor": "pointer",
+    "parent": "details.qa-details",
+    "text": "Сначала ответим на 3 воп"
+   },
+   {
+    "h": 46,
+    "pad": "11.2px 12px",
+    "minH": "44px",
+    "cursor": "pointer",
+    "parent": "details.method",
+    "text": "📐 Что такое «индекс нау"
+   },
+   {
+    "h": 70,
+    "pad": "11.2px 12px",
+    "minH": "44px",
+    "cursor": "pointer",
+    "parent": "details.method",
+    "text": "🎯 Что такое «сила эффек"
+   }
+  ]
+ },
+ "selects_trends": [
+  {
+   "id": "periodFilter",
+   "w": 131,
+   "h": 54,
+   "minH": "44px"
+  },
+  {
+   "id": "categoryFilter",
+   "w": 238,
+   "h": 54,
+   "minH": "44px"
+  },
+  {
+   "id": "gradeFilter",
+   "w": 73,
+   "h": 54,
+   "minH": "44px"
+  },
+  {
+   "id": "topFilter",
+   "w": 64,
+   "h": 54,
+   "minH": "44px"
+  }
+ ],
+ "modal": {
+  "320": {
+   "before": {
+    "overflow": "visible"
+   },
+   "after": {
+    "exists": true,
+    "overlayDisplay": "flex",
+    "modalDisplay": "block",
+    "bodyOverflow": "hidden",
+    "modalScrollH": 3691,
+    "winH": 700
+   }
+  },
+  "393": {
+   "before": {
+    "overflow": "visible"
+   },
+   "after": {
+    "exists": true,
+    "overlayDisplay": "flex",
+    "modalDisplay": "block",
+    "bodyOverflow": "hidden",
+    "modalScrollH": 3291,
+    "winH": 700
+   }
+  },
+  "412": {
+   "before": {
+    "overflow": "visible"
+   },
+   "after": {
+    "exists": true,
+    "overlayDisplay": "flex",
+    "modalDisplay": "block",
+    "bodyOverflow": "hidden",
+    "modalScrollH": 3137,
+    "winH": 700
+   }
+  }
+ },
+ "inputs": {
+  "calculator": [
+   {
+    "id": "pWeight",
+    "type": "number",
+    "w": 155,
+    "h": 36,
+    "minH": "0px"
+   },
+   {
+    "id": "pAge",
+    "type": "number",
+    "w": 155,
+    "h": 36,
+    "minH": "0px"
+   },
+   {
+    "id": "q",
+    "type": "text",
+    "w": 243,
+    "h": 44,
+    "minH": "auto"
+   }
+  ],
+  "interactions": [
+   {
+    "id": "search",
+    "type": "text",
+    "w": 345,
+    "h": 35,
+    "minH": "auto"
+   }
+  ],
+  "atlas": [
+   {
+    "id": "q",
+    "type": "text",
+    "w": 227,
+    "h": 35,
+    "minH": "auto"
+   }
+  ],
+  "feedback": [
+   {
+    "id": "topic",
+    "type": "text",
+    "w": 353,
+    "h": 42,
+    "minH": "auto"
+   },
+   {
+    "id": "message",
+    "type": "textarea",
+    "w": 353,
+    "h": 140,
+    "minH": "140px"
+   },
+   {
+    "id": "email",
+    "type": "email",
+    "w": 353,
+    "h": 42,
+    "minH": "auto"
+   },
+   {
+    "id": "consent",
+    "type": "checkbox",
+    "w": 16,
+    "h": 16,
+    "minH": "16px"
+   }
+  ],
+  "sup/index": [
+   {
+    "id": "supSearch",
+    "type": "text",
+    "w": 380,
+    "h": 24,
+    "minH": "auto"
+   }
+  ]
+ },
+ "themeColor": {
+  "index": {
+   "first": "#f5f5f7",
+   "all": [
+    "#f5f5f7 @(prefers-color-scheme: light)",
+    "#1c1c1e @(prefers-color-scheme: dark)"
+   ],
+   "htmlClass": "",
+   "bodyBg": "rgb(28, 28, 30)"
+  },
+  "calculator": {
+   "first": "#f5f5f7",
+   "all": [
+    "#f5f5f7 @(prefers-color-scheme: light)",
+    "#1c1c1e @(prefers-color-scheme: dark)"
+   ],
+   "htmlClass": "",
+   "bodyBg": "rgb(28, 28, 30)"
+  },
+  "map": {
+   "first": "#f5f5f7",
+   "all": [
+    "#f5f5f7 @(prefers-color-scheme: light)",
+    "#1c1c1e @(prefers-color-scheme: dark)"
+   ],
+   "htmlClass": "",
+   "bodyBg": "rgb(28, 28, 30)"
+  },
+  "graph": {
+   "first": "#f5f5f7",
+   "all": [
+    "#f5f5f7 @(prefers-color-scheme: light)",
+    "#1c1c1e @(prefers-color-scheme: dark)"
+   ],
+   "htmlClass": "",
+   "bodyBg": "rgb(28, 28, 30)"
+  },
+  "trends": {
+   "first": "#f5f5f7",
+   "all": [
+    "#f5f5f7 @(prefers-color-scheme: light)",
+    "#1c1c1e @(prefers-color-scheme: dark)"
+   ],
+   "htmlClass": "",
+   "bodyBg": "rgb(28, 28, 30)"
+  },
+  "faq": {
+   "first": "#f5f5f7",
+   "all": [
+    "#f5f5f7 @(prefers-color-scheme: light)",
+    "#1c1c1e @(prefers-color-scheme: dark)"
+   ],
+   "htmlClass": "",
+   "bodyBg": "rgb(28, 28, 30)"
+  },
+  "atlas": {
+   "first": "#f5f5f7",
+   "all": [
+    "#f5f5f7 @(prefers-color-scheme: light)",
+    "#1c1c1e @(prefers-color-scheme: dark)"
+   ],
+   "htmlClass": "",
+   "bodyBg": "rgb(28, 28, 30)"
+  },
+  "interactions": {
+   "first": "#f5f5f7",
+   "all": [
+    "#f5f5f7 @(prefers-color-scheme: light)",
+    "#1c1c1e @(prefers-color-scheme: dark)"
+   ],
+   "htmlClass": "",
+   "bodyBg": "rgb(28, 28, 30)"
+  },
+  "feedback": {
+   "first": "#f5f5f7",
+   "all": [
+    "#f5f5f7 @(prefers-color-scheme: light)",
+    "#1c1c1e @(prefers-color-scheme: dark)"
+   ],
+   "htmlClass": "",
+   "bodyBg": "rgb(28, 28, 30)"
+  },
+  "support": {
+   "first": "#f5f5f7",
+   "all": [
+    "#f5f5f7 @(prefers-color-scheme: light)",
+    "#1c1c1e @(prefers-color-scheme: dark)"
+   ],
+   "htmlClass": "",
+   "bodyBg": "rgb(28, 28, 30)"
+  },
+  "glossary": {
+   "first": "#f5f5f7",
+   "all": [
+    "#f5f5f7 @(prefers-color-scheme: light)",
+    "#1c1c1e @(prefers-color-scheme: dark)"
+   ],
+   "htmlClass": "",
+   "bodyBg": "rgb(28, 28, 30)"
+  },
+  "methodology": {
+   "first": "#f5f5f7",
+   "all": [
+    "#f5f5f7 @(prefers-color-scheme: light)",
+    "#1c1c1e @(prefers-color-scheme: dark)"
+   ],
+   "htmlClass": "",
+   "bodyBg": "rgb(28, 28, 30)"
+  },
+  "sup/kreatin": {
+   "first": "#f5f5f7",
+   "all": [
+    "#f5f5f7 @(prefers-color-scheme: light)",
+    "#1c1c1e @(prefers-color-scheme: dark)"
+   ],
+   "htmlClass": "",
+   "bodyBg": "rgb(28, 28, 30)"
+  }
+ }
+}

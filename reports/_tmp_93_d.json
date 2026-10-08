@@ -1,0 +1,638 @@
+[
+ {
+  "device": "iPhone 14 Pro Max",
+  "w": 430,
+  "h": 932,
+  "inset": {
+   "top": 59,
+   "bottom": 34,
+   "left": 0,
+   "right": 0
+  },
+  "page": "index",
+  "status": 200,
+  "data": {
+   "cfg": {
+    "top": 59,
+    "bottom": 34,
+    "left": 0,
+    "right": 0
+   },
+   "H": 932,
+   "W": 430,
+   "overflow": 0,
+   "hits": [
+    {
+     "el": "div",
+     "zone": "home",
+     "top": 881,
+     "bottom": 909,
+     "text": "🔗"
+    },
+    {
+     "el": "div",
+     "zone": "home",
+     "top": 913,
+     "bottom": 934,
+     "text": "Карта связей"
+    },
+    {
+     "el": "div",
+     "zone": "home",
+     "top": 881,
+     "bottom": 909,
+     "text": "🕸️"
+    },
+    {
+     "el": "div",
+     "zone": "home",
+     "top": 913,
+     "bottom": 934,
+     "text": "Граф связей"
+    }
+   ],
+   "bottomBand": [
+    {
+     "el": "a.card-link",
+     "top": 868,
+     "bottom": 983,
+     "w": 201,
+     "h": 115,
+     "covered": 85,
+     "text": "🔗\n    Карта связей\n    "
+    },
+    {
+     "el": "a.card-link",
+     "top": 868,
+     "bottom": 983,
+     "w": 201,
+     "h": 115,
+     "covered": 85,
+     "text": "🕸️\n    Граф связей\n    "
+    }
+   ],
+   "ok": false,
+   "lastText": {
+    "sel": ".site-footer .disc",
+    "top": 36894,
+    "bottom": 37093,
+    "h": 198,
+    "text": "⚠️ Не медицинская рекомендация.\n    Сайт предоставляет данные из откры",
+    "clearOfHome": false
+   },
+   "footer": {
+    "h": 500,
+    "padB": "34px",
+    "padT": "24px",
+    "bottom": 37361
+   },
+   "header": {
+    "h": 284,
+    "padT": "59px",
+    "top": 10
+   },
+   "hitsN": 4,
+   "textHitsN": 4
+  }
+ },
+ {
+  "device": "iPhone 14 Pro Max",
+  "w": 430,
+  "h": 932,
+  "inset": {
+   "top": 59,
+   "bottom": 34,
+   "left": 0,
+   "right": 0
+  },
+  "page": "calculator",
+  "status": 200,
+  "data": {
+   "cfg": {
+    "top": 59,
+    "bottom": 34,
+    "left": 0,
+    "right": 0
+   },
+   "H": 932,
+   "W": 430,
+   "overflow": 0,
+   "hits": [
+    {
+     "el": "div.empty",
+     "zone": "home",
+     "top": 898,
+     "bottom": 934,
+     "text": "Пока ничего не выбрано. Начнит"
+    }
+   ],
+   "bottomBand": [],
+   "ok": false,
+   "lastText": {
+    "sel": ".site-footer .disc",
+    "top": 1508,
+    "bottom": 1755,
+    "h": 248,
+    "text": "⚠️ Не медицинская рекомендация.\n    Сайт предоставляет данные из откры",
+    "clearOfHome": false
+   },
+   "footer": {
+    "h": 472,
+    "padB": "34px",
+    "padT": "24px",
+    "bottom": 1946
+   },
+   "header": {
+    "h": 319,
+    "padT": "59px",
+    "top": 26
+   },
+   "hitsN": 1,
+   "textHitsN": 1
+  }
+ },
+ {
+  "device": "iPhone 14 Pro Max",
+  "w": 430,
+  "h": 932,
+  "inset": {
+   "top": 59,
+   "bottom": 34,
+   "left": 0,
+   "right": 0
+  },
+  "page": "map",
+  "status": 200,
+  "data": {
+   "cfg": {
+    "top": 59,
+    "bottom": 34,
+    "left": 0,
+    "right": 0
+   },
+   "H": 932,
+   "W": 430,
+   "overflow": 0,
+   "hits": [
+    {
+     "el": "span.chip",
+     "zone": "home",
+     "top": 857,
+     "bottom": 901,
+     "text": "Витамин E"
+    },
+    {
+     "el": "h3",
+     "zone": "home",
+     "top": 918,
+     "bottom": 935,
+     "text": "Антиоксидант/Психиатрия ▾"
+    },
+    {
+     "el": "div.arrow",
+     "zone": "home",
+     "top": 889,
+     "bottom": 915,
+     "text": "↓"
+    },
+    {
+     "el": "div.step.mech",
+     "zone": "home",
+     "top": 920,
+     "bottom": 984,
+     "text": "⚙️ Фосфокреатиновый буфер: рес"
+    }
+   ],
+   "bottomBand": [],
+   "ok": false,
+   "lastText": {
+    "sel": ".site-footer .disc",
+    "top": 1672,
+    "bottom": 1895,
+    "h": 223,
+    "text": "⚠️ Не медицинская рекомендация.\n    Сайт предоставляет данные из откры",
+    "clearOfHome": false
+   },
+   "footer": {
+    "h": 499,
+    "padB": "34px",
+    "padT": "24px",
+    "bottom": 2138
+   },
+   "header": {
+    "h": 302,
+    "padT": "59px",
+    "top": 19
+   },
+   "hitsN": 4,
+   "textHitsN": 4
+  }
+ },
+ {
+  "device": "iPhone 14 Pro Max",
+  "w": 430,
+  "h": 932,
+  "inset": {
+   "top": 59,
+   "bottom": 34,
+   "left": 0,
+   "right": 0
+  },
+  "page": "graph",
+  "status": 200,
+  "data": {
+   "cfg": {
+    "top": 59,
+    "bottom": 34,
+    "left": 0,
+    "right": 0
+   },
+   "H": 932,
+   "W": 430,
+   "overflow": 0,
+   "hits": [],
+   "bottomBand": [],
+   "ok": true,
+   "lastText": {
+    "sel": ".site-footer .disc",
+    "top": 1341,
+    "bottom": 1564,
+    "h": 223,
+    "text": "⚠️ Не медицинская рекомендация.\n    Сайт предоставляет данные из откры",
+    "clearOfHome": false
+   },
+   "footer": {
+    "h": 502,
+    "padB": "34px",
+    "padT": "24px",
+    "bottom": 1810
+   },
+   "header": {
+    "h": 332,
+    "padT": "59px",
+    "top": 16
+   },
+   "hitsN": 0,
+   "textHitsN": 0
+  }
+ },
+ {
+  "device": "iPhone 14 Pro Max",
+  "w": 430,
+  "h": 932,
+  "inset": {
+   "top": 59,
+   "bottom": 34,
+   "left": 0,
+   "right": 0
+  },
+  "page": "sup/kreatin",
+  "status": 200,
+  "data": {
+   "cfg": {
+    "top": 59,
+    "bottom": 34,
+    "left": 0,
+    "right": 0
+   },
+   "H": 932,
+   "W": 430,
+   "overflow": 0,
+   "hits": [],
+   "bottomBand": [],
+   "ok": true,
+   "lastText": {
+    "sel": ".site-footer .disc",
+    "top": 4144,
+    "bottom": 4368,
+    "h": 223,
+    "text": "⚠️ Не медицинская рекомендация.\n    Сайт предоставляет данные из откры",
+    "clearOfHome": false
+   },
+   "footer": {
+    "h": 499,
+    "padB": "34px",
+    "padT": "24px",
+    "bottom": 4611
+   },
+   "header": {
+    "h": 332,
+    "padT": "59px",
+    "top": 16
+   },
+   "hitsN": 0,
+   "textHitsN": 0
+  }
+ },
+ {
+  "device": "iPhone SE",
+  "w": 375,
+  "h": 667,
+  "inset": {
+   "top": 20,
+   "bottom": 0,
+   "left": 0,
+   "right": 0
+  },
+  "page": "index",
+  "status": 200,
+  "data": {
+   "cfg": {
+    "top": 20,
+    "bottom": 0,
+    "left": 0,
+    "right": 0
+   },
+   "H": 667,
+   "W": 375,
+   "overflow": 0,
+   "hits": [
+    {
+     "el": "p",
+     "zone": "home",
+     "top": 607,
+     "bottom": 727,
+     "text": "БАД дополняет питание, а не за"
+    },
+    {
+     "el": "p",
+     "zone": "home",
+     "top": 583,
+     "bottom": 703,
+     "text": "Три честные причины: дефицит ("
+    },
+    {
+     "el": "p",
+     "zone": "home",
+     "top": 583,
+     "bottom": 703,
+     "text": "Вердикт и грейд доказательност"
+    },
+    {
+     "el": "div",
+     "zone": "home",
+     "top": 651,
+     "bottom": 679,
+     "text": "🧮"
+    },
+    {
+     "el": "div",
+     "zone": "home",
+     "top": 651,
+     "bottom": 679,
+     "text": "🧩"
+    }
+   ],
+   "bottomBand": [
+    {
+     "el": "a.card-link",
+     "top": 638,
+     "bottom": 822,
+     "w": 174,
+     "h": 184,
+     "covered": 155,
+     "text": "🧮\n    Калькулятор БАДов"
+    },
+    {
+     "el": "a.card-link",
+     "top": 638,
+     "bottom": 822,
+     "w": 174,
+     "h": 184,
+     "covered": 155,
+     "text": "🧩\n    Карта механизмов\n"
+    }
+   ],
+   "ok": false,
+   "lastText": {
+    "sel": ".site-footer .disc",
+    "top": 40230,
+    "bottom": 40478,
+    "h": 248,
+    "text": "⚠️ Не медицинская рекомендация.\n    Сайт предоставляет данные из откры",
+    "clearOfHome": false
+   },
+   "footer": {
+    "h": 532,
+    "padB": "0px",
+    "padT": "24px",
+    "bottom": 40729
+   },
+   "header": {
+    "h": 182,
+    "padT": "20px",
+    "top": 10
+   },
+   "hitsN": 5,
+   "textHitsN": 5
+  }
+ },
+ {
+  "device": "iPhone SE",
+  "w": 375,
+  "h": 667,
+  "inset": {
+   "top": 20,
+   "bottom": 0,
+   "left": 0,
+   "right": 0
+  },
+  "page": "calculator",
+  "status": 200,
+  "data": {
+   "cfg": {
+    "top": 20,
+    "bottom": 0,
+    "left": 0,
+    "right": 0
+   },
+   "H": 667,
+   "W": 375,
+   "overflow": 0,
+   "hits": [],
+   "bottomBand": [],
+   "ok": true,
+   "lastText": {
+    "sel": ".site-footer .disc",
+    "top": 1531,
+    "bottom": 1829,
+    "h": 298,
+    "text": "⚠️ Не медицинская рекомендация.\n    Сайт предоставляет данные из откры",
+    "clearOfHome": false
+   },
+   "footer": {
+    "h": 530,
+    "padB": "0px",
+    "padT": "24px",
+    "bottom": 2028
+   },
+   "header": {
+    "h": 202,
+    "padT": "20px",
+    "top": 26
+   },
+   "hitsN": 0,
+   "textHitsN": 0
+  }
+ },
+ {
+  "device": "iPhone SE",
+  "w": 375,
+  "h": 667,
+  "inset": {
+   "top": 20,
+   "bottom": 0,
+   "left": 0,
+   "right": 0
+  },
+  "page": "map",
+  "status": 200,
+  "data": {
+   "cfg": {
+    "top": 20,
+    "bottom": 0,
+    "left": 0,
+    "right": 0
+   },
+   "H": 667,
+   "W": 375,
+   "overflow": 0,
+   "hits": [
+    {
+     "el": "span.chip",
+     "zone": "home",
+     "top": 635,
+     "bottom": 679,
+     "text": "Астаксантин"
+    }
+   ],
+   "bottomBand": [],
+   "ok": false,
+   "lastText": {
+    "sel": ".site-footer .disc",
+    "top": 1661,
+    "bottom": 1934,
+    "h": 273,
+    "text": "⚠️ Не медицинская рекомендация.\n    Сайт предоставляет данные из откры",
+    "clearOfHome": false
+   },
+   "footer": {
+    "h": 557,
+    "padB": "0px",
+    "padT": "24px",
+    "bottom": 2185
+   },
+   "header": {
+    "h": 204,
+    "padT": "20px",
+    "top": 19
+   },
+   "hitsN": 1,
+   "textHitsN": 1
+  }
+ },
+ {
+  "device": "iPhone SE",
+  "w": 375,
+  "h": 667,
+  "inset": {
+   "top": 20,
+   "bottom": 0,
+   "left": 0,
+   "right": 0
+  },
+  "page": "graph",
+  "status": 200,
+  "data": {
+   "cfg": {
+    "top": 20,
+    "bottom": 0,
+    "left": 0,
+    "right": 0
+   },
+   "H": 667,
+   "W": 375,
+   "overflow": 0,
+   "hits": [],
+   "bottomBand": [],
+   "ok": true,
+   "lastText": {
+    "sel": ".site-footer .disc",
+    "top": 1224,
+    "bottom": 1472,
+    "h": 248,
+    "text": "⚠️ Не медицинская рекомендация.\n    Сайт предоставляет данные из откры",
+    "clearOfHome": false
+   },
+   "footer": {
+    "h": 535,
+    "padB": "0px",
+    "padT": "24px",
+    "bottom": 1726
+   },
+   "header": {
+    "h": 215,
+    "padT": "20px",
+    "top": 16
+   },
+   "hitsN": 0,
+   "textHitsN": 0
+  }
+ },
+ {
+  "device": "iPhone SE",
+  "w": 375,
+  "h": 667,
+  "inset": {
+   "top": 20,
+   "bottom": 0,
+   "left": 0,
+   "right": 0
+  },
+  "page": "sup/kreatin",
+  "status": 200,
+  "data": {
+   "cfg": {
+    "top": 20,
+    "bottom": 0,
+    "left": 0,
+    "right": 0
+   },
+   "H": 667,
+   "W": 375,
+   "overflow": 0,
+   "hits": [
+    {
+     "el": "p",
+     "zone": "home",
+     "top": 624,
+     "bottom": 778,
+     "text": "Кому нужно: Силовые и спринт-с"
+    }
+   ],
+   "bottomBand": [],
+   "ok": false,
+   "lastText": {
+    "sel": ".site-footer .disc",
+    "top": 4512,
+    "bottom": 4759,
+    "h": 248,
+    "text": "⚠️ Не медицинская рекомендация.\n    Сайт предоставляет данные из откры",
+    "clearOfHome": false
+   },
+   "footer": {
+    "h": 533,
+    "padB": "0px",
+    "padT": "24px",
+    "bottom": 5011
+   },
+   "header": {
+    "h": 215,
+    "padT": "20px",
+    "top": 16
+   },
+   "hitsN": 1,
+   "textHitsN": 1
+  }
+ }
+]
