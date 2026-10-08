@@ -121,10 +121,25 @@ Playwright). Из 69 «красных» после фикса 34 оказали�
 
 ## 8. Коммит и CI
 
-- Коммит: `feat(v5.6.2): Яндекс.Метрика + cookie-баннер + privacy` — после
-  финализации отчёта (хеш будет дописан).
-- CI (tests.yml): pytest 3.12/3.13, sitemap --check (144 URL),
-  feed --check (131 запись) — прогнаны локально, все зелёные.
+- `c3a4dda` — `feat(v5.6.2): Яндекс.Метрика + cookie-баннер + privacy`
+  (191 файл: 144 страницы с баннером, 2 новых js, privacy.html, style.css,
+  sw.js, sitemap 144 URL, version.json tests 1014, правки тестов, 36
+  эталонов снапшотов, отчёт, `.gitignore`).
+- Первый прогон CI на c3a4dda — **красный** (pytest 3.12 и 3.13). Причина:
+  `git add docs/ tests/ reports/` по команде задания не покрыл
+  `scripts/build_sitemap.py` — правка `ROOT_PAGES` (`privacy.html`)
+  осталась незакоммиченной. Локально и в pre-commit hook это не всплыло:
+  hook исключает `test_real_docs_sitemap_is_current`, а локально в дереве
+  лежала отредактированная версия генератора, которая всё и маскировала.
+  В чистом клоне генератор выдавал 143 URL против 144 в закоммиченном
+  sitemap.xml.
+- `637cac3` — `fix(v5.6.2): privacy.html в ROOT_PAGES генератора sitemap`.
+  Воспроизведение на свежем клоне (LF, как в CI) до фикса: 1 failed / 796
+  passed; после фикса: **797 passed, 18 skipped, 0 failed** (18 skipped —
+  тесты DuckDB, в клоне нет data/db; в основном дереве они идут).
+- CI на 637cac3: **completed/success**, оба джоба `pytest (3.12)` и
+  `pytest (3.13)` зелёные; шаги Sitemap check (144 URL) и Feed check
+  (131 запись) прогнаны локально и в CI — OK.
 
 ## 9. Временные файлы
 
