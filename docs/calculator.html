@@ -27,7 +27,7 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=420">
+<link rel="stylesheet" href="style.css?v=422">
   <style>
     /* Палитра на :root, не на body: объявление на body перекрывало html.light
        ниже, и в светлой теме текст оставался светлым на светлом (1.05:1),
@@ -51,7 +51,7 @@ try {
     .top .site-title{font-size:1.3rem;margin:0;font-weight:700}
     .btn{padding:.45rem .8rem;border:1px solid var(--aborder);border-radius:var(--radius-lg);background:var(--apanel);color:var(--atext);cursor:pointer;font-size:.85rem;text-decoration:none;line-height:var(--lh-tight)}
     
-    .btn.primary{background:#3498db;border-color:#3498db;color:#fff}
+    .btn.primary{background:var(--info-fill);border-color:var(--info-fill);color:#fff}
 
     .params{background:var(--apanel);border:1px solid var(--aborder);border-radius:var(--radius-xl);padding:var(--space-4) 1.2rem;margin:0 0 var(--space-4)}
     .params h2{margin:0 0 .6rem;font-size:1rem}
@@ -72,10 +72,10 @@ try {
     .item{display:grid;grid-template-columns:1fr 90px 30px;gap:var(--space-2);align-items:center;padding:var(--space-2) 0;border-bottom:1px solid var(--aborder);font-size:.9rem}
     .item:last-child{border-bottom:none}
     .item .name{cursor:pointer;color:var(--atext)}
-    .item .name:hover{color:#3498db}
+    .item .name:hover{color:var(--info-tx)}
     .item input{padding:.35rem var(--space-2);border:1px solid var(--aborder);border-radius:var(--radius-md);background:var(--apanel);color:var(--atext);font-size:16px;text-align:right;width:100%;box-sizing:border-box}
     .item .unit{opacity:.6;font-size:.78rem;margin-left:var(--space-0-2)}
-    .item .rm{background:none;border:none;color:#e74c3c;font-size:1.2rem;cursor:pointer;padding:0}
+    .item .rm{background:none;border:none;color:var(--danger-tx);font-size:1.2rem;cursor:pointer;padding:0}
 
     .grade-badge{display:inline-block;padding:0 .4rem;border-radius:var(--radius-md);font-size:.68rem;font-weight:700;margin-left:.35rem;vertical-align:middle}
     /* v4.3: бейдж — текст на 20%-заливке своего же цвета, контраст падал в обеих
@@ -107,7 +107,7 @@ try {
     .kpi.bad .val{color:#c0392b}
     html:not(.light) .kpi.ok .val{color:#2ecc71}
     html:not(.light) .kpi.warn .val{color:#f39c12}
-    html:not(.light) .kpi.bad .val{color:#e74c3c}
+    html:not(.light) .kpi.bad .val{color:var(--danger-tx)}
 
     .block{margin:0 0 var(--space-4)}
     .block h3{margin:0 0 var(--space-2);font-size:.85rem;text-transform:uppercase;letter-spacing:.05em;opacity:.6}
@@ -132,7 +132,7 @@ try {
       font-size:.82rem;display:flex;align-items:center;gap:.35rem;
       transition:all .15s;
     }
-    .profile-btn:hover{border-color:#3498db;background:rgba(52,152,219,.08)}
+    .profile-btn:hover{border-color:var(--info-tx);background:rgba(52,152,219,.08)}
     .profile-btn .icon{font-size:1rem}
     .profile-btn .lbl{font-weight:500}
 
@@ -145,8 +145,8 @@ try {
       display:flex;justify-content:space-between;align-items:center;
       font-size:.85rem;cursor:pointer;
     }
-    .reco-list li:hover{border-color:#3498db;background:rgba(52,152,219,.1)}
-    .reco-list li .plus{color:#3498db;font-weight:700;font-size:1rem}
+    .reco-list li:hover{border-color:var(--info-tx);background:rgba(52,152,219,.1)}
+    .reco-list li .plus{color:var(--info-tx);font-weight:700;font-size:1rem}
 
     @media (max-width: 640px) {
       .wrap{padding:.6rem}
