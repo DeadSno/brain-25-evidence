@@ -199,6 +199,13 @@ const SEV_LABEL = { low: 'низкий', medium: 'средний', high: 'выс
 const SEV_ORDER = { low: 0, medium: 1, high: 2, critical: 3 };
 const TYPE_LABEL = { synergy: 'синергия', antagonist: 'антагонизм', interaction: 'взаимодействие' };
 
+// v5.6.3: сколько живёт физика перед «заморозкой». Граф движется это время,
+// потом vis-network получает physics.enabled=false и стоит. Узлы при этом
+// НЕ fixed (в отличие от #93), поэтому после заморозки работают и drag, и
+// pan, и zoom. Обе вкладки: раскладка стартует готовая (graph_positions.json),
+// симуляция только додавливает её, поэтому 2 с хватает на оба режима.
+const PHYSICS_COOLDOWN_MS = 2000;
+
 const state = {
   mode: 'supplements',
   graph: null,
@@ -206,10 +213,17 @@ const state = {
   data: null,
   searchQuery: '',
   // v5.6.1: предрасчётные позиции (docs/graph_positions.json) и счётчик
-  // узлов, которым координаты реально подставились. Пока fixedCount 0,
-  // физика остаётся включённой — на случай 404 файла или несовпадения id.
+  // узлов, которым координаты реально подставились. Пока posCount 0,
+  // раскладка стартует из нуля — на случай 404 файла или несовпадения id.
+  // v5.6.3: было fixedCount и подставлялось `fixed: true` (см. drawGraph) —
+  // из-за этого узлы нельзя было перетаскивать. Теперь поле только
+  // диагностическое: сколько узлов стартовало не с нуля.
   positions: null,
-  fixedCount: 0,
+  posCount: 0,
+  // v5.6.3: таймер заморозки физики и счётчик срабатываний (диагностика:
+  // во сколько раз физика успела отработать cooldown до замирания).
+  cooldownTimer: 0,
+  cooldowns: 0,
   minSeverity: SEV_ORDER['high'],
   // набор рёбер последней отрисовки (см. drawGraph) — для подсветки соседей
   currentEdges: null
@@ -469,8 +483,17 @@ function drawGraph() {
      interactions_graph.json по режимам, а поиск только прячет узлы полем
      hidden, не добавляя новых, — значит статический файл покрывает всё.
      Координаты нормированы (nx/ny в долях от 1) и подставляются под
-     фактический canvas. Если файла нет, физика остаётся включённой. */
-  var fixedCount = 0;
+     фактический canvas.
+
+     v5.6.3: координаты — стартовая точка раскладки, а не её результат.
+     Раньше здесь стояло `fixed: true`, и это ломало перетаскивание:
+     зафиксированный узел vis-network не двигает ни мышью, ни пальцем.
+     Замерено 2026-10-09: смещение узла при drag = 0 px, fixedNodes = 11
+     на вкладке добавок и 46 на вкладке «Добавки и лекарства». Пан и зум
+     при этом работали — сломано было только перетаскивание узлов, а
+     владелец видел «граф статичен» целиком. Стартуя с готовой раскладки,
+     стабилизация доводит её за пару секунд и гасит себя (см. physics). */
+  var posCount = 0;
   if (state.positions && state.positions.layouts) {
     var layKey = 'interactions_' + mode;
     var lay = state.positions.layouts[layKey];
@@ -481,14 +504,14 @@ function drawGraph() {
       filtered.nodes = filtered.nodes.map(function (n) {
         var p = lay.positions[String(n.id)];
         if (!p) return n;
-        fixedCount++;
+        posCount++;
         return Object.assign({}, n, {
-          x: p.nx * cw, y: p.ny * ch, fixed: true
+          x: p.nx * cw, y: p.ny * ch
         });
       });
     }
   }
-  state.fixedCount = fixedCount;
+  state.posCount = posCount;
 
   if (state.network) {
     state.network.destroy();
@@ -497,10 +520,23 @@ function drawGraph() {
 
   const options = {
     physics: {
-      // v5.6.1: выключается, только если позиции предрасчитаны и все узлы
-      // получили координаты. Иначе (файл 404 или часть id не найдена)
-      // остаётся как было — страница работает, просто считает дольше.
-      enabled: !(state.fixedCount > 0 && state.fixedCount >= filtered.nodes.length),
+      /* v5.6.3: физика включена в обеих вкладках. #93 отключал её целиком
+         (`enabled: !(fixedCount > 0 && ...)`, плюс `fixed: true` на узлах) —
+         граф перестал зависать, но вместе с этим исчезло перетаскивание:
+         зафиксированный узел vis-network не двигает. Ограничивать надо не
+         включение, а длительность — см. PHYSICS_COOLDOWN_MS ниже.
+
+         Стартовые координаты берутся из graph_positions.json, поэтому
+         симуляция не «раскладывает с нуля» (это и была причина зависания
+         на 121 узле), а только додавливает готовую раскладку.
+
+         stabilization: false — НЕ ставьте здесь stabilization.enabled.
+         Проверено на vis-network 9.1.9 (vendor/vis-network-9.1.9.min.js):
+         _finalizeStabilization() по исчерпании iterations вызывает
+         startSimulation(), то есть физика не останавливается, а уходит в
+         бесконечную симуляцию и страница зависает — ровно то, что чинил
+         #93. Ограничение по времени делается таймером PHYSICS_COOLDOWN_MS. */
+      enabled: true,
       solver: 'barnesHut',
       barnesHut: {
         gravitationalConstant: -5000,
@@ -528,6 +564,21 @@ function drawGraph() {
     { nodes: new vis.DataSet(filtered.nodes), edges: new vis.DataSet(filtered.edges) },
     options
   );
+
+  /* v5.6.3: cooldown — единственное ограничение физики. Через
+     PHYSICS_COOLDOWN_MS симуляция выключается, граф замирает, а drag/pan/zoom
+     продолжают работать (от физики они не зависят). Предыдущий таймер
+     снимается обязательно: drawGraph() зовётся на каждый ввод в поиск и на
+     смену фильтра severity, и старый обработчик иначе выстрелил бы в
+     уничтоженную сеть. */
+  clearTimeout(state.cooldownTimer);
+  state.cooldownTimer = setTimeout(function () {
+    state.cooldownTimer = 0;
+    state.cooldowns++;
+    try {
+      if (state.network) state.network.setOptions({ physics: { enabled: false } });
+    } catch (e) { /* сеть могли пересоздать между тиком и вызовом — не страшно */ }
+  }, PHYSICS_COOLDOWN_MS);
 
   state.network.on('click', params => {
     // клик по пустому месту — сброс
@@ -614,8 +665,9 @@ document.getElementById('pngBtn').onclick = () => {
    позиций не должна ронять страницу — тогда просто остаётся физика. */
 /* v5.6.1: отладочный доступ к состоянию. state объявлен как const внутри
    скрипта, поэтому с консоли и из тестов до него не дотянуться. Ссылка
-   нужна для замеров предрасчёта (сколько узлов зафиксировано, выключена
-   ли физика) — без неё проверять пришлось бы по картинке. */
+   нужна для замеров (сколько узлов стартовало с готовыми координатами,
+   включена ли физика, чем закончилась стабилизация) — без неё проверять
+   пришлось бы по картинке. */
 window.__intState = state;
 
 Promise.all([
