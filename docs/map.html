@@ -31,7 +31,7 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=420">
+<link rel="stylesheet" href="style.css?v=422">
 <script>
   try {
     document.addEventListener('DOMContentLoaded', function () {
@@ -126,7 +126,7 @@ try {
   .verdict{display:inline-block;padding:var(--space-0-2) .6rem;border-radius:var(--radius-md);color:#fff;font-size:.8rem;font-weight:700}
   /* v4.2: правила .verdict.v1/v0/v-1 перебивались сплошными !important из
      style.css (стр. 393–395) — удалены как мёртвые. */
-  .chainbox a{color:#3498db}
+  .chainbox a{color:var(--info-tx)}
   .sim{margin-top:1.2rem;padding-top:.9rem;border-top:1px dashed var(--aborder);animation:rise .4s ease both}
   .sim h4{margin:var(--space-0-2) 0 var(--space-2);font-size:.85rem;opacity:.75}
   kbd{border:1px solid var(--aborder);border-radius:var(--radius-sm);padding:0 var(--space-0-3);font-size:.75rem;opacity:.7}
@@ -191,7 +191,7 @@ try {
 #details .rel-list li:hover {
   border-color: var(--border-hover); background: rgba(127,127,127,.06);
 }
-#details .rel-list a { color: #3498db; text-decoration: none; font-weight: 500; }
+#details .rel-list a { color: var(--info-tx); text-decoration: none; font-weight: 500; }
 #details .rel-list li:hover a { text-decoration: underline; }
 #details .rel-desc {
   font-size: .82rem; opacity: .65; margin-top: var(--space-1); line-height: 1.4;
@@ -204,7 +204,7 @@ try {
 }
 #details .cta {
   display: inline-block; padding: var(--space-2) var(--space-4);
-  background: #3498db; color: #fff; border-radius: var(--radius-lg);
+  background: var(--info-fill); color: #fff; border-radius: var(--radius-lg);
   text-decoration: none; font-weight: 500;
 }
 #details .cta:hover { opacity: .9; }

@@ -25,7 +25,7 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=420">
+<link rel="stylesheet" href="style.css?v=422">
 <!-- v5.6.1: chart.js вендорен в docs/vendor/ — без сети графики на странице не рисуются -->
 <script src="vendor/chart.umd-4.4.1.min.js"></script>
 <script src="version.js?v=312"></script>
@@ -77,8 +77,8 @@ try {
     border-radius:10px;padding:.9rem var(--space-4)}
   .stat-card .label{font-size:.8rem;opacity:.7;margin-bottom:var(--space-0-3)}
   .stat-card .value{font-size:1.5rem;font-weight:700}
-  .stat-card .delta{font-size:.85rem;color:#22c55e;margin-top:var(--space-0-2)}
-  .stat-card .delta.down{color:#ef4444}
+  .stat-card .delta{font-size:.85rem;color:var(--grade-a-tx);margin-top:var(--space-0-2)}
+  .stat-card .delta.down{color:var(--grade-d-tx)}
 
   /* Убираем sticky-шапку — на странице с графиками она мешает.
      v5.6.0: липкой теперь обёртка .site-header (style.css), а не сам
@@ -415,7 +415,7 @@ Promise.all([
 }).catch(err => {
   console.error('[boot]', err);
   document.querySelector('.chart-wrap').innerHTML =
-    '<p style="color:#e74c3c;padding:2rem;text-align:center">Не удалось загрузить данные: ' + esc(err.message) + '</p>';
+    '<p style="color:var(--grade-d-tx);padding:2rem;text-align:center">Не удалось загрузить данные: ' + esc(err.message) + '</p>';
 });
 
 // ── Инициализация ─────────────────────────────────────────────

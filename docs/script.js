@@ -1292,7 +1292,7 @@ document.addEventListener('click', e => {
     el.textContent = '🔄 Доступно обновление — перезагружаю…';
     el.style.cssText = `
       position:fixed;bottom:1rem;left:50%;transform:translateX(-50%);
-      background:#3498db;color:#fff;padding:.6rem 1.2rem;border-radius:8px;
+      background:var(--info-fill,#1f6fa5);color:#fff;padding:.6rem 1.2rem;border-radius:8px;
       font-size:.9rem;z-index:99999;box-shadow:0 4px 12px rgba(0,0,0,.3);
     `;
     document.body.appendChild(el);
