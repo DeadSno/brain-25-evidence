@@ -74,6 +74,13 @@ def repo(tmp_path):
         ).stdout
 
     git("init", "-q")
+    # Падение здесь означало бы утечку GIT_* из окружения (см. GIT_ENV_TO_DROP):
+    # `git init` не создал бы клон, а переинициализировал живой репозиторий.
+    # Проверяем ДО первого git add, чтобы ущерб ограничивался этой строкой.
+    assert (root / ".git").is_dir(), (
+        "git init не создал репозиторий в tmp_path — GIT_DIR унаследован "
+        "из окружения, клон пишет в живой репозиторий проекта"
+    )
     git("config", "user.email", "t@t")
     git("config", "user.name", "t")
     git("add", "-A")
@@ -81,10 +88,39 @@ def repo(tmp_path):
     return root
 
 
+#: Переменные git, которые НЕЛЬЗЯ наследовать от окружения теста.
+#:
+#: Замерено 2026-10-09 внутри `git commit`: pre-commit хук запускается
+#: git'ом, и git передаёт хуку `GIT_DIR` (и `GIT_INDEX_FILE`). Фикстура
+#: копировала os.environ в дочерний git, поэтому `git init` в tmp_path НЕ
+#: создавал репозиторий — он переинициализировал ЖИВОЙ репозиторий
+#: проекта, и дальнейшие `git add -A` / `git commit` писали в его историю.
+#: Вне хука переменных в окружении нет, тесты зелёные — поэтому баг и
+#: дожил: воспроизводился он только из-под хука.
+GIT_ENV_TO_DROP = (
+    "GIT_DIR",
+    "GIT_WORK_TREE",
+    "GIT_INDEX_FILE",
+    "GIT_OBJECT_DIRECTORY",
+    "GIT_ALTERNATE_OBJECT_DIRECTORIES",
+    "GIT_COMMON_DIR",
+    "GIT_NAMESPACE",
+    "GIT_QUARANTINE_PATH",
+    "GIT_CEILING_DIRECTORIES",
+    "GIT_DISCOVERY_ACROSS_FILESYSTEM",
+    "GIT_CONFIG",
+    "GIT_CONFIG_GLOBAL",
+    "GIT_CONFIG_SYSTEM",
+    "GIT_PREFIX",
+)
+
+
 def _base_env():
     import os
 
     env = dict(os.environ)
+    for key in GIT_ENV_TO_DROP:
+        env.pop(key, None)
     # Детерминированные даты: тест не должен зависеть от «сегодня».
     env.pop("GIT_AUTHOR_DATE", None)
     env.pop("GIT_COMMITTER_DATE", None)
