@@ -199,12 +199,10 @@ const SEV_LABEL = { low: 'низкий', medium: 'средний', high: 'выс
 const SEV_ORDER = { low: 0, medium: 1, high: 2, critical: 3 };
 const TYPE_LABEL = { synergy: 'синергия', antagonist: 'антагонизм', interaction: 'взаимодействие' };
 
-// v5.6.3: сколько живёт физика перед «заморозкой». Граф движется это время,
-// потом vis-network получает physics.enabled=false и стоит. Узлы при этом
-// НЕ fixed (в отличие от #93), поэтому после заморозки работают и drag, и
-// pan, и zoom. Обе вкладки: раскладка стартует готовая (graph_positions.json),
-// симуляция только додавливает её, поэтому 2 с хватает на оба режима.
-const PHYSICS_COOLDOWN_MS = 2000;
+// v5.6.3: таймер заморозки физики удалён — «2 секунды — тоже костыль».
+// Параметры physics откачены к оригиналу (16b5652, barnesHut); см. блок
+// options.physics ниже. Зависание #93 лечилось отключением физики и
+// fixed: true, а не stabilization — stabilization: false был и до #93.
 
 const state = {
   mode: 'supplements',
@@ -220,10 +218,8 @@ const state = {
   // диагностическое: сколько узлов стартовало не с нуля.
   positions: null,
   posCount: 0,
-  // v5.6.3: таймер заморозки физики и счётчик срабатываний (диагностика:
-  // во сколько раз физика успела отработать cooldown до замирания).
-  cooldownTimer: 0,
-  cooldowns: 0,
+  // v5.6.3: полей cooldownTimer/cooldowns больше нет — физика постоянная,
+  // таймер заморозки удалён вместе с PHYSICS_COOLDOWN_MS.
   minSeverity: SEV_ORDER['high'],
   // набор рёбер последней отрисовки (см. drawGraph) — для подсветки соседей
   currentEdges: null
@@ -441,6 +437,69 @@ function renderSidebar(id) {
   });
 }
 
+/* v5.6.3: якорь по центру масс.
+   Зачем: при damping: 0 импульс системы никем не гасится, и всё облако
+   медленно уезжает за пределы canvas (замер: meanY 346 → −103 за 180 с,
+   при canvas 1217×698 к t = 180 с в кадре оставалось 7 из 11 узлов).
+   Подбирать это параметрами нельзя — centralGravity 0.05 / 0.2 / 0.5 и
+   damping 0.001 / 0.005 дали побайтово одинаковый дрейф, потому что
+   скорости упираются в кламп maxVelocity. Оригинальный barnesHut хуже:
+   spreadY 2526 px.
+
+   Как работает: раз в кадр (событие afterDrawing) считаем центр масс
+   узлов и, если он ушёл от центра canvas дальше COM_ANCHOR_PX, сдвигаем
+   ВСЕ узлы на разницу через moveNode. Это сдвиг координат раскладки, а
+   не view — поэтому zoom не трогается.
+
+   Почему цель — getViewPosition(), а не координаты центра canvas:
+   getViewPosition() возвращает точку в системе координат раскладки,
+   которая сейчас отображается в центре canvas. Если пользователь панорамирует
+   или зумит, цель едет вместе с видом — якорь НЕ мешает pan/zoom.
+   Использовать сырые (canvasW/2, canvasH/2) нельзя: якорь тогда дёргал бы
+   раскладку обратно при каждом панорамировании.
+
+   Порог, а не проверка на каждом кадре: чаще не нужно — дрейф медленный.
+   Коррекция разовая и на сдвиг, поэтому визуально это незаметно.
+
+   Чего здесь нет намеренно: таймеров, physics.enabled: false и любого
+   выключения симуляции. Физика работает непрерывно. */
+/* Порог в px канваса, а не в координатах раскладки: на мобильном canvas
+   341×400 те же 40 px — это 12% ширины и заметные рывки. */
+const COM_ANCHOR_PX = 40;
+
+function anchorCenterOfMass() {
+  const net = state.network;
+  if (!net) return;
+  const body = net.body;
+  if (!body || !body.nodes) return;
+  // Порог переводим в координаты раскладки через масштаб view: иначе на
+  // узком canvas 40 px — доля экрана, заметная глазом.
+  const limit = COM_ANCHOR_PX / net.getScale();
+
+  // Только видимые узлы: скрытые поиском всё равно не рисуются.
+  const ids = [];
+  let sx = 0, sy = 0, n = 0;
+  for (const id in body.nodes) {
+    const nd = body.nodes[id];
+    if (nd.options && nd.options.hidden) continue;
+    ids.push(id);
+    sx += nd.x;
+    sy += nd.y;
+    n++;
+  }
+  if (n === 0) return;
+
+  const target = net.getViewPosition();
+  const dx = target.x - sx / n;
+  const dy = target.y - sy / n;
+  if (Math.abs(dx) < limit && Math.abs(dy) < limit) return;
+
+  for (let i = 0; i < n; i++) {
+    const nd = body.nodes[ids[i]];
+    net.moveNode(ids[i], nd.x + dx, nd.y + dy);
+  }
+}
+
 function drawGraph() {
   const container = document.getElementById('int-graph');
   const mode = state.mode;
@@ -491,8 +550,8 @@ function drawGraph() {
      Замерено 2026-10-09: смещение узла при drag = 0 px, fixedNodes = 11
      на вкладке добавок и 46 на вкладке «Добавки и лекарства». Пан и зум
      при этом работали — сломано было только перетаскивание узлов, а
-     владелец видел «граф статичен» целиком. Стартуя с готовой раскладки,
-     стабилизация доводит её за пару секунд и гасит себя (см. physics). */
+     владелец видел «граф статичен» целиком. Стартуя с готовой раскладки, стабилизация доводит её за пару секунд
+     и гасит себя (см. physics). */
   var posCount = 0;
   if (state.positions && state.positions.layouts) {
     var layKey = 'interactions_' + mode;
@@ -518,37 +577,80 @@ function drawGraph() {
     state.network = null;
   }
 
+  /* v5.6.3: масштаб физики под размер canvas.
+     Равновесная ширина раскладки задаётся springLength в АБСОЛЮТНЫХ px,
+     а стартовые позиции приходят как p.nx * cw — то есть в долях canvas.
+     На десктопе canvas 1217×698, равновесие ~612 px — влезает. На мобильном
+     canvas 341×400 те же 150-пиксельные пружины требуют ~660 px, то есть
+     вдвое больше экрана. Замер (m-375x667, 46 узлов): spreadX 249 → 660,
+     в кадре остаётся 12 из 46, и рост не останавливается.
+
+     Поэтому масштабируем силу под canvas тем подобием, который сохраняет
+     баланс сил, а значит и ФОРМУ раскладки (все длины × k, жёсткости ÷ k):
+       repulsion  |gc|/(k·d)   →  компенсируется gc  × k
+       spring     ks·(d−L)     →  компенсируется ks  ÷ k,  L × k
+       gravity    cg·(k·d)      →  компенсируется cg  ÷ k
+     Ускорения сохраняются, поэтому timestep не трогаем, а скорость
+     (она производная координаты) умножается на k вместе с maxVelocity.
+     Нижняя граница 0.5 — иначе на 341-пиксельном canvas рёбра схлопнутся
+     в нечитаемую кашу из 46 узлов. */
+  const cvEl = container.querySelector('canvas');
+  const viewW = (cvEl && cvEl.width) || container.clientWidth || 1217;
+  const layoutScale = Math.min(1, Math.max(0.5, viewW / 1217));
+
   const options = {
     physics: {
-      /* v5.6.3: физика включена в обеих вкладках. #93 отключал её целиком
-         (`enabled: !(fixedCount > 0 && ...)`, плюс `fixed: true` на узлах) —
-         граф перестал зависать, но вместе с этим исчезло перетаскивание:
-         зафиксированный узел vis-network не двигает. Ограничивать надо не
-         включение, а длительность — см. PHYSICS_COOLDOWN_MS ниже.
+      /* v5.6.3: физика включена ВСЕГДА, без таймеров. Раньше она гасилась
+         через 2 с (PHYSICS_COOLDOWN_MS + setTimeout) — костыль, удалён.
 
-         Стартовые координаты берутся из graph_positions.json, поэтому
-         симуляция не «раскладывает с нуля» (это и была причина зависания
-         на 121 узле), а только додавливает готовую раскладку.
+         ИСТОРИЯ БЛОКА (git log -S, 2026-10-09). Гипотеза «регрессия от
+         barnesHut → FA2» НЕ подтвердилась:
+         - 79be795 (#93 «graph hang») блок physics не трогал вообще —
+           `git show 79be795 -- docs/interactions.html` даёт 0 совпадений.
+         - stabilization: false пришёл из 6941538, то есть ДО #93, и стоял
+           без изменений до 89978b1. Это не фикс зависания.
+         - #93 чинил зависание иначе: enabled: !(fixedCount > 0 && ...) плюс
+           `fixed: true` — физику просто выключали при загруженном
+           graph_positions.json. Отсюда важное: pre-#93 физика на этой
+           странице фактически НИКОГДА не работала. Проверено возвратом
+           оригинальных параметров (barnesHut, damping 0.55, minVelocity
+           0.05): разлёт spreadY 2526 px при высоте canvas 698, 4/11 узлов
+           в кадре, и stabilized: true на t = 60 с — та же заморозка, только
+           без таймера.
 
-         stabilization: false — НЕ ставьте здесь stabilization.enabled.
-         Проверено на vis-network 9.1.9 (vendor/vis-network-9.1.9.min.js):
-         _finalizeStabilization() по исчерпании iterations вызывает
-         startSimulation(), то есть физика не останавливается, а уходит в
-         бесконечную симуляцию и страница зависает — ровно то, что чинил
-         #93. Ограничение по времени делается таймером PHYSICS_COOLDOWN_MS. */
+         damping: 0 — обязателен. FA2 — градиентный спуск, damping > 0
+         рассеивает энергию и система сходится к локальному минимуму навсегда
+         (замер: смещения через 12/20/30 с — ровно 0 px, не субпиксельные;
+         sweep 0.95…0.05 — все значения дают тот же ноль).
+
+         minVelocity: 0 — обязателен, иначе vis-network глушит цикл сам:
+           moveNodes()       → this.stabilized = maxNodeSpeed < this.options.minVelocity
+           simulationStep()  → true===this.stabilized && this.stopSimulation()
+         Замер: при дефолтном minVelocity = 0.75 граф стоял на t = 3 с, и
+         moveNode() на 300 px его не оживлял. stabilization: false от этого
+         не спасает — он отключает только стартовый пакет стабилизации.
+
+         Якорь по центру масс — см. anchorCenterOfMass() ниже: при
+         damping: 0 импульс системы не гасится, и всё облако медленно
+         уезжает за пределы canvas. Это единственная причина дрейфа. */
       enabled: true,
-      solver: 'barnesHut',
-      barnesHut: {
-        gravitationalConstant: -5000,
-        centralGravity: 0.15,
-        springLength: 110,
-        springConstant: 0.03,
-        damping: 0.55,
+      solver: 'forceAtlas2Based',
+      forceAtlas2Based: {
+        gravitationalConstant: -30 * layoutScale,
+        centralGravity: 0.005 / layoutScale,   // не стягивает всё в центр
+        springLength: 150 * layoutScale,
+        springConstant: 0.02 / layoutScale,    // мягкие пружины
+        damping: 0,                            // НЕ ставить >0 — см. выше
         avoidOverlap: 0.5,
       },
-      stabilization: false,
-      maxVelocity: 10,
-      minVelocity: 0.05,
+      stabilization: false,                    // было и до #93, см. историю выше
+      maxVelocity: 5 * layoutScale,
+      minVelocity: 0,                  // НЕ ставить >0 — иначе цикл глохнет
+      // Скорость задаёт ТОЛЬКО timestep. Замер (11 узлов, окно 5 с):
+      //   0.0005 → 6 px    0.001 → 10 px    0.002 → 20-60 px
+      //   0.005 → 50-150 px (выше потолка 50 px)
+      // Выбран 0.001 — попадает в коридор «>0 и <50 px».
+      timestep: 0.001,
     },
     interaction: {
       hover: true, tooltipDelay: 150, navigationButtons: false, keyboard: false,
@@ -565,20 +667,27 @@ function drawGraph() {
     options
   );
 
-  /* v5.6.3: cooldown — единственное ограничение физики. Через
-     PHYSICS_COOLDOWN_MS симуляция выключается, граф замирает, а drag/pan/zoom
-     продолжают работать (от физики они не зависят). Предыдущий таймер
-     снимается обязательно: drawGraph() зовётся на каждый ввод в поиск и на
-     смену фильтра severity, и старый обработчик иначе выстрелил бы в
-     уничтоженную сеть. */
-  clearTimeout(state.cooldownTimer);
-  state.cooldownTimer = setTimeout(function () {
-    state.cooldownTimer = 0;
-    state.cooldowns++;
-    try {
-      if (state.network) state.network.setOptions({ physics: { enabled: false } });
-    } catch (e) { /* сеть могли пересоздать между тиком и вызовом — не страшно */ }
-  }, PHYSICS_COOLDOWN_MS);
+  /* v5.6.3: разовая центровка. Проблема была ДО этой правки (pre-existing):
+     стартовая раскладка центрирована около (0,0), а начало координат
+     canvas — в углу, и страница нигде не вызывала fit(). Замерено:
+     8 из 11 узлов («Добавки между собой») и 33 из 46 («Добавки и лекарства»)
+     оказывались за пределами canvas. Раскладка центрируется здесь один раз;
+     физика продолжает двигать узлы после fit — он лишь задаёт view.
+     animation: false, чтобы не запускать переходную анимацию поверх
+     симуляции (она бы всё равно съехала за пару секунд).
+
+     ВАЖНО: fit() задаёт только view (масштаб и смещение), физику он
+     не трогает — симуляция продолжает двигать узлы после вызова.
+     Правка не связана с заменой solver: подъезд узлов за пределы canvas
+     был и на barnesHut, и на forceAtlas2Based. */
+  try { state.network.fit({ animation: false }); }
+catch (e) { /* сеть могла не успеть отрисоваться — не страшно */ }
+
+  /* v5.6.3: якорь по центру масс. Без него облако при damping: 0
+     медленно уезжает за пределы canvas (см. anchorCenterOfMass).
+     Физика при этом не выключается и таймеров не добавляется —
+     это подписка на отрисовку, а не гашение симуляции. */
+  state.network.on('afterDrawing', anchorCenterOfMass);
 
   state.network.on('click', params => {
     // клик по пустому месту — сброс
