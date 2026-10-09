@@ -1,0 +1,82 @@
+#!/bin/sh
+# brain-25-evidence: pre-commit hook
+# ?????? pytest ??? network-??????. ???? ??????? ? ?????? ??????????.
+# ??????: git commit --no-verify
+
+ROOT="$(git rev-parse --show-toplevel)"
+cd "$ROOT" || exit 1
+
+# ???? python ? venv (Windows ??? Unix), fallback ? ?????????
+PY=""
+for candidate in ".venv/Scripts/python.exe" ".venv/bin/python" "python3" "python"; do
+    if command -v "$candidate" >/dev/null 2>&1 || [ -x "$candidate" ]; then
+        PY="$candidate"
+        break
+    fi
+done
+
+if [ -z "$PY" ]; then
+    echo "pre-commit: python ?? ??????, ????????? ?????"
+    exit 0
+fi
+
+# snapshot_data (tests/test_snapshot.py) ИСКЛЮЧЁН намеренно. Тест сравнивает
+# слепок docs/data.json с самим data.json, а hook смотрит рабочее дерево —
+# то есть любое осознанное обновление данных (build_key_sources.py и подобные)
+# блокировало коммит и требовало сначала переснять слепок, а потом менять данные
+# либо смешивать и то и другое в одном коммите. Замерено 2026-10-07.
+# Тест НЕ выключен: он остаётся в `pytest -q` и в CI, где и должен ловить
+# незаметную мутацию данных. Вне hook он — гейт, внутри hook — тупик.
+# --- sitemap (v5.6.1, 2026-10-08) -------------------------------------------
+# lastmod в sitemap.xml берётся из `git log` по каждой странице, поэтому любой
+# коммит, затронувший docs/*.html, делает закоммиченный sitemap.xml устаревшим:
+# генератор начинает считать страницу изменённой с даты этого коммита, а файл
+# в репозитории отстаёт на один. Именно на этом упал CI после батча C —
+# оба джоба, шаг Sitemap check. Генерируем ДО коммита и добавляем в индекс.
+#
+# --commit-date обязателен и это не формальность: `git log` не видит
+# незакоммиченные правки, поэтому файл из индекса получил бы дату своего
+# ПРЕДЫДУЩЕГО коммита. Замерено 2026-10-08 на клоне: генерация дала
+# glossary 2026-10-07, а CI после коммита посчитал 2026-10-08 и упал.
+#
+# Если генератор падает — блокируем коммит. Он выходит только когда
+# контентной страницы нет или docs/sup/ пуст, то есть на настоящей поломке
+# репозитория. Молча пропустить нельзя: sitemap.xml останется устаревшим
+# и push всё равно упрётся в CI.
+echo "-> build_sitemap.py --commit-date"
+"$PY" scripts/build_sitemap.py --commit-date "$(date +%Y-%m-%d)" || {
+    echo ""
+    echo "SITEMAP FAILED. docs/sitemap.xml не обновлён, коммит прерван."
+    echo "Причина обычно видна в строке выше (нет контентной страницы?)."
+    exit 1
+}
+git add docs/sitemap.xml
+
+# --- sitemap check внутри hook (v5.6.2, 2026-10-08) ---------------------------
+# test_real_docs_sitemap_is_current ИСКЛЮЧЁН из прогона hook намеренно. Тест
+# вызывает build_sitemap.py --check, который индекс игноририрует by design и
+# берёт lastmod из git log. А hook двумя строками выше перегенерировал sitemap
+# с --commit-date, то есть для файлов из индекса записал дату СЕГОДНЯ. Для
+# незакоммиченного docs/trends.html эти две даты расходятся (последний коммит
+# 2026-10-07, дата коммита 2026-10-08) и тест падает. Замерено 2026-10-08:
+# единственное расхождение — trends.html, check=2026-10-07 file=2026-10-08.
+# index.html совпал случайно, его последний коммит тоже датирован сегодня.
+# Логика дефекта: ЛЮБОЙ коммит, трогающий docs/*.html, у чьей даты
+# последнего коммита не сегодня, валит hook. Внесено коммитом 7c56970.
+# Тест НЕ выключен: он остаётся в `pytest -q` и в CI, где индекс на чистом
+# checkout пуст и проверка корректна. Вне hook он — гейт, внутри hook — тупик.
+# Строка -m сохранена без изменений: tests/test_precommit_hook.py:57 требует
+# наличие "not network and not snapshot_data" в тексте этого хука.
+echo "-> pytest -q -m 'not network and not snapshot_data' -k 'not real_docs_sitemap_is_current'"
+"$PY" -m pytest -q -m "not network and not snapshot_data" -k "not real_docs_sitemap_is_current" --no-header 2>&1
+RC=$?
+
+if [ $RC -ne 0 ]; then
+    echo ""
+    echo "TESTS FAILED (exit $RC). Commit aborted."
+    echo "Emergency: git commit --no-verify"
+    exit 1
+fi
+
+echo "OK: tests passed"
+exit 0
