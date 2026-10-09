@@ -34,8 +34,17 @@ build_sup.py, а не правится в data.json вручную.
 
     python scripts/build_feed.py            # пересобрать docs/feed.xml
     python scripts/build_feed.py --check    # только проверить, не трогая файл
+    python scripts/build_feed.py --commit-date 2026-10-09   # pre-commit хук
 
 Идемпотентность: два прогона подряд дают 0 diff по sha256.
+
+`--commit-date` (v5.6.4) — дата коммита для файлов, УЖЕ добавленных в индекс.
+Без него генерация полностью опирается на историю git и детерминирована —
+это и есть режим CI. Нужен он pre-commit хуку, и по той же причине, что в
+build_sitemap.py: `git log` не видит незакоммиченные правки, поэтому
+запись каталога (единственная, чья дата берётся из git, — карточки
+читают `updated` из data.json) получила бы дату своего ПРЕДЫДУЩЕГО коммита
+и разошлась бы с CI сразу после коммита.
 """
 
 from __future__ import annotations
@@ -129,8 +138,41 @@ def _last_commit_date(rel_to_docs: str, fallback: str) -> str:
     return value
 
 
-def collect() -> list[dict]:
-    """Записи ленты в порядке вывода: свежие сверху."""
+def _staged_docs_paths() -> set[str]:
+    """Пути под docs/, уже поставленные в индекс и ждущие коммита.
+
+    Нужны, чтобы отличить «файл изменён, но ещё не закоммичен» от «файл
+    лежит в коммите». Первые получают дату коммита (см. `--commit-date`),
+    вторые — дату из истории. Ключи — пути относительно docs/.
+    """
+    try:
+        out = subprocess.run(
+            ["git", "diff", "--cached", "--name-only", "--diff-filter=ACMR",
+             "--", "docs/"],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+            timeout=15,
+            check=False,
+        )
+    except (OSError, subprocess.SubprocessError):
+        return set()
+    if out.returncode != 0:
+        return set()
+    staged: set[str] = set()
+    for line in out.stdout.splitlines():
+        name = line.strip().replace("\\", "/")
+        if name.startswith("docs/"):
+            staged.add(name[len("docs/"):])
+    return staged
+
+
+def collect(commit_date: str | None = None) -> list[dict]:
+    """Записи ленты в порядке вывода: свежие сверху.
+
+    `commit_date` — дата, которую получает каталог sup/index.html, если он
+    уже в индексе (см. `--commit-date`).
+    """
     if not DATA_PATH.is_file():
         raise FeedError(f"Нет {DATA_PATH.relative_to(ROOT)}")
     if not SUP_DIR.is_dir():
@@ -143,7 +185,13 @@ def collect() -> list[dict]:
     items: list[dict] = []
 
     # Каталог. Дата — из git: сам каталог собирается build_sup.py.
-    index_date = _last_commit_date("sup/index.html", date.today().isoformat())
+    # Файла в индексе `git log` не видит и вернул бы дату ПРЕДЫДУЩЕГО
+    # коммита, поэтому для него берётся дата коммита, а не история.
+    today = commit_date or date.today().isoformat()
+    if commit_date and "sup/index.html" in _staged_docs_paths():
+        index_date = today
+    else:
+        index_date = _last_commit_date("sup/index.html", today)
     items.append(
         {
             "title": INDEX_TITLE,
@@ -202,8 +250,8 @@ def _item(it: dict) -> str:
     )
 
 
-def render() -> str:
-    items = collect()
+def render(commit_date: str | None = None) -> str:
+    items = collect(commit_date)
     newest = max(it["date"] for it in items)
 
     chunks = [
@@ -247,9 +295,31 @@ def main() -> int:
         action="store_true",
         help="не записывать файл, только сообщить о расхождении",
     )
+    parser.add_argument(
+        "--commit-date",
+        metavar="YYYY-MM-DD",
+        help=(
+            "дата коммита для файлов, уже добавленных в индекс; "
+            "нужно pre-commit хуку, не нужно CI"
+        ),
+    )
     args = parser.parse_args()
 
-    content = render()
+    if args.check and args.commit_date:
+        print(
+            "FAIL: --check и --commit-date вместе не имеют смысла — "
+            "проверка должна быть детерминированной"
+        )
+        return 1
+
+    if args.commit_date:
+        try:
+            date.fromisoformat(args.commit_date)
+        except ValueError:
+            print(f"FAIL: не дата: {args.commit_date}")
+            return 1
+
+    content = render(args.commit_date)
     digest = hashlib.sha256(content.encode("utf-8")).hexdigest()
     count = content.count("<item>")
 

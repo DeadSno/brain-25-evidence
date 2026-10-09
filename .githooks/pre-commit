@@ -52,6 +52,32 @@ echo "-> build_sitemap.py --commit-date"
 }
 git add docs/sitemap.xml
 
+# --- feed (v5.6.4, 2026-10-09) -------------------------------------------------
+# Причина та же, что у sitemap, и лечится так же. Дата записи каталога
+# sup/index.html берётся из `git log`, а карточки читают `updated` из
+# data.json. Поэтому ЛЮБОЙ коммит, затронувший docs/sup/index.html, делал
+# закоммиченный docs/feed.xml устаревшим на один день, и CI падал на шаге
+# «Feed check». Замерено 2026-10-09 на этом коммите: расходились ровно две
+# строки — <lastBuildDate> и <pubDate> каталога (08 → 09 Oct), остальные
+# 129 карточек совпали до байта.
+#
+# --commit-date обязателен по той же причине, что в sitemap: файл из индекса
+# `git log` не видит и получил бы дату ПРЕДЫДУЩЕГО коммита. Записи каточек
+# он не касается — их pubDate из data.json, то есть истории git не касается
+# вовсе, и --commit-date на них ничего не меняет.
+#
+# Генератор падает, если в data.json есть запись без файла карточки или
+# карточка без поля `updated`, — это настоящая поломка репозитория, а не
+# повод пропустить коммит молча: устаревший фид упрётся в CI иначе.
+echo "-> build_feed.py --commit-date"
+"$PY" scripts/build_feed.py --commit-date "$(date +%Y-%m-%d)" || {
+    echo ""
+    echo "FEED FAILED. docs/feed.xml не обновлён, коммит прерван."
+    echo "Причина обычно видна в строке выше (запись data.json без карточки?)."
+    exit 1
+}
+git add docs/feed.xml
+
 # --- sitemap check внутри hook (v5.6.2, 2026-10-08) ---------------------------
 # test_real_docs_sitemap_is_current ИСКЛЮЧЁН из прогона hook намеренно. Тест
 # вызывает build_sitemap.py --check, который индекс игноририрует by design и
@@ -65,10 +91,19 @@ git add docs/sitemap.xml
 # последнего коммита не сегодня, валит hook. Внесено коммитом 7c56970.
 # Тест НЕ выключен: он остаётся в `pytest -q` и в CI, где индекс на чистом
 # checkout пуст и проверка корректна. Вне hook он — гейт, внутри hook — тупик.
+#
+# test_live_docs_feed_is_current (v5.6.4) исключён по РОВНО той же причине,
+# и это не гипотеза, а механика флага: блок feed выше перегенерировал фид с
+# --commit-date, то есть для docs/sup/index.html из индекса записал дату
+# СЕГОДНЯ, а `--check` в тесте считает дату из истории. Для любого коммита,
+# трогающего docs/sup/index.html, эти две даты разойдутся — то есть ровно
+# те коммиты, ради которых в хук добавлен feed, запрещали бы сами себя.
+# В CI и в обычном `pytest -q` тест остаётся и там проверка корректна.
+#
 # Строка -m сохранена без изменений: tests/test_precommit_hook.py:57 требует
 # наличие "not network and not snapshot_data" в тексте этого хука.
-echo "-> pytest -q -m 'not network and not snapshot_data' -k 'not real_docs_sitemap_is_current'"
-"$PY" -m pytest -q -m "not network and not snapshot_data" -k "not real_docs_sitemap_is_current" --no-header 2>&1
+echo "-> pytest -q -m 'not network and not snapshot_data' -k 'not real_docs_sitemap_is_current and not live_docs_feed_is_current'"
+"$PY" -m pytest -q -m "not network and not snapshot_data" -k "not real_docs_sitemap_is_current and not live_docs_feed_is_current" --no-header 2>&1
 RC=$?
 
 if [ $RC -ne 0 ]; then
