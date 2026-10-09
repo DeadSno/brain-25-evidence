@@ -248,8 +248,29 @@ supplements 11 узлов распределены по холсту с чита
 
 ## 7. Коммит
 
-- `fix(v5.6.1): restore graph drag/pan with iteration limit`
-- Изменён один файл: `docs/interactions.html` (+66 / −14) и этот отчёт.
+- Хеш: **`89978b1`** — `fix(v5.6.1): restore graph drag/pan with iteration limit`
+- Ветка: `v5.6-dev`, запушен в `origin/v5.6-dev` (`0be636e..89978b1`)
+
+Состав коммита:
+
+| Файл | Изменение |
+|---|---|
+| `docs/interactions.html` | +66 / −14 — сама правка |
+| `docs/sitemap.xml` | 1 строка — `lastmod` для `interactions.html` сменился на `2026-10-09`; проставлен pre-commit хуком автоматически, вручную не правился |
+| `reports/GRAPH_INTERACTIVITY_FIX.md` | новый файл, этот отчёт |
+
+### CI
+
+Прогон `tests` №389 (`https://github.com/DeadSno/brain-25-evidence/actions/runs/37888307192`),
+оба джоба зелёные:
+
+| Джоб | Статус |
+|---|---|
+| `pytest (3.12)` | ✅ success (05:23:02 → 05:23:38 UTC) |
+| `pytest (3.13)` | ✅ success (05:23:02 → 05:23:39 UTC) |
+
+Локальный pre-commit хук на момент коммита отработал:
+`811 passed, 2 skipped, 2 deselected` (полный прогон без deselect — раздел 6).
 
 ---
 
