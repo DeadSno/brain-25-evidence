@@ -67,54 +67,15 @@ try {
    Размер 1.8rem сохранён от старого h1, чтобы не менять вид. */
 .feedback-wrap h2 { margin-bottom: var(--space-2); font-weight: 600; }
         .feedback-wrap .lead { color: var(--muted); margin-bottom: var(--space-8); }
-        .f-form { display: flex; flex-direction: column; gap: var(--space-5); }
-        .f-field { display: flex; flex-direction: column; gap: 6px; }
-        .f-field label { font-weight: 600; font-size: 14px; }
-        .f-field .hint { font-size: 12px; color: var(--muted); }
-        .f-field input, .f-field select, .f-field textarea {
-            padding: var(--space-2-5) var(--space-3); border: 1px solid var(--border); border-radius: var(--radius-md);
-            font-size: 16px; font-family: inherit;
-            background: var(--card-bg); color: var(--text);
-        }
-        .f-field input:focus, .f-field select:focus, .f-field textarea:focus {
-            outline: 2px solid var(--accent); outline-offset: -1px; border-color: var(--accent);
-        }
-        .f-field textarea { min-height: 140px; resize: vertical; }
-        .f-field input:invalid:not(:placeholder-shown),
-        .f-field textarea:invalid:not(:placeholder-shown) {
-            border-color: var(--danger-tx);
-        }
-        .f-required::after { content: " *"; color: var(--danger-tx); }
-        .f-actions { display: flex; gap: var(--space-3); align-items: center; margin-top: var(--space-2); flex-wrap: wrap; }
-        /* v4.1: сообщение об ошибке под полем + живой регион для скринридера */
-        .f-error { font-size: 12px; color: var(--danger-tx); font-weight: 600; }
-        .f-error:empty { display: none; }
-        html:not(.light) .f-error { color: #ff8a80; }
-        .f-status { flex-basis: 100%; font-size: 13px; color: var(--muted); min-height: 1.2em; }
-            /* Состояние ошибки в строке статуса — тот же красный, что у .f-error,
-               но мягче по весу: это не ошибка поля, а итог отправки. */
-            .f-status.is-error { color: var(--danger-tx); font-weight: 600; }
-            html:not(.light) .f-status.is-error { color: #ff8a80; }
-        /* v4.1: var(--accent) давал белым 3.65:1 в тёмной теме —
-           фиксированная заливка работает в обеих темах (5.30:1) */
-        .f-btn {
-            padding: var(--space-3) var(--space-6); border: none; border-radius: var(--radius-md);
-            background: #0a6bc9; color: #fff; font-size: 16px;
-            font-weight: 600; cursor: pointer;
-        }
-        .f-btn:hover { filter: brightness(.92); }
-        .f-btn:disabled { background: var(--muted); cursor: not-allowed; }
-        .f-consent { display: flex; gap: 8px; align-items: flex-start; margin-top: var(--space-3); font-size: 13px; cursor: pointer; }
-    .f-consent input { margin-top: 2px; flex: 0 0 auto; width: 16px; height: 16px; }
-    .f-consent a { color: inherit; }
+        /* v5.6.3: правила самой формы (.f-form, .f-field, .f-btn, .f-consent,
+           .f-error, .f-status, .f-success) удалены вместе с <form> — форму
+           теперь рисует Яндекс Формы внутри iframe, и своего HTML у неё на
+           нашем домене нет. Блоки страницы остались: .f-note и .f-privacy. */
         .f-privacy { font-size: 12px; color: var(--muted); margin-top: var(--space-3); }
         .f-privacy a { color: var(--accent); }
         .f-note { padding: var(--space-3) var(--space-4); background: #f0f8ff; border-left: 3px solid #4a90e2;
                   border-radius: var(--radius-sm); margin-bottom: var(--space-6); font-size: 14px; }
         html:not(.light) .f-note { background: rgba(10,132,255,.12); border-left-color: #0a84ff; }
-        .f-success { padding: var(--space-5); background: #e8f5e9; border-left: 4px solid #4caf50;
-                     border-radius: var(--radius-sm); margin-top: var(--space-6); }
-        html:not(.light) .f-success { background: rgba(52,199,89,.14); border-left-color: #34c759; }
         /* ── Mobile (≤640px) ──────────────────────────────── */
         @media (max-width: 640px) {
             body { padding: 0.6rem !important; }
@@ -127,7 +88,6 @@ try {
         }
         @media (max-width: 600px) {
             .feedback-wrap { margin: var(--space-5) auto; }
-            .f-actions { flex-direction: column; align-items: stretch; }
         }
     </style>
     <meta property="og:type" content="website">
@@ -185,85 +145,41 @@ try {
         • Отзыв о проекте
     </div>
 
-    <!-- novalidate: нативный required блокирует submit ДО нашего обработчика,
-         из-за чего кастомная валидация (aria-invalid + свои сообщения) была
-         недостижима для пустых полей. Проверяем сами, см. обработчик ниже. -->
-    <form class="f-form" action="https://api.web3forms.com/submit" method="POST" novalidate>
-        <!-- Web3Forms: ключ виден в исходнике — это штатный режим сервиса,
-             иначе отправка без JS была бы невозможна. При отправке через fetch
-             ключ уходит в теле POST, а не в URL, и не светится в referer. -->
-        <input type="hidden" name="access_key" value="9befbd42-d2e0-4812-b63b-7ef95b0173f3">
-        <input type="hidden" name="subject" value="Brain 25 Evidence — новое сообщение">
-        <input type="hidden" name="from_name" value="Brain 25 Evidence">
-        <!-- Поле redirect удалено: отправка идёт через fetch, навигации не происходит,
-             а значит Web3Forms некуда возвращать пользователя. -->
-        <!-- Ловушка для спама -->
-        <input type="checkbox" name="botcheck" style="display:none"
-               aria-hidden="true" tabindex="-1">
+    <!-- v5.6.3: форма обратной связи переехала на Яндекс Формы
+         (forms.yandex.ru — обработка в РФ). Свой <form> на нашем домене
+         больше не нужен: отправка происходит внутри iframe Яндекса.
+         Раньше здесь был POST на внешний сервис приёма писем (США),
+         то есть трансграничная передача email. См. reports/AUDIT_MASTER.md,
+         LEGAL-J1 / LEGAL-P1-1.
 
-        <div class="f-field">
-            <label for="type" class="f-required">Тип сообщения</label>
-            <select id="type" name="type" required aria-describedby="typeError">
-                <option value="">— выберите —</option>
-                <option value="error">Ошибка в данных</option>
-                <option value="add">Предложить добавку</option>
-                <option value="idea">Идея по улучшению</option>
-                <option value="review">Отзыв о проекте</option>
-                <option value="other">Другое</option>
-            </select>
-            <span class="f-error" id="typeError"></span>
-        </div>
+         Высота iframe задана явно: в коде Яндекса её нет, а без неё
+         фрейм схлопывается в 150px и форма не видна. На узких экранах
+         поле «Тема обращения» переносится на две строки — 1100px. -->
+    <div class="ya-form-wrap">
+        <script src="https://forms.yandex.ru/_static/embed.js" defer></script>
+        <iframe src="https://forms.yandex.ru/u/6ac8c081e010db3e5c3191a3?iframe=1"
+                frameborder="0"
+                name="ya-form-6ac8c081e010db3e5c3191a3"
+                title="Форма обратной связи"
+                width="100%"
+                height="900"
+                loading="lazy"></iframe>
+    </div>
 
-        <div class="f-field">
-            <label for="topic" class="f-required">О чём речь</label>
-            <input type="text" id="topic" name="topic" required minlength="3" maxlength="120"
-                   aria-describedby="topicHint topicError"
-                   placeholder="Например: Креатин, карточка, dosage" autocomplete="off">
-            <span class="hint" id="topicHint">Укажите название добавки или раздел сайта</span>
-            <span class="f-error" id="topicError"></span>
-        </div>
-
-        <div class="f-field">
-            <label for="message" class="f-required">Сообщение</label>
-            <textarea id="message" name="message" required minlength="10" maxlength="2000"
-                      aria-describedby="messageHint messageError"
-                      placeholder="Опишите проблему или предложение как можно подробнее"></textarea>
-            <span class="hint" id="messageHint">От 10 до 2000 символов</span>
-            <span class="f-error" id="messageError"></span>
-        </div>
-
-        <div class="f-field">
-            <label for="email">Email для ответа</label>
-            <input type="email" id="email" name="email" maxlength="200"
-                   aria-describedby="emailHint emailError"
-                   placeholder="name@example.com" autocomplete="email">
-            <span class="hint" id="emailHint">Необязательно. Оставьте, если хотите получить ответ</span>
-            <span class="f-error" id="emailError"></span>
-        </div>
-
-        <div class="f-field">
-            <label class="f-consent">
-                <input type="checkbox" id="consent" name="consent" value="1" required
-                       aria-describedby="consentError">
-                <span>Согласен на обработку email для ответа.
-                    Передача идёт через сервис
-                    <a href="https://web3forms.com" target="_blank" rel="noopener">Web3Forms</a>
-                    (третья страна). Email не публикуется и не используется для рассылок.
-                </span>
-            </label>
-            <span class="f-error" id="consentError"></span>
-        </div>
-
-        <div class="f-actions">
-            <button type="submit" class="f-btn" id="f-submit">Отправить</button>
-            <span class="f-status" id="fStatus" role="status" aria-live="polite"></span>
-        </div>
-
-        <p class="f-privacy">
-            Согласие на обработку персональных данных даётся чекбоксом выше —
-            без него форма не отправляется.
+    <!-- Fallback: без JS iframe всё равно грузится, поэтому noscript — это
+         страховка для отключённого JS, а не для недоступности сервиса. -->
+    <noscript>
+        <p>Форма обратной связи:
+            <a href="https://forms.yandex.ru/u/6ac8c081e010db3e5c3191a3/"
+               target="_blank" rel="noopener">открыть в новом окне</a>.
         </p>
-    </form>
+    </noscript>
+
+    <p class="f-privacy">
+        Данные из формы обрабатывает Яндекс (forms.yandex.ru) на территории
+        Российской Федерации. Что именно собирается, кто обработчик и сколько
+        хранятся данные — в <a href="privacy.html">политике конфиденциальности</a>.
+    </p>
 </main>
 
 <footer class="site-footer">
@@ -302,121 +218,12 @@ if (themeBtn) {
     });
 }
 
-// Отправка формы через fetch.
-//
-// ДО этого здесь был нативный сабмит: e.preventDefault() вызывался ТОЛЬКО внутри
-// ветки ошибки валидации, поэтому при успешной проверке браузер уходил с сайта
-// на api.web3forms.com, а тот отдавал свою страницу вместо редиректа —
-// пользователь терял шапку, навигацию и футер и видел чужой английский текст.
-// Разбор: reports/P0_FEEDBACK_DIAGNOSIS.md.
-//
-// Теперь: preventDefault() безусловно, отправка через fetch, все состояния
-// («Отправляется…» / «Спасибо» / ошибка) рисуются в нашей разметке по-русски.
-
-const WEB3FORMS_ENDPOINT = 'https://api.web3forms.com/submit';
-const form = document.querySelector('.f-form');
-const status = document.getElementById('fStatus');
-const btn = document.getElementById('f-submit');
-
-function showSuccess(message) {
-    var box = document.createElement('div');
-    box.className = 'f-success';
-    box.setAttribute('role', 'status');
-    box.innerHTML = '<strong>Спасибо!</strong> ' + message;
-    form.parentNode.insertBefore(box, form);
-    form.style.display = 'none';
-    window.scrollTo(0, 0);
-}
-
-function showError(message) {
-    btn.disabled = false;
-    btn.textContent = 'Отправить';
-    status.textContent = message;
-    status.classList.add('is-error');
-}
-
-// Валидация на клиенте: без alert() — ошибка живёт в разметке и озвучивается
-// скринридером через role="status", а на поле ставится aria-invalid.
-function validate() {
-    var errors = [];
-
-    function check(id, errId, ok, text) {
-        var field = document.getElementById(id);
-        var err = document.getElementById(errId);
-        if (ok) {
-            field.removeAttribute('aria-invalid');
-            err.textContent = '';
-            return true;
-        }
-        field.setAttribute('aria-invalid', 'true');
-        err.textContent = text;
-        errors.push(field);
-        return false;
-    }
-
-    var type = document.getElementById('type').value;
-    var topic = document.getElementById('topic').value.trim();
-    var message = document.getElementById('message').value.trim();
-    var email = document.getElementById('email').value.trim();
-
-    check('type', 'typeError', type !== '', 'Выберите тип сообщения');
-    check('topic', 'topicError', topic.length >= 3, 'Укажите не менее 3 символов');
-    check('message', 'messageError', message.length >= 10,
-          'Сообщение должно содержать минимум 10 символов');
-    // email необязателен, но если заполнен — должен быть корректным
-    check('email', 'emailError', email === '' || /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email),
-          'Похоже, в email опечатка');
-
-    // Согласие обязательно: без него персональные данные уходить не должны.
-    // Проверка на клиенте — не замена согласию как таковому, а видимое
-    // требование выразить его до отправки.
-    check('consent', 'consentError',
-          document.getElementById('consent').checked,
-          'Без согласия на обработку email форму отправить нельзя');
-
-    if (errors.length) {
-        status.classList.add('is-error');
-        status.textContent = errors.length === 1
-            ? 'Форма не отправлена: исправьте одно поле.'
-            : 'Форма не отправлена: исправьте ' + errors.length + ' пол.';
-        errors[0].focus();
-        return false;
-    }
-    status.classList.remove('is-error');
-    return true;
-}
-
-form.addEventListener('submit', function (e) {
-    // Безусловно и первым: нативный сабмит уводит с сайта.
-    e.preventDefault();
-
-    if (!validate()) return;
-
-    btn.disabled = true;
-    btn.textContent = 'Отправляется…';
-    status.textContent = 'Отправляется…';
-
-    fetch(WEB3FORMS_ENDPOINT, { method: 'POST', body: new FormData(form) })
-        .then(function (r) {
-            if (!r.ok) throw new Error('HTTP ' + r.status);
-            showSuccess('Отзыв отправлен. Если указали email — отвечу в течение 2-3 дней.');
-        })
-        .catch(function () {
-            showError('Не удалось отправить. Попробуйте ещё раз.');
-        });
-});
-
-// Снимаем ошибку поля, как только пользователь его правит.
-['type', 'topic', 'message', 'email', 'consent'].forEach(function (id) {
-    var field = document.getElementById(id);
-    if (!field) return;
-    var evt = field.type === 'checkbox' ? 'change' : 'input';
-    field.addEventListener(evt, function () {
-        field.removeAttribute('aria-invalid');
-        var err = document.getElementById(id + 'Error');
-        if (err) err.textContent = '';
-    });
-});
+// v5.6.3: блок отправки формы удалён вместе с прежним внешним сервисом.
+// Раньше здесь был preventDefault() + fetch с ручной валидацией полей
+// (см. reports/P0_FEEDBACK_DIAGNOSIS.md и reports/AUDIT_MASTER.md LEGAL-P1-1).
+// Теперь форму целиком рисует Яндекс Формы внутри iframe — ни сабмита,
+// ни валидации, ни состояний «Отправляется…/Спасибо/ошибка» здесь не остаётся,
+// потому что ими занимается сервис Яндекса. Тема и всё остальное — как было.
 </script>
 <script src="pwa.js?v=282" defer></script>
 <script src="share.js?v=1" defer></script>

@@ -811,6 +811,8 @@ body.trends-page .trustbar { position: sticky; top: 0; z-index: 100; }
    - .chartTab/.favFilter объявлены здесь, в style.css → правятся здесь;
    - .profile-btn/.f-btn объявлены в <style> страниц, но тот <style>
      идёт ПОСЛЕ <link href="style.css"> → правило ниже перебивает их;
+     v5.6.3: .f-btn из пары выброшен — кнопки отправки на feedback.html
+     больше нет, форма рисуется Яндексом в iframe;
    - .tr-tab объявлен сразу в ДВУХ файлах (interactions.html:53,
      trends.html:37)
      с разными padding/шрифтом → общий селектор покрывает обе страницы. */
@@ -819,7 +821,7 @@ body.trends-page .trustbar { position: sticky; top: 0; z-index: 100; }
    40×44 — высоты хватало, ширины нет (padding .8rem + глиф ≈ 40px).
    Ровно 44px без запасных пикселей, чтобы не ломать раскладку <section>. */
 .favFilter { min-width: 44px; }
-.profile-btn, .f-btn { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
+.profile-btn { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
 .preset, .tr-tab { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
 
 /* v5.0.0 mobile: .tagChip в карточке (index, 15 на страницу × 6 ширин = 226 замеров)
@@ -1526,6 +1528,26 @@ body.modal-open .toBottom { display: none; }
    position:sticky у шапки (.site-header, липкая) — она перестаёт липнуть.
    На body sticky сохраняется, проверено замером headerTop после прокрутки. */
 body.modal-open { overflow: hidden; }
+
+/* ═══ Форма обратной связи (Яндекс Формы) ═══
+   v5.6.3: <form> на feedback.html заменён на iframe forms.yandex.ru.
+   Обёртка держит форму в колонке и не даёт ей растянуться на десктопе;
+   width="100%" в самом iframe вместо width="650" — иначе на мобильном
+   появляется горизонтальный скролл. */
+.ya-form-wrap {
+  max-width: 700px;
+  margin: 0 auto;
+}
+.ya-form-wrap iframe {
+  display: block;
+  width: 100%;
+  border: 0;
+}
+/* На узком экране поле «Тема обращения» переносится на вторую строку,
+   поэтому высота фрейма на 200px больше. */
+@media (max-width: 480px) {
+  .ya-form-wrap iframe { height: 1100px; }
+}
 
 /* ═══ Единый футер ═══ */
 .site-footer {

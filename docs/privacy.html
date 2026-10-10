@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>Приватность и cookie — Brain 25 Evidence</title>
     <meta property="og:title" content="Приватность и cookie - Brain 25 Evidence"/>
-    <meta property="og:description" content="Какие данные собирает Brain 25 Evidence: cookie, localStorage, Яндекс.Метрика. Метрика включается только после согласия."/>
+    <meta property="og:description" content="Какие данные собирает Brain 25 Evidence: cookie, Яндекс.Метрика, форма обратной связи. Обработка по 152-ФЗ. Метрика включается только после согласия."/>
     <meta property="og:type" content="website"/>
     <meta property="og:url" content="https://deadsno.github.io/brain-25-evidence/privacy.html"/>
     <link rel="canonical" href="https://deadsno.github.io/brain-25-evidence/privacy.html">
     <link rel="alternate" type="application/rss+xml" title="brain-25-evidence" href="https://deadsno.github.io/brain-25-evidence/feed.xml">
     <meta property="og:image" content="https://deadsno.github.io/brain-25-evidence/og.png"/>
     <meta name="twitter:card" content="summary_large_image"/>
-    <meta name="description" content="Какие данные собирает Brain 25 Evidence: cookie, localStorage, Яндекс.Метрика. Метрика включается только после согласия.">
+    <meta name="description" content="Какие данные собирает Brain 25 Evidence: cookie, Яндекс.Метрика, форма обратной связи. Обработка по 152-ФЗ. Метрика включается только после согласия.">
     <link rel="manifest" href="manifest.webmanifest">
     <meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#1c1c1e" media="(prefers-color-scheme: dark)">
@@ -34,6 +34,8 @@
         .privacy-wrap p { margin-bottom: var(--space-3); line-height: var(--lh-loose); }
         .privacy-wrap ul { margin: 0 0 var(--space-3) var(--space-5); }
         .privacy-wrap li { margin-bottom: 6px; line-height: var(--lh-normal); }
+        .privacy-wrap h3 { margin: var(--space-4) 0 var(--space-2); font-size: 1rem; font-weight: 600; }
+        .privacy-sub { color: var(--muted); font-size: .95rem; }
         .privacy-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius-xl); padding: var(--space-5) var(--space-6); margin-bottom: var(--space-4); }
         .privacy-card h2 { margin-top: 0; }
         .privacy-note { padding: var(--space-3) var(--space-4); background: var(--card-bg); border-left: 3px solid var(--accent); border-radius: var(--radius-md); margin-bottom: var(--space-6); font-size: .95rem; }
@@ -67,8 +69,44 @@
 
   <div class="privacy-note">Сайт собирает минимум данных. Веб-аналитика (Яндекс.Метрика) включается <b>только после</b> нажатия «Принять» в баннере согласия — до этого ни один запрос к mc.yandex.ru не отправляется.</div>
 
+  <div class="privacy-note">
+    <b>Правовая основа.</b> Обработка персональных данных на сайте ведётся в
+    соответствии с Федеральным законом от 27.07.2006 № 152-ФЗ «О персональных
+    данных». Ниже перечислены категории данных, операторы (третьи лица),
+    сроки хранения и способ отказаться от обработки.
+  </div>
+
     <div class="privacy-card">
-        <h2>🍪 Что хранится у вас на устройстве</h2>
+        <h2>📋 Какие данные собираются</h2>
+
+        <h3>Автоматически (при посещении сайта)</h3>
+        <ul>
+            <li>IP-адрес, cookie, данные о поведении на сайте;</li>
+            <li>через <b>Яндекс.Метрику</b> (счётчик 112465667, вебвизор включён) — после нажатия «Принять» в баннере согласия.</li>
+        </ul>
+        <p class="privacy-sub">Подробный состав технических данных Метрики — в разделе ниже.</p>
+
+        <h3>Через форму обратной связи</h3>
+        <ul>
+            <li>имя, email, текст сообщения;</li>
+            <li>через <b>Яндекс Формы</b> (forms.yandex.ru) — отправка идёт внутри формы Яндекса, на наш домен персональные данные не передаются.</li>
+        </ul>
+        <p class="privacy-sub">Email указывается добровольно и используется только чтобы ответить на обращение. Он не публикуется и не используется для рассылок.</p>
+    </div>
+
+    <div class="privacy-card">
+        <h2>🏛️ Кто обрабатывает данные (третьи лица)</h2>
+        <ul>
+            <li><b>Яндекс.Метрика</b> — веб-аналитика, счётчик 112465667, вебвизор: включён.
+                Политика: <a href="https://yandex.ru/legal/metrica_termsofuse/" target="_blank" rel="noopener">yandex.ru/legal/metrica_termsofuse</a></li>
+            <li><b>Яндекс Формы</b> — приём обращений через форму обратной связи.
+                Политика: <a href="https://yandex.ru/legal/forms_termsofuse/" target="_blank" rel="noopener">yandex.ru/legal/forms_termsofuse</a></li>
+        </ul>
+        <p>Обработка обоими сервисами осуществляется на территории Российской Федерации, в соответствии с 152-ФЗ. Данные не передаются за пределы РФ.</p>
+    </div>
+
+    <div class="privacy-card">
+        <h2>🗄️ Что хранится у вас на устройстве</h2>
         <ul>
             <li><b>cookie-consent</b> — ваш выбор в баннере согласия: <code>accepted</code> или <code>rejected</code>. Без неё баннер показывался бы при каждом визите.</li>
             <li><b>theme</b> — выбранная тема оформления (тёмная / светлая), чтобы не переключать её вручную.</li>
@@ -90,20 +128,36 @@
     </div>
 
     <div class="privacy-card">
+        <h2>🗓️ Сроки хранения</h2>
+        <ul>
+            <li><b>Cookie Яндекс.Метрики</b> — 1 год (стандартный срок сервиса, определяется Яндексом).</li>
+            <li><b>Данные из формы обратной связи</b> — до ответа на обращение и не дольше 1 года после него, затем уничтожаются в течение 30 дней (ст. 21 152-ФЗ).</li>
+        </ul>
+        <p>Правовое основание: 152-ФЗ от 27.07.2006 «О персональных данных».</p>
+    </div>
+
+    <div class="privacy-card">
         <h2>🚫 Как отказаться</h2>
-        <p>Нажатие «Отклонить» в баннере согласия — Метрика не загрузится вообще. Отказ хранится в том же ключе <code>cookie-consent</code>; чтобы вернуть выбор, удалите его вручную:</p>
+        <h3>Cookie-аналитика</h3>
+        <p>Кнопка «Отклонить» в баннере согласия — Метрика не будет загружена вообще: до согласия ни один запрос к mc.yandex.ru не уходит.</p>
+        <p>Отказ хранится в ключе <code>cookie-consent</code>; чтобы вернуть выбор, удалите его вручную:</p>
         <ul>
             <li>DevTools → Application (Приложение) → Local Storage → этот сайт → ключ <code>cookie-consent</code> → Delete;</li>
             <li>после этого баннер появится снова.</li>
         </ul>
         <p>Вы также можете блокировать домен <code>mc.yandex.ru</code> расширением или в настройках браузера — это не сломает сайт, он работает на открытых данных без какой-либо аналитики.</p>
+
+        <h3>Данные из формы обратной связи</h3>
+        <p>Напишите на <a href="mailto:deadsno1613@gmail.com">deadsno1613@gmail.com</a> с просьбой удалить данные вашего обращения. Запрос обрабатывается в течение 30 дней.</p>
     </div>
 
     <div class="privacy-card">
         <h2>✉️ Контакт</h2>
-        <p>Вопросы по данным и приватности — через страницу <a href="feedback.html">обратной связи</a> или на
-        <a href="https://github.com/DeadSno/brain-25-evidence" target="_blank" rel="noopener">GitHub проекта</a>.
-        Ответственный за обработку: Vladislav "DeadSno" Pereshivalov.</p>
+        <p>Ответственный за обработку персональных данных: Vladislav "DeadSno" Pereshivalov.
+        Вопросы по данным и приватности — на
+        <a href="mailto:deadsno1613@gmail.com">deadsno1613@gmail.com</a>, через страницу
+        <a href="feedback.html">обратной связи</a> или на
+        <a href="https://github.com/DeadSno/brain-25-evidence" target="_blank" rel="noopener">GitHub проекта</a>.</p>
     </div>
 </main>
 
