@@ -1,0 +1,706 @@
+diff --git a/AGENTS.md b/AGENTS.md
+index bc23b96..c33ee89 100644
+--- a/AGENTS.md
++++ b/AGENTS.md
+@@ -177,9 +177,14 @@ SYSTEM пересборка из instruct даёт работающие вызо
+ 
+ ## Известные ловушки проекта
+ 
+-- **Эталоны снапшотов скипаются молча**, если сервер на `:8000` не
+-  отвечает: 74 skipped выглядит как успех. Всегда проверяй
+-  `Invoke-RestMethod http://localhost:8000/version.json` перед прогоном.
++- **Эталоны снапшотов раньше скипались молча**, если сервер на `:8000` не
++  отвечал: замерено `76 skipped` при коде возврата 0. **Закрыто 2026-10-10
++  гейтом в `tests/conftest.py`:** если включён хотя бы один из `RUN_SNAPSHOTS`,
++  `RUN_A11Y`, `RUN_TABS`, `RUN_GRAPH`, а сервер не отвечает ИЛИ отдаёт чужую
++  копию проекта, прогон падает с кодом 4 до коллекции. Там же проверяется,
++  что `playwright`/`numpy`/`PIL` вообще импортируются — иначе `importorskip`
++  тихо снимал модуль. Проверять сервер руками больше не нужно.
++  Снять гейт осознанно: `$env:ALLOW_SERVER_SKIP="1"`.
+ - **Edit иногда не находит текст с кириллицей** в некоторых файлах. Если
+   `oldString` не подошёл — не повторяй ту же попытку, а замени по номерам
+   строк скриптом.
+diff --git a/docs/version.json b/docs/version.json
+index 4d1f6d4..531a435 100644
+--- a/docs/version.json
++++ b/docs/version.json
+@@ -2,5 +2,5 @@
+   "app": "5.6.1",
+   "data": "2026-09-25",
+   "audit": "1.0",
+-  "tests": 1023
++  "tests": 1065
+ }
+diff --git a/tests/conftest.py b/tests/conftest.py
+index 8431762..ec3e91e 100644
+--- a/tests/conftest.py
++++ b/tests/conftest.py
+@@ -1,6 +1,9 @@
+ """Общие фикстуры для тестов brain-25-evidence."""
++import hashlib
+ import os
+ import sys
++import urllib.error
++import urllib.request
+ from pathlib import Path
+ 
+ import pytest
+@@ -11,6 +14,267 @@ sys.path.insert(0, str(ROOT))
+ DB_PATH = ROOT / "data" / "db" / "brain.duckdb"
+ 
+ 
++# ──────────────────────── §17: пропуск не должен выглядеть зелёным ────────────────────────
++#
++# Замерено на этой копии ДО правки:
++#     $env:RUN_SNAPSHOTS="1"; $env:SNAPSHOT_BASE_URL="http://localhost:8099"
++#     pytest -q -m snapshots
++#     -> 76 skipped, 824 deselected; EXITCODE=0
++#
++# То есть человек СКАЗАЛ «проверь меня снапшотами», получил ноль проверенных
++# пикселей и зелёный код возврата. Это ровно та ловушка, что описана в AGENTS.md
++# («skipped looks like green»), и она молчала во всех четырёх файлах.
++#
++# ПОЧЕМУ НЕ «падать всегда, когда :8000 лежит». Гейт привязан к ЯВНОМУ
++# включению набора, а не к факту отсутствия сервера. Замерено: обычный
++# `pytest -q` собирает 1065 тест и не обращается к :8000 ни разу. Падение
++# всего прогона из-за сервера, который этому прогону не нужен, — это не
++# честность, а просто новый способ ничего не запускать.
++#
++# ПОЧЕМУ НЕ `RUN_E2E`. Тесты e2e (tests/test_e2e_smoke.py, test_ui_verify.py)
++# поднимают СВОЙ http.server на :8123 и к :8000 не ходят (проверено: PORT = 8123
++# в обоих файлах). Включать их в этот гейт — ложное срабатывание.
++
++#: Переменные окружения, каждая из которых включает набор, требующий :8000.
++#: Ключ — имя переменной, значение — что именно она запускает (для сообщения).
++SERVER_GATES = {
++    "RUN_SNAPSHOTS": "визуальные эталоны",
++    "RUN_A11Y": "тесты доступности",
++    "RUN_TABS": "клик по вкладкам",
++    "RUN_GRAPH": "экспорт PNG и раскладка графа",
++}
++
++#: Куда стучимся. Тот же адрес и та же переменная, что в тестах: иначе гейт
++#: проверял бы один сервер, а тесты били бы в другой.
++DEFAULT_BASE_URL = "http://localhost:8000"
++
++#: Что стучимся. AGENTS.md называет version.json канонической проверкой
++#: живости сервера; для снятия шторки достаточно любого 200.
++PROBE_PATH = "/version.json"
++
++#: Модули, без которых серверные наборы уходят в SKIP на этапе ИМПОРТА
++#: (module-level pytest.importorskip в test_visual_snapshots.py:286-289 и
++#: test_a11y_axe.py:126). Имена — как в importorskip, до точки.
++#: Проверяются попыткой ИМПОРТА, а не find_spec: замер показал, что для
++#: подменённого numpy find_spec возвращает ModuleSpec (файл ведь есть), и дыра
++#: оставалась. Настоящая недоступность — это когда импорт падает.
++SERVER_DEPS = ("playwright", "numpy", "PIL")
++
++#: Таймаут короткий намеренно: гейт стоит ДО коллекции, и намертво
++#: захваченный порт не должен висеть на старте прогона.
++PROBE_TIMEOUT = 3.0
++
++
++def env_flag(name: str, env=None) -> bool:
++    """Истина, если переменная окружения включена.
++
++    Принимает 1/true/yes/on в любом регистре. Раньше здесь стояло сравнение
++    `== "1"`, и оно же использовалось для RUN_* как «непустая строка» — две
++    разные конвенции в одном файле. Замерено: с ALLOW_SERVER_SKIP=true
++    (не "1") обходной путь молча не срабатывал, и человек, который его
++    выставил, получал падение вместо пропуска.
++    """
++    env = os.environ if env is None else env
++    return env.get(name, "").strip().lower() in {"1", "true", "yes", "on"}
++
++
++def active_server_gates(env=None) -> dict:
++    """Какие наборы, требующие :8000, человек включил явно.
++
++    Возвращает {имя переменной: описание}, пустой dict — если ничего не
++    включено, и это НОРМАЛЬНЫЙ быстрый прогон.
++
++    Разбор значения — через env_flag, а не «непустая строка»: иначе
++    RUN_SNAPSHOTS=0 включал бы гейт, хотя человек явно писал «ноль», то есть
++    «выключено».
++    """
++    env = os.environ if env is None else env
++    return {
++        var: desc
++        for var, desc in SERVER_GATES.items()
++        if env_flag(var, env)
++    }
++
++
++def is_ci(env=None) -> bool:
++    """CI или нет. GitHub Actions ставит и CI, и GITHUB_ACTIONS."""
++    env = os.environ if env is None else env
++    return bool(env.get("CI") or env.get("GITHUB_ACTIONS"))
++
++
++def server_reachable(base_url: str, timeout: float = PROBE_TIMEOUT) -> bool:
++    """Отвечает ли сервер И отдаёт ли он ИМЕННО ЭТОТ репозиторий.
++
++    Проверки две, и вторая важнее первой. Замерено: подмена сервера на чужой
++    сайт, у которого есть version.json, давала «76 skipped, EXITCODE=0» —
++    гейт, который смотрит только на код ответа, ратифицировал бы ЧУЖУЮ копию
++    проекта, а тесты потом тихо скипались бы на сверке хэша style.css.
++
++    Это не экзотика: инструкция проекта предлагает
++    `python -m http.server 8000 --directory docs`, поэтому вторая копия
++    репозитория, уже занятая на :8000, даёт ровно этот сценарий.
++
++    True только если сервер жив И отдаёт наш style.css.
++    """
++    local_css = ROOT / "docs" / "style.css"
++    try:
++        with urllib.request.urlopen(f"{base_url}{PROBE_PATH}", timeout=timeout) as r:
++            if not (200 <= r.status < 400):
++                return False
++    except urllib.error.HTTPError as exc:
++        # Сервер жив, просто не отдал эту страницу — это не «сервера нет».
++        if exc.code >= 500:
++            return False
++    except Exception:  # noqa: BLE001 — любой сетевой сбой = «сервера нет»
++        return False
++
++    # Живость есть. Теперь личность: та же сверка, что в _check_server()
++    # каждого из четырёх наборов, — иначе гейт пропустил бы чужую копию.
++    try:
++        with urllib.request.urlopen(f"{base_url}/style.css", timeout=timeout) as r:
++            served = r.read()
++        return hashlib.sha256(served).hexdigest() == hashlib.sha256(
++            local_css.read_bytes()
++        ).hexdigest()
++    except Exception:  # noqa: BLE001 — не отдал style.css = сервера нет
++        return False
++
++
++def server_gate_verdict(gates: dict, reachable: bool, ci: bool, allow_skip: bool) -> str:
++    """Что делать прогону: 'run' | 'fail' | 'skip'.
++
++    Вынесено чистой функцией, потому что это единственное место, где
++    принимается решение «красить прогон в зелёный или нет», и оно обязано
++    проверяться тестами БЕЗ сети — иначе мы добавили бы в репозиторий ровно
++    ту непроверяемую логику, из-за которой всё и затевалось.
++    """
++    if not gates:
++        return "run"          # никто серверные тесты не просил — не мешаем
++    if reachable:
++        return "run"          # просил и сервер есть — всё честно
++    if ci or allow_skip:
++        return "skip"         # CI сервер не поднимает, человек снял гейт руками
++    return "fail"             # просил, сервера нет, а отчёт был бы зелёным
++
++
++def missing_server_deps() -> list:
++    """Модули, без которых наборы снимутся в SKIP на ИМПОРТЕ, а не на фикстуре.
++
++    Замерено на этой копии: с numpy, подменённым на модуль, бросающий
++    ModuleNotFoundError, `RUN_SNAPSHOTS=1 pytest -q -m snapshots` даёт
++    «2 skipped» и НОЛЬ выполненных тестов. importorskip ловит ModuleNotFoundError
++    и помечает модуль пропущенным — до того, как отработает любая фикстура.
++
++    Проверка живого сервера эту дыру не закрывает: сервер был поднят, гейт
++    честно сказал «run», а проверять было нечем.
++
++    Проба именно ИМПОРТА, а не find_spec: замер показал, что find_spec для
++    подменённого numpy возвращает ModuleSpec (файл-то есть), и дыра оставалась
++    — модуль «находится», но не импортируется. Настоящая проверка — попытка
++    импорта, как это делает importorskip.
++    """
++    import importlib
++
++    missing = []
++    for mod in SERVER_DEPS:
++        try:
++            importlib.import_module(mod)
++        except Exception:  # noqa: BLE001 — любой сбой импорта = «модуля нет»
++            missing.append(mod)
++    return missing
++
++
++def pytest_sessionstart(session):
++    """Гейт сервера ДО коллекции.
++
++    Именно до коллекции, а не фикстурой: `pytest.importorskip("playwright")`
++    в test_visual_snapshots.py выполняется на ИМПОРТЕ модуля, то есть раньше
++    любой фикстуры. Если playwright не установлен, тесты становятся skipped
++    ещё до того, как фикстура успела бы что-либо сделать.
++
++    Замечание к прежней версии этого docstring: здесь было написано, что хук
++    «ловит и этот случай». Не ловил. С подменённым numpy гейт возвращал run
++    (сервер-то был живой), а прогон давал 2 skipped и ноль выполненных
++    тестов. Поэтому проверка зависимостей вынесена в missing_server_deps() и
++    вызывается здесь же, а не «сама собой».
++    """
++    gates = active_server_gates()
++    if not gates:
++        return
++
++    base_url = os.environ.get("SNAPSHOT_BASE_URL", DEFAULT_BASE_URL).rstrip("/")
++    ci = is_ci()
++    allow_skip = env_flag("ALLOW_SERVER_SKIP")
++    missing = missing_server_deps()
++    reachable = False if missing else server_reachable(base_url)
++    verdict = server_gate_verdict(gates, reachable, ci, allow_skip)
++
++    if verdict == "fail":
++        listed = "\n".join(f"    {var} — {desc}" for var, desc in gates.items())
++        if missing:
++            reason = (
++                f"Включены тесты, требующие модулей, которых нет: "
++                f"{', '.join(missing)}.\n"
++                f"    Поставь: pip install -r requirements-dev.txt\n"
++                f"    playwright install chromium\n\n"
++                f"Без них importorskip помечает модуль пропущенным, прогон\n"
++                f"завершается кодом 0, и ни один пиксель не проверен.\n\n"
++            )
++        else:
++            reason = (
++                f"Включены тесты, требующие живого сервера, но {base_url} не "
++                f"отвечает ИЛИ отдаёт другую копию проекта:\n{listed}\n\n"
++                f"Без сервера эти тесты ПРОПУСКАЮТСЯ, а pytest завершается с "
++                f"кодом 0 —\nто есть отчёт был бы зелёным, хотя не проверен ни "
++                f"один пиксель.\nОтказываемся запускаться, чтобы это не "
++                f"выглядело как проверка.\n\n"
++            )
++
++        raise pytest.UsageError(
++            f"\n\n{reason}"
++            f"Что сделать:\n"
++            f"  * поднять сервер из КОРНЯ репозитория:\n"
++            f"        python -m http.server 8000 --directory docs\n"
++            f"  * или указать другой адрес:\n"
++            f"        $env:SNAPSHOT_BASE_URL=\"http://localhost:8020\"\n"
++            f"  * или снять гейт осознанно (прогон будет честно пустым):\n"
++            f"        $env:ALLOW_SERVER_SKIP=\"1\"\n\n"
++        )
++
++    if verdict == "skip":
++        detail = ", ".join(missing) if missing else base_url
++        print(
++            f"[server-gate] {detail} недоступно, но гейт снят "
++            f"(CI={ci}, ALLOW_SERVER_SKIP={allow_skip}) — тесты будут пропущены.",
++            file=sys.stderr,
++        )
++
++
++def pytest_terminal_summary(terminalreporter):
++    """Показать DuckDB-пропуски тем, кто их не выбирал.
++
++    Отдельная от :8000 проблема и другого класса: data/db/ в .gitignore, поэтому
++    brain.duckdb не бывает в CI, и тесты в test_sql.py и
++    test_integration_api_db.py не выполняются НИГДЕ, кроме машины, где кто-то
++    раз вручную выполнил scripts/db/import_to_duckdb.py. Молчаливый skip
++    выглядит как «проверено», поэтому печатаем это отдельной строкой.
++
++    Настоящее число пропусков берём из отчёта, а не константой: в тексте
++    стояло «16», а замер давал 18 — и «18» включало два e2e-пропуска, которые
++    к DuckDB отношения не имеют.
++    """
++    if DB_PATH.exists():
++        return
++    skipped = len(terminalreporter.stats.get("skipped", []))
++    plural = "тест" if skipped % 10 == 1 and skipped % 100 != 11 else "тестов"
++    terminalreporter.write_line(
++        f"ВНИМАНИЕ: {DB_PATH.name} нет — {skipped} {plural} SQL пропущено. "
++        f"data/db/ в .gitignore, поэтому в CI их не будет тоже. "
++        f"Создать: python scripts/db/import_to_duckdb.py",
++        yellow=True,
++    )
++
++
+ def pytest_collection_modifyitems(config, items):
+     """Выключить браузерные e2e и визуальные снапшоты по умолчанию.
+ 
+@@ -35,7 +299,7 @@ def pytest_collection_modifyitems(config, items):
+     снимаются отдельным фильтром: им тоже нужен браузер и сервер, но команда
+     запуска у них своя — RUN_A11Y=1 pytest -q -m a11y.
+     """
+-    if os.environ.get("RUN_E2E") == "1":
++    if env_flag("RUN_E2E"):
+         pass  # e2e-гейт ниже
+     else:
+         skip = pytest.mark.skip(
+@@ -54,10 +318,16 @@ def pytest_collection_modifyitems(config, items):
+     #   RUN_SNAPSHOTS=1 -> только снапшоты
+     #   RUN_A11Y=1      -> только доступность
+     #   ничего          -> быстрый прогон без браузера
+-    if not os.environ.get("RUN_SNAPSHOTS"):
++    #
++    # Все пять гейтов читаются через env_flag, а не через «непустую строку».
++    # Замерено на разнобое, который это чинит: при RUN_SNAPSHOTS=0 фильтр
++    # коллекции считал переменную включённой (тесты собирались), а гейт
++    # сервера — выключенной, и прогон тихо давал 76 skipped при коде 0, то
++    # есть ровно ту ловушку, ради которой всё затевалось.
++    if not env_flag("RUN_SNAPSHOTS"):
+         items[:] = [item for item in items if "snapshots" not in item.keywords]
+ 
+-    if not os.environ.get("RUN_A11Y"):
++    if not env_flag("RUN_A11Y"):
+         items[:] = [item for item in items if "a11y" not in item.keywords]
+ 
+     # 	abs (tests/test_tabs_interaction.py, v5.4.1): клик по вкладкам.
+@@ -66,7 +336,7 @@ def pytest_collection_modifyitems(config, items):
+     # перекрывает addopts и включила бы 42 теста неожиданно — ровно то,
+     # из-за чего e2e вынесен в отдельную настройку.
+     # Запуск: \="1"; pytest -q -m tabs
+-    if not os.environ.get("RUN_TABS"):
++    if not env_flag("RUN_TABS"):
+         items[:] = [item for item in items if "tabs" not in item.keywords]
+ 
+     # `graph` (tests/test_graph_interaction.py, v5.4.1): экспорт PNG и
+@@ -74,7 +344,7 @@ def pytest_collection_modifyitems(config, items):
+     # поэтому снят здесь по той же причине, что tabs.
+     # Запуск: $env:RUN_TABS="1" не включает его — гейты независимы.
+     # Запуск: $env:RUN_GRAPH="1"; pytest -q -m graph
+-    if not os.environ.get("RUN_GRAPH"):
++    if not env_flag("RUN_GRAPH"):
+         items[:] = [item for item in items if "graph" not in item.keywords]
+ 
+ 
+diff --git a/tests/test_server_gate.py b/tests/test_server_gate.py
+new file mode 100644
+index 0000000..b8b65a7
+--- /dev/null
++++ b/tests/test_server_gate.py
+@@ -0,0 +1,338 @@
++"""Гейт сервера §17: пропуск не должен выглядеть зелёным.
++
++Замер, на котором стоит весь файл (до правки, на этой копии):
++
++    $env:RUN_SNAPSHOTS="1"; $env:SNAPSHOT_BASE_URL="http://localhost:8099"
++    pytest -q -m snapshots
++    -> 76 skipped, 824 deselected; EXITCODE=0
++
++Человек попросил проверить его снапшотами, получил ноль проверенных пикселей и
++зелёный код возврата. Теперь тот же прогон падает с кодом 4 ДО коллекции.
++
++Все проверки здесь — БЕЗ сети и БЕЗ переменных окружения: `env` передаётся
++явно. Причина та же, что у всего файла: если бы проверка гейта зависела от
++живого :8000, она не отработала бы там, где гейт нужен, — в CI.
++
++Три ловушки, закрытые здесь намеренно:
++
++1. `RUN_E2E` НЕ входит в гейт: e2e-тесты поднимают свой http.server на :8123
++   и к :8000 не ходят (PORT = 8123 в test_e2e_smoke.py и test_ui_verify.py).
++   Включение e2e в гейт дало бы ложное срабатывание на каждом CI-запуске.
++2. Гейт НЕ срабатывает, когда серверные тесты никто не просил. Обычный
++   `pytest -q` собирает 1065 тест и к :8000 не обращается ни разу.
++3. Совпадение адреса: гейт бьёт в `SNAPSHOT_BASE_URL`, а не в жёсткие
++   localhost:8000, — иначе гейт проверял бы один сервер, а тесты били бы в
++   другой (и падали бы на «чужую копию проекта»).
++"""
++from pathlib import Path
++
++import pytest
++
++ROOT = Path(__file__).resolve().parents[1]
++
++from tests.conftest import (
++    DEFAULT_BASE_URL,
++    SERVER_DEPS,
++    SERVER_GATES,
++    active_server_gates,
++    env_flag,
++    is_ci,
++    server_gate_verdict,
++    server_reachable,
++)
++
++
++# ──────────────────────── active_server_gates ────────────────────────
++
++def test_no_gates_when_env_empty():
++    """Обычный быстрый прогон не должен попадать под гейт."""
++    assert active_server_gates({}) == {}
++
++
++@pytest.mark.parametrize("var", sorted(SERVER_GATES))
++def test_gate_detected_per_var(var):
++    """Каждая из четырёх переменных включает гейт — по одной, а не «если что»."""
++    assert var in active_server_gates({var: "1"})
++
++
++def test_e2e_is_not_in_server_gate():
++    """RUN_E2E не трогает :8000 — e2e поднимает свой сервер на :8123.
++
++    Регрессия, которой не было бы без этой проверки: добавление RUN_E2E в
++    SERVER_GATES заставило бы CI падать на каждом запуске.
++    """
++    assert "RUN_E2E" not in SERVER_GATES
++    assert active_server_gates({"RUN_E2E": "1"}) == {}
++
++
++def test_unset_variable_is_not_a_gate():
++    """Пустая строка — это не включение (так ведёт себя os.environ)."""
++    assert active_server_gates({v: "" for v in SERVER_GATES}) == {}
++
++
++@pytest.mark.parametrize("value", ["0", "false", "off", "no"])
++def test_gate_var_set_to_false_is_not_a_gate(value):
++    """RUN_SNAPSHOTS=0 — это «выключено», а не «включено».
++
++    Иначе человек, который явно пишет ноль, получал бы падение на прогоне,
++    который он как раз отключил.
++    """
++    assert active_server_gates({"RUN_SNAPSHOTS": value}) == {}
++
++
++# ──────────────────────── is_ci ────────────────────────
++
++def test_ci_detected_from_both_markers():
++    """GitHub Actions ставит и CI, и GITHUB_ACTIONS — берём оба."""
++    assert is_ci({"CI": "true"}) is True
++    assert is_ci({"GITHUB_ACTIONS": "true"}) is True
++
++
++def test_local_is_not_ci():
++    assert is_ci({}) is False
++
++
++# ──────────────────────── server_gate_verdict: решение, а не сеть ────────────────────────
++
++def test_verdict_run_when_nothing_requested():
++    """Сервера нет, но его и не просили — прогон идёт как обычно."""
++    assert server_gate_verdict({}, reachable=False, ci=False, allow_skip=False) == "run"
++
++
++def test_verdict_run_when_requested_and_up():
++    """Просили, сервер есть — идём и проверяем."""
++    gates = {"RUN_SNAPSHOTS": "эталоны"}
++    assert server_gate_verdict(gates, reachable=True, ci=False, allow_skip=False) == "run"
++
++
++def test_verdict_fail_when_requested_and_down():
++    """Ядро §17: просили, сервера нет, CI нет — падать, а не зеленить."""
++    gates = {"RUN_SNAPSHOTS": "эталоны"}
++    assert server_gate_verdict(gates, reachable=False, ci=False, allow_skip=False) == "fail"
++
++
++def test_verdict_skip_in_ci():
++    """В CI сервер не поднимают — падать там нельзя."""
++    gates = {"RUN_SNAPSHOTS": "эталоны"}
++    assert server_gate_verdict(gates, reachable=False, ci=True, allow_skip=False) == "skip"
++
++
++def test_verdict_skip_with_allow_flag():
++    """Явное ALLOW_SERVER_SKIP=1 — осознанный отказ от проверки."""
++    gates = {"RUN_SNAPSHOTS": "эталоны"}
++    assert server_gate_verdict(gates, reachable=False, ci=False, allow_skip=True) == "skip"
++
++
++def test_never_fails_in_ci_even_when_reachable_state_flips():
++    """В CI гейт не имеет права упасть НИ при каком сочетании — перебор.
++
++    Инвариант именно «не fail», а не «всегда skip»: если сервер в CI всё-таки
++    поднят, проверять надо (`run`). Запрещено только падать, потому что CI
++    сервер не поднимает и падение там означало бы «упало окружение», а не
++    «упал код». Первая версия теста требовала `skip` всегда и тем самым ломала
++    случай «сервер есть» — тест был неправ, а не код.
++    """
++    gates = {"RUN_A11Y": "a11y"}
++    for reachable in (True, False):
++        for allow_skip in (True, False):
++            verdict = server_gate_verdict(gates, reachable, True, allow_skip)
++            assert verdict != "fail", (
++                f"reachable={reachable} allow_skip={allow_skip} дал {verdict!r}; "
++                f"CI обязан быть терпимым к среде"
++            )
++
++
++def test_default_base_url_matches_what_tests_use():
++    """Адрес гейта обязан совпадать с адресом тестов.
++
++    Проверено по исходникам: BASE_URL в test_visual_snapshots.py,
++    test_tabs_interaction.py и test_graph_interaction.py — это
++    `SNAPSHOT_BASE_URL` с откатом на `http://localhost:8000`.
++
++    Паттерн строится ИЗ DEFAULT_BASE_URL, а не из литерала. Прежняя версия
++    теста держала в регулярке «http://localhost:8000» строкой и использовала
++    DEFAULT_BASE_URL только в тексте ошибки — то есть смена адреса в
++    conftest.py оставила бы тест зелёным, и он проверял бы не то.
++    """
++    import re
++    from pathlib import Path
++
++    root = Path(__file__).resolve().parents[1]
++    pattern = re.escape(DEFAULT_BASE_URL)
++    for name in ("test_visual_snapshots.py", "test_tabs_interaction.py",
++                 "test_graph_interaction.py"):
++        text = (root / "tests" / name).read_text(encoding="utf-8")
++        assert re.search(rf'SNAPSHOT_BASE_URL",\s*"{pattern}"', text), (
++            f"{name}: адрес по умолчанию разошёлся с {DEFAULT_BASE_URL}. "
++            f"Гейт проверяет один сервер, а тесты бьют в другой."
++        )
++
++
++def test_e2e_uses_its_own_port_not_8000():
++    """Причина, по которой RUN_E2E не в гейте, закреплена константой порта.
++
++    Отрицательная проверка `RUN_E2E not in SERVER_GATES` сама по себе ничего
++    не говорит о том, ПОЧЕМУ. Если в test_e2e_smoke.py порт поменяют с 8123
++    на 8000, e2e начнёт ходить на общий сервер — и гейт станет необходим, но
++    никто об этом не узнает, потому что проверка останется зелёной.
++    """
++    from pathlib import Path
++
++    root = Path(__file__).resolve().parents[1]
++    for name in ("test_e2e_smoke.py", "test_ui_verify.py"):
++        text = (root / "tests" / name).read_text(encoding="utf-8")
++        assert "PORT = 8123" in text, (
++            f"{name}: e2e перестал использовать свой порт 8123. Если он "
++            f"ходит на :8000, его надо добавить в SERVER_GATES в conftest.py."
++        )
++
++
++def test_probe_path_exists_in_repo():
++    """Гейт стучится в version.json — файл обязан лежать в репозитории."""
++    from pathlib import Path
++
++    root = Path(__file__).resolve().parents[1]
++    assert (root / "docs" / "version.json").is_file(), (
++        "docs/version.json нет, а гейт и AGENTS.md считают его канонической "
++        "проверкой живости сервера"
++    )
++
++
++# ──────────────────────── env_flag ────────────────────────
++
++@pytest.mark.parametrize("value", ["1", "true", "TRUE", "yes", "on", " On "])
++def test_env_flag_truthy(value):
++    """Обходной путь принимает обычные формы «да», а не только «1».
++
++    Замерено: с `== "1"` переменная ALLOW_SERVER_SKIP=true молча не срабатывала,
++    и человек, который её выставил, получал падение вместо пропуска.
++    """
++    assert env_flag("X", {"X": value}) is True
++
++
++@pytest.mark.parametrize("value", ["", "0", "false", "no", "off"])
++def test_env_flag_falsy(value):
++    assert env_flag("X", {"X": value}) is False
++
++
++def test_env_flag_unset_is_false():
++    assert env_flag("MISSING_VAR", {}) is False
++
++
++# ──────────────────────── server_reachable: сеть подменена ────────────────────────
++
++class _Resp:
++    """Заглушка ответа urlopen. read() отдаёт заранее заданные байты."""
++
++    def __init__(self, status=200, body=b""):
++        self.status = status
++        self._body = body
++
++    def read(self):
++        return self._body
++
++    def __enter__(self):
++        return self
++
++    def __exit__(self, *a):
++        return False
++
++
++def _fake_urlopen(monkeypatch, version_resp=None, css_resp=None):
++    """Подмена urlopen: маршрут выбирается по запрошенному URL.
++
++    Никакой сети: оба ответа (version.json и style.css) подставляет тест.
++    """
++    import urllib.request
++
++    def fake(url, timeout=None):
++        if "style.css" in url:
++            if css_resp is None:
++                raise OSError("no style.css")
++            return css_resp
++        if version_resp is None:
++            raise OSError("connection refused")
++        return version_resp
++
++    monkeypatch.setattr(urllib.request, "urlopen", fake)
++
++
++def test_reachable_when_server_serves_our_css(monkeypatch):
++    """Живой сервер с НАШИМ style.css — единственный случай True."""
++    local = (ROOT / "docs" / "style.css").read_bytes()
++    _fake_urlopen(monkeypatch, version_resp=_Resp(), css_resp=_Resp(body=local))
++    assert server_reachable("http://localhost:8000") is True
++
++
++def test_not_reachable_on_foreign_css(monkeypatch):
++    """ЧУЖАЯ копия проекта — это не «сервер есть».
++
++    Именно этот случай ратифицировал гейт: отвечает, но отдаёт не наш код,
++    и тесты потом скипались на сверке хэша с кодом 0.
++    """
++    _fake_urlopen(monkeypatch, version_resp=_Resp(), css_resp=_Resp(body=b"other"))
++    assert server_reachable("http://localhost:8000") is False
++
++
++def test_not_reachable_when_connection_refused(monkeypatch):
++    _fake_urlopen(monkeypatch, version_resp=None)
++    assert server_reachable("http://localhost:8000") is False
++
++
++def test_not_reachable_when_no_style_css(monkeypatch):
++    """Сервер жив, но style.css не отдал — проверять нечего."""
++    _fake_urlopen(monkeypatch, version_resp=_Resp(), css_resp=None)
++    assert server_reachable("http://localhost:8000") is False
++
++
++def test_not_reachable_on_5xx(monkeypatch):
++    """5xx — сервер есть, но сломан: проходить нельзя."""
++    import urllib.error
++
++    def fake(url, timeout=None):
++        raise urllib.error.HTTPError(url, 503, "boom", {}, None)
++
++    import urllib.request
++    monkeypatch.setattr(urllib.request, "urlopen", fake)
++    assert server_reachable("http://localhost:8000") is False
++
++
++# ──────────────────────── missing_server_deps ────────────────────────
++
++def test_server_deps_are_named_as_in_importorskip():
++    """Имена — как в pytest.importorskip, до точки (playwright, не playwright.sync_api)."""
++    for mod in SERVER_DEPS:
++        assert "." not in mod, f"{mod}: importorskip ждёт имя до точки"
++
++
++def test_missing_server_deps_empty_in_this_env():
++    """В окружении разработчика зависимости на месте — список пуст."""
++    from tests.conftest import missing_server_deps
++
++    assert missing_server_deps() == []
++
++
++def test_missing_server_deps_detects_broken_import(monkeypatch):
++    """Модуль, который НАХОДИТСЯ, но не импортируется, — тоже «нет».
++
++    Регрессия на find_spec: замер показал, что find_spec для подменённого numpy
++    возвращал ModuleSpec (файл-то лежит), гейт считал зависимость на месте — и
++    прогон давал «2 skipped» при живом сервере.
++    """
++    import importlib
++    import sys
++
++    monkeypatch.setitem(sys.modules, "numpy", None)  # None = "модуль сломан"
++    real_import = importlib.import_module
++
++    def fake_import(name, *a, **kw):
++        if name == "numpy":
++            raise ModuleNotFoundError("No module named 'numpy'", name="numpy")
++        return real_import(name, *a, **kw)
++
++    monkeypatch.setattr(importlib, "import_module", fake_import)
++
++    from tests.conftest import missing_server_deps
++
++    assert "numpy" in missing_server_deps()
++    assert "playwright" not in missing_server_deps()
+\ No newline at end of file
