@@ -1,0 +1,16 @@
+# swift-island — nothing to archive (phantom modification)
+
+`git status` flags these two files as modified:
+
+    tests/snapshots/chromium/_actual/.gitignore
+    tests/snapshots/webkit/_actual/.gitignore
+
+but this is a line-ending artifact, not a real change. The working-tree
+bytes are IDENTICAL to HEAD:
+
+    blob = d6b7ef32c8478a48c3994dcadc86837f4371184d
+    content = 2a 0d 0a 21 2e 67 69 74 69 67 6e 6f 72 65 0d 0a   ("*\r\n!.gitignore\r\n")
+
+`git diff HEAD` is empty (verified with the `eol=lf` normalization disabled
+via the worktree's info/attributes too). There is no content delta to
+recover, so no patch body follows.
