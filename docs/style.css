@@ -209,9 +209,9 @@ button,a,.chip,.tr-tab,.favBtn,.preset,.chartTab,.profile-btn,.tagPreset{touch-a
    обычном русском/английском тексте раскладку не трогает. */
 body{background:var(--bg);color:var(--text);padding:var(--space-6);transition:background .25s,color .25s;max-width:1200px;margin:0 auto;line-height:var(--lh-normal);overflow-wrap:break-word}
 header{display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-6);flex-wrap:wrap;gap:var(--space-4)}
-h1{font-size:1.8rem;font-weight:600}
+h1{font-size:1.75rem;font-weight:600}
 .hdr{display:flex;gap:.6rem;align-items:center}
-.btn{background:var(--card-bg);color:var(--text);border:1px solid var(--border);padding:.7rem 1.1rem;min-height:44px;display:inline-flex;align-items:center;justify-content:center;border-radius:var(--radius-lg);text-decoration:none;font-size:.95rem}
+.btn{background:var(--card-bg);color:var(--text);border:1px solid var(--border);padding:.7rem 1.1rem;min-height:44px;display:inline-flex;align-items:center;justify-content:center;border-radius:var(--radius-lg);text-decoration:none;font-size:1rem}
 /* v4.1: белый на #3498db давал 3.15:1 — заливка затемнена до 5.42:1 в обеих темах */
 .btn.calc {
   background: linear-gradient(135deg, #1f6fa5, #175a86);
@@ -234,7 +234,7 @@ h1{font-size:1.8rem;font-weight:600}
    наследуют его от body — поэтому 112 контролов на сайте рисовались
    мимо Inter. Это и был корень расхождения из v5.3.0: подпись вкладки
    146.5px в Chromium против 135.25px в WebKit. */
-button{font-family:inherit;background:var(--card-bg);color:var(--text);border:1px solid var(--border);padding:var(--space-2) var(--space-4);border-radius:var(--radius-lg);cursor:pointer;font-size:.95rem;min-height:44px}
+button{font-family:inherit;background:var(--card-bg);color:var(--text);border:1px solid var(--border);padding:var(--space-2) var(--space-4);border-radius:var(--radius-lg);cursor:pointer;font-size:1rem;min-height:44px}
 /* v5.6.1 (этап 1A-2): критичные :hover обёрнуты в @media (hover:hover).
    Залипание: на тач-устройствах :hover срабатывает на тапе и держится,
    пока не тапнешь в другое место — критичная заливка/рамка «застревает».
@@ -253,33 +253,38 @@ section{margin-bottom:var(--space-8)}
    единственной со сломанной иерархией (замер: 21.6 / 20.8).
    Теперь 1.125rem = 18px на всех страницах, локальные копии избыточны
    и удалены. Токен здесь — единственный источник истины. */
-h2{font-size:1.125rem;font-weight:500;margin-bottom:var(--space-4)}
-/* v5.6.1 (этап 1B, П1-9): базовая иерархия h3-h5.
+h2{font-size:1.5rem;font-weight:500;margin-bottom:var(--space-4)}
+/* v5.6.1 (этап 1B, П1-9) + v5.6.3 (этап 1C, A1): базовая иерархия h1-h5.
    До правки правил для h3/h4/h5 в файле не было вообще — браузер рисовал
    их своим дефолтом (h3 = 1.17em = 18.72px, h4 = 1em = 16px). Из-за
    этого h3 на index.html был 18.72px при h2 18px, то есть перешагивал
    уровнем выше, а на calculator.html и trends.html — ниже body (13.6 и
    14.72px): мелкий шрифт читался хуже основного текста.
 
-   ЗАМЕР И ВЫБОР ЗНАЧЕНИЙ. План предлагал h3 1.25rem (20px), но h1 на
-   сайте пинится правилом `main h1{font-size:1.35rem !important}`
-   (21.6px, все 145 страниц), а h2 — токеном выше, 1.125rem (18px).
-   Подставить запрошенные 20px значило бы получить h3 (20) > h2 (18) на
-   каждой странице, то есть создать новую инверсию вместо исправления
-   старой. Поэтому ступени ужаты до того, что реально помещается между
-   h2 = 18px и нижней границей «h5 >= body = 16px»:
+   ЭТАП 1C — ПОЛНАЯ ШКАЛА. На 1B ступени пришлось ужать до
+   h2 18 > h3 17.6 > h4 16.8 > h5 16 с шагом 0.8px, потому что h1 был
+   зажат `main h1{font-size:1.35rem !important}` (21.6px) и любая
+   ступень выше 18px давала инверсию. В 1C пин снят (см. правило
+   `main h1` ниже по файлу), и шкала развёрнута до заданной:
 
-     h2 18px  >  h3 17.6px  >  h4 16.8px  >  h5 16px = body 16px
+     h1 28px  >  h2 24px  >  h3 20px  >  h4 17.6px  >  h5 16px = body 16px
 
-   Шаг получается 0.8px — это следствие того, что h1/h2 зафиксированы
-   (см. отчёт этапа 1B, П1). Полная шкала 28/24/20/17.6/16 возможна
-   только вместе со снятием `!important` у `main h1`, а это правка на
-   145 страниц, то есть за рамками этапа 1B (СТОП-условие «>5 страниц»).
+   Шаг 2.4px между h1-h3 и 2.4px ниже — читается без напряжения;
+   нижняя граница «h5 >= body» сохранена. Значения совпадают с целевой
+   шкалой этапа 1C (0.875 / 1 / 1.1 / 1.25 / 1.5 / 1.75), то есть
+   объявления заголовков теперь часть общей шкалы, а не отдельная
+   лестница.
+
    Скоупы заголовков (.qa h3, .sb-section h3, #atl-sidebar h3,
    .sup-section h2 и прочие) не тронуты: у них специфичность выше
-   голого тега, поэтому база на них не влияет. */
-h3{font-size:1.1rem;font-weight:600}
-h4{font-size:1.05rem;font-weight:600}
+   голого тега, поэтому база на них не влияет. Исключение одно —
+   `.method-body h4` (trends.html): там размер приходит из локального
+   <style> страницы, который грузится после <link> на style.css, поэтому
+   !important остаётся, а значение поднято до 1.1rem = 17.6px, то есть
+   до базового h4. Сам локальный <style> trends.html не тронут: правка
+   HTML вне границы этапа (см. отчёт 1C). */
+h3{font-size:1.25rem;font-weight:600}
+h4{font-size:1.1rem;font-weight:600}
 h5{font-size:1rem;font-weight:600}
 /* v5.6.1 (этап 1B, П8 / V11-V12): длина строки основного текста.
    Замер 2026-10-10 на methodology.html при 1280: абзац в <main> шириной
@@ -302,22 +307,27 @@ h3,h4,h5{line-height:var(--lh-tight)}
 h3{margin:var(--space-4) 0 var(--space-2)}
 h4{margin:var(--space-3) 0 var(--space-2)}
 h5{margin:var(--space-3) 0 var(--space-1)}
-/* v5.6.1 (этап 1B, П1-9, продолжение): два заголовка оставались МЕНЬШЕ
-   основного текста, потому что размер им задаёт локальный <style> внутри
-   HTML-страницы, а не эта шкала:
+/* v5.6.1 (этап 1B, П1-9, продолжение) + v5.6.3 (этап 1C, A1): два заголовка
+   оставались МЕНЬШЕ основного текста, потому что размер им задаёт локальный
+   <style> внутри HTML-страницы, а не эта шкала:
      calculator.html — `.block h3 { font-size: .85rem }` = 13.6px при body 16px
      trends.html     — `.method-body h4 { font-size: .92rem }` = 14.72px
    Локальный <style> идёт после <link> на style.css, поэтому без
-   !important база их не перебьёт — а править HTML этап 1B не может.
-   Ставим !important точечно, ровно на два селектора: оба класса
-   встречаются только на своих страницах (`.block` — 6 элементов в
-   calculator.html, `.method-body` — 4 в trends.html), то есть правка
-   задевает 2 страницы из 145. Убирать !important (и сами локальные
-   правила) нужно в этапе 1C вместе с общим заходом по правке HTML. */
-.block h3{font-size:1rem !important}
-.method-body h4{font-size:1rem !important}
-label{font-weight:500;margin-right:var(--space-2)}
-select{background:var(--card-bg);color:var(--text);border:1px solid var(--border);padding:.4rem .8rem;border-radius:var(--radius-md);font-size:16px}
+   !important база их не перебьёт — а править HTML этап 1B не мог.
+
+   ЭТАП 1C. calculator.html входит в границу этапа (пункты A3/A6), поэтому
+   локальное объявление `font-size:.85rem` удалено из его <style> (стр. 113),
+   а вытеснитель ниже снят: базовый h3 = 20px применяется сам. Итог: 6
+   заголовков calculator.html идут 20px вместо 13.6px.
+
+   trends.html в границу этапа НЕ входит, поэтому локальное правило
+   оставлено, а !important-вытеснитель сохранён — снять его нельзя, не
+   вернув 14.72px. Значение поднято с 1rem до 1.1rem = 17.6px, то есть
+   до базового h4: локальная ступень больше не расходится с базой.
+   Полное снятие (правка trends.html:194) — следующий этап. */
+.method-body h4{font-size:1.1rem !important}
+label{font-weight:500;margin-inline-end:var(--space-2)}
+select{background:var(--card-bg);color:var(--text);border:1px solid var(--border);padding:.4rem .8rem;border-radius:var(--radius-md);font-size:1rem}
 /* v5.6.2 (#94): тач-таргет селектов. Замер 2026-10-07: 4 селекта на index
    давали 37px, 2 на calculator — 38px, при пороге 44px (WCAG 2.5.5 AA).
    min-height надёжнее, чем подгонка padding: у select высота зависит от
@@ -330,17 +340,17 @@ select{min-height:44px}
    Страничные правила вида `.params input{font-size:.9rem}` (calculator.html:45,48,61),
    `.f-field input{font-size:15px}` (feedback.html:70), `.filters select` (trends.html:32)
    имеют специфичность выше — они тоже переведены на 16px. */
-input,select,textarea{font-family:inherit;font-size:16px}
+input,select,textarea{font-family:inherit;font-size:1rem}
 #symptomFilter{display:flex;align-items:center;gap:var(--space-4);flex-wrap:wrap}
 #chartSection,#compareSection{background:var(--card-bg);padding:var(--space-6);border-radius:var(--radius-xl);border:1px solid var(--border)}
 #chartWrap canvas{width:100%!important;max-height:500px}
 #cardsGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.2rem}
 .card{background:var(--card-bg);border:1px solid var(--border);border-radius:10px;padding:var(--space-4) 1.2rem;box-shadow:var(--shadow-sm);position:relative}
 .card .card-title{display:block;font-size:1.1rem;font-weight:700;margin-bottom:var(--space-0-3)}
-.card .verdict{display:inline-block;font-size:.75rem;padding:var(--space-0-2) .6rem;border-radius:20px;color:#fff;margin-bottom:var(--space-2)}
+.card .verdict{display:inline-block;font-size:.875rem;padding:var(--space-0-2) .6rem;border-radius:20px;color:#fff;margin-bottom:var(--space-2)}
 .card .price{font-weight:500;color:var(--accent)}
-.card .effects{font-size:.9rem;margin-top:.4rem;opacity:.8}
-.card .effects span{background:var(--bg);padding:.1rem var(--space-2);border-radius:var(--radius-xl);margin-right:var(--space-0-3);display:inline-block;margin-bottom:var(--space-0-2)}
+.card .effects{font-size:.875rem;margin-top:.4rem;opacity:.8}
+.card .effects span{background:var(--bg);padding:.1rem var(--space-2);border-radius:var(--radius-xl);margin-inline-end:var(--space-0-3);display:inline-block;margin-bottom:var(--space-0-2)}
 .row{display:flex;gap:var(--space-4);flex-wrap:wrap;align-items:end}
 #compareResult{margin-top:var(--space-4);overflow-x:auto}
 /* v5.0.0 mobile: скролл-обёртка для широких таблиц. Без неё <table> с width:100%
@@ -348,15 +358,15 @@ input,select,textarea{font-family:inherit;font-size:16px}
    (glossary.html @320px: scrollWidth 345 при clientWidth 305). */
 .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%}
 .table-wrap>table{width:100%}
-#compareResult table{width:100%;border-collapse:collapse;font-size:.95rem}
+#compareResult table{width:100%;border-collapse:collapse;font-size:1rem}
 #compareResult th,#compareResult td{padding:.6rem .8rem;border-bottom:1px solid var(--border);text-align:left}
 #compareResult th{background:var(--bg);font-weight:500}
-footer{margin-top:var(--space-8);padding-top:var(--space-4);border-top:1px solid var(--border);font-size:.8rem;color:var(--muted)}
+footer{margin-top:var(--space-8);padding-top:var(--space-4);border-top:1px solid var(--border);font-size:.875rem;color:var(--muted)}
 footer p{margin-bottom:var(--space-2)}
 /* ===== v1.2: контролы, модалка, skeleton ===== */
 #controls{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:var(--space-4)}
 #controls input,#controls select{flex:1;min-width:150px}
-.hint{font-size:.8rem;opacity:.6;font-weight:400}
+.hint{font-size:.875rem;opacity:.6;font-weight:400}
 .card{cursor:pointer}
 .card .cat{font-size:.875rem;opacity:.55;display:block;margin-bottom:var(--space-0-2)}
 #modalOverlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:50;display:flex;align-items:center;justify-content:center;padding:var(--space-4)}
@@ -368,9 +378,9 @@ footer p{margin-bottom:var(--space-2)}
    ВАЖНО: padding-top у #modal НЕ сдвигает абсолютно спозиционированную
    кнопку (для abs-потомков containing block — padding box родителя),
    поэтому правило для кнопки нужно отдельное. */
-#modalClose{position:absolute;top:max(.6rem,env(safe-area-inset-top,0px));right:.6rem;width:auto}
+#modalClose{position:absolute;top:max(.6rem,env(safe-area-inset-top,0px));inset-inline-end:.6rem;width:auto}
 #modal h2{margin-bottom:.4rem}
-#modal .mrow{margin:.35rem 0;font-size:.92rem}
+#modal .mrow{margin:.35rem 0;font-size:.875rem}
 #modal .warn{color:#c0392b}
 /* v4.3: в тёмной теме #c0392b даёт 2.56:1 на карточке */
 html:not(.light) #modal .warn{color:#f26d6d}
@@ -381,7 +391,7 @@ html:not(.light) #modal .warn{color:#f26d6d}
 /* ===== v1.2: мобильная адаптация нового UI ===== */
 @media (max-width: 768px) {
   body { padding: var(--space-4); }
-  h1 { font-size: 1.4rem; }
+  h1 { font-size: 1.75rem; }
   header { flex-direction: column; align-items: flex-start; gap: .6rem; }
   .hdr { width: 100%; justify-content: space-between; }
   #controls { flex-direction: column; }
@@ -391,7 +401,7 @@ html:not(.light) #modal .warn{color:#f26d6d}
   .row > div { width: 100%; }
   .row button { width: 100%; }
   select { width: 100%; }
-  #compareResult { font-size: .85rem; overflow-x: auto; }
+  #compareResult { font-size: .875rem; overflow-x: auto; }
   #compareResult th, #compareResult td { padding: .4rem; }
   #modal { padding: var(--space-4); max-height: 90vh; }
 }
@@ -422,21 +432,22 @@ html:not(.light) #modal .warn{color:#f26d6d}
 }
 .calcResult .warn {
   color: #c0392b;
-  font-size: 0.9rem;
+  font-size: .875rem;
 }
 /* v4.3: в тёмной теме #c0392b не читается на карточке */
 html:not(.light) .calcResult .warn { color: #f26d6d; }
 /* ===== v1.3: избранное ===== */
 .favBtn {
-  position: absolute; top: .5rem; right: .6rem;
+  position: absolute; top: .5rem; inset-inline-end: .6rem;
   background: transparent; border: none; padding: 0;
-  color: #666; font-size: 1.35rem; line-height: 1;
+  color: #666; font-size: 1.5rem; line-height: 1;
   cursor: pointer; z-index: 2;
   transition: color .15s, transform .15s;
   /* v5.0.0 mobile: было 18×22px (ширина = ширина глифа ☆ при padding:0) против
-     порога 44×44. Глиф остаётся 1.35rem — растёт только область тапа.
-     v5.0.0 (a11y): сдвинули к краю — область тапа 44×44 перекрывала подпись .cat. */
-  top: 4px; right: 4px;
+     порога 44×44. Растёт только область тапа.
+     v5.0.0 (a11y): сдвинули к краю — область тапа 44×44 перекрывала подпись .cat.
+     v5.6.3 (этап 1C, A4): глиф звёздочки 1.35rem -> 1.5rem по шкале этапа. */
+  top: 4px; inset-inline-end: 4px;
   min-width: 44px; min-height: 44px;
   display: inline-flex; align-items: center; justify-content: center;
 }
@@ -449,7 +460,7 @@ html:not(.light) .calcResult .warn { color: #f26d6d; }
 /* v4.2: в светлой теме #f1c40f давал 1.53:1 — тёмное золото, в тёмной теме
    возвращаем исходный яркий оттенок (там он даёт 8.4:1). */
 .favBtn.on { color: #8a6800; text-shadow: 0 0 8px rgba(138, 104, 0, .45); }
-.favFilter { margin-left: var(--space-2); padding: var(--space-2) .8rem; border: 1px solid var(--border);
+.favFilter { margin-inline-start: var(--space-2); padding: var(--space-2) .8rem; border: 1px solid var(--border);
              border-radius: var(--radius-md); background: var(--card-bg); color: var(--text); cursor: pointer; }
 .favFilter.on { border-color: #8a6800; color: #8a6800; }
 html:not(.light) .favBtn.on { color: #f1c40f; text-shadow: 0 0 8px rgba(241, 196, 15, .55); }
@@ -552,25 +563,31 @@ footer, .site-footer { padding-bottom: env(safe-area-inset-bottom, 0px); }
 @media (hover:hover){.copyLink:hover { border-color: #3498db; color: #3498db; }}
 
 /* ===== v2.1: бейдж «цена не найдена», пустое состояние, «Наверх» ===== */
-.noPrice{color:var(--text);opacity:.8;font-size:.85rem}.noPrice a{color:var(--accent)}
-/* v5.6.1 (этап 1B, П5): у .empty было два определения — это здесь и
-   в локальном <style> файла calculator.html (`padding:var(--space-2) 0`).
-   Слить их в одно силами style.css нельзя: страница переопределяет
-   отступы у себя, и общее правило с большим отступом приоритетом не
-   победит. Этап 1B ограничен одним style.css (правка HTML — этап 1C),
-   поэтому дубль задокументирован, а не удалён. Слейка сводится к
-   удалению локального блока в calculator.html: свойства здесь
-   (grid-column, text-align, opacity) локальный блок не переопределяет,
-   поэтому конфликт касается только padding. */
-.empty{grid-column:1/-1;text-align:center;padding:var(--space-12) var(--space-4);opacity:.8}
+.noPrice{color:var(--text);opacity:.8;font-size:.875rem}.noPrice a{color:var(--accent)}
+/* v5.6.1 (этап 1B, П5) + v5.6.3 (этап 1C, A3): у .empty было два
+   определения — это и локальный блок в calculator.html
+   (`.empty{opacity:.55;font-style:italic;font-size:.85rem;padding:var(--space-2) 0}`).
+   Локальный <style> идёт после <link> на style.css, поэтому побеждал он:
+   фактически работали его padding/opacity/font-style, а отсюда приходили
+   только grid-column и text-align. Большой отступ var(--space-12) не
+   применялся никогда — мёртвый вес.
+
+   Этап 1C свёл дубль начисто: локальный блок в calculator.html удалён
+   (пункт A3, страница в границе этапа), а сюда перенесены ФАКТИЧЕСКИ
+   работавшие значения, поэтому внешний вид калькулятора не меняется.
+   font-size поднят .85rem -> .875rem по общей шкале этапа 1C.
+
+   Единственный потребитель правила — calculator.html: поиск class="empty"
+   по docs/ даёт только его (в feedback.html — псевдокласс :empty). */
+.empty{grid-column:1/-1;text-align:center;padding:var(--space-2) 0;opacity:.55;font-style:italic;font-size:.875rem}
 /* v5.6.1: z-index поднят с 60 до 110 — раньше он делил значение с
    липкой шапкой .site-header (100) и .toBottom (100), и при равном
    z-index порядок определялся DOM-порядком, то есть случайно.
    Теперь обе кнопки выше шапки, и их скрытие под открытой модалкой
    описано правилом с body.modal-open ниже. */
-#toTop{position:fixed;right:1.2rem;bottom:calc(1.2rem + env(safe-area-inset-bottom, 0px));z-index:110;width:44px;height:44px;
+#toTop{position:fixed;inset-inline-end:1.2rem;bottom:calc(1.2rem + env(safe-area-inset-bottom, 0px));z-index:110;width:44px;height:44px;
 border-radius:50%;border:1px solid var(--border);background:var(--card-bg);color:var(--text);
-font-size:1.2rem;cursor:pointer;opacity:0;pointer-events:none;transition:.25s}
+font-size:1.25rem;cursor:pointer;opacity:0;pointer-events:none;transition:.25s}
 #toTop.show{opacity:1;pointer-events:auto}
 
 /* ===== v2.2: баннер конфликтов избранного ===== */
@@ -583,7 +600,7 @@ position:sticky;top:0;z-index:1000;animation:fadeIn .25s}
 
 /* ===== v2.3: раздел «3 вопроса» ===== */
 #qaSection .qa{margin:.6rem 0 var(--space-4)}
-#qaSection .qa h3{font-size:1.02rem;margin-bottom:var(--space-1)}
+#qaSection .qa h3{font-size:1rem;margin-bottom:var(--space-1)}
 #qaSection .qa p{font-size:1rem;opacity:.88;max-width:72ch}
 
 /* ===== F5.1: три карточки в одну строку ===== */
@@ -591,23 +608,23 @@ position:sticky;top:0;z-index:1000;animation:fadeIn .25s}
 .qaGrid .qa{margin:0;padding:.9rem var(--space-4);background:var(--bg);border:1px solid var(--border);border-radius:10px}
 .qaGrid .qa h3{font-size:1rem;margin-bottom:.4rem}
 .qaGrid .qa p{font-size:1rem;opacity:.85;max-width:60ch}
-.qaGrid .qaMore{display:inline-block;margin-top:var(--space-2);font-size:.82rem;font-weight:600}
+.qaGrid .qaMore{display:inline-block;margin-top:var(--space-2);font-size:.875rem;font-weight:600}
 
 /* ===== v2.3: шаблон полной карточки (15 блоков) ===== */
-.blockTitle{font-weight:700;margin:var(--space-4) 0 .4rem;font-size:1.05rem}
+.blockTitle{font-weight:700;margin:var(--space-4) 0 .4rem;font-size:1.1rem}
 .cblocks{display:flex;flex-direction:column;gap:var(--space-2)}
 .cblock{border:1px solid var(--border);border-radius:var(--radius-lg);padding:.6rem .8rem;background:var(--bg)}
-.cblock h4{font-size:.8rem;font-weight:700;opacity:.65;text-transform:uppercase;letter-spacing:.03em;margin-bottom:var(--space-0-2)}
-.cblock[data-block-key="evidence"] h4{font-size:1.05rem;opacity:.95}
-.cblock[data-block-key="price"] h4{font-size:.8rem}
-.cbbody{font-size:.92rem}
+.cblock h4{font-size:.875rem;font-weight:700;opacity:.65;text-transform:uppercase;letter-spacing:.03em;margin-bottom:var(--space-0-2)}
+.cblock[data-block-key="evidence"] h4{font-size:1.1rem;opacity:.95}
+.cblock[data-block-key="price"] h4{font-size:.875rem}
+.cbbody{font-size:.875rem}
 .cbEmpty{opacity:.55;font-style:italic}
 .hline{margin-top:var(--space-1);opacity:.85}
 /* v4.3: цвет текста на фоне темы — в светлой теме нужен тёмный зелёный
    (было 3.97:1), в тёмной — светлый (было 3.22:1). */
 .goodPair{color:#2f7d4f;font-weight:600}
 html:not(.light) .goodPair{color:#3aa863}
-.sev{font-size:.88rem;margin:.15rem 0}
+.sev{font-size:.875rem;margin:.15rem 0}
 /* v4.2: цвет текста на фоне темы (фактически --bg, не карточка) — в светлой
    теме нужны тёмные варианты. Замеры: .sev-critical было 3.51:1,
    .sev-high 2.62:1, .sev-medium 2.72:1. */
@@ -628,10 +645,10 @@ position:sticky;top:0;z-index:1000;animation:fadeIn .25s}
 /* ===== v2.4: вкладки графика, грейды A–D ===== */
 .chartTabs{display:flex;gap:var(--space-2);margin-bottom:.8rem}
 .chartTab{background:var(--card-bg);color:var(--text);border:1px solid var(--border);
-  padding:.45rem .9rem;border-radius:var(--radius-md);cursor:pointer;font-size:.88rem;font-weight:500}
+  padding:.45rem .9rem;border-radius:var(--radius-md);cursor:pointer;font-size:.875rem;font-weight:500}
 .chartTab.on{border-color:var(--accent);color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
 .grade{display:inline-block;font-size:.875rem;font-weight:700;padding:.15rem .55rem;
-  border-radius:var(--radius-pill);color:#fff;vertical-align:middle;margin-left:var(--space-0-3)}
+  border-radius:var(--radius-pill);color:#fff;vertical-align:middle;margin-inline-start:var(--space-0-3)}
 /* v4.1: .gA–.gD перебивались .grade.gX с !important (специфичность 0,2,0
    против 0,1,0) и в разметке не использовались — удалены как мёртвые. */
 
@@ -720,19 +737,19 @@ body.trends-page .site-header { display: contents; }
 body.trends-page .trustbar { position: sticky; top: 0; z-index: 100; }
 
 .trustbar{background:var(--card-bg);color:var(--text);
-  border-bottom:1px solid var(--border);text-align:center;font-size:.8rem;font-weight:600;
+  border-bottom:1px solid var(--border);text-align:center;font-size:.875rem;font-weight:600;
   padding:.45rem var(--space-2);letter-spacing:.02em}
 
 /* ===== v2.6: 5-точечный бейдж доверия (грейд) ===== */
-.gdots{display:inline-flex;gap:3px;vertical-align:middle;margin-left:.35rem}
+.gdots{display:inline-flex;gap:3px;vertical-align:middle;margin-inline-start:.35rem}
 .gdots i{width:10px;height:10px;border-radius:50%;background:#bdc3c7;display:inline-block}
 .gdots i.on{box-shadow:0 0 4px rgba(0,0,0,.25)}
-.vwait{font-size:.875rem;opacity:.6;margin-left:.4rem;font-style:italic}
+.vwait{font-size:.875rem;opacity:.6;margin-inline-start:.4rem;font-style:italic}
 
 /* ===== v2.6: ручная вычитка ===== */
 .manual-badge{display:inline-flex;align-items:center;gap:var(--space-1);font-size:.875rem;font-weight:700;
   padding:.15rem var(--space-2);border-radius:var(--radius-pill);border:1px solid var(--border);color:var(--text);
-  cursor:help;vertical-align:middle;margin-left:.4rem}
+  cursor:help;vertical-align:middle;margin-inline-start:.4rem}
 @media (hover:hover){.manual-badge:hover{border-color:var(--accent);color:var(--accent)}}
 
 /* ===== v2.6: «Обновлено» под названием ===== */
@@ -741,7 +758,7 @@ body.trends-page .trustbar { position: sticky; top: 0; z-index: 100; }
 /* ===== v2.6: иконки источников ===== */
 .srcIcon {display:inline-flex;align-items:center;justify-content:center;min-height:44px;min-width:44px;font-size:.875rem;font-weight:700;padding:.1rem .45rem;
   border-radius:var(--radius-pill);background:var(--bg);border:1px solid var(--border);color:var(--text);
-  text-decoration:none;vertical-align:middle;margin-left:var(--space-1);
+  text-decoration:none;vertical-align:middle;margin-inline-start:var(--space-1);
   max-width: 60ch;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -758,7 +775,7 @@ body.trends-page .trustbar { position: sticky; top: 0; z-index: 100; }
 .shareRow a{text-decoration:none}
 .compareChips{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:var(--space-0-3)}
 .compareChips .chipbx{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-pill);
-  padding:var(--space-0-2) .6rem;font-size:.8rem;cursor:pointer}
+  padding:var(--space-0-2) .6rem;font-size:.875rem;cursor:pointer}
 @media (hover:hover){.compareChips .chipbx:hover{border-color:var(--accent);color:var(--accent)}}
 #trustSummary ul{margin:.4rem 0 0 1.2rem;opacity:.9}
 #trustSummary li{margin:var(--space-0-2) 0}
@@ -886,7 +903,7 @@ h1 a { min-height: 44px; }
    чипы остаются 44px — проверено замером computedMinH:auto при h:44. */
 .trustChips a.chip{min-height:44px}
 .trustChips .chip{display:inline-flex;align-items:center;padding:.35rem var(--space-3);border-radius:var(--radius-pill);
-  font-size:.82rem;font-weight:600;text-decoration:none;border:1px solid var(--border);
+  font-size:.875rem;font-weight:600;text-decoration:none;border:1px solid var(--border);
   background:var(--bg);color:var(--accent);transition:border-color .15s,color .15s}
 @media (hover:hover){.trustChips .chip:hover{border-color:var(--accent);color:var(--accent)}}
 
@@ -928,12 +945,12 @@ html:not(.light) .chip a:visited { color: #5dade2; }
 
 /* v2.8.0: пресеты-чипы + активные фильтры (F1/F8) */
 .presetRow{display:flex;gap:var(--space-2);flex-wrap:wrap;margin:var(--space-2) 0}
-.preset{padding:.4rem .8rem;border-radius:20px;background:var(--card-bg);border:1px solid var(--border);cursor:pointer;font-size:.85rem;transition:all .15s}
+.preset{padding:.4rem .8rem;border-radius:20px;background:var(--card-bg);border:1px solid var(--border);cursor:pointer;font-size:.875rem;transition:all .15s}
 /* v4.1: var(--accent) давал белым 3.65:1 в тёмной теме — фиксированная
    заливка #1f5fbf даёт 6.09:1 в обеих */
 .preset.on{background:#1f5fbf;color:#fff;border-color:#1f5fbf}
 @media (hover:hover){.preset:hover{border-color:var(--accent)}}
-.activeFilters{display:flex;gap:.4rem;flex-wrap:wrap;margin:var(--space-2) 0;font-size:.85rem}
+.activeFilters{display:flex;gap:.4rem;flex-wrap:wrap;margin:var(--space-2) 0;font-size:.875rem}
 .activeFilters .chip{background:#1f5fbf;color:#fff;padding:var(--space-1) .6rem;border-radius:var(--radius-xl);display:inline-flex;align-items:center;gap:var(--space-0-3);min-height:44px}
 .activeFilters .chip .x{cursor:pointer;opacity:.8}
 .activeFilters .chip .x:hover{opacity:1}
@@ -943,7 +960,7 @@ html:not(.light) .chip a:visited { color: #5dade2; }
   /* Шапка: H1 на всю ширину (перенос), actions под ним */
   /* Шапка: block layout — H1 сверху, actions снизу. Надёжнее flex-wrap */
   header.top,header.hdr{display:block!important}
-  header.top>.site-title,header.hdr>.site-title{font-size:1.3rem!important;line-height:var(--lh-tight)!important;margin:0 0 var(--space-2)!important;white-space:normal!important;overflow:visible!important}
+  header.top>.site-title,header.hdr>.site-title{font-size:1.25rem!important;line-height:var(--lh-tight)!important;margin:0 0 var(--space-2)!important;white-space:normal!important;overflow:visible!important}
   header.top>.site-title>a,header.hdr>.site-title>a{white-space:normal!important;display:inline!important}
   header.top .actions,header.hdr .actions{display:flex!important;flex-wrap:wrap!important;gap:.4rem!important;justify-content:flex-end!important}
   .top .site-title .v,.top .site-title>span[style*="opacity"]{display:none!important}
@@ -1029,7 +1046,7 @@ html:not(.light) .chartTab.on {
 
 /* Заголовок темы страницы — раньше у h2 было 0, и h1 на всех страницах — это название сайта.
    1.15rem = 18.4px: между body 16px и h1 21.6px, то иерархия сохраняется. */
-.pageTopic { font-size: 1.15rem; font-weight: 700; margin: 0 0 .7rem; }
+.pageTopic { font-size: 1.25rem; font-weight: 700; margin: 0 0 .7rem; }
 
 .srcRow {
   display: flex;
@@ -1135,7 +1152,7 @@ html:not(.light) .chartTab.on {
   margin: var(--space-2) 0 .8rem;
 }
 .tagPreset {
-  font-size: .78rem;
+  font-size: .875rem;
   padding: 3px var(--space-2-5);
   border-radius: var(--radius-xl);
   border: 1px solid transparent;
@@ -1201,7 +1218,7 @@ html:not(.light) .chartTab.on {
   display: inline-flex;
   align-items: center;
   gap: var(--space-0-3);
-  font-size: .8rem;
+  font-size: .875rem;
   padding: var(--space-1) var(--space-2-5);
   border-radius: var(--radius-xl);
   background: rgba(80,140,220,.18);
@@ -1219,7 +1236,7 @@ html:not(.light) .chartTab.on {
   font-weight: 600;
 }
 .activeFilterClear {
-  font-size: .8rem;
+  font-size: .875rem;
   padding: var(--space-1) var(--space-2-5);
   border-radius: var(--radius-xl);
   background: transparent;
@@ -1254,7 +1271,7 @@ html:not(.light) .chartTab.on {
   }
   header.top > .site-title {
     grid-area: title !important;
-    font-size: 1.3rem !important;
+    font-size: 1.25rem !important;
     line-height: 1.25 !important;
     margin: 0 !important;
     white-space: normal !important;
@@ -1301,17 +1318,17 @@ html:not(.light) .chartTab.on {
   min-width:0;
 }
 .quick-links .card-link > div:nth-child(2){
-  font-size:.9rem !important;
+  font-size:.875rem !important;
   margin:var(--space-1) 0 !important;
 }
 .quick-links .card-link > div:nth-child(3){
-  font-size:.76rem !important;
+  font-size:.875rem !important;
   line-height:1.3 !important;
 }
 @media(max-width:600px){
   .quick-links{gap:var(--space-2)}
   .quick-links .card-link{padding:.7rem .8rem !important}
-  .quick-links .card-link > div:first-child{font-size:1.15rem !important}
+  .quick-links .card-link > div:first-child{font-size:1.25rem !important}
 }
 
 /* ═══ H1: графит в light, тёплый белый в dark ═══ */
@@ -1360,13 +1377,13 @@ header.top .v {
   flex-wrap: wrap;
   margin: 0 0 var(--space-4);
 }
-.top .site-title { font-size: 1.35rem; margin: 0; font-weight: 700; }
+.top .site-title { font-size: 1.5rem; margin: 0; font-weight: 700; }
 .top .site-title a { color: inherit; text-decoration: none; }
 .top .v {
   opacity: .5;
-  font-size: .8rem;
+  font-size: .875rem;
   font-weight: 400;
-  margin-left: var(--space-2);
+  margin-inline-start: var(--space-2);
 }
 /* min-width:0 (этап 1A-1) — .actions это flex-item в .top, а у flex-item
    min-width:auto, то есть он отказывается сжиматься уже содержимого.
@@ -1467,7 +1484,7 @@ button:active,
 /* ═══ Кнопка «вниз» ═══ */
 .toBottom {
   position: fixed;
-  right: 1.2rem;
+  inset-inline-end: 1.2rem;
   bottom: 5rem;
   width: 2.8rem;
   height: 2.8rem;
@@ -1479,7 +1496,7 @@ button:active,
   display: none;
   align-items: center;
   justify-content: center;
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   z-index: 110;
   box-shadow: var(--shadow-md);
 }
@@ -1573,7 +1590,7 @@ summary {
   border-radius: 10px;
   background: var(--bg);
   font-weight: 600;
-  font-size: .95rem;
+  font-size: 1rem;
   user-select: none;
 }
 @media (hover:hover){.qa-details > summary:hover { border-color: var(--accent); }}
@@ -1671,31 +1688,77 @@ html.light .btn.c-github  { background: color-mix(in srgb, var(--icon-github) 8%
    линии — визуально ровно то же для однострочного текста. */
 header.top > .site-title > a, header.hdr > .site-title > a { display: inline-flex !important; align-items: center; }
 
-/* P2-13: skip-link. Na index v setke 130 kartochek, kazhdaya so svoey linkom i
-   knopkoi — Tab do soderzhimogo idyot desyatki sekund. Ssylka pervoelementnaya
-   v body, vizualno skryta do polucheniya fokusa. */
-.skip-link{position:absolute;left:-9999px;top:0}
-.skip-link:focus{position:fixed;left:0;top:0;z-index:9999;background:#000;color:#fff;
-  padding:var(--space-2) var(--space-4);padding-top: env(safe-area-inset-top, 0px);font-size:14px;border-radius:0 0 6px 0;text-decoration:none}
+/* P2-13: skip-link. На index в сетке 130 карточек, у каждой своя ссылка и
+   кнопка — Tab до содержимого идёт десятки секунд. Ссылка стоит первым
+   элементом в body и визуально скрыта до получения фокуса.
 
-/* ===== h1 semantika: v shapke eto NE zagolovok stranicy =====================
-   Do 3a vse 17 stranic imeli edinyj h1 = «brain-25-evidence» v shapke. Eto
-   neverno semanticheski: h1 dolzhen byt zagolovkom STRANICY.
+   v5.6.3 (этап 1C, B1 / P0-4): скрытие держалось на сдвиге `left:-9999px`.
+   Сдвиг не убирает элемент — он просто уводит его бокс за левый край
+   документа. При `dir="rtl"` левый край становится правым, документ
+   растёт влево, и ширина документа доходила до 11 264 px на 144 страницах:
+   первый же RTL-прогон давал горизонтальный скролл везде.
 
-   Raskopka svyazej s h1:
-   - chastnye header.top > h1 pereimenovany v .site-title;
-   - skupnye (h1, h1 a, ody.dark h1 a, h1 .v) rasshireny na
-     .top .site-title, inache shapka poteryala ves, letter-spacing i
-     temnyu tsvet.
+   Заменено на клиппинг — та же техника, что в .sr-only выше по этому
+   файлу: элемент остаётся размером 1x1 px, его боксы обрезаются
+   `clip` + `clip-path`, и сдвигать ничего не нужно. Скрытая ссылка не
+   увеличивает ширину документа ни в одном направлении: горизонтального
+   скролла нет ни в LTR, ни в RTL. Поэтому в :focus возвращаются размер,
+   margin и clip — иначе фокус-видимая ссылка осталась бы 1x1 px. */
+.skip-link{position:absolute;width:1px;height:1px;margin:-1px;padding:0;
+  overflow:hidden;clip:rect(0,0,0,0);clip-path:inset(50%);white-space:nowrap;border:0}
+.skip-link:focus{position:fixed;inset-inline-start:0;top:0;z-index:9999;background:#000;color:#fff;
+  width:auto;height:auto;margin:0;clip:auto;clip-path:none;overflow:visible;
+  padding:var(--space-2) var(--space-4);padding-top: env(safe-area-inset-top, 0px);font-size:.875rem;border-radius:0 0 6px 0;text-decoration:none}
 
-   main h1 zafiksirovan na 1.35rem (21.6px), ctoby byt' bolshe h2
-   (1.15rem / 18.4px) i ne popast' pod strannye
-   h1 { font-size: 1.05rem !important } iz lokalnyh stiliev index/map —
-   inache na teh stranicah h1 byl by 16.8px, to est MENWE, chem h2. */
-/* Ottsutstvuet: .top .site-title nasleduet 1.35rem (21.6px) iz pravil,
-   byvshih .top h1. explicitly font-size zdes lomal razmer logotipa
-   s 21.6px na 20.8px. */
-main h1 { font-size: 1.35rem !important; font-weight: 700 !important;
+/* v5.6.3 (этап 1C, B2 / P1-8): `prefers-reduced-motion` — WCAG 2.3.3 + 2.2.2.
+   В style.css есть 3 @keyframes (sh, popIn, fadeIn) и много переходов:
+   body{smooth}, .btn, .preset, .chip, .sb-close, .favBtn, .modal и другие.
+   До этого момента здесь не было ни одного `@media (prefers-reduced-motion)`:
+   человек, который запрещает движение в настройках ОС, получал все
+   анимации и переходы сайта как и все остальные.
+
+   Правило одно и глобальное — снижает каждую анимацию до одного кадра и
+   отменяет каждый переход. `animation-iteration-count:1` важен: иначе бесконечная
+   анимация продолжилась бы с высокой частотой кадров, пусть и невидимая
+   (WCAG 2.2.2 — «не отключается»). `transition-delay:0s` — тоже: иначе сдвинутый
+   задержкой переход всё ещё отыгрывает спустя время.
+
+   Блок стоит в конце базы, чтобы его не перебивали специфичные правила
+   с !important внутри @media(max-width:...): здесь всё и так !important, поэтому каскад побеждает
+   при любом порядке. Никакие font-size в этот блок не попадают — иначе
+   test_css_tokens.py::test_tokens_do_not_leak_into_other_properties. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
+    scroll-behavior: auto !important;
+  }
+  html { scroll-behavior: auto !important; }
+}
+
+/* ===== h1 semantika: в шапке это НЕ заголовок страницы =====================
+   До 3a у всех 17 страниц был единый h1 = «brain-25-evidence» в шапке. Это
+   неверно семантически: h1 должен быть заголовком СТРАНИЦЫ.
+
+   Что сделано с h1:
+   - частные header.top > h1 переименованы в .site-title;
+   - групповые (h1, h1 a, body.dark h1 a, h1 .v) расширены на
+     .top .site-title, иначе шапка потеряла бы вес, letter-spacing и
+     тёмный цвет.
+
+   До этапа 1C здесь было `font-size: 1.35rem !important` (21.6px) — опора,
+   на которой держалась вся шкала мелких заголовков.
+
+   v5.6.3 (этап 1C, A1): ОПОРА СНЯТА. Пин был не структурой, а следствием
+   старой шкалы: 21.6px стояли на 144 страницах, и чёрная .75rem поднималась
+   под него в этапе 1B. Теперь font-size здесь не задаётся вообще —
+   h1 берёт 1.75rem из базового правила `h1`, h2 — 1.5rem, h3 — 1.25rem, h4 — 1.1rem,
+   h5 — 1rem. Остальные !important на строке ниже (вес, межстрочный, отступы, цвет)
+   остались и подтверждены замером: они не каскад h1, а частные решения — их
+   не трогали. */
+main h1 { font-weight: 700 !important;
   line-height: 1.25 !important; margin: 0 0 .8rem !important; color: var(--text) !important; }
 
 /* ===== sup/* страницы (5 файлов) — вынесено из локальных <style>
@@ -1704,10 +1767,10 @@ main h1 { font-size: 1.35rem !important; font-weight: 700 !important;
    страницах, ограничены .sup-wrap: иначе .verdict испортил бы бейджи
    trends, .tag — карточки map, .grade-badge — бейдж calculator. */
 .sup-wrap { max-width: 840px; margin: 40px auto; padding: 0 var(--space-5); }
-.breadcrumbs { font-size: .9rem; color: var(--muted); margin-bottom: var(--space-4); }
+.breadcrumbs { font-size: .875rem; color: var(--muted); margin-bottom: var(--space-4); }
 .breadcrumbs a { color: var(--accent); text-decoration: none; }
 .sup-header { display: flex; gap: var(--space-4); align-items: center; margin-bottom: var(--space-6); flex-wrap: wrap; }
-.sup-header h2 { margin: 0; font-size: 1.3rem; font-weight: 600; }
+.sup-header h2 { margin: 0; font-size: 1.25rem; font-weight: 600; }
 .sup-wrap .grade-badge { display: inline-block; padding: var(--space-2) var(--space-4); border-radius: var(--radius-lg); color: #fff; font-weight: 700; font-size: 1.1rem; }  /* было: .grade-badge; padding 6px 14px -> 8/16 (П7) */
 /* v5.6.0 этап 1.5: под текстом бейджа шёл ряд точек — это браузерное
    text-decoration: underline dotted у <abbr title>, а не сломанный border.
@@ -1720,15 +1783,15 @@ main h1 { font-size: 1.35rem !important; font-weight: 700 !important;
 .sup-wrap .grade-badge abbr { text-decoration: none; }
 .sup-wrap .verdict { color: var(--muted); font-size: 1rem; }  /* было: .verdict */
 .sup-section { margin-bottom: 28px; padding: var(--space-5); background: var(--card-bg); border-radius: var(--radius-xl); border: 1px solid var(--border); }
-.sup-section h2 { font-size: 1.15rem; margin-bottom: var(--space-3); }
+.sup-section h2 { font-size: 1.25rem; margin-bottom: var(--space-3); }
 .sup-section p { line-height: var(--lh-loose); margin-bottom: var(--space-2); }
 /* v5.6.1 (этап 1B, П7): отступы sup-компонентов приведены к сетке 4px.
    Было: padding 4/10, боковой margin 6px. Стало: 4/12 и 8px. */
-.sup-wrap .tag { display: inline-block; padding: var(--space-1) var(--space-3); margin: var(--space-1) var(--space-2) var(--space-1) 0; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-md); font-size: .85rem; }  /* было: .tag */
+.sup-wrap .tag { display: inline-block; padding: var(--space-1) var(--space-3); margin: var(--space-1) var(--space-2) var(--space-1) 0; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-md); font-size: .875rem; }  /* было: .tag */
 .mech-card { padding: var(--space-3); margin-bottom: var(--space-2); background: var(--bg); border-left: 3px solid var(--accent); border-radius: var(--radius-md); }
-.mech-body { font-size: .95rem; margin-bottom: var(--space-2); }  /* было 6px (П7) */
-.mech-effect { color: var(--muted); font-size: .9rem; }
-.mech-strength { display: inline-block; margin-top: var(--space-2); padding: var(--space-1) var(--space-2); border-radius: var(--radius-sm); font-size: .75rem; text-transform: uppercase; }  /* было: margin 6px, padding 2px (П7) */
+.mech-body { font-size: 1rem; margin-bottom: var(--space-2); }  /* было 6px (П7) */
+.mech-effect { color: var(--muted); font-size: .875rem; }
+.mech-strength { display: inline-block; margin-top: var(--space-2); padding: var(--space-1) var(--space-2); border-radius: var(--radius-sm); font-size: .875rem; text-transform: uppercase; }  /* было: margin 6px, padding 2px (П7) */
 /* v5.6.3 E1: цвет текста — через токены темы. Заливка оставлена
    прежней: в тёмной теме она и так даёт 5.31-5.57:1 (светлый текст
    на тёмном оттенке). В светлой теме оттенок той же палитры ВМЕСТЕ
@@ -1749,11 +1812,11 @@ html.light .s-weak { background: var(--card-bg); border: 1px solid var(--grade-c
 .inter-high { border-color: #ef4444; }
 .inter-critical { border-color: #991b1b; }
 .inter-with { font-weight: 600; }
-.inter-sev { font-size: .8rem; color: var(--muted); text-transform: uppercase; margin: var(--space-1) 0; }
-.inter-note { font-size: .9rem; }
+.inter-sev { font-size: .875rem; color: var(--muted); text-transform: uppercase; margin: var(--space-1) 0; }
+.inter-note { font-size: .875rem; }
 .src-card { padding: var(--space-3); margin-bottom: var(--space-2); border-bottom: 1px solid var(--border); }  /* было: padding 10px, margin 6px (П7) */
-.src-title { font-size: .9rem; margin-bottom: var(--space-1); }
-.src-meta { font-size: .8rem; color: var(--muted); }
+.src-title { font-size: .875rem; margin-bottom: var(--space-1); }
+.src-meta { font-size: .875rem; color: var(--muted); }
 .src-meta a { color: var(--accent); }
 .back-link { display: inline-block; margin-top: var(--space-6); color: var(--accent); text-decoration: none; }
 @media (max-width: 600px) {
@@ -1775,31 +1838,31 @@ html.light .s-weak { background: var(--card-bg); border: 1px solid var(--grade-c
    эти селекторы заняты другими страницами.
    #sidebar был переименован в #int-sidebar / #atl-sidebar 2026-10-03,
    когда выяснилось, что под этим id жили ДВА разных сайдбара. */
-.legend { padding: var(--space-2) var(--space-6); display: flex; gap: var(--space-4); flex-wrap: wrap; font-size: .8rem; color: var(--muted); }
-.legend span::before { content: ''; display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: .35rem; vertical-align: middle; }
+.legend { padding: var(--space-2) var(--space-6); display: flex; gap: var(--space-4); flex-wrap: wrap; font-size: .875rem; color: var(--muted); }
+.legend span::before { content: ''; display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-inline-end: .35rem; vertical-align: middle; }
 .legend .syn::before { background: #4caf50; }
 .legend .ant::before { background: #e53935; }
 .legend .int::before { background: #ff9800; }
 .legend .drug::before { background: #9e9e9e; }
 .sb-head { position: relative; }
-.sb-close { position: absolute; right: -.4rem; top: -.4rem; background: transparent; border: none; color: var(--muted); font-size: 1.4rem; cursor: pointer; padding: var(--space-0-2) var(--space-2); border-radius: var(--radius-md); }
+.sb-close { position: absolute; inset-inline-end: -.4rem; top: -.4rem; background: transparent; border: none; color: var(--muted); font-size: 1.5rem; cursor: pointer; padding: var(--space-0-2) var(--space-2); border-radius: var(--radius-md); }
 @media (hover:hover){.sb-close:hover { background: rgba(127,127,127,.15); color: var(--fg); }}
-.sb-meta { display: flex; gap: var(--space-2); align-items: center; margin-bottom: var(--space-4); font-size: .85rem; color: var(--muted); flex-wrap: wrap; }
+.sb-meta { display: flex; gap: var(--space-2); align-items: center; margin-bottom: var(--space-4); font-size: .875rem; color: var(--muted); flex-wrap: wrap; }
 .sb-section { margin: var(--space-4) 0; }
-.sb-section h3 { margin: 0 0 var(--space-2); font-size: .85rem; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); font-weight: 600; }
+.sb-section h3 { margin: 0 0 var(--space-2); font-size: .875rem; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); font-weight: 600; }
 .sb-links { list-style: none; padding: 0; margin: 0; }
 .sb-links li { padding: var(--space-2) 0; border-bottom: 1px solid var(--border); }
 .sb-links li:last-child { border-bottom: none; }
 .sb-links a { color: var(--accent); text-decoration: none; font-weight: 500; cursor: pointer; }
 .sb-links a:hover { text-decoration: underline; }
-.sb-sev { display: inline-block; font-size: .875rem; padding: var(--space-1) var(--space-2); border-radius: var(--radius-md); margin-left: var(--space-1); background: rgba(127,127,127,.15); color: inherit; opacity: .8; }  /* было: padding 1px 6px, margin .4rem (П7) */
+.sb-sev { display: inline-block; font-size: .875rem; padding: var(--space-1) var(--space-2); border-radius: var(--radius-md); margin-inline-start: var(--space-1); background: rgba(127,127,127,.15); color: inherit; opacity: .8; }  /* было: padding 1px 6px, margin .4rem (П7) */
 .sb-sev.medium { background: rgba(255,112,67,.2); color: #ff7043; opacity: 1; }
 .sb-sev.high { background: rgba(229,57,53,.2); color: #e53935; opacity: 1; }
 .sb-sev.critical { background: rgba(183,28,28,.3); color: #ff5252; opacity: 1; }
-.sb-note { font-size: .8rem; color: var(--muted); margin-top: var(--space-0-2); line-height: 1.4; }
+.sb-note { font-size: .875rem; color: var(--muted); margin-top: var(--space-0-2); line-height: 1.4; }
 .sb-cta { display: block; margin-top: 1.2rem; padding: .6rem var(--space-4); text-align: center; background: #0a6bc9; color: #fff; border-radius: var(--radius-lg); text-decoration: none; font-weight: 500; }
 .sb-cta:hover { opacity: .9; }
-.severityFilter { display: none; align-items: center; gap: .8rem; padding: var(--space-0-3) var(--space-6); font-size: .8rem; color: var(--muted); }
+.severityFilter { display: none; align-items: center; gap: .8rem; padding: var(--space-0-3) var(--space-6); font-size: .875rem; color: var(--muted); }
 .severityFilter.visible { display: flex; }
 .severityFilter label { display: flex; align-items: center; gap: var(--space-0-3); cursor: pointer; }
 .severityFilter input { cursor: pointer; }
@@ -1817,9 +1880,9 @@ html.light .s-weak { background: var(--card-bg); border: 1px solid var(--grade-c
    на результат не влияет. */
 #int-sidebar { width: 360px; flex-shrink: 0; background: var(--card-bg); border-left: 1px solid var(--border); overflow-y: auto; padding: var(--space-4) 1.2rem; display: none; }
 #int-sidebar.open { display: block; }
-#int-sidebar h2 { margin: 0 0 var(--space-0-3); font-size: 1.15rem; padding-right: var(--space-8); }
+#int-sidebar h2 { margin: 0 0 var(--space-0-3); font-size: 1.25rem; padding-inline-end: var(--space-8); }
 @media (max-width: 640px) {
-  #int-sidebar { width: 100% !important; position: fixed; left: 0; right: 0; bottom: 0; top: auto; max-height: 70vh; border-left: none; border-top: 1px solid var(--aborder); border-radius: 12px 12px 0 0; z-index: 100; box-shadow: 0 -8px 32px rgba(0,0,0,.4); transform: translateY(0); transition: transform .2s ease, max-height .2s ease; }
+  #int-sidebar { width: 100% !important; position: fixed; inset-inline: 0; bottom: 0; top: auto; max-height: 70vh; border-inline-start: none; border-top: 1px solid var(--aborder); border-radius: 12px 12px 0 0; z-index: 100; box-shadow: 0 -8px 32px rgba(0,0,0,.4); transform: translateY(0); transition: transform .2s ease, max-height .2s ease; }
   #int-sidebar::before { content: ''; display: block; width: 36px; height: 4px; background: rgba(127,127,127,.5); border-radius: 2px; margin: var(--space-0-3) auto .6rem; cursor: grab; }
   #int-sidebar.sheet-full { max-height: 85vh !important; }
 }
@@ -1837,14 +1900,14 @@ html.light .s-weak { background: var(--card-bg); border: 1px solid var(--grade-c
    на результат не влияет. */
 #atl-sidebar { width:340px;flex-shrink:0;border-left:1px solid var(--aborder);padding:var(--space-4) 1.2rem;overflow-y:auto;display:none }
 #atl-sidebar.open { display:block }
-#atl-sidebar h2 { margin:0 0 var(--space-2);padding-right:1.8rem;font-size:1.1rem;position:relative }
-#atl-sidebar h3 { margin:var(--space-4) 0 .4rem;font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;opacity:.55;font-weight:600 }
-#atl-sidebar .close-x { position:absolute;right:0;top:-.3rem;background:none;border:none;color:var(--amut);font-size:1.5rem;line-height:1;cursor:pointer;padding:var(--space-0-2) .4rem;border-radius:var(--radius-md)}
+#atl-sidebar h2 { margin:0 0 var(--space-2);padding-inline-end:1.8rem;font-size:1.1rem;position:relative }
+#atl-sidebar h3 { margin:var(--space-4) 0 .4rem;font-size:.875rem;text-transform:uppercase;letter-spacing:.06em;opacity:.55;font-weight:600 }
+#atl-sidebar .close-x { position:absolute;inset-inline-end:0;top:-.3rem;background:none;border:none;color:var(--amut);font-size:1.5rem;line-height:1;cursor:pointer;padding:var(--space-0-2) .4rem;border-radius:var(--radius-md)}
 @media (hover:hover){#atl-sidebar .close-x:hover { background:rgba(127,127,127,.15);color:var(--atext) }}
 #atl-sidebar ul { list-style:none;padding:0;margin:0 }
-#atl-sidebar li { padding:.45rem var(--space-2);margin:var(--space-1) 0;border:1px solid var(--aborder);border-radius:var(--radius-lg);cursor:pointer;font-size:.9rem }
+#atl-sidebar li { padding:.45rem var(--space-2);margin:var(--space-1) 0;border:1px solid var(--aborder);border-radius:var(--radius-lg);cursor:pointer;font-size:.875rem }
 @media (hover:hover){#atl-sidebar li:hover { border-color: var(--border-hover);background:rgba(127,127,127,.06) }}
-#atl-sidebar .badge { display:inline-block;padding:.1rem .45rem;border-radius:var(--radius-md);font-size:.875rem;background:rgba(127,127,127,.15);margin-left:.4rem;opacity:.85 }
+#atl-sidebar .badge { display:inline-block;padding:.1rem .45rem;border-radius:var(--radius-md);font-size:.875rem;background:rgba(127,127,127,.15);margin-inline-start:.4rem;opacity:.85 }
 #atl-sidebar .badge.A { background:rgba(76,175,80,.25);color:#7fc784 }
 #atl-sidebar .badge.B { background:rgba(139,195,74,.25);color:#b7d68b }
 #atl-sidebar .badge.C { background:rgba(255,152,0,.22);color:#ffb74d }
@@ -1856,10 +1919,10 @@ html.light .s-weak { background: var(--card-bg); border: 1px solid var(--grade-c
    #3498db на тёмном фоне даёт 5.69:1 и трогать её нечего. */
 html.light #atl-sidebar .cta { background:#1f6fa5 }
 #atl-sidebar .cta:hover { opacity:.9 }
-#atl-sidebar .mech { margin:var(--space-2) 0;padding:.55rem .7rem;border:1px solid var(--aborder);border-radius:var(--radius-lg);font-size:.85rem;line-height:1.4 }
-#atl-sidebar .mech .str { display:inline-block;padding:.05rem .4rem;border-radius:var(--radius-pill);font-size:.875rem;margin-left:.4rem;background:rgba(127,127,127,.2) }
+#atl-sidebar .mech { margin:var(--space-2) 0;padding:.55rem .7rem;border:1px solid var(--aborder);border-radius:var(--radius-lg);font-size:.875rem;line-height:1.4 }
+#atl-sidebar .mech .str { display:inline-block;padding:.05rem .4rem;border-radius:var(--radius-pill);font-size:.875rem;margin-inline-start:.4rem;background:rgba(127,127,127,.2) }
 @media (max-width: 640px) {
-  #atl-sidebar { width: 100% !important; position: fixed; left: 0; right: 0; bottom: 0; top: auto; max-height: 70vh; border-left: none; border-top: 1px solid var(--aborder); border-radius: 12px 12px 0 0; z-index: 100; box-shadow: 0 -8px 32px rgba(0,0,0,.4); transform: translateY(0); transition: transform .2s ease, max-height .2s ease; }
+  #atl-sidebar { width: 100% !important; position: fixed; inset-inline: 0; bottom: 0; top: auto; max-height: 70vh; border-inline-start: none; border-top: 1px solid var(--aborder); border-radius: 12px 12px 0 0; z-index: 100; box-shadow: 0 -8px 32px rgba(0,0,0,.4); transform: translateY(0); transition: transform .2s ease, max-height .2s ease; }
   #atl-sidebar::before { content: ''; display: block; width: 36px; height: 4px; background: rgba(127,127,127,.5); border-radius: 2px; margin: var(--space-0-3) auto .6rem; cursor: grab; }
   #atl-sidebar.sheet-full { max-height: 85vh !important; }
 }
@@ -1891,9 +1954,9 @@ html.light #atl-sidebar .cta { background:#1f6fa5 }
 #cookieBanner {
   display: none;
   position: fixed;
-  left: 50%;
+  inset-inline: 0;
+  margin-inline: auto;
   bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
-  transform: translateX(-50%);
   z-index: 1100;
   width: min(720px, calc(100vw - 1.5rem));
   box-sizing: border-box;
@@ -1906,7 +1969,7 @@ html.light #atl-sidebar .cta { background:#1f6fa5 }
   border: 1px solid var(--border);
   border-radius: var(--radius-xl);
   box-shadow: 0 8px 32px rgba(0, 0, 0, .45);
-  font-size: .9rem;
+  font-size: .875rem;
   line-height: var(--lh-normal);
 }
 #cookieBanner:not([hidden]) { display: flex; }
@@ -1927,7 +1990,7 @@ html:not(.light) #cookieBanner .cb-text a { color: var(--accent-2); }
   border: 1px solid var(--border);
   background: transparent;
   color: var(--fg);
-  font-size: .85rem;
+  font-size: .875rem;
   font-weight: 600;
   cursor: pointer;
   min-height: 44px; /* тач-таргет, как в правках v5.6.2 */

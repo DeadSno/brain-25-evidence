@@ -27,7 +27,7 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=422">
+<link rel="stylesheet" href="style.css?v=423">
   <style>
     /* Палитра на :root, не на body: объявление на body перекрывало html.light
        ниже, и в светлой теме текст оставался светлым на светлом (1.05:1),
@@ -54,7 +54,7 @@ try {
     .btn.primary{background:var(--info-fill);border-color:var(--info-fill);color:#fff}
 
     .params{background:var(--apanel);border:1px solid var(--aborder);border-radius:var(--radius-xl);padding:var(--space-4) 1.2rem;margin:0 0 var(--space-4)}
-    .params h2{margin:0 0 .6rem;font-size:1rem}
+    .params h2{margin:0 0 .6rem}
     .params-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.7rem}
     .params label{display:block;font-size:.8rem;opacity:.7;margin-bottom:var(--space-0-2)}
     .params input,.params select{width:100%;padding:.45rem .6rem;border:1px solid var(--aborder);border-radius:var(--radius-lg);background:var(--apanel);color:var(--atext);font-size:16px;box-sizing:border-box}
@@ -66,7 +66,7 @@ try {
     @media(max-width:860px){.cols{grid-template-columns:1fr}}
 
     .panel{background:var(--apanel);border:1px solid var(--aborder);border-radius:var(--radius-xl);padding:var(--space-4) 1.2rem}
-    .panel h2{margin:0 0 .7rem;font-size:1rem;display:flex;justify-content:space-between;align-items:center}
+    .panel h2{margin:0 0 .7rem;display:flex;justify-content:space-between;align-items:center}
     .panel h2 .count{opacity:.6;font-size:.85rem;font-weight:400}
 
     .item{display:grid;grid-template-columns:1fr 90px 30px;gap:var(--space-2);align-items:center;padding:var(--space-2) 0;border-bottom:1px solid var(--aborder);font-size:.9rem}
@@ -110,7 +110,7 @@ try {
     html:not(.light) .kpi.bad .val{color:var(--danger-tx)}
 
     .block{margin:0 0 var(--space-4)}
-    .block h3{margin:0 0 var(--space-2);font-size:.85rem;text-transform:uppercase;letter-spacing:.05em;opacity:.6}
+    .block h3{margin:0 0 var(--space-2);text-transform:uppercase;letter-spacing:.05em;opacity:.6}
     .block-item{padding:.55rem .7rem;margin:var(--space-0-3) 0;border:1px solid var(--aborder);border-radius:var(--radius-lg);font-size:.85rem;line-height:1.4}
     .block-item.sev-low{border-color:rgba(241,196,15,.4);background:rgba(241,196,15,.07)}
     .block-item.sev-medium{border-color:rgba(230,126,34,.5);background:rgba(230,126,34,.08)}
@@ -122,7 +122,6 @@ try {
     .block-item .note{opacity:.8;font-size:.82rem}
 
     .row-actions{display:flex;gap:var(--space-2);margin-top:var(--space-4);flex-wrap:wrap}
-    .empty{opacity:.55;font-style:italic;font-size:.85rem;padding:var(--space-2) 0}
 
     /* Профили */
     .profiles{display:flex;flex-wrap:wrap;gap:.4rem;margin:0 0 var(--space-4)}

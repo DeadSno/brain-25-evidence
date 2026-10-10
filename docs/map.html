@@ -31,7 +31,7 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=422">
+<link rel="stylesheet" href="style.css?v=423">
 <script>
   try {
     document.addEventListener('DOMContentLoaded', function () {
@@ -98,7 +98,7 @@ try {
 }
   @media(max-width:860px){.cols{grid-template-columns:1fr}}
   .list{height:100%;overflow:auto;padding-right:.4rem}
-  .cat h3{font-size:.75rem;text-transform:uppercase;letter-spacing:.06em;opacity:.55;margin:.8rem 0 .35rem;cursor:pointer;user-select:none}
+  .cat h3{font-size:1rem;text-transform:uppercase;letter-spacing:.06em;opacity:.55;margin:.8rem 0 .35rem;cursor:pointer;user-select:none}
   .cat h3:hover{opacity:.9}
   .cat.closed .chip{display:none!important}
   .chip{display:inline-block;margin:0 var(--space-0-3) var(--space-0-3) 0;padding:.32rem .65rem;border:1px solid var(--aborder);border-radius:var(--radius-pill);cursor:pointer;font-size:.82rem;background:var(--apanel);color:var(--atext)}
@@ -128,7 +128,7 @@ try {
      style.css (стр. 393–395) — удалены как мёртвые. */
   .chainbox a{color:var(--info-tx)}
   .sim{margin-top:1.2rem;padding-top:.9rem;border-top:1px dashed var(--aborder);animation:rise .4s ease both}
-  .sim h4{margin:var(--space-0-2) 0 var(--space-2);font-size:.85rem;opacity:.75}
+  .sim h4{margin:var(--space-0-2) 0 var(--space-2);opacity:.75}
   kbd{border:1px solid var(--aborder);border-radius:var(--radius-sm);padding:0 var(--space-0-3);font-size:.75rem;opacity:.7}
   /* ── Overlay details ─────────────────────────────── */
 #details-backdrop {
@@ -160,7 +160,7 @@ try {
   opacity: 1; pointer-events: auto;
   transform: translate(-50%, -50%) scale(1);
 }
-#details h2 { margin: 0 0 var(--space-2); padding-right: 2.2rem; font-size: 1.15rem; }
+#details h2 { margin: 0 0 var(--space-2); padding-right: 2.2rem; }
 #details h3 {
   margin: 1.2rem 0 .4rem; font-size: .78rem;
   text-transform: uppercase; letter-spacing: .06em;
@@ -276,12 +276,13 @@ footer { font-size: 1rem !important; }
       min-height: 400px;
       height: auto !important;
     }
-    /* Категории — компактнее */
-    .cat h3 { font-size: .7rem; }
+    /* v5.6.3 (этап 1C, A2): .cat h3 bolshe ne umenshaetsya na mobilnom —
+       bazovaya 1rem (h5) rabotaet na vsekh shirinakh, kak i na desktope.
+       Ostalsya tolko kompaktnyj .chip. */
     .chip { font-size: .75rem; padding: .28rem .55rem; }
     /* Цепочка — уменьшаем отступы */
     .step { padding: .6rem .8rem; font-size: .88rem; }
-    h1 { font-size: 1.05rem !important; line-height: 1.3; }
+    h1 { line-height: 1.3; }
     h1 br { display: none; }  /* если есть принудительные переносы */
   }
   /* ── Touch UX ──────────────────────────────────────── */
