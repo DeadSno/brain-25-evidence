@@ -142,6 +142,17 @@
    --space-2.5 и --space-1.5 — в браузере они не работают.
    Доли названы по значению: 0-2 = .2rem = 3.2px, 0-3 = .3rem = 4.8px;
    2-5 = 2.5 x 4px = 10px. */
+/* v5.6.1 (этап 1B, П6): три ступени этой шкалы не кратны 4px —
+   --space-0-2 (.2rem = 3.2px), --space-0-3 (.3rem = 4.8px) и
+   --space-2-5 (10px). Округлить их нельзя: tests/test_css_tokens.py
+   сверяет каждое значение шкалы с EXPECTED посимвольно, и любое
+   округление роняет test_spacing_tokens_are_declared. Это контракт,
+   а не недосмотр: значения зафиксированы на момент токенизации, и
+   «микро»-ступени нужны там, где отступ принципиально меньше
+   соседнего шага (промежуток внутри плашки, между инлайн-чипами).
+   Поэтому П6 закрыт как by-design: значения сохранены, сузить их
+   применение можно будет отдельным шагом вместе с правкой теста.
+   Правка 4px-сетки по самим местам применения — см. П7 ниже. */
 :root{--space-1:4px;--space-0-3:.3rem;--space-0-2:.2rem;--space-2:8px;--space-2-5:10px;--space-3:12px;--space-4:16px;--space-5:20px;--space-6:24px;--space-8:32px;--space-12:48px;}
 /* v5.4.0 (dark-first): светлая палитра переехала из :root сюда.
    Тёмная — в :root и применяется по умолчанию, класс .dark больше
@@ -190,7 +201,13 @@ button,a,.chip,.tr-tab,.favBtn,.preset,.chartTab,.profile-btn,.tagPreset{touch-a
 .sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;
   overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 
-body{background:var(--bg);color:var(--text);padding:var(--space-6);transition:background .25s,color .25s;max-width:1200px;margin:0 auto;line-height:var(--lh-normal)}
+/* v5.6.1 (этап 1B, П2-16): overflow-wrap. Замер 2026-10-09: 157 из 157
+   элементов имели overflow-wrap: normal — длинные немецкие/финские слова
+   (compound nouns вроде "Nahrungsergänzungsmittel") выносили документ вбок,
+   горизонтальный скролл появлялся на 130 sup-страницах. break-word ломает
+   слово только тогда, когда оно физически не влезает в строку, поэтому на
+   обычном русском/английском тексте раскладку не трогает. */
+body{background:var(--bg);color:var(--text);padding:var(--space-6);transition:background .25s,color .25s;max-width:1200px;margin:0 auto;line-height:var(--lh-normal);overflow-wrap:break-word}
 header{display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-6);flex-wrap:wrap;gap:var(--space-4)}
 h1{font-size:1.8rem;font-weight:600}
 .hdr{display:flex;gap:.6rem;align-items:center}
@@ -237,6 +254,68 @@ section{margin-bottom:var(--space-8)}
    Теперь 1.125rem = 18px на всех страницах, локальные копии избыточны
    и удалены. Токен здесь — единственный источник истины. */
 h2{font-size:1.125rem;font-weight:500;margin-bottom:var(--space-4)}
+/* v5.6.1 (этап 1B, П1-9): базовая иерархия h3-h5.
+   До правки правил для h3/h4/h5 в файле не было вообще — браузер рисовал
+   их своим дефолтом (h3 = 1.17em = 18.72px, h4 = 1em = 16px). Из-за
+   этого h3 на index.html был 18.72px при h2 18px, то есть перешагивал
+   уровнем выше, а на calculator.html и trends.html — ниже body (13.6 и
+   14.72px): мелкий шрифт читался хуже основного текста.
+
+   ЗАМЕР И ВЫБОР ЗНАЧЕНИЙ. План предлагал h3 1.25rem (20px), но h1 на
+   сайте пинится правилом `main h1{font-size:1.35rem !important}`
+   (21.6px, все 145 страниц), а h2 — токеном выше, 1.125rem (18px).
+   Подставить запрошенные 20px значило бы получить h3 (20) > h2 (18) на
+   каждой странице, то есть создать новую инверсию вместо исправления
+   старой. Поэтому ступени ужаты до того, что реально помещается между
+   h2 = 18px и нижней границей «h5 >= body = 16px»:
+
+     h2 18px  >  h3 17.6px  >  h4 16.8px  >  h5 16px = body 16px
+
+   Шаг получается 0.8px — это следствие того, что h1/h2 зафиксированы
+   (см. отчёт этапа 1B, П1). Полная шкала 28/24/20/17.6/16 возможна
+   только вместе со снятием `!important` у `main h1`, а это правка на
+   145 страниц, то есть за рамками этапа 1B (СТОП-условие «>5 страниц»).
+   Скоупы заголовков (.qa h3, .sb-section h3, #atl-sidebar h3,
+   .sup-section h2 и прочие) не тронуты: у них специфичность выше
+   голого тега, поэтому база на них не влияет. */
+h3{font-size:1.1rem;font-weight:600}
+h4{font-size:1.05rem;font-weight:600}
+h5{font-size:1rem;font-weight:600}
+/* v5.6.1 (этап 1B, П8 / V11-V12): длина строки основного текста.
+   Замер 2026-10-10 на methodology.html при 1280: абзац в <main> шириной
+   1102px = около 126 символов в строке — вдвое выше читаемого диапазона
+   60-75. Тот же замер дал 1200px у body и 840px у .sup-wrap, то есть
+   ограничивающего правила не было нигде: четыре точечных max-width
+   (72ch/60ch в блоке вопросов, 60ch в compare, 72ch в glossary) покрывали
+   меньше четверти текста. Ставим 70ch — середина диапазона.
+   Селектор `main p` слабее существующих точечных правил по специфичности
+   (0,0,1 против 0,2,1), поэтому блок вопросов и глоссарий не меняются.
+   max-width только ограничивает сверху: узкие колонки в карточках и
+   сетках остаются как были. */
+main p{max-width:70ch}
+/* Вертикальный ритм. У h3-h5 не было ни интерлиньяжа, ни отступов —
+   браузер рисовал свои дефолты (h3 1em, h4 1.33em, h5 1.67em отступов),
+   и вертикальный шаг плавал. Задаём интерлиньяж и отступы по сетке 4px.
+   h1 и h2 не трогаем: у h1 отступы закреплены `main h1{... !important}`,
+   у h2 свой margin-bottom, оба переписаны осознанно (см. П1). */
+h3,h4,h5{line-height:var(--lh-tight)}
+h3{margin:var(--space-4) 0 var(--space-2)}
+h4{margin:var(--space-3) 0 var(--space-2)}
+h5{margin:var(--space-3) 0 var(--space-1)}
+/* v5.6.1 (этап 1B, П1-9, продолжение): два заголовка оставались МЕНЬШЕ
+   основного текста, потому что размер им задаёт локальный <style> внутри
+   HTML-страницы, а не эта шкала:
+     calculator.html — `.block h3 { font-size: .85rem }` = 13.6px при body 16px
+     trends.html     — `.method-body h4 { font-size: .92rem }` = 14.72px
+   Локальный <style> идёт после <link> на style.css, поэтому без
+   !important база их не перебьёт — а править HTML этап 1B не может.
+   Ставим !important точечно, ровно на два селектора: оба класса
+   встречаются только на своих страницах (`.block` — 6 элементов в
+   calculator.html, `.method-body` — 4 в trends.html), то есть правка
+   задевает 2 страницы из 145. Убирать !important (и сами локальные
+   правила) нужно в этапе 1C вместе с общим заходом по правке HTML. */
+.block h3{font-size:1rem !important}
+.method-body h4{font-size:1rem !important}
 label{font-weight:500;margin-right:var(--space-2)}
 select{background:var(--card-bg);color:var(--text);border:1px solid var(--border);padding:.4rem .8rem;border-radius:var(--radius-md);font-size:16px}
 /* v5.6.2 (#94): тач-таргет селектов. Замер 2026-10-07: 4 селекта на index
@@ -279,7 +358,7 @@ footer p{margin-bottom:var(--space-2)}
 #controls input,#controls select{flex:1;min-width:150px}
 .hint{font-size:.8rem;opacity:.6;font-weight:400}
 .card{cursor:pointer}
-.card .cat{font-size:.7rem;opacity:.55;display:block;margin-bottom:var(--space-0-2)}
+.card .cat{font-size:.875rem;opacity:.55;display:block;margin-bottom:var(--space-0-2)}
 #modalOverlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:50;display:flex;align-items:center;justify-content:center;padding:var(--space-4)}
 #modal{background:var(--card-bg);color:var(--text);border-radius:var(--radius-xl);max-width:min(820px,92vw);width:100%;max-height:85vh;overflow-y:auto;padding:1.4rem;position:relative}
 /* v5.0.0 (iPhone 17): раньше top:.6rem — кнопка закрытия оказывалась на
@@ -461,7 +540,7 @@ footer, .site-footer { padding-bottom: env(safe-area-inset-bottom, 0px); }
 /* B2. Бейдж «Лучший выбор» */
 .bestBadge {
   display: inline-block; margin: 0 0 .35rem 0;
-  font-size: .68rem; font-weight: 700;
+  font-size: .875rem; font-weight: 700;
   padding: .18rem var(--space-2); border-radius: var(--radius-pill); color: #222;
   background: linear-gradient(135deg, #f1c40f, #f39c12);
   box-shadow: 0 2px 8px rgba(243,156,18,.4);
@@ -474,6 +553,15 @@ footer, .site-footer { padding-bottom: env(safe-area-inset-bottom, 0px); }
 
 /* ===== v2.1: бейдж «цена не найдена», пустое состояние, «Наверх» ===== */
 .noPrice{color:var(--text);opacity:.8;font-size:.85rem}.noPrice a{color:var(--accent)}
+/* v5.6.1 (этап 1B, П5): у .empty было два определения — это здесь и
+   в локальном <style> файла calculator.html (`padding:var(--space-2) 0`).
+   Слить их в одно силами style.css нельзя: страница переопределяет
+   отступы у себя, и общее правило с большим отступом приоритетом не
+   победит. Этап 1B ограничен одним style.css (правка HTML — этап 1C),
+   поэтому дубль задокументирован, а не удалён. Слейка сводится к
+   удалению локального блока в calculator.html: свойства здесь
+   (grid-column, text-align, opacity) локальный блок не переопределяет,
+   поэтому конфликт касается только padding. */
 .empty{grid-column:1/-1;text-align:center;padding:var(--space-12) var(--space-4);opacity:.8}
 /* v5.6.1: z-index поднят с 60 до 110 — раньше он делил значение с
    липкой шапкой .site-header (100) и .toBottom (100), и при равном
@@ -542,7 +630,7 @@ position:sticky;top:0;z-index:1000;animation:fadeIn .25s}
 .chartTab{background:var(--card-bg);color:var(--text);border:1px solid var(--border);
   padding:.45rem .9rem;border-radius:var(--radius-md);cursor:pointer;font-size:.88rem;font-weight:500}
 .chartTab.on{border-color:var(--accent);color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
-.grade{display:inline-block;font-size:.72rem;font-weight:700;padding:.15rem .55rem;
+.grade{display:inline-block;font-size:.875rem;font-weight:700;padding:.15rem .55rem;
   border-radius:var(--radius-pill);color:#fff;vertical-align:middle;margin-left:var(--space-0-3)}
 /* v4.1: .gA–.gD перебивались .grade.gX с !important (специфичность 0,2,0
    против 0,1,0) и в разметке не использовались — удалены как мёртвые. */
@@ -639,19 +727,19 @@ body.trends-page .trustbar { position: sticky; top: 0; z-index: 100; }
 .gdots{display:inline-flex;gap:3px;vertical-align:middle;margin-left:.35rem}
 .gdots i{width:10px;height:10px;border-radius:50%;background:#bdc3c7;display:inline-block}
 .gdots i.on{box-shadow:0 0 4px rgba(0,0,0,.25)}
-.vwait{font-size:.72rem;opacity:.6;margin-left:.4rem;font-style:italic}
+.vwait{font-size:.875rem;opacity:.6;margin-left:.4rem;font-style:italic}
 
 /* ===== v2.6: ручная вычитка ===== */
-.manual-badge{display:inline-flex;align-items:center;gap:var(--space-1);font-size:.68rem;font-weight:700;
+.manual-badge{display:inline-flex;align-items:center;gap:var(--space-1);font-size:.875rem;font-weight:700;
   padding:.15rem var(--space-2);border-radius:var(--radius-pill);border:1px solid var(--border);color:var(--text);
   cursor:help;vertical-align:middle;margin-left:.4rem}
 @media (hover:hover){.manual-badge:hover{border-color:var(--accent);color:var(--accent)}}
 
 /* ===== v2.6: «Обновлено» под названием ===== */
-.updatedLine{font-size:.68rem;opacity:.55;display:block;margin:.1rem 0 .35rem}
+.updatedLine{font-size:.875rem;opacity:.55;display:block;margin:.1rem 0 .35rem}
 
 /* ===== v2.6: иконки источников ===== */
-.srcIcon {display:inline-flex;align-items:center;justify-content:center;min-height:44px;min-width:44px;font-size:.68rem;font-weight:700;padding:.1rem .45rem;
+.srcIcon {display:inline-flex;align-items:center;justify-content:center;min-height:44px;min-width:44px;font-size:.875rem;font-weight:700;padding:.1rem .45rem;
   border-radius:var(--radius-pill);background:var(--bg);border:1px solid var(--border);color:var(--text);
   text-decoration:none;vertical-align:middle;margin-left:var(--space-1);
   max-width: 60ch;
@@ -953,7 +1041,7 @@ html:not(.light) .chartTab.on {
 .chip-pmid {
   flex: 0 0 auto;
   display: inline-block;
-  font-size: .72rem;
+  font-size: .875rem;
   font-family: ui-monospace, "SF Mono", Consolas, monospace;
   padding: 1px 6px;
   border-radius: var(--radius-lg);
@@ -980,7 +1068,7 @@ html:not(.light) .chartTab.on {
 }
 .tagChip {
   display: inline-block;
-  font-size: .7rem;
+  font-size: .875rem;
   padding: 1px 7px;
   border-radius: 10px;
   background: rgba(127,127,127,.14);
@@ -1080,7 +1168,7 @@ html:not(.light) .chartTab.on {
 }
 .filterLabel {
   display: block;
-  font-size: .72rem;
+  font-size: .875rem;
   text-transform: uppercase;
   letter-spacing: .06em;
   opacity: .5;
@@ -1620,7 +1708,7 @@ main h1 { font-size: 1.35rem !important; font-weight: 700 !important;
 .breadcrumbs a { color: var(--accent); text-decoration: none; }
 .sup-header { display: flex; gap: var(--space-4); align-items: center; margin-bottom: var(--space-6); flex-wrap: wrap; }
 .sup-header h2 { margin: 0; font-size: 1.3rem; font-weight: 600; }
-.sup-wrap .grade-badge { display: inline-block; padding: 6px 14px; border-radius: var(--radius-lg); color: #fff; font-weight: 700; font-size: 1.1rem; }  /* было: .grade-badge */
+.sup-wrap .grade-badge { display: inline-block; padding: var(--space-2) var(--space-4); border-radius: var(--radius-lg); color: #fff; font-weight: 700; font-size: 1.1rem; }  /* было: .grade-badge; padding 6px 14px -> 8/16 (П7) */
 /* v5.6.0 этап 1.5: под текстом бейджа шёл ряд точек — это браузерное
    text-decoration: underline dotted у <abbr title>, а не сломанный border.
    Замерено в DevTools: у .grade-badge text-decoration: none, у вложенного
@@ -1634,11 +1722,13 @@ main h1 { font-size: 1.35rem !important; font-weight: 700 !important;
 .sup-section { margin-bottom: 28px; padding: var(--space-5); background: var(--card-bg); border-radius: var(--radius-xl); border: 1px solid var(--border); }
 .sup-section h2 { font-size: 1.15rem; margin-bottom: var(--space-3); }
 .sup-section p { line-height: var(--lh-loose); margin-bottom: var(--space-2); }
-.sup-wrap .tag { display: inline-block; padding: var(--space-1) var(--space-2-5); margin: var(--space-1) 6px var(--space-1) 0; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-md); font-size: .85rem; }  /* было: .tag */
+/* v5.6.1 (этап 1B, П7): отступы sup-компонентов приведены к сетке 4px.
+   Было: padding 4/10, боковой margin 6px. Стало: 4/12 и 8px. */
+.sup-wrap .tag { display: inline-block; padding: var(--space-1) var(--space-3); margin: var(--space-1) var(--space-2) var(--space-1) 0; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-md); font-size: .85rem; }  /* было: .tag */
 .mech-card { padding: var(--space-3); margin-bottom: var(--space-2); background: var(--bg); border-left: 3px solid var(--accent); border-radius: var(--radius-md); }
-.mech-body { font-size: .95rem; margin-bottom: 6px; }
+.mech-body { font-size: .95rem; margin-bottom: var(--space-2); }  /* было 6px (П7) */
 .mech-effect { color: var(--muted); font-size: .9rem; }
-.mech-strength { display: inline-block; margin-top: 6px; padding: 2px var(--space-2); border-radius: var(--radius-sm); font-size: .75rem; text-transform: uppercase; }
+.mech-strength { display: inline-block; margin-top: var(--space-2); padding: var(--space-1) var(--space-2); border-radius: var(--radius-sm); font-size: .75rem; text-transform: uppercase; }  /* было: margin 6px, padding 2px (П7) */
 /* v5.6.3 E1: цвет текста — через токены темы. Заливка оставлена
    прежней: в тёмной теме она и так даёт 5.31-5.57:1 (светлый текст
    на тёмном оттенке). В светлой теме оттенок той же палитры ВМЕСТЕ
@@ -1661,7 +1751,7 @@ html.light .s-weak { background: var(--card-bg); border: 1px solid var(--grade-c
 .inter-with { font-weight: 600; }
 .inter-sev { font-size: .8rem; color: var(--muted); text-transform: uppercase; margin: var(--space-1) 0; }
 .inter-note { font-size: .9rem; }
-.src-card { padding: var(--space-2-5); margin-bottom: 6px; border-bottom: 1px solid var(--border); }
+.src-card { padding: var(--space-3); margin-bottom: var(--space-2); border-bottom: 1px solid var(--border); }  /* было: padding 10px, margin 6px (П7) */
 .src-title { font-size: .9rem; margin-bottom: var(--space-1); }
 .src-meta { font-size: .8rem; color: var(--muted); }
 .src-meta a { color: var(--accent); }
@@ -1702,7 +1792,7 @@ html.light .s-weak { background: var(--card-bg); border: 1px solid var(--grade-c
 .sb-links li:last-child { border-bottom: none; }
 .sb-links a { color: var(--accent); text-decoration: none; font-weight: 500; cursor: pointer; }
 .sb-links a:hover { text-decoration: underline; }
-.sb-sev { display: inline-block; font-size: .7rem; padding: 1px 6px; border-radius: var(--radius-md); margin-left: .4rem; background: rgba(127,127,127,.15); color: inherit; opacity: .8; }
+.sb-sev { display: inline-block; font-size: .875rem; padding: var(--space-1) var(--space-2); border-radius: var(--radius-md); margin-left: var(--space-1); background: rgba(127,127,127,.15); color: inherit; opacity: .8; }  /* было: padding 1px 6px, margin .4rem (П7) */
 .sb-sev.medium { background: rgba(255,112,67,.2); color: #ff7043; opacity: 1; }
 .sb-sev.high { background: rgba(229,57,53,.2); color: #e53935; opacity: 1; }
 .sb-sev.critical { background: rgba(183,28,28,.3); color: #ff5252; opacity: 1; }
@@ -1754,7 +1844,7 @@ html.light .s-weak { background: var(--card-bg); border: 1px solid var(--grade-c
 #atl-sidebar ul { list-style:none;padding:0;margin:0 }
 #atl-sidebar li { padding:.45rem var(--space-2);margin:var(--space-1) 0;border:1px solid var(--aborder);border-radius:var(--radius-lg);cursor:pointer;font-size:.9rem }
 @media (hover:hover){#atl-sidebar li:hover { border-color: var(--border-hover);background:rgba(127,127,127,.06) }}
-#atl-sidebar .badge { display:inline-block;padding:.1rem .45rem;border-radius:var(--radius-md);font-size:.72rem;background:rgba(127,127,127,.15);margin-left:.4rem;opacity:.85 }
+#atl-sidebar .badge { display:inline-block;padding:.1rem .45rem;border-radius:var(--radius-md);font-size:.875rem;background:rgba(127,127,127,.15);margin-left:.4rem;opacity:.85 }
 #atl-sidebar .badge.A { background:rgba(76,175,80,.25);color:#7fc784 }
 #atl-sidebar .badge.B { background:rgba(139,195,74,.25);color:#b7d68b }
 #atl-sidebar .badge.C { background:rgba(255,152,0,.22);color:#ffb74d }
@@ -1767,7 +1857,7 @@ html.light .s-weak { background: var(--card-bg); border: 1px solid var(--grade-c
 html.light #atl-sidebar .cta { background:#1f6fa5 }
 #atl-sidebar .cta:hover { opacity:.9 }
 #atl-sidebar .mech { margin:var(--space-2) 0;padding:.55rem .7rem;border:1px solid var(--aborder);border-radius:var(--radius-lg);font-size:.85rem;line-height:1.4 }
-#atl-sidebar .mech .str { display:inline-block;padding:.05rem .4rem;border-radius:var(--radius-pill);font-size:.7rem;margin-left:.4rem;background:rgba(127,127,127,.2) }
+#atl-sidebar .mech .str { display:inline-block;padding:.05rem .4rem;border-radius:var(--radius-pill);font-size:.875rem;margin-left:.4rem;background:rgba(127,127,127,.2) }
 @media (max-width: 640px) {
   #atl-sidebar { width: 100% !important; position: fixed; left: 0; right: 0; bottom: 0; top: auto; max-height: 70vh; border-left: none; border-top: 1px solid var(--aborder); border-radius: 12px 12px 0 0; z-index: 100; box-shadow: 0 -8px 32px rgba(0,0,0,.4); transform: translateY(0); transition: transform .2s ease, max-height .2s ease; }
   #atl-sidebar::before { content: ''; display: block; width: 36px; height: 4px; background: rgba(127,127,127,.5); border-radius: 2px; margin: var(--space-0-3) auto .6rem; cursor: grab; }
