@@ -295,3 +295,17 @@ Modelfile
 
 # Temp diagnostic scripts
 _tmp_*.py
+
+# Diagnostic artefacts of agent sessions (v5.6.3, 2026-10-10).
+# reports/_tmp_* had grown to 71 tracked files, ~40 MB of PNG/JSON scratch.
+# Patterns are anchored to the start of a path component on purpose: an
+# unanchored `_diag` also matches docs/architecture_diagrams.md.
+reports/_tmp_*
+reports/_diag_*
+reports/_baseline_*
+docs/_tmp_*
+docs/_diag_*
+docs/_baseline_*
+
+# Scratch JUnit/Playwright dumps at repo root
+/snap_head_*.xml
