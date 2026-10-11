@@ -1093,6 +1093,39 @@ pytest отверг бы его как unrecognized argument. Также `RUN_SN
 
 ---
 
+## §21. PowerShell UTF-16LE в commit-сообщениях
+
+Проблема: команда
+
+    Set-Content -Path file -Value "текст" -Encoding UTF8
+
+пишет файл в **UTF-16LE**, а не в UTF-8. При `git commit -F` сообщение
+коммита получает BOM (`﻿` в начале темы).
+
+Затронутые коммиты: `1172d1a` и др. В `git log` перед текстом сообщения
+виден невидимый символ:
+
+    1172d1a ﻿docs(v5.6.3): SERENA_DISABLED report + AUDIT_MASTER §20
+
+Диагностическая ловушка: проверка через
+`cmd /c git cat-file commit HEAD > f` показывает NUL-байты. Это артефакт
+PowerShell, а не проблема в самих байтах коммита — искаться негде.
+
+Рабочий способ:
+
+    [System.IO.File]::WriteAllText("$PWD\_tmp_commit.txt",
+      "текст сообщения", (New-Object System.Text.UTF8Encoding($false)))
+
+`$false` в `UTF8Encoding` — запрет BOM. Файл `UTF8Encoding($true)` даёт
+BOM обратно.
+
+Проще всего — не использовать кириллицу в сообщениях коммитов
+(латиница + ASCII), тогда кодировка не критична.
+
+Приоритет: P3 (косметика).
+
+---
+
 ## §22. Metrika рассинхрон (закрыто)
 
 Проблема: privacy.html описывал вебвизор и ecommerce как
