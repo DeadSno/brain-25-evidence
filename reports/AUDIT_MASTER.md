@@ -34,6 +34,9 @@
 [PRE_MERGE_CHECK.md](PRE_MERGE_CHECK.md) (готовность merge), [CONSOLIDATION.md](CONSOLIDATION.md)
 (консолидация отчётов), [STAGE_R1R2.md](STAGE_R1R2.md).
 
+Журнал закрытия техдолгов: [audits/D_WAVE_FAST.md](audits/D_WAVE_FAST.md)
+(волна D: #43, #45, #49, #51, #52).
+
 Легенда приоритетов: **P0** — блокирует релиз; **P1** — деградация; **P2** — качество;
 **P3** — шум.
 
