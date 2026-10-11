@@ -98,6 +98,34 @@
   --danger-tx: #ff6b6b;
   --info-fill: #1f6fa5;
 
+  /* ── v5.6.3 (техдолг #51): явная шкала z-index ──
+     Раньше z-index были разбросаны по файлу literals, и у четырёх
+     несвязанных компонентов стояло одно и то же 100 (.site-header,
+     #toTop/.toBottom — 110, #int-sidebar, #atl-sidebar). При равных
+     значениях порядок определяется DOM-порядком, то есть случайно:
+     новый блок выше по документе переставляет их без единой ошибки
+     в консоли. Значения НЕ менялись — только названы, чтобы порядок
+     был задан текстом, а не позицией в файле.
+       decor   — фоновые декоративные слои (за контентом)
+       under   — шапка, прижатая под модалкой (body.modal-open)
+       inline  — липкий элемент внутри потока (не поверх фикса)
+       overlay — затемнение модалки и липкая шапка по умолчанию
+       header  — обёртка .site-header, trustbar, боковые панели
+       fab     — плавающие кнопки (наверх / вниз)
+       skip    — skip-link, всегда поверх всего
+       banner  — липкие баннеры конфликтов
+       sheet   — нижняя шторка (calculator / feedback) */
+  --z-decor-back: -2;
+  --z-decor: -1;
+  --z-under: 1;
+  --z-inline: 2;
+  --z-overlay: 50;
+  --z-header: 100;
+  --z-fab: 110;
+  --z-banner: 1000;
+  --z-sheet: 1100;
+  --z-skip: 9999;
+
 --bg:#1c1c1e;--text:#f5f5f7;--card-bg:#2c2c2e;--border:#3a3a3c;--shadow:rgba(0,0,0,.4);--accent:#0a84ff;--muted:#9a9aa0}
 
 /* ── v5.6.2 E3: палитра значков категорий ──
@@ -369,7 +397,7 @@ footer p{margin-bottom:var(--space-2)}
 .hint{font-size:.875rem;opacity:.6;font-weight:400}
 .card{cursor:pointer}
 .card .cat{font-size:.875rem;opacity:.55;display:block;margin-bottom:var(--space-0-2)}
-#modalOverlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:50;display:flex;align-items:center;justify-content:center;padding:var(--space-4)}
+#modalOverlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:var(--z-overlay);display:flex;align-items:center;justify-content:center;padding:var(--space-4)}
 #modal{background:var(--card-bg);color:var(--text);border-radius:var(--radius-xl);max-width:min(820px,92vw);width:100%;max-height:85vh;overflow-y:auto;padding:1.4rem;position:relative}
 /* v5.0.0 (iPhone 17): раньше top:.6rem — кнопка закрытия оказывалась на
    y 8..52, то есть ПОД Dynamic Island (safe-area-inset-top = 59px) и была
@@ -441,7 +469,7 @@ html:not(.light) .calcResult .warn { color: #f26d6d; }
   position: absolute; top: .5rem; inset-inline-end: .6rem;
   background: transparent; border: none; padding: 0;
   color: #666; font-size: 1.5rem; line-height: 1;
-  cursor: pointer; z-index: 2;
+  cursor: pointer; z-index: var(--z-inline);
   transition: color .15s, transform .15s;
   /* v5.0.0 mobile: было 18×22px (ширина = ширина глифа ☆ при padding:0) против
      порога 44×44. Растёт только область тапа.
@@ -480,7 +508,7 @@ body { font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif; }
 
 /* 2. Gradient mesh фон */
 body::before {
-  content: ""; position: fixed; inset: 0; z-index: -2; pointer-events: none;
+  content: ""; position: fixed; inset: 0; z-index: var(--z-decor-back); pointer-events: none;
   background:
     radial-gradient(600px 400px at 15% 10%, rgba(52,152,219,.16), transparent 60%),
     radial-gradient(700px 500px at 85% 20%, rgba(155,89,182,.14), transparent 60%),
@@ -489,7 +517,7 @@ body::before {
 
 /* 11. Noise-текстура */
 body::after {
-  content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: .04;
+  content: ""; position: fixed; inset: 0; z-index: var(--z-decor); pointer-events: none; opacity: .04;
   background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2"/></filter><rect width="120" height="120" filter="url(%23n)"/></svg>');
 }
 
@@ -515,7 +543,7 @@ html:not(.light) .card:hover { box-shadow: var(--shadow-lg); }
    .site-header .top специфичностью 0,2,0 против 0,1,0 здесь.
    Замерено: все 142 <header> в проекте имеют class="top", других нет. */
 header, .header {
-  position: sticky; top: 0; z-index: 50;
+  position: sticky; top: 0; z-index: var(--z-overlay);
   backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
   background: rgba(255,255,255,.65);
   /* v5.0.0 (iPhone 17 / Dynamic Island): шапка липнет к top:0, поэтому без
@@ -585,7 +613,7 @@ footer, .site-footer { padding-bottom: env(safe-area-inset-bottom, 0px); }
    z-index порядок определялся DOM-порядком, то есть случайно.
    Теперь обе кнопки выше шапки, и их скрытие под открытой модалкой
    описано правилом с body.modal-open ниже. */
-#toTop{position:fixed;inset-inline-end:1.2rem;bottom:calc(1.2rem + env(safe-area-inset-bottom, 0px));z-index:110;width:44px;height:44px;
+#toTop{position:fixed;inset-inline-end:1.2rem;bottom:calc(1.2rem + env(safe-area-inset-bottom, 0px));z-index:var(--z-fab);width:44px;height:44px;
 border-radius:50%;border:1px solid var(--border);background:var(--card-bg);color:var(--text);
 font-size:1.25rem;cursor:pointer;opacity:0;pointer-events:none;transition:.25s}
 #toTop.show{opacity:1;pointer-events:auto}
@@ -595,7 +623,7 @@ font-size:1.25rem;cursor:pointer;opacity:0;pointer-events:none;transition:.25s}
    базовые правила. Замеры: .conflict-banner было 3.34:1, .conflict-banner.medium
    2.85:1, .synergy-banner 4.32:1. */
 .conflict-banner{background:#d62839;color:#fff;padding:var(--space-4);text-align:center;font-weight:600;
-position:sticky;top:0;z-index:1000;animation:fadeIn .25s}
+position:sticky;top:0;z-index:var(--z-banner);animation:fadeIn .25s}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 
 /* ===== v2.3: раздел «3 вопроса» ===== */
@@ -640,7 +668,7 @@ html:not(.light) .sev-medium{color:#d4a017}
 /* ===== v2.3: живой баннер — medium (оранжевый), synergy (зелёный) ===== */
 .conflict-banner.medium{background:#b45309}
 .synergy-banner{background:#2a8046;color:#fff;padding:var(--space-4);text-align:center;font-weight:600;
-position:sticky;top:0;z-index:1000;animation:fadeIn .25s}
+position:sticky;top:0;z-index:var(--z-banner);animation:fadeIn .25s}
 
 /* ===== v2.4: вкладки графика, грейды A–D ===== */
 .chartTabs{display:flex;gap:var(--space-2);margin-bottom:.8rem}
@@ -661,7 +689,7 @@ position:sticky;top:0;z-index:1000;animation:fadeIn .25s}
    кнопок в 11 комбинациях из 25 (5 страниц × 5 вьюпортов).
 
    Теперь липкий один — обёртка, а оба блока внутри неё static. */
-.site-header { position: sticky; top: 0; z-index: 100; }
+.site-header { position: sticky; top: 0; z-index: var(--z-header); }
 .site-header .trustbar,
 .site-header .top { position: static; }
 
@@ -682,7 +710,7 @@ position:sticky;top:0;z-index:1000;animation:fadeIn .25s}
    Правка локальна: вне открытой модалки шапка остаётся на 100, а внутри
    состояния порядок с #toTop (60) и #toBottom (100) не важен — их
    перекрывает оверлей на 50. */
-body.modal-open .site-header { z-index: 1; }
+body.modal-open .site-header { z-index: var(--z-under); }
 
 /* trends.html: графики несовместимы со sticky-шапкой.
    Сохранён intent локального правила, которое было на странице до
@@ -734,7 +762,7 @@ body.trends-page .site-header { display: contents; }
    обёртки), а явное правило ниже возвращает ей липкость, которую
    снимает общий для обёртки static. Итоговый замер: scrollY=600,
    position=sticky, верх плашки 0, шапка -541. */
-body.trends-page .trustbar { position: sticky; top: 0; z-index: 100; }
+body.trends-page .trustbar { position: sticky; top: 0; z-index: var(--z-header); }
 
 .trustbar{background:var(--card-bg);color:var(--text);
   border-bottom:1px solid var(--border);text-align:center;font-size:.875rem;font-weight:600;
@@ -1499,7 +1527,7 @@ button:active,
   align-items: center;
   justify-content: center;
   font-size: 1.25rem;
-  z-index: 110;
+  z-index: var(--z-fab);
   box-shadow: var(--shadow-md);
 }
 .toBottom.show { display: flex; }
@@ -1728,7 +1756,7 @@ header.top > .site-title > a, header.hdr > .site-title > a { display: inline-fle
    margin и clip — иначе фокус-видимая ссылка осталась бы 1x1 px. */
 .skip-link{position:absolute;width:1px;height:1px;margin:-1px;padding:0;
   overflow:hidden;clip:rect(0,0,0,0);clip-path:inset(50%);white-space:nowrap;border:0}
-.skip-link:focus{position:fixed;inset-inline-start:0;top:0;z-index:9999;background:#000;color:#fff;
+.skip-link:focus{position:fixed;inset-inline-start:0;top:0;z-index:var(--z-skip);background:#000;color:#fff;
   width:auto;height:auto;margin:0;clip:auto;clip-path:none;overflow:visible;
   padding:var(--space-2) var(--space-4);padding-top: env(safe-area-inset-top, 0px);font-size:.875rem;border-radius:0 0 6px 0;text-decoration:none}
 
@@ -1904,7 +1932,7 @@ html.light .s-weak { background: var(--card-bg); border: 1px solid var(--grade-c
 #int-sidebar.open { display: block; }
 #int-sidebar h2 { margin: 0 0 var(--space-0-3); font-size: 1.25rem; padding-inline-end: var(--space-8); }
 @media (max-width: 640px) {
-  #int-sidebar { width: 100% !important; position: fixed; inset-inline: 0; bottom: 0; top: auto; max-height: 70vh; border-inline-start: none; border-top: 1px solid var(--aborder); border-radius: 12px 12px 0 0; z-index: 100; box-shadow: 0 -8px 32px rgba(0,0,0,.4); transform: translateY(0); transition: transform .2s ease, max-height .2s ease; }
+  #int-sidebar { width: 100% !important; position: fixed; inset-inline: 0; bottom: 0; top: auto; max-height: 70vh; border-inline-start: none; border-top: 1px solid var(--aborder); border-radius: 12px 12px 0 0; z-index: var(--z-header); box-shadow: 0 -8px 32px rgba(0,0,0,.4); transform: translateY(0); transition: transform .2s ease, max-height .2s ease; }
   #int-sidebar::before { content: ''; display: block; width: 36px; height: 4px; background: rgba(127,127,127,.5); border-radius: 2px; margin: var(--space-0-3) auto .6rem; cursor: grab; }
   #int-sidebar.sheet-full { max-height: 85vh !important; }
 }
@@ -1944,7 +1972,7 @@ html.light #atl-sidebar .cta { background:var(--info-fill) }
 #atl-sidebar .mech { margin:var(--space-2) 0;padding:.55rem .7rem;border:1px solid var(--aborder);border-radius:var(--radius-lg);font-size:.875rem;line-height:1.4 }
 #atl-sidebar .mech .str { display:inline-block;padding:.05rem .4rem;border-radius:var(--radius-pill);font-size:.875rem;margin-inline-start:.4rem;background:rgba(127,127,127,.2) }
 @media (max-width: 640px) {
-  #atl-sidebar { width: 100% !important; position: fixed; inset-inline: 0; bottom: 0; top: auto; max-height: 70vh; border-inline-start: none; border-top: 1px solid var(--aborder); border-radius: 12px 12px 0 0; z-index: 100; box-shadow: 0 -8px 32px rgba(0,0,0,.4); transform: translateY(0); transition: transform .2s ease, max-height .2s ease; }
+  #atl-sidebar { width: 100% !important; position: fixed; inset-inline: 0; bottom: 0; top: auto; max-height: 70vh; border-inline-start: none; border-top: 1px solid var(--aborder); border-radius: 12px 12px 0 0; z-index: var(--z-header); box-shadow: 0 -8px 32px rgba(0,0,0,.4); transform: translateY(0); transition: transform .2s ease, max-height .2s ease; }
   #atl-sidebar::before { content: ''; display: block; width: 36px; height: 4px; background: rgba(127,127,127,.5); border-radius: 2px; margin: var(--space-0-3) auto .6rem; cursor: grab; }
   #atl-sidebar.sheet-full { max-height: 85vh !important; }
 }
@@ -1979,7 +2007,7 @@ html.light #atl-sidebar .cta { background:var(--info-fill) }
   inset-inline: 0;
   margin-inline: auto;
   bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
-  z-index: 1100;
+  z-index: var(--z-sheet);
   width: min(720px, calc(100vw - 1.5rem));
   box-sizing: border-box;
   gap: var(--space-3);
