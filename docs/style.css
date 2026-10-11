@@ -396,7 +396,7 @@ footer p{margin-bottom:var(--space-2)}
 #controls input,#controls select{flex:1;min-width:150px}
 .hint{font-size:.875rem;opacity:.6;font-weight:400}
 .card{cursor:pointer}
-.card .cat{font-size:.875rem;opacity:.55;display:block;margin-bottom:var(--space-0-2)}
+.card .cat{font-size:.875rem;opacity:1;display:block;margin-bottom:var(--space-0-2)}
 #modalOverlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:var(--z-overlay);display:flex;align-items:center;justify-content:center;padding:var(--space-4)}
 #modal{background:var(--card-bg);color:var(--text);border-radius:var(--radius-xl);max-width:min(820px,92vw);width:100%;max-height:85vh;overflow-y:auto;padding:1.4rem;position:relative}
 /* v5.0.0 (iPhone 17): раньше top:.6rem — кнопка закрытия оказывалась на
@@ -1152,9 +1152,11 @@ html:not(.light) .chartTab.on {
 
 /* Подпись категории. Правило с атрибутом, а не просто .card .cat:
    на sup/index.html те же span.cat вбиты статически и data-cat-group
-   не несут — без атрибута их вид должен остаться прежним.
-   opacity .55 убрана: на цветном токене она смешивала его с фоном
-   карточки — в светлой теме #15803d падал до контраста 2.4:1. */
+   не несут — там остаётся обычный цвет текста (без группы --ic нет).
+   opacity .55 убрана везде (базовое правило выше): на цветном токене
+   она смешивала его с фоном карточки — в светлой теме #15803d падал
+   до контраста 2.4:1. Базовый вариант без атрибута — просто #text,
+   контраст нормальный. Техдолг #43. */
 .card .cat[data-cat-group] {
   opacity: 1;
   color: var(--ic);
