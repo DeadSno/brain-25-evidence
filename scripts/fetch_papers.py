@@ -39,7 +39,7 @@ EFETCH = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi"
 
 RATE_DELAY = 0.34  # ~3 req/s без API key
 BATCH = 200
-RETMAX = 500  # максимум PMIDs на добавку
+RETMAX = 2000  # максимум PMIDs на добавку (было 500 — списки из 61 обрезались, DATA-P1-3)
 
 PUBTYPE_WHITELIST = {
     "Meta-Analysis", "Systematic Review", "Randomized Controlled Trial",
