@@ -1,17 +1,19 @@
 # SKILLS_INDEX — карта всех скиллов
 
 > Куда смотреть: какой скилл использовать в какой ситуации.
-> Обновлено: 2026-10-08. **Скиллов: 19.**
+> Общие правила для всех скиллов — в [`CONVENTIONS.md`](CONVENTIONS.md).
+> Обновлено: 2026-10-11. **Скиллов: 19 проектных + 19 глобальных** (наборы
+> совпадают 1:1).
 
 ## Порядок применения для полного ревью
 
 Порядок — по приоритету применения, а не по происхождению скилла: внешние
 (cyberaudit, accessibility-check, seo-check, core-web-vitals, i18n-rtl-audit)
 стоят там, где они бьют по общему фундаменту.
-Установлены 2026-10-02, см. `reports/SKILLS_INSTALL.md`.
+Установлены 2026-10-02, см. `reports/archive/v51/SKILLS_INSTALL.md`.
 
 1. **project-audit** — архитектура и структура
-2. **data-validation** — корректность данных
+2. **data-validation** — корректность данных (объединён в `data-audit`)
 3. **cyberaudit** — безопасность (OWASP Top 10, секреты, API)
 4. **data-audit** — полный аудит данных в 5 слоёв (заменил `data-quality-auditor` 2026-10-03)
 5. **docs-sync** — синхронизация документации
@@ -47,7 +49,7 @@
 | marketing-deep-audit | Воронка, CTA, тексты | Раз в квартал |
 | qa-deep-audit | Покрытие, edge cases | После новой фичи |
 | pwa-audit | PWA спецификация | После изменения sw.js / manifest |
-| data-validation | data.json, effect_tags, БД | После batch добавления карточек |
+| data-validation | data.json, effect_tags, БД. **Объединён в `data-audit`** — папка ещё на месте, удаление отдельной задачей | После batch добавления карточек |
 | data-audit | 5 слоёв: data.json, производные, DuckDB, сырые, внешний | Когда нужен полный аудит данных, а не только корректность |
 | legal-compliance-audit | Дисклеймеры, attribution, cookie, 152-ФЗ, ФЗ «О рекламе», GDPR, отзывы | Перед релизом и **до публикации отзывов (v5.12.0)** |
 | docs-sync | Синхронизация документации | После правок docs/ |
@@ -57,7 +59,7 @@
 ### Установленные 2026-10-02 (внешние)
 | Скилл | Что делает | Источник | Когда вызывать |
 |-------|-----------|----------|----------------|
-| cyberaudit | OWASP Top 10, секреты в коде, API/web/mobile/cloud. **Покрывает и security-audit, и api-audit** | `cyberaudit-skill@3.2.1` | Перед релизом, при работе с внешним вводом |
+| cyberaudit | OWASP Top 10, секреты в коде, API/web/mobile/cloud. **Покрывает и security-audit, и api-audit** | `cyberaudit-skill` 3.1.5 (версия из frontmatter) | Перед релизом, при работе с внешним вводом |
 | accessibility-check | WCAG 2.1 A/AA: контраст, alt, заголовки, клавиатура, ARIA, фокус | `Quality-Max/free-qa-skills` | После любой вёрстки; обязательно перед релизом |
 | seo-check | meta/OG, canonical, JSON-LD, robots.txt, sitemap | `Quality-Max/free-qa-skills` | При изменении `<head>` или структуры страниц |
 | core-web-vitals | LCP/CLS, вес страницы, ленивая загрузка, third-party | `Quality-Max/free-qa-skills` | Перед релизом; при жалобах «медленно» |
@@ -106,8 +108,9 @@
 3. **`accessibility-check` требует Playwright MCP**; в этом окружении доступен
    `playwright`-сервер, MCP-имя в скилле может отличаться.
 4. **`cyberaudit` — 131 файл, 556 КБ.** Установлен и глобально
-   (`~/.config/opencode/skills/`), и в репозитории. Глобальная копия старее
-   (v3.1.5 против v3.2.1 в репозитории).
+   (`~/.config/opencode/skills/cyberaudit/`), и в репозитории. Обе копии
+   **байт-идентичны** — расхождения версий нет. Прежнее утверждение «глобальная
+   копия старее (v3.1.5 против v3.2.1)» было неверным.
 
 ### Отложенные скиллы
 
@@ -172,7 +175,7 @@ performance, security, accessibility, bugs, seo, maintainability, privacy). **Э
 ## Команды
 
 ```bash
-pytest -q                     # все тесты (736 passed, 18 skipped)
+pytest -q                     # все тесты (878 passed, 201 skipped)
 pytest -q tests/test_api_contract.py       # контракт API
 pytest -q -m e2e              # браузерные e2e, требует RUN_E2E=1
 RUN_SNAPSHOTS=1 pytest -q -m snapshots      # визуальные снапшоты, 37 шт.
@@ -200,16 +203,54 @@ npx -y vortix-cli@0.1.3 check # внешний статический аудит
 
 ## Реестр отчётов
 
+Отчёты делятся на два уровня. **Актуальные находки** сведены по типам в
+`reports/audits/<тип>.md` — это то, что нужно читать. **Прогоны отдельных
+скиллов** лежат в `reports/archive/v56/` и нужны только как история.
+
+### Актуальные отчёты (`reports/audits/`)
+
+| Тип | Файл |
+|---|---|
+| Доступность | [audits/a11y.md](../../reports/audits/a11y.md) |
+| Данные (+QA данных) | [audits/data.md](../../reports/audits/data.md) |
+| HTML/CSS | [audits/html-css.md](../../reports/audits/html-css.md) |
+| JS (+безопасность) | [audits/js.md](../../reports/audits/js.md) |
+| Право | [audits/legal.md](../../reports/audits/legal.md) |
+| Мобильные | [audits/mobile.md](../../reports/audits/mobile.md) |
+| Производительность (+проект/релиз) | [audits/perf.md](../../reports/audits/perf.md) |
+| i18n | [audits/i18n.md](../../reports/audits/i18n.md) |
+| SEO (+маркетинг) | [audits/seo.md](../../reports/audits/seo.md) |
+| Тренды | [audits/trends.md](../../reports/audits/trends.md) |
+| Скиллы | [audits/skills.md](../../reports/audits/skills.md) |
+
+Индекс всего аудита и список открытых находок — `reports/AUDIT_MASTER.md`.
+Исходные отчёты — `reports/archive/`.
+
+### Прогоны скиллов (`reports/archive/v56/`)
+
 | Скилл | Отчёт |
 |---|---|
-| project-audit | reports/AUDIT_REPORT.md |
-| product-audit | reports/PRODUCT_AUDIT.md |
-| visual-design-audit | reports/VISUAL_DESIGN_AUDIT.md |
-| ui-ux-deep-audit | reports/UI_UX_AUDIT.md |
-| mobile-deep-audit | reports/MOBILE_AUDIT.md |
-| qa-deep-audit | reports/QA_AUDIT.md |
-| ревизия скиллов | reports/SKILLS_REVISION.md |
-| установка скиллов | reports/SKILLS_INSTALL.md |
+| project-audit | audit_D_project.md |
+| product-audit | audit_C_product.md |
+| visual-design-audit | audit_C_visual-design.md |
+| ui-ux-deep-audit | audit_E_ui-ux-deep-audit.md |
+| mobile-deep-audit | audit_B_mobile-deep.md |
+| marketing-deep-audit | audit_C_marketing.md |
+| qa-deep-audit | audit_A_qa-deep-audit.md |
+| seo-check | audit_D_seo.md |
+| core-web-vitals | audit_D_cwv.md |
+| accessibility-check | audit_E_accessibility-check.md |
+| i18n-rtl-audit | audit_E_i18n-rtl-audit.md |
+| cyberaudit | audit_A_cyberaudit.md |
+| data-audit | audit_A_data-audit.md |
+| data-validation | AUDIT_E_data-validation.md |
+| legal-compliance-audit | audit_A_legal-compliance.md |
+| docs-sync | audit_A_docs-sync.md |
+| site-navigation | audit_E_site-navigation.md |
+| release-check | audit_D_release.md |
+| pwa-audit | audit_93_c_pwa.md |
+| ревизия скиллов | archive/v51/SKILLS_REVISION.md |
+| установка скиллов | archive/v51/SKILLS_INSTALL.md |
 
 ## Полный список (19)
 
@@ -217,7 +258,7 @@ npx -y vortix-cli@0.1.3 check # внешний статический аудит
 - core-web-vitals
 - cyberaudit
 - data-audit
-- data-validation
+- data-validation — **объединён в `data-audit`**, папка пока на месте
 - docs-sync
 - i18n-rtl-audit
 - legal-compliance-audit
@@ -233,4 +274,4 @@ npx -y vortix-cli@0.1.3 check # внешний статический аудит
 - ui-ux-deep-audit
 - visual-design-audit
 
-**Версия:** v2.0 (2026-10-02)
+**Версия:** v2.1 (2026-10-11)

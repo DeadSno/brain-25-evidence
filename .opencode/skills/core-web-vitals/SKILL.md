@@ -23,9 +23,9 @@ Measure the Core Web Vitals of any page using real browser performance APIs. No 
 
 ## Workflow
 
-1. Navigate to the URL using `mcp__playwright__browser_navigate`
-2. Let the page settle (`mcp__playwright__browser_wait_for` ~3s, or wait for network idle)
-3. Collect metrics with `mcp__playwright__browser_evaluate`:
+1. Navigate to the URL using `playwright.browser_navigate`
+2. Let the page settle (`playwright.browser_wait_for` ~3s, or wait for network idle)
+3. Collect metrics with `playwright.browser_evaluate`:
 
 ```javascript
 () => new Promise((resolve) => {
@@ -61,7 +61,7 @@ Measure the Core Web Vitals of any page using real browser performance APIs. No 
 ```
 
 4. INP can't be measured passively — note it requires interaction. If you can click a primary
-   button via `mcp__playwright__browser_click`, measure the `event` timing entry; otherwise
+   button via `playwright.browser_click`, measure the `event` timing entry; otherwise
    report INP as "not measured (needs interaction)".
 
 5. Grade each metric (Google thresholds):

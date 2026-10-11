@@ -23,8 +23,8 @@ Scan any web page for WCAG accessibility violations. No signup required.
 
 ## Workflow
 
-1. Navigate to the URL using `mcp__playwright__browser_navigate`
-2. Take a snapshot with `mcp__playwright__browser_snapshot`
+1. Navigate to the URL using `playwright.browser_navigate`
+2. Take a snapshot with `playwright.browser_snapshot`
 3. Check each of these categories:
 
 ### Checks
