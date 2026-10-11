@@ -97,6 +97,38 @@ try {
       background:var(--apanel);color:var(--atext);cursor:pointer;
       font-size:.85rem;text-decoration:none;line-height:var(--lh-tight);
     }
+
+    /* ── v5.6.3: <dialog> вместо нативных prompt()/confirm() ────────
+       Нативный вызов блокирует поток, его кнопки не переводятся
+       (рисуются в локали браузера) и не доступны скринридерам.
+       showModal() даёт фокус-ловушку и закрытие по Escape из коробки;
+       scroll-lock и возврат фокуса на триггер делаем в JS. */
+    dialog.dlg{
+      background:var(--apanel);color:var(--atext);
+      border:1px solid var(--aborder);border-radius:var(--radius-xl);
+      padding:var(--space-4);width:min(440px,92vw);max-height:85vh;
+      overflow-y:auto;box-shadow:0 12px 40px rgba(0,0,0,.5);
+      /* iPhone с вырезом: отступ снизу под safe-area, иначе кнопки
+         уезжают под home-индикатор на 412px. */
+      padding-bottom:max(var(--space-4),env(safe-area-inset-bottom));
+    }
+    dialog.dlg::backdrop{background:rgba(0,0,0,.6)}
+    dialog.dlg h2{margin:0 0 var(--space-2);font-size:1.05rem;line-height:1.3}
+    dialog.dlg p{margin:0 0 var(--space-3);font-size:.9rem;line-height:1.5;opacity:.85}
+    dialog.dlg textarea{
+      width:100%;box-sizing:border-box;margin:0 0 var(--space-3);
+      padding:.5rem .6rem;border:1px solid var(--aborder);border-radius:var(--radius-lg);
+      background:var(--apanel);color:var(--atext);font-size:16px;
+      font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+      resize:vertical;
+    }
+    .dlg-actions{display:flex;gap:var(--space-2);justify-content:flex-end;flex-wrap:wrap}
+    @media (max-width: 640px) {
+      /* Порядок как в DOM: единственная кнопка «Закрыть» — без разницы,
+         но правило общее с calculator.html, чтобы строки совпадали. */
+      .dlg-actions{flex-direction:column}
+      .dlg-actions .btn{width:100%;min-height:44px}
+    }
     
     /* ── Mobile (≤640px) ─────────────────────────────────────── */
     @media (max-width: 640px) { body { padding: 0.6rem !important; }
@@ -212,6 +244,19 @@ footer { font-size: 1rem !important; }
     <button class="btn" id="fsBtn" title="Развернуть на весь экран">⛶ На весь экран</button>
   </div>
 
+  <!-- v5.6.3: замена prompt() в обработчике #shareBtn. Нативный prompt
+       не переводится и недоступен скринридерам; здесь — обычная
+       разметка с aria-атрибутами. Значение только читается и копируется
+       вручную, поэтому подтверждение не требует отдельного состояния. -->
+  <dialog id="shareLinkDlg" class="dlg" aria-labelledby="shareLinkDlgTitle" aria-describedby="shareLinkDlgDesc">
+    <h2 id="shareLinkDlgTitle">Скопируй ссылку</h2>
+    <p id="shareLinkDlgDesc">Браузер не дал доступ к буферу обмена. Выдели текст и скопируй вручную:</p>
+    <textarea id="shareLinkDlgText" readonly rows="3" aria-label="Ссылка с фильтрами"></textarea>
+    <div class="dlg-actions">
+      <button type="button" class="btn" data-dlg-close>Закрыть</button>
+    </div>
+  </dialog>
+
   <div class="atl-layout">
     <div id="atl-graph"></div>
     <div class="atlas-legend">
@@ -263,6 +308,34 @@ function esc(s) {
   const $ = id => document.getElementById(id);
   // v5.4.0 (dark-first): тёмная тема — отсутствие класса light.
   const isDark = () => !document.documentElement.classList.contains('light');
+
+  // ── v5.6.3: <dialog> вместо нативных prompt()/confirm() ─────────
+  // showModal() сам даёт фокус-ловушку и закрытие по Escape.
+  // Дописываем scroll-lock и возврат фокуса на триггер: вызовы идут
+  // из .catch() промиса, и браузер после него фокус не восстанавливает.
+  function openDlg(dlg, trigger) {
+    if (!dlg || typeof dlg.showModal !== 'function') return false;
+    dlg.__trigger = trigger || document.activeElement;
+    document.body.style.overflow = 'hidden';
+    dlg.showModal();
+    return true;
+  }
+  // Слушаем на document с capture: событие close не всплывает,
+  // но capture-фаза доходит до document. Так обслуживаются сразу
+  // Escape, кнопка [Закрыть] и любой внешний dialog.close().
+  document.addEventListener('close', e => {
+    const dlg = e.target;
+    if (!dlg || !dlg.classList || !dlg.classList.contains('dlg')) return;
+    document.body.style.overflow = '';
+    const t = dlg.__trigger;
+    if (t && document.contains(t)) t.focus();
+  }, true);
+  document.addEventListener('click', e => {
+    const btn = e.target.closest && e.target.closest('[data-dlg-close]');
+    if (!btn) return;
+    const dlg = btn.closest('dialog');
+    if (dlg && dlg.open) dlg.close();
+  });
 
   // ── Тема ─────────────────────────────────────────────────────────
   document.addEventListener('DOMContentLoaded', () => {
@@ -637,7 +710,13 @@ function esc(s) {
       b.textContent = '✓ Скопировано';
       setTimeout(() => { b.textContent = old; }, 1500);
     }).catch(() => {
-      prompt('Скопируй ссылку:', location.href);
+      // v5.6.3: было prompt('Скопируй ссылку:', location.href).
+      // Триггер передаём явно: к этому моменту focus уже мог уйти
+      // с кнопки, иначе фокус вернулся бы не туда.
+      const dlg = $('shareLinkDlg');
+      $('shareLinkDlgText').value = location.href;
+      openDlg(dlg, $('shareBtn'));
+      $('shareLinkDlgText').select();
     });
   };
 
