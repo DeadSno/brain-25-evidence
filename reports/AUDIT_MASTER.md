@@ -1222,6 +1222,24 @@ metrika.js содержал webvisor: true при отсутствии в реа
 
 ---
 
+## §26. showModal fallback — тихая деградация
+
+Проблема: `openDlg()` возвращает `false` при отсутствии
+`showModal` (Chrome <37, Safari <15.4). Вызов не падает,
+но диалог не показывается.
+
+Места: [`docs/atlas.html`:316](atlas.html), [`docs/calculator.html`:404](calculator.html)
+— guard `if (!dlg || typeof dlg.showModal !== 'function') return false;`
+следующей строкой. Замена `prompt()`/`confirm()` на `<dialog>`
+выполнена в v5.6.3 (`beb40ba`).
+
+Целевые браузеры (роадмап): Safari ≥15, Chrome ≥120.
+`showModal` поддерживается — не критично.
+
+Приоритет: P3 (для целевых браузеров неактуально).
+
+---
+
 ## Приложение A — Проверка закрытия находок v5.1 (05.10)
 
 | Находка | Источник | Статус на 09.10 | Как проверено |
