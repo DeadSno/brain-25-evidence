@@ -243,7 +243,10 @@ def _verify(name: str, violations: list[dict]) -> None:
     aaa = [v for v in violations if not v["gated"]]
 
     REPORT_DIR.mkdir(parents=True, exist_ok=True)
-    (REPORT_DIR / ".gitignore").write_text("*\n!.gitignore\n", encoding="utf-8")
+    # newline="\n" — как в test_visual_snapshots._write_artifacts: на Windows
+    # без него text-mode переводит \n в CRLF и индекс пачкается (техдолг #49).
+    (REPORT_DIR / ".gitignore").write_text("*\n!.gitignore\n", encoding="utf-8",
+                                           newline="\n")
     report = REPORT_DIR / f"{name}.json"
     report.write_text(json.dumps(violations, ensure_ascii=False, indent=1),
                       encoding="utf-8")

@@ -579,7 +579,10 @@ def _write_artifacts(name: str, actual_png: bytes, expected_png: bytes,
     # `!.gitignore` обязателен: без него правило `*` игнорирует сам .gitignore,
     # каталог не попадает в индекс и после клона артефакты падения окажутся
     # в репозитории (десятки мегабайт diff-картинок).
-    (ART_DIR / ".gitignore").write_text("*\n!.gitignore\n", encoding="utf-8")
+    # newline="\n": без него Windows пишет CRLF, и каждое падение снапшота
+    # пачкает индекс двумя изменёнными файлами (техдолг #49).
+    (ART_DIR / ".gitignore").write_text("*\n!.gitignore\n", encoding="utf-8",
+                                        newline="\n")
     a, e = _decode(actual_png), _decode(expected_png)
     (ART_DIR / f"{name}.actual.png").write_bytes(actual_png)
     written = [str(ART_DIR / f"{name}.actual.png")]
