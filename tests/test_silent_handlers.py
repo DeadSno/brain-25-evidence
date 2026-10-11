@@ -155,69 +155,74 @@ ACCEPTED_UNPROTECTED = {
 # его пропустил, то есть был наполовину слепым. Теперь незнакомое
 # выражение не проходит.
 ACCEPTED_NON_ELEMENT_GUARDS = {
-    # v5.6.2 батч C: номера пересчитаны после правок script.js
-    # (T3 — ловушка фокуса, T4 — PMID-индекс). Причины прежние,
-    # затронуты только номера строк.
-    # v5.6.2 блок E (палитра --icon-*): номера пересчитаны ещё раз.
-    # Вставка CAT_GROUPS + catGroup() и двух атрибутов data-cat-group
-    # в renderCards сдвинула все девять записей ровно на +38 строк.
-    # Конструкции на новых местах те же самые — причины прежние.
-    ("script.js", 727): (
+    # v5.6.3 (техдолг #52): ключ — (имя файла, текст guard'а), а не
+    # номер строки. Прежние ключи ("script.js", 727) сдвигались при
+    # ЛЮБОЙ правке выше по файлу: добавление семи строк в openModal
+    # потребовало переноса шести записей, а сообщение об ошибке уводило
+    # в сторону — тест жаловался на «неизвестные guard'ы», а не на
+    # реальную проблему. Содержание guard'а не меняется от вставки
+    # строк, поэтому такой ключ стабилен.
+    #
+    # Значение — СПИСОК причин, потому что одна и та же конструкция
+    # встречается в файле больше одного раза с разными объяснениями:
+    # `if (!s) return;` есть и на 762 (поиск дополнения по id), и на
+    # 987 (результат chartSupByEl). Тест сверяет количество вхождений
+    # с числом причин: исчезнувший guard даёт нехватку, появившийся
+    # новый — избыток.
+    ("script.js", "if (!$('modalOverlay') || $('modalOverlay').style.display === 'none') return;"): [
         "trapModalFocus проверяет наличие #modalOverlay и его скрытое "
         "состояние: обработчик keydown висит на документе всегда, а "
-        "модалка открыта не всегда. Возврат без фокуса здесь штатный."
-    ),
-    ("script.js", 730): (
+        "модалка открыта не всегда. Возврат без фокуса здесь штатный.",
+    ],
+    ("script.js", "if (!list.length) return;"): [
         "Пустой список фокусируемых в открытой модалке: нечего "
-        "перехватывать Tab, если содержимое ещё не отрисовано."
-    ),
-    ("script.js", 762): (
+        "перехватывать Tab, если содержимое ещё не отрисовано.",
+    ],
+    ("script.js", "if (!s) return;"): [
         "supplementsFull[id] — поиск дополнения по id. Отсутствие "
-        "записи в данных не поломка разметки, а штатный случай."
-    ),
-    ("script.js", 925): (
-        "chart.config._config с проверкой !cfg.$band — внутреннее "
-        "устройство графика; полоса бэнда есть не у всех серий."
-    ),
-    ("script.js", 985): (
-        "Аргумент els — защита от пустого массива на стороне вызова."
-    ),
-    ("script.js", 987): (
+        "записи в данных не поломка разметки, а штатный случай.",
         "Результат внутренней chartSupByEl(); дополнение может не "
-        "найтись на элементе."
-    ),
-    ("script.js", 1085): (
+        "найтись на элементе.",
+    ],
+    ("script.js", "if (!cfg.$band) return;"): [
+        "chart.config._config с проверкой !cfg.$band — внутреннее "
+        "устройство графика; полоса бэнда есть не у всех серий.",
+    ],
+    ("script.js", "if (!els.length) return;"): [
+        "Аргумент els — защита от пустого массива на стороне вызова.",
+    ],
+    ("script.js", "if (!a || !b) return;"): [
         "supplementsFull[idA]/[idB] — сравнение двух дополнений, одно "
-        "из которых может отсутствовать в данных."
-    ),
-    ("script.js", 1213): (
+        "из которых может отсутствовать в данных.",
+    ],
+    ("script.js", "if (!html) return;"): [
         "Аргумент html в функции рендера: пустой html означает «нечего "
-        "рисовать», а не сбой."
-    ),
-    ("script.js", 1269): (
+        "рисовать», а не сбой.",
+    ],
+    ("script.js", "if (!r.ok) return;"): [
         "Ответ await fetch('version.json') с проверкой !r.ok: при "
-        "HTTP-ошибке обновление версии пропускается намеренно."
-    ),
-    ("tracker.js", 102): (
+        "HTTP-ошибке обновление версии пропускается намеренно.",
+    ],
+    ("tracker.js", "if (!hash) return;"): [
         "location.hash — хеша может не быть вовсе, это штатный вход на "
-        "страницу."
-    ),
-    ("tracker.js", 104): (
+        "страницу.",
+    ],
+    ("tracker.js", "if (!sup) return;"): [
         "findSup(hash) — id из URL может не соответствовать ни одной "
-        "добавке."
-    ),
-    ("tracker.js", 239): (
-        "courses[id] — запись курса может пропасть из localStorage."
-    ),
-    ("science2.js", 19): (
-        "Аргумент rows — функция рендера, пустой набор нечего рисовать."
-    ),
-    ("science2.js", 225): (
-        "Тернарник, возвращающий null по условию."
-    ),
-    ("science2.js", 227): (
-        "curId() — id текущей добавки может отсутствовать."
-    ),
+        "добавке.",
+    ],
+    ("tracker.js", "if (!c) return;"): [
+        "courses[id] — запись курса может пропасть из localStorage.",
+    ],
+    ("science2.js", "if (!rows || !rows.length || document.getElementById('maTimelineBox')) return;"): [
+        "Аргумент rows — функция рендера, пустой набор нечего рисовать.",
+    ],
+    ("science2.js", "if (!econ) return;"): [
+        "Тернарник, возвращающий null по условию.",
+    ],
+    ("science2.js", "if (!id) return;"): [
+        "curId() — id текущей добавки может отсутствовать.",
+    ],
 }
 
 # Элементы, которых нет в статическом HTML, потому что они создаются
@@ -421,7 +426,7 @@ def test_silent_guards_are_either_verifiable_or_explicitly_listed():
 
     problems = []
     total_guards = 0
-    used_listed = set()
+    used_listed = {}
 
     for name in JS_FILES:
         src = _js(name)
@@ -440,10 +445,12 @@ def test_silent_guards_are_either_verifiable_or_explicitly_listed():
 
         for lineno, vars_, text in hits:
             var = vars_[0]
-            key = (name, lineno)
+            # Ключ — текст guard'а, а не номер строки (техдолг #52):
+            # вставка строк выше по файлу его не сдвигает.
+            key = (name, text)
 
             if key in ACCEPTED_NON_ELEMENT_GUARDS:
-                used_listed.add(key)
+                used_listed[key] = used_listed.get(key, 0) + 1
                 continue
 
             origin = None
@@ -501,15 +508,28 @@ def test_silent_guards_are_either_verifiable_or_explicitly_listed():
           "ACCEPTED_NON_ELEMENT_GUARDS. Данные — назовите с причиной."
     )
 
-    stale = sorted(set(ACCEPTED_NON_ELEMENT_GUARDS) - used_listed)
-    assert not stale, (
-        "ACCEPTED_NON_ELEMENT_GUARDS содержит записи, которых больше нет "
-        f"в коде: {stale}. Код починен или переехал — приведите перечень "
-        "в соответствие, иначе он перестанет отражать реальность."
+    # Сверка количества: одна конструкция может встречаться в файле
+    # несколько раз с разными причинами, поэтому сравниваем, сколько
+    # раз guard реально встретился со скольким объяснениям он перечислен.
+    # Нехватка = guard исчез, избыток = появился новый неописанный случай
+    # с тем же текстом (например, скопировали фрагмент).
+    mismatched = []
+    for key, reasons in ACCEPTED_NON_ELEMENT_GUARDS.items():
+        expected, found = len(reasons), used_listed.get(key, 0)
+        if found < expected:
+            mismatched.append(f"{key} — записано причин {expected}, встретился {found} раз(а): исчез из кода")
+        elif found > expected:
+            mismatched.append(f"{key} — записано причин {expected}, встретился {found} раз(а): добавьте причину")
+    assert not mismatched, (
+        "ACCEPTED_NON_ELEMENT_GUARDS разошлся с кодом:\n  "
+        + "\n  ".join(mismatched)
+        + "\nКод починен или переехал — приведите перечень в соответствие, "
+        "иначе он перестанет отражать реальность."
     )
 
-    for k, reason in ACCEPTED_NON_ELEMENT_GUARDS.items():
-        assert reason.strip(), f"пустое объяснение для {k}"
+    for k, reasons in ACCEPTED_NON_ELEMENT_GUARDS.items():
+        for r in reasons:
+            assert r.strip(), f"пустое объяснение для {k}"
 
     assert total_guards > 0, (
         "детектор guards перестал находить молчаливые выходы — "
