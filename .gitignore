@@ -311,3 +311,5 @@ docs/_baseline_*
 /snap_head_*.xml
 
 tests/a11y_report/
+
+tests/a11y_report/
