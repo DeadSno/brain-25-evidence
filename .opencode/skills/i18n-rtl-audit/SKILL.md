@@ -23,7 +23,7 @@ Check whether your UI survives translation. No signup required.
 
 ## Workflow
 
-1. Navigate to the URL using `mcp__playwright__browser_navigate`.
+1. Navigate to the URL using `playwright.browser_navigate`.
 2. **Document attributes** — check `<html lang>` and `dir` with `browser_evaluate`. Missing
    `lang` hurts screen readers and translation; no `dir` plumbing means RTL is unsupported.
 3. **Pseudo-localization (long-string stress)** — expand visible text ~40% (the typical

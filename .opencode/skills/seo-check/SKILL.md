@@ -23,8 +23,8 @@ Check basic SEO health of any page. No signup required.
 
 ## Workflow
 
-1. Navigate to the URL using `mcp__playwright__browser_navigate`
-2. Extract SEO data with `mcp__playwright__browser_evaluate`:
+1. Navigate to the URL using `playwright.browser_navigate`
+2. Extract SEO data with `playwright.browser_evaluate`:
 
 ```javascript
 () => {

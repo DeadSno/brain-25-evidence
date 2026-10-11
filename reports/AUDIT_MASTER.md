@@ -27,8 +27,8 @@
 | i18n | 7 | 6 | [audits/i18n.md](audits/i18n.md) |
 | seo (+маркетинг) | 22 | 3 | [audits/seo.md](audits/seo.md) |
 | trends | 21 | 8 | [audits/trends.md](audits/trends.md) |
-| skills | 8 | 0 | [audits/skills.md](audits/skills.md) |
-| **Итого** | **136** | **71** (+12 «не делать») | |
+| skills | 10 | 0 | [audits/skills.md](audits/skills.md) |
+| **Итого** | **138** | **71** (+12 «не делать») | |
 
 Сопутствующие документы: [STATE_OF_AUDIT.md](STATE_OF_AUDIT.md) (утрачен, восстановлен здесь),
 [PRE_MERGE_CHECK.md](PRE_MERGE_CHECK.md) (готовность merge), [CONSOLIDATION.md](CONSOLIDATION.md)
