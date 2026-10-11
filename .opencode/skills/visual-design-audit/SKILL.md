@@ -85,39 +85,7 @@ project: brain-25-evidence
 
 ## Специфика проекта brain-25-evidence
 
-**Структура (проверено 2026-10-01):**
-- 17 страниц с общей вёрсткой: 12 основных HTML (index, map, interactions,
-  graph, atlas, calculator, trends, methodology, faq, glossary, support,
-  feedback) + 5 sup-страниц (kreatin, omega-3, vitamin-d, magniy, paba)
-- 1 CSS: `style.css` (`?v=391`), ~52 КБ
-- JS: `script.js` (`?v=284`), `science2.js` (`?v=281`), `tracker.js` (`?v=281`),
-  `pwa.js` (`?v=282`), `version.js` (`?v=311`), `sw.js` (`CACHE_VERSION` v51)
-- Тема: `html.dark` + `body.dark`, набор переменных дублируется в `:root` и в
-  тёмной ветке — всего **7 переменных**
-
-**Измеренные точки входа** (получено grep'ом по `docs/style.css`, 2026-10-01).
-Это отправные цифры, а не утверждения «кажется»:
-
-| Что | Факт |
-|---|---|
-| CSS-переменных в `:root` | 7 (`--bg`, `--text`, `--card-bg`, `--border`, `--shadow`, `--accent`, `--muted`) |
-| hardcoded hex в `style.css` | 118 вхождений, 50 уникальных |
-| семантические токены статуса | **0** — ни `--success`, ни `--error`, ни `--warning` |
-| `font-size` в rem | 24 разных (от `.68rem` до `1.8rem`) + 2 значения в px (15, 16) |
-| `line-height` | 6 значений: 1, 1.2, 1.25, 1.3, 1.5, 1.55 |
-| `box-shadow` | 11 разных, без шкалы уровней |
-| градиенты | 4 |
-
-**Что НЕ трогать:**
-- `data.json`, `effect_tags.json` вручную — это данные, не дизайн;
-- `sw.js` без причины — версия кэша не относится к визуальному аудиту;
-- цвета, зашитые в `script.js` для грейдов (`grade_of` в `src/content.py`) —
-  за ними стоит продуктовое решение о доверии к доказательствам, это ПРОДАКТ.
-
-**Связанные документы:**
-- `reports/UI_UX_AUDIT.md` — состояния и микроинтеракции
-- `reports/MOBILE_AUDIT.md` — touch-таргеты и контраст
-- `reports/QA_AUDIT.md` — покрытие и edge cases
+См. .opencode/skills/CONVENTIONS.md — структура проекта и правила.
 
 
 ## Жёсткие правила

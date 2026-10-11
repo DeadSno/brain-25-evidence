@@ -39,40 +39,7 @@ project: brain-25-evidence
 Число в отчёте — что нашлось, а не что влезло.
 ## Специфика проекта brain-25-evidence
 
-**Структура (актуально на 2026-09-30):**
-- 12 основных HTML: index, map, interactions, graph, atlas, calculator, trends, methodology, faq, glossary, feedback, support
-- 5 sup-страниц: kreatin, omega-3, vitamin-d, magniy, paba
-- 1 CSS: style.css (v=391)
-- 6 JS: script.js, science2.js, tracker.js, version.js, pwa.js, sw.js
-- 1 PWA: manifest.webmanifest, sw.js (v51), pwa.js
-- API: docs/api/v1/index.json + supplements.json
-- Тесты: 727 (pytest -q)
-
-**Структура данных:**
-- docs/data.json — 130 карточек (источник правды)
-- docs/data_index.json — лёгкая проекция
-- docs/effect_tags.json — 18 нормализованных тегов
-- data/db/brain.duckdb — аналитическая БД
-
-**Правила проекта:**
-- На каждой странице в .actions НЕТ ссылки на себя
-- Единый набор кнопок на 11 основных страницах
-- Футеры байт-идентичны
-- Тема через html.dark + body.dark
-- Тесты перед коммитом обязательны
-- Файлы >30 строк — только через Python (PowerShell heredoc ломает backticks)
-
-**Что НЕ трогать:**
-- data.json вручную
-- effect_tags.json вручную
-- sw.js без причины
-- sup/*.html при работе в других ветках
-
-**Связанные документы:**
-- docs/dev/AI_CONTEXT.md — контекст для AI
-- docs/dev/ROADMAP_NEW.md — план развития
-- reports/PRODUCT_AUDIT.md — свежий аудит
-- reports/AUDIT_REPORT.md — аудит 2026-09-30
+См. .opencode/skills/CONVENTIONS.md — структура проекта и правила.
 
 ## Жёсткие правила
 
@@ -98,10 +65,10 @@ project: brain-25-evidence
 | 9 | 1024 | iPad Pro | iOS | низкий |
 | 10 | 1280+ | Desktop | — | контроль |
 
-## Обход (17 страниц)
+## Обход
 
-**12 основных:** index, map, interactions, graph, atlas, calculator, trends, methodology, faq, glossary, feedback, support
-**5 sup:** kreatin, omega-3, vitamin-d, magniy, paba
+Главные HTML и sup-страницы для обхода — см. .opencode/skills/CONVENTIONS.md
+(структура проекта).
 
 ## Что проверять на каждом разрешении
 
@@ -178,7 +145,7 @@ project: brain-25-evidence
     Дата: YYYY-MM-DD
     
     ## Сводка
-    - Проверено: 17 страниц × 10 разрешений = 170 комбинаций
+    - Проверено: страницы обхода × 10 разрешений = N комбинаций
     - Найдено: N проблем
     - Критичных: X (ломает UX)
     - Важных: Y
