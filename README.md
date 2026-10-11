@@ -264,7 +264,7 @@ brain-25-evidence/
 │   ├── build_slim.py              # slim JSON для Streamlit Cloud
 │   └── e2e_smoke.py               # headless smoke-тесты сайта
 ├── templates/                     # Jinja-шаблоны генерации sup/*.html и каталога
-├── tests/                         # 989 тестов в 45 файлах
+├── tests/                         # 1079 тестов в 47 файлах
 │   ├── test_schema.py             # JSON-схема data.json
 │   ├── test_snapshot.py           # data.json не изменился без UPDATE_SNAPSHOT=1
 │   ├── test_index_sync.py         # data_index.json == проекция data.json
@@ -298,7 +298,7 @@ cd brain-25-evidence
 # 2. Установи зависимости
 pip install -r requirements.txt
 
-# 3. Прогони тесты (должно быть 790 passed, 2 skipped)
+# 3. Прогони тесты (должно быть 878 passed, 2 skipped)
 python -m pytest tests/ -q
 
 # 4. Подними сайт локально
@@ -312,7 +312,7 @@ python serve.py
 - После старта сервера: `Ctrl+Shift+R` в браузере для обхода кэша `data.json`
 - На GitHub Pages (https) `fetch` работает без проблем
 - `serve.py` лежит в **корне** репозитория (не в `docs/`) и автоматически добавляет заголовки `Content-Type: text/html; charset=utf-8` (и для JS/CSS/JSON) — лечит локальные кракозябры
-- Прогон `pytest -q` без живого сервера **проводит не все тесты**: 197 из 989 требуют браузера и сняты по умолчанию. Считать «зелёный прогон» доказательством того, что браузерные сценарии живы, нельзя
+- Прогон `pytest -q` без живого сервера **проводит не все тесты**: 199 из 1079 требуют браузера и сняты по умолчанию. Считать «зелёный прогон» доказательством того, что браузерные сценарии живы, нельзя
 
 ### Streamlit dashboard (app.py)
 
@@ -332,11 +332,11 @@ streamlit run app.py
 
 | | |
 |---|---|
-| **Версия** | **v5.6.1** — актуальная версия (`docs/version.json`: `app: 5.6.1`, запись в `CHANGELOG.md`). Git-тег не поставлен — решение владельца |
+| **Версия** | **v5.6.3** — актуальная версия (`docs/version.json`: `app: 5.6.3`, запись в `CHANGELOG.md`). Git-тег не поставлен — решение владельца |
 | **Дата данных** | **2026-09-25** (`docs/version.json`), последняя карточка обновлена 2026-09-25 |
 | **Карточек** | **130** (100 % ручной верификации по PRISMA) |
-| **Тестов** | **989** собрано (`pytest --collect-only -q`); быстрый гейт `pytest -q`: 790 passed, 2 skipped. Полный набор собирает 989, из них 197 требуют браузера и живого сервера и сняты по умолчанию флагами `RUN_SNAPSHOTS` / `RUN_A11Y` / `RUN_TABS` / `RUN_GRAPH` / `RUN_E2E` |
-| **Страниц** | **14** в корне `docs/` + **131** в `docs/sup/` (130 карточек + каталог). В `sitemap.xml` — **143**: 12 индексируемых корневых + 131 в `sup/`. Не индексируются `offline.html` (офлайн-заглушка сервис-воркера) и `google*.html` (файл верификации GSC) |
+| **Тестов** | **1079** собрано (`pytest --collect-only -q`); быстрый гейт `pytest -q`: 878 passed, 2 skipped. Полный набор собирает 1079, из них 199 требуют браузера и живого сервера и сняты по умолчанию флагами `RUN_SNAPSHOTS` / `RUN_A11Y` / `RUN_TABS` / `RUN_GRAPH` / `RUN_E2E` |
+| **Страниц** | **15** в корне `docs/` + **131** в `docs/sup/` (130 карточек + каталог). В `sitemap.xml` — **144**: 13 индексируемых корневых + 131 в `sup/`. Не индексируются `offline.html` (офлайн-заглушка сервис-воркера) и `google*.html` (файл верификации GSC) |
 | **Публикаций** | **37 618** из PubMed, из них с абстрактом — 35 377 |
 | **Тегов эффектов** | 18 нормализованных |
 | **PWA** | офлайн-режим, установка на телефон |
@@ -351,7 +351,7 @@ streamlit run app.py
 | API | <https://deadsno.github.io/brain-25-evidence/api/v1/supplements.json> |
 | Репозиторий | <https://github.com/DeadSno/brain-25-evidence> |
 | Ошибки в данных | [issue `data-error`](.github/ISSUE_TEMPLATE/data-error.md) |
-| Sitemap | <https://deadsno.github.io/brain-25-evidence/sitemap.xml> (143 URL, генерируется `scripts/build_sitemap.py`) |
+| Sitemap | <https://deadsno.github.io/brain-25-evidence/sitemap.xml> (144 URL, генерируется `scripts/build_sitemap.py`) |
 
 Подробности изменений — в [CHANGELOG.md](CHANGELOG.md).
 
@@ -361,7 +361,7 @@ streamlit run app.py
 
 ### Текущее состояние
 
-- 130 добавок, 989 тестов, 37 618 papers
+- 130 добавок, 1079 тестов, 37 618 papers
 - Funders analysis (CrossRef + Europe PMC)
 - Streamlit BI + статический сайт
 - trends.html: executive summary, scatter-матрица, категории
