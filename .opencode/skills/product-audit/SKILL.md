@@ -39,40 +39,7 @@ project: brain-25-evidence
 Число в отчёте — что нашлось, а не что влезло.
 ## Специфика проекта brain-25-evidence
 
-**Структура (актуально на 2026-09-30):**
-- 12 основных HTML: index, map, interactions, graph, atlas, calculator, trends, methodology, faq, glossary, feedback, support
-- 5 sup-страниц: kreatin, omega-3, vitamin-d, magniy, paba
-- 1 CSS: style.css (v=391)
-- 6 JS: script.js, science2.js, tracker.js, version.js, pwa.js, sw.js
-- 1 PWA: manifest.webmanifest, sw.js (v51), pwa.js
-- API: docs/api/v1/index.json + supplements.json
-- Тесты: 727 (pytest -q)
-
-**Структура данных:**
-- docs/data.json — 130 карточек (источник правды)
-- docs/data_index.json — лёгкая проекция
-- docs/effect_tags.json — 18 нормализованных тегов
-- data/db/brain.duckdb — аналитическая БД
-
-**Правила проекта:**
-- На каждой странице в .actions НЕТ ссылки на себя
-- Единый набор кнопок на 11 основных страницах
-- Футеры байт-идентичны
-- Тема через html.dark + body.dark
-- Тесты перед коммитом обязательны
-- Файлы >30 строк — только через Python (PowerShell heredoc ломает backticks)
-
-**Что НЕ трогать:**
-- data.json вручную
-- effect_tags.json вручную
-- sw.js без причины
-- sup/*.html при работе в других ветках
-
-**Связанные документы:**
-- docs/dev/AI_CONTEXT.md — контекст для AI
-- docs/dev/ROADMAP_NEW.md — план развития
-- reports/PRODUCT_AUDIT.md — свежий аудит
-- reports/AUDIT_REPORT.md — аудит 2026-09-30
+См. .opencode/skills/CONVENTIONS.md — структура проекта и правила.
 
 ## Жёсткие ограничения
 
@@ -80,7 +47,7 @@ project: brain-25-evidence
 2. Единственный создаваемый файл — reports/PRODUCT_AUDIT.md
 3. Лимит находок — см. раздел «Лимит находок»
 4. Время обхода: 15-20 мин максимум
-5. Обход: 12 основных HTML + 5 sup + style.css + script.js. НЕ обходить все 130 sup (только 5 тестовых)
+5. Обход: главные HTML + sup-страницы (список — см. .opencode/skills/CONVENTIONS.md) + style.css + script.js. НЕ обходить все sup (только 5 тестовых)
 6. Работай read-only
 
 ## Структура отчёта
@@ -145,15 +112,13 @@ project: brain-25-evidence
 
 ## Специфика проекта (учитывать)
 
-- 11 основных HTML: index, map, interactions, graph, atlas, calculator, trends, methodology, faq, glossary, feedback
-- support.html — новая страница (в основной навигации нет)
-- 5 тестовых sup/*.html: kreatin, omega-3, vitamin-d, magniy, paba (остальные 125 — в разработке)
-- PWA: manifest.webmanifest, sw.js (CACHE_VERSION v51), pwa.js
+Главные HTML, sup-страницы, PWA-файлы и тесты — см. .opencode/skills/CONVENTIONS.md.
+
 - Форма: Web3Forms в feedback.html
 - Донат: ЮMoney в support.html
 - Граф: vis-network в graph.html
 - Правило: на каждой странице в .actions НЕТ ссылки на себя
-- Правило: одинаковый набор кнопок в .actions на 11 основных HTML
+- Правило: одинаковый набор кнопок в .actions на главных HTML
 - Правило: футеры байт-идентичны
 - Правило: тема через html.dark + body.dark
 - Кнопка .btn.c-support добавлена недавно в шапки всех страниц
@@ -163,7 +128,7 @@ project: brain-25-evidence
 ### 1. UI/UX (docs/*.html, style.css)
 
 Консистентность:
-- Набор кнопок .actions на 11 HTML идентичен
+- Набор кнопок .actions на главных HTML идентичен (список — см. CONVENTIONS.md)
 - Футеры идентичны
 - Тёмная/светлая тема работает одинаково на всех
 - Breadcrumbs на sup/*.html корректны
@@ -180,7 +145,7 @@ project: brain-25-evidence
 
 - title 40-60 символов, уникальный
 - meta description 120-160
-- og:title, og:description, og:image, twitter:card на всех 12 HTML
+- og:title, og:description, og:image, twitter:card на всех главных HTML
 - JSON-LD: есть на sup/, НЕТ на main HTML (это находка)
 - CTA на главной
 - Ценность понятна за 5 сек
@@ -197,7 +162,7 @@ project: brain-25-evidence
 
 ### 4. Mobile
 
-- viewport на всех 12 HTML
+- viewport на всех главных HTML
 - Touch targets >= 44px (кнопки в .actions, ссылки в футере)
 - Шрифты >= 16px для inputs (иначе iOS зумит)
 - Горизонтальный скролл (не должно быть)

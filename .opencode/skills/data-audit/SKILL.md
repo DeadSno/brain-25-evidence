@@ -122,6 +122,22 @@ project: brain-25-evidence
 находит большие вещества. Как гейт он бесполезен; как отчёт «4 выброса, все
 легитимны» — полезен.
 
+### Схематические проверки карточки (перенесено из data-validation)
+
+Обязательные поля: `id`, `category`, `grade`, `verdict`, `code`.
+Enum-ы и размерности:
+
+- `grade` ∈ {A, B, C, D}
+- `verdict` ∈ {работает, зависит от контекста, не подтверждено}
+- `code` ∈ {-1, 0, 1}
+- `effects` — 1-3 строки
+- `mechs` — 2-4 элемента, каждый из 3 частей
+- `interactions` — у каждой есть поле `with`
+- `key_sources` — 1-3 источника, каждый с `pmid`, `year`, `journal`
+
+Аномалии: `scienceIndex == 0`, отрицательный `metaCount`, дубли `id`,
+карточки с пустым `about`.
+
 ---
 
 ## Слой 2 — производные
@@ -131,6 +147,7 @@ project: brain-25-evidence
 | `docs/data_index.json` | `{_meta, supplements}`, `supplements` = 130 |
 | `docs/api/v1/supplements.json` | `{version, generated_at, count, license, source, site, schema, supplements}`, `supplements` = 130 |
 | `docs/effect_tags.json` | 130 ключей (id вещества) → список тегов |
+| `docs/api/v1/index.json` | `count` согласован с `supplements.json`; сумма распределения `grades` == `count` |
 
 Проверять:
 

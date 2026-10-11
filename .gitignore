@@ -309,3 +309,5 @@ docs/_baseline_*
 
 # Scratch JUnit/Playwright dumps at repo root
 /snap_head_*.xml
+
+tests/a11y_report/
