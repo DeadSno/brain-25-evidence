@@ -34,6 +34,9 @@ WITH_QUERY_NAME = next(iter(SUPPLEMENTS))
 NEW_PMID = "99999999"
 NEW_ENTRY = [{"pmid": NEW_PMID, "title": "New meta-analysis", "year": 2026}]
 
+#: PMID карточки-часового без запроса (см. test_no_data_loss_live_data).
+SENTINEL_PMID = "88888888"
+
 
 @pytest.fixture
 def harness(tmp_path, monkeypatch):
@@ -136,15 +139,26 @@ def test_query_card_refreshes(harness):
 
 
 def test_no_data_loss_live_data(harness):
-    """165 PMID карточек без запрося переживают прогон на живых данных.
+    """PMID карточек без запроса переживают прогон на живых данных.
 
     Читает настоящий docs/data.json (read-only), гоняет main() на его копии
     и сверяет множества PMID. Регрессия DATA-P1-1 сразу видна числом.
+
+    После закрытия DATA-P1-1 в SUPPLEMENTS есть запрос для всех 130 карточек,
+    поэтому в живых данных карточек без запроса больше нет. Чтобы проверка
+    «нет запроса ⇒ PMID сохраняются» не выродилась в пустое множество, к копии
+    живых данных добавляется карточка-часовой без запроса с известным PMID.
+    Если в данные снова попадёт карточка без запроса, она проверяется наравне
+    с часовым.
     """
     live = ROOT / "docs" / "data.json"
     if not live.exists():
         pytest.skip("docs/data.json отсутствует")
     original = json.loads(live.read_text(encoding="utf-8"))
+
+    sentinel = {"id": "sentinel-no-q", "name": NO_QUERY_NAME,
+                "ma_top3": [{"pmid": SENTINEL_PMID, "title": "Kept", "year": 2024}]}
+    original = original + [sentinel]
 
     write_cards(harness["path"], original)
     bks.main()

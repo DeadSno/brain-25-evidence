@@ -109,7 +109,7 @@ def test_default_outcome_equals_cog():
 
 @pytest.mark.parametrize("key", sorted(config.SUPPLEMENTS))
 def test_supplements_entry_parsable(key):
-    """Параметризация по всем 74 записям: ловит пустое значение в любой."""
+    """Параметризация по всем записям SUPPLEMENTS: ловит пустое значение в любой."""
     term = config.SUPPLEMENTS[key]
     assert term.strip()
     assert "\n" not in term
