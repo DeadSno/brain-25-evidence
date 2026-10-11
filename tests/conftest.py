@@ -14,7 +14,7 @@ DB_PATH = ROOT / "data" / "db" / "brain.duckdb"
 def pytest_collection_modifyitems(config, items):
     """Выключить браузерные e2e и визуальные снапшоты по умолчанию.
 
-    Оба гейта — на переменной окружения, а НЕ на `-m` в addopts: `-m`,
+    Гейты висят на переменной окружения, а НЕ на `-m` в addopts: `-m`,
     переданный в командной строке, ПЕРЕКРЫВАЕТ addopts. Это не теория,
     измерено на этой копии:
 
@@ -29,11 +29,28 @@ def pytest_collection_modifyitems(config, items):
     против эталонов, полный прогон ~100 с против ~4 с без них. Для быстрых
     коммитов они не нужны, для миграции дизайн-системы — обязательны.
 
-    Включить: RUN_SNAPSHOTS=1 pytest -q -m snapshots
+    Включать каждый гейт своей переменной, гейты независимы:
+
+        $env:RUN_SNAPSHOTS="1"; pytest -q -m snapshots
+        $env:RUN_A11Y="1";      pytest -q -m a11y
+        $env:RUN_TABS="1";      pytest -q -m tabs
+        $env:RUN_GRAPH="1";     pytest -q -m graph
+        $env:RUN_E2E="1";       pytest -q -m e2e
 
     Тесты доступности (tests/test_a11y_axe.py) несут только маркер `a11y` и
-    снимаются отдельным фильтром: им тоже нужен браузер и сервер, но команда
-    запуска у них своя — RUN_A11Y=1 pytest -q -m a11y.
+    фильтруются отдельно: им тоже нужен браузер и сервер, но команда запуска
+    своя. Раньше они несли оба маркера, и фильтр по `snapshots` отбрасывал их
+    — замерено: `RUN_A11Y=1 pytest -m a11y` давал «754 deselected, 0
+    selected», то есть гейт был зелёным вхолостую. Пересечения больше нет.
+
+    v5.6.3 (волна R1): выключение через `items[:] = [...]` снимало тесты из
+    прогона МОЛЧА. `pytest -q` показывал «878 passed, 2 skipped» и ни словом
+    не упоминал, что 199 тестов (18.5%) даже не собирались — ровно тот
+    случай, который scripts/check_snapshot_run.py уже ловит для другой
+    причины («74 skipped выглядит как успех»). Теперь те же гейты вешают
+    `skip` с текстом «как включить», и в отчёте видно «201 skipped», а `-rs`
+    печатает причину. Скорость не изменилась: skip, как и deselect, не
+    выполняет тело теста.
     """
     if os.environ.get("RUN_E2E") == "1":
         pass  # e2e-гейт ниже
@@ -46,36 +63,44 @@ def pytest_collection_modifyitems(config, items):
             if "e2e" in item.keywords:
                 item.add_marker(skip)
 
-    # Снапшоты и тесты доступности снимаются НЕЗАВИСИМЫМИ фильтрами: у них
-    # разные маркеры и разные команды. Раньше a11y-тесты несли оба маркера, и
-    # фильтр по `snapshots` отбрасывал их — замерено: `RUN_A11Y=1 pytest -m a11y`
-    # давал «754 deselected, 0 selected», то есть гейт был зелёным вхолостую.
-    # Теперь пересечения нет, и каждый гейт включается своей переменной:
+    # Гейты по маркерам. Каждый включается своей переменной; все выключены
+    # по умолчанию. Снятие маркировки через `items[:] = [...]` молча убирало
+    # тесты из отчёта, поэтому здесь skip с явным текстом — иначе «199 тестов
+    # не выполняются» не видно ни в одном выводе.
+    #
     #   RUN_SNAPSHOTS=1 -> только снапшоты
     #   RUN_A11Y=1      -> только доступность
-    #   ничего          -> быстрый прогон без браузера
-    if not os.environ.get("RUN_SNAPSHOTS"):
-        items[:] = [item for item in items if "snapshots" not in item.keywords]
-
-    if not os.environ.get("RUN_A11Y"):
-        items[:] = [item for item in items if "a11y" not in item.keywords]
-
-    # 	abs (tests/test_tabs_interaction.py, v5.4.1): клик по вкладкам.
-    # Требует живого сервера на :8000 и браузеров Playwright, поэтому
-    # снят здесь, а не через -m в addopts: командная строка -m "..."
-    # перекрывает addopts и включила бы 42 теста неожиданно — ровно то,
-    # из-за чего e2e вынесен в отдельную настройку.
-    # Запуск: \="1"; pytest -q -m tabs
-    if not os.environ.get("RUN_TABS"):
-        items[:] = [item for item in items if "tabs" not in item.keywords]
-
-    # `graph` (tests/test_graph_interaction.py, v5.4.1): экспорт PNG и
-    # раскладка графа. Нужен живой сервер и браузеры Playwright,
-    # поэтому снят здесь по той же причине, что tabs.
-    # Запуск: $env:RUN_TABS="1" не включает его — гейты независимы.
-    # Запуск: $env:RUN_GRAPH="1"; pytest -q -m graph
-    if not os.environ.get("RUN_GRAPH"):
-        items[:] = [item for item in items if "graph" not in item.keywords]
+    #   RUN_TABS=1      -> клик по вкладкам
+    #   RUN_GRAPH=1     -> экспорт PNG и раскладка графа
+    #
+    # e2e уже был skip-ом выше и в этот список не входит.
+    for marker, env_var, command in (
+        (
+            "snapshots", "RUN_SNAPSHOTS",
+            'снапшоты выключены по умолчанию (попиксельные PNG, ~100 с против '
+            '~4 с). Запуск: $env:RUN_SNAPSHOTS="1"; pytest -q -m snapshots',
+        ),
+        (
+            "a11y", "RUN_A11Y",
+            'a11y-тесты выключены по умолчанию (нужен браузер и сервер). '
+            'Запуск: $env:RUN_A11Y="1"; pytest -q -m a11y',
+        ),
+        (
+            "tabs", "RUN_TABS",
+            'tabs выключены по умолчанию (нужен живой сервер :8000 и браузеры '
+            'Playwright). Запуск: $env:RUN_TABS="1"; pytest -q -m tabs',
+        ),
+        (
+            "graph", "RUN_GRAPH",
+            'graph выключены по умолчанию (нужен живой сервер :8000 и браузеры '
+            'Playwright). Запуск: $env:RUN_GRAPH="1"; pytest -q -m graph',
+        ),
+    ):
+        if not os.environ.get(env_var):
+            skip_marker = pytest.mark.skip(reason=command)
+            for item in items:
+                if marker in item.keywords:
+                    item.add_marker(skip_marker)
 
 
 @pytest.fixture(scope="session")
