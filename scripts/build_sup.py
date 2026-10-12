@@ -236,6 +236,9 @@ def build_context(rec: dict, slug: str, warnings: list[str]) -> dict:
         "inter_note_cap": first_cap(note),
         "key_sources": sources,
         "how_to_choose": html_val(rec.get("how_to_choose")),
+        # #40: формы выпуска. Пустая строка при отсутствии данных —
+        # в шаблоне блок гасится через {% if forms %}, а не заглушкой.
+        "forms": html_val(rec.get("forms")) if rec.get("forms") else "",
         "food_sources": html_val(rec.get("food_sources")),
         "guidelines": html_val(rec.get("guidelines")),
         # На пяти существующих страницах стоит MedicalWebPage.
