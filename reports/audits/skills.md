@@ -5,8 +5,8 @@
 | **Тип** | skills — качество, актуальность и корректность скиллов `.opencode/skills/` |
 | **Источники** | `SKILLS_AUDIT_ORION.md`, `AUDIT_E_SUMMARY.md` §5.2, `SKILLS_RECOMMENDATIONS.md`, `SKILLS_REVISION.md` |
 | **Консолидация** | 11.10.2026, ветка `v5.6-dev` |
-| **Открыто** | P0 — 2, P1 — 3, P2 — 2, stale — 3 |
-| **Закрыто** | — |
+| **Открыто** | P0 — 1, P1 — 3, P2 — 2, stale — 3 |
+| **Закрыто** | P0 — 1 |
 
 ---
 
@@ -17,7 +17,6 @@
 | ID | Находка | Источник |
 |---|---|---|
 | SK-P0-01 | Субагенты не могут загружать скиллы — инструмент `skill` доступен только team-lead | SKILLS_AUDIT_ORION |
-| SK-P0-02 | У `visual-design-audit` нет лицензии | SKILLS_AUDIT_ORION |
 
 ### P1
 
@@ -41,6 +40,16 @@
 | SK-STALE-01 | Общий блок «Специфика проекта» устарел в **12 скиллах** (`project-audit`, `product-audit`, `qa-deep-audit`, `data-validation`, `docs-sync`, `release-check`, `site-navigation`, `pwa-audit`, `mobile-deep-audit`, `ui-ux-deep-audit`, `marketing-deep-audit`, `visual-design-audit`): «12 HTML, 5 sup, `style.css` v=391, `sw.js` v51, 727 тестов, 6 JS». Факт (2026-10-11): **13 контентных HTML** (+`privacy.html`), **131 sup**, `style.css?v=423`, `sw.js CACHE_VERSION v89`, **1079 тестов**, **9 JS**. Детали — `reports/SKILLS_INVENTORY.md` | Инвентаризация 2026-10-11 |
 | SK-STALE-02 | `SKILLS_INDEX.md` содержит ошибки: «736 passed/18 skipped» (факт 1079); «глобальная копия `cyberaudit` старее, v3.1.5 vs v3.2.1» (факт: копии **байт-идентичны**, обе 3.1.5); «ревизия всех **23** скиллов» (факт **19**); реестр отчётов ссылается на отсутствующие `SKILLS_REVISION.md`/`SKILLS_INSTALL.md` | Инвентаризация 2026-10-11 |
 | SK-STALE-03 | Хардкод проектных чисел вместо динамики (`docs/version.json`) — корневая причина SK-STALE-01: общий блок скопирован в 12 файлов, единого источника нет | Инвентаризация 2026-10-11 |
+
+---
+
+## Закрыто
+
+### P0
+
+| ID | Находка | Коммит | Дата |
+|---|---|---|---|
+| SK-P0-02 | У `visual-design-audit` нет лицензии → добавлено `license: MIT`; у `cyberaudit` лицензия также есть, но файл локальный (`.gitignore`) | `12119a5` | 12.10.2026 |
 
 ---
 
