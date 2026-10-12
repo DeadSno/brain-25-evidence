@@ -170,6 +170,16 @@ def _run_axe(page, axe_js: str, url: str) -> list[dict]:
     page.add_style_tag(content=KILL_CSS)
     page.evaluate("() => document.fonts.ready")
     page.wait_for_timeout(SETTLE_MS)
+    # #48: свёрнутые <details> axe не видит (11 узлов на faq и др.) —
+    # раскрываем все закрытые панели ПЕРЕД прогоном, чтобы их содержимое
+    # проверялось. Клики по триггерам не нужны: .open = true даёт тот же
+    # рендер, что и раскрытие пользователем, без смены фокуса/скролла.
+    opened = page.evaluate(
+        "() => { const ds = [...document.querySelectorAll('details:not([open])')];"
+        " ds.forEach(d => { d.open = true; }); return ds.length; }"
+    )
+    if opened:
+        page.wait_for_timeout(SETTLE_MS)
     page.add_script_tag(content=axe_js)
 
     raw = page.evaluate(RUN_AXE, WCAG_TAGS)
