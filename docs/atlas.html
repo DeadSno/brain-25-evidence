@@ -32,7 +32,7 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=425">
+<link rel="stylesheet" href="style.css?v=426">
   <style>
     /* Палитра на :root, не на body: объявление на body перекрывало html.light
      ниже, и в светлой теме текст оставался светлым на светлом (1.05:1).
@@ -58,12 +58,16 @@ try {
     .top{display:flex;justify-content:space-between;align-items:center;gap:var(--space-4);flex-wrap:wrap;margin-bottom:.6rem}
     .top .site-title{font-size:1.3rem;margin:var(--space-0-2) 0}
     .top a{color:inherit;text-decoration:none}
-    #stats{opacity:.6;font-size:.85rem;margin:var(--space-0-2) 0}
+    #stats{opacity:.85;font-size:.85rem;margin:var(--space-0-2) 0}
     .btn{padding:.45rem .8rem;border:1px solid var(--aborder);border-radius:var(--radius-lg);background:var(--apanel);color:var(--atext);cursor:pointer;font-size:.85rem;text-decoration:none}
     
     .btn.on{border-color:#f1c40f;color:#f1c40f;font-weight:600}
     .filterbar{display:flex;gap:.4rem;flex-wrap:wrap;margin:.8rem 0;align-items:center}
     .filterbar .lbl{opacity:.55;font-size:.8rem;margin-right:.4rem}
+    /* v5.6.4 (#44): подписи «Грейд:» и «Поиск:». При .55 тёмный текст на
+       светлой панели даёт 3.72:1 при 12.8px, в тёмной теме те же .55
+       проходят, поэтому базовое правило не трогаем. */
+    html.light .filterbar .lbl{opacity:.9}
 
     .atl-layout{display:flex;height:calc(100vh - 240px);min-height:600px;border:1px solid var(--aborder);border-radius:var(--radius-xl);overflow:hidden;background:var(--apanel);position:relative}
     .atlas-legend{

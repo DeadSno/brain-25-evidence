@@ -53,7 +53,7 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=425"/>
+<link rel="stylesheet" href="style.css?v=426"/>
 <style>
 :root{--apanel:var(--card-bg);--aborder:var(--border);--atext:var(--text)}
 /* Единая шапка для всех страниц */
@@ -244,7 +244,7 @@ footer { font-size: 1rem !important; }
        комментария. -->
   <details class="qa-details">
     <summary>Сначала ответим на 3 вопроса</summary>
-    <div class="qaGrid">
+    <div class="qaGrid" tabindex="0">
       <div class="qa">
         <h3>1. Чем БАД отличается от лекарства?</h3>
         <p>БАД дополняет питание, а не заменяет лечение. У БАД нет регистрации лекарства, но есть мета-анализы — считаем именно их.</p>
@@ -385,7 +385,7 @@ footer { font-size: 1rem !important; }
     <div><label for="compareSelect2">Добавка 2</label><select id="compareSelect2"></select></div>
     <button id="compareBtn">Сравнить</button>
   </div>
-  <div id="compareResult"></div>
+  <div id="compareResult" tabindex="0"></div>
   <h3 style="margin-top:1rem">📡 Радар профиля</h3>
   <div style="position:relative;max-width:520px;margin:0 auto"><canvas id="radarChart"></canvas></div>
 

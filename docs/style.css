@@ -143,20 +143,30 @@
    и «Сердце / сосуды» дают одну группу cardio. */
 :root{
   --icon-gut:      #4ade80;   /* ЖКТ, кишечник */
-  --icon-cardio:   #f87171;   /* сердце, сосуды, кровь, почки */
+  --icon-cardio:   #f98787;   /* сердце, сосуды, кровь, почки */
   --icon-bone:     #fbbf24;   /* кости, суставы, минералы, кожа */
   --icon-liver:    #fb923c;   /* печень */
-  --icon-brain:    #c084fc;   /* мозг, когниция, психика, сон */
+  --icon-brain:    #c792fc;   /* мозг, когниция, психика, сон */
   --icon-immune:   #2dd4bf;   /* иммунитет, антиоксидант, воспаление */
-  --icon-metab:    #60a5fa;   /* метаболизм, гормоны, энергия */
+  --icon-metab:    #6cacfa;   /* метаболизм, гормоны, энергия */
   --icon-sport:    #38bdf8;   /* спорт, мышцы, выносливость */
-  --icon-women:    #f472b6;   /* беременность, женское здоровье */
+  --icon-women:    #f582be;   /* беременность, женское здоровье */
   --icon-vision:   #22d3ee;   /* зрение, глаза */
-  --icon-general:  #a3a3a3;   /* общее, старение, адаптогены */
-  --icon-critical: #fb7185;   /* критические состояния */
-  --icon-neutral:  #9ca3af;   /* категория не опознана */
+  --icon-general:  #aaaaaa;   /* общее, старение, адаптогены */
+  --icon-critical: #fc8495;   /* критические состояния */
+  --icon-neutral:  #a4aab5;   /* категория не опознана */
   --icon-github:   #8ab4d6;   /* кнопка «Доработать на GitHub» */
 }
+/* v5.6.4 (#44): 7 токенов сдвинуты к белому. Не «для красоты» — подложка
+   плашки .tagChip берёт тот же --ic через color-mix на 14%, и на тёмной
+   карточке (#2c2c2e) именно она убивала контраст текста: при opacity .8
+   плашка «ЖКТ» давала 2.92:1. Замерено axe-core 4.13.0, dark, 1280px,
+   391 узел .tagChip (165 dark / 224 light), подложка 14% без изменения.
+   Сдвиг подобран так, чтобы каждый токен давал ≥4.6:1 на своей подложке
+   при opacity 1; порог взят с запасом, потому что .cat[data-cat-group]
+   печатает тот же токен БЕЗ подложки — лишний контраст там не мешает.
+   Не тронуты 6 токенов, уже проходивших с запасом (gut, bone, liver,
+   immune, sport, vision). */
 
 /* v5.1 Шаг 6 — шкала отступов (DESIGN_SYSTEM_PLAN.md §2.1).
    Заменены только те литералы, которые УЖЕ равны ступени:
@@ -199,21 +209,46 @@ html.light{--grade-a-tx:#15803d;--grade-b-tx:#4d7c0f;--grade-c-tx:#b45309;--grad
    тёмных не просто «для симметрии»: на белой карточке светлый
    жёлтый #fbbf24 даёт контраст 1.6:1 и не виден совсем. */
 html.light{
-  --icon-gut:      #15803d;
+  /* v5.6.4 (#44): 5 токенов сдвинуты к чёрному. Причина та же, что в :root
+     выше, — виновата подложка плашки на 14%, а не сам тон: bone, liver,
+     immune, gut и neutral на белой карточке давали ниже 4.5:1. */
+  --icon-gut:      #147438;
   --icon-cardio:   #b91c1c;
-  --icon-bone:     #b45309;
-  --icon-liver:    #c2410c;
+  --icon-bone:     #a44b08;
+  --icon-liver:    #b23b0b;
   --icon-brain:    #7e22ce;
-  --icon-immune:   #0f766e;
+  --icon-immune:   #0f716a;
   --icon-metab:    #1d4ed8;
   --icon-sport:    #0369a1;
   --icon-women:    #be185d;
   --icon-vision:   #155e75;
   --icon-general:  #52525b;
   --icon-critical: #9f1239;
-  --icon-neutral:  #6b7280;
+  --icon-neutral:  #606673;
   --icon-github:   #3f5b73;
 }
+
+/* v5.6.4 #44: контраст в СВЕТЛОЙ теме. Приём opacity из базовых правил
+   подобран под тёмную тему: на тёмном фоне он почти не меняет контраст
+   (светлый текст на тёмном остаётся светлым), а на белой карточке гасит
+   чёрный #1c1c1e до серого. Палитра при этом в порядке — html.light даёт
+   17:1, ломает именно opacity.
+   Замерено axe-core 4.13.0 (теги wcag2a/2aa/21a/21aa/22aa), light, 1280px,
+   13 страниц, композит цвета и opacity всей цепочки предков (так же считает
+   axe). До правки:
+     .hint   opacity .6  (style.css:421)   → 4.49:1   порог 4.5
+     .meta   opacity .7  (style.css:1625)  → 4.29:1   (+ .site-footer .85)
+     .copy   opacity .6  (style.css:1642)  → 3.32:1
+   Переопределение в html.light, а не правка базовых правил: тёмная тема на
+   них держится, и её контрастные цифры после v5.4.0 не пересчитывались.
+   Селекторы (0,2,1) перебивают базовые (0,1,0) и .site-footer .meta/.copy
+   (0,2,0) без !important.
+   span.v из этого списка убран: версия в шапке — не «приём под тёмную
+   тему», а её собственный долг (правило .top .v ниже), и он исправлен
+   там же, в базовом правиле, для обеих тем. */
+html.light .hint { opacity: .85; }
+html.light .meta { opacity: .85; }
+html.light .copy { opacity: .85; }
 *{box-sizing:border-box;margin:0;padding:0}
 
 /* v5.0.0 (Android): серый tap-highlight браузера проступал поверх фирменных
@@ -1120,15 +1155,19 @@ html:not(.light) .chartTab.on {
   border-radius: 10px;
   background: rgba(127,127,127,.14);
   color: inherit;
-  opacity: .8;
+  /* v5.6.4 (#44): opacity .8 убрана. Приём смешивал текст плашки с фоном
+     карточки — на светлой карточке чёрный #1c1c1e гас до #89898b (3.2:1),
+     на тёмной светлый гас до серого. Оба направления вниз, поэтому
+     поднимать непрозрачность можно в обеих темах сразу. Раньше её
+     натягивали дважды: здесь .8, а на hover .tagChip:hover поднимал до 1,
+     то есть в покое текст был бледнее, чем при наведении. */
   cursor: pointer;
   user-select: none;
-  transition: background .15s, opacity .15s;
+  transition: background .15s, box-shadow .15s;
 }
 @media (hover:hover){
   .tagChip:hover {
     background: rgba(127,127,127,.3);
-    opacity: 1;
   }
 }
 
@@ -1171,8 +1210,14 @@ html:not(.light) .chartTab.on {
   background: color-mix(in srgb, var(--ic) 14%, transparent);
 }
 @media (hover:hover){
+  /* v5.6.4 (#44): hover-подложка была 26% того же тона — это отдельный
+     контрастный долг, который гейт не видит (axe не наводит мышь).
+     Замерено расчётом по той же модели композит-цвета: на 26% проходили
+     3 из 13 групп в светлой теме и 1 из 13 в тёмной, потолок для обеих
+     тем — 15%. Увеличение доли не годится, поэтому состояние наведения
+     показывается кольцом, а заливка остаётся базовой 14%. */
   .card .tagChip[data-cat-group]:hover {
-    background: color-mix(in srgb, var(--ic) 26%, transparent);
+    box-shadow: inset 0 0 0 1.5px var(--ic);
   }
 }
 
@@ -1225,6 +1270,10 @@ html:not(.light) .chartTab.on {
   margin-bottom: var(--space-2);
   color: inherit;
 }
+/* v5.6.4 (#44): подпись секции фильтра. При .5 в светлой теме чёрный
+   #1c1c1e гас до #89898b — 3.2:1. В тёмной теме .5 даёт 4.81:1 и
+   проходит, поэтому базовое правило не трогаем. */
+html.light .filterLabel { opacity: .85; }
 .tagPresetMore {
   opacity: .7;
   font-style: italic;
@@ -1384,10 +1433,15 @@ html:not(.light) h1,
 html:not(.light) h1 a, html:not(.light) .top .site-title a {
   color: #fafafa !important;
 }
+/* v5.6.4 (#44): opacity .65 убрана, color остался var(--muted).
+   Версия в шапке стояла на !important, поэтому переопределение
+   ради зелёного гейта её не брало (специфичность (0,2,0) выше (0,1,2)).
+   Правка сделана в базовом правиле, потому что долг не в теме: при
+   opacity 1 --muted даёт 5.07:1 на белой карточке и 6.07:1 на --bg
+   тёмной темы — запас с обеих сторон, подменять токен не нужно. */
 .top .v,
 header.top .v {
   color: var(--muted) !important;
-  opacity: .65 !important;
   font-weight: 400 !important;
 }
 
@@ -1412,7 +1466,6 @@ header.top .v {
 .top .site-title { font-size: 1.5rem; margin: 0; font-weight: 700; }
 .top .site-title a { color: inherit; text-decoration: none; }
 .top .v {
-  opacity: .5;
   font-size: .875rem;
   font-weight: 400;
   margin-inline-start: var(--space-2);
@@ -1857,7 +1910,24 @@ main h1 { font-weight: 700 !important;
 html.light .s-strong { background: var(--card-bg); border: 1px solid var(--grade-a-tx); }
 html.light .s-medium { background: var(--card-bg); border: 1px solid var(--grade-b-tx); }
 html.light .s-weak { background: var(--card-bg); border: 1px solid var(--grade-c-tx); }
+/* v5.6.4 (#44): .verdict на sup/* — приём из тёмной темы. Тень
+   rgba(0,0,0,.3) под тёмно-серым текстом на белом фоне не просто
+   лишняя, но и вредная; axe моделирует её как затемнение фона и
+   получает подложку #dbdbdd → 3.66:1. Плашка тут без заливки
+   (собственные .verdict.v1/v0/v-1 только на sup/index.html и карточках
+   главной), так что тени для неё не требуется. На главной, где у
+   .card .verdict есть заливка и белый текст, тень остаётся. */
+html.light .sup-wrap .verdict { text-shadow: none; }
 .s-context { background: #88888833; color: var(--muted); }
+/* v5.6.4 (#44): тот же приём, что у .s-strong/.s-medium/.s-weak выше,
+   по той же причине: серый оттенок 20% поверх --bg даёт #dfdfe1, а
+   --muted на нём — 3.81:1. Потемнить --muted ради одной плашки значило
+   бы задеть ещё и подвал, поэтому светлая тема получает белую плашку
+   с рамкой, как три соседние. */
+html.light .s-context {
+  background: var(--card-bg);
+  border: 1px solid var(--muted);
+}
 .inter-card { padding: var(--space-3); margin-bottom: var(--space-2); background: var(--bg); border-radius: var(--radius-md); border-left: 3px solid; }
 .inter-low { border-color: #84cc16; }
 .inter-medium { border-color: #f59e0b; }

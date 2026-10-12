@@ -1,93 +1,72 @@
 {
- "atlas-1280": {
-  "color-contrast": 1
- },
- "atlas-412": {},
- "calculator-1280": {
-  "color-contrast": 2
- },
- "calculator-412": {
-  "color-contrast": 1
- },
- "faq-1280": {
-  "color-contrast": 1
- },
- "faq-412": {},
- "feedback-1280": {
-  "color-contrast": 4
- },
- "feedback-412": {
-  "color-contrast": 3
- },
- "glossary-1280": {
-  "color-contrast": 1
- },
- "glossary-412": {},
- "graph-1280": {},
- "graph-412": {},
- "index-1280": {
-  "color-contrast": 1
- },
- "index-412": {
-  "scrollable-region-focusable": 2
- },
- "interactions-1280": {
-  "color-contrast": 1
- },
- "interactions-412": {},
- "map-1280": {
-  "color-contrast": 2,
-  "scrollable-region-focusable": 1
- },
- "map-412": {
-  "color-contrast": 1,
-  "scrollable-region-focusable": 1
- },
- "methodology-1280": {
-  "color-contrast": 6
- },
- "methodology-412": {
-  "color-contrast": 5,
-  "scrollable-region-focusable": 1
- },
- "offline-1280": {},
- "offline-412": {},
- "sup-kreatin-1280": {
-  "color-contrast": 1
- },
- "sup-kreatin-412": {
-  "color-contrast": 1
- },
- "sup-magniy-1280": {
-  "color-contrast": 1
- },
- "sup-magniy-412": {
-  "color-contrast": 1
- },
- "sup-omega-3-1280": {
-  "color-contrast": 1
- },
- "sup-omega-3-412": {
-  "color-contrast": 1
- },
- "sup-paba-1280": {
-  "color-contrast": 1
- },
- "sup-paba-412": {
-  "color-contrast": 1
- },
- "sup-vitamin-d-1280": {
-  "color-contrast": 1
- },
- "sup-vitamin-d-412": {
-  "color-contrast": 1
- },
- "support-1280": {
-  "color-contrast": 1
- },
- "support-412": {},
- "trends-1280": {
-  "color-contrast": 1
- },
- "trends-412": {}
+ "atlas-1280-dark": {},
+ "atlas-1280-light": {},
+ "atlas-412-dark": {},
+ "atlas-412-light": {},
+ "calculator-1280-dark": {},
+ "calculator-1280-light": {},
+ "calculator-412-dark": {},
+ "calculator-412-light": {},
+ "faq-1280-dark": {},
+ "faq-1280-light": {},
+ "faq-412-dark": {},
+ "faq-412-light": {},
+ "feedback-1280-dark": {},
+ "feedback-1280-light": {},
+ "feedback-412-dark": {},
+ "feedback-412-light": {},
+ "glossary-1280-dark": {},
+ "glossary-1280-light": {},
+ "glossary-412-dark": {},
+ "glossary-412-light": {},
+ "graph-1280-dark": {},
+ "graph-1280-light": {},
+ "graph-412-dark": {},
+ "graph-412-light": {},
+ "index-1280-dark": {},
+ "index-1280-light": {},
+ "index-412-dark": {},
+ "index-412-light": {},
+ "interactions-1280-dark": {},
+ "interactions-1280-light": {},
+ "interactions-412-dark": {},
+ "interactions-412-light": {},
+ "map-1280-dark": {},
+ "map-1280-light": {},
+ "map-412-dark": {},
+ "map-412-light": {},
+ "methodology-1280-dark": {},
+ "methodology-1280-light": {},
+ "methodology-412-dark": {},
+ "methodology-412-light": {},
+ "offline-1280-dark": {},
+ "offline-412-dark": {},
+ "sup-kreatin-1280-dark": {},
+ "sup-kreatin-1280-light": {},
+ "sup-kreatin-412-dark": {},
+ "sup-kreatin-412-light": {},
+ "sup-magniy-1280-dark": {},
+ "sup-magniy-1280-light": {},
+ "sup-magniy-412-dark": {},
+ "sup-magniy-412-light": {},
+ "sup-omega-3-1280-dark": {},
+ "sup-omega-3-1280-light": {},
+ "sup-omega-3-412-dark": {},
+ "sup-omega-3-412-light": {},
+ "sup-paba-1280-dark": {},
+ "sup-paba-1280-light": {},
+ "sup-paba-412-dark": {},
+ "sup-paba-412-light": {},
+ "sup-vitamin-d-1280-dark": {},
+ "sup-vitamin-d-1280-light": {},
+ "sup-vitamin-d-412-dark": {},
+ "sup-vitamin-d-412-light": {},
+ "support-1280-dark": {},
+ "support-1280-light": {},
+ "support-412-dark": {},
+ "support-412-light": {},
+ "trends-1280-dark": {},
+ "trends-1280-light": {},
+ "trends-412-dark": {},
+ "trends-412-light": {}
 }
