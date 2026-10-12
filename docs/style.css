@@ -2073,6 +2073,23 @@ label[for]:not(.sr-only) {
   min-width: 44px;
 }
 header .site-title > a { min-height: 44px; }
+/* v5.6.4 (MOB-P2-05): ссылки в пояснительном тексте. Замер 12.10.2026:
+   p.hint на sup/index.html — 71x17 и 90x17, p.method-footer на
+   trends.html — 111x16 и 57x16. Это настоящие <a> (проверено разбором
+   разметки), поэтому «by-design» их не оправдывает — постирать нечего,
+   кроме высоты.
+   Удар точечный: .hint встречается в HTML 14 раз, но ссылка внутри
+   .hint — только на sup/index.html; .method-footer — одна страница.
+   Всего 4 ссылки на 2 страницах, обе вне визуальных эталонов
+   (sup/index.html не в PAGES теста снимков, .method-footer лежит в
+   закрытом <details>).
+   Раскладка растёт честно: inline-block тянет строку до 44 px, зато
+   бокс не наезжает на соседние слова предложения. Рост в ~46 px на
+   абзац принят по тому же правилу, что .params-grid в d0867d9.
+   В отличие от cookie-ссылки (eb5967c) здесь отрицательный margin
+   НЕ применяется: ссылки стоят в середине предложения, и бокс
+   в 44 px перекрыл бы соседние слова на 11 px. */
+.hint a, .method-footer a { display: inline-block; min-height: 44px; }
 #cookieBanner .cb-actions { display: flex; gap: var(--space-2); flex: 0 0 auto; }
 #cookieBanner .cb-btn {
   padding: var(--space-2) var(--space-4);
