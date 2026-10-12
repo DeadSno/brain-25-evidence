@@ -594,6 +594,13 @@ header, .header {
      с viewport-fit=cover в <meta viewport> (добавлен во всех 17 HTML).
      env() с фолбэком: в браузерах без safe-area (десктоп) — 0px. */
   padding-top: env(safe-area-inset-top, 0px);
+  /* v5.6.3 (MOB-P2-08): боковые вырезы. В альбомной ориентации Dynamic
+     Island уезжает вбок, и без этих отступов край шапки уходил под
+     вырез. Горизонтального padding у самого header не было — он есть
+     у вложенного .top, — поэтому добавление безопасное и на десктопе
+     даёт ровно 0. */
+  padding-left: env(safe-area-inset-left, 0px);
+  padding-right: env(safe-area-inset-right, 0px);
 }
 html:not(.light) header, html:not(.light) .header { background: rgba(18,18,18,.65); }
 
@@ -656,7 +663,7 @@ footer, .site-footer { padding-bottom: env(safe-area-inset-bottom, 0px); }
    z-index порядок определялся DOM-порядком, то есть случайно.
    Теперь обе кнопки выше шапки, и их скрытие под открытой модалкой
    описано правилом с body.modal-open ниже. */
-#toTop{position:fixed;inset-inline-end:1.2rem;bottom:calc(1.2rem + env(safe-area-inset-bottom, 0px));z-index:var(--z-fab);width:44px;height:44px;
+#toTop{position:fixed;inset-inline-end:calc(1.2rem + env(safe-area-inset-right, 0px));bottom:calc(1.2rem + env(safe-area-inset-bottom, 0px));z-index:var(--z-fab);width:44px;height:44px;
 border-radius:50%;border:1px solid var(--border);background:var(--card-bg);color:var(--text);
 font-size:1.25rem;cursor:pointer;opacity:0;pointer-events:none;transition:.25s}
 #toTop.show{opacity:1;pointer-events:auto}
@@ -1645,6 +1652,12 @@ body.modal-open { overflow: hidden; }
   max-width: 1200px;
   margin: var(--space-12) auto var(--space-6);
   padding: var(--space-6) var(--space-6) var(--space-4);
+  /* v5.6.3 (MOB-P2-08): боковой вырез в альбомной ориентации. Через max(),
+     а не через env() напрямую: горизонтальный отступ --space-6 (24px)
+     здесь уже есть, и простое padding-left: env() его бы затёрло.
+     max() берёт больший из двух — на десктопе это 24px, как было. */
+  padding-left: max(var(--space-6), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--space-6), env(safe-area-inset-right, 0px));
   border-top: 1px solid var(--border);
   /* v5.5.0 A1: было .82rem = 13.12px, ниже порога читаемости 14px.
      Подвал — единственное место, где кегль был задан на весь текст,
