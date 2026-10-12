@@ -98,7 +98,7 @@
 | TR-P1-01…04 | `prefers-color-scheme`, manifest id/shortcuts/screenshots, `:focus-visible`, DuckDB 1.5.6 | [trends](audits/trends.md) |
 | SK-P1-01 | `release-check` без приоритетов/действий | [skills](audits/skills.md) |
 | SK-P1-02 | Скиллы ссылаются на устаревшие отчёты | [skills](audits/skills.md) |
-| SK-P1-03 | `cyberaudit`: многострочный `description`, нет лицензии | [skills](audits/skills.md) |
+| SK-P1-03 | `cyberaudit`: многострочный `description` | [skills](audits/skills.md) |
 
 ### P2 (83)
 
