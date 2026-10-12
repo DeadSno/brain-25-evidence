@@ -176,7 +176,7 @@ self.addEventListener('activate', event => {
    файлах. Без бампа activate не почистит старый v91-static, и все новые
    стили --icon-*, плашки и переопределения светлой темы остались бы в
    старом кэше у всех, кто уже посещал сайт. */
-var CACHE_VERSION = 'v92';
+var CACHE_VERSION = 'v93';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
