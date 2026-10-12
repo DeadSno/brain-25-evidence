@@ -14,7 +14,28 @@
 <meta property="og:image" content="https://deadsno.github.io/brain-25-evidence/og.png"/>
 <meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#1c1c1e" media="(prefers-color-scheme: dark)">
-<script>try{if(localStorage.getItem('theme')==='light'){document.addEventListener('DOMContentLoaded',function(){document.body.classList.add('light')})}else{document.addEventListener('DOMContentLoaded',function(){document.body.classList.add('light')})}}catch(e){document.addEventListener('DOMContentLoaded',function(){document.body.classList.add('light')})}</script>
+<script>
+// v5.6.3: вместо трёх одинаковых веток if/else/catch, каждая из которых
+// безусловно вешала light на body. Разница была не косметическая: ниже,
+// в локальном style-блоке на строках 94-95, есть единственное во всём
+// проекте правило `body.light header.top .site-title` — все 66 остальных
+// темных правил разметки в style.css завязаны на `html.light`.
+// То есть этот блок красил заголовок хедера в светлый #1c1c1e тёмному
+// посетителю, и снимал цвет только когда initApp() доходил до
+// setTheme(getTheme()) — то есть после Promise.all из двух fetch.
+// На медленной сети заголовок оставался тёмным по цвету на тёмном фоне.
+// Теперь ровно то, что в faq.html:29-41 и index.html — класс на body
+// ставится только по выбору пользователя, и подпись кнопки обновляется
+// сразу, не дожидаясь загрузки данных.
+try {
+  document.addEventListener('DOMContentLoaded', function () {
+    var light = localStorage.getItem('theme') === 'light';
+    if (light) { document.body.classList.add('light'); }
+    var b = document.getElementById('themeBtn');
+    if (b) b.textContent = light ? '🌙 Тёмная тема' : '🌞 Светлая тема';
+  });
+} catch (e) {}
+</script>
 <script>
 // v5.4.0 (dark-first): тёмная тема — это ОТСУТСТВИЕ класса light.
 // До загрузки CSS ничего добавлять не нужно: :root уже тёмный.
