@@ -33,7 +33,10 @@
        ?v=414 — бампер подняли в них, а шаблон остался позади, и любой
        перезапуск build_sup.py откатывал его на всей секции. Комментарий
        на Jinja, а не HTML: иначе он попал бы в 130 страниц и сдвинул их
-       побайтово. Приведено к тому, что реально лежит в docs/sup/*.html. #}<link rel="stylesheet" href="../style.css?v=423">
+       побайтово. Приведено к тому, что реально лежит в docs/sup/*.html.
+       v5.6.4 D7: повтор того же — в шаблоне было ?v=423, на всех 131
+       странице лежит ?v=425. Поднято до 425 перед перегенерацией, иначе
+       прогон откатил бы бампер на всей секции. #}<link rel="stylesheet" href="../style.css?v=425">
     <script src="../version.js?v=312"></script>
     <script src="../pwa.js?v=282" defer></script>
 <script src="../share.js?v=1" defer></script>
@@ -61,12 +64,12 @@
   <div class="trustbar">🧬 Открытые данные · Бесплатно · Без рекламы</div>
   <header class="top">
     <div class="site-title"><a href="../index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a></div>
-    <div class="actions">
+    <nav class="actions" aria-label="Главная навигация">
       <a class="btn c-home" href="../index.html">🏠 Главная</a>
       <a class="btn c-feedback" href="../feedback.html">💬 Обратная связь</a>
       <a class="btn c-support" href="../support.html">💚 Поддержать</a>
       <button class="btn" id="themeBtn">🌞 Светлая тема</button>
-    </div>
+    </nav>
   </header>
 </div>
 
