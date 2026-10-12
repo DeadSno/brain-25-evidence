@@ -2035,6 +2035,30 @@ html.light #atl-sidebar .cta { background:var(--info-fill) }
    --accent-2 в светлой теме не объявлен намеренно (комментарий
    Шага 8.4), поэтому правило и ограничено тёмной. */
 html:not(.light) #cookieBanner .cb-text a { color: var(--accent-2); }
+/* v5.6.4 (A11Y-P1-01 / MOB-P2-01 / MOB-P2-02 / MOB-P2-03 /
+   MOB-P2-06 / MOB-P2-10): единое правило тап-таргетов.
+   - input: у <select> min-height:44px уже был (стр. 365),
+     кроме него были только 7 полей: #q (atlas, calculator),
+     #pWeight, #pAge, #search (index, interactions),
+     #supSearch. Из них 3 - number, у них 36.4px.
+     checkbox/radio в разметке не встречаются (0 шт.), range,
+     color и file исключены: нативный вид не ломаем.
+   - label[for]: подписи к контролам были 19-20px. Исключаем
+     .sr-only (визуально скрыт, получил бы 44px невидимый
+     оверлей, перехватывающий клики - 8 таких на сайте) и
+     label без for (4 на trends.html: оборачивают <select>
+     внутрь себя, это не тап-таргеты, inline-flex сломал бы
+     раскладку .filters).
+   - .site-title > a: логотип был 25-26px на 136 страницах. */
+input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]):not([type="file"]),
+textarea { min-height: 44px; }
+label[for]:not(.sr-only) {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  min-width: 44px;
+}
+header .site-title > a { min-height: 44px; }
 #cookieBanner .cb-actions { display: flex; gap: var(--space-2); flex: 0 0 auto; }
 #cookieBanner .cb-btn {
   padding: var(--space-2) var(--space-4);
