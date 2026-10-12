@@ -176,6 +176,11 @@ self.addEventListener('activate', event => {
    файлах. Без бампа activate не почистит старый v91-static, и все новые
    стили --icon-*, плашки и переопределения светлой темы остались бы в
    старом кэше у всех, кто уже посещал сайт. */
+/* Бамп v93 -> v94: safe-area inset по горизонтали (MOB-P2-08).
+   padding-left/right в header, .site-footer и #toTop больше не уходят
+   под вырез. В ссылках на style.css ?v поднят с 427 на 428 в 144
+   файлах. Без бампа activate не почистит старый v93-static, и правка
+   осталась бы в кэше у всех, кто уже был на сайте. */
 var CACHE_VERSION = 'v94';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
