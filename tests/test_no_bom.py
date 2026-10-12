@@ -12,20 +12,75 @@
 8 страниц с двойным BOM рендерились в quirks mode, где ячейки таблиц
 теряли наследованный line-height, body не уважал max-width, а
 meta viewport уезжал в body и игнорировался.
+
+v5.6.3: два расширения покрытия (ROADMAP #46)
+-------------------------------------------
+1. **Обход стал рекурсивным.** Раньше сканировались только docs/*.html,
+   docs/sup/*.html, docs/*.js, docs/*.css — верхний уровень плюс sup.
+   Вне охвата оставались docs/vendor/ (4 файла, включая chart.js и
+   bootstrap, которые реально грузятся страницами), docs/dev/ (9),
+   docs/adr/ (6), docs/briefs/ (12). Правило «канон — 0 BOM» на
+   отгружаемый вендор не распространялось.
+
+2. **Добавлены типы файлов, которые читает браузер.** .json (21),
+   .webmanifest, .xml (sitemap и feed), .txt, .md, .yaml, .bpmn.
+   Раньше их не видел даже self-check (test_bom_scan_covers_
+   everything_the_project_ships), который проверял ровно тот же
+   список, который и писал, — то есть был тавтологией: покрытие
+   изменить было нечем. Теперь self-check сверяется с тем, что
+   реально лежит в docs/, и любой новый тип обязан быть либо
+   объявлен текстовым, либо попасть в KNOWN_BINARY.
+
+Сам тест прошёл при первом же прогоне с расширенным охватом: BOM в
+docs/ нет ни в одном файле, включая вендор.
 """
 from pathlib import Path
 
 DOCS = Path(__file__).resolve().parent.parent / "docs"
 BOM = b"\xef\xbb\xbf"
 
-PATTERNS = ("*.html", "sup/*.html", "*.js", "*.css")
+#: Типы файлов, которые браузер или его инструменты читают как текст.
+#: BOM в каждом из них ломает разбор: JSON.parse ругается на U+FEFF,
+#: XML-парсеры считают документ битым, шаблон получает \ufeff в тексте.
+TEXT_SUFFIXES = {
+    ".html", ".css", ".js",
+    ".json", ".webmanifest", ".xml", ".txt", ".md", ".yaml", ".bpmn",
+}
+
+#: Типы, где BOM невозможен по построению — проверять бессмысленно.
+KNOWN_BINARY = {".png", ".woff2"}
+
+#: Файлы без расширения. pathlib у `.nojekyll` возвращает suffix == '',
+#: потому что имя целиком начинается с точки, — такие имена проверяются
+#: отдельно, иначе self-check ругался бы на пустую строку.
+KNOWN_DOTFILES = {".nojekyll"}
+
+#: Хвосты мусорных бэкапов (13 файлов *.bak-<метка>). Их расширение
+#: уникально для каждого файла, поэтому в набор они не попадают.
+#: Список — предмет junk guard, а не проверки кодировки.
+JUNK_MARKER = ".bak-"
 
 
-def _files(patterns=PATTERNS):
-    for pattern in patterns:
-        for f in sorted(DOCS.glob(pattern)):
-            if f.is_file():
-                yield f
+def _has_bom(f: Path) -> bool:
+    """Читает только первые 3 байта.
+
+    Раньше было f.read_bytes()[:3] — это читает файл ЦЕЛИКОМ, чтобы
+    отбросить хвост. На docs/data.json и соседях это десятки мегабайт
+    на каждый прогон ради трёх байт.
+    """
+    with f.open("rb") as fh:
+        return fh.read(3) == BOM
+
+
+def _files(suffixes=None):
+    wanted = TEXT_SUFFIXES if suffixes is None else suffixes
+    for f in sorted(DOCS.rglob("*")):
+        if not f.is_file():
+            continue
+        if JUNK_MARKER in f.name:
+            continue
+        if f.suffix.lower() in wanted:
+            yield f
 
 
 def _rel(f: Path) -> str:
@@ -33,7 +88,7 @@ def _rel(f: Path) -> str:
 
 
 def test_no_bom_in_docs():
-    offenders = [str(_rel(f)) for f in _files() if f.read_bytes()[:3] == BOM]
+    offenders = [str(_rel(f)) for f in _files() if _has_bom(f)]
     assert not offenders, (
         f"BOM найден в {len(offenders)} файлах — нарушение P27 "
         f"(«UTF-8 no BOM only»):\n" + "\n".join(f"  {f}" for f in offenders)
@@ -43,8 +98,9 @@ def test_no_bom_in_docs():
 def test_no_double_bom_in_docs():
     """Двойной BOM ломает разбор документа (quirks mode)."""
     offenders = []
-    for f in _files(("*.html", "sup/*.html")):
-        raw = f.read_bytes()
+    for f in _files({".html"}):
+        with f.open("rb") as fh:
+            raw = fh.read(4096)
         n = 0
         i = 0
         while raw[i:i + 3] == BOM:
@@ -72,8 +128,9 @@ def test_doctype_not_shadowed_in_docs():
     требуется только настоящим документам.
     """
     broken = []
-    for f in _files(("*.html", "sup/*.html")):
-        raw = f.read_bytes()
+    for f in _files({".html"}):
+        with f.open("rb") as fh:
+            raw = fh.read(4096)
         if b"<html" not in raw.lower():
             continue                      # не страница (токен верификации)
         if not raw[:64].lstrip().lower().startswith(b"<!doctype html"):
@@ -85,10 +142,63 @@ def test_doctype_not_shadowed_in_docs():
 
 
 def test_bom_scan_covers_everything_the_project_ships():
-    """Скан не должен молча пропускать новые типы файлов."""
-    checked = {f.suffix for f in _files()}
-    assert checked == {".html", ".js", ".css"}, (
-        f"Набор расширений изменился: {sorted(checked)}. Если появился "
-        f"новый тип (например .json в docs/), добавь его в PATTERNS — "
-        f"иначе проверка P27 останется слепой к нему."
+    """Каждый тип файла в docs/ либо сканируется, либо объявлен бинарным.
+
+    До v5.6.3 проверка сравнивала охват с константой, которую сама же
+    и использовала для скана, — то есть всегда проходила и не могла
+    упасть. Теперь эталон берётся с диска.
+    """
+    present: set[str] = set()
+    dotfiles: set[str] = set()
+    for f in DOCS.rglob("*"):
+        if not f.is_file() or JUNK_MARKER in f.name:
+            continue
+        (dotfiles.add(f.name) if not f.suffix else present.add(f.suffix.lower()))
+
+    unscanned = sorted(present - TEXT_SUFFIXES - KNOWN_BINARY)
+    assert not unscanned, (
+        f"Типы файлов в docs/, которые скан BOM не покрывает: "
+        f"{', '.join(unscanned)}. Если тип читается как текст — добавь его "
+        f"в TEXT_SUFFIXES. Если это бинарный файл — в KNOWN_BINARY, "
+        f"чтобы решение было записано, а не подразумевалось."
+    )
+
+    unknown_dotfiles = sorted(dotfiles - KNOWN_DOTFILES)
+    assert not unknown_dotfiles, (
+        f"Файлы без расширения, которые скан BOM не покрывает: "
+        f"{', '.join(unknown_dotfiles)}. Добавь их в KNOWN_DOTFILES, "
+        f"если они бинарные."
+    )
+
+    # Обратная проверка: объявленный текстовый тип должен реально
+    # существовать, иначе скан тихо пустеет после удаления папки.
+    absent = sorted(t for t in TEXT_SUFFIXES if not any(
+        f.suffix.lower() == t for f in DOCS.rglob("*") if f.is_file()))
+    assert not absent, (
+        f"TEXT_SUFFIXES объявляет типы, которых в docs/ нет: "
+        f"{', '.join(absent)}. Убери их или добавь файлы."
+    )
+
+
+def test_bom_scan_actually_reads_the_expected_number_of_files():
+    """Страховка от молчаливого схлопывания охвата в ноль.
+
+    Тот же класс ошибок, что test_no_orphan_classes.py страхуется числом
+    страниц: если rglob перестанет что-то находить, все три проверки
+    выше станут зелёными, не проверив ни одного файла. Замер 2026-10-12:
+    237 файлов (было 158 при нерекурсивном обходе). Нижняя граница 200
+    означает: падение ниже неё — обход сломан, а не файлы удалили.
+    """
+    scanned = list(_files())
+    n = len(scanned)
+    assert n >= 200, (
+        f"Скан BOM прочитал {n} файлов, ожидалось не меньше 200. "
+        f"Обход, скорее всего, сломан — проверки выше в этом случае "
+        f"зелёные вхолостую."
+    )
+    # Отдельно: вендор обязан быть в охвате. Именно его не видел
+    # прежний нерекурсивный вариант, и именно он грузится страницами.
+    assert any(f.parent.name == "vendor" for f in scanned), (
+        "docs/vendor/ не попал в скан. Прежний вариант PATTERNS был "
+        "нерекурсивным и вендор не проверял вообще."
     )
