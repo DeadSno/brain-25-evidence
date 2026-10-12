@@ -2,7 +2,10 @@ pytest
 pandas
 numpy
 requests
-openpyxl
+# openpyxl удалён 12.10.2026 (§28): ни одного импорта и ни одного
+# to_excel/read_excel в репозитории. Косвенно нужен был только для
+# выгрузки, которой в проекте нет. Подтверждено также отчётом
+# reports/audits/perf.md и разделом «Закрыто» в v5.6.1.
 # Снапшоты (tests/test_visual_snapshots.py). Браузеры ставятся отдельно:
 # python -m playwright install chromium webkit
 Pillow
