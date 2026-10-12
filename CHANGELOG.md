@@ -2,6 +2,153 @@
 
 Все значимые изменения проекта. Формат: [Keep a Changelog](https://keepachangelog.com/ru/1.0.0/).
 
+## [v5.6.3] — 2026-10-12
+
+Версия заведена в `docs/version.json` (`app: 5.6.3`). Тег не поставлен —
+это решение владельца, ветка `v5.6-dev` не мержится в `main`.
+
+Смысл версии: закрыть 5 регрессий (волна R), 8 техдолгов (волна D), привести
+в порядок скиллы (волна S) и разложить `reports/` по полкам. Подробности —
+`reports/AUDIT_MASTER.md`, отчёты в `reports/audits/`.
+
+### Добавлено
+
+- `.opencode/skills/CONVENTIONS.md` — единые правила написания скиллов (+66),
+  `SKILLS_INDEX.md` переписан (+77)
+- Мета-скилл `.opencode/skill-audit/SKILL.md` (62 строки)
+- `.githooks/pre-commit` + `git config core.hooksPath` — хук больше не зависит
+  от ручной установки в `.git/hooks` на каждой машине
+- `reports/AUDIT_MASTER.md` — единая точка входа по аудиту проекта
+- 11 отчётов в `reports/audits/`: a11y, data, html-css, js, legal, mobile, perf,
+  i18n, seo, trends, skills
+- `reports/SKILLS_INVENTORY.md` — инвентаризация 20 скиллов
+- `reports/STAGE_R1R2.md`, `reports/CONSOLIDATION.md`, `reports/PRE_MERGE_CHECK.md`
+- Гейт pre-commit против мусора `_tmp_*`; артефакты a11y в `.gitignore`
+
+### Изменено
+
+- Консолидация `reports/`: 172 `.md` верхнего уровня → 4 (+ 5 новых сводных);
+  169 файлов перенесены в `reports/archive/v51/` (40) и `reports/archive/v56/`
+  (129). **Удалено 0 файлов**
+- `AUDIT_MASTER.md` переписан: остались индекс и список открытых находок
+  (138 открытых / 71 закрытая), §1–§29 и приложения A–D убраны
+- 12 устаревших `SKILL.md` переписаны; `data-validation` слит с `data-audit`
+  (16 файлов, +143/−428). Фактически скиллов **20** — в `AGENTS.md` указано
+  19, устарело на `skill-audit`
+- `templates/sup.html.j2`: блок `forms` больше не выводится пустым
+- `docs/style.css`: хардкод `#1f6fa5` (4 места) → `var(--info-fill)`,
+  переменная объявлена в `:root` с комментарием-обоснованием
+- Этап 8A: `docs/version.json` приведён к факту (`app: 5.6.3`, `tests: 1079`),
+  `requirements.txt` — к фактическим зависимостям, `README.md` — 8 строк
+  (2 файла, +9/−13)
+
+### Исправлено
+
+- **R1 — главная регрессия.** `pytest_collection_modifyitems`
+  (`tests/conftest.py`) отключал маркировки `snapshots` / `a11y` / `tabs` /
+  `graph` срезом списка `items[:] = [...]`, а не skip. `pytest -q` показывал
+  «878 passed», а из 1079 собранных выполнялось 880 — **199 тестов исчезали
+  молча**. Заменено на `item.add_marker(pytest.mark.skip(...))`
+- **R3** — находка DATA-P2-01 переформулирована: `hedges_g_ci = null` у 48
+  карточек это by design (`scripts/fetch_hedges_g.py:183` пишет
+  `best.get("ci")`), данные не терялись, правки в данных не требуются
+- **Волна D — 8 фиксов по одному коммиту, `pytest` после каждого:**
+  #49 `newline="\n"` при записи файлов, #51 шкала z-index из 10 переменных
+  в `:root`, #45 skip-if-empty для COI, #52 ключи guard по паре
+  «файл + текст guard'а», #43 `.cat opacity .55 → 1`, #47 инлайновая opacity
+  → CSS-переменная, #48 axe по скрытым панелям, #40 `forms` в sup-шаблоне
+- **#103** — pre-commit перенесён в `.githooks/`: раньше работал только
+  на машинах, где хук был установлен вручную
+
+### Технические работы
+
+- **R2** — `aria-live`: регрессия оказалась ложной (искали не тот поиск),
+  правок нет, запись в `reports/audits/a11y.md`
+- **R5** — инвентаризация скиллов и рекомендации (`reports/SKILLS_INVENTORY.md`)
+- Эталоны PNG и база axe **не переснимались** — волна D ограничена кодом
+- Чистка снапшотов + `AUDIT_MASTER` §27
+- Pre-merge check `main` vs `v5.6-dev` (`reports/PRE_MERGE_CHECK.md`)
+- Приёмка: `pytest -q` — **878 passed, 201 skipped**, 1079 собрано
+
+---
+
+## [v5.6.2] — 2026-10-12
+
+Версия не помечена отдельным тегом: `docs/version.json` держит одну строку
+`app` и уже переведён на 5.6.3. Решение владельца — ветка `v5.6-dev` не
+мержится в `main`.
+
+Смысл версии: масштабирование до 130 карточек supplements плюс правовые
+и структурные требования (лендмарк навигации, нативные диалоги, 152-ФЗ).
+
+### Добавлено
+
+- Яндекс.Метрика: счётчик + `docs/metrika.js`, cookie-баннер `div#cookieBanner`,
+  страница `privacy.html`
+- 56 карточек БАД: `SUPPLEMENTS` 74 → 130 в `src/config.py` (сверено:
+  `docs/data.json` 130 == `data/papers/paper_supplement.json` 130)
+- Лендмарк навигации в шапке 13 корневых страниц: `<nav class="actions">`
+  получил `aria-label`, решение по раскладке — `.actions-nav { display: contents }`
+- `dir="ltr"` на `<html>` 130 страниц supplements (131 файл вместе с
+  `sup/index.html`)
+- Типографическая шкала h1–h5, `overflow-wrap`, `font-scale`, spacing-шкала
+  (`docs/style.css` 1857 → 1947 строки)
+- `@media (hover:hover)` для 25 критичных `:hover`-правил из 36 найденных
+- `sitemap.xml` и `feed.xml`; `privacy.html` внесён в `ROOT_PAGES` генератора
+  sitemap
+- Инфраструктура safe-area под home-индикатор iOS
+- Индикатор загрузки `#loadingBar` на тяжёлых страницах
+
+### Изменено
+
+- Форма обратной связи: Web3Forms → **Яндекс Формы** (`feedback.html`),
+  убраны скрытые `access_key` / `subject` / `from_name`, honeypot `botcheck`
+  и поле `fStatus`
+- Согласие на обработку email вынесено в `privacy.html`; формулировки
+  приведены к юридической точности по 152-ФЗ
+- `RETMAX` 500 → 2000 (`src/config.py`) — обход больших наборов источников
+- 4 вызова `prompt()` / `confirm()` → `<dialog>`: `atlas.html` #shareBtn,
+  `calculator.html` #clearBtn / #shareTextBtn / #shareBtn;
+  `navigator.clipboard.writeText` обёрнут в `.catch()`
+- Шаблоны `templates/sup.html.j2` синхронизированы с реальными страницами
+  131/131: cookie-баннер, подключение `cookie-banner.js` / `metrika.js` +
+  `initCookieBanner()`, ссылка `privacy.html`, бампер `?v=414` → `?v=423`
+- Убраны 131 устаревший HTML-комментарий `<!-- v5.6.2 … -->` из шаблонов
+  (Jinja-комментарии в вывод не попадают)
+- Мобильная шапка: `.actions nowrap`, `:active`, `min-width: 0` (+27/−21
+  в `docs/style.css`)
+- `main h1` — разрыв с h2 был 0.8 px (21.6 против 21.5)
+- Порядок элементов в шапке и дубли логотипа на 13 корневых страницах.
+  Страницы `sup/*.html` (130) на этом этапе не трогались, `style.css`
+  и JS не менялись
+
+### Исправлено
+
+- Правки UI по батчам: скролл графа (P0), тап-таргеты, компактная шапка,
+  отображение COI, поиск по PMID, токен `h2`, обращение к несуществующей
+  переменной `--panel`
+- `<select>` без тем (#94), маска ввода (#95)
+- Модалка: убрана лишняя роль и ловушка фокуса
+- Десинхронизация конфигурации Метрики между страницами (§22 аудита)
+- `privacy.html` отсутствовал в `ROOT_PAGES` — CI падал на 143 страницах
+  вместо 144
+
+### Технические работы
+
+- Этап 1A-1 — мобильная шапка (тап-таргеты, `min-width: 0`)
+- Этап 1A-2 — `@media (hover:hover)` для 25 правил
+- Этап 1B — типографика (шкала h1–h5, переносы, spacing)
+- Этап 1C — a11y и i18n (6 правок, включая `main h1`)
+- Этапы 2–7 — HTML-структура, диалоги, данные, шаблоны, supplements
+- Этап 8A — `docs/version.json`, `requirements.txt`, `README.md`
+  (2 файла, +9/−13)
+- Эталоны снапшотов пересобраны (71 шт.), база a11y — на этапе 1B
+- Приёмка по этапам: `822 passed, 2 skipped` (последний зафиксированный
+  прогон в отчётах v5.6.2)
+- Отчёты этапов: `reports/archive/v56/STAGE*.md`
+
+---
+
 ## [v5.6.1] — 2026-10-06
 
 Версия заведена в `docs/version.json` (`app: 5.6.1`). Тег не поставлен —
