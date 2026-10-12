@@ -38,6 +38,14 @@
   --lh-tight: 1.2;
   --lh-normal: 1.5;
   --lh-loose: 1.6;
+  /* v5.6.3: 1.25 стоял литералом в двух местах (заголовок хедера и
+     main h1). Значение НЕ приводится к --lh-tight — это другая
+     плотность, её держали сознательно (см. комментарий у main h1 —
+     «остались и подтверждены замером… их не трогали»). Долг был не
+     в значении, а в литерале: замена на плотную ступень сдвинула бы
+     заголовки на всех 144 страницах и уронила бы визуальные эталоны.
+     Поэтому это отдельная ступень шкалы, а не округление. */
+  --lh-title: 1.25;
 
   /* ── Шаг 7: радиусы и тени ── */
   --radius-sm: 4px;
@@ -1353,7 +1361,7 @@ html.light .filterLabel { opacity: .85; }
   header.top > .site-title {
     grid-area: title !important;
     font-size: 1.25rem !important;
-    line-height: 1.25 !important;
+    line-height: var(--lh-title) !important;
     margin: 0 !important;
     white-space: normal !important;
     overflow: visible !important;
@@ -1864,7 +1872,7 @@ header.top > .site-title > a, header.hdr > .site-title > a { display: inline-fle
    остались и подтверждены замером: они не каскад h1, а частные решения — их
    не трогали. */
 main h1 { font-weight: 700 !important;
-  line-height: 1.25 !important; margin: 0 0 .8rem !important; color: var(--text) !important; }
+  line-height: var(--lh-title) !important; margin: 0 0 .8rem !important; color: var(--text) !important; }
 
 /* ===== sup/* страницы (5 файлов) — вынесено из локальных <style>
    Набор был побайтово идентичен на всех пяти (sha256 совпал), поэтому
