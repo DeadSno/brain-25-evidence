@@ -5,8 +5,8 @@
 | **Тип** | mobile — адаптивность, тап-таргеты, safe-area, скролл, ориентация |
 | **Источники** | `audit_B_mobile-deep.md`, `AUDIT_93_MOBILE.md`, `audit_93_a_webkit45.md`…`audit_93_e_orientation.md`, `STAGE1A1_MOBILE.md`, `STAGE1A2_HOVER_PNGBTN.md`, `STAGE1C_A11Y_I18N.md` |
 | **Консолидация** | 11.10.2026, ветка `v5.6-dev` |
-| **Открыто** | P1 — 1, P2 — 13 |
-| **Закрыто** | P0 — 1, P1 — 6 |
+| **Открыто** | P1 — 1, P2 — 12 |
+| **Закрыто** | P0 — 1, P1 — 6, P2 — 1 |
 
 ---
 
@@ -25,8 +25,7 @@
 | MOB-P2-01 | `input#search` высота 24 px | `docs/*.html` | AUDIT_93 |
 | MOB-P2-02 | `#pWeight`/`#pAge` 36.4 px | `docs/calculator.html` | AUDIT_93 |
 | MOB-P2-03 | `label` 19–20 px | `docs/` | AUDIT_93 |
-| MOB-P2-04 | Кнопка `BI↗` 38.3 px | `docs/` | AUDIT_93 |
-| MOB-P2-05 | Ссылки футера «глоссарии»/«методологии» 15 px | `docs/sup/*.html`, `docs/index.html` | AUDIT_93 |
+| MOB-P2-04 | Кнопка `BI↗` 38.3 px ⚠️ **находка устарела** — замеряется 44 px (`.btn` уже даёт `min-height:44px`) | `docs/` | AUDIT_93; помечено в `WAVE_D_FAST.md:133` |
 | MOB-P2-06 | `input#supSearch` 24 px | `docs/sup/index.html` | AUDIT_93 |
 | MOB-P2-07 | Бейджи sup-index 11.2–11.52 px | `docs/sup/index.html` | AUDIT_93 |
 | MOB-P2-08 | Нет `env(safe-area-inset-left/right)` | `docs/style.css` | AUDIT_93 |
@@ -57,6 +56,12 @@
 | MOB-P1-06 | Safe-area skip-link под Dynamic Island (D-1) — `padding-top: env(safe-area-inset-top)` | `756a2d0` | 10.10.2026 |
 | MOB-P1-07 | `.actions` не помещался на 375 px (`flex-shrink:0` + `nowrap`) | `d8253bb` | 10.10.2026 |
 
+### P2
+
+| ID | Находка | Коммит | Дата |
+|---|---|---|---|
+| MOB-P2-05 | Ссылки «глоссарии»/«методологии» в `p.hint` (`sup/index.html`) 71×17 / 90×17 и `p.method-footer` (`trends.html`) 111×16 / 57×16 → `min-height:44px` | `f7b56c6` | 12.10.2026 |
+
 ---
 
 ## Примечания
@@ -66,3 +71,8 @@
 - `.toBottom` чист «по случайности»; `P2-12`/`P2-13` — косметика/манифест.
 - read-only аудиты; правок не вносили.
 - Пересечение с `audits/a11y.md` (A11Y-P1-01 тап-таргеты) — общий корень.
+- 12.10.2026 (волна D_FAST_2): MOB-P2-05 переведён в «Закрыто» — `f7b56c6`. До этого он
+  числился закрытым по MOB-P1-02 (футер), но `p.hint` и `p.method-footer` оставались под
+  порогом; реоткрыт в D_FAST, закрыт в D_FAST_2.
+- MOB-P2-04 помечен устаревшим (не переносился в «Закрыто»): замер 44 px сделан в D_FAST,
+  отдельного коммита на правку нет — перенос требует ещё одной волны правок документов.
