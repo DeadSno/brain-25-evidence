@@ -171,7 +171,12 @@ self.addEventListener('activate', event => {
    плюс sup/index.html). Без бампа activate не почистит старый v84-static,
    и удалённые из STATIC_ASSETS файлы остались бы в кэше навсегда. */
 
-var CACHE_VERSION = 'v91';
+/* Бамп v91 -> v92 обязателен по правилу из шапки файла: правки контраста
+   в style.css (#44), в ссылках на него ?v поднят с 425 на 426 в 144
+   файлах. Без бампа activate не почистит старый v91-static, и все новые
+   стили --icon-*, плашки и переопределения светлой темы остались бы в
+   старом кэше у всех, кто уже посещал сайт. */
+var CACHE_VERSION = 'v92';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
