@@ -31,7 +31,7 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=425">
+<link rel="stylesheet" href="style.css?v=426">
 <script>
   try {
     document.addEventListener('DOMContentLoaded', function () {
@@ -92,7 +92,7 @@ try {
   .top{display:flex;justify-content:space-between;align-items:center;gap:var(--space-4);flex-wrap:wrap}
   .top .site-title{font-size:1.45rem;margin:var(--space-0-2) 0}
   .top a{color:inherit;text-decoration:none}
-  #stats{opacity:.6;font-size:.85rem;margin:var(--space-0-3) 0 0}
+  #stats{opacity:.85;font-size:.85rem;margin:var(--space-0-3) 0 0}
   #q{padding:var(--space-2) .8rem;border:1px solid var(--aborder);border-radius:var(--radius-lg);background:var(--apanel);color:var(--atext);min-width:220px}
   #themeBtn{padding:var(--space-2) .8rem;border:1px solid var(--aborder);border-radius:var(--radius-lg);background:var(--apanel);color:var(--atext);cursor:pointer}
   .cols{
@@ -104,6 +104,10 @@ try {
   .list{height:100%;overflow:auto;padding-right:.4rem}
   .cat h3{font-size:1rem;text-transform:uppercase;letter-spacing:.06em;opacity:.55;margin:.8rem 0 .35rem;cursor:pointer;user-select:none}
   .cat h3:hover{opacity:.9}
+  /* v5.6.4 (#44): подзаголовок категории. При .55 тёмно-серый текст на
+     светлой панели даёт 3.72:1; в тёмной теме те же .55 дают 5.55:1,
+     поэтому базовое правило остаётся как есть. */
+  html.light .cat h3{opacity:.9}
   .cat.closed .chip{display:none!important}
   .chip{display:inline-block;margin:0 var(--space-0-3) var(--space-0-3) 0;padding:.32rem .65rem;border:1px solid var(--aborder);border-radius:var(--radius-pill);cursor:pointer;font-size:.82rem;background:var(--apanel);color:var(--atext)}
   .chip:hover{border-color: var(--border-hover)}
@@ -133,7 +137,7 @@ try {
   .chainbox a{color:var(--info-tx)}
   .sim{margin-top:1.2rem;padding-top:.9rem;border-top:1px dashed var(--aborder);animation:rise .4s ease both}
   .sim h4{margin:var(--space-0-2) 0 var(--space-2);opacity:.75}
-  kbd{border:1px solid var(--aborder);border-radius:var(--radius-sm);padding:0 var(--space-0-3);font-size:.75rem;opacity:.7}
+  kbd{border:1px solid var(--aborder);border-radius:var(--radius-sm);padding:0 var(--space-0-3);font-size:.75rem}
   /* ── Overlay details ─────────────────────────────── */
 #details-backdrop {
   position: fixed; inset: 0;
@@ -330,9 +334,9 @@ footer { font-size: 1rem !important; }
   <h1>Карта механизмов</h1>
 
   <p id="stats"></p>
-  <p style="opacity:.65;margin:.4rem 0 0">Выбери добавку слева — справа её цепочка: вещество → молекулярная мишень → эффект. <kbd>↑</kbd><kbd>↓</kbd> навигация, <kbd>/</kbd> поиск, <kbd>Esc</kbd> сброс.</p>
+  <p style="opacity:.85;margin:.4rem 0 0">Выбери добавку слева — справа её цепочка: вещество → молекулярная мишень → эффект. <kbd>↑</kbd><kbd>↓</kbd> навигация, <kbd>/</kbd> поиск, <kbd>Esc</kbd> сброс.</p>
   <div class="cols">
-    <div class="list" id="list"></div>
+    <div class="list" id="list" tabindex="0"></div>
     <div class="chainbox" id="chain"></div>
   </div>
 </main>

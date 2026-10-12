@@ -43,6 +43,18 @@ wcag2a / wcag2aa / wcag2aaa / wcag21a / wcag21aa / wcag22aa:
     правила AAA   — пишутся в отчёт, в вердикт не входят;
     исчезнувшие правила — сообщаются как «исправлено», падением не являются.
 
+Темы (#44, часть B)
+-------------------
+    Гейт меряет обе темы: 17 страниц × 2 разрешения × 2 темы + offline × 2
+    разрешения (у него нет переключателя темы) = 70 прогонов. Ключ базы —
+    `<page>-<width>-<theme>`; переезд старых 36 ключей на `-dark` сделан
+    переименованием, без пересъёмки: значения те же, тема та же.
+
+    Первый прогон light дал 688 узлов A/AA против 46 в тёмной базе. Причина
+    одна и общая — приём `opacity` в style.css, а не палитра: см.
+    reports/WAVE_D_44_AXE.md. База light не переснята осознанно: сначала
+    решение владельца о том, чинить ли контраст или фиксировать цифрами.
+
 Числа узлов сняты один раз и лежат в tests/a11y_baseline.json. Переснимать
 базу можно только осознанно:
 
@@ -160,11 +172,72 @@ def _baseline() -> dict:
     return json.loads(BASELINE_PATH.read_text(encoding="utf-8"))
 
 
+# ─────────────────────────── тема ───────────────────────────
+
+#: Темы, по которым параметризуется прогон. Светлая тема задаётся так же, как
+#: страница её читает: `localStorage['theme'] === 'light'` (docs/script.js:233,
+#: копия этого кода в <head> каждой страницы). Тёмная — отсутствие значения:
+#: v5.4.0 dark-first, `html.light` просто не ставится.
+#:
+#: Скрипт инжектится через add_init_script, то есть ДО любого скрипта страницы:
+#: класс `light` появляется синхронно в <head>, до подключения style.css, без
+#: вспышки тёмного. Прецедент в проекте есть — CONSENT_INIT_JS в
+#: test_visual_snapshots.py:280. Клик по #themeBtn для этого не годится: он
+#: срабатывает после DOMContentLoaded, оставляя полосу «мигания» в момент
+#: первой отрисовки, и добавляет ненадёжный элемент синхронизации.
+THEMES = ("dark", "light")
+
+#: Страницы, у которых нет переключателя темы. offline.html — измерено, а не
+#: предположено: в нём нет ни скрипта темы, ни класса `light`, тёмная тема
+#: задана только через `@media (prefers-color-scheme: dark)` (offline.html:35).
+#: Запись в localStorage для него бесполезна — страница её не читает, и прогон
+#: в light измерял бы ТОТ ЖЕ тёмный/светлый результат, что и dark. Не «исключить
+#: навсегда», а честно не измерять вторую копию: light для offline получится,
+#: когда у него появится переключатель (или решится, чем он управляется).
+NO_THEME_PAGES = frozenset({"offline"})
+
+
+def _themes_for(page_name: str) -> tuple[str, ...]:
+    """Темы, которые осмысленно меряем на странице."""
+    return ("dark",) if page_name in NO_THEME_PAGES else THEMES
+
+
+def _theme_init_js(theme: str) -> str | None:
+    """Скрипт, задающий тему до загрузки страницы. None — задавать нечего."""
+    if theme == "dark":
+        return None          # свежий контекст и так тёмный
+    if theme == "light":
+        return "try{localStorage.setItem('theme','light')}catch(e){}"
+    raise ValueError(f"неизвестная тема: {theme!r}")
+
+
+def _assert_theme(page, theme: str) -> None:
+    """Тема обязана реально примениться: светлая — это класс `light` на <html>.
+
+    Проверка на живой странице, а не «скрипт отработал»: контраст, ради которого
+    добавлена light, считается по фактически применённым цветам, и расхождение
+    темы дало бы зелёный прогон на заведомо неверном замере.
+    """
+    cls = page.evaluate("() => document.documentElement.className")
+    has_light = "light" in (cls or "").split()
+    want = theme == "light"
+    if has_light != want:
+        pytest.fail(
+            f"тема не применилась: ждали {theme!r}, на <html> класс "
+            f"{cls!r} (light {'есть' if has_light else 'нет'}). "
+            f"Замер контраста сделан по цветам чужой темы."
+        )
+
+
 # ─────────────────────────── прогон axe ───────────────────────────
 
-def _run_axe(page, axe_js: str, url: str) -> list[dict]:
+def _run_axe(page, axe_js: str, url: str, theme: str = "dark") -> list[dict]:
     """Зайти на страницу, дождаться отрисовки, прогнать axe-core."""
     page.goto(url, wait_until="networkidle", timeout=NAV_TIMEOUT_MS)
+    # Тема проверяется на ЖИВОЙ странице, а не задаётся проверкой в тесте: иначе
+    # прогон в light молчал бы о тёмной странице (контраст посчитан по чужим
+    # цветам) и дал бы зелёный результат на заведомо неверном замере.
+    _assert_theme(page, theme)
     # Контраст считается по фактически применённым цветам, поэтому анимации
     # гасим и ждём шрифт — иначе замер может сойтись на полурисованном тексте.
     page.add_style_tag(content=KILL_CSS)
@@ -278,23 +351,38 @@ def _verify(name: str, violations: list[dict]) -> None:
 
 # ─────────────────────────── тесты ───────────────────────────
 
-@pytest.mark.parametrize("page_name", PAGES)
+#: Параметры гейта строятся списком, а не декартовым произведением
+#: `@parametrize("theme", THEMES)`: у offline.html нет переключателя темы, и в
+#: произведении он дал бы прогон, который молча измеряет тёмную страницу под
+#: именем light. Список строится один раз и переиспользуется проверкой покрытия
+#: базы — иначе матрица теста и матрица базы разъедутся тихо.
+AXE_CASES = [(p, t) for p in PAGES for t in _themes_for(p)]
+
+
+@pytest.mark.parametrize("page_name,theme", AXE_CASES,
+                         ids=[f"{_slug(p)}-{t}" for p, t in AXE_CASES])
 @pytest.mark.parametrize("width,height", VIEWPORTS, ids=lambda v: str(v))
-def test_a11y_wcag22(_env_checked, browser, axe_source, page_name, width, height):
+def test_a11y_wcag22(_env_checked, browser, axe_source, page_name, width, height,
+                      theme):
     """WCAG 2.2 A/AA: критичных нарушений нет, регрессий против базы нет."""
+    init_js = _theme_init_js(theme)
     ctx = browser.new_context(
         viewport={"width": width, "height": height},
         service_workers="block",
         reduced_motion="reduce",
         color_scheme=COLOR_SCHEME,
     )
+    if init_js:
+        # ДО new_page/goto — иначе скрипт страницы успеет прочитать пустое
+        # localStorage, и страница придёт тёмной.
+        ctx.add_init_script(init_js)
     page = ctx.new_page()
     try:
         violations = _run_axe(page, axe_source,
-                              f"{BASE_URL}/{page_name}.html")
+                              f"{BASE_URL}/{page_name}.html", theme)
     finally:
         ctx.close()
-    _verify(f"{_slug(page_name)}-{width}", violations)
+    _verify(f"{_slug(page_name)}-{width}-{theme}", violations)
 
 
 def test_a11y_baseline_is_present(_env_checked):  # noqa: ARG001
@@ -333,7 +421,8 @@ def test_a11y_baseline_covers_every_page(_env_checked):  # noqa: ARG001
         pytest.skip("переснимается база")
     base = _baseline()
 
-    expected = {f"{_slug(p)}-{w}" for p in PAGES for w, _ in VIEWPORTS}
+    expected = {f"{_slug(p)}-{w}-{t}"
+                for p, t in AXE_CASES for w, _ in VIEWPORTS}
     missing = sorted(expected - set(base))
     assert not missing, (
         f"в базе нет {len(missing)} из {len(expected)} комбинаций "
