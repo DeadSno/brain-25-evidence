@@ -11,8 +11,8 @@
 | HTML, контентные | 13 в `docs/` | `ls docs/*.html` — их 15, из них `offline.html` (запасной экран SW) и `google4a9d23e35c6c3e23.html` (файл верификации) не контентные |
 | HTML, sup | 131 в `docs/sup/` (index + 130 карточек) | `ls docs/sup/*.html \| wc -l` |
 | JS | 9 файлов в `docs/` | `ls docs/*.js \| wc -l` |
-| CSS | `docs/style.css`, версия `?v=423` | `grep -ho 'style\.css?v=[0-9]*' docs/*.html docs/sup/*.html \| sort -u` |
-| SW cache | `v89` | `grep CACHE_VERSION docs/sw.js` → `var CACHE_VERSION = 'v89'` |
+| CSS | `docs/style.css`, версия `?v=424` | `grep -ho 'style\.css?v=[0-9]*' docs/*.html docs/sup/*.html \| sort -u` |
+| SW cache | `v90` | `grep CACHE_VERSION docs/sw.js` → `var CACHE_VERSION = 'v90'` |
 | Тесты | 1079 собрано, 878 passed / 201 skipped | `pytest --collect-only -q` → `1079 tests collected`; `pytest -q` → `878 passed, 201 skipped` |
 | Скиллы | 19 проектных + 19 глобальных | `ls .opencode/skills/ \| wc -l`, `ls ~/.config/opencode/skills/ \| wc -l` |
 
