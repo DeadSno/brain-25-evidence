@@ -2193,3 +2193,59 @@ html.light #cookieBanner { box-shadow: 0 8px 32px rgba(0, 0, 0, .18); }
   #cookieBanner .cb-actions { flex: 1 1 100%; }
   #cookieBanner .cb-btn { flex: 1 1 0; }
 }
+
+/* ── Атлас: легенда (ROADMAP #11, v5.6.3) ──
+   Перенесено из локального style-блока docs/atlas.html. Правило
+   «источник истины один»: оформление элемента живёт в общей таблице
+   стилей, в разметке остаётся только класс. Раньше эти 9 строк жили
+   в разметке, и atlas.html был единственной страницей, где правило
+   вообще можно было найти.
+
+   Переменные --apanel / --aborder / --atext объявлены на самой
+   странице атласа и в этот файл не переносятся — здесь они только
+   читаются. Так уже сделано для #atl-sidebar (style.css:2031 и
+   далее), так что это узаконенный, а не новый приём.
+
+   Положение в конце файла выбрано не случайно: локальный style-блок
+   разметки идёт после подключения общей таблицы, то есть раньше эти
+   правила побеждали всё, что есть в style.css. Разместив их последними,
+   порядок каскада сохранён один в один. */
+.atlas-legend {
+  position: absolute; left: 1rem; bottom: 1rem;
+  background: var(--apanel); border: 1px solid var(--aborder); border-radius: 10px;
+  padding: .6rem .85rem; font-size: .75rem; line-height: 1.7; z-index: 10;
+  opacity: .9; backdrop-filter: blur(4px); box-shadow: 0 4px 12px rgba(0, 0, 0, .2);
+  pointer-events: none;
+}
+.atlas-legend .dot {
+  display: inline-block; width: 10px; height: 10px; border-radius: 50%;
+  margin-right: var(--space-2); vertical-align: middle;
+}
+.atlas-legend .box {
+  display: inline-block; width: 14px; height: 9px;
+  border: 1.5px solid #3498db; border-radius: 2px;
+  margin-right: var(--space-2); vertical-align: middle;
+  background: rgba(52, 152, 219, .15);
+}
+/* Легенда сворачивается в кнопку */
+@media (max-width: 640px) {
+  .atlas-legend {
+    position: absolute;
+    bottom: 8px; left: 8px;
+    max-width: 150px;
+    font-size: .65rem;
+    padding: .35rem var(--space-2);
+    line-height: 1.35;
+  }
+  .atlas-legend > div:nth-child(4),
+  .atlas-legend > div:nth-child(5),
+  .atlas-legend > div:nth-child(6) { display: none; }  /* оставить только цвета */
+  .atlas-legend::after {
+    content: '⚙︎ легенда';
+    display: block;
+    margin-top: var(--space-0-3);
+    opacity: .5;
+    font-size: .7rem;
+    cursor: pointer;
+  }
+}

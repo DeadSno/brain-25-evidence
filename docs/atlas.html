@@ -32,7 +32,7 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=426">
+<link rel="stylesheet" href="style.css?v=427">
   <style>
     /* Палитра на :root, не на body: объявление на body перекрывало html.light
      ниже, и в светлой теме текст оставался светлым на светлом (1.05:1).
@@ -70,15 +70,8 @@ try {
     html.light .filterbar .lbl{opacity:.9}
 
     .atl-layout{display:flex;height:calc(100vh - 240px);min-height:600px;border:1px solid var(--aborder);border-radius:var(--radius-xl);overflow:hidden;background:var(--apanel);position:relative}
-    .atlas-legend{
-      position:absolute;left:1rem;bottom:1rem;
-      background:var(--apanel);border:1px solid var(--aborder);border-radius:10px;
-      padding:.6rem .85rem;font-size:.75rem;line-height:1.7;z-index:10;
-      opacity:.9;backdrop-filter:blur(4px);box-shadow:0 4px 12px rgba(0,0,0,.2);
-      pointer-events:none;
-    }
-    .atlas-legend .dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:var(--space-2);vertical-align:middle}
-    .atlas-legend .box{display:inline-block;width:14px;height:9px;border:1.5px solid #3498db;border-radius:2px;margin-right:var(--space-2);vertical-align:middle;background:rgba(52,152,219,.15)}
+    /* v5.6.3 (#11): правила .atlas-legend перенесены в style.css.
+       Источник истины один — оформление элемента не живёт в разметке. */
     #atl-graph{flex:1;min-width:0}
     body.fs .wrap{max-width:100%;padding:0}
     body.fs .top,
@@ -162,26 +155,7 @@ footer { font-size: 1rem !important; }
       }
       #atl-graph { flex: 1; min-height: 300px; }
 
-      /* Легенда сворачивается в кнопку */
-      .atlas-legend {
-        position: absolute;
-        bottom: 8px; left: 8px;
-        max-width: 150px;
-        font-size: .65rem;
-        padding: .35rem var(--space-2);
-        line-height: 1.35;
-      }
-      .atlas-legend > div:nth-child(4),
-      .atlas-legend > div:nth-child(5),
-      .atlas-legend > div:nth-child(6) { display: none; }  /* оставить только цвета */
-      .atlas-legend::after {
-        content: '⚙︎ легенда';
-        display: block;
-        margin-top: var(--space-0-3);
-        opacity: .5;
-        font-size: .7rem;
-        cursor: pointer;
-      }
+      /* Легенда сворачивается в кнопку — перенесено в style.css (#11) */
       /* Кнопки — только иконки */
       #pngBtn, #shareBtn, #fsBtn { font-size: 0; padding: .4rem var(--space-2); }
       #pngBtn::before { content: '📷'; font-size: .95rem; }
