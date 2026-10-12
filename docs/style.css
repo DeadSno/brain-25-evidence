@@ -430,7 +430,7 @@ input,select,textarea{font-family:inherit;font-size:1rem}
 .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%}
 .table-wrap>table{width:100%}
 #compareResult table{width:100%;border-collapse:collapse;font-size:1rem}
-#compareResult th,#compareResult td{padding:.6rem .8rem;border-bottom:1px solid var(--border);text-align:left}
+#compareResult th,#compareResult td{padding:.6rem .8rem;border-bottom:1px solid var(--border);text-align:start}
 #compareResult th{background:var(--bg);font-weight:500}
 footer{margin-top:var(--space-8);padding-top:var(--space-4);border-top:1px solid var(--border);font-size:.875rem;color:var(--muted)}
 footer p{margin-bottom:var(--space-2)}
