@@ -2,7 +2,7 @@
 
 | | |
 |---|---|
-| **Дата** | 11.10.2026 |
+| **Дата** | 12.10.2026 (индекс пересчитан после волны D_FAST_2) |
 | **Ветка** | `v5.6-dev` |
 | **Назначение** | Единственная точка входа: индекс аудитов и список **открытых** находок |
 | **Структура** | Закрытые находки и подробности — в `audits/<тип>.md`; исходные отчёты — в `archive/` |
@@ -17,18 +17,35 @@
 
 | Тип | Открыто | Закрыто | Файл |
 |---|---|---|---|
-| a11y | 9 | 21 | [audits/a11y.md](audits/a11y.md) |
+| a11y | 8 | 23 | [audits/a11y.md](audits/a11y.md) |
 | data (+QA данных) | 24 | 4 | [audits/data.md](audits/data.md) |
 | html-css | 9 | 9 | [audits/html-css.md](audits/html-css.md) |
 | js (+безопасность) | 7 | 6 | [audits/js.md](audits/js.md) |
 | legal | 2 | 4 | [audits/legal.md](audits/legal.md) |
-| mobile | 14 | 7 | [audits/mobile.md](audits/mobile.md) |
+| mobile | 13 | 8 | [audits/mobile.md](audits/mobile.md) |
 | perf (+проект/релиз) | 11 | 5 | [audits/perf.md](audits/perf.md) |
 | i18n | 7 | 6 | [audits/i18n.md](audits/i18n.md) |
 | seo (+маркетинг) | 22 | 3 | [audits/seo.md](audits/seo.md) |
 | trends | 21 | 8 | [audits/trends.md](audits/trends.md) |
 | skills | 10 | 0 | [audits/skills.md](audits/skills.md) |
-| **Итого** | **136** | **73** (+12 «не делать») | |
+| **Итого** | **134** | **76** (+12 «не делать») | |
+
+**Пересчёт 12.10.2026 (волна D_FAST_2).** Индекс отражает таблицы «Открыто»/«Закрыто»
+в `audits/*.md`. Изменены две строки:
+
+| Тип | Было | Стало | Что переведено |
+|---|---|---|---|
+| a11y | 9 / 21 | 8 / 23 | A11Y-P1-01 (тап-таргеты) и A11Y-P1-10 (cookie-ссылка) — в «Закрыто» |
+| mobile | 14 / 7 | 13 / 8 | MOB-P2-05 (`p.hint`, `p.method-footer`) — в «Закрыто» |
+
+⚠️ **Известный остаток (не трогали, чужая волна).** Волна D_FAST (11–12.10) закрыла
+7 ID кодом, но не перенесла их в `audits/*.md`. Один из них (`A11Y-P1-01`) перенесён
+этой волной; остальные 6 до сих пор числятся открытыми в §1 и §2 этого файла:
+`SK-P0-02` (skills, `12119a5`), `MOB-P2-01`, `MOB-P2-02`, `MOB-P2-03`, `MOB-P2-06`,
+`MOB-P2-10` (mobile, `d0867d9`). Фактически открытых на 6 меньше, чем показано
+в индексе. Перенос — отдельная правка документов.
+`SK-P0-02` остался и в строке `skills` индекса, и в §2 P0, и в §3 — все три места
+нужно поправить вместе с `audits/skills.md`.
 
 Сопутствующие документы: [STATE_OF_AUDIT.md](STATE_OF_AUDIT.md) (утрачен, восстановлен здесь),
 [PRE_MERGE_CHECK.md](PRE_MERGE_CHECK.md) (готовность merge), [CONSOLIDATION.md](CONSOLIDATION.md)
@@ -51,11 +68,10 @@
 | SK-P0-01 | Субагенты не могут загружать скиллы (инструмент `skill` только у team-lead) | [skills](audits/skills.md) |
 | SK-P0-02 | У `visual-design-audit` нет лицензии | [skills](audits/skills.md) |
 
-### P1 (37)
+### P1 (36)
 
 | ID | Находка | Тип |
 |---|---|---|
-| A11Y-P1-01 | Тап-таргеты < 44 px (input, label, лого, BI↗) | [a11y](audits/a11y.md) |
 | DATA-P1-02 | `hedges_g_outcome` пусто у 86 (42 с `hedges_g`) — техдолг v5.6.4 | [data](audits/data.md) |
 | DATA-P1-12 | `timeseries` 94/130 (36 карточек, 19 с citations>0) — техдолг v5.6.4 | [data](audits/data.md) |
 | DATA-COI | COI (486 КБ) не показан — техдолг v5.7 | [data](audits/data.md) |
@@ -94,7 +110,7 @@
 | CYBER-P2-01…02 | Нет тестов заголовков/секретов | [js](audits/js.md) |
 | JS-P2-01…03 | 2 `ru-RU`, 229 строк без i18n, `calculator` без live-region | [js](audits/js.md) |
 | LEGAL-P2-01…02 | Нет дисклеймера на 2 стр., нет DOI-ссылок | [legal](audits/legal.md) |
-| MOB-P2-01…13 | Тап-таргеты, safe-area left/right, theme-color, ориентация, лого 26px, мелкий текст | [mobile](audits/mobile.md) |
+| MOB-P2-01…04, 06…13 | Тап-таргеты, safe-area left/right, theme-color, ориентация, лого 26px, мелкий текст (P2-05 закрыт `f7b56c6`; P2-04 помечен устаревшим) | [mobile](audits/mobile.md) |
 | PERF-P2-01…02 | Тяжёлые вены (vis-network 673 КБ и др.), нет `.gz`/`.br` | [perf](audits/perf.md) |
 | REL-P2-01…02, PRJ-P2-01…02 | ~40 worktree detached HEAD, version drift, ложные находки project | [perf](audits/perf.md) |
 | I18N-P2-01…05 | 229 строк JS + 1474 inline, 176 атрибутов, 517 стрелок, 2 `ru-RU`, `text-align:left` | [i18n](audits/i18n.md) |
