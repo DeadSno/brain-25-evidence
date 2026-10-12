@@ -202,3 +202,49 @@ def test_bom_scan_actually_reads_the_expected_number_of_files():
         "docs/vendor/ не попал в скан. Прежний вариант PATTERNS был "
         "нерекурсивным и вендор не проверял вообще."
     )
+
+
+def test_charset_declaration_precedes_any_fetchable_element():
+    """Объявление кодировки должно идти раньше того, что её требует.
+
+    SEO-P2-02, найдено аудитом: в 9 страницах `<script defer
+    src="version.js">` стоял ВЫШЕ `<meta charset="utf-8">` — то есть
+    браузер уже начал выбирать кодировку по содержимому, а объявление
+    приходило следом.
+
+    Почему это вообще про кодировку, а не про порядок тегов: браузер
+    определяет кодировку по BOM, затем по HTTP-заголовку, затем по
+    meta. Объявление в meta работает только в первых 1024 байтах
+    документа. Здесь оно стояло на ~40 байте, то есть формально
+    укладывалось, и страница выглядела нормально — но контракт
+    «кодировка объявлена до того, как начался разбор» был нарушен, и
+    любая правка в этих строках (например добавление локализованного
+    имени файла скрипта) могла его сломать уже заметно.
+
+    Проверка формулируется шире частного случая: charset обязан
+    предшествовать ЛЮБОМУ элементу, который браузер начинает
+    разбирать до его объявления, — script, link, style, title.
+    """
+    import re
+
+    charset_re = re.compile(r'<meta\s+charset\s*=', re.I)
+    before_re = re.compile(r"<(script|link|style|title)\b", re.I)
+
+    offenders = []
+    for f in _files({".html"}):
+        text = f.read_text(encoding="utf-8", errors="replace")
+        if "<html" not in text.lower():
+            continue                      # не страница (токен верификации)
+        m = charset_re.search(text)
+        if not m:
+            offenders.append(f"{_rel(f)} — нет meta charset")
+            continue
+        early = before_re.search(text, 0, m.start())
+        if early:
+            offenders.append(
+                f"{_rel(f)} — <{early.group(1)}> идёт раньше meta charset"
+            )
+    assert not offenders, (
+        f"Объявление кодировки не первое в <head> ({len(offenders)}):\n"
+        + "\n".join(f"  {f}" for f in offenders)
+    )
