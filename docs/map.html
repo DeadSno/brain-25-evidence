@@ -72,18 +72,22 @@ try {
      текст — тем же приёмом, что .btn.calc в style.css (там до #1f6fa5
      ради 5.42:1). */
   html.light #details .cta { background: #1f6fa5; border-color: #1f6fa5; }
-  /* Приглушённые подписи. Приглушение задано ИНЛАЙНО в JS
-     (`<span style="opacity:.6;font-size:.85rem">`, map.html ниже), поэтому
-     переопределить его можно только !important. Вместо приглушения берём
-     цвет из палитры: приглушённый #1b1d22 на белом = 4.48:1, то есть ниже
-     порога на 0.02 — запас, который съедает смена сглаживания шрифта.
-     var(--muted) на белом = 5.07:1; на подложке .step.sup (#dfeff9) он
-     даёт 4.31:1, поэтому там взят акцент #0062cc = 4.93:1.
+  /* Приглушённые подписи. JS задаёт инлайн-переменную
+     (`<span style="--inline-opacity:.6;font-size:.85rem">`, map.html ниже),
+     а не саму opacity: инлайн-свойства opacity нет, поэтому светлая тема
+     перебивает базовое правило обычной специфичностью — !important не нужен
+     (fix #47). Вместо приглушения берём цвет из палитры: приглушённый
+     #1b1d22 на белом = 4.48:1, то есть ниже порога на 0.02 — запас, который
+     съедает смена сглаживания шрифта. var(--muted) на белом = 5.07:1; на
+     подложке .step.sup (#dfeff9) он даёт 4.31:1, поэтому там взят акцент
+     #0062cc = 4.93:1.
      :not([class]) обязателен: прямым span-потомком #chain является и
      зелёный бейдж вердикта (span.verdict, белый на #15803d), и перекрасить
      его в серый значило бы снести смысл, а не починить контраст. */
-  html.light #chain > span:not([class]) { opacity: 1 !important; color: var(--muted); }
-  html.light #chain .sup > span { opacity: 1 !important; color: var(--accent); }
+  #chain > span:not([class]) { opacity: var(--inline-opacity, 1); }
+  #chain .sup > span { opacity: var(--inline-opacity, 1); }
+  html.light #chain > span:not([class]) { opacity: 1; color: var(--muted); }
+  html.light #chain .sup > span { opacity: 1; color: var(--accent); }
   .wrap{max-width:100%;margin:0;padding:0 var(--space-6) var(--space-4);color:var(--atext)}
   .top{display:flex;justify-content:space-between;align-items:center;gap:var(--space-4);flex-wrap:wrap}
   .top .site-title{font-size:1.45rem;margin:var(--space-0-2) 0}
@@ -384,11 +388,11 @@ function select(id, push){
   let d = 0.05, html =
     '<h2 style="margin:.2rem 0 .4rem;animation:rise .3s ease both">' + s.name + '</h2>' +
     '<span class="verdict v' + s.code + '">' + s.verdict + '</span> ' +
-    '<span style="opacity:.6;font-size:.85rem">' + s.category + '</span>';
+    '<span style="--inline-opacity:.6;font-size:.85rem">' + s.category + '</span>';
   if (mechs.length) {
     // Один 💊 сверху
     html += '<div class="step sup" style="animation-delay:' + d + 's">💊 <b>' + s.name + '</b>' +
-            (mechs.length > 1 ? ' <span style="opacity:.6;font-size:.85rem">· ' + mechs.length + ' механизма</span>' : '') +
+            (mechs.length > 1 ? ' <span style="--inline-opacity:.6;font-size:.85rem">· ' + mechs.length + ' механизма</span>' : '') +
             '</div>';
     d += 0.12;
 
