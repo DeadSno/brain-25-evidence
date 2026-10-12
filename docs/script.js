@@ -4,6 +4,13 @@ function esc(s) {
   ));
 }
 const $ = id => document.getElementById(id);
+// v5.6.3 (I18N-P2-04): локаль берётся из <html lang>, а не вписывается в
+// код. Раньше строки вроде toLocaleString('ru-RU') жили в разметке и в
+// скриптах, и перевод страницы требовал правки каждого вызова по
+// отдельности — при этом замена lang="en" в <html> давала бы английский
+// текст вокруг и русские числа внутри. ru-RU и ru для Intl совпадают,
+// поведение при ru не меняется.
+const LOCALE = document.documentElement.lang || 'ru';
 let supplements = [], currentData = [], chartInstance = null, radarInstance = null, onlyFavs = false;
 let supplementsFull = null;         // {id: {...}} — загружается при первом клике
 let supplementsFullPromise = null;  // in-flight запрос data.json
@@ -784,7 +791,7 @@ async function openModal(id) {
     maTop3Block(s) +    trialsLine +
     calcLine +
     (s.citations != null ? '<div class="mrow">📖 Цитирований ключевого MA: ' + s.citations + '</div>' : '') +
-    (s.wiki != null ? '<div class="mrow">🌐 Просмотров в Википедии (12 мес): ' + s.wiki.toLocaleString('ru-RU') + wikiLink(s) + '</div>' : '') +
+    (s.wiki != null ? '<div class="mrow">🌐 Просмотров в Википедии (12 мес): ' + s.wiki.toLocaleString(LOCALE) + wikiLink(s) + '</div>' : '') +
     '<div class="mrow"><b>Эффекты:</b> ' + ((s.effects || []).join(', ') || '—') + '</div>' +
     '<div class="mrow">💊 <b>Дозировка:</b> ' + (s.dosage || '—') + '</div>' +
     '<div class="mrow">⏳ <b>Курс:</b> ' + (s.course || '—') + '</div>' +

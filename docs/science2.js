@@ -13,6 +13,9 @@ function esc(s) {
 }
   if (window.__science2Loaded) return;
   window.__science2Loaded = true;
+  // v5.6.3 (I18N-P2-04): локаль из <html lang> вместо литерала в коде —
+  // см. пояснение в docs/script.js.
+  const LOCALE = document.documentElement.lang || 'ru';
 
   // ========== C3: «Пульс науки» — Chart.js линия 2015–2026 ==========
   function renderPulse(rows) {
@@ -185,7 +188,7 @@ function esc(s) {
       cv.setAttribute('data-eco-spark', 'canvas');
       el.appendChild(cv);
       drawSpark(cv, w, h, pts);
-      const fmt = new Intl.DateTimeFormat('ru-RU', { day: '2-digit', month: 'short', year: 'numeric' });
+      const fmt = new Intl.DateTimeFormat(LOCALE, { day: '2-digit', month: 'short', year: 'numeric' });
       const s = document.createElement('div');
       s.className = 'hint';
       s.style.cssText = 'font-size:.7rem;margin-top:.2rem';

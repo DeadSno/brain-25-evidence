@@ -385,6 +385,9 @@ html:not(.light) .cat-warn{color:#f59e0b}
 
 <script>
 'use strict';
+// v5.6.3 (I18N-P2-04): локаль из <html lang> вместо семи литералов
+// 'ru-RU' по коду страницы — см. пояснение в docs/script.js.
+const LOCALE = document.documentElement.lang || 'ru';
 
 // ── XSS protection ────────────────────────────────────────────
 function esc(s) {
@@ -483,7 +486,7 @@ function renderStats() {
   });
   const sumPubs2025 = Object.values(pubTotals).reduce((sum, x) => sum + x.y2025, 0);
   const sumPubs2015 = Object.values(pubTotals).reduce((sum, x) => sum + x.y2015, 0);
-  document.getElementById('kpiPubs2025').textContent = sumPubs2025.toLocaleString('ru-RU');
+  document.getElementById('kpiPubs2025').textContent = sumPubs2025.toLocaleString(LOCALE);
   const pubsDelta = sumPubs2015 ? Math.round((sumPubs2025 / sumPubs2015 - 1) * 100) : 0;
   const pubsDEl = document.getElementById('kpiPubsDelta');
   pubsDEl.textContent = (pubsDelta >= 0 ? '↑ ' : '↓ ') + Math.abs(pubsDelta) + '% к 2015';
@@ -495,12 +498,12 @@ function renderStats() {
     const m = Object.keys(s).sort().pop();
     if (m) { sumWiki += s[m] || 0; lastMonth = m; }
   });
-  document.getElementById('kpiWiki').textContent = sumWiki.toLocaleString('ru-RU');
+  document.getElementById('kpiWiki').textContent = sumWiki.toLocaleString(LOCALE);
 
   // Цитаты 2025
   const cite2025 = Object.values(TS.citations || {}).reduce((s, c) => s + (c['2025'] || 0), 0);
   const cite2015 = Object.values(TS.citations || {}).reduce((s, c) => s + (c['2015'] || 0), 0);
-  document.getElementById('kpiCites2025').textContent = cite2025.toLocaleString('ru-RU');
+  document.getElementById('kpiCites2025').textContent = cite2025.toLocaleString(LOCALE);
   const citeDelta = cite2015 ? Math.round((cite2025 / cite2015 - 1) * 100) : 0;
   const citeEl = document.getElementById('kpiCitesDelta');
   citeEl.textContent = (citeDelta >= 0 ? '↑ ' : '↓ ') + Math.abs(citeDelta) + '% к 2015';
@@ -700,13 +703,13 @@ function renderChart() {
           legend: { display: false },
           tooltip: {
             callbacks: {
-              label: (ctx) => `${ctx.parsed.y.toLocaleString('ru-RU')} цитат`,
+              label: (ctx) => `${ctx.parsed.y.toLocaleString(LOCALE)} цитат`,
             },
           },
         },
         scales: {
           x: { grid: { color: grid }, ticks: { color: txt } },
-          y: { grid: { color: grid }, ticks: { color: txt, callback: v => v.toLocaleString('ru-RU') } },
+          y: { grid: { color: grid }, ticks: { color: txt, callback: v => v.toLocaleString(LOCALE) } },
         },
       },
     });
@@ -730,7 +733,7 @@ function openModal(id) {
     ` · ${esc(c.category)}</div>`);
   if (c.scienceIndex) parts.push(`<div class="mrow">📊 Индекс науки: <b>${c.scienceIndex}</b> (MA: ${c.metaCount || 0})</div>`);
   if (c.citations != null) parts.push(`<div class="mrow">📖 Цитат ключевого источника: ${c.citations}</div>`);
-  if (c.wiki != null) parts.push(`<div class="mrow">🌐 Wiki-просмотров/мес: ${c.wiki.toLocaleString('ru-RU')}</div>`);
+  if (c.wiki != null) parts.push(`<div class="mrow">🌐 Wiki-просмотров/мес: ${c.wiki.toLocaleString(LOCALE)}</div>`);
   if (c.ongoing != null) parts.push(`<div class="mrow">🧪 Активных испытаний: ${c.ongoing}</div>`);
   if (c.effects?.length) parts.push(`<div class="mrow"><b>Эффекты:</b> ${c.effects.map(esc).join(', ')}</div>`);
 
@@ -745,7 +748,7 @@ function openModal(id) {
   }
   if (Object.keys(citeS).length) {
     const total = Object.values(citeS).reduce((s, x) => s + x, 0);
-    parts.push(`<div class="mrow"><b>Всего цитат:</b> ${total.toLocaleString('ru-RU')}</div>`);
+    parts.push(`<div class="mrow"><b>Всего цитат:</b> ${total.toLocaleString(LOCALE)}</div>`);
   }
 
   parts.push(`<div class="mrow" style="margin-top:1rem"><a class="btn" href="index.html#sup=${encodeURIComponent(id)}">Открыть полную карточку →</a></div>`);
