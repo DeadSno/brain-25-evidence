@@ -152,7 +152,12 @@
         </div>{% endfor %}
     </div>
 
-    <div class="sup-section">
+{% if forms %}    <div class="sup-section">
+        <h2>Формы выпуска</h2>
+        <p>{{ forms }}</p>
+    </div>
+
+{% endif %}    <div class="sup-section">
         <h2>Как выбирать</h2>
         <p>{{ how_to_choose }}</p>
         <p><b>Пищевые источники:</b> {{ food_sources }}</p>
