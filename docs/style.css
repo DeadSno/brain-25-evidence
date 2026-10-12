@@ -436,7 +436,14 @@ footer{margin-top:var(--space-8);padding-top:var(--space-4);border-top:1px solid
 footer p{margin-bottom:var(--space-2)}
 /* ===== v1.2: контролы, модалка, skeleton ===== */
 #controls{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:var(--space-4)}
-#controls input,#controls select{flex:1;min-width:150px}
+/* v5.6.3 (I18N-P1-05): было min-width:150px. Замер 2026-10-12 на
+   index.html: 221.95px при вьюпорте 929, 285.81px при 320 - контейнер
+   всегда шире 150px, потому что #controls имеет flex-wrap:wrap, а на
+   <=480px становится колонкой. То есть переполнения достичь нельзя и
+   min(150px, 100%) на картинке не отличается. Оставлено как
+   закалка: если контрол ever окажется в колонке уже 150px, он ужмётся,
+   а не вылезет за страницу. См. tests/test_min_width_justified.py. */
+#controls input,#controls select{flex:1;min-width:min(150px,100%)}
 .hint{font-size:.875rem;opacity:.6;font-weight:400}
 .card{cursor:pointer}
 .card .cat{font-size:.875rem;opacity:1;display:block;margin-bottom:var(--space-0-2)}
@@ -1021,7 +1028,7 @@ html:not(.light) .chip a,
 html:not(.light) .chip a:visited { color: #5dade2; }
 
 /* v2.7.3: поиск не обрезается */
-#search { min-width: 250px; flex: 1 1 250px; }
+#search { min-width: min(250px, 100%); flex: 1 1 250px; }
 
 /* v2.8.0: пресеты-чипы + активные фильтры (F1/F8) */
 .presetRow{display:flex;gap:var(--space-2);flex-wrap:wrap;margin:var(--space-2) 0}
@@ -1072,6 +1079,15 @@ html:not(.light) .chip a:visited { color: #5dade2; }
   #chartWrap{overflow-x:hidden}
   canvas#bubbleChart,canvas#quadrantChart{min-width:0!important;max-width:100%!important}
   #compareResult{overflow-x:auto}
+  /* v5.6.3 (I18N-P1-05): 520px здесь ПРАВИЛЬНО, и убирать нельзя.
+     Это приём отзывчивой таблицы: контейнеру задан overflow-x:auto
+     строкой выше, а таблице - фиксированная ширина колонок, чтобы они
+     не схлопнулись в нечитаемые. Замер 2026-10-12 на index.html:
+     ширина таблицы ровно 520px при вьюпортах 390 и 320, при этом
+     scrollWidth документа равен clientWidth, то есть страница не
+     раздувается - прокручивается только сама таблица.
+     Аудит предлагал заменить на min(520px, 100%), что раздавило бы
+     шесть колонок в нечитаемую кашу. Здесь это by design. */
   #compareResult table{min-width:520px}
 }
 
