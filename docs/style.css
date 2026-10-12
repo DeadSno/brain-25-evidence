@@ -2027,7 +2027,21 @@ html.light #atl-sidebar .cta { background:var(--info-fill) }
 #cookieBanner:not([hidden]) { display: flex; }
 #cookieBanner[hidden] { display: none !important; }
 #cookieBanner .cb-text { flex: 1 1 240px; min-width: 0; }
-#cookieBanner .cb-text a { color: var(--accent); }
+/* v5.6.4 (A11Y-P1-07): ссылка «Политика конфиденциальности» мерялась
+   216×17 px — ширина в порядке, высота ниже порога 44.
+   Ссылка последняя в абзаце, поэтому бокс можно вырастить по вертикали
+   и вернуть строку к прежней высоте: inline-flex центрирует глифы в
+   боксе 44 px, margin-block -11px срезает ровно добавленные 22 px из
+   раскладки (44-22), строка остаётся 21 px.
+   Проверено Playwright на 375 и 1280: бокс 216×44, баннер 351×166 →
+   351×166 (не вырос), горизонтального скролла нет. */
+#cookieBanner .cb-text a {
+  color: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  margin-block: -11px;
+}
 /* v5.6.3 E1: --accent #0a84ff на --card-bg #2c2c2e даёт 3.82:1 —
    ниже AA на всех 144 страницах, баннер показано каждому новому
    посетителю. В тёмной теме берём --accent-2 #8ecbff (8.05:1).
