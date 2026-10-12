@@ -23,12 +23,12 @@
 | js (+безопасность) | 7 | 6 | [audits/js.md](audits/js.md) |
 | legal | 2 | 4 | [audits/legal.md](audits/legal.md) |
 | mobile | 14 | 7 | [audits/mobile.md](audits/mobile.md) |
-| perf (+проект/релиз) | 13 | 3 | [audits/perf.md](audits/perf.md) |
+| perf (+проект/релиз) | 11 | 5 | [audits/perf.md](audits/perf.md) |
 | i18n | 7 | 6 | [audits/i18n.md](audits/i18n.md) |
 | seo (+маркетинг) | 22 | 3 | [audits/seo.md](audits/seo.md) |
 | trends | 21 | 8 | [audits/trends.md](audits/trends.md) |
 | skills | 10 | 0 | [audits/skills.md](audits/skills.md) |
-| **Итого** | **138** | **71** (+12 «не делать») | |
+| **Итого** | **136** | **73** (+12 «не делать») | |
 
 Сопутствующие документы: [STATE_OF_AUDIT.md](STATE_OF_AUDIT.md) (утрачен, восстановлен здесь),
 [PRE_MERGE_CHECK.md](PRE_MERGE_CHECK.md) (готовность merge), [CONSOLIDATION.md](CONSOLIDATION.md)
@@ -44,15 +44,14 @@
 
 ## 2. Открытые находки
 
-### P0 (3)
+### P0 (2)
 
 | ID | Находка | Тип |
 |---|---|---|
-| REL-P0-01 | Тег `v5.6.1` на коммите, отсутствующем в `v5.6-dev`; противоречие в CHANGELOG | [perf](audits/perf.md) |
 | SK-P0-01 | Субагенты не могут загружать скиллы (инструмент `skill` только у team-lead) | [skills](audits/skills.md) |
 | SK-P0-02 | У `visual-design-audit` нет лицензии | [skills](audits/skills.md) |
 
-### P1 (38)
+### P1 (37)
 
 | ID | Находка | Тип |
 |---|---|---|
@@ -72,7 +71,6 @@
 | PERF-P1-01 | `index.html` тянет `data.json` 742 КБ (LCP 480 мс) | [perf](audits/perf.md) |
 | PERF-P1-02 | `trends.html` CLS 0.1101 | [perf](audits/perf.md) |
 | PRJ-P1-01 | `trends.html` 130 против 94 | [perf](audits/perf.md) |
-| REL-P1-01 | Ветки разошлись 37/7 | [perf](audits/perf.md) |
 | REL-P1-02 | CHANGELOG без v5.6.2, дубль `[v3.2.0]` | [perf](audits/perf.md) |
 | REL-P1-03 | pytest 813 против показанных 1010 | [perf](audits/perf.md) |
 | I18N-P1-01 | RTL не завершён: физические свойства в локальных `<style>` | [i18n](audits/i18n.md) |
@@ -114,6 +112,10 @@
 
 ## 3. Что дальше
 
-Приоритет верхнего уровня — **P0 по релизу** (`REL-P0-01`) и **блокеры merge** из
-[PRE_MERGE_CHECK.md](PRE_MERGE_CHECK.md). Технический долг данных (timeseries, hedges_g_outcome,
-COI) — v5.6.4/v5.7. Полная картина закрытого — в `audits/*.md` (разделы «Закрыто» с коммитами и датами).
+Merge `v5.6-dev` → `main` выполнен **12.10.2026** (fast-forward `57e0089` →
+`99c67b9`), выставлен тег `v5.6.3`. По итогам мержа закрыты `REL-P0-01`
+(тег `v5.6.1` — коммит `21f296f`, он же в `v5.6-dev`) и `REL-P1-01`
+(ветки разошлись 37/7 → расхождения нет). Остаются P0 по скиллам
+(`SK-P0-01`, `SK-P0-02`) и техдолг данных (timeseries, `hedges_g_outcome`,
+COI) — v5.6.4/v5.7. Полная картина закрытого — в `audits/*.md` (разделы
+«Закрыто» с коммитами и датами).
