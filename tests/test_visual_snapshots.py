@@ -28,12 +28,34 @@ WebKit (Safari iOS, Mobile Safari). Firefox отложен.
 Как запускать
 -------------
     python -m http.server 8000 --directory docs     # из корня репозитория
-    pytest -q -m snapshots                          # проверка (37 тестов, ~100 с)
-    $env:UPDATE_SNAPSHOTS="1"; pytest -q -m snapshots   # перезаписать эталоны
+    $env:RUN_SNAPSHOTS="1"; pytest -q -m snapshots   # проверка (76 тестов, ~4 мин)
+    $env:UPDATE_SNAPSHOTS="1"; pytest -q -m snapshots   # перезаписать ВСЕ эталоны
+    $env:UPDATE_SNAPSHOTS="modal-index,cookie-banner"; pytest -q -m snapshots
     python scripts/compress_snapshots.py --apply    # ужать эталоны (lossless)
 
 В addopts стоит `-m "not snapshots"`, поэтому обычный `pytest -q` снапшоты
 не запускает. Адрес сервера переопределяется: SNAPSHOT_BASE_URL=http://localhost:8020
+
+Обновление эталонов — поимённо (#98, F-18)
+-------------------------------------------
+Раньше `UPDATE_SNAPSHOTS=1` был единственным режимом и перезаписывал
+все 76 снимков разом. Один опечатанный токен стиля молча переписывал
+весь набор эталонов, и правка выглядела успешной, пока картинки не
+сравнивали вручную. Теперь переменная понимает три режима:
+
+  * не задана или `0` — ничего не перезаписывать;
+  * `1` или `all` — перезаписать всё (прежнее поведение);
+  * список имён через запятую — перезаписать ТОЛЬКО перечисленные.
+
+Список сравнивается вхождением подстроки, то есть
+`UPDATE_SNAPSHOTS="modal-index,sup-omega-3"`. Неперечисленные снимки
+того же прогона сравниваются как обычно: можно обновить один эталон и
+тут же увидеть, что остальные не поехали.
+
+В выборочном режиме тест ПАДАЕТ сразу после перезаписи и печатает,
+какие файлы заменены. Это намеренно: перезаписанный эталон обязан
+увидеть человек, а не прогон. Затем прогон повторяют без
+`UPDATE_SNAPSHOTS`, и он уже сравнивает новое со старым.
 
 Что делается перед съёмкой и почему (всё измерено, не предположено)
 -------------------------------------------------------------------
@@ -69,8 +91,8 @@ WebKit (Safari iOS, Mobile Safari). Firefox отложен.
 6. Шрифт Inter грузится с Google Fonts, поэтому эталоны привязаны к этой
    машине. Без сети Inter не применится и разойдутся ВСЕ эталоны. Это
    осознанно: отключать шрифт — значит снимать не то, что видит пользователь.
-7. index.html на 412px = 38321px высотой (замерено). Chromium такие снимки
-   делает: PNG 412x38321 получен, ошибки нет.
+7. index.html на 412px = 42041px высотой (замерено). Chromium такие снимки
+   делает: PNG 412x42041 получен, ошибки нет.
 
 Порог: СТРОГИЙ, любое расхождение пикселей валит прогон (см. DIFF_TOL_PCT).
 Замеренный шум на чистом коде — ровно ноль, запас нулевой, мягкий порог
@@ -92,7 +114,37 @@ SNAPSHOT_ROOT = Path(__file__).resolve().parent / "snapshots"
 BROWSERS = ("chromium", "webkit")   # Firefox отложен: 1.2% трафика РФ
 
 BASE_URL = os.environ.get("SNAPSHOT_BASE_URL", "http://localhost:8000").rstrip("/")
-UPDATE = os.environ.get("UPDATE_SNAPSHOTS") == "1"
+
+
+def _parse_update(raw: str | None) -> tuple[str, tuple[str, ...]]:
+    """-> (режим, подстроки-селекторы).
+
+    Режимы: "off", "all", "select". Значение разбирается один раз на
+    импорте, а не в каждом снимке, иначе опечатка в переменной
+    окружения выглядела бы по-разному в середине прогона.
+    """
+    value = (raw or "").strip()
+    if not value or value == "0":
+        return "off", ()
+    if value == "1" or value.lower() == "all":
+        return "all", ()
+    parts = tuple(p.strip() for p in value.split(",") if p.strip())
+    if not parts:
+        # Запятые без имён — опечатка, а не «обновить всё».
+        return "off", ()
+    return "select", parts
+
+
+UPDATE_MODE, UPDATE_SELECTORS = _parse_update(os.environ.get("UPDATE_SNAPSHOTS"))
+
+
+def _should_update(name: str) -> bool:
+    """Обновлять ли этот снимок при текущем режиме UPDATE_SNAPSHOTS."""
+    if UPDATE_MODE == "off":
+        return False
+    if UPDATE_MODE == "all":
+        return True
+    return any(part in name for part in UPDATE_SELECTORS)
 
 # 17 страниц сайта + offline.html (автономная, без внешних <link>/<script>).
 PAGES = (
@@ -138,12 +190,42 @@ COMPARE_READY_TIMEOUT_MS = 8000
 # Потолок высоты full-page снимка, заданный самим Playwright, — и он РАЗНЫЙ
 # у движков. Замерено на v5.1.6: webkit отказывается снимать страницу выше
 # 32767 px («Cannot take screenshot larger than 32767 pixels on any
-# dimension»), тогда как chromium спокойно отдаёт index@412 = 38321 px.
-# Единственная страница, которая в webkit не помещается, — index@412
-# (37402 px). Chromium в таблице не указан сознательно: его предел не
-# измерен и для наших высот не достигается, а выдумывать число хуже, чем
-# не задавать ограничения.
+# dimension»), тогда как chromium спокойно отдаёт index@412 целиком.
+# Chromium в таблице не указан сознательно: его предел не измерен и для
+# наших высот не достигается, а выдумывать число хуже, чем не задавать
+# ограничения.
 FULL_PAGE_CAP_PX = {"webkit": 32767}
+
+# F-19 (#31): комбинации, которые НЕ снимаются, объявлены явно.
+#
+# Раньше это был просто skip внутри _capture, и дыра в покрытии была
+# невидима: прогон показывал зелёным, а страница на самом деле не
+# проверялась. Теперь пропуск разрешён только для перечисленных здесь пар,
+# а высота сверяется с замеренной: расхождение больше 2 % падает. Новая
+# непокрытая комбинация (например, после правки вёрстки) больше не проходит
+# молча, а требует решения — снять по тайлам или внести сюда.
+#
+# Почему по тайлам не сделано (проверено по CSS, а не предположено):
+# .site-header — `position: sticky` (docs/style.css:749). При съёмке
+# тайлами скроллом липкая шапка попадает в КАЖДЫЙ тайл, тогда как в
+# полностраничном снимке движок рисует её один раз, в своём естественном
+# месте. Эталон из тайлов сравнивался бы с другим состоянием страницы и
+# ловил бы шов, а не регрессию.
+#
+# Формат: (страница, ширина) -> (замеренная высота, причина).
+KNOWN_UNCOVERED = {
+    ("index", 412): (
+        42044,
+        "index@412 = 42044 px при потолке webkit 32767 px. В chromium"
+        " та же страница снимается целиком — снимок 412 px есть и"
+        " проходит, ограничение движка, а не регрессия вёрстки."
+        " Число перемерено 13.10.2026: прежняя запись 37402 px была"
+        " верна для v5.1.6 и разошлась на 12 % — гейт это поймал.",
+    ),
+}
+
+#: Допуск на сверку записанной высоты с реальной, в долях.
+HEIGHT_TOLERANCE = 0.02
 NAV_TIMEOUT_MS = 60_000
 CONVERGE_TIMEOUT_MS = 15_000
 
@@ -514,10 +596,18 @@ def _capture(page, page_name: str, *, full_page: bool) -> bytes:
     # Маскировка версии — после того как version.js подставил значение.
     # Без неё смена app в docs/version.json роняет ~50 эталонов (версия
     # выводится дважды на каждой странице: в .site-title и в <footer>).
+    # Ключ tests — тот же случай: docs/index.html:317 печатает «тестов: N»
+    # прямо в плашке, и число растёт от КАЖДОГО нового теста, а не от правки
+    # вёрстки. Без маскировки добавление одного файла с тестами роняло бы
+    # три эталона index и требовало пересъёмки — ровно та беговая дорожка,
+    # ради которой снят F-18 (#98).
     page.evaluate(
         """() => {
-            document.querySelectorAll('[data-version="app"]').forEach(el => {
-                el.textContent = 'vX.X.X';
+            document.querySelectorAll(
+                '[data-version="app"],[data-version="tests"]'
+            ).forEach(el => {
+                el.textContent = el.dataset.version === 'app'
+                    ? 'vX.X.X' : 'vNNN';
             });
         }"""
     )
@@ -531,17 +621,48 @@ def _capture(page, page_name: str, *, full_page: bool) -> bytes:
                                   document.body.scrollHeight)"""
             )
             if sh > cap:
+                _assert_declared_gap(
+                    page_name, page.viewport_size["width"],
+                    engine, sh, cap, url)
                 pytest.skip(
                     f"[{engine}] {url} не помещается в full-page снимок: "
                     f"высота {sh} px при потолке Playwright {cap} px. "
-                    f"Это ограничение движка, не регрессия вёрстки: на "
-                    f"index@412 высота {sh} px против ~38 000 px в chromium, "
-                    f"и там страница снимается целиком. Чтобы покрыть эту "
-                    f"страницу в webkit, нужен другой способ съёмки "
-                    f"(тайлы по вертикали или снимок только шапки) — это "
-                    f"отдельная задача, а не молчаливое урезание эталона."
+                    f"Комбинация объявлена в KNOWN_UNCOVERED, высота "
+                    f"сверена. Это ограничение движка, а не регрессия "
+                    f"вёрстки — и не повод молча урезать эталон."
                 )
     return page.screenshot(full_page=full_page)
+
+
+def _assert_declared_gap(page_name: str, width: int, engine: str,
+                         measured: int, cap: int, url: str) -> None:
+    """Непокрытая комбинация обязана быть объявлена, и высота — верной.
+
+    Проверка отрицательного примера обязательна: гейт, который считает
+    «что чему соответствует», обязан падать, когда не соответствует.
+    «гейт,  который  считает,  обязан  падать,  обязан  падать,  когда  не  соответствует  неправдлу.  Резко  так пошёл
+    """
+    key = (page_name, width)
+    entry = KNOWN_UNCOVERED.get(key)
+    if entry is None:
+        pytest.fail(
+            f"[{engine}] {url} не помещается в full-page снимок "
+            f"({measured} px при потолке {cap} px), но пара {key} не "
+            f"объявлена в KNOWN_UNCOVERED. Дыра в покрытии возникла "
+            f"внезапно — так бывает после правки вёрстки, увеличившей "
+            f"страницу. Реши явно: снять по тайлам (учесть липкую "
+            f".site-header) или внести пару в KNOWN_UNCOVERED с "
+            f"замеренной высотой и причиной. Молчаливый skip здесь "
+            f"выглядит как «страница проверена», а она не проверена."
+        )
+    recorded, reason = entry
+    drift = abs(measured - recorded) / recorded
+    assert drift <= HEIGHT_TOLERANCE, (
+        f"[{engine}] {url}: высота {measured} px разошлась с записанной "
+        f"{recorded} px на {drift:.1%} (допуск {HEIGHT_TOLERANCE:.0%}). "
+        f"Запись в KNOWN_UNCOVERED устарела — перемерь и обнови её. "
+        f"Причина, записанная там же: {reason}"
+    )
 
 
 # ─────────────────────────── сравнение ───────────────────────────
@@ -598,16 +719,40 @@ def _write_artifacts(name: str, actual_png: bytes, expected_png: bytes,
     return written
 
 
+REWRITTEN: list[str] = []
+
+
 def _assert_snapshot(name: str, actual_png: bytes, snap_dir: Path) -> None:
+    """Сравнить снимок с эталоном или перезаписать эталон.
+
+    Перезапись разрешена поимённо (F-18, #98). Прежде `UPDATE_SNAPSHOTS=1`
+    был единственным режимом и затирал весь набор молча: опечатка в одном
+    токене стиля выглядела как успешная правка, пока картинки не
+    сравнивали глазами. Теперь переменная окружения принимает список имён,
+    и в выборочном режиме прогон падает с перечнем заменённых файлов —
+    замену обязан увидеть человек.
+
+    В режиме `all` поведение прежнее: молча переписать всё. Это осознанно
+    и описано в докстринге файла — полная пересъёмка нужна редко и
+    намеренно, а не по недосмотру в переменной окружения.
+    """
     path = snap_dir / f"{name}.png"
-    if UPDATE or not path.exists():
+
+    if _should_update(name):
+        snap_dir.mkdir(parents=True, exist_ok=True)
+        existed = path.exists()
+        path.write_bytes(actual_png)
+        REWRITTEN.append(f"{path} ({'заменён' if existed else 'создан'}, "
+                         f"{path.stat().st_size / 1024:.0f} КБ)")
+        return
+
+    if not path.exists():
         snap_dir.mkdir(parents=True, exist_ok=True)
         path.write_bytes(actual_png)
         size_kb = path.stat().st_size / 1024
-        if not UPDATE:
-            pytest.fail(f"Эталон {name} создан ({size_kb:.0f} КБ). Посмотри его "
-                        f"в глаза — потом он станет базой. Повтори прогон.")
-        return
+        pytest.fail(f"Эталон {name} создан ({size_kb:.0f} КБ). Посмотри его "
+                    f"в глаза — потом он станет базой. Повтори прогон.")
+
     pct, bbox, n, sizes = _compare(actual_png, path.read_bytes())
     if pct <= DIFF_TOL_PCT:
         return
@@ -619,12 +764,34 @@ def _assert_snapshot(name: str, actual_png: bytes, snap_dir: Path) -> None:
                f"остановиться, а не «100% пикселей»")
     else:
         why = f"{n} пикселей, область x[{bbox[0]}..{bbox[2]}] y[{bbox[1]}..{bbox[3]}]"
+    if UPDATE_MODE == "off":
+        hint = (f"    Если правка намеренная — перезапиши ТОЛЬКО этот эталон:\n"
+                f"    $env:UPDATE_SNAPSHOTS='{name}'; pytest -q -m snapshots")
+    else:
+        hint = (f"    Если правка намеренная — перезапиши эталон:\n"
+                f"    $env:UPDATE_SNAPSHOTS='1'; pytest -q -m snapshots")
     pytest.fail(f"[{snap_dir.name}] {name}: расхождение {pct:.3f}% при пороге "
                 f"{DIFF_TOL_PCT}%\n"
                 f"    {why}\n    эталон: {path}\n"
                 f"    артефакты: {', '.join(files)}\n"
-                f"    Если правка намеренная — перезапиши эталон:\n"
-                f"    $env:UPDATE_SNAPSHOTS='1'; pytest -q -m snapshots")
+                f"    {hint}")
+
+
+def pytest_terminal_summary(terminalreporter) -> None:
+    """Показать перечень перезаписанных эталонов.
+
+    Без этого выборочное обновление выглядит как обычный зелёный прогон,
+    а перезаписанный файл никто не открывает — ровно та проблема, ради
+    которой F-18 и выделялся в отдельную правку.
+    """
+    if not REWRITTEN:
+        return
+    terminalreporter.write_sep("=", "эталоны перезаписаны")
+    for line in REWRITTEN:
+        terminalreporter.write_line(f"  {line}")
+    terminalreporter.write_line(
+        "  Посмотри их глазами и повтори прогон без UPDATE_SNAPSHOTS — "
+        "тогда он сравнит новое со старым.")
 
 
 # ─────────────────────────── тесты ───────────────────────────
@@ -672,8 +839,11 @@ def test_modal_index_snapshot(_env_checked, browser, snap_dir):
         # Маскировка версии — см. комментарий в _capture выше.
         page.evaluate(
             """() => {
-                document.querySelectorAll('[data-version="app"]').forEach(el => {
-                    el.textContent = 'vX.X.X';
+                document.querySelectorAll(
+                    '[data-version="app"],[data-version="tests"]'
+                ).forEach(el => {
+                    el.textContent = el.dataset.version === 'app'
+                        ? 'vX.X.X' : 'vNNN';
                 });
             }"""
         )
