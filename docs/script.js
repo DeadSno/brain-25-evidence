@@ -885,90 +885,40 @@ function bubbleRadii() {
   };
 }
 
+// E1.5 (батч 5): ветки оси «Цена» удалены как мёртвые. В разметке
+// только axisMA/axisRCT (docs/index.html:347-348), setAxisX вызывается
+// лишь с 'ma'/'rct', поэтому axisX !== 'price' всегда.
 function renderBubble(data) {
-  const isPrice = axisX === 'price';
   const { rFor, rHoverFor } = bubbleRadii();
-  const priced = isPrice
-    ? data.filter(s => (s.price || 0) > 0)
-    : data.filter(s => { const v = axisVal(s); return v != null && v > 0; });
-  const nullPrice = isPrice ? data.filter(s => !((s.price || 0) > 0)) : [];
+  const plotted = data.filter(s => { const v = axisVal(s); return v != null && v > 0; });
   // Явный max по данным для X-оси (Chart.js на лог-шкале оставляет большой запас)
   // min/max по данным — плотная посадка точек в обоих табах
-  const xVals = priced.map(s => axisVal(s)).filter(v => v != null && v > 0);
+  const xVals = plotted.map(s => axisVal(s)).filter(v => v != null && v > 0);
   const xMax = xVals.length ? xVals.reduce((m, v) => Math.max(m, v), 1) : 1;
   const xMin = xVals.length ? xVals.reduce((m, v) => Math.min(m, v), Infinity) : 1;
-  chartPts = priced.concat(nullPrice);
-  if (isPrice) {
-    $('chartNote').textContent = nullPrice.length
-      ? ''
-      : '';
-  } else {
-    $('chartNote').textContent = priced.length < data.length
-      ? '⚠️ ' + (data.length - priced.length) + ' добавок без значения («' + AXIS_LABEL[axisX] + '») не показаны на графике' : '';
-  }
+  chartPts = plotted;
+  $('chartNote').textContent = plotted.length < data.length
+    ? '⚠️ ' + (data.length - plotted.length) + ' добавок без значения («' + AXIS_LABEL[axisX] + '») не показаны на графике' : '';
   const ctx = $('bubbleChart').getContext('2d');
   if (chartInstance) chartInstance.destroy();
   const txt = getComputedStyle(document.body).getPropertyValue('--text');
-  const maxP = priced.reduce((m, s) => Math.max(m, s.price || 0), 0) || 1;
-  const band = isPrice && nullPrice.length
-    ? { lo: maxP * 1.1, hi: maxP * 1.25, label: 'без цены (N=' + nullPrice.length + ')' }
-    : null;
-  const bandDatasets = band
-    ? nullPrice.map(s => ({
-        label: s.name,
-        data: [{ x: (band.lo + band.hi) / 2, y: Math.max(1, s.scienceIndex) }],
-        backgroundColor: 'rgba(150,150,150,.55)',
-        pointRadius: rFor(s),
-        pointHoverRadius: rHoverFor(s)
-      }))
-    : [];
-  const noPriceBandPlugin = {
-    id: 'noPriceBand',
-    afterDraw(chart) {
-      const cfg = chart.config._config;
-      if (!cfg.$band) return;
-      const { lo, hi, label } = cfg.$band;
-      const xs = chart.scales.x;
-      const pxLo = xs.getPixelForValue(lo);
-      const pxHi = xs.getPixelForValue(hi);
-      const { top, bottom, left, right } = chart.chartArea;
-      const c = chart.ctx;
-      c.save();
-      c.fillStyle = 'rgba(128,128,128,.12)';
-      c.fillRect(pxLo, top, pxHi - pxLo, bottom - top);
-      c.strokeStyle = 'rgba(128,128,128,.4)';
-      c.setLineDash([4, 3]);
-      c.beginPath(); c.moveTo(pxLo, top); c.lineTo(pxLo, bottom);
-      c.moveTo(pxHi, top); c.lineTo(pxHi, bottom); c.stroke();
-      c.setLineDash([]);
-      c.fillStyle = 'rgba(128,128,128,.78)';
-      c.font = '11px sans-serif';
-      c.textAlign = 'center';
-      c.fillText(label, (pxLo + pxHi) / 2, bottom - 5);
-      c.restore();
-    }
-  };
   chartInstance = new Chart(ctx, {
     type: 'scatter',
-    data: { datasets: priced.map(s => ({
+    data: { datasets: plotted.map(s => ({
       label: s.name,
       data: [{ x: axisVal(s), y: Math.max(1, s.scienceIndex) }],
       backgroundColor: vColorAlpha(s.code),
       pointRadius: rFor(s),
       pointHoverRadius: rHoverFor(s)
-    })).concat(bandDatasets) },
+    })) },
     options: {
       responsive: true, maintainAspectRatio: false,
       layout: { padding: { left: 12, right: 8, top: 4, bottom: 4 } },
       scales: {
-        x: isPrice
-          ? { title: { display: true, text: AXIS_LABEL[axisX], color: txt },
-              grid: { color: 'rgba(128,128,128,.15)' },
-              max: band ? band.hi * 1.02 : undefined }
-          : { type: 'logarithmic', min: xMin * 0.75, max: xMax * 1.25,
-              title: { display: true, text: AXIS_LABEL[axisX] + ' (лог)', color: txt },
-              grid: { color: 'rgba(128,128,128,.15)' },
-              ticks: { callback: v => [1, 10, 100, 1000, 10000].includes(v) ? v : '' } },
+        x: { type: 'logarithmic', min: xMin * 0.75, max: xMax * 1.25,
+             title: { display: true, text: AXIS_LABEL[axisX] + ' (лог)', color: txt },
+             grid: { color: 'rgba(128,128,128,.15)' },
+             ticks: { callback: v => [1, 10, 100, 1000, 10000].includes(v) ? v : '' } },
         y: { type: 'logarithmic',
              title: { display: true, text: 'Индекс науки (лог)', color: txt },
              grid: { color: 'rgba(128,128,128,.15)' },
@@ -980,7 +930,7 @@ function renderBubble(data) {
           callbacks: {
             label: ctx => {
               const s = chartSupByEl(ctx.chart, { datasetIndex: ctx.datasetIndex, index: ctx.dataIndex });
-              return s ? ' ' + s.name + ' · ' + (axisX === 'price' ? (s.price ?? '—') + ' ₽/мес' : AXIS_LABEL[axisX] + ': ' + axisVal(s)) + ' · ' + s.verdict : '';
+              return s ? ' ' + s.name + ' · ' + AXIS_LABEL[axisX] + ': ' + axisVal(s) + ' · ' + s.verdict : '';
             }
           }
         }
@@ -994,9 +944,7 @@ function renderBubble(data) {
       onHover: (e, els) => {
         e.native.target.style.cursor = els.length ? 'pointer' : 'default';
       }
-    },
-    plugins: [noPriceBandPlugin],
-    $band: band
+    }
   });
   window.chart = chartInstance;
 }
