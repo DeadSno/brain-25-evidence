@@ -5,8 +5,8 @@
 | **Тип** | skills — качество, актуальность и корректность скиллов `.opencode/skills/` |
 | **Источники** | `SKILLS_AUDIT_ORION.md`, `AUDIT_E_SUMMARY.md` §5.2, `SKILLS_RECOMMENDATIONS.md`, `SKILLS_REVISION.md` |
 | **Консолидация** | 11.10.2026, ветка `v5.6-dev` |
-| **Открыто** | P0 — 1, P1 — 3, P2 — 2, stale — 3 |
-| **Закрыто** | P0 — 1 |
+| **Открыто** | P0 — 1, P1 — 2, P2 — 0, stale — 1 |
+| **Закрыто** | P0 — 1, P1 — 1, P2 — 2, stale — 2 |
 
 ---
 
@@ -23,23 +23,17 @@
 | ID | Находка | Источник |
 |---|---|---|
 | SK-P1-01 | `release-check` без приоритетов и действий | SKILLS_AUDIT_ORION |
-| SK-P1-02 | Скиллы ссылаются на устаревшие отчёты | SKILLS_AUDIT_ORION |
-| SK-P1-03 | `cyberaudit`: многострочное `description`, нет лицензии | SKILLS_AUDIT_ORION |
+| SK-P1-03 | `cyberaudit`: многострочное `description` ⚠️ **половина закрыта** — `license: MIT` добавлен (`12119a5`), но `description: >` остаётся 6-строчной folded-скалярной строкой | SKILLS_AUDIT_ORION |
 
 ### P2
 
-| ID | Находка | Источник |
-|---|---|---|
-| SK-P2-01 | У 18 скиллов нет поля `compatibility` | SKILLS_AUDIT_ORION |
-| SK-P2-02 | Режим (`mode`) декоративный | SKILLS_AUDIT_ORION |
+_Пусто — все находки P2 закрыты (SK-P2-01, SK-P2-02)._
 
 ### Устаревшие данные в скиллах
 
 | ID | Находка | Источник |
 |---|---|---|
-| SK-STALE-01 | Общий блок «Специфика проекта» устарел в **12 скиллах** (`project-audit`, `product-audit`, `qa-deep-audit`, `data-validation`, `docs-sync`, `release-check`, `site-navigation`, `pwa-audit`, `mobile-deep-audit`, `ui-ux-deep-audit`, `marketing-deep-audit`, `visual-design-audit`): «12 HTML, 5 sup, `style.css` v=391, `sw.js` v51, 727 тестов, 6 JS». Факт (2026-10-11): **13 контентных HTML** (+`privacy.html`), **131 sup**, `style.css?v=423`, `sw.js CACHE_VERSION v89`, **1079 тестов**, **9 JS**. Детали — `reports/SKILLS_INVENTORY.md` | Инвентаризация 2026-10-11 |
-| SK-STALE-02 | `SKILLS_INDEX.md` содержит ошибки: «736 passed/18 skipped» (факт 1079); «глобальная копия `cyberaudit` старее, v3.1.5 vs v3.2.1» (факт: копии **байт-идентичны**, обе 3.1.5); «ревизия всех **23** скиллов» (факт **19**); реестр отчётов ссылается на отсутствующие `SKILLS_REVISION.md`/`SKILLS_INSTALL.md` | Инвентаризация 2026-10-11 |
-| SK-STALE-03 | Хардкод проектных чисел вместо динамики (`docs/version.json`) — корневая причина SK-STALE-01: общий блок скопирован в 12 файлов, единого источника нет | Инвентаризация 2026-10-11 |
+| SK-STALE-02 | `SKILLS_INDEX.md` ⚠️ **почти закрыт** — «736 passed/18 skipped», «v3.2.1», «ревизия всех **23** скиллов» и ссылки на отсутствующие `SKILLS_REVISION.md`/`SKILLS_INSTALL.md` исправлены (`167580a`), но `SKILLS_INDEX.md:180` всё ещё пишет «878 passed, 201 skipped» — факт на HEAD: **1076 passed / 235 skipped** (1311 собрано) | Инвентаризация 2026-10-11 |
 
 ---
 
@@ -50,6 +44,26 @@
 | ID | Находка | Коммит | Дата |
 |---|---|---|---|
 | SK-P0-02 | У `visual-design-audit` нет лицензии → добавлено `license: MIT`; у `cyberaudit` лицензия также есть, но файл локальный (`.gitignore`) | `12119a5` | 12.10.2026 |
+
+### P1
+
+| ID | Находка | Коммит | Дата |
+|---|---|---|---|
+| SK-P1-02 | Скиллы ссылаются на устаревшие отчёты — 13 ссылок вида «свежий аудит»/`ROADMAP_NEW`/«аудит 2026-09-30» удалены из 20 скиллов | `0bfd364` | 13.10.2026 |
+
+### P2
+
+| ID | Находка | Коммит | Дата |
+|---|---|---|---|
+| SK-P2-01 | Требование `compatibility` у 18 скиллов отклонено как артефакт чужой схемы; заменено гейтом `tests/test_skills_frontmatter.py` по реальной конвенции проекта | `21ba2ec` | 13.10.2026 |
+| SK-P2-02 | Поле `mode` декоративное — удалено из frontmatter (0 из 20 скиллов объявляют `mode`); гейт обновлён | `d70a64f`, `e4199af` | 13.10.2026 |
+
+### Устаревшие данные
+
+| ID | Находка | Коммит | Дата |
+|---|---|---|---|
+| SK-STALE-01 | Блок «Специфика проекта» с хардкодом («12 HTML, 5 sup, `style.css` v=391, `sw.js` v51, 727 тест, 6 JS») вычищен из всех 20 `SKILL.md` (0 совпадений), блок перенаправлен на `CONVENTIONS.md` | `0bfd364` | 13.10.2026 |
+| SK-STALE-03 | Хардкод проектных чисел устранён — метрики `visual-design-audit` теперь сверяются гейтом `tests/test_skill_numbers_match_project.py` | `c295d94` | 13.10.2026 |
 
 ---
 
