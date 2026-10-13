@@ -5,8 +5,8 @@
 | **Тип** | perf — Core Web Vitals, вес страниц, граф; плюс состояние проекта и релиза (batch D project/release) |
 | **Источники** | `audit_D_cwv.md`, `UI_FIXES_GRAPH_PERF.md`, `audit_D_project.md`, `audit_D_release.md`, `STAGE8A_MISC.md`, `STAGE4_SITEMAP.md` |
 | **Консолидация** | 11.10.2026, ветка `v5.6-dev` |
-| **Открыто** | P0 — 0, P1 — 5, P2 — 6 |
-| **Закрыто** | P0 — 1, P1 — 2, P2 — 2 |
+| **Открыто** | P0 — 0, P1 — 2, P2 — 5 |
+| **Закрыто** | P0 — 1, P1 — 5, P2 — 3 |
 
 ---
 
@@ -14,27 +14,22 @@
 
 ### P1 — Производительность
 
-| ID | Находка | Где | Источник |
-|---|---|---|---|
-| PERF-P1-01 | `index.html` 1045 КБ тянет `data.json` 742 КБ через `script.js:32` (LCP 480 мс); ленивая загрузка batch C (`supplementsFullPromise`) не завершена | `docs/script.js` | cwv P1-1 |
-| PERF-P1-02 | `trends.html` CLS 0.1101 из `div#statCards.stat-cards` — единственная страница > 0.1 | `docs/trends.html` | cwv P1-2 |
+_Пусто — обе находки P1 закрыты (PERF-P1-01, PERF-P1-02)._
 
 ### P1 — Проект / релиз
 
 | ID | Находка | Где | Источник |
 |---|---|---|---|
-| PRJ-P1-01 | `trends.html`: рассинхрон 130 против 94 (нет кривых у 36 карточек) | `docs/trends.html` | project P1 |
-| REL-P1-02 | CHANGELOG не содержит v5.6.2; дубль `[v3.2.0]` | `CHANGELOG.md` | release P1 |
-| REL-P1-03 | pytest: фактически 813 против показанных 1010 (#87) | `docs/version.json` | release P1 |
+| PRJ-P1-01 | `trends.html`: рассинхрон 130 против 94 (нет кривых у 36 карточек) — **факт на HEAD: 130 в `data.json` против 94 в `timeseries.json`**, дефект сохраняется | `docs/trends.html` | project P1 |
+| REL-P1-02 | CHANGELOG ⚠️ **половина закрыта** — `## [v5.6.2]` добавлен (`9136c51`), но дубль `## [v3.2.0]` остался дважды: `CHANGELOG.md:593` и `:595` | `CHANGELOG.md` | release P1 |
 
 ### P2
 
 | ID | Находка | Где | Источник |
 |---|---|---|---|
-| PERF-P2-01 | Тяжёлые вены: `vis-network-9.1.9` 673 КБ (4 стр.), `chart.umd` 201 КБ, `bootstrap-5.0.0-beta3` 230 КБ | `docs/` | cwv P2 |
-| PERF-P2-02 | Нет предсжатых `.gz`/`.br` | хостинг | cwv P2 |
-| REL-P2-01 | ~40 worktree в detached HEAD | git | AUDIT_MASTER §13 |
-| REL-P2-02 | Version/tests drift (см. REL-P1-03) | `docs/version.json` | release P2 |
+| PERF-P2-01 | Тяжёлые вены: `vis-network-9.1.9` **688 911 Б** (3 стр.), `chart.umd` **205 399 Б**, `bootstrap-5.0.0-beta3` **235 302 Б** — размеры выросли с момента аудита | `docs/vendor/` | cwv P2 |
+| PERF-P2-02 | Нет предсжатых `.gz`/`.br` — подтверждено на HEAD: ноль файлов `*.gz`/`*.br` под `docs/`, конфигурации сжатия нет | хостинг | cwv P2 |
+| REL-P2-01 | ~40 worktree в detached HEAD — **факт на HEAD: 44 worktree** (1 main + 1 wave-d + 42 detached) | git | AUDIT_MASTER §13 |
 | PRJ-P2-01 | 5 из 10 находок project-аудита ложные | — | project |
 | PRJ-P2-02 | Прочие P2 project/release (4 пункта) | — | audit_D_project/release |
 
@@ -49,6 +44,10 @@
 | REL-P2-03 | `version.json` tests-счётчик синхронизирован с фактически собранными | `756a2d0`, `4f05a36` | 10–11.10.2026 |
 | REL-P0-01 | Тег `v5.6.1` (`21f296f`) присутствует в `v5.6-dev`; CHANGELOG v5.6.1 помечен выпущенным — противоречие снято | merge `99c67b9`, тег `v5.6.3` | 12.10.2026 |
 | REL-P1-01 | Ветки разошлись 37/7 — расхождение закрыто ff-мержем `57e0089` → `99c67b9` | `99c67b9` | 12.10.2026 |
+| PERF-P1-01 | `index.html` больше не тянет `data.json` целиком: `script.js:253` грузит лёгкую проекцию `data_index.json` (**86 713 Б** вместо `data.json` 760 644 Б), полный файл — лениво через `ensureFullData` + idle-prefetch. Оговорка: 760 КБ всё ещё догружаются в простое, вне пути LCP; сам LCP не перезамерялся | `24ccfc3`, `e8da7d3` | 13.10.2026 |
+| PERF-P1-02 | `trends.html` CLS: резервирование высоты `.insights-grid` (`min-height:530/341/246px`, `trends.html:140-142`) + `font-display:swap` (`style.css:26-34`); замер в коммите — CLS 0.11 → 0–0.011 на 11 ширинах. Корень — `#insightsGrid`, а не `#statCards` | `1a8bee8` | 13.10.2026 |
+| REL-P1-03 | Расхождение счётчика тестов закрыто по существу, а не подгонкой числа: сломанный regex в `sync_test_count.py` и неверный набор маркеров исправлены, `version.json` tests=1311 совпадает с фактически собранными 1311 (1076 passed + 235 skipped), гейт `tests/test_version_json_counts_match_reality.py` | `3452a2a`, `363c93a` | 13.10.2026 |
+| REL-P2-02 | Version/tests drift — тот же корень, что REL-P1-03: `version.json` app=5.6.3 совпадает с тегом, tests=1311 совпадает с фактом, расхождение защищено гейтом | `3452a2a`, `363c93a` | 13.10.2026 |
 
 ---
 
