@@ -5,8 +5,9 @@
 | **Тип** | data — целостность, схемы, качество, происхождение; QA данных (покрытие тестами) |
 | **Источники** | `audit_A_data-audit.md`, `audit_A_qa-deep-audit.md`, `AUDIT_E_data-validation.md`, `STAGE4_DATA.md` |
 | **Консолидация** | 11.10.2026, ветка `v5.6-dev` |
-| **Открыто** | P1 — 6, P2 — 18 |
-| **Закрыто** | P1 — 4 |
+| **Сверка** | 13.10.2026, батч 4 — статусы перепроверены по HEAD, 3 ложных долга закрыты |
+| **Открыто** | P1 — 4, P2 — 17 |
+| **Закрыто** | P1 — 6, P2 — 1 |
 
 ---
 
@@ -16,35 +17,32 @@
 
 | ID | Находка | Где | Источник / статус |
 |---|---|---|---|
-| DATA-P1-02 | `hedges_g_outcome` пусто у 86 карточек (из них 42 с заполненным `hedges_g`); метки исхода нет в самих данных (`113 пустых` в `hedges_g_all.json`) | `docs/data.json` | STAGE4 §E — техдолг v5.6.4 |
-| DATA-P1-12 | `timeseries` покрывает 94/130; нет кривых у 36 карточек, из них 19 с `citations > 0` (B1 871, B2 1111 …) | `data/timeseries/`, `docs/data.json` | STAGE4 §D — техдолг v5.6.4 |
-| DATA-COI | COI-данные (`reports/coi_per_paper.json` 486 КБ) не показаны в карточках, 0 упоминаний в HTML | контент | STAGE4 §F — техдолг v5.7 |
-| QA-P1-01 | 20 критичных скриптов без тестов (build_api, build_key_sources, build_interactions, check_state, validate_proposal, analyze_coi, build_sitemap, build_feed, build_edu, build_timeseries, build_ma_timeline, build_changelog_public, build_slim, apply_adv, apply_drafts, apply_mechs, sync_test_count, rebuild_index, recalc_science_index, update_all) | `scripts/` | audit_A_qa P1-1 |
-| QA-P1-02 | Нет теста идемпотентности `build_sup` | `scripts/build_sup.py` | audit_A_qa P1-2 |
-| QA-P1-03 | Нет теста валидности HTML `sup/*.html` | `docs/sup/` | audit_A_qa P1-3 |
+| DATA-P1-02 | `hedges_g_outcome` пусто у 86 карточек (из них 42 с заполненным `hedges_g`); метки исхода нет в самих данных | `docs/data.json` | STAGE4 §E. Перемер 13.10: 86 карточек без `hedges_g_outcome` подтверждено. **Подзапрос «113 пустых» не воспроизводится:** в `docs/hedges_g_all.json` 113 ключей, из них **пустых 27**, 86 непустых — 113 это размер словаря, а не число пустых значений |
+| DATA-P1-12 | `timeseries` покрывает 94/130; нет кривых у 36 карточек, из них 19 с `citations > 0` (B1 871, B2 1111 …) | `data/timeseries/`, `docs/data.json` | STAGE4 §D. Перемер 13.10 совпал точно; в `docs/data.json` карточек с ключом `timeseries` — **0** (кривые живут только в `docs/timeseries.json`) |
+| DATA-COI | COI-данные (`reports/coi_per_paper.json` 486 КБ) не показаны в карточках, 0 упоминаний в HTML | контент | STAGE4 §F. **ЧАСТИЧНО:** `a645153` добавил раздел в `docs/methodology.html:165` (`<h2>Конфликты интересов (COI)</h2>`), но в `src/` и `templates/` слов coi нет — сам файл по-прежнему нигде не рендерится |
+| QA-P1-01 | 20 критичных скриптов без тестов (build_api, build_key_sources, build_interactions, check_state, validate_proposal, analyze_coi, build_sitemap, build_feed, build_edu, build_timeseries, build_ma_timeline, build_changelog_public, build_slim, apply_adv, apply_drafts, apply_mechs, sync_test_count, rebuild_index, recalc_science_index, update_all) | `scripts/` | audit_A_qa P1-1. Перемер 13.10: в `tests/*.py` упоминаются 4 из 20 — `build_key_sources`, `analyze_coi`, `build_sitemap`, `build_feed`; 16 по-прежнему без тестов. `8023997` починил список в скилле, но не тесты |
 
 ### P2
 
 | ID | Находка | Где | Источник |
 |---|---|---|---|
-| DATA-P2-01 | `hedges_g_ci` = null у 48 | `docs/data.json` | data-audit |
-| DATA-P2-02 | `ma_top3` = null у 50 | `docs/data.json` | data-audit |
-| DATA-P2-03 | 18 карточек без citations | `docs/data.json` | data-audit |
-| DATA-P2-04 | Мёртвые ключи `PRIOR_G` | `src/config.py` | data-audit |
-| DATA-P2-05 | U+FFFD в `unpaywall.json` (8 строк) | `data/` | data-audit |
-| DATA-P2-06 | U+FFFD в `funders.json` (1 строка) | `data/` | data-audit |
-| DATA-P2-07 | `hedges_g_all.json` покрывает 113/130 (17 отсутствуют, 27 пустых) | `docs/` | data-validation |
-| DATA-P2-08 | `key_sources` до 5 записей у 26 карточек (заявлено 1–3) | `docs/` | data-validation |
-| DATA-P2-09 | `dosage_parsed.json` покрывает 94/130 | `data/` | data-validation |
-| DATA-P2-10 | `grade` не монотонен по `scienceIndex` | `docs/data.json` | data-validation |
-| DATA-P2-11 | `forms` = null 123 / строка 7 | `docs/data.json` | data-validation |
-| DATA-P2-12 | `metaCount == 0` у 7 | `docs/data.json` | data-validation |
-| DATA-P2-13 | `citations`/`ongoing`/`wiki` = null 17/36/40 | `docs/data.json` | data-validation |
-| DATA-P2-14 | 79 объединённых против 59 атомарных категорий | `docs/effect_tags.json` | data-validation |
-| QA-P2-01 | `test_silent_handlers` привязан к номерам строк `sw.js` (техдолг #52) | `tests/` | audit_A_qa P2 |
-| QA-P2-02 | 123 карточки с null `forms` (см. DATA-P2-11) | `docs/data.json` | audit_A_qa P2 |
-| QA-P2-03 | Нет теста битых ссылок в `sup/` | `docs/sup/` | audit_A_qa P2 |
-| QA-COV | Покрытие: 16 из 89 скриптов (18%) | `scripts/` | audit_A_qa |
+| DATA-P2-01 | `hedges_g_ci` = null у 48 | `docs/data.json` | data-audit. Перемер 13.10 совпал (48). Подробный разбор и вердикт «by design» — ниже в разделе «Примечания» |
+| DATA-P2-02 | `ma_top3` = null у 50 | `docs/data.json` | data-audit. **ЧАСТИЧНО:** `454b956` добавил 49 ключей `ma_top3` (`git show 454b956 -- docs/data.json` → `+49`, `-0`), долг 49 → 0 по «отсутствующим»; но 4 карточки содержат пустой список `[]` (Ежовик, Шатавари, Чага, PQQ) — то есть «без значения» всё ещё 4, а не 0 |
+| DATA-P2-03 | 18 карточек без citations | `docs/data.json` | data-audit. Перемер 13.10 совпал (17 `null` + 1 `0`) |
+| DATA-P2-04 | Мёртвые ключи `PRIOR_G` | `src/content.py:1260` | data-audit. **Путь в находке был неверен:** ключ живёт в `src/content.py:1260`, в `src/config.py` его никогда не было (`git log -S"PRIOR_G" -- src/config.py` пуст). Перемер: 3 известных мёртвых ключа, гейт есть — `tests/test_content_module.py:120` (`KNOWN_DEAD_PRIOR`), добавлен `2f954e4` |
+| DATA-P2-05 | U+FFFD в `unpaywall.json` (8 строк) | `data/papers/unpaywall.json` | data-audit. Перемер 13.10: 18 символов U+FFFD на 8 строках — совпало. Файл **загитигнорен** (`.gitignore:221`), фикс в репозитории невозможен. ⚠️ `OPEN_TECHDEBT.md:290` числит находку закрытой, но указывал неверный путь `data/unpaywall.json` — закрытия нет |
+| DATA-P2-06 | U+FFFD в `funders.json` (1 строка) | `data/papers/funders.json` | data-audit. Перемер 13.10: 1 символ U+FFFD на строке 137571 — совпало |
+| DATA-P2-07 | `hedges_g_all.json` покрывает 113/130 (17 отсутствуют, 27 пустых) | `docs/` | data-validation. Перемер 13.10 совпал точно |
+| DATA-P2-08 | `key_sources` до 5 записей у 26 карточек (заявлено 1–3) | `docs/` | data-validation. Перемер 13.10 совпал (26 карточек, максимум 5) |
+| DATA-P2-09 | `dosage_parsed.json` покрывает 94/130 | `data/` | data-validation. Перемер 13.10 совпал (94 из 130) |
+| DATA-P2-10 | `grade` не монотонен по `scienceIndex` | `docs/data.json` | data-validation. Перемер 13.10 совпал: 46 инверсий из 129 соседних пар (`OPEN_TECHDEBT.md:258` называет те же 46/129) |
+| DATA-P2-11 | `forms` = null 123 / строка 7 | `docs/data.json` | data-validation. Перемер 13.10 совпал (123 `null`, 7 строковых) |
+| DATA-P2-12 | `metaCount == 0` у 7 | `docs/data.json` | data-validation. Перемер 13.10 совпал (7) |
+| DATA-P2-13 | `citations`/`ongoing`/`wiki` = null 17/36/40 | `docs/data.json` | data-validation. Перемер 13.10 совпал точно |
+| DATA-P2-14 | 79 объединённых против 59 атомарных категорий | `docs/data.json` (поле `category`) | data-validation. **Путь в находке был неверен:** числа относятся к `docs/data.json`, а не к `docs/effect_tags.json` (там 130 словарей и 18 тегов). Перемер 13.10: 79 объединённых / 59 атомарных — подтверждено |
+| QA-P2-01 | `test_silent_handlers` привязан к номерам строк `sw.js` (техдолг #52) | `tests/` | audit_A_qa P2. Перемер 13.10: `tests/test_silent_handlers.py:146` (`"sw.js", 254`) и `:153` (`"sw.js", 466`) всё ещё привязаны к номерам строк; комментарий `:88-93` сам признаёт долг #52. `2b26464` тронул только список допустимых кортежей, сами кортежи не изменились |
+| QA-P2-02 | 123 карточки с null `forms` (см. DATA-P2-11) | `docs/data.json` | audit_A_qa P2. **Дубликат** DATA-P2-11 — обе строки описывают одно и то же |
+| QA-COV | Покрытие: 16 из 89 скриптов (18%) | `scripts/` | audit_A_qa. Знаменатель устарел: скриптов теперь **131**, в `tests/*.py` упоминаются **22** базовых имени (17%). Процент изменился, но долг тот же |
 
 ---
 
@@ -56,6 +54,9 @@
 | DATA-P1-03 | `RETMAX = 500` обрезал списки PMID у 61 карточки → поднят до 2000 | `59cc0de` | 11.10.2026 |
 | DATA-P1-04 | `esearch` без `sort=relevance` | в коде `scripts/build_key_sources.py:64` | — (закрыто до консолидации) |
 | DATA-P1-11 | Поле `with`: 51 из 199 — заглушки в 4 вариантах (`нет данных` 32, `""` 10, `"—"` 9) → унифицировано в `"нет данных"` | `59cc0de` | 11.10.2026 |
+| QA-P1-02 | Нет теста идемпотентности `build_sup` | `56509a3` | 13.10.2026 |
+| QA-P1-03 | Нет теста валидности HTML `sup/*.html` | `477f449` | 13.10.2026 |
+| QA-P2-03 | Нет теста битых ссылок в `sup/` | `154dd3c` | 13.10.2026 |
 
 ---
 
@@ -65,6 +66,28 @@
 - `fetch_papers.py` после смены `RETMAX` **не перезапускался** — повторная загрузка из сети остаётся отдельной задачей.
 - `data/supplements_slim.json` правился in-place (пересборка требует загитигноренного `papers.json`) — техдолг v5.6.4.
 - Проверка контрольных пар (data.json ↔ производные) дрейфа не выявила.
+
+### Сверка 13.10.2026 (батч 4)
+
+Перепроверены все 24 находки: числа перемерены заново по HEAD, для каждого
+«закрытого» кандидата искался подтверждающий коммит. Три ложных долга закрыты:
+`QA-P1-02` (`56509a3`, гейт идемпотентности сборки sup), `QA-P1-03` (`477f449`,
+гейт структурных инвариантов 131 sup-страницы), `QA-P2-03` (`154dd3c`, гейт битых
+ссылок). Открытых P1: 6 → 4, P2: 18 → 17, закрытых P1: 4 → 6, P2: 0 → 1.
+
+Попутно исправлены три неверные ссылки в самой находке: `DATA-P2-04` указывала
+`src/config.py`, ключ живёт в `src/content.py:1260`; `DATA-P2-05` — путь
+`data/papers/unpaywall.json` (и он загитигнорен); `DATA-P2-14` — числа относятся
+к `docs/data.json`, а не к `docs/effect_tags.json`. Подзапрос в `DATA-P1-02`
+(«113 пустых в `hedges_g_all.json`») не воспроизводится: 113 — это размер
+словаря, пустых значений 27.
+
+⚠️ **Конфликт с OPEN_TECHDEBT.** `reports/OPEN_TECHDEBT.md:288-291` числит
+`DATA-P2-02`, `DATA-P2-04`, `DATA-P2-05` и `QA-P2-01` закрытыми. Перемер
+опровергает три из четырёх: `DATA-P2-02` закрыт наполовину (4 карточки с `[]`),
+`DATA-P2-04` и `DATA-P2-05` не закрыты вовсе. `reports/FINAL_WAVE_BATCH3.md:76-81`
+закрытие `QA-P1-02`/`QA-P1-03` подтверждает корректно; его F-39 (`QA-P1-01`)
+закрыл только список скриптов в скилле, но не тесты.
 
 ### hedges_g_ci = null (48 карточек)
 
