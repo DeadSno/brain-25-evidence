@@ -23,7 +23,7 @@
 | ID | Находка | Источник |
 |---|---|---|
 | SK-P1-01 | `release-check` без приоритетов и действий | SKILLS_AUDIT_ORION |
-| SK-P1-03 | `cyberaudit`: многострочное `description` ⚠️ **половина закрыта** — `license: MIT` добавлен (`12119a5`), но `description: >` остаётся 6-строчной folded-скалярной строкой | SKILLS_AUDIT_ORION |
+| SK-P1-03 | `cyberaudit`: многострочное `description` 🔸 **PARTIAL** (не переносится в «Закрыто») — `license: MIT` добавлен (`12119a5`), но `description: >` остаётся 6-строчной folded-скалярной строкой | SKILLS_AUDIT_ORION |
 
 ### P2
 
@@ -33,7 +33,7 @@ _Пусто — все находки P2 закрыты (SK-P2-01, SK-P2-02)._
 
 | ID | Находка | Источник |
 |---|---|---|
-| SK-STALE-02 | `SKILLS_INDEX.md` ⚠️ **почти закрыт** — «736 passed/18 skipped», «v3.2.1», «ревизия всех **23** скиллов» и ссылки на отсутствующие `SKILLS_REVISION.md`/`SKILLS_INSTALL.md` исправлены (`167580a`), но `SKILLS_INDEX.md:180` всё ещё пишет «878 passed, 201 skipped» — факт на HEAD: **1076 passed / 235 skipped** (1311 собрано) | Инвентаризация 2026-10-11 |
+| SK-STALE-02 | `SKILLS_INDEX.md` 🔸 **PARTIAL** (не переносится в «Закрыто») — «736 passed/18 skipped», «v3.2.1», «ревизия всех **23** скиллов» и ссылки на отсутствующие `SKILLS_REVISION.md`/`SKILLS_INSTALL.md` исправлены (`167580a`), но `SKILLS_INDEX.md:180` всё ещё пишет «878 passed, 201 skipped» — факт на HEAD: **1070 passed / 235 skipped / 6 deselected** (1311 собрано; «1076» = 1070 + 6 deselected) | Инвентаризация 2026-10-11 |
 
 ---
 
