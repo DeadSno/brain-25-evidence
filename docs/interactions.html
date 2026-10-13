@@ -193,6 +193,14 @@ function esc(s) {
 }
 const GRADE_COLOR = { A: '#4caf50', B: '#8bc34a', C: '#ff9800', D: '#e53935' };
 const SEV_COLOR = { low: '#ff9800', medium: '#ff7043', high: '#e53935', critical: '#b71c1c' };
+/* v5.6.3: прозрачность рёбер по severity (диагноз — reports/INTERACTIONS_UX.md).
+   Раньше шёл чистый SEV_COLOR с alpha 1.0 и толщиной до 3 px: на вкладке
+   «Добавки и лекарства» 32 красные стрелки перекрывали структуру сильнее,
+   чем её рисовали узлы. Замер «краска ребра / размер узла»: atlas 0.024,
+   interactions было 0.172 — в 7.2 раза больше, при том что рёбер на узел
+   у interactions МЕНЬШЕ (0.70 против 1.19). Ребро должно быть фоном,
+   а не главным объектом. */
+const SEV_ALPHA = { low: 0.28, medium: 0.34, high: 0.42, critical: 0.55 };
 const TYPE_COLOR = { synergy: '#4caf50', antagonist: '#e53935', interaction: null };
 const SEV_LABEL = { low: 'низкий', medium: 'средний', high: 'высокий', critical: 'критичный' };
 const SEV_ORDER = { low: 0, medium: 1, high: 2, critical: 3 };
@@ -247,6 +255,15 @@ function sizeForDegree(d, isDrug) {
   return Math.min(40, Math.round(base + Math.log2(d + 1) * 3));
 }
 
+/* #hex → rgba со своей прозрачностью. Нужен, чтобы приглушить ребро, не
+   теряя hue: легенда и подсветка продолжают опознавать severity по цвету. */
+function hexAlpha(hex, a) {
+  let h = String(hex).replace('#', '');
+  if (h.length === 3) h = h.split('').map(c => c + c).join('');
+  const n = parseInt(h, 16) || 0x888888;
+  return 'rgba(' + ((n >> 16) & 255) + ',' + ((n >> 8) & 255) + ',' + (n & 255) + ',' + a + ')';
+}
+
 function buildNodes(mode, degrees) {
   const nodes = [];
   const raw = mode === 'supplements'
@@ -268,7 +285,19 @@ function buildNodes(mode, degrees) {
         background: color, border: color,
         highlight: { background: '#ffeb3b', border: '#333' }
       },
-      font: { color: isDark() ? '#f5f5f7' : '#1c1c1e' },
+      /* Два уровня типографики, как в atlas (там 11 px у добавок и
+         14 bold у тегов-хабов). Здесь font.size не был задан вовсе —
+         все 46 узлов печатались дефолтными 14 px, и на вкладке «и
+         лекарства» замер давал 8 пар подписей в окне 110×16 px.
+         Теперь: лекарственные классы (узлы-ориентиры) 14 bold,
+         добавки 11. stroke даёт читаемость поверх рёбер. */
+      font: {
+        color: isDark() ? '#f5f5f7' : '#1c1c1e',
+        size: n.kind === 'drug' ? 14 : 11,
+        bold: n.kind === 'drug',
+        strokeWidth: 3,
+        strokeColor: isDark() ? '#0d0d12' : '#ffffff',
+      },
       shape: 'dot',
       size: sizeForDegree(degrees[n.id] || 0, n.kind === 'drug')
     });
@@ -299,14 +328,22 @@ function buildEdges(mode) {
         // без него nodeSev считает все рёбра 'medium' и порог high/critical
         // оставлял граф пустым.
         severity: e.severity,
-        color: { color, highlight: '#ffeb3b' },
-        width: e.severity === 'critical' ? 3 : e.severity === 'high' ? 2.5 : 1.5,
+        /* Ребро — фон, не главный объект (см. SEV_ALPHA). Hue остаётся
+           прежним, чтобы легенда «цвет = severity» продолжала работать. */
+        color: { color: hexAlpha(color, SEV_ALPHA[e.severity] != null
+                                 ? SEV_ALPHA[e.severity] : 0.3),
+                 highlight: '#ffeb3b' },
+        /* Ширина 1 как в atlas: толщина 2.5–3 px на 46 узлах давала
+           перекрытие рёбер над узлами и подписями. */
+        width: 1,
         dashes: e.type === 'synergy',
         title: (e.note || '').replace(/</g, '&lt;') ||
                (e.type === 'synergy' ? 'Синергия' :
                 e.type === 'antagonist' ? 'Антагонизм' :
                 'Взаимодействие · риск ' + (SEV_LABEL[e.severity] || e.severity || '')),
-        arrows: mode === 'drugs' ? { to: { enabled: true, scaleFactor: 0.5 } } : undefined
+        /* Стрелки убраны (было enabled на всех 32 рёбрах вкладки «и
+           лекарства»): 32 насыщенные наконечника поверх узлов давали
+           красные спагетти. Направление читается из подписи связи и легенды. */
       };
     });
 }
