@@ -255,6 +255,51 @@ function sizeForDegree(d, isDrug) {
   return Math.min(40, Math.round(base + Math.log2(d + 1) * 3));
 }
 
+/* v5.6.5: порог компактной вёрстки. Ниже него подписи узлов не рисуются
+   вовсе — вместо них работает тап по точке.
+
+   Замер (375×667, «Добавки и лекарства», 46 узлов, точные прямоугольники
+   подписей): с подписями — 35 пар наложений из 46. Хуже всего ложились
+   длинные русские названия классов: «антидепрессанты MAO» ×
+   «антикоугулянты» — пересечение 94×11 px, «оральные контрацептивы» ×
+   «седативные: бензодиазепины, барбитураты» — 167×6 px. На вкладке
+   «Добавки между собой» (11 узлов) наложений нет, но радиус пальца всё
+   равно больше точки. Подписи отключаются на обоих режимах одинаково:
+   иначе пришлось бы таскать за собой переключатель режима. */
+const COMPACT_MAX_WIDTH = 768;
+function isCompactView() {
+  return window.innerWidth < COMPACT_MAX_WIDTH;
+}
+
+/* Точки на компакте НЕ увеличиваются. Замер при 30 px (все узлы от 30,
+   46 узлов в canvas 341×400): пар перекрытия кругов 21–25 против 5 при
+   исходных размерах — суммарная площадь кругов не помещается в canvas,
+   и avoidOverlap: 0.5 их не разводит. Скриншот: серые классы лекарств
+   слипались в сплошную кашу. Размер точки задаёт восприятие плотности
+   графа, а не удобство нажатия, поэтому нажатие решено хит-ареей ниже,
+   а зрение — обводкой (см. color.border в buildNodes). */
+
+/* v5.6.5: хит-арея 44 px — это требование к пальцу, а не размер рисунка.
+   vis-network попадает по узлу только внутри нарисованного круга
+   (selectionHandler.getNodeAt → Node.isOverlappingWith), поэтому тап в
+   пару пикселей от края 30-пиксельной точки не срабатывал. Выбор узла
+   делаем сами: ближайшая точка в пределах TAP_RADIUS_PX от касания.
+   Работает только на компакте — десктопное поведение не меняется. */
+const TAP_RADIUS_PX = 22;
+function nodeIdNear(domX, domY) {
+  const net = state.network;
+  if (!net || !net.body || !net.body.nodes) return null;
+  let bestId = null, bestD = TAP_RADIUS_PX;
+  for (const id in net.body.nodes) {
+    const nd = net.body.nodes[id];
+    if (nd.options && nd.options.hidden) continue;
+    const p = net.canvasToDOM({ x: nd.x, y: nd.y });
+    const d = Math.hypot(p.x - domX, p.y - domY);
+    if (d < bestD) { bestD = d; bestId = id; }
+  }
+  return bestId;
+}
+
 /* #hex → rgba со своей прозрачностью. Нужен, чтобы приглушить ребро, не
    теряя hue: легенда и подсветка продолжают опознавать severity по цвету. */
 function hexAlpha(hex, a) {
@@ -266,6 +311,7 @@ function hexAlpha(hex, a) {
 
 function buildNodes(mode, degrees) {
   const nodes = [];
+  const compact = isCompactView();
   const raw = mode === 'supplements'
     ? state.data.supplements.nodes
     : state.data.drugs.nodes;
@@ -275,6 +321,8 @@ function buildNodes(mode, degrees) {
     if (n.kind === 'drug') color = '#9e9e9e';
     else if (n.grade) color = GRADE_COLOR[n.grade] || '#3d7eff';
 
+    const base = sizeForDegree(degrees[n.id] || 0, n.kind === 'drug');
+
     nodes.push({
       id: n.id,
       label: n.label,
@@ -282,7 +330,12 @@ function buildNodes(mode, degrees) {
         ? 'Лекарственный класс · клик = подсветить связи'
         : (n.grade ? 'Грейд ' + n.grade + ' · клик = открыть карточку' : ''),
       color: {
-        background: color, border: color,
+        background: color,
+        /* Обводка на компакте контрастная, а не в цвет узла: подписи нет,
+           и круг должен отделяться от соседей и от рёбер под ним. Заливка
+           остаётся смысловой (серая — класс лекарств, цветная — грейд),
+           поэтому легенда и подсветка продолжают работать. */
+        border: compact ? (isDark() ? '#e6e6ef' : '#1c1c1e') : color,
         highlight: { background: '#ffeb3b', border: '#333' }
       },
       /* Два уровня типографики, как в atlas (там 11 px у добавок и
@@ -290,16 +343,19 @@ function buildNodes(mode, degrees) {
          все 46 узлов печатались дефолтными 14 px, и на вкладке «и
          лекарства» замер давал 8 пар подписей в окне 110×16 px.
          Теперь: лекарственные классы (узлы-ориентиры) 14 bold,
-         добавки 11. stroke даёт читаемость поверх рёбер. */
+         добавки 11. stroke даёт читаемость поверх рёбер.
+         На компакте подпись не рисуется вовсе (font.size = 0), размер
+         точки прежний, а выбор узла перенесён на тап с хит-ареей
+         44 px — см. isCompactView и nodeIdNear. */
       font: {
         color: isDark() ? '#f5f5f7' : '#1c1c1e',
-        size: n.kind === 'drug' ? 14 : 11,
+        size: compact ? 0 : (n.kind === 'drug' ? 14 : 11),
         bold: n.kind === 'drug',
         strokeWidth: 3,
         strokeColor: isDark() ? '#0d0d12' : '#ffffff',
       },
       shape: 'dot',
-      size: sizeForDegree(degrees[n.id] || 0, n.kind === 'drug')
+      size: base
     });
   }
   return nodes;
@@ -498,42 +554,118 @@ function renderSidebar(id) {
    Коррекция разовая и на сдвиг, поэтому визуально это незаметно.
 
    Чего здесь нет намеренно: таймеров, physics.enabled: false и любого
-   выключения симуляции. Физика работает непрерывно. */
-/* Порог в px канваса, а не в координатах раскладки: на мобильном canvas
-   341×400 те же 40 px — это 12% ширины и заметные рывки. */
-const COM_ANCHOR_PX = 40;
+   выключения симуляции. Физика работает непрерывно.
+
+   ── v5.6.4 (2026-10-13): якорь переведён с УЗЛОВ на ВИД ────────────────
+   Прежний вариант отменял pan пользователя, и это был настоящий «замок»,
+   а не «якорь мешает немного». Замер (1280×900, вкладка «Добавки между
+   собой», drag +200/+100 px, узел «Омега-3»):
+
+     было:  view (500,389) → (300,289)   — pan прошёл
+            COM  (497.2,385.9) → (300,289) уже в t+0ms — якорь отработал
+                                         в том же кадре
+            узел на экране 601.2 → 603.7 px — сдвиг 2.5 px вместо 200
+     стало: view (500,389) → (300,289), узел 601.2 → 801.2 px — ровно 200.
+
+   Причина не в пороге, а в самом механизме: целью якоря был
+   getViewPosition() — а это ровно та точка, которую пользователь и сдвинул
+   своим pan. Якорь сдвигал ВСЕ узлы на обратную величину, и картинка
+   возвращалась на место за один кадр. Поэтому узлы якорь больше не
+   трогает никогда: облако удерживается в кадре движением ВИДА (moveTo),
+   а вид принадлежит пользователю.
+
+   Как работает: раз в кадр (afterDrawing) считаем центр масс видимых узлов и
+   переводим его в координаты канваса (canvasToDOM — они отсчитываются от
+   левого верхнего угла canvas, поэтому рамка кадра = (0, 0, W, H)).
+   Если центр выходит за прямоугольник, уменьшенный на ANCHOR_MARGIN, вид
+   плавно сдвигается в сторону возврата — со скоростью ANCHOR_SPEED_PX_S
+   (240 px/с, то есть в 170 раз быстрее дрейфа ≈1.4 px/с, но глазом рывка
+   не видно). Масштаб не трогаем: moveTo меняет только положение вида.
+
+   Пока пользователь работает с графом, якорь молчит: isInteracting на всё
+   время жеста и ещё ANCHOR_GRACE_MS после отпускания. Без этого первые же
+   кадры жеста отбирали бы кадр у пользователя (moveTo отменял бы сдвиг). */
+
+const ANCHOR_MARGIN = 0.15;     // доля ширины/высоты canvas за краем рамки
+const ANCHOR_SPEED_PX_S = 240;  // скорость возврата облака в кадр, px/с
+const ANCHOR_GRACE_MS = 3000;   // пауза после отпускания мыши/пальца
+
+let isInteracting = false;
+let interactionReleaseTimer = null;
+let lastAnchorTime = 0;
+
+/* Сдвинуть паузу якоря на ANCHOR_GRACE_MS от «сейчас». Вызывается на
+   dragStart (якорь уже и так выключен флагом) и на dragEnd/zoom. */
+function anchorPause() {
+  if (interactionReleaseTimer) clearTimeout(interactionReleaseTimer);
+  lastAnchorTime = 0;
+  interactionReleaseTimer = setTimeout(function () {
+    isInteracting = false;
+    interactionReleaseTimer = null;
+  }, ANCHOR_GRACE_MS);
+}
 
 function anchorCenterOfMass() {
+  // Жест пользователя — приоритет: во время него и сразу после него вид
+  // принадлежит человеку, а не якорю.
+  if (isInteracting || interactionReleaseTimer) return;
   const net = state.network;
   if (!net) return;
   const body = net.body;
   if (!body || !body.nodes) return;
-  // Порог переводим в координаты раскладки через масштаб view: иначе на
-  // узком canvas 40 px — доля экрана, заметная глазом.
-  const limit = COM_ANCHOR_PX / net.getScale();
 
-  // Только видимые узлы: скрытые поиском всё равно не рисуются.
-  const ids = [];
   let sx = 0, sy = 0, n = 0;
   for (const id in body.nodes) {
     const nd = body.nodes[id];
     if (nd.options && nd.options.hidden) continue;
-    ids.push(id);
     sx += nd.x;
     sy += nd.y;
     n++;
   }
   if (n === 0) return;
 
-  const target = net.getViewPosition();
-  const dx = target.x - sx / n;
-  const dy = target.y - sy / n;
-  if (Math.abs(dx) < limit && Math.abs(dy) < limit) return;
+  const el = net.canvas && net.canvas.frame ? net.canvas.frame.canvas : null;
+  const W = el ? el.clientWidth : 0;
+  const H = el ? el.clientHeight : 0;
+  if (!W || !H) return;
 
-  for (let i = 0; i < n; i++) {
-    const nd = body.nodes[ids[i]];
-    net.moveNode(ids[i], nd.x + dx, nd.y + dy);
-  }
+  // Центр масс в координатах канваса (0,0 — левый верхний угол canvas).
+  const dom = net.canvasToDOM({ x: sx / n, y: sy / n });
+  const mx = W * ANCHOR_MARGIN, my = H * ANCHOR_MARGIN;
+  let dx = 0, dy = 0;
+  if (dom.x < mx) dx = mx - dom.x;
+  else if (dom.x > W - mx) dx = dom.x - (W - mx);
+  if (dom.y < my) dy = my - dom.y;
+  else if (dom.y > H - my) dy = dom.y - (H - my);
+  if (!dx && !dy) { lastAnchorTime = 0; return; }
+
+  // Шаг ограничен СКОРОСТЬЮ, а не числом кадров: иначе скорость возврата
+  // зависит от частоты перерисовки (замерено: 146 fps в headless против
+  // 60 fps у живого пользователя — вдвое разная скорость). Потолок dt
+  // защищает от скачка после сворачивания вкладки или сборки мусора.
+  const now = Date.now();
+  let dt = lastAnchorTime ? (now - lastAnchorTime) / 1000 : 1 / 60;
+  lastAnchorTime = now;
+  if (!(dt > 0)) dt = 1 / 60;
+  if (dt > 0.25) dt = 0.25;
+  const step = ANCHOR_SPEED_PX_S * dt;
+  if (dx > step) dx = step;
+  else if (dx < -step) dx = -step;
+  if (dy > step) dy = step;
+  else if (dy < -step) dy = -step;
+
+  /* Сдвигаем ВИД, а не узлы: pan пользователя при этом не отменяется.
+
+     Знак: canvasToDOM = (узел − view)·scale + размер/2, поэтому чтобы
+     сдвинуть содержимое ВПРАВО на dx, вид надо сдвинуть ВЛЕВО на dx/scale.
+     Со знаком «+» якорь гнал облако прочь из кадра — замерено: COM
+     уходил с −272 до −1533 px по X за 1.5 с, то есть ровно наоборот. */
+  const vp = net.getViewPosition();
+  const scale = net.getScale();
+  net.moveTo({
+    position: { x: vp.x - dx / scale, y: vp.y - dy / scale },
+    animation: false
+  });
 }
 
 function drawGraph() {
@@ -611,6 +743,15 @@ function drawGraph() {
   if (state.network) {
     state.network.destroy();
     state.network = null;
+  }
+
+  /* v5.6.4: сеть пересоздаётся — пауза якоря от прошлой сети недействительна.
+     Иначе переключение вкладки/темы в течение 3 с после жеста оставило бы
+     якорь выключенным на новой сети без причины. */
+  isInteracting = false;
+  if (interactionReleaseTimer) {
+    clearTimeout(interactionReleaseTimer);
+    interactionReleaseTimer = null;
   }
 
   /* v5.6.3: масштаб физики под размер canvas.
@@ -721,17 +862,30 @@ catch (e) { /* сеть могла не успеть отрисоваться �
 
   /* v5.6.3: якорь по центру масс. Без него облако при damping: 0
      медленно уезжает за пределы canvas (см. anchorCenterOfMass).
-     Физика при этом не выключается и таймеров не добавляется —
+     Физика при этом не выключается и таймеров отключения не добавляется —
      это подписка на отрисовку, а не гашение симуляции. */
   state.network.on('afterDrawing', anchorCenterOfMass);
 
-  state.network.on('click', params => {
-    // клик по пустому месту — сброс
-    if (params.nodes.length === 0) {
-      document.getElementById('int-sidebar').classList.remove('open');
-      return;
+  /* v5.6.4: якорь не вмешивается, пока с графом работает человек.
+     dragStart/dragEnd vis-network отдаёт и для перетаскивания канваса, и
+     для перетаскивания узла — оба случая должны отключать якорь.
+     На touch-жестах те же события: HammerManager транслирует пан в
+     mousedown/mousemove/mouseup, а Network превращает их в dragStart/dragEnd. */
+  state.network.on('dragStart', function () {
+    isInteracting = true;
+    if (interactionReleaseTimer) {
+      clearTimeout(interactionReleaseTimer);
+      interactionReleaseTimer = null;
     }
-    const id = params.nodes[0];
+  });
+  state.network.on('dragEnd', anchorPause);
+  // Зум тоже двигает вид. Без этой паузы тот же якорь отбирал бы кадр у
+  // колеса мыши и у пинча — механизм тот же, правило то же.
+  state.network.on('zoom', anchorPause);
+
+  /* Выбор узла вынесен из обработчика клика: тот же путь нужен и тапу
+     мимо точки (расширенная хит-арея, тап-масштабирование). */
+  function openNode(id) {
     renderSidebar(id);
     // подсветить узел и соседей — только среди реально показанных рёбер
     const edges = state.currentEdges || [];
@@ -741,6 +895,25 @@ catch (e) { /* сеть могла не успеть отрисоваться �
       if (e.to === id) connected.add(e.from);
     }
     state.network.selectNodes([...connected]);
+  }
+  function closeNode() {
+    document.getElementById('int-sidebar').classList.remove('open');
+    state.network.unselectAll();
+  }
+
+  state.network.on('click', params => {
+    if (params.nodes.length === 0) {
+      // Клик/тап мимо всех узлов. На компакте это может быть касание в
+      // пару пикселей от точки — тогда берём ближайшую в пределах
+      // TAP_RADIUS_PX (44 px хит-арея). На дескстопе остаётся как было:
+      // пустое место = сброс.
+      const pt = params.pointer && params.pointer.DOM;
+      const near = (isCompactView() && pt) ? nodeIdNear(pt.x, pt.y) : null;
+      if (near) { openNode(near); return; }
+      closeNode();
+      return;
+    }
+    openNode(params.nodes[0]);
   });
 }
 
@@ -754,6 +927,25 @@ function setMode(mode) {
   document.getElementById('int-sidebar').classList.remove('open');
   drawGraph();
 }
+
+/* v5.6.5: переход через порог 768 px перерисовывает граф. Иначе поворот
+   телефона (или сужение окна на планшете) оставлял бы мобильный вид с
+   пустыми точками на десктопной ширине и наоборот. Перерисовка только на
+   СМЕНЕ режима — обычный resize ничего не трогает. */
+(function initCompactRedraw() {
+  let wasCompact = isCompactView();
+  let timer = null;
+  window.addEventListener('resize', function () {
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(function () {
+      timer = null;
+      const now = isCompactView();
+      if (now === wasCompact) return;
+      wasCompact = now;
+      drawGraph();
+    }, 150);
+  });
+})();
 
 // v5.4.0 (dark-first): было setDark(on), где on = «сейчас тёмная».
 // Теперь light = «переключаем в светлую» — иначе клик был no-op.
