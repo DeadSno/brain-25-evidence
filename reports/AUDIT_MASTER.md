@@ -2,7 +2,7 @@
 
 | | |
 |---|---|
-| **Дата** | 13.10.2026 (индекс пересчитан после bookkeeping-батча 4; батч 5 закрыла `QA-P2-01`, отчёт — [BATCH5_SUMMARY.md](BATCH5_SUMMARY.md)) |
+| **Дата** | 13.10.2026 (индекс пересчитан после батча 6: `MKT-P2-04` закрыт; батч 5 закрыла `QA-P2-01`, отчёты — [BATCH5_SUMMARY.md](BATCH5_SUMMARY.md), [BATCH6_SUMMARY.md](BATCH6_SUMMARY.md)) |
 | **Ветка** | `v5.6-dev` |
 | **Назначение** | Единственная точка входа: индекс аудитов и список **открытых** находок |
 | **Структура** | Закрытые находки и подробности — в `audits/<тип>.md`; исходные отчёты — в `archive/` |
@@ -25,10 +25,15 @@
 | mobile | 4 | 17 | [audits/mobile.md](audits/mobile.md) |
 | perf (+проект/релиз) | 7 | 9 | [audits/perf.md](audits/perf.md) |
 | i18n | 4 | 9 | [audits/i18n.md](audits/i18n.md) |
-| seo (+маркетинг) | 16 | 9 | [audits/seo.md](audits/seo.md) |
+| seo (+маркетинг) | 15 | 10 | [audits/seo.md](audits/seo.md) |
 | trends | 17 | 10 | [audits/trends.md](audits/trends.md) |
 | skills | 4 | 6 | [audits/skills.md](audits/skills.md) |
-| **Итого** | **92** | **117** (+12 «не делать», +1 снято, +1 дубль) |
+| **Итого** | **91** | **118** (+12 «не делать», +1 снято, +1 дубль) |
+
+**Пересчёт 13.10.2026 (батч 6).** `MKT-P2-04` (`twitter:card` 139/144 → **144/144**)
+перенесён в «Закрыто» `audits/seo.md` — коммит `80ebdc8`. Индекс пересчитан по
+фактическим строкам таблиц «Открыто»/«Закрыто»: seo 16 / 9 → 15 / 10,
+итого 92 → 91.
 
 **Пересчёт 12.10.2026 (волна D_FAST_2).** Индекс отражает таблицы «Открыто»/«Закрыто»
 в `audits/*.md`. Изменены две строки:
@@ -147,7 +152,7 @@
 | PERF-P2-01, P2-02 | Тяжёлые вендоры (vis-network 672 КБ), нет `.gz`/`.br` | [perf](audits/perf.md) |
 | REL-P2-01, PRJ-P2-01, P2-02 | ~40 worktree detached HEAD, ложные находки project | [perf](audits/perf.md) |
 | I18N-P2-01…03 | 229 строк JS + inline, **748** атрибутов, 517 стрелок | [i18n](audits/i18n.md) |
-| SEO-P2-01, P2-03, MKT-P2-01, P2-02, P2-04, P2-05 | Дубли description, OG-теги (`twitter:card` 139/144, `og:site_name` 5/144) | [seo](audits/seo.md) |
+| SEO-P2-01, P2-03, MKT-P2-01, P2-02, P2-05 | Дубли description, OG-теги (`twitter:card` закрыт `80ebdc8` — 144/144; `og:site_name` 10/144) | [seo](audits/seo.md) |
 
 ### Stale (1)
 
