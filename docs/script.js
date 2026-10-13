@@ -476,15 +476,12 @@ const vColor = c => c === 1 ? '#2d8a4e' : c === 0 ? '#d4a017' : '#c0392b';
 const vColorAlpha = c => c === 1 ? 'rgba(45,138,78,0.75)' : c === 0 ? 'rgba(212,160,23,0.75)' : 'rgba(192,57,43,0.75)';
 
 // ===== v2.6.1: демонтаж Value Score, честная экономика =====
-// ₽ за единицу эффекта = round(цена / Hedges' g) при обоих ненулевых;
-// иначе — честная причина, а не ноль/прочерк-обманка.
-function priceTip(s) {
-  const d = s.price_date || 'дата неизвестна';
-  return '<span class="priceTip" title="Цена на ' + d +
-    '; ночной сбор временно заблокирован TLS-фильтром маркетплейса, трек reliability в работе">' +
-    (s.price != null ? s.price + ' ₽/мес' : 'цена не найдена') + '</span>';
-}
 /* economicsBlock removed per v2.7.1 chunk 2 — price_per_effect gone, no "Экономика" block */
+/* priceTip removed 13.10.2026 — dead. Zero callers; s.price and s.price_date
+   are absent from docs/data.json (0 occurrences across 130 cards). The tooltip
+   text about a blocked marketplace TLS filter described a data source this
+   project never had. scripts/e2e_smoke.py:210 asserts .priceTip is absent from
+   the modal, and that assertion still holds. */
 function verifiedCount() {
   const pool = supplementsFull ? Object.values(supplementsFull) : [];
   return pool.filter(s => (s.key_sources || []).length > 0).length;
