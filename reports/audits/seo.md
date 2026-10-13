@@ -41,8 +41,7 @@
 | SEO-P2-03 | Одна ссылка на `/sup/` | `docs/index.html` | audit_D_seo |
 | MKT-P2-01 | `<title>` > 60 на 3 страницах → перемерено: **82 из 145**. Дубль `SEO-P1-01` (в `OPEN_TECHDEBT.md:276` помечен дублем) | marketing M9 |
 | MKT-P2-02 | `description` < 120 на 5 страницах → перемерено: **88 из 145**. Дубль `SEO-P1-02` | marketing M10 |
-| MKT-P2-04 | `twitter:card` **139/144** — нет ровно на 5 корневых: `atlas`, `calculator`, `interactions`, `map`, `trends` (8/13 контентных, 8/15 корневых). Без изменений с 08.10 | marketing M12 |
-| MKT-P2-05 | `og:site_name` **5/144** — есть только на `faq`, `feedback`, `glossary`, `graph`, `methodology` (5/13 контентных, 5/15 корневых). «6/13» — ошибка аудита, см. примечание ниже | marketing M13 |
+| MKT-P2-05 | `og:site_name` **10/144** (было 5) — добавлен `80ebdc8` на `atlas`, `calculator`, `interactions`, `map`, `trends`. Не хватает на `index`, `privacy`, `support` и **131** `sup/*.html` — они генерируются, правка в генераторе | marketing M13 |
 
 ---
 
@@ -59,6 +58,7 @@
 | MKT-P2-06 | `og:type` 4 → **144/144** | `f451b57`, `c3a4dda` | 30.09 + 08.10.2026 |
 | MKT-P2-07 | `og:url` 3 → **144/144** | `f451b57`, `c3a4dda` | 30.09 + 08.10.2026 |
 | MKT-P2-08 | `og:description` 2 → **144/144** | `f451b57`, `c3a4dda` | 30.09 + 08.10.2026 |
+| MKT-P2-04 | `twitter:card` **139/144 → 144/144** — добавлен на 5 корневых (`atlas`, `calculator`, `interactions`, `map`, `trends`). Перемер 13.10.2026 по всем 146 HTML в `docs/` минус верификация GSC и `offline.html` | `80ebdc8` | 13.10.2026 |
 
 ---
 
