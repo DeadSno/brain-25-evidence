@@ -2,7 +2,7 @@
 
 | | |
 |---|---|
-| **Дата** | 12.10.2026 (индекс пересчитан после волны D_FAST_3) |
+| **Дата** | 13.10.2026 (индекс пересчитан после bookkeeping-батча 4) |
 | **Ветка** | `v5.6-dev` |
 | **Назначение** | Единственная точка входа: индекс аудитов и список **открытых** находок |
 | **Структура** | Закрытые находки и подробности — в `audits/<тип>.md`; исходные отчёты — в `archive/` |
@@ -17,18 +17,18 @@
 
 | Тип | Открыто | Закрыто | Файл |
 |---|---|---|---|
-| a11y | 8 | 23 | [audits/a11y.md](audits/a11y.md) |
-| data (+QA данных) | 24 | 4 | [audits/data.md](audits/data.md) |
-| html-css | 9 | 9 | [audits/html-css.md](audits/html-css.md) |
-| js (+безопасность) | 7 | 6 | [audits/js.md](audits/js.md) |
-| legal | 2 | 4 | [audits/legal.md](audits/legal.md) |
-| mobile | 8 | 13 | [audits/mobile.md](audits/mobile.md) |
-| perf (+проект/релиз) | 11 | 5 | [audits/perf.md](audits/perf.md) |
-| i18n | 7 | 6 | [audits/i18n.md](audits/i18n.md) |
-| seo (+маркетинг) | 22 | 3 | [audits/seo.md](audits/seo.md) |
-| trends | 21 | 8 | [audits/trends.md](audits/trends.md) |
-| skills | 9 | 1 | [audits/skills.md](audits/skills.md) |
-| **Итого** | **128** | **82** (+12 «не делать») | |
+| a11y | 7 | 25 | [audits/a11y.md](audits/a11y.md) |
+| data (+QA данных) | 21 | 7 | [audits/data.md](audits/data.md) |
+| html-css | 7 | 11 | [audits/html-css.md](audits/html-css.md) |
+| js (+безопасность) | 5 | 8 | [audits/js.md](audits/js.md) |
+| legal | 1 | 5 | [audits/legal.md](audits/legal.md) |
+| mobile | 4 | 17 | [audits/mobile.md](audits/mobile.md) |
+| perf (+проект/релиз) | 7 | 9 | [audits/perf.md](audits/perf.md) |
+| i18n | 4 | 9 | [audits/i18n.md](audits/i18n.md) |
+| seo (+маркетинг) | 16 | 9 | [audits/seo.md](audits/seo.md) |
+| trends | 17 | 10 | [audits/trends.md](audits/trends.md) |
+| skills | 4 | 6 | [audits/skills.md](audits/skills.md) |
+| **Итого** | **93** | **116** (+12 «не делать», +1 снято, +1 дубль) |
 
 **Пересчёт 12.10.2026 (волна D_FAST_2).** Индекс отражает таблицы «Открыто»/«Закрыто»
 в `audits/*.md`. Изменены две строки:
@@ -46,12 +46,40 @@
 | mobile | 13 / 8 | 8 / 13 | MOB-P2-01, P2-02, P2-03, P2-06, P2-10 (`d0867d9`) |
 | skills | 10 / 0 | 9 / 1 | SK-P0-02 (`12119a5`) |
 
-Итог: открыто **128** / закрыто **82**. Места согласованы: §1, §2, §3,
-`audits/mobile.md`, `audits/skills.md`.
+Итог на 12.10: открыто **128** / закрыто **82**.
 
-Сопутствующие документы: [STATE_OF_AUDIT.md](STATE_OF_AUDIT.md) (утрачен, восстановлен здесь),
-[PRE_MERGE_CHECK.md](PRE_MERGE_CHECK.md) (готовность merge), [CONSOLIDATION.md](CONSOLIDATION.md)
-(консолидация отчётов), [STAGE_R1R2.md](STAGE_R1R2.md).
+**Пересчёт 13.10.2026 (bookkeeping батч 4).** Индекс пересчитан по фактическим
+строкам таблиц «Открыто»/«Закрыто» в `audits/*.md`, а не по прежним заголовкам:
+часть шапок расходилась с числом строк.
+
+| Тип | Было | Стало | Что переведено |
+|---|---|---|---|
+| a11y | 8 / 23 | 7 / 25 | A11Y-P2-03 закрыт `57decfe` (правило существовало **до** находки), A11Y-P2-06 и A11Y-P2-08 помечены 🔸 PARTIAL |
+| data | 24 / 4 | 21 / 7 | DATA-P1-01, P1-03, P1-04, P1-11, QA-P1-02, QA-P1-03, QA-P2-03 закрыты; DATA-P2-02 и DATA-COI — 🔸 PARTIAL; QA-COV возвращён в открытые |
+| html-css | 9 / 9 | 7 / 11 | HC-P1-01 `756a2d0`, HC-P1-02 `e8da7d3`, HC-P2-07…10 закрыты; HC-P1-03 — 🔸 PARTIAL |
+| js | 7 / 6 | 5 / 8 | JS-P2-01 и CYBER-P2-02 закрыты `99eb5d2`, `582447b` |
+| legal | 2 / 4 | 1 / 5 | LEGAL-P2-01 закрыт `d6a3030` (оба файла — ложные срабатывания) |
+| mobile | 8 / 13 | 4 / 17 | 4 ложных долга сняты; MOB-P2-11 — 🔸 PARTIAL; MOB-P2-09, 12, 13 подтверждены живыми |
+| perf | 11 / 5 | 7 / 9 | PERF-P1-01, P1-02, P2-03, PRJ-P1-02, REL-P0-01, P1-01, P1-03, P2-02, P2-03 закрыты |
+| i18n | 7 / 6 | 4 / 9 | I18N-P1-05 (`1e622f2`, ложное срабатывание), I18N-P2-04 (`99eb5d2`, дубль JS-P2-01), I18N-P2-05 (`7d7c49f`) закрыты |
+| seo | 22 / 3 | 16 / 9 | SEO-P2-02, P2-04, MKT-P2-03, P2-06, P2-07, P2-08 закрыты `c6ea179`, `2be8e4c`, `f451b57`+`c3a4dda` |
+| trends | 21 / 8 | 17 / 10 | TR-P1-01…04 закрыты (`c73c5bd`, `f6f59fb`, `57decfe`, `61a13c8`); TR-C-04 снят как ложная находка, TR-C-08 — дубль |
+| skills | 9 / 1 | 4 / 6 | SK-P0-02 `12119a5`, SK-P1-02, SK-P2-01, P2-02, SK-STALE-01, STALE-03 закрыты; SK-P1-03 и SK-STALE-02 — 🔸 PARTIAL |
+
+Итог на 13.10: открыто **93** / закрыто **116**. Из 15 ложных статусов, найденных
+при сверке, **9 снято** (волны D6–D8 плюс архивные журналы), **3 возвращено**
+в открытые (`DATA-P2-05`, `QA-P2-01`, `QA-COV`), **3 имели неверную атрибуцию**
+при верном выводе (`A11Y-P2-03`, `DATA-P2-04`, `HC-P1-02`).
+
+**Bookkeeping 13.10.2026: снято ложных статусов 15, реально открыто 93.**
+
+Сопутствующие документы: [PRE_MERGE_CHECK.md](PRE_MERGE_CHECK.md) (готовность merge),
+[CONSOLIDATION.md](CONSOLIDATION.md) (консолидация отчётов),
+[STAGE_R1R2.md](STAGE_R1R2.md).
+
+> `STATE_OF_AUDIT.md` **не существует** — файл был утрачен, ссылка на него удалена
+> из этого индекса. Ориентир, который он содержал, сохранён в врезке выше: P0 = 0
+> открытых контраст/блокеров, P1 ≈ 21, P2 ≈ 73 до этапов 1B–8.
 
 Журнал закрытия техдолгов: [audits/D_WAVE_FAST.md](audits/D_WAVE_FAST.md)
 (волна D: #43, #45, #49, #51, #52).
@@ -69,61 +97,67 @@
 |---|---|---|
 | SK-P0-01 | Субагенты не могут загружать скиллы (инструмент `skill` только у team-lead) | [skills](audits/skills.md) |
 
-### P1 (36)
+### P1 (22)
 
 | ID | Находка | Тип |
 |---|---|---|
 | DATA-P1-02 | `hedges_g_outcome` пусто у 86 (42 с `hedges_g`) — техдолг v5.6.4 | [data](audits/data.md) |
 | DATA-P1-12 | `timeseries` 94/130 (36 карточек, 19 с citations>0) — техдолг v5.6.4 | [data](audits/data.md) |
-| DATA-COI | COI (486 КБ) не показан — техдолг v5.7 | [data](audits/data.md) |
+| DATA-COI 🔸 | COI (486 КБ) не показан — частично: агрегаты выведены `a645153`, постатейных данных нет | [data](audits/data.md) |
 | QA-P1-01 | 20 критичных скриптов без тестов | [data](audits/data.md) |
-| QA-P1-02 | Нет теста идемпотентности `build_sup` | [data](audits/data.md) |
-| QA-P1-03 | Нет теста валидности HTML `sup/*.html` | [data](audits/data.md) |
-| HC-P1-01 | H1/H2 разница 0.8 px, сломана иерархия glossary | [html-css](audits/html-css.md) |
-| HC-P1-02 | `var(--panel)` не объявлена, `<pre>` прозрачный | [html-css](audits/html-css.md) |
-| HC-P1-03 | Стартовые цифры скилла устарели | [html-css](audits/html-css.md) |
+| HC-P1-03 🔸 | Стартовые цифры скилла устарели — 4 числа закрыты `c295d94`, `SKILL.md:53` жив | [html-css](audits/html-css.md) |
 | CYBER-P1-01 | Нет security-заголовков (CSP/HSTS/…) | [js](audits/js.md) |
 | CYBER-P1-02 | Bootstrap 5.0.0-beta3 устарел | [js](audits/js.md) |
-| MOB-P1-01 | `#toTop` заходит на home-индикатор | [mobile](audits/mobile.md) |
-| PERF-P1-01 | `index.html` тянет `data.json` 742 КБ (LCP 480 мс) | [perf](audits/perf.md) |
-| PERF-P1-02 | `trends.html` CLS 0.1101 | [perf](audits/perf.md) |
+| PERF-P1-01 | `index.html` тянет `data.json` 760 КБ — повторный замер CWV | [perf](audits/perf.md) |
+| REL-P1-02 🔸 | CHANGELOG: v5.6.2 закрыт `9136c51`, дубль `## [v3.2.0]` на строке 593 — жив | [perf](audits/perf.md) |
 | PRJ-P1-01 | `trends.html` 130 против 94 | [perf](audits/perf.md) |
-| REL-P1-02 | CHANGELOG без v5.6.2, дубль `[v3.2.0]` | [perf](audits/perf.md) |
-| REL-P1-03 | pytest 813 против показанных 1010 | [perf](audits/perf.md) |
 | I18N-P1-01 | RTL не завершён: физические свойства в локальных `<style>` | [i18n](audits/i18n.md) |
-| I18N-P1-05 | Жёсткие `min-width` 250/520 | [i18n](audits/i18n.md) |
-| SEO-P1-01 | `<title>` вне 40–60 на 140/143 | [seo](audits/seo.md) |
-| SEO-P1-02 | `description` вне 120–160 на 124/143 | [seo](audits/seo.md) |
+| SEO-P1-01 | `<title>` вне 40–60 на **87/145**, медиана 61 | [seo](audits/seo.md) |
+| SEO-P1-02 | `description` вне 120–160 на **91/145**, медиана 100 | [seo](audits/seo.md) |
 | MKT-P1-01…08 | Нет слогана/CTA/соцдоказательств/воронки/Schema.org/«почему я» | [seo](audits/seo.md) |
-| TR-P1-01…04 | `prefers-color-scheme`, manifest id/shortcuts/screenshots, `:focus-visible`, DuckDB 1.5.6 | [trends](audits/trends.md) |
 | SK-P1-01 | `release-check` без приоритетов/действий | [skills](audits/skills.md) |
-| SK-P1-02 | Скиллы ссылаются на устаревшие отчёты | [skills](audits/skills.md) |
-| SK-P1-03 | `cyberaudit`: многострочный `description` | [skills](audits/skills.md) |
+| SK-P1-03 🔸 | `cyberaudit`: `license: MIT` закрыт `12119a5`, многострочный `description` жив | [skills](audits/skills.md) |
 
-### P2 (83)
+> 🔸 **PARTIAL** — закрыта часть находки. Такие записи остаются в открытом
+> индексе, но снимаются с целиком при закрытии последней части. Сейчас их 9:
+> DATA-COI, DATA-P2-02, A11Y-P2-06, A11Y-P2-08, MOB-P2-11, HC-P1-03,
+> REL-P1-02, SK-P1-03, SK-STALE-02.
 
-| ID | Находка | Тип |
-|---|---|---|
-| A11Y-P2-01…08 | Нет nav на sup (130), пропуски заголовков (WONTFIX), focus-indicator, probe, нет aria-live, пустые `—`, «Ничего не найдено», 620px-сирота | [a11y](audits/a11y.md) |
-| DATA-P2-01…14 | null-поля (`hedges_g_ci` 48, `ma_top3` 50, `forms` 123), U+FFFD, покрытие 113/130, `key_sources` до 5, categories 79 vs 59 | [data](audits/data.md) |
-| QA-P2-01…03 | `test_silent_handlers` по номерам строк (#52), 123 null `forms`, нет теста битых ссылок sup | [data](audits/data.md) |
-| HC-P2-01…06 | Эмодзи-иконки, 26 размеров, 139 hex, 11 теней, 4 градиента, нет статус-классов | [html-css](audits/html-css.md) |
-| CYBER-P2-01…02 | Нет тестов заголовков/секретов | [js](audits/js.md) |
-| JS-P2-01…03 | 2 `ru-RU`, 229 строк без i18n, `calculator` без live-region | [js](audits/js.md) |
-| LEGAL-P2-01…02 | Нет дисклеймера на 2 стр., нет DOI-ссылок | [legal](audits/legal.md) |
-| MOB-P2-04, 07…09, 11…13 | Safe-area left/right, theme-color, ориентация, мелкий текст (P2-01…03, 06, 10 закрыты `d0867d9`; P2-05 — `f7b56c6`; P2-04 помечен устаревшим) | [mobile](audits/mobile.md) |
-| PERF-P2-01…02 | Тяжёлые вены (vis-network 673 КБ и др.), нет `.gz`/`.br` | [perf](audits/perf.md) |
-| REL-P2-01…02, PRJ-P2-01…02 | ~40 worktree detached HEAD, version drift, ложные находки project | [perf](audits/perf.md) |
-| I18N-P2-01…05 | 229 строк JS + 1474 inline, 176 атрибутов, 517 стрелок, 2 `ru-RU`, `text-align:left` | [i18n](audits/i18n.md) |
-| SEO-P2-01…04, MKT-P2-01…08 | Дубли description, `version.js` до charset, OG-теги, lastmod | [seo](audits/seo.md) |
-| TR-V57-01…11 | Средне-срочные улучшения v5.7–9 | [trends](audits/trends.md) |
-| SK-P2-01…02, SK-STALE-01 | Нет `compatibility` у 18, `mode` декоративен, 3 скилла с данными 2025 | [skills](audits/skills.md) |
-
-### P3 (6)
+### P2 (52)
 
 | ID | Находка | Тип |
 |---|---|---|
-| TR-V60-01…06 | Крупные архитектурные изменения v6.0+ (в т.ч. DuckDB-Wasm + OPFS) | [trends](audits/trends.md) |
+| A11Y-P2-01, 04, 05, 07 | Focus-индикатор, probe, нет `aria-live`, «Ничего не найдено» | [a11y](audits/a11y.md) |
+| A11Y-P2-06 🔸, A11Y-P2-08 🔸 | Пустые `—` и 620 px-сирота — обе закрыты наполовину | [a11y](audits/a11y.md) |
+| DATA-P2-01…14 | null-поля, U+FFFD в `unpaywall.json`, покрытие, `key_sources`, categories | [data](audits/data.md) |
+| DATA-P2-02 🔸 | `ma_top3` пустой у 4 карточек — `454b956` закрыл 49 из 53 | [data](audits/data.md) |
+| QA-P2-01 | `test_silent_handlers` всё ещё привязан к номерам строк `sw.js` | [data](audits/data.md) |
+| QA-P2-02 | Нет теста битых ссылок sup | [data](audits/data.md) |
+| QA-COV | Покрытие скриптов — метрика не определена, прежние 16% невоспроизводимы | [data](audits/data.md) |
+| HC-P2-01…06 | Эмодзи-иконки, 13 размеров шрифта, 160 hex, 15 теней, 6 градиентов, нет статус-классов | [html-css](audits/html-css.md) |
+| CYBER-P2-01 | Нет теста security-заголовков | [js](audits/js.md) |
+| JS-P2-02, JS-P2-03 | Строки без i18n, `calculator` без live-region | [js](audits/js.md) |
+| LEGAL-P2-02 | Нет DOI-ссылок: `doi.org` 0 на 131/131 | [legal](audits/legal.md) |
+| MOB-P2-09, 12, 13 | `result-panel` sticky, скрытый скроллбар, `portrait-primary` | [mobile](audits/mobile.md) |
+| MOB-P2-11 🔸 | Мелкий текст 10.4–11.5 px — частично поднят `7cc36e3` | [mobile](audits/mobile.md) |
+| PERF-P2-01, P2-02 | Тяжёлые вендоры (vis-network 672 КБ), нет `.gz`/`.br` | [perf](audits/perf.md) |
+| REL-P2-01, PRJ-P2-01, P2-02 | ~40 worktree detached HEAD, ложные находки project | [perf](audits/perf.md) |
+| I18N-P2-01…03 | 229 строк JS + inline, **748** атрибутов, 517 стрелок | [i18n](audits/i18n.md) |
+| SEO-P2-01, P2-03, MKT-P2-01, P2-02, P2-04, P2-05 | Дубли description, OG-теги (`twitter:card` 139/144, `og:site_name` 5/144) | [seo](audits/seo.md) |
+
+### Stale (1)
+
+| ID | Находка | Тип |
+|---|---|---|
+| SK-STALE-02 🔸 | `SKILLS_INDEX.md:180` всё ещё «878 passed, 201 skipped» — факт 1311 | [skills](audits/skills.md) |
+
+### v5.7–9 (11) и v6.0+ (6)
+
+| ID | Находка | Тип |
+|---|---|---|
+| TR-V57-01…11 | Средне-срочные улучшения (производительность, контент, данные) — см. §11 `archive/v56/TRENDS_AUDIT.md` | [trends](audits/trends.md) |
+| TR-V60-01 | `data.json` 742 КБ → DuckDB-Wasm + OPFS | [trends](audits/trends.md) |
+| TR-V60-02…06 | Крупные архитектурные изменения v6.0+ | [trends](audits/trends.md) |
 
 ---
 
