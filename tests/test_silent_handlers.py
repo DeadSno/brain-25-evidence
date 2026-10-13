@@ -176,10 +176,6 @@ ACCEPTED_NON_ELEMENT_GUARDS = {
         "Результат внутренней chartSupByEl(); дополнение может не "
         "найтись на элементе.",
     ],
-    ("script.js", "if (!cfg.$band) return;"): [
-        "chart.config._config с проверкой !cfg.$band — внутреннее "
-        "устройство графика; полоса бэнда есть не у всех серий.",
-    ],
     ("script.js", "if (!els.length) return;"): [
         "Аргумент els — защита от пустого массива на стороне вызова.",
     ],
