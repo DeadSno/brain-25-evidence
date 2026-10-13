@@ -241,7 +241,7 @@ brain-25-evidence/
 │   ├── data.json                  # ГЕНЕРИРУЕТСЯ (не править руками)
 │   ├── data_index.json            # лёгкая проекция для главной (84 КБ)
 │   ├── dosage_parsed.json         # распарсенные дозы (94 из 130, остальные — fallback)
-│   ├── pairs.json                 # 7 пар синергий
+│   ├── pairs.json                 # 19 пар синергий (7 ключей), только калькулятор
 │   ├── profiles.json              # 8 профилей-пресетов
 │   ├── interactions_graph.json    # граф связей
 │   ├── sw.js                      # Service Worker (PWA)
