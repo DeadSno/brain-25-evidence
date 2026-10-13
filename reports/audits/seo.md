@@ -50,7 +50,7 @@
 
 | ID | Находка | Коммит | Дата |
 |---|---|---|---|
-| SEO-P0-01 | Плейсхолдер GSC в `docs/index.html:12` → заменён файлом верификации `docs/google4a9d23e35c6c3e23.html` | `FIX_GSC_FILE` | 2026-10 |
+| SEO-P0-01 | Плейсхолдер GSC в `docs/index.html:12` (строка на момент находки — на HEAD там `og:url`) → заменён файлом верификации `docs/google4a9d23e35c6c3e23.html`; самого `google-site-verification` в `index.html` больше нет | `FIX_GSC_FILE` | 2026-10 |
 | SEO-P2-02 | `version.js` подключён до `meta charset` → на HEAD `charset` на `index.html:4`, `version.js` на `:5` | `c6ea179` | 12.10.2026 |
 | SEO-P2-04 | `lastmod` устарел (2026-10-07) → на HEAD 143 × `2026-10-12` + 1 × `2026-10-13` | `2be8e4c` | 13.10.2026 |
 | SEO-P2-09 | Sitemap: 17 → 143 URL; провенанс (SCImago + README) | `STAGE4_SITEMAP` | 10–11.10.2026 |
