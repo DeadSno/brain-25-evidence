@@ -2,7 +2,6 @@
 name: visual-design-audit
 description: Визуальный аудит — цветокор, типографика, отступы, иерархия, дизайн-система, иконки, тени, темы, метрики.
 license: MIT
-mode: subagent
 version: v1.0
 updated: 2026-10-01
 project: brain-25-evidence
