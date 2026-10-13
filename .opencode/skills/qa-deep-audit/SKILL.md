@@ -67,10 +67,13 @@ project: brain-25-evidence
   - analyze_coi.py
   - graph_interactions.py
   - build_api.py
-  - content.py
-  - src/config.py
-  - src/ct_terms.py
-  - src/wiki_map.py
+  # Список перечисляет модули, у которых тестов НЕТ, и это утверждение
+  # проверяется гейтом tests/test_skill_module_coverage_list.py.
+  # 13.10.2026 (F-39) из списка убраны content.py, src/config.py,
+  # src/ct_terms.py и src/wiki_map.py: тесты к ним уже написаны
+  # (test_content_module.py, test_src_config.py, test_src_ct_terms.py,
+  # test_src_wiki_map.py), а список всё ещё предлагал искать то,
+  # что есть. Список, который врёт, хуже отсутствующего.
   # Планируется, модуля пока нет: parsers.py — общего парсера в репозитории
   # не существует (ни в src/, ни в scripts/). Проверено 2026-10-01. Если он
   # появится — добавить в этот список.
@@ -120,7 +123,7 @@ project: brain-25-evidence
 
 ## Формат находки
 
-"scripts/analyze_coi.py — нет тестов. Функция classify_coi() имеет 4 ветки (POSITIVE/NEGATIVE/unclear/missing), ни одна не покрыта. Фикс: tests/test_analyze_coi.py с фикстурами 5 XML-файлов."
+"scripts/analyze_coi.py — нет тестов. Фикстура classify_coi() лежит в 4 отчётах (POSITIVE/NEGATIVE/unclear/missing), но живых тестов нет. Проверено 13.10.2026 (F-39): файла tests/test_analyze_coi.py в репозитории нет, а сам модуль существует — scripts/analyze_coi.py. Раньше стояло «тесты: tests/test_analyze_coi.py в фикстурах 5 XML-файлов», и такого файла никогда не было."
 
 "docs/script.js:169 — fetchJson() без .ok проверки. При 404 r.json() бросит исключение, но после парсинга. Фикс: добавить `if (!r.ok) throw new Error(...)` перед .json()."
 
