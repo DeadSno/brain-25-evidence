@@ -5,8 +5,9 @@
 | **Тип** | html-css — вёрстка, типографика, дизайн-система, навигация сайта |
 | **Источники** | `audit_C_visual-design.md`, `AUDIT_C_SUMMARY.md`, `audit_A_docs-sync.md`, `AUDIT_E_site-navigation.md`, `AUDIT_E_ui-ux-deep-audit.md` (CSS-часть), `STAGE1B_TYPOGRAPHY.md`, `STAGE1C_A11Y_I18N.md`, `STAGE2_HTML.md` |
 | **Консолидация** | 11.10.2026, ветка `v5.6-dev` |
-| **Открыто** | P1 — 3, P2 — 6 |
-| **Закрыто** | P1 — 5, P2 — 4 |
+| **Сверка** | 13.10.2026, батч 4 — статусы перепроверены по HEAD, 2 ложных долга закрыты |
+| **Открыто** | P1 — 1, P2 — 6 |
+| **Закрыто** | P1 — 7, P2 — 4 |
 
 ---
 
@@ -16,20 +17,18 @@
 
 | ID | Находка | Где | Источник |
 |---|---|---|---|
-| HC-P1-01 | H1/H2 отличаются на 0.8 px, сломана иерархия на glossary; локальные h2 ниже базы | `docs/style.css:131`, `docs/glossary.html` | visual-design V1 |
-| HC-P1-02 | `var(--panel)` не объявлена; `<pre>` прозрачный (методология) | `docs/methodology.html:99` | visual-design V2 |
-| HC-P1-03 | Стартовые цифры скилла устарели (hex 118→139, vars 7→33, font-size 24→26, CSS 52→100 КБ) | скилл visual-design | visual-design V3 |
+| HC-P1-03 🟡 | Стартовые цифры скилла устарели — **закрыто наполовину** `c295d94`: обновлены и загейтены 4 числа (hex 118→74, font-size 24→13, box-shadow 11→15, градиенты 4→6; гейт `tests/test_skill_numbers_match_project.py` = 2 passed). Остаётся: SKILL.md:53 по-прежнему утверждает «против 7 CSS-переменных», на HEAD `docs/style.css` — **66** объявлений `--var:` (в `OPEN_TECHDEBT.md:162` указано 47), гейт числа переменных не проверяет. Суб-claim «CSS 52→100 КБ» из скилла исчез сам (факт: 154 089 Б) | скилл visual-design:53 | visual-design V3 |
 
 ### P2
 
 | ID | Находка | Где | Источник |
 |---|---|---|---|
-| HC-P2-01 | Иконки — все эмодзи, `svg.length == 0` | весь сайт | visual-design V5 |
-| HC-P2-02 | 26 размеров шрифта (сокращено с 28, полная свёртка к 6 отложена) | `docs/style.css` | visual-design V6; STAGE1B П4 |
-| HC-P2-03 | 139 хардкод-hex против 33 CSS-переменных | `docs/style.css` | visual-design V7 |
-| HC-P2-04 | 11 `box-shadow` | `docs/style.css` | visual-design V8 |
-| HC-P2-05 | 4 градиента | `docs/style.css` | visual-design V9 |
-| HC-P2-06 | Нет классов статусов | `docs/` | visual-design V10 |
+| HC-P2-01 | Иконки — все эмодзи, `svg.length == 0`. Перемер: в `docs/` 5 `<svg`, **все** — favicon data-URI (`atlas.html:23`, `calculator.html:18`, `feedback.html:16`, `index.html:17`, `map.html:23`); inline `<svg>`-элементов — 0 (`sup/*.html` — 0, `script.js` — 0 `createElementNS`), т.е. `svg.length == 0` в DOM остаётся истиной. Эмодзи в UI сохраняются (index.html: 🔍 ⭐×2 📊 ✅ ⚠ 🧠×3 🔥). `OPEN_TECHDEBT.md:260` «почти закрыто» — ошибочно, favicon data-URI посчитаны как SVG | весь сайт | visual-design V5 |
+| HC-P2-02 | 13 уникальных `font-size` (методом аудита, комментарии исключены: `.65 .7 .75 .875 .875!imp 1.1 1.1!imp 1.25 1.25!imp 1.25!imp 1.5 1.75 1rem`) — было 26, `7cc36e3` сократил 28→26, полная свёртка к 6 отложена (`STAGE1B_TYPOGRAPHY.md:176,228` — «отложена», ~70 объявлений) | `docs/style.css` | visual-design V6; STAGE1B П4 |
+| HC-P2-03 | **222** хардкод-hex против **66** CSS-переменных (метод аудита, комментарии включены; без `\b` — 226). Находка «139 против 33» не воспроизводится ни одним способом подсчёта; `OPEN_TECHDEBT.md:261` — «метрика не сходится ни с одним числом», `:481` — отложено в v5.7 | `docs/style.css` | visual-design V7 |
+| HC-P2-04 | **15** уникальных `box-shadow` (17 объявлений, 21 упоминание) — было 11, дрейф вверх, дефект тот же и хуже. `OPEN_TECHDEBT.md:262` | `docs/style.css` | visual-design V8 |
+| HC-P2-05 | **6** градиентов `(linear\|radial\|conic)-gradient(` — было 4, дрейф вверх. `OPEN_TECHDEBT.md:263` | `docs/style.css` | visual-design V9 |
+| HC-P2-06 | Нет классов статусов. Перемер: `class="[^"]*status` в `docs/*.html` → **0**; `.status`, `--ok:`, `--warn:`, `--danger:` в `docs/style.css` → **0** (совпадают только meta `apple-mobile-web-app-status-bar-style` и JS `r.status`). `OPEN_TECHDEBT.md:163`, `FINAL_WAVE.md:75` (F-22), `OPEN_EVERYTHING.md:42` | `docs/` | visual-design V10 |
 
 ---
 
@@ -44,6 +43,8 @@
 | HC-P1-06 | Иерархия заголовков h1–h5 (инверсии h3/h4 < body) | `7cc36e3`, `756a2d0` | 10.10.2026 |
 | HC-P1-07 | Зазоры не кратные 4 px в sup-компонентах (16 значений) | `7cc36e3` | 10.10.2026 |
 | HC-P1-08 | Нет `<nav>`-лендмарка на 13 основных страницах (site-navigation P2-1) | `d996c1b` | 11.10.2026 |
+| HC-P1-01 | H1/H2 отличаются на 0.8 px, сломана иерархия на glossary; локальные h2 ниже базы | `93925d8` (закрытие), `756a2d0` + `e8da7d3` (код) | 13.10.2026 |
+| HC-P1-02 | `var(--panel)` не объявлена; `<pre>` прозрачный (методология) | `e8da7d3` | 13.10.2026 |
 
 ### P2
 
@@ -65,6 +66,20 @@
 - Токены `--space-0-2`, `--space-0-3`, `--space-2-5` (некратные 4 px) — **by-design**: закреплены `tests/test_css_tokens.py` (STAGE1B П6).
 - Кегли < 14 px: поднято 13 объявлений, 30 оставлены осознанно (STAGE1B П3).
 - Полная свёртка шкалы 26 → 6 (~70 объявлений) — отдельная задача, стоп-порог не позволял в этапе 1B.
+- **Сверка 13.10.2026 (батч 4).** Статусы перепроверены по HEAD ветки `v5.6-dev`.
+  Закрыты 2 ложных долга: **HC-P1-01** — `93925d8` уже зачел находку закрытой
+  (код `756a2d0` + `e8da7d3`), на HEAD `h1` = 1.75rem/28px (`style.css:283`) и
+  `h2` = 1.5rem/24px (`style.css:327`), разница 4 px; локальных правил
+  `font-size` в `docs/glossary.html` нет. Суб-претензия «локальные h2 ниже базы»
+  заэджудикейтена в теле коммита: контекстные h2 < 24px сохранены — все стоят
+  под h1 = 28px. **HC-P1-02** — `e8da7d3` заменил `var(--panel)` на `var(--card-bg)`,
+  на HEAD ни одного `var(--panel)` в `docs/*.html|*.css|*.js`, `<pre>` — `methodology.html:97`.
+  ⚠️ `OPEN_TECHDEBT.md:292` ошибочно приписывает закрытие `b393e4a` (это только
+  inline opacity в `docs/map.html`), реальный фикс — `e8da7d3`.
+  **HC-P1-03 остаётся частично открытой** (`c295d94` закрыл 4 числа, «7 CSS-переменных» — нет).
+  Уточнены цифры P2: hex 139→222, vars 33→66, кегли 26→13, box-shadow 11→15, градиенты 4→6.
+  Исправлены устаревшие номера строк в таблице токенизации (`217/1942/2025/2026` →
+  `288/2079/2217/2218`). `git log --grep="HC-P2"` пуст — закрывающих коммитов нет ни у одной P2.
 
 ### Hardcoded hex (222)
 
@@ -108,10 +123,13 @@
 
 | Стр. | Было | Стало |
 |---|---|---|
-| 217 | `linear-gradient(135deg, #1f6fa5, #175a86)` | `var(--info-fill)` |
-| 1942 | `html.light #atl-sidebar .cta { background:#1f6fa5 }` | `var(--info-fill)` |
-| 2025 | `#cookieBanner .cb-accept` — background + border-color | `var(--info-fill)` ×2 |
-| 2026 | `#cookieBanner .cb-accept:hover` — border-color | `var(--info-fill)` |
+| 288 | `linear-gradient(135deg, #1f6fa5, #175a86)` | `var(--info-fill)` |
+| 2079 | `html.light #atl-sidebar .cta { background:#1f6fa5 }` | `var(--info-fill)` |
+| 2217 | `#cookieBanner .cb-accept` — background + border-color | `var(--info-fill)` ×2 |
+| 2218 | `#cookieBanner .cb-accept:hover` — border-color | `var(--info-fill)` |
+
+(Номера строк приведены к состоянию на 13.10.2026 — прежние 217 / 1942 /
+2025 / 2026 сместились вправо при добавлении правил.)
 
 Это незакрытый хвост токенизации из `b4bb595`: сам токен `--info-fill: #1f6fa5`
 объявлен там же и в комментарии назван единственным синим, дающим ≥ 4.5:1
@@ -138,6 +156,13 @@
 - Без гейтов: 878 passed / 201 skipped
 - С гейтами (сервер :8000 + Playwright): 915 passed /
   4 failed / 84 errors / 76 skipped
+
+> **13.10.2026:** базовая линия ниже — исторический замер 11.10.
+> На текущем HEAD без гейтов `python -m pytest -q` даёт
+> **1076 passed / 235 skipped** (сбор 1311, `docs/version.json` = 1311),
+> pre-commit-хук печатает `1070 passed, 235 skipped, 6 deselected`
+> (деселекты = 2 live-docs-теста на 6 кейсов). Счётчик «максимум
+> сбора — 1079» устарел: доросло до 1311.
 
 201 skip без гейтов — не поломка, а энгейты: `RUN_A11Y`,
 `RUN_GRAPH`, `RUN_TABS`, `RUN_E2E`, `RUN_SNAPSHOTS`. Максимум
