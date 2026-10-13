@@ -5,7 +5,7 @@
 | **Тип** | legal — 152-ФЗ, персональные данные, рекламные утверждения, лицензии, дисклеймеры |
 | **Источники** | `audit_A_legal-compliance.md`, `STAGE5_LEGAL.md`, `legal_questions_for_lawyer.md`, `TRENDS_AUDIT.md` (152-ФЗ) |
 | **Консолидация** | 11.10.2026, ветка `v5.6-dev` |
-| **Bookkeeping** | 13.10.2026 — 1 закрыто |
+| **Bookkeeping** | 13.10.2026 — 1 закрыто; строка `LEGAL-P2-01` убрана из «Открыто» — она осталась там дублем от правки `c5640ab` |
 | **Открыто** | P2 — 1 |
 | **Закрыто** | P1 — 3 (+ LEGAL-J1), P2 — 1 |
 
@@ -17,7 +17,6 @@
 
 | ID | Находка | Где | Источник |
 |---|---|---|---|
-| LEGAL-P2-01 | Дисклеймер отсутствует на `offline.html` и `google4a9d23e35c6c3e23.html` (есть на 143/145) | `docs/offline.html`, `docs/google4a9d23e35c6c3e23.html` | legal-compliance |
 | LEGAL-P2-02 | Нет DOI-ссылок: pubmed 131 стр., `doi.org` — 0 — перепроверено 13.10, `doi.org` по-прежнему 0 на 131/131 | `docs/sup/*.html` | legal-compliance |
 
 ---
