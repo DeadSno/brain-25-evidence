@@ -168,8 +168,12 @@ b0bc166 docs(audits): bookkeeping skills.md
 - [ ] Сверить: `trends.md`, `D_WAVE_FAST.md`, `D_WAVE_PART1.md`
 - [ ] Обновить индекс `AUDIT_MASTER.md` (было 128/82 → по факту)
 - [ ] Довести `reports/BOOKKEEPING.md` до итоговых чисел: было / закрыто / реально осталось
-- [ ] Часть C: C1 мёртвый код цены, C2 пересборка `pairs.json`, C3 `AGENTS.md` 19→20,
-      C4 OG-теги, C5 `index@412` webkit, C6 стейл-ссылки, C7 Issue #6
+- [x] Часть C: C1 мёртвый код цены, C2 `pairs.json`, C3 `AGENTS.md` 19→20,
+      C4 OG-теги, C5 `index@412` webkit, C6 стейл-ссылки, C7 Issue #6 —
+      C1, C2, C3, C6, C7 сделаны в батче 5; C4 и C5 → батч 6.
+      C2 закрыт без правки данных: гипотеза «7 пар против ~300» не
+      подтвердилась, `pairs.json` читает только калькулятор, граф —
+      `interactions_graph.json` (разбор в `BATCH4_SUMMARY.md` §8.1).
 - [ ] `reports/BATCH4_SUMMARY.md`
 
 ---
@@ -178,5 +182,6 @@ b0bc166 docs(audits): bookkeeping skills.md
 
 - ~~Книгукинг > 2 ч → СТОП~~ — в работе ~50 мин, темп стабильный
 - Мёртвый код цены связан с чем-то живым → СТОП (C1, не начат)
-- `pairs.json` пересборка ломает граф → СТОП (C2, не начат)
+- ~~`pairs.json` пересборка ломает граф → СТОП~~ — стоп-условие не
+  применимо: граф читает `interactions_graph.json`, а не `pairs.json`
 - `pytest` < 1076 → СТОП — **соблюдено**, 1076 на каждом из 5 коммитов
