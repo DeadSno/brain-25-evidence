@@ -18,17 +18,17 @@
 | Тип | Открыто | Закрыто | Файл |
 |---|---|---|---|
 | a11y | 7 | 25 | [audits/a11y.md](audits/a11y.md) |
-| data (+QA данных) | 19 | 9 | [audits/data.md](audits/data.md) |
+| data (+QA данных) | 18 | 10 | [audits/data.md](audits/data.md) |
 | html-css | 6 | 12 | [audits/html-css.md](audits/html-css.md) |
 | js (+безопасность) | 5 | 8 | [audits/js.md](audits/js.md) |
 | legal | 1 | 5 | [audits/legal.md](audits/legal.md) |
 | mobile | 4 | 17 | [audits/mobile.md](audits/mobile.md) |
-| perf (+проект/релиз) | 6 | 10 | [audits/perf.md](audits/perf.md) |
+| perf (+проект/релиз) | 5 | 11 | [audits/perf.md](audits/perf.md) |
 | i18n | 3 | 10 | [audits/i18n.md](audits/i18n.md) |
 | seo (+маркетинг) | 7 | 18 | [audits/seo.md](audits/seo.md) |
 | trends | 17 | 10 | [audits/trends.md](audits/trends.md) |
 | skills | 3 | 7 | [audits/skills.md](audits/skills.md) |
-| **Итого** | **78** | **131** (+12 «не делать», +1 снято, +1 дубль) |
+| **Итого** | **76** | **133** (+12 «не делать», +1 снято, +1 дубль) |
 
 **Пересчёт 13.10.2026 (батч 6).** `MKT-P2-04` (`twitter:card` 139/144 → **144/144**)
 перенесён в «Закрыто» `audits/seo.md` — коммит `80ebdc8`. Индекс пересчитан по
@@ -210,6 +210,26 @@ bounding box, — часть бокса внутри, но **за дугой `bo
 [OPEN_TECHDEBT.md](OPEN_TECHDEBT.md) (строки 219–224) — он ведётся отдельно и
 обновляется следующим шагом.
 
+**Батч 8C, шаг 3, 14.10.2026 — пересборка timeseries.** `DATA-P1-12` и
+`PRJ-P1-01` закрыты одним батчем: серии пересобраны, покрытие выросло
+94/130 → **130/130**.
+
+| Тип | Было | Стало | Что переведено |
+|---|---|---|---|
+| data | 19 / 9 | 18 / 10 | `DATA-P1-12` — серии собраны для всех 130 (pubmed 130/130, citations 130/130, wiki 90/130) |
+| perf | 6 / 10 | 5 / 11 | `PRJ-P1-01` — `trends.html` приведён к факту, числа сверены с `docs/timeseries.json` |
+
+Итого 78 / 131 → **76 / 133**, сохранение выполняется: 76 + 133 = 209.
+§2 «P1» 10 → **8**, сходится: `1 + 8 + 49 + 1 + 17` = 76 = §1 «Открыто».
+
+Проверено пересчётом по `docs/timeseries.json`: публикаций 2025 — 32 475
+(2015 — 20 869, +56 %), цитат 2025 — 5 533 (+1034 %), wiki-декабрь — 15 700.
+Последнее число на странице «Анализирую N добавок» было неверным и до этого
+батча: `computeItems()` требует обе метрики, поэтому N = **86**, а не 90 — у 4
+карточек (Клюква, D-манноза, Йохимбин, Шатавари) в серии PubMed нет
+ненулевого 2015 или 2025. Перезаписаны 4 эталона `trends`
+(chromium/webkit × 412/1280).
+
 Сопутствующие документы: [PRE_MERGE_CHECK.md](PRE_MERGE_CHECK.md) (готовность merge),
 [CONSOLIDATION.md](CONSOLIDATION.md) (консолидация отчётов),
 [STAGE_R1R2.md](STAGE_R1R2.md).
@@ -234,16 +254,14 @@ bounding box, — часть бокса внутри, но **за дугой `bo
 |---|---|---|
 | SK-P0-01 | Субагенты не могут загружать скиллы (инструмент `skill` только у team-lead) | [skills](audits/skills.md) |
 
-### P1 (10)
+### P1 (8)
 
 | ID | Находка | Тип |
 |---|---|---|
-| DATA-P1-12 | `timeseries` 94/130 (36 карточек, 19 с citations>0) — техдолг v5.6.4 | [data](audits/data.md) |
 | DATA-COI 🔸 | COI (486 КБ) не показан — частично: агрегаты выведены `a645153`, постатейных данных нет | [data](audits/data.md) |
 | QA-P1-01 | 20 критичных скриптов без тестов | [data](audits/data.md) |
 | CYBER-P1-01 | Нет security-заголовков (CSP/HSTS/…) — **WONTFIX** (14.10.2026): хостинг не выставляет заголовки, закрыть нечем | [js](audits/js.md) |
 | CYBER-P1-02 | Bootstrap 5.0.0-beta3 устарел | [js](audits/js.md) |
-| PRJ-P1-01 | `trends.html` 130 против 94 | [perf](audits/perf.md) |
 | SEO-P1-01 | `<title>` вне 40–60 на **87/145**, медиана 61 | [seo](audits/seo.md) |
 | SEO-P1-02 | `description` вне 120–160 на **91/145**, медиана 100 | [seo](audits/seo.md) |
 | MKT-P1-04 | Нет воронки | [seo](audits/seo.md) |

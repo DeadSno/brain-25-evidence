@@ -5,9 +5,9 @@
 | **Тип** | data — целостность, схемы, качество, происхождение; QA данных (покрытие тестами) |
 | **Источники** | `audit_A_data-audit.md`, `audit_A_qa-deep-audit.md`, `AUDIT_E_data-validation.md`, `STAGE4_DATA.md` |
 | **Консолидация** | 11.10.2026, ветка `v5.6-dev` |
-| **Сверка** | 13.10.2026, батч 4 — статусы перепроверены по HEAD, 3 ложных долга закрыты; батч 5 — закрыта `QA-P2-01`; 14.10.2026, батч 8C — закрыта `DATA-P1-02` |
-| **Открыто** | P1 — 3, P2 — 16 |
-| **Закрыто** | P1 — 7, P2 — 2 |
+| **Сверка** | 13.10.2026, батч 4 — статусы перепроверены по HEAD, 3 ложных долга закрыты; батч 5 — закрыта `QA-P2-01`; 14.10.2026, батч 8C — закрыты `DATA-P1-02` и `DATA-P1-12` |
+| **Открыто** | P1 — 2, P2 — 16 |
+| **Закрыто** | P1 — 8, P2 — 2 |
 
 ---
 
@@ -17,7 +17,6 @@
 
 | ID | Находка | Где | Источник / статус |
 |---|---|---|---|
-| DATA-P1-12 | `timeseries` покрывает 94/130; нет кривых у 36 карточек, из них 19 с `citations > 0` (B1 871, B2 1111 …) | `data/timeseries/`, `docs/data.json` | STAGE4 §D. Перемер 13.10 совпал точно; в `docs/data.json` карточек с ключом `timeseries` — **0** (кривые живут только в `docs/timeseries.json`) |
 | DATA-COI | COI-данные (`reports/coi_per_paper.json` 486 КБ) не показаны в карточках, 0 упоминаний в HTML | контент | STAGE4 §F. 🔸 **PARTIAL** (не переносится в «Закрыто»): `a645153` добавил раздел в `docs/methodology.html:165` (`<h2>Конфликты интересов (COI)</h2>`), но в `src/` и `templates/` слов coi нет — сам файл по-прежнему нигде не рендерится |
 | QA-P1-01 | 20 критичных скриптов без тестов (build_api, build_key_sources, build_interactions, check_state, validate_proposal, analyze_coi, build_sitemap, build_feed, build_edu, build_timeseries, build_ma_timeline, build_changelog_public, build_slim, apply_adv, apply_drafts, apply_mechs, sync_test_count, rebuild_index, recalc_science_index, update_all) | `scripts/` | audit_A_qa P1-1. Перемер 13.10: в `tests/*.py` упоминаются 4 из 20 — `build_key_sources`, `analyze_coi`, `build_sitemap`, `build_feed`; 16 по-прежнему без тестов. `8023997` починил список в скилле, но не тесты |
 
@@ -57,6 +56,7 @@
 | QA-P2-03 | Нет теста битых ссылок в `sup/` | `154dd3c` | 13.10.2026 |
 | QA-P2-01 | `ACCEPTED_UNPROTECTED` ключуется номерами строк `docs/*.js` → ключ стал текстом цепочки | `c36a2b3` | 13.10.2026 |
 | DATA-P1-02 | `hedges_g_outcome` пусто у 86 карточек — **поле удалено как мёртвое**. Арифметика исходной находки была неверна: 86 — это число карточек **с ключом**, непустых значений 44, с `hedges_g` при пустом outcome — 42. `grep` по `docs/*.html` и `docs/*.js` дал **0** чтений поля; само `hedges_g` используется (`docs/script.js:981, 993, 1018`). Причина пустых — `_outcome()` в `scripts/extract_g.py` ищет в абстракте термин из словаря `OUTCOME_TERMS` (45 слов) в окне ±220 символов; сетевая перепроверка всех 42 PMID дала 0/42 текущим словарём и 11/42 расширенным, из них 5 мусорных. Запись удалена из `scripts/fetch_hedges_g.py` и из `docs/data.json`, `tests/snapshot_data.json`, `data/supplements_slim.json` | `ebf4232` | 14.10.2026 |
+| DATA-P1-12 | `timeseries` покрывал 94/130, у 36 карточек не было кривых — **покрытие доведено до 130/130**. Ключ ко всем 36 нашёлся заранее: в `docs/data_pubmed_terms.json` ровно 130 терминов, в `src/wiki_map.py` (`WIKI_RU`) — 0 из 36. Пересборка: `fetch_timeseries.py --source pubmed` (36 × 11 лет = 396 esearch) → `build_timeseries.py` → `--source citations` (180 OpenAlex) → `build_timeseries.py`. Итог: pubmed **130/130**, citations **130/130**, wiki 90/130, объединение **130**, карточек без серий не осталось. Вики-серий добавлено быть не могло — 25 из 36 имели точную статью ru.wikipedia, но добавление `WIKI_RU` в `src/` отложено отдельной задачей | `батч 8C` | 14.10.2026 |
 
 ---
 
