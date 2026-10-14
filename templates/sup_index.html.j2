@@ -3,8 +3,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <title>Каталог БАДов: {{ total }} добавок с оценкой доказательности | Brain 25 Evidence</title>
-    <meta name="description" content="Каталог из {{ total }} БАД: название, категория, вердикт и грейд доказательности A-D. Карточка ведёт на страницу добавки с механизмами, дозировкой, взаимодействиями и источниками.">
+    {# SEO-P1-01 шаг 3: формат заголовка и длина описания приведены к
+       нормам аудита, og:title = <title>. Раньше заголовок каталога был
+       75 символов и начинался с «|», а og:title от него отличался.
+       Комментарий закрыт без перевода строки, как на карточках. #}<title>Каталог БАДов: {{ total }} добавок — Brain 25 Evidence</title>
+    <meta name="description" content="Каталог из {{ total }} БАД: название, категория, вердикт и грейд доказательности A-D. Карточка ведёт на страницу добавки с механизмами и дозировкой.">
     <link rel="canonical" href="{{ url }}">
     {# v5.6.0 этап 5: RSS-фид docs/feed.xml. Каталог — вход в раздел,
        поэтому ссылка на фид здесь нужна не меньше, чем на карточках.
@@ -12,8 +15,8 @@
        строка из одних пробелов. #}<link rel="alternate" type="application/rss+xml" title="brain-25-evidence" href="{{ base_url }}/feed.xml">
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ url }}">
-    <meta property="og:title" content="Каталог БАДов: {{ total }} добавок | Brain 25 Evidence">
-    <meta property="og:description" content="Каталог из {{ total }} БАД: название, категория, вердикт и грейд доказательности A-D. Карточка ведёт на страницу добавки с механизмами, дозировкой, взаимодействиями и источниками.">
+    <meta property="og:title" content="Каталог БАДов: {{ total }} добавок — Brain 25 Evidence">
+    <meta property="og:description" content="Каталог из {{ total }} БАД: название, категория, вердикт и грейд доказательности A-D. Карточка ведёт на страницу добавки с механизмами и дозировкой.">
     <meta property="og:image" content="{{ base_url }}/og.png">
     <meta property="og:site_name" content="Brain 25 Evidence">
     <meta name="twitter:card" content="summary_large_image">
