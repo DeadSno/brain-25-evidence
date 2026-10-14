@@ -262,7 +262,7 @@ bounding box, — часть бокса внутри, но **за дугой `bo
 | DATA-COI 🔸 | COI (486 КБ) не показан — частично: агрегаты выведены `a645153`, постатейных данных нет | [data](audits/data.md) |
 | QA-P1-01 | 20 критичных скриптов без тестов | [data](audits/data.md) |
 | CYBER-P1-01 | Нет security-заголовков (CSP/HSTS/…) — **WONTFIX** (14.10.2026): хостинг не выставляет заголовки, закрыть нечем | [js](audits/js.md) |
-| CYBER-P1-02 | Bootstrap 5.0.0-beta3 устарел | [js](audits/js.md) |
+| CYBER-P1-02 | Bootstrap 5.0.0-beta3 устарел — **WONTFIX** (14.10.2026): вендор только на `graph.html`, страница удаляется в v5.6.5 (PAGES_REVIEW Вариант B) | [js](audits/js.md) |
 | SEO-P1-01 | `<title>` вне 40–60 на **87/145**, медиана 61 | [seo](audits/seo.md) |
 | SEO-P1-02 | `description` вне 120–160 на **91/145**, медиана 100 | [seo](audits/seo.md) |
 | MKT-P1-04 | Нет воронки | [seo](audits/seo.md) |
