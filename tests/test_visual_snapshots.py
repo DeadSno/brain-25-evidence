@@ -733,12 +733,81 @@ def _decode(png: bytes):
     return PIL_Image.open(io.BytesIO(png)).convert("RGB")
 
 
-def _compare(actual_png: bytes, expected_png: bytes):
+#: Маску углов включают только для этого снимка и только явно (см.
+#: `corner_radius=` в test_cookie_banner_visible_first_visit). Список —
+#: чтобы случайно не расширить её на остальные 75 снимков: они снимаются
+#: постранично, углы у страниц прямые, и исключать там нечего.
+CORNER_MASK_NAMES = ("cookie-banner",)
+
+
+def _rounded_rect_mask(height: int, width: int, radius: float):
+    """-> булева массив (h, w): True = пиксель ВНУТРИ скруглённого прямоугольника.
+
+    Зачем (батч 7, MKT-P1-01)
+    -------------------------
+    `locator.screenshot()` клипает по bounding box элемента, а не по его
+    отрисованной форме. Поэтому часть бокса внутри, но ЗА дугой
+    `border-radius` — это вовсе не пиксели элемента, а то, что лежит под
+    ним на странице. Для `#cookieBanner` (position:fixed, внизу вьюпорта)
+    под углами оказывается произвольное содержимое index.html, и оно
+    меняется от правки ЛЮБОЙ части страницы выше баннера: добавление
+    строки-слогана сдвинуло поток и дало 86 расходящихся пикселей ровно
+    по дугам, при неподвижном боксе (x=280, y=786, 720x98 — как в эталоне).
+
+    То есть эталон зависел от высоты страницы, а баннер к ней отношения не
+    имеет. Маска убирает ровно эту зависимость, не ослабляя глобальный
+    DIFF_TOL_PCT и не перезаписывая эталон: сравниваются только пиксели,
+    которые действительно принадлежат баннеру.
+    """
+    inside = np.ones((height, width), dtype=bool)
+    r = float(radius)
+    if r <= 0:
+        return inside
+    r = min(r, width / 2.0, height / 2.0)
+    xs = np.arange(width) + 0.5
+    ys = np.arange(height) + 0.5
+    # Пиксель вне формы, если он и по горизонтали, и по вертикали дальше
+    # радиуса от центра дуги И расстояние до центра больше радиуса.
+    for dx in (r - xs, xs - (width - r)):
+        for dy in (r - ys, ys - (height - r)):
+            # Маска строится как (height, width): dx — по колонкам, dy — по
+            # строкам. Перепутать оси здесь нельзя: np.ones((h, w)) принял
+            # бы (w, h) и упал бы на broadcast с непонятным сообщением.
+            outside = ((dx > 0)[None, :] & (dy > 0)[:, None]
+                       & (dx[None, :] ** 2 + dy[:, None] ** 2 > r * r))
+            inside &= ~outside
+    return inside
+
+
+def _corner_radius(page, selector: str) -> float:
+    """Радиус скругления элемента в пикселях, максимум по четырём углам.
+
+    Берётся максимум, а не только левый верхний: если у элемента углы
+    разные, маска по меньшему оставила бы чужие пиксели в сравнении.
+    Неразобранное значение (проценты, calc) даёт 0 — тогда маска пустая и
+    сравнение ведётся как раньше, то есть гейт не ослабевает молча.
+    """
+    values = page.evaluate(
+        """(sel) => {
+            const cs = getComputedStyle(document.querySelector(sel));
+            return ['borderTopLeftRadius', 'borderTopRightRadius',
+                    'borderBottomLeftRadius', 'borderBottomRightRadius']
+                .map(k => parseFloat(cs[k]));
+        }""", selector)
+    parsed = [v for v in values if v == v and v > 0]
+    return max(parsed) if parsed else 0.0
+
+
+def _compare(actual_png: bytes, expected_png: bytes, corner_radius: float = 0.0):
     """-> (процент, bbox или None, n_различающихся, размеры или None).
 
     Разные размеры = страница стала выше/ниже. Это самый сильный сигнал
     из возможных, поэтому возвращается 100% и размеры: «высота поехала на
     2px» полезнее, чем безликое «расхождение 100%».
+
+    `corner_radius` > 0 исключает из сравнения пиксели за дугой
+    скругления — они принадлежат странице, а не элементу (см.
+    `_rounded_rect_mask`). По умолчанию 0: маска выключена.
     """
     a, e = _decode(actual_png), _decode(expected_png)
     if a.size != e.size:
@@ -747,6 +816,8 @@ def _compare(actual_png: bytes, expected_png: bytes):
     ev = np.asarray(e, dtype=np.int16)
     d = np.abs(av - ev).max(axis=2)
     mask = d > CHANNEL_TOL
+    if corner_radius > 0:
+        mask &= _rounded_rect_mask(a.size[1], a.size[0], corner_radius)
     n = int(mask.sum())
     if not n:
         return 0.0, None, 0, None
@@ -756,7 +827,7 @@ def _compare(actual_png: bytes, expected_png: bytes):
 
 
 def _write_artifacts(name: str, actual_png: bytes, expected_png: bytes,
-                     art_dir: Path) -> list[str]:
+                     art_dir: Path, corner_radius: float = 0.0) -> list[str]:
     ART_DIR = art_dir
     ART_DIR.mkdir(parents=True, exist_ok=True)
     # `!.gitignore` обязателен: без него правило `*` игнорирует сам .gitignore,
@@ -773,6 +844,8 @@ def _write_artifacts(name: str, actual_png: bytes, expected_png: bytes,
         av = np.asarray(a, dtype=np.int16)
         ev = np.asarray(e, dtype=np.int16)
         mask = np.abs(av - ev).max(axis=2) > CHANNEL_TOL
+        if corner_radius > 0:
+            mask &= _rounded_rect_mask(a.size[1], a.size[0], corner_radius)
         heat = np.array(e, dtype=np.uint8).copy()
         heat[mask] = [255, 0, 0]
         p = ART_DIR / f"{name}.diff.png"
@@ -784,7 +857,8 @@ def _write_artifacts(name: str, actual_png: bytes, expected_png: bytes,
 REWRITTEN: list[str] = []
 
 
-def _assert_snapshot(name: str, actual_png: bytes, snap_dir: Path) -> None:
+def _assert_snapshot(name: str, actual_png: bytes, snap_dir: Path,
+                     corner_radius: float = 0.0) -> None:
     """Сравнить снимок с эталоном или перезаписать эталон.
 
     Перезапись разрешена поимённо (F-18, #98). Прежде `UPDATE_SNAPSHOTS=1`
@@ -797,8 +871,20 @@ def _assert_snapshot(name: str, actual_png: bytes, snap_dir: Path) -> None:
     В режиме `all` поведение прежнее: молча переписать всё. Это осознанно
     и описано в докстринге файла — полная пересъёмка нужна редко и
     намеренно, а не по недосмотру в переменной окружения.
+
+    `corner_radius` > 0 — opt-in маска углов (см. `_rounded_rect_mask`).
+    Принимается только для снимков из `CORNER_MASK_NAMES`: иначе маска
+    молча ослабила бы чужой снимок, а это ровно тот класс ошибки, который
+    гейт чисел в скиллах уже ловил дважды.
     """
     path = snap_dir / f"{name}.png"
+
+    if corner_radius > 0 and name not in CORNER_MASK_NAMES:
+        raise AssertionError(
+            f"Маска углов передана для снимка {name!r}, которого нет в "
+            f"CORNER_MASK_NAMES={CORNER_MASK_NAMES}. Добавь снимок в список "
+            f"осознанно или убери corner_radius="
+        )
 
     if _should_update(name):
         snap_dir.mkdir(parents=True, exist_ok=True)
@@ -815,11 +901,12 @@ def _assert_snapshot(name: str, actual_png: bytes, snap_dir: Path) -> None:
         pytest.fail(f"Эталон {name} создан ({size_kb:.0f} КБ). Посмотри его "
                     f"в глаза — потом он станет базой. Повтори прогон.")
 
-    pct, bbox, n, sizes = _compare(actual_png, path.read_bytes())
+    pct, bbox, n, sizes = _compare(actual_png, path.read_bytes(),
+                                   corner_radius)
     if pct <= DIFF_TOL_PCT:
         return
     files = _write_artifacts(name, actual_png, path.read_bytes(),
-                             snap_dir / "_actual")
+                             snap_dir / "_actual", corner_radius)
     if sizes:
         why = (f"размер страницы изменился: стало {sizes[0][0]}x{sizes[0][1]}, "
                f"эталон {sizes[1][0]}x{sizes[1][1]} — это само по себе причина "
@@ -946,6 +1033,14 @@ def test_cookie_banner_visible_first_visit(_env_checked, browser, snap_dir):
     Эталон баннера отдельный НЕ для красоты: пока он один на движок,
     правка текста или стилей баннер горёт только своим снимком, а не 73
     страничными (именно поэтому страницы снимаются с 'rejected').
+
+    Маска углов (батч 7): сравнение идёт по пикселям ВНУТРИ дуги
+    `border-radius`. Без неё эталон зависел от того, что лежит под
+    баннером, а под ним — содержимое index.html: добавление строки-слогана
+    (MKT-P1-01) сдвинуло поток страницы и дало 86 расходящихся пикселей
+    ровно по дугам, при боксе, совпадающем с эталоном до пикселя. Радиус
+    снимается с элемента на момент съёмки, а не константой из CSS — иначе
+    правка скругления снова рассинхронизирует маску с реальностью.
     """
     ctx = browser.new_context(viewport={"width": 1280, "height": 900},
                               service_workers="block", reduced_motion="reduce",
@@ -975,7 +1070,8 @@ def test_cookie_banner_visible_first_visit(_env_checked, browser, snap_dir):
             "приватности: " + ", ".join(yandex[:3])
         )
 
-        _assert_snapshot("cookie-banner", banner.screenshot(), snap_dir)
+        _assert_snapshot("cookie-banner", banner.screenshot(), snap_dir,
+                         _corner_radius(page, "#cookieBanner"))
 
         # «Принять» — и только теперь Метрика имеет право стартовать.
         page.click("#cookieAccept")
