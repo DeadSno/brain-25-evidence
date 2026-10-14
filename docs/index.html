@@ -198,11 +198,20 @@ footer { font-size: 1rem !important; }
      дублировали «Поддержать» в шапке и карточки «Калькулятор» / «Карта
      механизмов» в сетке.
      14.10.2026, батч 7 (MKT-P1-02): главный CTA добавлен отдельно, в конец
-     блока «Сначала ответим на 3 вопроса», и ведёт на `#search`. Это
+     блока «Сначала ответим на 3 вопроса», и вёл на `#search`. Это
      единственное действие на главной, которого нет ни в одной ссылке —
      ни в шапке, ни в сетке карточек, — поэтому дублем не становится. Класс
      `.btn.calc` взят как есть: это единственный primary-стиль в
-     дизайн-системе, новый класс не заводился ради одного элемента. -->
+     дизайн-системе, новый класс не заводился ради одного элемента.
+
+     14.10.2026, INDEX_CTA_FIX (вариант F, follow-up MKT-P1-02): цель
+     поменяна с `#search` на `#cardsContainer`. Якорь на input поиска вёл
+     ВЫШЕ CTA по DOM, а после сворачивания блока «3 вопросов» в <details>
+     (v5.5.0) прокрутка была ≈0 и фокус не ставился — клик не давал ничего.
+     «Найти свою добавку» — семантика браузинга, каталог 130 добавок с
+     фильтрами и есть эта задача. Обработчик в script.js цепляется к
+     a.btn.calc[href="#cardsContainer"] — по href, поэтому id в разметке
+     не нужен, а кнопку можно переставлять без правки скрипта. -->
 
 <section id="controls">
   <label for="search" class="sr-only">Поиск по названию или эффекту</label>
@@ -268,7 +277,7 @@ footer { font-size: 1rem !important; }
     </div>
   </details>
   <p style="margin:1rem 0 0;display:flex;flex-wrap:wrap;gap:.75rem;align-items:center">
-    <a class="btn calc" href="#search">Найти свою добавку →</a>
+    <a class="btn calc" href="#cardsContainer">Найти свою добавку →</a>
     <a href="methodology.html">Полное объяснение методологии →</a>
   </p>
 </section>
@@ -452,7 +461,7 @@ footer { font-size: 1rem !important; }
     <div id="modalBody"></div>
   </div>
 </div>
-<script src="script.js?v=286"></script>
+<script src="script.js?v=287"></script>
 <script src="science2.js?v=281" defer></script>
 <script src="tracker.js?v=281" defer></script>
 <script src="pwa.js?v=282" defer></script>
