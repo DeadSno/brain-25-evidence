@@ -5,9 +5,9 @@
 | **Тип** | data — целостность, схемы, качество, происхождение; QA данных (покрытие тестами) |
 | **Источники** | `audit_A_data-audit.md`, `audit_A_qa-deep-audit.md`, `AUDIT_E_data-validation.md`, `STAGE4_DATA.md` |
 | **Консолидация** | 11.10.2026, ветка `v5.6-dev` |
-| **Сверка** | 13.10.2026, батч 4 — статусы перепроверены по HEAD, 3 ложных долга закрыты; батч 5 — закрыта `QA-P2-01`; 14.10.2026, батч 8C — закрыты `DATA-P1-02` и `DATA-P1-12` |
-| **Открыто** | P1 — 2, P2 — 16 |
-| **Закрыто** | P1 — 8, P2 — 2 |
+| **Сверка** | 13.10.2026, батч 4 — статусы перепроверены по HEAD, 3 ложных долга закрыты; батч 5 — закрыта `QA-P2-01`; 14.10.2026, батч 8C — закрыты `DATA-P1-02` и `DATA-P1-12`; 14.10.2026 — `QA-P1-01` пересчитана и закрыта как WONTFIX (43 скрипта), долг разнесён на `QA-P1-04/05/06` |
+| **Открыто** | P1 — 4, P2 — 16 |
+| **Закрыто** | P1 — 9, P2 — 2 |
 
 ---
 
@@ -18,7 +18,9 @@
 | ID | Находка | Где | Источник / статус |
 |---|---|---|---|
 | DATA-COI | COI-данные (`reports/coi_per_paper.json` 486 КБ) не показаны в карточках, 0 упоминаний в HTML | контент | STAGE4 §F. 🔸 **PARTIAL** (не переносится в «Закрыто»): `a645153` добавил раздел в `docs/methodology.html:165` (`<h2>Конфликты интересов (COI)</h2>`), но в `src/` и `templates/` слов coi нет — сам файл по-прежнему нигде не рендерится |
-| QA-P1-01 | 20 критичных скриптов без тестов (build_api, build_key_sources, build_interactions, check_state, validate_proposal, analyze_coi, build_sitemap, build_feed, build_edu, build_timeseries, build_ma_timeline, build_changelog_public, build_slim, apply_adv, apply_drafts, apply_mechs, sync_test_count, rebuild_index, recalc_science_index, update_all) | `scripts/` | audit_A_qa P1-1. Перемер 13.10: в `tests/*.py` упоминаются 4 из 20 — `build_key_sources`, `analyze_coi`, `build_sitemap`, `build_feed`; 16 по-прежнему без тестов. `8023997` починил список в скилле, но не тесты |
+| QA-P1-04 | **Живые артефакты без теста (приоритет 1).** `build_interactions_graph.py` → `docs/interactions_graph.json` (50 КБ), читают `interactions.html:384, 723, 1024, 1037`; `build_timeseries.py` → `docs/timeseries.json` (200 КБ), читают `trends.html:416, 444, 1078`. Сбой генератора молча ломает страницу — ровно тот режим отказа, от которого защищены `build_sup`/`build_feed` тестами. База: `reports/QA_P1_DIAGNOSIS.md` |
+| QA-P1-05 | **Smoke на 11 скриптов** (`build_changelog_public`, `add_supplements_batch`, `apply_drafts`, `recalc_science_index`, `rebuild_index`, `parse_dosages`, `parse_xml_meta`, `validate_proposal`, `extract_g`, `extract_sample_sizes`, `extract_stats_claims`) — параметризованный тест: import + `--help` без падения. Не функциональный: вывод не проверяется | `scripts/` | База: `reports/QA_P1_DIAGNOSIS.md` |
+| QA-P1-06 | **7 одноразовых скриптов на удаление** (`patch_effects_batch14`, `_fix_reyshi`, `fill_upper_limit`, `q1_3`, `make_og`, `analyze_funding`, `refetch_evidence`) — перед удалением grep по `scripts/ tests/ docs/` и `git log --all`. `view_catalog` и `check_state` НЕ удаляются: первый может быть полезен локально, второй упомянут в `ROADMAP.md` — удаление сломает ссылку | `scripts/` | База: `reports/QA_P1_DIAGNOSIS.md` |
 
 ### P2
 
@@ -57,6 +59,7 @@
 | QA-P2-01 | `ACCEPTED_UNPROTECTED` ключуется номерами строк `docs/*.js` → ключ стал текстом цепочки | `c36a2b3` | 13.10.2026 |
 | DATA-P1-02 | `hedges_g_outcome` пусто у 86 карточек — **поле удалено как мёртвое**. Арифметика исходной находки была неверна: 86 — это число карточек **с ключом**, непустых значений 44, с `hedges_g` при пустом outcome — 42. `grep` по `docs/*.html` и `docs/*.js` дал **0** чтений поля; само `hedges_g` используется (`docs/script.js:981, 993, 1018`). Причина пустых — `_outcome()` в `scripts/extract_g.py` ищет в абстракте термин из словаря `OUTCOME_TERMS` (45 слов) в окне ±220 символов; сетевая перепроверка всех 42 PMID дала 0/42 текущим словарём и 11/42 расширенным, из них 5 мусорных. Запись удалена из `scripts/fetch_hedges_g.py` и из `docs/data.json`, `tests/snapshot_data.json`, `data/supplements_slim.json` | `ebf4232` | 14.10.2026 |
 | DATA-P1-12 | `timeseries` покрывал 94/130, у 36 карточек не было кривых — **покрытие доведено до 130/130**. Ключ ко всем 36 нашёлся заранее: в `docs/data_pubmed_terms.json` ровно 130 терминов, в `src/wiki_map.py` (`WIKI_RU`) — 0 из 36. Пересборка: `fetch_timeseries.py --source pubmed` (36 × 11 лет = 396 esearch) → `build_timeseries.py` → `--source citations` (180 OpenAlex) → `build_timeseries.py`. Итог: pubmed **130/130**, citations **130/130**, wiki 90/130, объединение **130**, карточек без серий не осталось. Вики-серий добавлено быть не могло — 25 из 36 имели точную статью ru.wikipedia, но добавление `WIKI_RU` в `src/` отложено отдельной задачей | `батч 8C` | 14.10.2026 |
+| QA-P1-01 | **WONTFIX для 43 скриптов** — сетевые обёртки и исследовательские отчёты. Исходная формулировка находки была неверна: «20 критичных» — устаревший список из 20 имён, «16 без тестов» — его хвост (4 из 20 покрыты `tests/`, `BATCH7_SUMMARY.md:115`). Реальный пересчёт 14.10.2026 по всем 86 скриптам `scripts/`: покрыто 20 по имени + 11 по артефакту, **реально без теста 55** = 13 test / 9 delete / 34 wontfix. 34 из них — `fetch_*`/`enrich_*` (нужен живой API: тест проверял бы сеть, а не код) и `analyze_*`/`audit_*` (исследовательские отчёты). Наследники QA-P1-01 разнесены в **QA-P1-04** (2 критичных), **QA-P1-05** (smoke на 11), **QA-P1-06** (удаление 7). Подробности: `reports/QA_P1_DIAGNOSIS.md` | `4c72cd6`+ | 14.10.2026 |
 
 ---
 
