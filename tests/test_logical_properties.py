@@ -40,6 +40,11 @@
 совпадать с реальностью или вырос. Декларация `DEBT_BUDGET` держит
 потолок: при починке страниц он уменьшается, но никогда не
 увеличивается. Так долг виден числом и не может тихо вернуться.
+
+Состояние на 2026-10-14: долг закрыт полностью, `KNOWN_DEBT` пуст,
+`DEBT_BUDGET = 0`. Открытым остаётся `docs/style.css` — см. выше.
+Механизм ратчета оставлен: вернуть долг можно только явной правкой
+теста, и она видна в diff.
 """
 from __future__ import annotations
 
@@ -85,32 +90,14 @@ COMMENT_RE = re.compile(r"/\*.*?\*/", re.S)
 #: сохраняя переводы строк, чтобы номера строк не поехали.
 SCRIPT_RE = re.compile(r"(<script\b[^>]*>)(.*?)(</script>)", re.S | re.I)
 
-#: Известный долг: {(файл, свойство): сколько раз}. Снят прогоном, не на глаз:
-#: 9 страниц, 31 объявление.
-KNOWN_DEBT: dict[tuple[str, str], int] = {
-    ("atlas.html", "margin-left"): 2,
-    ("atlas.html", "margin-right"): 2,
-    ("calculator.html", "margin-left"): 2,
-    ("feedback.html", "border-left"): 2,
-    ("feedback.html", "margin-left"): 1,
-    ("graph.html", "left"): 5,
-    ("graph.html", "right"): 1,
-    ("index.html", "margin-left"): 1,
-    ("index.html", "padding-left"): 1,
-    ("index.html", "right"): 1,
-    ("interactions.html", "margin-left"): 2,
-    ("interactions.html", "margin-right"): 1,
-    ("privacy.html", "border-left"): 1,
-    ("support.html", "border-left"): 1,
-    ("support.html", "margin-left"): 1,
-    ("trends.html", "border-left"): 4,
-    ("trends.html", "margin-left"): 1,
-    ("trends.html", "margin-right"): 1,
-    ("trends.html", "padding-left"): 1,
-}
+#: Известный долг: {(файл, свойство): сколько раз}.
+#: Был 9 страниц / 31 объявление; закрыт 2026-10-14 (Batch 8A, 1b).
+#: Пустой словарь — осознанно, а не «не нашли»: сканер проверен на
+#: заведомо грязном состоянии и там нашёл ровно 19 пар.
+KNOWN_DEBT: dict[tuple[str, str], int] = {}
 
-#: Потолок долга. Уменьшается по мере починки, не растёт.
-DEBT_BUDGET = 19
+#: Потолок долга. Уменьшается по мере починки, не растёт. Долг закрыт — 0.
+DEBT_BUDGET = 0
 
 
 def _filler(text: str) -> str:
