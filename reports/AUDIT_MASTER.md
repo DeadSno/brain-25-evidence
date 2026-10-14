@@ -25,10 +25,20 @@
 | mobile | 4 | 17 | [audits/mobile.md](audits/mobile.md) |
 | perf (+проект/релиз) | 5 | 11 | [audits/perf.md](audits/perf.md) |
 | i18n | 3 | 10 | [audits/i18n.md](audits/i18n.md) |
-| seo (+маркетинг) | 7 | 18 | [audits/seo.md](audits/seo.md) |
+| seo (+маркетинг) | 9 | 18 | [audits/seo.md](audits/seo.md) |
 | trends | 17 | 10 | [audits/trends.md](audits/trends.md) |
 | skills | 3 | 7 | [audits/skills.md](audits/skills.md) |
-| **Итого** | **76** | **133** (+12 «не делать», +1 снято, +1 дубль) |
+| **Итого** | **78** | **133** (+12 «не делать», +1 снято, +1 дубль) |
+
+**Пересчёт 14.10.2026 (SEO-хвост).** Добавлены `MKT-P2-06`
+(`og:description` ≠ `meta description`, 10/13) и `MKT-P2-07`
+(`twitter:title`/`twitter:description`, 5/13 устарели, 8/13 нет вовсе).
+Оба измерены по `docs/*.html` после коммита `b0a15fd`, не взяты из
+аудита. Индекс пересчитан по фактическим строкам таблицы «Открыто»
+`audits/seo.md`: P2 4 → 6, seo 7 → 9, итого 76 → 78. §2 «P2» 49 → 51,
+итог §2 `1 + 22 + 51 + 1 + 17` = **92**. Новые ID — потому что
+`MKT-P2-04`/`P2-05` уже заняты закрытыми пунктами (`twitter:card`,
+`og:site_name`).
 
 **Пересчёт 13.10.2026 (батч 6).** `MKT-P2-04` (`twitter:card` 139/144 → **144/144**)
 перенесён в «Закрыто» `audits/seo.md` — коммит `80ebdc8`. Индекс пересчитан по
@@ -273,7 +283,7 @@ bounding box, — часть бокса внутри, но **за дугой `bo
 > DATA-COI, DATA-P2-02, A11Y-P2-06, A11Y-P2-08, MOB-P2-11,
 > SK-P1-03, SK-STALE-02.
 
-### P2 (49)
+### P2 (51)
 
 | ID | Находка | Тип |
 |---|---|---|
@@ -293,6 +303,8 @@ bounding box, — часть бокса внутри, но **за дугой `bo
 | REL-P2-01, PRJ-P2-01, P2-02 | ~40 worktree detached HEAD, ложные находки project | [perf](audits/perf.md) |
 | I18N-P2-01…03 | 229 строк JS + inline, **748** атрибутов, 517 стрелок | [i18n](audits/i18n.md) |
 | SEO-P2-01, P2-03, MKT-P2-01, P2-02 | Дубли `description`, OG-теги. Закрыто: `twitter:card` (`80ebdc8`) и `og:site_name` (`24fa97f`) — по 144/144 | [seo](audits/seo.md) |
+| MKT-P2-06 | `og:description` ≠ `meta description` на 10/13 — расхождение осталось после выравнивания og:title | [seo](audits/seo.md) |
+| MKT-P2-07 | `twitter:title`/`twitter:description` устарели на 5 страниц; на 8/13 тегов нет | [seo](audits/seo.md) |
 
 ### Stale (1)
 
