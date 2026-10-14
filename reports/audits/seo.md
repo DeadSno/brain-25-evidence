@@ -6,8 +6,8 @@
 | **Источники** | `audit_D_seo.md`, `audit_C_marketing.md`, `AUDIT_C_SUMMARY.md`, `STAGE4_SITEMAP.md`, `STAGE5_CANONICAL_RSS.md`, `FIX_GSC_FILE.md` |
 | **Консолидация** | 11.10.2026, ветка `v5.6-dev` |
 | **Bookkeeping** | 13.10.2026 — 6 закрыто, 2 числа перемерено (исправлено) |
-| **Открыто** | P1 — 10, P2 — 6 |
-| **Закрыто** | P0 — 1, P2 — 8 |
+| **Открыто** | P1 — 10, P2 — 5 |
+| **Закрыто** | P0 — 1, P2 — 9 |
 
 ---
 
