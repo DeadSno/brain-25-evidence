@@ -19,7 +19,7 @@
 |---|---|---|---|
 | a11y | 7 | 25 | [audits/a11y.md](audits/a11y.md) |
 | data (+QA данных) | 20 | 8 | [audits/data.md](audits/data.md) |
-| html-css | 7 | 11 | [audits/html-css.md](audits/html-css.md) |
+| html-css | 6 | 12 | [audits/html-css.md](audits/html-css.md) |
 | js (+безопасность) | 5 | 8 | [audits/js.md](audits/js.md) |
 | legal | 1 | 5 | [audits/legal.md](audits/legal.md) |
 | mobile | 4 | 17 | [audits/mobile.md](audits/mobile.md) |
@@ -28,7 +28,7 @@
 | seo (+маркетинг) | 14 | 11 | [audits/seo.md](audits/seo.md) |
 | trends | 17 | 10 | [audits/trends.md](audits/trends.md) |
 | skills | 4 | 6 | [audits/skills.md](audits/skills.md) |
-| **Итого** | **89** | **120** (+12 «не делать», +1 снято, +1 дубль) |
+| **Итого** | **88** | **121** (+12 «не делать», +1 снято, +1 дубль) |
 
 **Пересчёт 13.10.2026 (батч 6).** `MKT-P2-04` (`twitter:card` 139/144 → **144/144**)
 перенесён в «Закрыто» `audits/seo.md` — коммит `80ebdc8`. Индекс пересчитан по
@@ -101,6 +101,15 @@
 единственный заголовок с телом ниже. §1 perf 7 / 9 → **6 / 10**, §2 «P1» 22 → **21**,
 итого 90 / 119 → **89 / 120**. Исчезает и вторая 🔸 из списка PARTIAL (9 → 8).
 
+**Часть C, 14.10.2026 — пункт 2/7 (`HC-P1-03`).** Вторая половина находки закрыта:
+`SKILL.md:53` утверждал «против 7 CSS-переменных» — на HEAD `docs/style.css`
+**106** объявлений `--var:` (66 уникальных, 40 в `:root`); `SKILL.md:116` —
+«те же 7 переменных» → «все переменные». **Расширен гейт
+`tests/test_skill_numbers_match_project.py`**: добавлена пятая метрика
+`CSS-переменных` — именно её отсутствие позволяло числу протухнуть дважды.
+§1 html-css 7 / 11 → **6 / 12**, §2 «P1» 21 → **20**, итого 89 / 120 →
+**88 / 121**. PARTIAL 8 → 7.
+
 Сопутствующие документы: [PRE_MERGE_CHECK.md](PRE_MERGE_CHECK.md) (готовность merge),
 [CONSOLIDATION.md](CONSOLIDATION.md) (консолидация отчётов),
 [STAGE_R1R2.md](STAGE_R1R2.md).
@@ -125,7 +134,7 @@
 |---|---|---|
 | SK-P0-01 | Субагенты не могут загружать скиллы (инструмент `skill` только у team-lead) | [skills](audits/skills.md) |
 
-### P1 (21)
+### P1 (20)
 
 | ID | Находка | Тип |
 |---|---|---|
@@ -133,7 +142,6 @@
 | DATA-P1-12 | `timeseries` 94/130 (36 карточек, 19 с citations>0) — техдолг v5.6.4 | [data](audits/data.md) |
 | DATA-COI 🔸 | COI (486 КБ) не показан — частично: агрегаты выведены `a645153`, постатейных данных нет | [data](audits/data.md) |
 | QA-P1-01 | 20 критичных скриптов без тестов | [data](audits/data.md) |
-| HC-P1-03 🔸 | Стартовые цифры скилла устарели — 4 числа закрыты `c295d94`, `SKILL.md:53` жив | [html-css](audits/html-css.md) |
 | CYBER-P1-01 | Нет security-заголовков (CSP/HSTS/…) — **WONTFIX** (14.10.2026): хостинг не выставляет заголовки, закрыть нечем | [js](audits/js.md) |
 | CYBER-P1-02 | Bootstrap 5.0.0-beta3 устарел | [js](audits/js.md) |
 | PRJ-P1-01 | `trends.html` 130 против 94 | [perf](audits/perf.md) |
@@ -145,8 +153,8 @@
 | SK-P1-03 🔸 | `cyberaudit`: `license: MIT` закрыт `12119a5`, многострочный `description` жив — **WONTFIX** (14.10.2026): скилл в `.gitignore`, правка не коммитится | [skills](audits/skills.md) |
 
 > 🔸 **PARTIAL** — закрыта часть находки. Такие записи остаются в открытом
-> индексе, но снимаются с целиком при закрытии последней части. Сейчас их 8:
-> DATA-COI, DATA-P2-02, A11Y-P2-06, A11Y-P2-08, MOB-P2-11, HC-P1-03,
+> индексе, но снимаются с целиком при закрытии последней части. Сейчас их 7:
+> DATA-COI, DATA-P2-02, A11Y-P2-06, A11Y-P2-08, MOB-P2-11,
 > SK-P1-03, SK-STALE-02.
 
 ### P2 (49)

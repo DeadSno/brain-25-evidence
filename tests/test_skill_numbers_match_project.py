@@ -71,6 +71,10 @@ METRICS = {
     # склоняется по числа («4 градиента», но «6 градиентов»). Именно на
     # этом упал первый прогон после правки числа.
     "градиент": "gradients",
+    # Число CSS-переменных добавлено в батче 7 (HC-P1-03). Раньше оно
+    # стояло в скилле («против 7 CSS-переменных») и не проверялось гейтом
+    # — поэтому и протухло: 7 против фактических 106 объявлений `--var:`.
+    "CSS-переменных": "css_vars",
 }
 
 HEX = re.compile(r"#[0-9a-fA-F]{3,8}\b")
@@ -118,6 +122,7 @@ def _measure() -> dict[str, int]:
         "box_shadows": len({v.strip() for v in re.findall(
             r"box-shadow:\s*([^;}]+)", css)}),
         "gradients": len(GRADIENT.findall(css)),
+        "css_vars": len(DECL.findall(css)),
     }
 
 
