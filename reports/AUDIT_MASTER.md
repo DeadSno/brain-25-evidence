@@ -60,7 +60,7 @@
 | Тип | Было | Стало | Что переведено |
 |---|---|---|---|
 | a11y | 8 / 23 | 7 / 25 | A11Y-P2-03 закрыт `57decfe` (правило существовало **до** находки), A11Y-P2-06 и A11Y-P2-08 помечены 🔸 PARTIAL |
-| data | 24 / 4 | 20 / 8 | DATA-P1-01, P1-03, P1-04, P1-11, QA-P1-02, QA-P1-03, QA-P2-03 закрыты; DATA-P2-02 и DATA-COI — 🔸 PARTIAL; QA-COV возвращён в открытые батчем 4 и закрыт батчем 8E (метрика переопределена: 13 реальных тестов из 89 скриптов, не 16 из 89) |
+| data | 24 / 4 | 20 / 8 | DATA-P1-01, P1-03, P1-04, P1-11, QA-P1-02, QA-P1-03, QA-P2-03 закрыты; DATA-P2-02 и DATA-COI — 🔸 PARTIAL; QA-COV возвращён в открытые батчем 4 и закрыт батчем 8E (метрика переопределена: 13 реальных тестов из 89 скриптов, не 16 из 89); батч 9A закрыл DATA-P2-01/02/04/05 и исправил DATA-P2-03/06 — открытой осталась только DATA-P2-07 |
 | html-css | 9 / 9 | 7 / 11 | HC-P1-01 `756a2d0`, HC-P1-02 `e8da7d3`, HC-P2-07…10 закрыты; HC-P1-03 — 🔸 PARTIAL |
 | js | 7 / 6 | 5 / 8 | JS-P2-01 и CYBER-P2-02 закрыты `99eb5d2`, `582447b` |
 | legal | 2 / 4 | 1 / 5 | LEGAL-P2-01 закрыт `d6a3030` (оба файла — ложные срабатывания) |
@@ -276,14 +276,13 @@ bounding box, — часть бокса внутри, но **за дугой `bo
 > DATA-COI, DATA-P2-02, A11Y-P2-06, A11Y-P2-08, MOB-P2-11,
 > SK-P1-03, SK-STALE-02.
 
-### P2 (51)
+### P2 (45)
 
 | ID | Находка | Тип |
 |---|---|---|
 | A11Y-P2-01, 03, 04, 05, 07 | Focus-индикатор (`trends.html`, статус спорный), probe, нет `aria-live`, «Ничего не найдено» | [a11y](audits/a11y.md) |
 | A11Y-P2-06 🔸, A11Y-P2-08 🔸 | Пустые `—` и 620 px-сирота — обе закрыты наполовину | [a11y](audits/a11y.md) |
-| DATA-P2-01, DATA-P2-03…14 | null-поля, U+FFFD в `unpaywall.json`, покрытие, `key_sources`, categories | [data](audits/data.md) |
-| DATA-P2-02 🔸 | `ma_top3` пустой у 4 карточек — `454b956` закрыл 49 из 53 | [data](audits/data.md) |
+| DATA-P2-07…14 | Покрытие `hedges_g_all.json` 113/130, `key_sources`, `dosage_parsed`, не монотонный `grade`, `forms`, `metaCount`, `citations`/`ongoing`/`wiki`, категории | [data](audits/data.md) |
 | QA-P2-02 | Нет теста битых ссылок sup | [data](audits/data.md) |
 | QA-P2-04, 05, 06 | `ZeroDivisionError` в `parse_xml_meta.py:223`, нет `__main__`-guard в `build_changelog_public.py`, docstring с несуществующим `--dry-run` в `recalc_science_index.py:10` | [data](audits/data.md) |
 | HC-P2-01…06 | Эмодзи-иконки, 13 размеров шрифта, 160 hex, 15 теней, 6 градиентов, нет статус-классов | [html-css](audits/html-css.md) |
