@@ -54,6 +54,33 @@ BASE_URL = "https://deadsno.github.io/brain-25-evidence"
 
 NO_DATA = "нет данных"
 
+# Границы SEO-мет те же, что у scripts/audit_meta_lengths.py: заголовок
+# 40–60 символов, описание 120–160. Длина считается по тексту без
+# HTML-экранирования — аудит разэкранирует значение перед подсчётом.
+TITLE_MIN, TITLE_MAX = 40, 60
+DESC_MIN, DESC_MAX = 120, 160
+
+# Формат заголовка — общий для всего сайта (SEO-P1-01, шаг 2): em-dash
+# перед брендом, бренд с заглавных. «brain-25-evidence» в нижнем
+# регистре остаётся только в URL и в заголовке RSS-фида.
+TITLE_BRAND = "Brain 25 Evidence"
+TITLE_SEP = " — "
+# Постоянная часть заголовка: название + два разделителя + бренд.
+TITLE_OVERHEAD = 2 * len(TITLE_SEP) + len(TITLE_BRAND)
+
+# Середина заголовка для коротких названий, у которых категория не
+# дотягивает до минимума в 40 символов. Берётся первая, что влезает
+# в границы; на 130 записей хватает трёх ступеней.
+TITLE_FALLBACKS = (
+    "добавка: эффекты и доказательства",
+    "БАД: эффекты и доказательства",
+    "добавка: эффекты",
+)
+
+# Эффект «нет подтверждённых эффектов» в описание не переносится: он
+# ничего не сообщает поисковику, а места в нём и так в обрез.
+NO_EFFECT_MARK = "нет подтверждённых эффектов"
+
 # Транслитерация — таблица из задания v5.6.0 этап 1. Проверена на всех
 # 130 именах: 0 пустых, 0 не-ASCII, 0 коллизий, все 5 существующих
 # файлов воспроизводятся точно.
@@ -153,6 +180,101 @@ def first_cap(s: str) -> str:
     return s[:1].upper() + s[1:] if s else s
 
 
+def raw_field(value) -> str:
+    """Значение поля без заглушки.
+
+    Сборка мета отличается от сборки тела: html_val() подставляет
+    NO_DATA, а в описании «нет данных» вместо числа мета-анализов
+    читалось бы как утверждение. Здесь пусто остаётся пустым, и
+    предложение просто не добавляется.
+    """
+    if value is None:
+        return ""
+    return str(value).strip()
+
+
+def sentence(s: str) -> str:
+    """Строка с ровно одной точкой в конце — для склейки описания."""
+    s = (s or "").strip().rstrip(". ")
+    return f"{s}." if s else ""
+
+
+def title_middle(name: str, category: str, effect: str) -> str:
+    """Середина заголовка, при которой весь заголовок укладывается в 40–60.
+
+    Кандидаты по убыванию полезности: категория, её часть до «/»
+    («Неврология/Метаболизм» -> «Неврология»), первый эффект. Бренд
+    из заголовка не убирается — если ни один кандидат не подходит,
+    берётся запасная формулировка той же длины, иначе самый
+    короткий: заголовок длиннее 60 лучше, чем обрезанное название.
+    """
+    lo = TITLE_MIN - TITLE_OVERHEAD - len(name)
+    hi = TITLE_MAX - TITLE_OVERHEAD - len(name)
+    head = category.split("/")[0].strip()
+    candidates = [c.strip() for c in (category, head, effect) if c.strip()]
+    for cand in candidates + list(TITLE_FALLBACKS):
+        if lo <= len(cand) <= hi:
+            return cand
+    return min(candidates, key=len) if candidates else TITLE_FALLBACKS[-1]
+
+
+def seo_title(name: str, category: str, effect: str) -> str:
+    """«<название> — <категория или эффект> — Brain 25 Evidence»."""
+    return TITLE_SEP.join((name, title_middle(name, category, effect),
+                           TITLE_BRAND))
+
+
+def seo_description(rec: dict) -> str:
+    """Описание 120–160 символов из about и чисел доказательности.
+
+    about у большинства записей короче нормы, поэтому к нему
+    дописываются: грейд с числом мета-анализов и РКИ, первый
+    эффект и срок наступления. Если после склейки всё ещё коротко,
+    впереди ставится название добавки. Длиннее DESC_MAX — обрезка
+    по последней границе предложения, иначе по границе слова.
+    """
+    parts: list[str] = []
+    about = sentence(raw_field(rec.get("about")))
+    if about:
+        parts.append(about)
+
+    grade = raw_field(rec.get("grade"))
+    meta_count = raw_field(rec.get("metaCount"))
+    rct = raw_field(rec.get("rct"))
+    if grade and meta_count and rct:
+        parts.append(f"Грейд {grade}: {meta_count} мета-анализов, {rct} РКИ.")
+
+    effects = rec.get("effects") or []
+    effect = raw_field(effects[0] if effects else "").rstrip(".")
+    if effect and NO_EFFECT_MARK not in effect.lower():
+        parts.append(f"Эффекты: {effect.lower()}.")
+
+    onset = sentence(first_cap(raw_field(rec.get("onset"))))
+    if onset:
+        parts.append(onset)
+
+    desc = " ".join(parts)
+    if len(desc) < DESC_MIN:
+        name = raw_field(rec.get("name"))
+        if name:
+            desc = f"{name}: {desc}"
+    return clip_description(desc)
+
+
+def clip_description(desc: str) -> str:
+    """Обрезка до DESC_MAX по границе предложения или запятой."""
+    if len(desc) <= DESC_MAX:
+        return desc
+    cut = desc[:DESC_MAX]
+    for sep in (". ", "; ", ", "):
+        i = cut.rfind(sep)
+        if i >= DESC_MIN - 1:
+            return cut[:i + 1].rstrip()
+    if cut and cut[-1] not in ".!?":
+        cut = cut[:DESC_MAX - 1].rsplit(" ", 1)[0] + "…"
+    return cut
+
+
 def build_context(rec: dict, slug: str, warnings: list[str]) -> dict:
     """Переводит запись data.json в контекст шаблона."""
     grade = text(rec.get("grade"))
@@ -209,12 +331,25 @@ def build_context(rec: dict, slug: str, warnings: list[str]) -> dict:
             "pmid": html_val(s.get("pmid")),
         })
 
+    # Мета собирается из неэкранированных значений и экранируется
+    # целиком, один раз. Иначе склейка «Грейд A: 7 мета-анализов» с
+    # ampersand-полем дала бы двойное экранирование на границе.
+    effects_list = rec.get("effects") or []
+    seo_name = raw_field(rec.get("name"))
+    seo_effect = raw_field(effects_list[0] if effects_list else "")
+
     return {
         "name": html_val(rec.get("name")),
         "slug": slug,
         "url": f"{BASE_URL}/sup/{slug}.html",
         "base_url": BASE_URL,
         "about": html_val(rec.get("about")),
+        # Заголовок и описание — SEO-P1-01 шаг 3. <title> и og:title
+        # получают одно значение: в 13 страницах раздела они уже
+        # совпадают, разъезжать здесь было бы возвратом к старому.
+        "title": html_val(seo_title(seo_name, raw_field(rec.get("category")),
+                                    seo_effect)),
+        "description": html_val(seo_description(rec)),
         "category": html_val(rec.get("category")),
         "verdict": html_val(rec.get("verdict")),
         "grade": html_val(grade),
