@@ -248,6 +248,33 @@ function initTheme() {
 }
 initTheme();
 
+// INDEX_CTA_FIX (MKT-P1-02 follow-up): кнопка «Найти свою добавку»
+// ведёт на каталог (#cardsContainer), а не на #search: поле поиска стоит
+// ВЫШЕ CTA по DOM, якорь почти не двигал страницу и не ставил фокус.
+// Селектор по href, а не по id: id не нужен разметке, а связка
+// href -> обработчик не разъезжается, если кнопку переставят.
+// Обработчик на верхнем уровне (как initTheme): секция статичная, кнопка
+// должна работать даже если данные ещё не загрузились.
+// Фокус — на первой кнопке фильтра: «Все эффекты» (#tagPresets рендерит
+// renderEffectChips после загрузки данных) либо фолбэк «Топ по науке»
+// (статичный .preset в #presetRow). preventScroll обязателен: без него
+// focus() немедленно дёргает прокрутку и обрывает smooth-анимацию.
+document.querySelectorAll('a.btn.calc[href="#cardsContainer"]').forEach((cta) => {
+  cta.addEventListener('click', (e) => {
+    e.preventDefault();
+    const target = $('cardsContainer');
+    if (target) {
+      // scrollIntoView({behavior:'smooth'}) игнорирует CSS, поэтому
+      // prefers-reduced-motion проверяем здесь, а не только в style.css.
+      const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      target.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+    }
+    const filterBtn = document.querySelector('#tagPresets .tagPreset[data-tag="all"]')
+                   || document.querySelector('#presetRow .preset');
+    if (filterBtn) filterBtn.focus({ preventScroll: true });
+  });
+});
+
 const fetchJson = (url) => fetch(url + '?ts=' + Date.now())
   .then(r => { if (!r.ok) throw new Error('no data for ' + url); return r.json(); });
 Promise.allSettled([fetchJson('data_index.json'), fetchJson('effect_tags.json'), fetchJson('effect_labels.json')])
