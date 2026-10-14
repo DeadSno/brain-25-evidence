@@ -45,7 +45,7 @@ ID → сверка спорных и «закрытых» по коду (grep/g
 | 9 | F-25 (DATA-P2-12) | `metaCount == 0` у 7 карточек | FINAL_WAVE | M | docs/data.json |
 | 10 | F-26 (#89) | 56 карточек без запроса в `build_key_sources` | FINAL_WAVE | M | scripts/build_key_sources.py |
 | 11 | F-27 (#90) | `price_history.csv` отсутствует, а конвейер ссылается | FINAL_WAVE | M | data/ — ✔ сверено: файла нет |
-| 12 | F-32 (CYBER-P1-02) | `bootstrap 5.0.0-beta3` — предрелиз в docs/vendor | FINAL_WAVE | M | docs/vendor/ — ✔ сверено |
+| 12 | F-32 (CYBER-P1-02) | `bootstrap 5.0.0-beta3` — предрелиз в docs/vendor. **WONTFIX** 14.10.2026 (батч 8): только `graph.html`, страница удаляется v5.6.5 | FINAL_WAVE | M | docs/vendor/ — ✔ сверено |
 | 13 | F-34 (A11Y-P2-05/JS-P2-03) | Нет `aria-live` / live-region в калькуляторе | FINAL_WAVE | M | docs/*.html |
 | 14 | F-35 (A11Y-P2-07) | «Ничего не найдено» без эха запроса | FINAL_WAVE | M | docs/script.js, map.html |
 | 15 | F-36 (MOB-P2-12) | Лента хедера ≤428px, скроллбар скрыт — нужно UX-решение | FINAL_WAVE | M | docs/style.css |
@@ -150,6 +150,7 @@ ID → сверка спорных и «закрытых» по коду (grep/g
 | 19 | ~42 worktree в detached HEAD (✔ сверено: 42) — артефакт окружения OpenCode, не дефект репо | OpenCode |
 | 20 | F-29 гейт HTML-валидности работает без html5lib/bs4 — «не валидация HTML5» | не дефект (задокументировано) |
 | 21 | Issue **#6** (единственный открытый GitHub issue): watchdog «проверка ссылок/цен упала», run 38263051898 (12.10) | владелец — посмотреть ран workflow |
+| 22 | CYBER-P1-02 — `bootstrap 5.0.0-beta3` внедряется только на `graph.html`; страница удаляется в v5.6.5 (`PAGES_REVIEW.md:39`, Вариант B 7→6). Обновлять нечего. **WONTFIX** 14.10.2026 (батч 8) | платформа/план — не закрывать правкой |
 | — | #33 (`--info/--warn/--error`) — перенесён владельцем в v6.1+, предмет снят | решение принято |
 
 ---
