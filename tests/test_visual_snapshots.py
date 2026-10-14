@@ -396,30 +396,40 @@ def _slug(page: str) -> str:
     return page.replace("/", "-")
 
 
+# Файлы-маркеры, по которым сверяется сервер с рабочей копией.
+# Маркеров два, а не один. style.css ловит чужой набор стилей, index.html —
+# чужую разметку. Одной сверки style.css не хватало: правка HTML без правки
+# CSS проходила молча, и на :8000 отдавался другой клон проекта — прогоны
+# выглядели успешными, а мерили не тот код (reports/V561_P1_BATCH.md,
+# находка 1: два ложных «76 passed» подряд).
+SERVER_PROBE_FILES = ("style.css", "index.html")
+
+
 def _check_server() -> None:
     """Сервер обязан отдавать файлы ИМЕННО ЭТОГО репозитория.
 
     Иначе тест молча сравнивал бы страницы из другой копии проекта: правка в
     docs/ не попала бы в снимок, эталон «прошёл бы», а страница на самом деле
     поехала. Это ровно тот класс ложной находки, который запрещён правилом
-    верификации проекта, поэтому сверяем хэш style.css.
+    верификации проекта, поэтому сверяем хэши файлов-маркеров.
     """
-    try:
-        with urllib.request.urlopen(f"{BASE_URL}/style.css", timeout=10) as resp:
-            served = resp.read()
-    except Exception as exc:  # noqa: BLE001 — причина попадёт в текст skip
-        pytest.skip(
-            f"Нет {BASE_URL} ({exc}). Запусти: "
-            f"python -m http.server 8000 --directory docs  (из корня репозитория)"
-        )
-    local = (ROOT / "docs" / "style.css").read_bytes()
-    if hashlib.sha256(served).hexdigest() != hashlib.sha256(local).hexdigest():
-        pytest.skip(
-            f"{BASE_URL} отдаёт ЧУЖУЮ копию проекта (style.css не совпал с "
-            f"{ROOT / 'docs' / 'style.css'}). Эталоны были бы сравнением "
-            f"не с тем кодом, который меняется. Запусти сервер из этого "
-            f"репозитория или укажи SNAPSHOT_BASE_URL."
-        )
+    for name in SERVER_PROBE_FILES:
+        try:
+            with urllib.request.urlopen(f"{BASE_URL}/{name}", timeout=10) as resp:
+                served = resp.read()
+        except Exception as exc:  # noqa: BLE001 — причина попадёт в текст skip
+            pytest.skip(
+                f"Нет {BASE_URL} ({exc}). Запусти: "
+                f"python -m http.server 8000 --directory docs  (из корня репозитория)"
+            )
+        local = (ROOT / "docs" / name).read_bytes()
+        if hashlib.sha256(served).hexdigest() != hashlib.sha256(local).hexdigest():
+            pytest.skip(
+                f"{BASE_URL} отдаёт ЧУЖУЮ копию проекта ({name} не совпал с "
+                f"{ROOT / 'docs' / name}). Эталоны были бы сравнением "
+                f"не с тем кодом, который меняется. Запусти сервер из этого "
+                f"репозитория или укажи SNAPSHOT_BASE_URL."
+            )
 
 
 @pytest.fixture(scope="session", params=BROWSERS, ids=lambda b: b)
