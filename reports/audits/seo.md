@@ -6,7 +6,8 @@
 | **Источники** | `audit_D_seo.md`, `audit_C_marketing.md`, `AUDIT_C_SUMMARY.md`, `STAGE4_SITEMAP.md`, `STAGE5_CANONICAL_RSS.md`, `FIX_GSC_FILE.md` |
 | **Консолидация** | 11.10.2026, ветка `v5.6-dev` |
 | **Bookkeeping** | 14.10.2026 — 10 закрыто, 2 числа пересчитано. Батч 8C: закрыты MKT-P1-03 и MKT-P1-05; MKT-P1-07 и MKT-P1-08 убраны из «Открыто» как дубли строк «Закрыто» (батч 8A закрыл их, но из «Открыто» не убрал) |
-| **Открыто** | P1 — 3, P2 — 4 |
+| **Bookkeeping** | 14.10.2026 (SEO-хвост) — добавлены `MKT-P2-06` и `MKT-P2-07`, перемерено по `docs/*.html` после выравнивания og:title |
+| **Открыто** | P1 — 3, P2 — 6 |
 | **Закрыто** | P0 — 1, P1 — 7, P2 — 10 |
 
 ---
@@ -34,6 +35,13 @@
 | SEO-P2-03 | Одна ссылка на `/sup/` | `docs/index.html` | audit_D_seo |
 | MKT-P2-01 | `<title>` > 60 на 3 страницах → перемерено: **82 из 145**. Дубль `SEO-P1-01` (в `OPEN_TECHDEBT.md:276` помечен дублем) | marketing M9 |
 | MKT-P2-02 | `description` < 120 на 5 страницах → перемерено: **88 из 145**. Дубль `SEO-P1-02` | marketing M10 |
+| MKT-P2-06 | `og:description` ≠ `meta description` на 10/13 (atlas, calculator, faq, feedback, glossary, graph, interactions, map, methodology, trends). Измерено 14.10.2026 после выравнивания og:title — тот хвост был задеплоен, этот нет | `docs/*.html` | SEO-хвост 14.10 |
+| MKT-P2-07 | `twitter:title`/`twitter:description` устарели на 5/13 (faq, feedback, glossary, graph, methodology — все 5 разошлись с текущими `<title>`/`description`); на остальных 8/13 тегов нет вовсе | `docs/*.html` | SEO-хвост 14.10 |
+
+Обе находки вскрылись при выравнивании `og:title` = `<title>` (закрыто
+`b0a15fd`): правили один атрибут, не проверив соседние. ID новые, потому
+что `MKT-P2-04` (`twitter:card`) и `MKT-P2-05` (`og:site_name`) уже
+закрыты в 144/144 — см. «Закрыто».
 
 ---
 
