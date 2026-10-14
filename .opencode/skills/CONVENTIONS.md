@@ -78,6 +78,24 @@
 - Тесты перед коммитом обязательны.
 - Файлы >30 строк — только через Python (PowerShell heredoc ломает backticks).
 
+## Работа с worktree
+
+- Все коммиты — **только в main checkout** (`C:\analytics\brain-25-evidence`).
+- worktree — только для временных экспериментов, удалять после.
+- Причина: detached HEAD теряет коммиты (`witty-nebula-2`, `misty-mountain`, `stellar-river`).
+
+Проверено 14.10.2026: 58 worktree, из них **три с непривязанными коммитами** —
+`curious-star-2` (6), `witty-nebula-2` (3), `misty-mountain` (1). Их HEAD не
+достижим ни из одной ветки и ни из `origin`, они живут только ref'ом
+`refs/worktrees/*/HEAD`. `git worktree prune` или `git gc` — и коммиты пропадут
+вместе с ветками сессий. Перед удалением worktree:
+
+```
+git -C <main> merge-base --is-ancestor <worktree-HEAD> v5.6-dev
+```
+
+Ненулевой код возврата = коммиты ещё не в ветке, сначала забрать.
+
 ## Pre-commit порядок генераторов
 
 Хук лежит в `.githooks/`, а не в `.git/hooks/` — в worktree `.git` это
