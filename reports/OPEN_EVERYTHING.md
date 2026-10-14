@@ -85,10 +85,11 @@ ID → сверка спорных и «закрытых» по коду (grep/g
 | 44 | MOB-P2-07 | Бейджи sup-index 11.2–11.52 px — audits открыт vs OPEN_TECHDEBT «закрыт» | mobile.md | S (замер) | docs/sup/index.html |
 | 45 | MOB-P2-09 | `result-panel` sticky в ландшафте 322 px — спор статусов | mobile.md | S (замер) | docs/calculator.html |
 | 46 | MOB-P2-11 | Мелкий текст 10.88–11.52 px, 703 узла — спор статусов | mobile.md | M (замер) | docs/style.css |
-| 47 | DATA-P2-02 | `ma_top3` = null у 50 — data.md открыт vs OPEN_TECHDEBT «уже закрыто» | data.md | S (замер) | docs/data.json |
-| 48 | DATA-P2-04 | Мёртвые ключи `PRIOR_G` — спор статусов | data.md | S (замер) | src/config.py |
+| 47 | ~~DATA-P2-02~~ | `ma_top3` = null у 50 — **ЗАКРЫТО 14.10 (батч 9A)**: null = 0, `[]` у 4 карточек; поле читается только `script.js:519` (`s.ma_top3 \|\| []`), на рендер не влияет | data.md | S | docs/data.json |
+| 48 | ~~DATA-P2-04~~ | Мёртвые ключи `PRIOR_G` — **ЗАКРЫТО 14.10 (батч 9A)**: гейт `test_prior_g_no_new_dead_keys` (`2f954e4`) + ещё 4 теста; путь в находке был неверен | data.md | S | src/content.py:1260 |
 | 49 | A11Y-P2-06 | 5 пустых состояний «—»: замер дал 0 голых `<td>—</td>` — переформулировать находку | data/a11y.md | S | docs/calculator.html |
-| 50 | DATA-P2-14 | 79 объединённых против 59 атомарных категорий — цифры из другого артефакта, переизмерить | data.md | S | docs/effect_tags.json |
+| 50 | DATA-P2-14 | 79 объединённых против 59 атомарных категорий — **путь исправлен 14.10 (батч 4)**: числа из `docs/data.json`, а не `docs/effect_tags.json` | data.md | S | docs/data.json |
+| 51 | DATA-P2-15 | `citations` недосчитан у 7 карточек из 130 — OpenAlex не индексирует часть PMID из `key_sources`, сумма молча теряет слагаемые. Добавлена 14.10 (батч 9A), закрытие в 9b | data.md | M | docs/data.json |
 
 ---
 

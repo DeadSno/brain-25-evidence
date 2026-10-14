@@ -276,7 +276,7 @@ bounding box, — часть бокса внутри, но **за дугой `bo
 > DATA-COI, DATA-P2-02, A11Y-P2-06, A11Y-P2-08, MOB-P2-11,
 > SK-P1-03, SK-STALE-02.
 
-### P2 (45)
+### P2 (46)
 
 | ID | Находка | Тип |
 |---|---|---|
@@ -285,6 +285,7 @@ bounding box, — часть бокса внутри, но **за дугой `bo
 | DATA-P2-07…14 | Покрытие `hedges_g_all.json` 113/130, `key_sources`, `dosage_parsed`, не монотонный `grade`, `forms`, `metaCount`, `citations`/`ongoing`/`wiki`, категории | [data](audits/data.md) |
 | QA-P2-02 | Нет теста битых ссылок sup | [data](audits/data.md) |
 | QA-P2-04, 05, 06 | `ZeroDivisionError` в `parse_xml_meta.py:223`, нет `__main__`-guard в `build_changelog_public.py`, docstring с несуществующим `--dry-run` в `recalc_science_index.py:10` | [data](audits/data.md) |
+| DATA-P2-15 | `citations` недосчитан у 7 карточек — OpenAlex не индексирует часть PMID из `key_sources`, сумма молча теряет слагаемые (`fetch_metrics.py:109`) | [data](audits/data.md) |
 | HC-P2-01…06 | Эмодзи-иконки, 13 размеров шрифта, 160 hex, 15 теней, 6 градиентов, нет статус-классов | [html-css](audits/html-css.md) |
 | CYBER-P2-01 | Нет теста security-заголовков | [js](audits/js.md) |
 | JS-P2-02, JS-P2-03 | Строки без i18n, `calculator` без live-region | [js](audits/js.md) |
