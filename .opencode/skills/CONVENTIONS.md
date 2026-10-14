@@ -13,12 +13,13 @@
 | JS | 9 файлов в `docs/` | `ls docs/*.js \| wc -l` |
 | CSS | `docs/style.css`, версия `?v=425` | `grep -ho 'style\.css?v=[0-9]*' docs/*.html docs/sup/*.html \| sort -u` |
 | SW cache | `v91` | `grep CACHE_VERSION docs/sw.js` → `var CACHE_VERSION = 'v91'` |
-| Тесты | 1079 собрано, 878 passed / 201 skipped | `pytest --collect-only -q` → `1079 tests collected`; `pytest -q` → `878 passed, 201 skipped` |
+| Тесты | **1314** собрано — см. «Базовая линия тестов» | `pytest --collect-only -q` → `1314 tests collected` |
 | Скиллы | 19 проектных + 19 глобальных | `ls .opencode/skills/ \| wc -l`, `ls ~/.config/opencode/skills/ \| wc -l` |
 
-201 skipped — это гейты: снапшоты, e2e и прочие прогоны, которые требуют
-`RUN_SNAPSHOTS=1`, `RUN_E2E=1` или живой браузерной сессии. «Без гейтов»
-означает прогон без этих переменных.
+Число skipped зависит от окружения и **не является константой проекта**:
+это opt-in гейты, требующие `RUN_SNAPSHOTS=1`, `RUN_A11Y=1`, `RUN_GRAPH=1`,
+`RUN_TABS=1`, `RUN_E2E=1`, живого сервера `:8000` и `data/db/brain.duckdb`.
+Разложение по причинам и верный порог — в разделе «Базовая линия тестов».
 
 ## Как проверять
 
@@ -49,6 +50,123 @@
 - Тема — через `html.dark` + `body.dark`.
 - Тесты перед коммитом обязательны.
 - Файлы >30 строк — только через Python (PowerShell heredoc ломает backticks).
+
+## Pre-commit порядок генераторов
+
+Хук лежит в `.githooks/`, а не в `.git/hooks/` — в worktree `.git` это
+файл-указатель. Актуальный путь: `git rev-parse --git-path hooks`.
+Замерено 14.10.2026.
+
+Порядок важен: **генераторы идут до pytest**. Обратный порядок даёт гейту
+сравнить устаревшие артефакты с кодом и завалить коммит, который сам же
+эти артефакты и обновил бы.
+
+| # | Шаг | Команда | Что делает |
+|---|---|---|---|
+| 1 | Sitemap | `python scripts/build_sitemap.py --commit-date` | пишет `docs/sitemap.xml`, сам делает `git add` |
+| 2 | Junk guard | `git ls-files -- docs reports` + regex | ловит `_*_tmp_*`, `_*_diag_*`, `_*_baseline_*` |
+| 3 | Feed | `python scripts/build_feed.py --commit-date` | пишет `docs/feed.xml`, сам делает `git add` |
+| 4 | Тесты | `pytest -q -m "not network and not snapshot_data" -k "not real_docs_sitemap_is_current and not live_docs_feed_is_current"` | exit ≠ 0 → коммит прерван |
+
+- `--commit-date` обязателен. Без него генератор ставит дату запуска, и гейт
+  «artefact is stale» срабатывает сам на себе.
+- Шаги 1 и 3 добавляют свои файлы в индекс сами — повторно добавлять не нужно.
+- Хук добавляет в индекс **только** эти два файла. Если правка документации
+  или сборка изменили что-то ещё, это уедет в коммит незамеченным — смотреть
+  `git status` перед `git commit`.
+- Коммит «только `reports/*.md`» не всегда остаётся таким: сборка может
+  переписать `sitemap.xml` / `feed.xml`. Проверять `git show --stat`.
+- Руками генераторы без `--commit-date` не запускать — перепишут `lastmod`,
+  и следующий чужой коммит станет ложным «устареванием».
+- Генераторы без `__main__`-guard опасны при импорте: `build_changelog_public.py`
+  пишет `docs/changelog_public.html` на импорте (QA-P2-05). Правка таких
+  скриптов — сначала guard, потом всё остальное.
+
+## WONTFIX в реестре находок
+
+Правило зафиксировано 14.10.2026 на прецеденте CYBER-P1-01 → SK-P1-03 →
+CYBER-P1-02.
+
+- **WONTFIX не удаляется из §2 `AUDIT_MASTER.md`.** Строка остаётся в таблице
+  с инлайновым маркером `**WONTFIX**`, датой и причиной.
+- Счётчики в заголовках (`### P1 (8)`) **не меняются**. Находка не решена —
+  принято решение не решать. Уменьшить счётчик = солгать в отчёте.
+- Каждая помеченная находка получает строку в `OPEN_EVERYTHING.md` → CAVEATS
+  с владельцем решения: обычно «платформа», «не дефект» или «владелец».
+- Причина обязана быть **проверяема**: ссылка на commit, на `PAGES_REVIEW.md`,
+  на CAVEATS. Формулировки «устарело», «неактуально» причиной не являются.
+- Перед пометкой — замер, а не чтение исходного отчёта. У CYBER-P1-02
+  `bootstrap` нашёлся только на `graph.html`; у CYBER-P1-01 заголовки
+  не выставляет хостинг. Оба раза правка была бы фиктивной.
+
+### Где что лежит
+
+| Что | Путь |
+|---|---|
+| Живой реестр CYBER-* | `reports/audits/js.md` |
+| `reports/audits/cyber.md` | **не существует** |
+| Архивный отчёт cyberaudit | `reports/archive/v56/audit_A_cyberaudit.md` — источник, не реестр |
+| `AUDIT_MASTER.md` | `reports/AUDIT_MASTER.md` — **не** в `reports/audits/` |
+| Реестр открытого по 10 источникам | `reports/OPEN_EVERYTHING.md` |
+
+## Базовая линия тестов
+
+Замерено 14.10.2026. Команда гейта — та же, что в pre-commit:
+
+```
+pytest -q -m "not network and not snapshot_data" \
+  -k "not real_docs_sitemap_is_current and not live_docs_feed_is_current"
+```
+
+| Прогон | Где | Собрано | passed | skipped | deselected |
+|---|---|---:|---:|---:|---:|
+| `--collect-only` | worktree `stellar-river` (`c39da87`) | **1314** | — | — | — |
+| `--collect-only` | main checkout `C:/analytics/brain-25-evidence` (`bcaa3bd`) | **1314** | — | — | — |
+| Гейт pre-commit | worktree | 1314 | **1057** | 251 | 6 |
+| Гейт pre-commit | main checkout | 1314 | **1073** | 235 | 6 |
+
+- `docs/version.json` `"tests": 1314` — **единственное** корректное число
+  тестов в репозитории. Оно совпадает с `--collect-only` в обоих окружениях.
+- Разница 1073 − 1057 = **16** — это не регрессия и не расхождение кода.
+  `data/db/brain.duckdb` (не отслеживается git) есть в main checkout и
+  **отсутствует** в worktree: `tests/test_sql.py` +
+  `tests/test_integration_api_db.py` дают ровно 16 тестов, которые без базы
+  скипаются. Проверено: в worktree эти 16 → `16 skipped`, в main checkout
+  проходят.
+- Расхождения кода между worktree и main checkout нет: коммит у них общий,
+  батч 8 добавил только коммиты с правками `reports/*.md`.
+
+### Разложение skipped
+
+| Причина | Шт. | Чем включается |
+|---|---:|---|
+| `test_visual_snapshots.py` | 76 | `RUN_SNAPSHOTS=1` |
+| `test_a11y_axe.py` | 73 | `RUN_A11Y=1` |
+| `test_graph_interaction.py` | 42 | `RUN_GRAPH=1` + сервер `:8000` |
+| `test_tabs_interaction.py` | 42 | `RUN_TABS=1` + сервер `:8000` |
+| DuckDB отсутствует (`test_sql`, `test_integration_api_db`) | 16 | `python scripts/db/import_to_duckdb.py` |
+| e2e | 2 | `RUN_E2E=1` |
+
+Ни одна из переменных `RUN_*` в окружении **не выставлена** (проверено
+14.10.2026) — то есть «без гейтов» это текущее состояние по умолчанию.
+
+### Ловушки этого замера
+
+- **1188 не воспроизводится.** Ноль совпадений: `Select-String` по
+  `reports/*.md` + `reports/audits/*.md`; `git log --all -G '\b1188\b'` по
+  `docs/version.json` и `reports/`; `git grep -w 1188` по 200 последним
+  коммитам. В истории `"tests"` значения идут 1311 → **1314** → (вне
+  `v5.6-dev`) 1338 → 1342 → 1348 → 1378 → 1446 — мимо 1188. Порог гейта
+  брать из `docs/version.json`, а не из памяти.
+- **Устаревшие числа в отчётах:** 1076 / 1070 / 235 / 201 / 878 / 1079.
+  Базовая линия от 11.10.2026 была 1070 passed / 235 skipped; расхождение с
+  нынешним числом появилось **до** батча 8 (на `bcaa3bd`, `94f20f4`) — батч 8
+  трогал только `reports/*.md`.
+- **Сервер `:8000` на этой машине лежит.** Проверять
+  `Invoke-RestMethod http://localhost:8000/version.json` перед любым прогоном
+  эталонов, иначе 84 теста graph/tabs скипнутся молча (ловушка из `AGENTS.md`).
+- Поднимать opt-in гейты ради красивого числа **не надо** — это v5.6.5+,
+  см. CAVEATS #18 в `OPEN_EVERYTHING.md`.
 
 ## Чего не трогать
 
