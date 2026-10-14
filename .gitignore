@@ -256,7 +256,6 @@ package.json
 
 # Audit fixes 2026-09-30
 !scripts/__init__.py
-!scripts/_fix_reyshi.py
 
 # Large binary files (>10 MB)
 data/db/
