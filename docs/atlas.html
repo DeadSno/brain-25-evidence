@@ -54,7 +54,7 @@ try {
 
   main h1,
   #stats,
-  .filterbar { max-width: 1200px; margin-left: auto; margin-right: auto; }
+  .filterbar { max-width: 1200px; margin-inline-start: auto; margin-inline-end: auto; }
 
   .wrap{max-width:100%;margin:0;padding:0 var(--space-6) var(--space-4);color:var(--atext)}
     .top{display:flex;justify-content:space-between;align-items:center;gap:var(--space-4);flex-wrap:wrap;margin-bottom:.6rem}
@@ -65,7 +65,7 @@ try {
     
     .btn.on{border-color:#f1c40f;color:#f1c40f;font-weight:600}
     .filterbar{display:flex;gap:.4rem;flex-wrap:wrap;margin:.8rem 0;align-items:center}
-    .filterbar .lbl{opacity:.55;font-size:.8rem;margin-right:.4rem}
+    .filterbar .lbl{opacity:.55;font-size:.8rem;margin-inline-end:.4rem}
     /* v5.6.4 (#44): подписи «Грейд:» и «Поиск:». При .55 тёмный текст на
        светлой панели даёт 3.72:1 при 12.8px, в тёмной теме те же .55
        проходят, поэтому базовое правило не трогаем. */
@@ -216,7 +216,7 @@ footer { font-size: 1rem !important; }
     <button class="btn gr on" data-grade="B" aria-label="Грейд B">B</button>
     <button class="btn gr on" data-grade="C" aria-label="Грейд C">C</button>
     <button class="btn gr on" data-grade="D" aria-label="Грейд D">D</button>
-    <label class="lbl" for="q" style="margin-left:1rem">Поиск:</label>
+    <label class="lbl" for="q" style="margin-inline-start:1rem">Поиск:</label>
     <input id="q" placeholder="название, эффект, механизм…" style="padding:.4rem .7rem;border:1px solid var(--aborder);border-radius:8px;background:var(--apanel);color:var(--atext);min-width:180px">
     <button class="btn" id="pngBtn" title="Скачать картинку">📷 PNG</button>
     <button class="btn" id="shareBtn" title="Копировать ссылку с фильтрами">🔗 Ссылка</button>

@@ -80,7 +80,7 @@ try {
     .actions { gap: .35rem; }
     .btn { padding: .4rem .6rem; font-size: .78rem; }
     .actions { width: 100%; justify-content: flex-end; }
-    #themeBtn { margin-left: auto; }
+    #themeBtn { margin-inline-start: auto; }
     /* v5.5.0 A1: было .78rem (12.48px) — локальное правило перебивало
    .site-footer в style.css. Поднято до 1rem вместе с ним. */
 footer { font-size: 1rem !important; }
@@ -146,7 +146,7 @@ footer { font-size: 1rem !important; }
       min-height: 44px !important;
       padding: 0 !important;
       top: .5rem !important;
-      right: .5rem !important;
+      inset-inline-end: .5rem !important;
       font-size: 1.4rem !important;
       display: flex;
       align-items: center;
@@ -341,7 +341,7 @@ footer { font-size: 1rem !important; }
 
 <section id="whyTrust" style="background:var(--card-bg);padding:1.2rem;border-radius:12px;border:1px solid var(--border);margin-top:1rem">
   <h2 style="margin:0 0 .8rem">Почему этому можно верить</h2>
-  <ul style="margin:0;padding-left:1.2rem;line-height:1.6">
+  <ul style="margin:0;padding-inline-start:1.2rem;line-height:1.6">
     <li style="margin-bottom:.5rem"><b>Вердикт ставит человек, а не формула.</b> Индекс науки считает машина, но решение «ПОЛЕЗНО / Возможен / Не подтверждено» мы принимаем вручную по топ-2 мета-анализам.</li>
     <li style="margin-bottom:.5rem"><b>Источники открыты и проверяемы.</b> 130 из 131 страниц добавок ссылаются на PubMed — PMID и MA видны прямо на карточке, любую ссылку можно открыть.</li>
     <li style="margin-bottom:.5rem"><b>Данные можно скачать и пересчитать.</b> 15 JSON-файлов лежат рядом с сайтом в <code>docs/</code> — всю подборку можно проверить самостоятельно.</li>
