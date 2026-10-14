@@ -17,7 +17,7 @@
 
 | ID | Находка | Где | Источник |
 |---|---|---|---|
-| CYBER-P1-01 | Нет security-заголовков: CSP, HSTS, X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permissions-Policy. GitHub Pages их выставить не может | хостинг | cyberaudit P1-1 |
+| CYBER-P1-01 | Нет security-заголовков: CSP, HSTS, X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permissions-Policy. GitHub Pages их выставить не может — **WONTFIX** (14.10.2026, батч 7): хостинг не даёт контроля над заголовками, закрывать нечем. Решение — смена хостинга, не правка кода | хостинг | cyberaudit P1-1; `OPEN_EVERYTHING.md` CAVEATS #11 |
 | CYBER-P1-02 | Bootstrap 5.0.0-beta3 устарел | `docs/` (вены) | cyberaudit P1-2 |
 
 ### P2
