@@ -273,7 +273,7 @@ bounding box, — часть бокса внутри, но **за дугой `bo
 > DATA-COI, DATA-P2-02, A11Y-P2-06, A11Y-P2-08, MOB-P2-11,
 > SK-P1-03, SK-STALE-02.
 
-### P2 (49)
+### P2 (52)
 
 | ID | Находка | Тип |
 |---|---|---|
@@ -282,6 +282,7 @@ bounding box, — часть бокса внутри, но **за дугой `bo
 | DATA-P2-01, DATA-P2-03…14 | null-поля, U+FFFD в `unpaywall.json`, покрытие, `key_sources`, categories | [data](audits/data.md) |
 | DATA-P2-02 🔸 | `ma_top3` пустой у 4 карточек — `454b956` закрыл 49 из 53 | [data](audits/data.md) |
 | QA-P2-02 | Нет теста битых ссылок sup | [data](audits/data.md) |
+| QA-P2-04, 05, 06 | `ZeroDivisionError` в `parse_xml_meta.py:223`, нет `__main__`-guard в `build_changelog_public.py`, docstring с несуществующим `--dry-run` в `recalc_science_index.py:10` | [data](audits/data.md) |
 | QA-COV | Покрытие скриптов — метрика не определена, прежние 16% невоспроизводимы | [data](audits/data.md) |
 | HC-P2-01…06 | Эмодзи-иконки, 13 размеров шрифта, 160 hex, 15 теней, 6 градиентов, нет статус-классов | [html-css](audits/html-css.md) |
 | CYBER-P2-01 | Нет теста security-заголовков | [js](audits/js.md) |
