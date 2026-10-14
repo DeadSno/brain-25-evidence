@@ -24,11 +24,11 @@
 | legal | 1 | 5 | [audits/legal.md](audits/legal.md) |
 | mobile | 4 | 17 | [audits/mobile.md](audits/mobile.md) |
 | perf (+проект/релиз) | 6 | 10 | [audits/perf.md](audits/perf.md) |
-| i18n | 4 | 9 | [audits/i18n.md](audits/i18n.md) |
+| i18n | 3 | 10 | [audits/i18n.md](audits/i18n.md) |
 | seo (+маркетинг) | 14 | 11 | [audits/seo.md](audits/seo.md) |
 | trends | 17 | 10 | [audits/trends.md](audits/trends.md) |
 | skills | 3 | 7 | [audits/skills.md](audits/skills.md) |
-| **Итого** | **87** | **122** (+12 «не делать», +1 снято, +1 дубль) |
+| **Итого** | **86** | **123** (+12 «не делать», +1 снято, +1 дубль) |
 
 **Пересчёт 13.10.2026 (батч 6).** `MKT-P2-04` (`twitter:card` 139/144 → **144/144**)
 перенесён в «Закрыто» `audits/seo.md` — коммит `80ebdc8`. Индекс пересчитан по
@@ -110,6 +110,16 @@
 §1 html-css 7 / 11 → **6 / 12**, §2 «P1» 21 → **20**, итого 89 / 120 →
 **88 / 121**. PARTIAL 8 → 7.
 
+**Часть C, 14.10.2026 — пункт 7/7 (`I18N-P1-01`).** `docs/map.html`: 6 прямых
+физических объявлений и 1 асимметричный шорткат переведены на логические
+(`padding-inline-end`, `margin-inline-start`, `inset-inline-start/end`,
+`margin-block`/`margin-inline`). Замер после правки — **0** физических
+объявлений; снапшоты `map` (chromium + webkit × 412/1280) — **4 passed, без
+перезаписи**. §1 i18n 4 / 9 → **3 / 10**, §2 «P1» 19 → **18**, итого 87 / 122 →
+**86 / 123**. Остальные 9 страниц с физическими свойствами (`atlas`, `trends`,
+`graph`, `interactions`, `calculator`, `feedback`, `index`, `support`,
+`privacy`) — Batch 8, отдельный ID: текущий аудит закрыт на `map.html`.
+
 **Часть C, 14.10.2026 — пункт 3/7 (`SK-P1-01`).** `release-check` научен не только
 сообщать о расхождении, но и говорить, что с ним делать: блок «Что делать с
 расхождением» — таблица **P0 блокирует релиз → чинить сейчас / P1 до релиза →
@@ -141,7 +151,7 @@
 |---|---|---|
 | SK-P0-01 | Субагенты не могут загружать скиллы (инструмент `skill` только у team-lead) | [skills](audits/skills.md) |
 
-### P1 (19)
+### P1 (18)
 
 | ID | Находка | Тип |
 |---|---|---|
@@ -152,7 +162,6 @@
 | CYBER-P1-01 | Нет security-заголовков (CSP/HSTS/…) — **WONTFIX** (14.10.2026): хостинг не выставляет заголовки, закрыть нечем | [js](audits/js.md) |
 | CYBER-P1-02 | Bootstrap 5.0.0-beta3 устарел | [js](audits/js.md) |
 | PRJ-P1-01 | `trends.html` 130 против 94 | [perf](audits/perf.md) |
-| I18N-P1-01 | RTL не завершён: физические свойства в локальных `<style>` | [i18n](audits/i18n.md) |
 | SEO-P1-01 | `<title>` вне 40–60 на **87/145**, медиана 61 | [seo](audits/seo.md) |
 | SEO-P1-02 | `description` вне 120–160 на **91/145**, медиана 100 | [seo](audits/seo.md) |
 | MKT-P1-01…08 | Нет слогана/CTA/соцдоказательств/воронки/Schema.org/«почему я» | [seo](audits/seo.md) |
