@@ -102,6 +102,40 @@ echo "-> build_feed.py --commit-date"
 }
 git add docs/feed.xml
 
+# --- генераторы данных (DATA-P1-13, 2026-10-14) -----------------------------
+# Причина та же, что у sitemap и feed, но тише: страница грузит артефакт
+# `fetch` и рисует его содержимое. Отказ или порча файла не дают ошибки в
+# консоли — просто неверные числа на странице. Замерено 2026-10-14:
+# docs/interactions_graph.json от 2026-09-18 показывал 124 ребра при 146
+# в живом docs/data.json, потому что генератор не вызывался НИ разу —
+# ни в хуке, ни в CI (в workflows упоминается только build_api.py как
+# триггер). Ни один из 13 build_* в хуке не запускался.
+#
+# Добавляются только ДЕТЕРМИНИРОВАННЫЕ генераторы: их вывод — функция
+# только входных файлов, без времени, поэтому файл в индексе не меняется
+# и коммит не засоряется. build_index.py сюда НЕ годится: он пишет
+# `_meta.generated_at = now` в каждый прогон, то есть замусорил бы
+# docs/data_index.json при каждом коммите. Тот же запрет на даты в
+# артефакте — причина обязательного --commit-date у sitemap и feed.
+#
+# Генератор падает на настоящей поломке (битый data.json, отсутствующий
+# вход), и блокировать коммит тут правильно: иначе pytest ниже поймает
+# рассинхрон, но сообщение будет про тест, а не про причину.
+echo "-> build_interactions_graph.py / build_timeseries.py"
+"$PY" scripts/build_interactions_graph.py || {
+    echo ""
+    echo "GRAPH FAILED. docs/interactions_graph.json не обновлён, коммит прерван."
+    echo "Причина обычно видна в строке выше (битый docs/data.json?)."
+    exit 1
+}
+"$PY" scripts/build_timeseries.py || {
+    echo ""
+    echo "TIMESERIES FAILED. docs/timeseries.json не обновлён, коммит прерван."
+    echo "Причина обычно видна в строке выше (битый data/timeseries/*.json?)."
+    exit 1
+}
+git add docs/interactions_graph.json docs/timeseries.json
+
 # --- sitemap check внутри hook (v5.6.2, 2026-10-08) ---------------------------
 # test_real_docs_sitemap_is_current ИСКЛЮЧЁН из прогона hook намеренно. Тест
 # вызывает build_sitemap.py --check, который индекс игноририрует by design и
