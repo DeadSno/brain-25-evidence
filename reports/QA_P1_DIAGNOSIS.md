@@ -41,6 +41,8 @@ P1 «16 скриптов без тестов» — не 16 задач, а 55, и
   отчёты: тест требует живого API и проверяет не код, а доступность сети
 
 Написать 55 тестов — не задача одного захода. Нужен выбор владельца.
+Все 86 скриптов и пометки покрытия — в таблице «Полная таблица»,
+арифметика 20 + 11 + 55 = 86 разобрана в разделе «Как читать таблицу».
 
 ## Приоритет: два артефакта живут на сайте без теста
 
@@ -71,8 +73,8 @@ P1 «16 скриптов без тестов» — не 16 задач, а 55, и
 | `parse_xml_meta.py` | Парсит JATS XML из Europe PMC. Извлекает funding, COI, affiliations. | Критический | **test** |
 | `rebuild_index.py` | Восстанавливает data/pmc/index.json из файлов на диске. | Критический | **test** |
 | `recalc_science_index.py` | Пересчитывает rct, metaCount, scienceIndex для 81 карточки. | Критический | **test** |
-| `apply_adv.py` | Применяет adv-поля (Q1.4) к data.json. | Критический | wontfix |
-| `apply_mechs.py` | Применяет proposal mechs к data.json. | Критический | wontfix |
+| `apply_adv.py` | Применяет adv-поля (Q1.4) к data.json. | Критический | wontfix (артефакт) |
+| `apply_mechs.py` | Применяет proposal mechs к data.json. | Критический | wontfix (артефакт) |
 | `fetch_europepmc.py` | Скачивает full texts через Europe PMC REST API. | Критический | wontfix |
 | `fetch_evidence.py` | Тянет abstracts из PubMed по key_sources карточки для верификации фактов. | Критический | wontfix |
 | `fetch_evidence_abstracts.py` | Готовит заготовки reports/evidence/{id}.md с abstracts из PubMed. | Критический | wontfix |
@@ -95,11 +97,11 @@ P1 «16 скриптов без тестов» — не 16 задач, а 55, и
 | `build_changelog_public.py` | _(docstring отсутствует)_ | Сборочный | **test** |
 | `build_interactions_graph.py` | Строит docs/interactions_graph.json — граф связей для interactions.html. | Сборочный | **test** |
 | `build_timeseries.py` | Собирает data/timeseries/*.json → docs/timeseries.json — единый файл для фронта. | Сборочный | **test** |
-| `build_api.py` | Собирает публичный API из docs/data.json. | Сборочный | wontfix |
-| `build_edu.py` | Сборка контента топ-10 для 15 блоков в docs/data.json из src/content.py (v2.3.1). | Сборочный | wontfix |
-| `build_interactions.py` | Сборка interactions/synergists/antagonists в docs/data.json из src/content.py (v2.3). | Сборочный | wontfix |
-| `build_ma_timeline.py` | v2.7-C1+C2: таймлайн мета-анализов PubMed по годам. | Сборочный | wontfix |
-| `build_slim.py` | Создать slim-JSON для Streamlit Cloud. | Сборочный | wontfix |
+| `build_api.py` | Собирает публичный API из docs/data.json. | Сборочный | wontfix (артефакт) |
+| `build_edu.py` | Сборка контента топ-10 для 15 блоков в docs/data.json из src/content.py (v2.3.1). | Сборочный | wontfix (артефакт) |
+| `build_interactions.py` | Сборка interactions/synergists/antagonists в docs/data.json из src/content.py (v2.3). | Сборочный | wontfix (артефакт) |
+| `build_ma_timeline.py` | v2.7-C1+C2: таймлайн мета-анализов PubMed по годам. | Сборочный | wontfix (артефакт) |
+| `build_slim.py` | Создать slim-JSON для Streamlit Cloud. | Сборочный | wontfix (артефакт) |
 | `enrich_design.py` | Определить study design из publication types. | Сборочный | wontfix |
 | `enrich_doi_pmc.py` | Preprint из DOI prefix + PMC ID из index.json. | Сборочный | wontfix |
 | `enrich_dois.py` | Обогащает key_sources DOI через PubMed esummary. | Сборочный | wontfix |
@@ -119,19 +121,19 @@ P1 «16 скриптов без тестов» — не 16 задач, а 55, и
 | `fetch_metrics.py` | Обновляет wiki pageviews + citations в docs/data.json. | Сборочный | test ✓ |
 | `graph_interactions.py` | Граф связей между добавками. | Сборочный | test ✓ |
 | `make_trends_chart.py` | Графики трендов: публикации PubMed и Wikipedia-популярность. | Сборочный | test ✓ |
-| `audit_meta_lengths.py` | Аудит длины SEO-мет: `<title>` 40–60, `meta description` 120–160. | Инфраструктурный | **test** |
+| `audit_meta_lengths.py` | Аудит длины SEO-мет: `<title>` 40–60, `meta description` 120–160. | Инфраструктурный | **test** (артефакт) |
 | `validate_proposal.py` | Универсальный валидатор q14_batch_N_proposal.json. | Инфраструктурный | **test** |
 | `check_state.py` | One-shot диагностика для старта сессии с AI. | Инфраструктурный | **delete** |
 | `analyze_coi.py` | Анализ Conflict of Interest (COI) и funding в real full texts. | Инфраструктурный | wontfix |
 | `analyze_crossref.py` | Сравнивает funders из CrossRef с Europe PMC XML. | Инфраструктурный | wontfix |
 | `analyze_funding_v2.py` | Анализ funders v2 — с нормализацией и каноническими именами. | Инфраструктурный | wontfix |
-| `audit_content_gaps.py` | Аудит пробелов в контенте data.json — какие поля не заполнены и у кого. | Инфраструктурный | wontfix |
+| `audit_content_gaps.py` | Аудит пробелов в контенте data.json — какие поля не заполнены и у кого. | Инфраструктурный | wontfix (артефакт) |
 | `audit_full.py` | Полный аудит: заполненность карточек + отображение на страницах. | Инфраструктурный | wontfix |
 | `audit_links.py` | Watchdog битых ссылок: data.json + README. 429 от WB ≠ бита. | Инфраструктурный | wontfix |
 | `audit_stale.py` | Квартальный аудит устаревших key_sources в data.json. | Инфраструктурный | wontfix |
 | `review_evidence.py` | Ревью evidence-файлов: что нашли, релевантно ли, свежее ли. | Инфраструктурный | wontfix |
 | `sync_test_count.py` | Считает число тестов и обновляет version.json. | Инфраструктурный | wontfix |
-| `update_all.py` | Pipeline: обновление data.json за одну команду. | Инфраструктурный | wontfix |
+| `update_all.py` | Pipeline: обновление data.json за одну команду. | Инфраструктурный | wontfix (артефакт) |
 | `verify_sup_diff.py` | Часть E: побайтовая сверка сгенерированных страниц с эталонными. | Инфраструктурный | wontfix |
 | `audit_classes.py` | Инвентаризация классов и id: HTML / JS / CSS — основа для переименования. | Инфраструктурный | test ✓ |
 | `build_approve_queue.py` | v2.4: approves-очередь — кандидаты Hedges' g из PubMed (мета-анализы). | Инфраструктурный | test ✓ |
@@ -140,7 +142,7 @@ P1 «16 скриптов без тестов» — не 16 задач, а 55, и
 | `e2e_smoke.py` | e2e-smoke (слой L4): сайт отдаёт то, что обещает data.json. | Инфраструктурный | test ✓ |
 | `search_sources.py` | Поиск PMID через PubMed E-utilities для карточек без key_sources. | Инфраструктурный | test ✓ |
 | `ui_verify.py` | UI-verify (ранбук шаг 5): noPrice/empty/toTop в живой вёрстке + скриншоты 1280/375. | Инфраструктурный | test ✓ |
-| `_fix_reyshi.py` | Фикс Рейши: 36995543 (опечатка) → 36995535 (правильный). | Одноразовый | **delete** |
+| `_fix_reyshi.py` | Фикс Рейши: 36995543 (опечатка) → 36995535 (правильный). | Одноразовый | **delete** (артефакт) |
 | `analyze_funding.py` | Анализ funders из data/processed/xml_meta.json. | Одноразовый | **delete** |
 | `fill_upper_limit.py` | Заполняет пустые upper_limit у 61 карточки. | Одноразовый | **delete** |
 | `make_og.py` | Создаёт docs/og.png — обложка для Хабра (780×440, светлая тема). | Одноразовый | **delete** |
@@ -151,6 +153,23 @@ P1 «16 скриптов без тестов» — не 16 задач, а 55, и
 
 `test ✓` — тест уже есть. `test` — тест нужен. `delete` — кандидат на
 удаление. `wontfix` — тест не нужен.
+
+## Как читать таблицу
+
+В таблице 86 строк — все скрипты `scripts/`. Решения в них не равны
+«сколько тестов надо написать»:
+
+| Пометка | Скриптов | Значит |
+|---|---:|---|
+| `test ✓` | 20 | покрыт по имени — упомянут в `tests/*.py` |
+| `(артефакт)` | 11 | покрыт по результату, не по коду |
+| без пометки | 55 | **реально без теста** |
+
+Решения по 55: **13 test / 8 delete / 34 wontfix**. Строки с пометкой
+`(артефакт)` тоже несут решение, но в счёт 55 не идут — именно поэтому
+сумма решений по таблице (14 + 9 + 43 = 66) больше, чем 55. У
+четырёх из этих 11 артефакт упомянут в исходнике скрипта, а не как его
+вывод, — их честнее считать непокрытыми, см. «Границы метода».
 
 ## Решения, которые требуют подтверждения перед удалением
 
