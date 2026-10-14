@@ -1,6 +1,6 @@
 {
   "version": "v1",
-  "generated_at": "2026-10-14T16:56:28.927648+00:00",
+  "generated_at": "2026-10-14T16:59:26.908037+00:00",
   "count": 130,
   "license": "CC BY 4.0",
   "source": "https://github.com/DeadSno/brain-25-evidence",
@@ -199,7 +199,7 @@
       "scienceIndex": 9791,
       "rct": 4751,
       "metaCount": 1008,
-      "citations": 0
+      "citations": null
     },
     {
       "id": "Витамин D",
