@@ -129,7 +129,7 @@
 | DATA-COI 🔸 | COI (486 КБ) не показан — частично: агрегаты выведены `a645153`, постатейных данных нет | [data](audits/data.md) |
 | QA-P1-01 | 20 критичных скриптов без тестов | [data](audits/data.md) |
 | HC-P1-03 🔸 | Стартовые цифры скилла устарели — 4 числа закрыты `c295d94`, `SKILL.md:53` жив | [html-css](audits/html-css.md) |
-| CYBER-P1-01 | Нет security-заголовков (CSP/HSTS/…) | [js](audits/js.md) |
+| CYBER-P1-01 | Нет security-заголовков (CSP/HSTS/…) — **WONTFIX** (14.10.2026): хостинг не выставляет заголовки, закрыть нечем | [js](audits/js.md) |
 | CYBER-P1-02 | Bootstrap 5.0.0-beta3 устарел | [js](audits/js.md) |
 | REL-P1-02 🔸 | CHANGELOG: v5.6.2 закрыт `9136c51`, дубль `## [v3.2.0]` на строке 593 — жив | [perf](audits/perf.md) |
 | PRJ-P1-01 | `trends.html` 130 против 94 | [perf](audits/perf.md) |
