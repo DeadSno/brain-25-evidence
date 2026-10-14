@@ -138,7 +138,7 @@
 | SEO-P1-02 | `description` вне 120–160 на **91/145**, медиана 100 | [seo](audits/seo.md) |
 | MKT-P1-01…08 | Нет слогана/CTA/соцдоказательств/воронки/Schema.org/«почему я» | [seo](audits/seo.md) |
 | SK-P1-01 | `release-check` без приоритетов/действий | [skills](audits/skills.md) |
-| SK-P1-03 🔸 | `cyberaudit`: `license: MIT` закрыт `12119a5`, многострочный `description` жив | [skills](audits/skills.md) |
+| SK-P1-03 🔸 | `cyberaudit`: `license: MIT` закрыт `12119a5`, многострочный `description` жив — **WONTFIX** (14.10.2026): скилл в `.gitignore`, правка не коммитится | [skills](audits/skills.md) |
 
 > 🔸 **PARTIAL** — закрыта часть находки. Такие записи остаются в открытом
 > индексе, но снимаются с целиком при закрытии последней части. Сейчас их 9:

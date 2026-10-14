@@ -23,7 +23,7 @@
 | ID | Находка | Источник |
 |---|---|---|
 | SK-P1-01 | `release-check` без приоритетов и действий | SKILLS_AUDIT_ORION |
-| SK-P1-03 | `cyberaudit`: многострочное `description` 🔸 **PARTIAL** (не переносится в «Закрыто») — `license: MIT` добавлен (`12119a5`), но `description: >` остаётся 6-строчной folded-скалярной строкой | SKILLS_AUDIT_ORION |
+| SK-P1-03 | `cyberaudit`: многострочное `description` 🔸 **PARTIAL** (не переносится в «Закрыто») — `license: MIT` добавлен (`12119a5`), но `description: >` остаётся 6-строчной folded-скалярной строкой. **WONTFIX** (14.10.2026, батч 7): путь `.opencode/skills/cyberaudit/` в `.gitignore` (строка 273) — правка не коммитится, скилл лежит только в глобальном `~/.config/opencode/skills/` (в репозитории егь нет). Снять WONTFIX, пока владелец не решит на разгирание в `.gitignore` | SKILLS_AUDIT_ORION |
 
 ### P2
 
