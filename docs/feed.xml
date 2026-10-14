@@ -20,18 +20,18 @@
     <description>Доказательные данные о БАДах</description>
     <language>ru</language>
     <atom:link href="https://deadsno.github.io/brain-25-evidence/feed.xml" rel="self" type="application/rss+xml"/>
-    <lastBuildDate>Tue, 13 Oct 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 14 Oct 2026 00:00:00 +0000</lastBuildDate>
     <generator>scripts/build_feed.py</generator>
   <item>
-    <title>Каталог БАДов: 130 добавок | Brain 25 Evidence</title>
+    <title>Каталог БАДов: 130 добавок — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/index.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/index.html</guid>
     <description>Каталог из 130 БАД: название, категория, вердикт и грейд доказательности A-D. Карточка ведёт на страницу добавки с механизмами, дозировкой, взаимодействиями и источниками.</description>
     <category>каталог</category>
-    <pubDate>Tue, 13 Oct 2026 00:00:00 +0000</pubDate>
+    <pubDate>Wed, 14 Oct 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Йод — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Йод — Щитовидная железа — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/yod.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/yod.html</guid>
     <description>Йод — микроэлемент для щитовидной железы; в подборке абстрактов положительных МА именно по йодовым добавкам нет, есть данные об ограничении йода при Хашимото.</description>
@@ -39,7 +39,7 @@
     <pubDate>Fri, 25 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Молибден — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Молибден — Статус микроэлементов — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/molibden.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/molibden.html</guid>
     <description>Молибден — эссенциальный микроэлемент; МА с назначением его людям в подборке нет: обзоры касаются статуса микроэлементов и токсичных металлов, БАД не изучались.</description>
@@ -47,7 +47,7 @@
     <pubDate>Fri, 25 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Цистеин — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Цистеин — NAC при COPD — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/tsistein.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/tsistein.html</guid>
     <description>Цистеин — предшественник глутатиона; МА по свободному цистеину мало, данные касаются производного NAC (муколитики при COPD, отравление парацетамолом).</description>
@@ -55,7 +55,7 @@
     <pubDate>Fri, 25 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>PABA — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>PABA — Нет подтверждённых эффектов — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/paba.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/paba.html</guid>
     <description>PABA как добавка не подтверждён: единственный оральный РКИ — калиевая соль PABA по 12 г/сут при системной склеродермии, разницы с плацебо нет.</description>
@@ -63,7 +63,7 @@
     <pubDate>Fri, 25 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Пролин — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Пролин — Кожа и суставы — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/prolin.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/prolin.html</guid>
     <description>Свободный пролин как добавка не изучался: все исследования в пуле — про коллаген и желатин, где пролин лишь составная аминокислота.</description>
@@ -71,7 +71,7 @@
     <pubDate>Fri, 25 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Селен — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Селен — БАД: эффекты и доказательства — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/selen.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/selen.html</guid>
     <description>Селен — микроэлемент для щитовидной железы; эффект БАД подтверждён у пациентов с тиреоидитом Хашимото, у здоровых с нормальным статусом польза не показана.</description>
@@ -79,7 +79,7 @@
     <pubDate>Fri, 25 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Витамин K1 — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Витамин K1 — Кости/Иммунитет — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/vitamin-k1.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/vitamin-k1.html</guid>
     <description>Витамин K1: в МА влияние на сердечно-метаболические факторы ограничено (HOMA-IR, CRP), у K2 эффект выраженнее; данные о костях — из обзоров по K в целом.</description>
@@ -87,7 +87,7 @@
     <pubDate>Fri, 25 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Ниацинамид — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Ниацинамид — Кожа и суставы — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/niatsinamid.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/niatsinamid.html</guid>
     <description>Ниацинамид (B3): снижает риск немеланомного рака кожи у лиц с анамнезом (RR 0.50, МА 2022); топикально — при гиперпигментации; у здоровых эффект не описан.</description>
@@ -95,7 +95,7 @@
     <pubDate>Fri, 25 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Серин — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Серин — Неврология/Метаболизм — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/serin.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/serin.html</guid>
     <description>Серин изучали только при редких генетических болезнях — HSAN1 и вариантах GRIN2B: 18 пациентов и 4 ребёнка. Для всех остальных как добавка не проверен.</description>
@@ -103,7 +103,7 @@
     <pubDate>Fri, 25 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Аланин — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Аланин — БАД: эффекты и доказательства — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/alanin.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/alanin.html</guid>
     <description>Мета-анализ в пуле — по β-аланину, а это другое вещество, не α-аланин; по самому α-аланину данных нет.</description>
@@ -111,7 +111,7 @@
     <pubDate>Fri, 25 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>B5 — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>B5 — Дефицит при травмах спинного мозга — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/b5.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/b5.html</guid>
     <description>Пантотеновая кислота (B5): пользы БАД в абстрактах не подтверждено; дефицит — при травмах спинного мозга; топикальный декспантенол не лучше других.</description>
@@ -119,7 +119,7 @@
     <pubDate>Wed, 23 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Лизин — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Лизин — БАД: эффекты и доказательства — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/lizin.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/lizin.html</guid>
     <description>Лизин от герпеса на губах: в Кокрановском обзоре 2015 (32 РКИ) доказательств эффективности профилактики не нашли; безопасен, но эффекта не показано.</description>
@@ -127,7 +127,7 @@
     <pubDate>Wed, 23 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Карнозин — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Карнозин — Выносливость (через β-аланин) — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/karnozin.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/karnozin.html</guid>
     <description>Прямых МА по карнозину нет — только данные через предшественник β-alanine (повышает карнозин мышц и работоспособность), эффект косвенный.</description>
@@ -135,7 +135,7 @@
     <pubDate>Wed, 23 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Медь — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Медь — Коррекция дефицита меди — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/med.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/med.html</guid>
     <description>Медь — эссенциальный минерал, но данных о пользе добавки при нормальном уровне нет: ESPEN прямо отмечает нехватку интервенционных исследований.</description>
@@ -143,7 +143,7 @@
     <pubDate>Wed, 23 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Марганец — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Марганец — Коррекция дефицита марганца — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/marganets.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/marganets.html</guid>
     <description>Марганец — эссенциальный микроэлемент, но в SR по минералам для спорта прямо указано: релевантных работ по марганцу не найдено.</description>
@@ -151,7 +151,7 @@
     <pubDate>Wed, 23 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Бор — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Бор — Кости/Иммунитет — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/bor.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/bor.html</guid>
     <description>Бор в пуле почти не изучен: два источника — про скаффолды для кости вне человека и третье место в сетевом MA по лекарствам после литотрипсии.</description>
@@ -159,7 +159,7 @@
     <pubDate>Wed, 23 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Метионин — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Метионин — Метаболизм — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/metionin.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/metionin.html</guid>
     <description>Все три мета-анализа по метионину — про дойных коров, а не про людей; для человека как добавки данных в пуле нет.</description>
@@ -167,7 +167,7 @@
     <pubDate>Wed, 23 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Орнитин — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Орнитин — Переносимость приёма — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/ornitin.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/ornitin.html</guid>
     <description>Орнитин изучен только на безопасность: SR 22 работ на здоровых нашла максимум 14 025 мг/сут, но эффективность не оценивала.</description>
@@ -175,7 +175,7 @@
     <pubDate>Wed, 23 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Майтаке — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Майтаке — БАД: эффекты и доказательства — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/maytake.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/maytake.html</guid>
     <description>Майтаке изучен на животных: оба мета-анализа полисахарида выполнены на моделях мышей, ни одного РКИ на людях в пуле нет.</description>
@@ -183,7 +183,7 @@
     <pubDate>Wed, 23 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>B1 — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>B1 — Неврология/Метаболизм — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/b1.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/b1.html</guid>
     <description>Тиамин (B1) — витамин нервной ткани: при периферической нейропатии, включая алкогольную, лечение B1 улучшает симптомы; у здоровых без дефицита данных нет.</description>
@@ -191,7 +191,7 @@
     <pubDate>Wed, 23 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Холин — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Холин — БАД: эффекты и доказательства — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/holin.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/holin.html</guid>
     <description>Холин — источник ацетилхолина и метильных групп: α-GPC улучшает когниции при возрастных/сосудистых расстройствах (МА 2023), в беременности — для мозга плода.</description>
@@ -199,7 +199,7 @@
     <pubDate>Wed, 23 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Витамин A — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Витамин A — Дефицит витамина A — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/vitamin-a.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/vitamin-a.html</guid>
     <description>Витамин A — жирорастворимый, нужен для зрения, кожи и иммунитета; данные о БАД в основном про коррекцию дефицита, а не про «улучшение» у здоровых.</description>
@@ -207,7 +207,7 @@
     <pubDate>Wed, 23 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>B3 — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>B3 — Профилактика рака кожи — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/b3.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/b3.html</guid>
     <description>Никотинамид (форма B3): приём снижает риск немеланомного рака кожи у людей с его анамнезом (RR 0.50, МА 2022); у здоровых эффект не показан.</description>
@@ -215,7 +215,7 @@
     <pubDate>Wed, 23 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Кремний — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Кремний — Кости/Иммунитет — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/kremniy.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/kremniy.html</guid>
     <description>Кремний для костей: единственный umbrella review — влияние на костный обмен в основном на животных; достижимый у человека порог эффекта не определён.</description>
@@ -223,7 +223,7 @@
     <pubDate>Wed, 23 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>B. lactis — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>B. lactis — Кишечник — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/b-lactis.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/b-lactis.html</guid>
     <description>Bifidobacterium lactis: единственный пробиотик со значимым эффектом на частоту стула при хроническом запоре; в других условиях данные ограничены.</description>
@@ -231,7 +231,7 @@
     <pubDate>Wed, 23 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>DHA — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>DHA — Прогрессия Альцгеймера (CDR) — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/dha.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/dha.html</guid>
     <description>DHA при болезни Альцгеймера замедляет прогрессию по шкале CDR (SMD -0.41), но MMSE и ADAS-cog без разницы; у здоровых эффект не показан.</description>
@@ -239,7 +239,7 @@
     <pubDate>Wed, 23 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>GLA — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>GLA — Кожа и суставы — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/gla.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/gla.html</guid>
     <description>GLA (масло вечерней примулы): при атопическом дерматите у детей есть указания на пользу при низком качестве работ; при акне и псориазе неэффективна.</description>
@@ -247,7 +247,7 @@
     <pubDate>Wed, 23 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Калий — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Калий — Сердце/сосуды — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/kaliy.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/kaliy.html</guid>
     <description>Калий снижает давление, причём сильнее у гипертензиков, но связь U-образная: при избытке калия давление, наоборот, растёт.</description>
@@ -255,7 +255,7 @@
     <pubDate>Wed, 23 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Бетаин — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Бетаин — Максимальная сила — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/betain.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/betain.html</guid>
     <description>Бетаин умеренно повышает максимальную силу, прежде всего ног, но при 4 г/сут и дольше поднимает общий холестерин.</description>
@@ -263,7 +263,7 @@
     <pubDate>Wed, 23 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>EPA — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>EPA — добавка: эффекты и доказательства — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/epa.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/epa.html</guid>
     <description>EPA — омега-3 с противовоспалительным эффектом: линейно снижает триглицериды и не-ЛПВП (90 РКИ) и смягчает депрессию формулами с EPA ≥60% в дозе ≤1 г/сут.</description>
@@ -271,7 +271,7 @@
     <pubDate>Wed, 23 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>B2 — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>B2 — Профилактика мигрени — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/b2.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/b2.html</guid>
     <description>Рибофлавин (B2): 400 мг/сут в течение 3 месяцев значимо снижают частоту, длительность и боль при мигрени (МА 2022); у веганов — риск дефицита.</description>
@@ -279,7 +279,7 @@
     <pubDate>Wed, 23 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>B6 — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>B6 — Неврология/Метаболизм — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/b6.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/b6.html</guid>
     <description>Пиридоксин (B6): снижает тошноту и рвоту при беременности (МА 2023); при нейропатии как монотерапия не изучен, а высокие дозы сами токсичны для нервов.</description>
@@ -287,7 +287,7 @@
     <pubDate>Wed, 23 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>HMB — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>HMB — Мышечная масса при раке — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/hmb.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/hmb.html</guid>
     <description>HMB — метаболит лейцина: сохраняет мышцы у пациентов с раком (обзор 2022) и при саркопении вместе с тренировками повышает скорость ходьбы (МА 2024).</description>
@@ -295,7 +295,7 @@
     <pubDate>Wed, 23 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Женьшень — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Женьшень — БАД: эффекты и доказательства — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/zhenshen.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/zhenshen.html</guid>
     <description>Женьшень: улучшает память (МА 2024 SMD 0.19, высокие дозы 0.33), внимание и когниция не меняются; американский женьшень — усталость в терапии рака (ASCO 2024).</description>
@@ -303,7 +303,7 @@
     <pubDate>Wed, 23 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>S. boulardii — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>S. boulardii — Кишечник — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/s-boulardii.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/s-boulardii.html</guid>
     <description>Дрожжевой пробиотик: в 27 РКИ (5029 пациентов) эффективен и безопасен в 84% случаев; снижает риск диареи при антибиотиках (RR 0.47).</description>
@@ -311,7 +311,7 @@
     <pubDate>Wed, 23 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>LGG — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>LGG — добавка: эффекты и доказательства — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/lgg.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/lgg.html</guid>
     <description>Lactobacillus rhamnosus GG: ESPGHAN даёт сильную рекомендацию для профилактики диареи при антибиотиках; при гастроэнтерите сокращает длительность диареи.</description>
@@ -319,7 +319,7 @@
     <pubDate>Wed, 23 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Шатавари — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Шатавари — БАД: эффекты и доказательства — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/shatavari.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/shatavari.html</guid>
     <description>Классика аюрведы для женского здоровья. Основное применение — стимуляция лактации у кормящих матерей.</description>
@@ -327,7 +327,7 @@
     <pubDate>Tue, 22 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Шлемник — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Шлемник — Настроение — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/shlemnik.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/shlemnik.html</guid>
     <description>Китайская трава с противотревожным действием. Изучена в РКИ, но меньше чем валериана или пассифлора. Эффект мягкий.</description>
@@ -335,7 +335,7 @@
     <pubDate>Tue, 22 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Пассифлора — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Пассифлора — Засыпание — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/passiflora.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/passiflora.html</guid>
     <description>Мягкий растительный седатик. Один из немногих, кто показал эффект в РКИ на засыпание — сравним с оксазепамом в некоторых исследованиях (но выборки небольшие).</description>
@@ -343,7 +343,7 @@
     <pubDate>Tue, 22 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Мелисса — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Мелисса — Тревожность — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/melissa.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/melissa.html</guid>
     <description>Мягкий растительный анксиолитик из семейства мятных. Один из немногих с РКИ на когницию под острым стрессом.</description>
@@ -351,7 +351,7 @@
     <pubDate>Tue, 22 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Лаванда — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Лаванда — Настроение — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/lavanda.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/lavanda.html</guid>
     <description>Один из немногих растительных анксиолитиков, проверенных в крупных РКИ (Silexan — стандартизированное масло). Сравним с лоразепамом в исследованиях по тревожности.</description>
@@ -359,7 +359,7 @@
     <pubDate>Tue, 22 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Чага — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Чага — добавка: эффекты и доказательства — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/chaga.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/chaga.html</guid>
     <description>Северный гриб, традиционно применявшийся в России и Сибири. Современные РКИ на людях единичны — большая часть данных in vitro и на животных.</description>
@@ -367,7 +367,7 @@
     <pubDate>Tue, 22 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Шиитаке — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Шиитаке — БАД: эффекты и доказательства — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/shiitake.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/shiitake.html</guid>
     <description>Съедобный гриб с самой изученной доказательной базой среди грибов. Лентинан одобрен в Японии как адъювант при онкотерапии.</description>
@@ -375,7 +375,7 @@
     <pubDate>Tue, 22 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Глутатион — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Глутатион — Антиоксидант — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/glutation.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/glutation.html</guid>
     <description>Главный внутриклеточный антиоксидант. Проблема — плохое всасывание при пероральном приёме. NAC работает косвенно — как предшественник.</description>
@@ -383,7 +383,7 @@
     <pubDate>Tue, 22 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>PQQ — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>PQQ — добавка: эффекты и доказательства — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/pqq.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/pqq.html</guid>
     <description>Молодая добавка с шумным маркетингом. Есть единичные РКИ на когницию у пожилых (малые выборки), большая часть данных — животные модели.</description>
@@ -391,7 +391,7 @@
     <pubDate>Tue, 22 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Сульфорафан — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Сульфорафан — Детокс (контекст) — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/sulforafan.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/sulforafan.html</guid>
     <description>Активное вещество из брокколи и других крестоцветных. Мощный антиоксидант in vitro, но РКИ на людях мало и они малого размера. Реальный эффект от еды может быть больше, чем от капсул.</description>
@@ -399,7 +399,7 @@
     <pubDate>Tue, 22 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Гимнема — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Гимнема — Метаболизм — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/gimnema.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/gimnema.html</guid>
     <description>Аюрведическое растение для диабета. Есть РКИ (маленькие выборки), эффект на гликемию скромный — снижение HbA1c на 0.5-1%. Не заменяет метформин.</description>
@@ -407,7 +407,7 @@
     <pubDate>Tue, 22 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Астрагал — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Астрагал — Иммунитет — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/astragal.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/astragal.html</guid>
     <description>Классический китайский адаптоген. Основной эффект — иммуномодуляция, особенно у пациентов с ослабленным иммунитетом.</description>
@@ -415,7 +415,7 @@
     <pubDate>Tue, 22 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>MSM — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>MSM — Кожа и суставы — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/msm.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/msm.html</guid>
     <description>Источник органической серы. Изучен в РКИ на остеоартрите — эффект сравним с НПВС в некоторых исследованиях, но с меньшими побочками.</description>
@@ -423,7 +423,7 @@
     <pubDate>Tue, 22 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Ежовик — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Ежовик — Когниция/Нервная система — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/ezhovik.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/ezhovik.html</guid>
     <description>Съедобный гриб: нейрогенез и когниция — in vitro и на животных; на людях 1 РКИ + пилот, база мала.</description>
@@ -431,7 +431,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Гинкго — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Гинкго — Когниция/Сосуды — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/ginkgo.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/ginkgo.html</guid>
     <description>При патологии (деменция, постинсульт) EGb-761 может поддерживать когницию; у здоровых — эффекта нет.</description>
@@ -439,7 +439,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Тирозин — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Тирозин — Когниция/Стресс — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/tirozin.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/tirozin.html</guid>
     <description>Предшественник дофамина: удерживает рабочую память при остром стрессе/недосыпе; на спорт не влияет.</description>
@@ -447,7 +447,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>ГАБА — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>ГАБА — Спокойствие (заявлено) — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/gaba.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/gaba.html</guid>
     <description>Главный тормозной нейромедиатор; оральный ГАБА плохо проходит ГЭБ — сон/стресс подтверждены слабо.</description>
@@ -455,7 +455,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Глицин — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Глицин — Нейромедиатор/Сон — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/glitsin.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/glitsin.html</guid>
     <description>Тормозная аминокислота: улучшает засыпание (3 г) в отдельных РКИ; мета-анализов нет — база слабая.</description>
@@ -463,7 +463,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>5-HTP — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>5-HTP — Психика/Депрессия — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/5-htp.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/5-htp.html</guid>
     <description>Прекурсор серотонина: ремиссия ~65%, но РКИ старые, без плацебо; монотерапия не рекомендуется.</description>
@@ -471,7 +471,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Биотин — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Биотин — Кожа/Волосы — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/biotin.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/biotin.html</guid>
     <description>Витамин B7: полезен только при дефиците; у здоровых на волосы/ногти не доказано; искажает анализы.</description>
@@ -479,7 +479,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Пустырник — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Пустырник — Сердце/Растения — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/pustyrnik.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/pustyrnik.html</guid>
     <description>Пустырник: традиционно «нервное сердце»; седативный/гипотензивный эффект в открытой клинике, МА нет.</description>
@@ -487,7 +487,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>D-манноза — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>D-манноза — Мочеполовая система — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/d-mannoza.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/d-mannoza.html</guid>
     <description>Сахар, блокирующий адгезию E. coli: при рецидивах ИМП данные противоречивы, свежий МА — нулевой.</description>
@@ -495,7 +495,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Йохимбин — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Йохимбин — Сексуальное здоровье — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/yohimbin.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/yohimbin.html</guid>
     <description>Альфа-2-блокатор: при ЭД эффект есть (старые МА), но цена — АД, пульс, импульсивность.</description>
@@ -503,7 +503,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Трибулус — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Трибулус — Сексуальное здоровье/Спорт — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/tribulus.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/tribulus.html</guid>
     <description>Миф «тестостерон-бустера»: на Т у большинства не влияет; при эректильной дисфункции IIEF выше.</description>
@@ -511,7 +511,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>NMN — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>NMN — Старение/Метаболизм — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/nmn.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/nmn.html</guid>
     <description>Предшественник NAD+ — «молекула молодости»; метаболизм, силу и мышцы у людей не улучшает.</description>
@@ -519,7 +519,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Омега-3 — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Омега-3 — Нейропластичность — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/omega-3.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/omega-3.html</guid>
     <description>Полиненасыщенные жирные кислоты: мембраны, воспаление, мозг, триглицериды.</description>
@@ -527,7 +527,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Витамин D — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Витамин D — Кости/Иммунитет — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/vitamin-d.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/vitamin-d.html</guid>
     <description>Гормон-секостероид: всасывание кальция, иммунитет, мышцы.</description>
@@ -535,7 +535,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>B12 — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>B12 — Нервная система/Кровь — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/b12.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/b12.html</guid>
     <description>Кофактор метионин-синтазы: критичен при дефиците; когницию и энергию у здоровых не улучшает.</description>
@@ -543,7 +543,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Родиола — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Родиола — Усталость/Адаптоген — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/rodiola.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/rodiola.html</guid>
     <description>Адаптоген: снижает усталость, улучшает концентрацию при стрессе.</description>
@@ -551,7 +551,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Фосфатидилсерин — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Фосфатидилсерин — Когниция/Дети — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/fosfatidilserin.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/fosfatidilserin.html</guid>
     <description>Фосфолипид мембран нейронов: снижает невнимательность при СДВГ у детей; «ноотропом» не подтверждён.</description>
@@ -559,7 +559,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Alpha-GPC — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Alpha-GPC — Когниция — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/alpha-gpc.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/alpha-gpc.html</guid>
     <description>Прекурсор ацетилхолина: при деменции — слабый плюс; у здоровых 315-630 мг улучшает Stroop через час.</description>
@@ -567,7 +567,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>CDP-холин — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>CDP-холин — Когниция/Инсульт — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/cdp-holin.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/cdp-holin.html</guid>
     <description>Донор холина для ацетилхолина и мембран; эффект при когнитивном снижении у пациентов, не у здоровых.</description>
@@ -575,7 +575,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Гуперзин А — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Гуперзин А — Когниция/Деменция — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/guperzin-a.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/guperzin-a.html</guid>
     <description>Ингибитор ацетилхолинэстеразы: при Альцгеймере лучше, но слабые данные; УКН не изучено.</description>
@@ -583,7 +583,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Куркумин — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Куркумин — Воспаление/Суставы — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/kurkumin.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/kurkumin.html</guid>
     <description>Полифенол куркумы: воспаление (NF-κB); биодоступность сама по себе плохая.</description>
@@ -591,7 +591,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Ресвератрол — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Ресвератрол — Антиоксидант/Метаболизм — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/resveratrol.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/resveratrol.html</guid>
     <description>Полифенол винограда: улучшает биомаркеры (липиды, глюкоза), клиническая ценность не доказана.</description>
@@ -599,7 +599,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Цинк — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Цинк — Иммунитет/ОРВИ — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/tsink.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/tsink.html</guid>
     <description>Кофактор иммунитета, кожи и синтеза тестостерона; конкурирует с медью.</description>
@@ -607,7 +607,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Таурин — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Таурин — Метаболизм/Антиоксидант — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/taurin.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/taurin.html</guid>
     <description>Сульфоаминокислота-осмолит: улучшает кардиометаболические маркеры — глюкозу, липиды, АД, печень.</description>
@@ -615,7 +615,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Пикногенол — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Пикногенол — Сосуды/Антиоксидант — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/piknogenol.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/piknogenol.html</guid>
     <description>Экстракт коры сосны: умеренно снижает АД, липиды и глюкозу; «панацея» не доказана.</description>
@@ -623,7 +623,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Готу кола — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Готу кола — Когниция/Сосуды — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/gotu-kola.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/gotu-kola.html</guid>
     <description>Центелла: когниция = плацебо; бодрость выше, злость ниже; заживление ран — 4 РКИ.</description>
@@ -631,7 +631,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Валериана — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Валериана — Сон/Тревожность — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/valeriana.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/valeriana.html</guid>
     <description>Корень валерианы: субъективно качество сна чуть лучше, объективно (время засыпания) — без эффекта.</description>
@@ -639,7 +639,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Бета-аланин — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Бета-аланин — Спорт/Выносливость — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/beta-alanin.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/beta-alanin.html</guid>
     <description>Строит карнозин — буфер протонов в мышце: поддержка работы на 1–4 мин; на силу и VO2max эффекта нет.</description>
@@ -647,7 +647,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Витамин C — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Витамин C — Иммунитет/Антиоксидант — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/vitamin-c.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/vitamin-c.html</guid>
     <description>Антиоксидант и кофактор: коллаген, иммунитет, всасывание железа.</description>
@@ -655,7 +655,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Эхинацея — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Эхинацея — Иммунитет/ОРВИ — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/ehinatseya.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/ehinatseya.html</guid>
     <description>Иммуномодулятор: профилактика ОРВИ — небольшое снижение частоты (RR 0.78); лечение длительности — эффекта не показано.</description>
@@ -663,7 +663,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Пробиотики — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Пробиотики — Кишечник, иммунитет — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/probiotiki.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/probiotiki.html</guid>
     <description>Живые культуры; эффект ШТАММОСПЕЦИФИЧЕН — «пробиотик вообще» не существует.</description>
@@ -671,7 +671,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Глюкозамин + хондроитин — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Глюкозамин + хондроитин — Суставы — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/glyukozamin-hondroitin.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/glyukozamin-hondroitin.html</guid>
     <description>Субстраты хряща при остеоартрозе; эффект небольшой, близкий к плацебо; хондроитин чуть сильнее.</description>
@@ -679,7 +679,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Витамин E — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Витамин E — Антиоксидант/Неврология — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/vitamin-e.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/vitamin-e.html</guid>
     <description>Мембранный антиоксидант: на ССЗ/рак у здоровых не влияет; при НАЖБП — неопределённо; поздняя дискинезия — слабые противоречивые данные.</description>
@@ -687,7 +687,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>L-карнитин — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>L-карнитин — Неврология/Спорт — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/l-karnitin.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/l-karnitin.html</guid>
     <description>Возит жирные кислоты в митохондрии; эффекты скромные: ~1 кг веса, малый сдвиг маркеров при СД2.</description>
@@ -695,7 +695,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>BCAA — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>BCAA — При достатке белка эффекта нет — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/bcaa.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/bcaa.html</guid>
     <description>Лейцин/изолейцин/валин: спорт-эффекта при достатке белка нет; ниша — печёночная энцефалопатия.</description>
@@ -703,7 +703,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Аргинин — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Аргинин — Сосуды/Беременность — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/arginin.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/arginin.html</guid>
     <description>Предшественник оксида азота: для пампинга слабее цитруллина; ниши — преэклампсия, НЭК у недоношенных.</description>
@@ -711,7 +711,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Кальций — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Кальций — Кости/Беременность — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/kaltsiy.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/kaltsiy.html</guid>
     <description>Макроминерал: минерализация кости, тонус сосудов; без дефицита бесполезен, в беременности работает.</description>
@@ -719,7 +719,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Гиалуроновая кислота — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Гиалуроновая кислота — Суставы/Кожа — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/gialuronovaya-kislota.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/gialuronovaya-kislota.html</guid>
     <description>Полисахарид суставов и кожи; работает в виде инъекций при артрозе, перорально данных нет.</description>
@@ -727,7 +727,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Клюква — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Клюква — Мочеполовая система — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/klyukva.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/klyukva.html</guid>
     <description>Клюква и ИМП: профилактика рецидивов у женщин — минус 26%; лечение — РКИ нет; эффект ограничен.</description>
@@ -735,7 +735,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Инозитол — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Инозитол — Женское здоровье/СПКЯ — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/inozitol.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/inozitol.html</guid>
     <description>Медиатор сигнала инсулина: гестационный диабет реже (RR 0.42); СПКЯ — живые роды не доказаны.</description>
@@ -743,7 +743,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Мака — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Мака — Сексуальное здоровье/Энергия — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/maka.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/maka.html</guid>
     <description>Корень маки: сексуальная функция и менопаузальные симптомы — limited evidence; на гормоны не влияет.</description>
@@ -751,7 +751,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Хром — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Хром — Метаболизм/Диабет — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/hrom.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/hrom.html</guid>
     <description>Усиливает сигналинг инсулинового рецептора; при СД2 — слабые сдвиги гликемии и липидов, вес — нет.</description>
@@ -759,7 +759,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Астаксантин — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Астаксантин — Антиоксидант/Кожа — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/astaksantin.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/astaksantin.html</guid>
     <description>Каротиноид: после нагрузки креатинкиназа ниже, кожа лучше; на VO2max и исходы ЭКО — нет.</description>
@@ -767,7 +767,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Расторопша — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Расторопша — добавка: эффекты — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/rastoropsha.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/rastoropsha.html</guid>
     <description>Силимарин стабилизирует мембраны гепатоцитов; маркеры улучшает, клиническая значимость спорна.</description>
@@ -775,7 +775,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Пажитник — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Пажитник — Метаболизм — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/pazhitnik.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/pazhitnik.html</guid>
     <description>Пряность Trigonella: у диабетиков снижает сахар натощак, после еды и HbA1c; у здоровых нет.</description>
@@ -783,7 +783,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Чёрный тмин — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Чёрный тмин — Воспаление/Метаболизм — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/chernyy-tmin.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/chernyy-tmin.html</guid>
     <description>Тимохинон: умеренно улучшает гликемию, АД, вес и воспаление при метаболических болезнях.</description>
@@ -791,7 +791,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Рейши — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Рейши — Иммунитет/Грибы — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/reyshi.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/reyshi.html</guid>
     <description>Ганодерма: адъювант к онкотерапии — QoL и иммунитет чуть лучше; «сон» не подтверждён.</description>
@@ -799,7 +799,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Хлорофилл — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Хлорофилл — Антиоксидант — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/hlorofill.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/hlorofill.html</guid>
     <description>Хлорофиллин снижает биодоступность афлатоксинов; «детокс» и «от акне» — не подтверждены.</description>
@@ -807,7 +807,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Глутамин — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Глутамин — Критические состояния/Спорт — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/glutamin.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/glutamin.html</guid>
     <description>Условно-незаменимая аминокислота; в реанимации эффект спорен, для спорта/мышц данных с исходами нет.</description>
@@ -815,7 +815,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Витамин K2 — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Витамин K2 — Кости/Сосуды — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/vitamin-k2.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/vitamin-k2.html</guid>
     <description>Кофактор γ-карбоксилирования остеокальцина: МПК поясницы выше при постменопаузальном остеопорозе.</description>
@@ -823,7 +823,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Креатин — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Креатин — Спорт/Когниция — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/kreatin.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/kreatin.html</guid>
     <description>Самая изученная спортивная добавка: помогает мышцам пересобирать АТФ — валюту коротких мощных усилий.</description>
@@ -831,7 +831,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Магний — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Магний — Минерал/Сердце — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/magniy.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/magniy.html</guid>
     <description>Кофактор 300+ ферментов: мышцы, нервы, сон. Эффект и переносимость зависят от формы.</description>
@@ -839,7 +839,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Кофеин — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Кофеин — Производительность — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/kofein.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/kofein.html</guid>
     <description>Антагонист аденозиновых рецепторов: бодрость, выносливость; самый доказанный стимулятор.</description>
@@ -847,7 +847,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>L-Теанин — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>L-Теанин — Когниция/Стресс — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/l-teanin.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/l-teanin.html</guid>
     <description>Аминокислота зелёного чая: спокойный фокус и меньше стресса; 200 мг за 30-60 мин улучшают внимание.</description>
@@ -855,7 +855,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Бакопа — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Бакопа — Когниция/Память — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/bakopa.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/bakopa.html</guid>
     <description>Ноотроп: улучшает память и обучение (адаптоген для мозга).</description>
@@ -863,7 +863,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Ашваганда — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Ашваганда — Стресс/Адаптоген — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/ashvaganda.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/ashvaganda.html</guid>
     <description>Адаптоген: снижает кортизол, тревогу, улучшает сон.</description>
@@ -871,7 +871,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>NAC — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>NAC — Антиоксидант/Психиатрия — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/nac.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/nac.html</guid>
     <description>Прекурсор глутатиона — главного антиоксиданта клетки: меньше обострений ХОБЛ, защита печени.</description>
@@ -879,7 +879,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>CoQ10 — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>CoQ10 — Сердце/Энергия — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/coq10.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/coq10.html</guid>
     <description>Переносчик электронов в митохондриях и антиоксидант; ниша — сердечная недостаточность (Cochrane).</description>
@@ -887,7 +887,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Мелатонин — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Мелатонин — Сон/Циркадные ритмы — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/melatonin.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/melatonin.html</guid>
     <description>Гормон циркадного сигнала «биологическая ночь», а не снотворное.</description>
@@ -895,7 +895,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>L-цитруллин — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>L-цитруллин — Спорт/Сосуды — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/l-tsitrullin.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/l-tsitrullin.html</guid>
     <description>Прекурсор аргинина и NO: поднимает аргинин в плазме, даёт спортивный «пампинг»; давления не снижает.</description>
@@ -903,7 +903,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Бузина — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Бузина — Иммунитет/ОРВИ — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/buzina.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/buzina.html</guid>
     <description>Бузина при простуде/гриппе: симптомы короче (МА 2019), но уверенность низкая; профилактики нет.</description>
@@ -911,7 +911,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Зверобой — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Зверобой — Психика/Депрессия — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/zveroboy.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/zveroboy.html</guid>
     <description>Гиперфорин блокирует обратный захват серотонина: работает при лёгкой депрессии, сравним с СИОЗС.</description>
@@ -919,7 +919,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Коллаген — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Коллаген — Кожа/Суставы — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/kollagen.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/kollagen.html</guid>
     <description>Структурный белок: кожа, суставы, кости. Пептиды всасываются.</description>
@@ -927,7 +927,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>B9 — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>B9 — Беременность/Кровь — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/b9.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/b9.html</guid>
     <description>Кофермент метильного цикла: критичен для нервной трубки плода, снижает гомоцистеин.</description>
@@ -935,7 +935,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Железо — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Железо — Кровь/Анемия — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/zhelezo.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/zhelezo.html</guid>
     <description>Кофактор гемоглобина: работает при анемии и дефиците ферритина; при нормальном уровне пользы нет.</description>
@@ -943,7 +943,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Триптофан — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Триптофан — Психика/Сон — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/triptofan.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/triptofan.html</guid>
     <description>Прекурсор серотонина/мелатонина: с ≥1 г/сут меньше ночных пробуждений; настроение мягко лучше.</description>
@@ -951,7 +951,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Псиллиум — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Псиллиум — ЖКТ/Метаболизм — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/psillium.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/psillium.html</guid>
     <description>Растворимая клетчатка: холестерин, сахар, регулярность стула.</description>
@@ -959,7 +959,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Имбирь — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Имбирь — ЖКТ/Метаболизм — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/imbir.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/imbir.html</guid>
     <description>Противовоспалительное, противорвотное, умеренный эффект на боль.</description>
@@ -967,7 +967,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Чеснок — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Чеснок — Сосуды/Метаболизм — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/chesnok.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/chesnok.html</guid>
     <description>Серосодержащие соединения: умеренный эффект на АД и холестерин.</description>
@@ -975,7 +975,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Боярышник — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Боярышник — Сердце/Растения — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/boyaryshnik.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/boyaryshnik.html</guid>
     <description>Экстракт листьев/цветков: при хронической СН улучшает нагрузку и симптомы, как адъюнкт к терапии.</description>
@@ -983,7 +983,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Бета-глюканы овса — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Бета-глюканы овса — Метаболизм — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/beta-glyukany-ovsa.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/beta-glyukany-ovsa.html</guid>
     <description>Растворимая клетчатка овса: снижает ЛНП и холестерин при высоком уровне; одобрено FDA/EFSA.</description>
@@ -991,7 +991,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Рибофлавин — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Рибофлавин — Неврология/Метаболизм — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/riboflavin.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/riboflavin.html</guid>
     <description>Витамин B2 — митохондриальный кофактор; работает как профилактика мигрени у взрослых (400 мг/день).</description>
@@ -999,7 +999,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Лютеин + зеаксантин — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Лютеин + зеаксантин — Глаза/Зрение — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/lyutein-zeaksantin.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/lyutein-zeaksantin.html</guid>
     <description>Каротиноиды макулы: антиоксидант; замедляют возрастную макулодистрофию, от экранов не спасают.</description>
@@ -1007,7 +1007,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Альфа-липоевая кислота — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Альфа-липоевая кислота — Неврология — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/alfa-lipoevaya-kislota.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/alfa-lipoevaya-kislota.html</guid>
     <description>Антиоксидант и кофермент: сенсорные симптомы диабетической полинейропатии ниже; похудения не даёт.</description>
@@ -1015,7 +1015,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Лактоферрин — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Лактоферрин — Иммунитет/Дети — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/laktoferrin.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/laktoferrin.html</guid>
     <description>Гликопротеин молока: недоношенным ниже поздний сепсис (2 Cochrane); детям — сепсис и диарея, не ОРВИ.</description>
@@ -1023,7 +1023,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>SAMe — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>SAMe — Психика/Суставы — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/same.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/same.html</guid>
     <description>Донор метильных групп; помогает при депрессии (адъювант), боли при остеоартрозе и поддержке печени.</description>
@@ -1031,7 +1031,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Кордицепс — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Кордицепс — Почки/Выносливость — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/korditseps.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/korditseps.html</guid>
     <description>Гриб ТКМ: при ХБП ниже креатинин/протеинурия; после трансплантации лучше метаболизм.</description>
@@ -1039,7 +1039,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Сывороточный протеин — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Сывороточный протеин — Спорт/Мышцы — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/syvorotochnyy-protein.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/syvorotochnyy-protein.html</guid>
     <description>Золотой стандарт белка: лейцин + полный амино-профиль; работает при силовых нагрузках и саркопении.</description>
@@ -1047,7 +1047,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Босвеллия — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Босвеллия — Воспаление/Суставы — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/bosvelliya.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/bosvelliya.html</guid>
     <description>Индийский ладан: кислоты ингибируют 5-LOX; боль и скованность при остеоартрите ниже.</description>
@@ -1055,7 +1055,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Берберин — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Берберин — Метаболизм/Диабет — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/berberin.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/berberin.html</guid>
     <description>Алкалоид: снижает сахар, улучшает чувствительность к инсулину.</description>
@@ -1063,7 +1063,7 @@
     <pubDate>Wed, 16 Sep 2026 00:00:00 +0000</pubDate>
   </item>
   <item>
-    <title>Кверцетин — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
+    <title>Кверцетин — Антиоксидант/Воспаление — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/kvertsetin.html</link>
     <guid isPermaLink="true">https://deadsno.github.io/brain-25-evidence/sup/kvertsetin.html</guid>
     <description>Флавоноид: умеренно снижает систолическое АД; на выносливость эффект тривиальный.</description>

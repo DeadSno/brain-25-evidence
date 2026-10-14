@@ -18,17 +18,38 @@
 | Тип | Открыто | Закрыто | Файл |
 |---|---|---|---|
 | a11y | 7 | 25 | [audits/a11y.md](audits/a11y.md) |
-| data (+QA данных) | 18 | 10 | [audits/data.md](audits/data.md) |
+| data (+QA данных) | 20 | 12 | [audits/data.md](audits/data.md) |
 | html-css | 6 | 12 | [audits/html-css.md](audits/html-css.md) |
 | js (+безопасность) | 5 | 8 | [audits/js.md](audits/js.md) |
 | legal | 1 | 5 | [audits/legal.md](audits/legal.md) |
 | mobile | 4 | 17 | [audits/mobile.md](audits/mobile.md) |
 | perf (+проект/релиз) | 5 | 11 | [audits/perf.md](audits/perf.md) |
 | i18n | 3 | 10 | [audits/i18n.md](audits/i18n.md) |
-| seo (+маркетинг) | 7 | 18 | [audits/seo.md](audits/seo.md) |
+| seo (+маркетинг) | 9 | 18 | [audits/seo.md](audits/seo.md) |
 | trends | 17 | 10 | [audits/trends.md](audits/trends.md) |
 | skills | 3 | 7 | [audits/skills.md](audits/skills.md) |
-| **Итого** | **76** | **133** (+12 «не делать», +1 снято, +1 дубль) |
+| **Итого** | **80** | **135** (+12 «не делать», +1 снято, +1 дубль) |
+
+**Пересчёт 14.10.2026 (QA-P1-01).** Находка «20 критичных скриптов без
+тестов» пересчитана: исходный список из 20 имён устарел, а «16» — его
+хвост после вычета 4 покрытых (`BATCH7_SUMMARY.md:115`). Реально по всем
+86 скриптам `scripts/` без теста **55** = 13 test / 9 delete / 34 wontfix.
+43 закрыты **WONTFIX** (сетевые обёртки и исследовательские отчёты),
+остаток разнесён на `QA-P1-04` (2 живых артефакта), `QA-P1-05` (smoke
+на 11), `QA-P1-06` (удаление 7). Индекс по фактическим строкам
+`audits/data.md`: data P1 2 → 4, закрыто P1 8 → 9, data 18/10 → 20/12,
+итого 78/133 → 80/135. §2 «P1» 8 → 10. Подробности —
+`reports/QA_P1_DIAGNOSIS.md`.
+
+**Пересчёт 14.10.2026 (SEO-хвост).** Добавлены `MKT-P2-06`
+(`og:description` ≠ `meta description`, 10/13) и `MKT-P2-07`
+(`twitter:title`/`twitter:description`, 5/13 устарели, 8/13 нет вовсе).
+Оба измерены по `docs/*.html` после коммита `b0a15fd`, не взяты из
+аудита. Индекс пересчитан по фактическим строкам таблицы «Открыто»
+`audits/seo.md`: P2 4 → 6, seo 7 → 9, итого 76 → 78. §2 «P2» 49 → 51,
+итог §2 `1 + 22 + 51 + 1 + 17` = **92**. Новые ID — потому что
+`MKT-P2-04`/`P2-05` уже заняты закрытыми пунктами (`twitter:card`,
+`og:site_name`).
 
 **Пересчёт 13.10.2026 (батч 6).** `MKT-P2-04` (`twitter:card` 139/144 → **144/144**)
 перенесён в «Закрыто» `audits/seo.md` — коммит `80ebdc8`. Индекс пересчитан по
@@ -258,12 +279,14 @@ bounding box, — часть бокса внутри, но **за дугой `bo
 |---|---|---|
 | SK-P0-01 | Субагенты не могут загружать скиллы (инструмент `skill` только у team-lead) | [skills](audits/skills.md) |
 
-### P1 (8)
+### P1 (10)
 
 | ID | Находка | Тип |
 |---|---|---|
 | DATA-COI 🔸 | COI (486 КБ) не показан — частично: агрегаты выведены `a645153`, постатейных данных нет | [data](audits/data.md) |
-| QA-P1-01 | 20 критичных скриптов без тестов | [data](audits/data.md) |
+| QA-P1-04 | `build_interactions_graph` и `build_timeseries` — живые артефакты без теста, сбой молча ломает страницу | [data](audits/data.md) |
+| QA-P1-05 | Smoke на 11 скриптов (import + `--help`) | [data](audits/data.md) |
+| QA-P1-06 | Удаление 7 одноразовых скриптов | [data](audits/data.md) |
 | CYBER-P1-01 | Нет security-заголовков (CSP/HSTS/…) — **WONTFIX** (14.10.2026): хостинг не выставляет заголовки, закрыть нечем | [js](audits/js.md) |
 | CYBER-P1-02 | Bootstrap 5.0.0-beta3 устарел — **WONTFIX** (14.10.2026): вендор только на `graph.html`, страница удаляется в v5.6.5 (PAGES_REVIEW Вариант B) | [js](audits/js.md) |
 | SEO-P1-01 | `<title>` вне 40–60 на **87/145**, медиана 61 | [seo](audits/seo.md) |
@@ -276,7 +299,7 @@ bounding box, — часть бокса внутри, но **за дугой `bo
 > DATA-COI, DATA-P2-02, A11Y-P2-06, A11Y-P2-08, MOB-P2-11,
 > SK-P1-03, SK-STALE-02.
 
-### P2 (46)
+### P2 (48)
 
 | ID | Находка | Тип |
 |---|---|---|
@@ -296,6 +319,8 @@ bounding box, — часть бокса внутри, но **за дугой `bo
 | REL-P2-01, PRJ-P2-01, P2-02 | ~40 worktree detached HEAD, ложные находки project | [perf](audits/perf.md) |
 | I18N-P2-01…03 | 229 строк JS + inline, **748** атрибутов, 517 стрелок | [i18n](audits/i18n.md) |
 | SEO-P2-01, P2-03, MKT-P2-01, P2-02 | Дубли `description`, OG-теги. Закрыто: `twitter:card` (`80ebdc8`) и `og:site_name` (`24fa97f`) — по 144/144 | [seo](audits/seo.md) |
+| MKT-P2-06 | `og:description` ≠ `meta description` на 10/13 — расхождение осталось после выравнивания og:title | [seo](audits/seo.md) |
+| MKT-P2-07 | `twitter:title`/`twitter:description` устарели на 5 страниц; на 8/13 тегов нет | [seo](audits/seo.md) |
 
 ### Stale (1)
 
