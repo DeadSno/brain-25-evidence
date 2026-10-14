@@ -18,8 +18,13 @@ ROOT = Path(__file__).resolve().parents[1]
 DATA_JSON = ROOT / "docs" / "data.json"
 OUT_JSON = ROOT / "docs" / "interactions_graph.json"
 
-# Добавки, которые не являются узлами-целями (пропускаем)
-SKIP_TARGETS = {"", "—", "-", "нет"}
+# Добавки, которые не являются узлами-целями (пропускаем).
+# «нет данных» — маркер отсутствия взаимодействия, тот же, что в
+# build_sup.py:55 (NO_DATA) и build_sup.py:110 (NO_INTERACTION_MARK);
+# graph_interactions.py:57 отфильтровывает его сравнением строки.
+# Без него в графе появлялся узел-лекарство «нет данных» с 51 ребром
+# (26 % всех рёбер drugs) — 51 карточка с `with: "нет данных"`.
+SKIP_TARGETS = {"", "—", "-", "нет", "нет данных"}
 
 
 def build_lookup(data: list[dict]) -> dict[str, str]:
@@ -47,6 +52,13 @@ def match_supplement(with_str: str, lookup: dict[str, str]) -> str | None:
 
 
 def main() -> int:
+    import io, sys
+    # Windows-консоль в cp1251 не знает «×» (0xD7 у неё — ÷). Без
+    # перенастройки генератор падал ПОСЛЕ записи артефакта: файл свежий,
+    # а код возврата 1. Замерено 2026-10-14 — UnicodeEncodeError на строке
+    # «×» в топе лекарств. Как перенастраивают analyze_funding.py:18
+    # и analyze_crossref.py:22.
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace")
     data = json.loads(DATA_JSON.read_text(encoding="utf-8"))
     lookup = build_lookup(data)
 

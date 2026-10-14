@@ -118,8 +118,15 @@ def make_repo(tmp_path: Path, records: list[dict]) -> Path:
     return root
 
 
-def run_generator(root: Path) -> tuple[int, str]:
-    """Запустить генератор в клоне. Возвращает (returncode, вывод)."""
+def run_generator(root: Path, console_encoding: str = "utf-8") -> tuple[int, str]:
+    """Запустить генератор в клоне. Возвращает (returncode, вывод).
+
+    console_encoding — это PYTHONIOENCODING дочернего Python. По умолчанию
+    utf-8 (см. _base_env), но тест legacy-консоли намеренно запускает
+    генератор под cp1251.
+    """
+    env = _base_env()
+    env["PYTHONIOENCODING"] = console_encoding
     proc = subprocess.run(
         [sys.executable, str(root / "scripts" / SCRIPT.name)],
         cwd=root,
@@ -127,7 +134,7 @@ def run_generator(root: Path) -> tuple[int, str]:
         text=True,
         encoding="utf-8",
         errors="replace",
-        env=_base_env(),
+        env=env,
     )
     return proc.returncode, proc.stdout + proc.stderr
 
@@ -262,6 +269,71 @@ def test_drug_nodes_have_kind(built):
     assert kinds, "drugs: ни одного узла"
 
 
+#: Маркер «взаимодействий нет». build_sup.py:55,110 знает его как NO_DATA /
+#: NO_INTERACTION_MARK, graph_interactions.py:57 отфильтровывает сравнением.
+#: Сгенерированный без этого узел-лекарство назывался бы «нет данных».
+PLACEHOLDER = "нет данных"
+
+PLACEHOLDER_RECORDS = [
+    {"id": "aaa", "name": "ААА", "code": 1, "grade": "A",
+     "interactions": [
+         {"with": PLACEHOLDER, "severity": "medium", "note": "нет данных"},
+         {"with": "варфарин", "severity": "high", "note": ""},
+     ],
+     "synergists": [], "antagonists": []},
+    {"id": "bbb", "name": "БББ", "code": 2, "grade": "B",
+     "interactions": [{"with": PLACEHOLDER, "severity": "medium", "note": ""}],
+     "synergists": [], "antagonists": []},
+]
+
+
+def test_placeholder_target_is_not_a_node(tmp_path):
+    """`with: "нет данных"` — маркер отсутствия, а не название лекарства.
+
+    Без фильтра в графе появляется вершина «нет данных», к которой сходятся
+    все рёбра таких карточек: на живых данных это 51 ребро, то есть треть
+    графа лекарств называлась «нет данных». Замерено 2026-10-14.
+    """
+    root = make_repo(tmp_path, PLACEHOLDER_RECORDS)
+    rc, out = run_generator(root)
+    assert rc == 0, out
+    graph = load_graph(root)
+    for mode in MODES:
+        ids = {n["id"] for n in graph[mode]["nodes"]}
+        assert PLACEHOLDER not in ids, f"{mode}: маркер попал в узлы графа"
+        hits = [e for e in graph[mode]["edges"]
+                if e.get("to") == PLACEHOLDER or e.get("from") == PLACEHOLDER]
+        assert not hits, f"{mode}: {len(hits)} рёбер уходят в маркер"
+
+
+def test_card_with_only_placeholder_has_no_edges(tmp_path):
+    """Карточка, у которой все взаимодействия — маркеры, в граф не попадает.
+
+    Иначе висячая вершина: страница рисует её, но рёбер у неё нет.
+    """
+    root = make_repo(tmp_path, PLACEHOLDER_RECORDS)
+    rc, out = run_generator(root)
+    assert rc == 0, out
+    graph = load_graph(root)
+    for mode in MODES:
+        assert "bbb" not in {n["id"] for n in graph[mode]["nodes"]}, (
+            f"{mode}: карточка без реальных взаимодействий попала в граф"
+        )
+
+
+def test_runs_under_legacy_console_encoding(tmp_path):
+    """Консоль cp1251 не знает «×» (0xD7 у неё — ÷).
+
+    Без перенастройки stdout генератор падал UnicodeEncodeError ПОСЛЕ записи
+    файла: артефакт на диске свежий, а код возврата 1. В pre-commit это
+    выглядело бы как поломка репозитория. Замерено 2026-10-14.
+    """
+    root = make_repo(tmp_path, RECORDS)
+    rc, out = run_generator(root, console_encoding="cp1251")
+    assert rc == 0, f"генератор упал под cp1251:\n{out}"
+    assert (root / "docs" / "interactions_graph.json").is_file()
+
+
 def test_empty_input_yields_valid_empty_graph(tmp_path):
     """Пустой data.json обязан дать валидный ПУСТОЙ граф, а не исключение.
 
@@ -331,6 +403,19 @@ def test_committed_graph_severities_known(committed, mode):
 def test_committed_graph_types_known(committed, mode):
     unknown = sorted({e.get("type") for e in committed[mode]["edges"]} - EDGE_TYPES)
     assert not unknown, f"{mode}: неизвестные type {unknown}"
+
+
+def test_committed_graph_has_no_placeholder(committed):
+    """В закоммиченном графе нет вершины «нет данных» ни в одном режиме.
+
+    Проверка на самом артефакте: она ловит возврат дефекта не только правкой
+    генератора, но и новыми карточками в data.json (51 штука на 2026-10-14).
+    """
+    for mode in MODES:
+        ids = {n["id"] for n in committed[mode]["nodes"]}
+        assert PLACEHOLDER not in ids, (
+            f"{mode}: в закоммиченном графе есть вершина-маркер {PLACEHOLDER!r}"
+        )
 
 
 def test_committed_file_not_truncated():
