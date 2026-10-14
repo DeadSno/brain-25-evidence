@@ -260,7 +260,6 @@ brain-25-evidence/
 │   ├── fetch_hedges_g.py          # двухпроходный алгоритм g
 │   ├── enrich_dois.py             # DOI в key_sources
 │   ├── audit_stale.py             # квартальный аудит PMIDs >5 лет
-│   ├── make_og.py                 # генерация og.png
 │   ├── build_slim.py              # slim JSON для Streamlit Cloud
 │   └── e2e_smoke.py               # headless smoke-тесты сайта
 ├── templates/                     # Jinja-шаблоны генерации sup/*.html и каталога
