@@ -13,7 +13,7 @@
 
 Один PMID = одна карточка (устраняет cross-matching network-МА).
 
-Пишет в data.json: hedges_g, hedges_g_ci, hedges_g_outcome, hedges_g_pmid.
+Пишет в data.json: hedges_g, hedges_g_ci, hedges_g_pmid.
 Плюс сохраняет всех кандидатов в docs/hedges_g_all.json (для отладки).
 
 Использование:
@@ -181,7 +181,9 @@ def main() -> int:
         if args.apply:
             c["hedges_g"] = new_g
             c["hedges_g_ci"] = best.get("ci")
-            c["hedges_g_outcome"] = best.get("outcome") or ""
+            # hedges_g_outcome удалён (DATA-P1-02): поле не читалось ни одним
+            # docs/*.html и docs/*.js, а заполнялось словарём OUTCOME_TERMS,
+            # который по абстрактам MA-статей давал 0 совпадений на 42 карточках.
             c["hedges_g_pmid"] = best["pmid"]
 
     # ── Сохранение ────────────────────────────────────────────────────
