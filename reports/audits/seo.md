@@ -5,9 +5,9 @@
 | **Тип** | seo — мета-теги, индексация, structured data; маркетинг — воронка, CTA, соцдоказательства, тексты |
 | **Источники** | `audit_D_seo.md`, `audit_C_marketing.md`, `AUDIT_C_SUMMARY.md`, `STAGE4_SITEMAP.md`, `STAGE5_CANONICAL_RSS.md`, `FIX_GSC_FILE.md` |
 | **Консолидация** | 11.10.2026, ветка `v5.6-dev` |
-| **Bookkeeping** | 13.10.2026 — 6 закрыто, 2 числа перемерено (исправлено) |
-| **Открыто** | P1 — 10, P2 — 5 |
-| **Закрыто** | P0 — 1, P2 — 9 |
+| **Bookkeeping** | 14.10.2026 — 7 закрыто, 2 числа пересчитано |
+| **Открыто** | P1 — 10, P2 — 4 |
+| **Закрыто** | P0 — 1, P2 — 10 |
 
 ---
 
@@ -41,7 +41,6 @@
 | SEO-P2-03 | Одна ссылка на `/sup/` | `docs/index.html` | audit_D_seo |
 | MKT-P2-01 | `<title>` > 60 на 3 страницах → перемерено: **82 из 145**. Дубль `SEO-P1-01` (в `OPEN_TECHDEBT.md:276` помечен дублем) | marketing M9 |
 | MKT-P2-02 | `description` < 120 на 5 страницах → перемерено: **88 из 145**. Дубль `SEO-P1-02` | marketing M10 |
-| MKT-P2-05 | `og:site_name` **10/144** (было 5) — добавлен `80ebdc8` на `atlas`, `calculator`, `interactions`, `map`, `trends`. Не хватает на `index`, `privacy`, `support` и **131** `sup/*.html` — они генерируются, правка в генераторе | marketing M13 |
 
 ---
 
@@ -59,6 +58,7 @@
 | MKT-P2-07 | `og:url` 3 → **144/144** | `f451b57`, `c3a4dda` | 30.09 + 08.10.2026 |
 | MKT-P2-08 | `og:description` 2 → **144/144** | `f451b57`, `c3a4dda` | 30.09 + 08.10.2026 |
 | MKT-P2-04 | `twitter:card` **139/144 → 144/144** — добавлен на 5 корневых (`atlas`, `calculator`, `interactions`, `map`, `trends`). Перемер 13.10.2026 по всем 146 HTML в `docs/` минус верификация GSC и `offline.html` | `80ebdc8` | 13.10.2026 |
+| MKT-P2-05 | `og:site_name` **10/144 → 144/144** — добавлен на все 131 `sup/*.html` (шаблон `templates/sup.html.j2`) и на `index`, `privacy`, `support`. Перемер 14.10.2026: из 145 HTML минус верификация GSC — единственный без тега `docs/offline.html` (PWA-заглушка), тот же знаменатель, что и у `MKT-P2-04` | `cf999e9`, `24fa97f` | 13–14.10.2026 |
 
 ---
 
@@ -86,6 +86,8 @@
 Знаменатель 13 = 14 HTML в `docs/` минус `google4a9d23e35c6c3e23.html`
 (файл верификации) и `offline.html` (PWA-заглушка, OG не нужен, но она
 в `sitemap.xml` — при желании OG туда можно дописать отдельно).
+
+**Итог 13–14.10.2026:** тег всё-таки добавлен — `cf999e9` (131 `sup/*.html` через шаблон `templates/sup.html.j2`) и `24fa97f` (`index`, `privacy`, `support`). Стало **144/144**. Без тега из 145 HTML `docs/` остаётся только `docs/offline.html` (PWA-заглушка) — тот же знаменатель, что у `MKT-P2-04`. ID закрыт — `MKT-P2-05`.
 
 ### Знаменатели замеров (метод 13.10.2026)
 
