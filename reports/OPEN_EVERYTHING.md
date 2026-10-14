@@ -73,7 +73,7 @@ ID → сверка спорных и «закрытых» по коду (grep/g
 | 37 | SEO-P1-02 | `description` вне 120–160 на 91/145 | seo.md | M | docs/*.html |
 | 38 | PERF-P1-01 | `data.json` 760 КБ через script.js:32; ленивая batch C не завершена — нужен повторный CWV-замер | perf.md | M | docs/script.js |
 | 39 | PERF-P1-02 | `trends.html` CLS 0.1101 — нужен повторный замер | perf.md | M | docs/trends.html |
-| 40 | SK-P1-03 (остаток) | `cyberaudit`: многострочный `description` (license уже добавлен `12119a5`) | skills.md | S | .opencode/skills/cyberaudit/SKILL.md |
+| 40 | SK-P1-03 (остаток) | `cyberaudit`: многострочный `description` (license уже добавлен `12119a5`) | skills.md | S | .opencode/skills/cyberaudit/SKILL.md — **WONTFIX** (14.10.2026): путь в `.gitignore` |
 | 41 | BATCH3-остаток | Устаревшие ссылки в `audits/i18n.md:29` (science2.js:188, script.js:787 → фактически 18/13) | FINAL_WAVE_BATCH3 | S | reports/audits/i18n.md |
 
 ### ⚠ Спорные — требуют замера или решения (9)
