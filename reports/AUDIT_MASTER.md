@@ -18,7 +18,7 @@
 | Тип | Открыто | Закрыто | Файл |
 |---|---|---|---|
 | a11y | 7 | 25 | [audits/a11y.md](audits/a11y.md) |
-| data (+QA данных) | 18 | 10 | [audits/data.md](audits/data.md) |
+| data (+QA данных) | 20 | 12 | [audits/data.md](audits/data.md) |
 | html-css | 6 | 12 | [audits/html-css.md](audits/html-css.md) |
 | js (+безопасность) | 5 | 8 | [audits/js.md](audits/js.md) |
 | legal | 1 | 5 | [audits/legal.md](audits/legal.md) |
@@ -28,7 +28,18 @@
 | seo (+маркетинг) | 9 | 18 | [audits/seo.md](audits/seo.md) |
 | trends | 17 | 10 | [audits/trends.md](audits/trends.md) |
 | skills | 3 | 7 | [audits/skills.md](audits/skills.md) |
-| **Итого** | **78** | **133** (+12 «не делать», +1 снято, +1 дубль) |
+| **Итого** | **80** | **135** (+12 «не делать», +1 снято, +1 дубль) |
+
+**Пересчёт 14.10.2026 (QA-P1-01).** Находка «20 критичных скриптов без
+тестов» пересчитана: исходный список из 20 имён устарел, а «16» — его
+хвост после вычета 4 покрытых (`BATCH7_SUMMARY.md:115`). Реально по всем
+86 скриптам `scripts/` без теста **55** = 13 test / 9 delete / 34 wontfix.
+43 закрыты **WONTFIX** (сетевые обёртки и исследовательские отчёты),
+остаток разнесён на `QA-P1-04` (2 живых артефакта), `QA-P1-05` (smoke
+на 11), `QA-P1-06` (удаление 7). Индекс по фактическим строкам
+`audits/data.md`: data P1 2 → 4, закрыто P1 8 → 9, data 18/10 → 20/12,
+итого 78/133 → 80/135. §2 «P1» 8 → 10. Подробности —
+`reports/QA_P1_DIAGNOSIS.md`.
 
 **Пересчёт 14.10.2026 (SEO-хвост).** Добавлены `MKT-P2-06`
 (`og:description` ≠ `meta description`, 10/13) и `MKT-P2-07`
@@ -265,12 +276,14 @@ bounding box, — часть бокса внутри, но **за дугой `bo
 |---|---|---|
 | SK-P0-01 | Субагенты не могут загружать скиллы (инструмент `skill` только у team-lead) | [skills](audits/skills.md) |
 
-### P1 (8)
+### P1 (10)
 
 | ID | Находка | Тип |
 |---|---|---|
 | DATA-COI 🔸 | COI (486 КБ) не показан — частично: агрегаты выведены `a645153`, постатейных данных нет | [data](audits/data.md) |
-| QA-P1-01 | 20 критичных скриптов без тестов | [data](audits/data.md) |
+| QA-P1-04 | `build_interactions_graph` и `build_timeseries` — живые артефакты без теста, сбой молча ломает страницу | [data](audits/data.md) |
+| QA-P1-05 | Smoke на 11 скриптов (import + `--help`) | [data](audits/data.md) |
+| QA-P1-06 | Удаление 7 одноразовых скриптов | [data](audits/data.md) |
 | CYBER-P1-01 | Нет security-заголовков (CSP/HSTS/…) — **WONTFIX** (14.10.2026): хостинг не выставляет заголовки, закрыть нечем | [js](audits/js.md) |
 | CYBER-P1-02 | Bootstrap 5.0.0-beta3 устарел | [js](audits/js.md) |
 | SEO-P1-01 | `<title>` вне 40–60 на **87/145**, медиана 61 | [seo](audits/seo.md) |
