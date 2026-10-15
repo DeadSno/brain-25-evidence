@@ -1,6 +1,6 @@
 {
-  "timestamp": "2026-09-25T06:28:21.415884+00:00",
-  "dry_run": false,
+  "timestamp": "2026-10-15T08:42:52.486047+00:00",
+  "dry_run": true,
   "cards": {
     "Бакопа": {
       "status": "no_candidates"
@@ -19,6 +19,10 @@
     },
     "Гуперзин А": {
       "status": "no_candidates"
+    },
+    "Мелатонин": {
+      "status": "error",
+      "error": "ConnectionError: ('Connection aborted.', ConnectionResetError(10054, 'Удаленный хост принудительно разорвал существующее подключение', None, 10054, None))"
     },
     "Бузина": {
       "status": "no_candidates"
@@ -81,6 +85,27 @@
       "status": "no_candidates"
     },
     "Молибден": {
+      "status": "no_candidates"
+    },
+    "Бор": {
+      "status": "no_candidates"
+    },
+    "Метионин": {
+      "status": "no_candidates"
+    },
+    "Орнитин": {
+      "status": "no_candidates"
+    },
+    "Майтаке": {
+      "status": "no_candidates"
+    },
+    "Пролин": {
+      "status": "no_candidates"
+    },
+    "Серин": {
+      "status": "no_candidates"
+    },
+    "Аланин": {
       "status": "no_candidates"
     },
     "Тирозин": {
@@ -171,16 +196,6 @@
       "candidates_count": 1,
       "reused_shared": false
     },
-    "Гиалуроновая кислота": {
-      "status": "ok",
-      "old_g": -0.38,
-      "new_g": -0.38,
-      "ci": null,
-      "outcome": "pain",
-      "pmid": "42287090",
-      "candidates_count": 1,
-      "reused_shared": false
-    },
     "Бета-глюканы овса": {
       "status": "ok",
       "old_g": 0.86,
@@ -191,16 +206,6 @@
       ],
       "outcome": "acetate",
       "pmid": "34152334",
-      "candidates_count": 1,
-      "reused_shared": false
-    },
-    "Расторопша": {
-      "status": "ok",
-      "old_g": -0.39,
-      "new_g": -0.39,
-      "ci": null,
-      "outcome": "cholesterol",
-      "pmid": "40738719",
       "candidates_count": 1,
       "reused_shared": false
     },
@@ -220,10 +225,13 @@
     "NMN": {
       "status": "ok",
       "old_g": 0.22,
-      "new_g": 0.22,
-      "ci": null,
-      "outcome": "",
-      "pmid": "42163202",
+      "new_g": 0.63,
+      "ci": [
+        0.4,
+        1.23
+      ],
+      "outcome": "disability",
+      "pmid": "42399091",
       "candidates_count": 1,
       "reused_shared": false
     },
@@ -268,7 +276,7 @@
     },
     "Селен": {
       "status": "ok",
-      "old_g": null,
+      "old_g": 0.35,
       "new_g": 0.35,
       "ci": [
         0.02,
@@ -281,7 +289,7 @@
     },
     "Витамин K1": {
       "status": "ok",
-      "old_g": null,
+      "old_g": -0.22,
       "new_g": -0.22,
       "ci": [
         -1.92,
@@ -294,7 +302,7 @@
     },
     "Цистеин": {
       "status": "ok",
-      "old_g": null,
+      "old_g": -1.75,
       "new_g": -1.75,
       "ci": [
         -2.19,
@@ -303,6 +311,71 @@
       "outcome": "",
       "pmid": "41546714",
       "candidates_count": 1,
+      "reused_shared": false
+    },
+    "S. boulardii": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": -1.63,
+      "ci": [
+        -2.08,
+        -1.18
+      ],
+      "outcome": "",
+      "pmid": "40535538",
+      "candidates_count": 1,
+      "reused_shared": false
+    },
+    "Бетаин": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": 0.49,
+      "ci": [
+        0.01,
+        0.98
+      ],
+      "outcome": "strength",
+      "pmid": "39514262",
+      "candidates_count": 1,
+      "reused_shared": false
+    },
+    "PABA": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": -0.06,
+      "ci": [
+        -0.22,
+        0.1
+      ],
+      "outcome": "",
+      "pmid": "33141449",
+      "candidates_count": 1,
+      "reused_shared": false
+    },
+    "Омега-3": {
+      "status": "ok",
+      "old_g": 0.21,
+      "new_g": 0.21,
+      "ci": [
+        0.04,
+        0.38
+      ],
+      "outcome": "",
+      "pmid": "42433395",
+      "candidates_count": 2,
+      "reused_shared": false
+    },
+    "Витамин D": {
+      "status": "ok",
+      "old_g": 0.13,
+      "new_g": 0.13,
+      "ci": [
+        -0.22,
+        0.49
+      ],
+      "outcome": "bone",
+      "pmid": "42746921",
+      "candidates_count": 2,
       "reused_shared": false
     },
     "Магний": {
@@ -346,7 +419,7 @@
     },
     "NAC": {
       "status": "ok",
-      "old_g": -1.75,
+      "old_g": -0.43,
       "new_g": -0.43,
       "ci": [
         -0.71,
@@ -360,13 +433,26 @@
     "Готу кола": {
       "status": "ok",
       "old_g": -0.06,
-      "new_g": -0.06,
+      "new_g": 0.71,
       "ci": [
-        -0.22,
-        0.1
+        0.01,
+        1.41
       ],
-      "outcome": "",
-      "pmid": "33141449",
+      "outcome": "mood",
+      "pmid": "28878245",
+      "candidates_count": 2,
+      "reused_shared": false
+    },
+    "ГАБА": {
+      "status": "ok",
+      "old_g": -0.6,
+      "new_g": -0.6,
+      "ci": [
+        -0.91,
+        -0.28
+      ],
+      "outcome": "pain",
+      "pmid": "42562184",
       "candidates_count": 2,
       "reused_shared": false
     },
@@ -445,6 +531,16 @@
       ],
       "outcome": "concentration",
       "pmid": "37709042",
+      "candidates_count": 2,
+      "reused_shared": false
+    },
+    "Расторопша": {
+      "status": "ok",
+      "old_g": -0.39,
+      "new_g": -2.72,
+      "ci": null,
+      "outcome": "",
+      "pmid": "42437897",
       "candidates_count": 2,
       "reused_shared": false
     },
@@ -541,7 +637,7 @@
     },
     "Ниацинамид": {
       "status": "ok",
-      "old_g": null,
+      "old_g": -0.03,
       "new_g": -0.03,
       "ci": [
         -0.13,
@@ -552,17 +648,43 @@
       "candidates_count": 2,
       "reused_shared": false
     },
-    "Омега-3": {
+    "LGG": {
       "status": "ok",
-      "old_g": 0.21,
-      "new_g": 0.21,
+      "old_g": null,
+      "new_g": 0.11,
       "ci": [
-        0.04,
-        0.38
+        -0.22,
+        0.45
       ],
       "outcome": "",
-      "pmid": "42433395",
-      "candidates_count": 3,
+      "pmid": "39060543",
+      "candidates_count": 2,
+      "reused_shared": false
+    },
+    "B. lactis": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": 0.71,
+      "ci": [
+        0.37,
+        1.04
+      ],
+      "outcome": "",
+      "pmid": "36372047",
+      "candidates_count": 2,
+      "reused_shared": false
+    },
+    "Калий": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": -1.15,
+      "ci": [
+        -1.27,
+        -1.02
+      ],
+      "outcome": "",
+      "pmid": "42812167",
+      "candidates_count": 2,
       "reused_shared": false
     },
     "Пикногенол": {
@@ -575,19 +697,6 @@
       ],
       "outcome": "",
       "pmid": "33460048",
-      "candidates_count": 3,
-      "reused_shared": false
-    },
-    "ГАБА": {
-      "status": "ok",
-      "old_g": -0.6,
-      "new_g": -0.6,
-      "ci": [
-        -0.91,
-        -0.28
-      ],
-      "outcome": "pain",
-      "pmid": "42562184",
       "candidates_count": 3,
       "reused_shared": false
     },
@@ -614,6 +723,32 @@
       ],
       "outcome": "",
       "pmid": "36307768",
+      "candidates_count": 3,
+      "reused_shared": false
+    },
+    "Кальций": {
+      "status": "ok",
+      "old_g": 0.31,
+      "new_g": -1.2,
+      "ci": [
+        -2.18,
+        -0.21
+      ],
+      "outcome": "",
+      "pmid": "42021229",
+      "candidates_count": 3,
+      "reused_shared": false
+    },
+    "Гиалуроновая кислота": {
+      "status": "ok",
+      "old_g": -0.38,
+      "new_g": 2.12,
+      "ci": [
+        0.81,
+        3.44
+      ],
+      "outcome": "pain",
+      "pmid": "42202873",
       "candidates_count": 3,
       "reused_shared": false
     },
@@ -684,7 +819,7 @@
     },
     "Йод": {
       "status": "ok",
-      "old_g": null,
+      "old_g": -0.14,
       "new_g": -0.14,
       "ci": [
         -0.23,
@@ -695,16 +830,42 @@
       "candidates_count": 3,
       "reused_shared": false
     },
-    "Витамин D": {
+    "GLA": {
       "status": "ok",
-      "old_g": 0.13,
-      "new_g": 0.13,
+      "old_g": null,
+      "new_g": 0.14,
       "ci": [
-        -0.22,
-        0.49
+        -0.45,
+        0.73
       ],
-      "outcome": "bone",
-      "pmid": "42746921",
+      "outcome": "",
+      "pmid": "38963342",
+      "candidates_count": 3,
+      "reused_shared": false
+    },
+    "Марганец": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": 0.505,
+      "ci": [
+        0.246,
+        0.764
+      ],
+      "outcome": "",
+      "pmid": "40829714",
+      "candidates_count": 3,
+      "reused_shared": false
+    },
+    "Кофеин": {
+      "status": "ok",
+      "old_g": 0.24,
+      "new_g": 0.24,
+      "ci": [
+        0.13,
+        0.35
+      ],
+      "outcome": "performance",
+      "pmid": "42588052",
       "candidates_count": 4,
       "reused_shared": false
     },
@@ -760,19 +921,6 @@
       "candidates_count": 4,
       "reused_shared": false
     },
-    "Кальций": {
-      "status": "ok",
-      "old_g": 0.31,
-      "new_g": 0.31,
-      "ci": [
-        0.06,
-        0.55
-      ],
-      "outcome": "",
-      "pmid": "41470812",
-      "candidates_count": 4,
-      "reused_shared": false
-    },
     "Псиллиум": {
       "status": "ok",
       "old_g": -0.67,
@@ -812,22 +960,9 @@
       "candidates_count": 4,
       "reused_shared": false
     },
-    "EPA": {
-      "status": "ok",
-      "old_g": -0.75,
-      "new_g": -0.75,
-      "ci": [
-        -1.14,
-        -0.36
-      ],
-      "outcome": "exercis",
-      "pmid": "42124047",
-      "candidates_count": 4,
-      "reused_shared": false
-    },
     "Карнозин": {
       "status": "ok",
-      "old_g": null,
+      "old_g": -0.53,
       "new_g": -0.53,
       "ci": [
         -0.75,
@@ -840,7 +975,7 @@
     },
     "Женьшень": {
       "status": "ok",
-      "old_g": null,
+      "old_g": -0.13,
       "new_g": -0.13,
       "ci": [
         -0.44,
@@ -851,17 +986,17 @@
       "candidates_count": 4,
       "reused_shared": false
     },
-    "Кофеин": {
+    "Медь": {
       "status": "ok",
-      "old_g": 0.24,
-      "new_g": 0.24,
+      "old_g": null,
+      "new_g": -1.01,
       "ci": [
-        0.13,
-        0.35
+        -1.51,
+        -0.52
       ],
-      "outcome": "performance",
-      "pmid": "42588052",
-      "candidates_count": 5,
+      "outcome": "ferritin",
+      "pmid": "42280439",
+      "candidates_count": 4,
       "reused_shared": false
     },
     "Гинкго": {
@@ -874,19 +1009,6 @@
       ],
       "outcome": "cognition",
       "pmid": "41198594",
-      "candidates_count": 5,
-      "reused_shared": false
-    },
-    "Куркумин": {
-      "status": "ok",
-      "old_g": 0.033,
-      "new_g": 0.033,
-      "ci": [
-        -0.216,
-        0.281
-      ],
-      "outcome": "",
-      "pmid": "42499105",
       "candidates_count": 5,
       "reused_shared": false
     },
@@ -981,6 +1103,19 @@
       "candidates_count": 5,
       "reused_shared": false
     },
+    "Астрагал": {
+      "status": "ok",
+      "old_g": 0.47,
+      "new_g": 0.47,
+      "ci": [
+        0.31,
+        0.62
+      ],
+      "outcome": "crp",
+      "pmid": "41286474",
+      "candidates_count": 5,
+      "reused_shared": false
+    },
     "Глутатион": {
       "status": "ok",
       "old_g": 0.74,
@@ -991,6 +1126,19 @@
       ],
       "outcome": "",
       "pmid": "42413192",
+      "candidates_count": 5,
+      "reused_shared": false
+    },
+    "EPA": {
+      "status": "ok",
+      "old_g": -0.75,
+      "new_g": -0.75,
+      "ci": [
+        -1.14,
+        -0.36
+      ],
+      "outcome": "exercis",
+      "pmid": "42124047",
       "candidates_count": 5,
       "reused_shared": false
     },
@@ -1020,6 +1168,19 @@
       "candidates_count": 5,
       "reused_shared": false
     },
+    "DHA": {
+      "status": "ok",
+      "old_g": null,
+      "new_g": 1.05,
+      "ci": [
+        0.54,
+        1.55
+      ],
+      "outcome": "concentration",
+      "pmid": "42520986",
+      "candidates_count": 5,
+      "reused_shared": false
+    },
     "B12": {
       "status": "ok",
       "old_g": 0.33,
@@ -1030,6 +1191,19 @@
       ],
       "outcome": "concentration",
       "pmid": "40752545",
+      "candidates_count": 6,
+      "reused_shared": false
+    },
+    "Куркумин": {
+      "status": "ok",
+      "old_g": 0.033,
+      "new_g": 0.033,
+      "ci": [
+        -0.216,
+        0.281
+      ],
+      "outcome": "",
+      "pmid": "42499105",
       "candidates_count": 6,
       "reused_shared": false
     },
@@ -1085,19 +1259,6 @@
       "candidates_count": 6,
       "reused_shared": false
     },
-    "Астрагал": {
-      "status": "ok",
-      "old_g": 0.47,
-      "new_g": 0.47,
-      "ci": [
-        0.31,
-        0.62
-      ],
-      "outcome": "crp",
-      "pmid": "41286474",
-      "candidates_count": 6,
-      "reused_shared": false
-    },
     "Ашваганда": {
       "status": "ok",
       "old_g": 0.6,
@@ -1113,7 +1274,7 @@
     },
     "Бета-аланин": {
       "status": "ok",
-      "old_g": -0.53,
+      "old_g": -1.66,
       "new_g": -1.66,
       "ci": [
         -2.92,
@@ -1126,7 +1287,7 @@
     },
     "HMB": {
       "status": "ok",
-      "old_g": null,
+      "old_g": 0.24,
       "new_g": 0.24,
       "ci": [
         -0.01,
@@ -1147,19 +1308,6 @@
       ],
       "outcome": "strength",
       "pmid": "41901084",
-      "candidates_count": 8,
-      "reused_shared": false
-    },
-    "Мелатонин": {
-      "status": "ok",
-      "old_g": -0.43,
-      "new_g": -0.43,
-      "ci": [
-        -0.65,
-        -0.2
-      ],
-      "outcome": "fatigue",
-      "pmid": "42726650",
       "candidates_count": 8,
       "reused_shared": false
     },
@@ -1191,10 +1339,10 @@
     }
   },
   "totals": {
-    "found": 86,
-    "with_ci": 82,
-    "no_candidates": 27,
-    "error": 0,
+    "found": 95,
+    "with_ci": 93,
+    "no_candidates": 34,
+    "error": 1,
     "reused_shared": 0
   }
 }
