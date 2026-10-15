@@ -152,9 +152,13 @@ def main() -> int:
         "supplements": {"nodes": nodes_supp, "edges": supp_unique},
         "drugs": {"nodes": nodes_drug, "edges": drug_unique},
     }
+    # newline="\n" обязателен: в текстовом режиме Windows дописывает CRLF,
+    # а .gitattributes нормализует файл при коммите. Тест свежести сравнивает
+    # байты, поэтому на Windows он падал при идентичном содержимом JSON.
     OUT_JSON.write_text(
         json.dumps(out, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
+        newline="\n",
     )
 
     print(f"[ok] {OUT_JSON}")
