@@ -119,6 +119,12 @@ def main() -> int:
     for idx, c in enumerate(order, 1):
         cid = c["id"]
         cands = cands_by_id[cid]
+        # Ключ обязан попасть в all_cands при ЛЮБОМ исходе: файл пишется из
+        # all_cands, а ветки errors/no_term ниже делают continue до строки,
+        # где он заполняется. Без этого карточка выпадает из файла целиком:
+        # 15.10.2026 один ConnectionResetError стёр ключ «Мелатонин» с 8
+        # заполненными записями (DATA-P2-16).
+        all_cands[cid] = []
 
         if cid in errors:
             print(f"[{idx:2d}/81] {cid:25s} | ОШИБКА: {errors[cid]}")

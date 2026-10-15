@@ -18,17 +18,36 @@
 | Тип | Открыто | Закрыто | Файл |
 |---|---|---|---|
 | a11y | 7 | 25 | [audits/a11y.md](audits/a11y.md) |
-| data (+QA данных) | 15 | 21 | [audits/data.md](audits/data.md) |
+| data (+QA данных) | 14 | 23 | [audits/data.md](audits/data.md) |
 | html-css | 6 | 12 | [audits/html-css.md](audits/html-css.md) |
 | js (+безопасность) | 5 | 8 | [audits/js.md](audits/js.md) |
 | legal | 1 | 5 | [audits/legal.md](audits/legal.md) |
 | mobile | 4 | 17 | [audits/mobile.md](audits/mobile.md) |
 | perf (+проект/релиз) | 5 | 11 | [audits/perf.md](audits/perf.md) |
 | i18n | 3 | 10 | [audits/i18n.md](audits/i18n.md) |
-| seo (+маркетинг) | 8 | 20 | [audits/seo.md](audits/seo.md) |
+| seo (+маркетинг) | 7 | 20 | [audits/seo.md](audits/seo.md) |
 | trends | 17 | 10 | [audits/trends.md](audits/trends.md) |
 | skills | 3 | 7 | [audits/skills.md](audits/skills.md) |
-| **Итого** | **74** | **146** (+12 «не делать», +1 снято, +1 дубль) |
+| **Итого** | **72** | **148** (+12 «не делать», +1 снято, +1 дубль) |
+
+**Пересчёт 15.10.2026 (батч 10, DATA).** `DATA-P2-07` **закрыта** — прогон
+`fetch_hedges_g.py` доведён до **130 ключей / 96 непустых / 34 пустых**
+(`273be28`), но критерий 130/130 оказался недостижим: 34 карточки получили
+`no_candidates`, потолок 96. Попутно найдена и сразу исправлена `DATA-P2-17` —
+скрипт выкидывал ключ карточки из `hedges_g_all.json` целиком при сетевой
+ошибке (прогон стёр 8 заполненных записей по «Мелатонину»). Индекс §1: data
+15 → **14** открытых, 21 → **23** закрытых; итого 73 → **72** открытых,
+146 → **148** закрытых. Заголовок §2 «P2» 46 → **45**, диапазон в реестре
+`DATA-P2-07…14` → `DATA-P2-08…14`. ⚠️ Номер `DATA-P2-16` был уже занят
+(«один PMID на три карточки», батч 9B), поэтому новая находка получила
+свободный `DATA-P2-17`.
+
+**Пересчёт 15.10.2026 (батч 10, фикс).** `MKT-P2-11` **закрыта** — тег
+`twitter:image` дописан на 8 страниц (значение скопировано из `og:image`),
+гейт `tests/test_seo_meta_consistency.py` расширен на `twitter:image`.
+Индекс §1: seo 8 → **7**, итого 74 → **73**. Заголовок §2 «P2» 47 → **46**.
+Найденная в том же батче запись о регистрации ниже сохранена — она фиксирует
+промежуточное состояние «Открыто».
 
 **Пересчёт 15.10.2026 (батч 10).** Добавлена `MKT-P2-11` —
 `twitter:image` отсутствует на 8 из 13 контентных страниц (`og:image`
@@ -342,13 +361,13 @@ bounding box, — часть бокса внутри, но **за дугой `bo
 > DATA-COI, A11Y-P2-06, A11Y-P2-08, MOB-P2-11,
 > SK-P1-03, SK-STALE-02.
 
-### P2 (47)
+### P2 (45)
 
 | ID | Находка | Тип |
 |---|---|---|
 | A11Y-P2-01, 03, 04, 05, 07 | Focus-индикатор (`trends.html`, статус спорный), probe, нет `aria-live`, «Ничего не найдено» | [a11y](audits/a11y.md) |
 | A11Y-P2-06 🔸, A11Y-P2-08 🔸 | Пустые `—` и 620 px-сирота — обе закрыты наполовину | [a11y](audits/a11y.md) |
-| DATA-P2-07…14 | Покрытие `hedges_g_all.json` 113/130, `key_sources`, `dosage_parsed`, не монотонный `grade`, `forms`, `metaCount`, `citations`/`ongoing`/`wiki`, категории | [data](audits/data.md) |
+| DATA-P2-08…14 | Покрытие `hedges_g_all.json` 113/130, `key_sources`, `dosage_parsed`, не монотонный `grade`, `forms`, `metaCount`, `citations`/`ongoing`/`wiki`, категории | [data](audits/data.md) |
 | QA-P2-02 | Нет теста битых ссылок sup | [data](audits/data.md) |
 | QA-P2-04, 05, 06 | `ZeroDivisionError` в `parse_xml_meta.py:223`, нет `__main__`-guard в `build_changelog_public.py`, docstring с несуществующим `--dry-run` в `recalc_science_index.py:10` | [data](audits/data.md) |
 | DATA-P2-15 | `citations` недосчитан у 7 карточек — OpenAlex не индексирует часть PMID из `key_sources`, сумма молча теряет слагаемые (`fetch_metrics.py:109`) | [data](audits/data.md) |
@@ -363,7 +382,7 @@ bounding box, — часть бокса внутри, но **за дугой `bo
 | REL-P2-01, PRJ-P2-01, P2-02 | ~40 worktree detached HEAD, ложные находки project | [perf](audits/perf.md) |
 | I18N-P2-01…03 | 229 строк JS + inline, **748** атрибутов, 517 стрелок | [i18n](audits/i18n.md) |
 | SEO-P2-01, P2-03, MKT-P2-01, P2-02 | Дубли `description`, OG-теги. Закрыто: `twitter:card` (`80ebdc8`) и `og:site_name` (`24fa97f`) — по 144/144; 15.10.2026 — SEO-хвост `MKT-P2-09`/`MKT-P2-10` | [seo](audits/seo.md) |
-| MKT-P2-11 | `twitter:image` нет на 8/13 контентных страниц (atlas, calculator, index, interactions, map, privacy, support, trends); `og:image` при этом 13/13 — значение копируется | [seo](audits/seo.md) |
+
 
 ### Stale (1)
 
