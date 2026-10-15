@@ -25,10 +25,15 @@
 | mobile | 4 | 17 | [audits/mobile.md](audits/mobile.md) |
 | perf (+проект/релиз) | 5 | 11 | [audits/perf.md](audits/perf.md) |
 | i18n | 3 | 10 | [audits/i18n.md](audits/i18n.md) |
-| seo (+маркетинг) | 7 | 20 | [audits/seo.md](audits/seo.md) |
+| seo (+маркетинг) | 8 | 20 | [audits/seo.md](audits/seo.md) |
 | trends | 17 | 10 | [audits/trends.md](audits/trends.md) |
 | skills | 3 | 7 | [audits/skills.md](audits/skills.md) |
-| **Итого** | **73** | **146** (+12 «не делать», +1 снято, +1 дубль) |
+| **Итого** | **74** | **146** (+12 «не делать», +1 снято, +1 дубль) |
+
+**Пересчёт 15.10.2026 (батч 10).** Добавлена `MKT-P2-11` —
+`twitter:image` отсутствует на 8 из 13 контентных страниц (`og:image`
+при этом 13/13, значение готово для копирования). Индекс §1: seo 7 → **8**,
+итого 73 → **74**. Заголовок §2 «P2» 46 → **47**.
 
 **Пересчёт 15.10.2026 (батч 9C).** Закрыты две находки SEO-хвоста —
 `MKT-P2-09` (`og:description` ≠ `meta description`) и `MKT-P2-10`
@@ -337,7 +342,7 @@ bounding box, — часть бокса внутри, но **за дугой `bo
 > DATA-COI, A11Y-P2-06, A11Y-P2-08, MOB-P2-11,
 > SK-P1-03, SK-STALE-02.
 
-### P2 (46)
+### P2 (47)
 
 | ID | Находка | Тип |
 |---|---|---|
@@ -358,6 +363,7 @@ bounding box, — часть бокса внутри, но **за дугой `bo
 | REL-P2-01, PRJ-P2-01, P2-02 | ~40 worktree detached HEAD, ложные находки project | [perf](audits/perf.md) |
 | I18N-P2-01…03 | 229 строк JS + inline, **748** атрибутов, 517 стрелок | [i18n](audits/i18n.md) |
 | SEO-P2-01, P2-03, MKT-P2-01, P2-02 | Дубли `description`, OG-теги. Закрыто: `twitter:card` (`80ebdc8`) и `og:site_name` (`24fa97f`) — по 144/144; 15.10.2026 — SEO-хвост `MKT-P2-09`/`MKT-P2-10` | [seo](audits/seo.md) |
+| MKT-P2-11 | `twitter:image` нет на 8/13 контентных страниц (atlas, calculator, index, interactions, map, privacy, support, trends); `og:image` при этом 13/13 — значение копируется | [seo](audits/seo.md) |
 
 ### Stale (1)
 
