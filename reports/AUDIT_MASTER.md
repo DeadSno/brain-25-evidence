@@ -25,10 +25,21 @@
 | mobile | 4 | 17 | [audits/mobile.md](audits/mobile.md) |
 | perf (+проект/релиз) | 5 | 11 | [audits/perf.md](audits/perf.md) |
 | i18n | 3 | 10 | [audits/i18n.md](audits/i18n.md) |
-| seo (+маркетинг) | 9 | 18 | [audits/seo.md](audits/seo.md) |
+| seo (+маркетинг) | 7 | 20 | [audits/seo.md](audits/seo.md) |
 | trends | 17 | 10 | [audits/trends.md](audits/trends.md) |
 | skills | 3 | 7 | [audits/skills.md](audits/skills.md) |
-| **Итого** | **75** | **144** (+12 «не делать», +1 снято, +1 дубль) |
+| **Итого** | **73** | **146** (+12 «не делать», +1 снято, +1 дубль) |
+
+**Пересчёт 15.10.2026 (батч 9C).** Закрыты две находки SEO-хвоста —
+`MKT-P2-09` (`og:description` ≠ `meta description`) и `MKT-P2-10`
+(`twitter:title`/`twitter:description`). Правки на 13 страницах `docs/*.html`,
+гейт `tests/test_seo_meta_consistency.py` (41 тест). Индекс §1: seo
+9/18 → **7/20**, итого 75/144 → **73/146**. Заголовок §2 «P2» 48 → **46**.
+⚠️ Номера находок **переименованы**: при выдаче 14.10.2026 `MKT-P2-06` и
+`MKT-P2-07` уже занимали закрытые `og:type` и `og:url` — коллизия описана
+в `audits/seo.md`. Итог §2 в этой строке по-прежнему расходится с §1
+(`1 + 22 + 51 + 1 + 17 = 92` против 73) — расхождение довнесено до
+плановой пересборки индекса, отдельной строкой не чинил.
 
 **Пересчёт 14.10.2026 (QA-P1-01).** Находка «20 критичных скриптов без
 тестов» пересчитана: исходный список из 20 имён устарел, а «16» — его
@@ -326,7 +337,7 @@ bounding box, — часть бокса внутри, но **за дугой `bo
 > DATA-COI, A11Y-P2-06, A11Y-P2-08, MOB-P2-11,
 > SK-P1-03, SK-STALE-02.
 
-### P2 (48)
+### P2 (46)
 
 | ID | Находка | Тип |
 |---|---|---|
@@ -336,6 +347,7 @@ bounding box, — часть бокса внутри, но **за дугой `bo
 | QA-P2-02 | Нет теста битых ссылок sup | [data](audits/data.md) |
 | QA-P2-04, 05, 06 | `ZeroDivisionError` в `parse_xml_meta.py:223`, нет `__main__`-guard в `build_changelog_public.py`, docstring с несуществующим `--dry-run` в `recalc_science_index.py:10` | [data](audits/data.md) |
 | DATA-P2-15 | `citations` недосчитан у 7 карточек — OpenAlex не индексирует часть PMID из `key_sources`, сумма молча теряет слагаемые (`fetch_metrics.py:109`) | [data](audits/data.md) |
+| DATA-P2-16 | Один PMID (`33295643`, Cochrane 2020) стоит в `key_sources` сразу у трёх карточек — `Пробиотики`, `S. boulardii`, `LGG` | [data](audits/data.md) |
 | HC-P2-01…06 | Эмодзи-иконки, 13 размеров шрифта, 160 hex, 15 теней, 6 градиентов, нет статус-классов | [html-css](audits/html-css.md) |
 | CYBER-P2-01 | Нет теста security-заголовков | [js](audits/js.md) |
 | JS-P2-02, JS-P2-03 | Строки без i18n, `calculator` без live-region | [js](audits/js.md) |
@@ -345,9 +357,7 @@ bounding box, — часть бокса внутри, но **за дугой `bo
 | PERF-P2-01, P2-02 | Тяжёлые вендоры (vis-network 672 КБ), нет `.gz`/`.br` | [perf](audits/perf.md) |
 | REL-P2-01, PRJ-P2-01, P2-02 | ~40 worktree detached HEAD, ложные находки project | [perf](audits/perf.md) |
 | I18N-P2-01…03 | 229 строк JS + inline, **748** атрибутов, 517 стрелок | [i18n](audits/i18n.md) |
-| SEO-P2-01, P2-03, MKT-P2-01, P2-02 | Дубли `description`, OG-теги. Закрыто: `twitter:card` (`80ebdc8`) и `og:site_name` (`24fa97f`) — по 144/144 | [seo](audits/seo.md) |
-| MKT-P2-06 | `og:description` ≠ `meta description` на 10/13 — расхождение осталось после выравнивания og:title | [seo](audits/seo.md) |
-| MKT-P2-07 | `twitter:title`/`twitter:description` устарели на 5 страниц; на 8/13 тегов нет | [seo](audits/seo.md) |
+| SEO-P2-01, P2-03, MKT-P2-01, P2-02 | Дубли `description`, OG-теги. Закрыто: `twitter:card` (`80ebdc8`) и `og:site_name` (`24fa97f`) — по 144/144; 15.10.2026 — SEO-хвост `MKT-P2-09`/`MKT-P2-10` | [seo](audits/seo.md) |
 
 ### Stale (1)
 
