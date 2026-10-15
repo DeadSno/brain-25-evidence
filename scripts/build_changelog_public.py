@@ -1,29 +1,32 @@
 import re
+import sys
 from pathlib import Path
 
 CHANGELOG = Path(__file__).resolve().parents[1] / "CHANGELOG.md"
 OUT = Path(__file__).resolve().parents[1] / "docs" / "changelog_public.html"
 
-entries = []
-current_version = None
-current_date = None
-current_changes = []
 
-for line in CHANGELOG.read_text(encoding="utf-8").splitlines():
-    if line.startswith("## ["):
-        if current_version:
-            entries.append((current_version, current_date, current_changes))
-        m = re.match(r"## \[(.*?)\] — (.*)", line)
-        if m:
-            current_version, current_date = m.groups()
-            current_changes = []
-    elif line.startswith("- "):
-        current_changes.append(line[2:])
+def main() -> int:
+    entries = []
+    current_version = None
+    current_date = None
+    current_changes = []
 
-if current_version:
-    entries.append((current_version, current_date, current_changes))
+    for line in CHANGELOG.read_text(encoding="utf-8").splitlines():
+        if line.startswith("## ["):
+            if current_version:
+                entries.append((current_version, current_date, current_changes))
+            m = re.match(r"## \[(.*?)\] — (.*)", line)
+            if m:
+                current_version, current_date = m.groups()
+                current_changes = []
+        elif line.startswith("- "):
+            current_changes.append(line[2:])
 
-html = """<!DOCTYPE html>
+    if current_version:
+        entries.append((current_version, current_date, current_changes))
+
+    html = """<!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="utf-8">
@@ -54,13 +57,13 @@ try {
 <tbody>
 """
 
-for version, date, changes in reversed(entries):
-    html += f"<tr><td>{date}</td><td>{version}</td><td><ul>"
-    for change in changes:
-        html += f"<li>{change}</li>"
-    html += "</ul></td></tr>\n"
+    for version, date, changes in reversed(entries):
+        html += f"<tr><td>{date}</td><td>{version}</td><td><ul>"
+        for change in changes:
+            html += f"<li>{change}</li>"
+        html += "</ul></td></tr>\n"
 
-html += """</tbody>
+    html += """</tbody>
 </table>
 <footer style="margin-top:2rem;padding-top:1rem;border-top:1px solid var(--border);font-size:.8rem;color:var(--muted)">
   <p><a href="index.html">← Дашборд «БАДы: цена vs наука»</a></p>
@@ -78,5 +81,11 @@ $('themeToggle').onclick = () => {
 </body>
 </html>"""
 
-OUT.write_text(html, encoding="utf-8")
-print(f"changelog_public.html: {len(entries)} versions")
+    OUT.write_text(html, encoding="utf-8")
+    print(f"changelog_public.html: {len(entries)} versions")
+
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
