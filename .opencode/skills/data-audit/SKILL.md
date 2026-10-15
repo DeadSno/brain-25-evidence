@@ -133,7 +133,7 @@ Enum-ы и размерности:
 - `effects` — 1-3 строки
 - `mechs` — 2-4 элемента, каждый из 3 частей
 - `interactions` — у каждой есть поле `with`
-- `key_sources` — 1-3 источника, каждый с `pmid`, `year`, `journal`
+- `key_sources` — 1-5 источников, каждый с `pmid`, `year`, `journal`
 
 Аномалии: `scienceIndex == 0`, отрицательный `metaCount`, дубли `id`,
 карточки с пустым `about`.

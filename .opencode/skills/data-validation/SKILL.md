@@ -53,7 +53,7 @@ project: brain-25-evidence
 - `effects` — список 1-3 строк
 - `mechs` — список 2-4 элементов, каждый из 3 частей
 - `interactions` — каждая имеет поле `with`
-- `key_sources` — 1-3 источника, каждый с pmid, year, journal
+- `key_sources` — 1-5 источников, каждый с pmid, year, journal
 
 ### 2. Синхронизация с API
 - `docs/api/v1/supplements.json` содержит столько же карточек
