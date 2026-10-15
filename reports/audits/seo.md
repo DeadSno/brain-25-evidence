@@ -8,7 +8,8 @@
 | **Bookkeeping** | 14.10.2026 — 10 закрыто, 2 числа пересчитано. Батч 8C: закрыты MKT-P1-03 и MKT-P1-05; MKT-P1-07 и MKT-P1-08 убраны из «Открыто» как дубли строк «Закрыто» (батч 8A закрыл их, но из «Открыто» не убрал) |
 | **Bookkeeping** | 14.10.2026 (SEO-хвост) — добавлены `MKT-P2-06` и `MKT-P2-07`, перемерено по `docs/*.html` после выравнивания og:title |
 | **Bookkeeping** | 15.10.2026 (батч 9C) — закрыты обе находки SEO-хвоста под **новыми** ID `MKT-P2-09`/`MKT-P2-10`: выданные 14.10 номера `MKT-P2-06`/`MKT-P2-07` уже занимали закрытые `og:type`/`og:url`. Правки на 13 страницах, гейт `tests/test_seo_meta_consistency.py` |
-| **Открыто** | P1 — 3, P2 — 4 |
+| **Bookkeeping** | 15.10.2026 (батч 10) — добавлена `MKT-P2-11`: `twitter:image` нет на 8 из 13 контентных страниц. Замерено по тем же 13 страницам, что и гейт 9C, значение `og:image` на всех 8 присутствует — копируется, новый файл не нужен |
+| **Открыто** | P1 — 3, P2 — 5 |
 | **Закрыто** | P0 — 1, P1 — 7, P2 — 12 |
 
 ---
@@ -36,6 +37,7 @@
 | SEO-P2-03 | Одна ссылка на `/sup/` | `docs/index.html` | audit_D_seo |
 | MKT-P2-01 | `<title>` > 60 на 3 страницах → перемерено: **82 из 145**. Дубль `SEO-P1-01` (в `OPEN_TECHDEBT.md:276` помечен дублем) | marketing M9 |
 | MKT-P2-02 | `description` < 120 на 5 страницах → перемерено: **88 из 145**. Дубль `SEO-P1-02` | marketing M10 |
+| MKT-P2-11 | `<meta name="twitter:image">` отсутствует на **8 из 13** контентных страниц: atlas, calculator, index, interactions, map, privacy, support, trends. На остальных 5 (faq, feedback, glossary, graph, methodology) тег есть и совпадает со значением `og:image`. Знаменатель — те же 13 страниц, что у гейта `tests/test_seo_meta_consistency.py`; `og:image` при этом на **13/13** присутствует (`https://deadsno.github.io/brain-25-evidence/og.png`), т.е. значение для копирования уже готово. Тот же дефект, что закрыла `MKT-P2-10` для `twitter:title`/`twitter:description`: тег просто не добавили, а `og:image` пристегнули | `docs/{atlas,calculator,index,interactions,map,privacy,support,trends}.html` | замер 15.10.2026 |
 Здесь ещё 15.10.2026 закрыты две находки SEO-хвоста — номера у них
 **изменены**, см. примечание о коллизии ID в «Закрыто».
 
