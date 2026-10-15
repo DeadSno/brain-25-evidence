@@ -381,12 +381,12 @@ bounding box, — часть бокса внутри, но **за дугой `bo
 | DATA-P2-16 | Один PMID (`33295643`, Cochrane 2020) стоит в `key_sources` сразу у трёх карточек — `Пробиотики`, `S. boulardii`, `LGG` | [data](audits/data.md) |
 | HC-P2-01…06 | Эмодзи-иконки, 13 размеров шрифта, 160 hex, 15 теней, 6 градиентов, нет статус-классов | [html-css](audits/html-css.md) |
 | CYBER-P2-01 | Нет теста security-заголовков | [js](audits/js.md) |
-| JS-P2-02, JS-P2-03 | Строки без i18n, `calculator` без live-region | [js](audits/js.md) |
+| JS-P2-02 | Строки без i18n (229 в 6 файлах) — рефактор локализации, `OPEN_TECHDEBT.md:504` оценивает в «1–3 дня» → **v5.6.5** | [js](audits/js.md) | | JS-P2-03 | `calculator.html` без live-region — **не тронута**: правка HTML оставлена за батчами 12–13 | [js](audits/js.md) |
 | LEGAL-P2-02 | Нет DOI-ссылок: `doi.org` 0 на 131/131 | [legal](audits/legal.md) |
 | MOB-P2-09, 12, 13 | `result-panel` sticky, скрытый скроллбар, `portrait-primary` | [mobile](audits/mobile.md) |
 | MOB-P2-11 🔸 | Мелкий текст 10.4–11.5 px — частично поднят `7cc36e3` | [mobile](audits/mobile.md) |
 | PERF-P2-01, P2-02 | Тяжёлые вендоры (vis-network 672 КБ), нет `.gz`/`.br` | [perf](audits/perf.md) |
-| REL-P2-01, PRJ-P2-01, P2-02 | ~40 worktree detached HEAD, ложные находки project | [perf](audits/perf.md) |
+| PRJ-P2-01, PRJ-P2-02 | Ложные находки project-аудита (5 из 10); «прочие P2 project/release», 4 пункта без расшифровки — работать не с чем → **v5.6.5** | [perf](audits/perf.md) |
 | I18N-P2-01…03 | 229 строк JS + inline, **748** атрибутов, 517 стрелок | [i18n](audits/i18n.md) |
 | SEO-P2-01, P2-03, MKT-P2-01, P2-02 | Дубли `description`, OG-теги. Закрыто: `twitter:card` (`80ebdc8`) и `og:site_name` (`24fa97f`) — по 144/144; 15.10.2026 — SEO-хвост `MKT-P2-09`/`MKT-P2-10` | [seo](audits/seo.md) |
 
