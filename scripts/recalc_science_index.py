@@ -1,4 +1,4 @@
-"""Пересчитывает rct, metaCount, scienceIndex для 81 карточки.
+"""Пересчитывает rct, metaCount, scienceIndex для всех карточек.
 
 Методика (2026-09):
     base = pubmed_term без AND (outcome)
