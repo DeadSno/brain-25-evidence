@@ -14,14 +14,15 @@
 
   * `test_script_compiles` — синтаксис под текущим интерпретатором. Дёшево,
     ловит опечатку до запуска чего-либо.
-  * `test_script_imports_without_network` — импорт НЕ должен ходить в сеть.
-    Проверка не на глаз: дочерний процесс запускается с заглушкой `socket`,
-    и любой реальный запрос поднимет AssertionError. Скрипты, у которых нет
-    `if __name__ == "__main__"`, при импорте выполняются целиком —
-    `build_changelog_public.py` читает CHANGELOG.md и пишет артефакт
-    (строки 12-24, 81). Это не дефект самого скрипта (его так запускают),
-    но импортировать его в живом репозитории нельзя, поэтому такие
-    скрипты помечены xfail и проверяются только в клоне.
+  * `test_script_imports_without_network` — импорт НЕ должен ходить в сеть
+    и НЕ должен ничего писать на диск. Проверка не на глаз: дочерний процесс
+    запускается с заглушкой `socket`, и любой реальный запрос поднимет
+    AssertionError; кроме того снимок файлов клона до и после импорта
+    сравнивается. Скрипт без `if __name__ == "__main__"` при импорте
+    выполняется целиком. Раньше так вёл себя `build_changelog_public.py`
+    (читал CHANGELOG.md и писал артефакт), из-за чего он был вынесен из
+    этой проверки на отдельный xfail; 15.10.2026 guard добавлен, скрипт
+    проверяется наравне со всеми остальными.
   * `test_script_runs_on_minimal_input` — запуск с минимальным входом должен
     завершиться rc=0 и создать ожидаемый артефакт. Вход — копия в tmp,
     живой репозиторий тесты не трогают.
@@ -36,9 +37,8 @@
     человек прочитает инструкцию и запустит не то.
 
 `recalc_science_index.py` без флагов идёт в PubMed (esearch на каждую
-карточку), поэтому он запускается только с `--help`. Найденное при этом
-расхождение инструкции и argparse — см. `test_recalc_documented_dry_run`,
-это единственный известный долг в этом файле.
+карточку), поэтому он запускается только с `--help`. Расхождение
+инструкции и argparse — см. `test_recalc_documented_dry_run`.
 """
 from __future__ import annotations
 
@@ -116,7 +116,6 @@ socket.getaddrinfo = _blocked
 #:   args            — argv для проверки запуска (None = запуск пропускается)
 #:   artifact        — файл, который обязан появиться после запуска
 #:   required_arg    — обязательный аргумент argparse, если есть
-#:   side_effect_on_import — True, если скрипт выполняется при импорте
 #:   skip_run_reason — почему запуск не проверяется
 SMOKE = [
     {
@@ -124,7 +123,6 @@ SMOKE = [
         "files": {"CHANGELOG.md": "# Changelog\n\n## [5.6.0] — 2026-10-14\n- Запись\n"},
         "dirs": ["docs"],
         "artifact": "docs/changelog_public.html",
-        "side_effect_on_import": True,
     },
     {
         "name": "add_supplements_batch",
@@ -293,33 +291,10 @@ def test_script_has_no_top_level_syntax_error(name):
 # ── Импорт ───────────────────────────────────────────────────────────────────
 
 
-@pytest.mark.parametrize(
-    "name",
-    [s["name"] for s in SMOKE if s.get("side_effect_on_import")],
-)
-@pytest.mark.xfail(
-    reason="скрипт выполняется при импорте (нет if __name__ == '__main__'): "
-           "build_changelog_public.py читает CHANGELOG.md и пишет артефакт "
-           "при импорте — это by design, но импортировать его нельзя",
-    strict=True,
-)
-def test_import_is_side_effect_free(name, tmp_path):
-    """Импорт скрипта не должен ничего писать и никуда ходить."""
-    root = make_clone(BY_NAME[name], tmp_path)
-    before = snapshot(root)
-    code = NO_NETWORK + f"\nimport sys\nsys.path.insert(0, r'{root / 'scripts'}')\nimport {name}\n"
-    proc = subprocess.run(
-        [sys.executable, "-c", code],
-        cwd=root, capture_output=True, text=True,
-        encoding="utf-8", errors="replace", env=_env(),
-    )
-    assert proc.returncode == 0, proc.stderr
-    created = snapshot(root) - before
-    assert not created, f"импорт {name} создал файлы: {sorted(created)}"
 
 
 @pytest.mark.parametrize(
-    "name", [s["name"] for s in SMOKE if not s.get("side_effect_on_import")]
+    "name", [s["name"] for s in SMOKE]
 )
 def test_script_imports_without_network(name, tmp_path):
     """Импорт проходит без сети и без записи на диск.
