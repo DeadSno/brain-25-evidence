@@ -216,12 +216,17 @@ def main() -> int:
     with_coi = sum(1 for r in out.values() if r["has_coi"])
     with_body = sum(1 for r in out.values() if r["has_body"])
 
+    # n == 0, если не разобрался ни один файл. OUT к этому моменту уже
+    # записан (QA-P2-04), так что делить на ноль нельзя: доля не определена.
+    def pct(k: int) -> str:
+        return f"{k / n * 100:.1f}%" if n else "n/a"
+
     print(f"\n[OK] {OUT}")
     print(f"  Всего:        {n}")
     print(f"  С abstract:   {sum(1 for r in out.values() if r['has_abstract'])}")
     print(f"  С body:       {with_body}")
-    print(f"  С funding:    {with_fund} ({with_fund/n*100:.1f}%)")
-    print(f"  С COI:        {with_coi} ({with_coi/n*100:.1f}%)")
+    print(f"  С funding:    {with_fund} ({pct(with_fund)})")
+    print(f"  С COI:        {with_coi} ({pct(with_coi)})")
     return 0
 
 
