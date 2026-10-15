@@ -324,7 +324,13 @@ try {
         Превышение не означает отравление, но требует консультации с врачом.
       </p>
 
-      <div class="kpis">
+      <!-- A11Y-P2-05 / JS-P2-03: значения KPI пересчитываются на каждый ввод
+           дозы (renderResult), без live-региона скринридер молчал. role=status
+           даёт aria-live=polite — озвучка после паузы, а не на каждый keystroke.
+           aria-atomic — целиком, иначе SR читает только изменившуюся цифру.
+           .sr-only вне потока грида (position:absolute), вёрстку не двигает. -->
+      <div class="kpis" role="status" aria-live="polite" aria-atomic="true">
+        <span class="sr-only">Итог по выбранным дозам: </span>
         <div class="kpi ok" id="kpiOk">
           <div class="val">0</div>
           <div class="lbl">в норме</div>
@@ -704,6 +710,15 @@ function esc(s) {
     });
   }
 
+  // A11Y-P2-05 / JS-P2-03: значение в live-регионе обновляем только при
+  // реальном изменении. Иначе каждый ввод в поле дозы шлёт мутацию с тем же
+  // текстом и скринридер начинает повторять одно и то же.
+  function setKpi(id, n) {
+    const el = $(id).querySelector('.val');
+    const s = String(n);
+    if (el.textContent !== s) el.textContent = s;
+  }
+
   function renderResult() {
     const ids = Object.keys(selected);
     $('cntResult').textContent = ids.length;
@@ -869,10 +884,10 @@ function esc(s) {
     }
 
     // KPI
-    $('kpiOk').querySelector('.val').textContent = cntOk;
-    $('kpiAbove').querySelector('.val').textContent = cntAbove;
-    $('kpiBelow').querySelector('.val').textContent = cntBelow;
-    $('kpiUl').querySelector('.val').textContent = cntUl;
+    setKpi('kpiOk', cntOk);
+    setKpi('kpiAbove', cntAbove);
+    setKpi('kpiBelow', cntBelow);
+    setKpi('kpiUl', cntUl);
 
     // Хелпер рендера
     function renderConf(list, cntId, listId) {
