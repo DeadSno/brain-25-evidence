@@ -38,7 +38,7 @@
 
 `recalc_science_index.py` без флагов идёт в PubMed (esearch на каждую
 карточку), поэтому он запускается только с `--help`. Расхождение
-инструкции и argparse — см. `test_recalc_documented_dry_run`.
+инструкции и argparse — см. `test_recalc_dry_run_is_the_default_not_a_flag`.
 """
 from __future__ import annotations
 
@@ -420,21 +420,26 @@ def test_documented_flags_exist(name):
     )
 
 
-def test_recalc_documented_dry_run():
-    """Единственный известный долг: recalc_science_index обещает --dry-run.
+def test_recalc_dry_run_is_the_default_not_a_flag():
+    """Сухой прогон `recalc_science_index` — это поведение по умолчанию, не флаг.
 
-    Docstring (строки 9-11) показывает `--dry-run`, argparse объявляет
-    только `--apply`. На практике скрипт без флагов и есть dry-run —
-    он читает PubMed и печатает отчёт, не записывая data.json. То есть
-    инструкция вводит в заблуждение, но данные не портит.
-
-    strict=True: если `--dry-run` объявят, тест упадёт с XPASS и маркер
-    придётся снять.
+    Докстринг долгое время обещал `--dry-run`, которого нет в argparse:
+    запуск с ним падал с exit 2 «unrecognized arguments», то есть
+    документированный способ безопасно посмотреть результат не работал.
+    На деле скрипт и без флагов ничего не пишет, а `--apply` переключает
+    запись. Тест фиксирует именно это расхождение в обе стороны:
+    несуществующий флаг не документируется, настоящий -- объявлен
+    в argparse и описан в докстринге.
     """
     name = "recalc_science_index"
-    assert "--dry-run" in documented_flags(name)
-    assert "--dry-run" not in declared_flags(name), (
-        "--dry-run уже объявлен — сними xfail и поправь docstring"
+    assert "--dry-run" not in documented_flags(name), (
+        "--dry-run не объявлен в argparse — обещать его в докстринге нельзя"
+    )
+    assert "--apply" in declared_flags(name), (
+        "--apply должен остаться объявленным: им включается запись"
+    )
+    assert "--apply" in documented_flags(name), (
+        "--apply объявлен, но не описан — человек не найдёт, как записать"
     )
 
 
