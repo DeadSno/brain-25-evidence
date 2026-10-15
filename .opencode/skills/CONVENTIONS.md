@@ -139,6 +139,52 @@ git push origin HEAD:v5.6-dev     # fast-forward, только remote
 Локальная ветка в главном чекауте после этого отстаёт; догонять её
 отдельным `merge --ff-only` по явному разрешению.
 
+## OpenCode worktree (автоматика)
+
+- OpenCode Desktop создаёт worktree на КАЖДУЮ сессию:
+  `git worktree add --detach -- <path> HEAD`
+- Конфигом не отключается (проверено: `opencode.json` + `opencode.jsonc` — 0 совпадений).
+- Прецеденты: `witty-nebula-2`, `misty-mountain`, `curious-star-2`,
+  `stellar-river`, `sunny-canyon`.
+- ПРАВИЛО: перед закрытием сессии — cherry-pick + push.
+  Иначе коммиты живут только в `.git/worktrees/<name>/HEAD`.
+- Проверка после каждого батча:
+  ```
+  git worktree list
+  ```
+  для каждого: `git -C <wt> log v5.6-dev..HEAD --oneline`
+  Пусто → safe. Не пусто → cherry-pick.
+
+Замерено 15.10.2026 по `%USERPROFILE%\.local\share\opencode\log\opencode.log`:
+четыре сессии подряд (`tidy-cabin`, `playful-canyon`, `sunny-canyon`,
+`hidden-wizard`) дали идентичную команду с `cwd=C:\analytics\brain-25-evidence`,
+сразу за ней — bootstrap сервера (`rev-parse` ×3, `remote get-url origin`,
+`worktree list --porcelain`, `watcher subscribe`). Это внутренняя процедура
+запуска сервера, а не вызов агента: ни в `.opencode/` ни в глобальном
+конфиге ключа `worktree` нет.
+
+### Ложное срабатывание проверки после cherry-pick
+
+⚠️ После `cherry-pick` хеши коммитов **меняются** — переписывается committer
+timestamp. Поэтому `git -C <wt> log v5.6-dev..HEAD` покажет коммиты даже
+после того, как их содержимое уже в ветке и запушено.
+
+Проверено 15.10.2026: батч 10 жил в `sunny-canyon` как `f4ea752 … eb47cf4`
+(родитель `f4ea752` = `06ca148` = HEAD `v5.6-dev` в тот момент). После
+`cherry-pick` в `v5.6-dev` получилась параллельная история `44a66b3 … bcbce7a`,
+и проверка выше дала ложное «6 непушенных коммитов».
+
+Содержимое при этом не потеряно — совпадало дерево:
+
+```
+git diff origin/v5.6-dev eb47cf4      # пусто
+git diff v5.6-dev HEAD                # пусто
+```
+
+**Решающий критерий — сравнение деревьев, а не список коммитов.**
+Сверять хеши нельзя: перед удалением worktree, который уже cherry-picked,
+`git log v5.6-dev..HEAD` будет непустым, и это нормально.
+
 ## Pre-commit порядок генераторов
 
 Хук лежит в `.githooks/`, а не в `.git/hooks/` — в worktree `.git` это
