@@ -2,7 +2,10 @@
 
 Находки: `reports/audits/seo.md` — MKT-P2-06 (`og:description` ≠ `meta description`
 на 10 из 13 страниц) и MKT-P2-07 (`twitter:title`/`twitter:description` отсутствовали
-на 8 страницах и устарели ещё на 5). Обе сняты 15.10.2026, батч 9C.
+на 8 страницах и устарели ещё на 5). Обе сняты 15.10.2026, батч 9C (зарегистрированы
+под свободными номерами MKT-P2-09/MKT-P2-10 — коллизия ID описана в аудите).
+Третья находка, MKT-P2-11 (`twitter:image` отсутствовал на 8 страницах), закрыта
+тем же гейтом: тег обязан присутствовать и совпадать с `og:image`.
 
 Что показал замер перед правкой (13 контентных страниц):
   - `og:description` расходился с `<meta name="description">` у 10 страниц,
@@ -14,6 +17,9 @@
     каноническими значениями ещё у 5 (faq, feedback, glossary, graph,
     methodology) — там стояли рукописные сокращения вроде
     «FAQ — частые вопросы о БАДах».
+  - `twitter:image` отсутствовал у тех же 8 страниц, при том что `og:image`
+    стоял на всех 13. Ровно тот же почерк долга: `og:image` пристегнули в своё
+    время (`MKT-P2-03`, 144/144), а копию в Twitter-блок забыли.
 
 Чем обосновано решение: направление выбрано по уже принятому в репозитории
 прецеденту — коммит `b0a15fd` («og:title matches title on 13 pages») сделал
@@ -77,9 +83,16 @@ EXCLUDED_PAGES = {
 }
 
 # Канон: какие теги обязаны быть и чему равны.
-REQUIRED_TAGS = ("og:title", "og:description", "twitter:title", "twitter:description")
+REQUIRED_TAGS = ("og:title", "og:description", "og:image",
+                 "twitter:title", "twitter:description", "twitter:image")
 CANONICAL = {"og:title": "title", "og:description": "description",
              "twitter:title": "title", "twitter:description": "description"}
+
+# Картинка — отдельное зеркало: `twitter:image` копирует `og:image`, а не
+# `<title>`/`<meta name="description">`. Держать её в CANONICAL нельзя: там
+# значения сравниваются с двумя текстовыми канонами, и проверка потребовала бы
+# картинку, равную заголовку.
+IMAGE_MIRRORS = {"twitter:image": "og:image"}
 
 META_RE = re.compile(r"<meta\s+([^>]*?)\s*/?>", re.IGNORECASE)
 ATTR_RE = re.compile(r"""([\w:.-]+)\s*=\s*(?:"([^"]*)"|'([^']*)')""")
@@ -164,15 +177,21 @@ def test_required_tags_present_once(name: str, pages: dict) -> None:
         value = page[tag]
         if not value:
             problems.append(f"{tag} пуст или отсутствует")
-    html = _read(name)
+    html = _read(name).lower()
     for tag in REQUIRED_TAGS:
-        count = html.lower().count(f'<meta name="{tag}"')
+        # og:* пишутся через property=, остальные — через name=. Считать только
+        # name= нельзя: проверка дублей молча давала 0 для всех og-тегов, то
+        # есть проверяла их наличие, но не повторяемость.
+        attr = "property" if tag.startswith("og:") else "name"
+        count = html.count(f'<meta {attr}="{tag}"')
         if count > 1:
             problems.append(f"{tag} встречается {count} раз — движок возьмёт первый")
+        elif count == 0:
+            problems.append(f"{tag} не найден по <meta {attr}=… — форма тега изменилась")
     assert not problems, (
-        f"{name}: " + "; ".join(problems) + ". Канон страницы — <title> и "
-        f'<meta name="description"> в <head>; og:* и twitter:* обязаны быть их '
-        f"дословными копиями (см. докстринг модуля)."
+        f"{name}: " + "; ".join(problems) + ". Канон страницы — <title>, "
+        f'<meta name="description"> и og:image в <head>; og:* и twitter:* '
+        f"обязаны быть их дословными копиями (см. докстринг модуля)."
     )
 
 
@@ -186,7 +205,7 @@ def test_og_and_twitter_match_canonical(name: str, pages: dict) -> None:
     """
     page = pages[name]
     mismatches = []
-    for tag, canonical_key in CANONICAL.items():
+    for tag, canonical_key in {**CANONICAL, **IMAGE_MIRRORS}.items():
         canonical = page[canonical_key]
         actual = page[tag]
         if actual != canonical:
