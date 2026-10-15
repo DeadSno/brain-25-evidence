@@ -127,7 +127,7 @@ try {
     header.top .site-title{font-size:1.05rem}
     header.top .site-title .v{display:none}
   }
-/* ===== Executive Summary ===== */
+/* ===== Главное ===== */
 .executive-summary{margin:var(--space-6) 0}
 .executive-summary h2{margin:0 0 var(--space-0-3);font-size:1.15rem}
 .executive-summary .hint{margin:0 0 .8rem;opacity:.7;font-size:.88rem}
@@ -286,26 +286,13 @@ html:not(.light) .cat-warn{color:#f59e0b}
 <main id="main">
   <h1>Тренды популярности</h1>
 
-<!-- v5.6.1: дисклеймер поднят из футера сразу под h1. Раньше он был
-     в футере, который стоял между чартом и секциями ниже, — пользователь
-     видел предупреждение посреди страницы, а после него снова контент. -->
-<p class="disc">
-  <b>⚠️ Не медицинская рекомендация.</b>
-  Сайт предоставляет данные из открытых научных источников
-  (PubMed, Europe PMC, CrossRef, OpenAlex, ClinicalTrials.gov, Wikimedia)
-  для информирования и самостоятельного образования.
-  <b>НЕ заменяет</b> консультацию, диагноз и лечение.
-  При любых сомнениях — обращайтесь к специалисту.
-</p>
-
-
 <p class="hint" style="opacity:.75;margin:.4rem 0 0">
   10 лет данных по 130 добавкам: публикации в PubMed, просмотры ru.wikipedia, цитирования ключевых исследований.
   Клик по столбцу — открыть карточку добавки.
 </p>
 
 <section class="executive-summary">
-  <h2>🎯 Executive Summary</h2>
+  <h2>🎯 Главное</h2>
   <p class="hint">Автоматические выводы из данных: что растёт, что переоценено, где наука опережает хайп.</p>
   <div class="insights-grid" id="insightsGrid">
     <div class="insight-card" data-tone="blue">
@@ -324,7 +311,7 @@ html:not(.light) .cat-warn{color:#f59e0b}
     <div class="delta" id="kpiPubsDelta">—</div>
   </div>
   <div class="stat-card">
-    <div class="label">Просмотров wiki/мес (дек 2025)</div>
+    <div class="label">Просмотров Википедии/мес (дек 2025)</div>
     <div class="value" id="kpiWiki">—</div>
     <div class="delta" id="kpiWikiDelta">—</div>
   </div>
@@ -779,7 +766,7 @@ function closeModal() {
 <section class="scatter-section">
   <h2>🎯 Матрица «Наука × Интерес»</h2>
   <p class="hint">
-    Каждая точка — добавка. X = рост публикаций (2015→2025), Y = рост просмотров wiki.
+    Каждая точка — добавка. X = рост публикаций (2015→2025), Y = рост просмотров Википедии.
     Размер = объём публикаций в 2025. Цвет = грейд доказательности. Клик по точке — карточка.
   </p>
   <div class="scatter-wrap">
@@ -831,7 +818,7 @@ growth_wiki = avg(wiki[id][последние 6 мес]) / avg(wiki[id][перв
       Серия просмотров Wikipedia есть у <b>90</b> из 130: у остальных 40 нет
       статьи ru.wikipedia с историей просмотров, поэтому вторая метрика для них
       не считается.
-      В «Executive Summary» и в расчёт z-score попадают <b>86</b> добавок — только
+      В разделе «Главное» и в расчёт z-score попадают <b>86</b> добавок — только
       те, у которых есть обе метрики. Ещё у 4 (Клюква, D-манноза, Йохимбин,
       Шатавари) в серии PubMed нет ненулевого значения за 2015 или 2025 год, а
       без обоих годовых значений рост не считается.
@@ -844,6 +831,14 @@ growth_wiki = avg(wiki[id][последние 6 мес]) / avg(wiki[id][перв
 </details>
 
 <footer class="site-footer">
+  <p class="disc">
+    <b>⚠️ Не медицинская рекомендация.</b>
+    Сайт предоставляет данные из открытых научных источников
+    (PubMed, Europe PMC, CrossRef, OpenAlex, ClinicalTrials.gov, Wikimedia)
+    для информирования и самостоятельного образования.
+    <b>НЕ заменяет</b> консультацию, диагноз и лечение.
+    При любых сомнениях — обращайтесь к специалисту.
+  </p>
   <p class="meta">
     v<span data-version="app"></span> ·
     данные на <span data-version="data"></span>
