@@ -2,7 +2,7 @@
 
 | | |
 |---|---|
-| **Дата** | 14.10.2026 (индекс пересчитан: батч 5 закрыл `QA-P2-01`, батч 6 — `MKT-P2-04`, батч 7 — `MKT-P2-05` + исправлена арифметика §1/§2; отчёты — [BATCH5_SUMMARY.md](BATCH5_SUMMARY.md), [BATCH6_SUMMARY.md](BATCH6_SUMMARY.md), [BATCH7_SUMMARY.md](BATCH7_SUMMARY.md)) |
+| **Дата** | 15.10.2026 (индекс: батч 12A закрыл `JS-P2-03` и пометил WONTFIX `CYBER-P2-01`/`PERF-P2-02`; подробности — ниже) |
 | **Ветка** | `v5.6-dev` |
 | **Назначение** | Единственная точка входа: индекс аудитов и список **открытых** находок |
 | **Структура** | Закрытые находки и подробности — в `audits/<тип>.md`; исходные отчёты — в `archive/` |
@@ -20,7 +20,7 @@
 | a11y | 7 | 25 | [audits/a11y.md](audits/a11y.md) |
 | data (+QA данных) | 7 | 29 | [audits/data.md](audits/data.md) |
 | html-css | 6 | 12 | [audits/html-css.md](audits/html-css.md) |
-| js (+безопасность) | 5 | 8 | [audits/js.md](audits/js.md) |
+| js (+безопасность) | 4 | 9 | [audits/js.md](audits/js.md) |
 | legal | 1 | 4 | [audits/legal.md](audits/legal.md) |
 | mobile | 4 | 17 | [audits/mobile.md](audits/mobile.md) |
 | perf (+проект/релиз) | 4 | 12 | [audits/perf.md](audits/perf.md) |
@@ -28,7 +28,25 @@
 | seo (+маркетинг) | 7 | 22 | [audits/seo.md](audits/seo.md) |
 | trends | 17 | 10 | [audits/trends.md](audits/trends.md) |
 | skills | 2 | 5 | [audits/skills.md](audits/skills.md) |
-| **Итого** | **63** | **155** (+12 «не делать», +1 снято, +1 дубль) |
+| **Итого** | **62** | **156** (+12 «не делать», +1 снято, +1 дубль) |
+
+**Пересчёт 15.10.2026 (батч 12A) — дельта от батча 11, а не новый разбор.**
+Закрыт один ID: `JS-P2-03` (`calculator.html`, live-регион KPI, `315fbc6`),
+поэтому js 5/8 → 4/9 и итог 63/155 → 62/156; «P2 (45)» → «P2 (44)».
+
+Три записи помечены **WONTFIX**, но **остаются в открытом индексе** — как
+`CYBER-P1-01`/`CYBER-P1-02`: находка верна, но не в нашей власти (хостинг).
+Это не уменьшает счётчик, а делает статус видимым.
+
+| ID | Замер на HEAD | Почему WONTFIX |
+|---|---|---|
+| `CYBER-P2-01` | security-заголовки не упоминаются ни в одном из 69 файлов `tests/`; конфига хостинга (`_headers`, `netlify.toml`) в репо нет; `docs/.nojekyll` на месте | следствие `CYBER-P1-01` — тестировать нечего; тест «их нет» закрепил бы дефект хостинга как норму |
+| `PERF-P2-02` | 0 файлов `*.gz`/`*.br` под `docs/`, конфигурации сжатия нет | GitHub Pages сжимает на уровне сервера; локальный `python -m http.server` сжатие не делает |
+| `A11Y-P2-05` 🔸 | файлов с `textContent=`/`innerHTML=` — 145, без live-region — 144 | из 130 `docs/sup/*.html` меняется только подпись кнопки темы — не кандидат; реальный остаток 6 страниц: `trends`, `atlas`, `map`, `interactions`, `graph`, `sup/index.html` |
+
+Попутно исправлено: в реестре P2 строка `JS-P2-02` и `JS-P2-03` были слиты в
+одну ячейку (`…js.md) | | JS-P2-03 |…`), из-за чего `JS-P2-03` не рендерился
+отдельной строкой; в шапке `perf.md` стояло `P2 — 5` при 4 строках в таблице.
 
 **Пересчёт 15.10.2026 (батч 11) — §1 впервые пересчитан по факту, а не по
 приросту.** Все числа, кроме `trends`, получены машинным подсчётом уникальных
@@ -382,28 +400,28 @@ bounding box, — часть бокса внутри, но **за дугой `bo
 | SK-P1-03 🔸 | `cyberaudit`: `license: MIT` закрыт `12119a5`, многострочный `description` жив — **WONTFIX** (14.10.2026): скилл в `.gitignore`, правка не коммитится | [skills](audits/skills.md) |
 
 > 🔸 **PARTIAL** — закрыта часть находки. Такие записи остаются в открытом
-> индексе, но снимаются с целиком при закрытии последней части. Сейчас их 7:
-> DATA-COI, A11Y-P2-06, A11Y-P2-08, MOB-P2-11,
-> SK-P1-03, SK-STALE-02.
+> индексе, но снимаются с целиком при закрытии последней части. Сейчас их 8:
+> DATA-COI, A11Y-P2-06, A11Y-P2-08, A11Y-P2-05,
+> MOB-P2-11, SK-P1-03, SK-STALE-02.
 
-### P2 (45)
+### P2 (44)
 
 | ID | Находка | Тип |
 |---|---|---|
-| A11Y-P2-01, 03, 04, 05, 07 | Focus-индикатор (`trends.html`, статус спорный), probe, нет `aria-live`, «Ничего не найдено» | [a11y](audits/a11y.md) |
-| A11Y-P2-06 🔸, A11Y-P2-08 🔸 | Пустые `—` и 620 px-сирота — обе закрыты наполовину | [a11y](audits/a11y.md) |
+| A11Y-P2-01, 03, 04, 07 | Focus-индикатор (`trends.html`, статус спорный), probe, «Ничего не найдено» | [a11y](audits/a11y.md) |
+| A11Y-P2-06 🔸, A11Y-P2-08 🔸, A11Y-P2-05 🔸 | Пустые `—`, 620 px-сирота, live-регионы — все три закрыты наполовину | [a11y](audits/a11y.md) |
 | DATA-P2-08…14 | Покрытие `hedges_g_all.json` 113/130, `key_sources`, `dosage_parsed`, не монотонный `grade`, `forms`, `metaCount`, `citations`/`ongoing`/`wiki`, категории | [data](audits/data.md) |
 | QA-P2-02 | Нет теста битых ссылок sup | [data](audits/data.md) |
 | QA-P2-04, 05, 06 | `ZeroDivisionError` в `parse_xml_meta.py:223`, нет `__main__`-guard в `build_changelog_public.py`, docstring с несуществующим `--dry-run` в `recalc_science_index.py:10` | [data](audits/data.md) |
 | DATA-P2-15 | `citations` недосчитан у 7 карточек — OpenAlex не индексирует часть PMID из `key_sources`, сумма молча теряет слагаемые (`fetch_metrics.py:109`) | [data](audits/data.md) |
 | DATA-P2-16 | Один PMID (`33295643`, Cochrane 2020) стоит в `key_sources` сразу у трёх карточек — `Пробиотики`, `S. boulardii`, `LGG` | [data](audits/data.md) |
 | HC-P2-01…06 | Эмодзи-иконки, 13 размеров шрифта, 160 hex, 15 теней, 6 градиентов, нет статус-классов | [html-css](audits/html-css.md) |
-| CYBER-P2-01 | Нет теста security-заголовков | [js](audits/js.md) |
-| JS-P2-02 | Строки без i18n (229 в 6 файлах) — рефактор локализации, `OPEN_TECHDEBT.md:504` оценивает в «1–3 дня» → **v5.6.5** | [js](audits/js.md) | | JS-P2-03 | `calculator.html` без live-region — **не тронута**: правка HTML оставлена за батчами 12–13 | [js](audits/js.md) |
+| CYBER-P2-01 | Нет теста security-заголовков — **WONTFIX** (15.10.2026, батч 12A): следствие `CYBER-P1-01`, тестировать нечего | [js](audits/js.md) |
+| JS-P2-02 | Строки без i18n (229 в 6 файлах) — рефактор локализации, `OPEN_TECHDEBT.md:504` оценивает в «1–3 дня» → **v5.6.5** | [js](audits/js.md) |
 | LEGAL-P2-02 | Нет DOI-ссылок: `doi.org` 0 на 131/131 | [legal](audits/legal.md) |
 | MOB-P2-09, 12, 13 | `result-panel` sticky, скрытый скроллбар, `portrait-primary` | [mobile](audits/mobile.md) |
 | MOB-P2-11 🔸 | Мелкий текст 10.4–11.5 px — частично поднят `7cc36e3` | [mobile](audits/mobile.md) |
-| PERF-P2-01, P2-02 | Тяжёлые вендоры (vis-network 672 КБ), нет `.gz`/`.br` | [perf](audits/perf.md) |
+| PERF-P2-01, P2-02 | Тяжёлые вендоры (vis-network 672 КБ); нет `.gz`/`.br` — **WONTFIX** 15.10.2026 (батч 12A), хостинг сжимает сам | [perf](audits/perf.md) |
 | PRJ-P2-01, PRJ-P2-02 | Ложные находки project-аудита (5 из 10); «прочие P2 project/release», 4 пункта без расшифровки — работать не с чем → **v5.6.5** | [perf](audits/perf.md) |
 | I18N-P2-01…03 | 229 строк JS + inline, **748** атрибутов, 517 стрелок | [i18n](audits/i18n.md) |
 | SEO-P2-01, P2-03, MKT-P2-01, P2-02 | Дубли `description`, OG-теги. Закрыто: `twitter:card` (`80ebdc8`) и `og:site_name` (`24fa97f`) — по 144/144; 15.10.2026 — SEO-хвост `MKT-P2-09`/`MKT-P2-10` | [seo](audits/seo.md) |
