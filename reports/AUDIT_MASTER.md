@@ -17,7 +17,7 @@
 
 | Тип | Открыто | Закрыто | Файл |
 |---|---|---|---|
-| a11y | 7 | 25 | [audits/a11y.md](audits/a11y.md) |
+| a11y | 8 | 25 | [audits/a11y.md](audits/a11y.md) |
 | data (+QA данных) | 7 | 29 | [audits/data.md](audits/data.md) |
 | html-css | 6 | 12 | [audits/html-css.md](audits/html-css.md) |
 | js (+безопасность) | 4 | 9 | [audits/js.md](audits/js.md) |
@@ -28,7 +28,13 @@
 | seo (+маркетинг) | 7 | 22 | [audits/seo.md](audits/seo.md) |
 | trends | 17 | 10 | [audits/trends.md](audits/trends.md) |
 | skills | 2 | 5 | [audits/skills.md](audits/skills.md) |
-| **Итого** | **62** | **156** (+12 «не делать», +1 снято, +1 дубль) |
+| **Итого** | **63** | **156** (+12 «не делать», +1 снято, +1 дубль) |
+
+**Пересчёт 16.10.2026 — добавлена одна находка, закрытий нет.**
+`A11Y-P2-09` (контраст `.tagChip`) зарегистрирована как **WONTFIX** по замеру:
+все случаи ≥ AA, худший — 4.59:1 в тёмной теме. Находка не ложная и не
+снятая, но правки не требует, поэтому открытый индекс вырос, а закрытый нет:
+a11y 7/25 → 8/25, итог 62/156 → 63/156, «P2 (44)» → «P2 (45)».
 
 **Пересчёт 15.10.2026 (батч 12A) — дельта от батча 11, а не новый разбор.**
 Закрыт один ID: `JS-P2-03` (`calculator.html`, live-регион KPI, `315fbc6`),
@@ -404,12 +410,13 @@ bounding box, — часть бокса внутри, но **за дугой `bo
 > DATA-COI, A11Y-P2-06, A11Y-P2-08, A11Y-P2-05,
 > MOB-P2-11, SK-P1-03, SK-STALE-02.
 
-### P2 (44)
+### P2 (45)
 
 | ID | Находка | Тип |
 |---|---|---|
 | A11Y-P2-01, 03, 04, 07 | Focus-индикатор (`trends.html`, статус спорный), probe, «Ничего не найдено» | [a11y](audits/a11y.md) |
 | A11Y-P2-06 🔸, A11Y-P2-08 🔸, A11Y-P2-05 🔸 | Пустые `—`, 620 px-сирота, live-регионы — все три закрыты наполовину | [a11y](audits/a11y.md) |
+| A11Y-P2-09 | Контраст `.tagChip` — **WONTFIX** (16.10.2026): все случаи ≥ AA, худший 4.59:1 (`--icon-women` в тёмной); гейт `RUN_A11Y=1` — 73 passed, 0 failed | [a11y](audits/a11y.md) |
 | DATA-P2-08…14 | Покрытие `hedges_g_all.json` 113/130, `key_sources`, `dosage_parsed`, не монотонный `grade`, `forms`, `metaCount`, `citations`/`ongoing`/`wiki`, категории | [data](audits/data.md) |
 | QA-P2-02 | Нет теста битых ссылок sup | [data](audits/data.md) |
 | QA-P2-04, 05, 06 | `ZeroDivisionError` в `parse_xml_meta.py:223`, нет `__main__`-guard в `build_changelog_public.py`, docstring с несуществующим `--dry-run` в `recalc_science_index.py:10` | [data](audits/data.md) |
