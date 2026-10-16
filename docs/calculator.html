@@ -349,34 +349,54 @@ try {
         </div>
       </div>
 
+      <!-- A11Y-P2-06: пять блоков ниже скрывались целиком, пока список
+           пуст, и панель результата на первом экране была пустой: ни одного
+           тире, ни одной подсказки. Этот блок объясняет, что здесь будет и
+           что делать, пока выбранных добавок нет. Прячется на renderResult(),
+           как только что-то выбрано. -->
+      <div class="block" id="resultEmpty">
+        <p class="hint">Пока ничего не выбрано. Добавьте добавку через поиск
+          выше — здесь появятся конфликты с другими добавками и лекарствами,
+          вещества, синергии и предупреждения о дозировке.</p>
+      </div>
+
       <div class="block" id="recoBlock" style="display:none">
         <h3>💡 Полезно добавить (<span id="cntReco">0</span>)</h3>
         <ul class="reco-list" id="recoList"></ul>
       </div>
 
+      <!-- A11Y-P2-06: пять пустых состояний были голым тире «—». Тире ничего
+           не говорит: ни что это за блок, ни что делать дальше. Заменено на
+           фразу с условием появления — как уже сделано в #selectedList
+           (строка 280 / 660). Смысл уточнён по коду: лекарства и вещества не
+           выбираются отдельно, они берутся из interactions выбранных карточек
+           (classifyWith, строка 790), поэтому все три блока «Конфликты»
+           зависят от выбора добавок, а синергии — минимум от двух.
+           Блоки скрываются целиком (renderConf / renderResult: display:none),
+           поэтому эти фразы видны только до первого расчёта. -->
       <div class="block">
         <h3>🌿 Конфликты с добавками (<span id="cntConfSupp">0</span>)</h3>
-        <div id="confListSupp"><div class="empty">—</div></div>
+        <div id="confListSupp"><div class="empty">Появятся, когда вы выберете хотя бы одну добавку.</div></div>
       </div>
 
       <div class="block">
         <h3>💊 Конфликты с лекарствами (<span id="cntConfDrug">0</span>)</h3>
-        <div id="confListDrug"><div class="empty">—</div></div>
+        <div id="confListDrug"><div class="empty">Появятся, когда вы выберете хотя бы одну добавку.</div></div>
       </div>
 
       <div class="block">
         <h3>🍷 Вещества (<span id="cntConfSubs">0</span>)</h3>
-        <div id="confListSubs"><div class="empty">—</div></div>
+        <div id="confListSubs"><div class="empty">Появятся, когда вы выберете хотя бы одну добавку.</div></div>
       </div>
 
       <div class="block">
         <h3>Синергии (<span id="cntSyn">0</span>)</h3>
-        <div id="synList"><div class="empty">—</div></div>
+        <div id="synList"><div class="empty">Появятся, когда вы выберете хотя бы две добавки.</div></div>
       </div>
 
       <div class="block">
         <h3>Предупреждения (<span id="cntWarn">0</span>)</h3>
-        <div id="warnList"><div class="empty">—</div></div>
+        <div id="warnList"><div class="empty">Появятся, когда вы выберете хотя бы одну добавку.</div></div>
       </div>
 
       <!-- MKT-P1-07: CTA калькулятора. Ведёт на страницу методики — она
@@ -889,30 +909,49 @@ function esc(s) {
     setKpi('kpiBelow', cntBelow);
     setKpi('kpiUl', cntUl);
 
+    // A11Y-P2-06: hasSelection разделяет два разных пустых состояния.
+    // Пока добавки не выбраны, проверять нечего — блоки скрыты, а вместо них
+    // видно объяснение в #resultEmpty. После выбора проверка УЖЕ выполнена,
+    // и молчаливый блок читался как «раздел не работает», поэтому пустой
+    // список теперь остаётся на месте со своей фразой.
+    const hasSelection = ids.length > 0;
+    $('resultEmpty').style.display = hasSelection ? 'none' : '';
+
     // Хелпер рендера
-    function renderConf(list, cntId, listId) {
+    function renderConf(list, cntId, listId, emptyText) {
       $(cntId).textContent = list.length;
       const block = $(listId).closest('.block');
-      if (!list.length) {
+      if (!list.length && !hasSelection) {
         if (block) block.style.display = 'none';
         return;
       }
       if (block) block.style.display = '';
+      if (!list.length) {
+        $(listId).innerHTML = `<div class="empty">${esc(emptyText)}</div>`;
+        return;
+      }
       $(listId).innerHTML = list.map(c => `
         <div class="block-item sev-${esc(c.severity)}">
           <div class="pair"><b>${esc(c.from)}</b> × ${esc(c.with)}</div>
           <div class="note">${esc(c.note || '')}</div>
         </div>`).join('');
     }
-    renderConf(confSupp, 'cntConfSupp', 'confListSupp');
-    renderConf(confDrug, 'cntConfDrug', 'confListDrug');
-    renderConf(confSubs, 'cntConfSubs', 'confListSubs');
+    renderConf(confSupp, 'cntConfSupp', 'confListSupp', 'Проверено: конфликтов не найдено.');
+    renderConf(confDrug, 'cntConfDrug', 'confListDrug', 'Проверено: конфликтов не найдено.');
+    renderConf(confSubs, 'cntConfSubs', 'confListSubs', 'Проверено: взаимодействий с веществами не найдено.');
 
     // Синергии
     $('cntSyn').textContent = synergies.length;
     const synBlock = $('synList').closest('.block');
     if (!synergies.length) {
-      synBlock.style.display = 'none';
+      if (hasSelection) {
+        synBlock.style.display = '';
+        $('synList').innerHTML = `<div class="empty">${ids.length > 1
+          ? 'Проверено: синергий не найдено.'
+          : 'Нужно минимум две добавки — синергии считаются по парам.'}</div>`;
+      } else {
+        synBlock.style.display = 'none';
+      }
     } else {
       synBlock.style.display = '';
       $('synList').innerHTML = synergies.map(s => `
@@ -926,7 +965,12 @@ function esc(s) {
     $('cntWarn').textContent = warnings.length;
     const warnBlock = $('warnList').closest('.block');
     if (!warnings.length) {
-      warnBlock.style.display = 'none';
+      if (hasSelection) {
+        warnBlock.style.display = '';
+        $('warnList').innerHTML = '<div class="empty">Проверено: предупреждений о дозировке нет.</div>';
+      } else {
+        warnBlock.style.display = 'none';
+      }
     } else {
       warnBlock.style.display = '';
       $('warnList').innerHTML = warnings.map(w => `<div class="block-item sev-${w.severity}">${w.text}</div>`).join('');
