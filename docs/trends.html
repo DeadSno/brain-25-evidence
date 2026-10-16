@@ -459,7 +459,7 @@ Promise.all([
   // контейнер держит <canvas>, регион на нём озвучивал бы весь холст.
   // Ошибка приходит один раз, поэтому assertive (role="alert").
   document.querySelector('.chart-wrap').innerHTML =
-    '<p role="alert" style="color:var(--grade-d-tx);padding:2rem;text-align:center">Не удалось загрузить данные: ' + esc(err.message) + '</p>';
+    '<p role="alert" style="color:var(--grade-d-tx);padding:2rem;text-align:center">' + t("trends.loadError") + esc(err.message) + '</p>';
 });
 
 // ── Инициализация ─────────────────────────────────────────────
@@ -510,7 +510,7 @@ function renderStats() {
   document.getElementById('kpiPubs2025').textContent = sumPubs2025.toLocaleString(LOCALE);
   const pubsDelta = sumPubs2015 ? Math.round((sumPubs2025 / sumPubs2015 - 1) * 100) : 0;
   const pubsDEl = document.getElementById('kpiPubsDelta');
-  pubsDEl.textContent = (pubsDelta >= 0 ? '↑ ' : '↓ ') + Math.abs(pubsDelta) + '% к 2015';
+  pubsDEl.textContent = (pubsDelta >= 0 ? '↑ ' : '↓ ') + Math.abs(pubsDelta) + t("trends.pctTo2015");
   pubsDEl.className = 'delta' + (pubsDelta < 0 ? ' down' : '');
 
   // Wiki декабрь 2025 (последний месяц)
@@ -527,7 +527,7 @@ function renderStats() {
   document.getElementById('kpiCites2025').textContent = cite2025.toLocaleString(LOCALE);
   const citeDelta = cite2015 ? Math.round((cite2025 / cite2015 - 1) * 100) : 0;
   const citeEl = document.getElementById('kpiCitesDelta');
-  citeEl.textContent = (citeDelta >= 0 ? '↑ ' : '↓ ') + Math.abs(citeDelta) + '% к 2015';
+  citeEl.textContent = (citeDelta >= 0 ? '↑ ' : '↓ ') + Math.abs(citeDelta) + t("trends.pctTo2015");
   citeEl.className = 'delta' + (citeDelta < 0 ? ' down' : '');
 
   // Топ по росту
@@ -542,7 +542,7 @@ function renderStats() {
   const top = growth[0];
   if (top) {
     document.getElementById('kpiTop').textContent = top.id;
-    document.getElementById('kpiTopDelta').textContent = '×' + top.growth.toFixed(2) + ' за 10 лет';
+    document.getElementById('kpiTopDelta').textContent = '×' + top.growth.toFixed(2) + t("trends.per10y");
   }
 }
 
@@ -601,7 +601,7 @@ function renderChart() {
       data: {
         labels,
         datasets: [{
-          label: 'Рост публикаций',
+          label: t("trends.pubGrowthLabel"),
           data: values,
           backgroundColor: colors,
           borderRadius: 4,
@@ -625,12 +625,12 @@ function renderChart() {
           },
         },
         scales: {
-          x: { grid: { color: grid }, ticks: { color: txt }, title: { display: true, text: 'Рост (× к базе)', color: txt } },
+          x: { grid: { color: grid }, ticks: { color: txt }, title: { display: true, text: t("trends.xAxisBase"), color: txt } },
           y: { grid: { display: false }, ticks: { color: txt, font: { size: 11 } } },
         },
       },
     });
-    note.textContent = `Показано ${rows.length} добавок · клик по столбцу → карточка · цвет = грейд доказательности`;
+    note.textContent = t("trends.shown", { n: rows.length });
   }
 
   else if (currentTab === 'wiki') {
@@ -692,7 +692,7 @@ function renderChart() {
         },
       },
     });
-    note.textContent = `Топ-${rows.length} по просмотрам · линия = добавка (цвет = грейд) · наведение — точное значение`;
+    note.textContent = t("trends.topShown", { n: rows.length });
   }
 
   else if (currentTab === 'citations') {
@@ -709,7 +709,7 @@ function renderChart() {
       data: {
         labels: years,
         datasets: [{
-          label: 'Цитат за год (сумма)',
+          label: t("trends.citesPerYearLabel"),
           data: years.map(y => totals[y]),
           backgroundColor: 'rgba(52,152,219,.8)',
           borderColor: '#2980b9',
@@ -724,7 +724,7 @@ function renderChart() {
           legend: { display: false },
           tooltip: {
             callbacks: {
-              label: (ctx) => `${ctx.parsed.y.toLocaleString(LOCALE)} цитат`,
+              label: (ctx) => ctx.parsed.y.toLocaleString(LOCALE) + t("trends.citationsSuffix"),
             },
           },
         },
@@ -738,7 +738,7 @@ function renderChart() {
     const first = totals[years[0]] || 0;
     const last = totals[years[years.length - 1]] || 0;
     const d = first > 0 ? Math.round((last / first - 1) * 100) : 0;
-    note.textContent = `Сумма цитат по всем отфильтрованным добавкам · рост ${d >= 0 ? '+' : ''}${d}% за период`;
+    note.textContent = t("trends.citeSumGrowth", { d: (d >= 0 ? '+' : '') + d });
   }
 }
 
@@ -750,13 +750,13 @@ function openModal(id) {
   const parts = [];
   parts.push(`<h2>${esc(c.name)}</h2>`);
   parts.push(`<div class="mrow"><span class="verdict v${esc(c.code)}">${esc(c.verdict)}</span>` +
-    (c.grade ? ` · <span class="grade g${esc(c.grade)}">грейд ${esc(c.grade)}</span>` : '') +
+    (c.grade ? ` · <span class="grade g${esc(c.grade)}">${t("card.grade")} ${esc(c.grade)}</span>` : '') +
     ` · ${esc(c.category)}</div>`);
-  if (c.scienceIndex) parts.push(`<div class="mrow">📊 Индекс науки: <b>${c.scienceIndex}</b> (MA: ${c.metaCount || 0})</div>`);
-  if (c.citations != null) parts.push(`<div class="mrow">📖 Цитат ключевого источника: ${c.citations}</div>`);
-  if (c.wiki != null) parts.push(`<div class="mrow">🌐 Wiki-просмотров/мес: ${c.wiki.toLocaleString(LOCALE)}</div>`);
-  if (c.ongoing != null) parts.push(`<div class="mrow">🧪 Активных испытаний: ${c.ongoing}</div>`);
-  if (c.effects?.length) parts.push(`<div class="mrow"><b>Эффекты:</b> ${c.effects.map(esc).join(', ')}</div>`);
+  if (c.scienceIndex) parts.push(`<div class="mrow">${t("trends.sciIndex")}<b>${c.scienceIndex}</b> (MA: ${c.metaCount || 0})</div>`);
+  if (c.citations != null) parts.push(`<div class="mrow">${t("trends.citKeySource")}${c.citations}</div>`);
+  if (c.wiki != null) parts.push(`<div class="mrow">${t("trends.wikiPerMonth")}${c.wiki.toLocaleString(LOCALE)}</div>`);
+  if (c.ongoing != null) parts.push(`<div class="mrow">${t("trends.activeTrials")}${c.ongoing}</div>`);
+  if (c.effects?.length) parts.push(`<div class="mrow"><b>${t("trends.effectsLabel")}</b> ${c.effects.map(esc).join(', ')}</div>`);
 
   // мини-график динамики
   const pubS = TS.pubmed[id] || {};
@@ -764,15 +764,15 @@ function openModal(id) {
   const citeS = TS.citations[id] || {};
   if (Object.keys(pubS).length) {
     const ys = Object.keys(pubS).sort();
-    parts.push(`<div class="mrow" style="margin-top:.8rem"><b>Публикации по годам:</b> ` +
+    parts.push(`<div class="mrow" style="margin-top:.8rem"><b>${t("trends.pubsByYear")}</b> ` +
       ys.map(y => `<span style="opacity:.7">${y}:</span> ${pubS[y]}`).join(' · ') + `</div>`);
   }
   if (Object.keys(citeS).length) {
     const total = Object.values(citeS).reduce((s, x) => s + x, 0);
-    parts.push(`<div class="mrow"><b>Всего цитат:</b> ${total.toLocaleString(LOCALE)}</div>`);
+    parts.push(`<div class="mrow"><b>${t("trends.totalCites")}</b> ${total.toLocaleString(LOCALE)}</div>`);
   }
 
-  parts.push(`<div class="mrow" style="margin-top:1rem"><a class="btn" href="index.html#sup=${encodeURIComponent(id)}">Открыть полную карточку →</a></div>`);
+  parts.push(`<div class="mrow" style="margin-top:1rem"><a class="btn" href="index.html#sup=${encodeURIComponent(id)}">${t("trends.openFullCard")}</a></div>`);
 
   document.getElementById('modalBody').innerHTML = parts.join('');
   document.getElementById('modalOverlay').style.display = 'flex';
@@ -921,28 +921,28 @@ growth_wiki = avg(wiki[id][последние 6 мес]) / avg(wiki[id][перв
     const sci = items.filter(x => x.pub > x.wiki * 1.5 && x.pub > 1.5)
                      .sort((a, b) => (b.pub - b.wiki) - (a.pub - a.wiki));
     if (sci[0]) out.push({
-      icon: '🔬', title: 'Наука опережает хайп', tone: 'blue',
-      text: `${sci[0].name}: публикации ×${sci[0].pub.toFixed(2)}, wiki ×${sci[0].wiki.toFixed(2)} — наука растёт быстрее интереса`
+      icon: '🔬', title: t("trends.ins1Title"), tone: 'blue',
+      text: `${sci[0].name}${t("trends.insPubPrefix")}${sci[0].pub.toFixed(2)}, wiki ×${sci[0].wiki.toFixed(2)}${t("trends.insSciFaster")}`
     });
 
     const hype = items.filter(x => x.wiki > x.pub * 1.5 && ['C','D'].includes(x.grade))
                       .sort((a, b) => (b.wiki - b.pub) - (a.wiki - a.pub));
     if (hype[0]) out.push({
-      icon: '🔥', title: 'Хайп без науки', tone: 'red',
-      text: `${hype[0].name}: wiki ×${hype[0].wiki.toFixed(2)}, публикации ×${hype[0].pub.toFixed(2)} (грейд ${hype[0].grade}) — рост на маркетинге`
+      icon: '🔥', title: t("trends.ins2Title"), tone: 'red',
+      text: `${hype[0].name}: wiki ×${hype[0].wiki.toFixed(2)}${t("trends.insPubComma")}${hype[0].pub.toFixed(2)}${t("trends.insGradePrefix")}${hype[0].grade}${t("trends.insHypeGrowth")}`
     });
 
     const hid = items.filter(x => x.pub > 1.5 && x.wiki < 1.1).sort((a, b) => b.pub - a.pub);
     if (hid[0]) out.push({
-      icon: '❄️', title: 'Наука без хайпа', tone: 'blue',
-      text: `${hid[0].name}: публикации ×${hid[0].pub.toFixed(2)}, wiki ×${hid[0].wiki.toFixed(2)} — недооценённая добавка`
+      icon: '❄️', title: t("trends.ins3Title"), tone: 'blue',
+      text: `${hid[0].name}${t("trends.insPubPrefix")}${hid[0].pub.toFixed(2)}, wiki ×${hid[0].wiki.toFixed(2)}${t("trends.insUndervalued")}`
     });
 
     const lead = items.filter(x => x.pub > 1.3 && x.wiki > 1.3 && ['A','B'].includes(x.grade))
                       .sort((a, b) => (b.pub + b.wiki) - (a.pub + a.wiki));
     if (lead[0]) out.push({
-      icon: '⭐', title: 'Устойчивый лидер', tone: 'green',
-      text: `${lead[0].name}: ×${lead[0].pub.toFixed(2)} публикации, ×${lead[0].wiki.toFixed(2)} wiki, грейд ${lead[0].grade}`
+      icon: '⭐', title: t("trends.ins4Title"), tone: 'green',
+      text: `${lead[0].name}: ×${lead[0].pub.toFixed(2)}${t("trends.insLeadMid")}${lead[0].wiki.toFixed(2)}${t("trends.insWikiGrade")}${lead[0].grade}`
     });
 
     const ano = items.filter(x => Math.abs(x.zP) > 2 || Math.abs(x.zW) > 2)
@@ -950,8 +950,8 @@ growth_wiki = avg(wiki[id][последние 6 мес]) / avg(wiki[id][перв
     if (ano[0]) {
       const z = Math.max(Math.abs(ano[0].zP), Math.abs(ano[0].zW));
       out.push({
-        icon: '⚠️', title: 'Статистический выброс', tone: 'orange',
-        text: `${ano[0].name}: z-score ${z.toFixed(2)}σ от среднего — уникальный случай`
+        icon: '⚠️', title: t("trends.ins5Title"), tone: 'orange',
+        text: `${ano[0].name}: z-score ${z.toFixed(2)}${t("trends.insAnomaly")}`
       });
     }
     return { out, mP, mW };
@@ -983,13 +983,13 @@ growth_wiki = avg(wiki[id][последние 6 мес]) / avg(wiki[id][перв
       ctx.font = 'bold 13px system-ui, sans-serif';
       ctx.fillStyle = 'rgba(160,160,160,.4)';
       ctx.textAlign = 'left';
-      ctx.fillText('🔥 ХАЙП БЕЗ НАУКИ', chartArea.left + 12, chartArea.top + 22);
+      ctx.fillText(t("trends.qHype"), chartArea.left + 12, chartArea.top + 22);
       ctx.textAlign = 'right';
-      ctx.fillText('⭐ ЛИДЕРЫ', chartArea.right - 12, chartArea.top + 22);
+      ctx.fillText(t("trends.qLeaders"), chartArea.right - 12, chartArea.top + 22);
       ctx.textAlign = 'left';
-      ctx.fillText('⚪ ЗАБВЕНИЕ', chartArea.left + 12, chartArea.bottom - 10);
+      ctx.fillText(t("trends.qForget"), chartArea.left + 12, chartArea.bottom - 10);
       ctx.textAlign = 'right';
-      ctx.fillText('❄️ НАУКА БЕЗ ХАЙПА', chartArea.right - 12, chartArea.bottom - 10);
+      ctx.fillText(t("trends.qScience"), chartArea.right - 12, chartArea.bottom - 10);
       ctx.strokeStyle = 'rgba(160,160,160,.35)';
       ctx.setLineDash([5, 5]);
       ctx.beginPath();
@@ -1036,18 +1036,18 @@ growth_wiki = avg(wiki[id][последние 6 мес]) / avg(wiki[id][перв
             callbacks: {
               label: (ctx) => {
                 const d = ctx.raw;
-                return `${d.label} · ×${d.x.toFixed(2)} pub · ×${d.y.toFixed(2)} wiki · грейд ${d.grade}`;
+                return `${d.label} · ×${d.x.toFixed(2)} pub · ×${d.y.toFixed(2)} wiki${t("trends.tipGrade")}${d.grade}`;
               },
             },
           },
         },
         scales: {
           x: {
-            title: { display: true, text: 'Рост публикаций (× к 2015)', color: textColor },
+            title: { display: true, text: t("trends.yAxisPubs"), color: textColor },
             grid: { color: gridColor }, ticks: { color: textColor },
           },
           y: {
-            title: { display: true, text: 'Рост wiki (× к базе)', color: textColor },
+            title: { display: true, text: t("trends.yAxisWiki"), color: textColor },
             grid: { color: gridColor }, ticks: { color: textColor },
           },
         },
@@ -1082,10 +1082,10 @@ growth_wiki = avg(wiki[id][последние 6 мес]) / avg(wiki[id][перв
       return `
         <div class="category-card">
           <div class="category-name">${esc(cat)} <span class="cat-count">${arr.length}</span></div>
-          <div class="cat-row"><span class="cat-label">Средний рост</span><span>×${avg.toFixed(2)}</span></div>
-          <div class="cat-row"><span class="cat-label">Лидер</span><span>${esc(leader.name)} ×${leader.pub.toFixed(2)}</span></div>
-          <div class="cat-row"><span class="cat-label">Провал</span><span>${esc(loser.name)} ×${loser.pub.toFixed(2)}</span></div>
-          ${dShare > 0.3 ? `<div class="cat-warn">⚠️ ${Math.round(dShare * 100)}% без доказательств (грейд D)</div>` : ''}
+          <div class="cat-row"><span class="cat-label">${t("trends.catAvg")}</span><span>×${avg.toFixed(2)}</span></div>
+          <div class="cat-row"><span class="cat-label">${t("trends.catLeader")}</span><span>${esc(leader.name)} ×${leader.pub.toFixed(2)}</span></div>
+          <div class="cat-row"><span class="cat-label">${t("trends.catLoser")}</span><span>${esc(loser.name)} ×${loser.pub.toFixed(2)}</span></div>
+          ${dShare > 0.3 ? `<div class="cat-warn">${t("trends.catNoProof", { n: Math.round(dShare * 100) })}</div>` : ''}
         </div>`;
     }).join('');
   }
@@ -1098,7 +1098,7 @@ growth_wiki = avg(wiki[id][последние 6 мес]) / avg(wiki[id][перв
         .then(r => (r.ok ? r.json() : Promise.reject(new Error('HTTP ' + r.status)))),
     ]).catch(function (err) {
       // Без этого необработанный промис молча ломал рендер страницы
-      console.warn('Тренды: данные не загрузились —', err);
+      console.warn(t("trends.warnLog"), err);
     });
     TS_ = ts;
     SUPP_ = idx.supplements || [];
