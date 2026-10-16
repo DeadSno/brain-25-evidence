@@ -197,10 +197,9 @@ footer { font-size: 1rem !important; }
   <div class="trustbar">🧬 Открытые данные · Бесплатно · Без рекламы</div>
   <header class="top">
     <div class="site-title"><a href="index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a> <span class="v">v<span data-version="app"></span></span></div>
-    <nav class="actions" aria-label="Главная навигация">
+    <nav class="actions" data-i18n-aria-label="a11y.navMain">
       <a class="btn c-feedback" href="feedback.html">💬 Обратная связь</a>
-      <button class="btn c-refresh" id="refreshBtn" title="Обновить данные с сервера"
-              aria-label="Обновить данные с сервера">🔄 Обновить</button>
+      <button class="btn c-refresh" id="refreshBtn" data-i18n-title="index.refresh" data-i18n-aria-label="index.refresh">🔄 Обновить</button>
       <a class="btn c-support" href="support.html">💚 Поддержать</a>
       <button class="btn" id="themeBtn">🌞 Светлая тема</button>
     </nav>
@@ -232,7 +231,7 @@ footer { font-size: 1rem !important; }
 
 <section id="controls">
   <label for="search" class="sr-only">Поиск по названию или эффекту</label>
-  <input id="search" placeholder="🔍 Поиск: название или эффект..."/>
+  <input id="search" data-i18n-placeholder="index.searchPh"/>
   <label for="verdictFilter" class="sr-only">Фильтр: вердикт</label>
   <select id="verdictFilter">
     <option value="all">Любой вердикт</option>
@@ -251,8 +250,8 @@ footer { font-size: 1rem !important; }
        (.quick-links) поднимаются с 904 на 852, то есть попадают на
        первый экран при высоте 852. Замер: reports/V550_FINAL.md, A3. -->
   <div class="filter-actions">
-    <button id="favFilter" class="favFilter" title="Показать только избранные" aria-label="Показать только избранные">⭐ <span id="favCount">0</span></button>
-    <button id="resetFilters" class="favFilter" title="Сбросить все фильтры и поиск" aria-label="Сбросить все фильтры и поиск">✕</button>
+    <button id="favFilter" class="favFilter" data-i18n-title="index.favs" data-i18n-aria-label="index.favs">⭐ <span id="favCount">0</span></button>
+    <button id="resetFilters" class="favFilter" data-i18n-title="index.reset" data-i18n-aria-label="index.reset">✕</button>
   </div>
 </section>
 
@@ -410,9 +409,9 @@ footer { font-size: 1rem !important; }
   <div class="filterSection">
     <span class="filterLabel">Быстрые подборки</span>
     <div class="presetRow" id="presetRow">
-      <button class="preset" data-preset="science" title="Сортировка: доказательность">🏆 Топ по науке</button>
-      <button class="preset" data-preset="verdict" title="Вердикт только «работает»">💎 Доказано</button>
-      <button class="preset" data-preset="ongoing" title="Есть активные испытания на людях">🔥 Изучают сейчас</button>
+      <button class="preset" data-preset="science" data-i18n-title="index.sortSci">🏆 Топ по науке</button>
+      <button class="preset" data-preset="verdict" data-i18n-title="index.verdictWorks">💎 Доказано</button>
+      <button class="preset" data-preset="ongoing" data-i18n-title="index.trials">🔥 Изучают сейчас</button>
     </div>
   </div>
 
@@ -476,7 +475,7 @@ footer { font-size: 1rem !important; }
 
 <div id="modalOverlay" style="display:none">
   <div id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-    <button id="modalClose" aria-label="Закрыть окно">✕</button>
+    <button id="modalClose" data-i18n-aria-label="a11y.closeModal">✕</button>
     <div id="modalBody"></div>
   </div>
 </div>
@@ -485,7 +484,7 @@ footer { font-size: 1rem !important; }
 <script src="tracker.js?v=281" defer></script>
 <script src="pwa.js?v=282" defer></script>
 <script src="share.js?v=1" defer></script>
-<button class="toBottom" id="toBottom" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})" title="Вниз" aria-label="Прокрутить страницу вниз">↓</button>
+<button class="toBottom" id="toBottom" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})" data-i18n-title="btn.scrollDown" data-i18n-aria-label="a11y.scrollDown">↓</button>
 <script>
 window.addEventListener('scroll', () => {
   const btn = document.getElementById('toBottom');
@@ -510,7 +509,7 @@ document.getElementById('refreshBtn')?.addEventListener('click', () => {
 <!-- v5.6.2: cookie-согласие + Яндекс.Метрика (счётчик 112465667).
      Метрика грузится ТОЛЬКО после нажатия «Принять»: до согласия
      ни одного запроса к mc.yandex.ru не происходит. -->
-<div id="cookieBanner" role="dialog" aria-label="Согласие на использование cookie" hidden>
+<div id="cookieBanner" role="dialog" data-i18n-aria-label="a11y.cookieConsent" hidden>
   <div class="cb-text">
     Мы используем cookie и Яндекс.Метрику, чтобы понять, какие материалы полезны.
     Аналитика включается только после вашего согласия.
