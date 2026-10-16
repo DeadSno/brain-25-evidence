@@ -146,6 +146,13 @@ git push origin HEAD:v5.6-dev     # fast-forward, только remote
 Локальная ветка в главном чекауте после этого отстаёт; догонять её
 отдельным `merge --ff-only` по явному разрешению.
 
+### Пуш — только в v5.6-dev до merge v5.6.4
+
+- Все коммиты до merge v5.6.4 — ТОЛЬКО в `v5.6-dev`.
+- `main` = заморожен на теге `v5.6.3`.
+- Перед push: `git branch --show-current`. Если не `v5.6-dev` → СТОП.
+- Прецедент: 16.10.2026 PERF-P2-01 ушёл в `main` вместо `v5.6-dev` (инцидент с ветками — откатили `main` к `99c67b9` / тегу `v5.6.3`, перенесли в `v5.6-dev` через cherry-pick `c881a85`).
+
 ## OpenCode worktree (автоматика)
 
 - OpenCode Desktop создаёт worktree на КАЖДУЮ сессию:
