@@ -60,6 +60,14 @@ KNOWN_DOTFILES = {".nojekyll"}
 #: Список — предмет junk guard, а не проверки кодировки.
 JUNK_MARKER = ".bak-"
 
+#: Служебные файлы верификации поисковых систем. Страницами не являются,
+#: но, в отличие от токена Google (одна строка без <html>), содержат
+#: <html>, поэтому общий отсев «не страница» их не ловит — их приходится
+#: называть явно. Ни <!doctype, ни <meta charset> в них нет и быть не
+#: может: содержимое выдано поисковиком дословно, менять его нельзя
+#: (задание владельца 16.10.2026).
+VERIFICATION_FILES = {"yandex_cc2e3cf2ee185b01.html"}
+
 
 def _has_bom(f: Path) -> bool:
     """Читает только первые 3 байта.
@@ -125,7 +133,9 @@ def test_doctype_not_shadowed_in_docs():
 
     Файлы, которые не являются страницами (например
     google<id>.html с токеном верификации), пропускаются: doctype
-    требуется только настоящим документам.
+    требуется только настоящим документам. Токен Google отсеивается
+    сам — в нём нет тега <html>; файл верификации Яндекса этот тег
+    содержит, поэтому назван явно в VERIFICATION_FILES.
     """
     broken = []
     for f in _files({".html"}):
@@ -133,6 +143,8 @@ def test_doctype_not_shadowed_in_docs():
             raw = fh.read(4096)
         if b"<html" not in raw.lower():
             continue                      # не страница (токен верификации)
+        if f.name in VERIFICATION_FILES:
+            continue                      # файл верификации (не страница)
         if not raw[:64].lstrip().lower().startswith(b"<!doctype html"):
             broken.append(_rel(f))
     assert not broken, (
@@ -224,6 +236,11 @@ def test_charset_declaration_precedes_any_fetchable_element():
     Проверка формулируется шире частного случая: charset обязан
     предшествовать ЛЮБОМУ элементу, который браузер начинает
     разбирать до его объявления, — script, link, style, title.
+
+    Файл верификации Яндекса объявляет кодировку через
+    `<meta http-equiv="Content-Type" ...>` — под `<meta charset>` он
+    не подходит; отсеивается по VERIFICATION_FILES, как и в проверке
+    doctype.
     """
     import re
 
@@ -235,6 +252,8 @@ def test_charset_declaration_precedes_any_fetchable_element():
         text = f.read_text(encoding="utf-8", errors="replace")
         if "<html" not in text.lower():
             continue                      # не страница (токен верификации)
+        if f.name in VERIFICATION_FILES:
+            continue                      # файл верификации (не страница)
         m = charset_re.search(text)
         if not m:
             offenders.append(f"{_rel(f)} — нет meta charset")
