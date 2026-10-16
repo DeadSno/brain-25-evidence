@@ -205,7 +205,7 @@ footer { font-size: 1rem !important; }
     <div class="trustbar">🧬 Открытые данные · Бесплатно · Без рекламы</div>
     <header class="top">
     <div class="site-title"><a href="index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a> <span class="v">v<span data-version="app"></span></span></div>
-    <nav class="actions" aria-label="Главная навигация">
+    <nav class="actions" data-i18n-aria-label="a11y.navMain">
       <a class="btn c-calc" href="calculator.html">🧮 Калькулятор</a>
       <a class="btn c-mech" href="map.html">🧩 Механизмы</a>
       <a class="btn c-links" href="interactions.html">🔗 Связи</a>
@@ -230,16 +230,16 @@ footer { font-size: 1rem !important; }
 
   <div class="filterbar">
     <span class="lbl">Грейд:</span>
-    <button class="btn gr on" data-grade="A" aria-label="Грейд A">A</button>
-    <button class="btn gr on" data-grade="B" aria-label="Грейд B">B</button>
-    <button class="btn gr on" data-grade="C" aria-label="Грейд C">C</button>
-    <button class="btn gr on" data-grade="D" aria-label="Грейд D">D</button>
+    <button class="btn gr on" data-grade="A" data-i18n-aria-label="atlas.gradeA">A</button>
+    <button class="btn gr on" data-grade="B" data-i18n-aria-label="atlas.gradeB">B</button>
+    <button class="btn gr on" data-grade="C" data-i18n-aria-label="atlas.gradeC">C</button>
+    <button class="btn gr on" data-grade="D" data-i18n-aria-label="atlas.gradeD">D</button>
     <label class="lbl" for="q" style="margin-inline-start:1rem">Поиск:</label>
-    <input id="q" placeholder="название, эффект, механизм…" style="padding:.4rem .7rem;border:1px solid var(--aborder);border-radius:8px;background:var(--apanel);color:var(--atext);min-width:180px">
-    <button class="btn" id="pngBtn" title="Скачать картинку">📷 PNG</button>
-    <button class="btn" id="shareBtn" aria-live="polite" title="Копировать ссылку с фильтрами">🔗 Ссылка</button>
+    <input id="q" data-i18n-placeholder="atlas.searchPh" style="padding:.4rem .7rem;border:1px solid var(--aborder);border-radius:8px;background:var(--apanel);color:var(--atext);min-width:180px">
+    <button class="btn" id="pngBtn" data-i18n-title="atlas.btn.download">📷 PNG</button>
+    <button class="btn" id="shareBtn" aria-live="polite" data-i18n-title="atlas.btn.copyLink">🔗 Ссылка</button>
     <button class="btn" id="clearAllBtn" style="display:none">✕ Сбросить всё</button>
-    <button class="btn" id="fsBtn" aria-live="polite" title="Развернуть на весь экран">⛶ На весь экран</button>
+    <button class="btn" id="fsBtn" aria-live="polite" data-i18n-title="atlas.btn.fullscreen">⛶ На весь экран</button>
   </div>
 
   <!-- v5.6.3: замена prompt() в обработчике #shareBtn. Нативный prompt
@@ -249,7 +249,7 @@ footer { font-size: 1rem !important; }
   <dialog id="shareLinkDlg" class="dlg" aria-labelledby="shareLinkDlgTitle" aria-describedby="shareLinkDlgDesc">
     <h2 id="shareLinkDlgTitle">Скопируй ссылку</h2>
     <p id="shareLinkDlgDesc">Браузер не дал доступ к буферу обмена. Выдели текст и скопируй вручную:</p>
-    <textarea id="shareLinkDlgText" readonly rows="3" aria-label="Ссылка с фильтрами"></textarea>
+    <textarea id="shareLinkDlgText" readonly rows="3" data-i18n-aria-label="atlas.aria.filterLink"></textarea>
     <div class="dlg-actions">
       <button type="button" class="btn" data-dlg-close>Закрыть</button>
     </div>
@@ -828,7 +828,7 @@ function esc(s) {
   })();
 })();
 </script>
-<button class="toBottom" id="toBottom" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})" title="Вниз" aria-label="Прокрутить страницу вниз">↓</button>
+<button class="toBottom" id="toBottom" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})" data-i18n-title="btn.scrollDown" data-i18n-aria-label="a11y.scrollDown">↓</button>
 <script>
 window.addEventListener('scroll', () => {
   const btn = document.getElementById('toBottom');
@@ -848,7 +848,7 @@ window.addEventListener('scroll', () => {
 <!-- v5.6.2: cookie-согласие + Яндекс.Метрика (счётчик 112465667).
      Метрика грузится ТОЛЬКО после нажатия «Принять»: до согласия
      ни одного запроса к mc.yandex.ru не происходит. -->
-<div id="cookieBanner" role="dialog" aria-label="Согласие на использование cookie" hidden>
+<div id="cookieBanner" role="dialog" data-i18n-aria-label="a11y.cookieConsent" hidden>
   <div class="cb-text">
     Мы используем cookie и Яндекс.Метрику, чтобы понять, какие материалы полезны.
     Аналитика включается только после вашего согласия.
