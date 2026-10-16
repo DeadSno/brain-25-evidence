@@ -46,6 +46,7 @@ og-формулировки означало бы выбросить осмыс�
 
 from __future__ import annotations
 
+import json
 import re
 from pathlib import Path
 
@@ -97,6 +98,11 @@ IMAGE_MIRRORS = {"twitter:image": "og:image"}
 META_RE = re.compile(r"<meta\s+([^>]*?)\s*/?>", re.IGNORECASE)
 ATTR_RE = re.compile(r"""([\w:.-]+)\s*=\s*(?:"([^"]*)"|'([^']*)')""")
 TITLE_RE = re.compile(r"<title[^>]*>(.*?)</title>", re.IGNORECASE | re.DOTALL)
+LD_RE = re.compile(
+    r'<script[^>]*type\s*=\s*["\']application/ld\+json["\'][^>]*>(.*?)</script>',
+    re.IGNORECASE | re.DOTALL,
+)
+HREF_RE = re.compile(r"""<a\b[^>]*?\shref\s*=\s*(?:"([^"]*)"|'([^']*)')""", re.IGNORECASE)
 
 
 def _meta_map(html: str) -> dict[str, str]:
@@ -236,6 +242,101 @@ def test_description_is_not_placeholder(name: str, pages: dict) -> None:
     assert len(value.strip()) >= 30, (
         f"{name}: описание короче 30 символов ({value!r}). После копирования "
         f"канона в og/twitter такое значение размножится по трём тегам сразу."
+    )
+
+
+def _top_level_jsonld_descriptions(html: str) -> list[str]:
+    """Значения description на верхнем уровне объектов JSON-LD.
+
+    Только верхний уровень: description вложенных узлов (на карточках —
+    ``about.Drug``) описывает вещество, а не страницу, и каноном для него
+    не является. Считать все description подряд значило бы требовать от
+    описания вещества равенства с описанием страницы.
+    """
+    found: list[str] = []
+    for block in LD_RE.findall(html):
+        try:
+            obj = json.loads(block.strip())
+        except json.JSONDecodeError as exc:
+            raise AssertionError(f"блок JSON-LD не разбирается: {exc}") from exc
+        for item in obj if isinstance(obj, list) else [obj]:
+            if isinstance(item, dict) and isinstance(item.get("description"), str):
+                found.append(item["description"])
+    return found
+
+
+ALL_PAGES = sorted(
+    p.relative_to(ROOT).as_posix() for p in ROOT.rglob("*.html")
+)
+
+
+@pytest.mark.parametrize("name", ALL_PAGES)
+def test_jsonld_description_mirrors_meta(name: str) -> None:
+    """JSON-LD description — копия meta description, а не вторая редакция.
+
+    Находка `SEO-P2-01`. Раньше в шаблоне карточек стояло
+    `"description": "{{ about_j }}"`, то есть сырое поле about, тогда как
+    meta description собиралось из about + числа грейда и обрезалось по
+    DESC_MAX. На 94 страницах из 144 структурированные данные расходились с
+    мета-описанием: на 91 оно было урезанным префиксом, а на трёх
+    (lavanda, molibden, sulforafan) обрезание делало meta короче JSON-LD.
+
+    Канон тот же, что у og/twitter после MKT-P2-09/10: один источник правды
+    на страницу. Правка мета-описания не должна расходиться с разметкой.
+    """
+    html = (ROOT / name).read_text(encoding="utf-8")
+    descriptions = _top_level_jsonld_descriptions(html)
+    if not descriptions:
+        pytest.skip(f"{name}: разметки JSON-LD нет (проверка не применима)")
+    meta = _meta_map(html).get("description")
+    bad = [d for d in descriptions if d != meta]
+    assert not bad, (
+        f"{name}: {len(descriptions)} JSON-LD description, из них "
+        f"{len(bad)} не равны <meta name=\"description\">.\n    "
+        + "\n    ".join(
+            f"JSON-LD: {d[:120]!r}\n      meta:   {(meta or '')[:120]!r}" for d in bad
+        )
+    )
+
+
+@pytest.mark.parametrize("name", ALL_PAGES)
+def test_jsonld_is_parseable(name: str) -> None:
+    """Каждый блок ld+json обязан разбираться json.loads.
+
+    Регрессия из `SEO-P2-01`: многострочный литерал в `{% set %}` шаблона
+    каталога вставлял реальный перевод строки внутрь JSON-строки, и
+    разметка переставала быть JSON — при этом страница продолжала
+    отображаться, а ошибку видели только поисковики.
+    """
+    html = (ROOT / name).read_text(encoding="utf-8")
+    for block in LD_RE.findall(html):
+        try:
+            json.loads(block.strip())
+        except json.JSONDecodeError as exc:
+            pytest.fail(f"{name}: блок application/ld+json не разбирается: {exc}")
+
+
+@pytest.mark.parametrize("name", ALL_PAGES)
+def test_no_bare_sup_catalog_link(name: str) -> None:
+    """Ссылки ровно на каталог `/sup/` — нерабочие.
+
+    Находка `SEO-P2-03`: на главной была одна ссылка на `/sup/` вместо
+    `sup/index.html`. На момент закрытия таких ссылок в `docs/` не
+    осталось ни одной, но руками `href="/sup/"` написать легко, и
+    страница-пример не нужна: адрес без имени файла отдаёт 404 на
+    GitHub Pages, а каталог сам по себе не является целью ссылки.
+    """
+    html = (ROOT / name).read_text(encoding="utf-8")
+    bare = []
+    for i, line in enumerate(html.splitlines(), 1):
+        for m in HREF_RE.finditer(line):
+            href = (m.group(1) if m.group(1) is not None else m.group(2)) or ""
+            if href.rstrip("/").endswith("/sup") or href in {"sup", "./sup", "/sup"}:
+                bare.append(f"{name}:{i} -> {href!r}")
+    assert not bare, (
+        "Ссылки на каталог sup без имени файла (будут 404):\n    "
+        + "\n    ".join(bare)
+        + "\n  Правильный адрес каталога — sup/index.html (с ../ с карточки)."
     )
 
 
