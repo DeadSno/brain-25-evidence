@@ -2,6 +2,58 @@
 
 Все значимые изменения проекта. Формат: [Keep a Changelog](https://keepachangelog.com/ru/1.0.0/).
 
+## [v5.6.4] — 16.10.2026
+
+Закрыт цикл P2-аудитов: данные, метатеги, доступность, мёртвый код.
+Отчёты батчей 4–9A: `reports/BATCH*_SUMMARY.md`.
+
+### Added
+
+- og:site_name на всех 145 страницах (MKT-P2-05: 144/144, остаток — `offline.html`)
+- twitter:card на 5 страницах (atlas, calculator, interactions, map, trends)
+- Слоган под `<h1>`: «130 добавок: механизм, источники и честный вердикт» (MKT-P1-01)
+- CTA в конце блока «3 вопроса» на главной (MKT-P1-02)
+- Блок «Почему этому можно верить» — 4 проверяемых пункта (MKT-P1-06)
+- CTA в калькуляторе: «Как считаются верхние пределы дозировки» (MKT-P1-07)
+- Соцдоказательства на support.html — «Что внутри проекта» (MKT-P1-08)
+- Logical CSS properties на 9 страницах (I18N-P1-01: trends, graph, interactions, atlas, calculator, feedback, index, support, privacy)
+- Гейт на физические CSS свойства (`test_logical_properties.py`, `KNOWN_DEBT` = 19 пар → 0)
+- Schema.org (ld+json) на 13 страницах (MKT-P1-05: `MedicalWebPage`, `CollectionPage`, `FAQPage`)
+- AGENTS.md: 19 → 20 скиллов (+ `skill-audit`)
+- ACCEPTED_UNPROTECTED ключ по тексту цепочки, а не номеру строки (QA-P2-01)
+- CONVENTIONS.md: worktree, WONTFIX-конвенция, push, базовая линия тестов
+- AUDIT_MASTER §2 синхронизирован с фактическими строками таблиц `audits/*.md`
+
+### Changed
+
+- trends.html: числа приведены к факту — 130 (PubMed) / 90 (Wiki), блок «Покрытие серий» вместо списка 36 без ряда
+- FAQ: «169 пар» → 199 (фактическая сумма `interactions` из `data.json`)
+- visual-design-audit SKILL.md: «24» → «13» ступеней `font-size`
+- Старые ссылки в `reports/audits/*.md` исправлены (54 ссылок, 9 исправлено в 6 файлах)
+- Регулярка `audit_links.py` — хвост `>` в URL устранён (Issue #6, 25 → 23 URL, битых = 0)
+
+### Fixed
+
+- DOI-ссылки в sup-страницах (LEGAL-P2-02, коммит `900f505`)
+- Timeseries: покрытие 94/130 → 130/130 (PubMed + цитирования, `docs/trends.html` приведено к факту)
+- 17 пропущенных цитирований заполнены (DATA-P2-03, сумма 5 243)
+- Omega-3: `citations: 0` → `null` (PMID 32114706 отсутствует в OpenAlex)
+- funders.json: битый символ U+FFFD восстановлен (DATA-P2-06)
+- e2e_smoke.py: устаревшие селекторы осей приведены к разметке (`#axisPrice` → `#axisRCT` и др.)
+
+### Removed
+
+- `priceTip()` — мёртвый код цены (вызывающих ноль, источник данных не существовал)
+- Ветки `axisX === 'price'` (dead branches в `renderBubble`, `isPrice`/`nullPrice`/`maxP`/`bandDatasets`/`noPriceBand`)
+- `hedges_g_outcome` — мёртвое поле из `docs/data.json`, `tests/snapshot_data.json`, `data/supplements_slim.json`
+
+### Security
+
+- CYBER-P1-01 → WONTFIX (GitHub Pages не даёт контроля над response-заголовками)
+- CYBER-P1-02 → WONTFIX (Bootstrap 5.0.0-beta3 вендор только на `graph.html`, страница удаляется в v5.6.5)
+
+---
+
 ## [v5.6.3] — 2026-10-12
 
 **Выпущено в `main` 12.10.2026, тег `v5.6.3`** (коммит `99c67b9`).
