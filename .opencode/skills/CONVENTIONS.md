@@ -151,12 +151,12 @@ git push origin HEAD:v5.6-dev     # fast-forward, только remote
 - OpenCode Desktop создаёт worktree на КАЖДУЮ сессию:
   `git worktree add --detach -- <path> HEAD`
 - Конфигом не отключается (проверено: `opencode.json` + `opencode.jsonc` — 0 совпадений).
-- Прецеденты: `witty-nebula-2`, `misty-mountain`, `curious-star-2`,
-  `stellar-river`, `sunny-canyon`, `eager-circuit`.
+- Прецеденты (7): `witty-nebula-2`, `misty-mountain`, `curious-star-2`,
+  `stellar-river`, `sunny-canyon`, `eager-circuit`, `playful-canyon-2`.
   Первые пять уже сняты из `git worktree list` — список исторический, а не
-  перечень живых каталогов: на 16.10.2026 в списке 57 worktree, и
-  `eager-circuit` — единственный текущий.
-- ПРАВИЛО: **после каждого батча** — cherry-pick в main + push.
+  перечень живых каталогов (16.10.2026: 63 worktree в списке).
+- ПРАВИЛО: **после каждого батча** — cherry-pick в main + push + проверка
+  `branch --contains` (прецедент 7 — `playful-canyon-2`, 13A1, 16.10.2026).
   Формулировка «перед закрытием сессии» слабее: между батчами сессия может
   не дойти до конца, и тогда коммиты остаются жить только в
   `.git/worktrees/<name>/HEAD`.
@@ -172,10 +172,13 @@ git push origin HEAD:v5.6-dev     # fast-forward, только remote
   worktree не принадлежит ни одной ветке:
   ```
   git -C <main> branch --contains <wt-HEAD>
+  git -C <main> diff origin/v5.6-dev <wt-HEAD> --stat
   ```
-  Пусто = detached, нужен cherry-pick. ⚠️ Пусто бывает и после успешного
-  cherry-pick — хеш переписан, — поэтому вывод читается только в паре с
-  `git diff origin/v5.6-dev <wt-HEAD> --stat`.
+  ⚠️ Вывод `branch --contains` читается **только в паре** с `diff`:
+  пусто + diff пусто → уже забрано (ложный сигнал, следующий раздел);
+  пусто + diff **не** пусто → detached, нужен cherry-pick. Пустое
+  `branch --contains` **само по себе не доказывает** detached: после
+  cherry-pick хеш переписан, и проверка молчит ровно так же.
 
 Замерено 15.10.2026 по `%USERPROFILE%\.local\share\opencode\log\opencode.log`:
 четыре сессии подряд (`tidy-cabin`, `playful-canyon`, `sunny-canyon`,
