@@ -213,7 +213,26 @@ const I18N = {
     "int.closePanel": "Закрыть панель",
     "int.relatedSupps": "Связанные добавки (",
     "int.links": "Связи (",
-    "int.loadError": "Не удалось загрузить interactions_graph.json: "
+    "int.loadError": "Не удалось загрузить interactions_graph.json: ",
+    // калькулятор (13A2b)
+    "calc.allMatches": "Все совпадения по запросу «{q}» уже в расчёте",
+    "calc.nothingFound": "Ничего не найдено по запросу «{q}»",
+    "calc.resetSearch": "Сбросить поиск",
+    "calc.nothingSelected": "Пока ничего не выбрано. Начните с поиска выше.",
+    "calc.forWeight": " (для {w} кг)",
+    "calc.normPrefix": "норма: ",
+    "calc.removeTitle": "Удалить",
+    "calc.removeAria": "Удалить {id}",
+    "calc.aboveLimit": " — выше безопасного предела ",
+    "calc.noConflicts": "Проверено: конфликтов не найдено.",
+    "calc.noSubstanceInteractions": "Проверено: взаимодействий с веществами не найдено.",
+    "calc.noSynergies": "Проверено: синергий не найдено.",
+    "calc.needTwo": "Нужно минимум две добавки — синергии считаются по парам.",
+    "calc.takenTogether": "часто принимают вместе",
+    "calc.noDoseWarnings": "Проверено: предупреждений о дозировке нет.",
+    "calc.emptyList": "Список пуст",
+    "calc.mySetHeader": "Мой набор БАДов (вес {w} кг):",
+    "calc.doseNotSet": "доза не указана"
   }
 };
 

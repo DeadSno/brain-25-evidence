@@ -614,9 +614,9 @@ function esc(s) {
       // не найдено», хотя добавка есть в списке выше.
       : '<div class="empty">' +
           (DATA.some(c => selected[c.id] && matchesQuery(c, q))
-            ? 'Все совпадения по запросу «' + esc(q) + '» уже в расчёте'
-            : 'Ничего не найдено по запросу «' + esc(q) + '»') +
-        '<br><button type="button" class="btn" data-reset="1" style="margin-top:.6rem">Сбросить поиск</button></div>';
+            ? t("calc.allMatches", { q: esc(q) })
+            : t("calc.nothingFound", { q: esc(q) })) +
+        '<br><button type="button" class="btn" data-reset="1" style="margin-top:.6rem">' + t("calc.resetSearch") + '</button></div>';
   });
   $('searchResults').addEventListener('click', e => {
     const b = e.target.closest('[data-add]');
@@ -693,7 +693,7 @@ function esc(s) {
     const ids = Object.keys(selected);
     $('cntSel').textContent = ids.length;
     if (!ids.length) {
-      $('selectedList').innerHTML = '<div class="empty">Пока ничего не выбрано. Начните с поиска выше.</div>';
+      $('selectedList').innerHTML = '<div class="empty">' + t("calc.nothingSelected") + '</div>';
       return;
     }
     $('selectedList').innerHTML = ids.map(id => {
@@ -706,7 +706,7 @@ function esc(s) {
         const w = parseFloat($('pWeight').value) || 70;
         const mn = Math.round(w * d.per_kg.min * 100) / 100;
         const mx = Math.round(w * d.per_kg.max * 100) / 100;
-        range = `${mn}–${mx} ${d.per_kg.unit.replace('/kg', '')} (для ${w} кг)`;
+        range = `${mn}–${mx} ${d.per_kg.unit.replace('/kg', '')}${t("calc.forWeight", { w })}`;
       } else {
         range = d ? `${d.min}–${d.max} ${unit}` : '—';
       }
@@ -715,13 +715,13 @@ function esc(s) {
           <div>
             <span class="name" data-open="${esc(id)}">${esc(c.id)}</span>
         ${c.grade ? `<span class="grade-badge grade-${esc(c.grade)}">${esc(c.grade)}</span>` : ''}
-            <div style="font-size:12px;opacity:.6">норма: ${esc(range)}</div>
+            <div style="font-size:12px;opacity:.6">${t("calc.normPrefix")}${esc(range)}</div>
           </div>
           <div>
             <input type="number" data-input="${esc(id)}" min="0" step="any" value="${esc(val)}">
             <span class="unit">${esc(unit)}</span>
           </div>
-          <button class="rm" data-rm="${esc(id)}" title="Удалить" aria-label="Удалить ${esc(c.id)}">×</button>
+          <button class="rm" data-rm="${esc(id)}" title="${t("calc.removeTitle")}" aria-label="${t("calc.removeAria", { id: esc(c.id) })}">×</button>
         </div>`;
     }).join('');
 
@@ -801,7 +801,7 @@ function esc(s) {
           cntUl++;
           warnings.push({
             severity: 'high',
-            text: `<b>${esc(id)}</b>: ${esc(v)} ${esc(d.unit)} — выше безопасного предела ${esc(ul)} (${esc(c.upper_limit.slice(0, 80))}…)`,
+            text: `<b>${esc(id)}</b>: ${esc(v)} ${esc(d.unit)}${t("calc.aboveLimit")}${esc(ul)} (${esc(c.upper_limit.slice(0, 80))}…)`,
           });
         }
       }
@@ -952,9 +952,9 @@ function esc(s) {
           <div class="note">${esc(c.note || '')}</div>
         </div>`).join('');
     }
-    renderConf(confSupp, 'cntConfSupp', 'confListSupp', 'Проверено: конфликтов не найдено.');
-    renderConf(confDrug, 'cntConfDrug', 'confListDrug', 'Проверено: конфликтов не найдено.');
-    renderConf(confSubs, 'cntConfSubs', 'confListSubs', 'Проверено: взаимодействий с веществами не найдено.');
+    renderConf(confSupp, 'cntConfSupp', 'confListSupp', t("calc.noConflicts"));
+    renderConf(confDrug, 'cntConfDrug', 'confListDrug', t("calc.noConflicts"));
+    renderConf(confSubs, 'cntConfSubs', 'confListSubs', t("calc.noSubstanceInteractions"));
 
     // Синергии
     $('cntSyn').textContent = synergies.length;
@@ -963,8 +963,8 @@ function esc(s) {
       if (hasSelection) {
         synBlock.style.display = '';
         $('synList').innerHTML = `<div class="empty">${ids.length > 1
-          ? 'Проверено: синергий не найдено.'
-          : 'Нужно минимум две добавки — синергии считаются по парам.'}</div>`;
+          ? t("calc.noSynergies")
+          : t("calc.needTwo")}</div>`;
       } else {
         synBlock.style.display = 'none';
       }
@@ -973,7 +973,7 @@ function esc(s) {
       $('synList').innerHTML = synergies.map(s => `
         <div class="block-item synergy">
           <div class="pair">✅ ${esc(s.pair)}</div>
-          <div class="note">часто принимают вместе</div>
+          <div class="note">${t("calc.takenTogether")}</div>
         </div>`).join('');
     }
 
@@ -983,7 +983,7 @@ function esc(s) {
     if (!warnings.length) {
       if (hasSelection) {
         warnBlock.style.display = '';
-        $('warnList').innerHTML = '<div class="empty">Проверено: предупреждений о дозировке нет.</div>';
+        $('warnList').innerHTML = '<div class="empty">' + t("calc.noDoseWarnings") + '</div>';
       } else {
         warnBlock.style.display = 'none';
       }
@@ -1033,22 +1033,22 @@ function esc(s) {
   };
   $('shareTextBtn').onclick = () => {
     const ids = Object.keys(selected);
-    if (!ids.length) return showToast('Список пуст');
+    if (!ids.length) return showToast(t("calc.emptyList"));
     const w = parseFloat($('pWeight').value) || 70;
-    const lines = ['Мой набор БАДов (вес ' + w + ' кг):'];
+    const lines = [t("calc.mySetHeader", { w })];
     for (const id of ids) {
       const c = byId[id];
       const d = DOSAGE[id];
       const v = selected[id];
       const unit = d?.unit || '';
       const grade = c.grade ? ` [${c.grade}]` : '';
-      lines.push(`• ${id}${grade} — ${v != null ? v + ' ' + unit : 'доза не указана'}`);
+      lines.push(`• ${id}${grade} — ${v != null ? v + ' ' + unit : t("calc.doseNotSet")}`);
     }
     const text = lines.join('\n');
     navigator.clipboard.writeText(text).then(() => {
       const b = $('shareTextBtn');
       const old = b.textContent;
-      b.textContent = '✓ Скопировано';
+      b.textContent = t("common.copiedTick");
       setTimeout(() => { b.textContent = old; }, 1500);
     }).catch(() => {
       // v5.6.3: было prompt('Скопируйте текст:', text).
@@ -1065,7 +1065,7 @@ function esc(s) {
     navigator.clipboard.writeText(location.href).then(() => {
       const b = $('shareBtn');
       const old = b.textContent;
-      b.textContent = '✓ Скопировано';
+      b.textContent = t("common.copiedTick");
       setTimeout(() => { b.textContent = old; }, 1500);
     }).catch(() => {
       // v5.6.3: было prompt('Скопируйте ссылку:', location.href).
