@@ -92,9 +92,13 @@
 
 ```
 git -C <main> merge-base --is-ancestor <worktree-HEAD> v5.6-dev
+git -C <main> diff origin/v5.6-dev <worktree-HEAD> --stat
 ```
 
-Ненулевой код возврата = коммиты ещё не в ветке, сначала забрать.
+Ненулевой код возврата у первой = коммиты ещё не в ветке, **но только если
+вторая пуста**. Cherry-pick переписывает хеши, и тогда первая даёт ложную
+тревогу, а вторая доказывает, что дерево уже совпадает — подробности в
+«Ложное срабатывание проверки после cherry-pick». Решает вторая строка.
 
 ### Push сразу после cherry-pick
 
@@ -145,15 +149,30 @@ git push origin HEAD:v5.6-dev     # fast-forward, только remote
   `git worktree add --detach -- <path> HEAD`
 - Конфигом не отключается (проверено: `opencode.json` + `opencode.jsonc` — 0 совпадений).
 - Прецеденты: `witty-nebula-2`, `misty-mountain`, `curious-star-2`,
-  `stellar-river`, `sunny-canyon`.
-- ПРАВИЛО: перед закрытием сессии — cherry-pick + push.
-  Иначе коммиты живут только в `.git/worktrees/<name>/HEAD`.
+  `stellar-river`, `sunny-canyon`, `eager-circuit`.
+  Первые пять уже сняты из `git worktree list` — список исторический, а не
+  перечень живых каталогов: на 16.10.2026 в списке 57 worktree, и
+  `eager-circuit` — единственный текущий.
+- ПРАВИЛО: **после каждого батча** — cherry-pick в main + push.
+  Формулировка «перед закрытием сессии» слабее: между батчами сессия может
+  не дойти до конца, и тогда коммиты остаются жить только в
+  `.git/worktrees/<name>/HEAD`.
 - Проверка после каждого батча:
   ```
   git worktree list
   ```
   для каждого: `git -C <wt> log v5.6-dev..HEAD --oneline`
-  Пусто → safe. Не пусто → cherry-pick.
+  Пусто → safe. Не пусто → **не повод сразу cherry-pick'ить**: сперва
+  `git -C <main> diff origin/v5.6-dev <wt-HEAD> --stat`, пусто → уже забрано
+  (следующий раздел).
+- Отдельный случай — батч, который ещё ни разу не забирали. Тогда HEAD
+  worktree не принадлежит ни одной ветке:
+  ```
+  git -C <main> branch --contains <wt-HEAD>
+  ```
+  Пусто = detached, нужен cherry-pick. ⚠️ Пусто бывает и после успешного
+  cherry-pick — хеш переписан, — поэтому вывод читается только в паре с
+  `git diff origin/v5.6-dev <wt-HEAD> --stat`.
 
 Замерено 15.10.2026 по `%USERPROFILE%\.local\share\opencode\log\opencode.log`:
 четыре сессии подряд (`tidy-cabin`, `playful-canyon`, `sunny-canyon`,
@@ -184,6 +203,22 @@ git diff v5.6-dev HEAD                # пусто
 **Решающий критерий — сравнение деревьев, а не список коммитов.**
 Сверять хеши нельзя: перед удалением worktree, который уже cherry-picked,
 `git log v5.6-dev..HEAD` будет непустым, и это нормально.
+
+То же касается `git branch --contains`. Замерено 16.10.2026 на
+`eager-circuit` (`61cc177`, cherry-picked как `8ada05d`): ветка не найдена,
+хотя содержимое в `origin` уже есть. Отличие от `log` в том, что эта
+проверка молчит и для настоящего detached-состояния, поэтому годятся
+только в паре с `diff`:
+
+| `branch --contains` | `diff origin/v5.6-dev` | Вывод |
+|---|---|---|
+| пусто | пусто | cherry-picked, содержимое в origin — забирать нечего |
+| пусто | не пусто | detached и не забрано — нужен cherry-pick |
+| `* v5.6-dev` | пусто | обычное состояние, всё в ветке |
+
+Контроль на тот же момент: `git branch --contains 76b3ce1` (база, не
+cherry-pick'илась) → `* v5.6-dev`, и `merge-base --is-ancestor 61cc177
+v5.6-dev` → exit 1 на уже забранном коммите.
 
 ## Pre-commit порядок генераторов
 
