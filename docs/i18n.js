@@ -194,7 +194,26 @@ const I18N = {
     "atlas.statsSups": " добавок · ",
     "atlas.statsHubs": " хабов-тегов · ",
     "atlas.statsLinks": " связей",
-    "atlas.loadError": "❌ Не удалось загрузить data.json"
+    "atlas.loadError": "❌ Не удалось загрузить data.json",
+    // взаимодействия (13A2b)
+    "int.drugClassTitle": "Лекарственный класс · клик = подсветить связи",
+    "int.gradePrefix": "Грейд ",
+    "int.nodeClickOpen": " · клик = открыть карточку",
+    "int.synergyTitle": "Синергия",
+    "int.antagonistTitle": "Антагонизм",
+    "int.interactionRisk": "Взаимодействие · риск ",
+    "int.legSynergy": "синергия",
+    "int.legAntagonist": "антагонизм",
+    "int.legInteraction": "взаимодействие",
+    "int.legSupGradeAD": "добавка (цвет = грейд A–D)",
+    "int.legInteractionSev": "взаимодействие · цвет = severity",
+    "int.legSupGrade": "добавка (цвет = грейд)",
+    "int.legDrugClass": "лекарственный класс",
+    "int.drugClass": "Лекарственный класс",
+    "int.closePanel": "Закрыть панель",
+    "int.relatedSupps": "Связанные добавки (",
+    "int.links": "Связи (",
+    "int.loadError": "Не удалось загрузить interactions_graph.json: "
   }
 };
 
