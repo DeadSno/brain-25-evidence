@@ -181,7 +181,13 @@ self.addEventListener('activate', event => {
    обработчик smooth scroll + фокус на первой кнопке фильтра каталога.
    Оба файла в STATIC_ASSETS; без бампа activate не почистит v95-static
    и возвратные посетители получат старую главную и старый script.js. */
-var CACHE_VERSION = 'v96';
+/* Бамп v96 -> v97: MOB-P2-14 — лента .actions в один ряд с горизонтальной
+   прокруткой распространена с ≤620px на 621-1200px. На trends, interactions
+   и map шапка занимала 197-221px (2-3 ряда кнопок, до 54% высоты телефона
+   в ландшафте), стала 96-108px. style.css входит в STATIC_ASSETS, ?v поднят
+   с 429 на 430 в 144 файлах; без бампа activate не почистит v96-static и
+   возвратные посетители получат старую высокую шапку. */
+var CACHE_VERSION = 'v97';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
