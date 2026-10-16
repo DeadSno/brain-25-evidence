@@ -207,7 +207,15 @@ self.addEventListener('activate', event => {
    style.css входит в STATIC_ASSETS, ?v поднят с 432 на 433 в 144 файлах;
    без бампа activate не почистит v99-static и возвратные посетители получат
    старую версию стилей. */
-var CACHE_VERSION = 'v100';
+/* Бамп v100 -> v101: HC-P2-03 — 14 повторяющихся hex docs/style.css вынесены
+   в именованные токены (--info-blue, --chip-on-bg, --link-tx-dark,
+   --sev-critical, --sev-critical-dark, --sev-high, --sev-medium, --inter-low,
+   --inter-medium, --inter-high, --tint-strong, --tint-medium, --tint-weak,
+   --tint-context; значения 1:1 с прежними, видимых изменений нет).
+   style.css входит в STATIC_ASSETS, ?v поднят с 433 на 434 в 144 файлах;
+   без бампа activate не почистит v100-static и возвратные посетители получат
+   старую версию стилей. */
+var CACHE_VERSION = 'v101';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
