@@ -22,13 +22,25 @@
 | html-css | 6 | 12 | [audits/html-css.md](audits/html-css.md) |
 | js (+безопасность) | 4 | 9 | [audits/js.md](audits/js.md) |
 | legal | 1 | 4 | [audits/legal.md](audits/legal.md) |
-| mobile | 4 | 18 | [audits/mobile.md](audits/mobile.md) |
+| mobile | 3 | 19 | [audits/mobile.md](audits/mobile.md) |
 | perf (+проект/релиз) | 4 | 12 | [audits/perf.md](audits/perf.md) |
 | i18n | 3 | 11 | [audits/i18n.md](audits/i18n.md) |
 | seo (+маркетинг) | 5 | 24 | [audits/seo.md](audits/seo.md) |
 | trends | 17 | 10 | [audits/trends.md](audits/trends.md) |
 | skills | 2 | 5 | [audits/skills.md](audits/skills.md) |
-| **Итого** | **56** | **164** (+12 «не делать», +1 снято, +1 дубль) |
+| **Итого** | **55** | **165** (+12 «не делать», +1 снято, +1 дубль) |
+
+**Пересчёт 16.10.2026 (девятый, батч 12C) — закрыта `MOB-P2-13`.**
+Из трёх подпунктов находки в живых остался один: `docs/manifest.webmanifest:9`
+`"orientation": "portrait-primary"` — в standalone-режиме ОС доворачивает
+установленное приложение в портрет, а сайт в ландшафте работоспособен (проверено
+в браузере на 844×390 и 932×430). Поставлено `"orientation": "any"`; новый гейт
+`test_orientation_does_not_lock_the_app_to_portrait` в `tests/test_pwa_manifest.py`
+допускает только `any`/`natural`/отсутствие поля (отрицательная проверка: 5
+значений падают, 2 положительных проходят). Подпункт про `theme-color` ложный
+(media-scoped пара `light → #f5f5f7` / `dark → #1c1c1e`), чекбокс согласия снят
+13.10. 0 PNG. Открытых P2 в mobile 4 → 3, закрытых P2 10 → 11. Итого 56/164 →
+**55/165**, `<P2 (38)>` → **`<P2 (37)>`**.
 
 **Пересчёт 16.10.2026 (восьмой, батч 12C) — `MOB-P2-09` закрыта как ложная,
 зарегистрирована `MOB-P2-14`.**
@@ -511,7 +523,7 @@ bounding box, — часть бокса внутри, но **за дугой `bo
 > DATA-COI, A11Y-P2-08,
 > MOB-P2-11, SK-P1-03, SK-STALE-02.
 
-### P2 (38)
+### P2 (37)
 
 | ID | Находка | Тип |
 |---|---|---|
@@ -527,7 +539,7 @@ bounding box, — часть бокса внутри, но **за дугой `bo
 | CYBER-P2-01 | Нет теста security-заголовков — **WONTFIX** (15.10.2026, батч 12A): следствие `CYBER-P1-01`, тестировать нечего | [js](audits/js.md) |
 | JS-P2-02 | Строки без i18n (229 в 6 файлах) — рефактор локализации, `OPEN_TECHDEBT.md:504` оценивает в «1–3 дня» → **v5.6.5** | [js](audits/js.md) |
 | LEGAL-P2-02 | Нет DOI-ссылок: `doi.org` 0 на 131/131 | [legal](audits/legal.md) |
-| MOB-P2-12, 13 | Скрытый скроллбар ленты ≤ 620 px, `portrait-primary` в манифесте | [mobile](audits/mobile.md) |
+| MOB-P2-12 | Скрытый скроллбар ленты ≤ 620 px (решение владельца зафиксировано в комментарии `style.css:1537-1540`) | [mobile](audits/mobile.md) |
 | MOB-P2-14 | Шапка 210 px на ширинах 621–1200 px (лента действий в 2 ряда, `sticky`) — в ландшафте телефона съедает 49–54 % экрана; корень `style.css:1509` → 13C, 0 PNG | [mobile](audits/mobile.md) |
 | MOB-P2-11 🔸 | Мелкий текст 10.4–11.5 px — частично поднят `7cc36e3` | [mobile](audits/mobile.md) |
 | PERF-P2-01, P2-02 | Тяжёлые вендоры (vis-network 672 КБ); нет `.gz`/`.br` — **WONTFIX** 15.10.2026 (батч 12A), хостинг сжимает сам | [perf](audits/perf.md) |
