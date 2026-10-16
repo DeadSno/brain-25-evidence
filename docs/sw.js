@@ -195,7 +195,13 @@ self.addEventListener('activate', event => {
    style.css входит в STATIC_ASSETS, ?v поднят с 430 на 431 в 144 файлах;
    без бампа activate не почистит v97-static и возвратные посетители получат
    старую версию стилей. */
-var CACHE_VERSION = 'v98';
+/* Бамп v98 -> v99: HC-P2-05 — все градиенты docs/style.css вынесены в
+   именованные токены (4 новых: --grad-calc, --grad-shimmer, --grad-mesh,
+   --grad-badge; значения 1:1 с прежними, видимых изменений нет).
+   style.css входит в STATIC_ASSETS, ?v поднят с 431 на 432 в 144 файлах;
+   без бампа activate не почистит v98-static и возвратные посетители получат
+   старую версию стилей. */
+var CACHE_VERSION = 'v99';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 

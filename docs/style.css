@@ -75,6 +75,12 @@
   --shadow-pop-light: 0 8px 32px rgba(0, 0, 0, .18);
   --shadow-legend: 0 4px 12px rgba(0, 0, 0, .2);
 
+  /* HC-P2-05 (16.10.2026): градиенты — именованные, значения 1:1 с прежними */
+  --grad-calc: linear-gradient(135deg, var(--info-fill), #175a86);
+  --grad-shimmer: linear-gradient(100deg, rgba(128,128,128,.12) 40%, rgba(128,128,128,.28) 50%, rgba(128,128,128,.12) 60%);
+  --grad-mesh: radial-gradient(600px 400px at 15% 10%, rgba(52,152,219,.16), transparent 60%), radial-gradient(700px 500px at 85% 20%, rgba(155,89,182,.14), transparent 60%), radial-gradient(800px 600px at 50% 95%, rgba(46,204,113,.10), transparent 60%);
+  --grad-badge: linear-gradient(135deg, #f1c40f, #f39c12);
+
   /* Шаг 8.1: рамка при наведении. Значение одно для обеих тем —
      замер: .btn:hover даёт rgb(136,136,136) и в светлой, и в тёмной. */
   --border-hover: #888888;
@@ -298,7 +304,7 @@ h1{font-size:1.75rem;font-weight:600}
 .btn{background:var(--card-bg);color:var(--text);border:1px solid var(--border);padding:.7rem 1.1rem;min-height:44px;display:inline-flex;align-items:center;justify-content:center;border-radius:var(--radius-lg);text-decoration:none;font-size:1rem}
 /* v4.1: белый на #3498db давал 3.15:1 — заливка затемнена до 5.42:1 в обеих темах */
 .btn.calc {
-  background: linear-gradient(135deg, var(--info-fill), #175a86);
+  background: var(--grad-calc);
   color: #fff !important;
   border: none;
   font-weight: 600;
@@ -480,7 +486,7 @@ footer p{margin-bottom:var(--space-2)}
 /* v4.3: в тёмной теме #c0392b даёт 2.56:1 на карточке */
 html:not(.light) #modal .warn{color:#f26d6d}
 .skeleton { min-height: 170px; border-radius: var(--radius-xl);
-  background: linear-gradient(100deg, rgba(128,128,128,.12) 40%, rgba(128,128,128,.28) 50%, rgba(128,128,128,.12) 60%);
+  background: var(--grad-shimmer);
   background-size: 200% 100%; animation: sh 1.2s infinite; }
 @keyframes sh { to { background-position: -200% 0; } }
 /* ===== v1.2: мобильная адаптация нового UI ===== */
@@ -576,10 +582,7 @@ body { font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif; }
 /* 2. Gradient mesh фон */
 body::before {
   content: ""; position: fixed; inset: 0; z-index: var(--z-decor-back); pointer-events: none;
-  background:
-    radial-gradient(600px 400px at 15% 10%, rgba(52,152,219,.16), transparent 60%),
-    radial-gradient(700px 500px at 85% 20%, rgba(155,89,182,.14), transparent 60%),
-    radial-gradient(800px 600px at 50% 95%, rgba(46,204,113,.10), transparent 60%);
+  background: var(--grad-mesh);
 }
 
 /* 11. Noise-текстура */
@@ -655,7 +658,7 @@ footer, .site-footer { padding-bottom: env(safe-area-inset-bottom, 0px); }
   display: inline-block; margin: 0 0 .35rem 0;
   font-size: .875rem; font-weight: 700;
   padding: .18rem var(--space-2); border-radius: var(--radius-pill); color: #222;
-  background: linear-gradient(135deg, #f1c40f, #f39c12);
+  background: var(--grad-badge);
   box-shadow: var(--shadow-badge);
 }
 

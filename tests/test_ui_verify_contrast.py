@@ -122,12 +122,26 @@ def test_every_gradient_in_style_css_is_parsed():
     не понимает, она начнёт считать контраст по выдуманной подложке — и
     находка A11Y-P2-04 вернётся в новом виде."""
     css = STYLE_CSS.read_text(encoding="utf-8")
+    # Значения живут в именованных токенах (`--grad-*` в `:root`), а правила
+    # ссылаются на них через `background: var(--grad-x)`. Проба контраста
+    # работает на computed styles браузера, где var() уже развёрнут; здесь его
+    # надо развернуть руками, иначе гейт увидит «фон без градиента».
+    tokens = dict(re.findall(r"(--[\w-]+)\s*:\s*([^;{}]+)", css))
+
+    def _resolve(value: str) -> str:
+        return re.sub(
+            r"var\((--[\w-]+)\)",
+            lambda m: tokens.get(m.group(1), m.group(0)),
+            value,
+        )
+
     gradients = [
-        m.group(1).strip()
+        _resolve(m.group(1).strip())
         for m in re.finditer(r"background(?:-image)?\s*:\s*([^;{}]+)", css)
-        if "gradient(" in m.group(1)
+        if "gradient(" in _resolve(m.group(1))
     ]
-    # 4 объявления, 6 слоёв: .btn.calc, .skeleton, body::before (3 слоя), .bestBadge.
+    # 4 объявления, 13 слоёв: .btn.calc (2 стопа), .skeleton (3),
+    # body::before (3 radial — 6 стопов), .bestBadge (2).
     # Нижняя граница нужна, чтобы гейт не прошёл «успехом» на пустом совпадении —
     # ровно та ловушка, из-за которой «74 skipped выглядит как успех».
     layers = sum(len(_gradient_stops(g) or []) for g in gradients)
