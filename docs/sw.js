@@ -187,7 +187,15 @@ self.addEventListener('activate', event => {
    в ландшафте), стала 96-108px. style.css входит в STATIC_ASSETS, ?v поднят
    с 429 на 430 в 144 файлах; без бампа activate не почистит v96-static и
    возвратные посетители получат старую высокую шапку. */
-var CACHE_VERSION = 'v97';
+/* Бамп v97 -> v98: HC-P2-04 — все значения box-shadow в docs/style.css
+   вынесены в именованные токены (12 новых: --shadow-calc, --shadow-calc-hover,
+   --shadow-flash, --shadow-badge, --shadow-tab-on, --shadow-tab-on-dark,
+   --shadow-dot, --shadow-chip, --shadow-sheet, --shadow-pop, --shadow-pop-light,
+   --shadow-legend; значения 1:1 с прежними, видимых изменений нет).
+   style.css входит в STATIC_ASSETS, ?v поднят с 430 на 431 в 144 файлах;
+   без бампа activate не почистит v97-static и возвратные посетители получат
+   старую версию стилей. */
+var CACHE_VERSION = 'v98';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
