@@ -462,7 +462,7 @@ function esc(s) {
 
   // ── Тултип для добавки ───────────────────────────────────────────
   function buildTooltip(c) {
-    const grade = c.grade ? 'грейд ' + c.grade : '';
+    const grade = c.grade ? t("card.grade") + ' ' + c.grade : '';
     const verdict = c.verdict || '';
     const mechs = (c.mechs || []).length;
     const eff = (c.effects || []).slice(0, 3).join(' · ');
@@ -479,7 +479,7 @@ function esc(s) {
       '<b style="font-size:.95rem">' + esc(c.id) + '</b><br>' +
       '<span style="opacity:.75">' + esc(verdict) + (grade ? ' · ' + esc(grade) : '') + '</span><br>' +
       (eff ? '<i style="opacity:.85">' + esc(eff) + '</i><br>' : '') +
-      '<span style="opacity:.65;font-size:.8rem">' + mechs + ' механизмов</span>';
+      '<span style="opacity:.65;font-size:.8rem">' + mechs + t("atlas.mechCount") + '</span>';
     return el;
   }
 
@@ -563,12 +563,12 @@ function esc(s) {
   }
   function closeSidebar() { $('atl-sidebar').classList.remove('open'); }
 
-  function showTag(t) {
-    const related = SUPS.filter(c => tagsOf(c).has(t))
+  function showTag(tag) {
+    const related = SUPS.filter(c => tagsOf(c).has(tag))
                         .sort((a, b) => (b.grade || '').localeCompare(a.grade || ''));
     openSidebar(
-      '<h2>' + t + '<button class="close-x" aria-label="Закрыть">×</button></h2>' +
-      '<p style="opacity:.7;font-size:.85rem">' + related.length + ' добавок с этим тегом</p>' +
+      '<h2>' + tag + '<button class="close-x" aria-label="' + t("a11y.close") + '">×</button></h2>' +
+      '<p style="opacity:.7;font-size:.85rem">' + related.length + t("atlas.tagCount") + '</p>' +
       '<ul>' + related.map(c =>
         '<li data-sup="' + c.id + '">' + c.id +
         '<span class="badge ' + (c.grade || '') + '">' + (c.grade || '—') + '</span>' +
@@ -583,16 +583,16 @@ function esc(s) {
     if (!c) return;
     const mechs = c.mechs || [];
     openSidebar(
-      '<h2>' + c.name + '<button class="close-x" aria-label="Закрыть">×</button></h2>' +
+      '<h2>' + c.name + '<button class="close-x" aria-label="' + t("a11y.close") + '">×</button></h2>' +
       '<p style="opacity:.75;font-size:.85rem">' + (c.category || '') +
-      ' · грейд <b>' + (c.grade || '—') + '</b> · ' + (c.verdict || '') + '</p>' +
-      '<h3>Механизмы (' + mechs.length + ')</h3>' +
+      ' · ' + t("card.grade") + ' <b>' + (c.grade || '—') + '</b> · ' + (c.verdict || '') + '</p>' +
+      '<h3>' + t("atlas.mechsHeading") + ' (' + mechs.length + ')</h3>' +
       mechs.map(m =>
         '<div class="mech">' + m[0] +
         '<div style="opacity:.75;font-size:.82rem;margin-top:.25rem">✨ ' + m[1] +
         '<span class="str">' + m[2] + '</span></div></div>'
       ).join('') +
-      '<a class="cta" href="index.html#sup=' + encodeURIComponent(c.id) + '" target="_blank">Открыть карточку →</a>'
+      '<a class="cta" href="index.html#sup=' + encodeURIComponent(c.id) + '" target="_blank">' + t("common.openCard") + '</a>'
     );
   }
 
@@ -663,10 +663,10 @@ function esc(s) {
     // Обновляем статистику
     const visibleSups = data.nodes.filter(n => n.kind === 'sup').length;
     const suffix = (filterQuery || activeTags.size > 0 || filterGrades.size < 4)
-      ? ' (отфильтровано)' : '';
-    $('stats').textContent = visibleSups + ' из ' + SUPS.length + ' добавок · ' +
-      HUB_TAGS.size + ' хабов-тегов · ' +
-      data.edges.length + ' связей' + suffix;
+      ? t("atlas.filtered") : '';
+    $('stats').textContent = visibleSups + t("atlas.statsFrom") + SUPS.length + t("atlas.statsSups") +
+      HUB_TAGS.size + t("atlas.statsHubs") +
+      data.edges.length + t("atlas.statsLinks") + suffix;
 
     // Обновляем UI активных тегов
     const clearBtn = $('clearAllBtn');
@@ -713,7 +713,7 @@ function esc(s) {
     navigator.clipboard.writeText(location.href).then(() => {
       const b = $('shareBtn');
       const old = b.textContent;
-      b.textContent = '✓ Скопировано';
+      b.textContent = t("common.copiedTick");
       setTimeout(() => { b.textContent = old; }, 1500);
     }).catch(() => {
       // v5.6.3: было prompt('Скопируй ссылку:', location.href).
@@ -730,7 +730,7 @@ function esc(s) {
   $('fsBtn').onclick = () => {
     document.body.classList.toggle('fs');
     const isFs = document.body.classList.contains('fs');
-    $('fsBtn').textContent = isFs ? '✕ Выйти' : '⛶ На весь экран';
+    $('fsBtn').textContent = isFs ? t("common.exitFullscreen") : t("common.fullscreen");
     setTimeout(() => {
       if (network) {
         network.setSize('100%', '100%');
@@ -742,7 +742,7 @@ function esc(s) {
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape' && document.body.classList.contains('fs')) {
       document.body.classList.remove('fs');
-      $('fsBtn').textContent = '⛶ На весь экран';
+      $('fsBtn').textContent = t("common.fullscreen");
       setTimeout(() => { if (network) { network.setSize('100%', '100%'); network.redraw(); } }, 100);
     }
   });
@@ -772,7 +772,7 @@ function esc(s) {
       render();
     })
     .catch(err => {
-      $('stats').textContent = '❌ Не удалось загрузить data.json';
+      $('stats').textContent = t("atlas.loadError");
       console.error(err);
     });
   // ── Haptic feedback (Android) ───────────────────────
