@@ -329,6 +329,10 @@ def build_context(rec: dict, slug: str, warnings: list[str]) -> dict:
             "journal": html_val(s.get("journal")),
             "year": html_val(s.get("year")),
             "pmid": html_val(s.get("pmid")),
+            # doi — raw (без html_val), иначе пустое/None станет «нет данных»,
+            # а {% if s.doi %} всегда будет truthy. Значения DOI не содержат
+            # HTML-спецсимволов, экранирование не требуется.
+            "doi": raw_field(s.get("doi")),
         })
 
     # Мета собирается из неэкранированных значений и экранируется
