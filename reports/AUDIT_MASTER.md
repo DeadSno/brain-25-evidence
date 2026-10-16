@@ -21,14 +21,14 @@
 | data (+QA данных) | 7 | 29 | [audits/data.md](audits/data.md) |
 | html-css | 2 | 16 | [audits/html-css.md](audits/html-css.md) |
 | js (+безопасность) | 4 | 9 | [audits/js.md](audits/js.md) |
-| legal | 1 | 4 | [audits/legal.md](audits/legal.md) |
+| legal | 0 | 4 | [audits/legal.md](audits/legal.md) |
 | mobile | 1 | 21 | [audits/mobile.md](audits/mobile.md) |
 | perf (+проект/релиз) | 4 | 12 | [audits/perf.md](audits/perf.md) |
-| i18n | 2 | 12 | [audits/i18n.md](audits/i18n.md) |
-| seo (+маркетинг) | 5 | 24 | [audits/seo.md](audits/seo.md) |
+| i18n | 1 | 12 | [audits/i18n.md](audits/i18n.md) |
+| seo (+маркетинг) | 3 | 24 | [audits/seo.md](audits/seo.md) |
 | trends | 17 | 10 | [audits/trends.md](audits/trends.md) |
 | skills | 2 | 5 | [audits/skills.md](audits/skills.md) |
-| **Итого** | **46** | **174** (+12 «не делать», +1 снято, +1 дубль) |
+| **Итого** | **42** | **174** (+12 «не делать», +1 снято, +1 дубль) |
 
 **Пересчёт 16.10.2026 (девятнадцатый, 13A2b) — закрыт `I18N-P2-01`.**
 UI-строки 6 страниц (`graph`, `atlas`, `interactions`, `calculator`, `map`,
@@ -663,26 +663,22 @@ bounding box, — часть бокса внутри, но **за дугой `bo
 > DATA-COI,
 > SK-P1-03, SK-STALE-02.
 
-### P2 (27)
+### P2 (20)
 
 | ID | Находка | Тип |
 |---|---|---|
 | A11Y-P2-09 | Контраст `.tagChip` — **WONTFIX** (16.10.2026): все случаи ≥ AA, худший 4.59:1 (`--icon-women` в тёмной); гейт `RUN_A11Y=1` — 73 passed, 0 failed | [a11y](audits/a11y.md) |
-| DATA-P2-08…14 | Покрытие `hedges_g_all.json` 113/130, `key_sources`, `dosage_parsed`, не монотонный `grade`, `forms`, `metaCount`, `citations`/`ongoing`/`wiki`, категории | [data](audits/data.md) |
-| QA-P2-02 | Нет теста битых ссылок sup | [data](audits/data.md) |
-| QA-P2-04, 05, 06 | `ZeroDivisionError` в `parse_xml_meta.py:223`, нет `__main__`-guard в `build_changelog_public.py`, docstring с несуществующим `--dry-run` в `recalc_science_index.py:10` | [data](audits/data.md) |
-| DATA-P2-15 | `citations` недосчитан у 7 карточек — OpenAlex не индексирует часть PMID из `key_sources`, сумма молча теряет слагаемые (`fetch_metrics.py:109`) | [data](audits/data.md) |
-| DATA-P2-16 | Один PMID (`33295643`, Cochrane 2020) стоит в `key_sources` сразу у трёх карточек — `Пробиотики`, `S. boulardii`, `LGG` | [data](audits/data.md) |
+| DATA-P2-09…14 | Покрытие `hedges_g_all.json` 113/130, `key_sources`, `dosage_parsed`, не монотонный `grade`, `forms`, `metaCount`, `citations`/`ongoing`/`wiki`, категории → **v5.6.5** | [data](audits/data.md) |
+| DATA-P2-16 | Один PMID (`33295643`, Cochrane 2020) стоит в `key_sources` сразу у трёх карточек — `Пробиотики`, `S. boulardii`, `LGG` → **v5.6.5** | [data](audits/data.md) |
 | HC-P2-01 | Эмодзи-иконки — **WONTFIX** (16.10.2026, 13C2): 3104 вхождения в `docs/` (511 html + 2518 sup + 75 js), прогноз ~36 PNG — не влезает в «один ID = один коммит ≤5 PNG»; отдельный дизайн-эпик v6.0 (inline SVG, `OPEN_TECHDEBT.md:513`) | [html-css](audits/html-css.md) |
 | HC-P2-06 | нет статус-классов — **WONTFIX** (16.10.2026, 13C2): замер измерял сайт, источник F-22 (`FINAL_WAVE.md:75`) — про `.md`-документы аудита; на сайте статусный слой есть (`.inter-*` 643, `.s-*` 391, `.sev-*`, `.badge`, `.grade`), новые классы были бы дублем, переименование = 132 стр. ≈40 PNG | [html-css](audits/html-css.md) |
 | CYBER-P2-01 | Нет теста security-заголовков — **WONTFIX** (15.10.2026, батч 12A): следствие `CYBER-P1-01`, тестировать нечего | [js](audits/js.md) |
 | JS-P2-02 | Строки без i18n (229 в 6 файлах) — рефактор локализации, `OPEN_TECHDEBT.md:504` оценивает в «1–3 дня» → **v5.6.5** | [js](audits/js.md) |
-| MOB-P2-12 | Скрытый скроллбар ленты ≤ 620 px (решение владельца зафиксировано в комментарии `style.css:1537-1540`) | [mobile](audits/mobile.md) |
+| MOB-P2-12 | Скрытый скроллбар ленты ≤ 620 px (решение владельца зафиксировано в комментарии `style.css:1537-1540`) → **v5.6.5** | [mobile](audits/mobile.md) |
 | PERF-P2-01, P2-02 | Тяжёлые вендоры (vis-network 672 КБ); нет `.gz`/`.br` — **WONTFIX** 15.10.2026 (батч 12A), хостинг сжимает сам | [perf](audits/perf.md) |
 | PRJ-P2-01, PRJ-P2-02 | Ложные находки project-аудита (5 из 10); «прочие P2 project/release», 4 пункта без расшифровки — работать не с чем → **v5.6.5** | [perf](audits/perf.md) |
-| I18N-P2-02 | **748** атрибута (title/aria-label/placeholder) | [i18n](audits/i18n.md) |
 | I18N-P2-03 | 517 стрелок — **WONTFIX** (16.10.2026): стрелка `→` универсальна, не язык-зависима; разделитель навигации работает в любом языке; данные графа — не UI-строки; RTL не планируется. | [i18n](audits/i18n.md) |
-| MKT-P2-01, P2-02 | `<title>` > 60 на 82/145; `description` < 120 на 88/145 — дубли `SEO-P1-01`/`SEO-P1-02`. **Тексты владельцу** | [seo](audits/seo.md) |
+| MKT-P2-01, P2-02 | `<title>` > 60 на 82/145; `description` < 120 на 88/145 — дубли `SEO-P1-01`/`SEO-P1-02`. **Тексты владельцу** → **v5.6.5** | [seo](audits/seo.md) |
 
 
 ### Stale (1)
