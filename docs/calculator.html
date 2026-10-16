@@ -595,23 +595,38 @@ function esc(s) {
   }
 
   // ── Поиск и добавление ────────────────────────────
+  // v5.6.5 (A11Y-P2-07): матчинг вынесен, чтобы пустое состояние могло
+  // отличить «нет совпадений» от «все совпадения уже добавлены».
+  function matchesQuery(c, q) {
+    return c.id.toLowerCase().includes(q) ||
+      (c.category || '').toLowerCase().includes(q) ||
+      (c.effects || []).join(' ').toLowerCase().includes(q);
+  }
   $('q').addEventListener('input', e => {
     const q = e.target.value.trim().toLowerCase();
     if (!q) { $('searchResults').innerHTML = ''; return; }
-    const res = DATA
-      .filter(c => !selected[c.id] &&
-        (c.id.toLowerCase().includes(q) ||
-         (c.category || '').toLowerCase().includes(q) ||
-         (c.effects || []).join(' ').toLowerCase().includes(q)))
-      .slice(0, 8);
+    const res = DATA.filter(c => !selected[c.id] && matchesQuery(c, q)).slice(0, 8);
     $('searchResults').innerHTML = res.length
       ? res.map(c => `<button class="btn" data-add="${esc(c.id)}" style="margin:.2rem .3rem .2rem 0">＋ ${esc(c.id)}</button>`).join('')
-      : '<div class="empty">Ничего не найдено</div>';
+      // Эхо запроса: без него непонятно, сработал поиск вообще или нет.
+      // Отдельный случай — все совпадения уже в расчёте: выглядит как «ничего
+      // не найдено», хотя добавка есть в списке выше.
+      : '<div class="empty">' +
+          (DATA.some(c => selected[c.id] && matchesQuery(c, q))
+            ? 'Все совпадения по запросу «' + esc(q) + '» уже в расчёте'
+            : 'Ничего не найдено по запросу «' + esc(q) + '»') +
+        '<br><button type="button" class="btn" data-reset="1" style="margin-top:.6rem">Сбросить поиск</button></div>';
   });
   $('searchResults').addEventListener('click', e => {
     const b = e.target.closest('[data-add]');
-    if (!b) return;
-    addSupp(b.dataset.add);
+    if (b) { addSupp(b.dataset.add); return; }
+    // Явный сброс: раньше из пустого состояния можно было выйти только
+    // вручную стирая поле.
+    if (e.target.closest('[data-reset]')) {
+      $('q').value = '';
+      $('searchResults').innerHTML = '';
+      $('q').focus();
+    }
   });
   $('addBtn').onclick = () => {
     const q = $('q').value.trim();
