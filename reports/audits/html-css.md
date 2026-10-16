@@ -6,7 +6,8 @@
 | **Источники** | `audit_C_visual-design.md`, `AUDIT_C_SUMMARY.md`, `audit_A_docs-sync.md`, `AUDIT_E_site-navigation.md`, `AUDIT_E_ui-ux-deep-audit.md` (CSS-часть), `STAGE1B_TYPOGRAPHY.md`, `STAGE1C_A11Y_I18N.md`, `STAGE2_HTML.md` |
 | **Консолидация** | 11.10.2026, ветка `v5.6-dev` |
 | **Сверка** | 13.10.2026, батч 4 — статусы перепроверены по HEAD, 2 ложных долга закрыты; 14.10.2026, батч 7 часть C — `HC-P1-03` закрыт |
-| **Открыто** | P1 — 0, P2 — 6 |
+| **Bookkeeping** | 16.10.2026, 13C2 — `HC-P2-01` помечен **WONTFIX**: диагностика (3104 вхождения эмодзи, прогноз ~36 PNG) не влезает в «один ID = один коммит ≤5 PNG»; отдельный дизайн-эпик v6.0 (inline SVG, `OPEN_TECHDEBT.md:513`). Счётчик не меняется: WONTFIX остаётся в открытом индексе |
+| **Открыто** | P1 — 0, P2 — 6 (из них WONTFIX — 1) |
 | **Закрыто** | P1 — 8, P2 — 4 |
 
 ---
@@ -23,7 +24,7 @@
 
 | ID | Находка | Где | Источник |
 |---|---|---|---|
-| HC-P2-01 | Иконки — все эмодзи, `svg.length == 0`. Перемер: в `docs/` 5 `<svg`, **все** — favicon data-URI (`atlas.html:23`, `calculator.html:18`, `feedback.html:16`, `index.html:17`, `map.html:23`); inline `<svg>`-элементов — 0 (`sup/*.html` — 0, `script.js` — 0 `createElementNS`), т.е. `svg.length == 0` в DOM остаётся истиной. Эмодзи в UI сохраняются (index.html: 🔍 ⭐×2 📊 ✅ ⚠ 🧠×3 🔥). `OPEN_TECHDEBT.md:260` «почти закрыто» — ошибочно, favicon data-URI посчитаны как SVG | весь сайт | visual-design V5 |
+| HC-P2-01 | Иконки — все эмодзи, `svg.length == 0`. Перемер: в `docs/` 5 `<svg`, **все** — favicon data-URI (`atlas.html:23`, `calculator.html:18`, `feedback.html:16`, `index.html:17`, `map.html:23`); inline `<svg>`-элементов — 0 (`sup/*.html` — 0, `script.js` — 0 `createElementNS`), т.е. `svg.length == 0` в DOM остаётся истиной. Эмодзи в UI сохраняются (index.html: 🔍 ⭐×2 📊 ✅ ⚠ 🧠×3 🔥). `OPEN_TECHDEBT.md:260` «почти закрыто» — ошибочно, favicon data-URI посчитаны как SVG. **WONTFIX** (16.10.2026, 13C2): не влезает в формат «один ID = один коммит ≤5 PNG» — диагностика: **3104** вхождения эмодзи в `docs/` (511 — `*.html`, 2518 — `sup/*.html` из 2 шаблонов, 75 — `*.js`), ~36 PNG (18 снапшот-страниц × 2 вьюпорта), оценка L. Отдельный дизайн-эпик v6.0: замена иконок на inline SVG (`OPEN_TECHDEBT.md:513`) | весь сайт | visual-design V5 |
 | HC-P2-02 | **13** уникальных `font-size` (комментарии вырезаны `re.sub(r"/\*.*?\*/", " ")`: `.65 .7 .75 .875 .875!imp .9 .92 1.1 1.1!imp 1.125 1.25 1.25!imp 1.25!imp 1.35!imp 1.5 1.75 1rem` → после нормализации `!important` ровно **13**) — было 26, `7cc36e3` сократил 28→26, полная свёртка к 6 отложена (`STAGE1B_TYPOGRAPHY.md:176,228` — «отложена», ~70 объявлений) | `docs/style.css` | visual-design V6; STAGE1B П4 |
 | HC-P2-03 | **160** хардкод-hex против **106** объявлений CSS-переменных (66 уникальных) — комментарии вырезаны `re.sub(r"/\*.*?\*/", " ")`. **Включая комментарии — 226** hex (105 уникальных), именно это число стоит в `OPEN_TECHDEBT.md:265`. Находка «139 против 33» не воспроизводится ни одним способом подсчёта. Ровно `{6}`-форм — 134 | `docs/style.css` | visual-design V7 |
 | HC-P2-04 | **15** уникальных `box-shadow` (17 объявлений, 21 упоминание) — было 11, дрейф вверх, дефект тот же и хуже. `OPEN_TECHDEBT.md:262` | `docs/style.css` | visual-design V8 |
