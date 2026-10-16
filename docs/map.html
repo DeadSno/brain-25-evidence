@@ -36,7 +36,7 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=434">
+<link rel="stylesheet" href="style.css?v=435">
 <script>
   try {
     document.addEventListener('DOMContentLoaded', function () {
@@ -127,7 +127,7 @@ try {
   .step.mech{background:rgba(155,89,182,.15);border:1px solid rgba(155,89,182,.5)}
   .step.eff{background:rgba(46,204,130,.13);border:1px solid rgba(46,204,130,.45)}
   .arrow{text-align:center;opacity:.5;font-size:1.05rem;margin:.05rem 0;animation:rise .3s ease both}
-  .tag{display:inline-block;padding:.14rem .55rem;border-radius:var(--radius-pill);font-size:.72rem;font-weight:800;color:#fff;
+  .tag{display:inline-block;padding:.14rem .55rem;border-radius:var(--radius-pill);font-size:var(--fs-3);font-weight:800;color:#fff;
        margin-inline-start:var(--space-2);vertical-align:middle;text-shadow:0 1px 2px rgba(0,0,0,.35)}
   /* v4.1: белый текст на затемнённом градиенте — контраст ≥ 4.5:1 в обеих темах */
   .t-strong{background:linear-gradient(135deg,#166534,#15803d);box-shadow:0 0 10px rgba(21,128,61,.45)}
@@ -211,7 +211,7 @@ try {
 }
 #details .rel-overlap {
   display: inline-block; margin-inline-start: .4rem;
-  font-size: .72rem; opacity: .7;
+  font-size: var(--fs-3); opacity: .7;
   border: 1px solid var(--aborder); border-radius: var(--radius-pill);
   padding: 0 .4rem;
 }
@@ -267,7 +267,7 @@ try {
     .top { flex-direction: column; align-items: stretch; gap: var(--space-2); margin: 0 0 .6rem; }
     .top .site-title { font-size: 1.05rem; line-height: 1.25; }
     .top .site-title a { display: inline-block; }
-    .top .v { font-size: .7rem; }
+    .top .v { font-size: var(--fs-3); }
     .actions { gap: .35rem; }
     .btn { padding: .4rem .6rem; font-size: .78rem; }
     /* v5.5.0 A1: было .78rem (12.48px) — локальное правило перебивало

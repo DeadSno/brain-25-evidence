@@ -32,7 +32,7 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=434">
+<link rel="stylesheet" href="style.css?v=435">
   <style>
     /* Палитра на :root, не на body: объявление на body перекрывало html.light
        ниже, и в светлой теме текст оставался светлым на светлом (1.05:1),
@@ -115,7 +115,7 @@ try {
     .item .unit{opacity:.6;font-size:.78rem;margin-inline-start:var(--space-0-2)}
     .item .rm{background:none;border:none;color:var(--danger-tx);font-size:1.2rem;cursor:pointer;padding:0}
 
-    .grade-badge{display:inline-block;padding:0 .4rem;border-radius:var(--radius-md);font-size:.68rem;font-weight:700;margin-inline-start:.35rem;vertical-align:middle}
+    .grade-badge{display:inline-block;padding:0 .4rem;border-radius:var(--radius-md);font-size:var(--fs-3);font-weight:700;margin-inline-start:.35rem;vertical-align:middle}
     /* v4.3: бейдж — текст на 20%-заливке своего же цвета, контраст падал в обеих
        темах: в светлой 1.80 / 1.83 / 1.49 / 2.95:1, в тёмной .grade-D 3.76:1.
        Заливки не трогаем. Базовый цвет — тёмный текст (светлая тема), html:not(.light) —
@@ -135,7 +135,7 @@ try {
     .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:.6rem;margin:0 0 var(--space-4)}
     .kpi{background:var(--apanel);border:1px solid var(--aborder);border-radius:var(--radius-lg);padding:.6rem .7rem;text-align:center}
     .kpi .val{font-size:1.4rem;font-weight:700;line-height:1}
-    .kpi .lbl{font-size:.72rem;opacity:.65;margin-top:var(--space-0-3)}
+    .kpi .lbl{font-size:var(--fs-3);opacity:.65;margin-top:var(--space-0-3)}
     /* v4.3: контраст текста на фоне темы. Базовые правила — тёмный вариант
        (светлая тема), html:not(.light) — светлый. Замеры на .kpi (--apanel #fff / #15171c):
        было 2.10 / 2.19 / 3.82:1 в светлой, стало 5.37 / 5.02 / 5.44:1;
@@ -714,7 +714,7 @@ function esc(s) {
           <div>
             <span class="name" data-open="${esc(id)}">${esc(c.id)}</span>
         ${c.grade ? `<span class="grade-badge grade-${esc(c.grade)}">${esc(c.grade)}</span>` : ''}
-            <div style="font-size:.72rem;opacity:.6">норма: ${esc(range)}</div>
+            <div style="font-size:12px;opacity:.6">норма: ${esc(range)}</div>
           </div>
           <div>
             <input type="number" data-input="${esc(id)}" min="0" step="any" value="${esc(val)}">
