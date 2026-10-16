@@ -348,11 +348,17 @@ footer { font-size: 1rem !important; }
 <main id="main">
   <h1>Карта механизмов</h1>
 
-  <p id="stats"></p>
+  <!-- v5.6.5: live-регионы (A11Y-P2-05). #stats наполняется счётчиком при
+     загрузке (map.html:465), #chain перерисовывается целиком при выборе
+     добавки (:447) — без региона экранный диктор молчал обоих.
+     #list НЕ помечен: он собирается из данных один раз (:469), а фильтр
+     по #q только переключает display у детей (:499) — текст не меняется,
+     и озвучивание всего списка при каждом keystroke было бы шумом. -->
+  <p id="stats" role="status" aria-live="polite"></p>
   <p style="opacity:.85;margin:.4rem 0 0">Выбери добавку слева — справа её цепочка: вещество → молекулярная мишень → эффект. <kbd>↑</kbd><kbd>↓</kbd> навигация, <kbd>/</kbd> поиск, <kbd>Esc</kbd> сброс.</p>
   <div class="cols">
     <div class="list" id="list" tabindex="0"></div>
-    <div class="chainbox" id="chain"></div>
+    <div class="chainbox" id="chain" role="status" aria-live="polite"></div>
   </div>
 </main>
 

@@ -114,7 +114,10 @@
     </section>
 
     <section id="cardsContainer">
-      <h2>Все добавки <span id="countBadge" class="hint">показано 130 из 130</span></h2>
+      <!-- v5.6.5: live-регион (A11Y-P2-05). Бейдж переписывается при
+           каждом изменении фильтра (sup_index.html.j2:190) — без
+           озвучивания результат фильтрации был виден только глазами. -->
+      <h2>Все добавки <span id="countBadge" class="hint" role="status" aria-live="polite">показано 130 из 130</span></h2>
 
       <div id="cardsGrid">
         
