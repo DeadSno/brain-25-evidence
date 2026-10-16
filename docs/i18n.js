@@ -1,0 +1,187 @@
+// 13A2a (I18N-P2-01): единый глобальный i18n-модуль проекта.
+// Classic-script (не module, без IIFE): I18N / t / LOCALE — глобальные,
+// их используют docs/script.js, inline-скрипты тем в docs/*.html и
+// templates/sup*.j2. Словарь перенесён сюда из script.js дословно
+// (13A1 -> 13A2a): двух верхнеуровневых const I18N быть не может —
+// classic-скрипты делят одну глобальную лексическую среду, дубль
+// даёт SyntaxError и роняет второй скрипт целиком.
+// v5.6.3 (I18N-P2-04): локаль берётся из <html lang>, а не вписывается в
+// код. Раньше строки вроде toLocaleString('ru-RU') жили в разметке и в
+// скриптах, и перевод страницы требовал правки каждого вызова по
+// отдельности — при этом замена lang="en" в <html> давала бы английский
+// текст вокруг и русские числа внутри. ru-RU и ru для Intl совпадают,
+// поведение при ru не меняется.
+const LOCALE = document.documentElement.lang || 'ru';
+// 13A1 (I18N-P2-01): пользовательские строки вынесены в словарь.
+// ru — базовая локаль; активная берётся из LOCALE (см. выше, читает
+// <html lang>). t(key, params) возвращает сам ключ, если перевода нет:
+// непереведённая строка заметна на экране, а не превращается в пустоту.
+// Подстановка {name} нужна там, где фраза раньше склеивалась из кусков —
+// порядок слов и числа при переводе не совпадают.
+const I18N = {
+  ru: {
+    // common
+    "common.copied": "✅ Скопировано!",
+    "common.collapse": "Свернуть ▴",
+    "common.clear": "Очистить",
+    "common.toTop": "Наверх",
+    // a11y
+    "a11y.toTop": "Наверх к началу страницы",
+    // theme
+    "theme.dark": "🌙 Тёмная тема",
+    "theme.light": "🌞 Светлая тема",
+    // boot
+    "boot.error": "⚠ Не удалось загрузить данные.",
+    "boot.retry": "🔄 Обновить",
+    // severity (данные приходят латиницей, подпись — на экране)
+    "sev.low": "низкий",
+    "sev.medium": "средний",
+    "sev.high": "высокий",
+    "sev.critical": "критичный",
+    // grade A–D
+    "grade.A": "крепко доказано",
+    "grade.B": "умеренно",
+    "grade.C": "изучено много, эффект мал",
+    "grade.D": "данных мало",
+    // карточка
+    "card.top3": "🔬 Топ-3 по доказательности",
+    "card.handcheck": "✋ ручная вычитка",
+    "card.handcheckTitle": "Вердикт выставлен вручную по топ-2 МА методологией проекта",
+    "card.updated": "Обновлено",
+    "card.updatedTitle": "Дата последнего обновления данных проекта",
+    "card.favTitle": "В избранное",
+    "card.grade": "грейд",
+    "card.gradeTitle": "Грейд",
+    "card.supplement": "добавка",
+    "card.issueTitle": "{name} — неточность в данных",
+    "card.issueBody": "Что не так?\n\n(заполните)",
+    "card.blockEmpty": "для этой добавки проверяемых данных по пункту нет",
+    // метрики карточки
+    "sci.tooltip": "Объём доказательной базы: количество РКИ + 5 × мета-анализы в PubMed по добавке. Это метрика объёма, не силы эффекта.",
+    "sci.label": "🔬 наука: ",
+    "ma.tooltip": "Количество статей типа meta-analysis в PubMed по запросу для этой добавки. Это про объём литературы, а не про подтверждение эффекта.",
+    "ma.label": "📚 MA: ",
+    "cit.none": "📖 цитирований MA: —",
+    "cit.none.tooltip": "Цитирования не рассчитаны для этой добавки.",
+    "cit.label": "📖 цитирований MA: ",
+    "cit.tooltip": "Сумма цитирований ключевого мета-анализа (по данным OpenAlex).",
+    // источники
+    "sources.pubmedTitle": "Поиск в PubMed",
+    "sources.pubmed": "PubMed ↗",
+    "sources.wikiTitle": "Википедия",
+    "sources.wiki": "Wiki ↗",
+    "sources.copyPmid": "Скопировать PMID {pmid}",
+    "sources.pmid": "PMID",
+    "sources.empty": "Источники для этой добавки пока не собраны",
+    "sources.curatedTitle": "📚 Проверенные источники (топ-3)",
+    "sources.autoTitle": "📚 Мета-анализы (топ-3 авто-поиска)",
+    "sources.curatedNote": "Отобраны вручную по топ-2 МА. Полный список — в блоке key_sources карточки.",
+    "sources.autoNote": "⚠ Автоматический топ-3 запроса PubMed — не верифицировано вручную. Проверенные карточки помечены бейджем «ручная вычитка»; верифицировано сейчас: {verified} из {total}.",
+    // поделиться / сравнить
+    "share.post": "{name}: индекс {index}, {ma} МА · открытые данные · {url}",
+    "share.title": "📤 Поделиться:",
+    "share.copy": "🔗 копировать",
+    "compare.title": "🔀 Сравнить с:",
+    // блоки карточки
+    "block.what": "Что это",
+    "block.who": "Кому нужно",
+    "block.works": "Работает ли",
+    "block.evidence": "На чём основано",
+    "block.how": "Как принимать",
+    "block.onset": "Когда почувствую",
+    "block.notwho": "Кому нельзя",
+    "block.conflicts": "С чем конфликтует",
+    "block.friends": "С чем дружит",
+    "block.ul": "Передозировка (UL)",
+    "block.food": "Можно ли из еды",
+    "block.official": "Что говорят официалы",
+    "block.shop": "Как выбрать в магазине",
+    "block.myths": "Мифы и ловушки",
+    "block.noData": "данных нет",
+    "block.mechs": "Механизмы: ",
+    "block.goodPair": "🤝 Хорошая пара: ",
+    // группы блоков
+    "group.main": "📋 Основное",
+    "group.usage": "💊 Как принимать",
+    "group.caution": "⚠️ Осторожно",
+    "group.more": "📚 Дополнительно",
+    // фильтры
+    "filter.count": "({shown} из {total})",
+    "filter.verdict": "вердикт",
+    "filter.search": "поиск",
+    "filter.favs": "избранное",
+    "filter.shown": "показано {shown} из {total} добавок",
+    "filter.suffix": "(фильтр: {list})",
+    "filter.allEffects": "Все эффекты",
+    "filter.more": "+ ещё {n} ▾",
+    "filter.effectPrefix": "Эффект: ",
+    "filter.verdictPrefix": "Вердикт: ",
+    "filter.searchPrefix": "Поиск: ",
+    "verdict.works": "работает",
+    "verdict.depends": "зависит от контекста",
+    "verdict.unproven": "не подтверждено",
+    "empty.notFound": "🔍 Ничего не найдено.",
+    "empty.resetFavs": "✖ Сбросить фильтры",
+    // модалка
+    "trials.activeLabel": "Активных испытаний",
+    "trials.activeSuffix": " — сейчас проверяют на людях",
+    "trials.none": "❄️ Активных испытаний: 0 — сейчас никто не проверяет на людях",
+    "calc.label": "📏 <b>Калькулятор дозировки:</b>",
+    "calc.placeholder": "Ваш вес (кг)",
+    "calc.standard": "Стандартная доза: ",
+    "calc.perDay": "{dose} {unit}/сут",
+    "calc.overMax": "⚠️ превышает максимум ({max} {unit})",
+    "modal.citations": "📖 Цитирований ключевого MA: ",
+    "modal.wikiViews": "🌐 Просмотров в Википедии (12 мес): ",
+    "modal.effects": "Эффекты:",
+    "modal.dosage": "Дозировка:",
+    "modal.course": "Курс:",
+    "modal.forms": "Формы/штаммы:",
+    "modal.issue": "❌ Нашли неточность? Сообщить",
+    "modal.fullCard": "🧩 Полная карточка добавки",
+    // графики
+    "chart.missingMsg": "⚠️ {count} добавок без значения («{axis}») не показаны на графике",
+    "chart.logSuffix": " (лог)",
+    "chart.yTitleLog": "Индекс науки (лог)",
+    "quadrant.waiting": "⏳ {count} добавок ждут верификации эффекта",
+    "quadrant.xTitle": "Сила эффекта (g)",
+    "quadrant.yTitle": "Индекс науки (log)",
+    "axis.ma": "Число МА",
+    "axis.rct": "Число РКИ",
+    // сравнение
+    "cmp.param": "Параметр",
+    "cmp.verdict": "Вердикт",
+    "cmp.science": "Индекс науки",
+    "cmp.ma": "Мета-анализов",
+    "cmp.trials": "🧪 Испытания сейчас",
+    "cmp.citations": "Цитирований MA",
+    "cmp.effects": "Эффекты",
+    "cmp.dosage": "Дозировка",
+    "cmp.course": "Курс",
+    "cmp.caution": "⚠️ Осторожно",
+    // профиль (радар)
+    "prof.science": "Наука",
+    "prof.maBase": "База МА",
+    "prof.verified": "Верифицированность",
+    "prof.completeness": "Полнота карточки",
+    "prof.long.science": "Наука (перцентиль по базе)",
+    "prof.long.maBase": "База МА (перцентиль по базе)",
+    "prof.long.verified": "Верифицированность (0-100)",
+    "prof.long.completeness": "Полнота карточки (0-100)",
+    // баннеры избранного
+    "banner.dangerPrefix": "⚠️ Опасно в избранном: ",
+    "banner.warnPrefix": "⚠️ ",
+    "banner.and": " и ",
+    "banner.conflictSuffix": " конкурируют за всасывание — разнесите на 2-4 часа",
+    "banner.synergyPrefix": "🤝 Хорошая пара: ",
+    // автообновление
+    "update.toast": "🔄 Доступно обновление — перезагружаю…"
+  }
+};
+
+function t(key, params) {
+  const dict = I18N[LOCALE] || I18N.ru;
+  let s = dict[key] != null ? dict[key] : (I18N.ru[key] != null ? I18N.ru[key] : key);
+  if (params) s = s.replace(/\{(\w+)\}/g, (m, k) => (k in params ? params[k] : m));
+  return s;
+}
