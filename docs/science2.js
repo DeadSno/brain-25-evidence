@@ -191,7 +191,7 @@ function esc(s) {
       const fmt = new Intl.DateTimeFormat(LOCALE, { day: '2-digit', month: 'short', year: 'numeric' });
       const s = document.createElement('div');
       s.className = 'hint';
-      s.style.cssText = 'font-size:.7rem;margin-top:.2rem';
+      s.style.cssText = 'font-size:12px;margin-top:.2rem';
       s.textContent = fmt.format(new Date(pts[0].d)) + ' → ' + fmt.format(new Date(pts[pts.length - 1].d));
       el.appendChild(s);
     });
@@ -204,7 +204,7 @@ function esc(s) {
       'border-radius:8px;border:1px solid var(--border)';
     const head = document.createElement('div');
     head.style.cssText =
-      'font-size:.72rem;font-weight:600;opacity:.7;text-transform:uppercase;' +
+      'font-size:12px;font-weight:600;opacity:.7;text-transform:uppercase;' +
       'letter-spacing:.02em;margin-bottom:.3rem';
     head.textContent = '📈 Цена: динамика 90 дней';
     wrap.appendChild(head);

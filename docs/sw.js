@@ -215,7 +215,12 @@ self.addEventListener('activate', event => {
    style.css входит в STATIC_ASSETS, ?v поднят с 433 на 434 в 144 файлах;
    без бампа activate не почистит v100-static и возвратные посетители получат
    старую версию стилей. */
-var CACHE_VERSION = 'v101';
+/* Бамп v101 -> v102: MOB-P2-11 — минимальный кегль поднят до 12px
+   (токены --fs-1/--fs-2 -> .75rem; 13 мест в 11 файлах: .top .v, .tag,
+   .grade-badge, .kpi .lbl, подписи графиков и др.). style.css изменился,
+   ?v поднялся с 434 до 435 в 144 страницах; activate удалит прежний
+   v101-static и подтянет обновлённый style.css с новой версией. */
+var CACHE_VERSION = 'v102';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
