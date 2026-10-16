@@ -8,13 +8,13 @@
 
 | Что | Значение | Как проверить |
 |---|---|---|
-| HTML, контентные | 13 в `docs/` | `ls docs/*.html` — их 15, из них `offline.html` (запасной экран SW) и `google4a9d23e35c6c3e23.html` (файл верификации) не контентные |
+| HTML, контентные | 13 в `docs/` | `ls docs/*.html` — их 15, из них 2 не контентные: `offline.html` (запасной экран SW) и `google4a9d23e35c6c3e23.html` (файл верификации Google). Верификация Яндекса — метатегом в `docs/index.html` (16.10.2026, файл `yandex_cc2e3cf2ee185b01.html` удалён) |
 | HTML, sup | 131 в `docs/sup/` (index + 130 карточек) | `ls docs/sup/*.html \| wc -l` |
 | JS | 9 файлов в `docs/` | `ls docs/*.js \| wc -l` |
 | CSS | `docs/style.css`, версия `?v=430` | `grep -ho 'style\.css?v=[0-9]*' docs/*.html docs/sup/*.html \| sort -u` |
 | SW cache | `v97` | `grep CACHE_VERSION docs/sw.js` → `var CACHE_VERSION = 'v97'` |
-| Тесты | **1314** собрано — см. «Базовая линия тестов» | `pytest --collect-only -q` → `1314 tests collected` |
-| Скиллы | 19 проектных + 19 глобальных | `ls .opencode/skills/ \| wc -l`, `ls ~/.config/opencode/skills/ \| wc -l` |
+| Тесты | **1982** собрано; 1729 passed в worktree — см. «Базовая линия тестов» | `pytest --collect-only -q` → `1982 tests collected` |
+| Скиллы | 19 проектных в git (20 в main checkout: `cyberaudit` в `.gitignore`) + 20 глобальных | `ls .opencode/skills/ \| wc -l`, `ls ~/.config/opencode/skills/ \| wc -l` |
 
 Число skipped зависит от окружения и **не является константой проекта**:
 это opt-in гейты, требующие `RUN_SNAPSHOTS=1`, `RUN_A11Y=1`, `RUN_GRAPH=1`,
@@ -38,23 +38,24 @@
 
 | Где | passed | skipped | всего |
 |---|---|---|---|
-| Основной checkout `C:\analytics\brain-25-evidence` | 1079 | 251 | 1330 |
-| Worktree (ветка v5.6-dev и ниже) | 1063 | 251 | 1314 |
+| Основной checkout `C:\analytics\brain-25-evidence` (@ 724c754) | 1744 | 237 | 1981 |
+| Worktree v5.6-dev (@ cd177e5, shiny-lagoon) | 1729 | 253 | 1982 |
 
-Разница — ровно **16 тестов DuckDB**: `tests/conftest.py:11` задаёт
-`DB_PATH = ROOT/"data"/"db"/"brain.duckdb"`, а `:168` пропускает их, если
-файла нет. База весит 162 МБ и в git не лежит — в worktree её просто
-не бывает.
+Замер 16.10.2026. Разница — **16 тестов DuckDB**: `tests/conftest.py:11`
+задаёт `DB_PATH = ROOT/"data"/"db"/"brain.duckdb"`, а `:168` пропускает их,
+если файла нет. База весит 162 МБ и в git не лежит — в worktree её просто
+не бывает (skipped 237 ↔ 253 сходится; ±1 итем в коллекции — main и
+worktree стоят на разных коммитах).
 
 Правила:
 
-- **Перед merge гонять в основном checkout** — там 1079, и только там
+- **Перед merge гонять в основном checkout** — там 1744, и только там
   видно, что DuckDB-часть не разъехалась.
-- В worktree держаться **≥1063 passed и 0 новых skip сверх 251**. Падение
+- В worktree держаться **≥1729 passed и 0 новых skip сверх 253**. Падение
   числа passed — регрессия, уменьшившееся число skipped — расхождение с
   базой.
-- «1073» из старых заданий — цифра до разделения баз; актуальные
-  ориентиры в таблице выше.
+- Старые ориентиры (1063 / 1073 / 1314) — до волны гейтов 13–16.10.2026;
+  актуальные — в таблице выше.
 - Не копировать `brain.duckdb` между worktree: файл gitignored, и
   пересборка базы после правки `data.json` дешевле, чем расхождение
   состояний.
