@@ -1585,6 +1585,36 @@ header.top .v {
   }
 }
 
+/* v5.6-dev (13C, MOB-P2-14): тот же приём — лента в один ряд со скроллом —
+   распространён на 621-1200px. Замер до правки: шапка на trends/interactions
+   была 197-221px (до 54% высоты телефона в ландшафте) из-за переноса 9-10
+   кнопок в 2-3 ряда. Тело сайта 1200px, а лента требует ~1286px, поэтому
+   перенос не исчезал и на десктопе.
+
+   Здесь НЕТ width:100% — и это важно. На ≤640px header.top это display:grid,
+   и явная ширина обязательна (иначе скролл уезжает на всю страницу). Выше
+   640px .top уже flex, у грид-ограничения нет причины, и без явной ширины
+   .actions сам сжимается до свободного места рядом с заголовком: одна строка
+   вместо двух. Побочный эффект ширины проверен замером — на graph.html
+   (короткая лента, 4 кнопки) width:100% уводила ленту на отдельную строку и
+   поднимала шапку 44px → 104px; без ширины остаётся 44px. */
+@media (min-width: 621px) and (max-width: 1200px) {
+  .site-header .actions,
+  .top .actions,
+  header.top .actions {
+    flex-wrap: nowrap !important;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    min-width: 0;
+    justify-content: flex-start !important;
+  }
+  .site-header .actions::-webkit-scrollbar,
+  .top .actions::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 /* ═══ Этап 1A-1: отклик на нажатие ═══ */
 
 /* Отклик на нажатие — ТОЛЬКО кнопки.

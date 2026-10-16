@@ -22,13 +22,32 @@
 | html-css | 6 | 12 | [audits/html-css.md](audits/html-css.md) |
 | js (+безопасность) | 4 | 9 | [audits/js.md](audits/js.md) |
 | legal | 1 | 4 | [audits/legal.md](audits/legal.md) |
-| mobile | 3 | 19 | [audits/mobile.md](audits/mobile.md) |
+| mobile | 2 | 20 | [audits/mobile.md](audits/mobile.md) |
 | perf (+проект/релиз) | 4 | 12 | [audits/perf.md](audits/perf.md) |
 | i18n | 3 | 11 | [audits/i18n.md](audits/i18n.md) |
 | seo (+маркетинг) | 5 | 24 | [audits/seo.md](audits/seo.md) |
 | trends | 17 | 10 | [audits/trends.md](audits/trends.md) |
 | skills | 2 | 5 | [audits/skills.md](audits/skills.md) |
-| **Итого** | **55** | **165** (+12 «не делать», +1 снято, +1 дубль) |
+| **Итого** | **54** | **166** (+12 «не делать», +1 снято, +1 дубль) |
+
+**Пересчёт 16.10.2026 (десятый, 13C) — закрыта `MOB-P2-14`.**
+Фикс: компактный режим ленты (один ряд + горизонтальный скролл) распространён
+с `≤620px` на `621-1200px` отдельным `@media (min-width: 621px) and
+(max-width: 1200px)` в `docs/style.css` — базовый блок ≤620 не тронут ни
+строкой. Замер по 12 страницам × 6 ширин (before = main checkout, after =
+worktree): на 621-1200 px шапка падала с **165-221 px до 96-108 px**;
+`trends.html` 197→96 на 621 px, `map`/`feedback`/`glossary`/`calculator`
+210→100, `methodology`/`privacy` 207→100.
+Ключевая деталь: `width:100%` из блока ≤620 в расширение **не** перенесён —
+выше 640 px `header.top` уже не грид, и без явной ширины `.actions` сам
+сжимается рядом с заголовком. С `width:100%` короткая лента `graph.html`
+уезжала на отдельную строку (44 px → 104 px; замерено и отброшено), а
+переполнения страницы не возникало ни на одной из 12 страниц.
+На 1280 px и 412 px поведение не меняется → **снапшоты 76 passed, 0 PNG**
+(прогон на этом worktree, `SNAPSHOT_BASE_URL=http://localhost:8020`).
+`?v=429 → 430` в 144 файлах, `CACHE_VERSION v96 → v97`.
+Открытых P2 в mobile 3 → 2, закрытых P2 11 → 12. Итого 55/165 →
+**54/166**, `<P2 (37)>` → **`<P2 (36)>`**.
 
 **Пересчёт 16.10.2026 (девятый, батч 12C) — закрыта `MOB-P2-13`.**
 Из трёх подпунктов находки в живых остался один: `docs/manifest.webmanifest:9`
@@ -523,7 +542,7 @@ bounding box, — часть бокса внутри, но **за дугой `bo
 > DATA-COI, A11Y-P2-08,
 > MOB-P2-11, SK-P1-03, SK-STALE-02.
 
-### P2 (37)
+### P2 (36)
 
 | ID | Находка | Тип |
 |---|---|---|
@@ -540,7 +559,6 @@ bounding box, — часть бокса внутри, но **за дугой `bo
 | JS-P2-02 | Строки без i18n (229 в 6 файлах) — рефактор локализации, `OPEN_TECHDEBT.md:504` оценивает в «1–3 дня» → **v5.6.5** | [js](audits/js.md) |
 | LEGAL-P2-02 | Нет DOI-ссылок: `doi.org` 0 на 131/131 | [legal](audits/legal.md) |
 | MOB-P2-12 | Скрытый скроллбар ленты ≤ 620 px (решение владельца зафиксировано в комментарии `style.css:1537-1540`) | [mobile](audits/mobile.md) |
-| MOB-P2-14 | Шапка 210 px на ширинах 621–1200 px (лента действий в 2 ряда, `sticky`) — в ландшафте телефона съедает 49–54 % экрана; корень `style.css:1509` → 13C, 0 PNG | [mobile](audits/mobile.md) |
 | MOB-P2-11 🔸 | Мелкий текст 10.4–11.5 px — частично поднят `7cc36e3` | [mobile](audits/mobile.md) |
 | PERF-P2-01, P2-02 | Тяжёлые вендоры (vis-network 672 КБ); нет `.gz`/`.br` — **WONTFIX** 15.10.2026 (батч 12A), хостинг сжимает сам | [perf](audits/perf.md) |
 | PRJ-P2-01, PRJ-P2-02 | Ложные находки project-аудита (5 из 10); «прочие P2 project/release», 4 пункта без расшифровки — работать не с чем → **v5.6.5** | [perf](audits/perf.md) |
