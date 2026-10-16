@@ -217,7 +217,7 @@ html:not(.light) .cat-warn{color:#f59e0b}
 }
 .methodology summary{cursor:pointer;font-weight:600;padding:.6rem 0;font-size:.95rem}
 .method-body{font-size:.88rem;line-height:var(--lh-loose);padding-bottom:.8rem}
-.method-body h4{margin:var(--space-4) 0 .35rem;font-size:.92rem;color:var(--text)}
+.method-body h3{margin:var(--space-4) 0 .35rem;font-size:1.1rem;color:var(--text)}
 .method-body ul{margin:var(--space-0-3) 0;padding-inline-start:1.3rem}
 .method-body li{margin:var(--space-0-2) 0}
 .method-body pre{
@@ -808,29 +808,29 @@ function closeModal() {
 <details class="methodology">
   <summary>📐 Методология и ограничения данных</summary>
   <div class="method-body">
-    <h4>Источники</h4>
+    <h3>Источники</h3>
     <ul>
       <li><b>PubMed E-utilities</b> — число публикаций по годам 2015–2025 для 130 добавок</li>
       <li><b>Wikipedia REST API</b> — просмотры ru.wikipedia помесячно (90 из 130 добавок)</li>
       <li><b>OpenAlex</b> — цитирования по годам (130 из 130 добавок, в scatter не используются)</li>
     </ul>
-    <h4>Формула роста</h4>
+    <h3>Формула роста</h3>
     <pre tabindex="0">growth_pub  = pubmed[id][2025] / pubmed[id][2015]
 growth_wiki = avg(wiki[id][последние 6 мес]) / avg(wiki[id][первые 6 мес])</pre>
-    <h4>Допущения</h4>
+    <h3>Допущения</h3>
     <ul>
       <li>Рост &gt; ×1.5 — «значимый», &gt; ×2.0 — «аномальный»</li>
       <li>Z-score &gt; 2σ — статистический выброс (аномалия)</li>
       <li>Для wiki берём первые/последние 6 месяцев — сглаживает сезонность</li>
     </ul>
-    <h4>Ограничения</h4>
+    <h3>Ограничения</h3>
     <ul>
       <li>PubMed индексирует препринты с 2019 — часть роста 2020–2022 может быть артефактом</li>
       <li>Wiki-просмотры ≠ потребление БАД, а интерес (иногда — из-за новостных событий)</li>
       <li>OpenAlex неполный до 2023 — сравнение цитат по годам некорректно</li>
       <li>В каталоге 130 добавок; серии собраны для 130 (PubMed и цитирования) и 90 (Wiki). Категории «Спорт» (2) и «Сон» (3) — маленькие, выводы менее устойчивы чем для «Когниции» (26)</li>
     </ul>
-    <h4>Покрытие серий</h4>
+    <h3>Покрытие серий</h3>
     <p>
       Серии публикаций PubMed и цитирований собраны для всех <b>130</b> добавок
       каталога — до сбора данных по DATA-P1-12 это были 94 из 130.

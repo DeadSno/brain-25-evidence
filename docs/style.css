@@ -396,7 +396,11 @@ h5{margin:var(--space-3) 0 var(--space-1)}
    вернув 14.72px. Значение поднято с 1rem до 1.1rem = 17.6px, то есть
    до базового h4: локальная ступень больше не расходится с базой.
    Полное снятие (правка trends.html:194) — следующий этап. */
-.method-body h4{font-size:1.1rem !important}
+/* A11Y-P2-01 (13C): тег этих пяти заголовков trends.html поднят h4 -> h3
+   (был пропуск уровня h2 -> h4), поэтому селектор переведён на h3.
+   Размер прежний — 1.1rem; локальное правило <style> самой страницы
+   тоже переведено на h3, так что ступень по-прежнему совпадает с базой. */
+.method-body h3{font-size:1.1rem !important}
 label{font-weight:500;margin-inline-end:var(--space-2)}
 select{background:var(--card-bg);color:var(--text);border:1px solid var(--border);padding:.4rem .8rem;border-radius:var(--radius-md);font-size:1rem}
 /* v5.6.2 (#94): тач-таргет селектов. Замер 2026-10-07: 4 селекта на index
@@ -685,13 +689,17 @@ position:sticky;top:0;z-index:var(--z-banner);animation:fadeIn .25s}
 
 /* ===== v2.3: раздел «3 вопроса» ===== */
 #qaSection .qa{margin:.6rem 0 var(--space-4)}
-#qaSection .qa h3{font-size:1rem;margin-bottom:var(--space-1)}
+/* A11Y-P2-01 (13C): три вопроса были h3 — на странице с одним h1 это
+   давало пропуск уровня (h1 -> h3). Тег поднят до h2 с классом .qa-q,
+   а класс возвращает прежний вид: 1rem/600, интерлиньяж --lh-tight и
+   margin-top --space-4 — ровно то, что давал голый h3. */
+#qaSection .qa .qa-q{font-size:1rem;font-weight:600;line-height:var(--lh-tight);margin:var(--space-4) 0 var(--space-1)}
 #qaSection .qa p{font-size:1rem;opacity:.88;max-width:72ch}
 
 /* ===== F5.1: три карточки в одну строку ===== */
 .qaGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-4);margin-top:.4rem}
 .qaGrid .qa{margin:0;padding:.9rem var(--space-4);background:var(--bg);border:1px solid var(--border);border-radius:10px}
-.qaGrid .qa h3{font-size:1rem;margin-bottom:.4rem}
+.qaGrid .qa .qa-q{font-size:1rem;margin-bottom:.4rem}
 .qaGrid .qa p{font-size:1rem;opacity:.85;max-width:60ch}
 .qaGrid .qaMore{display:inline-block;margin-top:var(--space-2);font-size:.875rem;font-weight:600}
 

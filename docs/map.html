@@ -141,7 +141,7 @@ try {
      style.css (стр. 393–395) — удалены как мёртвые. */
   .chainbox a{color:var(--info-tx)}
   .sim{margin-top:1.2rem;padding-top:.9rem;border-top:1px dashed var(--aborder);animation:rise .4s ease both}
-  .sim h4{margin:var(--space-0-2) 0 var(--space-2);opacity:.75}
+  .sim h3{font-size:1.1rem;margin:var(--space-0-2) 0 var(--space-2);opacity:.75}
   kbd{border:1px solid var(--aborder);border-radius:var(--radius-sm);padding:0 var(--space-0-3);font-size:.75rem}
   /* ── Overlay details ─────────────────────────────── */
 #details-backdrop {
@@ -446,7 +446,7 @@ function select(id, push){
   }
   const sim = similar(s);
   if (sim.length) {
-    html += '<div class="sim" style="animation-delay:' + (d + 0.2) + 's"><h4>🔗 Также бьёт по этим мишеням:</h4>' +
+    html += '<div class="sim" style="animation-delay:' + (d + 0.2) + 's"><h3>🔗 Также бьёт по этим мишеням:</h3>' +
       sim.map(x => '<span class="chip" data-id="' + x.id + '">' + x.name + '</span>').join('') + '</div>';
   }
   html += '<p style="margin-top:1.2rem"><a href="index.html#sup=' + encodeURIComponent(s.id) + '">Открыть карточку добавки →</a></p>';
