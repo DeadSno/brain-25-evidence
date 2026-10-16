@@ -383,6 +383,15 @@ def build_context(rec: dict, slug: str, warnings: list[str]) -> dict:
         # Отдельные значения для JSON-LD: там нужно экранирование JSON,
         # а не HTML, иначе &gt; внутри JSON-строки испортит файл.
         "name_j": json_val(rec.get("name")),
+        # JSON-LD description — дословная копия meta/og description, тот же
+        # канон, что завели для og:* и twitter:* в MKT-P2-09/10. Раньше здесь
+        # стояло about_j (сырое поле about), из-за чего на 94 страницах из 144
+        # структурированные данные расходились с мета-описанием: на 91 оно было
+        # его урезанным префиксом, а на трёх (lavanda, molibden, sulforafan)
+        # обрезание по DESC_MAX делало meta короче JSON-LD. SEO-P2-01.
+        # about_j ниже остаётся — там другое поле: description узла Drug
+        # описывает вещество, а не страницу.
+        "description_j": json_val(seo_description(rec)),
         "about_j": json_val(rec.get("about")),
         "category_j": json_val(rec.get("category")),
     }
