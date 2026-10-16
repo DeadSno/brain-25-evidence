@@ -330,7 +330,7 @@ try {
                     renderGraph();
                   })
                   .catch(function (err) {
-                    console.error('[graph] данные не загрузились:', err);
+                    console.error(t("graph.errorLog"), err);
                     var lb = document.getElementById('loadingBar');
                     if (lb) lb.style.display = 'none';
                     var box = document.getElementById('mynetwork');
@@ -339,7 +339,7 @@ try {
                       // на #mynetwork. Контейнер держит канвас графа — регион
                       // на нём озвучивал бы весь холст. Ошибка приходит один
                       // раз, поэтому assertive (role="alert"), а не polite.
-                      box.innerHTML = '<div role="alert" style="padding:40px;text-align:center;color:var(--muted)">⚠ Не удалось загрузить граф. Попробуйте обновить страницу.</div>';
+                      box.innerHTML = '<div role="alert" style="padding:40px;text-align:center;color:var(--muted)">' + t("graph.loadError") + '</div>';
                     }
                   });
               }
@@ -362,6 +362,7 @@ try {
                       antioxidant: 'Антиоксидант', inflammation: 'Воспаление'
                   };
 
+                  const tagsPrefix = t("graph.tagsPrefix");
                   function ruTitle(t) {
                       if (!t) return t;
                       // "теги: brain, energy" → "Теги: Мозг, Энергия".
@@ -371,7 +372,7 @@ try {
                               const k = x.trim();
                               return TAG_RU[k] || TAG_RU[k.toLowerCase()] || k;
                           }).join(', ');
-                          return 'Теги: ' + list;
+                          return tagsPrefix + list;
                       });
                       return ru.replace(/<br\s*\/?>/gi, '\n');
                   }
