@@ -201,7 +201,13 @@ self.addEventListener('activate', event => {
    style.css входит в STATIC_ASSETS, ?v поднят с 431 на 432 в 144 файлах;
    без бампа activate не почистит v98-static и возвратные посетители получат
    старую версию стилей. */
-var CACHE_VERSION = 'v99';
+/* Бамп v99 -> v100: HC-P2-02 — размеры шрифта docs/style.css вынесены в
+   именованные токены (9 новых: --fs-1 … --fs-9; значения 1:1 с прежними,
+   видимых изменений нет).
+   style.css входит в STATIC_ASSETS, ?v поднят с 432 на 433 в 144 файлах;
+   без бампа activate не почистит v99-static и возвратные посетители получат
+   старую версию стилей. */
+var CACHE_VERSION = 'v100';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
