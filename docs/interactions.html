@@ -158,7 +158,10 @@ footer { font-size: 1rem !important; }
   <input id="search" placeholder="🔍 Поиск добавки или лекарства…">
 </div>
 
-<div class="legend" id="legend"></div>
+<!-- v5.6.5: live-регион (A11Y-P2-05). Состав легенды зависит от
+     активной вкладки — renderLegend() (:423) переписывает блок целиком,
+     и без региона смена «добавки» / «лекарства» была беззвучной. -->
+<div class="legend" id="legend" role="status" aria-live="polite"></div>
 <div class="severityFilter" id="sevFilter">
   <label for="sevThreshold">Уровень риска:</label>
   <select id="sevThreshold">
@@ -172,7 +175,12 @@ footer { font-size: 1rem !important; }
 
 <div class="int-layout">
   <div id="int-graph"></div>
-  <aside id="int-sidebar"></aside>
+  <!-- v5.6.5: live-регион (A11Y-P2-05). Панель деталей узла целиком
+     перезаписывается renderSidebar() (:460) по клику на узел графа.
+     aria-atomic не задаём намеренно: панель длинная, и режим atomic
+     заставлял бы диктор читать её целиком при каждом переходе между
+     связанными узлами (data-goto). -->
+  <aside id="int-sidebar" aria-live="polite"></aside>
 </div>
 </main>
 
@@ -1036,8 +1044,11 @@ Promise.all([
     setMode('supplements');
   })
   .catch(err => {
+    // v5.6.5 (A11Y-P2-05): роль на самом сообщении, а не на #int-graph —
+    // контейнер держит канвас сети, регион на нём озвучивал бы весь холст.
+    // Ошибка приходит один раз, поэтому assertive (role="alert").
     document.getElementById('int-graph').innerHTML =
-      '<p style="padding:2rem;color:#e53935">Не удалось загрузить interactions_graph.json: ' +
+      '<p role="alert" style="padding:2rem;color:#e53935">Не удалось загрузить interactions_graph.json: ' +
       esc(err.message) + '</p>';
   });
 

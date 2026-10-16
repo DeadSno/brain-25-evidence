@@ -334,7 +334,11 @@ try {
                     if (lb) lb.style.display = 'none';
                     var box = document.getElementById('mynetwork');
                     if (box) {
-                      box.innerHTML = '<div style="padding:40px;text-align:center;color:var(--muted)">⚠ Не удалось загрузить граф. Попробуйте обновить страницу.</div>';
+                      // v5.6.5 (A11Y-P2-05): роль на самом сообщении, а не
+                      // на #mynetwork. Контейнер держит канвас графа — регион
+                      // на нём озвучивал бы весь холст. Ошибка приходит один
+                      // раз, поэтому assertive (role="alert"), а не polite.
+                      box.innerHTML = '<div role="alert" style="padding:40px;text-align:center;color:var(--muted)">⚠ Не удалось загрузить граф. Попробуйте обновить страницу.</div>';
                     }
                   });
               }
@@ -458,6 +462,10 @@ try {
                       };
 
                       network.on("stabilizationProgress", function(params) {
+                          // v5.6.5 (A11Y-P2-05): #text намеренно БЕЗ
+                          // live-региона. Это процент стабилизации сети,
+                          // он меняется десятки раз в секунду — озвучивание
+                          // залило бы экранный диктор потоком чисел.
                           document.getElementById('loadingBar').removeAttribute("style");
                           var maxWidth = 496;
                           var minWidth = 20;

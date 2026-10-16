@@ -294,6 +294,9 @@ html:not(.light) .cat-warn{color:#f59e0b}
 <section class="executive-summary">
   <h2>🎯 Главное</h2>
   <p class="hint">Автоматические выводы из данных: что растёт, что переоценено, где наука опережает хайп.</p>
+  <!-- v5.6.5 (A11Y-P2-05): сетка инсайтов и категории ниже заполняются
+     один раз при загрузке (:1091-1092) — это обычный контент страницы,
+     а не результат действия пользователя. Live-регион не нужен. -->
   <div class="insights-grid" id="insightsGrid">
     <div class="insight-card" data-tone="blue">
       <div class="insight-icon">⏳</div>
@@ -303,7 +306,11 @@ html:not(.light) .cat-warn{color:#f59e0b}
   </div>
 </section>
 
-<!-- KPI-карточки -->
+<!-- KPI-карточки.
+     v5.6.5 (A11Y-P2-05): блок НАМЕРЕННО без live-региона. Значения
+     проставляются один раз при загрузке (renderStats :483) и дальше не
+     меняются — экранный диктор и так проходит их в обычном порядке
+     чтения, а регион заставил бы читать четыре карточки второй раз. -->
 <div class="stat-cards" id="statCards">
   <div class="stat-card">
     <div class="label">Публикаций 2025</div>
@@ -368,7 +375,12 @@ html:not(.light) .cat-warn{color:#f59e0b}
 <div class="chart-wrap">
   <canvas id="trendsChart"></canvas>
 </div>
-<p class="chart-note" id="chartNote"></p>
+<!-- v5.6.5: live-регион (A11Y-P2-05). Подпись под графиком переписывается
+     renderChart() (:561) при каждой смене вкладки (setTab :476) и при
+     изменении любого из четырёх фильтров (:463) — то есть по действию
+     пользователя. Без региона смена «рост / Wikipedia / цитаты» была
+     беззвучной. -->
+<p class="chart-note" id="chartNote" role="status" aria-live="polite"></p>
 
 </main>
 
@@ -381,7 +393,11 @@ html:not(.light) .cat-warn{color:#f59e0b}
 <div id="modalOverlay" style="display:none">
   <div id="modal">
     <button id="modalClose" class="btn" aria-label="Закрыть окно">×</button>
-    <div id="modalBody"></div>
+    <!-- v5.6.5: live-регион (A11Y-P2-05). openModal() (:727) собирает
+         содержимое и только потом показывает оверлей (:758-759), поэтому
+         озвучивание приходит при открытии. Сама роль dialog и перевод
+         фокуса внутрь модалки — отдельная правка, здесь не в объёме. -->
+    <div id="modalBody" aria-live="polite"></div>
   </div>
 </div>
 
@@ -439,8 +455,11 @@ Promise.all([
   initApp();
 }).catch(err => {
   console.error('[boot]', err);
+  // v5.6.5 (A11Y-P2-05): роль на самом сообщении, а не на .chart-wrap —
+  // контейнер держит <canvas>, регион на нём озвучивал бы весь холст.
+  // Ошибка приходит один раз, поэтому assertive (role="alert").
   document.querySelector('.chart-wrap').innerHTML =
-    '<p style="color:var(--grade-d-tx);padding:2rem;text-align:center">Не удалось загрузить данные: ' + esc(err.message) + '</p>';
+    '<p role="alert" style="color:var(--grade-d-tx);padding:2rem;text-align:center">Не удалось загрузить данные: ' + esc(err.message) + '</p>';
 });
 
 // ── Инициализация ─────────────────────────────────────────────

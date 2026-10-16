@@ -221,7 +221,11 @@ footer { font-size: 1rem !important; }
 <main id="main">
   <h1>Атлас механизмов</h1>
 
-  <div id="stats">Загрузка…</div>
+  <!-- v5.6.5: live-регион (A11Y-P2-05). #stats заполняется счётчиком
+       при каждом рендере фильтра (atlas.html:655) и заменяется текстом
+       ошибки загрузки (:763) — без региона результат фильтрации был
+       виден только глазами. -->
+  <div id="stats" role="status" aria-live="polite">Загрузка…</div>
 
   <div class="filterbar">
     <span class="lbl">Грейд:</span>
@@ -232,9 +236,9 @@ footer { font-size: 1rem !important; }
     <label class="lbl" for="q" style="margin-inline-start:1rem">Поиск:</label>
     <input id="q" placeholder="название, эффект, механизм…" style="padding:.4rem .7rem;border:1px solid var(--aborder);border-radius:8px;background:var(--apanel);color:var(--atext);min-width:180px">
     <button class="btn" id="pngBtn" title="Скачать картинку">📷 PNG</button>
-    <button class="btn" id="shareBtn" title="Копировать ссылку с фильтрами">🔗 Ссылка</button>
+    <button class="btn" id="shareBtn" aria-live="polite" title="Копировать ссылку с фильтрами">🔗 Ссылка</button>
     <button class="btn" id="clearAllBtn" style="display:none">✕ Сбросить всё</button>
-    <button class="btn" id="fsBtn" title="Развернуть на весь экран">⛶ На весь экран</button>
+    <button class="btn" id="fsBtn" aria-live="polite" title="Развернуть на весь экран">⛶ На весь экран</button>
   </div>
 
   <!-- v5.6.3: замена prompt() в обработчике #shareBtn. Нативный prompt
@@ -260,7 +264,11 @@ footer { font-size: 1rem !important; }
       <div><span class="dot" style="background:#888;width:8px;height:8px"></span>размер = кол-во тегов</div>
   <div style="margin-top:.3rem;opacity:.7;font-size:.9em">двойной клик → открыть карточку / список</div>
     </div>
-    <aside id="atl-sidebar"></aside>
+    <!-- v5.6.5: live-регион (A11Y-P2-05). openSidebar() (atlas.html:549)
+         целиком перезаписывает панель по клику на узел графа или тег-хаб.
+         aria-atomic не задаём: панель длинная, atomic заставлял бы диктор
+         читать её целиком при каждом переходе между связанными узлами. -->
+    <aside id="atl-sidebar" aria-live="polite"></aside>
   </div>
 
 </main>
@@ -463,6 +471,9 @@ function esc(s) {
       (dark
         ? 'color:#e9eaee;background:#1c1f26;border:1px solid #3a3f48'
         : 'color:#1a1d21;background:#fff;border:1px solid #d9dde3');
+    // v5.6.5 (A11Y-P2-05): тултип намеренно БЕЗ live-региона. Он
+    // переписывается на каждом наведении мыши на узел — озвучивание
+    // превращало бы наведение в поток фраз.
     el.innerHTML =
       '<b style="font-size:.95rem">' + esc(c.id) + '</b><br>' +
       '<span style="opacity:.75">' + esc(verdict) + (grade ? ' · ' + esc(grade) : '') + '</span><br>' +
