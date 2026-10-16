@@ -19,7 +19,7 @@
 |---|---|---|---|
 | a11y | 1 | 32 | [audits/a11y.md](audits/a11y.md) |
 | data (+QA данных) | 7 | 29 | [audits/data.md](audits/data.md) |
-| html-css | 3 | 15 | [audits/html-css.md](audits/html-css.md) |
+| html-css | 2 | 16 | [audits/html-css.md](audits/html-css.md) |
 | js (+безопасность) | 4 | 9 | [audits/js.md](audits/js.md) |
 | legal | 1 | 4 | [audits/legal.md](audits/legal.md) |
 | mobile | 2 | 20 | [audits/mobile.md](audits/mobile.md) |
@@ -28,7 +28,21 @@
 | seo (+маркетинг) | 5 | 24 | [audits/seo.md](audits/seo.md) |
 | trends | 17 | 10 | [audits/trends.md](audits/trends.md) |
 | skills | 2 | 5 | [audits/skills.md](audits/skills.md) |
-| **Итого** | **49** | **171** (+12 «не делать», +1 снято, +1 дубль) |
+| **Итого** | **48** | **172** (+12 «не делать», +1 снято, +1 дубль) |
+
+**Пересчёт 16.10.2026 (семнадцатый, 13C2) — закрыт `HC-P2-03` (частично).**
+Из **160** hex-вхождений в `docs/style.css` (100 уникальных) хардкодом были **64**
+(**46** уникальных): вынесены 14 повторяющихся значений (`#3498db`, `#8a6800`,
+`#1f5fbf`, `#c0392b`, `#f26d6d`, `#5dade2`, `#84cc16`, `#e53935`, `#ef4444`,
+`#f59e0b` и четыре альфа-тинта `#22c55e33`/`#84cc1633`/`#f59e0b33`/`#88888833`) —
+значения 1:1, консолидации нет, 32 вхождения переведены на `var()` (`a7aead3`).
+Оставшиеся **32** уникальных значения (11 акцентов страниц `.btn.c-*`,
+нейтральные `#000/#222/#666/#aaa`, цвета бейджей и легенды) оставлены
+**by design**. CSS-переменных 131 → 145 (уникальных имён 91 → 105, в `:root`
+65 → 79), hardcoded hex 64 → 32; скилл `visual-design-audit` синхронизирован.
+Снапшоты 76 passed, 0 PNG. Правка `style.css` ⇒ бамп `?v=` 433 → 434 в 144
+файлах и `CACHE_VERSION` v100 → v101. Открытых P2 в html-css 3 → 2, §2
+«P2 (31)» → «P2 (30)», «Итого» 49/171 → **48/172**.
 
 **Пересчёт 16.10.2026 (шестнадцатый, 13C2) — закрыт `HC-P2-02`.**
 13 уникальных значений `font-size` в `docs/style.css` (104 объявления) вынесены
@@ -618,7 +632,7 @@ bounding box, — часть бокса внутри, но **за дугой `bo
 > DATA-COI,
 > MOB-P2-11, SK-P1-03, SK-STALE-02.
 
-### P2 (31)
+### P2 (30)
 
 | ID | Находка | Тип |
 |---|---|---|
@@ -629,7 +643,7 @@ bounding box, — часть бокса внутри, но **за дугой `bo
 | DATA-P2-15 | `citations` недосчитан у 7 карточек — OpenAlex не индексирует часть PMID из `key_sources`, сумма молча теряет слагаемые (`fetch_metrics.py:109`) | [data](audits/data.md) |
 | DATA-P2-16 | Один PMID (`33295643`, Cochrane 2020) стоит в `key_sources` сразу у трёх карточек — `Пробиотики`, `S. boulardii`, `LGG` | [data](audits/data.md) |
 | HC-P2-01 | Эмодзи-иконки — **WONTFIX** (16.10.2026, 13C2): 3104 вхождения в `docs/` (511 html + 2518 sup + 75 js), прогноз ~36 PNG — не влезает в «один ID = один коммит ≤5 PNG»; отдельный дизайн-эпик v6.0 (inline SVG, `OPEN_TECHDEBT.md:513`) | [html-css](audits/html-css.md) |
-| HC-P2-03, 06 | 160 hex, нет статус-классов | [html-css](audits/html-css.md) |
+| HC-P2-06 | нет статус-классов | [html-css](audits/html-css.md) |
 | CYBER-P2-01 | Нет теста security-заголовков — **WONTFIX** (15.10.2026, батч 12A): следствие `CYBER-P1-01`, тестировать нечего | [js](audits/js.md) |
 | JS-P2-02 | Строки без i18n (229 в 6 файлах) — рефактор локализации, `OPEN_TECHDEBT.md:504` оценивает в «1–3 дня» → **v5.6.5** | [js](audits/js.md) |
 | LEGAL-P2-02 | Нет DOI-ссылок: `doi.org` 0 на 131/131 | [legal](audits/legal.md) |
