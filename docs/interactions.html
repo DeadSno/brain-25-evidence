@@ -352,8 +352,8 @@ function buildNodes(mode, degrees) {
       id: n.id,
       label: n.label,
       title: n.kind === 'drug'
-        ? 'Лекарственный класс · клик = подсветить связи'
-        : (n.grade ? 'Грейд ' + n.grade + ' · клик = открыть карточку' : ''),
+        ? t("int.drugClassTitle")
+        : (n.grade ? t("int.gradePrefix") + n.grade + t("int.nodeClickOpen") : ''),
       color: {
         background: color,
         /* Обводка на компакте контрастная, а не в цвет узла: подписи нет,
@@ -419,9 +419,9 @@ function buildEdges(mode) {
         width: 1,
         dashes: e.type === 'synergy',
         title: (e.note || '').replace(/</g, '&lt;') ||
-               (e.type === 'synergy' ? 'Синергия' :
-                e.type === 'antagonist' ? 'Антагонизм' :
-                'Взаимодействие · риск ' + (SEV_LABEL[e.severity] || e.severity || '')),
+               (e.type === 'synergy' ? t("int.synergyTitle") :
+                e.type === 'antagonist' ? t("int.antagonistTitle") :
+                t("int.interactionRisk") + (SEV_LABEL[e.severity] || e.severity || '')),
         /* Стрелки убраны (было enabled на всех 32 рёбрах вкладки «и
            лекарства»): 32 насыщенные наконечника поверх узлов давали
            красные спагетти. Направление читается из подписи связи и легенды. */
@@ -433,15 +433,15 @@ function renderLegend(mode) {
   const el = document.getElementById('legend');
   if (mode === 'supplements') {
     el.innerHTML =
-      '<span class="syn">синергия</span>' +
-      '<span class="ant">антагонизм</span>' +
-      '<span class="int">взаимодействие</span>' +
-      '<span class="sup">добавка (цвет = грейд A–D)</span>';
+      '<span class="syn">' + t("int.legSynergy") + '</span>' +
+      '<span class="ant">' + t("int.legAntagonist") + '</span>' +
+      '<span class="int">' + t("int.legInteraction") + '</span>' +
+      '<span class="sup">' + t("int.legSupGradeAD") + '</span>';
   } else {
     el.innerHTML =
-      '<span class="int">взаимодействие · цвет = severity</span>' +
-      '<span class="sup">добавка (цвет = грейд)</span>' +
-      '<span class="drug">лекарственный класс</span>';
+      '<span class="int">' + t("int.legInteractionSev") + '</span>' +
+      '<span class="sup">' + t("int.legSupGrade") + '</span>' +
+      '<span class="drug">' + t("int.legDrugClass") + '</span>';
   }
 }
 
@@ -486,9 +486,9 @@ function renderSidebar(id) {
       }));
     sidebar.innerHTML =
       '<div class="sb-head"><h2>' + esc(id) + '</h2>' +
-      '<button class="sb-close" data-close aria-label="Закрыть панель">×</button></div>' +
-      '<div class="sb-meta">Лекарственный класс</div>' +
-      '<div class="sb-section"><h3>Связанные добавки (' + related.length + ')</h3>' +
+      '<button class="sb-close" data-close aria-label="' + t("int.closePanel") + '">×</button></div>' +
+      '<div class="sb-meta">' + t("int.drugClass") + '</div>' +
+      '<div class="sb-section"><h3>' + t("int.relatedSupps") + related.length + ')</h3>' +
       '<ul class="sb-links">' +
       related.map(r =>
         '<li>' +
@@ -507,16 +507,16 @@ function renderSidebar(id) {
         note: e.note,
         type: e.type
       }));
-    const gradeLabel = supp.grade ? 'Грейд ' + supp.grade : '';
-    const verdictLabel = supp.code === 1 ? 'работает' :
-                         supp.code === 0 ? 'зависит от контекста' :
-                         supp.code === -1 ? 'не подтверждено' : '';
+    const gradeLabel = supp.grade ? t("int.gradePrefix") + supp.grade : '';
+    const verdictLabel = supp.code === 1 ? t("verdict.works") :
+                         supp.code === 0 ? t("verdict.depends") :
+                         supp.code === -1 ? t("verdict.unproven") : '';
 
     sidebar.innerHTML =
       '<div class="sb-head"><h2>' + esc(supp.label) + '</h2>' +
-      '<button class="sb-close" data-close aria-label="Закрыть панель">×</button></div>' +
+      '<button class="sb-close" data-close aria-label="' + t("int.closePanel") + '">×</button></div>' +
       '<div class="sb-meta">' + esc([gradeLabel, verdictLabel].filter(Boolean).join(' · ')) + '</div>' +
-      '<div class="sb-section"><h3>Связи (' + related.length + ')</h3>' +
+      '<div class="sb-section"><h3>' + t("int.links") + related.length + ')</h3>' +
       '<ul class="sb-links">' +
       related.map(r =>
         '<li>' +
@@ -530,7 +530,7 @@ function renderSidebar(id) {
       ).join('') +
       '</ul></div>' +
       '<a class="sb-cta" href="index.html#sup=' + encodeURIComponent(id) + '" target="_blank">' +
-        'Открыть карточку →</a>';
+        t("common.openCard") + '</a>';
   }
 
   sidebar.classList.add('open');
@@ -1049,7 +1049,7 @@ Promise.all([
     // контейнер держит канвас сети, регион на нём озвучивал бы весь холст.
     // Ошибка приходит один раз, поэтому assertive (role="alert").
     document.getElementById('int-graph').innerHTML =
-      '<p role="alert" style="padding:2rem;color:#e53935">Не удалось загрузить interactions_graph.json: ' +
+      '<p role="alert" style="padding:2rem;color:#e53935">' + t("int.loadError") +
       esc(err.message) + '</p>';
   });
 
