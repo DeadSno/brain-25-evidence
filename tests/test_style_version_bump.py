@@ -168,6 +168,40 @@ def test_style_version_is_not_rolled_back():
     )
 
 
+def test_templates_match_pages_style_version():
+    """Шаблоны sup обязаны нести то же `?v=`, что и сгенерированные страницы.
+
+    Рассинхрон «в шаблоне старое, на страницах новое» случался четыре раза
+    (v413/414, v423/425, v425/429, v429/430). Снаружи его не видно: сайт
+    работает, гейты зелёные, а следующая перегенерация `scripts/build_sup.py`
+    молча откатила бы номер сразу на всех 131 странице `docs/sup/*.html` —
+    и возвратные посетители получили бы CSS из кэша.
+
+    В `test_build_sup_idempotent.py` этого не поймать: модуль помечен
+    `snapshot_data`, а хук гоняет `-m "not network and not snapshot_data"` —
+    то есть в коммите проверка не исполняется. Поэтому она живёт здесь.
+    """
+    templates = ROOT / "templates"
+    assert templates.is_dir(), f"нет каталога шаблонов {templates}"
+    baseline = int(BASELINE.read_text(encoding="utf-8").strip())
+    drift: dict[str, list[int]] = {}
+    for tpl in sorted(templates.glob("*.j2")):
+        found: set[int] = set()
+        for line in tpl.read_text(encoding="utf-8").splitlines():
+            # Только настоящая разметка: в комментариях {# … #} шаблона
+            # перечислены старые номера голыми «?v=413», «?v=423» и т.п.
+            if "href" in line and "style.css?v=" in line:
+                found |= {int(v) for v in STYLE_HREF.findall(line)}
+        if found and found != {baseline}:
+            drift[tpl.relative_to(ROOT).as_posix()] = sorted(found)
+    assert not drift, (
+        f"Шаблоны отстали от страниц по style.css?v=: {drift}, "
+        f"а страницы несут {baseline}. Перегенерация из такого шаблона "
+        f"понизила бы бампер на всех sup-страницах — подними ?v= в шаблоне "
+        f"вместе с разметкой (см. CONVENTIONS.md)."
+    )
+
+
 def test_version_js_bump_does_not_drift():
     """Та же логика для version.js?v=NNN — отдельная шкала, но правило то же.
 
