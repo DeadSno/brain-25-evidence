@@ -22,13 +22,23 @@
 | html-css | 2 | 16 | [audits/html-css.md](audits/html-css.md) |
 | js (+безопасность) | 4 | 9 | [audits/js.md](audits/js.md) |
 | legal | 1 | 4 | [audits/legal.md](audits/legal.md) |
-| mobile | 2 | 20 | [audits/mobile.md](audits/mobile.md) |
+| mobile | 1 | 21 | [audits/mobile.md](audits/mobile.md) |
 | perf (+проект/релиз) | 4 | 12 | [audits/perf.md](audits/perf.md) |
 | i18n | 3 | 11 | [audits/i18n.md](audits/i18n.md) |
 | seo (+маркетинг) | 5 | 24 | [audits/seo.md](audits/seo.md) |
 | trends | 17 | 10 | [audits/trends.md](audits/trends.md) |
 | skills | 2 | 5 | [audits/skills.md](audits/skills.md) |
-| **Итого** | **48** | **172** (+12 «не делать», +1 снято, +1 дубль) |
+| **Итого** | **47** | **173** (+12 «не делать», +1 снято, +1 дубль) |
+
+**Пересчёт 16.10.2026 (восемнадцатый, 13C3a) — закрыт `MOB-P2-11`.**
+Мелкий текст ниже 12 px поднят до 12 px: токены `--fs-1`/`--fs-2` в `docs/style.css`
+переведены с `.65rem`/`.7rem` (10.4/11.2 px) на `.75rem`, значения совпадают с
+`--fs-3` (имена сохранены для семантики); 13 захардкоженных мест в 11 файлах
+(`index`, `atlas`, `interactions`, `map`, `calculator`, `trends`, `science2.js`)
+переведены на `var(--fs-3)`/`12px` (`d3721c2`). Снапшоты: 10 эталонов обновлены
+(map/atlas/calculator, 412/1280, chromium+webkit), 76 passed. Правка `style.css`
+⇒ бамп `?v=` 434 → 435 в 144 файлах и `CACHE_VERSION` v101 → v102. Открытых в
+mobile 2 → 1, §2 «P2 (30)» → «P2 (29)», «Итого» 48/172 → **47/173**.
 
 **Пересчёт 16.10.2026 (семнадцатый, 13C2) — закрыт `HC-P2-03` (частично).**
 Из **160** hex-вхождений в `docs/style.css` (100 уникальных) хардкодом были **64**
@@ -640,11 +650,11 @@ bounding box, — часть бокса внутри, но **за дугой `bo
 | SK-P1-03 🔸 | `cyberaudit`: `license: MIT` закрыт `12119a5`, многострочный `description` жив — **WONTFIX** (14.10.2026): скилл в `.gitignore`, правка не коммитится | [skills](audits/skills.md) |
 
 > 🔸 **PARTIAL** — закрыта часть находки. Такие записи остаются в открытом
-> индексе, но снимаются с целиком при закрытии последней части. Сейчас их 6:
+> индексе, но снимаются с целиком при закрытии последней части. Сейчас их 5:
 > DATA-COI,
-> MOB-P2-11, SK-P1-03, SK-STALE-02.
+> SK-P1-03, SK-STALE-02.
 
-### P2 (30)
+### P2 (29)
 
 | ID | Находка | Тип |
 |---|---|---|
@@ -660,7 +670,6 @@ bounding box, — часть бокса внутри, но **за дугой `bo
 | JS-P2-02 | Строки без i18n (229 в 6 файлах) — рефактор локализации, `OPEN_TECHDEBT.md:504` оценивает в «1–3 дня» → **v5.6.5** | [js](audits/js.md) |
 | LEGAL-P2-02 | Нет DOI-ссылок: `doi.org` 0 на 131/131 | [legal](audits/legal.md) |
 | MOB-P2-12 | Скрытый скроллбар ленты ≤ 620 px (решение владельца зафиксировано в комментарии `style.css:1537-1540`) | [mobile](audits/mobile.md) |
-| MOB-P2-11 🔸 | Мелкий текст 10.4–11.5 px — частично поднят `7cc36e3` | [mobile](audits/mobile.md) |
 | PERF-P2-01, P2-02 | Тяжёлые вендоры (vis-network 672 КБ); нет `.gz`/`.br` — **WONTFIX** 15.10.2026 (батч 12A), хостинг сжимает сам | [perf](audits/perf.md) |
 | PRJ-P2-01, PRJ-P2-02 | Ложные находки project-аудита (5 из 10); «прочие P2 project/release», 4 пункта без расшифровки — работать не с чем → **v5.6.5** | [perf](audits/perf.md) |
 | I18N-P2-01…03 | 229 строк JS + inline, **748** атрибутов, 517 стрелок | [i18n](audits/i18n.md) |
