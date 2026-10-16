@@ -24,11 +24,23 @@
 | legal | 1 | 4 | [audits/legal.md](audits/legal.md) |
 | mobile | 1 | 21 | [audits/mobile.md](audits/mobile.md) |
 | perf (+проект/релиз) | 4 | 12 | [audits/perf.md](audits/perf.md) |
-| i18n | 3 | 11 | [audits/i18n.md](audits/i18n.md) |
+| i18n | 2 | 12 | [audits/i18n.md](audits/i18n.md) |
 | seo (+маркетинг) | 5 | 24 | [audits/seo.md](audits/seo.md) |
 | trends | 17 | 10 | [audits/trends.md](audits/trends.md) |
 | skills | 2 | 5 | [audits/skills.md](audits/skills.md) |
-| **Итого** | **47** | **173** (+12 «не делать», +1 снято, +1 дубль) |
+| **Итого** | **46** | **174** (+12 «не делать», +1 снято, +1 дубль) |
+
+**Пересчёт 16.10.2026 (девятнадцатый, 13A2b) — закрыт `I18N-P2-01`.**
+UI-строки 6 страниц (`graph`, `atlas`, `interactions`, `calculator`, `map`,
+`trends`) вынесены из inline `<script>` в общий `docs/i18n.js` (`t()`-ключи):
+6 коммитов `5890ed0`, `4cc55f5`, `87abd69`, `2d7d436`, `9d44bd4`, `02cf2cc`.
+Не выносились осознанно: A_jsonld (SEO), B_pattern (regex UL), C_vocab —
+`TAG_RU`/`CANON`/`TAGCLASS`/`SEV_LABEL`/`TYPE_LABEL`/`SUBSTANCES`, профили
+`calculator.html:873-917`, `'Креатин'` в `map.html`. Правка `docs/i18n.js` ⇒
+бамп `CACHE_VERSION` v103 → v104 и `i18n.js?v=` 1 → 2 в 146 файлах. Открытых
+в i18n 3 → 2, §2 «P2 (29)» → «P2 (28)», «Итого» 47/173 → **46/174**. Снапшоты
+6 страниц — 0 PNG. 229 строк `docs/*.js` остаются отдельной находкой
+`JS-P2-02` (`v5.6.5`).
 
 **Пересчёт 16.10.2026 (восемнадцатый, 13C3a) — закрыт `MOB-P2-11`.**
 Мелкий текст ниже 12 px поднят до 12 px: токены `--fs-1`/`--fs-2` в `docs/style.css`
@@ -654,7 +666,7 @@ bounding box, — часть бокса внутри, но **за дугой `bo
 > DATA-COI,
 > SK-P1-03, SK-STALE-02.
 
-### P2 (29)
+### P2 (28)
 
 | ID | Находка | Тип |
 |---|---|---|
@@ -672,7 +684,7 @@ bounding box, — часть бокса внутри, но **за дугой `bo
 | MOB-P2-12 | Скрытый скроллбар ленты ≤ 620 px (решение владельца зафиксировано в комментарии `style.css:1537-1540`) | [mobile](audits/mobile.md) |
 | PERF-P2-01, P2-02 | Тяжёлые вендоры (vis-network 672 КБ); нет `.gz`/`.br` — **WONTFIX** 15.10.2026 (батч 12A), хостинг сжимает сам | [perf](audits/perf.md) |
 | PRJ-P2-01, PRJ-P2-02 | Ложные находки project-аудита (5 из 10); «прочие P2 project/release», 4 пункта без расшифровки — работать не с чем → **v5.6.5** | [perf](audits/perf.md) |
-| I18N-P2-01…03 | 229 строк JS + inline, **748** атрибутов, 517 стрелок | [i18n](audits/i18n.md) |
+| I18N-P2-02…03 | **748** атрибутов, 517 стрелок | [i18n](audits/i18n.md) |
 | MKT-P2-01, P2-02 | `<title>` > 60 на 82/145; `description` < 120 на 88/145 — дубли `SEO-P1-01`/`SEO-P1-02`. **Тексты владельцу** | [seo](audits/seo.md) |
 
 

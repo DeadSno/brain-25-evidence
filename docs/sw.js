@@ -228,7 +228,14 @@ self.addEventListener('activate', event => {
    style.css НЕ менялся, ?v= оставлен как был (435). Без бампа activate
    не почистит v102-static и возвратные посетители получат старый
    script.js без i18n.js (ReferenceError на t). */
-var CACHE_VERSION = 'v103';
+/* Бамп v103 -> v104 13A2b: инлайн-строки 6 страниц (graph, atlas,
+   interactions, calculator, map, trends) заменены на t()-ключи, новый
+   docs/i18n.js. i18n.js лежит в STATIC_ASSETS без ?v, поэтому сброс
+   кэша держится на CACHE_VERSION; без бампа activate не почистит
+   v103-static и вернёт старый i18n.js, а t() подставит имена ключей
+   вместо текста. Заодно ?v= i18n.js в разметке 1 -> 2 (146 файлов).
+   Значения строк байт-в-байт прежние, style.css НЕ менялся (?v= 435). */
+var CACHE_VERSION = 'v104';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
