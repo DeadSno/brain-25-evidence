@@ -8,6 +8,29 @@
   let DEFAULT_DAYS = 30;
   let _supplementsCache = null;
 
+  // 13A1 (I18N-P2-01): пользовательские строки — в словаре; см. docs/script.js.
+  const I18N = {
+    ru: {
+      "tracker.inCourse": "📅 В курсе (",
+      "tracker.done": "✅ Курс завершён",
+      "tracker.add": "📅 В мой курс",
+      "tracker.dosePrefix": "Доза: ",
+      "tracker.privacy": "🔒 Данные хранятся только в вашем браузере, никуда не отправляются",
+      "tracker.mySupps": "📅 Мои добавки",
+      "tracker.since": "с ",
+      "tracker.take": "+ Принял",
+      "tracker.remove": "убрать",
+      "tracker.doneSuffix": " — курс завершён ✅"
+    }
+  };
+  function t(key, params) {
+    const lang = (document.documentElement.lang || 'ru').slice(0, 2);
+    const dict = I18N[lang] || I18N.ru;
+    let s = dict[key] != null ? dict[key] : (I18N.ru[key] != null ? I18N.ru[key] : key);
+    if (params) s = s.replace(/\{(\w+)\}/g, (m, k) => (k in params ? params[k] : m));
+    return s;
+  }
+
   function fetchSupplements() {
     if (_supplementsCache) return Promise.resolve(_supplementsCache);
     return fetch('data.json?ts=' + Date.now())
@@ -113,13 +136,13 @@
     let courses = getMyCourses();
     let existing = courses[sup.id];
     if (existing && isCourseActive(existing)) {
-      btn.textContent = '📅 В курсе (' + existing.taken.length + '/' + existing.days + ')';
+      btn.textContent = t("tracker.inCourse") + existing.taken.length + '/' + existing.days + ')';
       btn.disabled = false;
     } else if (existing && isCourseDone(existing)) {
-      btn.textContent = '✅ Курс завершён';
+      btn.textContent = t("tracker.done");
       btn.disabled = true;
     } else {
-      btn.textContent = '📅 В мой курс';
+      btn.textContent = t("tracker.add");
       btn.disabled = false;
     }
 
@@ -132,13 +155,13 @@
           start: new Date().toISOString(),
           days: DEFAULT_DAYS,
           taken: [],
-          note: dosage ? 'Доза: ' + dosage : ''
+          note: dosage ? t("tracker.dosePrefix") + dosage : ''
         };
         courses[sup.id] = course;
       }
       course.taken.push(new Date().toISOString());
       saveMyCourses(courses);
-      btn.textContent = '📅 В курсе (' + course.taken.length + '/' + course.days + ')';
+      btn.textContent = t("tracker.inCourse") + course.taken.length + '/' + course.days + ')';
       window.dispatchEvent(new Event('courseUpdated'));
     });
 
@@ -147,7 +170,7 @@
     privacy.style.fontSize = '0.75rem';
     privacy.style.opacity = '0.6';
     privacy.style.marginTop = '0.25rem';
-    privacy.textContent = '\u{1F512} Данные хранятся только в вашем браузере, никуда не отправляются';
+    privacy.textContent = t("tracker.privacy");
 
     // Вставляем перед ссылкой «Нашли неточность?» или в конец
     let issueLink = modalBody.querySelector('a[href*="issues/new"]');
@@ -194,7 +217,7 @@
 
     section.style.display = '';
 
-    let html = '<h2>\u{1F4C5} Мои добавки</h2>';
+    let html = '<h2>' + t("tracker.mySupps") + '</h2>';
     ids.forEach(function (id) {
       let c = courses[id];
       let sup = findSup(id);
@@ -208,14 +231,14 @@
       html += '<div>';
       html += '<b>' + name + '</b>';
       if (c.note) html += ' <span style="font-size:.8rem;opacity:.7">(' + c.note + ')</span>';
-      html += ' <span style="font-size:.8rem;opacity:.6">с ' + c.start.slice(0, 10) + '</span>';
+      html += ' <span style="font-size:.8rem;opacity:.6">' + t("tracker.since") + c.start.slice(0, 10) + '</span>';
       html += '</div>';
       html += '<div style="display:flex;gap:0.4rem;flex-wrap:wrap">';
 
       if (!done) {
-        html += '<button class="favFilter tracker-take" data-tracker-take="' + id + '">+ Принял</button>';
+        html += '<button class="favFilter tracker-take" data-tracker-take="' + id + '">' + t("tracker.take") + '</button>';
       }
-      html += '<button class="favFilter tracker-remove" data-tracker-remove="' + id + '">убрать</button>';
+      html += '<button class="favFilter tracker-remove" data-tracker-remove="' + id + '">' + t("tracker.remove") + '</button>';
       html += '</div></div>';
 
       // Прогресс-бар
@@ -223,7 +246,7 @@
       html += '<div style="width:' + pct + '%;height:100%;background:' + statusColor + ';border-radius:6px;transition:width .3s"></div>';
       html += '</div>';
       html += '<div style="font-size:.8rem;margin-top:0.3rem;opacity:.8">' + c.taken.length + '/' + c.days +
-        (done ? ' — курс завершён \u2705' : ' (' + pct + '%)') + '</div>';
+        (done ? t("tracker.doneSuffix") : ' (' + pct + '%)') + '</div>';
 
       html += '</div>';
     });
