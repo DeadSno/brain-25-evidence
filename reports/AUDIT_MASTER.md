@@ -19,7 +19,7 @@
 |---|---|---|---|
 | a11y | 1 | 32 | [audits/a11y.md](audits/a11y.md) |
 | data (+QA данных) | 7 | 29 | [audits/data.md](audits/data.md) |
-| html-css | 5 | 13 | [audits/html-css.md](audits/html-css.md) |
+| html-css | 4 | 14 | [audits/html-css.md](audits/html-css.md) |
 | js (+безопасность) | 4 | 9 | [audits/js.md](audits/js.md) |
 | legal | 1 | 4 | [audits/legal.md](audits/legal.md) |
 | mobile | 2 | 20 | [audits/mobile.md](audits/mobile.md) |
@@ -28,7 +28,19 @@
 | seo (+маркетинг) | 5 | 24 | [audits/seo.md](audits/seo.md) |
 | trends | 17 | 10 | [audits/trends.md](audits/trends.md) |
 | skills | 2 | 5 | [audits/skills.md](audits/skills.md) |
-| **Итого** | **51** | **169** (+12 «не делать», +1 снято, +1 дубль) |
+| **Итого** | **50** | **170** (+12 «не делать», +1 снято, +1 дубль) |
+
+**Пересчёт 16.10.2026 (пятнадцатый, 13C2) — закрыт `HC-P2-05`.**
+6 градиентов `docs/style.css` вынесены в именованные токены — 4 новых
+`--grad-*` (`--grad-calc`, `--grad-shimmer`, `--grad-mesh`, `--grad-badge`,
+`2381fa8`). Консолидации нет: перенос 1:1, вид не изменился (снапшоты
+76 passed, 0 PNG). Правка `style.css` ⇒ бамп `?v=` 431 → 432 в 144 файлах и
+`CACHE_VERSION` v98 → v99. Статический гейт
+`test_ui_verify_contrast.py::test_every_gradient_in_style_css_is_parsed` теперь
+разворачивает `var(--grad-*)` по токенам (проба `ui_verify.py` работает на
+computed styles и не менялась); скилл `visual-design-audit` синхронизирован:
+66 → 64 hardcoded hex, 118 → 122 объявления CSS-переменных.
+Открытых P2 в html-css 5 → 4, §2 «P2 (33)» → «P2 (32)», «Итого» 51/169 → **50/170**.
 
 **Пересчёт 16.10.2026 (четырнадцатый, 13C2) — закрыт `HC-P2-04`.**
 15 уникальных значений `box-shadow` в `docs/style.css` (17 объявлений) вынесены
@@ -594,7 +606,7 @@ bounding box, — часть бокса внутри, но **за дугой `bo
 > DATA-COI,
 > MOB-P2-11, SK-P1-03, SK-STALE-02.
 
-### P2 (33)
+### P2 (32)
 
 | ID | Находка | Тип |
 |---|---|---|
@@ -605,7 +617,7 @@ bounding box, — часть бокса внутри, но **за дугой `bo
 | DATA-P2-15 | `citations` недосчитан у 7 карточек — OpenAlex не индексирует часть PMID из `key_sources`, сумма молча теряет слагаемые (`fetch_metrics.py:109`) | [data](audits/data.md) |
 | DATA-P2-16 | Один PMID (`33295643`, Cochrane 2020) стоит в `key_sources` сразу у трёх карточек — `Пробиотики`, `S. boulardii`, `LGG` | [data](audits/data.md) |
 | HC-P2-01 | Эмодзи-иконки — **WONTFIX** (16.10.2026, 13C2): 3104 вхождения в `docs/` (511 html + 2518 sup + 75 js), прогноз ~36 PNG — не влезает в «один ID = один коммит ≤5 PNG»; отдельный дизайн-эпик v6.0 (inline SVG, `OPEN_TECHDEBT.md:513`) | [html-css](audits/html-css.md) |
-| HC-P2-02, 03, 05, 06 | 13 размеров шрифта, 160 hex, 6 градиентов, нет статус-классов | [html-css](audits/html-css.md) |
+| HC-P2-02, 03, 06 | 13 размеров шрифта, 160 hex, нет статус-классов | [html-css](audits/html-css.md) |
 | CYBER-P2-01 | Нет теста security-заголовков — **WONTFIX** (15.10.2026, батч 12A): следствие `CYBER-P1-01`, тестировать нечего | [js](audits/js.md) |
 | JS-P2-02 | Строки без i18n (229 в 6 файлах) — рефактор локализации, `OPEN_TECHDEBT.md:504` оценивает в «1–3 дня» → **v5.6.5** | [js](audits/js.md) |
 | LEGAL-P2-02 | Нет DOI-ссылок: `doi.org` 0 на 131/131 | [legal](audits/legal.md) |
