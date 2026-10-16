@@ -624,9 +624,14 @@ document.addEventListener('click', e => {
     return '<span class="verdict v' + s.code + '">' + esc(s.verdict) + '</span>';
   }
 
-  function relList(rel) {
+  function relList(rel, basis) {
     if (!rel.length) {
-      return '<p style="opacity:.6">Похожих механизмов не найдено</p>';
+      // v5.6.5 (A11Y-P2-07): сообщаем, ПО ЧЕМУ сравнивали — иначе «не найдено»
+      // читается как «поищи ещё раз», хотя пересечений действительно нет.
+      // Плюс явный выход из пустого состояния — ссылка в каталог.
+      return '<p style="opacity:.6">Пересечений нет: ' + esc(basis) +
+        ' со всей базой из ' + SUPS.length + ' добавок.</p>' +
+        '<p style="margin-top:.8rem"><a class="cta" href="sup/index.html">Открыть каталог всех добавок →</a></p>';
     }
     return '<ul class="rel-list">' + rel.map(r =>
       '<li data-open-supp="' + esc(r.s.id) + '">' +
@@ -665,7 +670,10 @@ document.addEventListener('click', e => {
             '</div>'
           ).join('')
       ) +
-      '<h3>Похожие добавки (' + rel.length + ')</h3>' + relList(rel) +
+      '<h3>Похожие добавки (' + rel.length + ')</h3>' +
+      relList(rel, mechs.length === 1
+        ? 'сравнили её единственный механизм'
+        : 'сравнили все её механизмы (' + mechs.length + ')') +
       '<p style="margin-top:1.2rem"><a class="cta" href="index.html#sup=' +
       encodeURIComponent(s.id) + '">Открыть карточку →</a></p>'
     );
@@ -685,7 +693,8 @@ document.addEventListener('click', e => {
       '<h3>У добавки: ' + esc(s.name) + '</h3>' +
       '<p style="opacity:.85">' + esc(m[1]) + '</p>' +
       (m[2] ? '<p style="opacity:.7;font-size:.85rem">Сила: <b>' + esc(m[2]) + '</b></p>' : '') +
-      '<h3>Добавки с похожим механизмом (' + rel.length + ')</h3>' + relList(rel) +
+      '<h3>Добавки с похожим механизмом (' + rel.length + ')</h3>' +
+      relList(rel, 'сравнили этот механизм') +
       '<p style="margin-top:1.2rem"><a class="cta" href="index.html#sup=' +
       encodeURIComponent(s.id) + '">Открыть карточку →</a></p>'
     );
