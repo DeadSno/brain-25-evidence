@@ -312,7 +312,45 @@ const I18N = {
     "trends.catLeader": "Лидер",
     "trends.catLoser": "Провал",
     "trends.catNoProof": "⚠️ {n}% без доказательств (грейд D)",
-    "trends.warnLog": "Тренды: данные не загрузились —"
+    "trends.warnLog": "Тренды: данные не загрузились —",
+    // 13A3 (I18N-P2-02): ключи для data-i18n-* атрибутов (title / aria-label / placeholder),
+    // применяются функцией applyI18n ниже. Одна строка — один ключ, повторное использование
+    // на разных страницах допустимо (DRY).
+    "a11y.navMain": "Главная навигация",
+    "btn.scrollDown": "Вниз",
+    "a11y.scrollDown": "Прокрутить страницу вниз",
+    "a11y.cookieConsent": "Согласие на использование cookie",
+    "a11y.closeModal": "Закрыть окно",
+    // atlas
+    "atlas.btn.download": "Скачать картинку",
+    "atlas.btn.copyLink": "Копировать ссылку с фильтрами",
+    "atlas.btn.fullscreen": "Развернуть на весь экран",
+    "atlas.aria.filterLink": "Ссылка с фильтрами",
+    "atlas.searchPh": "название, эффект, механизм…",
+    "atlas.gradeA": "Грейд A",
+    "atlas.gradeB": "Грейд B",
+    "atlas.gradeC": "Грейд C",
+    "atlas.gradeD": "Грейд D",
+    // калькулятор
+    "calc.searchPh": "Поиск добавки для добавления…",
+    "calc.aria.textList": "Список добавок текстом",
+    "calc.aria.selectedLink": "Ссылка с выбранными добавками",
+    // обратная связь
+    "feedback.formTitle": "Форма обратной связи",
+    // главная
+    "index.refresh": "Обновить данные с сервера",
+    "index.searchPh": "🔍 Поиск: название или эффект...",
+    "index.favs": "Показать только избранные",
+    "index.reset": "Сбросить все фильтры и поиск",
+    "index.sortSci": "Сортировка: доказательность",
+    "index.verdictWorks": "Вердикт только «работает»",
+    "index.trials": "Есть активные испытания на людях",
+    // взаимодействия
+    "interactions.btn.download": "Скачать как PNG",
+    "interactions.searchPh": "🔍 Поиск добавки или лекарства…",
+    // тренды / sup
+    "trends.gradeAbbr": "Грейд A-D — шкала доказательности (см. glossary.html)",
+    "sup.searchPh": "🔍 Поиск: название или категория..."
   }
 };
 
@@ -322,3 +360,18 @@ function t(key, params) {
   if (params) s = s.replace(/\{(\w+)\}/g, (m, k) => (k in params ? params[k] : m));
   return s;
 }
+
+// 13A3 (I18N-P2-02): применение перевода к data-i18n-* атрибутам (title, aria-label,
+// placeholder) после разбора DOM. root по умолчанию document; window.applyI18n
+// оставлен для динамически вставляемой разметки.
+function applyI18n(root) {
+  root = root || document;
+  root.querySelectorAll('[data-i18n-title]').forEach(el =>
+    el.title = t(el.dataset.i18nTitle));
+  root.querySelectorAll('[data-i18n-aria-label]').forEach(el =>
+    el.setAttribute('aria-label', t(el.dataset.i18nAriaLabel)));
+  root.querySelectorAll('[data-i18n-placeholder]').forEach(el =>
+    el.placeholder = t(el.dataset.i18nPlaceholder));
+}
+document.addEventListener('DOMContentLoaded', () => applyI18n());
+window.applyI18n = applyI18n; // для динамики
