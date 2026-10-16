@@ -11,9 +11,19 @@
 
 Решение
 -------
-Все девять мест используют константу `LOCALE`, объявленную в каждом
-файле как `document.documentElement.lang || 'ru'`. Дальше локаль
-меняется в одном месте — в атрибуте lang.
+Все девять мест используют константу `LOCALE`, объявленную как
+`document.documentElement.lang || 'ru'`. Дальше локаль меняется в
+одном месте — в атрибуте lang.
+
+13A2a
+-----
+Объявление переехало в общий classic-скрипт `docs/i18n.js` вместе со
+словарём `I18N` и функцией `t(key, params)`. Файлы-потребители
+(`docs/script.js`, `docs/trends.html`) больше не объявляют `LOCALE`
+сами: в общей области видимости classic-скриптов второй
+верхнеуровневый `const LOCALE` — это SyntaxError «Identifier already
+declared». Поэтому «где LOCALE используется, он обязан быть объявлен»
+теперь означает «объявлен в файле ИЛИ в общем i18n.js».
 
 `ru-RU` и `ru` для Intl дают одинаковый результат, поэтому поведение
 при русском языке не изменилось.
@@ -41,6 +51,18 @@ DOCS = ROOT / "docs"
 LOCALE_LITERAL = re.compile(r"""['"]([a-z]{2,3}-[A-Z]{2,3}(?:-[A-Z]{2,4})?)['"]""")
 
 DECL = re.compile(r"const\s+LOCALE\s*=\s*document\.documentElement\.lang\s*\|\|\s*'([a-z]{2})'")
+
+#: 13A2a: общий classic-скрипт с объявлением LOCALE/I18N/t. Файлы, которые
+#: LOCALE потребляют, ссылаются на него вместо повторного объявления
+#: (двойной верхнеуровневый `const LOCALE` в classic-скриптах — SyntaxError).
+SHARED_I18N = DOCS / "i18n.js"
+
+
+def _shared_locale_declared() -> bool:
+    """LOCALE объявлен из <html lang> в общем docs/i18n.js."""
+    if not SHARED_I18N.exists():
+        return False
+    return bool(DECL.search(_strip_comments(SHARED_I18N.read_text(encoding="utf-8"))))
 
 
 def _sources() -> list[tuple[str, str]]:
@@ -82,23 +104,31 @@ def test_no_hardcoded_locale_literals():
 
 
 def test_locale_is_declared_wherever_it_is_used():
+    """LOCALE объявлен в файле ИЛИ в общем docs/i18n.js (13A2a)."""
+    shared = _shared_locale_declared()
     undeclared = [
         name for name, text in _sources()
         if re.search(r"\bLOCALE\b", _strip_comments(text)) and not DECL.search(text)
+        and not shared
     ]
     assert not undeclared, (
-        f"LOCALE используется, но не объявлена через <html lang>: "
-        f"{', '.join(undeclared)}. Без объявления страница падает "
-        f"на ReferenceError — но только там, где отработала ветка."
+        f"LOCALE используется, но не объявлена ни в файле, ни в общем "
+        f"docs/i18n.js: {', '.join(undeclared)}. Без объявления страница "
+        f"падает на ReferenceError — но только там, где отработала ветка."
     )
 
 
 def test_locale_declaration_reads_the_document_language():
-    """Константа должна брать язык из разметки, а не зашивать его."""
+    """Константа должна брать язык из разметки, а не зашивать его.
+
+    13A2a: объявление может жить в общем docs/i18n.js — тогда per-file
+    декларации нет и требовать её нечего.
+    """
+    shared = _shared_locale_declared()
     for name, text in _sources():
         if re.search(r"\bLOCALE\b", _strip_comments(text)):
-            assert DECL.search(text), (
-                f"{name}: LOCALE объявлена не из document.documentElement. "
-                "Константа существует, но задача не решена — язык всё ещё "
-                "зашит в код."
+            assert DECL.search(text) or shared, (
+                f"{name}: LOCALE объявлена не из document.documentElement "
+                "и нет общего объявления в docs/i18n.js. Константа "
+                "существует, но задача не решена — язык всё ещё зашит в код."
             )

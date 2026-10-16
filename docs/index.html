@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <script defer src="version.js?v=312"></script>
+  <script src="i18n.js?v=1"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>БАДы: доказательства и механизмы — Brain 25 Evidence</title>
 <meta name="description" content="130 БАД с разбором механизмов, ссылками на PubMed, оценкой доказательности и текущими исследованиями. Открытые данные без рекламы."/>
@@ -38,7 +39,7 @@
     // то есть класс задавался явно; теперь тёмная — это его отсутствие.
     if (light) { document.body.classList.add('light'); }
       var b = document.getElementById('themeBtn');
-      if (b) b.textContent = light ? '🌙 Тёмная тема' : '🌞 Светлая тема';
+      if (b) b.textContent = light ? t("theme.dark") : t("theme.light");
     });
   } catch (e) {}
 </script>
@@ -479,7 +480,7 @@ footer { font-size: 1rem !important; }
     <div id="modalBody"></div>
   </div>
 </div>
-<script src="script.js?v=287"></script>
+<script src="script.js?v=288"></script>
 <script src="science2.js?v=281" defer></script>
 <script src="tracker.js?v=281" defer></script>
 <script src="pwa.js?v=282" defer></script>

@@ -220,7 +220,15 @@ self.addEventListener('activate', event => {
    .grade-badge, .kpi .lbl, подписи графиков и др.). style.css изменился,
    ?v поднялся с 434 до 435 в 144 страницах; activate удалит прежний
    v101-static и подтянет обновлённый style.css с новой версией. */
-var CACHE_VERSION = 'v102';
+/* Бамп v102 -> v103: 13A2a — словарь I18N, LOCALE и t(key, params)
+   вынесены из script.js в новый общий docs/i18n.js. 13 контентных
+   страниц и шаблоны sup подключают его перед первым inline-скриптом
+   темы; строки темы заменены на t("theme.dark")/t("theme.light").
+   i18n.js добавлен в STATIC_ASSETS, script.js изменён (?v 287 -> 288).
+   style.css НЕ менялся, ?v= оставлен как был (435). Без бампа activate
+   не почистит v102-static и возвратные посетители получат старый
+   script.js без i18n.js (ReferenceError на t). */
+var CACHE_VERSION = 'v103';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
@@ -265,6 +273,7 @@ var STATIC_ASSETS = [
   './pwa.js',
   './version.js',
   './script.js',
+  './i18n.js',
   './style.css',
   './effect_tags.json',
   './effect_labels.json',
