@@ -419,7 +419,7 @@ function select(id, push){
   if (mechs.length) {
     // Один 💊 сверху
     html += '<div class="step sup" style="animation-delay:' + d + 's">💊 <b>' + s.name + '</b>' +
-            (mechs.length > 1 ? ' <span style="--inline-opacity:.6;font-size:.85rem">· ' + mechs.length + ' механизма</span>' : '') +
+            (mechs.length > 1 ? ' <span style="--inline-opacity:.6;font-size:.85rem">· ' + mechs.length + t("map.mechCount") + '</span>' : '') +
             '</div>';
     d += 0.12;
 
@@ -443,14 +443,14 @@ function select(id, push){
       d += 0.4;
     });
   } else {
-    html += '<p style="opacity:.6">Для этой добавки механизмы ещё уточняются.</p>';
+    html += '<p style="opacity:.6">' + t("map.noMechs") + '</p>';
   }
   const sim = similar(s);
   if (sim.length) {
-    html += '<div class="sim" style="animation-delay:' + (d + 0.2) + 's"><h3>🔗 Также бьёт по этим мишеням:</h3>' +
+    html += '<div class="sim" style="animation-delay:' + (d + 0.2) + 's"><h3>' + t("map.alsoTargets") + '</h3>' +
       sim.map(x => '<span class="chip" data-id="' + x.id + '">' + x.name + '</span>').join('') + '</div>';
   }
-  html += '<p style="margin-top:1.2rem"><a href="index.html#sup=' + encodeURIComponent(s.id) + '">Открыть карточку добавки →</a></p>';
+  html += '<p style="margin-top:1.2rem"><a href="index.html#sup=' + encodeURIComponent(s.id) + '">' + t("map.openCardSupp") + '</a></p>';
   $('chain').innerHTML = html;
 }
 
@@ -469,8 +469,8 @@ fetch('data.json?ts=' + Date.now())
     data.forEach(s => { (cats[s.category] = cats[s.category] || []).push(s); });
     const targets = new Set(), effects = new Set();
     data.forEach(s => (s.mechs || []).forEach(m => { targets.add(m[0]); effects.add(m[1]); }));
-    $('stats').textContent = data.length + ' добавка · ' + Object.keys(cats).length + ' категорий · ' +
-      targets.size + ' ' + plural(targets.size, 'мишень', 'мишени', 'мишеней') + ' · ' + effects.size + ' ' + plural(effects.size, 'эффект', 'эффекта', 'эффектов');
+    $('stats').textContent = data.length + t("map.statsSup") + Object.keys(cats).length + t("map.statsCat") +
+      targets.size + ' ' + plural(targets.size, t("map.targetOne"), t("map.targetFew"), t("map.targetMany")) + ' · ' + effects.size + ' ' + plural(effects.size, t("map.effectOne"), t("map.effectFew"), t("map.effectMany"));
     let closed = [];
     try { closed = JSON.parse(localStorage.getItem('mapClosed') || '[]'); } catch(e){}
     $('list').innerHTML = Object.keys(cats).sort().map(c =>
@@ -480,7 +480,7 @@ fetch('data.json?ts=' + Date.now())
     const p = new URLSearchParams(location.search).get('supplement');
     select(p && SUPS.some(s => s.id === p) ? p : 'Креатин', false);
   })
-  .catch(() => { $('chain').innerHTML = '<p style="color:red">❌ Не удалось загрузить data.json</p>'; });
+  .catch(() => { $('chain').innerHTML = '<p style="color:red">' + t("map.loadError") + '</p>'; });
 
 $('list').addEventListener('click', e => {
   const h = e.target.closest('h3');
@@ -563,7 +563,7 @@ document.addEventListener('click', e => {
   }
   function openDetails(html) {
     modal.innerHTML = html +
-      '<button class="close-x" aria-label="Закрыть">×</button>';
+      '<button class="close-x" aria-label="' + t("a11y.close") + '">×</button>';
     modal.querySelector('.close-x').onclick = closeDetails;
     modal.classList.add('open');
     bd.classList.add('open');
@@ -630,17 +630,17 @@ document.addEventListener('click', e => {
       // v5.6.5 (A11Y-P2-07): сообщаем, ПО ЧЕМУ сравнивали — иначе «не найдено»
       // читается как «поищи ещё раз», хотя пересечений действительно нет.
       // Плюс явный выход из пустого состояния — ссылка в каталог.
-      return '<p style="opacity:.6">Пересечений нет: ' + esc(basis) +
-        ' со всей базой из ' + SUPS.length + ' добавок.</p>' +
-        '<p style="margin-top:.8rem"><a class="cta" href="sup/index.html">Открыть каталог всех добавок →</a></p>';
+      return '<p style="opacity:.6">' + t("map.noOverlap") + esc(basis) +
+        t("map.noOverlapBase") + SUPS.length + t("map.noOverlapSups") + '</p>' +
+        '<p style="margin-top:.8rem"><a class="cta" href="sup/index.html">' + t("map.openCatalog") + '</a></p>';
     }
     return '<ul class="rel-list">' + rel.map(r =>
       '<li data-open-supp="' + esc(r.s.id) + '">' +
       '<a>' + esc(r.s.name) + '</a>' +
       '<div class="rel-desc">' + esc((r.s.mechs[0][0] || '').slice(0, 140)) +
-      '<span class="rel-overlap" title="мех×2 + эфф + категория">' +
-      'мех:' + r.mechOverlap + ' эфф:' + r.effOverlap +
-      (r.sameCat ? ' кат:1' : '') + '</span></div>' +
+      '<span class="rel-overlap" title="' + t("map.overlapTitle") + '">' +
+      t("map.overlapMech") + r.mechOverlap + t("map.overlapEff") + r.effOverlap +
+      (r.sameCat ? t("map.overlapCat") : '') + '</span></div>' +
       '</li>'
     ).join('') + '</ul>';
   }
@@ -659,10 +659,10 @@ document.addEventListener('click', e => {
       verdictBadge(s) +
       '</div>' +
       (mechs.length === 1
-        ? '<h3>Механизм</h3><p>' + esc(mechs[0][0]) + '</p>' +
-          '<h3>Эффект</h3><p>' + esc(mechs[0][1]) + '</p>' +
-          (mechs[0][2] ? '<p style="opacity:.7;font-size:.85rem">Сила: <b>' + esc(mechs[0][2]) + '</b></p>' : '')
-        : '<h3>Механизмы (' + mechs.length + ')</h3>' +
+        ? '<h3>' + t("map.headMech") + '</h3><p>' + esc(mechs[0][0]) + '</p>' +
+          '<h3>' + t("map.headEffect") + '</h3><p>' + esc(mechs[0][1]) + '</p>' +
+          (mechs[0][2] ? '<p style="opacity:.7;font-size:.85rem">' + t("map.strength") + '<b>' + esc(mechs[0][2]) + '</b></p>' : '')
+        : '<h3>' + t("map.headMechs") + mechs.length + ')</h3>' +
           mechs.map((m, i) =>
             '<div style="margin:.7rem 0;padding:.6rem .8rem;border:1px solid var(--aborder);border-radius:8px">' +
             '<div style="font-weight:600">' + (i + 1) + '. ' + esc(m[0]) + '</div>' +
@@ -671,12 +671,12 @@ document.addEventListener('click', e => {
             '</div>'
           ).join('')
       ) +
-      '<h3>Похожие добавки (' + rel.length + ')</h3>' +
+      '<h3>' + t("map.headSimilar") + rel.length + ')</h3>' +
       relList(rel, mechs.length === 1
-        ? 'сравнили её единственный механизм'
-        : 'сравнили все её механизмы (' + mechs.length + ')') +
+        ? t("map.basisSingle")
+        : t("map.basisAll") + mechs.length + ')') +
       '<p style="margin-top:1.2rem"><a class="cta" href="index.html#sup=' +
-      encodeURIComponent(s.id) + '">Открыть карточку →</a></p>'
+      encodeURIComponent(s.id) + '">' + t("common.openCard") + '</a></p>'
     );
   }
 
@@ -689,15 +689,15 @@ document.addEventListener('click', e => {
     const rel = relatedByMech(s, [m]);
 
     openDetails(
-      '<h2>⚙️ Механизм' + (mechs.length > 1 ? ' ' + (idx + 1) + '/' + mechs.length : '') + '</h2>' +
+      '<h2>' + t("map.headMechOne") + (mechs.length > 1 ? ' ' + (idx + 1) + '/' + mechs.length : '') + '</h2>' +
       '<p style="font-size:1rem;line-height:1.55">' + esc(m[0]) + '</p>' +
-      '<h3>У добавки: ' + esc(s.name) + '</h3>' +
+      '<h3>' + t("map.fromSupp") + esc(s.name) + '</h3>' +
       '<p style="opacity:.85">' + esc(m[1]) + '</p>' +
-      (m[2] ? '<p style="opacity:.7;font-size:.85rem">Сила: <b>' + esc(m[2]) + '</b></p>' : '') +
-      '<h3>Добавки с похожим механизмом (' + rel.length + ')</h3>' +
-      relList(rel, 'сравнили этот механизм') +
+      (m[2] ? '<p style="opacity:.7;font-size:.85rem">' + t("map.strength") + '<b>' + esc(m[2]) + '</b></p>' : '') +
+      '<h3>' + t("map.headSimilarMech") + rel.length + ')</h3>' +
+      relList(rel, t("map.basisThis")) +
       '<p style="margin-top:1.2rem"><a class="cta" href="index.html#sup=' +
-      encodeURIComponent(s.id) + '">Открыть карточку →</a></p>'
+      encodeURIComponent(s.id) + '">' + t("common.openCard") + '</a></p>'
     );
   }
 
@@ -709,13 +709,13 @@ document.addEventListener('click', e => {
     if (!m) return showSupplement(id);
 
     openDetails(
-      '<h2>✨ Эффект' + (mechs.length > 1 ? ' ' + (idx + 1) + '/' + mechs.length : '') + '</h2>' +
+      '<h2>' + t("map.headEffectOne") + (mechs.length > 1 ? ' ' + (idx + 1) + '/' + mechs.length : '') + '</h2>' +
       '<p style="font-size:1rem;line-height:1.55">' + esc(m[1]) + '</p>' +
-      (m[2] ? '<p style="opacity:.7">Сила: <b>' + esc(m[2]) + '</b></p>' : '') +
-      '<h3>У добавки: ' + esc(s.name) + '</h3>' +
-      '<p style="opacity:.85">Механизм: ' + esc(m[0]) + '</p>' +
+      (m[2] ? '<p style="opacity:.7">' + t("map.strength") + '<b>' + esc(m[2]) + '</b></p>' : '') +
+      '<h3>' + t("map.fromSupp") + esc(s.name) + '</h3>' +
+      '<p style="opacity:.85">' + t("map.mechanismPrefix") + esc(m[0]) + '</p>' +
       '<p style="margin-top:1.2rem"><a class="cta" href="index.html#sup=' +
-      encodeURIComponent(s.id) + '">Открыть карточку →</a></p>'
+      encodeURIComponent(s.id) + '">' + t("common.openCard") + '</a></p>'
     );
   }
 
