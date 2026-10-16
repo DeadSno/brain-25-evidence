@@ -25,8 +25,13 @@ const I18N = {
     "common.collapse": "Свернуть ▴",
     "common.clear": "Очистить",
     "common.toTop": "Наверх",
+    "common.copiedTick": "✓ Скопировано",
+    "common.openCard": "Открыть карточку →",
+    "common.fullscreen": "⛶ На весь экран",
+    "common.exitFullscreen": "✕ Выйти",
     // a11y
     "a11y.toTop": "Наверх к началу страницы",
+    "a11y.close": "Закрыть",
     // theme
     "theme.dark": "🌙 Тёмная тема",
     "theme.light": "🌞 Светлая тема",
@@ -179,7 +184,17 @@ const I18N = {
     // граф связей (13A2b)
     "graph.errorLog": "[graph] данные не загрузились:",
     "graph.loadError": "⚠ Не удалось загрузить граф. Попробуйте обновить страницу.",
-    "graph.tagsPrefix": "Теги: "
+    "graph.tagsPrefix": "Теги: ",
+    // атлас (13A2b)
+    "atlas.mechCount": " механизмов",
+    "atlas.tagCount": " добавок с этим тегом",
+    "atlas.mechsHeading": "Механизмы",
+    "atlas.filtered": " (отфильтровано)",
+    "atlas.statsFrom": " из ",
+    "atlas.statsSups": " добавок · ",
+    "atlas.statsHubs": " хабов-тегов · ",
+    "atlas.statsLinks": " связей",
+    "atlas.loadError": "❌ Не удалось загрузить data.json"
   }
 };
 
