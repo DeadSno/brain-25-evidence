@@ -265,7 +265,18 @@ self.addEventListener('activate', event => {
    <script> самой страницы. interactions.html входит в STATIC_ASSETS и
    отдаётся cacheFirstForStatic, поэтому без бампа activate не почистит
    v107-static и возвратные посетители получат старую заглушку. */
-var CACHE_VERSION = 'v108';
+/* Бамп v108 -> v109: 2.2.6-2.2.8 — единый навбар, редиректы старых страниц,
+   широкая карточка «Связи» на главной. graph.html и atlas.html перестали быть
+   полноценными страницами и стали редиректами на вкладки
+   interactions.html#graph и #mech, поэтому обе старые кнопки навбара убраны со
+   всех 10 страниц с навбаром, а на главной три карточки сведены в одну.
+   style.css НЕ менялся (?v= 439), правились только разметка страниц и
+   генератор sitemap (graph.html и atlas.html убраны из ROOT_PAGES).
+   Обе страницы-редиректа остаются в STATIC_ASSETS: они крошечные, а
+   офлайн-переход по старой ссылке должен работать. Без бампа activate не
+   почистит v108-static, и возвратные посетители получат из кэша старый
+   graph.html с 500 КБ vendor-скриптов вместо редиректа. */
+var CACHE_VERSION = 'v109';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 

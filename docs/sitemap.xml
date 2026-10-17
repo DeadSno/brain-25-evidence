@@ -4,7 +4,7 @@
   ручная правка здесь уже расходилась с фактическим содержимым docs/
   (17 URL при 143 существующих).
 
-  144 страниц: 13 корневых + 131 в docs/sup/
+  142 страниц: 11 корневых + 131 в docs/sup/
   (каталог + карточки).
 
   offline.html намеренно не указан — это не контентная страница, а
@@ -43,18 +43,6 @@
   </url>
   <url>
     <loc>https://deadsno.github.io/brain-25-evidence/interactions.html</loc>
-    <lastmod>2026-10-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://deadsno.github.io/brain-25-evidence/graph.html</loc>
-    <lastmod>2026-10-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://deadsno.github.io/brain-25-evidence/atlas.html</loc>
     <lastmod>2026-10-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
