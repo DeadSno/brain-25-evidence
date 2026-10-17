@@ -125,4 +125,8 @@
 - Пересобрать ROADMAP для v5.7
 
 ## История
-Ссылки на предыдущие CHANGELOG-и (v5.6.0-5.6.3).
+- [v5.6.4](CHANGELOG.md#v564)
+- [v5.6.3](CHANGELOG.md#v563)
+- [v5.6.2](CHANGELOG.md#v562)
+- [v5.6.1](CHANGELOG.md#v561)
+- [v5.6.0](CHANGELOG.md#v560)
