@@ -202,7 +202,11 @@ footer { font-size: 1rem !important; }
       </select>
       <button type="button" id="graphReset">Сброс</button>
     </div>
-    <div id="mynetwork" class="graph-canvas"></div>
+    <div id="graphWelcome" style="text-align:center; padding: 40px;">
+      <h3>Исследуйте связи</h3>
+      <p>Введите название добавки в поиск выше, чтобы увидеть, с чем она связана.</p>
+    </div>
+    <div id="mynetwork" class="graph-canvas" hidden></div>
     <div class="state-loading" id="graphLoading">Загрузка графа...</div>
     <div class="state-error" id="graphError" hidden>
       Ошибка загрузки графа. <button type="button" id="graphRetry">Повторить</button>
@@ -324,18 +328,21 @@ window.addEventListener('scroll', () => {
 });
 </script>
 <script>
-// 2.2.2: режим «граф» — порт graph.html → panel[data-panel="graph"].
-// Инициализация ленивая: только при первом активе таба graph.
-// vis-network подключён с defer (interactions.html:41) — старт отрисовки ждёт его загрузки.
+// 2.2.2: режим «граф» — Focus Mode. По умолчанию граф пустой, показана
+// плашка #graphWelcome. Поиск разворачивает только найденный узел + прямых
+// соседей (1-й уровень); все остальные узлы скрыты (hidden: true).
+// vis-network подключён с defer (interactions.html:41) — старт ждёт загрузки.
 (function () {
   'use strict';
 
   var graphInited = false;
-  var network = null;
+  var network = null;      // создаётся лениво — при первом поиске
   var nodesDs = null;
   var edgesDs = null;
-  var allNodes = [];   // узлы с локализованными title — источник для поиска
-  var allEdgesRaw = []; // сырые рёбра из JSON — источник для фильтра по префиксу title
+  var allNodes = [];       // узлы с позициями и локализованными title
+  var allEdgesRaw = [];    // сырые рёбра из JSON
+  var currentFocusEdges = []; // рёбра текущего фокуса (до фильтра тег/мех)
+  var debounceTimer = null;
 
   var $search = document.getElementById('graphSearch');
   var $edgeFilter = document.getElementById('graphEdgeFilter');
@@ -346,30 +353,35 @@ window.addEventListener('scroll', () => {
   var $error = document.getElementById('graphError');
   var $empty = document.getElementById('graphEmpty');
   var $canvas = document.getElementById('mynetwork');
+  var $welcome = document.getElementById('graphWelcome');
 
-  function setLoading(show) {
-    if ($loading) $loading.hidden = !show;
-    if ($canvas) $canvas.hidden = show;
-    if ($error) $error.hidden = true;
-    if ($empty) $empty.hidden = true;
-  }
   function showError() {
     if ($loading) $loading.hidden = true;
     if ($canvas) $canvas.hidden = true;
     if ($error) $error.hidden = false;
     if ($empty) $empty.hidden = true;
+    if ($welcome) $welcome.hidden = true;
   }
   function showEmpty() {
     if ($loading) $loading.hidden = true;
     if ($canvas) $canvas.hidden = true;
     if ($error) $error.hidden = true;
     if ($empty) $empty.hidden = false;
+    if ($welcome) $welcome.hidden = true;
   }
   function showGraph() {
     if ($loading) $loading.hidden = true;
     if ($error) $error.hidden = true;
     if ($empty) $empty.hidden = true;
     if ($canvas) $canvas.hidden = false;
+    if ($welcome) $welcome.hidden = true;
+  }
+  function showWelcome() {
+    if ($loading) $loading.hidden = true;
+    if ($error) $error.hidden = true;
+    if ($empty) $empty.hidden = true;
+    if ($canvas) $canvas.hidden = true;
+    if ($welcome) $welcome.hidden = false;
   }
 
   // ── Локализация подписей (аналог graph.html renderGraph) ─────────────
@@ -393,9 +405,200 @@ window.addEventListener('scroll', () => {
     return ru.replace(/<br\s*\/?>/gi, '\n');
   }
 
-  // ── Отрисовка ────────────────────────────────────────────────────────
+  // ── Поиск и построение фокуса (найденный узел + прямые соседи 1 уровня) ──
+  function findNodes(query) {
+    var q = (query || '').toLowerCase().trim();
+    return allNodes.filter(function (n) {
+      return String(n.label || '').toLowerCase().indexOf(q) !== -1;
+    });
+  }
+  function buildFocus(matching) {
+    var ids = {};
+    matching.forEach(function (n) { ids[n.id] = true; });
+    allEdgesRaw.forEach(function (e) {
+      if (ids[e.from]) ids[e.to] = true;
+      if (ids[e.to]) ids[e.from] = true;
+    });
+    var focusNodes = allNodes.filter(function (n) { return ids[n.id]; });
+    var focusEdges = allEdgesRaw.filter(function (e) { return ids[e.from] && ids[e.to]; });
+    return { nodes: focusNodes, edges: focusEdges };
+  }
+
+  // Фильтр рёбер (tag/mech) применяется только к рёбрам между видимыми узлами фокуса.
+  function applyEdgeFilter(edgesRaw) {
+    currentFocusEdges = edgesRaw.slice();
+    if (!edgesDs) return;
+    var type = $edgeFilter ? $edgeFilter.value : 'all';
+    var matching;
+    if (type === 'tag') {
+      matching = edgesRaw.filter(function (e) {
+        return String(e.title || '').indexOf('теги:') === 0;
+      });
+    } else if (type === 'mech') {
+      matching = edgesRaw.filter(function (e) {
+        return String(e.title || '').indexOf('механизм:') === 0;
+      });
+    } else {
+      matching = edgesRaw;
+    }
+    var localized = matching.map(function (e) {
+      return Object.assign({}, e, { title: ruTitle(e.title) });
+    });
+    edgesDs.clear();
+    edgesDs.add(localized);
+  }
+
+  // Скрыть все узлы, оставить видимыми только узлы фокуса.
+  function setFocusVisibility(focusNodes) {
+    nodesDs.update(allNodes.map(function (n) {
+      return { id: n.id, hidden: true };
+    }));
+    nodesDs.update(focusNodes.map(function (n) {
+      return { id: n.id, hidden: false };
+    }));
+  }
+
+  function getOptions() {
+    var posApplied = window.__posApplied > 0;
+    return {
+      configure: { enabled: false },
+      edges: {
+        color: { inherit: true },
+        smooth: { enabled: true, type: 'dynamic' }
+      },
+      interaction: {
+        dragNodes: true,
+        hideEdgesOnDrag: false,
+        hideNodesOnDrag: false,
+        tooltipDelay: 150,
+        multiselect: false
+      },
+      physics: {
+        barnesHut: {
+          avoidOverlap: 0,
+          centralGravity: 0.3,
+          damping: 0.09,
+          gravitationalConstant: -80000,
+          springConstant: 0.001,
+          springLength: 250
+        },
+        enabled: !posApplied,
+        stabilization: {
+          enabled: !posApplied,
+          fit: true,
+          iterations: 1000,
+          onlyDynamicEdges: false,
+          updateInterval: 50
+        }
+      }
+    };
+  }
+
+  function onNodeClick(params) {
+    if (!params.nodes || !params.nodes.length) return;
+    var id = params.nodes[0];
+    var node = allNodes.find(function (n) { return n.id === id; });
+    var label = node ? node.label : id;
+    if ($search) $search.value = label;
+    applyFocus(label);
+  }
+
+  // Создать сеть в уже видимом контейнере (иначе canvas 0×0).
+  function ensureNetwork() {
+    if (network) return;
+    showGraph();
+    var container = document.getElementById('mynetwork');
+    nodesDs = new vis.DataSet(allNodes.map(function (n) {
+      return Object.assign({}, n, { hidden: true });
+    }));
+    edgesDs = new vis.DataSet([]);
+    network = new vis.Network(container, { nodes: nodesDs, edges: edgesDs }, getOptions());
+    network.on('click', onNodeClick);
+  }
+
+  // Развернуть фокус по запросу из поиска.
+  function applyFocus(query) {
+    if (!allNodes || allNodes.length === 0) return;
+    var matching = findNodes(query);
+    if (matching.length === 0) {
+      $canvas.hidden = true;
+      $welcome.hidden = true;
+      $empty.hidden = false;
+      $error.hidden = true;
+      $loading.hidden = true;
+      return;
+    }
+    var focus = buildFocus(matching);
+    ensureNetwork();
+    setFocusVisibility(focus.nodes);
+    applyEdgeFilter(focus.edges);
+    var ids = focus.nodes.map(function (n) { return n.id; });
+    if (network && typeof network.fit === 'function') {
+      network.fit({ nodes: ids });
+    }
+  }
+
+  function resetGraph() {
+    clearTimeout(debounceTimer);
+    if ($search) $search.value = '';
+    if ($edgeFilter) $edgeFilter.value = 'all';
+    if (nodesDs) {
+      nodesDs.update(allNodes.map(function (n) {
+        return { id: n.id, hidden: true };
+      }));
+    }
+    if (edgesDs) edgesDs.clear();
+    currentFocusEdges = [];
+    showWelcome();
+  }
+
+  // ── Управление ───────────────────────────────────────────────────────
+  function wireControls() {
+    if ($search) {
+      $search.addEventListener('input', function () {
+        clearTimeout(debounceTimer);
+        var q = $search.value;
+        if (!q || !q.trim()) {
+          resetGraph();
+          return;
+        }
+        debounceTimer = setTimeout(function () {
+          applyFocus($search.value);
+        }, 300);
+      });
+    }
+    if ($edgeFilter) {
+      $edgeFilter.addEventListener('change', function () {
+        applyEdgeFilter(currentFocusEdges.slice());
+      });
+    }
+    if ($reset) {
+      $reset.addEventListener('click', resetGraph);
+    }
+    if ($retry) {
+      $retry.addEventListener('click', function () {
+        graphInited = false;
+        network = null;
+        nodesDs = null;
+        edgesDs = null;
+        currentFocusEdges = [];
+        drawGraph();
+      });
+    }
+    if ($emptyReset) {
+      $emptyReset.addEventListener('click', resetGraph);
+    }
+  }
+
+  // ── Загрузка данных ──────────────────────────────────────────────────
   function drawGraph() {
-    setLoading(true);
+    $loading.hidden = true;
+    $canvas.hidden = true;
+    $welcome.hidden = false;
+    $error.hidden = true;
+    $empty.hidden = true;
+    wireControls();
+
     Promise.all([
       fetch('./graph_data.json').then(function (r) {
         if (!r.ok) throw new Error('graph_data.json: HTTP ' + r.status);
@@ -414,145 +617,19 @@ window.addEventListener('scroll', () => {
       allNodes = (g.nodes || []).map(function (n) {
         var p = posData && posData.layouts && posData.layouts.graph
           && posData.layouts.graph.positions[String(n.id)];
-        if (!p) return n;
-        return Object.assign({}, n, { x: p.nx * w, y: p.ny * h, fixed: true });
+        var nn = Object.assign({}, n, { title: ruTitle(n.title) });
+        if (p) { nn.x = p.nx * w; nn.y = p.ny * h; nn.fixed = true; }
+        return nn;
       });
       allEdgesRaw = (g.edges || []).slice();
       window.__posApplied = allNodes.filter(function (n) { return n.fixed; }).length;
 
-      // showGraph() первым: vis.Network создаётся в уже видимом контейнере
-      // (иначе canvas получает высоту 0, пока #mynetwork hidden).
-      showGraph();
-      renderGraph(allNodes, allEdgesRaw);
-      wireControls();
-      if (network && typeof network.fit === 'function') network.fit();
+      graphInited = true;
+      showWelcome();
     }).catch(function (err) {
       console.error(typeof window.t === 'function' ? window.t('graph.errorLog') : '[graph] данные не загрузились:', err);
       showError();
     });
-  }
-
-  function renderGraph(nodes, edgesRaw) {
-    var localizedNodes = nodes.map(function (n) {
-      return Object.assign({}, n, { title: ruTitle(n.title) });
-    });
-    var localizedEdges = edgesRaw.map(function (e) {
-      return Object.assign({}, e, { title: ruTitle(e.title) });
-    });
-    nodesDs = new vis.DataSet(localizedNodes);
-    edgesDs = new vis.DataSet(localizedEdges);
-
-    var container = document.getElementById('mynetwork');
-    var data = { nodes: nodesDs, edges: edgesDs };
-
-    var options = {
-      configure: { enabled: false },
-      edges: {
-        color: { inherit: true },
-        smooth: { enabled: true, type: 'dynamic' }
-      },
-      interaction: {
-        dragNodes: true,
-        hideEdgesOnDrag: false,
-        hideNodesOnDrag: false,
-        tooltipDelay: 150
-      },
-      physics: {
-        barnesHut: {
-          avoidOverlap: 0,
-          centralGravity: 0.3,
-          damping: 0.09,
-          gravitationalConstant: -80000,
-          springConstant: 0.001,
-          springLength: 250
-        },
-        enabled: !(window.__posApplied > 0),
-        stabilization: {
-          enabled: !(window.__posApplied > 0),
-          fit: true,
-          iterations: 1000,
-          onlyDynamicEdges: false,
-          updateInterval: 50
-        }
-      }
-    };
-
-    network = new vis.Network(container, data, options);
-  }
-
-  // ── Фильтры ──────────────────────────────────────────────────────────
-  function filterNodes(query) {
-    var q = (query || '').toLowerCase().trim();
-    if (!q) {
-      nodesDs.clear();
-      nodesDs.add(allNodes);
-      showGraph();
-    } else {
-      var matching = allNodes.filter(function (n) {
-        return String(n.label || '').toLowerCase().indexOf(q) !== -1;
-      });
-      nodesDs.clear();
-      nodesDs.add(matching);
-      if (matching.length === 0) showEmpty(); else showGraph();
-    }
-  }
-
-  function filterEdges(type) {
-    var matching;
-    if (type === 'tag') {
-      matching = allEdgesRaw.filter(function (e) {
-        return String(e.title || '').indexOf('теги:') === 0;
-      });
-    } else if (type === 'mech') {
-      matching = allEdgesRaw.filter(function (e) {
-        return String(e.title || '').indexOf('механизм:') === 0;
-      });
-    } else {
-      matching = allEdgesRaw;
-    }
-    var localized = matching.map(function (e) {
-      return Object.assign({}, e, { title: ruTitle(e.title) });
-    });
-    edgesDs.clear();
-    edgesDs.add(localized);
-  }
-
-  function resetGraph() {
-    if ($search) $search.value = '';
-    if ($edgeFilter) $edgeFilter.value = 'all';
-    filterNodes('');
-    filterEdges('all');
-    if (network && typeof network.fit === 'function') network.fit();
-    showGraph();
-  }
-
-  // ── Управление ───────────────────────────────────────────────────────
-  function wireControls() {
-    if ($search) {
-      $search.addEventListener('input', function () {
-        filterNodes($search.value);
-      });
-    }
-    if ($edgeFilter) {
-      $edgeFilter.addEventListener('change', function () {
-        filterEdges($edgeFilter.value);
-      });
-    }
-    if ($reset) {
-      $reset.addEventListener('click', resetGraph);
-    }
-    if ($retry) {
-      $retry.addEventListener('click', function () {
-        graphInited = false;
-        network = null;
-        nodesDs = null;
-        edgesDs = null;
-        drawGraph();
-      });
-    }
-    if ($emptyReset) {
-      $emptyReset.addEventListener('click', resetGraph);
-    }
   }
 
   // ── Точка входа ─────────────────────────────────────────────────────
