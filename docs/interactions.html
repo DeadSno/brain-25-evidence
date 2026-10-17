@@ -309,7 +309,21 @@ footer { font-size: 1rem !important; }
     </div>
   </div>
   <div role="tabpanel" data-panel="mech" aria-label="Механизмы">
-    <div class="state-loading">Загрузка...</div>
+    <div class="panel-controls">
+      <select id="mechSelector" aria-label="Выбор механизма" disabled>
+        <option value="">Выберите механизм…</option>
+      </select>
+      <button type="button" id="mechReset">Сброс</button>
+    </div>
+    <div id="mechWelcome" style="text-align:center; padding: 40px;">
+      <h3>Выберите механизм</h3>
+      <p>Выберите механизм, чтобы увидеть, какие добавки на него влияют.</p>
+    </div>
+    <div id="mechGraph" class="graph-canvas" hidden></div>
+    <div class="state-loading" id="mechLoading" hidden>Загрузка механизмов…</div>
+    <div class="state-error" id="mechError" hidden>
+      Ошибка загрузки механизмов. <button type="button" id="mechRetry">Повторить</button>
+    </div>
   </div>
   <div role="tabpanel" data-panel="sups" aria-label="Добавки">
     <div class="panel-controls">
@@ -976,6 +990,287 @@ window.addEventListener('scroll', () => {
   // Автостарт, если активен таб sups/drugs при загрузке страницы.
   if (parseLocation() === 'sups') initSups();
   if (parseLocation() === 'drugs') initDrugs();
+})();
+</script>
+<script>
+// 2.2.4: режим «Механизмы» (mech) — звёздный граф вокруг ОДНОГО механизма.
+// Источник списка — 14 curated мех-рёбер (docs/graph_mech_edges.json), тех же,
+// что вкладка «Связи» показывает как «механизм: X». Ленивая загрузка:
+// graph_mech_edges.json + data.json тянутся ТОЛЬКО при первом открытии таба
+// (initMech), а не при загрузке страницы. Физика vis-network выключена, а
+// позиции считаются вручную: вместо клубка из 130 узлов получается звезда
+// «один механизм + влияющие на него добавки».
+(function () {
+  'use strict';
+
+  // Подписи и цвета 14 механизмов. Ключ — исходный текст из
+  // graph_mech_edges.json (title «механизм: <ключ>»), он же value в селекте.
+  var MECH_LABELS = {
+    'антиоксидант': 'Антиоксидантный эффект',
+    'липид': 'Липидный профиль',
+    'глюкоз': 'Уровень глюкозы',
+    'митохондри': 'Митохондрии',
+    'инсулин': 'Чувствительность к инсулину',
+    'воспален': 'Воспаление',
+    'гамк': 'ГАМК',
+    'кальци': 'Кальциевый обмен',
+    'кишечник': 'Кишечник',
+    'серотонин': 'Серотонин',
+    'дофамин': 'Дофамин',
+    'микробиот': 'Микробиота',
+    'холестерин': 'Холестерин',
+    'триглицерид': 'Триглицериды'
+  };
+  var MECH_COLORS = {
+    'антиоксидант': '#e8590c',
+    'липид': '#f59f00',
+    'глюкоз': '#0ca678',
+    'митохондри': '#d6336c',
+    'инсулин': '#1098ad',
+    'воспален': '#e03131',
+    'гамк': '#7048e8',
+    'кальци': '#795548',
+    'кишечник': '#82c91e',
+    'серотонин': '#4c6ef5',
+    'дофамин': '#ae3ec9',
+    'микробиот': '#30b06b',
+    'холестерин': '#868e96',
+    'триглицерид': '#0a84ff'
+  };
+  // id центрального узла. Не совпадает ни с одной добавкой из data.json.
+  var MECH_NODE_ID = '__mech__';
+
+  var mechData = null;
+  var suppCards = {};    // id добавки -> карточка из data.json
+  var loaded = false;
+  var loading = false;
+  var mechanisms = [];   // [{key,label,color,supplements:[id]}]
+  var network = null;
+
+  var els = null;
+  function getEls() {
+    if (!els) els = {
+      selector: document.getElementById('mechSelector'),
+      graph: document.getElementById('mechGraph'),
+      welcome: document.getElementById('mechWelcome'),
+      loading: document.getElementById('mechLoading'),
+      error: document.getElementById('mechError'),
+      reset: document.getElementById('mechReset'),
+      retry: document.getElementById('mechRetry')
+    };
+    return els;
+  }
+
+  function cssVar(name, fallback) {
+    var v = getComputedStyle(document.body).getPropertyValue(name);
+    v = (v || '').trim();
+    return v || fallback;
+  }
+  function mechLabel(key) { return MECH_LABELS[key] || key; }
+  function mechColor(key) { return MECH_COLORS[key] || '#868e96'; }
+
+  // ── Ленивая загрузка (один раз, только при первом клике на таб) ───────
+  function loadMech() {
+    if (loaded) return Promise.resolve();
+    if (loading) {
+      return new Promise(function (res) {
+        var t = setInterval(function () {
+          if (loaded) { clearInterval(t); res(); }
+        }, 50);
+      });
+    }
+    loading = true;
+    var t0 = performance.now();
+    return Promise.all([
+      fetch('./graph_mech_edges.json').then(function (r) {
+        if (!r.ok) throw new Error('graph_mech_edges.json: HTTP ' + r.status);
+        return r.json();
+      }),
+      fetch('./data.json').then(function (r) {
+        if (!r.ok) throw new Error('data.json: HTTP ' + r.status);
+        return r.json();
+      })
+    ]).then(function (res) {
+      mechData = res[0];
+      suppCards = {};
+      (res[1] || []).forEach(function (c) { suppCards[c.id] = c; });
+      buildMechanisms();
+      window.__mechStats = {
+        count: mechanisms.length,
+        loadMs: Math.round(performance.now() - t0)
+      };
+      loaded = true;
+      loading = false;
+    }).catch(function (err) {
+      loading = false;
+      console.error('[mech] данные механизмов не загрузились:', err);
+      throw err;
+    });
+  }
+
+  // ── Механизмы из curated рёбер: объединяем концы рёбер одного ключа ───
+  function buildMechanisms() {
+    var byKey = {};
+    var order = [];
+    ((mechData && mechData.edges) || []).forEach(function (e) {
+      var m = /^механизм:\s*(.+)$/.exec(String(e.title || ''));
+      var key = (m ? m[1] : String(e.title || '')).trim();
+      if (!key) return;
+      if (!byKey[key]) { byKey[key] = {}; order.push(key); }
+      [e.from, e.to].forEach(function (n) {
+        if (n && suppCards[n]) byKey[key][n] = true;
+      });
+    });
+    mechanisms = order.map(function (key) {
+      return {
+        key: key,
+        label: mechLabel(key),
+        color: mechColor(key),
+        supplements: Object.keys(byKey[key]).sort()
+      };
+    }).sort(function (a, b) { return b.supplements.length - a.supplements.length; });
+  }
+
+  function fillSelector() {
+    var e = getEls();
+    if (!e.selector) return;
+    e.selector.innerHTML = '';
+    var first = document.createElement('option');
+    first.value = '';
+    first.textContent = 'Выберите механизм…';
+    e.selector.appendChild(first);
+    mechanisms.forEach(function (m) {
+      var o = document.createElement('option');
+      o.value = m.key;
+      o.textContent = m.label + ' (' + m.supplements.length + ')';
+      e.selector.appendChild(o);
+    });
+    e.selector.disabled = false;
+  }
+
+  // ── Звёздный граф: центр + добавки по кругу, без физики ──────────────
+  function renderStar(mech) {
+    var e = getEls();
+    var supBg = cssVar('--card-bg', '#2c2c2e');
+    var supBorder = cssVar('--border', '#3a3a3c');
+    var supFg = cssVar('--fg', '#f5f5f7');
+
+    var nodes = [{
+      id: MECH_NODE_ID,
+      label: mech.label,
+      shape: 'box',
+      color: { background: mech.color, border: mech.color,
+               highlight: { background: mech.color, border: mech.color } },
+      font: { color: '#fff', size: 20, bold: true },
+      margin: 16,
+      borderWidth: 2,
+      x: 0,
+      y: 0
+    }];
+    var edges = [];
+
+    var n = mech.supplements.length || 1;
+    var radius = 170 + n * 8;
+    mech.supplements.forEach(function (id, i) {
+      var angle = (2 * Math.PI * i) / n - Math.PI / 2;
+      var card = suppCards[id];
+      nodes.push({
+        id: id,
+        label: id,
+        shape: 'box',
+        title: id + (card && card.grade ? '\nГрейд: ' + card.grade : ''),
+        color: { background: supBg, border: supBorder,
+                 highlight: { background: supBg, border: mech.color } },
+        font: { color: supFg, size: 14 },
+        margin: 8,
+        borderWidth: 2,
+        x: Math.cos(angle) * radius,
+        y: Math.sin(angle) * radius
+      });
+      edges.push({
+        from: MECH_NODE_ID,
+        to: id,
+        color: { color: mech.color, highlight: mech.color },
+        width: 2,
+        title: mech.label
+      });
+    });
+
+    if (network) { network.destroy(); network = null; }
+    e.graph.hidden = false;
+    // У скрытого контейнера размер 0x0: вынуждаем reflow до создания сетки,
+    // иначе vis-network посчитает пустую область и fit() даст мусорный зум.
+    void e.graph.offsetWidth;
+    network = new vis.Network(e.graph, {
+      nodes: new vis.DataSet(nodes),
+      edges: new vis.DataSet(edges)
+    }, {
+      physics: false,
+      interaction: { hover: true, dragNodes: true, zoomView: true },
+      edges: { smooth: false }
+    });
+    network.fit({ animation: false });
+  }
+
+  function showWelcome() {
+    var e = getEls();
+    if (e.welcome) e.welcome.hidden = false;
+    if (e.graph) e.graph.hidden = true;
+  }
+
+  function selectMech(key) {
+    var e = getEls();
+    var mech = null;
+    mechanisms.forEach(function (m) { if (m.key === key) mech = m; });
+    if (!mech) { showWelcome(); return; }
+    if (e.welcome) e.welcome.hidden = true;
+    if (e.error) e.error.hidden = true;
+    var t0 = performance.now();
+    renderStar(mech);
+    if (window.__mechStats) {
+      window.__mechStats.mech = mech.key;
+      window.__mechStats.nodes = mech.supplements.length;
+      window.__mechStats.renderMs = Math.round(performance.now() - t0);
+    }
+  }
+
+  function initMech() {
+    var e = getEls();
+    if (mechanisms.length > 0) return;   // уже загружено
+    if (e.loading) e.loading.hidden = false;
+    loadMech().then(function () {
+      fillSelector();
+      if (e.loading) e.loading.hidden = true;
+    }).catch(function () {
+      if (e.loading) e.loading.hidden = true;
+      if (e.error) e.error.hidden = false;
+    });
+  }
+
+  // ── Обёртка setMode (цепляется последней, после graph и sups/drugs) ───
+  var _setMode3 = window.setMode;
+  window.setMode = function (mode) {
+    _setMode3(mode);
+    if (mode === 'mech') initMech();
+  };
+
+  (function wire() {
+    var e = getEls();
+    if (e.selector) {
+      e.selector.addEventListener('change', function () { selectMech(e.selector.value); });
+    }
+    if (e.reset) e.reset.addEventListener('click', function () {
+      if (e.selector) e.selector.value = '';
+      showWelcome();
+    });
+    if (e.retry) e.retry.addEventListener('click', function () {
+      if (e.error) e.error.hidden = true;
+      initMech();
+    });
+  })();
+
+  // Автостарт, если страница открыта сразу на #mech.
+  if (parseLocation() === 'mech') initMech();
 })();
 </script>
 <button class="toBottom" id="toBottom" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})" data-i18n-title="btn.scrollDown" data-i18n-aria-label="a11y.scrollDown">↓</button>
