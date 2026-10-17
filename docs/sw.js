@@ -255,7 +255,17 @@ self.addEventListener('activate', event => {
    style.css НЕ менялся (?v= 438): правки только во inline <style> и <script>
    самой страницы. Без бампа activate не почистит v106-static, и возвратные
    посетители получат старый interactions.html с заглушкой «Загрузка...». */
-var CACHE_VERSION = 'v107';
+/* Бамп v107 -> v108: 2.2.4 — вкладка «Механизмы» (mech) на
+   docs/interactions.html. Вместо заглушки «Загрузка...» — селект из 14
+   curated механизмов (docs/graph_mech_edges.json) и звёздный граф
+   vis-network: центр — выбранный механизм, вокруг — только влияющие на
+   него добавки, физика выключена. graph_mech_edges.json и data.json
+   тянутся лениво, только при первом открытии таба.
+   style.css НЕ менялся (?v= 438), правки только во inline <style> и
+   <script> самой страницы. interactions.html входит в STATIC_ASSETS и
+   отдаётся cacheFirstForStatic, поэтому без бампа activate не почистит
+   v107-static и возвратные посетители получат старую заглушку. */
+var CACHE_VERSION = 'v108';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
