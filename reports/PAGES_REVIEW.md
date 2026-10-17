@@ -686,12 +686,17 @@ Deep-links `map.html?supplement=…`.
 | 17 | улучшение | Аккордеон по категориям в `map` | Средняя | v5.7 |
 | 18 | улучшение | Timeline вместо 6 систем отрисовки в `trends` | Средняя | v5.7 |
 | 19 | дополнение | Вынести `CANON`/`MANUAL_TAGS` из HTML в данные | Низкая | v5.7 |
-| 20 | структура | **Скрипты-генераторы `graph_data.json` и `graph_positions.json`** — их нет в репозитории, граф не пересобирается | Средняя | v5.7 |
+| 20 | структура | **Скрипты-генераторы `graph_data.json` и `graph_positions.json`** — добавлены `scripts/build_graph_data.py` и `scripts/build_graph_positions.py`; `--check` в `.githooks/pre-commit`; граф пересобирается детерминированно | Закрыто | v5.6.5 |
 | 21 | улучшение | Консолидация срезов данных (`data_index` / `slim` / `api/v1`) | Средняя | v5.7 |
 
-**Пункт 20 стоит вне обычного цикла работ над страницами.** Пока нет
-генератора, любой из пунктов 7, 13, 14 упирается в то, что артефакт 406 КБ
-нечем пересобрать.
+**Пункт 20 закрыт.** Генераторы добавлены в v5.6.5:
+`scripts/build_graph_data.py` (data.json + effect_tags.json +
+graph_mech_edges.json → graph_data.json) и
+`scripts/build_graph_positions.py` (детерминированная круговая
+раскладка → graph_positions.json). `--check` обоих генераторов в
+`.githooks/pre-commit` блокирует коммит при рассинхроне артефакта.
+Ручная правка graph_data.json / graph_positions.json запрещена
+(см. CONVENTIONS.md, «Граф — генерируется»).
 
 ---
 
