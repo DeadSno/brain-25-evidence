@@ -18,17 +18,19 @@
 | Тип | Открыто | Закрыто | Файл |
 |---|---|---|---|
 | a11y | 1 | 32 | [audits/a11y.md](audits/a11y.md) |
-| data (+QA данных) | 7 | 29 | [audits/data.md](audits/data.md) |
+| data (+QA данных) | 8 | 29 | [audits/data.md](audits/data.md) |
 | html-css | 2 | 16 | [audits/html-css.md](audits/html-css.md) |
 | js (+безопасность) | 4 | 9 | [audits/js.md](audits/js.md) |
 | legal | 0 | 4 | [audits/legal.md](audits/legal.md) |
 | mobile | 1 | 21 | [audits/mobile.md](audits/mobile.md) |
 | perf (+проект/релиз) | 4 | 12 | [audits/perf.md](audits/perf.md) |
 | i18n | 1 | 12 | [audits/i18n.md](audits/i18n.md) |
-| seo (+маркетинг) | 3 | 24 | [audits/seo.md](audits/seo.md) |
-| trends | 17 | 10 | [audits/trends.md](audits/trends.md) |
+| seo (+маркетинг) | 1 | 24 | [audits/seo.md](audits/seo.md) |
+| trends | 17* | 10 | [audits/trends.md](audits/trends.md) |
 | skills | 2 | 5 | [audits/skills.md](audits/skills.md) |
-| **Итого** | **42** | **174** (+12 «не делать», +1 снято, +1 дубль) |
+| **Итого** | **41** | **174** (+12 «не делать», +1 снято, +1 дубль) |
+
+> * `trends` — **не верифицируется**: её разделы «сейчас / v5.7–9 / v6.0+» — прозаические корзины, а не таблицы ID (см. `audits/trends.md` и примечание к §2). Число 17/10 перенесено из `trends.md` без пересчёта.
 
 **Пересчёт 16.10.2026 (девятнадцатый, 13A2b) — закрыт `I18N-P2-01`.**
 UI-строки 6 страниц (`graph`, `atlas`, `interactions`, `calculator`, `map`,
@@ -663,7 +665,11 @@ bounding box, — часть бокса внутри, но **за дугой `bo
 > DATA-COI,
 > SK-P1-03, SK-STALE-02.
 
+<<<<<<< HEAD
 ### P2 (20)
+=======
+### P2 (25)
+>>>>>>> 5660db6 (docs(audits): bookkeeping — sync sources)
 
 | ID | Находка | Тип |
 |---|---|---|
@@ -678,8 +684,11 @@ bounding box, — часть бокса внутри, но **за дугой `bo
 | PERF-P2-01, P2-02 | Тяжёлые вендоры (vis-network 672 КБ); нет `.gz`/`.br` — **WONTFIX** 15.10.2026 (батч 12A), хостинг сжимает сам | [perf](audits/perf.md) |
 | PRJ-P2-01, PRJ-P2-02 | Ложные находки project-аудита (5 из 10); «прочие P2 project/release», 4 пункта без расшифровки — работать не с чем → **v5.6.5** | [perf](audits/perf.md) |
 | I18N-P2-03 | 517 стрелок — **WONTFIX** (16.10.2026): стрелка `→` универсальна, не язык-зависима; разделитель навигации работает в любом языке; данные графа — не UI-строки; RTL не планируется. | [i18n](audits/i18n.md) |
+<<<<<<< HEAD
 | MKT-P2-01, P2-02 | `<title>` > 60 на 82/145; `description` < 120 на 88/145 — дубли `SEO-P1-01`/`SEO-P1-02`. **Тексты владельцу** → **v5.6.5** | [seo](audits/seo.md) |
 
+=======
+>>>>>>> 5660db6 (docs(audits): bookkeeping — sync sources)
 
 ### Stale (1)
 
