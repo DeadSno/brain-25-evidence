@@ -235,7 +235,12 @@ self.addEventListener('activate', event => {
    v103-static и вернёт старый i18n.js, а t() подставит имена ключей
    вместо текста. Заодно ?v= i18n.js в разметке 1 -> 2 (146 файлов).
    Значения строк байт-в-байт прежние, style.css НЕ менялся (?v= 435). */
-var CACHE_VERSION = 'v104';
+/* Бамп v104 -> v105: 2.2.x — правила панели вкладок и панелей режимов
+   (.tr-tabs[role="tablist"], .tab-panels, [data-panel]) перенесены из
+   локального <style> docs/interactions.html в общую docs/style.css,
+   ?v= 436 -> 437. Без бампа activate не почистит v104-static, и
+   возвратные посетители получат старый style.css без новых правил. */
+var CACHE_VERSION = 'v105';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 

@@ -36,7 +36,7 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=436"/>
+<link rel="stylesheet" href="style.css?v=437"/>
 <!-- v5.6.1: vis-network вендорен в docs/vendor/ — снапшоты страницы больше не зависят от unpkg -->
 <script src="vendor/vis-network-9.1.9.min.js" defer></script>
 <style>
@@ -58,42 +58,10 @@ body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); transitio
     header .actions { margin-inline-start: auto; display: flex; gap: var(--space-2); }
     .btn { padding: .4rem .8rem; border: 1px solid var(--border); background: var(--card-bg); color: var(--fg); border-radius: var(--radius-lg); cursor: pointer; font-size: .9rem; text-decoration: none; }
     
-    /* 4-режимная панель вкладок (2.2.1: каркас, без переноса графов) */
-    .tr-tabs {
-      padding: var(--space-4) var(--space-6) var(--space-2);
-      display: flex;
-      gap: var(--space-2);
-      align-items: center;
-      overflow-x: auto;
-      scrollbar-width: thin;
-      flex-wrap: nowrap;
-    }
-    .tr-tabs::-webkit-scrollbar { height: 0; }
-    .tr-tabs::-webkit-scrollbar-thumb { display: none; }
-    .tr-tabs [role="tab"] {
-      padding: var(--space-2) var(--space-4);
-      border: 1px solid var(--border);
-      background: var(--card-bg);
-      color: var(--fg);
-      border-radius: 10px;
-      cursor: pointer;
-      font-size: .9rem;
-      font-weight: 500;
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-    .tr-tabs [role="tab"][aria-selected="true"] {
-      background: #1f5fbf;
-      color: #fff;
-      border-color: #1f5fbf;
-    }
-    .tr-tabs [role="tab"][aria-selected="false"] { opacity: .85; }
-    .tr-tabs [role="tab"]:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-
-    /* Панели режимов */
-    .tab-panels { margin-top: var(--space-2); }
-    [data-panel] { display: none; padding: var(--space-4) 0; }
-    [data-panel].active { display: block; }
+    /* 4-режимная панель вкладок и панели режимов (2.2.1): правила
+       вынесены в style.css (2.2.x) — .tr-tabs[role="tablist"],
+       .tab-panels, [data-panel]. Локальный блок оставлен только для
+       того, что специфично этой странице (состояния, раскладка). */
 
     /* Состояния (заготовки 2.2.1; логика — 2.2.2–2.2.4) */
     .state-loading {
@@ -124,7 +92,6 @@ body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); transitio
 
     @media (prefers-reduced-motion: reduce) {
       .state-loading::before { animation: none; }
-      .tr-tabs [role="tab"] { transition: none !important; }
     }
     .legend .sup::before { background: #3d7eff; }
     .int-layout { display: flex; height: calc(100vh - 200px); min-height: 600px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
