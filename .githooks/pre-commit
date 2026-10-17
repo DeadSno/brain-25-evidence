@@ -136,6 +136,26 @@ echo "-> build_interactions_graph.py / build_timeseries.py"
 }
 git add docs/interactions_graph.json docs/timeseries.json
 
+# --- граф: --check генераторов (PAGES_REVIEW п.20, 2026-10-17) -------------
+# build_graph_data.py и build_graph_positions.py — детерминированные
+# генераторы артефактов графа. --check не пишет, только сверяет с текущим
+# файлом и выходит с кодом 1 при расхождении. Работают на закоммиченных
+# data.json / effect_tags.json / graph_mech_edges.json. Не требуют git add:
+# вывод --check не меняет файлы, а только валидирует.
+echo "-> build_graph_data.py --check / build_graph_positions.py --check"
+"$PY" scripts/build_graph_data.py --check || {
+    echo ""
+    echo "GRAPH_DATA CHECK FAILED. docs/graph_data.json не совпадает с генератором."
+    echo "Запусти python scripts/build_graph_data.py и закоммить результат."
+    exit 1
+}
+"$PY" scripts/build_graph_positions.py --check || {
+    echo ""
+    echo "GRAPH_POSITIONS CHECK FAILED. docs/graph_positions.json не совпадает с генератором."
+    echo "Запусти python scripts/build_graph_positions.py и закоммить результат."
+    exit 1
+}
+
 # --- sitemap check внутри hook (v5.6.2, 2026-10-08) ---------------------------
 # test_real_docs_sitemap_is_current ИСКЛЮЧЁН из прогона hook намеренно. Тест
 # вызывает build_sitemap.py --check, который индекс игноририрует by design и
