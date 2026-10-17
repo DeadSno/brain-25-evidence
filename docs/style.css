@@ -2358,6 +2358,7 @@ html.light #cookieBanner { box-shadow: var(--shadow-pop-light); }
     font-size: var(--fs-2);
     cursor: pointer;
   }
+}
 
 /* ===== 2.2.2: режим «граф» на interactions.html =====
    Контейнер графа, панель управления и мобильная адаптация перенесены
@@ -2378,7 +2379,6 @@ html.light #cookieBanner { box-shadow: var(--shadow-pop-light); }
 @media (max-width: 640px) {
   .graph-canvas { height: 70vh; }
   .graph-panel-controls { flex-direction: column; }
-}
 }
 
 /* ===== 2.2.x: 4-режимная панель вкладок и панели режимов =====
