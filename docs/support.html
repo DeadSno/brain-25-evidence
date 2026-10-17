@@ -3,15 +3,19 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <title>Поддержать проект — Brain 25 Evidence</title>
-    <meta property="og:title" content="Поддержать проект - Brain 25 Evidence"/>
+    <title>Поддержать проект: 130 БАДов на PubMed — Brain 25 Evidence</title>
+    <meta property="og:title" content="Поддержать проект: 130 БАДов на PubMed — Brain 25 Evidence"/>
     <meta property="og:description" content="Поддержать открытый проект Brain 25 Evidence: база данных о 130 БАДах на основе публикаций PubMed. Пожертвование на хостинг и обновление данных."/>
     <meta property="og:type" content="website"/>
     <meta property="og:url" content="https://deadsno.github.io/brain-25-evidence/support.html"/>
     <link rel="canonical" href="https://deadsno.github.io/brain-25-evidence/support.html">
     <link rel="alternate" type="application/rss+xml" title="brain-25-evidence" href="https://deadsno.github.io/brain-25-evidence/feed.xml">
     <meta property="og:image" content="https://deadsno.github.io/brain-25-evidence/og.png"/>
+    <meta property="og:site_name" content="Brain 25 Evidence"/>
     <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:title" content="Поддержать проект: 130 БАДов на PubMed — Brain 25 Evidence"/>
+    <meta name="twitter:description" content="Поддержать открытый проект Brain 25 Evidence: база данных о 130 БАДах на основе публикаций PubMed. Пожертвование на хостинг и обновление данных."/>
+    <meta name="twitter:image" content="https://deadsno.github.io/brain-25-evidence/og.png"/>
     <meta name="description" content="Поддержать открытый проект Brain 25 Evidence: база данных о 130 БАДах на основе публикаций PubMed. Пожертвование на хостинг и обновление данных.">
     <link rel="manifest" href="manifest.webmanifest">
     <meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
@@ -24,8 +28,9 @@
       }
     } catch(e) {}
     </script>
-    <link rel="stylesheet" href="style.css?v=423">
+    <link rel="stylesheet" href="style.css?v=435">
     <script src="version.js?v=312"></script>
+    <script src="i18n.js?v=2"></script>
     <script src="pwa.js?v=282" defer></script>
 <script src="share.js?v=1" defer></script>
     <style>
@@ -38,14 +43,24 @@
         .support-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius-xl); padding: var(--space-6); margin-bottom: var(--space-5); }
         .support-card h2 { margin-bottom: var(--space-3); font-size: 1.2rem; }
         .support-card p { margin-bottom: var(--space-3); line-height: var(--lh-loose); }
-        .support-card ul { margin-left: var(--space-5); margin-bottom: var(--space-3); }
+        .support-card ul { margin-inline-start: var(--space-5); margin-bottom: var(--space-3); }
         .support-card li { margin-bottom: 6px; line-height: var(--lh-normal); }
         .support-btn { display: inline-block; padding: 14px 28px; background: linear-gradient(135deg, #7b61ff, #5e40e0); color: #fff !important; border-radius: 10px; text-decoration: none; font-weight: 600; font-size: 1.05rem; margin-top: var(--space-3); box-shadow: 0 4px 12px rgba(123, 97, 255, .35); transition: transform .15s, box-shadow .15s; }
         .support-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(123, 97, 255, .5); }
         .support-thanks { color: var(--muted); font-size: .9rem; margin-top: var(--space-2); }
-        .support-note { padding: var(--space-3) var(--space-4); background: var(--card-bg); border-left: 3px solid var(--accent); border-radius: var(--radius-md); margin-bottom: var(--space-6); font-size: .95rem; }
+        .support-note { padding: var(--space-3) var(--space-4); background: var(--card-bg); border-inline-start: 3px solid var(--accent); border-radius: var(--radius-md); margin-bottom: var(--space-6); font-size: .95rem; }
         @media (max-width: 600px) { .support-wrap { margin: var(--space-5) auto; } .support-card { padding: 18px; } }
     </style>
+<script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Поддержать проект",
+      "description": "Поддержать открытый проект Brain 25 Evidence: база данных о 130 БАДах на основе публикаций PubMed. Пожертвование на хостинг и обновление данных.",
+      "url": "https://deadsno.github.io/brain-25-evidence/support.html",
+      "inLanguage": "ru"
+    }
+    </script>
 </head>
 <body>
 <a href="#main" class="skip-link">Перейти к содержимому</a>
@@ -54,7 +69,7 @@
   <div class="trustbar">🧬 Открытые данные · Бесплатно · Без рекламы</div>
   <header class="top">
     <div class="site-title"><a href="index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a> <span class="v">v<span data-version="app"></span></span></div>
-    <nav class="actions" aria-label="Главная навигация">
+    <nav class="actions" data-i18n-aria-label="a11y.navMain">
       <a class="btn c-calc" href="calculator.html">🧮 Калькулятор</a>
       <a class="btn c-mech" href="map.html">🧩 Механизмы</a>
       <a class="btn c-links" href="interactions.html">🔗 Связи</a>
@@ -74,7 +89,25 @@
   <!-- v5.6.1: убран дубль <h2>Поддержать проект</h2> — заголовок уже
        продублирован h1 выше, на экране он шёл два раза подряд. CTA-блок
        с ссылкой на ЮMoney ниже не тронут. -->
-    <p class="lead">Brain 25 Evidence — открытый проект о 130 биологически активных добавках на основе 37 618 статей из PubMed. Без рекламы, без подписок, без монетизации.</p>
+    <p class="lead">Brain 25 Evidence — открытый проект о биологически активных добавках. Без рекламы, без подписок, без монетизации.</p>
+
+    <!-- MKT-P1-08: соцдоказательства. Числа вынесены из lead-абзаца, где
+         они стояли вперемешку с описанием проекта, в отдельный блок фактов:
+         так видно сразу и на странице не остаётся дублей одного и того же
+         числа. Тон — перечисление, без оценок («лучший», «№1»): проект не
+         собирает отзывы и не может предъявить их честно. Соцдоказательство
+         здесь — проверяемость: каждое число открывается пользователем.
+         130 добавок и 199 пар взаимодействий посчитаны по docs/data.json,
+         наличие PMID проверено на всех 130 страницах docs/sup/*.html. -->
+    <div class="support-card">
+      <h2>📊 Что внутри проекта</h2>
+      <ul>
+        <li><b>130 добавок</b> — с оценкой доказательности A–D и верхним пределом дозы</li>
+        <li><b>199 пар взаимодействий</b> — конфликты и синергии; те же пары считает калькулятор</li>
+        <li><b>37 618 статей из PubMed</b> — корпус, из которого взяты данные</li>
+        <li><b>Ссылка на PMID в каждой карточке</b> — любой источник открывается и проверяется</li>
+      </ul>
+    </div>
 
     <div class="support-note">Проект делает один человек в свободное время. Донат помогает оплачивать хостинг и мотивирует продолжать.</div>
 
@@ -123,7 +156,8 @@
     <a href="methodology.html">📐 Методология</a> ·
     <a href="faq.html">❓ FAQ</a> ·
     <a href="glossary.html">📖 Глоссарий</a> ·
-    <a href="privacy.html">🔐 Приватность</a>
+    <a href="privacy.html">🔐 Приватность</a> ·
+    <a href="feed.xml">📡 RSS</a>
   </p>
   <p class="copy">© 2026 Vladislav "DeadSno" Pereshivalov · MIT</p>
   <p class="share-row"><button class="btn share-page" type="button">🔗 Поделиться</button></p>
@@ -137,12 +171,12 @@ document.addEventListener('DOMContentLoaded', function () {
   var light = localStorage.getItem('theme') === 'light';
   if (light) { document.body.classList.add('light'); document.documentElement.classList.add('light'); }
   var b = document.getElementById('themeBtn');
-  if (b) b.textContent = light ? '🌙 Тёмная тема' : '🌞 Светлая тема';
+  if (b) b.textContent = light ? t("theme.dark") : t("theme.light");
   if (b) b.onclick = function () {
     var on = !document.documentElement.classList.contains('light');
     document.documentElement.classList.toggle('light', on);
     document.body.classList.toggle('light', on);
-    b.textContent = on ? '🌙 Тёмная тема' : '🌞 Светлая тема';
+    b.textContent = on ? t("theme.dark") : t("theme.light");
     localStorage.setItem('theme', on ? 'light' : 'dark');
   };
 });
@@ -151,7 +185,7 @@ document.addEventListener('DOMContentLoaded', function () {
 <!-- v5.6.2: cookie-согласие + Яндекс.Метрика (счётчик 112465667).
      Метрика грузится ТОЛЬКО после нажатия «Принять»: до согласия
      ни одного запроса к mc.yandex.ru не происходит. -->
-<div id="cookieBanner" role="dialog" aria-label="Согласие на использование cookie" hidden>
+<div id="cookieBanner" role="dialog" data-i18n-aria-label="a11y.cookieConsent" hidden>
   <div class="cb-text">
     Мы используем cookie и Яндекс.Метрику, чтобы понять, какие материалы полезны.
     Аналитика включается только после вашего согласия.

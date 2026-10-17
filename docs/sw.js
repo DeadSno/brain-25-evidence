@@ -171,7 +171,71 @@ self.addEventListener('activate', event => {
    плюс sup/index.html). Без бампа activate не почистит старый v84-static,
    и удалённые из STATIC_ASSETS файлы остались бы в кэше навсегда. */
 
-var CACHE_VERSION = 'v89';
+/* Бамп v91 -> v92 обязателен по правилу из шапки файла: правки контраста
+   в style.css (#44), в ссылках на него ?v поднят с 425 на 426 в 144
+   файлах. Без бампа activate не почистит старый v91-static, и все новые
+   стили --icon-*, плашки и переопределения светлой темы остались бы в
+   старом кэше у всех, кто уже посещал сайт. */
+/* Бамп v95 -> v96: INDEX_CTA_FIX — href главного CTA на index.html
+   изменён с #search на #cardsContainer (вариант F), script.js получил
+   обработчик smooth scroll + фокус на первой кнопке фильтра каталога.
+   Оба файла в STATIC_ASSETS; без бампа activate не почистит v95-static
+   и возвратные посетители получат старую главную и старый script.js. */
+/* Бамп v96 -> v97: MOB-P2-14 — лента .actions в один ряд с горизонтальной
+   прокруткой распространена с ≤620px на 621-1200px. На trends, interactions
+   и map шапка занимала 197-221px (2-3 ряда кнопок, до 54% высоты телефона
+   в ландшафте), стала 96-108px. style.css входит в STATIC_ASSETS, ?v поднят
+   с 429 на 430 в 144 файлах; без бампа activate не почистит v96-static и
+   возвратные посетители получат старую высокую шапку. */
+/* Бамп v97 -> v98: HC-P2-04 — все значения box-shadow в docs/style.css
+   вынесены в именованные токены (12 новых: --shadow-calc, --shadow-calc-hover,
+   --shadow-flash, --shadow-badge, --shadow-tab-on, --shadow-tab-on-dark,
+   --shadow-dot, --shadow-chip, --shadow-sheet, --shadow-pop, --shadow-pop-light,
+   --shadow-legend; значения 1:1 с прежними, видимых изменений нет).
+   style.css входит в STATIC_ASSETS, ?v поднят с 430 на 431 в 144 файлах;
+   без бампа activate не почистит v97-static и возвратные посетители получат
+   старую версию стилей. */
+/* Бамп v98 -> v99: HC-P2-05 — все градиенты docs/style.css вынесены в
+   именованные токены (4 новых: --grad-calc, --grad-shimmer, --grad-mesh,
+   --grad-badge; значения 1:1 с прежними, видимых изменений нет).
+   style.css входит в STATIC_ASSETS, ?v поднят с 431 на 432 в 144 файлах;
+   без бампа activate не почистит v98-static и возвратные посетители получат
+   старую версию стилей. */
+/* Бамп v99 -> v100: HC-P2-02 — размеры шрифта docs/style.css вынесены в
+   именованные токены (9 новых: --fs-1 … --fs-9; значения 1:1 с прежними,
+   видимых изменений нет).
+   style.css входит в STATIC_ASSETS, ?v поднят с 432 на 433 в 144 файлах;
+   без бампа activate не почистит v99-static и возвратные посетители получат
+   старую версию стилей. */
+/* Бамп v100 -> v101: HC-P2-03 — 14 повторяющихся hex docs/style.css вынесены
+   в именованные токены (--info-blue, --chip-on-bg, --link-tx-dark,
+   --sev-critical, --sev-critical-dark, --sev-high, --sev-medium, --inter-low,
+   --inter-medium, --inter-high, --tint-strong, --tint-medium, --tint-weak,
+   --tint-context; значения 1:1 с прежними, видимых изменений нет).
+   style.css входит в STATIC_ASSETS, ?v поднят с 433 на 434 в 144 файлах;
+   без бампа activate не почистит v100-static и возвратные посетители получат
+   старую версию стилей. */
+/* Бамп v101 -> v102: MOB-P2-11 — минимальный кегль поднят до 12px
+   (токены --fs-1/--fs-2 -> .75rem; 13 мест в 11 файлах: .top .v, .tag,
+   .grade-badge, .kpi .lbl, подписи графиков и др.). style.css изменился,
+   ?v поднялся с 434 до 435 в 144 страницах; activate удалит прежний
+   v101-static и подтянет обновлённый style.css с новой версией. */
+/* Бамп v102 -> v103: 13A2a — словарь I18N, LOCALE и t(key, params)
+   вынесены из script.js в новый общий docs/i18n.js. 13 контентных
+   страниц и шаблоны sup подключают его перед первым inline-скриптом
+   темы; строки темы заменены на t("theme.dark")/t("theme.light").
+   i18n.js добавлен в STATIC_ASSETS, script.js изменён (?v 287 -> 288).
+   style.css НЕ менялся, ?v= оставлен как был (435). Без бампа activate
+   не почистит v102-static и возвратные посетители получат старый
+   script.js без i18n.js (ReferenceError на t). */
+/* Бамп v103 -> v104 13A2b: инлайн-строки 6 страниц (graph, atlas,
+   interactions, calculator, map, trends) заменены на t()-ключи, новый
+   docs/i18n.js. i18n.js лежит в STATIC_ASSETS без ?v, поэтому сброс
+   кэша держится на CACHE_VERSION; без бампа activate не почистит
+   v103-static и вернёт старый i18n.js, а t() подставит имена ключей
+   вместо текста. Заодно ?v= i18n.js в разметке 1 -> 2 (146 файлов).
+   Значения строк байт-в-байт прежние, style.css НЕ менялся (?v= 435). */
+var CACHE_VERSION = 'v104';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
@@ -216,6 +280,7 @@ var STATIC_ASSETS = [
   './pwa.js',
   './version.js',
   './script.js',
+  './i18n.js',
   './style.css',
   './effect_tags.json',
   './effect_labels.json',

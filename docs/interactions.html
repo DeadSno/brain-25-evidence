@@ -8,18 +8,24 @@
 <meta name="theme-color" content="#1c1c1e" media="(prefers-color-scheme: dark)">
 <meta name="description" content="Карта связей 130 БАД: синергии, антагонизмы и конфликты с лекарствами. Интерактивный граф по общим механизмам, с фильтрами по эффекту и риску."/>
 <meta property="og:type" content="website"/>
-<meta property="og:title" content="Карта связей БАДов — синергии и конфликты"/>
-<meta property="og:description" content="Какие добавки усиливают или ослабляют друг друга."/>
+<meta property="og:title" content="Карта связей — синергии и конфликты — Brain 25 Evidence"/>
+<meta property="og:description" content="Карта связей 130 БАД: синергии, антагонизмы и конфликты с лекарствами. Интерактивный граф по общим механизмам, с фильтрами по эффекту и риску."/>
 <meta property="og:url" content="https://deadsno.github.io/brain-25-evidence/interactions.html"/>
 <link rel="canonical" href="https://deadsno.github.io/brain-25-evidence/interactions.html">
 <link rel="alternate" type="application/rss+xml" title="brain-25-evidence" href="https://deadsno.github.io/brain-25-evidence/feed.xml">
 <meta property="og:image" content="https://deadsno.github.io/brain-25-evidence/og.png"/>
+<meta property="og:site_name" content="Brain 25 Evidence"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Карта связей — синергии и конфликты — Brain 25 Evidence"/>
+<meta name="twitter:description" content="Карта связей 130 БАД: синергии, антагонизмы и конфликты с лекарствами. Интерактивный граф по общим механизмам, с фильтрами по эффекту и риску."/>
+<meta name="twitter:image" content="https://deadsno.github.io/brain-25-evidence/og.png"/>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="БАДы">
 <link rel="apple-touch-icon" href="icons/192.png">
-<title>🔗 Карта связей — brain-25-evidence</title>
+<title>Карта связей — синергии и конфликты — Brain 25 Evidence</title>
 <script defer src="version.js?v=312"></script>
+<script src="i18n.js?v=2"></script>
 <script>
 // v5.4.0 (dark-first): тёмная тема — это ОТСУТСТВИЕ класса light.
 // До загрузки CSS ничего добавлять не нужно: :root уже тёмный.
@@ -30,7 +36,7 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=423"/>
+<link rel="stylesheet" href="style.css?v=435"/>
 <!-- v5.6.1: vis-network вендорен в docs/vendor/ — снапшоты страницы больше не зависят от unpkg -->
 <script src="vendor/vis-network-9.1.9.min.js"></script>
 <style>
@@ -49,7 +55,7 @@ try {
 body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); transition: background .2s, color .2s; }
     header { padding: 0; border-bottom: none; display: flex; align-items: center; gap: var(--space-4); flex-wrap: wrap; }
     header .site-title { margin: 0; font-size: 1.35rem; }
-    header .actions { margin-left: auto; display: flex; gap: var(--space-2); }
+    header .actions { margin-inline-start: auto; display: flex; gap: var(--space-2); }
     .btn { padding: .4rem .8rem; border: 1px solid var(--border); background: var(--card-bg); color: var(--fg); border-radius: var(--radius-lg); cursor: pointer; font-size: .9rem; text-decoration: none; }
     
     .tr-tabs { padding: var(--space-4) var(--space-6) var(--space-2); display: flex; gap: var(--space-2); align-items: center; flex-wrap: wrap; }
@@ -64,7 +70,7 @@ body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); transitio
     footer a { color: var(--accent); }
     #hint { padding: var(--space-2) var(--space-6); font-size: .85rem; color: var(--muted); }
     body { max-width: none !important; margin: 0 !important; }
-    main h1, .tr-tabs, .legend, #hint { max-width: 1200px; margin-left: auto; margin-right: auto; }
+    main h1, .tr-tabs, .legend, #hint { max-width: 1200px; margin-inline-start: auto; margin-inline-end: auto; }
     .trustbar { text-align:center;padding:var(--space-2) var(--space-4);margin:0 0 var(--space-4); background:var(--apanel);border:1px solid var(--aborder); border-radius:var(--radius-lg);font-size:.85rem;opacity:.85; }
     .btn { padding:.45rem .8rem;border:1px solid var(--aborder);border-radius:var(--radius-lg); background:var(--apanel);color:var(--atext);cursor:pointer; font-size:.85rem;text-decoration:none;line-height:var(--lh-tight); }
     .btn.calc { background: linear-gradient(135deg, #1f6fa5, #175a86) !important; color: #fff !important; border: none !important; font-weight: 600; box-shadow: 0 2px 8px rgba(31,111,165,.35); }
@@ -78,7 +84,7 @@ body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); transitio
       .top { flex-direction: column; align-items: stretch; gap: var(--space-2); margin: 0 0 .6rem; }
       .top .site-title { font-size: 1.05rem; line-height: 1.25; }
       .top .site-title a { display: inline-block; }
-      .top .v { font-size: .7rem; }
+      .top .v { font-size: var(--fs-3); }
       .actions { gap: .35rem; }
       .btn { padding: .4rem .6rem; font-size: .78rem; }
       /* v5.5.0 A1: было .78rem (12.48px) — локальное правило перебивало
@@ -109,6 +115,16 @@ footer { font-size: 1rem !important; }
     }
   
   </style>
+<script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MedicalWebPage",
+      "name": "Карта связей",
+      "description": "Карта связей 130 БАД: синергии, антагонизмы и конфликты с лекарствами. Интерактивный граф по общим механизмам, с фильтрами по эффекту и риску.",
+      "url": "https://deadsno.github.io/brain-25-evidence/interactions.html",
+      "inLanguage": "ru"
+    }
+    </script>
 </head>
 <body>
 <a href="#main" class="skip-link">Перейти к содержимому</a>
@@ -116,7 +132,7 @@ footer { font-size: 1rem !important; }
   <div class="trustbar">🧬 Открытые данные · Бесплатно · Без рекламы</div>
   <header class="top">
     <div class="site-title"><a href="index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a> <span class="v">v<span data-version="app"></span></span></div>
-    <nav class="actions" aria-label="Главная навигация">
+    <nav class="actions" data-i18n-aria-label="a11y.navMain">
       <a class="btn c-calc" href="calculator.html">🧮 Калькулятор</a>
       <a class="btn c-mech" href="map.html">🧩 Механизмы</a>
       <a class="btn c-atlas" href="atlas.html">🌐 Атлас</a>
@@ -124,7 +140,7 @@ footer { font-size: 1rem !important; }
       <a class="btn c-bi" href="https://brain-25-evidence.streamlit.app" target="_blank" rel="noopener">🧠 BI ↗</a>
       <a class="btn c-graph" href="graph.html">🕸️ Граф связей</a>
       <a class="btn c-feedback" href="feedback.html">💬 Обратная связь</a>
-      <button class="btn" id="pngBtn" title="Скачать как PNG">📷 Скачать PNG</button>
+      <button class="btn" id="pngBtn" data-i18n-title="interactions.btn.download">📷 Скачать PNG</button>
       <a class="btn c-support" href="support.html">💚 Поддержать</a>
       <button class="btn" id="themeBtn">🌞 Светлая тема</button>
     </nav>
@@ -140,10 +156,13 @@ footer { font-size: 1rem !important; }
   <button class="tr-tab" data-mode="drugs">Добавки и лекарства</button>
   <div class="spacer"></div>
   <label for="search" class="sr-only">Поиск добавки или лекарства</label>
-  <input id="search" placeholder="🔍 Поиск добавки или лекарства…">
+  <input id="search" data-i18n-placeholder="interactions.searchPh">
 </div>
 
-<div class="legend" id="legend"></div>
+<!-- v5.6.5: live-регион (A11Y-P2-05). Состав легенды зависит от
+     активной вкладки — renderLegend() (:423) переписывает блок целиком,
+     и без региона смена «добавки» / «лекарства» была беззвучной. -->
+<div class="legend" id="legend" role="status" aria-live="polite"></div>
 <div class="severityFilter" id="sevFilter">
   <label for="sevThreshold">Уровень риска:</label>
   <select id="sevThreshold">
@@ -157,7 +176,12 @@ footer { font-size: 1rem !important; }
 
 <div class="int-layout">
   <div id="int-graph"></div>
-  <aside id="int-sidebar"></aside>
+  <!-- v5.6.5: live-регион (A11Y-P2-05). Панель деталей узла целиком
+     перезаписывается renderSidebar() (:460) по клику на узел графа.
+     aria-atomic не задаём намеренно: панель длинная, и режим atomic
+     заставлял бы диктор читать её целиком при каждом переходе между
+     связанными узлами (data-goto). -->
+  <aside id="int-sidebar" aria-live="polite"></aside>
 </div>
 </main>
 
@@ -178,7 +202,8 @@ footer { font-size: 1rem !important; }
     <a href="methodology.html">📐 Методология</a> ·
     <a href="faq.html">❓ FAQ</a> ·
     <a href="glossary.html">📖 Глоссарий</a> ·
-    <a href="privacy.html">🔐 Приватность</a>
+    <a href="privacy.html">🔐 Приватность</a> ·
+    <a href="feed.xml">📡 RSS</a>
   </p>
   <p class="copy">© 2026 Vladislav "DeadSno" Pereshivalov · MIT</p>
   <p class="share-row"><button class="btn share-page" type="button">🔗 Поделиться</button></p>
@@ -193,6 +218,14 @@ function esc(s) {
 }
 const GRADE_COLOR = { A: '#4caf50', B: '#8bc34a', C: '#ff9800', D: '#e53935' };
 const SEV_COLOR = { low: '#ff9800', medium: '#ff7043', high: '#e53935', critical: '#b71c1c' };
+/* v5.6.3: прозрачность рёбер по severity (диагноз — reports/INTERACTIONS_UX.md).
+   Раньше шёл чистый SEV_COLOR с alpha 1.0 и толщиной до 3 px: на вкладке
+   «Добавки и лекарства» 32 красные стрелки перекрывали структуру сильнее,
+   чем её рисовали узлы. Замер «краска ребра / размер узла»: atlas 0.024,
+   interactions было 0.172 — в 7.2 раза больше, при том что рёбер на узел
+   у interactions МЕНЬШЕ (0.70 против 1.19). Ребро должно быть фоном,
+   а не главным объектом. */
+const SEV_ALPHA = { low: 0.28, medium: 0.34, high: 0.42, critical: 0.55 };
 const TYPE_COLOR = { synergy: '#4caf50', antagonist: '#e53935', interaction: null };
 const SEV_LABEL = { low: 'низкий', medium: 'средний', high: 'высокий', critical: 'критичный' };
 const SEV_ORDER = { low: 0, medium: 1, high: 2, critical: 3 };
@@ -247,8 +280,63 @@ function sizeForDegree(d, isDrug) {
   return Math.min(40, Math.round(base + Math.log2(d + 1) * 3));
 }
 
+/* v5.6.5: порог компактной вёрстки. Ниже него подписи узлов не рисуются
+   вовсе — вместо них работает тап по точке.
+
+   Замер (375×667, «Добавки и лекарства», 46 узлов, точные прямоугольники
+   подписей): с подписями — 35 пар наложений из 46. Хуже всего ложились
+   длинные русские названия классов: «антидепрессанты MAO» ×
+   «антикоугулянты» — пересечение 94×11 px, «оральные контрацептивы» ×
+   «седативные: бензодиазепины, барбитураты» — 167×6 px. На вкладке
+   «Добавки между собой» (11 узлов) наложений нет, но радиус пальца всё
+   равно больше точки. Подписи отключаются на обоих режимах одинаково:
+   иначе пришлось бы таскать за собой переключатель режима. */
+const COMPACT_MAX_WIDTH = 768;
+function isCompactView() {
+  return window.innerWidth < COMPACT_MAX_WIDTH;
+}
+
+/* Точки на компакте НЕ увеличиваются. Замер при 30 px (все узлы от 30,
+   46 узлов в canvas 341×400): пар перекрытия кругов 21–25 против 5 при
+   исходных размерах — суммарная площадь кругов не помещается в canvas,
+   и avoidOverlap: 0.5 их не разводит. Скриншот: серые классы лекарств
+   слипались в сплошную кашу. Размер точки задаёт восприятие плотности
+   графа, а не удобство нажатия, поэтому нажатие решено хит-ареей ниже,
+   а зрение — обводкой (см. color.border в buildNodes). */
+
+/* v5.6.5: хит-арея 44 px — это требование к пальцу, а не размер рисунка.
+   vis-network попадает по узлу только внутри нарисованного круга
+   (selectionHandler.getNodeAt → Node.isOverlappingWith), поэтому тап в
+   пару пикселей от края 30-пиксельной точки не срабатывал. Выбор узла
+   делаем сами: ближайшая точка в пределах TAP_RADIUS_PX от касания.
+   Работает только на компакте — десктопное поведение не меняется. */
+const TAP_RADIUS_PX = 22;
+function nodeIdNear(domX, domY) {
+  const net = state.network;
+  if (!net || !net.body || !net.body.nodes) return null;
+  let bestId = null, bestD = TAP_RADIUS_PX;
+  for (const id in net.body.nodes) {
+    const nd = net.body.nodes[id];
+    if (nd.options && nd.options.hidden) continue;
+    const p = net.canvasToDOM({ x: nd.x, y: nd.y });
+    const d = Math.hypot(p.x - domX, p.y - domY);
+    if (d < bestD) { bestD = d; bestId = id; }
+  }
+  return bestId;
+}
+
+/* #hex → rgba со своей прозрачностью. Нужен, чтобы приглушить ребро, не
+   теряя hue: легенда и подсветка продолжают опознавать severity по цвету. */
+function hexAlpha(hex, a) {
+  let h = String(hex).replace('#', '');
+  if (h.length === 3) h = h.split('').map(c => c + c).join('');
+  const n = parseInt(h, 16) || 0x888888;
+  return 'rgba(' + ((n >> 16) & 255) + ',' + ((n >> 8) & 255) + ',' + (n & 255) + ',' + a + ')';
+}
+
 function buildNodes(mode, degrees) {
   const nodes = [];
+  const compact = isCompactView();
   const raw = mode === 'supplements'
     ? state.data.supplements.nodes
     : state.data.drugs.nodes;
@@ -258,19 +346,41 @@ function buildNodes(mode, degrees) {
     if (n.kind === 'drug') color = '#9e9e9e';
     else if (n.grade) color = GRADE_COLOR[n.grade] || '#3d7eff';
 
+    const base = sizeForDegree(degrees[n.id] || 0, n.kind === 'drug');
+
     nodes.push({
       id: n.id,
       label: n.label,
       title: n.kind === 'drug'
-        ? 'Лекарственный класс · клик = подсветить связи'
-        : (n.grade ? 'Грейд ' + n.grade + ' · клик = открыть карточку' : ''),
+        ? t("int.drugClassTitle")
+        : (n.grade ? t("int.gradePrefix") + n.grade + t("int.nodeClickOpen") : ''),
       color: {
-        background: color, border: color,
+        background: color,
+        /* Обводка на компакте контрастная, а не в цвет узла: подписи нет,
+           и круг должен отделяться от соседей и от рёбер под ним. Заливка
+           остаётся смысловой (серая — класс лекарств, цветная — грейд),
+           поэтому легенда и подсветка продолжают работать. */
+        border: compact ? (isDark() ? '#e6e6ef' : '#1c1c1e') : color,
         highlight: { background: '#ffeb3b', border: '#333' }
       },
-      font: { color: isDark() ? '#f5f5f7' : '#1c1c1e' },
+      /* Два уровня типографики, как в atlas (там 11 px у добавок и
+         14 bold у тегов-хабов). Здесь font.size не был задан вовсе —
+         все 46 узлов печатались дефолтными 14 px, и на вкладке «и
+         лекарства» замер давал 8 пар подписей в окне 110×16 px.
+         Теперь: лекарственные классы (узлы-ориентиры) 14 bold,
+         добавки 11. stroke даёт читаемость поверх рёбер.
+         На компакте подпись не рисуется вовсе (font.size = 0), размер
+         точки прежний, а выбор узла перенесён на тап с хит-ареей
+         44 px — см. isCompactView и nodeIdNear. */
+      font: {
+        color: isDark() ? '#f5f5f7' : '#1c1c1e',
+        size: compact ? 0 : (n.kind === 'drug' ? 14 : 11),
+        bold: n.kind === 'drug',
+        strokeWidth: 3,
+        strokeColor: isDark() ? '#0d0d12' : '#ffffff',
+      },
       shape: 'dot',
-      size: sizeForDegree(degrees[n.id] || 0, n.kind === 'drug')
+      size: base
     });
   }
   return nodes;
@@ -283,7 +393,7 @@ function buildEdges(mode) {
 
   /* Порог severity — только для вкладки «Добавки и лекарства».
      В supplements-графе рёбер с severity high/critical нет вовсе:
-     все 10 штук — low/medium (проверено по interactions_graph.json),
+     все 12 штук — low/medium (проверено по interactions_graph.json),
      поэтому общий порог оставлял бы вкладку «Добавки между собой»
      с нулём узлов. UI-контрол фильтра (.severityFilter) показывается
      только в drugs-режиме — состояние фильтра должно быть таким же. */
@@ -299,14 +409,22 @@ function buildEdges(mode) {
         // без него nodeSev считает все рёбра 'medium' и порог high/critical
         // оставлял граф пустым.
         severity: e.severity,
-        color: { color, highlight: '#ffeb3b' },
-        width: e.severity === 'critical' ? 3 : e.severity === 'high' ? 2.5 : 1.5,
+        /* Ребро — фон, не главный объект (см. SEV_ALPHA). Hue остаётся
+           прежним, чтобы легенда «цвет = severity» продолжала работать. */
+        color: { color: hexAlpha(color, SEV_ALPHA[e.severity] != null
+                                 ? SEV_ALPHA[e.severity] : 0.3),
+                 highlight: '#ffeb3b' },
+        /* Ширина 1 как в atlas: толщина 2.5–3 px на 46 узлах давала
+           перекрытие рёбер над узлами и подписями. */
+        width: 1,
         dashes: e.type === 'synergy',
         title: (e.note || '').replace(/</g, '&lt;') ||
-               (e.type === 'synergy' ? 'Синергия' :
-                e.type === 'antagonist' ? 'Антагонизм' :
-                'Взаимодействие · риск ' + (SEV_LABEL[e.severity] || e.severity || '')),
-        arrows: mode === 'drugs' ? { to: { enabled: true, scaleFactor: 0.5 } } : undefined
+               (e.type === 'synergy' ? t("int.synergyTitle") :
+                e.type === 'antagonist' ? t("int.antagonistTitle") :
+                t("int.interactionRisk") + (SEV_LABEL[e.severity] || e.severity || '')),
+        /* Стрелки убраны (было enabled на всех 32 рёбрах вкладки «и
+           лекарства»): 32 насыщенные наконечника поверх узлов давали
+           красные спагетти. Направление читается из подписи связи и легенды. */
       };
     });
 }
@@ -315,15 +433,15 @@ function renderLegend(mode) {
   const el = document.getElementById('legend');
   if (mode === 'supplements') {
     el.innerHTML =
-      '<span class="syn">синергия</span>' +
-      '<span class="ant">антагонизм</span>' +
-      '<span class="int">взаимодействие</span>' +
-      '<span class="sup">добавка (цвет = грейд A–D)</span>';
+      '<span class="syn">' + t("int.legSynergy") + '</span>' +
+      '<span class="ant">' + t("int.legAntagonist") + '</span>' +
+      '<span class="int">' + t("int.legInteraction") + '</span>' +
+      '<span class="sup">' + t("int.legSupGradeAD") + '</span>';
   } else {
     el.innerHTML =
-      '<span class="int">взаимодействие · цвет = severity</span>' +
-      '<span class="sup">добавка (цвет = грейд)</span>' +
-      '<span class="drug">лекарственный класс</span>';
+      '<span class="int">' + t("int.legInteractionSev") + '</span>' +
+      '<span class="sup">' + t("int.legSupGrade") + '</span>' +
+      '<span class="drug">' + t("int.legDrugClass") + '</span>';
   }
 }
 
@@ -368,9 +486,9 @@ function renderSidebar(id) {
       }));
     sidebar.innerHTML =
       '<div class="sb-head"><h2>' + esc(id) + '</h2>' +
-      '<button class="sb-close" data-close aria-label="Закрыть панель">×</button></div>' +
-      '<div class="sb-meta">Лекарственный класс</div>' +
-      '<div class="sb-section"><h3>Связанные добавки (' + related.length + ')</h3>' +
+      '<button class="sb-close" data-close aria-label="' + t("int.closePanel") + '">×</button></div>' +
+      '<div class="sb-meta">' + t("int.drugClass") + '</div>' +
+      '<div class="sb-section"><h3>' + t("int.relatedSupps") + related.length + ')</h3>' +
       '<ul class="sb-links">' +
       related.map(r =>
         '<li>' +
@@ -389,20 +507,20 @@ function renderSidebar(id) {
         note: e.note,
         type: e.type
       }));
-    const gradeLabel = supp.grade ? 'Грейд ' + supp.grade : '';
-    const verdictLabel = supp.code === 1 ? 'работает' :
-                         supp.code === 0 ? 'зависит от контекста' :
-                         supp.code === -1 ? 'не подтверждено' : '';
+    const gradeLabel = supp.grade ? t("int.gradePrefix") + supp.grade : '';
+    const verdictLabel = supp.code === 1 ? t("verdict.works") :
+                         supp.code === 0 ? t("verdict.depends") :
+                         supp.code === -1 ? t("verdict.unproven") : '';
 
     sidebar.innerHTML =
       '<div class="sb-head"><h2>' + esc(supp.label) + '</h2>' +
-      '<button class="sb-close" data-close aria-label="Закрыть панель">×</button></div>' +
+      '<button class="sb-close" data-close aria-label="' + t("int.closePanel") + '">×</button></div>' +
       '<div class="sb-meta">' + esc([gradeLabel, verdictLabel].filter(Boolean).join(' · ')) + '</div>' +
-      '<div class="sb-section"><h3>Связи (' + related.length + ')</h3>' +
+      '<div class="sb-section"><h3>' + t("int.links") + related.length + ')</h3>' +
       '<ul class="sb-links">' +
       related.map(r =>
         '<li>' +
-        '<span class="sb-sev ' + (r.severity || '') + '" style="margin-right:.4rem;margin-left:0">' +
+        '<span class="sb-sev ' + (r.severity || '') + '" style="margin-inline-end:.4rem;margin-inline-start:0">' +
           (r.type === 'synergy' ? '✓ ' :
            r.type === 'antagonist' ? '⚠ ' :
            '') + (TYPE_LABEL[r.type] || r.type || '') + '</span>' +
@@ -412,7 +530,7 @@ function renderSidebar(id) {
       ).join('') +
       '</ul></div>' +
       '<a class="sb-cta" href="index.html#sup=' + encodeURIComponent(id) + '" target="_blank">' +
-        'Открыть карточку →</a>';
+        t("common.openCard") + '</a>';
   }
 
   sidebar.classList.add('open');
@@ -461,42 +579,118 @@ function renderSidebar(id) {
    Коррекция разовая и на сдвиг, поэтому визуально это незаметно.
 
    Чего здесь нет намеренно: таймеров, physics.enabled: false и любого
-   выключения симуляции. Физика работает непрерывно. */
-/* Порог в px канваса, а не в координатах раскладки: на мобильном canvas
-   341×400 те же 40 px — это 12% ширины и заметные рывки. */
-const COM_ANCHOR_PX = 40;
+   выключения симуляции. Физика работает непрерывно.
+
+   ── v5.6.4 (2026-10-13): якорь переведён с УЗЛОВ на ВИД ────────────────
+   Прежний вариант отменял pan пользователя, и это был настоящий «замок»,
+   а не «якорь мешает немного». Замер (1280×900, вкладка «Добавки между
+   собой», drag +200/+100 px, узел «Омега-3»):
+
+     было:  view (500,389) → (300,289)   — pan прошёл
+            COM  (497.2,385.9) → (300,289) уже в t+0ms — якорь отработал
+                                         в том же кадре
+            узел на экране 601.2 → 603.7 px — сдвиг 2.5 px вместо 200
+     стало: view (500,389) → (300,289), узел 601.2 → 801.2 px — ровно 200.
+
+   Причина не в пороге, а в самом механизме: целью якоря был
+   getViewPosition() — а это ровно та точка, которую пользователь и сдвинул
+   своим pan. Якорь сдвигал ВСЕ узлы на обратную величину, и картинка
+   возвращалась на место за один кадр. Поэтому узлы якорь больше не
+   трогает никогда: облако удерживается в кадре движением ВИДА (moveTo),
+   а вид принадлежит пользователю.
+
+   Как работает: раз в кадр (afterDrawing) считаем центр масс видимых узлов и
+   переводим его в координаты канваса (canvasToDOM — они отсчитываются от
+   левого верхнего угла canvas, поэтому рамка кадра = (0, 0, W, H)).
+   Если центр выходит за прямоугольник, уменьшенный на ANCHOR_MARGIN, вид
+   плавно сдвигается в сторону возврата — со скоростью ANCHOR_SPEED_PX_S
+   (240 px/с, то есть в 170 раз быстрее дрейфа ≈1.4 px/с, но глазом рывка
+   не видно). Масштаб не трогаем: moveTo меняет только положение вида.
+
+   Пока пользователь работает с графом, якорь молчит: isInteracting на всё
+   время жеста и ещё ANCHOR_GRACE_MS после отпускания. Без этого первые же
+   кадры жеста отбирали бы кадр у пользователя (moveTo отменял бы сдвиг). */
+
+const ANCHOR_MARGIN = 0.15;     // доля ширины/высоты canvas за краем рамки
+const ANCHOR_SPEED_PX_S = 240;  // скорость возврата облака в кадр, px/с
+const ANCHOR_GRACE_MS = 3000;   // пауза после отпускания мыши/пальца
+
+let isInteracting = false;
+let interactionReleaseTimer = null;
+let lastAnchorTime = 0;
+
+/* Сдвинуть паузу якоря на ANCHOR_GRACE_MS от «сейчас». Вызывается на
+   dragStart (якорь уже и так выключен флагом) и на dragEnd/zoom. */
+function anchorPause() {
+  if (interactionReleaseTimer) clearTimeout(interactionReleaseTimer);
+  lastAnchorTime = 0;
+  interactionReleaseTimer = setTimeout(function () {
+    isInteracting = false;
+    interactionReleaseTimer = null;
+  }, ANCHOR_GRACE_MS);
+}
 
 function anchorCenterOfMass() {
+  // Жест пользователя — приоритет: во время него и сразу после него вид
+  // принадлежит человеку, а не якорю.
+  if (isInteracting || interactionReleaseTimer) return;
   const net = state.network;
   if (!net) return;
   const body = net.body;
   if (!body || !body.nodes) return;
-  // Порог переводим в координаты раскладки через масштаб view: иначе на
-  // узком canvas 40 px — доля экрана, заметная глазом.
-  const limit = COM_ANCHOR_PX / net.getScale();
 
-  // Только видимые узлы: скрытые поиском всё равно не рисуются.
-  const ids = [];
   let sx = 0, sy = 0, n = 0;
   for (const id in body.nodes) {
     const nd = body.nodes[id];
     if (nd.options && nd.options.hidden) continue;
-    ids.push(id);
     sx += nd.x;
     sy += nd.y;
     n++;
   }
   if (n === 0) return;
 
-  const target = net.getViewPosition();
-  const dx = target.x - sx / n;
-  const dy = target.y - sy / n;
-  if (Math.abs(dx) < limit && Math.abs(dy) < limit) return;
+  const el = net.canvas && net.canvas.frame ? net.canvas.frame.canvas : null;
+  const W = el ? el.clientWidth : 0;
+  const H = el ? el.clientHeight : 0;
+  if (!W || !H) return;
 
-  for (let i = 0; i < n; i++) {
-    const nd = body.nodes[ids[i]];
-    net.moveNode(ids[i], nd.x + dx, nd.y + dy);
-  }
+  // Центр масс в координатах канваса (0,0 — левый верхний угол canvas).
+  const dom = net.canvasToDOM({ x: sx / n, y: sy / n });
+  const mx = W * ANCHOR_MARGIN, my = H * ANCHOR_MARGIN;
+  let dx = 0, dy = 0;
+  if (dom.x < mx) dx = mx - dom.x;
+  else if (dom.x > W - mx) dx = dom.x - (W - mx);
+  if (dom.y < my) dy = my - dom.y;
+  else if (dom.y > H - my) dy = dom.y - (H - my);
+  if (!dx && !dy) { lastAnchorTime = 0; return; }
+
+  // Шаг ограничен СКОРОСТЬЮ, а не числом кадров: иначе скорость возврата
+  // зависит от частоты перерисовки (замерено: 146 fps в headless против
+  // 60 fps у живого пользователя — вдвое разная скорость). Потолок dt
+  // защищает от скачка после сворачивания вкладки или сборки мусора.
+  const now = Date.now();
+  let dt = lastAnchorTime ? (now - lastAnchorTime) / 1000 : 1 / 60;
+  lastAnchorTime = now;
+  if (!(dt > 0)) dt = 1 / 60;
+  if (dt > 0.25) dt = 0.25;
+  const step = ANCHOR_SPEED_PX_S * dt;
+  if (dx > step) dx = step;
+  else if (dx < -step) dx = -step;
+  if (dy > step) dy = step;
+  else if (dy < -step) dy = -step;
+
+  /* Сдвигаем ВИД, а не узлы: pan пользователя при этом не отменяется.
+
+     Знак: canvasToDOM = (узел − view)·scale + размер/2, поэтому чтобы
+     сдвинуть содержимое ВПРАВО на dx, вид надо сдвинуть ВЛЕВО на dx/scale.
+     Со знаком «+» якорь гнал облако прочь из кадра — замерено: COM
+     уходил с −272 до −1533 px по X за 1.5 с, то есть ровно наоборот. */
+  const vp = net.getViewPosition();
+  const scale = net.getScale();
+  net.moveTo({
+    position: { x: vp.x - dx / scale, y: vp.y - dy / scale },
+    animation: false
+  });
 }
 
 function drawGraph() {
@@ -574,6 +768,15 @@ function drawGraph() {
   if (state.network) {
     state.network.destroy();
     state.network = null;
+  }
+
+  /* v5.6.4: сеть пересоздаётся — пауза якоря от прошлой сети недействительна.
+     Иначе переключение вкладки/темы в течение 3 с после жеста оставило бы
+     якорь выключенным на новой сети без причины. */
+  isInteracting = false;
+  if (interactionReleaseTimer) {
+    clearTimeout(interactionReleaseTimer);
+    interactionReleaseTimer = null;
   }
 
   /* v5.6.3: масштаб физики под размер canvas.
@@ -684,17 +887,30 @@ catch (e) { /* сеть могла не успеть отрисоваться �
 
   /* v5.6.3: якорь по центру масс. Без него облако при damping: 0
      медленно уезжает за пределы canvas (см. anchorCenterOfMass).
-     Физика при этом не выключается и таймеров не добавляется —
+     Физика при этом не выключается и таймеров отключения не добавляется —
      это подписка на отрисовку, а не гашение симуляции. */
   state.network.on('afterDrawing', anchorCenterOfMass);
 
-  state.network.on('click', params => {
-    // клик по пустому месту — сброс
-    if (params.nodes.length === 0) {
-      document.getElementById('int-sidebar').classList.remove('open');
-      return;
+  /* v5.6.4: якорь не вмешивается, пока с графом работает человек.
+     dragStart/dragEnd vis-network отдаёт и для перетаскивания канваса, и
+     для перетаскивания узла — оба случая должны отключать якорь.
+     На touch-жестах те же события: HammerManager транслирует пан в
+     mousedown/mousemove/mouseup, а Network превращает их в dragStart/dragEnd. */
+  state.network.on('dragStart', function () {
+    isInteracting = true;
+    if (interactionReleaseTimer) {
+      clearTimeout(interactionReleaseTimer);
+      interactionReleaseTimer = null;
     }
-    const id = params.nodes[0];
+  });
+  state.network.on('dragEnd', anchorPause);
+  // Зум тоже двигает вид. Без этой паузы тот же якорь отбирал бы кадр у
+  // колеса мыши и у пинча — механизм тот же, правило то же.
+  state.network.on('zoom', anchorPause);
+
+  /* Выбор узла вынесен из обработчика клика: тот же путь нужен и тапу
+     мимо точки (расширенная хит-арея, тап-масштабирование). */
+  function openNode(id) {
     renderSidebar(id);
     // подсветить узел и соседей — только среди реально показанных рёбер
     const edges = state.currentEdges || [];
@@ -704,6 +920,25 @@ catch (e) { /* сеть могла не успеть отрисоваться �
       if (e.to === id) connected.add(e.from);
     }
     state.network.selectNodes([...connected]);
+  }
+  function closeNode() {
+    document.getElementById('int-sidebar').classList.remove('open');
+    state.network.unselectAll();
+  }
+
+  state.network.on('click', params => {
+    if (params.nodes.length === 0) {
+      // Клик/тап мимо всех узлов. На компакте это может быть касание в
+      // пару пикселей от точки — тогда берём ближайшую в пределах
+      // TAP_RADIUS_PX (44 px хит-арея). На дескстопе остаётся как было:
+      // пустое место = сброс.
+      const pt = params.pointer && params.pointer.DOM;
+      const near = (isCompactView() && pt) ? nodeIdNear(pt.x, pt.y) : null;
+      if (near) { openNode(near); return; }
+      closeNode();
+      return;
+    }
+    openNode(params.nodes[0]);
   });
 }
 
@@ -718,13 +953,32 @@ function setMode(mode) {
   drawGraph();
 }
 
+/* v5.6.5: переход через порог 768 px перерисовывает граф. Иначе поворот
+   телефона (или сужение окна на планшете) оставлял бы мобильный вид с
+   пустыми точками на десктопной ширине и наоборот. Перерисовка только на
+   СМЕНЕ режима — обычный resize ничего не трогает. */
+(function initCompactRedraw() {
+  let wasCompact = isCompactView();
+  let timer = null;
+  window.addEventListener('resize', function () {
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(function () {
+      timer = null;
+      const now = isCompactView();
+      if (now === wasCompact) return;
+      wasCompact = now;
+      drawGraph();
+    }, 150);
+  });
+})();
+
 // v5.4.0 (dark-first): было setDark(on), где on = «сейчас тёмная».
 // Теперь light = «переключаем в светлую» — иначе клик был no-op.
 function setLight(light) {
   document.documentElement.classList.toggle('light', light);
   document.body.classList.toggle('light', light);
   localStorage.setItem('theme', light ? 'light' : 'dark');
-  document.getElementById('themeBtn').textContent = light ? '🌙 Тёмная тема' : '🌞 Светлая тема';
+  document.getElementById('themeBtn').textContent = light ? t("theme.dark") : t("theme.light");
   if (state.network) drawGraph();
 }
 
@@ -791,8 +1045,11 @@ Promise.all([
     setMode('supplements');
   })
   .catch(err => {
+    // v5.6.5 (A11Y-P2-05): роль на самом сообщении, а не на #int-graph —
+    // контейнер держит канвас сети, регион на нём озвучивал бы весь холст.
+    // Ошибка приходит один раз, поэтому assertive (role="alert").
     document.getElementById('int-graph').innerHTML =
-      '<p style="padding:2rem;color:#e53935">Не удалось загрузить interactions_graph.json: ' +
+      '<p role="alert" style="padding:2rem;color:#e53935">' + t("int.loadError") +
       esc(err.message) + '</p>';
   });
 
@@ -848,7 +1105,7 @@ document.addEventListener('click', e => {
   });
 })();
 </script>
-<button class="toBottom" id="toBottom" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})" title="Вниз" aria-label="Прокрутить страницу вниз">↓</button>
+<button class="toBottom" id="toBottom" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})" data-i18n-title="btn.scrollDown" data-i18n-aria-label="a11y.scrollDown">↓</button>
 <script>
 window.addEventListener('scroll', () => {
   const btn = document.getElementById('toBottom');
@@ -869,7 +1126,7 @@ window.addEventListener('scroll', () => {
 <!-- v5.6.2: cookie-согласие + Яндекс.Метрика (счётчик 112465667).
      Метрика грузится ТОЛЬКО после нажатия «Принять»: до согласия
      ни одного запроса к mc.yandex.ru не происходит. -->
-<div id="cookieBanner" role="dialog" aria-label="Согласие на использование cookie" hidden>
+<div id="cookieBanner" role="dialog" data-i18n-aria-label="a11y.cookieConsent" hidden>
   <div class="cb-text">
     Мы используем cookie и Яндекс.Метрику, чтобы понять, какие материалы полезны.
     Аналитика включается только после вашего согласия.

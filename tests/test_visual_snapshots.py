@@ -28,12 +28,34 @@ WebKit (Safari iOS, Mobile Safari). Firefox отложен.
 Как запускать
 -------------
     python -m http.server 8000 --directory docs     # из корня репозитория
-    pytest -q -m snapshots                          # проверка (37 тестов, ~100 с)
-    $env:UPDATE_SNAPSHOTS="1"; pytest -q -m snapshots   # перезаписать эталоны
+    $env:RUN_SNAPSHOTS="1"; pytest -q -m snapshots   # проверка (76 тестов, ~4 мин)
+    $env:UPDATE_SNAPSHOTS="1"; pytest -q -m snapshots   # перезаписать ВСЕ эталоны
+    $env:UPDATE_SNAPSHOTS="modal-index,cookie-banner"; pytest -q -m snapshots
     python scripts/compress_snapshots.py --apply    # ужать эталоны (lossless)
 
 В addopts стоит `-m "not snapshots"`, поэтому обычный `pytest -q` снапшоты
 не запускает. Адрес сервера переопределяется: SNAPSHOT_BASE_URL=http://localhost:8020
+
+Обновление эталонов — поимённо (#98, F-18)
+-------------------------------------------
+Раньше `UPDATE_SNAPSHOTS=1` был единственным режимом и перезаписывал
+все 76 снимков разом. Один опечатанный токен стиля молча переписывал
+весь набор эталонов, и правка выглядела успешной, пока картинки не
+сравнивали вручную. Теперь переменная понимает три режима:
+
+  * не задана или `0` — ничего не перезаписывать;
+  * `1` или `all` — перезаписать всё (прежнее поведение);
+  * список имён через запятую — перезаписать ТОЛЬКО перечисленные.
+
+Список сравнивается вхождением подстроки, то есть
+`UPDATE_SNAPSHOTS="modal-index,sup-omega-3"`. Неперечисленные снимки
+того же прогона сравниваются как обычно: можно обновить один эталон и
+тут же увидеть, что остальные не поехали.
+
+В выборочном режиме тест ПАДАЕТ сразу после перезаписи и печатает,
+какие файлы заменены. Это намеренно: перезаписанный эталон обязан
+увидеть человек, а не прогон. Затем прогон повторяют без
+`UPDATE_SNAPSHOTS`, и он уже сравнивает новое со старым.
 
 Что делается перед съёмкой и почему (всё измерено, не предположено)
 -------------------------------------------------------------------
@@ -69,8 +91,8 @@ WebKit (Safari iOS, Mobile Safari). Firefox отложен.
 6. Шрифт Inter грузится с Google Fonts, поэтому эталоны привязаны к этой
    машине. Без сети Inter не применится и разойдутся ВСЕ эталоны. Это
    осознанно: отключать шрифт — значит снимать не то, что видит пользователь.
-7. index.html на 412px = 38321px высотой (замерено). Chromium такие снимки
-   делает: PNG 412x38321 получен, ошибки нет.
+7. index.html на 412px = 42041px высотой (замерено). Chromium такие снимки
+   делает: PNG 412x42041 получен, ошибки нет.
 
 Порог: СТРОГИЙ, любое расхождение пикселей валит прогон (см. DIFF_TOL_PCT).
 Замеренный шум на чистом коде — ровно ноль, запас нулевой, мягкий порог
@@ -92,7 +114,37 @@ SNAPSHOT_ROOT = Path(__file__).resolve().parent / "snapshots"
 BROWSERS = ("chromium", "webkit")   # Firefox отложен: 1.2% трафика РФ
 
 BASE_URL = os.environ.get("SNAPSHOT_BASE_URL", "http://localhost:8000").rstrip("/")
-UPDATE = os.environ.get("UPDATE_SNAPSHOTS") == "1"
+
+
+def _parse_update(raw: str | None) -> tuple[str, tuple[str, ...]]:
+    """-> (режим, подстроки-селекторы).
+
+    Режимы: "off", "all", "select". Значение разбирается один раз на
+    импорте, а не в каждом снимке, иначе опечатка в переменной
+    окружения выглядела бы по-разному в середине прогона.
+    """
+    value = (raw or "").strip()
+    if not value or value == "0":
+        return "off", ()
+    if value == "1" or value.lower() == "all":
+        return "all", ()
+    parts = tuple(p.strip() for p in value.split(",") if p.strip())
+    if not parts:
+        # Запятые без имён — опечатка, а не «обновить всё».
+        return "off", ()
+    return "select", parts
+
+
+UPDATE_MODE, UPDATE_SELECTORS = _parse_update(os.environ.get("UPDATE_SNAPSHOTS"))
+
+
+def _should_update(name: str) -> bool:
+    """Обновлять ли этот снимок при текущем режиме UPDATE_SNAPSHOTS."""
+    if UPDATE_MODE == "off":
+        return False
+    if UPDATE_MODE == "all":
+        return True
+    return any(part in name for part in UPDATE_SELECTORS)
 
 # 17 страниц сайта + offline.html (автономная, без внешних <link>/<script>).
 PAGES = (
@@ -138,12 +190,61 @@ COMPARE_READY_TIMEOUT_MS = 8000
 # Потолок высоты full-page снимка, заданный самим Playwright, — и он РАЗНЫЙ
 # у движков. Замерено на v5.1.6: webkit отказывается снимать страницу выше
 # 32767 px («Cannot take screenshot larger than 32767 pixels on any
-# dimension»), тогда как chromium спокойно отдаёт index@412 = 38321 px.
-# Единственная страница, которая в webkit не помещается, — index@412
-# (37402 px). Chromium в таблице не указан сознательно: его предел не
-# измерен и для наших высот не достигается, а выдумывать число хуже, чем
-# не задавать ограничения.
+# dimension»), тогда как chromium спокойно отдаёт index@412 целиком.
+# Chromium в таблице не указан сознательно: его предел не измерен и для
+# наших высот не достигается, а выдумывать число хуже, чем не задавать
+# ограничения.
 FULL_PAGE_CAP_PX = {"webkit": 32767}
+
+# F-19 (#31): комбинации, не помещающиеся в потолок движка, объявлены явно.
+#
+# Раньше это был просто skip внутри _capture, и дыра в покрытии была
+# невидима: прогон показывал зелёным, а страница на самом деле не
+# проверялась. Теперь высота сверяется с замеренной (расхождение больше
+# 2 % падает), пропуск разрешён только для перечисленных здесь пар и
+# только если тайловая съёмка не удалась.
+#
+# Потолок измерен, а не выдуман (13.10.2026, замер на этой машине):
+# webkit 26.6 отказывается снимать страницу выше 32767 px в ЛЮБОМ
+# измерении — и при `full_page=True`, и при `clip` с height=32768:
+# "Page.screenshot: Cannot take screenshot larger than 32767 pixels on
+# any dimension". chromium 153 берёт ту же страницу целиком (42041 px).
+#
+# Обход есть, и он проверен на сходство, а не на глаз: Playwright умеет
+# снять фрагмент всей страницы через `clip` + `full_page=True`, и такой
+# тайл потолка не превышает. Прежняя запись в этом файле утверждала, что
+# тайлы непригодны из-за `position: sticky` у .site-header
+# (docs/style.css:749) — но это верно только для съёмки скроллом. `clip`
+# не скроллит: страница не меняет состояния, липкая шапка рисуется один
+# раз, в своём естественном месте. Контрольный замер: в хроме снимок,
+# сшитый из двух тайлов (30000 + 12041), совпал с честным full_page —
+# НОЛЬ пикселей расхождения при пороге канала 8.
+#
+# Формат: (страница, ширина) -> (замеренная высота, причина).
+KNOWN_UNCOVERED = {
+    ("index", 412): (
+        42937,
+        "index@412 = 42937 px при потолке webkit 32767 px. Обходится"
+        " тайлами (clip + full_page): эталон webkit/index-412.png есть"
+        " и проходит. Запись осталась гейтом высоты и страховкой на"
+        " случай, если тайловая съёмка перестанет работать. В chromium"
+        " та же страница снимается целиком (там потолка нет, поэтому"
+        " гейт вызывается только под webkit)."
+        " Число перемерено 14.10.2026 (батч 8B, MKT-P1-03): прежняя"
+        " запись 42044 px была верна для v5.1.6, потом разошлась на 12 %"
+        " — гейт это поймал, — а к 14.10.2026 расхождение дошло до 1.7 %"
+        " при допуске 2 %, то есть запас был исчерпан. Добавление одного"
+        " пункта в #whyTrust (соцдоказательства, +160 px) перевело"
+        " расхождение за допуск: 2.1 %."
+        " Контрольная перекрёстная сверка: chromium снимает ту же"
+        " страницу целиком, эталон index-412.png = 42934 px — разница"
+        " 3 px, это та же постоянная разница движков, что и до правки"
+        " (42772 против 42776 на HEAD).",
+    ),
+}
+
+#: Допуск на сверку записанной высоты с реальной, в долях.
+HEIGHT_TOLERANCE = 0.02
 NAV_TIMEOUT_MS = 60_000
 CONVERGE_TIMEOUT_MS = 15_000
 
@@ -295,30 +396,40 @@ def _slug(page: str) -> str:
     return page.replace("/", "-")
 
 
+# Файлы-маркеры, по которым сверяется сервер с рабочей копией.
+# Маркеров два, а не один. style.css ловит чужой набор стилей, index.html —
+# чужую разметку. Одной сверки style.css не хватало: правка HTML без правки
+# CSS проходила молча, и на :8000 отдавался другой клон проекта — прогоны
+# выглядели успешными, а мерили не тот код (reports/V561_P1_BATCH.md,
+# находка 1: два ложных «76 passed» подряд).
+SERVER_PROBE_FILES = ("style.css", "index.html")
+
+
 def _check_server() -> None:
     """Сервер обязан отдавать файлы ИМЕННО ЭТОГО репозитория.
 
     Иначе тест молча сравнивал бы страницы из другой копии проекта: правка в
     docs/ не попала бы в снимок, эталон «прошёл бы», а страница на самом деле
     поехала. Это ровно тот класс ложной находки, который запрещён правилом
-    верификации проекта, поэтому сверяем хэш style.css.
+    верификации проекта, поэтому сверяем хэши файлов-маркеров.
     """
-    try:
-        with urllib.request.urlopen(f"{BASE_URL}/style.css", timeout=10) as resp:
-            served = resp.read()
-    except Exception as exc:  # noqa: BLE001 — причина попадёт в текст skip
-        pytest.skip(
-            f"Нет {BASE_URL} ({exc}). Запусти: "
-            f"python -m http.server 8000 --directory docs  (из корня репозитория)"
-        )
-    local = (ROOT / "docs" / "style.css").read_bytes()
-    if hashlib.sha256(served).hexdigest() != hashlib.sha256(local).hexdigest():
-        pytest.skip(
-            f"{BASE_URL} отдаёт ЧУЖУЮ копию проекта (style.css не совпал с "
-            f"{ROOT / 'docs' / 'style.css'}). Эталоны были бы сравнением "
-            f"не с тем кодом, который меняется. Запусти сервер из этого "
-            f"репозитория или укажи SNAPSHOT_BASE_URL."
-        )
+    for name in SERVER_PROBE_FILES:
+        try:
+            with urllib.request.urlopen(f"{BASE_URL}/{name}", timeout=10) as resp:
+                served = resp.read()
+        except Exception as exc:  # noqa: BLE001 — причина попадёт в текст skip
+            pytest.skip(
+                f"Нет {BASE_URL} ({exc}). Запусти: "
+                f"python -m http.server 8000 --directory docs  (из корня репозитория)"
+            )
+        local = (ROOT / "docs" / name).read_bytes()
+        if hashlib.sha256(served).hexdigest() != hashlib.sha256(local).hexdigest():
+            pytest.skip(
+                f"{BASE_URL} отдаёт ЧУЖУЮ копию проекта ({name} не совпал с "
+                f"{ROOT / 'docs' / name}). Эталоны были бы сравнением "
+                f"не с тем кодом, который меняется. Запусти сервер из этого "
+                f"репозитория или укажи SNAPSHOT_BASE_URL."
+            )
 
 
 @pytest.fixture(scope="session", params=BROWSERS, ids=lambda b: b)
@@ -514,10 +625,18 @@ def _capture(page, page_name: str, *, full_page: bool) -> bytes:
     # Маскировка версии — после того как version.js подставил значение.
     # Без неё смена app в docs/version.json роняет ~50 эталонов (версия
     # выводится дважды на каждой странице: в .site-title и в <footer>).
+    # Ключ tests — тот же случай: docs/index.html:317 печатает «тестов: N»
+    # прямо в плашке, и число растёт от КАЖДОГО нового теста, а не от правки
+    # вёрстки. Без маскировки добавление одного файла с тестами роняло бы
+    # три эталона index и требовало пересъёмки — ровно та беговая дорожка,
+    # ради которой снят F-18 (#98).
     page.evaluate(
         """() => {
-            document.querySelectorAll('[data-version="app"]').forEach(el => {
-                el.textContent = 'vX.X.X';
+            document.querySelectorAll(
+                '[data-version="app"],[data-version="tests"]'
+            ).forEach(el => {
+                el.textContent = el.dataset.version === 'app'
+                    ? 'vX.X.X' : 'vNNN';
             });
         }"""
     )
@@ -531,17 +650,100 @@ def _capture(page, page_name: str, *, full_page: bool) -> bytes:
                                   document.body.scrollHeight)"""
             )
             if sh > cap:
-                pytest.skip(
-                    f"[{engine}] {url} не помещается в full-page снимок: "
-                    f"высота {sh} px при потолке Playwright {cap} px. "
-                    f"Это ограничение движка, не регрессия вёрстки: на "
-                    f"index@412 высота {sh} px против ~38 000 px в chromium, "
-                    f"и там страница снимается целиком. Чтобы покрыть эту "
-                    f"страницу в webkit, нужен другой способ съёмки "
-                    f"(тайлы по вертикали или снимок только шапки) — это "
-                    f"отдельная задача, а не молчаливое урезание эталона."
-                )
+                _assert_declared_gap(
+                    page_name, page.viewport_size["width"],
+                    engine, sh, cap, url)
+                return _capture_tiled(page, sh, cap, engine, url)
     return page.screenshot(full_page=full_page)
+
+
+def _capture_tiled(page, measured: int, cap: int, engine: str,
+                   url: str) -> bytes:
+    """Снимок страницы выше потолка движка — тайлами `clip` + `full_page`.
+
+    Ключевое отличие от съёмки скроллом: `clip` НЕ скроллит страницу.
+    Состояние страницы не меняется, поэтому липкий `.site-header`
+    (`position: sticky`, docs/style.css:749) попадает в снимок ровно
+    один раз — ровно как в честном full_page, и ровно в своём
+    естественном месте. Именно поэтому «липкая шапка» не является
+    причиной отказаться от тайлов: она мешает только при прокрутке.
+
+    Сходство метода проверено измерением, а не предположено: в хроме,
+    где доступны оба способа, снимок, сшитый из двух тайлов
+    (30000 + 12041 = 42041 px), совпал с `full_page=True` без единого
+    различающегося пикселя (порог канала 8).
+
+    Высота тайла взята равной потолку движка — это последнее значение,
+    которое webkit ещё согласился отдать (clip 32767 проходит, 32768
+    падает), поэтому запас не вычитается.
+    """
+    width = page.viewport_size["width"]
+    tiles: list[bytes] = []
+    y = 0
+    while y < measured:
+        h = min(cap, measured - y)
+        try:
+            png = page.screenshot(
+                clip={"x": 0, "y": y, "width": width, "height": h},
+                full_page=True,
+            )
+        except Exception as e:                       # noqa: BLE001
+            # Потолок не обошёлся — честный skip с причиной, а не падение
+            # и не тихое урезание эталона. Комбинация уже объявлена в
+            # KNOWN_UNCOVERED и её высота только что сверена.
+            pytest.skip(
+                f"[{engine}] {url} не помещается в full-page снимок "
+                f"({measured} px при потолке {cap} px) И не берётся "
+                f"тайлами: {type(e).__name__}: {str(e).splitlines()[0][:120]}. "
+                f"Комбинация объявлена в KNOWN_UNCOVERED, высота сверена. "
+                f"Это ограничение движка, а не регрессия вёрстки — и не "
+                f"повод молча урезать эталон."
+            )
+        tiles.append(png)
+        y += h
+
+    strip = [np.asarray(_decode(t), dtype=np.uint8) for t in tiles]
+    stitched = np.concatenate(strip, axis=0)
+    assert stitched.shape[0] == measured, (
+        f"[{engine}] {url}: сшито {stitched.shape[0]} px из {len(tiles)} "
+        f"тайлов, а замерено {measured} px — тайлов не хватило или "
+        f"страница сдвинулась между замером и съёмкой"
+    )
+    out = io.BytesIO()
+    PIL_Image.fromarray(stitched).save(out, format="PNG")
+    return out.getvalue()
+
+
+def _assert_declared_gap(page_name: str, width: int, engine: str,
+                         measured: int, cap: int, url: str) -> None:
+    """Непокрытая комбинация обязана быть объявлена, и высота — верной.
+
+    Проверка отрицательного примера обязательна: гейт, который считает
+    «что чему соответствует», обязан падать, когда не соответствует.
+    «гейт,  который  считает,  обязан  падать,  обязан  падать,  когда  не  соответствует  неправдлу.  Резко  так пошёл
+    """
+    key = (page_name, width)
+    entry = KNOWN_UNCOVERED.get(key)
+    if entry is None:
+        pytest.fail(
+            f"[{engine}] {url} не помещается в full-page снимок "
+            f"({measured} px при потолке {cap} px), но пара {key} не "
+            f"объявлена в KNOWN_UNCOVERED. Дыра в покрытии возникла "
+            f"внезапно — так бывает после правки вёрстки, увеличившей "
+            f"страницу. Снимок будет снят тайлами (см. _capture_tiled), "
+            f"но без записи в KNOWN_UNCOVERED это будет первый такой "
+            f"случай без гейта высоты. Внеси пару с замеренной "
+            f"высотой и причиной. Молчаливый пропуск здесь выглядит "
+            f"как «страница проверена», а она не проверена."
+        )
+    recorded, reason = entry
+    drift = abs(measured - recorded) / recorded
+    assert drift <= HEIGHT_TOLERANCE, (
+        f"[{engine}] {url}: высота {measured} px разошлась с записанной "
+        f"{recorded} px на {drift:.1%} (допуск {HEIGHT_TOLERANCE:.0%}). "
+        f"Запись в KNOWN_UNCOVERED устарела — перемерь и обнови её. "
+        f"Причина, записанная там же: {reason}"
+    )
 
 
 # ─────────────────────────── сравнение ───────────────────────────
@@ -550,12 +752,81 @@ def _decode(png: bytes):
     return PIL_Image.open(io.BytesIO(png)).convert("RGB")
 
 
-def _compare(actual_png: bytes, expected_png: bytes):
+#: Маску углов включают только для этого снимка и только явно (см.
+#: `corner_radius=` в test_cookie_banner_visible_first_visit). Список —
+#: чтобы случайно не расширить её на остальные 75 снимков: они снимаются
+#: постранично, углы у страниц прямые, и исключать там нечего.
+CORNER_MASK_NAMES = ("cookie-banner",)
+
+
+def _rounded_rect_mask(height: int, width: int, radius: float):
+    """-> булева массив (h, w): True = пиксель ВНУТРИ скруглённого прямоугольника.
+
+    Зачем (батч 7, MKT-P1-01)
+    -------------------------
+    `locator.screenshot()` клипает по bounding box элемента, а не по его
+    отрисованной форме. Поэтому часть бокса внутри, но ЗА дугой
+    `border-radius` — это вовсе не пиксели элемента, а то, что лежит под
+    ним на странице. Для `#cookieBanner` (position:fixed, внизу вьюпорта)
+    под углами оказывается произвольное содержимое index.html, и оно
+    меняется от правки ЛЮБОЙ части страницы выше баннера: добавление
+    строки-слогана сдвинуло поток и дало 86 расходящихся пикселей ровно
+    по дугам, при неподвижном боксе (x=280, y=786, 720x98 — как в эталоне).
+
+    То есть эталон зависел от высоты страницы, а баннер к ней отношения не
+    имеет. Маска убирает ровно эту зависимость, не ослабляя глобальный
+    DIFF_TOL_PCT и не перезаписывая эталон: сравниваются только пиксели,
+    которые действительно принадлежат баннеру.
+    """
+    inside = np.ones((height, width), dtype=bool)
+    r = float(radius)
+    if r <= 0:
+        return inside
+    r = min(r, width / 2.0, height / 2.0)
+    xs = np.arange(width) + 0.5
+    ys = np.arange(height) + 0.5
+    # Пиксель вне формы, если он и по горизонтали, и по вертикали дальше
+    # радиуса от центра дуги И расстояние до центра больше радиуса.
+    for dx in (r - xs, xs - (width - r)):
+        for dy in (r - ys, ys - (height - r)):
+            # Маска строится как (height, width): dx — по колонкам, dy — по
+            # строкам. Перепутать оси здесь нельзя: np.ones((h, w)) принял
+            # бы (w, h) и упал бы на broadcast с непонятным сообщением.
+            outside = ((dx > 0)[None, :] & (dy > 0)[:, None]
+                       & (dx[None, :] ** 2 + dy[:, None] ** 2 > r * r))
+            inside &= ~outside
+    return inside
+
+
+def _corner_radius(page, selector: str) -> float:
+    """Радиус скругления элемента в пикселях, максимум по четырём углам.
+
+    Берётся максимум, а не только левый верхний: если у элемента углы
+    разные, маска по меньшему оставила бы чужие пиксели в сравнении.
+    Неразобранное значение (проценты, calc) даёт 0 — тогда маска пустая и
+    сравнение ведётся как раньше, то есть гейт не ослабевает молча.
+    """
+    values = page.evaluate(
+        """(sel) => {
+            const cs = getComputedStyle(document.querySelector(sel));
+            return ['borderTopLeftRadius', 'borderTopRightRadius',
+                    'borderBottomLeftRadius', 'borderBottomRightRadius']
+                .map(k => parseFloat(cs[k]));
+        }""", selector)
+    parsed = [v for v in values if v == v and v > 0]
+    return max(parsed) if parsed else 0.0
+
+
+def _compare(actual_png: bytes, expected_png: bytes, corner_radius: float = 0.0):
     """-> (процент, bbox или None, n_различающихся, размеры или None).
 
     Разные размеры = страница стала выше/ниже. Это самый сильный сигнал
     из возможных, поэтому возвращается 100% и размеры: «высота поехала на
     2px» полезнее, чем безликое «расхождение 100%».
+
+    `corner_radius` > 0 исключает из сравнения пиксели за дугой
+    скругления — они принадлежат странице, а не элементу (см.
+    `_rounded_rect_mask`). По умолчанию 0: маска выключена.
     """
     a, e = _decode(actual_png), _decode(expected_png)
     if a.size != e.size:
@@ -564,6 +835,8 @@ def _compare(actual_png: bytes, expected_png: bytes):
     ev = np.asarray(e, dtype=np.int16)
     d = np.abs(av - ev).max(axis=2)
     mask = d > CHANNEL_TOL
+    if corner_radius > 0:
+        mask &= _rounded_rect_mask(a.size[1], a.size[0], corner_radius)
     n = int(mask.sum())
     if not n:
         return 0.0, None, 0, None
@@ -573,7 +846,7 @@ def _compare(actual_png: bytes, expected_png: bytes):
 
 
 def _write_artifacts(name: str, actual_png: bytes, expected_png: bytes,
-                     art_dir: Path) -> list[str]:
+                     art_dir: Path, corner_radius: float = 0.0) -> list[str]:
     ART_DIR = art_dir
     ART_DIR.mkdir(parents=True, exist_ok=True)
     # `!.gitignore` обязателен: без него правило `*` игнорирует сам .gitignore,
@@ -590,6 +863,8 @@ def _write_artifacts(name: str, actual_png: bytes, expected_png: bytes,
         av = np.asarray(a, dtype=np.int16)
         ev = np.asarray(e, dtype=np.int16)
         mask = np.abs(av - ev).max(axis=2) > CHANNEL_TOL
+        if corner_radius > 0:
+            mask &= _rounded_rect_mask(a.size[1], a.size[0], corner_radius)
         heat = np.array(e, dtype=np.uint8).copy()
         heat[mask] = [255, 0, 0]
         p = ART_DIR / f"{name}.diff.png"
@@ -598,33 +873,93 @@ def _write_artifacts(name: str, actual_png: bytes, expected_png: bytes,
     return written
 
 
-def _assert_snapshot(name: str, actual_png: bytes, snap_dir: Path) -> None:
+REWRITTEN: list[str] = []
+
+
+def _assert_snapshot(name: str, actual_png: bytes, snap_dir: Path,
+                     corner_radius: float = 0.0) -> None:
+    """Сравнить снимок с эталоном или перезаписать эталон.
+
+    Перезапись разрешена поимённо (F-18, #98). Прежде `UPDATE_SNAPSHOTS=1`
+    был единственным режимом и затирал весь набор молча: опечатка в одном
+    токене стиля выглядела как успешная правка, пока картинки не
+    сравнивали глазами. Теперь переменная окружения принимает список имён,
+    и в выборочном режиме прогон падает с перечнем заменённых файлов —
+    замену обязан увидеть человек.
+
+    В режиме `all` поведение прежнее: молча переписать всё. Это осознанно
+    и описано в докстринге файла — полная пересъёмка нужна редко и
+    намеренно, а не по недосмотру в переменной окружения.
+
+    `corner_radius` > 0 — opt-in маска углов (см. `_rounded_rect_mask`).
+    Принимается только для снимков из `CORNER_MASK_NAMES`: иначе маска
+    молча ослабила бы чужой снимок, а это ровно тот класс ошибки, который
+    гейт чисел в скиллах уже ловил дважды.
+    """
     path = snap_dir / f"{name}.png"
-    if UPDATE or not path.exists():
+
+    if corner_radius > 0 and name not in CORNER_MASK_NAMES:
+        raise AssertionError(
+            f"Маска углов передана для снимка {name!r}, которого нет в "
+            f"CORNER_MASK_NAMES={CORNER_MASK_NAMES}. Добавь снимок в список "
+            f"осознанно или убери corner_radius="
+        )
+
+    if _should_update(name):
+        snap_dir.mkdir(parents=True, exist_ok=True)
+        existed = path.exists()
+        path.write_bytes(actual_png)
+        REWRITTEN.append(f"{path} ({'заменён' if existed else 'создан'}, "
+                         f"{path.stat().st_size / 1024:.0f} КБ)")
+        return
+
+    if not path.exists():
         snap_dir.mkdir(parents=True, exist_ok=True)
         path.write_bytes(actual_png)
         size_kb = path.stat().st_size / 1024
-        if not UPDATE:
-            pytest.fail(f"Эталон {name} создан ({size_kb:.0f} КБ). Посмотри его "
-                        f"в глаза — потом он станет базой. Повтори прогон.")
-        return
-    pct, bbox, n, sizes = _compare(actual_png, path.read_bytes())
+        pytest.fail(f"Эталон {name} создан ({size_kb:.0f} КБ). Посмотри его "
+                    f"в глаза — потом он станет базой. Повтори прогон.")
+
+    pct, bbox, n, sizes = _compare(actual_png, path.read_bytes(),
+                                   corner_radius)
     if pct <= DIFF_TOL_PCT:
         return
     files = _write_artifacts(name, actual_png, path.read_bytes(),
-                             snap_dir / "_actual")
+                             snap_dir / "_actual", corner_radius)
     if sizes:
         why = (f"размер страницы изменился: стало {sizes[0][0]}x{sizes[0][1]}, "
                f"эталон {sizes[1][0]}x{sizes[1][1]} — это само по себе причина "
                f"остановиться, а не «100% пикселей»")
     else:
         why = f"{n} пикселей, область x[{bbox[0]}..{bbox[2]}] y[{bbox[1]}..{bbox[3]}]"
+    if UPDATE_MODE == "off":
+        hint = (f"    Если правка намеренная — перезапиши ТОЛЬКО этот эталон:\n"
+                f"    $env:UPDATE_SNAPSHOTS='{name}'; pytest -q -m snapshots")
+    else:
+        hint = (f"    Если правка намеренная — перезапиши эталон:\n"
+                f"    $env:UPDATE_SNAPSHOTS='1'; pytest -q -m snapshots")
     pytest.fail(f"[{snap_dir.name}] {name}: расхождение {pct:.3f}% при пороге "
                 f"{DIFF_TOL_PCT}%\n"
                 f"    {why}\n    эталон: {path}\n"
                 f"    артефакты: {', '.join(files)}\n"
-                f"    Если правка намеренная — перезапиши эталон:\n"
-                f"    $env:UPDATE_SNAPSHOTS='1'; pytest -q -m snapshots")
+                f"    {hint}")
+
+
+def pytest_terminal_summary(terminalreporter) -> None:
+    """Показать перечень перезаписанных эталонов.
+
+    Без этого выборочное обновление выглядит как обычный зелёный прогон,
+    а перезаписанный файл никто не открывает — ровно та проблема, ради
+    которой F-18 и выделялся в отдельную правку.
+    """
+    if not REWRITTEN:
+        return
+    terminalreporter.write_sep("=", "эталоны перезаписаны")
+    for line in REWRITTEN:
+        terminalreporter.write_line(f"  {line}")
+    terminalreporter.write_line(
+        "  Посмотри их глазами и повтори прогон без UPDATE_SNAPSHOTS — "
+        "тогда он сравнит новое со старым.")
 
 
 # ─────────────────────────── тесты ───────────────────────────
@@ -672,8 +1007,11 @@ def test_modal_index_snapshot(_env_checked, browser, snap_dir):
         # Маскировка версии — см. комментарий в _capture выше.
         page.evaluate(
             """() => {
-                document.querySelectorAll('[data-version="app"]').forEach(el => {
-                    el.textContent = 'vX.X.X';
+                document.querySelectorAll(
+                    '[data-version="app"],[data-version="tests"]'
+                ).forEach(el => {
+                    el.textContent = el.dataset.version === 'app'
+                        ? 'vX.X.X' : 'vNNN';
                 });
             }"""
         )
@@ -714,6 +1052,14 @@ def test_cookie_banner_visible_first_visit(_env_checked, browser, snap_dir):
     Эталон баннера отдельный НЕ для красоты: пока он один на движок,
     правка текста или стилей баннер горёт только своим снимком, а не 73
     страничными (именно поэтому страницы снимаются с 'rejected').
+
+    Маска углов (батч 7): сравнение идёт по пикселям ВНУТРИ дуги
+    `border-radius`. Без неё эталон зависел от того, что лежит под
+    баннером, а под ним — содержимое index.html: добавление строки-слогана
+    (MKT-P1-01) сдвинуло поток страницы и дало 86 расходящихся пикселей
+    ровно по дугам, при боксе, совпадающем с эталоном до пикселя. Радиус
+    снимается с элемента на момент съёмки, а не константой из CSS — иначе
+    правка скругления снова рассинхронизирует маску с реальностью.
     """
     ctx = browser.new_context(viewport={"width": 1280, "height": 900},
                               service_workers="block", reduced_motion="reduce",
@@ -743,7 +1089,8 @@ def test_cookie_banner_visible_first_visit(_env_checked, browser, snap_dir):
             "приватности: " + ", ".join(yandex[:3])
         )
 
-        _assert_snapshot("cookie-banner", banner.screenshot(), snap_dir)
+        _assert_snapshot("cookie-banner", banner.screenshot(), snap_dir,
+                         _corner_radius(page, "#cookieBanner"))
 
         # «Принять» — и только теперь Метрика имеет право стартовать.
         page.click("#cookieAccept")

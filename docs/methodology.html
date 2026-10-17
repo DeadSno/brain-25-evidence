@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+  <meta charset="utf-8">
   <script defer src="version.js?v=312"></script>
-<meta charset="utf-8">
+  <script src="i18n.js?v=2"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#1c1c1e" media="(prefers-color-scheme: dark)">
-<title>Методология — как мы оцениваем БАДы | Brain 25 Evidence</title>
+<title>Методология — как мы оцениваем БАДы — Brain 25 Evidence</title>
 <meta name="description" content="Методология проекта: как отбираются публикации PubMed, считается индекс доказательности scienceIndex, присваиваются грейды A-D и вердикты."/>
 <script>
 // v5.4.0 (dark-first): тёмная тема — это ОТСУТСТВИЕ класса light.
@@ -18,7 +19,7 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=423"/>
+<link rel="stylesheet" href="style.css?v=435"/>
 <style>
   /* P2-10 / v5.6.2 батч C (V1): локальное «h2 { font-size: 1.125rem }»
      удалено — значение переехало в общий токен style.css. Источник
@@ -34,7 +35,7 @@ try {
     // то есть класс задавался явно; теперь тёмная — это его отсутствие.
     if (light) { document.body.classList.add('light'); }
       var b = document.getElementById('themeBtn');
-      if (b) b.textContent = light ? '🌙 Тёмная тема' : '🌞 Светлая тема';
+      if (b) b.textContent = light ? t("theme.dark") : t("theme.light");
     });
   } catch (e) {}
 </script>
@@ -42,14 +43,24 @@ try {
     <meta property="og:url" content="https://deadsno.github.io/brain-25-evidence/methodology.html">
     <link rel="canonical" href="https://deadsno.github.io/brain-25-evidence/methodology.html">
     <link rel="alternate" type="application/rss+xml" title="brain-25-evidence" href="https://deadsno.github.io/brain-25-evidence/feed.xml">
-    <meta property="og:title" content="Методология — как мы присваиваем грейды">
-    <meta property="og:description" content="Как работает Brain 25 Evidence: PRISMA-аудит, ручная вычитка мета-анализов, грейды A/B/C/D, наукометрия по 130 добавкам.">
+    <meta property="og:title" content="Методология — как мы оцениваем БАДы — Brain 25 Evidence">
+    <meta property="og:description" content="Методология проекта: как отбираются публикации PubMed, считается индекс доказательности scienceIndex, присваиваются грейды A-D и вердикты.">
     <meta property="og:image" content="https://deadsno.github.io/brain-25-evidence/og.png">
     <meta property="og:site_name" content="Brain 25 Evidence">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Методология — как мы присваиваем грейды">
-    <meta name="twitter:description" content="Как работает Brain 25 Evidence: PRISMA-аудит, ручная вычитка мета-анализов, грейды A/B/C/D, наукометрия по 130 добавкам.">
+    <meta name="twitter:title" content="Методология — как мы оцениваем БАДы — Brain 25 Evidence">
+    <meta name="twitter:description" content="Методология проекта: как отбираются публикации PubMed, считается индекс доказательности scienceIndex, присваиваются грейды A-D и вердикты.">
     <meta name="twitter:image" content="https://deadsno.github.io/brain-25-evidence/og.png">
+<script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Методология",
+      "description": "Методология проекта: как отбираются публикации PubMed, считается индекс доказательности scienceIndex, присваиваются грейды A-D и вердикты.",
+      "url": "https://deadsno.github.io/brain-25-evidence/methodology.html",
+      "inLanguage": "ru"
+    }
+    </script>
 </head>
 <body>
 <a href="#main" class="skip-link">Перейти к содержимому</a>
@@ -57,7 +68,7 @@ try {
   <div class="trustbar">🧬 Открытые данные · Бесплатно · Без рекламы</div>
   <header class="top">
     <div class="site-title"><a href="index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a> <span class="v">v<span data-version="app"></span></span></div>
-    <nav class="actions" aria-label="Главная навигация">
+    <nav class="actions" data-i18n-aria-label="a11y.navMain">
       <a class="btn c-calc" href="calculator.html">🧮 Калькулятор</a>
       <a class="btn c-mech" href="map.html">🧩 Механизмы</a>
       <a class="btn c-links" href="interactions.html">🔗 Связи</a>
@@ -94,7 +105,7 @@ try {
 <section style="background:var(--card-bg);padding:1.5rem;border-radius:12px;border:1px solid var(--border);margin-bottom:1.5rem">
 <h2>PRISMA-воронка</h2>
 <p>Для каждой добавки мы проходим через стандартную воронку систематического обзора:</p>
-<pre style="background:var(--card-bg);padding:1rem;border-radius:8px;overflow-x:auto;font-size:.85rem;line-height:1.6">
+<pre tabindex="0" style="background:var(--card-bg);padding:1rem;border-radius:8px;overflow-x:auto;font-size:.85rem;line-height:1.6">
 Найдено: 100-500 статей (PubMed: MA + SR)
     ↓
 Скрининг: 20-100 релевантных (фильтр по заголовкам)
@@ -195,7 +206,8 @@ try {
     <a href="methodology.html">📐 Методология</a> ·
     <a href="faq.html">❓ FAQ</a> ·
     <a href="glossary.html">📖 Глоссарий</a> ·
-    <a href="privacy.html">🔐 Приватность</a>
+    <a href="privacy.html">🔐 Приватность</a> ·
+    <a href="feed.xml">📡 RSS</a>
   </p>
   <p class="copy">© 2026 Vladislav "DeadSno" Pereshivalov · MIT</p>
   <p class="share-row"><button class="btn share-page" type="button">🔗 Поделиться</button></p>
@@ -210,11 +222,11 @@ $('themeBtn').onclick = () => {
     const light = !document.documentElement.classList.contains('light');
     document.documentElement.classList.toggle('light', light);
     document.body.classList.toggle('light', light);
-  $('themeBtn').textContent = light ? '🌙 Тёмная тема' : '🌞 Светлая тема';
+  $('themeBtn').textContent = light ? t("theme.dark") : t("theme.light");
     localStorage.setItem('theme', light ? 'light' : 'dark');
 };
 </script>
-<button class="toBottom" id="toBottom" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})" title="Вниз" aria-label="Прокрутить страницу вниз">↓</button>
+<button class="toBottom" id="toBottom" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})" data-i18n-title="btn.scrollDown" data-i18n-aria-label="a11y.scrollDown">↓</button>
 <script>
 window.addEventListener('scroll', () => {
   const btn = document.getElementById('toBottom');
@@ -235,7 +247,7 @@ window.addEventListener('scroll', () => {
 <!-- v5.6.2: cookie-согласие + Яндекс.Метрика (счётчик 112465667).
      Метрика грузится ТОЛЬКО после нажатия «Принять»: до согласия
      ни одного запроса к mc.yandex.ru не происходит. -->
-<div id="cookieBanner" role="dialog" aria-label="Согласие на использование cookie" hidden>
+<div id="cookieBanner" role="dialog" data-i18n-aria-label="a11y.cookieConsent" hidden>
   <div class="cb-text">
     Мы используем cookie и Яндекс.Метрику, чтобы понять, какие материалы полезны.
     Аналитика включается только после вашего согласия.

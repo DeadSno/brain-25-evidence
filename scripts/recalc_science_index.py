@@ -1,4 +1,4 @@
-"""Пересчитывает rct, metaCount, scienceIndex для 81 карточки.
+"""Пересчитывает rct, metaCount, scienceIndex для всех карточек.
 
 Методика (2026-09):
     base = pubmed_term без AND (outcome)
@@ -7,8 +7,11 @@
     scienceIndex = rct + 5 × metaCount
 
 Использование:
-    python scripts/recalc_science_index.py --dry-run
-    python scripts/recalc_science_index.py --apply
+    python scripts/recalc_science_index.py            # сухой прогон, ничего не пишет
+    python scripts/recalc_science_index.py --apply    # записать в data.json
+
+Отдельного флага для сухого прогона нет и не нужно: запись выключена
+по умолчанию, поэтому сухой прогон — это просто запуск без `--apply`.
 """
 from __future__ import annotations
 

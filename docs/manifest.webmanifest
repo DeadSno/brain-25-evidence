@@ -1,11 +1,12 @@
 {
   "name": "БАДы: доказательства и механизмы",
   "short_name": "БАДы",
+  "id": "/brain-25-evidence/",
   "description": "Открытые данные: что работает, что нет. Вердикты, грейды, механизмы, взаимодействия.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
-  "orientation": "portrait-primary",
+  "orientation": "any",
   "lang": "ru",
   "dir": "ltr",
   "background_color": "#1c1c1e",
@@ -16,5 +17,34 @@
     { "src": "./icons/512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
     { "src": "./icons/maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
     { "src": "./icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    {
+      "name": "Тренды популярности",
+      "short_name": "Тренды",
+      "description": "10 лет данных по 130 добавкам: публикации, просмотры, цитирования",
+      "url": "./trends.html",
+      "icons": [
+        { "src": "./icons/192.png", "sizes": "192x192", "type": "image/png" }
+      ]
+    },
+    {
+      "name": "Атлас механизмов",
+      "short_name": "Атлас",
+      "description": "Интерактивная карта механизмов и взаимодействий",
+      "url": "./atlas.html",
+      "icons": [
+        { "src": "./icons/192.png", "sizes": "192x192", "type": "image/png" }
+      ]
+    },
+    {
+      "name": "Глоссарий",
+      "short_name": "Глоссарий",
+      "description": "Что означают грейды, индексы и формулировки вердиктов",
+      "url": "./glossary.html",
+      "icons": [
+        { "src": "./icons/192.png", "sizes": "192x192", "type": "image/png" }
+      ]
+    }
   ]
 }

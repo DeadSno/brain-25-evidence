@@ -61,10 +61,13 @@ from xml.sax.saxutils import escape
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-# slugify и таблицу транслитерации берём у сборщика карточек: если он
-# переедет на другую схему слагов, фид подстроится автоматически, а не
-# разойдётся с docs/sup/ по именам файлов.
-from build_sup import slugify, text  # noqa: E402
+# slugify, таблицу транслитерации и seo_title берём у сборщика карточек.
+# Если он переедет на другую схему слагов, фид подстроится автоматически,
+# а не разойдётся с docs/sup/ по именам файлов. Заголовок — тоже: своя
+# строка «<название> — БАДы, доказательства, механизмы | Brain 25 Evidence»
+# пережила SEO-P1-01 и разошлась со страницами, у которых теперь
+# «<название> — <категория> — Brain 25 Evidence».
+from build_sup import raw_field, seo_title, slugify, text  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 DOCS = ROOT / "docs"
@@ -78,7 +81,7 @@ CHANNEL_TITLE = "brain-25-evidence"
 CHANNEL_DESCRIPTION = "Доказательные данные о БАДах"
 CHANNEL_LANG = "ru"
 
-INDEX_TITLE = "Каталог БАДов: 130 добавок | Brain 25 Evidence"
+INDEX_TITLE = "Каталог БАДов: 130 добавок — Brain 25 Evidence"
 INDEX_DESCRIPTION = (
     "Каталог из 130 БАД: название, категория, вердикт и грейд "
     "доказательности A-D. Карточка ведёт на страницу добавки с "
@@ -116,6 +119,21 @@ def _card_date(rec: dict, slug: str) -> str:
     if not value:
         raise FeedError(f"{slug}: в data.json нет поля 'updated'")
     return str(value)
+
+
+def _card_title(rec: dict) -> str:
+    """Заголовок карточки — тот же, что <title> на docs/sup/{slug}.html.
+
+    Собирается здесь, а не парсится из готовой страницы: собственный
+    заголовок в фиде разошёлся бы с страницей при любой правке шаблона.
+    Единственный источник правды — seo_title() из build_sup.py.
+    """
+    effects = rec.get("effects") or []
+    return seo_title(
+        raw_field(rec.get("name")),
+        raw_field(rec.get("category")),
+        raw_field(effects[0] if effects else ""),
+    )
 
 
 def _last_commit_date(rel_to_docs: str, fallback: str) -> str:
@@ -218,8 +236,7 @@ def collect(commit_date: str | None = None) -> list[dict]:
         card_date = _card_date(rec, slug)
         items.append(
             {
-                "title": f"{name} — БАДы, доказательства, механизмы | "
-                         f"Brain 25 Evidence",
+                "title": _card_title(rec),
                 "link": f"{BASE}sup/{slug}.html",
                 "description": text(rec.get("about")),
                 "date": card_date,

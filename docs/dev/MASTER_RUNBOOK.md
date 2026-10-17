@@ -68,7 +68,7 @@ python scripts\review_evidence.py
 Мусорные MA → править `query` в `data_pubmed_terms.json` + `SUPPLEMENTS` в config.py →
 ```powershell
 python scripts\sync_draft_terms.py
-python scripts\refetch_evidence.py
+python scripts\fetch_evidence_abstracts.py --name "B1"
 ```
 
 **4. Бриф → агент**

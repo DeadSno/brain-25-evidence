@@ -1,6 +1,6 @@
 {
   "version": "v1",
-  "generated_at": "2026-10-11T04:34:03.909672+00:00",
+  "generated_at": "2026-10-14T16:59:26.908037+00:00",
   "count": 130,
   "license": "CC BY 4.0",
   "source": "https://github.com/DeadSno/brain-25-evidence",
@@ -199,7 +199,7 @@
       "scienceIndex": 9791,
       "rct": 4751,
       "metaCount": 1008,
-      "citations": 0
+      "citations": null
     },
     {
       "id": "Витамин D",
@@ -10459,7 +10459,7 @@
       "scienceIndex": 368,
       "rct": 128,
       "metaCount": 48,
-      "citations": null
+      "citations": 631
     },
     {
       "id": "LGG",
@@ -10532,7 +10532,7 @@
       "scienceIndex": 297,
       "rct": 172,
       "metaCount": 25,
-      "citations": null
+      "citations": 386
     },
     {
       "id": "B. lactis",
@@ -10605,7 +10605,7 @@
       "scienceIndex": 588,
       "rct": 463,
       "metaCount": 25,
-      "citations": null
+      "citations": 230
     },
     {
       "id": "DHA",
@@ -10678,7 +10678,7 @@
       "scienceIndex": 3976,
       "rct": 2376,
       "metaCount": 320,
-      "citations": null
+      "citations": 620
     },
     {
       "id": "GLA",
@@ -10751,7 +10751,7 @@
       "scienceIndex": 469,
       "rct": 264,
       "metaCount": 41,
-      "citations": null
+      "citations": 73
     },
     {
       "id": "Медь",
@@ -10823,7 +10823,7 @@
       "scienceIndex": 2670,
       "rct": 1125,
       "metaCount": 309,
-      "citations": null
+      "citations": 1078
     },
     {
       "id": "Марганец",
@@ -10895,7 +10895,7 @@
       "scienceIndex": 541,
       "rct": 161,
       "metaCount": 76,
-      "citations": null
+      "citations": 743
     },
     {
       "id": "Калий",
@@ -10968,7 +10968,7 @@
       "scienceIndex": 9614,
       "rct": 5889,
       "metaCount": 745,
-      "citations": null
+      "citations": 579
     },
     {
       "id": "Бор",
@@ -11033,7 +11033,7 @@
       "scienceIndex": 18,
       "rct": 13,
       "metaCount": 1,
-      "citations": null
+      "citations": 128
     },
     {
       "id": "Бетаин",
@@ -11112,7 +11112,7 @@
       "scienceIndex": 142,
       "rct": 92,
       "metaCount": 10,
-      "citations": null
+      "citations": 47
     },
     {
       "id": "Метионин",
@@ -11184,7 +11184,7 @@
       "scienceIndex": 43,
       "rct": 18,
       "metaCount": 5,
-      "citations": null
+      "citations": 216
     },
     {
       "id": "Орнитин",
@@ -11242,7 +11242,7 @@
       "scienceIndex": 52,
       "rct": 37,
       "metaCount": 3,
-      "citations": null
+      "citations": 4
     },
     {
       "id": "Майтаке",
@@ -11307,7 +11307,7 @@
       "scienceIndex": 16,
       "rct": 6,
       "metaCount": 2,
-      "citations": null
+      "citations": 29
     },
     {
       "id": "PABA",
@@ -11372,7 +11372,7 @@
       "scienceIndex": 63,
       "rct": 38,
       "metaCount": 5,
-      "citations": null
+      "citations": 53
     },
     {
       "id": "Пролин",
@@ -11437,7 +11437,7 @@
       "scienceIndex": 71,
       "rct": 56,
       "metaCount": 3,
-      "citations": null
+      "citations": 12
     },
     {
       "id": "Серин",
@@ -11502,7 +11502,7 @@
       "scienceIndex": 2,
       "rct": 2,
       "metaCount": 0,
-      "citations": null
+      "citations": 113
     },
     {
       "id": "Аланин",
@@ -11561,7 +11561,7 @@
       "scienceIndex": 5,
       "rct": 0,
       "metaCount": 1,
-      "citations": null
+      "citations": 301
     }
   ]
 }

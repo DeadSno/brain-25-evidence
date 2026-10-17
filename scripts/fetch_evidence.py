@@ -2,7 +2,7 @@
 
 Использование:
     python scripts/fetch_evidence.py Креатин
-    python scripts/fetch_evidence.py --all      # все 81 карточки
+    python scripts/fetch_evidence.py --all      # все карточки
 
 Артефакт: reports/evidence/<safe_id>.md — abstracts + ссылки на PubMed.
 """
@@ -165,7 +165,7 @@ def process_card(s: dict) -> Path:
 def main() -> int:
     parser = argparse.ArgumentParser(description="Fetch PubMed abstracts для верификации")
     parser.add_argument("name", nargs="?", help="ID или name карточки, например «Креатин»")
-    parser.add_argument("--all", action="store_true", help="обработать все 81")
+    parser.add_argument("--all", action="store_true", help="обработать все карточки")
     parser.add_argument("--limit", type=int, default=0, help="ограничить N карточками")
     args = parser.parse_args()
 

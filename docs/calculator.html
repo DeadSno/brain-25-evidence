@@ -1,20 +1,26 @@
 <!doctype html>
 <html lang="ru">
 <head>
-  <script defer src="version.js?v=312"></script>
   <meta charset="utf-8">
+  <script defer src="version.js?v=312"></script>
+  <script src="i18n.js?v=2"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#1c1c1e" media="(prefers-color-scheme: dark)">
   <meta name="description" content="Калькулятор БАДов: проверка доз, конфликтов с лекарствами и совместимости добавок. Индивидуальные параметры — вес, пол, возраст, беременность."/>
   <meta property="og:type" content="website"/>
-  <meta property="og:title" content="Калькулятор БАДов — дозы, конфликты, синергии"/>
-  <meta property="og:description" content="Проверьте дозы и конфликты ваших добавок с лекарствами."/>
+  <meta property="og:title" content="Калькулятор БАДов: дозы и конфликты — Brain 25 Evidence"/>
+  <meta property="og:description" content="Калькулятор БАДов: проверка доз, конфликтов с лекарствами и совместимости добавок. Индивидуальные параметры — вес, пол, возраст, беременность."/>
   <meta property="og:url" content="https://deadsno.github.io/brain-25-evidence/calculator.html"/>
   <link rel="canonical" href="https://deadsno.github.io/brain-25-evidence/calculator.html">
   <link rel="alternate" type="application/rss+xml" title="brain-25-evidence" href="https://deadsno.github.io/brain-25-evidence/feed.xml">
   <meta property="og:image" content="https://deadsno.github.io/brain-25-evidence/og.png"/>
-  <title>Калькулятор БАДов — проверка доз и конфликтов</title>
+  <meta property="og:site_name" content="Brain 25 Evidence"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Калькулятор БАДов: дозы и конфликты — Brain 25 Evidence"/>
+  <meta name="twitter:description" content="Калькулятор БАДов: проверка доз, конфликтов с лекарствами и совместимости добавок. Индивидуальные параметры — вес, пол, возраст, беременность."/>
+  <meta name="twitter:image" content="https://deadsno.github.io/brain-25-evidence/og.png"/>
+  <title>Калькулятор БАДов: дозы и конфликты — Brain 25 Evidence</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧮</text></svg>">
   <script>try{if(localStorage.getItem('theme')==='light'){document.addEventListener('DOMContentLoaded',function(){document.body.classList.add('light');});}}catch(e){}</script>
   <script>
@@ -27,7 +33,7 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=423">
+<link rel="stylesheet" href="style.css?v=435">
   <style>
     /* Палитра на :root, не на body: объявление на body перекрывало html.light
        ниже, и в светлой теме текст оставался светлым на светлом (1.05:1),
@@ -107,10 +113,10 @@ try {
     .item .name{cursor:pointer;color:var(--atext)}
     .item .name:hover{color:var(--info-tx)}
     .item input{padding:.35rem var(--space-2);border:1px solid var(--aborder);border-radius:var(--radius-md);background:var(--apanel);color:var(--atext);font-size:16px;text-align:right;width:100%;box-sizing:border-box}
-    .item .unit{opacity:.6;font-size:.78rem;margin-left:var(--space-0-2)}
+    .item .unit{opacity:.6;font-size:.78rem;margin-inline-start:var(--space-0-2)}
     .item .rm{background:none;border:none;color:var(--danger-tx);font-size:1.2rem;cursor:pointer;padding:0}
 
-    .grade-badge{display:inline-block;padding:0 .4rem;border-radius:var(--radius-md);font-size:.68rem;font-weight:700;margin-left:.35rem;vertical-align:middle}
+    .grade-badge{display:inline-block;padding:0 .4rem;border-radius:var(--radius-md);font-size:var(--fs-3);font-weight:700;margin-inline-start:.35rem;vertical-align:middle}
     /* v4.3: бейдж — текст на 20%-заливке своего же цвета, контраст падал в обеих
        темах: в светлой 1.80 / 1.83 / 1.49 / 2.95:1, в тёмной .grade-D 3.76:1.
        Заливки не трогаем. Базовый цвет — тёмный текст (светлая тема), html:not(.light) —
@@ -130,7 +136,7 @@ try {
     .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:.6rem;margin:0 0 var(--space-4)}
     .kpi{background:var(--apanel);border:1px solid var(--aborder);border-radius:var(--radius-lg);padding:.6rem .7rem;text-align:center}
     .kpi .val{font-size:1.4rem;font-weight:700;line-height:1}
-    .kpi .lbl{font-size:.72rem;opacity:.65;margin-top:var(--space-0-3)}
+    .kpi .lbl{font-size:var(--fs-3);opacity:.65;margin-top:var(--space-0-3)}
     /* v4.3: контраст текста на фоне темы. Базовые правила — тёмный вариант
        (светлая тема), html:not(.light) — светлый. Замеры на .kpi (--apanel #fff / #15171c):
        было 2.10 / 2.19 / 3.82:1 в светлой, стало 5.37 / 5.02 / 5.44:1;
@@ -190,6 +196,16 @@ try {
       .add-row{flex-wrap:wrap}
     }
   </style>
+<script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MedicalWebPage",
+      "name": "Калькулятор БАДов",
+      "description": "Калькулятор БАДов: проверка доз, конфликтов с лекарствами и совместимости добавок. Индивидуальные параметры — вес, пол, возраст, беременность.",
+      "url": "https://deadsno.github.io/brain-25-evidence/calculator.html",
+      "inLanguage": "ru"
+    }
+    </script>
 </head>
 <body>
 <a href="#main" class="skip-link">Перейти к содержимому</a>
@@ -198,7 +214,7 @@ try {
     <div class="trustbar">🧮 Открытые данные · Бесплатно · Без рекламы</div>
     <header class="top">
     <div class="site-title"><a href="index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a> <span class="v">v<span data-version="app"></span></span></div>
-    <nav class="actions" aria-label="Главная навигация">
+    <nav class="actions" data-i18n-aria-label="a11y.navMain">
       <a class="btn c-mech" href="map.html">🧩 Механизмы</a>
       <a class="btn c-links" href="interactions.html">🔗 Связи</a>
       <a class="btn c-atlas" href="atlas.html">🌐 Атлас</a>
@@ -252,7 +268,7 @@ try {
   <!-- Добавление -->
   <div class="add-row">
     <label for="q" class="sr-only">Поиск добавки для расчёта</label>
-    <input id="q" placeholder="Поиск добавки для добавления…" autocomplete="off">
+    <input id="q" data-i18n-placeholder="calc.searchPh" autocomplete="off">
     <button class="btn primary" id="addBtn">＋ Добавить</button>
   </div>
   <div id="searchResults" style="margin:-.5rem 0 1rem"></div>
@@ -286,7 +302,7 @@ try {
     <dialog id="shareTextDlg" class="dlg" aria-labelledby="shareTextTitle" aria-describedby="shareTextDesc">
       <h2 id="shareTextTitle">Скопируй текст</h2>
       <p id="shareTextDesc">Браузер не дал доступ к буферу обмена. Выдели текст и скопируй вручную:</p>
-      <textarea id="shareTextDlgText" readonly rows="6" aria-label="Список добавок текстом"></textarea>
+      <textarea id="shareTextDlgText" readonly rows="6" data-i18n-aria-label="calc.aria.textList"></textarea>
       <div class="dlg-actions">
         <button type="button" class="btn" data-dlg-close>Закрыть</button>
       </div>
@@ -295,7 +311,7 @@ try {
     <dialog id="shareLinkDlg" class="dlg" aria-labelledby="shareLinkTitle" aria-describedby="shareLinkDesc">
       <h2 id="shareLinkTitle">Скопируй ссылку</h2>
       <p id="shareLinkDesc">Браузер не дал доступ к буферу обмена. Выдели текст и скопируй вручную:</p>
-      <textarea id="shareLinkDlgText" readonly rows="3" aria-label="Ссылка с выбранными добавками"></textarea>
+      <textarea id="shareLinkDlgText" readonly rows="3" data-i18n-aria-label="calc.aria.selectedLink"></textarea>
       <div class="dlg-actions">
         <button type="button" class="btn" data-dlg-close>Закрыть</button>
       </div>
@@ -309,7 +325,13 @@ try {
         Превышение не означает отравление, но требует консультации с врачом.
       </p>
 
-      <div class="kpis">
+      <!-- A11Y-P2-05 / JS-P2-03: значения KPI пересчитываются на каждый ввод
+           дозы (renderResult), без live-региона скринридер молчал. role=status
+           даёт aria-live=polite — озвучка после паузы, а не на каждый keystroke.
+           aria-atomic — целиком, иначе SR читает только изменившуюся цифру.
+           .sr-only вне потока грида (position:absolute), вёрстку не двигает. -->
+      <div class="kpis" role="status" aria-live="polite" aria-atomic="true">
+        <span class="sr-only">Итог по выбранным дозам: </span>
         <div class="kpi ok" id="kpiOk">
           <div class="val">0</div>
           <div class="lbl">в норме</div>
@@ -328,34 +350,64 @@ try {
         </div>
       </div>
 
+      <!-- A11Y-P2-06: пять блоков ниже скрывались целиком, пока список
+           пуст, и панель результата на первом экране была пустой: ни одного
+           тире, ни одной подсказки. Этот блок объясняет, что здесь будет и
+           что делать, пока выбранных добавок нет. Прячется на renderResult(),
+           как только что-то выбрано. -->
+      <div class="block" id="resultEmpty">
+        <p class="hint">Пока ничего не выбрано. Добавьте добавку через поиск
+          выше — здесь появятся конфликты с другими добавками и лекарствами,
+          вещества, синергии и предупреждения о дозировке.</p>
+      </div>
+
       <div class="block" id="recoBlock" style="display:none">
         <h3>💡 Полезно добавить (<span id="cntReco">0</span>)</h3>
         <ul class="reco-list" id="recoList"></ul>
       </div>
 
+      <!-- A11Y-P2-06: пять пустых состояний были голым тире «—». Тире ничего
+           не говорит: ни что это за блок, ни что делать дальше. Заменено на
+           фразу с условием появления — как уже сделано в #selectedList
+           (строка 280 / 660). Смысл уточнён по коду: лекарства и вещества не
+           выбираются отдельно, они берутся из interactions выбранных карточек
+           (classifyWith, строка 790), поэтому все три блока «Конфликты»
+           зависят от выбора добавок, а синергии — минимум от двух.
+           Блоки скрываются целиком (renderConf / renderResult: display:none),
+           поэтому эти фразы видны только до первого расчёта. -->
       <div class="block">
         <h3>🌿 Конфликты с добавками (<span id="cntConfSupp">0</span>)</h3>
-        <div id="confListSupp"><div class="empty">—</div></div>
+        <div id="confListSupp"><div class="empty">Появятся, когда вы выберете хотя бы одну добавку.</div></div>
       </div>
 
       <div class="block">
         <h3>💊 Конфликты с лекарствами (<span id="cntConfDrug">0</span>)</h3>
-        <div id="confListDrug"><div class="empty">—</div></div>
+        <div id="confListDrug"><div class="empty">Появятся, когда вы выберете хотя бы одну добавку.</div></div>
       </div>
 
       <div class="block">
         <h3>🍷 Вещества (<span id="cntConfSubs">0</span>)</h3>
-        <div id="confListSubs"><div class="empty">—</div></div>
+        <div id="confListSubs"><div class="empty">Появятся, когда вы выберете хотя бы одну добавку.</div></div>
       </div>
 
       <div class="block">
         <h3>Синергии (<span id="cntSyn">0</span>)</h3>
-        <div id="synList"><div class="empty">—</div></div>
+        <div id="synList"><div class="empty">Появятся, когда вы выберете хотя бы две добавки.</div></div>
       </div>
 
       <div class="block">
         <h3>Предупреждения (<span id="cntWarn">0</span>)</h3>
-        <div id="warnList"><div class="empty">—</div></div>
+        <div id="warnList"><div class="empty">Появятся, когда вы выберете хотя бы одну добавку.</div></div>
+      </div>
+
+      <!-- MKT-P1-07: CTA калькулятора. Ведёт на страницу методики — она
+           объясняет, откуда взялись «верхние пределы» и как считались
+           конфликты, то есть отвечает на вопрос, который результат
+           только что вызвал. Взят существующий primary-класс .btn.calc
+           из style.css — тот же, что у CTA на главной (MKT-P1-02).
+           Новых классов и правок общей таблицы стилей не требуется. -->
+      <div class="block">
+        <a class="btn calc" href="methodology.html">Как считаются верхние пределы дозировки → Методика</a>
       </div>
     </div>
   </div>
@@ -379,7 +431,8 @@ try {
     <a href="methodology.html">📐 Методология</a> ·
     <a href="faq.html">❓ FAQ</a> ·
     <a href="glossary.html">📖 Глоссарий</a> ·
-    <a href="privacy.html">🔐 Приватность</a>
+    <a href="privacy.html">🔐 Приватность</a> ·
+    <a href="feed.xml">📡 RSS</a>
   </p>
   <p class="copy">© 2026 Vladislav "DeadSno" Pereshivalov · MIT</p>
 </footer>
@@ -438,14 +491,14 @@ function esc(s) {
 
   // Тема
   document.addEventListener('DOMContentLoaded', () => {
-    $('themeBtn').textContent = isDark() ? '🌞 Светлая тема' : '🌙 Тёмная тема';
+    $('themeBtn').textContent = isDark() ? t("theme.light") : t("theme.dark");
   });
   $('themeBtn').onclick = () => {
     const light = !document.documentElement.classList.contains('light');
     document.documentElement.classList.toggle('light', light);
     document.body.classList.toggle('light', light);
     localStorage.setItem('theme', light ? 'light' : 'dark');
-    $('themeBtn').textContent = light ? '🌙 Тёмная тема' : '🌞 Светлая тема';
+    $('themeBtn').textContent = light ? t("theme.dark") : t("theme.light");
   };
 
   // ── State ─────────────────────────────────────────
@@ -543,23 +596,38 @@ function esc(s) {
   }
 
   // ── Поиск и добавление ────────────────────────────
+  // v5.6.5 (A11Y-P2-07): матчинг вынесен, чтобы пустое состояние могло
+  // отличить «нет совпадений» от «все совпадения уже добавлены».
+  function matchesQuery(c, q) {
+    return c.id.toLowerCase().includes(q) ||
+      (c.category || '').toLowerCase().includes(q) ||
+      (c.effects || []).join(' ').toLowerCase().includes(q);
+  }
   $('q').addEventListener('input', e => {
     const q = e.target.value.trim().toLowerCase();
     if (!q) { $('searchResults').innerHTML = ''; return; }
-    const res = DATA
-      .filter(c => !selected[c.id] &&
-        (c.id.toLowerCase().includes(q) ||
-         (c.category || '').toLowerCase().includes(q) ||
-         (c.effects || []).join(' ').toLowerCase().includes(q)))
-      .slice(0, 8);
+    const res = DATA.filter(c => !selected[c.id] && matchesQuery(c, q)).slice(0, 8);
     $('searchResults').innerHTML = res.length
       ? res.map(c => `<button class="btn" data-add="${esc(c.id)}" style="margin:.2rem .3rem .2rem 0">＋ ${esc(c.id)}</button>`).join('')
-      : '<div class="empty">Ничего не найдено</div>';
+      // Эхо запроса: без него непонятно, сработал поиск вообще или нет.
+      // Отдельный случай — все совпадения уже в расчёте: выглядит как «ничего
+      // не найдено», хотя добавка есть в списке выше.
+      : '<div class="empty">' +
+          (DATA.some(c => selected[c.id] && matchesQuery(c, q))
+            ? t("calc.allMatches", { q: esc(q) })
+            : t("calc.nothingFound", { q: esc(q) })) +
+        '<br><button type="button" class="btn" data-reset="1" style="margin-top:.6rem">' + t("calc.resetSearch") + '</button></div>';
   });
   $('searchResults').addEventListener('click', e => {
     const b = e.target.closest('[data-add]');
-    if (!b) return;
-    addSupp(b.dataset.add);
+    if (b) { addSupp(b.dataset.add); return; }
+    // Явный сброс: раньше из пустого состояния можно было выйти только
+    // вручную стирая поле.
+    if (e.target.closest('[data-reset]')) {
+      $('q').value = '';
+      $('searchResults').innerHTML = '';
+      $('q').focus();
+    }
   });
   $('addBtn').onclick = () => {
     const q = $('q').value.trim();
@@ -625,7 +693,7 @@ function esc(s) {
     const ids = Object.keys(selected);
     $('cntSel').textContent = ids.length;
     if (!ids.length) {
-      $('selectedList').innerHTML = '<div class="empty">Пока ничего не выбрано. Начните с поиска выше.</div>';
+      $('selectedList').innerHTML = '<div class="empty">' + t("calc.nothingSelected") + '</div>';
       return;
     }
     $('selectedList').innerHTML = ids.map(id => {
@@ -638,7 +706,7 @@ function esc(s) {
         const w = parseFloat($('pWeight').value) || 70;
         const mn = Math.round(w * d.per_kg.min * 100) / 100;
         const mx = Math.round(w * d.per_kg.max * 100) / 100;
-        range = `${mn}–${mx} ${d.per_kg.unit.replace('/kg', '')} (для ${w} кг)`;
+        range = `${mn}–${mx} ${d.per_kg.unit.replace('/kg', '')}${t("calc.forWeight", { w })}`;
       } else {
         range = d ? `${d.min}–${d.max} ${unit}` : '—';
       }
@@ -647,13 +715,13 @@ function esc(s) {
           <div>
             <span class="name" data-open="${esc(id)}">${esc(c.id)}</span>
         ${c.grade ? `<span class="grade-badge grade-${esc(c.grade)}">${esc(c.grade)}</span>` : ''}
-            <div style="font-size:.72rem;opacity:.6">норма: ${esc(range)}</div>
+            <div style="font-size:12px;opacity:.6">${t("calc.normPrefix")}${esc(range)}</div>
           </div>
           <div>
             <input type="number" data-input="${esc(id)}" min="0" step="any" value="${esc(val)}">
             <span class="unit">${esc(unit)}</span>
           </div>
-          <button class="rm" data-rm="${esc(id)}" title="Удалить" aria-label="Удалить ${esc(c.id)}">×</button>
+          <button class="rm" data-rm="${esc(id)}" title="${t("calc.removeTitle")}" aria-label="${t("calc.removeAria", { id: esc(c.id) })}">×</button>
         </div>`;
     }).join('');
 
@@ -676,6 +744,15 @@ function esc(s) {
         window.open('index.html#sup=' + encodeURIComponent(e.target.dataset.open), '_blank');
       });
     });
+  }
+
+  // A11Y-P2-05 / JS-P2-03: значение в live-регионе обновляем только при
+  // реальном изменении. Иначе каждый ввод в поле дозы шлёт мутацию с тем же
+  // текстом и скринридер начинает повторять одно и то же.
+  function setKpi(id, n) {
+    const el = $(id).querySelector('.val');
+    const s = String(n);
+    if (el.textContent !== s) el.textContent = s;
   }
 
   function renderResult() {
@@ -724,7 +801,7 @@ function esc(s) {
           cntUl++;
           warnings.push({
             severity: 'high',
-            text: `<b>${esc(id)}</b>: ${esc(v)} ${esc(d.unit)} — выше безопасного предела ${esc(ul)} (${esc(c.upper_limit.slice(0, 80))}…)`,
+            text: `<b>${esc(id)}</b>: ${esc(v)} ${esc(d.unit)}${t("calc.aboveLimit")}${esc(ul)} (${esc(c.upper_limit.slice(0, 80))}…)`,
           });
         }
       }
@@ -843,41 +920,60 @@ function esc(s) {
     }
 
     // KPI
-    $('kpiOk').querySelector('.val').textContent = cntOk;
-    $('kpiAbove').querySelector('.val').textContent = cntAbove;
-    $('kpiBelow').querySelector('.val').textContent = cntBelow;
-    $('kpiUl').querySelector('.val').textContent = cntUl;
+    setKpi('kpiOk', cntOk);
+    setKpi('kpiAbove', cntAbove);
+    setKpi('kpiBelow', cntBelow);
+    setKpi('kpiUl', cntUl);
+
+    // A11Y-P2-06: hasSelection разделяет два разных пустых состояния.
+    // Пока добавки не выбраны, проверять нечего — блоки скрыты, а вместо них
+    // видно объяснение в #resultEmpty. После выбора проверка УЖЕ выполнена,
+    // и молчаливый блок читался как «раздел не работает», поэтому пустой
+    // список теперь остаётся на месте со своей фразой.
+    const hasSelection = ids.length > 0;
+    $('resultEmpty').style.display = hasSelection ? 'none' : '';
 
     // Хелпер рендера
-    function renderConf(list, cntId, listId) {
+    function renderConf(list, cntId, listId, emptyText) {
       $(cntId).textContent = list.length;
       const block = $(listId).closest('.block');
-      if (!list.length) {
+      if (!list.length && !hasSelection) {
         if (block) block.style.display = 'none';
         return;
       }
       if (block) block.style.display = '';
+      if (!list.length) {
+        $(listId).innerHTML = `<div class="empty">${esc(emptyText)}</div>`;
+        return;
+      }
       $(listId).innerHTML = list.map(c => `
         <div class="block-item sev-${esc(c.severity)}">
           <div class="pair"><b>${esc(c.from)}</b> × ${esc(c.with)}</div>
           <div class="note">${esc(c.note || '')}</div>
         </div>`).join('');
     }
-    renderConf(confSupp, 'cntConfSupp', 'confListSupp');
-    renderConf(confDrug, 'cntConfDrug', 'confListDrug');
-    renderConf(confSubs, 'cntConfSubs', 'confListSubs');
+    renderConf(confSupp, 'cntConfSupp', 'confListSupp', t("calc.noConflicts"));
+    renderConf(confDrug, 'cntConfDrug', 'confListDrug', t("calc.noConflicts"));
+    renderConf(confSubs, 'cntConfSubs', 'confListSubs', t("calc.noSubstanceInteractions"));
 
     // Синергии
     $('cntSyn').textContent = synergies.length;
     const synBlock = $('synList').closest('.block');
     if (!synergies.length) {
-      synBlock.style.display = 'none';
+      if (hasSelection) {
+        synBlock.style.display = '';
+        $('synList').innerHTML = `<div class="empty">${ids.length > 1
+          ? t("calc.noSynergies")
+          : t("calc.needTwo")}</div>`;
+      } else {
+        synBlock.style.display = 'none';
+      }
     } else {
       synBlock.style.display = '';
       $('synList').innerHTML = synergies.map(s => `
         <div class="block-item synergy">
           <div class="pair">✅ ${esc(s.pair)}</div>
-          <div class="note">часто принимают вместе</div>
+          <div class="note">${t("calc.takenTogether")}</div>
         </div>`).join('');
     }
 
@@ -885,7 +981,12 @@ function esc(s) {
     $('cntWarn').textContent = warnings.length;
     const warnBlock = $('warnList').closest('.block');
     if (!warnings.length) {
-      warnBlock.style.display = 'none';
+      if (hasSelection) {
+        warnBlock.style.display = '';
+        $('warnList').innerHTML = '<div class="empty">' + t("calc.noDoseWarnings") + '</div>';
+      } else {
+        warnBlock.style.display = 'none';
+      }
     } else {
       warnBlock.style.display = '';
       $('warnList').innerHTML = warnings.map(w => `<div class="block-item sev-${w.severity}">${w.text}</div>`).join('');
@@ -932,22 +1033,22 @@ function esc(s) {
   };
   $('shareTextBtn').onclick = () => {
     const ids = Object.keys(selected);
-    if (!ids.length) return showToast('Список пуст');
+    if (!ids.length) return showToast(t("calc.emptyList"));
     const w = parseFloat($('pWeight').value) || 70;
-    const lines = ['Мой набор БАДов (вес ' + w + ' кг):'];
+    const lines = [t("calc.mySetHeader", { w })];
     for (const id of ids) {
       const c = byId[id];
       const d = DOSAGE[id];
       const v = selected[id];
       const unit = d?.unit || '';
       const grade = c.grade ? ` [${c.grade}]` : '';
-      lines.push(`• ${id}${grade} — ${v != null ? v + ' ' + unit : 'доза не указана'}`);
+      lines.push(`• ${id}${grade} — ${v != null ? v + ' ' + unit : t("calc.doseNotSet")}`);
     }
     const text = lines.join('\n');
     navigator.clipboard.writeText(text).then(() => {
       const b = $('shareTextBtn');
       const old = b.textContent;
-      b.textContent = '✓ Скопировано';
+      b.textContent = t("common.copiedTick");
       setTimeout(() => { b.textContent = old; }, 1500);
     }).catch(() => {
       // v5.6.3: было prompt('Скопируйте текст:', text).
@@ -964,7 +1065,7 @@ function esc(s) {
     navigator.clipboard.writeText(location.href).then(() => {
       const b = $('shareBtn');
       const old = b.textContent;
-      b.textContent = '✓ Скопировано';
+      b.textContent = t("common.copiedTick");
       setTimeout(() => { b.textContent = old; }, 1500);
     }).catch(() => {
       // v5.6.3: было prompt('Скопируйте ссылку:', location.href).
@@ -995,7 +1096,7 @@ function esc(s) {
   });
 })();
 </script>
-<button class="toBottom" id="toBottom" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})" title="Вниз" aria-label="Прокрутить страницу вниз">↓</button>
+<button class="toBottom" id="toBottom" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})" data-i18n-title="btn.scrollDown" data-i18n-aria-label="a11y.scrollDown">↓</button>
 <script>
 window.addEventListener('scroll', () => {
   const btn = document.getElementById('toBottom');
@@ -1015,7 +1116,7 @@ window.addEventListener('scroll', () => {
 <!-- v5.6.2: cookie-согласие + Яндекс.Метрика (счётчик 112465667).
      Метрика грузится ТОЛЬКО после нажатия «Принять»: до согласия
      ни одного запроса к mc.yandex.ru не происходит. -->
-<div id="cookieBanner" role="dialog" aria-label="Согласие на использование cookie" hidden>
+<div id="cookieBanner" role="dialog" data-i18n-aria-label="a11y.cookieConsent" hidden>
   <div class="cb-text">
     Мы используем cookie и Яндекс.Метрику, чтобы понять, какие материалы полезны.
     Аналитика включается только после вашего согласия.

@@ -13,6 +13,29 @@ function esc(s) {
 }
   if (window.__science2Loaded) return;
   window.__science2Loaded = true;
+  // v5.6.3 (I18N-P2-04): локаль из <html lang> вместо литерала в коде —
+  // см. пояснение в docs/script.js.
+  const LOCALE = document.documentElement.lang || 'ru';
+
+  // 13A1 (I18N-P2-01): пользовательские строки — в словаре; см. docs/script.js.
+  const I18N = {
+    ru: {
+      "pulse.title": "Пульс науки: мета-анализы по годам",
+      "pulse.note.top5": "Топ-5 по приросту к прошлому году — в инспекторе элемента.<br>",
+      "pulse.note.source": "Источник: PubMed (esearch+esummary, запрос как в scienceIndex), по каждой добавке.",
+      "pulse.footnote": "Годы без мета-анализов в выборке = 0 (честно). Кэш: data/processed/ma_years.json.",
+      "pulse.dataset": "Мета-анализы",
+      "spark.hint": "история копится с v2.1, спарклайн появится после {need} замеров",
+      "spark.hint.have": " (сейчас {have})",
+      "spark.head": "📈 Цена: динамика 90 дней"
+    }
+  };
+  function t(key, params) {
+    const dict = I18N[LOCALE] || I18N.ru;
+    let s = dict[key] != null ? dict[key] : (I18N.ru[key] != null ? I18N.ru[key] : key);
+    if (params) s = s.replace(/\{(\w+)\}/g, (m, k) => (k in params ? params[k] : m));
+    return s;
+  }
 
   // ========== C3: «Пульс науки» — Chart.js линия 2015–2026 ==========
   function renderPulse(rows) {
@@ -25,16 +48,16 @@ function esc(s) {
       'background:var(--card-bg);padding:1.2rem 1.5rem;border-radius:12px;' +
       'border:1px solid var(--border);margin-bottom:2rem';
     box.innerHTML =
-      '<h2>Пульс науки: мета-анализы по годам</h2>' +
+      '<h2>' + t("pulse.title") + '</h2>' +
       '<p class="hint" style="margin-top:-.4rem;margin-bottom:.6rem">' +
-      'Топ-5 по приросту к прошлому году — в инспекторе элемента.<br>' +
-      'Источник: PubMed (esearch+esummary, запрос как в scienceIndex), по каждой добавке.' +
+      t("pulse.note.top5") +
+      t("pulse.note.source") +
       '</p>' +
       '<div style="position:relative;height:260px">' +
       '<canvas id="maTimelineCanvas"></canvas>' +
       '</div>' +
       '<p class="hint" style="margin-top:.5rem">' +
-      'Годы без мета-анализов в выборке = 0 (честно). Кэш: data/processed/ma_years.json.</p>';
+      t("pulse.footnote") + '</p>';
     main.insertAdjacentElement('beforebegin', box);
 
     const css = getComputedStyle(document.body);
@@ -50,7 +73,7 @@ function esc(s) {
         data: {
           labels: rows.map(r => String(r.year)),
           datasets: [{
-            label: 'Мета-анализы',
+            label: t("pulse.dataset"),
             data: rows.map(r => r.total),
             borderColor: accent,
             backgroundColor: accent + '1a',
@@ -170,8 +193,8 @@ function esc(s) {
         el.dataset.state = 'fallback';
         el.dataset.points = String(have);
         el.innerHTML =
-          '<span class="hint">история копится с v2.1, спарклайн появится после ' +
-          need + ' замеров' + (have ? ' (сейчас ' + have + ')' : '') + '</span>';
+          '<span class="hint">' + t("spark.hint", { need: need }) +
+          (have ? t("spark.hint.have", { have: have }) : '') + '</span>';
         return;
       }
       el.dataset.state = 'canvas';
@@ -185,10 +208,10 @@ function esc(s) {
       cv.setAttribute('data-eco-spark', 'canvas');
       el.appendChild(cv);
       drawSpark(cv, w, h, pts);
-      const fmt = new Intl.DateTimeFormat('ru-RU', { day: '2-digit', month: 'short', year: 'numeric' });
+      const fmt = new Intl.DateTimeFormat(LOCALE, { day: '2-digit', month: 'short', year: 'numeric' });
       const s = document.createElement('div');
       s.className = 'hint';
-      s.style.cssText = 'font-size:.7rem;margin-top:.2rem';
+      s.style.cssText = 'font-size:12px;margin-top:.2rem';
       s.textContent = fmt.format(new Date(pts[0].d)) + ' → ' + fmt.format(new Date(pts[pts.length - 1].d));
       el.appendChild(s);
     });
@@ -201,9 +224,9 @@ function esc(s) {
       'border-radius:8px;border:1px solid var(--border)';
     const head = document.createElement('div');
     head.style.cssText =
-      'font-size:.72rem;font-weight:600;opacity:.7;text-transform:uppercase;' +
+      'font-size:12px;font-weight:600;opacity:.7;text-transform:uppercase;' +
       'letter-spacing:.02em;margin-bottom:.3rem';
-    head.textContent = '📈 Цена: динамика 90 дней';
+    head.textContent = t("spark.head");
     wrap.appendChild(head);
     const el = document.createElement('div');
     el.id = 'ecoSpark';

@@ -29,13 +29,18 @@ def main() -> None:
             assert "Как мы проверяем" in pg.content() or "Открытые данные" in pg.content(), \
                 "Статическая строка UTF-8 не рендерится (кракозябры?)"
             n_ma = sum(1 for s in data if (s.get("metaCount") or 0) > 0)
+            # ось «Число РКИ» = scienceIndex - 5 × metaCount, рисуется если > 0
+            # (docs/script.js:857 axisVal, ветка 'rct')
+            n_rct = sum(1 for s in data
+                        if max(0, (s.get("scienceIndex") or 0) - 5 * (s.get("metaCount") or 0)) > 0)
             # v2.6: дефолтная ось графика — «Число МА»
             bubbles = pg.evaluate("window.chart?.data?.datasets?.length ?? -1")
             assert bubbles == n_ma, f"пузырей (ось=МА) {bubbles}, ожидалось {n_ma}"
-            pg.click("#axisPrice")
-            n_plot = sum(1 for s in data if s.get("scienceIndex") is not None)
-            pg.wait_for_function("window.chart?.data?.datasets.length === " + str(n_plot), timeout=5000)
+            # оси X только МА/РКИ (docs/index.html:347-348), «Цена» удалена как мёртвая
+            pg.click("#axisRCT")
+            pg.wait_for_function("window.chart?.data?.datasets.length === " + str(n_rct), timeout=5000)
             pg.click("#axisMA")
+            pg.wait_for_function("window.chart?.data?.datasets.length === " + str(n_ma), timeout=5000)
             # v2.3: 3 вопроса в DOM
             qa = pg.locator("#qaSection .qa").count()
             assert qa == 3, f"секция «3 вопроса»: блоков {qa}, ожидалось 3"
@@ -137,13 +142,14 @@ def main() -> None:
             assert "ручная вычитка" in pg.locator(".card[data-id='Кофеин']").inner_text()
 
             # C: оси X — кнопки есть, переключение перерисовывает без reload
-            for a in ["Price", "MA", "RCT", "Year"]:
+            for a in ["MA", "RCT"]:
                 assert pg.locator("#axis" + a).count() == 1, f"нет кнопки оси #axis{a}"
-            n_year = sum(1 for s in data if s.get("year_last_ma"))
-            pg.click("#axisYear")
-            pg.wait_for_function("window.chart?.data?.datasets.length === " + str(n_year), timeout=5000)
+            assert pg.locator("#axisRow button").count() == 2, \
+                "в #axisRow не ровно 2 оси — набор разъехался с docs/index.html"
+            pg.click("#axisRCT")
+            pg.wait_for_function("window.chart?.data?.datasets.length === " + str(n_rct), timeout=5000)
             pg.click("#axisMA")
-            pg.wait_for_function("window.chart?.data?.datasets.length != null", timeout=5000)
+            pg.wait_for_function("window.chart?.data?.datasets.length === " + str(n_ma), timeout=5000)
 
             # модалка Кофеина: точки, бейджи, иконки источников (честно: цена без иконки — price_source пуст у всех)
             pg.click(".card[data-id='Кофеин']")

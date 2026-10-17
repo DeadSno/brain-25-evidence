@@ -11,9 +11,12 @@
  * с выводом скрипта.
  */
 const fs = require('fs');
+const path = require('path');
 const vm = require('vm');
 
 const SCRIPT = process.env.SCRIPT_JS || 'docs/script.js';
+// 13A2a: словарь I18N, LOCALE и t() вынесены из script.js в общий docs/i18n.js.
+const I18N_JS = process.env.I18N_JS || path.join(path.dirname(SCRIPT), 'i18n.js');
 const out = { ok: false, results: {}, errors: [] };
 
 function makeEl(tag) {
@@ -87,7 +90,14 @@ sandbox.fetchJson = undefined;
 vm.createContext(sandbox);
 
 try {
-  const code = fs.readFileSync(SCRIPT, 'utf8');
+  let code = fs.readFileSync(SCRIPT, 'utf8');
+  // 13A2a: script.js вызывает t() уже на верхнем уровне (const SEV_LABEL),
+  // поэтому в стенде надо выполнить i18n.js в ТОМ ЖЕ контексте ПЕРЕД
+  // script.js — иначе ReferenceError: t is not defined. Порядок совпадает
+  // с разметкой (i18n.js подключён раньше script.js).
+  if (fs.existsSync(I18N_JS)) {
+    code = fs.readFileSync(I18N_JS, 'utf8') + '\n' + code;
+  }
   // Скрипт — это скрипт, а не модуль: выполняем в общем контексте через Function,
   // чтобы получить доступ к объявленным через function/const сущностям.
   const factory = new Function(

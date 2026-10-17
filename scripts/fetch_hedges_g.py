@@ -1,9 +1,9 @@
-"""Извлекает Hedges' g из abstracts МА для всех 81 карточки.
+"""Извлекает Hedges' g из abstracts МА для всех карточек.
 
 Использует scripts.extract_g.candidates().
 
 Алгоритм (двухпроходный):
-  Проход 1 — для каждой карточки собрать кандидатов (81 esearch+efetch).
+  Проход 1 — для каждой карточки собрать кандидатов (esearch+efetch на карточку).
   Проход 2 — сортируем карточки по числу кандидатов (по возрастанию),
              идём по ним и присваиваем PMID с учётом used_pmids:
               1) уникальный кандидат с узким CI (width < 1.0)
@@ -13,7 +13,7 @@
 
 Один PMID = одна карточка (устраняет cross-matching network-МА).
 
-Пишет в data.json: hedges_g, hedges_g_ci, hedges_g_outcome, hedges_g_pmid.
+Пишет в data.json: hedges_g, hedges_g_ci, hedges_g_pmid.
 Плюс сохраняет всех кандидатов в docs/hedges_g_all.json (для отладки).
 
 Использование:
@@ -78,9 +78,13 @@ def main() -> int:
     data = json.loads(DATA_JSON.read_text(encoding="utf-8"))
     terms = json.loads(TERMS_JSON.read_text(encoding="utf-8"))
 
-    print(f"Карточек: {len(data)}. Режим: {'APPLY' if args.apply else 'dry-run'}\n")
+    # Знаменатель прогресса и итогов — по факту, а не константой: карточек
+    # 130, а «/81» в индикаторе осталось с прошлого набора (DATA-P2-18).
+    total = len(data)
 
-    # ── Проход 1: собрать кандидатов для всех карточек (81 запрос) ────
+    print(f"Карточек: {total}. Режим: {'APPLY' if args.apply else 'dry-run'}\n")
+
+    # ── Проход 1: собрать кандидатов для всех карточек (по одному запросу) ──
     print("Проход 1/2: сбор кандидатов...\n")
     cands_by_id: dict[str, list[dict]] = {}
     errors: dict[str, str] = {}
@@ -96,7 +100,7 @@ def main() -> int:
         except Exception as e:
             errors[cid] = f"{type(e).__name__}: {e}"
             cands_by_id[cid] = []
-        print(f"  [{i:2d}/81] {cid:25s} | {len(cands_by_id[cid])} канд."
+        print(f"  [{i:2d}/{total}] {cid:25s} | {len(cands_by_id[cid])} канд."
               + (f" | ОШИБКА: {errors[cid]}" if cid in errors else ""))
     print()
 
@@ -119,15 +123,21 @@ def main() -> int:
     for idx, c in enumerate(order, 1):
         cid = c["id"]
         cands = cands_by_id[cid]
+        # Ключ обязан попасть в all_cands при ЛЮБОМ исходе: файл пишется из
+        # all_cands, а ветки errors/no_term ниже делают continue до строки,
+        # где он заполняется. Без этого карточка выпадает из файла целиком:
+        # 15.10.2026 один ConnectionResetError стёр ключ «Мелатонин» с 8
+        # заполненными записями (DATA-P2-16).
+        all_cands[cid] = []
 
         if cid in errors:
-            print(f"[{idx:2d}/81] {cid:25s} | ОШИБКА: {errors[cid]}")
+            print(f"[{idx:2d}/{total}] {cid:25s} | ОШИБКА: {errors[cid]}")
             report["totals"]["error"] += 1
             report["cards"][cid] = {"status": "error", "error": errors[cid]}
             continue
 
         if not terms.get(cid):
-            print(f"[{idx:2d}/81] {cid:25s} | нет запроса")
+            print(f"[{idx:2d}/{total}] {cid:25s} | нет запроса")
             report["totals"]["no_candidates"] += 1
             report["cards"][cid] = {"status": "no_term"}
             continue
@@ -140,7 +150,7 @@ def main() -> int:
 
         best, reused = pick_best(cands, used_pmids)
         if not best:
-            print(f"[{idx:2d}/81] {cid:25s} | нет g в abstracts")
+            print(f"[{idx:2d}/{total}] {cid:25s} | нет g в abstracts")
             report["totals"]["no_candidates"] += 1
             report["cards"][cid] = {"status": "no_candidates"}
             continue
@@ -175,13 +185,15 @@ def main() -> int:
             flags += " ← changed"
         if reused:
             flags += " ⚠ shared"
-        print(f"[{idx:2d}/81] {cid:25s} | g={new_g}{ci_str}"
+        print(f"[{idx:2d}/{total}] {cid:25s} | g={new_g}{ci_str}"
               f" | {len(cands)} канд.{flags}")
 
         if args.apply:
             c["hedges_g"] = new_g
             c["hedges_g_ci"] = best.get("ci")
-            c["hedges_g_outcome"] = best.get("outcome") or ""
+            # hedges_g_outcome удалён (DATA-P1-02): поле не читалось ни одним
+            # docs/*.html и docs/*.js, а заполнялось словарём OUTCOME_TERMS,
+            # который по абстрактам MA-статей давал 0 совпадений на 42 карточках.
             c["hedges_g_pmid"] = best["pmid"]
 
     # ── Сохранение ────────────────────────────────────────────────────
@@ -196,7 +208,7 @@ def main() -> int:
     )
 
     print(f"\n{'='*60}")
-    print(f"Найдено g:        {report['totals']['found']}/81")
+    print(f"Найдено g:        {report['totals']['found']}/{total}")
     print(f"Из них с CI:      {report['totals']['with_ci']}")
     print(f"Без кандидатов:   {report['totals']['no_candidates']}")
     print(f"Ошибок:           {report['totals']['error']}")

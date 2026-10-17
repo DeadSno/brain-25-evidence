@@ -83,7 +83,7 @@
 
 | Скрипт | Что делает |
 |---|---|
-| `analyze_funding.py` / `analyze_funding_v2.py` | Топ фандеров из XML |
+| `analyze_funding_v2.py` | Топ фандеров из XML |
 | `analyze_crossref.py` | Funders из CrossRef |
 | `extract_g.py` | Hedges' g из abstracts |
 | `extract_sample_sizes.py` | Размер выборок |
@@ -112,7 +112,6 @@
 | `update_all.py` | Оркестратор: metrics → science → hedges_g → DOIs → index |
 | `check_state.py` | Диагностика для старта сессии с AI |
 | `rebuild_index.py` | Восстановление `index.json` из файлов на диске |
-| `make_og.png` | Превью для соцсетей |
 | `view_catalog.py` | Диагностика каталогов PubMed |
 | `effect_tags_map.py` | **Импортируется**, не запускается. Источник правды для тегов |
 

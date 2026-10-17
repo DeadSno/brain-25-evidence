@@ -13,7 +13,17 @@ jobs:
         with: {python-version: "3.12"}
       - run: pip install requests pytest
       - run: python scripts/audit_links.py
-      - run: pytest tests/test_schema.py tests/test_site_data.py -q
+      # ROADMAP #101: конфигурация инструмента агента (opencode.json)
+      # читается лениво и при ошибке не даёт ни одного сообщения — сессия
+      # просто работает без языковых серверов. До v5.6.3 единственной
+      # точкой полного разбора файла был этот CI, и он его не проверял.
+      # Блок mcp в конфиге отсутствует (конфигурация MCP живёт в
+      # пользовательском каталоге); тест написан так, чтобы покрыть его
+      # автоматически, если владелец перенесёт декларацию в репозиторий.
+      # Проверка разрешения команд в PATH в CI скипает: тулчейн тут не
+      # ставится, и требование pyright-langserver невыполнимо по
+      # построению. Локально та же проверка работает по-настоящему.
+      - run: pytest tests/test_schema.py tests/test_site_data.py tests/test_toolchain_config.py -q
       - name: issue on failure
         if: failure()
         env: {GH_TOKEN: "${{ secrets.GITHUB_TOKEN }}"}

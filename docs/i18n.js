@@ -1,0 +1,377 @@
+// 13A2a (I18N-P2-01): единый глобальный i18n-модуль проекта.
+// Classic-script (не module, без IIFE): I18N / t / LOCALE — глобальные,
+// их используют docs/script.js, inline-скрипты тем в docs/*.html и
+// templates/sup*.j2. Словарь перенесён сюда из script.js дословно
+// (13A1 -> 13A2a): двух верхнеуровневых const I18N быть не может —
+// classic-скрипты делят одну глобальную лексическую среду, дубль
+// даёт SyntaxError и роняет второй скрипт целиком.
+// v5.6.3 (I18N-P2-04): локаль берётся из <html lang>, а не вписывается в
+// код. Раньше строки вроде toLocaleString('ru-RU') жили в разметке и в
+// скриптах, и перевод страницы требовал правки каждого вызова по
+// отдельности — при этом замена lang="en" в <html> давала бы английский
+// текст вокруг и русские числа внутри. ru-RU и ru для Intl совпадают,
+// поведение при ru не меняется.
+const LOCALE = document.documentElement.lang || 'ru';
+// 13A1 (I18N-P2-01): пользовательские строки вынесены в словарь.
+// ru — базовая локаль; активная берётся из LOCALE (см. выше, читает
+// <html lang>). t(key, params) возвращает сам ключ, если перевода нет:
+// непереведённая строка заметна на экране, а не превращается в пустоту.
+// Подстановка {name} нужна там, где фраза раньше склеивалась из кусков —
+// порядок слов и числа при переводе не совпадают.
+const I18N = {
+  ru: {
+    // common
+    "common.copied": "✅ Скопировано!",
+    "common.collapse": "Свернуть ▴",
+    "common.clear": "Очистить",
+    "common.toTop": "Наверх",
+    "common.copiedTick": "✓ Скопировано",
+    "common.openCard": "Открыть карточку →",
+    "common.fullscreen": "⛶ На весь экран",
+    "common.exitFullscreen": "✕ Выйти",
+    // a11y
+    "a11y.toTop": "Наверх к началу страницы",
+    "a11y.close": "Закрыть",
+    // theme
+    "theme.dark": "🌙 Тёмная тема",
+    "theme.light": "🌞 Светлая тема",
+    // boot
+    "boot.error": "⚠ Не удалось загрузить данные.",
+    "boot.retry": "🔄 Обновить",
+    // severity (данные приходят латиницей, подпись — на экране)
+    "sev.low": "низкий",
+    "sev.medium": "средний",
+    "sev.high": "высокий",
+    "sev.critical": "критичный",
+    // grade A–D
+    "grade.A": "крепко доказано",
+    "grade.B": "умеренно",
+    "grade.C": "изучено много, эффект мал",
+    "grade.D": "данных мало",
+    // карточка
+    "card.top3": "🔬 Топ-3 по доказательности",
+    "card.handcheck": "✋ ручная вычитка",
+    "card.handcheckTitle": "Вердикт выставлен вручную по топ-2 МА методологией проекта",
+    "card.updated": "Обновлено",
+    "card.updatedTitle": "Дата последнего обновления данных проекта",
+    "card.favTitle": "В избранное",
+    "card.grade": "грейд",
+    "card.gradeTitle": "Грейд",
+    "card.supplement": "добавка",
+    "card.issueTitle": "{name} — неточность в данных",
+    "card.issueBody": "Что не так?\n\n(заполните)",
+    "card.blockEmpty": "для этой добавки проверяемых данных по пункту нет",
+    // метрики карточки
+    "sci.tooltip": "Объём доказательной базы: количество РКИ + 5 × мета-анализы в PubMed по добавке. Это метрика объёма, не силы эффекта.",
+    "sci.label": "🔬 наука: ",
+    "ma.tooltip": "Количество статей типа meta-analysis в PubMed по запросу для этой добавки. Это про объём литературы, а не про подтверждение эффекта.",
+    "ma.label": "📚 MA: ",
+    "cit.none": "📖 цитирований MA: —",
+    "cit.none.tooltip": "Цитирования не рассчитаны для этой добавки.",
+    "cit.label": "📖 цитирований MA: ",
+    "cit.tooltip": "Сумма цитирований ключевого мета-анализа (по данным OpenAlex).",
+    // источники
+    "sources.pubmedTitle": "Поиск в PubMed",
+    "sources.pubmed": "PubMed ↗",
+    "sources.wikiTitle": "Википедия",
+    "sources.wiki": "Wiki ↗",
+    "sources.copyPmid": "Скопировать PMID {pmid}",
+    "sources.pmid": "PMID",
+    "sources.empty": "Источники для этой добавки пока не собраны",
+    "sources.curatedTitle": "📚 Проверенные источники (топ-3)",
+    "sources.autoTitle": "📚 Мета-анализы (топ-3 авто-поиска)",
+    "sources.curatedNote": "Отобраны вручную по топ-2 МА. Полный список — в блоке key_sources карточки.",
+    "sources.autoNote": "⚠ Автоматический топ-3 запроса PubMed — не верифицировано вручную. Проверенные карточки помечены бейджем «ручная вычитка»; верифицировано сейчас: {verified} из {total}.",
+    // поделиться / сравнить
+    "share.post": "{name}: индекс {index}, {ma} МА · открытые данные · {url}",
+    "share.title": "📤 Поделиться:",
+    "share.copy": "🔗 копировать",
+    "compare.title": "🔀 Сравнить с:",
+    // блоки карточки
+    "block.what": "Что это",
+    "block.who": "Кому нужно",
+    "block.works": "Работает ли",
+    "block.evidence": "На чём основано",
+    "block.how": "Как принимать",
+    "block.onset": "Когда почувствую",
+    "block.notwho": "Кому нельзя",
+    "block.conflicts": "С чем конфликтует",
+    "block.friends": "С чем дружит",
+    "block.ul": "Передозировка (UL)",
+    "block.food": "Можно ли из еды",
+    "block.official": "Что говорят официалы",
+    "block.shop": "Как выбрать в магазине",
+    "block.myths": "Мифы и ловушки",
+    "block.noData": "данных нет",
+    "block.mechs": "Механизмы: ",
+    "block.goodPair": "🤝 Хорошая пара: ",
+    // группы блоков
+    "group.main": "📋 Основное",
+    "group.usage": "💊 Как принимать",
+    "group.caution": "⚠️ Осторожно",
+    "group.more": "📚 Дополнительно",
+    // фильтры
+    "filter.count": "({shown} из {total})",
+    "filter.verdict": "вердикт",
+    "filter.search": "поиск",
+    "filter.favs": "избранное",
+    "filter.shown": "показано {shown} из {total} добавок",
+    "filter.suffix": "(фильтр: {list})",
+    "filter.allEffects": "Все эффекты",
+    "filter.more": "+ ещё {n} ▾",
+    "filter.effectPrefix": "Эффект: ",
+    "filter.verdictPrefix": "Вердикт: ",
+    "filter.searchPrefix": "Поиск: ",
+    "verdict.works": "работает",
+    "verdict.depends": "зависит от контекста",
+    "verdict.unproven": "не подтверждено",
+    "empty.notFound": "🔍 Ничего не найдено.",
+    "empty.resetFavs": "✖ Сбросить фильтры",
+    // модалка
+    "trials.activeLabel": "Активных испытаний",
+    "trials.activeSuffix": " — сейчас проверяют на людях",
+    "trials.none": "❄️ Активных испытаний: 0 — сейчас никто не проверяет на людях",
+    "calc.label": "📏 <b>Калькулятор дозировки:</b>",
+    "calc.placeholder": "Ваш вес (кг)",
+    "calc.standard": "Стандартная доза: ",
+    "calc.perDay": "{dose} {unit}/сут",
+    "calc.overMax": "⚠️ превышает максимум ({max} {unit})",
+    "modal.citations": "📖 Цитирований ключевого MA: ",
+    "modal.wikiViews": "🌐 Просмотров в Википедии (12 мес): ",
+    "modal.effects": "Эффекты:",
+    "modal.dosage": "Дозировка:",
+    "modal.course": "Курс:",
+    "modal.forms": "Формы/штаммы:",
+    "modal.issue": "❌ Нашли неточность? Сообщить",
+    "modal.fullCard": "🧩 Полная карточка добавки",
+    // графики
+    "chart.missingMsg": "⚠️ {count} добавок без значения («{axis}») не показаны на графике",
+    "chart.logSuffix": " (лог)",
+    "chart.yTitleLog": "Индекс науки (лог)",
+    "quadrant.waiting": "⏳ {count} добавок ждут верификации эффекта",
+    "quadrant.xTitle": "Сила эффекта (g)",
+    "quadrant.yTitle": "Индекс науки (log)",
+    "axis.ma": "Число МА",
+    "axis.rct": "Число РКИ",
+    // сравнение
+    "cmp.param": "Параметр",
+    "cmp.verdict": "Вердикт",
+    "cmp.science": "Индекс науки",
+    "cmp.ma": "Мета-анализов",
+    "cmp.trials": "🧪 Испытания сейчас",
+    "cmp.citations": "Цитирований MA",
+    "cmp.effects": "Эффекты",
+    "cmp.dosage": "Дозировка",
+    "cmp.course": "Курс",
+    "cmp.caution": "⚠️ Осторожно",
+    // профиль (радар)
+    "prof.science": "Наука",
+    "prof.maBase": "База МА",
+    "prof.verified": "Верифицированность",
+    "prof.completeness": "Полнота карточки",
+    "prof.long.science": "Наука (перцентиль по базе)",
+    "prof.long.maBase": "База МА (перцентиль по базе)",
+    "prof.long.verified": "Верифицированность (0-100)",
+    "prof.long.completeness": "Полнота карточки (0-100)",
+    // баннеры избранного
+    "banner.dangerPrefix": "⚠️ Опасно в избранном: ",
+    "banner.warnPrefix": "⚠️ ",
+    "banner.and": " и ",
+    "banner.conflictSuffix": " конкурируют за всасывание — разнесите на 2-4 часа",
+    "banner.synergyPrefix": "🤝 Хорошая пара: ",
+    // автообновление
+    "update.toast": "🔄 Доступно обновление — перезагружаю…",
+    // граф связей (13A2b)
+    "graph.errorLog": "[graph] данные не загрузились:",
+    "graph.loadError": "⚠ Не удалось загрузить граф. Попробуйте обновить страницу.",
+    "graph.tagsPrefix": "Теги: ",
+    // атлас (13A2b)
+    "atlas.mechCount": " механизмов",
+    "atlas.tagCount": " добавок с этим тегом",
+    "atlas.mechsHeading": "Механизмы",
+    "atlas.filtered": " (отфильтровано)",
+    "atlas.statsFrom": " из ",
+    "atlas.statsSups": " добавок · ",
+    "atlas.statsHubs": " хабов-тегов · ",
+    "atlas.statsLinks": " связей",
+    "atlas.loadError": "❌ Не удалось загрузить data.json",
+    // взаимодействия (13A2b)
+    "int.drugClassTitle": "Лекарственный класс · клик = подсветить связи",
+    "int.gradePrefix": "Грейд ",
+    "int.nodeClickOpen": " · клик = открыть карточку",
+    "int.synergyTitle": "Синергия",
+    "int.antagonistTitle": "Антагонизм",
+    "int.interactionRisk": "Взаимодействие · риск ",
+    "int.legSynergy": "синергия",
+    "int.legAntagonist": "антагонизм",
+    "int.legInteraction": "взаимодействие",
+    "int.legSupGradeAD": "добавка (цвет = грейд A–D)",
+    "int.legInteractionSev": "взаимодействие · цвет = severity",
+    "int.legSupGrade": "добавка (цвет = грейд)",
+    "int.legDrugClass": "лекарственный класс",
+    "int.drugClass": "Лекарственный класс",
+    "int.closePanel": "Закрыть панель",
+    "int.relatedSupps": "Связанные добавки (",
+    "int.links": "Связи (",
+    "int.loadError": "Не удалось загрузить interactions_graph.json: ",
+    // калькулятор (13A2b)
+    "calc.allMatches": "Все совпадения по запросу «{q}» уже в расчёте",
+    "calc.nothingFound": "Ничего не найдено по запросу «{q}»",
+    "calc.resetSearch": "Сбросить поиск",
+    "calc.nothingSelected": "Пока ничего не выбрано. Начните с поиска выше.",
+    "calc.forWeight": " (для {w} кг)",
+    "calc.normPrefix": "норма: ",
+    "calc.removeTitle": "Удалить",
+    "calc.removeAria": "Удалить {id}",
+    "calc.aboveLimit": " — выше безопасного предела ",
+    "calc.noConflicts": "Проверено: конфликтов не найдено.",
+    "calc.noSubstanceInteractions": "Проверено: взаимодействий с веществами не найдено.",
+    "calc.noSynergies": "Проверено: синергий не найдено.",
+    "calc.needTwo": "Нужно минимум две добавки — синергии считаются по парам.",
+    "calc.takenTogether": "часто принимают вместе",
+    "calc.noDoseWarnings": "Проверено: предупреждений о дозировке нет.",
+    "calc.emptyList": "Список пуст",
+    "calc.mySetHeader": "Мой набор БАДов (вес {w} кг):",
+    "calc.doseNotSet": "доза не указана",
+    // карта (13A2b)
+    "map.mechCount": " механизма",
+    "map.noMechs": "Для этой добавки механизмы ещё уточняются.",
+    "map.alsoTargets": "🔗 Также бьёт по этим мишеням:",
+    "map.openCardSupp": "Открыть карточку добавки →",
+    "map.statsSup": " добавка · ",
+    "map.statsCat": " категорий · ",
+    "map.targetOne": "мишень",
+    "map.targetFew": "мишени",
+    "map.targetMany": "мишеней",
+    "map.effectOne": "эффект",
+    "map.effectFew": "эффекта",
+    "map.effectMany": "эффектов",
+    "map.loadError": "❌ Не удалось загрузить data.json",
+    "map.noOverlap": "Пересечений нет: ",
+    "map.noOverlapBase": " со всей базой из ",
+    "map.noOverlapSups": " добавок.",
+    "map.openCatalog": "Открыть каталог всех добавок →",
+    "map.overlapTitle": "мех×2 + эфф + категория",
+    "map.overlapMech": "мех:",
+    "map.overlapEff": " эфф:",
+    "map.overlapCat": " кат:1",
+    "map.headMech": "Механизм",
+    "map.headEffect": "Эффект",
+    "map.strength": "Сила: ",
+    "map.headMechs": "Механизмы (",
+    "map.headSimilar": "Похожие добавки (",
+    "map.basisSingle": "сравнили её единственный механизм",
+    "map.basisAll": "сравнили все её механизмы (",
+    "map.headMechOne": "⚙️ Механизм",
+    "map.fromSupp": "У добавки: ",
+    "map.headSimilarMech": "Добавки с похожим механизмом (",
+    "map.basisThis": "сравнили этот механизм",
+    "map.headEffectOne": "✨ Эффект",
+    "map.mechanismPrefix": "Механизм: ",
+    // тренды (13A2b)
+    "trends.loadError": "Не удалось загрузить данные: ",
+    "trends.pctTo2015": "% к 2015",
+    "trends.per10y": " за 10 лет",
+    "trends.pubGrowthLabel": "Рост публикаций",
+    "trends.xAxisBase": "Рост (× к базе)",
+    "trends.shown": "Показано {n} добавок · клик по столбцу → карточка · цвет = грейд доказательности",
+    "trends.topShown": "Топ-{n} по просмотрам · линия = добавка (цвет = грейд) · наведение — точное значение",
+    "trends.citesPerYearLabel": "Цитат за год (сумма)",
+    "trends.citationsSuffix": " цитат",
+    "trends.citeSumGrowth": "Сумма цитат по всем отфильтрованным добавкам · рост {d}% за период",
+    "trends.sciIndex": "📊 Индекс науки: ",
+    "trends.citKeySource": "📖 Цитат ключевого источника: ",
+    "trends.wikiPerMonth": "🌐 Wiki-просмотров/мес: ",
+    "trends.activeTrials": "🧪 Активных испытаний: ",
+    "trends.effectsLabel": "Эффекты:",
+    "trends.pubsByYear": "Публикации по годам:",
+    "trends.totalCites": "Всего цитат:",
+    "trends.openFullCard": "Открыть полную карточку →",
+    "trends.ins1Title": "Наука опережает хайп",
+    "trends.insPubPrefix": ": публикации ×",
+    "trends.insSciFaster": " — наука растёт быстрее интереса",
+    "trends.ins2Title": "Хайп без науки",
+    "trends.insPubComma": ", публикации ×",
+    "trends.insGradePrefix": " (грейд ",
+    "trends.insHypeGrowth": ") — рост на маркетинге",
+    "trends.ins3Title": "Наука без хайпа",
+    "trends.insUndervalued": " — недооценённая добавка",
+    "trends.ins4Title": "Устойчивый лидер",
+    "trends.insLeadMid": " публикации, ×",
+    "trends.insWikiGrade": " wiki, грейд ",
+    "trends.ins5Title": "Статистический выброс",
+    "trends.insAnomaly": "σ от среднего — уникальный случай",
+    "trends.qHype": "🔥 ХАЙП БЕЗ НАУКИ",
+    "trends.qLeaders": "⭐ ЛИДЕРЫ",
+    "trends.qForget": "⚪ ЗАБВЕНИЕ",
+    "trends.qScience": "❄️ НАУКА БЕЗ ХАЙПА",
+    "trends.tipGrade": " · грейд ",
+    "trends.yAxisPubs": "Рост публикаций (× к 2015)",
+    "trends.yAxisWiki": "Рост wiki (× к базе)",
+    "trends.catAvg": "Средний рост",
+    "trends.catLeader": "Лидер",
+    "trends.catLoser": "Провал",
+    "trends.catNoProof": "⚠️ {n}% без доказательств (грейд D)",
+    "trends.warnLog": "Тренды: данные не загрузились —",
+    // 13A3 (I18N-P2-02): ключи для data-i18n-* атрибутов (title / aria-label / placeholder),
+    // применяются функцией applyI18n ниже. Одна строка — один ключ, повторное использование
+    // на разных страницах допустимо (DRY).
+    "a11y.navMain": "Главная навигация",
+    "btn.scrollDown": "Вниз",
+    "a11y.scrollDown": "Прокрутить страницу вниз",
+    "a11y.cookieConsent": "Согласие на использование cookie",
+    "a11y.closeModal": "Закрыть окно",
+    // atlas
+    "atlas.btn.download": "Скачать картинку",
+    "atlas.btn.copyLink": "Копировать ссылку с фильтрами",
+    "atlas.btn.fullscreen": "Развернуть на весь экран",
+    "atlas.aria.filterLink": "Ссылка с фильтрами",
+    "atlas.searchPh": "название, эффект, механизм…",
+    "atlas.gradeA": "Грейд A",
+    "atlas.gradeB": "Грейд B",
+    "atlas.gradeC": "Грейд C",
+    "atlas.gradeD": "Грейд D",
+    // калькулятор
+    "calc.searchPh": "Поиск добавки для добавления…",
+    "calc.aria.textList": "Список добавок текстом",
+    "calc.aria.selectedLink": "Ссылка с выбранными добавками",
+    // обратная связь
+    "feedback.formTitle": "Форма обратной связи",
+    // главная
+    "index.refresh": "Обновить данные с сервера",
+    "index.searchPh": "🔍 Поиск: название или эффект...",
+    "index.favs": "Показать только избранные",
+    "index.reset": "Сбросить все фильтры и поиск",
+    "index.sortSci": "Сортировка: доказательность",
+    "index.verdictWorks": "Вердикт только «работает»",
+    "index.trials": "Есть активные испытания на людях",
+    // взаимодействия
+    "interactions.btn.download": "Скачать как PNG",
+    "interactions.searchPh": "🔍 Поиск добавки или лекарства…",
+    // тренды / sup
+    "trends.gradeAbbr": "Грейд A-D — шкала доказательности (см. glossary.html)",
+    "sup.searchPh": "🔍 Поиск: название или категория..."
+  }
+};
+
+function t(key, params) {
+  const dict = I18N[LOCALE] || I18N.ru;
+  let s = dict[key] != null ? dict[key] : (I18N.ru[key] != null ? I18N.ru[key] : key);
+  if (params) s = s.replace(/\{(\w+)\}/g, (m, k) => (k in params ? params[k] : m));
+  return s;
+}
+
+// 13A3 (I18N-P2-02): применение перевода к data-i18n-* атрибутам (title, aria-label,
+// placeholder) после разбора DOM. root по умолчанию document; window.applyI18n
+// оставлен для динамически вставляемой разметки.
+function applyI18n(root) {
+  root = root || document;
+  root.querySelectorAll('[data-i18n-title]').forEach(el =>
+    el.title = t(el.dataset.i18nTitle));
+  root.querySelectorAll('[data-i18n-aria-label]').forEach(el =>
+    el.setAttribute('aria-label', t(el.dataset.i18nAriaLabel)));
+  root.querySelectorAll('[data-i18n-placeholder]').forEach(el =>
+    el.placeholder = t(el.dataset.i18nPlaceholder));
+}
+document.addEventListener('DOMContentLoaded', () => applyI18n());
+window.applyI18n = applyI18n; // для динамики

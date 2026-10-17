@@ -1,25 +1,31 @@
 <!doctype html>
 <html lang="ru">
 <head>
+  <meta charset="utf-8">
   <script defer src="version.js?v=312"></script>
-<meta charset="utf-8">
+  <script src="i18n.js?v=2"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#1c1c1e" media="(prefers-color-scheme: dark)">
 <meta name="description" content="Карта механизмов 130 БАД: от вещества через молекулярную мишень к эффекту. Тройки механизм-эффект-сила, кросс-связи по токенам."/>
 <meta property="og:type" content="website"/>
-<meta property="og:title" content="Карта механизмов БАДов"/>
-<meta property="og:description" content="Как работает каждая добавка: вещество → мишень → эффект."/>
+<meta property="og:title" content="Карта БАДов: вещество, мишень, эффект — Brain 25 Evidence"/>
+<meta property="og:description" content="Карта механизмов 130 БАД: от вещества через молекулярную мишень к эффекту. Тройки механизм-эффект-сила, кросс-связи по токенам."/>
 <meta property="og:url" content="https://deadsno.github.io/brain-25-evidence/map.html"/>
 <link rel="canonical" href="https://deadsno.github.io/brain-25-evidence/map.html">
 <link rel="alternate" type="application/rss+xml" title="brain-25-evidence" href="https://deadsno.github.io/brain-25-evidence/feed.xml">
 <meta property="og:image" content="https://deadsno.github.io/brain-25-evidence/og.png"/>
+<meta property="og:site_name" content="Brain 25 Evidence"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Карта БАДов: вещество, мишень, эффект — Brain 25 Evidence"/>
+<meta name="twitter:description" content="Карта механизмов 130 БАД: от вещества через молекулярную мишень к эффекту. Тройки механизм-эффект-сила, кросс-связи по токенам."/>
+<meta name="twitter:image" content="https://deadsno.github.io/brain-25-evidence/og.png"/>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="БАДы">
 <link rel="apple-touch-icon" href="icons/192.png">
-<title>Карта механизмов БАДов — 130 добавки</title>
+<title>Карта БАДов: вещество, мишень, эффект — Brain 25 Evidence</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
 <script>
 // v5.4.0 (dark-first): тёмная тема — это ОТСУТСТВИЕ класса light.
@@ -31,7 +37,7 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=423">
+<link rel="stylesheet" href="style.css?v=435">
 <script>
   try {
     document.addEventListener('DOMContentLoaded', function () {
@@ -41,7 +47,7 @@ try {
     // то есть класс задавался явно; теперь тёмная — это его отсутствие.
     if (light) { document.body.classList.add('light'); }
       var b = document.getElementById('themeBtn');
-      if (b) b.textContent = light ? '🌙 Тёмная тема' : '🌞 Светлая тема';
+      if (b) b.textContent = light ? t("theme.dark") : t("theme.light");
     });
   } catch (e) {}
 </script>
@@ -92,7 +98,7 @@ try {
   .top{display:flex;justify-content:space-between;align-items:center;gap:var(--space-4);flex-wrap:wrap}
   .top .site-title{font-size:1.45rem;margin:var(--space-0-2) 0}
   .top a{color:inherit;text-decoration:none}
-  #stats{opacity:.6;font-size:.85rem;margin:var(--space-0-3) 0 0}
+  #stats{opacity:.85;font-size:.85rem;margin:var(--space-0-3) 0 0}
   #q{padding:var(--space-2) .8rem;border:1px solid var(--aborder);border-radius:var(--radius-lg);background:var(--apanel);color:var(--atext);min-width:220px}
   #themeBtn{padding:var(--space-2) .8rem;border:1px solid var(--aborder);border-radius:var(--radius-lg);background:var(--apanel);color:var(--atext);cursor:pointer}
   .cols{
@@ -101,11 +107,15 @@ try {
   height:calc(100vh - 240px);min-height:520px;
 }
   @media(max-width:860px){.cols{grid-template-columns:1fr}}
-  .list{height:100%;overflow:auto;padding-right:.4rem}
+  .list{height:100%;overflow:auto;padding-inline-end:.4rem}
   .cat h3{font-size:1rem;text-transform:uppercase;letter-spacing:.06em;opacity:.55;margin:.8rem 0 .35rem;cursor:pointer;user-select:none}
   .cat h3:hover{opacity:.9}
+  /* v5.6.4 (#44): подзаголовок категории. При .55 тёмно-серый текст на
+     светлой панели даёт 3.72:1; в тёмной теме те же .55 дают 5.55:1,
+     поэтому базовое правило остаётся как есть. */
+  html.light .cat h3{opacity:.9}
   .cat.closed .chip{display:none!important}
-  .chip{display:inline-block;margin:0 var(--space-0-3) var(--space-0-3) 0;padding:.32rem .65rem;border:1px solid var(--aborder);border-radius:var(--radius-pill);cursor:pointer;font-size:.82rem;background:var(--apanel);color:var(--atext)}
+  .chip{display:inline-block;margin-block:0 var(--space-0-3);margin-inline:0 var(--space-0-3);padding:.32rem .65rem;border:1px solid var(--aborder);border-radius:var(--radius-pill);cursor:pointer;font-size:.82rem;background:var(--apanel);color:var(--atext)}
   .chip:hover{border-color: var(--border-hover)}
   /* v4.2: #f1c40f в светлой теме давал 1.53:1 — тёмное золото */
   .chip.on{border-color:#8a6800;color:#8a6800;font-weight:700}
@@ -118,8 +128,8 @@ try {
   .step.mech{background:rgba(155,89,182,.15);border:1px solid rgba(155,89,182,.5)}
   .step.eff{background:rgba(46,204,130,.13);border:1px solid rgba(46,204,130,.45)}
   .arrow{text-align:center;opacity:.5;font-size:1.05rem;margin:.05rem 0;animation:rise .3s ease both}
-  .tag{display:inline-block;padding:.14rem .55rem;border-radius:var(--radius-pill);font-size:.72rem;font-weight:800;color:#fff;
-       margin-left:var(--space-2);vertical-align:middle;text-shadow:0 1px 2px rgba(0,0,0,.35)}
+  .tag{display:inline-block;padding:.14rem .55rem;border-radius:var(--radius-pill);font-size:var(--fs-3);font-weight:800;color:#fff;
+       margin-inline-start:var(--space-2);vertical-align:middle;text-shadow:0 1px 2px rgba(0,0,0,.35)}
   /* v4.1: белый текст на затемнённом градиенте — контраст ≥ 4.5:1 в обеих темах */
   .t-strong{background:linear-gradient(135deg,#166534,#15803d);box-shadow:0 0 10px rgba(21,128,61,.45)}
   .t-mod{background:linear-gradient(135deg,#3f6310,#4d7c0f)}
@@ -132,8 +142,8 @@ try {
      style.css (стр. 393–395) — удалены как мёртвые. */
   .chainbox a{color:var(--info-tx)}
   .sim{margin-top:1.2rem;padding-top:.9rem;border-top:1px dashed var(--aborder);animation:rise .4s ease both}
-  .sim h4{margin:var(--space-0-2) 0 var(--space-2);opacity:.75}
-  kbd{border:1px solid var(--aborder);border-radius:var(--radius-sm);padding:0 var(--space-0-3);font-size:.75rem;opacity:.7}
+  .sim h3{font-size:1.1rem;margin:var(--space-0-2) 0 var(--space-2);opacity:.75}
+  kbd{border:1px solid var(--aborder);border-radius:var(--radius-sm);padding:0 var(--space-0-3);font-size:.75rem}
   /* ── Overlay details ─────────────────────────────── */
 #details-backdrop {
   position: fixed; inset: 0;
@@ -146,7 +156,7 @@ try {
 #details-backdrop.open { opacity: 1; pointer-events: auto; }
 
 #details {
-  position: fixed; top: 50%; left: 50%;
+  position: fixed; top: 50%; inset-inline-start: 50%;
   transform: translate(-50%, -50%) scale(.96);
   width: min(620px, 92vw);
   max-height: 85vh; overflow-y: auto;
@@ -164,7 +174,7 @@ try {
   opacity: 1; pointer-events: auto;
   transform: translate(-50%, -50%) scale(1);
 }
-#details h2 { margin: 0 0 var(--space-2); padding-right: 2.2rem; }
+#details h2 { margin: 0 0 var(--space-2); padding-inline-end: 2.2rem; }
 #details h3 {
   margin: 1.2rem 0 .4rem; font-size: .78rem;
   text-transform: uppercase; letter-spacing: .06em;
@@ -172,7 +182,7 @@ try {
 }
 #details p { margin: var(--space-0-3) 0; line-height: var(--lh-normal); }
 #details .close-x {
-  position: absolute; top: .7rem; right: .9rem;
+  position: absolute; top: .7rem; inset-inline-end: .9rem;
   background: none; border: none;
   color: var(--amut); font-size: 1.7rem; line-height: 1;
   cursor: pointer; padding: var(--space-0-2) .4rem; border-radius: var(--radius-md);
@@ -201,8 +211,8 @@ try {
   font-size: .82rem; opacity: .65; margin-top: var(--space-1); line-height: 1.4;
 }
 #details .rel-overlap {
-  display: inline-block; margin-left: .4rem;
-  font-size: .72rem; opacity: .7;
+  display: inline-block; margin-inline-start: .4rem;
+  font-size: var(--fs-3); opacity: .7;
   border: 1px solid var(--aborder); border-radius: var(--radius-pill);
   padding: 0 .4rem;
 }
@@ -258,7 +268,7 @@ try {
     .top { flex-direction: column; align-items: stretch; gap: var(--space-2); margin: 0 0 .6rem; }
     .top .site-title { font-size: 1.05rem; line-height: 1.25; }
     .top .site-title a { display: inline-block; }
-    .top .v { font-size: .7rem; }
+    .top .v { font-size: var(--fs-3); }
     .actions { gap: .35rem; }
     .btn { padding: .4rem .6rem; font-size: .78rem; }
     /* v5.5.0 A1: было .78rem (12.48px) — локальное правило перебивало
@@ -304,6 +314,16 @@ footer { font-size: 1rem !important; }
      удалено — значение переехало в общий токен style.css. Источник
      истины один. */
 </style>
+<script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MedicalWebPage",
+      "name": "Карта механизмов",
+      "description": "Карта механизмов 130 БАД: от вещества через молекулярную мишень к эффекту. Тройки механизм-эффект-сила, кросс-связи по токенам.",
+      "url": "https://deadsno.github.io/brain-25-evidence/map.html",
+      "inLanguage": "ru"
+    }
+    </script>
 </head>
 <body>
 <a href="#main" class="skip-link">Перейти к содержимому</a>
@@ -312,7 +332,7 @@ footer { font-size: 1rem !important; }
     <div class="trustbar">🧬 Открытые данные · Бесплатно · Без рекламы</div>
     <header class="top">
     <div class="site-title"><a href="index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a> <span class="v">v<span data-version="app"></span></span></div>
-    <nav class="actions" aria-label="Главная навигация">
+    <nav class="actions" data-i18n-aria-label="a11y.navMain">
       <a class="btn c-calc" href="calculator.html">🧮 Калькулятор</a>
       <a class="btn c-links" href="interactions.html">🔗 Связи</a>
       <a class="btn c-atlas" href="atlas.html">🌐 Атлас</a>
@@ -329,11 +349,17 @@ footer { font-size: 1rem !important; }
 <main id="main">
   <h1>Карта механизмов</h1>
 
-  <p id="stats"></p>
-  <p style="opacity:.65;margin:.4rem 0 0">Выбери добавку слева — справа её цепочка: вещество → молекулярная мишень → эффект. <kbd>↑</kbd><kbd>↓</kbd> навигация, <kbd>/</kbd> поиск, <kbd>Esc</kbd> сброс.</p>
+  <!-- v5.6.5: live-регионы (A11Y-P2-05). #stats наполняется счётчиком при
+     загрузке (map.html:465), #chain перерисовывается целиком при выборе
+     добавки (:447) — без региона экранный диктор молчал обоих.
+     #list НЕ помечен: он собирается из данных один раз (:469), а фильтр
+     по #q только переключает display у детей (:499) — текст не меняется,
+     и озвучивание всего списка при каждом keystroke было бы шумом. -->
+  <p id="stats" role="status" aria-live="polite"></p>
+  <p style="opacity:.85;margin:.4rem 0 0">Выбери добавку слева — справа её цепочка: вещество → молекулярная мишень → эффект. <kbd>↑</kbd><kbd>↓</kbd> навигация, <kbd>/</kbd> поиск, <kbd>Esc</kbd> сброс.</p>
   <div class="cols">
-    <div class="list" id="list"></div>
-    <div class="chainbox" id="chain"></div>
+    <div class="list" id="list" tabindex="0"></div>
+    <div class="chainbox" id="chain" role="status" aria-live="polite"></div>
   </div>
 </main>
 
@@ -354,7 +380,8 @@ footer { font-size: 1rem !important; }
     <a href="methodology.html">📐 Методология</a> ·
     <a href="faq.html">❓ FAQ</a> ·
     <a href="glossary.html">📖 Глоссарий</a> ·
-    <a href="privacy.html">🔐 Приватность</a>
+    <a href="privacy.html">🔐 Приватность</a> ·
+    <a href="feed.xml">📡 RSS</a>
   </p>
   <p class="copy">© 2026 Vladislav "DeadSno" Pereshivalov · MIT</p>
   <p class="share-row"><button class="btn share-page" type="button">🔗 Поделиться</button></p>
@@ -392,7 +419,7 @@ function select(id, push){
   if (mechs.length) {
     // Один 💊 сверху
     html += '<div class="step sup" style="animation-delay:' + d + 's">💊 <b>' + s.name + '</b>' +
-            (mechs.length > 1 ? ' <span style="--inline-opacity:.6;font-size:.85rem">· ' + mechs.length + ' механизма</span>' : '') +
+            (mechs.length > 1 ? ' <span style="--inline-opacity:.6;font-size:.85rem">· ' + mechs.length + t("map.mechCount") + '</span>' : '') +
             '</div>';
     d += 0.12;
 
@@ -416,14 +443,14 @@ function select(id, push){
       d += 0.4;
     });
   } else {
-    html += '<p style="opacity:.6">Для этой добавки механизмы ещё уточняются.</p>';
+    html += '<p style="opacity:.6">' + t("map.noMechs") + '</p>';
   }
   const sim = similar(s);
   if (sim.length) {
-    html += '<div class="sim" style="animation-delay:' + (d + 0.2) + 's"><h4>🔗 Также бьёт по этим мишеням:</h4>' +
+    html += '<div class="sim" style="animation-delay:' + (d + 0.2) + 's"><h3>' + t("map.alsoTargets") + '</h3>' +
       sim.map(x => '<span class="chip" data-id="' + x.id + '">' + x.name + '</span>').join('') + '</div>';
   }
-  html += '<p style="margin-top:1.2rem"><a href="index.html#sup=' + encodeURIComponent(s.id) + '">Открыть карточку добавки →</a></p>';
+  html += '<p style="margin-top:1.2rem"><a href="index.html#sup=' + encodeURIComponent(s.id) + '">' + t("map.openCardSupp") + '</a></p>';
   $('chain').innerHTML = html;
 }
 
@@ -442,8 +469,8 @@ fetch('data.json?ts=' + Date.now())
     data.forEach(s => { (cats[s.category] = cats[s.category] || []).push(s); });
     const targets = new Set(), effects = new Set();
     data.forEach(s => (s.mechs || []).forEach(m => { targets.add(m[0]); effects.add(m[1]); }));
-    $('stats').textContent = data.length + ' добавка · ' + Object.keys(cats).length + ' категорий · ' +
-      targets.size + ' ' + plural(targets.size, 'мишень', 'мишени', 'мишеней') + ' · ' + effects.size + ' ' + plural(effects.size, 'эффект', 'эффекта', 'эффектов');
+    $('stats').textContent = data.length + t("map.statsSup") + Object.keys(cats).length + t("map.statsCat") +
+      targets.size + ' ' + plural(targets.size, t("map.targetOne"), t("map.targetFew"), t("map.targetMany")) + ' · ' + effects.size + ' ' + plural(effects.size, t("map.effectOne"), t("map.effectFew"), t("map.effectMany"));
     let closed = [];
     try { closed = JSON.parse(localStorage.getItem('mapClosed') || '[]'); } catch(e){}
     $('list').innerHTML = Object.keys(cats).sort().map(c =>
@@ -453,7 +480,7 @@ fetch('data.json?ts=' + Date.now())
     const p = new URLSearchParams(location.search).get('supplement');
     select(p && SUPS.some(s => s.id === p) ? p : 'Креатин', false);
   })
-  .catch(() => { $('chain').innerHTML = '<p style="color:red">❌ Не удалось загрузить data.json</p>'; });
+  .catch(() => { $('chain').innerHTML = '<p style="color:red">' + t("map.loadError") + '</p>'; });
 
 $('list').addEventListener('click', e => {
   const h = e.target.closest('h3');
@@ -504,7 +531,7 @@ $('themeBtn').addEventListener('click', () => {
   document.documentElement.classList.toggle('light', light);
   document.body.classList.toggle('light', light);
   localStorage.setItem('theme', light ? 'light' : 'dark');
-  $('themeBtn').textContent = light ? '🌙 Тёмная тема' : '🌞 Светлая тема';
+  $('themeBtn').textContent = light ? t("theme.dark") : t("theme.light");
 });
 // ── Haptic feedback (Android) ───────────────────────
 function haptic(ms) {
@@ -536,7 +563,7 @@ document.addEventListener('click', e => {
   }
   function openDetails(html) {
     modal.innerHTML = html +
-      '<button class="close-x" aria-label="Закрыть">×</button>';
+      '<button class="close-x" aria-label="' + t("a11y.close") + '">×</button>';
     modal.querySelector('.close-x').onclick = closeDetails;
     modal.classList.add('open');
     bd.classList.add('open');
@@ -598,17 +625,22 @@ document.addEventListener('click', e => {
     return '<span class="verdict v' + s.code + '">' + esc(s.verdict) + '</span>';
   }
 
-  function relList(rel) {
+  function relList(rel, basis) {
     if (!rel.length) {
-      return '<p style="opacity:.6">Похожих механизмов не найдено</p>';
+      // v5.6.5 (A11Y-P2-07): сообщаем, ПО ЧЕМУ сравнивали — иначе «не найдено»
+      // читается как «поищи ещё раз», хотя пересечений действительно нет.
+      // Плюс явный выход из пустого состояния — ссылка в каталог.
+      return '<p style="opacity:.6">' + t("map.noOverlap") + esc(basis) +
+        t("map.noOverlapBase") + SUPS.length + t("map.noOverlapSups") + '</p>' +
+        '<p style="margin-top:.8rem"><a class="cta" href="sup/index.html">' + t("map.openCatalog") + '</a></p>';
     }
     return '<ul class="rel-list">' + rel.map(r =>
       '<li data-open-supp="' + esc(r.s.id) + '">' +
       '<a>' + esc(r.s.name) + '</a>' +
       '<div class="rel-desc">' + esc((r.s.mechs[0][0] || '').slice(0, 140)) +
-      '<span class="rel-overlap" title="мех×2 + эфф + категория">' +
-      'мех:' + r.mechOverlap + ' эфф:' + r.effOverlap +
-      (r.sameCat ? ' кат:1' : '') + '</span></div>' +
+      '<span class="rel-overlap" title="' + t("map.overlapTitle") + '">' +
+      t("map.overlapMech") + r.mechOverlap + t("map.overlapEff") + r.effOverlap +
+      (r.sameCat ? t("map.overlapCat") : '') + '</span></div>' +
       '</li>'
     ).join('') + '</ul>';
   }
@@ -627,10 +659,10 @@ document.addEventListener('click', e => {
       verdictBadge(s) +
       '</div>' +
       (mechs.length === 1
-        ? '<h3>Механизм</h3><p>' + esc(mechs[0][0]) + '</p>' +
-          '<h3>Эффект</h3><p>' + esc(mechs[0][1]) + '</p>' +
-          (mechs[0][2] ? '<p style="opacity:.7;font-size:.85rem">Сила: <b>' + esc(mechs[0][2]) + '</b></p>' : '')
-        : '<h3>Механизмы (' + mechs.length + ')</h3>' +
+        ? '<h3>' + t("map.headMech") + '</h3><p>' + esc(mechs[0][0]) + '</p>' +
+          '<h3>' + t("map.headEffect") + '</h3><p>' + esc(mechs[0][1]) + '</p>' +
+          (mechs[0][2] ? '<p style="opacity:.7;font-size:.85rem">' + t("map.strength") + '<b>' + esc(mechs[0][2]) + '</b></p>' : '')
+        : '<h3>' + t("map.headMechs") + mechs.length + ')</h3>' +
           mechs.map((m, i) =>
             '<div style="margin:.7rem 0;padding:.6rem .8rem;border:1px solid var(--aborder);border-radius:8px">' +
             '<div style="font-weight:600">' + (i + 1) + '. ' + esc(m[0]) + '</div>' +
@@ -639,9 +671,12 @@ document.addEventListener('click', e => {
             '</div>'
           ).join('')
       ) +
-      '<h3>Похожие добавки (' + rel.length + ')</h3>' + relList(rel) +
+      '<h3>' + t("map.headSimilar") + rel.length + ')</h3>' +
+      relList(rel, mechs.length === 1
+        ? t("map.basisSingle")
+        : t("map.basisAll") + mechs.length + ')') +
       '<p style="margin-top:1.2rem"><a class="cta" href="index.html#sup=' +
-      encodeURIComponent(s.id) + '">Открыть карточку →</a></p>'
+      encodeURIComponent(s.id) + '">' + t("common.openCard") + '</a></p>'
     );
   }
 
@@ -654,14 +689,15 @@ document.addEventListener('click', e => {
     const rel = relatedByMech(s, [m]);
 
     openDetails(
-      '<h2>⚙️ Механизм' + (mechs.length > 1 ? ' ' + (idx + 1) + '/' + mechs.length : '') + '</h2>' +
+      '<h2>' + t("map.headMechOne") + (mechs.length > 1 ? ' ' + (idx + 1) + '/' + mechs.length : '') + '</h2>' +
       '<p style="font-size:1rem;line-height:1.55">' + esc(m[0]) + '</p>' +
-      '<h3>У добавки: ' + esc(s.name) + '</h3>' +
+      '<h3>' + t("map.fromSupp") + esc(s.name) + '</h3>' +
       '<p style="opacity:.85">' + esc(m[1]) + '</p>' +
-      (m[2] ? '<p style="opacity:.7;font-size:.85rem">Сила: <b>' + esc(m[2]) + '</b></p>' : '') +
-      '<h3>Добавки с похожим механизмом (' + rel.length + ')</h3>' + relList(rel) +
+      (m[2] ? '<p style="opacity:.7;font-size:.85rem">' + t("map.strength") + '<b>' + esc(m[2]) + '</b></p>' : '') +
+      '<h3>' + t("map.headSimilarMech") + rel.length + ')</h3>' +
+      relList(rel, t("map.basisThis")) +
       '<p style="margin-top:1.2rem"><a class="cta" href="index.html#sup=' +
-      encodeURIComponent(s.id) + '">Открыть карточку →</a></p>'
+      encodeURIComponent(s.id) + '">' + t("common.openCard") + '</a></p>'
     );
   }
 
@@ -673,13 +709,13 @@ document.addEventListener('click', e => {
     if (!m) return showSupplement(id);
 
     openDetails(
-      '<h2>✨ Эффект' + (mechs.length > 1 ? ' ' + (idx + 1) + '/' + mechs.length : '') + '</h2>' +
+      '<h2>' + t("map.headEffectOne") + (mechs.length > 1 ? ' ' + (idx + 1) + '/' + mechs.length : '') + '</h2>' +
       '<p style="font-size:1rem;line-height:1.55">' + esc(m[1]) + '</p>' +
-      (m[2] ? '<p style="opacity:.7">Сила: <b>' + esc(m[2]) + '</b></p>' : '') +
-      '<h3>У добавки: ' + esc(s.name) + '</h3>' +
-      '<p style="opacity:.85">Механизм: ' + esc(m[0]) + '</p>' +
+      (m[2] ? '<p style="opacity:.7">' + t("map.strength") + '<b>' + esc(m[2]) + '</b></p>' : '') +
+      '<h3>' + t("map.fromSupp") + esc(s.name) + '</h3>' +
+      '<p style="opacity:.85">' + t("map.mechanismPrefix") + esc(m[0]) + '</p>' +
       '<p style="margin-top:1.2rem"><a class="cta" href="index.html#sup=' +
-      encodeURIComponent(s.id) + '">Открыть карточку →</a></p>'
+      encodeURIComponent(s.id) + '">' + t("common.openCard") + '</a></p>'
     );
   }
 
@@ -709,7 +745,7 @@ document.addEventListener('click', e => {
   document.head.appendChild(st);
 })();
 </script>
-<button class="toBottom" id="toBottom" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})" title="Вниз" aria-label="Прокрутить страницу вниз">↓</button>
+<button class="toBottom" id="toBottom" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})" data-i18n-title="btn.scrollDown" data-i18n-aria-label="a11y.scrollDown">↓</button>
 <script>
 window.addEventListener('scroll', () => {
   const btn = document.getElementById('toBottom');
@@ -728,7 +764,7 @@ window.addEventListener('scroll', () => {
 <!-- v5.6.2: cookie-согласие + Яндекс.Метрика (счётчик 112465667).
      Метрика грузится ТОЛЬКО после нажатия «Принять»: до согласия
      ни одного запроса к mc.yandex.ru не происходит. -->
-<div id="cookieBanner" role="dialog" aria-label="Согласие на использование cookie" hidden>
+<div id="cookieBanner" role="dialog" data-i18n-aria-label="a11y.cookieConsent" hidden>
   <div class="cb-text">
     Мы используем cookie и Яндекс.Метрику, чтобы понять, какие материалы полезны.
     Аналитика включается только после вашего согласия.

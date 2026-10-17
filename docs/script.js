@@ -4,6 +4,10 @@ function esc(s) {
   ));
 }
 const $ = id => document.getElementById(id);
+// 13A2a (I18N-P2-01): LOCALE, I18N и t() перенесены в глобальный
+// docs/i18n.js (classic-скрипт, подключается до script.js и до
+// inline-скриптов тем). Здесь — только потребление I18N / t / LOCALE.
+
 let supplements = [], currentData = [], chartInstance = null, radarInstance = null, onlyFavs = false;
 let supplementsFull = null;         // {id: {...}} — загружается при первом клике
 let supplementsFullPromise = null;  // in-flight запрос data.json
@@ -77,10 +81,10 @@ let prevSort = '';                                     // для тумблер�
 let prevVerdict = '';                                  // для пресета 💎 Доказано
 // i18n: severity на русском
 const SEV_LABEL = {
-  low: 'низкий',
-  medium: 'средний',
-  high: 'высокий',
-  critical: 'критичный',
+  low: t("sev.low"),
+  medium: t("sev.medium"),
+  high: t("sev.high"),
+  critical: t("sev.critical"),
 };
 const sevRu = s => SEV_LABEL[(s || '').toLowerCase()] || s || '';
 let chartPts = [];
@@ -91,10 +95,10 @@ let curModal = null;   // v2.6: id открытой модалки для «Ср
 let BEST = [];
 
 // ===== v2.4: грейды A–D =====
-const GRADE_LABEL = { A: 'крепко доказано', B: 'умеренно', C: 'изучено много, эффект мал', D: 'данных мало' };
+const GRADE_LABEL = { A: t("grade.A"), B: t("grade.B"), C: t("grade.C"), D: t("grade.D") };
 function gradeBadge(s) {
   if (!s.grade) return '';
-  return '<span class="grade g' + s.grade + '" title="Грейд ' + s.grade + ' — ' + (GRADE_LABEL[s.grade] || '') + '">грейд ' + s.grade + '</span>';
+  return '<span class="grade g' + s.grade + '" title="' + t("card.gradeTitle") + ' ' + s.grade + ' — ' + (GRADE_LABEL[s.grade] || '') + '">' + t("card.grade") + ' ' + s.grade + '</span>';
 }
 
 const GRADE_PRIOR = { A: 0, B: 1, C: 2, D: 3 };   // v2.6.1: сортировка «по грейду» A<B<C<D<нет
@@ -102,43 +106,43 @@ const GRADE_PRIOR = { A: 0, B: 1, C: 2, D: 3 };   // v2.6.1: сортировк�
 // ===== v2.6: бейдж «ручная вычитка» (у карточек с ручным вердиктом — все вердикты ручные) =====
 // Tooltip-хелперы для метрик (наведение показывает формулу)
 function scienceSpan(s) {
-  return '<span title="Объём доказательной базы: количество РКИ + 5 × мета-анализы в PubMed по добавке. Это метрика объёма, не силы эффекта.">🔬 наука: ' + s.scienceIndex + '</span>';
+  return '<span title="' + t("sci.tooltip") + '">' + t("sci.label") + s.scienceIndex + '</span>';
 }
 function maSpan(s) {
-  return '<span title="Количество статей типа meta-analysis в PubMed по запросу для этой добавки. Это про объём литературы, а не про подтверждение эффекта.">📚 MA: ' + s.metaCount + '</span>';
+  return '<span title="' + t("ma.tooltip") + '">' + t("ma.label") + s.metaCount + '</span>';
 }
 function citationsSpan(s) {
   if (s.citations == null) {
-    return '<span title="Цитирования не рассчитаны для этой добавки.">📖 цитирований MA: —</span>';
+    return '<span title="' + t("cit.none.tooltip") + '">' + t("cit.none") + '</span>';
   }
-  return '<span title="Сумма цитирований ключевого мета-анализа (по данным OpenAlex).">📖 цитирований MA: ' + s.citations + '</span>';
+  return '<span title="' + t("cit.tooltip") + '">' + t("cit.label") + s.citations + '</span>';
 }
 
 function manualBadge(s) {
   if (!s.verdict) return '';
-  return '<span class="manual-badge" title="Вердикт выставлен вручную по топ-2 МА методологией проекта">✋ ручная вычитка</span>';
+  return '<span class="manual-badge" title="' + t("card.handcheckTitle") + '">' + t("card.handcheck") + '</span>';
 }
 
 // ===== v2.6: «Обновлено: дата последнего коммита data.json» =====
 function updatedLine(s) {
   const fromVersion = (window.APP_VERSION && window.APP_VERSION.data) || null;
   const d = fromVersion || s.updated || '—';
-  return '<div class="updated" title="Дата последнего обновления данных проекта">Обновлено: ' + esc(d) + '</div>';
+  return '<div class="updated" title="' + t("card.updatedTitle") + '">' + t("card.updated") + ': ' + esc(d) + '</div>';
 }
 
 // ===== v2.6: иконки источников =====
 function pubmedLink(s) {
-  return ' <a class="srcIcon" target="_blank" rel="noopener" title="Поиск в PubMed" href="https://pubmed.ncbi.nlm.nih.gov/?term=' +
-    encodeURIComponent(s.name) + '">PubMed ↗</a>';
+  return ' <a class="srcIcon" target="_blank" rel="noopener" title="' + t("sources.pubmedTitle") + '" href="https://pubmed.ncbi.nlm.nih.gov/?term=' +
+    encodeURIComponent(s.name) + '">' + t("sources.pubmed") + '</a>';
 }
 function wikiLink(s) {
-  return ' <a class="srcIcon" target="_blank" rel="noopener" title="Википедия" href="https://ru.wikipedia.org/wiki/' +
-    encodeURIComponent(s.name.replace(/\+/g, ' ')) + '">Wiki ↗</a>';
+  return ' <a class="srcIcon" target="_blank" rel="noopener" title="' + t("sources.wikiTitle") + '" href="https://ru.wikipedia.org/wiki/' +
+    encodeURIComponent(s.name.replace(/\+/g, ' ')) + '">' + t("sources.wiki") + '</a>';
 }
 // ===== v2.6: кнопка «Нашли неточность?» (issue с добавка+поле) =====
 function issueUrl(s, field) {
-  const title = (s.name || 'добавка') + (field ? ': ' + field : '') + ' — неточность в данных';
-  const body = 'Что не так?\n\n(заполните)';
+  const title = t("card.issueTitle", { name: (s.name || t("card.supplement")) + (field ? ': ' + field : '') });
+  const body = t("card.issueBody");
   return 'https://github.com/DeadSno/brain-25-evidence/issues/new?title=' +
     encodeURIComponent(title) + '&body=' + encodeURIComponent(body);
 }
@@ -146,11 +150,11 @@ function issueUrl(s, field) {
 // ===== v2.6: поделиться (TG/VK/копировать) в модалке =====
 function shareRow(s) {
   const cardUrl = 'https://deadsno.github.io/brain-25-evidence/#sup=' + encodeURIComponent(s.id);
-  const post = s.name + ': индекс ' + s.scienceIndex + ', ' + s.metaCount + ' МА · открытые данные · ' + cardUrl;
-  return '<div class="shareRow"><b>📤 Поделиться:</b>' +
+  const post = t("share.post", { name: s.name, index: s.scienceIndex, ma: s.metaCount, url: cardUrl });
+  return '<div class="shareRow"><b>' + t("share.title") + '</b>' +
     ' <a class="favFilter" target="_blank" rel="noopener" href="https://t.me/share/url?url=' + encodeURIComponent(cardUrl) + '&text=' + encodeURIComponent(post) + '">TG</a>' +
     ' <a class="favFilter" target="_blank" rel="noopener" href="https://vk.com/share.php?url=' + encodeURIComponent(cardUrl) + '&title=' + encodeURIComponent(post) + '">VK</a>' +
-    ' <button class="copyLink" data-copy="' + cardUrl + '">🔗 копировать</button></div>';
+    ' <button class="copyLink" data-copy="' + cardUrl + '">' + t("share.copy") + '</button></div>';
 }
 
 // ===== v2.6: «Сравнить с» — топ-3 той же категории (по доказательности, не случайные) =====
@@ -158,30 +162,30 @@ function compareBlock(s) {
   const same = supplements.filter(x => x.id !== s.id && x.category === s.category)
     .sort((a, b) => (b.scienceIndex || 0) - (a.scienceIndex || 0)).slice(0, 3);
   if (!same.length) return '';
-  return '<div class="mrow"><b>🔀 Сравнить с:</b><div class="compareChips">' +
+  return '<div class="mrow"><b>' + t("compare.title") + '</b><div class="compareChips">' +
     same.map(x => '<span class="chipbx" data-cmp="' + encodeURIComponent(x.id) + '">' + x.name + '</span>').join('') +
     '</div></div>';
 }
 
 // ===== v2.3: шаблон полной карточки (15 блоков, структура фиксирована) =====
-const BLOCK_EMPTY = '<span class="cbEmpty">для этой добавки проверяемых данных по пункту нет</span>';
+const BLOCK_EMPTY = '<span class="cbEmpty">' + t("card.blockEmpty") + '</span>';
 const CARDBLOCKS = [
-  { key: 'what',      title: 'Что это',                    get: s => s.about || (s.effects || []).join(', ') || '' },
-  { key: 'who',       title: 'Кому нужно',                 get: s => s.who_needs || '' },
-  { key: 'works',     title: 'Работает ли',                get: s => '<span class="verdict v' + esc(s.code) + '">' + esc(s.verdict) + '</span> · ' + gradeBadge(s) },
-  { key: 'evidence',  title: 'На чём основано',            get: s => '<div>' + scienceSpan(s) + pubmedLink(s) + ' · ' + maSpan(s) + ' · ' + citationsSpan(s) + '</div>' +
-    ((s.mechs || []).length ? '<div class="hline">Механизмы: ' + s.mechs.map(m => esc(m[0])).join('; ') + '</div>' : '') },
-  { key: 'how',       title: 'Как принимать',              get: s => [s.dosage, s.course].filter(v => v && v !== '—' && v !== '-').join(' · ') || 'данных нет' },
-  { key: 'onset',     title: 'Когда почувствую',           get: s => s.onset || '' },
-  { key: 'notwho',    title: 'Кому нельзя',                get: s => s.caution || '' },
-  { key: 'conflicts', title: 'С чем конфликтует',          get: renderConflicts },
-  { key: 'friends',   title: 'С чем дружит',               get: s => (s.synergists || []).length
-    ? '<span class="goodPair">🤝 Хорошая пара: ' + s.synergists.map(esc).join(', ') + '</span>' : '' },
-  { key: 'ul',        title: 'Передозировка (UL)',         get: s => s.upper_limit || '' },
-  { key: 'food',      title: 'Можно ли из еды',            get: s => s.food_sources || '' },
-  { key: 'official',  title: 'Что говорят официалы',       get: s => s.guidelines || '' },
-  { key: 'shop',      title: 'Как выбрать в магазине',     get: s => s.how_to_choose || s.forms || '' },
-  { key: 'myths',     title: 'Мифы и ловушки',             get: s => s.myths || '' }
+  { key: 'what',      title: t("block.what"),                    get: s => s.about || (s.effects || []).join(', ') || '' },
+  { key: 'who',       title: t("block.who"),                 get: s => s.who_needs || '' },
+  { key: 'works',     title: t("block.works"),                get: s => '<span class="verdict v' + esc(s.code) + '">' + esc(s.verdict) + '</span> · ' + gradeBadge(s) },
+  { key: 'evidence',  title: t("block.evidence"),            get: s => '<div>' + scienceSpan(s) + pubmedLink(s) + ' · ' + maSpan(s) + ' · ' + citationsSpan(s) + '</div>' +
+    ((s.mechs || []).length ? '<div class="hline">' + t("block.mechs") + s.mechs.map(m => esc(m[0])).join('; ') + '</div>' : '') },
+  { key: 'how',       title: t("block.how"),              get: s => [s.dosage, s.course].filter(v => v && v !== '—' && v !== '-').join(' · ') || t("block.noData") },
+  { key: 'onset',     title: t("block.onset"),           get: s => s.onset || '' },
+  { key: 'notwho',    title: t("block.notwho"),                get: s => s.caution || '' },
+  { key: 'conflicts', title: t("block.conflicts"),          get: renderConflicts },
+  { key: 'friends',   title: t("block.friends"),               get: s => (s.synergists || []).length
+    ? '<span class="goodPair">' + t("block.goodPair") + s.synergists.map(esc).join(', ') + '</span>' : '' },
+  { key: 'ul',        title: t("block.ul"),         get: s => s.upper_limit || '' },
+  { key: 'food',      title: t("block.food"),            get: s => s.food_sources || '' },
+  { key: 'official',  title: t("block.official"),       get: s => s.guidelines || '' },
+  { key: 'shop',      title: t("block.shop"),     get: s => s.how_to_choose || s.forms || '' },
+  { key: 'myths',     title: t("block.myths"),             get: s => s.myths || '' }
 ];
 
 function renderConflicts(s) {
@@ -190,10 +194,10 @@ function renderConflicts(s) {
   return list.map(i => '<div class="sev sev-' + esc(i.severity) + '"><b>' + esc(i.with) + '</b> · ' + esc(sevRu(i.severity)) + (i.note ? ' — ' + esc(i.note) : '') + '</div>').join('');
 }
 const CARD_GROUPS = [
-  { title: '📋 Основное', keys: ['what','who','works','evidence'] },
-  { title: '💊 Как принимать', keys: ['how','onset'] },
-  { title: '⚠️ Осторожно', keys: ['notwho','conflicts','friends','ul'] },
-  { title: '📚 Дополнительно', keys: ['food','official','shop','myths'] }
+  { title: t("group.main"), keys: ['what','who','works','evidence'] },
+  { title: t("group.usage"), keys: ['how','onset'] },
+  { title: t("group.caution"), keys: ['notwho','conflicts','friends','ul'] },
+  { title: t("group.more"), keys: ['food','official','shop','myths'] }
 ];
 function renderCardBlocks(s) {
   return '<div class="cblocks">' + CARD_GROUPS.map(g => {
@@ -241,6 +245,33 @@ function initTheme() {
 }
 initTheme();
 
+// INDEX_CTA_FIX (MKT-P1-02 follow-up): кнопка «Найти свою добавку»
+// ведёт на каталог (#cardsContainer), а не на #search: поле поиска стоит
+// ВЫШЕ CTA по DOM, якорь почти не двигал страницу и не ставил фокус.
+// Селектор по href, а не по id: id не нужен разметке, а связка
+// href -> обработчик не разъезжается, если кнопку переставят.
+// Обработчик на верхнем уровне (как initTheme): секция статичная, кнопка
+// должна работать даже если данные ещё не загрузились.
+// Фокус — на первой кнопке фильтра: «Все эффекты» (#tagPresets рендерит
+// renderEffectChips после загрузки данных) либо фолбэк «Топ по науке»
+// (статичный .preset в #presetRow). preventScroll обязателен: без него
+// focus() немедленно дёргает прокрутку и обрывает smooth-анимацию.
+document.querySelectorAll('a.btn.calc[href="#cardsContainer"]').forEach((cta) => {
+  cta.addEventListener('click', (e) => {
+    e.preventDefault();
+    const target = $('cardsContainer');
+    if (target) {
+      // scrollIntoView({behavior:'smooth'}) игнорирует CSS, поэтому
+      // prefers-reduced-motion проверяем здесь, а не только в style.css.
+      const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      target.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+    }
+    const filterBtn = document.querySelector('#tagPresets .tagPreset[data-tag="all"]')
+                   || document.querySelector('#presetRow .preset');
+    if (filterBtn) filterBtn.focus({ preventScroll: true });
+  });
+});
+
 const fetchJson = (url) => fetch(url + '?ts=' + Date.now())
   .then(r => { if (!r.ok) throw new Error('no data for ' + url); return r.json(); });
 Promise.allSettled([fetchJson('data_index.json'), fetchJson('effect_tags.json'), fetchJson('effect_labels.json')])
@@ -260,8 +291,8 @@ Promise.allSettled([fetchJson('data_index.json'), fetchJson('effect_tags.json'),
     // Раньше текст звал «обновите страницу», но кнопки рядом не было —
     // единственный «Обновить» находился в шапке. Теперь она рядом (P1-6).
     const msg = '<div style="padding:40px;text-align:center;color:var(--muted)">' +
-                '⚠ Не удалось загрузить данные.<br>' +
-                '<button id="dataRetry" class="btn" style="margin-top:12px">🔄 Обновить</button></div>';
+                t("boot.error") + '<br>' +
+                '<button id="dataRetry" class="btn" style="margin-top:12px">' + t("boot.retry") + '</button></div>';
     const grid = $('cardsGrid');
     if (grid) grid.innerHTML = msg;
     else document.body.insertAdjacentHTML('afterbegin', msg);
@@ -347,7 +378,7 @@ function initApp() {
     const b = e.target.closest('.copyLink');
     if (!b) return;
     navigator.clipboard.writeText(b.dataset.copy).then(() => {
-      const old = b.textContent; b.textContent = '✅ Скопировано!';
+      const old = b.textContent; b.textContent = t("common.copied");
       setTimeout(() => { b.textContent = old; }, 1500);
     });
   });
@@ -403,8 +434,8 @@ function initApp() {
   up.id = 'toTop'; up.textContent = '↑';
   // v4.1 — находка №12: одиночный символ без доступного имени.
   // Статический скан аудита эту кнопку не видел: её создаёт скрипт.
-  up.setAttribute('aria-label', 'Наверх к началу страницы');
-  up.title = 'Наверх';
+  up.setAttribute('aria-label', t("a11y.toTop"));
+  up.title = t("common.toTop");
   up.onclick = () => scrollTo({top: 0, behavior: 'smooth'});
   document.body.appendChild(up);
   addEventListener('scroll', () => up.classList.toggle('show', scrollY > 500));
@@ -440,7 +471,7 @@ function initApp() {
 function setLight(on) {
   document.documentElement.classList.toggle('light', on);
   document.body.classList.toggle('light', on);
-  $('themeBtn').textContent = on ? '🌙 Тёмная тема' : '🌞 Светлая тема';
+  $('themeBtn').textContent = on ? t("theme.dark") : t("theme.light");
   if (currentData.length) { if (chartTab === 'price') renderBubble(currentData); else renderQuadrant(currentData); }
 }
 
@@ -469,15 +500,12 @@ const vColor = c => c === 1 ? '#2d8a4e' : c === 0 ? '#d4a017' : '#c0392b';
 const vColorAlpha = c => c === 1 ? 'rgba(45,138,78,0.75)' : c === 0 ? 'rgba(212,160,23,0.75)' : 'rgba(192,57,43,0.75)';
 
 // ===== v2.6.1: демонтаж Value Score, честная экономика =====
-// ₽ за единицу эффекта = round(цена / Hedges' g) при обоих ненулевых;
-// иначе — честная причина, а не ноль/прочерк-обманка.
-function priceTip(s) {
-  const d = s.price_date || 'дата неизвестна';
-  return '<span class="priceTip" title="Цена на ' + d +
-    '; ночной сбор временно заблокирован TLS-фильтром маркетплейса, трек reliability в работе">' +
-    (s.price != null ? s.price + ' ₽/мес' : 'цена не найдена') + '</span>';
-}
 /* economicsBlock removed per v2.7.1 chunk 2 — price_per_effect gone, no "Экономика" block */
+/* priceTip removed 13.10.2026 — dead. Zero callers; s.price and s.price_date
+   are absent from docs/data.json (0 occurrences across 130 cards). The tooltip
+   text about a blocked marketplace TLS filter described a data source this
+   project never had. scripts/e2e_smoke.py:210 asserts .priceTip is absent from
+   the modal, and that assertion still holds. */
 function verifiedCount() {
   const pool = supplementsFull ? Object.values(supplementsFull) : [];
   return pool.filter(s => (s.key_sources || []).length > 0).length;
@@ -491,32 +519,30 @@ function maTop3Block(s) {
   const list = useCurated ? curated.slice(0, 3) : auto.slice(0, 3);
 
   const title = useCurated
-    ? '📚 Проверенные источники (топ-3)'
-    : '📚 Мета-анализы (топ-3 авто-поиска)';
+    ? t("sources.curatedTitle")
+    : t("sources.autoTitle");
 
   const note = useCurated
-    ? 'Отобраны вручную по топ-2 МА. Полный список — в блоке key_sources карточки.'
-    : '⚠ Автоматический топ-3 запроса PubMed — не верифицировано вручную. '
-      + 'Проверенные карточки помечены бейджем «ручная вычитка»; верифицировано сейчас: '
-      + verifiedCount() + ' из ' + supplements.length + '.';
+    ? t("sources.curatedNote")
+    : t("sources.autoNote", { verified: verifiedCount(), total: supplements.length });
 
   const body = list.length
     ? '<div class="mrow">' + list.map(m => {
         const pmid = String(m.pmid || m);
-        const t = String(m.title || pmid);
+        const rawTitle = String(m.title || pmid);
         const yr = m.year ? ' (' + m.year + ')' : '';
         const pmidEsc = esc(pmid);
-        const titleEsc = esc(t);
+        const titleEsc = esc(rawTitle);
         return '<div class="srcRow">'
           + '<a class="srcIcon" target="_blank" rel="noopener" '
           + 'title="' + titleEsc + '" '
           + 'href="https://pubmed.ncbi.nlm.nih.gov/' + pmidEsc + '/">'
           + titleEsc + yr + ' ↗</a>'
           + ' <span class="copyLink chip-pmid" data-copy="' + pmidEsc + '" '
-          + 'title="Скопировать PMID ' + pmidEsc + '">PMID ' + pmidEsc + '</span>'
+          + 'title="' + t("sources.copyPmid", { pmid: pmidEsc }) + '">' + t("sources.pmid") + ' ' + pmidEsc + '</span>'
           + '</div>';
       }).join('') + '</div>'
-    : '<div class="mrow cbEmpty">Источники для этой добавки пока не собраны</div>';
+    : '<div class="mrow cbEmpty">' + t("sources.empty") + '</div>';
 
   return '<div class="blockTitle">' + title + '</div>'
     + '<div class="mrow hint" style="font-size:.85rem;opacity:.9">' + note + '</div>'
@@ -547,19 +573,19 @@ function applyFilters() {
   };
   currentData.sort(cmp[sort]);
   renderActiveFilters();
-  $('countBadge').textContent = '(' + currentData.length + ' из ' + supplements.length + ')';
+  $('countBadge').textContent = t("filter.count", { shown: currentData.length, total: supplements.length });
   renderCards(currentData);
   if (chartTab === 'price') renderBubble(currentData); else renderQuadrant(currentData);
   updateFavUI();
   // F2.2: подпись под чартом — показано N из M
   const filterParts = [];
-  if (v !== 'all') filterParts.push('вердикт');
-  if (q) filterParts.push('поиск');
-  if (onlyFavs) filterParts.push('избранное');
+  if (v !== 'all') filterParts.push(t("filter.verdict"));
+  if (q) filterParts.push(t("filter.search"));
+  if (onlyFavs) filterParts.push(t("filter.favs"));
   const summary = $('chartSummary');
   if (summary) {
-    summary.textContent = 'показано ' + currentData.length + ' из ' + supplements.length + ' добавок' +
-      (filterParts.length ? ' (фильтр: ' + filterParts.join(', ') + ')' : '');
+    summary.textContent = t("filter.shown", { shown: currentData.length, total: supplements.length }) +
+      (filterParts.length ? ' ' + t("filter.suffix", { list: filterParts.join(', ') }) : '');
   }
 }
 
@@ -580,7 +606,7 @@ function renderEffectChips() {
   const visible = effectChipsExpanded ? [...primary, ...rest] : primary;
 
   const allBtn = '<button class="tagPreset' + (effectFilterCurrent === 'all' ? ' active' : '') +
-                 '" data-tag="all">Все эффекты</button>';
+                 '" data-tag="all">' + t("filter.allEffects") + '</button>';
 
   const chips = visible.map(slug => {
     const label = effectLabels[slug] || slug;
@@ -590,8 +616,8 @@ function renderEffectChips() {
 
   const more = rest.length
     ? (effectChipsExpanded
-        ? '<button class="tagPreset tagPresetMore" data-more="1">Свернуть ▴</button>'
-        : '<button class="tagPreset tagPresetMore" data-more="1">+ ещё ' + rest.length + ' ▾</button>')
+        ? '<button class="tagPreset tagPresetMore" data-more="1">' + t("common.collapse") + '</button>'
+        : '<button class="tagPreset tagPresetMore" data-more="1">' + t("filter.more", { n: rest.length }) + '</button>')
     : '';
 
   box.innerHTML = allBtn + chips + more;
@@ -603,22 +629,22 @@ function renderActiveFilters() {
   const chips = [];
 
   if (effectFilterCurrent !== 'all') {
-    chips.push({ label: 'Эффект: ' + (effectLabels[effectFilterCurrent] || effectFilterCurrent), clear: 'effect' });
+    chips.push({ label: t("filter.effectPrefix") + (effectLabels[effectFilterCurrent] || effectFilterCurrent), clear: 'effect' });
   }
   const v = $('verdictFilter').value;
   if (v !== 'all') {
-    const map = { '1': 'работает', '0': 'зависит от контекста', '-1': 'не подтверждено' };
-    chips.push({ label: 'Вердикт: ' + (map[v] || v), clear: 'verdict' });
+    const map = { '1': t("verdict.works"), '0': t("verdict.depends"), '-1': t("verdict.unproven") };
+    chips.push({ label: t("filter.verdictPrefix") + (map[v] || v), clear: 'verdict' });
   }
   const q = $('search').value.trim();
-  if (q) chips.push({ label: 'Поиск: ' + q, clear: 'search' });
+  if (q) chips.push({ label: t("filter.searchPrefix") + q, clear: 'search' });
 
   if (!chips.length) { box.innerHTML = ''; return; }
 
   box.innerHTML = chips.map(c =>
     '<span class="activeFilter" data-clear="' + esc(c.clear) + '">' + esc(c.label) +
     ' <span class="activeFilterX">×</span></span>'
-  ).join('') + '<button class="activeFilterClear" id="clearAllFilters">Очистить</button>';
+  ).join('') + '<button class="activeFilterClear" id="clearAllFilters">' + t("common.clear") + '</button>';
 
   const reset = $('resetFilters');
   if (reset) {
@@ -667,15 +693,15 @@ const catGroup = (raw) => {
 
 function renderCards(data) {
   const g = $('cardsGrid');
-  if (!data.length) { g.innerHTML = '<div class="empty">🔍 Ничего не найдено. ' +
-      '<button id="resetAll" class="favFilter">✖ Сбросить фильтры</button></div>'; return; }
+  if (!data.length) { g.innerHTML = '<div class="empty">' + t("empty.notFound") + ' ' +
+      '<button id="resetAll" class="favFilter">' + t("empty.resetFavs") + '</button></div>'; return; }
   // v5.6.2 батч C (T3): карточка получает tabindex="-1" — она становится
   // фокусируемой (фокус возвращается на неё после закрытия модалки), но
   // НЕ входит в порядок обхода Tab: перебор 130 карточек стрелками не
   // нужен, открывать их с клавиатуры можно в любом случае через Enter.
   g.innerHTML = data.map(s => '<div class="card" data-id="' + esc(s.id) + '" tabindex="-1">' +
-    '<button class="favBtn' + (isFav(s.id) ? ' on' : '') + '" data-fav="' + esc(s.id) + '" title="В избранное">' + (isFav(s.id) ? '★' : '☆') + '</button>' +
-    (BEST.includes(s.id) ? '<span class="bestBadge">🔬 Топ-3 по доказательности</span>' : '') +
+    '<button class="favBtn' + (isFav(s.id) ? ' on' : '') + '" data-fav="' + esc(s.id) + '" title="' + t("card.favTitle") + '">' + (isFav(s.id) ? '★' : '☆') + '</button>' +
+    (BEST.includes(s.id) ? '<span class="bestBadge">' + t("card.top3") + '</span>' : '') +
     // Заголовок карточки — НЕ h3: на index их было 134 (по одной на добавку),
     // из-за чего структура документа переставала отражать реальные разделы.
     // Название добавки — strong, разделы остались h2 (P2-16).
@@ -764,38 +790,38 @@ async function openModal(id) {
 
   const trialsLine = s.ongoing != null
     ? (s.ongoing > 0
-        ? '<div class="mrow">🧪 <b>Активных испытаний: ' + s.ongoing + '</b> — сейчас проверяют на людях</div>'
-        : '<div class="mrow warn">❄️ Активных испытаний: 0 — сейчас никто не проверяет на людях</div>')
+        ? '<div class="mrow">🧪 <b>' + t("trials.activeLabel") + ': ' + s.ongoing + '</b>' + t("trials.activeSuffix") + '</div>'
+        : '<div class="mrow warn">' + t("trials.none") + '</div>')
     : '';
 
   const calcLine = s.dosagePerKg != null
     ? '<div class="mrow calc">' +
-      '<label for="weightInput">📏 <b>Калькулятор дозировки:</b></label>' +
+      '<label for="weightInput">' + t("calc.label") + '</label>' +
       '<div class="calcRow">' +
-      '<input type="number" id="weightInput" placeholder="Ваш вес (кг)" min="30" max="200" step="0.1"/>' +
+      '<input type="number" id="weightInput" placeholder="' + t("calc.placeholder") + '" min="30" max="200" step="0.1"/>' +
       '<span id="calcResult" class="calcResult"></span>' +
       '</div>' +
-      '<small class="hint">Стандартная доза: ' + (s.dosage || '—') + '</small>' +
+      '<small class="hint">' + t("calc.standard") + (s.dosage || '—') + '</small>' +
       '</div>'
     : '';
 
   $('modalBody').innerHTML = '<h2 id="modalTitle">' + esc(s.name) + '</h2>' + updatedLine(s) + manualBadge(s) +
-    '<div class="mrow"><span class="verdict v' + esc(s.code) + '">' + esc(s.verdict) + '</span> · ' + esc(s.category || '') + (s.grade ? ' · <span class="grade g' + esc(s.grade) + '">грейд ' + esc(s.grade) + '</span> · ' + esc(GRADE_LABEL[s.grade] || '') : '') + '</div>' +     '<div class="mrow">' + scienceSpan(s) + pubmedLink(s) + ' · ' + maSpan(s) + '</div>' +
+    '<div class="mrow"><span class="verdict v' + esc(s.code) + '">' + esc(s.verdict) + '</span> · ' + esc(s.category || '') + (s.grade ? ' · <span class="grade g' + esc(s.grade) + '">' + t("card.grade") + ' ' + esc(s.grade) + '</span> · ' + esc(GRADE_LABEL[s.grade] || '') : '') + '</div>' +     '<div class="mrow">' + scienceSpan(s) + pubmedLink(s) + ' · ' + maSpan(s) + '</div>' +
     maTop3Block(s) +    trialsLine +
     calcLine +
-    (s.citations != null ? '<div class="mrow">📖 Цитирований ключевого MA: ' + s.citations + '</div>' : '') +
-    (s.wiki != null ? '<div class="mrow">🌐 Просмотров в Википедии (12 мес): ' + s.wiki.toLocaleString('ru-RU') + wikiLink(s) + '</div>' : '') +
-    '<div class="mrow"><b>Эффекты:</b> ' + ((s.effects || []).join(', ') || '—') + '</div>' +
-    '<div class="mrow">💊 <b>Дозировка:</b> ' + (s.dosage || '—') + '</div>' +
-    '<div class="mrow">⏳ <b>Курс:</b> ' + (s.course || '—') + '</div>' +
-    (s.forms ? '<div class="mrow">🧪 <b>Формы/штаммы:</b> ' + s.forms + '</div>' : '') +
+    (s.citations != null ? '<div class="mrow">' + t("modal.citations") + s.citations + '</div>' : '') +
+    (s.wiki != null ? '<div class="mrow">' + t("modal.wikiViews") + s.wiki.toLocaleString(LOCALE) + wikiLink(s) + '</div>' : '') +
+    '<div class="mrow"><b>' + t("modal.effects") + '</b> ' + ((s.effects || []).join(', ') || '—') + '</div>' +
+    '<div class="mrow">💊 <b>' + t("modal.dosage") + '</b> ' + (s.dosage || '—') + '</div>' +
+    '<div class="mrow">⏳ <b>' + t("modal.course") + '</b> ' + (s.course || '—') + '</div>' +
+    (s.forms ? '<div class="mrow">🧪 <b>' + t("modal.forms") + '</b> ' + s.forms + '</div>' : '') +
     shareRow(s) +
     compareBlock(s) +
     '<div class="mrow warn">⚠️ ' + (s.caution || '—') + '</div>' +
     // Кнопку копирования ссылки здесь убрали как дубль: выше, в shareRow(),
     // уже есть «🔗 копировать» с тем же действием (docs/script.js, P1-3).
-    ' <a class="favFilter" target="_blank" rel="noopener" href="' + issueUrl(s, '') + '">❌ Нашли неточность? Сообщить</a></div>' +
-    '<div class="blockTitle">🧩 Полная карточка добавки</div>' + renderCardBlocks(s);
+    ' <a class="favFilter" target="_blank" rel="noopener" href="' + issueUrl(s, '') + '">' + t("modal.issue") + '</a></div>' +
+    '<div class="blockTitle">' + t("modal.fullCard") + '</div>' + renderCardBlocks(s);
   history.replaceState(null, '', '#sup=' + encodeURIComponent(s.id));
   $('modalOverlay').style.display = 'flex';
   // v5.6.2 (батч C, T3): модалка без role="dialog" и без ловушки фокуса —
@@ -820,9 +846,9 @@ async function openModal(id) {
         if (weight > 0 && weight <= 500) {
         const dose = weight * s.dosagePerKg;
         const unit = s.dosage && s.dosage.includes('мг') ? 'мг' : s.dosage && s.dosage.includes('г') ? 'г' : 'МЕ';
-        let html = '<b>' + dose.toFixed(1) + ' ' + unit + '/сут</b>';
+        let html = '<b>' + t("calc.perDay", { dose: dose.toFixed(1), unit }) + '</b>';
         if (s.dosageMax && dose > s.dosageMax) {
-          html += ' <span class="warn">⚠️ превышает максимум (' + s.dosageMax + ' ' + unit + ')</span>';
+          html += ' <span class="warn">' + t("calc.overMax", { max: s.dosageMax, unit }) + '</span>';
         }
         calcResult.innerHTML = html;
       } else {
@@ -847,7 +873,7 @@ function closeModal() {
 // ===== v2.6: сменная ось X графика (Цена/MА/РКИ/Год) =====
 let axisX = 'ma';
 const AXIS_IDS = { ma: 'axisMA', rct: 'axisRCT' };
-const AXIS_LABEL = { ma: 'Число МА', rct: 'Число РКИ' };
+const AXIS_LABEL = { ma: t("axis.ma"), rct: t("axis.rct") };
 function axisVal(s) {
   if (axisX === 'ma') return (s.metaCount || 0) > 0 ? s.metaCount : null;
   if (axisX === 'rct') { const r = Math.max(0, (s.scienceIndex || 0) - 5 * (s.metaCount || 0)); return r > 0 ? r : null; }
@@ -881,92 +907,42 @@ function bubbleRadii() {
   };
 }
 
+// E1.5 (батч 5): ветки оси «Цена» удалены как мёртвые. В разметке
+// только axisMA/axisRCT (docs/index.html:347-348), setAxisX вызывается
+// лишь с 'ma'/'rct', поэтому axisX !== 'price' всегда.
 function renderBubble(data) {
-  const isPrice = axisX === 'price';
   const { rFor, rHoverFor } = bubbleRadii();
-  const priced = isPrice
-    ? data.filter(s => (s.price || 0) > 0)
-    : data.filter(s => { const v = axisVal(s); return v != null && v > 0; });
-  const nullPrice = isPrice ? data.filter(s => !((s.price || 0) > 0)) : [];
+  const plotted = data.filter(s => { const v = axisVal(s); return v != null && v > 0; });
   // Явный max по данным для X-оси (Chart.js на лог-шкале оставляет большой запас)
   // min/max по данным — плотная посадка точек в обоих табах
-  const xVals = priced.map(s => axisVal(s)).filter(v => v != null && v > 0);
+  const xVals = plotted.map(s => axisVal(s)).filter(v => v != null && v > 0);
   const xMax = xVals.length ? xVals.reduce((m, v) => Math.max(m, v), 1) : 1;
   const xMin = xVals.length ? xVals.reduce((m, v) => Math.min(m, v), Infinity) : 1;
-  chartPts = priced.concat(nullPrice);
-  if (isPrice) {
-    $('chartNote').textContent = nullPrice.length
-      ? ''
-      : '';
-  } else {
-    $('chartNote').textContent = priced.length < data.length
-      ? '⚠️ ' + (data.length - priced.length) + ' добавок без значения («' + AXIS_LABEL[axisX] + '») не показаны на графике' : '';
-  }
+  chartPts = plotted;
+  $('chartNote').textContent = plotted.length < data.length
+    ? t("chart.missingMsg", { count: data.length - plotted.length, axis: AXIS_LABEL[axisX] }) : '';
   const ctx = $('bubbleChart').getContext('2d');
   if (chartInstance) chartInstance.destroy();
   const txt = getComputedStyle(document.body).getPropertyValue('--text');
-  const maxP = priced.reduce((m, s) => Math.max(m, s.price || 0), 0) || 1;
-  const band = isPrice && nullPrice.length
-    ? { lo: maxP * 1.1, hi: maxP * 1.25, label: 'без цены (N=' + nullPrice.length + ')' }
-    : null;
-  const bandDatasets = band
-    ? nullPrice.map(s => ({
-        label: s.name,
-        data: [{ x: (band.lo + band.hi) / 2, y: Math.max(1, s.scienceIndex) }],
-        backgroundColor: 'rgba(150,150,150,.55)',
-        pointRadius: rFor(s),
-        pointHoverRadius: rHoverFor(s)
-      }))
-    : [];
-  const noPriceBandPlugin = {
-    id: 'noPriceBand',
-    afterDraw(chart) {
-      const cfg = chart.config._config;
-      if (!cfg.$band) return;
-      const { lo, hi, label } = cfg.$band;
-      const xs = chart.scales.x;
-      const pxLo = xs.getPixelForValue(lo);
-      const pxHi = xs.getPixelForValue(hi);
-      const { top, bottom, left, right } = chart.chartArea;
-      const c = chart.ctx;
-      c.save();
-      c.fillStyle = 'rgba(128,128,128,.12)';
-      c.fillRect(pxLo, top, pxHi - pxLo, bottom - top);
-      c.strokeStyle = 'rgba(128,128,128,.4)';
-      c.setLineDash([4, 3]);
-      c.beginPath(); c.moveTo(pxLo, top); c.lineTo(pxLo, bottom);
-      c.moveTo(pxHi, top); c.lineTo(pxHi, bottom); c.stroke();
-      c.setLineDash([]);
-      c.fillStyle = 'rgba(128,128,128,.78)';
-      c.font = '11px sans-serif';
-      c.textAlign = 'center';
-      c.fillText(label, (pxLo + pxHi) / 2, bottom - 5);
-      c.restore();
-    }
-  };
   chartInstance = new Chart(ctx, {
     type: 'scatter',
-    data: { datasets: priced.map(s => ({
+    data: { datasets: plotted.map(s => ({
       label: s.name,
       data: [{ x: axisVal(s), y: Math.max(1, s.scienceIndex) }],
       backgroundColor: vColorAlpha(s.code),
       pointRadius: rFor(s),
       pointHoverRadius: rHoverFor(s)
-    })).concat(bandDatasets) },
+    })) },
     options: {
       responsive: true, maintainAspectRatio: false,
       layout: { padding: { left: 12, right: 8, top: 4, bottom: 4 } },
       scales: {
-        x: isPrice
-          ? { title: { display: true, text: AXIS_LABEL[axisX], color: txt },
-              grid: { color: 'rgba(128,128,128,.15)' },
-              max: band ? band.hi * 1.02 : undefined }
-          : { type: 'logarithmic', min: xMin * 0.75, max: xMax * 1.25,
-              title: { display: true, text: AXIS_LABEL[axisX] + ' (лог)', color: txt },
-              grid: { color: 'rgba(128,128,128,.15)' },
-              ticks: { callback: v => [1, 10, 100, 1000, 10000].includes(v) ? v : '' } },
+        x: { type: 'logarithmic', min: xMin * 0.75, max: xMax * 1.25,
+             title: { display: true, text: AXIS_LABEL[axisX] + t("chart.logSuffix"), color: txt },
+             grid: { color: 'rgba(128,128,128,.15)' },
+             ticks: { callback: v => [1, 10, 100, 1000, 10000].includes(v) ? v : '' } },
         y: { type: 'logarithmic',
-             title: { display: true, text: 'Индекс науки (лог)', color: txt },
+             title: { display: true, text: t("chart.yTitleLog"), color: txt },
              grid: { color: 'rgba(128,128,128,.15)' },
              ticks: { callback: v => [1, 10, 100, 1000, 10000].includes(v) ? v : '' } }
       },
@@ -976,7 +952,7 @@ function renderBubble(data) {
           callbacks: {
             label: ctx => {
               const s = chartSupByEl(ctx.chart, { datasetIndex: ctx.datasetIndex, index: ctx.dataIndex });
-              return s ? ' ' + s.name + ' · ' + (axisX === 'price' ? (s.price ?? '—') + ' ₽/мес' : AXIS_LABEL[axisX] + ': ' + axisVal(s)) + ' · ' + s.verdict : '';
+              return s ? ' ' + s.name + ' · ' + AXIS_LABEL[axisX] + ': ' + axisVal(s) + ' · ' + s.verdict : '';
             }
           }
         }
@@ -990,9 +966,7 @@ function renderBubble(data) {
       onHover: (e, els) => {
         e.native.target.style.cursor = els.length ? 'pointer' : 'default';
       }
-    },
-    plugins: [noPriceBandPlugin],
-    $band: band
+    }
   });
   window.chart = chartInstance;
 }
@@ -1001,7 +975,7 @@ function renderBubble(data) {
 function renderQuadrant(data) {
   const verified = data.filter(s => s.hedges_g != null);
   $('quadrantNote').textContent = verified.length < data.length
-    ? '⏳ ' + (data.length - verified.length) + ' добавок ждут верификации эффекта' : '';
+    ? t("quadrant.waiting", { count: data.length - verified.length }) : '';
   const ctx = $('quadrantChart').getContext('2d');
   if (quadrantInstance) quadrantInstance.destroy();
   const txt = getComputedStyle(document.body).getPropertyValue('--text');
@@ -1021,14 +995,14 @@ function renderQuadrant(data) {
       responsive: true, maintainAspectRatio: false,
       scales: {
         x: {
-          title: { display: true, text: "Сила эффекта (g)", color: txt },
+          title: { display: true, text: t("quadrant.xTitle"), color: txt },
           suggestedMin: -2.5,
           suggestedMax: 2.5,
           grid: { color: ctx => ctx.tick.value === 0 ? 'rgba(128,128,128,.5)' : 'rgba(128,128,128,.15)' }
         },
         y: {
           type: 'logarithmic',
-          title: { display: true, text: 'Индекс науки (log)', color: txt },
+          title: { display: true, text: t("quadrant.yTitle"), color: txt },
           grid: { color: 'rgba(128,128,128,.15)' }
         }
       },
@@ -1084,17 +1058,17 @@ async function renderCompare() {
   }
   if (!a || !b) return;
   const rows = [
-    ['Вердикт', a.verdict, b.verdict],
-        ['Индекс науки', a.scienceIndex, b.scienceIndex],
-    ['Мета-анализов', a.metaCount, b.metaCount],
-    ['🧪 Испытания сейчас', a.ongoing ?? '—', b.ongoing ?? '—'],
-    ['Цитирований MA', a.citations ?? '—', b.citations ?? '—'],
-    ['Эффекты', (a.effects || []).join(', '), (b.effects || []).join(', ')],
-    ['Дозировка', a.dosage ?? '—', b.dosage ?? '—'],
-    ['Курс', a.course ?? '—', b.course ?? '—'],
-    ['⚠️ Осторожно', a.caution ?? '—', b.caution ?? '—']
+    [t("cmp.verdict"), a.verdict, b.verdict],
+        [t("cmp.science"), a.scienceIndex, b.scienceIndex],
+    [t("cmp.ma"), a.metaCount, b.metaCount],
+    [t("cmp.trials"), a.ongoing ?? '—', b.ongoing ?? '—'],
+    [t("cmp.citations"), a.citations ?? '—', b.citations ?? '—'],
+    [t("cmp.effects"), (a.effects || []).join(', '), (b.effects || []).join(', ')],
+    [t("cmp.dosage"), a.dosage ?? '—', b.dosage ?? '—'],
+    [t("cmp.course"), a.course ?? '—', b.course ?? '—'],
+    [t("cmp.caution"), a.caution ?? '—', b.caution ?? '—']
   ];
-  $('compareResult').innerHTML = '<table><tr><th>Параметр</th><th>' + esc(a.name) + '</th><th>' + esc(b.name) + '</th></tr>' +
+  $('compareResult').innerHTML = '<table><tr><th>' + t("cmp.param") + '</th><th>' + esc(a.name) + '</th><th>' + esc(b.name) + '</th></tr>' +
     rows.map(r => '<tr><td>' + esc(r[0]) + '</td><td>' + esc(r[1]) + '</td><td>' + esc(r[2]) + '</td></tr>').join('') + '</table>';
 
   // F4: перцентиль внутри метрики по базе (0-100); значение 100% — максимум базы
@@ -1139,16 +1113,16 @@ async function renderCompare() {
 
     return [science, maBase, verified, completeness];
   };
-  const PROF_LABELS = ['Наука', 'База МА', 'Верифицированность', 'Полнота карточки'];
+  const PROF_LABELS = [t("prof.science"), t("prof.maBase"), t("prof.verified"), t("prof.completeness")];
   if (radarInstance) radarInstance.destroy();
   radarInstance = new Chart($('radarChart'), {
     type: 'radar',
     data: {
       labels: [
-        'Наука (перцентиль по базе)',
-        'База МА (перцентиль по базе)',
-        'Верифицированность (0-100)',
-        'Полнота карточки (0-100)'
+        t("prof.long.science"),
+        t("prof.long.maBase"),
+        t("prof.long.verified"),
+        t("prof.long.completeness")
       ],
       datasets: [
         { label: a.name, data: prof(a), borderColor: '#3498db', backgroundColor: radarFill,
@@ -1237,11 +1211,11 @@ function checkInteractions() {
     }
   }
   renderBanner('critical', 'conflict-banner', critical.length
-    ? '⚠️ Опасно в избранном: ' + critical.map(c => c.s1 + ' + ' + c.s2).join(', ') + '. ' + critical[0].note : '');
+    ? t("banner.dangerPrefix") + critical.map(c => c.s1 + ' + ' + c.s2).join(', ') + '. ' + critical[0].note : '');
   renderBanner('medium', 'conflict-banner medium', medium.length
-    ? '⚠️ ' + medium.map(c => c.s1 + ' и ' + c.s2).join(', ') + ' конкурируют за всасывание — разнесите на 2-4 часа' : '');
+    ? t("banner.warnPrefix") + medium.map(c => c.s1 + t("banner.and") + c.s2).join(', ') + t("banner.conflictSuffix") : '');
   renderBanner('synergy', 'synergy-banner', synergy.length
-    ? '🤝 Хорошая пара: ' + synergy.map(c => c.s1 + ' + ' + c.s2).join(', ') : '');
+    ? t("banner.synergyPrefix") + synergy.map(c => c.s1 + ' + ' + c.s2).join(', ') : '');
 }
 
 ['addFav', 'removeFav'].forEach(event => {
@@ -1289,7 +1263,7 @@ document.addEventListener('click', e => {
 
   function showUpdateToast() {
     const el = document.createElement('div');
-    el.textContent = '🔄 Доступно обновление — перезагружаю…';
+    el.textContent = t("update.toast");
     el.style.cssText = `
       position:fixed;bottom:1rem;left:50%;transform:translateX(-50%);
       background:var(--info-fill,#1f6fa5);color:#fff;padding:.6rem 1.2rem;border-radius:8px;

@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <title>{{ name }} — БАДы, доказательства, механизмы | Brain 25 Evidence</title>
-    <meta name="description" content="{{ about }}">
+    <title>{{ title }}</title>
+    <meta name="description" content="{{ description }}">
     <link rel="canonical" href="{{ url }}">
     {# v5.6.0 этап 5: RSS-фид docs/feed.xml (scripts/build_feed.py).
        Ссылка на него — в <head> каждой страницы: без неё фид не находится
@@ -14,9 +14,10 @@
        в 130 страниц попала бы строка из одних пробелов. #}<link rel="alternate" type="application/rss+xml" title="brain-25-evidence" href="{{ base_url }}/feed.xml">
     <meta property="og:type" content="article">
     <meta property="og:url" content="{{ url }}">
-    <meta property="og:title" content="{{ name }} — Brain 25 Evidence">
-    <meta property="og:description" content="{{ about }}">
+    <meta property="og:title" content="{{ title }}">
+    <meta property="og:description" content="{{ description }}">
     <meta property="og:image" content="{{ base_url }}/og.png">
+    <meta property="og:site_name" content="Brain 25 Evidence">
     <meta name="twitter:card" content="summary_large_image">
     <link rel="manifest" href="../manifest.webmanifest">
     <meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
@@ -33,8 +34,18 @@
        ?v=414 — бампер подняли в них, а шаблон остался позади, и любой
        перезапуск build_sup.py откатывал его на всей секции. Комментарий
        на Jinja, а не HTML: иначе он попал бы в 130 страниц и сдвинул их
-       побайтово. Приведено к тому, что реально лежит в docs/sup/*.html. #}<link rel="stylesheet" href="../style.css?v=423">
+       побайтово. Приведено к тому, что реально лежит в docs/sup/*.html.
+       v5.6.4 D7: повтор того же — в шаблоне было ?v=423, на всех 131
+       v5.6.4 (F-28) — снова 425 против 429: бампер поднят на страницах только шаблон, а на 131 странице — 429.
+       прогон откатил бы бампер на всей секции.
+       v5.6.4 (13C) — четвёртый раз: 429 против 430. Бампер подняли на
+       страницах (f9c40d7), шаблон опять отстал — и молча откатил бы номер
+       на всех 131 странице при следующей перегенерации. Теперь это ловит
+       гейт tests/test_style_version_bump.py, который хук действительно
+       исполняет (test_build_sup_idempotent.py помечен snapshot_data и в
+       хуке не гоняется). #}<link rel="stylesheet" href="../style.css?v=435">
     <script src="../version.js?v=312"></script>
+    <script src="../i18n.js?v=2"></script>
     <script src="../pwa.js?v=282" defer></script>
 <script src="../share.js?v=1" defer></script>
     <script type="application/ld+json">
@@ -42,7 +53,7 @@
       "@context": "https://schema.org",
       "@type": "{{ ld_type }}",
       "name": "{{ name_j }} — Brain 25 Evidence",
-      "description": "{{ about_j }}",
+      "description": "{{ description_j }}",
       "url": "{{ url }}",
       "about": {
         "@type": "Drug",
@@ -61,12 +72,12 @@
   <div class="trustbar">🧬 Открытые данные · Бесплатно · Без рекламы</div>
   <header class="top">
     <div class="site-title"><a href="../index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a></div>
-    <div class="actions">
+    <nav class="actions" data-i18n-aria-label="a11y.navMain">
       <a class="btn c-home" href="../index.html">🏠 Главная</a>
       <a class="btn c-feedback" href="../feedback.html">💬 Обратная связь</a>
       <a class="btn c-support" href="../support.html">💚 Поддержать</a>
       <button class="btn" id="themeBtn">🌞 Светлая тема</button>
-    </div>
+    </nav>
   </header>
 </div>
 
@@ -80,7 +91,7 @@
 
     <div class="sup-header">
         <h2>{{ name }}</h2>
-        <span class="grade-badge" style="background:{{ grade_color }}"><abbr title="Грейд A-D — шкала доказательности (см. glossary.html)">Грейд {{ grade }}</abbr></span>
+        <span class="grade-badge" style="background:{{ grade_color }}"><abbr data-i18n-title="trends.gradeAbbr">Грейд {{ grade }}</abbr></span>
         <span class="verdict">— {{ verdict }}</span>
     </div>
 
@@ -148,7 +159,7 @@
         {% for s in key_sources %}
         <div class="src-card">
             <div class="src-title">{{ s.title }}</div>
-            <div class="src-meta">{{ s.journal }} · {{ s.year }} · <a href="https://pubmed.ncbi.nlm.nih.gov/{{ s.pmid }}/" target="_blank" rel="noopener">PMID {{ s.pmid }}</a></div>
+            <div class="src-meta">{{ s.journal }} · {{ s.year }} · <a href="https://pubmed.ncbi.nlm.nih.gov/{{ s.pmid }}/" target="_blank" rel="noopener">PMID: {{ s.pmid }}</a>{% if s.doi %} | DOI: <a href="https://doi.org/{{ s.doi }}">{{ s.doi }}</a>{% endif %}</div>
         </div>{% endfor %}
     </div>
 
@@ -198,12 +209,12 @@ document.addEventListener('DOMContentLoaded', function () {
   var light = localStorage.getItem('theme') === 'light';
   if (light) { document.body.classList.add('light'); document.documentElement.classList.add('light'); }
   var b = document.getElementById('themeBtn');
-  if (b) b.textContent = light ? '🌙 Тёмная тема' : '🌞 Светлая тема';
+  if (b) b.textContent = light ? t("theme.dark") : t("theme.light");
   if (b) b.onclick = function () {
     var on = !document.documentElement.classList.contains('light');
     document.documentElement.classList.toggle('light', on);
     document.body.classList.toggle('light', on);
-    b.textContent = on ? '🌙 Тёмная тема' : '🌞 Светлая тема';
+    b.textContent = on ? t("theme.dark") : t("theme.light");
     localStorage.setItem('theme', on ? 'light' : 'dark');
   };
 });
@@ -212,7 +223,7 @@ document.addEventListener('DOMContentLoaded', function () {
 {# v5.6.3 E4: cookie-баннер и Метрика скопированы из docs/sup/*.html — там этот хвост байт-в-байт одинаков на всех 131 страницах (sha256 b1a5cfce2a25), а в шаблоне его не было и прогон build_sup.py срезал его сразу у всех. Комментарий в строку с HTML-комментарием: с новой строки он дал бы лишнюю строку из пробелов. #}<!-- v5.6.2: cookie-согласие + Яндекс.Метрика (счётчик 112465667).
      Метрика грузится ТОЛЬКО после нажатия «Принять»: до согласия
      ни одного запроса к mc.yandex.ru не происходит. -->
-<div id="cookieBanner" role="dialog" aria-label="Согласие на использование cookie" hidden>
+<div id="cookieBanner" role="dialog" data-i18n-aria-label="a11y.cookieConsent" hidden>
   <div class="cb-text">
     Мы используем cookie и Яндекс.Метрику, чтобы понять, какие материалы полезны.
     Аналитика включается только после вашего согласия.

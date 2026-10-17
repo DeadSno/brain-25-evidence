@@ -9,6 +9,8 @@ data = json.loads((ROOT / "docs" / "data.json").read_text(encoding="utf-8"))
 by_id = {x["id"]: x for x in data}
 INDEX = (ROOT / "docs" / "index.html").read_text(encoding="utf-8")
 SCRIPT = (ROOT / "docs" / "script.js").read_text(encoding="utf-8")
+# 13A2a: словарь I18N/t() вынесены из script.js в общий docs/i18n.js.
+I18N = (ROOT / "docs" / "i18n.js").read_text(encoding="utf-8")
 
 BLOCK_KEYS = ["what", "who", "works", "evidence", "how", "onset", "notwho",
               "conflicts", "friends", "ul", "food", "official", "shop", "myths"]
@@ -30,7 +32,8 @@ def test_15_blocks_in_template():
 
 
 def test_empty_block_placeholder():
-    assert "проверяемых данных по пункту нет" in SCRIPT, "нет заглушки для пустых блоков"
+    # 13A2a: строка заглушки переехала в общий docs/i18n.js (ключ card.blockEmpty).
+    assert "проверяемых данных по пункту нет" in SCRIPT or "проверяемых данных по пункту нет" in I18N, "нет заглушки для пустых блоков"
     assert "cbEmpty" in SCRIPT, "нет класса cbEmpty для пустых блоков"
 
 
