@@ -2358,4 +2358,25 @@ html.light #cookieBanner { box-shadow: var(--shadow-pop-light); }
     font-size: var(--fs-2);
     cursor: pointer;
   }
+
+/* ===== 2.2.2: режим «граф» на interactions.html =====
+   Контейнер графа, панель управления и мобильная адаптация перенесены
+   из graph.html. Стили в единой таблице (style.css?v=436), а не в
+   локальном <style>, чтобы не раздувать разметку.
+   .state-loading / .state-empty / .state-error переиспользуются из
+   локального <style> interactions.html. */
+.graph-panel-controls {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+.graph-canvas {
+  width: 100%;
+  height: 600px;
+}
+@media (max-width: 640px) {
+  .graph-canvas { height: 70vh; }
+  .graph-panel-controls { flex-direction: column; }
+}
 }
