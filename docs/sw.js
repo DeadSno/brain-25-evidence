@@ -240,7 +240,15 @@ self.addEventListener('activate', event => {
    локального <style> docs/interactions.html в общую docs/style.css,
    ?v= 436 -> 437. Без бампа activate не почистит v104-static, и
    возвратные посетители получат старый style.css без новых правил. */
-var CACHE_VERSION = 'v105';
+/* Бамп v105 -> v106: 2.2.3 — починена отрисовка графа на interactions.html.
+   В style.css закрыт незакрытый @media (max-width: 640px), из-за которого
+   правило .graph-canvas { height: 600px } оставалось вложенным и не
+   применялось на десктопе (#mynetwork схлопывался до 24px). В inline
+   <style> interactions.html добавлено .state-loading[hidden] { display:none }
+   (правило .state-loading перебивало UA [hidden] и спиннер не скрывался),
+   порядок вызовов в drawGraph() изменён на showGraph() -> renderGraph().
+   ?v= 437 -> 438. Без бампа activate не почистит v105-static. */
+var CACHE_VERSION = 'v106';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 

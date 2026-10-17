@@ -36,7 +36,7 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=437"/>
+<link rel="stylesheet" href="style.css?v=438"/>
 <!-- v5.6.1: vis-network вендорен в docs/vendor/ — снапшоты страницы больше не зависят от unpkg -->
 <script src="vendor/vis-network-9.1.9.min.js" defer></script>
 <style>
@@ -72,6 +72,9 @@ body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); transitio
       color: var(--muted);
       font-size: 1rem;
     }
+    /* display: inline-flex выше перебивает UA-правило [hidden]{display:none}:
+       без этой строки спиннер остаётся видимым при hidden (2.2.3). */
+    .state-loading[hidden] { display: none; }
     .state-loading::before {
       content: "";
       width: 20px; height: 20px;
@@ -417,8 +420,10 @@ window.addEventListener('scroll', () => {
       allEdgesRaw = (g.edges || []).slice();
       window.__posApplied = allNodes.filter(function (n) { return n.fixed; }).length;
 
-      renderGraph(allNodes, allEdgesRaw);
+      // showGraph() первым: vis.Network создаётся в уже видимом контейнере
+      // (иначе canvas получает высоту 0, пока #mynetwork hidden).
       showGraph();
+      renderGraph(allNodes, allEdgesRaw);
       wireControls();
       if (network && typeof network.fit === 'function') network.fit();
     }).catch(function (err) {
