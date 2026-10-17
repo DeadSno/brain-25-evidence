@@ -62,7 +62,7 @@ OLD_TABS = ".tabs"
 #: Страница, класс состояния, атрибут переключения, значения для клика,
 #: ожидаемое число кнопок, ожидаемое число кнопок по атрибуту.
 PAGES = (
-    ("interactions", "active", "data-mode", "supplements", "drugs", 2, 2),
+    ("interactions", "active", "data-mode", "graph", "mech", 4, 4),
     ("trends", "on", "data-tab", "growth", "wiki", 3, 3),
 )
 

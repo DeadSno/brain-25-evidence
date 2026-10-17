@@ -23,6 +23,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="БАДы">
 <link rel="apple-touch-icon" href="icons/192.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231c1c1e' rx='8'/%3E%3Ccircle cx='10' cy='11' r='3' fill='%230a84ff'/%3E%3Ccircle cx='22' cy='11' r='3' fill='%230a84ff'/%3E%3Ccircle cx='10' cy='21' r='3' fill='%230a84ff'/%3E%3Ccircle cx='22' cy='21' r='3' fill='%230a84ff'/%3E%3Cpath d='M 10 21 Q 16 25 22 21' fill='none' stroke='%230a84ff' stroke-width='2'/%3E%3C/svg%3E">
 <title>Карта связей — синергии и конфликты — Brain 25 Evidence</title>
 <script defer src="version.js?v=312"></script>
 <script src="i18n.js?v=2"></script>
@@ -36,7 +37,7 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=438"/>
+<link rel="stylesheet" href="style.css?v=439"/>
 <!-- v5.6.1: vis-network вендорен в docs/vendor/ — снапшоты страницы больше не зависят от unpkg -->
 <script src="vendor/vis-network-9.1.9.min.js" defer></script>
 <style>
@@ -633,6 +634,7 @@ window.addEventListener('scroll', () => {
     var label = node ? node.label : id;
     if ($search) $search.value = label;
     applyFocus(label);
+    openSidePanel(id, label, 'supplement');
   }
 
   // Создать сеть в уже видимом контейнере (иначе canvas 0×0).
@@ -1021,6 +1023,7 @@ window.addEventListener('scroll', () => {
     'холестерин': 'Холестерин',
     'триглицерид': 'Триглицериды'
   };
+  window.__mechLabels = MECH_LABELS;
   var MECH_COLORS = {
     'антиоксидант': '#e8590c',
     'липид': '#f59f00',
@@ -1046,6 +1049,7 @@ window.addEventListener('scroll', () => {
   var loading = false;
   var mechanisms = [];   // [{key,label,color,supplements:[id]}]
   var network = null;
+  var currentMech = null;
 
   var els = null;
   function getEls() {
@@ -1094,6 +1098,7 @@ window.addEventListener('scroll', () => {
       mechData = res[0];
       suppCards = {};
       (res[1] || []).forEach(function (c) { suppCards[c.id] = c; });
+      window.__dataCache = Object.fromEntries((res[1] || []).map(function(c){ return [c.id, c]; }));
       buildMechanisms();
       window.__mechStats = {
         count: mechanisms.length,
@@ -1129,6 +1134,8 @@ window.addEventListener('scroll', () => {
         supplements: Object.keys(byKey[key]).sort()
       };
     }).sort(function (a, b) { return b.supplements.length - a.supplements.length; });
+    window.__mechMap = {};
+    mechanisms.forEach(function (m) { window.__mechMap[m.label] = m; });
   }
 
   function fillSelector() {
@@ -1209,6 +1216,15 @@ window.addEventListener('scroll', () => {
       interaction: { hover: true, dragNodes: true, zoomView: true },
       edges: { smooth: false }
     });
+    network.on('click', function (params) {
+      if (!params.nodes || !params.nodes.length) return;
+      var id = params.nodes[0];
+      if (id === MECH_NODE_ID) {
+        openSidePanel(null, (currentMech && currentMech.label) || mech.label, 'mechanism');
+      } else {
+        openSidePanel(id, id, 'supplement');
+      }
+    });
     network.fit({ animation: false });
   }
 
@@ -1223,6 +1239,7 @@ window.addEventListener('scroll', () => {
     var mech = null;
     mechanisms.forEach(function (m) { if (m.key === key) mech = m; });
     if (!mech) { showWelcome(); return; }
+    currentMech = mech;
     if (e.welcome) e.welcome.hidden = true;
     if (e.error) e.error.hidden = true;
     var t0 = performance.now();
@@ -1308,5 +1325,144 @@ window.addEventListener('scroll', () => {
 <script src="cookie-banner.js?v=1"></script>
 <script src="metrika.js?v=1"></script>
 <script>initCookieBanner();</script>
+
+<!-- 2.2.5: Side-Panel (информационная панель по узлу графа/механизма) -->
+<div id="nodeSidePanel" class="side-panel" hidden aria-hidden="true">
+  <div class="side-panel-header">
+    <h3 id="sidePanelTitle"></h3>
+    <button id="sidePanelClose" aria-label="Закрыть">✕</button>
+  </div>
+  <div class="side-panel-body" id="sidePanelBody"></div>
+</div>
+<div id="sidePanelOverlay" class="side-panel-overlay" hidden></div>
+
+<script>
+// 2.2.5: Side-Panel — информационная панель по узлу графа или механизма.
+// Данные берутся из window.__dataCache / window.__mechMap (загружены при
+// открытии таба механизмов) или подгружаются из data.json / graph_mech_edges.json.
+function openSidePanel(nodeId, nodeLabel, nodeType) {
+  var panel = document.getElementById('nodeSidePanel');
+  var overlay = document.getElementById('sidePanelOverlay');
+  var titleEl = document.getElementById('sidePanelTitle');
+  var bodyEl = document.getElementById('sidePanelBody');
+  if (!panel || !overlay || !titleEl || !bodyEl) return;
+
+  titleEl.textContent = nodeLabel || '';
+  bodyEl.innerHTML = '<div class="sp-empty">Загрузка…</div>';
+  panel.hidden = false;
+  panel.classList.add('open');
+  panel.setAttribute('aria-hidden', 'false');
+  overlay.hidden = false;
+
+  function escHtml(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  function renderSupplement(card) {
+    var name = escHtml(card.name || nodeLabel || nodeId);
+    var category = escHtml(card.category || '');
+    var grade = card.grade || '';
+    var effects = (card.effects || []).slice(0, 3);
+    var forms = card.forms || '';
+    var catHtml = category ? '<span class="sp-badge">' + escHtml(category) + '</span>' : '';
+    var gradeHtml = grade ? '<span class="sp-badge">Грейд <span class="sp-grade g' + escHtml(grade) + '">' + escHtml(grade) + '</span></span>' : '';
+    var effectsHtml = '';
+    if (effects.length) {
+      effectsHtml = '<div class="sp-effects"><b>Эффекты:</b> <ul>' +
+        effects.map(function (e) { return '<li>' + escHtml(e) + '</li>'; }).join('') +
+        '</ul></div>';
+    }
+    var formsHtml = forms ? '<div class="sp-forms"><b>Формы:</b> ' + escHtml(forms) + '</div>' : '';
+    var link = 'map.html#sup=' + encodeURIComponent(String(card.id || nodeId));
+    var btn = '<a href="' + escHtml(link) + '" class="sp-btn" target="_blank" rel="noopener">Открыть полную карточку</a>';
+    bodyEl.innerHTML = catHtml + gradeHtml + effectsHtml + formsHtml + btn;
+  }
+
+  function renderMechanism(mech) {
+    var name = escHtml((mech && mech.label) || nodeLabel);
+    var list = (mech && mech.supplements) || [];
+    var html = '<div class="sp-mech"><b>' + name + '</b>';
+    if (list.length) {
+      html += '<div class="sp-mech-list"><b>Влияющие добавки (' + list.length + '):</b><ul>' +
+        list.slice(0, 20).map(function (id) { return '<li>' + escHtml(id) + '</li>'; }).join('') +
+        '</ul></div>';
+    } else {
+      html += '<div class="sp-empty">Описание механизма недоступно.</div>';
+    }
+    html += '</div>';
+    bodyEl.innerHTML = html;
+  }
+
+  function fetchMechData() {
+    return Promise.all([
+      fetch('./graph_mech_edges.json').then(function (r) { return r.ok ? r.json() : { edges: [] }; }),
+      fetch('./data.json').then(function (r) { return r.ok ? r.json() : []; })
+    ]).then(function (res) {
+      var edges = (res[0] && res[0].edges) || [];
+      var cards = res[1] || [];
+      var suppCards = {};
+      cards.forEach(function (c) { suppCards[c.id] = c; });
+      window.__dataCache = Object.fromEntries(cards.map(function (c) { return [c.id, c]; }));
+      var byKey = {};
+      edges.forEach(function (e) {
+        var m = /^механизм:\s*(.+)$/.exec(String(e.title || ''));
+        var key = m ? m[1] : String(e.title || '');
+        if (!key) return;
+        if (!byKey[key]) byKey[key] = {};
+        [e.from, e.to].forEach(function (n) { if (n && suppCards[n]) byKey[key][n] = true; });
+      });
+      var labels = window.__mechLabels || {};
+      var mechMap = {};
+      Object.keys(byKey).forEach(function (key) {
+        mechMap[labels[key] || key] = { label: labels[key] || key, supplements: Object.keys(byKey[key]).sort() };
+      });
+      window.__mechMap = mechMap;
+    });
+  }
+
+  function loadAndRender() {
+    if (nodeType === 'mechanism') {
+      var mech = window.__mechMap && window.__mechMap[nodeLabel];
+      if (mech) { renderMechanism(mech); return; }
+      fetchMechData().then(function () {
+        renderMechanism(window.__mechMap && window.__mechMap[nodeLabel]
+          || { label: nodeLabel, supplements: [] });
+      }).catch(function () {
+        renderMechanism({ label: nodeLabel, supplements: [] });
+      });
+      return;
+    }
+    // supplement
+    var cache = window.__dataCache;
+    if (cache && cache[nodeId]) { renderSupplement(cache[nodeId]); return; }
+    fetch('./data.json').then(function (r) { return r.ok ? r.json() : []; }).then(function (data) {
+      var map = {};
+      data.forEach(function (c) { map[c.id] = c; });
+      window.__dataCache = map;
+      renderSupplement(map[nodeId] || { name: nodeLabel || nodeId, category: '', grade: '', effects: [], forms: '' });
+    }).catch(function () {
+      renderSupplement({ name: nodeLabel || nodeId, category: '', grade: '', effects: [], forms: '' });
+    });
+  }
+
+  loadAndRender();
+}
+
+function closeSidePanel() {
+  var panel = document.getElementById('nodeSidePanel');
+  var overlay = document.getElementById('sidePanelOverlay');
+  if (panel) { panel.hidden = true; panel.classList.remove('open'); panel.setAttribute('aria-hidden', 'true'); }
+  if (overlay) overlay.hidden = true;
+}
+
+var closeBtn = document.getElementById('sidePanelClose');
+if (closeBtn) closeBtn.addEventListener('click', closeSidePanel);
+var overlayEl = document.getElementById('sidePanelOverlay');
+if (overlayEl) overlayEl.addEventListener('click', closeSidePanel);
+document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeSidePanel(); });
+</script>
+
 </body>
 </html>
