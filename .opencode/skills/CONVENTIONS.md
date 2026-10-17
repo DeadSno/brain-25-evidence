@@ -13,7 +13,7 @@
 | JS | 9 файлов в `docs/` | `ls docs/*.js \| wc -l` |
 | CSS | `docs/style.css`, версия `?v=430` | `grep -ho 'style\.css?v=[0-9]*' docs/*.html docs/sup/*.html \| sort -u` |
 | SW cache | `v97` | `grep CACHE_VERSION docs/sw.js` → `var CACHE_VERSION = 'v97'` |
-| Тесты | **1982** собрано; 1729 passed в worktree — см. «Базовая линия тестов» | `pytest --collect-only -q` → `1982 tests collected` |
+| Тесты | **1983** собрано; 1746 passed + 237 skipped в основном checkout — см. «Базовая линия тестов» | `python -m pytest -q` → `1746 passed, 237 skipped` |
 | Скиллы | 19 проектных в git (20 в main checkout: `cyberaudit` в `.gitignore`) + 20 глобальных | `ls .opencode/skills/ \| wc -l`, `ls ~/.config/opencode/skills/ \| wc -l` |
 
 Число skipped зависит от окружения и **не является константой проекта**:
@@ -39,6 +39,7 @@
 | Где | passed | skipped | всего |
 |---|---|---|---|
 | Основной checkout `C:\analytics\brain-25-evidence` (@ 724c754) | 1744 | 237 | 1981 |
+| Основной checkout `C:\analytics\brain-25-evidence` (@ 1277262, v5.6.5-dev) | 1746 | 237 | 1983 |
 | Worktree v5.6-dev (@ cd177e5, shiny-lagoon) | 1729 | 253 | 1982 |
 
 Замер 16.10.2026. Разница — **16 тестов DuckDB**: `tests/conftest.py:11`
@@ -94,8 +95,8 @@ worktree стоят на разных коммитах).
 вместе с ветками сессий. Перед удалением worktree:
 
 ```
-git -C <main> merge-base --is-ancestor <worktree-HEAD> v5.6-dev
-git -C <main> diff origin/v5.6-dev <worktree-HEAD> --stat
+git -C <main> merge-base --is-ancestor <worktree-HEAD> v5.6.5-dev
+git -C <main> diff origin/v5.6.5-dev <worktree-HEAD> --stat
 ```
 
 Ненулевой код возврата у первой = коммиты ещё не в ветке, **но только если
@@ -107,7 +108,7 @@ git -C <main> diff origin/v5.6-dev <worktree-HEAD> --stat
 
 После `cherry-pick` — **пушить немедленно**, не откладывая до конца
 задачи. Прецедент 15.10.2026: 6 коммитов (`5a6e219` … `9a336cc`) провисели
-локально ~10 минут после `Merge origin/v5.6-dev into v5.6-dev`; всё это время
+локально ~10 минут после `Merge origin/v5.6.5-dev into v5.6.5-dev`; всё это время
 ветка была `ahead 6`, и следующая задача исходила из неверного числа
 коммитов. Cherry-pick — это операция с чужими коммитами: пока они не в
 `origin`, следующий `merge origin/...` может их затронуть.
@@ -133,6 +134,18 @@ Remove-Item -Recurse -Force "<worktree-root>\<имя>" -EA SilentlyContinue
 нет в выводе `git worktree list`. Незарегистрированный каталог удалять
 безопасно — ref'ов у него нет, терять нечего.
 
+### Скрипт очистки worktree: `scripts/cleanup_worktrees.py`
+
+Сканирует `git worktree list`, для каждого worktree (кроме текущей
+ветки `v5.6.5-dev`) проверяет `git log v5.6.5-dev..HEAD --oneline`:
+
+- коммитов нет → `git worktree remove` + удалить пустой каталог-оболочку;
+- коммиты есть → WARN, пропустить (нужен cherry-pick в `v5.6.5-dev` +
+  push, см. раздел выше).
+
+Отчёт: сколько worktree было, сколько удалено, сколько с коммитами.
+Запускать из главного чекаута `C:\analytics\brain-25-evidence`.
+
 ### Push из detached HEAD
 
 Ветка может быть занята другим чекаутом (`git worktree list` показывает её
@@ -140,18 +153,18 @@ Remove-Item -Recurse -Force "<worktree-root>\<имя>" -EA SilentlyContinue
 работает по refspec и указатель ветки не трогает:
 
 ```
-git push origin HEAD:v5.6-dev     # fast-forward, только remote
+git push origin HEAD:v5.6.5-dev   # fast-forward, только remote
 ```
 
 Локальная ветка в главном чекауте после этого отстаёт; догонять её
 отдельным `merge --ff-only` по явному разрешению.
 
-### Пуш — только в v5.6-dev до merge v5.6.4
+### Пуш — только в v5.6.5-dev до merge v5.6.4
 
-- Все коммиты до merge v5.6.4 — ТОЛЬКО в `v5.6-dev`.
+- Все коммиты до merge v5.6.4 — ТОЛЬКО в `v5.6.5-dev`.
 - `main` = заморожен на теге `v5.6.3`.
-- Перед push: `git branch --show-current`. Если не `v5.6-dev` → СТОП.
-- Прецедент: 16.10.2026 PERF-P2-01 ушёл в `main` вместо `v5.6-dev` (инцидент с ветками — откатили `main` к `99c67b9` / тегу `v5.6.3`, перенесли в `v5.6-dev` через cherry-pick `c881a85`).
+- Перед push: `git branch --show-current`. Если не `v5.6.5-dev` → СТОП.
+- Прецедент: 16.10.2026 PERF-P2-01 ушёл в `main` вместо `v5.6.5-dev` (инцидент с ветками — откатили `main` к `99c67b9` / тегу `v5.6.3`, перенесли в `v5.6.5-dev` через cherry-pick `c881a85`).
 
 ## OpenCode worktree (автоматика)
 
@@ -171,15 +184,15 @@ git push origin HEAD:v5.6-dev     # fast-forward, только remote
   ```
   git worktree list
   ```
-  для каждого: `git -C <wt> log v5.6-dev..HEAD --oneline`
+  для каждого: `git -C <wt> log v5.6.5-dev..HEAD --oneline`
   Пусто → safe. Не пусто → **не повод сразу cherry-pick'ить**: сперва
-  `git -C <main> diff origin/v5.6-dev <wt-HEAD> --stat`, пусто → уже забрано
+  `git -C <main> diff origin/v5.6.5-dev <wt-HEAD> --stat`, пусто → уже забрано
   (следующий раздел).
 - Отдельный случай — батч, который ещё ни разу не забирали. Тогда HEAD
   worktree не принадлежит ни одной ветке:
   ```
   git -C <main> branch --contains <wt-HEAD>
-  git -C <main> diff origin/v5.6-dev <wt-HEAD> --stat
+  git -C <main> diff origin/v5.6.5-dev <wt-HEAD> --stat
   ```
   ⚠️ Вывод `branch --contains` читается **только в паре** с `diff`:
   пусто + diff пусто → уже забрано (ложный сигнал, следующий раздел);
@@ -198,24 +211,24 @@ git push origin HEAD:v5.6-dev     # fast-forward, только remote
 ### Ложное срабатывание проверки после cherry-pick
 
 ⚠️ После `cherry-pick` хеши коммитов **меняются** — переписывается committer
-timestamp. Поэтому `git -C <wt> log v5.6-dev..HEAD` покажет коммиты даже
+timestamp. Поэтому `git -C <wt> log v5.6.5-dev..HEAD` покажет коммиты даже
 после того, как их содержимое уже в ветке и запушено.
 
 Проверено 15.10.2026: батч 10 жил в `sunny-canyon` как `f4ea752 … eb47cf4`
-(родитель `f4ea752` = `06ca148` = HEAD `v5.6-dev` в тот момент). После
-`cherry-pick` в `v5.6-dev` получилась параллельная история `44a66b3 … bcbce7a`,
+(родитель `f4ea752` = `06ca148` = HEAD `v5.6.5-dev` в тот момент). После
+`cherry-pick` в `v5.6.5-dev` получилась параллельная история `44a66b3 … bcbce7a`,
 и проверка выше дала ложное «6 непушенных коммитов».
 
 Содержимое при этом не потеряно — совпадало дерево:
 
 ```
-git diff origin/v5.6-dev eb47cf4      # пусто
-git diff v5.6-dev HEAD                # пусто
+git diff origin/v5.6.5-dev eb47cf4   # пусто
+git diff v5.6.5-dev HEAD             # пусто
 ```
 
 **Решающий критерий — сравнение деревьев, а не список коммитов.**
 Сверять хеши нельзя: перед удалением worktree, который уже cherry-picked,
-`git log v5.6-dev..HEAD` будет непустым, и это нормально.
+`git log v5.6.5-dev..HEAD` будет непустым, и это нормально.
 
 То же касается `git branch --contains`. Замерено 16.10.2026 на
 `eager-circuit` (`61cc177`, cherry-picked как `8ada05d`): ветка не найдена,
@@ -230,8 +243,8 @@ git diff v5.6-dev HEAD                # пусто
 | `* v5.6-dev` | пусто | обычное состояние, всё в ветке |
 
 Контроль на тот же момент: `git branch --contains 76b3ce1` (база, не
-cherry-pick'илась) → `* v5.6-dev`, и `merge-base --is-ancestor 61cc177
-v5.6-dev` → exit 1 на уже забранном коммите.
+cherry-pick'илась) → `* v5.6.5-dev`, и `merge-base --is-ancestor 61cc177
+v5.6.5-dev` → exit 1 на уже забранном коммите.
 
 ## Pre-commit порядок генераторов
 
