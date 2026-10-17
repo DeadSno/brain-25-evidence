@@ -17,8 +17,9 @@
 
 ## Скиллы
 
-19 скиллов в `.opencode/skills/` (`Get-ChildItem .opencode\skills -Directory |
-Measure-Object` = 19; источник истины — `.opencode/skills/SKILLS_INDEX.md:5`).
+18 скиллов в `.opencode/skills/` (`Get-ChildItem .opencode\skills -Directory`
+= 18; ещё один — вендорный `cyberaudit` — в `.gitignore`, поэтому в main
+checkout каталогов 19; источник истины — `.opencode/skills/SKILLS_INDEX.md:5`).
 Загружаются по требованию: агент видит только имя и описание, полный
 `SKILL.md` подгружается под задачу. Это экономит контекст, поэтому скилл
 стоит называть явно.

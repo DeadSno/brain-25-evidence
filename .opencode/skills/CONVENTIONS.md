@@ -14,7 +14,7 @@
 | CSS | `docs/style.css`, версия `?v=430` | `grep -ho 'style\.css?v=[0-9]*' docs/*.html docs/sup/*.html \| sort -u` |
 | SW cache | `v97` | `grep CACHE_VERSION docs/sw.js` → `var CACHE_VERSION = 'v97'` |
 | Тесты | **1983** собрано; 1746 passed + 237 skipped в основном checkout — см. «Базовая линия тестов» | `python -m pytest -q` → `1746 passed, 237 skipped` |
-| Скиллы | 19 проектных в git (20 в main checkout: `cyberaudit` в `.gitignore`) + 20 глобальных | `ls .opencode/skills/ \| wc -l`, `ls ~/.config/opencode/skills/ \| wc -l` |
+| Скиллы | 18 проектных в git (19 в main checkout: `cyberaudit` в `.gitignore`) + 20 глобальных | `ls .opencode/skills/ \| wc -l`, `ls ~/.config/opencode/skills/ \| wc -l` |
 
 Число skipped зависит от окружения и **не является константой проекта**:
 это opt-in гейты, требующие `RUN_SNAPSHOTS=1`, `RUN_A11Y=1`, `RUN_GRAPH=1`,
