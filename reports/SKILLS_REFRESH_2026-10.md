@@ -72,3 +72,31 @@ site-navigation, skill-audit, ui-ux-deep-audit, visual-design-audit) —
 - `82ca241` chore(scripts): cleanup_worktrees.py (auto-detached HEAD cleanup)
 
 Готовы к v5.6.5: да.
+
+## Worktree cleanup (v5.6.5)
+
+| Worktree | Коммитов | Решение |
+|---|---|---|
+| eager-circuit | 14 | удалён (дубли) |
+| happy-cabin | 1 | удалён (дубли) |
+| playful-canyon-2 | 2 | удалён (дубли) |
+| shiny-river-2 | 5 | удалён (дубли) |
+| shiny-wizard | 7 | удалён (дубли) |
+| shiny-lagoon | 8 | 6db227c — устарел, не применён, worktree удалён |
+| gentle-orchid | 0 | уже удалён ранее (хендлы node.exe) |
+| silent-cabin | 0 | уже удалён ранее (хендлы node.exe) |
+| Итого удалено | 6 | |
+| Осталось | 2 | main checkout + сессия mighty-forest |
+
+## Проверка теста skill inventory
+
+- `test_skill_inventory_does_not_shrink`: порог 19 — **актуален**, изменений не требует.
+- Падение в früheren прогонах объясняется запуском pytest в `mighty-forest` (detached worktree, 18 скиллов без vendored `cyberaudit`), а не в main checkout (19 скиллов).
+- `developing-with-streamlit` — фантом (никогда не существовал в репо: `Test-Path = False`, `git log --all` пуст).
+- SKILLS_INDEX: 19 записей (строка 5 + список 257–279), соответствует фактическим 19 каталогам.
+- AGENTS.md: "19 скиллов" — актуально.
+- 6db227c (13C1 tail): **устарел**, не применён (коммит утверждает, что `yandex_cc2e3cf2ee185b01.html` добавлен; в ветке файл удалён, верификация Яндекса через метатег в `index.html`).
+
+pytest в main checkout: **1746 passed, 237 skipped** ✓
+
+git worktree list: **2** (main checkout v5.6.5-dev + detached mighty-forest сессия)
