@@ -248,7 +248,14 @@ self.addEventListener('activate', event => {
    (правило .state-loading перебивало UA [hidden] и спиннер не скрывался),
    порядок вызовов в drawGraph() изменён на showGraph() -> renderGraph().
    ?v= 437 -> 438. Без бампа activate не почистит v105-static. */
-var CACHE_VERSION = 'v106';
+/* Бамп v106 -> v107: 2.2.3 — карточный список на вкладках «Добавки» (sups)
+   и «Лекарства» (drugs) в docs/interactions.html. Вместо загрузки всех
+   пар в vis-network (клубок) — ленивая подгрузка interactions_graph.json
+   только при первом клике на таб и HTML/CSS-карточки с поиском и фильтром.
+   style.css НЕ менялся (?v= 438): правки только во inline <style> и <script>
+   самой страницы. Без бампа activate не почистит v106-static, и возвратные
+   посетители получат старый interactions.html с заглушкой «Загрузка...». */
+var CACHE_VERSION = 'v107';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
