@@ -5645,19 +5645,6 @@
     "grade": "B",
     "key_sources": [
       {
-        "pmid": "39800868",
-        "title": "L-Arginine and L-Citrulline for Prevention and Treatment of Pre-Eclampsia: A Systematic Review and Meta-Analysis.",
-        "year": 2025,
-        "journal": "BJOG : an international journal of obstetrics and gynaecology",
-        "pubtype": [
-          "Journal Article",
-          "Systematic Review",
-          "Meta-Analysis"
-        ],
-        "source": "curated",
-        "doi": "10.1111/1471-0528.18070"
-      },
-      {
         "pmid": "39564822",
         "title": "Efficacy of L-Arginine for Preventing Preeclampsia and Improving Maternal and Neonatal Outcomes in High-Risk Pregnancies: A Systematic Review and Meta-Analysis.",
         "year": 2024,
@@ -10437,18 +10424,6 @@
         "doi": "10.1002/ptr.7252"
       },
       {
-        "pmid": "33561990",
-        "title": "Herbal Remedies and Their Possible Effect on the GABAergic System and Sleep.",
-        "year": 2021,
-        "journal": "Nutrients",
-        "pubtype": [
-          "Journal Article",
-          "Systematic Review"
-        ],
-        "source": "auto",
-        "doi": "10.3390/nu13020530"
-      },
-      {
         "pmid": "30806589",
         "title": "Treatments of sleep bruxism in children: A systematic review and meta-analysis.",
         "year": 2021,
@@ -11740,13 +11715,6 @@
     "grade": "C",
     "key_sources": [
       {
-        "pmid": "36683513",
-        "doi": "10.3233/JAD-221189",
-        "title": "Activity of Choline Alphoscerate on Adult-Onset Cognitive Dysfunctions: A Systematic Review and Meta-Analysis.",
-        "year": 2023,
-        "journal": "Journal of Alzheimer's disease : JAD"
-      },
-      {
         "pmid": "40362867",
         "doi": "10.3390/nu17091558",
         "title": "Choline in Pregnancy and Lactation: Essential Knowledge for Clinical Practice.",
@@ -12027,13 +11995,6 @@
     "hedges_g": -1.573,
     "grade": "B",
     "key_sources": [
-      {
-        "pmid": "33779525",
-        "doi": "10.1080/1028415X.2021.1904542",
-        "title": "Effect of Vitamin B2 supplementation on migraine prophylaxis: a systematic review and meta-analysis.",
-        "year": 2022,
-        "journal": "Nutritional neuroscience"
-      },
       {
         "pmid": "35365361",
         "doi": "10.1016/j.clnu.2022.02.015",
@@ -12329,13 +12290,6 @@
         "title": "The Role of Vitamin B6 in Peripheral Neuropathy: A Systematic Review.",
         "year": 2023,
         "journal": "Nutrients"
-      },
-      {
-        "pmid": "33619867",
-        "doi": "10.1111/ene.14786",
-        "title": "Association between neuropathy and B-vitamins: A systematic review and meta-analysis.",
-        "year": 2021,
-        "journal": "European journal of neurology"
       }
     ],
     "updated": "2026-09-23",
@@ -12999,13 +12953,6 @@
         "title": "ESPEN micronutrient guideline.",
         "year": 2022,
         "journal": "Clinical nutrition (Edinburgh, Scotland)"
-      },
-      {
-        "pmid": "36839399",
-        "doi": "10.3390/nu15041041",
-        "title": "The Influence of Nutritional Intervention in the Treatment of Hashimoto's Thyroiditis-A Systematic Review.",
-        "year": 2023,
-        "journal": "Nutrients"
       }
     ],
     "updated": "2026-09-25",
@@ -13274,20 +13221,6 @@
     "hedges_g": -0.03,
     "grade": "C",
     "key_sources": [
-      {
-        "pmid": "35134311",
-        "doi": "10.1177/12034754221078201",
-        "title": "Effect of Nicotinamide in Skin Cancer and Actinic Keratoses Chemoprophylaxis, and Adverse Effects Related to Nicotinamide: A Systematic Review and Meta-Analysis.",
-        "year": 2022,
-        "journal": "Journal of cutaneous medicine and surgery"
-      },
-      {
-        "pmid": "34525885",
-        "doi": "10.1080/09546634.2021.1981814",
-        "title": "Topical treatment for postinflammatory hyperpigmentation: a systematic review.",
-        "year": 2022,
-        "journal": "The Journal of dermatological treatment"
-      },
       {
         "pmid": "40843925",
         "doi": "10.1111/jocd.70418",
@@ -13589,13 +13522,6 @@
         "title": "Systematic review with meta-analysis: Lactobacillus rhamnosus GG for treating acute gastroenteritis in children - a 2019 update",
         "year": 2019,
         "journal": "Aliment Pharmacol Ther"
-      },
-      {
-        "pmid": "33295643",
-        "doi": "10.1002/14651858.CD003048.pub4",
-        "title": "Probiotics for treating acute infectious diarrhoea",
-        "year": 2020,
-        "journal": "Cochrane Database Syst Rev"
       }
     ],
     "updated": "2026-09-23",
@@ -13971,13 +13897,6 @@
         "journal": "Clin Nutr"
       },
       {
-        "pmid": "33341313",
-        "doi": "10.1016/j.clnu.2020.11.035",
-        "title": "Intake and adequacy of the vegan diet. A systematic review of the evidence",
-        "year": 2021,
-        "journal": "Clin Nutr"
-      },
-      {
         "pmid": "39440586",
         "doi": "10.1002/mnfr.202400652",
         "title": "Micronutrients and Androgenetic Alopecia: A Systematic Review",
@@ -14065,20 +13984,6 @@
         "title": "The Role of Mineral and Trace Element Supplementation in Exercise and Athletic Performance: A Systematic Review",
         "year": 2019,
         "journal": "Nutrients"
-      },
-      {
-        "pmid": "35365361",
-        "doi": "10.1016/j.clnu.2022.02.015",
-        "title": "ESPEN micronutrient guideline",
-        "year": 2022,
-        "journal": "Clin Nutr"
-      },
-      {
-        "pmid": "39440586",
-        "doi": "10.1002/mnfr.202400652",
-        "title": "Micronutrients and Androgenetic Alopecia: A Systematic Review",
-        "year": 2024,
-        "journal": "Mol Nutr Food Res"
       }
     ],
     "updated": "2026-09-23",
@@ -14963,15 +14868,7 @@
     "myths": "«Бета-аланин — это аланин» — разные вещества: β-аланин идёт в мышечный карнозин, α-аланин не изучался ни в одной работе пула. «Данные есть» — они по β-аланину, общий эффект 0.18 при 1461 участнике.",
     "hedges_g": null,
     "grade": "C",
-    "key_sources": [
-      {
-        "pmid": "27797728",
-        "doi": "10.1136/bjsports-2016-096396",
-        "title": "β-alanine supplementation to improve exercise capacity and performance: a systematic review and meta-analysis",
-        "year": 2017,
-        "journal": "Br J Sports Med"
-      }
-    ],
+    "key_sources": [],
     "updated": "2026-09-25",
     "pubmed_term": "\"L-alanine supplementation\" OR \"alpha-alanine\"",
     "rct": 0,
