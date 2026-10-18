@@ -298,6 +298,8 @@ footer { font-size: 1rem !important; }
     .step { padding: .6rem .8rem; font-size: .88rem; }
     h1 { line-height: 1.3; }
     h1 br { display: none; }  /* если есть принудительные переносы */
+    /* Липкая панель сравнения снизу не должна перекрывать конец контента */
+    main { padding-bottom: calc(3rem + env(safe-area-inset-bottom, 0)); }
   }
   /* ── Touch UX ──────────────────────────────────────── */
   button, .btn, .chip, a, .chartTab, [role="button"] {
@@ -314,7 +316,7 @@ footer { font-size: 1rem !important; }
   .cmpBtn{
     float:inline-end;margin-inline-start:.4rem;padding:.18rem .5rem;border:1px solid var(--aborder);
     border-radius:var(--radius-pill);background:var(--apanel);color:var(--atext);font-size:.8rem;
-    cursor:pointer;line-height:1;
+    cursor:pointer;line-height:1;min-width:44px;min-height:44px;display:inline-flex;align-items:center;justify-content:center
   }
   .cmpBtn:hover{border-color:var(--border-hover)}
   .cmpBtn.on{background:#3498db;color:#fff;border-color:#3498db}
@@ -329,7 +331,7 @@ footer { font-size: 1rem !important; }
   .cmpPanel.open{display:flex}
   .cmpCount{font-size:.9rem;font-weight:600}
   .cmpCount b{color:var(--info-tx,#3498db)}
-  .cmpGo,.cmpClear{padding:.45rem .9rem;border-radius:var(--radius-lg);font-size:.85rem;cursor:pointer}
+  .cmpGo,.cmpClear{padding:.45rem .9rem;border-radius:var(--radius-lg);font-size:.85rem;cursor:pointer;min-width:44px;min-height:44px}
   .cmpGo{background:var(--info-fill,#3498db);color:#fff;border:none}
   .cmpGo:disabled{opacity:.5;cursor:not-allowed}
   .cmpClear{border:1px solid var(--aborder);background:var(--apanel);color:var(--atext)}
