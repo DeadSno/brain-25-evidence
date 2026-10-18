@@ -56,7 +56,7 @@ try {
      здесь — только форма плашки. Цвета берём из токенов, без хардкода. */
   .grade{display:inline-block;padding:.1rem .5rem;border-radius:var(--radius-pill);font-size:.8rem;font-weight:700;color:#fff}
   .grade-none{background:var(--muted)}
-  .pmidBadge{display:inline-block;padding:.1rem .5rem;border-radius:var(--radius-pill);background:color-mix(in srgb, var(--info-blue) 15%, transparent);color:var(--info-blue);border:1px solid color-mix(in srgb, var(--info-blue) 40%, transparent);font-size:.78rem;margin-inline-end:.4rem}
+  .pmidBadge{display:inline-block;padding:.1rem .5rem;border-radius:var(--radius-pill);background:rgba(31,111,165,.2);color:#1f6fa5;border:1px solid rgba(31,111,165,.4);font-size:.78rem;margin-inline-end:.4rem}
   .linkCard{color:var(--info-tx, var(--info-blue));text-decoration:none;font-size:.85rem}
   .linkCard:hover{text-decoration:underline}
   .noData{opacity:.6;font-style:italic}
@@ -74,11 +74,17 @@ try {
   <div class="site-header">
     <header class="top">
       <div class="site-title"><a href="index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a> <span class="v">v<span data-version="app"></span></span></div>
-      <nav class="actions">
-        <a class="btn" href="map.html">🗺 Карта</a>
-        <a class="btn" href="interactions.html">🔗 Связи</a>
-        <a class="btn" href="calculator.html">🧮 Калькулятор</a>
-        <a class="btn" href="trends.html">📈 Тренды</a>
+      <nav class="actions" data-i18n-aria-label="a11y.navMain">
+        <a class="btn c-home" href="index.html">🏠 Главная</a>
+        <a class="btn c-calc" href="calculator.html">🧮 Калькулятор</a>
+        <a class="btn c-trends" href="trends.html">📈 Тренды</a>
+        <a class="btn c-links" href="interactions.html">🔗 Связи</a>
+        <a class="btn c-compare" href="compare.html">⚖ Сравнение</a>
+        <a class="btn c-map" href="map.html">🗺 Карта</a>
+        <a class="btn c-bi" href="https://brain-25-evidence.streamlit.app" target="_blank" rel="noopener">🧠 BI ↗</a>
+        <a class="btn c-faq" href="faq.html">❓ FAQ</a>
+        <a class="btn c-feedback" href="feedback.html">💬 Обратная связь</a>
+        <a class="btn c-support" href="support.html">💚 Поддержать</a>
         <button class="btn" id="themeBtn">🌞 Светлая тема</button>
       </nav>
     </header>
