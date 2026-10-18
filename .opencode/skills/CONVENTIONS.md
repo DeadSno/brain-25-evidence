@@ -11,9 +11,9 @@
 | HTML, контентные | 13 в `docs/` | `ls docs/*.html` — их 15, из них 2 не контентные: `offline.html` (запасной экран SW) и `google4a9d23e35c6c3e23.html` (файл верификации Google). Верификация Яндекса — метатегом в `docs/index.html` (16.10.2026, файл `yandex_cc2e3cf2ee185b01.html` удалён) |
 | HTML, sup | 131 в `docs/sup/` (index + 130 карточек) | `ls docs/sup/*.html \| wc -l` |
 | JS | 9 файлов в `docs/` | `ls docs/*.js \| wc -l` |
-| CSS | `docs/style.css`, версия `?v=430` | `grep -ho 'style\.css?v=[0-9]*' docs/*.html docs/sup/*.html \| sort -u` |
-| SW cache | `v97` | `grep CACHE_VERSION docs/sw.js` → `var CACHE_VERSION = 'v97'` |
-| Тесты | **1983** собрано; 1746 passed + 237 skipped в основном checkout — см. «Базовая линия тестов» | `python -m pytest -q` → `1746 passed, 237 skipped` |
+| CSS | `docs/style.css`, версия `?v=439` | `grep -ho 'style\.css?v=[0-9]*' docs/*.html docs/sup/*.html \| sort -u` |
+| SW cache | `v110` | `grep CACHE_VERSION docs/sw.js` → `var CACHE_VERSION = 'v110'` |
+| Тесты | **2002** собрано; 1764 passed + 238 skipped в основном checkout — см. «Базовая линия тестов» | `python -m pytest -q` → `1764 passed, 238 skipped` |
 | Скиллы | 19 проектных в git (20 в main checkout: `cyberaudit` в `.gitignore`) + 20 глобальных | `ls .opencode/skills/ \| wc -l`, `ls ~/.config/opencode/skills/ \| wc -l` |
 
 Число skipped зависит от окружения и **не является константой проекта**:
