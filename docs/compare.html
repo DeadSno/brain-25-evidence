@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <script defer src="version.js?v=312"></script>
+  <script src="i18n.js?v=2"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1c1c1e" media="(prefers-color-scheme: dark)">
+<meta name="description" content="Сравнение БАДов рядом: грейд, эффекты, дозировка, безопасность, исследования PubMed — Brain 25 Evidence"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="Сравнение БАДов — Brain 25 Evidence"/>
+<meta property="og:description" content="Сравнение БАДов рядом: грейд, эффекты, дозировка, безопасность, исследования PubMed — Brain 25 Evidence"/>
+<meta property="og:url" content="https://deadsno.github.io/brain-25-evidence/compare.html"/>
+<link rel="canonical" href="https://deadsno.github.io/brain-25-evidence/compare.html">
+<link rel="alternate" type="application/rss+xml" title="brain-25-evidence" href="https://deadsno.github.io/brain-25-evidence/feed.xml">
+<meta property="og:image" content="https://deadsno.github.io/brain-25-evidence/og.png"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Сравнение БАДов — Brain 25 Evidence"/>
+<meta name="twitter:description" content="Сравнение БАДов рядом: грейд, эффекты, дозировка, безопасность, исследования PubMed — Brain 25 Evidence"/>
+<meta name="twitter:image" content="https://deadsno.github.io/brain-25-evidence/og.png"/>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="БАДы">
+<link rel="apple-touch-icon" href="icons/192.png">
+<title>Сравнение БАДов — Brain 25 Evidence</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
+<script>
+try {
+  if (localStorage.getItem('theme') === 'light') {
+    document.documentElement.classList.add('light');
+  }
+} catch (e) {}
+</script>
+<link rel="stylesheet" href="style.css?v=439">
+<style>
+  :root{--apanel:#15171c;--aborder:#2b2e35;--atext:#e9eaee;--amut:#9aa0aa}
+  body{margin:0}
+  html.light{--apanel:#ffffff;--aborder:#d9dde3;--atext:#1b1d22;--amut:#5c6370}
+  .wrap{max-width:100%;margin:0;padding:0 var(--space-6) var(--space-4);color:var(--atext)}
+  .top{display:flex;justify-content:space-between;align-items:center;gap:var(--space-4);flex-wrap:wrap;margin:0 0 var(--space-4)}
+  .top .site-title{font-size:1.35rem;margin:0;font-weight:700}
+  .top a{color:inherit;text-decoration:none}
+  .btn{padding:.45rem .8rem;border:1px solid var(--aborder);border-radius:var(--radius-lg);background:var(--apanel);color:var(--atext);cursor:pointer;font-size:.85rem;text-decoration:none}
+  .wrap h1{font-size:1.5rem;margin:var(--space-0-3) 0 var(--space-4)}
+  .cmpNote{font-size:.85rem;opacity:.75;margin:0 0 var(--space-4)}
+  table.compare{width:100%;border-collapse:collapse;margin:0 0 var(--space-4);font-size:.9rem}
+  table.compare th{background:var(--apanel);color:var(--atext);text-align:left;padding:.6rem .5rem;border:1px solid var(--aborder);font-size:.8rem;position:sticky;top:0;z-index:2}
+  table.compare td{padding:.55rem .5rem;border:1px solid var(--aborder);vertical-align:top}
+  table.compare tr:nth-child(even) td{background:rgba(255,255,255,.03)}
+  table.compare tr:hover td{background:rgba(127,127,127,.06)}
+  table.compare td.name{font-weight:700;min-width:150px}
+  table.compare td.param{font-weight:600;color:var(--amut);width:170px;background:var(--apanel)}
+  .grade{display:inline-block;padding:.1rem .5rem;border-radius:var(--radius-pill);font-size:.8rem;font-weight:700;color:#fff}
+  .grade.A{background:#15803d}.grade.B{background:#3498db}.grade.C{background:#e67e22}.grade.D{background:#c0392b}
+  .grade span{background:#999}
+  .pmidBadge{display:inline-block;padding:.1rem .5rem;border-radius:var(--radius-pill);background:rgba(52,152,219,.15);color:#3498db;border:1px solid rgba(52,152,219,.4);font-size:.78rem;margin-inline-end:.4rem}
+  .linkCard{color:var(--info-tx,#3498db);text-decoration:none;font-size:.85rem}
+  .linkCard:hover{text-decoration:underline}
+  .noData{opacity:.6;font-style:italic}
+  /* таблица горизонтальный скролл на мобильных */
+  .tableWrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:var(--space-4)}
+  footer{font-size:.85rem;opacity:.7;margin-top:2rem;padding-bottom:calc(var(--space-4) + env(safe-area-inset-bottom, 0))}
+  @media (max-width: 640px) { body { padding: 0.6rem !important; } .wrap { padding: 0.6rem !important; } .top { flex-direction: column; align-items: stretch; gap: var(--space-2); } }
+  button, .btn, a { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+  @supports (padding: env(safe-area-inset-bottom)) { body { padding-bottom: env(safe-area-inset-bottom); } }
+</style>
+</head>
+<body>
+<a href="#main" class="skip-link">Перейти к содержимому</a>
+<div class="wrap">
+  <div class="site-header">
+    <header class="top">
+      <div class="site-title"><a href="index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a> <span class="v">v<span data-version="app"></span></span></div>
+      <nav class="actions">
+        <a class="btn" href="map.html">🗺 Карта</a>
+        <a class="btn" href="interactions.html">🔗 Связи</a>
+        <a class="btn" href="calculator.html">🧮 Калькулятор</a>
+        <a class="btn" href="trends.html">📈 Тренды</a>
+        <button class="btn" id="themeBtn">🌞 Светлая тема</button>
+      </nav>
+    </header>
+  </div>
+
+<main id="main">
+  <h1>⚖ Сравнение БАДов</h1>
+  <p class="cmpNote" id="cmpNote">Выберите 2–5 добавок на карте — они соберутся здесь для сравнения рядом.</p>
+
+  <div id="cmpError" style="color:red;display:none"></div>
+
+  <div class="tableWrap">
+    <table class="compare" id="cmpTable">
+      <thead>
+        <tr>
+          <th class="param">Параметр</th>
+          <th class="name" id="cmpCol0">Добавка</th>
+        </tr>
+      </thead>
+      <tbody id="cmpBody"></tbody>
+    </table>
+  </div>
+</main>
+
+  <footer class="site-footer">
+  <p class="disc">
+    <b>⚠️ Не медицинская рекомендация.</b> Сайт предоставляет данные из открытых научных источников
+    (PubMed, Europe PMC, CrossRef, OpenAlex, ClinicalTrials.gov, Wikimedia) для информирования.
+  </p>
+  <p class="meta">
+    v<span data-version="app"></span> ·
+    данные на <span data-version="data"></span>
+  </p>
+  <p class="links">
+    <a href="methodology.html">📐 Методология</a> ·
+    <a href="faq.html">❓ FAQ</a> ·
+    <a href="glossary.html">📖 Глоссарий</a> ·
+    <a href="privacy.html">🔐 Приватность</a> ·
+    <a href="feed.xml">📡 RSS</a>
+  </p>
+  <p class="copy">© 2026 Vladislav "DeadSno" Pereshivalov · MIT</p>
+  </footer>
+</div>
+<script>
+// v5.6.5: переключатель темы (работает без данных)
+(function(){
+  const b = document.getElementById('themeBtn');
+  if (!b) return;
+  const saved = localStorage.getItem('theme');
+  if (saved === 'light') document.documentElement.classList.add('light');
+  b.onclick = () => { const on = !document.documentElement.classList.contains('light'); document.documentElement.classList.toggle('light', on); document.body.classList.toggle('light', on); localStorage.setItem('theme', on ? 'light' : 'dark'); b.textContent = on ? '🌚 Тёмная тема' : '🌞 Светлая тема'; };
+})();
+
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;" }[c]));
+
+const GRADE_LABEL = { A: "A", B: "B", C: "C", D: "D" };
+function gradeBadgeHtml(s) {
+  if (!s.grade) return '<span class="grade" style="background:#999">—</span>';
+  return '<span class="grade g' + esc(s.grade) + '">' + esc(s.grade) + '</span>';
+}
+
+function pmidBadgeHtml(s) {
+  const n = s.key_sources ? s.key_sources.length : 0;
+  if (!n) return '';
+  return '<span class="pmidBadge" title="PubMed исследований: ' + n + '">🔬 ' + n + '</span>';
+}
+
+function fetchJson(url) {
+  return fetch(url + '?ts=' + Date.now()).then(r => { if (!r.ok) throw new Error('no data for ' + url); return r.json(); });
+}
+
+function renderTable(supplements) {
+  const note = document.getElementById('cmpNote');
+  if (note) note.textContent = "Сравниваем " + supplements.length + " добавок рядом — выберите другие на карте, чтобы заменить.";
+  const body = document.getElementById('cmpBody');
+  const theadTr = document.querySelector('#cmpTable thead tr');
+
+  // Заголовки колонок (первый th — параметр, остальные — названия добавок)
+  let thHtml = '<th class="param">Параметр</th>';
+  supplements.forEach((s, i) => {
+    thHtml += '<th class="name" id="cmpCol' + i + '">' + esc(s.name) + pmidBadgeHtml(s) + '</th>';
+  });
+  theadTr.innerHTML = thHtml;
+
+  const rows = [
+    { key: 'category', label: t ? t("cmp.table.category") : "Категория", get: s => esc(s.category || '—') },
+    { key: 'grade', label: t ? t("cmp.table.grade") : "Грейд", get: s => gradeBadgeHtml(s) },
+    { key: 'effects', label: t ? t("cmp.table.effects") : "Основные эффекты", get: s => { const e = (s.effects || []).slice(0, 4); return e.length ? e.map(esc).join(', ') : '<span class="noData">—</span>'; } },
+    { key: 'forms', label: t ? t("cmp.table.forms") : "Формы", get: s => s.forms ? esc(s.forms) : '<span class="noData">Нет данных</span>' },
+    { key: 'dosage', label: t ? t("cmp.table.dosage") : "Дозировка", get: s => esc(s.dosage || '—') },
+    { key: 'safety', label: t ? t("cmp.table.safety") : "Безопасность", get: s => { const u = s.upper_limit || ''; const c = s.caution || ''; return (u || c) ? '<div>' + esc(u) + '</div>' + (c ? '<div style="opacity:.7;font-size:.85rem">' + esc(c) + '</div>' : '') : '<span class="noData">—</span>'; } },
+    { key: 'rct', label: t ? t("cmp.table.rct") : "РКИ", get: s => (s.rct != null ? String(s.rct) : '—') },
+    { key: 'card', label: t ? t("cmp.table.card") : "Карточка", get: s => '<a class="linkCard" href="index.html#sup=' + encodeURIComponent(s.id) + '" target="_blank" rel="noopener">Открыть ↗</a>' }
+  ];
+
+  let trHtml = '';
+  rows.forEach(row => {
+    trHtml += '<tr><td class="param">' + row.label + '</td>';
+    supplements.forEach(s => {
+      trHtml += '<td>' + row.get(s) + '</td>';
+    });
+    trHtml += '</tr>';
+  });
+  body.innerHTML = trHtml;
+}
+
+const params = new URLSearchParams(location.search);
+const idsParam = params.get('ids');
+let ids = [];
+if (idsParam) {
+  ids = idsParam.split(',').filter(Boolean);
+}
+// Ограничиваем 5
+ids = ids.slice(0, 5);
+
+if (!ids.length) {
+  document.getElementById('cmpError').textContent = 'Не указаны добавки для сравнения. Выберите 2–5 на карте.';
+  document.getElementById('cmpError').style.display = 'block';
+  document.getElementById('cmpBody').innerHTML = '';
+} else {
+  fetchJson('data.json').then(all => {
+    const map = {};
+    all.forEach(s => { map[s.id] = s; });
+    const found = ids.map(id => map[id]).filter(Boolean);
+    if (!found.length) {
+      document.getElementById('cmpError').textContent = 'Добавки не найдены в базе.';
+      document.getElementById('cmpError').style.display = 'block';
+      return;
+    }
+    renderTable(found);
+  }).catch(err => {
+    console.error('[compare] ошибка загрузки data.json:', err);
+    document.getElementById('cmpError').textContent = 'Не удалось загрузить базу данных. Попробуйте обновить страницу.';
+    document.getElementById('cmpError').style.display = 'block';
+  });
+}
+</script>
+</body>
+</html>

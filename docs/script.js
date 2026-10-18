@@ -103,6 +103,16 @@ function gradeBadge(s) {
 
 const GRADE_PRIOR = { A: 0, B: 1, C: 2, D: 3 };   // v2.6.1: сортировка «по грейду» A<B<C<D<нет
 
+// ===== v5.6.5: PMID-счётчик (доверие) =====
+function pmidCount(s) {
+  return s.key_sources ? s.key_sources.length : 0;
+}
+function pmidBadge(s) {
+  const n = pmidCount(s);
+  if (!n) return '';
+  return '<span class="pmidBadge" title="' + t("cmp.pmid") + ': ' + n + '">🔬 ' + n + ' ' + t("cmp.pmid").toLowerCase() + '</span>';
+}
+
 // ===== v2.6: бейдж «ручная вычитка» (у карточек с ручным вердиктом — все вердикты ручные) =====
 // Tooltip-хелперы для метрик (наведение показывает формулу)
 function scienceSpan(s) {
@@ -806,7 +816,7 @@ async function openModal(id) {
     : '';
 
   $('modalBody').innerHTML = '<h2 id="modalTitle">' + esc(s.name) + '</h2>' + updatedLine(s) + manualBadge(s) +
-    '<div class="mrow"><span class="verdict v' + esc(s.code) + '">' + esc(s.verdict) + '</span> · ' + esc(s.category || '') + (s.grade ? ' · <span class="grade g' + esc(s.grade) + '">' + t("card.grade") + ' ' + esc(s.grade) + '</span> · ' + esc(GRADE_LABEL[s.grade] || '') : '') + '</div>' +     '<div class="mrow">' + scienceSpan(s) + pubmedLink(s) + ' · ' + maSpan(s) + '</div>' +
+    '<div class="mrow"><span class="verdict v' + esc(s.code) + '">' + esc(s.verdict) + '</span> · ' + esc(s.category || '') + (s.grade ? ' · <span class="grade g' + esc(s.grade) + '">' + t("card.grade") + ' ' + esc(s.grade) + '</span> · ' + esc(GRADE_LABEL[s.grade] || '') : '') + pmidBadge(s) + '</div>' +     '<div class="mrow">' + scienceSpan(s) + pubmedLink(s) + ' · ' + maSpan(s) + '</div>' +
     maTop3Block(s) +    trialsLine +
     calcLine +
     (s.citations != null ? '<div class="mrow">' + t("modal.citations") + s.citations + '</div>' : '') +

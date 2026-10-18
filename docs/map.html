@@ -310,6 +310,29 @@ footer { font-size: 1rem !important; }
   @supports (padding: env(safe-area-inset-bottom)) {
     body { padding-bottom: env(safe-area-inset-bottom); }
   }
+  /* ── v5.6.5: панель сравнения (липкая снизу) ── */
+  .cmpBtn{
+    float:inline-end;margin-inline-start:.4rem;padding:.18rem .5rem;border:1px solid var(--aborder);
+    border-radius:var(--radius-pill);background:var(--apanel);color:var(--atext);font-size:.8rem;
+    cursor:pointer;line-height:1;
+  }
+  .cmpBtn:hover{border-color:var(--border-hover)}
+  .cmpBtn.on{background:#3498db;color:#fff;border-color:#3498db}
+  html:not(.light) .cmpBtn.on{background:#2e75b6}
+  .cmpPanel{
+    position:fixed;inset-inline:0;bottom:0;z-index:1100;display:none;gap:.6rem;
+    align-items:center;justify-content:space-between;padding:.6rem var(--space-4) calc(.6rem + env(safe-area-inset-bottom, 0));
+    background:var(--apanel);border-top:1px solid var(--aborder);color:var(--atext);
+    backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+    box-shadow:0 -4px 12px rgba(0,0,0,.15);
+  }
+  .cmpPanel.open{display:flex}
+  .cmpCount{font-size:.9rem;font-weight:600}
+  .cmpCount b{color:var(--info-tx,#3498db)}
+  .cmpGo,.cmpClear{padding:.45rem .9rem;border-radius:var(--radius-lg);font-size:.85rem;cursor:pointer}
+  .cmpGo{background:var(--info-fill,#3498db);color:#fff;border:none}
+  .cmpGo:disabled{opacity:.5;cursor:not-allowed}
+  .cmpClear{border:1px solid var(--aborder);background:var(--apanel);color:var(--atext)}
   /* P2-10 / v5.6.2 батч C (V1): локальное «h2 { font-size: 1.125rem }»
      удалено — значение переехало в общий токен style.css. Источник
      истины один. */
@@ -336,6 +359,7 @@ footer { font-size: 1rem !important; }
       <a class="btn c-calc" href="calculator.html">🧮 Калькулятор</a>
       <a class="btn c-links" href="interactions.html">🔗 Связи</a>
       <a class="btn c-trends" href="trends.html">📈 Тренды</a>
+      <a class="btn c-compare" href="compare.html">⚖ Сравнить</a>
       <a class="btn c-bi" href="https://brain-25-evidence.streamlit.app" target="_blank" rel="noopener">🧠 BI ↗</a>
       <a class="btn c-feedback" href="feedback.html">💬 Обратная связь</a>
       <a class="btn c-support" href="support.html">💚 Поддержать</a>
@@ -384,6 +408,12 @@ footer { font-size: 1rem !important; }
   <p class="copy">© 2026 Vladislav "DeadSno" Pereshivalov · MIT</p>
   <p class="share-row"><button class="btn share-page" type="button">🔗 Поделиться</button></p>
 </footer>
+</div>
+<!-- v5.6.5: липкая панель сравнения (открывается при 1+ выбранных добавок) -->
+<div id="cmpPanel" class="cmpPanel">
+  <span class="cmpCount" id="cmpCountText">Выбрано <b>0</b></span>
+  <button id="cmpGo" class="cmpGo" disabled type="button">Сравнить (от 2 до 5)</button>
+  <button id="cmpClear" class="cmpClear" type="button">Очистить</button>
 </div>
 <script>
 // Склонение существительных: plural(n, 'мишень', 'мишени', 'мишеней')
@@ -473,10 +503,55 @@ fetch('data.json?ts=' + Date.now())
     try { closed = JSON.parse(localStorage.getItem('mapClosed') || '[]'); } catch(e){}
     $('list').innerHTML = Object.keys(cats).sort().map(c =>
       '<div class="cat' + (closed.includes(c) ? ' closed' : '') + '"><h3>' + esc(c) + ' ▾</h3>' +
-      cats[c].map(s => '<span class="chip" data-id="' + esc(s.id) + '">' + esc(s.name) + '</span>').join('') +
+      cats[c].map(s => '<span class="chip" data-id="' + esc(s.id) + '">' + esc(s.name) + '<button class="cmpBtn" type="button" data-cmp="' + esc(s.id) + '" aria-label="Добавить в сравнение: ' + esc(s.name) + '" title="Сравнить">⚖</button></span>').join('') +
       '</div>').join('');
     const p = new URLSearchParams(location.search).get('supplement');
     select(p && SUPS.some(s => s.id === p) ? p : 'Креатин', false);
+
+    // ══ v5.6.5: панель сравнения (Compare 3+) ══
+    const selectedForCompare = new Set();
+    const cmpPanel = $('cmpPanel');
+    const cmpCountText = $('cmpCountText');
+    const cmpGo = $('cmpGo');
+    const cmpClear = $('cmpClear');
+
+    function toggleCompare(id) {
+      if (selectedForCompare.has(id)) selectedForCompare.delete(id);
+      else selectedForCompare.add(id);
+      updateComparePanel();
+      document.querySelectorAll('.cmpBtn[data-cmp="' + esc(id) + '"]').forEach(b =>
+        b.classList.toggle('on', selectedForCompare.has(id)));
+    }
+
+    function updateComparePanel() {
+      const n = selectedForCompare.size;
+      cmpCountText.textContent = t("cmp.panel.selected", { n: n });
+      cmpGo.disabled = n < 2 || n > 5;
+      cmpPanel.classList.toggle('open', n > 0);
+    }
+
+    function goCompare() {
+      const ids = [...selectedForCompare];
+      if (ids.length < 2 || ids.length > 5) return;
+      location.href = 'compare.html?ids=' + encodeURIComponent(ids.join(','));
+    }
+
+    // Делегирование кликов по кнопкам сравнения внутри чипов
+    $('list').addEventListener('click', function (e) {
+      const btn = e.target.closest('.cmpBtn');
+      if (btn) {
+        e.stopPropagation();
+        e.preventDefault();
+        toggleCompare(btn.dataset.cmp);
+      }
+    });
+
+    cmpGo.addEventListener('click', goCompare);
+    cmpClear.addEventListener('click', () => {
+      selectedForCompare.clear();
+      document.querySelectorAll('.cmpBtn.on').forEach(b => b.classList.remove('on'));
+      updateComparePanel();
+    });
   })
   .catch(() => { $('chain').innerHTML = '<p style="color:red">' + t("map.loadError") + '</p>'; });
 
@@ -490,11 +565,17 @@ $('list').addEventListener('click', e => {
     return;
   }
   const ch = e.target.closest('.chip');
-  if (ch) select(ch.dataset.id);
+  if (ch) {
+    if (e.target.closest('.cmpBtn')) return;   // кнопка сравнения — не выбираем добавку
+    select(ch.dataset.id);
+  }
 });
 $('chain').addEventListener('click', e => {
   const ch = e.target.closest('.chip');
-  if (ch) select(ch.dataset.id);
+  if (ch) {
+    if (e.target.closest('.cmpBtn')) return;
+    select(ch.dataset.id);
+  }
 });
 // Поле поиска #q убрано из шапки — обращаемся к нему только если элемент есть.
 const qEl = $('q');

@@ -164,6 +164,22 @@ const I18N = {
     "cmp.dosage": "Дозировка",
     "cmp.course": "Курс",
     "cmp.caution": "⚠️ Осторожно",
+    "cmp.pmid": "PubMed исследований",
+    // панель сравнения (нижняя, map.html)
+    "cmp.panel.selected": "Выбрано {n}",
+    "cmp.panel.compare": "Сравнить (от 2 до 5)",
+    "cmp.panel.clear": "Очистить",
+    // таблица compare.html
+    "cmp.table.supplement": "Добавка",
+    "cmp.table.category": "Категория",
+    "cmp.table.grade": "Грейд",
+    "cmp.table.effects": "Основные эффекты",
+    "cmp.table.forms": "Формы",
+    "cmp.table.dosage": "Дозировка",
+    "cmp.table.safety": "Безопасность",
+    "cmp.table.rct": "РКИ",
+    "cmp.table.card": "Карточка",
+    "cmp.noData": "Нет данных",
     // профиль (радар)
     "prof.science": "Наука",
     "prof.maBase": "База МА",
