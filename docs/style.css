@@ -519,6 +519,29 @@ footer p{margin-bottom:var(--space-2)}
 #modal .warn{color:var(--sev-critical)}
 /* v4.3: в тёмной теме #c0392b даёт 2.56:1 на карточке */
 html:not(.light) #modal .warn{color:var(--sev-critical-dark)}
+/* ===== v5.6.5: блок «Где купить» в модалке ===== */
+#modal .shopBlock{margin:.5rem 0;border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--bg)}
+#modal .shopTitle{font-weight:700;font-size:var(--fs-4);margin:.4rem .6rem .2rem}
+#modal .shopButtons{display:flex;gap:.5rem;flex-wrap:wrap;margin:.2rem .6rem .6rem}
+#modal .shopBtn{
+  flex:1 1 auto;min-width:0;
+  display:inline-flex;align-items:center;justify-content:center;
+  gap:.35rem;padding:.5rem .7rem;border:1px solid var(--border);border-radius:var(--radius);
+  background:var(--card-bg);color:var(--text);text-decoration:none;font-size:var(--fs-4);line-height:1.2;
+}
+#modal .shopBtn:hover{border-color:var(--accent)}
+#modal .shopBtn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+#modal .shopLookBlock{margin:.5rem 0 0;padding:.5rem .6rem;border:1px solid var(--border);border-radius:var(--radius);background:var(--bg)}
+#modal .shopLookTitle{font-weight:700;font-size:var(--fs-4);margin:0 0 .2rem}
+#modal .shopLookText{font-size:var(--fs-4);margin:0 0 .25rem;opacity:.9}
+#modal .shopLookDose{font-size:var(--fs-4);margin:0;font-weight:600}
+html:not(.light) #modal .shopBtn{color:var(--text);border-color:var(--border)}
+html:not(.light) #modal .shopBtn:hover{border-color:var(--accent-2)}
+/* ===== мобильная вёрстка модалки (<=480px, в т.ч. 412px) ===== */
+@media(max-width:480px){
+  #modal .shopButtons{flex-direction:column;gap:.4rem}
+  #modal .shopBtn{width:100%;justify-content:center}
+}
 .skeleton { min-height: 170px; border-radius: var(--radius-xl);
   background: var(--grad-shimmer);
   background-size: 200% 100%; animation: sh 1.2s infinite; }

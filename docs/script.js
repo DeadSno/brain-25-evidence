@@ -183,6 +183,37 @@ function wikiLink(s) {
   return ' <a class="srcIcon" target="_blank" rel="noopener" title="' + t("sources.wikiTitle") + '" href="https://ru.wikipedia.org/wiki/' +
     encodeURIComponent(s.name.replace(/\+/g, ' ')) + '">' + t("sources.wiki") + '</a>';
 }
+
+// ===== v5.6.5: блок «Где купить» + «Что искать при покупке» в модалке =====
+function shopBlock(s) {
+  const name = s.name || '';
+  // «первая форма из массива»: в данных forms — строка, берём первый сегмент
+  // до « — » или «;» (例如 «оксид — плохо усваивается; цитрат…» → «оксид»).
+  const form = s.forms ? String(s.forms).split(/[;—–]/)[0].trim() : '';
+  const q = form ? encodeURIComponent(name + '+' + form) : encodeURIComponent(name);
+  const yandex = 'https://market.yandex.ru/search?text=' + q;
+  const ozon = 'https://www.ozon.ru/search/?text=' + q;
+  const wb = 'https://www.wildberries.ru/catalog/0/search.aspx?search=' + q;
+  let html = '<div class="mrow shopBlock">' +
+    '<div class="shopTitle">' + t("shop.whereBuy") + '</div>' +
+    '<div class="shopButtons">' +
+    '<a class="shopBtn" href="' + yandex + '" target="_blank" rel="noopener">' + t("shop.market") + ' ↗</a>' +
+    '<a class="shopBtn" href="' + ozon + '" target="_blank" rel="noopener">' + t("shop.ozon") + ' ↗</a>' +
+    '<a class="shopBtn" href="' + wb + '" target="_blank" rel="noopener">' + t("shop.wb") + ' ↗</a>' +
+    '</div></div>';
+  // Блок «Что искать при покупке» — заголовок и текст всегда; дозировка —
+  // только если в данных есть dosage.min/dosage.max (сейчас dosage — строка,
+  // поэтому рекомендация не показывается, блок остаётся).
+  html += '<div class="mrow shopLookBlock">' +
+    '<div class="shopLookTitle">' + t("shop.lookFor") + '</div>' +
+    '<div class="shopLookText">' + t("shop.lookForText") + '</div>';
+  const dos = s.dosage;
+  if (dos && typeof dos === 'object' && dos.min != null && dos.max != null) {
+    html += '<div class="shopLookDose">' + t("shop.dosageRec", { min: dos.min, max: dos.max }) + '</div>';
+  }
+  html += '</div>';
+  return html;
+}
 // ===== v2.6: кнопка «Нашли неточность?» (issue с добавка+поле) =====
 function issueUrl(s, field) {
   const title = t("card.issueTitle", { name: (s.name || t("card.supplement")) + (field ? ': ' + field : '') });
@@ -859,8 +890,9 @@ async function openModal(id) {
     '<div class="mrow">💊 <b>' + t("modal.dosage") + '</b> ' + (s.dosage || '—') + '</div>' +
     '<div class="mrow">⏳ <b>' + t("modal.course") + '</b> ' + (s.course || '—') + '</div>' +
     onsetSpan(s) +
-    (s.forms ? '<div class="mrow">🧪 <b>' + t("modal.forms") + '</b> ' + s.forms + '</div>' : '') +
+    (s.forms ? '<div class="mrow">🧪 <b>' + t("modal.forms") + '</b> ' + esc(s.forms) + '</div>' : '') +
     unknownsBlock(s) +
+    shopBlock(s) +
     shareRow(s) +
     compareBlock(s) +
     cautionSpan(s) +
