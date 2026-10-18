@@ -276,7 +276,22 @@ self.addEventListener('activate', event => {
    офлайн-переход по старой ссылке должен работать. Без бампа activate не
    почистит v108-static, и возвратные посетители получат из кэша старый
    graph.html с 500 КБ vendor-скриптов вместо редиректа. */
-var CACHE_VERSION = 'v109';
+/* Бамп v109 -> v110: v5.6.5 — доступность, SEO и токены цвета.
+   interactions.html: у #nodeSidePanel появились role="dialog",
+   aria-modal, aria-labelledby, перевод фокуса в панель и возврат при
+   закрытии, focus-trap на Tab; у 4 вкладок — id/aria-controls/aria-labelledby,
+   roving tabindex и навигация стрелками/Home/End. compare.html: цвета
+   грейдов и PMID-бейджа берутся из токенов (color-mix), мёртвые правила
+   .grade.A..D удалены. Страницы без <link rel=icon> получили data-URI
+   фавикон (8 корневых + 131 sup через шаблоны sup.html.j2 /
+   sup_index.html.j2), из-за чего сузился и 404 по /favicon.ico.
+   style.css НЕ менялся (?v= 439), поэтому бамп только здесь. Правки
+   затронули interactions.html, compare.html, graph.html, atlas.html,
+   faq/glossary/methodology/support/trends.html и 131 sup-страница — все
+   входят в STATIC_ASSETS и отдаются cacheFirstForStatic: без бампа
+   activate не почистит v109-static и возвратные посетители получат старые
+   версии обеих страниц. */
+var CACHE_VERSION = 'v110';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
