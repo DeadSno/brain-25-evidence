@@ -133,10 +133,10 @@ try {
 
 const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;" }[c]));
 
-const GRADE_LABEL = { A: "A", B: "B", C: "C", D: "D" };
+const GRADE_LABEL = { A: "Высокая доказательность", B: "Средняя", C: "Низкая", D: "Недостаточно данных" };
 function gradeBadgeHtml(s) {
-  if (!s.grade) return '<span class="grade" style="background:#999">—</span>';
-  return '<span class="grade g' + esc(s.grade) + '">' + esc(s.grade) + '</span>';
+  if (!s.grade) return '<span class="grade" style="background:#999" title="Нет оценки">—</span>';
+  return '<span class="grade g' + esc(s.grade) + '" title="Грейд ' + esc(s.grade) + ' — ' + esc(GRADE_LABEL[s.grade]) + '">' + esc(s.grade) + '</span>';
 }
 
 function pmidBadgeHtml(s) {

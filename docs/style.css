@@ -795,6 +795,12 @@ position:sticky;top:0;z-index:var(--z-banner);animation:fadeIn .25s}
 /* v5.6.5: PMID-счётчик в карточке (бейдж "🔬 N иссл.") */
 .pmidBadge{display:inline-block;padding:.1rem .5rem;border-radius:var(--radius-pill);background:rgba(52,152,219,.15);color:var(--accent,#3498db);border:1px solid rgba(52,152,219,.4);font-size:0.78rem;font-weight:600;vertical-align:middle;margin-inline-start:var(--space-0-3)}
 html:not(.light) .pmidBadge{background:rgba(52,152,219,.1);border-color:rgba(52,152,219,.35)}
+/* v5.6.5: бейдж размера эффекта Hedges' g */
+.gBadge{display:inline-block;padding:.05rem .4rem;border-radius:var(--radius-pill);background:rgba(99,110,250,.12);color:#636efa;border:1px solid rgba(99,110,250,.35);font-size:.75rem;font-weight:600;vertical-align:middle;margin-inline-start:.3rem}
+html:not(.light) .gBadge{background:rgba(99,110,250,.08);border-color:rgba(99,110,250,.3)}
+/* v5.6.5: блок «Что мы не знаем» — честность, а не ошибка */
+.unknowns{margin-top:var(--space-2);padding:.5rem .75rem;border-radius:var(--radius-md);background:rgba(99,110,250,.07);border:1px solid rgba(99,110,250,.22);color:var(--muted,#6e6e73);font-size:.86rem;line-height:1.45}
+html:not(.light) .unknowns{background:rgba(99,110,250,.05);border-color:rgba(99,110,250,.18)}
 /* v4.1: .gA–.gD перебивались .grade.gX с !important (специфичность 0,2,0
    против 0,1,0) и в разметке не использовались — удалены как мёртвые. */
 

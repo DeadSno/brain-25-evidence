@@ -113,6 +113,40 @@ function pmidBadge(s) {
   return '<span class="pmidBadge" title="' + t("cmp.pmid") + ': ' + n + '">🔬 ' + n + ' ' + t("cmp.pmid").toLowerCase() + '</span>';
 }
 
+// ===== v5.6.5: шкала эффекта (Hedges' g) — человекочитаемо =====
+function gLabel(g) {
+  if (g == null) return '';
+  if (g < 0.2) return t("g.weak");
+  if (g < 0.5) return t("g.medium");
+  if (g < 0.8) return t("g.high");
+  return t("g.veryHigh");
+}
+function gSpan(s) {
+  const g = Number(s.hedges_g);
+  if (!Number.isFinite(g)) return '';
+  return '<span class="gBadge" title="' + t("g.tooltip", { label: gLabel(g), g: g.toFixed(2) }) + '">' + t("g.label") + g.toFixed(2) + '</span>';
+}
+function onsetSpan(s) {
+  const o = s.onset;
+  if (!o) return '';
+  return '<div class="mrow">⏱ <b>' + t("card.onset") + '</b> ' + esc(o) + '</div>';
+}
+function cautionSpan(s) {
+  const c = s.caution;
+  if (!c) return '';
+  return '<div class="mrow warn">⚠️ <b>' + t("card.cautionTitle") + '</b> ' + esc(c) + '</div>';
+}
+function unknownsBlock(s) {
+  const reasons = [];
+  if (!s.forms) reasons.push(t("card.unknowns.forms"));
+  const n = pmidCount(s);
+  if (n > 0 && n < 3) reasons.push(t("card.unknowns.sources", { n: n }));
+  if (!reasons.length) return '';
+  return '<div class="mrow unknowns">' +
+    '<b>🔍 ' + t("card.unknowns") + '</b><br>' + reasons.join(' ') +
+    '</div>';
+}
+
 // ===== v2.6: бейдж «ручная вычитка» (у карточек с ручным вердиктом — все вердикты ручные) =====
 // Tooltip-хелперы для метрик (наведение показывает формулу)
 function scienceSpan(s) {
@@ -816,7 +850,7 @@ async function openModal(id) {
     : '';
 
   $('modalBody').innerHTML = '<h2 id="modalTitle">' + esc(s.name) + '</h2>' + updatedLine(s) + manualBadge(s) +
-    '<div class="mrow"><span class="verdict v' + esc(s.code) + '">' + esc(s.verdict) + '</span> · ' + esc(s.category || '') + (s.grade ? ' · <span class="grade g' + esc(s.grade) + '">' + t("card.grade") + ' ' + esc(s.grade) + '</span> · ' + esc(GRADE_LABEL[s.grade] || '') : '') + pmidBadge(s) + '</div>' +     '<div class="mrow">' + scienceSpan(s) + pubmedLink(s) + ' · ' + maSpan(s) + '</div>' +
+    '<div class="mrow"><span class="verdict v' + esc(s.code) + '">' + esc(s.verdict) + '</span> · ' + esc(s.category || '') + (s.grade ? ' · <span class="grade g' + esc(s.grade) + '">' + t("card.grade") + ' ' + esc(s.grade) + '</span> · ' + esc(GRADE_LABEL[s.grade] || '') : '') + pmidBadge(s) + '</div>' +     '<div class="mrow">' + scienceSpan(s) + gSpan(s) + pubmedLink(s) + ' · ' + maSpan(s) + '</div>' +
     maTop3Block(s) +    trialsLine +
     calcLine +
     (s.citations != null ? '<div class="mrow">' + t("modal.citations") + s.citations + '</div>' : '') +
@@ -824,10 +858,12 @@ async function openModal(id) {
     '<div class="mrow"><b>' + t("modal.effects") + '</b> ' + ((s.effects || []).join(', ') || '—') + '</div>' +
     '<div class="mrow">💊 <b>' + t("modal.dosage") + '</b> ' + (s.dosage || '—') + '</div>' +
     '<div class="mrow">⏳ <b>' + t("modal.course") + '</b> ' + (s.course || '—') + '</div>' +
+    onsetSpan(s) +
     (s.forms ? '<div class="mrow">🧪 <b>' + t("modal.forms") + '</b> ' + s.forms + '</div>' : '') +
+    unknownsBlock(s) +
     shareRow(s) +
     compareBlock(s) +
-    '<div class="mrow warn">⚠️ ' + (s.caution || '—') + '</div>' +
+    cautionSpan(s) +
     // Кнопку копирования ссылки здесь убрали как дубль: выше, в shareRow(),
     // уже есть «🔗 копировать» с тем же действием (docs/script.js, P1-3).
     ' <a class="favFilter" target="_blank" rel="noopener" href="' + issueUrl(s, '') + '">' + t("modal.issue") + '</a></div>' +
