@@ -792,6 +792,9 @@ position:sticky;top:0;z-index:var(--z-banner);animation:fadeIn .25s}
 .chartTab.on{border-color:var(--accent);color:var(--accent);box-shadow:var(--shadow-tab-on)}
 .grade{display:inline-block;font-size:var(--fs-4);font-weight:700;padding:.15rem .55rem;
   border-radius:var(--radius-pill);color:#fff;vertical-align:middle;margin-inline-start:var(--space-0-3)}
+/* v5.6.5: PMID-счётчик в карточке (бейдж "🔬 N иссл.") */
+.pmidBadge{display:inline-block;padding:.1rem .5rem;border-radius:var(--radius-pill);background:rgba(52,152,219,.15);color:var(--accent,#3498db);border:1px solid rgba(52,152,219,.4);font-size:0.78rem;font-weight:600;vertical-align:middle;margin-inline-start:var(--space-0-3)}
+html:not(.light) .pmidBadge{background:rgba(52,152,219,.1);border-color:rgba(52,152,219,.35)}
 /* v4.1: .gA–.gD перебивались .grade.gX с !important (специфичность 0,2,0
    против 0,1,0) и в разметке не использовались — удалены как мёртвые. */
 

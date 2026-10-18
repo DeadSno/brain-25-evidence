@@ -61,6 +61,7 @@ ROOT = Path(__file__).resolve().parents[1] / "docs"
 CONTENT_PAGES = (
     "atlas.html",
     "calculator.html",
+    "compare.html",
     "faq.html",
     "feedback.html",
     "glossary.html",
