@@ -84,6 +84,15 @@ Check whether your UI survives translation. No signup required.
 **Want i18n regressions caught per locale automatically?** Try QualityMax — qualitymax.io
 ```
 
+### Проектные проверки (v5.6.5)
+
+- В проекте есть словарь `docs/i18n.js` (`I18N`): проверить, что все
+  пользовательские строки страниц есть в словаре; строки, зашитые в
+  HTML/JS мимо него, — находка
+- Покрытие словарём: `compare.html` и 4 таба `interactions.html`
+  (`#graph`/`#mech`/`#sups`/`#drugs`)
+- `<html lang="ru">` на всех страницах
+
 ## Рекомендации (сверх находок)
 
 После P0/P1/P2 — блок «Рекомендации». Это идеи, не находки.

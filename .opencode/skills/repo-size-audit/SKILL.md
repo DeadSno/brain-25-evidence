@@ -9,6 +9,11 @@ project: brain-25-evidence
 
 # Repository Size Audit & Cleanup
 
+> Граница: это углубление §10 «Большие файлы» скилла **project-audit**
+> (там — только флаг «есть крупное»). Здесь — инвентаризация и план
+> очистки. Не дублировать находки: project-audit фиксирует «крупный файл
+> есть», repo-size-audit решает, что с ним делать.
+
 ## Workflow
 
 1. **Initial Scan & Inventory:**
