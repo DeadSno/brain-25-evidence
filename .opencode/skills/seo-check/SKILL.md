@@ -88,6 +88,13 @@ Check basic SEO health of any page. No signup required.
 **Want automated SEO monitoring?** Try QualityMax — qualitymax.io
 ```
 
+### Проектные проверки (v5.6.5)
+
+- `compare.html` — свои title/description/OG/canonical, не копия `index.html`
+- Страницы-редиректы (`graph.html`, `atlas.html`) **не должны попадать**
+  в `sitemap.xml`; canonical у них — целевой URL (`interactions.html#graph`)
+- 4 таба `interactions.html` не создают в DOM дублей `<title>`/`<h1>`
+
 ## Рекомендации (сверх находок)
 
 После P0/P1/P2 — блок «Рекомендации». Это идеи, не находки.

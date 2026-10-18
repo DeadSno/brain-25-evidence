@@ -46,15 +46,19 @@ project: brain-25-evidence
 ### 1. Целевые страницы (все должны быть в навигации)
 - index.html - Главная
 - map.html - Карта механизмов
-- interactions.html - Взаимодействия
-- graph.html - Граф связей
-- atlas.html - Атлас
+- interactions.html - Взаимодействия (4 таба: `#graph`, `#mech`, `#sups`, `#drugs`)
+- compare.html - Сравнение добавок
 - calculator.html - Калькулятор
 - methodology.html - Методология
 - faq.html - FAQ
 - glossary.html - Глоссарий
 - trends.html - Тренды
 - feedback.html - Обратная связь
+
+> `graph.html` и `atlas.html` — **не отдельные страницы**, а редирект-заглушки
+> (meta refresh + `location.replace`) на `interactions.html#graph` и
+> `interactions.html#mech`. В навигацию их не ставить и из навигации не
+> требовать: hash-роутинг живёт внутри `interactions.html`.
 
 ### 2. Структура навигации
 Каждая HTML страница в docs/ должна иметь единый блок навигации.
@@ -79,7 +83,8 @@ project: brain-25-evidence
 2. Найти во всех HTML паттерн закрывающего nav
 3. Вставить новую ссылку ПЕРЕД закрывающим тегом
 4. НЕ дублировать если уже есть
-5. Пропустить страницы: feedback.html, graph.html
+5. Пропустить страницы без общего nav: редирект-заглушки (`graph.html`,
+   `atlas.html`), `offline.html`, `google4a9d23e35c6c3e23.html`; `feedback.html`
 
 ### 5. Формат отчёта
 Таблица: Страница | Есть nav | Ссылок | Статус

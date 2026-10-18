@@ -121,6 +121,16 @@ project: brain-25-evidence
 - CSRF (если применимо)
 - Sensitive данные
 
+### 9. Новый UI: табы, редиректы, compare
+- Редиректы работают на прямом заходе: `graph.html` → `interactions.html#graph`,
+  `atlas.html` → `interactions.html#mech` (meta refresh + `location.replace`)
+- 4 таба `interactions.html` (`#graph`/`#mech`/`#sups`/`#drugs`): переключение
+  и `hashchange` не ломают состояние; прямой заход на `#mech`/`#sups`
+  автостартует нужный таб
+- `compare.html` — нет битых ссылок на карточки/скрипты; корректное
+  состояние при 0/1/2 выбранных добавках; счётчик PMID не расходится с данными
+- deep-link `#nodeSidePanel` открывается/закрывается без JS-ошибок
+
 ## Формат находки
 
 "scripts/analyze_coi.py — нет тестов. Фикстура classify_coi() лежит в 4 отчётах (POSITIVE/NEGATIVE/unclear/missing), но живых тестов нет. Проверено 13.10.2026 (F-39): файла tests/test_analyze_coi.py в репозитории нет, а сам модуль существует — scripts/analyze_coi.py. Раньше стояло «тесты: tests/test_analyze_coi.py в фикстурах 5 XML-файлов», и такого файла никогда не было."

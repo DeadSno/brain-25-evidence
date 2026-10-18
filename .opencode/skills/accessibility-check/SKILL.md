@@ -65,6 +65,16 @@ Scan any web page for WCAG accessibility violations. No signup required.
 - Links should have descriptive text (not "click here")
 - Language attribute on `<html>`
 
+### Проектные проверки (новый UI brain-25-evidence)
+
+- **Табы** `interactions.html` (`.tr-tabs [role="tab"]`): у активного
+  `aria-selected="true"`, у остальных `"false"`; переключение синхронизировано
+  с `hashchange`
+- **Side-panel** `#nodeSidePanel`: при открытии фокус уходит внутрь
+  (focus trap — Tab не уводит за панель), `aria-hidden` снимается
+- Закрытие панели по `Esc` возвращает фокус на узел-источник
+- У закрытой панели — `hidden` **и** `aria-hidden="true"`
+
 4. Grade the page: A (0-1 issues), B (2-4), C (5-8), D (9-12), F (13+)
 
 5. Output:

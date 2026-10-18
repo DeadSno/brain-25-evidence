@@ -2,9 +2,9 @@
 
 > Куда смотреть: какой скилл использовать в какой ситуации.
 > Общие правила для всех скиллов — в [`CONVENTIONS.md`](CONVENTIONS.md).
-> Обновлено: 2026-10-17. **Скиллов: 18 проектных (в git) + 20 глобальных**
+> Обновлено: 2026-10-18. **Скиллов: 19 проектных (в git) + 20 глобальных**
 > — наборы совпадают, кроме `cyberaudit` (вендорный, в `.gitignore`: в
-> worktree не появляется, в main checkout есть, поэтому каталогов там 19).
+> worktree не появляется, в main checkout есть, поэтому каталогов там 20).
 
 ## Порядок применения для полного ревью
 
@@ -14,7 +14,8 @@
 Установлены 2026-10-02, см. `reports/archive/v51/SKILLS_INSTALL.md`.
 
 1. **project-audit** — архитектура и структура
-2. **cyberaudit** — безопасность (OWASP Top 10, секреты, API)
+2. **repo-size-audit** — размер репозитория и очистка (углубление §10 project-audit)
+3. **cyberaudit** — безопасность (OWASP Top 10, секреты, API)
 4. **data-audit** — полный аудит данных в 5 слоёв (заменил `data-quality-auditor` 2026-10-03)
 5. **docs-sync** — синхронизация документации
 6. **product-audit** — быстрый обзор UI/UX + marketing + QA + mobile
@@ -28,7 +29,7 @@
 14. **core-web-vitals** — LCP/CLS и бюджет веса страницы
 15. **pwa-audit** — PWA-спецификация
 16. **site-navigation** — единый набор кнопок и навигации
-17. **i18n-rtl-audit** — локализация и RTL (перед v5.7.0)
+17. **i18n-rtl-audit** — локализация и RTL
 18. **legal-compliance-audit** — юридические риски (чек-лист, не консультация)
 19. **release-check** — перед коммитом
 20. **skill-audit** — мета-аудит самих скиллов (раз в квартал или после правок скиллов)
@@ -43,6 +44,7 @@
 | Скилл | Что делает | Когда вызывать |
 |-------|-----------|----------------|
 | project-audit | Архитектура, зависимости, мёртвый код | Раз в месяц или после крупной фичи |
+| repo-size-audit | Размер репо, крупные файлы, очистка | Когда репозиторий растёт / перед архивацией |
 | product-audit | Быстрый обзор 4 направлений | После релиза |
 | visual-design-audit | Цвет, шрифты, отступы, тени, темы, метрики | После правок style.css |
 | mobile-deep-audit | Мобильная адаптация 10 разрешений | После каждого изменения CSS/HTML |
@@ -65,7 +67,7 @@
 | accessibility-check | WCAG 2.1 A/AA: контраст, alt, заголовки, клавиатура, ARIA, фокус | `Quality-Max/free-qa-skills` | После любой вёрстки; обязательно перед релизом |
 | seo-check | meta/OG, canonical, JSON-LD, robots.txt, sitemap | `Quality-Max/free-qa-skills` | При изменении `<head>` или структуры страниц |
 | core-web-vitals | LCP/CLS, вес страницы, ленивая загрузка, third-party | `Quality-Max/free-qa-skills` | Перед релизом; при жалобах «медленно» |
-| i18n-rtl-audit | Локализация, RTL, lang-атрибуты | `Quality-Max/free-qa-skills` | **Перед v5.7.0** — до того локализации нет |
+| i18n-rtl-audit | Локализация, RTL, lang-атрибуты | `Quality-Max/free-qa-skills` | После правок `docs/i18n.js`; локализация уже начата |
 
 > `data-quality-auditor` (`alirezarezvani/claude-skills`) удалён 2026-10-03,
 > заменён на `data-audit`. Причина: работал только с CSV, а на нашем
@@ -97,6 +99,7 @@
 | «Core Web Vitals, вес страницы» | core-web-vitals |
 | «секрет в коде, XSS, CSRF» | cyberaudit |
 | «дублируется CSS, мёртвые зависимости» | project-audit (cyberaudit тоже ловит `npm audit`) |
+| «крупные файлы, размер репо, что удалить» | repo-size-audit (project-audit §10 — только флаг «есть крупное») |
 
 ### Известные ограничения новых скиллов
 
@@ -254,7 +257,7 @@ npx -y vortix-cli@0.1.3 check # внешний статический аудит
 | ревизия скиллов | archive/v51/SKILLS_REVISION.md |
 | установка скиллов | archive/v51/SKILLS_INSTALL.md |
 
-## Полный список (18 проектных + вендорный `cyberaudit`)
+## Полный список (19 проектных + вендорный `cyberaudit`)
 
 - accessibility-check
 - core-web-vitals
@@ -270,10 +273,11 @@ npx -y vortix-cli@0.1.3 check # внешний статический аудит
 - pwa-audit
 - qa-deep-audit
 - release-check
+- repo-size-audit
 - seo-check
 - site-navigation
 - skill-audit
 - ui-ux-deep-audit
 - visual-design-audit
 
-**Версия:** v2.3 (2026-10-17)
+**Версия:** v2.4 (2026-10-18)

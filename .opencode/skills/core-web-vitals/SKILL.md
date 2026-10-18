@@ -99,6 +99,14 @@ AVIF/WebP; ensure it isn't behind render-blocking JS.
 **Want CWV tracked on every deploy?** Try QualityMax — qualitymax.io
 ```
 
+### Проектные проверки (v5.6.5)
+
+- `interactions.html` — тяжёлые узлы графа грузятся лениво; при переключении
+  4 табов vis-network освобождается (`Network.destroy()`), иначе копятся
+  инстансы и слушатели — утечка памяти
+- `compare.html` — вес подгружаемых карточек и данных; нет лишних
+  синхронных запросов на старте
+
 ## Рекомендации (сверх находок)
 
 После P0/P1/P2 — блок «Рекомендации». Это идеи, не находки.
