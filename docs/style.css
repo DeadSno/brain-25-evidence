@@ -513,7 +513,7 @@ footer p{margin-bottom:var(--space-2)}
    ВАЖНО: padding-top у #modal НЕ сдвигает абсолютно спозиционированную
    кнопку (для abs-потомков containing block — padding box родителя),
    поэтому правило для кнопки нужно отдельное. */
-#modalClose{position:absolute;top:max(.6rem,env(safe-area-inset-top,0px));inset-inline-end:.6rem;width:auto}
+#modalClose{position:absolute;top:max(.6rem,env(safe-area-inset-top,0px));inset-inline-end:.6rem;width:auto;min-width:44px;min-height:44px;display:inline-flex;align-items:center;justify-content:center;font-size:1.5rem}
 #modal h2{margin-bottom:.4rem}
 #modal .mrow{margin:.35rem 0;font-size:var(--fs-4)}
 #modal .warn{color:var(--sev-critical)}
@@ -2514,6 +2514,11 @@ html.light #cookieBanner { box-shadow: var(--shadow-pop-light); }
   cursor: pointer;
   padding: 0.2rem;
   border-radius: var(--radius-md);
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 #sidePanelClose:hover { color: var(--fg); background: rgba(0,0,0,0.1); }
 #sidePanelClose:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
@@ -2582,4 +2587,14 @@ html.light #cookieBanner { box-shadow: var(--shadow-pop-light); }
     transform: translateY(100%);
   }
   .side-panel.open { transform: none; }
+  .side-panel-header::before {
+    content: '';
+    display: block;
+    width: 36px;
+    height: 4px;
+    background: rgba(127,127,127,.5);
+    border-radius: 2px;
+    margin: var(--space-0-3) auto .6rem;
+    cursor: grab;
+  }
 }
