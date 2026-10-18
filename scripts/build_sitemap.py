@@ -72,6 +72,10 @@ ROOT_PAGES: list[tuple[str, str, str]] = [
     ("trends.html", "weekly", "0.9"),
     ("map.html", "weekly", "0.8"),
     ("interactions.html", "weekly", "0.8"),
+    # v5.6.5: страница сравнения БАДов. Была вне ROOT_PAGES с момента
+    # появления (12853 байта, свой canonical/OG), поэтому в sitemap её не
+    # было и краулер её не видел.
+    ("compare.html", "weekly", "0.8"),
     # v5.6.5 (2.2.6): graph.html и atlas.html убраны — они стали страницами-
     # редиректами на interactions.html#graph и #mech. Редирект в sitemap не
     # место: поисковику нужен конечный адрес, а не 0-секундный мета-рефреш,

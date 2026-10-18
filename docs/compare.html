@@ -52,11 +52,12 @@ try {
   table.compare tr:hover td{background:rgba(127,127,127,.06)}
   table.compare td.name{font-weight:700;min-width:150px}
   table.compare td.param{font-weight:600;color:var(--amut);width:170px;background:var(--apanel)}
+  /* Заливку грейдов A–D задаёт style.css (.grade.gA..gD, !important);
+     здесь — только форма плашки. Цвета берём из токенов, без хардкода. */
   .grade{display:inline-block;padding:.1rem .5rem;border-radius:var(--radius-pill);font-size:.8rem;font-weight:700;color:#fff}
-  .grade.A{background:#15803d}.grade.B{background:#3498db}.grade.C{background:#e67e22}.grade.D{background:#c0392b}
-  .grade span{background:#999}
-  .pmidBadge{display:inline-block;padding:.1rem .5rem;border-radius:var(--radius-pill);background:rgba(52,152,219,.15);color:#3498db;border:1px solid rgba(52,152,219,.4);font-size:.78rem;margin-inline-end:.4rem}
-  .linkCard{color:var(--info-tx,#3498db);text-decoration:none;font-size:.85rem}
+  .grade-none{background:var(--muted)}
+  .pmidBadge{display:inline-block;padding:.1rem .5rem;border-radius:var(--radius-pill);background:color-mix(in srgb, var(--info-blue) 15%, transparent);color:var(--info-blue);border:1px solid color-mix(in srgb, var(--info-blue) 40%, transparent);font-size:.78rem;margin-inline-end:.4rem}
+  .linkCard{color:var(--info-tx, var(--info-blue));text-decoration:none;font-size:.85rem}
   .linkCard:hover{text-decoration:underline}
   .noData{opacity:.6;font-style:italic}
   /* таблица горизонтальный скролл на мобильных */
@@ -135,7 +136,7 @@ const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&':'&am
 
 const GRADE_LABEL = { A: "Высокая доказательность", B: "Средняя", C: "Низкая", D: "Недостаточно данных" };
 function gradeBadgeHtml(s) {
-  if (!s.grade) return '<span class="grade" style="background:#999" title="Нет оценки">—</span>';
+  if (!s.grade) return '<span class="grade grade-none" title="Нет оценки">—</span>';
   return '<span class="grade g' + esc(s.grade) + '" title="Грейд ' + esc(s.grade) + ' — ' + esc(GRADE_LABEL[s.grade]) + '">' + esc(s.grade) + '</span>';
 }
 
