@@ -17,9 +17,9 @@
 
 ## Скиллы
 
-18 скиллов в `.opencode/skills/` (`Get-ChildItem .opencode\skills -Directory`
-= 18; ещё один — вендорный `cyberaudit` — в `.gitignore`, поэтому в main
-checkout каталогов 19; источник истины — `.opencode/skills/SKILLS_INDEX.md:5`).
+19 скиллов в `.opencode/skills/` (`Get-ChildItem .opencode\skills -Directory`
+= 19; ещё один — вендорный `cyberaudit` — в `.gitignore`, поэтому в main
+checkout каталогов 20; источник истины — `.opencode/skills/SKILLS_INDEX.md:5`).
 Загружаются по требованию: агент видит только имя и описание, полный
 `SKILL.md` подгружается под задачу. Это экономит контекст, поэтому скилл
 стоит называть явно.
@@ -44,6 +44,7 @@ checkout каталогов 19; источник истины — `.opencode/ski
 | `marketing-deep-audit` | воронка, CTA, соцдоказательства, тексты |
 | `product-audit` | UI/UX, маркетинг, QA, mobile по 4 направлениям |
 | `legal-compliance-audit` | юридический чек-лист для сайта о БАДах |
+| `repo-size-audit` | крупные файлы, размер репо, что удалить |
 | `cyberaudit` | OWASP Top 10, CVSS, ASVS |
 
 ## MCP
