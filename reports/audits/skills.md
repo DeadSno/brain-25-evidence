@@ -309,3 +309,22 @@ SKILL.md совпадает: `D0FBD923…D18C`, по 13 648 байт.
 - Источник `SKILLS_AUDIT_ORION.md` — 05.10.2026 (HEAD `6839c5a`).
 - P0-01 связан с архитектурой harness (ограничение, а не дефект текста скилла).
 - Отдельно отмечено в `AUDIT_E_SUMMARY.md §5.2`: рассинхрон проявляется там, где скилл цитирует конкретные счётчики.
+
+
+---
+
+## 2026-10-18 — Meta-audit скиллов под UI v5.6.5 (ветка v5.6.5-dev)
+
+Скиллы реально обновлены (commit `0866bc4`), в отличие от правила «только
+диагностика»: правки выполнялись по прямой задаче владельца.
+
+- Обновлено 13 файлов: `site-navigation`, `visual-design-audit`,
+  `product-audit`, `qa-deep-audit`, `accessibility-check`,
+  `mobile-deep-audit`, `seo-check`, `core-web-vitals`, `i18n-rtl-audit`,
+  `data-audit`, `legal-compliance-audit`, `project-audit` (кросс-ссылка),
+  `repo-size-audit` (зарегистрирован), `SKILLS_INDEX.md`.
+- Удалено: ничего. Объединено: ничего (только кросс-ссылки границ).
+- Открытые находки: `CONVENTIONS.md:17` и `AGENTS.md` всё ещё «18 проектных»;
+  docstring `tests/test_skills_frontmatter.py` «ровно 18».
+- Полный отчёт: [`reports/audits/SKILLS_META_AUDIT_V565.md`](SKILLS_META_AUDIT_V565.md).
+
