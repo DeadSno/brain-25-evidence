@@ -1898,7 +1898,6 @@ summary {
 .btn.c-bi     { border-color: #06b6d4; background: rgba(6,182,212,.12); }
 .btn.c-graph     { border-color: var(--inter-high); background: rgba(239,68,68,.12); }
 .btn.c-feedback  { border-color: var(--inter-low); background: rgba(132,204,22,.12); }
-.btn.c-refresh  { border-color: #6366f1; background: rgba(99,102,241,.12); }
 .btn.c-support  { border-color: #7b61ff; background: rgba(123,97,255,.12); }
 /* v5.6.2 E4: кнопка GitHub была единственной серой .btn без класса
    в блоке «Как помочь проекту». Фирменный чёрный GitHub не годится
@@ -1923,7 +1922,6 @@ html.light .btn.c-trends { background: rgba(236,72,153,.08); }
 html.light .btn.c-bi     { background: rgba(6,182,212,.08); }
 html.light .btn.c-graph     { background: rgba(239,68,68,.08); }
 html.light .btn.c-feedback  { background: rgba(132,204,22,.08); }
-html.light .btn.c-refresh  { background: rgba(99,102,241,.08); }
 html.light .btn.c-support  { background: rgba(123,97,255,.08); }
 /* v5.6.2 E4: в светлой теме подложка плотнее, как у остальных c-* */
 html.light .btn.c-github  { background: color-mix(in srgb, var(--icon-github) 8%, transparent); }
