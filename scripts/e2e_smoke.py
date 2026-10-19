@@ -318,14 +318,10 @@ def main() -> None:
             pg.locator('.tagPreset[data-tag="all"]').click()
             pg.wait_for_timeout(200)
 
-            # F4.3: радар — значения ∈ [0,100]
-            ts += 1; pg.goto(f"{BASE}/index.html?ts={ts}", wait_until="domcontentloaded")
-            pg.wait_for_selector(".card[data-id]", state="attached", timeout=5000)
-            pg.wait_for_function("window.chart != null", timeout=5000)
-            # открыть секцию сравнения, чтобы радар отрендерился
-            pg.select_option("#compareSelect1", label="Кофеин")
-            pg.select_option("#compareSelect2", label="Креатин")
-            pg.click("#compareBtn")
+            # F4.3: радар — значения ∈ [0,100] (радар перенесён на compare.html, v5.6.5;
+            # на главной осталась только таблица сравнения двух добавок)
+            ts += 1; pg.goto(f"{BASE}/compare.html?ids=Кофеин,Креатин", wait_until="domcontentloaded")
+            pg.wait_for_selector("#radarChart", state="attached", timeout=5000)
             pg.wait_for_function("window.radarInstance != null", timeout=5000)
             radar_vals = pg.evaluate("""() => {
                 const ds = window.radarInstance.data.datasets;
@@ -335,7 +331,7 @@ def main() -> None:
                 f"F4.3: радар значения вне [0,100]: {[round(v,1) for v in radar_vals if v < 0 or v > 100]}"
             # подпись осей отражает нормировку по базе. v5.6.5: точная
             # формулировка изменилась с «нормировано по базе» на
-            # «перцентиль по базе» (docs/script.js, labels радара).
+            # «перцентиль по базе» (docs/compare.html, labels радара).
             labels_text = pg.evaluate("window.radarInstance.data.labels.join(' ')")
             assert "перцентиль по базе" in labels_text, \
                 f"F4.3: нет подписи о нормировке по базе на осях: {labels_text!r}"

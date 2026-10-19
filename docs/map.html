@@ -484,7 +484,7 @@ function select(id, push){
     html += '<div class="sim" style="animation-delay:' + (d + 0.2) + 's"><h3>' + t("map.alsoTargets") + '</h3>' +
       sim.map(x => '<span class="chip" data-id="' + x.id + '">' + x.name + '</span>').join('') + '</div>';
   }
-  html += '<p style="margin-top:1.2rem"><a href="sup/' + encodeURIComponent(s.id) + '.html">' + t("map.openCardSupp") + '</a></p>';
+  html += '<p style="margin-top:1.2rem"><a href="sup/' + mapSlugify(s.id) + '.html">' + t("map.openCardSupp") + '</a></p>';
   $('chain').innerHTML = html;
 }
 
@@ -493,6 +493,25 @@ function esc(s) {
   return String(s == null ? '' : s).replace(/[&<>"']/g, c => (
     { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
   ));
+}
+
+// slugify: кириллический id -> транслит для URL sup/<slug>.html
+const MAP_TRANS = {
+  "а":"a","б":"b","в":"v","г":"g","д":"d","е":"e","ё":"e",
+  "ж":"zh","з":"z","и":"i","й":"y","к":"k","л":"l","м":"m",
+  "н":"n","о":"o","п":"p","р":"r","с":"s","т":"t","у":"u",
+  "ф":"f","х":"h","ц":"ts","ч":"ch","ш":"sh","щ":"sch",
+  "ъ":"","ы":"y","ь":"","э":"e","ю":"yu","я":"ya"
+};
+function mapSlugify(name) {
+  const out = [];
+  for (const ch of String(name || '').toLowerCase()) {
+    if (ch in MAP_TRANS) out.push(MAP_TRANS[ch]);
+    else if (ch === '-' || ch === '_' || ch === ' ') out.push('-');
+    else if (ch >= 'a' && ch <= 'z' || ch >= '0' && ch <= '9') out.push(ch);
+    else out.push('-');
+  }
+  return out.join('').replace(/-{2,}/g, '-').replace(/^-|-$/g, '');
 }
 
 fetch('data.json?ts=' + Date.now())

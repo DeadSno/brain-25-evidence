@@ -269,11 +269,11 @@ try {
   <!-- Профили -->
   <div class="profiles" id="profiles"></div>
 
-  <!-- Добавление -->
+  <!-- Добавление: клик по результату поиска добавляет автоматически.
+       Кнопка «＋ Добавить» убрана — ручной ввод через Enter на поле. -->
   <div class="add-row">
     <label for="q" class="sr-only">Поиск добавки для расчёта</label>
     <input id="q" data-i18n-placeholder="calc.searchPh" autocomplete="off">
-    <button class="btn primary" id="addBtn">＋ Добавить</button>
   </div>
   <div id="searchResults" style="margin:-.5rem 0 1rem"></div>
 
@@ -607,6 +607,15 @@ function esc(s) {
       (c.category || '').toLowerCase().includes(q) ||
       (c.effects || []).join(' ').toLowerCase().includes(q);
   }
+  $('q').addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      const v = $('q').value.trim();
+      if (!v) return;
+      const hit = DATA.find(c => c.id.toLowerCase() === v.toLowerCase());
+      if (hit) addSupp(hit.id);
+    }
+  });
   $('q').addEventListener('input', e => {
     const q = e.target.value.trim().toLowerCase();
     if (!q) { $('searchResults').innerHTML = ''; return; }

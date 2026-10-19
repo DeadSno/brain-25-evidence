@@ -184,6 +184,27 @@ footer { font-size: 1rem !important; }
   @media (max-width: 640px) {
     .popularGrid { grid-template-columns: repeat(2, 1fr) !important; }
   }
+
+  /* Live-search дропдаун под строкой поиска */
+  .search-drop {
+    position: absolute; z-index: 40; margin-top: 4px;
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: var(--radius-lg); box-shadow: var(--shadow);
+    min-width: 260px; max-width: 420px; max-height: 340px;
+    overflow-y: auto; display: none;
+  }
+  .search-drop .drop-row {
+    padding: .55rem .75rem; font-size: .9rem; cursor: pointer;
+    border-bottom: 1px solid rgba(0,0,0,.06); display: flex;
+    align-items: center; gap: .5rem; color: var(--text);
+  }
+  .search-drop .drop-row:last-child { border-bottom: none; }
+  .search-drop .drop-row:hover, .search-drop .drop-row.focused {
+    background: rgba(10,132,255,.08);
+  }
+  .search-drop .drop-name { font-weight: 600; }
+  .search-drop .drop-cat { opacity: .7; font-size: .8rem; margin-inline-start: auto; }
+  .search-drop .drop-empty { padding: .75rem 1rem; color: var(--muted); font-size: .9rem; text-align: center; }
 </style>
 <script type="application/ld+json">
     {
@@ -203,7 +224,6 @@ footer { font-size: 1rem !important; }
   <header class="top">
     <div class="site-title"><a href="index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a> <span class="v">v<span data-version="app"></span></span></div>
     <nav class="actions" data-i18n-aria-label="a11y.navMain">
-      <a class="btn c-home" href="index.html">🏠 Главная</a>
       <a class="btn c-calc" href="calculator.html">🧮 Калькулятор</a>
       <a class="btn c-trends" href="trends.html">📈 Тренды</a>
       <a class="btn c-links" href="interactions.html">🔗 Связи</a>
@@ -245,6 +265,7 @@ footer { font-size: 1rem !important; }
 <section id="controls">
   <label for="search" class="sr-only">Поиск по названию или эффекту</label>
   <input id="search" data-i18n-placeholder="index.searchPh"/>
+  <div id="searchDrop" class="search-drop" role="listbox" aria-label="Результаты поиска"></div>
   <label for="verdictFilter" class="sr-only">Фильтр: вердикт</label>
   <select id="verdictFilter">
     <option value="all">Любой вердикт</option>
@@ -524,8 +545,6 @@ footer { font-size: 1rem !important; }
     <button id="compareBtn">Сравнить</button>
   </div>
   <div id="compareResult" tabindex="0"></div>
-  <h3 style="margin-top:1rem">📡 Радар профиля</h3>
-  <div style="position:relative;max-width:520px;margin:0 auto"><canvas id="radarChart"></canvas></div>
 
 </section>
 

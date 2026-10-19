@@ -57,6 +57,12 @@
     <div class="site-title"><a href="../index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a></div>
     <nav class="actions" data-i18n-aria-label="a11y.navMain">
       <a class="btn c-home" href="../index.html">🏠 Главная</a>
+      <a class="btn c-calc" href="../calculator.html">🧮 Калькулятор</a>
+      <a class="btn c-trends" href="../trends.html">📈 Тренды</a>
+      <a class="btn c-links" href="../interactions.html">🔗 Связи</a>
+      <a class="btn c-compare" href="../compare.html">⚖ Сравнение</a>
+      <a class="btn c-map" href="../map.html">🗺 Карта</a>
+      <a class="btn c-faq" href="../faq.html">❓ FAQ</a>
       <a class="btn c-feedback" href="../feedback.html">💬 Обратная связь</a>
       <a class="btn c-support" href="../support.html">💚 Поддержать</a>
       <button class="btn" id="themeBtn">🌞 Светлая тема</button>
@@ -100,6 +106,7 @@
         
         
         <button class="btn cmp-add" data-cmp="piknogenol" type="button">+ Сравнить</button>
+        <a class="btn cmp-go" href="../compare.html?ids=piknogenol" type="button" style="display:none">Перейти к сравнению →</a>
         
     </div>
     
@@ -287,11 +294,23 @@ document.addEventListener('DOMContentLoaded', function () {
 <script src="../metrika.js?v=1"></script>
 <script>initCookieBanner();</script>
 <script>
-// Кнопка «+ Сравнить»: сохраняет id добавки в localStorage (ключ compareIds).
+// Кнопка «+ Сравнить»: сохраняет id в localStorage, тост + ссылка на сравнение.
 (function () {
   var btn = document.querySelector('.cmp-add');
+  var go = document.querySelector('.cmp-go');
   if (!btn) return;
   var id = btn.getAttribute('data-cmp');
+  function showToast(msg) {
+    var t = document.createElement('div');
+    t.textContent = msg;
+    t.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);padding:.6rem 1.2rem;background:rgba(0,0,0,.85);color:#fff;border-radius:8px;font-size:.9rem;z-index:9999;opacity:0;transition:opacity .2s';
+    document.body.appendChild(t);
+    requestAnimationFrame(function () { t.style.opacity = '1'; });
+    setTimeout(function () {
+      t.style.opacity = '0';
+      setTimeout(function () { t.remove(); }, 200);
+    }, 2000);
+  }
   btn.addEventListener('click', function () {
     var arr = [];
     try { arr = JSON.parse(localStorage.getItem('compareIds') || '[]'); } catch (e) {}
@@ -301,6 +320,8 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     btn.textContent = '✓ в сравнении';
     btn.disabled = true;
+    if (go) go.style.display = 'inline-block';
+    showToast('Добавлено в сравнение');
   });
 })();
 
