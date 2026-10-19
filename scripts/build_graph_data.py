@@ -24,6 +24,7 @@ graph_mech_edges.json (255 curated мех-рёбер).
 """
 import json
 import math
+import re
 import sys
 from pathlib import Path
 
@@ -53,7 +54,16 @@ def generate() -> dict:
     by_id = {rec["id"]: rec for rec in data}
     ids = sorted(by_id.keys())
 
-    cits = [(rec.get("citations") or 0) for rec in data]
+    def _cit_int(rec):
+        c = rec.get("citations") or 0
+        if isinstance(c, int):
+            return c
+        if isinstance(c, str):
+            m = re.search(r"\d+", c)
+            return int(m.group(0)) if m else 0
+        return 0
+
+    cits = [_cit_int(rec) for rec in data]
     max_cit = max(cits) if cits else 0
     log_max = math.log10(max_cit + 1) if max_cit > 0 else 1.0
 
@@ -104,7 +114,7 @@ def generate() -> dict:
             "id": i,
             "label": rec["name"],
             "shape": "dot",
-            "size": size_of(rec.get("citations")),
+            "size": size_of(_cit_int(rec)),
             "title": f"{rec['name']}<br>Grade: {rec.get('grade')}<br>"
                      f"Связей: {deg.get(i, 0)}",
         })

@@ -262,6 +262,8 @@ data/db/
 data/papers/papers.json
 data/journals/scimago.json
 data/papers/papers_slim.json
+data/journals/nlm_catalog.json
+data/papers/stats_claims.json
 
 # Logs
 logs/

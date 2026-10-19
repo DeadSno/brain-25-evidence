@@ -69,6 +69,18 @@ try {
   @media (max-width: 640px) { body { padding: 0.6rem !important; } .wrap { padding: 0.6rem !important; } .top { flex-direction: column; align-items: stretch; gap: var(--space-2); } }
   button, .btn, a { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
   @supports (padding: env(safe-area-inset-bottom)) { body { padding-bottom: env(safe-area-inset-bottom); } }
+
+  /* Блок 7.9: Stack Checker */
+  .stack-checker { margin-top: var(--space-6); padding: var(--space-4); background: var(--apanel); border: 1px solid var(--aborder); border-radius: var(--radius-lg); }
+  .stack-checker h3 { margin: 0 0 var(--space-3); font-size: 1rem; }
+  #stackResults { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+  .stack-badge { display: inline-block; padding: 0.2rem 0.6rem; border-radius: var(--radius-pill); font-size: 0.8rem; font-weight: 600; color: #fff; }
+  .stack-sev-critical { background: #dc2626; }
+  .stack-sev-high { background: #ea580c; }
+  .stack-sev-medium { background: #d97706; }
+  .stack-sev-low { background: #15803d; }
+  .stack-sev-unknown { background: #6b7280; }
+  .stack-none { opacity: 0.6; font-style: italic; }
 </style>
 </head>
 <body>
@@ -89,6 +101,7 @@ try {
         <a class="btn c-feedback" href="feedback.html">💬 Обратная связь</a>
         <a class="btn c-support" href="support.html">💚 Поддержать</a>
         <button class="btn" id="themeBtn">🌞 Светлая тема</button>
+        <button class="btn" id="randomBtn" aria-label="Удиви меня — случайная добавка">🎲</button>
       </nav>
     </header>
   </div>
@@ -110,6 +123,11 @@ try {
       <tbody id="cmpBody"></tbody>
     </table>
   </div>
+
+  <section id="stackChecker" class="stack-checker" aria-label="Проверка совместимости">
+    <h3>Проверка совместимости</h3>
+    <div id="stackResults"></div>
+  </section>
 </main>
 
   <footer class="site-footer">
@@ -231,12 +249,51 @@ if (!ids.length) {
       return;
     }
     renderTable(found, truncated);
+    renderStackChecker(found);
   }).catch(err => {
     console.error('[compare] ошибка загрузки data.json:', err);
     document.getElementById('cmpError').textContent = 'Не удалось загрузить базу данных. Попробуйте обновить страницу.';
     document.getElementById('cmpError').style.display = 'block';
   });
 }
+
+function renderStackChecker(supplements) {
+  const container = document.getElementById('stackResults');
+  const section = document.getElementById('stackChecker');
+  if (!container || !section) return;
+  let html = '';
+  let found = false;
+  supplements.forEach(s => {
+    const inters = s.interactions || [];
+    if (inters.length) {
+      found = true;
+      inters.forEach(function(it) {
+        const sev = (it.severity || 'unknown').toLowerCase();
+        html += '<span class="stack-badge stack-sev-' + esc(sev) + '" title="' + esc(it.note || '') + '">' + esc(s.name) + ' ↔ ' + esc(it.with) + '</span> ';
+      });
+    }
+  });
+  if (!found) {
+    html = '<span class="stack-none">Нет данных о взаимодействии</span>';
+  }
+  container.innerHTML = html;
+  section.style.display = found ? 'block' : 'block';
+}
+
+// Кнопка «🎲 Удиви меня»: случайная добавка из data.json
+(function(){
+  var btn = document.getElementById('randomBtn');
+  if(!btn) return;
+  btn.onclick = function(){
+    fetch('data.json').then(function(r){ return r.json(); }).then(function(data){
+      var ids = data.map(function(d){ return d.id; }).filter(Boolean);
+      if(!ids.length) return;
+      var id = ids[Math.floor(Math.random() * ids.length)];
+      location.href = 'sup/' + id + '.html';
+    }).catch(function(){ console.warn('[random] не удалось загрузить data.json'); });
+  };
+})();
+<script src="pwa.js?v=282" defer></script>
 </script>
 </body>
 </html>

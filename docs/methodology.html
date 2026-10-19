@@ -8,6 +8,7 @@
 <meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#1c1c1e" media="(prefers-color-scheme: dark)">
 <title>Методология — как мы оцениваем БАДы — Brain 25 Evidence</title>
+<link rel="manifest" href="manifest.webmanifest">
 <meta name="description" content="Методология проекта: как отбираются публикации PubMed, считается индекс доказательности scienceIndex, присваиваются грейды A-D и вердикты."/>
 <script>
 // v5.4.0 (dark-first): тёмная тема — это ОТСУТСТВИЕ класса light.
@@ -81,6 +82,7 @@ try {
       <a class="btn c-feedback" href="feedback.html">💬 Обратная связь</a>
       <a class="btn c-support" href="support.html">💚 Поддержать</a>
       <button class="btn" id="themeBtn">🌞 Светлая тема</button>
+      <button class="btn" id="randomBtn" aria-label="Удиви меня — случайная добавка">🎲</button>
     </nav>
   </header>
 </div>
@@ -262,7 +264,22 @@ window.addEventListener('scroll', () => {
 </div>
 <script src="cookie-banner.js?v=1"></script>
 <script src="metrika.js?v=1"></script>
-<script>initCookieBanner();</script>
+<script>initCookieBanner();// Кнопка «🎲 Удиви меня»: случайная добавка из data.json
+(function(){
+  var btn = document.getElementById('randomBtn');
+  if(!btn) return;
+  var dataUrl = 'data.json';
+  btn.onclick = function(){
+    fetch(dataUrl).then(function(r){ return r.json(); }).then(function(data){
+      var ids = data.map(function(d){ return d.id; }).filter(Boolean);
+      if(!ids.length) return;
+      var id = ids[Math.floor(Math.random() * ids.length)];
+      location.href = 'sup/' + id + '.html';
+    }).catch(function(){ console.warn('[random] не удалось загрузить data.json'); });
+  };
+})();
+
+</script>
 </body>
 </html>
 

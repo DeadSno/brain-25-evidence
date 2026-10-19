@@ -2,16 +2,6 @@
 (function () {
   var badge = null;
 
-  /* 13A1 (I18N-P2-01): пользовательские строки — в словаре; см. docs/script.js. */
-  var I18N = { ru: { "pwa.offline": "📴 Офлайн-режим: данные могут быть устаревшими" } };
-  function t(key, params) {
-    var lang = (document.documentElement.lang || 'ru').slice(0, 2);
-    var dict = I18N[lang] || I18N.ru;
-    var s = dict[key] != null ? dict[key] : (I18N.ru[key] != null ? I18N.ru[key] : key);
-    if (params) s = s.replace(/\{(\w+)\}/g, function (m, k) { return (k in params) ? params[k] : m; });
-    return s;
-  }
-
   /* v2.8: pwa.js подключается и из корня (./pwa.js), и со страниц /sup/*.html
      (../pwa.js). Регистрировать надо sw.js рядом со скриптом, а не
      относительно страницы: на /sup/kreatin.html './sw.js' резолвился

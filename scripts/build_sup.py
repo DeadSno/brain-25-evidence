@@ -287,6 +287,14 @@ def build_context(rec: dict, slug: str, warnings: list[str]) -> dict:
             f"{GRADE_FALLBACK}. Проверь data.json: грейд вне A/B/C/D."
         )
 
+    hedges_g_raw = rec.get("hedges_g")
+    hedges_g_pct = None
+    if hedges_g_raw is not None:
+        try:
+            hedges_g_pct = round(abs(float(hedges_g_raw)) * 100, 1)
+        except (TypeError, ValueError):
+            hedges_g_pct = None
+
     mechs = []
     for m in (rec.get("mechs") or []):
         if not isinstance(m, (list, tuple)) or len(m) < 3:
@@ -396,12 +404,15 @@ def build_context(rec: dict, slug: str, warnings: list[str]) -> dict:
         "verdict": html_val(rec.get("verdict")),
         "grade": html_val(grade),
         "grade_color": color,
+        "hedges_g": rec.get("hedges_g"),
+        "hedges_g_pct": hedges_g_pct,
         "who_needs": html_val(rec.get("who_needs")),
         "onset": html_val(rec.get("onset")),
         "scienceIndex": html_val(rec.get("scienceIndex")),
         "rct": html_val(rec.get("rct")),
         "metaCount": html_val(rec.get("metaCount")),
         "effects": [html_val(e) for e in (rec.get("effects") or [])],
+        "effects_json": json.dumps([html_val(e) for e in (rec.get("effects") or [])], ensure_ascii=False),
         "mechs": mechs,
         "dosage": html_val(rec.get("dosage")),
         "course": html_val(rec.get("course")),

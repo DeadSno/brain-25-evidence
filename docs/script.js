@@ -349,6 +349,15 @@ document.querySelectorAll('a.btn.calc[href="#cardsContainer"]').forEach((cta) =>
 
 const fetchJson = (url) => fetch(url + '?ts=' + Date.now())
   .then(r => { if (!r.ok) throw new Error('no data for ' + url); return r.json(); });
+
+// Загрузка сжатого JSON (.json.gz) через DecompressionStream('gzip') + JSON.parse.
+const loadGzJson = async (url) => {
+  const r = await fetch(url + '?ts=' + Date.now());
+  if (!r.ok) throw new Error('no data for ' + url);
+  const stream = r.body.pipeThrough(new DecompressionStream('gzip'));
+  const text = await new Response(stream).text();
+  return JSON.parse(text);
+};
 Promise.allSettled([fetchJson('data_index.json'), fetchJson('effect_tags.json'), fetchJson('effect_labels.json')])
   .then(([d, tg, lb]) => {
     if (d.status !== 'fulfilled') throw new Error('data_index.json не загружен');
