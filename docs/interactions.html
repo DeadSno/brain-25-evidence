@@ -1407,7 +1407,7 @@ function openSidePanel(nodeId, nodeLabel, nodeType) {
         '</ul></div>';
     }
     var formsHtml = forms ? '<div class="sp-forms"><b>Формы:</b> ' + escHtml(forms) + '</div>' : '';
-    var link = 'map.html#sup=' + encodeURIComponent(String(card.id || nodeId));
+    var link = 'sup/' + encodeURIComponent(String(card.id || nodeId)) + '.html';
     var btn = '<a href="' + escHtml(link) + '" class="sp-btn" target="_blank" rel="noopener">Открыть полную карточку</a>';
     bodyEl.innerHTML = catHtml + gradeHtml + effectsHtml + formsHtml + btn;
   }

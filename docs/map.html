@@ -417,7 +417,7 @@ footer { font-size: 1rem !important; }
 <!-- v5.6.5: липкая панель сравнения (открывается при 1+ выбранных добавок) -->
 <div id="cmpPanel" class="cmpPanel">
   <span class="cmpCount" id="cmpCountText">Выбрано <b>0</b></span>
-  <button id="cmpGo" class="cmpGo" disabled type="button">Сравнить (от 2 до 5)</button>
+  <button id="cmpGo" class="cmpGo" disabled type="button"></button>
   <button id="cmpClear" class="cmpClear" type="button">Очистить</button>
 </div>
 <script>
@@ -483,7 +483,7 @@ function select(id, push){
     html += '<div class="sim" style="animation-delay:' + (d + 0.2) + 's"><h3>' + t("map.alsoTargets") + '</h3>' +
       sim.map(x => '<span class="chip" data-id="' + x.id + '">' + x.name + '</span>').join('') + '</div>';
   }
-  html += '<p style="margin-top:1.2rem"><a href="index.html#sup=' + encodeURIComponent(s.id) + '">' + t("map.openCardSupp") + '</a></p>';
+  html += '<p style="margin-top:1.2rem"><a href="sup/' + encodeURIComponent(s.id) + '.html">' + t("map.openCardSupp") + '</a></p>';
   $('chain').innerHTML = html;
 }
 
@@ -531,13 +531,14 @@ fetch('data.json?ts=' + Date.now())
     function updateComparePanel() {
       const n = selectedForCompare.size;
       cmpCountText.textContent = t("cmp.panel.selected", { n: n });
-      cmpGo.disabled = n < 2 || n > 5;
+      cmpGo.disabled = n < 2 || n > 10;
+      cmpGo.textContent = n === 10 ? t("cmp.panel.compareFull") : t("cmp.panel.compare");
       cmpPanel.classList.toggle('open', n > 0);
     }
 
     function goCompare() {
       const ids = [...selectedForCompare];
-      if (ids.length < 2 || ids.length > 5) return;
+      if (ids.length < 2 || ids.length > 10) return;
       location.href = 'compare.html?ids=' + encodeURIComponent(ids.join(','));
     }
 

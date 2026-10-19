@@ -187,7 +187,8 @@ const I18N = {
     "cmp.pmid": "PubMed исследований",
     // панель сравнения (нижняя, map.html)
     "cmp.panel.selected": "Выбрано {n}",
-    "cmp.panel.compare": "Сравнить (от 2 до 5)",
+    "cmp.panel.compare": "Сравнить (от 2 до 10)",
+    "cmp.panel.compareFull": "Сравнить (10)",
     "cmp.panel.clear": "Очистить",
     // таблица compare.html
     "cmp.table.supplement": "Добавка",

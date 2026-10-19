@@ -69,13 +69,23 @@
 
     
     <nav class="breadcrumbs">
-        <a href="../index.html">Главная</a> → <a href="index.html">Все добавки</a> → <strong>Чёрный тмин</strong>
+        <a href="../index.html">Главная</a> → <a href="index.html">Каталог</a> → <strong>Чёрный тмин</strong>
     </nav>
 
     <div class="sup-header">
         <h2>Чёрный тмин</h2>
         <span class="grade-badge" style="background:#b45309"><abbr data-i18n-title="trends.gradeAbbr">Грейд C</abbr></span>
         <span class="verdict">— зависит от контекста</span>
+    </div>
+
+    <div class="sup-meta">
+        
+        <span class="pmidBadge" title="3 источников в PubMed">
+            🔬 <a href="https://pubmed.ncbi.nlm.nih.gov/?term=41858302" target="_blank" rel="noopener">3 в PubMed</a>
+        </span>
+        
+        <button class="btn cmpAdd" type="button" data-cmp="chernyy-tmin">+ Сравнить</button>
+        <span class="cmpAdded">✓ в сравнении</span>
     </div>
 
     <div class="sup-section">
@@ -122,6 +132,26 @@
         <p><b>Курс:</b> —</p>
         <p><b>Верхний предел:</b> Формального UL не установлен — данных о токсичности нет.</p>
     </div>
+
+    <div class="sup-section">
+        <h2>Где купить</h2>
+        <p><b>Что искать при покупке:</b> Проверяйте дозировку на этикетке и наличие сертификата качества (GMP/ISO).</p>
+        <div class="shops">
+            <a href="https://market.yandex.ru/search?text=%D0%A7%D1%91%D1%80%D0%BD%D1%8B%D0%B9%20%D1%82%D0%BC%D0%B8%D0%BD" class="shop" target="_blank" rel="noopener">Я.Маркет</a>
+            <a href="https://www.ozon.ru/search/?text=%D0%A7%D1%91%D1%80%D0%BD%D1%8B%D0%B9%20%D1%82%D0%BC%D0%B8%D0%BD" class="shop" target="_blank" rel="noopener">Ozon</a>
+            <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%A7%D1%91%D1%80%D0%BD%D1%8B%D0%B9%20%D1%82%D0%BC%D0%B8%D0%BD" class="shop" target="_blank" rel="noopener">Wildberries</a>
+        </div>
+    </div>
+
+    
+    <div class="sup-section">
+        <h2>Что мы не знаем</h2>
+        <p>Нет данных о формах выпуска.</p>
+        <ul>
+        <li>Нет данных о формах выпуска.</li>
+        </ul>
+    </div>
+    
 
     <div class="sup-section">
         <h2>Осторожно</h2>
@@ -214,6 +244,23 @@ document.addEventListener('DOMContentLoaded', function () {
     b.textContent = on ? t("theme.dark") : t("theme.light");
     localStorage.setItem('theme', on ? 'light' : 'dark');
   };
+
+  // '+ Сравнить' — сохранить слаг в localStorage.compareIds, краткая обратная связь.
+  document.querySelectorAll('.cmpAdd').forEach(function (bb) {
+    bb.onclick = function () {
+      var id = bb.getAttribute('data-cmp');
+      try {
+        var ids = JSON.parse(localStorage.getItem('compareIds') || '[]');
+        if (!ids.includes(id)) {
+          ids.push(id);
+          localStorage.setItem('compareIds', JSON.stringify(ids));
+        }
+      } catch (e) {}
+      bb.textContent = '✓ в сравнении';
+      var self = bb;
+      setTimeout(function () { self.textContent = '+ Сравнить'; }, 1500);
+    };
+  });
 });
 </script>
 

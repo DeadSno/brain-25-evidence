@@ -39,6 +39,7 @@ import re
 import sys
 from collections import Counter
 from pathlib import Path
+from urllib.parse import quote
 
 from jinja2 import Environment, FileSystemLoader
 from markupsafe import Markup
@@ -335,6 +336,31 @@ def build_context(rec: dict, slug: str, warnings: list[str]) -> dict:
             "doi": raw_field(s.get("doi")),
         })
 
+    # PMID-мета для sup-страницы: счёток и первый PMID для поиска в PubMed.
+    pmid_count = len(sources)
+    pmid_first = sources[0]["pmid"] if sources else ""
+
+    # shop_query — имя + первая форма, url-кодировано для поиска в магазинах.
+    forms_list = rec.get("forms") or []
+    if isinstance(forms_list, str):
+        first_form = forms_list.split(",")[0].strip()
+    elif isinstance(forms_list, (list, tuple)):
+        first_form = str(forms_list[0]).split(",")[0].strip() if forms_list else ""
+    else:
+        first_form = ""
+    shop_query = quote(((text(rec.get("name")) or "") + " " + first_form).strip())
+    shop_look_text = ("Ищите форму «" + first_form + "» на этикетке, проверяйте дозировку и наличие сертификата качества (GMP/ISO)."
+                      if first_form else
+                      "Проверяйте дозировку на этикетке и наличие сертификата качества (GMP/ISO).")
+
+    # unknowns — причины неопределённости для блока «Что мы не знаем».
+    unknowns = []
+    if not forms_list:
+        unknowns.append("Нет данных о формах выпуска.")
+    if pmid_count <= 2:
+        unknowns.append("Мало подтверждений в PubMed (" + str(pmid_count) + " источник" + ("ов" if pmid_count != 1 else "") + ").")
+    unknowns_text = " ".join(unknowns)
+
     # Мета собирается из неэкранированных значений и экранируется
     # целиком, один раз. Иначе склейка «Грейд A: 7 мета-анализов» с
     # ampersand-полем дала бы двойное экранирование на границе.
@@ -398,6 +424,12 @@ def build_context(rec: dict, slug: str, warnings: list[str]) -> dict:
         "description_j": json_val(seo_description(rec)),
         "about_j": json_val(rec.get("about")),
         "category_j": json_val(rec.get("category")),
+        "pmid_count": pmid_count,
+        "pmid_first": pmid_first,
+        "shop_query": shop_query,
+        "shop_look_text": shop_look_text,
+        "unknowns": unknowns,
+        "unknowns_text": unknowns_text,
     }
 
 
