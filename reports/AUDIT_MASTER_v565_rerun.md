@@ -50,8 +50,37 @@
 
 **Итого: 27 находок — Owner Manual Audit 7, site-navigation 9, visual-design-audit 11, product-audit 7.**
 
+## 1b. Owner Manual Audit (продолжение, O-08..O-17)
+
+| O-08 | Owner Manual Audit | Баг | Med | Кнопки "Цитировать" и "Прослушать" не работают. (Связано с QA-02: JS падает с TypeError в script.js). | docs/sup/*.html | Исправить JS-ошибку QA-02, затем проверить кнопки. |
+| O-09 | Owner Manual Audit | Баг | Med | index.html — Кнопка "Кубик" (Random) редиректит на deadsno.github.io вместо локального относительного пути. Исправить на локальный. | docs/index.html | Заменить ссылку на локальный относительный путь. |
+| O-10 | Owner Manual Audit | Улучшение | Low | index.html — Терминология. В тексте "ПОЛЕЗНО / Возможен / Не подтверждено" не совпадает с реальными надписями в UI. Привести к единому виду. | docs/index.html | Синхронизировать терминологию текста и UI. |
+| O-11 | Owner Manual Audit | Улучшение | Low | index.html — Текст "Совместимость с лекарствами, а не «на всякий случай»" — кривая формулировка. Переписать понятным языком. | docs/index.html | Переписать формулировку понятным языком. |
+| O-12 | Owner Manual Audit | Улучшение | Low | index.html — Сменить "Топ-3" на "Топ-10" по доказанности. | docs/index.html | Изменить "Топ-3" на "Топ-10". |
+| O-13 | Owner Manual Audit | Баг | Med | sup/* (gialuronovaya-kislota и др.) — Ссылка на Ozon не открывается. Проверить корректность ссылок на магазины у всех 130 добавок. | docs/sup/*.html (130 страниц) | Проверить и исправить ссылки на магазины (Ozon и др.). |
+| O-14 | Owner Manual Audit | Баг | Med | index.html — График "Доказательность" (пузырьковый). При наведении пропал тултип с названием добавки (в "Силе эффекта" работает). | docs/index.html | Восстановить тултип на графике "Доказательность". |
+| O-15 | Owner Manual Audit | Улучшение | Low | support.html — Тексты "Проект делает один человек..." и "Другие способы помочь" (сообщите, добавить, поделиться). Нет реальных ссылок (кроме "Сообщите"). Добавить ссылки на форму обратной связи, на страницу сайта и т.д. | docs/support.html | Добавить реальные ссылки на форму обратной связи и страницу сайта. |
+| O-16 | Owner Manual Audit | Улучшение | Low | map.html — Сгруппировать добавки по категориям (сон, спорт, сердце и т.д.), сейчас они идут единым списком, неудобно. | docs/map.html | Сгруппировать добавки по категориям. |
+| O-17 | Owner Manual Audit | Баг | Low | UI — Побочные стрелки вверх/вниз (кнопки скролла) не выровнены по центру круга. Визуальный баг. | docs/*.html | Выровнять стрелки скролла по центру круга. |
+
+**Итого Owner Manual Audit: 16 находок (O-01..O-17).**
+
+## 4. Agent RERUN 4/19 (qa-deep-audit)
+
+| QA-01 | qa-deep-audit | Баг | Med | 16 тестов пропущены вместо прохождения (pytest -q: 1963 passed, 16 skipped, 0 failed; ожидалось 1979 passed, 0 skipped). Все 16 пропуска из-за отсутствующей БД DuckDB (data/db/brain.duckdb не существует, нужен `python scripts/db/import_to_duckdb.py`). | tests/test_integration_api_db.py (6 тестов), tests/test_sql.py (10 тестов) | Восстановить БД DuckDB или гарантировать пропуск только при её отсутствии |
+
+| QA-02 | qa-deep-audit | Баг | Blocker | 131 из 147 страниц имеют console.error. Все 130 sup-страниц + calculator.html: TypeError "(intermediate value)x8 ... is not a function" (Chart.js/промисы, script.js ~стр. 352). calculator.html дополнительно: "Cannot set properties of null (setting onclick)". | docs/sup/*.html (130 страниц), docs/calculator.html | Исправить JS-ошибку на всех затрагиваемых страницах |
+
+| QA-03 | qa-deep-audit | Улучшение | Low | compare.html?ids=12345 принимает несуществующий ID, показывает чип "12345" и сообщение "Выберите минимум 2 добавки." — нет валидации существования ID в базе, сообщение вводит в заблуждение. | docs/compare.html | Добавить валидацию ID при загрузке через URL-параметр ?ids= |
+
+| QA-04 | qa-deep-audit | Баг | Med | interactions.html при падении сети: ошибка "[mech] данные механизмов не загрузились: TypeError: Failed to fetch" (видимая в консоли и в UI), нет офлайн-фолбэка. | docs/interactions.html | Добавить обработку ошибки fetch с отображением пользователю офлайн-сообщения |
+
+**Итого: 4 находки — qa-deep-audit 4 (Баг 3, Улучшение 1; Blocker 1, Med 2, Low 1).**
+
+**Всего находок в отчёте: 47 (Owner Manual Audit 16, site-navigation 9, visual-design-audit 11, product-audit 7, qa-deep-audit 4).**
+
 ## Файл
 
-`reports/AUDIT_MASTER_v565_rerun.md` (полная перезапись с сохранением всех находок навыков 1–3).
+`reports/AUDIT_MASTER_v565_rerun.md` (дописано в конец, находки Owner O-08..O-17 и QA-01..QA-04 добавлены к находкам навыков 1–3).
 
-**СТОП. Ничего не фиксить. Не коммитить.**
+**СТОП. Ничего не фиксить в коде продукта. Не коммитить пока.**
