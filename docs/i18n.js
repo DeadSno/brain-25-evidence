@@ -350,6 +350,40 @@ const I18N = {
     "trends.catLoser": "Провал",
     "trends.catNoProof": "⚠️ {n}% без доказательств (грейд D)",
     "trends.warnLog": "Тренды: данные не загрузились —",
+    // взаимодействия — хардкод UI-строк (JS-P2-02)
+    "int.graphWelcomeTitle": "Исследуйте связи",
+    "int.graphWelcomeDesc": "Введите название добавки в поиск выше, чтобы увидеть, с чем она связана.",
+    "int.graphReset": "Сброс",
+    "int.graphLoading": "Загрузка графа...",
+    "int.graphError": "Ошибка загрузки графа.",
+    "int.graphRetry": "Повторить",
+    "int.graphEmpty": "Ничего не найдено.",
+    "int.graphEmptyReset": "Сбросить",
+    "int.mechSelectAria": "Выбор механизма",
+    "int.mechSelectPh": "Выберите механизм…",
+    "int.mechReset": "Сброс",
+    "int.mechWelcomeTitle": "Выберите механизм",
+    "int.mechWelcomeDesc": "Выберите механизм, чтобы увидеть, какие добавки на него влияют.",
+    "int.mechLoading": "Загрузка механизмов…",
+    "int.mechError": "Ошибка загрузки механизмов.",
+    "int.mechRetry": "Повторить",
+    "int.mechEmpty": "Ничего не найдено.",
+    "int.mechEmptyReset": "Сбросить",
+    "int.supsSearchPh": "Поиск добавки…",
+    "int.supsLoading": "Загрузка связей…",
+    "int.supsEmpty": "Ничего не найдено.",
+    "int.drugsSearchPh": "Поиск добавки или лекарства…",
+    "int.drugsLoading": "Загрузка связей…",
+    "int.drugsEmpty": "Ничего не найдено.",
+    "int.sidePanelLoading": "Загрузка…",
+    "int.sidePanelMechUnavailable": "Описание механизма недоступно.",
+    "int.spEffectsLabel": "Эффекты:",
+    "int.spGradeLabel": "Грейд",
+    "int.spFormsLabel": "Формы:",
+    "int.spMechRelatedTitle": "Влияющие добавки",
+    "int.btnOpenFullCard": "Открыть полную карточку",
+    // тренды
+    "trends.loading": "Загрузка…",
     // 13A3 (I18N-P2-02): ключи для data-i18n-* атрибутов (title / aria-label / placeholder),
     // применяются функцией applyI18n ниже. Одна строка — один ключ, повторное использование
     // на разных страницах допустимо (DRY).
@@ -409,6 +443,8 @@ function applyI18n(root) {
     el.setAttribute('aria-label', t(el.dataset.i18nAriaLabel)));
   root.querySelectorAll('[data-i18n-placeholder]').forEach(el =>
     el.placeholder = t(el.dataset.i18nPlaceholder));
+  root.querySelectorAll('[data-i18n-text]').forEach(el =>
+    el.textContent = t(el.dataset.i18nText));
 }
 document.addEventListener('DOMContentLoaded', () => applyI18n());
 window.applyI18n = applyI18n; // для динамики

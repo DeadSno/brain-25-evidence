@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" dir="ltr">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -296,56 +296,62 @@ footer { font-size: 1rem !important; }
         <option value="tag">По тегам</option>
         <option value="mech">По механизмам</option>
       </select>
-      <button type="button" id="graphReset">Сброс</button>
+      <button type="button" id="graphReset" data-i18n-title="int.graphReset">Сброс</button>
     </div>
     <div id="graphWelcome" style="text-align:center; padding: 40px;">
-      <h3>Исследуйте связи</h3>
-      <p>Введите название добавки в поиск выше, чтобы увидеть, с чем она связана.</p>
+      <h3 data-i18n-text="int.graphWelcomeTitle">Исследуйте связи</h3>
+      <p data-i18n-text="int.graphWelcomeDesc">Введите название добавки в поиск выше, чтобы увидеть, с чем она связана.</p>
     </div>
     <div id="mynetwork" class="graph-canvas" hidden></div>
-    <div class="state-loading" id="graphLoading">Загрузка графа...</div>
-    <div class="state-error" id="graphError" hidden>
-      Ошибка загрузки графа. <button type="button" id="graphRetry">Повторить</button>
+    <div class="state-loading" id="graphLoading" data-i18n-text="int.graphLoading">Загрузка графа...</div>
+    <div class="state-error" id="graphError" hidden data-i18n-text="int.graphError">
+      Ошибка загрузки графа. <button type="button" id="graphRetry" data-i18n-text="int.graphRetry">Повторить</button>
     </div>
-    <div class="state-empty" id="graphEmpty" hidden>
-      Ничего не найдено. <button type="button" id="graphEmptyReset">Сбросить</button>
+    <div class="state-empty" id="graphEmpty" hidden data-i18n-text="int.graphEmpty">
+      Ничего не найдено. <button type="button" id="graphEmptyReset" data-i18n-text="int.graphEmptyReset">Сбросить</button>
     </div>
   </div>
   <div role="tabpanel" id="panel-mech" aria-labelledby="tab-mech" data-panel="mech">
     <div class="panel-controls">
-      <select id="mechSelector" aria-label="Выбор механизма" disabled>
-        <option value="">Выберите механизм…</option>
+      <select id="mechSelector" aria-label="Выбор механизма" disabled data-i18n-aria-label="int.mechSelectAria">
+        <option value="" data-i18n-text="int.mechSelectPh">Выберите механизм…</option>
       </select>
-      <button type="button" id="mechReset">Сброс</button>
+      <button type="button" id="mechReset" data-i18n-text="int.mechReset">Сброс</button>
     </div>
     <div id="mechWelcome" style="text-align:center; padding: 40px;">
-      <h3>Выберите механизм</h3>
-      <p>Выберите механизм, чтобы увидеть, какие добавки на него влияют.</p>
+      <h3 data-i18n-text="int.mechWelcomeTitle">Выберите механизм</h3>
+      <p data-i18n-text="int.mechWelcomeDesc">Выберите механизм, чтобы увидеть, какие добавки на него влияют.</p>
     </div>
     <div id="mechGraph" class="graph-canvas" hidden></div>
-    <div class="state-loading" id="mechLoading" hidden>Загрузка механизмов…</div>
-    <div class="state-error" id="mechError" hidden>
-      Ошибка загрузки механизмов. <button type="button" id="mechRetry">Повторить</button>
+    <div class="state-loading" id="mechLoading" hidden data-i18n-text="int.mechLoading">Загрузка механизмов…</div>
+    <div class="state-error" id="mechError" hidden data-i18n-text="int.mechError">
+      Ошибка загрузки механизмов. <button type="button" id="mechRetry" data-i18n-text="int.mechRetry">Повторить</button>
+    </div>
+    <div class="state-empty" id="mechEmpty" hidden data-i18n-text="int.mechEmpty">
+      Ничего не найдено. <button type="button" id="mechEmptyReset" data-i18n-text="int.mechEmptyReset">Сбросить</button>
     </div>
   </div>
   <div role="tabpanel" id="panel-sups" aria-labelledby="tab-sups" data-panel="sups">
     <div class="panel-controls">
-      <input type="search" id="supsSearch" placeholder="Поиск добавки…" aria-label="Поиск по добавкам">
+      <input type="search" id="supsSearch" placeholder="Поиск добавки…" aria-label="Поиск по добавкам" data-i18n-placeholder="int.supsSearchPh">
       <select id="supsFilter" aria-label="Фильтр по типу связи">
         <option value="all">Все</option>
         <option value="synergy">Синергия</option>
         <option value="antagonist">Антагонизм</option>
       </select>
     </div>
-    <div class="state-loading" id="supsLoading" hidden>
+    <div class="state-loading" id="supsLoading" hidden data-i18n-text="int.supsLoading">
       <span class="spinner" aria-hidden="true"></span>Загрузка связей…
     </div>
-    <div class="state-empty" id="supsEmpty" hidden>Ничего не найдено.</div>
+    <div class="state-empty" id="supsEmpty" hidden data-i18n-text="int.supsEmpty">Ничего не найдено.</div>
+    <div class="state-error" id="supsError" hidden data-i18n-text="int.supsError">
+      Ошибка загрузки связей. <button type="button" id="supsRetry">Повторить</button>
+    </div>
     <div id="supsCardList" class="card-list"></div>
   </div>
   <div role="tabpanel" id="panel-drugs" aria-labelledby="tab-drugs" data-panel="drugs">
     <div class="panel-controls">
-      <input type="search" id="drugsSearch" placeholder="Поиск добавки или лекарства…" aria-label="Поиск добавки или лекарства">
+      <input type="search" id="drugsSearch" placeholder="Поиск добавки или лекарства…" aria-label="Поиск добавки или лекарства" data-i18n-placeholder="int.drugsSearchPh">
       <select id="drugsFilter" aria-label="Фильтр по опасности">
         <option value="all">Все</option>
         <option value="dangerous">Опасно</option>
@@ -353,10 +359,13 @@ footer { font-size: 1rem !important; }
         <option value="safe">Безопасно</option>
       </select>
     </div>
-    <div class="state-loading" id="drugsLoading" hidden>
+    <div class="state-loading" id="drugsLoading" hidden data-i18n-text="int.drugsLoading">
       <span class="spinner" aria-hidden="true"></span>Загрузка связей…
     </div>
-    <div class="state-empty" id="drugsEmpty" hidden>Ничего не найдено.</div>
+    <div class="state-empty" id="drugsEmpty" hidden data-i18n-text="int.drugsEmpty">Ничего не найдено.</div>
+    <div class="state-error" id="drugsError" hidden data-i18n-text="int.drugsError">
+      Ошибка загрузки связей. <button type="button" id="drugsRetry">Повторить</button>
+    </div>
     <div id="drugsCardList" class="card-list"></div>
   </div>
 </div>
@@ -407,8 +416,13 @@ function parseLocation() {
   return MODES.includes(hash) ? hash : 'graph';
 }
 
+// v5.6.5: сохраняем позицию прокрутки каждой вкладки и восстанавливаем при возврате.
+const panelScrollPos = {};
+
 function setMode(mode) {
   if (!MODES.includes(mode)) mode = 'graph';
+  const curPanel = document.querySelector('[data-panel].active');
+  if (curPanel) panelScrollPos[curPanel.dataset.panel] = curPanel.scrollTop;
   document.querySelectorAll('.tr-tabs [role="tab"]').forEach(t => {
     const active = t.dataset.mode === mode;
     t.setAttribute('aria-selected', String(active));
@@ -420,6 +434,9 @@ function setMode(mode) {
     const active = p.dataset.panel === mode;
     p.classList.toggle('active', active);
     p.hidden = !active;
+    if (active && panelScrollPos[mode] != null) {
+      p.scrollTop = panelScrollPos[mode];
+    }
   });
   history.replaceState({}, '', '#' + mode);
 }
@@ -1376,7 +1393,7 @@ function openSidePanel(nodeId, nodeLabel, nodeType) {
   lastFocusedElement = document.activeElement;
 
   titleEl.textContent = nodeLabel || '';
-  bodyEl.innerHTML = '<div class="sp-empty">Загрузка…</div>';
+  bodyEl.innerHTML = '<div class="sp-empty" data-i18n-text="int.sidePanelLoading">Загрузка…</div>';
   panel.hidden = false;
   panel.classList.add('open');
   panel.setAttribute('aria-hidden', 'false');
@@ -1399,17 +1416,18 @@ function openSidePanel(nodeId, nodeLabel, nodeType) {
     var effects = (card.effects || []).slice(0, 3);
     var forms = card.forms || '';
     var catHtml = category ? '<span class="sp-badge">' + escHtml(category) + '</span>' : '';
-    var gradeHtml = grade ? '<span class="sp-badge">Грейд <span class="sp-grade g' + escHtml(grade) + '">' + escHtml(grade) + '</span></span>' : '';
+    var gradeHtml = grade ? '<span class="sp-badge"><b data-i18n-text="int.spGradeLabel">Грейд</b> <span class="sp-grade g' + escHtml(grade) + '">' + escHtml(grade) + '</span></span>' : '';
     var effectsHtml = '';
     if (effects.length) {
-      effectsHtml = '<div class="sp-effects"><b>Эффекты:</b> <ul>' +
+      effectsHtml = '<div class="sp-effects"><b data-i18n-text="int.spEffectsLabel">Эффекты:</b> <ul>' +
         effects.map(function (e) { return '<li>' + escHtml(e) + '</li>'; }).join('') +
         '</ul></div>';
     }
-    var formsHtml = forms ? '<div class="sp-forms"><b>Формы:</b> ' + escHtml(forms) + '</div>' : '';
+    var formsHtml = forms ? '<div class="sp-forms"><b data-i18n-text="int.spFormsLabel">Формы:</b> ' + escHtml(forms) + '</div>' : '';
     var link = 'sup/' + encodeURIComponent(String(card.id || nodeId)) + '.html';
-    var btn = '<a href="' + escHtml(link) + '" class="sp-btn" target="_blank" rel="noopener">Открыть полную карточку</a>';
+    var btn = '<a href="' + escHtml(link) + '" class="sp-btn" target="_blank" rel="noopener" data-i18n-text="int.btnOpenFullCard">Открыть полную карточку</a>';
     bodyEl.innerHTML = catHtml + gradeHtml + effectsHtml + formsHtml + btn;
+    applyI18n(bodyEl);
   }
 
   function renderMechanism(mech) {
@@ -1417,14 +1435,15 @@ function openSidePanel(nodeId, nodeLabel, nodeType) {
     var list = (mech && mech.supplements) || [];
     var html = '<div class="sp-mech"><b>' + name + '</b>';
     if (list.length) {
-      html += '<div class="sp-mech-list"><b>Влияющие добавки (' + list.length + '):</b><ul>' +
+      html += '<div class="sp-mech-list"><b data-i18n-text="int.spMechRelatedTitle">Влияющие добавки</b> (' + list.length + '):<ul>' +
         list.slice(0, 20).map(function (id) { return '<li>' + escHtml(id) + '</li>'; }).join('') +
         '</ul></div>';
     } else {
-      html += '<div class="sp-empty">Описание механизма недоступно.</div>';
+      html += '<div class="sp-empty" data-i18n-text="int.sidePanelMechUnavailable">Описание механизма недоступно.</div>';
     }
     html += '</div>';
     bodyEl.innerHTML = html;
+    applyI18n(bodyEl);
   }
 
   function fetchMechData() {
