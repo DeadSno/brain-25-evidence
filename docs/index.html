@@ -214,6 +214,7 @@ footer { font-size: 1rem !important; }
       <a class="btn c-feedback" href="feedback.html">💬 Обратная связь</a>
       <a class="btn c-support" href="support.html">💚 Поддержать</a>
       <button class="btn" id="themeBtn">🌞 Светлая тема</button>
+      <button class="btn" id="randomBtn" aria-label="Удиви меня — случайная добавка">🎲</button>
     </nav>
   </header>
 </div>
@@ -411,7 +412,7 @@ footer { font-size: 1rem !important; }
       <div style="font-size:.8rem;line-height:1.3">Когниция (при дефиците)</div>
     </a>
 
-    <a class="tile" href="sup/zinc.html" style="display:block;border:1px solid var(--border);border-radius:12px;padding:.8rem;text-decoration:none;color:inherit;background:var(--card-bg)">
+    <a class="tile" href="sup/tsink.html" style="display:block;border:1px solid var(--border);border-radius:12px;padding:.8rem;text-decoration:none;color:inherit;background:var(--card-bg)">
       <div style="font-weight:700;font-size:.95rem;margin-bottom:.3rem">Цинк</div>
       <div style="font-size:.75rem;opacity:.7;margin-bottom:.4rem">Иммунитет / ОРВИ</div>
       <span class="grade gD" style="display:inline-block;padding:.1rem .5rem;border-radius:999px;font-size:.7rem;font-weight:700;color:#fff;background:#b91c1c;margin-bottom:.4rem">D</span>
@@ -425,7 +426,7 @@ footer { font-size: 1rem !important; }
       <div style="font-size:.8rem;line-height:1.3">Настроение, когниция</div>
     </a>
 
-    <a class="tile" href="sup/iron.html" style="display:block;border:1px solid var(--border);border-radius:12px;padding:.8rem;text-decoration:none;color:inherit;background:var(--card-bg)">
+    <a class="tile" href="sup/zhelezo.html" style="display:block;border:1px solid var(--border);border-radius:12px;padding:.8rem;text-decoration:none;color:inherit;background:var(--card-bg)">
       <div style="font-weight:700;font-size:.95rem;margin-bottom:.3rem">Железо</div>
       <div style="font-size:.75rem;opacity:.7;margin-bottom:.4rem">Кровь / Анемия</div>
       <span class="grade gD" style="display:inline-block;padding:.1rem .5rem;border-radius:999px;font-size:.7rem;font-weight:700;color:#fff;background:#b91c1c;margin-bottom:.4rem">D</span>
@@ -612,6 +613,21 @@ document.getElementById('refreshBtn')?.addEventListener('click', () => {
 </div>
 <script src="cookie-banner.js?v=1"></script>
 <script src="metrika.js?v=1"></script>
-<script>initCookieBanner();</script>
+<script>initCookieBanner();// Кнопка «🎲 Удиви меня»: случайная добавка из data.json
+(function(){
+  var btn = document.getElementById('randomBtn');
+  if(!btn) return;
+  var dataUrl = 'data.json';
+  btn.onclick = function(){
+    fetch(dataUrl).then(function(r){ return r.json(); }).then(function(data){
+      var ids = data.map(function(d){ return d.id; }).filter(Boolean);
+      if(!ids.length) return;
+      var id = ids[Math.floor(Math.random() * ids.length)];
+      location.href = 'sup/' + id + '.html';
+    }).catch(function(){ console.warn('[random] не удалось загрузить data.json'); });
+  };
+})();
+
+</script>
 </body>
 </html>

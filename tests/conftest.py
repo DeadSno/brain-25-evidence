@@ -1,5 +1,6 @@
 """Общие фикстуры для тестов brain-25-evidence."""
 import os
+import subprocess
 import sys
 from pathlib import Path
 
@@ -186,3 +187,38 @@ def db_conn():
         yield conn
     finally:
         conn.close()
+
+
+# ──────────────────────────── live_server ─────────────────────────────
+#
+# Session-фикстура, поднимающая локальный http.server на :8000 с корнем
+# docs/. Включается только при RUN_SNAPSHOTS=1, чтобы визуальные/браузерные
+# тесты (снапшоты, tabs, graph, mobile) не скипались на отсутствие сервера
+# и сравнивали страницы ИМЕННО этого репозитория.
+#
+# Использование:
+#   $env:RUN_SNAPSHOTS="1"; pytest -q -m snapshots   # сервер поднимется сам
+#
+# Порт 8000 фиксирован: все браузерные тесты ожидают SNAPSHOT_BASE_URL
+# http://localhost:8000 (константа BASE_URL в test_*.py).
+
+
+@pytest.fixture(scope="session", autouse=True)
+def live_server():
+    if os.environ.get("RUN_SNAPSHOTS") != "1":
+        yield
+        return
+    proc = subprocess.Popen(
+        [sys.executable, "-m", "http.server", "8000"],
+        cwd=str(ROOT / "docs"),
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+    )
+    try:
+        yield proc
+    finally:
+        proc.terminate()
+        try:
+            proc.wait(timeout=10)
+        except subprocess.TimeoutExpired:
+            proc.kill()

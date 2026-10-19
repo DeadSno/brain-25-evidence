@@ -60,6 +60,7 @@
       <a class="btn c-feedback" href="../feedback.html">💬 Обратная связь</a>
       <a class="btn c-support" href="../support.html">💚 Поддержать</a>
       <button class="btn" id="themeBtn">🌞 Светлая тема</button>
+      <button class="btn" id="randomBtn" aria-label="Удиви меня — случайная добавка">🎲</button>
     </nav>
   </header>
 </div>
@@ -75,7 +76,19 @@
     <div class="sup-header">
         <h2>Глицин</h2>
         <span class="grade-badge" style="background:#b91c1c"><abbr data-i18n-title="trends.gradeAbbr" data-tooltip="Грейд D">Грейд D</abbr></span>
+        
+        <div class="placebo-bar" aria-label="Размер эффекта плацебо">
+            <span class="placebo-label">Плацебо</span>
+            <div class="placebo-track">
+                <div class="placebo-fill" style="width: 8.0%;" role="progressbar" aria-valuenow="8.0" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <span class="placebo-label">Эффект</span>
+        </div>
+        
         <span class="verdict">— не подтверждено</span>
+        <button class="btn btn-cite" type="button" id="citeBtn" aria-label="Цитировать Глицин">📋 Цитировать</button>
+        <span id="citeTooltip" class="cite-tooltip" role="tooltip" aria-hidden="true">Скопировано!</span>
+        <button class="btn btn-tts" type="button" id="ttsBtn" aria-label="Прослушать Глицин">🔊 Прослушать</button>
     </div>
 
     
@@ -309,6 +322,57 @@ document.addEventListener('DOMContentLoaded', function () {
   });
   obs.observe(badge);
 })()
+
+// Кнопка «Цитировать»: копирует цитирование в формате APA в буфер обмена
+(function(){
+  var btn = document.getElementById('citeBtn');
+  var tip = document.getElementById('citeTooltip');
+  if(!btn) return;
+  var name = Глицин;
+  var url = https://deadsno.github.io/brain-25-evidence/sup/glitsin.html;
+  btn.onclick = function(){
+    var text = 'brain-25-evidence. (2026). ' + name + '. Retrieved from ' + url;
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(function(){
+        tip.textContent = 'Скопировано!';
+        tip.setAttribute('aria-hidden','false');
+        setTimeout(function(){ tip.setAttribute('aria-hidden','true'); }, 2000);
+      });
+    }
+  };
+})();
+
+// Кнопка «Прослушать»: TTS через Web Speech API
+(function(){
+  var btn = document.getElementById('ttsBtn');
+  if(!btn) return;
+  if(!window.speechSynthesis){ btn.style.display = 'none'; return; }
+  var name = Глицин;
+  var effects = ["Сон (заявлено)"];
+  btn.onclick = function(){
+    var ttsLang = 'ru';
+    if (typeof LOCALE !== 'undefined' && LOCALE) ttsLang = LOCALE;
+    if (ttsLang === 'ru') ttsLang = 'ru' + '-RU';
+    var utterance = new SpeechSynthesisUtterance(name + (effects ? ', ' + effects : ''));
+    utterance.lang = ttsLang;
+    window.speechSynthesis.speak(utterance);
+  };
+})();
+
+// Кнопка «🎲 Удиви меня»: случайная добавка из data.json
+(function(){
+  var btn = document.getElementById('randomBtn');
+  if(!btn) return;
+  var dataUrl = new URL('../data.json', location.href).href;
+  btn.onclick = function(){
+    fetch(dataUrl).then(function(r){ return r.json(); }).then(function(data){
+      var ids = data.map(function(d){ return d.id; }).filter(Boolean);
+      if(!ids.length) return;
+      var id = ids[Math.floor(Math.random() * ids.length)];
+      location.href = 'sup/' + id + '.html';
+    }).catch(function(){ console.warn('[random] не удалось загрузить data.json'); });
+  };
+})();
 </script>
 </body>
 </html>
