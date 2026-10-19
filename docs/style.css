@@ -2470,7 +2470,7 @@ html.light #cookieBanner { box-shadow: var(--shadow-pop-light); }
 }
 
 /* Панели режимов */
-.tab-panels { margin-top: var(--space-2); }
+.tab-panels { margin-top: var(--space-2); overflow-x: auto; }
 [data-panel] { display: none; padding: var(--space-4) 0; }
 [data-panel].active { display: block; }
 
