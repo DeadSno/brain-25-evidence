@@ -368,6 +368,18 @@ def build_context(rec: dict, slug: str, warnings: list[str]) -> dict:
     seo_name = raw_field(rec.get("name"))
     seo_effect = raw_field(effects_list[0] if effects_list else "")
 
+    _forms_raw = rec.get("forms") or ""
+    _first_form = re.split(r"[;—–]", _forms_raw)[0].strip()
+    _shop_query = quote(((rec.get("name") or "") + " " + _first_form).strip())
+    _pmid_count = len(sources)
+    _pmid_first = sources[0]["pmid"] if sources else ""
+    _unknowns_reasons = []
+    if not rec.get("forms"):
+        _unknowns_reasons.append("нет данных о формах выпуска")
+    if len(sources) > 0 and len(sources) < 3:
+        _unknowns_reasons.append("мало подтвержденных источников (" + str(len(sources)) + ")")
+    _unknowns_text = " ".join(_unknowns_reasons)
+
     return {
         "name": html_val(rec.get("name")),
         "slug": slug,
@@ -400,6 +412,12 @@ def build_context(rec: dict, slug: str, warnings: list[str]) -> dict:
         "no_interactions": no_inter,
         "inter_note_cap": first_cap(note),
         "key_sources": sources,
+        "pmid_count": _pmid_count,
+        "pmid_first": _pmid_first,
+        "shop_query": _shop_query,
+        "shop_look_text": "Обратите внимание на форму выпуска, дозировку и сертификаты качества перед покупкои.",
+        "unknowns_text": _unknowns_text,
+        "unknowns": bool(_unknowns_text),
         "how_to_choose": html_val(rec.get("how_to_choose")),
         # #40: формы выпуска. Пустая строка при отсутствии данных —
         # в шаблоне блок гасится через {% if forms %}, а не заглушкой.

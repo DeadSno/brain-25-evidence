@@ -45,6 +45,15 @@
       "icons": [
         { "src": "./icons/192.png", "sizes": "192x192", "type": "image/png" }
       ]
+    },
+    {
+      "name": "Сравнение БАДов",
+      "short_name": "Сравнение",
+      "description": "Сравните до 10 добавок рядом: грейд, эффекты, дозировка, безопасность",
+      "url": "./compare.html",
+      "icons": [
+        { "src": "./icons/192.png", "sizes": "192x192", "type": "image/png" }
+      ]
     }
   ]
 }

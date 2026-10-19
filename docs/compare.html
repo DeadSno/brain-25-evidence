@@ -51,7 +51,9 @@ try {
   table.compare tr:nth-child(even) td{background:rgba(255,255,255,.03)}
   table.compare tr:hover td{background:rgba(127,127,127,.06)}
   table.compare td.name{font-weight:700;min-width:150px}
+  /* Первый столбец (названия параметров) не уезжает при горизонтальном скролле. */
   table.compare td.param{font-weight:600;color:var(--amut);width:170px;background:var(--apanel);position:sticky;inset-inline-start:0;z-index:1}
+  table.compare.cmp10{font-size:0.8rem}
   /* Заливку грейдов A–D задаёт style.css (.grade.gA..gD, !important);
      здесь — только форма плашки. Цвета берём из токенов, без хардкода. */
   .grade{display:inline-block;padding:.1rem .5rem;border-radius:var(--radius-pill);font-size:.8rem;font-weight:700;color:#fff}
@@ -159,7 +161,13 @@ function fetchJson(url) {
 
 function renderTable(supplements, truncated) {
   const note = document.getElementById('cmpNote');
-  if (note) note.textContent = "Сравниваем " + supplements.length + " добавок рядом — выберите другие на карте, чтобы заменить." + (truncated ? " Показаны первые 10 добавок." : "");
+  if (note) {
+    note.textContent = truncated
+      ? "Показаны первые 10 добавок."
+      : "Сравниваем " + supplements.length + " добавок рядом — выберите другие на карте, чтобы заменить.";
+  }
+  const table = document.getElementById('cmpTable');
+  if (table) table.classList.toggle('cmp10', supplements.length >= 10);
   const body = document.getElementById('cmpBody');
   const theadTr = document.querySelector('#cmpTable thead tr');
 
@@ -179,7 +187,7 @@ function renderTable(supplements, truncated) {
     { key: 'dosage', label: t ? t("cmp.table.dosage") : "Дозировка", get: s => esc(s.dosage || '—') },
     { key: 'safety', label: t ? t("cmp.table.safety") : "Безопасность", get: s => { const u = s.upper_limit || ''; const c = s.caution || ''; return (u || c) ? '<div>' + esc(u) + '</div>' + (c ? '<div style="opacity:.7;font-size:.85rem">' + esc(c) + '</div>' : '') : '<span class="noData">—</span>'; } },
     { key: 'rct', label: t ? t("cmp.table.rct") : "РКИ", get: s => (s.rct != null ? String(s.rct) : '—') },
-    { key: 'card', label: t ? t("cmp.table.card") : "Карточка", get: s => '<a class="linkCard" href="sup/' + encodeURIComponent(s.id) + '.html"' }
+    { key: 'card', label: t ? t("cmp.table.card") : "Карточка", get: s => '<a class="linkCard" href="sup/' + encodeURIComponent(s.id) + '.html" target="_blank" rel="noopener">Открыть ↗</a>' }
   ];
 
   let trHtml = '';
@@ -199,12 +207,17 @@ let ids = [];
 if (idsParam) {
   ids = idsParam.split(',').filter(Boolean);
 }
-const truncated = ids.length >= 10;
 // Ограничиваем 10
+const totalIds = ids.length;
 ids = ids.slice(0, 10);
+const truncated = totalIds > 10;
 
 if (!ids.length) {
-  document.getElementById('cmpError').textContent = 'Не указаны добавки для сравнения. Выберите 2–10 на карте.';
+  document.getElementById('cmpError').textContent = 'Не указаны добавки для сравнения. Выберите минимум 2 на карте.';
+  document.getElementById('cmpError').style.display = 'block';
+  document.getElementById('cmpBody').innerHTML = '';
+} else if (ids.length === 1) {
+  document.getElementById('cmpError').textContent = 'Выберите минимум 2 добавки.';
   document.getElementById('cmpError').style.display = 'block';
   document.getElementById('cmpBody').innerHTML = '';
 } else {
