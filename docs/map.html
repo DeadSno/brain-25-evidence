@@ -524,8 +524,11 @@ fetch('data.json?ts=' + Date.now())
       if (selectedForCompare.has(id)) selectedForCompare.delete(id);
       else selectedForCompare.add(id);
       updateComparePanel();
-      document.querySelectorAll('.cmpBtn[data-cmp="' + esc(id) + '"]').forEach(b =>
-        b.classList.toggle('on', selectedForCompare.has(id)));
+      document.querySelectorAll('.cmpBtn[data-cmp="' + esc(id) + '"]').forEach(b => {
+        b.classList.toggle('on', selectedForCompare.has(id));
+        b.classList.add('pop');
+        setTimeout(() => b.classList.remove('pop'), 220);
+      });
     }
 
     function updateComparePanel() {
@@ -534,6 +537,10 @@ fetch('data.json?ts=' + Date.now())
       cmpGo.disabled = n < 2 || n > 10;
       cmpGo.textContent = n === 10 ? t("cmp.panel.compareFull") : t("cmp.panel.compare");
       cmpPanel.classList.toggle('open', n > 0);
+      if (n > 0) {
+        cmpPanel.classList.add('bounce');
+        setTimeout(() => cmpPanel.classList.remove('bounce'), 400);
+      }
     }
 
     function goCompare() {

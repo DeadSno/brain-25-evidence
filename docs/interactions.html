@@ -341,7 +341,7 @@ footer { font-size: 1rem !important; }
       </select>
     </div>
     <div class="state-loading" id="supsLoading" hidden data-i18n-text="int.supsLoading">
-      <span class="spinner" aria-hidden="true"></span>Загрузка связей…
+      <span class="skeleton" aria-hidden="true"></span><span class="skeleton-text">Загрузка связей…</span>
     </div>
     <div class="state-empty" id="supsEmpty" hidden data-i18n-text="int.supsEmpty">Ничего не найдено.</div>
     <div class="state-error" id="supsError" hidden data-i18n-text="int.supsError">
@@ -360,7 +360,7 @@ footer { font-size: 1rem !important; }
       </select>
     </div>
     <div class="state-loading" id="drugsLoading" hidden data-i18n-text="int.drugsLoading">
-      <span class="spinner" aria-hidden="true"></span>Загрузка связей…
+      <span class="skeleton" aria-hidden="true"></span><span class="skeleton-text">Загрузка связей…</span>
     </div>
     <div class="state-empty" id="drugsEmpty" hidden data-i18n-text="int.drugsEmpty">Ничего не найдено.</div>
     <div class="state-error" id="drugsError" hidden data-i18n-text="int.drugsError">
@@ -622,13 +622,16 @@ window.addEventListener('scroll', () => {
   }
 
   // Скрыть все узлы, оставить видимыми только узлы фокуса.
-  function setFocusVisibility(focusNodes) {
+  function setFocusVisibility(focusNodes, dimmed) {
+    var focusIds = new Set(focusNodes.map(function (n) { return n.id; }));
     nodesDs.update(allNodes.map(function (n) {
-      return { id: n.id, hidden: true };
+      return { id: n.id, hidden: false, opacity: dimmed && !focusIds.has(n.id) ? 0.2 : 1 };
     }));
-    nodesDs.update(focusNodes.map(function (n) {
-      return { id: n.id, hidden: false };
-    }));
+    if (dimmed) {
+      document.getElementById('mynetwork').classList.add('graph-dimmed');
+    } else {
+      document.getElementById('mynetwork').classList.remove('graph-dimmed');
+    }
   }
 
   function getOptions() {
@@ -704,7 +707,7 @@ window.addEventListener('scroll', () => {
     }
     var focus = buildFocus(matching);
     ensureNetwork();
-    setFocusVisibility(focus.nodes);
+    setFocusVisibility(focus.nodes, true);
     applyEdgeFilter(focus.edges);
     var ids = focus.nodes.map(function (n) { return n.id; });
     if (network && typeof network.fit === 'function') {
@@ -718,11 +721,13 @@ window.addEventListener('scroll', () => {
     if ($edgeFilter) $edgeFilter.value = 'all';
     if (nodesDs) {
       nodesDs.update(allNodes.map(function (n) {
-        return { id: n.id, hidden: true };
+        return { id: n.id, hidden: true, opacity: 1 };
       }));
     }
     if (edgesDs) edgesDs.clear();
     currentFocusEdges = [];
+    var $canvas = document.getElementById('mynetwork');
+    if ($canvas) $canvas.classList.remove('graph-dimmed');
     showWelcome();
   }
 

@@ -4,13 +4,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>Зверобой — Психика/Депрессия — Brain 25 Evidence</title>
-    <meta name="description" content="Гиперфорин блокирует обратный захват серотонина: работает при лёгкой депрессии, сравним с СИОЗС. Грейд B: 53 мета-анализов, 170 РКИ.">
+    <meta name="description" content="Гиперфорин блокирует обратный захват серотонина: работает при лёгкой депрессии, сравним с СИОЗС. Грейд D: 53 мета-анализов, 170 РКИ.">
     <link rel="canonical" href="https://deadsno.github.io/brain-25-evidence/sup/zveroboy.html">
     <link rel="alternate" type="application/rss+xml" title="brain-25-evidence" href="https://deadsno.github.io/brain-25-evidence/feed.xml">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://deadsno.github.io/brain-25-evidence/sup/zveroboy.html">
     <meta property="og:title" content="Зверобой — Психика/Депрессия — Brain 25 Evidence">
-    <meta property="og:description" content="Гиперфорин блокирует обратный захват серотонина: работает при лёгкой депрессии, сравним с СИОЗС. Грейд B: 53 мета-анализов, 170 РКИ.">
+    <meta property="og:description" content="Гиперфорин блокирует обратный захват серотонина: работает при лёгкой депрессии, сравним с СИОЗС. Грейд D: 53 мета-анализов, 170 РКИ.">
     <meta property="og:image" content="https://deadsno.github.io/brain-25-evidence/og.png">
     <meta property="og:site_name" content="Brain 25 Evidence">
     <meta name="twitter:card" content="summary_large_image">
@@ -36,7 +36,7 @@
       "@context": "https://schema.org",
       "@type": "MedicalWebPage",
       "name": "Зверобой — Brain 25 Evidence",
-      "description": "Гиперфорин блокирует обратный захват серотонина: работает при лёгкой депрессии, сравним с СИОЗС. Грейд B: 53 мета-анализов, 170 РКИ.",
+      "description": "Гиперфорин блокирует обратный захват серотонина: работает при лёгкой депрессии, сравним с СИОЗС. Грейд D: 53 мета-анализов, 170 РКИ.",
       "url": "https://deadsno.github.io/brain-25-evidence/sup/zveroboy.html",
       "about": {
         "@type": "Drug",
@@ -74,14 +74,14 @@
 
     <div class="sup-header">
         <h2>Зверобой</h2>
-        <span class="grade-badge" style="background:#4d7c0f"><abbr data-i18n-title="trends.gradeAbbr">Грейд B</abbr></span>
+        <span class="grade-badge" style="background:#b91c1c"><abbr data-i18n-title="trends.gradeAbbr" data-tooltip="Грейд D">Грейд D</abbr></span>
         <span class="verdict">— работает</span>
     </div>
 
     
     <div class="sup-meta">
         
-        <a href="https://pubmed.ncbi.nlm.nih.gov/?term=36226689" target="_blank" rel="noopener" class="pmid-badge">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/?term=36226689" target="_blank" rel="noopener" class="pmid-badge" data-target="zveroboy">
             🔬 2 источника в PubMed
         </a>
         
@@ -106,7 +106,7 @@
 
     <div class="sup-section">
         <h2>Эффекты</h2>
-        <div><span class="tag">Настроение (лёгкая депрессия)</span></div>
+        <div><span class="tag">Настроение (лёгкая депрессия) (не подтверждено)</span></div>
     </div>
 
     <div class="sup-section">
@@ -145,7 +145,7 @@
             <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%97%D0%B2%D0%B5%D1%80%D0%BE%D0%B1%D0%BE%D0%B9" target="_blank" rel="noopener" class="shop-btn">WB ↗</a>
         </div>
         <div class="shop-look">
-            <strong>Что искать при покупке:</strong> Обратите внимание на форму выпуска, дозировку и сертификаты качества перед покупкои.
+            <strong>Что искать при покупке:</strong> Проверяйте дозировку на этикетке и наличие сертификата качества (GMP/ISO).
         </div>
     </div>
     
@@ -153,7 +153,7 @@
     
     <div class="sup-section unknowns-section">
         <h2>🔍 Что мы не знаем</h2>
-        <p>нет данных о формах выпуска мало подтвержденных источников (2)</p>
+        <p>Нет данных о формах выпуска. Мало подтверждений в PubMed (2 источников).</p>
     </div>
     
 
@@ -291,6 +291,30 @@ document.addEventListener('DOMContentLoaded', function () {
     btn.disabled = true;
   });
 })();
+
+// Count-up анимация для PMID-счётчика (IntersectionObserver + requestAnimationFrame)
+(function(){
+  var badge = document.querySelector('.pmid-badge[data-target]');
+  if(!badge) return;
+  var m = badge.textContent.match(/(\d+)\s*источник/);
+  if(!m) return;
+  var target = +m[1];
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        var dur = 700, t0 = performance.now();
+        function raf(now){
+          var p = Math.min((now-t0)/dur, 1);
+          badge.textContent = '🔬 ' + Math.floor(p*target) + ' источника в PubMed';
+          if(p<1) requestAnimationFrame(raf); else obs.disconnect();
+        }
+        requestAnimationFrame(raf);
+        obs.disconnect();
+      }
+    });
+  });
+  obs.observe(badge);
+})()
 </script>
 </body>
 </html>
