@@ -42,7 +42,7 @@
         "@type": "Drug",
         "name": "EPA",
         "description": "EPA — омега-3 с противовоспалительным эффектом: линейно снижает триглицериды и не-ЛПВП (90 РКИ) и смягчает депрессию формулами с EPA ≥60% в дозе ≤1 г/сут.",
-        "category": "Сердце/сосуды"
+        "category": "Сердце"
       }
     }
     </script>
@@ -74,14 +74,14 @@
 
     <div class="sup-header">
         <h2>EPA</h2>
-        <span class="grade-badge" style="background:#4d7c0f"><abbr data-i18n-title="trends.gradeAbbr">Грейд B</abbr></span>
+        <span class="grade-badge" style="background:#b91c1c"><abbr data-i18n-title="trends.gradeAbbr" data-tooltip="Грейд D">Грейд D</abbr></span>
         <span class="verdict">— работает</span>
     </div>
 
     
     <div class="sup-meta">
         
-        <a href="https://pubmed.ncbi.nlm.nih.gov/?term=31383846" target="_blank" rel="noopener" class="pmid-badge">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/?term=31383846" target="_blank" rel="noopener" class="pmid-badge" data-target="epa">
             🔬 2 источника в PubMed
         </a>
         
@@ -101,12 +101,12 @@
     <div class="sup-section">
         <h2>Метрики</h2>
         <p><b>Индекс науки:</b> 4196 · <b>РКИ:</b> 2126 · <b>Мета-анализов:</b> 414</p>
-        <p><b>Категория:</b> Сердце/сосуды</p>
+        <p><b>Категория:</b> Сердце</p>
     </div>
 
     <div class="sup-section">
         <h2>Эффекты</h2>
-        <div><span class="tag">Депрессия</span> <span class="tag">Триглицериды</span> <span class="tag">Кардиориск</span></div>
+        <div><span class="tag">Депрессия</span> <span class="tag">Триглицериды</span> <span class="tag">Кардиориск (не подтверждено)</span></div>
     </div>
 
     <div class="sup-section">
@@ -145,7 +145,7 @@
             <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=EPA" target="_blank" rel="noopener" class="shop-btn">WB ↗</a>
         </div>
         <div class="shop-look">
-            <strong>Что искать при покупке:</strong> Обратите внимание на форму выпуска, дозировку и сертификаты качества перед покупкои.
+            <strong>Что искать при покупке:</strong> Проверяйте дозировку на этикетке и наличие сертификата качества (GMP/ISO).
         </div>
     </div>
     
@@ -153,7 +153,7 @@
     
     <div class="sup-section unknowns-section">
         <h2>🔍 Что мы не знаем</h2>
-        <p>нет данных о формах выпуска мало подтвержденных источников (2)</p>
+        <p>Нет данных о формах выпуска. Мало подтверждений в PubMed (2 источников).</p>
     </div>
     
 
@@ -271,6 +271,30 @@ document.addEventListener('DOMContentLoaded', function () {
     btn.disabled = true;
   });
 })();
+
+// Count-up анимация для PMID-счётчика (IntersectionObserver + requestAnimationFrame)
+(function(){
+  var badge = document.querySelector('.pmid-badge[data-target]');
+  if(!badge) return;
+  var m = badge.textContent.match(/(\d+)\s*источник/);
+  if(!m) return;
+  var target = +m[1];
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        var dur = 700, t0 = performance.now();
+        function raf(now){
+          var p = Math.min((now-t0)/dur, 1);
+          badge.textContent = '🔬 ' + Math.floor(p*target) + ' источника в PubMed';
+          if(p<1) requestAnimationFrame(raf); else obs.disconnect();
+        }
+        requestAnimationFrame(raf);
+        obs.disconnect();
+      }
+    });
+  });
+  obs.observe(badge);
+})()
 </script>
 </body>
 </html>

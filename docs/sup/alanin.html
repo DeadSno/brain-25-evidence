@@ -74,7 +74,7 @@
 
     <div class="sup-header">
         <h2>Аланин</h2>
-        <span class="grade-badge" style="background:#b45309"><abbr data-i18n-title="trends.gradeAbbr">Грейд C</abbr></span>
+        <span class="grade-badge" style="background:#b45309"><abbr data-i18n-title="trends.gradeAbbr" data-tooltip="Грейд C">Грейд C</abbr></span>
         <span class="verdict">— зависит от контекста</span>
     </div>
 
@@ -141,7 +141,7 @@
             <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%90%D0%BB%D0%B0%D0%BD%D0%B8%D0%BD" target="_blank" rel="noopener" class="shop-btn">WB ↗</a>
         </div>
         <div class="shop-look">
-            <strong>Что искать при покупке:</strong> Обратите внимание на форму выпуска, дозировку и сертификаты качества перед покупкои.
+            <strong>Что искать при покупке:</strong> Проверяйте дозировку на этикетке и наличие сертификата качества (GMP/ISO).
         </div>
     </div>
     
@@ -149,7 +149,7 @@
     
     <div class="sup-section unknowns-section">
         <h2>🔍 Что мы не знаем</h2>
-        <p>нет данных о формах выпуска</p>
+        <p>Нет данных о формах выпуска. Мало подтверждений в PubMed (0 источников).</p>
     </div>
     
 
@@ -259,6 +259,30 @@ document.addEventListener('DOMContentLoaded', function () {
     btn.disabled = true;
   });
 })();
+
+// Count-up анимация для PMID-счётчика (IntersectionObserver + requestAnimationFrame)
+(function(){
+  var badge = document.querySelector('.pmid-badge[data-target]');
+  if(!badge) return;
+  var m = badge.textContent.match(/(\d+)\s*источник/);
+  if(!m) return;
+  var target = +m[1];
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        var dur = 700, t0 = performance.now();
+        function raf(now){
+          var p = Math.min((now-t0)/dur, 1);
+          badge.textContent = '🔬 ' + Math.floor(p*target) + ' источника в PubMed';
+          if(p<1) requestAnimationFrame(raf); else obs.disconnect();
+        }
+        requestAnimationFrame(raf);
+        obs.disconnect();
+      }
+    });
+  });
+  obs.observe(badge);
+})()
 </script>
 </body>
 </html>

@@ -974,6 +974,7 @@ def test_page_snapshot(_env_checked, browser, snap_dir, page_name, width, height
     ctx.add_init_script(CHART_PATCH_JS)
     ctx.add_init_script(CONSENT_INIT_JS)
     page = ctx.new_page()
+    page.emulate_media(reduced_motion="reduce")
     try:
         png = _capture(page, page_name, full_page=True)
     finally:
@@ -990,6 +991,7 @@ def test_modal_index_snapshot(_env_checked, browser, snap_dir):
     ctx.add_init_script(CHART_PATCH_JS)
     ctx.add_init_script(CONSENT_INIT_JS)
     page = ctx.new_page()
+    page.emulate_media(reduced_motion="reduce")
     try:
         url = f"{BASE_URL}/index.html"
         _open(page, url)   # прогрев, см. п.5 в докстринге
@@ -1060,6 +1062,7 @@ def test_cookie_banner_visible_first_visit(_env_checked, browser, snap_dir):
                               color_scheme=COLOR_SCHEME)
     ctx.add_init_script(CHART_PATCH_JS)
     page = ctx.new_page()
+    page.emulate_media(reduced_motion="reduce")
     yandex = []
     page.on("request",
             lambda r: yandex.append(r.url) if "mc.yandex.ru" in r.url else None)

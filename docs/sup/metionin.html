@@ -74,14 +74,14 @@
 
     <div class="sup-header">
         <h2>Метионин</h2>
-        <span class="grade-badge" style="background:#b91c1c"><abbr data-i18n-title="trends.gradeAbbr">Грейд D</abbr></span>
+        <span class="grade-badge" style="background:#b91c1c"><abbr data-i18n-title="trends.gradeAbbr" data-tooltip="Грейд D">Грейд D</abbr></span>
         <span class="verdict">— не подтверждено</span>
     </div>
 
     
     <div class="sup-meta">
         
-        <a href="https://pubmed.ncbi.nlm.nih.gov/?term=40368108" target="_blank" rel="noopener" class="pmid-badge">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/?term=40368108" target="_blank" rel="noopener" class="pmid-badge" data-target="metionin">
             🔬 3 источника в PubMed
         </a>
         
@@ -131,7 +131,7 @@
 
     <div class="sup-section">
         <h2>Дозировка</h2>
-        <p><b>Стандартная доза:</b> Все цифры в пуле — для коров: 3.5-67.9 г/сут, оптимум 13.2-16.4 г/сут защищённого метионина</p>
+        <p><b>Стандартная доза:</b> Нет данных</p>
         <p><b>Курс:</b> в абстрактах для человека не указан; у коров оптимальная длительность 68-72 дня</p>
         <p><b>Верхний предел:</b> в абстрактах не указан</p>
     </div>
@@ -145,7 +145,7 @@
             <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%9C%D0%B5%D1%82%D0%B8%D0%BE%D0%BD%D0%B8%D0%BD" target="_blank" rel="noopener" class="shop-btn">WB ↗</a>
         </div>
         <div class="shop-look">
-            <strong>Что искать при покупке:</strong> Обратите внимание на форму выпуска, дозировку и сертификаты качества перед покупкои.
+            <strong>Что искать при покупке:</strong> Проверяйте дозировку на этикетке и наличие сертификата качества (GMP/ISO).
         </div>
     </div>
     
@@ -153,7 +153,7 @@
     
     <div class="sup-section unknowns-section">
         <h2>🔍 Что мы не знаем</h2>
-        <p>нет данных о формах выпуска</p>
+        <p>Нет данных о формах выпуска.</p>
     </div>
     
 
@@ -275,6 +275,30 @@ document.addEventListener('DOMContentLoaded', function () {
     btn.disabled = true;
   });
 })();
+
+// Count-up анимация для PMID-счётчика (IntersectionObserver + requestAnimationFrame)
+(function(){
+  var badge = document.querySelector('.pmid-badge[data-target]');
+  if(!badge) return;
+  var m = badge.textContent.match(/(\d+)\s*источник/);
+  if(!m) return;
+  var target = +m[1];
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        var dur = 700, t0 = performance.now();
+        function raf(now){
+          var p = Math.min((now-t0)/dur, 1);
+          badge.textContent = '🔬 ' + Math.floor(p*target) + ' источника в PubMed';
+          if(p<1) requestAnimationFrame(raf); else obs.disconnect();
+        }
+        requestAnimationFrame(raf);
+        obs.disconnect();
+      }
+    });
+  });
+  obs.observe(badge);
+})()
 </script>
 </body>
 </html>

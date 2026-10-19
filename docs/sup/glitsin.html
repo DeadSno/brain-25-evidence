@@ -74,14 +74,14 @@
 
     <div class="sup-header">
         <h2>Глицин</h2>
-        <span class="grade-badge" style="background:#b91c1c"><abbr data-i18n-title="trends.gradeAbbr">Грейд D</abbr></span>
+        <span class="grade-badge" style="background:#b91c1c"><abbr data-i18n-title="trends.gradeAbbr" data-tooltip="Грейд D">Грейд D</abbr></span>
         <span class="verdict">— не подтверждено</span>
     </div>
 
     
     <div class="sup-meta">
         
-        <a href="https://pubmed.ncbi.nlm.nih.gov/?term=37851316" target="_blank" rel="noopener" class="pmid-badge">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/?term=37851316" target="_blank" rel="noopener" class="pmid-badge" data-target="glitsin">
             🔬 3 источника в PubMed
         </a>
         
@@ -140,21 +140,16 @@
     <div class="sup-section shop-section">
         <h2>🛒 Где купить</h2>
         <div class="shop-buttons">
-            <a href="https://market.yandex.ru/search?text=%D0%93%D0%BB%D0%B8%D1%86%D0%B8%D0%BD" target="_blank" rel="noopener" class="shop-btn">Я.Маркет ↗</a>
-            <a href="https://www.ozon.ru/search/?text=%D0%93%D0%BB%D0%B8%D1%86%D0%B8%D0%BD" target="_blank" rel="noopener" class="shop-btn">Ozon ↗</a>
-            <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%93%D0%BB%D0%B8%D1%86%D0%B8%D0%BD" target="_blank" rel="noopener" class="shop-btn">WB ↗</a>
+            <a href="https://market.yandex.ru/search?text=%D0%93%D0%BB%D0%B8%D1%86%D0%B8%D0%BD%20L-%D0%B3%D0%BB%D0%B8%D1%86%D0%B8%D0%BD" target="_blank" rel="noopener" class="shop-btn">Я.Маркет ↗</a>
+            <a href="https://www.ozon.ru/search/?text=%D0%93%D0%BB%D0%B8%D1%86%D0%B8%D0%BD%20L-%D0%B3%D0%BB%D0%B8%D1%86%D0%B8%D0%BD" target="_blank" rel="noopener" class="shop-btn">Ozon ↗</a>
+            <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%93%D0%BB%D0%B8%D1%86%D0%B8%D0%BD%20L-%D0%B3%D0%BB%D0%B8%D1%86%D0%B8%D0%BD" target="_blank" rel="noopener" class="shop-btn">WB ↗</a>
         </div>
         <div class="shop-look">
-            <strong>Что искать при покупке:</strong> Обратите внимание на форму выпуска, дозировку и сертификаты качества перед покупкои.
+            <strong>Что искать при покупке:</strong> Ищите форму «L-глицин» на этикетке, проверяйте дозировку и наличие сертификата качества (GMP/ISO).
         </div>
     </div>
     
 
-    
-    <div class="sup-section unknowns-section">
-        <h2>🔍 Что мы не знаем</h2>
-        <p>нет данных о формах выпуска</p>
-    </div>
     
 
     <div class="sup-section">
@@ -197,6 +192,11 @@
             <div class="src-title">Supplementing Glycine and N-Acetylcysteine (GlyNAC) in Older Adults Improves Glutathione Deficiency, Oxidative Stress, Mitochondrial Dysfunction, Inflammation, Physical Function, and Aging Hallmarks: A Randomized Clinical Trial.</div>
             <div class="src-meta">The journals of gerontology. Series A, Biological sciences and medical sciences · 2023 · <a href="https://pubmed.ncbi.nlm.nih.gov/35975308/" target="_blank" rel="noopener">PMID: 35975308</a> | DOI: <a href="https://doi.org/10.1093/gerona/glac135">10.1093/gerona/glac135</a></div>
         </div>
+    </div>
+
+    <div class="sup-section">
+        <h2>Формы выпуска</h2>
+        <p>L-глицин</p>
     </div>
 
     <div class="sup-section">
@@ -285,6 +285,30 @@ document.addEventListener('DOMContentLoaded', function () {
     btn.disabled = true;
   });
 })();
+
+// Count-up анимация для PMID-счётчика (IntersectionObserver + requestAnimationFrame)
+(function(){
+  var badge = document.querySelector('.pmid-badge[data-target]');
+  if(!badge) return;
+  var m = badge.textContent.match(/(\d+)\s*источник/);
+  if(!m) return;
+  var target = +m[1];
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        var dur = 700, t0 = performance.now();
+        function raf(now){
+          var p = Math.min((now-t0)/dur, 1);
+          badge.textContent = '🔬 ' + Math.floor(p*target) + ' источника в PubMed';
+          if(p<1) requestAnimationFrame(raf); else obs.disconnect();
+        }
+        requestAnimationFrame(raf);
+        obs.disconnect();
+      }
+    });
+  });
+  obs.observe(badge);
+})()
 </script>
 </body>
 </html>

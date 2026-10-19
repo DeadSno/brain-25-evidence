@@ -542,10 +542,84 @@ html:not(.light) #modal .shopBtn:hover{border-color:var(--accent-2)}
   #modal .shopButtons{flex-direction:column;gap:.4rem}
   #modal .shopBtn{width:100%;justify-content:center}
 }
-.skeleton { min-height: 170px; border-radius: var(--radius-xl);
-  background: var(--grad-shimmer);
-  background-size: 200% 100%; animation: sh 1.2s infinite; }
-@keyframes sh { to { background-position: -200% 0; } }
+@media (prefers-reduced-motion: no-preference) {
+  .skeleton { min-height: 170px; border-radius: var(--radius-xl);
+    background: var(--grad-shimmer);
+    background-size: 200% 100%; animation: sh 1.2s infinite; }
+  @keyframes sh { to { background-position: -200% 0; } }
+}
+@media (prefers-reduced-motion: reduce) {
+  .skeleton { animation: none !important; }
+}
+
+/* ===== v5.6.5 Block 7.8: UI Polish — анимации и микро-интеракции =====
+   Всё внутри @media (prefers-reduced-motion: no-preference), чтобы
+   пользователи с «уменьшить движение» в ОС не получали анимации. */
+@media (prefers-reduced-motion: no-preference) {
+  /* 1. Плавное переключение табов (interactions.html) */
+  @keyframes fadeInSlideUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  [data-panel].active {
+    animation: fadeInSlideUp 0.3s ease-out both;
+  }
+
+  /* 4. Пульс при добавлении в Сравнение (map.html .cmpBtn) */
+  @keyframes pop {
+    0%   { transform: scale(1); }
+    50%  { transform: scale(1.2); }
+    100% { transform: scale(1); }
+  }
+  .cmpBtn.pop {
+    animation: pop 0.3s ease-out both;
+  }
+
+  /* 4. Bounce на липкой панели сравнения (map.html #cmpPanel.open) */
+  @keyframes bounce {
+    0%   { transform: translateY(0); }
+    50%  { transform: translateY(-6px); }
+    100% { transform: translateY(0); }
+  }
+  #cmpPanel.open.bounce {
+    animation: bounce 0.4s ease-out both;
+  }
+
+  /* 6. Focus-эффект графа: не-фокусные узлы полупрозрачны */
+  .graph-dimmed .vis-node:not(.focused) {
+    opacity: 0.2;
+    transition: opacity 0.3s ease;
+  }
+}
+
+/* 5. Тултипы на бейджах Grade (data-tooltip) — без анимации, работает всегда */
+[data-tooltip] {
+  position: relative;
+  cursor: default;
+}
+[data-tooltip]::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 125%;
+  inset-inline-start: 50%;
+  transform: translatex(-50%);
+  padding: .3rem .6rem;
+  border-radius: var(--radius-md);
+  background: var(--bg);
+  color: var(--fg);
+  font-size: .75rem;
+  font-weight: 400;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .15s ease;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  z-index: var(--z-tooltip);
+}
+[data-tooltip]:hover::after {
+  opacity: 1;
+}
 /* ===== v1.2: мобильная адаптация нового UI ===== */
 @media (max-width: 768px) {
   body { padding: var(--space-4); }
