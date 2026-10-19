@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru">
+<html lang="ru" dir="ltr">
 <head>
   <meta charset="utf-8">
   <script defer src="version.js?v=312"></script>
@@ -175,7 +175,7 @@ function renderTable(supplements, truncated) {
     { key: 'category', label: t ? t("cmp.table.category") : "Категория", get: s => esc(s.category || '—') },
     { key: 'grade', label: t ? t("cmp.table.grade") : "Грейд", get: s => gradeBadgeHtml(s) },
     { key: 'effects', label: t ? t("cmp.table.effects") : "Основные эффекты", get: s => { const e = (s.effects || []).slice(0, 4); return e.length ? e.map(esc).join(', ') : '<span class="noData">—</span>'; } },
-    { key: 'forms', label: t ? t("cmp.table.forms") : "Формы", get: s => s.forms ? esc(s.forms) : '<span class="noData">Нет данных</span>' },
+    { key: 'forms', label: t ? t("cmp.table.forms") : "Формы", get: s => s.forms ? esc(s.forms) : '<span class="noData">' + t("cmp.noData") + '</span>' },
     { key: 'dosage', label: t ? t("cmp.table.dosage") : "Дозировка", get: s => esc(s.dosage || '—') },
     { key: 'safety', label: t ? t("cmp.table.safety") : "Безопасность", get: s => { const u = s.upper_limit || ''; const c = s.caution || ''; return (u || c) ? '<div>' + esc(u) + '</div>' + (c ? '<div style="opacity:.7;font-size:.85rem">' + esc(c) + '</div>' : '') : '<span class="noData">—</span>'; } },
     { key: 'rct', label: t ? t("cmp.table.rct") : "РКИ", get: s => (s.rct != null ? String(s.rct) : '—') },

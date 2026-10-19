@@ -276,7 +276,7 @@ self.addEventListener('activate', event => {
    офлайн-переход по старой ссылке должен работать. Без бампа activate не
    почистит v108-static, и возвратные посетители получат из кэша старый
    graph.html с 500 КБ vendor-скриптов вместо редиректа. */
-/* Бамп v109 -> v110: v5.6.5 — доступность, SEO и токены цвета.
+/* Бамп v110 -> v111: v5.6.5 — i18n (JS-P2-02), SW (compare.html), privacy GDPR, loading/empty/error, scroll position.
    interactions.html: у #nodeSidePanel появились role="dialog",
    aria-modal, aria-labelledby, перевод фокуса в панель и возврат при
    закрытии, focus-trap на Tab; у 4 вкладок — id/aria-controls/aria-labelledby,
@@ -289,9 +289,9 @@ self.addEventListener('activate', event => {
    затронули interactions.html, compare.html, graph.html, atlas.html,
    faq/glossary/methodology/support/trends.html и 131 sup-страница — все
    входят в STATIC_ASSETS и отдаются cacheFirstForStatic: без бампа
-   activate не почистит v109-static и возвратные посетители получат старые
+   activate не почистит v110-static и возвратные посетители получат старые
    версии обеих страниц. */
-var CACHE_VERSION = 'v110';
+var CACHE_VERSION = 'v111';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
@@ -320,6 +320,7 @@ var OFFLINE_URL = './offline.html';
 var STATIC_ASSETS = [
   './index.html',
   './calculator.html',
+  './compare.html',
   './map.html',
   './interactions.html',
   './atlas.html',
