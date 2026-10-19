@@ -985,7 +985,7 @@ def test_page_snapshot(_env_checked, browser, snap_dir, page_name, width, height
 
 
 def test_modal_index_snapshot(_env_checked, browser, snap_dir):
-    """Модалка на index: самая частая точка отказа при смене токенов."""
+    """Карточка на index ведёт на sup/<id>.html (модалка убрана v5.6.5)."""
     ctx = browser.new_context(viewport={"width": 1280, "height": 900},
                               service_workers="block", reduced_motion="reduce",
                               color_scheme=COLOR_SCHEME)
@@ -1020,13 +1020,10 @@ def test_modal_index_snapshot(_env_checked, browser, snap_dir):
         card = page.locator("#cardsGrid .card").first
         card.scroll_into_view_if_needed()
         card.click()
-        page.wait_for_function(
-            "() => { const o = document.getElementById('modalOverlay');"
-            " return o && getComputedStyle(o).display !== 'none'"
-            " && !!document.querySelector('#modalBody h2'); }",
-            timeout=30_000)
+        # Клик по карточке ведёт на sup/<slug>.html вместо модалки (v5.6.5).
+        page.wait_for_url("**/sup/*.html", timeout=30_000)
+        page.wait_for_load_state("networkidle")
         page.wait_for_timeout(SETTLE_MS)
-        # Модалка — оверлей поверх вьюпорта, full_page здесь неуместен.
         png = page.screenshot(full_page=False)
     finally:
         ctx.close()

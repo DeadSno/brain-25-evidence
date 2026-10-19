@@ -64,7 +64,7 @@
       "label": "B2",
       "shape": "dot",
       "size": 50,
-      "title": "B2<br>Grade: B<br>Связей: 46"
+      "title": "B2<br>Grade: D<br>Связей: 46"
     },
     {
       "color": "#9b59b6",
@@ -108,7 +108,7 @@
       "label": "B9",
       "shape": "dot",
       "size": 49,
-      "title": "B9<br>Grade: A<br>Связей: 40"
+      "title": "B9<br>Grade: D<br>Связей: 40"
     },
     {
       "color": "#e74c3c",
@@ -119,7 +119,7 @@
       "label": "BCAA",
       "shape": "dot",
       "size": 42,
-      "title": "BCAA<br>Grade: B<br>Связей: 15"
+      "title": "BCAA<br>Grade: D<br>Связей: 15"
     },
     {
       "color": "#3498db",
@@ -130,7 +130,7 @@
       "label": "CDP-холин",
       "shape": "dot",
       "size": 42,
-      "title": "CDP-холин<br>Grade: B<br>Связей: 42"
+      "title": "CDP-холин<br>Grade: D<br>Связей: 42"
     },
     {
       "color": "#9b59b6",
@@ -141,7 +141,7 @@
       "label": "CoQ10",
       "shape": "dot",
       "size": 41,
-      "title": "CoQ10<br>Grade: B<br>Связей: 71"
+      "title": "CoQ10<br>Grade: D<br>Связей: 71"
     },
     {
       "color": "#3498db",
@@ -174,7 +174,7 @@
       "label": "EPA",
       "shape": "dot",
       "size": 45,
-      "title": "EPA<br>Grade: B<br>Связей: 56"
+      "title": "EPA<br>Grade: D<br>Связей: 56"
     },
     {
       "color": "#f39c12",
@@ -229,7 +229,7 @@
       "label": "L-цитруллин",
       "shape": "dot",
       "size": 38,
-      "title": "L-цитруллин<br>Grade: B<br>Связей: 41"
+      "title": "L-цитруллин<br>Grade: D<br>Связей: 41"
     },
     {
       "color": "#e67e22",
@@ -262,7 +262,7 @@
       "label": "NAC",
       "shape": "dot",
       "size": 34,
-      "title": "NAC<br>Grade: B<br>Связей: 46"
+      "title": "NAC<br>Grade: D<br>Связей: 46"
     },
     {
       "color": "#9b59b6",
@@ -339,7 +339,7 @@
       "label": "Альфа-липоевая кислота",
       "shape": "dot",
       "size": 35,
-      "title": "Альфа-липоевая кислота<br>Grade: B<br>Связей: 51"
+      "title": "Альфа-липоевая кислота<br>Grade: D<br>Связей: 51"
     },
     {
       "color": "#e74c3c",
@@ -526,7 +526,7 @@
       "label": "Витамин C",
       "shape": "dot",
       "size": 41,
-      "title": "Витамин C<br>Grade: B<br>Связей: 35"
+      "title": "Витамин C<br>Grade: D<br>Связей: 35"
     },
     {
       "color": "#e67e22",
@@ -713,7 +713,7 @@
       "label": "Женьшень",
       "shape": "dot",
       "size": 44,
-      "title": "Женьшень<br>Grade: B<br>Связей: 43"
+      "title": "Женьшень<br>Grade: D<br>Связей: 43"
     },
     {
       "color": "#e67e22",
@@ -724,7 +724,7 @@
       "label": "Зверобой",
       "shape": "dot",
       "size": 40,
-      "title": "Зверобой<br>Grade: B<br>Связей: 11"
+      "title": "Зверобой<br>Grade: D<br>Связей: 11"
     },
     {
       "color": "#e67e22",
@@ -735,7 +735,7 @@
       "label": "Имбирь",
       "shape": "dot",
       "size": 33,
-      "title": "Имбирь<br>Grade: B<br>Связей: 6"
+      "title": "Имбирь<br>Grade: D<br>Связей: 6"
     },
     {
       "color": "#f39c12",
@@ -812,7 +812,7 @@
       "label": "Кверцетин",
       "shape": "dot",
       "size": 37,
-      "title": "Кверцетин<br>Grade: B<br>Связей: 21"
+      "title": "Кверцетин<br>Grade: D<br>Связей: 21"
     },
     {
       "color": "#3498db",
@@ -834,7 +834,7 @@
       "label": "Коллаген",
       "shape": "dot",
       "size": 42,
-      "title": "Коллаген<br>Grade: B<br>Связей: 16"
+      "title": "Коллаген<br>Grade: D<br>Связей: 16"
     },
     {
       "color": "#e74c3c",
@@ -911,7 +911,7 @@
       "label": "Лактоферрин",
       "shape": "dot",
       "size": 41,
-      "title": "Лактоферрин<br>Grade: B<br>Связей: 27"
+      "title": "Лактоферрин<br>Grade: D<br>Связей: 27"
     },
     {
       "color": "#1abc9c",
@@ -933,7 +933,7 @@
       "label": "Лютеин + зеаксантин",
       "shape": "dot",
       "size": 39,
-      "title": "Лютеин + зеаксантин<br>Grade: B<br>Связей: 20"
+      "title": "Лютеин + зеаксантин<br>Grade: D<br>Связей: 20"
     },
     {
       "color": "#1abc9c",
@@ -944,7 +944,7 @@
       "label": "Магний",
       "shape": "dot",
       "size": 46,
-      "title": "Магний<br>Grade: B<br>Связей: 38"
+      "title": "Магний<br>Grade: D<br>Связей: 38"
     },
     {
       "color": "#1abc9c",
@@ -999,7 +999,7 @@
       "label": "Мелатонин",
       "shape": "dot",
       "size": 41,
-      "title": "Мелатонин<br>Grade: A<br>Связей: 13"
+      "title": "Мелатонин<br>Grade: D<br>Связей: 13"
     },
     {
       "color": "#1abc9c",
@@ -1131,7 +1131,7 @@
       "label": "Псиллиум",
       "shape": "dot",
       "size": 36,
-      "title": "Псиллиум<br>Grade: B<br>Связей: 45"
+      "title": "Псиллиум<br>Grade: D<br>Связей: 45"
     },
     {
       "color": "#1abc9c",
@@ -1153,7 +1153,7 @@
       "label": "Расторопша",
       "shape": "dot",
       "size": 36,
-      "title": "Расторопша<br>Grade: B<br>Связей: 9"
+      "title": "Расторопша<br>Grade: D<br>Связей: 9"
     },
     {
       "color": "#1abc9c",
@@ -1186,7 +1186,7 @@
       "label": "Рибофлавин",
       "shape": "dot",
       "size": 38,
-      "title": "Рибофлавин<br>Grade: B<br>Связей: 38"
+      "title": "Рибофлавин<br>Grade: D<br>Связей: 38"
     },
     {
       "color": "#9b59b6",
@@ -1340,7 +1340,7 @@
       "label": "Цинк",
       "shape": "dot",
       "size": 37,
-      "title": "Цинк<br>Grade: B<br>Связей: 62"
+      "title": "Цинк<br>Grade: D<br>Связей: 62"
     },
     {
       "color": "#3498db",
@@ -1428,7 +1428,7 @@
       "label": "Эхинацея",
       "shape": "dot",
       "size": 46,
-      "title": "Эхинацея<br>Grade: B<br>Связей: 21"
+      "title": "Эхинацея<br>Grade: D<br>Связей: 21"
     }
   ],
   "edges": [
