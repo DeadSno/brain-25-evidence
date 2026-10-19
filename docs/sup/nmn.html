@@ -80,7 +80,7 @@
         <div class="placebo-bar" aria-label="Размер эффекта плацебо">
             <span class="placebo-label">Плацебо</span>
             <div class="placebo-track">
-                <div class="placebo-fill" style="width: 22.0%;" role="progressbar" aria-valuenow="22.0" aria-valuemin="0" aria-valuemax="100"></div>
+                <div class="placebo-fill" style="width: 22.0%;" role="progressbar" aria-label="Размер эффекта относительно плацебо: 22.0 процентов" aria-valuenow="22.0" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
             <span class="placebo-label">Эффект</span>
         </div>
@@ -318,8 +318,8 @@ document.addEventListener('DOMContentLoaded', function () {
   var btn = document.getElementById('citeBtn');
   var tip = document.getElementById('citeTooltip');
   if(!btn) return;
-  var name = NMN;
-  var url = https://deadsno.github.io/brain-25-evidence/sup/nmn.html;
+  var name = "NMN";
+  var url = "https://deadsno.github.io/brain-25-evidence/sup/nmn.html";
   btn.onclick = function(){
     var text = 'brain-25-evidence. (2026). ' + name + '. Retrieved from ' + url;
     if(navigator.clipboard && navigator.clipboard.writeText){
@@ -337,7 +337,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var btn = document.getElementById('ttsBtn');
   if(!btn) return;
   if(!window.speechSynthesis){ btn.style.display = 'none'; return; }
-  var name = NMN;
+  var name = "NMN";
   var effects = ["Исходы (сила, когниция): не подтверждён"];
   btn.onclick = function(){
     var ttsLang = 'ru';
@@ -349,18 +349,29 @@ document.addEventListener('DOMContentLoaded', function () {
   };
 })();
 
-// Кнопка «🎲 Удиви меня»: случайная добавка из data.json
+// Кнопка «🎲 Удиви меня»: случайная добавка из каталога.
+// Список страниц берём из sitemap.xml — там уже готовые URL по slug
+// (sup/magniy.html). Раньше здесь собирались d.id из data.json и
+// открывался 'sup/' + id + '.html'; id — отображаемое имя (кириллица),
+// а файлы называются по slug, плюс на этой странице добавлялся лишний
+// префикс sup/, потому что страница уже лежит в sup/. Кнопка вела на
+// 404 всегда. slugify живёт в Python (scripts/build_sup.py) и в JS
+// не дублируется.
 (function(){
   var btn = document.getElementById('randomBtn');
   if(!btn) return;
-  var dataUrl = new URL('../data.json', location.href).href;
+  var sitemapUrl = new URL('../sitemap.xml', location.href).href;
   btn.onclick = function(){
-    fetch(dataUrl).then(function(r){ return r.json(); }).then(function(data){
-      var ids = data.map(function(d){ return d.id; }).filter(Boolean);
-      if(!ids.length) return;
-      var id = ids[Math.floor(Math.random() * ids.length)];
-      location.href = 'sup/' + id + '.html';
-    }).catch(function(){ console.warn('[random] не удалось загрузить data.json'); });
+    fetch(sitemapUrl).then(function(r){ return r.text(); }).then(function(xml){
+      var doc = new DOMParser().parseFromString(xml, 'application/xml');
+      var urls = [];
+      doc.querySelectorAll('url > loc').forEach(function(node){
+        var u = (node.textContent || '').trim();
+        if(/\/sup\/[^/]+\.html$/.test(u) && !/\/sup\/index\.html$/.test(u)) urls.push(u);
+      });
+      if(!urls.length){ console.warn('[random] в sitemap.xml нет страниц добавок'); return; }
+      location.href = urls[Math.floor(Math.random() * urls.length)];
+    }).catch(function(err){ console.warn('[random] не удалось загрузить sitemap.xml', err); });
   };
 })();
 </script>

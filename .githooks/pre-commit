@@ -180,8 +180,16 @@ echo "-> build_graph_data.py --check / build_graph_positions.py --check"
 #
 # Строка -m сохранена без изменений: tests/test_precommit_hook.py:57 требует
 # наличие "not network and not snapshot_data" в тексте этого хука.
-echo "-> pytest -q -m 'not network and not snapshot_data' -k 'not real_docs_sitemap_is_current and not live_docs_feed_is_current'"
-"$PY" -m pytest -q -m "not network and not snapshot_data" -k "not real_docs_sitemap_is_current and not live_docs_feed_is_current" --no-header 2>&1
+# v5.6.5: из фильтра убраны тяжёлые браузерные маркеры. Раньше они не попадали
+# в прогон сами — их снимал с коллекции tests/conftest.py по переменным
+# RUN_SNAPSHOTS/RUN_A11Y/RUN_TABS/RUN_GRAPH/RUN_MOBILE/RUN_E2E. Гейты удалены,
+# и обычный `pytest -q` стал запускать всё (~10 минут): для commit hook это
+# неприемлемо. Браузерные тесты остаются в `pytest -q` и в CI — hook их не гоняет,
+# чтобы коммит не занимал десять минут и не зависел от запущенного Chromium.
+# Подстрока "not network and not snapshot_data" сохранена: её проверяет
+# tests/test_precommit_hook.py (HOOK_FILTER).
+echo "-> pytest -q -m 'not network and not snapshot_data and not (snapshots or a11y or tabs or graph or mobile375 or e2e)' -k 'not real_docs_sitemap_is_current and not live_docs_feed_is_current'"
+"$PY" -m pytest -q -m "not network and not snapshot_data and not (snapshots or a11y or tabs or graph or mobile375 or e2e)" -k "not real_docs_sitemap_is_current and not live_docs_feed_is_current" --no-header 2>&1
 RC=$?
 
 if [ $RC -ne 0 ]; then

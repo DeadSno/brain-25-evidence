@@ -11,6 +11,10 @@
   * Курируемые карточки (MANUAL_PMIDS, см. scripts/search_sources.py) никогда
     не трогаем, чтобы test_curated_pmids_match_data_json продолжал проходить:
     data.json для этих карточек должен совпадать с MANUAL_PMIDS.
+  * Карточка никогда не остаётся без источников: если найденный PMID —
+    последний key_sources карточки, запись сохраняется (см. skipped_last).
+    Нужно потому, что 19.10.2026 «Аланин» оказался ровно в такой ситуации и
+    лишился единственного источника (теперь восстановлен, PMID 39032921).
 
 Итог: ровно 13 записей удаляется (по одной на каждый из 13 дублированных PMID),
 суммарное число key_sources уменьшается на 13 (393 -> 380).
@@ -24,6 +28,10 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA_JSON = ROOT / "docs" / "data.json"
+
+#: Сколько записей удалял исходный прогон (393 -> 380). Сверяется ДО записи:
+#: иначе повторный запуск молча удалит другое число записей.
+EXPECTED_REMOVED = 13
 
 # MANUAL_PMIDS — имена карточек (id == name), чьи key_sources нельзя менять.
 sys.path.insert(0, str(ROOT / "scripts"))
@@ -44,6 +52,7 @@ def main() -> int:
 
     before = sum(len(c.get("key_sources") or []) for c in data)
     victims: list[tuple[str, int, int, str]] = []  # (pmid, ci, ei, card_id)
+    skipped_last: list[tuple[str, str]] = []  # (pmid, card_id) — жертва была бы последней
 
     for pmid, positions in sorted(occ.items()):
         if len(positions) <= 1:
@@ -53,8 +62,20 @@ def main() -> int:
         ]
         if not nonmanual:
             continue  # все вхождения на курируемых карточках — не трогаем
+        # НЕ удаляем источник, если он последний у карточки. Без этой проверки
+        # «Аланин» остался без единого key_sources: его единственный PMID
+        # (27797728) совпал с источником «Карнозина» и был выбран жертвой.
+        # Пустая карточка ломает test_sql.test_supplement_has_key_sources и
+        # контракт API (key_sources: minItems 1). Проверено 19.10.2026.
+        safe = [
+            pos for pos in nonmanual
+            if len(data[pos[0]].get("key_sources") or []) > 1
+        ]
+        if not safe:
+            skipped_last.append((pmid, data[nonmanual[-1][0]]["id"]))
+            continue
         # Удаляем последнее вхождение на не-курируемой карточке.
-        ci, ei = nonmanual[-1]
+        ci, ei = safe[-1]
         victims.append((pmid, ci, ei, data[ci]["id"]))
 
     # Удаляем сгруппированно по карточкам в обратном порядке индексов записи,
@@ -71,16 +92,35 @@ def main() -> int:
             removed += 1
             removed_from.append((pmid, cid))
 
+    # Одноразовый скрипт: его результат уже применён к data.json (DATA-P2-16).
+    # Повторный запуск сегодня нашёл бы не 13, а 3 записи (часть дублей уже
+    # устранена) и молча переписал бы файл. Так уже случилось 19.10.2026:
+    # смоук-прогон удалил 3 живые записи (PMID 33295643 у S. boulardii,
+    # 39440586 и 35365361 у Медь) — их пришлось восстанавливать из HEAD.
+    # Поэтому число удалений сверяется ДО записи, и при расхождении скрипт
+    # выходит с кодом 1, НЕ трогая файл.
+    if removed != EXPECTED_REMOVED:
+        print(f"[!] ожидалось удалить {EXPECTED_REMOVED}, найдено {removed} — "
+              f"файл НЕ изменён (скрипт одноразовый, см. docstring)")
+        for pmid, cid in removed_from:
+            print(f"  would remove PMID {pmid} from card {cid}")
+        return 1
+
     # Записываем в том же формате: 2 пробела, ensure_ascii=False, завершающий \n.
+    # newline="\n" обязателен: Path.write_text в текстовом режиме превратил бы
+    # каждый \n в \r\n (Windows), а .gitattributes объявляет *.json eol=lf.
     DATA_JSON.write_text(
-        json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+        json.dumps(data, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+        newline="\n",
     )
     after = sum(len(c.get("key_sources") or []) for c in data)
     print(f"key_sources before={before} after={after} removed={removed}")
     for pmid, cid in removed_from:
         print(f"  removed PMID {pmid} from card {cid}")
+    for pmid, cid in skipped_last:
+        print(f"  SKIP PMID {pmid}: у карточки {cid} это последний key_sources")
     assert before - after == removed, "count mismatch"
-    assert removed == 13, f"ожидалось удалить 13 записей, удалено {removed}"
     return 0
 
 

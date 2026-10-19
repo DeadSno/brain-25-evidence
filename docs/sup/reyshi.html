@@ -140,12 +140,12 @@
     <div class="sup-section shop-section">
         <h2>🛒 Где купить</h2>
         <div class="shop-buttons">
-            <a href="https://market.yandex.ru/search?text=%D0%A0%D0%B5%D0%B9%D1%88%D0%B8%20%D0%BA%D0%B0%D0%BF%D1%81%D1%83%D0%BB%D1%8B" target="_blank" rel="noopener" class="shop-btn">Я.Маркет ↗</a>
-            <a href="https://www.ozon.ru/search/?text=%D0%A0%D0%B5%D0%B9%D1%88%D0%B8%20%D0%BA%D0%B0%D0%BF%D1%81%D1%83%D0%BB%D1%8B" target="_blank" rel="noopener" class="shop-btn">Ozon ↗</a>
-            <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%A0%D0%B5%D0%B9%D1%88%D0%B8%20%D0%BA%D0%B0%D0%BF%D1%81%D1%83%D0%BB%D1%8B" target="_blank" rel="noopener" class="shop-btn">WB ↗</a>
+            <a href="https://market.yandex.ru/search?text=%D0%A0%D0%B5%D0%B9%D1%88%D0%B8%20%D1%8D%D0%BA%D1%81%D1%82%D1%80%D0%B0%D0%BA%D1%82%20%28%D0%BF%D0%BE%D0%BB%D0%B8%D1%81%D0%B0%D1%85%D0%B0%D1%80%D0%B8%D0%B4%D1%8B/%D1%82%D1%80%D0%B8%D1%82%D0%B5%D1%80%D0%BF%D0%B5%D0%BD%D1%8B%29" target="_blank" rel="noopener" class="shop-btn">Я.Маркет ↗</a>
+            <a href="https://www.ozon.ru/search/?text=%D0%A0%D0%B5%D0%B9%D1%88%D0%B8%20%D1%8D%D0%BA%D1%81%D1%82%D1%80%D0%B0%D0%BA%D1%82%20%28%D0%BF%D0%BE%D0%BB%D0%B8%D1%81%D0%B0%D1%85%D0%B0%D1%80%D0%B8%D0%B4%D1%8B/%D1%82%D1%80%D0%B8%D1%82%D0%B5%D1%80%D0%BF%D0%B5%D0%BD%D1%8B%29" target="_blank" rel="noopener" class="shop-btn">Ozon ↗</a>
+            <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%A0%D0%B5%D0%B9%D1%88%D0%B8%20%D1%8D%D0%BA%D1%81%D1%82%D1%80%D0%B0%D0%BA%D1%82%20%28%D0%BF%D0%BE%D0%BB%D0%B8%D1%81%D0%B0%D1%85%D0%B0%D1%80%D0%B8%D0%B4%D1%8B/%D1%82%D1%80%D0%B8%D1%82%D0%B5%D1%80%D0%BF%D0%B5%D0%BD%D1%8B%29" target="_blank" rel="noopener" class="shop-btn">WB ↗</a>
         </div>
         <div class="shop-look">
-            <strong>Что искать при покупке:</strong> Ищите форму «капсулы» на этикетке, проверяйте дозировку и наличие сертификата качества (GMP/ISO).
+            <strong>Что искать при покупке:</strong> Ищите форму «экстракт (полисахариды/тритерпены)» на этикетке, проверяйте дозировку и наличие сертификата качества (GMP/ISO).
         </div>
     </div>
     
@@ -197,7 +197,7 @@
 
     <div class="sup-section">
         <h2>Формы выпуска</h2>
-        <p>капсулы</p>
+        <p>экстракт (полисахариды/тритерпены)</p>
     </div>
 
     <div class="sup-section">
@@ -316,8 +316,8 @@ document.addEventListener('DOMContentLoaded', function () {
   var btn = document.getElementById('citeBtn');
   var tip = document.getElementById('citeTooltip');
   if(!btn) return;
-  var name = Рейши;
-  var url = https://deadsno.github.io/brain-25-evidence/sup/reyshi.html;
+  var name = "Рейши";
+  var url = "https://deadsno.github.io/brain-25-evidence/sup/reyshi.html";
   btn.onclick = function(){
     var text = 'brain-25-evidence. (2026). ' + name + '. Retrieved from ' + url;
     if(navigator.clipboard && navigator.clipboard.writeText){
@@ -335,7 +335,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var btn = document.getElementById('ttsBtn');
   if(!btn) return;
   if(!window.speechSynthesis){ btn.style.display = 'none'; return; }
-  var name = Рейши;
+  var name = "Рейши";
   var effects = ["Сон/иммунитет: не подтверждён у людей"];
   btn.onclick = function(){
     var ttsLang = 'ru';
@@ -347,18 +347,29 @@ document.addEventListener('DOMContentLoaded', function () {
   };
 })();
 
-// Кнопка «🎲 Удиви меня»: случайная добавка из data.json
+// Кнопка «🎲 Удиви меня»: случайная добавка из каталога.
+// Список страниц берём из sitemap.xml — там уже готовые URL по slug
+// (sup/magniy.html). Раньше здесь собирались d.id из data.json и
+// открывался 'sup/' + id + '.html'; id — отображаемое имя (кириллица),
+// а файлы называются по slug, плюс на этой странице добавлялся лишний
+// префикс sup/, потому что страница уже лежит в sup/. Кнопка вела на
+// 404 всегда. slugify живёт в Python (scripts/build_sup.py) и в JS
+// не дублируется.
 (function(){
   var btn = document.getElementById('randomBtn');
   if(!btn) return;
-  var dataUrl = new URL('../data.json', location.href).href;
+  var sitemapUrl = new URL('../sitemap.xml', location.href).href;
   btn.onclick = function(){
-    fetch(dataUrl).then(function(r){ return r.json(); }).then(function(data){
-      var ids = data.map(function(d){ return d.id; }).filter(Boolean);
-      if(!ids.length) return;
-      var id = ids[Math.floor(Math.random() * ids.length)];
-      location.href = 'sup/' + id + '.html';
-    }).catch(function(){ console.warn('[random] не удалось загрузить data.json'); });
+    fetch(sitemapUrl).then(function(r){ return r.text(); }).then(function(xml){
+      var doc = new DOMParser().parseFromString(xml, 'application/xml');
+      var urls = [];
+      doc.querySelectorAll('url > loc').forEach(function(node){
+        var u = (node.textContent || '').trim();
+        if(/\/sup\/[^/]+\.html$/.test(u) && !/\/sup\/index\.html$/.test(u)) urls.push(u);
+      });
+      if(!urls.length){ console.warn('[random] в sitemap.xml нет страниц добавок'); return; }
+      location.href = urls[Math.floor(Math.random() * urls.length)];
+    }).catch(function(err){ console.warn('[random] не удалось загрузить sitemap.xml', err); });
   };
 })();
 </script>

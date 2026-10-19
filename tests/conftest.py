@@ -1,5 +1,4 @@
 """Общие фикстуры для тестов brain-25-evidence."""
-import os
 import subprocess
 import sys
 from pathlib import Path
@@ -12,101 +11,24 @@ sys.path.insert(0, str(ROOT))
 DB_PATH = ROOT / "data" / "db" / "brain.duckdb"
 
 
-def pytest_collection_modifyitems(config, items):
-    """Выключить браузерные e2e и визуальные снапшоты по умолчанию.
-
-    Гейты висят на переменной окружения, а НЕ на `-m` в addopts: `-m`,
-    переданный в командной строке, ПЕРЕКРЫВАЕТ addopts. Это не теория,
-    измерено на этой копии:
-
-        pytest --collect-only -q                    -> 754/791 (37 deselected)
-        pytest --collect-only -q -m "not e2e"       -> 789/791 (2 deselected)
-
-    То есть с `-m "not snapshots"` в addopts любая другая `-m` в командной
-    строке (а такая команда есть в инструкциях проекта) возвращала 37
-    тяжёлых тестов и превращала быстрый прогон в 100-секундный.
-
-    Снапшоты — самые тяжёлые тесты в проекте: 37 попиксельных сравнений PNG
-    против эталонов, полный прогон ~100 с против ~4 с без них. Для быстрых
-    коммитов они не нужны, для миграции дизайн-системы — обязательны.
-
-    Включать каждый гейт своей переменной, гейты независимы:
-
-        $env:RUN_SNAPSHOTS="1"; pytest -q -m snapshots
-        $env:RUN_A11Y="1";      pytest -q -m a11y
-        $env:RUN_TABS="1";      pytest -q -m tabs
-        $env:RUN_GRAPH="1";     pytest -q -m graph
-        $env:RUN_E2E="1";       pytest -q -m e2e
-
-    Тесты доступности (tests/test_a11y_axe.py) несут только маркер `a11y` и
-    фильтруются отдельно: им тоже нужен браузер и сервер, но команда запуска
-    своя. Раньше они несли оба маркера, и фильтр по `snapshots` отбрасывал их
-    — замерено: `RUN_A11Y=1 pytest -m a11y` давал «754 deselected, 0
-    selected», то есть гейт был зелёным вхолостую. Пересечения больше нет.
-
-    v5.6.3 (волна R1): выключение через `items[:] = [...]` снимало тесты из
-    прогона МОЛЧА. `pytest -q` показывал «878 passed, 2 skipped» и ни словом
-    не упоминал, что 199 тестов (18.5%) даже не собирались — ровно тот
-    случай, который scripts/check_snapshot_run.py уже ловит для другой
-    причины («74 skipped выглядит как успех»). Теперь те же гейты вешают
-    `skip` с текстом «как включить», и в отчёте видно «201 skipped», а `-rs`
-    печатает причину. Скорость не изменилась: skip, как и deselect, не
-    выполняет тело теста.
-    """
-    if os.environ.get("RUN_E2E") == "1":
-        pass  # e2e-гейт ниже
-    else:
-        skip = pytest.mark.skip(
-            reason="e2e выключены по умолчанию (долгий прогон, нужен браузер). "
-                   "Запуск: RUN_E2E=1 pytest -q -m e2e"
-        )
-        for item in items:
-            if "e2e" in item.keywords:
-                item.add_marker(skip)
-
-    # Гейты по маркерам. Каждый включается своей переменной; все выключены
-    # по умолчанию. Снятие маркировки через `items[:] = [...]` молча убирало
-    # тесты из отчёта, поэтому здесь skip с явным текстом — иначе «199 тестов
-    # не выполняются» не видно ни в одном выводе.
-    #
-    #   RUN_SNAPSHOTS=1 -> только снапшоты
-    #   RUN_A11Y=1      -> только доступность
-    #   RUN_TABS=1      -> клик по вкладкам
-    #   RUN_GRAPH=1     -> экспорт PNG и раскладка графа
-    #
-    # e2e уже был skip-ом выше и в этот список не входит.
-    for marker, env_var, command in (
-        (
-            "snapshots", "RUN_SNAPSHOTS",
-            'снапшоты выключены по умолчанию (попиксельные PNG, ~100 с против '
-            '~4 с). Запуск: $env:RUN_SNAPSHOTS="1"; pytest -q -m snapshots',
-        ),
-        (
-            "a11y", "RUN_A11Y",
-            'a11y-тесты выключены по умолчанию (нужен браузер и сервер). '
-            'Запуск: $env:RUN_A11Y="1"; pytest -q -m a11y',
-        ),
-        (
-            "tabs", "RUN_TABS",
-            'tabs выключены по умолчанию (нужен живой сервер :8000 и браузеры '
-            'Playwright). Запуск: $env:RUN_TABS="1"; pytest -q -m tabs',
-        ),
-        (
-            "graph", "RUN_GRAPH",
-            'graph выключены по умолчанию (нужен живой сервер :8000 и браузеры '
-            'Playwright). Запуск: $env:RUN_GRAPH="1"; pytest -q -m graph',
-        ),
-        (
-            "mobile375", "RUN_MOBILE",
-            'mobile375 выключены по умолчанию (нужен живой сервер :8000 и браузеры '
-            'Playwright). Запуск: $env:RUN_MOBILE="1"; pytest -q -m mobile375',
-        ),
-    ):
-        if not os.environ.get(env_var):
-            skip_marker = pytest.mark.skip(reason=command)
-            for item in items:
-                if marker in item.keywords:
-                    item.add_marker(skip_marker)
+# ─────────────── Гейты по переменным окружения: УДАЛЕНЫ (v5.6.5) ───────────────
+#
+# До v5.6.5 здесь был pytest_collection_modifyitems, который вешал skip по
+# переменным окружения: RUN_SNAPSHOTS / RUN_A11Y / RUN_TABS / RUN_GRAPH /
+# RUN_MOBILE / RUN_E2E. `pytest -q` показывал 235-262 skipped и выглядел
+# успешным, хотя браузерные тесты (snapshots, a11y, tabs, graph, mobile375,
+# e2e) не выполнялись вовсе — та же ловушка «N skipped выглядит как успех»,
+# которую scripts/check_snapshot_run.py уже ловит для другой причины.
+#
+# Теперь гейтов НЕТ: `pytest -q` запускает всё. Сервер :8000 поднимает
+# autouse-фикстура live_server (для всех браузерных тестов), общий
+# sync_playwright() на сессию даёт playwright_instance.
+#
+# Подмножества задаются обычным `-m` (маркеры описаны в pytest.ini):
+#   pytest -q -m snapshots
+#   pytest -q -m "not (snapshots or a11y or tabs or graph or mobile375 or e2e)"
+#
+# Маркеры `network` нет и не было нужды: ни один тест в tests/ не ходит в сеть.
 
 
 @pytest.fixture(scope="session")
@@ -192,21 +114,56 @@ def db_conn():
 # ──────────────────────────── live_server ─────────────────────────────
 #
 # Session-фикстура, поднимающая локальный http.server на :8000 с корнем
-# docs/. Включается только при RUN_SNAPSHOTS=1, чтобы визуальные/браузерные
-# тесты (снапшоты, tabs, graph, mobile) не скипались на отсутствие сервера
-# и сравнивали страницы ИМЕННО этого репозитория.
+# docs/. Безусловная (autouse): визуальные/браузерные тесты (снапшоты, a11y,
+# tabs, graph, mobile375) ходят на http://localhost:8000 и сравнивают
+# страницы ИМЕННО этого репозитория.
 #
-# Использование:
-#   $env:RUN_SNAPSHOTS="1"; pytest -q -m snapshots   # сервер поднимется сам
+# До v5.6.5 сервер поднимался только при RUN_SNAPSHOTS=1, поэтому остальные
+# браузерные гейты оставались скипнутыми по причине «нет сервера», хотя
+# сервер им нужен ровно тот же.
 #
 # Порт 8000 фиксирован: все браузерные тесты ожидают SNAPSHOT_BASE_URL
 # http://localhost:8000 (константа BASE_URL в test_*.py).
 
 
+def _serves_this_repo(port: int = 8000, timeout: float = 2.0) -> bool:
+    """На :8000 уже отдаётся docs/ ИМЕННО этого репозитория?
+
+    Сверяется sha256 style.css — тот же признак, что в _check_server() у
+    браузерных тестов. Без сверки чужой сервер на :8000 заставил бы
+    live_server молча пропустить старт, а тесты проверяли бы не тот код.
+    """
+    import hashlib
+    import urllib.request
+
+    local = ROOT / "docs" / "style.css"
+    if not local.exists():
+        return False
+    try:
+        with urllib.request.urlopen(
+            f"http://localhost:{port}/style.css", timeout=timeout
+        ) as resp:
+            served = resp.read()
+    except Exception:  # noqa: BLE001 — любой сбой = «не наш сервер»
+        return False
+    return hashlib.sha256(served).hexdigest() == hashlib.sha256(
+        local.read_bytes()).hexdigest()
+
+
 @pytest.fixture(scope="session", autouse=True)
 def live_server():
-    if os.environ.get("RUN_SNAPSHOTS") != "1":
-        yield
+    """Поднять http.server :8000 на docs/ для всех браузерных тестов.
+
+    Безусловная: снапшоты, a11y, tabs, graph и mobile375 ходят на
+    http://localhost:8000, и раньше сервер поднимался только при
+    RUN_SNAPSHOTS=1 — остальные гейты оставались красными/скипнутыми по
+    причине «нет сервера», хотя сервер им нужен ровно тот же.
+
+    Если :8000 уже отдаёт docs/ этого репозитория — используется он
+    (повторный http.server упал бы на занятом порту).
+    """
+    if _serves_this_repo():
+        yield None
         return
     proc = subprocess.Popen(
         [sys.executable, "-m", "http.server", "8000"],
@@ -222,3 +179,21 @@ def live_server():
             proc.wait(timeout=10)
         except subprocess.TimeoutExpired:
             proc.kill()
+
+
+@pytest.fixture(scope="session")
+def playwright_instance():
+    """Один sync_playwright() на всю сессию — для ВСЕХ браузерных тестов.
+
+    Раньше каждый модуль (snapshots, a11y, tabs, graph, mobile375) открывал
+    свой session-scoped `sync_playwright()`. Два таких контекста не живут
+    одновременно: второй __enter__ видит работающий event loop первого и
+    бросает `Error: It looks like you are using Playwright Sync API inside
+    the asyncio loop`. Из-за этого при прогоне нескольких гейтов вместе
+    падали все тесты второго модуля — измерено: 90 errors на
+    `-m "tabs or graph or mobile375"`.
+    """
+    playwright_api = pytest.importorskip(
+        "playwright.sync_api", reason="playwright не установлен")
+    with playwright_api.sync_playwright() as pw:
+        yield pw

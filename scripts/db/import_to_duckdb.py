@@ -3,7 +3,11 @@
 Читает:
     docs/data.json         — 130 карточек
     data/papers/papers.json — 37 618 papers (опционально)
+    data/papers/papers_slim.json.gz — тот же корпус, если papers.json нет
+                                      (slim — единственный оставшийся источник:
+                                       абстрактов в нём нет)
     reports/coi_report.json — COI для 6 310 papers
+    reports/coi_per_paper.json — per-paper COI (нужен для таблицы coi)
 
 Создаёт:
     data/db/brain.duckdb   — аналитическая БД
@@ -22,6 +26,10 @@ import duckdb
 ROOT = Path(__file__).resolve().parents[2]
 DATA_JSON = ROOT / "docs" / "data.json"
 PAPERS_JSON = ROOT / "data" / "papers" / "papers.json"
+# v5.6.5: papers.json удалён из репозитория (остался сжатый papers_slim.json.gz).
+# Без него таблица `paper` была пуста, а `coi` не импортировался вовсе (FK на
+# paper.pmid) — три теста в tests/test_sql.py скипались «таблица coi пуста».
+PAPERS_SLIM_GZ = ROOT / "data" / "papers" / "papers_slim.json.gz"
 COI_JSON = ROOT / "reports" / "coi_report.json"
 COI_PER_PAPER = ROOT / "reports" / "coi_per_paper.json"
 SCHEMA_SQL = ROOT / "scripts" / "db" / "schema.sql"
@@ -142,24 +150,45 @@ def import_supplements(con: duckdb.DuckDBPyConnection) -> int:
 
 
 def import_papers(con: duckdb.DuckDBPyConnection) -> int:
-    if not PAPERS_JSON.exists():
-        print("[SKIP] papers.json не найден")
+    """Импорт корпуса статей: papers.json, иначе papers_slim.json.gz.
+
+    v5.6.5: papers.json в репозитории больше нет, поэтому раньше функция
+    печатала `[SKIP]` и возвращала 0. Из-за пустой таблицы `paper`
+    import_coi() отбрасывал ВСЕ записи (у coi внешний ключ на paper.pmid) —
+    итог: coi 0 строк и три скипнутых теста в tests/test_sql.py.
+    У slim-корпуса нет поля abstract — колонка заполняется пустой строкой,
+    остальные семь колонок схемы на месте.
+    """
+    papers = None
+    if PAPERS_JSON.exists():
+        papers = json.loads(PAPERS_JSON.read_text(encoding="utf-8"))
+        source = PAPERS_JSON.name
+    elif PAPERS_SLIM_GZ.exists():
+        import gzip
+
+        with gzip.open(PAPERS_SLIM_GZ, "rt", encoding="utf-8") as fh:
+            papers = json.load(fh)
+        source = PAPERS_SLIM_GZ.name
+    else:
+        print("[SKIP] ни papers.json, ни papers_slim.json.gz не найдены")
         return 0
-    papers = json.loads(PAPERS_JSON.read_text(encoding="utf-8"))
-    print(f"Papers в источнике: {len(papers)}")
+
+    if not isinstance(papers, dict):
+        # papers.json исторически список; приводим к словарю по pmid
+        papers = {str(p.get("pmid")): p for p in papers if p.get("pmid")}
+    print(f"Papers в источнике ({source}): {len(papers)}")
 
     rows = []
-    if isinstance(papers, dict):
-        for pmid, p in papers.items():
-            rows.append((
-                str(pmid),
-                p.get("pmcid"),
-                p.get("doi"),
-                p.get("title", "")[:1000],
-                p.get("year"),
-                (p.get("journal") or "")[:200],
-                (p.get("abstract") or "")[:5000],
-            ))
+    for pmid, p in papers.items():
+        rows.append((
+            str(pmid),
+            p.get("pmcid"),
+            p.get("doi"),
+            (p.get("title") or "")[:1000],
+            p.get("year"),
+            (p.get("journal") or "")[:200],
+            (p.get("abstract") or "")[:5000],
+        ))
     if rows:
         con.executemany(
             "INSERT INTO paper (pmid, pmcid, doi, title, year, journal, abstract) VALUES (?,?,?,?,?,?,?)",

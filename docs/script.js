@@ -486,7 +486,12 @@ function initApp() {
   });
 
   $('resetFilters').addEventListener('click', () => {
-    const row = $('favFilter').parentElement;
+    // v5.6.5: чистим всю панель #controls, а не только ряд кнопок.
+    // Раньше row = $('favFilter').parentElement (.filter-actions), а в нём
+    // одни кнопки — ни #search, ни #verdictFilter, ни #sortSelect не
+    // сбрасывались, и «Сбросить фильтры» не возвращал карточки после
+    // поиска. Найдено тестом test_ui_verify (сброс не вернул карточки).
+    const row = $('controls');
     row.querySelectorAll('input').forEach(i => { i.value = ''; });
     row.querySelectorAll('select').forEach(s => { s.selectedIndex = 0; });
     onlyFavs = false;
