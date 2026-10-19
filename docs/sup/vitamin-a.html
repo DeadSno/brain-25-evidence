@@ -78,15 +78,18 @@
         <span class="verdict">— зависит от контекста</span>
     </div>
 
+    
     <div class="sup-meta">
         
-        <span class="pmidBadge" title="3 источников в PubMed">
-            🔬 <a href="https://pubmed.ncbi.nlm.nih.gov/?term=35365361" target="_blank" rel="noopener">3 в PubMed</a>
-        </span>
+        <a href="https://pubmed.ncbi.nlm.nih.gov/?term=35365361" target="_blank" rel="noopener" class="pmid-badge">
+            🔬 3 источника в PubMed
+        </a>
         
-        <button class="btn cmpAdd" type="button" data-cmp="vitamin-a">+ Сравнить</button>
-        <span class="cmpAdded">✓ в сравнении</span>
+        
+        <button class="btn cmp-add" data-cmp="vitamin-a" type="button">+ Сравнить</button>
+        
     </div>
+    
 
     <div class="sup-section">
         <h2>О добавке</h2>
@@ -128,21 +131,30 @@
 
     <div class="sup-section">
         <h2>Дозировка</h2>
-        <p><b>Стандартная доза:</b> Нет данных</p>
+        <p><b>Стандартная доза:</b> В абстрактах дозировки БАД не приведены — назначают по статусу/дефициту.</p>
         <p><b>Курс:</b> Курс по подтверждённому дефициту с повторной оценкой статуса (ESPEN 2022).</p>
         <p><b>Верхний предел:</b> не установлен (в абстрактах не приводится; жирорастворимый — токсичность возможна)</p>
     </div>
 
-    <div class="sup-section">
-        <h2>Где купить</h2>
-        <p><b>Что искать при покупке:</b> Ищите форму «ретинол» на этикетке, проверяйте дозировку и наличие сертификата качества (GMP/ISO).</p>
-        <div class="shops">
-            <a href="https://market.yandex.ru/search?text=%D0%92%D0%B8%D1%82%D0%B0%D0%BC%D0%B8%D0%BD%20A%20%D1%80%D0%B5%D1%82%D0%B8%D0%BD%D0%BE%D0%BB" class="shop" target="_blank" rel="noopener">Я.Маркет</a>
-            <a href="https://www.ozon.ru/search/?text=%D0%92%D0%B8%D1%82%D0%B0%D0%BC%D0%B8%D0%BD%20A%20%D1%80%D0%B5%D1%82%D0%B8%D0%BD%D0%BE%D0%BB" class="shop" target="_blank" rel="noopener">Ozon</a>
-            <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%92%D0%B8%D1%82%D0%B0%D0%BC%D0%B8%D0%BD%20A%20%D1%80%D0%B5%D1%82%D0%B8%D0%BD%D0%BE%D0%BB" class="shop" target="_blank" rel="noopener">Wildberries</a>
+    
+    <div class="sup-section shop-section">
+        <h2>🛒 Где купить</h2>
+        <div class="shop-buttons">
+            <a href="https://market.yandex.ru/search?text=%D0%92%D0%B8%D1%82%D0%B0%D0%BC%D0%B8%D0%BD%20A" target="_blank" rel="noopener" class="shop-btn">Я.Маркет ↗</a>
+            <a href="https://www.ozon.ru/search/?text=%D0%92%D0%B8%D1%82%D0%B0%D0%BC%D0%B8%D0%BD%20A" target="_blank" rel="noopener" class="shop-btn">Ozon ↗</a>
+            <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%92%D0%B8%D1%82%D0%B0%D0%BC%D0%B8%D0%BD%20A" target="_blank" rel="noopener" class="shop-btn">WB ↗</a>
+        </div>
+        <div class="shop-look">
+            <strong>Что искать при покупке:</strong> Обратите внимание на форму выпуска, дозировку и сертификаты качества перед покупкои.
         </div>
     </div>
+    
 
+    
+    <div class="sup-section unknowns-section">
+        <h2>🔍 Что мы не знаем</h2>
+        <p>нет данных о формах выпуска</p>
+    </div>
     
 
     <div class="sup-section">
@@ -175,11 +187,6 @@
             <div class="src-title">Food Insecurity and Micronutrient Deficiency in Adults: A Systematic Review and Meta-Analysis.</div>
             <div class="src-meta">Nutrients · 2023 · <a href="https://pubmed.ncbi.nlm.nih.gov/36904074/" target="_blank" rel="noopener">PMID: 36904074</a> | DOI: <a href="https://doi.org/10.3390/nu15051074">10.3390/nu15051074</a></div>
         </div>
-    </div>
-
-    <div class="sup-section">
-        <h2>Формы выпуска</h2>
-        <p>ретинол, бета-каротин</p>
     </div>
 
     <div class="sup-section">
@@ -231,23 +238,6 @@ document.addEventListener('DOMContentLoaded', function () {
     b.textContent = on ? t("theme.dark") : t("theme.light");
     localStorage.setItem('theme', on ? 'light' : 'dark');
   };
-
-  // '+ Сравнить' — сохранить слаг в localStorage.compareIds, краткая обратная связь.
-  document.querySelectorAll('.cmpAdd').forEach(function (bb) {
-    bb.onclick = function () {
-      var id = bb.getAttribute('data-cmp');
-      try {
-        var ids = JSON.parse(localStorage.getItem('compareIds') || '[]');
-        if (!ids.includes(id)) {
-          ids.push(id);
-          localStorage.setItem('compareIds', JSON.stringify(ids));
-        }
-      } catch (e) {}
-      bb.textContent = '✓ в сравнении';
-      var self = bb;
-      setTimeout(function () { self.textContent = '+ Сравнить'; }, 1500);
-    };
-  });
 });
 </script>
 
@@ -268,5 +258,23 @@ document.addEventListener('DOMContentLoaded', function () {
 <script src="../cookie-banner.js?v=1"></script>
 <script src="../metrika.js?v=1"></script>
 <script>initCookieBanner();</script>
+<script>
+// Кнопка «+ Сравнить»: сохраняет id добавки в localStorage (ключ compareIds).
+(function () {
+  var btn = document.querySelector('.cmp-add');
+  if (!btn) return;
+  var id = btn.getAttribute('data-cmp');
+  btn.addEventListener('click', function () {
+    var arr = [];
+    try { arr = JSON.parse(localStorage.getItem('compareIds') || '[]'); } catch (e) {}
+    if (!arr.includes(id)) {
+      arr.push(id);
+      localStorage.setItem('compareIds', JSON.stringify(arr));
+    }
+    btn.textContent = '✓ в сравнении';
+    btn.disabled = true;
+  });
+})();
+</script>
 </body>
 </html>

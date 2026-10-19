@@ -96,15 +96,18 @@
         <span class="verdict">— {{ verdict }}</span>
     </div>
 
+    {% if pmid_count or shop_query %}
     <div class="sup-meta">
-        {% if key_sources %}
-        <span class="pmidBadge" title="{{ pmid_count }} источников в PubMed">
-            🔬 <a href="https://pubmed.ncbi.nlm.nih.gov/?term={{ pmid_first }}" target="_blank" rel="noopener">{{ pmid_count }} в PubMed</a>
-        </span>
+        {% if pmid_count %}
+        <a href="https://pubmed.ncbi.nlm.nih.gov/?term={{ pmid_first }}" target="_blank" rel="noopener" class="pmid-badge">
+            🔬 {{ pmid_count }} {{ 'источник' if pmid_count == 1 else 'источника' if pmid_count < 5 else 'источников' }} в PubMed
+        </a>
         {% endif %}
-        <button class="btn cmpAdd" type="button" data-cmp="{{ slug }}">+ Сравнить</button>
-        <span class="cmpAdded">✓ в сравнении</span>
+        {% if shop_query %}
+        <button class="btn cmp-add" data-cmp="{{ slug }}" type="button">+ Сравнить</button>
+        {% endif %}
     </div>
+    {% endif %}
 
     <div class="sup-section">
         <h2>О добавке</h2>
@@ -141,23 +144,24 @@
         <p><b>Верхний предел:</b> {{ upper_limit }}</p>
     </div>
 
-    <div class="sup-section">
-        <h2>Где купить</h2>
-        <p><b>Что искать при покупке:</b> {{ shop_look_text }}</p>
-        <div class="shops">
-            <a href="https://market.yandex.ru/search?text={{ shop_query }}" class="shop" target="_blank" rel="noopener">Я.Маркет</a>
-            <a href="https://www.ozon.ru/search/?text={{ shop_query }}" class="shop" target="_blank" rel="noopener">Ozon</a>
-            <a href="https://www.wildberries.ru/catalog/0/search.aspx?search={{ shop_query }}" class="shop" target="_blank" rel="noopener">Wildberries</a>
+    {% if shop_query %}
+    <div class="sup-section shop-section">
+        <h2>🛒 Где купить</h2>
+        <div class="shop-buttons">
+            <a href="https://market.yandex.ru/search?text={{ shop_query }}" target="_blank" rel="noopener" class="shop-btn">Я.Маркет ↗</a>
+            <a href="https://www.ozon.ru/search/?text={{ shop_query }}" target="_blank" rel="noopener" class="shop-btn">Ozon ↗</a>
+            <a href="https://www.wildberries.ru/catalog/0/search.aspx?search={{ shop_query }}" target="_blank" rel="noopener" class="shop-btn">WB ↗</a>
+        </div>
+        <div class="shop-look">
+            <strong>Что искать при покупке:</strong> {{ shop_look_text }}
         </div>
     </div>
+    {% endif %}
 
-    {% if unknowns_text %}
-    <div class="sup-section">
-        <h2>Что мы не знаем</h2>
+    {% if unknowns %}
+    <div class="sup-section unknowns-section">
+        <h2>🔍 Что мы не знаем</h2>
         <p>{{ unknowns_text }}</p>
-        <ul>
-        {% for u in unknowns %}<li>{{ u }}</li>{% endfor %}
-        </ul>
     </div>
     {% endif %}
 
@@ -248,23 +252,6 @@ document.addEventListener('DOMContentLoaded', function () {
     b.textContent = on ? t("theme.dark") : t("theme.light");
     localStorage.setItem('theme', on ? 'light' : 'dark');
   };
-
-  // '+ Сравнить' — сохранить слаг в localStorage.compareIds, краткая обратная связь.
-  document.querySelectorAll('.cmpAdd').forEach(function (bb) {
-    bb.onclick = function () {
-      var id = bb.getAttribute('data-cmp');
-      try {
-        var ids = JSON.parse(localStorage.getItem('compareIds') || '[]');
-        if (!ids.includes(id)) {
-          ids.push(id);
-          localStorage.setItem('compareIds', JSON.stringify(ids));
-        }
-      } catch (e) {}
-      bb.textContent = '✓ в сравнении';
-      var self = bb;
-      setTimeout(function () { self.textContent = '+ Сравнить'; }, 1500);
-    };
-  });
 });
 </script>
 
@@ -285,5 +272,23 @@ document.addEventListener('DOMContentLoaded', function () {
 <script src="../cookie-banner.js?v=1"></script>
 <script src="../metrika.js?v=1"></script>
 <script>initCookieBanner();</script>
+<script>
+// Кнопка «+ Сравнить»: сохраняет id добавки в localStorage (ключ compareIds).
+(function () {
+  var btn = document.querySelector('.cmp-add');
+  if (!btn) return;
+  var id = btn.getAttribute('data-cmp');
+  btn.addEventListener('click', function () {
+    var arr = [];
+    try { arr = JSON.parse(localStorage.getItem('compareIds') || '[]'); } catch (e) {}
+    if (!arr.includes(id)) {
+      arr.push(id);
+      localStorage.setItem('compareIds', JSON.stringify(arr));
+    }
+    btn.textContent = '✓ в сравнении';
+    btn.disabled = true;
+  });
+})();
+</script>
 </body>
 </html>

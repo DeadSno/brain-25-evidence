@@ -821,8 +821,21 @@ window.addEventListener('scroll', () => {
   // Обёртка setMode: при переключении на таб graph — инициализировать граф.
   var _setMode = window.setMode;
   window.setMode = function (mode) {
+    var prev = document.querySelector('.tr-tabs [role="tab"].active')?.dataset.mode || parseLocation();
     _setMode(mode);
-    if (mode === 'graph') initGraph();
+    if (mode === 'graph') {
+      initGraph();
+      // При возврате на graph после mech/sups/drugs контейнер был скрыт —
+      // подгоним сеть, чтобы холст не оставался пустым.
+      if (network && typeof network.fit === 'function') {
+        network.fit();
+      }
+    }
+    // Уход с graph: уничтожить сеть и обнулить ссылку.
+    if (prev === 'graph' && mode !== 'graph' && network) {
+      network.destroy();
+      network = null;
+    }
   };
 
   // Автостарт при загрузке, если активен таб graph (он активен по умолчанию).
@@ -1307,8 +1320,14 @@ window.addEventListener('scroll', () => {
   // ── Обёртка setMode (цепляется последней, после graph и sups/drugs) ───
   var _setMode3 = window.setMode;
   window.setMode = function (mode) {
+    var prev = document.querySelector('.tr-tabs [role="tab"].active')?.dataset.mode || parseLocation();
     _setMode3(mode);
     if (mode === 'mech') initMech();
+    // Уход с mech: уничтожить сеть и обнулить ссылку.
+    if (prev === 'mech' && mode !== 'mech' && network) {
+      network.destroy();
+      network = null;
+    }
   };
 
   (function wire() {

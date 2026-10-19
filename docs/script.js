@@ -793,7 +793,7 @@ function renderCards(data) {
     };
     // v5.6.2 батч C (T3): карточка — div с onclick, без него она
     // недостижима с клавиатуры: ни Enter, ни Пробел ничего не делали.
-    // Роли не назначаем — div-карточка не диалог и не ссылка.
+    // Роли не назначаем — div-карточка не ссылка.
     el.onkeydown = (e) => {
       if (e.key !== 'Enter' && e.key !== ' ') return;
       if (e.target.closest('a, button')) return;   // свои элементы обработают сами
