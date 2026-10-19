@@ -430,23 +430,23 @@ def _check_server() -> None:
 
 
 @pytest.fixture(scope="session", params=BROWSERS, ids=lambda b: b)
-def browser(request):
+def browser(request, playwright_instance):
     """Движок Playwright. Параметризована, поэтому каждый тест, который
     берёт browser, прогоняется по всем движкам. Имя движка доступно как
     browser.name — по нему выбирается каталог эталонов."""
     engine = request.param
-    with playwright_api.sync_playwright() as pw:
-        try:
-            b = getattr(pw, engine).launch()
-        except Exception as exc:  # noqa: BLE001 — причина попадёт в текст skip
-            pytest.skip(f"{engine} не запускается: {exc}. "
-                        f"Поставь: playwright install {engine}")
-        # У Browser из sync_api нет .name/.browser_name, а имя движка нужно
-        # фикстуре snap_dir. Вешаем своё: у объекта нет __slots__, аутентичное
-        # поле Playwright не даёт.
-        b.engine = engine
-        yield b
-        b.close()
+    pw = playwright_instance
+    try:
+        b = getattr(pw, engine).launch()
+    except Exception as exc:  # noqa: BLE001 — причина попадёт в текст skip
+        pytest.skip(f"{engine} не запускается: {exc}. "
+                    f"Поставь: playwright install {engine}")
+    # У Browser из sync_api нет .name/.browser_name, а имя движка нужно
+    # фикстуре snap_dir. Вешаем своё: у объекта нет __slots__, аутентичное
+    # поле Playwright не даёт.
+    b.engine = engine
+    yield b
+    b.close()
 
 
 @pytest.fixture(scope="session")

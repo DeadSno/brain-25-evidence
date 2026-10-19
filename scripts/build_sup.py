@@ -177,6 +177,30 @@ def json_val(value) -> Markup:
     return Markup(json.dumps(text(value), ensure_ascii=False)[1:-1])
 
 
+def js_str(value) -> Markup:
+    """Строковый ЛИТЕРАЛ для встраиваемого JavaScript — кавычки внутри.
+
+    Отличие от json_val(): тот отдаёт содержимое строки без кавычек,
+    потому что вставляется в уже закавыченное место (JSON-LD, `"key": "…"`).
+    В JS-выражении `var name = {{ … }};` кавычки нужны, и раньше их не
+    было вовсе — в каждую из 131 страницы sup/ уезжал код
+
+        var url = https://deadsno.github.io/brain-25-evidence/sup/magniy.html;
+
+    то есть голый URL вне кавычек. Это SyntaxError, и он убивал весь
+    инлайновый <script> целиком (кнопки «Цитировать», «Прослушать»,
+    «Удиви меня» на странице не работали), при этом ни один тест не
+    падал: tests/test_js_syntax.py проверяет только docs/*.js, а не
+    скрипты внутри HTML.
+
+    `<`, `>` и `&` дополнительно уводятся в \\uXXXX: без этого строка,
+    содержащая `</script`, закрыла бы тег раньше времени.
+    """
+    s = json.dumps(text(value), ensure_ascii=False)
+    return Markup(s.replace("<", "\\u003c").replace(">", "\\u003e")
+                   .replace("&", "\\u0026"))
+
+
 def first_cap(s: str) -> str:
     return s[:1].upper() + s[1:] if s else s
 
@@ -442,6 +466,13 @@ def build_context(rec: dict, slug: str, warnings: list[str]) -> dict:
         # Отдельные значения для JSON-LD: там нужно экранирование JSON,
         # а не HTML, иначе &gt; внутри JSON-строки испортит файл.
         "name_j": json_val(rec.get("name")),
+        # Строковые литералы для встраиваемого JS: с кавычками и с
+        # уводом `<`/`>`/`&`, чтобы содержимое нельзя было вынести из
+        # <script> и чтобы `var name = …` был валидным JS. Раньше здесь
+        # стоял name_j без кавычек и голый url — оба давали SyntaxError
+        # в каждой из 131 страницы (см. js_str в этом файле).
+        "name_js": js_str(rec.get("name")),
+        "url_js": js_str(f"{BASE_URL}/sup/{slug}.html"),
         # JSON-LD description — дословная копия meta/og description, тот же
         # канон, что завели для og:* и twitter:* в MKT-P2-09/10. Раньше здесь
         # стояло about_j (сырое поле about), из-за чего на 94 страницах из 144

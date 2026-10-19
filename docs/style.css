@@ -2687,7 +2687,11 @@ html.light #cookieBanner { box-shadow: var(--shadow-pop-light); }
   margin-top: var(--space-2);
   font-size: 0.78rem;
 }
-.placebo-label { color: var(--amut, #666); white-space: nowrap; }
+/* v5.6.5: было `var(--amut, #666)`. Переменной --amut в style.css нет ни
+   в одной теме, поэтому цвет всегда падал в #666, и на тёмной теме
+   (#1c1c1e) контраст был 3.2:1 — ниже AA. --muted определена в обеих
+   темах (#9a9aa0 / #6e6e73) и даёт 7.3:1 и 5.7:1. */
+.placebo-label { color: var(--muted); white-space: nowrap; }
 .placebo-track {
   flex: 1;
   height: 6px;

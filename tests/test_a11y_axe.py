@@ -149,15 +149,15 @@ def axe_source() -> str:
 
 
 @pytest.fixture(scope="session")
-def browser():
-    with playwright_api.sync_playwright() as pw:
-        try:
-            b = pw.chromium.launch()
-        except Exception as exc:  # noqa: BLE001 — причина уедет в текст skip
-            pytest.skip(f"Chromium не запускается: {exc}. "
-                        f"Поставь: playwright install chromium")
-        yield b
-        b.close()
+def browser(playwright_instance):
+    pw = playwright_instance
+    try:
+        b = pw.chromium.launch()
+    except Exception as exc:  # noqa: BLE001 — причина уедет в текст skip
+        pytest.skip(f"Chromium не запускается: {exc}. "
+                    f"Поставь: playwright install chromium")
+    yield b
+    b.close()
 
 
 @pytest.fixture(scope="session")

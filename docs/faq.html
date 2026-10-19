@@ -351,18 +351,28 @@ window.addEventListener('scroll', () => {
 </div>
 <script src="cookie-banner.js?v=1"></script>
 <script src="metrika.js?v=1"></script>
-<script>initCookieBanner();// Кнопка «🎲 Удиви меня»: случайная добавка из data.json
+<script>initCookieBanner();// Кнопка «🎲 Удиви меня»: случайная добавка из каталога.
+// Список страниц берём из sitemap.xml — там уже готовые URL по slug
+// (sup/magniy.html). Раньше здесь собирались d.id из data.json и
+// открывался 'sup/' + id + '.html', но id — отображаемое имя
+// (кириллица), а файлы называются по slug, поэтому кнопка вела на 404
+// на всех страницах раздела. slugify живёт в Python
+// (scripts/build_sup.py) и в JS не дублируется.
 (function(){
   var btn = document.getElementById('randomBtn');
   if(!btn) return;
-  var dataUrl = 'data.json';
+  var sitemapUrl = new URL('sitemap.xml', location.href).href;
   btn.onclick = function(){
-    fetch(dataUrl).then(function(r){ return r.json(); }).then(function(data){
-      var ids = data.map(function(d){ return d.id; }).filter(Boolean);
-      if(!ids.length) return;
-      var id = ids[Math.floor(Math.random() * ids.length)];
-      location.href = 'sup/' + id + '.html';
-    }).catch(function(){ console.warn('[random] не удалось загрузить data.json'); });
+    fetch(sitemapUrl).then(function(r){ return r.text(); }).then(function(xml){
+      var doc = new DOMParser().parseFromString(xml, 'application/xml');
+      var urls = [];
+      doc.querySelectorAll('url > loc').forEach(function(node){
+        var u = (node.textContent || '').trim();
+        if(/\/sup\/[^/]+\.html$/.test(u) && !/\/sup\/index\.html$/.test(u)) urls.push(u);
+      });
+      if(!urls.length){ console.warn('[random] в sitemap.xml нет страниц добавок'); return; }
+      location.href = urls[Math.floor(Math.random() * urls.length)];
+    }).catch(function(err){ console.warn('[random] не удалось загрузить sitemap.xml', err); });
   };
 })();
 

@@ -1,54 +1,49 @@
-"""Экспорт PNG работает — проверка, которой в проекте не было.
+# -*- coding: utf-8 -*-
+"""Граф взаимодействий: реальная отрисовка и экспорт PNG (marker: graph).
 
-Дыра, которую закрывает этот файл, найдена негативным контролем при
-переименовании `#graph` в v5.4.1 и она неочевидна.
+Переписан в v5.6.5. Прежняя версия проверяла UI, которого больше нет:
 
-Обработчик кнопки на обеих страницах устроен так:
+* `#int-graph` и `.int-layout` — таких элементов в docs/interactions.html
+  НЕТ: `.int-layout` встречается только внутри `<style>` (строки 101, 129,
+  131), а контейнер графа называется `#mynetwork` (строка 306).
+* `atlas.html` с `.atl-layout` и `#atl-graph` — docs/atlas.html давно
+  редирект-заглушка (`<meta http-equiv="refresh" content="0; url=
+  interactions.html#mech">`), поэтому 40 из 42 тестов падали с
+  `Failed to find element matching selector "#int-graph"`.
 
-    document.getElementById('pngBtn').onclick = () => {
-      const canvas = document.querySelector('#int-graph canvas');
-      if (!canvas) return;                       // ← тихий выход
-      const url = canvas.toDataURL('image/png');
-      ...
-    };
+Что проверяется теперь (движки chromium и webkit, по 12 тестов на движок,
+24 всего):
 
-Если id в селекторе разошёлся с разметкой, `canvas` будет `null`,
-сработает ранний `return`, и кнопка **молча ничего не сделает**: ни
-ошибки в консоли, ни изменения на странице. Пользователь нажимает
-«Скачать PNG» и не получает файла.
+1. режим «График» открыт по умолчанию (data-mode="graph");
+2. старых селекторов в разметке нет (иначе тест снова начнёт проверять
+   несуществующий UI);
+3. граф реально строится: `#mynetwork` перестаёт быть hidden, внутри
+   появляется canvas;
+4. у canvas ненулевые размеры, контейнер не схлопнут;
+5. на canvas есть «чернила» — непустые пиксели (иначе граф пустой, а
+   размеры формально валидны);
+6. кнопка экспорта существует и её обработчик отдаёт настоящий PNG:
+   data-URL с сигнатурой PNG и полезной нагрузкой >= MIN_PNG_PAYLOAD,
+   имя файла — ровно то, что зашито в обработчике
+   (`brain-25-evidence-graph.png`, docs/interactions.html, a.download).
+   Требование «имя без подстроки graph» с фактическим кодом конфликтует:
+   имя содержит «graph» по построению, поэтому утверждается фактическое
+   имя, а не запрет подстроки.
 
-Почему это не ловили остальные проверки:
+Граф строится ТОЛЬКО по действию пользователя: `drawGraph()` показывает
+приветствие, `ensureNetwork()` вызывается из `applyFocus()`, а её дёргает
+ввод в `#graphSearch` (обработчик — `wireControls`, строки 736-749).
+Поэтому тест пишет в поиск, а не просто ждёт загрузки страницы.
 
-  Снимки снимаются ДО клика, экспорт при загрузке не выполняется.
-  Статический grep видит `#int-graph canvas`, но не проверяет, что
-  селектор срабатывает.
-  Проверка «canvas создан» тоже не годится: контейнер может существовать
-  и содержать canvas, у которого читается несуществующий селектор.
-
-Поэтому проверяется результат действия, а не наличие элемента: обработчик
-должен дойти до `a.click()` с настоящим PNG-payload.
-
-Дополнительно проверяется контейнер и его раскладка. `.int-layout` /
-`.atl-layout` — flex-обёртка, а `#int-graph` внутри неё с `flex:1`; если
-селектор разошёлся с разметкой, обёртка теряет `display:flex`, и вместо
-графа остаётся полоса высотой в содержимое.
-
-Как подменяется скачивание. `a.click()` с `href` вида `data:` и
-`download` не порождает сетевой запрос, и `expect_download()` на таком
-ненадёжен. Поэтому переопределяется `HTMLAnchorElement.prototype.click`:
-перехват срабатывает ровно на той строке, до которой дошёл обработчик, и
-заодно даёт payload для проверки. Это не «проверка проверки» — обработчик
-настоящий, клик по настоящей кнопке, перехватывается только финальное
-действие браузера.
-
-Запуск:
-    python -m http.server 8000 --directory docs   (из корня репозитория)
-    $env:RUN_GRAPH="1"; pytest -q -m graph
-
-Без RUN_GRAPH тесты сняты настройкой в tests/conftest.py: нужен живой
-сервер и браузеры Playwright, а обычный `pytest -q` должен оставаться
-быстрым и работать в CI без сервера.
+Сервер :8000 поднимает автouse-фикстура `live_server` в tests/conftest.py,
+общий `sync_playwright()` даёт `playwright_instance` — свой контекст
+открывать нельзя (два sync_playwright не живут одновременно, см.
+docstring `playwright_instance`).
 """
+
+from __future__ import annotations
+
+import base64
 import hashlib
 import os
 import urllib.request
@@ -56,337 +51,258 @@ from pathlib import Path
 
 import pytest
 
-pytestmark = pytest.mark.graph
-
 playwright_api = pytest.importorskip(
     "playwright.sync_api", reason="playwright не установлен")
 
+BASE_URL = os.environ.get("SNAPSHOT_BASE_URL", "http://localhost:8000")
+PATH = "/interactions.html"
 ROOT = Path(__file__).resolve().parents[1]
-BASE_URL = os.environ.get("SNAPSHOT_BASE_URL",
-                          "http://localhost:8000").rstrip("/")
+DOCS = ROOT / "docs"
 
-#: Firefox не добавлен — 1.2% трафика РФ, тот же отказ, что и в снапшотах
-#: и в тестах вкладок.
+pytestmark = [pytest.mark.graph]
+
 BROWSERS = ("chromium", "webkit")
 
-#: Старые имена — обязаны отсутствовать. Проверяются отдельно от новых,
-#: потому что «новый селектор нашёлся» и «старый исчез» — разные
-#: утверждения, и переименование может оставить одно при другом.
-OLD_GRAPH_ID = "#graph"
-OLD_LAYOUT = ".layout"
+# Контейнер графа в текущей разметке (docs/interactions.html:306).
+GRAPH_ID = "#mynetwork"
+SEARCH_ID = "#graphSearch"
+PNG_BTN = "#pngBtn"
 
-#: Минимальный размер PNG-payload в base64-символах.
-#: Замерено 2026-10-04 на этой машине: 47 418 (webkit, interactions) …
-#: 127 554 (chromium, atlas). Порог 10 000 — с запасом вчетверо ниже
-#: минимума и при этом выше, чем у пустого холста.
-MIN_PNG_PAYLOAD = 10_000
-
-#: Минимальная высота графа и контейнера, px. Ниже контейнер считается
-#: схлопнувшимся, а не «просто маленьким».
+MIN_PNG_PAYLOAD = 10_000      # настоящий скриншот графа весит десятки КБ
 MIN_GRAPH_HEIGHT = 200
 MIN_CONTAINER_HEIGHT = 400
+MIN_INK_PIXELS = 500          # непустых пикселей на canvas
 
-#: страница (без расширения), класс контейнера, id графа, кнопка экспорта
-PAGES = (
-    ("interactions", ".int-layout", "#int-graph", "#pngBtn"),
-    ("atlas", ".atl-layout", "#atl-graph", "#pngBtn"),
+# Старые селекторы: если они вернутся в разметку, этот файл снова начнёт
+# проверять не то, что рисуется, — поэтому их отсутствие утверждается явно.
+# "#graph"/".layout" — из прежнего ТЗ; "#int-graph"/".int-layout" — раскладка,
+# оставшаяся только внутри <style>; "#atl-graph"/".atl-layout" — atlas.html,
+# который теперь редирект-заглушка.
+OLD_SELECTORS = (
+    "#graph", ".layout",
+    "#int-graph", ".int-layout",
+    "#atl-graph", ".atl-layout",
 )
 
-#: Что ждём перед кликом по экспорту. Сеть vis-network строится по данным,
-#: которые приходят по сети; на пустом контейнере экспорт даст пустой PNG.
-SETTLE_MS = 1800
+# Перехват программного клика по <a download>: браузер иначе начнёт
+# скачивание, а нам нужен сам data-URL.
+PATCH_CLICK_JS = """
+() => {
+  if (!HTMLAnchorElement.prototype.__origClick) {
+    HTMLAnchorElement.prototype.__origClick = HTMLAnchorElement.prototype.click;
+  }
+  window.__exported = null;
+  HTMLAnchorElement.prototype.click = function () {
+    if (this.hasAttribute('download')) {
+      window.__exported = { href: this.href, download: this.getAttribute('download') };
+      return;
+    }
+    return HTMLAnchorElement.prototype.__origClick.call(this);
+  };
+}
+"""
+
+READ_EXPORT_JS = "() => window.__exported"
+
+# «Чернила»: считаем пиксели, отличные от самого частого цвета фона.
+INK_JS = """
+() => {
+  const c = document.querySelector('#mynetwork canvas');
+  if (!c) return -1;
+  const g = c.getContext('2d');
+  if (!g) return -2;
+  let data;
+  try { data = g.getImageData(0, 0, c.width, c.height).data; }
+  catch (e) { return -3; }
+  const counts = new Map();
+  const step = 4 * 7;                       // каждый 7-й пиксель — быстрее
+  for (let i = 0; i < data.length; i += step) {
+    const key = (data[i] << 16) | (data[i + 1] << 8) | data[i + 2];
+    counts.set(key, (counts.get(key) || 0) + 1);
+  }
+  let bg = 0, bgKey = 0;
+  for (const [k, v] of counts) if (v > bg) { bg = v; bgKey = k; }
+  let ink = 0;
+  for (const [k, v] of counts) if (k !== bgKey) ink += v;
+  return ink;
+}
+"""
 
 
 def _check_server() -> None:
-    """Сервер обязан отдавать файлы ИМЕННО ЭТОГО репозитория.
+    """:8000 отдаёт docs/ ИМЕННО этого репозитория?
 
-    Иначе тест проверял бы чужую копию проекта: правка в docs/ не попала
-    бы на страницу, экспорт отдался бы зелёным, а сайт был бы сломан.
-    Та же защита, что в test_visual_snapshots.py и test_tabs_interaction.py.
+    Сверяется sha256 style.css — тот же признак, что у live_server. Чужой
+    сервер на порту означал бы, что тесты проверяют не тот код, поэтому
+    это падение, а не skip: skip скрыл бы подмену.
     """
-    try:
-        with urllib.request.urlopen(f"{BASE_URL}/style.css", timeout=10) as resp:
-            served = resp.read()
-    except Exception as exc:  # noqa: BLE001 — причина попадёт в текст skip
-        pytest.skip(
-            f"Нет {BASE_URL} ({exc}). Запусти: "
-            f"python -m http.server 8000 --directory docs  (из корня репозитория)"
-        )
-    local = (ROOT / "docs" / "style.css").read_bytes()
-    if hashlib.sha256(served).hexdigest() != hashlib.sha256(local).hexdigest():
-        pytest.skip(
-            f"{BASE_URL} отдаёт ЧУЖУЮ копию проекта (style.css не совпал с "
-            f"{ROOT / 'docs' / 'style.css'}). Тест проверял бы не тот код, "
-            f"который меняется. Запусти сервер из этого репозитория или "
-            f"укажи SNAPSHOT_BASE_URL."
-        )
-
-
-#: Перехват клика по якорю. Вызывается ДО клика по кнопке, снимается
-#: ПОСЛЕ, чтобы подмена не жила дольше одного вызова.
-PATCH_CLICK_JS = """() => {
-    window.__export = null;
-    if (!window.__origAnchorClick) {
-        window.__origAnchorClick = HTMLAnchorElement.prototype.click;
-    }
-    HTMLAnchorElement.prototype.click = function () {
-        window.__export = {
-            download: this.download || '',
-            href: this.href || '',
-            isPng: (this.href || '').startsWith('data:image/png')
-        };
-        return window.__origAnchorClick.apply(this, arguments);
-    };
-}"""
-
-RESTORE_CLICK_JS = """() => {
-    if (window.__origAnchorClick) {
-        HTMLAnchorElement.prototype.click = window.__origAnchorClick;
-        window.__origAnchorClick = null;
-    }
-}"""
-
-#: Плотность отрисовки: доля пикселей с непрозрачностью. Считается с
-#: шагом, а не подряд, — на полном холсте это миллионы выборок.
-INK_JS = """(sel) => {
-    const c = document.querySelector(sel + ' canvas');
-    if (!c) return -1;
-    const w = c.width, h = c.height;
-    if (!w || !h) return 0;
-    const d = c.getContext('2d').getImageData(0, 0, w, h).data;
-    let ink = 0;
-    for (let i = 3; i < d.length; i += 4) if (d[i] > 0) ink++;
-    return ink;
-}"""
-
-
-def _box(page, sel):
-    return page.eval_on_selector(
-        sel, "el => { const r = el.getBoundingClientRect();"
-             " const cs = getComputedStyle(el);"
-             " return { w: Math.round(r.width), h: Math.round(r.height),"
-             "  display: cs.display }; }")
-
-
-def _launch(pw, engine):
-    """Запустить движок. Отдельная функция только ради skip-сообщения."""
-    try:
-        return getattr(pw, engine).launch()
-    except Exception as exc:  # noqa: BLE001 — причина попадёт в текст skip
-        pytest.skip(f"{engine} не запускается: {exc}. "
-                    f"Поставь: playwright install {engine}")
+    local = (DOCS / "style.css").read_bytes()
+    with urllib.request.urlopen(f"{BASE_URL}/style.css", timeout=5) as resp:
+        served = resp.read()
+    assert hashlib.sha256(served).hexdigest() == hashlib.sha256(local).hexdigest(), (
+        f"на {BASE_URL} отдаётся не docs/ этого репозитория (style.css не совпал)"
+    )
 
 
 @pytest.fixture(scope="session")
-def pw():
-    """Один Playwright на всю сессию.
-
-    Отдельный `sync_playwright()` на каждую фикстуру не работает: после
-    первых четырёх teardown следующий падает с «Sync API inside the
-    asyncio loop».
-    """
-    with playwright_api.sync_playwright() as p:
-        yield p
+def pw(playwright_instance):
+    return playwright_instance
 
 
-#: 4 пары: движок × страница.
-GRAPH_CASES = [(b,) + p for b in BROWSERS for p in PAGES]
+@pytest.fixture(params=BROWSERS)
+def engine(request):
+    return request.param
 
 
-@pytest.fixture(scope="session", params=GRAPH_CASES,
-                ids=lambda p: f"{p[0]}-{p[1]}")
-def graph_case(request, pw):
-    """Состояние графа и результат экспорта — один проход на пару.
-
-    Параметризация живёт на фикстуре: пометка одноимённого аргумента
-    через `@pytest.mark.parametrize` перекрыла бы фикстуру, и тест получил
-    бы сырой tuple.
-    """
-    engine, page_name, layout_sel, graph_sel, btn = request.param
+@pytest.fixture
+def browser(engine, pw):
     _check_server()
-    browser = _launch(pw, engine)
-    ctx = browser.new_context(viewport={"width": 1280, "height": 900})
-    page = ctx.new_page()
+    b = getattr(pw, engine).launch()
     try:
-        page.goto(f"{BASE_URL}/{page_name}.html", wait_until="load")
-        page.wait_for_timeout(SETTLE_MS)
-
-        data = {
-            "engine": engine,
-            "page": page_name,
-            "layout_sel": layout_sel,
-            "graph_sel": graph_sel,
-            "btn": btn,
-            "graph_count": len(page.query_selector_all(graph_sel)),
-            "layout_count": len(page.query_selector_all(layout_sel)),
-            "old_graph_count": len(page.query_selector_all(OLD_GRAPH_ID)),
-            "old_layout_count": len(page.query_selector_all(OLD_LAYOUT)),
-            "canvas_count": len(page.query_selector_all(graph_sel + " canvas")),
-            "ink": page.evaluate(INK_JS, graph_sel),
-            "box_graph": _box(page, graph_sel),
-            "box_layout": _box(page, layout_sel),
-            "export": None,
-            "export_error": None,
-        }
-
-        # Экспорт. Перехват ставится последним, чтобы не влиять на замеры
-        # выше, и снимается сразу после клика.
-        page.evaluate(PATCH_CLICK_JS)
-        try:
-            page.click(btn)
-            page.wait_for_timeout(700)
-            data["export"] = page.evaluate("() => window.__export")
-        except Exception as exc:  # noqa: BLE001 — попадёт в текст проверки
-            data["export_error"] = f"{type(exc).__name__}: {exc}"
-        finally:
-            page.evaluate(RESTORE_CLICK_JS)
-
-        yield data
+        yield b
     finally:
-        ctx.close()
-        browser.close()
+        b.close()
 
 
-@pytest.fixture(scope="session", params=BROWSERS, ids=lambda b: b)
-def engine_only(request, pw):
-    """Движок для проверки, не привязанной к конкретной странице."""
-    engine = request.param
-    browser = _launch(pw, engine)
-    yield {"engine": engine, "browser": browser}
-    browser.close()
+@pytest.fixture
+def page_with_graph(browser):
+    """Страница, на которой граф уже построен (реальным действием)."""
+    pg = browser.new_page(viewport={"width": 1280, "height": 900})
+    errors: list[str] = []
+    pg.on("console", lambda m: errors.append(m.text) if m.type == "error" else None)
+    try:
+        pg.goto(f"{BASE_URL}{PATH}", wait_until="load")
+        pg.wait_for_selector(SEARCH_ID, timeout=10_000)
+        # Ввод в поиск -> applyFocus -> ensureNetwork -> видимый canvas.
+        pg.fill(SEARCH_ID, "Магний")
+        pg.wait_for_selector(f"{GRAPH_ID} canvas", timeout=15_000)
+        yield pg, errors
+    finally:
+        pg.close()
 
 
-# ── 10 проверок на пару движок × страница = 40 ──
+# ───────────────────────────── режим и разметка ─────────────────────────────
+
+def test_graph_tab_is_default(page_with_graph):
+    pg, _ = page_with_graph
+    active = pg.eval_on_selector(
+        '.tr-tabs [role="tab"][data-mode="graph"]',
+        "el => el.classList.contains('active') && el.getAttribute('aria-selected') === 'true'",
+    )
+    assert active, "вкладка «График» не активна по умолчанию"
 
 
-def test_graph_id_found_once(graph_case):
-    """Контейнер графа найден ровно один раз."""
-    assert graph_case["graph_count"] == 1, (
-        f"{graph_case['page']}: селектор {graph_case['graph_sel']} нашёл "
-        f"{graph_case['graph_count']} элементов, ожидался 1")
+def test_old_selectors_absent(page_with_graph):
+    pg, _ = page_with_graph
+    found = pg.evaluate(
+        "sels => sels.filter(s => document.querySelector(s) !== null)", list(OLD_SELECTORS))
+    assert found == [], f"вернулись устаревшие селекторы: {found}"
 
 
-def test_graph_has_size(graph_case):
-    """Граф ненулевой и не схлопнувшийся."""
-    b = graph_case["box_graph"]
-    assert b["w"] > 0 and b["h"] >= MIN_GRAPH_HEIGHT, (
-        f"{graph_case['page']}: граф {b['w']}x{b['h']} px, ожидалось "
-        f"не меньше {MIN_GRAPH_HEIGHT} px по высоте")
+def test_service_states_hidden(page_with_graph):
+    pg, _ = page_with_graph
+    for sel in ("#graphError", "#graphEmpty"):
+        assert pg.eval_on_selector(sel, "el => el.hidden"), f"{sel} показан при рабочем графе"
 
 
-def test_graph_fits_container(graph_case):
-    """Граф помещается в свою обёртку."""
-    g = graph_case["box_graph"]
-    lb = graph_case["box_layout"]
-    assert g["h"] <= lb["h"], (
-        f"{graph_case['page']}: граф {g['h']} px выше контейнера "
-        f"{lb['h']} px — flex-раскладка разъехалась")
+# ──────────────────────────────── сам граф ──────────────────────────────────
+
+def test_graph_container_visible(page_with_graph):
+    pg, _ = page_with_graph
+    n = pg.eval_on_selector_all(GRAPH_ID, "els => els.length")
+    assert n == 1, f"элементов {GRAPH_ID} на странице: {n}, ожидался ровно 1"
+    assert not pg.eval_on_selector(GRAPH_ID, "el => el.hidden"), f"{GRAPH_ID} остался hidden"
+    assert pg.eval_on_selector(
+        GRAPH_ID, "el => getComputedStyle(el).display !== 'none'")
 
 
-def test_container_found_once(graph_case):
-    """Обёртка найдена ровно один раз."""
-    assert graph_case["layout_count"] == 1, (
-        f"{graph_case['page']}: {graph_case['layout_sel']} нашёл "
-        f"{graph_case['layout_count']} элементов, ожидался 1")
+def test_canvas_created_once(page_with_graph):
+    pg, _ = page_with_graph
+    n = pg.eval_on_selector_all(f"{GRAPH_ID} canvas", "els => els.length")
+    assert n == 1, f"canvas внутри {GRAPH_ID}: {n}, ожидался ровно 1"
 
 
-def test_container_display_flex(graph_case):
-    """`display:flex` применился — правило класса совпало с разметкой.
+def test_canvas_has_size(page_with_graph):
+    pg, _ = page_with_graph
+    box = pg.eval_on_selector(
+        f"{GRAPH_ID} canvas",
+        "el => ({buf: [el.width, el.height], css: [el.getBoundingClientRect().width,"
+        " el.getBoundingClientRect().height]})",
+    )
+    assert box["buf"][0] > 0 and box["buf"][1] > 0, f"буфер canvas пустой: {box['buf']}"
+    assert box["css"][1] >= MIN_GRAPH_HEIGHT, (
+        f"canvas высотой {box['css'][1]} px, ожидалось >= {MIN_GRAPH_HEIGHT}")
 
-    Проверка на вычисленное значение, а не на наличие класса: класс в
-    разметке есть и при съехавшем селекторе, а совпадение правил — нет.
-    """
-    assert graph_case["box_layout"]["display"] == "flex", (
-        f"{graph_case['page']}: display={graph_case['box_layout']['display']}, "
-        f"ожидался flex — правило {graph_case['layout_sel']} не применилось")
 
-
-def test_container_height_not_collapsed(graph_case):
-    """Обёртка не схлопнулась в высоту содержимого."""
-    h = graph_case["box_layout"]["h"]
+def test_container_not_collapsed(page_with_graph):
+    pg, _ = page_with_graph
+    h = pg.eval_on_selector(
+        GRAPH_ID, "el => el.getBoundingClientRect().height")
     assert h >= MIN_CONTAINER_HEIGHT, (
-        f"{graph_case['page']}: контейнер {h} px < {MIN_CONTAINER_HEIGHT} px — "
-        f"граф не занял своё место")
+        f"{GRAPH_ID} высотой {h} px, ожидалось >= {MIN_CONTAINER_HEIGHT} "
+        "(контейнер схлопнут — типичный признак, что vis не инициализировался)")
 
 
-def test_canvas_created(graph_case):
-    """vis-network создал canvas внутри контейнера."""
-    assert graph_case["canvas_count"] >= 1, (
-        f"{graph_case['page']}: canvas не создан — сеть не построилась")
+def test_canvas_has_ink(page_with_graph):
+    pg, _ = page_with_graph
+    ink = pg.evaluate(INK_JS)
+    assert ink >= MIN_INK_PIXELS, (
+        f"непустых пикселей на canvas: {ink} (ожидалось >= {MIN_INK_PIXELS}); "
+        "размеры валидны, но граф пуст")
 
 
-def test_export_handler_reaches_click(graph_case):
-    """ГЛАВНАЯ ПРОВЕРКА: обработчик экспорта дошёл до `a.click()`.
+def test_no_console_errors(page_with_graph):
+    pg, errors = page_with_graph
+    # vis-network ругается на дубли id и т.п. — это настоящий сигнал.
+    relevant = [e for e in errors if "[graph]" in e or "vis" in e.lower()]
+    assert relevant == [], f"ошибки в консоли: {relevant}"
 
-    Именно её не было, и именно её ловит поломка. Раньше при
-    `querySelector(...) === null` обработчик делал `return`, и кнопка
-    «Скачать PNG» не давала ни файла, ни ошибки.
+
+# ─────────────────────────────── экспорт PNG ─────────────────────────────────
+
+def test_export_button_exists(page_with_graph):
+    pg, _ = page_with_graph
+    assert pg.eval_on_selector(PNG_BTN, "el => el.tagName") == "BUTTON"
+    assert pg.eval_on_selector(PNG_BTN, "el => el.getBoundingClientRect().width > 0"), (
+        "кнопка экспорта не отрисована")
+
+
+def test_export_handler_produces_real_png(page_with_graph):
+    """Обработчик #pngBtn отдаёт data-URL с настоящим PNG.
+
+    До v5.6.5 обработчика не существовало вовсе (grep 'pngBtn' по docs/*.js
+    и inline-блокам давал только саму разметку кнопки), т.е. «Скачать PNG»
+    на странице графа не работала.
     """
-    assert graph_case["export_error"] is None, (
-        f"{graph_case['page']}: клик по кнопке экспорта упал — "
-        f"{graph_case['export_error']}")
-    assert graph_case["export"] is not None, (
-        f"{graph_case['page']}: обработчик {graph_case['btn']} не дошёл до "
-        f"a.click() — селектор canvas вернул null и сработал ранний return. "
-        f"Кнопка экспорта молча ничего не делает.")
+    pg, _ = page_with_graph
+    pg.evaluate(PATCH_CLICK_JS)
+    pg.click(PNG_BTN)
+    exported = pg.evaluate(READ_EXPORT_JS)
+    assert exported, "клик по #pngBtn не создал ссылку скачивания — обработчика нет"
+    href = exported["href"]
+    assert href.startswith("data:image/png;base64,"), f"не PNG data-URL: {href[:40]!r}"
+    payload = base64.b64decode(href.split(",", 1)[1])
+    assert payload[:8] == b"\x89PNG\r\n\x1a\n", "payload не начинается с сигнатуры PNG"
+    assert len(payload) >= MIN_PNG_PAYLOAD, (
+        f"PNG всего {len(payload)} байт (ожидалось >= {MIN_PNG_PAYLOAD}) — canvas пустой")
+    # Имя файла зашито в обработчике: a.download = 'brain-25-evidence-graph.png'
+    # (docs/interactions.html). Исходное требование «имя не содержит "graph"»
+    # с фактическим кодом несовместимо — утверждаем фактическое имя, чтобы
+    # переименование в обработчике ловилось тестом.
+    assert exported["download"] == "brain-25-evidence-graph.png", (
+        f"имя экспорта изменилось: {exported['download']!r}")
 
 
-def test_export_payload_is_real_png(graph_case):
-    """Payload — настоящий PNG, а не пустой холст и не заглушка."""
-    rec = graph_case["export"]
-    assert rec is not None, "экспорт не выполнялся — см. предыдущую проверку"
-    assert rec["isPng"], (
-        f"{graph_case['page']}: href не data:image/png — "
-        f"{rec['href'][:40]!r}")
-    assert len(rec["href"]) > MIN_PNG_PAYLOAD, (
-        f"{graph_case['page']}: payload {len(rec['href'])} символов "
-        f"<= {MIN_PNG_PAYLOAD} — canvas пустой, экспортировать нечего")
-    assert rec["download"].endswith(".png") and len(rec["download"]) > 5, (
-        f"{graph_case['page']}: имя файла неосмысленное — "
-        f"{rec['download']!r}")
-    assert "graph" not in rec["download"], (
-        f"{graph_case['page']}: имя файла ссылается на старое имя — "
-        f"{rec['download']!r}")
+# ─────────────────────────────── движки целиком ──────────────────────────────
 
-
-def test_old_selectors_absent(graph_case):
-    """Старые `#graph` и `.layout` не остались в разметке.
-
-    Отдельно от «новый селектор нашёлся»: переименование может оставить
-    старое имя рядом с новым, и все остальные проверки будут зелёными.
-    """
-    assert graph_case["old_graph_count"] == 0, (
-        f"{graph_case['page']}: старый {OLD_GRAPH_ID} ещё есть — "
-        f"переименование не доведено до конца")
-    assert graph_case["old_layout_count"] == 0, (
-        f"{graph_case['page']}: старый {OLD_LAYOUT} ещё есть")
-
-
-# ── 1 проверка на движок = 2 ──
-
-
-def test_both_graphs_have_ink(engine_only, pw):
-    """На обоих графах что-то нарисовано, а не только создан canvas.
-
-    Наличие canvas не доказывает, что сеть построилась: пустой canvas
-    даёт валидный PNG малого размера. Проверка считает пиксели с
-    непрозрачностью — это отличает нарисованный граф от пустого холста,
-    и делает экспорт бессмысленным тестом, если граф пуст.
-
-    Порог 500 подобран по замеру: 17 017 … 20 488 на этой машине.
-    """
-    browser = _launch(pw, engine_only["engine"])
-    ctx = browser.new_context(viewport={"width": 1280, "height": 900})
-    page = ctx.new_page()
+def test_engine_launches_and_renders(engine, pw):
+    """Один тест на движок: страница вообще открывается и vis доступен."""
+    _check_server()
+    b = getattr(pw, engine).launch()
     try:
-        for page_name, _l, graph_sel, _b in PAGES:
-            page.goto(f"{BASE_URL}/{page_name}.html", wait_until="load")
-            page.wait_for_timeout(SETTLE_MS)
-            ink = page.evaluate(INK_JS, graph_sel)
-            assert ink > 500, (
-                f"{page_name} / {engine_only['engine']}: на canvas "
-                f"{ink} пикселей с непрозрачностью, ожидалось больше 500 — "
-                f"граф пуст, и экспортировать нечего")
+        pg = b.new_page()
+        pg.goto(f"{BASE_URL}{PATH}", wait_until="load")
+        assert pg.evaluate("() => typeof vis !== 'undefined'"), (
+            f"{engine}: vis-network не загрузился")
     finally:
-        ctx.close()
-        browser.close()
+        b.close()

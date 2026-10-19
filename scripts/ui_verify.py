@@ -331,18 +331,22 @@ def main() -> int:
             pg.wait_for_selector(".card", state="attached", timeout=5000)
             pg.wait_for_function("window.chart != null", timeout=5000)
 
-            # бейдж noPrice в вёрстке (26 товаров без цены)
-            np_count = pg.locator(".noPrice").count()
-            assert np_count >= 1, "бейдж noPrice не отрендерен"
+            # Бейдж .noPrice удалён вместе с ценой в карточках (a1f1653, M9):
+            # в data.json больше нет поля price (проверено: 0 записей из 130),
+            # и docs/script.js его не рендерит. Проверяем то, что осталось:
+            # карточки отрисованы и содержат вердикт.
+            assert pg.locator(".card").count() > 0, "карточки не отрисованы"
+            assert pg.locator(".verdict").count() > 0, "вердикт не отрисован"
 
             # пустое состояние: поиск мусором → .empty + #resetAll
             pg.locator("#search").fill("zzzqqqнесуществующийxyz")
             assert pg.locator(".empty").count() == 1, "empty state не показан"
             assert pg.locator("#resetAll").is_visible(), "кнопка resetAll не видна"
 
-            # сброс возвращает карточки с бейджем
+            # сброс возвращает карточки (рендер асинхронный — ждём, а не читаем сразу)
             pg.locator("#resetAll").click()
-            assert pg.locator(".noPrice").count() == np_count, "сброс не вернул бейджи"
+            pg.wait_for_selector(".card", state="attached", timeout=5000)
+            assert pg.locator(".card").count() > 0, "сброс не вернул карточки"
 
             # #toTop появляется при скролле
             assert pg.locator("#toTop").count() == 1, "#toTop отсутствует в DOM"
@@ -392,9 +396,12 @@ def main() -> int:
             pg.click("#axisRCT")
             pg.wait_for_timeout(600)
             pg.screenshot(path=str(SHOTS / "v26_axisRCT.png"))
-            # модалка Кофеина: точки, бейджи, поделиться/сравнить
+            # модалка Кофеина: точки, бейджи, поделиться/сравнить.
+            # v5.6.5: клик по карточке больше НЕ открывает модалку — карточка
+            # переходит на sup/<id>.html (renderCards, docs/script.js:803-807).
+            # Модалка открывается только по диплинку #sup=<id>.
             pg.click("#axisMA")
-            pg.click(".card[data-id='Кофеин']")
+            pg.goto(f"{BASE}/index.html?ts={int(time.time())}#sup=Кофеин", wait_until="domcontentloaded")
             pg.wait_for_selector("#modalOverlay", state="visible", timeout=5000)
             pg.wait_for_timeout(400)
             pg.screenshot(path=str(SHOTS / "v26_modal.png"), full_page=True)
@@ -412,7 +419,8 @@ def main() -> int:
             pg.locator("#sortSelect").select_option("grade")
             pg.wait_for_timeout(300)
             pg.screenshot(path=str(SHOTS / "v261_sort_grade.png"), full_page=True)
-            pg.click(".card[data-id='Кофеин']")
+            # v5.6.5: карточка ведёт на sup-страницу, модалка — только по #sup=
+            pg.goto(f"{BASE}/index.html?ts={int(time.time())}#sup=Кофеин", wait_until="domcontentloaded")
             pg.wait_for_selector("#modalOverlay", state="visible", timeout=5000)
             pg.wait_for_timeout(400)
             pg.screenshot(path=str(SHOTS / "v261_modal_economics.png"), full_page=True)
@@ -460,8 +468,9 @@ def main() -> int:
                         f"(fg={pair['fg']}, bg={pair['bg']}; {pair['note']})"
                     )
 
-                # модалка: opening KoFein and checking modal link contrast
-                pg.click(".card[data-id='Кофеин']")
+                # модалка: открываем Кофеин диплинком (клик по карточке ведёт
+                # на sup-страницу с v5.6.5, модалки больше нет)
+                pg.goto(f"{BASE}/index.html?ts={int(time.time())}#sup=Кофеин", wait_until="domcontentloaded")
                 pg.wait_for_selector("#modalOverlay", state="visible", timeout=5000)
                 pg.wait_for_timeout(300)
                 pg.screenshot(path=str(SHOTS / f"{prefix}_modal.png"), full_page=True)

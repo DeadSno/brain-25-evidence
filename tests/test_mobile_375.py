@@ -62,17 +62,17 @@ def _overflow_px(page) -> int:
 
 
 @pytest.fixture(scope="session", params=BROWSERS, ids=lambda b: b)
-def browser(request):
+def browser(request, playwright_instance):
     engine = request.param
-    with playwright_api.sync_playwright() as pw:
-        try:
-            b = getattr(pw, engine).launch()
-        except Exception as exc:  # noqa: BLE001
-            pytest.skip(f"{engine} не запускается: {exc}. "
-                        f"Поставь: playwright install {engine}")
-        b.engine = engine
-        yield b
-        b.close()
+    pw = playwright_instance
+    try:
+        b = getattr(pw, engine).launch()
+    except Exception as exc:  # noqa: BLE001
+        pytest.skip(f"{engine} не запускается: {exc}. "
+                    f"Поставь: playwright install {engine}")
+    b.engine = engine
+    yield b
+    b.close()
 
 
 @pytest.mark.mobile375

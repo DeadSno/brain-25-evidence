@@ -8,7 +8,7 @@
       "id": "5-HTP",
       "label": "5-HTP",
       "shape": "dot",
-      "size": 36,
+      "size": 38,
       "title": "5-HTP<br>Grade: C<br>Связей: 22"
     },
     {
@@ -19,7 +19,7 @@
       "id": "Alpha-GPC",
       "label": "Alpha-GPC",
       "shape": "dot",
-      "size": 33,
+      "size": 34,
       "title": "Alpha-GPC<br>Grade: C<br>Связей: 35"
     },
     {
@@ -30,7 +30,7 @@
       "id": "B. lactis",
       "label": "B. lactis",
       "shape": "dot",
-      "size": 39,
+      "size": 41,
       "title": "B. lactis<br>Grade: C<br>Связей: 29"
     },
     {
@@ -41,7 +41,7 @@
       "id": "B1",
       "label": "B1",
       "shape": "dot",
-      "size": 46,
+      "size": 49,
       "title": "B1<br>Grade: C<br>Связей: 35"
     },
     {
@@ -52,7 +52,7 @@
       "id": "B12",
       "label": "B12",
       "shape": "dot",
-      "size": 39,
+      "size": 41,
       "title": "B12<br>Grade: B<br>Связей: 47"
     },
     {
@@ -63,7 +63,7 @@
       "id": "B2",
       "label": "B2",
       "shape": "dot",
-      "size": 47,
+      "size": 50,
       "title": "B2<br>Grade: D<br>Связей: 46"
     },
     {
@@ -74,7 +74,7 @@
       "id": "B3",
       "label": "B3",
       "shape": "dot",
-      "size": 31,
+      "size": 32,
       "title": "B3<br>Grade: C<br>Связей: 29"
     },
     {
@@ -85,7 +85,7 @@
       "id": "B5",
       "label": "B5",
       "shape": "dot",
-      "size": 45,
+      "size": 48,
       "title": "B5<br>Grade: D<br>Связей: 27"
     },
     {
@@ -96,7 +96,7 @@
       "id": "B6",
       "label": "B6",
       "shape": "dot",
-      "size": 37,
+      "size": 39,
       "title": "B6<br>Grade: B<br>Связей: 46"
     },
     {
@@ -107,7 +107,7 @@
       "id": "B9",
       "label": "B9",
       "shape": "dot",
-      "size": 46,
+      "size": 49,
       "title": "B9<br>Grade: D<br>Связей: 40"
     },
     {
@@ -118,7 +118,7 @@
       "id": "BCAA",
       "label": "BCAA",
       "shape": "dot",
-      "size": 40,
+      "size": 42,
       "title": "BCAA<br>Grade: D<br>Связей: 15"
     },
     {
@@ -129,7 +129,7 @@
       "id": "CDP-холин",
       "label": "CDP-холин",
       "shape": "dot",
-      "size": 39,
+      "size": 42,
       "title": "CDP-холин<br>Grade: D<br>Связей: 42"
     },
     {
@@ -140,7 +140,7 @@
       "id": "CoQ10",
       "label": "CoQ10",
       "shape": "dot",
-      "size": 39,
+      "size": 41,
       "title": "CoQ10<br>Grade: D<br>Связей: 71"
     },
     {
@@ -151,7 +151,7 @@
       "id": "D-манноза",
       "label": "D-манноза",
       "shape": "dot",
-      "size": 40,
+      "size": 42,
       "title": "D-манноза<br>Grade: D<br>Связей: 1"
     },
     {
@@ -162,7 +162,7 @@
       "id": "DHA",
       "label": "DHA",
       "shape": "dot",
-      "size": 44,
+      "size": 47,
       "title": "DHA<br>Grade: C<br>Связей: 49"
     },
     {
@@ -173,7 +173,7 @@
       "id": "EPA",
       "label": "EPA",
       "shape": "dot",
-      "size": 43,
+      "size": 45,
       "title": "EPA<br>Grade: D<br>Связей: 56"
     },
     {
@@ -184,7 +184,7 @@
       "id": "GLA",
       "label": "GLA",
       "shape": "dot",
-      "size": 33,
+      "size": 34,
       "title": "GLA<br>Grade: C<br>Связей: 13"
     },
     {
@@ -195,7 +195,7 @@
       "id": "HMB",
       "label": "HMB",
       "shape": "dot",
-      "size": 41,
+      "size": 44,
       "title": "HMB<br>Grade: B<br>Связей: 25"
     },
     {
@@ -206,7 +206,7 @@
       "id": "L-Теанин",
       "label": "L-Теанин",
       "shape": "dot",
-      "size": 36,
+      "size": 38,
       "title": "L-Теанин<br>Grade: B<br>Связей: 45"
     },
     {
@@ -217,7 +217,7 @@
       "id": "L-карнитин",
       "label": "L-карнитин",
       "shape": "dot",
-      "size": 34,
+      "size": 35,
       "title": "L-карнитин<br>Grade: C<br>Связей: 34"
     },
     {
@@ -228,7 +228,7 @@
       "id": "L-цитруллин",
       "label": "L-цитруллин",
       "shape": "dot",
-      "size": 36,
+      "size": 38,
       "title": "L-цитруллин<br>Grade: D<br>Связей: 41"
     },
     {
@@ -239,7 +239,7 @@
       "id": "LGG",
       "label": "LGG",
       "shape": "dot",
-      "size": 41,
+      "size": 44,
       "title": "LGG<br>Grade: B<br>Связей: 24"
     },
     {
@@ -250,7 +250,7 @@
       "id": "MSM",
       "label": "MSM",
       "shape": "dot",
-      "size": 32,
+      "size": 34,
       "title": "MSM<br>Grade: B<br>Связей: 16"
     },
     {
@@ -261,7 +261,7 @@
       "id": "NAC",
       "label": "NAC",
       "shape": "dot",
-      "size": 32,
+      "size": 34,
       "title": "NAC<br>Grade: D<br>Связей: 46"
     },
     {
@@ -272,7 +272,7 @@
       "id": "NMN",
       "label": "NMN",
       "shape": "dot",
-      "size": 26,
+      "size": 28,
       "title": "NMN<br>Grade: C<br>Связей: 59"
     },
     {
@@ -283,7 +283,7 @@
       "id": "PABA",
       "label": "PABA",
       "shape": "dot",
-      "size": 31,
+      "size": 33,
       "title": "PABA<br>Grade: D<br>Связей: 13"
     },
     {
@@ -294,7 +294,7 @@
       "id": "PQQ",
       "label": "PQQ",
       "shape": "dot",
-      "size": 36,
+      "size": 38,
       "title": "PQQ<br>Grade: D<br>Связей: 57"
     },
     {
@@ -305,7 +305,7 @@
       "id": "S. boulardii",
       "label": "S. boulardii",
       "shape": "dot",
-      "size": 44,
+      "size": 47,
       "title": "S. boulardii<br>Grade: B<br>Связей: 24"
     },
     {
@@ -316,7 +316,7 @@
       "id": "SAMe",
       "label": "SAMe",
       "shape": "dot",
-      "size": 37,
+      "size": 39,
       "title": "SAMe<br>Grade: B<br>Связей: 9"
     },
     {
@@ -327,7 +327,7 @@
       "id": "Аланин",
       "label": "Аланин",
       "shape": "dot",
-      "size": 40,
+      "size": 43,
       "title": "Аланин<br>Grade: C<br>Связей: 15"
     },
     {
@@ -338,7 +338,7 @@
       "id": "Альфа-липоевая кислота",
       "label": "Альфа-липоевая кислота",
       "shape": "dot",
-      "size": 33,
+      "size": 35,
       "title": "Альфа-липоевая кислота<br>Grade: D<br>Связей: 51"
     },
     {
@@ -349,7 +349,7 @@
       "id": "Аргинин",
       "label": "Аргинин",
       "shape": "dot",
-      "size": 35,
+      "size": 37,
       "title": "Аргинин<br>Grade: B<br>Связей: 32"
     },
     {
@@ -360,7 +360,7 @@
       "id": "Астаксантин",
       "label": "Астаксантин",
       "shape": "dot",
-      "size": 32,
+      "size": 34,
       "title": "Астаксантин<br>Grade: C<br>Связей: 32"
     },
     {
@@ -371,7 +371,7 @@
       "id": "Астрагал",
       "label": "Астрагал",
       "shape": "dot",
-      "size": 31,
+      "size": 33,
       "title": "Астрагал<br>Grade: B<br>Связей: 50"
     },
     {
@@ -382,7 +382,7 @@
       "id": "Ашваганда",
       "label": "Ашваганда",
       "shape": "dot",
-      "size": 37,
+      "size": 39,
       "title": "Ашваганда<br>Grade: B<br>Связей: 32"
     },
     {
@@ -393,7 +393,7 @@
       "id": "Бакопа",
       "label": "Бакопа",
       "shape": "dot",
-      "size": 40,
+      "size": 42,
       "title": "Бакопа<br>Grade: B<br>Связей: 35"
     },
     {
@@ -404,7 +404,7 @@
       "id": "Берберин",
       "label": "Берберин",
       "shape": "dot",
-      "size": 34,
+      "size": 36,
       "title": "Берберин<br>Grade: B<br>Связей: 26"
     },
     {
@@ -415,7 +415,7 @@
       "id": "Бета-аланин",
       "label": "Бета-аланин",
       "shape": "dot",
-      "size": 29,
+      "size": 30,
       "title": "Бета-аланин<br>Grade: C<br>Связей: 25"
     },
     {
@@ -426,7 +426,7 @@
       "id": "Бета-глюканы овса",
       "label": "Бета-глюканы овса",
       "shape": "dot",
-      "size": 31,
+      "size": 33,
       "title": "Бета-глюканы овса<br>Grade: B<br>Связей: 32"
     },
     {
@@ -437,7 +437,7 @@
       "id": "Бетаин",
       "label": "Бетаин",
       "shape": "dot",
-      "size": 30,
+      "size": 32,
       "title": "Бетаин<br>Grade: C<br>Связей: 39"
     },
     {
@@ -448,7 +448,7 @@
       "id": "Биотин",
       "label": "Биотин",
       "shape": "dot",
-      "size": 42,
+      "size": 45,
       "title": "Биотин<br>Grade: D<br>Связей: 27"
     },
     {
@@ -459,7 +459,7 @@
       "id": "Бор",
       "label": "Бор",
       "shape": "dot",
-      "size": 36,
+      "size": 38,
       "title": "Бор<br>Grade: D<br>Связей: 7"
     },
     {
@@ -470,7 +470,7 @@
       "id": "Босвеллия",
       "label": "Босвеллия",
       "shape": "dot",
-      "size": 23,
+      "size": 25,
       "title": "Босвеллия<br>Grade: C<br>Связей: 10"
     },
     {
@@ -481,7 +481,7 @@
       "id": "Боярышник",
       "label": "Боярышник",
       "shape": "dot",
-      "size": 41,
+      "size": 43,
       "title": "Боярышник<br>Grade: B<br>Связей: 18"
     },
     {
@@ -492,7 +492,7 @@
       "id": "Бузина",
       "label": "Бузина",
       "shape": "dot",
-      "size": 38,
+      "size": 40,
       "title": "Бузина<br>Grade: B<br>Связей: 21"
     },
     {
@@ -503,7 +503,7 @@
       "id": "Валериана",
       "label": "Валериана",
       "shape": "dot",
-      "size": 29,
+      "size": 31,
       "title": "Валериана<br>Grade: C<br>Связей: 20"
     },
     {
@@ -514,7 +514,7 @@
       "id": "Витамин A",
       "label": "Витамин A",
       "shape": "dot",
-      "size": 44,
+      "size": 47,
       "title": "Витамин A<br>Grade: C<br>Связей: 35"
     },
     {
@@ -525,7 +525,7 @@
       "id": "Витамин C",
       "label": "Витамин C",
       "shape": "dot",
-      "size": 39,
+      "size": 41,
       "title": "Витамин C<br>Grade: D<br>Связей: 35"
     },
     {
@@ -536,7 +536,7 @@
       "id": "Витамин D",
       "label": "Витамин D",
       "shape": "dot",
-      "size": 38,
+      "size": 41,
       "title": "Витамин D<br>Grade: A<br>Связей: 39"
     },
     {
@@ -547,7 +547,7 @@
       "id": "Витамин E",
       "label": "Витамин E",
       "shape": "dot",
-      "size": 42,
+      "size": 45,
       "title": "Витамин E<br>Grade: C<br>Связей: 34"
     },
     {
@@ -558,7 +558,7 @@
       "id": "Витамин K1",
       "label": "Витамин K1",
       "shape": "dot",
-      "size": 27,
+      "size": 28,
       "title": "Витамин K1<br>Grade: C<br>Связей: 29"
     },
     {
@@ -569,7 +569,7 @@
       "id": "Витамин K2",
       "label": "Витамин K2",
       "shape": "dot",
-      "size": 38,
+      "size": 40,
       "title": "Витамин K2<br>Grade: C<br>Связей: 25"
     },
     {
@@ -580,7 +580,7 @@
       "id": "ГАБА",
       "label": "ГАБА",
       "shape": "dot",
-      "size": 40,
+      "size": 42,
       "title": "ГАБА<br>Grade: D<br>Связей: 19"
     },
     {
@@ -591,7 +591,7 @@
       "id": "Гиалуроновая кислота",
       "label": "Гиалуроновая кислота",
       "shape": "dot",
-      "size": 34,
+      "size": 36,
       "title": "Гиалуроновая кислота<br>Grade: C<br>Связей: 16"
     },
     {
@@ -602,7 +602,7 @@
       "id": "Гимнема",
       "label": "Гимнема",
       "shape": "dot",
-      "size": 47,
+      "size": 50,
       "title": "Гимнема<br>Grade: C<br>Связей: 33"
     },
     {
@@ -613,7 +613,7 @@
       "id": "Гинкго",
       "label": "Гинкго",
       "shape": "dot",
-      "size": 41,
+      "size": 44,
       "title": "Гинкго<br>Grade: D<br>Связей: 58"
     },
     {
@@ -624,7 +624,7 @@
       "id": "Глицин",
       "label": "Глицин",
       "shape": "dot",
-      "size": 37,
+      "size": 40,
       "title": "Глицин<br>Grade: D<br>Связей: 30"
     },
     {
@@ -635,7 +635,7 @@
       "id": "Глутамин",
       "label": "Глутамин",
       "shape": "dot",
-      "size": 33,
+      "size": 35,
       "title": "Глутамин<br>Grade: C<br>Связей: 38"
     },
     {
@@ -646,7 +646,7 @@
       "id": "Глутатион",
       "label": "Глутатион",
       "shape": "dot",
-      "size": 38,
+      "size": 40,
       "title": "Глутатион<br>Grade: C<br>Связей: 48"
     },
     {
@@ -657,7 +657,7 @@
       "id": "Глюкозамин + хондроитин",
       "label": "Глюкозамин + хондроитин",
       "shape": "dot",
-      "size": 41,
+      "size": 43,
       "title": "Глюкозамин + хондроитин<br>Grade: C<br>Связей: 14"
     },
     {
@@ -668,7 +668,7 @@
       "id": "Готу кола",
       "label": "Готу кола",
       "shape": "dot",
-      "size": 39,
+      "size": 42,
       "title": "Готу кола<br>Grade: C<br>Связей: 46"
     },
     {
@@ -679,7 +679,7 @@
       "id": "Гуперзин А",
       "label": "Гуперзин А",
       "shape": "dot",
-      "size": 33,
+      "size": 34,
       "title": "Гуперзин А<br>Grade: B<br>Связей: 35"
     },
     {
@@ -690,7 +690,7 @@
       "id": "Ежовик",
       "label": "Ежовик",
       "shape": "dot",
-      "size": 25,
+      "size": 27,
       "title": "Ежовик<br>Grade: D<br>Связей: 37"
     },
     {
@@ -701,7 +701,7 @@
       "id": "Железо",
       "label": "Железо",
       "shape": "dot",
-      "size": 40,
+      "size": 42,
       "title": "Железо<br>Grade: A<br>Связей: 21"
     },
     {
@@ -712,7 +712,7 @@
       "id": "Женьшень",
       "label": "Женьшень",
       "shape": "dot",
-      "size": 41,
+      "size": 44,
       "title": "Женьшень<br>Grade: D<br>Связей: 43"
     },
     {
@@ -723,7 +723,7 @@
       "id": "Зверобой",
       "label": "Зверобой",
       "shape": "dot",
-      "size": 38,
+      "size": 40,
       "title": "Зверобой<br>Grade: D<br>Связей: 11"
     },
     {
@@ -734,7 +734,7 @@
       "id": "Имбирь",
       "label": "Имбирь",
       "shape": "dot",
-      "size": 31,
+      "size": 33,
       "title": "Имбирь<br>Grade: D<br>Связей: 6"
     },
     {
@@ -745,7 +745,7 @@
       "id": "Инозитол",
       "label": "Инозитол",
       "shape": "dot",
-      "size": 35,
+      "size": 37,
       "title": "Инозитол<br>Grade: C<br>Связей: 37"
     },
     {
@@ -756,7 +756,7 @@
       "id": "Йод",
       "label": "Йод",
       "shape": "dot",
-      "size": 44,
+      "size": 47,
       "title": "Йод<br>Grade: D<br>Связей: 7"
     },
     {
@@ -767,7 +767,7 @@
       "id": "Йохимбин",
       "label": "Йохимбин",
       "shape": "dot",
-      "size": 42,
+      "size": 45,
       "title": "Йохимбин<br>Grade: D<br>Связей: 21"
     },
     {
@@ -778,7 +778,7 @@
       "id": "Калий",
       "label": "Калий",
       "shape": "dot",
-      "size": 43,
+      "size": 46,
       "title": "Калий<br>Grade: B<br>Связей: 25"
     },
     {
@@ -789,7 +789,7 @@
       "id": "Кальций",
       "label": "Кальций",
       "shape": "dot",
-      "size": 29,
+      "size": 31,
       "title": "Кальций<br>Grade: A<br>Связей: 9"
     },
     {
@@ -800,7 +800,7 @@
       "id": "Карнозин",
       "label": "Карнозин",
       "shape": "dot",
-      "size": 41,
+      "size": 44,
       "title": "Карнозин<br>Grade: D<br>Связей: 48"
     },
     {
@@ -811,7 +811,7 @@
       "id": "Кверцетин",
       "label": "Кверцетин",
       "shape": "dot",
-      "size": 35,
+      "size": 37,
       "title": "Кверцетин<br>Grade: D<br>Связей: 21"
     },
     {
@@ -822,7 +822,7 @@
       "id": "Клюква",
       "label": "Клюква",
       "shape": "dot",
-      "size": 38,
+      "size": 40,
       "title": "Клюква<br>Grade: C<br>Связей: 1"
     },
     {
@@ -833,7 +833,7 @@
       "id": "Коллаген",
       "label": "Коллаген",
       "shape": "dot",
-      "size": 39,
+      "size": 42,
       "title": "Коллаген<br>Grade: D<br>Связей: 16"
     },
     {
@@ -844,7 +844,7 @@
       "id": "Кордицепс",
       "label": "Кордицепс",
       "shape": "dot",
-      "size": 26,
+      "size": 27,
       "title": "Кордицепс<br>Grade: B<br>Связей: 25"
     },
     {
@@ -855,7 +855,7 @@
       "id": "Кофеин",
       "label": "Кофеин",
       "shape": "dot",
-      "size": 40,
+      "size": 43,
       "title": "Кофеин<br>Grade: A<br>Связей: 49"
     },
     {
@@ -866,7 +866,7 @@
       "id": "Креатин",
       "label": "Креатин",
       "shape": "dot",
-      "size": 35,
+      "size": 37,
       "title": "Креатин<br>Grade: A<br>Связей: 52"
     },
     {
@@ -877,7 +877,7 @@
       "id": "Кремний",
       "label": "Кремний",
       "shape": "dot",
-      "size": 25,
+      "size": 26,
       "title": "Кремний<br>Grade: C<br>Связей: 20"
     },
     {
@@ -888,7 +888,7 @@
       "id": "Куркумин",
       "label": "Куркумин",
       "shape": "dot",
-      "size": 36,
+      "size": 39,
       "title": "Куркумин<br>Grade: B<br>Связей: 47"
     },
     {
@@ -899,7 +899,7 @@
       "id": "Лаванда",
       "label": "Лаванда",
       "shape": "dot",
-      "size": 34,
+      "size": 36,
       "title": "Лаванда<br>Grade: C<br>Связей: 25"
     },
     {
@@ -910,7 +910,7 @@
       "id": "Лактоферрин",
       "label": "Лактоферрин",
       "shape": "dot",
-      "size": 39,
+      "size": 41,
       "title": "Лактоферрин<br>Grade: D<br>Связей: 27"
     },
     {
@@ -921,7 +921,7 @@
       "id": "Лизин",
       "label": "Лизин",
       "shape": "dot",
-      "size": 35,
+      "size": 37,
       "title": "Лизин<br>Grade: D<br>Связей: 27"
     },
     {
@@ -932,7 +932,7 @@
       "id": "Лютеин + зеаксантин",
       "label": "Лютеин + зеаксантин",
       "shape": "dot",
-      "size": 36,
+      "size": 39,
       "title": "Лютеин + зеаксантин<br>Grade: D<br>Связей: 20"
     },
     {
@@ -943,7 +943,7 @@
       "id": "Магний",
       "label": "Магний",
       "shape": "dot",
-      "size": 44,
+      "size": 46,
       "title": "Магний<br>Grade: D<br>Связей: 38"
     },
     {
@@ -954,7 +954,7 @@
       "id": "Майтаке",
       "label": "Майтаке",
       "shape": "dot",
-      "size": 28,
+      "size": 29,
       "title": "Майтаке<br>Grade: D<br>Связей: 21"
     },
     {
@@ -965,7 +965,7 @@
       "id": "Мака",
       "label": "Мака",
       "shape": "dot",
-      "size": 26,
+      "size": 28,
       "title": "Мака<br>Grade: C<br>Связей: 10"
     },
     {
@@ -976,7 +976,7 @@
       "id": "Марганец",
       "label": "Марганец",
       "shape": "dot",
-      "size": 45,
+      "size": 48,
       "title": "Марганец<br>Grade: D<br>Связей: 7"
     },
     {
@@ -987,7 +987,7 @@
       "id": "Медь",
       "label": "Медь",
       "shape": "dot",
-      "size": 47,
+      "size": 50,
       "title": "Медь<br>Grade: D<br>Связей: 27"
     },
     {
@@ -998,7 +998,7 @@
       "id": "Мелатонин",
       "label": "Мелатонин",
       "shape": "dot",
-      "size": 39,
+      "size": 41,
       "title": "Мелатонин<br>Grade: D<br>Связей: 13"
     },
     {
@@ -1009,7 +1009,7 @@
       "id": "Мелисса",
       "label": "Мелисса",
       "shape": "dot",
-      "size": 39,
+      "size": 41,
       "title": "Мелисса<br>Grade: C<br>Связей: 60"
     },
     {
@@ -1020,7 +1020,7 @@
       "id": "Метионин",
       "label": "Метионин",
       "shape": "dot",
-      "size": 38,
+      "size": 41,
       "title": "Метионин<br>Grade: D<br>Связей: 16"
     },
     {
@@ -1031,7 +1031,7 @@
       "id": "Молибден",
       "label": "Молибден",
       "shape": "dot",
-      "size": 46,
+      "size": 49,
       "title": "Молибден<br>Grade: D<br>Связей: 16"
     },
     {
@@ -1042,7 +1042,7 @@
       "id": "Ниацинамид",
       "label": "Ниацинамид",
       "shape": "dot",
-      "size": 31,
+      "size": 32,
       "title": "Ниацинамид<br>Grade: C<br>Связей: 27"
     },
     {
@@ -1053,7 +1053,7 @@
       "id": "Омега-3",
       "label": "Омега-3",
       "shape": "dot",
-      "size": 50,
+      "size": 10,
       "title": "Омега-3<br>Grade: B<br>Связей: 53"
     },
     {
@@ -1064,7 +1064,7 @@
       "id": "Орнитин",
       "label": "Орнитин",
       "shape": "dot",
-      "size": 18,
+      "size": 19,
       "title": "Орнитин<br>Grade: D<br>Связей: 29"
     },
     {
@@ -1075,7 +1075,7 @@
       "id": "Пажитник",
       "label": "Пажитник",
       "shape": "dot",
-      "size": 33,
+      "size": 35,
       "title": "Пажитник<br>Grade: C<br>Связей: 26"
     },
     {
@@ -1086,7 +1086,7 @@
       "id": "Пассифлора",
       "label": "Пассифлора",
       "shape": "dot",
-      "size": 40,
+      "size": 43,
       "title": "Пассифлора<br>Grade: C<br>Связей: 20"
     },
     {
@@ -1097,7 +1097,7 @@
       "id": "Пикногенол",
       "label": "Пикногенол",
       "shape": "dot",
-      "size": 30,
+      "size": 31,
       "title": "Пикногенол<br>Grade: C<br>Связей: 56"
     },
     {
@@ -1108,7 +1108,7 @@
       "id": "Пробиотики",
       "label": "Пробиотики",
       "shape": "dot",
-      "size": 22,
+      "size": 23,
       "title": "Пробиотики<br>Grade: B<br>Связей: 25"
     },
     {
@@ -1119,7 +1119,7 @@
       "id": "Пролин",
       "label": "Пролин",
       "shape": "dot",
-      "size": 23,
+      "size": 25,
       "title": "Пролин<br>Grade: D<br>Связей: 16"
     },
     {
@@ -1130,7 +1130,7 @@
       "id": "Псиллиум",
       "label": "Псиллиум",
       "shape": "dot",
-      "size": 34,
+      "size": 36,
       "title": "Псиллиум<br>Grade: D<br>Связей: 45"
     },
     {
@@ -1141,7 +1141,7 @@
       "id": "Пустырник",
       "label": "Пустырник",
       "shape": "dot",
-      "size": 40,
+      "size": 42,
       "title": "Пустырник<br>Grade: D<br>Связей: 25"
     },
     {
@@ -1152,7 +1152,7 @@
       "id": "Расторопша",
       "label": "Расторопша",
       "shape": "dot",
-      "size": 34,
+      "size": 36,
       "title": "Расторопша<br>Grade: D<br>Связей: 9"
     },
     {
@@ -1163,7 +1163,7 @@
       "id": "Рейши",
       "label": "Рейши",
       "shape": "dot",
-      "size": 30,
+      "size": 32,
       "title": "Рейши<br>Grade: C<br>Связей: 34"
     },
     {
@@ -1174,7 +1174,7 @@
       "id": "Ресвератрол",
       "label": "Ресвератрол",
       "shape": "dot",
-      "size": 33,
+      "size": 35,
       "title": "Ресвератрол<br>Grade: C<br>Связей: 37"
     },
     {
@@ -1185,7 +1185,7 @@
       "id": "Рибофлавин",
       "label": "Рибофлавин",
       "shape": "dot",
-      "size": 36,
+      "size": 38,
       "title": "Рибофлавин<br>Grade: D<br>Связей: 38"
     },
     {
@@ -1196,7 +1196,7 @@
       "id": "Родиола",
       "label": "Родиола",
       "shape": "dot",
-      "size": 36,
+      "size": 38,
       "title": "Родиола<br>Grade: C<br>Связей: 37"
     },
     {
@@ -1207,7 +1207,7 @@
       "id": "Селен",
       "label": "Селен",
       "shape": "dot",
-      "size": 37,
+      "size": 39,
       "title": "Селен<br>Grade: C<br>Связей: 42"
     },
     {
@@ -1218,7 +1218,7 @@
       "id": "Серин",
       "label": "Серин",
       "shape": "dot",
-      "size": 35,
+      "size": 37,
       "title": "Серин<br>Grade: C<br>Связей: 35"
     },
     {
@@ -1229,7 +1229,7 @@
       "id": "Сульфорафан",
       "label": "Сульфорафан",
       "shape": "dot",
-      "size": 30,
+      "size": 32,
       "title": "Сульфорафан<br>Grade: C<br>Связей: 21"
     },
     {
@@ -1240,7 +1240,7 @@
       "id": "Сывороточный протеин",
       "label": "Сывороточный протеин",
       "shape": "dot",
-      "size": 36,
+      "size": 38,
       "title": "Сывороточный протеин<br>Grade: A<br>Связей: 15"
     },
     {
@@ -1251,7 +1251,7 @@
       "id": "Таурин",
       "label": "Таурин",
       "shape": "dot",
-      "size": 32,
+      "size": 34,
       "title": "Таурин<br>Grade: C<br>Связей: 50"
     },
     {
@@ -1262,7 +1262,7 @@
       "id": "Тирозин",
       "label": "Тирозин",
       "shape": "dot",
-      "size": 34,
+      "size": 36,
       "title": "Тирозин<br>Grade: D<br>Связей: 46"
     },
     {
@@ -1273,7 +1273,7 @@
       "id": "Трибулус",
       "label": "Трибулус",
       "shape": "dot",
-      "size": 36,
+      "size": 38,
       "title": "Трибулус<br>Grade: D<br>Связей: 22"
     },
     {
@@ -1284,7 +1284,7 @@
       "id": "Триптофан",
       "label": "Триптофан",
       "shape": "dot",
-      "size": 37,
+      "size": 39,
       "title": "Триптофан<br>Grade: C<br>Связей: 22"
     },
     {
@@ -1295,7 +1295,7 @@
       "id": "Фосфатидилсерин",
       "label": "Фосфатидилсерин",
       "shape": "dot",
-      "size": 24,
+      "size": 25,
       "title": "Фосфатидилсерин<br>Grade: C<br>Связей: 43"
     },
     {
@@ -1306,7 +1306,7 @@
       "id": "Хлорофилл",
       "label": "Хлорофилл",
       "shape": "dot",
-      "size": 43,
+      "size": 45,
       "title": "Хлорофилл<br>Grade: C<br>Связей: 13"
     },
     {
@@ -1317,7 +1317,7 @@
       "id": "Холин",
       "label": "Холин",
       "shape": "dot",
-      "size": 31,
+      "size": 33,
       "title": "Холин<br>Grade: C<br>Связей: 35"
     },
     {
@@ -1328,7 +1328,7 @@
       "id": "Хром",
       "label": "Хром",
       "shape": "dot",
-      "size": 33,
+      "size": 35,
       "title": "Хром<br>Grade: C<br>Связей: 29"
     },
     {
@@ -1339,7 +1339,7 @@
       "id": "Цинк",
       "label": "Цинк",
       "shape": "dot",
-      "size": 35,
+      "size": 37,
       "title": "Цинк<br>Grade: D<br>Связей: 62"
     },
     {
@@ -1350,7 +1350,7 @@
       "id": "Цистеин",
       "label": "Цистеин",
       "shape": "dot",
-      "size": 32,
+      "size": 34,
       "title": "Цистеин<br>Grade: D<br>Связей: 24"
     },
     {
@@ -1361,7 +1361,7 @@
       "id": "Чага",
       "label": "Чага",
       "shape": "dot",
-      "size": 42,
+      "size": 45,
       "title": "Чага<br>Grade: C<br>Связей: 35"
     },
     {
@@ -1372,7 +1372,7 @@
       "id": "Чеснок",
       "label": "Чеснок",
       "shape": "dot",
-      "size": 23,
+      "size": 24,
       "title": "Чеснок<br>Grade: B<br>Связей: 27"
     },
     {
@@ -1383,7 +1383,7 @@
       "id": "Чёрный тмин",
       "label": "Чёрный тмин",
       "shape": "dot",
-      "size": 31,
+      "size": 33,
       "title": "Чёрный тмин<br>Grade: C<br>Связей: 31"
     },
     {
@@ -1394,7 +1394,7 @@
       "id": "Шатавари",
       "label": "Шатавари",
       "shape": "dot",
-      "size": 27,
+      "size": 28,
       "title": "Шатавари<br>Grade: C<br>Связей: 18"
     },
     {
@@ -1405,7 +1405,7 @@
       "id": "Шиитаке",
       "label": "Шиитаке",
       "shape": "dot",
-      "size": 38,
+      "size": 40,
       "title": "Шиитаке<br>Grade: C<br>Связей: 37"
     },
     {
@@ -1416,7 +1416,7 @@
       "id": "Шлемник",
       "label": "Шлемник",
       "shape": "dot",
-      "size": 37,
+      "size": 40,
       "title": "Шлемник<br>Grade: C<br>Связей: 56"
     },
     {
@@ -1427,7 +1427,7 @@
       "id": "Эхинацея",
       "label": "Эхинацея",
       "shape": "dot",
-      "size": 43,
+      "size": 46,
       "title": "Эхинацея<br>Grade: D<br>Связей: 21"
     }
   ],
