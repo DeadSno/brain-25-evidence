@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <script defer src="version.js?v=312"></script>
   <script src="i18n.js?v=2"></script>
+  <script src="vendor/chart.umd-4.4.1.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
@@ -67,6 +68,7 @@ try {
   .tableWrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:var(--space-4)}
   footer{font-size:.85rem;opacity:.7;margin-top:2rem;padding-bottom:calc(var(--space-4) + env(safe-area-inset-bottom, 0))}
   @media (max-width: 640px) { body { padding: 0.6rem !important; } .wrap { padding: 0.6rem !important; } .top { flex-direction: column; align-items: stretch; gap: var(--space-2); } }
+  body{max-width:none!important;margin:0!important}
   button, .btn, a { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
   @supports (padding: env(safe-area-inset-bottom)) { body { padding-bottom: env(safe-area-inset-bottom); } }
 
@@ -108,9 +110,21 @@ try {
 
 <main id="main">
   <h1>⚖ Сравнение БАДов</h1>
-  <p class="cmpNote" id="cmpNote">Выберите 2–10 добавок на карте — они соберутся здесь для сравнения рядом.</p>
+  <p class="cmpNote" id="cmpNote">Добавьте добавки через поиск или селекты ниже — они соберутся здесь для сравнения рядом. Можно добавить прямо на этой странице, не возвращаясь на главную.</p>
 
-  <div id="cmpError" style="color:red;display:none"></div>
+  <div id="cmpError" class="cmp-error" style="display:none"></div>
+
+  <!-- Добавление добавок прямо на странице сравнения -->
+  <section id="cmpControls" style="margin:0 0 var(--space-4);padding:var(--space-4);background:var(--apanel);border:1px solid var(--aborder);border-radius:var(--radius-lg)">
+    <div style="display:flex;gap:.5rem;flex-wrap:wrap;align-items:end">
+      <input id="cmpSearch" placeholder="Поиск добавки…" style="flex:1 1 260px;min-width:220px;padding:.45rem .8rem;border:1px solid var(--aborder);border-radius:var(--radius-lg);background:var(--apanel);color:var(--atext);font-size:.9rem">
+      <select id="cmpSelect1" style="padding:.45rem .8rem;border:1px solid var(--aborder);border-radius:var(--radius-lg);background:var(--apanel);color:var(--atext);font-size:.9rem;min-width:180px"><option value="">— Добавка 1 —</option></select>
+      <select id="cmpSelect2" style="padding:.45rem .8rem;border:1px solid var(--aborder);border-radius:var(--radius-lg);background:var(--apanel);color:var(--atext);font-size:.9rem;min-width:180px"><option value="">— Добавка 2 —</option></select>
+      <button id="cmpAddBtn" class="btn" disabled>Добавить в сравнение</button>
+    </div>
+    <div id="cmpList" style="margin-top:.5rem;display:flex;flex-wrap:wrap;gap:.4rem"></div>
+    <p id="cmpHint" style="margin:.4rem 0 0;font-size:.85rem;opacity:.75">Максимум 10 добавок. Уберите лишнюю кнопкой «×» на чипе.</p>
+  </section>
 
   <div class="tableWrap">
     <table class="compare" id="cmpTable">
@@ -123,6 +137,12 @@ try {
       <tbody id="cmpBody"></tbody>
     </table>
   </div>
+
+  <!-- Радар профиля (перенесено с главной) -->
+  <section id="cmpRadar" style="margin:var(--space-6) 0 0">
+    <h3 style="margin:0 0 .7rem">📡 Радар профиля</h3>
+    <div style="position:relative;max-width:520px;margin:0 auto"><canvas id="radarChart" width="520" height="520"></canvas></div>
+  </section>
 
   <section id="stackChecker" class="stack-checker" aria-label="Проверка совместимости">
     <h3>Проверка совместимости</h3>
@@ -160,6 +180,25 @@ try {
 })();
 
 const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;" }[c]));
+
+// slugify: кириллический id -> транслит для URL sup/<slug>.html
+const TRANS = {
+  "а":"a","б":"b","в":"v","г":"g","д":"d","е":"e","ё":"e",
+  "ж":"zh","з":"z","и":"i","й":"y","к":"k","л":"l","м":"m",
+  "н":"n","о":"o","п":"p","р":"r","с":"s","т":"t","у":"u",
+  "ф":"f","х":"h","ц":"ts","ч":"ch","ш":"sh","щ":"sch",
+  "ъ":"","ы":"y","ь":"","э":"e","ю":"yu","я":"ya"
+};
+function slugify(name) {
+  const out = [];
+  for (const ch of String(name || '').toLowerCase()) {
+    if (ch in TRANS) out.push(TRANS[ch]);
+    else if (ch === '-' || ch === '_' || ch === ' ') out.push('-');
+    else if (ch >= 'a' && ch <= 'z' || ch >= '0' && ch <= '9') out.push(ch);
+    else out.push('-');
+  }
+  return out.join('').replace(/-{2,}/g, '-').replace(/^-|-$/g, '');
+}
 
 const GRADE_LABEL = { A: "Высокая доказательность", B: "Средняя", C: "Низкая", D: "Недостаточно данных" };
 function gradeBadgeHtml(s) {
@@ -205,7 +244,7 @@ function renderTable(supplements, truncated) {
     { key: 'dosage', label: t ? t("cmp.table.dosage") : "Дозировка", get: s => esc(s.dosage || '—') },
     { key: 'safety', label: t ? t("cmp.table.safety") : "Безопасность", get: s => { const u = s.upper_limit || ''; const c = s.caution || ''; return (u || c) ? '<div>' + esc(u) + '</div>' + (c ? '<div style="opacity:.7;font-size:.85rem">' + esc(c) + '</div>' : '') : '<span class="noData">—</span>'; } },
     { key: 'rct', label: t ? t("cmp.table.rct") : "РКИ", get: s => (s.rct != null ? String(s.rct) : '—') },
-    { key: 'card', label: t ? t("cmp.table.card") : "Карточка", get: s => '<a class="linkCard" href="sup/' + encodeURIComponent(s.id) + '.html" target="_blank" rel="noopener">Открыть ↗</a>' }
+    { key: 'card', label: t ? t("cmp.table.card") : "Карточка", get: s => '<a class="linkCard" href="sup/' + slugify(s.id) + '.html" target="_blank" rel="noopener">Открыть ↗</a>' }
   ];
 
   let trHtml = '';
@@ -219,42 +258,192 @@ function renderTable(supplements, truncated) {
   body.innerHTML = trHtml;
 }
 
-const params = new URLSearchParams(location.search);
-const idsParam = params.get('ids');
-let ids = [];
-if (idsParam) {
-  ids = idsParam.split(',').filter(Boolean);
-}
-// Ограничиваем 10
-const totalIds = ids.length;
-ids = ids.slice(0, 10);
-const truncated = totalIds > 10;
+// Загрузка каталога для селекторов сравнения, затем отрисовка текущего набора
+let ALL = [];   // {id, name}
+let compareIds = [];
+let radarInstance = null;
 
-if (!ids.length) {
-  document.getElementById('cmpError').textContent = 'Не указаны добавки для сравнения. Выберите минимум 2 на карте.';
-  document.getElementById('cmpError').style.display = 'block';
-  document.getElementById('cmpBody').innerHTML = '';
-} else if (ids.length === 1) {
-  document.getElementById('cmpError').textContent = 'Выберите минимум 2 добавки.';
-  document.getElementById('cmpError').style.display = 'block';
-  document.getElementById('cmpBody').innerHTML = '';
-} else {
+Promise.all([fetchJson('data_index.json')]).then(([idx]) => {
+  ALL = Array.isArray(idx) ? idx : (idx.supplements || []);
+  const s1 = document.getElementById('cmpSelect1');
+  const s2 = document.getElementById('cmpSelect2');
+  ALL.forEach(s => {
+    const o = new Option(s.name, s.id);
+    s1.add(o);
+    s2.add(new Option(s.name, s.id));
+  });
+  loadIds();
+  renderCompare();
+}).catch(err => {
+  console.error('[compare] не удалось загрузить data_index.json:', err);
+  const errEl = document.getElementById('cmpError');
+  if (errEl) { errEl.textContent = 'Не удалось загрузить каталог добавок.'; errEl.style.display = 'block'; }
+});
+
+function loadIds() {
+  const params = new URLSearchParams(location.search);
+  const idsParam = params.get('ids');
+  if (idsParam) {
+    compareIds = idsParam.split(',').filter(Boolean);
+  } else {
+    // Находка Med 3 (аудит 1): если нет ?ids=, читаем из localStorage.compareIds
+    try { compareIds = JSON.parse(localStorage.getItem('compareIds') || '[]').filter(Boolean); } catch (e) { compareIds = []; }
+  }
+  compareIds = compareIds.slice(0, 10);
+  renderCmpList();
+}
+
+function saveIds() {
+  try { localStorage.setItem('compareIds', JSON.stringify(compareIds)); } catch (e) {}
+}
+
+function renderCmpList() {
+  const box = document.getElementById('cmpList');
+  if (!box) return;
+  box.innerHTML = compareIds.map(id => {
+    const s = ALL.find(x => x.id === id);
+    const name = s ? esc(s.name) : esc(id);
+    return '<span class="cmpChip" style="display:inline-flex;align-items:center;gap:.35rem;padding:.2rem .5rem;border:1px solid var(--aborder);border-radius:var(--radius-lg);background:var(--apanel);color:var(--atext);font-size:.85rem">' +
+      name +
+      ' <button class="cmpChipX" data-remove="' + esc(id) + '" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:1.1rem;line-height:1;padding:0">×</button>' +
+      '</span>';
+  }).join('');
+  const btn = document.getElementById('cmpAddBtn');
+  if (btn) btn.disabled = compareIds.length >= 10;
+  box.querySelectorAll('.cmpChipX').forEach(b => {
+    b.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const id = e.currentTarget.dataset.remove;
+      const i = compareIds.indexOf(id);
+      if (i >= 0) { compareIds.splice(i, 1); saveIds(); renderCmpList(); renderCompare(); }
+    });
+  });
+}
+
+function addCmpId(id) {
+  if (!id || compareIds.includes(id)) return;
+  if (compareIds.length >= 10) return;
+  compareIds.push(id);
+  saveIds();
+  renderCmpList();
+  renderCompare();
+}
+
+function renderCompare() {
+  const errEl = document.getElementById('cmpError');
+  const shown = compareIds.slice(0, 10);
+  const truncated = compareIds.length > 10;
+  const note = document.getElementById('cmpNote');
+  if (note) {
+    note.textContent = truncated
+      ? "Показаны первые 10 добавок."
+      : (shown.length ? "Сравниваем " + shown.length + " добавок рядом." : "Добавьте добавки через поиск или селекты выше.");
+  }
+  if (!shown.length) {
+    if (errEl) { errEl.textContent = 'Не указаны добавки для сравнения. Добавьте их через поиск или селекты выше.'; errEl.style.display = 'block'; }
+    document.getElementById('cmpBody').innerHTML = '';
+    const radar = document.getElementById('radarChart');
+    if (radar) radar.style.display = 'none';
+    return;
+  }
+  if (shown.length === 1) {
+    if (errEl) { errEl.textContent = 'Выберите минимум 2 добавки.'; errEl.style.display = 'block'; }
+    document.getElementById('cmpBody').innerHTML = '';
+    const radar = document.getElementById('radarChart');
+    if (radar) radar.style.display = 'none';
+    return;
+  }
+  if (errEl) errEl.style.display = 'none';
   fetchJson('data.json').then(all => {
     const map = {};
     all.forEach(s => { map[s.id] = s; });
-    const found = ids.map(id => map[id]).filter(Boolean);
+    const found = shown.map(id => map[id]).filter(Boolean);
     if (!found.length) {
-      document.getElementById('cmpError').textContent = 'Добавки не найдены в базе.';
-      document.getElementById('cmpError').style.display = 'block';
+      if (errEl) { errEl.textContent = 'Добавки не найдены в базе.'; errEl.style.display = 'block'; }
       return;
     }
     renderTable(found, truncated);
+    renderRadar(found);
     renderStackChecker(found);
   }).catch(err => {
     console.error('[compare] ошибка загрузки data.json:', err);
-    document.getElementById('cmpError').textContent = 'Не удалось загрузить базу данных. Попробуйте обновить страницу.';
-    document.getElementById('cmpError').style.display = 'block';
+    if (errEl) { errEl.textContent = 'Не удалось загрузить базу данных. Попробуйте обновить страницу.'; errEl.style.display = 'block'; }
   });
+}
+
+function radarFill(ctx) {
+  const { chart } = ctx; const { ctx: c, chartArea } = chart;
+  if (!chartArea) return 'rgba(52,152,219,.25)';
+  const cx = (chartArea.left + chartArea.right) / 2, cy = (chartArea.top + chartArea.bottom) / 2;
+  const g = c.createRadialGradient(cx, cy, 8, cx, cy, Math.max(chartArea.width, chartArea.height) / 2);
+  g.addColorStop(0, 'rgba(46,204,130,.38)');
+  g.addColorStop(1, 'rgba(52,152,219,.12)');
+  return g;
+}
+
+const PROF_LABELS = [(t && t("prof.science")) || "Наука", (t && t("prof.maBase")) || "База МА", (t && t("prof.verified")) || "Верифицированность", (t && t("prof.completeness")) || "Полнота"];
+const PROF_LONG_LABELS = [(t && t("prof.long.science")) || "Наука", (t && t("prof.long.maBase")) || "База МА", (t && t("prof.long.verified")) || "Верифицированность", (t && t("prof.long.completeness")) || "Полнота"];
+
+function renderRadar(found) {
+  const canvas = document.getElementById('radarChart');
+  if (!canvas) return;
+  if (found.length !== 2) { canvas.style.display = 'none'; return; }
+  canvas.style.display = 'block';
+  if (radarInstance) radarInstance.destroy();
+  const [a, b] = found;
+  const BASE_FOR_PCT = ALL;
+  const pctile = (x, arr) => {
+    const vals = arr.map(v => (v == null ? 0 : v)).sort((aa, bb) => aa - bb);
+    if (!vals.length) return 0;
+    let lo = 0, hi = vals.length - 1, target = (x == null ? 0 : x);
+    while (lo <= hi) {
+      const mid = (lo + hi) >> 1;
+      if (vals[mid] < target) lo = mid + 1; else hi = mid - 1;
+    }
+    return lo > 0 ? Math.round((lo / (vals.length - 1)) * 100) : 0;
+  };
+  const gradeMap = { A: 80, B: 60, C: 40, D: 20 };
+  const prof = s => {
+    const science = pctile(s.scienceIndex || 0, BASE_FOR_PCT.map(x => x.scienceIndex));
+    const maBase = pctile(s.metaCount || 0, BASE_FOR_PCT.map(x => x.metaCount));
+    const srcBonus = Math.min((s.key_sources || []).length, 5) * 4;
+    const verified = Math.min((gradeMap[s.grade] || 0) + srcBonus, 100);
+    const baseFields = ['verdict', 'effects', 'dosage', 'course', 'caution'];
+    const advFields = ['about', 'who_needs', 'onset', 'myths', 'food_sources', 'guidelines', 'how_to_choose'];
+    const baseFilled = baseFields.filter(f => { const v = s[f]; return Array.isArray(v) ? v.length > 0 : !!v; }).length;
+    const advFilled = advFields.filter(f => { const v = s[f]; return Array.isArray(v) ? v.length > 0 : (typeof v === 'string' && v.length > 0); }).length;
+    const completeness = Math.round((baseFilled / baseFields.length) * 40 + (advFilled / advFields.length) * 60);
+    return [science, maBase, verified, completeness];
+  };
+  const ctx = canvas.getContext('2d');
+  radarInstance = new Chart(ctx, {
+    type: 'radar',
+    data: {
+      labels: PROF_LONG_LABELS,
+      datasets: [
+        { label: a.name, data: prof(a), borderColor: '#3498db', backgroundColor: radarFill, pointBackgroundColor: '#3498db' },
+        { label: b.name, data: prof(b), borderColor: '#e67e22', backgroundColor: radarFill, pointBackgroundColor: '#e67e22' }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      layout: { padding: 30 },
+      scales: { r: { min: 0, max: 100, ticks: { display: false }, pointLabels: { font: { size: 10 } } } },
+      plugins: {
+        legend: { position: 'bottom' },
+        tooltip: {
+          callbacks: {
+            label: ctx => {
+              const s = ctx.datasetIndex === 0 ? a : b;
+              return ' ' + s.name + ' · ' + (PROF_LABELS[ctx.dataIndex] || '') + ': ' + Math.round(ctx.parsed.r) + '/100';
+            }
+          }
+        }
+      }
+    }
+  });
+  // для интеграционных тестов (e2e_smoke F4.3)
+  window.radarInstance = radarInstance;
 }
 
 function renderStackChecker(supplements) {
@@ -279,6 +468,24 @@ function renderStackChecker(supplements) {
   container.innerHTML = html;
   section.style.display = found ? 'block' : 'block';
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+  const s1 = document.getElementById('cmpSelect1');
+  const s2 = document.getElementById('cmpSelect2');
+  const addBtn = document.getElementById('cmpAddBtn');
+  const searchInp = document.getElementById('cmpSearch');
+  if (s1) s1.addEventListener('change', () => { addCmpId(s1.value); s1.selectedIndex = 0; });
+  if (s2) s2.addEventListener('change', () => { addCmpId(s2.value); s2.selectedIndex = 0; });
+  if (addBtn && searchInp) addBtn.addEventListener('click', () => {
+    const v = searchInp.value.trim();
+    if (!v) return;
+    const hit = ALL.find(s => s.id.toLowerCase() === v.toLowerCase() || s.name.toLowerCase() === v.toLowerCase());
+    if (hit) { addCmpId(hit.id); searchInp.value = ''; }
+  });
+  if (searchInp) searchInp.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') { e.preventDefault(); if (addBtn) addBtn.click(); }
+  });
+});
 
 // Кнопка «🎲 Удиви меня»: случайная добавка из каталога.
 // Список страниц берём из sitemap.xml — там уже готовые URL по slug

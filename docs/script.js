@@ -4,6 +4,26 @@ function esc(s) {
   ));
 }
 const $ = id => document.getElementById(id);
+
+// ===== slug: кириллическое id -> транслит для URL sup/<slug>.html =====
+const TRANS = {
+  "а":"a","б":"b","в":"v","г":"g","д":"d","е":"e","ё":"e",
+  "ж":"zh","з":"z","и":"i","й":"y","к":"k","л":"l","м":"m",
+  "н":"n","о":"o","п":"p","р":"r","с":"s","т":"t","у":"u",
+  "ф":"f","х":"h","ц":"ts","ч":"ch","ш":"sh","щ":"sch",
+  "ъ":"","ы":"y","ь":"","э":"e","ю":"yu","я":"ya"
+};
+function slugify(name) {
+  const out = [];
+  for (const ch of String(name || '').toLowerCase()) {
+    if (ch in TRANS) out.push(TRANS[ch]);
+    else if (ch === '-' || ch === '_' || ch === ' ') out.push('-');
+    else if (ch >= 'a' && ch <= 'z' || ch >= '0' && ch <= '9') out.push(ch);
+    else out.push('-');
+  }
+  return out.join('').replace(/-{2,}/g, '-').replace(/^-|-$/g, '');
+}
+
 // 13A2a (I18N-P2-01): LOCALE, I18N и t() перенесены в глобальный
 // docs/i18n.js (classic-скрипт, подключается до script.js и до
 // inline-скриптов тем). Здесь — только потребление I18N / t / LOCALE.
@@ -396,6 +416,15 @@ function initApp() {
   $('compareSelect1').addEventListener('change', renderCompare);
   $('compareSelect2').addEventListener('change', renderCompare);
   $('search').addEventListener('input', applyFilters);
+  $('search').addEventListener('input', (e) => { renderSearchDrop(e.target.value); });
+  $('search').addEventListener('keydown', (e) => {
+    const drop = $('searchDrop');
+    if (!drop || drop.style.display === 'none') return;
+    if (e.key === 'ArrowDown') { e.preventDefault(); searchDropActive = Math.min(searchDropActive + 1, drop.querySelectorAll('.drop-row').length - 1); updateSearchDropFocus(); }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); searchDropActive = Math.max(searchDropActive - 1, 0); updateSearchDropFocus(); }
+    else if (e.key === 'Enter') { e.preventDefault(); pickSearchDrop(); }
+    else if (e.key === 'Escape') { drop.style.display = 'none'; searchDropActive = -1; }
+  });
   ['verdictFilter', 'sortSelect'].forEach(id => { const el = $(id); if (el) el.addEventListener('change', applyFilters); });
   document.querySelectorAll('.preset').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -416,6 +445,23 @@ function initApp() {
     else trapModalFocus(e);   // v5.6.2 (T3): Tab/Shift+Tab не покидают модалку
   });
   document.addEventListener('click', e => {
+    // Закрыть live-search дропдаун при клике вне поля и самого дропдауна
+    const drop = $('searchDrop');
+    if (drop && drop.style.display !== 'none') {
+      const insideDrop = e.target.closest('#searchDrop, #search');
+      if (!insideDrop) { drop.style.display = 'none'; searchDropActive = -1; }
+    }
+    // Клик по результату live-search -> переход на страницу добавки
+    const srow = e.target.closest('.drop-row[data-id]');
+    if (srow) {
+      e.preventDefault();
+      const id = srow.dataset.id;
+      $('search').value = '';
+      drop.style.display = 'none';
+      searchDropActive = -1;
+      location.href = 'sup/' + slugify(id) + '.html';
+      return;
+    }
     const chip = e.target.closest('.tagChip');
     if (!chip) return;
     e.stopPropagation();
@@ -679,6 +725,57 @@ function applyFilters() {
 }
 
 
+// ===== Live-search дропдаун под строкой поиска (index.html) =====
+let searchDropActive = -1;
+
+function renderSearchDrop(q) {
+  const drop = $('searchDrop');
+  if (!drop) return;
+  const v = (q || '').trim();
+  if (!v) { drop.style.display = 'none'; drop.innerHTML = ''; searchDropActive = -1; return; }
+  const vl = v.toLowerCase();
+  const results = supplements.filter(s =>
+    s.name.toLowerCase().includes(vl) || (s.effects || []).join(' ').toLowerCase().includes(vl)
+  ).slice(0, 8);
+  if (!results.length) {
+    drop.innerHTML = '<div class="drop-empty">Ничего не найдено</div>';
+    drop.style.display = 'block';
+    searchDropActive = -1;
+    return;
+  }
+  drop.innerHTML = results.map((s, i) =>
+    '<div class="drop-row" role="option" data-id="' + esc(s.id) + '" data-index="' + i + '">' +
+    '<span class="drop-name">' + esc(s.name) + '</span>' +
+    '<span class="drop-cat">' + esc(s.category || '') + '</span>' +
+    '</div>'
+  ).join('');
+  drop.style.display = 'block';
+  searchDropActive = -1;
+  updateSearchDropFocus();
+}
+
+function updateSearchDropFocus() {
+  const drop = $('searchDrop');
+  if (!drop || drop.style.display === 'none') return;
+  const rows = drop.querySelectorAll('.drop-row');
+  rows.forEach((r, i) => {
+    r.classList.toggle('focused', i === searchDropActive);
+    r.setAttribute('aria-selected', i === searchDropActive ? 'true' : 'false');
+  });
+}
+
+function pickSearchDrop() {
+  const drop = $('searchDrop');
+  if (!drop || drop.style.display === 'none') return;
+  const row = drop.querySelector('.drop-row.focused') || drop.querySelector('.drop-row');
+  if (!row) return;
+  const id = row.dataset.id;
+  $('search').value = '';
+  drop.style.display = 'none';
+  searchDropActive = -1;
+  location.href = 'sup/' + slugify(id) + '.html';
+}
+
 const EFFECT_PRIORITY = [
   'sleep', 'stress', 'mood', 'brain', 'energy', 'immunity',
   'heart', 'blood', 'muscle', 'joints', 'skin'
@@ -801,9 +898,10 @@ function renderCards(data) {
       '<span class="tagChip" data-cat-group="' + catGroup(effectLabels[t] || t) + '" data-tag="' + esc(t) + '" title="' + esc(effectLabels[t] || t) + '">' + esc(effectLabels[t] || t) + '</span>'
     ).join('') + '</div></div>').join('');
   g.querySelectorAll('.card').forEach(el => {
+    const url = 'sup/' + slugify(el.dataset.id) + '.html';
     el.onclick = (e) => {
       if (e.target.closest('a')) return;
-      location.href = 'sup/' + esc(el.dataset.id) + '.html';
+      location.href = url;
     };
     // v5.6.2 батч C (T3): карточка — div с onclick, без него она
     // недостижима с клавиатуры: ни Enter, ни Пробел ничего не делали.
@@ -812,7 +910,7 @@ function renderCards(data) {
       if (e.key !== 'Enter' && e.key !== ' ') return;
       if (e.target.closest('a, button')) return;   // свои элементы обработают сами
       e.preventDefault();
-      location.href = 'sup/' + esc(el.dataset.id) + '.html';
+      location.href = url;
     };
   });
 }
@@ -1053,7 +1151,7 @@ function renderBubble(data) {
         if (!els.length) return;
         const s = chartSupByEl(e.chart, els[0]);
         if (!s) return;
-        location.href = 'sup/' + esc(s.id) + '.html';
+        location.href = 'sup/' + slugify(s.id) + '.html';
       },
       onHover: (e, els) => {
         e.native.target.style.cursor = els.length ? 'pointer' : 'default';
@@ -1105,7 +1203,7 @@ function renderQuadrant(data) {
           return s ? ' ' + s.name + ' · g=' + s.hedges_g + ' · ' + (s.grade || '—') + ' · ' + s.verdict : '';
         } } }
       },
-      onClick: (e, els) => { if (!els.length) return; const s = chartSupByEl(e.chart, els[0]); if (!s) return; location.href = 'sup/' + esc(s.id) + '.html'; },
+      onClick: (e, els) => { if (!els.length) return; const s = chartSupByEl(e.chart, els[0]); if (!s) return; location.href = 'sup/' + slugify(s.id) + '.html'; },
       onHover: (e, els) => { e.native.style.cursor = els.length ? 'pointer' : 'default'; }
     }
   });
@@ -1206,9 +1304,11 @@ async function renderCompare() {
     return [science, maBase, verified, completeness];
   };
   const PROF_LABELS = [t("prof.science"), t("prof.maBase"), t("prof.verified"), t("prof.completeness")];
-  if (radarInstance) radarInstance.destroy();
-  radarInstance = new Chart($('radarChart'), {
-    type: 'radar',
+  const rc = $('radarChart');
+  if (rc) {
+    if (radarInstance) radarInstance.destroy();
+    radarInstance = new Chart(rc, {
+      type: 'radar',
     data: {
       labels: [
         t("prof.long.science"),
@@ -1242,7 +1342,8 @@ async function renderCompare() {
       }
     }
   });
-  window.radarInstance = radarInstance;
+    window.radarInstance = radarInstance;
+  }
 }
 
 // ===== v1.3: избранное =====

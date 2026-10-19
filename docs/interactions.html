@@ -1245,13 +1245,20 @@ window.addEventListener('scroll', () => {
     var supBorder = cssVar('--border', '#3a3a3c');
     var supFg = cssVar('--fg', '#f5f5f7');
 
+    function lum(c) {
+      c = String(c).replace('#', '');
+      if (c.length === 3) c = c.split('').map(function (h) { return h + h; }).join('');
+      var r = parseInt(c.substr(0, 2), 16), g = parseInt(c.substr(2, 2), 16), b = parseInt(c.substr(4, 2), 16);
+      return (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+    }
+    var centerFg = lum(mech.color) > 0.5 ? '#111' : '#fff';
     var nodes = [{
       id: MECH_NODE_ID,
       label: mech.label,
       shape: 'box',
       color: { background: mech.color, border: mech.color,
                highlight: { background: mech.color, border: mech.color } },
-      font: { color: '#fff', size: 20, bold: true },
+      font: { color: centerFg, size: 20, bold: true },
       margin: 16,
       borderWidth: 2,
       x: 0,

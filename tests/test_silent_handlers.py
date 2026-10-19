@@ -183,6 +183,10 @@ ACCEPTED_NON_ELEMENT_GUARDS = {
         "supplementsFull[idA]/[idB] — сравнение двух дополнений, одно "
         "из которых может отсутствовать в данных.",
     ],
+    ("script.js", "if (!row) return;"): [
+        "pickSearchDrop берёт строку дропдауна через querySelector('.drop-row.focused') — "
+        "элемент создаётся скриптом динамически при вводе в поиск, фиксированного id нет.",
+    ],
     ("script.js", "if (!html) return;"): [
         "Аргумент html в функции рендера: пустой html означает «нечего "
         "рисовать», а не сбой.",

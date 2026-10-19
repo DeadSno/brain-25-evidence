@@ -874,6 +874,8 @@ html:not(.light) .goodPair{color:#3aa863}
 /* в тёмной теме обратно к светлым оттенкам */
 html:not(.light) .sev-critical{color:var(--sev-critical-dark)}
 html:not(.light) .sev-high{color:#e67e22}
+.cmp-error{color:var(--sev-critical)}
+html:not(.light) .cmp-error{color:var(--sev-critical-dark)}
 html:not(.light) .sev-medium{color:#d4a017}
 .sev-low{color:var(--text);opacity:.7}
 
@@ -1226,6 +1228,7 @@ html:not(.light) .chip a:visited { color: var(--link-tx-dark); }
   #modal,#modalBody{overflow-x:hidden!important;word-break:break-word}
   #modal *{max-width:100%!important;min-width:0!important;box-sizing:border-box}
   #modal a,#modal .srcIcon,#modal .chip-pmid,#modal .mrow{word-break:break-word;overflow-wrap:anywhere}
+.src-meta a{overflow-wrap:anywhere}
   #modal .srcRow,#modal .shareRow{flex-wrap:wrap!important}
   #modal img,#modal canvas{max-width:100%!important;height:auto}
   #controls{flex-direction:column;gap:var(--space-2)}
@@ -2686,6 +2689,16 @@ html.light #cookieBanner { box-shadow: var(--shadow-pop-light); }
   gap: var(--space-2);
   margin-top: var(--space-2);
   font-size: 0.78rem;
+  flex: 1 1 240px;
+  min-width: min(200px, 100%);
+}
+.placebo-track {
+  flex: 1;
+  height: 6px;
+  background: rgba(0,0,0,.08);
+  border-radius: 3px;
+  overflow: hidden;
+  min-width: min(80px, 100%);
 }
 /* v5.6.5: было `var(--amut, #666)`. Переменной --amut в style.css нет ни
    в одной теме, поэтому цвет всегда падал в #666, и на тёмной теме
