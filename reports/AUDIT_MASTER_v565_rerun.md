@@ -1,0 +1,57 @@
+# AUDIT MASTER v5.6.5 (RERUN)
+Ветка: v5.6.5-dev · HEAD: 9048ca3 · Дата: 19.10.2026
+| # | Скилл | Категория | Критичность | Описание | Где | Решение |
+
+## 1. Owner Manual Audit (Блок 13)
+
+| O-01 | Owner Manual Audit | Баг | — | Шапка перегружена. Оставить ТОЛЬКО: Обратная связь, Поддержать, Светлая тема, Кубик (с подписью). Убрать: Калькулятор, Тренды, Связи, Карта, BI, FAQ, Сравнение. | docs/index.html (шапка/навбар) | Убрать лишние ссылки из навбара шапки, оставить 4 целевых. |
+| O-02 | Owner Manual Audit | Баг | — | Цвета ссылок (светлая тема, кубик, сравнение, карта, FAQ) не в единой палитре. | docs/*.html, docs/style.css | Привести все цветовые ссылки к одной палитре через CSS-переменные. |
+| O-03 | Owner Manual Audit | Баг | — | Баг сравнения с самим собой. При переходе sup/magniy.html -> "Сравнить" -> compare.html?ids=magniy и добавлении в список, система видит `magniy` и `Магний` как разные добавки. | docs/compare.html, docs/sup/magniy.html | Привести названия/ID к единому регистру и нормализовать при записи в localStorage.compareIds. |
+| O-04 | Owner Manual Audit | Баг | — | Блок "Сравнение" (Сравнить две добавки) висит на главной. Перенести в ряд: Связи, Калькулятор, Карта, Тренды, BI. Между "Сначала ответим на 3 вопроса" и "Как мы проверяем данные". | docs/index.html | Перенести блок "Сравнение" в указанный ряд на главной. |
+| O-05 | Owner Manual Audit | Улучшение | — | Перепроверить грейды (A-D) в блоке "Популярные добавки" на главной. | docs/index.html (блок "Популярные добавки") | Сверить грейды карточек с данными в data.json, исправить расхождения. |
+| O-06 | Owner Manual Audit | Баг | — | Убрать дублирующий блок "Сравнить две добавки" со страницы index.html. | docs/index.html | Удалить дублирующий блок сравнения с главной страницы. |
+| O-07 | Owner Manual Audit | Баг | — | interactions.html#graph (Карта связей) неинформативна. При вводе "креатин" показывает непонятный граф. Требует переосмысления UI/UX. | docs/interactions.html | Переработать UI/UX графа связи: понятные узлы, подписи, фильтрация. |
+
+## 2. Agent RERUN 1/19 (site-navigation)
+
+| A1-01 | site-navigation | Баг | Blocker | 6 разных наборов ссылок вместо единого навбара (все 147 HTML). | все 147 HTML | Сделать единый навбар на всех страницах. |
+| A1-02 | site-navigation | Баг | Blocker | graph.html/atlas.html не редирект-заглушки, имеют полный навбар. | docs/graph.html, docs/atlas.html | Сделать редирект-заглушки или убрать полный навбар. |
+| A1-03 | site-navigation | Баг | Blocker | 376 DOI-ссылок без target=_blank rel=noopener (130 sup-страниц). | docs/sup/*.html (130 страниц) | Добавить target="_blank" rel="noopener noreferrer" ко всем DOI-ссылкам. |
+| A1-04 | site-navigation | Баг | Med | 7 страниц со ссылкой на себя (активный state не убран). | 7 HTML-страниц | Убрать активный state с ссылки на текущую страницу. |
+| A1-05 | site-navigation | Баг | Med | Футер не единый (index ≠ sup ≠ compare). | docs/index.html, docs/sup/*.html, docs/compare.html | Унифицировать футер на всех страницах. |
+| A1-06 | site-navigation | Баг | Med | Кириллица URL → 404 (sup/Магний.html). | docs/sup/ | Добавить обработку кириллических URL или редирект на slug. |
+| A1-07 | site-navigation | Баг | Low | Кнопка «Сравнить» без тоста/авто-перехода. | docs/sup/*.html | Добавить тост и авто-переход к сравнению при клике на «Сравнить». |
+| A1-08 | site-navigation | Баг | Low | sup/index.html — 3 ссылки вместо 9. | docs/sup/index.html | Добавить недостающие 6 ссылок в навбар sup/index.html. |
+| A1-09 | site-navigation | Баг | Low | glossary.html — 7 ссылок, другой набор. | docs/glossary.html | Привести набор ссылок в глоссарии к общему стандарту. |
+
+## 3. Agent RERUN 2/19 (visual-design-audit)
+
+| V-01 | visual-design-audit | Баг | Med | compare.html — радар профиля фиксирован 520×520 (`<div style="max-width:520px;margin:0 auto"><canvas width="520" height="520">`), на 320/375px вылезает за экран (нужен overflow-x:auto на контейнере или адаптивный размер). Нет переполнения только на 768/1440. | docs/compare.html:144 | Сделать радар адаптивным (overflow-x:auto или относительные размеры canvas). |
+| V-02 | visual-design-audit | Баг | Med | compare.html — цвета линий радра hardcoded `borderColor: '#3498db'` / `'#e67e22'` (L424-425), не адаптируются под тёмную тему (фон --apanel #15171c). Контраст линий/заливки в тёмной теме не измерен статически. | docs/compare.html:424-425 | Вынести цвета линий радра в CSS-переменные темы (var(--accent)/var(--info-tx)). |
+| V-03 | visual-design-audit | Баг | Med | compare.html — собственная изолированная зона токенов `:root{--apanel:#15171c;--aborder:#2b2e35;--atext:#e9eaee;--amut:#9aa0aa}` / `html.light{...}` (L39-41), не переиспользует основные --bg/--card-bg/--text/--border. При переключении темы возможны инверсии и разрыв с остальными страницами. | docs/compare.html:39-41 | Объединить зону токенов compare.html с основными CSS-переменными темы. |
+| V-04 | visual-design-audit | Баг | Low | compare.html — stack-бейджи жёсткие hex вне токенов: #dc2626 (critical), #ea580c (high), #d97706 (medium), #15803d (low), #6b7280 (unknown) (L80-84). | docs/compare.html:80-84 | Заменить жёсткие hex бейджей на CSS-переменные темы. |
+| V-05 | visual-design-audit | Баг | Low | compare.html — селекторы добавок инлайн-стилем `min-width:180px` каждый (L121-122), два по 180 px = 360 px > viewport 320 px (и близко к 375). Спасает только `.tableWrap{overflow-x:auto}` — горизонтальный скролл. | docs/compare.html:121-122, 68 | Сделать ширину селекторов адаптивной через проценты/max-width вместо инлайн px. |
+| V-06 | visual-design-audit | Баг | Low | Кнопка «Поддержать» (.btn.c-support) цвет #7b61ff hardcoded (L1978, 2002), вне общей палитры; «Обратная связь» (.btn.c-feedback) через токен var(--inter-low)=#84cc16 (L1977, 2001). Несогласованность палитры навигации в светлой и тёмной темах — подтверждает Owner O-02. | docs/style.css:1977-1978, 2001-2002 | Привести цвет кнопки «Поддержать» к единой палитре через CSS-переменные. |
+| V-07 | visual-design-audit | Баг | Low | index.html — блок «Сравнение» / quick-links инлайн-стили с жёсткими hex: border #f59e0b/#3b82f6/#10b981/#ec4899/#06b6d4, фон rgba(...) с этими же цветами, кнопка #f59e0b/color #1a1a1a. Грейд-плитки популярных добавок: background #15803d (A), #4d7c0f (B), #b91c1c (D) инлайн. Цвета вне var(--...). | docs/index.html (кнопки быстрого перехода, popularTiles) | Заменить жёсткие hex на CSS-переменные темы. |
+| V-08 | visual-design-audit | Баг | Low | search-drop (новый поиск на главной): оформление на токенах (background var(--card-bg), border var(--border), box-shadow var(--shadow), border-radius var(--radius-lg)), НО `:hover` фона hardcoded `rgba(10,132,255,.08)` (L~в инлайн-стиле index.html) и `z-index: 40` литерал (инлайн). Контраст текста var(--text) на var(--card-bg) — по токенам, OK. | docs/index.html инлайн-`<style>` (.search-drop) | Заменить хардкод :hover фона и z-index на CSS-переменные. |
+| V-09 | visual-design-audit | Баг | Low | Скелетоны (загрузка): `.skeleton { min-height: 170px; border-radius: var(--radius-xl); background: var(--grad-shimmer); }` (style.css L546-547), используются в interactions.html (L345, L364) и script.js (8 карточек L322-323). Фиксированная высота 170 px может не совпадать с финальным контентом → риск скачка верстки / CLS. | docs/style.css:546-547; docs/interactions.html:345,364; docs/script.js:322-323 | Привести min-height скелетонов к высоте финального контента или убрать фиксированную высоту. |
+| V-10 | visual-design-audit | Баг | Low | Тост «Добавлено в сравнение»: вызов `showToast('Добавлено в сравнение')` есть на sup-страницах (напр. 5-htp.html:319), но правила `.toast` / позиционирования / контраста НЕ найдены в style.css (в CSS только `t("update.toast")` строки в script.js:1459 — иное, PWA-обновление). Оформление тоста не зафиксировано статически. | docs/sup/5-htp.html:319 (пример из 131) | Добавить правила `.toast` в style.css (позиционирование, контраст, z-index). |
+| V-11 | visual-design-audit | Баг | Low | Текст < 14 px сохраняется: `.placebo-label` font-size 0.78 rem = 12.48 px (style.css L2691), compare `table.compare` font-size .9 rem / td .8 rem = 12.8 px (compare.html L49-51). Дубль старой находки visual-design #18 (текст <14px на 143/147). | docs/style.css:2691; docs/compare.html:49-51 | Увеличить размер шрифта до минимум 14 px для плацебо-метки и ячеек сравнения. |
+
+## 4. Agent RERUN 3/19 (product-audit)
+
+| PA-01 | product-audit | Баг | Blocker | На навбаре sup-страниц только 3 ссылки (Главная, Обратная связь, Поддержать). Пользователь со страницы добавки не может перейти на Сравнение/Калькулятор/Карту/Связи — разрыв воронки. | docs/sup/*.html (nav.actions, напр. docs/sup/magniy.html:59-69) | Вывести на навбар всех 10 целевых ссылок (как на корневых) с `../`-префиксами. | подтверждено RERUN 3/19 (находка №2 аудита 1/19) |
+| PA-02 | product-audit | Баг | Med | Кнопка "+ Сравнить" на sup-странице пишет id в `localStorage.compareIds`, показывает тост, но ссылка "Перейти к сравнению →" (`.cmp-go`) изначально `display:none`, появляется только после клика. Пользователь не может перейти к сравнению одним действием. | docs/sup/magniy.html:108-109, 296-325 | Сделать `.cmp-go` видимым сразу либо повесить переход на `compare.html?ids=<id>` на саму кнопку `.cmp-add`. | подтверждено RERUN 3/19 (находка №3 аудита 1/19) |
+| PA-03 | product-audit | Баг | Med | Плацебо-бар не отображается: `.placebo-bar` сжимается до 115px, `.placebo-track` получает width 0, `.placebo-fill` — width 0. На скриншоте только слова "Плацебо / Эффект". Воспроизводится на 89 страницах с баром (из 131). | docs/style.css:2683-2708; docs/sup/*.html:86-92 | `.placebo-bar{flex:1 1 240px; min-width:200px}` + `.placebo-track{min-width:80px}`. | подтверждено RERUN 3/19 (находка №28 аудита 2/19) |
+| PA-04 | product-audit | Баг | Low | В калькуляторе добавление по Enter работает только по точному совпадению `id` (`c.id.toLowerCase() === v.toLowerCase()`), а не по частичному вводу (как в живом поиске на главной). Ввод "маг" + Enter — ничего не происходит. | docs/calculator.html:610-618 | Сделать добавление по Enter по первому совпадению из текущего результата поиска (`matchesQuery`), а не по точному `id`. | nouveau |
+| PA-05 | product-audit | Улучшение | Low | На `compare.html` при добавлении через селекты/поиск нет тоста/обратной связи (только на sup-странице есть тост "Добавлено в сравнение"). | docs/compare.html:479-484 | Добавить тост при `addCmpId`, аналогично `docs/sup/*.html` стр. 323. | nouveau |
+| PA-06 | product-audit | Доработка | Low | Радар профиля на `compare.html` работает только при ровно 2 добавках (`found.length !== 2 → canvas.hidden`), хотя можно добавить до 10. Неочевидно пользователю, почему радар пропал. | docs/compare.html:390 | Добавить подпись "Радар доступен при выборе 2 добавок" или явно скрывать/показывать с пояснением. | nouveau |
+| PA-07 | product-audit | Баг | Low | Нет кастомной 404 страницы: несуществующий URL отдаёт дефолтную страницу сервера без навигации и возврата. | `docs/404.html` отсутствует | Добавить `docs/404.html` с навигацией и ссылкой на главную. | подтверждено RERUN 3/19 (находка №8 аудита 1/19) |
+
+**Итого: 27 находок — Owner Manual Audit 7, site-navigation 9, visual-design-audit 11, product-audit 7.**
+
+## Файл
+
+`reports/AUDIT_MASTER_v565_rerun.md` (полная перезапись с сохранением всех находок навыков 1–3).
+
+**СТОП. Ничего не фиксить. Не коммитить.**
