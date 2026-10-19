@@ -87,13 +87,23 @@
 
     {# v5.6.0 этап 3: было два одинаковых href="../index.html" с пометкой «заменить на sup/index.html». Разошлись так: «Главная» -> ../index.html (главная страница сайта, из подкаталога sup/ путь такой и есть), «Все добавки» -> index.html (соседний файл в том же каталоге, то есть sup/index.html, каталог раздела). Комментарий на Jinja: в HTML он попал бы в 130 страниц, а задача была про ссылку. #}
     <nav class="breadcrumbs">
-        <a href="../index.html">Главная</a> → <a href="index.html">Все добавки</a> → <strong>{{ name }}</strong>
+        <a href="../index.html">Главная</a> → <a href="index.html">Каталог</a> → <strong>{{ name }}</strong>
     </nav>
 
     <div class="sup-header">
         <h2>{{ name }}</h2>
         <span class="grade-badge" style="background:{{ grade_color }}"><abbr data-i18n-title="trends.gradeAbbr">Грейд {{ grade }}</abbr></span>
         <span class="verdict">— {{ verdict }}</span>
+    </div>
+
+    <div class="sup-meta">
+        {% if key_sources %}
+        <span class="pmidBadge" title="{{ pmid_count }} источников в PubMed">
+            🔬 <a href="https://pubmed.ncbi.nlm.nih.gov/?term={{ pmid_first }}" target="_blank" rel="noopener">{{ pmid_count }} в PubMed</a>
+        </span>
+        {% endif %}
+        <button class="btn cmpAdd" type="button" data-cmp="{{ slug }}">+ Сравнить</button>
+        <span class="cmpAdded">✓ в сравнении</span>
     </div>
 
     <div class="sup-section">
@@ -130,6 +140,26 @@
         <p><b>Курс:</b> {{ course }}</p>
         <p><b>Верхний предел:</b> {{ upper_limit }}</p>
     </div>
+
+    <div class="sup-section">
+        <h2>Где купить</h2>
+        <p><b>Что искать при покупке:</b> {{ shop_look_text }}</p>
+        <div class="shops">
+            <a href="https://market.yandex.ru/search?text={{ shop_query }}" class="shop" target="_blank" rel="noopener">Я.Маркет</a>
+            <a href="https://www.ozon.ru/search/?text={{ shop_query }}" class="shop" target="_blank" rel="noopener">Ozon</a>
+            <a href="https://www.wildberries.ru/catalog/0/search.aspx?search={{ shop_query }}" class="shop" target="_blank" rel="noopener">Wildberries</a>
+        </div>
+    </div>
+
+    {% if unknowns_text %}
+    <div class="sup-section">
+        <h2>Что мы не знаем</h2>
+        <p>{{ unknowns_text }}</p>
+        <ul>
+        {% for u in unknowns %}<li>{{ u }}</li>{% endfor %}
+        </ul>
+    </div>
+    {% endif %}
 
     <div class="sup-section">
         <h2>Осторожно</h2>
@@ -218,6 +248,23 @@ document.addEventListener('DOMContentLoaded', function () {
     b.textContent = on ? t("theme.dark") : t("theme.light");
     localStorage.setItem('theme', on ? 'light' : 'dark');
   };
+
+  // '+ Сравнить' — сохранить слаг в localStorage.compareIds, краткая обратная связь.
+  document.querySelectorAll('.cmpAdd').forEach(function (bb) {
+    bb.onclick = function () {
+      var id = bb.getAttribute('data-cmp');
+      try {
+        var ids = JSON.parse(localStorage.getItem('compareIds') || '[]');
+        if (!ids.includes(id)) {
+          ids.push(id);
+          localStorage.setItem('compareIds', JSON.stringify(ids));
+        }
+      } catch (e) {}
+      bb.textContent = '✓ в сравнении';
+      var self = bb;
+      setTimeout(function () { self.textContent = '+ Сравнить'; }, 1500);
+    };
+  });
 });
 </script>
 

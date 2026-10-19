@@ -51,11 +51,12 @@ try {
   table.compare tr:nth-child(even) td{background:rgba(255,255,255,.03)}
   table.compare tr:hover td{background:rgba(127,127,127,.06)}
   table.compare td.name{font-weight:700;min-width:150px}
-  table.compare td.param{font-weight:600;color:var(--amut);width:170px;background:var(--apanel)}
+  table.compare td.param{font-weight:600;color:var(--amut);width:170px;background:var(--apanel);position:sticky;inset-inline-start:0;z-index:1}
   /* Заливку грейдов A–D задаёт style.css (.grade.gA..gD, !important);
      здесь — только форма плашки. Цвета берём из токенов, без хардкода. */
   .grade{display:inline-block;padding:.1rem .5rem;border-radius:var(--radius-pill);font-size:.8rem;font-weight:700;color:#fff}
   .grade-none{background:var(--muted)}
+  #cmpTable.cmp10{font-size:0.8rem}
   .pmidBadge{display:inline-block;padding:.1rem .5rem;border-radius:var(--radius-pill);background:rgba(31,111,165,.2);color:#1f6fa5;border:1px solid rgba(31,111,165,.4);font-size:.78rem;margin-inline-end:.4rem}
   .linkCard{color:var(--info-tx, var(--info-blue));text-decoration:none;font-size:.85rem}
   .linkCard:hover{text-decoration:underline}
@@ -92,7 +93,7 @@ try {
 
 <main id="main">
   <h1>⚖ Сравнение БАДов</h1>
-  <p class="cmpNote" id="cmpNote">Выберите 2–5 добавок на карте — они соберутся здесь для сравнения рядом.</p>
+  <p class="cmpNote" id="cmpNote">Выберите 2–10 добавок на карте — они соберутся здесь для сравнения рядом.</p>
 
   <div id="cmpError" style="color:red;display:none"></div>
 
@@ -156,9 +157,9 @@ function fetchJson(url) {
   return fetch(url + '?ts=' + Date.now()).then(r => { if (!r.ok) throw new Error('no data for ' + url); return r.json(); });
 }
 
-function renderTable(supplements) {
+function renderTable(supplements, truncated) {
   const note = document.getElementById('cmpNote');
-  if (note) note.textContent = "Сравниваем " + supplements.length + " добавок рядом — выберите другие на карте, чтобы заменить.";
+  if (note) note.textContent = "Сравниваем " + supplements.length + " добавок рядом — выберите другие на карте, чтобы заменить." + (truncated ? " Показаны первые 10 добавок." : "");
   const body = document.getElementById('cmpBody');
   const theadTr = document.querySelector('#cmpTable thead tr');
 
@@ -168,6 +169,7 @@ function renderTable(supplements) {
     thHtml += '<th class="name" id="cmpCol' + i + '">' + esc(s.name) + pmidBadgeHtml(s) + '</th>';
   });
   theadTr.innerHTML = thHtml;
+  document.getElementById('cmpTable').classList.toggle('cmp10', supplements.length >= 10);
 
   const rows = [
     { key: 'category', label: t ? t("cmp.table.category") : "Категория", get: s => esc(s.category || '—') },
@@ -177,7 +179,7 @@ function renderTable(supplements) {
     { key: 'dosage', label: t ? t("cmp.table.dosage") : "Дозировка", get: s => esc(s.dosage || '—') },
     { key: 'safety', label: t ? t("cmp.table.safety") : "Безопасность", get: s => { const u = s.upper_limit || ''; const c = s.caution || ''; return (u || c) ? '<div>' + esc(u) + '</div>' + (c ? '<div style="opacity:.7;font-size:.85rem">' + esc(c) + '</div>' : '') : '<span class="noData">—</span>'; } },
     { key: 'rct', label: t ? t("cmp.table.rct") : "РКИ", get: s => (s.rct != null ? String(s.rct) : '—') },
-    { key: 'card', label: t ? t("cmp.table.card") : "Карточка", get: s => '<a class="linkCard" href="index.html#sup=' + encodeURIComponent(s.id) + '" target="_blank" rel="noopener">Открыть ↗</a>' }
+    { key: 'card', label: t ? t("cmp.table.card") : "Карточка", get: s => '<a class="linkCard" href="sup/' + encodeURIComponent(s.id) + '.html"' }
   ];
 
   let trHtml = '';
@@ -197,11 +199,12 @@ let ids = [];
 if (idsParam) {
   ids = idsParam.split(',').filter(Boolean);
 }
-// Ограничиваем 5
-ids = ids.slice(0, 5);
+const truncated = ids.length >= 10;
+// Ограничиваем 10
+ids = ids.slice(0, 10);
 
 if (!ids.length) {
-  document.getElementById('cmpError').textContent = 'Не указаны добавки для сравнения. Выберите 2–5 на карте.';
+  document.getElementById('cmpError').textContent = 'Не указаны добавки для сравнения. Выберите 2–10 на карте.';
   document.getElementById('cmpError').style.display = 'block';
   document.getElementById('cmpBody').innerHTML = '';
 } else {
@@ -214,7 +217,7 @@ if (!ids.length) {
       document.getElementById('cmpError').style.display = 'block';
       return;
     }
-    renderTable(found);
+    renderTable(found, truncated);
   }).catch(err => {
     console.error('[compare] ошибка загрузки data.json:', err);
     document.getElementById('cmpError').textContent = 'Не удалось загрузить базу данных. Попробуйте обновить страницу.';

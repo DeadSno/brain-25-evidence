@@ -789,7 +789,7 @@ function renderCards(data) {
   g.querySelectorAll('.card').forEach(el => {
     el.onclick = (e) => {
       if (e.target.closest('a')) return;
-      openModal(el.dataset.id);
+      location.href = 'sup/' + esc(el.dataset.id) + '.html';
     };
     // v5.6.2 батч C (T3): карточка — div с onclick, без него она
     // недостижима с клавиатуры: ни Enter, ни Пробел ничего не делали.
@@ -798,7 +798,7 @@ function renderCards(data) {
       if (e.key !== 'Enter' && e.key !== ' ') return;
       if (e.target.closest('a, button')) return;   // свои элементы обработают сами
       e.preventDefault();
-      openModal(el.dataset.id);
+      location.href = 'sup/' + esc(el.dataset.id) + '.html';
     };
   });
 }
@@ -1039,7 +1039,7 @@ function renderBubble(data) {
         if (!els.length) return;
         const s = chartSupByEl(e.chart, els[0]);
         if (!s) return;
-        openModal(s.id);
+        location.href = 'sup/' + esc(s.id) + '.html';
       },
       onHover: (e, els) => {
         e.native.target.style.cursor = els.length ? 'pointer' : 'default';
@@ -1091,8 +1091,8 @@ function renderQuadrant(data) {
           return s ? ' ' + s.name + ' · g=' + s.hedges_g + ' · ' + (s.grade || '—') + ' · ' + s.verdict : '';
         } } }
       },
-      onClick: (e, els) => { if (!els.length) return; const s = chartSupByEl(e.chart, els[0]); if (!s) return; openModal(s.id); },
-      onHover: (e, els) => { e.native.target.style.cursor = els.length ? 'pointer' : 'default'; }
+      onClick: (e, els) => { if (!els.length) return; const s = chartSupByEl(e.chart, els[0]); if (!s) return; location.href = 'sup/' + esc(s.id) + '.html'; },
+      onHover: (e, els) => { e.native.style.cursor = els.length ? 'pointer' : 'default'; }
     }
   });
   window.quadrantChart = quadrantInstance;

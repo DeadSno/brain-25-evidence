@@ -1926,6 +1926,14 @@ html.light .btn.c-support  { background: rgba(123,97,255,.08); }
 /* v5.6.2 E4: в светлой теме подложка плотнее, как у остальных c-* */
 html.light .btn.c-github  { background: color-mix(in srgb, var(--icon-github) 8%, transparent); }
 
+/* ===== v5.6.5: sup-страницы — блок мета (PMID, «+ Сравнить», магазины) ===== */
+.sup-meta{display:flex;flex-wrap:wrap;gap:0.55rem;align-items:center;margin:0.8rem 0}
+.cmpAdded{color:#2e7d32;font-weight:700;display:none;margin-left:0.4rem}
+.shops{display:flex;flex-wrap:wrap;gap:0.45rem;margin-top:0.35rem}
+.shop{padding:.32rem .68rem;border:1px solid var(--aborder);border-radius:var(--radius-pill);background:var(--apanel);color:var(--atext);text-decoration:none;font-size:.82rem}
+.shop:hover{border-color:var(--border-hover)}
+.pmidBadge{display:inline-block;padding:.12rem .5rem;border-radius:var(--radius-pill);background:rgba(31,111,165,.18);color:#1f6fa5;border:1px solid rgba(31,111,165,.45);font-size:.78rem;margin-inline-end:.35rem}
+
 /* ===== v5.0.0 mobile: логотип-ссылка в шапке (тап-таргет 44px) =====
    Правило стоит ПОСЛЕ @media(max-width:480px), потому что там
    `header.top>.site-title>a{display:inline!important}` имеет ту же специфичность
