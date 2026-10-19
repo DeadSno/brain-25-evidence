@@ -95,6 +95,11 @@ def pytest_collection_modifyitems(config, items):
             'graph выключены по умолчанию (нужен живой сервер :8000 и браузеры '
             'Playwright). Запуск: $env:RUN_GRAPH="1"; pytest -q -m graph',
         ),
+        (
+            "mobile375", "RUN_MOBILE",
+            'mobile375 выключены по умолчанию (нужен живой сервер :8000 и браузеры '
+            'Playwright). Запуск: $env:RUN_MOBILE="1"; pytest -q -m mobile375',
+        ),
     ):
         if not os.environ.get(env_var):
             skip_marker = pytest.mark.skip(reason=command)
