@@ -207,7 +207,7 @@ footer { font-size: 1rem !important; }
       <a class="btn c-feedback" href="feedback.html">💬 Обратная связь</a>
       <a class="btn c-support" href="support.html">💚 Поддержать</a>
       <button class="btn" id="themeBtn">🌞 Светлая тема</button>
-      <button class="btn" id="randomBtn" aria-label="Удиви меня — случайная добавка" title="Удиви меня — случайная добавка">🎲</button>
+      <button class="btn" id="randomBtn" aria-label="Удиви меня — случайная добавка" title="Удиви меня — случайная добавка">🎲 <span class="random-label">Удиви меня</span></button>
     </nav>
   </header>
 </div>
@@ -226,15 +226,7 @@ footer { font-size: 1rem !important; }
   <span><b style="color:var(--text)">37 618</b> научных статей</span>
   <span><b style="color:var(--text)">199</b> проверенных взаимодействий</span>
 </section>
-<!-- v5.6.5 FIX-SPRINT B7: главный CTA на первом экране. Ведёт в каталог с
-     фокусом на фильтрах: обработчик в script.js цепляется к
-     a.btn.calc[href="#cardsContainer"] и делает плавную прокрутку с фокусом
-     (учтён prefers-reduced-motion). Дублирует CTA в блоке «3 вопросов»
-     сознательно: hero работает на тех, кто блок вопросов свёрнул. -->
-<div class="heroCta" style="display:flex;flex-wrap:wrap;gap:.75rem;margin:0 0 1.5rem">
-  <a class="btn calc" href="#cardsContainer">🎯 Подобрать добавку</a>
-  <a class="btn" href="compare.html">⚖ Сравнить 3+ добавки</a>
-</div>
+
 
 <!-- v5.5.0: блок быстрых кнопок под шапкой удалён — все три ссылки
      дублировали «Поддержать» в шапке и карточки «Калькулятор» / «Карта
@@ -617,17 +609,6 @@ footer { font-size: 1rem !important; }
   <div class="activeFilters" id="activeFilters"></div>
 
   <div id="cardsGrid"></div>
-</section>
-
-<section id="compareSection">
-  <h2>Сравнить две добавки</h2>
-  <div class="row">
-    <div><label for="compareSelect1">Добавка 1</label><select id="compareSelect1"></select></div>
-    <div><label for="compareSelect2">Добавка 2</label><select id="compareSelect2"></select></div>
-    <button id="compareBtn">Сравнить</button>
-  </div>
-  <div id="compareResult" tabindex="0"></div>
-
 </section>
 
 <section id="helpProject" style="background:var(--card-bg);padding:1.2rem 1.5rem;border-radius:12px;border:1px solid var(--border)">

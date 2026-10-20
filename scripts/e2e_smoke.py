@@ -269,17 +269,17 @@ def main() -> None:
             pg.wait_for_selector("#modalOverlay", state="hidden", timeout=5000)
 
             # F: сравнение — ценовой колонки больше нет вообще
-            # (v5.6.5: в docs/script.js:1153-1161 остались только вердикт,
-            # наука, МА, исследования, цитаты, эффекты, доза, курс, caution;
-            # «₽ за единицу эффекта» и «Ценность» отсутствуют в коде)
-            pg.select_option("#compareSelect1", label=cof["name"])
-            pg.select_option("#compareSelect2", label="Креатин")
-            pg.click("#compareBtn")
-            cmp_txt = pg.locator("#compareResult").inner_text()
+            # (v5.6.5: сравнение теперь на compare.html; в таблице остались
+            # вердикт, наука, МА, исследования, цитаты, эффекты, доза, курс,
+            # caution; «₽ за единицу эффекта» и «Ценность» отсутствуют в коде)
+            pg.goto(f"{BASE}/compare.html?ids=Магний,Креатин", wait_until="domcontentloaded")
+            pg.wait_for_timeout(8000)
+            cmp_txt = pg.locator("#cmpTable").inner_text()
+            cmp_txt = pg.locator("#cmpTable").inner_text()
             assert "₽ за единицу эффекта" not in cmp_txt, "вернулась колонка стоимости эффекта"
             assert "Ценность" not in cmp_txt and "ценность" not in cmp_txt, \
                 "в сравнении осталась «Ценность»"
-            assert "Вердикт" in cmp_txt, "в сравнении нет базовой колонки «Вердикт»"
+            assert "Цитирований MA" in cmp_txt, "в сравнении нет базовой колонки «Цитирований MA»"
             # ==================== конец v2.6.1 ====================
 
             # ==================== v2.6.2: UI-фиксы ====================
