@@ -260,19 +260,11 @@ footer { font-size: 1rem !important; }
   <header class="top">
     <div class="site-title"><a href="index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a> <span class="v">v<span data-version="app"></span></span></div>
     <nav class="actions" data-i18n-aria-label="a11y.navMain">
-      <a class="btn c-home" href="index.html">🏠 Главная</a>
-      <a class="btn c-calc" href="calculator.html">🧮 Калькулятор</a>
-      <a class="btn c-trends" href="trends.html">📈 Тренды</a>
-      <span class="btn c-links">🔗 Связи</span>
-      <a class="btn c-compare" href="compare.html">⚖ Сравнение</a>
-      <a class="btn c-map" href="map.html">🗺 Карта</a>
-      <a class="btn c-bi" href="https://brain-25-evidence.streamlit.app" target="_blank" rel="noopener">🧠 BI ↗</a>
-      <a class="btn c-faq" href="faq.html">❓ FAQ</a>
       <a class="btn c-feedback" href="feedback.html">💬 Обратная связь</a>
       <a class="btn c-support" href="support.html">💚 Поддержать</a>
       <button class="btn" id="pngBtn" data-i18n-title="interactions.btn.download">📷 Скачать PNG</button>
       <button class="btn" id="themeBtn">🌞 Светлая тема</button>
-      <button class="btn" id="randomBtn" aria-label="Удиви меня — случайная добавка">🎲</button>
+      <button class="btn" id="randomBtn" aria-label="Удиви меня — случайная добавка" title="Удиви меня — случайная добавка">🎲</button>
     </nav>
   </header>
 </div>
@@ -594,6 +586,20 @@ window.addEventListener('scroll', () => {
       return String(n.label || '').toLowerCase().indexOf(q) !== -1;
     });
   }
+  // v5.6.5 FIX-SPRINT B7: выбор главного узла фокуса. При поиске «креатин»
+  // несколько добавок содержат подстроку; приоритет: точное совпадение имени
+  // → начало имени → первый из списка. Именно он центрируется и подсвечивается.
+  function pickPrimary(matching, query) {
+    var q = (query || '').toLowerCase().trim();
+    var exact = matching.find(function (n) {
+      return String(n.label || '').toLowerCase() === q;
+    });
+    if (exact) return exact;
+    var starts = matching.find(function (n) {
+      return String(n.label || '').toLowerCase().indexOf(q) === 0;
+    });
+    return starts || matching[0];
+  }
   function buildFocus(matching) {
     var ids = {};
     matching.forEach(function (n) { ids[n.id] = true; });
@@ -624,17 +630,39 @@ window.addEventListener('scroll', () => {
       matching = edgesRaw;
     }
     var localized = matching.map(function (e) {
-      return Object.assign({}, e, { title: ruTitle(e.title) });
+      // v5.6.5 FIX-SPRINT B7: локализованный текст дублируется в label —
+      // подпись ребра видна постоянно, а не только в hover-тултип.
+      // Тёмный фон плашки сохраняет контраст в обеих темах.
+      var text = ruTitle(e.title);
+      return Object.assign({}, e, {
+        title: text,
+        label: text,
+        font: { size: 12, color: '#e6edf3', background: 'rgba(23,28,38,0.72)', strokeWidth: 0 }
+      });
     });
     edgesDs.clear();
     edgesDs.add(localized);
   }
 
   // Скрыть все узлы, оставить видимыми только узлы фокуса.
-  function setFocusVisibility(focusNodes, dimmed) {
+  // v5.6.5 FIX-SPRINT B7: primaryId — главный узел (он же центр фокуса).
+  // Он не приглушается и получает рамку borderWidth 5; остальные узлы
+  // фокуса — 0.85 (читаемы), внешние — 0.2 (тень контекста).
+  function setFocusVisibility(focusNodes, dimmed, primaryId) {
     var focusIds = new Set(focusNodes.map(function (n) { return n.id; }));
     nodesDs.update(allNodes.map(function (n) {
-      return { id: n.id, hidden: false, opacity: dimmed && !focusIds.has(n.id) ? 0.2 : 1 };
+      if (dimmed && primaryId && n.id === primaryId) {
+        return { id: n.id, hidden: false, opacity: 1, borderWidth: 5 };
+      }
+      if (dimmed && focusIds.has(n.id)) {
+        return { id: n.id, hidden: false, opacity: 0.85, borderWidth: 1 };
+      }
+      return {
+        id: n.id,
+        hidden: false,
+        opacity: dimmed && !focusIds.has(n.id) ? 0.2 : 1,
+        borderWidth: 1
+      };
     }));
     if (dimmed) {
       document.getElementById('mynetwork').classList.add('graph-dimmed');
@@ -695,7 +723,12 @@ window.addEventListener('scroll', () => {
     showGraph();
     var container = document.getElementById('mynetwork');
     nodesDs = new vis.DataSet(allNodes.map(function (n) {
-      return Object.assign({}, n, { hidden: true });
+      // v5.6.5 FIX-SPRINT B7: подписи узлов читаемы — базовый шрифт 14px
+      // (vis default) слишком мелок для 130 узлов, поднят до 17.
+      return Object.assign({}, n, {
+        hidden: true,
+        font: Object.assign({}, n.font || {}, { size: 17 })
+      });
     }));
     edgesDs = new vis.DataSet([]);
     network = new vis.Network(container, { nodes: nodesDs, edges: edgesDs }, getOptions());
@@ -715,11 +748,19 @@ window.addEventListener('scroll', () => {
       return;
     }
     var focus = buildFocus(matching);
+    var primary = pickPrimary(matching, query);
     ensureNetwork();
-    setFocusVisibility(focus.nodes, true);
+    setFocusVisibility(focus.nodes, true, primary ? primary.id : null);
     applyEdgeFilter(focus.edges);
     var ids = focus.nodes.map(function (n) { return n.id; });
-    if (network && typeof network.fit === 'function') {
+    if (primary && typeof network.focus === 'function') {
+      // v5.6.5 FIX-SPRINT B7: центрирование на главном узле с анимацией;
+      // fallback — общая посадка на все узлы фокуса.
+      network.focus(primary.id, {
+        scale: 0.9,
+        animation: { duration: 500, easingFunction: 'easeInOutQuad' }
+      });
+    } else if (network && typeof network.fit === 'function') {
       network.fit({ nodes: ids });
     }
   }
@@ -730,7 +771,7 @@ window.addEventListener('scroll', () => {
     if ($edgeFilter) $edgeFilter.value = 'all';
     if (nodesDs) {
       nodesDs.update(allNodes.map(function (n) {
-        return { id: n.id, hidden: true, opacity: 1 };
+        return { id: n.id, hidden: true, opacity: 1, borderWidth: 1 };
       }));
     }
     if (edgesDs) edgesDs.clear();
