@@ -370,14 +370,11 @@ document.querySelectorAll('a.btn.calc[href="#cardsContainer"]').forEach((cta) =>
 const fetchJson = (url) => fetch(url + '?ts=' + Date.now())
   .then(r => { if (!r.ok) throw new Error('no data for ' + url); return r.json(); });
 
-// Загрузка сжатого JSON (.json.gz) через DecompressionStream('gzip') + JSON.parse.
-const loadGzJson = async (url) => {
-  const r = await fetch(url + '?ts=' + Date.now());
-  if (!r.ok) throw new Error('no data for ' + url);
-  const stream = r.body.pipeThrough(new DecompressionStream('gzip'));
-  const text = await new Response(stream).text();
-  return JSON.parse(text);
-};
+// v5.6.5 (CWV-03): loadGzJson удалён. Функция не использовалась нигде:
+// эти данные (data_index.json, effect_tags.json, effect_labels.json,
+// data.json) грузятся через fetchJson, а .json.gz в проекте нет.
+// DecompressionStream-вариант можно вернуть, когда появятся .gz-артефакты
+// в пайплайне сборки данных.
 Promise.allSettled([fetchJson('data_index.json'), fetchJson('effect_tags.json'), fetchJson('effect_labels.json')])
   .then(([d, tg, lb]) => {
     if (d.status !== 'fulfilled') throw new Error('data_index.json не загружен');
@@ -1243,6 +1240,18 @@ async function renderCompare() {
       a = map[idA];
       b = map[idB];
     } catch {
+      // UX-01/UX-02 (FIX-SPRINT B2): раньше был тихой return — пользователь
+      // нажимал «Сравнить», ничего не происходило и не было видно, что
+      // запрос упал. Теперь показываем ошибку с кнопкой повтора.
+      const res = $('compareResult');
+      if (res) {
+        res.innerHTML =
+          '<div style="padding:.6rem .8rem;border:1px solid var(--aborder);border-radius:var(--radius-lg);background:var(--apanel)">' +
+          '<span role="alert">' + t("boot.error") + '</span>' +
+          ' <button type="button" class="btn" id="compareRetry" style="margin-inline-start:.4rem">' + t("boot.retry") + '</button></div>';
+        const retry = $('compareRetry');
+        if (retry) retry.onclick = () => { renderCompare(); };
+      }
       return;
     }
   }

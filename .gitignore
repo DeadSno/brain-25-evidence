@@ -227,6 +227,14 @@ data/pmc/tmp/
 
 scripts/_*.py
 
+# FIX-SPRINT B2: временные артефакты аудита и прогонов тестов не тащим в git
+_audit_script.js
+pytest_*.txt
+serve_log.txt
+tests/snapshots/*/_actual/
+_tmp_*.js
+_tmp_*.py
+
 # A3.2.3: heavy full texts, regenerable
 data/pmc/text/
 data/pmc/tmp/
@@ -314,3 +322,4 @@ docs/_baseline_*
 tests/a11y_report/
 
 tests/a11y_report/
+

@@ -320,7 +320,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
   obs.observe(badge);
-})()
+})();
 
 // Кнопка «Цитировать»: копирует цитирование в формате APA в буфер обмена
 (function(){
@@ -331,13 +331,27 @@ document.addEventListener('DOMContentLoaded', function () {
   var url = "https://deadsno.github.io/brain-25-evidence/sup/maytake.html";
   btn.onclick = function(){
     var text = 'brain-25-evidence. (2026). ' + name + '. Retrieved from ' + url;
-    if(navigator.clipboard && navigator.clipboard.writeText){
-      navigator.clipboard.writeText(text).then(function(){
-        tip.textContent = 'Скопировано!';
-        tip.setAttribute('aria-hidden','false');
-        setTimeout(function(){ tip.setAttribute('aria-hidden','true'); }, 2000);
-      });
+    function citetip(ok){
+      tip.textContent = ok ? 'Скопировано!' : 'Не удалось скопировать';
+      tip.setAttribute('aria-hidden','false');
+      setTimeout(function(){ tip.setAttribute('aria-hidden','true'); }, 2000);
     }
+    function citeFallback(){
+      try {
+        var ta = document.createElement('textarea');
+        ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+        ta.setAttribute('readonly','');
+        document.body.appendChild(ta); ta.select();
+        var ok = document.execCommand('copy');
+        document.body.removeChild(ta);
+        citetip(ok);
+      } catch(e) { citetip(false); }
+    }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      // FIX-SPRINT B2: промис без catch давал необработанную ошибку
+      // в консоли, когда браузер отводил writeText (headless, права).
+      navigator.clipboard.writeText(text).then(function(){ citetip(true); }).catch(citeFallback);
+    } else { citeFallback(); }
   };
 })();
 
@@ -345,15 +359,23 @@ document.addEventListener('DOMContentLoaded', function () {
 (function(){
   var btn = document.getElementById('ttsBtn');
   if(!btn) return;
-  if(!window.speechSynthesis){ btn.style.display = 'none'; return; }
+  if(!window.speechSynthesis){ btn.style.display = 'none'; return; }  
+  var currentUtterance = null; // CWV-05: текущее utterance (сбрасывается в onend/onerror)
   var name = "Майтаке";
   var effects = ["Нет подтверждённых эффектов у людей"];
   btn.onclick = function(){
     var ttsLang = 'ru';
     if (typeof LOCALE !== 'undefined' && LOCALE) ttsLang = LOCALE;
     if (ttsLang === 'ru') ttsLang = 'ru' + '-RU';
+    // CWV-05: не копим устаревшие utterance. Повторный клик гасит начатую
+    // речь, а ссылка сбрасывается, когда utterance доиграл или упал —
+    // иначе SpeechSynthesis удерживает его (и слушателей) в памяти.
+    if (currentUtterance) window.speechSynthesis.cancel();
     var utterance = new SpeechSynthesisUtterance(name + (effects ? ', ' + effects : ''));
     utterance.lang = ttsLang;
+    utterance.onend = function () { if (currentUtterance === utterance) currentUtterance = null; };
+    utterance.onerror = function () { if (currentUtterance === utterance) currentUtterance = null; };
+    currentUtterance = utterance;
     window.speechSynthesis.speak(utterance);
   };
 })();

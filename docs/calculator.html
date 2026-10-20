@@ -642,13 +642,11 @@ function esc(s) {
       $('q').focus();
     }
   });
-  $('addBtn').onclick = () => {
-    const q = $('q').value.trim();
-    if (!q) return;
-    const hit = DATA.find(c => c.id.toLowerCase() === q.toLowerCase());
-    if (hit) addSupp(hit.id);
-  };
-
+  // v5.6.5 (FIX-SPRINT B2): кнопки #addBtn в разметке больше нет, а её
+  // обработчик остался — при инициализации падало
+  // «Cannot set properties of null (setting 'onclick')» и ронял весь блок
+  // с параметрами. Добавление по точному имени уже работает на Enter (#q),
+  // из подсказок ([data-add]) и кликом по выбранным карточкам.
   function addSupp(id) {
     if (!byId[id]) return;
     const d = DOSAGE[id];

@@ -305,11 +305,11 @@ footer { font-size: 1rem !important; }
     </div>
     <div id="mynetwork" class="graph-canvas" hidden></div>
     <div class="state-loading" id="graphLoading" data-i18n-text="int.graphLoading">Загрузка графа...</div>
-    <div class="state-error" id="graphError" hidden data-i18n-text="int.graphError">
-      Ошибка загрузки графа. <button type="button" id="graphRetry" data-i18n-text="int.graphRetry">Повторить</button>
+    <div class="state-error" id="graphError" hidden>
+      <span data-i18n-text="int.graphError">Ошибка загрузки графа. </span><button type="button" id="graphRetry" data-i18n-text="int.graphRetry">Повторить</button>
     </div>
-    <div class="state-empty" id="graphEmpty" hidden data-i18n-text="int.graphEmpty">
-      Ничего не найдено. <button type="button" id="graphEmptyReset" data-i18n-text="int.graphEmptyReset">Сбросить</button>
+    <div class="state-empty" id="graphEmpty" hidden>
+      <span data-i18n-text="int.graphEmpty">Ничего не найдено. </span><button type="button" id="graphEmptyReset" data-i18n-text="int.graphEmptyReset">Сбросить</button>
     </div>
   </div>
   <div role="tabpanel" id="panel-mech" aria-labelledby="tab-mech" data-panel="mech">
@@ -325,11 +325,11 @@ footer { font-size: 1rem !important; }
     </div>
     <div id="mechGraph" class="graph-canvas" hidden></div>
     <div class="state-loading" id="mechLoading" hidden data-i18n-text="int.mechLoading">Загрузка механизмов…</div>
-    <div class="state-error" id="mechError" hidden data-i18n-text="int.mechError">
-      Ошибка загрузки механизмов. <button type="button" id="mechRetry" data-i18n-text="int.mechRetry">Повторить</button>
+    <div class="state-error" id="mechError" hidden>
+      <span data-i18n-text="int.mechError">Ошибка загрузки механизмов. </span><button type="button" id="mechRetry" data-i18n-text="int.mechRetry">Повторить</button>
     </div>
-    <div class="state-empty" id="mechEmpty" hidden data-i18n-text="int.mechEmpty">
-      Ничего не найдено. <button type="button" id="mechEmptyReset" data-i18n-text="int.mechEmptyReset">Сбросить</button>
+    <div class="state-empty" id="mechEmpty" hidden>
+      <span data-i18n-text="int.mechEmpty">Ничего не найдено. </span><button type="button" id="mechEmptyReset" data-i18n-text="int.mechEmptyReset">Сбросить</button>
     </div>
   </div>
   <div role="tabpanel" id="panel-sups" aria-labelledby="tab-sups" data-panel="sups">
@@ -341,12 +341,12 @@ footer { font-size: 1rem !important; }
         <option value="antagonist">Антагонизм</option>
       </select>
     </div>
-    <div class="state-loading" id="supsLoading" hidden data-i18n-text="int.supsLoading">
-      <span class="skeleton" aria-hidden="true"></span><span class="skeleton-text">Загрузка связей…</span>
+    <div class="state-loading" id="supsLoading" hidden>
+      <span class="skeleton" aria-hidden="true"></span><span class="skeleton-text" data-i18n-text="int.supsLoading">Загрузка связей…</span>
     </div>
     <div class="state-empty" id="supsEmpty" hidden data-i18n-text="int.supsEmpty">Ничего не найдено.</div>
-    <div class="state-error" id="supsError" hidden data-i18n-text="int.supsError">
-      Ошибка загрузки связей. <button type="button" id="supsRetry">Повторить</button>
+    <div class="state-error" id="supsError" hidden>
+      <span data-i18n-text="int.supsError">Ошибка загрузки связей. </span><button type="button" id="supsRetry">Повторить</button>
     </div>
     <div id="supsCardList" class="card-list"></div>
   </div>
@@ -360,12 +360,12 @@ footer { font-size: 1rem !important; }
         <option value="safe">Безопасно</option>
       </select>
     </div>
-    <div class="state-loading" id="drugsLoading" hidden data-i18n-text="int.drugsLoading">
-      <span class="skeleton" aria-hidden="true"></span><span class="skeleton-text">Загрузка связей…</span>
+    <div class="state-loading" id="drugsLoading" hidden>
+      <span class="skeleton" aria-hidden="true"></span><span class="skeleton-text" data-i18n-text="int.drugsLoading">Загрузка связей…</span>
     </div>
     <div class="state-empty" id="drugsEmpty" hidden data-i18n-text="int.drugsEmpty">Ничего не найдено.</div>
-    <div class="state-error" id="drugsError" hidden data-i18n-text="int.drugsError">
-      Ошибка загрузки связей. <button type="button" id="drugsRetry">Повторить</button>
+    <div class="state-error" id="drugsError" hidden>
+      <span data-i18n-text="int.drugsError">Ошибка загрузки связей. </span><button type="button" id="drugsRetry">Повторить</button>
     </div>
     <div id="drugsCardList" class="card-list"></div>
   </div>
@@ -758,6 +758,9 @@ window.addEventListener('scroll', () => {
     if ($retry) {
       $retry.addEventListener('click', function () {
         graphInited = false;
+        // CWV-02: при Retry уничтожаем vis-network перед обнулением ссылки —
+        // без destroy() старый canvas, датасеты и слушатели висели в памяти.
+        if (network) { network.destroy(); }
         network = null;
         nodesDs = null;
         edgesDs = null;
