@@ -84,3 +84,44 @@
 `reports/AUDIT_MASTER_v565_rerun.md` (дописано в конец, находки Owner O-08..O-17 и QA-01..QA-04 добавлены к находкам навыков 1–3).
 
 **СТОП. Ничего не фиксить в коде продукта. Не коммитить пока.**
+
+## 5. Agent RERUN 5/19 (accessibility-check)
+
+Источник истины: .opencode/skills/accessibility-check/SKILL.md (v1.0, 2026-10-04). Проверок в скилле: 8 базовых категорий + 4 проектных. Выполнено: все на 147 HTML + 10 доп. проверок Блока 13.
+Сервер: http://localhost:8000 (docs/), Playwright Chromium (browser_run_code_unsafe, browser_snapshot, browser_press_key).
+Найдено: 15 (Blocker 4 / Med 9 / Low 2). Регрессии из Блока 13: 0 (все находки Блока 13 подтверждены или новые, предыдущие не отменены). Уникальных находок A11Y-01…A11Y-15 = 15; цифра 29 в прайме — ошибка, не число находок.
+
+Находки, пересекающиеся с Owner Manual Audit / Аудитами 1/19-4/19, помечены «подтверждено RERUN 5/19».
+
+| # | Категория | Критичность | Описание | Страница | Примечание |
+|---|-----------|-------------|----------|----------|------------|
+| A11Y-01 | accessibility-check | Blocker | Focusable element inside ria-hidden="true" container (кнопка внутри скрытой панели) | docs/atlas.html, docs/graph.html, docs/interactions.html | Подтверждено RERUN 5/19 |
+| A11Y-02 | accessibility-check | Blocker | Страница без <h1> | docs/google4a9d23e35c6c3e23.html | Подтверждено RERUN 5/19 |
+| A11Y-03 | accessibility-check | Blocker | <input type="text"> без видимого label / aria-label | docs/compare.html | Подтверждено RERUN 5/19 |
+| A11Y-04 | accessibility-check | Blocker | <select> без видимого label / aria-label (2 шт.) | docs/compare.html | Подтверждено RERUN 5/19 |
+| A11Y-05 | accessibility-check | Med | Пропуск уровня заголовка h1→H3 | docs/atlas.html, docs/compare.html, docs/graph.html, docs/interactions.html | Подтверждено RERUN 5/19 |
+| A11Y-06 | accessibility-check | Low | Пустой заголовок H3 | docs/atlas.html, docs/graph.html, docs/interactions.html | Подтверждено RERUN 5/19 |
+| A11Y-07 | accessibility-check | Med | Отсутствуют лендмарки <main>, <nav>, <header>, <footer> | docs/google4a9d23e35c6c3e23.html | Подтверждено RERUN 5/19 |
+| A11Y-08 | accessibility-check | Med | Отсутствуют лендмарки <nav>, <header>, <footer> | docs/offline.html | Подтверждено RERUN 5/19 |
+| A11Y-09 | accessibility-check | Med | Нет skip-to-content ссылки (#main / .skip-link) | docs/google4a9d23e35c6c3e23.html, docs/offline.html | Подтверждено RERUN 5/19 |
+| A11Y-10 | accessibility-check | Med | Глобальный поиск #search: нет role="combobox" и нет aria-expanded; только sr-only <label> + placeholder | docs/index.html | Новый (Блок 13) |
+| A11Y-11 | accessibility-check | Med | compare.html таблица: нет <caption>, у <th> нет scope="col" | docs/compare.html | Новый (Блок 13) |
+| A11Y-12 | accessibility-check | Med | Нет тоста с aria-live="polite" для уведомления "Добавлено в сравнение" | docs/compare.html | Новый (Блок 13) |
+| A11Y-13 | accessibility-check | Med | Skip-to-content: Enter на ссылке #main переключает URL, но фокус не переходит на <main> (остаётся на BODY) | docs/index.html | Новый (Блок 13, уточнение A1-09) |
+| A11Y-14 | accessibility-check | Low | Калькулятор: нет отдельного объявления о добавлении добавки (aria-live="polite" охватывает только KPI-счётчики) | docs/calculator.html | Новый (Блок 13) |
+| A11Y-15 | accessibility-check | Med | Граф связей (vis-network на canvas): недоступен с клавиатуры (нет фокуса/обработки клавиш на canvas) | docs/interactions.html | Новый (Блок 13) |
+
+**Итого A11Y: 15 находок (A11Y-01..A11Y-15).**
+
+### Дополнительно проверено (Блок 13, соответствие требованиям):
+1. **Глобальный поиск**: Tab/Enter работают, Esc не обрабатывается; нет role="combobox"/aria-expanded → A11Y-10
+2. **Кнопка «Сравнить»**: тост "Добавлено в сравнение" без aria-live → A11Y-12
+3. **Новая шапка**: навигация с клавиатуры OK, focus-ring виден (синий outline), aria-current не найден (требует уточнения из A1-04)
+4. **Калькулятор**: выбор добавки с клавиатуры OK; добавление не объявляется отдельно → A11Y-14
+5. **compare.html таблица**: нет <caption>, нет scope="col" → A11Y-11
+6. **Skip-to-content**: ссылка есть и фокусируема, но Enter не переносит фокус на <main> → A11Y-13
+7. **Иерархия заголовков**: 1 h1 на страницу (кроме google4a9d23e35c6c3e23.html — нет h1 → A11Y-02), пропуски уровней (atlas/compare/graph/interactions → A11Y-05)
+8. **Формы и кнопки**: у полей compare.html нет label → A11Y-03, A11Y-04; у всех кнопок есть доступное имя
+9. **Динамический контент**: карточки sups/drugs доступны с клавиатуры (tabIndex=0, role=button, Enter/Space); граф на canvas — нет → A11Y-15
+10. **Модалки/дропдауны**: калькулятор — <dialog> с showModal() (focus-trap + Esc OK); side-panel #nodeSidePanel — focus-trap на Tab, Esc закрывает, фокус возвращается на источник — OK
+
