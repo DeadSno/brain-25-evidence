@@ -125,3 +125,18 @@
 9. **Динамический контент**: карточки sups/drugs доступны с клавиатуры (tabIndex=0, role=button, Enter/Space); граф на canvas — нет → A11Y-15
 10. **Модалки/дропдауны**: калькулятор — <dialog> с showModal() (focus-trap + Esc OK); side-panel #nodeSidePanel — focus-trap на Tab, Esc закрывает, фокус возвращается на источник — OK
 
+## 6. Agent RERUN 6/19 (mobile-deep-audit)
+
+Источник: .opencode/skills/mobile-deep-audit/SKILL.md (v1.1, 2026-10-01). Проверено в Playwright Chromium на вьюпортах 320×568 (iPhone SE), 375×667, 390×844. Сервер http://localhost:8000 (docs/). Находки, пересекающиеся с A11Y/V/Owner, помечены «подтверждено RERUN 6/19» и не дублируются.
+
+| # | Категория | Критичность | Описание | Страница | Примечание |
+|---|-----------|-------------|----------|----------|------------|
+| MB-01 | mobile-deep-audit | Blocker | Навигация шапки ломается на мобильных: ссылки навбара уходят за вьюпорт (координаты x до 1350–1517 px при вьюпорте 320 px), нет бургер-меню и нет горизонтального скролла навигации. Большинство разделов (Тренды, Связи, Сравнение, Карта, BI, FAQ, Обратная связь, Поддержать, Светлая тема) невидимы и недоступны с мобилки. | docs/index.html, docs/compare.html, docs/calculator.html, docs/interactions.html, docs/sup/*.html | Подтверждено RERUN 6/19 (пересекается с Owner O-01: шапка перегружена) |
+| MB-02 | mobile-deep-audit | Med | interactions.html: 4-я вкладка «Лекарства» в табах «Режимы связей» начинается на x=349 px > вьюпорт 320 px, табы не помещаются в строку, часть скрыта за краем экрана. | docs/interactions.html | |
+| MB-03 | mobile-deep-audit | Med | calculator.html: TypeError «Cannot set properties of null (setting 'onclick')» (стр. 645, 1110), калькулятор не инициализируется и не работает, в т.ч. на мобилках. | docs/calculator.html | Подтверждено RERUN 6/19 (пересекается с QA-02) |
+| MB-04 | mobile-deep-audit | Low | Все страницы: используется устаревший `<meta name="apple-mobile-web-app-capable" content="yes">` без `<meta name="mobile-web-app-capable" content="yes">` (Chrome warning в консоли). | все HTML | |
+
+**Итого mobile-deep-audit: 4 находки (Blocker 1, Med 2, Low 1).**
+
+Регрессии из Блока 13: навигация шапки подтверждена — ломается на 320/375/390 px (MB-01); радар профиля 520×520 и селекторы 180+180=360 px > 320 px подтверждены (V-01, V-05), не дублируются.
+
