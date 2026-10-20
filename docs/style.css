@@ -217,6 +217,27 @@
   --icon-critical: #fc8495;   /* критические состояния */
   --icon-neutral:  #a4aab5;   /* категория не опознана */
   --icon-github:   #8ab4d6;   /* кнопка «Доработать на GitHub» */
+  /* v5.6.5 Block 4 (O-02): токены вместо хардкода в .btn.c-* и карточках главной */
+  --icon-home:     #64748b;   /* кнопка «Главная» */
+  --icon-calc:     #3b82f6;   /* калькулятор */
+  --icon-mech:     #10b981;   /* карта взаимодействий */
+  --icon-atlas:    #8b5cf6;   /* атлас */
+  --icon-trends:   #ec4899;   /* тренды */
+  --icon-bi:       #06b6d4;   /* BI-дашборд */
+  --icon-support:  #7b61ff;   /* кнопка «Поддержать» */
+  --chart-a:       #3498db;   /* радар сравнения, серия 1 (compare.html) */
+  --chart-b:       #e67e22;   /* радар сравнения, серия 2 (compare.html) */
+  --on-accent:     #1a1a1a;   /* тёмный текст на янтарной плашке CTA */
+  /* O-02: парные стопы диагональных градиентов карточек главной
+     (цвета = прежние inline rgba из index.html). Градиенты ссылаются
+     только на эти токены: стопы должны оставаться читаемыми для
+     пробы контраста (color-mix() в стопах градиента запрещён гейтом
+     test_every_gradient_in_style_css_is_parsed). */
+  --t-calc-a: rgba(59,130,246,.15);     --t-calc-b: rgba(59,130,246,.04);
+  --t-mech-a: rgba(16,185,129,.15);     --t-mech-b: rgba(16,185,129,.04);
+  --t-trends-a: rgba(236,72,153,.15);   --t-trends-b: rgba(236,72,153,.04);
+  --t-bi-a: rgba(6,182,212,.15);        --t-bi-b: rgba(6,182,212,.04);
+  --t-featured-a: rgba(245,158,11,.18); --t-featured-b: rgba(139,92,246,.14);
 }
 /* v5.6.4 (#44): 7 токенов сдвинуты к белому. Не «для красоты» — подложка
    плашки .tagChip берёт тот же --ic через color-mix на 14%, и на тёмной
@@ -543,13 +564,20 @@ html:not(.light) #modal .shopBtn:hover{border-color:var(--accent-2)}
   #modal .shopBtn{width:100%;justify-content:center}
 }
 @media (prefers-reduced-motion: no-preference) {
-  .skeleton { min-height: 170px; border-radius: var(--radius-xl);
+  .skeleton { aspect-ratio: 3 / 4; border-radius: var(--radius-xl);
     background: var(--grad-shimmer);
     background-size: 200% 100%; animation: sh 1.2s infinite; }
   @keyframes sh { to { background-position: -200% 0; } }
 }
 @media (prefers-reduced-motion: reduce) {
   .skeleton { animation: none !important; }
+}
+/* v5.6.5 V-11: было фиксированное min-height:170px — скелетон не совпадал
+   с реальной высотой .card ни на десктопе (367px @1280), ни на мобильном
+   (~292px @375) → прыжок вёрстки при загрузке (CLS). aspect-ratio
+   подгоняет блок под метрику реальных карточек. */
+@media (max-width: 620px) {
+  .skeleton { aspect-ratio: 4 / 5; }
 }
 
 /* ===== v5.6.5 Block 7.8: UI Polish — анимации и микро-интеракции =====
@@ -1966,16 +1994,18 @@ summary {
 .glossary-section > p { max-width: 72ch; margin-bottom: var(--space-4); }
 
 /* ═══ Цветные кнопки навбара (палитра карточек главной) ═══ */
-.btn.c-home   { border-color: #64748b; background: rgba(100,116,139,.12); }
-.btn.c-calc   { border-color: #3b82f6; background: rgba(59,130,246,.12); }
-.btn.c-mech   { border-color: #10b981; background: rgba(16,185,129,.12); }
-.btn.c-links  { border-color: var(--inter-medium); background: rgba(245,158,11,.12); }
-.btn.c-atlas  { border-color: #8b5cf6; background: rgba(139,92,246,.12); }
-.btn.c-trends { border-color: #ec4899; background: rgba(236,72,153,.12); }
-.btn.c-bi     { border-color: #06b6d4; background: rgba(6,182,212,.12); }
-.btn.c-graph     { border-color: var(--inter-high); background: rgba(239,68,68,.12); }
-.btn.c-feedback  { border-color: var(--inter-low); background: rgba(132,204,22,.12); }
-.btn.c-support  { border-color: #7b61ff; background: rgba(123,97,255,.12); }
+/* v5.6.5 Block 4 (O-02/V-01..V-08): хардкод заменён на токены; 12%/8%
+   подобраны как точный эквивалент прежних rgba(...,.12)/rgba(...,.08). */
+.btn.c-home   { border-color: var(--icon-home); background: color-mix(in srgb, var(--icon-home) 12%, transparent); }
+.btn.c-calc   { border-color: var(--icon-calc); background: color-mix(in srgb, var(--icon-calc) 12%, transparent); }
+.btn.c-mech   { border-color: var(--icon-mech); background: color-mix(in srgb, var(--icon-mech) 12%, transparent); }
+.btn.c-links  { border-color: var(--inter-medium); background: color-mix(in srgb, var(--inter-medium) 12%, transparent); }
+.btn.c-atlas  { border-color: var(--icon-atlas); background: color-mix(in srgb, var(--icon-atlas) 12%, transparent); }
+.btn.c-trends { border-color: var(--icon-trends); background: color-mix(in srgb, var(--icon-trends) 12%, transparent); }
+.btn.c-bi     { border-color: var(--icon-bi); background: color-mix(in srgb, var(--icon-bi) 12%, transparent); }
+.btn.c-graph     { border-color: var(--inter-high); background: color-mix(in srgb, var(--inter-high) 12%, transparent); }
+.btn.c-feedback  { border-color: var(--inter-low); background: color-mix(in srgb, var(--inter-low) 12%, transparent); }
+.btn.c-support  { border-color: var(--icon-support); background: color-mix(in srgb, var(--icon-support) 12%, transparent); }
 /* v5.6.2 E4: кнопка GitHub была единственной серой .btn без класса
    в блоке «Как помочь проекту». Фирменный чёрный GitHub не годится
    ни в одной из двух тем, поэтому взят стальной #8ab4d6 / #3f5b73. */
@@ -1990,16 +2020,16 @@ summary {
 
 
 /* В светлой теме — чуть плотнее фон для контраста */
-html.light .btn.c-home   { background: rgba(100,116,139,.08); }
-html.light .btn.c-calc   { background: rgba(59,130,246,.08); }
-html.light .btn.c-mech   { background: rgba(16,185,129,.08); }
-html.light .btn.c-links  { background: rgba(245,158,11,.08); }
-html.light .btn.c-atlas  { background: rgba(139,92,246,.08); }
-html.light .btn.c-trends { background: rgba(236,72,153,.08); }
-html.light .btn.c-bi     { background: rgba(6,182,212,.08); }
-html.light .btn.c-graph     { background: rgba(239,68,68,.08); }
-html.light .btn.c-feedback  { background: rgba(132,204,22,.08); }
-html.light .btn.c-support  { background: rgba(123,97,255,.08); }
+html.light .btn.c-home   { background: color-mix(in srgb, var(--icon-home) 8%, transparent); }
+html.light .btn.c-calc   { background: color-mix(in srgb, var(--icon-calc) 8%, transparent); }
+html.light .btn.c-mech   { background: color-mix(in srgb, var(--icon-mech) 8%, transparent); }
+html.light .btn.c-links  { background: color-mix(in srgb, var(--inter-medium) 8%, transparent); }
+html.light .btn.c-atlas  { background: color-mix(in srgb, var(--icon-atlas) 8%, transparent); }
+html.light .btn.c-trends { background: color-mix(in srgb, var(--icon-trends) 8%, transparent); }
+html.light .btn.c-bi     { background: color-mix(in srgb, var(--icon-bi) 8%, transparent); }
+html.light .btn.c-graph     { background: color-mix(in srgb, var(--inter-high) 8%, transparent); }
+html.light .btn.c-feedback  { background: color-mix(in srgb, var(--inter-low) 8%, transparent); }
+html.light .btn.c-support  { background: color-mix(in srgb, var(--icon-support) 8%, transparent); }
 /* v5.6.2 E4: в светлой теме подложка плотнее, как у остальных c-* */
 html.light .btn.c-github  { background: color-mix(in srgb, var(--icon-github) 8%, transparent); }
 
@@ -2688,7 +2718,7 @@ html.light #cookieBanner { box-shadow: var(--shadow-pop-light); }
   align-items: center;
   gap: var(--space-2);
   margin-top: var(--space-2);
-  font-size: 0.78rem;
+  font-size: 0.875rem; /* V-09: было 0.78rem (~12.5px) — целевой размер 14px */
   flex: 1 1 240px;
   min-width: min(200px, 100%);
 }
@@ -2705,13 +2735,8 @@ html.light #cookieBanner { box-shadow: var(--shadow-pop-light); }
    (#1c1c1e) контраст был 3.2:1 — ниже AA. --muted определена в обеих
    темах (#9a9aa0 / #6e6e73) и даёт 7.3:1 и 5.7:1. */
 .placebo-label { color: var(--muted); white-space: nowrap; }
-.placebo-track {
-  flex: 1;
-  height: 6px;
-  background: rgba(0,0,0,.08);
-  border-radius: 3px;
-  overflow: hidden;
-}
+/* v5.6.5 Block 4: удалён дубль .placebo-track без min-width — валидный
+   остаётся первый (с min-width: min(80px, 100%)). */
 .placebo-fill {
   height: 100%;
   background: var(--placebo-color, #4d7c0f);
@@ -2742,3 +2767,81 @@ html.light .placebo-track { background: rgba(0,0,0,.06); }
   z-index: 10;
 }
 .cite-tooltip[aria-hidden="false"] { opacity: 1; }
+
+/* ═══ v5.6.5 Block 4 (O-02): классы вместо инлайна в index.html ═══ */
+
+/* Live-search дропдаун под строкой поиска (перенесено из index.html <style>) */
+.search-drop {
+  position: absolute; z-index: 40; margin-top: 4px;
+  background: var(--card-bg); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); box-shadow: var(--shadow);
+  min-width: min(260px, 100%); max-width: 420px; max-height: 340px;
+  overflow-y: auto; display: none;
+}
+.search-drop .drop-row {
+  padding: .55rem .75rem; font-size: .9rem; cursor: pointer;
+  border-bottom: 1px solid rgba(0,0,0,.06); display: flex;
+  align-items: center; gap: .5rem; color: var(--text);
+}
+.search-drop .drop-row:last-child { border-bottom: none; }
+/* O-02: было rgba(10,132,255,.08) — хардкод blue; теперь через токен */
+.search-drop .drop-row:hover, .search-drop .drop-row.focused {
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+}
+.search-drop .drop-name { font-weight: 600; }
+.search-drop .drop-cat { opacity: .7; font-size: .8rem; margin-inline-start: auto; }
+.search-drop .drop-empty { padding: .75rem 1rem; color: var(--muted); font-size: .9rem; text-align: center; }
+
+/* Широкая карточка «Исследовать связи» (index.html); акцент задаётся на
+   элементе через --card-accent / --card-accent-2 (аналог прежних rgba). */
+.card-featured {
+  display: block; margin-bottom: .7rem;
+  border: 2px solid var(--card-accent, var(--accent));
+  border-radius: 14px; text-decoration: none; color: inherit;
+  background: linear-gradient(135deg, var(--t-featured-a), var(--t-featured-b));
+}
+.card-featured-inner { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; padding: 1.05rem 1.25rem; }
+.card-featured-icon  { font-size: 2rem; line-height: 1; }
+.card-featured-text  { flex: 1 1 240px; min-width: 0; }
+.card-featured-title { font-weight: 700; font-size: 1.15rem; margin-bottom: .2rem; }
+.card-featured-desc  { opacity: .8; font-size: .92rem; }
+.card-featured-cta {
+  display: inline-block; padding: .55rem 1rem; border-radius: 10px;
+  background: var(--card-accent, var(--accent)); color: var(--on-accent, #1a1a1a);
+  font-weight: 600; white-space: nowrap;
+}
+
+/* Быстрые ссылки главной (index.html .card-link); рамка/акцент через
+   --card-accent, заливка — через пары стопов из :root (см. --t-*).
+   Градиент в каждом классе ссылается на токен напрямую: проба контраста
+   резолвит var() однопроходно и через цепочку алиасов стоп не видит. */
+.card-link {
+  display: block;
+  border: 2px solid var(--card-accent, var(--accent));
+  border-radius: 12px; text-decoration: none; color: inherit;
+}
+.lc-calc {
+  background: linear-gradient(135deg, var(--t-calc-a), var(--t-calc-b));
+}
+.lc-map {
+  background: linear-gradient(135deg, var(--t-mech-a), var(--t-mech-b));
+}
+.lc-trends {
+  background: linear-gradient(135deg, var(--t-trends-a), var(--t-trends-b));
+}
+.lc-bi {
+  background: linear-gradient(135deg, var(--t-bi-a), var(--t-bi-b));
+}
+.card-link-icon { font-size: 1.4rem; }
+.card-link-title { font-weight: 600; margin: .3rem 0; }
+.card-link-desc { opacity: .75; font-size: .85rem; }
+.card-link-ext { opacity: .6; font-weight: 400; font-size: .8rem; }
+
+/* Оценки в плитках главной: инлайн-стили бейджа сняты,
+   margin-bottom вернули, т.к. в базе .grade его нет */
+.tile .grade { margin-bottom: .4rem; }
+
+/* Радар профиля в compare.html: обёртка задана классом вместо инлайна,
+   канвас адаптивный (V-08: было фиксированные 520px canvas) */
+.radar-wrap { position: relative; max-width: 520px; margin: 0 auto; }
+.radar-wrap canvas { max-width: 100%; }

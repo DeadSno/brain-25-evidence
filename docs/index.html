@@ -185,26 +185,6 @@ footer { font-size: 1rem !important; }
     .popularGrid { grid-template-columns: repeat(2, 1fr) !important; }
   }
 
-  /* Live-search дропдаун под строкой поиска */
-  .search-drop {
-    position: absolute; z-index: 40; margin-top: 4px;
-    background: var(--card-bg); border: 1px solid var(--border);
-    border-radius: var(--radius-lg); box-shadow: var(--shadow);
-    min-width: 260px; max-width: 420px; max-height: 340px;
-    overflow-y: auto; display: none;
-  }
-  .search-drop .drop-row {
-    padding: .55rem .75rem; font-size: .9rem; cursor: pointer;
-    border-bottom: 1px solid rgba(0,0,0,.06); display: flex;
-    align-items: center; gap: .5rem; color: var(--text);
-  }
-  .search-drop .drop-row:last-child { border-bottom: none; }
-  .search-drop .drop-row:hover, .search-drop .drop-row.focused {
-    background: rgba(10,132,255,.08);
-  }
-  .search-drop .drop-name { font-weight: 600; }
-  .search-drop .drop-cat { opacity: .7; font-size: .8rem; margin-inline-start: auto; }
-  .search-drop .drop-empty { padding: .75rem 1rem; color: var(--muted); font-size: .9rem; text-align: center; }
 </style>
 <script type="application/ld+json">
     {
@@ -342,40 +322,40 @@ footer { font-size: 1rem !important; }
        пустых треков, и оставшиеся четыре карточки липли бы к левому краю в
        половину ширины. Вне грида .quick-links остаётся 4 карточки, и auto-fit
        растягивает их ровно на всю ширину. -->
-  <a href="interactions.html" style="display:block;margin-bottom:.7rem;border:2px solid #f59e0b;border-radius:14px;text-decoration:none;color:inherit;background:linear-gradient(135deg,rgba(245,158,11,.18),rgba(139,92,246,.14))">
-    <div style="display:flex;flex-wrap:wrap;align-items:center;gap:1rem;padding:1.05rem 1.25rem">
-      <div style="font-size:2rem;line-height:1">🕸️</div>
-      <div style="flex:1 1 240px;min-width:0">
-        <div style="font-weight:700;font-size:1.15rem;margin-bottom:.2rem">Исследовать связи</div>
-        <div style="opacity:.8;font-size:.92rem">130 добавок, 25 механизмов, 1000+ связей. Интерактивный поиск.</div>
+  <a class="card-featured" href="interactions.html" style="--card-accent:var(--inter-medium)">
+    <div class="card-featured-inner">
+      <div class="card-featured-icon">🕸️</div>
+      <div class="card-featured-text">
+        <div class="card-featured-title">Исследовать связи</div>
+        <div class="card-featured-desc">130 добавок, 25 механизмов, 1000+ связей. Интерактивный поиск.</div>
       </div>
-      <span style="display:inline-block;padding:.55rem 1rem;border-radius:10px;background:#f59e0b;color:#1a1a1a;font-weight:600;white-space:nowrap">Открыть карту связей →</span>
+      <span class="card-featured-cta">Открыть карту связей →</span>
     </div>
   </a>
 
   <div class="quick-links">
-  <a class="card-link" href="calculator.html" style="display:block;border:2px solid #3b82f6;border-radius:12px;text-decoration:none;color:inherit;background:linear-gradient(135deg,rgba(59,130,246,.15),rgba(59,130,246,.04))">
-    <div style="font-size:1.4rem">🧮</div>
-    <div style="font-weight:600;margin:.3rem 0">Калькулятор БАДов</div>
-    <div style="opacity:.75;font-size:.85rem">Проверить дозы, конфликты с лекарствами и совместимость ваших добавок</div>
+  <a class="card-link lc-calc" href="calculator.html" style="--card-accent:var(--icon-calc)">
+    <div class="card-link-icon">🧮</div>
+    <div class="card-link-title">Калькулятор БАДов</div>
+    <div class="card-link-desc">Проверить дозы, конфликты с лекарствами и совместимость ваших добавок</div>
   </a>
 
-  <a class="card-link" href="map.html" style="display:block;border:2px solid #10b981;border-radius:12px;text-decoration:none;color:inherit;background:linear-gradient(135deg,rgba(16,185,129,.15),rgba(16,185,129,.04))">
-    <div style="font-size:1.4rem">🧩</div>
-    <div style="font-weight:600;margin:.3rem 0">Карта механизмов</div>
-    <div style="opacity:.75;font-size:.85rem">Как каждая добавка работает: вещество → мишень → эффект</div>
+  <a class="card-link lc-map" href="map.html" style="--card-accent:var(--icon-mech)">
+    <div class="card-link-icon">🧩</div>
+    <div class="card-link-title">Карта механизмов</div>
+    <div class="card-link-desc">Как каждая добавка работает: вещество → мишень → эффект</div>
   </a>
 
-  <a class="card-link" href="trends.html" style="display:block;border:2px solid #ec4899;border-radius:12px;text-decoration:none;color:inherit;background:linear-gradient(135deg,rgba(236,72,153,.15),rgba(236,72,153,.04))">
-    <div style="font-size:1.4rem">📈</div>
-    <div style="font-weight:600;margin:.3rem 0">Тренды популярности</div>
-    <div style="opacity:.75;font-size:.85rem">10 лет данных: публикации в PubMed, Wikipedia, цитаты</div>
+  <a class="card-link lc-trends" href="trends.html" style="--card-accent:var(--icon-trends)">
+    <div class="card-link-icon">📈</div>
+    <div class="card-link-title">Тренды популярности</div>
+    <div class="card-link-desc">10 лет данных: публикации в PubMed, Wikipedia, цитаты</div>
   </a>
 
-  <a class="card-link" href="https://brain-25-evidence.streamlit.app" target="_blank" rel="noopener" style="display:block;border:2px solid #06b6d4;border-radius:12px;text-decoration:none;color:inherit;background:linear-gradient(135deg,rgba(6,182,212,.15),rgba(6,182,212,.04))">
-    <div style="font-size:1.4rem">🧠</div>
-    <div style="font-weight:600;margin:.3rem 0">brain-25-evidence BI <span style="opacity:.6;font-weight:400;font-size:.8rem">↗</span></div>
-    <div style="opacity:.75;font-size:.85rem">Отдельное приложение: 37 618 papers, фильтры, экспорт CSV</div>
+  <a class="card-link lc-bi" href="https://brain-25-evidence.streamlit.app" target="_blank" rel="noopener" style="--card-accent:var(--icon-bi)">
+    <div class="card-link-icon">🧠</div>
+    <div class="card-link-title">brain-25-evidence BI <span class="card-link-ext">↗</span></div>
+    <div class="card-link-desc">Отдельное приложение: 37 618 papers, фильтры, экспорт CSV</div>
   </a>
 </div>
 </section>
@@ -408,70 +388,70 @@ footer { font-size: 1rem !important; }
     <a class="tile" href="sup/magniy.html" style="display:block;border:1px solid var(--border);border-radius:12px;padding:.8rem;text-decoration:none;color:inherit;background:var(--card-bg)">
       <div style="font-weight:700;font-size:.95rem;margin-bottom:.3rem">Магний</div>
       <div style="font-size:.75rem;opacity:.7;margin-bottom:.4rem">Минерал / Сердце</div>
-      <span class="grade gA" style="display:inline-block;padding:.1rem .5rem;border-radius:999px;font-size:.7rem;font-weight:700;color:#fff;background:#15803d;margin-bottom:.4rem">A</span>
+      <span class="grade gA">A</span>
       <div style="font-size:.8rem;line-height:1.3">Сон, расслабление</div>
     </a>
 
     <a class="tile" href="sup/omega-3.html" style="display:block;border:1px solid var(--border);border-radius:12px;padding:.8rem;text-decoration:none;color:inherit;background:var(--card-bg)">
       <div style="font-weight:700;font-size:.95rem;margin-bottom:.3rem">Омега-3</div>
       <div style="font-size:.75rem;opacity:.7;margin-bottom:.4rem">Сердце</div>
-      <span class="grade gB" style="display:inline-block;padding:.1rem .5rem;border-radius:999px;font-size:.7rem;font-weight:700;color:#fff;background:#4d7c0f;margin-bottom:.4rem">B</span>
+      <span class="grade gB">B</span>
       <div style="font-size:.8rem;line-height:1.3">Нейропластичность</div>
     </a>
 
     <a class="tile" href="sup/vitamin-d.html" style="display:block;border:1px solid var(--border);border-radius:12px;padding:.8rem;text-decoration:none;color:inherit;background:var(--card-bg)">
       <div style="font-weight:700;font-size:.95rem;margin-bottom:.3rem">Витамин D</div>
       <div style="font-size:.75rem;opacity:.7;margin-bottom:.4rem">Кости / Иммунитет</div>
-      <span class="grade gA" style="display:inline-block;padding:.1rem .5rem;border-radius:999px;font-size:.7rem;font-weight:700;color:#fff;background:#15803d;margin-bottom:.4rem">A</span>
+      <span class="grade gA">A</span>
       <div style="font-size:.8rem;line-height:1.3">Настроение (при дефиците)</div>
     </a>
 
     <a class="tile" href="sup/b12.html" style="display:block;border:1px solid var(--border);border-radius:12px;padding:.8rem;text-decoration:none;color:inherit;background:var(--card-bg)">
       <div style="font-weight:700;font-size:.95rem;margin-bottom:.3rem">Витамин B12</div>
       <div style="font-size:.75rem;opacity:.7;margin-bottom:.4rem">Нервная система / Кровь</div>
-      <span class="grade gB" style="display:inline-block;padding:.1rem .5rem;border-radius:999px;font-size:.7rem;font-weight:700;color:#fff;background:#4d7c0f;margin-bottom:.4rem">B</span>
+      <span class="grade gB">B</span>
       <div style="font-size:.8rem;line-height:1.3">Когниция (при дефиците)</div>
     </a>
 
     <a class="tile" href="sup/tsink.html" style="display:block;border:1px solid var(--border);border-radius:12px;padding:.8rem;text-decoration:none;color:inherit;background:var(--card-bg)">
       <div style="font-weight:700;font-size:.95rem;margin-bottom:.3rem">Цинк</div>
       <div style="font-size:.75rem;opacity:.7;margin-bottom:.4rem">Иммунитет / ОРВИ</div>
-      <span class="grade gD" style="display:inline-block;padding:.1rem .5rem;border-radius:999px;font-size:.7rem;font-weight:700;color:#fff;background:#b91c1c;margin-bottom:.4rem">D</span>
+      <span class="grade gD">D</span>
       <div style="font-size:.8rem;line-height:1.3">Когниция (при дефиците)</div>
     </a>
 
     <a class="tile" href="sup/kurkumin.html" style="display:block;border:1px solid var(--border);border-radius:12px;padding:.8rem;text-decoration:none;color:inherit;background:var(--card-bg)">
       <div style="font-weight:700;font-size:.95rem;margin-bottom:.3rem">Куркумин</div>
       <div style="font-size:.75rem;opacity:.7;margin-bottom:.4rem">Воспаление / Суставы</div>
-      <span class="grade gB" style="display:inline-block;padding:.1rem .5rem;border-radius:999px;font-size:.7rem;font-weight:700;color:#fff;background:#4d7c0f;margin-bottom:.4rem">B</span>
+      <span class="grade gB">B</span>
       <div style="font-size:.8rem;line-height:1.3">Настроение, когниция</div>
     </a>
 
     <a class="tile" href="sup/zhelezo.html" style="display:block;border:1px solid var(--border);border-radius:12px;padding:.8rem;text-decoration:none;color:inherit;background:var(--card-bg)">
       <div style="font-weight:700;font-size:.95rem;margin-bottom:.3rem">Железо</div>
       <div style="font-size:.75rem;opacity:.7;margin-bottom:.4rem">Кровь / Анемия</div>
-      <span class="grade gD" style="display:inline-block;padding:.1rem .5rem;border-radius:999px;font-size:.7rem;font-weight:700;color:#fff;background:#b91c1c;margin-bottom:.4rem">D</span>
+      <span class="grade gD">D</span>
       <div style="font-size:.8rem;line-height:1.3">Энергия (при анемии)</div>
     </a>
 
     <a class="tile" href="sup/melatonin.html" style="display:block;border:1px solid var(--border);border-radius:12px;padding:.8rem;text-decoration:none;color:inherit;background:var(--card-bg)">
       <div style="font-weight:700;font-size:.95rem;margin-bottom:.3rem">Мелатонин</div>
       <div style="font-size:.75rem;opacity:.7;margin-bottom:.4rem">Сон / Циркадные ритмы</div>
-      <span class="grade gD" style="display:inline-block;padding:.1rem .5rem;border-radius:999px;font-size:.7rem;font-weight:700;color:#fff;background:#b91c1c;margin-bottom:.4rem">D</span>
+      <span class="grade gD">D</span>
       <div style="font-size:.8rem;line-height:1.3">Засыпание, джетлаг</div>
     </a>
 
     <a class="tile" href="sup/vitamin-c.html" style="display:block;border:1px solid var(--border);border-radius:12px;padding:.8rem;text-decoration:none;color:inherit;background:var(--card-bg)">
       <div style="font-weight:700;font-size:.95rem;margin-bottom:.3rem">Витамин C</div>
       <div style="font-size:.75rem;opacity:.7;margin-bottom:.4rem">Иммунитет / Антиоксидант</div>
-      <span class="grade gD" style="display:inline-block;padding:.1rem .5rem;border-radius:999px;font-size:.7rem;font-weight:700;color:#fff;background:#b91c1c;margin-bottom:.4rem">D</span>
+      <span class="grade gD">D</span>
       <div style="font-size:.8rem;line-height:1.3">Иммунитет (при нагрузках)</div>
     </a>
 
     <a class="tile" href="sup/kreatin.html" style="display:block;border:1px solid var(--border);border-radius:12px;padding:.8rem;text-decoration:none;color:inherit;background:var(--card-bg)">
       <div style="font-weight:700;font-size:.95rem;margin-bottom:.3rem">Креатин</div>
       <div style="font-size:.75rem;opacity:.7;margin-bottom:.4rem">Спорт / Когниция</div>
-      <span class="grade gA" style="display:inline-block;padding:.1rem .5rem;border-radius:999px;font-size:.7rem;font-weight:700;color:#fff;background:#15803d;margin-bottom:.4rem">A</span>
+      <span class="grade gA">A</span>
       <div style="font-size:.8rem;line-height:1.3">Рабочая память под нагрузкой</div>
     </a>
   </div>
