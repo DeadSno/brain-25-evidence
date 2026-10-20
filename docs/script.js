@@ -196,7 +196,7 @@ function maSpan(s) {
   return '<span title="' + t("ma.tooltip") + '">' + t("ma.label") + s.metaCount + '</span>';
 }
 function citationsSpan(s) {
-  if (s.citations == null) {
+  if (s.citations == null || s.citations === 0) {
     return '<span title="' + t("cit.none.tooltip") + '">' + t("cit.none") + '</span>';
   }
   return '<span title="' + t("cit.tooltip") + '">' + t("cit.label") + s.citations + '</span>';
@@ -425,13 +425,8 @@ Promise.allSettled([fetchJson('data_index.json'), fetchJson('effect_tags.json'),
 
 function initApp() {
   BEST = supplements.filter(s => s.scienceIndex != null).sort((x, y) => y.scienceIndex - x.scienceIndex).slice(0, 3).map(s => s.id);
-  supplements.forEach(s => { $('compareSelect1').add(new Option(s.name, s.id)); $('compareSelect2').add(new Option(s.name, s.id)); });
-  if (supplements.length >= 2) { $('compareSelect1').value = supplements[0].id; $('compareSelect2').value = supplements[1].id; }
-  // v3.3: сравнение — по кнопке «Сравнить» или смене селекта (не на загрузке:
-  // data.json догружается prefetch'ем, главная рендерится без ожидания 472 KB)
-  $('compareBtn').addEventListener('click', renderCompare);
-  $('compareSelect1').addEventListener('change', renderCompare);
-  $('compareSelect2').addEventListener('change', renderCompare);
+  supplements.forEach(s => { /* сравнение больше не рендерится на главной — только на compare.html */ });
+  // v3.3: сравнение убрано с главной — см. compare.html (секция O-03/PA-02)
   $('search').addEventListener('input', applyFilters);
   $('search').addEventListener('input', (e) => { renderSearchDrop(e.target.value); });
   $('search').addEventListener('keydown', (e) => {
@@ -454,7 +449,6 @@ function initApp() {
       applyFilters();
     });
   });
-  $('compareBtn').onclick = renderCompare;
   $('modalClose').onclick = closeModal;
   $('modalOverlay').onclick = e => { if (e.target.id === 'modalOverlay') closeModal(); };
   document.addEventListener('keydown', e => {
@@ -1109,10 +1103,7 @@ function setAxisX(ax) {
 
 function gotoCompare(idA, idB) {
   closeModal();
-  $('compareSelect1').value = idA;
-  $('compareSelect2').value = idB;
-  renderCompare();
-  document.getElementById('compareSection').scrollIntoView({ behavior: 'smooth' });
+  location.href = 'compare.html?ids=' + encodeURIComponent(idA) + (idB ? ',' + encodeURIComponent(idB) : '');
 }
 
 // ── Адаптивные размеры пузырей: на мобильном меньше ─────────

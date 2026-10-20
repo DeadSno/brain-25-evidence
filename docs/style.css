@@ -2854,3 +2854,13 @@ html:not(.light) .card-link {
    канвас адаптивный (V-08: было фиксированные 520px canvas) */
 .radar-wrap { position: relative; max-width: 520px; margin: 0 auto; }
 .radar-wrap canvas { max-width: 100%; }
+
+/* Кнопка «Кубик»: видимая подпись рядом с эмодзи 🎲 (UX-03) */
+.random-label {
+  display: inline-block;
+  margin-left: .35rem;
+  font-size: .9rem;
+  pointer-events: none;
+  user-select: none;
+  vertical-align: middle;
+}
