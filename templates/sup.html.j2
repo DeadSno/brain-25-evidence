@@ -214,7 +214,7 @@
         {% for s in key_sources %}
         <div class="src-card">
             <div class="src-title">{{ s.title }}</div>
-            <div class="src-meta">{{ s.journal }} · {{ s.year }} · <a href="https://pubmed.ncbi.nlm.nih.gov/{{ s.pmid }}/" target="_blank" rel="noopener">PMID: {{ s.pmid }}</a>{% if s.doi %} | DOI: <a href="https://doi.org/{{ s.doi }}">{{ s.doi }}</a>{% endif %}</div>
+            <div class="src-meta">{{ s.journal }} · {{ s.year }} · <a href="https://pubmed.ncbi.nlm.nih.gov/{{ s.pmid }}/" target="_blank" rel="noopener">PMID: {{ s.pmid }}</a>{% if s.doi %} | DOI: <a href="https://doi.org/{{ s.doi }}" target="_blank" rel="noopener noreferrer">{{ s.doi }}</a>{% endif %}</div>
         </div>{% endfor %}
     </div>
 

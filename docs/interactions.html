@@ -263,7 +263,7 @@ footer { font-size: 1rem !important; }
       <a class="btn c-home" href="index.html">🏠 Главная</a>
       <a class="btn c-calc" href="calculator.html">🧮 Калькулятор</a>
       <a class="btn c-trends" href="trends.html">📈 Тренды</a>
-      <a class="btn c-links" href="interactions.html">🔗 Связи</a>
+      <span class="btn c-links">🔗 Связи</span>
       <a class="btn c-compare" href="compare.html">⚖ Сравнение</a>
       <a class="btn c-map" href="map.html">🗺 Карта</a>
       <a class="btn c-bi" href="https://brain-25-evidence.streamlit.app" target="_blank" rel="noopener">🧠 BI ↗</a>
@@ -1423,7 +1423,7 @@ window.addEventListener('scroll', () => {
 <script>initCookieBanner();</script>
 
 <!-- 2.2.5: Side-Panel (информационная панель по узлу графа/механизма) -->
-<div id="nodeSidePanel" class="side-panel" role="dialog" aria-modal="true" aria-labelledby="sidePanelTitle" hidden aria-hidden="true">
+<div id="nodeSidePanel" class="side-panel" role="dialog" aria-modal="true" aria-labelledby="sidePanelTitle" hidden aria-hidden="true" inert>
   <div class="side-panel-header">
     <h3 id="sidePanelTitle"></h3>
     <button id="sidePanelClose" aria-label="Закрыть">✕</button>
@@ -1437,6 +1437,26 @@ window.addEventListener('scroll', () => {
 // Данные берутся из window.__dataCache / window.__mechMap (загружены при
 // открытии таба механизмов) или подгружаются из data.json / graph_mech_edges.json.
 var lastFocusedElement = null;
+
+// slugify: кириллический id -> транслит для URL sup/<slug>.html
+// (аналог scripts/build_sup.py; файлы в docs/sup/ названы по slug)
+const SIDE_TRANS = {
+  "а":"a","б":"b","в":"v","г":"g","д":"d","е":"e","ё":"e",
+  "ж":"zh","з":"z","и":"i","й":"y","к":"k","л":"l","м":"m",
+  "н":"n","о":"o","п":"p","р":"r","с":"s","т":"t","у":"u",
+  "ф":"f","х":"h","ц":"ts","ч":"ch","ш":"sh","щ":"sch",
+  "ъ":"","ы":"y","ь":"","э":"e","ю":"yu","я":"ya"
+};
+function sideSlugify(name) {
+  const out = [];
+  for (const ch of String(name || '').toLowerCase()) {
+    if (ch in SIDE_TRANS) out.push(SIDE_TRANS[ch]);
+    else if (ch === '-' || ch === '_' || ch === ' ') out.push('-');
+    else if (ch >= 'a' && ch <= 'z' || ch >= '0' && ch <= '9') out.push(ch);
+    else out.push('-');
+  }
+  return out.join('').replace(/-{2,}/g, '-').replace(/^-|-$/g, '');
+}
 
 function openSidePanel(nodeId, nodeLabel, nodeType) {
   var panel = document.getElementById('nodeSidePanel');
@@ -1453,6 +1473,7 @@ function openSidePanel(nodeId, nodeLabel, nodeType) {
   panel.hidden = false;
   panel.classList.add('open');
   panel.setAttribute('aria-hidden', 'false');
+  panel.removeAttribute('inert');
   overlay.hidden = false;
   // Переводим фокус внутрь диалога — узел графа не фокусируемый,
   // поэтому ставим его на кнопку закрытия (первый фокусируемый элемент).
@@ -1480,7 +1501,7 @@ function openSidePanel(nodeId, nodeLabel, nodeType) {
         '</ul></div>';
     }
     var formsHtml = forms ? '<div class="sp-forms"><b data-i18n-text="int.spFormsLabel">Формы:</b> ' + escHtml(forms) + '</div>' : '';
-    var link = 'sup/' + encodeURIComponent(String(card.id || nodeId)) + '.html';
+    var link = 'sup/' + sideSlugify(String(card.id || nodeId)) + '.html';
     var btn = '<a href="' + escHtml(link) + '" class="sp-btn" target="_blank" rel="noopener" data-i18n-text="int.btnOpenFullCard">Открыть полную карточку</a>';
     bodyEl.innerHTML = catHtml + gradeHtml + effectsHtml + formsHtml + btn;
     applyI18n(bodyEl);
@@ -1561,7 +1582,7 @@ function closeSidePanel() {
   var panel = document.getElementById('nodeSidePanel');
   var overlay = document.getElementById('sidePanelOverlay');
   var wasOpen = !!(panel && !panel.hidden);
-  if (panel) { panel.hidden = true; panel.classList.remove('open'); panel.setAttribute('aria-hidden', 'true'); }
+  if (panel) { panel.hidden = true; panel.classList.remove('open'); panel.setAttribute('aria-hidden', 'true'); panel.setAttribute('inert', ''); }
   if (overlay) overlay.hidden = true;
   // v5.6.5: возвращаем фокус на элемент, с которого панель открыли.
   if (wasOpen && lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
