@@ -34,7 +34,7 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=439">
+<link rel="stylesheet" href="style.css?v=440">
 <style>
   :root{--apanel:#15171c;--aborder:#2b2e35;--atext:#e9eaee;--amut:#9aa0aa}
   body{margin:0}
@@ -110,6 +110,7 @@ try {
 
 <main id="main">
   <h1>⚖ Сравнение БАДов</h1>
+  <h2 class="sr-only" data-i18n-text="cmp.headSections">Разделы страницы сравнения</h2>
   <p class="cmpNote" id="cmpNote">Добавьте добавки через поиск или селекты ниже — они соберутся здесь для сравнения рядом. Можно добавить прямо на этой странице, не возвращаясь на главную.</p>
 
   <div id="cmpError" class="cmp-error" style="display:none"></div>
@@ -117,7 +118,7 @@ try {
   <!-- Добавление добавок прямо на странице сравнения -->
   <section id="cmpControls" style="margin:0 0 var(--space-4);padding:var(--space-4);background:var(--apanel);border:1px solid var(--aborder);border-radius:var(--radius-lg)">
     <div style="display:flex;gap:.5rem;flex-wrap:wrap;align-items:end">
-      <input id="cmpSearch" placeholder="Поиск добавки…" aria-label="Поиск добавки" style="flex:1 1 260px;min-width:220px;padding:.45rem .8rem;border:1px solid var(--aborder);border-radius:var(--radius-lg);background:var(--apanel);color:var(--atext);font-size:.9rem">
+      <input id="cmpSearch" placeholder="Поиск добавки…" aria-label="Поиск добавки" data-i18n-placeholder="cmp.searchPh" data-i18n-aria-label="cmp.searchAria" style="flex:1 1 260px;min-width:220px;padding:.45rem .8rem;border:1px solid var(--aborder);border-radius:var(--radius-lg);background:var(--apanel);color:var(--atext);font-size:.9rem">
       <select id="cmpSelect1" aria-label="Добавка 1" style="padding:.45rem .8rem;border:1px solid var(--aborder);border-radius:var(--radius-lg);background:var(--apanel);color:var(--atext);font-size:.9rem;min-width:180px"><option value="">— Добавка 1 —</option></select>
       <select id="cmpSelect2" aria-label="Добавка 2" style="padding:.45rem .8rem;border:1px solid var(--aborder);border-radius:var(--radius-lg);background:var(--apanel);color:var(--atext);font-size:.9rem;min-width:180px"><option value="">— Добавка 2 —</option></select>
       <button id="cmpAddBtn" class="btn" disabled>Добавить в сравнение</button>
@@ -128,10 +129,11 @@ try {
 
   <div class="tableWrap">
     <table class="compare" id="cmpTable">
+      <caption class="sr-only" data-i18n-text="cmp.table.caption">Сравнение добавок по параметрам</caption>
       <thead>
         <tr>
-          <th class="param">Параметр</th>
-          <th class="name" id="cmpCol0">Добавка</th>
+          <th class="param" scope="col">Параметр</th>
+          <th class="name" id="cmpCol0" scope="col">Добавка</th>
         </tr>
       </thead>
       <tbody id="cmpBody"></tbody>
@@ -220,12 +222,44 @@ function fetchJson(url) {
   return fetch(url + '?ts=' + Date.now()).then(r => { if (!r.ok) throw new Error('no data for ' + url); return r.json(); });
 }
 
+// I18N-03/A11Y-12: текст ошибки пишем только в внутренний span
+// (.cmp-error-text) — контейнер #cmpError может уже содержать кнопку
+// «Повторить» (cmpRetry), и прямая запись errEl.textContent её затирала.
+function setCmpMsg(key, params) {
+  const errEl = document.getElementById('cmpError');
+  if (!errEl) return;
+  let txt = errEl.querySelector('.cmp-error-text');
+  if (!txt) {
+    txt = document.createElement('span');
+    txt.className = 'cmp-error-text';
+    errEl.insertBefore(txt, errEl.firstChild);
+  }
+  txt.textContent = t(key, params);
+  errEl.style.display = 'block';
+}
+
+// A11Y-12: тост в compare.html — role="status" + aria-live="polite",
+// скринридер объявляет «Добавлено в сравнение» сам.
+function showCmpToast(msg) {
+  const t = document.createElement('div');
+  t.setAttribute('role', 'status');
+  t.setAttribute('aria-live', 'polite');
+  t.textContent = msg;
+  t.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);padding:.6rem 1.2rem;background:rgba(0,0,0,.85);color:#fff;border-radius:8px;font-size:.9rem;z-index:9999;opacity:0;transition:opacity .2s';
+  document.body.appendChild(t);
+  requestAnimationFrame(function () { t.style.opacity = '1'; });
+  setTimeout(function () {
+    t.style.opacity = '0';
+    setTimeout(function () { t.remove(); }, 200);
+  }, 2000);
+}
+
 function renderTable(supplements, truncated) {
   const note = document.getElementById('cmpNote');
   if (note) {
     note.textContent = truncated
-      ? "Показаны первые 10 добавок."
-      : "Сравниваем " + supplements.length + " добавок рядом — выберите другие на карте, чтобы заменить.";
+      ? t("cmp.note.truncated")
+      : t("cmp.note.nMap", { n: supplements.length });
   }
   const table = document.getElementById('cmpTable');
   if (table) table.classList.toggle('cmp10', supplements.length >= 10);
@@ -233,22 +267,22 @@ function renderTable(supplements, truncated) {
   const theadTr = document.querySelector('#cmpTable thead tr');
 
   // Заголовки колонок (первый th — параметр, остальные — названия добавок)
-  let thHtml = '<th class="param">Параметр</th>';
+  let thHtml = '<th class="param" scope="col">' + t("cmp.param") + '</th>';
   supplements.forEach((s, i) => {
-    thHtml += '<th class="name" id="cmpCol' + i + '">' + esc(s.name) + pmidBadgeHtml(s) + '</th>';
+    thHtml += '<th class="name" id="cmpCol' + i + '" scope="col">' + esc(s.name) + pmidBadgeHtml(s) + '</th>';
   });
   theadTr.innerHTML = thHtml;
   document.getElementById('cmpTable').classList.toggle('cmp10', supplements.length >= 10);
 
   const rows = [
-    { key: 'category', label: t ? t("cmp.table.category") : "Категория", get: s => esc(s.category || '—') },
-    { key: 'grade', label: t ? t("cmp.table.grade") : "Грейд", get: s => gradeBadgeHtml(s) },
-    { key: 'effects', label: t ? t("cmp.table.effects") : "Основные эффекты", get: s => { const e = (s.effects || []).slice(0, 4); return e.length ? e.map(esc).join(', ') : '<span class="noData">—</span>'; } },
-    { key: 'forms', label: t ? t("cmp.table.forms") : "Формы", get: s => s.forms ? esc(s.forms) : '<span class="noData">' + t("cmp.noData") + '</span>' },
-    { key: 'dosage', label: t ? t("cmp.table.dosage") : "Дозировка", get: s => esc(s.dosage || '—') },
-    { key: 'safety', label: t ? t("cmp.table.safety") : "Безопасность", get: s => { const u = s.upper_limit || ''; const c = s.caution || ''; return (u || c) ? '<div>' + esc(u) + '</div>' + (c ? '<div style="opacity:.7;font-size:.85rem">' + esc(c) + '</div>' : '') : '<span class="noData">—</span>'; } },
-    { key: 'rct', label: t ? t("cmp.table.rct") : "РКИ", get: s => (s.rct != null ? String(s.rct) : '—') },
-    { key: 'card', label: t ? t("cmp.table.card") : "Карточка", get: s => '<a class="linkCard" href="sup/' + slugify(s.id) + '.html" target="_blank" rel="noopener">Открыть ↗</a>' }
+    { key: 'category', label: t("cmp.table.category"), get: s => esc(s.category || '—') },
+    { key: 'grade', label: t("cmp.table.grade"), get: s => gradeBadgeHtml(s) },
+    { key: 'effects', label: t("cmp.table.effects"), get: s => { const e = (s.effects || []).slice(0, 4); return e.length ? e.map(esc).join(', ') : '<span class="noData">—</span>'; } },
+    { key: 'forms', label: t("cmp.table.forms"), get: s => s.forms ? esc(s.forms) : '<span class="noData">' + t("cmp.noData") + '</span>' },
+    { key: 'dosage', label: t("cmp.table.dosage"), get: s => esc(s.dosage || '—') },
+    { key: 'safety', label: t("cmp.table.safety"), get: s => { const u = s.upper_limit || ''; const c = s.caution || ''; return (u || c) ? '<div>' + esc(u) + '</div>' + (c ? '<div style="opacity:.7;font-size:.85rem">' + esc(c) + '</div>' : '') : '<span class="noData">—</span>'; } },
+    { key: 'rct', label: t("cmp.table.rct"), get: s => (s.rct != null ? String(s.rct) : '—') },
+    { key: 'card', label: t("cmp.table.card"), get: s => '<a class="linkCard" href="sup/' + slugify(s.id) + '.html" target="_blank" rel="noopener">' + t("cmp.table.openLink") + '</a>' }
   ];
 
   let trHtml = '';
@@ -289,8 +323,8 @@ let radarInstance = null;
   const note = document.getElementById('cmpNote');
   if (note) {
     note.textContent = ids.length > 10
-      ? 'Показаны первые 10 добавок.'
-      : (ids.length ? 'Сравниваем ' + ids.length + ' добавок рядом.' : 'Добавьте добавки через поиск или селекты выше.');
+      ? t('cmp.note.truncated')
+      : (ids.length ? t('cmp.note.n', { n: ids.length }) : t('cmp.note.empty'));
   }
   // CWV-01: радар (520px канвас) — renderCompare скрывает его ПОСЛЕ
   // загрузки data.json, когда добавок != 2: 520px вёрстка «прыгает» вверх.
@@ -303,15 +337,15 @@ let radarInstance = null;
   }
   if (ids.length === 0) {
     if (errEl) {
-      errEl.textContent = 'Не указаны добавки для сравнения. Добавьте их через поиск или селекты выше.';
-      errEl.style.display = 'block';
+      errEl.innerHTML = '';
+      setCmpMsg('cmp.error.noIds');
     }
     return;
   }
   if (ids.length === 1) {
     if (errEl) {
-      errEl.textContent = 'Выберите минимум 2 добавки.';
-      errEl.style.display = 'block';
+      errEl.innerHTML = '';
+      setCmpMsg('cmp.error.tooFew');
     }
     return;
   }
@@ -321,13 +355,13 @@ let radarInstance = null;
   // поэтому замена скелетона не даёт вертикального прыжка.
   if (body && ids.length >= 2) {
     const n = Math.min(ids.length, 10);
-    const labels = ['Категория', 'Грейд', 'Основные эффекты', 'Формы', 'Дозировка', 'Безопасность', 'РКИ', 'Карточка'];
-    const TWO_LINE = { 'Основные эффекты': 1, 'Безопасность': 1 };
+    const skelKeys = ['cmp.table.category', 'cmp.table.grade', 'cmp.table.effects', 'cmp.table.forms', 'cmp.table.dosage', 'cmp.table.safety', 'cmp.table.rct', 'cmp.table.card'];
+    const TWO_LINE = { 'cmp.table.effects': 1, 'cmp.table.safety': 1 };
     const short = '\u2026\u2026<br>\u2026\u2026';
     let sk = '';
-    for (const lb of labels) {
-      const val = TWO_LINE[lb] ? short : '\u2026';
-      sk += '<tr><td class="param">' + lb + '</td>';
+    for (const k of skelKeys) {
+      const val = TWO_LINE[k] ? short : '\u2026';
+      sk += '<tr><td class="param">' + t(k) + '</td>';
       for (let i = 0; i < n; i++) sk += '<td>' + val + '</td>';
       sk += '</tr>';
     }
@@ -360,10 +394,19 @@ Promise.all([fetchJson('data_index.json')]).then(([idx]) => {
   console.error('[compare] не удалось загрузить data_index.json:', err);
   const errEl = document.getElementById('cmpError');
   if (errEl) {
-    errEl.innerHTML = 'Не удалось загрузить каталог добавок. <button type="button" class="btn" id="cmpRetry">Повторить</button>';
+    errEl.innerHTML = '';
+    const txt = document.createElement('span');
+    txt.className = 'cmp-error-text';
+    txt.textContent = t('cmp.error.catalog');
+    errEl.appendChild(txt);
+    const retry = document.createElement('button');
+    retry.type = 'button';
+    retry.className = 'btn';
+    retry.id = 'cmpRetry';
+    retry.textContent = t('cmp.retry');
+    retry.addEventListener('click', () => location.reload());
+    errEl.appendChild(retry);
     errEl.style.display = 'block';
-    const retry = errEl.querySelector('#cmpRetry');
-    if (retry) retry.addEventListener('click', () => location.reload());
   }
 });
 
@@ -414,6 +457,8 @@ function addCmpId(id) {
   saveIds();
   renderCmpList();
   renderCompare();
+  // PA-05/A11Y-12: о добавлении слышит и скринридер (role="status")
+  showCmpToast(t('cmp.toast.added'));
 }
 
 function renderCompare() {
@@ -423,18 +468,18 @@ function renderCompare() {
   const note = document.getElementById('cmpNote');
   if (note) {
     note.textContent = truncated
-      ? "Показаны первые 10 добавок."
-      : (shown.length ? "Сравниваем " + shown.length + " добавок рядом." : "Добавьте добавки через поиск или селекты выше.");
+      ? t("cmp.note.truncated")
+      : (shown.length ? t("cmp.note.n", { n: shown.length }) : t("cmp.note.empty"));
   }
   if (!shown.length) {
-    if (errEl) { errEl.textContent = 'Не указаны добавки для сравнения. Добавьте их через поиск или селекты выше.'; errEl.style.display = 'block'; }
+    if (errEl) { errEl.innerHTML = ''; setCmpMsg('cmp.error.noIds'); }
     document.getElementById('cmpBody').innerHTML = '';
     const radar = document.getElementById('radarChart');
     if (radar) radar.style.display = 'none';
     return;
   }
   if (shown.length === 1) {
-    if (errEl) { errEl.textContent = 'Выберите минимум 2 добавки.'; errEl.style.display = 'block'; }
+    if (errEl) { errEl.innerHTML = ''; setCmpMsg('cmp.error.tooFew'); }
     document.getElementById('cmpBody').innerHTML = '';
     const radar = document.getElementById('radarChart');
     if (radar) radar.style.display = 'none';
@@ -446,7 +491,7 @@ function renderCompare() {
     all.forEach(s => { map[s.id] = s; });
     const found = shown.map(id => map[id]).filter(Boolean);
     if (!found.length) {
-      if (errEl) { errEl.textContent = 'Добавки не найдены в базе.'; errEl.style.display = 'block'; }
+      if (errEl) { setCmpMsg('cmp.error.notFound'); }
       return;
     }
     renderTable(found, truncated);
@@ -454,7 +499,7 @@ function renderCompare() {
     renderStackChecker(found);
   }).catch(err => {
     console.error('[compare] ошибка загрузки data.json:', err);
-    if (errEl) { errEl.textContent = 'Не удалось загрузить базу данных. Попробуйте обновить страницу.'; errEl.style.display = 'block'; }
+    if (errEl) { setCmpMsg('cmp.error.db'); }
   });
 }
 
@@ -468,8 +513,8 @@ function radarFill(ctx) {
   return g;
 }
 
-const PROF_LABELS = [(t && t("prof.science")) || "Наука", (t && t("prof.maBase")) || "База МА", (t && t("prof.verified")) || "Верифицированность", (t && t("prof.completeness")) || "Полнота"];
-const PROF_LONG_LABELS = [(t && t("prof.long.science")) || "Наука", (t && t("prof.long.maBase")) || "База МА", (t && t("prof.long.verified")) || "Верифицированность", (t && t("prof.long.completeness")) || "Полнота"];
+const PROF_LABELS = [t("prof.science"), t("prof.maBase"), t("prof.verified"), t("prof.completeness")];
+const PROF_LONG_LABELS = [t("prof.long.science"), t("prof.long.maBase"), t("prof.long.verified"), t("prof.long.completeness")];
 
 function renderRadar(found) {
   const canvas = document.getElementById('radarChart');
@@ -562,7 +607,7 @@ function renderStackChecker(supplements) {
     }
   });
   if (!found) {
-    html = '<span class="stack-none">Нет данных о взаимодействии</span>';
+    html = '<span class="stack-none">' + t("cmp.noInteraction") + '</span>';
   }
   container.innerHTML = html;
   section.style.display = found ? 'block' : 'block';

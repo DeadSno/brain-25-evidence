@@ -291,7 +291,24 @@ self.addEventListener('activate', event => {
    входят в STATIC_ASSETS и отдаются cacheFirstForStatic: без бампа
    activate не почистит v110-static и возвратные посетители получат старые
    версии обеих страниц. */
-var CACHE_VERSION = 'v111';
+/* Бамп v111 -> v112: блок 5 (a11y/i18n) — script.js получил
+   skip-link с переводом фокуса (A11Y-13) и combobox-структуру
+   live-search (A11Y-10: role="combobox", aria-expanded,
+   aria-activedescendant, id на опциях), i18n.js — новые ключи
+   (cmp.toast.added, cmp.error-ключи, cmp.table.caption, sup.cite-,
+   sup.tts-, cite., int.graphSearchPh, graph.a11y-). Оба файла лежат
+   в STATIC_ASSETS без ?v (сброс кэша держится на CACHE_VERSION);
+   без бампа activate не почистит v111-static и возвратные посетители
+   получат старые script.js/i18n.js — aria-expanded не переключится,
+   а t() подставит имена новых ключей вместо текста. */
+/* Бамп v112 -> v113: изменён docs/style.css — убрано подчёркивание
+   карточек главной (.card-featured, .card-link) в тёмной теме
+   (перебито глобальное html:not(.light) a{text-decoration:underline}),
+   style.css бампнут v439 -> v440 во всех html и шаблонах.
+   style.css входит в STATIC_ASSETS, без бампа activate не почистит
+   v112-static и возвратные посетители получат старый CSS с
+   подчёркиванием. */
+var CACHE_VERSION = 'v113';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 

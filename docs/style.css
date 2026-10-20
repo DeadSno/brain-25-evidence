@@ -2837,6 +2837,15 @@ html.light .placebo-track { background: rgba(0,0,0,.06); }
 .card-link-desc { opacity: .75; font-size: .85rem; }
 .card-link-ext { opacity: .6; font-weight: 400; font-size: .8rem; }
 
+/* Регрессия от Блока 4: глобальный html:not(.light) a{text-decoration:underline}
+   имеет специфичность (0,1,2) и перебивает text-decoration:none на карточках
+   (.card-featured / .card-link — (0,1,0)). Повышаем специфичность до (0,2,1),
+   чтобы вернуть чистые карточки в тёмной теме (в light-теме underscore нет). */
+html:not(.light) .card-featured,
+html:not(.light) .card-link {
+  text-decoration: none;
+}
+
 /* Оценки в плитках главной: инлайн-стили бейджа сняты,
    margin-bottom вернули, т.к. в базе .grade его нет */
 .tile .grade { margin-bottom: .4rem; }
