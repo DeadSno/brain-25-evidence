@@ -5,6 +5,26 @@ function esc(s) {
 }
 const $ = id => document.getElementById(id);
 
+// ===== A11Y-13: skip-link должен не только прыгнуть по якорю, но и
+// перевести фокус на <main> (index.html: main[tabindex="-1"]).
+// Браузер по клику на #main-якорь фокус не ставит — делаем это вручную.
+(function initSkipLink() {
+  const skip = document.querySelector('.skip-link');
+  const main = document.getElementById('main');
+  if (skip && main) {
+    skip.addEventListener('click', () => {
+      main.focus({ preventScroll: false });
+    });
+  }
+})();
+
+// ===== A11Y-10: единая точка синхронизации aria-expanded у input#search
+// (role="combobox") с состоянием live-search дропдауна #searchDrop.
+function setSearchDropOpen(open) {
+  const search = $('search');
+  if (search) search.setAttribute('aria-expanded', open ? 'true' : 'false');
+}
+
 // ===== slug: кириллическое id -> транслит для URL sup/<slug>.html =====
 const TRANS = {
   "а":"a","б":"b","в":"v","г":"g","д":"d","е":"e","ё":"e",
@@ -420,7 +440,7 @@ function initApp() {
     if (e.key === 'ArrowDown') { e.preventDefault(); searchDropActive = Math.min(searchDropActive + 1, drop.querySelectorAll('.drop-row').length - 1); updateSearchDropFocus(); }
     else if (e.key === 'ArrowUp') { e.preventDefault(); searchDropActive = Math.max(searchDropActive - 1, 0); updateSearchDropFocus(); }
     else if (e.key === 'Enter') { e.preventDefault(); pickSearchDrop(); }
-    else if (e.key === 'Escape') { drop.style.display = 'none'; searchDropActive = -1; }
+    else if (e.key === 'Escape') { drop.style.display = 'none'; searchDropActive = -1; setSearchDropOpen(false); }
   });
   ['verdictFilter', 'sortSelect'].forEach(id => { const el = $(id); if (el) el.addEventListener('change', applyFilters); });
   document.querySelectorAll('.preset').forEach(btn => {
@@ -446,7 +466,7 @@ function initApp() {
     const drop = $('searchDrop');
     if (drop && drop.style.display !== 'none') {
       const insideDrop = e.target.closest('#searchDrop, #search');
-      if (!insideDrop) { drop.style.display = 'none'; searchDropActive = -1; }
+      if (!insideDrop) { drop.style.display = 'none'; searchDropActive = -1; setSearchDropOpen(false); }
     }
     // Клик по результату live-search -> переход на страницу добавки
     const srow = e.target.closest('.drop-row[data-id]');
@@ -456,6 +476,7 @@ function initApp() {
       $('search').value = '';
       drop.style.display = 'none';
       searchDropActive = -1;
+      setSearchDropOpen(false);
       location.href = 'sup/' + slugify(id) + '.html';
       return;
     }
@@ -729,25 +750,29 @@ function renderSearchDrop(q) {
   const drop = $('searchDrop');
   if (!drop) return;
   const v = (q || '').trim();
-  if (!v) { drop.style.display = 'none'; drop.innerHTML = ''; searchDropActive = -1; return; }
+  if (!v) { drop.style.display = 'none'; drop.innerHTML = ''; searchDropActive = -1; setSearchDropOpen(false); return; }
   const vl = v.toLowerCase();
   const results = supplements.filter(s =>
     s.name.toLowerCase().includes(vl) || (s.effects || []).join(' ').toLowerCase().includes(vl)
   ).slice(0, 8);
   if (!results.length) {
-    drop.innerHTML = '<div class="drop-empty">Ничего не найдено</div>';
+    // 13A2a: строка вынесена в словарь (ключ empty.notFound)
+    drop.innerHTML = '<div class="drop-empty">' + esc(t("empty.notFound")) + '</div>';
     drop.style.display = 'block';
     searchDropActive = -1;
+    setSearchDropOpen(true);
     return;
   }
   drop.innerHTML = results.map((s, i) =>
-    '<div class="drop-row" role="option" data-id="' + esc(s.id) + '" data-index="' + i + '">' +
+    // A11Y-10: id на каждой опции — нужен для aria-activedescendant на #search
+    '<div class="drop-row" role="option" id="searchDropOpt' + i + '" data-id="' + esc(s.id) + '" data-index="' + i + '">' +
     '<span class="drop-name">' + esc(s.name) + '</span>' +
     '<span class="drop-cat">' + esc(s.category || '') + '</span>' +
     '</div>'
   ).join('');
   drop.style.display = 'block';
   searchDropActive = -1;
+  setSearchDropOpen(true);
   updateSearchDropFocus();
 }
 
@@ -759,6 +784,14 @@ function updateSearchDropFocus() {
     r.classList.toggle('focused', i === searchDropActive);
     r.setAttribute('aria-selected', i === searchDropActive ? 'true' : 'false');
   });
+  // A11Y-10: активная опция рассказывается скринридеру через
+  // aria-activedescendant на input#search (role="combobox")
+  const search = $('search');
+  if (search) {
+    const active = rows[searchDropActive];
+    if (active && searchDropActive >= 0) search.setAttribute('aria-activedescendant', active.id);
+    else search.removeAttribute('aria-activedescendant');
+  }
 }
 
 function pickSearchDrop() {
@@ -770,6 +803,7 @@ function pickSearchDrop() {
   $('search').value = '';
   drop.style.display = 'none';
   searchDropActive = -1;
+  setSearchDropOpen(false);
   location.href = 'sup/' + slugify(id) + '.html';
 }
 

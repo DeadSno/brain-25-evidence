@@ -37,7 +37,7 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=439"/>
+<link rel="stylesheet" href="style.css?v=440"/>
 <!-- v5.6.1: vis-network вендорен в docs/vendor/ — снапшоты страницы больше не зависят от unpkg -->
 <script src="vendor/vis-network-9.1.9.min.js" defer></script>
 <style>
@@ -279,6 +279,7 @@ footer { font-size: 1rem !important; }
 
 <main id="main">
   <h1>Карта связей</h1>
+  <h2 class="sr-only" data-i18n-text="int.headSections">Разделы карты связей</h2>
 
 
 <div class="tr-tabs" role="tablist" aria-label="Режимы связей">
@@ -291,7 +292,7 @@ footer { font-size: 1rem !important; }
 <div class="tab-panels">
   <div role="tabpanel" id="panel-graph" aria-labelledby="tab-graph" data-panel="graph" class="active">
     <div class="graph-panel-controls">
-      <input type="search" id="graphSearch" placeholder="Поиск добавки..." aria-label="Поиск по графу">
+      <input type="search" id="graphSearch" placeholder="Поиск добавки..." aria-label="Поиск по графу" data-i18n-placeholder="int.graphSearchPh">
       <select id="graphEdgeFilter" aria-label="Тип связей">
         <option value="all">Все связи</option>
         <option value="tag">По тегам</option>
@@ -310,6 +311,13 @@ footer { font-size: 1rem !important; }
     </div>
     <div class="state-empty" id="graphEmpty" hidden>
       <span data-i18n-text="int.graphEmpty">Ничего не найдено. </span><button type="button" id="graphEmptyReset" data-i18n-text="int.graphEmptyReset">Сбросить</button>
+    </div>
+    <!-- A11Y-15: канвас vis-network недоступен с клавиатуры — даём
+         скринридеру скрытый текстовый аналог: список всех узлов графа
+         со ссылками на карточки. listEl наполняется в drawGraph(). -->
+    <div class="sr-only" id="graphA11y" role="region" data-i18n-aria-label="graph.a11yRegion">
+      <h3 class="sr-only" data-i18n-text="graph.a11yHeading">Список узлов графа</h3>
+      <ul id="graphA11yNodes"></ul>
     </div>
   </div>
   <div role="tabpanel" id="panel-mech" aria-labelledby="tab-mech" data-panel="mech">
@@ -806,6 +814,16 @@ window.addEventListener('scroll', () => {
       });
       allEdgesRaw = (g.edges || []).slice();
       window.__posApplied = allNodes.filter(function (n) { return n.fixed; }).length;
+      // A11Y-15: наполняем скрытый текстовый аналог графа — узлы со
+      // ссылками на карточки. esc/sideSlugify — глобальные classic-функции.
+      (function buildGraphA11yList() {
+        var listEl = document.getElementById('graphA11yNodes');
+        if (!listEl) return;
+        listEl.innerHTML = allNodes.map(function (n) {
+          var label = String(n.label || n.id || '');
+          return '<li><a href="sup/' + sideSlugify(label) + '.html">' + esc(label) + '</a></li>';
+        }).join('');
+      })();
 
       graphInited = true;
       showWelcome();
