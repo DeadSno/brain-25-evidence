@@ -25,6 +25,15 @@
 - Единый навбар: кнопки «Граф связей» и «Атлас» убраны со всех страниц [86717bd]
 - Главная: три карточки («Карта связей», «Граф связей», «Атлас механизмов») сведены в одну широкую «Исследовать связи» [86717bd]
 - `tests/snapshots/`: эталоны пересняты под новую структуру — изменено 61 PNG, из них 39 с реальными расхождениями (2.2.9) [4779efd]
+- `docs/data.json` (4 карточки) и пересборка `docs/api/v1/supplements.json`: Омега-3 citations null → 0; Лаванда forms → «экстракт (стабилизированное лавандовое масло, Silexan)»; MSM forms → «порошок (optiMSM)»; S. boulardii grade B → D (hedges_g = −1.63). Распределение грейдов: A 6 / B 22 / C 52 / D 50
+- `requirements.txt`: + Pillow; удалены неиспользуемые `lib/vis-9.1.2`, `lib/tom-select` и `scripts/view_catalog.py`; `docs/reports/*.png` → `reports/archive/`
+- `.gitignore`: паттерны артефактов прогонов (`*.json.gz`, `snap_head_*.xml`, `reports/archive/v26*.png`)
+
+### Docs
+
+- README.md: «Статус релиза» v5.6.3 → v5.6.5; тесты 1079 в 47 файлах → 1979 в 73; грейды A:6 / B:22 / C:52 / D:50; hedges g 89/130 (85 с CI); sitemap 144 → 143 URL; `atlas.html` / `graph.html` описаны как редиректы
+- ROADMAP.md: PMID counter и Compare 3+ отмечены выполненными [6051419]
+- CONVENTIONS.md / SKILLS_INDEX.md: базовая линия `pytest -q` → 1979 passed / 0 skipped (~8 мин), гейты `RUN_*` удалены в v5.6.5, CSS `?v=440` во 143 файлах, SW `v113`
 
 ### Fixed
 

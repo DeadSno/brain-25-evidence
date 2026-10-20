@@ -28,13 +28,15 @@ WebKit (Safari iOS, Mobile Safari). Firefox отложен.
 Как запускать
 -------------
     python -m http.server 8000 --directory docs     # из корня репозитория
-    $env:RUN_SNAPSHOTS="1"; pytest -q -m snapshots   # проверка (76 тестов, ~4 мин)
+    pytest -q -m snapshots                          # проверка (76 тестов, ~4 мин)
     $env:UPDATE_SNAPSHOTS="1"; pytest -q -m snapshots   # перезаписать ВСЕ эталоны
     $env:UPDATE_SNAPSHOTS="modal-index,cookie-banner"; pytest -q -m snapshots
     python scripts/compress_snapshots.py --apply    # ужать эталоны (lossless)
 
-В addopts стоит `-m "not snapshots"`, поэтому обычный `pytest -q` снапшоты
-не запускает. Адрес сервера переопределяется: SNAPSHOT_BASE_URL=http://localhost:8020
+Гейт RUN_SNAPSHOTS удалён в v5.6.5 (tests/conftest.py): снапшоты собираются
+обычным `pytest -q` (полный прогон ~8-10 мин). Для быстрого прогона без
+браузера — `-m "not snapshots"`. Адрес сервера переопределяется:
+SNAPSHOT_BASE_URL=http://localhost:8020
 
 Обновление эталонов — поимённо (#98, F-18)
 -------------------------------------------

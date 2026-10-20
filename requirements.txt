@@ -17,6 +17,7 @@ streamlit>=1.30
 beautifulsoup4>=4.12
 curl_cffi>=0.7
 PyMuPDF>=1.24
+Pillow
 networkx>=3.2
 pyvis>=0.3
 # v5.6.0 (этап 1): генератор страниц sup. Jinja2 и MarkupSafe уже

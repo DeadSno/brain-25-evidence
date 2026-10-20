@@ -2,7 +2,10 @@
 
 Запуск:
     python -m http.server 8000 --directory docs   (из корня репозитория)
-    $env:RUN_MOBILE="1"; pytest -q -m mobile375
+    pytest -q -m mobile375
+
+Гейт RUN_MOBILE удалён в v5.6.5 (tests/conftest.py); сервер поднимает
+autouse-фикстура live_server при необходимости.
 
 Страницы: index, interactions (4 таба), compare, map.
 Проверка: document.documentElement.scrollWidth <= window.innerWidth

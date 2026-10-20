@@ -44,14 +44,14 @@ tabindex с активной вкладкой, видимость активно
   гарантии не даёт: fetch() на него не ждётся.
 
 Запуск:
-    $env:RUN_TABS="1"; $env:RUN_SNAPSHOTS="1"; python -m pytest tests/test_tabs_interaction.py -q
+    python -m pytest tests/test_tabs_interaction.py -q
 
-RUN_SNAPSHOTS=1 нужен, чтобы autouse-фикстура live_server в
-tests/conftest.py подняла http.server на :8000 из docs/ (если там уже
-не отдаётся docs этого репозитория — сверка по sha256 style.css). Без
-RUN_TABS тесты сняты гейтом в tests/conftest.py: им нужны живой сервер
-и браузеры Playwright, а обычный `pytest -q` должен оставаться быстрым
-и работать в CI без сервера.
+Гейт RUN_TABS удалён в v5.6.5 (tests/conftest.py). Сервер :8000 поднимает
+autouse-фикстура live_server в tests/conftest.py из docs/ (если там уже
+не отдаётся docs этого репозитория — сверка по sha256 style.css). Тестам
+нужен живой сервер и браузеры Playwright; обычный `pytest -q` собирает их
+в общий прогон (~8-10 мин), а для быстрого прогона без браузера —
+`-m "not (tabs or graph)"`.
 """
 import hashlib
 import os
