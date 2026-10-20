@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ru" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>404 — страница не найдена | brain-25-evidence</title>
+<meta name="description" content="Такого адреса на сайте нет. Поиск по 130 добавкам и переход на главную.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#1c1c1e">
+<link rel="icon" href="icons/192.png">
+<!-- v5.6.5 FIX-SPRINT B7: страница 404 для GitHub Pages.
+     Служебная: не индексируется (noindex), исключена из sitemap
+     (build_sitemap ROOT_PAGES), из SEO-тестов (EXCLUDED_PAGES,
+     NO_JSONLD_PAGES в tests/test_seo_meta_consistency.py) и из снапшотов
+     (PAGES не расширяется — 76 снимков без изменений).
+     Тёмная тема — дефолт style.css (html без класса .light); переключатель
+     темы и кубик — инлайн, без script.js: страница не должна зависеть от
+     скрипта каталога. Поиск по каталогу парсит sup/index.html (карточки
+   уже несут name→slug и data-hay сборки build_sup.py, JS-словарь не
+     дублируется). -->
+<link rel="stylesheet" href="style.css?v=440">
+<style>
+  /* Локальные правила — только для служебных блоков этой страницы. */
+  .notfound { max-width: 640px; margin: 0 auto; text-align: center; padding: 2.5rem 0; }
+  .notfound .code { font-size: 3rem; font-weight: 700; margin: 0; line-height: 1; }
+  #nfSearch { width: 100%; min-height: 46px; margin: 1.2rem 0 .8rem; padding: 0 1rem; box-sizing: border-box; }
+  #nfResults { display: grid; gap: .5rem; text-align: left; margin: 0 0 1rem; padding: 0; list-style: none; }
+  #nfResults a { display: block; padding: .55rem .8rem; border: 1px solid var(--border); border-radius: 10px; text-decoration: none; color: inherit; }
+  #nfResults a:hover { border-color: var(--accent); }
+  #nfHint { color: var(--muted); font-size: .85rem; }
+</style>
+</head>
+<body>
+<a href="#main" class="skip-link">Перейти к содержимому</a>
+<div class="site-header">
+  <div class="trustbar">🧬 Открытые данные · Бесплатно · Без рекламы</div>
+  <header class="top">
+    <div class="site-title"><a href="index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a> <span class="v">v<span data-version="app"></span></span></div>
+    <nav class="actions" aria-label="Главная навигация">
+      <a class="btn c-feedback" href="feedback.html">💬 Обратная связь</a>
+      <a class="btn c-support" href="support.html">💚 Поддержать</a>
+      <button class="btn" id="themeBtn">🌞 Светлая тема</button>
+      <button class="btn" id="randomBtn" aria-label="Удиви меня — случайная добавка" title="Удиви меня — случайная добавка">🎲</button>
+    </nav>
+  </header>
+</div>
+
+<main id="main" tabindex="-1">
+  <div class="notfound">
+    <p class="code" aria-hidden="true">404</p>
+    <h1 style="margin:.5rem 0 0">Страница не найдена</h1>
+    <p style="color:var(--muted)">Такого адреса на сайте нет — или он переехал.
+       Поищите добавку или вернитесь на главную.</p>
+    <label for="nfSearch" class="sr-only">Поиск добавки по каталогу</label>
+    <input id="nfSearch" type="search" placeholder="Например: магний или сон" autocomplete="off">
+    <p id="nfHint" aria-live="polite"></p>
+    <ul id="nfResults" role="list"></ul>
+    <p style="margin:1rem 0 0;display:flex;flex-wrap:wrap;gap:.75rem;justify-content:center">
+      <a class="btn" href="index.html">🏠 На главную</a>
+      <a class="btn" href="sup/index.html">📄 Каталог 130 добавок</a>
+    </p>
+  </div>
+</main>
+
+<footer>
+  <p class="disc">Не медицинская рекомендация. Информация носит справочный характер и не заменяет консультацию врача.</p>
+</footer>
+
+<script defer src="version.js?v=312"></script>
+<script>
+(function () {
+  // — Тема: дефолт тёмный; localStorage['theme'] = 'light' включает светлую
+  //   (то же соглашение, что script.js initTheme на остальных страницах).
+  var root = document.documentElement;
+  var btn = document.getElementById('themeBtn');
+  function applyTheme(light) {
+    root.classList.toggle('light', light);
+    if (btn) btn.textContent = light ? '🌙 Тёмная тема' : '🌞 Светлая тема';
+  }
+  applyTheme(function () {
+    try { return localStorage.getItem('theme') === 'light'; } catch (e) { return false; }
+  }());
+  if (btn) btn.addEventListener('click', function () {
+    var light = !root.classList.contains('light');
+    try { localStorage.setItem('theme', light ? 'light' : 'dark'); } catch (e) {}
+    applyTheme(light);
+  });
+
+  // — Кубик: случайная добавка из sitemap.xml (как на остальных страницах).
+  var rnd = document.getElementById('randomBtn');
+  if (rnd) rnd.addEventListener('click', function () {
+    fetch('sitemap.xml')
+      .then(function (r) { return r.ok ? r.text() : ''; })
+      .then(function (t) {
+        var urls = (new DOMParser().parseFromString(t, 'text/xml'))
+          .querySelectorAll('loc');
+        var list = [];
+        for (var i = 0; i < urls.length; i++) {
+          var u = urls[i].textContent;
+          if (/\/sup\/[a-z0-9-]+\.html$/.test(u) && !/\/sup\/index\.html$/.test(u)) {
+            list.push(u.replace(/^https?:\/\/[^/]+/, ''));
+          }
+        }
+        if (list.length) location.href = list[Math.floor(Math.random() * list.length)];
+      });
+  });
+
+  // — Поиск: карточки читаем из sup/index.html (name, slug, data-hay уже
+  //   собраны шаблоном; словарь в JS не дублируется). Индекс строится один раз.
+  var input = document.getElementById('nfSearch');
+  var out = document.getElementById('nfResults');
+  var hint = document.getElementById('nfHint');
+  var index = null;
+
+  function buildIndex(html) {
+    var doc = new DOMParser().parseFromString(html, 'text/html');
+    var cards = doc.querySelectorAll('#cardsGrid .card[href]');
+    var items = [];
+    for (var i = 0; i < cards.length; i++) {
+      var a = cards[i];
+      items.push({
+        href: a.getAttribute('href').replace(/^sup\//, ''),
+        name: (a.querySelector('.card-title') || {}).textContent || '',
+        hay: (a.getAttribute('data-hay') || '').toLowerCase()
+      });
+    }
+    return items;
+  }
+
+  function render(q) {
+    var query = (q || '').trim().toLowerCase();
+    if (!query) {
+      out.textContent = '';
+      hint.textContent = 'Введите название или эффект — покажу до 8 совпадений из каталога.';
+      return;
+    }
+    if (index === null) {
+      hint.textContent = 'Каталог ещё загружается…';
+      return;
+    }
+    var found = [];
+    for (var i = 0; i < index.length && found.length < 8; i++) {
+      var it = index[i];
+      if (it.name.toLowerCase().indexOf(query) !== -1 || it.hay.indexOf(query) !== -1) {
+        found.push(it);
+      }
+    }
+    out.textContent = '';
+    found.forEach(function (it) {
+      var li = document.createElement('li');
+      var a = document.createElement('a');
+      a.href = 'sup/' + it.href;
+      a.textContent = it.name;
+      li.appendChild(a);
+      out.appendChild(li);
+    });
+    if (!found.length) {
+      hint.textContent = 'Ничего не нашлось в каталоге. Попробуйте эффект: «сон», «память».';
+    } else {
+      hint.textContent = 'Найдено: ' + found.length + ' (показаны первые ' + found.length + ')';
+    }
+  }
+
+  if (input) {
+    input.addEventListener('input', function () { render(input.value); });
+  }
+  if (hint) hint.textContent = 'Введите название или эффект — покажу до 8 совпадений из каталога.';
+  fetch('sup/index.html')
+    .then(function (r) { return r.ok ? r.text() : ''; })
+    .then(function (t) { if (t) index = buildIndex(t); });
+})();
+</script>
+</body>
+</html>
