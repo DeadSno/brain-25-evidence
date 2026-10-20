@@ -47,19 +47,19 @@ try {
   .wrap h1{font-size:1.5rem;margin:var(--space-0-3) 0 var(--space-4)}
   .cmpNote{font-size:.85rem;opacity:.75;margin:0 0 var(--space-4)}
   table.compare{width:100%;border-collapse:collapse;margin:0 0 var(--space-4);font-size:.9rem}
-  table.compare th{background:var(--apanel);color:var(--atext);text-align:left;padding:.6rem .5rem;border:1px solid var(--aborder);font-size:.8rem;position:sticky;top:0;z-index:2}
+  table.compare th{background:var(--apanel);color:var(--atext);text-align:left;padding:.6rem .5rem;border:1px solid var(--aborder);font-size:.875rem;position:sticky;top:0;z-index:2}
   table.compare td{padding:.55rem .5rem;border:1px solid var(--aborder);vertical-align:top}
   table.compare tr:nth-child(even) td{background:rgba(255,255,255,.03)}
   table.compare tr:hover td{background:rgba(127,127,127,.06)}
   table.compare td.name{font-weight:700;min-width:150px}
   /* Первый столбец (названия параметров) не уезжает при горизонтальном скролле. */
   table.compare td.param{font-weight:600;color:var(--amut);width:170px;background:var(--apanel);position:sticky;inset-inline-start:0;z-index:1}
-  table.compare.cmp10{font-size:0.8rem}
+  table.compare.cmp10{font-size:0.875rem}
   /* Заливку грейдов A–D задаёт style.css (.grade.gA..gD, !important);
      здесь — только форма плашки. Цвета берём из токенов, без хардкода. */
   .grade{display:inline-block;padding:.1rem .5rem;border-radius:var(--radius-pill);font-size:.8rem;font-weight:700;color:#fff}
   .grade-none{background:var(--muted)}
-  #cmpTable.cmp10{font-size:0.8rem}
+  #cmpTable.cmp10{font-size:0.875rem}
   .pmidBadge{display:inline-block;padding:.1rem .5rem;border-radius:var(--radius-pill);background:rgba(31,111,165,.2);color:#1f6fa5;border:1px solid rgba(31,111,165,.4);font-size:.78rem;margin-inline-end:.4rem}
   .linkCard{color:var(--info-tx, var(--info-blue));text-decoration:none;font-size:.85rem}
   .linkCard:hover{text-decoration:underline}
@@ -145,7 +145,7 @@ try {
          при догрузке данных. Иначе канвас успевает отрисоваться, потом
          прячется, и вёрстка прыгает на ~520px. -->
     <h3 style="margin:0 0 .7rem">📡 Радар профиля</h3>
-    <div style="position:relative;max-width:520px;margin:0 auto"><canvas id="radarChart" width="520" height="520"></canvas></div>
+    <div class="radar-wrap"><canvas id="radarChart" width="520" height="520"></canvas></div>
   </section>
 
   <section id="stackChecker" class="stack-checker" aria-label="Проверка совместимости">
@@ -511,13 +511,17 @@ function renderRadar(found) {
     return [science, maBase, verified, completeness];
   };
   const ctx = canvas.getContext('2d');
+  /* O-02: цвета серий радара из CSS-токенов (было: хардкод #3498db/#e67e22) */
+  const cssVars = getComputedStyle(document.documentElement);
+  const CHART_A = cssVars.getPropertyValue('--chart-a').trim() || '#3498db';
+  const CHART_B = cssVars.getPropertyValue('--chart-b').trim() || '#e67e22';
   radarInstance = new Chart(ctx, {
     type: 'radar',
     data: {
       labels: PROF_LONG_LABELS,
       datasets: [
-        { label: a.name, data: prof(a), borderColor: '#3498db', backgroundColor: radarFill, pointBackgroundColor: '#3498db' },
-        { label: b.name, data: prof(b), borderColor: '#e67e22', backgroundColor: radarFill, pointBackgroundColor: '#e67e22' }
+        { label: a.name, data: prof(a), borderColor: CHART_A, backgroundColor: radarFill, pointBackgroundColor: CHART_A },
+        { label: b.name, data: prof(b), borderColor: CHART_B, backgroundColor: radarFill, pointBackgroundColor: CHART_B }
       ]
     },
     options: {
