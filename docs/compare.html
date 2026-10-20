@@ -139,7 +139,11 @@ try {
   </div>
 
   <!-- Радар профиля (перенесено с главной) -->
-  <section id="cmpRadar" style="margin:var(--space-6) 0 0">
+  <section id="cmpRadar" style="margin:var(--space-6) 0 0;display:none">
+    <!-- CWV-01: секция по умолчанию скрыта до первого paint; prefillCompare
+         показывает её синхронно только при ровно 2 добавках, renderRadar —
+         при догрузке данных. Иначе канвас успевает отрисоваться, потом
+         прячется, и вёрстка прыгает на ~520px. -->
     <h3 style="margin:0 0 .7rem">📡 Радар профиля</h3>
     <div style="position:relative;max-width:520px;margin:0 auto"><canvas id="radarChart" width="520" height="520"></canvas></div>
   </section>
@@ -263,6 +267,84 @@ let ALL = [];   // {id, name}
 let compareIds = [];
 let radarInstance = null;
 
+// CWV-01 (FIX-SPRINT B2): пустое состояние и скелетон таблицы рисуем
+// СИНХРОННО, до первого paint. renderCompare() вызывается только после
+// загрузки data_index.json, и появившийся позже баннер «Не указаны
+// добавки…» сдвигал вниз всю вёрстку (CLS 0.33 локально, 0.87 в аудите).
+// Резервируем место сразу: если после loadIds() набор совпадёт — сдвига
+// нет вовсе, если заданы ids — скелетон заменяется реальными строками
+// той же высоты.
+(function prefillCompare() {
+  let ids = [];
+  try {
+    const idsParam = new URLSearchParams(location.search).get('ids');
+    if (idsParam) ids = idsParam.split(',').filter(Boolean);
+    else ids = JSON.parse(localStorage.getItem('compareIds') || '[]');
+  } catch (e) { ids = []; }
+  const body = document.getElementById('cmpBody');
+  const errEl = document.getElementById('cmpError');
+  // CWV-01: подпись (#cmpNote) после renderCompare меняется на итоговый
+  // текст — если рисовать её только там, блок «съедает» строку и тянет
+  // за собой всю вёрстку. Синхронно ставим тот же текст, что придёт потом.
+  const note = document.getElementById('cmpNote');
+  if (note) {
+    note.textContent = ids.length > 10
+      ? 'Показаны первые 10 добавок.'
+      : (ids.length ? 'Сравниваем ' + ids.length + ' добавок рядом.' : 'Добавьте добавки через поиск или селекты выше.');
+  }
+  // CWV-01: радар (520px канвас) — renderCompare скрывает его ПОСЛЕ
+  // загрузки data.json, когда добавок != 2: 520px вёрстка «прыгает» вверх.
+  // Заранее показываем канвас только для ровно двух добавок; в остальных
+  // случаях прячем секцию целиком ещё до первого paint. Делаем это ДО
+  // ранних return'ов ниже — скрытие обязательно для пустого состояния.
+  const radarSection = document.getElementById('cmpRadar');
+  if (radarSection) {
+    radarSection.style.display = (ids.length === 2) ? '' : 'none';
+  }
+  if (ids.length === 0) {
+    if (errEl) {
+      errEl.textContent = 'Не указаны добавки для сравнения. Добавьте их через поиск или селекты выше.';
+      errEl.style.display = 'block';
+    }
+    return;
+  }
+  if (ids.length === 1) {
+    if (errEl) {
+      errEl.textContent = 'Выберите минимум 2 добавки.';
+      errEl.style.display = 'block';
+    }
+    return;
+  }
+  // 2+ добавки: скелетон строк той же структуры, что и реальные
+  // (8 строк «параметр + N колонок значений»), высоты подогнаны под
+  // реальный рендер: effects и safety обычно занимают 2 строки,
+  // поэтому замена скелетона не даёт вертикального прыжка.
+  if (body && ids.length >= 2) {
+    const n = Math.min(ids.length, 10);
+    const labels = ['Категория', 'Грейд', 'Основные эффекты', 'Формы', 'Дозировка', 'Безопасность', 'РКИ', 'Карточка'];
+    const TWO_LINE = { 'Основные эффекты': 1, 'Безопасность': 1 };
+    const short = '\u2026\u2026<br>\u2026\u2026';
+    let sk = '';
+    for (const lb of labels) {
+      const val = TWO_LINE[lb] ? short : '\u2026';
+      sk += '<tr><td class="param">' + lb + '</td>';
+      for (let i = 0; i < n; i++) sk += '<td>' + val + '</td>';
+      sk += '</tr>';
+    }
+    body.innerHTML = sk;
+    // CWV-01: чипы выбранного набора появляются только после загрузки
+    // data_index.json (loadIds -> renderCmpList) и сдвигали таблицу/радар
+    // вниз. Рисуем заглушки той же высоты синхронно; renderCmpList
+    // подменяет их на настоящие чипы без прыжка.
+    const list = document.getElementById('cmpList');
+    if (list) {
+      list.innerHTML = ids.slice(0, 10).map(function () {
+        return '<span class="cmpChip" style="display:inline-flex;align-items:center;gap:.35rem;padding:.2rem .5rem;border:1px solid var(--aborder);border-radius:var(--radius-lg);background:var(--apanel);color:var(--atext);font-size:.85rem">\u2026</span>';
+      }).join('');
+    }
+  }
+})();
+
 Promise.all([fetchJson('data_index.json')]).then(([idx]) => {
   ALL = Array.isArray(idx) ? idx : (idx.supplements || []);
   const s1 = document.getElementById('cmpSelect1');
@@ -277,7 +359,12 @@ Promise.all([fetchJson('data_index.json')]).then(([idx]) => {
 }).catch(err => {
   console.error('[compare] не удалось загрузить data_index.json:', err);
   const errEl = document.getElementById('cmpError');
-  if (errEl) { errEl.textContent = 'Не удалось загрузить каталог добавок.'; errEl.style.display = 'block'; }
+  if (errEl) {
+    errEl.innerHTML = 'Не удалось загрузить каталог добавок. <button type="button" class="btn" id="cmpRetry">Повторить</button>';
+    errEl.style.display = 'block';
+    const retry = errEl.querySelector('#cmpRetry');
+    if (retry) retry.addEventListener('click', () => location.reload());
+  }
 });
 
 function loadIds() {
@@ -386,8 +473,16 @@ const PROF_LONG_LABELS = [(t && t("prof.long.science")) || "Наука", (t && t
 
 function renderRadar(found) {
   const canvas = document.getElementById('radarChart');
+  const sec = document.getElementById('cmpRadar');
   if (!canvas) return;
-  if (found.length !== 2) { canvas.style.display = 'none'; return; }
+  if (found.length !== 2) {
+    canvas.style.display = 'none';
+    // CWV-01: секция уже спрятана синхронно в prefillCompare, но здесь
+    // подстраховка на случай вызова до того (например, из консоли).
+    if (sec) sec.style.display = 'none';
+    return;
+  }
+  if (sec) sec.style.display = '';
   canvas.style.display = 'block';
   if (radarInstance) radarInstance.destroy();
   const [a, b] = found;
