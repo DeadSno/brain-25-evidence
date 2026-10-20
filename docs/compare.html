@@ -96,7 +96,7 @@ try {
         <a class="btn c-calc" href="calculator.html">🧮 Калькулятор</a>
         <a class="btn c-trends" href="trends.html">📈 Тренды</a>
         <a class="btn c-links" href="interactions.html">🔗 Связи</a>
-        <a class="btn c-compare" href="compare.html">⚖ Сравнение</a>
+        <span class="btn c-compare">⚖ Сравнение</span>
         <a class="btn c-map" href="map.html">🗺 Карта</a>
         <a class="btn c-bi" href="https://brain-25-evidence.streamlit.app" target="_blank" rel="noopener">🧠 BI ↗</a>
         <a class="btn c-faq" href="faq.html">❓ FAQ</a>
@@ -117,9 +117,9 @@ try {
   <!-- Добавление добавок прямо на странице сравнения -->
   <section id="cmpControls" style="margin:0 0 var(--space-4);padding:var(--space-4);background:var(--apanel);border:1px solid var(--aborder);border-radius:var(--radius-lg)">
     <div style="display:flex;gap:.5rem;flex-wrap:wrap;align-items:end">
-      <input id="cmpSearch" placeholder="Поиск добавки…" style="flex:1 1 260px;min-width:220px;padding:.45rem .8rem;border:1px solid var(--aborder);border-radius:var(--radius-lg);background:var(--apanel);color:var(--atext);font-size:.9rem">
-      <select id="cmpSelect1" style="padding:.45rem .8rem;border:1px solid var(--aborder);border-radius:var(--radius-lg);background:var(--apanel);color:var(--atext);font-size:.9rem;min-width:180px"><option value="">— Добавка 1 —</option></select>
-      <select id="cmpSelect2" style="padding:.45rem .8rem;border:1px solid var(--aborder);border-radius:var(--radius-lg);background:var(--apanel);color:var(--atext);font-size:.9rem;min-width:180px"><option value="">— Добавка 2 —</option></select>
+      <input id="cmpSearch" placeholder="Поиск добавки…" aria-label="Поиск добавки" style="flex:1 1 260px;min-width:220px;padding:.45rem .8rem;border:1px solid var(--aborder);border-radius:var(--radius-lg);background:var(--apanel);color:var(--atext);font-size:.9rem">
+      <select id="cmpSelect1" aria-label="Добавка 1" style="padding:.45rem .8rem;border:1px solid var(--aborder);border-radius:var(--radius-lg);background:var(--apanel);color:var(--atext);font-size:.9rem;min-width:180px"><option value="">— Добавка 1 —</option></select>
+      <select id="cmpSelect2" aria-label="Добавка 2" style="padding:.45rem .8rem;border:1px solid var(--aborder);border-radius:var(--radius-lg);background:var(--apanel);color:var(--atext);font-size:.9rem;min-width:180px"><option value="">— Добавка 2 —</option></select>
       <button id="cmpAddBtn" class="btn" disabled>Добавить в сравнение</button>
     </div>
     <div id="cmpList" style="margin-top:.5rem;display:flex;flex-wrap:wrap;gap:.4rem"></div>
