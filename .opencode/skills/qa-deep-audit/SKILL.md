@@ -48,7 +48,8 @@ project: brain-25-evidence
 ## Специфика проекта brain-25-evidence
 
 См. .opencode/skills/CONVENTIONS.md — структура проекта и правила
-(в том числе гейты тестов: `RUN_E2E=1`, `RUN_SNAPSHOTS=1`).
+(в том числе базовая линия тестов: v5.6.5 — 1979 passed, гейты `RUN_*`
+удалены, полный `pytest -q` без скипов).
 
 ## Жёсткие правила
 

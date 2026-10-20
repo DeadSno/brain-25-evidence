@@ -119,13 +119,16 @@ python -m http.server 8000 --directory docs
 ### Проверка перед коммитом
 
 ```bash
-pytest -q          # ожидается: 736 passed, 18 skipped
+pytest -q          # ожидается: 1979 passed, 0 skipped (~8-10 мин)
 ```
 
-18 пропущенных — это `e2e`-тесты. Они выключены по умолчанию; полный прогон:
+В v5.6.5 opt-in гейты `RUN_*` удалены: `pytest -q` запускает и браузерные
+метки (`snapshots` / `a11y` / `e2e` / `tabs` / `graph` / `mobile375`);
+сервер на :8000 при необходимости поднимает autouse-фикстура
+`live_server` в `tests/conftest.py`. Быстрый прогон без браузера:
 
 ```bash
-RUN_E2E=1 pytest -q -m e2e
+pytest -q -m "not (snapshots or a11y or tabs or graph or mobile375 or e2e)"
 ```
 
 ⚠️ Число тестов должно совпадать с `tests` в `docs/version.json`. За этим следит

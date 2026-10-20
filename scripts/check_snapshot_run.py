@@ -17,7 +17,6 @@ SKIPPED, pytest возвращает код 0, и CI рисует зелёную
 
 Запуск
 ------
-    $env:RUN_SNAPSHOTS="1"
     python -m pytest -q -m snapshots --junitxml=snapshots.xml
     python scripts/check_snapshot_run.py snapshots.xml
 """

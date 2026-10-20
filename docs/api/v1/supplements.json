@@ -1,6 +1,6 @@
 {
   "version": "v1",
-  "generated_at": "2026-10-19T10:58:17.895790+00:00",
+  "generated_at": "2026-10-20T13:00:01.032461+00:00",
   "count": 130,
   "license": "CC BY 4.0",
   "source": "https://github.com/DeadSno/brain-25-evidence",
@@ -199,7 +199,7 @@
       "scienceIndex": 9791,
       "rct": 4751,
       "metaCount": 1008,
-      "citations": null
+      "citations": 0
     },
     {
       "id": "Витамин D",
@@ -10323,7 +10323,7 @@
     {
       "id": "S. boulardii",
       "category": "Кишечник",
-      "grade": "B",
+      "grade": "D",
       "verdict": "работает",
       "code": 1,
       "about": "Дрожжевой пробиотик: в 27 РКИ (5029 пациентов) эффективен и безопасен в 84% случаев; снижает риск диареи при антибиотиках (RR 0.47).",

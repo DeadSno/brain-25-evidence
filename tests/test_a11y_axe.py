@@ -58,18 +58,19 @@ wcag2a / wcag2aa / wcag2aaa / wcag21a / wcag21aa / wcag22aa:
 Числа узлов сняты один раз и лежат в tests/a11y_baseline.json. Переснимать
 базу можно только осознанно:
 
-    $env:UPDATE_A11Y_BASELINE="1"; RUN_A11Y=1 pytest -q -m a11y
+    $env:UPDATE_A11Y_BASELINE="1"; pytest -q -m a11y
 
 Как запускать
 -------------
     python -m http.server 8000 --directory docs     # из корня репозитория
-    $env:RUN_A11Y="1"; pytest -q -m a11y             # только доступность
-    $env:RUN_SNAPSHOTS="1"; pytest -q -m snapshots   # только снапшоты
+    pytest -q -m a11y             # только доступность
+    pytest -q -m snapshots        # только снапшоты
 
-Гейт на переменной окружения, а не на `-m` в addopts: `-m` из командной строки
-ПЕРЕКРЫВАЕТ addopts (измерено в tests/conftest.py, см. докстринг там).
-Обычный `pytest -q` эти тесты не собирает — им нужен браузер и запущенный
-сервер, а полный прогон должен оставаться быстрым (~4 с).
+Гейт RUN_A11Y удалён в v5.6.5 (tests/conftest.py). Маркер на `-m`, а не на
+переменной окружения: `-m` из командной строки ПЕРЕКРЫВАЕТ addopts. Обычный
+`pytest -q` собирает эти тесты в общий прогон (сервер поднимает autouse-фикстура
+live_server в tests/conftest.py); для быстрого прогона без браузера —
+`-m "not a11y"`.
 """
 from __future__ import annotations
 
@@ -346,7 +347,7 @@ def _verify(name: str, violations: list[dict]) -> None:
                 f"{len(fatal)}\n" + "\n".join(fatal) + extra +
                 f"\n    полный отчёт: {report}\n"
                 f"    Базу переснимают только осознанно:\n"
-                f"    $env:UPDATE_A11Y_BASELINE='1'; RUN_A11Y=1 pytest -q -m a11y")
+                f"    $env:UPDATE_A11Y_BASELINE='1'; pytest -q -m a11y")
 
 
 # ─────────────────────────── тесты ───────────────────────────
@@ -399,7 +400,7 @@ def test_a11y_baseline_is_present(_env_checked):  # noqa: ARG001
     assert base, (
         f"{BASELINE_PATH.name} пуст или отсутствует — гейт доступности не имеет "
         f"базы и пропустит всё. Сними её целиком, БЕЗ -k:\n"
-        f"    $env:UPDATE_A11Y_BASELINE='1'; RUN_A11Y=1 pytest -q -m a11y"
+        f"    $env:UPDATE_A11Y_BASELINE='1'; pytest -q -m a11y"
     )
 
 
@@ -428,7 +429,7 @@ def test_a11y_baseline_covers_every_page(_env_checked):  # noqa: ARG001
         f"в базе нет {len(missing)} из {len(expected)} комбинаций "
         f"страница/разрешение: {', '.join(missing)}\n"
         f"    Эти страницы гейт не контролирует. Пересними базу целиком, БЕЗ -k:\n"
-        f"    $env:UPDATE_A11Y_BASELINE='1'; RUN_A11Y=1 pytest -q -m a11y"
+        f"    $env:UPDATE_A11Y_BASELINE='1'; pytest -q -m a11y"
     )
 
     # Записи вне матрицы: страница переименована или удалена, а база о ней помнит.
@@ -454,5 +455,5 @@ def test_a11y_axe_version_pinned():
     assert found == AXE_VERSION, (
         f"в tests/vendor/axe.min.js версия {found}, а тест ждёт {AXE_VERSION}. "
         f"Либо верни файл, либо обнови AXE_VERSION и пересними базу: "
-        f"$env:UPDATE_A11Y_BASELINE='1'; RUN_A11Y=1 pytest -q -m a11y"
+        f"$env:UPDATE_A11Y_BASELINE='1'; pytest -q -m a11y"
     )

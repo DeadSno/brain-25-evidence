@@ -321,5 +321,9 @@ docs/_baseline_*
 
 tests/a11y_report/
 
-tests/a11y_report/
+# FIX-SPRINT B6 (v5.6.5): артефакты прогонов и старые архивированные скриншоты
+*.json.gz
+snap_head_*.xml
+reports/archive/v26*.png
+db_import_log.txt
 

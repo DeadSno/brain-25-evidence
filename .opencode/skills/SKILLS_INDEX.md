@@ -180,10 +180,10 @@ performance, security, accessibility, bugs, seo, maintainability, privacy). **Э
 ## Команды
 
 ```bash
-pytest -q                     # все тесты (1746 passed, 237 skipped, 1983 всего)
+pytest -q                     # все тесты (1979 passed, 0 skipped, ~8 мин)
 pytest -q tests/test_api_contract.py       # контракт API
-pytest -q -m e2e              # браузерные e2e, требует RUN_E2E=1
-RUN_SNAPSHOTS=1 pytest -q -m snapshots      # визуальные снапшоты, 37 шт.
+pytest -q -m e2e              # браузерные e2e (гейты RUN_* удалены в v5.6.5)
+pytest -q -m snapshots        # визуальные снапшоты, 37 шт.
 node --check docs/script.js   # синтаксис JS без сборщиков
 python scripts/ui_verify.py   # браузерная проверка UI
 npx -y vortix-cli@0.1.3 check # внешний статический аудит сайта

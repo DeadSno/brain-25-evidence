@@ -90,10 +90,11 @@ jobs:
   # селектор ≠ мёртвый код».
   #
   # Тесты остались и работают локально, это 73 снимка на 38.94 МБ:
-  #   $env:RUN_SNAPSHOTS="1"; pytest -q -m snapshots
-  # Гейт срабатывает по переменной окружения (tests/conftest.py), поэтому в
-  # обычном `pytest -q` их нет. Переснять базу:
-  #   $env:UPDATE_SNAPSHOTS="1"; $env:RUN_SNAPSHOTS="1"; pytest -q -m snapshots
+  #   pytest -q -m snapshots
+  # Гейты по переменным окружения удалены в v5.6.5 (tests/conftest.py):
+  # снапшоты собираются обычным `pytest -q`; для прогона без браузера —
+  # `-m "not snapshots"`. Переснять базу:
+  #   $env:UPDATE_SNAPSHOTS="1"; pytest -q -m snapshots
   # Проверить, что снапшоты выполнились, а не молча пропустились
   # (importorskip иначе вернул бы 0 при пустом прогоне):
   #   python scripts/check_snapshot_run.py snapshots.xml

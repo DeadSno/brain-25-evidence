@@ -1,6 +1,6 @@
 {
   "version": "v1",
-  "generated_at": "2026-10-19T10:58:17.895790+00:00",
+  "generated_at": "2026-10-20T13:00:01.032461+00:00",
   "count": 130,
   "license": "CC BY 4.0",
   "source": "https://github.com/DeadSno/brain-25-evidence",
@@ -11,8 +11,8 @@
   "stats": {
     "grades": {
       "A": 6,
-      "B": 23,
-      "D": 49,
+      "B": 22,
+      "D": 50,
       "C": 52
     },
     "categories_atomic": {

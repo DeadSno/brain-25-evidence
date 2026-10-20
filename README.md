@@ -33,17 +33,17 @@ Streamlit — это витрина «сырых» данных: 37 618 papers �
 
 | Грейд | Значение | Количество |
 |-------|----------|------------|
-| A | работает отлично | 8 (6.2%) |
-| B | работает | 45 (34.6%) |
+| A | работает отлично | 6 (4.6%) |
+| B | работает | 22 (16.9%) |
 | C | зависит от контекста | 52 (40.0%) |
-| D | не подтверждено | 25 (19.2%) |
+| D | не подтверждено | 50 (38.5%) |
 
 **Что сделано:**
 
 - **Калькулятор БАДов** — вес/пол/возраст, UL-проверка, конфликты, синергии, 8 профилей
 - **Q1.4**: adv-поля 130/130 (about, who_needs, onset, myths, food_sources, guidelines, how_to_choose)
 - **Механизмы**: 130/130, среднее 3.01 на карточку
-- **Hedges' g**: 86/130 (82 с CI), двухпроходный алгоритм без cross-matching
+- **Hedges' g**: 89/130 (85 с CI), двухпроходный алгоритм без cross-matching
 - **Аудиты q14 D1/D2**: 5 + 10 PMIDs заменены свежими, follow-up по 51 карточке
 - **DOI**: 388/393 key_sources обогащены через PubMed esummary
 - **audit_stale.py**: квартальный аудит PMIDs >5 лет (8 карточек без свежих МА — оставлены сознательно)
@@ -76,7 +76,7 @@ Streamlit — это витрина «сырых» данных: 37 618 papers �
 |----------------|-----------------|----------|
 | Индекс доказательности | Сколько науки стоит за добавкой | PubMed E-utilities |
 | Вердикт (+1 / 0 / -1) | Работает / зависит / не подтверждено | Ручная вычитка топ-2 мета-анализов |
-| Hedges' g | Сила эффекта в стандартных отклонениях | Из мета-анализов (86/130) |
+| Hedges' g | Сила эффекта в стандартных отклонениях | Из мета-анализов (89/130) |
 | Активных испытаний | Тестирует ли кто-то сейчас | ClinicalTrials.gov |
 | Дозировка и предостережения | Как принимать безопасно | Протоколы из исследований |
 | Конфликты с лекарствами | Что нельзя совмещать | Interaction-база |
@@ -225,9 +225,10 @@ brain-25-evidence/
 │   ├── index.html                 # дашборд: фильтры, поиск, модалки, радар
 │   ├── calculator.html            # калькулятор доз и конфликтов
 │   ├── map.html                   # карта механизмов (130 узла + оверлей + кросс-связи)
-│   ├── atlas.html                 # атлас: хабы тегов × 130 добавок
-│   ├── interactions.html          # карта связей (синергии/конфликты)
-│   ├── graph.html                 # граф 130 узлов / 1982 связи (данные + предрасчёт позиций)
+│   ├── interactions.html          # хаб связей (синергии/конфликты; поглощает atlas/graph)
+│   ├── atlas.html / graph.html    # noindex-редиректы на interactions.html (v5.6.5)
+│   ├── compare.html               # сравнение карточек (2-3 добавки)
+│   ├── privacy.html               # политика конфиденциальности
 │   ├── trends.html                # executive summary, scatter-матрица, категории
 │   ├── methodology.html           # методология аудита (PRISMA, грейды)
 │   ├── faq.html                   # частые вопросы
@@ -263,7 +264,7 @@ brain-25-evidence/
 │   ├── build_slim.py              # slim JSON для Streamlit Cloud
 │   └── e2e_smoke.py               # headless smoke-тесты сайта
 ├── templates/                     # Jinja-шаблоны генерации sup/*.html и каталога
-├── tests/                         # 1079 тестов в 47 файлах
+├── tests/                         # 1979 тестов в 73 файлах
 │   ├── test_schema.py             # JSON-схема data.json
 │   ├── test_snapshot.py           # data.json не изменился без UPDATE_SNAPSHOT=1
 │   ├── test_index_sync.py         # data_index.json == проекция data.json
@@ -297,7 +298,7 @@ cd brain-25-evidence
 # 2. Установи зависимости
 pip install -r requirements.txt
 
-# 3. Прогони тесты (должно быть 878 passed, 2 skipped)
+# 3. Прогони тесты (должно быть 1979 passed, 0 skipped)
 python -m pytest tests/ -q
 
 # 4. Подними сайт локально
@@ -311,7 +312,7 @@ python serve.py
 - После старта сервера: `Ctrl+Shift+R` в браузере для обхода кэша `data.json`
 - На GitHub Pages (https) `fetch` работает без проблем
 - `serve.py` лежит в **корне** репозитория (не в `docs/`) и автоматически добавляет заголовки `Content-Type: text/html; charset=utf-8` (и для JS/CSS/JSON) — лечит локальные кракозябры
-- Прогон `pytest -q` без живого сервера **проводит не все тесты**: 199 из 1079 требуют браузера и сняты по умолчанию. Считать «зелёный прогон» доказательством того, что браузерные сценарии живы, нельзя
+- Полный `pytest -q` в v5.6.5 запускает все тесты: в v5.6.3 по умолчанию снималось 199 браузерных тестов (флаги `RUN_SNAPSHOTS` / `RUN_A11Y` / `RUN_TABS` / `RUN_GRAPH` / `RUN_E2E`), в v5.6.5 эти opt-in гейты удалены — метки `snapshots` / `a11y` / `e2e` снова включены в общий прогон (~8 минут, 1979 passed, 0 skipped)
 
 ### Streamlit dashboard (app.py)
 
@@ -331,11 +332,11 @@ streamlit run app.py
 
 | | |
 |---|---|
-| **Версия** | **v5.6.3** — актуальная версия (`docs/version.json`: `app: 5.6.3`, запись в `CHANGELOG.md`). Git-тег не поставлен — решение владельца |
+| **Версия** | **v5.6.5** — актуальная версия (`docs/version.json`: `app: 5.6.5`, запись в `CHANGELOG.md`). Git-тег не поставлен — решение владельца |
 | **Дата данных** | **2026-09-25** (`docs/version.json`), последняя карточка обновлена 2026-09-25 |
 | **Карточек** | **130** (100 % ручной верификации по PRISMA) |
-| **Тестов** | **1079** собрано (`pytest --collect-only -q`); быстрый гейт `pytest -q`: 878 passed, 2 skipped. Полный набор собирает 1079, из них 199 требуют браузера и живого сервера и сняты по умолчанию флагами `RUN_SNAPSHOTS` / `RUN_A11Y` / `RUN_TABS` / `RUN_GRAPH` / `RUN_E2E` |
-| **Страниц** | **15** в корне `docs/` + **131** в `docs/sup/` (130 карточек + каталог). В `sitemap.xml` — **144**: 13 индексируемых корневых + 131 в `sup/`. Не индексируются `offline.html` (офлайн-заглушка сервис-воркера) и `google*.html` (файл верификации GSC) |
+| **Тестов** | **1979** (`pytest -q`: 1979 passed, 0 skipped, ~8 мин) — полный прогон; opt-in гейты `RUN_*` из v5.6.3 удалены, браузерные метки включены в общий набор |
+| **Страниц** | **16** в корне `docs/` + **131** в `docs/sup/` (130 карточек + каталог). В `sitemap.xml` — **143**: 12 индексируемых корневых + 131 в `sup/`. Не индексируются `atlas.html` и `graph.html` (noindex-редиректы на `interactions.html`), `offline.html` (офлайн-заглушка сервис-воркера) и `google*.html` (файл верификации GSC) |
 | **Публикаций** | **37 618** из PubMed, из них с абстрактом — 35 377 |
 | **Тегов эффектов** | 18 нормализованных |
 | **PWA** | офлайн-режим, установка на телефон |
@@ -350,7 +351,7 @@ streamlit run app.py
 | API | <https://deadsno.github.io/brain-25-evidence/api/v1/supplements.json> |
 | Репозиторий | <https://github.com/DeadSno/brain-25-evidence> |
 | Ошибки в данных | [issue `data-error`](.github/ISSUE_TEMPLATE/data-error.md) |
-| Sitemap | <https://deadsno.github.io/brain-25-evidence/sitemap.xml> (144 URL, генерируется `scripts/build_sitemap.py`) |
+| Sitemap | <https://deadsno.github.io/brain-25-evidence/sitemap.xml> (143 URL, генерируется `scripts/build_sitemap.py`) |
 
 Подробности изменений — в [CHANGELOG.md](CHANGELOG.md).
 
@@ -360,7 +361,7 @@ streamlit run app.py
 
 ### Текущее состояние
 
-- 130 добавок, 1079 тестов, 37 618 papers
+- 130 добавок, 1979 тестов, 37 618 papers
 - Funders analysis (CrossRef + Europe PMC)
 - Streamlit BI + статический сайт
 - trends.html: executive summary, scatter-матрица, категории
