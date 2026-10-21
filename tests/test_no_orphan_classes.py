@@ -158,6 +158,7 @@ KNOWN_DEAD_CSS = {
     # по CSS не попадают — записи в KNOWN_DEAD_CSS им не нужны.
     "shops": "хвост после переделки shop/card ссылок, не используется",
     "row": "секция «Сравнить две добавки» убрана с index.html (остался compare.html), класс .row не используется",
+    "random-label": "navbar vereinheitlicht (S1-01): span.random-label убран из кнопки «Удиви меня», остался только текст",
 }
 
 
