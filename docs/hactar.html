@@ -50,6 +50,32 @@
     .hactar-panel{display:none;padding:var(--space-4) 0}
     .hactar-panel.active{display:block}
     .hactar-stub{padding:var(--space-6) 0;color:var(--muted);font-size:1rem;text-align:center}
+    /* Project Hactar — список добавок (H-2) */
+    .hactar-search{width:100%;min-height:44px;margin-bottom:var(--space-3);padding:.5rem .7rem;border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--card-bg);color:var(--text);font-size:1rem}
+    .hactar-search:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
+    .hactar-list{display:flex;flex-direction:column;gap:2px}
+    /* [hidden] из UA-стилей слабее авторского display:flex у .hactar-card,
+       поэтому скрытие строки задаём явно — иначе отфильтрованные карточки
+       остались бы в потоке. */
+    .hactar-row[hidden]{display:none}
+    .hactar-card{display:flex;align-items:center;gap:var(--space-3);padding:.45rem .5rem;border:1px solid transparent;border-radius:var(--radius-md);cursor:pointer;margin-inline-end:0;font-weight:400}
+    .hactar-card:hover{background:var(--bg);border-color:var(--border)}
+    .hactar-card:focus-within{outline:2px solid var(--accent);outline-offset:1px}
+    .hactar-card.is-on{background:rgba(10,132,255,.12);border-color:var(--accent)}
+    html.light .hactar-card.is-on{background:rgba(0,102,204,.10)}
+    .hactar-check{width:20px;height:20px;min-width:20px;margin:0;accent-color:var(--accent);cursor:pointer;flex-shrink:0}
+    .hactar-name{flex:1 1 auto;min-width:0;font-size:var(--fs-5);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .hactar-card .grade{flex:0 0 auto;margin-inline-start:0;min-width:1.7rem;text-align:center}
+    .hactar-empty{padding:var(--space-4) 0;color:var(--muted);font-size:var(--fs-4);text-align:center}
+    /* Скелетоны на время загрузки JSON: серые пульсирующие заглушки. */
+    .hactar-skel{display:flex;align-items:center;gap:var(--space-3);padding:.45rem .5rem}
+    .hactar-skel-box{width:20px;height:20px;border-radius:6px;flex-shrink:0;background:var(--grad-shimmer);background-size:200% 100%}
+    .hactar-skel-line{height:12px;border-radius:var(--radius-pill);flex:1 1 auto;background:var(--grad-shimmer);background-size:200% 100%}
+    .hactar-skel-pill{width:26px;height:18px;border-radius:var(--radius-pill);flex-shrink:0;background:var(--grad-shimmer);background-size:200% 100%}
+    @media (prefers-reduced-motion: no-preference){
+      .hactar-skel-box,.hactar-skel-line,.hactar-skel-pill{animation:hactarShimmer 1.2s infinite}
+      @keyframes hactarShimmer{to{background-position:-200% 0}}
+    }
     /* Мобильная шторка */
     .hactar-sidebar.open{display:block}
     .hactar-done{display:none;width:100%;padding:var(--space-3);border:none;border-radius:var(--radius-lg);background:var(--accent);color:#fff;font-size:1rem;cursor:pointer;margin-bottom:var(--space-4)}
@@ -97,15 +123,28 @@
   <div class="hactar-wrap">
     <aside class="hactar-sidebar" id="hactarSidebar">
       <button class="hactar-done" id="hactarDone">Готово</button>
-      <input type="search" id="hactarSearch" placeholder="Поиск добавки…" aria-label="Поиск добавки">
-      <div id="hactarList"></div>
+      <input type="search" id="hactarSearch" class="hactar-search" placeholder="Поиск добавки…" aria-label="Поиск добавки" autocomplete="off">
+      <div id="hactarList" class="hactar-list" role="group" aria-label="Список добавок" aria-busy="true">
+        <!-- Скелетоны (H-2): видны сразу, до загрузки JSON. -->
+        <div class="hactar-skel" aria-hidden="true"><span class="hactar-skel-box"></span><span class="hactar-skel-line"></span><span class="hactar-skel-pill"></span></div>
+        <div class="hactar-skel" aria-hidden="true"><span class="hactar-skel-box"></span><span class="hactar-skel-line"></span><span class="hactar-skel-pill"></span></div>
+        <div class="hactar-skel" aria-hidden="true"><span class="hactar-skel-box"></span><span class="hactar-skel-line"></span><span class="hactar-skel-pill"></span></div>
+        <div class="hactar-skel" aria-hidden="true"><span class="hactar-skel-box"></span><span class="hactar-skel-line"></span><span class="hactar-skel-pill"></span></div>
+        <div class="hactar-skel" aria-hidden="true"><span class="hactar-skel-box"></span><span class="hactar-skel-line"></span><span class="hactar-skel-pill"></span></div>
+        <div class="hactar-skel" aria-hidden="true"><span class="hactar-skel-box"></span><span class="hactar-skel-line"></span><span class="hactar-skel-pill"></span></div>
+        <div class="hactar-skel" aria-hidden="true"><span class="hactar-skel-box"></span><span class="hactar-skel-line"></span><span class="hactar-skel-pill"></span></div>
+        <div class="hactar-skel" aria-hidden="true"><span class="hactar-skel-box"></span><span class="hactar-skel-line"></span><span class="hactar-skel-pill"></span></div>
+        <div class="hactar-skel" aria-hidden="true"><span class="hactar-skel-box"></span><span class="hactar-skel-line"></span><span class="hactar-skel-pill"></span></div>
+        <div class="hactar-skel" aria-hidden="true"><span class="hactar-skel-box"></span><span class="hactar-skel-line"></span><span class="hactar-skel-pill"></span></div>
+      </div>
+      <p class="hactar-empty" id="hactarEmpty" hidden>Ничего не найдено</p>
     </aside>
     <div class="hactar-main" id="hactarMain">
       <div class="hactar-top">
         <h1>Project Hactar</h1>
         <p class="sub">Подбор комбинаций БАДов из 130 добавок: связи, калькулятор доз и сравнение совместимости.</p>
       </div>
-      <div class="hactar-pick">Выбрано: <strong><span id="hactarCount">0</span></strong> / 130</div>
+      <div class="hactar-pick">Выбрано: <strong><span id="hactarCount" aria-live="polite">0</span></strong> / <span id="hactarTotal">130</span></div>
       <button class="hactar-btn-pick" id="hactarBtnPick">🔍 Выбрать добавки</button>
       <div class="hactar-tabs" role="tablist" aria-label="Режимы Hactar">
         <button role="tab" id="hactarTabLinks" aria-controls="hactarPanelLinks" aria-selected="true" tabindex="0" data-mode="links">Связи</button>
@@ -195,6 +234,7 @@
   }
 })();
 </script>
+<script src="hactar.js?v=1" defer></script>
 
 <footer class="site-footer">
   <p class="disc">
