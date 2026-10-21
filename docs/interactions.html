@@ -11,7 +11,8 @@
 <meta property="og:title" content="Карта связей — синергии и конфликты — Brain 25 Evidence"/>
 <meta property="og:description" content="Карта связей 130 БАД: синергии, антагонизмы и конфликты с лекарствами. Интерактивный граф по общим механизмам, с фильтрами по эффекту и риску."/>
 <meta property="og:url" content="https://deadsno.github.io/brain-25-evidence/interactions.html"/>
-<link rel="canonical" href="https://deadsno.github.io/brain-25-evidence/interactions.html">
+<meta http-equiv="refresh" content="0;url=hactar.html">
+<link rel="canonical" href="hactar.html">
 <link rel="alternate" type="application/rss+xml" title="brain-25-evidence" href="https://deadsno.github.io/brain-25-evidence/feed.xml">
 <meta property="og:image" content="https://deadsno.github.io/brain-25-evidence/og.png"/>
 <meta property="og:site_name" content="Brain 25 Evidence"/>
@@ -291,11 +292,21 @@ footer { font-size: 1rem !important; }
       </select>
       <button type="button" id="graphReset" data-i18n-title="int.graphReset">Сброс</button>
     </div>
+    <div class="graph-view-toggle" style="margin-top: var(--space-3); gap: var(--space-2); display: flex; flex-wrap: wrap;">
+      <button type="button" id="viewGraph" class="btn active" data-view="graph">Граф</button>
+      <button type="button" id="viewTable" class="btn" data-view="table">Таблица</button>
+    </div>
     <div id="graphWelcome" style="text-align:center; padding: 40px;">
       <h3 data-i18n-text="int.graphWelcomeTitle">Исследуйте связи</h3>
       <p data-i18n-text="int.graphWelcomeDesc">Введите название добавки в поиск выше, чтобы увидеть, с чем она связана.</p>
     </div>
     <div id="mynetwork" class="graph-canvas" hidden></div>
+    <!-- MAN-03: легенда типов узлов графа -->
+    <div id="graphLegend" class="graph-legend" hidden>
+      <span class="legend-item"><span class="legend-dot" style="background:#2ecc71"></span> Добавки</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#3498db"></span> Механизмы</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#e67e22"></span> Лекарства</span>
+    </div>
     <button id="pngBtn" class="btn">📥 Скачать PNG</button>
     <div class="state-loading" id="graphLoading" data-i18n-text="int.graphLoading">Загрузка графа...</div>
     <div class="state-error" id="graphError" hidden>
@@ -303,6 +314,16 @@ footer { font-size: 1rem !important; }
     </div>
     <div class="state-empty" id="graphEmpty" hidden>
       <span data-i18n-text="int.graphEmpty">Ничего не найдено. </span><button type="button" id="graphEmptyReset" data-i18n-text="int.graphEmptyReset">Сбросить</button>
+    </div>
+    <!-- MAN-03: табличный вид связей (альтернатива графу) -->
+    <div id="graphTable" class="graph-table" hidden>
+      <table class="graph-table-table">
+        <thead>
+          <tr><th>Добавка</th><th>Механизм / Лекарство</th><th>Тип связи</th><th>Серьёзность</th></tr>
+        </thead>
+        <tbody id="graphTableBody"></tbody>
+      </table>
+      <div id="graphTableEmpty" class="state-empty" hidden>Связей не найдено.</div>
     </div>
     <!-- A11Y-15: канвас vis-network недоступен с клавиатуры — даём
          скринридеру скрытый текстовый аналог: список всех узлов графа
@@ -548,6 +569,8 @@ window.addEventListener('scroll', () => {
     if ($error) $error.hidden = true;
     if ($empty) $empty.hidden = true;
     if ($canvas) $canvas.hidden = false;
+    var $legend = document.getElementById('graphLegend');
+    if ($legend) $legend.hidden = false;
     if ($welcome) $welcome.hidden = true;
   }
   function showWelcome() {
@@ -555,6 +578,8 @@ window.addEventListener('scroll', () => {
     if ($error) $error.hidden = true;
     if ($empty) $empty.hidden = true;
     if ($canvas) $canvas.hidden = true;
+    var $legend = document.getElementById('graphLegend');
+    if ($legend) $legend.hidden = true;
     if ($welcome) $welcome.hidden = false;
   }
 
@@ -688,10 +713,10 @@ window.addEventListener('scroll', () => {
       },
       physics: {
         barnesHut: {
-          avoidOverlap: 0,
+          avoidOverlap: 1,
           centralGravity: 0.3,
           damping: 0.09,
-          gravitationalConstant: -80000,
+          gravitationalConstant: -2000,
           springConstant: 0.001,
           springLength: 250
         },
@@ -717,6 +742,29 @@ window.addEventListener('scroll', () => {
     openSidePanel(id, label, 'supplement');
   }
 
+  // MAN-03: определить тип узла по цвету из данных (в graph_data.json нет поля type).
+  // Цвета в данных: зелёные оттенки → добавки, синий → механизмы, остальное → лекарства.
+  function inferNodeType(n) {
+    var c = (n.color || '').toLowerCase();
+    if (c === '#2ecc71' || c === '#1abc9c') return 'supplement';
+    if (c === '#3498db') return 'mechanism';
+    return 'drug';
+  }
+
+  // MAN-03: цвет узла по типу (добавки — зелёный, механизмы — синий, лекарства — оранжевый).
+  function nodeColorByType(type) {
+    var bg = { supplement: '#2ecc71', mechanism: '#3498db', drug: '#e67e22' }[type] || '#95a5a6';
+    return { background: bg, border: bg, highlight: { background: bg, border: bg } };
+  }
+
+  // MAN-03: размер узла по типу (добавки крупнее, механизмы помельче).
+  function nodeSizeByType(type, baseSize) {
+    var s = baseSize || 20;
+    if (type === 'supplement') return Math.min(50, s * 1.15);
+    if (type === 'mechanism') return Math.max(10, s * 0.6);
+    return s;
+  }
+
   // Создать сеть в уже видимом контейнере (иначе canvas 0×0).
   function ensureNetwork() {
     if (network) return;
@@ -725,14 +773,25 @@ window.addEventListener('scroll', () => {
     nodesDs = new vis.DataSet(allNodes.map(function (n) {
       // v5.6.5 FIX-SPRINT B7: подписи узлов читаемы — базовый шрифт 14px
       // (vis default) слишком мелок для 130 узлов, поднят до 17.
+      // MAN-03: тип, цвет, размер по типу, обрезка длинных подписей.
+      var type = inferNodeType(n);
+      var label = n.label || n.id || '';
+      if (label.length > 18) label = label.slice(0, 18) + '…';
       return Object.assign({}, n, {
         hidden: true,
-        font: Object.assign({}, n.font || {}, { size: 17 })
+        label: label,
+        font: Object.assign({}, n.font || {}, { size: 17 }),
+        color: nodeColorByType(type),
+        size: nodeSizeByType(type, n.size)
       });
     }));
     edgesDs = new vis.DataSet([]);
     network = new vis.Network(container, { nodes: nodesDs, edges: edgesDs }, getOptions());
     network.on('click', onNodeClick);
+    // MAN-03: после стабилизации отключаем физику, чтобы граф зафиксировался.
+    network.on('stabilizationIterationsDone', function () {
+      network.setOptions({ physics: false });
+    });
   }
 
   // Развернуть фокус по запросу из поиска.
