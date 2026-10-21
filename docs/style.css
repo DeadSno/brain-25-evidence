@@ -2010,6 +2010,10 @@ summary {
    в блоке «Как помочь проекту». Фирменный чёрный GitHub не годится
    ни в одной из двух тем, поэтому взят стальной #8ab4d6 / #3f5b73. */
 .btn.c-github  { border-color: var(--icon-github); background: color-mix(in srgb, var(--icon-github) 12%, transparent); }
+/* Кнопки темы и случайной добавки — цветовая заливка, чтобы не выбивались
+   из дизайна наравне с .c-feedback и .c-support (U2-01 / MAN-01). */
+.btn.c-theme  { border-color: var(--icon-trends); background: color-mix(in srgb, var(--icon-trends) 12%, transparent); }
+.btn.c-random { border-color: var(--icon-bi);   background: color-mix(in srgb, var(--icon-bi)   12%, transparent); }
 
 /* Рамка при наведении. Правило одно здесь, а не в локальных
    <style> на 6 страницах (на atlas — дважды); на 11 страницах его
@@ -2032,6 +2036,8 @@ html.light .btn.c-feedback  { background: color-mix(in srgb, var(--inter-low) 8%
 html.light .btn.c-support  { background: color-mix(in srgb, var(--icon-support) 8%, transparent); }
 /* v5.6.2 E4: в светлой теме подложка плотнее, как у остальных c-* */
 html.light .btn.c-github  { background: color-mix(in srgb, var(--icon-github) 8%, transparent); }
+html.light .btn.c-theme  { background: color-mix(in srgb, var(--icon-trends) 8%, transparent); }
+html.light .btn.c-random { background: color-mix(in srgb, var(--icon-bi)   8%, transparent); }
 
 /* ===== v5.6.5: sup-страницы — блок мета (PMID, «+ Сравнить», магазины) ===== */
 .sup-meta{display:flex;flex-wrap:wrap;gap:0.55rem;align-items:center;margin:0.8rem 0}
