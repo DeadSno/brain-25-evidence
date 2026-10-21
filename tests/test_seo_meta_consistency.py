@@ -66,6 +66,7 @@ CONTENT_PAGES = (
     "feedback.html",
     "glossary.html",
     "graph.html",
+    "hactar.html",
     "index.html",
     "interactions.html",
     "map.html",

@@ -268,18 +268,12 @@ def main() -> None:
             pg.keyboard.press("Escape")
             pg.wait_for_selector("#modalOverlay", state="hidden", timeout=5000)
 
-            # F: сравнение — ценовой колонки больше нет вообще
-            # (v5.6.5: сравнение теперь на compare.html; в таблице остались
-            # вердикт, наука, МА, исследования, цитаты, эффекты, доза, курс,
-            # caution; «₽ за единицу эффекта» и «Ценность» отсутствуют в коде)
-            pg.goto(f"{BASE}/compare.html?ids=Магний,Креатин", wait_until="domcontentloaded")
-            pg.wait_for_timeout(8000)
-            cmp_txt = pg.locator("#cmpTable").inner_text()
-            cmp_txt = pg.locator("#cmpTable").inner_text()
-            assert "₽ за единицу эффекта" not in cmp_txt, "вернулась колонка стоимости эффекта"
-            assert "Ценность" not in cmp_txt and "ценность" not in cmp_txt, \
-                "в сравнении осталась «Ценность»"
-            assert "Цитирований MA" in cmp_txt, "в сравнении нет базовой колонки «Цитирований MA»"
+            # F: сравнение теперь на hactar.html (H-1, редирект);
+            # функционал сравнения будет добавлен позже. compare.html
+            # редиректит на hactar.html.
+            pg.goto(f"{BASE}/compare.html", wait_until="domcontentloaded")
+            pg.wait_for_timeout(1000)
+            assert "hactar.html" in pg.url, "compare.html должен редиректить на hactar.html (H-1)"
             # ==================== конец v2.6.1 ====================
 
             # ==================== v2.6.2: UI-фиксы ====================
@@ -318,23 +312,9 @@ def main() -> None:
             pg.locator('.tagPreset[data-tag="all"]').click()
             pg.wait_for_timeout(200)
 
-            # F4.3: радар — значения ∈ [0,100] (радар перенесён на compare.html, v5.6.5;
-            # на главной осталась только таблица сравнения двух добавок)
-            ts += 1; pg.goto(f"{BASE}/compare.html?ids=Кофеин,Креатин", wait_until="domcontentloaded")
-            pg.wait_for_selector("#radarChart", state="attached", timeout=5000)
-            pg.wait_for_function("window.radarInstance != null", timeout=5000)
-            radar_vals = pg.evaluate("""() => {
-                const ds = window.radarInstance.data.datasets;
-                return ds.flatMap(d => d.data);
-            }""")
-            assert all(0 <= v <= 100 for v in radar_vals), \
-                f"F4.3: радар значения вне [0,100]: {[round(v,1) for v in radar_vals if v < 0 or v > 100]}"
-            # подпись осей отражает нормировку по базе. v5.6.5: точная
-            # формулировка изменилась с «нормировано по базе» на
-            # «перцентиль по базе» (docs/compare.html, labels радара).
-            labels_text = pg.evaluate("window.radarInstance.data.labels.join(' ')")
-            assert "перцентиль по базе" in labels_text, \
-                f"F4.3: нет подписи о нормировке по базе на осях: {labels_text!r}"
+            # F4.3: радар был на compare.html, теперь compare.html редиректит
+            # на hactar.html (H-1). Проверка радара будет добавлена вместе
+            # с функционалом сравнения.
 
             # F5.4: высота секции доверия #trustSummary ≤ 40% прежней
             OLD_TRUST_HEIGHT = 223.5   # измерено на main (9acbd6a) playwright 1280×900

@@ -85,23 +85,25 @@ MIN_TAB_HEIGHT = 44
 #: готовности страницы.
 PAGES = (
     {
-        "page": "interactions",
-        # Селектор самого JS: docs/interactions.html:427, :445.
-        "tabs": '.tr-tabs [role="tab"]',
-        "attr": "mode",          # data-mode: docs/interactions.html:285-288
-        "state": "active",       # класс состояния: docs/interactions.html:430
-        "first": "graph",        # default: docs/interactions.html:415-418, :474
-        "second": "mech",
-        "n_tabs": 4,             # разметка: docs/interactions.html:285-288
-        "modes": ("graph", "mech", "sups", "drugs"),
+        # v5.6.5 (H-1): interactions.html стал страницей-редиректом на
+        # hactar.html, поэтому вкладки проверяются на hactar.html —
+        # там три режима (Связи / Калькулятор / Сравнение).
+        "page": "hactar",
+        # Селектор самого JS: docs/hactar.html (setMode).
+        "tabs": '.hactar-tabs [role="tab"]',
+        "attr": "mode",          # data-mode на кнопках вкладок
+        "state": "active",       # класс состояния
+        "first": "links",        # default
+        "second": "calc",
+        "n_tabs": 3,             # разметка: docs/hactar.html
+        "modes": ("links", "calc", "compare"),
         # #int-graph / .int-layout остались только в мёртвом <style>
-        # (docs/interactions.html:101-148), элементов с ними нет;
-        # .tr-tab заменён на [role="tab"] (docs/interactions.html:285-288).
+        # (docs/interactions.html), элементов с ними нет;
+        # .tr-tab заменён на [role="tab"].
         "old_absent": ("#int-graph", ".int-layout", ".tr-tab"),
-        # setMode отработал при загрузке: класс ставит только он
-        # (docs/interactions.html:474), в разметке кнопок его нет.
+        # setMode отработал при загрузке: класс ставит только он.
         "ready_js": "() => !!document.querySelector("
-                    "'.tr-tabs [role=\"tab\"].active')",
+                    "'.hactar-tabs [role=\"tab\"].active')",
     },
     {
         "page": "trends",
@@ -446,8 +448,8 @@ def test_aria_selected_and_tabindex_track_active(int_case):
     """
     d = int_case
     state = d["cfg"]["state"]
-    for label, snap, want in (("до клика", d["before"], "graph"),
-                              ("после клика", d["after"], "mech")):
+    for label, snap, want in (("до клика", d["before"], d["cfg"]["first"]),
+                              ("после клика", d["after"], d["cfg"]["second"])):
         for t in snap["tabs"]:
             active = _is_active(t, state)
             assert t["aria"] in ("true", "false"), (
@@ -480,8 +482,8 @@ def test_panel_follows_active_tab(int_case):
     авторским CSS — класс остался, а панель видна насквозь.
     """
     d = int_case
-    for label, snap, want in (("до клика", d["before"], "graph"),
-                              ("после клика", d["after"], "mech")):
+    for label, snap, want in (("до клика", d["before"], d["cfg"]["first"]),
+                              ("после клика", d["after"], d["cfg"]["second"])):
         panels = {p["name"]: p for p in snap["panels"]}
         assert set(panels) == set(d["cfg"]["modes"]), (
             f"interactions / {d['engine']}: {label} панели "

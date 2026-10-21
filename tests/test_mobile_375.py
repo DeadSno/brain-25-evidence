@@ -30,7 +30,9 @@ VIEWPORT = {"width": 375, "height": 667}
 # (страница, селектор таба для перебора, число табов или None)
 CASES = [
     ("index.html", None, None),
-    ("interactions.html", '.tr-tabs [role="tab"]', 4),
+    # interactions.html теперь редиректит на hactar.html (H-1), где 3 таба
+    # с селектором .hactar-tabs [role="tab"].
+    ("interactions.html", '.hactar-tabs [role="tab"]', 3),
     ("compare.html", None, None),
     ("map.html", None, None),
 ]

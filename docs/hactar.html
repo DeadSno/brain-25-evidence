@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="ru" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1c1c1e" media="(prefers-color-scheme: dark)">
+  <meta name="description" content="Project Hactar — подбор комбинаций БАДов из 130 добавок: связи, калькулятор доз и сравнение. Brain 25 Evidence"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="Project Hactar — подбор комбинаций БАДов — Brain 25 Evidence"/>
+  <meta property="og:description" content="Project Hactar — подбор комбинаций БАДов из 130 добавок: связи, калькулятор доз и сравнение. Brain 25 Evidence"/>
+  <meta property="og:url" content="https://deadsno.github.io/brain-25-evidence/hactar.html"/>
+  <link rel="canonical" href="hactar.html">
+  <link rel="alternate" type="application/rss+xml" title="brain-25-evidence" href="https://deadsno.github.io/brain-25-evidence/feed.xml">
+  <meta property="og:image" content="https://deadsno.github.io/brain-25-evidence/og.png"/>
+  <meta name="twitter:image" content="https://deadsno.github.io/brain-25-evidence/og.png"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Project Hactar — подбор комбинаций БАДов — Brain 25 Evidence"/>
+  <meta name="twitter:description" content="Project Hactar — подбор комбинаций БАДов из 130 добавок: связи, калькулятор доз и сравнение. Brain 25 Evidence"/>
+  <title>Project Hactar — подбор комбинаций БАДов — Brain 25 Evidence</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231c1c1e' rx='8'/%3E%3Ccircle cx='10' cy='11' r='3' fill='%230a84ff'/%3E%3Ccircle cx='22' cy='11' r='3' fill='%230a84ff'/%3E%3Ccircle cx='10' cy='21' r='3' fill='%230a84ff'/%3E%3Ccircle cx='22' cy='21' r='3' fill='%230a84ff'/%3E%3Cpath d='M 10 21 Q 16 25 22 21' fill='none' stroke='%230a84ff' stroke-width='2'/%3E%3C/svg%3E">
+  <script>
+    try {
+      if (localStorage.getItem('theme') === 'light') {
+        document.documentElement.classList.add('light');
+      }
+    } catch (e) {}
+  </script>
+  <link rel="stylesheet" href="style.css?v=440"/>
+  <style>
+    /* Project Hactar — скелет (H-1, только вёрстка) */
+    :root{--hactar-sidebar:340px;}
+    body{margin:0;padding:0;background:var(--bg);color:var(--text)}
+    .hactar-wrap{display:grid;grid-template-columns:var(--hactar-sidebar) 1fr;min-height:100vh}
+    .hactar-sidebar{position:sticky;top:0;height:100vh;overflow-y:auto;padding:var(--space-6) var(--space-6) var(--space-12);border-inline-end:1px solid var(--border);background:var(--card-bg)}
+    .hactar-main{display:flex;flex-direction:flex;flex-direction:column;padding:var(--space-6) var(--space-6) var(--space-12)}
+    .hactar-top{margin-bottom:var(--space-6)}
+    .hactar-top h1{font-size:1.6rem;margin:0 0 var(--space-2);font-weight:700;letter-spacing:.02em}
+    .hactar-top .sub{font-size:var(--fs-5);color:var(--muted);margin:0}
+    .hactar-pick{display:inline-flex;align-items:center;gap:var(--space-2);padding:var(--space-2) var(--space-4);border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--card-bg);color:var(--text);font-size:.95rem;margin-bottom:var(--space-4)}
+    .hactar-pick strong{color:var(--text)}
+    .hactar-btn-pick{display:none;padding:var(--space-2) var(--space-4);border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--card-bg);color:var(--text);cursor:pointer;font-size:.9rem;margin-bottom:var(--space-4)}
+    .hactar-tabs[role="tablist"]{padding:var(--space-4) var(--space-6) var(--space-2);display:flex;gap:var(--space-2);overflow-x:auto;scrollbar-width:thin;flex-wrap:nowrap;margin-bottom:var(--space-4)}
+    .hactar-tabs[role="tablist"]::-webkit-scrollbar{height:0}
+    .hactar-tabs[role="tablist"] [role="tab"]{padding:var(--space-2) var(--space-4);border:1px solid var(--border);background:var(--card-bg);color:var(--text);border-radius:var(--radius-lg);cursor:pointer;font-size:.9rem;font-weight:500;white-space:nowrap;flex-shrink:0}
+    .hactar-tabs[role="tablist"] [role="tab"][aria-selected="true"]{background:#1f5fbf;color:#fff;border-color:#1f5fbf}
+    .hactar-tabs[role="tablist"] [role="tab"][aria-selected="false"]{color:var(--muted)}
+    .hactar-panels{display:flex;flex-direction:column}
+    .hactar-panel{display:none;padding:var(--space-4) 0}
+    .hactar-panel.active{display:block}
+    .hactar-stub{padding:var(--space-6) 0;color:var(--muted);font-size:1rem;text-align:center}
+    /* Мобильная шторка */
+    .hactar-sidebar.open{display:block}
+    .hactar-done{display:none;width:100%;padding:var(--space-3);border:none;border-radius:var(--radius-lg);background:var(--accent);color:#fff;font-size:1rem;cursor:pointer;margin-bottom:var(--space-4)}
+    @media (max-width: 768px){
+      .hactar-wrap{display:block}
+      .hactar-sidebar{display:none;position:fixed;inset:0;z-index:100;width:100vw;height:100vh;overflow-y:auto;padding:var(--space-4) var(--space-4) var(--space-12);border-inline-end:none;border-bottom:1px solid var(--border)}
+      .hactar-done{display:block}
+      .hactar-main{padding:var(--space-4) var(--space-4) var(--space-12)}
+      .hactar-btn-pick{display:inline-flex}
+      .hactar-tabs[role="tablist"]{position:fixed;bottom:0;inset-inline-start:0;width:100%;padding:var(--space-3) var(--space-4);background:var(--bg);border-top:1px solid var(--border);z-index:50;margin:0}
+      .hactar-tabs[role="tablist"] [role="tab"]{flex:1;text-align:center}
+      .hactar-panels{padding-bottom:calc(var(--space-3) + 56px)}
+    }
+    @media (prefers-reduced-motion: reduce){
+      .hactar-tabs[role="tablist"] [role="tab"]{transition:none!important}
+    }
+  </style>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MedicalWebPage",
+      "name": "Project Hactar — подбор комбинаций БАДов",
+      "description": "Project Hactar — подбор комбинаций БАДов из 130 добавок: связи, калькулятор доз и сравнение. Brain 25 Evidence",
+      "url": "https://deadsno.github.io/brain-25-evidence/hactar.html",
+      "inLanguage": "ru"
+    }
+    </script>
+</head>
+<body>
+<a href="#main" class="skip-link">Перейти к содержимому</a>
+<div class="site-header">
+  <div class="trustbar">🧬 Открытые данные · Бесплатно · Без рекламы</div>
+  <header class="top">
+    <div class="site-title"><a href="index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a> <span class="v">v<span data-version="app"></span></span></div>
+    <nav class="actions" data-i18n-aria-label="a11y.navMain">
+      <a class="btn c-feedback" href="feedback.html">💬 Обратная связь</a>
+      <a class="btn c-support" href="support.html">💚 Поддержать</a>
+      <button class="btn c-theme" id="themeBtn">🌞 Светлая тема</button>
+      <button class="btn c-random" id="randomBtn">🎲 Удиви меня</button>
+    </nav>
+  </header>
+</div>
+
+<main id="main">
+  <div class="hactar-wrap">
+    <aside class="hactar-sidebar" id="hactarSidebar">
+      <button class="hactar-done" id="hactarDone">Готово</button>
+      <input type="search" id="hactarSearch" placeholder="Поиск добавки…" aria-label="Поиск добавки">
+      <div id="hactarList"></div>
+    </aside>
+    <div class="hactar-main" id="hactarMain">
+      <div class="hactar-top">
+        <h1>Project Hactar</h1>
+        <p class="sub">Подбор комбинаций БАДов из 130 добавок: связи, калькулятор доз и сравнение совместимости.</p>
+      </div>
+      <div class="hactar-pick">Выбрано: <strong><span id="hactarCount">0</span></strong> / 130</div>
+      <button class="hactar-btn-pick" id="hactarBtnPick">🔍 Выбрать добавки</button>
+      <div class="hactar-tabs" role="tablist" aria-label="Режимы Hactar">
+        <button role="tab" id="hactarTabLinks" aria-controls="hactarPanelLinks" aria-selected="true" tabindex="0" data-mode="links">Связи</button>
+        <button role="tab" id="hactarTabCalc" aria-controls="hactarPanelCalc" aria-selected="false" tabindex="-1" data-mode="calc">Калькулятор</button>
+        <button role="tab" id="hactarTabCompare" aria-controls="hactarPanelCompare" aria-selected="false" tabindex="-1" data-mode="compare">Сравнение</button>
+      </div>
+      <div class="hactar-panels">
+        <div class="hactar-panel active" id="hactarPanelLinks" data-panel="links">
+          <div class="hactar-stub">Здесь будет Связи. Выберите добавки слева.</div>
+        </div>
+        <div class="hactar-panel" id="hactarPanelCalc" data-panel="calc">
+          <div class="hactar-stub">Здесь будет Калькулятор. Выберите добавки слева.</div>
+        </div>
+        <div class="hactar-panel" id="hactarPanelCompare" data-panel="compare">
+          <div class="hactar-stub">Здесь будет Сравнение. Выберите добавки слева.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+(function(){
+  'use strict';
+
+  var sidebar = document.getElementById('hactarSidebar');
+  var btnPick = document.getElementById('hactarBtnPick');
+  var btnDone = document.getElementById('hactarDone');
+  var tabs = document.querySelectorAll('.hactar-tabs [role="tab"]');
+  var panels = document.querySelectorAll('.hactar-panel');
+
+  // Мобильная шторка: открыть / закрыть
+  function openDrawer(){
+    sidebar.classList.add('open');
+  }
+  function closeDrawer(){
+    sidebar.classList.remove('open');
+  }
+  if (btnPick) btnPick.addEventListener('click', openDrawer);
+  if (btnDone) btnDone.addEventListener('click', closeDrawer);
+
+  // Вкладки
+  function setMode(mode){
+    tabs.forEach(function(t){
+      var active = t.dataset.mode === mode;
+      t.setAttribute('aria-selected', String(active));
+      t.classList.toggle('active', active);
+      t.tabIndex = active ? 0 : -1;
+    });
+    panels.forEach(function(p){
+      var active = p.dataset.panel === mode;
+      p.classList.toggle('active', active);
+      // hidden переключается вместе с классом: иначе неактивная панель
+      // остаётся в потоке для скринридера, хотя и не видна.
+      p.hidden = !active;
+    });
+  }
+  tabs.forEach(function(t){
+    t.addEventListener('click', function(){
+      setMode(t.dataset.mode);
+      closeDrawer();
+    });
+  });
+
+  // ?tab=calc / ?tab=compare при загрузке. Без параметра включается
+  // дефолтный режим — иначе класс .active не появился бы на кнопках
+  // (его ставит только setMode) и вкладки выглядели бы «никакими».
+  function initTabFromUrl(){
+    var p = new URLSearchParams(location.search);
+    var tab = p.get('tab');
+    if (tab === 'calc') setMode('calc');
+    else if (tab === 'compare') setMode('compare');
+    else setMode('links');
+  }
+  initTabFromUrl();
+
+  // Тема
+  var themeBtn = document.getElementById('themeBtn');
+  if (themeBtn){
+    themeBtn.addEventListener('click', function(){
+      var light = !document.documentElement.classList.contains('light');
+      document.documentElement.classList.toggle('light', light);
+      document.body.classList.toggle('light', light);
+      localStorage.setItem('theme', light ? 'light' : 'dark');
+      themeBtn.textContent = light ? '🌚 Тёмная тема' : '🌞 Светлая тема';
+    });
+  }
+})();
+</script>
+
+<footer class="site-footer">
+  <p class="disc">
+    <b>⚠️ Не медицинская рекомендация.</b>
+    Сайт предоставляет данные из открытых научных источников
+    (PubMed, Europe PMC, CrossRef, OpenAlex, ClinicalTrials.gov, Wikimedia)
+    для информирования и самостоятельного образования.
+    <b>НЕ заменяет</b> консультацию, диагноз и лечение.
+    При любых сомнениях — обращайтесь к специалисту.
+  </p>
+  <p class="meta">
+    v<span data-version="app"></span> ·
+    данные на <span data-version="data"></span>
+  </p>
+  <p class="links">
+    <a href="methodology.html">📐 Методология</a> ·
+    <a href="faq.html">❓ FAQ</a> ·
+    <a href="glossary.html">📖 Глоссарий</a> ·
+    <a href="privacy.html">🔐 Приватность</a> ·
+    <a href="feed.xml">📡 RSS</a>
+  </p>
+  <p class="copy">© 2026 Vladislav "DeadSno" Pereshivalov · MIT</p>
+</footer>
+</body>
+</html>

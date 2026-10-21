@@ -2531,6 +2531,28 @@ html.light #cookieBanner { box-shadow: var(--shadow-pop-light); }
      высоте баннера ~166 px — узлы остаются видимыми. */
   margin-bottom: 100px;
 }
+/* MAN-03: легенда типов узлов графа */
+.graph-legend {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
+  margin: 8px 0 12px 0;
+  font-size: 14px;
+  color: #e2e8f0;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.legend-dot {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.35);
+}
 @media (max-width: 640px) {
   .graph-canvas { height: 70vh; margin-bottom: 0; }
   .graph-panel-controls { flex-direction: column; }

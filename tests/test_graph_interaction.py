@@ -63,6 +63,27 @@ pytestmark = [pytest.mark.graph]
 
 BROWSERS = ("chromium", "webkit")
 
+#: v5.6.5 (H-1): гейт графа ПРИОСТАНОВЛЕН.
+#:
+#: docs/interactions.html стал страницей-редиректом на hactar.html, а
+#: hactar.html в H-1 — только скелет: контейнера графа (#mynetwork),
+#: поиска (#graphSearch) и кнопки экспорта (#pngBtn) в нём нет, они
+#: придут вместе с переносом графа (H-2+). Без приостановки тесты
+#: висели бы на wait_for до таймаута — прогон вставал бы на 10+ минут.
+#:
+#: Причина названа явно, а не «skip на всякий случай»: гейт вернётся
+#: вместе с живым графом, и пропуск нельзя спутать с успехом.
+#: autouse-фикстура (а не module-level skip) — чтобы тесты модуля
+#: по-прежнему собирались: число собранных тестов не должно зависеть
+#: от того, приостановлен гейт или нет (docs/version.json).
+@pytest.fixture(autouse=True)
+def _graph_pending():
+    pytest.skip(
+        "H-1: граф переносится в hactar.html; в скелете его нет "
+        "(#mynetwork / #graphSearch / #pngBtn отсутствуют). Гейт вернётся "
+        "вместе с переносом графа (H-2+)."
+    )
+
 # Контейнер графа в текущей разметке (docs/interactions.html:306).
 GRAPH_ID = "#mynetwork"
 SEARCH_ID = "#graphSearch"
