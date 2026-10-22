@@ -371,7 +371,13 @@ initTheme();
 // renderEffectChips после загрузки данных) либо фолбэк «Топ по науке»
 // (статичный .preset в #presetRow). preventScroll обязателен: без него
 // focus() немедленно дёргает прокрутку и обрывает smooth-анимацию.
-document.querySelectorAll('a.btn.calc[href="#cardsContainer"]').forEach((cta) => {
+//
+// v5.6.5 (A-1): селектор потерял уточнение .calc. Кнопка «Найти свою
+// добавку» переехала на первый экран и стала вторичной (класс .btn),
+// потому что главный CTA теперь «Открыть Project Hactar» (.btn.calc).
+// Уточнение .calc больше не различало две кнопки, а по одному href
+// обе они не поймались бы.
+document.querySelectorAll('a.btn[href="#cardsContainer"]').forEach((cta) => {
   cta.addEventListener('click', (e) => {
     e.preventDefault();
     const target = $('cardsContainer');

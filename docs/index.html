@@ -185,6 +185,34 @@ footer { font-size: 1rem !important; }
     .popularGrid { grid-template-columns: repeat(2, 1fr) !important; }
   }
 
+  /* ── v5.6.5 (A-1): главная под структуру Project Hactar ───────────
+     Два новых локальных правила: .hero-cta (ряд CTA первого экрана)
+     и .card-featured-lg (большая карточка Hactar на всю ширину).
+
+     Почему локально, а не в style.css: правило репозитория — правка
+     style.css тянет массовый бамп ?v= в 145 страницах и два шаблона.
+     Для одной страницы и двух элементов это несоразмерно; прецедент
+     тот же, что у карточки «Сравнение добавок» (инлайн-стиль, чтобы
+     не бампать общий CSS). Классы .hero-cta и .card-featured-lg
+     живут только на главной — новый общий класс ради них не заводим. */
+  .hero-cta { display: flex; flex-wrap: wrap; gap: .6rem; margin: 0 0 1.3rem; }
+  .hero-cta .btn { padding: .7rem 1.15rem; font-size: .95rem; }
+  .card-featured-lg { margin-bottom: 1rem; }
+  .card-featured-lg .card-featured-inner { padding: 1.5rem 1.7rem; gap: 1.3rem; }
+  .card-featured-lg .card-featured-icon { font-size: 3rem; }
+  .card-featured-lg .card-featured-text { flex: 1 1 320px; }
+  .card-featured-lg .card-featured-title { font-size: 1.5rem; margin-bottom: .3rem; }
+  .card-featured-lg .card-featured-desc { font-size: 1rem; }
+  .card-featured-lg .card-featured-cta { padding: .75rem 1.3rem; font-size: 1rem; }
+  @media (max-width: 640px) {
+    .hero-cta .btn { padding: .6rem .9rem; font-size: .85rem; }
+    .card-featured-lg .card-featured-inner { padding: 1.1rem 1.15rem; gap: .9rem; }
+    .card-featured-lg .card-featured-icon { font-size: 2.2rem; }
+    .card-featured-lg .card-featured-title { font-size: 1.2rem; }
+    .card-featured-lg .card-featured-desc { font-size: .92rem; }
+    .card-featured-lg .card-featured-cta { padding: .6rem .9rem; font-size: .9rem; }
+  }
+
 </style>
 <script type="application/ld+json">
     {
@@ -227,6 +255,20 @@ footer { font-size: 1rem !important; }
   <span><b style="color:var(--text)">199</b> проверенных взаимодействий</span>
 </section>
 
+<!-- v5.6.5 (A-1): первый экран главной ведёт в Project Hactar. Ядро сайта
+     (calculator / compare / interactions / graph / atlas) стало редиректами
+     на hactar.html, поэтому главный CTA первого экрана — «Открыть Project
+     Hactar». «Найти свою добавку» перенесена сюда из блока «Сначала ответим
+     на 3 вопроса» (чтобы не было двух одинаковых ссылок) и стала вторичной:
+     .btn.calc — единственный primary-стиль в дизайн-системе, поэтому
+     вторичное действие набрано голым .btn.
+     Обработчик в script.js цепляется к a.btn[href="#cardsContainer"] —
+     по href, поэтому id в разметку добавлять не нужно. -->
+<div class="hero-cta">
+  <a class="btn calc" href="hactar.html">🧠 Открыть Project Hactar →</a>
+  <a class="btn" href="#cardsContainer">Найти свою добавку →</a>
+</div>
+
 
 <!-- v5.5.0: блок быстрых кнопок под шапкой удалён — все три ссылки
      дублировали «Поддержать» в шапке и карточки «Калькулятор» / «Карта
@@ -244,8 +286,13 @@ footer { font-size: 1rem !important; }
      (v5.5.0) прокрутка была ≈0 и фокус не ставился — клик не давал ничего.
      «Найти свою добавку» — семантика браузинга, каталог 130 добавок с
      фильтрами и есть эта задача. Обработчик в script.js цепляется к
-     a.btn.calc[href="#cardsContainer"] — по href, поэтому id в разметке
-     не нужен, а кнопку можно переставлять без правки скрипта. -->
+     a.btn[href="#cardsContainer"] — по href, поэтому id в разметке
+     не нужен, а кнопку можно переставлять без правки скрипта.
+
+     22.10.2026, A-1: кнопка убрана из этого блока и перенесена на первый
+     экран (см. .hero-cta выше) — теперь она вторичное действие рядом с
+     главным CTA «Открыть Project Hactar». Уточнение .calc в селекторе
+     script.js снято вместе с переездом. -->
 
 <section id="controls">
   <label for="search" class="sr-only">Поиск по названию или эффекту</label>
@@ -311,46 +358,40 @@ footer { font-size: 1rem !important; }
       </div>
     </div>
   </details>
+  <!-- v5.6.5 (A-1): кнопка «Найти свою добавку» перенесена на первый экран,
+       встала вторичным действием рядом с главным CTA «Открыть Project
+       Hactar» (см. .hero-cta выше). Здесь осталась ссылка на методологию —
+       она ведёт в другой документ и дублем не стала. -->
   <p style="margin:1rem 0 0;display:flex;flex-wrap:wrap;gap:.75rem;align-items:center">
-    <a class="btn calc" href="#cardsContainer">Найти свою добавку →</a>
     <a href="methodology.html">Полное объяснение методологии →</a>
   </p>
 </section>
 
 <section style="margin:1.5rem 0">
-  <!-- v5.6.5 (2.2.7): три карточки — «Карта связей», «Граф связей» и
-       «Атлас механизмов» — сведены в одну широкую. Это не три страницы, а
-       одна: graph.html и atlas.html стали редиректами на вкладки
-       interactions.html#graph и #mech, а сама interactions.html и есть карта
-       связей. Карточка вынесена из .quick-links, а не растянута через
-       grid-column:1/-1: спан по всем трекам auto-fit отменяет схлопывание
-       пустых треков, и оставшиеся четыре карточки липли бы к левому краю в
-       половину ширины. Вне грида .quick-links остаётся 4 карточки, и auto-fit
-       растягивает их ровно на всю ширину. -->
-  <a class="card-featured" href="interactions.html" style="--card-accent:var(--inter-medium)">
+  <!-- v5.6.5 (A-1): хаб из шести карточек заменён новой структурой.
+       Project Hactar — единая точка входа: связи, дозы, сравнение,
+       безопасность. Калькулятор, сравнение, связи, граф и атлас стали
+       редиректами на hactar.html, поэтому отдельные карточки на них
+       только путали пользователя (он уходил на страницу, которая тут же
+       отправляла его дальше). Внизу остались два независимых приложения,
+       которые в Hactar не входят: тренды (своя страница) и BI (внешний
+       Streamlit).
+
+       Акцент карточки — янтарный (--inter-medium): плашка CTA в дизайн-
+       системе рассчитана на тёмный текст (--on-accent), и на синем
+       акценте в светлой теме контраст падал бы до 2.9:1. -->
+  <a class="card-featured card-featured-lg" href="hactar.html" style="--card-accent:var(--inter-medium)">
     <div class="card-featured-inner">
-      <div class="card-featured-icon">🕸️</div>
+      <div class="card-featured-icon">🧠</div>
       <div class="card-featured-text">
-        <div class="card-featured-title">Исследовать связи</div>
-        <div class="card-featured-desc">130 добавок, 25 механизмов, 1000+ связей. Интерактивный поиск.</div>
+        <div class="card-featured-title">Project Hactar</div>
+        <div class="card-featured-desc">Единый воркспейс: связи, дозы, сравнение, безопасность</div>
       </div>
-      <span class="card-featured-cta">Открыть карту связей →</span>
+      <span class="card-featured-cta">Открыть Project Hactar →</span>
     </div>
   </a>
 
   <div class="quick-links">
-  <a class="card-link lc-calc" href="calculator.html" style="--card-accent:var(--icon-calc)">
-    <div class="card-link-icon">🧮</div>
-    <div class="card-link-title">Калькулятор БАДов</div>
-    <div class="card-link-desc">Проверить дозы, конфликты с лекарствами и совместимость ваших добавок</div>
-  </a>
-
-  <a class="card-link lc-map" href="map.html" style="--card-accent:var(--icon-mech)">
-    <div class="card-link-icon">🧩</div>
-    <div class="card-link-title">Карта механизмов</div>
-    <div class="card-link-desc">Как каждая добавка работает: вещество → мишень → эффект</div>
-  </a>
-
   <a class="card-link lc-trends" href="trends.html" style="--card-accent:var(--icon-trends)">
     <div class="card-link-icon">📈</div>
     <div class="card-link-title">Тренды популярности</div>
@@ -358,18 +399,9 @@ footer { font-size: 1rem !important; }
   </a>
 
   <a class="card-link lc-bi" href="https://brain-25-evidence.streamlit.app" target="_blank" rel="noopener" style="--card-accent:var(--icon-bi)">
-    <div class="card-link-icon">🧠</div>
+    <div class="card-link-icon">🧬</div>
     <div class="card-link-title">brain-25-evidence BI <span class="card-link-ext">↗</span></div>
     <div class="card-link-desc">Отдельное приложение: 37 618 papers, фильтры, экспорт CSV</div>
-  </a>
-
-  <!-- v5.6.5 FIX-SPRINT B7 (O-04): Сравнение вернулось в хаб навигации.
-       Класс lc-compare не заводится (style.css не бампается) — заливка и
-       акцент только через инлайн-стиль, по образцу --t-* пар. -->
-  <a class="card-link" href="compare.html" style="--card-accent:#a855f7;background:linear-gradient(135deg,rgba(168,85,247,.15),rgba(168,85,247,.04))">
-    <div class="card-link-icon">⚖</div>
-    <div class="card-link-title">Сравнение добавок</div>
-    <div class="card-link-desc">До 3 добавок рядом: грейд, дозы, взаимодействия</div>
   </a>
 </div>
 </section>
@@ -652,7 +684,7 @@ footer { font-size: 1rem !important; }
     <div id="modalBody"></div>
   </div>
 </div>
-<script src="script.js?v=290"></script>
+<script src="script.js?v=291"></script>
 <script src="science2.js?v=281" defer></script>
 <script src="tracker.js?v=281" defer></script>
 <script src="pwa.js?v=282" defer></script>
