@@ -173,104 +173,53 @@
     .hactar-graph-reset:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
     .hactar-graph{height:clamp(320px,56vh,560px);border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--card-bg);overflow:hidden}
     .hactar-graph-note{margin:0;font-size:var(--fs-5);color:var(--muted)}
-    /* Project Hactar — калькулятор доз (H-7).
-       Вкладка «Калькулятор»: список выбранных добавок, поле дозы в каждой
-       строке и блок «Итог» с суммой по веществам и предупреждением о
-       превышении суточной нормы (upper_limit).
-       Поле с некорректным вводом подсвечивается красной рамкой (U2-02):
-       буквы или отрицательное число не должны молча попадать в расчёт. */
-    .hactar-calc{display:flex;flex-direction:column;gap:var(--space-4)}
+    /* Project Hactar — единая таблица «Обзор» (H-10).
+       Все параметры выбранных добавок в одной таблице: по строкам —
+       параметры (грейд, эффекты, дозы, взаимодействия), по столбцам —
+       сами добавки. Строки собирает docs/hactar.js из массива
+       OVERVIEW_ROWS, поэтому новая строка (цена, таймлайн) — это
+       правка массива, а не вёрстки.
+       Таблица умеет горизонтальную прокрутку внутри контейнера — иначе
+       на узком экране она растянула бы всю страницу. */
+    .hactar-ov{display:flex;flex-direction:column;gap:var(--space-4)}
     /* [hidden] слабее авторского display:flex — скрытие задаём явно. */
-    .hactar-calc[hidden]{display:none}
-    .hactar-calc-head{display:flex;flex-direction:column;gap:var(--space-1)}
-    .hactar-calc-title{margin:0;font-size:1.15rem;font-weight:700;line-height:var(--lh-title)}
-    .hactar-calc-note{margin:0;font-size:var(--fs-4);color:var(--muted);line-height:var(--lh-normal)}
-    .hactar-calc-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:var(--space-3)}
-    .hactar-calc-row{display:flex;flex-direction:column;gap:var(--space-2);padding:var(--space-3);border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--card-bg)}
-    .hactar-calc-row-head{display:flex;flex-direction:column;gap:var(--space-0-2)}
-    .hactar-calc-name{font-weight:600;font-size:var(--fs-5)}
-    .hactar-calc-range{font-size:var(--fs-4);color:var(--muted);overflow-wrap:anywhere}
-    .hactar-calc-field{display:flex;align-items:center;gap:var(--space-2)}
-    .hactar-calc-label{font-size:var(--fs-4);color:var(--muted);white-space:nowrap}
-    .hactar-calc-input{flex:1 1 7rem;min-width:0;max-width:9rem;padding:var(--space-2) var(--space-3);border:1px solid var(--border);border-radius:var(--radius-md);background:var(--bg);color:var(--text);font-size:var(--fs-5)}
-    /* U2-02: некорректная доза подсвечивается красной рамкой. */
-    .hactar-calc-input-bad{border:1px solid var(--danger-tx)}
-    .hactar-calc-unit{font-size:var(--fs-4);color:var(--muted);white-space:nowrap}
-    .hactar-calc-summary{padding:var(--space-4);border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--card-bg)}
-    .hactar-calc-summary-title{margin:0 0 var(--space-3);font-size:1.15rem;font-weight:700;line-height:var(--lh-title)}
-    .hactar-calc-summary-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--space-2)}
-    .hactar-calc-summary-item{display:flex;align-items:baseline;justify-content:space-between;gap:var(--space-3);flex-wrap:wrap;font-size:var(--fs-5)}
-    .hactar-calc-summary-name{font-weight:600}
-    .hactar-calc-summary-value{font-variant-numeric:tabular-nums}
-    .hactar-calc-summary-status{font-size:var(--fs-4);color:var(--muted)}
-    .hactar-calc-status-ok{color:var(--info-tx)}
-    .hactar-calc-status-over{color:var(--danger-tx);font-weight:600}
-    .hactar-calc-alerts{margin-top:var(--space-3);display:flex;flex-direction:column;gap:var(--space-1)}
-    .hactar-calc-alert{margin:0;font-size:var(--fs-4);color:var(--danger-tx);line-height:var(--lh-normal)}
-    .hactar-calc-errors{margin-top:var(--space-3);display:flex;flex-direction:column;gap:var(--space-1)}
-    .hactar-calc-error{margin:0;font-size:var(--fs-4);font-weight:600;color:var(--danger-tx);line-height:var(--lh-normal)}
-    /* Project Hactar — сравнение (H-8).
-       Таблица side-by-side: по строкам — параметры (грейд, эффекты,
-       дозировка, взаимодействия), по столбцам — выбранные добавки.
-       В самом низу — ряд кнопок «Купить»: сравнение без пути к покупке
-       разрывает воронку (баг P2-03).
-       На узких экранах таблицу сменяют вертикальные карточки
-       (переключает hactar.js), но и сама таблица умеет горизонтальную
-       прокрутку внутри контейнера — иначе она растянула бы страницу. */
-    .hactar-compare{display:flex;flex-direction:column;gap:var(--space-4)}
-    /* [hidden] слабее авторского display:flex — скрытие задаём явно. */
-    .hactar-compare[hidden]{display:none}
-    .hactar-compare-head{display:flex;flex-direction:column;gap:var(--space-1)}
-    .hactar-compare-title{margin:0;font-size:1.15rem;font-weight:700;line-height:var(--lh-title)}
-    .hactar-compare-note{margin:0;font-size:var(--fs-4);color:var(--muted);line-height:var(--lh-normal)}
-    .hactar-compare-hint{margin:0;padding:var(--space-5) var(--space-4);border:1px dashed var(--border);border-radius:var(--radius-lg);color:var(--muted);font-size:var(--fs-5);line-height:var(--lh-normal);text-align:center}
-    .hactar-compare-hint[hidden]{display:none}
-    .hactar-compare-scroll{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
-    .hactar-compare-scroll[hidden]{display:none}
-    .hactar-compare-table{width:100%;min-width:520px;border-collapse:collapse;font-size:var(--fs-5)}
-    .hactar-compare-caption{padding-bottom:var(--space-2);color:var(--muted);font-size:var(--fs-4);line-height:var(--lh-normal);text-align:left;caption-side:top}
-    .hactar-compare-param,.hactar-compare-sup,.hactar-compare-rowhead{padding:var(--space-3);border-bottom:1px solid var(--border);font-weight:600;text-align:left;vertical-align:top}
-    .hactar-compare-sup{font-size:var(--fs-6)}
-    .hactar-compare-cell{padding:var(--space-3);border-bottom:1px solid var(--border);line-height:var(--lh-normal);vertical-align:top}
-    .hactar-compare-inline{color:var(--muted);font-size:var(--fs-4)}
-    .hactar-compare-list{margin:0;padding-inline-start:1.1rem;display:flex;flex-direction:column;gap:var(--space-1)}
-    .hactar-compare-none{color:var(--muted);font-size:var(--fs-4)}
-    /* Чипы магазинов. Имя класса не про «сравнение»: с H-9 те же чипы
-       живут в секции «Где купить» вкладки «Обзор». */
-    .hactar-shop-chips{display:flex;flex-wrap:wrap;gap:var(--space-2)}
-    .hactar-shop-chip{display:inline-flex;align-items:center;min-height:44px;padding:.35rem .8rem;border:1px solid var(--border);border-radius:var(--radius-pill);background:var(--card-bg);color:var(--text);font-size:var(--fs-4);font-weight:600;line-height:1.2;text-decoration:none;white-space:nowrap}
-    .hactar-shop-chip:hover{border-color:var(--accent);background:var(--bg)}
-    .hactar-shop-chip:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-    .hactar-compare-cards{display:flex;flex-direction:column;gap:var(--space-3)}
-    .hactar-compare-cards[hidden]{display:none}
-    .hactar-compare-card{padding:var(--space-3);border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--card-bg)}
-    .hactar-compare-cardhead{display:flex;align-items:center;gap:var(--space-2);margin-bottom:var(--space-2)}
-    .hactar-compare-cardname{font-weight:700;font-size:var(--fs-5)}
-    .hactar-compare-cardrow{display:flex;gap:var(--space-2);padding:var(--space-1) 0;font-size:var(--fs-5);line-height:var(--lh-normal)}
-    .hactar-compare-cardlabel{flex:0 0 34%;color:var(--muted);font-size:var(--fs-4)}
-    .hactar-compare-cardvalue{flex:1 1 auto;min-width:0;overflow-wrap:anywhere}
-    /* Project Hactar — вкладка «Обзор» (H-9).
-       Четыре секции в общем потоке: сводка стека, дозы и нормы,
-       сравнение, «где купить». Между секциями — обычный <hr>: он и
-       скринридеру объявляет границу разделов, и глазу помогает. */
-    .hactar-overview{display:flex;flex-direction:column;gap:var(--space-6)}
-    /* [hidden] слабее авторского display:flex — скрытие задаём явно. */
-    .hactar-overview[hidden]{display:none}
-    .hactar-ov-section{display:flex;flex-direction:column;gap:var(--space-3)}
+    .hactar-ov[hidden]{display:none}
+    .hactar-ov-head{display:flex;flex-direction:column;gap:var(--space-1)}
     .hactar-ov-title{margin:0;font-size:1.25rem;font-weight:700;letter-spacing:.01em;line-height:var(--lh-title)}
-    .hactar-ov-sep{margin:0;border:0;border-top:1px solid var(--border)}
-    /* Сводка стека — плитки-показатели. На узком экране плитки
-       складываются в одну колонку (auto-fit + minmax). */
-    .hactar-ov-summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:var(--space-3)}
-    .hactar-ov-stat{display:flex;flex-direction:column;gap:var(--space-1);padding:var(--space-3);border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--card-bg)}
-    .hactar-ov-stat-label{font-size:var(--fs-4);color:var(--muted)}
-    .hactar-ov-stat-value{font-size:1.5rem;font-weight:700;font-variant-numeric:tabular-nums;line-height:var(--lh-tight)}
-    .hactar-ov-stat-sub{font-size:var(--fs-4);color:var(--muted)}
-    /* «Где купить» — строка на добавку: название и чипы магазинов. */
-    .hactar-ov-buy{display:flex;flex-direction:column;gap:var(--space-3)}
-    .hactar-ov-buy[hidden]{display:none}
-    .hactar-ov-buyrow{display:flex;align-items:center;justify-content:space-between;gap:var(--space-3);flex-wrap:wrap;padding:var(--space-3);border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--card-bg)}
-    .hactar-ov-buyname{font-weight:600;font-size:var(--fs-5);overflow-wrap:anywhere}
+    .hactar-ov-note{margin:0;font-size:var(--fs-4);color:var(--muted);line-height:var(--lh-normal)}
+    .hactar-ov-scroll{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+    .hactar-ov-table{width:100%;min-width:420px;border-collapse:collapse;font-size:var(--fs-5)}
+    .hactar-ov-caption{padding-bottom:var(--space-2);color:var(--muted);font-size:var(--fs-4);line-height:var(--lh-normal);text-align:left;caption-side:top}
+    .hactar-ov-param,.hactar-ov-sup,.hactar-ov-rowhead{padding:var(--space-3);border-bottom:1px solid var(--border);font-weight:600;text-align:left;vertical-align:top}
+    .hactar-ov-sup{font-size:var(--fs-6)}
+    .hactar-ov-cell{padding:var(--space-3);border-bottom:1px solid var(--border);line-height:var(--lh-normal);vertical-align:top}
+    .hactar-ov-inline{color:var(--muted);font-size:var(--fs-4)}
+    .hactar-ov-list{margin:0;padding-inline-start:1.1rem;display:flex;flex-direction:column;gap:var(--space-1)}
+    .hactar-ov-none{color:var(--muted);font-size:var(--fs-4)}
+    /* Поле дозы: ввод + единица + подпись (диапазон, статус, ошибка).
+       Подпись живёт отдельно от <input>: перерисовка статуса не должна
+       трогать само поле — иначе потерялся бы фокус и набор текста. */
+    .hactar-ov-dose{display:flex;flex-direction:column;gap:var(--space-1);min-width:9rem}
+    .hactar-ov-dose-field{display:flex;align-items:center;gap:var(--space-2)}
+    .hactar-ov-dose-input{flex:1 1 6rem;min-width:0;max-width:11rem;padding:var(--space-2) var(--space-3);border:1px solid var(--border);border-radius:var(--radius-md);background:var(--bg);color:var(--text);font-size:var(--fs-5)}
+    /* U2-02: некорректная доза подсвечивается красной рамкой. */
+    .hactar-ov-dose-input-bad{border:1px solid var(--danger-tx)}
+    .hactar-ov-dose-unit{font-size:var(--fs-4);color:var(--muted);white-space:nowrap}
+    .hactar-ov-dose-meta{display:flex;flex-direction:column;gap:var(--space-0-2);font-size:var(--fs-4);line-height:var(--lh-normal)}
+    .hactar-ov-dose-norm{color:var(--muted)}
+    .hactar-ov-dose-ok{color:var(--info-tx)}
+    .hactar-ov-dose-warn{color:var(--danger-tx);font-weight:600}
+    .hactar-ov-dose-err{color:var(--danger-tx);font-weight:600}
+    /* Взаимодействия между добавками: конфликт — предупреждение,
+       общие мишени и общий механизм — нейтральная справка. */
+    .hactar-ov-conflict,.hactar-ov-rel{display:block;margin-bottom:var(--space-1)}
+    .hactar-ov-conflict{color:var(--danger-tx);font-weight:600}
+    .hactar-ov-rel{color:var(--muted);font-size:var(--fs-4)}
+    /* Чипы магазинов в строке «Где купить». */
+    .hactar-ov-shops{display:flex;flex-wrap:wrap;gap:var(--space-2)}
+    .hactar-ov-shop{display:inline-flex;align-items:center;min-height:44px;padding:.35rem .8rem;border:1px solid var(--border);border-radius:var(--radius-pill);background:var(--card-bg);color:var(--text);font-size:var(--fs-4);font-weight:600;line-height:1.2;text-decoration:none;white-space:nowrap}
+    .hactar-ov-shop:hover{border-color:var(--accent);background:var(--bg)}
+    .hactar-ov-shop:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
     /* Мобильная шторка */
     .hactar-sidebar.open{display:block}
     /* Мобильная кнопка «Готово» — тот же контраст, что у активного чипа:
@@ -372,11 +321,10 @@
         <button role="tab" id="hactarTabLinks" aria-controls="hactarPanelLinks" aria-selected="false" tabindex="-1" data-mode="links">Связи</button>
       </div>
       <div class="hactar-panels">
-        <!-- H-9: единая панель «Обзор». Секции идут сверху вниз, между
-             ними — разделители; страница прокручивается целиком.
-             Разметка калькулятора (H-7) и сравнения (H-8) переехала
-             сюда из отдельных вкладок без изменений — изменились только
-             обёртка и уровень заголовков (h3 внутри секции h2). -->
+        <!-- H-9/H-10: единая панель «Обзор». С H-9 вкладки «Калькулятор»
+             и «Сравнение» стали секциями этой панели, с H-10 — одной
+             таблицей: строки собирает docs/hactar.js (OVERVIEW_ROWS),
+             колонки — выбранные добавки. -->
         <div class="hactar-panel active" id="hactarPanelOverview" data-panel="overview">
           <div class="hactar-empty-state">
             <div class="hactar-empty-art" aria-hidden="true">🧪</div>
@@ -384,65 +332,26 @@
             <p class="hactar-empty-hint">Отметьте галочками добавки в левом меню, чтобы увидеть их связи, дозировки и совместимость</p>
             <button type="button" class="hactar-empty-btn">🔍 Выбрать добавки</button>
           </div>
-          <div class="hactar-overview" id="hactarOverview" hidden>
-            <section class="hactar-ov-section" aria-labelledby="hactarOvSummaryTitle">
-              <h2 class="hactar-ov-title" id="hactarOvSummaryTitle">Сводка стека</h2>
-              <div class="hactar-ov-summary" id="hactarOvSummary"></div>
-            </section>
-            <hr class="hactar-ov-sep">
-            <section class="hactar-ov-section" aria-labelledby="hactarOvDoseTitle">
-              <h2 class="hactar-ov-title" id="hactarOvDoseTitle">Дозы и нормы</h2>
-              <!-- H-7: калькулятор доз. Показывается, когда выбрана хотя бы одна
-                   добавка; пока ничего не выбрано — пустое состояние выше.
-                   Список строк и блок «Итог» наполняет docs/hactar.js. -->
-              <div class="hactar-calc" id="hactarCalc" hidden>
-                <div class="hactar-calc-head">
-                  <h3 class="hactar-calc-title">Дозы выбранных добавок</h3>
-                  <p class="hactar-calc-note">В поля подставлены средние дозы из справочника. Измените значение — «Итог» пересчитается сразу.</p>
-                </div>
-                <div class="hactar-calc-list" id="hactarCalcList"></div>
-                <div class="hactar-calc-summary">
-                  <h4 class="hactar-calc-summary-title">Итог</h4>
-                  <ul class="hactar-calc-summary-list" id="hactarCalcSummaryList"></ul>
-                  <div class="hactar-calc-alerts" id="hactarCalcAlerts"></div>
-                  <div class="hactar-calc-errors" id="hactarCalcErrors"></div>
-                </div>
-              </div>
-            </section>
-            <hr class="hactar-ov-sep">
-            <section class="hactar-ov-section" aria-labelledby="hactarOvCompareTitle">
-              <h2 class="hactar-ov-title" id="hactarOvCompareTitle">Сравнение</h2>
-              <!-- H-8: сравнение выбранных добавок — таблица side-by-side
-                   (по строкам параметры, по столбцам добавки) и кнопки
-                   «Купить» внизу таблицы. Они замыкают путь от сравнения
-                   к покупке (баг P2-03). Содержимое наполняет docs/hactar.js. -->
-              <div class="hactar-compare" id="hactarCompare" hidden>
-                <div class="hactar-compare-head">
-                  <h3 class="hactar-compare-title">Сравнение добавок</h3>
-                  <p class="hactar-compare-note" id="hactarCompareNote"></p>
-                </div>
-                <p class="hactar-compare-hint" id="hactarCompareHint" hidden>Выберите ещё одну добавку для сравнения</p>
-                <div class="hactar-compare-scroll" id="hactarCompareScroll">
-                  <table class="hactar-compare-table" id="hactarCompareTable">
-                    <caption class="hactar-compare-caption">Параметры выбранных добавок</caption>
-                    <thead>
-                      <tr id="hactarCompareHead"></tr>
-                    </thead>
-                    <tbody id="hactarCompareBody"></tbody>
-                  </table>
-                </div>
-                <div class="hactar-compare-cards" id="hactarCompareCards" hidden></div>
-              </div>
-            </section>
-            <hr class="hactar-ov-sep">
-            <section class="hactar-ov-section" aria-labelledby="hactarOvBuyTitle">
-              <h2 class="hactar-ov-title" id="hactarOvBuyTitle">Где купить</h2>
-              <!-- Чипы магазинов для каждой выбранной добавки. Раньше
-                   «Купить» жило только строкой в таблице сравнения и было
-                   видно лишь при двух и более добавках; теперь ссылки
-                   есть для каждой выбранной добавки и всегда на виду. -->
-              <div class="hactar-ov-buy" id="hactarOvBuy" hidden></div>
-            </section>
+          <!-- H-10: единая модульная таблица «Обзор». Строки собирает
+               docs/hactar.js из массива OVERVIEW_ROWS: чтобы добавить
+               новую строку (цена, таймлайн, безопасность), достаточно
+               дописать объект в массив — разметку править не нужно.
+               Колонка — одна выбранная добавка, шапка (thead) — её
+               название, остальные строки — параметры. -->
+          <div class="hactar-ov" id="hactarOverview" hidden>
+            <div class="hactar-ov-head">
+              <h2 class="hactar-ov-title">Обзор стека</h2>
+              <p class="hactar-ov-note" id="hactarOvNote"></p>
+            </div>
+            <div class="hactar-ov-scroll">
+              <table class="hactar-ov-table">
+                <caption class="hactar-ov-caption">Параметры выбранных добавок</caption>
+                <thead>
+                  <tr id="hactarOvHead"></tr>
+                </thead>
+                <tbody id="hactarOvBody"></tbody>
+              </table>
+            </div>
           </div>
         </div>
         <div class="hactar-panel" id="hactarPanelLinks" data-panel="links">
@@ -520,7 +429,7 @@
      оба скрипта с defer, поэтому выполняются в порядке разметки и
      window.vis готов к моменту, когда hactar.js создаёт Network. -->
 <script src="vendor/vis-network-9.1.9.min.js" defer></script>
-<script src="hactar.js?v=12" defer></script>
+<script src="hactar.js?v=13" defer></script>
 
 <footer class="site-footer">
   <p class="disc">

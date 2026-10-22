@@ -1,7 +1,8 @@
 /* Project Hactar — список добавок в левой панели (H-2) + фильтры,
  * сохранение выбора и полная ширина страницы (H-3), тосты и пустые
  * состояния (H-4), переключение вкладок с deep-link ?tab= (H-5),
- * сводная вкладка «Обзор» вместо трёх отдельных (H-9).
+ * сводная вкладка «Обзор» вместо трёх отдельных (H-9), единая
+ * модульная таблица обзора (H-10).
  *
  * Задача H-2: наполнить левую панель данными. Источник — docs/data_index.json
  * (облегчённая копия docs/data.json: те же 130 записей, но только поля,
@@ -26,13 +27,12 @@
  *  12. H-6: рисует эго-сеть выбранных добавок во вкладке «Связи»
  *      (vis-network): только выбранные добавки, их механизмы и мишени
  *      и связанные лекарства — никаких 130 узлов (MAN-03).
- *  13. H-7: считает дозы выбранных добавок в секции «Дозы и нормы»
- *      вкладки «Обзор» и ловит некорректный ввод (U2-02);
- *  14. H-8: собирает таблицу сравнения в секции «Сравнение» вкладки
- *      «Обзор» (side-by-side по выбранным добавкам) и ряд кнопок «Купить» —
- *      путь от сравнения к покупке (баг P2-03).
- *  15. H-9: сводка стека (счётчик, средний грейд) и секция «Где купить»
- *      с чипами магазинов для каждой выбранной добавки.
+ *  13. H-10: собирает единую таблицу «Обзор» по выбранным добавкам.
+ *      Строки задаёт массив OVERVIEW_ROWS (key / label / render) — новая
+ *      строка (цена, таймлайн, безопасность) добавляется одним объектом.
+ *      Строки: грейд, эффекты, дозы (поле ввода с проверкой U2-02),
+ *      взаимодействия с лекарствами, взаимодействия между выбранными
+ *      добавками и «где купить». Одна добавка — одна колонка.
  *
  * Связка поиска и грейда: работают ВМЕСТЕ, а не по очереди. Введён
  * «Магний» + выбран грейд «D» -> остаётся только Магний (у него грейд D).
@@ -83,25 +83,12 @@
   /* H-4: пустое состояние — по одному на каждый таб. */
   var emptyStates = document.querySelectorAll('.hactar-empty-state');
   var emptyBtns = document.querySelectorAll('.hactar-empty-btn');
-  /* H-7: элементы калькулятора доз (вкладка «Калькулятор»). */
-  var calcWrap = document.getElementById('hactarCalc');
-  var calcListEl = document.getElementById('hactarCalcList');
-  var calcSummaryListEl = document.getElementById('hactarCalcSummaryList');
-  var calcAlertsEl = document.getElementById('hactarCalcAlerts');
-  var calcErrorsEl = document.getElementById('hactarCalcErrors');
-  /* H-8: элементы вкладки «Сравнение» — таблица, карточки и подсказка. */
-  var compareWrap = document.getElementById('hactarCompare');
-  var compareHeadEl = document.getElementById('hactarCompareHead');
-  var compareBodyEl = document.getElementById('hactarCompareBody');
-  var compareScrollEl = document.getElementById('hactarCompareScroll');
-  var compareCardsEl = document.getElementById('hactarCompareCards');
-  var compareNoteEl = document.getElementById('hactarCompareNote');
-  var compareHintEl = document.getElementById('hactarCompareHint');
-  /* H-9: элементы вкладки «Обзор» — общий блок, сводка стека и
-     секция «где купить». */
+  /* H-10: элементы единой таблицы «Обзор» — контейнер, шапка, тело и
+     подпись над таблицей. */
   var overviewWrap = document.getElementById('hactarOverview');
-  var overviewSummaryEl = document.getElementById('hactarOvSummary');
-  var overviewBuyEl = document.getElementById('hactarOvBuy');
+  var ovHeadEl = document.getElementById('hactarOvHead');
+  var ovBodyEl = document.getElementById('hactarOvBody');
+  var ovNoteEl = document.getElementById('hactarOvNote');
 
   /* ─────────────────── подписки на изменения (H-6) ───────────────────
    *
@@ -1429,6 +1416,10 @@
       indexGraphData();
       graphReady = true;
       if (lastSelection.length) renderEgo(lastSelection);
+      /* H-10: связи между выбранными добавками берутся из мастер-графа,
+         поэтому строка «Взаимодействия между добавками» перерисовывается,
+         когда данные графа приедут. */
+      if (selectedIds().length) renderOverview(selectedIds());
     }).catch(function (err) {
       console.error('[hactar] не удалось загрузить данные графа:', err);
       if (graphNote) {
@@ -1470,13 +1461,56 @@
     }, 150);
   });
 
-  /* ──────────────────────────── H-7: калькулятор доз ──────────────────────────── */
+  /* ──────────────────────── H-10: единая таблица «Обзор» ────────────────────────
+   *
+   * Все данные по выбранным добавкам собраны в одной таблице: строки
+   * задаёт массив OVERVIEW_ROWS, колонки — выбранные добавки. Новая
+   * строка (цена, таймлайн, безопасность) — это один объект в
+   * OVERVIEW_ROWS: ни разметку, ни рендер, ни стили править не нужно.
+   *
+   * Формат строки:
+   *   key    — уникальный идентификатор строки (отладка и автотесты);
+   *   label  — подпись строки в первом столбце;
+   *   render — функция (rec, ids) -> HTML ячейки. rec — запись этой
+   *            добавки, ids — все выбранные id: строке «между добавками»
+   *            нужно видеть остальных.
+   *
+   * Строка с названием добавки (name) в массив не входит: это шапка
+   * таблицы (thead), по одной колонке на добавку.
+   *
+   * Данные приходят двумя частями: облегчённые (data_index.json — грейд,
+   * эффекты, взаимодействия, верхняя норма) и полные (data.json —
+   * дозировка и формы выпуска). Полные грузятся лениво: 758 КБ не должны
+   * доставаться странице, в таблицу не заходившей.
+   */
 
-  /* Состояние калькулятора: calcInputs[id] = {raw, value, touched, bad}.
-     value — распарсенное число (или '' для невалидного), raw — то, что ввёл пользователь. */
-  var calcInputs = {};
-  var calcData = null;
-  var calcDataPromise = null;
+  /* Введённые дозы: doseInputs[id] = {raw, value, touched, bad}.
+     raw — что ввёл пользователь, value — распарсенное число ('' если
+     ввод невалиден), bad — ввод не проходит проверку (U2-02). */
+  var doseInputs = {};
+
+  /* Полные записи добавок из data.json. */
+  var fullData = null;
+  var fullDataPromise = null;
+
+  /* Магазины: ссылка на поиск товара по названию добавки. Ссылки
+     открываются в новой вкладке, поэтому rel="noopener nofollow"
+     обязателен (иначе страница магазина получит доступ к window.opener). */
+  var SHOPS = [
+    { label: 'Ozon', base: 'https://www.ozon.ru/search/?text=' },
+    { label: 'Wildberries', base: 'https://www.wildberries.ru/catalog/0/search.aspx?search=' },
+    { label: 'Яндекс.Маркет', base: 'https://market.yandex.ru/search?text=' }
+  ];
+
+  /* Тяжесть взаимодействия: подпись и класс .sev из style.css. */
+  var OV_SEVERITY = {
+    critical: { label: 'критический риск', cls: 'sev-critical' },
+    high: { label: 'высокий риск', cls: 'sev-high' },
+    medium: { label: 'средний риск', cls: 'sev-medium' },
+    low: { label: 'низкий риск', cls: 'sev-low' }
+  };
+
+  /* ── разбор дозировок (из H-7, без изменений) ────────────────────────── */
 
   var UNIT_SRC = '(мкг|мг|г|мкмоль|ммоль|млрд\\s*КОЕ|КОЕ|МЕ|IU|CFU|млрд)';
   var UNIT_LOOKAHEAD = '(?![A-Za-zА-Яа-яЁё])';
@@ -1487,6 +1521,8 @@
   /* Маркеры «нет суточной нормы (UL)» — проверяем до поиска чисел. */
   var NO_UL = /формального\s+ul|ul\s*:?\s*нет|нет\s+ul|не\s+установлен|не\s+указан|не\s+приводится|noael/i;
   var ULNUM_RE = new RegExp('(\\d+(?:[.,]\\d+)?)\\s*' + UNIT_SRC + UNIT_LOOKAHEAD, 'i');
+  /* Доза — только число: буквы и минус (U2-02) не проходят. */
+  var DOSE_RE = /^\d+(?:[.,]\d+)?$/;
 
   function parseNum(s) {
     return parseFloat(String(s).replace(',', '.'));
@@ -1543,226 +1579,43 @@
     return null;
   }
 
-  /* Загружает data.json и строит индекс для калькулятора (лениво, один раз).
-     Промис кэшируется: без кэша второй вызов (пока fetch ещё в пути)
-     возвращал Promise.resolve(null) — список доз собрался бы по пустым
-     данным, а последняя перерисовка (по первому промису) откатывала бы
-     его к одному id вместо всех выбранных. Разбирается на H-9: в обзоре
-     список виден сразу вместе со сводкой. */
-  function loadCalcData() {
-    if (calcDataPromise) return calcDataPromise;
-    calcDataPromise = fetchJsonStatic('data.json').then(function (data) {
-      var list = Array.isArray(data) ? data : [];
+  /* ── данные ──────────────────────────────────────────────────────────── */
+
+  /* Загружает data.json (лениво, один раз). Промис кэшируется: без кэша
+     второй вызов (пока fetch ещё в пути) вернул бы пустые данные, а
+     таблица осталась бы без дозировок и форм. */
+  function loadFullData() {
+    if (fullDataPromise) return fullDataPromise;
+    fullDataPromise = fetchJsonStatic('data.json').then(function (data) {
+      var list = supplementsOf(data);
       var map = {};
       for (var i = 0; i < list.length; i++) {
-        var rec = list[i];
-        if (!rec || !rec.id) continue;
-        var id = String(rec.id);
-        var parsed = parseDosage(rec.dosage || '');
-        var ul = parseUpperLimit((supById[id] && supById[id].upper_limit) || (rec.upper_limit || ''));
-        var ulMg = ul ? toMg(ul.mg, ul.unit) : null;
-        var doseMg = parsed ? toMg(parsed.value, parsed.unit) : null;
-        map[id] = {
-          id: id,
-          name: String(rec.name || rec.id || ''),
-          dosage: String(rec.dosage || ''),
-          value: parsed ? parsed.value : null,
-          unit: parsed ? parsed.unit : '',
-          min: parsed ? parsed.min : null,
-          max: parsed ? parsed.max : null,
-          ulMg: ulMg,
-          ulUnit: ul ? ul.unit : '',
-          hasUl: !!ul,
-          comparable: (ulMg != null && doseMg != null)
-        };
+        if (list[i] && list[i].id) map[list[i].id] = list[i];
       }
-      calcData = map;
+      fullData = map;
       return map;
     }).catch(function (err) {
-      console.warn('[hactar] данные калькулятора не загружены:', err && err.message);
-      calcData = {};
-      return {};
+      console.error('[hactar] не удалось загрузить полные данные:', err);
+      fullData = {};
+      return fullData;
     });
-    return calcDataPromise;
+    return fullDataPromise;
   }
 
-  /* Собирает HTML-список строк калькулятора для выбранных id. */
-  function buildCalcUi(ids) {
-    var html = '';
-    for (var i = 0; i < ids.length; i++) {
-      var id = ids[i];
-      var rec = calcData && calcData[id] ? calcData[id] : null;
-      var name = rec ? rec.name : id;
-      var unit = rec && rec.unit ? rec.unit : '—';
-      var state = calcInputs[id] || {};
-      var val = state.raw !== undefined ? state.raw : (rec && rec.value != null ? String(rec.value) : '');
-      var placeholder = '';
-      if (val === '' && rec) placeholder = rec.dosage || 'доза не задана';
-      var bad = !!state.bad;
-      var cls = 'hactar-calc-input' + (bad ? ' hactar-calc-input-bad' : '');
-      html += '<div class="hactar-calc-row">' +
-        '<div class="hactar-calc-row-head">' +
-          '<div class="hactar-calc-name" title="' + esc(name) + '">' + esc(name) + '</div>' +
-          (rec && rec.min != null && rec.max != null && rec.min !== rec.max
-            ? '<div class="hactar-calc-range">норма ' + esc(String(rec.min).replace('.', ',')) +
-              '–' + esc(String(rec.max).replace('.', ',')) + ' ' + esc(unit) + '</div>'
-            : '') +
-        '</div>' +
-        '<div class="hactar-calc-field">' +
-          '<span class="hactar-calc-label">доза</span>' +
-          '<input type="number" class="' + cls + '"' +
-            ' data-id="' + esc(id) + '"' +
-            ' value="' + esc(val) + '"' +
-            (placeholder ? ' placeholder="' + esc(placeholder) + '"' : '') +
-            ' step="any" min="0">' +
-          '<span class="hactar-calc-unit">' + esc(unit) + '</span>' +
-        '</div>' +
-        '</div>';
-    }
-    calcListEl.innerHTML = html;
-    var inputs = calcListEl.querySelectorAll('.hactar-calc-input');
-    for (var j = 0; j < inputs.length; j++) {
-      inputs[j].addEventListener('input', onCalcInput);
-    }
-    recalc();
-  }
-
-  function onCalcInput(e) {
-    var t = e.target;
-    var id = t.getAttribute('data-id');
-    if (!id) return;
-    var raw = t.value;
-    var n = parseNum(raw);
-    var bad = (raw === '') || isNaN(n) || n < 0;
-    calcInputs[id] = { raw: raw, value: bad ? '' : String(n), touched: true, bad: bad };
-    if (bad) t.classList.add('hactar-calc-input-bad');
-    else t.classList.remove('hactar-calc-input-bad');
-    recalc();
-  }
-
-  /* Пересчитывает блок «Итог»: суммы, статусы, предупреждения о превышении UL,
-     ошибки валидации (NaN/отрицательные — исключаются из суммы, U2-02). */
-  function recalc() {
-    if (!calcSummaryListEl || !calcAlertsEl || !calcErrorsEl) return;
-    var ids = selectedIds();
-    var summaryHtml = '';
-    var alertsHtml = '';
-    var errorsHtml = '';
-    for (var i = 0; i < ids.length; i++) {
-      var id = ids[i];
-      var rec = calcData && calcData[id] ? calcData[id] : null;
-      var state = calcInputs[id] || {};
-      var name = rec ? rec.name : id;
-      var unit = rec && rec.unit ? rec.unit : '—';
-      if (state.bad) {
-        errorsHtml += '<div class="hactar-calc-error">Ошибка: введите корректную дозу для ' +
-          esc(name) + '.</div>';
-        continue;
-      }
-      var val = state.value !== undefined ? state.value :
-        (rec && rec.value != null ? String(rec.value) : '');
-      if (val === '' || val == null) {
-        summaryHtml += '<li class="hactar-calc-summary-item">' +
-          '<span class="hactar-calc-summary-name">' + esc(name) + '</span>' +
-          '<span class="hactar-calc-summary-value">—</span>' +
-          '<span class="hactar-calc-summary-status hactar-calc-status-ok">норма не задана</span>' +
-          '</li>';
-        continue;
-      }
-      var n = parseNum(val);
-      var over = rec && rec.comparable && n > rec.ulMg;
-      var dispVal = String(n).replace('.', ',');
-      var statusCls = over ? 'hactar-calc-status-over' : 'hactar-calc-status-ok';
-      var statusTxt = over ? 'превышена суточную норму' : 'в пределах нормы';
-      summaryHtml += '<li class="hactar-calc-summary-item">' +
-        '<span class="hactar-calc-summary-name">' + esc(name) + '</span>' +
-        '<span class="hactar-calc-summary-value">' + esc(dispVal) + ' ' + esc(unit) + '</span>' +
-        '<span class="hactar-calc-summary-status ' + esc(statusCls) + '">' + esc(statusTxt) + '</span>' +
-        '</li>';
-      if (over) {
-        alertsHtml += '<div class="hactar-calc-alert">⚠️ ' + esc(name) + ': доза ' + esc(dispVal) +
-          ' ' + esc(unit) + ' превышает суточную норму ' +
-          esc(String(rec.ulMg).replace('.', ',')) + ' ' + esc(rec.ulUnit) + '.</div>';
-      }
-    }
-    calcSummaryListEl.innerHTML = summaryHtml;
-    calcAlertsEl.innerHTML = alertsHtml;
-    calcErrorsEl.innerHTML = errorsHtml;
-  }
-
-  /* (Пере)рисовать калькулятор для текущего выбора. Вызывается при смене
-     выбора и при открытии вкладки «Калькулятор». */
-  function renderCalc(ids) {
-    if (!calcWrap || !calcListEl) return;
-    calcWrap.hidden = !(ids && ids.length);
-    if (!ids || !ids.length) {
-      calcListEl.innerHTML = '';
-      calcSummaryListEl.innerHTML = '';
-      calcAlertsEl.innerHTML = '';
-      calcErrorsEl.innerHTML = '';
-      return;
-    }
-    loadCalcData().then(function () {
-      /* Список строится по текущему выбору, а не по ids из момента
-         вызова: пока грузились данные, пользователь мог снять или
-         добавить галочку, и список откатился бы к старому набору. */
-      buildCalcUi(selectedIds());
+  /* Полные данные нужны для дозировки и форм. Грузим их только когда в
+     таблице есть хоть одна добавка, и перерисовываем таблицу, когда они
+     приедут. */
+  function ensureFullData() {
+    if (fullData || fullDataPromise) return;
+    loadFullData().then(function () {
+      renderOverview(selectedIds());
     });
   }
 
-  /* Реактивность: при смене выбора (галочка в левой панели) перерисовываем
-     калькулятор; при открытии вкладки — тоже. С H-9 калькулятор — секция
-     внутри «Обзора», поэтому перерисовка идёт по режиму 'overview'. */
-  subscribe('change', function (ids) {
-    renderCalc(ids || []);
-  });
-  subscribe('mode', function (mode) {
-    if (mode === 'overview') renderCalc(selectedIds());
-  });
-
-  /* ──────────────────── вкладка «Сравнение» (H-8) ────────────────────
-   *
-   * Таблица side-by-side по выбранным добавкам: по строкам — параметры
-   * (грейд доказательности, эффекты, дозировка, взаимодействия
-   * с лекарствами), по столбцам — сами добавки.
-   *
-   * В самом низу таблицы — ряд кнопок «Купить» (Ozon, Wildberries,
-   * Яндекс.Маркет). Без них воронка обрывалась на шаге «Сравнение»:
-   * сравнивать было некуда идти (баг P2-03).
-   *
-   * На узких экранах таблицу сменяют вертикальные карточки — колонки
-   * не помещаются, а горизонтальная прокрутка всей страницы ломает
-   * мобильную вёрстку. Рисует карточки тот же код, что и таблицу.
-   */
-
-  /* Полный data.json для сравнения: id добавки → запись. Заполняется
-     лениво, первым же открытием вкладки «Сравнение». */
-  var compareData = null;
-  var compareDataPromise = null;
-
-  /* Магазины: ссылка на поиск товара по названию добавки. Ссылки
-     открываются в новой вкладке, поэтому rel="noopener nofollow"
-     обязателен (иначе страница магазина получит доступ к window.opener). */
-  var COMPARE_SHOPS = [
-    { label: 'Ozon', base: 'https://www.ozon.ru/search/?text=' },
-    { label: 'Wildberries', base: 'https://www.wildberries.ru/catalog/0/search.aspx?search=' },
-    { label: 'Яндекс.Маркет', base: 'https://market.yandex.ru/search?text=' }
-  ];
-
-  /* Тяжесть взаимодействия: подпись и класс .sev из style.css. */
-  var COMPARE_SEVERITY = {
-    critical: { label: 'критический риск', cls: 'sev-critical' },
-    high: { label: 'высокий риск', cls: 'sev-high' },
-    medium: { label: 'средний риск', cls: 'sev-medium' },
-    low: { label: 'низкий риск', cls: 'sev-low' }
-  };
-
-  /* Полная запись добавки для сравнения. Всё, кроме дозировки и форм,
-     лежит в облегчённом data_index.json; дозировка — только в data.json,
-     поэтому она подтягивается отдельным запросом (loadCompareData). */
-  function compareRecord(id) {
-    var full = compareData && compareData[id] ? compareData[id] : null;
+  /* Запись добавки для таблицы: облегчённые данные плюс полные. */
+  function ovRecord(id) {
     var light = supById[id] || null;
+    var full = (fullData && fullData[id]) ? fullData[id] : null;
     var grade = String((light && light.grade) || (full && full.grade) || 'D').toUpperCase();
     if (!GRADE_LABEL[grade]) grade = 'D';
     return {
@@ -1772,7 +1625,8 @@
       effects: (light && light.effects) || (full && full.effects) || [],
       interactions: (light && light.interactions) || (full && full.interactions) || [],
       dosage: full ? String(full.dosage || '') : '',
-      forms: full ? String(full.forms || '') : ''
+      forms: full ? String(full.forms || '') : '',
+      upperLimit: String((light && light.upper_limit) || (full && full.upper_limit) || '')
     };
   }
 
@@ -1780,68 +1634,200 @@
      несколько («капсулы, порошок»), берём первую — иначе запрос
      превратится в «Магний капсулы, порошок» и магазин не найдёт
      ничего. */
-  function compareQuery(rec) {
+  function shopQuery(rec) {
     var parts = String(rec.forms || '').split(',');
     var form = String(parts[0] || '').trim();
     return form ? (rec.name + ' ' + form) : rec.name;
   }
 
-  /* Ячейка «Грейд доказательности»: цветной бейдж + расшифровка. */
-  function compareGradeCell(rec) {
+  /* Доза по записи: значение (введённое или справочное), единица,
+     диапазон из справочника и верхняя суточная норма. */
+  function doseInfo(rec) {
+    var parsed = parseDosage(rec.dosage || '');
+    var ul = parseUpperLimit(rec.upperLimit || '');
+    var ulMg = ul ? toMg(ul.mg, ul.unit) : null;
+    var state = doseInputs[rec.id] || {};
+    var defaultRaw = (parsed && parsed.value != null) ? String(parsed.value) : '';
+    var raw = state.raw !== undefined ? state.raw : defaultRaw;
+    var n = parseNum(raw);
+    /* Пустое поле — не ошибка (пользователь просто не ввёл дозу).
+       Буквы и минус — ошибка (U2-02). */
+    var bad = !!(state.touched && raw !== '' &&
+                 (!DOSE_RE.test(String(raw).trim()) || isNaN(n) || n < 0));
+    var empty = (raw === '');
+    /* Превышение нормы сравниваем в миллиграммах: введённая доза и UL
+     лежат в разных единицах (г против мг), сравнение «как есть» врало. */
+    var enteredMg = (!empty && !isNaN(n) && parsed) ? toMg(n, parsed.unit) : null;
+    var over = !!(ulMg != null && enteredMg != null && enteredMg > ulMg);
+    return {
+      raw: raw,
+      value: n,
+      empty: empty,
+      bad: bad,
+      unit: parsed ? parsed.unit : '',
+      min: parsed ? parsed.min : null,
+      max: parsed ? parsed.max : null,
+      ulMg: ulMg,
+      ulUnit: ul ? ul.unit : '',
+      over: over
+    };
+  }
+
+  /* ── ячейки строк ────────────────────────────────────────────────────── */
+
+  /* Грейд: цветной бейдж + расшифровка. */
+  function ovGradeCell(rec) {
     var label = GRADE_LABEL[rec.grade];
     return '<span class="grade g' + rec.grade + '" aria-hidden="true"' +
            ' title="Грейд ' + rec.grade + ' — ' + esc(label) + '">' +
-           rec.grade + '</span> <span class="hactar-compare-inline">' +
+           rec.grade + '</span> <span class="hactar-ov-inline">' +
            esc(label) + '</span>';
   }
 
-  /* Ячейка «Эффекты»: короткий список заявленных эффектов. */
-  function compareEffectsCell(rec) {
+  /* Эффекты: короткий список заявленных эффектов. */
+  function ovEffectsCell(rec) {
     var list = rec.effects || [];
     if (!list.length) {
-      return '<span class="hactar-compare-none">не указаны</span>';
+      return '<span class="hactar-ov-none">не указаны</span>';
     }
-    var html = '<ul class="hactar-compare-list">';
+    var html = '<ul class="hactar-ov-list">';
     for (var i = 0; i < list.length; i++) {
       html += '<li>' + esc(list[i]) + '</li>';
     }
     return html + '</ul>';
   }
 
-  /* Ячейка «Дозировка»: из data.json, до его загрузки — прочерк. */
-  function compareDosageCell(rec) {
-    if (!rec.dosage) {
-      return '<span class="hactar-compare-none">не указана</span>';
-    }
-    return esc(rec.dosage);
+  /* Доза: поле ввода, единица, диапазон из справочника и статус нормы.
+     Ошибка ввода (U2-02) подсвечивает поле красной рамкой. */
+  function ovDoseCell(rec) {
+    var d = doseInfo(rec);
+    var id = esc(rec.id);
+    var unit = d.unit ? esc(d.unit) : '';
+    var cls = 'hactar-ov-dose-input' + (d.bad ? ' hactar-ov-dose-input-bad' : '');
+    return '<div class="hactar-ov-dose">' +
+             '<div class="hactar-ov-dose-field">' +
+               '<input type="text" inputmode="decimal" class="' + cls + '"' +
+                 ' data-id="' + id + '" value="' + esc(d.raw) + '"' +
+                 ' aria-label="Доза: ' + esc(rec.name) + '">' +
+               (unit ? '<span class="hactar-ov-dose-unit">' + unit + '</span>' : '') +
+             '</div>' +
+             '<div class="hactar-ov-dose-meta">' + ovDoseMeta(rec, d) + '</div>' +
+           '</div>';
   }
 
-  /* Ячейка «Взаимодействия с лекарствами»: препарат + тяжесть риска. */
-  function compareInteractionsCell(rec) {
+  /* Подпись под полем дозы: диапазон справочника, статус нормы и ошибка
+     ввода. Живёт отдельно от <input>, чтобы перерисовка статуса не
+     трогала само поле — иначе потерялся бы фокус и набор текста. */
+  function ovDoseMeta(rec, d) {
+    var html = '';
+    if (d.min != null && d.max != null && d.min !== d.max) {
+      html += '<span class="hactar-ov-dose-norm">норма ' +
+        esc(String(d.min).replace('.', ',')) + '–' +
+        esc(String(d.max).replace('.', ',')) + ' ' + esc(d.unit) + '</span>';
+    }
+    if (d.bad) {
+      html += '<span class="hactar-ov-dose-err">Ошибка: введите число' +
+        (d.unit ? ' в ' + esc(d.unit) : '') + '</span>';
+    } else if (d.empty) {
+      html += '<span class="hactar-ov-dose-ok">доза не задана</span>';
+    } else if (d.over) {
+      html += '<span class="hactar-ov-dose-warn">⚠️ превышена суточная норма ' +
+        esc(String(d.ulMg).replace('.', ',')) + ' ' + esc(d.ulUnit) + '</span>';
+    } else if (d.ulMg != null) {
+      html += '<span class="hactar-ov-dose-ok">в пределах нормы</span>';
+    } else {
+      html += '<span class="hactar-ov-dose-ok">суточная норма не указана</span>';
+    }
+    return html;
+  }
+
+  /* Взаимодействия с лекарствами: препарат + чип тяжести риска. */
+  function ovDrugsCell(rec) {
     var list = rec.interactions || [];
     if (!list.length) {
-      return '<span class="hactar-compare-none">не выявлены</span>';
+      return '<span class="hactar-ov-none">не выявлены</span>';
     }
-    var html = '<ul class="hactar-compare-list">';
+    var html = '<ul class="hactar-ov-list">';
     for (var i = 0; i < list.length; i++) {
       var it = list[i] || {};
-      var sev = COMPARE_SEVERITY[it.severity] || COMPARE_SEVERITY.medium;
+      var sev = OV_SEVERITY[String(it.severity || '').toLowerCase()] ||
+                OV_SEVERITY.medium;
       html += '<li><span class="sev ' + sev.cls + '">' + esc(sev.label) + '</span>' +
-              ' <span class="hactar-compare-inline">' + esc(it.with || '') + '</span>' +
-              (it.note ? ' <span class="hactar-compare-inline">— ' +
+              ' <span class="hactar-ov-inline">' + esc(it.with || '') + '</span>' +
+              (it.note ? ' <span class="hactar-ov-inline">— ' +
                          esc(it.note) + '</span>' : '') +
               '</li>';
     }
     return html + '</ul>';
   }
 
-  /* Ячейка «Купить»: ряд кнопок-чипов со ссылками на магазины. */
-  function compareBuyCell(rec) {
-    var q = encodeURIComponent(compareQuery(rec));
-    var html = '<div class="hactar-shop-chips">';
-    for (var i = 0; i < COMPARE_SHOPS.length; i++) {
-      var shop = COMPARE_SHOPS[i];
-      html += '<a class="hactar-shop-chip" href="' + shop.base + q + '"' +
+  /* Конфликты между двумя добавками: ищем в поле interactions записи,
+     где «with» называет другую выбранную добавку. В данных interactions
+     описывает лекарства, поэтому совпадений сейчас нет; проверка
+     оставлена — если в базе появится пара добавок, она покажется сразу
+     и без правок кода. */
+  function ovBetweenConflicts(rec, otherId) {
+    var other = ovRecord(otherId);
+    var names = [String(otherId || ''), String(other.name || '')];
+    var out = [];
+    var list = rec.interactions || [];
+    for (var i = 0; i < list.length; i++) {
+      var it = list[i] || {};
+      var w = String(it.with || '').trim().toLowerCase();
+      if (!w) continue;
+      for (var j = 0; j < names.length; j++) {
+        if (w === String(names[j] || '').trim().toLowerCase()) {
+          out.push({ other: other, severity: it.severity, note: it.note });
+          break;
+        }
+      }
+    }
+    return out;
+  }
+
+  /* Взаимодействия между добавками. Конфликт — предупреждение (⚠️).
+     Общие мишени и общий механизм — нейтральная справка из мастер-графа
+     (те же данные, что рисует вкладка «Связи»). */
+  function ovBetweenCell(rec, ids) {
+    var others = [];
+    for (var i = 0; i < ids.length; i++) {
+      if (ids[i] !== rec.id) others.push(ids[i]);
+    }
+    if (!others.length) {
+      return '<span class="hactar-ov-none">нужна ещё одна добавка</span>';
+    }
+    var html = '';
+    var conflicts = 0;
+    for (var j = 0; j < others.length; j++) {
+      var other = ovRecord(others[j]);
+      var cf = ovBetweenConflicts(rec, others[j]);
+      for (var k = 0; k < cf.length; k++) {
+        conflicts++;
+        html += '<span class="hactar-ov-conflict">⚠️ ' + esc(rec.name) +
+          ' и ' + esc(other.name) +
+          (cf[k].note ? ': ' + esc(cf[k].note) : '') + '</span>';
+      }
+      if (!cf.length) {
+        var basis = sharedBasis(rec.id, others[j]);
+        if (basis) {
+          html += '<span class="hactar-ov-rel">' + esc(rec.name) + ' и ' +
+            esc(other.name) + ': ' + esc(basis) + '</span>';
+        }
+      }
+    }
+    if (!conflicts) {
+      html += '<span class="hactar-ov-none">Конфликтов не обнаружено</span>';
+    }
+    return html;
+  }
+
+  /* Где купить: чипы магазинов для этой добавки. */
+  function ovBuyCell(rec) {
+    var q = encodeURIComponent(shopQuery(rec));
+    var html = '<div class="hactar-ov-shops">';
+    for (var i = 0; i < SHOPS.length; i++) {
+      var shop = SHOPS[i];
+      html += '<a class="hactar-ov-shop" href="' + shop.base + q + '"' +
               ' target="_blank" rel="noopener nofollow"' +
               ' aria-label="Купить ' + esc(rec.name) + ' на ' +
               esc(shop.label) + '">' + esc(shop.label) + '</a>';
@@ -1849,295 +1835,132 @@
     return html + '</div>';
   }
 
-  /* Строки таблицы: подпись параметра и функция ячейки. */
-  var COMPARE_ROWS = [
-    { label: 'Грейд доказательности', cell: compareGradeCell },
-    { label: 'Эффекты', cell: compareEffectsCell },
-    { label: 'Дозировка', cell: compareDosageCell },
-    { label: 'Взаимодействия с лекарствами', cell: compareInteractionsCell },
-    { label: 'Купить', cell: compareBuyCell }
+  /* ── строки таблицы ───────────────────────────────────────────────────
+   *
+   * Единственное место, где перечислены строки обзора. Чтобы добавить
+   * новую (цена, таймлайн, безопасность), достаточно дописать объект с
+   * key / label / render — таблица соберётся сама. */
+  var OVERVIEW_ROWS = [
+    { key: 'grade', label: 'Грейд', render: function (rec) { return ovGradeCell(rec); } },
+    { key: 'effects', label: 'Эффекты', render: function (rec) { return ovEffectsCell(rec); } },
+    { key: 'dosage', label: 'Дозы', render: function (rec) { return ovDoseCell(rec); } },
+    { key: 'interactions_drugs', label: 'Взаимодействия с лекарствами',
+      render: function (rec) { return ovDrugsCell(rec); } },
+    { key: 'interactions_between', label: 'Взаимодействия между добавками',
+      render: function (rec, ids) { return ovBetweenCell(rec, ids); } },
+    { key: 'buy', label: 'Где купить', render: function (rec) { return ovBuyCell(rec); } }
   ];
 
-  /* Шапка таблицы: «Параметр» + по колонке на добавку. */
-  function compareHeadHtml(recs) {
-    var html = '<th scope="col" class="hactar-compare-param">Параметр</th>';
+  /* ── сборка таблицы ──────────────────────────────────────────────────── */
+
+  /* Шапка: «Параметр» и по колонке на добавку (её название). */
+  function ovHeadHtml(recs) {
+    var html = '<th scope="col" class="hactar-ov-param">Параметр</th>';
     for (var i = 0; i < recs.length; i++) {
-      html += '<th scope="col" class="hactar-compare-sup">' +
-              esc(recs[i].name) + '</th>';
+      html += '<th scope="col" class="hactar-ov-sup">' + esc(recs[i].name) + '</th>';
     }
     return html;
   }
 
-  /* Тело таблицы: по строке на параметр, по ячейке на добавку. */
-  function compareBodyHtml(recs) {
+  /* Тело: по строке на элемент OVERVIEW_ROWS, по ячейке на добавку. */
+  function ovBodyHtml(recs, ids) {
     var html = '';
-    for (var i = 0; i < COMPARE_ROWS.length; i++) {
-      /* Атрибут scope со значением row не пишем: аудит классов считает
-         любой такой литерал в JS-шаблоне именем класса и оживляет .row
-         из мёртвого списка. Заголовок строки и так читается как
-         заголовок — это <th> в первом столбце. Так же сделано на
-         странице compare.html. */
-      html += '<tr><th class="hactar-compare-rowhead">' +
-              esc(COMPARE_ROWS[i].label) + '</th>';
+    for (var i = 0; i < OVERVIEW_ROWS.length; i++) {
+      var row = OVERVIEW_ROWS[i];
+      html += '<tr data-ov-row="' + esc(row.key) + '">' +
+                '<th class="hactar-ov-rowhead">' + esc(row.label) + '</th>';
       for (var j = 0; j < recs.length; j++) {
-        html += '<td class="hactar-compare-cell">' +
-                COMPARE_ROWS[i].cell(recs[j]) + '</td>';
+        html += '<td class="hactar-ov-cell">' + row.render(recs[j], ids) + '</td>';
       }
       html += '</tr>';
     }
     return html;
   }
 
-  /* Карточка для мобильного: те же параметры, но вертикальным списком. */
-  function compareCardRow(label, valueHtml) {
-    return '<div class="hactar-compare-cardrow">' +
-             '<span class="hactar-compare-cardlabel">' + esc(label) + '</span>' +
-             '<span class="hactar-compare-cardvalue">' + valueHtml + '</span>' +
-           '</div>';
-  }
-
-  function compareCardsHtml(recs) {
-    var html = '';
-    for (var i = 0; i < recs.length; i++) {
-      var rec = recs[i];
-      html += '<div class="hactar-compare-card">' +
-              '<div class="hactar-compare-cardhead">' +
-                '<span class="grade g' + rec.grade + '" aria-hidden="true">' +
-                  rec.grade + '</span>' +
-                '<span class="hactar-compare-cardname">' + esc(rec.name) + '</span>' +
-              '</div>' +
-              compareCardRow('Грейд доказательности',
-                             '<span class="hactar-compare-inline">' +
-                               esc(GRADE_LABEL[rec.grade]) + '</span>') +
-              compareCardRow('Эффекты', compareEffectsCell(rec)) +
-              compareCardRow('Дозировка', compareDosageCell(rec)) +
-              compareCardRow('Взаимодействия', compareInteractionsCell(rec)) +
-              compareCardRow('Купить', compareBuyCell(rec)) +
-              '</div>';
-    }
-    return html;
-  }
-
-  /* Согласование слова «добавка» с числом: 1 добавка, 2-4 добавки,
-     5+ добавок. Без этого в подписи вылезало «Сравниваем 2 добавок». */
-  function comparePlural(n) {
-    var n10 = n % 10;
-    var n100 = n % 100;
-    if (n10 === 1 && n100 !== 11) return 'добавка';
-    if (n10 >= 2 && n10 <= 4 && (n100 < 12 || n100 > 14)) return 'добавки';
-    return 'добавок';
-  }
-
-  /* Перерисовка вкладки «Сравнение».
-     Ноль выбранных — пустое состояние (H-4) показывает сам разметчик,
-     здесь только прячем блок. Одна добавка — подсказка «выберите ещё».
-     Две и больше — таблица (на широком экране) или карточки (на узком).
-     Обе формы рисуются всегда: так переключение брейкпоинта не требует
-     перезагрузки данных, а скрытая копия не мешает скринридеру
-     (атрибут hidden убирает её из дерева доступности). */
-  function renderCompare(ids) {
-    if (!compareWrap) return;
+  /* Перерисовать таблицу «Обзор» под текущий выбор. Одна добавка — одна
+     колонка (все строки видны), ни одной — пустое состояние (H-4). */
+  function renderOverview(ids) {
     var list = ids || [];
-    var n = list.length;
-    if (!n) {
-      compareWrap.hidden = true;
-      compareHintEl.hidden = true;
-      compareScrollEl.hidden = true;
-      compareCardsEl.hidden = true;
-      compareHeadEl.innerHTML = '';
-      compareBodyEl.innerHTML = '';
-      compareCardsEl.innerHTML = '';
-      compareNoteEl.textContent = '';
+    if (overviewWrap) overviewWrap.hidden = !list.length;
+    if (!ovHeadEl || !ovBodyEl) return;
+    if (!list.length) {
+      ovHeadEl.innerHTML = '';
+      ovBodyEl.innerHTML = '';
+      if (ovNoteEl) ovNoteEl.textContent = '';
       return;
     }
-    compareWrap.hidden = false;
-    if (n < 2) {
-      compareHintEl.hidden = false;
-      compareScrollEl.hidden = true;
-      compareCardsEl.hidden = true;
-      compareHeadEl.innerHTML = '';
-      compareBodyEl.innerHTML = '';
-      compareCardsEl.innerHTML = '';
-      compareNoteEl.textContent = 'Выбрана одна добавка. Добавьте вторую — ' +
-        'и покажем сравнение по параметрам.';
-      return;
-    }
-    compareHintEl.hidden = true;
     var recs = [];
-    var i;
-    for (i = 0; i < list.length; i++) recs.push(compareRecord(list[i]));
-    compareNoteEl.textContent = 'Сравниваем ' + n + ' ' + comparePlural(n) +
-      ': по строкам — параметры, по столбцам — добавки.';
-    compareHeadEl.innerHTML = compareHeadHtml(recs);
-    compareBodyEl.innerHTML = compareBodyHtml(recs);
-    compareCardsEl.innerHTML = compareCardsHtml(recs);
-    var mobile = isMobile();
-    compareScrollEl.hidden = mobile;
-    compareCardsEl.hidden = !mobile;
+    for (var i = 0; i < list.length; i++) recs.push(ovRecord(list[i]));
+    ovHeadEl.innerHTML = ovHeadHtml(recs);
+    ovBodyEl.innerHTML = ovBodyHtml(recs, list);
+    bindDoseInputs();
+    if (ovNoteEl) ovNoteEl.textContent = ovNoteText(list);
   }
 
-  /* Данные для сравнения: полный data.json (дозировка и формы).
-     Грузится лениво — только когда вкладка «Сравнение» понадобилась,
-     чтобы не тянуть 758 КБ странице, которая туда не заходила. */
-  function loadCompareData() {
-    if (compareDataPromise) return compareDataPromise;
-    compareDataPromise = fetchJsonStatic('data.json').then(function (data) {
-      var list = supplementsOf(data);
-      var map = {};
-      for (var i = 0; i < list.length; i++) {
-        if (list[i] && list[i].id) map[list[i].id] = list[i];
-      }
-      compareData = map;
-      return map;
-    });
-    return compareDataPromise;
-  }
-
-  /* Догружаем дозировки и перерисовываем таблицу. */
-  function ensureCompareData() {
-    if (compareData || compareDataPromise) return;
-    loadCompareData().then(function () {
-      renderCompare(selectedIds());
-      /* Формы пришли вместе с data.json — перерисовываем «где купить»:
-         в запрос магазина добавляется первая форма выпуска. */
-      renderBuy(selectedIds());
-    }).catch(function (err) {
-      console.error('[hactar] не удалось загрузить данные для сравнения:', err);
-    });
-  }
-
-  /* Реактивность: при смене выбора таблица перерисовывается, при
-     открытии вкладки — тоже. Данные для дозировок тянутся только когда
-     «Обзор» открыт: пока он не нужен, 758 КБ data.json никому не
-     должны. С H-9 сравнение — секция внутри «Обзора». */
-  subscribe('change', function (ids) {
-    renderCompare(ids || []);
-    if (currentMode === 'overview') ensureCompareData();
-  });
-  subscribe('mode', function (mode) {
-    if (mode === 'overview') {
-      renderCompare(selectedIds());
-      ensureCompareData();
-    }
-  });
-
-  /* Смена ширины окна (поворот телефона, поворот планшета) меняет
-     представление: таблица ↔ карточки. */
-  if (window.matchMedia) {
-    var compareMq = window.matchMedia('(max-width: ' + MOBILE_BP + 'px)');
-    var onCompareBreak = function () { renderCompare(selectedIds()); };
-    if (compareMq.addEventListener) compareMq.addEventListener('change', onCompareBreak);
-    else if (compareMq.addListener) compareMq.addListener(onCompareBreak);
-  }
-
-  /* ──────────────────────────── H-9: вкладка «Обзор» ────────────────────────────
-   *
-   * Четыре секции на одной странице: «Сводка стека», «Дозы и нормы»,
-   * «Сравнение» и «Где купить». Первые две трети наполняют renderCalc
-   * и renderCompare (H-7, H-8) — их разметка просто переехала внутрь
-   * панели «Обзор». Сводка и магазины рисуются здесь.
-   */
-
-  /* Числовое значение грейда: A — 4, B — 3, C — 2, D — 1. */
-  var GRADE_VALUE = { A: 4, B: 3, C: 2, D: 1 };
-
-  /* Грейд добавки из облегчённых данных. '' — грейд неизвестен. */
-  function gradeOf(id) {
-    var rec = supById[id] || null;
-    var g = String((rec && rec.grade) || '').toUpperCase();
-    return GRADE_VALUE[g] ? g : '';
-  }
-
-  /* Сводка стека: сколько добавок выбрано, какой у них средний грейд
-     и сколько из них с сильными доказательствами. Плитки с грейдом
-     показываются, только если грейды известны: иначе «—» ничего
-     не сообщает пользователю. */
-  function renderOverviewSummary(ids) {
-    if (!overviewSummaryEl) return;
-    var list = ids || [];
+  /* Подпись над таблицей: сколько добавок и какой средний грейд. */
+  function ovNoteText(ids) {
+    var GRADE_VALUE = { A: 4, B: 3, C: 2, D: 1 };
     var sum = 0;
     var withGrade = 0;
-    var strong = 0;
-    var i;
-    for (i = 0; i < list.length; i++) {
-      var g = gradeOf(list[i]);
-      if (!g) continue;
-      sum += GRADE_VALUE[g];
-      withGrade++;
-      if (g === 'A') strong++;
+    for (var i = 0; i < ids.length; i++) {
+      var g = ovRecord(ids[i]).grade;
+      if (GRADE_VALUE[g]) {
+        sum += GRADE_VALUE[g];
+        withGrade++;
+      }
     }
-    var html = '<div class="hactar-ov-stat">' +
-      '<span class="hactar-ov-stat-label">Добавок в стеке</span>' +
-      '<span class="hactar-ov-stat-value">' + list.length + '</span>' +
-      '</div>';
+    var text = ids.length + ' ' + ovPlural(ids.length, 'добавка', 'добавки', 'добавок');
     if (withGrade) {
-      /* Средний грейд — округление среднего арифметического: A+B -> B,
-         C+D -> C. Класть букву, которой в стеке нет, нельзя — показываем
-         ближайшую к средней, но не лучше лучшей. */
       var avg = Math.round(sum / withGrade);
       if (avg < 1) avg = 1;
       if (avg > 4) avg = 4;
       var letter = avg >= 4 ? 'A' : (avg === 3 ? 'B' : (avg === 2 ? 'C' : 'D'));
-      html += '<div class="hactar-ov-stat">' +
-        '<span class="hactar-ov-stat-label">Средний грейд</span>' +
-        '<span class="hactar-ov-stat-value">' + letter + '</span>' +
-        '<span class="hactar-ov-stat-sub">' + esc(GRADE_LABEL[letter]) + '</span>' +
-        '</div>';
+      text += ' · средний грейд ' + letter;
     }
-    if (strong) {
-      html += '<div class="hactar-ov-stat">' +
-        '<span class="hactar-ov-stat-label">С грейдом A</span>' +
-        '<span class="hactar-ov-stat-value">' + strong + '</span>' +
-        '<span class="hactar-ov-stat-sub">' + esc(GRADE_LABEL.A) + '</span>' +
-        '</div>';
-    }
-    overviewSummaryEl.innerHTML = html;
+    return text;
   }
 
-  /* «Где купить»: чипы магазинов для каждой выбранной добавки. Ссылки
-     ведут на поиск товара по названию добавки и её форме (форма приходит
-     из data.json; пока её нет — ищем по названию). */
-  function renderBuy(ids) {
-    if (!overviewBuyEl) return;
-    var list = ids || [];
-    if (!list.length) {
-      overviewBuyEl.innerHTML = '';
-      overviewBuyEl.hidden = true;
-      return;
-    }
-    overviewBuyEl.hidden = false;
-    var html = '';
-    for (var i = 0; i < list.length; i++) {
-      var rec = compareRecord(list[i]);
-      var q = encodeURIComponent(compareQuery(rec));
-      html += '<div class="hactar-ov-buyrow">' +
-                '<span class="hactar-ov-buyname">' + esc(rec.name) + '</span>' +
-                '<span class="hactar-shop-chips">';
-      for (var j = 0; j < COMPARE_SHOPS.length; j++) {
-        var shop = COMPARE_SHOPS[j];
-        html += '<a class="hactar-shop-chip" href="' + shop.base + q + '"' +
-                ' target="_blank" rel="noopener nofollow"' +
-                ' aria-label="Купить ' + esc(rec.name) + ' на ' +
-                esc(shop.label) + '">' + esc(shop.label) + '</a>';
-      }
-      html += '</span></div>';
-    }
-    overviewBuyEl.innerHTML = html;
+  /* Согласование слова «добавка» с числом: 1 добавка, 2-4 добавки,
+     5+ добавок. Без этого в подписи вылезало «2 добавок». */
+  function ovPlural(n, one, few, many) {
+    var n10 = n % 10;
+    var n100 = n % 100;
+    if (n10 === 1 && n100 !== 11) return one;
+    if (n10 >= 2 && n10 <= 4 && (n100 < 12 || n100 > 14)) return few;
+    return many;
   }
 
-  /* Обзор целиком: блок показывается, когда выбрана хотя бы одна
-     добавка; пустое состояние (H-4) показывает сам разметчик. */
-  function renderOverview(ids) {
-    var list = ids || [];
-    if (overviewWrap) overviewWrap.hidden = !(list.length);
-    renderOverviewSummary(list);
-    renderBuy(list);
+  /* Поля дозы: обработчик ввода. */
+  function bindDoseInputs() {
+    if (!ovBodyEl) return;
+    var inputs = ovBodyEl.querySelectorAll('.hactar-ov-dose-input');
+    for (var i = 0; i < inputs.length; i++) {
+      inputs[i].addEventListener('input', onDoseInput);
+    }
   }
 
-  /* Реактивность: сводка и магазины перерисовываются при смене выбора
-     и при открытии вкладки «Обзор». */
+  /* Ввод дозы: ловим буквы и минус (U2-02). Перерисовывается только
+     подпись под полем — само поле не трогаем, иначе потерялся бы фокус
+     и набор текста. */
+  function onDoseInput(e) {
+    var t = e.target;
+    var id = t.getAttribute('data-id');
+    if (!id) return;
+    var raw = t.value;
+    var n = parseNum(raw);
+    var bad = (raw !== '' && (!DOSE_RE.test(String(raw).trim()) || isNaN(n) || n < 0));
+    doseInputs[id] = { raw: raw, value: bad ? '' : String(n), touched: true, bad: bad };
+    t.classList.toggle('hactar-ov-dose-input-bad', !!bad);
+    var wrap = t.closest ? t.closest('.hactar-ov-dose') : null;
+    var meta = wrap ? wrap.querySelector('.hactar-ov-dose-meta') : null;
+    if (meta) meta.innerHTML = ovDoseMeta(ovRecord(id), doseInfo(ovRecord(id)));
+  }
+
+  /* Реактивность: таблица перерисовывается при смене выбора и при
+     открытии вкладки «Обзор». */
   subscribe('change', function (ids) {
     renderOverview(ids || []);
+    if ((ids || []).length) ensureFullData();
   });
   subscribe('mode', function (mode) {
     if (mode === 'overview') renderOverview(selectedIds());
@@ -2163,13 +1986,10 @@
          восстановленного: переход со страницы добавки не должен терять
          то, что пользователь уже отметил. */
       applyUrlSelection();
-      /* H-7: отрисовать калькулятор для уже выбранных (восстановленных) добавок. */
-      renderCalc(selectedIds());
-      /* H-8: то же для сравнения — при прямом заходе по ?tab=overview. */
-      renderCompare(selectedIds());
-      /* H-9: сводка стека и «где купить» — третья и четвёртая секции. */
+      /* H-10: единая таблица «Обзор» для уже выбранных (восстановленных)
+         добавок. Полные данные (дозировки, формы) догружаются лениво. */
       renderOverview(selectedIds());
-      if (currentMode === 'overview') ensureCompareData();
+      if (selectedIds().length) ensureFullData();
     })
     .catch(function (err) {
       console.error('[hactar] не удалось загрузить список добавок:', err);
@@ -2213,27 +2033,16 @@
         ready: graphReady
       };
     },
-    /* H-8: состояние секции «Сравнение» — сколько добавок в сравнении,
-       что показано (таблица / карточки / подсказка) и загружены ли
-       дозировки. Нужно для отладки и автотестов. */
-    compareState: function () {
-      var mobile = isMobile();
-      return {
-        selected: selectedIds().length,
-        visible: !!(compareWrap && !compareWrap.hidden),
-        hint: !!(compareHintEl && !compareHintEl.hidden),
-        view: mobile ? 'cards' : 'table',
-        dataLoaded: !!compareData
-      };
-    },
-    /* H-9: состояние вкладки «Обзор» — видна ли она, что в сводке
-       и сколько чипов магазинов в секции «Где купить». */
+    /* H-10: состояние единой таблицы «Обзор» — видна ли, сколько
+       колонок (выбранных добавок) и строк (OVERVIEW_ROWS) и загружены ли
+       полные данные (дозировки и формы). Нужно для отладки и автотестов. */
     overviewState: function () {
       return {
         visible: !!(overviewWrap && !overviewWrap.hidden),
-        stats: overviewSummaryEl ? overviewSummaryEl.children.length : 0,
-        buys: overviewBuyEl ? overviewBuyEl.children.length : 0,
-        sections: 4
+        columns: ovHeadEl ? ovHeadEl.children.length - 1 : 0,
+        rows: OVERVIEW_ROWS.length,
+        rowKeys: OVERVIEW_ROWS.map(function (r) { return r.key; }),
+        dataLoaded: !!fullData
       };
     },
     clearSelection: function () {
