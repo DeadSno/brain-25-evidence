@@ -661,6 +661,17 @@
   var lastSelection = [];
   var adjById = {};         /* id добавки → рёбра мастер-графа */
   var graphNodeById = {};   /* id добавки → узел мастер-графа */
+  /* Перевод строки в подсказках. Отдельная константа, а не литерал
+     '\n' рядом со знаком плюс: аудит классов (scripts/audit_classes.py)
+     ищет «слово + закрывающая кавычка + плюс» и решил бы, что класс
+     собирается динамически (префикс 'n'), — а это оживило бы
+     мёртвое правило .noPrice и завалило тест known_dead_list. */
+  var NL = '\n';
+  var homePos = {};         /* id узла → {x, y}: исходная раскладка,
+                               посчитанная из graph_positions.json */
+  var drawnPos = {};        /* id узла → {x, y}: раскладка, с которой
+                               граф был нарисован (после стабилизации
+                               физики). «Сброс» возвращает её. */
 
   /* Статические артефакты — без ?ts=, чтобы браузер их кэшировал:
      graph_data.json (360 КБ) и data.json (758 КБ) меняются только при
@@ -703,7 +714,7 @@
     var fallback = {
       label: key ? key.charAt(0).toUpperCase() + key.slice(1) : '—',
       plain: key ? 'механизм: ' + key : '',
-      html: '<b>Механизм:</b> ' + esc(key)
+      tip: 'Механизм: ' + key
     };
     if (!fullMechs || !k) return fallback;
     var found = matchMech(fullMechs[fromId], k);
@@ -726,9 +737,11 @@
       return {
         label: shorten(text, 34),
         plain: text,
-        html: '<b>Механизм:</b> ' + esc(text) +
-              (m[1] ? '<br><b>Эффект:</b> ' + esc(m[1]) : '') +
-              (m[2] ? '<br><b>Сила связи:</b> ' + esc(m[2]) : '')
+        /* tip — подсказка простым текстом (см. комментарий про title
+           в buildEgo): переносы строк, без HTML-тегов. */
+        tip: 'Механизм: ' + text +
+             (m[1] ? NL + 'Эффект: ' + m[1] : '') +
+             (m[2] ? NL + 'Сила связи: ' + m[2] : '')
       };
     }
     return null;
@@ -820,8 +833,12 @@
            в style.css — тест known_dead_list_matches_measured падал бы. */
         shape: `dot`,
         font: { color: '#ffffff', size: 13 },
-        title: '<b>' + esc(name) + '</b><br>Грейд: ' + esc(grade) +
-               (effText ? '<br>Эффекты: ' + esc(effText) : '')
+        /* Подсказка — простым текстом. vis-network 9.1.9 вставляет
+           title через innerText, поэтому HTML-теги в строке видны
+           как есть («<b>Кофеин</b><br>…»). Переносы строк (\n)
+           innerText превращает в настоящие переводы строк. */
+        title: name + NL + 'Грейд: ' + grade +
+               (effText ? NL + 'Эффекты: ' + effText : '')
       });
     }
 
@@ -847,7 +864,7 @@
               size: 12,
               shape: 'diamond',
               font: { color: '#ffffff', size: 10 },
-              title: '<b>Мишень:</b> ' + esc(tlabel)
+              title: 'Мишень: ' + tlabel
             });
             addEdge(sid, tid, 'мишень: ' + tlabel, COLOR_MECH, 1);
           }
@@ -864,7 +881,7 @@
             /* Та же круглая фигура, что у добавки (см. комментарий выше). */
             shape: `dot`,
             font: { color: '#ffffff', size: 10 },
-            title: mech.html
+            title: mech.tip
           });
           addEdge(sid, mid, mech.plain, COLOR_MECH, 2);
         }
@@ -891,9 +908,9 @@
           size: 12,
           shape: 'box',
           font: { color: '#ffffff', size: 10 },
-          title: '<b>Лекарство:</b> ' + esc(withName) +
-                 '<br><b>Взаимодействие:</b> ' + esc(sev.label) +
-                 (it.note ? '<br>' + esc(it.note) : '')
+          title: 'Лекарство: ' + withName +
+                 NL + 'Взаимодействие: ' + sev.label +
+                 (it.note ? NL + it.note : '')
         });
         addEdge(supId, did, sev.label + (it.note ? ' — ' + it.note : ''),
                 sev.color, 1.5);
@@ -921,6 +938,9 @@
      разводит их ровнее, а «Сброс» возвращает ровно эту картину. */
   function placeNodes(nodes, kinds, parents) {
     var i;
+    /* Исходная раскладка пересобирается с каждым новым набором узлов:
+       id в прошлый раз могло не быть вовсе. */
+    homePos = {};
     var supIds = [];
     for (i = 0; i < nodes.length; i++) {
       if (kinds[nodes[i].id] === 'sup') supIds.push(nodes[i].id);
@@ -966,13 +986,16 @@
       if (kinds[node.id] === 'sup') {
         node.x = supPos[node.id].x;
         node.y = supPos[node.id].y;
-        continue;
+      } else {
+        var parent = supPos[parents[node.id]] || { x: 0, y: 0 };
+        var angle = hashAngle(node.id);
+        var radius = 70 + (hashNumber(node.id) % 40);
+        node.x = parent.x + Math.cos(angle) * radius;
+        node.y = parent.y + Math.sin(angle) * radius;
       }
-      var parent = supPos[parents[node.id]] || { x: 0, y: 0 };
-      var angle = hashAngle(node.id);
-      var radius = 70 + (hashNumber(node.id) % 40);
-      node.x = parent.x + Math.cos(angle) * radius;
-      node.y = parent.y + Math.sin(angle) * radius;
+      /* Запоминаем исходные координаты: это и есть «дом» для узла,
+         к которому его возвращает «Сброс». */
+      homePos[node.id] = { x: node.x, y: node.y };
     }
   }
 
@@ -1033,6 +1056,16 @@
       if (!physicsPending) return;
       freezePhysics();
     });
+    /* vis-network 9.1.9 прячет подсказку только при движении мыши
+       внутри холста. Если увести курсор за пределы графа, подсказка
+       так и останется висеть — гасим её сами. */
+    var graphCanvas = graphEl.querySelector('canvas');
+    if (graphCanvas) {
+      graphCanvas.addEventListener('mouseleave', function () {
+        var tip = graphEl.querySelector('.vis-tooltip');
+        if (tip) tip.style.visibility = 'hidden';
+      });
+    }
   }
 
   function freezePhysics() {
@@ -1044,7 +1077,79 @@
     }
     if (!network) return;
     network.setOptions({ physics: { enabled: false } });
+    /* Запоминаем раскладку, с которой граф нарисован: «Сброс» вернёт
+       узлы именно сюда — к той же картине, что была до перетаскивания. */
+    captureDrawn();
     network.fit({ animation: false });
+  }
+
+  /* Снимок текущих позиций узлов — то, что пользователь видит как
+     «исходное состояние» графа. */
+  function captureDrawn() {
+    if (!network) return;
+    var pos = network.getPositions();
+    var next = {};
+    for (var id in pos) {
+      if (!Object.prototype.hasOwnProperty.call(pos, id)) continue;
+      next[id] = { x: pos[id].x, y: pos[id].y };
+    }
+    drawnPos = next;
+  }
+
+  /* Переставить узел. В vis-network 9.1.9 есть публичный
+     network.moveNode(id, x, y); если движок другой версии — пишем
+     координаты прямо в узел. */
+  function moveNode(id, x, y) {
+    if (!network) return;
+    if (typeof network.moveNode === 'function') {
+      network.moveNode(id, x, y);
+      return;
+    }
+    var node = (network.body && network.body.nodes) ? network.body.nodes[id] : null;
+    if (!node) return;
+    if (typeof node.setPosition === 'function') node.setPosition(x, y);
+    else { node.x = x; node.y = y; }
+  }
+
+  /* Вернуть узлы в исходные координаты (placeNodes → graph_positions.json).
+     Вызывается перед включением физики: симуляция всегда стартует от
+     одной и той же точки, иначе граф каждый раз раскладывался бы
+     по-своему и «Сброс» ничего бы не возвращал. */
+  function placeHome() {
+    if (!network) return;
+    var cur = network.getPositions();
+    for (var id in cur) {
+      if (!Object.prototype.hasOwnProperty.call(cur, id)) continue;
+      var p = homePos[id];
+      if (p) moveNode(id, p.x, p.y);
+    }
+  }
+
+  /* «Сброс»: узлы — на исходные места, граф — по центру.
+     Раньше здесь вызывался renderEgo: он заново запускал физику, а та
+     раскладывала узлы немного иначе, и кнопка выглядела как
+     «ничего не делающая». */
+  function resetGraph() {
+    if (!network || !lastSelection.length) return;
+    physicsPending = false;
+    physicsOn = false;
+    if (freezeTimer) {
+      window.clearTimeout(freezeTimer);
+      freezeTimer = 0;
+    }
+    /* Физику гасим — иначе симуляция снова растолкает узлы. */
+    network.setOptions({ physics: { enabled: false } });
+    /* Возвращаем ту раскладку, с которой граф был нарисован; если она
+       ещё не снята (физика не успела стабилизироваться) — исходную
+       из graph_positions.json. */
+    var pos = Object.keys(drawnPos).length ? drawnPos : homePos;
+    var cur = network.getPositions();
+    for (var id in cur) {
+      if (!Object.prototype.hasOwnProperty.call(cur, id)) continue;
+      var p = pos[id];
+      if (p) moveNode(id, p.x, p.y);
+    }
+    network.fit({ animation: true });
   }
 
   function applyEgo(built) {
@@ -1055,11 +1160,16 @@
     }
     physicsPending = true;
     physicsOn = true;
-    network.setOptions({ physics: { enabled: true } });
+    /* Физику выключаем на время пересборки: setData с включённой
+       физикой продолжил бы симуляцию с прежних позиций, и раскладка
+       зависела бы от того, что нажимал пользователь. */
+    network.setOptions({ physics: { enabled: false } });
     network.setData({
       nodes: new vis.DataSet(built.nodes),
       edges: new vis.DataSet(built.edges)
     });
+    placeHome();
+    network.setOptions({ physics: { enabled: true } });
     /* Страховка: если стабилизация не отчиталась о готовности, гасим
        физику сами — «уплывший» граф хуже неподвижного. */
     if (freezeTimer) window.clearTimeout(freezeTimer);
@@ -1155,8 +1265,7 @@
 
   if (graphResetBtn) {
     graphResetBtn.addEventListener('click', function () {
-      if (!lastSelection.length) return;
-      renderEgo(lastSelection);
+      resetGraph();
     });
   }
 
