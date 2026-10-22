@@ -1,5 +1,6 @@
 /* Project Hactar — список добавок в левой панели (H-2) + фильтры,
- * сохранение выбора и полная ширина страницы (H-3).
+ * сохранение выбора и полная ширина страницы (H-3), тосты и пустые
+ * состояния (H-4).
  *
  * Задача H-2: наполнить левую панель данными. Источник — docs/data_index.json
  * (облегчённая копия docs/data.json: те же 130 записей, но только поля,
@@ -15,7 +16,9 @@
  *   6. ведёт счётчик выбранного (#hactarCount);
  *   7. сохраняет выбор в localStorage (ключ hactarSelectedIds) и
  *      восстанавливает его при загрузке страницы;
- *   8. кнопка «Очистить всё» снимает все галочки и чистит хранилище.
+ *   8. кнопка «Очистить всё» снимает все галочки и чистит хранилище;
+ *   9. H-4: показывает тост при добавлении и удалении добавки;
+ *  10. H-4: переключает пустое состояние и заглушку в правой панели.
  *
  * Связка поиска и грейда: работают ВМЕСТЕ, а не по очереди. Введён
  * «Магний» + выбран грейд «D» -> остаётся только Магний (у него грейд D).
@@ -47,6 +50,13 @@
      A/B/C/D в верхнем регистре. */
   var GRADE_ALL = 'ALL';
 
+  /* H-4: время жизни тоста. Сначала 2 секунды на экране, потом затухание
+     TOAST_FADE_MS. Всего одновременно — не больше TOAST_MAX, иначе низ
+     экрана превращается в стопку сообщений. */
+  var TOAST_MS = 2000;
+  var TOAST_FADE_MS = 350;
+  var TOAST_MAX = 3;
+
   var listEl = document.getElementById('hactarList');
   var emptyEl = document.getElementById('hactarEmpty');
   var searchEl = document.getElementById('hactarSearch');
@@ -55,6 +65,11 @@
   var sidebar = document.getElementById('hactarSidebar');
   var chipsEl = document.getElementById('hactarChips');
   var clearBtn = document.getElementById('hactarClearAll');
+  var toastsEl = document.getElementById('hactarToasts');
+  /* H-4: пустое состояние и заглушка — по одному на каждый таб. */
+  var emptyStates = document.querySelectorAll('.hactar-empty-state');
+  var stubs = document.querySelectorAll('.hactar-stub');
+  var emptyBtns = document.querySelectorAll('.hactar-empty-btn');
 
   if (!listEl) return;
 
@@ -87,6 +102,45 @@
 
   function isMobile() {
     return window.matchMedia && window.matchMedia('(max-width: ' + MOBILE_BP + 'px)').matches;
+  }
+
+  /* ──────────────────────────── тосты (H-4) ──────────────────────────── */
+
+  /* Всплывающее уведомление внизу экрана: короткий ответ на действие
+     пользователя («добавлен в стек» / «удалён из стека»).
+     kind: 'ok' — зелёная галочка, 'off' — серый крестик.
+     Своего тост-механизма в проекте нет (showUpdateToast в script.js —
+     одноразовая штука про обновление данных, она перезагружает страницу),
+     поэтому делаем локальный, только для hactar. */
+  function showToast(text, kind) {
+    if (!toastsEl) return;
+    var el = document.createElement('div');
+    el.className = 'hactar-toast';
+    if (kind === 'off') el.classList.add('hactar-toast-off');
+    else el.classList.add('hactar-toast-ok');
+    el.innerHTML = '<span class="hactar-toast-icon" aria-hidden="true">' +
+                   (kind === 'off' ? '✕' : '✓') +
+                   '</span><span class="hactar-toast-text">' + esc(text) + '</span>';
+    toastsEl.appendChild(el);
+
+    /* Больше трёх тостов сразу — визуальный шум: старые вытесняются. */
+    while (toastsEl.children.length > TOAST_MAX) {
+      toastsEl.removeChild(toastsEl.children[0]);
+    }
+
+    /* Класс состояния — на следующем кадре: иначе браузер не успевает
+       отрисовать начальное состояние и переход не проиграет. */
+    window.requestAnimationFrame(function () {
+      el.classList.add('is-in');
+    });
+
+    /* 2 секунды на экране, потом плавное затухание и удаление из DOM. */
+    window.setTimeout(function () {
+      el.classList.add('is-out');
+      window.setTimeout(function () {
+        if (el.parentNode) el.parentNode.removeChild(el);
+      }, TOAST_FADE_MS);
+    }, TOAST_MS);
   }
 
   /* ───────────────────── localStorage: чтение/запись ───────────────────── */
@@ -240,6 +294,27 @@
 
   /* ──────────────────────── счётчик выбора ──────────────────────── */
 
+  /* H-4: пустое состояние против заглушки.
+     Пока не выбрана ни одна добавка — показываем иллюстрацию с подсказкой
+     и кнопкой «Выбрать добавки». Как только что-то выбрано — вместо этого
+     показываем заглушку «Здесь будет <режим>. Выбрано добавок: N»
+     (сам контент таба ещё не реализован).
+     Состояние живёт в атрибуте hidden, а не в классе: [hidden] — это
+     единственный способ спрятать блок, о котором не знает CSS. */
+  function updateEmptyState(n) {
+    var i;
+    var label;
+    var empty = (n === 0);
+    for (i = 0; i < emptyStates.length; i++) {
+      emptyStates[i].hidden = !empty;
+    }
+    for (i = 0; i < stubs.length; i++) {
+      stubs[i].hidden = empty;
+      label = stubs[i].getAttribute('data-stub-label') || '';
+      stubs[i].textContent = 'Здесь будет ' + label + '. Выбрано добавок: ' + n;
+    }
+  }
+
   /* Возвращает число выбранных — этим же значением пользуется публичный
      API (window.Hactar.count()), поэтому возвращаем n, а не undefined. */
   function updateCount() {
@@ -249,6 +324,7 @@
       if (boxes[i].checked) n++;
     }
     if (countEl) countEl.textContent = String(n);
+    updateEmptyState(n);
     return n;
   }
 
@@ -306,8 +382,18 @@
     if (!t || !t.classList || !t.classList.contains('hactar-check')) return;
     var card = t.closest ? t.closest('.hactar-card') : null;
     if (card) card.classList.toggle('is-on', !!t.checked);
+    /* Название добавки — из data-name строки: карточка в списке может быть
+       отфильтрована, а имя в подписи нам всегда нужно для тоста. */
+    var row = t.closest ? t.closest('.hactar-row') : null;
+    var name = row ? String(row.getAttribute('data-name') || '') : '';
     updateCount();
     saveSelection();
+    /* H-4: микро-фидбек — сказать, что именно произошло. */
+    if (name) {
+      showToast(t.checked ? (name + ' добавлен в стек')
+                          : (name + ' удален из стека'),
+                t.checked ? 'ok' : 'off');
+    }
   });
 
   if (searchEl) {
@@ -344,6 +430,17 @@
     if (sidebar && isMobile()) sidebar.classList.add('open');
     searchEl.focus();
     searchEl.select();
+  }
+
+  /* H-4: кнопка «Выбрать добавки» в пустом состоянии. На десктопе она
+     просто ставит фокус в поле поиска, на мобильном — открывает шторку
+     со списком (focusSearch сам её открывает, если вьюпорт узкий).
+     Кнопок три — по одной на таб, — поэтому вешаем на каждую. */
+  for (var i = 0; i < emptyBtns.length; i++) {
+    emptyBtns[i].addEventListener('click', function (e) {
+      e.preventDefault();
+      focusSearch();
+    });
   }
 
   function clearSearch() {
