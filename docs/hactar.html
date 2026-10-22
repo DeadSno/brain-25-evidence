@@ -159,6 +159,22 @@
     .hactar-empty-btn{margin-top:var(--space-2);padding:var(--space-3) var(--space-6);min-height:44px;border:none;border-radius:var(--radius-pill);background:var(--chip-on-bg);color:#fff;font-size:var(--fs-5);font-weight:600;cursor:pointer}
     .hactar-empty-btn:hover{filter:brightness(1.08)}
     .hactar-empty-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+    /* Project Hactar — граф связей (H-6).
+       Рисуется только эго-сеть выбранных добавок: полный граф из 130
+       узлов (MAN-03) не рисуется никогда. Контейнеру нужна явная
+       высота — иначе canvas vis-network схлопнется в ноль. */
+    .hactar-graph-wrap{display:flex;flex-direction:column;gap:var(--space-3)}
+    /* [hidden] слабее авторского display:flex — скрытие задаём явно. */
+    .hactar-graph-wrap[hidden]{display:none}
+    .hactar-graph-bar{display:flex;align-items:center;justify-content:space-between;gap:var(--space-3);flex-wrap:wrap}
+    .hactar-legend{display:flex;align-items:center;gap:var(--space-4);flex-wrap:wrap;font-size:var(--fs-5);color:var(--muted)}
+    .hactar-legend-item{display:inline-flex;align-items:center;gap:var(--space-2);white-space:nowrap}
+    /* Кнопка «Сброс» — перерисовывает граф, если узлы «уплыли». */
+    .hactar-graph-reset{padding:.4rem .9rem;min-height:44px;border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--card-bg);color:var(--muted);font-size:.85rem;cursor:pointer}
+    .hactar-graph-reset:hover{border-color:var(--accent);color:var(--text)}
+    .hactar-graph-reset:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+    .hactar-graph{height:clamp(320px,56vh,560px);border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--card-bg);overflow:hidden}
+    .hactar-graph-note{margin:0;font-size:var(--fs-5);color:var(--muted)}
     /* Мобильная шторка */
     .hactar-sidebar.open{display:block}
     /* Мобильная кнопка «Готово» — тот же контраст, что у активного чипа:
@@ -267,7 +283,22 @@
             <p class="hactar-empty-hint">Отметьте галочками добавки в левом меню, чтобы увидеть их связи, дозировки и совместимость</p>
             <button type="button" class="hactar-empty-btn">🔍 Выбрать добавки</button>
           </div>
-          <div class="hactar-stub" data-stub-label="Связи" hidden>Здесь будет Связи. Выбрано добавок: 0</div>
+          <!-- H-6: эго-сеть выбранных добавок. Показывается, когда выбрана
+               хотя бы одна добавка; пока ничего не выбрано — пустое
+               состояние выше. Полный граф из 130 узлов не рисуется
+               никогда: только связи вокруг выбранных добавок (MAN-03). -->
+          <div class="hactar-graph-wrap" id="hactarGraphWrap" hidden>
+            <div class="hactar-graph-bar">
+              <div class="hactar-legend" aria-label="Легенда графа">
+                <span class="hactar-legend-item"><span aria-hidden="true">🟢</span> Добавки</span>
+                <span class="hactar-legend-item"><span aria-hidden="true">🟣</span> Механизмы</span>
+                <span class="hactar-legend-item"><span aria-hidden="true">🟠</span> Лекарства</span>
+              </div>
+              <button type="button" class="hactar-graph-reset" id="hactarGraphReset">[ Сброс ]</button>
+            </div>
+            <div class="hactar-graph" id="hactarGraph" role="group" aria-label="Граф связей выбранных добавок"></div>
+            <p class="hactar-graph-note" id="hactarGraphNote"></p>
+          </div>
         </div>
         <div class="hactar-panel" id="hactarPanelCalc" data-panel="calc">
           <div class="hactar-empty-state">
@@ -332,7 +363,11 @@
   }
 })();
 </script>
-<script src="hactar.js?v=4" defer></script>
+<!-- vis-network — движок графа связей (H-6). Подключается ДО hactar.js:
+     оба скрипта с defer, поэтому выполняются в порядке разметки и
+     window.vis готов к моменту, когда hactar.js создаёт Network. -->
+<script src="vendor/vis-network-9.1.9.min.js" defer></script>
+<script src="hactar.js?v=6" defer></script>
 
 <footer class="site-footer">
   <p class="disc">
