@@ -247,6 +247,24 @@
       .hactar-toast{transition:opacity .3s ease}
       .hactar-toast.is-in,.hactar-toast.is-out{transform:none}
     }
+  /* Project Hactar — «Мои стеки» (H-11): сохранение и загрузка протоколов. */
+  .hactar-stack-actions{display:inline-flex;align-items:center;gap:var(--space-2);flex-wrap:wrap;margin-inline-start:var(--space-4)}
+  .hactar-stack-btn{display:inline-flex;align-items:center;gap:.3rem;padding:.35rem .75rem;min-height:36px;border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--card-bg);color:var(--text);font-size:.85rem;font-weight:500;cursor:pointer;white-space:nowrap}
+  .hactar-stack-btn:hover{border-color:var(--accent);color:var(--text)}
+  .hactar-stack-btn:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+  .hactar-stacks-dropdown{position:relative;display:inline-block}
+  .hactar-stacks-dropdown[hidden]{display:none}
+  .hactar-stacks-list{position:absolute;top:100%;inset-inline-end:0;margin-top:4px;min-width:240px;max-width:320px;max-height:320px;overflow-y:auto;padding:var(--space-2);background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius-lg);box-shadow:var(--shadow-md);z-index:50;display:flex;flex-direction:column;gap:var(--space-2)}
+  .hactar-stacks-list[hidden]{display:none}
+  .hactar-stack-item{display:flex;align-items:center;gap:var(--space-2);padding:.35rem .5rem;border-radius:var(--radius-md);border:1px solid transparent}
+  .hactar-stack-item-name{flex:1 1 auto;min-width:0;font-size:.85rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .hactar-stack-load,.hactar-stack-del{padding:.2rem .5rem;min-height:28px;border:1px solid var(--border);border-radius:var(--radius-md);background:var(--bg);color:var(--text);font-size:.8rem;cursor:pointer}
+  .hactar-stack-del{color:var(--muted);min-width:28px;padding:.2rem .4rem}
+  .hactar-stack-load:hover,.hactar-stack-del:hover{border-color:var(--accent);color:var(--text)}
+  .hactar-stack-load:focus-visible,.hactar-stack-del:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+  @media (max-width: 768px){
+    .hactar-stack-actions{margin-inline-start:0;margin-top:var(--space-2)}
+  }
   </style>
   <script type="application/ld+json">
     {
@@ -311,7 +329,15 @@
         <h1>Project Hactar</h1>
         <p class="sub">Подбор комбинаций БАДов из 130 добавок: связи, калькулятор доз и сравнение совместимости.</p>
       </div>
-      <div class="hactar-pick">Выбрано: <strong><span id="hactarCount" aria-live="polite">0</span></strong> / <span id="hactarTotal">130</span></div>
+      <div class="hactar-pick">Выбрано: <strong><span id="hactarCount" aria-live="polite">0</span></strong> / <span id="hactarTotal">130</span>
+        <span class="hactar-stack-actions">
+          <button type="button" class="hactar-stack-btn" id="hactarSaveStack">💾 Сохранить стек</button>
+          <span class="hactar-stacks-dropdown" id="hactarStacksDropdown" hidden>
+            <button type="button" class="hactar-stack-btn" id="hactarStacksToggle">📂 Мои стеки ▾</button>
+            <div class="hactar-stacks-list" id="hactarStacksList" hidden></div>
+          </span>
+        </span>
+      </div>
       <button class="hactar-btn-pick" id="hactarBtnPick">🔍 Выбрать добавки</button>
       <!-- H-9: вкладок две, а не три. «Калькулятор» и «Сравнение»
            слиты в «Обзор» — четыре секции с общей прокруткой: когнитивная
@@ -429,7 +455,7 @@
      оба скрипта с defer, поэтому выполняются в порядке разметки и
      window.vis готов к моменту, когда hactar.js создаёт Network. -->
 <script src="vendor/vis-network-9.1.9.min.js" defer></script>
-<script src="hactar.js?v=13" defer></script>
+<script src="hactar.js?v=14" defer></script>
 
 <footer class="site-footer">
   <p class="disc">

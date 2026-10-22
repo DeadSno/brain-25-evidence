@@ -59,6 +59,9 @@
 
   /* Ключ localStorage: JSON-массив id выбранных добавок (H-3). */
   var STORAGE_KEY = 'hactarSelectedIds';
+  /* Ключ localStorage: сохранённые стеки (H-11). Формат:
+     [{ name: "Утренний", ids: ["Магний", "Цинк"], timestamp: 123456789 }]. */
+  var STACKS_KEY = 'hactarSavedStacks';
 
   /* Спец-значение активного грейда: «показывать все». Остальные значения —
      A/B/C/D в верхнем регистре. */
@@ -80,6 +83,11 @@
   var chipsEl = document.getElementById('hactarChips');
   var clearBtn = document.getElementById('hactarClearAll');
   var toastsEl = document.getElementById('hactarToasts');
+  /* H-11: элементы «Мои стеки». */
+  var saveStackBtn = document.getElementById('hactarSaveStack');
+  var stacksDropdown = document.getElementById('hactarStacksDropdown');
+  var stacksToggle = document.getElementById('hactarStacksToggle');
+  var stacksList = document.getElementById('hactarStacksList');
   /* H-4: пустое состояние — по одному на каждый таб. */
   var emptyStates = document.querySelectorAll('.hactar-empty-state');
   var emptyBtns = document.querySelectorAll('.hactar-empty-btn');
@@ -404,6 +412,127 @@
     }
   }
 
+  /* ──────────────────────── «Мои стеки» (H-11) ──────────────────────── */
+
+  /* Чтение сохранённых стеков. Любая проблема (приватный режим, битый
+     JSON) НЕ ломает страницу: возвращаем пустой массив. */
+  function readStacks() {
+    var raw;
+    try {
+      raw = window.localStorage.getItem(STACKS_KEY);
+    } catch (err) {
+      console.warn('[hactar] localStorage недоступен, стеки не загружаются:', err && err.message);
+      return [];
+    }
+    if (!raw) return [];
+    var parsed;
+    try {
+      parsed = JSON.parse(raw);
+    } catch (err) {
+      console.warn('[hactar] ' + STACKS_KEY + ' повреждён, начинаем с нуля:', err && err.message);
+      return [];
+    }
+    if (!Array.isArray(parsed)) return [];
+    var out = [];
+    for (var i = 0; i < parsed.length; i++) {
+      var s = parsed[i];
+      if (!s || typeof s !== 'object') continue;
+      var name = String(s.name || '').trim();
+      if (!name) continue;
+      var ids = [];
+      if (Array.isArray(s.ids)) {
+        for (var j = 0; j < s.ids.length; j++) {
+          if (typeof s.ids[j] === 'string' && s.ids[j]) ids.push(s.ids[j]);
+        }
+      }
+      var ts = (typeof s.timestamp === 'number') ? s.timestamp : Date.now();
+      out.push({ name: name, ids: ids, timestamp: ts });
+    }
+    return out;
+  }
+
+  function writeStacks(stacks) {
+    try {
+      window.localStorage.setItem(STACKS_KEY, JSON.stringify(stacks));
+      return true;
+    } catch (err) {
+      console.warn('[hactar] не удалось сохранить стеки:', err && err.message);
+      return false;
+    }
+  }
+
+  /* Сохранить текущий выбор как стек с именем name. Если стек с таким
+     именем уже есть — перезаписываем его (обновляем ids и timestamp). */
+  function saveStack(name, ids) {
+    var n = String(name || '').trim();
+    if (!n) return false;
+    var list = readStacks();
+    var found = -1;
+    for (var i = 0; i < list.length; i++) {
+      if (list[i].name === n) { found = i; break; }
+    }
+    var entry = { name: n, ids: (ids || []).slice(), timestamp: Date.now() };
+    if (found !== -1) list[found] = entry;
+    else list.push(entry);
+    writeStacks(list);
+    updateStacksUI();
+    return true;
+  }
+
+  /* Удалить стек по имени. */
+  function deleteStack(name) {
+    var list = readStacks();
+    var out = [];
+    for (var i = 0; i < list.length; i++) {
+      if (list[i].name !== name) out.push(list[i]);
+    }
+    writeStacks(out);
+    updateStacksUI();
+  }
+
+  /* Загрузить стек: очистить текущий выбор, поставить галочки на ids,
+     обновить счётчик и перерисовать таблицу. */
+  function loadStack(stack) {
+    if (!stack) return;
+    setSelection([]);
+    var ids = (stack.ids || []).slice();
+    /* Отфильтровать id, которых нет в данных — setSelection сам их пропустит,
+       но счётчик посчитает только найденные. */
+    setSelection(ids);
+    saveSelection();
+    updateCount();
+    renderOverview(selectedIds());
+    if (selectedIds().length) ensureFullData();
+    showToast('Стек "' + stack.name + '" загружен', 'ok');
+  }
+
+  /* Обновить видимость кнопки «Мои стеки» и перерисовать список. */
+  function updateStacksUI() {
+    var list = readStacks();
+    if (stacksDropdown) stacksDropdown.hidden = (list.length === 0);
+    renderStacksList(list);
+  }
+
+  function renderStacksList(list) {
+    if (!stacksList) return;
+    if (!list || !list.length) {
+      stacksList.hidden = true;
+      stacksList.innerHTML = '';
+      return;
+    }
+    var html = '';
+    for (var i = 0; i < list.length; i++) {
+      var s = list[i];
+      html += '<div class="hactar-stack-item" data-name="' + esc(s.name) + '">' +
+        '<span class="hactar-stack-item-name" title="' + esc(s.name) + '">' + esc(s.name) +
+        ' <span class="hactar-ov-inline">(' + (s.ids ? s.ids.length : 0) + ')</span></span>' +
+        '<button type="button" class="hactar-stack-load" data-action="load" data-name="' + esc(s.name) + '">Загрузить</button>' +
+        '<button type="button" class="hactar-stack-del" data-action="del" data-name="' + esc(s.name) + '" aria-label="Удалить стек ' + esc(s.name) + '">✕</button>' +
+        '</div>';
+    }
+    stacksList.innerHTML = html;
+  }
+
   /* ─────────────────────── загрузка данных ─────────────────────── */
 
   function loadData() {
@@ -720,6 +849,66 @@
     });
   }
 
+  /* ──────────────────────── «Мои стеки» (H-11) ──────────────────────── */
+
+  if (saveStackBtn) {
+    saveStackBtn.addEventListener('click', function () {
+      var ids = selectedIds();
+      if (!ids.length) {
+        showToast('Сначала выберите добавки', 'off');
+        return;
+      }
+      var name = '';
+      try {
+        name = window.prompt('Название стека:', '');
+      } catch (err) {
+        name = '';
+      }
+      name = String(name || '').trim();
+      if (!name) return;
+      saveStack(name, ids);
+      showToast('Стек "' + name + '" сохранён', 'ok');
+    });
+  }
+
+  if (stacksToggle) {
+    stacksToggle.addEventListener('click', function () {
+      if (!stacksList) return;
+      stacksList.hidden = !stacksList.hidden;
+    });
+  }
+
+  if (stacksList) {
+    stacksList.addEventListener('click', function (e) {
+      var t = e.target;
+      var btn = (t && t.closest) ? t.closest('[data-action]') : null;
+      if (!btn || !stacksList.contains(btn)) return;
+      var action = btn.getAttribute('data-action');
+      var name = btn.getAttribute('data-name');
+      if (action === 'load') {
+        var stacks = readStacks();
+        var found = null;
+        for (var i = 0; i < stacks.length; i++) {
+          if (stacks[i].name === name) { found = stacks[i]; break; }
+        }
+        if (found) {
+          loadStack(found);
+          if (stacksList) stacksList.hidden = true;
+        }
+      } else if (action === 'del') {
+        deleteStack(name);
+        showToast('Стек "' + name + '" удалён', 'off');
+      }
+    });
+  }
+
+  /* Закрыть выпадающий список при клике вне его. */
+  document.addEventListener('click', function (e) {
+    if (!stacksList || stacksList.hidden) return;
+    var target = e.target;
+    if (stacksDropdown && stacksDropdown.contains(target)) return;
+    stacksList.hidden = true;
+  });
   /* ─────────────────────── горячие клавиши ─────────────────────── */
 
   function focusSearch() {
@@ -1990,6 +2179,8 @@
          добавок. Полные данные (дозировки, формы) догружаются лениво. */
       renderOverview(selectedIds());
       if (selectedIds().length) ensureFullData();
+      /* H-11: показать кнопку «Мои стеки», если есть сохранённые стеки. */
+      updateStacksUI();
     })
     .catch(function (err) {
       console.error('[hactar] не удалось загрузить список добавок:', err);
@@ -2049,6 +2240,21 @@
       setSelection([]);
       writeSavedIds([]);
       updateCount();
-    }
+    },
+    /* H-11: сохранённые стеки. */
+    savedStacks: readStacks,
+    saveStack: function (name, ids) {
+      saveStack(name, ids || selectedIds());
+      return true;
+    },
+    loadStack: function (name) {
+      var stacks = readStacks();
+      for (var i = 0; i < stacks.length; i++) {
+        if (stacks[i].name === name) { loadStack(stacks[i]); return true; }
+      }
+      return false;
+    },
+    deleteStack: deleteStack,
+    updateStacksUI: updateStacksUI
   };
 })();
