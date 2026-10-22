@@ -196,7 +196,33 @@ footer { font-size: 1rem !important; }
      не бампать общий CSS). Классы .hero-cta и .card-featured-lg
      живут только на главной — новый общий класс ради них не заводим. */
   .hero-cta { display: flex; flex-wrap: wrap; gap: .6rem; margin: 0 0 1.3rem; }
-  .hero-cta .btn { padding: .7rem 1.15rem; font-size: .95rem; }
+
+  /* v5.6.5 (A-1.1): в hero осталась одна ссылка — «Найти свою добавку».
+     Главное действие сайта — переход в Hactar (большая карточка ниже
+     по странице), поэтому поиск добавок понижен до текстовой ссылки:
+     без заливки, без рамки, цвет --muted. Тап-таргет 44px сохранён —
+     ссылка кликабельна ровно так же, как была кнопкой.
+
+     Селектор .hero-cta .hero-search (0,2,0) перебивает общий
+     html:not(.light) a (0,1,1) — иначе ссылка осталась бы акцентной
+     (--accent-2 + подчёркивание) и выглядела бы как обычный CTA. */
+  .hero-cta .hero-search {
+    display: inline-flex;
+    align-items: center;
+    gap: .45rem;
+    min-height: 44px;
+    padding: .3rem .15rem;
+    color: var(--muted);
+    font-size: .95rem;
+    font-weight: 500;
+    text-decoration: underline;
+    text-underline-offset: .18em;
+    border-radius: 8px;
+    transition: color .15s;
+  }
+  @media (hover:hover) {
+    .hero-cta .hero-search:hover { color: var(--accent); }
+  }
   .card-featured-lg { margin-bottom: 1rem; }
   .card-featured-lg .card-featured-inner { padding: 1.5rem 1.7rem; gap: 1.3rem; }
   .card-featured-lg .card-featured-icon { font-size: 3rem; }
@@ -205,7 +231,7 @@ footer { font-size: 1rem !important; }
   .card-featured-lg .card-featured-desc { font-size: 1rem; }
   .card-featured-lg .card-featured-cta { padding: .75rem 1.3rem; font-size: 1rem; }
   @media (max-width: 640px) {
-    .hero-cta .btn { padding: .6rem .9rem; font-size: .85rem; }
+    .hero-cta .hero-search { font-size: .9rem; }
     .card-featured-lg .card-featured-inner { padding: 1.1rem 1.15rem; gap: .9rem; }
     .card-featured-lg .card-featured-icon { font-size: 2.2rem; }
     .card-featured-lg .card-featured-title { font-size: 1.2rem; }
@@ -255,18 +281,23 @@ footer { font-size: 1rem !important; }
   <span><b style="color:var(--text)">199</b> проверенных взаимодействий</span>
 </section>
 
-<!-- v5.6.5 (A-1): первый экран главной ведёт в Project Hactar. Ядро сайта
-     (calculator / compare / interactions / graph / atlas) стало редиректами
-     на hactar.html, поэтому главный CTA первого экрана — «Открыть Project
-     Hactar». «Найти свою добавку» перенесена сюда из блока «Сначала ответим
-     на 3 вопроса» (чтобы не было двух одинаковых ссылок) и стала вторичной:
-     .btn.calc — единственный primary-стиль в дизайн-системе, поэтому
-     вторичное действие набрано голым .btn.
-     Обработчик в script.js цепляется к a.btn[href="#cardsContainer"] —
-     по href, поэтому id в разметку добавлять не нужно. -->
+<!-- v5.6.5 (A-1.1): в первом экране осталась одна ссылка — «Найти свою
+     добавку». Кнопка «Открыть Project Hactar» из hero убрана: ниже на этой
+     же странице стоит большая карточка Hactar, и две одинаковые кнопки
+     сбивали пользователя — главное действие показывалось дважды.
+
+     Логика акцентов: главное действие сайта — переход в Hactar (большая
+     карточка ниже), поиск добавок — второстепенная опция. Поэтому «Найти
+     свою добавку» понижена с кнопки (.btn) до текстовой ссылки tertiary:
+     без заливки и рамки, цвет --muted. Правило .hero-cta .hero-search —
+     в локальном <style> выше (общий style.css не трогаем: правка тянет
+     бамп ?v= в 145 страницах).
+
+     Обработчик в script.js цепляется к a[href="#cardsContainer"] — по href,
+     поэтому id в разметку добавлять не нужно. Уточнение .btn из
+     селектора убрано вместе с кнопкой: ссылка перестала быть кнопкой. -->
 <div class="hero-cta">
-  <a class="btn calc" href="hactar.html">🧠 Открыть Project Hactar →</a>
-  <a class="btn" href="#cardsContainer">Найти свою добавку →</a>
+  <a class="hero-search" href="#cardsContainer">🔍 Найти свою добавку →</a>
 </div>
 
 
@@ -290,9 +321,15 @@ footer { font-size: 1rem !important; }
      не нужен, а кнопку можно переставлять без правки скрипта.
 
      22.10.2026, A-1: кнопка убрана из этого блока и перенесена на первый
-     экран (см. .hero-cta выше) — теперь она вторичное действие рядом с
-     главным CTA «Открыть Project Hactar». Уточнение .calc в селекторе
-     script.js снято вместе с переездом. -->
+     экран (см. .hero-cta выше) — тогда она была вторичным действием рядом
+     с главным CTA «Открыть Project Hactar». Уточнение .calc в селекторе
+     script.js снято вместе с переездом.
+
+     22.10.2026, A-1.1: кнопка «Открыть Project Hactar» из hero убрана
+     (дублировала большую карточку Hactar ниже по странице), а сама
+     «Найти свою добавку» переведена из .btn в текстовую ссылку
+     tertiary. Селектор script.js больше не уточняет .btn — по href
+     он и так однозначен. -->
 
 <section id="controls">
   <label for="search" class="sr-only">Поиск по названию или эффекту</label>
@@ -358,10 +395,11 @@ footer { font-size: 1rem !important; }
       </div>
     </div>
   </details>
-  <!-- v5.6.5 (A-1): кнопка «Найти свою добавку» перенесена на первый экран,
-       встала вторичным действием рядом с главным CTA «Открыть Project
-       Hactar» (см. .hero-cta выше). Здесь осталась ссылка на методологию —
-       она ведёт в другой документ и дублем не стала. -->
+  <!-- v5.6.5 (A-1): кнопка «Найти свою добавку» перенесена на первый экран
+       (см. .hero-cta выше). Здесь осталась ссылка на методологию —
+       она ведёт в другой документ и дублем не стала.
+       22.10.2026 (A-1.1): в hero она стала текстовой ссылкой
+       tertiary — кнопки-дубли на странице больше нет. -->
   <p style="margin:1rem 0 0;display:flex;flex-wrap:wrap;gap:.75rem;align-items:center">
     <a href="methodology.html">Полное объяснение методологии →</a>
   </p>
@@ -684,7 +722,7 @@ footer { font-size: 1rem !important; }
     <div id="modalBody"></div>
   </div>
 </div>
-<script src="script.js?v=291"></script>
+<script src="script.js?v=292"></script>
 <script src="science2.js?v=281" defer></script>
 <script src="tracker.js?v=281" defer></script>
 <script src="pwa.js?v=282" defer></script>

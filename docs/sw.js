@@ -308,14 +308,16 @@ self.addEventListener('activate', event => {
    style.css входит в STATIC_ASSETS, без бампа activate не почистит
    v112-static и возвратные посетители получат старый CSS с
    подчёркиванием. */
-/* Бамп v113 -> v114: изменён docs/index.html — главная переведена на
-   структуру Project Hactar (большая карточка hactar.html вместо хаба
-   из шести карточек), и изменён docs/script.js (обработчик CTA
-   «Найти свою добавку» больше не ищет .calc). index.html и script.js
-   входят в STATIC_ASSETS без ?v (сброс кэша держится на CACHE_VERSION),
-   без бампа activate не почистит v113-static и возвратные посетители
-   получат старый хаб и старый обработчик. */
-var CACHE_VERSION = 'v114';
+/* Бамп v114 -> v115: изменён docs/index.html — из hero главной убрана
+   кнопка «Открыть Project Hactar» (дублировала большую картоску Hactar
+   ниже по странице), а «Найти свою добавку» переведена из кнопки в
+   текстовую ссылку tertiary; изменён docs/script.js (обработчик этой
+   ссылки больше не ищет .btn) и docs/map.html (страница стала
+   редиректом на hactar.html?tab=graph). Все три файла входят в
+   STATIC_ASSETS без ?v (сброс кэша держится на CACHE_VERSION), без
+   бампа activate не почистит v114-static и возвратные посетители
+   получат старую главную и старый редирект. */
+var CACHE_VERSION = 'v115';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
