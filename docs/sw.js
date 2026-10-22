@@ -317,7 +317,17 @@ self.addEventListener('activate', event => {
    STATIC_ASSETS без ?v (сброс кэша держится на CACHE_VERSION), без
    бампа activate не почистит v114-static и возвратные посетители
    получат старую главную и старый редирект. */
-var CACHE_VERSION = 'v115';
+/* Бамп v115 -> v116: A-2 — ссылки на старые страницы заменены на Hactar.
+   Изменены docs/hactar.html (hactar.js?v=11), docs/hactar.js (разбор
+   ?ids=), docs/script.js (gotoCompare ведёт на hactar.html?tab=compare),
+   docs/privacy.html, docs/calculator.html, docs/compare.html,
+   docs/interactions.html, docs/graph.html, docs/atlas.html, docs/map.html,
+   docs/manifest.webmanifest, все 131 страница docs/sup/ и шаблон
+   templates/sup.html.j2. Эти файлы входят в STATIC_ASSETS без ?v (сброс
+   кэша держится на CACHE_VERSION), без бампа activate не почистит
+   v115-static и возвратные посетители получат старые ссылки на
+   страницы-редиректы. */
+var CACHE_VERSION = 'v116';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 

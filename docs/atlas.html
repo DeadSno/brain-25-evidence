@@ -3,11 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <!-- v5.6.5 (2.2.6): страница-редирект. Атлас механизмов стал вкладкой
-       «Механизмы» на interactions.html. Файл оставлен, чтобы старые ссылки и
-       закладки не вели в никуда. SEO-теги сохранены: их требуют
+  <!-- v5.6.5 (A-2): страница-редирект. Атлас механизмов стал вкладкой
+       «Связи» в hactar.html. Файл оставлен, чтобы старые ссылки и
+       закладки не вели в никуда. Раньше редирект шёл на interactions.html#mech,
+       а тот — на hactar.html: два хопа вместо одного. Теперь адрес конечный.
+       SEO-теги сохранены: их требуют
        tests/test_seo_meta_consistency.py (CONTENT_PAGES). -->
-  <meta http-equiv="refresh" content="0; url=interactions.html#mech">
+  <meta http-equiv="refresh" content="0; url=hactar.html?tab=graph">
   <meta name="robots" content="noindex, follow">
   <title>Атлас механизмов: 25 тегов × 130 БАДов — Brain 25 Evidence</title>
   <meta name="description" content="Атлас механизмов: 25 тегов-хабов и 130 добавок. Что работает для сна, памяти, иммунитета и спорта - с разбором пути «вещество - мишень - эффект».">
@@ -15,7 +17,7 @@
   <meta property="og:title" content="Атлас механизмов: 25 тегов × 130 БАДов — Brain 25 Evidence">
   <meta property="og:description" content="Атлас механизмов: 25 тегов-хабов и 130 добавок. Что работает для сна, памяти, иммунитета и спорта - с разбором пути «вещество - мишень - эффект».">
   <meta property="og:url" content="https://deadsno.github.io/brain-25-evidence/atlas.html">
-  <link rel="canonical" href="https://deadsno.github.io/brain-25-evidence/interactions.html">
+  <link rel="canonical" href="https://deadsno.github.io/brain-25-evidence/hactar.html?tab=graph">
   <meta property="og:image" content="https://deadsno.github.io/brain-25-evidence/og.png">
   <meta property="og:site_name" content="Brain 25 Evidence">
   <meta name="twitter:card" content="summary_large_image">
@@ -33,7 +35,7 @@
     }
     </script>
   <script>
-    window.location.replace("interactions.html#mech");
+    window.location.replace("hactar.html?tab=graph");
   </script>
   <style>
     body { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; margin: 2rem; }
@@ -46,7 +48,7 @@
   <main>
     <h1>Атлас механизмов</h1>
     <p>Страница переехала во вкладку «Механизмы» на карте связей.</p>
-    <p><a href="interactions.html#mech">Перейти к механизмам →</a></p>
+    <p><a href="hactar.html?tab=graph">Перейти к механизмам →</a></p>
   </main>
   <!-- Дисклеймер оставлен намеренно: tests/test_legal_disclaimer.py требует
        class="disc" с фразой «Не медицинская рекомендация» на каждой странице

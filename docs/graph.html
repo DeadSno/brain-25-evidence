@@ -4,19 +4,21 @@
   <meta charset="utf-8">
   <link rel="manifest" href="manifest.webmanifest">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <!-- v5.6.5 (2.2.6): страница-редирект. Отдельный граф удалён, все связи
-       переехали на вкладку «Граф» в interactions.html. Файл оставлен, чтобы
-       старые ссылки и закладки не вели в никуда. SEO-теги сохранены: их
+  <!-- v5.6.5 (A-2): страница-редирект. Отдельный граф удалён, все связи
+       переехали на вкладку «Связи» в hactar.html. Файл оставлен, чтобы
+       старые ссылки и закладки не вели в никуда. Раньше редирект шёл
+       на interactions.html#graph, а тот — на hactar.html: два хопа вместо
+       одного. Теперь адрес конечный. SEO-теги сохранены: их
        требуют tests/test_seo_meta_consistency.py (CONTENT_PAGES), и без них
        гейт падает — редирект, выпавший из охвата, вернул бы долг MKT-P2-06/07
        молча. -->
-  <meta http-equiv="refresh" content="0; url=interactions.html#graph">
+  <meta http-equiv="refresh" content="0; url=hactar.html?tab=graph">
   <meta name="robots" content="noindex, follow">
   <title>Граф связей механизмов — Brain 25 Evidence</title>
   <meta name="description" content="Интерактивный граф связей 130 БАД и 1982 рёбер: общие механизмы, теги эффектов, прямые взаимодействия. Наглядная карта доказательной базы.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://deadsno.github.io/brain-25-evidence/graph.html">
-  <link rel="canonical" href="https://deadsno.github.io/brain-25-evidence/interactions.html">
+  <link rel="canonical" href="https://deadsno.github.io/brain-25-evidence/hactar.html?tab=graph">
   <meta property="og:title" content="Граф связей механизмов — Brain 25 Evidence">
   <meta property="og:description" content="Интерактивный граф связей 130 БАД и 1982 рёбер: общие механизмы, теги эффектов, прямые взаимодействия. Наглядная карта доказательной базы.">
   <meta property="og:image" content="https://deadsno.github.io/brain-25-evidence/og.png">
@@ -39,7 +41,7 @@
     // Редирект сразу, без ожидания DOMContentLoaded: страница пустая,
     // ждать нечего. replace() вместо href — чтобы кнопка «назад» возвращала
     // на страницу-источник, а не зацикливалась на этом редиректе.
-    window.location.replace("interactions.html#graph");
+    window.location.replace("hactar.html?tab=graph");
   </script>
   <style>
     body { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; margin: 2rem; }
@@ -51,7 +53,7 @@
   <main>
     <h1>Граф связей</h1>
     <p>Страница переехала во вкладку «Граф» на карте связей.</p>
-    <p><a href="interactions.html#graph">Перейти к графу →</a></p>
+    <p><a href="hactar.html?tab=graph">Перейти к графу →</a></p>
   </main>
   <!-- Дисклеймер оставлен намеренно: tests/test_legal_disclaimer.py требует
        class="disc" с фразой «Не медицинская рекомендация» на каждой странице

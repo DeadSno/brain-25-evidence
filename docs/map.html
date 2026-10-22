@@ -20,7 +20,8 @@
      редирект делает meta refresh в head. Canonical указывает на конечный
      адрес — поисковику нужен он, а не страница-редирект. -->
 <meta http-equiv="refresh" content="0;url=hactar.html?tab=graph">
-<link rel="canonical" href="hactar.html">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://deadsno.github.io/brain-25-evidence/hactar.html?tab=graph">
 <link rel="alternate" type="application/rss+xml" title="brain-25-evidence" href="https://deadsno.github.io/brain-25-evidence/feed.xml">
 <meta property="og:image" content="https://deadsno.github.io/brain-25-evidence/og.png"/>
 <meta property="og:site_name" content="Brain 25 Evidence"/>
@@ -565,7 +566,7 @@ fetch('data.json?ts=' + Date.now())
     function goCompare() {
       const ids = [...selectedForCompare];
       if (ids.length < 2 || ids.length > 10) return;
-      location.href = 'compare.html?ids=' + encodeURIComponent(ids.join(','));
+      location.href = 'hactar.html?tab=compare&ids=' + encodeURIComponent(ids.join(','));
     }
 
     // Делегирование кликов по кнопкам сравнения внутри чипов

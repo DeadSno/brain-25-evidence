@@ -76,7 +76,10 @@ def test_manifest_declared_files_exist(manifest):
             missing.append(f"icons: {src}")
     for sc in manifest.get("shortcuts", []):
         url = sc.get("url")
-        if url and not (DOCS / url.lstrip("./")).is_file():
+        # В URL ярлыка может быть query (?tab=compare) — на диске лежит
+        # тот же файл, поэтому query и якорь отбрасываем перед проверкой.
+        path = url.split("?")[0].split("#")[0] if url else url
+        if path and not (DOCS / path.lstrip("./")).is_file():
             missing.append(f"shortcuts[{sc.get('short_name')}]: {url}")
         for icon in sc.get("icons", []):
             src = icon.get("src")

@@ -155,6 +155,77 @@
     return DEFAULT_MODE;
   }
 
+  /* Выбор из адреса: ?ids=A,B.
+
+     Старая страница сравнения (compare.html) принимала такой параметр, и
+     кнопка «+ Сравнить» на карточках добавок до сих пор его передаёт —
+     без поддержки переход на Hactar открыл бы пустую вкладку. Значения
+     URLSearchParams уже декодированы, разделяем их по запятой. */
+  function idsFromUrl() {
+    var raw = new URLSearchParams(location.search).get('ids');
+    if (!raw) return [];
+    var parts = raw.split(',');
+    var out = [];
+    for (var i = 0; i < parts.length; i++) {
+      var id = parts[i].trim();
+      if (id && out.indexOf(id) === -1) out.push(id);
+    }
+    return out;
+  }
+
+  /* Транслитерация — та же таблица, что в scripts/build_sup.py и
+     docs/script.js: slug карточки добавки (docs/sup/<slug>.html) строится
+     из её названия. Нужна, чтобы ?ids= понимал и slug («magniy»), и сам id
+     («Магний»): карточки добавок присылают slug, главная — id. */
+  var TRANS = {
+    'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd', 'е': 'e', 'ё': 'e',
+    'ж': 'zh', 'з': 'z', 'и': 'i', 'й': 'y', 'к': 'k', 'л': 'l', 'м': 'm',
+    'н': 'n', 'о': 'o', 'п': 'p', 'р': 'r', 'с': 's', 'т': 't', 'у': 'u',
+    'ф': 'f', 'х': 'h', 'ц': 'ts', 'ч': 'ch', 'ш': 'sh', 'щ': 'sch',
+    'ъ': '', 'ы': 'y', 'ь': '', 'э': 'e', 'ю': 'yu', 'я': 'ya'
+  };
+
+  function slugify(name) {
+    var out = [];
+    var chars = String(name || '').toLowerCase();
+    for (var i = 0; i < chars.length; i++) {
+      var ch = chars[i];
+      if (ch in TRANS) out.push(TRANS[ch]);
+      else if (ch === '-' || ch === '_' || ch === ' ') out.push('-');
+      else if ((ch >= 'a' && ch <= 'z') || (ch >= '0' && ch <= '9')) out.push(ch);
+      else out.push('-');
+    }
+    return out.join('').replace(/-{2,}/g, '-').replace(/^-|-$/g, '');
+  }
+
+  /* Токен из ссылки -> id добавки. Порядок: точное совпадение, затем
+     регистронезависимое, затем slug. Старый compare.html умел и то, и
+     другое (x.id === id || slugify(x.id) === id); здесь тот же приём,
+     но в одну сторону — slug приводим к id, иначе галочки в списке
+     не отметятся и вкладка «Сравнение» останется пустой. */
+  function resolveId(token) {
+    var t = String(token || '').trim();
+    if (!t) return '';
+    var i, it, id, low;
+    for (i = 0; i < all.length; i++) {
+      it = all[i] || {};
+      id = String(it.id || '').trim();
+      if (id && id === t) return id;
+    }
+    low = t.toLowerCase();
+    for (i = 0; i < all.length; i++) {
+      it = all[i] || {};
+      id = String(it.id || '').trim();
+      if (id && id.toLowerCase() === low) return id;
+    }
+    for (i = 0; i < all.length; i++) {
+      it = all[i] || {};
+      id = String(it.id || '').trim();
+      if (id && slugify(it.name || id) === low) return id;
+    }
+    return '';
+  }
+
   function setMode(next) {
     currentMode = next;
     tabs.forEach(function (t) {
@@ -507,6 +578,76 @@
     return found;
   }
 
+  /* Корзина «+ Сравнить» со страниц добавок: ключ compareIds писали
+     карточки docs/sup/*.html. Отдельной страницы сравнения больше нет,
+     но ключ живёт в localStorage — и накопленные в нём добавки не должны
+     пропасть при переходе на Hactar. */
+  function legacyCompareIds() {
+    var raw;
+    try {
+      raw = window.localStorage.getItem('compareIds');
+    } catch (err) {
+      return [];
+    }
+    if (!raw) return [];
+    var parsed;
+    try {
+      parsed = JSON.parse(raw);
+    } catch (err) {
+      return [];
+    }
+    if (!Array.isArray(parsed)) return [];
+    var out = [];
+    for (var i = 0; i < parsed.length; i++) {
+      if (typeof parsed[i] === 'string' && parsed[i] && out.indexOf(parsed[i]) === -1) {
+        out.push(parsed[i]);
+      }
+    }
+    return out;
+  }
+
+  /* Корзину «+ Сравнить» гасим после разбора: это канал передачи, а не
+     долговременное состояние. Долговременное состояние — выбор в
+     hactarSelectedIds. Если корзину не гасить, снятая пользователем
+     галочка вернулась бы при следующем переходе на Hactar. */
+  function clearLegacyCompareIds() {
+    try {
+      window.localStorage.removeItem('compareIds');
+    } catch (err) {
+      /* localStorage может быть недоступен (приватный режим) — тогда
+         просто ничего не гасим. */
+    }
+  }
+
+  /* Выбор из ссылки: ?ids= плюс корзина «+ Сравнить».
+
+     Источники объединяются, а не заменяют друг друга: кнопка «+ Сравнить»
+     означает «добавить к сравнению», а не «забыть всё, что отмечено».
+     Старый compare.html читал ?ids=, а если его не было — compareIds;
+     здесь работают оба сразу, поверх восстановленного из памяти выбора. */
+  function applyUrlSelection() {
+    var raw = idsFromUrl().concat(legacyCompareIds());
+    if (!raw.length) return 0;
+    /* Токены бывают двух видов: slug (карточки добавок) и id (главная).
+       Приводим их к id — иначе отметки в списке не появятся. */
+    var ids = [];
+    for (var i = 0; i < raw.length; i++) {
+      var id = resolveId(raw[i]);
+      if (id && ids.indexOf(id) === -1) ids.push(id);
+    }
+    clearLegacyCompareIds();
+    if (!ids.length) return 0;
+    var merged = selectedIds().slice();
+    for (var j = 0; j < ids.length; j++) {
+      if (merged.indexOf(ids[j]) === -1) merged.push(ids[j]);
+    }
+    setSelection(merged);
+    /* saveSelection() пишет в хранилище только реально найденные id —
+         выбранные из ссылки могут отсутствовать в обновлённых данных. */
+    saveSelection();
+    return merged.length;
+  }
+
   /* Клик по карточке (в т.ч. по названию) переключает чекбокс, двигает
      счётчик и сохраняет выбор. */
   listEl.addEventListener('change', function (e) {
@@ -551,6 +692,9 @@
     clearBtn.addEventListener('click', function () {
       setSelection([]);
       writeSavedIds([]);
+      /* Корзину «+ Сравнить» тоже гасим: иначе снятые галочки вернутся
+         при следующем переходе на Hactar из карточки добавки. */
+      clearLegacyCompareIds();
       updateCount();
     });
   }
@@ -1856,6 +2000,10 @@
       renderList(items);
       /* Выбор из памяти браузера — после рендера, иначе нечего ставить. */
       restoreSaved();
+      /* Выбор из ссылки (?ids=) и корзины «+ Сравнить» — поверх
+         восстановленного: переход со страницы добавки не должен терять
+         то, что пользователь уже отметил. */
+      applyUrlSelection();
       /* H-7: отрисовать калькулятор для уже выбранных (восстановленных) добавок. */
       renderCalc(selectedIds());
       /* H-8: то же для сравнения — при прямом заходе по ?tab=compare. */
