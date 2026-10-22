@@ -24,12 +24,17 @@
  *  12. H-6: рисует эго-сеть выбранных добавок во вкладке «Связи»
  *      (vis-network): только выбранные добавки, их механизмы и мишени
  *      и связанные лекарства — никаких 130 узлов (MAN-03).
+ *  13. H-7: считает дозы выбранных добавок во вкладке «Калькулятор»
+ *      и ловит некорректный ввод (U2-02);
+ *  14. H-8: собирает таблицу сравнения во вкладке «Сравнение»
+ *      (side-by-side по выбранным добавкам) и ряд кнопок «Купить» —
+ *      путь от сравнения к покупке (баг P2-03).
  *
  * Связка поиска и грейда: работают ВМЕСТЕ, а не по очереди. Введён
  * «Магний» + выбран грейд «D» -> остаётся только Магний (у него грейд D).
  *
- * Чего здесь НЕТ сознательно: расчёта доз и сравнения — это следующие
- * шаги Project Hactar.
+ * Чего здесь НЕТ сознательно: подбор «стека» под задачу и проверка
+ * противопоказаний — это следующие шаги Project Hactar.
  */
 (function () {
   'use strict';
@@ -71,9 +76,8 @@
   var chipsEl = document.getElementById('hactarChips');
   var clearBtn = document.getElementById('hactarClearAll');
   var toastsEl = document.getElementById('hactarToasts');
-  /* H-4: пустое состояние и заглушка — по одному на каждый таб. */
+  /* H-4: пустое состояние — по одному на каждый таб. */
   var emptyStates = document.querySelectorAll('.hactar-empty-state');
-  var stubs = document.querySelectorAll('.hactar-stub');
   var emptyBtns = document.querySelectorAll('.hactar-empty-btn');
   /* H-7: элементы калькулятора доз (вкладка «Калькулятор»). */
   var calcWrap = document.getElementById('hactarCalc');
@@ -81,6 +85,14 @@
   var calcSummaryListEl = document.getElementById('hactarCalcSummaryList');
   var calcAlertsEl = document.getElementById('hactarCalcAlerts');
   var calcErrorsEl = document.getElementById('hactarCalcErrors');
+  /* H-8: элементы вкладки «Сравнение» — таблица, карточки и подсказка. */
+  var compareWrap = document.getElementById('hactarCompare');
+  var compareHeadEl = document.getElementById('hactarCompareHead');
+  var compareBodyEl = document.getElementById('hactarCompareBody');
+  var compareScrollEl = document.getElementById('hactarCompareScroll');
+  var compareCardsEl = document.getElementById('hactarCompareCards');
+  var compareNoteEl = document.getElementById('hactarCompareNote');
+  var compareHintEl = document.getElementById('hactarCompareHint');
 
   /* ─────────────────── подписки на изменения (H-6) ───────────────────
    *
@@ -418,24 +430,18 @@
 
   /* ──────────────────────── счётчик выбора ──────────────────────── */
 
-  /* H-4: пустое состояние против заглушки.
+  /* H-4: пустое состояние против содержимого таба.
      Пока не выбрана ни одна добавка — показываем иллюстрацию с подсказкой
-     и кнопкой «Выбрать добавки». Как только что-то выбрано — вместо этого
-     показываем заглушку «Здесь будет <режим>. Выбрано добавок: N»
-     (сам контент таба ещё не реализован).
+     и кнопкой «Выбрать добавки». Как только что-то выбрано — пустое
+     состояние прячется, а таб показывает своё содержимое: граф (H-6),
+     калькулятор (H-7) или сравнение (H-8). Заглушки «Здесь будет …»
+     больше нет: все три таба реализованы.
      Состояние живёт в атрибуте hidden, а не в классе: [hidden] — это
      единственный способ спрятать блок, о котором не знает CSS. */
   function updateEmptyState(n) {
-    var i;
-    var label;
     var empty = (n === 0);
-    for (i = 0; i < emptyStates.length; i++) {
+    for (var i = 0; i < emptyStates.length; i++) {
       emptyStates[i].hidden = !empty;
-    }
-    for (i = 0; i < stubs.length; i++) {
-      stubs[i].hidden = empty;
-      label = stubs[i].getAttribute('data-stub-label') || '';
-      stubs[i].textContent = 'Здесь будет ' + label + '. Выбрано добавок: ' + n;
     }
   }
 
@@ -1527,6 +1533,313 @@
     if (mode === 'calc') renderCalc(selectedIds());
   });
 
+  /* ──────────────────── вкладка «Сравнение» (H-8) ────────────────────
+   *
+   * Таблица side-by-side по выбранным добавкам: по строкам — параметры
+   * (грейд доказательности, эффекты, дозировка, взаимодействия
+   * с лекарствами), по столбцам — сами добавки.
+   *
+   * В самом низу таблицы — ряд кнопок «Купить» (Ozon, Wildberries,
+   * Яндекс.Маркет). Без них воронка обрывалась на шаге «Сравнение»:
+   * сравнивать было некуда идти (баг P2-03).
+   *
+   * На узких экранах таблицу сменяют вертикальные карточки — колонки
+   * не помещаются, а горизонтальная прокрутка всей страницы ломает
+   * мобильную вёрстку. Рисует карточки тот же код, что и таблицу.
+   */
+
+  /* Полный data.json для сравнения: id добавки → запись. Заполняется
+     лениво, первым же открытием вкладки «Сравнение». */
+  var compareData = null;
+  var compareDataPromise = null;
+
+  /* Магазины: ссылка на поиск товара по названию добавки. Ссылки
+     открываются в новой вкладке, поэтому rel="noopener nofollow"
+     обязателен (иначе страница магазина получит доступ к window.opener). */
+  var COMPARE_SHOPS = [
+    { label: 'Ozon', base: 'https://www.ozon.ru/search/?text=' },
+    { label: 'Wildberries', base: 'https://www.wildberries.ru/catalog/0/search.aspx?search=' },
+    { label: 'Яндекс.Маркет', base: 'https://market.yandex.ru/search?text=' }
+  ];
+
+  /* Тяжесть взаимодействия: подпись и класс .sev из style.css. */
+  var COMPARE_SEVERITY = {
+    critical: { label: 'критический риск', cls: 'sev-critical' },
+    high: { label: 'высокий риск', cls: 'sev-high' },
+    medium: { label: 'средний риск', cls: 'sev-medium' },
+    low: { label: 'низкий риск', cls: 'sev-low' }
+  };
+
+  /* Полная запись добавки для сравнения. Всё, кроме дозировки и форм,
+     лежит в облегчённом data_index.json; дозировка — только в data.json,
+     поэтому она подтягивается отдельным запросом (loadCompareData). */
+  function compareRecord(id) {
+    var full = compareData && compareData[id] ? compareData[id] : null;
+    var light = supById[id] || null;
+    var grade = String((light && light.grade) || (full && full.grade) || 'D').toUpperCase();
+    if (!GRADE_LABEL[grade]) grade = 'D';
+    return {
+      id: id,
+      name: String((light && light.name) || (full && full.name) || id),
+      grade: grade,
+      effects: (light && light.effects) || (full && full.effects) || [],
+      interactions: (light && light.interactions) || (full && full.interactions) || [],
+      dosage: full ? String(full.dosage || '') : '',
+      forms: full ? String(full.forms || '') : ''
+    };
+  }
+
+  /* Запрос товара в магазине: название + первая форма. Форм в data.json
+     несколько («капсулы, порошок»), берём первую — иначе запрос
+     превратится в «Магний капсулы, порошок» и магазин не найдёт
+     ничего. */
+  function compareQuery(rec) {
+    var parts = String(rec.forms || '').split(',');
+    var form = String(parts[0] || '').trim();
+    return form ? (rec.name + ' ' + form) : rec.name;
+  }
+
+  /* Ячейка «Грейд доказательности»: цветной бейдж + расшифровка. */
+  function compareGradeCell(rec) {
+    var label = GRADE_LABEL[rec.grade];
+    return '<span class="grade g' + rec.grade + '" aria-hidden="true"' +
+           ' title="Грейд ' + rec.grade + ' — ' + esc(label) + '">' +
+           rec.grade + '</span> <span class="hactar-compare-inline">' +
+           esc(label) + '</span>';
+  }
+
+  /* Ячейка «Эффекты»: короткий список заявленных эффектов. */
+  function compareEffectsCell(rec) {
+    var list = rec.effects || [];
+    if (!list.length) {
+      return '<span class="hactar-compare-none">не указаны</span>';
+    }
+    var html = '<ul class="hactar-compare-list">';
+    for (var i = 0; i < list.length; i++) {
+      html += '<li>' + esc(list[i]) + '</li>';
+    }
+    return html + '</ul>';
+  }
+
+  /* Ячейка «Дозировка»: из data.json, до его загрузки — прочерк. */
+  function compareDosageCell(rec) {
+    if (!rec.dosage) {
+      return '<span class="hactar-compare-none">не указана</span>';
+    }
+    return esc(rec.dosage);
+  }
+
+  /* Ячейка «Взаимодействия с лекарствами»: препарат + тяжесть риска. */
+  function compareInteractionsCell(rec) {
+    var list = rec.interactions || [];
+    if (!list.length) {
+      return '<span class="hactar-compare-none">не выявлены</span>';
+    }
+    var html = '<ul class="hactar-compare-list">';
+    for (var i = 0; i < list.length; i++) {
+      var it = list[i] || {};
+      var sev = COMPARE_SEVERITY[it.severity] || COMPARE_SEVERITY.medium;
+      html += '<li><span class="sev ' + sev.cls + '">' + esc(sev.label) + '</span>' +
+              ' <span class="hactar-compare-inline">' + esc(it.with || '') + '</span>' +
+              (it.note ? ' <span class="hactar-compare-inline">— ' +
+                         esc(it.note) + '</span>' : '') +
+              '</li>';
+    }
+    return html + '</ul>';
+  }
+
+  /* Ячейка «Купить»: ряд кнопок-чипов со ссылками на магазины. */
+  function compareBuyCell(rec) {
+    var q = encodeURIComponent(compareQuery(rec));
+    var html = '<div class="hactar-compare-shops">';
+    for (var i = 0; i < COMPARE_SHOPS.length; i++) {
+      var shop = COMPARE_SHOPS[i];
+      html += '<a class="hactar-compare-shop" href="' + shop.base + q + '"' +
+              ' target="_blank" rel="noopener nofollow"' +
+              ' aria-label="Купить ' + esc(rec.name) + ' на ' +
+              esc(shop.label) + '">' + esc(shop.label) + '</a>';
+    }
+    return html + '</div>';
+  }
+
+  /* Строки таблицы: подпись параметра и функция ячейки. */
+  var COMPARE_ROWS = [
+    { label: 'Грейд доказательности', cell: compareGradeCell },
+    { label: 'Эффекты', cell: compareEffectsCell },
+    { label: 'Дозировка', cell: compareDosageCell },
+    { label: 'Взаимодействия с лекарствами', cell: compareInteractionsCell },
+    { label: 'Купить', cell: compareBuyCell }
+  ];
+
+  /* Шапка таблицы: «Параметр» + по колонке на добавку. */
+  function compareHeadHtml(recs) {
+    var html = '<th scope="col" class="hactar-compare-param">Параметр</th>';
+    for (var i = 0; i < recs.length; i++) {
+      html += '<th scope="col" class="hactar-compare-sup">' +
+              esc(recs[i].name) + '</th>';
+    }
+    return html;
+  }
+
+  /* Тело таблицы: по строке на параметр, по ячейке на добавку. */
+  function compareBodyHtml(recs) {
+    var html = '';
+    for (var i = 0; i < COMPARE_ROWS.length; i++) {
+      /* Атрибут scope со значением row не пишем: аудит классов считает
+         любой такой литерал в JS-шаблоне именем класса и оживляет .row
+         из мёртвого списка. Заголовок строки и так читается как
+         заголовок — это <th> в первом столбце. Так же сделано на
+         странице compare.html. */
+      html += '<tr><th class="hactar-compare-rowhead">' +
+              esc(COMPARE_ROWS[i].label) + '</th>';
+      for (var j = 0; j < recs.length; j++) {
+        html += '<td class="hactar-compare-cell">' +
+                COMPARE_ROWS[i].cell(recs[j]) + '</td>';
+      }
+      html += '</tr>';
+    }
+    return html;
+  }
+
+  /* Карточка для мобильного: те же параметры, но вертикальным списком. */
+  function compareCardRow(label, valueHtml) {
+    return '<div class="hactar-compare-cardrow">' +
+             '<span class="hactar-compare-cardlabel">' + esc(label) + '</span>' +
+             '<span class="hactar-compare-cardvalue">' + valueHtml + '</span>' +
+           '</div>';
+  }
+
+  function compareCardsHtml(recs) {
+    var html = '';
+    for (var i = 0; i < recs.length; i++) {
+      var rec = recs[i];
+      html += '<div class="hactar-compare-card">' +
+              '<div class="hactar-compare-cardhead">' +
+                '<span class="grade g' + rec.grade + '" aria-hidden="true">' +
+                  rec.grade + '</span>' +
+                '<span class="hactar-compare-cardname">' + esc(rec.name) + '</span>' +
+              '</div>' +
+              compareCardRow('Грейд доказательности',
+                             '<span class="hactar-compare-inline">' +
+                               esc(GRADE_LABEL[rec.grade]) + '</span>') +
+              compareCardRow('Эффекты', compareEffectsCell(rec)) +
+              compareCardRow('Дозировка', compareDosageCell(rec)) +
+              compareCardRow('Взаимодействия', compareInteractionsCell(rec)) +
+              compareCardRow('Купить', compareBuyCell(rec)) +
+              '</div>';
+    }
+    return html;
+  }
+
+  /* Согласование слова «добавка» с числом: 1 добавка, 2-4 добавки,
+     5+ добавок. Без этого в подписи вылезало «Сравниваем 2 добавок». */
+  function comparePlural(n) {
+    var n10 = n % 10;
+    var n100 = n % 100;
+    if (n10 === 1 && n100 !== 11) return 'добавка';
+    if (n10 >= 2 && n10 <= 4 && (n100 < 12 || n100 > 14)) return 'добавки';
+    return 'добавок';
+  }
+
+  /* Перерисовка вкладки «Сравнение».
+     Ноль выбранных — пустое состояние (H-4) показывает сам разметчик,
+     здесь только прячем блок. Одна добавка — подсказка «выберите ещё».
+     Две и больше — таблица (на широком экране) или карточки (на узком).
+     Обе формы рисуются всегда: так переключение брейкпоинта не требует
+     перезагрузки данных, а скрытая копия не мешает скринридеру
+     (атрибут hidden убирает её из дерева доступности). */
+  function renderCompare(ids) {
+    if (!compareWrap) return;
+    var list = ids || [];
+    var n = list.length;
+    if (!n) {
+      compareWrap.hidden = true;
+      compareHintEl.hidden = true;
+      compareScrollEl.hidden = true;
+      compareCardsEl.hidden = true;
+      compareHeadEl.innerHTML = '';
+      compareBodyEl.innerHTML = '';
+      compareCardsEl.innerHTML = '';
+      compareNoteEl.textContent = '';
+      return;
+    }
+    compareWrap.hidden = false;
+    if (n < 2) {
+      compareHintEl.hidden = false;
+      compareScrollEl.hidden = true;
+      compareCardsEl.hidden = true;
+      compareHeadEl.innerHTML = '';
+      compareBodyEl.innerHTML = '';
+      compareCardsEl.innerHTML = '';
+      compareNoteEl.textContent = 'Выбрана одна добавка. Добавьте вторую — ' +
+        'и покажем сравнение по параметрам.';
+      return;
+    }
+    compareHintEl.hidden = true;
+    var recs = [];
+    var i;
+    for (i = 0; i < list.length; i++) recs.push(compareRecord(list[i]));
+    compareNoteEl.textContent = 'Сравниваем ' + n + ' ' + comparePlural(n) +
+      ': по строкам — параметры, по столбцам — добавки.';
+    compareHeadEl.innerHTML = compareHeadHtml(recs);
+    compareBodyEl.innerHTML = compareBodyHtml(recs);
+    compareCardsEl.innerHTML = compareCardsHtml(recs);
+    var mobile = isMobile();
+    compareScrollEl.hidden = mobile;
+    compareCardsEl.hidden = !mobile;
+  }
+
+  /* Данные для сравнения: полный data.json (дозировка и формы).
+     Грузится лениво — только когда вкладка «Сравнение» понадобилась,
+     чтобы не тянуть 758 КБ странице, которая туда не заходила. */
+  function loadCompareData() {
+    if (compareDataPromise) return compareDataPromise;
+    compareDataPromise = fetchJsonStatic('data.json').then(function (data) {
+      var list = supplementsOf(data);
+      var map = {};
+      for (var i = 0; i < list.length; i++) {
+        if (list[i] && list[i].id) map[list[i].id] = list[i];
+      }
+      compareData = map;
+      return map;
+    });
+    return compareDataPromise;
+  }
+
+  /* Догружаем дозировки и перерисовываем таблицу. */
+  function ensureCompareData() {
+    if (compareData || compareDataPromise) return;
+    loadCompareData().then(function () {
+      renderCompare(selectedIds());
+    }).catch(function (err) {
+      console.error('[hactar] не удалось загрузить данные для сравнения:', err);
+    });
+  }
+
+  /* Реактивность: при смене выбора таблица перерисовывается, при
+     открытии вкладки — тоже. Данные для дозировок тянутся только когда
+     вкладка «Сравнение» открыта: пока она не нужна, 758 КБ data.json
+     никому не должны. */
+  subscribe('change', function (ids) {
+    renderCompare(ids || []);
+    if (currentMode === 'compare') ensureCompareData();
+  });
+  subscribe('mode', function (mode) {
+    if (mode === 'compare') {
+      renderCompare(selectedIds());
+      ensureCompareData();
+    }
+  });
+
+  /* Смена ширины окна (поворот телефона, поворот планшета) меняет
+     представление: таблица ↔ карточки. */
+  if (window.matchMedia) {
+    var compareMq = window.matchMedia('(max-width: ' + MOBILE_BP + 'px)');
+    var onCompareBreak = function () { renderCompare(selectedIds()); };
+    if (compareMq.addEventListener) compareMq.addEventListener('change', onCompareBreak);
+    else if (compareMq.addListener) compareMq.addListener(onCompareBreak);
+  }
+
   /* ──────────────────────────── старт ──────────────────────────── */
 
   showSkeleton();
@@ -1545,6 +1858,9 @@
       restoreSaved();
       /* H-7: отрисовать калькулятор для уже выбранных (восстановленных) добавок. */
       renderCalc(selectedIds());
+      /* H-8: то же для сравнения — при прямом заходе по ?tab=compare. */
+      renderCompare(selectedIds());
+      if (currentMode === 'compare') ensureCompareData();
     })
     .catch(function (err) {
       console.error('[hactar] не удалось загрузить список добавок:', err);
@@ -1586,6 +1902,19 @@
         edges: network.body.data.edges.length,
         physics: physicsOn,
         ready: graphReady
+      };
+    },
+    /* H-8: состояние вкладки «Сравнение» — сколько добавок в сравнении,
+       что показано (таблица / карточки / подсказка) и загружены ли
+       дозировки. Нужно для отладки и автотестов. */
+    compareState: function () {
+      var mobile = isMobile();
+      return {
+        selected: selectedIds().length,
+        visible: !!(compareWrap && !compareWrap.hidden),
+        hint: !!(compareHintEl && !compareHintEl.hidden),
+        view: mobile ? 'cards' : 'table',
+        dataLoaded: !!compareData
       };
     },
     clearSelection: function () {

@@ -34,7 +34,7 @@
     body{margin:0;padding:0;background:var(--bg);color:var(--text)}
     .hactar-wrap{display:grid;grid-template-columns:var(--hactar-sidebar) 1fr;min-height:100vh}
     .hactar-sidebar{position:sticky;top:0;height:100vh;overflow-y:auto;padding:var(--space-6) var(--space-6) var(--space-12);border-inline-end:1px solid var(--border);background:var(--card-bg)}
-    .hactar-main{display:flex;flex-direction:flex;flex-direction:column;padding:var(--space-6) var(--space-6) var(--space-12)}
+    .hactar-main{display:flex;flex-direction:flex;flex-direction:column;min-width:0;padding:var(--space-6) var(--space-6) var(--space-12)}
     .hactar-top{margin-bottom:var(--space-6)}
     .hactar-top h1{font-size:1.6rem;margin:0 0 var(--space-2);font-weight:700;letter-spacing:.02em}
     .hactar-top .sub{font-size:var(--fs-5);color:var(--muted);margin:0}
@@ -73,7 +73,6 @@
     .hactar-panels{display:flex;flex-direction:column}
     .hactar-panel{display:none;padding:var(--space-4) 0}
     .hactar-panel.active{display:block}
-    .hactar-stub{padding:var(--space-6) 0;color:var(--muted);font-size:1rem;text-align:center}
     /* Project Hactar — полная ширина (H-3).
        Общий body в style.css ограничен 1200px (max-width:1200px;margin:0 auto),
        из-за чего страница сидела в общем контейнере сайта. Переопределяем
@@ -147,10 +146,9 @@
     .hactar-empty-state{display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--space-3);max-width:620px;margin:0 auto;padding:var(--space-8) var(--space-4)}
     /* [hidden] из UA-стилей слабее авторского display:flex — скрытие задаём
        явно, иначе блок остался бы в потоке (то же, что с .hactar-row[hidden]
-       выше). То же для заглушки: display:block у .hactar-panel не мешает,
-       но полагаться на UA-стиль в одном файле с авторскими нельзя. */
+       выше). То же для всех блоков Hactar с display:flex/grid: полагаться
+       на UA-стиль в одном файле с авторскими нельзя. */
     .hactar-empty-state[hidden]{display:none}
-    .hactar-stub[hidden]{display:none}
     .hactar-empty-art{position:relative;display:flex;align-items:center;justify-content:center;width:104px;height:104px;margin-bottom:var(--space-1);border:1px dashed var(--border);border-radius:50%;background:radial-gradient(circle at 50% 38%,rgba(10,132,255,.28),rgba(10,132,255,.06) 62%,transparent 74%);font-size:2.8rem;line-height:1}
     /* Второе кольцо вокруг иллюстрации — «спутники» вокруг пробирки. */
     .hactar-empty-art::after{content:"";position:absolute;inset:-10px;border:1px solid var(--border);border-radius:50%;opacity:.45}
@@ -211,6 +209,44 @@
     .hactar-calc-alert{margin:0;font-size:var(--fs-4);color:var(--danger-tx);line-height:var(--lh-normal)}
     .hactar-calc-errors{margin-top:var(--space-3);display:flex;flex-direction:column;gap:var(--space-1)}
     .hactar-calc-error{margin:0;font-size:var(--fs-4);font-weight:600;color:var(--danger-tx);line-height:var(--lh-normal)}
+    /* Project Hactar — сравнение (H-8).
+       Таблица side-by-side: по строкам — параметры (грейд, эффекты,
+       дозировка, взаимодействия), по столбцам — выбранные добавки.
+       В самом низу — ряд кнопок «Купить»: сравнение без пути к покупке
+       разрывает воронку (баг P2-03).
+       На узких экранах таблицу сменяют вертикальные карточки
+       (переключает hactar.js), но и сама таблица умеет горизонтальную
+       прокрутку внутри контейнера — иначе она растянула бы страницу. */
+    .hactar-compare{display:flex;flex-direction:column;gap:var(--space-4)}
+    /* [hidden] слабее авторского display:flex — скрытие задаём явно. */
+    .hactar-compare[hidden]{display:none}
+    .hactar-compare-head{display:flex;flex-direction:column;gap:var(--space-1)}
+    .hactar-compare-title{margin:0;font-size:1.15rem;font-weight:700;line-height:var(--lh-title)}
+    .hactar-compare-note{margin:0;font-size:var(--fs-4);color:var(--muted);line-height:var(--lh-normal)}
+    .hactar-compare-hint{margin:0;padding:var(--space-5) var(--space-4);border:1px dashed var(--border);border-radius:var(--radius-lg);color:var(--muted);font-size:var(--fs-5);line-height:var(--lh-normal);text-align:center}
+    .hactar-compare-hint[hidden]{display:none}
+    .hactar-compare-scroll{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+    .hactar-compare-scroll[hidden]{display:none}
+    .hactar-compare-table{width:100%;min-width:520px;border-collapse:collapse;font-size:var(--fs-5)}
+    .hactar-compare-caption{padding-bottom:var(--space-2);color:var(--muted);font-size:var(--fs-4);line-height:var(--lh-normal);text-align:left;caption-side:top}
+    .hactar-compare-param,.hactar-compare-sup,.hactar-compare-rowhead{padding:var(--space-3);border-bottom:1px solid var(--border);font-weight:600;text-align:left;vertical-align:top}
+    .hactar-compare-sup{font-size:var(--fs-6)}
+    .hactar-compare-cell{padding:var(--space-3);border-bottom:1px solid var(--border);line-height:var(--lh-normal);vertical-align:top}
+    .hactar-compare-inline{color:var(--muted);font-size:var(--fs-4)}
+    .hactar-compare-list{margin:0;padding-inline-start:1.1rem;display:flex;flex-direction:column;gap:var(--space-1)}
+    .hactar-compare-none{color:var(--muted);font-size:var(--fs-4)}
+    .hactar-compare-shops{display:flex;flex-wrap:wrap;gap:var(--space-2)}
+    .hactar-compare-shop{display:inline-flex;align-items:center;min-height:44px;padding:.35rem .8rem;border:1px solid var(--border);border-radius:var(--radius-pill);background:var(--card-bg);color:var(--text);font-size:var(--fs-4);font-weight:600;line-height:1.2;text-decoration:none;white-space:nowrap}
+    .hactar-compare-shop:hover{border-color:var(--accent);background:var(--bg)}
+    .hactar-compare-shop:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+    .hactar-compare-cards{display:flex;flex-direction:column;gap:var(--space-3)}
+    .hactar-compare-cards[hidden]{display:none}
+    .hactar-compare-card{padding:var(--space-3);border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--card-bg)}
+    .hactar-compare-cardhead{display:flex;align-items:center;gap:var(--space-2);margin-bottom:var(--space-2)}
+    .hactar-compare-cardname{font-weight:700;font-size:var(--fs-5)}
+    .hactar-compare-cardrow{display:flex;gap:var(--space-2);padding:var(--space-1) 0;font-size:var(--fs-5);line-height:var(--lh-normal)}
+    .hactar-compare-cardlabel{flex:0 0 34%;color:var(--muted);font-size:var(--fs-4)}
+    .hactar-compare-cardvalue{flex:1 1 auto;min-width:0;overflow-wrap:anywhere}
     /* Мобильная шторка */
     .hactar-sidebar.open{display:block}
     /* Мобильная кнопка «Готово» — тот же контраст, что у активного чипа:
@@ -367,7 +403,27 @@
             <p class="hactar-empty-hint">Отметьте галочками добавки в левом меню, чтобы увидеть их связи, дозировки и совместимость</p>
             <button type="button" class="hactar-empty-btn">🔍 Выбрать добавки</button>
           </div>
-          <div class="hactar-stub" data-stub-label="Сравнение" hidden>Здесь будет Сравнение. Выбрано добавок: 0</div>
+          <!-- H-8: сравнение выбранных добавок — таблица side-by-side
+               (по строкам параметры, по столбцам добавки) и кнопки
+               «Купить» внизу таблицы. Они замыкают путь от сравнения
+               к покупке (баг P2-03). Содержимое наполняет docs/hactar.js. -->
+          <div class="hactar-compare" id="hactarCompare" hidden>
+            <div class="hactar-compare-head">
+              <h2 class="hactar-compare-title">Сравнение добавок</h2>
+              <p class="hactar-compare-note" id="hactarCompareNote"></p>
+            </div>
+            <p class="hactar-compare-hint" id="hactarCompareHint" hidden>Выберите минимум 2 добавки для сравнения</p>
+            <div class="hactar-compare-scroll" id="hactarCompareScroll">
+              <table class="hactar-compare-table" id="hactarCompareTable">
+                <caption class="hactar-compare-caption">Параметры выбранных добавок</caption>
+                <thead>
+                  <tr id="hactarCompareHead"></tr>
+                </thead>
+                <tbody id="hactarCompareBody"></tbody>
+              </table>
+            </div>
+            <div class="hactar-compare-cards" id="hactarCompareCards" hidden></div>
+          </div>
         </div>
       </div>
     </div>
@@ -418,7 +474,7 @@
      оба скрипта с defer, поэтому выполняются в порядке разметки и
      window.vis готов к моменту, когда hactar.js создаёт Network. -->
 <script src="vendor/vis-network-9.1.9.min.js" defer></script>
-<script src="hactar.js?v=8" defer></script>
+<script src="hactar.js?v=9" defer></script>
 
 <footer class="site-footer">
   <p class="disc">
