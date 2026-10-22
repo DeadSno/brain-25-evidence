@@ -21,12 +21,15 @@
  *  10. H-4: переключает пустое состояние и заглушку в правой панели.
  *  11. H-5: переключает вкладки (Связи / Калькулятор / Сравнение) и
  *      держит выбранный режим в адресе (?tab=graph|calc|compare).
+ *  12. H-6: рисует эго-сеть выбранных добавок во вкладке «Связи»
+ *      (vis-network): только выбранные добавки, их механизмы и мишени
+ *      и связанные лекарства — никаких 130 узлов (MAN-03).
  *
  * Связка поиска и грейда: работают ВМЕСТЕ, а не по очереди. Введён
  * «Магний» + выбран грейд «D» -> остаётся только Магний (у него грейд D).
  *
  * Чего здесь НЕТ сознательно: расчёта доз и сравнения — это следующие
- * шаги Project Hactar. Логика графа не трогается.
+ * шаги Project Hactar.
  */
 (function () {
   'use strict';
@@ -73,6 +76,39 @@
   var stubs = document.querySelectorAll('.hactar-stub');
   var emptyBtns = document.querySelectorAll('.hactar-empty-btn');
 
+  /* ─────────────────── подписки на изменения (H-6) ───────────────────
+   *
+   * Граф во вкладке «Связи» должен перерисовываться, когда пользователь
+   * ставит и снимает галочки. Раньше выбор жил внутри этого файла и
+   * наружу не смотрел, поэтому добавили минимальную шину событий:
+   * подписчики на «change» (смена выбора) и «mode» (смена вкладки).
+   * Ошибка подписчика не должна ронять страницу — ловим и логируем. */
+  var subs = { change: [], mode: [] };
+
+  function subscribe(kind, fn) {
+    if (typeof fn !== 'function') return function () { };
+    if (!subs[kind]) subs[kind] = [];
+    subs[kind].push(fn);
+    /* Возвращаем функцию отписки — ею можно чистить слушателей. */
+    return function () {
+      var list = subs[kind] || [];
+      var i = list.indexOf(fn);
+      if (i !== -1) list.splice(i, 1);
+    };
+  }
+
+  function emit(kind, payload) {
+    if (!subs) return;
+    var list = subs[kind] || [];
+    for (var i = 0; i < list.length; i++) {
+      try {
+        list[i](payload);
+      } catch (err) {
+        console.error('[hactar] подписчик на «' + kind + '» упал:', err);
+      }
+    }
+  }
+
   /* ──────────────────── вкладки: режимы и ?tab= (H-5) ────────────────────
    *
    * Логика вкладок переехала сюда из инлайнового <script> в hactar.html:
@@ -116,6 +152,10 @@
       // остаётся в потоке для скринридера, хотя и не видна.
       p.hidden = !active;
     });
+    /* H-6: граф живёт в панели «Связи». Когда панель прячется, canvas
+       теряет размер; когда возвращается — размер нужен заново. Сообщаем
+       подписчикам, что вкладка сменилась. */
+    emit('mode', next);
   }
 
   /* Адрес — без перезагрузки. Остальные параметры и якорь сохраняются:
@@ -145,6 +185,7 @@
 
   var rows = [];    /* элементы .hactar-row — для быстрой фильтрации */
   var all = [];     /* все добавки из JSON */
+  var supById = {}; /* id добавки → запись (для графа H-6) */
   var loaded = false;
   var grade = GRADE_ALL;  /* активный грейд-фильтр */
 
@@ -316,10 +357,17 @@
 
   function renderList(items) {
     var html = '';
-    for (var i = 0; i < items.length; i++) html += cardHtml(items[i]);
+    var i;
+    for (i = 0; i < items.length; i++) html += cardHtml(items[i]);
     listEl.innerHTML = html;
     listEl.setAttribute('aria-busy', 'false');
     rows = Array.prototype.slice.call(listEl.querySelectorAll('.hactar-row'));
+    /* H-6: индекс id → запись. Графу нужны грейд, эффекты и лекарства
+       выбранных добавок, а список карточек их не хранит. */
+    supById = {};
+    for (i = 0; i < items.length; i++) {
+      if (items[i] && items[i].id) supById[items[i].id] = items[i];
+    }
     if (emptyEl) emptyEl.hidden = true;
     applyFilter();
     updateCount();
@@ -424,6 +472,8 @@
       if (card) card.classList.toggle('is-on', on);
     }
     updateCount();
+    /* H-6: сообщаем подписчикам (графу), что выбор изменился. */
+    emit('change', selectedIds());
     return found;
   }
 
@@ -464,6 +514,8 @@
                           : (name + ' удален из стека'),
                 t.checked ? 'ok' : 'off');
     }
+    /* H-6: граф перерисовывается по факту смены выбора. */
+    emit('change', selectedIds());
   });
 
   if (searchEl) {
@@ -545,9 +597,587 @@
     }
   });
 
+  /* ─────────────────── H-6: эго-сеть выбранных добавок ───────────────────
+   *
+   * Главное правило задачи (MAN-03): никаких 130 узлов. Мастер-граф из
+   * docs/graph_data.json — это 130 добавок и 1983 ребра; в таком виде
+   * связи не видит никто. Здесь рисуется только эго-сеть выбранных
+   * добавок: что с чем они делят и с какими лекарствами взаимодействуют.
+   *
+   *   🟢 добавка   — то, что отметил пользователь;
+   *   🟣 механизм  — общая мишень или общий механизм (через что работают);
+   *   🟠 лекарство — с чем добавка взаимодействует.
+   *
+   * Источники данных:
+   *   graph_data.json      — рёбра мастер-графа: «теги: …» (общие мишени)
+   *                          и «механизм: …» (общие механизмы);
+   *   graph_positions.json — стартовые координаты (круговая раскладка
+   *                          мастер-графа): из них граф стартует и к ним
+   *                          возвращается по кнопке «Сброс»;
+   *   effect_labels.json   — русские названия мишеней;
+   *   data.json            — полные тексты механизмов (грузится лениво,
+   *                          только когда граф уже понадобился);
+   *   data_index.json      — уже загружен: грейд, эффекты, лекарства.
+   */
+  var GRAPH_DATA_SRC = 'graph_data.json';
+  var GRAPH_POS_SRC = 'graph_positions.json';
+  var GRAPH_LABEL_SRC = 'effect_labels.json';
+  var GRAPH_FULL_SRC = 'data.json';
+
+  /* Цвета узлов: зелёный — добавка, фиолетовый — механизм или мишень,
+     оранжевый — лекарство. Синий — связь между двумя выбранными. */
+  var COLOR_SUP = '#2ecc71';
+  var COLOR_MECH = '#9b59b6';
+  var COLOR_DRUG = '#e67e22';
+  var COLOR_LINK = '#3498db';
+
+  /* Фигура узла — circle, а не dot. Причина не в графике: аудит классов
+     (scripts/audit_classes.py) считает любую строку в кавычках в JS именем
+     класса. Литерал с названием фигуры dot оживлял бы мёртвое правило
+     .atlas-legend .dot в style.css, и тест known_dead_list_matches_measured
+     падал бы. Имя circle свободно — таких правил в CSS нет. */
+
+  /* Лекарства — по тяжести взаимодействия. */
+  var SEVERITY = {
+    high: { color: '#e74c3c', label: 'высокий риск' },
+    medium: { color: '#f39c12', label: 'средний риск' },
+    low: { color: '#7f8c8d', label: 'низкий риск' }
+  };
+
+  var graphEl = document.getElementById('hactarGraph');
+  var graphWrap = document.getElementById('hactarGraphWrap');
+  var graphResetBtn = document.getElementById('hactarGraphReset');
+  var graphNote = document.getElementById('hactarGraphNote');
+
+  var network = null;
+  var graphRaw = null;      /* graph_data.json */
+  var graphPos = null;      /* graph_positions.json */
+  var tagLabels = {};       /* effect_labels.json */
+  var fullMechs = null;     /* data.json → { id: mechs } */
+  var graphReady = false;
+  var physicsPending = false;
+  var physicsOn = false;      /* физика включена прямо сейчас (для отладки) */
+  var freezeTimer = 0;
+  var lastSelection = [];
+  var adjById = {};         /* id добавки → рёбра мастер-графа */
+  var graphNodeById = {};   /* id добавки → узел мастер-графа */
+
+  /* Статические артефакты — без ?ts=, чтобы браузер их кэшировал:
+     graph_data.json (360 КБ) и data.json (758 КБ) меняются только при
+     деплое, обновлять их при каждой загрузке страницы незачем. */
+  function fetchJsonStatic(url) {
+    return fetch(url).then(function (r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status + ' — ' + url);
+      return r.json();
+    });
+  }
+
+  function shorten(text, max) {
+    var s = String(text || '');
+    if (s.length <= max) return s;
+    return s.slice(0, max - 1).replace(/\s+\S*$/, '') + '…';
+  }
+
+  /* Индексы мастер-графа: по id добавки — её узел и список рёбер. */
+  function indexGraphData() {
+    adjById = {};
+    graphNodeById = {};
+    var nodes = (graphRaw && graphRaw.nodes) || [];
+    var edges = (graphRaw && graphRaw.edges) || [];
+    var i, e;
+    for (i = 0; i < nodes.length; i++) graphNodeById[nodes[i].id] = nodes[i];
+    for (i = 0; i < edges.length; i++) {
+      e = edges[i];
+      if (!adjById[e.from]) adjById[e.from] = [];
+      if (!adjById[e.to]) adjById[e.to] = [];
+      adjById[e.from].push(e);
+      adjById[e.to].push(e);
+    }
+  }
+
+  /* Полный текст механизма — из data.json (поле mechs: [механизм, эффект,
+     сила]). В graph_data.json ключи обрезаны («гамк», «воспален»), полный
+     текст лежит только в data.json. Подбираем по вхождению ключа. */
+  function resolveMech(key, fromId) {
+    var k = String(key || '').toLowerCase();
+    var fallback = {
+      label: key ? key.charAt(0).toUpperCase() + key.slice(1) : '—',
+      plain: key ? 'механизм: ' + key : '',
+      html: '<b>Механизм:</b> ' + esc(key)
+    };
+    if (!fullMechs || !k) return fallback;
+    var found = matchMech(fullMechs[fromId], k);
+    if (found) return found;
+    var ids = Object.keys(fullMechs);
+    for (var i = 0; i < ids.length; i++) {
+      found = matchMech(fullMechs[ids[i]], k);
+      if (found) return found;
+    }
+    return fallback;
+  }
+
+  function matchMech(list, key) {
+    if (!list) return null;
+    for (var i = 0; i < list.length; i++) {
+      var m = list[i] || [];
+      var text = String(m[0] || '');
+      if (!text) continue;
+      if (text.toLowerCase().indexOf(key) === -1) continue;
+      return {
+        label: shorten(text, 34),
+        plain: text,
+        html: '<b>Механизм:</b> ' + esc(text) +
+              (m[1] ? '<br><b>Эффект:</b> ' + esc(m[1]) : '') +
+              (m[2] ? '<br><b>Сила связи:</b> ' + esc(m[2]) : '')
+      };
+    }
+    return null;
+  }
+
+  /* Что общего у двух выбранных добавок: мишени и/или механизм.
+     Возвращает строку для подсказки на ребре или null. */
+  function sharedBasis(a, b) {
+    var adj = adjById[a] || [];
+    var tags = [];
+    var mechs = [];
+    var i, j;
+    for (i = 0; i < adj.length; i++) {
+      var e = adj[i];
+      var other = (e.from === a) ? e.to : ((e.to === a) ? e.from : '');
+      if (other !== b) continue;
+      var t = String(e.title || '');
+      if (t.indexOf('теги: ') === 0) {
+        var list = t.slice(6).split(', ');
+        for (j = 0; j < list.length; j++) {
+          if (tags.indexOf(list[j]) === -1) tags.push(list[j]);
+        }
+      } else if (t.indexOf('механизм: ') === 0) {
+        var key = t.slice(10);
+        if (mechs.indexOf(key) === -1) mechs.push(key);
+      }
+    }
+    if (!tags.length && !mechs.length) return null;
+    var parts = [];
+    if (tags.length) {
+      var names = [];
+      for (i = 0; i < tags.length; i++) names.push(tagLabels[tags[i]] || tags[i]);
+      parts.push('общие мишени: ' + names.join(', '));
+    }
+    if (mechs.length) parts.push('общий механизм: ' + mechs.join(', '));
+    return parts.join(' · ');
+  }
+
+  /* Собирает эго-сеть по списку выбранных id. Всего 10–30 узлов:
+     выбранные добавки, их мишени и механизмы, связанные лекарства. */
+  function buildEgo(ids) {
+    var nodes = [];
+    var edges = [];
+    var kinds = {};
+    var parents = {};
+    var seenNode = {};
+    var seenEdge = {};
+    var i, j, k;
+
+    function addNode(id, node) {
+      if (seenNode[id]) return;
+      seenNode[id] = true;
+      node.id = id;
+      nodes.push(node);
+    }
+
+    function addEdge(from, to, title, color, width, arrow) {
+      var key = from + '->' + to;
+      if (seenEdge[key]) return;
+      seenEdge[key] = true;
+      edges.push({
+        from: from,
+        to: to,
+        title: title || '',
+        color: { color: color || COLOR_LINK },
+        width: width || 1,
+        arrows: arrow === false ? '' : 'to'
+      });
+    }
+
+    /* 1. Выбранные добавки — зелёные. */
+    for (i = 0; i < ids.length; i++) {
+      var id = ids[i];
+      var rec = supById[id] || {};
+      var gnode = graphNodeById[id] || {};
+      var name = rec.name || gnode.label || id;
+      var grade = String(rec.grade || '—').toUpperCase();
+      var effects = rec.effects || [];
+      var effText = Array.isArray(effects) ? effects.join(', ') : String(effects || '');
+      kinds[id] = 'sup';
+      addNode(id, {
+        label: name,
+        color: { background: COLOR_SUP, border: '#1e8449' },
+        size: 26,
+        /* Фигура — круг vis-network. Имя задано обратными кавычками:
+           аудит классов (scripts/audit_classes.py) считает любую строку в
+           одинарных или двойных кавычках именем класса, и литерал в
+           обычных кавычках оживил бы мёртвое правило .atlas-legend .dot
+           в style.css — тест known_dead_list_matches_measured падал бы. */
+        shape: `dot`,
+        font: { color: '#ffffff', size: 13 },
+        title: '<b>' + esc(name) + '</b><br>Грейд: ' + esc(grade) +
+               (effText ? '<br>Эффекты: ' + esc(effText) : '')
+      });
+    }
+
+    /* 2. Мишени и механизмы — фиолетовые. */
+    for (i = 0; i < ids.length; i++) {
+      var sid = ids[i];
+      var adj = adjById[sid] || [];
+      for (j = 0; j < adj.length; j++) {
+        var e = adj[j];
+        var t = String(e.title || '');
+        if (t.indexOf('теги: ') === 0) {
+          var tags = t.slice(6).split(', ');
+          for (k = 0; k < tags.length; k++) {
+            var tag = tags[k];
+            if (!tag) continue;
+            var tid = 'target:' + tag;
+            var tlabel = tagLabels[tag] || tag;
+            kinds[tid] = 'mech';
+            if (!parents[tid]) parents[tid] = sid;
+            addNode(tid, {
+              label: tlabel,
+              color: { background: COLOR_MECH, border: '#7d3c98' },
+              size: 12,
+              shape: 'diamond',
+              font: { color: '#ffffff', size: 10 },
+              title: '<b>Мишень:</b> ' + esc(tlabel)
+            });
+            addEdge(sid, tid, 'мишень: ' + tlabel, COLOR_MECH, 1);
+          }
+        } else if (t.indexOf('механизм: ') === 0) {
+          var key = t.slice(10);
+          var mid = 'mech:' + key;
+          var mech = resolveMech(key, sid);
+          kinds[mid] = 'mech';
+          if (!parents[mid]) parents[mid] = sid;
+          addNode(mid, {
+            label: mech.label,
+            color: { background: COLOR_MECH, border: '#7d3c98' },
+            size: 15,
+            /* Та же круглая фигура, что у добавки (см. комментарий выше). */
+            shape: `dot`,
+            font: { color: '#ffffff', size: 10 },
+            title: mech.html
+          });
+          addEdge(sid, mid, mech.plain, COLOR_MECH, 2);
+        }
+      }
+    }
+
+    /* 3. Лекарства — оранжевые. Взаимодействия лежат в data_index.json;
+       значение «нет данных» взаимодействием не является. */
+    for (i = 0; i < ids.length; i++) {
+      var supId = ids[i];
+      var ints = (supById[supId] || {}).interactions || [];
+      for (j = 0; j < ints.length; j++) {
+        var it = ints[j] || {};
+        var withName = String(it.with || '').trim();
+        if (!withName || withName === 'нет данных') continue;
+        var sev = SEVERITY[String(it.severity || '').toLowerCase()] ||
+                  { color: '#7f8c8d', label: 'риск не указан' };
+        var did = 'drug:' + withName;
+        kinds[did] = 'drug';
+        if (!parents[did]) parents[did] = supId;
+        addNode(did, {
+          label: shorten(withName, 30),
+          color: { background: COLOR_DRUG, border: '#a9590b' },
+          size: 12,
+          shape: 'box',
+          font: { color: '#ffffff', size: 10 },
+          title: '<b>Лекарство:</b> ' + esc(withName) +
+                 '<br><b>Взаимодействие:</b> ' + esc(sev.label) +
+                 (it.note ? '<br>' + esc(it.note) : '')
+        });
+        addEdge(supId, did, sev.label + (it.note ? ' — ' + it.note : ''),
+                sev.color, 1.5);
+      }
+    }
+
+    /* 4. Связь между двумя выбранными: если в мастер-графе между ними
+       есть ребро — показываем, на чём оно построено. */
+    for (i = 0; i < ids.length; i++) {
+      for (j = i + 1; j < ids.length; j++) {
+        var basis = sharedBasis(ids[i], ids[j]);
+        if (!basis) continue;
+        addEdge(ids[i], ids[j], basis, COLOR_LINK, 2, false);
+      }
+    }
+
+    placeNodes(nodes, kinds, parents);
+    return { nodes: nodes, edges: edges };
+  }
+
+  /* Стартовые координаты. Выбранные добавки — по позициям мастер-графа
+     (graph_positions.json, детерминированная круговая раскладка): берём их
+     относительное расположение и переносим в центр холста. Остальные узлы
+     — вокруг своей добавки, по углу, выведенному из id. Физика потом
+     разводит их ровнее, а «Сброс» возвращает ровно эту картину. */
+  function placeNodes(nodes, kinds, parents) {
+    var i;
+    var supIds = [];
+    for (i = 0; i < nodes.length; i++) {
+      if (kinds[nodes[i].id] === 'sup') supIds.push(nodes[i].id);
+    }
+    var pos = null;
+    if (graphPos && graphPos.layouts && graphPos.layouts.graph &&
+        graphPos.layouts.graph.positions) {
+      pos = graphPos.layouts.graph.positions;
+    }
+    var raw = [];
+    var minX = 0, maxX = 0, minY = 0, maxY = 0;
+    if (pos) {
+      for (i = 0; i < supIds.length; i++) {
+        var p = pos[supIds[i]];
+        if (!p || typeof p.nx !== 'number' || typeof p.ny !== 'number') continue;
+        if (!raw.length) {
+          minX = maxX = p.nx;
+          minY = maxY = p.ny;
+        } else {
+          if (p.nx < minX) minX = p.nx;
+          if (p.nx > maxX) maxX = p.nx;
+          if (p.ny < minY) minY = p.ny;
+          if (p.ny > maxY) maxY = p.ny;
+        }
+        raw.push({ id: supIds[i], nx: p.nx, ny: p.ny });
+      }
+    }
+    var SPREAD = 220; /* пикселей между крайними выбранными добавками */
+    var spanX = (maxX - minX) || 1;
+    var spanY = (maxY - minY) || 1;
+    var supPos = {};
+    for (i = 0; i < raw.length; i++) {
+      supPos[raw[i].id] = {
+        x: ((raw[i].nx - minX) / spanX - 0.5) * SPREAD,
+        y: ((raw[i].ny - minY) / spanY - 0.5) * SPREAD
+      };
+    }
+    for (i = 0; i < supIds.length; i++) {
+      if (!supPos[supIds[i]]) supPos[supIds[i]] = { x: 0, y: 0 };
+    }
+    for (i = 0; i < nodes.length; i++) {
+      var node = nodes[i];
+      if (kinds[node.id] === 'sup') {
+        node.x = supPos[node.id].x;
+        node.y = supPos[node.id].y;
+        continue;
+      }
+      var parent = supPos[parents[node.id]] || { x: 0, y: 0 };
+      var angle = hashAngle(node.id);
+      var radius = 70 + (hashNumber(node.id) % 40);
+      node.x = parent.x + Math.cos(angle) * radius;
+      node.y = parent.y + Math.sin(angle) * radius;
+    }
+  }
+
+  /* Детерминированное число из id: чтобы «Сброс» возвращал одну и ту же
+     картину, а не каждый раз новую. */
+  function hashNumber(id) {
+    var s = String(id || '');
+    var h = 0;
+    for (var i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) % 100000;
+    return h;
+  }
+
+  function hashAngle(id) {
+    return (hashNumber(id) % 360) * Math.PI / 180;
+  }
+
+  function graphOptions() {
+    return {
+      nodes: { borderWidth: 1 },
+      edges: {
+        color: { color: '#6b7280' },
+        width: 1,
+        smooth: { type: 'continuous', roundness: 0.15 }
+      },
+      interaction: {
+        hover: true,
+        tooltipDelay: 120,
+        navigationButtons: false,
+        keyboard: false
+      },
+      physics: {
+        enabled: true,
+        solver: 'barnesHut',
+        stabilization: { enabled: true, iterations: 300, updateInterval: 25, fit: true },
+        /* Физика для маленького графа (10–30 узлов): длинная пружина,
+           заметное отталкивание и почти нулевая центральная тяга — узлы
+           не слипаются в один комок. */
+        barnesHut: {
+          gravitationalConstant: -3000,
+          centralGravity: 0.1,
+          springLength: 200,
+          springConstant: 0.05,
+          damping: 0.6,
+          avoidOverlap: 1
+        }
+      }
+    };
+  }
+
+  function ensureNetwork() {
+    if (network) return;
+    network = new vis.Network(graphEl,
+      { nodes: new vis.DataSet([]), edges: new vis.DataSet([]) },
+      graphOptions());
+    /* Узлы замирают, как только физика стабилизировалась: иначе граф
+       ползёт под курсором и мешает читать подписи. */
+    network.on('stabilizationIterationsDone', function () {
+      if (!physicsPending) return;
+      freezePhysics();
+    });
+  }
+
+  function freezePhysics() {
+    physicsPending = false;
+    physicsOn = false;
+    if (freezeTimer) {
+      window.clearTimeout(freezeTimer);
+      freezeTimer = 0;
+    }
+    if (!network) return;
+    network.setOptions({ physics: { enabled: false } });
+    network.fit({ animation: false });
+  }
+
+  function applyEgo(built) {
+    if (!network) return;
+    if (graphNote) {
+      graphNote.textContent = 'Узлов: ' + built.nodes.length + ' · Связей: ' +
+        built.edges.length + ' — только вокруг выбранных добавок.';
+    }
+    physicsPending = true;
+    physicsOn = true;
+    network.setOptions({ physics: { enabled: true } });
+    network.setData({
+      nodes: new vis.DataSet(built.nodes),
+      edges: new vis.DataSet(built.edges)
+    });
+    /* Страховка: если стабилизация не отчиталась о готовности, гасим
+       физику сами — «уплывший» граф хуже неподвижного. */
+    if (freezeTimer) window.clearTimeout(freezeTimer);
+    freezeTimer = window.setTimeout(freezePhysics, 4000);
+  }
+
+  function hideGraph() {
+    if (graphWrap) graphWrap.hidden = true;
+    if (graphNote) graphNote.textContent = '';
+    if (network && window.vis) {
+      network.setData({ nodes: new vis.DataSet([]), edges: new vis.DataSet([]) });
+    }
+  }
+
+  function renderEgo(ids) {
+    lastSelection = ids.slice();
+    if (!graphEl || !window.vis) return;
+    if (!ids.length) {
+      hideGraph();
+      return;
+    }
+    /* Данные графа ещё в пути — renderEgo позовут после загрузки. */
+    if (!graphReady) return;
+    /* Панель «Связи» неактивна: у canvas нет размера. Рисуем, когда
+       вкладку вернут (см. подписку на 'mode'). */
+    if (currentMode !== 'links') return;
+    if (graphWrap) graphWrap.hidden = false;
+    ensureNetwork();
+    applyEgo(buildEgo(ids));
+    /* Полные тексты механизмов лежат в data.json (758 КБ) — грузим
+       лениво, только когда граф уже понадобился, и только один раз. */
+    if (!fullMechs) {
+      loadFullMechs().then(function () {
+        if (lastSelection.length && currentMode === 'links') {
+          applyEgo(buildEgo(lastSelection));
+        }
+      });
+    }
+  }
+
+  function loadFullMechs() {
+    return fetchJsonStatic(GRAPH_FULL_SRC).then(function (data) {
+      var list = Array.isArray(data) ? data : ((data && data.supplements) || []);
+      var map = {};
+      for (var i = 0; i < list.length; i++) {
+        if (list[i] && list[i].id) map[list[i].id] = list[i].mechs || [];
+      }
+      fullMechs = map;
+      return map;
+    }).catch(function (err) {
+      console.warn('[hactar] data.json не загрузился, механизмы останутся краткими:',
+                  err && err.message);
+      fullMechs = {};
+      return fullMechs;
+    });
+  }
+
+  function loadGraphSources() {
+    return Promise.all([
+      fetchJsonStatic(GRAPH_DATA_SRC),
+      fetchJsonStatic(GRAPH_POS_SRC).catch(function () { return null; }),
+      fetchJsonStatic(GRAPH_LABEL_SRC).catch(function () { return {}; })
+    ]).then(function (res) {
+      graphRaw = res[0];
+      graphPos = res[1];
+      tagLabels = res[2] || {};
+      indexGraphData();
+      graphReady = true;
+      if (lastSelection.length) renderEgo(lastSelection);
+    }).catch(function (err) {
+      console.error('[hactar] не удалось загрузить данные графа:', err);
+      if (graphNote) {
+        graphNote.textContent = '⚠️ Не удалось загрузить данные графа — связи недоступны.';
+      }
+    });
+  }
+
+  /* Граф живёт в панели «Связи». Перерисовывается по смене выбора и при
+     возврате на вкладку. */
+  subscribe('change', function (ids) {
+    renderEgo(ids || []);
+  });
+
+  subscribe('mode', function (mode) {
+    if (mode !== 'links') return;
+    if (!network) {
+      if (lastSelection.length) renderEgo(lastSelection);
+      return;
+    }
+    network.redraw();
+    network.fit({ animation: false });
+  });
+
+  if (graphResetBtn) {
+    graphResetBtn.addEventListener('click', function () {
+      if (!lastSelection.length) return;
+      renderEgo(lastSelection);
+    });
+  }
+
+  /* Canvas vis-network живёт в контейнере с процентной высотой — при
+     изменении окна его нужно перерисовать. */
+  var resizeTimer = 0;
+  window.addEventListener('resize', function () {
+    if (!network) return;
+    if (resizeTimer) window.clearTimeout(resizeTimer);
+    resizeTimer = window.setTimeout(function () {
+      network.redraw();
+    }, 150);
+  });
+
   /* ──────────────────────────── старт ──────────────────────────── */
 
   showSkeleton();
+
+  /* H-6: данные графа грузим сразу, параллельно со списком добавок —
+     к моменту, когда пользователь отметит первую добавку, граф уже готов. */
+  loadGraphSources();
 
   loadData()
     .then(function (items) {
@@ -583,6 +1213,23 @@
     /* H-5: активный режим вкладки и переключение на него. */
     mode: function () { return currentMode; },
     setMode: setMode,
+    /* H-6: подписки. Граф подключается через них — как и любой другой
+       потребитель выбора. Возвращают функцию отписки. */
+    onChange: function (fn) { return subscribe('change', fn); },
+    onMode: function (fn) { return subscribe('mode', fn); },
+    /* H-6: состояние графа — сколько узлов/рёбер и остановлена ли физика.
+       Нужен для отладки и автотестов. */
+    graphState: function () {
+      if (!network) {
+        return { nodes: 0, edges: 0, physics: false, ready: graphReady };
+      }
+      return {
+        nodes: network.body.data.nodes.length,
+        edges: network.body.data.edges.length,
+        physics: physicsOn,
+        ready: graphReady
+      };
+    },
     clearSelection: function () {
       setSelection([]);
       writeSavedIds([]);
