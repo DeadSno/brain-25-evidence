@@ -97,6 +97,8 @@
   var ovHeadEl = document.getElementById('hactarOvHead');
   var ovBodyEl = document.getElementById('hactarOvBody');
   var ovNoteEl = document.getElementById('hactarOvNote');
+  /* H-12: блок сводки расписания приёма над таблицей «Обзор». */
+  var scheduleEl = document.getElementById('hactarScheduleSummary');
 
   /* ─────────────────── подписки на изменения (H-6) ───────────────────
    *
@@ -1798,6 +1800,7 @@
     if (fullData || fullDataPromise) return;
     loadFullData().then(function () {
       renderOverview(selectedIds());
+      renderSchedule(selectedIds());
     });
   }
 
@@ -2029,10 +2032,70 @@
    * Единственное место, где перечислены строки обзора. Чтобы добавить
    * новую (цена, таймлайн, безопасность), достаточно дописать объект с
    * key / label / render — таблица соберётся сама. */
+  /* H-12: время приёма — эвристика по названию и эффектам.
+     Точных данных в JSON пока нет, угадываем по ключевым словам.
+     Возвращает { label, emoji, order }: 1 — утро, 2 — день, 3 — вечер. */
+  function timingOf(rec) {
+    var text = String((rec.name || '') + ' ' + (rec.effects || []).join(' ')).toLowerCase();
+    if (text.indexOf('сон') !== -1 ||
+        text.indexOf('расслаб') !== -1 ||
+        text.indexOf('магний') !== -1 ||
+        text.indexOf('глицин') !== -1) {
+      return { label: 'Вечер/ночь', emoji: '🌙', order: 3 };
+    }
+    if (text.indexOf('энерг') !== -1 ||
+        text.indexOf('бодр') !== -1 ||
+        text.indexOf('кофеин') !== -1 ||
+        text.indexOf('витамин d') !== -1) {
+      return { label: 'Утро', emoji: '🌅', order: 1 };
+    }
+    return { label: 'День', emoji: '☀️', order: 2 };
+  }
+
+  /* H-12: ячейка строки «Время приёма» — бейдж с эмодзи. */
+  function ovTimingCell(rec) {
+    var t = timingOf(rec);
+    return '<span class="hactar-ov-inline" title="' +
+           esc('Приём: ' + t.label) + '">' + t.emoji + ' ' + esc(t.label) + '</span>';
+  }
+
+  /* H-12: сводка расписания над таблицей. Группирует выбранные добавки
+     по времени приёма; скрыта, если выбрано менее двух. */
+  function renderSchedule(ids) {
+    if (!scheduleEl) return;
+    var list = ids || [];
+    if (list.length < 2) {
+      scheduleEl.hidden = true;
+      scheduleEl.innerHTML = '';
+      return;
+    }
+    var groups = { 1: [], 2: [], 3: [] };
+    var order = [1, 2, 3];
+    var title = { 1: 'Утром', 2: 'Днём', 3: 'Вечером' };
+    var i, rec, t;
+    for (i = 0; i < list.length; i++) {
+      rec = ovRecord(list[i]);
+      t = timingOf(rec);
+      groups[t.order].push(t.emoji + ' ' + esc(rec.name));
+    }
+    var html = '';
+    var first = true;
+    for (var k = 0; k < order.length; k++) {
+      var arr = groups[order[k]];
+      if (!arr.length) continue;
+      if (!first) html += '<br>';
+      first = false;
+      html += '<strong>' + esc(title[order[k]]) + ':</strong> ' + arr.join(', ');
+    }
+    scheduleEl.innerHTML = html;
+    scheduleEl.hidden = false;
+  }
+
   var OVERVIEW_ROWS = [
     { key: 'grade', label: 'Грейд', render: function (rec) { return ovGradeCell(rec); } },
     { key: 'effects', label: 'Эффекты', render: function (rec) { return ovEffectsCell(rec); } },
     { key: 'dosage', label: 'Дозы', render: function (rec) { return ovDoseCell(rec); } },
+    { key: 'timing', label: 'Время приёма', render: function (rec) { return ovTimingCell(rec); } },
     { key: 'interactions_drugs', label: 'Взаимодействия с лекарствами',
       render: function (rec) { return ovDrugsCell(rec); } },
     { key: 'interactions_between', label: 'Взаимодействия между добавками',
@@ -2149,6 +2212,7 @@
      открытии вкладки «Обзор». */
   subscribe('change', function (ids) {
     renderOverview(ids || []);
+    renderSchedule(ids || []);
     if ((ids || []).length) ensureFullData();
   });
   subscribe('mode', function (mode) {
@@ -2178,6 +2242,7 @@
       /* H-10: единая таблица «Обзор» для уже выбранных (восстановленных)
          добавок. Полные данные (дозировки, формы) догружаются лениво. */
       renderOverview(selectedIds());
+      renderSchedule(selectedIds());
       if (selectedIds().length) ensureFullData();
       /* H-11: показать кнопку «Мои стеки», если есть сохранённые стеки. */
       updateStacksUI();
