@@ -41,11 +41,35 @@
     .hactar-pick{display:inline-flex;align-items:center;gap:var(--space-2);padding:var(--space-2) var(--space-4);border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--card-bg);color:var(--text);font-size:.95rem;margin-bottom:var(--space-4)}
     .hactar-pick strong{color:var(--text)}
     .hactar-btn-pick{display:none;padding:var(--space-2) var(--space-4);border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--card-bg);color:var(--text);cursor:pointer;font-size:.9rem;margin-bottom:var(--space-4)}
-    .hactar-tabs[role="tablist"]{padding:var(--space-4) var(--space-6) var(--space-2);display:flex;gap:var(--space-2);overflow-x:auto;scrollbar-width:thin;flex-wrap:nowrap;margin-bottom:var(--space-4)}
+    /* H-5: липкая панель вкладок в правой зоне. top:0 — держится у
+       верхнего края вьюпорта, пока прокручивается правая колонка. Фон
+       --bg совпадает с фоном страницы, поэтому содержимое не
+       просвечивает сквозь панель. padding:10px 0 — кнопки встают вровень
+       с заголовком и содержимым панели (у .hactar-main свой отступ 24px,
+       у панели — 0). */
+    .hactar-tabs[role="tablist"]{position:sticky;top:0;z-index:10;background:var(--bg);padding:10px 0;display:flex;gap:var(--space-2);overflow-x:auto;scrollbar-width:thin;flex-wrap:nowrap;margin-bottom:var(--space-4)}
     .hactar-tabs[role="tablist"]::-webkit-scrollbar{height:0}
-    .hactar-tabs[role="tablist"] [role="tab"]{padding:var(--space-2) var(--space-4);border:1px solid var(--border);background:var(--card-bg);color:var(--text);border-radius:var(--radius-lg);cursor:pointer;font-size:.9rem;font-weight:500;white-space:nowrap;flex-shrink:0}
-    .hactar-tabs[role="tablist"] [role="tab"][aria-selected="true"]{background:#1f5fbf;color:#fff;border-color:#1f5fbf}
-    .hactar-tabs[role="tablist"] [role="tab"][aria-selected="false"]{color:var(--muted)}
+    .hactar-tabs[role="tablist"] [role="tab"]{padding:var(--space-2) var(--space-4);border:1px solid var(--border);background:var(--card-bg);color:var(--text);border-radius:var(--radius-lg);cursor:pointer;font-size:.9rem;font-weight:500;white-space:nowrap;flex-shrink:0;transition:background-color .15s ease,color .15s ease,border-color .15s ease}
+    /* H-5: активная вкладка — синяя заливка + белый текст. Заливка
+       --chip-on-bg (#1f5fbf), а не var(--accent): с белым тот даёт
+       3.65:1 — ниже порога WCAG AA (4.5:1). У --chip-on-bg с белым
+       6.09:1 в обеих темах — тот же приём, что у .hactar-chip. */
+    .hactar-tabs[role="tablist"] [role="tab"][aria-selected="true"]{background:var(--chip-on-bg);color:#fff;border-color:var(--chip-on-bg)}
+    .hactar-tabs[role="tablist"] [role="tab"][aria-selected="true"]:hover{background:#1a4f9e;border-color:#1a4f9e}
+    /* Неактивная вкладка: серая подложка (--card-bg) и приглушённый
+       текст (--muted). Контраст 4.98:1 в тёмной теме и 5.07:1 в
+       светлой — оба выше 4.5:1. */
+    .hactar-tabs[role="tablist"] [role="tab"][aria-selected="false"]{background:var(--card-bg);color:var(--muted)}
+    /* H-5: наведение — текст становится основным, появляется акцентная
+       рамка. Текст --text, а не --muted: так контраст не зависит от
+       оттенка подложки и остаётся выше порога в обеих темах. */
+    .hactar-tabs[role="tablist"] [role="tab"][aria-selected="false"]:hover{background:#333336;border-color:var(--accent);color:var(--text)}
+    html.light .hactar-tabs[role="tablist"] [role="tab"][aria-selected="false"]:hover{background:#ececef}
+    /* H-5: на странице Hactar шапка сайта не липкая. Иначе она
+       (position:sticky, top:0, z-index:100 — docs/style.css:943)
+       перекрыла бы липкую панель вкладок (top:0, z-index:10): табы
+       уезжали бы под шапку и пропадали бы из виду при прокрутке. */
+    body.hactar-page .site-header{position:static}
     .hactar-panels{display:flex;flex-direction:column}
     .hactar-panel{display:none;padding:var(--space-4) 0}
     .hactar-panel.active{display:block}
@@ -146,7 +170,10 @@
       .hactar-done{display:block}
       .hactar-main{padding:var(--space-4) var(--space-4) var(--space-12)}
       .hactar-btn-pick{display:inline-flex}
-      .hactar-tabs[role="tablist"]{position:fixed;bottom:0;inset-inline-start:0;width:100%;padding:var(--space-3) var(--space-4);background:var(--bg);border-top:1px solid var(--border);z-index:50;margin:0}
+      /* H-5: на мобильном табы по-прежнему прибиты к низу. top:auto
+         обязателен: базовое правило задаёт top:0, и вместе с bottom:0
+         липкая полоса растянулась бы на весь экран. */
+      .hactar-tabs[role="tablist"]{position:fixed;top:auto;bottom:0;inset-inline-start:0;width:100%;padding:var(--space-3) var(--space-4);background:var(--bg);border-top:1px solid var(--border);z-index:50;margin:0}
       .hactar-tabs[role="tablist"] [role="tab"]{flex:1;text-align:center}
       .hactar-panels{padding-bottom:calc(var(--space-3) + 56px)}
       /* На мобильном табы прибиты к низу — тост встаёт над ними, а не поверх. */
@@ -277,8 +304,6 @@
   var sidebar = document.getElementById('hactarSidebar');
   var btnPick = document.getElementById('hactarBtnPick');
   var btnDone = document.getElementById('hactarDone');
-  var tabs = document.querySelectorAll('.hactar-tabs [role="tab"]');
-  var panels = document.querySelectorAll('.hactar-panel');
 
   // Мобильная шторка: открыть / закрыть
   function openDrawer(){
@@ -290,40 +315,9 @@
   if (btnPick) btnPick.addEventListener('click', openDrawer);
   if (btnDone) btnDone.addEventListener('click', closeDrawer);
 
-  // Вкладки
-  function setMode(mode){
-    tabs.forEach(function(t){
-      var active = t.dataset.mode === mode;
-      t.setAttribute('aria-selected', String(active));
-      t.classList.toggle('active', active);
-      t.tabIndex = active ? 0 : -1;
-    });
-    panels.forEach(function(p){
-      var active = p.dataset.panel === mode;
-      p.classList.toggle('active', active);
-      // hidden переключается вместе с классом: иначе неактивная панель
-      // остаётся в потоке для скринридера, хотя и не видна.
-      p.hidden = !active;
-    });
-  }
-  tabs.forEach(function(t){
-    t.addEventListener('click', function(){
-      setMode(t.dataset.mode);
-      closeDrawer();
-    });
-  });
-
-  // ?tab=calc / ?tab=compare при загрузке. Без параметра включается
-  // дефолтный режим — иначе класс .active не появился бы на кнопках
-  // (его ставит только setMode) и вкладки выглядели бы «никакими».
-  function initTabFromUrl(){
-    var p = new URLSearchParams(location.search);
-    var tab = p.get('tab');
-    if (tab === 'calc') setMode('calc');
-    else if (tab === 'compare') setMode('compare');
-    else setMode('links');
-  }
-  initTabFromUrl();
+  // H-5: логика вкладок (переключение + ?tab= в адресе) переехала в
+  // hactar.js — там же живёт синхронизация URL. Здесь остались только
+  // шторка и переключатель темы.
 
   // Тема
   var themeBtn = document.getElementById('themeBtn');
@@ -338,7 +332,7 @@
   }
 })();
 </script>
-<script src="hactar.js?v=3" defer></script>
+<script src="hactar.js?v=4" defer></script>
 
 <footer class="site-footer">
   <p class="disc">
