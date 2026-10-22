@@ -50,6 +50,13 @@
     .hactar-panel{display:none;padding:var(--space-4) 0}
     .hactar-panel.active{display:block}
     .hactar-stub{padding:var(--space-6) 0;color:var(--muted);font-size:1rem;text-align:center}
+    /* Project Hactar — полная ширина (H-3).
+       Общий body в style.css ограничен 1200px (max-width:1200px;margin:0 auto),
+       из-за чего страница сидела в общем контейнере сайта. Переопределяем
+       ТОЛЬКО для этой страницы: класс .hactar-page стоит на <body>.
+       Ширина — 100% от вьюпорта, поля 20px по краям. Левая панель остаётся
+       340px (--hactar-sidebar), правая зона забирает всё остальное (1fr). */
+    body.hactar-page{max-width:none;width:100%;margin:0;padding:0 20px}
     /* Project Hactar — список добавок (H-2) */
     .hactar-search{width:100%;min-height:44px;margin-bottom:var(--space-3);padding:.5rem .7rem;border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--card-bg);color:var(--text);font-size:1rem}
     .hactar-search:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
@@ -67,6 +74,25 @@
     .hactar-name{flex:1 1 auto;min-width:0;font-size:var(--fs-5);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
     .hactar-card .grade{flex:0 0 auto;margin-inline-start:0;min-width:1.7rem;text-align:center}
     .hactar-empty{padding:var(--space-4) 0;color:var(--muted);font-size:var(--fs-4);text-align:center}
+    /* Project Hactar — чипсы фильтра по грейду (H-3).
+       Активный чип помечен aria-pressed="true" — на него же завязан стиль,
+       поэтому состояние живёт в разметке, а не в отдельном классе. */
+    .hactar-chips{display:flex;flex-wrap:wrap;gap:var(--space-2);margin-bottom:var(--space-3)}
+    .hactar-chip{min-height:44px;padding:.25rem .8rem;border:1px solid var(--border);border-radius:var(--radius-pill);background:var(--card-bg);color:var(--muted);font-size:.9rem;font-weight:600;line-height:1.2;cursor:pointer}
+    .hactar-chip:hover{border-color:var(--accent);color:var(--text)}
+    .hactar-chip:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+    /* Активный чип — заливка --chip-on-bg (#1f5fbf), а не var(--accent):
+       в тёмной теме --accent (#0a84ff) даёт с белым 3.29:1 — минус WCAG AA
+       (нужно 4.5:1). #1f5fbf даёт 6.09:1 в обеих темах — тот же приём, что
+       у .preset.on и .activeFilters .chip в style.css. */
+    .hactar-chip[aria-pressed="true"]{background:var(--chip-on-bg);border-color:var(--chip-on-bg);color:#fff}
+    /* Кнопка «Очистить всё» — снимает все галочки и чистит память браузера.
+       Стоит НАД списком: список из 130 строк длинный, и кнопка в конце
+       потока была бы за пределами экрана — до неё не дотянуться без
+       длинной прокрутки. */
+    .hactar-clear{display:inline-flex;align-items:center;margin:0 0 var(--space-3);padding:.4rem .9rem;min-height:44px;border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--card-bg);color:var(--muted);font-size:.85rem;cursor:pointer}
+    .hactar-clear:hover{border-color:var(--accent);color:var(--text)}
+    .hactar-clear:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
     /* Скелетоны на время загрузки JSON: серые пульсирующие заглушки. */
     .hactar-skel{display:flex;align-items:center;gap:var(--space-3);padding:.45rem .5rem}
     .hactar-skel-box{width:20px;height:20px;border-radius:6px;flex-shrink:0;background:var(--grad-shimmer);background-size:200% 100%}
@@ -78,7 +104,9 @@
     }
     /* Мобильная шторка */
     .hactar-sidebar.open{display:block}
-    .hactar-done{display:none;width:100%;padding:var(--space-3);border:none;border-radius:var(--radius-lg);background:var(--accent);color:#fff;font-size:1rem;cursor:pointer;margin-bottom:var(--space-4)}
+    /* Мобильная кнопка «Готово» — тот же контраст, что у активного чипа:
+       var(--accent) (#0a84ff) с белым даёт 3.29:1, --chip-on-bg (#1f5fbf) — 6.09:1. */
+    .hactar-done{display:none;width:100%;padding:var(--space-3);border:none;border-radius:var(--radius-lg);background:var(--chip-on-bg);color:#fff;font-size:1rem;cursor:pointer;margin-bottom:var(--space-4)}
     @media (max-width: 768px){
       .hactar-wrap{display:block}
       .hactar-sidebar{display:none;position:fixed;inset:0;z-index:100;width:100vw;height:100vh;overflow-y:auto;padding:var(--space-4) var(--space-4) var(--space-12);border-inline-end:none;border-bottom:1px solid var(--border)}
@@ -104,7 +132,7 @@
     }
     </script>
 </head>
-<body>
+<body class="hactar-page">
 <a href="#main" class="skip-link">Перейти к содержимому</a>
 <div class="site-header">
   <div class="trustbar">🧬 Открытые данные · Бесплатно · Без рекламы</div>
@@ -124,6 +152,18 @@
     <aside class="hactar-sidebar" id="hactarSidebar">
       <button class="hactar-done" id="hactarDone">Готово</button>
       <input type="search" id="hactarSearch" class="hactar-search" placeholder="Поиск добавки…" aria-label="Поиск добавки" autocomplete="off">
+      <!-- Чипсы фильтра по грейду (H-3). По умолчанию активен «Все». -->
+      <div class="hactar-chips" id="hactarChips" role="group" aria-label="Фильтр по грейду доказательности">
+        <button type="button" class="hactar-chip" data-grade="all" aria-pressed="true" aria-label="Все — без фильтра по грейду">Все</button>
+        <button type="button" class="hactar-chip" data-grade="A" aria-pressed="false" aria-label="A — высокая доказательность" title="Грейд A — высокая доказательность">A</button>
+        <button type="button" class="hactar-chip" data-grade="B" aria-pressed="false" aria-label="B — средняя доказательность" title="Грейд B — средняя доказательность">B</button>
+        <button type="button" class="hactar-chip" data-grade="C" aria-pressed="false" aria-label="C — низкая доказательность" title="Грейд C — низкая доказательность">C</button>
+        <button type="button" class="hactar-chip" data-grade="D" aria-pressed="false" aria-label="D — недостаточно данных" title="Грейд D — недостаточно данных">D</button>
+      </div>
+      <!-- Сброс выбора (H-3): снимает все галочки и чистит localStorage.
+           Кнопка стоит над списком — до кнопки в конце длинного списка
+           не добраться без прокрутки. -->
+      <button type="button" class="hactar-clear" id="hactarClearAll">Очистить всё</button>
       <div id="hactarList" class="hactar-list" role="group" aria-label="Список добавок" aria-busy="true">
         <!-- Скелетоны (H-2): видны сразу, до загрузки JSON. -->
         <div class="hactar-skel" aria-hidden="true"><span class="hactar-skel-box"></span><span class="hactar-skel-line"></span><span class="hactar-skel-pill"></span></div>
@@ -234,7 +274,7 @@
   }
 })();
 </script>
-<script src="hactar.js?v=1" defer></script>
+<script src="hactar.js?v=2" defer></script>
 
 <footer class="site-footer">
   <p class="disc">
