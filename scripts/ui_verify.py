@@ -406,9 +406,12 @@ def main() -> int:
             pg.wait_for_timeout(400)
             pg.screenshot(path=str(SHOTS / "v26_modal.png"), full_page=True)
             pg.keyboard.press("Escape")
-            # карта с trustbar
+            # v5.6.5 (A-1.1): «Карта механизмов» (map.html) — редирект на
+            # hactar.html?tab=graph (вкладка «Связи»). Скриншот снимаем
+            # конечной страницы: вкладка «Связи» + trustbar.
             pg.goto(f"{BASE}/map.html?ts={int(time.time())}", wait_until="domcontentloaded")
-            pg.wait_for_selector("#chain", state="attached", timeout=5000)
+            pg.wait_for_function("() => location.search.includes('tab=graph')", timeout=8000)
+            pg.wait_for_selector("#hactarPanelLinks.active", state="visible", timeout=5000)
             pg.screenshot(path=str(SHOTS / "v26_map.png"), full_page=True)
 
             # v2.6.1: экономика-блок + топ-3 МА в модалке Кофеина

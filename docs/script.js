@@ -377,7 +377,12 @@ initTheme();
 // потому что главный CTA теперь «Открыть Project Hactar» (.btn.calc).
 // Уточнение .calc больше не различало две кнопки, а по одному href
 // обе они не поймались бы.
-document.querySelectorAll('a.btn[href="#cardsContainer"]').forEach((cta) => {
+//
+// v5.6.5 (A-1.1): уточнение .btn тоже снято — «Найти свою добавку»
+// больше не кнопка, а текстовая ссылка tertiary (класс .hero-search).
+// Селектор по одному href и так однозначен: на странице такая ссылка
+// ровно одна.
+document.querySelectorAll('a[href="#cardsContainer"]').forEach((cta) => {
   cta.addEventListener('click', (e) => {
     e.preventDefault();
     const target = $('cardsContainer');

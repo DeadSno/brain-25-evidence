@@ -136,15 +136,19 @@ def main() -> None:
                 assert pg.locator("#modalBody .grade").count() >= 1, "грейд не в модалке"
                 assert first["grade"] in pg.locator("#modalBody").inner_text(), "буква грейда не в модалке"
 
+            # v5.6.5 (A-1.1): «Карта механизмов» закрыта — страница стала
+            # редиректом на hactar.html?tab=graph (механизмы живут во
+            # вкладке «Связи» Project Hactar). Прежняя проверка цепочки
+            # «вещество → мишень → эффект» (#chain на map.html) здесь
+            # больше неуместна: элемента #chain на странице больше нет.
             pg.goto(f"{BASE}/map.html?supplement=Эхинацея", wait_until="domcontentloaded")
-            pg.wait_for_selector("#chain", state="attached", timeout=5000)
-            # цепочка строится асинхронно после загрузки данных: ждём текст,
-            # а не просто появление контейнера
-            pg.wait_for_function(
-                "() => { const el = document.getElementById('chain');"
-                " return !!el && el.innerText.includes('Эхинацея'); }",
-                timeout=5000)
-            assert "Эхинацея" in pg.locator("#chain").inner_text(), "атлас не открыл добавку"
+            pg.wait_for_function("() => location.search.includes('tab=graph')", timeout=8000)
+            assert "hactar.html" in pg.url and "tab=graph" in pg.url, \
+                "map.html должен редиректить на hactar.html?tab=graph (A-1.1)"
+            # конечная страница открылась на вкладке «Связи»
+            assert pg.locator("#hactarTabLinks[aria-selected='true']").count() == 1, \
+                "после редиректа map.html активна не вкладка «Связи»"
+            pg.wait_for_selector("#hactarPanelLinks.active", state="visible", timeout=5000)
 
             # ==================== v2.6: trust visuals ====================
             FILL = {"A": 4, "B": 3, "C": 2, "D": 1}
@@ -212,8 +216,12 @@ def main() -> None:
             pg.wait_for_selector("#trustSummary", state="attached", timeout=5000)
             assert pg.locator(".trustbar").count() == 1 and "Открытые данные" in pg.locator(".trustbar").inner_text()
             assert pg.locator("#trustSummary").count() == 1 and "Как мы проверяем данные" in pg.locator("#trustSummary").inner_text()
+            # v5.6.5 (A-1.1): map.html — редирект на hactar.html?tab=graph,
+            # trustbar проверяем на конечной странице (у hactar.html он
+            # свой, в .site-header).
             pg.goto(f"{BASE}/map.html?ts={ts}", wait_until="domcontentloaded")
-            pg.wait_for_selector("#chain", state="attached", timeout=5000)
+            pg.wait_for_function("() => location.search.includes('tab=graph')", timeout=8000)
+            assert "hactar.html" in pg.url, "map.html должен редиректить на hactar.html?tab=graph (A-1.1)"
             assert "Открытые данные" in pg.locator(".trustbar").inner_text()
 
             # ==================== конец v2.6 ====================
@@ -401,7 +409,10 @@ def main() -> None:
             # и никто на неё не ссылается) — из списка убран. h1 глоссария
             # называется «Термины доказательной медицины».
             for sub in ["faq", "glossary"]:
-                for page in ["index.html", "map.html"]:
+                # v5.6.5 (A-1.1): map.html больше не самостоятельная страница
+                # (редирект на hactar.html?tab=graph) — футерные ссылки
+                # проверяем на конечной странице hactar.html.
+                for page in ["index.html", "hactar.html"]:
                     pg.goto(f"{BASE}/{page}?ts={ts}", wait_until="domcontentloaded")
                     page_html = pg.content()
                     assert f'href="{sub}.html"' in page_html, f"{page} не ссылается на {sub}.html"
@@ -564,16 +575,18 @@ def main() -> None:
                 f"иерархия: не найдены h4 блоков evidence/how: {fs}"
             assert pg.locator("#modalBody .cblock[data-block-key='price']").count() == 0, \
                 "блок price вернулся в карточку"
-            # «Для врачей» в футере index и map. v5.6.5: страницы
+            # «Для врачей» в футере index и Hactar. v5.6.5: страницы
             # for_doctors.html в docs/ нет и ссылки на неё нет — проверяем
             # фактическое отсутствие (регрессия — если ссылка вернётся без страницы).
             assert pg.locator("footer a[href='for_doctors.html']").count() == 0, \
                 "в футере index.html есть ссылка на несуществующую for_doctors.html"
             pg.keyboard.press("Escape")
-            pg.goto(f"{BASE}/map.html?ts={ts}", wait_until="domcontentloaded")
-            pg.wait_for_selector("#chain", state="attached", timeout=5000)
+            # v5.6.5 (A-1.1): map.html стал редиректом на hactar.html?tab=graph —
+            # футер конечной страницы проверяем там.
+            pg.goto(f"{BASE}/hactar.html?ts={ts}", wait_until="domcontentloaded")
+            pg.wait_for_selector(".hactar-tabs [role='tab']", state="attached", timeout=5000)
             assert pg.locator("footer a[href='for_doctors.html']").count() == 0, \
-                "в футере map.html есть ссылка на несуществующую for_doctors.html"
+                "в футере hactar.html есть ссылка на несуществующую for_doctors.html"
 
             assert not errors, f"ошибки консоли: {errors}"
             b.close()
