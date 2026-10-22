@@ -1,6 +1,7 @@
 /* Project Hactar — список добавок в левой панели (H-2) + фильтры,
  * сохранение выбора и полная ширина страницы (H-3), тосты и пустые
- * состояния (H-4), переключение вкладок с deep-link ?tab= (H-5).
+ * состояния (H-4), переключение вкладок с deep-link ?tab= (H-5),
+ * сводная вкладка «Обзор» вместо трёх отдельных (H-9).
  *
  * Задача H-2: наполнить левую панель данными. Источник — docs/data_index.json
  * (облегчённая копия docs/data.json: те же 130 записей, но только поля,
@@ -19,16 +20,19 @@
  *   8. кнопка «Очистить всё» снимает все галочки и чистит хранилище;
  *   9. H-4: показывает тост при добавлении и удалении добавки;
  *  10. H-4: переключает пустое состояние и заглушку в правой панели.
- *  11. H-5: переключает вкладки (Связи / Калькулятор / Сравнение) и
- *      держит выбранный режим в адресе (?tab=graph|calc|compare).
+ *  11. H-5, H-9: переключает вкладки (Обзор / Связи) и держит выбранный
+ *      режим в адресе (?tab=overview|graph). Старые ?tab=calc и
+ *      ?tab=compare открывают «Обзор» — обе секции живут в нём.
  *  12. H-6: рисует эго-сеть выбранных добавок во вкладке «Связи»
  *      (vis-network): только выбранные добавки, их механизмы и мишени
  *      и связанные лекарства — никаких 130 узлов (MAN-03).
- *  13. H-7: считает дозы выбранных добавок во вкладке «Калькулятор»
- *      и ловит некорректный ввод (U2-02);
- *  14. H-8: собирает таблицу сравнения во вкладке «Сравнение»
- *      (side-by-side по выбранным добавкам) и ряд кнопок «Купить» —
+ *  13. H-7: считает дозы выбранных добавок в секции «Дозы и нормы»
+ *      вкладки «Обзор» и ловит некорректный ввод (U2-02);
+ *  14. H-8: собирает таблицу сравнения в секции «Сравнение» вкладки
+ *      «Обзор» (side-by-side по выбранным добавкам) и ряд кнопок «Купить» —
  *      путь от сравнения к покупке (баг P2-03).
+ *  15. H-9: сводка стека (счётчик, средний грейд) и секция «Где купить»
+ *      с чипами магазинов для каждой выбранной добавки.
  *
  * Связка поиска и грейда: работают ВМЕСТЕ, а не по очереди. Введён
  * «Магний» + выбран грейд «D» -> остаётся только Магний (у него грейд D).
@@ -93,6 +97,11 @@
   var compareCardsEl = document.getElementById('hactarCompareCards');
   var compareNoteEl = document.getElementById('hactarCompareNote');
   var compareHintEl = document.getElementById('hactarCompareHint');
+  /* H-9: элементы вкладки «Обзор» — общий блок, сводка стека и
+     секция «где купить». */
+  var overviewWrap = document.getElementById('hactarOverview');
+  var overviewSummaryEl = document.getElementById('hactarOvSummary');
+  var overviewBuyEl = document.getElementById('hactarOvBuy');
 
   /* ─────────────────── подписки на изменения (H-6) ───────────────────
    *
@@ -127,32 +136,54 @@
     }
   }
 
-  /* ──────────────────── вкладки: режимы и ?tab= (H-5) ────────────────────
+  /* ──────────────────── вкладки: режимы и ?tab= (H-5, H-9) ────────────────────
    *
    * Логика вкладок переехала сюда из инлайнового <script> в hactar.html:
    * вместе с ней приехала синхронизация адреса.
    *
-   * Deep-link: ?tab=graph — «Связи», ?tab=calc — «Калькулятор»,
-   * ?tab=compare — «Сравнение». Параметр пишется через replaceState:
-   * переключение вкладки не перезагружает страницу и не плодит записи
-   * в истории браузера. При загрузке параметр, наоборот, только
-   * читается — адрес не меняется, пока пользователь сам не выбрал
-   * другую вкладку.
+   * H-9: вкладок стало две — «Обзор» и «Связи». Калькулятор и
+   * сравнение больше не отдельные вкладки, а секции внутри «Обзора»;
+   * режимов 'calc' и 'compare' в разметке больше нет.
    *
-   * Разметка прежняя: .hactar-tabs [role="tab"] и .hactar-panel,
+   * Deep-link: ?tab=overview — «Обзор», ?tab=graph — «Связи».
+   * Параметр пишется через replaceState: переключение вкладки не
+   * перезагружает страницу и не плодит записи в истории браузера.
+   * При загрузке параметр, наоборот, только читается — адрес не меняется,
+   * пока пользователь сам не выбрал другую вкладку.
+   *
+   * Старые ссылки ?tab=calc и ?tab=compare (кнопка «+ Сравнить» на
+   * карточках добавок, редиректы calculator.html и compare.html)
+   * приводят к «Обзору» — обе секции теперь в нём. Адрес при этом
+   * переписывается на ?tab=overview, чтобы следующая копия ссылки
+   * уже была правильной.
+   *
+   * Разметка: .hactar-tabs [role="tab"] и .hactar-panel,
    * класс состояния — .active (его ставит только setMode). */
-  var TAB_PARAM = { links: 'graph', calc: 'calc', compare: 'compare' };
-  var DEFAULT_MODE = 'links';
+  var TAB_PARAM = { overview: 'overview', links: 'graph' };
+  var DEFAULT_MODE = 'overview';
+  /* Значения ?tab=, которые вели к вкладкам, ставших секциями «Обзора». */
+  var LEGACY_TABS = { calc: 'overview', compare: 'overview' };
   var tabs = document.querySelectorAll('.hactar-tabs [role="tab"]');
   var panels = document.querySelectorAll('.hactar-panel');
   var currentMode = DEFAULT_MODE;
 
-  /* Режим из адреса: ?tab=calc / ?tab=compare. Любой другой параметр
-     (и его отсутствие) — дефолтный режим «Связи». */
+  /* Режим из адреса: ?tab=overview / ?tab=graph. Старые ?tab=calc и
+     ?tab=compare (а также любой другой параметр и его отсутствие)
+     ведут в дефолтный режим — «Обзор». */
   function modeFromUrl() {
     var tab = new URLSearchParams(location.search).get('tab');
-    if (tab === 'calc' || tab === 'compare') return tab;
+    if (tab === 'graph') return 'links';
+    if (tab === 'overview') return 'overview';
+    if (LEGACY_TABS[tab]) return LEGACY_TABS[tab];
     return DEFAULT_MODE;
+  }
+
+  /* Старый ли параметр в адресе: ?tab=calc / ?tab=compare. Тогда адрес
+     переписывается на ?tab=overview — иначе ссылка осталась бы вести
+     на несуществующую вкладку. */
+  function legacyTabInUrl() {
+    var tab = new URLSearchParams(location.search).get('tab');
+    return !!(tab && LEGACY_TABS[tab]);
   }
 
   /* Выбор из адреса: ?ids=A,B.
@@ -266,9 +297,12 @@
     });
   });
 
-  /* Стартовый режим — из ?tab=. Без параметра — «Связи»: класс .active
-     ставит только setMode, без него вкладки выглядели бы «никакими». */
+  /* Стартовый режим — из ?tab=. Без параметра — «Обзор»: класс .active
+     ставит только setMode, без него вкладки выглядели бы «никакими».
+     Старый ?tab=calc / ?tab=compare переписывается на ?tab=overview —
+     replaceState, без новой записи в истории браузера. */
   setMode(modeFromUrl());
+  if (legacyTabInUrl()) syncUrl(currentMode);
 
   if (!listEl) return;
 
@@ -1442,7 +1476,7 @@
      value — распарсенное число (или '' для невалидного), raw — то, что ввёл пользователь. */
   var calcInputs = {};
   var calcData = null;
-  var calcDataLoaded = false;
+  var calcDataPromise = null;
 
   var UNIT_SRC = '(мкг|мг|г|мкмоль|ммоль|млрд\\s*КОЕ|КОЕ|МЕ|IU|CFU|млрд)';
   var UNIT_LOOKAHEAD = '(?![A-Za-zА-Яа-яЁё])';
@@ -1509,11 +1543,15 @@
     return null;
   }
 
-  /* Загружает data.json и строит индекс для калькулятора (лениво, один раз). */
+  /* Загружает data.json и строит индекс для калькулятора (лениво, один раз).
+     Промис кэшируется: без кэша второй вызов (пока fetch ещё в пути)
+     возвращал Promise.resolve(null) — список доз собрался бы по пустым
+     данным, а последняя перерисовка (по первому промису) откатывала бы
+     его к одному id вместо всех выбранных. Разбирается на H-9: в обзоре
+     список виден сразу вместе со сводкой. */
   function loadCalcData() {
-    if (calcDataLoaded) return Promise.resolve(calcData);
-    calcDataLoaded = true;
-    return fetchJsonStatic('data.json').then(function (data) {
+    if (calcDataPromise) return calcDataPromise;
+    calcDataPromise = fetchJsonStatic('data.json').then(function (data) {
       var list = Array.isArray(data) ? data : [];
       var map = {};
       for (var i = 0; i < list.length; i++) {
@@ -1545,6 +1583,7 @@
       calcData = {};
       return {};
     });
+    return calcDataPromise;
   }
 
   /* Собирает HTML-список строк калькулятора для выбранных id. */
@@ -1664,17 +1703,21 @@
       return;
     }
     loadCalcData().then(function () {
-      buildCalcUi(ids);
+      /* Список строится по текущему выбору, а не по ids из момента
+         вызова: пока грузились данные, пользователь мог снять или
+         добавить галочку, и список откатился бы к старому набору. */
+      buildCalcUi(selectedIds());
     });
   }
 
   /* Реактивность: при смене выбора (галочка в левой панели) перерисовываем
-     калькулятор; при открытии вкладки — тоже. */
+     калькулятор; при открытии вкладки — тоже. С H-9 калькулятор — секция
+     внутри «Обзора», поэтому перерисовка идёт по режиму 'overview'. */
   subscribe('change', function (ids) {
     renderCalc(ids || []);
   });
   subscribe('mode', function (mode) {
-    if (mode === 'calc') renderCalc(selectedIds());
+    if (mode === 'overview') renderCalc(selectedIds());
   });
 
   /* ──────────────────── вкладка «Сравнение» (H-8) ────────────────────
@@ -1795,10 +1838,10 @@
   /* Ячейка «Купить»: ряд кнопок-чипов со ссылками на магазины. */
   function compareBuyCell(rec) {
     var q = encodeURIComponent(compareQuery(rec));
-    var html = '<div class="hactar-compare-shops">';
+    var html = '<div class="hactar-shop-chips">';
     for (var i = 0; i < COMPARE_SHOPS.length; i++) {
       var shop = COMPARE_SHOPS[i];
-      html += '<a class="hactar-compare-shop" href="' + shop.base + q + '"' +
+      html += '<a class="hactar-shop-chip" href="' + shop.base + q + '"' +
               ' target="_blank" rel="noopener nofollow"' +
               ' aria-label="Купить ' + esc(rec.name) + ' на ' +
               esc(shop.label) + '">' + esc(shop.label) + '</a>';
@@ -1955,6 +1998,9 @@
     if (compareData || compareDataPromise) return;
     loadCompareData().then(function () {
       renderCompare(selectedIds());
+      /* Формы пришли вместе с data.json — перерисовываем «где купить»:
+         в запрос магазина добавляется первая форма выпуска. */
+      renderBuy(selectedIds());
     }).catch(function (err) {
       console.error('[hactar] не удалось загрузить данные для сравнения:', err);
     });
@@ -1962,14 +2008,14 @@
 
   /* Реактивность: при смене выбора таблица перерисовывается, при
      открытии вкладки — тоже. Данные для дозировок тянутся только когда
-     вкладка «Сравнение» открыта: пока она не нужна, 758 КБ data.json
-     никому не должны. */
+     «Обзор» открыт: пока он не нужен, 758 КБ data.json никому не
+     должны. С H-9 сравнение — секция внутри «Обзора». */
   subscribe('change', function (ids) {
     renderCompare(ids || []);
-    if (currentMode === 'compare') ensureCompareData();
+    if (currentMode === 'overview') ensureCompareData();
   });
   subscribe('mode', function (mode) {
-    if (mode === 'compare') {
+    if (mode === 'overview') {
       renderCompare(selectedIds());
       ensureCompareData();
     }
@@ -1983,6 +2029,119 @@
     if (compareMq.addEventListener) compareMq.addEventListener('change', onCompareBreak);
     else if (compareMq.addListener) compareMq.addListener(onCompareBreak);
   }
+
+  /* ──────────────────────────── H-9: вкладка «Обзор» ────────────────────────────
+   *
+   * Четыре секции на одной странице: «Сводка стека», «Дозы и нормы»,
+   * «Сравнение» и «Где купить». Первые две трети наполняют renderCalc
+   * и renderCompare (H-7, H-8) — их разметка просто переехала внутрь
+   * панели «Обзор». Сводка и магазины рисуются здесь.
+   */
+
+  /* Числовое значение грейда: A — 4, B — 3, C — 2, D — 1. */
+  var GRADE_VALUE = { A: 4, B: 3, C: 2, D: 1 };
+
+  /* Грейд добавки из облегчённых данных. '' — грейд неизвестен. */
+  function gradeOf(id) {
+    var rec = supById[id] || null;
+    var g = String((rec && rec.grade) || '').toUpperCase();
+    return GRADE_VALUE[g] ? g : '';
+  }
+
+  /* Сводка стека: сколько добавок выбрано, какой у них средний грейд
+     и сколько из них с сильными доказательствами. Плитки с грейдом
+     показываются, только если грейды известны: иначе «—» ничего
+     не сообщает пользователю. */
+  function renderOverviewSummary(ids) {
+    if (!overviewSummaryEl) return;
+    var list = ids || [];
+    var sum = 0;
+    var withGrade = 0;
+    var strong = 0;
+    var i;
+    for (i = 0; i < list.length; i++) {
+      var g = gradeOf(list[i]);
+      if (!g) continue;
+      sum += GRADE_VALUE[g];
+      withGrade++;
+      if (g === 'A') strong++;
+    }
+    var html = '<div class="hactar-ov-stat">' +
+      '<span class="hactar-ov-stat-label">Добавок в стеке</span>' +
+      '<span class="hactar-ov-stat-value">' + list.length + '</span>' +
+      '</div>';
+    if (withGrade) {
+      /* Средний грейд — округление среднего арифметического: A+B -> B,
+         C+D -> C. Класть букву, которой в стеке нет, нельзя — показываем
+         ближайшую к средней, но не лучше лучшей. */
+      var avg = Math.round(sum / withGrade);
+      if (avg < 1) avg = 1;
+      if (avg > 4) avg = 4;
+      var letter = avg >= 4 ? 'A' : (avg === 3 ? 'B' : (avg === 2 ? 'C' : 'D'));
+      html += '<div class="hactar-ov-stat">' +
+        '<span class="hactar-ov-stat-label">Средний грейд</span>' +
+        '<span class="hactar-ov-stat-value">' + letter + '</span>' +
+        '<span class="hactar-ov-stat-sub">' + esc(GRADE_LABEL[letter]) + '</span>' +
+        '</div>';
+    }
+    if (strong) {
+      html += '<div class="hactar-ov-stat">' +
+        '<span class="hactar-ov-stat-label">С грейдом A</span>' +
+        '<span class="hactar-ov-stat-value">' + strong + '</span>' +
+        '<span class="hactar-ov-stat-sub">' + esc(GRADE_LABEL.A) + '</span>' +
+        '</div>';
+    }
+    overviewSummaryEl.innerHTML = html;
+  }
+
+  /* «Где купить»: чипы магазинов для каждой выбранной добавки. Ссылки
+     ведут на поиск товара по названию добавки и её форме (форма приходит
+     из data.json; пока её нет — ищем по названию). */
+  function renderBuy(ids) {
+    if (!overviewBuyEl) return;
+    var list = ids || [];
+    if (!list.length) {
+      overviewBuyEl.innerHTML = '';
+      overviewBuyEl.hidden = true;
+      return;
+    }
+    overviewBuyEl.hidden = false;
+    var html = '';
+    for (var i = 0; i < list.length; i++) {
+      var rec = compareRecord(list[i]);
+      var q = encodeURIComponent(compareQuery(rec));
+      html += '<div class="hactar-ov-buyrow">' +
+                '<span class="hactar-ov-buyname">' + esc(rec.name) + '</span>' +
+                '<span class="hactar-shop-chips">';
+      for (var j = 0; j < COMPARE_SHOPS.length; j++) {
+        var shop = COMPARE_SHOPS[j];
+        html += '<a class="hactar-shop-chip" href="' + shop.base + q + '"' +
+                ' target="_blank" rel="noopener nofollow"' +
+                ' aria-label="Купить ' + esc(rec.name) + ' на ' +
+                esc(shop.label) + '">' + esc(shop.label) + '</a>';
+      }
+      html += '</span></div>';
+    }
+    overviewBuyEl.innerHTML = html;
+  }
+
+  /* Обзор целиком: блок показывается, когда выбрана хотя бы одна
+     добавка; пустое состояние (H-4) показывает сам разметчик. */
+  function renderOverview(ids) {
+    var list = ids || [];
+    if (overviewWrap) overviewWrap.hidden = !(list.length);
+    renderOverviewSummary(list);
+    renderBuy(list);
+  }
+
+  /* Реактивность: сводка и магазины перерисовываются при смене выбора
+     и при открытии вкладки «Обзор». */
+  subscribe('change', function (ids) {
+    renderOverview(ids || []);
+  });
+  subscribe('mode', function (mode) {
+    if (mode === 'overview') renderOverview(selectedIds());
+  });
 
   /* ──────────────────────────── старт ──────────────────────────── */
 
@@ -2006,9 +2165,11 @@
       applyUrlSelection();
       /* H-7: отрисовать калькулятор для уже выбранных (восстановленных) добавок. */
       renderCalc(selectedIds());
-      /* H-8: то же для сравнения — при прямом заходе по ?tab=compare. */
+      /* H-8: то же для сравнения — при прямом заходе по ?tab=overview. */
       renderCompare(selectedIds());
-      if (currentMode === 'compare') ensureCompareData();
+      /* H-9: сводка стека и «где купить» — третья и четвёртая секции. */
+      renderOverview(selectedIds());
+      if (currentMode === 'overview') ensureCompareData();
     })
     .catch(function (err) {
       console.error('[hactar] не удалось загрузить список добавок:', err);
@@ -2052,7 +2213,7 @@
         ready: graphReady
       };
     },
-    /* H-8: состояние вкладки «Сравнение» — сколько добавок в сравнении,
+    /* H-8: состояние секции «Сравнение» — сколько добавок в сравнении,
        что показано (таблица / карточки / подсказка) и загружены ли
        дозировки. Нужно для отладки и автотестов. */
     compareState: function () {
@@ -2063,6 +2224,16 @@
         hint: !!(compareHintEl && !compareHintEl.hidden),
         view: mobile ? 'cards' : 'table',
         dataLoaded: !!compareData
+      };
+    },
+    /* H-9: состояние вкладки «Обзор» — видна ли она, что в сводке
+       и сколько чипов магазинов в секции «Где купить». */
+    overviewState: function () {
+      return {
+        visible: !!(overviewWrap && !overviewWrap.hidden),
+        stats: overviewSummaryEl ? overviewSummaryEl.children.length : 0,
+        buys: overviewBuyEl ? overviewBuyEl.children.length : 0,
+        sections: 4
       };
     },
     clearSelection: function () {

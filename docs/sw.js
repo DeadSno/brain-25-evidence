@@ -327,7 +327,14 @@ self.addEventListener('activate', event => {
    кэша держится на CACHE_VERSION), без бампа activate не почистит
    v115-static и возвратные посетители получат старые ссылки на
    страницы-редиректы. */
-var CACHE_VERSION = 'v116';
+/* Бамп v116 -> v117: H-9 — вкладки «Калькулятор» и «Сравнение» слиты
+    в одну вкладку «Обзор» (docs/hactar.html, docs/hactar.js), редиректы
+    docs/calculator.html и docs/compare.html теперь ведут на
+    hactar.html?tab=overview. Изменённые файлы входят в STATIC_ASSETS
+    без ?v (сброс кэша держится на CACHE_VERSION), без бампа activate
+    не почистит v116-static и возвратные посетители получат старую
+    страницу с тремя вкладками. */
+var CACHE_VERSION = 'v117';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 

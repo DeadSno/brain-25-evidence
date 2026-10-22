@@ -7,7 +7,7 @@
 Гейт RUN_MOBILE удалён в v5.6.5 (tests/conftest.py); сервер поднимает
 autouse-фикстура live_server при необходимости.
 
-Страницы: index, interactions (4 таба), compare, map.
+Страницы: index, interactions (2 таба, H-9), compare, map.
 Проверка: document.documentElement.scrollWidth <= window.innerWidth
 (нет горизонтальной прокрутки на мобильной ширине).
 """
@@ -30,9 +30,9 @@ VIEWPORT = {"width": 375, "height": 667}
 # (страница, селектор таба для перебора, число табов или None)
 CASES = [
     ("index.html", None, None),
-    # interactions.html теперь редиректит на hactar.html (H-1), где 3 таба
-    # с селектором .hactar-tabs [role="tab"].
-    ("interactions.html", '.hactar-tabs [role="tab"]', 3),
+    # interactions.html теперь редиректит на hactar.html (H-1), где 2 таба
+    # с селектором .hactar-tabs [role="tab"] (H-9: «Обзор» и «Связи»).
+    ("interactions.html", '.hactar-tabs [role="tab"]', 2),
     ("compare.html", None, None),
     ("map.html", None, None),
 ]

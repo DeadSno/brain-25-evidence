@@ -86,17 +86,19 @@ MIN_TAB_HEIGHT = 44
 PAGES = (
     {
         # v5.6.5 (H-1): interactions.html стал страницей-редиректом на
-        # hactar.html, поэтому вкладки проверяются на hactar.html —
-        # там три режима (Связи / Калькулятор / Сравнение).
+        # hactar.html, поэтому вкладки проверяются на hactar.html.
+        # H-9: вкладок две — «Обзор» (сводка стека, дозы, сравнение,
+        # где купить) и «Связи»; калькулятор и сравнение стали
+        # секциями «Обзора», отдельных вкладок больше нет.
         "page": "hactar",
         # Селектор самого JS: docs/hactar.html (setMode).
         "tabs": '.hactar-tabs [role="tab"]',
         "attr": "mode",          # data-mode на кнопках вкладок
         "state": "active",       # класс состояния
-        "first": "links",        # default
-        "second": "calc",
-        "n_tabs": 3,             # разметка: docs/hactar.html
-        "modes": ("links", "calc", "compare"),
+        "first": "overview",     # default
+        "second": "links",
+        "n_tabs": 2,             # разметка: docs/hactar.html
+        "modes": ("overview", "links"),
         # #int-graph / .int-layout остались только в мёртвом <style>
         # (docs/interactions.html), элементов с ними нет;
         # .tr-tab заменён на [role="tab"].
