@@ -75,6 +75,12 @@
   var emptyStates = document.querySelectorAll('.hactar-empty-state');
   var stubs = document.querySelectorAll('.hactar-stub');
   var emptyBtns = document.querySelectorAll('.hactar-empty-btn');
+  /* H-7: элементы калькулятора доз (вкладка «Калькулятор»). */
+  var calcWrap = document.getElementById('hactarCalc');
+  var calcListEl = document.getElementById('hactarCalcList');
+  var calcSummaryListEl = document.getElementById('hactarCalcSummaryList');
+  var calcAlertsEl = document.getElementById('hactarCalcAlerts');
+  var calcErrorsEl = document.getElementById('hactarCalcErrors');
 
   /* ─────────────────── подписки на изменения (H-6) ───────────────────
    *
@@ -1280,6 +1286,247 @@
     }, 150);
   });
 
+  /* ──────────────────────────── H-7: калькулятор доз ──────────────────────────── */
+
+  /* Состояние калькулятора: calcInputs[id] = {raw, value, touched, bad}.
+     value — распарсенное число (или '' для невалидного), raw — то, что ввёл пользователь. */
+  var calcInputs = {};
+  var calcData = null;
+  var calcDataLoaded = false;
+
+  var UNIT_SRC = '(мкг|мг|г|мкмоль|ммоль|млрд\\s*КОЕ|КОЕ|МЕ|IU|CFU|млрд)';
+  var UNIT_LOOKAHEAD = '(?![A-Za-zА-Яа-яЁё])';
+  var RANGE_RE = new RegExp(
+    '(\\d+(?:[.,]\\d+)?)\\s*[-–—]\\s*(\\d+(?:[.,]\\d+)?)\\s*' + UNIT_SRC + UNIT_LOOKAHEAD, 'i');
+  var SINGLE_RE = new RegExp(
+    '(\\d+(?:[.,]\\d+)?)\\s*(?:\\+\\s*(\\d+(?:[.,]\\d+)?)\\s*)?' + UNIT_SRC + UNIT_LOOKAHEAD, 'i');
+  /* Маркеры «нет суточной нормы (UL)» — проверяем до поиска чисел. */
+  var NO_UL = /формального\s+ul|ul\s*:?\s*нет|нет\s+ul|не\s+установлен|не\s+указан|не\s+приводится|noael/i;
+  var ULNUM_RE = new RegExp('(\\d+(?:[.,]\\d+)?)\\s*' + UNIT_SRC + UNIT_LOOKAHEAD, 'i');
+
+  function parseNum(s) {
+    return parseFloat(String(s).replace(',', '.'));
+  }
+
+  /* Парсит строку дозировки («200-400 мг», «3-5 г», «1-2 г»).
+     Возвращает {value, min, max, unit} или null. */
+  function parseDosage(raw) {
+    if (!raw) return null;
+    var m = RANGE_RE.exec(raw);
+    if (m) {
+      var a = parseNum(m[1]), b = parseNum(m[2]);
+      var unit = m[3] || '';
+      /* Разные единицы в диапазоне (например, "500 мг-6 г/сут") — берём первую пару. */
+      return { value: (a + b) / 2, min: Math.min(a, b), max: Math.max(a, b), unit: unit };
+    }
+    m = SINGLE_RE.exec(raw);
+    if (m) {
+      return { value: parseNum(m[1]), min: parseNum(m[1]), max: parseNum(m[1]), unit: m[3] || '' };
+    }
+    return null;
+  }
+
+  /* Парсит upper_limit (текст). Возвращает {mg, unit} или null, если UL не установлен. */
+  function parseUpperLimit(text) {
+    if (!text) return null;
+    var t = String(text);
+    if (NO_UL.test(t)) return null;
+    var regex = new RegExp(ULNUM_RE.source, 'ig');
+    var best = null;
+    var bestWithSupt = null;
+    var mm;
+    while ((mm = regex.exec(t)) !== null) {
+      var num = parseNum(mm[1]);
+      var unit = mm[2] || '';
+      var after = t.slice(mm.index + mm[0].length, mm.index + mm[0].length + 40);
+      var hasSupt = /сут|в сутки|сутки/i.test(after);
+      var item = { mg: num, unit: unit };
+      if (hasSupt) {
+        if (!bestWithSupt || num > bestWithSupt.mg) bestWithSupt = item;
+      } else if (!best) {
+        best = item;
+      }
+    }
+    return bestWithSupt || best;
+  }
+
+  /* Переводит значение в миллиграммы. null — если единицу нельзя привести к мг. */
+  function toMg(value, unit) {
+    var u = String(unit || '').toLowerCase().replace(/\s+/g, '');
+    if (u === 'мг') return value;
+    if (u === 'г') return value * 1000;
+    if (u === 'мкг') return value / 1000;
+    return null;
+  }
+
+  /* Загружает data.json и строит индекс для калькулятора (лениво, один раз). */
+  function loadCalcData() {
+    if (calcDataLoaded) return Promise.resolve(calcData);
+    calcDataLoaded = true;
+    return fetchJsonStatic('data.json').then(function (data) {
+      var list = Array.isArray(data) ? data : [];
+      var map = {};
+      for (var i = 0; i < list.length; i++) {
+        var rec = list[i];
+        if (!rec || !rec.id) continue;
+        var id = String(rec.id);
+        var parsed = parseDosage(rec.dosage || '');
+        var ul = parseUpperLimit((supById[id] && supById[id].upper_limit) || (rec.upper_limit || ''));
+        var ulMg = ul ? toMg(ul.mg, ul.unit) : null;
+        var doseMg = parsed ? toMg(parsed.value, parsed.unit) : null;
+        map[id] = {
+          id: id,
+          name: String(rec.name || rec.id || ''),
+          dosage: String(rec.dosage || ''),
+          value: parsed ? parsed.value : null,
+          unit: parsed ? parsed.unit : '',
+          min: parsed ? parsed.min : null,
+          max: parsed ? parsed.max : null,
+          ulMg: ulMg,
+          ulUnit: ul ? ul.unit : '',
+          hasUl: !!ul,
+          comparable: (ulMg != null && doseMg != null)
+        };
+      }
+      calcData = map;
+      return map;
+    }).catch(function (err) {
+      console.warn('[hactar] данные калькулятора не загружены:', err && err.message);
+      calcData = {};
+      return {};
+    });
+  }
+
+  /* Собирает HTML-список строк калькулятора для выбранных id. */
+  function buildCalcUi(ids) {
+    var html = '';
+    for (var i = 0; i < ids.length; i++) {
+      var id = ids[i];
+      var rec = calcData && calcData[id] ? calcData[id] : null;
+      var name = rec ? rec.name : id;
+      var unit = rec && rec.unit ? rec.unit : '—';
+      var state = calcInputs[id] || {};
+      var val = state.raw !== undefined ? state.raw : (rec && rec.value != null ? String(rec.value) : '');
+      var placeholder = '';
+      if (val === '' && rec) placeholder = rec.dosage || 'доза не задана';
+      var bad = !!state.bad;
+      var cls = 'hactar-calc-input' + (bad ? ' hactar-calc-input-bad' : '');
+      html += '<div class="hactar-calc-row">' +
+        '<div class="hactar-calc-row-head">' +
+          '<div class="hactar-calc-name" title="' + esc(name) + '">' + esc(name) + '</div>' +
+          (rec && rec.min != null && rec.max != null && rec.min !== rec.max
+            ? '<div class="hactar-calc-range">норма ' + esc(String(rec.min).replace('.', ',')) +
+              '–' + esc(String(rec.max).replace('.', ',')) + ' ' + esc(unit) + '</div>'
+            : '') +
+        '</div>' +
+        '<div class="hactar-calc-field">' +
+          '<span class="hactar-calc-label">доза</span>' +
+          '<input type="number" class="' + cls + '"' +
+            ' data-id="' + esc(id) + '"' +
+            ' value="' + esc(val) + '"' +
+            (placeholder ? ' placeholder="' + esc(placeholder) + '"' : '') +
+            ' step="any" min="0">' +
+          '<span class="hactar-calc-unit">' + esc(unit) + '</span>' +
+        '</div>' +
+        '</div>';
+    }
+    calcListEl.innerHTML = html;
+    var inputs = calcListEl.querySelectorAll('.hactar-calc-input');
+    for (var j = 0; j < inputs.length; j++) {
+      inputs[j].addEventListener('input', onCalcInput);
+    }
+    recalc();
+  }
+
+  function onCalcInput(e) {
+    var t = e.target;
+    var id = t.getAttribute('data-id');
+    if (!id) return;
+    var raw = t.value;
+    var n = parseNum(raw);
+    var bad = (raw === '') || isNaN(n) || n < 0;
+    calcInputs[id] = { raw: raw, value: bad ? '' : String(n), touched: true, bad: bad };
+    if (bad) t.classList.add('hactar-calc-input-bad');
+    else t.classList.remove('hactar-calc-input-bad');
+    recalc();
+  }
+
+  /* Пересчитывает блок «Итог»: суммы, статусы, предупреждения о превышении UL,
+     ошибки валидации (NaN/отрицательные — исключаются из суммы, U2-02). */
+  function recalc() {
+    if (!calcSummaryListEl || !calcAlertsEl || !calcErrorsEl) return;
+    var ids = selectedIds();
+    var summaryHtml = '';
+    var alertsHtml = '';
+    var errorsHtml = '';
+    for (var i = 0; i < ids.length; i++) {
+      var id = ids[i];
+      var rec = calcData && calcData[id] ? calcData[id] : null;
+      var state = calcInputs[id] || {};
+      var name = rec ? rec.name : id;
+      var unit = rec && rec.unit ? rec.unit : '—';
+      if (state.bad) {
+        errorsHtml += '<div class="hactar-calc-error">Ошибка: введите корректную дозу для ' +
+          esc(name) + '.</div>';
+        continue;
+      }
+      var val = state.value !== undefined ? state.value :
+        (rec && rec.value != null ? String(rec.value) : '');
+      if (val === '' || val == null) {
+        summaryHtml += '<li class="hactar-calc-summary-item">' +
+          '<span class="hactar-calc-summary-name">' + esc(name) + '</span>' +
+          '<span class="hactar-calc-summary-value">—</span>' +
+          '<span class="hactar-calc-summary-status hactar-calc-status-ok">норма не задана</span>' +
+          '</li>';
+        continue;
+      }
+      var n = parseNum(val);
+      var over = rec && rec.comparable && n > rec.ulMg;
+      var dispVal = String(n).replace('.', ',');
+      var statusCls = over ? 'hactar-calc-status-over' : 'hactar-calc-status-ok';
+      var statusTxt = over ? 'превышена суточную норму' : 'в пределах нормы';
+      summaryHtml += '<li class="hactar-calc-summary-item">' +
+        '<span class="hactar-calc-summary-name">' + esc(name) + '</span>' +
+        '<span class="hactar-calc-summary-value">' + esc(dispVal) + ' ' + esc(unit) + '</span>' +
+        '<span class="hactar-calc-summary-status ' + esc(statusCls) + '">' + esc(statusTxt) + '</span>' +
+        '</li>';
+      if (over) {
+        alertsHtml += '<div class="hactar-calc-alert">⚠️ ' + esc(name) + ': доза ' + esc(dispVal) +
+          ' ' + esc(unit) + ' превышает суточную норму ' +
+          esc(String(rec.ulMg).replace('.', ',')) + ' ' + esc(rec.ulUnit) + '.</div>';
+      }
+    }
+    calcSummaryListEl.innerHTML = summaryHtml;
+    calcAlertsEl.innerHTML = alertsHtml;
+    calcErrorsEl.innerHTML = errorsHtml;
+  }
+
+  /* (Пере)рисовать калькулятор для текущего выбора. Вызывается при смене
+     выбора и при открытии вкладки «Калькулятор». */
+  function renderCalc(ids) {
+    if (!calcWrap || !calcListEl) return;
+    calcWrap.hidden = !(ids && ids.length);
+    if (!ids || !ids.length) {
+      calcListEl.innerHTML = '';
+      calcSummaryListEl.innerHTML = '';
+      calcAlertsEl.innerHTML = '';
+      calcErrorsEl.innerHTML = '';
+      return;
+    }
+    loadCalcData().then(function () {
+      buildCalcUi(ids);
+    });
+  }
+
+  /* Реактивность: при смене выбора (галочка в левой панели) перерисовываем
+     калькулятор; при открытии вкладки — тоже. */
+  subscribe('change', function (ids) {
+    renderCalc(ids || []);
+  });
+  subscribe('mode', function (mode) {
+    if (mode === 'calc') renderCalc(selectedIds());
+  });
+
   /* ──────────────────────────── старт ──────────────────────────── */
 
   showSkeleton();
@@ -1296,6 +1543,8 @@
       renderList(items);
       /* Выбор из памяти браузера — после рендера, иначе нечего ставить. */
       restoreSaved();
+      /* H-7: отрисовать калькулятор для уже выбранных (восстановленных) добавок. */
+      renderCalc(selectedIds());
     })
     .catch(function (err) {
       console.error('[hactar] не удалось загрузить список добавок:', err);
