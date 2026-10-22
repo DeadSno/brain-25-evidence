@@ -31,14 +31,29 @@
 Все старые ссылки на `graph.html` и `atlas.html` ведут через JS-редиректы.
 Файлы оставлены (закладки и внешние ссылки не получают 404), но каждая —
 заглушка из трёх частей: `<meta http-equiv="refresh" content="0; url=…">`,
-`<link rel="canonical" href="…/interactions.html">` и
+`<link rel="canonical" href="…/hactar.html?tab=graph">` и
 `window.location.replace(…)` в `<script>`.
 
-- `docs/graph.html` → `interactions.html#graph`
-- `docs/atlas.html` → `interactions.html#mech`
+- `docs/graph.html` → `hactar.html?tab=graph`
+- `docs/atlas.html` → `hactar.html?tab=graph`
 
-Канонический URL один — `interactions.html`. Обе заглушки помечены
+Раньше обе заглушки вели на `interactions.html#graph` / `#mech`, а тот — уже
+на `hactar.html`: два хопа вместо одного. С v5.6.5 (A-2) адрес конечный.
+
+То же и для `calculator.html`, `compare.html`, `interactions.html` и
+`map.html` — они тоже редиректы на `hactar.html`, только на другой таб
+(`?tab=calc`, `?tab=compare`, `?tab=graph`).
+
+Канонический URL один — `hactar.html`. Заглушки помечены
 `<meta name="robots" content="noindex, follow">` и выведены из
-`docs/sitemap.xml` (генератор — `scripts/build_sitemap.py`). Новые ссылки на
-`graph.html` / `atlas.html` не добавлять, в навбар не возвращать: это
-совместимость со старыми адресами, а не точки входа.
+`docs/sitemap.xml` (генератор — `scripts/build_sitemap.py`): редирект в
+sitemap не место, поисковику нужен конечный адрес. Новые ссылки на
+`graph.html` / `atlas.html` / `compare.html` / `calculator.html` /
+`interactions.html` / `map.html` не добавлять и в навбар не возвращать:
+это совместимость со старыми адресами, а не точки входа.
+
+Свой выбор страница принимает через query: `hactar.html?tab=calc`,
+`?tab=compare`, `?tab=graph` (вкладка «Связи»). Параметр `?ids=A,B`
+добавляет к отмеченным добавкам указанные id — им пользуется кнопка
+«+ Сравнить» на страницах добавок.
+

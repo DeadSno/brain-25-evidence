@@ -32,7 +32,7 @@
       "name": "Атлас механизмов",
       "short_name": "Атлас",
       "description": "Интерактивная карта механизмов и взаимодействий",
-      "url": "./atlas.html",
+      "url": "./hactar.html?tab=graph",
       "icons": [
         { "src": "./icons/192.png", "sizes": "192x192", "type": "image/png" }
       ]
@@ -50,7 +50,7 @@
       "name": "Сравнение БАДов",
       "short_name": "Сравнение",
       "description": "Сравните до 10 добавок рядом: грейд, эффекты, дозировка, безопасность",
-      "url": "./compare.html",
+      "url": "./hactar.html?tab=compare",
       "icons": [
         { "src": "./icons/192.png", "sizes": "192x192", "type": "image/png" }
       ]

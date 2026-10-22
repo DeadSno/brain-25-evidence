@@ -1114,7 +1114,7 @@ function setAxisX(ax) {
 
 function gotoCompare(idA, idB) {
   closeModal();
-  location.href = 'compare.html?ids=' + encodeURIComponent(idA) + (idB ? ',' + encodeURIComponent(idB) : '');
+  location.href = 'hactar.html?tab=compare&ids=' + encodeURIComponent(idA) + (idB ? ',' + encodeURIComponent(idB) : '');
 }
 
 // ── Адаптивные размеры пузырей: на мобильном меньше ─────────

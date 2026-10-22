@@ -68,18 +68,16 @@ EXCLUDED_PREFIXES = ("google",)
 # Порядок списка = порядок в sitemap.xml.
 ROOT_PAGES: list[tuple[str, str, str]] = [
     ("index.html", "weekly", "1.0"),
-    ("calculator.html", "weekly", "0.9"),
+    # v5.6.5 (A-2): Project Hactar — единая страница со связями, калькулятором
+    # и сравнением. До сих пор её в sitemap не было вовсе, поэтому краулер
+    # её не видел.
+    ("hactar.html", "weekly", "0.9"),
     ("trends.html", "weekly", "0.9"),
-    ("map.html", "weekly", "0.8"),
-    ("interactions.html", "weekly", "0.8"),
-    # v5.6.5: страница сравнения БАДов. Была вне ROOT_PAGES с момента
-    # появления (12853 байта, свой canonical/OG), поэтому в sitemap её не
-    # было и краулер её не видел.
-    ("compare.html", "weekly", "0.8"),
-    # v5.6.5 (2.2.6): graph.html и atlas.html убраны — они стали страницами-
-    # редиректами на interactions.html#graph и #mech. Редирект в sitemap не
-    # место: поисковику нужен конечный адрес, а не 0-секундный мета-рефреш,
-    # иначе обе вкладки конкурируют за один и тот же контент.
+    # v5.6.5 (A-2): calculator.html, map.html, interactions.html и compare.html
+    # выведены — все четыре стали страницами-редиректами на hactar.html.
+    # Редирект в sitemap не место: поисковику нужен конечный адрес, а не
+    # 0-секундный мета-рефреш, иначе обе вкладки конкурируют за один и тот
+    # же контент. То же и для graph.html / atlas.html, выведенных раньше.
     ("methodology.html", "monthly", "0.6"),
     ("faq.html", "monthly", "0.6"),
     ("glossary.html", "monthly", "0.5"),
