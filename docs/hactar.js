@@ -1,6 +1,6 @@
 /* Project Hactar — список добавок в левой панели (H-2) + фильтры,
  * сохранение выбора и полная ширина страницы (H-3), тосты и пустые
- * состояния (H-4).
+ * состояния (H-4), переключение вкладок с deep-link ?tab= (H-5).
  *
  * Задача H-2: наполнить левую панель данными. Источник — docs/data_index.json
  * (облегчённая копия docs/data.json: те же 130 записей, но только поля,
@@ -19,12 +19,14 @@
  *   8. кнопка «Очистить всё» снимает все галочки и чистит хранилище;
  *   9. H-4: показывает тост при добавлении и удалении добавки;
  *  10. H-4: переключает пустое состояние и заглушку в правой панели.
+ *  11. H-5: переключает вкладки (Связи / Калькулятор / Сравнение) и
+ *      держит выбранный режим в адресе (?tab=graph|calc|compare).
  *
  * Связка поиска и грейда: работают ВМЕСТЕ, а не по очереди. Введён
  * «Магний» + выбран грейд «D» -> остаётся только Магний (у него грейд D).
  *
- * Чего здесь НЕТ сознательно: логика табов и калькулятора не трогается,
- * расчёта доз и сравнения тоже — это следующие шаги Project Hactar.
+ * Чего здесь НЕТ сознательно: расчёта доз и сравнения — это следующие
+ * шаги Project Hactar. Логика графа не трогается.
  */
 (function () {
   'use strict';
@@ -70,6 +72,74 @@
   var emptyStates = document.querySelectorAll('.hactar-empty-state');
   var stubs = document.querySelectorAll('.hactar-stub');
   var emptyBtns = document.querySelectorAll('.hactar-empty-btn');
+
+  /* ──────────────────── вкладки: режимы и ?tab= (H-5) ────────────────────
+   *
+   * Логика вкладок переехала сюда из инлайнового <script> в hactar.html:
+   * вместе с ней приехала синхронизация адреса.
+   *
+   * Deep-link: ?tab=graph — «Связи», ?tab=calc — «Калькулятор»,
+   * ?tab=compare — «Сравнение». Параметр пишется через replaceState:
+   * переключение вкладки не перезагружает страницу и не плодит записи
+   * в истории браузера. При загрузке параметр, наоборот, только
+   * читается — адрес не меняется, пока пользователь сам не выбрал
+   * другую вкладку.
+   *
+   * Разметка прежняя: .hactar-tabs [role="tab"] и .hactar-panel,
+   * класс состояния — .active (его ставит только setMode). */
+  var TAB_PARAM = { links: 'graph', calc: 'calc', compare: 'compare' };
+  var DEFAULT_MODE = 'links';
+  var tabs = document.querySelectorAll('.hactar-tabs [role="tab"]');
+  var panels = document.querySelectorAll('.hactar-panel');
+  var currentMode = DEFAULT_MODE;
+
+  /* Режим из адреса: ?tab=calc / ?tab=compare. Любой другой параметр
+     (и его отсутствие) — дефолтный режим «Связи». */
+  function modeFromUrl() {
+    var tab = new URLSearchParams(location.search).get('tab');
+    if (tab === 'calc' || tab === 'compare') return tab;
+    return DEFAULT_MODE;
+  }
+
+  function setMode(next) {
+    currentMode = next;
+    tabs.forEach(function (t) {
+      var active = t.dataset.mode === next;
+      t.setAttribute('aria-selected', String(active));
+      t.classList.toggle('active', active);
+      t.tabIndex = active ? 0 : -1;
+    });
+    panels.forEach(function (p) {
+      var active = p.dataset.panel === next;
+      p.classList.toggle('active', active);
+      // hidden переключается вместе с классом: иначе неактивная панель
+      // остаётся в потоке для скринридера, хотя и не видна.
+      p.hidden = !active;
+    });
+  }
+
+  /* Адрес — без перезагрузки. Остальные параметры и якорь сохраняются:
+     replaceState заменяет историю целиком, терять их нельзя. */
+  function syncUrl(next) {
+    var param = TAB_PARAM[next];
+    if (!param) return;
+    var url = new URL(location.href);
+    url.searchParams.set('tab', param);
+    history.replaceState(null, '', url.pathname + url.search + url.hash);
+  }
+
+  tabs.forEach(function (t) {
+    t.addEventListener('click', function () {
+      setMode(t.dataset.mode);
+      syncUrl(t.dataset.mode);
+      /* На мобильном вкладка закрывает шторку — как и раньше. */
+      if (sidebar) sidebar.classList.remove('open');
+    });
+  });
+
+  /* Стартовый режим — из ?tab=. Без параметра — «Связи»: класс .active
+     ставит только setMode, без него вкладки выглядели бы «никакими». */
+  setMode(modeFromUrl());
 
   if (!listEl) return;
 
@@ -510,6 +580,9 @@
     /* H-3: память браузера. */
     savedIds: readSavedIds,
     save: saveSelection,
+    /* H-5: активный режим вкладки и переключение на него. */
+    mode: function () { return currentMode; },
+    setMode: setMode,
     clearSelection: function () {
       setSelection([]);
       writeSavedIds([]);
