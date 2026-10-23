@@ -99,6 +99,8 @@
   var ovNoteEl = document.getElementById('hactarOvNote');
   /* H-12: блок сводки расписания приёма над таблицей «Обзор». */
   var scheduleEl = document.getElementById('hactarScheduleSummary');
+  /* H-13: блок сводки стоимости курса над таблицей «Обзор». */
+  var costEl = document.getElementById('hactarCostSummary');
 
   /* ─────────────────── подписки на изменения (H-6) ───────────────────
    *
@@ -2027,6 +2029,18 @@
     return html + '</div>';
   }
 
+/* H-13: цена одной добавки — из PRICE_MAP, иначе дефолтная. */
+function priceOf(rec) {
+  var p = PRICE_MAP[String(rec.name || '')];
+  return typeof p === 'number' ? p : DEFAULT_PRICE;
+}
+
+/* Ячейка строки «Стоимость курса (₽/мес)». */
+function ovPriceCell(rec) {
+  return '<span class="hactar-ov-price">' + esc(priceOf(rec)) + ' ₽</span>' +
+         ' <span class="hactar-ov-inline">/ мес</span>';
+}
+
   /* ── строки таблицы ───────────────────────────────────────────────────
    *
    * Единственное место, где перечислены строки обзора. Чтобы добавить
@@ -2091,7 +2105,58 @@
     scheduleEl.hidden = false;
   }
 
-  var OVERVIEW_ROWS = [
+/* H-13: сводка стоимости над таблицей. Скрыта, если ничего не выбрано. */
+function renderCost(ids) {
+  if (!costEl) return;
+  var list = ids || [];
+  var total = 0;
+  for (var i = 0; i < list.length; i++) {
+    total += priceOf(ovRecord(list[i]));
+  }
+  if (!list.length) {
+    costEl.hidden = true;
+    costEl.innerHTML = '';
+    return;
+  }
+  costEl.innerHTML = '<strong>Итого:</strong> ~ ' +
+    String(total).replace('.', ',') + ' ₽ / мес';
+  costEl.hidden = false;
+}
+
+/* H-13: цена курса. data.json не хранит цены — локальный словарь
+   с розничной стоимостью популярных добавок (₽ / месяц).
+   Если добавки нет в словаре — дефолтная цена 500 ₽ / мес. */
+const PRICE_MAP = {
+  'Магний': 600,
+  'Омега-3': 1200,
+  'Витамин D': 400,
+  'Креатин': 800,
+  'Кофеин': 200,
+  'Цинк': 300,
+  'Витамин C': 250,
+  'L-Теанин': 450,
+  'Глицин': 150,
+  'Селен': 320,
+  'Йод': 280,
+  'Железо': 340,
+  'Кальций': 380,
+  'Витамин E': 420,
+  'NAC': 520,
+  'Alpha-GPC': 700,
+  'CoQ10': 900,
+  'BCAA': 950,
+  'DHA': 850,
+  'EPA': 800,
+  'GLA': 600,
+  'NMN': 1400,
+  'PQQ': 1100,
+  'MSM': 400,
+  'SAMe': 1000
+};
+/* Дефолтная цена для добавок, которых нет в словаре. */
+var DEFAULT_PRICE = 500;
+
+var OVERVIEW_ROWS = [
     { key: 'grade', label: 'Грейд', render: function (rec) { return ovGradeCell(rec); } },
     { key: 'effects', label: 'Эффекты', render: function (rec) { return ovEffectsCell(rec); } },
     { key: 'dosage', label: 'Дозы', render: function (rec) { return ovDoseCell(rec); } },
@@ -2100,7 +2165,9 @@
       render: function (rec) { return ovDrugsCell(rec); } },
     { key: 'interactions_between', label: 'Взаимодействия между добавками',
       render: function (rec, ids) { return ovBetweenCell(rec, ids); } },
-    { key: 'buy', label: 'Где купить', render: function (rec) { return ovBuyCell(rec); } }
+    { key: 'buy', label: 'Где купить', render: function (rec) { return ovBuyCell(rec); } },
+    { key: 'price', label: 'Стоимость курса (₽/мес)',
+      render: function (rec) { return ovPriceCell(rec); } }
   ];
 
   /* ── сборка таблицы ──────────────────────────────────────────────────── */
@@ -2213,6 +2280,7 @@
   subscribe('change', function (ids) {
     renderOverview(ids || []);
     renderSchedule(ids || []);
+    renderCost(ids || []);
     if ((ids || []).length) ensureFullData();
   });
   subscribe('mode', function (mode) {
@@ -2243,6 +2311,7 @@
          добавок. Полные данные (дозировки, формы) догружаются лениво. */
       renderOverview(selectedIds());
       renderSchedule(selectedIds());
+      renderCost(selectedIds());
       if (selectedIds().length) ensureFullData();
       /* H-11: показать кнопку «Мои стеки», если есть сохранённые стеки. */
       updateStacksUI();
