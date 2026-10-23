@@ -97,10 +97,6 @@
   var ovHeadEl = document.getElementById('hactarOvHead');
   var ovBodyEl = document.getElementById('hactarOvBody');
   var ovNoteEl = document.getElementById('hactarOvNote');
-  /* H-12: блок сводки расписания приёма над таблицей «Обзор». */
-  var scheduleEl = document.getElementById('hactarScheduleSummary');
-  /* H-13: блок сводки стоимости курса над таблицей «Обзор». */
-  var costEl = document.getElementById('hactarCostSummary');
 
   /* ─────────────────── подписки на изменения (H-6) ───────────────────
    *
@@ -1802,7 +1798,6 @@
     if (fullData || fullDataPromise) return;
     loadFullData().then(function () {
       renderOverview(selectedIds());
-      renderSchedule(selectedIds());
     });
   }
 
@@ -2035,9 +2030,9 @@ function priceOf(rec) {
   return typeof p === 'number' ? p : DEFAULT_PRICE;
 }
 
-/* Ячейка строки «Стоимость курса (₽/мес)». */
+/* Ячейка строки «Стоимость курса (₽/мес)*. Цена aproximate — префикс ~. */
 function ovPriceCell(rec) {
-  return '<span class="hactar-ov-price">' + esc(priceOf(rec)) + ' ₽</span>' +
+  return '<span class="hactar-ov-price">~ ' + esc(priceOf(rec)) + ' ₽</span>' +
          ' <span class="hactar-ov-inline">/ мес</span>';
 }
 
@@ -2073,59 +2068,11 @@ function ovPriceCell(rec) {
            esc('Приём: ' + t.label) + '">' + t.emoji + ' ' + esc(t.label) + '</span>';
   }
 
-  /* H-12: сводка расписания над таблицей. Группирует выбранные добавки
-     по времени приёма; скрыта, если выбрано менее двух. */
-  function renderSchedule(ids) {
-    if (!scheduleEl) return;
-    var list = ids || [];
-    if (list.length < 2) {
-      scheduleEl.hidden = true;
-      scheduleEl.innerHTML = '';
-      return;
-    }
-    var groups = { 1: [], 2: [], 3: [] };
-    var order = [1, 2, 3];
-    var title = { 1: 'Утром', 2: 'Днём', 3: 'Вечером' };
-    var i, rec, t;
-    for (i = 0; i < list.length; i++) {
-      rec = ovRecord(list[i]);
-      t = timingOf(rec);
-      groups[t.order].push(t.emoji + ' ' + esc(rec.name));
-    }
-    var html = '';
-    var first = true;
-    for (var k = 0; k < order.length; k++) {
-      var arr = groups[order[k]];
-      if (!arr.length) continue;
-      if (!first) html += '<br>';
-      first = false;
-      html += '<strong>' + esc(title[order[k]]) + ':</strong> ' + arr.join(', ');
-    }
-    scheduleEl.innerHTML = html;
-    scheduleEl.hidden = false;
-  }
-
-/* H-13: сводка стоимости над таблицей. Скрыта, если ничего не выбрано. */
-function renderCost(ids) {
-  if (!costEl) return;
-  var list = ids || [];
-  var total = 0;
-  for (var i = 0; i < list.length; i++) {
-    total += priceOf(ovRecord(list[i]));
-  }
-  if (!list.length) {
-    costEl.hidden = true;
-    costEl.innerHTML = '';
-    return;
-  }
-  costEl.innerHTML = '<strong>Итого:</strong> ~ ' +
-    String(total).replace('.', ',') + ' ₽ / мес';
-  costEl.hidden = false;
-}
 
 /* H-13: цена курса. data.json не хранит цены — локальный словарь
    с розничной стоимостью популярных добавок (₽ / месяц).
-   Если добавки нет в словаре — дефолтная цена 500 ₽ / мес. */
+   Если добавки нет в словаре — дефолтная цена 500 ₽ / мес.
+   // ВНИМАНИЕ: Это оценочные данные для MVP. В будущем заменить на парсинг реальных цен. */
 const PRICE_MAP = {
   'Магний': 600,
   'Омега-3': 1200,
@@ -2166,7 +2113,7 @@ var OVERVIEW_ROWS = [
     { key: 'interactions_between', label: 'Взаимодействия между добавками',
       render: function (rec, ids) { return ovBetweenCell(rec, ids); } },
     { key: 'buy', label: 'Где купить', render: function (rec) { return ovBuyCell(rec); } },
-    { key: 'price', label: 'Стоимость курса (₽/мес)',
+    { key: 'price', label: 'Стоимость курса (₽/мес)*',
       render: function (rec) { return ovPriceCell(rec); } }
   ];
 
@@ -2279,8 +2226,6 @@ var OVERVIEW_ROWS = [
      открытии вкладки «Обзор». */
   subscribe('change', function (ids) {
     renderOverview(ids || []);
-    renderSchedule(ids || []);
-    renderCost(ids || []);
     if ((ids || []).length) ensureFullData();
   });
   subscribe('mode', function (mode) {
@@ -2310,8 +2255,6 @@ var OVERVIEW_ROWS = [
       /* H-10: единая таблица «Обзор» для уже выбранных (восстановленных)
          добавок. Полные данные (дозировки, формы) догружаются лениво. */
       renderOverview(selectedIds());
-      renderSchedule(selectedIds());
-      renderCost(selectedIds());
       if (selectedIds().length) ensureFullData();
       /* H-11: показать кнопку «Мои стеки», если есть сохранённые стеки. */
       updateStacksUI();

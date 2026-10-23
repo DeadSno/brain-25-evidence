@@ -265,12 +265,6 @@
   @media (max-width: 768px){
     .hactar-stack-actions{margin-inline-start:0;margin-top:var(--space-2)}
   }
-  /* H-12: сводка расписания приёма над таблицей «Обзор». */
-  .hactar-schedule-summary{margin:var(--space-4) 0;padding:var(--space-3) var(--space-4);border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--card-bg);color:var(--text);font-size:var(--fs-5);line-height:var(--lh-normal)}
-  .hactar-schedule-summary[hidden]{display:none}
-  /* H-13: сводка стоимости курса над таблицей «Обзор». */
-  .hactar-cost-summary{margin:var(--space-4) 0;padding:var(--space-3) var(--space-4);border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--card-bg);color:var(--text);font-size:var(--fs-4);font-weight:700;line-height:var(--lh-normal)}
-  .hactar-cost-summary[hidden]{display:none}
   </style>
   <script type="application/ld+json">
     {
@@ -344,10 +338,6 @@
           </span>
         </span>
       </div>
-      <!-- H-12: сводка расписания приёма над таблицей «Обзор». -->
-      <div id="hactarScheduleSummary" class="hactar-schedule-summary" hidden></div>
-      <!-- H-13: сводка стоимости курса над таблицей «Обзор». -->
-      <div id="hactarCostSummary" class="hactar-cost-summary" hidden></div>
       <button class="hactar-btn-pick" id="hactarBtnPick">🔍 Выбрать добавки</button>
       <!-- H-9: вкладок две, а не три. «Калькулятор» и «Сравнение»
            слиты в «Обзор» — четыре секции с общей прокруткой: когнитивная
@@ -388,6 +378,9 @@
                 <tbody id="hactarOvBody"></tbody>
               </table>
             </div>
+            <p class="hactar-ov-caption" style="font-size:var(--fs-6);margin-top:var(--space-2);color:var(--muted);">
+              * Стоимость указана ориентировочно на основе средних рыночных данных и не является публичной офертой.
+            </p>
           </div>
         </div>
         <div class="hactar-panel" id="hactarPanelLinks" data-panel="links">
