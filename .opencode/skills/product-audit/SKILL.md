@@ -116,9 +116,15 @@ project: brain-25-evidence
 
 - Форма: Web3Forms в feedback.html
 - Донат: ЮMoney в support.html
-- Граф/механизмы: vis-network в `interactions.html` — 4 таба (`#graph`
-  Связи, `#mech` Механизмы, `#sups` Добавки, `#drugs` Лекарства);
-  `graph.html` и `atlas.html` — редирект-заглушки, отдельных страниц нет
+- Воронка/Hactar: `hactar.html` — главная страница воронки. `calculator.html`,
+  `compare.html`, `interactions.html`, `map.html` — редиректы
+  (`<meta http-equiv="refresh">`) на `hactar.html`, отдельных живых страниц нет.
+  `graph.html` и `atlas.html` — редирект-заглушки на `interactions.html`
+  (внутри Hactar).
+- Проверки воронки Hactar:
+  - Таблица «Обзор» (дозы, взаимодействия, цены) отображается корректно;
+  - «Мои стеки» — стеки сохраняются после перезагрузки страницы;
+  - Кнопки «Купить» в таблице работают и ведут в магазин без разрыва воронки.
 - Правило: на каждой странице в .actions НЕТ ссылки на себя
 - Правило: одинаковый набор кнопок в .actions на главных HTML
 - Правило: футеры байт-идентичны
