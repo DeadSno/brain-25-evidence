@@ -228,7 +228,7 @@ npx -y vortix-cli@0.1.3 check # внешний статический аудит
 | Тренды | [audits/trends.md](../../reports/audits/trends.md) |
 | Скиллы | [audits/skills.md](../../reports/audits/skills.md) |
 
-Индекс всего аудита и список открытых находок — `reports/AUDIT_MASTER.md`.
+Индекс всего аудита и список открытых находок — `reports/AUDIT_MASTER_v565_final.md`.
 Исходные отчёты — `reports/archive/`.
 
 ### Прогоны скиллов (`reports/archive/v56/`)
