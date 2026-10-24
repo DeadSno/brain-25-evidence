@@ -71,7 +71,7 @@
 | A2-03 | баг | C | Чипы Ozon/WB: `aria-label` есть, класс отсутствует | docs/index.html | Закрыто (коммит a5cf0f02 — класс .shop-chip добавлен при исправлении NV2-02) |
 | A2-04 | баг | B | CTA после скролла фокусирует кнопку фильтра, а не `#search` | docs/index.html | Закрыто (не требует исправления: текущее поведение верное — фокус переводится на чип-фильтр «Все эффекты» для удобства клавиатурной навигации после скролла) |
 | A2-05 | баг | C | `summary` без `role="button"` и `aria-expanded` | docs/index.html, docs/script.js | Закрыто (коммит bd154a89 — `aria-expanded` на трёх `<summary>` главной, `initDisclosures()` синхронизирует атрибут с `details.open` на `toggle` и сразу на `click`; `role="button"` не ставится — `<summary>` уже кнопка в дереве доступности, явная роль стёрла бы семантику disclosure) |
-| A2-06 | баг | B | Граф `interactions.html` недоступен с клавиатуры | docs/interactions.html | Открыт |
+| A2-06 | баг | B | Граф `interactions.html` недоступен с клавиатуры (после FIX-03 граф живёт в `hactar.html`, вкладка «Связи») | docs/hactar.html, docs/hactar.js | Закрыто (коммит eb9add98 — контейнер графа: `tabindex="0"`, `role="img"`, `aria-label`, `aria-describedby` на подсказку, `:focus-visible` 2px; связи продублированы `.sr-only`-списком `renderGraphAlt()`. `role="application"` не ставится: клавиатурной навигации по узлам у vis-network 9.1.9 нет) |
 | A2-07 | баг | C | `404.html`: навигация без `data-i18n-aria-label`, нет связи `#nfSearch`–`#nfResults` | docs/404.html | Открыт |
 | A2-08 | баг | B | Чип в тёмной теме: контраст ~3.27:1 < 4.5:1 | docs/style.css | Открыт |
 | NA2-01 | баг | B | Инпуты доз `.hactar-ov-dose-input` без accessible name | docs/hactar.js (renderOverview) | Закрыто (коммит 88a1c375 — aria-label добавлен) |
