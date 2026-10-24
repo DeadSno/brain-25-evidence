@@ -22,16 +22,24 @@
 
    Лицензия SIL OFL 1.1 лежит рядом, в docs/fonts/LICENSE-Inter.txt —
    по условию OFL лицензия обязана сопровождать шрифт. */
+/* FIX-42 (C2-01): было font-display: swap — текст успевал отрисоваться
+   системным шрифтом и затем переставлялся на Inter, давая CLS 0.29 на
+   index.html под медленной сетью (замер Playwright: один сдвиг 0.2883
+   на t=4775 мс, ровно в момент подмены шрифта). optional убирает подмену
+   после первой отрисовки: шрифт применяется, только если успел к ней,
+   иначе страница остаётся на системном до следующего захода (он уже
+   будет в кэше). Эти же файлы предзагружаются в <head> главной, чтобы
+   на нормальной сети Inter попадал в первую отрисовку. */
 @font-face { font-family: 'Inter'; font-weight: 400; font-style: normal;
-  src: url('fonts/inter-regular.woff2') format('woff2'); font-display: swap; }
+  src: url('fonts/inter-regular.woff2') format('woff2'); font-display: optional; }
 @font-face { font-family: 'Inter'; font-weight: 500; font-style: normal;
-  src: url('fonts/inter-medium.woff2') format('woff2'); font-display: swap; }
+  src: url('fonts/inter-medium.woff2') format('woff2'); font-display: optional; }
 @font-face { font-family: 'Inter'; font-weight: 600; font-style: normal;
-  src: url('fonts/inter-semibold.woff2') format('woff2'); font-display: swap; }
+  src: url('fonts/inter-semibold.woff2') format('woff2'); font-display: optional; }
 @font-face { font-family: 'Inter'; font-weight: 700; font-style: normal;
-  src: url('fonts/inter-bold.woff2') format('woff2'); font-display: swap; }
+  src: url('fonts/inter-bold.woff2') format('woff2'); font-display: optional; }
 @font-face { font-family: 'Inter'; font-weight: 800; font-style: normal;
-  src: url('fonts/inter-extrabold.woff2') format('woff2'); font-display: swap; }
+  src: url('fonts/inter-extrabold.woff2') format('woff2'); font-display: optional; }
 
 :root{
   /* ── Шаг 9: межстрочный интервал ── */
