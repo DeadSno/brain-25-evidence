@@ -415,7 +415,15 @@ self.addEventListener('activate', event => {
    49 символов (убран «комбинаций», бренд-суффикс сохранён), og:title и
    twitter:title синхронизированы с ним. Менялся только hactar.html,
    style.css не менялся, ?v= 456 остаётся. */
-var CACHE_VERSION = 'v139';
+/* Бамп v139 -> v140: SE2-01, SE2-03, SE2-04, SE2-05 — у чипов магазинов на
+   sup-страницах и у внешних ссылок появился rel="nofollow" (PubMed-бейдж,
+   три магазина, PMID/DOI), «+ Сравнить» стал ссылкой на
+   hactar.html?tab=compare&ids=… (работает без JS), на главной добавлены
+   SearchAction в WebSite и отдельный ItemList, а также поддержка ?search=
+   (инлайн-скрипт на load). Менялись index.html, feedback.html,
+   privacy.html, support.html, trends.html и 131 страница sup/;
+   style.css и script.js не менялись, ?v= 456 и ?v= 295 остаются. */
+var CACHE_VERSION = 'v140';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 

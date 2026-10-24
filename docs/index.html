@@ -251,7 +251,40 @@ footer { font-size: 1rem !important; }
       "name": "БАДы: доказательства и механизмы",
       "description": "130 БАД с разбором механизмов, ссылками на PubMed, оценкой доказательности и текущими исследованиями. Открытые данные без рекламы.",
       "url": "https://deadsno.github.io/brain-25-evidence/",
-      "inLanguage": "ru"
+      "inLanguage": "ru",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://deadsno.github.io/brain-25-evidence/index.html?search={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+    <!-- SE2-03: ItemList первых 10 добавок каталога. Порядок и слаги взяты
+         из docs/data_index.json через scripts/build_sup.py:slugify, поэтому
+         позиции 1-10 совпадают с началом списка добавок на главной.
+         Отдельный блок ld+json, а не @graph: tests/test_seo_meta_consistency.py
+         сверяет description верхнего уровня с meta и не ожидает его здесь. -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "name": "БАДы каталога brain-25-evidence",
+      "numberOfItems": 10,
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Креатин", "url": "https://deadsno.github.io/brain-25-evidence/sup/kreatin.html"},
+        {"@type": "ListItem", "position": 2, "name": "Омега-3", "url": "https://deadsno.github.io/brain-25-evidence/sup/omega-3.html"},
+        {"@type": "ListItem", "position": 3, "name": "Витамин D", "url": "https://deadsno.github.io/brain-25-evidence/sup/vitamin-d.html"},
+        {"@type": "ListItem", "position": 4, "name": "B12", "url": "https://deadsno.github.io/brain-25-evidence/sup/b12.html"},
+        {"@type": "ListItem", "position": 5, "name": "Магний", "url": "https://deadsno.github.io/brain-25-evidence/sup/magniy.html"},
+        {"@type": "ListItem", "position": 6, "name": "Кофеин", "url": "https://deadsno.github.io/brain-25-evidence/sup/kofein.html"},
+        {"@type": "ListItem", "position": 7, "name": "L-Теанин", "url": "https://deadsno.github.io/brain-25-evidence/sup/l-teanin.html"},
+        {"@type": "ListItem", "position": 8, "name": "Бакопа", "url": "https://deadsno.github.io/brain-25-evidence/sup/bakopa.html"},
+        {"@type": "ListItem", "position": 9, "name": "Ежовик", "url": "https://deadsno.github.io/brain-25-evidence/sup/ezhovik.html"},
+        {"@type": "ListItem", "position": 10, "name": "Гинкго", "url": "https://deadsno.github.io/brain-25-evidence/sup/ginkgo.html"}
+      ]
     }
     </script>
 </head>
@@ -440,7 +473,7 @@ footer { font-size: 1rem !important; }
     <div class="card-link-desc">10 лет данных: публикации в PubMed, Wikipedia, цитаты</div>
   </a>
 
-  <a class="card-link lc-bi" href="https://brain-25-evidence.streamlit.app" target="_blank" rel="noopener" style="--card-accent:var(--icon-bi)">
+  <a class="card-link lc-bi" href="https://brain-25-evidence.streamlit.app" target="_blank" rel="nofollow noopener" style="--card-accent:var(--icon-bi)">
     <div class="card-link-icon">🧬</div>
     <div class="card-link-title">brain-25-evidence BI <span class="card-link-ext">↗</span></div>
     <div class="card-link-desc">Отдельное приложение: 37 618 papers, фильтры, экспорт CSV</div>
@@ -452,7 +485,7 @@ footer { font-size: 1rem !important; }
   <div style="display:flex;flex-wrap:wrap;align-items:center;gap:.7rem">
     <h2 style="margin:0">🔬 Как мы проверяем данные</h2>
     <div class="trustChips">
-      <a class="chip" href="https://pubmed.ncbi.nlm.nih.gov/" target="_blank" rel="noopener">PubMed ↗</a>
+      <a class="chip" href="https://pubmed.ncbi.nlm.nih.gov/" target="_blank" rel="nofollow noopener">PubMed ↗</a>
       <span class="chip">ручная вычитка</span>
       <span class="chip">тестов: <span data-version="tests"></span></span>
     </div>
@@ -689,9 +722,9 @@ footer { font-size: 1rem !important; }
   <h2>💚 Как помочь проекту</h2>
   <p class="hint">Проект бесплатный: без рекламы, подписок и продажи данных. Помощь ускоряет обновление карточек и разработку.</p>
   <div style="display:flex;flex-wrap:wrap;gap:.5rem">
-    <a class="btn c-support" href="https://yoomoney.ru/fundraise/1KKDKB0O1EC.260930" target="_blank" rel="noopener">💚 Поддержать в ЮMoney</a>
+    <a class="btn c-support" href="https://yoomoney.ru/fundraise/1KKDKB0O1EC.260930" target="_blank" rel="nofollow noopener">💚 Поддержать в ЮMoney</a>
     <a class="btn c-feedback" href="feedback.html">💬 Обратная связь</a>
-    <a class="btn c-github" href="https://github.com/DeadSno/brain-25-evidence" target="_blank" rel="noopener">⭐ Доработать на GitHub</a>
+    <a class="btn c-github" href="https://github.com/DeadSno/brain-25-evidence" target="_blank" rel="nofollow noopener">⭐ Доработать на GitHub</a>
   </div>
 </section>
 </main>
@@ -793,7 +826,24 @@ document.getElementById('refreshBtn')?.addEventListener('click', () => {
     }).catch(function(err){ console.warn('[random] не удалось загрузить sitemap.xml', err); });
   };
 })();
+</script>
 
+<!-- SE2-03: поддержка ?search= из разметки SearchAction. Без этого параметра
+     разметка обещала бы функцию, которой нет, а Google требует, чтобы
+     urlTemplate действительно выполнял поиск. Скрипт заполняет существующее
+     поле #search и запускает тот же фильтр, что и ручной ввод (слушатель
+     input навешивает script.js). Ждём load: инлайновый скрипт в конце body
+     исполняется раньше отложенных скриптов, и событие input потерялось бы. -->
+<script>
+window.addEventListener('load', function () {
+  var q;
+  try { q = new URLSearchParams(location.search).get('search'); } catch (e) { return; }
+  if (!q) return;
+  var input = document.getElementById('search');
+  if (!input) return;
+  input.value = q;
+  input.dispatchEvent(new Event('input', { bubbles: true }));
+});
 </script>
 </body>
 </html>

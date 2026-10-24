@@ -93,12 +93,13 @@
     
     <div class="sup-meta">
         
-        <a href="https://pubmed.ncbi.nlm.nih.gov/?term=39541030" target="_blank" rel="noopener" class="pmid-badge" data-target="hrom">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/?term=39541030" target="_blank" rel="nofollow noopener" class="pmid-badge" data-target="hrom">
             🔬 3 источника в PubMed
         </a>
         
         
-        <button class="btn cmp-add" data-cmp="hrom" type="button">+ Сравнить</button>
+        
+        <a class="btn cmp-add" data-cmp="hrom" href="../hactar.html?tab=compare&amp;ids=hrom">+ Сравнить</a>
         
     </div>
     
@@ -158,9 +159,9 @@
         <h2>🛒 Где купить</h2>
         <div style="font-size:var(--fs-4);color:var(--muted);margin-bottom:8px;">⚠️ Вы переходите на сторонний сайт</div>
         <div class="shop-buttons">
-            <a href="https://market.yandex.ru/search?text=%D0%A5%D1%80%D0%BE%D0%BC" target="_blank" rel="noopener" class="shop-btn">Я.Маркет ↗</a>
-            <a href="https://www.ozon.ru/search/?text=%D0%A5%D1%80%D0%BE%D0%BC" target="_blank" rel="noopener" class="shop-btn">Ozon ↗</a>
-            <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%A5%D1%80%D0%BE%D0%BC" target="_blank" rel="noopener" class="shop-btn">WB ↗</a>
+            <a href="https://market.yandex.ru/search?text=%D0%A5%D1%80%D0%BE%D0%BC" target="_blank" rel="nofollow noopener" class="shop-btn">Я.Маркет ↗</a>
+            <a href="https://www.ozon.ru/search/?text=%D0%A5%D1%80%D0%BE%D0%BC" target="_blank" rel="nofollow noopener" class="shop-btn">Ozon ↗</a>
+            <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%A5%D1%80%D0%BE%D0%BC" target="_blank" rel="nofollow noopener" class="shop-btn">WB ↗</a>
         </div>
         <div class="shop-look">
             <strong>Что искать при покупке:</strong> Проверяйте дозировку на этикетке и наличие сертификата качества (GMP/ISO).
@@ -195,15 +196,15 @@
         
         <div class="src-card">
             <div class="src-title">Chromium supplementation and type 2 diabetes mellitus: an extensive systematic review.</div>
-            <div class="src-meta">Environmental geochemistry and health · 2024 · <a href="https://pubmed.ncbi.nlm.nih.gov/39541030/" target="_blank" rel="noopener">PMID: 39541030</a> | DOI: <a href="https://doi.org/10.1007/s10653-024-02297-5" target="_blank" rel="noopener noreferrer">10.1007/s10653-024-02297-5</a></div>
+            <div class="src-meta">Environmental geochemistry and health · 2024 · <a href="https://pubmed.ncbi.nlm.nih.gov/39541030/" target="_blank" rel="nofollow noopener">PMID: 39541030</a> | DOI: <a href="https://doi.org/10.1007/s10653-024-02297-5" target="_blank" rel="nofollow noopener noreferrer">10.1007/s10653-024-02297-5</a></div>
         </div>
         <div class="src-card">
             <div class="src-title">Chromium picolinate supplementation for overweight or obese adults.</div>
-            <div class="src-meta">The Cochrane database of systematic reviews · 2013 · <a href="https://pubmed.ncbi.nlm.nih.gov/24293292/" target="_blank" rel="noopener">PMID: 24293292</a> | DOI: <a href="https://doi.org/10.1002/14651858.CD010063.pub2" target="_blank" rel="noopener noreferrer">10.1002/14651858.CD010063.pub2</a></div>
+            <div class="src-meta">The Cochrane database of systematic reviews · 2013 · <a href="https://pubmed.ncbi.nlm.nih.gov/24293292/" target="_blank" rel="nofollow noopener">PMID: 24293292</a> | DOI: <a href="https://doi.org/10.1002/14651858.CD010063.pub2" target="_blank" rel="nofollow noopener noreferrer">10.1002/14651858.CD010063.pub2</a></div>
         </div>
         <div class="src-card">
             <div class="src-title">Therapeutic effects of chromium supplementation on women with polycystic ovarian syndrome: A systematic review and meta-analysis.</div>
-            <div class="src-meta">Endocrinologia, diabetes y nutricion · 2025 · <a href="https://pubmed.ncbi.nlm.nih.gov/41067797/" target="_blank" rel="noopener">PMID: 41067797</a> | DOI: <a href="https://doi.org/10.1016/j.endien.2025.501578" target="_blank" rel="noopener noreferrer">10.1016/j.endien.2025.501578</a></div>
+            <div class="src-meta">Endocrinologia, diabetes y nutricion · 2025 · <a href="https://pubmed.ncbi.nlm.nih.gov/41067797/" target="_blank" rel="nofollow noopener">PMID: 41067797</a> | DOI: <a href="https://doi.org/10.1016/j.endien.2025.501578" target="_blank" rel="nofollow noopener noreferrer">10.1016/j.endien.2025.501578</a></div>
         </div>
     </div>
 
@@ -300,7 +301,12 @@ document.addEventListener('DOMContentLoaded', function () {
       setTimeout(function () { t.remove(); }, 200);
     }, 2000);
   }
-  btn.addEventListener('click', function () {
+  btn.addEventListener('click', function (e) {
+    // SE2-04: элемент — ссылка, поэтому навигация работает и без JS.
+    // Перехватываем только обычный левый клик без модификаторов, чтобы
+    // успеть записать id в localStorage перед переходом.
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+    e.preventDefault();
     var arr = [];
     try { arr = JSON.parse(localStorage.getItem('compareIds') || '[]'); } catch (e) {}
     if (!arr.includes(id)) {
@@ -308,9 +314,9 @@ document.addEventListener('DOMContentLoaded', function () {
       localStorage.setItem('compareIds', JSON.stringify(arr));
     }
     btn.textContent = t('cmp.btn.added');
-    btn.disabled = true;
+    btn.setAttribute('aria-disabled', 'true');
     showToast(t('cmp.toast.added'));
-    location.href = '../hactar.html?tab=compare&ids=' + encodeURIComponent(id);
+    location.href = btn.getAttribute('href');
   });
 })();
 

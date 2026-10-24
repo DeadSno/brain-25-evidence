@@ -85,12 +85,13 @@
     
     <div class="sup-meta">
         
-        <a href="https://pubmed.ncbi.nlm.nih.gov/?term=38337624" target="_blank" rel="noopener" class="pmid-badge" data-target="kremniy">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/?term=38337624" target="_blank" rel="nofollow noopener" class="pmid-badge" data-target="kremniy">
             🔬 1 источник в PubMed
         </a>
         
         
-        <button class="btn cmp-add" data-cmp="kremniy" type="button">+ Сравнить</button>
+        
+        <a class="btn cmp-add" data-cmp="kremniy" href="../hactar.html?tab=compare&amp;ids=kremniy">+ Сравнить</a>
         
     </div>
     
@@ -140,9 +141,9 @@
         <h2>🛒 Где купить</h2>
         <div style="font-size:var(--fs-4);color:var(--muted);margin-bottom:8px;">⚠️ Вы переходите на сторонний сайт</div>
         <div class="shop-buttons">
-            <a href="https://market.yandex.ru/search?text=%D0%9A%D1%80%D0%B5%D0%BC%D0%BD%D0%B8%D0%B9" target="_blank" rel="noopener" class="shop-btn">Я.Маркет ↗</a>
-            <a href="https://www.ozon.ru/search/?text=%D0%9A%D1%80%D0%B5%D0%BC%D0%BD%D0%B8%D0%B9" target="_blank" rel="noopener" class="shop-btn">Ozon ↗</a>
-            <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%9A%D1%80%D0%B5%D0%BC%D0%BD%D0%B8%D0%B9" target="_blank" rel="noopener" class="shop-btn">WB ↗</a>
+            <a href="https://market.yandex.ru/search?text=%D0%9A%D1%80%D0%B5%D0%BC%D0%BD%D0%B8%D0%B9" target="_blank" rel="nofollow noopener" class="shop-btn">Я.Маркет ↗</a>
+            <a href="https://www.ozon.ru/search/?text=%D0%9A%D1%80%D0%B5%D0%BC%D0%BD%D0%B8%D0%B9" target="_blank" rel="nofollow noopener" class="shop-btn">Ozon ↗</a>
+            <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%9A%D1%80%D0%B5%D0%BC%D0%BD%D0%B8%D0%B9" target="_blank" rel="nofollow noopener" class="shop-btn">WB ↗</a>
         </div>
         <div class="shop-look">
             <strong>Что искать при покупке:</strong> Проверяйте дозировку на этикетке и наличие сертификата качества (GMP/ISO).
@@ -177,7 +178,7 @@
         
         <div class="src-card">
             <div class="src-title">Silicon Supplementation for Bone Health: An Umbrella Review Attempting to Translate from Animals to Humans.</div>
-            <div class="src-meta">Nutrients · 2024 · <a href="https://pubmed.ncbi.nlm.nih.gov/38337624/" target="_blank" rel="noopener">PMID: 38337624</a> | DOI: <a href="https://doi.org/10.3390/nu16030339" target="_blank" rel="noopener noreferrer">10.3390/nu16030339</a></div>
+            <div class="src-meta">Nutrients · 2024 · <a href="https://pubmed.ncbi.nlm.nih.gov/38337624/" target="_blank" rel="nofollow noopener">PMID: 38337624</a> | DOI: <a href="https://doi.org/10.3390/nu16030339" target="_blank" rel="nofollow noopener noreferrer">10.3390/nu16030339</a></div>
         </div>
     </div>
 
@@ -274,7 +275,12 @@ document.addEventListener('DOMContentLoaded', function () {
       setTimeout(function () { t.remove(); }, 200);
     }, 2000);
   }
-  btn.addEventListener('click', function () {
+  btn.addEventListener('click', function (e) {
+    // SE2-04: элемент — ссылка, поэтому навигация работает и без JS.
+    // Перехватываем только обычный левый клик без модификаторов, чтобы
+    // успеть записать id в localStorage перед переходом.
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+    e.preventDefault();
     var arr = [];
     try { arr = JSON.parse(localStorage.getItem('compareIds') || '[]'); } catch (e) {}
     if (!arr.includes(id)) {
@@ -282,9 +288,9 @@ document.addEventListener('DOMContentLoaded', function () {
       localStorage.setItem('compareIds', JSON.stringify(arr));
     }
     btn.textContent = t('cmp.btn.added');
-    btn.disabled = true;
+    btn.setAttribute('aria-disabled', 'true');
     showToast(t('cmp.toast.added'));
-    location.href = '../hactar.html?tab=compare&ids=' + encodeURIComponent(id);
+    location.href = btn.getAttribute('href');
   });
 })();
 

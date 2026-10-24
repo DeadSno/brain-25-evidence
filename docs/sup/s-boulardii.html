@@ -93,12 +93,13 @@
     
     <div class="sup-meta">
         
-        <a href="https://pubmed.ncbi.nlm.nih.gov/?term=20458757" target="_blank" rel="noopener" class="pmid-badge" data-target="s-boulardii">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/?term=20458757" target="_blank" rel="nofollow noopener" class="pmid-badge" data-target="s-boulardii">
             🔬 3 источника в PubMed
         </a>
         
         
-        <button class="btn cmp-add" data-cmp="s-boulardii" type="button">+ Сравнить</button>
+        
+        <a class="btn cmp-add" data-cmp="s-boulardii" href="../hactar.html?tab=compare&amp;ids=s-boulardii">+ Сравнить</a>
         
     </div>
     
@@ -153,9 +154,9 @@
         <h2>🛒 Где купить</h2>
         <div style="font-size:var(--fs-4);color:var(--muted);margin-bottom:8px;">⚠️ Вы переходите на сторонний сайт</div>
         <div class="shop-buttons">
-            <a href="https://market.yandex.ru/search?text=S.%20boulardii" target="_blank" rel="noopener" class="shop-btn">Я.Маркет ↗</a>
-            <a href="https://www.ozon.ru/search/?text=S.%20boulardii" target="_blank" rel="noopener" class="shop-btn">Ozon ↗</a>
-            <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=S.%20boulardii" target="_blank" rel="noopener" class="shop-btn">WB ↗</a>
+            <a href="https://market.yandex.ru/search?text=S.%20boulardii" target="_blank" rel="nofollow noopener" class="shop-btn">Я.Маркет ↗</a>
+            <a href="https://www.ozon.ru/search/?text=S.%20boulardii" target="_blank" rel="nofollow noopener" class="shop-btn">Ozon ↗</a>
+            <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=S.%20boulardii" target="_blank" rel="nofollow noopener" class="shop-btn">WB ↗</a>
         </div>
         <div class="shop-look">
             <strong>Что искать при покупке:</strong> Проверяйте дозировку на этикетке и наличие сертификата качества (GMP/ISO).
@@ -190,15 +191,15 @@
         
         <div class="src-card">
             <div class="src-title">Systematic review and meta-analysis of Saccharomyces boulardii in adult patients</div>
-            <div class="src-meta">World J Gastroenterol · 2010 · <a href="https://pubmed.ncbi.nlm.nih.gov/20458757/" target="_blank" rel="noopener">PMID: 20458757</a> | DOI: <a href="https://doi.org/10.3748/wjg.v16.i18.2202" target="_blank" rel="noopener noreferrer">10.3748/wjg.v16.i18.2202</a></div>
+            <div class="src-meta">World J Gastroenterol · 2010 · <a href="https://pubmed.ncbi.nlm.nih.gov/20458757/" target="_blank" rel="nofollow noopener">PMID: 20458757</a> | DOI: <a href="https://doi.org/10.3748/wjg.v16.i18.2202" target="_blank" rel="nofollow noopener noreferrer">10.3748/wjg.v16.i18.2202</a></div>
         </div>
         <div class="src-card">
             <div class="src-title">Comparative effectiveness and safety of interventions for acute diarrhea and gastroenteritis in children: A systematic review and network meta-analysis</div>
-            <div class="src-meta">PLoS One · 2018 · <a href="https://pubmed.ncbi.nlm.nih.gov/30517196/" target="_blank" rel="noopener">PMID: 30517196</a> | DOI: <a href="https://doi.org/10.1371/journal.pone.0207701" target="_blank" rel="noopener noreferrer">10.1371/journal.pone.0207701</a></div>
+            <div class="src-meta">PLoS One · 2018 · <a href="https://pubmed.ncbi.nlm.nih.gov/30517196/" target="_blank" rel="nofollow noopener">PMID: 30517196</a> | DOI: <a href="https://doi.org/10.1371/journal.pone.0207701" target="_blank" rel="nofollow noopener noreferrer">10.1371/journal.pone.0207701</a></div>
         </div>
         <div class="src-card">
             <div class="src-title">Probiotics for treating acute infectious diarrhoea</div>
-            <div class="src-meta">Cochrane Database Syst Rev · 2020 · <a href="https://pubmed.ncbi.nlm.nih.gov/33295643/" target="_blank" rel="noopener">PMID: 33295643</a> | DOI: <a href="https://doi.org/10.1002/14651858.CD003048.pub4" target="_blank" rel="noopener noreferrer">10.1002/14651858.CD003048.pub4</a></div>
+            <div class="src-meta">Cochrane Database Syst Rev · 2020 · <a href="https://pubmed.ncbi.nlm.nih.gov/33295643/" target="_blank" rel="nofollow noopener">PMID: 33295643</a> | DOI: <a href="https://doi.org/10.1002/14651858.CD003048.pub4" target="_blank" rel="nofollow noopener noreferrer">10.1002/14651858.CD003048.pub4</a></div>
         </div>
     </div>
 
@@ -295,7 +296,12 @@ document.addEventListener('DOMContentLoaded', function () {
       setTimeout(function () { t.remove(); }, 200);
     }, 2000);
   }
-  btn.addEventListener('click', function () {
+  btn.addEventListener('click', function (e) {
+    // SE2-04: элемент — ссылка, поэтому навигация работает и без JS.
+    // Перехватываем только обычный левый клик без модификаторов, чтобы
+    // успеть записать id в localStorage перед переходом.
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+    e.preventDefault();
     var arr = [];
     try { arr = JSON.parse(localStorage.getItem('compareIds') || '[]'); } catch (e) {}
     if (!arr.includes(id)) {
@@ -303,9 +309,9 @@ document.addEventListener('DOMContentLoaded', function () {
       localStorage.setItem('compareIds', JSON.stringify(arr));
     }
     btn.textContent = t('cmp.btn.added');
-    btn.disabled = true;
+    btn.setAttribute('aria-disabled', 'true');
     showToast(t('cmp.toast.added'));
-    location.href = '../hactar.html?tab=compare&ids=' + encodeURIComponent(id);
+    location.href = btn.getAttribute('href');
   });
 })();
 
