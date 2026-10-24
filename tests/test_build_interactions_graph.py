@@ -23,8 +23,9 @@
 
 Побочно тест ловит рассинхрон генератора с data.json через
 `test_generator_is_deterministic` (две сборки из одного входа — байт в байт)
-и через кросс-проверку набора severity с самим `interactions.html`
-(`test_severity_set_matches_page`), а не через сравнение закоммиченного
+и через кросс-проверку набора severity с картой `OV_SEVERITY` в
+`docs/hactar.js` (`test_severity_set_matches_page`), а не через сравнение
+закоммиченного
 файла с пересобранным: такой тест краснел бы на КАЖДОМ коммите, который
 трогал data.json, и его пришлось бы чинить регенерацией артефакта. Это
 отдельная задача, не молчаливая проверка.
@@ -46,7 +47,7 @@ import pytest
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPT = ROOT / "scripts" / "build_interactions_graph.py"
 COMMITTED = ROOT / "docs" / "interactions_graph.json"
-PAGE = ROOT / "docs" / "interactions.html"
+PAGE = ROOT / "docs" / "hactar.js"
 
 #: Режимы графа. Страница переключает их через setMode() и читает
 #: state.data.<mode>.nodes / .edges (interactions.html:329,379).
@@ -425,22 +426,23 @@ def test_committed_file_not_truncated():
 
 
 def test_severity_set_matches_page():
-    """SEVERITIES должен совпадать с SEV_ORDER страницы.
+    """SEVERITIES должен совпадать с картой OV_SEVERITY в hactar.js.
 
-    Страница фильтрует ребро по `SEV_ORDER[e.severity] >= state.minSeverity`
-    (interactions.html:390). Новое значение в SEV_ORDER без правки теста —
-    это молчаливое выпадение ребра из графа; новое значение в тесте без
-    правки страницы — подмена ожиданий. Оба расхождения ловятся здесь.
+    v5.6.5 (FIX-03): interactions.html стал заглушкой-редиректом, граф и
+    фильтр по тяжести переехали в Project Hactar. Карта `OV_SEVERITY`
+    (docs/hactar.js) — то, что раньше называлось `SEV_ORDER` на странице:
+    по ней рисуется метка тяжести для ребра. Новое значение в карте без
+    правки теста — это молчаливое выпадение ребра из графа; новое значение
+    в тесте без правки карты — подмена ожиданий. Оба расхождения ловятся
+    здесь.
     """
     html = PAGE.read_text(encoding="utf-8")
-    m = re.search(r"const\s+SEV_ORDER\s*=\s*\{([^}]*)\}", html)
-    assert m, "в interactions.html нет SEV_ORDER — фильтр severity не найден"
-    page_keys = {
-        k.split(":")[0].strip().strip("'\"")
-        for k in m.group(1).split(",")
-        if ":" in k
-    }
-    assert page_keys, "SEV_ORDER пуст — фильтр severity ничего не пропустит"
+    # Значения карты — вложенные объекты, поэтому режем по закрывающей
+    # скобке на отдельной строке, а не по первому «}».
+    m = re.search(r"var\s+OV_SEVERITY\s*=\s*\{(.*?)\n\s*\};", html, re.S)
+    assert m, "в hactar.js нет OV_SEVERITY — карта severity не найдена"
+    page_keys = set(re.findall(r"^\s*([a-z]+)\s*:", m.group(1), re.M))
+    assert page_keys, "OV_SEVERITY пуста — метка тяжести ничего не покажет"
     assert page_keys == set(SEVERITIES), (
         f"набор severity разошёлся со страницей: страница {sorted(page_keys)}, "
         f"тест {sorted(SEVERITIES)}"
