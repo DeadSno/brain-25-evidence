@@ -1139,6 +1139,7 @@
   var graphWrap = document.getElementById('hactarGraphWrap');
   var graphResetBtn = document.getElementById('hactarGraphReset');
   var graphNote = document.getElementById('hactarGraphNote');
+  var graphAlt = document.getElementById('hactarGraphAlt');
 
   var network = null;
   var graphRaw = null;      /* graph_data.json */
@@ -1643,12 +1644,54 @@
     network.fit({ animation: true });
   }
 
+  /* A2-06: текстовый эквивалент графа. Canvas скринридеру недоступен, а
+     vis-network 9.1.9 не умеет навигацию по узлам с клавиатуры, поэтому
+     связи перечисляются списком из тех же built.nodes/built.edges, что
+     уходят в canvas, — расходиться с картинкой списку нечем. */
+  function renderGraphAlt(built) {
+    if (!graphAlt) return;
+    graphAlt.textContent = '';
+    var labels = {};
+    var linked = {};
+    var ul = document.createElement('ul');
+    var i;
+    for (i = 0; i < built.nodes.length; i++) {
+      labels[built.nodes[i].id] = built.nodes[i].label || built.nodes[i].id;
+    }
+    for (i = 0; i < built.edges.length; i++) {
+      var e = built.edges[i];
+      linked[e.from] = true;
+      linked[e.to] = true;
+      var li = document.createElement('li');
+      li.textContent = (labels[e.from] || e.from) + ' — ' +
+        (labels[e.to] || e.to) + (e.title ? ': ' + e.title : '');
+      ul.appendChild(li);
+    }
+    /* Узел без рёбер в списке связей не появился бы вовсе, а на картинке
+       он есть — перечисляем такие узлы отдельно. */
+    for (i = 0; i < built.nodes.length; i++) {
+      var n = built.nodes[i];
+      if (linked[n.id]) continue;
+      var lonely = document.createElement('li');
+      lonely.textContent = (n.label || n.id) + ' — без связей';
+      ul.appendChild(lonely);
+    }
+    if (ul.childNodes.length) {
+      graphAlt.appendChild(ul);
+    } else {
+      var empty = document.createElement('p');
+      empty.textContent = 'Узлов и связей нет.';
+      graphAlt.appendChild(empty);
+    }
+  }
+
   function applyEgo(built) {
     if (!network) return;
     if (graphNote) {
       graphNote.textContent = 'Узлов: ' + built.nodes.length + ' · Связей: ' +
         built.edges.length + ' — только вокруг выбранных добавок.';
     }
+    renderGraphAlt(built);
     physicsPending = true;
     physicsOn = true;
     /* Физику выключаем на время пересборки: setData с включённой
@@ -1670,6 +1713,9 @@
   function hideGraph() {
     if (graphWrap) graphWrap.hidden = true;
     if (graphNote) graphNote.textContent = '';
+    /* Скрытый граф не должен оставлять в дереве доступности список
+       связей, которых на экране нет. */
+    if (graphAlt) graphAlt.textContent = '';
     if (network && window.vis) {
       network.setData({ nodes: new vis.DataSet([]), edges: new vis.DataSet([]) });
     }

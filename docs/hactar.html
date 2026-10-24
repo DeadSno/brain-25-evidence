@@ -172,6 +172,7 @@
     .hactar-graph-reset:hover{border-color:var(--accent);color:var(--text)}
     .hactar-graph-reset:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
     .hactar-graph{height:clamp(320px,56vh,560px);border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--card-bg);overflow:hidden}
+    .hactar-graph:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
     .hactar-graph-note{margin:0;font-size:var(--fs-5);color:var(--muted)}
     /* Project Hactar — единая таблица «Обзор» (H-10).
        Все параметры выбранных добавок в одной таблице: по строкам —
@@ -421,8 +422,18 @@
               </div>
               <button type="button" class="hactar-graph-reset" id="hactarGraphReset">[ Сброс ]</button>
             </div>
-            <div class="hactar-graph" id="hactarGraph" role="group" aria-label="Граф связей выбранных добавок"></div>
-            <p class="hactar-graph-note" id="hactarGraphNote"></p>
+            <!-- A2-06: canvas vis-network не попадает в дерево доступности и
+                 не управляется с клавиатуры, поэтому фокус получает
+                 контейнер. Роль — img, а не application: application
+                 переключил бы скринридер в режим форм и потребовал полного
+                 управления клавишами, которого у vis-network 9.1.9 нет.
+                 Текстовый эквивалент связей наполняет renderGraphAlt(). -->
+            <div class="hactar-graph" id="hactarGraph" tabindex="0" role="img"
+                 aria-label="Интерактивный граф связей выбранных добавок: добавки, механизмы, лекарства и связи между ними"
+                 aria-describedby="hactarGraphHint"></div>
+            <p class="sr-only" id="hactarGraphHint">Граф не управляется с клавиатуры: узлы нельзя выбрать стрелками. Текстовый список связей идёт сразу после графа.</p>
+            <p class="hactar-graph-note" id="hactarGraphNote" role="status"></p>
+            <div class="sr-only" id="hactarGraphAlt" role="group" aria-label="Текстовый список связей графа"></div>
           </div>
         </div>
       </div>
@@ -475,7 +486,7 @@
      оба скрипта с defer, поэтому выполняются в порядке разметки и
      window.vis готов к моменту, когда hactar.js создаёт Network. -->
 <script src="vendor/vis-network-9.1.9.min.js" defer></script>
-<script src="hactar.js?v=22" defer></script>
+<script src="hactar.js?v=23" defer></script>
 <script src="share.js?v=1" defer></script>
 
 <footer class="site-footer">

@@ -392,7 +392,8 @@ self.addEventListener('activate', event => {
    i18n.js вышел за ?v= 2 -> 3, script.js - за ?v= 293 -> 294,
    style.css - за ?v= 454 -> 455 (обе шкалы идут парой). */
 /* Бамп v132 -> v133: A2-05 — у свёрнутых блоков <details> на главной появился aria-expanded, синхронизируемый с фактическим состоянием (initDisclosures в script.js); script.js вышел за ?v= 294 -> 295, style.css - за ?v= 455 -> 456 (обе шкалы идут парой). */
-var CACHE_VERSION = 'v133';
+/* Бамп v133 -> v134: A2-06 — контейнер графа на Hactar стал фокусируемым (tabindex, role="img", aria-label, aria-describedby на подсказку), у него появился :focus-visible, а связи продублированы текстовым списком для скринридеров (renderGraphAlt в hactar.js); hactar.js вышел за ?v= 22 -> 23. style.css не менялся, ?v= 456 остаётся. */
+var CACHE_VERSION = 'v134';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
