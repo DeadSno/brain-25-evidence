@@ -2951,6 +2951,28 @@ html:not(.light) .card-link {
    margin-bottom вернули, т.к. в базе .grade его нет */
 .tile .grade { margin-bottom: .4rem; }
 
+/* NV2-02 (24.10.2026): чипы «Купить» (Ozon/WB) на главной — рамка и вся
+   раскладка переехали из инлайн-стиля в класс. Инлайн не давал ни
+   box-sizing, ни min-width:0, поэтому длинная подпись на 320px распирала
+   ячейку сетки. Отдельное правило .tile .shop-chip нужно из-за
+   html:not(.light) a{text-decoration:underline} (0,1,2): без него в тёмной
+   теме чипы получали подчёркивание. */
+.shop-chip {
+  flex: 1 1 0;
+  min-width: 0;
+  box-sizing: border-box;
+  max-width: 100%;
+  padding: .25rem .35rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  font-size: var(--fs-4);
+  text-align: center;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+.tile .shop-chip { text-decoration: none; }
+
 /* Радар профиля в compare.html: обёртка задана классом вместо инлайна,
    канвас адаптивный (V-08: было фиксированные 520px canvas) */
 .radar-wrap { position: relative; max-width: 520px; margin: 0 auto; }
