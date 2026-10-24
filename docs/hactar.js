@@ -1546,6 +1546,33 @@
     };
   }
 
+  /* FIX-43 (C2-03): vis-network — 673 КБ и нужен только на вкладке
+     «Связи». Раньше библиотека подключалась тегом в hactar.html и
+     грузилась на любой вкладке. Теперь <script> создаётся при первом
+     переходе на «Связи»; повторные вызовы ждут тот же промис, поэтому
+     параллельных загрузок не бывает. */
+  var VIS_SRC = 'vendor/vis-network-9.1.9.min.js';
+  var visLoading = null;
+
+  function loadVisNetwork() {
+    if (window.vis) return Promise.resolve(window.vis);
+    if (visLoading) return visLoading;
+    visLoading = new Promise(function (resolve, reject) {
+      var s = document.createElement('script');
+      s.src = VIS_SRC;
+      s.async = true;
+      s.onload = function () { resolve(window.vis); };
+      s.onerror = function () {
+        /* Сброс, чтобы следующая попытка (например, после возврата на
+           вкладку) могла загрузить библиотеку заново. */
+        visLoading = null;
+        reject(new Error('vis-network: ' + VIS_SRC));
+      };
+      document.head.appendChild(s);
+    });
+    return visLoading;
+  }
+
   function ensureNetwork() {
     if (network) return;
     network = new vis.Network(graphEl,
@@ -1732,7 +1759,7 @@
 
   function renderEgo(ids) {
     lastSelection = ids.slice();
-    if (!graphEl || !window.vis) return;
+    if (!graphEl) return;
     if (!ids.length) {
       hideGraph();
       return;
@@ -1742,6 +1769,23 @@
     /* Панель «Связи» неактивна: у canvas нет размера. Рисуем, когда
        вкладку вернут (см. подписку на 'mode'). */
     if (currentMode !== 'links') return;
+    /* FIX-43 (C2-03): библиотеки может не быть — она грузится лениво.
+       Проверка стоит ПОСЛЕ гейта currentMode, чтобы сохранённый стек на
+       «Обзоре» не тянул 673 КБ: библиотека нужна только когда панель
+       «Связи» открыта. Запоминаем выбор и перерисуем граф после onload. */
+    if (!window.vis) {
+      loadVisNetwork().then(function () {
+        if (currentMode === 'links' && lastSelection.length) {
+          renderEgo(lastSelection);
+        }
+      }).catch(function (err) {
+        console.error('vis-network: не удалось загрузить', err);
+        if (graphNote) {
+          graphNote.textContent = '⚠️ Не удалось загрузить библиотеку графа — связи недоступны.';
+        }
+      });
+      return;
+    }
     if (graphWrap) graphWrap.hidden = false;
     ensureNetwork();
     applyEgo(buildEgo(ids));
@@ -1805,6 +1849,11 @@
 
   subscribe('mode', function (mode) {
     if (mode !== 'links') return;
+    /* FIX-43 (C2-03): вкладку «Связи» открыли — начинаем грузить
+       библиотеку сразу, даже если добавки ещё не выбраны: пока пользователь
+       отмечает чекбоксы, 673 КБ уже в пути. Повторный вызов безопасен —
+       loadVisNetwork отдаёт тот же промис. */
+    if (!window.vis) loadVisNetwork().catch(function (err) { console.error(err); });
     if (!network) {
       if (lastSelection.length) renderEgo(lastSelection);
       return;
