@@ -400,7 +400,13 @@ self.addEventListener('activate', event => {
    minmax(min(280px,100%),1fr) схлопывает дорожку до ширины контейнера.
    Менялся только trends.html (инлайн <style>), style.css не менялся,
    ?v= 456 остаётся. */
-var CACHE_VERSION = 'v136';
+/* Бамп v136 -> v137: NM2-01, NM2-02, NM2-03 — на 320px чипы магазинов
+   в таблице «Обзор» больше не задают white-space:nowrap и переносятся
+   внутри ячейки (max-width:100%, overflow-wrap:anywhere), кнопка стека
+   выросла с 36px до 44px (WCAG 2.5.5), у ячеек таблицы на ≤480px
+   уменьшены отступы. Менялся только hactar.html (инлайн <style>),
+   style.css не менялся, ?v= 456 остаётся. */
+var CACHE_VERSION = 'v137';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
