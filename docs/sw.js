@@ -411,7 +411,11 @@ self.addEventListener('activate', event => {
    https://deadsno.github.io/brain-25-evidence/hactar.html, как в sitemap
    и в og:url. Менялся только hactar.html, style.css не менялся,
    ?v= 456 остаётся. */
-var CACHE_VERSION = 'v138';
+/* Бамп v138 -> v139: NSE2-02 — <title> на hactar.html сокращён с 60 до
+   49 символов (убран «комбинаций», бренд-суффикс сохранён), og:title и
+   twitter:title синхронизированы с ним. Менялся только hactar.html,
+   style.css не менялся, ?v= 456 остаётся. */
+var CACHE_VERSION = 'v139';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
