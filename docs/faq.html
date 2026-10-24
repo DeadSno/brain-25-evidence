@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <script defer src="version.js?v=312"></script>
-  <script src="i18n.js?v=2"></script>
+  <script src="i18n.js?v=3"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#1c1c1e" media="(prefers-color-scheme: dark)">
@@ -20,7 +20,7 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=454"/>
+<link rel="stylesheet" href="style.css?v=455"/>
 <style>
   /* P2-10 / v5.6.2 батч C (V1): локальное «h2 { font-size: 1.125rem }»
      удалено — значение переехало в общий токен style.css. Источник
@@ -38,6 +38,7 @@ try {
     if (light) { document.body.classList.add('light'); }
       var b = document.getElementById('themeBtn');
       if (b) b.textContent = light ? t("theme.dark") : t("theme.light");
+      if (b) b.setAttribute('aria-label', light ? t("a11y.themeToDark") : t("a11y.themeToLight"));
     });
   } catch (e) {}
 </script>
@@ -172,7 +173,7 @@ try {
     <nav class="actions" data-i18n-aria-label="a11y.navMain">
       <a class="btn c-feedback" href="feedback.html">💬 Обратная связь</a>
       <a class="btn c-support" href="support.html">💚 Поддержать</a>
-      <button class="btn c-theme" id="themeBtn">🌞 Светлая тема</button>
+      <button class="btn c-theme" id="themeBtn" aria-label="Переключить на светлую тему">🌞 Светлая тема</button>
       <button class="btn c-random" id="randomBtn">🎲 Удиви меня</button>
     </nav>
   </header>
@@ -306,6 +307,7 @@ $('themeBtn').onclick = () => {
     document.documentElement.classList.toggle('light', light);
     document.body.classList.toggle('light', light);
   $('themeBtn').textContent = light ? t("theme.dark") : t("theme.light");
+  $('themeBtn').setAttribute('aria-label', light ? t("a11y.themeToDark") : t("a11y.themeToLight"));
     localStorage.setItem('theme', light ? 'light' : 'dark');
 };
 </script>

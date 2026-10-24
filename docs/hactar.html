@@ -27,7 +27,7 @@
       }
     } catch (e) {}
   </script>
-  <link rel="stylesheet" href="style.css?v=454"/>
+  <link rel="stylesheet" href="style.css?v=455"/>
   <style>
     /* Project Hactar — скелет (H-1, только вёрстка) */
     :root{--hactar-sidebar:340px;}
@@ -299,7 +299,7 @@
     <nav class="actions" data-i18n-aria-label="a11y.navMain">
       <a class="btn c-feedback" href="feedback.html">💬 Обратная связь</a>
       <a class="btn c-support" href="support.html">💚 Поддержать</a>
-      <button class="btn c-theme" id="themeBtn">🌞 Светлая тема</button>
+      <button class="btn c-theme" id="themeBtn" aria-label="Переключить на светлую тему">🌞 Светлая тема</button>
       <button class="btn c-random" id="randomBtn">🎲 Удиви меня</button>
     </nav>
   </header>
@@ -466,6 +466,7 @@
       document.body.classList.toggle('light', light);
       localStorage.setItem('theme', light ? 'light' : 'dark');
       themeBtn.textContent = light ? '🌚 Тёмная тема' : '🌞 Светлая тема';
+      themeBtn.setAttribute('aria-label', light ? 'Переключить на тёмную тему' : 'Переключить на светлую тему');
     });
   }
 })();

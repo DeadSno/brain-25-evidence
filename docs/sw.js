@@ -385,7 +385,13 @@ self.addEventListener('activate', event => {
    показывается подсказка оставить 2-3 для точного сравнения;
    hactar.js вышел за ?v= 21 -> 22, style.css - за ?v= 453 -> 454
    (обе шкалы идут парой). */
-var CACHE_VERSION = 'v131';
+/* Бамп v131 -> v132: A2-01 - кнопка смены темы получила доступное имя
+   (aria-label «Переключить на светлую/тёмную тему»): статическая метка в
+   разметке 143 файлов, обновление метки вместе с текстом в инлайн-блоках,
+   ключи a11y.themeToLight/themeToDark в i18n.js и setLight() в script.js.
+   i18n.js вышел за ?v= 2 -> 3, script.js - за ?v= 293 -> 294,
+   style.css - за ?v= 454 -> 455 (обе шкалы идут парой). */
+var CACHE_VERSION = 'v132';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
