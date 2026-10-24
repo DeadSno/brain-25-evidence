@@ -376,7 +376,14 @@ def build_context(rec: dict, slug: str, warnings: list[str]) -> dict:
     pmid_count = len(sources)
     pmid_first = sources[0]["pmid"] if sources else ""
 
-    # shop_query — имя + первая форма, url-кодировано для поиска в магазинах.
+    # shop_query — только название, url-кодировано для поиска в магазинах.
+    # P2-05 (24.10.2026): раньше сюда добавлялась первая форма выпуска, и
+    # 130 sup-страниц искали не так, как главная (там — только название).
+    # Хуже: forms — редакторский текст, а не атрибут товара, и разрез по
+    # запятой рвал скобки — «Родиола экстракт (SHR-5» уходил в три магазина
+    # на 130 страницах. Единый запрос по названию совпадает с index.html и
+    # не угадывает форму за пользователя; форма остаётся подсказкой в
+    # shop_look_text («ищите форму X на этикетке»).
     forms_list = rec.get("forms") or []
     if isinstance(forms_list, str):
         first_form = forms_list.split(",")[0].strip()
@@ -384,7 +391,7 @@ def build_context(rec: dict, slug: str, warnings: list[str]) -> dict:
         first_form = str(forms_list[0]).split(",")[0].strip() if forms_list else ""
     else:
         first_form = ""
-    shop_query = quote(((text(rec.get("name")) or "") + " " + first_form).strip())
+    shop_query = quote((text(rec.get("name")) or "").strip())
     shop_look_text = ("Ищите форму «" + first_form + "» на этикетке, проверяйте дозировку и наличие сертификата качества (GMP/ISO)."
                       if first_form else
                       "Проверяйте дозировку на этикетке и наличие сертификата качества (GMP/ISO).")
@@ -404,9 +411,10 @@ def build_context(rec: dict, slug: str, warnings: list[str]) -> dict:
     seo_name = raw_field(rec.get("name"))
     seo_effect = raw_field(effects_list[0] if effects_list else "")
 
-    _forms_raw = rec.get("forms") or ""
-    _first_form = re.split(r"[;—–]", _forms_raw)[0].strip()
-    _shop_query = quote(((rec.get("name") or "") + " " + _first_form).strip())
+    # shop_query в карточке каталога — та же формула, что и на странице:
+    # только название (P2-05). Иначе две ветки сборки давали бы разные
+    # ссылки на один и тот же товар.
+    _shop_query = quote((rec.get("name") or "").strip())
     _pmid_count = len(sources)
     _pmid_first = sources[0]["pmid"] if sources else ""
     _unknowns_reasons = []
