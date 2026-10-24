@@ -991,11 +991,30 @@
   var GRAPH_FULL_SRC = 'data.json';
 
   /* Цвета узлов: зелёный — добавка, фиолетовый — механизм или мишень,
-     оранжевый — лекарство. Синий — связь между двумя выбранными. */
-  var COLOR_SUP = '#2ecc71';
-  var COLOR_MECH = '#9b59b6';
-  var COLOR_DRUG = '#e67e22';
-  var COLOR_LINK = '#3498db';
+     оранжевый — лекарство. Синий — связь между двумя выбранными.
+     v5.6.5 (V2-06): значения берутся из CSS-переменных --graph-* в
+     style.css, а не из hex в этом файле — палитра графа принадлежит
+     дизайн-системе, и правка цвета теперь одна на весь сайт. Читаем один
+     раз при загрузке скрипта (он подключён с defer, style.css к этому
+     моменту применён). Палитра не зависит от темы, поэтому пересчёт при
+     переключении темы не нужен. Резерв — ИМЕНОВАННЫЕ цвета CSS, а не hex:
+     если style.css не загрузился, граф останется читаемым, но второй
+     копии палитры в JS не появится. */
+  function graphColor(name, fallback) {
+    var v = getComputedStyle(document.documentElement)
+      .getPropertyValue(name).trim();
+    return v || fallback;
+  }
+
+  var COLOR_SUP = graphColor('--graph-sup', 'mediumseagreen');
+  var COLOR_MECH = graphColor('--graph-mech', 'mediumpurple');
+  var COLOR_DRUG = graphColor('--graph-drug', 'orange');
+  var COLOR_LINK = graphColor('--graph-link', 'dodgerblue');
+  var COLOR_SUP_BORDER = graphColor('--graph-sup-border', 'seagreen');
+  var COLOR_MECH_BORDER = graphColor('--graph-mech-border', 'purple');
+  var COLOR_DRUG_BORDER = graphColor('--graph-drug-border', 'chocolate');
+  var COLOR_EDGE = graphColor('--graph-edge', 'gray');
+  var COLOR_LABEL = graphColor('--graph-label', 'white');
 
   /* Фигура узла — circle, а не dot. Причина не в графике: аудит классов
      (scripts/audit_classes.py) считает любую строку в кавычках в JS именем
@@ -1003,11 +1022,16 @@
      .atlas-legend .dot в style.css, и тест known_dead_list_matches_measured
      падал бы. Имя circle свободно — таких правил в CSS нет. */
 
-  /* Лекарства — по тяжести взаимодействия. */
+  /* Лекарства — по тяжести взаимодействия. v5.6.5 (V2-06): цвета берутся
+     из --graph-sev-* в style.css, как и остальная палитра графа. */
+  var COLOR_SEV_HIGH = graphColor('--graph-sev-high', 'tomato');
+  var COLOR_SEV_MEDIUM = graphColor('--graph-sev-medium', 'orange');
+  var COLOR_SEV_LOW = graphColor('--graph-sev-low', 'gray');
+
   var SEVERITY = {
-    high: { color: '#e74c3c', label: 'высокий риск' },
-    medium: { color: '#f39c12', label: 'средний риск' },
-    low: { color: '#7f8c8d', label: 'низкий риск' }
+    high: { color: COLOR_SEV_HIGH, label: 'высокий риск' },
+    medium: { color: COLOR_SEV_MEDIUM, label: 'средний риск' },
+    low: { color: COLOR_SEV_LOW, label: 'низкий риск' }
   };
 
   var graphEl = document.getElementById('hactarGraph');
@@ -1190,7 +1214,7 @@
       kinds[id] = 'sup';
       addNode(id, {
         label: name,
-        color: { background: COLOR_SUP, border: '#1e8449' },
+        color: { background: COLOR_SUP, border: COLOR_SUP_BORDER },
         size: 26,
         /* Фигура — круг vis-network. Имя задано обратными кавычками:
            аудит классов (scripts/audit_classes.py) считает любую строку в
@@ -1198,7 +1222,7 @@
            обычных кавычках оживил бы мёртвое правило .atlas-legend .dot
            в style.css — тест known_dead_list_matches_measured падал бы. */
         shape: `dot`,
-        font: { color: '#ffffff', size: 13 },
+        font: { color: COLOR_LABEL, size: 13 },
         /* Подсказка — простым текстом. vis-network 9.1.9 вставляет
            title через innerText, поэтому HTML-теги в строке видны
            как есть («<b>Кофеин</b><br>…»). Переносы строк (\n)
@@ -1226,10 +1250,10 @@
             if (!parents[tid]) parents[tid] = sid;
             addNode(tid, {
               label: tlabel,
-              color: { background: COLOR_MECH, border: '#7d3c98' },
+              color: { background: COLOR_MECH, border: COLOR_MECH_BORDER },
               size: 12,
               shape: 'diamond',
-              font: { color: '#ffffff', size: 10 },
+              font: { color: COLOR_LABEL, size: 10 },
               title: 'Мишень: ' + tlabel
             });
             addEdge(sid, tid, 'мишень: ' + tlabel, COLOR_MECH, 1);
@@ -1242,11 +1266,11 @@
           if (!parents[mid]) parents[mid] = sid;
           addNode(mid, {
             label: mech.label,
-            color: { background: COLOR_MECH, border: '#7d3c98' },
+            color: { background: COLOR_MECH, border: COLOR_MECH_BORDER },
             size: 15,
             /* Та же круглая фигура, что у добавки (см. комментарий выше). */
             shape: `dot`,
-            font: { color: '#ffffff', size: 10 },
+            font: { color: COLOR_LABEL, size: 10 },
             title: mech.tip
           });
           addEdge(sid, mid, mech.plain, COLOR_MECH, 2);
@@ -1264,16 +1288,16 @@
         var withName = String(it.with || '').trim();
         if (!withName || withName === 'нет данных') continue;
         var sev = SEVERITY[String(it.severity || '').toLowerCase()] ||
-                  { color: '#7f8c8d', label: 'риск не указан' };
+                  { color: COLOR_SEV_LOW, label: 'риск не указан' };
         var did = 'drug:' + withName;
         kinds[did] = 'drug';
         if (!parents[did]) parents[did] = supId;
         addNode(did, {
           label: shorten(withName, 30),
-          color: { background: COLOR_DRUG, border: '#a9590b' },
+          color: { background: COLOR_DRUG, border: COLOR_DRUG_BORDER },
           size: 12,
           shape: 'box',
-          font: { color: '#ffffff', size: 10 },
+          font: { color: COLOR_LABEL, size: 10 },
           title: 'Лекарство: ' + withName +
                  NL + 'Взаимодействие: ' + sev.label +
                  (it.note ? NL + it.note : '')
@@ -1382,7 +1406,7 @@
     return {
       nodes: { borderWidth: 1 },
       edges: {
-        color: { color: '#6b7280' },
+        color: { color: COLOR_EDGE },
         width: 1,
         smooth: { type: 'continuous', roundness: 0.15 }
       },
