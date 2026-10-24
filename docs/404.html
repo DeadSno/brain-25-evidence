@@ -151,6 +151,19 @@
     return items;
   }
 
+  /* Общий отбор совпадений: им пользуются и вывод списка, и Enter (Q2-03). */
+  function findMatches(query) {
+    var found = [];
+    if (index === null) return found;
+    for (var i = 0; i < index.length && found.length < 8; i++) {
+      var it = index[i];
+      if (it.name.toLowerCase().indexOf(query) !== -1 || it.hay.indexOf(query) !== -1) {
+        found.push(it);
+      }
+    }
+    return found;
+  }
+
   function render(q) {
     var query = (q || '').trim().toLowerCase();
     if (!query) {
@@ -162,13 +175,7 @@
       hint.textContent = 'Каталог ещё загружается…';
       return;
     }
-    var found = [];
-    for (var i = 0; i < index.length && found.length < 8; i++) {
-      var it = index[i];
-      if (it.name.toLowerCase().indexOf(query) !== -1 || it.hay.indexOf(query) !== -1) {
-        found.push(it);
-      }
-    }
+    var found = findMatches(query);
     out.textContent = '';
     found.forEach(function (it) {
       var li = document.createElement('li');
@@ -187,6 +194,25 @@
 
   if (input) {
     input.addEventListener('input', function () { render(input.value); });
+    // Q2-03 (24.10.2026): Enter — ожидаемый жест в поле поиска.
+    // Есть совпадения — открываем первое (список показывает до 8, порядок
+    // отбора тот же, что в подсказке). Пусто — уводим в каталог на главной:
+    // параметр ?search= index.html не разбирает (в script.js нет
+    // URLSearchParams), и ссылка с ним молча открывала бы обычную главную.
+    // Честнее показать пользователю поле поиска в каталоге, чем обещать
+    // поиск, которого не будет.
+    input.addEventListener('keydown', function (e) {
+      if (e.key !== 'Enter') return;
+      e.preventDefault();
+      var q = input.value.trim();
+      if (!q) return;
+      var found = findMatches(q.toLowerCase());
+      if (found.length) {
+        location.href = 'sup/' + found[0].href;
+      } else {
+        location.href = 'index.html#cardsContainer';
+      }
+    });
   }
   if (hint) hint.textContent = 'Введите название или эффект — покажу до 8 совпадений из каталога.';
   fetch('sup/index.html')
