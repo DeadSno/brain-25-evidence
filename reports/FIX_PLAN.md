@@ -99,7 +99,7 @@
 | SE2-03 | улучшение | C | На `index.html` нет SearchAction и ItemList в JSON-LD | docs/index.html | Открыт |
 | SE2-04 | улучшение | C | «+ Сравнить» — не ссылка, навигация только через JS (130 страниц) | docs/sup/*.html | Открыт |
 | SE2-05 | улучшение | C | 10 внешних ссылок без `rel="nofollow"` | docs/*.html | Открыт |
-| NSE2-01 | баг | B | `rel="canonical"` на `hactar.html` относительный, нужен абсолютный URL | docs/hactar.html:13 | Открыт |
+| NSE2-01 | баг | B | `rel="canonical"` на `hactar.html` относительный, нужен абсолютный URL | docs/hactar.html:13 | Закрыто (коммит 5821d4a2 — `href="hactar.html"` заменён на `https://deadsno.github.io/brain-25-evidence/hactar.html`; домен взят из `sitemap.xml` (`<loc>` этой же страницы) и из уже абсолютного `og:url` — теперь canonical, og:url и loc совпадают. Это была единственная относительная canonical в `docs/*.html` и `docs/sup/*.html`; `CACHE_VERSION` v137 → v138) |
 | NSE2-02 | баг | C | `<title>` 75 символов (> 60), обрезается в выдаче | docs/hactar.html:20 | Открыт |
 
 ## 8. data-audit
