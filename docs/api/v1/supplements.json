@@ -1,6 +1,6 @@
 {
   "version": "v1",
-  "generated_at": "2026-10-20T13:00:01.032461+00:00",
+  "generated_at": "2026-10-24T16:48:11.587588+00:00",
   "count": 130,
   "license": "CC BY 4.0",
   "source": "https://github.com/DeadSno/brain-25-evidence",
@@ -10177,7 +10177,6 @@
         },
         {
           "pmid": "18830045",
-          "doi": "",
           "title": "Vitamin K2.",
           "year": 2008,
           "journal": "Clinical calcium"
@@ -11261,7 +11260,6 @@
       "key_sources": [
         {
           "pmid": "8151563",
-          "doi": "",
           "title": "Comparison of aminobenzoate potassium and placebo in the treatment of scleroderma",
           "year": 1994,
           "journal": "J Rheumatol"

@@ -1,11 +1,13 @@
 {
   "version": "v1",
-  "generated_at": "2026-10-20T13:00:01.032461+00:00",
+  "generated_at": "2026-10-24T16:48:11.587588+00:00",
   "count": 130,
   "license": "CC BY 4.0",
   "source": "https://github.com/DeadSno/brain-25-evidence",
   "endpoints": {
     "supplements": "/api/v1/supplements.json",
+    "interactions": "/api/v1/interactions.json",
+    "graph": "/api/v1/graph.json",
     "full_data": "/data.json"
   },
   "stats": {
