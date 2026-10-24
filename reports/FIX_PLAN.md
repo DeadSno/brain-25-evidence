@@ -77,6 +77,7 @@
 | NA2-02 | улучшение | C | Кнопки стека без `aria-label` (текст есть, доступно) | docs/hactar.js | Открыт |
 | NA2-06 | улучшение | C | Управление фокусом в мобильной шторке `hactar-sidebar` не реализовано | docs/hactar.html:228-230 | Открыт |
 | NA2-08 | улучшение | C | Инпуты доз без aria-invalid и aria-describedby — скринридер не узнаёт об ошибке | docs/hactar.js (renderOverview) | Закрыто (коммит 88a1c375) |
+| NA2-07 | улучшение | C | Табы Hactar не поддерживают навигацию стрелками ←/→ (WAI-ARIA Tabs Pattern) | docs/hactar.js (табы) | Закрыто (коммит 0028a7db) |
 
 ## 6. mobile-deep-audit
 
