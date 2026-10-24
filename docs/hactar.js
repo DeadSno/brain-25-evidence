@@ -972,10 +972,19 @@
     });
   }
 
+  /* NA2-02: раскрытие списка стеков — состояние, а не только hidden.
+     Скринридер должен слышать «свёрнуто/развёрнуто», поэтому атрибут
+     ставится в одном месте, а не в трёх местах, где список закрывается. */
+  function setStacksOpen(open) {
+    if (!stacksList) return;
+    stacksList.hidden = !open;
+    if (stacksToggle) stacksToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+
   if (stacksToggle) {
     stacksToggle.addEventListener('click', function () {
       if (!stacksList) return;
-      stacksList.hidden = !stacksList.hidden;
+      setStacksOpen(stacksList.hidden);
     });
   }
 
@@ -994,7 +1003,7 @@
         }
         if (found) {
           loadStack(found);
-          if (stacksList) stacksList.hidden = true;
+          setStacksOpen(false);
         }
       } else if (action === 'del') {
         deleteStack(name);
@@ -1008,7 +1017,7 @@
     if (!stacksList || stacksList.hidden) return;
     var target = e.target;
     if (stacksDropdown && stacksDropdown.contains(target)) return;
-    stacksList.hidden = true;
+    setStacksOpen(false);
   });
   /* ─────────────────────── горячие клавиши ─────────────────────── */
 

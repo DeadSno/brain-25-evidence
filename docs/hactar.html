@@ -348,9 +348,12 @@
       </div>
       <div class="hactar-pick">Выбрано: <strong><span id="hactarCount" aria-live="polite">0</span></strong> / <span id="hactarTotal">130</span>
         <span class="hactar-stack-actions">
-          <button type="button" class="hactar-stack-btn" id="hactarSaveStack">💾 Сохранить стек</button>
+          <!-- NA2-02: видимая подпись короче действия, поэтому имя задано
+               явно: у «Сохранить стек» не сказано, что именно сохраняется,
+               а у «Мои стеки» — что кнопка раскрывает список. -->
+          <button type="button" class="hactar-stack-btn" id="hactarSaveStack" aria-label="Сохранить текущий стек добавок">💾 Сохранить стек</button>
           <span class="hactar-stacks-dropdown" id="hactarStacksDropdown" hidden>
-            <button type="button" class="hactar-stack-btn" id="hactarStacksToggle">📂 Мои стеки ▾</button>
+            <button type="button" class="hactar-stack-btn" id="hactarStacksToggle" aria-label="Открыть список сохранённых стеков" aria-expanded="false" aria-controls="hactarStacksList">📂 Мои стеки ▾</button>
             <div class="hactar-stacks-list" id="hactarStacksList" hidden></div>
           </span>
         </span>
@@ -454,15 +457,75 @@
   var btnPick = document.getElementById('hactarBtnPick');
   var btnDone = document.getElementById('hactarDone');
 
+  /* NA2-06: фокус не должен теряться при открытии и закрытии шторки.
+     Раньше openDrawer() только добавлял класс .open: фокус оставался на
+     кнопке «Выбрать добавки», то есть за пределами того, что теперь
+     занимает весь экран. Скринридер и Tab продолжали ходить по странице
+     под шторкой.
+
+     FOCUSABLE — стандартный набор для обхода Tab. Скрытые элементы
+     отсекаются через getClientRects(): у .hactar-done на десктопе
+     display:none, и фокус туда уходить не должен. */
+  var FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]), ' +
+    'select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+  function focusables(){
+    var all = sidebar.querySelectorAll(FOCUSABLE);
+    var list = [];
+    for (var i = 0; i < all.length; i++){
+      if (all[i].getClientRects().length) list.push(all[i]);
+    }
+    return list;
+  }
+
   // Мобильная шторка: открыть / закрыть
   function openDrawer(){
     sidebar.classList.add('open');
+    /* Первый видимый элемент шторки: на мобильном это «Готово» (оно
+       стоит в разметке раньше поиска), на планшете «Готово» скрыто и
+       фокус получает поле поиска. */
+    var list = focusables();
+    if (list.length) list[0].focus();
   }
   function closeDrawer(){
     sidebar.classList.remove('open');
+    /* Возврат фокуса на кнопку, которая шторку открыла: иначе после
+       «Готово» фокус уезжает в начало документа. */
+    if (btnPick) btnPick.focus();
   }
   if (btnPick) btnPick.addEventListener('click', openDrawer);
   if (btnDone) btnDone.addEventListener('click', closeDrawer);
+
+  /* NA2-06, часть вторая: пока шторка открыта, Tab ходит по кругу внутри
+     неё, а Esc закрывает. Условие «есть класс open» обязательно: на
+     десктопе этот же <aside> — обычная колонка, и перехватывать там Tab
+     нельзя. stopPropagation на Esc нужен, чтобы глобальный обработчик
+     hactar.js не принял тот же Esc за «очистить поиск» и не стёр запрос. */
+  if (sidebar) {
+    sidebar.addEventListener('keydown', function(e){
+      if (sidebar.classList.contains('open')) {
+        if (e.key === 'Escape') {
+          e.stopPropagation();
+          closeDrawer();
+        } else if (e.key === 'Tab') {
+          var list = focusables();
+          if (list.length) {
+            var first = list[0];
+            var last = list[list.length - 1];
+            var active = document.activeElement;
+            var inside = sidebar.contains(active);
+            if (e.shiftKey && (active === first || !inside)) {
+              e.preventDefault();
+              last.focus();
+            } else if (!e.shiftKey && (active === last || !inside)) {
+              e.preventDefault();
+              first.focus();
+            }
+          }
+        }
+      }
+    });
+  }
 
   // H-5: логика вкладок (переключение + ?tab= в адресе) переехала в
   // hactar.js — там же живёт синхронизация URL. Здесь остались только
@@ -486,7 +549,7 @@
      оба скрипта с defer, поэтому выполняются в порядке разметки и
      window.vis готов к моменту, когда hactar.js создаёт Network. -->
 <script src="vendor/vis-network-9.1.9.min.js" defer></script>
-<script src="hactar.js?v=23" defer></script>
+<script src="hactar.js?v=24" defer></script>
 <script src="share.js?v=1" defer></script>
 
 <footer class="site-footer">
