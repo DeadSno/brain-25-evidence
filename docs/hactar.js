@@ -1911,45 +1911,65 @@
   }
 
   /* Доза: поле ввода, единица, диапазон из справочника и статус нормы.
-     Ошибка ввода (U2-02) подсвечивает поле красной рамкой. */
+     Ошибка ввода (U2-02) подсвечивает поле красной рамкой.
+
+     NA2-08: красной рамки мало — скринридер о ней не знает. Поэтому у поля
+     есть id, `aria-invalid` (true/false) и `aria-describedby`, который
+     переключается между подписью-статусом и текстом ошибки. */
   function ovDoseCell(rec) {
     var d = doseInfo(rec);
     var id = esc(rec.id);
     var unit = d.unit ? esc(d.unit) : '';
     var cls = 'hactar-ov-dose-input' + (d.bad ? ' hactar-ov-dose-input-bad' : '');
+    var descId = (d.bad ? 'dose-err-' : 'dose-meta-') + id;
     return '<div class="hactar-ov-dose">' +
              '<div class="hactar-ov-dose-field">' +
                '<input type="text" inputmode="decimal" class="' + cls + '"' +
-                 ' data-id="' + id + '" value="' + esc(d.raw) + '"' +
-                 ' aria-label="Доза: ' + esc(rec.name) + '">' +
+                 ' id="dose-' + id + '" data-id="' + id + '" value="' + esc(d.raw) + '"' +
+                 ' aria-label="Доза: ' + esc(rec.name) + '"' +
+                 ' aria-invalid="' + (d.bad ? 'true' : 'false') + '"' +
+                 ' aria-describedby="' + descId + '">' +
                (unit ? '<span class="hactar-ov-dose-unit">' + unit + '</span>' : '') +
              '</div>' +
-             '<div class="hactar-ov-dose-meta">' + ovDoseMeta(rec, d) + '</div>' +
+             '<div class="hactar-ov-dose-meta" id="dose-meta-' + id + '">' +
+               ovDoseMeta(rec, d) +
+             '</div>' +
            '</div>';
   }
 
   /* Подпись под полем дозы: диапазон справочника, статус нормы и ошибка
      ввода. Живёт отдельно от <input>, чтобы перерисовка статуса не
-     трогала само поле — иначе потерялся бы фокус и набор текста. */
+     трогала само поле — иначе потерялся бы фокус и набор текста.
+
+     NA2-08: этот блок читается скринридером как описание поля, поэтому
+     куски разделены пробелом — иначе «норма 3–5 г» и «доза не задана»
+     слипаются в «3–5 гдоза не задана». */
   function ovDoseMeta(rec, d) {
     var html = '';
+    function add(chunk) {
+      if (html) html += ' ';
+      html += chunk;
+    }
     if (d.min != null && d.max != null && d.min !== d.max) {
-      html += '<span class="hactar-ov-dose-norm">норма ' +
+      add('<span class="hactar-ov-dose-norm">норма ' +
         esc(String(d.min).replace('.', ',')) + '–' +
-        esc(String(d.max).replace('.', ',')) + ' ' + esc(d.unit) + '</span>';
+        esc(String(d.max).replace('.', ',')) + ' ' + esc(d.unit) + '</span>');
     }
     if (d.bad) {
-      html += '<span class="hactar-ov-dose-err">Ошибка: введите число' +
-        (d.unit ? ' в ' + esc(d.unit) : '') + '</span>';
+      /* NA2-08: на ошибку ссылается aria-describedby поля, а aria-live
+         сообщает о её появлении, пока фокус ещё в поле. */
+      add('<span class="hactar-ov-dose-err" id="dose-err-' + esc(rec.id) +
+        '" aria-live="polite">Ошибка: введите число' +
+        (d.unit ? ' в ' + esc(d.unit) : '') + '</span>');
     } else if (d.empty) {
-      html += '<span class="hactar-ov-dose-ok">доза не задана</span>';
+      add('<span class="hactar-ov-dose-ok">доза не задана</span>');
     } else if (d.over) {
-      html += '<span class="hactar-ov-dose-warn">⚠️ превышена суточная норма ' +
-        esc(String(d.ulMg).replace('.', ',')) + ' ' + esc(d.ulUnit) + '</span>';
+      add('<span class="hactar-ov-dose-warn">⚠️ превышена суточная норма ' +
+        esc(String(d.ulMg).replace('.', ',')) + ' ' + esc(d.ulUnit) + '</span>');
     } else if (d.ulMg != null) {
-      html += '<span class="hactar-ov-dose-ok">в пределах нормы</span>';
+      add('<span class="hactar-ov-dose-ok">в пределах нормы</span>');
     } else {
-      html += '<span class="hactar-ov-dose-ok">суточная норма не указана</span>';
+      add('<span class="hactar-ov-dose-ok">суточная норма не указана</span>');
     }
     return html;
   }
@@ -2241,6 +2261,9 @@ var OVERVIEW_ROWS = [
     var bad = (raw !== '' && (!DOSE_RE.test(String(raw).trim()) || isNaN(n) || n < 0));
     doseInputs[id] = { raw: raw, value: bad ? '' : String(n), touched: true, bad: bad };
     t.classList.toggle('hactar-ov-dose-input-bad', !!bad);
+    /* NA2-08: состояние для скринридера — не только рамка. */
+    t.setAttribute('aria-invalid', bad ? 'true' : 'false');
+    t.setAttribute('aria-describedby', (bad ? 'dose-err-' : 'dose-meta-') + id);
     var wrap = t.closest ? t.closest('.hactar-ov-dose') : null;
     var meta = wrap ? wrap.querySelector('.hactar-ov-dose-meta') : null;
     if (meta) meta.innerHTML = ovDoseMeta(ovRecord(id), doseInfo(ovRecord(id)));
