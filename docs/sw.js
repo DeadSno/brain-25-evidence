@@ -435,7 +435,12 @@ self.addEventListener('activate', event => {
    точки отбрасываются (раньше строка «0.71» давала пустой график без
    ошибки в консоли). script.js вышел за ?v= 296 -> 297. style.css не
    менялся, ?v= 456 остаётся. */
-var CACHE_VERSION = 'v142';
+/* Бамп v142 -> v143: FIX-42 (C2-01, C2-05) — @font-face переведён с
+   font-display: swap на optional (подмена шрифта после первой отрисовки
+   больше не даёт CLS), пять начертаний Inter предзагружаются в <head>
+   главной. style.css вышел за ?v= 456 -> 457 (145 страниц + шаблоны),
+   script.js не менялся, ?v= 297 остаётся. */
+var CACHE_VERSION = 'v143';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
