@@ -283,14 +283,47 @@
     history.replaceState(null, '', url.pathname + url.search + url.hash);
   }
 
+  /* Одна точка активации: клик и клавиатура должны делать ровно одно и то
+     же — переключить панель, записать ?tab= в адрес и закрыть шторку на
+     мобильном. */
+  function activateTab(t) {
+    setMode(t.dataset.mode);
+    syncUrl(t.dataset.mode);
+    if (sidebar) sidebar.classList.remove('open');
+  }
+
   tabs.forEach(function (t) {
     t.addEventListener('click', function () {
-      setMode(t.dataset.mode);
-      syncUrl(t.dataset.mode);
-      /* На мобильном вкладка закрывает шторку — как и раньше. */
-      if (sidebar) sidebar.classList.remove('open');
+      activateTab(t);
     });
   });
+
+  /* NA2-07: WAI-ARIA Tabs Pattern — стрелки ←/→ листают вкладки по кругу,
+     Home/End прыгают на первую/последнюю. Активация автоматическая (фокус
+     и выбор едут вместе): панелей две, и обе рисуются из уже загруженных
+     данных — отдельный Enter только добавлял бы шаг. roving tabindex и
+     aria-selected выставляет setMode, здесь — только навигация. */
+  var tablist = document.querySelector('.hactar-tabs');
+  if (tablist) {
+    tablist.addEventListener('keydown', function (e) {
+      var key = e.key;
+      if (key !== 'ArrowRight' && key !== 'ArrowLeft' && key !== 'Home' && key !== 'End') return;
+      var list = Array.prototype.slice.call(tabs);
+      var from = list.indexOf(document.activeElement);
+      if (from < 0) return;  // фокус не на вкладке — клавиши не наши
+      var to;
+      if (key === 'Home') to = 0;
+      else if (key === 'End') to = list.length - 1;
+      else if (key === 'ArrowRight') to = (from + 1) % list.length;
+      else to = (from - 1 + list.length) % list.length;
+      var target = list[to];
+      if (!target) return;
+      /* preventDefault — иначе стрелки прокрутят страницу под вкладками. */
+      e.preventDefault();
+      target.focus();
+      activateTab(target);
+    });
+  }
 
   /* Стартовый режим — из ?tab=. Без параметра — «Обзор»: класс .active
      ставит только setMode, без него вкладки выглядели бы «никакими».
