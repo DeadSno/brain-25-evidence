@@ -365,7 +365,10 @@ self.addEventListener('activate', event => {
    Правка в docs/hactar.js, файл отдаётся по hactar.js?v= 15 -> 16.
    style.css не менялся, ?v= поднят на шаг вместе с CACHE_VERSION,
    чтобы шкалы не разъехались (tests/test_style_version_bump.py). */
-var CACHE_VERSION = 'v123';
+/* Бамп v123 -> v124: NA2-07 — вкладки Project Hactar получили навигацию
+   стрелками и Home/End (WAI-ARIA Tabs Pattern): hactar.js вышел за
+   ?v= 16 -> 17, style.css — за ?v= 446 -> 447 (обе шкалы идут парой). */
+var CACHE_VERSION = 'v124';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
