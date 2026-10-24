@@ -36,7 +36,7 @@
   <div class="trustbar">🧬 Открытые данные · Бесплатно · Без рекламы</div>
   <header class="top">
     <div class="site-title"><a href="index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a> <span class="v">v<span data-version="app"></span></span></div>
-    <nav class="actions" aria-label="Главная навигация">
+    <nav class="actions" aria-label="Главная навигация" data-i18n-aria-label="a11y.navMain">
       <a class="btn c-feedback" href="feedback.html">💬 Обратная связь</a>
       <a class="btn c-support" href="support.html">💚 Поддержать</a>
       <button class="btn c-theme" id="themeBtn" aria-label="Переключить на светлую тему">🌞 Светлая тема</button>
@@ -52,9 +52,18 @@
     <p style="color:var(--muted)">Такого адреса на сайте нет — или он переехал.
        Поищите добавку или вернитесь на главную.</p>
     <label for="nfSearch" class="sr-only">Поиск добавки по каталогу</label>
-    <input id="nfSearch" type="search" placeholder="Например: магний или сон" autocomplete="off">
+    <!-- A2-07: aria-label повторяет текст label намеренно — на остальных
+         страницах имя поля приходит из data-i18n-aria-label, и служебная
+         страница не должна выпадать из этой схемы. aria-controls связывает
+         поле со списком, aria-describedby — с подсказкой, которая уже
+         служит живым регионом (aria-live="polite" ниже). -->
+    <input id="nfSearch" type="search" placeholder="Например: магний или сон" autocomplete="off"
+           aria-label="Поиск добавки по каталогу" aria-controls="nfResults" aria-describedby="nfHint">
     <p id="nfHint" aria-live="polite"></p>
-    <ul id="nfResults" role="list"></ul>
+    <!-- Живой регион здесь один — #nfHint со счётчиком. aria-live на самом
+         списке объявлял бы все ссылки на каждое нажатие клавиши и дублировал
+         бы счётчик, поэтому список остаётся обычным списком с именем. -->
+    <ul id="nfResults" role="list" aria-label="Результаты поиска"></ul>
     <p style="margin:1rem 0 0;display:flex;flex-wrap:wrap;gap:.75rem;justify-content:center">
       <a class="btn" href="index.html">🏠 На главную</a>
       <a class="btn" href="sup/index.html">📄 Каталог 130 добавок</a>
