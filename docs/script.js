@@ -1226,7 +1226,18 @@ function renderBubble(data) {
 
 // ===== v2.4: квадрант доказательности (Hedges' g vs scienceIndex) =====
 function renderQuadrant(data) {
-  const verified = data.filter(s => s.hedges_g != null);
+  // FIX-40 (MAN-05): hedges_g мог прийти строкой («0.71») — из data.json,
+  // api/v1 или правки руками. Chart.js в scatter молча не рисует точку с
+  // нечисловым x, и график выглядит пустым без единой ошибки в консоли.
+  // Поэтому значение приводим к числу, а всё нефинитное (null, "", NaN,
+  // «н/д») отбрасываем — это же число попадает в подпись «ждут проверки».
+  const verified = data
+    .map(s => {
+      if (s.hedges_g == null || s.scienceIndex == null) return null;
+      const g = Number(s.hedges_g), si = Number(s.scienceIndex);
+      return Number.isFinite(g) && Number.isFinite(si) ? { s, g, si } : null;
+    })
+    .filter(Boolean);
   $('quadrantNote').textContent = verified.length < data.length
     ? t("quadrant.waiting", { count: data.length - verified.length }) : '';
   const ctx = $('quadrantChart').getContext('2d');
@@ -1236,9 +1247,9 @@ function renderQuadrant(data) {
     type: 'scatter',
     data: { datasets: (() => {
       const { rFor, rHoverFor } = bubbleRadii();
-      return verified.map(s => ({
+      return verified.map(({ s, g, si }) => ({
         label: s.name,
-        data: [{ x: s.hedges_g, y: Math.max(1, s.scienceIndex) }],
+        data: [{ x: g, y: Math.max(1, si) }],
         backgroundColor: vColorAlpha(s.code),
         pointRadius: rFor(s),
         pointHoverRadius: rHoverFor(s),

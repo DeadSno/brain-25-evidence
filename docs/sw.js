@@ -430,7 +430,12 @@ self.addEventListener('activate', event => {
    для карточки добавки), scripts/build_sup.py (forms_text через «, »).
    script.js вышел за ?v= 295 -> 296, hactar.js - за ?v= 24 -> 25.
    style.css не менялся, ?v= 456 остаётся. */
-var CACHE_VERSION = 'v141';
+/* Бамп v141 -> v142: FIX-40 (MAN-05) — renderQuadrant больше не падает
+   молча на нечисловом hedges_g: значение приводится к числу, нефинитные
+   точки отбрасываются (раньше строка «0.71» давала пустой график без
+   ошибки в консоли). script.js вышел за ?v= 296 -> 297. style.css не
+   менялся, ?v= 456 остаётся. */
+var CACHE_VERSION = 'v142';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
