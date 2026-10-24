@@ -360,6 +360,31 @@ function initTheme() {
 }
 initTheme();
 
+// A2-05 (24.10.2026): <details>/<summary> уже отдают состояние раскрытия
+// нативно (Chrome: роль DisclosureTriangle + свойство expanded), но
+// aria-expanded делает его явным и не зависит от движка: у старых WebKit
+// нативный expanded появлялся с задержкой. Ставим значение из фактического
+// состояния, а не из разметки: браузер помнит открытые details после
+// перезагрузки, и жёсткое «false» разошлось бы с картинкой.
+// role="button" намеренно не ставим: <summary> и так кнопка в дереве
+// доступности, а явная роль стёрла бы семантику disclosure.
+function initDisclosures() {
+  document.querySelectorAll('details').forEach(d => {
+    const s = d.querySelector(':scope > summary');
+    if (!s) return;
+    const sync = () => s.setAttribute('aria-expanded', d.open ? 'true' : 'false');
+    sync();
+    d.addEventListener('toggle', sync);
+    // Событие toggle браузер ставит в очередь задач и доставляет заметно
+    // позже клика — всё это время атрибут врал бы. Поэтому на клик ставим
+    // значение сразу: активация summary ещё не прошла, значит новое
+    // состояние — противоположное текущему. toggle потом подтверждает его
+    // и заодно выравнивает любой рассинхрон.
+    s.addEventListener('click', () => s.setAttribute('aria-expanded', d.open ? 'false' : 'true'));
+  });
+}
+initDisclosures();
+
 // INDEX_CTA_FIX (MKT-P1-02 follow-up): кнопка «Найти свою добавку»
 // ведёт на каталог (#cardsContainer), а не на #search: поле поиска стоит
 // ВЫШЕ CTA по DOM, якорь почти не двигал страницу и не ставил фокус.

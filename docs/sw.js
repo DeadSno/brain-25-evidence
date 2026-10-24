@@ -391,7 +391,8 @@ self.addEventListener('activate', event => {
    ключи a11y.themeToLight/themeToDark в i18n.js и setLight() в script.js.
    i18n.js вышел за ?v= 2 -> 3, script.js - за ?v= 293 -> 294,
    style.css - за ?v= 454 -> 455 (обе шкалы идут парой). */
-var CACHE_VERSION = 'v132';
+/* Бамп v132 -> v133: A2-05 — у свёрнутых блоков <details> на главной появился aria-expanded, синхронизируемый с фактическим состоянием (initDisclosures в script.js); script.js вышел за ?v= 294 -> 295, style.css - за ?v= 455 -> 456 (обе шкалы идут парой). */
+var CACHE_VERSION = 'v133';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
