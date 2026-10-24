@@ -1842,6 +1842,18 @@
     return null;
   }
 
+  /* Совпадают ли единицы. Нужно для МЕ/КОЕ/ммоль: к мг они не приводятся,
+     но сравнить введённое с нормой всё равно можно — в исходной единице.
+     IU и МЕ — одно и то же (русская и латинская запись). */
+  function sameUnit(a, b) {
+    var norm = function (u) {
+      var s = String(u || '').toUpperCase().replace(/\s+/g, '');
+      return s === 'IU' ? 'МЕ' : s;
+    };
+    var x = norm(a), y = norm(b);
+    return !!x && x === y;
+  }
+
   /* ── данные ──────────────────────────────────────────────────────────── */
 
   /* Загружает data.json (лениво, один раз). Промис кэшируется: без кэша
@@ -1936,7 +1948,6 @@
   function doseInfo(rec) {
     var parsed = parseDosage(rec.dosage || '');
     var ul = parseUpperLimit(rec.upperLimit || '');
-    var ulMg = ul ? toMg(ul.mg, ul.unit) : null;
     var state = doseInputs[rec.id] || {};
     var defaultRaw = (parsed && parsed.value != null) ? String(parsed.value) : '';
     var raw = state.raw !== undefined ? state.raw : defaultRaw;
@@ -1946,20 +1957,44 @@
     var bad = !!(state.touched && raw !== '' &&
                  (!DOSE_RE.test(String(raw).trim()) || isNaN(n) || n < 0));
     var empty = (raw === '');
-    /* Превышение нормы сравниваем в миллиграммах: введённая доза и UL
-     лежат в разных единицах (г против мг), сравнение «как есть» врало. */
-    var enteredMg = (!empty && !isNaN(n) && parsed) ? toMg(n, parsed.unit) : null;
-    var over = !!(ulMg != null && enteredMg != null && enteredMg > ulMg);
+    var usable = !empty && !bad && !isNaN(n);
+
+    /* NP2-04 (24.10.2026): сравнение с верхней нормой — только в одной шкале
+       для обоих чисел, и NaN наружу не уходит. Раньше считали исключительно
+       в миллиграммах: у «Витамина D» норма «4000 МЕ/сут», МЕ к мг не
+       приводится, поэтому подпись говорила «суточная норма не указана» и
+       ввод 10 000 МЕ не давал предупреждения. Теперь: приводим к мг, если
+       обе единицы приводятся, иначе сравниваем в исходной единице, когда
+       она совпадает. */
+    var mgLimit = ul ? toMg(ul.mg, ul.unit) : null;
+    var mgEntered = (usable && parsed) ? toMg(n, parsed.unit) : null;
+    var ulValue = null;
+    var ulUnitOut = '';
+    var comparable = false;
+    var over = false;
+    if (mgLimit != null) {
+      ulValue = mgLimit;
+      ulUnitOut = 'мг';
+      comparable = (mgEntered != null);
+      over = comparable && mgEntered > mgLimit;
+    } else if (ul && parsed && sameUnit(ul.unit, parsed.unit)) {
+      ulValue = ul.mg;
+      ulUnitOut = ul.unit;
+      comparable = usable;
+      over = comparable && n > ul.mg;
+    }
     return {
       raw: raw,
-      value: n,
+      /* NaN не отдаём: буквы в поле — это не число (NP2-04). */
+      value: usable ? n : null,
       empty: empty,
       bad: bad,
       unit: parsed ? parsed.unit : '',
       min: parsed ? parsed.min : null,
       max: parsed ? parsed.max : null,
-      ulMg: ulMg,
-      ulUnit: ul ? ul.unit : '',
+      ulValue: ulValue,
+      ulUnit: ulUnitOut,
+      comparable: comparable,
       over: over
     };
   }
@@ -2043,8 +2078,12 @@
       add('<span class="hactar-ov-dose-ok">доза не задана</span>');
     } else if (d.over) {
       add('<span class="hactar-ov-dose-warn">⚠️ превышена суточная норма ' +
-        esc(String(d.ulMg).replace('.', ',')) + ' ' + esc(d.ulUnit) + '</span>');
-    } else if (d.ulMg != null) {
+        esc(String(d.ulValue).replace('.', ',')) + ' ' + esc(d.ulUnit) + '</span>');
+    } else if (d.ulValue != null && !d.comparable) {
+      /* Единицы введённого и нормы не совпадают и к мг не приводятся —
+         утверждать «в пределах нормы» было бы вымыслом (NP2-04). */
+      add('<span class="hactar-ov-dose-ok">норма указана в других единицах</span>');
+    } else if (d.ulValue != null) {
       add('<span class="hactar-ov-dose-ok">в пределах нормы</span>');
     } else {
       add('<span class="hactar-ov-dose-ok">суточная норма не указана</span>');
@@ -2337,7 +2376,7 @@ var OVERVIEW_ROWS = [
     var raw = t.value;
     var n = parseNum(raw);
     var bad = (raw !== '' && (!DOSE_RE.test(String(raw).trim()) || isNaN(n) || n < 0));
-    doseInputs[id] = { raw: raw, value: bad ? '' : String(n), touched: true, bad: bad };
+    doseInputs[id] = { raw: raw, value: bad ? null : n, touched: true, bad: bad };
     t.classList.toggle('hactar-ov-dose-input-bad', !!bad);
     /* NA2-08: состояние для скринридера — не только рамка. */
     t.setAttribute('aria-invalid', bad ? 'true' : 'false');
