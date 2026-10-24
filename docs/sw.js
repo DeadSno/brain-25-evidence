@@ -406,7 +406,12 @@ self.addEventListener('activate', event => {
    выросла с 36px до 44px (WCAG 2.5.5), у ячеек таблицы на ≤480px
    уменьшены отступы. Менялся только hactar.html (инлайн <style>),
    style.css не менялся, ?v= 456 остаётся. */
-var CACHE_VERSION = 'v137';
+/* Бамп v137 -> v138: NSE2-01 — у hactar.html canonical был относительным
+   (href="hactar.html"); заменён на абсолютный
+   https://deadsno.github.io/brain-25-evidence/hactar.html, как в sitemap
+   и в og:url. Менялся только hactar.html, style.css не менялся,
+   ?v= 456 остаётся. */
+var CACHE_VERSION = 'v138';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
