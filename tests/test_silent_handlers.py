@@ -471,8 +471,14 @@ def test_silent_guards_are_either_verifiable_or_explicitly_listed():
         if not hits:
             continue
 
+        # Страница может подключать минифицированную копию (FIX-44):
+        # script.min.js вместо script.js — по смыслу это тот же файл, и id,
+        # которые он ищет, лежат в разметке такой страницы.
+        pat = re.escape(name)
+        if pat.endswith(r"\.js"):
+            pat = pat[: -len(r"\.js")] + r"(?:\.min)?\.js"
         needed = [p for p in pages
-                  if re.search(rf'src="[^"]*{re.escape(name)}',
+                  if re.search(rf'src="[^"]*{pat}',
                                p.read_text(encoding="utf-8", errors="replace"))]
         page_text = "\n".join(
             p.read_text(encoding="utf-8", errors="replace") for p in needed
