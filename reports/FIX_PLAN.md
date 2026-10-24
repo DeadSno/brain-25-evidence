@@ -73,7 +73,7 @@
 | A2-06 | баг | B | Граф `interactions.html` недоступен с клавиатуры | docs/interactions.html | Открыт |
 | A2-07 | баг | C | `404.html`: навигация без `data-i18n-aria-label`, нет связи `#nfSearch`–`#nfResults` | docs/404.html | Открыт |
 | A2-08 | баг | B | Чип в тёмной теме: контраст ~3.27:1 < 4.5:1 | docs/style.css | Открыт |
-| NA2-01 | баг | B | Инпуты доз `.hactar-ov-dose-input` без accessible name | docs/hactar.js (renderOverview) | Открыт |
+| NA2-01 | баг | B | Инпуты доз `.hactar-ov-dose-input` без accessible name | docs/hactar.js (renderOverview) | Закрыто (коммит 88a1c375 — aria-label добавлен) |
 | NA2-02 | улучшение | C | Кнопки стека без `aria-label` (текст есть, доступно) | docs/hactar.js | Открыт |
 | NA2-06 | улучшение | C | Управление фокусом в мобильной шторке `hactar-sidebar` не реализовано | docs/hactar.html:228-230 | Открыт |
 | NA2-08 | улучшение | C | Инпуты доз без aria-invalid и aria-describedby — скринридер не узнаёт об ошибке | docs/hactar.js (renderOverview) | Закрыто (коммит 88a1c375) |
