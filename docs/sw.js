@@ -368,7 +368,10 @@ self.addEventListener('activate', event => {
 /* Бамп v123 -> v124: NA2-07 — вкладки Project Hactar получили навигацию
    стрелками и Home/End (WAI-ARIA Tabs Pattern): hactar.js вышел за
    ?v= 16 -> 17, style.css — за ?v= 446 -> 447 (обе шкалы идут парой). */
-var CACHE_VERSION = 'v124';
+/* Бамп v124 -> v125: NV2-02 — чипы «Купить» на главной получили класс
+   .shop-chip вместо инлайн-стиля (рамка, box-sizing, min-width:0).
+   style.css ?v= 447 -> 448, index.html переехал вместе с ним. */
+var CACHE_VERSION = 'v125';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
