@@ -372,7 +372,8 @@ self.addEventListener('activate', event => {
    .shop-chip вместо инлайн-стиля (рамка, box-sizing, min-width:0).
    style.css ?v= 447 -> 448, index.html переехал вместе с ним. */
 /* Бамп v126 -> v127: NP2-01 — кнопка «Сохранить стек» получила состояние :active и тосты на все исходы (пустое имя, перезапись, отказ хранилища). hactar.js вышел за ?v= 17 -> 18, style.css — за ?v= 449 -> 450 (обе шкалы идут парой). */
-var CACHE_VERSION = 'v127';
+/* Бамп v127 -> v128: P2-02 - поисковый запрос магазина чистится от скобочных уточнений и редакционных оговорок из поля forms (Родиола: обрезанная скобка, Коллаген: 72 символа текста вместо товара). hactar.js вышел за ?v= 18 -> 19, style.css - за ?v= 450 -> 451 (обе шкалы идут парой). */
+var CACHE_VERSION = 'v128';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
