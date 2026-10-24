@@ -371,12 +371,8 @@ self.addEventListener('activate', event => {
 /* Бамп v124 -> v125: NV2-02 — чипы «Купить» на главной получили класс
    .shop-chip вместо инлайн-стиля (рамка, box-sizing, min-width:0).
    style.css ?v= 447 -> 448, index.html переехал вместе с ним. */
-/* Бамп v125 -> v126: NV2-06 — палитра графиков trends.html переехала
-   из литералов в JS (GRADE_COLOR / GRADE_BG) в токены --chart-<роль> в
-   style.css (:root; светлая тема переопределяет --chart-label и
-   --chart-grid). style.css ?v= 448 -> 449, trends.html переехал
-   вместе с ним. */
-var CACHE_VERSION = 'v126';
+/* Бамп v126 -> v127: NP2-01 — кнопка «Сохранить стек» получила состояние :active и тосты на все исходы (пустое имя, перезапись, отказ хранилища). hactar.js вышел за ?v= 17 -> 18, style.css — за ?v= 449 -> 450 (обе шкалы идут парой). */
+var CACHE_VERSION = 'v127';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 

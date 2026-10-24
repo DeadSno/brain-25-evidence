@@ -27,7 +27,7 @@
       }
     } catch (e) {}
   </script>
-  <link rel="stylesheet" href="style.css?v=449"/>
+  <link rel="stylesheet" href="style.css?v=450"/>
   <style>
     /* Project Hactar — скелет (H-1, только вёрстка) */
     :root{--hactar-sidebar:340px;}
@@ -261,6 +261,9 @@
   .hactar-stack-actions{display:inline-flex;align-items:center;gap:var(--space-2);flex-wrap:wrap;margin-inline-start:var(--space-4)}
   .hactar-stack-btn{display:inline-flex;align-items:center;gap:.3rem;padding:.35rem .75rem;min-height:36px;border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--card-bg);color:var(--text);font-size:var(--fs-4);font-weight:500;cursor:pointer;white-space:nowrap}
   .hactar-stack-btn:hover{border-color:var(--accent);color:var(--text)}
+  /* NP2-01: нажатие должно быть видно. Раньше был только :hover, поэтому
+     клик по кнопке (особенно на тач-экране, где hover нет) не давал отклика. */
+  .hactar-stack-btn:active{transform:translateY(1px);border-color:var(--accent);background:var(--card-bg);filter:brightness(.92)}
   .hactar-stack-btn:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
   .hactar-stacks-dropdown{position:relative;display:inline-block}
   .hactar-stacks-dropdown[hidden]{display:none}
@@ -471,7 +474,7 @@
      оба скрипта с defer, поэтому выполняются в порядке разметки и
      window.vis готов к моменту, когда hactar.js создаёт Network. -->
 <script src="vendor/vis-network-9.1.9.min.js" defer></script>
-<script src="hactar.js?v=17" defer></script>
+<script src="hactar.js?v=18" defer></script>
 <script src="share.js?v=1" defer></script>
 
 <footer class="site-footer">
