@@ -93,12 +93,13 @@
     
     <div class="sup-meta">
         
-        <a href="https://pubmed.ncbi.nlm.nih.gov/?term=38365549" target="_blank" rel="noopener" class="pmid-badge" data-target="bosvelliya">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/?term=38365549" target="_blank" rel="nofollow noopener" class="pmid-badge" data-target="bosvelliya">
             🔬 2 источника в PubMed
         </a>
         
         
-        <button class="btn cmp-add" data-cmp="bosvelliya" type="button">+ Сравнить</button>
+        
+        <a class="btn cmp-add" data-cmp="bosvelliya" href="../hactar.html?tab=compare&amp;ids=bosvelliya">+ Сравнить</a>
         
     </div>
     
@@ -153,9 +154,9 @@
         <h2>🛒 Где купить</h2>
         <div style="font-size:var(--fs-4);color:var(--muted);margin-bottom:8px;">⚠️ Вы переходите на сторонний сайт</div>
         <div class="shop-buttons">
-            <a href="https://market.yandex.ru/search?text=%D0%91%D0%BE%D1%81%D0%B2%D0%B5%D0%BB%D0%BB%D0%B8%D1%8F" target="_blank" rel="noopener" class="shop-btn">Я.Маркет ↗</a>
-            <a href="https://www.ozon.ru/search/?text=%D0%91%D0%BE%D1%81%D0%B2%D0%B5%D0%BB%D0%BB%D0%B8%D1%8F" target="_blank" rel="noopener" class="shop-btn">Ozon ↗</a>
-            <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%91%D0%BE%D1%81%D0%B2%D0%B5%D0%BB%D0%BB%D0%B8%D1%8F" target="_blank" rel="noopener" class="shop-btn">WB ↗</a>
+            <a href="https://market.yandex.ru/search?text=%D0%91%D0%BE%D1%81%D0%B2%D0%B5%D0%BB%D0%BB%D0%B8%D1%8F" target="_blank" rel="nofollow noopener" class="shop-btn">Я.Маркет ↗</a>
+            <a href="https://www.ozon.ru/search/?text=%D0%91%D0%BE%D1%81%D0%B2%D0%B5%D0%BB%D0%BB%D0%B8%D1%8F" target="_blank" rel="nofollow noopener" class="shop-btn">Ozon ↗</a>
+            <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%91%D0%BE%D1%81%D0%B2%D0%B5%D0%BB%D0%BB%D0%B8%D1%8F" target="_blank" rel="nofollow noopener" class="shop-btn">WB ↗</a>
         </div>
         <div class="shop-look">
             <strong>Что искать при покупке:</strong> Ищите форму «экстракт (AKBA ≥30%)» на этикетке, проверяйте дозировку и наличие сертификата качества (GMP/ISO).
@@ -200,11 +201,11 @@
         
         <div class="src-card">
             <div class="src-title">Efficacy evaluation of standardized Boswellia serrata extract (Aflapin(Ⓡ)) in osteoarthritis: A systematic review and sub-group meta-analysis study.</div>
-            <div class="src-meta">Explore (New York, N.Y.) · 2024 · <a href="https://pubmed.ncbi.nlm.nih.gov/38365549/" target="_blank" rel="noopener">PMID: 38365549</a> | DOI: <a href="https://doi.org/10.1016/j.explore.2024.02.001" target="_blank" rel="noopener noreferrer">10.1016/j.explore.2024.02.001</a></div>
+            <div class="src-meta">Explore (New York, N.Y.) · 2024 · <a href="https://pubmed.ncbi.nlm.nih.gov/38365549/" target="_blank" rel="nofollow noopener">PMID: 38365549</a> | DOI: <a href="https://doi.org/10.1016/j.explore.2024.02.001" target="_blank" rel="nofollow noopener noreferrer">10.1016/j.explore.2024.02.001</a></div>
         </div>
         <div class="src-card">
             <div class="src-title">Evaluating the efficacy and safety of Curcuma longa, Boswellia serrata, and their mixed formulation in treating knee osteoarthritis: A systematic review and network meta-analysis.</div>
-            <div class="src-meta">Complementary therapies in medicine · 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/41082950/" target="_blank" rel="noopener">PMID: 41082950</a> | DOI: <a href="https://doi.org/10.1016/j.ctim.2025.103256" target="_blank" rel="noopener noreferrer">10.1016/j.ctim.2025.103256</a></div>
+            <div class="src-meta">Complementary therapies in medicine · 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/41082950/" target="_blank" rel="nofollow noopener">PMID: 41082950</a> | DOI: <a href="https://doi.org/10.1016/j.ctim.2025.103256" target="_blank" rel="nofollow noopener noreferrer">10.1016/j.ctim.2025.103256</a></div>
         </div>
     </div>
 
@@ -306,7 +307,12 @@ document.addEventListener('DOMContentLoaded', function () {
       setTimeout(function () { t.remove(); }, 200);
     }, 2000);
   }
-  btn.addEventListener('click', function () {
+  btn.addEventListener('click', function (e) {
+    // SE2-04: элемент — ссылка, поэтому навигация работает и без JS.
+    // Перехватываем только обычный левый клик без модификаторов, чтобы
+    // успеть записать id в localStorage перед переходом.
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+    e.preventDefault();
     var arr = [];
     try { arr = JSON.parse(localStorage.getItem('compareIds') || '[]'); } catch (e) {}
     if (!arr.includes(id)) {
@@ -314,9 +320,9 @@ document.addEventListener('DOMContentLoaded', function () {
       localStorage.setItem('compareIds', JSON.stringify(arr));
     }
     btn.textContent = t('cmp.btn.added');
-    btn.disabled = true;
+    btn.setAttribute('aria-disabled', 'true');
     showToast(t('cmp.toast.added'));
-    location.href = '../hactar.html?tab=compare&ids=' + encodeURIComponent(id);
+    location.href = btn.getAttribute('href');
   });
 })();
 

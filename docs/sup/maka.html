@@ -93,12 +93,13 @@
     
     <div class="sup-meta">
         
-        <a href="https://pubmed.ncbi.nlm.nih.gov/?term=36110519" target="_blank" rel="noopener" class="pmid-badge" data-target="maka">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/?term=36110519" target="_blank" rel="nofollow noopener" class="pmid-badge" data-target="maka">
             🔬 2 источника в PubMed
         </a>
         
         
-        <button class="btn cmp-add" data-cmp="maka" type="button">+ Сравнить</button>
+        
+        <a class="btn cmp-add" data-cmp="maka" href="../hactar.html?tab=compare&amp;ids=maka">+ Сравнить</a>
         
     </div>
     
@@ -153,9 +154,9 @@
         <h2>🛒 Где купить</h2>
         <div style="font-size:var(--fs-4);color:var(--muted);margin-bottom:8px;">⚠️ Вы переходите на сторонний сайт</div>
         <div class="shop-buttons">
-            <a href="https://market.yandex.ru/search?text=%D0%9C%D0%B0%D0%BA%D0%B0" target="_blank" rel="noopener" class="shop-btn">Я.Маркет ↗</a>
-            <a href="https://www.ozon.ru/search/?text=%D0%9C%D0%B0%D0%BA%D0%B0" target="_blank" rel="noopener" class="shop-btn">Ozon ↗</a>
-            <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%9C%D0%B0%D0%BA%D0%B0" target="_blank" rel="noopener" class="shop-btn">WB ↗</a>
+            <a href="https://market.yandex.ru/search?text=%D0%9C%D0%B0%D0%BA%D0%B0" target="_blank" rel="nofollow noopener" class="shop-btn">Я.Маркет ↗</a>
+            <a href="https://www.ozon.ru/search/?text=%D0%9C%D0%B0%D0%BA%D0%B0" target="_blank" rel="nofollow noopener" class="shop-btn">Ozon ↗</a>
+            <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%9C%D0%B0%D0%BA%D0%B0" target="_blank" rel="nofollow noopener" class="shop-btn">WB ↗</a>
         </div>
         <div class="shop-look">
             <strong>Что искать при покупке:</strong> Ищите форму «порошок корня» на этикетке, проверяйте дозировку и наличие сертификата качества (GMP/ISO).
@@ -190,11 +191,11 @@
         
         <div class="src-card">
             <div class="src-title">Maca (Lepidium meyenii Walp.) on semen quality parameters: A systematic review and meta-analysis.</div>
-            <div class="src-meta">Frontiers in pharmacology · 2022 · <a href="https://pubmed.ncbi.nlm.nih.gov/36110519/" target="_blank" rel="noopener">PMID: 36110519</a> | DOI: <a href="https://doi.org/10.3389/fphar.2022.934740" target="_blank" rel="noopener noreferrer">10.3389/fphar.2022.934740</a></div>
+            <div class="src-meta">Frontiers in pharmacology · 2022 · <a href="https://pubmed.ncbi.nlm.nih.gov/36110519/" target="_blank" rel="nofollow noopener">PMID: 36110519</a> | DOI: <a href="https://doi.org/10.3389/fphar.2022.934740" target="_blank" rel="nofollow noopener noreferrer">10.3389/fphar.2022.934740</a></div>
         </div>
         <div class="src-card">
             <div class="src-title">Effects of Maca (Lepidium meyenii Walp.) on Physical Performance in Animals and Humans: A Systematic Review and Meta-Analysis.</div>
-            <div class="src-meta">Nutrients · 2024 · <a href="https://pubmed.ncbi.nlm.nih.gov/39796542/" target="_blank" rel="noopener">PMID: 39796542</a> | DOI: <a href="https://doi.org/10.3390/nu17010107" target="_blank" rel="noopener noreferrer">10.3390/nu17010107</a></div>
+            <div class="src-meta">Nutrients · 2024 · <a href="https://pubmed.ncbi.nlm.nih.gov/39796542/" target="_blank" rel="nofollow noopener">PMID: 39796542</a> | DOI: <a href="https://doi.org/10.3390/nu17010107" target="_blank" rel="nofollow noopener noreferrer">10.3390/nu17010107</a></div>
         </div>
     </div>
 
@@ -296,7 +297,12 @@ document.addEventListener('DOMContentLoaded', function () {
       setTimeout(function () { t.remove(); }, 200);
     }, 2000);
   }
-  btn.addEventListener('click', function () {
+  btn.addEventListener('click', function (e) {
+    // SE2-04: элемент — ссылка, поэтому навигация работает и без JS.
+    // Перехватываем только обычный левый клик без модификаторов, чтобы
+    // успеть записать id в localStorage перед переходом.
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+    e.preventDefault();
     var arr = [];
     try { arr = JSON.parse(localStorage.getItem('compareIds') || '[]'); } catch (e) {}
     if (!arr.includes(id)) {
@@ -304,9 +310,9 @@ document.addEventListener('DOMContentLoaded', function () {
       localStorage.setItem('compareIds', JSON.stringify(arr));
     }
     btn.textContent = t('cmp.btn.added');
-    btn.disabled = true;
+    btn.setAttribute('aria-disabled', 'true');
     showToast(t('cmp.toast.added'));
-    location.href = '../hactar.html?tab=compare&ids=' + encodeURIComponent(id);
+    location.href = btn.getAttribute('href');
   });
 })();
 

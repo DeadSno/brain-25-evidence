@@ -85,12 +85,13 @@
     
     <div class="sup-meta">
         
-        <a href="https://pubmed.ncbi.nlm.nih.gov/?term=38924283" target="_blank" rel="noopener" class="pmid-badge" data-target="dha">
+        <a href="https://pubmed.ncbi.nlm.nih.gov/?term=38924283" target="_blank" rel="nofollow noopener" class="pmid-badge" data-target="dha">
             🔬 3 источника в PubMed
         </a>
         
         
-        <button class="btn cmp-add" data-cmp="dha" type="button">+ Сравнить</button>
+        
+        <a class="btn cmp-add" data-cmp="dha" href="../hactar.html?tab=compare&amp;ids=dha">+ Сравнить</a>
         
     </div>
     
@@ -145,9 +146,9 @@
         <h2>🛒 Где купить</h2>
         <div style="font-size:var(--fs-4);color:var(--muted);margin-bottom:8px;">⚠️ Вы переходите на сторонний сайт</div>
         <div class="shop-buttons">
-            <a href="https://market.yandex.ru/search?text=DHA" target="_blank" rel="noopener" class="shop-btn">Я.Маркет ↗</a>
-            <a href="https://www.ozon.ru/search/?text=DHA" target="_blank" rel="noopener" class="shop-btn">Ozon ↗</a>
-            <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=DHA" target="_blank" rel="noopener" class="shop-btn">WB ↗</a>
+            <a href="https://market.yandex.ru/search?text=DHA" target="_blank" rel="nofollow noopener" class="shop-btn">Я.Маркет ↗</a>
+            <a href="https://www.ozon.ru/search/?text=DHA" target="_blank" rel="nofollow noopener" class="shop-btn">Ozon ↗</a>
+            <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=DHA" target="_blank" rel="nofollow noopener" class="shop-btn">WB ↗</a>
         </div>
         <div class="shop-look">
             <strong>Что искать при покупке:</strong> Проверяйте дозировку на этикетке и наличие сертификата качества (GMP/ISO).
@@ -182,15 +183,15 @@
         
         <div class="src-card">
             <div class="src-title">The effects of omega-3, DHA, EPA, Souvenaid in Alzheimer&#x27;s disease: A systematic review and meta-analysis</div>
-            <div class="src-meta">Neuropsychopharmacol Rep · 2024 · <a href="https://pubmed.ncbi.nlm.nih.gov/38924283/" target="_blank" rel="noopener">PMID: 38924283</a> | DOI: <a href="https://doi.org/10.1002/npr2.12455" target="_blank" rel="noopener noreferrer">10.1002/npr2.12455</a></div>
+            <div class="src-meta">Neuropsychopharmacol Rep · 2024 · <a href="https://pubmed.ncbi.nlm.nih.gov/38924283/" target="_blank" rel="nofollow noopener">PMID: 38924283</a> | DOI: <a href="https://doi.org/10.1002/npr2.12455" target="_blank" rel="nofollow noopener noreferrer">10.1002/npr2.12455</a></div>
         </div>
         <div class="src-card">
             <div class="src-title">Effect of nutrition on neurodegenerative diseases. A systematic review</div>
-            <div class="src-meta">Nutr Neurosci · 2021 · <a href="https://pubmed.ncbi.nlm.nih.gov/31684843/" target="_blank" rel="noopener">PMID: 31684843</a> | DOI: <a href="https://doi.org/10.1080/1028415X.2019.1681088" target="_blank" rel="noopener noreferrer">10.1080/1028415X.2019.1681088</a></div>
+            <div class="src-meta">Nutr Neurosci · 2021 · <a href="https://pubmed.ncbi.nlm.nih.gov/31684843/" target="_blank" rel="nofollow noopener">PMID: 31684843</a> | DOI: <a href="https://doi.org/10.1080/1028415X.2019.1681088" target="_blank" rel="nofollow noopener noreferrer">10.1080/1028415X.2019.1681088</a></div>
         </div>
         <div class="src-card">
             <div class="src-title">Risk factors for postpartum depression: An evidence-based systematic review of systematic reviews and meta-analyses</div>
-            <div class="src-meta">Asian J Psychiatr · 2020 · <a href="https://pubmed.ncbi.nlm.nih.gov/32927309/" target="_blank" rel="noopener">PMID: 32927309</a> | DOI: <a href="https://doi.org/10.1016/j.ajp.2020.102353" target="_blank" rel="noopener noreferrer">10.1016/j.ajp.2020.102353</a></div>
+            <div class="src-meta">Asian J Psychiatr · 2020 · <a href="https://pubmed.ncbi.nlm.nih.gov/32927309/" target="_blank" rel="nofollow noopener">PMID: 32927309</a> | DOI: <a href="https://doi.org/10.1016/j.ajp.2020.102353" target="_blank" rel="nofollow noopener noreferrer">10.1016/j.ajp.2020.102353</a></div>
         </div>
     </div>
 
@@ -287,7 +288,12 @@ document.addEventListener('DOMContentLoaded', function () {
       setTimeout(function () { t.remove(); }, 200);
     }, 2000);
   }
-  btn.addEventListener('click', function () {
+  btn.addEventListener('click', function (e) {
+    // SE2-04: элемент — ссылка, поэтому навигация работает и без JS.
+    // Перехватываем только обычный левый клик без модификаторов, чтобы
+    // успеть записать id в localStorage перед переходом.
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+    e.preventDefault();
     var arr = [];
     try { arr = JSON.parse(localStorage.getItem('compareIds') || '[]'); } catch (e) {}
     if (!arr.includes(id)) {
@@ -295,9 +301,9 @@ document.addEventListener('DOMContentLoaded', function () {
       localStorage.setItem('compareIds', JSON.stringify(arr));
     }
     btn.textContent = t('cmp.btn.added');
-    btn.disabled = true;
+    btn.setAttribute('aria-disabled', 'true');
     showToast(t('cmp.toast.added'));
-    location.href = '../hactar.html?tab=compare&ids=' + encodeURIComponent(id);
+    location.href = btn.getAttribute('href');
   });
 })();
 
