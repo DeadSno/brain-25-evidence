@@ -440,7 +440,14 @@ self.addEventListener('activate', event => {
    больше не даёт CLS), пять начертаний Inter предзагружаются в <head>
    главной. style.css вышел за ?v= 456 -> 457 (145 страниц + шаблоны),
    script.js не менялся, ?v= 297 остаётся. */
-var CACHE_VERSION = 'v143';
+/* Бамп v144 -> v145: FIX-43 (C2-03) — vis-network больше не подключён
+   тегом в hactar.html: библиотеку (673 КБ) лениво грузит hactar.js
+   (loadVisNetwork) только когда открыта вкладка «Связи», с общим
+   промисом на повторные загрузки и сбросом при ошибке. Проверка выбора
+   стоит после гейта currentMode, чтобы сохранённый стек не тянул
+   библиотеку на «Обзоре». hactar.js вышел за ?v= 25 -> 27.
+   style.css не менялся, ?v= 457 остаётся. */
+var CACHE_VERSION = 'v145';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 

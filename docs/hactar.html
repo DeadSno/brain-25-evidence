@@ -566,11 +566,11 @@
   }
 })();
 </script>
-<!-- vis-network — движок графа связей (H-6). Подключается ДО hactar.js:
-     оба скрипта с defer, поэтому выполняются в порядке разметки и
-     window.vis готов к моменту, когда hactar.js создаёт Network. -->
-<script src="vendor/vis-network-9.1.9.min.js" defer></script>
-<script src="hactar.js?v=25" defer></script>
+<!-- vis-network — движок графа связей (H-6), 673 КБ. С FIX-43 (C2-03)
+     библиотека НЕ подключена тегом: её загружает hactar.js лениво
+     (loadVisNetwork) только при переходе на вкладку «Связи». На «Обзоре»
+     и «Сравнении» эти байты не качаются и не парсятся. -->
+<script src="hactar.js?v=27" defer></script>
 <script src="share.js?v=1" defer></script>
 
 <footer class="site-footer">
