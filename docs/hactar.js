@@ -2006,7 +2006,7 @@
       effects: (light && light.effects) || (full && full.effects) || [],
       interactions: (light && light.interactions) || (full && full.interactions) || [],
       dosage: full ? String(full.dosage || '') : '',
-      forms: full ? String(full.forms || '') : '',
+      forms: full ? (Array.isArray(full.forms) ? full.forms.join(', ') : String(full.forms || '')) : '',
       upperLimit: String((light && light.upper_limit) || (full && full.upper_limit) || '')
     };
   }

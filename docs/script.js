@@ -178,7 +178,8 @@ function cautionSpan(s) {
 }
 function unknownsBlock(s) {
   const reasons = [];
-  if (!s.forms) reasons.push(t("card.unknowns.forms"));
+  // forms с FIX-39 — массив, поэтому пустой массив тоже «нет данных».
+  if (!s.forms || !s.forms.length) reasons.push(t("card.unknowns.forms"));
   const n = pmidCount(s);
   if (n > 0 && n < 3) reasons.push(t("card.unknowns.sources", { n: n }));
   if (!reasons.length) return '';
@@ -227,9 +228,11 @@ function wikiLink(s) {
 // ===== v5.6.5: блок «Где купить» + «Что искать при покупке» в модалке =====
 function shopBlock(s) {
   const name = s.name || '';
-  // «первая форма из массива»: в данных forms — строка, берём первый сегмент
-  // до « — » или «;» (例如 «оксид — плохо усваивается; цитрат…» → «оксид»).
-  const form = s.forms ? String(s.forms).split(/[;—–]/)[0].trim() : '';
+  // «первая форма из массива»: с FIX-39 (D2-04) в данных forms — массив
+  // строк, берём первый элемент и режем его по « — » или «;»
+  // (например «оксид — плохо усваивается; цитрат…» → «оксид»).
+  const formRaw = Array.isArray(s.forms) ? (s.forms[0] || '') : (s.forms || '');
+  const form = formRaw ? String(formRaw).split(/[;—–]/)[0].trim() : '';
   const q = form ? encodeURIComponent(name + '+' + form) : encodeURIComponent(name);
   const yandex = 'https://market.yandex.ru/search?text=' + q;
   const ozon = 'https://www.ozon.ru/search/?text=' + q;
@@ -299,7 +302,7 @@ const CARDBLOCKS = [
   { key: 'ul',        title: t("block.ul"),         get: s => s.upper_limit || '' },
   { key: 'food',      title: t("block.food"),            get: s => s.food_sources || '' },
   { key: 'official',  title: t("block.official"),       get: s => s.guidelines || '' },
-  { key: 'shop',      title: t("block.shop"),     get: s => s.how_to_choose || s.forms || '' },
+  { key: 'shop',      title: t("block.shop"),     get: s => s.how_to_choose || (Array.isArray(s.forms) ? s.forms.join(', ') : (s.forms || '')) || '' },
   { key: 'myths',     title: t("block.myths"),             get: s => s.myths || '' }
 ];
 
@@ -1065,7 +1068,7 @@ async function openModal(id) {
     '<div class="mrow">💊 <b>' + t("modal.dosage") + '</b> ' + (s.dosage || '—') + '</div>' +
     '<div class="mrow">⏳ <b>' + t("modal.course") + '</b> ' + (s.course || '—') + '</div>' +
     onsetSpan(s) +
-    (s.forms ? '<div class="mrow">🧪 <b>' + t("modal.forms") + '</b> ' + esc(s.forms) + '</div>' : '') +
+    (s.forms && s.forms.length ? '<div class="mrow">🧪 <b>' + t("modal.forms") + '</b> ' + esc(Array.isArray(s.forms) ? s.forms.join(', ') : s.forms) + '</div>' : '') +
     unknownsBlock(s) +
     shopBlock(s) +
     shareRow(s) +
