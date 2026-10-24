@@ -391,6 +391,12 @@ def build_context(rec: dict, slug: str, warnings: list[str]) -> dict:
         first_form = str(forms_list[0]).split(",")[0].strip() if forms_list else ""
     else:
         first_form = ""
+    # FIX-39 (D2-04): forms в data.json теперь массив строк. Для страницы
+    # он нужен одной строкой через запятую - как было до перехода.
+    if isinstance(forms_list, (list, tuple)):
+        forms_text = ", ".join(str(x) for x in forms_list)
+    else:
+        forms_text = str(forms_list)
     shop_query = quote((text(rec.get("name")) or "").strip())
     shop_look_text = ("Ищите форму «" + first_form + "» на этикетке, проверяйте дозировку и наличие сертификата качества (GMP/ISO)."
                       if first_form else
@@ -468,7 +474,7 @@ def build_context(rec: dict, slug: str, warnings: list[str]) -> dict:
         "how_to_choose": html_val(rec.get("how_to_choose")),
         # #40: формы выпуска. Пустая строка при отсутствии данных —
         # в шаблоне блок гасится через {% if forms %}, а не заглушкой.
-        "forms": html_val(rec.get("forms")) if rec.get("forms") else "",
+        "forms": html_val(forms_text) if forms_text else "",
         "food_sources": html_val(rec.get("food_sources")),
         "guidelines": html_val(rec.get("guidelines")),
         # На пяти существующих страницах стоит MedicalWebPage.

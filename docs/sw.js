@@ -423,7 +423,14 @@ self.addEventListener('activate', event => {
    (инлайн-скрипт на load). Менялись index.html, feedback.html,
    privacy.html, support.html, trends.html и 131 страница sup/;
    style.css и script.js не менялись, ?v= 456 и ?v= 295 остаются. */
-var CACHE_VERSION = 'v140';
+/* Бамп v140 -> v141: FIX-39 (D2-03, D2-04) — из data.json убраны пустые
+   ключи doi в key_sources (Витамин K1, PABA) и поле forms переведено из
+   строки в массив строк. Читатели адаптированы: script.js (карточка,
+   модалка, сравнительная таблица, блок «нет данных»), hactar.js (forms
+   для карточки добавки), scripts/build_sup.py (forms_text через «, »).
+   script.js вышел за ?v= 295 -> 296, hactar.js - за ?v= 24 -> 25.
+   style.css не менялся, ?v= 456 остаётся. */
+var CACHE_VERSION = 'v141';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
