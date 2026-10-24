@@ -53,7 +53,7 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=442">
+<link rel="stylesheet" href="style.css?v=443">
 <!-- v5.6.1: chart.js вендорен в docs/vendor/ — без сети графики на странице не рисуются -->
 <script src="vendor/chart.umd-4.4.1.min.js"></script>
 <script src="version.js?v=312"></script>
@@ -98,14 +98,14 @@ try {
   .chart-wrap{position:relative;height:600px;background:var(--card-bg);
     border:1px solid var(--border);border-radius:var(--radius-xl);padding:var(--space-4);margin-bottom:var(--space-4)}
   @media(max-width:640px){.chart-wrap{height:500px}}
-  .chart-note{font-size:.85rem;opacity:.7;margin:.4rem 0 var(--space-4)}
+  .chart-note{font-size:var(--fs-4);opacity:.7;margin:.4rem 0 var(--space-4)}
   .stat-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
     gap:.8rem;margin:var(--space-4) 0}
   .stat-card{background:var(--card-bg);border:1px solid var(--border);
     border-radius:10px;padding:.9rem var(--space-4)}
-  .stat-card .label{font-size:.8rem;opacity:.7;margin-bottom:var(--space-0-3)}
+  .stat-card .label{font-size:var(--fs-4);opacity:.7;margin-bottom:var(--space-0-3)}
   .stat-card .value{font-size:1.5rem;font-weight:700}
-  .stat-card .delta{font-size:.85rem;color:var(--grade-a-tx);margin-top:var(--space-0-2)}
+  .stat-card .delta{font-size:var(--fs-4);color:var(--grade-a-tx);margin-top:var(--space-0-2)}
   .stat-card .delta.down{color:var(--grade-d-tx)}
 
   /* Убираем sticky-шапку — на странице с графиками она мешает.
@@ -170,7 +170,7 @@ try {
 .scatter-canvas-box{position:relative;height:560px}
 .scatter-legend{
   display:flex;gap:var(--space-4);flex-wrap:wrap;margin-top:.7rem;
-  font-size:.82rem;opacity:.85;
+  font-size:var(--fs-4);opacity:.85;
 }
 .scatter-legend span::before{
   content:"";display:inline-block;width:10px;height:10px;
@@ -200,14 +200,14 @@ try {
   padding:.1rem .45rem;border-radius:var(--radius-md);margin-inline-start:.4rem;font-weight:400;
 }
 .cat-row{
-  display:flex;justify-content:space-between;font-size:.85rem;
+  display:flex;justify-content:space-between;font-size:var(--fs-4);
   padding:var(--space-0-2) 0;
 }
 .cat-label{opacity:.65}
 /* v4.3: #f59e0b на белой карточке давал 2.15:1. Базовое правило — тёмный
    вариант (5.02:1), в тёмной теме возвращаем исходный (6.49:1 на --card-bg). */
 .cat-warn{
-  margin-top:.55rem;font-size:.8rem;color:#b45309;
+  margin-top:.55rem;font-size:var(--fs-4);color:#b45309;
   border-top:1px solid var(--border);padding-top:.55rem;
 }
 html:not(.light) .cat-warn{color:#f59e0b}
@@ -224,9 +224,9 @@ html:not(.light) .cat-warn{color:#f59e0b}
 .method-body li{margin:var(--space-0-2) 0}
 .method-body pre{
   background:rgba(128,128,128,.1);padding:.7rem .9rem;border-radius:var(--radius-lg);
-  font-size:.82rem;overflow-x:auto;margin:.4rem 0;
+  font-size:var(--fs-4);overflow-x:auto;margin:.4rem 0;
 }
-.method-footer{margin-top:var(--space-4);opacity:.9;font-size:.82rem}
+.method-footer{margin-top:var(--space-4);opacity:.9;font-size:var(--fs-4)}
 
   /* v5.5.0 A4: длина строки была 165 символов при ширине контейнера
      1152px — вдвое больше читаемой нормы.
