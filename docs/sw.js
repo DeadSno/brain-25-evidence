@@ -393,7 +393,8 @@ self.addEventListener('activate', event => {
    style.css - за ?v= 454 -> 455 (обе шкалы идут парой). */
 /* Бамп v132 -> v133: A2-05 — у свёрнутых блоков <details> на главной появился aria-expanded, синхронизируемый с фактическим состоянием (initDisclosures в script.js); script.js вышел за ?v= 294 -> 295, style.css - за ?v= 455 -> 456 (обе шкалы идут парой). */
 /* Бамп v133 -> v134: A2-06 — контейнер графа на Hactar стал фокусируемым (tabindex, role="img", aria-label, aria-describedby на подсказку), у него появился :focus-visible, а связи продублированы текстовым списком для скринридеров (renderGraphAlt в hactar.js); hactar.js вышел за ?v= 22 -> 23. style.css не менялся, ?v= 456 остаётся. */
-var CACHE_VERSION = 'v134';
+/* Бамп v134 -> v135: NA2-02, NA2-06 — кнопки стеков получили aria-label, у переключателя списка появился aria-expanded (setStacksOpen в hactar.js), мобильная шторка Hactar управляет фокусом: открытие переводит его на первый видимый элемент, «Готово» возвращает на «Выбрать добавки», Tab ходит по кругу, Esc закрывает (инлайн-скрипт hactar.html); hactar.js вышел за ?v= 23 -> 24. style.css не менялся, ?v= 456 остаётся. */
+var CACHE_VERSION = 'v135';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
