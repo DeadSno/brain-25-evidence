@@ -379,7 +379,13 @@ self.addEventListener('activate', event => {
    (scripts/build_sup.py, пересобраны 97 страниц) и чипы Project Hactar
    (hactar.js вышел за ?v= 20 -> 21, style.css - за ?v= 452 -> 453,
    обе шкалы идут парой). */
-var CACHE_VERSION = 'v130';
+/* Бамп v130 -> v131: NQ2-01 и NQ2-05 — выбор добавок пишется в
+   localStorage с задержкой 400 мс (сброс на pagehide и при уходе
+   вкладки в фон), а при выборе пятой и последующих добавок один раз
+   показывается подсказка оставить 2-3 для точного сравнения;
+   hactar.js вышел за ?v= 21 -> 22, style.css - за ?v= 453 -> 454
+   (обе шкалы идут парой). */
+var CACHE_VERSION = 'v131';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
