@@ -334,14 +334,14 @@ self.addEventListener('activate', event => {
     без ?v (сброс кэша держится на CACHE_VERSION), без бампа activate
     не почистит v116-static и возвратные посетители получат старую
     страницу с тремя вкладками. */
-/* Бамп v117 -> v118: V2-02 — в style.css добавлены брейкпоинты 320px и
-   1440px, в hactar.html добавлен перенос строки в .hactar-pick (на 320px
-   блок «Выбрано / Сохранить стек» вылезал за экран на 45px). В ссылках на
-   style.css ?v поднят с 440 на 441 в 147 файлах (16 страниц и 131 в sup/).
-   style.css входит в STATIC_ASSETS без ?v, сброс кэша держится на
-   CACHE_VERSION: без бампа activate не почистит v117-static и возвратные
-   посетители получат старый CSS без новых брейкпоинтов. */
-var CACHE_VERSION = 'v118';
+/* Бамп v118 -> v119: V2-03 — жёсткие hex-цвета в style.css заменены на
+   токены (:root, 37 новых переменных), бейджи грейда в 130 sup-страницах
+   и в methodology.html теперь ссылаются на var(--grade-X-fill). В ссылках
+   на style.css ?v поднят с 441 на 442 в 147 файлах. style.css входит в
+   STATIC_ASSETS без ?v, сброс кэша держится на CACHE_VERSION: без бампа
+   activate не почистит v118-static и возвратные посетители получат CSS,
+   в котором var(--grade-a-fill) ещё не объявлена (бейджи без заливки). */
+var CACHE_VERSION = 'v119';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
