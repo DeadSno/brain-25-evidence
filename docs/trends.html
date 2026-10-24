@@ -136,7 +136,11 @@ try {
 .executive-summary h2{margin:0 0 var(--space-0-3);font-size:1.15rem}
 .executive-summary .hint{margin:0 0 .8rem;opacity:.7;font-size:.88rem}
 .insights-grid{
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  /* min(280px,100%) вместо 280px: на узких экранах (≤320px, контентная
+     ширина ~257px) жёсткая дорожка 280px выносила карточки за правый
+     край контейнера на 23px — M2-02 в FIX_PLAN. min() схлопывает
+     дорожку до ширины контейнера, auto-fit при этом даёт одну колонку. */
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));
   gap:.8rem;margin:var(--space-4) 0;
 }
 /* v5.6.2 — резерв высоты под асинхронное наполнение insightsGrid.
