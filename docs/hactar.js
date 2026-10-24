@@ -495,10 +495,14 @@
   }
 
   /* Сохранить текущий выбор как стек с именем name. Если стек с таким
-     именем уже есть — перезаписываем его (обновляем ids и timestamp). */
+     именем уже есть — перезаписываем его (обновляем ids и timestamp).
+     NP2-01: возвращаем, что именно произошло, чтобы вызывающий код сказал
+     правду в тосте: 'created' | 'updated', либо '' при неудаче (пустое имя
+     или localStorage недоступен). Раньше функция возвращала true и в случае
+     отказа записи — тост «сохранён» врал, если место в localStorage кончилось. */
   function saveStack(name, ids) {
     var n = String(name || '').trim();
-    if (!n) return false;
+    if (!n) return '';
     var list = readStacks();
     var found = -1;
     for (var i = 0; i < list.length; i++) {
@@ -507,9 +511,9 @@
     var entry = { name: n, ids: (ids || []).slice(), timestamp: Date.now() };
     if (found !== -1) list[found] = entry;
     else list.push(entry);
-    writeStacks(list);
+    if (!writeStacks(list)) return '';
     updateStacksUI();
-    return true;
+    return found !== -1 ? 'updated' : 'created';
   }
 
   /* Удалить стек по имени. */
@@ -891,16 +895,29 @@
         showToast('Сначала выберите добавки', 'off');
         return;
       }
-      var name = '';
+      /* NP2-01: prompt возвращает null при отмене — это осознанный отказ,
+         молчим. Пустая строка или одни пробелы — ошибка ввода, о ней
+         говорим тостом, иначе кнопка выглядит «мёртвой». */
+      var name = null;
       try {
         name = window.prompt('Название стека:', '');
       } catch (err) {
-        name = '';
+        name = null;
       }
-      name = String(name || '').trim();
-      if (!name) return;
-      saveStack(name, ids);
-      showToast('Стек "' + name + '" сохранён', 'ok');
+      if (name === null) return;
+      name = String(name).trim();
+      if (!name) {
+        showToast('Имя стека не задано — стек не сохранён', 'off');
+        return;
+      }
+      var result = saveStack(name, ids);
+      if (result === 'created') {
+        showToast('Стек "' + name + '" сохранён', 'ok');
+      } else if (result === 'updated') {
+        showToast('Стек "' + name + '" перезаписан', 'ok');
+      } else {
+        showToast('Не удалось сохранить стек — хранилище недоступно', 'off');
+      }
     });
   }
 
@@ -2401,8 +2418,8 @@ var OVERVIEW_ROWS = [
     /* H-11: сохранённые стеки. */
     savedStacks: readStacks,
     saveStack: function (name, ids) {
-      saveStack(name, ids || selectedIds());
-      return true;
+      var result = saveStack(name, ids || selectedIds());
+      return result || false;
     },
     loadStack: function (name) {
       var stacks = readStacks();
