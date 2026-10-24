@@ -359,7 +359,13 @@ self.addEventListener('activate', event => {
    отдаётся cache-first, поэтому без бампа новая вёрстка не дошла бы до
    вернувшихся посетителей. style.css не менялся, ?v= поднят только
    чтобы сохранить равенство с CACHE_VERSION (tests/test_style_version_bump.py). */
-var CACHE_VERSION = 'v122';
+/* Бамп v122 -> v123: NA2-08 — поля доз в Project Hactar получили
+   aria-invalid и aria-describedby (id у поля, id у текста ошибки,
+   aria-live на ошибке): красная рамка работала, скринридер молчал.
+   Правка в docs/hactar.js, файл отдаётся по hactar.js?v= 15 -> 16.
+   style.css не менялся, ?v= поднят на шаг вместе с CACHE_VERSION,
+   чтобы шкалы не разъехались (tests/test_style_version_bump.py). */
+var CACHE_VERSION = 'v123';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
