@@ -14,11 +14,11 @@
 
 | ID | Тип | Крит. | Краткое описание | Где | Статус |
 |---|---|---|---|---|---|
-| S1-03 | баг | B | Футер не единый: различается на index / sup / compare / 404 | docs/*.html | Открыт |
+| S1-03 | баг | B | Футер не единый: различается на index / sup / compare / 404 | docs/*.html | Закрыто (коммит b0127e77) |
 | S1-04 | улучшение | C | Нет хлебных крошек ни на одной странице | docs/*.html | Закрыто (коммит 9742546e) |
 | NS1-01 | баг | B | Футер `hactar.html` без ссылки «Каталог БАДов» и блока share-row | docs/hactar.html:463-484 | Закрыто (коммит 5c388252) |
 | NS1-02 | баг | C | Крошки есть только на sup-страницах; на index/404/hactar/feedback нет | docs/index.html, 404.html, hactar.html, feedback.html | Закрыто (не требует исправления: index — корень, 404 — страница ошибки, крошки не несут навигационной ценности) |
-| NS1-03 | улучшение | C | В редирект-заглушках остаётся полный навбар, недостижимый из-за мгновенного `location.replace` | docs/calculator.html, compare.html, interactions.html, map.html | Открыт |
+| NS1-03 | улучшение | C | В редирект-заглушках остаётся полный навбар, недостижимый из-за мгновенного `location.replace` | docs/calculator.html, compare.html, interactions.html, map.html | Закрыто (коммит b0127e77) |
 
 ## 2. visual-design-audit
 
