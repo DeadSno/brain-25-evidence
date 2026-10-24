@@ -538,6 +538,7 @@
     setSelection(ids);
     saveSelection();
     updateCount();
+    checkManySelected(selectedIds().length);
     renderOverview(selectedIds());
     if (selectedIds().length) ensureFullData();
     showToast('Стек "' + stack.name + '" загружен', 'ok');
@@ -752,6 +753,52 @@
     return writeSavedIds(selectedIds());
   }
 
+  /* NQ2-01 (24.10.2026): запись выбора в localStorage — с задержкой.
+     Раньше каждый клик по карточке писал в хранилище сразу: десять быстрых
+     кликов давали десять синхронных JSON-записей, хотя читателю (следующая
+     загрузка страницы) нужен только итог. 400 мс — заметно больше серии
+     кликов «на память» и меньше паузы между решениями, так что пользователь
+     не успевает увидеть потерю. Перед уходом со страницы и при уходе вкладки
+     в фон сбрасываем таймер немедленно, иначе последний клик не сохранится. */
+  var saveTimer = null;
+
+  function scheduleSaveSelection() {
+    if (saveTimer !== null) clearTimeout(saveTimer);
+    saveTimer = setTimeout(function () {
+      saveTimer = null;
+      saveSelection();
+    }, 400);
+  }
+
+  function flushSaveSelection() {
+    if (saveTimer === null) return;
+    clearTimeout(saveTimer);
+    saveTimer = null;
+    saveSelection();
+  }
+
+  window.addEventListener('pagehide', flushSaveSelection);
+  document.addEventListener('visibilitychange', function () {
+    if (document.visibilityState === 'hidden') flushSaveSelection();
+  });
+
+  /* NQ2-05 (24.10.2026): при выборе 5+ добавок таблица «Обзор» перестаёт
+     читаться, а суммы и статусы «в норме» по пяти-шести добавкам разом —
+     ложная уверенность: сравнивать так нельзя. Говорим об этом один раз на
+     переходе через пять, а не на каждом клике — иначе тост превращается в
+     шум и перестаёт читаться. Флаг снимается, когда выбор снова опускается
+     ниже пяти: следующее превышение снова подскажет. */
+  var warnedMany = false;
+
+  function checkManySelected(n) {
+    if (n >= 5 && !warnedMany) {
+      warnedMany = true;
+      showToast('Выбрано 5+ добавок — для точного сравнения лучше оставить 2–3', 'off');
+    } else if (n < 5) {
+      warnedMany = false;
+    }
+  }
+
   /* Восстанавливает выбор из localStorage после рендера списка. */
   function restoreSaved() {
     var ids = readSavedIds();
@@ -832,6 +879,7 @@
     /* saveSelection() пишет в хранилище только реально найденные id —
          выбранные из ссылки могут отсутствовать в обновлённых данных. */
     saveSelection();
+    checkManySelected(merged.length);
     return merged.length;
   }
 
@@ -847,7 +895,10 @@
     var row = t.closest ? t.closest('.hactar-row') : null;
     var name = row ? String(row.getAttribute('data-name') || '') : '';
     updateCount();
-    saveSelection();
+    /* NQ2-05: пять и больше — один раз предупредить (см. checkManySelected). */
+    checkManySelected(selectedIds().length);
+    /* NQ2-01: запись в localStorage — с задержкой, а не на каждый клик. */
+    scheduleSaveSelection();
     /* H-4: микро-фидбек — сказать, что именно произошло. */
     if (name) {
       showToast(t.checked ? (name + ' добавлен в стек')
@@ -2401,6 +2452,9 @@ var OVERVIEW_ROWS = [
       /* H-10: единая таблица «Обзор» для уже выбранных (восстановленных)
          добавок. Полные данные (дозировки, формы) догружаются лениво. */
       renderOverview(selectedIds());
+      /* NQ2-05: если из localStorage восстановили 5+ добавок, предупреждение
+         должно появиться и на первом рендере, а не только на клике. */
+      checkManySelected(selectedIds().length);
       if (selectedIds().length) ensureFullData();
       /* H-11: показать кнопку «Мои стеки», если есть сохранённые стеки. */
       updateStacksUI();
@@ -2419,6 +2473,7 @@ var OVERVIEW_ROWS = [
     setSelection: function (ids) {
       setSelection(ids || []);
       saveSelection();
+      checkManySelected(selectedIds().length);
     },
     count: updateCount,
     /* H-3: активный грейд-фильтр. */
