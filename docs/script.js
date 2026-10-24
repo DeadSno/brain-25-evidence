@@ -630,6 +630,8 @@ function setLight(on) {
   document.documentElement.classList.toggle('light', on);
   document.body.classList.toggle('light', on);
   $('themeBtn').textContent = on ? t("theme.dark") : t("theme.light");
+  // A2-01 (24.10.2026): доступное имя — действие, а не состояние.
+  $('themeBtn').setAttribute('aria-label', on ? t("a11y.themeToDark") : t("a11y.themeToLight"));
   if (currentData.length) { if (chartTab === 'price') renderBubble(currentData); else renderQuadrant(currentData); }
 }
 

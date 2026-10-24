@@ -20,7 +20,7 @@
 <meta name="twitter:image" content="https://deadsno.github.io/brain-25-evidence/og.png"/>
 <meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#1c1c1e" media="(prefers-color-scheme: dark)">
-<script src="i18n.js?v=2"></script>
+<script src="i18n.js?v=3"></script>
 <script>
 // v5.6.3: вместо трёх одинаковых веток if/else/catch, каждая из которых
 // безусловно вешала light на body. Разница была не косметическая: ниже,
@@ -40,6 +40,7 @@ try {
     if (light) { document.body.classList.add('light'); }
     var b = document.getElementById('themeBtn');
     if (b) b.textContent = light ? t("theme.dark") : t("theme.light");
+    if (b) b.setAttribute('aria-label', light ? t("a11y.themeToDark") : t("a11y.themeToLight"));
   });
 } catch (e) {}
 </script>
@@ -53,7 +54,7 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=454">
+<link rel="stylesheet" href="style.css?v=455">
 <!-- v5.6.1: chart.js вендорен в docs/vendor/ — без сети графики на странице не рисуются -->
 <script src="vendor/chart.umd-4.4.1.min.js"></script>
 <script src="version.js?v=312"></script>
@@ -276,7 +277,7 @@ html:not(.light) .cat-warn{color:var(--warn-tx-amber)}
     <nav class="actions" data-i18n-aria-label="a11y.navMain">
       <a class="btn c-feedback" href="feedback.html">💬 Обратная связь</a>
       <a class="btn c-support" href="support.html">💚 Поддержать</a>
-      <button class="btn c-theme" id="themeBtn">🌞 Светлая тема</button>
+      <button class="btn c-theme" id="themeBtn" aria-label="Переключить на светлую тему">🌞 Светлая тема</button>
       <button class="btn c-random" id="randomBtn">🎲 Удиви меня</button>
     </nav>
   </header>
@@ -448,6 +449,7 @@ function setTheme(light) {
   document.documentElement.classList.toggle('light', light);
   const btn = document.getElementById('themeBtn');
   if (btn) btn.textContent = light ? t("theme.dark") : t("theme.light");
+  if (btn) btn.setAttribute('aria-label', light ? t("a11y.themeToDark") : t("a11y.themeToLight"));
   try { localStorage.setItem('theme', light ? 'light' : 'dark'); } catch (e) {}
   // перерисовываем чтобы цвета подписей обновились
   if (TS.pubmed) renderChart();
