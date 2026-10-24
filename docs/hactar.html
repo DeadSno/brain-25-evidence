@@ -216,11 +216,28 @@
     .hactar-ov-conflict,.hactar-ov-rel{display:block;margin-bottom:var(--space-1)}
     .hactar-ov-conflict{color:var(--danger-tx);font-weight:600}
     .hactar-ov-rel{color:var(--muted);font-size:var(--fs-4)}
-    /* Чипы магазинов в строке «Где купить». */
+    /* Чипы магазинов в строке «Где купить».
+       NM2-03: раньше у чипа стоял white-space:nowrap — длинное название
+       магазина не переносилось и вылезало за ячейку. Теперь текст может
+       переноситься, а сам чип не шире ячейки. min-height:44px остаётся:
+       тач-таргет не уменьшается, при переносе растёт только высота. */
     .hactar-ov-shops{display:flex;flex-wrap:wrap;gap:var(--space-2)}
-    .hactar-ov-shop{display:inline-flex;align-items:center;min-height:44px;padding:.35rem .8rem;border:1px solid var(--border);border-radius:var(--radius-pill);background:var(--card-bg);color:var(--text);font-size:var(--fs-4);font-weight:600;line-height:1.2;text-decoration:none;white-space:nowrap}
+    .hactar-ov-shop{display:inline-flex;align-items:center;min-height:44px;max-width:100%;padding:.35rem .8rem;border:1px solid var(--border);border-radius:var(--radius-pill);background:var(--card-bg);color:var(--text);font-size:var(--fs-4);font-weight:600;line-height:1.2;text-decoration:none;white-space:normal;overflow-wrap:anywhere}
     .hactar-ov-shop:hover{border-color:var(--accent);background:var(--bg)}
     .hactar-ov-shop:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+    /* NM2-01: на 320px таблица «Обзор» шире экрана — так и задумано:
+       .hactar-ov-scroll (233px) прокручивает её по горизонтали, а сама
+       страница не скроллится (document.scrollWidth == clientWidth == 305).
+       Убирать min-width:420px нельзя: при 233px три колонки добавок
+       сжимаются до ~64px, и содержимое ячеек наезжает друг на друга —
+       это вернуло бы NM2-03. Что реально уменьшаем на мобильном —
+       внутренние отступы ячеек и минимальную ширину поля дозы: таблица
+       становится компактнее при той же читаемости, горизонтальная
+       прокрутка укорачивается. */
+    @media (max-width: 480px){
+      .hactar-ov-param,.hactar-ov-sup,.hactar-ov-rowhead,.hactar-ov-cell{padding:var(--space-2)}
+      .hactar-ov-dose{min-width:0}
+    }
     /* Мобильная шторка */
     .hactar-sidebar.open{display:block}
     /* Мобильная кнопка «Готово» — тот же контраст, что у активного чипа:
@@ -260,7 +277,11 @@
     }
   /* Project Hactar — «Мои стеки» (H-11): сохранение и загрузка протоколов. */
   .hactar-stack-actions{display:inline-flex;align-items:center;gap:var(--space-2);flex-wrap:wrap;margin-inline-start:var(--space-4)}
-  .hactar-stack-btn{display:inline-flex;align-items:center;gap:.3rem;padding:.35rem .75rem;min-height:36px;border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--card-bg);color:var(--text);font-size:var(--fs-4);font-weight:500;cursor:pointer;white-space:nowrap}
+  /* NM2-02: min-height 36px не проходил WCAG 2.5.5 (44px для тач-таргета) —
+     кнопка стека ниже остальных кнопок страницы, у которых 44px.
+     Высота выровнена по общему правилу, вертикальные отступы уменьшены,
+     чтобы шапка не выросла. */
+  .hactar-stack-btn{display:inline-flex;align-items:center;gap:.3rem;padding:.2rem .75rem;min-height:44px;border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--card-bg);color:var(--text);font-size:var(--fs-4);font-weight:500;cursor:pointer;white-space:nowrap}
   .hactar-stack-btn:hover{border-color:var(--accent);color:var(--text)}
   /* NP2-01: нажатие должно быть видно. Раньше был только :hover, поэтому
      клик по кнопке (особенно на тач-экране, где hover нет) не давал отклика. */
