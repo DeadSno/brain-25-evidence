@@ -341,7 +341,11 @@ self.addEventListener('activate', event => {
    STATIC_ASSETS без ?v, сброс кэша держится на CACHE_VERSION: без бампа
    activate не почистит v118-static и возвратные посетители получат CSS,
    в котором var(--grade-a-fill) ещё не объявлена (бейджи без заливки). */
-var CACHE_VERSION = 'v119';
+/* Бамп v119 -> v120: V2-04 — размеры шрифта ниже 14px подняты до
+   --fs-4 (0.875rem), шкала --fs-1…--fs-3 схлопнута в нижнюю границу.
+   style.css вышел за ?v= 442 -> 443, поэтому старый кэш надо сбросить:
+   без этого activate не удалит v119-static, и новый CSS не доедет. */
+var CACHE_VERSION = 'v120';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
