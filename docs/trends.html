@@ -53,7 +53,7 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=448">
+<link rel="stylesheet" href="style.css?v=449">
 <!-- v5.6.1: chart.js вендорен в docs/vendor/ — без сети графики на странице не рисуются -->
 <script src="vendor/chart.umd-4.4.1.min.js"></script>
 <script src="version.js?v=312"></script>
@@ -73,8 +73,9 @@ try {
   .tr-tabs{display:flex;gap:.4rem;margin:var(--space-4) 0 .6rem;flex-wrap:wrap}
   .tr-tab{background:var(--card-bg);color:var(--text);border:1px solid var(--border);
     padding:var(--space-2) var(--space-4);border-radius:var(--radius-lg);cursor:pointer;font-size:.92rem}
-  /* v4.1: белый на #3498db давал 3.15:1 — затемнено до 5.42:1 в обеих темах */
-  .tr-tab.on{background:linear-gradient(135deg,#1f6fa5,#175a86);color:#fff;border:none;font-weight:600}
+  /* v4.1: белый на #3498db давал 3.15:1 — затемнено до 5.42:1 в обеих темах.
+     v5.6.5 (NV2-06): тот же градиент уже объявлен токеном --grad-calc. */
+  .tr-tab.on{background:var(--grad-calc);color:var(--on-solid);border:none;font-weight:600}
 
   /* Выравнивание кнопок — единый стиль, без special-casing для .calc */
   header.top .actions > a.btn,
@@ -120,9 +121,9 @@ try {
   header.top .site-title{flex:1 1 100%;font-size:1.3rem;line-height:var(--lh-tight);margin:0 0 .4rem;color:var(--text)!important}
   header.top .site-title a{color:var(--text)!important;text-decoration:none!important}
   body.light header.top .site-title,
-  body.light header.top .site-title a{color:#1c1c1e!important}
+  body.light header.top .site-title a{color:var(--text)!important}
   html:not(.light) header.top .site-title,
-  html:not(.light) header.top .site-title a{color:#f5f5f7!important}
+  html:not(.light) header.top .site-title a{color:var(--text)!important}
   header.top .site-title a{white-space:normal;overflow:visible}
   header.top .actions{flex:1 1 100%;display:flex;flex-wrap:wrap;gap:.4rem;justify-content:flex-end}
   @media(max-width:640px){
@@ -151,10 +152,10 @@ try {
   background:var(--card-bg);border:1px solid var(--border);
   border-radius:var(--radius-xl);padding:.9rem var(--space-4);display:flex;gap:.8rem;align-items:flex-start;
 }
-.insight-card[data-tone="blue"]{border-inline-start:3px solid #3498db}
-.insight-card[data-tone="green"]{border-inline-start:3px solid #10b981}
-.insight-card[data-tone="red"]{border-inline-start:3px solid #ef4444}
-.insight-card[data-tone="orange"]{border-inline-start:3px solid #f59e0b}
+.insight-card[data-tone="blue"]{border-inline-start:3px solid var(--tone-blue)}
+.insight-card[data-tone="green"]{border-inline-start:3px solid var(--tone-green)}
+.insight-card[data-tone="red"]{border-inline-start:3px solid var(--tone-red)}
+.insight-card[data-tone="orange"]{border-inline-start:3px solid var(--tone-orange)}
 .insight-icon{font-size:1.6rem;line-height:1;flex-shrink:0}
 .insight-title{font-weight:600;margin-bottom:var(--space-1);font-size:1rem}
 .insight-text{font-size:1rem;opacity:.85;line-height:1.45}
@@ -176,10 +177,10 @@ try {
   content:"";display:inline-block;width:10px;height:10px;
   border-radius:50%;margin-inline-end:.35rem;vertical-align:middle;
 }
-.scatter-legend [data-g="A"]::before{background:rgba(16,185,129,.9)}
-.scatter-legend [data-g="B"]::before{background:rgba(132,204,22,.9)}
-.scatter-legend [data-g="C"]::before{background:rgba(245,158,11,.9)}
-.scatter-legend [data-g="D"]::before{background:rgba(239,68,68,.9)}
+.scatter-legend [data-g="A"]::before{background:var(--chart-grade-a-dot)}
+.scatter-legend [data-g="B"]::before{background:var(--chart-grade-b-dot)}
+.scatter-legend [data-g="C"]::before{background:var(--chart-grade-c-dot)}
+.scatter-legend [data-g="D"]::before{background:var(--chart-grade-d-dot)}
 @media (max-width:700px){.scatter-canvas-box{height:400px}}
 
 /* ===== Categories ===== */
@@ -207,10 +208,10 @@ try {
 /* v4.3: #f59e0b на белой карточке давал 2.15:1. Базовое правило — тёмный
    вариант (5.02:1), в тёмной теме возвращаем исходный (6.49:1 на --card-bg). */
 .cat-warn{
-  margin-top:.55rem;font-size:var(--fs-4);color:#b45309;
+  margin-top:.55rem;font-size:var(--fs-4);color:var(--warn-tx);
   border-top:1px solid var(--border);padding-top:.55rem;
 }
-html:not(.light) .cat-warn{color:#f59e0b}
+html:not(.light) .cat-warn{color:var(--warn-tx-amber)}
 
 /* ===== Methodology ===== */
 .methodology{
@@ -412,8 +413,28 @@ function esc(s) {
   ));
 }
 
-const GRADE_COLOR = { A: '#22c55e', B: '#84cc16', C: '#f59e0b', D: '#ef4444' };
-const GRADE_BG = { A: 'rgba(34,197,94,.7)', B: 'rgba(132,204,22,.7)', C: 'rgba(245,158,11,.7)', D: 'rgba(239,68,68,.7)' };
+// v5.6.5 (NV2-06): цвета графика больше не литералы в JS, а токены
+// --chart-* в style.css (:root, светлая тема переопределяет --chart-label
+// и --chart-grid). Резервные значения — именованные цвета CSS: если
+// style.css не загрузился, график остаётся читаемым, но второй копии
+// палитры в коде нет.
+function cssVar(name, fallback) {
+  const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+  return v || fallback;
+}
+
+const GRADE_COLOR = {
+  A: cssVar('--chart-grade-a', 'mediumseagreen'),
+  B: cssVar('--chart-grade-b', 'yellowgreen'),
+  C: cssVar('--chart-grade-c', 'orange'),
+  D: cssVar('--chart-grade-d', 'tomato'),
+};
+const GRADE_BG = {
+  A: cssVar('--chart-grade-a-bg', 'mediumseagreen'),
+  B: cssVar('--chart-grade-b-bg', 'yellowgreen'),
+  C: cssVar('--chart-grade-c-bg', 'orange'),
+  D: cssVar('--chart-grade-d-bg', 'tomato'),
+};
 
 let SUPP = [];           // data_index.json
 let TS = {};             // timeseries.json
@@ -571,8 +592,8 @@ function renderChart() {
   if (chart) { chart.destroy(); chart = null; }
 
   const isLight = document.documentElement.classList.contains('light');
-  const txt = isLight ? '#1c1c1e' : '#e9eaee';
-  const grid = isLight ? 'rgba(0,0,0,.08)' : 'rgba(128,128,128,.15)';
+  const txt = cssVar('--chart-label', isLight ? 'black' : 'gainsboro');
+  const grid = cssVar('--chart-grid', 'rgba(128,128,128,.15)');
 
   const note = document.getElementById('chartNote');
 
@@ -655,7 +676,7 @@ function renderChart() {
       return {
         label: `${r.id}${c?.grade ? ' [' + c.grade + ']' : ''}`,
         data: values,
-        borderColor: GRADE_COLOR[c?.grade] || '#888',
+        borderColor: GRADE_COLOR[c?.grade] || 'gray',
         backgroundColor: 'transparent',
         borderWidth: 1.4,
         tension: 0.3,
@@ -708,8 +729,8 @@ function renderChart() {
         datasets: [{
           label: t("trends.citesPerYearLabel"),
           data: years.map(y => totals[y]),
-          backgroundColor: 'rgba(52,152,219,.8)',
-          borderColor: '#2980b9',
+          backgroundColor: cssVar('--chart-cites-fill', 'rgba(52,152,219,.8)'),
+          borderColor: cssVar('--chart-cites-border', 'steelblue'),
           borderWidth: 1,
           borderRadius: 4,
         }],
@@ -1013,7 +1034,7 @@ growth_wiki = avg(wiki[id][последние 6 мес]) / avg(wiki[id][перв
     // Цвета под текущую тему
     const cs = getComputedStyle(document.body);
     const gridColor = 'rgba(128,128,128,.15)';
-    const textColor = cs.getPropertyValue('--text').trim() || '#e6e6e6';
+    const textColor = cs.getPropertyValue('--text').trim() || 'gainsboro';
 
     const data = items.map(x => ({
       x: x.pub, y: x.wiki,

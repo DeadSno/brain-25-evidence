@@ -304,6 +304,38 @@
   --graph-sev-high:    #e74c3c;
   --graph-sev-medium:  #f39c12;
   --graph-sev-low:     #7f8c8d;
+
+  /* v5.6.5 (NV2-06): палитра графиков trends.html. Раньше цвета жили
+     литералами в JS (GRADE_COLOR / GRADE_BG) и в <style> самой страницы:
+     правка палитры требовала искать hex по файлу, а тема на них не влияла.
+     Значения перенесены один в один, график выглядит как раньше.
+     Серии грейдов отличаются от --grade-*-fill: там заливка под белый
+     текст (порог AA), здесь — цвет линии или столбца на фоне карточки. */
+  --chart-grade-a:     #22c55e;
+  --chart-grade-b:     #84cc16;
+  --chart-grade-c:     #f59e0b;
+  --chart-grade-d:     #ef4444;
+  --chart-grade-a-bg:  rgba(34, 197, 94, .7);
+  --chart-grade-b-bg:  rgba(132, 204, 22, .7);
+  --chart-grade-c-bg:  rgba(245, 158, 11, .7);
+  --chart-grade-d-bg:  rgba(239, 68, 68, .7);
+  /* Легенда scatter-матрицы: у A свой зелёный — так было с v3.1. */
+  --chart-grade-a-dot: rgba(16, 185, 129, .9);
+  --chart-grade-b-dot: rgba(132, 204, 22, .9);
+  --chart-grade-c-dot: rgba(245, 158, 11, .9);
+  --chart-grade-d-dot: rgba(239, 68, 68, .9);
+  --chart-cites-fill:   rgba(52, 152, 219, .8);
+  --chart-cites-border: #2980b9;
+  /* Подписи осей и сетка: переопределяются в html.light ниже. */
+  --chart-label:       #e9eaee;
+  --chart-grid:        rgba(128, 128, 128, .15);
+  /* Тона карточек-инсайтов (левая полоса). */
+  --tone-blue:         #3498db;
+  --tone-green:        #10b981;
+  --tone-red:          #ef4444;
+  --tone-orange:       #f59e0b;
+  /* Предупреждение о категории: янтарь, читаемый на карточке обеих тем. */
+  --warn-tx-amber:     #f59e0b;
 }
 /* v5.6.4 (#44): 7 токенов сдвинуты к белому. Не «для красоты» — подложка
    плашки .tagChip берёт тот же --ic через color-mix на 14%, и на тёмной
@@ -346,7 +378,7 @@
    намеренно: по замеру Шага 8.4 #8ecbff не рисуется ни на одной из
    17 страниц в светлой теме (0 вхождений), а в тёмной 24-54.
    Объявлять его для светлой — утверждение, которое ничего не проверяет. */
-html.light{--bg:#f5f5f7;--text:#1c1c1e;--card-bg:#fff;--border:#d1d1d6;--shadow:rgba(0,0,0,.08);--accent:#0062cc;--muted:#6e6e73;--shadow-lg: 0 12px 32px rgba(0,0,0,.16)}
+html.light{--bg:#f5f5f7;--text:#1c1c1e;--card-bg:#fff;--border:#d1d1d6;--shadow:rgba(0,0,0,.08);--accent:#0062cc;--muted:#6e6e73;--shadow-lg: 0 12px 32px rgba(0,0,0,.16);--chart-label:#1c1c1e;--chart-grid:rgba(0,0,0,.08)}
 
 /* v5.6.3 E1: палитра грейдов для СВЕТЛОЙ темы — те же значения, что
    v4.1 поставил на заливку чипов .grade.gX. Обоснование значений —
