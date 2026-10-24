@@ -27,7 +27,7 @@
       }
     } catch (e) {}
   </script>
-  <link rel="stylesheet" href="style.css?v=444"/>
+  <link rel="stylesheet" href="style.css?v=445"/>
   <style>
     /* Project Hactar — скелет (H-1, только вёрстка) */
     :root{--hactar-sidebar:340px;}
@@ -225,6 +225,16 @@
     /* Мобильная кнопка «Готово» — тот же контраст, что у активного чипа:
        var(--accent) (#0a84ff) с белым даёт 3.29:1, --chip-on-bg (#1f5fbf) — 6.09:1. */
     .hactar-done{display:none;width:100%;padding:var(--space-3);border:none;border-radius:var(--radius-lg);background:var(--chip-on-bg);color:#fff;font-size:1rem;cursor:pointer;margin-bottom:var(--space-4)}
+    /* NV2-01: планшеты 769-1024px. Фиксированные 340px съедали почти
+       половину ширины: на 769px правой колонке оставалось 389px, и строка
+       «Выбрано: N / 130» переносилась на вторую строку. Панель сужается
+       до 260px, внутренние отступы — до --space-4: список из 130 добавок
+       остаётся читаемым, контенту достаётся 509px вместо 389px.
+       Ниже 768px работает прежняя шторка, выше 1024px — прежние 340px. */
+    @media (min-width: 769px) and (max-width: 1024px){
+      :root{--hactar-sidebar:260px}
+      .hactar-sidebar{padding:var(--space-4) var(--space-4) var(--space-12)}
+    }
     @media (max-width: 768px){
       .hactar-wrap{display:block}
       .hactar-sidebar{display:none;position:fixed;inset:0;z-index:100;width:100vw;height:100vh;overflow-y:auto;padding:var(--space-4) var(--space-4) var(--space-12);border-inline-end:none;border-bottom:1px solid var(--border)}

@@ -352,7 +352,14 @@ self.addEventListener('activate', event => {
    без ?v, сброс кэша держится на CACHE_VERSION: без бампа activate
    не почистит v120-static, и возвратные посетители получат граф,
    который читает ещё не объявленные переменные (узлы без цвета). */
-var CACHE_VERSION = 'v121';
+/* Бамп v121 -> v122: NV2-01 — промежуточный брейкпоинт 769-1024px для
+   боковой панели Project Hactar: --hactar-sidebar 260px вместо 340px,
+   чтобы правая колонка не сжималась до 389px на 769px. Правка в
+   инлайн-стилях docs/hactar.html; страница лежит в STATIC_ASSETS и
+   отдаётся cache-first, поэтому без бампа новая вёрстка не дошла бы до
+   вернувшихся посетителей. style.css не менялся, ?v= поднят только
+   чтобы сохранить равенство с CACHE_VERSION (tests/test_style_version_bump.py). */
+var CACHE_VERSION = 'v122';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
