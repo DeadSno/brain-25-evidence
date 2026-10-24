@@ -285,6 +285,25 @@
   --badge-d-tx:    #ef5350;
   --skip-bg:       #000;
   --tooltip-bg:    #333;
+  /* v5.6.5 (V2-06): палитра графа связей. Раньше жила жёсткими hex прямо
+     в docs/hactar.js — COLOR_SUP/COLOR_MECH/COLOR_DRUG/COLOR_LINK, карта
+     SEVERITY, обводки узлов и цвет рёбер. От темы не зависит: граф рисуется
+     в canvas, и «светлый» вариант палитры не запрашивался ни разу, поэтому
+     html.light эти токены не переопределяет. Суффикс -border — обводка узла,
+     подобранная к заливке вручную (не производная от неё). Значения
+     перенесены один в один: правка V2-06 не меняет ни одного пикселя. */
+  --graph-sup:         #2ecc71;
+  --graph-sup-border:  #1e8449;
+  --graph-mech:        #9b59b6;
+  --graph-mech-border: #7d3c98;
+  --graph-drug:        #e67e22;
+  --graph-drug-border: #a9590b;
+  --graph-link:        #3498db;
+  --graph-edge:        #6b7280;
+  --graph-label:       #ffffff;
+  --graph-sev-high:    #e74c3c;
+  --graph-sev-medium:  #f39c12;
+  --graph-sev-low:     #7f8c8d;
 }
 /* v5.6.4 (#44): 7 токенов сдвинуты к белому. Не «для красоты» — подложка
    плашки .tagChip берёт тот же --ic через color-mix на 14%, и на тёмной

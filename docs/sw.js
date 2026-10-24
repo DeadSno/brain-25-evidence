@@ -345,7 +345,14 @@ self.addEventListener('activate', event => {
    --fs-4 (0.875rem), шкала --fs-1…--fs-3 схлопнута в нижнюю границу.
    style.css вышел за ?v= 442 -> 443, поэтому старый кэш надо сбросить:
    без этого activate не удалит v119-static, и новый CSS не доедет. */
-var CACHE_VERSION = 'v120';
+/* Бамп v120 -> v121: V2-06 — палитра графа связей переехала из
+   docs/hactar.js в токены --graph-<роль> в style.css (:root, 12 новых
+   переменных). style.css вышел за ?v= 443 -> 444, hactar.html
+   поднял hactar.js?v= 14 -> 15. Оба файла входят в STATIC_ASSETS
+   без ?v, сброс кэша держится на CACHE_VERSION: без бампа activate
+   не почистит v120-static, и возвратные посетители получат граф,
+   который читает ещё не объявленные переменные (узлы без цвета). */
+var CACHE_VERSION = 'v121';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
