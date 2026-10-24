@@ -107,9 +107,9 @@
 | ID | Тип | Крит. | Краткое описание | Где | Статус |
 |---|---|---|---|---|---|
 | D2-01 | баг | B | В `docs/api/v1/` нет `interactions.json` и `graph.json` | docs/api/v1/ | Открыт |
-| D2-02 | баг | B | 5 битых PMID (не 8-значные) в `key_sources` | docs/data.json | Открыт |
-| D2-03 | баг | C | 2 пустых поля `doi` (Витамин K1, PABA) | docs/data.json | Открыт |
-| D2-04 | баг | B | `forms` — строка, а не массив (все 130 карточек) | docs/data.json | Открыт |
+| D2-02 | баг | B | 5 битых PMID (не 8-значные) в `key_sources` | docs/data.json | Закрыто (не воспроизводится: все пять PMID существуют в PubMed — проверено `eutils esummary` для 7840079, 9649257, 8836468, 8151563, 8176012, у каждой записи совпало название. PMID в PubMed переменной длины: у статей 1994–1998 гг. 7 цифр; распределение в data.json — 7 цифр у 5, 8 цифр у 376. «8-значный формат» из аудита — ошибка, `key_sources` не менялись) |
+| D2-03 | баг | C | 2 пустых поля `doi` (Витамин K1, PABA) | docs/data.json | Закрыто (коммит 085aa118 — у «Витамин K1» (pmid 18830045) и «PABA» (pmid 8151563) удалён пустой ключ `doi` из `key_sources`) |
+| D2-04 | баг | B | `forms` — строка, а не массив (все 130 карточек) | docs/data.json, docs/script.js, docs/hactar.js, scripts/build_sup.py | Закрыто (коммит 085aa118 — `forms` переведён в массив строк: 95 записей разбиты по запятой с обрезкой пробелов, 35 `null` → `[]`; читатели адаптированы — `script.js` (4 места), `hactar.js` (склейка через «, »), `scripts/build_sup.py` (`forms_text`); sup пересобраны без diff, `tests/snapshot_data.json` обновлён через `UPDATE_SNAPSHOT=1`; `script.js?v=296`, `hactar.js?v=25`, `CACHE_VERSION` v141) |
 | D2-05 | баг | C | Нет полей `papers` и `safety` у всех 130 карточек | docs/data.json | Открыт |
 | D2-07 | баг | C | «4 карточки Блока 6» не верифицируются (8 карточек с `updated=2026-09-25`) | docs/data.json | Открыт |
 | ND2-01 | баг | B | Контракт `price` объявлен, но `price=null` везде; цены хардкожены в `PRICE_MAP` | docs/data_index.json, docs/hactar.js:2076-2104 | Открыт |
