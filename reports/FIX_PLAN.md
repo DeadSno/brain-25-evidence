@@ -215,8 +215,8 @@
 | NRC2-02 | баг | B | CI не запускается: триггер `branches: [main, v5.6-dev]`, ветка `v5.6.5-dev` | .github/workflows/tests.yml:15,17 | Закрыто (коммит 0dd9a273 — оба триггера переведены на `v5.6.5-dev`) |
 | NRC2-03 | баг | B | В CI нет `playwright install`; `test_graph_interaction.py:181` даст ERROR, не skip | .github/workflows/tests.yml:57-58 + tests/test_graph_interaction.py:178-185 | Закрыто (коммит 0dd9a273 — шаг `python -m playwright install --with-deps chromium` добавлен после установки зависимостей) |
 | NRC2-04 | баг | B | Гейт графа выключен целиком: 24 skip (12 тестов × 2 движка) | tests/test_graph_interaction.py:178-202 | Открыт |
-| NRC2-05 | баг | C | Хук закоммичен с режимом `100644` — на POSIX не запустится | .githooks/pre-commit | Открыт |
-| NRC2-06 | баг | C | Шапка хука повреждена (строки 3–4 — байты 0x3f вместо UTF-8) | .githooks/pre-commit:3-4 | Открыт |
+| NRC2-05 | баг | C | Хук закоммичен с режимом `100644` — на POSIX не запустится | .githooks/pre-commit | Закрыто (коммит 312bf898 — `git update-index --chmod=+x`: режим стал `100755`) |
+| NRC2-06 | баг | C | Шапка хука повреждена (строки 3–4 — байты 0x3f вместо UTF-8) | .githooks/pre-commit:3-4 | Закрыто (коммит 312bf898 — восстановлен текст строк 3, 4, 9, 19; UTF-8, `bash -n` чистый) |
 | NRC2-07 | баг | B | CI запускает все тесты без фильтра, snapshot-тесты (эталоны Windows) падают на Ubuntu | .github/workflows/tests.yml (шаг Run tests) | Закрыто (коммит 63665afe — шаг Run tests получил `-m "not snapshots"`: 1914 из 1990 собираются, 76 эталонов исключены) |
 
 ## 18. repo-size-audit
