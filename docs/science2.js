@@ -13,29 +13,9 @@ function esc(s) {
 }
   if (window.__science2Loaded) return;
   window.__science2Loaded = true;
-  // v5.6.3 (I18N-P2-04): локаль из <html lang> вместо литерала в коде —
-  // см. пояснение в docs/script.js.
-  const LOCALE = document.documentElement.lang || 'ru';
-
-  // 13A1 (I18N-P2-01): пользовательские строки — в словаре; см. docs/script.js.
-  const I18N = {
-    ru: {
-      "pulse.title": "Пульс науки: мета-анализы по годам",
-      "pulse.note.top5": "Топ-5 по приросту к прошлому году — в инспекторе элемента.<br>",
-      "pulse.note.source": "Источник: PubMed (esearch+esummary, запрос как в scienceIndex), по каждой добавке.",
-      "pulse.footnote": "Годы без мета-анализов в выборке = 0 (честно). Кэш: data/processed/ma_years.json.",
-      "pulse.dataset": "Мета-анализы",
-      "spark.hint": "история копится с v2.1, спарклайн появится после {need} замеров",
-      "spark.hint.have": " (сейчас {have})",
-      "spark.head": "📈 Цена: динамика 90 дней"
-    }
-  };
-  function t(key, params) {
-    const dict = I18N[LOCALE] || I18N.ru;
-    let s = dict[key] != null ? dict[key] : (I18N.ru[key] != null ? I18N.ru[key] : key);
-    if (params) s = s.replace(/\{(\w+)\}/g, (m, k) => (k in params ? params[k] : m));
-    return s;
-  }
+  // I2-02 (FIX-52): словарь, t() и LOCALE переехали в docs/i18n.js.
+  // science2.js подключается с defer, то есть после синхронного i18n.js
+  // в <head>, поэтому глобальные t() и LOCALE к этому моменту определены.
 
   // ========== C3: «Пульс науки» — Chart.js линия 2015–2026 ==========
   function renderPulse(rows) {

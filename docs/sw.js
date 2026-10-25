@@ -453,7 +453,16 @@ self.addEventListener('activate', event => {
    (с фолбэком на document.referrer) и показывает тост о переезде.
    hactar.js вышел за ?v= 27 -> 28. Без бампа кэша у пользователя остался
    бы старый hactar.js без уведомления. style.min.css ?v= 458 не менялся. */
-var CACHE_VERSION = 'v147';
+/* Бамп v147 -> v148: FIX-52 (I2-01, I2-02, I2-03) — в навбаре 141 страницы
+   появился переключатель языка (select#langSelect). i18n.js вышел за
+   ?v= 3 -> 4: словарь сведён в один файл (ключи share/science2/tracker
+   переехали сюда), добавлена локаль en, появились setLocale() и
+   initLangSwitcher(). share.js вышел за ?v= 1 -> 2: свой мини-словарь
+   убран, строки берутся из общего t(). style.css тоже менялся — правило
+   .lang-select, за ним style.min.css ?v= 458 -> 459. Без бампа кэша
+   пользователь получил бы старый i18n.js: без локали en и без
+   переключателя. */
+var CACHE_VERSION = 'v148';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
@@ -517,7 +526,7 @@ var STATIC_ASSETS = [
   './fonts/inter-semibold.woff2',
   './fonts/inter-bold.woff2',
   './fonts/inter-extrabold.woff2',
-  './share.js?v=1',
+  './share.js?v=2',
   /* v5.6.2: cookie-согласие и загрузчик Метрики. С query — ровно тем, что
      просят страницы: staticCacheKey сохраняет v как значимый параметр, и
      точное совпадение в cacheFirstForStatic срабатывает без ignoreSearch. */

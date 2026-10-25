@@ -597,6 +597,10 @@ select{background:var(--card-bg);color:var(--text);border:1px solid var(--border
    задаёт нижнюю границу, а если padding уже даёт больше — не мешает.
    trends.html с 34px до 46px поднят отдельно, локальным правилом. */
 select{min-height:44px}
+/* I2-01 (FIX-52): переключатель языка в навбаре. Базовый вид (фон, рамка,
+   радиус, 44px по высоте) даёт общее правило select выше — здесь только
+   отступ от кнопки темы, чтобы селектор к ней не лип. */
+.lang-select{margin-inline-start:var(--space-2)}
 /* v5.0.0 mobile: iOS Safari зумит страницу при фокусе на поле с font-size < 16px,
    после чего появляется горизонтальный скролл. Базовый порог 16px для всех полей.
    Страничные правила вида `.params input{font-size:.9rem}` (calculator.html:45,48,61),

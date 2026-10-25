@@ -18,19 +18,9 @@
    в буфер и честно сообщаем об этом текстом на кнопке. Никаких «успешно»,
    которые ничего не скопировали. */
 (function () {
-  /* 13A1 (I18N-P2-01): пользовательские строки — в словаре; см. docs/script.js. */
-  var I18N = { ru: {
-    "share.label": "🔗 Поделиться",
-    "share.copied": "✓ Скопировано",
-    "share.fail": "Не удалось скопировать"
-  } };
-  function t(key, params) {
-    var lang = (document.documentElement.lang || 'ru').slice(0, 2);
-    var dict = I18N[lang] || I18N.ru;
-    var s = dict[key] != null ? dict[key] : (I18N.ru[key] != null ? I18N.ru[key] : key);
-    if (params) s = s.replace(/\{(\w+)\}/g, function (m, k) { return (k in params) ? params[k] : m; });
-    return s;
-  }
+  /* I2-02 (FIX-52): словарь и t() переехали в docs/i18n.js — здесь больше нет
+     своей копии из трёх строк. Файл подключается с defer, то есть после
+     синхронного i18n.js в <head>, поэтому глобальный t() уже определён. */
   var LABEL = t("share.label");
   var OK = t("share.copied");
   var FAIL = t("share.fail");
