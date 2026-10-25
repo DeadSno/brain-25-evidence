@@ -223,15 +223,15 @@
 
 | ID | Тип | Крит. | Краткое описание | Где | Статус |
 |---|---|---|---|---|---|
-| RS2-01 | улучшение | B | `.git` 1181,84 МБ; 69% истории — 1885 версий PNG-эталонов | .git/objects/pack/pack-ce4527….pack | Открыт |
-| RS2-02 | улучшение | B | `tests/snapshots` 76 файлов / 53,07 МБ в индексе | tests/snapshots/ | Открыт |
-| RS2-03 | улучшение | C | 3 отслеживаемых `*.json.gz` при правиле в `.gitignore:325` | git index | Открыт |
-| RS2-06 | улучшение | C | `tests/snapshots/*/_actual/` вне `.gitignore` (сейчас игнорируется только `_actual`) | .gitignore:234 | Открыт |
-| NRS2-01 | улучшение | B | Git LFS не настроен: 0 строк `filter=lfs`, PNG лежат обычными blob'ами | .gitattributes:5-8 | Открыт |
-| NRS2-02 | улучшение | B | gc не запускался: 1023 loose-объекта 205,70 MiB + 498 недостижимых blob'ов 30,46 МБ | .git/objects | Открыт |
-| NRS2-03 | баг | C | Два `.gz` — сироты, код читает только несжатые имена | data/journals/nlm_catalog.json.gz, data/papers/stats_claims.json.gz | Открыт |
-| NRS2-04 | улучшение | C | 6 временных файлов прогонов в корне (0,46 МБ) | корень | Открыт |
-| NRS2-05 | улучшение | C | `tests/snapshots/*/_actual/` 140 файлов / 98,72 МБ не чистятся | tests/snapshots/chromium/_actual, webkit/_actual | Открыт |
+| RS2-01 | улучшение | B | `.git` 1181,84 МБ; 69% истории — 1885 версий PNG-эталонов | .git/objects/pack/pack-ce4527….pack | Закрыто (коммит 39817405 — не требует переписывания истории: `.gitattributes` переведён на Git LFS для `*.png`, то есть в LFS пойдут все будущие PNG-эталоны, а `git gc --prune=now` убрал текущий мусор. Переписывание истории (`git lfs migrate`) сломало бы теги и все хеши, поэтому 1885 версий PNG в истории остались обычными blob'ами. Замер: `.git` 1268,7 → 1211,05 MiB, loose-объекты 6114 → 0) |
+| RS2-02 | улучшение | B | `tests/snapshots` 76 файлов / 53,07 МБ в индексе | tests/snapshots/ | Закрыто (коммит 39817405 — не требует переписывания истории: 76 PNG-эталонов остаются в индексе обычными blob'ами, но правило `*.png filter=lfs` в `.gitattributes` действует на все будущие `git add`, поэтому новые эталоны пойдут в LFS. Уменьшить текущий объём индекса можно только `git lfs migrate` с перезаписью истории и сменой всех хешей — от этого отказались сознательно) |
+| RS2-03 | улучшение | C | 3 отслеживаемых `*.json.gz` при правиле в `.gitignore:325` | git index | Закрыто (коммит 39817405 — все 3 `*.json.gz` сняты с индекса через `git rm --cached`; `git ls-files '*.gz'` теперь пуст. `data/papers/papers_slim.json.gz` остаётся на диске (нужен коду), но не отслеживается: он попадает под правило `.gitignore:325` `*.json.gz`) |
+| RS2-06 | улучшение | C | `tests/snapshots/*/_actual/` вне `.gitignore` (сейчас игнорируется только `_actual`) | .gitignore:234 | Закрыто (правило `tests/snapshots/*/_actual/` уже присутствует в `.gitignore:234` — правка не потребовалась, проверено `git check-ignore -v tests/snapshots/chromium/_actual/foo.png` → `.gitignore:234`; каталоги `_actual` удалены с диска) |
+| NRS2-01 | улучшение | B | Git LFS не настроен: 0 строк `filter=lfs`, PNG лежат обычными blob'ами | .gitattributes:5-8 | Закрыто (коммит 39817405 — `git lfs install` + `git lfs track "*.png"`: в `.gitattributes` строка `*.png filter=lfs diff=lfs merge=lfs -text` вместо `*.png binary`; `git check-attr` подтверждает `filter: lfs`, `diff: lfs`, `merge: lfs`, `text: unset`) |
+| NRS2-02 | улучшение | B | gc не запускался: 1023 loose-объекта 205,70 MiB + 498 недостижимых blob'ов 30,46 МБ | .git/objects | Закрыто (коммит 39817405 — `git gc --prune=now` выполнен за 32 с: loose-объекты 6114 / 293,53 MiB → 0, паки 2 → 1, `.git` 1268,7 → 1211,05 MiB; `git fsck --no-dangling` чистый, HEAD a6af0884 и тег v5.6.5 → 011ea40b на месте) |
+| NRS2-03 | баг | C | Два `.gz` — сироты, код читает только несжатые имена | data/journals/nlm_catalog.json.gz, data/papers/stats_claims.json.gz | Закрыто (коммит 39817405 — оба `.gz`-сироты удалены с диска и сняты с индекса; код читает только несжатые `nlm_catalog.json` и `stats_claims.json`, пары остались на месте) |
+| NRS2-04 | улучшение | C | 6 временных файлов прогонов в корне (0,46 МБ) | корень | Закрыто (коммит 39817405 — удалены 6 файлов прогонов: `pytest_collect.txt`, `pytest_final.txt`, `pytest_full_v565.txt`, `pytest_out.txt`, `pytest_output.txt`, `snap_head_chromium.xml`; корень чист, правило `.gitignore` `/snap_head_*.xml` и `pytest_*.txt` не даёт им вернуться) |
+| NRS2-05 | улучшение | C | `tests/snapshots/*/_actual/` 140 файлов / 98,72 МБ не чистятся | tests/snapshots/chromium/_actual, webkit/_actual | Закрыто (коммит 39817405 — оба каталога `_actual` удалены с диска: 140 файлов / 98,81 МБ. Правило `.gitignore:234` удерживает их от повторного появления) |
 
 ---
 
