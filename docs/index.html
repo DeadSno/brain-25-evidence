@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <script defer src="version.js?v=312"></script>
-  <script src="i18n.js?v=10"></script>
+  <script src="i18n.js?v=11"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>БАДы: доказательства и механизмы — Brain 25 Evidence</title>
 <meta name="description" content="130 БАД с разбором механизмов, ссылками на PubMed, оценкой доказательности и текущими исследованиями. Открытые данные без рекламы."/>
@@ -282,17 +282,17 @@ footer { font-size: 1rem !important; }
     </script>
 </head>
 <body>
-<a href="#main" class="skip-link">Перейти к содержимому</a>
+<a href="#main" class="skip-link" data-i18n-text="a11y.skipToContent">Перейти к содержимому</a>
 <div class="site-header">
-  <div class="trustbar">🧬 Открытые данные · Бесплатно · Без рекламы</div>
+  <div class="trustbar" data-i18n-text="index.trustbar">🧬 Открытые данные · Бесплатно · Без рекламы</div>
   <header class="top">
     <div class="site-title"><a href="index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a> <span class="v">v<span data-version="app"></span></span></div>
     <nav class="actions" data-i18n-aria-label="a11y.navMain">
-      <a class="btn c-feedback" href="feedback.html">💬 Обратная связь</a>
-      <a class="btn c-support" href="support.html">💚 Поддержать</a>
+      <a class="btn c-feedback" href="feedback.html" data-i18n-text="index.feedback">💬 Обратная связь</a>
+      <a class="btn c-support" href="support.html" data-i18n-text="index.support">💚 Поддержать</a>
       <button class="btn c-theme" id="themeBtn" aria-label="Переключить на светлую тему">🌞 Светлая тема</button>
       <select id="langSelect" class="lang-select" data-i18n-aria-label="a11y.langSelect"><option value="ru">RU</option><option value="en">EN</option></select>
-      <button class="btn c-random" id="randomBtn">🎲 Удиви меня</button>
+      <button class="btn c-random" id="randomBtn" data-i18n-text="index.random">🎲 Удиви меня</button>
     </nav>
   </header>
 </div>
@@ -302,22 +302,22 @@ footer { font-size: 1rem !important; }
        текстом, а не рубрикой. Подзаголовок называет метод (оценка
        доказательности по PubMed) и то, чего на сайте нет — рекламы
        и партнёрских ссылок. -->
-  <h1>Независимая база БАДов: доказательства, а не маркетинг</h1>
-  <p style="margin:0 0 1rem;font-size:1rem;color:var(--muted)">130 добавок: оценка доказательности по PubMed, механизм действия и честный вердикт — без рекламы и партнёрских ссылок.</p>
+  <h1 data-i18n-text="index.h1">Независимая база БАДов: доказательства, а не маркетинг</h1>
+  <p style="margin:0 0 1rem;font-size:1rem;color:var(--muted)" data-i18n-text="index.subtitle">130 добавок: оценка доказательности по PubMed, механизм действия и честный вердикт — без рекламы и партнёрских ссылок.</p>
 
 <!-- v5.6.5 FIX-SPRINT B7 (MKT-05): цифры доверия вынесены на первый экран.
      Числа верифицированы: 130 добавок (docs/data.json), 37 618 статей
      (docs/db/paper.duckdb), 199 взаимодействий (inter_data, разбивка
      9/24/74/92 — см. секцию whyTrust ниже). Наряду с CTA-строкой это
      заменяет упразднённый навбар как главный указатель навигации. -->
-<section id="heroStats" aria-label="Ключевые цифры проекта" style="display:flex;flex-wrap:wrap;gap:.5rem 1.2rem;margin:0 0 1rem;font-size:.95rem;color:var(--muted)">
-  <span><b style="color:var(--text)">130</b> добавок</span>
-  <span><b style="color:var(--text)">37 618</b> научных статей</span>
-  <span><b style="color:var(--text)">199</b> проверенных взаимодействий</span>
+<section id="heroStats" data-i18n-aria-label="index.heroStatsAria" aria-label="Ключевые цифры проекта" style="display:flex;flex-wrap:wrap;gap:.5rem 1.2rem;margin:0 0 1rem;font-size:.95rem;color:var(--muted)">
+  <span><b style="color:var(--text)">130</b><span data-i18n-text="index.statSupplements"> добавок</span></span>
+  <span><b style="color:var(--text)">37 618</b><span data-i18n-text="index.statPapers"> научных статей</span></span>
+  <span><b style="color:var(--text)">199</b><span data-i18n-text="index.statInteractions"> проверенных взаимодействий</span></span>
   <!-- FIX-59 (MK2-04): у трёх цифр появился источник. flex-basis:100%
        выносит подпись на отдельную строку, не ломая ряд из трёх
        показателей на узких экранах. -->
-  <span style="flex-basis:100%;font-size:var(--fs-6)">Источник цифр: PubMed, Europe PMC и ручной разбор мета-анализов — <a href="methodology.html">как мы считаем</a>.</span>
+  <span style="flex-basis:100%;font-size:var(--fs-6)"><span data-i18n-text="index.statsSource">Источник цифр: PubMed, Europe PMC и ручной разбор мета-анализов —</span> <a href="methodology.html" data-i18n-text="index.statsSourceLink">как мы считаем</a>.</span>
 </section>
 
 <!-- FIX-59 (MK2-02): иерархия кнопок. Primary на главной ровно одна —
@@ -337,7 +337,7 @@ footer { font-size: 1rem !important; }
      Обработчик в script.js цепляется к a[href="#cardsContainer"] — по
      href, поэтому ни id, ни класс ему не нужны. -->
 <div class="hero-cta">
-  <a class="btn calc hero-search" href="#cardsContainer">🔍 Найти свою добавку →</a>
+  <a class="btn calc hero-search" href="#cardsContainer" data-i18n-text="index.findYours">🔍 Найти свою добавку →</a>
 </div>
 
 
@@ -372,21 +372,21 @@ footer { font-size: 1rem !important; }
      он и так однозначен. -->
 
 <section id="controls">
-  <label for="search" class="sr-only">Поиск по названию или эффекту</label>
+  <label for="search" class="sr-only" data-i18n-text="index.searchLabel">Поиск по названию или эффекту</label>
   <input id="search" data-i18n-placeholder="index.searchPh" role="combobox" aria-expanded="false" aria-haspopup="listbox" aria-controls="searchDrop" aria-autocomplete="list"/>
-  <div id="searchDrop" class="search-drop" role="listbox" aria-label="Результаты поиска"></div>
-  <label for="verdictFilter" class="sr-only">Фильтр: вердикт</label>
+  <div id="searchDrop" class="search-drop" role="listbox" data-i18n-aria-label="index.searchResults" aria-label="Результаты поиска"></div>
+  <label for="verdictFilter" class="sr-only" data-i18n-text="index.verdictLabel">Фильтр: вердикт</label>
   <select id="verdictFilter">
-    <option value="all">Любой вердикт</option>
-    <option value="1">✅ работает</option>
-    <option value="0">⚖️ зависит от контекста</option>
-    <option value="-1">❌ не подтверждено</option>
+    <option value="all" data-i18n-text="index.verdictAll">Любой вердикт</option>
+    <option value="1" data-i18n-text="index.verdictYes">✅ работает</option>
+    <option value="0" data-i18n-text="index.verdictMaybe">⚖️ зависит от контекста</option>
+    <option value="-1" data-i18n-text="index.verdictNo">❌ не подтверждено</option>
   </select>
-  <label for="sortSelect" class="sr-only">Сортировка списка</label>
+  <label for="sortSelect" class="sr-only" data-i18n-text="index.sortLabel">Сортировка списка</label>
   <select id="sortSelect">
-    <option value="science">🔬 По доказательности (наука)</option>
-    <option value="name">По алфавиту</option>
-    <option value="grade">🎖 По грейду доказанности</option>
+    <option value="science" data-i18n-text="index.sortScience">🔬 По доказательности (наука)</option>
+    <option value="name" data-i18n-text="index.sortName">По алфавиту</option>
+    <option value="grade" data-i18n-text="index.sortGrade">🎖 По грейду доказанности</option>
   </select>
   <!-- v5.5.0 A3: кнопки фильтра стояли стопкой и занимали 96px
        (44 + 8 зазор + 44). В один ряд — 52px, и навигационные карточки
@@ -419,19 +419,19 @@ footer { font-size: 1rem !important; }
        настоящий, ровно как случилось с предыдущей правкой этого
        комментария. -->
   <details class="qa-details">
-    <summary aria-expanded="false">Сначала ответим на 3 вопроса</summary>
+    <summary aria-expanded="false" data-i18n-text="index.qaSummary">Сначала ответим на 3 вопроса</summary>
     <div class="qaGrid" tabindex="0">
       <div class="qa">
-        <h2 class="qa-q">1. Чем БАД отличается от лекарства?</h2>
-        <p>БАД дополняет питание, а не заменяет лечение. У БАД нет регистрации лекарства, но есть мета-анализы — считаем именно их.</p>
+        <h2 class="qa-q" data-i18n-text="index.q1">1. Чем БАД отличается от лекарства?</h2>
+        <p data-i18n-text="index.q1a">БАД дополняет питание, а не заменяет лечение. У БАД нет регистрации лекарства, но есть мета-анализы — считаем именно их.</p>
       </div>
       <div class="qa">
-        <h2 class="qa-q">2. Зачем он мне?</h2>
-        <p>Три честные причины: дефицит (витамин D зимой), цель (креатин при нагрузках), профилактика с доказательствами (омега-3).</p>
+        <h2 class="qa-q" data-i18n-text="index.q2">2. Зачем он мне?</h2>
+        <p data-i18n-text="index.q2a">Три честные причины: дефицит (витамин D зимой), цель (креатин при нагрузках), профилактика с доказательствами (омега-3).</p>
       </div>
       <div class="qa">
-        <h2 class="qa-q">3. Как выбирать?</h2>
-        <p>Вердикт и грейд доказательности → дозировка из исследований → конфликты с лекарствами → и только потом цена.</p>
+        <h2 class="qa-q" data-i18n-text="index.q3">3. Как выбирать?</h2>
+        <p data-i18n-text="index.q3a">Вердикт и грейд доказательности → дозировка из исследований → конфликты с лекарствами → и только потом цена.</p>
       </div>
     </div>
   </details>
@@ -441,7 +441,7 @@ footer { font-size: 1rem !important; }
        22.10.2026 (A-1.1): в hero она стала текстовой ссылкой
        tertiary — кнопки-дубли на странице больше нет. -->
   <p style="margin:1rem 0 0;display:flex;flex-wrap:wrap;gap:.75rem;align-items:center">
-    <a href="methodology.html">Полное объяснение методологии →</a>
+    <a href="methodology.html" data-i18n-text="index.methodLink">Полное объяснение методологии →</a>
   </p>
 </section>
 
@@ -463,232 +463,232 @@ footer { font-size: 1rem !important; }
       <div class="card-featured-icon">🧠</div>
       <div class="card-featured-text">
         <div class="card-featured-title">Project Hactar</div>
-        <div class="card-featured-desc">Единый воркспейс: связи, дозы, сравнение, безопасность</div>
+        <div class="card-featured-desc" data-i18n-text="index.hactarDesc">Единый воркспейс: связи, дозы, сравнение, безопасность</div>
       </div>
-      <span class="card-featured-cta">Открыть Project Hactar →</span>
+      <span class="card-featured-cta" data-i18n-text="index.hactarCta">Открыть Project Hactar →</span>
     </div>
   </a>
 
   <div class="quick-links">
   <a class="card-link lc-trends" href="trends.html" style="--card-accent:var(--icon-trends)">
     <div class="card-link-icon">📈</div>
-    <div class="card-link-title">Тренды популярности</div>
-    <div class="card-link-desc">10 лет данных: публикации в PubMed, Wikipedia, цитаты</div>
+    <div class="card-link-title" data-i18n-text="index.trendsTitle">Тренды популярности</div>
+    <div class="card-link-desc" data-i18n-text="index.trendsDesc">10 лет данных: публикации в PubMed, Wikipedia, цитаты</div>
   </a>
 
   <a class="card-link lc-bi" href="https://brain-25-evidence.streamlit.app" target="_blank" rel="nofollow noopener" style="--card-accent:var(--icon-bi)">
     <div class="card-link-icon">🧬</div>
     <div class="card-link-title">brain-25-evidence BI <span class="card-link-ext">↗</span></div>
-    <div class="card-link-desc">Отдельное приложение: 37 618 papers, фильтры, экспорт CSV</div>
+    <div class="card-link-desc" data-i18n-text="index.biDesc">Отдельное приложение: 37 618 papers, фильтры, экспорт CSV</div>
   </a>
 </div>
 </section>
 
 <section id="trustSummary" style="background:var(--card-bg);padding:.75rem 1.2rem;border-radius:12px;border:1px solid var(--border)">
   <div style="display:flex;flex-wrap:wrap;align-items:center;gap:.7rem">
-    <h2 style="margin:0">🔬 Как мы проверяем данные</h2>
+    <h2 style="margin:0" data-i18n-text="index.trustTitle">🔬 Как мы проверяем данные</h2>
     <div class="trustChips">
       <a class="chip" href="https://pubmed.ncbi.nlm.nih.gov/" target="_blank" rel="nofollow noopener">PubMed ↗</a>
-      <span class="chip">ручная вычитка</span>
-      <span class="chip">тестов: <span data-version="tests"></span></span>
+      <span class="chip" data-i18n-text="index.handcheck">ручная вычитка</span>
+      <span class="chip"><span data-i18n-text="index.testsChip">тестов:</span> <span data-version="tests"></span></span>
     </div>
   </div>
 </section>
 
 <section id="whyTrust" style="background:var(--card-bg);padding:1.2rem;border-radius:12px;border:1px solid var(--border);margin-top:1rem">
-  <h2 style="margin:0 0 .8rem">Почему этому можно верить</h2>
+  <h2 style="margin:0 0 .8rem" data-i18n-text="index.whyTitle">Почему этому можно верить</h2>
   <ul style="margin:0;padding-inline-start:1.2rem;line-height:1.6">
-    <li style="margin-bottom:.5rem"><b>Вердикт выставляем руками, а не формулой.</b> Индекс науки считает машина, а итог «ПОЛЕЗНО / Возможен / Не подтверждено» мы ставим сами — прочитав два самых сильных мета-анализа.</li>
-    <li style="margin-bottom:.5rem"><b>Любую ссылку можно открыть и проверить.</b> У всех 130 добавок из 130 на карточке стоит PMID и мета-анализ со ссылкой на PubMed.</li>
-    <li style="margin-bottom:.5rem"><b>Взаимодействия с лекарствами разложены по серьёзности.</b> 199 пар: 9 критических, 24 высоких, 74 средних, 92 низких — и к каждой написано, что происходит при совмещении.</li>
-    <li style="margin-bottom:.5rem"><b>Данные лежат рядом, их можно пересчитать.</b> 15 JSON-файлов в папке <code>docs/</code> — берите и проверяйте сами.</li>
+    <li style="margin-bottom:.5rem"><b data-i18n-text="index.why1b">Вердикт выставляем руками, а не формулой.</b><span data-i18n-text="index.why1t"> Индекс науки считает машина, а итог «ПОЛЕЗНО / Возможен / Не подтверждено» мы ставим сами — прочитав два самых сильных мета-анализа.</span></li>
+    <li style="margin-bottom:.5rem"><b data-i18n-text="index.why2b">Любую ссылку можно открыть и проверить.</b><span data-i18n-text="index.why2t"> У всех 130 добавок из 130 на карточке стоит PMID и мета-анализ со ссылкой на PubMed.</span></li>
+    <li style="margin-bottom:.5rem"><b data-i18n-text="index.why3b">Взаимодействия с лекарствами разложены по серьёзности.</b><span data-i18n-text="index.why3t"> 199 пар: 9 критических, 24 высоких, 74 средних, 92 низких — и к каждой написано, что происходит при совмещении.</span></li>
+    <li style="margin-bottom:.5rem"><b data-i18n-text="index.why4b">Данные лежат рядом, их можно пересчитать.</b><span data-i18n-text="index.why4a"> 15 JSON-файлов в папке</span> <code>docs/</code><span data-i18n-text="index.why4c"> — берите и проверяйте сами.</span></li>
     <li><b>Ответов три, а не два.</b> Если мета-анализов мало, остаётся «Возможен» — в «ПОЛЕЗНО» он не превращается. Спорные эффекты помечены прямо на карточке.</li>
   </ul>
 </section>
 
 <section id="popularTiles" style="margin:2rem 0">
-  <h2 style="margin:0 0 1rem">Популярные добавки</h2>
+  <h2 style="margin:0 0 1rem" data-i18n-text="index.popularTitle">Популярные добавки</h2>
   <div class="popularGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:1rem">
     <div class="tile" style="border:1px solid var(--border);border-radius:12px;padding:.8rem;background:var(--card-bg);display:flex;flex-direction:column;gap:.35rem">
       <a href="sup/magniy.html" style="display:block;text-decoration:none;color:inherit;flex:1">
         <div style="font-weight:700;font-size:.95rem;margin-bottom:.3rem">Магний</div>
-        <div style="font-size:var(--fs-4);opacity:.7;margin-bottom:.4rem">Минерал / Сердце</div>
+        <div style="font-size:var(--fs-4);opacity:.7;margin-bottom:.4rem"><span data-i18n-text="index.pop.magniy.cat">Минерал / Сердце</span></div>
         <span class="grade gA">A</span>
-        <div style="font-size:var(--fs-4);line-height:1.3">Сон, расслабление</div>
+        <div style="font-size:var(--fs-4);line-height:1.3"><span data-i18n-text="index.pop.magniy.eff">Сон, расслабление</span></div>
       </a>
       <div style="display:flex;gap:.4rem;border-top:1px solid var(--border);padding-top:.5rem">
-        <a href="https://www.ozon.ru/search/?text=%D0%9C%D0%B0%D0%B3%D0%BD%D0%B8%D0%B9" target="_blank" rel="noopener nofollow" aria-label="Найти Магний на Ozon"
-           title="Где искать: Ozon" class="shop-chip">🛒 Ozon</a>
-        <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%9C%D0%B0%D0%B3%D0%BD%D0%B8%D0%B9" target="_blank" rel="noopener nofollow" aria-label="Найти Магний на Wildberries"
-           title="Где искать: Wildberries" class="shop-chip">🛒 WB</a>
+        <a href="https://www.ozon.ru/search/?text=%D0%9C%D0%B0%D0%B3%D0%BD%D0%B8%D0%B9" target="_blank" rel="noopener nofollow" data-i18n-aria-label="index.pop.magniy.ozon" aria-label="Найти Магний на Ozon"
+           data-i18n-title="shop.whereOzon" title="Где искать: Ozon" class="shop-chip">🛒 Ozon</a>
+        <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%9C%D0%B0%D0%B3%D0%BD%D0%B8%D0%B9" target="_blank" rel="noopener nofollow" data-i18n-aria-label="index.pop.magniy.wb" aria-label="Найти Магний на Wildberries"
+           data-i18n-title="shop.whereWb" title="Где искать: Wildberries" class="shop-chip">🛒 WB</a>
       </div>
     </div>
 
     <div class="tile" style="border:1px solid var(--border);border-radius:12px;padding:.8rem;background:var(--card-bg);display:flex;flex-direction:column;gap:.35rem">
       <a href="sup/omega-3.html" style="display:block;text-decoration:none;color:inherit;flex:1">
         <div style="font-weight:700;font-size:.95rem;margin-bottom:.3rem">Омега-3</div>
-        <div style="font-size:var(--fs-4);opacity:.7;margin-bottom:.4rem">Сердце</div>
+        <div style="font-size:var(--fs-4);opacity:.7;margin-bottom:.4rem"><span data-i18n-text="index.pop.omega-3.cat">Сердце</span></div>
         <span class="grade gB">B</span>
-        <div style="font-size:var(--fs-4);line-height:1.3">Нейропластичность</div>
+        <div style="font-size:var(--fs-4);line-height:1.3"><span data-i18n-text="index.pop.omega-3.eff">Нейропластичность</span></div>
       </a>
       <div style="display:flex;gap:.4rem;border-top:1px solid var(--border);padding-top:.5rem">
-        <a href="https://www.ozon.ru/search/?text=%D0%9E%D0%BC%D0%B5%D0%B3%D0%B0-3" target="_blank" rel="noopener nofollow" aria-label="Найти Омега-3 на Ozon"
-           title="Где искать: Ozon" class="shop-chip">🛒 Ozon</a>
-        <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%9E%D0%BC%D0%B5%D0%B3%D0%B0-3" target="_blank" rel="noopener nofollow" aria-label="Найти Омега-3 на Wildberries"
-           title="Где искать: Wildberries" class="shop-chip">🛒 WB</a>
+        <a href="https://www.ozon.ru/search/?text=%D0%9E%D0%BC%D0%B5%D0%B3%D0%B0-3" target="_blank" rel="noopener nofollow" data-i18n-aria-label="index.pop.omega-3.ozon" aria-label="Найти Омега-3 на Ozon"
+           data-i18n-title="shop.whereOzon" title="Где искать: Ozon" class="shop-chip">🛒 Ozon</a>
+        <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%9E%D0%BC%D0%B5%D0%B3%D0%B0-3" target="_blank" rel="noopener nofollow" data-i18n-aria-label="index.pop.omega-3.wb" aria-label="Найти Омега-3 на Wildberries"
+           data-i18n-title="shop.whereWb" title="Где искать: Wildberries" class="shop-chip">🛒 WB</a>
       </div>
     </div>
 
     <div class="tile" style="border:1px solid var(--border);border-radius:12px;padding:.8rem;background:var(--card-bg);display:flex;flex-direction:column;gap:.35rem">
       <a href="sup/vitamin-d.html" style="display:block;text-decoration:none;color:inherit;flex:1">
         <div style="font-weight:700;font-size:.95rem;margin-bottom:.3rem">Витамин D</div>
-        <div style="font-size:var(--fs-4);opacity:.7;margin-bottom:.4rem">Кости / Иммунитет</div>
+        <div style="font-size:var(--fs-4);opacity:.7;margin-bottom:.4rem"><span data-i18n-text="index.pop.vitamin-d.cat">Кости / Иммунитет</span></div>
         <span class="grade gA">A</span>
-        <div style="font-size:var(--fs-4);line-height:1.3">Настроение (при дефиците)</div>
+        <div style="font-size:var(--fs-4);line-height:1.3"><span data-i18n-text="index.pop.vitamin-d.eff">Настроение (при дефиците)</span></div>
       </a>
       <div style="display:flex;gap:.4rem;border-top:1px solid var(--border);padding-top:.5rem">
-        <a href="https://www.ozon.ru/search/?text=%D0%92%D0%B8%D1%82%D0%B0%D0%BC%D0%B8%D0%BD%20D" target="_blank" rel="noopener nofollow" aria-label="Найти Витамин D на Ozon"
-           title="Где искать: Ozon" class="shop-chip">🛒 Ozon</a>
-        <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%92%D0%B8%D1%82%D0%B0%D0%BC%D0%B8%D0%BD%20D" target="_blank" rel="noopener nofollow" aria-label="Найти Витамин D на Wildberries"
-           title="Где искать: Wildberries" class="shop-chip">🛒 WB</a>
+        <a href="https://www.ozon.ru/search/?text=%D0%92%D0%B8%D1%82%D0%B0%D0%BC%D0%B8%D0%BD%20D" target="_blank" rel="noopener nofollow" data-i18n-aria-label="index.pop.vitamin-d.ozon" aria-label="Найти Витамин D на Ozon"
+           data-i18n-title="shop.whereOzon" title="Где искать: Ozon" class="shop-chip">🛒 Ozon</a>
+        <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%92%D0%B8%D1%82%D0%B0%D0%BC%D0%B8%D0%BD%20D" target="_blank" rel="noopener nofollow" data-i18n-aria-label="index.pop.vitamin-d.wb" aria-label="Найти Витамин D на Wildberries"
+           data-i18n-title="shop.whereWb" title="Где искать: Wildberries" class="shop-chip">🛒 WB</a>
       </div>
     </div>
 
     <div class="tile" style="border:1px solid var(--border);border-radius:12px;padding:.8rem;background:var(--card-bg);display:flex;flex-direction:column;gap:.35rem">
       <a href="sup/b12.html" style="display:block;text-decoration:none;color:inherit;flex:1">
         <div style="font-weight:700;font-size:.95rem;margin-bottom:.3rem">Витамин B12</div>
-        <div style="font-size:var(--fs-4);opacity:.7;margin-bottom:.4rem">Нервная система / Кровь</div>
+        <div style="font-size:var(--fs-4);opacity:.7;margin-bottom:.4rem"><span data-i18n-text="index.pop.vitamin-b12.cat">Нервная система / Кровь</span></div>
         <span class="grade gB">B</span>
-        <div style="font-size:var(--fs-4);line-height:1.3">Когниция (при дефиците)</div>
+        <div style="font-size:var(--fs-4);line-height:1.3"><span data-i18n-text="index.pop.vitamin-b12.eff"><span data-i18n-text="index.pop.tsink.eff">Когниция (при дефиците)</span></span></div>
       </a>
       <div style="display:flex;gap:.4rem;border-top:1px solid var(--border);padding-top:.5rem">
-        <a href="https://www.ozon.ru/search/?text=%D0%92%D0%B8%D1%82%D0%B0%D0%BC%D0%B8%D0%BD%20B12" target="_blank" rel="noopener nofollow" aria-label="Найти Витамин B12 на Ozon"
-           title="Где искать: Ozon" class="shop-chip">🛒 Ozon</a>
-        <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%92%D0%B8%D1%82%D0%B0%D0%BC%D0%B8%D0%BD%20B12" target="_blank" rel="noopener nofollow" aria-label="Найти Витамин B12 на Wildberries"
-           title="Где искать: Wildberries" class="shop-chip">🛒 WB</a>
+        <a href="https://www.ozon.ru/search/?text=%D0%92%D0%B8%D1%82%D0%B0%D0%BC%D0%B8%D0%BD%20B12" target="_blank" rel="noopener nofollow" data-i18n-aria-label="index.pop.vitamin-b12.ozon" aria-label="Найти Витамин B12 на Ozon"
+           data-i18n-title="shop.whereOzon" title="Где искать: Ozon" class="shop-chip">🛒 Ozon</a>
+        <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%92%D0%B8%D1%82%D0%B0%D0%BC%D0%B8%D0%BD%20B12" target="_blank" rel="noopener nofollow" data-i18n-aria-label="index.pop.vitamin-b12.wb" aria-label="Найти Витамин B12 на Wildberries"
+           data-i18n-title="shop.whereWb" title="Где искать: Wildberries" class="shop-chip">🛒 WB</a>
       </div>
     </div>
 
     <div class="tile" style="border:1px solid var(--border);border-radius:12px;padding:.8rem;background:var(--card-bg);display:flex;flex-direction:column;gap:.35rem">
       <a href="sup/tsink.html" style="display:block;text-decoration:none;color:inherit;flex:1">
         <div style="font-weight:700;font-size:.95rem;margin-bottom:.3rem">Цинк</div>
-        <div style="font-size:var(--fs-4);opacity:.7;margin-bottom:.4rem">Иммунитет / ОРВИ</div>
+        <div style="font-size:var(--fs-4);opacity:.7;margin-bottom:.4rem"><span data-i18n-text="index.pop.tsink.cat">Иммунитет / ОРВИ</span></div>
         <span class="grade gD">D</span>
         <div style="font-size:var(--fs-4);line-height:1.3">Когниция (при дефиците)</div>
       </a>
       <div style="display:flex;gap:.4rem;border-top:1px solid var(--border);padding-top:.5rem">
-        <a href="https://www.ozon.ru/search/?text=%D0%A6%D0%B8%D0%BD%D0%BA" target="_blank" rel="noopener nofollow" aria-label="Найти Цинк на Ozon"
-           title="Где искать: Ozon" class="shop-chip">🛒 Ozon</a>
-        <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%A6%D0%B8%D0%BD%D0%BA" target="_blank" rel="noopener nofollow" aria-label="Найти Цинк на Wildberries"
-           title="Где искать: Wildberries" class="shop-chip">🛒 WB</a>
+        <a href="https://www.ozon.ru/search/?text=%D0%A6%D0%B8%D0%BD%D0%BA" target="_blank" rel="noopener nofollow" data-i18n-aria-label="index.pop.tsink.ozon" aria-label="Найти Цинк на Ozon"
+           data-i18n-title="shop.whereOzon" title="Где искать: Ozon" class="shop-chip">🛒 Ozon</a>
+        <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%A6%D0%B8%D0%BD%D0%BA" target="_blank" rel="noopener nofollow" data-i18n-aria-label="index.pop.tsink.wb" aria-label="Найти Цинк на Wildberries"
+           data-i18n-title="shop.whereWb" title="Где искать: Wildberries" class="shop-chip">🛒 WB</a>
       </div>
     </div>
 
     <div class="tile" style="border:1px solid var(--border);border-radius:12px;padding:.8rem;background:var(--card-bg);display:flex;flex-direction:column;gap:.35rem">
       <a href="sup/kurkumin.html" style="display:block;text-decoration:none;color:inherit;flex:1">
         <div style="font-weight:700;font-size:.95rem;margin-bottom:.3rem">Куркумин</div>
-        <div style="font-size:var(--fs-4);opacity:.7;margin-bottom:.4rem">Воспаление / Суставы</div>
+        <div style="font-size:var(--fs-4);opacity:.7;margin-bottom:.4rem"><span data-i18n-text="index.pop.kurkumin.cat">Воспаление / Суставы</span></div>
         <span class="grade gB">B</span>
-        <div style="font-size:var(--fs-4);line-height:1.3">Настроение, когниция</div>
+        <div style="font-size:var(--fs-4);line-height:1.3"><span data-i18n-text="index.pop.kurkumin.eff">Настроение, когниция</span></div>
       </a>
       <div style="display:flex;gap:.4rem;border-top:1px solid var(--border);padding-top:.5rem">
-        <a href="https://www.ozon.ru/search/?text=%D0%9A%D1%83%D1%80%D0%BA%D1%83%D0%BC%D0%B8%D0%BD" target="_blank" rel="noopener nofollow" aria-label="Найти Куркумин на Ozon"
-           title="Где искать: Ozon" class="shop-chip">🛒 Ozon</a>
-        <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%9A%D1%83%D1%80%D0%BA%D1%83%D0%BC%D0%B8%D0%BD" target="_blank" rel="noopener nofollow" aria-label="Найти Куркумин на Wildberries"
-           title="Где искать: Wildberries" class="shop-chip">🛒 WB</a>
+        <a href="https://www.ozon.ru/search/?text=%D0%9A%D1%83%D1%80%D0%BA%D1%83%D0%BC%D0%B8%D0%BD" target="_blank" rel="noopener nofollow" data-i18n-aria-label="index.pop.kurkumin.ozon" aria-label="Найти Куркумин на Ozon"
+           data-i18n-title="shop.whereOzon" title="Где искать: Ozon" class="shop-chip">🛒 Ozon</a>
+        <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%9A%D1%83%D1%80%D0%BA%D1%83%D0%BC%D0%B8%D0%BD" target="_blank" rel="noopener nofollow" data-i18n-aria-label="index.pop.kurkumin.wb" aria-label="Найти Куркумин на Wildberries"
+           data-i18n-title="shop.whereWb" title="Где искать: Wildberries" class="shop-chip">🛒 WB</a>
       </div>
     </div>
 
     <div class="tile" style="border:1px solid var(--border);border-radius:12px;padding:.8rem;background:var(--card-bg);display:flex;flex-direction:column;gap:.35rem">
       <a href="sup/zhelezo.html" style="display:block;text-decoration:none;color:inherit;flex:1">
         <div style="font-weight:700;font-size:.95rem;margin-bottom:.3rem">Железо</div>
-        <div style="font-size:var(--fs-4);opacity:.7;margin-bottom:.4rem">Кровь / Анемия</div>
+        <div style="font-size:var(--fs-4);opacity:.7;margin-bottom:.4rem"><span data-i18n-text="index.pop.zhelezo.cat">Кровь / Анемия</span></div>
         <span class="grade gD">D</span>
-        <div style="font-size:var(--fs-4);line-height:1.3">Энергия (при анемии)</div>
+        <div style="font-size:var(--fs-4);line-height:1.3"><span data-i18n-text="index.pop.zhelezo.eff">Энергия (при анемии)</span></div>
       </a>
       <div style="display:flex;gap:.4rem;border-top:1px solid var(--border);padding-top:.5rem">
-        <a href="https://www.ozon.ru/search/?text=%D0%96%D0%B5%D0%BB%D0%B5%D0%B7%D0%BE" target="_blank" rel="noopener nofollow" aria-label="Найти Железо на Ozon"
-           title="Где искать: Ozon" class="shop-chip">🛒 Ozon</a>
-        <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%96%D0%B5%D0%BB%D0%B5%D0%B7%D0%BE" target="_blank" rel="noopener nofollow" aria-label="Найти Железо на Wildberries"
-           title="Где искать: Wildberries" class="shop-chip">🛒 WB</a>
+        <a href="https://www.ozon.ru/search/?text=%D0%96%D0%B5%D0%BB%D0%B5%D0%B7%D0%BE" target="_blank" rel="noopener nofollow" data-i18n-aria-label="index.pop.zhelezo.ozon" aria-label="Найти Железо на Ozon"
+           data-i18n-title="shop.whereOzon" title="Где искать: Ozon" class="shop-chip">🛒 Ozon</a>
+        <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%96%D0%B5%D0%BB%D0%B5%D0%B7%D0%BE" target="_blank" rel="noopener nofollow" data-i18n-aria-label="index.pop.zhelezo.wb" aria-label="Найти Железо на Wildberries"
+           data-i18n-title="shop.whereWb" title="Где искать: Wildberries" class="shop-chip">🛒 WB</a>
       </div>
     </div>
 
     <div class="tile" style="border:1px solid var(--border);border-radius:12px;padding:.8rem;background:var(--card-bg);display:flex;flex-direction:column;gap:.35rem">
       <a href="sup/melatonin.html" style="display:block;text-decoration:none;color:inherit;flex:1">
         <div style="font-weight:700;font-size:.95rem;margin-bottom:.3rem">Мелатонин</div>
-        <div style="font-size:var(--fs-4);opacity:.7;margin-bottom:.4rem">Сон / Циркадные ритмы</div>
+        <div style="font-size:var(--fs-4);opacity:.7;margin-bottom:.4rem"><span data-i18n-text="index.pop.melatonin.cat">Сон / Циркадные ритмы</span></div>
         <span class="grade gD">D</span>
-        <div style="font-size:var(--fs-4);line-height:1.3">Засыпание, джетлаг</div>
+        <div style="font-size:var(--fs-4);line-height:1.3"><span data-i18n-text="index.pop.melatonin.eff">Засыпание, джетлаг</span></div>
       </a>
       <div style="display:flex;gap:.4rem;border-top:1px solid var(--border);padding-top:.5rem">
-        <a href="https://www.ozon.ru/search/?text=%D0%9C%D0%B5%D0%BB%D0%B0%D1%82%D0%BE%D0%BD%D0%B8%D0%BD" target="_blank" rel="noopener nofollow" aria-label="Найти Мелатонин на Ozon"
-           title="Где искать: Ozon" class="shop-chip">🛒 Ozon</a>
-        <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%9C%D0%B5%D0%BB%D0%B0%D1%82%D0%BE%D0%BD%D0%B8%D0%BD" target="_blank" rel="noopener nofollow" aria-label="Найти Мелатонин на Wildberries"
-           title="Где искать: Wildberries" class="shop-chip">🛒 WB</a>
+        <a href="https://www.ozon.ru/search/?text=%D0%9C%D0%B5%D0%BB%D0%B0%D1%82%D0%BE%D0%BD%D0%B8%D0%BD" target="_blank" rel="noopener nofollow" data-i18n-aria-label="index.pop.melatonin.ozon" aria-label="Найти Мелатонин на Ozon"
+           data-i18n-title="shop.whereOzon" title="Где искать: Ozon" class="shop-chip">🛒 Ozon</a>
+        <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%9C%D0%B5%D0%BB%D0%B0%D1%82%D0%BE%D0%BD%D0%B8%D0%BD" target="_blank" rel="noopener nofollow" data-i18n-aria-label="index.pop.melatonin.wb" aria-label="Найти Мелатонин на Wildberries"
+           data-i18n-title="shop.whereWb" title="Где искать: Wildberries" class="shop-chip">🛒 WB</a>
       </div>
     </div>
 
     <div class="tile" style="border:1px solid var(--border);border-radius:12px;padding:.8rem;background:var(--card-bg);display:flex;flex-direction:column;gap:.35rem">
       <a href="sup/vitamin-c.html" style="display:block;text-decoration:none;color:inherit;flex:1">
         <div style="font-weight:700;font-size:.95rem;margin-bottom:.3rem">Витамин C</div>
-        <div style="font-size:var(--fs-4);opacity:.7;margin-bottom:.4rem">Иммунитет / Антиоксидант</div>
+        <div style="font-size:var(--fs-4);opacity:.7;margin-bottom:.4rem"><span data-i18n-text="index.pop.vitamin-c.cat">Иммунитет / Антиоксидант</span></div>
         <span class="grade gD">D</span>
-        <div style="font-size:var(--fs-4);line-height:1.3">Иммунитет (при нагрузках)</div>
+        <div style="font-size:var(--fs-4);line-height:1.3"><span data-i18n-text="index.pop.vitamin-c.eff">Иммунитет (при нагрузках)</span></div>
       </a>
       <div style="display:flex;gap:.4rem;border-top:1px solid var(--border);padding-top:.5rem">
-        <a href="https://www.ozon.ru/search/?text=%D0%92%D0%B8%D1%82%D0%B0%D0%BC%D0%B8%D0%BD%20C" target="_blank" rel="noopener nofollow" aria-label="Найти Витамин C на Ozon"
-           title="Где искать: Ozon" class="shop-chip">🛒 Ozon</a>
-        <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%92%D0%B8%D1%82%D0%B0%D0%BC%D0%B8%D0%BD%20C" target="_blank" rel="noopener nofollow" aria-label="Найти Витамин C на Wildberries"
-           title="Где искать: Wildberries" class="shop-chip">🛒 WB</a>
+        <a href="https://www.ozon.ru/search/?text=%D0%92%D0%B8%D1%82%D0%B0%D0%BC%D0%B8%D0%BD%20C" target="_blank" rel="noopener nofollow" data-i18n-aria-label="index.pop.vitamin-c.ozon" aria-label="Найти Витамин C на Ozon"
+           data-i18n-title="shop.whereOzon" title="Где искать: Ozon" class="shop-chip">🛒 Ozon</a>
+        <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%92%D0%B8%D1%82%D0%B0%D0%BC%D0%B8%D0%BD%20C" target="_blank" rel="noopener nofollow" data-i18n-aria-label="index.pop.vitamin-c.wb" aria-label="Найти Витамин C на Wildberries"
+           data-i18n-title="shop.whereWb" title="Где искать: Wildberries" class="shop-chip">🛒 WB</a>
       </div>
     </div>
 
     <div class="tile" style="border:1px solid var(--border);border-radius:12px;padding:.8rem;background:var(--card-bg);display:flex;flex-direction:column;gap:.35rem">
       <a href="sup/kreatin.html" style="display:block;text-decoration:none;color:inherit;flex:1">
         <div style="font-weight:700;font-size:.95rem;margin-bottom:.3rem">Креатин</div>
-        <div style="font-size:var(--fs-4);opacity:.7;margin-bottom:.4rem">Спорт / Когниция</div>
+        <div style="font-size:var(--fs-4);opacity:.7;margin-bottom:.4rem"><span data-i18n-text="index.pop.kreatin.cat">Спорт / Когниция</span></div>
         <span class="grade gA">A</span>
-        <div style="font-size:var(--fs-4);line-height:1.3">Рабочая память под нагрузкой</div>
+        <div style="font-size:var(--fs-4);line-height:1.3"><span data-i18n-text="index.pop.kreatin.eff">Рабочая память под нагрузкой</span></div>
       </a>
       <div style="display:flex;gap:.4rem;border-top:1px solid var(--border);padding-top:.5rem">
-        <a href="https://www.ozon.ru/search/?text=%D0%9A%D1%80%D0%B5%D0%B0%D1%82%D0%B8%D0%BD" target="_blank" rel="noopener nofollow" aria-label="Найти Креатин на Ozon"
-           title="Где искать: Ozon" class="shop-chip">🛒 Ozon</a>
-        <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%9A%D1%80%D0%B5%D0%B0%D1%82%D0%B8%D0%BD" target="_blank" rel="noopener nofollow" aria-label="Найти Креатин на Wildberries"
-           title="Где искать: Wildberries" class="shop-chip">🛒 WB</a>
+        <a href="https://www.ozon.ru/search/?text=%D0%9A%D1%80%D0%B5%D0%B0%D1%82%D0%B8%D0%BD" target="_blank" rel="noopener nofollow" data-i18n-aria-label="index.pop.kreatin.ozon" aria-label="Найти Креатин на Ozon"
+           data-i18n-title="shop.whereOzon" title="Где искать: Ozon" class="shop-chip">🛒 Ozon</a>
+        <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%9A%D1%80%D0%B5%D0%B0%D1%82%D0%B8%D0%BD" target="_blank" rel="noopener nofollow" data-i18n-aria-label="index.pop.kreatin.wb" aria-label="Найти Креатин на Wildberries"
+           data-i18n-title="shop.whereWb" title="Где искать: Wildberries" class="shop-chip">🛒 WB</a>
       </div>
     </div>
   </div>
-  <p style="margin:.7rem 0 0;text-align:center"><a href="sup/index.html" style="color:var(--accent)">Открыть полный каталог (130 добавок) →</a></p>
+  <p style="margin:.7rem 0 0;text-align:center"><a href="sup/index.html" style="color:var(--accent)" data-i18n-text="index.catalogLink">Открыть полный каталог (130 добавок) →</a></p>
 </section>
 
 <section id="chartSection">
-  <h2>Доказательность: индекс науки / объём исследований <span class="hint">(пузырь = мета-анализы, ось Y — лог-шкала)</span></h2>
+  <h2><span data-i18n-text="index.chartTitle">Доказательность: индекс науки / объём исследований</span> <span class="hint" data-i18n-text="index.chartHint">(пузырь = мета-анализы, ось Y — лог-шкала)</span></h2>
   <details class="method">
-    <summary aria-expanded="false">📐 Что такое «индекс науки»?</summary>
-    <p><b>Индекс науки = РКИ + 5 × мета-анализы</b> в PubMed по запросу «(добавка) AND (исход)».</p>
-    <p>Индекс меряет <i>количество</i> науки, не силу эффекта. Вердикты ставим вручную по топ-2 мета-анализам.</p>
+    <summary aria-expanded="false" data-i18n-text="index.sciSummary">📐 Что такое «индекс науки»?</summary>
+    <p><b data-i18n-text="index.sciP1b">Индекс науки = РКИ + 5 × мета-анализы</b><span data-i18n-text="index.sciP1t"> в PubMed по запросу «(добавка) AND (исход)».</span></p>
+    <p><span data-i18n-text="index.sciP2a">Индекс меряет</span> <i data-i18n-text="index.sciP2i">количество</i><span data-i18n-text="index.sciP2b"> науки, не силу эффекта. Вердикты ставим вручную по топ-2 мета-анализам.</span></p>
   </details>
   <details class="method">
-    <summary aria-expanded="false">🎯 Что такое «сила эффекта» (Hedges' g)?</summary>
-    <p><b>Hedges' g</b> — это стандартная метрика того, насколько добавка <i>реально помогает</i>, по сравнению с плацебо.</p>
-    <p style="margin-top:.5rem"><b>Как читать:</b></p>
+    <summary aria-expanded="false" data-i18n-text="index.gSummary">🎯 Что такое «сила эффекта» (Hedges' g)?</summary>
+    <p><b data-i18n-text="index.gP1b">Hedges' g</b><span data-i18n-text="index.gP1a"> — это стандартная метрика того, насколько добавка</span> <i data-i18n-text="index.gP1i">реально помогает</i><span data-i18n-text="index.gP1c">, по сравнению с плацебо.</span></p>
+    <p style="margin-top:.5rem"><b data-i18n-text="index.gHowTo">Как читать:</b></p>
     <ul style="margin:.3rem 0 .5rem 1.2rem">
-      <li><b>0</b> — эффекта нет (как плацебо)</li>
-      <li><b>±0.2</b> — маленький эффект (заметен, но скромный)</li>
-      <li><b>±0.5</b> — средний эффект (клинически значимый)</li>
-      <li><b>±0.8+</b> — большой эффект (заметен всем)</li>
-      <li><b>Отрицательный</b> — не значит «плохо». Зависит от того, что измеряли: например, у Магния g = −0.67 по шкале тревожности — это <i>снижение</i> тревоги, то есть хорошо</li>
+      <li><b>0</b><span data-i18n-text="index.g0"> — эффекта нет (как плацебо)</span></li>
+      <li><b>±0.2</b><span data-i18n-text="index.g02"> — маленький эффект (заметен, но скромный)</span></li>
+      <li><b>±0.5</b><span data-i18n-text="index.g05"> — средний эффект (клинически значимый)</span></li>
+      <li><b>±0.8+</b><span data-i18n-text="index.g08"> — большой эффект (заметен всем)</span></li>
+      <li><b>Отрицательный</b><span data-i18n-text="index.gnegA"> — не значит «плохо». Зависит от того, что измеряли: например, у Магния g = −0.67 по шкале тревожности — это</span> <i data-i18n-text="index.gnegI">снижение</i><span data-i18n-text="index.gnegB"> тревоги, то есть хорошо</span></li>
     </ul>
-    <p>Мы берём g из первого релевантного мета-анализа по каждой добавке. У одной добавки может быть много g по разным исходам (сон, сила, память) — мы показываем один пример, а не «главный эффект».</p>
+    <p data-i18n-text="index.gP3">Мы берём g из первого релевантного мета-анализа по каждой добавке. У одной добавки может быть много g по разным исходам (сон, сила, память) — мы показываем один пример, а не «главный эффект».</p>
   </details>
   <div class="chartTabs" id="viewTabs">
-    <button class="chartTab on" data-view="price">📊 Доказательность</button>
-    <button class="chartTab" data-view="quadrant">🎯 Сила эффекта (g)</button>
+    <button class="chartTab on" data-view="price" data-i18n-text="index.tabEvidence">📊 Доказательность</button>
+    <button class="chartTab" data-view="quadrant" data-i18n-text="index.tabEffect">🎯 Сила эффекта (g)</button>
   </div>
   <div class="chartTabs" id="axisRow">
-    <button id="axisMA" class="chartTab on">Число МА</button>
-    <button id="axisRCT" class="chartTab">Число РКИ</button>
+    <button id="axisMA" class="chartTab on" data-i18n-text="index.axisMA">Число МА</button>
+    <button id="axisRCT" class="chartTab" data-i18n-text="index.axisRCT">Число РКИ</button>
   </div>
   <div id="chartWrap">
     <canvas id="bubbleChart"></canvas>
@@ -700,19 +700,19 @@ footer { font-size: 1rem !important; }
 </section>
 
 <section id="cardsContainer">
-  <h2>Все добавки <span id="countBadge" class="hint"></span></h2>
+  <h2><span data-i18n-text="index.allSupplements">Все добавки</span> <span id="countBadge" class="hint"></span></h2>
 
   <div class="filterSection">
-    <span class="filterLabel">Быстрые подборки</span>
+    <span class="filterLabel" data-i18n-text="index.presetsLabel">Быстрые подборки</span>
     <div class="presetRow" id="presetRow">
-      <button class="preset" data-preset="science" data-i18n-title="index.sortSci">🏆 Топ по науке</button>
-      <button class="preset" data-preset="verdict" data-i18n-title="index.verdictWorks">💎 Доказано</button>
-      <button class="preset" data-preset="ongoing" data-i18n-title="index.trials">🔥 Изучают сейчас</button>
+      <button class="preset" data-preset="science" data-i18n-title="index.sortSci" data-i18n-text="index.presetScience">🏆 Топ по науке</button>
+      <button class="preset" data-preset="verdict" data-i18n-title="index.verdictWorks" data-i18n-text="index.presetProven">💎 Доказано</button>
+      <button class="preset" data-preset="ongoing" data-i18n-title="index.trials" data-i18n-text="index.presetOngoing">🔥 Изучают сейчас</button>
     </div>
   </div>
 
   <div class="filterSection">
-    <span class="filterLabel">По эффекту</span>
+    <span class="filterLabel" data-i18n-text="index.byEffect">По эффекту</span>
     <div class="tagPresets" id="tagPresets"></div>
   </div>
 
@@ -722,27 +722,25 @@ footer { font-size: 1rem !important; }
 </section>
 
 <section id="helpProject" style="background:var(--card-bg);padding:1.2rem 1.5rem;border-radius:12px;border:1px solid var(--border)">
-  <h2>💚 Как помочь проекту</h2>
-  <p class="hint">Проект бесплатный: без рекламы, подписок и продажи данных. Помощь ускоряет обновление карточек и разработку.</p>
+  <h2 data-i18n-text="index.helpTitle">💚 Как помочь проекту</h2>
+  <p class="hint" data-i18n-text="index.helpText">Проект бесплатный: без рекламы, подписок и продажи данных. Помощь ускоряет обновление карточек и разработку.</p>
   <div style="display:flex;flex-wrap:wrap;gap:.5rem">
-    <a class="btn c-support" href="https://yoomoney.ru/fundraise/1KKDKB0O1EC.260930" target="_blank" rel="nofollow noopener">💚 Поддержать в ЮMoney</a>
-    <a class="btn c-feedback" href="feedback.html">💬 Обратная связь</a>
-    <a class="btn c-github" href="https://github.com/DeadSno/brain-25-evidence" target="_blank" rel="nofollow noopener">⭐ Доработать на GitHub</a>
+    <a class="btn c-support" href="https://yoomoney.ru/fundraise/1KKDKB0O1EC.260930" target="_blank" rel="nofollow noopener" data-i18n-text="index.supportYoomoney">💚 Поддержать в ЮMoney</a>
+    <a class="btn c-feedback" href="feedback.html" data-i18n-text="index.feedback">💬 Обратная связь</a>
+    <a class="btn c-github" href="https://github.com/DeadSno/brain-25-evidence" target="_blank" rel="nofollow noopener" data-i18n-text="index.github">⭐ Доработать на GitHub</a>
   </div>
 </section>
 </main>
 <footer class="site-footer">
   <p class="disc">
-    <b>⚠️ Не медицинская рекомендация.</b>
-    Сайт предоставляет данные из открытых научных источников
-    (PubMed, Europe PMC, CrossRef, OpenAlex, ClinicalTrials.gov, Wikimedia)
-    для информирования и самостоятельного образования.
-    <b>НЕ заменяет</b> консультацию, диагноз и лечение.
-    При любых сомнениях — обращайтесь к специалисту.
+    <b data-i18n-text="index.discWarn">⚠️ Не медицинская рекомендация.</b>
+    <span data-i18n-text="index.discA">Сайт предоставляет данные из открытых научных источников (PubMed, Europe PMC, CrossRef, OpenAlex, ClinicalTrials.gov, Wikimedia) для информирования и самостоятельного образования.</span>
+    <b data-i18n-text="index.discNo">НЕ заменяет</b>
+    <span data-i18n-text="index.discB">консультацию, диагноз и лечение. При любых сомнениях — обращайтесь к специалисту.</span>
   </p>
   <p class="meta">
     v<span data-version="app"></span> ·
-    данные на <span data-version="data"></span>
+    <span data-i18n-text="index.dataUpdated">данные на</span> <span data-version="data"></span>
   </p>
   <p class="links">
     <a href="methodology.html" data-i18n-text="footer.methodology">📐 Методология</a> ·
@@ -753,8 +751,8 @@ footer { font-size: 1rem !important; }
     <a href="sup/index.html" data-i18n-text="footer.catalog">💊 Каталог БАДов</a> ·
     <a href="feed.xml" data-i18n-text="footer.rss">📡 RSS</a>
   </p>
-  <p class="copy">© 2026 Vladislav "DeadSno" Pereshivalov · MIT · <a href="terms-of-use.html#data-license">Данные: CC BY 4.0</a></p>
-  <p class="share-row"><button class="btn share-page" type="button">🔗 Поделиться</button></p>
+  <p class="copy">© 2026 Vladislav "DeadSno" Pereshivalov · MIT · <a href="terms-of-use.html#data-license" data-i18n-text="index.dataLicense">Данные: CC BY 4.0</a></p>
+  <p class="share-row"><button class="btn share-page" type="button" data-i18n-text="index.share">🔗 Поделиться</button></p>
 </footer>
 
 <div id="modalOverlay" style="display:none">
@@ -795,13 +793,12 @@ document.getElementById('refreshBtn')?.addEventListener('click', () => {
      ни одного запроса к mc.yandex.ru не происходит. -->
 <div id="cookieBanner" role="dialog" data-i18n-aria-label="a11y.cookieConsent" hidden>
   <div class="cb-text">
-    Мы используем cookie и Яндекс.Метрику, чтобы понять, какие материалы полезны.
-    Аналитика включается только после вашего согласия.
-    <a href="privacy.html">Политика конфиденциальности</a>
+    <span data-i18n-text="index.cookieText">Мы используем cookie и Яндекс.Метрику, чтобы понять, какие материалы полезны. Аналитика включается только после вашего согласия.</span>
+    <a href="privacy.html" data-i18n-text="index.cookiePolicy">Политика конфиденциальности</a>
   </div>
   <div class="cb-actions">
-    <button type="button" id="cookieAccept" class="cb-btn cb-accept">Принять</button>
-    <button type="button" id="cookieReject" class="cb-btn cb-reject">Отклонить</button>
+    <button type="button" id="cookieAccept" class="cb-btn cb-accept" data-i18n-text="index.cookieAccept">Принять</button>
+    <button type="button" id="cookieReject" class="cb-btn cb-reject" data-i18n-text="index.cookieReject">Отклонить</button>
   </div>
 </div>
 <script src="cookie-banner.js?v=1"></script>
