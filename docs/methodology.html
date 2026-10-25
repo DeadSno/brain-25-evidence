@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <script defer src="version.js?v=312"></script>
-  <script src="i18n.js?v=9"></script>
+  <script src="i18n.js?v=10"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#1c1c1e" media="(prefers-color-scheme: dark)">
@@ -79,7 +79,7 @@ try {
       <a class="btn c-feedback" href="feedback.html">💬 Обратная связь</a>
       <a class="btn c-support" href="support.html">💚 Поддержать</a>
       <button class="btn c-theme" id="themeBtn" aria-label="Переключить на светлую тему">🌞 Светлая тема</button>
-      <select id="langSelect" class="lang-select" aria-label="Сменить язык"><option value="ru">RU</option><option value="en">EN</option></select>
+      <select id="langSelect" class="lang-select" data-i18n-aria-label="a11y.langSelect"><option value="ru">RU</option><option value="en">EN</option></select>
       <button class="btn c-random" id="randomBtn">🎲 Удиви меня</button>
     </nav>
   </header>
@@ -205,12 +205,12 @@ try {
     данные на <span data-version="data"></span>
   </p>
   <p class="links">
-    <a href="methodology.html">📐 Методология</a> ·
-    <a href="faq.html">❓ FAQ</a> ·
-    <a href="glossary.html">📖 Глоссарий</a> ·
-    <a href="privacy.html">🔐 Приватность</a> ·
-    <a href="terms-of-use.html">📄 Условия использования</a> ·
-    <a href="feed.xml">📡 RSS</a>
+    <a href="methodology.html" data-i18n-text="footer.methodology">📐 Методология</a> ·
+    <a href="faq.html" data-i18n-text="footer.faq">❓ FAQ</a> ·
+    <a href="glossary.html" data-i18n-text="footer.glossary">📖 Глоссарий</a> ·
+    <a href="privacy.html" data-i18n-text="footer.privacy">🔐 Приватность</a> ·
+    <a href="terms-of-use.html" data-i18n-text="footer.terms">📄 Условия использования</a> ·
+    <a href="feed.xml" data-i18n-text="footer.rss">📡 RSS</a>
   </p>
   <p class="copy">© 2026 Vladislav "DeadSno" Pereshivalov · MIT · <a href="terms-of-use.html#data-license">Данные: CC BY 4.0</a></p>
   <p class="share-row"><button class="btn share-page" type="button">🔗 Поделиться</button></p>

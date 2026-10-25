@@ -34,7 +34,7 @@
     </script>
     <link rel="stylesheet" href="../style.min.css?v=460">
     <script src="../version.js?v=312"></script>
-    <script src="../i18n.js?v=9"></script>
+    <script src="../i18n.js?v=10"></script>
     <script src="../pwa.js?v=283" defer></script>
 <script src="../share.js?v=2" defer></script>
     <script type="application/ld+json">
@@ -65,7 +65,7 @@
       <a class="btn c-feedback" href="../feedback.html">💬 Обратная связь</a>
       <a class="btn c-support" href="../support.html">💚 Поддержать</a>
       <button class="btn c-theme" id="themeBtn" aria-label="Переключить на светлую тему">🌞 Светлая тема</button>
-      <select id="langSelect" class="lang-select" aria-label="Сменить язык"><option value="ru">RU</option><option value="en">EN</option></select>
+      <select id="langSelect" class="lang-select" data-i18n-aria-label="a11y.langSelect"><option value="ru">RU</option><option value="en">EN</option></select>
       <button class="btn c-random" id="randomBtn">🎲 Удиви меня</button>
     </nav>
   </header>
@@ -255,13 +255,13 @@
     данные на <span data-version="data"></span>
   </p>
   <p class="links">
-    <a href="../methodology.html">📐 Методология</a> ·
-    <a href="../faq.html">❓ FAQ</a> ·
-    <a href="../glossary.html">📖 Глоссарий</a> ·
-    <a href="../privacy.html">🔐 Приватность</a> ·
-    <a href="../terms-of-use.html">📄 Условия использования</a> ·
-    <a href="index.html">💊 Каталог БАДов</a> ·
-    <a href="../feed.xml">📡 RSS</a>
+    <a href="../methodology.html" data-i18n-text="footer.methodology">📐 Методология</a> ·
+    <a href="../faq.html" data-i18n-text="footer.faq">❓ FAQ</a> ·
+    <a href="../glossary.html" data-i18n-text="footer.glossary">📖 Глоссарий</a> ·
+    <a href="../privacy.html" data-i18n-text="footer.privacy">🔐 Приватность</a> ·
+    <a href="../terms-of-use.html" data-i18n-text="footer.terms">📄 Условия использования</a> ·
+    <a href="index.html" data-i18n-text="footer.catalog">💊 Каталог БАДов</a> ·
+    <a href="../feed.xml" data-i18n-text="footer.rss">📡 RSS</a>
   </p>
   <p class="copy">© 2026 Vladislav "DeadSno" Pereshivalov · MIT · <a href="../terms-of-use.html#data-license">Данные: CC BY 4.0</a></p>
   <p class="share-row"><button class="btn share-page" type="button">🔗 Поделиться</button></p>
