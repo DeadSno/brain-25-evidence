@@ -10,6 +10,7 @@
 <meta name="twitter:title" content="404 — страница не найдена | brain-25-evidence">
 <meta name="twitter:description" content="Такого адреса на сайте нет. Поиск по 130 добавкам и переход на главную.">
 <meta name="twitter:image" content="https://deadsno.github.io/brain-25-evidence/og.png">
+<link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#1c1c1e">
 <link rel="icon" href="icons/192.png">
 <!-- v5.6.5 FIX-SPRINT B7: страница 404 для GitHub Pages.
@@ -236,6 +237,15 @@
     .then(function (t) { if (t) index = buildIndex(t); });
 })();
 </script>
+<!-- v5.6.5 FIX-62 (PW2-01): страница была единственной в корне без pwa.js —
+     SW на ней не регистрировался, офлайн-режим не включался. pwa.js требует
+     i18n.js: подпись плашки он берёт через t('pwa.offline'), а глобальная t()
+     объявлена только там (i18n.js:1200). Без i18n.js на этой странице любое
+     реальное отключение сети давало ReferenceError вместо плашки. Порядок
+     задан самим типом подключения: i18n.js без defer исполняется во время
+     разбора, pwa.js с defer — после него, поэтому t() уже существует. -->
+<script src="i18n.js?v=8"></script>
+<script src="pwa.js?v=282" defer></script>
 </body>
 </html>
 
