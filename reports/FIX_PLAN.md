@@ -131,8 +131,8 @@
 | I2-01 | улучшение | B | Нет механизма смены локали (`LOCALE` только из `html lang`) | docs/i18n.js | Закрыто (коммит 89c5156f — в навбаре 141 страницы появился `select#langSelect`, LOCALE читается из localStorage('lang') с валидацией ru/en, функции setLocale/initLangSwitcher) |
 | I2-02 | улучшение | B | Словарь рассеян по 4 файлам (`i18n.js`, `share.js`, `science2.js`, `tracker.js`) | docs/*.js | Закрыто (коммит 89c5156f — 21 ключ переехал в docs/i18n.js, локальные словари и своя t() убраны из share.js, science2.js, tracker.js) |
 | I2-03 | улучшение | C | В словаре только ключ `ru`, нет `en` | docs/i18n.js | Закрыто (коммит 89c5156f — добавлена локаль `en`: 416 ключей, состав и порядок совпадают с `ru`) |
-| NI2-01 | баг | B | `hactar.js` не использует `t()` и не подключает `i18n.js` — все строки хардкод | docs/hactar.js, docs/hactar.html:461 | Открыт |
-| NI2-02 | баг | C | На `hactar.html` всего 1 атрибут `data-i18n-*` | docs/hactar.html:286 | Открыт |
+| NI2-01 | баг | B | `hactar.js` не использует `t()` и не подключает `i18n.js` — все строки хардкод | docs/hactar.js, docs/hactar.html:461 | Закрыто (коммит 146e8870 — 84 строки `hactar.js` обёрнуты в `T()` (алиас `window.t`), 131 ключ Hactar добавлен в `docs/i18n.js` в `ru` и `en`, `i18n.js?v=5`, CACHE_VERSION v149) |
+| NI2-02 | баг | C | На `hactar.html` всего 1 атрибут `data-i18n-*` | docs/hactar.html:286 | Закрыто (коммит 146e8870 — 47 точек: `data-i18n-text` / `data-i18n-aria-label` / `data-i18n-placeholder` / `data-i18n-title`, обработчик темы переведён на `t()`) |
 
 ## 11. legal-compliance-audit
 
