@@ -217,6 +217,7 @@
 | NRC2-04 | баг | B | Гейт графа выключен целиком: 24 skip (12 тестов × 2 движка) | tests/test_graph_interaction.py:178-202 | Открыт |
 | NRC2-05 | баг | C | Хук закоммичен с режимом `100644` — на POSIX не запустится | .githooks/pre-commit | Открыт |
 | NRC2-06 | баг | C | Шапка хука повреждена (строки 3–4 — байты 0x3f вместо UTF-8) | .githooks/pre-commit:3-4 | Открыт |
+| NRC2-07 | баг | B | CI запускает все тесты без фильтра, snapshot-тесты (эталоны Windows) падают на Ubuntu | .github/workflows/tests.yml (шаг Run tests) | Открыт |
 
 ## 18. repo-size-audit
 
