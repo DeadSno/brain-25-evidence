@@ -11,10 +11,15 @@ on:
   # поэтому CI не запускался на ней вообще — вся работа шагов DATA_P1_FIX,
   # DATA_LIVE_RUN, DATA_COMMIT и DOCS_COMMIT проверялась только локальным
   # pytest. Ветка v5.1-dev числилась с v5.4.1 как остаток и была мёртвой.
+  #
+  # 2026-10-25: ветка переименована v5.6-dev -> v5.6.5-dev (FIX-49, NRC2-02).
+  # Под новым именем её в списках не было, поэтому CI на ней не запускался
+  # вообще: пуши в v5.6.5-dev не проверялись ничем, кроме локального pytest
+  # и pre-commit хука, а красный CI на несуществующей ветке никто не видел.
   push:
-    branches: [main, v5.6-dev]
+    branches: [main, v5.6.5-dev]
   pull_request:
-    branches: [main, v5.6-dev]
+    branches: [main, v5.6.5-dev]
   workflow_dispatch:
 
 jobs:
@@ -48,6 +53,15 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements-dev.txt
+
+      # FIX-49 (NRC2-03): без установленных браузеров pytest падал на CI на
+      # первом же тесте, которому нужен Chromium (a11y/snapshots/graph), с
+      # «Executable doesn't exist at .../ms-playwright/chromium-...». Локально
+      # браузер уже стоит, поэтому падение видно только на раннере.
+      # --with-deps доставляет и системные библиотеки (libnss3 и прочее),
+      # которых на голом ubuntu-latest нет.
+      - name: Install Playwright browsers
+        run: python -m playwright install --with-deps chromium
 
       - name: Set up Node
         uses: actions/setup-node@v4
