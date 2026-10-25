@@ -516,7 +516,15 @@ self.addEventListener('activate', event => {
    cache-first; без бампа возвратные посетители остались бы со старым
    pwa.js без кнопки и со старым манифестом, а manifest.webmanifest вообще
    не имеет ?v= и разблокировать его иначе нечем. */
-var CACHE_VERSION = 'v157';
+/* Бамп v157 -> v158: FIX-71 — футер и переключатель языка переведены на
+   английский. У select#langSelect вместо зашитого aria-label="Сменить язык"
+   теперь data-i18n-aria-label="a11y.langSelect", у семи ссылок футера —
+   data-i18n-text, ключи добавлены в docs/i18n.js (ru + en).
+   i18n.js лежит в STATIC_ASSETS и отдаётся cache-first, поэтому его номер
+   ?v= поднят с 9 до 10 на 147 страницах и в обоих шаблонах sup — иначе
+   возвратный посетитель получил бы старый словарь, и applyI18n подставил бы
+   в футер имена ключей вместо текста. */
+var CACHE_VERSION = 'v158';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
