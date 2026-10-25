@@ -176,7 +176,7 @@
 | PR2-02 | улучшение | C | Нет `SECURITY.md` | корень | Открыт |
 | PR2-03 | улучшение | C | Нет `CODE_OF_CONDUCT.md` | корень | Открыт |
 | PR2-05 | улучшение | C | 10 скриптов в `scripts/` без модульного docstring | scripts/*.py | Открыт |
-| NPR2-01 | баг | B | README: 1979 и 1982 против фактических 1989 в `version.json` | README.md:267,315,338,364 | Открыт |
+| NPR2-01 | баг | B | README: 1979 и 1982 против фактических 1989 в `version.json` | README.md:267,315,338,364 | Закрыто (коммит 6c7813b9 — все числа в README приведены к 1990) |
 
 ## 15. pwa-audit
 
@@ -196,7 +196,7 @@
 
 | ID | Тип | Крит. | Краткое описание | Где | Статус |
 |---|---|---|---|---|---|
-| DS2-01 | баг | A | Число тестов расходится: version.json 1982, в README/CONVENTIONS/AGENTS 1979 | docs/version.json, README.md, CONVENTIONS.md, AGENTS.md | Открыт |
+| DS2-01 | баг | A | Число тестов расходится: version.json 1982, в README/CONVENTIONS/AGENTS 1979 | docs/version.json, README.md, CONVENTIONS.md, AGENTS.md | Закрыто (коммит 6c7813b9 — README/CONVENTIONS/CONTRIBUTING/SKILLS_INDEX/qa-deep-audit/docs-dev-AGENTS приведены к 1990, совпадает с version.json и `pytest --collect-only`) |
 | DS2-03 | баг | C | Хеши хотфиксов не привязаны к секции `[v5.6.5]` | CHANGELOG.md | Открыт |
 | NDS2-01 | баг | B | Hactar (12 коммитов 22.10) не описан: 0 упоминаний в CHANGELOG/README/ARCHITECTURE | CHANGELOG.md, README.md:227-231, ARCHITECTURE.md | Открыт |
 | NDS2-02 | баг | B | Ложные факты: CONVENTIONS 1979 «совпадает с version.json», ARCHITECTURE «112 тестов» | .opencode/skills/CONVENTIONS.md:43-44, ARCHITECTURE.md:161 | Открыт |
