@@ -500,7 +500,16 @@ self.addEventListener('activate', event => {
    падала с ReferenceError ровно в том состоянии, для которого страница и
    сделана. Оба файла лежат в STATIC_ASSETS и отдаются cache-first: без бампа
    пользователь получил бы их прежние копии без этих правок. */
-var CACHE_VERSION = 'v155';
+/* Бамп v155 -> v156: FIX-64 (PW2-03, PW2-04) — в STATIC_ASSETS добавлены
+   maskable-192.png и maskable-512.png: манифест предлагал их с самого
+   начала, но прекеш их не содержал, и на Android установка проходила без
+   маскируемых иконок, а офлайн — без них вовсе. Второе: version.json
+   переведён на network-first со сверкой поля app — при смене версии
+   приложения SW сам пересобирает кэш, не дожидаясь ручного бампа. Бамп
+   нужен потому, что sw.js и manifest.webmanifest лежат в прекеше и
+   отдаются cache-first: без него возвратные посетители получили бы старые
+   копии, где новых иконок нет. */
+var CACHE_VERSION = 'v156';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
@@ -512,6 +521,13 @@ var CACHE_DATA = CACHE_VERSION + '-data';
    под это НЕ подходят (там после /data идёт _ma_timeline / _price_history) и
    остаются в статике, как и раньше. */
 var DATA_RE = /\/data(_index)?\.json$/;
+
+/* version.json — единственный файл, по которому видно, что сайт обновился.
+   Стратегия для него своя (network-first со сверкой app), поэтому он не
+   может идти ни в DATA_RE (там всегда JSON-массив и пустое состояние []),
+   ни в cacheFirstForStatic (тот отдавал бы копию с первого визита и версию
+   приложения не увидел бы вовсе). */
+var VERSION_RE = /\/version\.json$/;
 
 /* sup/*.html, кроме sup/index.html. Каталог и пять прекешенных страниц
    (kreatin, magniy, omega-3, paba, vitamin-d) остаются в STATIC_ASSETS и
@@ -560,6 +576,11 @@ var STATIC_ASSETS = [
   './sup/vitamin-d.html',
   './icons/192.png',
   './icons/512.png',
+  /* PW2-03: маскируемые иконки манифест предлагал с самого начала, но в
+     прекеше их не было — при установке на Android они тянулись из сети, а в
+     офлайне отсутствовали. */
+  './icons/maskable-192.png',
+  './icons/maskable-512.png',
   './fonts/inter-regular.woff2',
   './fonts/inter-medium.woff2',
   './fonts/inter-semibold.woff2',
@@ -615,6 +636,72 @@ async function networkFirstForData(req) {
        загрузить данные» — то есть ХУЖЕ, чем было до v49. Пустой результат —
        валидный ответ, а не ошибка; observability даёт заголовок x-fallback. */
     return new Response('[]', {
+      status: 200,
+      headers: { 'Content-Type': 'application/json; charset=utf-8', 'x-fallback': 'empty' }
+    });
+  }
+}
+
+/* Версия приложения из version.json — поле app, строка вида "5.6.5".
+   Остальные поля для инвалидации не годятся: data — дата данных (меняется
+   пересборкой данных, не трогая статику), tests — счётчик тестов, audit —
+   версия методики. */
+function appVersionOf(json) {
+  if (!json || typeof json.app !== 'string') return '';
+  return json.app.trim();
+}
+
+/* PW2-04: полная пересборка кэша. Это ровно то, что делает бамп
+   CACHE_VERSION, но по факту смены app в version.json, а не по памяти
+   человека. Удаляем обе ветки (статика отдаётся cache-first, данные лежат
+   отдельно и тоже устарели), затем заново кладём прекеш. */
+async function rebuildCaches() {
+  await caches.delete(CACHE_STATIC);
+  await caches.delete(CACHE_DATA);
+  var cache = await caches.open(CACHE_STATIC);
+  await Promise.all(STATIC_ASSETS.map(function (url) {
+    return cache.add(url).catch(function (err) {
+      console.warn('[sw] skip ' + url + ':', err.message || err);
+    });
+  }));
+}
+
+/* PW2-04: version.json — network-first со сверкой версии приложения.
+
+   До этого version.json шёл через cacheFirstForStatic: копия с первого
+   визита отдавалась всегда, и даже новая версия сайта не была видна SW —
+   кэш чистился только ручным бампом CACHE_VERSION. Здесь свежий файл
+   берётся из сети при каждом запуске (version.js и так просит его с ?ts=,
+   staticCacheKey эту метку срезает), а поле app сравнивается с тем, что
+   лежит в кэше. Разошлось — значит сайт обновили, и кэш пересобирается
+   без участия человека. */
+async function networkFirstForVersion(req) {
+  var cache = await caches.open(CACHE_STATIC);
+  var key = staticCacheKey(req);
+  try {
+    var resp = await fetch(req, { cache: 'no-store' });
+    if (!resp || !resp.ok) throw new Error('version not 200');
+    var fresh = '';
+    try { fresh = appVersionOf(await resp.clone().json()); } catch (e) { fresh = ''; }
+    var prev = '';
+    var stored = await cache.match(key);
+    if (stored) {
+      try { prev = appVersionOf(await stored.json()); } catch (e) { prev = ''; }
+    }
+    if (prev && fresh && prev !== fresh) {
+      await rebuildCaches();
+      cache = await caches.open(CACHE_STATIC); // старая ссылка уже удалена
+    }
+    /* Запись в кэш может не пройти по квоте — ответ при этом валиден,
+       отдаём его как есть. */
+    try { await cache.put(key, resp.clone()); } catch (e) { /* квота: не блокер */ }
+    return resp;
+  } catch (err) {
+    /* Офлайн: последняя известная копия. Пустой объект — валидный JSON:
+       version.js просто нечего применить, и он сам пишет console.warn. */
+    var cached = await cache.match(key);
+    if (cached) return cached;
+    return new Response('{}', {
       status: 200,
       headers: { 'Content-Type': 'application/json; charset=utf-8', 'x-fallback': 'empty' }
     });
@@ -801,7 +888,9 @@ self.addEventListener('fetch', function (event) {
   var url = new URL(req.url);
   if (url.origin !== self.location.origin) return;
 
-  if (DATA_RE.test(url.pathname)) {
+  if (VERSION_RE.test(url.pathname)) {
+    event.respondWith(networkFirstForVersion(req));
+  } else if (DATA_RE.test(url.pathname)) {
     event.respondWith(networkFirstForData(req));
   } else if (SUP_HTML_RE.test(url.pathname) && url.pathname.indexOf('/sup/index.html') === -1) {
     event.respondWith(staleWhileRevalidateForSup(req));
