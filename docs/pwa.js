@@ -1,4 +1,4 @@
-/* v2.8 PWA: регистрация SW + бейдж «офлайн-режим». */
+/* v2.9 PWA: регистрация SW, бейдж «офлайн-режим» и кнопка установки. */
 (function () {
   var badge = null;
 
@@ -91,4 +91,87 @@
     if (!isReallyOffline()) hideBadge();
   });
   if (isReallyOffline()) showBadge();
+
+  /* v2.9 (FIX-66, NPW2-03): кнопка установки приложения.
+
+     beforeinstallprompt — единственная точка, из которой можно открыть
+     системный диалог установки: prompt() живёт на объекте события, а само
+     событие одноразовое и после prompt() переиспользованию не подлежит.
+     Поэтому оно откладывается в deferredPrompt, а кнопка появляется лишь
+     после того, как браузер сказал, что установка доступна: рисовать её
+     заранее значило бы обещать действие, которого может не быть (Firefox,
+     Safari, уже установленное приложение — там событие не приходит вовсе).
+
+     preventDefault() обязателен: без него Chrome показывает свою
+     мини-плашку, и наша кнопка стала бы вторым входом в тот же диалог.
+
+     Кнопка стоит в футере рядом с «Поделиться»: классы .share-row и .btn
+     уже есть в style.css, поэтому обе темы и min-height:44px из
+     .share-row .btn достаются без новых правил. На страницах без футера
+     (atlas, graph, map, interactions, compare, redirect'ы) кнопки нет:
+     там она легла бы поверх карты или боковой панели. */
+  var deferredPrompt = null;
+  var installRow = null;
+
+  function isStandalone() {
+    var media = window.matchMedia ? window.matchMedia('(display-mode: standalone)') : null;
+    return (media !== null && media.matches) || navigator.standalone === true;
+  }
+
+  function hideInstall() {
+    if (installRow) {
+      installRow.remove();
+      installRow = null;
+    }
+  }
+
+  function showInstall() {
+    if (installRow || isStandalone()) return;
+    var footer = document.querySelector('.site-footer');
+    if (footer) {
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'btn';
+      btn.id = 'pwaInstall';
+      btn.textContent = t('pwa.install');
+      btn.addEventListener('click', function () {
+        /* Событие обнуляется сразу: второй prompt() по нему браузер
+           отклонит, а повторно полученный beforeinstallprompt заведёт
+           новый deferredPrompt (например, после отказа пользователя и
+           следующего визита). */
+        var saved = deferredPrompt;
+        deferredPrompt = null;
+        if (saved) {
+          saved.prompt();
+          saved.userChoice.then(function (choice) {
+            hideInstall();
+            if (choice && choice.outcome === 'accepted') {
+              console.info('[pwa] приложение установлено');
+            }
+          }).catch(function (err) {
+            hideInstall();
+            console.warn('[pwa] установка не завершилась:', err.message || err);
+          });
+        }
+      });
+      installRow = document.createElement('p');
+      installRow.className = 'share-row';
+      installRow.id = 'pwaInstallRow';
+      installRow.appendChild(btn);
+      footer.appendChild(installRow);
+    }
+  }
+
+  window.addEventListener('beforeinstallprompt', function (event) {
+    event.preventDefault();
+    deferredPrompt = event;
+    showInstall();
+  });
+
+  /* appinstalled приходит и после установки из меню браузера, а не только
+     из нашей кнопки: кнопка к этому моменту не нужна ни в каком случае. */
+  window.addEventListener('appinstalled', function () {
+    deferredPrompt = null;
+    hideInstall();
+  });
 })();

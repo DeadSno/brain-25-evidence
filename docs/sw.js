@@ -509,7 +509,14 @@ self.addEventListener('activate', event => {
    нужен потому, что sw.js и manifest.webmanifest лежат в прекеше и
    отдаются cache-first: без него возвратные посетители получили бы старые
    копии, где новых иконок нет. */
-var CACHE_VERSION = 'v156';
+/* Бамп v156 -> v157: FIX-66 (NPW2-03, NPW2-04) — pwa.js получил кнопку
+   установки (обработчик beforeinstallprompt), i18n.js — её подпись, а
+   манифест переведён с тёмного #1c1c1e на светлый #f5f5f7 в
+   background_color/theme_color. Все три файла лежат в прекеше и отдаются
+   cache-first; без бампа возвратные посетители остались бы со старым
+   pwa.js без кнопки и со старым манифестом, а manifest.webmanifest вообще
+   не имеет ?v= и разблокировать его иначе нечем. */
+var CACHE_VERSION = 'v157';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 

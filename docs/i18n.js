@@ -477,6 +477,8 @@ const I18N = {
     "cite.copyFailed": "Не удалось скопировать",
     // pwa (перенесено из pwa.js, там локальный var I18N удалён)
     "pwa.offline": "📴 Офлайн-режим: данные могут быть устаревшими",
+    // FIX-66 (NPW2-03): кнопка установки приложения в футере.
+    "pwa.install": "📲 Установить приложение",
     // I2-02 (FIX-52): ключи, перенесённые сюда из docs/share.js,
     // docs/science2.js и docs/tracker.js. До этого каждый файл держал свой
     // мини-словарь и свою функцию t() — правка строки требовала обхода
@@ -1039,6 +1041,7 @@ const I18N = {
     "cite.copied": "✓ Copied!",
     "cite.copyFailed": "Failed to copy",
     "pwa.offline": "📴 Offline mode: data may be out of date",
+    "pwa.install": "📲 Install app",
     "share.label": "🔗 Share",
     "share.copied": "✓ Copied",
     "share.fail": "Failed to copy",
