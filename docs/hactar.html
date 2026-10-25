@@ -313,42 +313,42 @@
     </script>
 </head>
 <body class="hactar-page">
-<a href="#main" class="skip-link">Перейти к содержимому</a>
+<a href="#main" class="skip-link" data-i18n-text="a11y.skipToContent">Перейти к содержимому</a>
 <div class="site-header">
-  <div class="trustbar">🧬 Открытые данные · Бесплатно · Без рекламы</div>
+  <div class="trustbar" data-i18n-text="hactar.trustbar">🧬 Открытые данные · Бесплатно · Без рекламы</div>
   <header class="top">
     <div class="site-title"><a href="index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a> <span class="v">v<span data-version="app"></span></span></div>
     <nav class="actions" data-i18n-aria-label="a11y.navMain">
-      <a class="btn c-feedback" href="feedback.html">💬 Обратная связь</a>
-      <a class="btn c-support" href="support.html">💚 Поддержать</a>
-      <button class="btn c-theme" id="themeBtn" aria-label="Переключить на светлую тему">🌞 Светлая тема</button>
+      <a class="btn c-feedback" href="feedback.html" data-i18n-text="hactar.nav.feedback">💬 Обратная связь</a>
+      <a class="btn c-support" href="support.html" data-i18n-text="hactar.nav.support">💚 Поддержать</a>
+      <button class="btn c-theme" id="themeBtn" aria-label="Переключить на светлую тему" data-i18n-text="theme.light" data-i18n-aria-label="a11y.themeToLight">🌞 Светлая тема</button>
       <select id="langSelect" class="lang-select" aria-label="Сменить язык"><option value="ru">RU</option><option value="en">EN</option></select>
-      <button class="btn c-random" id="randomBtn">🎲 Удиви меня</button>
+      <button class="btn c-random" id="randomBtn" data-i18n-text="hactar.nav.random">🎲 Удиви меня</button>
     </nav>
   </header>
 </div>
 
 <main id="main">
   <nav class="breadcrumbs">
-    <a href="index.html">Главная</a> → <strong>Project Hactar</strong>
+    <a href="index.html" data-i18n-text="hactar.nav.home">Главная</a> → <strong>Project Hactar</strong>
   </nav>
   <div class="hactar-wrap">
     <aside class="hactar-sidebar" id="hactarSidebar">
-      <button class="hactar-done" id="hactarDone">Готово</button>
-      <input type="search" id="hactarSearch" class="hactar-search" placeholder="Поиск добавки…" aria-label="Поиск добавки" autocomplete="off">
+      <button class="hactar-done" id="hactarDone" data-i18n-text="hactar.sidebar.done">Готово</button>
+      <input type="search" id="hactarSearch" class="hactar-search" placeholder="Поиск добавки…" aria-label="Поиск добавки" autocomplete="off" data-i18n-placeholder="hactar.search.ph" data-i18n-aria-label="hactar.search.aria">
       <!-- Чипсы фильтра по грейду (H-3). По умолчанию активен «Все». -->
-      <div class="hactar-chips" id="hactarChips" role="group" aria-label="Фильтр по грейду доказательности">
-        <button type="button" class="hactar-chip" data-grade="all" aria-pressed="true" aria-label="Все — без фильтра по грейду">Все</button>
-        <button type="button" class="hactar-chip" data-grade="A" aria-pressed="false" aria-label="A — высокая доказательность" title="Грейд A — высокая доказательность">A</button>
-        <button type="button" class="hactar-chip" data-grade="B" aria-pressed="false" aria-label="B — средняя доказательность" title="Грейд B — средняя доказательность">B</button>
-        <button type="button" class="hactar-chip" data-grade="C" aria-pressed="false" aria-label="C — низкая доказательность" title="Грейд C — низкая доказательность">C</button>
-        <button type="button" class="hactar-chip" data-grade="D" aria-pressed="false" aria-label="D — недостаточно данных" title="Грейд D — недостаточно данных">D</button>
+      <div class="hactar-chips" id="hactarChips" role="group" aria-label="Фильтр по грейду доказательности" data-i18n-aria-label="hactar.chips.group">
+        <button type="button" class="hactar-chip" data-grade="all" aria-pressed="true" aria-label="Все — без фильтра по грейду" data-i18n-aria-label="hactar.chip.allAria" data-i18n-text="hactar.chip.all">Все</button>
+        <button type="button" class="hactar-chip" data-grade="A" aria-pressed="false" aria-label="A — высокая доказательность" title="Грейд A — высокая доказательность" data-i18n-aria-label="hactar.chip.aAria" data-i18n-title="hactar.chip.aTitle">A</button>
+        <button type="button" class="hactar-chip" data-grade="B" aria-pressed="false" aria-label="B — средняя доказательность" title="Грейд B — средняя доказательность" data-i18n-aria-label="hactar.chip.bAria" data-i18n-title="hactar.chip.bTitle">B</button>
+        <button type="button" class="hactar-chip" data-grade="C" aria-pressed="false" aria-label="C — низкая доказательность" title="Грейд C — низкая доказательность" data-i18n-aria-label="hactar.chip.cAria" data-i18n-title="hactar.chip.cTitle">C</button>
+        <button type="button" class="hactar-chip" data-grade="D" aria-pressed="false" aria-label="D — недостаточно данных" title="Грейд D — недостаточно данных" data-i18n-aria-label="hactar.chip.dAria" data-i18n-title="hactar.chip.dTitle">D</button>
       </div>
       <!-- Сброс выбора (H-3): снимает все галочки и чистит localStorage.
            Кнопка стоит над списком — до кнопки в конце длинного списка
            не добраться без прокрутки. -->
-      <button type="button" class="hactar-clear" id="hactarClearAll">Очистить всё</button>
-      <div id="hactarList" class="hactar-list" role="group" aria-label="Список добавок" aria-busy="true">
+      <button type="button" class="hactar-clear" id="hactarClearAll" data-i18n-text="hactar.clearAll">Очистить всё</button>
+      <div id="hactarList" class="hactar-list" role="group" aria-label="Список добавок" aria-busy="true" data-i18n-aria-label="hactar.list.aria">
         <!-- Скелетоны (H-2): видны сразу, до загрузки JSON. -->
         <div class="hactar-skel" aria-hidden="true"><span class="hactar-skel-box"></span><span class="hactar-skel-line"></span><span class="hactar-skel-pill"></span></div>
         <div class="hactar-skel" aria-hidden="true"><span class="hactar-skel-box"></span><span class="hactar-skel-line"></span><span class="hactar-skel-pill"></span></div>
@@ -361,32 +361,32 @@
         <div class="hactar-skel" aria-hidden="true"><span class="hactar-skel-box"></span><span class="hactar-skel-line"></span><span class="hactar-skel-pill"></span></div>
         <div class="hactar-skel" aria-hidden="true"><span class="hactar-skel-box"></span><span class="hactar-skel-line"></span><span class="hactar-skel-pill"></span></div>
       </div>
-      <p class="hactar-empty" id="hactarEmpty" hidden>Ничего не найдено</p>
+      <p class="hactar-empty" id="hactarEmpty" hidden data-i18n-text="hactar.notFound">Ничего не найдено</p>
     </aside>
     <div class="hactar-main" id="hactarMain">
       <div class="hactar-top">
         <h1>Project Hactar</h1>
-        <p class="sub">Подбор комбинаций БАДов из 130 добавок: связи, калькулятор доз и сравнение совместимости.</p>
+        <p class="sub" data-i18n-text="hactar.sub">Подбор комбинаций БАДов из 130 добавок: связи, калькулятор доз и сравнение совместимости.</p>
       </div>
-      <div class="hactar-pick">Выбрано: <strong><span id="hactarCount" aria-live="polite">0</span></strong> / <span id="hactarTotal">130</span>
+      <div class="hactar-pick"><span data-i18n-text="hactar.picked">Выбрано: </span><strong><span id="hactarCount" aria-live="polite">0</span></strong> / <span id="hactarTotal">130</span>
         <span class="hactar-stack-actions">
           <!-- NA2-02: видимая подпись короче действия, поэтому имя задано
                явно: у «Сохранить стек» не сказано, что именно сохраняется,
                а у «Мои стеки» — что кнопка раскрывает список. -->
-          <button type="button" class="hactar-stack-btn" id="hactarSaveStack" aria-label="Сохранить текущий стек добавок">💾 Сохранить стек</button>
+          <button type="button" class="hactar-stack-btn" id="hactarSaveStack" aria-label="Сохранить текущий стек добавок" data-i18n-text="hactar.stack.save" data-i18n-aria-label="hactar.stack.saveAria">💾 Сохранить стек</button>
           <span class="hactar-stacks-dropdown" id="hactarStacksDropdown" hidden>
-            <button type="button" class="hactar-stack-btn" id="hactarStacksToggle" aria-label="Открыть список сохранённых стеков" aria-expanded="false" aria-controls="hactarStacksList">📂 Мои стеки ▾</button>
+            <button type="button" class="hactar-stack-btn" id="hactarStacksToggle" aria-label="Открыть список сохранённых стеков" aria-expanded="false" aria-controls="hactarStacksList" data-i18n-text="hactar.stack.mine" data-i18n-aria-label="hactar.stack.mineAria">📂 Мои стеки ▾</button>
             <div class="hactar-stacks-list" id="hactarStacksList" hidden></div>
           </span>
         </span>
       </div>
-      <button class="hactar-btn-pick" id="hactarBtnPick">🔍 Выбрать добавки</button>
+      <button class="hactar-btn-pick" id="hactarBtnPick" data-i18n-text="hactar.btn.pick">🔍 Выбрать добавки</button>
       <!-- H-9: вкладок две, а не три. «Калькулятор» и «Сравнение»
            слиты в «Обзор» — четыре секции с общей прокруткой: когнитивная
            нагрузка падает, а весь набор данных остаётся на одном экране. -->
-      <div class="hactar-tabs" role="tablist" aria-label="Режимы Hactar">
-        <button role="tab" id="hactarTabOverview" aria-controls="hactarPanelOverview" aria-selected="true" tabindex="0" data-mode="overview">Обзор</button>
-        <button role="tab" id="hactarTabLinks" aria-controls="hactarPanelLinks" aria-selected="false" tabindex="-1" data-mode="links">Связи</button>
+      <div class="hactar-tabs" role="tablist" aria-label="Режимы Hactar" data-i18n-aria-label="hactar.tabs.aria">
+        <button role="tab" id="hactarTabOverview" aria-controls="hactarPanelOverview" aria-selected="true" tabindex="0" data-mode="overview" data-i18n-text="hactar.tab.overview">Обзор</button>
+        <button role="tab" id="hactarTabLinks" aria-controls="hactarPanelLinks" aria-selected="false" tabindex="-1" data-mode="links" data-i18n-text="hactar.tab.links">Связи</button>
       </div>
       <div class="hactar-panels">
         <!-- H-9/H-10: единая панель «Обзор». С H-9 вкладки «Калькулятор»
@@ -396,9 +396,9 @@
         <div class="hactar-panel active" id="hactarPanelOverview" data-panel="overview">
           <div class="hactar-empty-state">
             <div class="hactar-empty-art" aria-hidden="true">🧪</div>
-            <p class="hactar-empty-title">Пока ничего не выбрано</p>
-            <p class="hactar-empty-hint">Отметьте галочками добавки в левом меню, чтобы увидеть их связи, дозировки и совместимость</p>
-            <button type="button" class="hactar-empty-btn">🔍 Выбрать добавки</button>
+            <p class="hactar-empty-title" data-i18n-text="hactar.empty.title">Пока ничего не выбрано</p>
+            <p class="hactar-empty-hint" data-i18n-text="hactar.empty.hint">Отметьте галочками добавки в левом меню, чтобы увидеть их связи, дозировки и совместимость</p>
+            <button type="button" class="hactar-empty-btn" data-i18n-text="hactar.btn.pick">🔍 Выбрать добавки</button>
           </div>
           <!-- H-10: единая модульная таблица «Обзор». Строки собирает
                docs/hactar.js из массива OVERVIEW_ROWS: чтобы добавить
@@ -408,19 +408,19 @@
                название, остальные строки — параметры. -->
           <div class="hactar-ov" id="hactarOverview" hidden>
             <div class="hactar-ov-head">
-              <h2 class="hactar-ov-title">Обзор стека</h2>
+              <h2 class="hactar-ov-title" data-i18n-text="hactar.ov.title">Обзор стека</h2>
               <p class="hactar-ov-note" id="hactarOvNote"></p>
             </div>
             <div class="hactar-ov-scroll">
               <table class="hactar-ov-table">
-                <caption class="hactar-ov-caption">Параметры выбранных добавок</caption>
+                <caption class="hactar-ov-caption" data-i18n-text="hactar.ov.caption">Параметры выбранных добавок</caption>
                 <thead>
                   <tr id="hactarOvHead"></tr>
                 </thead>
                 <tbody id="hactarOvBody"></tbody>
               </table>
             </div>
-            <p class="hactar-ov-caption" style="font-size:var(--fs-6);margin-top:var(--space-2);color:var(--muted);">
+            <p class="hactar-ov-caption" style="font-size:var(--fs-6);margin-top:var(--space-2);color:var(--muted);" data-i18n-text="hactar.ov.footnote">
               * Стоимость указана ориентировочно на основе средних рыночных данных и не является публичной офертой.
             </p>
           </div>
@@ -430,9 +430,9 @@
                заголовок, подсказка и кнопка «Выбрать добавки». -->
           <div class="hactar-empty-state">
             <div class="hactar-empty-art" aria-hidden="true">🧪</div>
-            <p class="hactar-empty-title">Пока ничего не выбрано</p>
-            <p class="hactar-empty-hint">Отметьте галочками добавки в левом меню, чтобы увидеть их связи, дозировки и совместимость</p>
-            <button type="button" class="hactar-empty-btn">🔍 Выбрать добавки</button>
+            <p class="hactar-empty-title" data-i18n-text="hactar.empty.title">Пока ничего не выбрано</p>
+            <p class="hactar-empty-hint" data-i18n-text="hactar.empty.hint">Отметьте галочками добавки в левом меню, чтобы увидеть их связи, дозировки и совместимость</p>
+            <button type="button" class="hactar-empty-btn" data-i18n-text="hactar.btn.pick">🔍 Выбрать добавки</button>
           </div>
           <!-- H-6: эго-сеть выбранных добавок. Показывается, когда выбрана
                хотя бы одна добавка; пока ничего не выбрано — пустое
@@ -440,12 +440,12 @@
                никогда: только связи вокруг выбранных добавок (MAN-03). -->
           <div class="hactar-graph-wrap" id="hactarGraphWrap" hidden>
             <div class="hactar-graph-bar">
-              <div class="hactar-legend" aria-label="Легенда графа">
-                <span class="hactar-legend-item"><span aria-hidden="true">🟢</span> Добавки</span>
-                <span class="hactar-legend-item"><span aria-hidden="true">🟣</span> Механизмы</span>
-                <span class="hactar-legend-item"><span aria-hidden="true">🟠</span> Лекарства</span>
+              <div class="hactar-legend" aria-label="Легенда графа" data-i18n-aria-label="hactar.legend.aria">
+                <span class="hactar-legend-item"><span aria-hidden="true">🟢</span> <span data-i18n-text="hactar.legend.sups">Добавки</span></span>
+                <span class="hactar-legend-item"><span aria-hidden="true">🟣</span> <span data-i18n-text="hactar.legend.mechs">Механизмы</span></span>
+                <span class="hactar-legend-item"><span aria-hidden="true">🟠</span> <span data-i18n-text="hactar.legend.drugs">Лекарства</span></span>
               </div>
-              <button type="button" class="hactar-graph-reset" id="hactarGraphReset">[ Сброс ]</button>
+              <button type="button" class="hactar-graph-reset" id="hactarGraphReset" data-i18n-text="hactar.graph.reset">[ Сброс ]</button>
             </div>
             <!-- A2-06: canvas vis-network не попадает в дерево доступности и
                  не управляется с клавиатуры, поэтому фокус получает
@@ -454,11 +454,11 @@
                  управления клавишами, которого у vis-network 9.1.9 нет.
                  Текстовый эквивалент связей наполняет renderGraphAlt(). -->
             <div class="hactar-graph" id="hactarGraph" tabindex="0" role="img"
-                 aria-label="Интерактивный граф связей выбранных добавок: добавки, механизмы, лекарства и связи между ними"
+                 aria-label="Интерактивный граф связей выбранных добавок: добавки, механизмы, лекарства и связи между ними" data-i18n-aria-label="hactar.graph.aria"
                  aria-describedby="hactarGraphHint"></div>
-            <p class="sr-only" id="hactarGraphHint">Граф не управляется с клавиатуры: узлы нельзя выбрать стрелками. Текстовый список связей идёт сразу после графа.</p>
+            <p class="sr-only" id="hactarGraphHint" data-i18n-text="hactar.graph.hint">Граф не управляется с клавиатуры: узлы нельзя выбрать стрелками. Текстовый список связей идёт сразу после графа.</p>
             <p class="hactar-graph-note" id="hactarGraphNote" role="status"></p>
-            <div class="sr-only" id="hactarGraphAlt" role="group" aria-label="Текстовый список связей графа"></div>
+            <div class="sr-only" id="hactarGraphAlt" role="group" aria-label="Текстовый список связей графа" data-i18n-aria-label="hactar.graph.altAria"></div>
           </div>
         </div>
       </div>
@@ -561,8 +561,8 @@
       document.documentElement.classList.toggle('light', light);
       document.body.classList.toggle('light', light);
       localStorage.setItem('theme', light ? 'light' : 'dark');
-      themeBtn.textContent = light ? '🌚 Тёмная тема' : '🌞 Светлая тема';
-      themeBtn.setAttribute('aria-label', light ? 'Переключить на тёмную тему' : 'Переключить на светлую тему');
+      themeBtn.textContent = t(light ? 'theme.dark' : 'theme.light');
+      themeBtn.setAttribute('aria-label', t(light ? 'a11y.themeToDark' : 'a11y.themeToLight'));
     });
   }
 })();
@@ -571,18 +571,15 @@
      библиотека НЕ подключена тегом: её загружает hactar.js лениво
      (loadVisNetwork) только при переходе на вкладку «Связи». На «Обзоре»
      и «Сравнении» эти байты не качаются и не парсятся. -->
-<script src="hactar.js?v=28" defer></script>
-<script src="i18n.js?v=4"></script>
+<script src="hactar.js?v=29" defer></script>
+<script src="i18n.js?v=5"></script>
 <script src="share.js?v=2" defer></script>
 
 <footer class="site-footer">
   <p class="disc">
-    <b>⚠️ Не медицинская рекомендация.</b>
-    Сайт предоставляет данные из открытых научных источников
-    (PubMed, Europe PMC, CrossRef, OpenAlex, ClinicalTrials.gov, Wikimedia)
-    для информирования и самостоятельного образования.
-    <b>НЕ заменяет</b> консультацию, диагноз и лечение.
-    При любых сомнениях — обращайтесь к специалисту.
+    <b data-i18n-text="hactar.disc.title">⚠️ Не медицинская рекомендация.</b>
+    <span data-i18n-text="hactar.disc.body">Сайт предоставляет данные из открытых научных источников (PubMed, Europe PMC, CrossRef, OpenAlex, ClinicalTrials.gov, Wikimedia) для информирования и самостоятельного образования.</span>
+    <b data-i18n-text="hactar.disc.noReplace">НЕ заменяет</b> <span data-i18n-text="hactar.disc.footer">консультацию, диагноз и лечение. При любых сомнениях — обращайтесь к специалисту.</span>
   </p>
   <p class="meta">
     v<span data-version="app"></span> ·
@@ -597,7 +594,7 @@
     <a href="feed.xml">📡 RSS</a>
   </p>
   <p class="copy">© 2026 Vladislav "DeadSno" Pereshivalov · MIT</p>
-  <p class="share-row"><button class="btn share-page" type="button">🔗 Поделиться</button></p>
+  <p class="share-row"><button class="btn share-page" type="button" data-i18n-text="share.label">🔗 Поделиться</button></p>
 </footer>
 </body>
 </html>

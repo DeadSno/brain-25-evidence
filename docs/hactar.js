@@ -44,11 +44,12 @@
   'use strict';
 
   /* Расшифровка грейдов — та же, что в i18n.js (grade.A … grade.D). */
+  var T = window.t; /* FIX-53: общий t() из docs/i18n.js — здесь имя t затенено. */
   var GRADE_LABEL = {
-    A: 'Высокая доказательность',
-    B: 'Средняя',
-    C: 'Низкая',
-    D: 'Недостаточно данных'
+    A: T('grade.A'),
+    B: T('grade.B'),
+    C: T('grade.C'),
+    D: T('grade.D')
   };
 
   /* Ширина шторки — тот же брейкпоинт, что в <style> страницы (768px). */
@@ -541,7 +542,7 @@
     checkManySelected(selectedIds().length);
     renderOverview(selectedIds());
     if (selectedIds().length) ensureFullData();
-    showToast('Стек "' + stack.name + '" загружен', 'ok');
+    showToast(T('hactar.toast.stackLoaded', { name: stack.name }), 'ok');
   }
 
   /* Обновить видимость кнопки «Мои стеки» и перерисовать список. */
@@ -564,8 +565,8 @@
       html += '<div class="hactar-stack-item" data-name="' + esc(s.name) + '">' +
         '<span class="hactar-stack-item-name" title="' + esc(s.name) + '">' + esc(s.name) +
         ' <span class="hactar-ov-inline">(' + (s.ids ? s.ids.length : 0) + ')</span></span>' +
-        '<button type="button" class="hactar-stack-load" data-action="load" data-name="' + esc(s.name) + '">Загрузить</button>' +
-        '<button type="button" class="hactar-stack-del" data-action="del" data-name="' + esc(s.name) + '" aria-label="Удалить стек ' + esc(s.name) + '">✕</button>' +
+        '<button type="button" class="hactar-stack-load" data-action="load" data-name="' + esc(s.name) + '">' + T('hactar.stack.load') + '</button>' +
+        '<button type="button" class="hactar-stack-del" data-action="del" data-name="' + esc(s.name) + '" aria-label="' + esc(T('hactar.stack.delAria', { name: s.name })) + '">✕</button>' +
         '</div>';
     }
     stacksList.innerHTML = html;
@@ -624,10 +625,10 @@
                ' data-id="' + esc(id) + '" data-grade="' + grade + '">' +
              '<label class="hactar-card">' +
                '<input type="checkbox" class="hactar-check" value="' + esc(id) + '"' +
-                 ' aria-label="' + esc(name + ', грейд ' + grade) + '">' +
+                 ' aria-label="' + esc(T('hactar.card.aria', { name: name, grade: grade })) + '">' +
                '<span class="hactar-name" title="' + esc(name) + '">' + esc(name) + '</span>' +
                '<span class="grade g' + grade + '" aria-hidden="true"' +
-                 ' title="Грейд ' + grade + ' — ' + esc(GRADE_LABEL[grade]) + '">' + grade + '</span>' +
+                 ' title="' + T('hactar.card.gradePrefix') + grade + ' — ' + esc(GRADE_LABEL[grade]) + '">' + grade + '</span>' +
              '</label>' +
            '</div>';
   }
@@ -793,7 +794,7 @@
   function checkManySelected(n) {
     if (n >= 5 && !warnedMany) {
       warnedMany = true;
-      showToast('Выбрано 5+ добавок — для точного сравнения лучше оставить 2–3', 'off');
+      showToast(T('hactar.toast.many'), 'off');
     } else if (n < 5) {
       warnedMany = false;
     }
@@ -901,8 +902,8 @@
     scheduleSaveSelection();
     /* H-4: микро-фидбек — сказать, что именно произошло. */
     if (name) {
-      showToast(t.checked ? (name + ' добавлен в стек')
-                          : (name + ' удален из стека'),
+      showToast(t.checked ? T('hactar.toast.added', { name: name })
+                          : T('hactar.toast.removed', { name: name }),
                 t.checked ? 'ok' : 'off');
     }
     /* H-6: граф перерисовывается по факту смены выбора. */
@@ -943,7 +944,7 @@
     saveStackBtn.addEventListener('click', function () {
       var ids = selectedIds();
       if (!ids.length) {
-        showToast('Сначала выберите добавки', 'off');
+        showToast(T('hactar.toast.pickFirst'), 'off');
         return;
       }
       /* NP2-01: prompt возвращает null при отмене — это осознанный отказ,
@@ -951,23 +952,23 @@
          говорим тостом, иначе кнопка выглядит «мёртвой». */
       var name = null;
       try {
-        name = window.prompt('Название стека:', '');
+        name = window.prompt(T('hactar.prompt.stackName'), '');
       } catch (err) {
         name = null;
       }
       if (name === null) return;
       name = String(name).trim();
       if (!name) {
-        showToast('Имя стека не задано — стек не сохранён', 'off');
+        showToast(T('hactar.toast.noName'), 'off');
         return;
       }
       var result = saveStack(name, ids);
       if (result === 'created') {
-        showToast('Стек "' + name + '" сохранён', 'ok');
+        showToast(T('hactar.toast.saved', { name: name }), 'ok');
       } else if (result === 'updated') {
-        showToast('Стек "' + name + '" перезаписан', 'ok');
+        showToast(T('hactar.toast.overwritten', { name: name }), 'ok');
       } else {
-        showToast('Не удалось сохранить стек — хранилище недоступно', 'off');
+        showToast(T('hactar.toast.saveFail'), 'off');
       }
     });
   }
@@ -1007,7 +1008,7 @@
         }
       } else if (action === 'del') {
         deleteStack(name);
-        showToast('Стек "' + name + '" удалён', 'off');
+        showToast(T('hactar.toast.deleted', { name: name }), 'off');
       }
     });
   }
@@ -1139,9 +1140,9 @@
   var COLOR_SEV_LOW = graphColor('--graph-sev-low', 'gray');
 
   var SEVERITY = {
-    high: { color: COLOR_SEV_HIGH, label: 'высокий риск' },
-    medium: { color: COLOR_SEV_MEDIUM, label: 'средний риск' },
-    low: { color: COLOR_SEV_LOW, label: 'низкий риск' }
+    high: { color: COLOR_SEV_HIGH, label: T('hactar.sev.high') },
+    medium: { color: COLOR_SEV_MEDIUM, label: T('hactar.sev.medium') },
+    low: { color: COLOR_SEV_LOW, label: T('hactar.sev.low') }
   };
 
   var graphEl = document.getElementById('hactarGraph');
@@ -1215,7 +1216,7 @@
     var fallback = {
       label: key ? key.charAt(0).toUpperCase() + key.slice(1) : '—',
       plain: key ? 'механизм: ' + key : '',
-      tip: 'Механизм: ' + key
+      tip: T('hactar.tip.mech') + key
     };
     if (!fullMechs || !k) return fallback;
     var found = matchMech(fullMechs[fromId], k);
@@ -1240,9 +1241,9 @@
         plain: text,
         /* tip — подсказка простым текстом (см. комментарий про title
            в buildEgo): переносы строк, без HTML-тегов. */
-        tip: 'Механизм: ' + text +
-             (m[1] ? NL + 'Эффект: ' + m[1] : '') +
-             (m[2] ? NL + 'Сила связи: ' + m[2] : '')
+        tip: T('hactar.tip.mech') + text +
+             (m[1] ? NL + T('hactar.tip.effect') + m[1] : '') +
+             (m[2] ? NL + T('hactar.tip.strength') + m[2] : '')
       };
     }
     return null;
@@ -1275,9 +1276,9 @@
     if (tags.length) {
       var names = [];
       for (i = 0; i < tags.length; i++) names.push(tagLabels[tags[i]] || tags[i]);
-      parts.push('общие мишени: ' + names.join(', '));
+      parts.push(T('hactar.tip.commonTargets') + names.join(', '));
     }
-    if (mechs.length) parts.push('общий механизм: ' + mechs.join(', '));
+    if (mechs.length) parts.push(T('hactar.tip.commonMech') + mechs.join(', '));
     return parts.join(' · ');
   }
 
@@ -1338,8 +1339,8 @@
            title через innerText, поэтому HTML-теги в строке видны
            как есть («<b>Кофеин</b><br>…»). Переносы строк (\n)
            innerText превращает в настоящие переводы строк. */
-        title: name + NL + 'Грейд: ' + grade +
-               (effText ? NL + 'Эффекты: ' + effText : '')
+        title: name + NL + T('hactar.tip.grade') + grade +
+               (effText ? NL + T('hactar.tip.effects') + effText : '')
       });
     }
 
@@ -1365,9 +1366,9 @@
               size: 12,
               shape: 'diamond',
               font: { color: COLOR_LABEL, size: 10 },
-              title: 'Мишень: ' + tlabel
+              title: T('hactar.tip.target') + tlabel
             });
-            addEdge(sid, tid, 'мишень: ' + tlabel, COLOR_MECH, 1);
+            addEdge(sid, tid, T('hactar.tip.targetEdge') + tlabel, COLOR_MECH, 1);
           }
         } else if (t.indexOf('механизм: ') === 0) {
           var key = t.slice(10);
@@ -1399,7 +1400,7 @@
         var withName = String(it.with || '').trim();
         if (!withName || withName === 'нет данных') continue;
         var sev = SEVERITY[String(it.severity || '').toLowerCase()] ||
-                  { color: COLOR_SEV_LOW, label: 'риск не указан' };
+                  { color: COLOR_SEV_LOW, label: T('hactar.sev.unspecified') };
         var did = 'drug:' + withName;
         kinds[did] = 'drug';
         if (!parents[did]) parents[did] = supId;
@@ -1409,8 +1410,8 @@
           size: 12,
           shape: 'box',
           font: { color: COLOR_LABEL, size: 10 },
-          title: 'Лекарство: ' + withName +
-                 NL + 'Взаимодействие: ' + sev.label +
+          title: T('hactar.tip.drug') + withName +
+                 NL + T('hactar.tip.interaction') + sev.label +
                  (it.note ? NL + it.note : '')
         });
         addEdge(supId, did, sev.label + (it.note ? ' — ' + it.note : ''),
@@ -1709,14 +1710,14 @@
       var n = built.nodes[i];
       if (linked[n.id]) continue;
       var lonely = document.createElement('li');
-      lonely.textContent = (n.label || n.id) + ' — без связей';
+      lonely.textContent = (n.label || n.id) + T('hactar.graph.lonely');
       ul.appendChild(lonely);
     }
     if (ul.childNodes.length) {
       graphAlt.appendChild(ul);
     } else {
       var empty = document.createElement('p');
-      empty.textContent = 'Узлов и связей нет.';
+      empty.textContent = T('hactar.graph.empty');
       graphAlt.appendChild(empty);
     }
   }
@@ -1724,8 +1725,8 @@
   function applyEgo(built) {
     if (!network) return;
     if (graphNote) {
-      graphNote.textContent = 'Узлов: ' + built.nodes.length + ' · Связей: ' +
-        built.edges.length + ' — только вокруг выбранных добавок.';
+      graphNote.textContent = T('hactar.graph.noteNodes') + built.nodes.length + T('hactar.graph.noteEdges') +
+        built.edges.length + T('hactar.graph.noteTail');
     }
     renderGraphAlt(built);
     physicsPending = true;
@@ -1781,7 +1782,7 @@
       }).catch(function (err) {
         console.error('vis-network: не удалось загрузить', err);
         if (graphNote) {
-          graphNote.textContent = '⚠️ Не удалось загрузить библиотеку графа — связи недоступны.';
+          graphNote.textContent = T('hactar.graph.libFail');
         }
       });
       return;
@@ -1836,7 +1837,7 @@
     }).catch(function (err) {
       console.error('[hactar] не удалось загрузить данные графа:', err);
       if (graphNote) {
-        graphNote.textContent = '⚠️ Не удалось загрузить данные графа — связи недоступны.';
+        graphNote.textContent = T('hactar.graph.dataFail');
       }
     });
   }
@@ -1922,10 +1923,10 @@
 
   /* Тяжесть взаимодействия: подпись и класс .sev из style.css. */
   var OV_SEVERITY = {
-    critical: { label: 'критический риск', cls: 'sev-critical' },
-    high: { label: 'высокий риск', cls: 'sev-high' },
-    medium: { label: 'средний риск', cls: 'sev-medium' },
-    low: { label: 'низкий риск', cls: 'sev-low' }
+    critical: { label: T('hactar.sev.critical'), cls: 'sev-critical' },
+    high: { label: T('hactar.sev.high'), cls: 'sev-high' },
+    medium: { label: T('hactar.sev.medium'), cls: 'sev-medium' },
+    low: { label: T('hactar.sev.low'), cls: 'sev-low' }
   };
 
   /* ── разбор дозировок (из H-7, без изменений) ────────────────────────── */
@@ -2142,7 +2143,7 @@
   function ovGradeCell(rec) {
     var label = GRADE_LABEL[rec.grade];
     return '<span class="grade g' + rec.grade + '" aria-hidden="true"' +
-           ' title="Грейд ' + rec.grade + ' — ' + esc(label) + '">' +
+           ' title="' + T('hactar.card.gradePrefix') + rec.grade + ' — ' + esc(label) + '">' +
            rec.grade + '</span> <span class="hactar-ov-inline">' +
            esc(label) + '</span>';
   }
@@ -2151,7 +2152,7 @@
   function ovEffectsCell(rec) {
     var list = rec.effects || [];
     if (!list.length) {
-      return '<span class="hactar-ov-none">не указаны</span>';
+      return '<span class="hactar-ov-none">' + T('hactar.ov.notSpecified') + '</span>';
     }
     var html = '<ul class="hactar-ov-list">';
     for (var i = 0; i < list.length; i++) {
@@ -2176,7 +2177,7 @@
              '<div class="hactar-ov-dose-field">' +
                '<input type="text" inputmode="decimal" class="' + cls + '"' +
                  ' id="dose-' + id + '" data-id="' + id + '" value="' + esc(d.raw) + '"' +
-                 ' aria-label="Доза: ' + esc(rec.name) + '"' +
+                 ' aria-label="' + esc(T('hactar.ov.doseAria', { name: rec.name })) + '"' +
                  ' aria-invalid="' + (d.bad ? 'true' : 'false') + '"' +
                  ' aria-describedby="' + descId + '">' +
                (unit ? '<span class="hactar-ov-dose-unit">' + unit + '</span>' : '') +
@@ -2201,7 +2202,7 @@
       html += chunk;
     }
     if (d.min != null && d.max != null && d.min !== d.max) {
-      add('<span class="hactar-ov-dose-norm">норма ' +
+      add('<span class="hactar-ov-dose-norm">' + T('hactar.ov.norm') +
         esc(String(d.min).replace('.', ',')) + '–' +
         esc(String(d.max).replace('.', ',')) + ' ' + esc(d.unit) + '</span>');
     }
@@ -2209,21 +2210,21 @@
       /* NA2-08: на ошибку ссылается aria-describedby поля, а aria-live
          сообщает о её появлении, пока фокус ещё в поле. */
       add('<span class="hactar-ov-dose-err" id="dose-err-' + esc(rec.id) +
-        '" aria-live="polite">Ошибка: введите число' +
-        (d.unit ? ' в ' + esc(d.unit) : '') + '</span>');
+        '" aria-live="polite">' + T('hactar.ov.doseError') +
+        (d.unit ? T('hactar.ov.doseIn', { unit: esc(d.unit) }) : '') + '</span>');
     } else if (d.empty) {
-      add('<span class="hactar-ov-dose-ok">доза не задана</span>');
+      add('<span class="hactar-ov-dose-ok">' + T('hactar.ov.doseNotSet') + '</span>');
     } else if (d.over) {
-      add('<span class="hactar-ov-dose-warn">⚠️ превышена суточная норма ' +
+      add('<span class="hactar-ov-dose-warn">' + T('hactar.ov.doseOver') +
         esc(String(d.ulValue).replace('.', ',')) + ' ' + esc(d.ulUnit) + '</span>');
     } else if (d.ulValue != null && !d.comparable) {
       /* Единицы введённого и нормы не совпадают и к мг не приводятся —
          утверждать «в пределах нормы» было бы вымыслом (NP2-04). */
-      add('<span class="hactar-ov-dose-ok">норма указана в других единицах</span>');
+      add('<span class="hactar-ov-dose-ok">' + T('hactar.ov.doseOtherUnits') + '</span>');
     } else if (d.ulValue != null) {
-      add('<span class="hactar-ov-dose-ok">в пределах нормы</span>');
+      add('<span class="hactar-ov-dose-ok">' + T('hactar.ov.doseOk') + '</span>');
     } else {
-      add('<span class="hactar-ov-dose-ok">суточная норма не указана</span>');
+      add('<span class="hactar-ov-dose-ok">' + T('hactar.ov.doseNoNorm') + '</span>');
     }
     return html;
   }
@@ -2232,7 +2233,7 @@
   function ovDrugsCell(rec) {
     var list = rec.interactions || [];
     if (!list.length) {
-      return '<span class="hactar-ov-none">не выявлены</span>';
+      return '<span class="hactar-ov-none">' + T('hactar.ov.noneFound') + '</span>';
     }
     var html = '<ul class="hactar-ov-list">';
     for (var i = 0; i < list.length; i++) {
@@ -2281,7 +2282,7 @@
       if (ids[i] !== rec.id) others.push(ids[i]);
     }
     if (!others.length) {
-      return '<span class="hactar-ov-none">нужна ещё одна добавка</span>';
+      return '<span class="hactar-ov-none">' + T('hactar.ov.needOneMore') + '</span>';
     }
     var html = '';
     var conflicts = 0;
@@ -2291,19 +2292,19 @@
       for (var k = 0; k < cf.length; k++) {
         conflicts++;
         html += '<span class="hactar-ov-conflict">⚠️ ' + esc(rec.name) +
-          ' и ' + esc(other.name) +
+          T('hactar.ov.and') + esc(other.name) +
           (cf[k].note ? ': ' + esc(cf[k].note) : '') + '</span>';
       }
       if (!cf.length) {
         var basis = sharedBasis(rec.id, others[j]);
         if (basis) {
-          html += '<span class="hactar-ov-rel">' + esc(rec.name) + ' и ' +
+          html += '<span class="hactar-ov-rel">' + esc(rec.name) + T('hactar.ov.and') +
             esc(other.name) + ': ' + esc(basis) + '</span>';
         }
       }
     }
     if (!conflicts) {
-      html += '<span class="hactar-ov-none">Конфликтов не обнаружено</span>';
+      html += '<span class="hactar-ov-none">' + T('hactar.ov.noConflicts') + '</span>';
     }
     return html;
   }
@@ -2316,7 +2317,7 @@
       var shop = SHOPS[i];
       html += '<a class="hactar-ov-shop" href="' + shop.base + q + '"' +
               ' target="_blank" rel="noopener nofollow"' +
-              ' aria-label="Купить ' + esc(rec.name) + ' на ' +
+              ' aria-label="' + T('hactar.ov.buyAriaPrefix') + esc(rec.name) + T('hactar.ov.buyAriaOn') +
               esc(shop.label) + '">' + esc(shop.label) + '</a>';
     }
     return html + '</div>';
@@ -2331,7 +2332,7 @@ function priceOf(rec) {
 /* Ячейка строки «Стоимость курса (₽/мес)*. Цена aproximate — префикс ~. */
 function ovPriceCell(rec) {
   return '<span class="hactar-ov-price">~ ' + esc(priceOf(rec)) + ' ₽</span>' +
-         ' <span class="hactar-ov-inline">/ мес</span>';
+         ' <span class="hactar-ov-inline">' + T('hactar.ov.perMonth') + '</span>';
 }
 
   /* ── строки таблицы ───────────────────────────────────────────────────
@@ -2348,22 +2349,22 @@ function ovPriceCell(rec) {
         text.indexOf('расслаб') !== -1 ||
         text.indexOf('магний') !== -1 ||
         text.indexOf('глицин') !== -1) {
-      return { label: 'Вечер/ночь', emoji: '🌙', order: 3 };
+      return { label: T('hactar.time.evening'), emoji: '🌙', order: 3 };
     }
     if (text.indexOf('энерг') !== -1 ||
         text.indexOf('бодр') !== -1 ||
         text.indexOf('кофеин') !== -1 ||
         text.indexOf('витамин d') !== -1) {
-      return { label: 'Утро', emoji: '🌅', order: 1 };
+      return { label: T('hactar.time.morning'), emoji: '🌅', order: 1 };
     }
-    return { label: 'День', emoji: '☀️', order: 2 };
+    return { label: T('hactar.time.day'), emoji: '☀️', order: 2 };
   }
 
   /* H-12: ячейка строки «Время приёма» — бейдж с эмодзи. */
   function ovTimingCell(rec) {
     var t = timingOf(rec);
     return '<span class="hactar-ov-inline" title="' +
-           esc('Приём: ' + t.label) + '">' + t.emoji + ' ' + esc(t.label) + '</span>';
+           esc(T('hactar.time.aria', { label: t.label })) + '">' + t.emoji + ' ' + esc(t.label) + '</span>';
   }
 
 
@@ -2402,16 +2403,16 @@ const PRICE_MAP = {
 var DEFAULT_PRICE = 500;
 
 var OVERVIEW_ROWS = [
-    { key: 'grade', label: 'Грейд', render: function (rec) { return ovGradeCell(rec); } },
-    { key: 'effects', label: 'Эффекты', render: function (rec) { return ovEffectsCell(rec); } },
-    { key: 'dosage', label: 'Дозы', render: function (rec) { return ovDoseCell(rec); } },
-    { key: 'timing', label: 'Время приёма', render: function (rec) { return ovTimingCell(rec); } },
-    { key: 'interactions_drugs', label: 'Взаимодействия с лекарствами',
+    { key: 'grade', label: T('hactar.ov.row.grade'), render: function (rec) { return ovGradeCell(rec); } },
+    { key: 'effects', label: T('hactar.ov.row.effects'), render: function (rec) { return ovEffectsCell(rec); } },
+    { key: 'dosage', label: T('hactar.ov.row.dosage'), render: function (rec) { return ovDoseCell(rec); } },
+    { key: 'timing', label: T('hactar.ov.row.timing'), render: function (rec) { return ovTimingCell(rec); } },
+    { key: 'interactions_drugs', label: T('hactar.ov.row.drugs'),
       render: function (rec) { return ovDrugsCell(rec); } },
-    { key: 'interactions_between', label: 'Взаимодействия между добавками',
+    { key: 'interactions_between', label: T('hactar.ov.row.between'),
       render: function (rec, ids) { return ovBetweenCell(rec, ids); } },
-    { key: 'buy', label: 'Где купить', render: function (rec) { return ovBuyCell(rec); } },
-    { key: 'price', label: 'Стоимость курса (₽/мес)*',
+    { key: 'buy', label: T('hactar.ov.row.buy'), render: function (rec) { return ovBuyCell(rec); } },
+    { key: 'price', label: T('hactar.ov.row.price'),
       render: function (rec) { return ovPriceCell(rec); } }
   ];
 
@@ -2419,7 +2420,7 @@ var OVERVIEW_ROWS = [
 
   /* Шапка: «Параметр» и по колонке на добавку (её название). */
   function ovHeadHtml(recs) {
-    var html = '<th scope="col" class="hactar-ov-param">Параметр</th>';
+    var html = '<th scope="col" class="hactar-ov-param">' + T('hactar.ov.param') + '</th>';
     for (var i = 0; i < recs.length; i++) {
       html += '<th scope="col" class="hactar-ov-sup">' + esc(recs[i].name) + '</th>';
     }
@@ -2473,13 +2474,13 @@ var OVERVIEW_ROWS = [
         withGrade++;
       }
     }
-    var text = ids.length + ' ' + ovPlural(ids.length, 'добавка', 'добавки', 'добавок');
+    var text = ids.length + ' ' + ovPlural(ids.length, T('hactar.ov.count1'), T('hactar.ov.count2'), T('hactar.ov.count5'));
     if (withGrade) {
       var avg = Math.round(sum / withGrade);
       if (avg < 1) avg = 1;
       if (avg > 4) avg = 4;
       var letter = avg >= 4 ? 'A' : (avg === 3 ? 'B' : (avg === 2 ? 'C' : 'D'));
-      text += ' · средний грейд ' + letter;
+      text += T('hactar.ov.avgGrade') + letter;
     }
     return text;
   }
@@ -2543,12 +2544,12 @@ var OVERVIEW_ROWS = [
      отключённое хранилище). */
   var REDIRECT_KEY = 'hactarRedirectedFrom';
   var REDIRECT_PAGES = {
-    calculator: 'Калькулятор',
-    compare: 'Сравнение',
-    interactions: 'Связи',
-    map: 'Карта механизмов',
-    graph: 'Граф связей',
-    atlas: 'Атлас'
+    calculator: T('hactar.redirect.calculator'),
+    compare: T('hactar.redirect.compare'),
+    interactions: T('hactar.redirect.interactions'),
+    map: T('hactar.redirect.map'),
+    graph: T('hactar.redirect.graph'),
+    atlas: T('hactar.redirect.atlas')
   };
 
   function redirectedFrom() {
@@ -2567,8 +2568,8 @@ var OVERVIEW_ROWS = [
   function notifyRedirect() {
     var from = redirectedFrom();
     if (!from) return;
-    showToast('Страница «' + REDIRECT_PAGES[from] +
-              '» переехала — теперь это Project Hactar', 'ok');
+    showToast(T('hactar.redirect.toastPrefix') + REDIRECT_PAGES[from] +
+              T('hactar.redirect.toastSuffix'), 'ok');
   }
 
   showSkeleton();
@@ -2603,7 +2604,7 @@ var OVERVIEW_ROWS = [
     })
     .catch(function (err) {
       console.error('[hactar] не удалось загрузить список добавок:', err);
-      listEl.innerHTML = '<p class="hactar-empty">⚠️ Не удалось загрузить список добавок. Обновите страницу.</p>';
+      listEl.innerHTML = '<p class="hactar-empty">' + T('hactar.list.fail') + '</p>';
       listEl.setAttribute('aria-busy', 'false');
     });
 

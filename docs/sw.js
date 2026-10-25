@@ -462,7 +462,14 @@ self.addEventListener('activate', event => {
    .lang-select, за ним style.min.css ?v= 458 -> 459. Без бампа кэша
    пользователь получил бы старый i18n.js: без локали en и без
    переключателя. */
-var CACHE_VERSION = 'v148';
+/* Бамп v148 -> v149: FIX-53 (NI2-01, NI2-02) — hactar.js переведён на общий
+   t() из docs/i18n.js: строки интерфейса (таблица «Обзор», тосты, стек,
+   граф, пустые состояния) вынесены в словарь, в hactar.html добавлены
+   атрибуты data-i18n-… для статики. hactar.js вышел за ?v= 28 -> 29, i18n.js — за
+   ?v= 4 -> 5 (146 страниц и два шаблона sup). Без бампа кэша пользователь
+   получил бы старый i18n.js, в котором новых ключей нет: вместо текста
+   Hactar показал бы имена ключей. style.min.css ?v= 459 не менялся. */
+var CACHE_VERSION = 'v149';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
