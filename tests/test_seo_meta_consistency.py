@@ -73,6 +73,7 @@ CONTENT_PAGES = (
     "methodology.html",
     "privacy.html",
     "support.html",
+    "terms-of-use.html",
     "trends.html",
 )
 

@@ -84,6 +84,9 @@ ROOT_PAGES: list[tuple[str, str, str]] = [
     ("feedback.html", "monthly", "0.4"),
     ("support.html", "monthly", "0.3"),
     ("privacy.html", "monthly", "0.3"),
+    # v5.6.5 FIX-55 (L2-01): условия использования и лицензия на данные
+    # (CC BY 4.0). Меняется редко — yearly с тем же весом, что у приватности.
+    ("terms-of-use.html", "yearly", "0.3"),
 ]
 
 # Каталог секции добавок — вузел над карточками, поэтому выше их.
