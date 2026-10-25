@@ -152,8 +152,8 @@
 | U2-02 | баг | B | Ввод букв в дозу → NaN считается «в норме» (`cntOk++`) | docs/hactar.js (doseInfo) | Закрыто (коммит 3a4b5d36 — `doseInfo` отдаёт `value: null` вместо NaN, буквы помечаются `bad`; счётчиков `cntOk`/`cntBad` в docs/ больше нет — calculator.html с FIX-03 заглушка) |
 | U2-03 | улучшение | C | Чипы магазинов без визуального отклика (`:active` / тост) | docs/style.css, docs/script.js | Закрыто (коммит ad5cd2cb — `:active` для `.shop-chip`, `.shop` и `#modal .shopBtn`: `scale(.96)` + рамка и фон акцента, видно на мобильном, где нет `:hover`; `docs/style.min.css` пересобран csso, `?v=` поднят до 460) |
 | U2-05 | улучшение | C | «Удиви меня» — слабая микроинтеракция | docs/script.js | Закрыто (коммит ad5cd2cb — `.btn.c-random:active`: сдвиг на 1px, вдавленная тень `inset 0 2px 6px` и `brightness(.96)`; правило специфичнее общего `.btn:active` и перебивает его без `!important`; JS не понадобился) |
-| U2-06 | баг | C | Копирование ссылки без `.catch()` — при ошибке нет отклика | docs/share.js | Открыт |
-| NU2-01 | улучшение | C | Пустой результат поиска в Hactar без CTA «Сбросить» | docs/hactar.html:325 | Открыт |
+| U2-06 | баг | C | Копирование ссылки без `.catch()` — при ошибке нет отклика | docs/share.js | Закрыто (коммит 06fe8c23 — дефект был не в `share.js`, а в `docs/script.js`: у `.copyLink` появились `.catch()` с откатом на `document.execCommand`, `aria-live` и откликом «Не удалось скопировать»; `script.min.js` пересобран terser) |
+| NU2-01 | улучшение | C | Пустой результат поиска в Hactar без CTA «Сбросить» | docs/hactar.html:325 | Закрыто (коммит 06fe8c23 — в пустое состояние добавлена кнопка «Сбросить фильтры» (`#hactarResetFilters`, ключ `hactar.search.reset`): очищает поиск, снимает фильтр грейда и возвращает фокус в поле) |
 
 ## 13. marketing-deep-audit
 
