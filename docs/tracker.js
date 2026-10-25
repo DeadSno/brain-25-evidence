@@ -8,28 +8,9 @@
   let DEFAULT_DAYS = 30;
   let _supplementsCache = null;
 
-  // 13A1 (I18N-P2-01): пользовательские строки — в словаре; см. docs/script.js.
-  const I18N = {
-    ru: {
-      "tracker.inCourse": "📅 В курсе (",
-      "tracker.done": "✅ Курс завершён",
-      "tracker.add": "📅 В мой курс",
-      "tracker.dosePrefix": "Доза: ",
-      "tracker.privacy": "🔒 Данные хранятся только в вашем браузере, никуда не отправляются",
-      "tracker.mySupps": "📅 Мои добавки",
-      "tracker.since": "с ",
-      "tracker.take": "+ Принял",
-      "tracker.remove": "убрать",
-      "tracker.doneSuffix": " — курс завершён ✅"
-    }
-  };
-  function t(key, params) {
-    const lang = (document.documentElement.lang || 'ru').slice(0, 2);
-    const dict = I18N[lang] || I18N.ru;
-    let s = dict[key] != null ? dict[key] : (I18N.ru[key] != null ? I18N.ru[key] : key);
-    if (params) s = s.replace(/\{(\w+)\}/g, (m, k) => (k in params ? params[k] : m));
-    return s;
-  }
+  // I2-02 (FIX-52): словарь и t() переехали в docs/i18n.js. tracker.js
+  // подключается с defer после синхронного i18n.js в <head>, поэтому
+  // глобальный t() уже определён.
 
   function fetchSupplements() {
     if (_supplementsCache) return Promise.resolve(_supplementsCache);
