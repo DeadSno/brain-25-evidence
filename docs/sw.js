@@ -469,7 +469,13 @@ self.addEventListener('activate', event => {
    ?v= 4 -> 5 (146 страниц и два шаблона sup). Без бампа кэша пользователь
    получил бы старый i18n.js, в котором новых ключей нет: вместо текста
    Hactar показал бы имена ключей. style.min.css ?v= 459 не менялся. */
-var CACHE_VERSION = 'v149';
+/* Бамп v149 -> v150: FIX-56 (NL2-01, L2-04, NL2-02) — честность UI: слово
+   «Купить» убрано из интерфейса (заголовок строки обзора и aria-подписи
+   чипов магазинов стали «Где искать» / «Найти»), в docs/privacy.html
+   добавлен раздел о localStorage Hactar. Без бампа кэша пользователь
+   получил бы прежние i18n.js и sup-страницы с подписями «Где купить».
+   style.min.css ?v= 459 не менялся. */
+var CACHE_VERSION = 'v150';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 

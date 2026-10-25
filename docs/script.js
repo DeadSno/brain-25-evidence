@@ -225,7 +225,7 @@ function wikiLink(s) {
     encodeURIComponent(s.name.replace(/\+/g, ' ')) + '">' + t("sources.wiki") + '</a>';
 }
 
-// ===== v5.6.5: блок «Где купить» + «Что искать при покупке» в модалке =====
+// ===== v5.6.5: блок «Где искать» + «Что искать при покупке» в модалке =====
 function shopBlock(s) {
   const name = s.name || '';
   // «первая форма из массива»: с FIX-39 (D2-04) в данных forms — массив
