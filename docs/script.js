@@ -555,12 +555,46 @@ function initApp() {
   }
 });
 
+  /* U2-06 (25.10.2026): копирование умело только успех. Если буфер обмена
+     недоступен (нет разрешения, страница открыта не по HTTPS, старый
+     браузер), обработчик молчал: человек нажимал и не понимал, сработало
+     ли. Теперь у обеих веток есть отклик — «Скопировано» или «Не удалось
+     скопировать», плюс запасной путь через execCommand. Тост здесь не
+     годится: showToast живёт внутри IIFE в hactar.js и наружу не отдан. */
+  function copyMark(el, text) {
+    const old = el.textContent;
+    el.setAttribute('aria-live', 'polite');
+    el.textContent = text;
+    setTimeout(() => { el.textContent = old; }, 1500);
+  }
+  function copyLegacy(text) {
+    const area = document.createElement('textarea');
+    area.value = text;
+    area.setAttribute('readonly', '');
+    area.style.position = 'fixed';
+    area.style.opacity = '0';
+    document.body.appendChild(area);
+    area.select();
+    let ok = false;
+    try { ok = document.execCommand('copy'); } catch (err) { ok = false; }
+    document.body.removeChild(area);
+    return ok;
+  }
   document.addEventListener('click', e => {
     const b = e.target.closest('.copyLink');
     if (!b) return;
-    navigator.clipboard.writeText(b.dataset.copy).then(() => {
-      const old = b.textContent; b.textContent = t("common.copied");
-      setTimeout(() => { b.textContent = old; }, 1500);
+    const text = b.dataset.copy || '';
+    if (!navigator.clipboard || !navigator.clipboard.writeText) {
+      const ok = copyLegacy(text);
+      copyMark(b, ok ? t("common.copied") : t("share.fail"));
+      return;
+    }
+    navigator.clipboard.writeText(text).then(() => {
+      copyMark(b, t("common.copied"));
+    }).catch(err => {
+      console.error('[copy] clipboard.writeText не сработал, пробуем execCommand:', err);
+      const ok = copyLegacy(text);
+      copyMark(b, ok ? t("common.copied") : t("share.fail"));
     });
   });
   const deep = decodeURIComponent(location.hash.replace('#sup=', ''));

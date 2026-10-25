@@ -78,6 +78,20 @@
   var listEl = document.getElementById('hactarList');
   var emptyEl = document.getElementById('hactarEmpty');
   var searchEl = document.getElementById('hactarSearch');
+  /* NU2-01 (25.10.2026): пустой результат поиска был тупиком — «Ничего не
+     найдено» и ни одного выхода, кроме как стирать запрос руками. Кнопка
+     снимает и строку поиска, и фильтр грейда (пусто может быть из-за
+     любого из двух), затем возвращает фокус в поле, чтобы можно было сразу
+     печатать заново. setGrade сам вызывает applyFilter — он и пересчитает
+     видимость блока. */
+  var resetFiltersBtn = document.getElementById('hactarResetFilters');
+  if (resetFiltersBtn) {
+    resetFiltersBtn.addEventListener('click', function () {
+      if (searchEl) searchEl.value = '';
+      setGrade(GRADE_ALL);
+      if (searchEl) searchEl.focus();
+    });
+  }
   var countEl = document.getElementById('hactarCount');
   var totalEl = document.getElementById('hactarTotal');
   var sidebar = document.getElementById('hactarSidebar');
