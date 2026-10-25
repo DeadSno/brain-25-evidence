@@ -119,7 +119,7 @@ python -m http.server 8000 --directory docs
 ### Проверка перед коммитом
 
 ```bash
-pytest -q          # ожидается: 1979 passed, 0 skipped (~8-10 мин)
+pytest -q          # ожидается: 1990 passed, 0 skipped (~8-10 мин)
 ```
 
 В v5.6.5 opt-in гейты `RUN_*` удалены: `pytest -q` запускает и браузерные
