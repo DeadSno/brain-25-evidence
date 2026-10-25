@@ -8,11 +8,11 @@
 
 | Что | Значение | Как проверить |
 |---|---|---|
-| HTML, контентные | 14 в `docs/` | `ls docs/*.html` — их 16: 14 контентные (2 из них — noindex-редиректы: `atlas.html` → `interactions.html#mech`, `graph.html` → `interactions.html#graph`), плюс `offline.html` (запасной экран SW) и `google4a9d23e35c6c3e23.html` (файл верификации Google). Верификация Яндекса — метатегом в `docs/index.html` (16.10.2026, файл `yandex_cc2e3cf2ee185b01.html` удалён) |
+| HTML, контентные | 12 в `docs/` | `ls docs/*.html` — их 18: 12 контентных, 3 noindex-редиректа (`atlas.html` → `interactions.html#mech`, `graph.html` → `interactions.html#graph`, `map.html` → `hactar.html?tab=graph`), плюс `404.html` и `offline.html` (служебные) и `google4a9d23e35c6c3e23.html` (файл верификации Google). Верификация Яндекса — метатегом в `docs/index.html` (16.10.2026, файл `yandex_cc2e3cf2ee185b01.html` удалён) |
 | HTML, sup | 131 в `docs/sup/` (index + 130 карточек) | `ls docs/sup/*.html \| wc -l` |
 | JS | 10 файлов в `docs/` | `ls docs/*.js \| wc -l` |
-| CSS | `docs/style.css`, версия `?v=440` | `grep -ho 'style\.css?v=[0-9]*' docs/*.html docs/sup/*.html \| sort -u` |
-| SW cache | `v113` | `grep CACHE_VERSION docs/sw.js` → `var CACHE_VERSION = 'v113'` |
+| CSS | `docs/style.min.css` (исходник — `docs/style.css`), версия `?v=458` | `grep -ho 'style\(\.min\)\?\.css?v=[0-9]*' docs/*.html docs/sup/*.html \| sort -u` |
+| SW cache | `v146` | `grep CACHE_VERSION docs/sw.js` → `var CACHE_VERSION = 'v146'` |
 | Тесты | **1990 passed** полный прогон в основном checkout — см. «Базовая линия тестов» | `pytest -q` → `1990 passed, 0 failed, 0 skipped` |
 | Скиллы | 19 проектных в git (20 в main checkout: `cyberaudit` в `.gitignore`) + 20 глобальных | `ls .opencode/skills/ \| wc -l`, `ls ~/.config/opencode/skills/ \| wc -l` |
 

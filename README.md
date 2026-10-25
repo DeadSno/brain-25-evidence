@@ -10,7 +10,7 @@
 
 **🌐 Streamlit Live demo:** [brain-25-evidence.streamlit.app](https://brain-25-evidence.streamlit.app)
 
-**📖 Статический сайт:** [Открыть сайт](https://deadsno.github.io/brain-25-evidence/) | [🧮 Калькулятор](https://deadsno.github.io/brain-25-evidence/calculator.html) | [Карта механизмов](https://deadsno.github.io/brain-25-evidence/map.html) | [Карта связей](https://deadsno.github.io/brain-25-evidence/interactions.html) | [Атлас](https://deadsno.github.io/brain-25-evidence/atlas.html) | [Задать вопрос](https://deadsno.github.io/brain-25-evidence/faq.html)
+**📖 Статический сайт:** [Открыть сайт](https://deadsno.github.io/brain-25-evidence/) | [🧮 Калькулятор](https://deadsno.github.io/brain-25-evidence/calculator.html) | [🧩 Project Hactar](https://deadsno.github.io/brain-25-evidence/hactar.html) | [Карта связей](https://deadsno.github.io/brain-25-evidence/interactions.html) | [Задать вопрос](https://deadsno.github.io/brain-25-evidence/faq.html)
 
 ![Превью дашборда](docs/og.png)
 
@@ -131,7 +131,7 @@ NCCAM, NIAAA, NICHD, NIGMS. **Ни одной фарм-компании в ТО�
 
 - **Хочешь посмотреть результаты?** Открой [сайт](https://deadsno.github.io/brain-25-evidence/) — фильтры, поиск, модалки, радар сравнения.
 - **Хочешь работать с сырыми данными?** Открой [Streamlit dashboard](https://brain-25-evidence.streamlit.app) — фильтры по году / design / species / quartile, поиск, экспорт CSV.
-- **Хочешь увидеть механизмы?** [Карта механизмов](https://deadsno.github.io/brain-25-evidence/map.html) — добавка → мишень в организме → эффект, с цветовой кодировкой доказательности.
+- **Хочешь собрать свой стек?** [Project Hactar](https://deadsno.github.io/brain-25-evidence/hactar.html) — подбор добавок: сводная таблица доз, взаимодействий, тайминга и цены плюс граф связей выбранного набора.
 - **Хочешь посчитать дозы?** [Калькулятор БАДов](https://deadsno.github.io/brain-25-evidence/calculator.html) — вес/пол/возраст, UL-проверка, конфликты по группам, 8 готовых профилей.
 - **Хочешь поспорить с методологией?** Раздел [Методология](#методология) и issues.
 - **Хочешь запустить у себя?** Раздел [Локальный запуск](#локальный-запуск).
@@ -224,7 +224,8 @@ brain-25-evidence/
 ├── docs/                          # статический сайт (GitHub Pages)
 │   ├── index.html                 # дашборд: фильтры, поиск, модалки, радар
 │   ├── calculator.html            # калькулятор доз и конфликтов
-│   ├── map.html                   # карта механизмов (130 узла + оверлей + кросс-связи)
+│   ├── hactar.html                # Project Hactar: подбор добавок, обзор-таблица, граф связей
+│   ├── map.html                   # noindex-редирект на hactar.html?tab=graph (v5.6.5)
 │   ├── interactions.html          # хаб связей (синергии/конфликты; поглощает atlas/graph)
 │   ├── atlas.html / graph.html    # noindex-редиректы на interactions.html (v5.6.5)
 │   ├── compare.html               # сравнение карточек (2-3 добавки)
@@ -237,7 +238,7 @@ brain-25-evidence/
 │   ├── sup/                       # 130 карточек добавок + index.html (каталог), генерируются
 │   ├── vendor/                    # вендоренные библиотеки: vis-network, chart.js, bootstrap
 │   ├── api/v1/                    # REST API: supplements.json, openapi.yaml, схемы
-│   ├── script.js / science2.js / tracker.js / share.js / pwa.js / version.js
+│   ├── script.js / hactar.js / science2.js / tracker.js / share.js / pwa.js / version.js
 │   ├── style.css                  # стили (+ мобильная адаптация)
 │   ├── data.json                  # ГЕНЕРИРУЕТСЯ (не править руками)
 │   ├── data_index.json            # лёгкая проекция для главной (84 КБ)
@@ -336,7 +337,7 @@ streamlit run app.py
 | **Дата данных** | **2026-09-25** (`docs/version.json`), последняя карточка обновлена 2026-09-25 |
 | **Карточек** | **130** (100 % ручной верификации по PRISMA) |
 | **Тестов** | **1990** (`pytest -q`: 1990 passed, 0 skipped, ~9 мин) — полный прогон; opt-in гейты `RUN_*` из v5.6.3 удалены, браузерные метки включены в общий набор |
-| **Страниц** | **17** в корне `docs/` (16 контентных + служебная `404.html`) + **131** в `docs/sup/` (130 карточек + каталог). В `sitemap.xml` — **143**: 12 индексируемых корневых + 131 в `sup/`. Не индексируются `atlas.html` и `graph.html` (noindex-редиректы на `interactions.html`), `404.html` (служебная страница GitHub Pages), `offline.html` (офлайн-заглушка сервис-воркера) и `google*.html` (файл верификации GSC) |
+| **Страниц** | **18** в корне `docs/` (12 контентных + `404.html` и `offline.html` — служебные + `atlas.html`/`graph.html`/`map.html` — noindex-редиректы + `google*.html` — верификация GSC) + **131** в `docs/sup/` (130 карточек + каталог). В `sitemap.xml` — **140** URL: **9** индексируемых корневых (главная, `hactar.html`, `trends.html`, `methodology.html`, `faq.html`, `glossary.html`, `feedback.html`, `support.html`, `privacy.html`) + 131 в `sup/`. Не индексируются `atlas.html`, `graph.html` и `map.html` (noindex-редиректы на `interactions.html` / `hactar.html`), `404.html` (служебная страница GitHub Pages), `offline.html` (офлайн-заглушка сервис-воркера) и `google*.html` (файл верификации GSC) |
 | **Публикаций** | **37 618** из PubMed, из них с абстрактом — 35 377 |
 | **Тегов эффектов** | 18 нормализованных |
 | **PWA** | офлайн-режим, установка на телефон |
@@ -351,7 +352,7 @@ streamlit run app.py
 | API | <https://deadsno.github.io/brain-25-evidence/api/v1/supplements.json> |
 | Репозиторий | <https://github.com/DeadSno/brain-25-evidence> |
 | Ошибки в данных | [issue `data-error`](.github/ISSUE_TEMPLATE/data-error.md) |
-| Sitemap | <https://deadsno.github.io/brain-25-evidence/sitemap.xml> (143 URL, генерируется `scripts/build_sitemap.py`) |
+| Sitemap | <https://deadsno.github.io/brain-25-evidence/sitemap.xml> (140 URL, генерируется `scripts/build_sitemap.py`) |
 
 Подробности изменений — в [CHANGELOG.md](CHANGELOG.md).
 
