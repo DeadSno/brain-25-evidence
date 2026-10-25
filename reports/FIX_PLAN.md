@@ -197,12 +197,12 @@
 | ID | Тип | Крит. | Краткое описание | Где | Статус |
 |---|---|---|---|---|---|
 | DS2-01 | баг | A | Число тестов расходится: version.json 1982, в README/CONVENTIONS/AGENTS 1979 | docs/version.json, README.md, CONVENTIONS.md, AGENTS.md | Закрыто (коммит 6c7813b9 — README/CONVENTIONS/CONTRIBUTING/SKILLS_INDEX/qa-deep-audit/docs-dev-AGENTS приведены к 1990, совпадает с version.json и `pytest --collect-only`) |
-| DS2-03 | баг | C | Хеши хотфиксов не привязаны к секции `[v5.6.5]` | CHANGELOG.md | Открыт |
-| NDS2-01 | баг | B | Hactar (12 коммитов 22.10) не описан: 0 упоминаний в CHANGELOG/README/ARCHITECTURE | CHANGELOG.md, README.md:227-231, ARCHITECTURE.md | Открыт |
-| NDS2-02 | баг | B | Ложные факты: CONVENTIONS 1979 «совпадает с version.json», ARCHITECTURE «112 тестов» | .opencode/skills/CONVENTIONS.md:43-44, ARCHITECTURE.md:161 | Открыт |
-| NDS2-03 | баг | C | CONVENTIONS:15 указывает `CACHE_VERSION = 'v113'`, фактически `v117` | .opencode/skills/CONVENTIONS.md:15 | Открыт |
-| NDS2-04 | баг | C | README завышает: sitemap 143 vs 140, 12 vs 9 корневых, 17 vs 18 файлов | README.md:339,354 | Открыт |
-| NDS2-05 | баг | C | README продаёт `map.html` как рабочую страницу, а это редирект | README.md:13,134,227,339 | Открыт |
+| DS2-03 | баг | C | Хеши хотфиксов не привязаны к секции `[v5.6.5]` | CHANGELOG.md | Закрыто (коммит 7a7c312d — хотфиксы `1658e8a4` и `4b6a3ac1` привязаны к секции `[v5.6.5]`) |
+| NDS2-01 | баг | B | Hactar (12 коммитов 22.10) не описан: 0 упоминаний в CHANGELOG/README/ARCHITECTURE | CHANGELOG.md, README.md:227-231, ARCHITECTURE.md | Закрыто (коммит 7a7c312d — Project Hactar (H-1…H-13.1, A-1, A-1.1, A-2) описан в CHANGELOG, README и ARCHITECTURE) |
+| NDS2-02 | баг | B | Ложные факты: CONVENTIONS 1979 «совпадает с version.json», ARCHITECTURE «112 тестов» | .opencode/skills/CONVENTIONS.md:43-44, ARCHITECTURE.md:161 | Закрыто (коммит 7a7c312d — CONVENTIONS 1990 (сделано в DS2-01), ARCHITECTURE 1990 вместо «112 тестов») |
+| NDS2-03 | баг | C | CONVENTIONS:15 указывает `CACHE_VERSION = 'v113'`, фактически `v117` | .opencode/skills/CONVENTIONS.md:15 | Закрыто (коммит 7a7c312d — CONVENTIONS:15 → `CACHE_VERSION = 'v146'`) |
+| NDS2-04 | баг | C | README завышает: sitemap 143 vs 140, 12 vs 9 корневых, 17 vs 18 файлов | README.md:339,354 | Закрыто (коммит 7a7c312d — sitemap 140, 9 индексируемых корневых, 18 файлов в `docs/`) |
+| NDS2-05 | баг | C | README продаёт `map.html` как рабочую страницу, а это редирект | README.md:13,134,227,339 | Закрыто (коммит 7a7c312d — `map.html` убран из живых ссылок и описан как noindex-редирект) |
 
 ## 17. release-check
 
