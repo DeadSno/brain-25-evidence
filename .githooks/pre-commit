@@ -1,12 +1,12 @@
 #!/bin/sh
 # brain-25-evidence: pre-commit hook
-# ?????? pytest ??? network-??????. ???? ??????? ? ?????? ??????????.
-# ??????: git commit --no-verify
+# Отключаем сетевые тесты pytest, чтобы коммит не зависел от внешних сервисов.
+# Обойти: git commit --no-verify
 
 ROOT="$(git rev-parse --show-toplevel)"
 cd "$ROOT" || exit 1
 
-# ???? python ? venv (Windows ??? Unix), fallback ? ?????????
+# Ищем python в venv (Windows или Unix), fallback в системный
 PY=""
 for candidate in ".venv/Scripts/python.exe" ".venv/bin/python" "python3" "python"; do
     if command -v "$candidate" >/dev/null 2>&1 || [ -x "$candidate" ]; then
@@ -16,7 +16,7 @@ for candidate in ".venv/Scripts/python.exe" ".venv/bin/python" "python3" "python
 done
 
 if [ -z "$PY" ]; then
-    echo "pre-commit: python ?? ??????, ????????? ?????"
+    echo "pre-commit: python не найден, пропускаю тесты"
     exit 0
 fi
 
