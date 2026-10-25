@@ -327,3 +327,7 @@ snap_head_*.xml
 reports/archive/v26*.png
 db_import_log.txt
 
+# JUnit/pytest dumps (FIX-69 follow-up: h9_pytest.xml и подобные)
+*.pytest.xml
+reports/*.pytest.xml
+
