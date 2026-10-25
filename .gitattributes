@@ -2,7 +2,9 @@
 * text=auto eol=lf
 
 # Бинарные файлы
-*.png binary
+# PNG — через Git LFS (NRS2-01, FIX-69). История не переписана:
+# правило действует только на будущие `git add`.
+*.png filter=lfs diff=lfs merge=lfs -text
 *.jpg binary
 *.duckdb binary
 *.gexf binary
