@@ -2132,6 +2132,21 @@ summary {
 .btn.c-theme  { border-color: var(--icon-trends); background: color-mix(in srgb, var(--icon-trends) 12%, transparent); }
 .btn.c-random { border-color: var(--icon-bi);   background: color-mix(in srgb, var(--icon-bi)   12%, transparent); }
 
+/* U2-05 (25.10.2026): у «Удиви меня» микроинтеракция была слабее, чем у
+   соседних кнопок: общий .btn:active (scale .98 + opacity .8) на маленькой
+   цветной кнопке читался как «ничего не произошло». Теперь кнопка проседает
+   на 1px и получает вдавленную тень — отклик виден и на мобильном, где
+   :hover не срабатывает. Правило специфичнее .btn:active (0,3,0 против
+   0,2,0), поэтому transform перебивается без !important. */
+.btn.c-random {
+  transition: transform .1s ease, box-shadow .1s ease, filter .1s ease;
+}
+.btn.c-random:active {
+  transform: translateY(1px) scale(.97);
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, .22);
+  filter: brightness(.96);
+}
+
 /* Рамка при наведении. Правило одно здесь, а не в локальных
    <style> на 6 страницах (на atlas — дважды); на 11 страницах его
    не было вовсе. Стоит ПОСЛЕ блока .btn.c-*: у .btn:hover и
@@ -3016,6 +3031,28 @@ html:not(.light) .card-link {
   overflow-wrap: anywhere;
 }
 .tile .shop-chip { text-decoration: none; }
+
+/* U2-03 (25.10.2026): у чипов магазинов не было отклика на нажатие.
+   На мобильном :hover не срабатывает вовсе, поэтому чип выглядел
+   «мёртвым»: тап по нему ничем не отличался от тапа по пустому месту.
+   Голый `a:active` здесь не годится — см. блок «отклик на нажатие» выше:
+   ссылки в тексте при нажатии не должны прыгать. Поэтому перечислены
+   только классы кнопок-чипов: .shop-chip в плитках главной, .shop на
+   sup-страницах и #modal .shopBtn в карточке добавки. Все три — ссылки
+   на поиск в магазине, которые открываются в новой вкладке, так что
+   :active живёт ровно столько, сколько длится нажатие. */
+.shop-chip,
+.shop,
+#modal .shopBtn {
+  transition: transform .1s ease, border-color .1s ease, background-color .1s ease;
+}
+.shop-chip:active,
+.shop:active,
+#modal .shopBtn:active {
+  transform: scale(.96);
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+}
 
 /* Радар профиля в compare.html: обёртка задана классом вместо инлайна,
    канвас адаптивный (V-08: было фиксированные 520px canvas) */

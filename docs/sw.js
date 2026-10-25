@@ -475,7 +475,12 @@ self.addEventListener('activate', event => {
    добавлен раздел о localStorage Hactar. Без бампа кэша пользователь
    получил бы прежние i18n.js и sup-страницы с подписями «Где купить».
    style.min.css ?v= 459 не менялся. */
-var CACHE_VERSION = 'v150';
+/* Бамп v150 -> v151: FIX-57 (U2-03, U2-05) — у чипов магазинов и кнопки
+   «Удиви меня» появился :active-отклик в style.css (scale(.96) с рамкой
+   акцента; сдвиг на 1px с вдавленной тенью), style.min.css пересобран
+   csso, ?v= в 148 страницах поднят с 459 на 460. Без бампа кэша
+   пользователь получил бы старый style.min.css без активных состояний. */
+var CACHE_VERSION = 'v151';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
