@@ -157,6 +157,10 @@
     .hactar-empty-btn{margin-top:var(--space-2);padding:var(--space-3) var(--space-6);min-height:44px;border:none;border-radius:var(--radius-pill);background:var(--chip-on-bg);color:#fff;font-size:var(--fs-5);font-weight:600;cursor:pointer}
     .hactar-empty-btn:hover{filter:brightness(1.08)}
     .hactar-empty-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+    /* Обёртка пустого результата поиска: текст и кнопка «Сбросить фильтры»
+       по центру колонки. Своего display у неё нет, поэтому [hidden] из
+       UA-стилей работает без дополнительного правила. */
+    .hactar-empty-cta{text-align:center}
     /* Project Hactar — граф связей (H-6).
        Рисуется только эго-сеть выбранных добавок: полный граф из 130
        узлов (MAN-03) не рисуется никогда. Контейнеру нужна явная
@@ -361,7 +365,10 @@
         <div class="hactar-skel" aria-hidden="true"><span class="hactar-skel-box"></span><span class="hactar-skel-line"></span><span class="hactar-skel-pill"></span></div>
         <div class="hactar-skel" aria-hidden="true"><span class="hactar-skel-box"></span><span class="hactar-skel-line"></span><span class="hactar-skel-pill"></span></div>
       </div>
-      <p class="hactar-empty" id="hactarEmpty" hidden data-i18n-text="hactar.notFound">Ничего не найдено</p>
+      <div class="hactar-empty-cta" id="hactarEmpty" hidden>
+        <p class="hactar-empty" id="hactarEmptyText" data-i18n-text="hactar.notFound">Ничего не найдено</p>
+        <button type="button" class="hactar-empty-btn" id="hactarResetFilters" data-i18n-text="hactar.search.reset">Сбросить фильтры</button>
+      </div>
     </aside>
     <div class="hactar-main" id="hactarMain">
       <div class="hactar-top">
@@ -571,8 +578,8 @@
      библиотека НЕ подключена тегом: её загружает hactar.js лениво
      (loadVisNetwork) только при переходе на вкладку «Связи». На «Обзоре»
      и «Сравнении» эти байты не качаются и не парсятся. -->
-<script src="hactar.js?v=30" defer></script>
-<script src="i18n.js?v=6"></script>
+<script src="hactar.js?v=31" defer></script>
+<script src="i18n.js?v=7"></script>
 <script src="share.js?v=2" defer></script>
 
 <footer class="site-footer">
