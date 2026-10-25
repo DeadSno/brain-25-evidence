@@ -494,7 +494,13 @@ self.addEventListener('activate', event => {
    t(), а она объявлена только там), сама 404.html добавлена в STATIC_ASSETS.
    Без бампа кэша прекеш остался бы прежним, и страница офлайн не открывалась
    бы вовсе — ровно то, ради чего её в прекеш и добавляли. */
-var CACHE_VERSION = 'v154';
+/* Бамп v154 -> v155: FIX-63 (NPW2-01) — hactar.html подключила pwa.js (без
+   него SW на ней не регистрировался), а offline.html — i18n.js перед pwa.js:
+   подпись плашки офлайна берётся через t(), объявленную только там, и без неё
+   падала с ReferenceError ровно в том состоянии, для которого страница и
+   сделана. Оба файла лежат в STATIC_ASSETS и отдаются cache-first: без бампа
+   пользователь получил бы их прежние копии без этих правок. */
+var CACHE_VERSION = 'v155';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
