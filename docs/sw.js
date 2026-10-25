@@ -489,7 +489,12 @@ self.addEventListener('activate', event => {
    ключ hactar.h1 и переписан hactar.sub, ?v= в 147 файлах поднят с 7 на 8.
    Без бампа кэша пользователь получил бы прежний i18n.js без ключа h1 —
    вместо заголовка Hactar увидел бы его имя. */
-var CACHE_VERSION = 'v153';
+/* Бамп v153 -> v154: FIX-62 (PW2-01, PW2-02) — страница 404.html подключила
+   manifest и pwa.js (перед ним i18n.js: подпись плашки офлайна берётся через
+   t(), а она объявлена только там), сама 404.html добавлена в STATIC_ASSETS.
+   Без бампа кэша прекеш остался бы прежним, и страница офлайн не открывалась
+   бы вовсе — ровно то, ради чего её в прекеш и добавляли. */
+var CACHE_VERSION = 'v154';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
@@ -531,6 +536,7 @@ var STATIC_ASSETS = [
   './graph.html',
   './support.html',
   './offline.html',
+  './404.html',
   './manifest.webmanifest',
   './feed.xml',
   './pwa.js',
