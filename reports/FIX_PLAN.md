@@ -172,10 +172,10 @@
 
 | ID | Тип | Крит. | Краткое описание | Где | Статус |
 |---|---|---|---|---|---|
-| PR2-01 | улучшение | C | Нет `.editorconfig` | корень | Открыт |
-| PR2-02 | улучшение | C | Нет `SECURITY.md` | корень | Открыт |
-| PR2-03 | улучшение | C | Нет `CODE_OF_CONDUCT.md` | корень | Открыт |
-| PR2-05 | улучшение | C | 10 скриптов в `scripts/` без модульного docstring | scripts/*.py | Открыт |
+| PR2-01 | улучшение | C | Нет `.editorconfig` | корень | Закрыто (коммит ebd36c46 — создан `.editorconfig`: charset=utf-8, end_of_line=lf, insert_final_newline, trim_trailing_whitespace; отступы 4 для Python и шаблонов `.j2`, 2 для HTML/CSS/JS/JSON, tab для Makefile, crlf для `.bat/.cmd/.ps1` — согласовано с `.gitattributes`) |
+| PR2-02 | улучшение | C | Нет `SECURITY.md` | корень | Закрыто (коммит ebd36c46 — создан `SECURITY.md`: приватные GitHub Security Advisories и личное сообщение вместо публичного issue, сроки ответа, области действия и вне её) |
+| PR2-03 | улучшение | C | Нет `CODE_OF_CONDUCT.md` | корень | Закрыто (коммит ebd36c46 — создан `CODE_OF_CONDUCT.md` по Contributor Covenant 2.1 с русской адаптацией и шкалой мер; ссылки добавлены в `CONTRIBUTING.md`) |
+| PR2-05 | улучшение | C | 10 скриптов в `scripts/` без модульного docstring | scripts/*.py | Закрыто (коммит ebd36c46 — docstring добавлен в `scripts/build_changelog_public.py`, остальные 9 файлов из списка аудита получили docstring раньше; без docstring в `scripts/` остался только пустой `__init__.py`) |
 | NPR2-01 | баг | B | README: 1979 и 1982 против фактических 1989 в `version.json` | README.md:267,315,338,364 | Закрыто (коммит 6c7813b9 — все числа в README приведены к 1990) |
 
 ## 15. pwa-audit
@@ -266,7 +266,7 @@
 | 11. legal-compliance-audit | 4 | 2 | 6 |
 | 12. ui-ux-deep-audit | 4 | 1 | 5 |
 | 13. marketing-deep-audit | 5 | 2 | 7 |
-| 14. project-audit | 4 | 1 | 5 |
+| 14. project-audit | 0 | 5 | 5 |
 | 15. pwa-audit | 5 | 4 | 9 |
 | 16. docs-sync | 2 | 5 | 7 |
 | 17. release-check | 3 | 6 | 9 |
