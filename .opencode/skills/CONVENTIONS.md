@@ -13,7 +13,7 @@
 | JS | 10 файлов в `docs/` | `ls docs/*.js \| wc -l` |
 | CSS | `docs/style.css`, версия `?v=440` | `grep -ho 'style\.css?v=[0-9]*' docs/*.html docs/sup/*.html \| sort -u` |
 | SW cache | `v113` | `grep CACHE_VERSION docs/sw.js` → `var CACHE_VERSION = 'v113'` |
-| Тесты | **1979 passed** полный прогон в основном checkout — см. «Базовая линия тестов» | `pytest -q` → `1979 passed, 0 failed, 0 skipped` |
+| Тесты | **1990 passed** полный прогон в основном checkout — см. «Базовая линия тестов» | `pytest -q` → `1990 passed, 0 failed, 0 skipped` |
 | Скиллы | 19 проектных в git (20 в main checkout: `cyberaudit` в `.gitignore`) + 20 глобальных | `ls .opencode/skills/ \| wc -l`, `ls ~/.config/opencode/skills/ \| wc -l` |
 
 Число skipped на чистом окружении — **0**: в v5.6.5 гейты `RUN_*` удалены.
@@ -38,10 +38,10 @@
 
 | Где | passed | skipped | всего |
 |---|---|---|---|
-| Основной checkout `C:\analytics\brain-25-evidence` (v5.6.5-dev) | 1979 | 0 | 1979 |
+| Основной checkout `C:\analytics\brain-25-evidence` (v5.6.5-dev) | 1990 | 0 | 1990 |
 
-Замер 20.10.2026 (v5.6.5): полный `pytest -q` → 1979 passed, 0 failed, 0 skipped
-(~492 с), совпадает с `docs/version.json` (`"tests": 1979`).
+Замер 25.10.2026 (v5.6.5-dev): полный `pytest -q` → 1990 passed, 0 failed, 0 skipped
+(~492 с), совпадает с `docs/version.json` (`"tests": 1990`).
 Прежний расклад (16.10.2026: 1746 passed + 237 skipped) объяснялся двумя вещами:
 opt-in гейты (`RUN_SNAPSHOTS=1`, `RUN_A11Y=1`, `RUN_GRAPH=1`, `RUN_TABS=1`,
 `RUN_E2E=1`, живой сервер `:8000`) и 16 тестов DuckDB: `tests/conftest.py:11`
@@ -51,7 +51,7 @@ opt-in гейты (`RUN_SNAPSHOTS=1`, `RUN_A11Y=1`, `RUN_GRAPH=1`, `RUN_TABS=1`,
 
 Правила:
 
-- **Перед merge гонять в основном checkout** — там 1979, и только там видно,
+- **Перед merge гонять в основном checkout** — там 1990, и только там видно,
   что DuckDB-часть не разъехалась.
 - В worktree/чужом окружении ориентироваться на
   `pytest --collect-only -q`: passed-число зависит от наличия БД (−16) и
@@ -376,7 +376,7 @@ CYBER-P1-02.
 ## Гейт pre-commit: исторический замер 14.10.2026
 
 Актуальная базовая линия — раздел «Базовая линия тестов» выше
-(v5.6.5: `pytest -q` → 1979 passed / 0 skipped). Живая команда гейта —
+(v5.6.5: `pytest -q` → 1990 passed / 0 skipped). Живая команда гейта —
 в таблице «Pre-commit порядок генераторов» (шаг 4), текст —
 в `.githooks/pre-commit`; дублировать её здесь не нужно. Цифры ниже —
 до волны изменений 13–16.10.2026 и до v5.6.5:
@@ -387,7 +387,7 @@ CYBER-P1-02.
 | Гейт pre-commit | main checkout | 1314 | 1073 | 235 | 6 |
 
 - Источник правды по количеству тестов — `docs/version.json`
-  (`"tests"`: 1314 на момент замера, 1979 в v5.6.5). Число 1188
+  (`"tests"`: 1314 на момент замера, 1990 в v5.6.5). Число 1188
   из старых отчётов в history и файлах не воспроизводится — не
   использовать.
 - `tests/test_precommit_hook.py` требует подстроку

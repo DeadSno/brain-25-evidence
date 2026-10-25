@@ -264,7 +264,7 @@ brain-25-evidence/
 │   ├── build_slim.py              # slim JSON для Streamlit Cloud
 │   └── e2e_smoke.py               # headless smoke-тесты сайта
 ├── templates/                     # Jinja-шаблоны генерации sup/*.html и каталога
-├── tests/                         # 1979 тестов в 73 файлах
+├── tests/                         # 1990 тестов в 73 файлах
 │   ├── test_schema.py             # JSON-схема data.json
 │   ├── test_snapshot.py           # data.json не изменился без UPDATE_SNAPSHOT=1
 │   ├── test_index_sync.py         # data_index.json == проекция data.json
@@ -298,7 +298,7 @@ cd brain-25-evidence
 # 2. Установи зависимости
 pip install -r requirements.txt
 
-# 3. Прогони тесты (должно быть 1979 passed, 0 skipped)
+# 3. Прогони тесты (должно быть 1990 passed, 0 skipped)
 python -m pytest tests/ -q
 
 # 4. Подними сайт локально
@@ -312,7 +312,7 @@ python serve.py
 - После старта сервера: `Ctrl+Shift+R` в браузере для обхода кэша `data.json`
 - На GitHub Pages (https) `fetch` работает без проблем
 - `serve.py` лежит в **корне** репозитория (не в `docs/`) и автоматически добавляет заголовки `Content-Type: text/html; charset=utf-8` (и для JS/CSS/JSON) — лечит локальные кракозябры
-- Полный `pytest -q` в v5.6.5 запускает все тесты: в v5.6.3 по умолчанию снималось 199 браузерных тестов (флаги `RUN_SNAPSHOTS` / `RUN_A11Y` / `RUN_TABS` / `RUN_GRAPH` / `RUN_E2E`), в v5.6.5 эти opt-in гейты удалены — метки `snapshots` / `a11y` / `e2e` снова включены в общий прогон (~8 минут, 1979 passed, 0 skipped)
+- Полный `pytest -q` в v5.6.5 запускает все тесты: в v5.6.3 по умолчанию снималось 199 браузерных тестов (флаги `RUN_SNAPSHOTS` / `RUN_A11Y` / `RUN_TABS` / `RUN_GRAPH` / `RUN_E2E`), в v5.6.5 эти opt-in гейты удалены — метки `snapshots` / `a11y` / `e2e` снова включены в общий прогон (~8 минут, 1990 passed, 0 skipped)
 
 ### Streamlit dashboard (app.py)
 
@@ -335,7 +335,7 @@ streamlit run app.py
 | **Версия** | **v5.6.5** — актуальная версия (`docs/version.json`: `app: 5.6.5`, запись в `CHANGELOG.md`). Git-тег не поставлен — решение владельца |
 | **Дата данных** | **2026-09-25** (`docs/version.json`), последняя карточка обновлена 2026-09-25 |
 | **Карточек** | **130** (100 % ручной верификации по PRISMA) |
-| **Тестов** | **1982** (`pytest -q`: 1982 passed, 0 skipped, ~9 мин) — полный прогон; opt-in гейты `RUN_*` из v5.6.3 удалены, браузерные метки включены в общий набор |
+| **Тестов** | **1990** (`pytest -q`: 1990 passed, 0 skipped, ~9 мин) — полный прогон; opt-in гейты `RUN_*` из v5.6.3 удалены, браузерные метки включены в общий набор |
 | **Страниц** | **17** в корне `docs/` (16 контентных + служебная `404.html`) + **131** в `docs/sup/` (130 карточек + каталог). В `sitemap.xml` — **143**: 12 индексируемых корневых + 131 в `sup/`. Не индексируются `atlas.html` и `graph.html` (noindex-редиректы на `interactions.html`), `404.html` (служебная страница GitHub Pages), `offline.html` (офлайн-заглушка сервис-воркера) и `google*.html` (файл верификации GSC) |
 | **Публикаций** | **37 618** из PubMed, из них с абстрактом — 35 377 |
 | **Тегов эффектов** | 18 нормализованных |
@@ -361,7 +361,7 @@ streamlit run app.py
 
 ### Текущее состояние
 
-- 130 добавок, 1979 тестов, 37 618 papers
+- 130 добавок, 1990 тестов, 37 618 papers
 - Funders analysis (CrossRef + Europe PMC)
 - Streamlit BI + статический сайт
 - trends.html: executive summary, scatter-матрица, категории
