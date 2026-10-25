@@ -211,7 +211,7 @@
 | RC2-01 | улучшение | C | Тег `v5.6.5` не создан | git tag | Открыт |
 | RC2-02 | баг | B | Тег `v5.6.4` не предок HEAD: dev не содержит коммит `8476fb92` | git history | Открыт |
 | RC2-03 | баг | B | Полный прогон выходит за 10 минут (`pytest.ini`), 795 с | pytest.ini | Открыт |
-| NRC2-01 | баг | A | Флейк: `test_a11y_wcag22[412-852-feedback-light]` падает по `networkidle` из-за Яндекс.Форм | tests/test_a11y_axe.py:237 + docs/feedback.html:163-164 | Открыт |
+| NRC2-01 | баг | A | Флейк: `test_a11y_wcag22[412-852-feedback-light]` падает по `networkidle` из-за Яндекс.Форм | tests/test_a11y_axe.py (`EXTERNAL_HOST_PAGES`/`_wait_until_for`) + docs/feedback.html:163-164 | Закрыто (коммит a6b5c1fd — страницы со сторонними хостами ждём по `domcontentloaded`, а не `networkidle`) |
 | NRC2-02 | баг | B | CI не запускается: триггер `branches: [main, v5.6-dev]`, ветка `v5.6.5-dev` | .github/workflows/tests.yml:15,17 | Открыт |
 | NRC2-03 | баг | B | В CI нет `playwright install`; `test_graph_interaction.py:181` даст ERROR, не skip | .github/workflows/tests.yml:57-58 + tests/test_graph_interaction.py:178-185 | Открыт |
 | NRC2-04 | баг | B | Гейт графа выключен целиком: 24 skip (12 тестов × 2 движка) | tests/test_graph_interaction.py:178-202 | Открыт |
