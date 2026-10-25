@@ -197,6 +197,17 @@ THEMES = ("dark", "light")
 #: когда у него появится переключатель (или решится, чем он управляется).
 NO_THEME_PAGES = frozenset({"offline"})
 
+#: Страницы, которые тянут сторонние хосты. Здесь `networkidle` непригоден:
+#: `goto` ждёт полной тишины в сети, а чужой сервер отвечает как повезёт, и
+#: тогда тест падает по таймауту (NRC2-01: feedback.html грузит
+#: forms.yandex.ru — `embed.js` + iframe, которые держат соединения открытыми
+#: и `networkidle` не наступает). Ждём `domcontentloaded`: он наступает после
+#: разбора разметки и defer-скриптов, то есть собственная отрисовка страницы
+#: уже сделана, а фоновые чужие соединения больше не блокируют замер.
+#: Содержимое чужого iframe axe и не увидел бы: `axe.run(document)` работает
+#: только с главным документом.
+EXTERNAL_HOST_PAGES = frozenset({"feedback"})
+
 
 def _themes_for(page_name: str) -> tuple[str, ...]:
     """Темы, которые осмысленно меряем на странице."""
@@ -232,9 +243,21 @@ def _assert_theme(page, theme: str) -> None:
 
 # ─────────────────────────── прогон axe ───────────────────────────
 
-def _run_axe(page, axe_js: str, url: str, theme: str = "dark") -> list[dict]:
+def _wait_until_for(page_name: str) -> str:
+    """Стратегия ожидания загрузки для страницы.
+
+    Локальные страницы ждём по `networkidle` — он точнее: дожидается, пока
+    страница дочитает свои JSON. Для страниц со сторонними хостами это
+    ловушка (см. EXTERNAL_HOST_PAGES), поэтому там `domcontentloaded`.
+    """
+    return ("domcontentloaded" if page_name in EXTERNAL_HOST_PAGES
+            else "networkidle")
+
+
+def _run_axe(page, axe_js: str, url: str, theme: str = "dark",
+             wait_until: str = "networkidle") -> list[dict]:
     """Зайти на страницу, дождаться отрисовки, прогнать axe-core."""
-    page.goto(url, wait_until="networkidle", timeout=NAV_TIMEOUT_MS)
+    page.goto(url, wait_until=wait_until, timeout=NAV_TIMEOUT_MS)
     # Тема проверяется на ЖИВОЙ странице, а не задаётся проверкой в тесте: иначе
     # прогон в light молчал бы о тёмной странице (контраст посчитан по чужим
     # цветам) и дал бы зелёный результат на заведомо неверном замере.
@@ -380,7 +403,8 @@ def test_a11y_wcag22(_env_checked, browser, axe_source, page_name, width, height
     page = ctx.new_page()
     try:
         violations = _run_axe(page, axe_source,
-                              f"{BASE_URL}/{page_name}.html", theme)
+                              f"{BASE_URL}/{page_name}.html", theme,
+                              wait_until=_wait_until_for(page_name))
     finally:
         ctx.close()
     _verify(f"{_slug(page_name)}-{width}-{theme}", violations)
