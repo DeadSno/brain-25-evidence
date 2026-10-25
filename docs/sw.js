@@ -485,7 +485,11 @@ self.addEventListener('activate', event => {
    пустом результате поиска Hactar появилась кнопка «Сбросить фильтры»
    (hactar.js, i18n.js), ?v= поднят в 147 страницах и 2 шаблонах. Без
    бампа кэша пользователь получил бы прежние скрипты без этих правок. */
-var CACHE_VERSION = 'v152';
+/* Бамп v152 -> v153: FIX-60 (NMK2-01, NMK2-02) — в docs/i18n.js появился
+   ключ hactar.h1 и переписан hactar.sub, ?v= в 147 файлах поднят с 7 на 8.
+   Без бампа кэша пользователь получил бы прежний i18n.js без ключа h1 —
+   вместо заголовка Hactar увидел бы его имя. */
+var CACHE_VERSION = 'v153';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 

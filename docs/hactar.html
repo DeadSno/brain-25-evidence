@@ -291,6 +291,18 @@
      клик по кнопке (особенно на тач-экране, где hover нет) не давал отклика. */
   .hactar-stack-btn:active{transform:translateY(1px);border-color:var(--accent);background:var(--card-bg);filter:brightness(.92)}
   .hactar-stack-btn:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+  /* NMK2-02 (25.10.2026): «Сохранить стек» — primary. Заливка и тень взяты
+     из .btn.calc (--grad-calc / --shadow-calc, контраст 5.42:1), но объявлены
+     здесь: inline <style> идёт ниже по каскаду, чем style.min.css, и базовый
+     .hactar-stack-btn иначе перебил бы фон .btn.calc, а его
+     color:var(--on-solid)!important дал бы белую подпись на светлой карточке.
+     Ширина не фиксируется: кнопка живёт в inline-flex-строке со счётчиком
+     выбора, width:100% растянул бы её на всю карточку. Ховер и :active тоже
+     переопределены — у базового класса они меняют цвет текста на --text и
+     сбрасывают фон, из-за чего белая подпись теряла контраст. */
+  .hactar-stack-btn--primary{background:var(--grad-calc);border-color:transparent;color:var(--on-solid);font-weight:600;box-shadow:var(--shadow-calc)}
+  .hactar-stack-btn--primary:hover{border-color:transparent;color:var(--on-solid);opacity:.92;box-shadow:var(--shadow-calc-hover)}
+  .hactar-stack-btn--primary:active{background:var(--grad-calc);color:var(--on-solid);filter:brightness(.94)}
   .hactar-stacks-dropdown{position:relative;display:inline-block}
   .hactar-stacks-dropdown[hidden]{display:none}
   .hactar-stacks-list{position:absolute;top:100%;inset-inline-end:0;margin-top:4px;min-width:240px;max-width:320px;max-height:320px;overflow-y:auto;padding:var(--space-2);background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius-lg);box-shadow:var(--shadow-md);z-index:50;display:flex;flex-direction:column;gap:var(--space-2)}
@@ -372,15 +384,15 @@
     </aside>
     <div class="hactar-main" id="hactarMain">
       <div class="hactar-top">
-        <h1>Project Hactar</h1>
-        <p class="sub" data-i18n-text="hactar.sub">Подбор комбинаций БАДов из 130 добавок: связи, калькулятор доз и сравнение совместимости.</p>
+        <h1 data-i18n-text="hactar.h1">Project Hactar: конструктор стеков БАДов</h1>
+        <p class="sub" data-i18n-text="hactar.sub">Собирайте комбинации, проверяйте взаимодействия и дозировки в одном окне — 130 добавок с оценкой доказательности.</p>
       </div>
       <div class="hactar-pick"><span data-i18n-text="hactar.picked">Выбрано: </span><strong><span id="hactarCount" aria-live="polite">0</span></strong> / <span id="hactarTotal">130</span>
         <span class="hactar-stack-actions">
           <!-- NA2-02: видимая подпись короче действия, поэтому имя задано
                явно: у «Сохранить стек» не сказано, что именно сохраняется,
                а у «Мои стеки» — что кнопка раскрывает список. -->
-          <button type="button" class="hactar-stack-btn" id="hactarSaveStack" aria-label="Сохранить текущий стек добавок" data-i18n-text="hactar.stack.save" data-i18n-aria-label="hactar.stack.saveAria">💾 Сохранить стек</button>
+          <button type="button" class="hactar-stack-btn hactar-stack-btn--primary" id="hactarSaveStack" aria-label="Сохранить текущий стек добавок" data-i18n-text="hactar.stack.save" data-i18n-aria-label="hactar.stack.saveAria">💾 Сохранить стек</button>
           <span class="hactar-stacks-dropdown" id="hactarStacksDropdown" hidden>
             <button type="button" class="hactar-stack-btn" id="hactarStacksToggle" aria-label="Открыть список сохранённых стеков" aria-expanded="false" aria-controls="hactarStacksList" data-i18n-text="hactar.stack.mine" data-i18n-aria-label="hactar.stack.mineAria">📂 Мои стеки ▾</button>
             <div class="hactar-stacks-list" id="hactarStacksList" hidden></div>
@@ -579,7 +591,7 @@
      (loadVisNetwork) только при переходе на вкладку «Связи». На «Обзоре»
      и «Сравнении» эти байты не качаются и не парсятся. -->
 <script src="hactar.js?v=31" defer></script>
-<script src="i18n.js?v=7"></script>
+<script src="i18n.js?v=8"></script>
 <script src="share.js?v=2" defer></script>
 
 <footer class="site-footer">
