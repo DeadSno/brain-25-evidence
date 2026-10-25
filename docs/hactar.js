@@ -2535,7 +2535,45 @@ var OVERVIEW_ROWS = [
 
   /* ──────────────────────────── старт ──────────────────────────── */
 
+  /* NP2-05: переезд со старой страницы. Заглушки calculator/compare/
+     interactions/map/graph/atlas кладут имя старой страницы в
+     sessionStorage перед meta refresh (inline-скрипт в их <head>), а здесь
+     мы читаем флаг и один раз показываем тост. document.referrer — запасной
+     путь: он выручает, если sessionStorage недоступен (приватный режим,
+     отключённое хранилище). */
+  var REDIRECT_KEY = 'hactarRedirectedFrom';
+  var REDIRECT_PAGES = {
+    calculator: 'Калькулятор',
+    compare: 'Сравнение',
+    interactions: 'Связи',
+    map: 'Карта механизмов',
+    graph: 'Граф связей',
+    atlas: 'Атлас'
+  };
+
+  function redirectedFrom() {
+    var name = null;
+    try {
+      name = window.sessionStorage.getItem(REDIRECT_KEY);
+      if (name) window.sessionStorage.removeItem(REDIRECT_KEY);
+    } catch (e) {
+      /* Хранилище недоступно — не повод ломать страницу: идём к referrer. */
+    }
+    if (name && REDIRECT_PAGES[name]) return name;
+    var m = /([a-z0-9-]+)\.html/.exec(document.referrer || '');
+    return m && REDIRECT_PAGES[m[1]] ? m[1] : null;
+  }
+
+  function notifyRedirect() {
+    var from = redirectedFrom();
+    if (!from) return;
+    showToast('Страница «' + REDIRECT_PAGES[from] +
+              '» переехала — теперь это Project Hactar', 'ok');
+  }
+
   showSkeleton();
+
+  notifyRedirect();
 
   /* H-6: данные графа грузим сразу, параллельно со списком добавок —
      к моменту, когда пользователь отметит первую добавку, граф уже готов. */

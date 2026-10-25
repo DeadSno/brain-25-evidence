@@ -447,14 +447,13 @@ self.addEventListener('activate', event => {
    стоит после гейта currentMode, чтобы сохранённый стек не тянул
    библиотеку на «Обзоре». hactar.js вышел за ?v= 25 -> 27.
    style.css не менялся, ?v= 457 остаётся. */
-/* Бамп v145 -> v146: FIX-44 (C2-04) — страницы подключают минифицированные
-   docs/style.min.css (64 484 Б вместо 193 683, csso-cli) и
-   docs/script.min.js (41 997 Б вместо 80 298, terser -c -m), ссылки
-   style.css?v= 457 -> style.min.css?v= 458 на 145 страницах и 2 шаблонах,
-   script.js?v= 297 -> script.min.js?v= 298 в index.html. В STATIC_ASSETS
-   './style.css' и './script.js' заменены на минифицированные копии.
-   style.css остаётся исходником для правок. */
-var CACHE_VERSION = 'v146';
+/* Бамп v146 -> v147: FIX-48 (NP2-05) — заглушки-редиректы
+   calculator/compare/interactions/map/graph/atlas перед meta refresh
+   кладут имя старой страницы в sessionStorage, hactar.js читает флаг
+   (с фолбэком на document.referrer) и показывает тост о переезде.
+   hactar.js вышел за ?v= 27 -> 28. Без бампа кэша у пользователя остался
+   бы старый hactar.js без уведомления. style.min.css ?v= 458 не менялся. */
+var CACHE_VERSION = 'v147';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
