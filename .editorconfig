@@ -1,0 +1,45 @@
+# Правила редакторов и IDE для brain-25-evidence.
+# Спецификация: https://editorconfig.org
+#
+# .gitattributes задаёт eol=lf на уровне git (нормализация при коммите), но
+# его не читают редакторы: новый файл можно случайно сохранить с CRLF и
+# табами. Здесь те же правила объявлены так, чтобы их подхватили VS Code,
+# PyCharm, Sublime, Vim и остальные клиенты EditorConfig.
+
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+
+# Python: 4 пробела — как в scripts/ и tests/.
+[*.py]
+indent_size = 4
+
+# Веб-слой docs/: 2 пробела — как в style.css, script.js, *.html.
+[*.{html,htm,css,js,json,webmanifest,xml,svg}]
+indent_size = 2
+
+# Jinja2-шаблоны templates/: 4 пробела. Они генерируют HTML, но пишутся с
+# отступом в 4 — порядок задан сгенерированными страницами docs/sup/.
+[*.j2]
+indent_size = 4
+
+# Markdown: пробелы в конце строки значимы (жёсткий перенос — два пробела),
+# поэтому глобальный trim_trailing_whitespace здесь выключен.
+[*.md]
+trim_trailing_whitespace = false
+
+# Конфиги и метаданные.
+[*.{yml,yaml,toml,ini,cfg}]
+indent_size = 2
+
+[Makefile]
+indent_style = tab
+
+# Windows-обвязка: CRLF, как в .gitattributes.
+[*.{bat,cmd,ps1}]
+end_of_line = crlf
