@@ -922,3 +922,9 @@ VIS-03 и MOB-01 — инлайн-правки `docs/hactar.html`, MOB-02 и MOB
 → **1802 passed, 0 failed**; `tests/test_seo_meta_consistency.py` +
 `tests/test_style_version_bump.py` → **505 passed**; BOM не появился
 (`bom_files: []`), CRLF сохранён.
+
+**Кэш PWA.** 16 корневых страниц и 6 карточек `sup/` лежат в `STATIC_ASSETS`
+(`docs/sw.js:586+`) и отдаются cache-first, поэтому батч обязан был обновить
+`CACHE_VERSION`. Бампа в коммите `0212edb0` не было — исправлено отдельным
+коммитом `205e4c50`: `v164` → **`v165`** (`/* Бамп v164 -> v165 BATCH-2: … */`,
+без `*` внутри), `tests/test_style_version_bump.py` — 5 passed.
