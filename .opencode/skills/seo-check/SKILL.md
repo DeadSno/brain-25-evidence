@@ -90,10 +90,15 @@ Check basic SEO health of any page. No signup required.
 
 ### Проектные проверки (v5.6.5)
 
-- `compare.html` — свои title/description/OG/canonical, не копия `index.html`
-- Страницы-редиректы (`graph.html`, `atlas.html`) **не должны попадать**
-  в `sitemap.xml`; canonical у них — целевой URL (`interactions.html#graph`)
-- 4 таба `interactions.html` не создают в DOM дублей `<title>`/`<h1>`
+- `hactar.html?tab=overview` — свои title/description/OG/canonical, не копия
+  `index.html`; параметр `?tab=` не создаёт дублей `<title>`/`<h1>`
+- Страницы-редиректы (`calculator.html`, `compare.html`, `graph.html`,
+  `atlas.html`, `interactions.html`, `map.html`) **не должны попадать**
+  в `sitemap.xml` (проверено: 0 вхождений); canonical у них — целевой URL
+  (`hactar.html?tab=overview` или `hactar.html?tab=links`), плюс
+  `<meta name="robots" content="noindex, follow">`
+- Два таба `hactar.html` (`Overview` / `Links`) не создают в DOM дублей
+  `<title>`/`<h1>`
 
 ## Рекомендации (сверх находок)
 

@@ -108,14 +108,15 @@ project: brain-25-evidence
 - Кнопки не заезжают под home bar
 
 ### Новый UI (v5.6.5) — проверять отдельно на 360/375px
-- `interactions.html` `#mech` — «звезда» канваса механизмов не выходит за
+- `hactar.html?tab=links` — «звезда» канваса механизмов не выходит за
   viewport, подписи узлов не обрезаны
-- `compare.html` — таблица сравнения скроллится **внутри** контейнера,
-  не даёт горизонтальный скролл всей странице
-- `map.html` — липкая панель (`position: sticky`) не перекрывает контент и
-  не уезжает под шапку
-- 4 таба interactions не переносятся криво: помещаются в строку или в
-  собственный горизонтальный скролл
+- `hactar.html?tab=overview` — таблица доз/взаимодействий скроллится
+  **внутри** контейнера, не даёт горизонтальный скролл всей странице
+- Боковая панель `#hactarSidebar` (`aside.hactar-sidebar`) на мобильном —
+  оверлей: не перекрывает липкую шапку, закрывается по `Esc` и тапу мимо
+- Два таба Hactar (`Overview` / `Links`) не переносятся криво: tablist
+  фиксируется внизу (`position:fixed;bottom:0`) с `overflow-x:auto` —
+  проверить, что не перекрывает контент и не уезжает под home bar
 
 ## Android-специфика (Tecno, Samsung, Xiaomi)
 
@@ -200,7 +201,7 @@ project: brain-25-evidence
 
 ПРИМЕРЫ ПРАВИЛЬНЫХ НАХОДОК:
 
-"style.css:8 — .btn на 360px: height 41px. WCAG 2.5.5 требует 44px. Фикс: padding .7rem 1.1rem, min-height 44px."
+"style.css:8 — .btn на 360px: height 41px. WCAG 2.5.5 требует 44px. Фикс: padding .7rem 1.1rem, min-height 44px. (Правится style.css; в продакшене грузится style.min.css — после правки перегенерировать `npx --yes csso-cli docs/style.css -o docs/style.min.css` и бампнуть `?v=` в страницах, иначе фикс не доедет до браузера.)"
 
 "index.html:196 — input#search font-size 14px. На iOS при фокусе зум до 16px → horizontal scroll. Фикс: font-size:16px."
 

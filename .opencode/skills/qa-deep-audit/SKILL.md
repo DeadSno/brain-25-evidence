@@ -122,15 +122,17 @@ project: brain-25-evidence
 - CSRF (если применимо)
 - Sensitive данные
 
-### 9. Новый UI: табы, редиректы, compare
-- Редиректы работают на прямом заходе: `graph.html` → `interactions.html#graph`,
-  `atlas.html` → `interactions.html#mech` (meta refresh + `location.replace`)
-- 4 таба `interactions.html` (`#graph`/`#mech`/`#sups`/`#drugs`): переключение
-  и `hashchange` не ломают состояние; прямой заход на `#mech`/`#sups`
-  автостартует нужный таб
-- `compare.html` — нет битых ссылок на карточки/скрипты; корректное
+### 9. Новый UI: Hactar, редиректы, compare
+- Редиректы работают на прямом заходе: `graph.html`/`atlas.html`/`interactions.html`/`map.html`
+  → `hactar.html?tab=links`, `calculator.html`/`compare.html` → `hactar.html?tab=overview`
+  (meta refresh + `location.replace`, `sessionStorage.hactarRedirectedFrom`, `noindex, follow`)
+- Два таба `hactar.html` (`Overview` / `Links`, `.hactar-tabs[role="tablist"]`):
+  переключение и синхронизация с `?tab=` не ломают состояние; прямой заход на
+  `?tab=links` открывает граф, `aria-selected` ровно у одного таба
+- `hactar.html?tab=overview` — нет битых ссылок на карточки/скрипты; корректное
   состояние при 0/1/2 выбранных добавках; счётчик PMID не расходится с данными
-- deep-link `#nodeSidePanel` открывается/закрывается без JS-ошибок
+- боковая панель `#hactarSidebar` (`aside.hactar-sidebar`, не `#nodeSidePanel`)
+  открывается/закрывается без JS-ошибок, `Esc` возвращает фокус
 
 ## Формат находки
 

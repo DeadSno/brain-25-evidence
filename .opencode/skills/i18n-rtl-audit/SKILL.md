@@ -89,8 +89,13 @@ Check whether your UI survives translation. No signup required.
 - В проекте есть словарь `docs/i18n.js` (`I18N`): проверить, что все
   пользовательские строки страниц есть в словаре; строки, зашитые в
   HTML/JS мимо него, — находка
-- Покрытие словарём: `compare.html` и 4 таба `interactions.html`
-  (`#graph`/`#mech`/`#sups`/`#drugs`)
+- Покрытие словарём: все живые страницы (`index`, `hactar`, `trends`,
+  `methodology`, `faq`, `glossary`, `feedback`, `support`, `privacy`,
+  `terms-of-use`, `404`, `offline`, `sup/*`). `calculator.html`,
+  `compare.html`, `graph.html`, `atlas.html`, `interactions.html`,
+  `map.html` — редиректы на `hactar.html`, переводить в них нечего
+- Переключатель языка — `#langSelect`; выбор хранится в
+  `localStorage['lang']`, активный словарь подставляется из `docs/i18n.js`
 - `<html lang="ru">` на всех страницах
 
 ## Рекомендации (сверх находок)

@@ -47,7 +47,7 @@ project: brain-25-evidence
 2. Единственный создаваемый файл — reports/PRODUCT_AUDIT.md
 3. Лимит находок — см. раздел «Лимит находок»
 4. Время обхода: 15-20 мин максимум
-5. Обход: главные HTML + sup-страницы (список — см. .opencode/skills/CONVENTIONS.md) + style.css + script.js. НЕ обходить все sup (только 5 тестовых)
+5. Обход: главные HTML + sup-страницы (список — см. .opencode/skills/CONVENTIONS.md) + style.css + script.js (это исходники; в продакшене грузятся `style.min.css` и `script.min.js`, см. CONVENTIONS.md). НЕ обходить все sup (только 5 тестовых)
 6. Работай read-only
 
 ## Структура отчёта
@@ -116,11 +116,14 @@ project: brain-25-evidence
 
 - Форма: Web3Forms в feedback.html
 - Донат: ЮMoney в support.html
-- Воронка/Hactar: `hactar.html` — главная страница воронки. `calculator.html`,
-  `compare.html`, `interactions.html`, `map.html` — редиректы
-  (`<meta http-equiv="refresh">`) на `hactar.html`, отдельных живых страниц нет.
-  `graph.html` и `atlas.html` — редирект-заглушки на `interactions.html`
-  (внутри Hactar).
+- Воронка/Hactar: `hactar.html` — единственная живая страница воронки, два
+  таба (.hactar-tabs[role="tablist"]): Overview (`?tab=overview`, таблица
+  доз/взаимодействий/цен) и Links (`?tab=links`, граф связей).
+  `calculator.html`, `compare.html`, `interactions.html`, `map.html`,
+  `graph.html` и `atlas.html` — редирект-заглушки
+  (`<meta http-equiv="refresh">` + `location.replace`) на
+  `hactar.html?tab=…`; отдельных живых страниц нет, проверять их как
+  полноценные страницы не нужно
 - Проверки воронки Hactar:
   - Таблица «Обзор» (дозы, взаимодействия, цены) отображается корректно;
   - «Мои стеки» — стеки сохраняются после перезагрузки страницы;

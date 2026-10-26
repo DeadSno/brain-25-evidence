@@ -101,11 +101,14 @@ AVIF/WebP; ensure it isn't behind render-blocking JS.
 
 ### Проектные проверки (v5.6.5)
 
-- `interactions.html` — тяжёлые узлы графа грузятся лениво; при переключении
-  4 табов vis-network освобождается (`Network.destroy()`), иначе копятся
-  инстансы и слушатели — утечка памяти
-- `compare.html` — вес подгружаемых карточек и данных; нет лишних
-  синхронных запросов на старте
+- `hactar.html` — тяжёлые узлы графа грузятся лениво; при переключении
+  вкладок (`Overview` / `Links`) vis-network освобождается
+  (`Network.destroy()`), иначе копятся инстансы и слушатели — утечка памяти.
+  Граф живёт только во вкладке `?tab=links`, таблица — в `?tab=overview`
+- `hactar.html?tab=overview` — вес подгружаемых карточек и данных; нет лишних
+  синхронных запросов на старте. Старые `interactions.html`, `compare.html`,
+  `graph.html`, `atlas.html`, `map.html`, `calculator.html` — редиректы на
+  Hactar, измерять их CWV смысла нет
 
 ## Рекомендации (сверх находок)
 

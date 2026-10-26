@@ -67,13 +67,21 @@ Scan any web page for WCAG accessibility violations. No signup required.
 
 ### Проектные проверки (новый UI brain-25-evidence)
 
-- **Табы** `interactions.html` (`.tr-tabs [role="tab"]`): у активного
-  `aria-selected="true"`, у остальных `"false"`; переключение синхронизировано
-  с `hashchange`
-- **Side-panel** `#nodeSidePanel`: при открытии фокус уходит внутрь
-  (focus trap — Tab не уводит за панель), `aria-hidden` снимается
-- Закрытие панели по `Esc` возвращает фокус на узел-источник
+- **Табы** `hactar.html` (`.hactar-tabs[role="tablist"] [role="tab"]`):
+  два таба — Overview и Links; у активного `aria-selected="true"`, у второго
+  `"false"`; переключение синхронизировано с параметром `?tab=`
+  (старые `interactions.html`, `graph.html`, `atlas.html`, `map.html`,
+  `compare.html`, `calculator.html` — редиректы на `hactar.html`, живыми
+  страницами их не проверять)
+- **Side-panel** `#hactarSidebar` (`aside.hactar-sidebar`): при открытии фокус
+  уходит внутрь (focus trap — Tab не уводит за панель), `aria-hidden` снимается
+- Закрытие панели по `Esc` возвращает фокус на элемент-источник
 - У закрытой панели — `hidden` **и** `aria-hidden="true"`
+- **i18n-атрибуты**: `data-i18n-text` / `-title` / `-aria-label` /
+  `-placeholder` / `-alt` / `-tooltip` должны реально применяться. После
+  переключения на EN ни один `aria-label`/`placeholder` не остаётся пустым,
+  а `title` не содержит кириллицы (гейт `tests/test_i18n_no_russian.py`)
+- `role=` только валидные значения; `role="tab"` вне `[role="tablist"]` — находка
 
 4. Grade the page: A (0-1 issues), B (2-4), C (5-8), D (9-12), F (13+)
 
