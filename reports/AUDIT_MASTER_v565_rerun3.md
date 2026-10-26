@@ -969,6 +969,8 @@ PWA-кнопка установки и панель профиля Hactar.
 
 **Итого: 0 A, 1 B, 3 C.**
 
+**Статус после BATCH-3 (коммит `5b4d2466`):** CWV-01, CWV-02, CWV-03 — **закрыто**; CWV-04 — **отложено на v5.7** (`reports/BACKLOG.md`, нужно решение владельца). Замеры до/после — в «Статус закрытия (BATCH-3)» в конце раздела.
+
 LCP, FCP и INP **в норме на всех 28 замерах** — находки не про них, а про CLS в EN (CWV-01) и про вес/блокировку на реальной сети (CWV-02…04).
 
 ### CWV-01 — CLS в EN до 0,247: подмена текста после первого пейнта (B)
@@ -1070,6 +1072,27 @@ LCP, FCP и INP **в норме на всех 28 замерах** — наход
 
 Пункты 1–3 — механические и укладываются в один коммит (нужен бамп `CACHE_VERSION` и пересборка `style.min.css` для № 3). Пункт 4 совпадает с SEO-01 и живёт в `reports/BACKLOG.md`.
 
+**Выполнено:** пункты 1–3 — BATCH-3 (коммит `5b4d2466`); пункт 4 (архитектура EN) остаётся в `reports/BACKLOG.md`.
+
 ### Статус
 
-Код **не менялся** — прогон только читает файлы. Открыты: CWV-01 (B), CWV-02, CWV-03, CWV-04 (C).
+Код **менялся** — три механических пункта закрыты батчем BATCH-3 (коммит `5b4d2466`), CWV-04 перенесён в `reports/BACKLOG.md` как дизайн-решение.
+
+#### Статус закрытия (BATCH-3)
+
+| ID | Статус | Чем закрыто | Было → стало (CLS в EN) |
+|---|---|---|---|
+| CWV-01 | **Закрыто** | `html.i18n-pending main{visibility:hidden}` (`docs/style.css`, `style.min.css`) + `i18n-pending` в `docs/i18n.js` (снятие после `applyI18n`/`initEnSupData`/`loadEnCards`, страховочный таймаут 1500 мс) | `sup/magniy` 0,2474 → **0,0178**; `faq` 0,1814 → **0,001**; `methodology` 0,1543 → **0**; `hactar` 0,154 → **0,0001**; `sup/index` 0,1817 → **0,063**; `index` 0 → **0** |
+| CWV-02 | **Закрыто** | `defer` на `i18n.js` (142 из 149), `version.js` (135 из 145), `chart.umd` (3 из 3); `script.min.js` на `index` тоже получил `defer` | `i18n.js` 204 КБ и `chart.umd` 201 КБ больше не блокируют парсинг |
+| CWV-03 | **Закрыто** | `?ts=Date.now()` → `?v=<BUILD_VERSION>`: `docs/i18n.js` (новый `window.BUILD_VERSION='5.6.5'` + `dataVersion()`), `script.js`, `script.min.js`, `version.js`, `hactar.js:391`, `tracker.js:17`, `trends.html:475` | сеть: `data.json?v=5.6.5`, `data_en.json?v=5.6.5`, `data_index.json?v=5.6.5`, `version.json?v=5.6.5` — `?ts=` не осталось ни одного |
+| CWV-04 | **Отложено на v5.7** | `reports/BACKLOG.md`, раздел «CWV-04 (C) — 557 КБ шрифтов Inter» | без изменений |
+
+**Отклонения и что осталось.**
+
+1. **`hactar.html` и 6 заглушек остались без `defer` у `i18n.js`** (7 из 149). Причина техническая: в `hactar.html` `i18n.js` подключён ПОСЛЕ `hactar.js`, а `hactar.js` в первой сотне строк делает `var T = window.t` — с `defer` оба выполняются в порядке документа, и `hactar.js` падал с `TypeError: T is not a function`. Заглушки (`calculator`, `compare`, `interactions`, `map`, `graph`, `atlas`) редиректят на `hactar.html`, поэтому ловили ту же ошибку. Компромисс: `hactar.html` уже не имеет блокирующего `i18n.js` в `<head>` (скрипт в конце body), а заглушки — пустые страницы с `meta refresh`.
+2. **`trends.html` в EN остался «poor»: 0,204** (было 0,1735). Это не регрессия i18n-подмены: единственный шифт 0,2018 на 66 мс — блок `SECTION.executive-summary` сжимается на 21 px (английский текст короче), из-за чего ниже уезжают `stat-cards` и `filters`. Лечится резервированием высоты; вынесено в `reports/BACKLOG.md`.
+3. **`templates/sup.html.j2` и `sup_index.html.j2` пришлось править тоже** — без этого `tests/test_build_sup_idempotent.py::test_build_matches_committed_pages` падал: пересборка 131 карточки теряла `defer`. После правки шаблонов и `python scripts/build_sup.py` тест зелёный (3 passed).
+4. **Дополнительно исправлены 3 места с `?ts=`**, которых не было в задании: `docs/hactar.js:391`, `docs/tracker.js:17`, инлайн-скрипт `docs/trends.html:475`. Иначе кэш-бастинг остался бы на части запросов.
+5. **`?v=463 → 464`** в 148 файлах, `tests/_style_version_baseline.txt` = 464, `CACHE_VERSION` v165 → **v166**.
+
+**Проверка.** `pytest -m "not (snapshots or a11y or tabs or graph or mobile375 or e2e)"` → 1802 passed, 0 failed (81 s); `test_style_version_bump.py` → 5 passed; `test_build_sup_idempotent.py` → 3 passed; 20 страниц в браузере — 0 `pageerror` (кроме известного шума metrika на `feedback.html`, он был и до правок).
