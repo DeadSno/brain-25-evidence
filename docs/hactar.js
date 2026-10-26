@@ -388,7 +388,7 @@
   }
 
   function fetchJson(url) {
-    return fetch(url + '?ts=' + Date.now()).then(function (r) {
+    return fetch(url + '?v=' + (window.BUILD_VERSION || '5.6.5')).then(function (r) {
       if (!r.ok) throw new Error('HTTP ' + r.status + ' — ' + url);
       return r.json();
     });

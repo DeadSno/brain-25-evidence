@@ -14,7 +14,7 @@
 
   function fetchSupplements() {
     if (_supplementsCache) return Promise.resolve(_supplementsCache);
-    return fetch('data.json?ts=' + Date.now())
+    return fetch('data.json?v=' + (window.BUILD_VERSION || '5.6.5'))
       .then(function (r) {
         if (!r.ok) throw new Error('data.json HTTP ' + r.status);
         return r.json();
