@@ -60,12 +60,14 @@ project: brain-25-evidence
 
 > **Страницы-редиректы (6):** `calculator.html`, `compare.html`,
 > `graph.html`, `atlas.html`, `interactions.html`, `map.html`. Это не
-> отдельные страницы, а заглушки: `<meta http-equiv="refresh">` +
-> `window.location.replace()` на `hactar.html?tab=overview` (calculator,
-> compare) или `hactar.html?tab=graph` (graph, atlas, interactions, map),
-> плюс `noindex, follow`, canonical на целевой URL и
-> `sessionStorage.hactarRedirectedFrom`. В навигацию их не ставить и из
-> навигации не требовать.
+> отдельные страницы, а заглушки: `<meta http-equiv="refresh">` (есть у
+> всех шести) на `hactar.html?tab=overview` (calculator, compare) или
+> `hactar.html?tab=graph` (graph, atlas, interactions, map), плюс
+> `noindex, follow`, canonical на целевой URL, видимая CTA-ссылка в
+> `<body>` и `sessionStorage.hactarRedirectedFrom`. Дополнительный
+> JS-фолбэк `window.location.replace()` есть только у `graph.html` и
+> `atlas.html`; остальным он не нужен — refresh срабатывает без JS.
+> В навигацию их не ставить и из навигации не требовать.
 >
 > **Deep-link Hactar — только два значения:** `?tab=overview` (по
 > умолчанию) и `?tab=graph`. Любой другой параметр, включая устаревший
