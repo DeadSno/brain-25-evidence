@@ -31,7 +31,7 @@
       }
     } catch (e) {}
   </script>
-  <link rel="stylesheet" href="style.min.css?v=462"/>
+  <link rel="stylesheet" href="style.min.css?v=463"/>
   <style>
     /* Project Hactar — скелет (H-1, только вёрстка) */
     :root{--hactar-sidebar:340px;}
@@ -228,14 +228,21 @@
     .hactar-profile-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--space-1) var(--space-3)}
     .hactar-profile-title{margin:0;font-size:var(--fs-6);font-weight:700;line-height:var(--lh-title)}
     .hactar-profile-hint{margin:0;font-size:var(--fs-4);color:var(--muted);line-height:var(--lh-normal)}
-    .hactar-profile-form{display:grid;grid-template-columns:repeat(auto-fit,minmax(6.5rem,1fr));gap:var(--space-2) var(--space-3);align-items:end}
+    /* VIS-03: 6.5rem не влезало в 207px контейнера на 320px - auto-fit
+       давал одну колонку и панель растягивалась на 4 ряда (469px).
+       5.5rem даёт на 320px две колонки по ~99px (2x2). */
+    .hactar-profile-form{display:grid;grid-template-columns:repeat(auto-fit,minmax(5.5rem,1fr));gap:var(--space-2) var(--space-3);align-items:end}
     .hactar-profile-field{display:flex;flex-direction:column;gap:var(--space-0-2);min-width:0}
     .hactar-profile-field-check{justify-content:end}
     /* [hidden] слабее авторского display:flex — скрытие задаём явно. */
     .hactar-profile-field[hidden]{display:none}
     .hactar-profile-label{font-size:var(--fs-4);color:var(--muted)}
     .hactar-profile-input,.hactar-profile-select{width:100%;min-width:0;padding:var(--space-2) var(--space-3);border:1px solid var(--border);border-radius:var(--radius-md);background:var(--bg);color:var(--text);font-size:var(--fs-5);font-family:inherit}
-    .hactar-profile-check{display:flex;align-items:center;gap:var(--space-2);font-size:var(--fs-5);white-space:nowrap}
+    /* MOB-01: сам чекбокс 24px (WCAG 2.5.8), а подпись целиком - 44px
+       по высоте (WCAG 2.5.5): промах по нему скрывал предупреждение
+       о противопоказаниях при беременности. */
+    #hactarProfilePreg{inline-size:24px;block-size:24px;flex:0 0 auto;margin:0}
+    .hactar-profile-check{display:flex;align-items:center;gap:var(--space-2);min-height:44px;font-size:var(--fs-5);white-space:nowrap}
     .hactar-profile-out{display:flex;flex-wrap:wrap;gap:var(--space-2) var(--space-5)}
     .hactar-profile-metric{display:flex;align-items:baseline;gap:var(--space-2);font-size:var(--fs-4);color:var(--muted)}
     .hactar-profile-metric-value{font-size:var(--fs-6);font-weight:700;color:var(--text);font-variant-numeric:tabular-nums}
@@ -311,16 +318,22 @@
     }
     @media (max-width: 768px){
       .hactar-wrap{display:block}
-      .hactar-sidebar{display:none;position:fixed;inset:0;z-index:100;width:100vw;height:100vh;overflow-y:auto;padding:var(--space-4) var(--space-4) var(--space-12);border-inline-end:none;border-bottom:1px solid var(--border)}
+      .hactar-sidebar{display:none;position:fixed;inset:0;z-index:100;width:100vw;height:100vh;overflow-y:auto;overscroll-behavior:contain;padding:var(--space-4) var(--space-4) var(--space-12);border-inline-end:none;border-bottom:1px solid var(--border)}
+      /* MOB-03: шторка занимает весь экран, но фон под ней продолжал
+         прокручиваться (scroll chaining в iOS). JS вешает класс, пока
+         шторка открыта, и снимает при закрытии. */
+      body.hactar-overlay-open{overflow:hidden}
       .hactar-done{display:block}
       .hactar-main{padding:var(--space-4) var(--space-4) var(--space-12)}
       .hactar-btn-pick{display:inline-flex}
       /* H-5: на мобильном табы по-прежнему прибиты к низу. top:auto
          обязателен: базовое правило задаёт top:0, и вместе с bottom:0
          липкая полоса растянулась бы на весь экран. */
-      .hactar-tabs[role="tablist"]{position:fixed;top:auto;bottom:0;inset-inline-start:0;width:100%;padding:var(--space-3) var(--space-4);background:var(--bg);border-top:1px solid var(--border);z-index:50;margin:0}
+      /* MOB-02: бар прижат к низу экрана, на iPhone с home-indicator
+         нижняя треть кнопок уходила в системную полосу. */
+      .hactar-tabs[role="tablist"]{position:fixed;top:auto;bottom:0;inset-inline-start:0;width:100%;padding:var(--space-3) var(--space-4);padding-bottom:max(var(--space-3), env(safe-area-inset-bottom, 0px));background:var(--bg);border-top:1px solid var(--border);z-index:50;margin:0}
       .hactar-tabs[role="tablist"] [role="tab"]{flex:1;text-align:center}
-      .hactar-panels{padding-bottom:calc(var(--space-3) + 56px)}
+      .hactar-panels{padding-bottom:calc(var(--space-3) + 56px + env(safe-area-inset-bottom, 0px))}
       /* На мобильном табы прибиты к низу — тост встаёт над ними, а не поверх. */
       .hactar-toasts{bottom:84px}
     }
@@ -631,6 +644,10 @@
   // Мобильная шторка: открыть / закрыть
   function openDrawer(){
     sidebar.classList.add('open');
+    /* MOB-03: шторка занимает весь экран, но страница под ней продолжала
+       прокручиваться (scroll chaining в iOS). Класс на body держит
+       overflow:hidden; снимается вместе с закрытием. */
+    document.body.classList.add('hactar-overlay-open');
     /* Первый видимый элемент шторки: на мобильном это «Готово» (оно
        стоит в разметке раньше поиска), на планшете «Готово» скрыто и
        фокус получает поле поиска. */
@@ -639,6 +656,7 @@
   }
   function closeDrawer(){
     sidebar.classList.remove('open');
+    document.body.classList.remove('hactar-overlay-open');
     /* Возврат фокуса на кнопку, которая шторку открыла: иначе после
        «Готово» фокус уезжает в начало документа. */
     if (btnPick) btnPick.focus();
