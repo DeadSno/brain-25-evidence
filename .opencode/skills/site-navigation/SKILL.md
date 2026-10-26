@@ -46,7 +46,7 @@ project: brain-25-evidence
 ### 1. Целевые страницы (все должны быть в навигации)
 - index.html - Главная (каталог добавок)
 - hactar.html - Project Hactar: два таба, `?tab=overview` (таблица доз/
-  взаимодействий/цен) и `?tab=links` (граф связей)
+  взаимодействий/цен) и `?tab=graph` (граф связей)
 - trends.html - Тренды
 - methodology.html - Методология
 - faq.html - FAQ
@@ -62,10 +62,15 @@ project: brain-25-evidence
 > `graph.html`, `atlas.html`, `interactions.html`, `map.html`. Это не
 > отдельные страницы, а заглушки: `<meta http-equiv="refresh">` +
 > `window.location.replace()` на `hactar.html?tab=overview` (calculator,
-> compare) или `hactar.html?tab=links` (graph, atlas, interactions, map),
+> compare) или `hactar.html?tab=graph` (graph, atlas, interactions, map),
 > плюс `noindex, follow`, canonical на целевой URL и
 > `sessionStorage.hactarRedirectedFrom`. В навигацию их не ставить и из
 > навигации не требовать.
+>
+> **Deep-link Hactar — только два значения:** `?tab=overview` (по
+> умолчанию) и `?tab=graph`. Любой другой параметр, включая устаревший
+> `?tab=links`, открывает «Обзор» (`docs/hactar.js`, `modeFromUrl()`).
+> Старые `?tab=calc` и `?tab=compare` переписываются на `?tab=overview`.
 
 ### 2. Структура навигации
 Каждая HTML страница в docs/ должна иметь единый блок навигации.
