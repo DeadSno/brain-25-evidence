@@ -219,6 +219,48 @@
     .hactar-ov-dose-ok{color:var(--info-tx)}
     .hactar-ov-dose-warn{color:var(--danger-tx);font-weight:600}
     .hactar-ov-dose-err{color:var(--danger-tx);font-weight:600}
+    /* FEATURE-1 (v5.6.5): профиль пользователя — вес, рост, возраст, пол.
+       Панель стоит над таблицей «Обзора» и должна быть компактной, чтобы
+       не отъедать место у таблицы: одна строка на десктопе (grid auto-fit),
+       две колонки на узком экране. Отдельной вкладки не заводим — решение
+       владельца (никаких «третьих табов»). */
+    .hactar-profile{display:flex;flex-direction:column;gap:var(--space-3);padding:var(--space-3) var(--space-4);border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--card-bg)}
+    .hactar-profile-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--space-1) var(--space-3)}
+    .hactar-profile-title{margin:0;font-size:var(--fs-6);font-weight:700;line-height:var(--lh-title)}
+    .hactar-profile-hint{margin:0;font-size:var(--fs-4);color:var(--muted);line-height:var(--lh-normal)}
+    .hactar-profile-form{display:grid;grid-template-columns:repeat(auto-fit,minmax(6.5rem,1fr));gap:var(--space-2) var(--space-3);align-items:end}
+    .hactar-profile-field{display:flex;flex-direction:column;gap:var(--space-0-2);min-width:0}
+    .hactar-profile-field-check{justify-content:end}
+    /* [hidden] слабее авторского display:flex — скрытие задаём явно. */
+    .hactar-profile-field[hidden]{display:none}
+    .hactar-profile-label{font-size:var(--fs-4);color:var(--muted)}
+    .hactar-profile-input,.hactar-profile-select{width:100%;min-width:0;padding:var(--space-2) var(--space-3);border:1px solid var(--border);border-radius:var(--radius-md);background:var(--bg);color:var(--text);font-size:var(--fs-5);font-family:inherit}
+    .hactar-profile-check{display:flex;align-items:center;gap:var(--space-2);font-size:var(--fs-5);white-space:nowrap}
+    .hactar-profile-out{display:flex;flex-wrap:wrap;gap:var(--space-2) var(--space-5)}
+    .hactar-profile-metric{display:flex;align-items:baseline;gap:var(--space-2);font-size:var(--fs-4);color:var(--muted)}
+    .hactar-profile-metric-value{font-size:var(--fs-6);font-weight:700;color:var(--text);font-variant-numeric:tabular-nums}
+    /* Категория ИМТ: цвет — только подсказка, рядом стоит текст («норма»),
+       потому что одного цвета для доступности мало. Токены проверены на AA
+       в обеих темах: --grade-a-tx 8.00:1 / 4.61:1, --grade-c-tx 8.35:1 /
+       4.61:1, --danger-tx и --info-tx переопределены для светлой темы. */
+    .hactar-profile-flag{font-size:var(--fs-4);font-weight:600}
+    .hactar-profile-flag-low{color:var(--info-tx)}
+    .hactar-profile-flag-ok{color:var(--grade-a-tx)}
+    .hactar-profile-flag-high{color:var(--grade-c-tx)}
+    .hactar-profile-flag-very-high{color:var(--danger-tx)}
+    .hactar-profile-status{margin:0;font-size:var(--fs-4);color:var(--muted);line-height:var(--lh-normal)}
+    .hactar-profile-status:empty{display:none}
+    /* Рекомендация «на кг массы» в ячейке дозы — отдельная строка, чтобы не
+       сливалась с нормой из data.json и со статусом ввода. */
+    .hactar-ov-dose-perkg{color:var(--info-tx)}
+    /* Доза выше upper_limit: рамка красная, как у некорректной, но само
+       число валидно, поэтому aria-invalid остаётся false, а текст
+       предупреждения живёт в .hactar-ov-dose-warn. */
+    .hactar-ov-dose-input-over{border:1px solid var(--danger-tx)}
+    /* Беременность: предупреждение над таблицей и красная шапка колонки. */
+    .hactar-ov-preg{margin:0;padding:var(--space-2) var(--space-3);border-radius:var(--radius-md);border-inline-start:3px solid var(--danger-tx);background:var(--card-bg);color:var(--danger-tx);font-size:var(--fs-4);font-weight:600;line-height:var(--lh-normal)}
+    .hactar-ov-preg[hidden]{display:none}
+    .hactar-ov-sup-preg{color:var(--danger-tx)}
     /* Взаимодействия между добавками: конфликт — предупреждение,
        общие мишени и общий механизм — нейтральная справка. */
     .hactar-ov-conflict,.hactar-ov-rel{display:block;margin-bottom:var(--space-1)}
@@ -245,6 +287,12 @@
     @media (max-width: 480px){
       .hactar-ov-param,.hactar-ov-sup,.hactar-ov-rowhead,.hactar-ov-cell{padding:var(--space-2)}
       .hactar-ov-dose{min-width:0}
+      /* FEATURE-1: на телефоне панель профиля не должна отъедать высоту у
+         таблицы — уменьшаем её внутренние отступы и зазоры. Поля ввода
+         остаются не ниже 40px: палец должен попадать без прицеливания. */
+      .hactar-profile{padding:var(--space-2) var(--space-3);gap:var(--space-2)}
+      .hactar-profile-form{gap:var(--space-1) var(--space-2)}
+      .hactar-profile-input,.hactar-profile-select{padding:var(--space-2) var(--space-2)}
     }
     /* Мобильная шторка */
     .hactar-sidebar.open{display:block}
@@ -417,6 +465,57 @@
              таблицей: строки собирает docs/hactar.js (OVERVIEW_ROWS),
              колонки — выбранные добавки. -->
         <div class="hactar-panel active" id="hactarPanelOverview" data-panel="overview">
+          <!-- FEATURE-1 (v5.6.5): профиль пользователя живёт прямо в
+               «Обзоре», а не отдельной вкладкой. Владелец против третьих
+               вкладок: расчёт нужен там же, где таблица дозировок, иначе
+               связь между весом и дозой не видна. Панель стоит выше
+               пустого состояния — профиль полезен и без выбранных добавок. -->
+          <section class="hactar-profile" id="hactarProfile" aria-labelledby="hactarProfileTitle">
+            <div class="hactar-profile-head">
+              <h2 class="hactar-profile-title" id="hactarProfileTitle" data-i18n-text="hactar.profile.title">Профиль</h2>
+              <p class="hactar-profile-hint" data-i18n-text="hactar.profile.hint">Данные остаются в браузере: они нужны только для расчёта</p>
+            </div>
+            <div class="hactar-profile-form">
+              <label class="hactar-profile-field">
+                <span class="hactar-profile-label" data-i18n-text="hactar.profile.sex">Пол</span>
+                <select class="hactar-profile-select" id="hactarProfileSex">
+                  <option value="m" data-i18n-text="hactar.profile.sexM">Мужской</option>
+                  <option value="f" data-i18n-text="hactar.profile.sexF">Женский</option>
+                </select>
+              </label>
+              <label class="hactar-profile-field">
+                <span class="hactar-profile-label" data-i18n-text="hactar.profile.weight">Вес, кг</span>
+                <input class="hactar-profile-input" id="hactarProfileWeight" type="number" inputmode="decimal" min="20" max="300" step="0.1" placeholder="70" autocomplete="off" />
+              </label>
+              <label class="hactar-profile-field">
+                <span class="hactar-profile-label" data-i18n-text="hactar.profile.height">Рост, см</span>
+                <input class="hactar-profile-input" id="hactarProfileHeight" type="number" inputmode="numeric" min="90" max="250" step="1" placeholder="175" autocomplete="off" />
+              </label>
+              <label class="hactar-profile-field">
+                <span class="hactar-profile-label" data-i18n-text="hactar.profile.age">Возраст, лет</span>
+                <input class="hactar-profile-input" id="hactarProfileAge" type="number" inputmode="numeric" min="14" max="120" step="1" placeholder="30" autocomplete="off" />
+              </label>
+              <div class="hactar-profile-field hactar-profile-field-check" id="hactarProfilePregWrap" hidden>
+                <label class="hactar-profile-check">
+                  <input type="checkbox" id="hactarProfilePreg" />
+                  <span data-i18n-text="hactar.profile.pregnant">Беременность</span>
+                </label>
+              </div>
+            </div>
+            <div class="hactar-profile-out" aria-live="polite">
+              <div class="hactar-profile-metric">
+                <span class="hactar-profile-metric-label" data-i18n-text="hactar.profile.bmi">ИМТ</span>
+                <span class="hactar-profile-metric-value" id="hactarProfileBmi">—</span>
+                <span class="hactar-profile-flag" id="hactarProfileBmiFlag"></span>
+              </div>
+              <div class="hactar-profile-metric">
+                <span class="hactar-profile-metric-label" data-i18n-text="hactar.profile.bmr">BMR</span>
+                <span class="hactar-profile-metric-value" id="hactarProfileBmr">—</span>
+                <span class="hactar-profile-metric-unit" data-i18n-text="hactar.profile.kcal">ккал/сут</span>
+              </div>
+            </div>
+            <p class="hactar-profile-status" id="hactarProfileStatus" role="status"></p>
+          </section>
           <div class="hactar-empty-state">
             <div class="hactar-empty-art" aria-hidden="true">🧪</div>
             <p class="hactar-empty-title" data-i18n-text="hactar.empty.title">Пока ничего не выбрано</p>
@@ -430,6 +529,12 @@
                Колонка — одна выбранная добавка, шапка (thead) — её
                название, остальные строки — параметры. -->
           <div class="hactar-ov" id="hactarOverview" hidden>
+            <!-- FEATURE-1: предупреждение о беременности. Показывается,
+                 когда в профиле отмечена беременность, а среди выбранных
+                 добавок есть та, у которой в caution прямо сказано
+                 «не рекомендуется при беременности». Список собирает
+                 docs/hactar.js, поэтому элемент пуст в разметке. -->
+            <p class="hactar-ov-preg" id="hactarOvPreg" role="alert" hidden></p>
             <div class="hactar-ov-head">
               <h2 class="hactar-ov-title" data-i18n-text="hactar.ov.title">Обзор стека</h2>
               <p class="hactar-ov-note" id="hactarOvNote"></p>

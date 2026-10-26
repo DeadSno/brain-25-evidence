@@ -533,7 +533,13 @@ self.addEventListener('activate', event => {
    script.min.js лежат в STATIC_ASSETS и отдаются cache-first, поэтому без
    нового имени кэша возвратный посетитель остался бы со старым словарём
    и без приложения EN-данных. */
-var CACHE_VERSION = 'v161';
+/* Бамп v161 -> v162 FEATURE-1: профиль пользователя (вес, рост, возраст,
+   пол) в панели «Обзор» — ИМТ, BMR по Миффлину–Сан Жеору, дозы «на кг» из
+   data.json и предупреждение о беременности. Правки в docs/hactar.html,
+   docs/hactar.js и docs/i18n.js; все три лежат в STATIC_ASSETS и отдаются
+   cache-first, поэтому без нового имени кэша возвратный посетитель
+   остался бы со старой страницей и без новых ключей словаря. */
+var CACHE_VERSION = 'v162';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
