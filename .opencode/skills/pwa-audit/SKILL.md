@@ -55,9 +55,16 @@ project: brain-25-evidence
 - 2+ иконки (192, 512)
 
 ### 3. Service Worker
-- Кэширует статику (HTML, CSS, JS, JSON)
+- Кэширует статику (HTML, CSS, JS, JSON) — список `STATIC_ASSETS`
 - Есть стратегия fetch (cache-first или network-first)
-- Версия кэша (например, CACHE_NAME = 'v1')
+- Версия кэша — `var CACHE_VERSION` в `docs/sw.js`; версию не хардкодить,
+  читать из файла
+- `offline.html` в кэше — офлайн-фолбэк обязан открываться
+- `self.skipWaiting()` в `install` и `clients.claim()` в `activate` — в
+  v5.6.5 **уже реализованы**. Проверять поведение, а не наличие: после
+  деплоя возвратный посетитель не должен видеть старую вёрстку
+- `docs/pwa.js`: `beforeinstallprompt` + `appinstalled` (кнопка установки);
+  `updatefound` не обрабатывается — кандидат в находки
 
 ### 4. Подключение
 - Все HTML страницы в docs/ содержат `<link rel="manifest" href="manifest.webmanifest">`
@@ -77,6 +84,34 @@ project: brain-25-evidence
 | pwa.js | OK / FAIL | регистрация |
 | Icons | OK / FAIL | размеры |
 | HTML подключение | OK / FAIL | сколько страниц |
+
+## Локаль: RU + EN (обязательно для всех проверок)
+
+Проверять в обеих локалях: RU (`lang="ru"`) и EN (`localStorage.lang='en'`).
+Оба языка — столпы проекта, ни один не второстепенный. Каждая проверка выше
+выполняется дважды — в RU и в EN; находку помечать локалью `RU` / `EN` / `RU+EN`.
+
+| Локаль | Как включить | Откуда текст |
+|---|---|---|
+| RU | по умолчанию, `<html lang="ru">` | словарь `docs/i18n.js` (`I18N.ru`), данные — `docs/data.json` |
+| EN | `#langSelect` или `localStorage.setItem('lang','en')` + перезагрузка | `docs/i18n.js` (`I18N.en`) + `docs/data_en.json` (паритет 130/130) |
+
+- `docs/i18n.js` выставляет `document.documentElement.lang = LOCALE`;
+  статический `<html lang="ru">` на всех страницах — это долг SEO-01, а не
+  признак того, что RU главнее
+- Переводятся атрибуты `data-i18n`, `data-i18n-text`, `-title`, `-alt`,
+  `-aria-label`, `-placeholder`, `-tooltip`, `-vars`
+- В EN не должно остаться кириллицы в интерфейсе (гейт
+  `tests/test_i18n_no_russian.py`); русская строка в EN — находка
+- Пока перевод не применён, `<html>` держит класс `i18n-pending`
+  (`html.i18n-pending main{visibility:hidden}`) — проверять, что класс
+  снимается и контент не остаётся скрытым
+- Находка «только в RU» или «только в EN» — это находка, а не норма
+
+Офлайн-страница и кешированные ассеты проверяются в обеих локалях:
+`offline.html` и `STATIC_ASSETS` не зависят от языка.
+
+- После переключения локали офлайн-режим обязан остаться рабочим.
 
 ## Рекомендации (сверх находок)
 
