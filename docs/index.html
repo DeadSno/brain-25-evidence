@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <script defer src="version.js?v=312"></script>
-  <script src="i18n.js?v=12"></script>
+  <script src="i18n.js?v=13"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>БАДы: доказательства и механизмы — Brain 25 Evidence</title>
 <meta name="description" content="130 БАД с разбором механизмов, ссылками на PubMed, оценкой доказательности и текущими исследованиями. Открытые данные без рекламы."/>
@@ -73,7 +73,7 @@ try {
 <link rel="preload" href="fonts/inter-semibold.woff2" as="font" type="font/woff2" crossorigin/>
 <link rel="preload" href="fonts/inter-bold.woff2" as="font" type="font/woff2" crossorigin/>
 <link rel="preload" href="fonts/inter-extrabold.woff2" as="font" type="font/woff2" crossorigin/>
-<link rel="stylesheet" href="style.min.css?v=460"/>
+<link rel="stylesheet" href="style.min.css?v=462"/>
 <style>
 :root{--apanel:var(--card-bg);--aborder:var(--border);--atext:var(--text)}
 /* Единая шапка для всех страниц */
@@ -290,7 +290,11 @@ footer { font-size: 1rem !important; }
     <nav class="actions" data-i18n-aria-label="a11y.navMain">
       <a class="btn c-feedback" href="feedback.html" data-i18n-text="index.feedback">💬 Обратная связь</a>
       <a class="btn c-support" href="support.html" data-i18n-text="index.support">💚 Поддержать</a>
-      <button class="btn c-theme" id="themeBtn" aria-label="Переключить на светлую тему">🌞 Светлая тема</button>
+      <!-- FIX-75: aria-label у #themeBtn ставит скрипт темы (t("a11y.themeToDark") /
+           t("a11y.themeToLight")). Статический русский атрибут всё равно
+           перетирался при загрузке, а в EN-режиме до загрузки скрипта читался
+           как русский — гейт tests/test_i18n_no_russian.py падал на нём. -->
+      <button class="btn c-theme" id="themeBtn">🌞 Светлая тема</button>
       <select id="langSelect" class="lang-select" data-i18n-aria-label="a11y.langSelect"><option value="ru">RU</option><option value="en">EN</option></select>
       <button class="btn c-random" id="randomBtn" data-i18n-text="index.random">🎲 Удиви меня</button>
     </nav>

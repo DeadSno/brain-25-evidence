@@ -32,9 +32,9 @@
       }
     } catch(e) {}
     </script>
-    <link rel="stylesheet" href="../style.min.css?v=460">
+    <link rel="stylesheet" href="../style.min.css?v=462">
     <script src="../version.js?v=312"></script>
-    <script src="../i18n.js?v=12"></script>
+    <script src="../i18n.js?v=13"></script>
     <script src="../pwa.js?v=283" defer></script>
 <script src="../share.js?v=2" defer></script>
     <script type="application/ld+json">
@@ -64,7 +64,9 @@
     <nav class="actions" data-i18n-aria-label="a11y.navMain">
       <a class="btn c-feedback" href="../feedback.html" data-i18n-text="index.feedback">💬 Обратная связь</a>
       <a class="btn c-support" href="../support.html" data-i18n-text="index.support">💚 Поддержать</a>
-      <button class="btn c-theme" id="themeBtn" aria-label="Переключить на светлую тему">🌞 Светлая тема</button>
+      <!-- FIX-75: aria-label у #themeBtn ставит скрипт темы (t("a11y.themeToDark") /
+           t("a11y.themeToLight")) — статический атрибут перетирался и ломал EN-гейт. -->
+      <button class="btn c-theme" id="themeBtn">🌞 Светлая тема</button>
       <select id="langSelect" class="lang-select" data-i18n-aria-label="a11y.langSelect"><option value="ru">RU</option><option value="en">EN</option></select>
       <button class="btn c-random" id="randomBtn" data-i18n-text="index.random">🎲 Удиви меня</button>
     </nav>
@@ -166,7 +168,7 @@
             <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=NMN" target="_blank" rel="nofollow noopener" class="shop-btn">WB ↗</a>
         </div>
         <div class="shop-look">
-            <strong data-i18n-text="sup.lookFor">Что искать при покупке:</strong> Ищите форму «бета-никотинамид мононуклеотид» на этикетке, проверяйте дозировку и наличие сертификата качества (GMP/ISO).
+            <strong data-i18n-text="sup.lookFor">Что искать при покупке:</strong> <span data-i18n-text="sup.lookForForm" data-i18n-vars='{"form": "бета-никотинамид мононуклеотид"}'>Ищите форму «бета-никотинамид мононуклеотид» на этикетке, проверяйте дозировку и наличие сертификата качества (GMP/ISO).</span>
         </div>
     </div>
     

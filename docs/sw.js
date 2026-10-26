@@ -524,7 +524,9 @@ self.addEventListener('activate', event => {
    ?v= поднят с 9 до 10 на 147 страницах и в обоих шаблонах sup — иначе
    возвратный посетитель получил бы старый словарь, и applyI18n подставил бы
    в футер имена ключей вместо текста. */
-var CACHE_VERSION = 'v158';
+/* Бамп v158 -> v159 FIX-76 (WADA-01): контраст футера — правка style.css, перегенерация style.min.css, ?v= 460 -> 461. */
+/* Бамп v159 -> v160 FIX-76 (WADA-02): у .qaGrid возвращён tabindex и добавлен :focus-visible (скроллируемая область обязана быть доступна с клавиатуры); style.min.css перегенерирован, ?v= 461 -> 462. */
+var CACHE_VERSION = 'v160';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 

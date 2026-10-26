@@ -32,9 +32,9 @@
       }
     } catch(e) {}
     </script>
-    <link rel="stylesheet" href="../style.min.css?v=460">
+    <link rel="stylesheet" href="../style.min.css?v=462">
     <script src="../version.js?v=312"></script>
-    <script src="../i18n.js?v=12"></script>
+    <script src="../i18n.js?v=13"></script>
     <script src="../pwa.js?v=283" defer></script>
 <script src="../share.js?v=2" defer></script>
     <script type="application/ld+json">
@@ -64,7 +64,9 @@
     <nav class="actions" data-i18n-aria-label="a11y.navMain">
       <a class="btn c-feedback" href="../feedback.html" data-i18n-text="index.feedback">💬 Обратная связь</a>
       <a class="btn c-support" href="../support.html" data-i18n-text="index.support">💚 Поддержать</a>
-      <button class="btn c-theme" id="themeBtn" aria-label="Переключить на светлую тему">🌞 Светлая тема</button>
+      <!-- FIX-75: aria-label у #themeBtn ставит скрипт темы (t("a11y.themeToDark") /
+           t("a11y.themeToLight")) — статический атрибут перетирался и ломал EN-гейт. -->
+      <button class="btn c-theme" id="themeBtn">🌞 Светлая тема</button>
       <select id="langSelect" class="lang-select" data-i18n-aria-label="a11y.langSelect"><option value="ru">RU</option><option value="en">EN</option></select>
       <button class="btn c-random" id="randomBtn" data-i18n-text="index.random">🎲 Удиви меня</button>
     </nav>
@@ -153,7 +155,7 @@
             <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%9C%D0%BE%D0%BB%D0%B8%D0%B1%D0%B4%D0%B5%D0%BD" target="_blank" rel="nofollow noopener" class="shop-btn">WB ↗</a>
         </div>
         <div class="shop-look">
-            <strong data-i18n-text="sup.lookFor">Что искать при покупке:</strong> Проверяйте дозировку на этикетке и наличие сертификата качества (GMP/ISO).
+            <strong data-i18n-text="sup.lookFor">Что искать при покупке:</strong> <span data-i18n-text="sup.lookForGeneric">Проверяйте дозировку на этикетке и наличие сертификата качества (GMP/ISO).</span>
         </div>
     </div>
     
@@ -161,7 +163,7 @@
     
     <div class="sup-section unknowns-section">
         <h2 data-i18n-text="sup.h2Unknowns">🔍 Что мы не знаем</h2>
-        <p>Нет данных о формах выпуска. Мало подтверждений в PubMed (2 источников).</p>
+        <p><span data-i18n-text="sup.noFormsData">Нет данных о формах выпуска.</span> <span data-i18n-text="sup.fewSourcesMany" data-i18n-vars='{"n": "2"}'>Мало подтверждений в PubMed (2 источников).</span></p>
     </div>
     
 

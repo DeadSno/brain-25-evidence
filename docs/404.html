@@ -28,7 +28,7 @@
      скрипта каталога. Поиск по каталогу парсит sup/index.html (карточки
    уже несут name→slug и data-hay сборки build_sup.py, JS-словарь не
      дублируется). -->
-<link rel="stylesheet" href="style.min.css?v=460">
+<link rel="stylesheet" href="style.min.css?v=462">
 <style>
   /* Локальные правила — только для служебных блоков этой страницы. */
   .notfound { max-width: 640px; margin: 0 auto; text-align: center; padding: 2.5rem 0; }
@@ -49,7 +49,8 @@
     <nav class="actions" aria-label="Главная навигация" data-i18n-aria-label="a11y.navMain">
       <a class="btn c-feedback" href="feedback.html"><span data-i18n-text="index.feedback">💬 Обратная связь</span></a>
       <a class="btn c-support" href="support.html"><span data-i18n-text="index.support">💚 Поддержать</span></a>
-      <button class="btn c-theme" id="themeBtn" aria-label="Переключить на светлую тему"><span data-i18n-text="theme.light">🌞 Светлая тема</span></button>
+      <!-- FIX-75: aria-label у #themeBtn ставит applyTheme() через tr("a11y.themeToDark"/"a11y.themeToLight"). -->
+      <button class="btn c-theme" id="themeBtn"><span data-i18n-text="theme.light">🌞 Светлая тема</span></button>
       <select id="langSelect" class="lang-select" data-i18n-aria-label="a11y.langSelect"><option value="ru">RU</option><option value="en">EN</option></select>
       <button class="btn c-random" id="randomBtn"><span data-i18n-text="index.random">🎲 Удиви меня</span></button>
     </nav>
@@ -263,7 +264,7 @@
      реальное отключение сети давало ReferenceError вместо плашки. Порядок
      задан самим типом подключения: i18n.js без defer исполняется во время
      разбора, pwa.js с defer — после него, поэтому t() уже существует. -->
-<script src="i18n.js?v=12"></script>
+<script src="i18n.js?v=13"></script>
 <!-- FIX-74: строки, которые ставит инлайновый скрипт выше (тема, подсказка
      поиска), перерисовываем ещё раз — теперь t() уже существует. -->
 <script>
