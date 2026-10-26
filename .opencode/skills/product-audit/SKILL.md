@@ -118,7 +118,7 @@ project: brain-25-evidence
 - Донат: ЮMoney в support.html
 - Воронка/Hactar: `hactar.html` — единственная живая страница воронки, два
   таба (.hactar-tabs[role="tablist"]): Overview (`?tab=overview`, таблица
-  доз/взаимодействий/цен) и Links (`?tab=links`, граф связей).
+  доз/взаимодействий/цен) и Links (`?tab=graph`, граф связей).
   `calculator.html`, `compare.html`, `interactions.html`, `map.html`,
   `graph.html` и `atlas.html` — редирект-заглушки
   (`<meta http-equiv="refresh">` + `location.replace`) на

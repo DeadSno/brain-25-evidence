@@ -95,7 +95,7 @@ Check basic SEO health of any page. No signup required.
 - Страницы-редиректы (`calculator.html`, `compare.html`, `graph.html`,
   `atlas.html`, `interactions.html`, `map.html`) **не должны попадать**
   в `sitemap.xml` (проверено: 0 вхождений); canonical у них — целевой URL
-  (`hactar.html?tab=overview` или `hactar.html?tab=links`), плюс
+  (`hactar.html?tab=overview` или `hactar.html?tab=graph`), плюс
   `<meta name="robots" content="noindex, follow">`
 - Два таба `hactar.html` (`Overview` / `Links`) не создают в DOM дублей
   `<title>`/`<h1>`
