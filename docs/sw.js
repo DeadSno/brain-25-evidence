@@ -548,7 +548,8 @@ self.addEventListener('activate', event => {
    отдаются cache-first, поэтому без нового имени кэша возвратный посетитель
    остался бы со старой шапкой и футером. */
 /* Бамп v163 -> v164 BATCH-1: VIS-01, VIS-03, MOB-01, MOB-02, MOB-03 (layout-фиксы) */
-var CACHE_VERSION = 'v164';
+/* Бамп v164 -> v165 BATCH-2: og:locale, og:url заглушек, описание hactar (SEO-03/04/05) */
+var CACHE_VERSION = 'v165';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
