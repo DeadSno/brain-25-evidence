@@ -539,7 +539,15 @@ self.addEventListener('activate', event => {
    docs/hactar.js и docs/i18n.js; все три лежат в STATIC_ASSETS и отдаются
    cache-first, поэтому без нового имени кэша возвратный посетитель
    остался бы со старой страницей и без новых ключей словаря. */
-var CACHE_VERSION = 'v162';
+/* Бамп v162 -> v163 NAV-01, NAV-02: футер 7 корневых страниц получил ссылку
+   на каталог (faq, glossary, methodology, privacy, support, terms-of-use,
+   trends), а шапка hactar.html переведена с собственных ключей hactar.nav на
+   общие index.feedback / index.support / index.random / nav.home — сами
+   четыре ключа hactar.nav из docs/i18n.js удалены. Изменены docs/hactar.html,
+   docs/i18n.js и футеры семи страниц; все они лежат в STATIC_ASSETS и
+   отдаются cache-first, поэтому без нового имени кэша возвратный посетитель
+   остался бы со старой шапкой и футером. */
+var CACHE_VERSION = 'v163';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
