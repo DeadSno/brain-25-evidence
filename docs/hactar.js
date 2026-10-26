@@ -312,13 +312,23 @@
     history.replaceState(null, '', url.pathname + url.search + url.hash);
   }
 
+  /* MOB-03: шторка на мобильном — оверлей во весь экран. Пока она открыта,
+     фон прокручиваться не должен: иначе на iOS жест после конца списка
+     прокручивает страницу под шторкой (scroll chaining). Одна точка
+     переключения — класс open на самой шторке и класс-лок на body. */
+  function setSidebarOpen(isOpen) {
+    if (!sidebar) return;
+    sidebar.classList.toggle('open', !!isOpen);
+    document.body.classList.toggle('hactar-overlay-open', !!isOpen);
+  }
+
   /* Одна точка активации: клик и клавиатура должны делать ровно одно и то
      же — переключить панель, записать ?tab= в адрес и закрыть шторку на
      мобильном. */
   function activateTab(t) {
     setMode(t.dataset.mode);
     syncUrl(t.dataset.mode);
-    if (sidebar) sidebar.classList.remove('open');
+    setSidebarOpen(false);
   }
 
   tabs.forEach(function (t) {
@@ -1068,7 +1078,7 @@
     if (!searchEl) return;
     /* На мобильном поле прячется в закрытой шторке — сначала открываем её,
        иначе фокус ушёл бы в невидимый элемент. */
-    if (sidebar && isMobile()) sidebar.classList.add('open');
+    if (sidebar && isMobile()) setSidebarOpen(true);
     searchEl.focus();
     searchEl.select();
   }
@@ -1093,7 +1103,7 @@
     if (searchEl && document.activeElement === searchEl) searchEl.blur();
     /* Esc при пустом поиске на мобильном закрывает шторку. */
     if (!hadValue && sidebar && isMobile() && sidebar.classList.contains('open')) {
-      sidebar.classList.remove('open');
+      setSidebarOpen(false);
     }
   }
 

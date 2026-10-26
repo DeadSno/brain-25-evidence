@@ -547,7 +547,8 @@ self.addEventListener('activate', event => {
    docs/i18n.js и футеры семи страниц; все они лежат в STATIC_ASSETS и
    отдаются cache-first, поэтому без нового имени кэша возвратный посетитель
    остался бы со старой шапкой и футером. */
-var CACHE_VERSION = 'v163';
+/* Бамп v163 -> v164 BATCH-1: VIS-01, VIS-03, MOB-01, MOB-02, MOB-03 (layout-фиксы) */
+var CACHE_VERSION = 'v164';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 

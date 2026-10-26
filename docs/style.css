@@ -780,7 +780,11 @@ html:not(.light) #modal .shopBtn:hover{border-color:var(--accent-2)}
   .row { flex-direction: column; }
   .row > div { width: 100%; }
   .row button { width: 100%; }
-  select { width: 100%; }
+  /* VIS-01: правило задумывалось для форм, но растягивало и селектор
+     языка в шапке (#langSelect.lang-select) — на 768px шапка вырастала
+     вдвое, навигация уезжала в горизонтальную прокрутку. Язык исключён,
+     остальные select на мобильном по-прежнему занимают всю ширину. */
+  select:not(.lang-select) { width: 100%; }
   #compareResult { font-size: var(--fs-4); overflow-x: auto; }
   #compareResult th, #compareResult td { padding: .4rem; }
   #modal { padding: var(--space-4); max-height: 90vh; }
