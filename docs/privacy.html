@@ -33,7 +33,7 @@
     </script>
     <link rel="stylesheet" href="style.min.css?v=460">
     <script src="version.js?v=312"></script>
-    <script src="i18n.js?v=10"></script>
+    <script src="i18n.js?v=12"></script>
     <script src="pwa.js?v=283" defer></script>
 <script src="share.js?v=2" defer></script>
     <style>
@@ -62,170 +62,169 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
 </head>
 <body>
-<a href="#main" class="skip-link">Перейти к содержимому</a>
+<a href="#main" class="skip-link"><span data-i18n-text="a11y.skipToContent">Перейти к содержимому</span></a>
 
 <div class="site-header">
-  <div class="trustbar">🧬 Открытые данные · Бесплатно · Без рекламы</div>
+  <div class="trustbar"><span data-i18n-text="index.trustbar">🧬 Открытые данные · Бесплатно · Без рекламы</span></div>
   <header class="top">
     <div class="site-title"><a href="index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a> <span class="v">v<span data-version="app"></span></span></div>
     <nav class="actions" data-i18n-aria-label="a11y.navMain">
-      <a class="btn c-feedback" href="feedback.html">💬 Обратная связь</a>
-      <a class="btn c-support" href="support.html">💚 Поддержать</a>
-      <button class="btn c-theme" id="themeBtn" aria-label="Переключить на светлую тему">🌞 Светлая тема</button>
+      <a class="btn c-feedback" href="feedback.html"><span data-i18n-text="index.feedback">💬 Обратная связь</span></a>
+      <a class="btn c-support" href="support.html"><span data-i18n-text="index.support">💚 Поддержать</span></a>
+      <button class="btn c-theme" id="themeBtn" data-i18n-aria-label="a11y.themeToLight" aria-label="Переключить на светлую тему"><span data-i18n-text="theme.light">🌞 Светлая тема</span></button>
       <select id="langSelect" class="lang-select" data-i18n-aria-label="a11y.langSelect"><option value="ru">RU</option><option value="en">EN</option></select>
-      <button class="btn c-random" id="randomBtn">🎲 Удиви меня</button>
+      <button class="btn c-random" id="randomBtn"><span data-i18n-text="index.random">🎲 Удиви меня</span></button>
     </nav>
   </header>
 </div>
 
 <main id="main" class="privacy-wrap">
-  <h1>Приватность и cookie</h1>
-  <p class="privacy-sub">Обновлено: 10.10.2026</p>
+  <h1><span data-i18n-text="privacy.001">Приватность и cookie</span></h1>
+  <p class="privacy-sub"><span data-i18n-text="privacy.002">Обновлено: 10.10.2026</span></p>
 
-  <div class="privacy-note">Сайт собирает минимум данных. Веб-аналитика (Яндекс.Метрика) включается <b>только после</b> нажатия «Принять» в баннере согласия — до этого ни один запрос к mc.yandex.ru не отправляется.</div>
+  <div class="privacy-note"><span data-i18n-text="privacy.003">Сайт собирает минимум данных. Веб-аналитика (Яндекс.Метрика) включается</span> <b><span data-i18n-text="privacy.004">только после</span></b> <span data-i18n-text="privacy.005">нажатия «Принять» в баннере согласия — до этого ни один запрос к mc.yandex.ru не отправляется.</span></div>
 
   <div class="privacy-note">
-    <b>Правовая основа.</b> Обработка персональных данных на сайте ведётся в
+    <b><span data-i18n-text="privacy.006">Правовая основа.</span></b> <span data-i18n-text="privacy.007">Обработка персональных данных на сайте ведётся в
     соответствии с Федеральным законом от 27.07.2006 № 152-ФЗ «О персональных
     данных» и, где применимо, Общим регламентом по защите данных (GDPR,
     Regulation (EU) 2016/679). Ниже перечислены категории данных, операторы
-    (третьи лица), сроки хранения и способ отказаться от обработки.
+    (третьи лица), сроки хранения и способ отказаться от обработки.</span>
   </div>
 
   <div class="privacy-note">
-    <b>Страницы без сбора персональных данных.</b> Страницы
-    <a href="hactar.html?tab=compare">Сравнение</a> и
-    <a href="hactar.html?tab=graph">Связи</a> работают только с открытыми
+    <b><span data-i18n-text="privacy.008">Страницы без сбора персональных данных.</span></b> <span data-i18n-text="privacy.009">Страницы</span>
+    <a href="hactar.html?tab=compare"><span data-i18n-text="hactar.redirect.compare">Сравнение</span></a> <span data-i18n-text="banner.and">и</span>
+    <a href="hactar.html?tab=graph"><span data-i18n-text="hactar.tab.links">Связи</span></a> <span data-i18n-text="privacy.010">работают только с открытыми
     научными данными о БАДах (PubMed, CrossRef, OpenAlex, Викимедиа) и не
-    собирают персональные данные посетителей.
+    собирают персональные данные посетителей.</span>
   </div>
 
     <div class="privacy-card">
-        <h2>📋 Какие данные собираются</h2>
+        <h2><span data-i18n-text="privacy.011">📋 Какие данные собираются</span></h2>
 
-        <h3>Автоматически (при посещении сайта)</h3>
+        <h3><span data-i18n-text="privacy.012">Автоматически (при посещении сайта)</span></h3>
         <ul>
-            <li>IP-адрес, cookie, данные о поведении на сайте;</li>
-            <li>через <b>Яндекс.Метрику</b> (счётчик 112465667) — после нажатия «Принять» в баннере согласия.</li>
+            <li><span data-i18n-text="privacy.013">IP-адрес, cookie, данные о поведении на сайте;</span></li>
+            <li><span data-i18n-text="privacy.014">через</span> <b><span data-i18n-text="privacy.015">Яндекс.Метрику</span></b> <span data-i18n-text="privacy.016">(счётчик 112465667) — после нажатия «Принять» в баннере согласия.</span></li>
         </ul>
-        <p class="privacy-sub">Подробный состав технических данных Метрики — в разделе ниже.</p>
+        <p class="privacy-sub"><span data-i18n-text="privacy.017">Подробный состав технических данных Метрики — в разделе ниже.</span></p>
 
-        <h3>Через форму обратной связи</h3>
+        <h3><span data-i18n-text="privacy.018">Через форму обратной связи</span></h3>
         <ul>
-            <li>имя, email, текст сообщения;</li>
-            <li>через <b>Яндекс Формы</b> (forms.yandex.ru) — отправка идёт внутри формы Яндекса, на наш домен персональные данные не передаются.</li>
+            <li><span data-i18n-text="privacy.019">имя, email, текст сообщения;</span></li>
+            <li><span data-i18n-text="privacy.020">через</span> <b><span data-i18n-text="privacy.021">Яндекс Формы</span></b> <span data-i18n-text="privacy.022">(forms.yandex.ru) — отправка идёт внутри формы Яндекса, на наш домен персональные данные не передаются.</span></li>
         </ul>
-        <p class="privacy-sub">Email указывается добровольно и используется только чтобы ответить на обращение. Он не публикуется и не используется для рассылок.</p>
+        <p class="privacy-sub"><span data-i18n-text="privacy.023">Email указывается добровольно и используется только чтобы ответить на обращение. Он не публикуется и не используется для рассылок.</span></p>
     </div>
 
     <div class="privacy-card">
-        <h2>🏛️ Кто обрабатывает данные (третьи лица)</h2>
+        <h2><span data-i18n-text="privacy.024">🏛️ Кто обрабатывает данные (третьи лица)</span></h2>
         <ul>
-            <li><b>Яндекс.Метрика</b> — веб-аналитика, счётчик 112465667.
-                Политика: <a href="https://yandex.ru/legal/metrica_termsofuse/" target="_blank" rel="nofollow noopener">yandex.ru/legal/metrica_termsofuse</a></li>
-            <li><b>Яндекс Формы</b> — приём обращений через форму обратной связи.
-                Политика: <a href="https://yandex.ru/legal/forms_termsofuse/" target="_blank" rel="nofollow noopener">yandex.ru/legal/forms_termsofuse</a></li>
+            <li><b><span data-i18n-text="privacy.025">Яндекс.Метрика</span></b> <span data-i18n-text="privacy.026">— веб-аналитика, счётчик 112465667.
+                Политика:</span> <a href="https://yandex.ru/legal/metrica_termsofuse/" target="_blank" rel="nofollow noopener">yandex.ru/legal/metrica_termsofuse</a></li>
+            <li><b><span data-i18n-text="privacy.027">Яндекс Формы</span></b> <span data-i18n-text="privacy.028">— приём обращений через форму обратной связи.
+                Политика:</span> <a href="https://yandex.ru/legal/forms_termsofuse/" target="_blank" rel="nofollow noopener">yandex.ru/legal/forms_termsofuse</a></li>
         </ul>
-        <p>Обработка данных обоими сервисами ведётся в соответствии с 152-ФЗ. Серверы хранения — в Российской Федерации.</p>
+        <p><span data-i18n-text="privacy.029">Обработка данных обоими сервисами ведётся в соответствии с 152-ФЗ. Серверы хранения — в Российской Федерации.</span></p>
     </div>
 
     <div class="privacy-card">
-        <h2>🗄️ Что хранится у вас на устройстве</h2>
+        <h2><span data-i18n-text="privacy.030">🗄️ Что хранится у вас на устройстве</span></h2>
         <ul>
-            <li><b>cookie-consent</b> — ваш выбор в баннере согласия: <code>accepted</code> или <code>rejected</code>. Без неё баннер показывался бы при каждом визите.</li>
-            <li><b>theme</b> — выбранная тема оформления (тёмная / светлая), чтобы не переключать её вручную.</li>
+            <li><b>cookie-consent</b> <span data-i18n-text="privacy.031">— ваш выбор в баннере согласия:</span> <code>accepted</code> <span data-i18n-text="privacy.032">или</span> <code>rejected</code><span data-i18n-text="privacy.033">. Без неё баннер показывался бы при каждом визите.</span></li>
+            <li><b>theme</b> <span data-i18n-text="privacy.034">— выбранная тема оформления (тёмная / светлая), чтобы не переключать её вручную.</span></li>
         </ul>
-        <p>Своих cookie для рекламы, профилирования или продажи данных сайт не ставит и не использует.</p>
+        <p><span data-i18n-text="privacy.035">Своих cookie для рекламы, профилирования или продажи данных сайт не ставит и не использует.</span></p>
     </div>
 
     <div class="privacy-card">
-        <h2>🔒 Локальное хранение в Hactar</h2>
-        <p>Конструктор стеков Project Hactar сохраняет ваш выбор только в <code>localStorage</code> вашего браузера. На сервер эти данные не отправляются: у сайта нет ни базы данных, ни учётных записей, ни входа по логину.</p>
+        <h2><span data-i18n-text="privacy.036">🔒 Локальное хранение в Hactar</span></h2>
+        <p><span data-i18n-text="privacy.037">Конструктор стеков Project Hactar сохраняет ваш выбор только в</span> <code>localStorage</code> <span data-i18n-text="privacy.038">вашего браузера. На сервер эти данные не отправляются: у сайта нет ни базы данных, ни учётных записей, ни входа по логину.</span></p>
         <ul>
-            <li><b>hactarSelectedIds</b> — какие добавки вы отметили галочками. Ключ существует, чтобы выбор не терялся при обновлении страницы или переходе между вкладками «Обзор» и «Связи».</li>
-            <li><b>hactarSavedStacks</b> — ваши сохранённые стеки с названиями, которые вы задали сами кнопкой «Сохранить стек».</li>
+            <li><b>hactarSelectedIds</b> <span data-i18n-text="privacy.039">— какие добавки вы отметили галочками. Ключ существует, чтобы выбор не терялся при обновлении страницы или переходе между вкладками «Обзор» и «Связи».</span></li>
+            <li><b>hactarSavedStacks</b> <span data-i18n-text="privacy.040">— ваши сохранённые стеки с названиями, которые вы задали сами кнопкой «Сохранить стек».</span></li>
         </ul>
-        <p>Оба ключа лежат только в вашем браузере, не привязаны к личности и не передаются третьим лицам. Они удаляются вместе с очисткой кэша или данных сайта в настройках браузера. Кнопка «Очистить всё» в Hactar снимает выбор, сохранённые стеки удаляются по одному в списке «Мои стеки». Если вы не пользуетесь конструктором, эти ключи не создаются вовсе.</p>
+        <p><span data-i18n-text="privacy.041">Оба ключа лежат только в вашем браузере, не привязаны к личности и не передаются третьим лицам. Они удаляются вместе с очисткой кэша или данных сайта в настройках браузера. Кнопка «Очистить всё» в Hactar снимает выбор, сохранённые стеки удаляются по одному в списке «Мои стеки». Если вы не пользуетесь конструктором, эти ключи не создаются вовсе.</span></p>
     </div>
 
     <div class="privacy-card">
-        <h2>📊 Что собирает Яндекс.Метрика (после согласия)</h2>
-        <p>После нажатия «Принять» подключается счётчик <b>112465667</b> (<a href="https://metrika.yandex.ru" target="_blank" rel="nofollow noopener">Яндекс.Метрика</a>). В этом режиме собирается:</p>
+        <h2><span data-i18n-text="privacy.042">📊 Что собирает Яндекс.Метрика (после согласия)</span></h2>
+        <p><span data-i18n-text="privacy.043">После нажатия «Принять» подключается счётчик</span> <b>112465667</b> (<a href="https://metrika.yandex.ru" target="_blank" rel="nofollow noopener"><span data-i18n-text="privacy.044">Яндекс.Метрика</span></a><span data-i18n-text="privacy.045">). В этом режиме собирается:</span></p>
         <ul>
-            <li>IP-адрес, данные об устройстве, разрешение экрана, страна и город (по IP, приблизительно);</li>
-            <li>карта кликов — на какие элементы страницы нажимают посетители;</li>
-            <li>переходы по внешним ссылкам;</li>
-            <li>точный показатель отказов;</li>
-            <li>автоматические цели — Метрика создаёт цели на важные события (например, отправку формы).</li>
+            <li><span data-i18n-text="privacy.046">IP-адрес, данные об устройстве, разрешение экрана, страна и город (по IP, приблизительно);</span></li>
+            <li><span data-i18n-text="privacy.047">карта кликов — на какие элементы страницы нажимают посетители;</span></li>
+            <li><span data-i18n-text="privacy.048">переходы по внешним ссылкам;</span></li>
+            <li><span data-i18n-text="privacy.049">точный показатель отказов;</span></li>
+            <li><span data-i18n-text="privacy.050">автоматические цели — Метрика создаёт цели на важные события (например, отправку формы).</span></li>
         </ul>
-        <p>Персональных данных (имя, телефон, e-mail) Метрика через этот сайт не получает.
-        Обработка данных описана в политиках Яндекса:
+        <p><span data-i18n-text="privacy.051">Персональных данных (имя, телефон, e-mail) Метрика через этот сайт не получает.
+        Обработка данных описана в политиках Яндекса:</span>
         <a href="https://yandex.ru/legal/confidential/" target="_blank" rel="nofollow noopener">yandex.ru/legal/confidential</a> ·
-        <a href="https://yandex.ru/support/metrica/general/privicy.html" target="_blank" rel="nofollow noopener">документы Метрики</a>.</p>
+        <a href="https://yandex.ru/support/metrica/general/privicy.html" target="_blank" rel="nofollow noopener"><span data-i18n-text="privacy.052">документы Метрики</span></a>.</p>
     </div>
 
     <div class="privacy-card">
-        <h2>🗓️ Сроки хранения</h2>
+        <h2><span data-i18n-text="privacy.053">🗓️ Сроки хранения</span></h2>
         <ul>
-            <li><b>Cookie Яндекс.Метрики</b> — 1 год (стандартный срок сервиса, определяется Яндексом).</li>
-            <li><b>Данные из формы обратной связи</b> — до ответа на обращение и не дольше 1 года после него, затем уничтожаются в течение 30 дней.</li>
+            <li><b><span data-i18n-text="privacy.054">Cookie Яндекс.Метрики</span></b> <span data-i18n-text="privacy.055">— 1 год (стандартный срок сервиса, определяется Яндексом).</span></li>
+            <li><b><span data-i18n-text="privacy.056">Данные из формы обратной связи</span></b> <span data-i18n-text="privacy.057">— до ответа на обращение и не дольше 1 года после него, затем уничтожаются в течение 30 дней.</span></li>
         </ul>
-        <p>Правовое основание: 152-ФЗ от 27.07.2006 «О персональных данных».</p>
+        <p><span data-i18n-text="privacy.058">Правовое основание: 152-ФЗ от 27.07.2006 «О персональных данных».</span></p>
     </div>
 
     <div class="privacy-card">
-        <h2>🇪🇺 GDPR (Европейский регламент по защите данных)</h2>
-        <p>Если вы находитесь в ЕЭК, на вашу обработку персональных данных распространяется
-        Общий регламент по защите данных (GDPR, Regulation (EU) 2016/679). Сайт:</p>
+        <h2><span data-i18n-text="privacy.059">🇪🇺 GDPR (Европейский регламент по защите данных)</span></h2>
+        <p><span data-i18n-text="privacy.060">Если вы находитесь в ЕЭК, на вашу обработку персональных данных распространяется
+        Общий регламент по защите данных (GDPR, Regulation (EU) 2016/679). Сайт:</span></p>
         <ul>
-            <li>собирает минимум персональных данных (только то, что вы сами указали в форме обратной связи);</li>
-            <li>не передаёт персональные данные третьим лицам, кроме Яндекса (Метрика, Формы) — и только с вашего согласия;</li>
-            <li>не занимается профилированием и автоматизированным принятием решений;</li>
-            <li>не продаёт и не сдаёт в аренду базы пользователей.</li>
+            <li><span data-i18n-text="privacy.061">собирает минимум персональных данных (только то, что вы сами указали в форме обратной связи);</span></li>
+            <li><span data-i18n-text="privacy.062">не передаёт персональные данные третьим лицам, кроме Яндекса (Метрика, Формы) — и только с вашего согласия;</span></li>
+            <li><span data-i18n-text="privacy.063">не занимается профилированием и автоматизированным принятием решений;</span></li>
+            <li><span data-i18n-text="privacy.064">не продаёт и не сдаёт в аренду базы пользователей.</span></li>
         </ul>
-        <p><b>Ваши права по GDPR:</b> доступ к данным, исправление, удаление («право быть забытым»),
+        <p><b><span data-i18n-text="privacy.065">Ваши права по GDPR:</span></b> <span data-i18n-text="privacy.066">доступ к данным, исправление, удаление («право быть забытым»),
         ограничение обработки, переносимость данных, отказ от обработки, жалоба в надзорный орган.
-        Реализация этих прав — на
-        <a href="mailto:deadsno1613@gmail.com">deadsno1613@gmail.com</a>. Запрос обрабатывается в течение 30 дней.</p>
+        Реализация этих прав — на</span>
+        <a href="mailto:deadsno1613@gmail.com">deadsno1613@gmail.com</a><span data-i18n-text="privacy.067">. Запрос обрабатывается в течение 30 дней.</span></p>
     </div>
 
     <div class="privacy-card">
-        <h2>🚫 Как отказаться</h2>
-        <h3>Cookie-аналитика</h3>
-        <p>Кнопка «Отклонить» в баннере согласия — Метрика не будет загружена вообще: до согласия ни один запрос к mc.yandex.ru не уходит.</p>
-        <p>Отказ хранится в ключе <code>cookie-consent</code>; чтобы вернуть выбор, удалите его вручную:</p>
+        <h2><span data-i18n-text="privacy.068">🚫 Как отказаться</span></h2>
+        <h3><span data-i18n-text="privacy.069">Cookie-аналитика</span></h3>
+        <p><span data-i18n-text="privacy.070">Кнопка «Отклонить» в баннере согласия — Метрика не будет загружена вообще: до согласия ни один запрос к mc.yandex.ru не уходит.</span></p>
+        <p><span data-i18n-text="privacy.071">Отказ хранится в ключе</span> <code>cookie-consent</code><span data-i18n-text="privacy.072">; чтобы вернуть выбор, удалите его вручную:</span></p>
         <ul>
-            <li>DevTools → Application (Приложение) → Local Storage → этот сайт → ключ <code>cookie-consent</code> → Delete;</li>
-            <li>после этого баннер появится снова.</li>
+            <li><span data-i18n-text="privacy.073">DevTools → Application (Приложение) → Local Storage → этот сайт → ключ</span> <code>cookie-consent</code> → Delete;</li>
+            <li><span data-i18n-text="privacy.074">после этого баннер появится снова.</span></li>
         </ul>
-        <p>Вы также можете блокировать домен <code>mc.yandex.ru</code> расширением или в настройках браузера — это не сломает сайт, он работает на открытых данных без какой-либо аналитики.</p>
+        <p><span data-i18n-text="privacy.075">Вы также можете блокировать домен</span> <code>mc.yandex.ru</code> <span data-i18n-text="privacy.076">расширением или в настройках браузера — это не сломает сайт, он работает на открытых данных без какой-либо аналитики.</span></p>
 
-        <h3>Данные из формы обратной связи</h3>
-        <p>Напишите на <a href="mailto:deadsno1613@gmail.com">deadsno1613@gmail.com</a> с просьбой удалить данные вашего обращения. Запрос обрабатывается в течение 30 дней.</p>
+        <h3><span data-i18n-text="privacy.077">Данные из формы обратной связи</span></h3>
+        <p><span data-i18n-text="privacy.078">Напишите на</span> <a href="mailto:deadsno1613@gmail.com">deadsno1613@gmail.com</a> <span data-i18n-text="privacy.079">с просьбой удалить данные вашего обращения. Запрос обрабатывается в течение 30 дней.</span></p>
     </div>
 
     <div class="privacy-card">
-        <h2>✉️ Контакт</h2>
-        <p>Ответственный за обработку персональных данных: Vladislav "DeadSno" Pereshivalov.
-        Вопросы по данным и приватности — на
-        <a href="mailto:deadsno1613@gmail.com">deadsno1613@gmail.com</a>, через страницу
-        <a href="feedback.html">обратной связи</a> или на
-        <a href="https://github.com/DeadSno/brain-25-evidence" target="_blank" rel="nofollow noopener">GitHub проекта</a>.</p>
+        <h2><span data-i18n-text="privacy.080">✉️ Контакт</span></h2>
+        <p><span data-i18n-text="privacy.081">Ответственный за обработку персональных данных: Vladislav "DeadSno" Pereshivalov.
+        Вопросы по данным и приватности — на</span>
+        <a href="mailto:deadsno1613@gmail.com">deadsno1613@gmail.com</a><span data-i18n-text="privacy.082">, через страницу</span>
+        <a href="feedback.html"><span data-i18n-text="privacy.083">обратной связи</span></a> <span data-i18n-text="privacy.084">или на</span>
+        <a href="https://github.com/DeadSno/brain-25-evidence" target="_blank" rel="nofollow noopener"><span data-i18n-text="privacy.085">GitHub проекта</span></a>.</p>
     </div>
 </main>
 
 <footer class="site-footer">
   <p class="disc">
-    <b>⚠️ Не медицинская рекомендация.</b>
-    Сайт предоставляет данные из открытых научных источников
+    <b><span data-i18n-text="index.discWarn">⚠️ Не медицинская рекомендация.</span></b>
+    <span data-i18n-text="index.discA">Сайт предоставляет данные из открытых научных источников
     (PubMed, Europe PMC, CrossRef, OpenAlex, ClinicalTrials.gov, Wikimedia)
-    для информирования и самостоятельного образования.
-    <b>НЕ заменяет</b> консультацию, диагноз и лечение.
-    При любых сомнениях — обращайтесь к специалисту.
+    для информирования и самостоятельного образования.</span>
+    <b><span data-i18n-text="index.discNo">НЕ заменяет</span></b> <span data-i18n-text="index.discB">консультацию, диагноз и лечение.
+    При любых сомнениях — обращайтесь к специалисту.</span>
   </p>
   <p class="meta">
-    v<span data-version="app"></span> ·
-    данные на <span data-version="data"></span>
+    v<span data-version="app"></span> · <span data-i18n-text="index.dataUpdated">данные на</span> <span data-version="data"></span>
   </p>
   <p class="links">
     <a href="methodology.html" data-i18n-text="footer.methodology">📐 Методология</a> ·
@@ -235,8 +234,8 @@
     <a href="terms-of-use.html" data-i18n-text="footer.terms">📄 Условия использования</a> ·
     <a href="feed.xml" data-i18n-text="footer.rss">📡 RSS</a>
   </p>
-  <p class="copy">© 2026 Vladislav "DeadSno" Pereshivalov · MIT · <a href="terms-of-use.html#data-license">Данные: CC BY 4.0</a></p>
-  <p class="share-row"><button class="btn share-page" type="button">🔗 Поделиться</button></p>
+  <p class="copy">© 2026 Vladislav "DeadSno" Pereshivalov · MIT · <a href="terms-of-use.html#data-license"><span data-i18n-text="index.dataLicense">Данные: CC BY 4.0</span></a></p>
+  <p class="share-row"><button class="btn share-page" type="button"><span data-i18n-text="share.label">🔗 Поделиться</span></button></p>
 </footer>
 
 <script>
@@ -262,13 +261,13 @@ document.addEventListener('DOMContentLoaded', function () {
      ни одного запроса к mc.yandex.ru не происходит. -->
 <div id="cookieBanner" role="dialog" data-i18n-aria-label="a11y.cookieConsent" hidden>
   <div class="cb-text">
-    Мы используем cookie и Яндекс.Метрику, чтобы понять, какие материалы полезны.
-    Аналитика включается только после вашего согласия.
-    <a href="privacy.html">Политика конфиденциальности</a>
+    <span data-i18n-text="index.cookieText">Мы используем cookie и Яндекс.Метрику, чтобы понять, какие материалы полезны.
+    Аналитика включается только после вашего согласия.</span>
+    <a href="privacy.html"><span data-i18n-text="index.cookiePolicy">Политика конфиденциальности</span></a>
   </div>
   <div class="cb-actions">
-    <button type="button" id="cookieAccept" class="cb-btn cb-accept">Принять</button>
-    <button type="button" id="cookieReject" class="cb-btn cb-reject">Отклонить</button>
+    <button type="button" id="cookieAccept" class="cb-btn cb-accept"><span data-i18n-text="index.cookieAccept">Принять</span></button>
+    <button type="button" id="cookieReject" class="cb-btn cb-reject"><span data-i18n-text="index.cookieReject">Отклонить</span></button>
   </div>
 </div>
 <script src="cookie-banner.js?v=1"></script>

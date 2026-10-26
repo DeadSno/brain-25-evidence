@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <script defer src="version.js?v=312"></script>
-    <script src="i18n.js?v=10"></script>
+    <script src="i18n.js?v=12"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>Обратная связь — сообщить об ошибке — Brain 25 Evidence</title>
     <meta name="description" content="Сообщить об ошибке в данных, предложить новую добавку или оставить отзыв о проекте Brain 25 Evidence. Форма отправляется напрямую.">
@@ -116,43 +116,43 @@ try {
     </script>
 </head>
 <body>
-<a href="#main" class="skip-link">Перейти к содержимому</a>
+<a href="#main" class="skip-link"><span data-i18n-text="a11y.skipToContent">Перейти к содержимому</span></a>
 
 <div class="site-header">
-  <div class="trustbar">🧬 Открытые данные · Бесплатно · Без рекламы</div>
+  <div class="trustbar"><span data-i18n-text="index.trustbar">🧬 Открытые данные · Бесплатно · Без рекламы</span></div>
   <header class="top">
       <div class="site-title"><a href="index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a> <span class="v">v<span data-version="app"></span></span></div>
       <nav class="actions" data-i18n-aria-label="a11y.navMain">
-          <span class="btn c-feedback">💬 Обратная связь</span>
-          <a class="btn c-support" href="support.html">💚 Поддержать</a>
-      <button class="btn c-theme" id="themeBtn" aria-label="Переключить на светлую тему">🌞 Светлая тема</button>
+          <span class="btn c-feedback"><span data-i18n-text="index.feedback">💬 Обратная связь</span></span>
+          <a class="btn c-support" href="support.html"><span data-i18n-text="index.support">💚 Поддержать</span></a>
+      <button class="btn c-theme" id="themeBtn" data-i18n-aria-label="a11y.themeToLight" aria-label="Переключить на светлую тему"><span data-i18n-text="theme.light">🌞 Светлая тема</span></button>
       <select id="langSelect" class="lang-select" data-i18n-aria-label="a11y.langSelect"><option value="ru">RU</option><option value="en">EN</option></select>
-      <button class="btn c-random" id="randomBtn">🎲 Удиви меня</button>
+      <button class="btn c-random" id="randomBtn"><span data-i18n-text="index.random">🎲 Удиви меня</span></button>
       </nav>
   </header>
 </div>
 
 <main id="main" class="feedback-wrap">
-  <h1>Обратная связь</h1>
+  <h1><span data-i18n-text="feedback.001">Обратная связь</span></h1>
 
     <nav class="breadcrumbs">
-        <a href="index.html">Главная</a> → <strong>Обратная связь</strong>
+        <a href="index.html"><span data-i18n-text="nav.home">Главная</span></a> → <strong><span data-i18n-text="feedback.002">Обратная связь</span></strong>
     </nav>
 
     <!-- v5.6.2 D3: был второй заголовок <h2>Обратная связь</h2> сразу за
          <h1> с тем же текстом — на странице было два одинаковых заголовка подряд.
          Убран; lead-абзац под H1 остался. -->
     <p class="lead">
-        Сообщите об ошибке, предложите новую добавку или оставьте отзыв.
-        Каждое сообщение читаю лично — отвечаю в течение 2-3 дней.
+        <span data-i18n-text="feedback.003">Сообщите об ошибке, предложите новую добавку или оставьте отзыв.
+        Каждое сообщение читаю лично — отвечаю в течение 2-3 дней.</span>
     </p>
 
     <div class="f-note">
-        <strong>Что можно написать:</strong><br>
-        • Ошибка в данных карточки<br>
-        • Предложение новой добавки<br>
-        • Идея по улучшению сайта<br>
-        • Отзыв о проекте
+        <strong><span data-i18n-text="feedback.004">Что можно написать:</span></strong><br>
+        <span data-i18n-text="feedback.005">• Ошибка в данных карточки</span><br>
+        <span data-i18n-text="feedback.006">• Предложение новой добавки</span><br>
+        <span data-i18n-text="feedback.007">• Идея по улучшению сайта</span><br>
+        <span data-i18n-text="feedback.008">• Отзыв о проекте</span>
     </div>
 
     <!-- v5.6.3: форма обратной связи переехала на Яндекс Формы
@@ -179,31 +179,30 @@ try {
     <!-- Fallback: без JS iframe всё равно грузится, поэтому noscript — это
          страховка для отключённого JS, а не для недоступности сервиса. -->
     <noscript>
-        <p>Форма обратной связи:
+        <p><span data-i18n-text="feedback.009">Форма обратной связи:</span>
             <a href="https://forms.yandex.ru/u/6ac8c081e010db3e5c3191a3/"
-               target="_blank" rel="nofollow noopener">открыть в новом окне</a>.
+               target="_blank" rel="nofollow noopener"><span data-i18n-text="feedback.010">открыть в новом окне</span></a>.
         </p>
     </noscript>
 
     <p class="f-privacy">
-        Данные из формы обрабатывает Яндекс (forms.yandex.ru) на территории
+        <span data-i18n-text="feedback.011">Данные из формы обрабатывает Яндекс (forms.yandex.ru) на территории
         Российской Федерации. Что именно собирается, кто обработчик и сколько
-        хранятся данные — в <a href="privacy.html">политике конфиденциальности</a>.
+        хранятся данные — в</span> <a href="privacy.html"><span data-i18n-text="feedback.012">политике конфиденциальности</span></a>.
     </p>
 </main>
 
 <footer class="site-footer">
   <p class="disc">
-    <b>⚠️ Не медицинская рекомендация.</b>
-    Сайт предоставляет данные из открытых научных источников
+    <b><span data-i18n-text="index.discWarn">⚠️ Не медицинская рекомендация.</span></b>
+    <span data-i18n-text="index.discA">Сайт предоставляет данные из открытых научных источников
     (PubMed, Europe PMC, CrossRef, OpenAlex, ClinicalTrials.gov, Wikimedia)
-    для информирования и самостоятельного образования.
-    <b>НЕ заменяет</b> консультацию, диагноз и лечение.
-    При любых сомнениях — обращайтесь к специалисту.
+    для информирования и самостоятельного образования.</span>
+    <b><span data-i18n-text="index.discNo">НЕ заменяет</span></b> <span data-i18n-text="index.discB">консультацию, диагноз и лечение.
+    При любых сомнениях — обращайтесь к специалисту.</span>
   </p>
   <p class="meta">
-    v<span data-version="app"></span> ·
-    данные на <span data-version="data"></span>
+    v<span data-version="app"></span> · <span data-i18n-text="index.dataUpdated">данные на</span> <span data-version="data"></span>
   </p>
   <p class="links">
     <a href="methodology.html" data-i18n-text="footer.methodology">📐 Методология</a> ·
@@ -214,8 +213,8 @@ try {
     <a href="sup/index.html" data-i18n-text="footer.catalog">💊 Каталог БАДов</a> ·
     <a href="feed.xml" data-i18n-text="footer.rss">📡 RSS</a>
   </p>
-  <p class="copy">© 2026 Vladislav "DeadSno" Pereshivalov · MIT · <a href="terms-of-use.html#data-license">Данные: CC BY 4.0</a></p>
-  <p class="share-row"><button class="btn share-page" type="button">🔗 Поделиться</button></p>
+  <p class="copy">© 2026 Vladislav "DeadSno" Pereshivalov · MIT · <a href="terms-of-use.html#data-license"><span data-i18n-text="index.dataLicense">Данные: CC BY 4.0</span></a></p>
+  <p class="share-row"><button class="btn share-page" type="button"><span data-i18n-text="share.label">🔗 Поделиться</span></button></p>
 </footer>
 
 <script>
@@ -247,13 +246,13 @@ if (themeBtn) {
      ни одного запроса к mc.yandex.ru не происходит. -->
 <div id="cookieBanner" role="dialog" data-i18n-aria-label="a11y.cookieConsent" hidden>
   <div class="cb-text">
-    Мы используем cookie и Яндекс.Метрику, чтобы понять, какие материалы полезны.
-    Аналитика включается только после вашего согласия.
-    <a href="privacy.html">Политика конфиденциальности</a>
+    <span data-i18n-text="index.cookieText">Мы используем cookie и Яндекс.Метрику, чтобы понять, какие материалы полезны.
+    Аналитика включается только после вашего согласия.</span>
+    <a href="privacy.html"><span data-i18n-text="index.cookiePolicy">Политика конфиденциальности</span></a>
   </div>
   <div class="cb-actions">
-    <button type="button" id="cookieAccept" class="cb-btn cb-accept">Принять</button>
-    <button type="button" id="cookieReject" class="cb-btn cb-reject">Отклонить</button>
+    <button type="button" id="cookieAccept" class="cb-btn cb-accept"><span data-i18n-text="index.cookieAccept">Принять</span></button>
+    <button type="button" id="cookieReject" class="cb-btn cb-reject"><span data-i18n-text="index.cookieReject">Отклонить</span></button>
   </div>
 </div>
 <script src="cookie-banner.js?v=1"></script>

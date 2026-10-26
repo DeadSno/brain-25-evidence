@@ -24,7 +24,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="БАДы">
 <link rel="apple-touch-icon" href="icons/192.png">
-<script src="i18n.js?v=10"></script>
+<script src="i18n.js?v=12"></script>
 <script>
 // v5.6.3: вместо трёх одинаковых веток if/else/catch, каждая из которых
 // безусловно вешала light на body. Разница была не косметическая: ниже,
@@ -275,34 +275,34 @@ html:not(.light) .cat-warn{color:var(--warn-tx-amber)}
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
 </head>
 <body class="trends-page">
-<a href="#main" class="skip-link">Перейти к содержимому</a>
+<a href="#main" class="skip-link"><span data-i18n-text="a11y.skipToContent">Перейти к содержимому</span></a>
 
 <div class="site-header">
-  <div class="trustbar">📊 Открытые данные · Бесплатно · Без рекламы</div>
+  <div class="trustbar"><span data-i18n-text="trends.001">📊 Открытые данные · Бесплатно · Без рекламы</span></div>
 
   <header class="top">
     <div class="site-title"><a href="index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a> <span class="v">v<span data-version="app"></span></span></div>
     <nav class="actions" data-i18n-aria-label="a11y.navMain">
-      <a class="btn c-feedback" href="feedback.html">💬 Обратная связь</a>
-      <a class="btn c-support" href="support.html">💚 Поддержать</a>
-      <button class="btn c-theme" id="themeBtn" aria-label="Переключить на светлую тему">🌞 Светлая тема</button>
+      <a class="btn c-feedback" href="feedback.html"><span data-i18n-text="index.feedback">💬 Обратная связь</span></a>
+      <a class="btn c-support" href="support.html"><span data-i18n-text="index.support">💚 Поддержать</span></a>
+      <button class="btn c-theme" id="themeBtn" data-i18n-aria-label="a11y.themeToLight" aria-label="Переключить на светлую тему"><span data-i18n-text="theme.light">🌞 Светлая тема</span></button>
       <select id="langSelect" class="lang-select" data-i18n-aria-label="a11y.langSelect"><option value="ru">RU</option><option value="en">EN</option></select>
-      <button class="btn c-random" id="randomBtn">🎲 Удиви меня</button>
+      <button class="btn c-random" id="randomBtn"><span data-i18n-text="index.random">🎲 Удиви меня</span></button>
     </nav>
   </header>
 </div>
 
 <main id="main">
-  <h1>Тренды популярности</h1>
+  <h1><span data-i18n-text="index.trendsTitle">Тренды популярности</span></h1>
 
 <p class="hint" style="opacity:.75;margin:.4rem 0 0">
-  10 лет данных по 130 добавкам: публикации в PubMed, просмотры ru.wikipedia, цитирования ключевых исследований.
-  Клик по столбцу — открыть карточку добавки.
+  <span data-i18n-text="trends.002">10 лет данных по 130 добавкам: публикации в PubMed, просмотры ru.wikipedia, цитирования ключевых исследований.
+  Клик по столбцу — открыть карточку добавки.</span>
 </p>
 
 <section class="executive-summary">
-  <h2>🎯 Главное</h2>
-  <p class="hint">Автоматические выводы из данных: что растёт, что переоценено, где наука опережает хайп.</p>
+  <h2><span data-i18n-text="trends.003">🎯 Главное</span></h2>
+  <p class="hint"><span data-i18n-text="trends.004">Автоматические выводы из данных: что растёт, что переоценено, где наука опережает хайп.</span></p>
   <!-- v5.6.5 (A11Y-P2-05): сетка инсайтов и категории ниже заполняются
      один раз при загрузке (:1091-1092) — это обычный контент страницы,
      а не результат действия пользователя. Live-регион не нужен. -->
@@ -310,7 +310,7 @@ html:not(.light) .cat-warn{color:var(--warn-tx-amber)}
     <div class="insight-card" data-tone="blue">
       <div class="insight-icon">⏳</div>
       <div><div class="insight-title" data-i18n-text="trends.loading">Загрузка…</div>
-      <div class="insight-text">Анализирую 86 добавок по двум метрикам</div></div>
+      <div class="insight-text"><span data-i18n-text="trends.005">Анализирую 86 добавок по двум метрикам</span></div></div>
     </div>
   </div>
 </section>
@@ -322,22 +322,22 @@ html:not(.light) .cat-warn{color:var(--warn-tx-amber)}
      чтения, а регион заставил бы читать четыре карточки второй раз. -->
 <div class="stat-cards" id="statCards">
   <div class="stat-card">
-    <div class="label">Публикаций 2025</div>
+    <div class="label"><span data-i18n-text="trends.006">Публикаций 2025</span></div>
     <div class="value" id="kpiPubs2025">—</div>
     <div class="delta" id="kpiPubsDelta">—</div>
   </div>
   <div class="stat-card">
-    <div class="label">Просмотров Википедии/мес (дек 2025)</div>
+    <div class="label"><span data-i18n-text="trends.007">Просмотров Википедии/мес (дек 2025)</span></div>
     <div class="value" id="kpiWiki">—</div>
     <div class="delta" id="kpiWikiDelta">—</div>
   </div>
   <div class="stat-card">
-    <div class="label">Цитат 2025</div>
+    <div class="label"><span data-i18n-text="trends.008">Цитат 2025</span></div>
     <div class="value" id="kpiCites2025">—</div>
     <div class="delta" id="kpiCitesDelta">—</div>
   </div>
   <div class="stat-card">
-    <div class="label">Топ по росту</div>
+    <div class="label"><span data-i18n-text="trends.009">Топ по росту</span></div>
     <div class="value" id="kpiTop" style="font-size:1.1rem">—</div>
     <div class="delta" id="kpiTopDelta">—</div>
   </div>
@@ -345,26 +345,26 @@ html:not(.light) .cat-warn{color:var(--warn-tx-amber)}
 
 <!-- Фильтры -->
 <div class="filters">
-  <label>Период:
+  <label><span data-i18n-text="trends.010">Период:</span>
     <select id="periodFilter">
       <option value="2015-2025">2015–2025</option>
       <option value="2018-2025">2018–2025</option>
       <option value="2020-2025">2020–2025</option>
     </select>
   </label>
-  <label>Категория:
-    <select id="categoryFilter"><option value="all">Все</option></select>
+  <label><span data-i18n-text="sup.category">Категория:</span>
+    <select id="categoryFilter"><option value="all" data-i18n-text="hactar.chip.all">Все</option></select>
   </label>
-  <label><abbr data-i18n-title="trends.gradeAbbr">Грейд</abbr>:
+  <label><abbr data-i18n-title="trends.gradeAbbr"><span data-i18n-text="card.gradeTitle">Грейд</span></abbr>:
     <select id="gradeFilter">
-      <option value="all">Все</option>
+      <option value="all" data-i18n-text="hactar.chip.all">Все</option>
       <option value="A">A</option>
       <option value="B">B</option>
       <option value="C">C</option>
       <option value="D">D</option>
     </select>
   </label>
-  <label>Топ:
+  <label><span data-i18n-text="trends.011">Топ:</span>
     <select id="topFilter">
       <option value="10">10</option>
       <option value="20" selected>20</option>
@@ -376,9 +376,9 @@ html:not(.light) .cat-warn{color:var(--warn-tx-amber)}
 
 <!-- Табы -->
 <div class="tr-tabs">
-  <button class="tr-tab on" data-tab="growth">Рост публикаций</button>
+  <button class="tr-tab on" data-tab="growth"><span data-i18n-text="trends.pubGrowthLabel">Рост публикаций</span></button>
   <button class="tr-tab" data-tab="wiki">Wikipedia</button>
-  <button class="tr-tab" data-tab="citations">Цитаты</button>
+  <button class="tr-tab" data-tab="citations"><span data-i18n-text="trends.012">Цитаты</span></button>
 </div>
 
 <div class="chart-wrap">
@@ -812,84 +812,82 @@ function closeModal() {
 }
 </script>
 <section class="scatter-section">
-  <h2>🎯 Матрица «Наука × Интерес»</h2>
+  <h2><span data-i18n-text="trends.013">🎯 Матрица «Наука × Интерес»</span></h2>
   <p class="hint">
-    Каждая точка — добавка. X = рост публикаций (2015→2025), Y = рост просмотров Википедии.
-    Размер = объём публикаций в 2025. Цвет = грейд доказательности. Клик по точке — карточка.
+    <span data-i18n-text="trends.014">Каждая точка — добавка. X = рост публикаций (2015→2025), Y = рост просмотров Википедии.
+    Размер = объём публикаций в 2025. Цвет = грейд доказательности. Клик по точке — карточка.</span>
   </p>
   <div class="scatter-wrap">
     <div class="scatter-canvas-box"><canvas id="scatterMatrix"></canvas></div>
     <div class="scatter-legend">
-      <span data-g="A">грейд A — крепко доказано</span>
-      <span data-g="B">грейд B — умеренно</span>
-      <span data-g="C">грейд C — изучено много, эффект мал</span>
-      <span data-g="D">грейд D — данных мало</span>
+      <span data-g="A"><span data-i18n-text="trends.015">грейд A — крепко доказано</span></span>
+      <span data-g="B"><span data-i18n-text="trends.016">грейд B — умеренно</span></span>
+      <span data-g="C"><span data-i18n-text="trends.017">грейд C — изучено много, эффект мал</span></span>
+      <span data-g="D"><span data-i18n-text="trends.018">грейд D — данных мало</span></span>
     </div>
   </div>
 </section>
 
 <section class="categories-section">
-  <h2>📊 Категориальный разрез</h2>
-  <p class="hint">Сравнение 8 категорий по среднему росту публикаций, лидеру, провалу и хайп-риску.</p>
+  <h2><span data-i18n-text="trends.019">📊 Категориальный разрез</span></h2>
+  <p class="hint"><span data-i18n-text="trends.020">Сравнение 8 категорий по среднему росту публикаций, лидеру, провалу и хайп-риску.</span></p>
   <div class="categories-grid" id="categoryCards"></div>
 </section>
 
 <details class="methodology">
-  <summary>📐 Методология и ограничения данных</summary>
+  <summary><span data-i18n-text="trends.021">📐 Методология и ограничения данных</span></summary>
   <div class="method-body">
-    <h3>Источники</h3>
+    <h3><span data-i18n-text="sup.h2Sources">Источники</span></h3>
     <ul>
-      <li><b>PubMed E-utilities</b> — число публикаций по годам 2015–2025 для 130 добавок</li>
-      <li><b>Wikipedia REST API</b> — просмотры ru.wikipedia помесячно (90 из 130 добавок)</li>
-      <li><b>OpenAlex</b> — цитирования по годам (130 из 130 добавок, в scatter не используются)</li>
+      <li><b>PubMed E-utilities</b> <span data-i18n-text="trends.022">— число публикаций по годам 2015–2025 для 130 добавок</span></li>
+      <li><b>Wikipedia REST API</b> <span data-i18n-text="trends.023">— просмотры ru.wikipedia помесячно (90 из 130 добавок)</span></li>
+      <li><b>OpenAlex</b> <span data-i18n-text="trends.024">— цитирования по годам (130 из 130 добавок, в scatter не используются)</span></li>
     </ul>
-    <h3>Формула роста</h3>
+    <h3><span data-i18n-text="trends.025">Формула роста</span></h3>
     <pre tabindex="0">growth_pub  = pubmed[id][2025] / pubmed[id][2015]
 growth_wiki = avg(wiki[id][последние 6 мес]) / avg(wiki[id][первые 6 мес])</pre>
-    <h3>Допущения</h3>
+    <h3><span data-i18n-text="trends.026">Допущения</span></h3>
     <ul>
-      <li>Рост &gt; ×1.5 — «значимый», &gt; ×2.0 — «аномальный»</li>
-      <li>Z-score &gt; 2σ — статистический выброс (аномалия)</li>
-      <li>Для wiki берём первые/последние 6 месяцев — сглаживает сезонность</li>
+      <li><span data-i18n-text="trends.027">Рост &gt; ×1.5 — «значимый», &gt; ×2.0 — «аномальный»</span></li>
+      <li><span data-i18n-text="trends.030">Z-score &gt; 2σ — статистический выброс (аномалия)</span></li>
+      <li><span data-i18n-text="trends.032">Для wiki берём первые/последние 6 месяцев — сглаживает сезонность</span></li>
     </ul>
-    <h3>Ограничения</h3>
+    <h3><span data-i18n-text="trends.033">Ограничения</span></h3>
     <ul>
-      <li>PubMed индексирует препринты с 2019 — часть роста 2020–2022 может быть артефактом</li>
-      <li>Wiki-просмотры ≠ потребление БАД, а интерес (иногда — из-за новостных событий)</li>
-      <li>OpenAlex неполный до 2023 — сравнение цитат по годам некорректно</li>
-      <li>В каталоге 130 добавок; серии собраны для 130 (PubMed и цитирования) и 90 (Wiki). Категории «Спорт» (2) и «Сон» (3) — маленькие, выводы менее устойчивы чем для «Когниции» (26)</li>
+      <li><span data-i18n-text="trends.034">PubMed индексирует препринты с 2019 — часть роста 2020–2022 может быть артефактом</span></li>
+      <li><span data-i18n-text="trends.035">Wiki-просмотры ≠ потребление БАД, а интерес (иногда — из-за новостных событий)</span></li>
+      <li><span data-i18n-text="trends.036">OpenAlex неполный до 2023 — сравнение цитат по годам некорректно</span></li>
+      <li><span data-i18n-text="trends.037">В каталоге 130 добавок; серии собраны для 130 (PubMed и цитирования) и 90 (Wiki). Категории «Спорт» (2) и «Сон» (3) — маленькие, выводы менее устойчивы чем для «Когниции» (26)</span></li>
     </ul>
-    <h3>Покрытие серий</h3>
+    <h3><span data-i18n-text="trends.038">Покрытие серий</span></h3>
     <p>
-      Серии публикаций PubMed и цитирований собраны для всех <b>130</b> добавок
+      <span data-i18n-text="trends.039">Серии публикаций PubMed и цитирований собраны для всех</span> <b>130</b> <span data-i18n-text="trends.040">добавок
       каталога — до сбора данных по DATA-P1-12 это были 94 из 130.
-      Серия просмотров Wikipedia есть у <b>90</b> из 130: у остальных 40 нет
+      Серия просмотров Wikipedia есть у</span> <b>90</b> <span data-i18n-text="trends.041">из 130: у остальных 40 нет
       статьи ru.wikipedia с историей просмотров, поэтому вторая метрика для них
       не считается.
-      В разделе «Главное» и в расчёт z-score попадают <b>86</b> добавок — только
+      В разделе «Главное» и в расчёт z-score попадают</span> <b>86</b> <span data-i18n-text="trends.042">добавок — только
       те, у которых есть обе метрики. Ещё у 4 (Клюква, D-манноза, Йохимбин,
       Шатавари) в серии PubMed нет ненулевого значения за 2015 или 2025 год, а
-      без обоих годовых значений рост не считается.
+      без обоих годовых значений рост не считается.</span>
     </p>
     <p class="method-footer">
-      Полная методология — <a href="methodology.html">methodology.html</a> ·
-      Исходные данные — <a href="https://github.com/DeadSno/brain-25-evidence" target="_blank" rel="nofollow noopener">GitHub ↗</a>
+      <span data-i18n-text="trends.043">Полная методология —</span> <a href="methodology.html">methodology.html</a> · <span data-i18n-text="trends.044">Исходные данные —</span> <a href="https://github.com/DeadSno/brain-25-evidence" target="_blank" rel="nofollow noopener">GitHub ↗</a>
     </p>
   </div>
 </details>
 
 <footer class="site-footer">
   <p class="disc">
-    <b>⚠️ Не медицинская рекомендация.</b>
-    Сайт предоставляет данные из открытых научных источников
+    <b><span data-i18n-text="index.discWarn">⚠️ Не медицинская рекомендация.</span></b>
+    <span data-i18n-text="index.discA">Сайт предоставляет данные из открытых научных источников
     (PubMed, Europe PMC, CrossRef, OpenAlex, ClinicalTrials.gov, Wikimedia)
-    для информирования и самостоятельного образования.
-    <b>НЕ заменяет</b> консультацию, диагноз и лечение.
-    При любых сомнениях — обращайтесь к специалисту.
+    для информирования и самостоятельного образования.</span>
+    <b><span data-i18n-text="index.discNo">НЕ заменяет</span></b> <span data-i18n-text="index.discB">консультацию, диагноз и лечение.
+    При любых сомнениях — обращайтесь к специалисту.</span>
   </p>
   <p class="meta">
-    v<span data-version="app"></span> ·
-    данные на <span data-version="data"></span>
+    v<span data-version="app"></span> · <span data-i18n-text="index.dataUpdated">данные на</span> <span data-version="data"></span>
   </p>
   <p class="links">
     <a href="methodology.html" data-i18n-text="footer.methodology">📐 Методология</a> ·
@@ -899,8 +897,8 @@ growth_wiki = avg(wiki[id][последние 6 мес]) / avg(wiki[id][перв
     <a href="terms-of-use.html" data-i18n-text="footer.terms">📄 Условия использования</a> ·
     <a href="feed.xml" data-i18n-text="footer.rss">📡 RSS</a>
   </p>
-  <p class="copy">© 2026 Vladislav "DeadSno" Pereshivalov · MIT · <a href="terms-of-use.html#data-license">Данные: CC BY 4.0</a></p>
-  <p class="share-row"><button class="btn share-page" type="button">🔗 Поделиться</button></p>
+  <p class="copy">© 2026 Vladislav "DeadSno" Pereshivalov · MIT · <a href="terms-of-use.html#data-license"><span data-i18n-text="index.dataLicense">Данные: CC BY 4.0</span></a></p>
+  <p class="share-row"><button class="btn share-page" type="button"><span data-i18n-text="share.label">🔗 Поделиться</span></button></p>
 </footer>
 
 <script>
@@ -1172,13 +1170,13 @@ window.addEventListener('scroll', () => {
      ни одного запроса к mc.yandex.ru не происходит. -->
 <div id="cookieBanner" role="dialog" data-i18n-aria-label="a11y.cookieConsent" hidden>
   <div class="cb-text">
-    Мы используем cookie и Яндекс.Метрику, чтобы понять, какие материалы полезны.
-    Аналитика включается только после вашего согласия.
-    <a href="privacy.html">Политика конфиденциальности</a>
+    <span data-i18n-text="index.cookieText">Мы используем cookie и Яндекс.Метрику, чтобы понять, какие материалы полезны.
+    Аналитика включается только после вашего согласия.</span>
+    <a href="privacy.html"><span data-i18n-text="index.cookiePolicy">Политика конфиденциальности</span></a>
   </div>
   <div class="cb-actions">
-    <button type="button" id="cookieAccept" class="cb-btn cb-accept">Принять</button>
-    <button type="button" id="cookieReject" class="cb-btn cb-reject">Отклонить</button>
+    <button type="button" id="cookieAccept" class="cb-btn cb-accept"><span data-i18n-text="index.cookieAccept">Принять</span></button>
+    <button type="button" id="cookieReject" class="cb-btn cb-reject"><span data-i18n-text="index.cookieReject">Отклонить</span></button>
   </div>
 </div>
 <script src="cookie-banner.js?v=1"></script>

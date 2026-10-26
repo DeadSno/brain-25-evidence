@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <script defer src="version.js?v=312"></script>
-  <script src="i18n.js?v=10"></script>
+  <script src="i18n.js?v=12"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#1c1c1e" media="(prefers-color-scheme: dark)">
@@ -70,44 +70,44 @@ try {
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
 </head>
 <body>
-<a href="#main" class="skip-link">Перейти к содержимому</a>
+<a href="#main" class="skip-link"><span data-i18n-text="a11y.skipToContent">Перейти к содержимому</span></a>
 <div class="site-header">
-  <div class="trustbar">🧬 Открытые данные · Бесплатно · Без рекламы</div>
+  <div class="trustbar"><span data-i18n-text="index.trustbar">🧬 Открытые данные · Бесплатно · Без рекламы</span></div>
   <header class="top">
     <div class="site-title"><a href="index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a> <span class="v">v<span data-version="app"></span></span></div>
     <nav class="actions" data-i18n-aria-label="a11y.navMain">
-      <a class="btn c-feedback" href="feedback.html">💬 Обратная связь</a>
-      <a class="btn c-support" href="support.html">💚 Поддержать</a>
-      <button class="btn c-theme" id="themeBtn" aria-label="Переключить на светлую тему">🌞 Светлая тема</button>
+      <a class="btn c-feedback" href="feedback.html"><span data-i18n-text="index.feedback">💬 Обратная связь</span></a>
+      <a class="btn c-support" href="support.html"><span data-i18n-text="index.support">💚 Поддержать</span></a>
+      <button class="btn c-theme" id="themeBtn" data-i18n-aria-label="a11y.themeToLight" aria-label="Переключить на светлую тему"><span data-i18n-text="theme.light">🌞 Светлая тема</span></button>
       <select id="langSelect" class="lang-select" data-i18n-aria-label="a11y.langSelect"><option value="ru">RU</option><option value="en">EN</option></select>
-      <button class="btn c-random" id="randomBtn">🎲 Удиви меня</button>
+      <button class="btn c-random" id="randomBtn"><span data-i18n-text="index.random">🎲 Удиви меня</span></button>
     </nav>
   </header>
 </div>
 
 <main id="main">
-  <h1>Методология</h1>
+  <h1><span data-i18n-text="methodology.001">Методология</span></h1>
 
 
 <section style="background:var(--card-bg);padding:1.5rem;border-radius:12px;border:1px solid var(--border);margin-bottom:1.5rem">
-<h2>Что такое аудит v<span data-version="audit"></span></h2>
-<p><b>Аудит — это полная ручная верификация 130 добавок</b> по <b>адаптированной методологии PRISMA</b> (Preferred Reporting Items for Systematic Reviews and Meta-Analyses). Мы реализовали <b>6 ключевых этапов</b>: идентификация → скрининг → дедупликация → чтение абстрактов → оценка источников → синтез.
+<h2><span data-i18n-text="methodology.002">Что такое аудит v</span><span data-version="audit"></span></h2>
+<p><b><span data-i18n-text="methodology.003">Аудит — это полная ручная верификация 130 добавок</span></b> <span data-i18n-text="methodology.004">по</span> <b><span data-i18n-text="methodology.005">адаптированной методологии PRISMA</span></b> <span data-i18n-text="methodology.006">(Preferred Reporting Items for Systematic Reviews and Meta-Analyses). Мы реализовали</span> <b><span data-i18n-text="methodology.007">6 ключевых этапов</span></b><span data-i18n-text="methodology.008">: идентификация → скрининг → дедупликация → чтение абстрактов → оценка источников → синтез.</span>
 <br><br>
-<b>Что мы не делаем:</b> не читаем полные тексты (только абстракты топ-15), не проводим двойной слепой скрининг, не регистрируем протокол в PROSPERO, не оцениваем риск систематической ошибки формально. Это осознанное упрощение ради охвата 130 добавок силами одного человека. Каждая добавка прошла через:</p>
+<b><span data-i18n-text="methodology.009">Что мы не делаем:</span></b> <span data-i18n-text="methodology.010">не читаем полные тексты (только абстракты топ-15), не проводим двойной слепой скрининг, не регистрируем протокол в PROSPERO, не оцениваем риск систематической ошибки формально. Это осознанное упрощение ради охвата 130 добавок силами одного человека. Каждая добавка прошла через:</span></p>
 <ol style="margin:.6rem 0 1rem 1.5rem;line-height:1.8">
-  <li><b>Поиск в PubMed</b> — систематические обзоры и мета-анализы (MA/SR)</li>
-  <li><b>Скрининг</b> — фильтрация по релевантности</li>
-  <li><b>Дедупликация</b> — удаление дублей и обновлений</li>
-  <li><b>Чтение топ-15 абстрактов</b> — извлечение данных об эффектах</li>
-  <li><b>Выставление грейда A-D</b> — на основе силы доказательств</li>
+  <li><b><span data-i18n-text="sources.pubmedTitle">Поиск в PubMed</span></b> <span data-i18n-text="methodology.011">— систематические обзоры и мета-анализы (MA/SR)</span></li>
+  <li><b><span data-i18n-text="methodology.012">Скрининг</span></b> <span data-i18n-text="methodology.013">— фильтрация по релевантности</span></li>
+  <li><b><span data-i18n-text="methodology.014">Дедупликация</span></b> <span data-i18n-text="methodology.015">— удаление дублей и обновлений</span></li>
+  <li><b><span data-i18n-text="methodology.016">Чтение топ-15 абстрактов</span></b> <span data-i18n-text="methodology.017">— извлечение данных об эффектах</span></li>
+  <li><b><span data-i18n-text="methodology.018">Выставление грейда A-D</span></b> <span data-i18n-text="methodology.019">— на основе силы доказательств</span></li>
 </ol>
-<p><b>Результат:</b> 130 карточки аудита в <code>data/processed/audit/</code>, 14 коммитов аудита, теги <code>v3.0-audit-top20</code> и <code>v3.0-audit-complete</code>.</p>
+<p><b><span data-i18n-text="methodology.020">Результат:</span></b> <span data-i18n-text="methodology.021">130 карточки аудита в</span> <code>data/processed/audit/</code><span data-i18n-text="methodology.022">, 14 коммитов аудита, теги</span> <code>v3.0-audit-top20</code> <span data-i18n-text="banner.and">и</span> <code>v3.0-audit-complete</code>.</p>
 </section>
 
 <section style="background:var(--card-bg);padding:1.5rem;border-radius:12px;border:1px solid var(--border);margin-bottom:1.5rem">
-<h2>PRISMA-воронка</h2>
-<p>Для каждой добавки мы проходим через стандартную воронку систематического обзора:</p>
-<pre tabindex="0" style="background:var(--card-bg);padding:1rem;border-radius:8px;overflow-x:auto;font-size:var(--fs-4);line-height:1.6">
+<h2><span data-i18n-text="methodology.023">PRISMA-воронка</span></h2>
+<p><span data-i18n-text="methodology.024">Для каждой добавки мы проходим через стандартную воронку систематического обзора:</span></p>
+<pre tabindex="0" data-i18n-text="methodology.prisma" style="background:var(--card-bg);padding:1rem;border-radius:8px;overflow-x:auto;font-size:var(--fs-4);line-height:1.6">
 Найдено: 100-500 статей (PubMed: MA + SR)
     ↓
 Скрининг: 20-100 релевантных (фильтр по заголовкам)
@@ -118,51 +118,51 @@ try {
     ↓
 Карточка аудита: grade + verdict + effect_outcome + caution
 </pre>
-<p><b>Пример:</b> Креатин — найдено 132, скрининг 36, уникальных 35, читано 15 → грейд A, вердикт "работает".</p>
+<p><b><span data-i18n-text="methodology.025">Пример:</span></b> <span data-i18n-text="methodology.026">Креатин — найдено 132, скрининг 36, уникальных 35, читано 15 → грейд A, вердикт "работает".</span></p>
 </section>
 
 <section style="background:var(--card-bg);padding:1.5rem;border-radius:12px;border:1px solid var(--border);margin-bottom:1.5rem">
-<h2>Грейды A–D</h2>
-<p>Грейды выставляются <b>вручную</b> после чтения абстрактов, на основе силы доказательств:</p>
+<h2><span data-i18n-text="methodology.027">Грейды A–D</span></h2>
+<p><span data-i18n-text="methodology.028">Грейды выставляются</span> <b><span data-i18n-text="methodology.029">вручную</span></b> <span data-i18n-text="methodology.030">после чтения абстрактов, на основе силы доказательств:</span></p>
 <ul style="margin:.6rem 0 1rem 1.5rem;line-height:1.8">
-  <li><b style="color:var(--grade-a-tx)">A — работает отлично:</b> множественные Cochrane-обзоры, крупные РКИ, сильный эффект (Hedges' g ≥ 0.4). Примеры: Витамин D, Креатин, Железо, Кофеин, B9, Сывороточный протеин.</li>
-  <li><b style="color:var(--grade-b-tx)">B — работает:</b> есть систематические обзоры, эффект подтверждён, но меньше данных или эффект умеренный. Примеры: Омега-3, Цинк, Магний, Мелатонин, CoQ10.</li>
-  <li><b style="color:var(--grade-c-tx)">C — зависит от контекста:</b> данные есть, но эффект малый, противоречивый или работает только в специфических условиях. Примеры: Ресвератрол, NMN, Хром, Валериана.</li>
-  <li><b style="color:var(--grade-d-tx)">D — не подтверждено:</b> систематических обзоров нет или они показывают отсутствие эффекта. Примеры: Биотин, Йохимбин, Трибулус, Хлорофилл.</li>
+  <li><b style="color:var(--grade-a-tx)"><span data-i18n-text="methodology.031">A — работает отлично:</span></b> <span data-i18n-text="methodology.032">множественные Cochrane-обзоры, крупные РКИ, сильный эффект (Hedges' g ≥ 0.4). Примеры: Витамин D, Креатин, Железо, Кофеин, B9, Сывороточный протеин.</span></li>
+  <li><b style="color:var(--grade-b-tx)"><span data-i18n-text="methodology.033">B — работает:</span></b> <span data-i18n-text="methodology.034">есть систематические обзоры, эффект подтверждён, но меньше данных или эффект умеренный. Примеры: Омега-3, Цинк, Магний, Мелатонин, CoQ10.</span></li>
+  <li><b style="color:var(--grade-c-tx)"><span data-i18n-text="methodology.035">C — зависит от контекста:</span></b> <span data-i18n-text="methodology.036">данные есть, но эффект малый, противоречивый или работает только в специфических условиях. Примеры: Ресвератрол, NMN, Хром, Валериана.</span></li>
+  <li><b style="color:var(--grade-d-tx)"><span data-i18n-text="methodology.037">D — не подтверждено:</span></b> <span data-i18n-text="methodology.038">систематических обзоров нет или они показывают отсутствие эффекта. Примеры: Биотин, Йохимбин, Трибулус, Хлорофилл.</span></li>
 </ul>
-<p><b>Важно:</b> грейды выставляются человеком, а не по формуле. Это позволяет учесть нюансы (качество РКИ, клиническая значимость, побочные эффекты).</p>
+<p><b><span data-i18n-text="methodology.039">Важно:</span></b> <span data-i18n-text="methodology.040">грейды выставляются человеком, а не по формуле. Это позволяет учесть нюансы (качество РКИ, клиническая значимость, побочные эффекты).</span></p>
 </section>
 
 <section style="background:var(--card-bg);padding:1.5rem;border-radius:12px;border:1px solid var(--border);margin-bottom:1.5rem">
-<h2>Вердикты</h2>
-<p>Каждая добавка получает один из трёх вердиктов:</p>
+<h2><span data-i18n-text="methodology.041">Вердикты</span></h2>
+<p><span data-i18n-text="methodology.042">Каждая добавка получает один из трёх вердиктов:</span></p>
 <ul style="margin:.6rem 0 1rem 1.5rem;line-height:1.8">
-  <li><b style="background:var(--grade-a-fill);color:var(--on-solid);padding:.2rem .6rem;border-radius:20px">работает</b> — эффект подтверждён систематическими обзорами</li>
-  <li><b style="background:var(--grade-c-fill);color:var(--on-solid);padding:.2rem .6rem;border-radius:20px">зависит от контекста</b> — эффект есть, но ограничен определёнными условиями (доза, популяция, длительность)</li>
-  <li><b style="background:var(--grade-d-fill);color:var(--on-solid);padding:.2rem .6rem;border-radius:20px">не подтверждено</b> — систематических данных нет или они показывают отсутствие эффекта</li>
-</ul>
-</section>
-
-<section style="background:var(--card-bg);padding:1.5rem;border-radius:12px;border:1px solid var(--border);margin-bottom:1.5rem">
-<h2>Что в карточке аудита</h2>
-<p>Каждая из 130 карточек (<code>data/processed/audit/*.md</code>) содержит:</p>
-<ul style="margin:.6rem 0 1rem 1.5rem;line-height:1.8">
-  <li><b>PRISMA-воронка:</b> найдено → скрининг → уникальных → читано</li>
-  <li><b>JSON-блок:</b> id, category, verdict, grade, effect_outcome, caution, key_sources (PMID), updated</li>
-  <li><b>Вердикты по контекстам:</b> для каких условий какой грейд (например, сон vs. тревожность)</li>
-  <li><b>Ключевые источники:</b> PMID'ы топ-3 систематических обзоров</li>
+  <li><b style="background:var(--grade-a-fill);color:var(--on-solid);padding:.2rem .6rem;border-radius:20px"><span data-i18n-text="verdict.works">работает</span></b> <span data-i18n-text="methodology.043">— эффект подтверждён систематическими обзорами</span></li>
+  <li><b style="background:var(--grade-c-fill);color:var(--on-solid);padding:.2rem .6rem;border-radius:20px"><span data-i18n-text="verdict.depends">зависит от контекста</span></b> <span data-i18n-text="methodology.044">— эффект есть, но ограничен определёнными условиями (доза, популяция, длительность)</span></li>
+  <li><b style="background:var(--grade-d-fill);color:var(--on-solid);padding:.2rem .6rem;border-radius:20px"><span data-i18n-text="verdict.unproven">не подтверждено</span></b> <span data-i18n-text="methodology.045">— систематических данных нет или они показывают отсутствие эффекта</span></li>
 </ul>
 </section>
 
 <section style="background:var(--card-bg);padding:1.5rem;border-radius:12px;border:1px solid var(--border);margin-bottom:1.5rem">
-<h2>Распределение грейдов (130 добавок)</h2>
+<h2><span data-i18n-text="methodology.046">Что в карточке аудита</span></h2>
+<p><span data-i18n-text="methodology.047">Каждая из 130 карточек (</span><code>data/processed/audit/*.md</code><span data-i18n-text="methodology.048">) содержит:</span></p>
 <ul style="margin:.6rem 0 1rem 1.5rem;line-height:1.8">
-  <li><b style="color:var(--grade-a-tx)">A (работает отлично):</b> 6 добавок (4.6%)</li>
-  <li><b style="color:var(--grade-b-tx)">B (работает):</b> 22 добавки (16.9%)</li>
-  <li><b style="color:var(--grade-c-tx)">C (зависит от контекста):</b> 52 добавки (40.0%)</li>
-  <li><b style="color:var(--grade-d-tx)">D (не подтверждено):</b> 50 добавок (38.5%)</li>
+  <li><b><span data-i18n-text="methodology.049">PRISMA-воронка:</span></b> <span data-i18n-text="methodology.050">найдено → скрининг → уникальных → читано</span></li>
+  <li><b><span data-i18n-text="methodology.051">JSON-блок:</span></b> id, category, verdict, grade, effect_outcome, caution, key_sources (PMID), updated</li>
+  <li><b><span data-i18n-text="methodology.052">Вердикты по контекстам:</span></b> <span data-i18n-text="methodology.053">для каких условий какой грейд (например, сон vs. тревожность)</span></li>
+  <li><b><span data-i18n-text="methodology.054">Ключевые источники:</span></b> <span data-i18n-text="methodology.055">PMID'ы топ-3 систематических обзоров</span></li>
 </ul>
-<p>Это честное распределение: не "всё работает", а реальная картина доказательности.</p>
+</section>
+
+<section style="background:var(--card-bg);padding:1.5rem;border-radius:12px;border:1px solid var(--border);margin-bottom:1.5rem">
+<h2><span data-i18n-text="methodology.056">Распределение грейдов (130 добавок)</span></h2>
+<ul style="margin:.6rem 0 1rem 1.5rem;line-height:1.8">
+  <li><b style="color:var(--grade-a-tx)"><span data-i18n-text="methodology.057">A (работает отлично):</span></b> <span data-i18n-text="methodology.058">6 добавок (4.6%)</span></li>
+  <li><b style="color:var(--grade-b-tx)"><span data-i18n-text="methodology.059">B (работает):</span></b> <span data-i18n-text="methodology.060">22 добавки (16.9%)</span></li>
+  <li><b style="color:var(--grade-c-tx)"><span data-i18n-text="methodology.061">C (зависит от контекста):</span></b> <span data-i18n-text="methodology.062">52 добавки (40.0%)</span></li>
+  <li><b style="color:var(--grade-d-tx)"><span data-i18n-text="methodology.063">D (не подтверждено):</span></b> <span data-i18n-text="methodology.064">50 добавок (38.5%)</span></li>
+</ul>
+<p><span data-i18n-text="methodology.065">Это честное распределение: не "всё работает", а реальная картина доказательности.</span></p>
 </section>
 
 <!-- v5.6.2 (#97, T5): раздел про COI. До этого строка «COI» встречалась в docs/
@@ -175,34 +175,33 @@ try {
      который не публикуется на GitHub Pages — проверено запросом, отдаёт 404.
      Поэтому здесь ссылки нет, а не «забыли». -->
 <section style="background:var(--card-bg);padding:1.5rem;border-radius:12px;border:1px solid var(--border);margin-bottom:1.5rem">
-<h2>Конфликты интересов (COI)</h2>
-<p>Конфликт интересов (COI, conflict of interest) — это связь автора исследования с тем, кто мог заинтересован в результате: спонсорство от производителя, совместная работа с фармкомпанией, должность в отрасли. Это не приговор качеству работы, но фактор, который читатель обязан знать.</p>
-<p>Мы разбираем COI во всех <b>6310</b> полных текстах, которые прочитали в ходе аудита, и сверяем их с блоком раскрытия в самой статье:</p>
+<h2><span data-i18n-text="methodology.066">Конфликты интересов (COI)</span></h2>
+<p><span data-i18n-text="methodology.067">Конфликт интересов (COI, conflict of interest) — это связь автора исследования с тем, кто мог заинтересован в результате: спонсорство от производителя, совместная работа с фармкомпанией, должность в отрасли. Это не приговор качеству работы, но фактор, который читатель обязан знать.</span></p>
+<p><span data-i18n-text="methodology.068">Мы разбираем COI во всех</span> <b>6310</b> <span data-i18n-text="methodology.069">полных текстах, которые прочитали в ходе аудита, и сверяем их с блоком раскрытия в самой статье:</span></p>
 <ul style="margin:.6rem 0 1rem 1.5rem;line-height:1.8">
-  <li><b>Заявлен конфликт:</b> 467 статей — <b>8,5%</b> от тех, где раскрытие вообще было</li>
-  <li><b>Заявлено отсутствие конфликта:</b> 4349 статей</li>
-  <li><b>Неясно:</b> 674 статьи — формулировка не позволяет судить однозначно</li>
-  <li><b>Не раскрыто:</b> 820 статей</li>
+  <li><b><span data-i18n-text="methodology.070">Заявлен конфликт:</span></b> <span data-i18n-text="methodology.071">467 статей —</span> <b>8,5%</b> <span data-i18n-text="methodology.072">от тех, где раскрытие вообще было</span></li>
+  <li><b><span data-i18n-text="methodology.073">Заявлено отсутствие конфликта:</span></b> <span data-i18n-text="methodology.074">4349 статей</span></li>
+  <li><b><span data-i18n-text="methodology.075">Неясно:</span></b> <span data-i18n-text="methodology.076">674 статьи — формулировка не позволяет судить однозначно</span></li>
+  <li><b><span data-i18n-text="methodology.077">Не раскрыто:</span></b> <span data-i18n-text="methodology.078">820 статей</span></li>
 </ul>
-<p>То есть в <b>5490</b> случаях из 6310 (87%) авторы что-то заявляли, и лишь 8,5% из заявивших указали на связь с индустрией.</p>
-<p>Отдельно мы считаем признаки финансирования в самих статьях: спонсорство упомянуто в <b>3500</b> работах (55,5%), упоминания фармкомпаний — в <b>282</b> (4,5%). Это независимые от COI-счётчики: статья может заявлять отсутствие конфликта и при этом описывать спонсирование — именно такие расхождения мы и отмечаем.</p>
-<p><b>Важно:</b> наличие COI не означает, что выводы исследования неверны — систематические обзоры с конфликтом интересов учитываются наравне с остальными. Мы показываем факт, а решение о доверии оставляем за читателем.</p>
+<p><span data-i18n-text="methodology.079">То есть в</span> <b>5490</b> <span data-i18n-text="methodology.080">случаях из 6310 (87%) авторы что-то заявляли, и лишь 8,5% из заявивших указали на связь с индустрией.</span></p>
+<p><span data-i18n-text="methodology.081">Отдельно мы считаем признаки финансирования в самих статьях: спонсорство упомянуто в</span> <b>3500</b> <span data-i18n-text="methodology.082">работах (55,5%), упоминания фармкомпаний — в</span> <b>282</b> <span data-i18n-text="methodology.083">(4,5%). Это независимые от COI-счётчики: статья может заявлять отсутствие конфликта и при этом описывать спонсирование — именно такие расхождения мы и отмечаем.</span></p>
+<p><b><span data-i18n-text="methodology.084">Важно:</span></b> <span data-i18n-text="methodology.085">наличие COI не означает, что выводы исследования неверны — систематические обзоры с конфликтом интересов учитываются наравне с остальными. Мы показываем факт, а решение о доверии оставляем за читателем.</span></p>
 </section>
 
 </main>
 
 <footer class="site-footer">
   <p class="disc">
-    <b>⚠️ Не медицинская рекомендация.</b>
-    Сайт предоставляет данные из открытых научных источников
+    <b><span data-i18n-text="index.discWarn">⚠️ Не медицинская рекомендация.</span></b>
+    <span data-i18n-text="index.discA">Сайт предоставляет данные из открытых научных источников
     (PubMed, Europe PMC, CrossRef, OpenAlex, ClinicalTrials.gov, Wikimedia)
-    для информирования и самостоятельного образования.
-    <b>НЕ заменяет</b> консультацию, диагноз и лечение.
-    При любых сомнениях — обращайтесь к специалисту.
+    для информирования и самостоятельного образования.</span>
+    <b><span data-i18n-text="index.discNo">НЕ заменяет</span></b> <span data-i18n-text="index.discB">консультацию, диагноз и лечение.
+    При любых сомнениях — обращайтесь к специалисту.</span>
   </p>
   <p class="meta">
-    v<span data-version="app"></span> ·
-    данные на <span data-version="data"></span>
+    v<span data-version="app"></span> · <span data-i18n-text="index.dataUpdated">данные на</span> <span data-version="data"></span>
   </p>
   <p class="links">
     <a href="methodology.html" data-i18n-text="footer.methodology">📐 Методология</a> ·
@@ -212,8 +211,8 @@ try {
     <a href="terms-of-use.html" data-i18n-text="footer.terms">📄 Условия использования</a> ·
     <a href="feed.xml" data-i18n-text="footer.rss">📡 RSS</a>
   </p>
-  <p class="copy">© 2026 Vladislav "DeadSno" Pereshivalov · MIT · <a href="terms-of-use.html#data-license">Данные: CC BY 4.0</a></p>
-  <p class="share-row"><button class="btn share-page" type="button">🔗 Поделиться</button></p>
+  <p class="copy">© 2026 Vladislav "DeadSno" Pereshivalov · MIT · <a href="terms-of-use.html#data-license"><span data-i18n-text="index.dataLicense">Данные: CC BY 4.0</span></a></p>
+  <p class="share-row"><button class="btn share-page" type="button"><span data-i18n-text="share.label">🔗 Поделиться</span></button></p>
 </footer>
 <script>
 const $ = id => document.getElementById(id);
@@ -253,13 +252,13 @@ window.addEventListener('scroll', () => {
      ни одного запроса к mc.yandex.ru не происходит. -->
 <div id="cookieBanner" role="dialog" data-i18n-aria-label="a11y.cookieConsent" hidden>
   <div class="cb-text">
-    Мы используем cookie и Яндекс.Метрику, чтобы понять, какие материалы полезны.
-    Аналитика включается только после вашего согласия.
-    <a href="privacy.html">Политика конфиденциальности</a>
+    <span data-i18n-text="index.cookieText">Мы используем cookie и Яндекс.Метрику, чтобы понять, какие материалы полезны.
+    Аналитика включается только после вашего согласия.</span>
+    <a href="privacy.html"><span data-i18n-text="index.cookiePolicy">Политика конфиденциальности</span></a>
   </div>
   <div class="cb-actions">
-    <button type="button" id="cookieAccept" class="cb-btn cb-accept">Принять</button>
-    <button type="button" id="cookieReject" class="cb-btn cb-reject">Отклонить</button>
+    <button type="button" id="cookieAccept" class="cb-btn cb-accept"><span data-i18n-text="index.cookieAccept">Принять</span></button>
+    <button type="button" id="cookieReject" class="cb-btn cb-reject"><span data-i18n-text="index.cookieReject">Отклонить</span></button>
   </div>
 </div>
 <script src="cookie-banner.js?v=1"></script>

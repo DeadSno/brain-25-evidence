@@ -34,7 +34,7 @@
     </script>
     <link rel="stylesheet" href="../style.min.css?v=460">
     <script src="../version.js?v=312"></script>
-    <script src="../i18n.js?v=10"></script>
+    <script src="../i18n.js?v=12"></script>
     <script src="../pwa.js?v=283" defer></script>
 <script src="../share.js?v=2" defer></script>
     <script type="application/ld+json">
@@ -55,40 +55,40 @@
     
 </head>
 <body>
-<a href="#main" class="skip-link">Перейти к содержимому</a>
+<a href="#main" class="skip-link" data-i18n-text="a11y.skipToContent">Перейти к содержимому</a>
 
 <div class="site-header">
-  <div class="trustbar">🧬 Открытые данные · Бесплатно · Без рекламы</div>
+  <div class="trustbar" data-i18n-text="index.trustbar">🧬 Открытые данные · Бесплатно · Без рекламы</div>
   <header class="top">
     <div class="site-title"><a href="../index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a></div>
     <nav class="actions" data-i18n-aria-label="a11y.navMain">
-      <a class="btn c-feedback" href="../feedback.html">💬 Обратная связь</a>
-      <a class="btn c-support" href="../support.html">💚 Поддержать</a>
+      <a class="btn c-feedback" href="../feedback.html" data-i18n-text="index.feedback">💬 Обратная связь</a>
+      <a class="btn c-support" href="../support.html" data-i18n-text="index.support">💚 Поддержать</a>
       <button class="btn c-theme" id="themeBtn" aria-label="Переключить на светлую тему">🌞 Светлая тема</button>
       <select id="langSelect" class="lang-select" data-i18n-aria-label="a11y.langSelect"><option value="ru">RU</option><option value="en">EN</option></select>
-      <button class="btn c-random" id="randomBtn">🎲 Удиви меня</button>
+      <button class="btn c-random" id="randomBtn" data-i18n-text="index.random">🎲 Удиви меня</button>
     </nav>
   </header>
 </div>
 
 <main id="main" class="sup-wrap">
-  <h1>B6: доказательства</h1>
+  <h1>B6<span data-i18n-text="sup.h1Suffix">: доказательства</span></h1>
 
     
     <nav class="breadcrumbs">
-        <a href="../index.html">Главная</a> → <a href="index.html">Каталог</a> → <strong>B6</strong>
+        <a href="../index.html" data-i18n-text="nav.home">Главная</a> → <a href="index.html" data-i18n-text="nav.catalog">Каталог</a> → <strong>B6</strong>
     </nav>
 
     <div class="sup-header">
         <h2>B6</h2>
-        <span class="grade-badge" style="background:var(--grade-b-fill)"><abbr data-i18n-title="trends.gradeAbbr" data-tooltip="Грейд B">Грейд B</abbr></span>
+        <span class="grade-badge" style="background:var(--grade-b-fill)"><abbr data-i18n-title="trends.gradeAbbr" data-i18n-tooltip="sup.gradeTooltip" data-i18n-text="sup.gradeShort" data-i18n-vars='{"g": "B"}' data-tooltip="Грейд B">Грейд B</abbr></span>
         
-        <div class="placebo-bar" aria-label="Размер эффекта плацебо">
-            <span class="placebo-label">Плацебо</span>
+        <div class="placebo-bar" data-i18n-aria-label="sup.placeboBar" aria-label="Размер эффекта плацебо">
+            <span class="placebo-label" data-i18n-text="sup.placebo">Плацебо</span>
             <div class="placebo-track">
-                <div class="placebo-fill" style="width: 42.3%;" role="progressbar" aria-label="Размер эффекта относительно плацебо: 42.3 процентов" aria-valuenow="42.3" aria-valuemin="0" aria-valuemax="100"></div>
+                <div class="placebo-fill" style="width: 42.3%;" role="progressbar" data-i18n-aria-label="sup.placeboAria" data-i18n-vars='{"n": "42.3"}' aria-label="Размер эффекта относительно плацебо: 42.3 процентов" aria-valuenow="42.3" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
-            <span class="placebo-label">Эффект</span>
+            <span class="placebo-label" data-i18n-text="sup.effect">Эффект</span>
         </div>
         
         <span class="verdict">— работает</span>
@@ -101,36 +101,36 @@
     <div class="sup-meta">
         
         <a href="https://pubmed.ncbi.nlm.nih.gov/?term=36719452" target="_blank" rel="nofollow noopener" class="pmid-badge" data-target="b6">
-            🔬 2 источника в PubMed
+            🔬 2 <span data-i18n-text="sup.pmidFew">источника</span> <span data-i18n-text="sup.pmidIn">в PubMed</span>
         </a>
         
         
         
-        <a class="btn cmp-add" data-cmp="b6" href="../hactar.html?tab=compare&amp;ids=b6">+ Сравнить</a>
+        <a class="btn cmp-add" data-cmp="b6" href="../hactar.html?tab=compare&amp;ids=b6" data-i18n-text="sup.compare">+ Сравнить</a>
         
     </div>
     
 
     <div class="sup-section">
-        <h2>О добавке</h2>
+        <h2 data-i18n-text="sup.h2About">О добавке</h2>
         <p>Пиридоксин (B6): снижает тошноту и рвоту при беременности (МА 2023); при нейропатии как монотерапия не изучен, а высокие дозы сами токсичны для нервов.</p>
-        <p><b>Кому нужно:</b> Беременные с тошнотой/рвотой — пиридоксин отдельно или в комбинации; при нейропатии — только в составе лечения под контролем дозы; высокие дозы — риск сенсорной нейропатии.</p>
-        <p><b>Когда эффект:</b> При тошноте беременности — улучшение в течение приёма (МА 2023); для других показаний сроки не установлены.</p>
+        <p><b data-i18n-text="sup.whoNeeds">Кому нужно:</b> Беременные с тошнотой/рвотой — пиридоксин отдельно или в комбинации; при нейропатии — только в составе лечения под контролем дозы; высокие дозы — риск сенсорной нейропатии.</p>
+        <p><b data-i18n-text="sup.onset">Когда эффект:</b> При тошноте беременности — улучшение в течение приёма (МА 2023); для других показаний сроки не установлены.</p>
     </div>
 
     <div class="sup-section">
-        <h2>Метрики</h2>
-        <p><b>Индекс науки:</b> 1612 · <b>РКИ:</b> 782 · <b>Мета-анализов:</b> 166</p>
-        <p><b>Категория:</b> Неврология/Метаболизм</p>
+        <h2 data-i18n-text="sup.h2Metrics">Метрики</h2>
+        <p><b data-i18n-text="sup.scienceIndex">Индекс науки:</b> 1612 · <b data-i18n-text="sup.rct">РКИ:</b> 782 · <b data-i18n-text="sup.metaCount">Мета-анализов:</b> 166</p>
+        <p><b data-i18n-text="sup.category">Категория:</b> Неврология/Метаболизм</p>
     </div>
 
     <div class="sup-section">
-        <h2>Эффекты</h2>
+        <h2 data-i18n-text="sup.h2Effects">Эффекты</h2>
         <div><span class="tag">Тошнота при беременности</span> <span class="tag">Нейропатия (риск при избытке)</span></div>
     </div>
 
     <div class="sup-section">
-        <h2>Механизмы действия</h2>
+        <h2 data-i18n-text="sup.h2Mechs">Механизмы действия</h2>
         
         <div class="mech-card">
             <div class="mech-body">Пиридоксин при тошноте/рвоте беременности</div>
@@ -150,51 +150,51 @@
     </div>
 
     <div class="sup-section">
-        <h2>Дозировка</h2>
-        <p><b>Стандартная доза:</b> Нет данных</p>
-        <p><b>Курс:</b> На период симптомов тошноты/рвоты при беременности.</p>
-        <p><b>Верхний предел:</b> не установлен (в абстрактах не приводится; высокие дозы нейротоксичны)</p>
+        <h2 data-i18n-text="sup.h2Dosage">Дозировка</h2>
+        <p><b data-i18n-text="sup.standardDose">Стандартная доза:</b> Нет данных</p>
+        <p><b data-i18n-text="sup.course">Курс:</b> На период симптомов тошноты/рвоты при беременности.</p>
+        <p><b data-i18n-text="sup.upperLimit">Верхний предел:</b> не установлен (в абстрактах не приводится; высокие дозы нейротоксичны)</p>
     </div>
 
     
     <div class="sup-section shop-section">
-        <h2>🛒 Где искать</h2>
-        <div style="font-size:var(--fs-4);color:var(--muted);margin-bottom:8px;">⚠️ Вы переходите на сторонний сайт</div>
+        <h2 data-i18n-text="sup.h2Where">🛒 Где искать</h2>
+        <div style="font-size:var(--fs-4);color:var(--muted);margin-bottom:8px;" data-i18n-text="sup.externalWarn">⚠️ Вы переходите на сторонний сайт</div>
         <div class="shop-buttons">
-            <a href="https://market.yandex.ru/search?text=B6" target="_blank" rel="nofollow noopener" class="shop-btn">Я.Маркет ↗</a>
+            <a href="https://market.yandex.ru/search?text=B6" target="_blank" rel="nofollow noopener" class="shop-btn" data-i18n-text="sup.yamarket">Я.Маркет ↗</a>
             <a href="https://www.ozon.ru/search/?text=B6" target="_blank" rel="nofollow noopener" class="shop-btn">Ozon ↗</a>
             <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=B6" target="_blank" rel="nofollow noopener" class="shop-btn">WB ↗</a>
         </div>
         <div class="shop-look">
-            <strong>Что искать при покупке:</strong> Ищите форму «пиридоксин» на этикетке, проверяйте дозировку и наличие сертификата качества (GMP/ISO).
+            <strong data-i18n-text="sup.lookFor">Что искать при покупке:</strong> Ищите форму «пиридоксин» на этикетке, проверяйте дозировку и наличие сертификата качества (GMP/ISO).
         </div>
     </div>
     
 
     
     <div class="sup-section unknowns-section">
-        <h2>🔍 Что мы не знаем</h2>
+        <h2 data-i18n-text="sup.h2Unknowns">🔍 Что мы не знаем</h2>
         <p>Мало подтверждений в PubMed (2 источников).</p>
     </div>
     
 
     <div class="sup-section">
-        <h2>Осторожно</h2>
+        <h2 data-i18n-text="sup.h2Caution">Осторожно</h2>
         <p>Высокие дозы → сенсорная аксональная нейропатия, симптомы улучшаются после отмены (СР 2023); при беременности доза — по врачу.</p>
     </div>
 
     <div class="sup-section">
-        <h2>Мифы</h2>
+        <h2 data-i18n-text="sup.h2Myths">Мифы</h2>
         <p>«B6 лечит нервы» — в СР 2023 данных о B6 как монотерапии нейропатии нет. «Больше B6 — лучше» — наоборот: высокие уровни дают сенсорную аксональную нейропатию. «Натуральный — значит безопасный» — доза решает.</p>
     </div>
 
     <div class="sup-section">
-        <h2>Взаимодействия</h2>
+        <h2 data-i18n-text="sup.h2Interactions">Взаимодействия</h2>
         <div class="inter-note">Известных взаимодействий нет</div>
     </div>
 
     <div class="sup-section">
-        <h2>Источники</h2>
+        <h2 data-i18n-text="sup.h2Sources">Источники</h2>
         
         <div class="src-card">
             <div class="src-title">The effects of pyridoxine (vitamin B6) supplementation in nausea and vomiting during pregnancy: a systematic review and meta-analysis.</div>
@@ -207,32 +207,32 @@
     </div>
 
     <div class="sup-section">
-        <h2>Формы выпуска</h2>
+        <h2 data-i18n-text="sup.h2Forms">Формы выпуска</h2>
         <p>пиридоксин, пиридоксаль-5-фосфат</p>
     </div>
 
     <div class="sup-section">
-        <h2>Как выбирать</h2>
+        <h2 data-i18n-text="sup.h2HowTo">Как выбирать</h2>
         <p>Пиридоксин в дозах для NVP под контролем врача; не принимать мегадозы; при нейропатии самостоятельно не назначать.</p>
-        <p><b>Пищевые источники:</b> Курица, рыба, печень, картофель, бананы, нут, цельнозерновые; при термообработке потери значительны.</p>
-        <p><b>Клинические рекомендации:</b> МА 2023 (18 исследований): пиридоксин один и в комбинации — Rhode&#x27;s 0.78 [0.26-1.31], PUQE 0.75 [0.28-1.22]; СР 2023: высокие дозы B6 — риск нейротоксичности.</p>
+        <p><b data-i18n-text="sup.foodSources">Пищевые источники:</b> Курица, рыба, печень, картофель, бананы, нут, цельнозерновые; при термообработке потери значительны.</p>
+        <p><b data-i18n-text="sup.guidelines">Клинические рекомендации:</b> МА 2023 (18 исследований): пиридоксин один и в комбинации — Rhode&#x27;s 0.78 [0.26-1.31], PUQE 0.75 [0.28-1.22]; СР 2023: высокие дозы B6 — риск нейротоксичности.</p>
     </div>
 
-    <a href="index.html" class="back-link">← В каталог</a>
+    <a href="index.html" class="back-link" data-i18n-text="sup.backToCatalog">← В каталог</a>
 </main>
 
 <footer class="site-footer">
   <p class="disc">
-    <b>⚠️ Не медицинская рекомендация.</b>
-    Сайт предоставляет данные из открытых научных источников
+    <b data-i18n-text="index.discWarn">⚠️ Не медицинская рекомендация.</b>
+    <span data-i18n-text="index.discA">Сайт предоставляет данные из открытых научных источников
     (PubMed, Europe PMC, CrossRef, OpenAlex, ClinicalTrials.gov, Wikimedia)
-    для информирования и самостоятельного образования.
-    <b>НЕ заменяет</b> консультацию, диагноз и лечение.
-    При любых сомнениях — обращайтесь к специалисту.
+    для информирования и самостоятельного образования.</span>
+    <b data-i18n-text="index.discNo">НЕ заменяет</b> <span data-i18n-text="index.discB">консультацию, диагноз и лечение.
+    При любых сомнениях — обращайтесь к специалисту.</span>
   </p>
   <p class="meta">
     v<span data-version="app"></span> ·
-    данные на <span data-version="data"></span>
+    <span data-i18n-text="index.dataUpdated">данные на</span> <span data-version="data"></span>
   </p>
   <p class="links">
     <a href="../methodology.html" data-i18n-text="footer.methodology">📐 Методология</a> ·
@@ -243,8 +243,8 @@
     <a href="index.html" data-i18n-text="footer.catalog">💊 Каталог БАДов</a> ·
     <a href="../feed.xml" data-i18n-text="footer.rss">📡 RSS</a>
   </p>
-  <p class="copy">© 2026 Vladislav "DeadSno" Pereshivalov · MIT · <a href="../terms-of-use.html#data-license">Данные: CC BY 4.0</a></p>
-  <p class="share-row"><button class="btn share-page" type="button">🔗 Поделиться</button></p>
+  <p class="copy">© 2026 Vladislav "DeadSno" Pereshivalov · MIT · <a href="../terms-of-use.html#data-license" data-i18n-text="index.dataLicense">Данные: CC BY 4.0</a></p>
+  <p class="share-row"><button class="btn share-page" type="button" data-i18n-text="index.share">🔗 Поделиться</button></p>
 </footer>
 
 <script>
@@ -273,13 +273,12 @@ document.addEventListener('DOMContentLoaded', function () {
      ни одного запроса к mc.yandex.ru не происходит. -->
 <div id="cookieBanner" role="dialog" data-i18n-aria-label="a11y.cookieConsent" hidden>
   <div class="cb-text">
-    Мы используем cookie и Яндекс.Метрику, чтобы понять, какие материалы полезны.
-    Аналитика включается только после вашего согласия.
-    <a href="../privacy.html">Политика конфиденциальности</a>
+    <span data-i18n-text="index.cookieText">Мы используем cookie и Яндекс.Метрику, чтобы понять, какие материалы полезны. Аналитика включается только после вашего согласия.</span>
+    <a href="../privacy.html" data-i18n-text="index.cookiePolicy">Политика конфиденциальности</a>
   </div>
   <div class="cb-actions">
-    <button type="button" id="cookieAccept" class="cb-btn cb-accept">Принять</button>
-    <button type="button" id="cookieReject" class="cb-btn cb-reject">Отклонить</button>
+    <button type="button" id="cookieAccept" class="cb-btn cb-accept" data-i18n-text="index.cookieAccept">Принять</button>
+    <button type="button" id="cookieReject" class="cb-btn cb-reject" data-i18n-text="index.cookieReject">Отклонить</button>
   </div>
 </div>
 <script src="../cookie-banner.js?v=1"></script>
@@ -324,11 +323,23 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 })();
 
+// FIX-74: подпись счётчика собирается через t(), поэтому число источников
+// склоняется по-русски и не склоняется по-английски.
+function pmidWord(n) {
+  if (LOCALE === 'ru') {
+    var d = n % 10, dd = n % 100;
+    if (d === 1 && dd !== 11) return t('sup.pmidOne');
+    if (d >= 2 && d <= 4 && (dd < 12 || dd > 14)) return t('sup.pmidFew');
+    return t('sup.pmidMany');
+  }
+  return n === 1 ? t('sup.pmidOne') : t('sup.pmidMany');
+}
+
 // Count-up анимация для PMID-счётчика (IntersectionObserver + requestAnimationFrame)
 (function(){
   var badge = document.querySelector('.pmid-badge[data-target]');
   if(!badge) return;
-  var m = badge.textContent.match(/(\d+)\s*источник/);
+  var m = badge.textContent.match(/(\d+)/);
   if(!m) return;
   var target = +m[1];
   var obs = new IntersectionObserver(function(entries){
@@ -337,7 +348,7 @@ document.addEventListener('DOMContentLoaded', function () {
         var dur = 700, t0 = performance.now();
         function raf(now){
           var p = Math.min((now-t0)/dur, 1);
-          badge.textContent = '🔬 ' + Math.floor(p*target) + ' источника в PubMed';
+          badge.textContent = '🔬 ' + Math.floor(p*target) + ' ' + pmidWord(Math.floor(p*target)) + ' ' + t('sup.pmidIn');
           if(p<1) requestAnimationFrame(raf); else obs.disconnect();
         }
         requestAnimationFrame(raf);
