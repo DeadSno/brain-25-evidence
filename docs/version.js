@@ -21,7 +21,11 @@ var VERSION_JSON_URL = (function () {
   return new URL('version.json', base).href;
 })();
 
-fetch(VERSION_JSON_URL + '?ts=' + Date.now())
+// CWV-03 (BATCH-3): было '?ts=' + Date.now() — уникальный URL на каждый
+// запрос, из-за чего version.json не кэшировался вообще. Версию берём у
+// i18n.js (window.BUILD_VERSION); если version.js выполнился раньше него —
+// работает литерал, он же обязан меняться в релизе.
+fetch(VERSION_JSON_URL + '?v=' + (window.BUILD_VERSION || '5.6.5'))
   .then(function (r) {
     if (!r.ok) throw new Error('version.json HTTP ' + r.status);
     return r.json();

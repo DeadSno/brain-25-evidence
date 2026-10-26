@@ -431,7 +431,13 @@ document.querySelectorAll('a[href="#cardsContainer"]').forEach((cta) => {
   });
 });
 
-const fetchJson = (url) => fetch(url + '?ts=' + Date.now())
+// CWV-03 (BATCH-3): было '?ts=' + Date.now() — уникальный URL на каждый
+// запрос, поэтому data.json (742 КБ) и data_index.json (87 КБ) не попадали
+// в HTTP-кэш никогда, даже при повторном визите. Теперь параметр зависит
+// только от версии сборки (её задаёт i18n.js): в релизе меняется один раз,
+// между релизами кэш работает.
+const DATA_VERSION = (typeof window !== 'undefined' && window.BUILD_VERSION) || '5.6.5';
+const fetchJson = (url) => fetch(url + '?v=' + DATA_VERSION)
   .then(r => { if (!r.ok) throw new Error('no data for ' + url); return r.json(); });
 
 // v5.6.5 (CWV-03): loadGzJson удалён. Функция не использовалась нигде:

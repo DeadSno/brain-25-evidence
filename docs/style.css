@@ -469,6 +469,14 @@ code,kbd,samp,pre{font-size:var(--fs-4)}
    слово только тогда, когда оно физически не влезает в строку, поэтому на
    обычном русском/английском тексте раскладку не трогает. */
 body{background:var(--bg);color:var(--text);padding:var(--space-6);transition:background .25s,color .25s;max-width:1200px;margin:0 auto;line-height:var(--lh-normal);overflow-wrap:break-word}
+
+/* CWV-01 (BATCH-3): в EN страница сначала рисуется по-русски, а через
+   100–160 мс приходит перевод и текст подменяется — это давало CLS до
+   0,247 при пороге «poor» 0,1. Класс ставит i18n.js (подключён в <head>,
+   до первой отрисовки) и снимает, когда перевод применён. Место под main
+   сохраняется, поэтому layout не «прыгает». visibility, а не display:
+   display:none пересчитал бы поток и дал тот же шифт в момент показа. */
+html.i18n-pending main { visibility: hidden; }
 header{display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-6);flex-wrap:wrap;gap:var(--space-4)}
 h1{font-size:var(--fs-9);font-weight:600}
 .hdr{display:flex;gap:.6rem;align-items:center}

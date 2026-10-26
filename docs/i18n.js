@@ -27,6 +27,50 @@ try {
 } catch (e) { /* приватный режим: localStorage может быть недоступен */ }
 if (I18N_LANGS.indexOf(LOCALE) === -1) LOCALE = 'ru';
 document.documentElement.lang = LOCALE;
+// CWV-01 (BATCH-3): в EN страница сначала рисуется по-русски, а через
+// 100–160 мс приходит перевод (applyI18n + data_en.json) и текст меняется —
+// это давало CLS до 0,247 при пороге «poor» 0,1. Класс ставится здесь, до
+// первой отрисовки: i18n.js подключён в <head> без defer, поэтому успевает
+// раньше, чем браузер покажет main. Правило в style.css:
+// html.i18n-pending main { visibility: hidden } — место под контент
+// сохраняется, но пользователь не видит русский текст, который вот-вот
+// сменится (иначе виден именно скачок).
+if (LOCALE === 'en') document.documentElement.classList.add('i18n-pending');
+var _i18nPendingTimer = null;
+function releaseI18nPending() {
+  if (!document.documentElement.classList.contains('i18n-pending')) return;
+  document.documentElement.classList.remove('i18n-pending');
+  if (_i18nPendingTimer !== null) {
+    clearTimeout(_i18nPendingTimer);
+    _i18nPendingTimer = null;
+  }
+}
+// Эти страницы подменяют контент уже после DOMContentLoaded: карточка sup/*,
+// каталог sup/index.html и Hactar ждут data_en.json. Для них завесу снимает
+// сам loadEnCards (см. ниже), а таймаут — только страховка от вечной пустоты
+// при офлайне или 404.
+function needsEnData() {
+  var body = document.body;
+  if (!body) return false;
+  return body.hasAttribute('data-sup-id') ||
+    !!document.querySelector('a[data-sup-id]') ||
+    body.classList.contains('hactar-page');
+}
+if (LOCALE === 'en') {
+  _i18nPendingTimer = setTimeout(releaseI18nPending, 1500);
+}
+// CWV-03 (BATCH-3): единая версия сборки для кэш-бастинга данных. Раньше
+// запросы шли как '?ts=' + Date.now() — уникальный URL на каждый вызов,
+// поэтому data.json (742 КБ), data_index.json (87 КБ) и data_en.json
+// (305 КБ) не попадали в HTTP-кэш никогда, даже при повторном визите.
+// Теперь URL зависит только от версии: в релизе версия меняется один раз,
+// и файлы кэшируются до следующего релиза. BUILD_VERSION обязан
+// подниматься вместе с CACHE_VERSION в sw.js — иначе данные залипнут.
+var BUILD_VERSION = '5.6.5';
+window.BUILD_VERSION = BUILD_VERSION;
+function dataVersion() {
+  return window.BUILD_VERSION || BUILD_VERSION;
+}
 // 13A1 (I18N-P2-01): пользовательские строки вынесены в словарь.
 // ru — базовая локаль; активная берётся из LOCALE (см. выше, читает
 // <html lang>). t(key, params) возвращает сам ключ, если перевода нет:
@@ -2619,7 +2663,7 @@ var _enCardsPromise = null;
 function loadEnCards() {
   if (LOCALE !== 'en') return Promise.resolve(null);
   if (!_enCardsPromise) {
-    _enCardsPromise = fetch(EN_DATA_BASE + EN_DATA_FILE + '?ts=' + Date.now())
+    _enCardsPromise = fetch(EN_DATA_BASE + EN_DATA_FILE + '?v=' + dataVersion())
       .then(function (r) {
         if (!r.ok) throw new Error('HTTP ' + r.status);
         return r.json();
@@ -2630,6 +2674,13 @@ function loadEnCards() {
         _enCardsPromise = null;   // разрешаем повтор
         return null;
       });
+    // CWV-01: снимаем завесу после того, как вызывающий код разложил перевод
+    // по странице. setTimeout(0) — нарочно: обработчики страницы (.then на
+    // этом же промисе) регистрируются позже нашего и должны успеть
+    // выполниться до показа main, иначе шифт просто переедет на мгновение.
+    _enCardsPromise.then(function () {
+      setTimeout(releaseI18nPending, 0);
+    }, releaseI18nPending);
   }
   return _enCardsPromise;
 }
@@ -2793,7 +2844,13 @@ function initEnSupData() {
 document.addEventListener('DOMContentLoaded', function () {
   applyI18n();
   initLangSwitcher();
-  initEnSupData();
+  // CWV-01: подмена завесы. На sup-страницах и в Hactar перевод приходит
+  // позже (data_en.json), поэтому там снимаем класс по завершении загрузки;
+  // на остальных страницах текст после applyI18n уже окончательный и
+  // держать main скрытым дольше незачем — это стоило бы LCP.
+  var pendingEn = initEnSupData();
+  if (needsEnData()) pendingEn.then(releaseI18nPending, releaseI18nPending);
+  else releaseI18nPending();
 });
 window.applyI18n = applyI18n; // для динамики
 window.setLocale = setLocale;
