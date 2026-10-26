@@ -426,7 +426,7 @@ html.light{
    axe). До правки:
      .hint   opacity .6  (style.css:421)   → 4.49:1   порог 4.5
      .meta   opacity .7  (style.css:1625)  → 4.29:1   (+ .site-footer .85)
-     .copy   opacity .6  (style.css:1642)  → 3.32:1
+     .copy   opacity .6  → 3.32:1  (исправлено FIX-76, см. .site-footer .copy)
    Переопределение в html.light, а не правка базовых правил: тёмная тема на
    них держится, и её контрастные цифры после v5.4.0 не пересчитывались.
    Селекторы (0,2,1) перебивают базовые (0,1,0) и .site-footer .meta/.copy
@@ -435,8 +435,11 @@ html.light{
    тему», а её собственный долг (правило .top .v ниже), и он исправлен
    там же, в базовом правиле, для обеих тем. */
 html.light .hint { opacity: .85; }
+/* FIX-76 (WADA-01): правило html.light .copy{opacity:.85} убрано. Оно
+   гасило ту же ссылку «Data: CC BY 4.0» поверх var(--muted) до 2.8:1 в
+   светлой теме. Цвет теперь задаётся один раз в .site-footer .copy
+   непрозрачным var(--muted), и opacity больше не нужна. */
 html.light .meta { opacity: .85; }
-html.light .copy { opacity: .85; }
 *{box-sizing:border-box;margin:0;padding:0}
 
 /* v5.0.0 (Android): серый tap-highlight браузера проступал поверх фирменных
@@ -2016,7 +2019,6 @@ body.modal-open { overflow: hidden; }
      1rem = 16px. Замер и обоснование: reports/V550.md, A1. */
   font-size: var(--fs-5);
   color: var(--text);
-  opacity: .85;
   line-height: 1.55;
 }
 .site-footer p { margin: var(--space-2) 0; }
@@ -2040,7 +2042,14 @@ body.modal-open { overflow: hidden; }
   padding: .8rem 0;
 }
 .site-footer .links a:hover { text-decoration: underline; }
-.site-footer .copy { opacity: .6; font-size: var(--fs-5); }
+/* v5.6.5 FIX-76 (WADA-01): контраст строки копирайта. Раньше здесь была
+   цепочка прозрачностей — .site-footer{opacity:.85} × .copy{opacity:.6}
+   (а в светлой теме ещё html.light .copy{.85}) — итог α≈0.51, и ссылка
+   «Data: CC BY 4.0» давала 3.52:1 при пороге AA 4.5:1. Прозрачность
+   контейнера дочерним элементом не компенсируется, поэтому opacity снята
+   и у подвала: вместо неё — непрозрачный var(--muted). Цифры: 6.07:1 на
+   тёмном --bg и 4.68:1 на светлом --bg (axe-core 4.13.0, 1280 и 412). */
+.site-footer .copy { color: var(--muted); font-size: var(--fs-5); }
 
 /* v5.6.2 P1 (тач-таргеты): <summary> без собственного правила даёт бокс 24px.
    Замерено 2026-10-07 (Playwright, Chromium): 12 штук на faq.html — это
@@ -2076,6 +2085,16 @@ summary {
   outline-offset: 2px;
 }
 .qa-details[open] > summary { margin-bottom: var(--space-3); }
+/* v5.6.5 FIX-76 (WADA-02): контейнер .qaGrid остаётся в Tab-порядке
+   (tabindex="0"), потому что на мобильном это скроллируемая область
+   (overflow-x:auto в медиазапросе ниже) — без tabindex axe даёт
+   scrollable-region-focusable (WCAG 2.1.1). Но остановка Tab обязана быть
+   видимой: у контейнера раньше не было :focus-visible, и axe-обход
+   фиксировал «фокус без индикатора» (WCAG 2.4.7). */
+.qaGrid:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
 
 /* ═══ Главная: кнопки фильтра в один ряд (v5.5.0 A3) ═══ */
 /* Раньше favFilter и resetFilters стояли стопкой и занимали 96px.

@@ -398,16 +398,36 @@ def build_context(rec: dict, slug: str, warnings: list[str]) -> dict:
     else:
         forms_text = str(forms_list)
     shop_query = quote((text(rec.get("name")) or "").strip())
-    shop_look_text = ("Ищите форму «" + first_form + "» на этикетке, проверяйте дозировку и наличие сертификата качества (GMP/ISO)."
-                      if first_form else
-                      "Проверяйте дозировку на этикетке и наличие сертификата качества (GMP/ISO).")
+    # FIX-75: это строки интерфейса, а не данные, поэтому переводить их
+    # обязан i18n.js. Готовая разметка кладётся прямо в контекст: autoescape
+    # у шаблона выключен намеренно (см. make_env), значит data-i18n-* дойдёт
+    # до страницы как есть. Видимый русский текст при этом остаётся
+    # байт-в-байт прежним — иначе поехали бы визуальные эталоны.
+    if first_form:
+        look_vars = json.dumps({"form": first_form}, ensure_ascii=False).replace("'", "&#39;")
+        shop_look_text = ('<span data-i18n-text="sup.lookForForm" data-i18n-vars=\''
+                          + look_vars + "'>"
+                          + "Ищите форму «" + first_form + "» на этикетке, проверяйте дозировку и наличие сертификата качества (GMP/ISO)."
+                          + "</span>")
+    else:
+        shop_look_text = ('<span data-i18n-text="sup.lookForGeneric">'
+                          "Проверяйте дозировку на этикетке и наличие сертификата качества (GMP/ISO)."
+                          "</span>")
 
     # unknowns — причины неопределённости для блока «Что мы не знаем».
     unknowns = []
     if not forms_list:
-        unknowns.append("Нет данных о формах выпуска.")
+        unknowns.append('<span data-i18n-text="sup.noFormsData">Нет данных о формах выпуска.</span>')
     if pmid_count <= 2:
-        unknowns.append("Мало подтверждений в PubMed (" + str(pmid_count) + " источник" + ("ов" if pmid_count != 1 else "") + ").")
+        # В данных встречаются только 1 и 2, но 0 тоже возможен: форма
+        # единственного числа зависит от числа, поэтому две отдельные строки.
+        few_key = "sup.fewSourcesOne" if pmid_count == 1 else "sup.fewSourcesMany"
+        few_word = "источник" if pmid_count == 1 else "источников"
+        unknowns.append(
+            '<span data-i18n-text="%s" data-i18n-vars=\'{"n": "%d"}\'>'
+            "Мало подтверждений в PubMed (%d %s).</span>"
+            % (few_key, pmid_count, pmid_count, few_word)
+        )
     unknowns_text = " ".join(unknowns)
 
     # Мета собирается из неэкранированных значений и экранируется
