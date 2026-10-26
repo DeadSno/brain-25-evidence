@@ -41,17 +41,17 @@
 </style>
 </head>
 <body>
-<a href="#main" class="skip-link">Перейти к содержимому</a>
+<a href="#main" class="skip-link"><span data-i18n-text="a11y.skipToContent">Перейти к содержимому</span></a>
 <div class="site-header">
-  <div class="trustbar">🧬 Открытые данные · Бесплатно · Без рекламы</div>
+  <div class="trustbar"><span data-i18n-text="index.trustbar">🧬 Открытые данные · Бесплатно · Без рекламы</span></div>
   <header class="top">
     <div class="site-title"><a href="index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a> <span class="v">v<span data-version="app"></span></span></div>
     <nav class="actions" aria-label="Главная навигация" data-i18n-aria-label="a11y.navMain">
-      <a class="btn c-feedback" href="feedback.html">💬 Обратная связь</a>
-      <a class="btn c-support" href="support.html">💚 Поддержать</a>
-      <button class="btn c-theme" id="themeBtn" aria-label="Переключить на светлую тему">🌞 Светлая тема</button>
+      <a class="btn c-feedback" href="feedback.html"><span data-i18n-text="index.feedback">💬 Обратная связь</span></a>
+      <a class="btn c-support" href="support.html"><span data-i18n-text="index.support">💚 Поддержать</span></a>
+      <button class="btn c-theme" id="themeBtn" aria-label="Переключить на светлую тему"><span data-i18n-text="theme.light">🌞 Светлая тема</span></button>
       <select id="langSelect" class="lang-select" data-i18n-aria-label="a11y.langSelect"><option value="ru">RU</option><option value="en">EN</option></select>
-      <button class="btn c-random" id="randomBtn">🎲 Удиви меня</button>
+      <button class="btn c-random" id="randomBtn"><span data-i18n-text="index.random">🎲 Удиви меня</span></button>
     </nav>
   </header>
 </div>
@@ -59,41 +59,40 @@
 <main id="main" tabindex="-1">
   <div class="notfound">
     <p class="code" aria-hidden="true">404</p>
-    <h1 style="margin:.5rem 0 0">Страница не найдена</h1>
-    <p style="color:var(--muted)">Такого адреса на сайте нет — или он переехал.
-       Поищите добавку или вернитесь на главную.</p>
-    <label for="nfSearch" class="sr-only">Поиск добавки по каталогу</label>
+    <h1 style="margin:.5rem 0 0"><span data-i18n-text="notfound.001">Страница не найдена</span></h1>
+    <p style="color:var(--muted)"><span data-i18n-text="notfound.002">Такого адреса на сайте нет — или он переехал.
+       Поищите добавку или вернитесь на главную.</span></p>
+    <label for="nfSearch" class="sr-only"><span data-i18n-text="notfound.003">Поиск добавки по каталогу</span></label>
     <!-- A2-07: aria-label повторяет текст label намеренно — на остальных
          страницах имя поля приходит из data-i18n-aria-label, и служебная
          страница не должна выпадать из этой схемы. aria-controls связывает
          поле со списком, aria-describedby — с подсказкой, которая уже
          служит живым регионом (aria-live="polite" ниже). -->
-    <input id="nfSearch" type="search" placeholder="Например: магний или сон" autocomplete="off"
-           aria-label="Поиск добавки по каталогу" aria-controls="nfResults" aria-describedby="nfHint">
+    <input id="nfSearch" type="search" data-i18n-placeholder="notfound.004" placeholder="Например: магний или сон" autocomplete="off"
+           data-i18n-aria-label="notfound.005" aria-label="Поиск добавки по каталогу" aria-controls="nfResults" aria-describedby="nfHint">
     <p id="nfHint" aria-live="polite"></p>
     <!-- Живой регион здесь один — #nfHint со счётчиком. aria-live на самом
          списке объявлял бы все ссылки на каждое нажатие клавиши и дублировал
          бы счётчик, поэтому список остаётся обычным списком с именем. -->
-    <ul id="nfResults" role="list" aria-label="Результаты поиска"></ul>
+    <ul id="nfResults" role="list" data-i18n-aria-label="index.searchResults" aria-label="Результаты поиска"></ul>
     <p style="margin:1rem 0 0;display:flex;flex-wrap:wrap;gap:.75rem;justify-content:center">
-      <a class="btn" href="index.html">🏠 На главную</a>
-      <a class="btn" href="sup/index.html">📄 Каталог 130 добавок</a>
+      <a class="btn" href="index.html"><span data-i18n-text="notfound.006">🏠 На главную</span></a>
+      <a class="btn" href="sup/index.html"><span data-i18n-text="notfound.007">📄 Каталог 130 добавок</span></a>
     </p>
   </div>
 </main>
 
 <footer class="site-footer">
   <p class="disc">
-    <b>⚠️ Не медицинская рекомендация.</b>
-    Сайт предоставляет данные из открытых научных источников
+    <b><span data-i18n-text="index.discWarn">⚠️ Не медицинская рекомендация.</span></b>
+    <span data-i18n-text="index.discA">Сайт предоставляет данные из открытых научных источников
     (PubMed, Europe PMC, CrossRef, OpenAlex, ClinicalTrials.gov, Wikimedia)
-    для информирования и самостоятельного образования.
-    <b>НЕ заменяет</b> консультацию, диагноз и лечение.
-    При любых сомнениях — обращайтесь к специалисту.
+    для информирования и самостоятельного образования.</span>
+    <b><span data-i18n-text="index.discNo">НЕ заменяет</span></b> <span data-i18n-text="index.discB">консультацию, диагноз и лечение.
+    При любых сомнениях — обращайтесь к специалисту.</span>
   </p>
   <p class="meta">
-    v<span data-version="app"></span> ·
-    данные на <span data-version="data"></span>
+    v<span data-version="app"></span> · <span data-i18n-text="index.dataUpdated">данные на</span> <span data-version="data"></span>
   </p>
   <p class="links">
     <a href="methodology.html" data-i18n-text="footer.methodology">📐 Методология</a> ·
@@ -104,7 +103,7 @@
     <a href="sup/index.html" data-i18n-text="footer.catalog">💊 Каталог БАДов</a> ·
     <a href="feed.xml" data-i18n-text="footer.rss">📡 RSS</a>
   </p>
-  <p class="copy">© 2026 Vladislav "DeadSno" Pereshivalov · MIT · <a href="terms-of-use.html#data-license">Данные: CC BY 4.0</a></p>
+  <p class="copy">© 2026 Vladislav "DeadSno" Pereshivalov · MIT · <a href="terms-of-use.html#data-license"><span data-i18n-text="index.dataLicense">Данные: CC BY 4.0</span></a></p>
   <!-- v5.6.5 (V2-05): футер унифицирован с index.html. Блока share-row
        здесь нет намеренно: делиться адресом несуществующей страницы
        бессмысленно, а сам блок требует share.js, которого на служебной
@@ -118,10 +117,19 @@
   //   (то же соглашение, что script.js initTheme на остальных страницах).
   var root = document.documentElement;
   var btn = document.getElementById('themeBtn');
+  // FIX-74: строки берём через t(), когда i18n.js уже загружен (он идёт ниже),
+  // иначе — русский текст как раньше: applyTheme вызывается до него.
+  function tr(key, fallback) {
+    return (typeof window.t === 'function') ? window.t(key) : fallback;
+  }
   function applyTheme(light) {
     root.classList.toggle('light', light);
-    if (btn) btn.textContent = light ? '🌙 Тёмная тема' : '🌞 Светлая тема';
-    if (btn) btn.setAttribute('aria-label', light ? 'Переключить на тёмную тему' : 'Переключить на светлую тему');
+    if (btn) btn.textContent = light
+      ? tr('theme.dark', '🌙 Тёмная тема')
+      : tr('theme.light', '🌞 Светлая тема');
+    if (btn) btn.setAttribute('aria-label', light
+      ? tr('a11y.themeToDark', 'Переключить на тёмную тему')
+      : tr('a11y.themeToLight', 'Переключить на светлую тему'));
   }
   applyTheme(function () {
     try { return localStorage.getItem('theme') === 'light'; } catch (e) { return false; }
@@ -190,11 +198,11 @@
     var query = (q || '').trim().toLowerCase();
     if (!query) {
       out.textContent = '';
-      hint.textContent = 'Введите название или эффект — покажу до 8 совпадений из каталога.';
+      hint.textContent = tr('notfound.hint', 'Введите название или эффект — покажу до 8 совпадений из каталога.');
       return;
     }
     if (index === null) {
-      hint.textContent = 'Каталог ещё загружается…';
+      hint.textContent = tr('notfound.loading', 'Каталог ещё загружается…');
       return;
     }
     var found = findMatches(query);
@@ -208,9 +216,10 @@
       out.appendChild(li);
     });
     if (!found.length) {
-      hint.textContent = 'Ничего не нашлось в каталоге. Попробуйте эффект: «сон», «память».';
+      hint.textContent = tr('notfound.nothing', 'Ничего не нашлось в каталоге. Попробуйте эффект: «сон», «память».');
     } else {
-      hint.textContent = 'Найдено: ' + found.length + ' (показаны первые ' + found.length + ')';
+      hint.textContent = tr('notfound.found', 'Найдено: {n} (показаны первые {shown})')
+        .replace('{n}', found.length).replace('{shown}', found.length);
     }
   }
 
@@ -236,10 +245,15 @@
       }
     });
   }
-  if (hint) hint.textContent = 'Введите название или эффект — покажу до 8 совпадений из каталога.';
+  if (hint) hint.textContent = tr('notfound.hint', 'Введите название или эффект — покажу до 8 совпадений из каталога.');
   fetch('sup/index.html')
     .then(function (r) { return r.ok ? r.text() : ''; })
     .then(function (t) { if (t) index = buildIndex(t); });
+
+  window.__nfRefresh = function () {
+    applyTheme(root.classList.contains('light'));
+    if (hint) hint.textContent = tr('notfound.hint', 'Введите название или эффект — покажу до 8 совпадений из каталога.');
+  };
 })();
 </script>
 <!-- v5.6.5 FIX-62 (PW2-01): страница была единственной в корне без pwa.js —
@@ -249,7 +263,14 @@
      реальное отключение сети давало ReferenceError вместо плашки. Порядок
      задан самим типом подключения: i18n.js без defer исполняется во время
      разбора, pwa.js с defer — после него, поэтому t() уже существует. -->
-<script src="i18n.js?v=10"></script>
+<script src="i18n.js?v=12"></script>
+<!-- FIX-74: строки, которые ставит инлайновый скрипт выше (тема, подсказка
+     поиска), перерисовываем ещё раз — теперь t() уже существует. -->
+<script>
+(function () {
+  if (typeof window.__nfRefresh === 'function') window.__nfRefresh();
+})();
+</script>
 <script src="pwa.js?v=283" defer></script>
 </body>
 </html>

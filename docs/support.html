@@ -33,7 +33,7 @@
     </script>
     <link rel="stylesheet" href="style.min.css?v=460">
     <script src="version.js?v=312"></script>
-    <script src="i18n.js?v=10"></script>
+    <script src="i18n.js?v=12"></script>
     <script src="pwa.js?v=283" defer></script>
 <script src="share.js?v=2" defer></script>
     <style>
@@ -67,29 +67,29 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
 </head>
 <body>
-<a href="#main" class="skip-link">Перейти к содержимому</a>
+<a href="#main" class="skip-link"><span data-i18n-text="a11y.skipToContent">Перейти к содержимому</span></a>
 
 <div class="site-header">
-  <div class="trustbar">🧬 Открытые данные · Бесплатно · Без рекламы</div>
+  <div class="trustbar"><span data-i18n-text="index.trustbar">🧬 Открытые данные · Бесплатно · Без рекламы</span></div>
   <header class="top">
     <div class="site-title"><a href="index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a> <span class="v">v<span data-version="app"></span></span></div>
     <nav class="actions" data-i18n-aria-label="a11y.navMain">
-      <a class="btn c-feedback" href="feedback.html">💬 Обратная связь</a>
-      <span class="btn c-support">💚 Поддержать</span>
-      <button class="btn c-theme" id="themeBtn" aria-label="Переключить на светлую тему">🌞 Светлая тема</button>
+      <a class="btn c-feedback" href="feedback.html"><span data-i18n-text="index.feedback">💬 Обратная связь</span></a>
+      <span class="btn c-support"><span data-i18n-text="index.support">💚 Поддержать</span></span>
+      <button class="btn c-theme" id="themeBtn" data-i18n-aria-label="a11y.themeToLight" aria-label="Переключить на светлую тему"><span data-i18n-text="theme.light">🌞 Светлая тема</span></button>
       <select id="langSelect" class="lang-select" data-i18n-aria-label="a11y.langSelect"><option value="ru">RU</option><option value="en">EN</option></select>
-      <button class="btn c-random" id="randomBtn">🎲 Удиви меня</button>
+      <button class="btn c-random" id="randomBtn"><span data-i18n-text="index.random">🎲 Удиви меня</span></button>
     </nav>
   </header>
 </div>
 
 <main id="main" class="support-wrap">
-  <h1>Поддержать проект</h1>
+  <h1><span data-i18n-text="support.001">Поддержать проект</span></h1>
 
   <!-- v5.6.1: убран дубль <h2>Поддержать проект</h2> — заголовок уже
        продублирован h1 выше, на экране он шёл два раза подряд. CTA-блок
        с ссылкой на ЮMoney ниже не тронут. -->
-    <p class="lead">Brain 25 Evidence — открытый проект о биологически активных добавках. Без рекламы, без подписок, без монетизации.</p>
+    <p class="lead"><span data-i18n-text="support.002">Brain 25 Evidence — открытый проект о биологически активных добавках. Без рекламы, без подписок, без монетизации.</span></p>
 
     <!-- MKT-P1-08: соцдоказательства. Числа вынесены из lead-абзаца, где
          они стояли вперемешку с описанием проекта, в отдельный блок фактов:
@@ -100,57 +100,56 @@
          130 добавок и 199 пар взаимодействий посчитаны по docs/data.json,
          наличие PMID проверено на всех 130 страницах docs/sup/*.html. -->
     <div class="support-card">
-      <h2>📊 Что внутри проекта</h2>
+      <h2><span data-i18n-text="support.003">📊 Что внутри проекта</span></h2>
       <ul>
-        <li><b>130 добавок</b> — с оценкой доказательности A–D и верхним пределом дозы</li>
-        <li><b>199 пар взаимодействий</b> — конфликты и синергии; те же пары считает калькулятор</li>
-        <li><b>37 618 статей из PubMed</b> — корпус, из которого взяты данные</li>
-        <li><b>Ссылка на PMID в каждой карточке</b> — любой источник открывается и проверяется</li>
+        <li><b><span data-i18n-text="support.004">130 добавок</span></b> <span data-i18n-text="support.005">— с оценкой доказательности A–D и верхним пределом дозы</span></li>
+        <li><b><span data-i18n-text="support.006">199 пар взаимодействий</span></b> <span data-i18n-text="support.007">— конфликты и синергии; те же пары считает калькулятор</span></li>
+        <li><b><span data-i18n-text="support.008">37 618 статей из PubMed</span></b> <span data-i18n-text="support.009">— корпус, из которого взяты данные</span></li>
+        <li><b><span data-i18n-text="support.010">Ссылка на PMID в каждой карточке</span></b> <span data-i18n-text="support.011">— любой источник открывается и проверяется</span></li>
       </ul>
     </div>
 
-    <div class="support-note">Проект делает один человек в свободное время. Донат помогает оплачивать хостинг и мотивирует продолжать.</div>
+    <div class="support-note"><span data-i18n-text="support.012">Проект делает один человек в свободное время. Донат помогает оплачивать хостинг и мотивирует продолжать.</span></div>
 
     <div class="support-card">
-        <h2>💚 Что даёт ваша поддержка</h2>
+        <h2><span data-i18n-text="support.013">💚 Что даёт ваша поддержка</span></h2>
         <ul>
-            <li>Серверные расходы (пока 0 ₽ — GitHub Pages)</li>
-            <li>Домен .ru или .org (в планах)</li>
-            <li>Время на добавление новых карточек</li>
-            <li>Развитие функций: сравнение, поиск по симптому, экспорт</li>
+            <li><span data-i18n-text="support.014">Серверные расходы (пока 0 ₽ — GitHub Pages)</span></li>
+            <li><span data-i18n-text="support.015">Домен .ru или .org (в планах)</span></li>
+            <li><span data-i18n-text="support.016">Время на добавление новых карточек</span></li>
+            <li><span data-i18n-text="support.017">Развитие функций: сравнение, поиск по симптому, экспорт</span></li>
         </ul>
     </div>
 
     <div class="support-card">
-        <h2>☕ Поддержать</h2>
-        <p>Любая сумма — от 50 ₽ до бесконечности. Это не подписка, не обязательство, просто спасибо.</p>
-        <a href="https://yoomoney.ru/fundraise/1KKDKB0O1EC.260930" target="_blank" rel="nofollow noopener" class="support-btn">💚 Поддержать в ЮMoney</a>
-        <p class="support-thanks">Спасибо всем, кто поддерживает проект. Ваша помощь видна.</p>
+        <h2><span data-i18n-text="support.018">☕ Поддержать</span></h2>
+        <p><span data-i18n-text="support.019">Любая сумма — от 50 ₽ до бесконечности. Это не подписка, не обязательство, просто спасибо.</span></p>
+        <a href="https://yoomoney.ru/fundraise/1KKDKB0O1EC.260930" target="_blank" rel="nofollow noopener" class="support-btn"><span data-i18n-text="index.supportYoomoney">💚 Поддержать в ЮMoney</span></a>
+        <p class="support-thanks"><span data-i18n-text="support.020">Спасибо всем, кто поддерживает проект. Ваша помощь видна.</span></p>
     </div>
 
     <div class="support-card">
-        <h2>🤝 Другие способы помочь</h2>
+        <h2><span data-i18n-text="support.021">🤝 Другие способы помочь</span></h2>
         <ul>
-            <li><b>Нашли ошибку?</b> → <a href="feedback.html">Сообщите</a></li>
-            <li><b>Хотите добавить добавку?</b> → через форму обратной связи</li>
-            <li><b>Поделиться с друзьями</b> → лучшая бесплатная поддержка</li>
-            <li><b>Ссылка на сайт</b> → если ведёте блог, добавьте ссылку</li>
+            <li><b><span data-i18n-text="support.022">Нашли ошибку?</span></b> → <a href="feedback.html"><span data-i18n-text="support.023">Сообщите</span></a></li>
+            <li><b><span data-i18n-text="support.024">Хотите добавить добавку?</span></b> <span data-i18n-text="support.025">→ через форму обратной связи</span></li>
+            <li><b><span data-i18n-text="support.026">Поделиться с друзьями</span></b> <span data-i18n-text="support.027">→ лучшая бесплатная поддержка</span></li>
+            <li><b><span data-i18n-text="support.028">Ссылка на сайт</span></b> <span data-i18n-text="support.029">→ если ведёте блог, добавьте ссылку</span></li>
         </ul>
     </div>
 </main>
 
 <footer class="site-footer">
   <p class="disc">
-    <b>⚠️ Не медицинская рекомендация.</b>
-    Сайт предоставляет данные из открытых научных источников
+    <b><span data-i18n-text="index.discWarn">⚠️ Не медицинская рекомендация.</span></b>
+    <span data-i18n-text="index.discA">Сайт предоставляет данные из открытых научных источников
     (PubMed, Europe PMC, CrossRef, OpenAlex, ClinicalTrials.gov, Wikimedia)
-    для информирования и самостоятельного образования.
-    <b>НЕ заменяет</b> консультацию, диагноз и лечение.
-    При любых сомнениях — обращайтесь к специалисту.
+    для информирования и самостоятельного образования.</span>
+    <b><span data-i18n-text="index.discNo">НЕ заменяет</span></b> <span data-i18n-text="index.discB">консультацию, диагноз и лечение.
+    При любых сомнениях — обращайтесь к специалисту.</span>
   </p>
   <p class="meta">
-    v<span data-version="app"></span> ·
-    данные на <span data-version="data"></span>
+    v<span data-version="app"></span> · <span data-i18n-text="index.dataUpdated">данные на</span> <span data-version="data"></span>
   </p>
   <p class="links">
     <a href="methodology.html" data-i18n-text="footer.methodology">📐 Методология</a> ·
@@ -160,8 +159,8 @@
     <a href="terms-of-use.html" data-i18n-text="footer.terms">📄 Условия использования</a> ·
     <a href="feed.xml" data-i18n-text="footer.rss">📡 RSS</a>
   </p>
-  <p class="copy">© 2026 Vladislav "DeadSno" Pereshivalov · MIT · <a href="terms-of-use.html#data-license">Данные: CC BY 4.0</a></p>
-  <p class="share-row"><button class="btn share-page" type="button">🔗 Поделиться</button></p>
+  <p class="copy">© 2026 Vladislav "DeadSno" Pereshivalov · MIT · <a href="terms-of-use.html#data-license"><span data-i18n-text="index.dataLicense">Данные: CC BY 4.0</span></a></p>
+  <p class="share-row"><button class="btn share-page" type="button"><span data-i18n-text="share.label">🔗 Поделиться</span></button></p>
 </footer>
 
 <script>
@@ -190,13 +189,13 @@ document.addEventListener('DOMContentLoaded', function () {
      ни одного запроса к mc.yandex.ru не происходит. -->
 <div id="cookieBanner" role="dialog" data-i18n-aria-label="a11y.cookieConsent" hidden>
   <div class="cb-text">
-    Мы используем cookie и Яндекс.Метрику, чтобы понять, какие материалы полезны.
-    Аналитика включается только после вашего согласия.
-    <a href="privacy.html">Политика конфиденциальности</a>
+    <span data-i18n-text="index.cookieText">Мы используем cookie и Яндекс.Метрику, чтобы понять, какие материалы полезны.
+    Аналитика включается только после вашего согласия.</span>
+    <a href="privacy.html"><span data-i18n-text="index.cookiePolicy">Политика конфиденциальности</span></a>
   </div>
   <div class="cb-actions">
-    <button type="button" id="cookieAccept" class="cb-btn cb-accept">Принять</button>
-    <button type="button" id="cookieReject" class="cb-btn cb-reject">Отклонить</button>
+    <button type="button" id="cookieAccept" class="cb-btn cb-accept"><span data-i18n-text="index.cookieAccept">Принять</span></button>
+    <button type="button" id="cookieReject" class="cb-btn cb-reject"><span data-i18n-text="index.cookieReject">Отклонить</span></button>
   </div>
 </div>
 <script src="cookie-banner.js?v=1"></script>

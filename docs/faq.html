@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <script defer src="version.js?v=312"></script>
-  <script src="i18n.js?v=10"></script>
+  <script src="i18n.js?v=12"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#1c1c1e" media="(prefers-color-scheme: dark)">
@@ -169,127 +169,126 @@ try {
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
 </head>
 <body>
-<a href="#main" class="skip-link">Перейти к содержимому</a>
+<a href="#main" class="skip-link"><span data-i18n-text="a11y.skipToContent">Перейти к содержимому</span></a>
 <div class="site-header">
-  <div class="trustbar">🧬 Открытые данные · Бесплатно · Без рекламы</div>
+  <div class="trustbar"><span data-i18n-text="index.trustbar">🧬 Открытые данные · Бесплатно · Без рекламы</span></div>
   <header class="top">
     <div class="site-title"><a href="index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a> <span class="v">v<span data-version="app"></span></span></div>
     <nav class="actions" data-i18n-aria-label="a11y.navMain">
-      <a class="btn c-feedback" href="feedback.html">💬 Обратная связь</a>
-      <a class="btn c-support" href="support.html">💚 Поддержать</a>
-      <button class="btn c-theme" id="themeBtn" aria-label="Переключить на светлую тему">🌞 Светлая тема</button>
+      <a class="btn c-feedback" href="feedback.html"><span data-i18n-text="index.feedback">💬 Обратная связь</span></a>
+      <a class="btn c-support" href="support.html"><span data-i18n-text="index.support">💚 Поддержать</span></a>
+      <button class="btn c-theme" id="themeBtn" data-i18n-aria-label="a11y.themeToLight" aria-label="Переключить на светлую тему"><span data-i18n-text="theme.light">🌞 Светлая тема</span></button>
       <select id="langSelect" class="lang-select" data-i18n-aria-label="a11y.langSelect"><option value="ru">RU</option><option value="en">EN</option></select>
-      <button class="btn c-random" id="randomBtn">🎲 Удиви меня</button>
+      <button class="btn c-random" id="randomBtn"><span data-i18n-text="index.random">🎲 Удиви меня</span></button>
     </nav>
   </header>
 </div>
 
 <main id="main">
-  <h1>Часто задаваемые вопросы</h1>
+  <h1><span data-i18n-text="faq.001">Часто задаваемые вопросы</span></h1>
 
 
 <details class="qa" open>
-  <summary>1. Что такое мета-анализ?</summary>
-  <p>Мета-анализ — когда учёные собрали 10-50 отдельных исследований и посчитали средний эффект. Это надёжнее одного исследования: случайные ошибки гасятся, систематические — видны. Мы считаем вердикты по мета-анализам, не по отдельным РКИ.</p>
+  <summary><span data-i18n-text="faq.002">1. Что такое мета-анализ?</span></summary>
+  <p><span data-i18n-text="faq.003">Мета-анализ — когда учёные собрали 10-50 отдельных исследований и посчитали средний эффект. Это надёжнее одного исследования: случайные ошибки гасятся, систематические — видны. Мы считаем вердикты по мета-анализам, не по отдельным РКИ.</span></p>
 </details>
 
 <details class="qa">
-  <summary>2. Что такое Hedges' g?</summary>
-  <p>Размер эффекта в стандартных отклонениях: насколько экспериментальная группа отличается от контрольной. g=0.2 = малый эффект, 0.5 = средний, 0.8+ = большой. g<0 = работает наоборот (вред или обратный эффект). Мы берём g из абстрактов мета-анализов, сверяем с приором, записываем только верифицированные.</p>
+  <summary><span data-i18n-text="faq.004">2. Что такое Hedges' g?</span></summary>
+  <p><span data-i18n-text="faq.005">Размер эффекта в стандартных отклонениях: насколько экспериментальная группа отличается от контрольной. g=0.2 = малый эффект, 0.5 = средний, 0.8+ = большой. g</span><<span data-i18n-text="faq.006">0 = работает наоборот (вред или обратный эффект). Мы берём g из абстрактов мета-анализов, сверяем с приором, записываем только верифицированные.</span></p>
 </details>
 
 <details class="qa">
-  <summary>3. Что такое грейд A-D?</summary>
-  <p>A = крепко доказано (g≥0.4, объём≥100)<br>
-     B = доказано умеренно (g 0.2-0.4, объём≥50)<br>
-     C = изучено много, эффект мал (объём≥100, g<0.2)<br>
-     D = данных мало (объём<50)<br>
-     Грейд пересчитывается автоматически из g и scienceIndex.</p>
+  <summary><span data-i18n-text="faq.007">3. Что такое грейд A-D?</span></summary>
+  <p><span data-i18n-text="faq.008">A = крепко доказано (g≥0.4, объём≥100)</span><br>
+     <span data-i18n-text="faq.009">B = доказано умеренно (g 0.2-0.4, объём≥50)</span><br>
+     <span data-i18n-text="faq.010">C = изучено много, эффект мал (объём≥100, g</span><0.2)<br>
+     <span data-i18n-text="faq.011">D = данных мало (объём</span><50)<br>
+     <span data-i18n-text="faq.012">Грейд пересчитывается автоматически из g и scienceIndex.</span></p>
 </details>
 
 <details class="qa">
-  <summary>4. Почему некоторые добавки "работает" при scienceIndex &lt; 100?</summary>
-  <p>Вердикт ставится вручную по методологии: качество исследований, согласованность результатов, биологическая правдоподобность. scienceIndex = объём науки, не качество. Имбирь работает при индексе &lt;100, потому что МА согласованы и механизм понятен.</p>
+  <summary><span data-i18n-text="faq.013">4. Почему некоторые добавки "работает" при scienceIndex &lt; 100?</span></summary>
+  <p><span data-i18n-text="faq.014">Вердикт ставится вручную по методологии: качество исследований, согласованность результатов, биологическая правдоподобность. scienceIndex = объём науки, не качество. Имбирь работает при индексе &lt;100, потому что МА согласованы и механизм понятен.</span></p>
 </details>
 
 <details class="qa">
-  <summary>5. Как читать квадрант доказательности?</summary>
-  <p>X = Hedges' g (сила эффекта), Y = scienceIndex (объём науки, лог-шкала). Размер пузыря = metaCount (число МА), цвет = вердикт.<br>
-     Большой пузырь высоко справа = много науки + сильный эффект (креатин).<br>
-     Большой пузырь высоко слева = много науки + слабый эффект (глюкозамин).<br>
-     Добавки без g помечены «ждут верификации» — у нас нет данных, не выдумка.</p>
+  <summary><span data-i18n-text="faq.016">5. Как читать квадрант доказательности?</span></summary>
+  <p><span data-i18n-text="faq.017">X = Hedges' g (сила эффекта), Y = scienceIndex (объём науки, лог-шкала). Размер пузыря = metaCount (число МА), цвет = вердикт.</span><br>
+     <span data-i18n-text="faq.018">Большой пузырь высоко справа = много науки + сильный эффект (креатин).</span><br>
+     <span data-i18n-text="faq.019">Большой пузырь высоко слева = много науки + слабый эффект (глюкозамин).</span><br>
+     <span data-i18n-text="faq.020">Добавки без g помечены «ждут верификации» — у нас нет данных, не выдумка.</span></p>
 </details>
 
 <details class="qa">
-  <summary>6. Что делать если цена не найдена?</summary>
-  <p>Нажми «предложить» — откроется GitHub issue с названием добавки. Мы добавим цену вручную. Честный null лучше выдуманной цифры.</p>
+  <summary><span data-i18n-text="faq.021">6. Что делать если цена не найдена?</span></summary>
+  <p><span data-i18n-text="faq.022">Нажми «предложить» — откроется GitHub issue с названием добавки. Мы добавим цену вручную. Честный null лучше выдуманной цифры.</span></p>
 </details>
 
 <details class="qa">
-  <summary>7. Можно ли принимать всё сразу?</summary>
-  <p>Смотри вкладку «Взаимодействия» в карточке. Критичные пары (зверобой+SSRI, 5-HTP+трамадол) — опасно для жизни. Антагонисты (кальций+железо) — разнести на 2-4 часа. Синергисты (магний+B6) — принимать вместе можно.</p>
+  <summary><span data-i18n-text="faq.023">7. Можно ли принимать всё сразу?</span></summary>
+  <p><span data-i18n-text="faq.024">Смотри вкладку «Взаимодействия» в карточке. Критичные пары (зверобой+SSRI, 5-HTP+трамадол) — опасно для жизни. Антагонисты (кальций+железо) — разнести на 2-4 часа. Синергисты (магний+B6) — принимать вместе можно.</span></p>
 </details>
 
 <details class="qa">
-  <summary>8. Когда ждать эффект?</summary>
-  <p>Смотри блок «Когда почувствую» в карточке. Креатин = 2-4 недели, мелатонин = 30-60 минут, омега-3 = 8-12 недель. Если эффект не указан = данных нет или эффект не ощущается субъективно (контролировать анализом).</p>
+  <summary><span data-i18n-text="faq.025">8. Когда ждать эффект?</span></summary>
+  <p><span data-i18n-text="faq.026">Смотри блок «Когда почувствую» в карточке. Креатин = 2-4 недели, мелатонин = 30-60 минут, омега-3 = 8-12 недель. Если эффект не указан = данных нет или эффект не ощущается субъективно (контролировать анализом).</span></p>
 </details>
 
 
 <section style="background:var(--card-bg);padding:1.5rem;border-radius:12px;border:1px solid var(--border);margin-bottom:1.5rem">
-<h2>Аудит v<span data-version="audit"></span>: частые вопросы</h2>
+<h2><span data-i18n-text="faq.027">Аудит v</span><span data-version="audit"></span><span data-i18n-text="faq.028">: частые вопросы</span></h2>
 
-<h3>Что означают грейды A / B / C / D?</h3>
-<p><b style="color:var(--grade-a-tx)">A</b> — работает отлично: множественные Cochrane-обзоры и крупные РКИ (Креатин, Витамин D, Железо).
-<b style="color:var(--grade-b-tx)">B</b> — работает: эффект подтверждён систематическими обзорами (Омега-3, Цинк, Мелатонин).
-<b style="color:var(--grade-c-tx)">C</b> — зависит от контекста: эффект есть только при определённых условиях (доза, популяция) — Ресвератрол, NMN.
-<b style="color:var(--grade-d-tx)">D</b> — не подтверждено: систематических данных нет или эффект не найден — Биотин, Йохимбин, Трибулус.</p>
+<h3><span data-i18n-text="faq.029">Что означают грейды A / B / C / D?</span></h3>
+<p><b style="color:var(--grade-a-tx)">A</b> <span data-i18n-text="faq.030">— работает отлично: множественные Cochrane-обзоры и крупные РКИ (Креатин, Витамин D, Железо).</span>
+<b style="color:var(--grade-b-tx)">B</b> <span data-i18n-text="faq.031">— работает: эффект подтверждён систематическими обзорами (Омега-3, Цинк, Мелатонин).</span>
+<b style="color:var(--grade-c-tx)">C</b> <span data-i18n-text="faq.032">— зависит от контекста: эффект есть только при определённых условиях (доза, популяция) — Ресвератрол, NMN.</span>
+<b style="color:var(--grade-d-tx)">D</b> <span data-i18n-text="faq.033">— не подтверждено: систематических данных нет или эффект не найден — Биотин, Йохимбин, Трибулус.</span></p>
 
-<h3>Как именно вы проверяли добавки?</h3>
-<p>По адаптированной методологии PRISMA (5 из 27 пунктов): поиск систематических обзоров и мета-анализов в PubMed → скрининг по релевантности → дедупликация → ручное чтение топ-15 абстрактов → выставление грейда и вердикта. Все 130 карточки аудита лежат в открытом виде в <code>data/processed/audit/</code> с PMID ключевых источников.</p>
+<h3><span data-i18n-text="faq.034">Как именно вы проверяли добавки?</span></h3>
+<p><span data-i18n-text="faq.035">По адаптированной методологии PRISMA (5 из 27 пунктов): поиск систематических обзоров и мета-анализов в PubMed → скрининг по релевантности → дедупликация → ручное чтение топ-15 абстрактов → выставление грейда и вердикта. Все 130 карточки аудита лежат в открытом виде в</span> <code>data/processed/audit/</code> <span data-i18n-text="faq.036">с PMID ключевых источников.</span></p>
 
-<h3>Почему у популярной добавки грейд D?</h3>
-<p>Популярность ≠ доказательность. Биотин «для волос и ногтей» не имеет ни одного систематического обзора с положительным исходом у здоровых людей. Йохимбин изучался в 1980-90-х, после появления виагры исследования прекратились. Грейд D — это не «добавка плохая», а «доказательств нет».</p>
+<h3><span data-i18n-text="faq.037">Почему у популярной добавки грейд D?</span></h3>
+<p><span data-i18n-text="faq.038">Популярность ≠ доказательность. Биотин «для волос и ногтей» не имеет ни одного систематического обзора с положительным исходом у здоровых людей. Йохимбин изучался в 1980-90-х, после появления виагры исследования прекратились. Грейд D — это не «добавка плохая», а «доказательств нет».</span></p>
 
-<h3>Можно ли полностью полагаться на вердикты?</h3>
-<p>Вердикты — ручная оценка на основе абстрактов систематических обзоров, а не клиническая рекомендация. Ограничения: мы читаем абстракты, а не полные тексты; часть обзоров сама имеет низкое качество. Для решений о приёме консультируйтесь с врачом. Проект не даёт медицинских рекомендаций — только данные.</p>
+<h3><span data-i18n-text="faq.039">Можно ли полностью полагаться на вердикты?</span></h3>
+<p><span data-i18n-text="faq.040">Вердикты — ручная оценка на основе абстрактов систематических обзоров, а не клиническая рекомендация. Ограничения: мы читаем абстракты, а не полные тексты; часть обзоров сама имеет низкое качество. Для решений о приёме консультируйтесь с врачом. Проект не даёт медицинских рекомендаций — только данные.</span></p>
 </section>
-<h2 style="margin-top:2rem">🧮 Калькулятор БАДов</h2>
+<h2 style="margin-top:2rem"><span data-i18n-text="faq.041">🧮 Калькулятор БАДов</span></h2>
 
 <details class="qa">
-  <summary>Как работает калькулятор?</summary>
-  <p>Выбираете добавки → задаёте вес, пол, возраст, состояние → калькулятор показывает: дозы (для weight_based — пересчитываются по весу), конфликты с лекарствами, синергии из 7 проверенных пар, предупреждения (железо у мужчин, 60+, беременность).</p>
+  <summary><span data-i18n-text="faq.042">Как работает калькулятор?</span></summary>
+  <p><span data-i18n-text="faq.043">Выбираете добавки → задаёте вес, пол, возраст, состояние → калькулятор показывает: дозы (для weight_based — пересчитываются по весу), конфликты с лекарствами, синергии из 7 проверенных пар, предупреждения (железо у мужчин, 60+, беременность).</span></p>
 </details>
 
 <details class="qa">
-  <summary>Можно ли сохранить свой набор?</summary>
-  <p>Да. Набор сохраняется в localStorage (браузер), плюс есть кнопка «Скопировать ссылку» — URL вида <code>?list=Креатин:5,Омега-3:2</code> восстанавливает список в любом браузере.</p>
+  <summary><span data-i18n-text="faq.044">Можно ли сохранить свой набор?</span></summary>
+  <p><span data-i18n-text="faq.045">Да. Набор сохраняется в localStorage (браузер), плюс есть кнопка «Скопировать ссылку» — URL вида</span> <code>?list=Креатин:5,Омега-3:2</code> <span data-i18n-text="faq.046">восстанавливает список в любом браузере.</span></p>
 </details>
 
 <details class="qa">
-  <summary>Откуда берутся дозы и конфликты?</summary>
-  <p>Дозы — из <code>dosage_parsed.json</code> (81 из 130 карточек; для остальных — fallback по норме). Конфликты — из поля <code>interactions</code> в data.json (130 карточки, 199 пар всего, с severity).</p>
+  <summary><span data-i18n-text="faq.047">Откуда берутся дозы и конфликты?</span></summary>
+  <p><span data-i18n-text="faq.048">Дозы — из</span> <code>dosage_parsed.json</code> <span data-i18n-text="faq.049">(81 из 130 карточек; для остальных — fallback по норме). Конфликты — из поля</span> <code>interactions</code> <span data-i18n-text="faq.050">в data.json (130 карточки, 199 пар всего, с severity).</span></p>
 </details>
 
 <details class="qa">
-  <summary>Это медицинская рекомендация?</summary>
-  <p>Нет. Калькулятор показывает дозы из исследований и известные конфликты, но не учитывает вашу историю болезней, лекарства и анализы. Для решений — к врачу.</p>
+  <summary><span data-i18n-text="faq.051">Это медицинская рекомендация?</span></summary>
+  <p><span data-i18n-text="faq.052">Нет. Калькулятор показывает дозы из исследований и известные конфликты, но не учитывает вашу историю болезней, лекарства и анализы. Для решений — к врачу.</span></p>
 </details>
 
 </main>
 
 <footer class="site-footer">
   <p class="disc">
-    <b>⚠️ Не медицинская рекомендация.</b>
-    Сайт предоставляет данные из открытых научных источников
+    <b><span data-i18n-text="index.discWarn">⚠️ Не медицинская рекомендация.</span></b>
+    <span data-i18n-text="index.discA">Сайт предоставляет данные из открытых научных источников
     (PubMed, Europe PMC, CrossRef, OpenAlex, ClinicalTrials.gov, Wikimedia)
-    для информирования и самостоятельного образования.
-    <b>НЕ заменяет</b> консультацию, диагноз и лечение.
-    При любых сомнениях — обращайтесь к специалисту.
+    для информирования и самостоятельного образования.</span>
+    <b><span data-i18n-text="index.discNo">НЕ заменяет</span></b> <span data-i18n-text="index.discB">консультацию, диагноз и лечение.
+    При любых сомнениях — обращайтесь к специалисту.</span>
   </p>
   <p class="meta">
-    v<span data-version="app"></span> ·
-    данные на <span data-version="data"></span>
+    v<span data-version="app"></span> · <span data-i18n-text="index.dataUpdated">данные на</span> <span data-version="data"></span>
   </p>
   <p class="links">
     <a href="methodology.html" data-i18n-text="footer.methodology">📐 Методология</a> ·
@@ -299,8 +298,8 @@ try {
     <a href="terms-of-use.html" data-i18n-text="footer.terms">📄 Условия использования</a> ·
     <a href="feed.xml" data-i18n-text="footer.rss">📡 RSS</a>
   </p>
-  <p class="copy">© 2026 Vladislav "DeadSno" Pereshivalov · MIT · <a href="terms-of-use.html#data-license">Данные: CC BY 4.0</a></p>
-  <p class="share-row"><button class="btn share-page" type="button">🔗 Поделиться</button></p>
+  <p class="copy">© 2026 Vladislav "DeadSno" Pereshivalov · MIT · <a href="terms-of-use.html#data-license"><span data-i18n-text="index.dataLicense">Данные: CC BY 4.0</span></a></p>
+  <p class="share-row"><button class="btn share-page" type="button"><span data-i18n-text="share.label">🔗 Поделиться</span></button></p>
 </footer>
 <script>
 const $ = id => document.getElementById(id);
@@ -340,13 +339,13 @@ window.addEventListener('scroll', () => {
      ни одного запроса к mc.yandex.ru не происходит. -->
 <div id="cookieBanner" role="dialog" data-i18n-aria-label="a11y.cookieConsent" hidden>
   <div class="cb-text">
-    Мы используем cookie и Яндекс.Метрику, чтобы понять, какие материалы полезны.
-    Аналитика включается только после вашего согласия.
-    <a href="privacy.html">Политика конфиденциальности</a>
+    <span data-i18n-text="index.cookieText">Мы используем cookie и Яндекс.Метрику, чтобы понять, какие материалы полезны.
+    Аналитика включается только после вашего согласия.</span>
+    <a href="privacy.html"><span data-i18n-text="index.cookiePolicy">Политика конфиденциальности</span></a>
   </div>
   <div class="cb-actions">
-    <button type="button" id="cookieAccept" class="cb-btn cb-accept">Принять</button>
-    <button type="button" id="cookieReject" class="cb-btn cb-reject">Отклонить</button>
+    <button type="button" id="cookieAccept" class="cb-btn cb-accept"><span data-i18n-text="index.cookieAccept">Принять</span></button>
+    <button type="button" id="cookieReject" class="cb-btn cb-reject"><span data-i18n-text="index.cookieReject">Отклонить</span></button>
   </div>
 </div>
 <script src="cookie-banner.js?v=1"></script>

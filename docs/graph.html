@@ -53,12 +53,13 @@
     a { color: #1d4ed8; }
   </style>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
+  <script src="i18n.js?v=12"></script>
 </head>
 <body>
   <main>
-    <h1>Граф связей</h1>
-    <p>Страница переехала во вкладку «Граф» на карте связей.</p>
-    <p><a href="hactar.html?tab=graph">Перейти к графу →</a></p>
+    <h1><span data-i18n-text="hactar.redirect.graph">Граф связей</span></h1>
+    <p><span data-i18n-text="graph.001">Страница переехала во вкладку «Граф» на карте связей.</span></p>
+    <p><a href="hactar.html?tab=graph"><span data-i18n-text="graph.002">Перейти к графу →</span></a></p>
   </main>
   <!-- Дисклеймер оставлен намеренно: tests/test_legal_disclaimer.py требует
        class="disc" с фразой «Не медицинская рекомендация» на каждой странице
@@ -66,7 +67,7 @@
        выпадать из гейта из-за этого он не должен — иначе гейт тихо теряет
        страницу. -->
   <footer>
-    <p class="disc">Не медицинская рекомендация. Информация носит справочный характер и не заменяет консультацию врача.</p>
+    <p class="disc"><span data-i18n-text="graph.003">Не медицинская рекомендация. Информация носит справочный характер и не заменяет консультацию врача.</span></p>
   </footer>
   <script src="pwa.js?v=283" defer></script>
 </body>

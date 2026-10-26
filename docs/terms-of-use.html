@@ -33,7 +33,7 @@
     </script>
     <link rel="stylesheet" href="style.min.css?v=460">
     <script src="version.js?v=312"></script>
-    <script src="i18n.js?v=10"></script>
+    <script src="i18n.js?v=12"></script>
     <script src="pwa.js?v=283" defer></script>
     <script src="share.js?v=2" defer></script>
     <style>
@@ -62,97 +62,96 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
 </head>
 <body>
-<a href="#main" class="skip-link">Перейти к содержимому</a>
+<a href="#main" class="skip-link"><span data-i18n-text="a11y.skipToContent">Перейти к содержимому</span></a>
 
 <div class="site-header">
-  <div class="trustbar">🧬 Открытые данные · Бесплатно · Без рекламы</div>
+  <div class="trustbar"><span data-i18n-text="index.trustbar">🧬 Открытые данные · Бесплатно · Без рекламы</span></div>
   <header class="top">
     <div class="site-title"><a href="index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a> <span class="v">v<span data-version="app"></span></span></div>
     <nav class="actions" data-i18n-aria-label="a11y.navMain">
-      <a class="btn c-feedback" href="feedback.html">💬 Обратная связь</a>
-      <a class="btn c-support" href="support.html">💚 Поддержать</a>
-      <button class="btn c-theme" id="themeBtn" aria-label="Переключить на светлую тему">🌞 Светлая тема</button>
+      <a class="btn c-feedback" href="feedback.html"><span data-i18n-text="index.feedback">💬 Обратная связь</span></a>
+      <a class="btn c-support" href="support.html"><span data-i18n-text="index.support">💚 Поддержать</span></a>
+      <button class="btn c-theme" id="themeBtn" data-i18n-aria-label="a11y.themeToLight" aria-label="Переключить на светлую тему"><span data-i18n-text="theme.light">🌞 Светлая тема</span></button>
       <select id="langSelect" class="lang-select" data-i18n-aria-label="a11y.langSelect"><option value="ru">RU</option><option value="en">EN</option></select>
-      <button class="btn c-random" id="randomBtn">🎲 Удиви меня</button>
+      <button class="btn c-random" id="randomBtn"><span data-i18n-text="index.random">🎲 Удиви меня</span></button>
     </nav>
   </header>
 </div>
 
 <main id="main" class="privacy-wrap">
-  <h1>Условия использования</h1>
-  <p class="privacy-sub">Обновлено: 25.10.2026</p>
+  <h1><span data-i18n-text="terms.001">Условия использования</span></h1>
+  <p class="privacy-sub"><span data-i18n-text="terms.002">Обновлено: 25.10.2026</span></p>
 
-  <div class="privacy-note">Коротко: сайт — справочный. Он не ставит диагноз, не назначает лечение и не заменяет врача. Информация предоставляется «как есть», без гарантий. Данные открыты и распространяются по лицензии <b>CC BY 4.0</b>, код — по MIT.</div>
+  <div class="privacy-note"><span data-i18n-text="terms.003">Коротко: сайт — справочный. Он не ставит диагноз, не назначает лечение и не заменяет врача. Информация предоставляется «как есть», без гарантий. Данные открыты и распространяются по лицензии</span> <b>CC BY 4.0</b><span data-i18n-text="terms.004">, код — по MIT.</span></div>
 
   <div class="privacy-card">
-    <h2>📌 Что это за сайт</h2>
-    <p>Brain 25 Evidence — некоммерческий просветительский проект. Он собирает и структурирует сведения об исследованиях биологически активных добавок (БАД): грейды доказательности, описанные эффекты, дозировки, взаимодействия и ссылки на публикации в PubMed, Europe PMC, CrossRef, OpenAlex и других открытых источниках.</p>
-    <p>Сайт не продаёт добавки, не оказывает медицинских услуг и не является средством массовой информации, зарегистрированным в установленном порядке.</p>
+    <h2><span data-i18n-text="terms.005">📌 Что это за сайт</span></h2>
+    <p><span data-i18n-text="terms.006">Brain 25 Evidence — некоммерческий просветительский проект. Он собирает и структурирует сведения об исследованиях биологически активных добавок (БАД): грейды доказательности, описанные эффекты, дозировки, взаимодействия и ссылки на публикации в PubMed, Europe PMC, CrossRef, OpenAlex и других открытых источниках.</span></p>
+    <p><span data-i18n-text="terms.007">Сайт не продаёт добавки, не оказывает медицинских услуг и не является средством массовой информации, зарегистрированным в установленном порядке.</span></p>
   </div>
 
   <div class="privacy-card">
-    <h2>⚠️ Не медицинская рекомендация</h2>
-    <p>Материалы сайта носят исключительно информационный и образовательный характер. Это не диагноз, не назначение, не схема лечения и не руководство к самолечению.</p>
-    <p>Дозировки и оценки совместимости приведены по данным источников и могут быть неполными или неприменимыми к вашей ситуации: они не учитывают ваши хронические заболевания, беременность, возраст, принимаемые лекарства и индивидуальные реакции.</p>
-    <p><b>Любое решение о приёме добавок принимайте вместе с врачом.</b> При наличии симптомов или заболевания сначала обратитесь к специалисту. Не откладывайте обращение к врачу из-за того, что прочитали на этом сайте.</p>
+    <h2><span data-i18n-text="terms.008">⚠️ Не медицинская рекомендация</span></h2>
+    <p><span data-i18n-text="terms.009">Материалы сайта носят исключительно информационный и образовательный характер. Это не диагноз, не назначение, не схема лечения и не руководство к самолечению.</span></p>
+    <p><span data-i18n-text="terms.010">Дозировки и оценки совместимости приведены по данным источников и могут быть неполными или неприменимыми к вашей ситуации: они не учитывают ваши хронические заболевания, беременность, возраст, принимаемые лекарства и индивидуальные реакции.</span></p>
+    <p><b><span data-i18n-text="terms.011">Любое решение о приёме добавок принимайте вместе с врачом.</span></b> <span data-i18n-text="terms.012">При наличии симптомов или заболевания сначала обратитесь к специалисту. Не откладывайте обращение к врачу из-за того, что прочитали на этом сайте.</span></p>
   </div>
 
   <div class="privacy-card">
-    <h2>📄 Информация «как есть» (as is)</h2>
-    <p>Сайт и его содержимое предоставляются «как есть» и «как доступно», без каких-либо явных или подразумеваемых гарантий, включая гарантии точности, полноты, актуальности, пригодности для конкретной цели и ненарушения прав третьих лиц.</p>
-    <p>Научные данные меняются: выводы отдельных исследований пересматриваются, грейды пересчитываются, публикации отзываются. Мы стремимся отражать актуальное состояние, но не гарантируем, что каждая цифра на странице соответствует последнему слову науки.</p>
-    <p>Нашли ошибку в данных? Напишите через <a href="feedback.html">обратную связь</a> — такие сообщения разбираются в приоритетном порядке.</p>
+    <h2><span data-i18n-text="terms.013">📄 Информация «как есть» (as is)</span></h2>
+    <p><span data-i18n-text="terms.014">Сайт и его содержимое предоставляются «как есть» и «как доступно», без каких-либо явных или подразумеваемых гарантий, включая гарантии точности, полноты, актуальности, пригодности для конкретной цели и ненарушения прав третьих лиц.</span></p>
+    <p><span data-i18n-text="terms.015">Научные данные меняются: выводы отдельных исследований пересматриваются, грейды пересчитываются, публикации отзываются. Мы стремимся отражать актуальное состояние, но не гарантируем, что каждая цифра на странице соответствует последнему слову науки.</span></p>
+    <p><span data-i18n-text="terms.016">Нашли ошибку в данных? Напишите через</span> <a href="feedback.html"><span data-i18n-text="terms.017">обратную связь</span></a> <span data-i18n-text="terms.018">— такие сообщения разбираются в приоритетном порядке.</span></p>
   </div>
 
   <div class="privacy-card">
-    <h2>🚫 Ограничение ответственности</h2>
-    <p>В максимальной степени, допускаемой применимым правом, автор проекта не несёт ответственности за любые прямые или косвенные последствия использования сайта и его материалов: вред здоровью, упущенную выгоду, утрату данных, решения, принятые на основе опубликованных сведений.</p>
-    <p>Сайт содержит ссылки на внешние ресурсы, включая магазины и маркетплейсы (в том числе партнёрские). Мы не отвечаем за их содержимое, цены, качество товаров и обработку персональных данных; переход по внешней ссылке — на ваш риск.</p>
-    <p>Сайт может быть временно недоступен, изменён или закрыт без предупреждения.</p>
+    <h2><span data-i18n-text="terms.019">🚫 Ограничение ответственности</span></h2>
+    <p><span data-i18n-text="terms.020">В максимальной степени, допускаемой применимым правом, автор проекта не несёт ответственности за любые прямые или косвенные последствия использования сайта и его материалов: вред здоровью, упущенную выгоду, утрату данных, решения, принятые на основе опубликованных сведений.</span></p>
+    <p><span data-i18n-text="terms.021">Сайт содержит ссылки на внешние ресурсы, включая магазины и маркетплейсы (в том числе партнёрские). Мы не отвечаем за их содержимое, цены, качество товаров и обработку персональных данных; переход по внешней ссылке — на ваш риск.</span></p>
+    <p><span data-i18n-text="terms.022">Сайт может быть временно недоступен, изменён или закрыт без предупреждения.</span></p>
   </div>
 
   <div class="privacy-card" id="data-license">
-    <h2>©️ Лицензия на данные</h2>
-    <p>Структурированные данные проекта (сводные таблицы, оценки доказательности, агрегированные показатели, текстовые описания, подготовленные автором) распространяются по лицензии <b>Creative Commons Attribution 4.0 International (CC BY 4.0)</b>.</p>
+    <h2><span data-i18n-text="terms.023">©️ Лицензия на данные</span></h2>
+    <p><span data-i18n-text="terms.024">Структурированные данные проекта (сводные таблицы, оценки доказательности, агрегированные показатели, текстовые описания, подготовленные автором) распространяются по лицензии</span> <b>Creative Commons Attribution 4.0 International (CC BY 4.0)</b>.</p>
     <ul>
-        <li>Полный текст лицензии: <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" target="_blank" rel="nofollow noopener">creativecommons.org/licenses/by/4.0/deed.ru</a>.</li>
-        <li>Вы можете свободно копировать, распространять, перерабатывать данные, в том числе в коммерческих целях.</li>
-        <li>Условие одно — указание авторства: <b>«Brain 25 Evidence, https://deadsno.github.io/brain-25-evidence/, CC BY 4.0»</b> со ссылкой на лицензию.</li>
-        <li>Атрибуция не должна создавать впечатление, что автор одобряет вашу переработку или её использование.</li>
+        <li><span data-i18n-text="terms.025">Полный текст лицензии:</span> <a href="https://creativecommons.org/licenses/by/4.0/deed.ru" target="_blank" rel="nofollow noopener">creativecommons.org/licenses/by/4.0/deed.ru</a>.</li>
+        <li><span data-i18n-text="terms.026">Вы можете свободно копировать, распространять, перерабатывать данные, в том числе в коммерческих целях.</span></li>
+        <li><span data-i18n-text="terms.027">Условие одно — указание авторства:</span> <b>«Brain 25 Evidence, https://deadsno.github.io/brain-25-evidence/, CC BY 4.0»</b> <span data-i18n-text="terms.028">со ссылкой на лицензию.</span></li>
+        <li><span data-i18n-text="terms.029">Атрибуция не должна создавать впечатление, что автор одобряет вашу переработку или её использование.</span></li>
     </ul>
-    <h3>Что лицензия не покрывает</h3>
+    <h3><span data-i18n-text="terms.030">Что лицензия не покрывает</span></h3>
     <ul>
-        <li>Исходные научные публикации и их фрагменты — они остаются под лицензиями правообладателей (PubMed, издатели журналов); цитирование и переиспользование таких материалов регулируется их собственными условиями.</li>
-        <li>Товарные знаки, логотипы и названия магазинов, включая «Яндекс.Маркет», — права их владельцев.</li>
+        <li><span data-i18n-text="terms.031">Исходные научные публикации и их фрагменты — они остаются под лицензиями правообладателей (PubMed, издатели журналов); цитирование и переиспользование таких материалов регулируется их собственными условиями.</span></li>
+        <li><span data-i18n-text="terms.032">Товарные знаки, логотипы и названия магазинов, включая «Яндекс.Маркет», — права их владельцев.</span></li>
     </ul>
-    <h3>Код</h3>
-    <p>Исходный код сайта распространяется по лицензии <b>MIT</b> (см. файл <code>LICENSE</code> в <a href="https://github.com/DeadSno/brain-25-evidence" target="_blank" rel="nofollow noopener">репозитории</a>). Сторонние библиотеки используются на условиях их собственных лицензий — например, движок графа vis-network распространяется по Apache-2.0 / MIT.</p>
+    <h3><span data-i18n-text="terms.033">Код</span></h3>
+    <p><span data-i18n-text="terms.034">Исходный код сайта распространяется по лицензии</span> <b>MIT</b> <span data-i18n-text="terms.035">(см. файл</span> <code>LICENSE</code> <span data-i18n-text="terms.036">в</span> <a href="https://github.com/DeadSno/brain-25-evidence" target="_blank" rel="nofollow noopener"><span data-i18n-text="terms.037">репозитории</span></a><span data-i18n-text="terms.038">). Сторонние библиотеки используются на условиях их собственных лицензий — например, движок графа vis-network распространяется по Apache-2.0 / MIT.</span></p>
   </div>
 
   <div class="privacy-card">
-    <h2>🔄 Изменения условий</h2>
-    <p>Условия могут обновляться: дата последней редакции указана в начале страницы. Продолжая пользоваться сайтом после изменений, вы принимаете новую редакцию. Существенные правки по возможности сопровождаются записью в <a href="https://github.com/DeadSno/brain-25-evidence/blob/main/CHANGELOG.md" target="_blank" rel="nofollow noopener">CHANGELOG.md</a>.</p>
+    <h2><span data-i18n-text="terms.039">🔄 Изменения условий</span></h2>
+    <p><span data-i18n-text="terms.040">Условия могут обновляться: дата последней редакции указана в начале страницы. Продолжая пользоваться сайтом после изменений, вы принимаете новую редакцию. Существенные правки по возможности сопровождаются записью в</span> <a href="https://github.com/DeadSno/brain-25-evidence/blob/main/CHANGELOG.md" target="_blank" rel="nofollow noopener">CHANGELOG.md</a>.</p>
   </div>
 
   <div class="privacy-card">
-    <h2>⚖️ Применимое право и контакты</h2>
-    <p>К отношениям, связанным с использованием сайта, применяется законодательство Российской Федерации в той мере, в какой оно применимо к некоммерческому информационному ресурсу. Если какое-либо положение ниже окажется недействительным, остальные положения продолжают действовать.</p>
-    <p>Вопросы по условиям и лицензированию данных: <a href="mailto:deadsno1613@gmail.com">deadsno1613@gmail.com</a>, страница <a href="feedback.html">обратной связи</a> или <a href="https://github.com/DeadSno/brain-25-evidence" target="_blank" rel="nofollow noopener">GitHub проекта</a>. Обработка персональных данных описана в <a href="privacy.html">политике конфиденциальности</a>.</p>
+    <h2><span data-i18n-text="terms.041">⚖️ Применимое право и контакты</span></h2>
+    <p><span data-i18n-text="terms.042">К отношениям, связанным с использованием сайта, применяется законодательство Российской Федерации в той мере, в какой оно применимо к некоммерческому информационному ресурсу. Если какое-либо положение ниже окажется недействительным, остальные положения продолжают действовать.</span></p>
+    <p><span data-i18n-text="terms.043">Вопросы по условиям и лицензированию данных:</span> <a href="mailto:deadsno1613@gmail.com">deadsno1613@gmail.com</a><span data-i18n-text="terms.044">, страница</span> <a href="feedback.html"><span data-i18n-text="terms.045">обратной связи</span></a> <span data-i18n-text="terms.046">или</span> <a href="https://github.com/DeadSno/brain-25-evidence" target="_blank" rel="nofollow noopener"><span data-i18n-text="terms.047">GitHub проекта</span></a><span data-i18n-text="terms.048">. Обработка персональных данных описана в</span> <a href="privacy.html"><span data-i18n-text="terms.049">политике конфиденциальности</span></a>.</p>
   </div>
 </main>
 
 <footer class="site-footer">
   <p class="disc">
-    <b>⚠️ Не медицинская рекомендация.</b>
-    Сайт предоставляет данные из открытых научных источников
+    <b><span data-i18n-text="index.discWarn">⚠️ Не медицинская рекомендация.</span></b>
+    <span data-i18n-text="index.discA">Сайт предоставляет данные из открытых научных источников
     (PubMed, Europe PMC, CrossRef, OpenAlex, ClinicalTrials.gov, Wikimedia)
-    для информирования и самостоятельного образования.
-    <b>НЕ заменяет</b> консультацию, диагноз и лечение.
-    При любых сомнениях — обращайтесь к специалисту.
+    для информирования и самостоятельного образования.</span>
+    <b><span data-i18n-text="index.discNo">НЕ заменяет</span></b> <span data-i18n-text="index.discB">консультацию, диагноз и лечение.
+    При любых сомнениях — обращайтесь к специалисту.</span>
   </p>
   <p class="meta">
-    v<span data-version="app"></span> ·
-    данные на <span data-version="data"></span>
+    v<span data-version="app"></span> · <span data-i18n-text="index.dataUpdated">данные на</span> <span data-version="data"></span>
   </p>
   <p class="links">
     <a href="methodology.html" data-i18n-text="footer.methodology">📐 Методология</a> ·
@@ -162,8 +161,8 @@
     <a href="terms-of-use.html" data-i18n-text="footer.terms">📄 Условия использования</a> ·
     <a href="feed.xml" data-i18n-text="footer.rss">📡 RSS</a>
   </p>
-  <p class="copy">© 2026 Vladislav "DeadSno" Pereshivalov · MIT · <a href="terms-of-use.html#data-license">Данные: CC BY 4.0</a></p>
-  <p class="share-row"><button class="btn share-page" type="button">🔗 Поделиться</button></p>
+  <p class="copy">© 2026 Vladislav "DeadSno" Pereshivalov · MIT · <a href="terms-of-use.html#data-license"><span data-i18n-text="index.dataLicense">Данные: CC BY 4.0</span></a></p>
+  <p class="share-row"><button class="btn share-page" type="button"><span data-i18n-text="share.label">🔗 Поделиться</span></button></p>
 </footer>
 
 <script>
@@ -188,13 +187,13 @@ document.addEventListener('DOMContentLoaded', function () {
      Метрика грузится только после «Принять». -->
 <div id="cookieBanner" role="dialog" data-i18n-aria-label="a11y.cookieConsent" hidden>
   <div class="cb-text">
-    Мы используем cookie и Яндекс.Метрику, чтобы понять, какие материалы полезны.
-    Аналитика включается только после вашего согласия.
-    <a href="privacy.html">Политика конфиденциальности</a>
+    <span data-i18n-text="index.cookieText">Мы используем cookie и Яндекс.Метрику, чтобы понять, какие материалы полезны.
+    Аналитика включается только после вашего согласия.</span>
+    <a href="privacy.html"><span data-i18n-text="index.cookiePolicy">Политика конфиденциальности</span></a>
   </div>
   <div class="cb-actions">
-    <button type="button" id="cookieAccept" class="cb-btn cb-accept">Принять</button>
-    <button type="button" id="cookieReject" class="cb-btn cb-reject">Отклонить</button>
+    <button type="button" id="cookieAccept" class="cb-btn cb-accept"><span data-i18n-text="index.cookieAccept">Принять</span></button>
+    <button type="button" id="cookieReject" class="cb-btn cb-reject"><span data-i18n-text="index.cookieReject">Отклонить</span></button>
   </div>
 </div>
 <script src="cookie-banner.js?v=1"></script>
