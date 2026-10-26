@@ -44,21 +44,28 @@ project: brain-25-evidence
 ## Правила
 
 ### 1. Целевые страницы (все должны быть в навигации)
-- index.html - Главная
-- map.html - Карта механизмов
-- interactions.html - Взаимодействия (4 таба: `#graph`, `#mech`, `#sups`, `#drugs`)
-- compare.html - Сравнение добавок
-- calculator.html - Калькулятор
+- index.html - Главная (каталог добавок)
+- hactar.html - Project Hactar: два таба, `?tab=overview` (таблица доз/
+  взаимодействий/цен) и `?tab=links` (граф связей)
+- trends.html - Тренды
 - methodology.html - Методология
 - faq.html - FAQ
 - glossary.html - Глоссарий
-- trends.html - Тренды
 - feedback.html - Обратная связь
+- support.html - Поддержать проект
+- privacy.html - Приватность
+- terms-of-use.html - Условия использования
+- 404.html, offline.html - служебные (в общий nav не обязательны)
+- sup/index.html и `sup/*.html` - карточки добавок (130 карточек)
 
-> `graph.html` и `atlas.html` — **не отдельные страницы**, а редирект-заглушки
-> (meta refresh + `location.replace`) на `interactions.html#graph` и
-> `interactions.html#mech`. В навигацию их не ставить и из навигации не
-> требовать: hash-роутинг живёт внутри `interactions.html`.
+> **Страницы-редиректы (6):** `calculator.html`, `compare.html`,
+> `graph.html`, `atlas.html`, `interactions.html`, `map.html`. Это не
+> отдельные страницы, а заглушки: `<meta http-equiv="refresh">` +
+> `window.location.replace()` на `hactar.html?tab=overview` (calculator,
+> compare) или `hactar.html?tab=links` (graph, atlas, interactions, map),
+> плюс `noindex, follow`, canonical на целевой URL и
+> `sessionStorage.hactarRedirectedFrom`. В навигацию их не ставить и из
+> навигации не требовать.
 
 ### 2. Структура навигации
 Каждая HTML страница в docs/ должна иметь единый блок навигации.
@@ -67,7 +74,7 @@ project: brain-25-evidence
     <header>
       <nav>
         <a href="index.html">Главная</a>
-        <a href="map.html">Карта механизмов</a>
+        <a href="hactar.html">Project Hactar</a>
         ...
       </nav>
     </header>
@@ -83,8 +90,10 @@ project: brain-25-evidence
 2. Найти во всех HTML паттерн закрывающего nav
 3. Вставить новую ссылку ПЕРЕД закрывающим тегом
 4. НЕ дублировать если уже есть
-5. Пропустить страницы без общего nav: редирект-заглушки (`graph.html`,
-   `atlas.html`), `offline.html`, `google4a9d23e35c6c3e23.html`; `feedback.html`
+5. Пропустить страницы без общего nav: 6 редирект-заглушек
+   (`calculator.html`, `compare.html`, `graph.html`, `atlas.html`,
+   `interactions.html`, `map.html`), `offline.html`,
+   `google4a9d23e35c6c3e23.html`; `feedback.html`
 
 ### 5. Формат отчёта
 Таблица: Страница | Есть nav | Ссылок | Статус
