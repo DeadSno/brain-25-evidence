@@ -112,6 +112,20 @@
   var ovHeadEl = document.getElementById('hactarOvHead');
   var ovBodyEl = document.getElementById('hactarOvBody');
   var ovNoteEl = document.getElementById('hactarOvNote');
+  /* FEATURE-1 (v5.6.5): панель профиля. Живёт в панели «Обзор», а не
+     отдельной вкладкой: расчёт нужен там же, где таблица дозировок. */
+  var profileEl = document.getElementById('hactarProfile');
+  var profileSexEl = document.getElementById('hactarProfileSex');
+  var profileWeightEl = document.getElementById('hactarProfileWeight');
+  var profileHeightEl = document.getElementById('hactarProfileHeight');
+  var profileAgeEl = document.getElementById('hactarProfileAge');
+  var profilePregWrap = document.getElementById('hactarProfilePregWrap');
+  var profilePregEl = document.getElementById('hactarProfilePreg');
+  var profileBmiEl = document.getElementById('hactarProfileBmi');
+  var profileBmiFlagEl = document.getElementById('hactarProfileBmiFlag');
+  var profileBmrEl = document.getElementById('hactarProfileBmr');
+  var profileStatusEl = document.getElementById('hactarProfileStatus');
+  var ovPregEl = document.getElementById('hactarOvPreg');
 
   /* ─────────────────── подписки на изменения (H-6) ───────────────────
    *
@@ -2099,6 +2113,11 @@
       effects: (light && light.effects) || (full && full.effects) || [],
       interactions: (light && light.interactions) || (full && full.interactions) || [],
       dosage: full ? String(full.dosage || '') : '',
+      /* FEATURE-1: caution и guidelines нужны профилю — в них лежит
+         противопоказание при беременности и дозировка «на кг массы».
+         Только полные данные: в облегчённых (data-lite) этих полей нет. */
+      caution: full ? String(full.caution || '') : '',
+      guidelines: full ? String(full.guidelines || '') : '',
       forms: full ? (Array.isArray(full.forms) ? full.forms.join(', ') : String(full.forms || '')) : '',
       upperLimit: String((light && light.upper_limit) || (full && full.upper_limit) || '')
     };
@@ -2214,7 +2233,8 @@
     var d = doseInfo(rec);
     var id = esc(rec.id);
     var unit = d.unit ? esc(d.unit) : '';
-    var cls = 'hactar-ov-dose-input' + (d.bad ? ' hactar-ov-dose-input-bad' : '');
+    var cls = 'hactar-ov-dose-input' + (d.bad ? ' hactar-ov-dose-input-bad' : '') +
+      (!d.bad && d.over ? ' hactar-ov-dose-input-over' : '');
     var descId = (d.bad ? 'dose-err-' : 'dose-meta-') + id;
     return '<div class="hactar-ov-dose">' +
              '<div class="hactar-ov-dose-field">' +
@@ -2243,6 +2263,20 @@
     function add(chunk) {
       if (html) html += ' ';
       html += chunk;
+    }
+    /* FEATURE-1: персональная рекомендация из профиля. Считается от веса,
+       поэтому стоит первой — это ответ на вопрос «сколько мне», а норма из
+       справочника ниже отвечает на вопрос «сколько вообще бывает». */
+    var pk = perKgDose(rec);
+    if (pk) {
+      add('<span class="hactar-ov-dose-perkg">' + T('hactar.ov.perKg', {
+        amount: esc(pk.min === pk.max ? String(pk.min) : pk.min + '–' + pk.max),
+        unit: esc(pk.unit),
+        per: esc(pk.perMin === pk.perMax
+          ? String(pk.perMin).replace('.', ',')
+          : String(pk.perMin).replace('.', ',') + '–' + String(pk.perMax).replace('.', ',')),
+        weight: esc(String(profile.weight).replace('.', ','))
+      }) + '</span>');
     }
     if (d.min != null && d.max != null && d.min !== d.max) {
       add('<span class="hactar-ov-dose-norm">' + T('hactar.ov.norm') +
@@ -2462,11 +2496,16 @@ var OVERVIEW_ROWS = [
 
   /* ── сборка таблицы ──────────────────────────────────────────────────── */
 
-  /* Шапка: «Параметр» и по колонке на добавку (её название). */
+  /* Шапка: «Параметр» и по колонке на добавку (её название).
+     FEATURE-1: колонка добавки, противопоказанной при беременности,
+     получает красный цвет — но не как единственный сигнал: над таблицей
+     стоит баннер со списком названий (доступность, не только цвет). */
   function ovHeadHtml(recs) {
     var html = '<th scope="col" class="hactar-ov-param">' + T('hactar.ov.param') + '</th>';
     for (var i = 0; i < recs.length; i++) {
-      html += '<th scope="col" class="hactar-ov-sup">' + esc(recs[i].name) + '</th>';
+      html += '<th scope="col" class="hactar-ov-sup' +
+        (pregRisk(recs[i]) ? ' hactar-ov-sup-preg' : '') + '">' +
+        esc(recs[i].name) + '</th>';
     }
     return html;
   }
@@ -2496,6 +2535,10 @@ var OVERVIEW_ROWS = [
       ovHeadEl.innerHTML = '';
       ovBodyEl.innerHTML = '';
       if (ovNoteEl) ovNoteEl.textContent = '';
+      if (ovPregEl) {
+        ovPregEl.hidden = true;
+        ovPregEl.textContent = '';
+      }
       return;
     }
     var recs = [];
@@ -2504,6 +2547,9 @@ var OVERVIEW_ROWS = [
     ovBodyEl.innerHTML = ovBodyHtml(recs, list);
     bindDoseInputs();
     if (ovNoteEl) ovNoteEl.textContent = ovNoteText(list);
+    /* FEATURE-1: предупреждение о беременности пересобирается вместе с
+       таблицей — профиль и выбор добавок меняются независимо. */
+    renderPregWarn(recs);
   }
 
   /* Подпись над таблицей: сколько добавок и какой средний грейд. */
@@ -2559,13 +2605,19 @@ var OVERVIEW_ROWS = [
     var n = parseNum(raw);
     var bad = (raw !== '' && (!DOSE_RE.test(String(raw).trim()) || isNaN(n) || n < 0));
     doseInputs[id] = { raw: raw, value: bad ? null : n, touched: true, bad: bad };
+    var rec = ovRecord(id);
+    var d = doseInfo(rec);
     t.classList.toggle('hactar-ov-dose-input-bad', !!bad);
+    /* FEATURE-1: доза выше upper_limit — красная рамка. Число валидно,
+       поэтому aria-invalid остаётся false: текст предупреждения лежит в
+       .hactar-ov-dose-meta, на который ссылается aria-describedby. */
+    t.classList.toggle('hactar-ov-dose-input-over', !bad && !!d.over);
     /* NA2-08: состояние для скринридера — не только рамка. */
     t.setAttribute('aria-invalid', bad ? 'true' : 'false');
     t.setAttribute('aria-describedby', (bad ? 'dose-err-' : 'dose-meta-') + id);
     var wrap = t.closest ? t.closest('.hactar-ov-dose') : null;
     var meta = wrap ? wrap.querySelector('.hactar-ov-dose-meta') : null;
-    if (meta) meta.innerHTML = ovDoseMeta(ovRecord(id), doseInfo(ovRecord(id)));
+    if (meta) meta.innerHTML = ovDoseMeta(rec, d);
   }
 
   /* Реактивность: таблица перерисовывается при смене выбора и при
@@ -2577,6 +2629,249 @@ var OVERVIEW_ROWS = [
   subscribe('mode', function (mode) {
     if (mode === 'overview') renderOverview(selectedIds());
   });
+
+  /* ──────────────── профиль и персональный расчёт (FEATURE-1) ───────────
+   *
+   * Владелец против третьей вкладки: вес, рост, возраст и пол живут в
+   * компактной панели над таблицей «Обзор». Из них считаются два
+   * справочных показателя, из веса — персональная доза, из галочки
+   * «беременность» — предупреждение по добавкам, которые при беременности
+   * противопоказаны.
+   *
+   * Формулы:
+   *   ИМТ = вес(кг) / (рост(м))^2
+   *   BMR = 10·вес + 6.25·рост(см) − 5·возраст + пол,
+   *         где пол = +5 для мужчин и −161 для женщин
+   *         (Миффлин–Сан Жеор, 1990)
+   *
+   * Оба значения справочные: страница не ставит диагноз и не заменяет
+   * врача. Профиль никуда не отправляется — он лежит в localStorage. */
+
+  var PROFILE_KEY = 'hactarUserProfile';
+
+  /* Границы ввода. Не для красоты: без них «вес = 7000» молча даёт
+     бессмысленный ИМТ, а «рост = 0» — деление на ноль. */
+  var PROFILE_LIMITS = { weight: [20, 300], height: [90, 250], age: [14, 120] };
+
+  var BMI_LABEL_KEY = {
+    'low': 'hactar.profile.bmiLow',
+    'ok': 'hactar.profile.bmiOk',
+    'high': 'hactar.profile.bmiHigh',
+    'very-high': 'hactar.profile.bmiVeryHigh'
+  };
+
+  var profile = readProfile();
+
+  /* Число из поля ввода: пусто или вне границ — null, а не NaN. */
+  function profileNum(raw, limits) {
+    if (raw == null || String(raw).trim() === '') return null;
+    var n = parseFloat(String(raw).replace(',', '.'));
+    if (!isFinite(n) || n < limits[0] || n > limits[1]) return null;
+    return n;
+  }
+
+  /* Разделитель дробной части по локали: в русской — запятая, в
+     английской — точка. LOCALE объявлена в i18n.js как глобальная
+     лексическая переменная (на window её намеренно нет), поэтому читаем
+     через typeof: если i18n.js не загрузился, остаётся русский вариант. */
+  function profileDecimal(n) {
+    var s = String(n);
+    return (typeof LOCALE !== 'undefined' && LOCALE === 'en') ? s : s.replace('.', ',');
+  }
+
+  function readProfile() {
+    var out = { sex: 'm', weight: null, height: null, age: null, pregnant: false };
+    var raw = null;
+    try {
+      raw = window.localStorage.getItem(PROFILE_KEY);
+    } catch (e) {
+      raw = null;
+    }
+    if (!raw) return out;
+    var saved = null;
+    try {
+      saved = JSON.parse(raw);
+    } catch (e) {
+      saved = null;
+    }
+    if (!saved || typeof saved !== 'object') return out;
+    if (saved.sex === 'f' || saved.sex === 'm') out.sex = saved.sex;
+    out.weight = profileNum(saved.weight, PROFILE_LIMITS.weight);
+    out.height = profileNum(saved.height, PROFILE_LIMITS.height);
+    out.age = profileNum(saved.age, PROFILE_LIMITS.age);
+    /* Беременность имеет смысл только для Ж: сохранённое значение для
+       другого пола игнорируем, иначе баннер висел бы у мужчины. */
+    out.pregnant = out.sex === 'f' && saved.pregnant === true;
+    return out;
+  }
+
+  function saveProfile() {
+    try {
+      window.localStorage.setItem(PROFILE_KEY, JSON.stringify(profile));
+    } catch (e) {
+      console.warn('[hactar] профиль не сохранён (localStorage):', e && e.message);
+    }
+  }
+
+  function profileBmi() {
+    var w = profile.weight;
+    var h = profile.height;
+    if (!w || !h) return null;
+    var m = h / 100;
+    return w / (m * m);
+  }
+
+  function profileBmr() {
+    var w = profile.weight;
+    var h = profile.height;
+    var a = profile.age;
+    if (!w || !h || a == null) return null;
+    return Math.round(10 * w + 6.25 * h - 5 * a + (profile.sex === 'f' ? -161 : 5));
+  }
+
+  /* Категория ИМТ по границам ВОЗ: 18.5 / 25 / 30. */
+  function profileBmiKey(bmi) {
+    if (bmi < 18.5) return 'low';
+    if (bmi < 25) return 'ok';
+    if (bmi < 30) return 'high';
+    return 'very-high';
+  }
+
+  /* Перерисовать показатели профиля. Поля ввода не трогаем (кроме
+     синхронизации значения из состояния) — иначе потерялся бы фокус. */
+  function renderProfile() {
+    if (profileSexEl) profileSexEl.value = profile.sex;
+    if (profilePregWrap) profilePregWrap.hidden = profile.sex !== 'f';
+    if (profilePregEl) profilePregEl.checked = !!profile.pregnant;
+
+    var bmi = profileBmi();
+    var bmr = profileBmr();
+    var key = bmi == null ? '' : profileBmiKey(bmi);
+
+    if (profileBmiEl) {
+      profileBmiEl.textContent = bmi == null
+        ? '—'
+        : profileDecimal(Math.round(bmi * 10) / 10);
+    }
+    if (profileBmiFlagEl) {
+      /* Литеральные имена классов: их видит scripts/audit_classes.py,
+         и CSS не попадает в «сироты». */
+      profileBmiFlagEl.classList.toggle('hactar-profile-flag-low', key === 'low');
+      profileBmiFlagEl.classList.toggle('hactar-profile-flag-ok', key === 'ok');
+      profileBmiFlagEl.classList.toggle('hactar-profile-flag-high', key === 'high');
+      profileBmiFlagEl.classList.toggle('hactar-profile-flag-very-high', key === 'very-high');
+      profileBmiFlagEl.textContent = key ? T(BMI_LABEL_KEY[key]) : '';
+    }
+    if (profileBmrEl) profileBmrEl.textContent = bmr == null ? '—' : String(bmr);
+    if (profileStatusEl) {
+      var done = profile.weight && profile.height && profile.age != null;
+      profileStatusEl.textContent = done ? '' : T('hactar.profile.needData');
+    }
+  }
+
+  function onProfileInput(e) {
+    var el = e.target;
+    if (!el) return;
+    if (el === profileSexEl) {
+      profile.sex = el.value === 'f' ? 'f' : 'm';
+      /* При переключении на М галочка снимается: беременность к этому
+         полу не относится, а висящее предупреждение — ложный сигнал. */
+      if (profile.sex !== 'f') profile.pregnant = false;
+    } else if (el === profileWeightEl) {
+      profile.weight = profileNum(el.value, PROFILE_LIMITS.weight);
+    } else if (el === profileHeightEl) {
+      profile.height = profileNum(el.value, PROFILE_LIMITS.height);
+    } else if (el === profileAgeEl) {
+      profile.age = profileNum(el.value, PROFILE_LIMITS.age);
+    } else if (el === profilePregEl) {
+      profile.pregnant = el.checked === true && profile.sex === 'f';
+    }
+    saveProfile();
+    renderProfile();
+    /* Главное требование FEATURE-1: изменение профиля пересобирает
+       таблицу — дозы «на кг» и предупреждение о беременности зависят от
+       веса и галочки, поэтому живут в тех же ячейках. */
+    renderOverview(selectedIds());
+  }
+
+  function bindProfile() {
+    syncProfileInputs();
+    var fields = [profileSexEl, profileWeightEl, profileHeightEl, profileAgeEl, profilePregEl];
+    for (var i = 0; i < fields.length; i++) {
+      if (!fields[i]) continue;
+      fields[i].addEventListener('input', onProfileInput);
+      fields[i].addEventListener('change', onProfileInput);
+    }
+    renderProfile();
+  }
+
+  /* Перенести состояние профиля в поля ввода. Вызывается из bindProfile и
+     из Hactar.setProfile — но НЕ из renderProfile: перерисовка во время
+     набора переписала бы значение в поле и стёрла незакрытую запятую. */
+  function syncProfileInputs() {
+    if (profileSexEl) profileSexEl.value = profile.sex;
+    if (profileWeightEl) profileWeightEl.value = profile.weight == null ? '' : String(profile.weight);
+    if (profileHeightEl) profileHeightEl.value = profile.height == null ? '' : String(profile.height);
+    if (profileAgeEl) profileAgeEl.value = profile.age == null ? '' : String(profile.age);
+    if (profilePregEl) profilePregEl.checked = !!profile.pregnant;
+  }
+
+  /* Дозировка «на кг массы» из справочника. Ищем только там, где лежит
+     рекомендация по дозе: dosage, затем guidelines. Шаблон требует, чтобы
+     единица стояла вплотную к «/кг» (допускается одно русское слово —
+     «г белка/кг»): иначе под него попадают пороги вида «139 мг Si/кг»,
+     и рекомендация была бы выдуманной. */
+  var PER_KG_RE = /(\d+(?:[.,]\d+)?)\s*(?:[-–—]\s*(\d+(?:[.,]\d+)?))?\s*(мг|мкг|г|МЕ)(?:\s+[а-яёА-ЯЁ]{2,12})?\s*\/\s*кг/i;
+
+  function perKgDose(rec) {
+    if (!profile.weight) return null;
+    var fields = [rec.dosage, rec.guidelines];
+    for (var i = 0; i < fields.length; i++) {
+      var text = String(fields[i] || '');
+      if (!text) continue;
+      var m = PER_KG_RE.exec(text);
+      if (!m) continue;
+      var perMin = parseFloat(String(m[1]).replace(',', '.'));
+      var perMax = m[2] ? parseFloat(String(m[2]).replace(',', '.')) : perMin;
+      if (!isFinite(perMin) || !isFinite(perMax)) continue;
+      return {
+        unit: m[3],
+        perMin: perMin,
+        perMax: perMax,
+        min: Math.round(perMin * profile.weight),
+        max: Math.round(perMax * profile.weight)
+      };
+    }
+    return null;
+  }
+
+  /* Противопоказание при беременности: в caution должна быть прямая связка
+     «не рекомендуется / избегать / нельзя» с беременностью. Просто
+     упоминание беременности не годится — там обычно совет «согласуйте с
+     врачом», и предупреждение на нём было бы шумом. */
+  var PREG_RE = /(?:не\s+рекоменд|нельзя|противопоказ|избега|запрещ)[^.;]{0,120}беременн|беременн[^.;]{0,120}(?:избега|не\s+рекоменд|нельзя|противопоказ)/i;
+
+  function pregRisk(rec) {
+    if (!profile.pregnant || profile.sex !== 'f') return false;
+    return PREG_RE.test(String(rec.caution || ''));
+  }
+
+  /* Баннер над таблицей: перечисляет названия, а не только красит шапку —
+     цвет не должен быть единственным носителем смысла. */
+  function renderPregWarn(recs) {
+    if (!ovPregEl) return;
+    var names = [];
+    for (var i = 0; i < recs.length; i++) {
+      if (pregRisk(recs[i])) names.push(recs[i].name);
+    }
+    if (!names.length) {
+      ovPregEl.hidden = true;
+      ovPregEl.textContent = '';
+      return;
+    }
+    ovPregEl.hidden = false;
+    ovPregEl.textContent = T('hactar.ov.pregWarn', { names: names.join(', ') });
+  }
 
   /* ──────────────────────────── старт ──────────────────────────── */
 
@@ -2617,6 +2912,10 @@ var OVERVIEW_ROWS = [
   }
 
   showSkeleton();
+
+  /* FEATURE-1: профиль поднимается до загрузки каталога — он не зависит
+     от data.json, а панель должна быть живой сразу. */
+  bindProfile();
 
   notifyRedirect();
 
@@ -2705,6 +3004,34 @@ var OVERVIEW_ROWS = [
       setSelection([]);
       writeSavedIds([]);
       updateCount();
+    },
+    /* FEATURE-1: профиль (вес, рост, возраст, пол) и производные
+       показатели. Нужно для отладки и автотестов: проверять ИМТ и BMR
+       через UI — значит читать DOM, а здесь значения уже посчитаны. */
+    profile: function () {
+      var bmi = profileBmi();
+      return {
+        sex: profile.sex,
+        weight: profile.weight,
+        height: profile.height,
+        age: profile.age,
+        pregnant: !!profile.pregnant,
+        bmi: bmi == null ? null : Math.round(bmi * 10) / 10,
+        bmr: profileBmr()
+      };
+    },
+    setProfile: function (next) {
+      var src = next || {};
+      if (src.sex === 'f' || src.sex === 'm') profile.sex = src.sex;
+      if ('weight' in src) profile.weight = profileNum(src.weight, PROFILE_LIMITS.weight);
+      if ('height' in src) profile.height = profileNum(src.height, PROFILE_LIMITS.height);
+      if ('age' in src) profile.age = profileNum(src.age, PROFILE_LIMITS.age);
+      if ('pregnant' in src) profile.pregnant = profile.sex === 'f' && src.pregnant === true;
+      saveProfile();
+      syncProfileInputs();
+      renderProfile();
+      renderOverview(selectedIds());
+      return window.Hactar.profile();
     },
     /* H-11: сохранённые стеки. */
     savedStacks: readStacks,
