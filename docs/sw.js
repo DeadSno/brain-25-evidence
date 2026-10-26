@@ -526,7 +526,14 @@ self.addEventListener('activate', event => {
    в футер имена ключей вместо текста. */
 /* Бамп v158 -> v159 FIX-76 (WADA-01): контраст футера — правка style.css, перегенерация style.min.css, ?v= 460 -> 461. */
 /* Бамп v159 -> v160 FIX-76 (WADA-02): у .qaGrid возвращён tabindex и добавлен :focus-visible (скроллируемая область обязана быть доступна с клавиатуры); style.min.css перегенерирован, ?v= 461 -> 462. */
-var CACHE_VERSION = 'v160';
+/* Бамп v160 -> v161 FIX-77: данные карточек переведены на английский.
+   В docs/i18n.js добавлены loadEnCards/mergeEnCard/initEnSupData, в
+   docs/script.js и docs/hactar.js — наложение оверлея data_en.json, в
+   docs/sw.js — data_en.json в DATA_RE (network-first). i18n.js и
+   script.min.js лежат в STATIC_ASSETS и отдаются cache-first, поэтому без
+   нового имени кэша возвратный посетитель остался бы со старым словарём
+   и без приложения EN-данных. */
+var CACHE_VERSION = 'v161';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
@@ -534,10 +541,12 @@ var CACHE_DATA = CACHE_VERSION + '-data';
    пути, а не по имени файла. data_index.json тоже идёт сюда: раньше он уходил в
    cacheFirstForStatic и при отказе получал HTML вместо JSON, r.json() падал, и
    boot показывал «не загрузились данные» даже когда файл был на диске.
-   Именно /^data(_index)?\.json$/ — data_ma_timeline.json и data_price_history.json
+   Именно /^data(_index|_en)?\.json$/ — data_ma_timeline.json и data_price_history.json
    под это НЕ подходят (там после /data идёт _ma_timeline / _price_history) и
-   остаются в статике, как и раньше. */
-var DATA_RE = /\/data(_index)?\.json$/;
+   остаются в статике, как и раньше. data_en.json (FIX-77, EN-оверлей данных)
+   сюда тоже попадает: он меняется вместе с контентом, поэтому network-first,
+   а не cache-first. */
+var DATA_RE = /\/data(_index|_en)?\.json$/;
 
 /* version.json — единственный файл, по которому видно, что сайт обновился.
    Стратегия для него своя (network-first со сверкой app), поэтому он не
@@ -585,6 +594,8 @@ var STATIC_ASSETS = [
   './style.min.css',
   './effect_tags.json',
   './effect_labels.json',
+  /* FIX-77: английские подписи мишеней — нужны офлайн так же, как русские. */
+  './effect_labels_en.json',
   './sup/index.html',
   './sup/kreatin.html',
   './sup/magniy.html',

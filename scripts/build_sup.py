@@ -453,6 +453,9 @@ def build_context(rec: dict, slug: str, warnings: list[str]) -> dict:
     return {
         "name": html_val(rec.get("name")),
         "slug": slug,
+        # FIX-77: id нужен английскому оверлею на клиенте — sup-страница
+        # статическая, а data_en.json ключуется русским id карточки.
+        "id": html_val(rec.get("id")),
         "url": f"{BASE_URL}/sup/{slug}.html",
         "base_url": BASE_URL,
         "about": html_val(rec.get("about")),
@@ -597,18 +600,19 @@ def build_index_context(by_slug: dict[str, dict], warnings: list[str]) -> dict:
                 f"{slug}: грейд {grade!r} вне {GRADE_ORDER} — на карточке "
                 f"не будет класса .grade.gX. Проверь data.json."
             )
-        raw.append((name, slug, category, verdict, grade, code))
+        raw.append((name, slug, category, verdict, grade, code, text(rec.get("id")) or name))
 
     raw.sort(key=lambda row: (row[0], row[1]))
 
     cards = []
-    for name, slug, category, verdict, grade, code in raw:
+    for name, slug, category, verdict, grade, code, cid in raw:
         # hay — то, по чему ищет поле фильтра на странице. Строится из
         # сырых строк и приводится в нижний регистр, потому что сравнение
         # в браузере тоже в нижнем регистре (toLowerCase).
         hay = " ".join((name, category, verdict, grade)).lower()
         cards.append({
             "slug": slug,
+            "id": html_val(cid),
             "name": html_val(name),
             "category": html_val(category),
             "verdict": html_val(verdict),

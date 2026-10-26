@@ -34,7 +34,7 @@
     </script>
     <link rel="stylesheet" href="../style.min.css?v=462">
     <script src="../version.js?v=312"></script>
-    <script src="../i18n.js?v=13"></script>
+    <script src="../i18n.js?v=15"></script>
     <script src="../pwa.js?v=283" defer></script>
 <script src="../share.js?v=2" defer></script>
     <script type="application/ld+json">
@@ -54,7 +54,7 @@
     </script>
     
 </head>
-<body>
+<body data-sup-id="SAMe" data-sup-slug="same">
 <a href="#main" class="skip-link" data-i18n-text="a11y.skipToContent">Перейти к содержимому</a>
 
 <div class="site-header">
@@ -74,15 +74,15 @@
 </div>
 
 <main id="main" class="sup-wrap">
-  <h1>SAMe<span data-i18n-text="sup.h1Suffix">: доказательства</span></h1>
+  <h1><span data-sup="name">SAMe</span><span data-i18n-text="sup.h1Suffix">: доказательства</span></h1>
 
     
     <nav class="breadcrumbs">
-        <a href="../index.html" data-i18n-text="nav.home">Главная</a> → <a href="index.html" data-i18n-text="nav.catalog">Каталог</a> → <strong>SAMe</strong>
+        <a href="../index.html" data-i18n-text="nav.home">Главная</a> → <a href="index.html" data-i18n-text="nav.catalog">Каталог</a> → <strong><span data-sup="name">SAMe</span></strong>
     </nav>
 
     <div class="sup-header">
-        <h2>SAMe</h2>
+        <h2><span data-sup="name">SAMe</span></h2>
         <span class="grade-badge" style="background:var(--grade-b-fill)"><abbr data-i18n-title="trends.gradeAbbr" data-i18n-tooltip="sup.gradeTooltip" data-i18n-text="sup.gradeShort" data-i18n-vars='{"g": "B"}' data-tooltip="Грейд B">Грейд B</abbr></span>
         
         <div class="placebo-bar" data-i18n-aria-label="sup.placeboBar" aria-label="Размер эффекта плацебо">
@@ -93,7 +93,7 @@
             <span class="placebo-label" data-i18n-text="sup.effect">Эффект</span>
         </div>
         
-        <span class="verdict">— работает</span>
+        <span class="verdict">— <span data-sup="verdict">работает</span></span>
         <button class="btn btn-cite" type="button" id="citeBtn" aria-label="Цитировать SAMe" data-i18n-aria-label="sup.citeTitle" data-i18n-text="sup.citeLabel">📋 Цитировать</button>
         <span id="citeTooltip" class="cite-tooltip" role="tooltip" aria-hidden="true" data-i18n-text="cite.copied">Скопировано!</span>
         <button class="btn btn-tts" type="button" id="ttsBtn" aria-label="Прослушать SAMe" data-i18n-aria-label="sup.ttsTitle" data-i18n-text="sup.ttsLabel">🔊 Прослушать</button>
@@ -115,47 +115,47 @@
 
     <div class="sup-section">
         <h2 data-i18n-text="sup.h2About">О добавке</h2>
-        <p>Донор метильных групп; помогает при депрессии (адъювант), боли при остеоартрозе и поддержке печени.</p>
-        <p><b data-i18n-text="sup.whoNeeds">Кому нужно:</b> Взрослые с депрессией (дополнение к терапии); при остеоартрозе — мягкое обезболивание; при патологии печени.</p>
-        <p><b data-i18n-text="sup.onset">Когда эффект:</b> Депрессия: улучшение в первые недели; боль при артрозе — малый сдвиг к 1–3 мес.</p>
+        <p data-sup="about">Донор метильных групп; помогает при депрессии (адъювант), боли при остеоартрозе и поддержке печени.</p>
+        <p><b data-i18n-text="sup.whoNeeds">Кому нужно:</b> <span data-sup="who_needs">Взрослые с депрессией (дополнение к терапии); при остеоартрозе — мягкое обезболивание; при патологии печени.</span></p>
+        <p><b data-i18n-text="sup.onset">Когда эффект:</b> <span data-sup="onset">Депрессия: улучшение в первые недели; боль при артрозе — малый сдвиг к 1–3 мес.</span></p>
     </div>
 
     <div class="sup-section">
         <h2 data-i18n-text="sup.h2Metrics">Метрики</h2>
         <p><b data-i18n-text="sup.scienceIndex">Индекс науки:</b> 2504 · <b data-i18n-text="sup.rct">РКИ:</b> 1699 · <b data-i18n-text="sup.metaCount">Мета-анализов:</b> 161</p>
-        <p><b data-i18n-text="sup.category">Категория:</b> Психика/Суставы</p>
+        <p><b data-i18n-text="sup.category">Категория:</b> <span data-sup="category">Психика/Суставы</span></p>
     </div>
 
     <div class="sup-section">
         <h2 data-i18n-text="sup.h2Effects">Эффекты</h2>
-        <div><span class="tag">Депрессия адъюнкт: малые МА</span></div>
+        <div><span class="tag" data-sup="effect" data-sup-i="0">Депрессия адъюнкт: малые МА</span></div>
     </div>
 
     <div class="sup-section">
         <h2 data-i18n-text="sup.h2Mechs">Механизмы действия</h2>
         
         <div class="mech-card">
-            <div class="mech-body">Донор метильных групп в синтезе НМ</div>
-            <div class="mech-effect">Депрессия адъюнкт: малые МА</div>
-            <div class="mech-strength s-context">контекст</div>
+            <div class="mech-body" data-sup="mech-body" data-sup-i="0">Донор метильных групп в синтезе НМ</div>
+            <div class="mech-effect" data-sup="mech-effect" data-sup-i="0">Депрессия адъюнкт: малые МА</div>
+            <div class="mech-strength s-context" data-sup="mech-strength" data-sup-i="0">контекст</div>
         </div>
         <div class="mech-card">
-            <div class="mech-body">Снижение боли при остеоартрозе колена/тазобедренного сустава</div>
-            <div class="mech-effect">Боль: SMD −0.17, ~0.4 см VAS; функция без эффекта (4 РКИ, 656)</div>
-            <div class="mech-strength s-weak">слабо</div>
+            <div class="mech-body" data-sup="mech-body" data-sup-i="1">Снижение боли при остеоартрозе колена/тазобедренного сустава</div>
+            <div class="mech-effect" data-sup="mech-effect" data-sup-i="1">Боль: SMD −0.17, ~0.4 см VAS; функция без эффекта (4 РКИ, 656)</div>
+            <div class="mech-strength s-weak" data-sup="mech-strength" data-sup-i="1">слабо</div>
         </div>
         <div class="mech-card">
-            <div class="mech-body">Метилирование в гепатоцитах: поддержка при заболеваниях печени</div>
-            <div class="mech-effect">Печёночные показатели лучше, НЯ редкие (1000–1200 мг/д; SR 15 статей)</div>
-            <div class="mech-strength s-context">контекст</div>
+            <div class="mech-body" data-sup="mech-body" data-sup-i="2">Метилирование в гепатоцитах: поддержка при заболеваниях печени</div>
+            <div class="mech-effect" data-sup="mech-effect" data-sup-i="2">Печёночные показатели лучше, НЯ редкие (1000–1200 мг/д; SR 15 статей)</div>
+            <div class="mech-strength s-context" data-sup="mech-strength" data-sup-i="2">контекст</div>
         </div>
     </div>
 
     <div class="sup-section">
         <h2 data-i18n-text="sup.h2Dosage">Дозировка</h2>
-        <p><b data-i18n-text="sup.standardDose">Стандартная доза:</b> 400-800 мг</p>
-        <p><b data-i18n-text="sup.course">Курс:</b> —</p>
-        <p><b data-i18n-text="sup.upperLimit">Верхний предел:</b> Формального UL не установлен — данных о токсичности нет.</p>
+        <p><b data-i18n-text="sup.standardDose">Стандартная доза:</b> <span data-sup="dosage">400-800 мг</span></p>
+        <p><b data-i18n-text="sup.course">Курс:</b> <span data-sup="course">—</span></p>
+        <p><b data-i18n-text="sup.upperLimit">Верхний предел:</b> <span data-sup="upper_limit">Формального UL не установлен — данных о токсичности нет.</span></p>
     </div>
 
     
@@ -168,7 +168,7 @@
             <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=SAMe" target="_blank" rel="nofollow noopener" class="shop-btn">WB ↗</a>
         </div>
         <div class="shop-look">
-            <strong data-i18n-text="sup.lookFor">Что искать при покупке:</strong> <span data-i18n-text="sup.lookForForm" data-i18n-vars='{"form": "кишечнорастворимые формы"}'>Ищите форму «кишечнорастворимые формы» на этикетке, проверяйте дозировку и наличие сертификата качества (GMP/ISO).</span>
+            <strong data-i18n-text="sup.lookFor">Что искать при покупке:</strong> <span data-sup="shopLook"><span data-i18n-text="sup.lookForForm" data-i18n-vars='{"form": "кишечнорастворимые формы"}'>Ищите форму «кишечнорастворимые формы» на этикетке, проверяйте дозировку и наличие сертификата качества (GMP/ISO).</span></span>
         </div>
     </div>
     
@@ -177,21 +177,21 @@
 
     <div class="sup-section">
         <h2 data-i18n-text="sup.h2Caution">Осторожно</h2>
-        <p>SAMe (S-аденозилметионин) — универсальный донор метильных групп. Для депрессии: эффективность сравнима с СИОЗС в РКИ. Для остеоартрита: Cochrane-обзор (19821403) подтверждает обезболивающий эффект. Для печени: есть данные. Для биполярного расстройства: ОСТОРОЖНО (риск мании). Высокая цена, низкая стабильность — нужны кишечнорастворимые формы. Доза: 400-1600 мг/день.</p>
+        <p data-sup="caution">SAMe (S-аденозилметионин) — универсальный донор метильных групп. Для депрессии: эффективность сравнима с СИОЗС в РКИ. Для остеоартрита: Cochrane-обзор (19821403) подтверждает обезболивающий эффект. Для печени: есть данные. Для биполярного расстройства: ОСТОРОЖНО (риск мании). Высокая цена, низкая стабильность — нужны кишечнорастворимые формы. Доза: 400-1600 мг/день.</p>
     </div>
 
     <div class="sup-section">
         <h2 data-i18n-text="sup.h2Myths">Мифы</h2>
-        <p>«Мгновенно поднимает настроение» — при большой депрессии эффект отсрочен. «Безобиден при биполярке» — риск мании, только с врачом.</p>
+        <p data-sup="myths">«Мгновенно поднимает настроение» — при большой депрессии эффект отсрочен. «Безобиден при биполярке» — риск мании, только с врачом.</p>
     </div>
 
     <div class="sup-section">
         <h2 data-i18n-text="sup.h2Interactions">Взаимодействия</h2>
         
         <div class="inter-card inter-high">
-            <div class="inter-with">антидепрессанты SSRI/MAO</div>
+            <div class="inter-with" data-sup="inter-with" data-sup-i="0">антидепрессанты SSRI/MAO</div>
             <div class="inter-sev">high</div>
-            <div class="inter-note">серотониновый синдром</div>
+            <div class="inter-note" data-sup="inter-note" data-sup-i="0">серотониновый синдром</div>
         </div>
     </div>
 
@@ -214,14 +214,14 @@
 
     <div class="sup-section">
         <h2 data-i18n-text="sup.h2Forms">Формы выпуска</h2>
-        <p>кишечнорастворимые формы</p>
+        <p data-sup="forms">кишечнорастворимые формы</p>
     </div>
 
     <div class="sup-section">
         <h2 data-i18n-text="sup.h2HowTo">Как выбирать</h2>
-        <p>Кишечнорастворимые формы, 400–800 мг/д натощак; при депрессии/биполярке — только с врачом. Дорого.</p>
-        <p><b data-i18n-text="sup.foodSources">Пищевые источники:</b> Из еды напрямую не набрать — синтезируется организмом из метионина (яйца, рыба, бобовые).</p>
-        <p><b data-i18n-text="sup.guidelines">Клинические рекомендации:</b> Cochrane 2009: боль при артрозе −0.4 см VAS, функция та же. Печень: 1000–1200 мг/д улучшает параметры (SR 2024).</p>
+        <p data-sup="how_to_choose">Кишечнорастворимые формы, 400–800 мг/д натощак; при депрессии/биполярке — только с врачом. Дорого.</p>
+        <p><b data-i18n-text="sup.foodSources">Пищевые источники:</b> <span data-sup="food_sources">Из еды напрямую не набрать — синтезируется организмом из метионина (яйца, рыба, бобовые).</span></p>
+        <p><b data-i18n-text="sup.guidelines">Клинические рекомендации:</b> <span data-sup="guidelines">Cochrane 2009: боль при артрозе −0.4 см VAS, функция та же. Печень: 1000–1200 мг/д улучшает параметры (SR 2024).</span></p>
     </div>
 
     <a href="index.html" class="back-link" data-i18n-text="sup.backToCatalog">← В каталог</a>
