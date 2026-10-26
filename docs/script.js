@@ -73,13 +73,18 @@ const PMID_QUERY_RE = /^\d{4,}$/;
 function ensureFullData() {
   if (supplementsFull) return Promise.resolve(supplementsFull);
   if (!supplementsFullPromise) {
-    supplementsFullPromise = fetchJson('data.json').then(data => {
-      supplementsFull = Object.fromEntries(data.map(c => [c.id, c]));
-      return supplementsFull;
-    }).catch(err => {
-      supplementsFullPromise = null;   // разрешаем retry
-      throw err;
-    });
+    // FIX-77: в EN к data.json добавляется оверлей data_en.json. В RU
+    // loadEnCards() резолвится в null без сетевого запроса, поэтому
+    // русская версия грузит ровно те же файлы, что и раньше.
+    supplementsFullPromise = Promise.all([fetchJson('data.json'), loadEnCards()])
+      .then(([data, enCards]) => {
+        const list = enCards ? data.map(c => mergeEnCard(c, enCards[c.id])) : data;
+        supplementsFull = Object.fromEntries(list.map(c => [c.id, c]));
+        return supplementsFull;
+      }).catch(err => {
+        supplementsFullPromise = null;   // разрешаем retry
+        throw err;
+      });
   }
   return supplementsFullPromise;
 }
@@ -434,7 +439,12 @@ const fetchJson = (url) => fetch(url + '?ts=' + Date.now())
 // data.json) грузятся через fetchJson, а .json.gz в проекте нет.
 // DecompressionStream-вариант можно вернуть, когда появятся .gz-артефакты
 // в пайплайне сборки данных.
-Promise.allSettled([fetchJson('data_index.json'), fetchJson('effect_tags.json'), fetchJson('effect_labels.json')])
+// FIX-77: подписи мишеней («Сон», «ЖКТ / кишечник») — такой же контент,
+// как данные карточек, поэтому в EN берём английский оверлей. Язык читаем
+// из <html lang>: i18n.js выставляет его при загрузке, раньше этого скрипта.
+const LABELS_SRC = document.documentElement.lang === 'en'
+  ? 'effect_labels_en.json' : 'effect_labels.json';
+Promise.allSettled([fetchJson('data_index.json'), fetchJson('effect_tags.json'), fetchJson(LABELS_SRC)])
   .then(([d, tg, lb]) => {
     if (d.status !== 'fulfilled') throw new Error('data_index.json не загружен');
     const idx = d.value;
@@ -442,8 +452,14 @@ Promise.allSettled([fetchJson('data_index.json'), fetchJson('effect_tags.json'),
     effectTags = tg.status === 'fulfilled' ? tg.value : {};
     effectLabels = lb.status === 'fulfilled' ? lb.value : {};
     if (tg.status !== 'fulfilled') console.warn('[effect_tags.json] ?? ???????? ? ???? ?????????');
-    if (lb.status !== 'fulfilled') console.warn('[effect_labels.json] ?? ???????? ? ???? ?????????');
-    initApp();
+    if (lb.status !== 'fulfilled') console.warn('[' + LABELS_SRC + '] ?? ???????? ? ???? ?????????');
+    // FIX-77: index-карточки тоже берут имя/категорию/вердикт/эффекты из
+    // data.json, поэтому в EN накладываем тот же оверлей. Поля, которых
+    // в оверлее нет, остаются русскими.
+    return loadEnCards().then((enCards) => {
+      if (enCards) supplements = supplements.map(c => mergeEnCard(c, enCards[c.id]));
+      initApp();
+    });
   })
   .catch((err) => {
     console.error('[boot] фатально:', err);
@@ -1051,25 +1067,16 @@ function trapModalFocus(e) {
 async function openModal(id) {
   scrollBeforeModal = window.scrollY || 0;
 
-  // Lazy load полного data.json при первом клике (кешируется в памяти)
+  // FIX-77: раньше здесь был свой fetchJson('data.json') — дубль
+  // ensureFullData() и обход EN-оверлея. Теперь единая точка загрузки.
   let s = supplementsFull ? supplementsFull[id] : null;
   if (!s) {
-    if (!supplementsFullPromise) {
-      console.log('[modal] загружаем полный data.json (один раз за сессию)…');
-      supplementsFullPromise = fetchJson('data.json').then(data => {
-        supplementsFull = Object.fromEntries(data.map(c => [c.id, c]));
-        return supplementsFull;
-      }).catch(err => {
-        console.error('[modal] не удалось загрузить data.json:', err);
-        supplementsFullPromise = null;  // разрешим retry
-        throw err;
-      });
-    }
     try {
-      const map = await supplementsFullPromise;
+      const map = await ensureFullData();
       s = map[id];
-    } catch {
-      return;  // уже залогировано
+    } catch (err) {
+      console.error('[modal] не удалось загрузить data.json:', err);
+      return;
     }
   }
   if (!s) return;
@@ -1336,18 +1343,8 @@ async function renderCompare() {
   let a = supplementsFull ? supplementsFull[idA] : null;
   let b = supplementsFull ? supplementsFull[idB] : null;
   if (!a || !b) {
-    if (!supplementsFullPromise) {
-      supplementsFullPromise = fetchJson('data.json').then(data => {
-        supplementsFull = Object.fromEntries(data.map(c => [c.id, c]));
-        return supplementsFull;
-      }).catch(err => {
-        console.error('[compare] не удалось загрузить data.json:', err);
-        supplementsFullPromise = null;
-        throw err;
-      });
-    }
     try {
-      const map = await supplementsFullPromise;
+      const map = await ensureFullData();
       a = map[idA];
       b = map[idB];
     } catch {

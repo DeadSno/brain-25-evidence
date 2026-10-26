@@ -590,7 +590,10 @@
 
   function loadData() {
     /* index.json — 88 КБ, data.json — 758 КБ. Сначала пробуем лёгкий. */
-    return fetchJson('data_index.json')
+    /* FIX-77: в EN к каждой записи подмешивается data_en.json (имя,
+       категория, вердикт, эффекты). В RU loadEnCards() возвращает null
+       без сетевого запроса, поведение прежнее. */
+    var base = fetchJson('data_index.json')
       .then(supplementsOf)
       .then(function (arr) {
         if (!arr.length) throw new Error('data_index.json пуст');
@@ -600,6 +603,17 @@
         console.warn('[hactar] data_index.json не подошёл (' + err.message + '), пробуем data.json');
         return fetchJson('data.json').then(supplementsOf);
       });
+    return Promise.all([base, enCards()]).then(function (res) {
+      var arr = res[0], en = res[1];
+      if (!en) return arr;
+      return arr.map(function (c) { return window.mergeEnCard(c, en[c.id]); });
+    });
+  }
+
+  /* FIX-77: общий загрузчик EN-оверлея (docs/i18n.js). Без i18n.js
+     (теоретический вызов вне страницы) — просто null. */
+  function enCards() {
+    return window.loadEnCards ? window.loadEnCards() : Promise.resolve(null);
   }
 
   /* ───────────────────────── skeleton ───────────────────────── */
@@ -1112,7 +1126,10 @@
    */
   var GRAPH_DATA_SRC = 'graph_data.json';
   var GRAPH_POS_SRC = 'graph_positions.json';
-  var GRAPH_LABEL_SRC = 'effect_labels.json';
+  /* FIX-77: в EN подписи мишеней берутся из английского оверлея
+     (effect_labels_en.json). <html lang> выставляет docs/i18n.js до этого. */
+  var GRAPH_LABEL_SRC = document.documentElement.lang === 'en'
+    ? 'effect_labels_en.json' : 'effect_labels.json';
   var GRAPH_FULL_SRC = 'data.json';
 
   /* Цвета узлов: зелёный — добавка, фиолетовый — механизм или мишень,
@@ -1816,11 +1833,17 @@
   }
 
   function loadFullMechs() {
-    return fetchJsonStatic(GRAPH_FULL_SRC).then(function (data) {
+    return Promise.all([fetchJsonStatic(GRAPH_FULL_SRC), enCards()]).then(function (res) {
+      var data = res[0], en = res[1] || {};
       var list = Array.isArray(data) ? data : ((data && data.supplements) || []);
       var map = {};
       for (var i = 0; i < list.length; i++) {
-        if (list[i] && list[i].id) map[list[i].id] = list[i].mechs || [];
+        if (list[i] && list[i].id) {
+          /* FIX-77: механизмы в EN берём из оверлея — иначе в графе
+             всплывали русские тексты при английском интерфейсе. */
+          var tr = en[list[i].id];
+          map[list[i].id] = (tr && tr.mechs) || list[i].mechs || [];
+        }
       }
       fullMechs = map;
       return map;
@@ -2031,11 +2054,17 @@
      таблица осталась бы без дозировок и форм. */
   function loadFullData() {
     if (fullDataPromise) return fullDataPromise;
-    fullDataPromise = fetchJsonStatic('data.json').then(function (data) {
+    fullDataPromise = Promise.all([fetchJsonStatic('data.json'), enCards()]).then(function (res) {
+      var data = res[0], en = res[1];
       var list = supplementsOf(data);
       var map = {};
       for (var i = 0; i < list.length; i++) {
-        if (list[i] && list[i].id) map[list[i].id] = list[i];
+        if (!list[i] || !list[i].id) continue;
+        /* FIX-77: дозировка, формы, курс в таблице обзора тоже данные,
+           а не интерфейс — в EN накладываем оверлей по id. */
+        map[list[i].id] = (en && en[list[i].id])
+          ? window.mergeEnCard(list[i], en[list[i].id])
+          : list[i];
       }
       fullData = map;
       return map;

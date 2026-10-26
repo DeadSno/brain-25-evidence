@@ -1058,24 +1058,34 @@ const I18N = {
     "index.why5b": "Ответов три, а не два.",
     "index.why5t": "Если мета-анализов мало, остаётся «Возможен» — в «ПОЛЕЗНО» он не превращается. Спорные эффекты помечены прямо на карточке.",
     "index.popularTitle": "Популярные добавки",
+    "index.pop.magniy.name": "Магний",
     "index.pop.magniy.cat": "Минерал / Сердце",
     "index.pop.magniy.eff": "Сон, расслабление",
+    "index.pop.omega-3.name": "Омега-3",
     "index.pop.omega-3.cat": "Сердце",
     "index.pop.omega-3.eff": "Нейропластичность",
+    "index.pop.vitamin-d.name": "Витамин D",
     "index.pop.vitamin-d.cat": "Кости / Иммунитет",
     "index.pop.vitamin-d.eff": "Настроение (при дефиците)",
+    "index.pop.vitamin-b12.name": "Витамин B12",
     "index.pop.vitamin-b12.cat": "Нервная система / Кровь",
     "index.pop.vitamin-b12.eff": "Когниция (при дефиците)",
+    "index.pop.tsink.name": "Цинк",
     "index.pop.tsink.cat": "Иммунитет / ОРВИ",
     "index.pop.tsink.eff": "Когниция (при дефиците)",
+    "index.pop.kurkumin.name": "Куркумин",
     "index.pop.kurkumin.cat": "Воспаление / Суставы",
     "index.pop.kurkumin.eff": "Настроение, когниция",
+    "index.pop.zhelezo.name": "Железо",
     "index.pop.zhelezo.cat": "Кровь / Анемия",
     "index.pop.zhelezo.eff": "Энергия (при анемии)",
+    "index.pop.melatonin.name": "Мелатонин",
     "index.pop.melatonin.cat": "Сон / Циркадные ритмы",
     "index.pop.melatonin.eff": "Засыпание, джетлаг",
+    "index.pop.vitamin-c.name": "Витамин C",
     "index.pop.vitamin-c.cat": "Иммунитет / Антиоксидант",
     "index.pop.vitamin-c.eff": "Иммунитет (при нагрузках)",
+    "index.pop.kreatin.name": "Креатин",
     "index.pop.kreatin.cat": "Спорт / Когниция",
     "index.pop.kreatin.eff": "Рабочая память под нагрузкой",
     "shop.whereOzon": "Где искать: Ozon",
@@ -2252,48 +2262,58 @@ const I18N = {
     "index.why5b": "Three answers, not two.",
     "index.why5t": "If there are few meta-analyses, it stays “Possible” — it never turns into “USEFUL”. Contested effects are flagged right on the card.",
     "index.popularTitle": "Popular supplements",
+    "index.pop.magniy.name": "Magnesium",
     "index.pop.magniy.cat": "Mineral / Heart",
     "index.pop.magniy.eff": "Sleep, relaxation",
+    "index.pop.omega-3.name": "Omega-3",
     "index.pop.omega-3.cat": "Heart",
     "index.pop.omega-3.eff": "Neuroplasticity",
+    "index.pop.vitamin-d.name": "Vitamin D",
     "index.pop.vitamin-d.cat": "Bones / Immunity",
     "index.pop.vitamin-d.eff": "Mood (if deficient)",
+    "index.pop.vitamin-b12.name": "Vitamin B12",
     "index.pop.vitamin-b12.cat": "Nervous system / Blood",
     "index.pop.vitamin-b12.eff": "Cognition (if deficient)",
+    "index.pop.tsink.name": "Zinc",
     "index.pop.tsink.cat": "Immunity / Colds",
     "index.pop.tsink.eff": "Cognition (if deficient)",
+    "index.pop.kurkumin.name": "Curcumin",
     "index.pop.kurkumin.cat": "Inflammation / Joints",
     "index.pop.kurkumin.eff": "Mood, cognition",
+    "index.pop.zhelezo.name": "Iron",
     "index.pop.zhelezo.cat": "Blood / Anemia",
     "index.pop.zhelezo.eff": "Energy (with anemia)",
+    "index.pop.melatonin.name": "Melatonin",
     "index.pop.melatonin.cat": "Sleep / Circadian rhythm",
     "index.pop.melatonin.eff": "Falling asleep, jet lag",
+    "index.pop.vitamin-c.name": "Vitamin C",
     "index.pop.vitamin-c.cat": "Immunity / Antioxidant",
     "index.pop.vitamin-c.eff": "Immunity (under stress)",
+    "index.pop.kreatin.name": "Creatine",
     "index.pop.kreatin.cat": "Sport / Cognition",
     "index.pop.kreatin.eff": "Working memory under load",
     "shop.whereOzon": "Where to look: Ozon",
     "shop.whereWb": "Where to look: Wildberries",
-    "index.pop.magniy.ozon": "Find Магний on Ozon",
-    "index.pop.magniy.wb": "Find Магний on Wildberries",
-    "index.pop.omega-3.ozon": "Find Омега-3 on Ozon",
-    "index.pop.omega-3.wb": "Find Омега-3 on Wildberries",
-    "index.pop.vitamin-d.ozon": "Find Витамин D on Ozon",
-    "index.pop.vitamin-d.wb": "Find Витамин D on Wildberries",
-    "index.pop.vitamin-b12.ozon": "Find Витамин B12 on Ozon",
-    "index.pop.vitamin-b12.wb": "Find Витамин B12 on Wildberries",
-    "index.pop.tsink.ozon": "Find Цинк on Ozon",
-    "index.pop.tsink.wb": "Find Цинк on Wildberries",
-    "index.pop.kurkumin.ozon": "Find Куркумин on Ozon",
-    "index.pop.kurkumin.wb": "Find Куркумин on Wildberries",
-    "index.pop.zhelezo.ozon": "Find Железо on Ozon",
-    "index.pop.zhelezo.wb": "Find Железо on Wildberries",
-    "index.pop.melatonin.ozon": "Find Мелатонин on Ozon",
-    "index.pop.melatonin.wb": "Find Мелатонин on Wildberries",
-    "index.pop.vitamin-c.ozon": "Find Витамин C on Ozon",
-    "index.pop.vitamin-c.wb": "Find Витамин C on Wildberries",
-    "index.pop.kreatin.ozon": "Find Креатин on Ozon",
-    "index.pop.kreatin.wb": "Find Креатин on Wildberries",
+    "index.pop.magniy.ozon": "Find Magnesium on Ozon",
+    "index.pop.magniy.wb": "Find Magnesium on Wildberries",
+    "index.pop.omega-3.ozon": "Find Omega-3 on Ozon",
+    "index.pop.omega-3.wb": "Find Omega-3 on Wildberries",
+    "index.pop.vitamin-d.ozon": "Find Vitamin D on Ozon",
+    "index.pop.vitamin-d.wb": "Find Vitamin D on Wildberries",
+    "index.pop.vitamin-b12.ozon": "Find Vitamin B12 on Ozon",
+    "index.pop.vitamin-b12.wb": "Find Vitamin B12 on Wildberries",
+    "index.pop.tsink.ozon": "Find Zinc on Ozon",
+    "index.pop.tsink.wb": "Find Zinc on Wildberries",
+    "index.pop.kurkumin.ozon": "Find Curcumin on Ozon",
+    "index.pop.kurkumin.wb": "Find Curcumin on Wildberries",
+    "index.pop.zhelezo.ozon": "Find Iron on Ozon",
+    "index.pop.zhelezo.wb": "Find Iron on Wildberries",
+    "index.pop.melatonin.ozon": "Find Melatonin on Ozon",
+    "index.pop.melatonin.wb": "Find Melatonin on Wildberries",
+    "index.pop.vitamin-c.ozon": "Find Vitamin C on Ozon",
+    "index.pop.vitamin-c.wb": "Find Vitamin C on Wildberries",
+    "index.pop.kreatin.ozon": "Find Creatine on Ozon",
+    "index.pop.kreatin.wb": "Find Creatine on Wildberries",
     "index.catalogLink": "Open the full catalog (130 supplements) →",
     "index.chartTitle": "Evidence: science index / research volume",
     "index.chartHint": "(bubble = meta-analyses, Y axis is logarithmic)",
@@ -2542,9 +2562,210 @@ function initLangSwitcher() {
   }
 }
 
+// ── FIX-77: английские данные карточек ──────────────────────────────────
+// Интерфейс переводится словарями выше, а данные (эффекты, механизмы,
+// дозировки, мифы, осторожность) приходят из docs/data.json и остаются
+// русскими. Рядом лежит docs/data_en.json — оверлей, ключ у которого
+// русский id карточки, а значение — только переведённые поля.
+//
+// Почему оверлей, а не второй полный data.json: 130 карточек на русском
+// должны остаться байт-в-байт (визуальные эталоны, data_index.json, тесты
+// на кириллицу). Оверлей — надстройка: нет поля — берётся русское,
+// поэтому частично переведённая карточка не ломает страницу.
+var EN_DATA_FILE = 'data_en.json';
+// sup/*.html лежат на уровень глубже, чем script.js и hactar.js: оттуда
+// относительный путь «data_en.json» указал бы на sup/data_en.json (404).
+var EN_DATA_BASE = /\/sup\//.test(location.pathname) ? '../' : '';
+var EN_CARD_FIELDS = [
+  'name', 'title', 'category', 'verdict', 'effects', 'dosage', 'course',
+  'caution', 'about', 'who_needs', 'onset', 'upper_limit', 'food_sources',
+  'guidelines', 'how_to_choose', 'myths', 'forms', 'mechs', 'interactions',
+  'synergists', 'antagonists'
+];
+var _enCardsPromise = null;
+
+// Загружается только в EN и только один раз за страницу. Ошибка сети не
+// фатальна: возвращаем null, страница остаётся на русских данных.
+function loadEnCards() {
+  if (LOCALE !== 'en') return Promise.resolve(null);
+  if (!_enCardsPromise) {
+    _enCardsPromise = fetch(EN_DATA_BASE + EN_DATA_FILE + '?ts=' + Date.now())
+      .then(function (r) {
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.json();
+      })
+      .then(function (d) { return (d && d.supplements) || {}; })
+      .catch(function (err) {
+        console.warn('[i18n] ' + EN_DATA_FILE + ' не загрузился:', err && err.message);
+        _enCardsPromise = null;   // разрешаем повтор
+        return null;
+      });
+  }
+  return _enCardsPromise;
+}
+
+// Накладывает перевод на копию карточки. Исходный объект не мутируется:
+// тот же массив карточек используется сортировкой и фильтрами.
+function mergeEnCard(card, en) {
+  if (!card || !en) return card;
+  var out = {};
+  for (var k in card) if (Object.prototype.hasOwnProperty.call(card, k)) out[k] = card[k];
+  for (var i = 0; i < EN_CARD_FIELDS.length; i++) {
+    var f = EN_CARD_FIELDS[i];
+    if (en[f] !== undefined && en[f] !== null) out[f] = en[f];
+  }
+  return out;
+}
+
+// sup-страницы статические: данных в JS нет. Скрипт находит в разметке
+// маркеры data-sup="<поле>" (их ставит templates/sup.html.j2) и подставляет
+// перевод по индексу data-sup-i для списков.
+function _supText(field) {
+  var el = document.querySelector('[data-sup="' + field + '"]');
+  return el ? el.textContent.trim() : '';
+}
+
+function _supSwapMeta(pairs) {
+  var nodes = document.querySelectorAll(
+    'title, meta[name="description"], meta[property="og:title"],' +
+    ' meta[property="og:description"], meta[name="twitter:title"],' +
+    ' meta[name="twitter:description"]'
+  );
+  nodes.forEach(function (el) {
+    var val = el.tagName === 'TITLE' ? el.textContent : el.getAttribute('content');
+    if (!val) return;
+    var next = val;
+    pairs.forEach(function (p) {
+      if (p[0] && p[1] && p[0] !== p[1]) next = next.split(p[0]).join(p[1]);
+    });
+    if (next === val) return;
+    if (el.tagName === 'TITLE') el.textContent = next;
+    else el.setAttribute('content', next);
+  });
+}
+
+function applyEnSupData(card) {
+  if (!card) return;
+  // Русские значения нужны до подстановки: по ним меняются title и meta.
+  var ruName = _supText('name');
+  var ruCategory = _supText('category');
+  var ruEffect = _supText('effect');
+
+  function setOne(field, value) {
+    if (value == null || value === '') return;
+    document.querySelectorAll('[data-sup="' + field + '"]').forEach(function (el) {
+      el.textContent = value;
+    });
+  }
+  function setMany(field, list) {
+    if (!list) return;
+    document.querySelectorAll('[data-sup="' + field + '"]').forEach(function (el) {
+      var i = parseInt(el.getAttribute('data-sup-i'), 10);
+      if (!isNaN(i) && i < list.length) el.textContent = list[i];
+    });
+  }
+
+  setOne('name', card.name);
+  setOne('verdict', card.verdict);
+  setOne('category', card.category);
+  setOne('about', card.about);
+  setOne('who_needs', card.who_needs);
+  setOne('onset', card.onset);
+  setOne('dosage', card.dosage);
+  setOne('course', card.course);
+  setOne('upper_limit', card.upper_limit);
+  setOne('caution', card.caution);
+  setOne('myths', card.myths);
+  setOne('how_to_choose', card.how_to_choose);
+  setOne('food_sources', card.food_sources);
+  setOne('guidelines', card.guidelines);
+  if (card.forms && card.forms.length) setOne('forms', card.forms.join(', '));
+  setMany('effect', card.effects);
+  setMany('mech-body', (card.mechs || []).map(function (m) { return m[0]; }));
+  setMany('mech-effect', (card.mechs || []).map(function (m) { return m[1]; }));
+  setMany('mech-strength', (card.mechs || []).map(function (m) { return m[2]; }));
+  setMany('inter-with', (card.interactions || []).map(function (x) { return x.with; }));
+  setMany('inter-note', (card.interactions || []).map(function (x) { return x.note; }));
+
+  // Смешанная строка FIX-77: «Look for the "триглицерид" form» получалась
+  // потому, что шаблон подставлял русскую форму в английское предложение.
+  // Теперь форма берётся из оверлея, а фраза — из словаря.
+  var look = document.querySelector('[data-sup="shopLook"]');
+  if (look) {
+    look.textContent = card.forms && card.forms.length
+      ? t('sup.lookForForm', { form: card.forms[0] })
+      : t('sup.lookForGeneric');
+  }
+
+  _supSwapMeta([
+    [ruName, card.name],
+    [ruCategory, card.category],
+    [ruEffect, card.effects && card.effects[0]]
+  ]);
+}
+
+// Каталог sup/index.html: 130 ссылок, каждая со своим data-sup-id. Имя,
+// категория и вердикт в списке — тоже данные из data.json, поэтому в EN
+// они переводятся тем же оверлеем. data-hay (по нему ищет поле фильтра)
+// пересобирается на английском: иначе поиск «magnesium» давал бы пусто.
+function applyEnCatalog(cards) {
+  var links = document.querySelectorAll('a[data-sup-id]');
+  links.forEach(function (a) {
+    var card = cards[a.getAttribute('data-sup-id')];
+    if (!card) return;
+    var nameEl = a.querySelector('.card-title');
+    var catEl = a.querySelector('.cat');
+    var verEl = a.querySelector('.verdict');
+    if (nameEl && card.name) nameEl.textContent = card.name;
+    if (catEl && card.category) catEl.textContent = card.category;
+    if (verEl && card.verdict) verEl.textContent = card.verdict;
+    var hay = [card.name, card.category, card.verdict, a.getAttribute('data-grade')]
+      .filter(Boolean).join(' ').toLowerCase();
+    if (hay) a.setAttribute('data-hay', hay);
+  });
+
+  // Выпадающий список категорий собран из русских названий (это значения
+  // фильтра — их трогать нельзя), но подписи в EN переводим по тем же
+  // карточкам: берём перевод категории у любой карточки этой категории.
+  var catLabel = {};
+  document.querySelectorAll('a[data-sup-id]').forEach(function (a) {
+    var ru = a.getAttribute('data-cat');
+    var card = cards[a.getAttribute('data-sup-id')];
+    if (ru && card && card.category && !catLabel[ru]) catLabel[ru] = card.category;
+  });
+  var sel = document.getElementById('supCategory');
+  if (sel) {
+    sel.querySelectorAll('option').forEach(function (opt) {
+      var en = catLabel[opt.value];
+      if (!en) return;
+      var m = /\((\d+)\)\s*$/.exec(opt.textContent || '');
+      opt.textContent = m ? en + ' (' + m[1] + ')' : en;
+    });
+  }
+}
+
+function initEnSupData() {
+  if (LOCALE !== 'en') return Promise.resolve();
+  var body = document.body;
+  var id = body && body.getAttribute('data-sup-id');
+  var isCatalog = !!(body && body.querySelector('a[data-sup-id]'));
+  if (!id && !isCatalog) return Promise.resolve();
+  return loadEnCards().then(function (cards) {
+    if (!cards) return;
+    if (id) {
+      if (cards[id]) applyEnSupData(cards[id]);
+      return;
+    }
+    applyEnCatalog(cards);
+  });
+}
+
 document.addEventListener('DOMContentLoaded', function () {
   applyI18n();
   initLangSwitcher();
+  initEnSupData();
 });
 window.applyI18n = applyI18n; // для динамики
 window.setLocale = setLocale;
+window.loadEnCards = loadEnCards;
+window.mergeEnCard = mergeEnCard;

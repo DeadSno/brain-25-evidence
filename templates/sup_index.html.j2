@@ -46,7 +46,7 @@
     </script>
     <link rel="stylesheet" href="../style.min.css?v=462">
     <script src="../version.js?v=312"></script>
-    <script src="../i18n.js?v=13"></script>
+    <script src="../i18n.js?v=15"></script>
     <script src="../pwa.js?v=283" defer></script>
     <script src="../share.js?v=2" defer></script>
     <script type="application/ld+json">
@@ -144,10 +144,10 @@
 
       <div id="cardsGrid">
         {% for c in cards %}
-        <a class="card" href="{{ c.slug }}.html" data-slug="{{ c.slug }}" data-cat="{{ c.category }}" data-grade="{{ c.grade }}" data-code="{{ c.code }}" data-hay="{{ c.hay }}">
-          <span class="cat">{{ c.category }}</span>
-          <strong class="card-title">{{ c.name }}</strong>
-          <div class="verdict v{{ c.code }}">{{ c.verdict }}</div>
+        <a class="card" href="{{ c.slug }}.html" data-sup-id="{{ c.id }}" data-slug="{{ c.slug }}" data-cat="{{ c.category }}" data-grade="{{ c.grade }}" data-code="{{ c.code }}" data-hay="{{ c.hay }}">
+          <span class="cat" data-sup="category">{{ c.category }}</span>
+          <strong class="card-title" data-sup="name">{{ c.name }}</strong>
+          <div class="verdict v{{ c.code }}" data-sup="verdict">{{ c.verdict }}</div>
           <span class="grade g{{ c.grade }}" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "{{ c.grade }}"}' title="Грейд {{ c.grade }} — шкала доказательности (см. glossary.html)">Грейд {{ c.grade }}</span>
         </a>
         {% endfor %}
