@@ -780,6 +780,10 @@ VIS-03 и MOB-01 — инлайн-правки `docs/hactar.html`, MOB-02 и MOB
 
 **Итого: 0 A, 1 B, 4 C.**
 
+**Статус после BATCH-2 (коммит `0212edb0`):** SEO-03, SEO-04, SEO-05 —
+**закрыто**; SEO-01, SEO-02 — **отложено на v5.7**
+(`reports/BACKLOG.md`), см. «Статус закрытия (BATCH-2)» в конце раздела.
+
 ### SEO-01 — EN-версия невидима для поиска (B)
 
 **Где.** Все 150 HTML-файлов: `<html lang="ru">`. `docs/i18n.js` — переключение языка через `localStorage`, без смены URL.
@@ -879,8 +883,42 @@ VIS-03 и MOB-01 — инлайн-правки `docs/hactar.html`, MOB-02 и MOB
 | 3 | SEO-03 | 6 заглушек (`atlas`, `calculator`, `compare`, `graph`, `interactions`, `map`) | `og:url` приравнять к `canonical`; при желании выровнять `hactar.html` canonical с `?tab=` |
 | 4 | SEO-01 + SEO-02 | архитектура: `templates/*.j2`, генераторы, `docs/i18n.js` | отдельные EN-URL + `hreflang` (ru/en/x-default) + полный перевод head на всех страницах. В один коммит с layout-фиксами не помещается — это смена модели локализации |
 
-Пункты 1–3 — механические, их можно собрать в один коммит (файлы: `docs/hactar.html`, 6 заглушек, head остальных страниц). Пункт 4 — отдельный проект.
-
+Пункты 1–3 **выполнены** в BATCH-2 (коммит `0212edb0`). Пункт 4 остаётся
+отдельным проектом и перенесён в `reports/BACKLOG.md`.
 ### Статус
 
-Код **не менялся** — прогон только читает файлы. Открыты: SEO-01 (B), SEO-02…SEO-05 (C).
+Код **менялся** — механические пункты закрыты коммитом `0212edb0`,
+архитектурные перенесены в `reports/BACKLOG.md`.
+
+#### Статус закрытия (BATCH-2)
+
+| ID | Статус | Чем закрыто |
+|---|---|---|
+| SEO-01 | **Отложено на v5.7** | требует EN-URL + `hreflang` — смена модели локализации; см. `reports/BACKLOG.md` |
+| SEO-02 | **Отложено на v5.7** | зависит от SEO-01: перевод head без EN-URL не индексируется |
+| SEO-03 | **Закрыто** (коммит `0212edb0`) | `og:url` приравнен к `canonical` у всех 6 заглушек |
+| SEO-04 | **Закрыто** (коммит `0212edb0`) | `<meta property="og:locale" content="ru_RU">` на **147** страницах |
+| SEO-05 | **Закрыто** (коммит `0212edb0`) | description Hactar 110 → **145** символов |
+
+**Что именно поменялось.**
+
+- **SEO-04.** `og:locale` добавлен в двух местах: в шаблоны
+  `templates/sup.html.j2` и `templates/sup_index.html.j2` (иначе
+  пересборка 131 карточки стёрла бы его) и в 16 корневых страниц.
+  Итог — 147 файлов. Без тега остались `404.html` и `offline.html`
+  (у них нет OG-блока вообще и они `noindex`) и служебный
+  `google4a9d23e35c6c3e23.html`. 131 файл в `docs/sup/` пересобран
+  `scripts/build_sup.py`, каскад `?v=463` сохранён.
+- **SEO-03.** `og:url` шести заглушек теперь равен их `canonical`:
+  `atlas`, `graph`, `interactions`, `map` → `hactar.html?tab=graph`;
+  `calculator`, `compare` → `hactar.html?tab=overview`.
+- **SEO-05.** Новое описание — 145 символов. Оно лежало в **четырёх**
+  местах (`meta[name=description]`, `og:description`,
+  `twitter:description`, JSON-LD `description`), заменено во всех
+  четырёх: иначе `tests/test_seo_meta_consistency.py` упал бы на
+  расхождении зеркал.
+
+**Проверка.** `pytest -q -m "not (snapshots or a11y or tabs or graph or mobile375 or e2e)"`
+→ **1802 passed, 0 failed**; `tests/test_seo_meta_consistency.py` +
+`tests/test_style_version_bump.py` → **505 passed**; BOM не появился
+(`bom_files: []`), CRLF сохранён.
