@@ -604,6 +604,139 @@ CWV-04 (шрифты) в бэклоге, `trends` CLS-остаток снят. O
 
 ---
 
+## Аудит 7/19: qa-deep-audit
+
+**Проверка предыдущего:** AUDIT-06 (product-audit) зафиксирован — 4 находки
+(PROD-01…PROD-04), 1 A / 1 B / 2 C, все открыто. PROD-01 (A) — pregnancy
+warning только в RU (safety-баг). PROD-02 (B) — dosage upper_limit только
+в RU. MARKETING/MK2-06 не регрессировали, DATA-P2 усилен, feedback форма —
+Яндекс.Формы. OK.
+
+### Здоровье сьюта
+
+| Прогон | passed | failed | skipped | deselected | errors | warnings | Время |
+|---|---|---|---|---|---|---|---|
+| `pytest -q` (полный, без исключений) | 1942 | 69 | 0 | 0 | 6 | 1 | 719,29 с (11:59) |
+| Быстрый срез `-m "not (snapshots or a11y or tabs or graph or mobile375 or e2e)"` | 1802 | 0 | 0 | 215 | 0 | 1 | 88,50 с |
+| `-m snapshot_data` | 4 | 0 | 0 | 2013 | 0 | 0 | 3,11 с |
+
+Арифметика сходится: 1942 + 69 + 6 = 2017 собранных = `version.json.tests` = 2017.
+Маркеры: `snapshots` 76, `a11y` 73, `tabs` 28, `graph` 28, `mobile375` 8,
+`e2e` 2 → 215 браузерных; 215 + 1802 = 2017.
+
+**Маркеры не «пропущены» — они выполняются.** Полный прогон дал **0 skipped**,
+то есть env-гейты `RUN_*` действительно удалены, и `pytest -q` честно запускает
+браузерные наборы. Падения — не скипы.
+
+**Про «pre-commit 1796 passed».** 1796 — это **не** число тестов hook'а.
+Hook гоняет `-m "not network and not snapshot_data" -k "not real_docs_sitemap_is_current
+and not live_docs_feed_is_current"`, то есть **2011** тестов (2017 − 4 − 2):
+он НЕ исключает `snapshots`, `a11y`, `tabs`, `graph`, `mobile375`, `e2e`.
+1796 = 2017 − 215 − 4 − 2, то есть быстрый срез без браузерных маркеров.
+При HEAD 75 из этих 2011 красные (68 snapshots + 1 e2e + 6 tabs), поэтому
+hook в текущем состоянии **не может пройти без `--no-verify`** — см. QA-01…QA-04.
+
+**Тесты, которые не запускаются.** Полный прогон: 0 skipped, «мёртвых» скипов
+нет. Условные скипы (`pytest.skip`) остались только средовые и обоснованные:
+`conftest.py:96/106` (нет/занят `brain.duckdb`), `test_js_syntax.py:57` и
+`test_js_behavior.py:28` (нет node), `test_a11y_axe.py:148/158` (нет axe-core /
+Chromium), `test_build_feed.py:35`, `test_build_sitemap.py:36` (нет git),
+`test_snapshot.py:33` (осознанный SKIP при `UPDATE_SNAPSHOT=1`), `test_sql.py:38/40`.
+Отдельно — тест, который **никогда не падает**: `test_precommit_hook.py:51-59`
+(QA-10).
+
+**Flaky-тесты не найдены.** Все 69 падений детерминированы и воспроизведены
+поштучно в изоляции: `index-412` snapshot падает и одиночным запуском (6,85 с),
+`test_tabs_interaction[webkit-trends]` — 31,10 с таймаут, `test_e2e_smoke` — rc=1.
+Повторных «то зелено, то красно» не наблюдалось.
+
+**Скорость.** Полный прогон 719 с. Топ-10 медленных в быстром срезе:
+`test_js_syntax::test_inline_scripts_in_html_parse` 28,53 с;
+`test_no_secrets::test_no_secrets_in_repository` 12,72 с;
+`test_no_orphan_classes::test_audit_covers_every_page` 7,15 с (setup);
+`test_build_sitemap::test_real_docs_sitemap_is_current` 5,05 с;
+`test_build_sup_idempotent::test_build_writes_all_pages` 2,09 с (setup);
+`test_build_sitemap::test_homepage_lastmod_is_not_self_referential` 1,87 с;
+`test_build_sitemap::test_hook_then_commit_passes_check` 1,76 с;
+`test_build_sitemap::test_homepage_tracks_index_html_not_directory` 1,11 с;
+`test_version_json_counts_match_reality::test_version_json_tests_match_collected` 1,08 с;
+`test_precommit_hook::test_hook_filter_excludes_snapshot` 1,07 с.
+Остальные ~630 с полного прогона — браузерные маркеры (`snapshots` ~200 с,
+`a11y` ~145 с по описанию в `pytest.ini`).
+
+### Находки
+
+| ID | Крит. | Где | Что именно | Локаль | Статус |
+|---|---|---|---|---|---|
+| QA-01 | B | `tests/snapshots/**` (эталоны) vs `docs/style.css:439-441` | 68 из 69 визуальных эталонов падают. Причина — **устаревшие эталоны**: последний коммит `tests/snapshots/` — `e7d849a1` (FIX-74 i18n), а `docs/style.css` изменён позже, в `5b4d2466` (perf/CWV, правка контраста футера на `:439-441`). Диф `index-412`: 0,141 % при допуске 0,05 %, bbox y[42453..43080] — только подвал; палитра текста в эталоне `#c1c1c3/#b8b8ba/#575759`, в факте `#dfdfe1/#d5d5d7/#626265`, фон страницы идентичен `#1c1c1e`. Падают все 17 страниц × 2 вьюпорта × 2 движка; проходит только `offline.html` (у него нет общего подвала). Лечится `UPDATE_SNAPSHOTS=1` | RU + EN | открыто |
+| QA-02 | B | `scripts/e2e_smoke.py:403` | Устаревшее утверждение: ждёт `«БАДы: доказательства и механизмы»` в `h1`, а `docs/index.html:310` содержит `«Независимая база БАДов: доказательства, а не маркетинг»` (замена MK2-06 из AUDIT-06). Комментарий на `:400-401` утверждает обратное («заголовок откатан на "БАДы..." в 573cc6f») — это неверно. `test_e2e_smoke.py` падает с `AssertionError: v2.7.1: title missing` | RU | открыто |
+| QA-03 | B | `tests/test_tabs_interaction.py:222` (`_open_page` → `page.wait_for_function(cfg["ready_js"])`) | 6 тестов `[webkit-trends]` дают ERROR: `Timeout 30000ms exceeded` на ожидании готовности `trends.html` в WebKit. Остальные связки движок×страница проходят. Воспроизведено изоляцией (31,10 с). То есть `trends.html` в WebKit не доходит до ready-состояния — вероятен JS-сбой, а не медленная загрузка | RU | открыто |
+| QA-04 | B | `.git/hooks/pre-commit` (строка запуска pytest) | Hook гоняет 2011 тестов, включая `snapshots`, `a11y`, `tabs`, `graph`, `mobile375`, `e2e`. При HEAD 75 из них красные (68 + 1 + 6), значит hook не проходит. Заявленные «1796 passed» относятся к другому набору (без браузерных маркеров), то есть цифра в отчётности не соответствует тому, что реально проверяет гейт | RU + EN | открыто |
+| QA-05 | A | `tests/` (весь каталог) | **Ни одного теста на pregnancy warning.** Поиск `pregnan|PREG_RE|беременн|birth` по `tests/*.py` — 0 совпадений. PROD-01 (A, safety) не покрыт вообще: ни RU, ни EN. Именно поэтому исчезновение предупреждения в EN прошло незамеченным | EN | открыто |
+| QA-06 | B | `tests/` | **Нет теста на `parseUpperLimit` / `UNIT_SRC` / `NO_UL`.** `upper_limit` встречается только как имя поля в `test_edu_top10.py:14` и как маппинг `:49`. Английские единицы (`mg`, `g`, `mcg`) не проверяются нигде — PROD-02 (B) не покрыт | EN | открыто |
+| QA-07 | C | `tests/test_i18n_no_russian.py:136-145` | Гейт **структурно не может** поймать PROD-03. Два независимых слоя слепоты: (1) `PageScan(HTMLParser)` разбирает статическую разметку и не исполняет JS, а кириллица в `trends.html` подставляется в рантайме; (2) `data_tokens()` собирает белый список из **всех** `docs/*.json`, включая `data.json`, — 5168 кириллических токенов, среди них `Готу`, `кола`, `Теанин`, `Берберин`, `Астаксантин`, `Ежовик`. Замер: `trends.html` offenders = 0 **даже при отключённом белом списке** | EN | открыто |
+| QA-08 | C | `tests/` | **Ни один тест не упоминает `data_en.json`** (0 файлов). Весь английский оверлей данных не тестируется — это общий корень PROD-01, PROD-02 и PROD-03 | EN | открыто |
+| QA-09 | C | `tests/test_pwa_manifest.py` | Покрыт только `manifest.webmanifest` (7 тестов). Нет тестов на `sw.js`: `STATIC_ASSETS` не проверяется, `offline.html` в списке прекеша не верифицируется; нет тестов на `pwa.js` (`beforeinstallprompt`, `appinstalled`). `pwa.js` фигурирует лишь в `test_js_syntax.py` и `test_silent_handlers.py` — это синтаксис и guard'ы, не поведение. `CACHE_VERSION` при этом покрыт (`test_style_version_bump.py`, 5 тестов) | RU + EN | открыто |
+| QA-10 | C | `tests/test_precommit_hook.py:51-59` | `test_hook_mentions_filter` начинается с `if not hook.exists(): return` — в свежем клоне и в CI, где `.git/hooks/pre-commit` отсутствует, тест проходит вхолостую. Тест, который не может упасть, не является гейтом | — | открыто |
+| QA-11 | C | `tests/test_visual_snapshots.py` | Эталонов для EN нет вообще: все 76 снапшотов снимаются в RU. Параметризации по локали в браузерных тестах нет — EN-режим проверяется только статикой (`test_i18n_no_russian.py`) и ни разу не рендерится | EN | открыто |
+
+### Не покрыто тестами (связь с PROD-01/02/03)
+
+| Находка AUDIT-06 | Покрытие | Что добавить в финальный батч |
+|---|---|---|
+| **PROD-01** (A, pregnancy warning только в RU) | **нет вообще** (QA-05) | `tests/test_pregnancy_en.py`: параметризовать по 6 карточкам из PROD-01 (Шатавари, Лаванда, Глутатион, PQQ, MSM, Гимнема), взять `caution` из `data_en.json`, прогнать тот же `PREG_RE` и утверждать, что баннер **видим и непуст** в EN. Плюс паритет: число сработавших карточек RU == EN |
+| **PROD-02** (B, upper_limit только в RU) | **нет вообще** (QA-06) | `tests/test_upper_limit_en.py`: `parseUpperLimit` на английских строках с `mg`/`g`/`mcg`; кейс магния 600 vs «350 mg/day added (US IOM)» → превышение; отдельно утверждать, что `NO_UL` **не** матчит английское «the daily limit is not specified» |
+| **PROD-03** (C, кириллица в `trends.html` в EN) | **есть, но слепо** (QA-07) | `tests/test_trends_no_russian.py` — **динамический**: Playwright открывает `trends.html` в EN, собирает текстовые узлы после отрисовки и падает на любой кириллице. Белый список из `docs/*.json` в нём использовать нельзя, иначе тест повторит слепоту текущего гейта |
+| **PROD-01/02/03 вместе** | **нет** (QA-08) | `tests/test_data_en_parity.py`: загрузить `data.json` и `data_en.json`, сверить ключи карточек и убедиться, что переведённые поля не содержат кириллицы, — дешёвая страховка на будущее |
+
+Порядок: `test_pregnancy_en.py` (A) → `test_upper_limit_en.py` (B) →
+`test_trends_no_russian.py` (C) → `test_data_en_parity.py` (C).
+Первые два закрывают находки A и B из AUDIT-06, которые сейчас не держит ни один тест.
+
+### Совпало с архивом
+
+Архивный qa-deep-audit лежит в `reports/archive/v56/audit_A_qa-deep-audit.md`
+(QA-P1-1…3, QA-P2-1…3); в `reports/archive/AUDIT_MASTER_v565_rerun3.md` раздела
+qa-deep-audit нет — там только аудиты 1/19…5/19. **Ни одна архивная находка не
+регрессировала:**
+
+- **QA-P1-1** (критичные скрипты без тестов) — закрыто, тесты есть.
+- **QA-P1-2** (идемпотентность `build_sup`) — `test_build_sup_idempotent.py`
+  зелёный (3 теста); остался мягкий скип на `:103` при отсутствии COMMITTED-файла.
+- **QA-P1-3** (валидность HTML sup) — `test_sup_html_invariants.py` зелёный.
+- **QA-P2-1** (`test_silent_handlers` по номерам строк) — не регрессировало,
+  ключ переведён на текст guard'а (`c36a2b3`).
+- **QA-P2-2** (123 карточки с `null forms`) — улучшилось: сейчас 35 из 130.
+- **QA-P2-3** (битые ссылки в sup) — `test_sup_links.py` зелёный.
+
+### Проверено — чисто
+
+- Быстрый срез: **1802 passed, 0 failed, 215 deselected, 88,50 с**.
+- Гейты скиллов и чисел зелёные: `test_skills_frontmatter`,
+  `test_skill_module_coverage_list`, `test_skill_numbers_match_project`,
+  `test_version_json_counts_match_reality` — в наборе из 8 файлов **166 passed**.
+- Числа сходятся: 2017 собранных = `version.json.tests` = 2017; 19 скиллов
+  (`cyberaudit` в `.gitignore`); 215 браузерных маркеров + 1802 = 2017.
+- SEO-мета актуальны: `test_seo_meta_consistency.py` (8), `test_style_version_bump.py`
+  (5), `test_build_sup_idempotent.py` (3) — все зелёные.
+- `CACHE_VERSION` в `sw.js` связан со `style.css?v=` и проверяется.
+- Сервер на `:8000` — чужой долгоживущий процесс (PID 15716,
+  `python -m http.server 8000 --directory docs`, старт 10:43), но отдаёт
+  **именно этот checkout**: sha256 `style.css` и `index.html` совпали с локальными.
+  Документированная ловушка «эталоны скипаются молча, если сервер не отвечает»
+  не сработала: прогон дал 0 skipped, а `_check_server()` падает, а не скипает.
+- В полном прогоне **0 skipped** — env-гейты `RUN_*` действительно убраны.
+- Hactar-вкладки: разметка `#hactarTabOverview` / `#hactarTabLinks`
+  (`data-mode="overview"|"links"`), deep-links `?tab=overview` / `?tab=graph`,
+  неизвестные `?tab=` уводятся в `overview` — соответствует `SKILL.md:129-133`.
+- Граф: 28 тестов (`test_graph_interaction.py`, 14 × chromium/webkit) зелёные
+  в изоляции; проверяют размер canvas, «чернила», alt-текст и отсутствие
+  ошибок консоли.
+
+**Статус: открыто 11 находок (A: 1, B: 5, C: 5). Код не тронут.**
+
+---
+
 ## Замечания к скиллам (сквозные, фиксим в финальном батче)
 
 | Скилл | Файл:строка | Что не так | Источник |
@@ -614,6 +747,9 @@ CWV-04 (шрифты) в бэклоге, `trends` CLS-остаток снят. O
 | seo-check | SKILL.md:29-52 | JS-сниппет сбора данных не извлекает `hreflang`, `og:locale`, `og:url` и не считает дубли `<title>`/`description`, хотя раздел «Проектные проверки» и блок «Локаль» требуют проверять `hreflang`; двуязычный сайт этим сниппетом не проверить | AUDIT-04 |
 | core-web-vitals | SKILL.md:30-61 | сниппет не собирает вес ресурсов и число запросов и не предупреждает, что при активном SW `transferSize` = 0 (вес надо брать из `decodedBodySize`), из-за чего «вес страницы» получается нулевым | AUDIT-05 |
 | core-web-vitals | SKILL.md:113-141 | Устаревшая строка «Известный остаток: trends.html в EN — CLS 0,204» — остаток снят (0,003 @1280, 0,000 @375) | AUDIT-05 |
+| qa-deep-audit | SKILL.md:57, :147 | «Единственный создаваемый файл — reports/QA_AUDIT.md» — в текущем цикле отчёт пишется в `reports/AUDIT_MASTER_v565_FINAL.md`, расхождение процедуры (то же, что у mobile-deep-audit) | AUDIT-07 |
+| qa-deep-audit | SKILL.md:189-191 | Предупреждение о данных («надо смотреть руками») недооценивает проблему: `data_tokens()` собирает белый список из всех `docs/*.json` (5168 токенов), из-за чего PROD-03-класс находок не ловится **структурно**, а не «пока не посмотрели руками». Замер: `trends.html` offenders = 0 даже при отключённом белом списке, так как гейт не исполняет JS | AUDIT-07 |
+| qa-deep-audit | SKILL.md:48-52 | «Полный `pytest -q` без скипов» — верно, но нигде не сказано, что hook гоняет 2011 тестов и включает браузерные маркеры, поэтому «pre-commit зелёный» нельзя цитировать как доказательство здоровья сьюта | AUDIT-07 |
 
 _Раздел пополняется по одному-два пункта в каждом следующем аудите; новые
 разделы `## Аудит N/19` добавляются ВЫШЕ этого блока._
