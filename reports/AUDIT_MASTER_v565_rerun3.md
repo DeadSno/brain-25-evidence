@@ -737,3 +737,150 @@ VIS-03 и MOB-01 — инлайн-правки `docs/hactar.html`, MOB-02 и MOB
 (148 с `?v=`, включая 2 шаблона `templates/*.j2`, плюс `style.css`,
 `style.min.css`, `hactar.js`, `sw.js`, baseline). Тесты:
 1802 passed / 0 failed, `test_style_version_bump.py` — 5 passed.
+
+---
+
+## Аудит 4/19: seo-check
+
+**Скилл:** `.opencode/skills/seo-check/SKILL.md` (v1.0).
+**Дата:** 26.10.2026. **HEAD:** 1386d7bd. **Ветка:** v5.6.5-dev.
+**Повод:** в аудите 2 отмечено, что `<title>` и meta остаются русскими при `lang=en`.
+
+### Объём
+
+| Что | Число |
+|---|---|
+| HTML-файлов в `docs/` | **150** (149 страниц + `google4a9d23e35c6c3e23.html` — верификация GSC) |
+| Страниц с `rel=canonical` | 147 (нет у `404.html`, `offline.html`, служебного) |
+| Страниц с JSON-LD | 146, блоков — 146, невалидных — **0** |
+| `<loc>` в `docs/sitemap.xml` | 141, все с `<lastmod>` |
+| Замеров в браузере (EN-переключение) | 4 страницы × 2 локали = 8 загрузок |
+| Найдено | **5** (SEO-01…SEO-05) |
+
+### Как проверялось
+
+1. Статический разбор всех 150 файлов (`_tmp_seo.py`): `<title>`, `meta[name=description]`, `canonical`, `og:*`, `twitter:*`, `hreflang`/`rel=alternate`, `meta[robots]`, `http-equiv=refresh`, `<h1>` и последовательность `h1…h6`, `<img>` без `alt`, JSON-LD (`@type` + `json.loads` на каждый блок), `lang` на `<html>`, `viewport`.
+2. Сверка `sitemap.xml` с диском: разбор `<loc>` + `xml.etree` на валидность, проверка каждого URL на существование файла, поиск файлов вне sitemap, сверка `canonical` с URL в sitemap (`_tmp_seo2.py`, `_tmp_seo3.py`).
+3. `robots.txt`: директивы, наличие `Sitemap`, запреты.
+4. Дубли: `<title>`, `description`, `canonical` (группы совпадений).
+5. Структурные данные: типы по всем страницам, `@type`, `numberOfItems` против фактической длины `itemListElement`.
+6. Редиректы: наличие `meta refresh`, `noindex`, `canonical` на цель, попадание в sitemap.
+7. Живой замер EN в Playwright: `localStorage.lang='en'` + reload, затем сравнение `document.title`, `meta[description]`, `og:title`, `og:description`, `twitter:title`, `documentElement.lang`, `h1`, `link[rel=alternate]` с русским состоянием — на `index.html`, `sup/magniy.html`, `faq.html`, `hactar.html`.
+8. Поиск механизма перевода head в коде: `document.title =` в `i18n.js`/`script.js`/`hactar.js`/`pwa.js` (0 совпадений) и единственная функция, трогающая мета — `_supSwapMeta` (`docs/i18n.js:2658`).
+
+### Новые находки (SEO)
+
+| ID | Критичность | Где | Что именно |
+|---|---|---|---|
+| SEO-01 | **B** | все 150 файлов + `docs/i18n.js` | EN-версия недоступна краулерам: `<html lang="ru">` на **150/150**, `hreflang` — **0 вхождений**, отдельных EN-URL нет (язык только в `localStorage`). В отдаваемом HTML язык заявлен как `ru`, `<title>` и `description` — русские |
+| SEO-02 | **C** | `docs/i18n.js:2658` `_supSwapMeta` + head 20 не-sup страниц | Перевод head непоследователен: на 130 sup-карточках `title`/`og:title`/`twitter:title` переводятся подстановкой подстрок (name/category/effect), `description`/`og:description` — **нет**; на `index`, `faq`, `hactar` и остальных не переводится вообще ничего |
+| SEO-03 | **C** | 6 заглушек: `atlas`, `calculator`, `compare`, `graph`, `interactions`, `map` | `og:url` указывает на саму заглушку (`…/atlas.html`), тогда как `canonical` — на `hactar.html?tab=graph`. Плюс цепочка: `atlas.html` → `hactar.html?tab=graph` → (сам hactar отдаёт `canonical` без `?tab`) |
+| SEO-04 | **C** | все 150 файлов | `og:locale` отсутствует на **150/150** — у двуязычного сайта нет ни `ru_RU`, ни `en_US` |
+| SEO-05 | **C** | `docs/hactar.html` | `meta[description]` = **110 символов** (норма 120–160) на главном лендинге калькулятора. Остальные короткие — `compare.html` 103, `404.html` 71, `offline.html` 60 — не индексируются |
+
+**Итого: 0 A, 1 B, 4 C.**
+
+### SEO-01 — EN-версия невидима для поиска (B)
+
+**Где.** Все 150 HTML-файлов: `<html lang="ru">`. `docs/i18n.js` — переключение языка через `localStorage`, без смены URL.
+
+**Что.**
+
+| Проверка | RU | EN (после переключения) |
+|---|---|---|
+| `documentElement.lang` | `ru` | `en` |
+| `index.html` title | `БАДы: доказательства и механизмы — Brain 25 Evidence` | **не изменился** |
+| `index.html` og:title | то же | **не изменился** |
+| `faq.html` title | `❓ Часто задаваемые вопросы — …` | **не изменился** |
+| `hactar.html` title | `Project Hactar — подбор БАДов — …` | **не изменился** |
+| `sup/magniy.html` title | `Магний — Минерал/Сердце — …` | `Magnesium — Mineral / Heart — …` |
+| `sup/magniy.html` description | `Кофактор 300+ ферментов: …` | **не изменился** |
+| `hreflang` на всех страницах | 0 | 0 |
+
+`document.title =` не встречается ни в одном скрипте (`i18n.js`, `script.js`, `hactar.js`, `pwa.js` — 0 совпадений). Единственная функция, трогающая head, — `_supSwapMeta` (`i18n.js:2658`), и она работает **подстановкой русских подстрок** в `title`, `description`, `og:title`, `og:description`, `twitter:title`, `twitter:description`. На sup-страницах в `<title>` есть название добавки, поэтому оно заменяется; в описании названия нет — описание остаётся русским.
+
+**Почему это проблема.** EN-контент существует только после исполнения JS и только в `localStorage` одного браузера. Краулер видит HTML с `lang="ru"`, русским `<title>`, русским описанием и без `hreflang`. Даже если Google отрендерит страницу, он получит RU-версию по умолчанию: язык хранится в `localStorage`, краулер его не выставит. EN-аудитория в поиске не существует как отдельная сущность.
+
+**Что нужно (архитектурное, не косметика).** Либо отдельные URL (`/en/…`) с `hreflang="ru"` / `"en"` / `"x-default"`, либо статическая генерация EN-вариантов в билде (в проекте уже есть `templates/*.j2` и генераторы — это естественная точка). Правкой одного тега не решается, поэтому в батч не включаю.
+
+### SEO-02 — Head переводится частично и непоследовательно (C)
+
+**Где.** `docs/i18n.js:2658`, функция `_supSwapMeta(pairs)`: селектор `title, meta[name=description], meta[property=og:title], meta[property=og:description], meta[name=twitter:title], meta[name=twitter:description]`, замена через `next.split(p[0]).join(p[1])`.
+
+**Что.** Механизм есть, но: (а) он живёт только в `applyEnSupData` — то есть только на 130 карточках, сгенерированных из `templates/sup.html.j2`; (б) заменяет только те подстроки, что переданы в `pairs` (название, категория, эффект), поэтому `description` у «Магния» остаётся русским при английском title; (в) на 20 не-sup страницах не вызывается вовсе — `index`, `faq`, `glossary`, `methodology`, `hactar`, `privacy`, `support`, `terms-of-use`, `trends`, `feedback`, `404`, `offline` при переключении на EN сохраняют русский head.
+
+Замер это подтверждает: `sup/magniy.html` — единственная из четырёх проверенных страниц, где title сменился.
+
+**Почему C, а не B.** Симптом уже покрыт SEO-01: пока нет EN-URL и `hreflang`, частичный перевод head не даёт индексируемого результата. Чинить его отдельно — значит дважды переделывать одно место. Правильный порядок: сначала SEO-01 (URL + hreflang), потом SEO-02 (перевод head на всех страницах, включая description).
+
+### SEO-03 — `og:url` заглушек расходится с canonical (C)
+
+**Где.** `atlas.html`, `calculator.html`, `compare.html`, `graph.html`, `interactions.html`, `map.html`.
+
+**Что.**
+
+| Файл | `canonical` | `og:url` |
+|---|---|---|
+| `atlas.html` | `…/hactar.html?tab=graph` | `…/atlas.html` |
+| `graph.html` | `…/hactar.html?tab=graph` | `…/graph.html` |
+| `interactions.html` | `…/hactar.html?tab=graph` | `…/interactions.html` |
+| `map.html` | `…/hactar.html?tab=graph` | `…/map.html` |
+| `calculator.html` | `…/hactar.html?tab=overview` | `…/calculator.html` |
+| `compare.html` | `…/hactar.html?tab=overview` | `…/compare.html` |
+
+Плюс вторая ступень: сам `hactar.html` отдаёт `canonical` **без** `?tab=` (`…/hactar.html`), то есть цепочка получается `atlas.html` → `hactar.html?tab=graph` → `hactar.html`.
+
+**Почему C.** У всех шести стоит `noindex, follow` — crawler игнорирует их canonical, а `og:url` живёт только в соцпревью, куда эти страницы почти не попадают. Влияние близко к нулю, но расхождение стоит убрать при следующей правке шаблона заглушек: `og:url` должен совпадать с canonical.
+
+### SEO-04 — Нет `og:locale` (C)
+
+`og:locale` отсутствует на **150/150**. У сайта два языка, и в соцпревью Facebook/LinkedIn не получают подсказки о языке (`ru_RU` для RU, `en_US` для EN-варианта, когда он появится). Правка механическая — одна строка в шаблоне head, но требует прохода по 150 файлам (или по генератору, если head генерируется).
+
+### SEO-05 — Короткое описание у Hactar (C)
+
+`docs/hactar.html`: `meta[description]` = 110 символов (норма 120–160). Это главный лендинг калькулятора, единственная страница с осмысленным дефицитом. Остальные три коротких (`compare.html` 103, `404.html` 71, `offline.html` 60) имеют `noindex` и в выдачу не попадут.
+
+### Что проверено — чисто
+
+| Проверка | Результат |
+|---|---|
+| `<title>` | 150/150 есть, длина **34–60** (средняя 48,7), вне диапазона — **0**, дублей — **0** |
+| `meta[description]` | 150/150 есть, **120–161** кроме четырёх коротких, дублей — **0** |
+| `<h1>` | ровно один на **150/150** страниц |
+| Иерархия заголовков | пропусков уровней (`h2`→`h4` и т. п.) — **0** |
+| `<img>` без `alt` | `<img>` на сайте **0** (графика — эмодзи, SVG-иконки, CSS-фоны), проверка неприменима |
+| Canonical | 147 страниц, все абсолютные, все на текущем домене, **0** расхождений с URL в sitemap; у `index.html` — корень `/` (без дубля `index.html`); дубли `canonical` — только 6 заглушек на 2 цели, это по замыслу |
+| `sitemap.xml` | XML валиден; **141** `<loc>`, все с `<lastmod>`; битых URL — **0**; файлов вне sitemap — **0**; в sitemap нет ни одной заглушки и ни `404`/`offline` — ровно 150 − 9 = 141 |
+| `robots.txt` | `User-agent: *` / `Allow: /` / `Sitemap: …/sitemap.xml`, лишних запретов нет |
+| Редиректы | Все 6: `meta refresh` на нужный таб, `noindex, follow`, `canonical` на цель, в sitemap — **0 вхождений** |
+| JSON-LD | 146 страниц, **0** невалидных блоков; типы: `MedicalWebPage` 136, `WebPage` 5, `CollectionPage` 2, `FAQPage` 1, `ContactPage` 1, `WebSite` 1, `ItemList` 1; у `index` корректный `WebSite` + `SearchAction` |
+| Open Graph / Twitter | `og:image` абсолютный, один на весь сайт (`og.png`); `twitter:card` — 149/150 (нет у служебного GSC-файла); `og:url` уникален на 148 страницах; `og:site_name` = «Brain 25 Evidence» на 145 |
+| `viewport` | `width=device-width, initial-scale=1, viewport-fit=cover` — 150/150 |
+| `<html lang>` | `ru` — 150/150 (это же и есть SEO-01, но сам атрибут присутствует и корректен) |
+
+### Рекомендации (не находки)
+
+| Идея | Зачем | Сложность |
+|---|---|:---:|
+| `Organization`-схема с `logo`, `sameAs` | логотип и бренд в знаниях Google, единый источник для расширенных сниппетов | низкая |
+| `BreadcrumbList` на sup-карточках | хлебные крошки в выдаче вместо голого URL | низкая |
+| Уточнить `ItemList.name` | сейчас «БАДы каталога brain-25-evidence», но `numberOfItems` = 10 — лучше «Топ-10 БАДов» | низкая |
+| `canonical` у `sup/index.html` → `/sup/` | убрать потенциальный дубль `/sup/` ↔ `/sup/index.html` | низкая |
+| Реальные `lastmod` вместо одной даты на 141 URL | краулер видит «всё изменилось 26.10.2026» и переобходит сайт целиком | средняя |
+| Уникальные `og:image` для топ-20 добавок | CTR в соцсетях и мессенджерах | средняя |
+| JSON-LD `Dataset` для `data.json` | сайт заявлен как открытые данные — schema.org это поддерживает | высокая |
+
+### План правок к батчу (если решим чинить сразу)
+
+| № | ID | Файлы | Тип правки |
+|---|---|---|---|
+| 1 | SEO-05 | `docs/hactar.html` | одна строка `meta[description]` → 120–160 символов. Если head Hactar генерируется — `templates/` |
+| 2 | SEO-04 | все 150 HTML (head) | добавить `<meta property="og:locale" content="ru_RU">`; при появлении EN-URL — `en_US` на EN-вариантах. Массовая вставка в head, лучше через генератор |
+| 3 | SEO-03 | 6 заглушек (`atlas`, `calculator`, `compare`, `graph`, `interactions`, `map`) | `og:url` приравнять к `canonical`; при желании выровнять `hactar.html` canonical с `?tab=` |
+| 4 | SEO-01 + SEO-02 | архитектура: `templates/*.j2`, генераторы, `docs/i18n.js` | отдельные EN-URL + `hreflang` (ru/en/x-default) + полный перевод head на всех страницах. В один коммит с layout-фиксами не помещается — это смена модели локализации |
+
+Пункты 1–3 — механические, их можно собрать в один коммит (файлы: `docs/hactar.html`, 6 заглушек, head остальных страниц). Пункт 4 — отдельный проект.
+
+### Статус
+
+Код **не менялся** — прогон только читает файлы. Открыты: SEO-01 (B), SEO-02…SEO-05 (C).
