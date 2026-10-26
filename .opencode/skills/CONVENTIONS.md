@@ -8,12 +8,12 @@
 
 | Что | Значение | Как проверить |
 |---|---|---|
-| HTML, контентные | 9 в `docs/` | `ls docs/*.html` — их 18: 9 контентных, 6 noindex-редиректов (`calculator.html`/`compare.html` → `hactar.html?tab=overview`, `atlas.html`/`graph.html`/`interactions.html`/`map.html` → `hactar.html?tab=graph`), плюс `404.html` и `offline.html` (служебные) и `google4a9d23e35c6c3e23.html` (файл верификации Google). Верификация Яндекса — метатегом в `docs/index.html` (16.10.2026, файл `yandex_cc2e3cf2ee185b01.html` удалён) |
+| HTML, контентные | 9 в `docs/` | `ls docs/*.html` — их 19: 10 контентных (`terms-of-use.html` — юридическая), 6 noindex-редиректов (`calculator.html`/`compare.html` → `hactar.html?tab=overview`, `atlas.html`/`graph.html`/`interactions.html`/`map.html` → `hactar.html?tab=graph`), плюс `404.html` и `offline.html` (служебные) и `google4a9d23e35c6c3e23.html` (файл верификации Google). Верификация Яндекса — метатегом в `docs/index.html` (16.10.2026, файл `yandex_cc2e3cf2ee185b01.html` удалён) |
 | HTML, sup | 131 в `docs/sup/` (index + 130 карточек) | `ls docs/sup/*.html \| wc -l` |
 | JS | 10 файлов в `docs/` | `ls docs/*.js \| wc -l` |
-| CSS | `docs/style.min.css` (исходник — `docs/style.css`), версия `?v=458` | `grep -ho 'style\(\.min\)\?\.css?v=[0-9]*' docs/*.html docs/sup/*.html \| sort -u` |
-| SW cache | `v147` | `grep CACHE_VERSION docs/sw.js` → `var CACHE_VERSION = 'v147'` |
-| Тесты | **1990 passed** полный прогон в основном checkout — см. «Базовая линия тестов» | `pytest -q` → `1990 passed, 0 failed, 0 skipped` |
+| CSS | `docs/style.min.css` (исходник — `docs/style.css`), версия `?v=464` | `grep -ho 'style\(\.min\)\?\.css?v=[0-9]*' docs/*.html docs/sup/*.html \| sort -u` |
+| SW cache | `v166` | `grep CACHE_VERSION docs/sw.js` → `var CACHE_VERSION = 'v166'` |
+| Тесты | **2017** собрано; прогон без маркерных групп — 1802 passed, 215 deselected, 0 failed — см. «Базовая линия тестов» | `pytest --collect-only -q` → `2017 tests collected`; `docs/version.json` → `"tests": 2017` |
 | Скиллы | 19 проектных в git (20 в main checkout: `cyberaudit` в `.gitignore`) + 20 глобальных | `ls .opencode/skills/ \| wc -l`, `ls ~/.config/opencode/skills/ \| wc -l` |
 
 Число skipped на чистом окружении — **0**: в v5.6.5 гейты `RUN_*` удалены.
@@ -38,10 +38,13 @@
 
 | Где | passed | skipped | всего |
 |---|---|---|---|
-| Основной checkout `C:\analytics\brain-25-evidence` (v5.6.5-dev) | 1990 | 0 | 1990 |
+| Основной checkout `C:\analytics\brain-25-evidence` (v5.6.5-dev) | 1802 | 0 | 2017 (215 deselected по маркерам) |
 
-Замер 25.10.2026 (v5.6.5-dev): полный `pytest -q` → 1990 passed, 0 failed, 0 skipped
-(~492 с), совпадает с `docs/version.json` (`"tests": 1990`).
+Замер 26.10.2026 (v5.6.5-dev, HEAD 9efdd3d5): собрано 2017 тестов
+(`pytest --collect-only -q`), совпадает с `docs/version.json` (`"tests": 2017`).
+Прогон с исключением маркерных групп
+(`not (snapshots or a11y or tabs or graph or mobile375 or e2e)`) →
+1802 passed, 215 deselected, 0 failed (~84 с).
 Прежний расклад (16.10.2026: 1746 passed + 237 skipped) объяснялся двумя вещами:
 opt-in гейты (`RUN_SNAPSHOTS=1`, `RUN_A11Y=1`, `RUN_GRAPH=1`, `RUN_TABS=1`,
 `RUN_E2E=1`, живой сервер `:8000`) и 16 тестов DuckDB: `tests/conftest.py:11`
@@ -51,7 +54,7 @@ opt-in гейты (`RUN_SNAPSHOTS=1`, `RUN_A11Y=1`, `RUN_GRAPH=1`, `RUN_TABS=1`,
 
 Правила:
 
-- **Перед merge гонять в основном checkout** — там 1990, и только там видно,
+- **Перед merge гонять в основном checkout** — там собрано 2017, и только там видно,
   что DuckDB-часть не разъехалась.
 - В worktree/чужом окружении ориентироваться на
   `pytest --collect-only -q`: passed-число зависит от наличия БД (−16) и
@@ -376,7 +379,7 @@ CYBER-P1-02.
 ## Гейт pre-commit: исторический замер 14.10.2026
 
 Актуальная базовая линия — раздел «Базовая линия тестов» выше
-(v5.6.5: `pytest -q` → 1990 passed / 0 skipped). Живая команда гейта —
+(v5.6.5: собрано 2017, прогон без маркеров → 1802 passed / 0 failed). Живая команда гейта —
 в таблице «Pre-commit порядок генераторов» (шаг 4), текст —
 в `.githooks/pre-commit`; дублировать её здесь не нужно. Цифры ниже —
 до волны изменений 13–16.10.2026 и до v5.6.5:
@@ -387,7 +390,7 @@ CYBER-P1-02.
 | Гейт pre-commit | main checkout | 1314 | 1073 | 235 | 6 |
 
 - Источник правды по количеству тестов — `docs/version.json`
-  (`"tests"`: 1314 на момент замера, 1990 в v5.6.5). Число 1188
+  (`"tests"`: 1314 на момент замера, 2017 в v5.6.5). Число 1188
   из старых отчётов в history и файлах не воспроизводится — не
   использовать.
 - `tests/test_precommit_hook.py` требует подстроку

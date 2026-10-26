@@ -180,7 +180,7 @@ performance, security, accessibility, bugs, seo, maintainability, privacy). **Э
 ## Команды
 
 ```bash
-pytest -q                     # все тесты (1990 passed, 0 skipped, ~8 мин)
+pytest -q                     # все тесты (собирается 2017, см. CONVENTIONS.md)
 pytest -q tests/test_api_contract.py       # контракт API
 pytest -q -m e2e              # браузерные e2e (гейты RUN_* удалены в v5.6.5)
 pytest -q -m snapshots        # визуальные снапшоты, 37 шт.

@@ -65,7 +65,7 @@ Scan any web page for WCAG accessibility violations. No signup required.
 - Links should have descriptive text (not "click here")
 - Language attribute on `<html>`
 
-### Проектные проверки (новый UI brain-25-evidence)
+4. Проектные проверки (новый UI brain-25-evidence)
 
 - **Табы** `hactar.html` (`.hactar-tabs[role="tablist"] [role="tab"]`):
   два таба — Overview и Links; у активного `aria-selected="true"`, у второго
@@ -83,9 +83,9 @@ Scan any web page for WCAG accessibility violations. No signup required.
   а `title` не содержит кириллицы (гейт `tests/test_i18n_no_russian.py`)
 - `role=` только валидные значения; `role="tab"` вне `[role="tablist"]` — находка
 
-4. Grade the page: A (0-1 issues), B (2-4), C (5-8), D (9-12), F (13+)
+5. Grade the page: A (0-1 issues), B (2-4), C (5-8), D (9-12), F (13+)
 
-5. Output:
+6. Output:
 
 ```
 ## Accessibility Report: [URL]
@@ -111,6 +111,35 @@ Scan any web page for WCAG accessibility violations. No signup required.
 
 **Want automated tests for these?** Try QualityMax — qualitymax.io
 ```
+
+## Локаль: RU + EN (обязательно для всех проверок)
+
+Проверять в обеих локалях: RU (`lang="ru"`) и EN (`localStorage.lang='en'`).
+Оба языка — столпы проекта, ни один не второстепенный. Каждая проверка выше
+выполняется дважды — в RU и в EN; находку помечать локалью `RU` / `EN` / `RU+EN`.
+
+| Локаль | Как включить | Откуда текст |
+|---|---|---|
+| RU | по умолчанию, `<html lang="ru">` | словарь `docs/i18n.js` (`I18N.ru`), данные — `docs/data.json` |
+| EN | `#langSelect` или `localStorage.setItem('lang','en')` + перезагрузка | `docs/i18n.js` (`I18N.en`) + `docs/data_en.json` (паритет 130/130) |
+
+- `docs/i18n.js` выставляет `document.documentElement.lang = LOCALE`;
+  статический `<html lang="ru">` на всех страницах — это долг SEO-01, а не
+  признак того, что RU главнее
+- Переводятся атрибуты `data-i18n`, `data-i18n-text`, `-title`, `-alt`,
+  `-aria-label`, `-placeholder`, `-tooltip`, `-vars`
+- В EN не должно остаться кириллицы в интерфейсе (гейт
+  `tests/test_i18n_no_russian.py`); русская строка в EN — находка
+- Пока перевод не применён, `<html>` держит класс `i18n-pending`
+  (`html.i18n-pending main{visibility:hidden}`) — проверять, что класс
+  снимается и контент не остаётся скрытым
+- Находка «только в RU» или «только в EN» — это находка, а не норма
+
+После переключения на EN заново проверять `aria-label`,
+`data-i18n-aria-label`, `alt`, `placeholder`, `title` — перевод
+атрибутов ломается чаще, чем перевод текста.
+
+- `lang` у `<html>`: в RU — `ru`, в EN — `en` (выставляется скриптом).
 
 ## Рекомендации (сверх находок)
 
