@@ -173,10 +173,26 @@ def engine(request):
     return request.param
 
 
+def _launch(pw, engine):
+    """Запустить движок. Отдельная функция только ради skip-сообщения.
+
+    В CI ставится только chromium (`.github/workflows/tests.yml`:
+    `playwright install --with-deps chromium`), поэтому WebKit там нет:
+    без этого guard'а фикстура падала `Executable doesn't exist` и вместо
+    одного skip'а получалось 1 failed + 12 errors в setup (CI-03). Тот же
+    паттерн, что в `tests/test_tabs_interaction.py::_launch`.
+    """
+    try:
+        return getattr(pw, engine).launch()
+    except Exception as exc:  # noqa: BLE001 — причина попадёт в текст skip
+        pytest.skip(f"{engine} не запускается: {exc}. "
+                    f"Поставь: playwright install {engine}")
+
+
 @pytest.fixture
 def browser(engine, pw):
     _check_server()
-    b = getattr(pw, engine).launch()
+    b = _launch(pw, engine)
     try:
         yield b
     finally:
@@ -381,7 +397,7 @@ def test_no_console_errors(page_with_graph):
 def test_engine_loads_hactar(engine, pw):
     """Один тест на движок: страница открывается и приложение стартует."""
     _check_server()
-    b = getattr(pw, engine).launch()
+    b = _launch(pw, engine)
     try:
         pg = b.new_page()
         pg.goto(f"{BASE_URL}{PATH}", wait_until="load")
