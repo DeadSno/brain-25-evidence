@@ -2863,6 +2863,7 @@ var OVERVIEW_ROWS = [
 
   function pregRisk(rec) {
     if (!profile.pregnant || profile.sex !== 'f') return false;
+    if (rec.pregnancy_contraindicated === true) return true;
     return PREG_RE.test(String(rec.caution || ''));
   }
 
