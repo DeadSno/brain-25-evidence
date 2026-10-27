@@ -397,11 +397,12 @@ def main() -> None:
             assert not errors, f"ошибки консоли: {errors}"
 
             # v2.7.1: статическая строка титула в content (задача 3.2).
-            # v5.6.5: заголовок откатан на «БАДы: доказательства и механизмы»
-            # в 573cc6f (docs/title) — проверяем актуальный h1.
+            # v5.6.5 (QA-02, FIX-04): MK2-06 (794992c5) заменил заголовок на
+            # «Независимая база БАДов: доказательства, а не маркетинг»
+            # (docs/index.html:310) — проверяем актуальный h1.
             pg.goto(f"{BASE}/index.html?ts={ts}", wait_until="domcontentloaded")
-            assert "БАДы: доказательства и механизмы" in pg.locator("h1").inner_text(), \
-                "v2.7.1: title missing"
+            assert "Независимая база БАДов: доказательства, а не маркетинг" in pg.locator("h1").inner_text(), \
+                "QA-02: h1 не совпадает с заголовком docs/index.html:310"
             ts += 1
 
             # v2.5: faq/glossary рендерятся, футер-ссылки на них живые.
