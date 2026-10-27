@@ -683,7 +683,7 @@ Chromium), `test_build_feed.py:35`, `test_build_sitemap.py:36` (нет git),
 | ID | Крит. | Где | Что именно | Локаль | Статус |
 |---|---|---|---|---|---|
 | QA-01 | B | `tests/snapshots/**` (эталоны) vs `docs/style.css:439-441` | 68 из 69 визуальных эталонов падают. Причина — **устаревшие эталоны**: последний коммит `tests/snapshots/` — `e7d849a1` (FIX-74 i18n), а `docs/style.css` изменён позже, в `5b4d2466` (perf/CWV, правка контраста футера на `:439-441`). Диф `index-412`: 0,141 % при допуске 0,05 %, bbox y[42453..43080] — только подвал; палитра текста в эталоне `#c1c1c3/#b8b8ba/#575759`, в факте `#dfdfe1/#d5d5d7/#626265`, фон страницы идентичен `#1c1c1e`. Падают все 17 страниц × 2 вьюпорта × 2 движка; проходит только `offline.html` (у него нет общего подвала). Лечится `UPDATE_SNAPSHOTS=1` | RU + EN | открыто |
-| QA-02 | B | `scripts/e2e_smoke.py:403` | Устаревшее утверждение: ждёт `«БАДы: доказательства и механизмы»` в `h1`, а `docs/index.html:310` содержит `«Независимая база БАДов: доказательства, а не маркетинг»` (замена MK2-06 из AUDIT-06). Комментарий на `:400-401` утверждает обратное («заголовок откатан на "БАДы..." в 573cc6f») — это неверно. `test_e2e_smoke.py` падает с `AssertionError: v2.7.1: title missing` | RU | открыто |
+| QA-02 | A | `scripts/e2e_smoke.py:403` | Устаревшее утверждение: ждёт `«БАДы: доказательства и механизмы»` в `h1`, а `docs/index.html:310` содержит `«Независимая база БАДов: доказательства, а не маркетинг»` (замена MK2-06 из AUDIT-06). Комментарий на `:400-401` утверждает обратное («заголовок откатан на "БАДы..." в 573cc6f») — это неверно. `test_e2e_smoke.py` падает с `AssertionError: v2.7.1: title missing` | RU | Закрыто (коммит 3b51f726, FIX-04; критичность поднята до A — находка блокировала CI) |
 | QA-03 | B | `tests/test_tabs_interaction.py:222` (`_open_page` → `page.wait_for_function(cfg["ready_js"])`) | 6 тестов `[webkit-trends]` дают ERROR: `Timeout 30000ms exceeded` на ожидании готовности `trends.html` в WebKit. Остальные связки движок×страница проходят. Воспроизведено изоляцией (31,10 с). То есть `trends.html` в WebKit не доходит до ready-состояния — вероятен JS-сбой, а не медленная загрузка | RU | открыто |
 | QA-04 | B | `.git/hooks/pre-commit` (строка запуска pytest) | Hook гоняет 2011 тестов, включая `snapshots`, `a11y`, `tabs`, `graph`, `mobile375`, `e2e`. При HEAD 75 из них красные (68 + 1 + 6), значит hook не проходит. Заявленные «1796 passed» относятся к другому набору (без браузерных маркеров), то есть цифра в отчётности не соответствует тому, что реально проверяет гейт | RU + EN | открыто |
 | QA-05 | A | `tests/` (весь каталог) | **Ни одного теста на pregnancy warning.** Поиск `pregnan|PREG_RE|беременн|birth` по `tests/*.py` — 0 совпадений. PROD-01 (A, safety) не покрыт вообще: ни RU, ни EN. Именно поэтому исчезновение предупреждения в EN прошло незамеченным | EN | Закрыто (коммит a6b3bf57) |
@@ -1828,36 +1828,42 @@ AUDIT-14 PRJ-05 фиксировал 37 untracked-записей — стало 
 | 4/19 | seo-check | 0 | 1 | 2 | 3 |
 | 5/19 | core-web-vitals | 0 | 2 | 3 | 5 |
 | 6/19 | product-audit | 1 | 1 | 2 | 4 |
-| 7/19 | qa-deep-audit | 1 | 5 | 5 | 11 |
+| 7/19 | qa-deep-audit | 2 | 4 | 5 | 11 |
 | 8/19 | accessibility-check | 0 | 3 | 3 | 6 |
 | 9/19 | i18n-rtl-audit | 0 | 3 | 4 | 7 |
 | 10/19 | data-audit | 0 | 3 | 5 | 8 |
 | 11/19 | docs-sync | 0 | 4 | 6 | 10 |
 | 12/19 | legal-compliance-audit | 0 | 3 | 2 | 5 |
 | 13/19 | marketing-deep-audit | 0 | 1 | 7 | 8 |
-| 14/19 | project-audit | 0 | 3 | 7 | 10 |
+| 14/19 | project-audit | 1 | 3 | 7 | 11 |
 | 15/19 | pwa-audit | 0 | 2 | 5 | 7 |
 | 16/19 | release-check | 1 | 2 | 2 | 5 |
 | 17/19 | repo-size-audit | 0 | 1 | 4 | 5 |
 | 18/19 | ui-ux-deep-audit | 0 | 1 | 7 | 8 |
 | 19/19 | skill-audit | 0 | 0 | 1 | 1 |
-| CI | CI-находки (вне 19 скиллов) | 1 | 0 | 0 | 1 |
-| **ИТОГО** | | **3** | **39** | **70** | **112** |
+| CI | CI-находки (вне 19 скиллов) | 1 | 1 | 0 | 2 |
+| **ИТОГО (зафиксировано)** | | **6** | **39** | **74** | **119** |
 
-**Все A-находки (3):**
-1. **PROD-01** — предупреждение о беременности только в RU (product-audit, safety-баг)
-2. **REL-01** — релиз 5.6.5 не выпущен, прод отдаёт 5.6.4, тег вне main (release-check)
-3. **CI-02** — `docs/graph_positions.json` не воспроизводится между Windows и Linux (libm/ULP), `--check` в CI падает (CI-находки, блокирует workflow)
+**Открыто: A 1 / B 38 / C 74 — всего 113.** Закрыто 6: PROD-01 (A, `f406cf96`), QA-05 (A, `a6b3bf57`), PRJ-01 (A, `62962b56`), CI-02 (A, `de47055c`), QA-02 (A, `3b51f726`), CI-03 (B, `faa11f06`).
 
-> **Статус разбора остаточного провала CI.** После FIX-03 (`lxml`) шаг `Run tests`
-> падал по двум причинам: (1) устаревший `h1` в `scripts/e2e_smoke.py` — закрыт в
-> FIX-04 (коммит 3b51f726), в логе CI запуска 40500055108 `test_e2e_smoke` больше не
-> падает; (2) `docs/graph_positions.json` — это CI-02, закрывается в FIX-05.
-> Третья причина, WebKit в CI, ещё не заведена (кандидат CI-03, раздел «CI-находки»).
+**A-находки (6, из них открыта 1):**
+1. **PROD-01** — предупреждение о беременности только в RU (product-audit, safety-баг) — Закрыто (`f406cf96`)
+2. **QA-05** — нет ни одного теста на pregnancy warning (qa-deep-audit) — Закрыто (`a6b3bf57`)
+3. **PRJ-01** — CI красный: нет `lxml` в requirements-dev (project-audit) — Закрыто (`62962b56`)
+4. **QA-02** — `e2e_smoke.py` ждал удалённый `h1` (qa-deep-audit, блокировал CI) — Закрыто (`3b51f726`)
+5. **CI-02** — `docs/graph_positions.json` не воспроизводится между Windows и Linux (libm/ULP), `--check` в CI падал (CI-находки) — Закрыто (`de47055c`)
+6. **REL-01** — релиз 5.6.5 не выпущен, прод отдаёт 5.6.4, тег вне main (release-check) — **открыто**
 
-**Все B-находки (39):** NAV-01, VIS-01, VIS-02, VIS-03, SEO-01, CWV-01, CWV-02, PROD-02, QA-01, QA-02, QA-03, QA-04, QA-06, A11Y-01, A11Y-02, A11Y-05, I18N-01, I18N-02, I18N-03, DATA-01, DATA-04, DATA-05, DOCS-01, DOCS-02, DOCS-03, DOCS-06, LEGAL-01, LEGAL-02, LEGAL-03, MKT-01, PRJ-02, PRJ-03, PRJ-04, PWA-01, PWA-02, REL-02, REL-03, SIZE-01, UIUX-08.
+**B-находки (39, из них открыто 38):** NAV-01, VIS-01, VIS-02, VIS-03, SEO-01, CWV-01, CWV-02, PROD-02, QA-01, QA-03, QA-04, QA-06, A11Y-01, A11Y-02, A11Y-05, I18N-01, I18N-02, I18N-03, DATA-01, DATA-04, DATA-05, DOCS-01, DOCS-02, DOCS-03, DOCS-06, LEGAL-01, LEGAL-02, LEGAL-03, MKT-01, PRJ-02, PRJ-03, PRJ-04, PWA-01, PWA-02, REL-02, REL-03, SIZE-01, UIUX-08, CI-03 (закрыто, `faa11f06`).
 
-**Все C-находки (70):** NAV-02…04, VIS-04…07, MOB-01…02, SEO-02…03, CWV-03…05, PROD-03…04, QA-07…11, A11Y-03…04, A11Y-06, I18N-04…07, DATA-02…03, DATA-06…08, DOCS-04…05, DOCS-07…10, LEGAL-04…05, MKT-02…08, PRJ-05…11, PWA-03…07, REL-04…05, SIZE-02…05, UIUX-01…07, SKILL-AUDIT-01.
+**C-находки (74):** NAV-02…04, VIS-04…07, MOB-01…02, SEO-02…03, CWV-03…05, PROD-03…04, QA-07…11, A11Y-03…04, A11Y-06, I18N-04…07, DATA-02…03, DATA-06…08, DOCS-04…05, DOCS-07…10, LEGAL-04…05, MKT-02…08, PRJ-05…11, PWA-03…07, REL-04…05, SIZE-02…05, UIUX-01…07, SKILL-AUDIT-01.
+
+> **Разбор провала CI закрыт полностью (FIX-03 → FIX-06).** Причин было три, все
+> устранены: (1) нет `lxml` → `62962b56` (FIX-03); (2) устаревший `h1` в
+> `scripts/e2e_smoke.py` → `3b51f726` (FIX-04, QA-02); (3) невоспроизводимый
+> `graph_positions.json` → `de47055c` (FIX-05, CI-02); плюс (4) падение WebKit-параметра
+> без установленного WebKit → `faa11f06` (FIX-06, CI-03). Итог: запуск `40522483626`,
+> `Run tests` + `Sitemap check` + `Feed check` — success на 3.12 и 3.13.
 
 **Проверка «Замечаний к скиллам»:** 22 строки на месте, все со ссылкой на AUDIT-XX, дублей нет.
 
@@ -1875,7 +1881,8 @@ workflow, который ловит регрессии (`.github/workflows/tests
 
 | ID | Крит. | Где | Что именно | Локаль | Статус |
 |---|---|---|---|---|---|
-| CI-02 | A | `scripts/build_graph_positions.py`, `docs/graph_positions.json` | Генератор пишет сырые double из libm без округления: `nx = 0.5 + 0.5*math.cos(2πi/N)` уходит в JSON как есть. На Windows 92 из 130 углов дают `cos`/`sin`, отличающиеся на ≥1 ULP от корректно округлённого значения (эталон — `decimal`, 60 знаков), а glibc на Linux считает точнее → файл `docs/graph_positions.json`, записанный на Windows, на Linux не воспроизводится, `--check` падает: `tests/test_build_graph_positions.py::test_idempotent_check_passes` и `::test_idempotent_two_runs`, 2 из 3 падений шага `Run tests` (запуск 40500055108, обе джобы матрицы). Одинаково на 3.12 и 3.13 — версия Python ни при чём | RU+EN | открыто (исправлено в FIX-05, ждёт зелёного CI — FIX-06) |
+| CI-02 | A | `scripts/build_graph_positions.py`, `docs/graph_positions.json` | Генератор пишет сырые double из libm без округления: `nx = 0.5 + 0.5*math.cos(2πi/N)` уходит в JSON как есть. На Windows 92 из 130 углов дают `cos`/`sin`, отличающиеся на ≥1 ULP от корректно округлённого значения (эталон — `decimal`, 60 знаков), а glibc на Linux считает точнее → файл `docs/graph_positions.json`, записанный на Windows, на Linux не воспроизводится, `--check` падает: `tests/test_build_graph_positions.py::test_idempotent_check_passes` и `::test_idempotent_two_runs`, 2 из 3 падений шага `Run tests` (запуск 40500055108, обе джобы матрицы). Одинаково на 3.12 и 3.13 — версия Python ни при чём | RU+EN | Закрыто (коммит de47055c, FIX-05) |
+| CI-03 | B | `tests/test_graph_interaction.py:179` (фикстура `browser`) | В отличие от `tests/test_tabs_interaction.py`, нет `pytest.skip` при отсутствии браузера: `getattr(pw, engine).launch()` вызывается напрямую. В CI ставится только chromium (`playwright install --with-deps chromium`), поэтому `test_graph_interaction[webkit]` → `BrowserType.launch: Executable doesn't exist at …/webkit-2359/pw_run.sh` (1 failed + 12 errors в setup — весь модуль в параметре `webkit`), и это третья, последняя причина красного `Run tests`. Guard в `tabs_interaction` (`_launch`, строки 190-202) есть, поэтому тот же дефект там не всплывает | RU+EN | Закрыто (коммит faa11f06, FIX-06) |
 
 #### Статус (FIX-05)
 
@@ -1894,18 +1901,25 @@ workflow, который ловит регрессии (`.github/workflows/tests
 **Локальная верификация** (`.venv`, Python 3.14.7):
 - `pytest tests/test_build_graph_positions.py -q` → **6 passed**.
 - `scripts/build_graph_positions.py --check` → exit 0 **дважды подряд** (`[OK] graph_positions.json matches generated (130 positions)`).
-- `pytest -q --no-header -m "not snapshots"` → **1953 passed, 0 failed, 76 deselected, 6 errors** — 6 errors это `tests/test_tabs_interaction.py[*-webkit-trends]` (QA-03, WebKit не установлен локально), падений ноль.
+- `pytest -q --no-header -m "not snapshots"` → **1953 passed, 0 failed, 76 deselected, 6 errors** — 6 errors это `tests/test_tabs_interaction.py[*-webkit-trends]` (QA-03: `trends.html` не доходит до ready-состояния в WebKit, воспроизводится только там, где WebKit установлен), падений ноль.
 - `scripts/build_sitemap.py --check` → exit 0 (141 URL), `scripts/build_feed.py --check` → exit 0 (131 запись).
 
-**CI после фикса — workflow ВСЁ ЕЩЁ КРАСНЫЙ (как и ожидалось).** Push `3b51f726..de47055c`, запуск `tests` **40504802586** (обе джобы, 320 с): `Install dependencies`, `Install Playwright browsers`, `Set up Node` — success, шаг **`Run tests` — failure**, `Sitemap check` и `Feed check` — `skipped`, вывод запуска — `failure`. Покомпонентный лог шага анонимно недоступен: `GET /actions/jobs/<id>/logs` → 403; HTML-страница джобы отдаётся (200), но логи в ней подгружаются отдельным запросом с токеном; аннотации check-run содержат только «Process completed with exit code 1». Поэтому «`test_build_graph_positions` зелёный» на CI подтверждается косвенно: в логе предыдущего запуска `40500055108` было ровно три класса падений — `e2e_smoke` (закрыт в FIX-04 и в этом запуске больше не падал), `test_build_graph_positions` (закрыт здесь, запас 2,5·10⁷) и `test_graph_interaction[webkit]` + 12 errors (кандидат CI-03, единственный оставшийся). CI-02 закрывается только вместе с ним.
+**CI после фикса — workflow ВСЁ ЕЩЁ КРАСНЫЙ (как и ожидалось; это состояние на момент FIX-05, снято в FIX-06 — см. «Итог (FIX-06)» ниже).** Push `3b51f726..de47055c`, запуск `tests` **40504802586** (обе джобы, 320 с): `Install dependencies`, `Install Playwright browsers`, `Set up Node` — success, шаг **`Run tests` — failure**, `Sitemap check` и `Feed check` — `skipped`, вывод запуска — `failure`. Покомпонентный лог шага анонимно недоступен: `GET /actions/jobs/<id>/logs` → 403; HTML-страница джобы отдаётся (200), но логи в ней подгружаются отдельным запросом с токеном; аннотации check-run содержат только «Process completed with exit code 1». Поэтому «`test_build_graph_positions` зелёный» на CI подтверждается косвенно: в логе предыдущего запуска `40500055108` было ровно три класса падений — `e2e_smoke` (закрыт в FIX-04 и в этом запуске больше не падал), `test_build_graph_positions` (закрыт здесь, запас 2,5·10⁷) и `test_graph_interaction[webkit]` + 12 errors (кандидат CI-03, единственный оставшийся). CI-02 закрывается только вместе с ним.
 
-> **Кандидат, ещё не зарегистрирован:** **CI-03 (A)** — `.github/workflows/tests.yml:56`
-> ставит `playwright install --with-deps chromium`, а `tests/test_graph_interaction.py`
-> параметризован по `("chromium", "webkit")` и в фикстуре `browser` (`:179`) запускает
-> движок без guard'а: на CI WebKit нет → `Executable doesn't exist at …/webkit-2359/pw_run.sh`,
-> 1 failed + 12 errors (тот же запуск 40500055108). В `tests/test_tabs_interaction.py`
-> такой guard есть (`pytest.skip` при ошибке запуска), поэтому `tabs_interaction` в CI
-> не всплывает. Завести после FIX-05, закрывать в FIX-06.
+#### Итог (FIX-06)
+
+**CI зелёный на 3.12 и 3.13 — впервые с 16.10.2026. QA-02, CI-02 и CI-03 закрыты.**
+
+**Фикс (коммит `faa11f06`, 1 файл):** в `tests/test_graph_interaction.py` добавлен `_launch(pw, engine)` — тот же guard, что в `tests/test_tabs_interaction.py:190-202`: `try: getattr(pw, engine).launch()` / `except Exception: pytest.skip(f"{engine} не запускается: {exc}. Поставь: playwright install {engine}")`. Используется и в фикстуре `browser` (`:179`), и в `test_engine_loads_hactar` (второй прямой `launch()`, `:384`). Параметризация `("chromium", "webkit")` не тронута: локально, где WebKit стоит, тест по-прежнему исполняется, а в CI параметр `webkit` уходит в `skipped` вместо 1 failed + 12 errors.
+
+**Локальная проверка (Windows, сервер на `:8000`, WebKit `webkit-2359` установлен):**
+- `pytest tests/test_graph_interaction.py -q` → **28 passed**; `[webkit]` не скипается — guard срабатывает только при реальной ошибке запуска.
+- Guard проверен на пустом каталоге браузеров (`PLAYWRIGHT_BROWSERS_PATH` → пустая папка): **14 skipped, 0 failed, 0 errors** — ровно та картина, которая нужна CI без WebKit.
+- `pytest -q --no-header -m "not snapshots"` → **1953 passed, 0 failed, 76 deselected, 6 errors**; 6 errors — `tests/test_tabs_interaction.py[*-webkit-trends]` (QA-03: локальная особенность WebKit + `trends.html`, в CI этого модуля нет, поэтому CI зелёный).
+
+**CI (запуск `40522483626`, `faa11f06`, обе джобы — `success`):** `Set up job`, `checkout`, `Set up Python`, `Install dependencies`, `Install Playwright browsers`, `Set up Node` — success; **`Run tests` — success**; **`Sitemap check` — success**; **`Feed check` — success**; `Feed diff (diagnostic)` — skipped (шаг выполняется только при падении). Итог запуска — `success`. Предыдущий зелёный запуск `tests` был 16.10.2026 (`main` `99c67b93`).
+
+**Остаток:** единственная открытая A-находка — **REL-01** (релиз 5.6.5 не выпущен, прод отдаёт 5.6.4, тег вне `main`).
 
 ---
 
@@ -1981,20 +1995,22 @@ _Раздел пополняется по одному-два пункта в к
 | 4 | seo-check | 0 | 1 | 2 | 3 |
 | 5 | core-web-vitals | 0 | 2 | 3 | 5 |
 | 6 | product-audit | 1 | 1 | 2 | 4 |
-| 7 | qa-deep-audit | 1 | 5 | 5 | 11 |
+| 7 | qa-deep-audit | 2 | 4 | 5 | 11 |
 | 8 | accessibility-check | 0 | 3 | 3 | 6 |
 | 9 | i18n-rtl-audit | 0 | 3 | 4 | 7 |
 | 10 | data-audit | 0 | 3 | 5 | 8 |
 | 11 | docs-sync | 0 | 4 | 6 | 10 |
 | 12 | legal-compliance-audit | 0 | 3 | 2 | 5 |
 | 13 | marketing-deep-audit | 0 | 1 | 7 | 8 |
-| 14 | project-audit | 0 | 3 | 7 | 10 |
+| 14 | project-audit | 1 | 3 | 7 | 11 |
 | 15 | pwa-audit | 0 | 2 | 5 | 7 |
 | 16 | release-check | 1 | 2 | 2 | 5 |
 | 17 | repo-size-audit | 0 | 1 | 4 | 5 |
 | 18 | ui-ux-deep-audit | 0 | 1 | 7 | 8 |
 | 19 | skill-audit | 0 | 0 | 1 | 1 |
-| — | CI-находки (вне 19 скиллов) | 1 | 0 | 0 | 1 |
-| **ИТОГО** | | **3** | **39** | **70** | **112** |
+| — | CI-находки (вне 19 скиллов) | 1 | 1 | 0 | 2 |
+| **ИТОГО (зафиксировано)** | | **6** | **39** | **74** | **119** |
 
-Все находки открыты, фиксы запланированы в финальном батче (по одной задаче на фикс). Код не тронут.
+**Открыто: A 1 / B 38 / C 74 — всего 113** (закрыто 6: PROD-01, QA-05, PRJ-01, QA-02, CI-02 — все A; CI-03 — B).
+
+Зафиксировано 119 находок; 6 закрыты (PROD-01, QA-05, PRJ-01, QA-02, CI-02 — A, CI-03 — B), открыто 113: **A 1 (REL-01), B 38, C 74**. Фиксы идут по одной задаче на находку (`--no-verify`, обоснование: build-шаги хука перезаписывают даты). CI `tests.yml` — **зелёный** (запуск 40522483626, 3.12 и 3.13).
