@@ -1110,6 +1110,119 @@ DOCS-02 фиксирует расхождение как **документац�
 
 **Статус: открыто 8 находок (A: 0, B: 1, C: 7). Код не тронут.**
 
+## Аудит 14/19: project-audit
+
+**Проверка предыдущего: AUDIT-13 (marketing-deep-audit) зафиксирован — 8 находок (MKT-01…MKT-08), 0 A / 1 B / 7 C, все открыто. MKT-01 (УТП не доехало до head) — B. MKT-05 (аудитория), MKT-06 (тупик FAQ), MKT-07 (машинный перевод) — C. УТП/H1 в порядке, CTA-иерархия (MK2-02) закрыта, OG-теги в EN — это SEO-02/03, не дублируется. MK2-01…06, NMK2-01/02 не регрессировали. OK.**
+
+Охват: весь репозиторий, не только `docs/` — корень и 24 каталога (`docs` 274 файла, `templates` 2, `scripts` 135, `tests` 445, `reports` 550, `.opencode/skills`, `.githooks` 6, `.github` 6, `src` 11, `lib`, `data` 12 051, `notebooks` 5), 5 workflow CI, `LICENSE`, `requirements*.txt`, `package.json`/`package-lock.json`, `.gitignore`, `.gitattributes`, `.editorconfig`, `.opencodeignore`, `docs/version.json`, `manifest.webmanifest`, `sw.js`, `reports/OPEN_TECHDEBT.md`, `reports/archive/`, `reports/archive/AUDIT_MASTER_v565_rerun3.md`.
+
+Метод: каждая находка воспроизведена. CI проверялся не по описанию, а по фактическим запускам через GitHub API и **воспроизведением в чистом venv** (`pip install -r requirements-dev.txt` → `pytest --co`), потому что логи без токена недоступны (403). Синхронность шаблонов — генерацией в отдельный каталог и побайтовым сравнением. Секреты — тремя независимыми способами (тест, скан по шаблонам, история git). Версии — запросом к PyPI, уязвимости — `pip-audit` и `npm audit`.
+
+### Находки
+
+| ID | Крит. | Где | Что именно | Локаль | Статус |
+|---|---|---|---|---|---|
+| PRJ-01 | A | `.github/workflows/tests.yml:57` + `requirements-dev.txt` | **CI красный на каждом push, и это не замечают.** 60 из 60 запусков workflow `tests` на ветке `v5.6.5-dev` — `failure` (с 2026-10-25T04:54 до 2026-10-26T16:20, включая HEAD `5f219b03`); в обоих джобах матрицы (Python 3.12 и 3.13) падает шаг «Run tests», а следующие `Sitemap check` и `Feed check` — `skipped`, то есть гейт не работает целиком. Причина: `tests/test_sup_html_invariants.py:38` и `tests/test_sup_links.py:30` делают `from lxml import html` на уровне модуля, а `lxml` нет ни в `requirements.txt`, ни в `requirements-dev.txt` — `tests.yml` ставит только `pip install -r requirements-dev.txt`. Воспроизведено в чистом venv: `1878 tests collected, 2 errors` (`Interrupted: 2 errors during collection`), после `pip install lxml` — `2017 tests collected, 0 errors`. Локально CI-провал не виден, потому что `lxml` приезжает транзитивно с `pytrends`, которого в requirements тоже нет. В `README.md:5` висит бейдж `tests.yml` — он красный на главной странице репозитория | RU+EN | открыто |
+| PRJ-02 | B | `docs/dev/*.md` (9), `docs/briefs/*.md` (12), `docs/adr/*.md` (6) и 18 `docs/*.md` — всего 49 | Внутренние рабочие документы публикуются как часть сайта. GitHub Pages отдаёт весь каталог `docs/`, поэтому `https://deadsno.github.io/brain-25-evidence/dev/STATE.md` → **200, 28 267 байт**: фазы цикла, хэши коммитов, открытые пункты, внутренние договорённости; `…/briefs/q14_audit.md` → 200, 1 694 байта. `sitemap.xml` и `robots.txt` эти адреса не рекламируют, но URL открыт, отдаётся с `text/markdown` и индексируется. Там же 12 брифов батчей и 6 ADR — рабочий журнал, а не витрина | RU+EN | открыто |
+| PRJ-03 | B | `.gitignore:154-155` | `package.json` и `package-lock.json` внесены в `.gitignore` → node-манифест не версионируется вообще: `npm ci` невоспроизводим, зависимость `opencode-plugin-openspec` нигде не зафиксирована, а локальный `package.json` объявляет `playwright: ^1.64.1` при том, что `requirements.txt` и `requirements-dev.txt` пиннят `playwright==1.63.0`. Два источника истины про одну и ту же зависимость расходятся на минорную версию (на PyPI уже 1.64.1) — какая из них рабочая, из репозитория не определить | RU+EN | открыто |
+| PRJ-04 | B | `requirements.txt`, `requirements-dev.txt` | Окружение невоспроизводимо: без пинов `pandas`, `numpy`, `requests`, `Pillow`, `beautifulsoup4`, `curl_cffi`, `playwright-stealth`, `streamlit`, `matplotlib`; lock-файла нет (`pip freeze` не зафиксирован), пины есть только у `duckdb==1.5.5` и `playwright==1.63.0` — и то с обоснованием в комментарии, то есть практика пинов в проекте уже принята, просто не применена. Прямое следствие — PRJ-01: локально зелёный прогон на пакетах, которых в манифесте нет (`lxml` через `pytrends`), при красном CI. `pytrends` не объявлен и в коде не используется | RU+EN | открыто |
+| PRJ-05 | C | корень репозитория | 37 untracked-файлов `_tmp_*` (36 штук `.txt`/`.json`: `_tmp_75_*`, `_tmp_status1..7`, `_tmp_aa_*`, `_tmp_kg_scan*`) плюс каталог `_tmp_sup_out/` со 131 сгенерированным html. `.gitignore` глушит только `_tmp_*.py` и `_tmp_*.js`, поэтому `.txt`/`.json` и каталог видны в `git status` (`git check-ignore -v _tmp_sup_out` → пусто) и могут уехать в коммит по `git add -A` | RU+EN | открыто |
+| PRJ-06 | C | `docs/data.json.bak-*` | 12 бэкапов данных общим объёмом **7,81 MB** (593–732 KB каждый) лежат в каталоге, который целиком публикуется как сайт. Шаблон `docs/*.bak-*` их игнорирует, поэтому в коммит они не попадут и Pages их не отдаст, но локальный `docs/` перестаёт быть «ровно тем, что видит пользователь», а `grep`/скан по `docs/` даёт 12 копий `data.json` | RU+EN | открыто |
+| PRJ-07 | C | `reports/` | 501 tracked-файл, и корень `reports/` смешивает отчёты с артефактами сборки: 5 версий `mechanism_graph*.html` (40–96 KB), `graph_interactions.html` 415 KB + `.gexf` 408 KB, `coi_per_paper.json` 475 KB, 24 файла `q14_batch_*_proposal.json`, 16 `mechs_batch_*_proposal.json`, два одноразовых `.py` (`gen_q14_batch_16_md.py`, `validate_batch_16.py`), `meta_lengths.csv`, `QA_AUDIT_RAW.json`. При этом старые мастер-отчёты (`AUDIT_MASTER_v565_rerun.md` 82 KB, `rerun2.md` 101 KB, `SKILLS_AUDIT_FINAL.md`, `SKILLS_AUDIT_RERUN3.md`, `SKILLS_INVENTORY.md`) в `reports/archive/` не перенесены — в корне пять «активных» мастер-файлов вместо одного | RU+EN | открыто |
+| PRJ-08 | C | `docs/vendor/bootstrap-5.0.0-beta3.min.css` (154 875 B) + `.min.js` (80 427 B) | 235 KB мёртвого вендора: ни одна из 150 страниц и ни один скрипт в `docs/` его не подключает (скан всех `href`/`src` в 150 html и всех `docs/*.js`). Уже зарегистрировано как **CYBER-P1-02** (`reports/OPEN_TECHDEBT.md:187`) и **PERF-P2-01` (`:274`) — не новая находка, а подтверждение, что долг висит с прошлых прогонов и файлы всё ещё в сборке | RU+EN | открыто |
+| PRJ-09 | C | `requirements.txt:1` | Файл в UTF-8 с кириллическими комментариями, без объявления кодировки: инструменты, читающие его в локальной кодировке Windows, падают. Воспроизведено: `pip-audit -r requirements.txt` → `UnicodeDecodeError: 'charmap' codec can't decode byte 0x98 in position 1560`; с `PYTHONUTF8=1` проходит. То есть аудит уязвимостей Python-зависимостей на этой машине по умолчанию невозможен | RU+EN | открыто |
+| PRJ-10 | C | `package.json` → `opencode-plugin-openspec ^0.1.4` | `npm audit`: **5 high severity**, исправления нет — `zod <4.6.6` (GHSA-mrhx-c7xc-m3w5, «Zod can exhaust memory while validating oversized constrained collections») и цепочка `@opencode-ai/plugin` → `effect` → `toml`. Влияет только на dev-тулинг агента, в собранный сайт не попадает, поэтому C, а не B | RU+EN | открыто |
+| PRJ-11 | C | `.github/workflows/tests.yml:66-70` vs `ARCHITECTURE.md:199` | Шаг «Set up Node» ставит Node 20, но **ни один шаг workflow его не использует**: `node --check`, который `ARCHITECTURE.md:199` обещает («pytest + `node --check` на каждый push в main»), в файле отсутствует. Мёртвый шаг в CI и расхождение документации с фактом | RU+EN | открыто |
+
+### CI (отдельно)
+
+`.github/workflows/` **есть — 5 workflow**, проект не «без CI»:
+
+| Workflow | Триггер | Что гоняет | Состояние |
+|---|---|---|---|
+| `tests.yml` (5 655 B) | push/PR в `[main, v5.6.5-dev]` + `workflow_dispatch` | матрица Python 3.12/3.13: `pip install -r requirements-dev.txt`, `playwright install --with-deps chromium`, `pytest -q --no-header -m "not snapshots"`, затем `build_sitemap.py --check` и `build_feed.py --check` + диагностический шаг с диффом фида при падении | **красный на 60/60 запусков ветки** (PRJ-01) |
+| `sync_version.yml` (2 368 B) | push в `main` по путям `tests/**`, `docs/version.json` | `pytest --co` и коммит числа тестов в `version.json` | не запускался на этой ветке |
+| `backup.yml` (5 198 B) | cron | бэкап данных | зелёный (`main`) |
+| `postman.yml` (720 B) | — | newman | зелёный (`main`) |
+| `watchdog.yml` (1 498 B) | cron `0 6 * * 1` | проверка живости | зелёный (`main`) |
+
+Джоб со снапшотами снят с CI в v5.4.2 — эталоны Windows-зависимые, решение осознанное. Проблема не в отсутствии CI, а в том, что единственный workflow, который должен ловить регрессии, **не проходит ни разу**, а его падение никого не остановило: pre-commit-хук зелёный, локальный pytest зелёный, `README.md:5` с красным бейджем никто не перечитал. Это же объясняет, почему в самом `tests.yml` остался комментарий от 2026-10-25 о том, что ветка «ни разу не проверялась».
+
+### Лицензия кода (отдельно)
+
+`LICENSE` в корне — **есть**, полный текст MIT (1 085 байт), `Copyright (c) 2026 DeadSno`. Совпадает с бейджем `License: MIT` в `README.md:7` и с `terms-of-use.html`, где разделены код (MIT) и данные (CC BY 4.0). Правовой аспект двойного лицензирования (MIT в README против CC BY 4.0 на сайте) — это **LEGAL-01**, он про данные и здесь не дублируется. Кодовой части это не касается: файл на месте, текст канонический, расхождений с README нет.
+
+### Секреты (отдельно)
+
+Чисто, проверено тремя независимыми способами.
+
+- `tests/test_no_secrets.py` — **7 passed** за 15,29 с.
+- Скан всех tracked-файлов по шаблонам `AKIA…`, `gh[pousr]_…`, `AAAA…` (Яндекс), `-----BEGIN … PRIVATE KEY-----`, `xox[baprs]-…`, generic `api_key|secret|password|token = "…"`. Совпадения только ложные: канарейки внутри самого `test_no_secrets.py`, base64-картинки в `docs/vendor/vis-network-9.1.9.min.js` и `notebooks/0{2,3}_*.ipynb`, плейсхолдер `apiKey: "{env:OPENROUTER_API_KEY}"` в `reports/FINAL_WAVE.md`.
+- История: `git log --all --diff-filter=A --name-only` по `.env|secret|credential` — `.env` не коммитился ни разу, в истории только `tests/test_no_secrets.py`, `scripts/audit_secrets.py` и файлы скилла cyberaudit. В рабочем дереве `.env*` нет.
+
+### Зависимости (отдельно)
+
+| Что | Факт |
+|---|---|
+| Python | `requirements.txt` — 18 строк, пины у `duckdb==1.5.5` и `playwright==1.63.0`, остальное `>=`/без версии; `requirements-dev.txt` — 7 строк, `playwright==1.63.0` |
+| Node | `package.json` — `opencode-plugin-openspec ^0.1.4`, `playwright ^1.64.1`; `package-lock.json` 16 664 B — **оба в `.gitignore`** (PRJ-03) |
+| Отсутствует в манифесте, но нужен | `lxml` — импортируется двумя тестами, из-за него красный CI (PRJ-01) |
+| Есть в манифесте, но не используется | `pytrends` — не объявлен и не импортируется; при этом именно он транзитивно приносит `lxml` локально |
+| Уязвимости Python | `pip-audit -r requirements.txt` → **No known vulnerabilities found** (при `PYTHONUTF8=1`) |
+| Уязвимости Node | `npm audit` → **5 high**, fix отсутствует (PRJ-10) |
+| Отставание версий | playwright 1.63.0 → 1.64.1, duckdb 1.5.5 → 2.0.0 (мажор, пин осознанный), pandas 3.1.0, numpy 2.5.4, Pillow 13.0.0, bs4 4.15.0, streamlit 1.66.1, PyMuPDF 2.0, networkx 3.7, pyvis 0.3.2, curl_cffi 0.17.0, matplotlib 3.11.2, requests 2.34.2, playwright-stealth 2.0.3, markupsafe 3.0.4, jinja2 3.1.6, pytest 9.1.1 |
+| Ложные срабатывания regex-скана | `bs4` = beautifulsoup4, `fitz` = PyMuPDF, `PIL` = Pillow, `pytest` = requirements-dev — все объявлены |
+
+### `.gitignore` / `.gitattributes` / `.editorconfig` (отдельно)
+
+- **`.gitignore`** — 185 строк, в целом актуален: закрывает `data/db/`, `data/papers/papers.json`, `data/pmc/tmp/`, `logs/`, `*.log`, `.serena/`, `.playwright-mcp/`, `.postman/`, `docs/*.bak-*`, `.opencode/skills/cyberaudit/` (вендорный скилл, осознанно). Две проблемы: `package.json`/`package-lock.json` (PRJ-03) и неполное покрытие `_tmp_*` (PRJ-05). Есть дубли — `*.log`, `data/papers/papers.json`, `data/pmc/tmp/`, `_tmp_*.py`, `data/db/` встречаются по два раза; на поведение не влияет, но говорит о ручном дописывании.
+- **`.gitattributes`** — корректен: `* text=auto eol=lf`, PNG через Git LFS (`filter=lfs diff=lfs merge=lfs`, история не переписана — осознанно), `*.duckdb`/`*.gexf`/`*.jpg` → binary, `*.bat`/`*.ps1`/`*.cmd` → crlf, `*.py`/`*.md`/`*.json`/`*.yaml`/`*.sql` → lf.
+- **`.editorconfig`** — есть, `root = true`, utf-8, lf, final newline, trim trailing whitespace; Python 4 пробела, html/css/js/json/xml 2, jinja2 4, markdown `trim_trailing_whitespace = false`, bat/ps1 crlf. Стили единые, расхождений с фактическими файлами не найдено.
+
+### Совпало с архивом / предыдущими скиллами
+
+Архив project-audit — `reports/OPEN_TECHDEBT.md`; в `reports/archive/AUDIT_MASTER_v565_rerun3.md` и `_WADA.md` PRJ-находок нет (там аудиты 1–5: NAV-01…04, VIS-01…03, MOB-01…03, SEO-01…05, CWV-01…04). Это первый project-audit в текущей серии.
+
+| Архивная находка | Статус сегодня | Чем подтверждено |
+|---|---|---|
+| PRJ-P1-01 (`OPEN_TECHDEBT.md:214`) — `trends.html` показывает 130 при 94 разобранных дозах | **открыто, не регрессировало** | это ядро **DATA-P1-12** из AUDIT-10, отдельного ID не завожу; в текущем прогоне пересечения с новыми находками нет |
+| PRJ-P2-01 (`:355`) — «5 из 10 находок project-аудита ложные» | **принято к сведению** | мета-запись о качестве прошлого прогона, а не находка. Из неё следует проверка: гипотеза «`lib/` нужен в git» из `SKILL.md:30` **опровергнута** — `lib/` генерируемый каталог pyvis и игнорируется правильно, `src/` импортируется 21 скриптом |
+| PRJ-P2-02 (`:356`) — «прочие P2 project/release, 4 пункта, нераскрытая корзина» | **раскрыто частично** | из этой корзины сегодня подтверждены bootstrap-вендор (PRJ-08) и замусоренный `reports/` (PRJ-07) |
+
+Связи с другими аудитами: **DOCS-06** (два хука) и **QA-04** («hook красный») — не дублирую, но фиксирую важное различие: в AUDIT-11 доказано, что **pre-commit-хук зелёный**, а QA-04 измеряла устаревшую копию `.git/hooks/pre-commit`. PRJ-01 — про другое: **CI на GitHub действительно красный**, и это не ложная находка, а 60 из 60 `failure` по API плюс воспроизведение в чистом venv. **LEGAL-01** — двойное лицензирование данных, здесь только кодовая часть (чисто). **DOCS-01** (1990 тестов) — не дублирую: `pytest --co` даёт 2017, и `version.json.tests = 2017` с этим совпадает. **DATA-01** (`data_index.json` устарел) — не пересекается.
+
+### Проверено — чисто
+
+- **Структура** — все каталоги на месте: `docs/`, `templates/`, `scripts/`, `tests/`, `reports/`, `.opencode/skills/`, `.githooks/`, `.github/`, `src/`, `lib/`, `data/`, `notebooks/`; пустых папок в трекаемом дереве нет.
+- **Именование** — 0 нарушений: `kebab-case` во всех 150 html (`docs/` + `docs/sup/`), `snake_case` во всех `scripts/*.py`.
+- **Мёртвый код** — 0 скриптов без упоминаний в `.md`; `src/` жив (21 скрипт делает `from src.`), `lib/bindings/utils.js` — шаблон pyvis, генерируется.
+- **Синхронность шаблонов** — `scripts/build_sup.py --out <temp>` → 131 файл, **131/131 байт-в-байт** идентичны `docs/sup/*.html`, лишних и недостающих нет.
+- **Валидность JSON** — `docs/data.json`, `data_en.json`, `dosage_parsed.json`, `version.json`, `timeseries.json`, `manifest.webmanifest`, `pairs.json`, `skills-lock.json`, `opencode.json`, `data/supplements_slim.json` — все парсятся.
+- **Версионирование** — `docs/version.json` = `{app 5.6.5, data 2026-09-25, audit 1.0, tests 2017}`; `tests` совпадает с фактически собранными 2017; тег `v5.6.5` существует, ветка на 45 коммитов впереди (`v5.6.5-45-g5f219b03`) — рабочее состояние dev-ветки, не расхождение.
+- **Тесты** — 74 файла `test_*.py`, все содержат хотя бы один `test_`; `pytest --co` = 2017, 0 errors при полном окружении.
+- **PWA** — `docs/manifest.webmanifest` (name, short_name, `lang: "ru"`, `dir: ltr`, icons 192/512 + maskable, `display: standalone`) и `docs/sw.js` с `CACHE_VERSION = v166` на месте.
+- **Статика сайта** — все 146 страниц с CSS грузят `style.min.css`; `style.css` в разметке не встречается вовсе (только в комментариях и `cssText`); `script.min.js` подключён на index, `script.js` не подключён нигде — исходник рядом с артефактом сборки, это норма. Без CSS всего 4 страницы: `atlas.html`, `graph.html`, файл верификации GSC и `offline.html` — у последней инлайновый `<style>` и 4 скрипта, она самодостаточна по замыслу.
+- **Большие файлы** — 8 файлов >5 MB (`data/db/brain.duckdb` 155 MB, `data/papers/papers.json` 107 MB, `papers_slim.json` 20 MB, `unpaywall.json` 15 MB, `nlm_catalog.json` 14 MB и др.) — **все в `.gitignore`**, в репозиторий не попадают; в трекаемом дереве крупнее всего PNG в `reports/archive/` (3,2 MB).
+- **Mermaid** — 28 блоков, парность backticks нарушена только в `reports/archive/v51/AUDIT_REPORT.md` (архив, не правим).
+- **`reports/` активный мастер** — `AUDIT_MASTER_v565_FINAL.md` единственный пополняемый; `archive/` 65 файлов, `audits/` 14.
+- **`.nojekyll`** на месте; файлы <100 B в `docs/` — только `.nojekyll` (0 B), `version.json` (80 B), `robots.txt` (88 B), что нормально.
+
+### Рекомендации (не находки, без приоритета)
+
+| Идея | Зачем | Сложность |
+|---|---|---|
+| Добавить `lxml` в `requirements-dev.txt` | закрывает PRJ-01 одним словом, CI станет зелёным | низкая |
+| Запинить всё через `pip freeze`/`uv lock` и убрать `package.json` из `.gitignore` | закрывает PRJ-03 и PRJ-04 | низкая |
+| Добавить в `tests.yml` шаг `npm ci` или убрать Node-шаг | закрывает PRJ-11 | низкая |
+| Перенести 49 `.md` из `docs/` в отдельный каталог вне публикации | закрывает PRJ-02 | средняя |
+| Добавить `_tmp_*` и `_tmp_*/` в `.gitignore` без расширения | закрывает PRJ-05 | низкая |
+| Удалить bootstrap-вендор и 12 `data.json.bak-*` | закрывает PRJ-08 и PRJ-06, минус 8 MB | низкая |
+| Разложить `reports/`: артефакты в `reports/artifacts/`, старые мастера в `archive/` | закрывает PRJ-07 | низкая |
+| Объявить `# -*- coding: utf-8 -*-` или убрать кириллицу из `requirements.txt` | закрывает PRJ-09 | низкая |
+| Поставить бейджу Tests условие «только main» или починить ветку | красный бейдж на витрине репозитория | низкая |
+
+**Статус: открыто 11 находок (A: 1, B: 3, C: 7). Код не тронут.**
+
 ---
 
 ## Замечания к скиллам (сквозные, фиксим в финальном батче)
@@ -1146,6 +1259,12 @@ DOCS-02 фиксирует расхождение как **документац�
 | marketing-deep-audit | SKILL.md:80 | «Числа («130 добавок», «11 940 full texts»)» — 11 940 устарело: в проекте 37 618 статей PubMed | AUDIT-13 |
 | marketing-deep-audit | SKILL.md:104, :108 | Примеры фиксов ссылаются на `calculator.html` (теперь редирект-заглушка на hactar) и на слоган «БАДы: доказательства и механизмы» как на текущий — оба примера устарели, скилл не знает про Hactar | AUDIT-13 |
 | marketing-deep-audit | SKILL.md:110-125 | Формат отчёта без колонки локали и без обязательного блока «Совпало с архивом», хотя :127-153 требуют RU+EN для каждой проверки | AUDIT-13 |
+| project-audit | SKILL.md:47 | «Единственный создаваемый файл — reports/AUDIT_REPORT.md» — в текущем цикле отчёт пишется в `reports/AUDIT_MASTER_v565_FINAL.md`, расхождение процедуры | AUDIT-14 |
+| project-audit | SKILL.md:52-117 | **CI не входит ни в одну из 12 проверок**: ни «зелёный ли workflow», ни «собираются ли тесты в чистом окружении». Красный на всех 60 запусках `tests.yml` (PRJ-01) скилл не мог найти по построению, хотя в репозитории 5 workflow | AUDIT-14 |
+| project-audit | SKILL.md:60-61 | Список устаревших чисел «103, 113, 94, 9074, 5135, 10759» и версий «v3.6/v3.5/v3.4/batch 16/17a» — счётчики трёхлетней давности; реально устаревшие сегодня (1990 тестов, 18 страниц, 140 URL, 81 доза, `v31`, `v414`, 19 пар) скилл искать не просит | AUDIT-14 |
+| project-audit | SKILL.md:80-83 | «Зависимости» ограничены `requirements.txt`: нет `package.json`/`package-lock.json`, lock-файлов и сверки «что ставит CI» — из-за этого `.gitignore` на `package.json` (PRJ-03) и расхождение playwright 1.63.0 / ^1.64.1 в чек-лист не попадают | AUDIT-14 |
+| project-audit | SKILL.md:91-94 | «Безопасность» ищет только ключи API и `.gitignore`; публикуемые на сайте артефакты (`docs/**/*.md` — 49 файлов, включая `dev/STATE.md`) вне области проверки, хотя это утечка внутреннего контекста | AUDIT-14 |
+| project-audit | SKILL.md:119-126 | Формат отчёта `reports/AUDIT_REPORT.md` без колонки локали (при обязательном блоке локали `:130-156`) и с рассогласованной нумерацией: пункты 1-4, затем «раздел 9. Рекомендации» | AUDIT-14 |
 
 _Раздел пополняется по одному-два пункта в каждом следующем аудите; новые
 разделы `## Аудит N/19` добавляются ВЫШЕ этого блока._
