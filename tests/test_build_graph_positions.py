@@ -88,5 +88,28 @@ def test_deterministic_circular_formula():
         exp_nx = 0.5 + 0.5 * math.cos(angle)
         exp_ny = 0.5 + 0.5 * math.sin(angle)
         pos = positions[node_id]
-        assert abs(pos["nx"] - exp_nx) < 1e-9, f"{node_id}: nx mismatch"
-        assert abs(pos["ny"] - exp_ny) < 1e-9, f"{node_id}: ny mismatch"
+        # CI-02: генератор пишет значения с round(..., 6), поэтому допуск
+        # 1e-6 (полшага округления), а не 1e-9 как до FIX-05.
+        assert abs(pos["nx"] - exp_nx) < 1e-6, f"{node_id}: nx mismatch"
+        assert abs(pos["ny"] - exp_ny) < 1e-6, f"{node_id}: ny mismatch"
+
+
+def test_values_are_rounded_to_micro():
+    """CI-02: все nx/ny кратны 1e-6.
+
+    Гвард от возврата сырых double: libm на Windows (MSVCRT) и Linux (glibc)
+    расходится на 1 ULP, поэтому неокруглённые значения делают
+    docs/graph_positions.json невоспроизводимым и роняют --check в CI
+    (`Executable`-независимо, проверено запуском 40500055108).
+    """
+    positions = _positions()["layouts"]["graph"]["positions"]
+    bad = []
+    for node_id, pos in positions.items():
+        for axis in ("nx", "ny"):
+            value = pos[axis]
+            scaled = value * 1e6
+            if abs(scaled - round(scaled)) > 1e-9:
+                bad.append(f"{node_id}.{axis}={value!r}")
+    assert not bad, (
+        f"значения не кратны 1e-6 ({len(bad)} из {len(positions) * 2}): {bad[:5]}"
+    )
