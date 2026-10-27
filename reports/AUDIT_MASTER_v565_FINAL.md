@@ -1841,13 +1841,19 @@ AUDIT-14 PRJ-05 фиксировал 37 untracked-записей — стало 
 | 17/19 | repo-size-audit | 0 | 1 | 4 | 5 |
 | 18/19 | ui-ux-deep-audit | 0 | 1 | 7 | 8 |
 | 19/19 | skill-audit | 0 | 0 | 1 | 1 |
-| **ИТОГО** | | **2** | **39** | **70** | **111** |
+| CI | CI-находки (вне 19 скиллов) | 1 | 0 | 0 | 1 |
+| **ИТОГО** | | **3** | **39** | **70** | **112** |
 
-**Все A-находки (2):**
+**Все A-находки (3):**
 1. **PROD-01** — предупреждение о беременности только в RU (product-audit, safety-баг)
 2. **REL-01** — релиз 5.6.5 не выпущен, прод отдаёт 5.6.4, тег вне main (release-check)
+3. **CI-02** — `docs/graph_positions.json` не воспроизводится между Windows и Linux (libm/ULP), `--check` в CI падает (CI-находки, блокирует workflow)
 
-> **Кандидат в A, ещё не зарегистрирован:** остаточный провал CI после FIX-03 — `scripts/e2e_smoke.py:403` ждёт удалённый заголовок `h1` (`tests/test_e2e_smoke.py` падает на любой ОС, проверено локально и на GitHub: запуск 40497143549, шаг `Run tests` — failure). Пока находка не заведена, счётчики выше не меняются.
+> **Статус разбора остаточного провала CI.** После FIX-03 (`lxml`) шаг `Run tests`
+> падал по двум причинам: (1) устаревший `h1` в `scripts/e2e_smoke.py` — закрыт в
+> FIX-04 (коммит 3b51f726), в логе CI запуска 40500055108 `test_e2e_smoke` больше не
+> падает; (2) `docs/graph_positions.json` — это CI-02, закрывается в FIX-05.
+> Третья причина, WebKit в CI, ещё не заведена (кандидат CI-03, раздел «CI-находки»).
 
 **Все B-находки (39):** NAV-01, VIS-01, VIS-02, VIS-03, SEO-01, CWV-01, CWV-02, PROD-02, QA-01, QA-02, QA-03, QA-04, QA-06, A11Y-01, A11Y-02, A11Y-05, I18N-01, I18N-02, I18N-03, DATA-01, DATA-04, DATA-05, DOCS-01, DOCS-02, DOCS-03, DOCS-06, LEGAL-01, LEGAL-02, LEGAL-03, MKT-01, PRJ-02, PRJ-03, PRJ-04, PWA-01, PWA-02, REL-02, REL-03, SIZE-01, UIUX-08.
 
@@ -1856,6 +1862,50 @@ AUDIT-14 PRJ-05 фиксировал 37 untracked-записей — стало 
 **Проверка «Замечаний к скиллам»:** 22 строки на месте, все со ссылкой на AUDIT-XX, дублей нет.
 
 **Статус: аудит 19/19 завершён. Все находки зафиксированы. Код не тронут.**
+
+---
+
+## CI-находки (вне 19 скиллов)
+
+Находки, которые не попадают ни в один из 19 скиллов, но валят единственный
+workflow, который ловит регрессии (`.github/workflows/tests.yml`). Заведены по
+факту разбора лога шага `Run tests` после FIX-03 и FIX-04: анонимно логи шага
+недоступны (`GET /actions/jobs/<id>/logs` → 403), поэтому лог получен от
+владельца из веб-интерфейса GitHub.
+
+| ID | Крит. | Где | Что именно | Локаль | Статус |
+|---|---|---|---|---|---|
+| CI-02 | A | `scripts/build_graph_positions.py`, `docs/graph_positions.json` | Генератор пишет сырые double из libm без округления: `nx = 0.5 + 0.5*math.cos(2πi/N)` уходит в JSON как есть. На Windows 92 из 130 углов дают `cos`/`sin`, отличающиеся на ≥1 ULP от корректно округлённого значения (эталон — `decimal`, 60 знаков), а glibc на Linux считает точнее → файл `docs/graph_positions.json`, записанный на Windows, на Linux не воспроизводится, `--check` падает: `tests/test_build_graph_positions.py::test_idempotent_check_passes` и `::test_idempotent_two_runs`, 2 из 3 падений шага `Run tests` (запуск 40500055108, обе джобы матрицы). Одинаково на 3.12 и 3.13 — версия Python ни при чём | RU+EN | открыто (исправлено в FIX-05, ждёт зелёного CI — FIX-06) |
+
+#### Статус (FIX-05)
+
+**Округление в генераторе + перегенерация + тест-гвард. `test_build_graph_positions` локально 6 passed.**
+
+**Что изменено** (коммит `de47055c`, 4 файла):
+- `scripts/build_graph_positions.py` — `nx = round(0.5 + 0.5 * math.cos(angle), 6)`, то же для `ny`, плюс `+ 0.0` (гасит `-0.0`). Формула, углы и шаг не тронуты — только округление на выходе.
+- `docs/graph_positions.json` — перегенерирован: **257 из 260 значений** изменились (3 уже были точными — `1.0`/`0.5` по осям), меняются только последние знаки (`0.9994161134161633` → `0.999416`), набор узлов и порядок те же.
+- `tests/test_build_graph_positions.py` — новый гвард `test_values_are_rounded_to_micro` (все `nx`/`ny` кратны `1e-6`: `abs(v*1e6 - round(v*1e6)) < 1e-9`) и допуск существующего `test_deterministic_circular_formula` ослаблен с `1e-9` до `1e-6` (полшага округления).
+- `docs/version.json` — `"tests": 2034` → `2035`: `test_version_json_counts_match_collected` считает реально собранные тесты, и новый тест без этой правки роняет прогон (в полном локальном прогоне так и случилось — `1 failed`).
+
+**Почему округления достаточно** (проверка без Linux). Округление меняет результат только если сырое значение лежит вплотную к границе `(k+0.5)·1e-6`. Замер `decimal` (60 знаков, собственные `cos`/`sin` рядами) по всем 260 значениям: минимальное расстояние до границы — **2,8·10⁻⁹** (i=39, `nx=0.3454915028125262…`), а ULP double около 0,5 — 1,1·10⁻¹⁶, то есть запас **≈2,5·10⁷ раз**. Различие libm Windows/Linux порядка 1 ULP не может перевернуть ни одно `round(..., 6)` — генерация на Linux даст тот же файл.
+
+**Гвард проверен на старом файле:** на версии из `HEAD` до фикса он даёт **256 из 260** некратных значений — то есть действительно ловит возврат сырых double, а не пустой.
+
+**Локальная верификация** (`.venv`, Python 3.14.7):
+- `pytest tests/test_build_graph_positions.py -q` → **6 passed**.
+- `scripts/build_graph_positions.py --check` → exit 0 **дважды подряд** (`[OK] graph_positions.json matches generated (130 positions)`).
+- `pytest -q --no-header -m "not snapshots"` → **1953 passed, 0 failed, 76 deselected, 6 errors** — 6 errors это `tests/test_tabs_interaction.py[*-webkit-trends]` (QA-03, WebKit не установлен локально), падений ноль.
+- `scripts/build_sitemap.py --check` → exit 0 (141 URL), `scripts/build_feed.py --check` → exit 0 (131 запись).
+
+**CI после фикса — workflow ВСЁ ЕЩЁ КРАСНЫЙ (как и ожидалось).** Push `3b51f726..de47055c`, запуск `tests` **40504802586** (обе джобы, 320 с): `Install dependencies`, `Install Playwright browsers`, `Set up Node` — success, шаг **`Run tests` — failure**, `Sitemap check` и `Feed check` — `skipped`, вывод запуска — `failure`. Покомпонентный лог шага анонимно недоступен: `GET /actions/jobs/<id>/logs` → 403; HTML-страница джобы отдаётся (200), но логи в ней подгружаются отдельным запросом с токеном; аннотации check-run содержат только «Process completed with exit code 1». Поэтому «`test_build_graph_positions` зелёный» на CI подтверждается косвенно: в логе предыдущего запуска `40500055108` было ровно три класса падений — `e2e_smoke` (закрыт в FIX-04 и в этом запуске больше не падал), `test_build_graph_positions` (закрыт здесь, запас 2,5·10⁷) и `test_graph_interaction[webkit]` + 12 errors (кандидат CI-03, единственный оставшийся). CI-02 закрывается только вместе с ним.
+
+> **Кандидат, ещё не зарегистрирован:** **CI-03 (A)** — `.github/workflows/tests.yml:56`
+> ставит `playwright install --with-deps chromium`, а `tests/test_graph_interaction.py`
+> параметризован по `("chromium", "webkit")` и в фикстуре `browser` (`:179`) запускает
+> движок без guard'а: на CI WebKit нет → `Executable doesn't exist at …/webkit-2359/pw_run.sh`,
+> 1 failed + 12 errors (тот же запуск 40500055108). В `tests/test_tabs_interaction.py`
+> такой guard есть (`pytest.skip` при ошибке запуска), поэтому `tabs_interaction` в CI
+> не всплывает. Завести после FIX-05, закрывать в FIX-06.
 
 ---
 
@@ -1944,6 +1994,7 @@ _Раздел пополняется по одному-два пункта в к
 | 17 | repo-size-audit | 0 | 1 | 4 | 5 |
 | 18 | ui-ux-deep-audit | 0 | 1 | 7 | 8 |
 | 19 | skill-audit | 0 | 0 | 1 | 1 |
-| **ИТОГО** | | **2** | **39** | **70** | **111** |
+| — | CI-находки (вне 19 скиллов) | 1 | 0 | 0 | 1 |
+| **ИТОГО** | | **3** | **39** | **70** | **112** |
 
 Все находки открыты, фиксы запланированы в финальном батче (по одной задаче на фикс). Код не тронут.
