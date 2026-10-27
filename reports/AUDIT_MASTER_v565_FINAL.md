@@ -1150,7 +1150,7 @@ DOCS-02 фиксирует расхождение как **документац�
 
 | ID | Крит. | Где | Что именно | Локаль | Статус |
 |---|---|---|---|---|---|
-| PRJ-01 | A | `.github/workflows/tests.yml:57` + `requirements-dev.txt` | **CI красный на каждом push, и это не замечают.** 60 из 60 запусков workflow `tests` на ветке `v5.6.5-dev` — `failure` (с 2026-10-25T04:54 до 2026-10-26T16:20, включая HEAD `5f219b03`); в обоих джобах матрицы (Python 3.12 и 3.13) падает шаг «Run tests», а следующие `Sitemap check` и `Feed check` — `skipped`, то есть гейт не работает целиком. Причина: `tests/test_sup_html_invariants.py:38` и `tests/test_sup_links.py:30` делают `from lxml import html` на уровне модуля, а `lxml` нет ни в `requirements.txt`, ни в `requirements-dev.txt` — `tests.yml` ставит только `pip install -r requirements-dev.txt`. Воспроизведено в чистом venv: `1878 tests collected, 2 errors` (`Interrupted: 2 errors during collection`), после `pip install lxml` — `2017 tests collected, 0 errors`. Локально CI-провал не виден, потому что `lxml` приезжает транзитивно с `pytrends`, которого в requirements тоже нет. В `README.md:5` висит бейдж `tests.yml` — он красный на главной странице репозитория | RU+EN | открыто |
+| PRJ-01 | A | `.github/workflows/tests.yml:57` + `requirements-dev.txt` | **CI красный на каждом push, и это не замечают.** 60 из 60 запусков workflow `tests` на ветке `v5.6.5-dev` — `failure` (с 2026-10-25T04:54 до 2026-10-26T16:20, включая HEAD `5f219b03`); в обоих джобах матрицы (Python 3.12 и 3.13) падает шаг «Run tests», а следующие `Sitemap check` и `Feed check` — `skipped`, то есть гейт не работает целиком. Причина: `tests/test_sup_html_invariants.py:38` и `tests/test_sup_links.py:30` делают `from lxml import html` на уровне модуля, а `lxml` нет ни в `requirements.txt`, ни в `requirements-dev.txt` — `tests.yml` ставит только `pip install -r requirements-dev.txt`. Воспроизведено в чистом venv: `1878 tests collected, 2 errors` (`Interrupted: 2 errors during collection`), после `pip install lxml` — `2017 tests collected, 0 errors`. Локально CI-провал не виден, потому что `lxml` приезжает транзитивно с `pytrends`, которого в requirements тоже нет. В `README.md:5` висит бейдж `tests.yml` — он красный на главной странице репозитория | RU+EN | Закрыто (коммит 62962b56) |
 | PRJ-02 | B | `docs/dev/*.md` (9), `docs/briefs/*.md` (12), `docs/adr/*.md` (6) и 18 `docs/*.md` — всего 49 | Внутренние рабочие документы публикуются как часть сайта. GitHub Pages отдаёт весь каталог `docs/`, поэтому `https://deadsno.github.io/brain-25-evidence/dev/STATE.md` → **200, 28 267 байт**: фазы цикла, хэши коммитов, открытые пункты, внутренние договорённости; `…/briefs/q14_audit.md` → 200, 1 694 байта. `sitemap.xml` и `robots.txt` эти адреса не рекламируют, но URL открыт, отдаётся с `text/markdown` и индексируется. Там же 12 брифов батчей и 6 ADR — рабочий журнал, а не витрина | RU+EN | открыто |
 | PRJ-03 | B | `.gitignore:154-155` | `package.json` и `package-lock.json` внесены в `.gitignore` → node-манифест не версионируется вообще: `npm ci` невоспроизводим, зависимость `opencode-plugin-openspec` нигде не зафиксирована, а локальный `package.json` объявляет `playwright: ^1.64.1` при том, что `requirements.txt` и `requirements-dev.txt` пиннят `playwright==1.63.0`. Два источника истины про одну и ту же зависимость расходятся на минорную версию (на PyPI уже 1.64.1) — какая из них рабочая, из репозитория не определить | RU+EN | открыто |
 | PRJ-04 | B | `requirements.txt`, `requirements-dev.txt` | Окружение невоспроизводимо: без пинов `pandas`, `numpy`, `requests`, `Pillow`, `beautifulsoup4`, `curl_cffi`, `playwright-stealth`, `streamlit`, `matplotlib`; lock-файла нет (`pip freeze` не зафиксирован), пины есть только у `duckdb==1.5.5` и `playwright==1.63.0` — и то с обоснованием в комментарии, то есть практика пинов в проекте уже принята, просто не применена. Прямое следствие — PRJ-01: локально зелёный прогон на пакетах, которых в манифесте нет (`lxml` через `pytrends`), при красном CI. `pytrends` не объявлен и в коде не используется | RU+EN | открыто |
@@ -1161,6 +1161,27 @@ DOCS-02 фиксирует расхождение как **документац�
 | PRJ-09 | C | `requirements.txt:1` | Файл в UTF-8 с кириллическими комментариями, без объявления кодировки: инструменты, читающие его в локальной кодировке Windows, падают. Воспроизведено: `pip-audit -r requirements.txt` → `UnicodeDecodeError: 'charmap' codec can't decode byte 0x98 in position 1560`; с `PYTHONUTF8=1` проходит. То есть аудит уязвимостей Python-зависимостей на этой машине по умолчанию невозможен | RU+EN | открыто |
 | PRJ-10 | C | `package.json` → `opencode-plugin-openspec ^0.1.4` | `npm audit`: **5 high severity**, исправления нет — `zod <4.6.6` (GHSA-mrhx-c7xc-m3w5, «Zod can exhaust memory while validating oversized constrained collections») и цепочка `@opencode-ai/plugin` → `effect` → `toml`. Влияет только на dev-тулинг агента, в собранный сайт не попадает, поэтому C, а не B | RU+EN | открыто |
 | PRJ-11 | C | `.github/workflows/tests.yml:66-70` vs `ARCHITECTURE.md:199` | Шаг «Set up Node» ставит Node 20, но **ни один шаг workflow его не использует**: `node --check`, который `ARCHITECTURE.md:199` обещает («pytest + `node --check` на каждый push в main»), в файле отсутствует. Мёртвый шаг в CI и расхождение документации с фактом | RU+EN | открыто |
+
+#### Статус закрытия (FIX-03)
+
+**PRJ-01 (A) — закрыт.** Добавлен `lxml>=5.0` в `requirements-dev.txt` (коммит 62962b56).
+
+**Корень:** `tests/test_sup_html_invariants.py:38` и `tests/test_sup_links.py:30` делают `from lxml import html` на уровне модуля, а `lxml` не было ни в `requirements.txt`, ни в `requirements-dev.txt`. CI устанавливает только `pip install -r requirements-dev.txt` (`.github/workflows/tests.yml:55`), поэтому шаг «Run tests» падал на всех 60 запусках.
+
+**Что изменено:** `requirements-dev.txt` — добавлена строка `lxml>=5.0` (после `jinja2>=3.1.6`). `.github/workflows/tests.yml` не менялся: он уже ставит `requirements-dev.txt` (`.github/workflows/tests.yml:55`), теперь с `lxml` в нём. PRJ-11 (мёртвый шаг «Set up Node») в этой задаче не трогался.
+
+**Верификация (локально, чистый venv на Python 3.14.7, `requirements-dev.txt` без строки `lxml`):**
+- `pytest --collect-only -q` без `lxml`: **1895 collected, 2 errors** — `test_sup_html_invariants.py:38` и `test_sup_links.py:30`, `ModuleNotFoundError: No module named 'lxml'`. Проблема воспроизведена.
+- `pip install -r requirements-dev.txt` после фикса: exit 0, ставится колесо `lxml-6.1.3-cp314-cp314-win_amd64.whl`.
+- `pytest --collect-only -q` после фикса: **2034 collected, 0 errors**.
+- `pytest -q -m "not (snapshots or a11y or tabs or graph or mobile375 or e2e)"`: **1803 passed, 16 skipped, 215 deselected, 0 failed** (84 с).
+- `python scripts/build_sitemap.py --check`: exit 0 (OK, 141 URL).
+- `python scripts/build_feed.py --check`: exit 0 (OK, 131 запись).
+- Доступность колёс для матрицы CI (без обращения к GitHub): `pip download --only-binary=:all: --python-version 3.12 --abi cp312 --platform manylinux_2_28_x86_64 "lxml>=5.0,<6"` → `lxml-5.4.0-cp312-cp312-manylinux_2_28_x86_64.whl`; для cp313 → `lxml-5.4.0-cp313-cp313-manylinux_2_28_x86_64.whl`. Обе джобы получат готовое колесо, сборка из исходников не понадобится.
+
+**Почему пин без верхней границы.** Первоначальный вариант `lxml>=5.0,<6` на CI рабочий (см. проверку колёс), но на Python 3.14 — а он локально и в `.venv` проекта — колеса `lxml<6` нет: `pip install` уходит в сборку sdist и падает с `error: Microsoft Visual C++ 14.0 or greater is required`. То есть `pip install -r requirements-dev.txt` на 3.14 не проходил бы — ровно та невоспроизводимость окружения, о которой PRJ-04. Открытый диапазон `>=5.0` даёт 6.1.3 и на 3.12/3.13 (CI), и на 3.14 (локально).
+
+**CI после фикса:** должен стать зелёным на обеих матрицах (Python 3.12 и 3.13), шаги `Sitemap check` и `Feed check` запустятся (ранее — `skipped` из-за падения `Run tests`). **На GitHub не проверено:** доступа к github.com из этого окружения нет. Вывод опирается на локальное воспроизведение причины и на проверку наличия колёс lxml для cp312/cp313.
 
 ### CI (отдельно)
 
@@ -1249,7 +1270,7 @@ DOCS-02 фиксирует расхождение как **документац�
 | Объявить `# -*- coding: utf-8 -*-` или убрать кириллицу из `requirements.txt` | закрывает PRJ-09 | низкая |
 | Поставить бейджу Tests условие «только main» или починить ветку | красный бейдж на витрине репозитория | низкая |
 
-**Статус: открыто 11 находок (A: 1, B: 3, C: 7). Код не тронут.**
+**Статус: открыто 10 находок (A: 0, B: 3, C: 7). Код не тронут.**
 
 ---
 
@@ -1812,18 +1833,17 @@ AUDIT-14 PRJ-05 фиксировал 37 untracked-записей — стало 
 | 11/19 | docs-sync | 0 | 4 | 6 | 10 |
 | 12/19 | legal-compliance-audit | 0 | 3 | 2 | 5 |
 | 13/19 | marketing-deep-audit | 0 | 1 | 7 | 8 |
-| 14/19 | project-audit | 1 | 3 | 7 | 11 |
+| 14/19 | project-audit | 0 | 3 | 7 | 10 |
 | 15/19 | pwa-audit | 0 | 2 | 5 | 7 |
 | 16/19 | release-check | 1 | 2 | 2 | 5 |
 | 17/19 | repo-size-audit | 0 | 1 | 4 | 5 |
 | 18/19 | ui-ux-deep-audit | 0 | 1 | 7 | 8 |
 | 19/19 | skill-audit | 0 | 0 | 1 | 1 |
-| **ИТОГО** | | **3** | **39** | **70** | **112** |
+| **ИТОГО** | | **2** | **39** | **70** | **111** |
 
-**Все A-находки (3):**
+**Все A-находки (2):**
 1. **PROD-01** — предупреждение о беременности только в RU (product-audit, safety-баг)
-2. **PRJ-01** — CI красный 60/60, нет lxml в requirements-dev.txt (project-audit)
-3. **REL-01** — релиз 5.6.5 не выпущен, прод отдаёт 5.6.4, тег вне main (release-check)
+2. **REL-01** — релиз 5.6.5 не выпущен, прод отдаёт 5.6.4, тег вне main (release-check)
 
 **Все B-находки (39):** NAV-01, VIS-01, VIS-02, VIS-03, SEO-01, CWV-01, CWV-02, PROD-02, QA-01, QA-02, QA-03, QA-04, QA-06, A11Y-01, A11Y-02, A11Y-05, I18N-01, I18N-02, I18N-03, DATA-01, DATA-04, DATA-05, DOCS-01, DOCS-02, DOCS-03, DOCS-06, LEGAL-01, LEGAL-02, LEGAL-03, MKT-01, PRJ-02, PRJ-03, PRJ-04, PWA-01, PWA-02, REL-02, REL-03, SIZE-01, UIUX-08.
 
@@ -1914,12 +1934,12 @@ _Раздел пополняется по одному-два пункта в к
 | 11 | docs-sync | 0 | 4 | 6 | 10 |
 | 12 | legal-compliance-audit | 0 | 3 | 2 | 5 |
 | 13 | marketing-deep-audit | 0 | 1 | 7 | 8 |
-| 14 | project-audit | 1 | 3 | 7 | 11 |
+| 14 | project-audit | 0 | 3 | 7 | 10 |
 | 15 | pwa-audit | 0 | 2 | 5 | 7 |
 | 16 | release-check | 1 | 2 | 2 | 5 |
 | 17 | repo-size-audit | 0 | 1 | 4 | 5 |
 | 18 | ui-ux-deep-audit | 0 | 1 | 7 | 8 |
 | 19 | skill-audit | 0 | 0 | 1 | 1 |
-| **ИТОГО** | | **3** | **39** | **70** | **112** |
+| **ИТОГО** | | **2** | **39** | **70** | **111** |
 
 Все находки открыты, фиксы запланированы в финальном батче (по одной задаче на фикс). Код не тронут.
