@@ -50,9 +50,12 @@ def generate() -> dict:
     positions = {}
     for i, node_id in enumerate(node_ids):
         angle = 2 * math.pi * i / n
-        nx = 0.5 + 0.5 * math.cos(angle)
-        ny = 0.5 + 0.5 * math.sin(angle)
-        positions[node_id] = {"nx": nx, "ny": ny, "fixed": True}
+        # CI-02: округляем до 1e-6. Сырые double из libm на разных платформах
+        # расходятся на 1 ULP (MSVCRT на Windows против glibc на Linux), и
+        # --check в CI падал на файле, записанном на Windows.
+        nx = round(0.5 + 0.5 * math.cos(angle), 6)
+        ny = round(0.5 + 0.5 * math.sin(angle), 6)
+        positions[node_id] = {"nx": nx + 0.0, "ny": ny + 0.0, "fixed": True}
 
     return {
         "_комментарий": "Детерминированная круговая раскладка графа. "
