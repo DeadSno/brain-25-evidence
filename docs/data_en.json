@@ -1073,6 +1073,7 @@
    "about": "Source of organic sulfur. Studied in RCT on osteoarthritis - effect comparable to NSAIDs in some studies, but with fewer side effects.",
    "category": "Skin & Joints",
    "caution": "Rarely - GI discomfort, headache, insomnia when taken in the evening. Safe for a long time. Not recommended during pregnancy - limited data.",
+   "pregnancy_contraindicated": true,
    "course": "4-12 weeks for joints; 4-6 weeks for skin",
    "dosage": "1.5-6 g",
    "effects": [
@@ -1270,6 +1271,7 @@
    "about": "A young supplement with noisy marketing. There are single RCTs on cognition in the elderly (small samples), most of the data are from animal models.",
    "category": "Cognition",
    "caution": "There is little data on humans - most of the research is on animals. RCT single, small samples. Not recommended during pregnancy. Rarely - insomnia when taken in the evening.",
+   "pregnancy_contraindicated": true,
    "course": "8-12 weeks courses",
    "dosage": "10-20 mg",
    "effects": [
@@ -2668,6 +2670,7 @@
    "about": "Ayurvedic herb for diabetes. There are RCT (small samples), the effect on glycemia is modest - a decrease in HbA1c by 0.5-1%. Does not replace metformin.",
    "category": "Metabolism",
    "caution": "In type 2 diabetes - may increase the effect of metformin/insulin and the risk of hypoglycemia. Sugar monitoring is mandatory. Does not replace therapy. During pregnancy - avoid.",
+   "pregnancy_contraindicated": true,
    "course": "4-12 weeks",
    "dosage": "400-600 mg",
    "effects": [
@@ -2877,6 +2880,7 @@
    "about": "The main intracellular antioxidant. The problem is poor absorption when taken orally. NAC works indirectly - as a predecessor.",
    "category": "General",
    "caution": "Oral glutathione is poorly absorbed—most is destroyed in the GI. The liposomal form is better. IV glutathione - only in the clinic (used in cosmetology, but its effectiveness in skin whitening has not been confirmed). Avoid during pregnancy without advice.",
+   "pregnancy_contraindicated": true,
    "course": "8-12 weeks; the effect orally is weak",
    "dosage": "500-1000 mg",
    "effects": [
@@ -4061,6 +4065,7 @@
    "about": "One of the few herbal anxiolytics tested in major RCTs (Silexan is a standardized oil). Compare with lorazepam in anxiety studies.",
    "category": "Mood",
    "caution": "Orally only standardized oil in capsules (Silexan). DO NOT take regular essential oil internally - it is toxic. During pregnancy - avoid. May enhance the effect of sedatives.",
+   "pregnancy_contraindicated": true,
    "course": "6-10 weeks for sustained anxiolytic effect",
    "dosage": "80-160 mg",
    "effects": [
@@ -6294,6 +6299,7 @@
    "about": "Classic Ayurveda for women's health. The main use is to stimulate lactation in nursing mothers.",
    "category": "General",
    "caution": "Not recommended during pregnancy without consulting a doctor. During lactation, an effect on hormones is possible. Check for human studies - there are few.",
+   "pregnancy_contraindicated": true,
    "course": "4-8 weeks; for lactation - as prescribed",
    "dosage": "250-500 mg",
    "effects": [
