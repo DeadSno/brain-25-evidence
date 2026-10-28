@@ -1,12 +1,3 @@
-// Форсируем активацию новой версии сразу
-self.addEventListener('install', event => {
-  self.skipWaiting();
-});
-
-self.addEventListener('activate', event => {
-  event.waitUntil(self.clients.claim());
-});
-
 /* v73 (2026-10-03, v5.1.5-fix): снята Яндекс.Метрика с index.html — счётчик
    tag.js и пиксель <noscript>; удалён мёртвый tracker.js; в форму обратной
    связи добавлен обязательный чекбокс согласия на обработку email.
@@ -555,7 +546,8 @@ self.addEventListener('activate', event => {
 /* Бамп v174 -> v175 FIX-19: PWA-01 updatefound баннер + SKIP_WAITING по требованию */
 /* Бамп v175 -> v176 FIX-20: PWA-04 manifest theme_color/background_color #f5f5f7 -> #1c1c1e (dark-first) */
 /* Бамп v176 -> v177 FIX-21: VIS-01 #langSelect order на мобиле + mask-градиент actions */
-var CACHE_VERSION = 'v177';
+/* Бамп v177 -> v178 FIX-22: remove duplicate install/activate in sw.js */
+var CACHE_VERSION = 'v178';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
@@ -912,6 +904,10 @@ async function staleWhileRevalidateForSup(req) {
   }
 }
 
+/* Форсируем активацию новой версии сразу — но только после прекеша:
+   сначала STATIC_ASSETS кладётся в кэш, и лишь затем skipWaiting().
+   Обратный порядок (раньше в шапке файла стоял второй, пустой
+   install-обработчик) активировал SW до готовности кэша (FIX-22). */
 self.addEventListener('install', function (event) {
   event.waitUntil(
     caches.open(CACHE_STATIC).then(function (cache) {
