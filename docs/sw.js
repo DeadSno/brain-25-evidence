@@ -547,7 +547,8 @@
 /* Бамп v175 -> v176 FIX-20: PWA-04 manifest theme_color/background_color #f5f5f7 -> #1c1c1e (dark-first) */
 /* Бамп v176 -> v177 FIX-21: VIS-01 #langSelect order на мобиле + mask-градиент actions */
 /* Бамп v177 -> v178 FIX-22: remove duplicate install/activate in sw.js */
-var CACHE_VERSION = 'v178';
+/* Бамп v178 -> v179 FIX-23: заголовок и подсказка раздела графика следуют за табом «Сила эффекта» */
+var CACHE_VERSION = 'v179';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 

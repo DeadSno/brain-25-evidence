@@ -719,6 +719,26 @@ function setLight(on) {
   if (currentData.length) { if (chartTab === 'price') renderBubble(currentData); else renderQuadrant(currentData); }
 }
 
+// FIX-23 / CHART-01 (28.10.2026): таб «Сила эффекта (g)» перерисовывал только
+// canvas, а заголовок раздела и подсказка оставались от «Доказательности» —
+// переключение выглядело сломанным. Заголовок меняем вручную: новые ключи в
+// i18n.js потянули бы cache-bump 149 HTML-файлов.
+const CHART_HEADING_EFFECT = {
+  ru: { title: "Сила эффекта: Hedges' g / индекс науки", hint: "(ось X — сила эффекта g, ось Y — индекс науки, лог-шкала)" },
+  en: { title: "Effect size: Hedges' g / science index", hint: "(X axis — effect size g, Y axis — science index, log scale)" }
+};
+function updateChartHeading(tab) {
+  const title = $('chartTitle'), hint = $('chartHint');
+  if (!title || !hint) return;
+  const eff = tab === 'quadrant';
+  const alt = (typeof LOCALE === 'string' && LOCALE === 'en')
+    ? CHART_HEADING_EFFECT.en : CHART_HEADING_EFFECT.ru;
+  title.removeAttribute('data-i18n-text');
+  hint.removeAttribute('data-i18n-text');
+  title.textContent = eff ? alt.title : t('index.chartTitle');
+  hint.textContent = eff ? alt.hint : t('index.chartHint');
+}
+
 // v2.4: переключение вкладки графика
 function setChartTab(tab) {
   if (tab === chartTab) return;
@@ -736,6 +756,9 @@ function setChartTab(tab) {
   document.querySelectorAll('#viewTabs .chartTab').forEach(b => {
     b.classList.toggle('on', b.dataset.view === tab);
   });
+
+  // FIX-23: заголовок и подсказка раздела следуют за табом
+  updateChartHeading(tab);
 
   if (currentData.length) { if (tab === 'price') renderBubble(currentData); else renderQuadrant(currentData); }
 }
