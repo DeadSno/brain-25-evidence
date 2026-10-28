@@ -549,8 +549,8 @@ self.addEventListener('activate', event => {
    остался бы со старой шапкой и футером. */
 /* Бамп v163 -> v164 BATCH-1: VIS-01, VIS-03, MOB-01, MOB-02, MOB-03 (layout-фиксы) */
 /* Бамп v164 -> v165 BATCH-2: og:locale, og:url заглушек, описание hactar (SEO-03/04/05) */
-/* Бамп v168 -> v169 FIX-13: I18N-01 sup.noInteractions + i18n.js?v=16 */
-var CACHE_VERSION = 'v169';
+/* Бамп v169 -> v170 FIX-14: I18N-02 category_group instead of RU substring match */
+var CACHE_VERSION = 'v170';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 

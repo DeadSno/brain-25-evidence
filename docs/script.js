@@ -962,28 +962,23 @@ function renderActiveFilters() {
 }
 
 // v5.6.2 E2: разбор названия категории на группу для цветного значка.
-// Берём ПЕРВЫЙ сегмент: «Сердце/сосуды», «Сердце / сосуды» и
-// «Кожа и суставы» должны попасть в одну групму, а не в разные.
-// Порядок словаря важен: «иммунитет/антиоксидант» проверяется по
-// первому слову, «антиоксидант» без «иммунитет» — тоже immune.
-// Замер: 76 разных строк категории на главной сводятся к 13 группам,
-// покрыты все; нераспознанное даёт neutral (серый), как раньше.
+// FIX-14 (I18N-02): первоисточник группы — структурное поле category_group
+// (добавлено в data.json / data_en.json скриптом scripts/add_category_group.py).
+// catGroup() оставлен только как fallback для tagChips (effectLabels), где
+// нет category_group: теперь проверяет и RU-, и EN-подстроки.
 const CAT_GROUPS = [
-  ['gut',      ['жкт', 'кишечник', 'пищевар']],
-  ['cardio',   ['сердце', 'сосуд', 'кров', 'почки', 'мочеполов', 'мочевывод',
-                'вены', 'давлен']],
-  ['bone',     ['кост', 'сустав', 'минерал', 'кожа', 'остео']],
-  ['liver',    ['печень']],
-  ['brain',    ['мозг', 'когни', 'невролог', 'нервн', 'психи', 'сон', 'настроен',
-                'стресс', 'усталость', 'адаптоген', 'памят', 'деменц']],
-  ['immune',   ['иммунитет', 'орви', 'антиоксид', 'воспален', 'грибы', 'грипп']],
-  ['metab',    ['метабол', 'гормон', 'энерг', 'сексуальн', 'производительн',
-                'диабет', 'холестерин', 'вес', 'инсулин']],
-  ['sport',    ['спорт', 'мышц', 'выносл', 'бодрость']],
-  ['women',    ['беременн', 'женск', 'спкя', 'дети']],
-  ['vision',   ['зрени', 'глаза', 'сетчат', 'зрительн']],
-  ['general',  ['общее', 'старени', 'долголет', 'гериатр']],
-  ['critical', ['критическ', 'реанимац', 'интенсив']],
+  ['gut',      ['жкт', 'кишечник', 'пищевар', 'gi', 'digest', 'stomach', 'intestinal', 'gut']],
+  ['cardio',   ['сердце', 'сосуд', 'кров', 'почки', 'мочеполов', 'мочевывод', 'вены', 'давлен', 'heart', 'vessel', 'blood', 'kidney', 'urogen', 'vein', 'pressure']],
+  ['bone',     ['кост', 'сустав', 'минерал', 'кожа', 'остео', 'bone', 'joint', 'mineral', 'skin', 'osteo']],
+  ['liver',    ['печень', 'liver']],
+  ['brain',    ['мозг', 'когни', 'невролог', 'нервн', 'психи', 'сон', 'настроен', 'стресс', 'усталость', 'адаптоген', 'памят', 'деменц', 'brain', 'cogn', 'neurolog', 'nerv', 'psych', 'sleep', 'mood', 'stress', 'adaptogen', 'memor', 'dement', 'mental', 'depress']],
+  ['immune',   ['иммунитет', 'орви', 'антиоксид', 'воспален', 'грибы', 'грипп', 'immune', 'immunity', 'ori', 'antioxid', 'inflamm', 'mushroom', 'flu']],
+  ['metab',    ['метабол', 'гормон', 'энерг', 'сексуальн', 'производительн', 'диабет', 'холестерин', 'вес', 'инсулин', 'metabol', 'hormon', 'energ', 'sexual', 'perform', 'diabet', 'cholesterol', 'weight', 'insulin']],
+  ['sport',    ['спорт', 'мышц', 'выносл', 'бодрость', 'sport', 'muscle', 'endur', 'vigor']],
+  ['women',    ['беременн', 'женск', 'спкя', 'дети', 'pregnan', 'women', 'pcos', 'children']],
+  ['vision',   ['зрени', 'глаза', 'сетчат', 'зрительн', 'vision', 'eye', 'retin', 'visual']],
+  ['general',  ['общее', 'старени', 'долголет', 'гериатр', 'general', 'aging', 'longev', 'geriatr']],
+  ['critical', ['критическ', 'реанимац', 'интенсив', 'critical', 'resusc', 'intensiv']],
 ];
 const catGroup = (raw) => {
   const s = String(raw || '').toLowerCase();
@@ -1013,7 +1008,7 @@ function renderCards(data) {
     // Заголовок карточки — НЕ h3: на index их было 134 (по одной на добавку),
     // из-за чего структура документа переставала отражать реальные разделы.
     // Название добавки — strong, разделы остались h2 (P2-16).
-    '<span class="cat" data-cat-group="' + catGroup(s.category) + '">' + esc(s.category || '') + '</span><strong class="card-title">' + esc(s.name) + '</strong>' +
+    '<span class="cat" data-cat-group="' + (s.category_group || 'neutral') + '">' + esc(s.category || '') + '</span><strong class="card-title">' + esc(s.name) + '</strong>' +
     updatedLine(s) + manualBadge(s) +
     '<div class="verdict v' + esc(s.code) + '">' + esc(s.verdict) + '</div>' + gradeBadge(s) +     '<div class="effects">' + (s.effects || []).map(e => '<span>' + esc(e) + '</span>').join('') + '</div>' +
     '<div class="tagChips">' + (effectTags[s.id] || []).map(t =>
