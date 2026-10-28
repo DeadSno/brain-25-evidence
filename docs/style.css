@@ -1929,6 +1929,38 @@ header.top .v {
   .top .actions::-webkit-scrollbar {
     display: none;
   }
+
+  /* VIS-01 (FIX-21): на ≤620px #langSelect был последним в ленте actions с
+     flex-wrap: nowrap + scrollbar-width: none — уходил за правый край без
+     индикации прокрутки. order не меняет DOM, только визуальную
+     последовательность, и применяется только в мобильном медиазапросе.
+     Замер 375px: навигационные ссылки feedback+support занимают 283px,
+     themeBtn 138px, langSelect 71px, контейнер .actions 341px. При порядке
+     «nav → langSelect» переключатель уходил на 13px за край (right 384 при
+     vw 375). Поэтому langSelect и themeBtn поднимаются первыми: 71+138=209px
+     укладываются в первый экран, навигация и «Удиви меня» — за ними в
+     прокручиваемой ленте. */
+  .site-header .actions #langSelect,
+  .top .actions #langSelect,
+  header.top .actions #langSelect { order: -2; }
+  .site-header .actions #themeBtn,
+  .top .actions #themeBtn,
+  header.top .actions #themeBtn { order: -1; }
+  .site-header .actions a,
+  .top .actions a,
+  header.top .actions a { order: 0; }
+  .site-header .actions #randomBtn,
+  .top .actions #randomBtn,
+  header.top .actions #randomBtn { order: 1; }
+
+  /* Маска-градиент по правому краю .actions — визуальный индикатор, что
+     лента продолжается за пределами экрана и её можно прокрутить пальцем. */
+  .site-header .actions,
+  .top .actions,
+  header.top .actions {
+    mask-image: linear-gradient(to right, black calc(100% - 16px), transparent);
+    -webkit-mask-image: linear-gradient(to right, black calc(100% - 16px), transparent);
+  }
 }
 
 /* v5.6-dev (13C, MOB-P2-14): тот же приём — лента в один ряд со скроллом —
