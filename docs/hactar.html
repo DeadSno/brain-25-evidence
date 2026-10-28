@@ -478,7 +478,7 @@
              и «Сравнение» стали секциями этой панели, с H-10 — одной
              таблицей: строки собирает docs/hactar.js (OVERVIEW_ROWS),
              колонки — выбранные добавки. -->
-        <div class="hactar-panel active" id="hactarPanelOverview" data-panel="overview">
+        <div class="hactar-panel active" id="hactarPanelOverview" data-panel="overview" role="tabpanel" aria-labelledby="hactarTabOverview">
           <!-- FEATURE-1 (v5.6.5): профиль пользователя живёт прямо в
                «Обзоре», а не отдельной вкладкой. Владелец против третьих
                вкладок: расчёт нужен там же, где таблица дозировок, иначе
@@ -567,7 +567,7 @@
             </p>
           </div>
         </div>
-        <div class="hactar-panel" id="hactarPanelLinks" data-panel="links">
+        <div class="hactar-panel" id="hactarPanelLinks" data-panel="links" role="tabpanel" aria-labelledby="hactarTabLinks">
           <!-- Пустое состояние (H-4): пока добавки не выбраны — иллюстрация,
                заголовок, подсказка и кнопка «Выбрать добавки». -->
           <div class="hactar-empty-state">
