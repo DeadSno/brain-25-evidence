@@ -58,7 +58,7 @@
        исполняет (test_build_sup_idempotent.py помечен snapshot_data и в
        хуке не гоняется). #}<link rel="stylesheet" href="../style.min.css?v=464">
     <script src="../version.js?v=312" defer></script>
-    <script src="../i18n.js?v=15" defer></script>
+    <script src="../i18n.js?v=16" defer></script>
     <script src="../pwa.js?v=283" defer></script>
 <script src="../share.js?v=2" defer></script>
     <script type="application/ld+json">
@@ -210,7 +210,7 @@
     <div class="sup-section">
         <h2 data-i18n-text="sup.h2Interactions">Взаимодействия</h2>
         {%- if no_interactions %}
-        <div class="inter-note">{{ inter_note_cap }}</div>
+        <div class="inter-note"><span data-i18n-text="sup.noInteractions">{{ inter_note_cap }}</span></div>
         {%- else %}
         {% for it in interactions %}
         <div class="inter-card inter-{{ it.severity }}">
