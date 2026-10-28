@@ -32,7 +32,7 @@
       }
     } catch (e) {}
   </script>
-  <link rel="stylesheet" href="style.min.css?v=464"/>
+  <link rel="stylesheet" href="style.min.css?v=465"/>
   <style>
     /* Project Hactar — скелет (H-1, только вёрстка) */
     :root{--hactar-sidebar:340px;}
@@ -304,6 +304,11 @@
     }
     /* Мобильная шторка */
     .hactar-sidebar.open{display:block}
+    /* A11Y-02: закрытая шторка не должна получать фокус и попадать в дерево
+       доступности. На мобильном её и так убирает display:none из медиазапроса,
+       но aria-hidden выставляет JS — правило страхует момент, когда класс
+       .open уже снят, а пересчёт раскладки ещё не произошёл. */
+    .hactar-sidebar[aria-hidden="true"]{display:none}
     /* Мобильная кнопка «Готово» — тот же контраст, что у активного чипа:
        var(--accent) (#0a84ff) с белым даёт 3.29:1, --chip-on-bg (#1f5fbf) — 6.09:1. */
     .hactar-done{display:none;width:100%;padding:var(--space-3);border:none;border-radius:var(--radius-lg);background:var(--chip-on-bg);color:#fff;font-size:1rem;cursor:pointer;margin-bottom:var(--space-4)}
@@ -415,7 +420,13 @@
     <a href="index.html" data-i18n-text="nav.home">Главная</a> → <strong>Project Hactar</strong>
   </nav>
   <div class="hactar-wrap">
-    <aside class="hactar-sidebar" id="hactarSidebar">
+    <!-- A11Y-02: на мобильном это модальный диалог во весь экран — role,
+         aria-modal и aria-labelledby ставятся статически. На десктопе та же
+         <aside> стоит колонкой в сетке, модальности там нет, поэтому
+         встроенный контроллер ниже меняет роль на complementary и снимает
+         aria-modal (см. markDrawerState). -->
+    <aside class="hactar-sidebar" id="hactarSidebar" role="dialog" aria-modal="true" aria-labelledby="hactarSidebarTitle">
+      <h2 class="sr-only" id="hactarSidebarTitle" data-i18n-text="hactar.sidebar.title">Выбор добавок</h2>
       <button class="hactar-done" id="hactarDone" data-i18n-text="hactar.sidebar.done">Готово</button>
       <input type="search" id="hactarSearch" class="hactar-search" placeholder="Поиск добавки…" aria-label="Поиск добавки" autocomplete="off" data-i18n-placeholder="hactar.search.ph" data-i18n-aria-label="hactar.search.aria">
       <!-- Чипсы фильтра по грейду (H-3). По умолчанию активен «Все». -->
@@ -642,13 +653,78 @@
     return list;
   }
 
+  /* A11Y-02: дровер — модальный диалог только на мобильном. Точка входа
+     одна: matchMedia, тот же порог 768px, что у медиазапроса шторки. */
+  var mqMobile = window.matchMedia('(max-width: 768px)');
+  function isMobileDrawer(){ return mqMobile.matches; }
+
+  /* Фон под открытой шторкой: шапка, хлебные крошки, колонка контента,
+     футер и «перейти к содержимому». Сама <main> не годится — шторка лежит
+     внутри неё, inert на предке выключил бы и её. */
+  function backgroundEls(){
+    return [
+      document.querySelector('.site-header'),
+      document.getElementById('hactarMain'),
+      document.querySelector('nav.breadcrumbs'),
+      document.querySelector('footer.site-footer'),
+      document.querySelector('a.skip-link')
+    ];
+  }
+
+  function setBackgroundHidden(hidden){
+    var list = backgroundEls();
+    for (var i = 0; i < list.length; i++){
+      var el = list[i];
+      if (!el) continue;
+      if (hidden){
+        el.setAttribute('aria-hidden', 'true');
+        if ('inert' in el) el.inert = true; else el.setAttribute('inert', '');
+      } else {
+        el.removeAttribute('aria-hidden');
+        if ('inert' in el) el.inert = false; else el.removeAttribute('inert');
+      }
+    }
+  }
+
+  /* Состояние семантики дровера. На десктопе role="dialog" и aria-modal
+     были бы ложью: колонка не модальна, фон доступен. */
+  function markDrawerState(open){
+    if (!sidebar) return;
+    if (!isMobileDrawer()){
+      sidebar.setAttribute('role', 'complementary');
+      sidebar.removeAttribute('aria-modal');
+      sidebar.removeAttribute('aria-hidden');
+      sidebar.removeAttribute('inert');
+      setBackgroundHidden(false);
+      return;
+    }
+    sidebar.setAttribute('role', 'dialog');
+    sidebar.setAttribute('aria-modal', 'true');
+    sidebar.setAttribute('aria-hidden', open ? 'false' : 'true');
+    if (open){
+      sidebar.removeAttribute('inert');
+    } else {
+      if ('inert' in sidebar) sidebar.inert = true; else sidebar.setAttribute('inert', '');
+    }
+    setBackgroundHidden(open);
+  }
+
+  /* Элемент, на который вернём фокус. Сохраняем в момент открытия: кнопка
+     «Выбрать добавки», «/» из любого места и чипсы ведут к одной шторке. */
+  var lastTrigger = null;
+
   // Мобильная шторка: открыть / закрыть
   function openDrawer(){
+    if (!sidebar) return;
+    if (isMobileDrawer() && document.activeElement && document.activeElement !== document.body){
+      lastTrigger = document.activeElement;
+    }
     sidebar.classList.add('open');
     /* MOB-03: шторка занимает весь экран, но страница под ней продолжала
        прокручиваться (scroll chaining в iOS). Класс на body держит
        overflow:hidden; снимается вместе с закрытием. */
     document.body.classList.add('hactar-overlay-open');
+    markDrawerState(true);
     /* Первый видимый элемент шторки: на мобильном это «Готово» (оно
        стоит в разметке раньше поиска), на планшете «Готово» скрыто и
        фокус получает поле поиска. */
@@ -656,14 +732,46 @@
     if (list.length) list[0].focus();
   }
   function closeDrawer(){
+    if (!sidebar) return;
+    var wasOpen = sidebar.classList.contains('open');
     sidebar.classList.remove('open');
     document.body.classList.remove('hactar-overlay-open');
+    markDrawerState(false);
     /* Возврат фокуса на кнопку, которая шторку открыла: иначе после
        «Готово» фокус уезжает в начало документа. */
-    if (btnPick) btnPick.focus();
+    if (wasOpen && isMobileDrawer()){
+      var back = (lastTrigger && document.contains(lastTrigger)) ? lastTrigger : btnPick;
+      if (back && back.focus) back.focus();
+    }
+    lastTrigger = null;
   }
   if (btnPick) btnPick.addEventListener('click', openDrawer);
   if (btnDone) btnDone.addEventListener('click', closeDrawer);
+
+  /* A11Y-02: единый API для hactar.js. Там своя точка переключения
+     (setSidebarOpen) — она вызывает эти функции, чтобы состояние семантики
+     не расходилось с классами. */
+  window.hactarDrawer = {
+    open: openDrawer,
+    close: closeDrawer,
+    isOpen: function(){ return !!(sidebar && sidebar.classList.contains('open')); },
+    sync: function(){ markDrawerState(sidebar && sidebar.classList.contains('open')); }
+  };
+
+  /* Переход между ширинами: на десктопе шторка превращается в колонку,
+     открытое состояние и блокировка фона должны сниматься. */
+  function onDrawerBreakpoint(){
+    if (!sidebar) return;
+    if (!mqMobile.matches){
+      sidebar.classList.remove('open');
+      document.body.classList.remove('hactar-overlay-open');
+    }
+    markDrawerState(isMobileDrawer() && sidebar.classList.contains('open'));
+  }
+  if (mqMobile.addEventListener) mqMobile.addEventListener('change', onDrawerBreakpoint);
+  else if (mqMobile.addListener) mqMobile.addListener(onDrawerBreakpoint);
+
+  markDrawerState(false);
 
   /* NA2-06, часть вторая: пока шторка открыта, Tab ходит по кругу внутри
      неё, а Esc закрывает. Условие «есть класс open» обязательно: на
@@ -718,8 +826,8 @@
      библиотека НЕ подключена тегом: её загружает hactar.js лениво
      (loadVisNetwork) только при переходе на вкладку «Связи». На «Обзоре»
      и «Сравнении» эти байты не качаются и не парсятся. -->
-<script src="hactar.js?v=34" defer></script>
-<script src="i18n.js?v=16"></script>
+<script src="hactar.js?v=35" defer></script>
+<script src="i18n.js?v=17"></script>
 <!-- v5.6.5 FIX-63 (NPW2-01): pwa.js на этой странице не подключался вовсе,
      поэтому SW не регистрировался на втором по посещаемости экране сайта и
      офлайн-режим там не включался. Порядок важен: i18n.js выше исполняется

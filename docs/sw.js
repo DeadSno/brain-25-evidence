@@ -550,7 +550,8 @@ self.addEventListener('activate', event => {
 /* Бамп v163 -> v164 BATCH-1: VIS-01, VIS-03, MOB-01, MOB-02, MOB-03 (layout-фиксы) */
 /* Бамп v164 -> v165 BATCH-2: og:locale, og:url заглушек, описание hactar (SEO-03/04/05) */
 /* Бамп v171 -> v172 FIX-16: A11Y-01 tabpanel */
-var CACHE_VERSION = 'v172';
+/* Бамп v172 -> v173 FIX-17: A11Y-02 дровере role="dialog" aria-modal aria-labelledby inert фон фокус Esc закрывает */
+var CACHE_VERSION = 'v173';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 

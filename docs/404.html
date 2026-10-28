@@ -28,7 +28,7 @@
      скрипта каталога. Поиск по каталогу парсит sup/index.html (карточки
    уже несут name→slug и data-hay сборки build_sup.py, JS-словарь не
      дублируется). -->
-<link rel="stylesheet" href="style.min.css?v=464">
+<link rel="stylesheet" href="style.min.css?v=465">
 <style>
   /* Локальные правила — только для служебных блоков этой страницы. */
   .notfound { max-width: 640px; margin: 0 auto; text-align: center; padding: 2.5rem 0; }
@@ -264,7 +264,7 @@
      реальное отключение сети давало ReferenceError вместо плашки. Порядок
      задан самим типом подключения: i18n.js без defer исполняется во время
      разбора, pwa.js с defer — после него, поэтому t() уже существует. -->
-<script src="i18n.js?v=16" defer></script>
+<script src="i18n.js?v=17" defer></script>
 <!-- FIX-74: строки, которые ставит инлайновый скрипт выше (тема, подсказка
      поиска), перерисовываем ещё раз — теперь t() уже существует. -->
 <script>

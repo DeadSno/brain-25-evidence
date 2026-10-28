@@ -315,11 +315,29 @@
   /* MOB-03: шторка на мобильном — оверлей во весь экран. Пока она открыта,
      фон прокручиваться не должен: иначе на iOS жест после конца списка
      прокручивает страницу под шторкой (scroll chaining). Одна точка
-     переключения — класс open на самой шторке и класс-лок на body. */
+     переключения — класс open на самой шторке и класс-лок на body.
+
+     A11Y-02: семантику диалога (role, aria-modal, aria-hidden, перенос и
+     возврат фокуса, Tab-ловушку) держит встроенный контроллер дровера в
+     hactar.html — window.hactarDrawer. Здесь только вызов, иначе классы и
+     ARIA-состояние разъезжаются: / (фокус в поиск) и переключение вкладки
+     закрывают шторку мимо её собственных обработчиков. */
   function setSidebarOpen(isOpen) {
     if (!sidebar) return;
-    sidebar.classList.toggle('open', !!isOpen);
-    document.body.classList.toggle('hactar-overlay-open', !!isOpen);
+    if (window.hactarDrawer) {
+      if (isOpen) window.hactarDrawer.open();
+      else window.hactarDrawer.close();
+      return;
+    }
+    /* Запасной путь: контроллер не поднялся (страницу собрали из другого
+       шаблона). Минимум — не оставлять скрытую шторку в порядке табуляции. */
+    var open = !!isOpen;
+    sidebar.classList.toggle('open', open);
+    document.body.classList.toggle('hactar-overlay-open', open);
+    sidebar.setAttribute('aria-hidden', open ? 'false' : 'true');
+    if ('inert' in sidebar) sidebar.inert = !open;
+    else if (open) sidebar.removeAttribute('inert');
+    else sidebar.setAttribute('inert', '');
   }
 
   /* Одна точка активации: клик и клавиатура должны делать ровно одно и то
@@ -1122,6 +1140,15 @@
     }
 
     if (e.key === 'Escape' || e.key === 'Esc') {
+      /* A11Y-02: открытая шторка закрывается первой — это модальный
+         диалог, Esc обязан его снять, а не только стереть запрос.
+         Встроенный обработчик в hactar.html ловит Esc, пока фокус
+         внутри; здесь страховка на случай, если фокус ушёл из шторки. */
+      if (window.hactarDrawer && window.hactarDrawer.isOpen()) {
+        e.preventDefault();
+        window.hactarDrawer.close();
+        return;
+      }
       clearSearch();
     }
   });
