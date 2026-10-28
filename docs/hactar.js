@@ -1237,7 +1237,8 @@
   var graphRaw = null;      /* graph_data.json */
   var graphPos = null;      /* graph_positions.json */
   var tagLabels = {};       /* effect_labels.json */
-  var fullMechs = null;     /* data.json → { id: mechs } */
+  var fullMechs = null;     /* data.json → { id: mechs } — источник поиска */
+  var fullMechsEn = null;   /* data_en.json → { id: mechs } — только текст для показа в EN */
   var graphReady = false;
   var physicsPending = false;
   var physicsOn = false;      /* физика включена прямо сейчас (для отладки) */
@@ -1290,45 +1291,95 @@
     }
   }
 
-  /* Полный текст механизма — из data.json (поле mechs: [механизм, эффект,
-     сила]). В graph_data.json ключи обрезаны («гамк», «воспален»), полный
-     текст лежит только в data.json. Подбираем по вхождению ключа. */
-  function resolveMech(key, fromId) {
-    var k = String(key || '').toLowerCase();
-    var fallback = {
-      label: key ? key.charAt(0).toUpperCase() + key.slice(1) : '—',
-      plain: key ? 'механизм: ' + key : '',
-      tip: T('hactar.tip.mech') + key
-    };
-    if (!fullMechs || !k) return fallback;
-    var found = matchMech(fullMechs[fromId], k);
-    if (found) return found;
-    var ids = Object.keys(fullMechs);
-    for (var i = 0; i < ids.length; i++) {
-      found = matchMech(fullMechs[ids[i]], k);
-      if (found) return found;
-    }
-    return fallback;
+  /* I18N-04 (FIX-33): ключи механизмов в graph_data.json — русские основы
+     («микробиот», «воспален»), а полный текст лежит в data.json (поле mechs:
+     [механизм, эффект, сила]). Поиск идёт по русскому источнику, поэтому data.json
+     грузится всегда; в EN показывается английская пара из оверлея data_en.json по
+     тому же индексу (порядок и длина массивов mechs в оверлее совпадают с
+     русскими — проверено на 130 карточках). Раньше оверлей подменял источник
+     целиком, и поиск русской основы по английским строкам не находил ничего:
+     в EN граф показывал «Микробиот» и «механизм: микробиот» из запасной ветки.
+     MECH_SLUG — короткое имя механизма для запасной ветки (data.json ещё не приехал
+     или не загрузился) и для строки «общий механизм»: ключ словаря
+     ASCII, значение переводится через i18n.js. */
+  var MECH_SLUG = {
+    'антиоксидант': 'antioxidant',
+    'воспален': 'inflammation',
+    'гамк': 'gaba',
+    'глюкоз': 'glucose',
+    'дофамин': 'dopamine',
+    'инсулин': 'insulin',
+    'кальци': 'calcium',
+    'кишечник': 'gut',
+    'липид': 'lipid',
+    'микробиот': 'microbiota',
+    'митохондри': 'mitochondria',
+    'серотонин': 'serotonin',
+    'триглицерид': 'triglycerides',
+    'холестерин': 'cholesterol'
+  };
+
+  /* Короткое имя механизма: перевод из словаря, иначе сама основа. */
+  function mechLabel(key) {
+    var raw = String(key || '');
+    var slug = MECH_SLUG[raw.toLowerCase()];
+    if (slug) return T('mech.' + slug);
+    return raw ? raw.charAt(0).toUpperCase() + raw.slice(1) : '—';
   }
 
-  function matchMech(list, key) {
-    if (!list) return null;
-    for (var i = 0; i < list.length; i++) {
-      var m = list[i] || [];
-      var text = String(m[0] || '');
-      if (!text) continue;
-      if (text.toLowerCase().indexOf(key) === -1) continue;
-      return {
-        label: shorten(text, 34),
-        plain: text,
-        /* tip — подсказка простым текстом (см. комментарий про title
-           в buildEgo): переносы строк, без HTML-тегов. */
-        tip: T('hactar.tip.mech') + text +
-             (m[1] ? NL + T('hactar.tip.effect') + m[1] : '') +
-             (m[2] ? NL + T('hactar.tip.strength') + m[2] : '')
-      };
+  function resolveMech(key, fromId) {
+    var k = String(key || '').toLowerCase();
+    var label = mechLabel(key);
+    var fallback = {
+      label: label,
+      plain: T('hactar.tip.mech') + label,
+      tip: T('hactar.tip.mech') + label
+    };
+    if (!fullMechs || !k) return fallback;
+    var hit = findMech(fullMechs[fromId], k);
+    var owner = fromId;
+    if (hit < 0) {
+      var ids = Object.keys(fullMechs);
+      for (var i = 0; i < ids.length; i++) {
+        hit = findMech(fullMechs[ids[i]], k);
+        if (hit >= 0) { owner = ids[i]; break; }
+      }
     }
-    return null;
+    if (hit < 0) return fallback;
+    var pair = mechPair(owner, hit) || [];
+    var text = String(pair[0] || '');
+    if (!text) return fallback;
+    return {
+      label: shorten(text, 34),
+      plain: text,
+      /* tip — подсказка простым текстом (см. комментарий про title
+         в buildEgo): переносы строк, без HTML-тегов. */
+      tip: T('hactar.tip.mech') + text +
+           (pair[1] ? NL + T('hactar.tip.effect') + pair[1] : '') +
+           (pair[2] ? NL + T('hactar.tip.strength') + pair[2] : '')
+    };
+  }
+
+  /* Индекс механизма в списке карточки или -1. Ключ из graph_data.json —
+     русская основа, поэтому список обязан быть русским. */
+  function findMech(list, key) {
+    if (!list) return -1;
+    for (var i = 0; i < list.length; i++) {
+      var text = String((list[i] || [])[0] || '');
+      if (text && text.toLowerCase().indexOf(key) !== -1) return i;
+    }
+    return -1;
+  }
+
+  /* Пара для показа: в EN — английская из оверлея по тому же индексу,
+     иначе русская. Индекс общий: порядок mechs в оверлее повторяет
+     порядок в data.json. */
+  function mechPair(owner, index) {
+    if (LOCALE === 'en' && fullMechsEn) {
+      var en = fullMechsEn[owner];
+      if (en && en[index] && String((en[index] || [])[0] || '')) return en[index];
+    }
+    return (fullMechs[owner] || [])[index];
   }
 
   /* Что общего у двух выбранных добавок: мишени и/или механизм.
@@ -1350,7 +1401,10 @@
         }
       } else if (t.indexOf('механизм: ') === 0) {
         var key = t.slice(10);
-        if (mechs.indexOf(key) === -1) mechs.push(key);
+        /* FIX-33: в строку «общий механизм» идёт короткое имя, а не
+           русская основа из ключа графа. */
+        var name = mechLabel(key);
+        if (mechs.indexOf(name) === -1) mechs.push(name);
       }
     }
     if (!tags.length && !mechs.length) return null;
@@ -1895,20 +1949,28 @@
       var data = res[0], en = res[1] || {};
       var list = Array.isArray(data) ? data : ((data && data.supplements) || []);
       var map = {};
+      var mapEn = {};
       for (var i = 0; i < list.length; i++) {
         if (list[i] && list[i].id) {
-          /* FIX-77: механизмы в EN берём из оверлея — иначе в графе
-             всплывали русские тексты при английском интерфейсе. */
+          /* FIX-77 добавил оверлей — и это сломало поиск: ключ из
+             graph_data.json русский, а список стал английским, поэтому
+             matchMech не находил ничего и граф падал в запасную ветку.
+             FIX-33: русский список — источник поиска, оверлей —
+             только текст для показа в EN (см. mechPair). */
+          map[list[i].id] = list[i].mechs || [];
           var tr = en[list[i].id];
-          map[list[i].id] = (tr && tr.mechs) || list[i].mechs || [];
+          if (tr && tr.mechs) mapEn[list[i].id] = tr.mechs;
         }
       }
       fullMechs = map;
+      fullMechsEn = mapEn;
       return map;
     }).catch(function (err) {
-      console.warn('[hactar] data.json не загрузился, механизмы останутся краткими:',
-                  err && err.message);
+      console.warn('[hactar] data.json не загрузился, '
+                   + 'механизмы останутся краткими:',
+                   err && err.message);
       fullMechs = {};
+      fullMechsEn = {};
       return fullMechs;
     });
   }

@@ -550,7 +550,8 @@
 /* Бамп v179 -> v180 FIX-27: дисклеймер «БАД не является лекарственным средством» добавлен в футер всех страниц, ключ footer.legalDisclaimer в i18n.js (RU+EN) */
 /* Бамп v181 -> v182 FIX-31: VIS-02 градиент-маска навбара 16 -> 24px, padding-inline-end 24px, CSS-версия 469 */
 /* Бамп v182 -> v183 FIX-32: VIS-03 placebo-полоса >100 % не обрезается молча, цифра вынесена в метку, CSS-версия 470 */
-var CACHE_VERSION = 'v183';
+/* Бамп v183 -> v184 FIX-33: I18N-04 — подписи механизмов графа в EN берутся из оверлея data_en.json по индексу, короткие имена mech.<slug> в i18n.js; hactar.js ?v=35 -> 36, i18n.js ?v=19 -> 20 */
+var CACHE_VERSION = 'v184';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
@@ -638,7 +639,7 @@ var STATIC_ASSETS = [
   './cookie-banner.js?v=1',
   './metrika.js?v=1',
   /* FIX-12: PWA-02 — скрипты без которых офлайн ломается (страницы в прекеше, скриптов нет). */
-  './hactar.js?v=33',
+  './hactar.js?v=36',
   './science2.js?v=281',
   './tracker.js?v=281',
   './vendor/chart.umd-4.4.1.min.js',
