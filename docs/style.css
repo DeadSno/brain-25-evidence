@@ -1953,13 +1953,24 @@ header.top .v {
   .top .actions #randomBtn,
   header.top .actions #randomBtn { order: 1; }
 
-  /* Маска-градиент по правому краю .actions — визуальный индикатор, что
-     лента продолжается за пределами экрана и её можно прокрутить пальцем. */
+  /* VIS-02 (FIX-31): маска-градиент по правому краю .actions — индикатор,
+     что лента продолжается за экраном. FIX-21 добавил её шириной 16px вместе
+     с префиксом -webkit- (Safari), но 16px не читается: замер на 375px —
+     кнопка «Обратная связь» срезана ровно по границе маски, видно только
+     начало; на 320px от той же кнопки видно 47px из 153. Расширено до 24px,
+     чтобы срез читался как градиент, а не как обрезанный текст.
+
+     padding-inline-end решает вторую половину бага: при прокрутке до упора
+     последняя кнопка упиралась точно в правый край контейнера (замер 375px:
+     right 351 при правом крае 350), то есть «Удиви меня» попадала в зону
+     маски и НИКОГДА не проявлялась полностью. 24px отступа выводят её из
+     градиента; box-sizing:border-box (style.css:443) держит ширину прежней. */
   .site-header .actions,
   .top .actions,
   header.top .actions {
-    mask-image: linear-gradient(to right, black calc(100% - 16px), transparent);
-    -webkit-mask-image: linear-gradient(to right, black calc(100% - 16px), transparent);
+    mask-image: linear-gradient(to right, black calc(100% - 24px), transparent);
+    -webkit-mask-image: linear-gradient(to right, black calc(100% - 24px), transparent);
+    padding-inline-end: 24px;
   }
 }
 
