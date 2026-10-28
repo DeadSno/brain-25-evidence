@@ -832,7 +832,7 @@ qa-deep-audit нет — там только аудиты 1/19…5/19. **Ни о
 
 | ID | Крит. | Где | Что именно | Локаль | Статус |
 |---|---|---|---|---|---|
-| I18N-01 | B | `templates/sup.html.j2:213` → 53 стр. `docs/sup/*.html` | В EN остаётся русская фраза «Известных взаимодействий нет». `applyEnSupData` подменяет только `[data-sup="inter-note"]` (`i18n.js:2769`), а эта подпись рендерится как `{{ inter_note_cap }}` без `data-sup`-маркера. Фразы нет ни в `data.json`, ни в `data_en.json` — переводить её нечем | EN | открыто |
+| I18N-01 | B | `templates/sup.html.j2:213` → 53 стр. `docs/sup/*.html` | В EN остаётся русская фраза «Известных взаимодействий нет». `applyEnSupData` подменяет только `[data-sup="inter-note"]` (`i18n.js:2769`), а эта подпись рендерится как `{{ inter_note_cap }}` без `data-sup`-маркера. Фразы нет ни в `data.json`, ни в `data_en.json` — переводить её нечем | EN | Закрыто (коммит 2c8554eb, FIX-13) |
 | I18N-02 | B | `docs/script.js:971-987` (`CAT_GROUPS`), использование `:1016`, `:1020` | Группировка категорий ищет **русские** подстроки (жкт/кишечник/сердце/сосуд/кост/мозг/иммунитет/метабол/спорт/беременн/зрени/общее/критическ). В EN приходят английские категории → на `index.html` **все 356/356** `[data-cat-group]` получают `neutral` (в RU — 12 групп: brain 113, metab 58, bone 45, cardio 41, immune 37, sport 23, gut 13, general 13, liver 6, vision 4, women 2, critical 1). То же у `.tagChip` (`:1020`) и бейджей `sup/index` | EN | открыто |
 | I18N-03 | B | `docs/hactar.js:1456` + `data_en.json` | В графе появляется узел-«препарат» с именем **«no data»**. Фильтр `if (!withName \|\| withName === 'нет данных') continue;` знает только русскую заглушку, а в `data_en.json` `interactions[].with = "no data"`. Доказано рантаймом: EN `#hactarGraphAlt` = «Lion's Mane — no data: low risk — little data, no known interactions», RU — корректно без узла. Затронуто 51 карточка из 130 | EN | открыто |
 | I18N-04 | C | `docs/graph_mech_edges.json:71,78`, `docs/graph_data.json:11546,11609` | Подписи механизмов в графе остаются русскими в EN: «Микробиота», «механизм: Микробиота». Это build-артефакты, EN-оверлея у них нет (в отличие от `data_en.json`). Рантайм: EN alt = «Lion's Mane — Микробиота: механизм: Микробиота» | EN | открыто |
@@ -1907,7 +1907,7 @@ AUDIT-14 PRJ-05 фиксировал 37 untracked-записей — стало 
 5. **CI-02** — `docs/graph_positions.json` не воспроизводится между Windows и Linux (libm/ULP), `--check` в CI падал (CI-находки) — Закрыто (`de47055c`)
 6. **REL-01** — релиз 5.6.5 не выпущен, прод отдаёт 5.6.4, тег вне main (release-check) — **открыто**
 
-**B-находки (39, из них открыто 36):** NAV-01, VIS-01, VIS-02, VIS-03, SEO-01, CWV-01, CWV-02, PROD-02, QA-01, QA-03, QA-04, QA-06, A11Y-01, A11Y-02, A11Y-05, I18N-01, I18N-02, I18N-03, DATA-01, DATA-04, DATA-05, DOCS-01, DOCS-02, DOCS-03, DOCS-06, LEGAL-01, LEGAL-02, LEGAL-03, MKT-01, PRJ-02, PRJ-03, PRJ-04, PWA-01, REL-03, SIZE-01, UIUX-08, CI-03 (закрыто, `faa11f06`), REL-02 (закрыто, FIX-08), PWA-02 (закрыто, `c0cdb488`).
+**B-находки (39, из них открыто 35):** NAV-01, VIS-01, VIS-02, VIS-03, SEO-01, CWV-01, CWV-02, PROD-02, QA-01, QA-03, QA-04, QA-06, A11Y-01, A11Y-02, A11Y-05, I18N-02, I18N-03, DATA-01, DATA-04, DATA-05, DOCS-01, DOCS-02, DOCS-03, DOCS-06, LEGAL-01, LEGAL-02, LEGAL-03, MKT-01, PRJ-02, PRJ-03, PRJ-04, PWA-01, REL-03, SIZE-01, UIUX-08, CI-03 (закрыто, `faa11f06`), REL-02 (закрыто, FIX-08), PWA-02 (закрыто, `c0cdb488`), I18N-01 (закрыто, `2c8554eb`).
 
 **C-находки (75, из них открыто 74):** NAV-02…04, VIS-04…07, MOB-01…02, SEO-02…03, CWV-03…05, PROD-03…04, QA-07…11, A11Y-03…04, A11Y-06, I18N-04…07, DATA-02…03, DATA-06…08, DOCS-04…05, DOCS-07…10, LEGAL-04…05, MKT-02…08, PRJ-05…11, PWA-03…07, REL-04…05, SIZE-02…05, UIUX-01…07, SKILL-AUDIT-01, CI-04 (закрыто, `43376d7f`).
 
@@ -1945,6 +1945,10 @@ workflow, который ловит регрессии (`.github/workflows/tests
 #### Статус (FIX-12)
 
 Добавлены `hactar.js`, `science2.js`, `tracker.js`, `chart.umd`, `vis-network` в `STATIC_ASSETS`. Прекеш 44 → 49. `CACHE_VERSION` v168. Офлайн Hactar: 130 карточек, конструктор работает в RU и EN.
+
+#### Статус (FIX-13)
+
+Путь A (через i18n.js). В `templates/sup.html.j2:213` `{{ inter_note_cap }}` заменён на `<span data-i18n-text="sup.noInteractions">{{ inter_note_cap }}</span>`. В `docs/i18n.js` добавлен ключ `sup.noInteractions` (ru: «Известных взаимодействий нет», en: «No known interactions»). Пересобрано 131 sup-страница. `i18n.js?v=15` → `?v=16` на 149 HTML. `CACHE_VERSION` v169. В EN фраза отображается как «No known interactions».
 
 #### Статус (FIX-05)
 
@@ -2087,9 +2091,9 @@ _Раздел пополняется по одному-два пункта в к
 | — | CI-находки (вне 19 скиллов) | 1 | 1 | 1 | 3 |
 | **ИТОГО (зафиксировано)** | | **6** | **39** | **75** | **120** |
 
-**Открыто: A 1 / B 36 / C 74 — всего 111** (закрыто 9: PROD-01, QA-05, PRJ-01, QA-02, CI-02 — все A; CI-03, REL-02 — B; CI-04 — C; PWA-02 — B).
+**Открыто: A 1 / B 35 / C 74 — всего 110** (закрыто 10: PROD-01, QA-05, PRJ-01, QA-02, CI-02 — все A; CI-03, REL-02 — B; CI-04 — C; PWA-02, I18N-01 — B).
 
-Зафиксировано 120 находок; 9 закрыты (PROD-01, QA-05, PRJ-01, QA-02, CI-02 — A, CI-03, REL-02, PWA-02 — B, CI-04 — C), открыто 111: **A 1 (REL-01), B 36, C 74**. Фиксы идут по одной задаче на находку (`--no-verify`, обоснование: build-шаги хука перезаписывают даты). CI `tests.yml` — **зелёный** (запуск 40522483626, 3.12 и 3.13); с FIX-09 он же запускается на `release/**`.
+Зафиксировано 120 находок; 10 закрыты (PROD-01, QA-05, PRJ-01, QA-02, CI-02 — A, CI-03, REL-02, PWA-02, I18N-01 — B, CI-04 — C), открыто 110: **A 1 (REL-01), B 35, C 74**. Фиксы идут по одной задаче на находку (`--no-verify`, обоснование: build-шаги хука перезаписывают даты). CI `tests.yml` — **зелёный** (запуск 40522483626, 3.12 и 3.13); с FIX-09 он же запускается на `release/**`.
 
 **Выпуск 5.6.5 подготовлен** (FIX-07): ветка `release/v5.6.5` — merge `v5.6.5-dev` в `main` без конфликтов, дерево идентично dev; на ветке 1953 passed / 0 failed, sitemap/feed/graph `--check` exit 0. С FIX-09 ветка синхронизирована с `dev` (`35897e67`, деревья совпадают) и впервые получила зелёный CI (run `40649073433`, `conclusion: success` на 3.12 и 3.13 после фикса pytest в FIX-11 — триггер `release/**` работает). Публикация не выполнена: `AGENTS.md` запрещает трогать `main` — требуется `git push origin release/v5.6.5:main` (fast-forward) решением владельца.
 TEST_MARKER
