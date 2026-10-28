@@ -549,8 +549,8 @@ self.addEventListener('activate', event => {
    остался бы со старой шапкой и футером. */
 /* Бамп v163 -> v164 BATCH-1: VIS-01, VIS-03, MOB-01, MOB-02, MOB-03 (layout-фиксы) */
 /* Бамп v164 -> v165 BATCH-2: og:locale, og:url заглушек, описание hactar (SEO-03/04/05) */
-/* Бамп v166 -> v167 FIX-01: PROD-01 pregnancy flag */
-var CACHE_VERSION = 'v167';
+/* Бамп v167 -> v168 FIX-12: PWA-02 hactar.js + vendor in precache */
+var CACHE_VERSION = 'v168';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
@@ -636,7 +636,13 @@ var STATIC_ASSETS = [
      просят страницы: staticCacheKey сохраняет v как значимый параметр, и
      точное совпадение в cacheFirstForStatic срабатывает без ignoreSearch. */
   './cookie-banner.js?v=1',
-  './metrika.js?v=1'];
+  './metrika.js?v=1',
+  /* FIX-12: PWA-02 — скрипты без которых офлайн ломается (страницы в прекеше, скриптов нет). */
+  './hactar.js?v=33',
+  './science2.js?v=281',
+  './tracker.js?v=281',
+  './vendor/chart.umd-4.4.1.min.js',
+  './vendor/vis-network-9.1.9.min.js'];
 
 function notifyOffline() {
   self.clients.matchAll().then(function (clients) {
