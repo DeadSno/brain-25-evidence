@@ -523,6 +523,9 @@ const I18N = {
     "pwa.offline": "📴 Офлайн-режим: данные могут быть устаревшими",
     // FIX-66 (NPW2-03): кнопка установки приложения в футере.
     "pwa.install": "📲 Установить приложение",
+    // PWA-01 (FIX-19): уведомление о доступном обновлении SW.
+    "pwa.update.available": "Доступно обновление",
+    "pwa.update.button": "Обновить",
     // I2-02 (FIX-52): ключи, перенесённые сюда из docs/share.js,
     // docs/science2.js и docs/tracker.js. До этого каждый файл держал свой
     // мини-словарь и свою функцию t() — правка строки требовала обхода
@@ -1753,6 +1756,9 @@ const I18N = {
     "cite.copyFailed": "Failed to copy",
     "pwa.offline": "📴 Offline mode: data may be out of date",
     "pwa.install": "📲 Install app",
+    // PWA-01 (FIX-19): update notification for service worker.
+    "pwa.update.available": "Update available",
+    "pwa.update.button": "Update",
     "share.label": "🔗 Share",
     "share.copied": "✓ Copied",
     "share.fail": "Failed to copy",

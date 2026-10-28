@@ -68,9 +68,65 @@
     }
   }
 
+  var updateBanner = null;
+  var updatingWorker = null;
+
+  function showUpdateBanner() {
+    if (updateBanner) return;
+    updateBanner = document.createElement('div');
+    updateBanner.id = 'pwaUpdate';
+    updateBanner.setAttribute('role', 'status');
+    updateBanner.setAttribute('aria-live', 'polite');
+    updateBanner.innerHTML =
+      '<span>' + t('pwa.update.available') + '</span> ' +
+      '<button type="button" id="pwaUpdateBtn">' + t('pwa.update.button') + '</button>';
+    var st = updateBanner.style;
+    st.position = 'fixed';
+    st.top = '0';
+    st.left = '0';
+    st.right = '0';
+    st.zIndex = '2100';
+    st.background = '#1c1c1e';
+    st.color = '#f5f5f7';
+    st.padding = '10px 16px';
+    st.fontSize = '.9rem';
+    st.textAlign = 'center';
+    st.borderBottom = '1px solid #f1c40f';
+    st.boxShadow = '0 2px 8px rgba(0,0,0,.3)';
+    var btn = updateBanner.querySelector('#pwaUpdateBtn');
+    btn.style.background = '#f1c40f';
+    btn.style.color = '#1c1c1e';
+    btn.style.border = 'none';
+    btn.style.padding = '6px 14px';
+    btn.style.borderRadius = '4px';
+    btn.style.cursor = 'pointer';
+    btn.style.fontWeight = '600';
+    btn.style.marginLeft = '12px';
+    btn.addEventListener('click', function () {
+      if (updatingWorker) {
+        updatingWorker.postMessage({ type: 'SKIP_WAITING' });
+      }
+      window.location.reload();
+    });
+    document.body.appendChild(updateBanner);
+  }
+
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', function () {
-      navigator.serviceWorker.register(new URL('sw.js', PWA_BASE).href).catch(function (err) {
+      navigator.serviceWorker.register(new URL('sw.js', PWA_BASE).href).then(function (reg) {
+        reg.addEventListener('updatefound', function () {
+          var newWorker = reg.installing;
+          if (!newWorker) return;
+          updatingWorker = newWorker;
+          newWorker.addEventListener('statechange', function () {
+            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+              showUpdateBanner();
+            }
+          });
+        }).catch(function (err) {
+          console.warn('[pwa] updatefound listener failed:', err.message || err);
+        });
+      }).catch(function (err) {
         console.warn('[pwa] service worker не зарегистрирован:', err.message || err);
       });
     });

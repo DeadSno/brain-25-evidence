@@ -215,6 +215,11 @@ ACCEPTED_NON_ELEMENT_GUARDS = {
     ("science2.js", "if (!id) return;"): [
         "curId() — id текущей добавки может отсутствовать.",
     ],
+    ("pwa.js", "if (!newWorker) return;"): [
+        "newWorker — результат reg.installing из Service Worker API, а не "
+        "DOM-элемент. Если installing не существует (первая установка, нет "
+        "новой версии), обновление не требуется и баннер не показывается.",
+    ],
 }
 
 # Элементы, которых нет в статическом HTML, потому что они создаются

@@ -3144,3 +3144,33 @@ html:not(.light) .card-link {
 @media (min-width: 1440px) {
   .hactar-wrap { max-width: 1440px; margin-left: auto; margin-right: auto; }
 }
+
+/* PWA-01 (FIX-19): баннер «доступно обновление». Фиксирован сверху, z-index выше офлайн-плашки (2000). */
+#pwaUpdate {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2100;
+  background: #1c1c1e;
+  color: #f5f5f7;
+  padding: 10px 16px;
+  font-size: .9rem;
+  text-align: center;
+  border-bottom: 1px solid #f1c40f;
+  box-shadow: 0 2px 8px rgba(0,0,0,.3);
+}
+#pwaUpdateBtn {
+  background: #f1c40f;
+  color: #1c1c1e;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  margin-left: 12px;
+}
+#pwaUpdateBtn:focus-visible {
+  outline: 2px solid #f1c40f;
+  outline-offset: 2px;
+}
