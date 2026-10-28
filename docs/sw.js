@@ -553,7 +553,8 @@ self.addEventListener('activate', event => {
 /* Бамп v172 -> v173 FIX-17: A11Y-02 дровере role="dialog" aria-modal aria-labelledby inert фон фокус Esc закрывает */
 /* Бамп v173 -> v174 FIX-18: A11Y-05 shop-btn стили на 130 sup-страницах, min-height 24px, gap, focus-visible */
 /* Бамп v174 -> v175 FIX-19: PWA-01 updatefound баннер + SKIP_WAITING по требованию */
-var CACHE_VERSION = 'v175';
+/* Бамп v175 -> v176 FIX-20: PWA-04 manifest theme_color/background_color #f5f5f7 -> #1c1c1e (dark-first) */
+var CACHE_VERSION = 'v176';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
