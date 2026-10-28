@@ -1446,14 +1446,21 @@
     }
 
     /* 3. Лекарства — оранжевые. Взаимодействия лежат в data_index.json;
-       значение «нет данных» взаимодействием не является. */
+       значение «нет данных» / «no data» взаимодействием не является. */
+    function isNoData(v) {
+      if (v == null) return true;
+      var t = String(v).trim();
+      if (!t) return true;
+      var lower = t.toLowerCase();
+      return lower === 'нет данных' || lower === 'no data';
+    }
     for (i = 0; i < ids.length; i++) {
       var supId = ids[i];
       var ints = (supById[supId] || {}).interactions || [];
       for (j = 0; j < ints.length; j++) {
         var it = ints[j] || {};
+        if (isNoData(it.with)) continue;
         var withName = String(it.with || '').trim();
-        if (!withName || withName === 'нет данных') continue;
         var sev = SEVERITY[String(it.severity || '').toLowerCase()] ||
                   { color: COLOR_SEV_LOW, label: T('hactar.sev.unspecified') };
         var did = 'drug:' + withName;
