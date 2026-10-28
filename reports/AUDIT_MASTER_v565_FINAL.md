@@ -777,7 +777,7 @@ qa-deep-audit нет — там только аудиты 1/19…5/19. **Ни о
 
 | ID | Крит. | Где | Что именно | Локаль | Ширина | Статус |
 |---|---|---|---|---|---|---|
-| A11Y-01 | B | `docs/hactar.html:476-481`, `:570` | Вкладки Hactar: у кнопок есть `role="tab"` и `aria-controls`, у панелей — **нет** `role="tabpanel"` и **нет** `aria-labelledby`. Слово `tabpanel` в `docs/*.html` + `docs/*.js` — 0 вхождений. Runtime: `tabs=2 tablists=1 tabpanels=0` | RU+EN | 1280, 375 | открыто |
+| A11Y-01 | B | `docs/hactar.html:476-481`, `:570` | Вкладки Hactar: у кнопок есть `role="tab"` и `aria-controls`, у панелей — **нет** `role="tabpanel"` и **нет** `aria-labelledby`. Слово `tabpanel` в `docs/*.html` + `docs/*.js` — 0 вхождений. Runtime: `tabs=2 tablists=1 tabpanels=0` | RU+EN | 1280, 375 | Закрыто (коммит 62a35d25, FIX-16) |
 | A11Y-02 | B | `docs/hactar.html:418`, `docs/hactar.js:319-323` | Мобильный дровер `#hactarSidebar`: `<aside>` без `role="dialog"`, `aria-modal`, `aria-label`. `setSidebarOpen()` делает только `classList.toggle('open')` — нет переноса фокуса, нет `inert`/`aria-hidden` на фоне, нет возврата фокуса. `Escape` (`hactar.js:1110-1127`) зовёт только `clearSearch()` и дровер не закрывает. В открытом состоянии (375) это фуллскрин-оверлей, страница под ним остаётся в порядке табуляции и в дереве доступности. Закрытое состояние — `display:none`, а не `hidden` + `aria-hidden`, как требует `SKILL.md:76-79` | RU+EN | 375 | открыто |
 | A11Y-03 | C | `docs/i18n.js:38-61`, `docs/style.css:479` | `html.i18n-pending main{visibility:hidden}` в EN: контент скрыт, но ни `aria-busy`, ни live-региона нет — скринридер не узнаёт, что страница ещё грузится. `load` срабатывает, пока `main` ещё `visibility:hidden` (детерминированно, не гонка). Замер: 13–29 мс локально (hactar 29, sup/index 21, sup/5-htp 15, sup/magniy 13), худший случай ограничен фолбэком `setTimeout(releaseI18nPending, 1500)`. Runtime: `aria-busy` на `main` = нет, `aria-live` = нет | EN | 1280 | открыто |
 | A11Y-04 | C | `docs/style.css:653` (`p.hint{opacity:.6}`), `docs/sup/index.html` | Ссылки внутри `p.hint` («глоссарии», «методологии»): **4.37:1** в тёмной и **4.1:1** в светлой теме при 14 px — ниже 4.5. Причина — `opacity:.6` на родителе: axe композитит opacity всей цепочки предков, поэтому объявленный `#8ecbff` даёт эффективный `#6085a5`. Комментарий `style.css:419-437` мерил только светлую тему и утверждает, что «на тёмном фоне opacity почти не меняет контраст» — для синей ссылки это неверно, тёмная тема не мерилась | RU+EN | 1280, 375 | открыто |
@@ -797,6 +797,10 @@ qa-deep-audit нет — там только аудиты 1/19…5/19. **Ни о
 Подтверждено: `role="tabpanel"` отсутствует во всём `docs/` (0 вхождений в `*.html` и `*.js`). Разметка `hactar.html:472-475` — корректный `role="tablist"` с `aria-label` и `data-i18n-aria-label`, две кнопки `role="tab"` с `aria-controls="hactarPanelOverview"` / `"hactarPanelLinks"`, `aria-selected`, `tabindex` 0/−1. Но `aria-controls` указывает на обычные `<div class="hactar-panel">` (`:476-481`, `:570`) без роли и без `aria-labelledby`.
 
 Почему это B, а не косметика: связь «вкладка → панель» объявлена только в одну сторону. Скринридер видит две вкладки, но при переходе на панель не сообщает, что это панель и к какой вкладке относится; APG для tabs требует `role="tabpanel"` + `aria-labelledby` на панели. Клавиатурная часть при этом сделана правильно (`hactar.js:286-363`: roving tabindex, Arrow/Home/End, синхронизация `aria-selected`, deep-links `?tab=`), то есть паттерн реализован наполовину — и именно недостающая половина невидима зрячему пользователю. Правка — два атрибута на две панели.
+
+#### Статус (FIX-16)
+
+Добавлены `role="tabpanel"` и `aria-labelledby` на две панели (`#hactarPanelOverview`, `#hactarPanelLinks`). `aria-labelledby` ссылается на ID кнопок (`hactarTabOverview`, `hactarTabLinks`). Клавиатурная навигация (roving tabindex, Arrow/Home/End) уже была — не менялась. `CACHE_VERSION` v172 (`docs/sw.js:553`). `hactar.js?v` не менялся (JS не тронут).
 
 ### Совпало с архивом
 
@@ -1919,7 +1923,7 @@ AUDIT-14 PRJ-05 фиксировал 37 untracked-записей — стало 
 5. **CI-02** — `docs/graph_positions.json` не воспроизводится между Windows и Linux (libm/ULP), `--check` в CI падал (CI-находки) — Закрыто (`de47055c`)
 6. **REL-01** — релиз 5.6.5 не выпущен, прод отдаёт 5.6.4, тег вне main (release-check) — **открыто**
 
-**B-находки (39, из них открыто 34):** NAV-01, VIS-01, VIS-02, VIS-03, SEO-01, CWV-01, CWV-02, PROD-02, QA-01, QA-03, QA-04, QA-06, A11Y-01, A11Y-02, A11Y-05, I18N-03, DATA-01, DATA-04, DATA-05, DOCS-01, DOCS-02, DOCS-03, DOCS-06, LEGAL-01, LEGAL-02, LEGAL-03, MKT-01, PRJ-02, PRJ-03, PRJ-04, PWA-01, REL-03, SIZE-01, UIUX-08, CI-03 (закрыто, `faa11f06`), REL-02 (закрыто, FIX-08), PWA-02 (закрыто, `c0cdb488`), I18N-01 (закрыто, `2c8554eb`), I18N-02 (закрыто, `5b187cc6`).
+**B-находки (39, из них открыто 33):** NAV-01, VIS-01, VIS-02, VIS-03, SEO-01, CWV-01, CWV-02, PROD-02, QA-01, QA-03, QA-04, QA-06, A11Y-02, A11Y-05, I18N-03, DATA-01, DATA-04, DATA-05, DOCS-01, DOCS-02, DOCS-03, DOCS-06, LEGAL-01, LEGAL-02, LEGAL-03, MKT-01, PRJ-02, PRJ-03, PRJ-04, PWA-01, REL-03, SIZE-01, UIUX-08, CI-03 (закрыто, `faa11f06`), REL-02 (закрыто, FIX-08), PWA-02 (закрыто, `c0cdb488`), I18N-01 (закрыто, `2c8554eb`), I18N-02 (закрыто, `5b187cc6`).
 
 **C-находки (75, из них открыто 74):** NAV-02…04, VIS-04…07, MOB-01…02, SEO-02…03, CWV-03…05, PROD-03…04, QA-07…11, A11Y-03…04, A11Y-06, I18N-04…07, DATA-02…03, DATA-06…08, DOCS-04…05, DOCS-07…10, LEGAL-04…05, MKT-02…08, PRJ-05…11, PWA-03…07, REL-04…05, SIZE-02…05, UIUX-01…07, SKILL-AUDIT-01, CI-04 (закрыто, `43376d7f`).
 
@@ -2107,9 +2111,9 @@ _Раздел пополняется по одному-два пункта в к
 | — | CI-находки (вне 19 скиллов) | 1 | 1 | 1 | 3 |
 | **ИТОГО (зафиксировано)** | | **6** | **39** | **75** | **120** |
 
-**Открыто: A 1 / B 33 / C 74 — всего 108** (закрыто 12: PROD-01, QA-05, PRJ-01, QA-02, CI-02 — все A; CI-03, REL-02 — B; CI-04 — C; PWA-02, I18N-01, I18N-02, I18N-03 — B).
+**Открыто: A 1 / B 32 / C 74 — всего 107** (закрыто 12: PROD-01, QA-05, PRJ-01, QA-02, CI-02 — все A; CI-03, REL-02 — B; CI-04 — C; PWA-02, I18N-01, I18N-02, I18N-03 — B).
 
-Зафиксировано 120 находок; 12 закрыты (PROD-01, QA-05, PRJ-01, QA-02, CI-02 — A, CI-03, REL-02, PWA-02, I18N-01, I18N-02, I18N-03 — B, CI-04 — C), открыто 108: **A 1 (REL-01), B 33, C 74**. Фиксы идут по одной задаче на находку (`--no-verify`, обоснование: build-шаги хука перезаписывают даты). CI `tests.yml` — **зелёный** (запуск 40522483626, 3.12 и 3.13); с FIX-09 он же запускается на `release/**`.
+Зафиксировано 120 находок; 12 закрыты (PROD-01, QA-05, PRJ-01, QA-02, CI-02 — A, CI-03, REL-02, PWA-02, I18N-01, I18N-02, I18N-03 — B, CI-04 — C), открыто 107: **A 1 (REL-01), B 32, C 74**. Фиксы идут по одной задаче на находку (`--no-verify`, обоснование: build-шаги хука перезаписывают даты). CI `tests.yml` — **зелёный** (запуск 40522483626, 3.12 и 3.13); с FIX-09 он же запускается на `release/**`.
 
 **Выпуск 5.6.5 подготовлен** (FIX-07): ветка `release/v5.6.5` — merge `v5.6.5-dev` в `main` без конфликтов, дерево идентично dev; на ветке 1953 passed / 0 failed, sitemap/feed/graph `--check` exit 0. С FIX-09 ветка синхронизирована с `dev` (`35897e67`, деревья совпадают) и впервые получила зелёный CI (run `40649073433`, `conclusion: success` на 3.12 и 3.13 после фикса pytest в FIX-11 — триггер `release/**` работает). Публикация не выполнена: `AGENTS.md` запрещает трогать `main` — требуется `git push origin release/v5.6.5:main` (fast-forward) решением владельца.
 TEST_MARKER
