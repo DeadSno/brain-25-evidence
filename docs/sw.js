@@ -235,7 +235,322 @@ self.addEventListener('activate', event => {
    v103-static и вернёт старый i18n.js, а t() подставит имена ключей
    вместо текста. Заодно ?v= i18n.js в разметке 1 -> 2 (146 файлов).
    Значения строк байт-в-байт прежние, style.css НЕ менялся (?v= 435). */
-var CACHE_VERSION = 'v104';
+/* Бамп v104 -> v105: 2.2.x — правила панели вкладок и панелей режимов
+   (.tr-tabs[role="tablist"], .tab-panels, [data-panel]) перенесены из
+   локального <style> docs/interactions.html в общую docs/style.css,
+   ?v= 436 -> 437. Без бампа activate не почистит v104-static, и
+   возвратные посетители получат старый style.css без новых правил. */
+/* Бамп v105 -> v106: 2.2.3 — починена отрисовка графа на interactions.html.
+   В style.css закрыт незакрытый @media (max-width: 640px), из-за которого
+   правило .graph-canvas { height: 600px } оставалось вложенным и не
+   применялось на десктопе (#mynetwork схлопывался до 24px). В inline
+   <style> interactions.html добавлено .state-loading[hidden] { display:none }
+   (правило .state-loading перебивало UA [hidden] и спиннер не скрывался),
+   порядок вызовов в drawGraph() изменён на showGraph() -> renderGraph().
+   ?v= 437 -> 438. Без бампа activate не почистит v105-static. */
+/* Бамп v106 -> v107: 2.2.3 — карточный список на вкладках «Добавки» (sups)
+   и «Лекарства» (drugs) в docs/interactions.html. Вместо загрузки всех
+   пар в vis-network (клубок) — ленивая подгрузка interactions_graph.json
+   только при первом клике на таб и HTML/CSS-карточки с поиском и фильтром.
+   style.css НЕ менялся (?v= 438): правки только во inline <style> и <script>
+   самой страницы. Без бампа activate не почистит v106-static, и возвратные
+   посетители получат старый interactions.html с заглушкой «Загрузка...». */
+/* Бамп v107 -> v108: 2.2.4 — вкладка «Механизмы» (mech) на
+   docs/interactions.html. Вместо заглушки «Загрузка...» — селект из 14
+   curated механизмов (docs/graph_mech_edges.json) и звёздный граф
+   vis-network: центр — выбранный механизм, вокруг — только влияющие на
+   него добавки, физика выключена. graph_mech_edges.json и data.json
+   тянутся лениво, только при первом открытии таба.
+   style.css НЕ менялся (?v= 438), правки только во inline <style> и
+   <script> самой страницы. interactions.html входит в STATIC_ASSETS и
+   отдаётся cacheFirstForStatic, поэтому без бампа activate не почистит
+   v107-static и возвратные посетители получат старую заглушку. */
+/* Бамп v108 -> v109: 2.2.6-2.2.8 — единый навбар, редиректы старых страниц,
+   широкая карточка «Связи» на главной. graph.html и atlas.html перестали быть
+   полноценными страницами и стали редиректами на вкладки
+   interactions.html#graph и #mech, поэтому обе старые кнопки навбара убраны со
+   всех 10 страниц с навбаром, а на главной три карточки сведены в одну.
+   style.css НЕ менялся (?v= 439), правились только разметка страниц и
+   генератор sitemap (graph.html и atlas.html убраны из ROOT_PAGES).
+   Обе страницы-редиректа остаются в STATIC_ASSETS: они крошечные, а
+   офлайн-переход по старой ссылке должен работать. Без бампа activate не
+   почистит v108-static, и возвратные посетители получат из кэша старый
+   graph.html с 500 КБ vendor-скриптов вместо редиректа. */
+/* Бамп v110 -> v111: v5.6.5 — i18n (JS-P2-02), SW (compare.html), privacy GDPR, loading/empty/error, scroll position.
+   interactions.html: у #nodeSidePanel появились role="dialog",
+   aria-modal, aria-labelledby, перевод фокуса в панель и возврат при
+   закрытии, focus-trap на Tab; у 4 вкладок — id/aria-controls/aria-labelledby,
+   roving tabindex и навигация стрелками/Home/End. compare.html: цвета
+   грейдов и PMID-бейджа берутся из токенов (color-mix), мёртвые правила
+   .grade.A..D удалены. Страницы без <link rel=icon> получили data-URI
+   фавикон (8 корневых + 131 sup через шаблоны sup.html.j2 /
+   sup_index.html.j2), из-за чего сузился и 404 по /favicon.ico.
+   style.css НЕ менялся (?v= 439), поэтому бамп только здесь. Правки
+   затронули interactions.html, compare.html, graph.html, atlas.html,
+   faq/glossary/methodology/support/trends.html и 131 sup-страница — все
+   входят в STATIC_ASSETS и отдаются cacheFirstForStatic: без бампа
+   activate не почистит v110-static и возвратные посетители получат старые
+   версии обеих страниц. */
+/* Бамп v111 -> v112: блок 5 (a11y/i18n) — script.js получил
+   skip-link с переводом фокуса (A11Y-13) и combobox-структуру
+   live-search (A11Y-10: role="combobox", aria-expanded,
+   aria-activedescendant, id на опциях), i18n.js — новые ключи
+   (cmp.toast.added, cmp.error-ключи, cmp.table.caption, sup.cite-,
+   sup.tts-, cite., int.graphSearchPh, graph.a11y-). Оба файла лежат
+   в STATIC_ASSETS без ?v (сброс кэша держится на CACHE_VERSION);
+   без бампа activate не почистит v111-static и возвратные посетители
+   получат старые script.js/i18n.js — aria-expanded не переключится,
+   а t() подставит имена новых ключей вместо текста. */
+/* Бамп v112 -> v113: изменён docs/style.css — убрано подчёркивание
+   карточек главной (.card-featured, .card-link) в тёмной теме
+   (перебито глобальное html:not(.light) a{text-decoration:underline}),
+   style.css бампнут v439 -> v440 во всех html и шаблонах.
+   style.css входит в STATIC_ASSETS, без бампа activate не почистит
+   v112-static и возвратные посетители получат старый CSS с
+   подчёркиванием. */
+/* Бамп v114 -> v115: изменён docs/index.html — из hero главной убрана
+   кнопка «Открыть Project Hactar» (дублировала большую картоску Hactar
+   ниже по странице), а «Найти свою добавку» переведена из кнопки в
+   текстовую ссылку tertiary; изменён docs/script.js (обработчик этой
+   ссылки больше не ищет .btn) и docs/map.html (страница стала
+   редиректом на hactar.html?tab=graph). Все три файла входят в
+   STATIC_ASSETS без ?v (сброс кэша держится на CACHE_VERSION), без
+   бампа activate не почистит v114-static и возвратные посетители
+   получат старую главную и старый редирект. */
+/* Бамп v115 -> v116: A-2 — ссылки на старые страницы заменены на Hactar.
+   Изменены docs/hactar.html (hactar.js?v=11), docs/hactar.js (разбор
+   ?ids=), docs/script.js (gotoCompare ведёт на hactar.html?tab=compare),
+   docs/privacy.html, docs/calculator.html, docs/compare.html,
+   docs/interactions.html, docs/graph.html, docs/atlas.html, docs/map.html,
+   docs/manifest.webmanifest, все 131 страница docs/sup/ и шаблон
+   templates/sup.html.j2. Эти файлы входят в STATIC_ASSETS без ?v (сброс
+   кэша держится на CACHE_VERSION), без бампа activate не почистит
+   v115-static и возвратные посетители получат старые ссылки на
+   страницы-редиректы. */
+/* Бамп v116 -> v117: H-9 — вкладки «Калькулятор» и «Сравнение» слиты
+    в одну вкладку «Обзор» (docs/hactar.html, docs/hactar.js), редиректы
+    docs/calculator.html и docs/compare.html теперь ведут на
+    hactar.html?tab=overview. Изменённые файлы входят в STATIC_ASSETS
+    без ?v (сброс кэша держится на CACHE_VERSION), без бампа activate
+    не почистит v116-static и возвратные посетители получат старую
+    страницу с тремя вкладками. */
+/* Бамп v118 -> v119: V2-03 — жёсткие hex-цвета в style.css заменены на
+   токены (:root, 37 новых переменных), бейджи грейда в 130 sup-страницах
+   и в methodology.html теперь ссылаются на var(--grade-X-fill). В ссылках
+   на style.css ?v поднят с 441 на 442 в 147 файлах. style.css входит в
+   STATIC_ASSETS без ?v, сброс кэша держится на CACHE_VERSION: без бампа
+   activate не почистит v118-static и возвратные посетители получат CSS,
+   в котором var(--grade-a-fill) ещё не объявлена (бейджи без заливки). */
+/* Бамп v119 -> v120: V2-04 — размеры шрифта ниже 14px подняты до
+   --fs-4 (0.875rem), шкала --fs-1…--fs-3 схлопнута в нижнюю границу.
+   style.css вышел за ?v= 442 -> 443, поэтому старый кэш надо сбросить:
+   без этого activate не удалит v119-static, и новый CSS не доедет. */
+/* Бамп v120 -> v121: V2-06 — палитра графа связей переехала из
+   docs/hactar.js в токены --graph-<роль> в style.css (:root, 12 новых
+   переменных). style.css вышел за ?v= 443 -> 444, hactar.html
+   поднял hactar.js?v= 14 -> 15. Оба файла входят в STATIC_ASSETS
+   без ?v, сброс кэша держится на CACHE_VERSION: без бампа activate
+   не почистит v120-static, и возвратные посетители получат граф,
+   который читает ещё не объявленные переменные (узлы без цвета). */
+/* Бамп v121 -> v122: NV2-01 — промежуточный брейкпоинт 769-1024px для
+   боковой панели Project Hactar: --hactar-sidebar 260px вместо 340px,
+   чтобы правая колонка не сжималась до 389px на 769px. Правка в
+   инлайн-стилях docs/hactar.html; страница лежит в STATIC_ASSETS и
+   отдаётся cache-first, поэтому без бампа новая вёрстка не дошла бы до
+   вернувшихся посетителей. style.css не менялся, ?v= поднят только
+   чтобы сохранить равенство с CACHE_VERSION (tests/test_style_version_bump.py). */
+/* Бамп v122 -> v123: NA2-08 — поля доз в Project Hactar получили
+   aria-invalid и aria-describedby (id у поля, id у текста ошибки,
+   aria-live на ошибке): красная рамка работала, скринридер молчал.
+   Правка в docs/hactar.js, файл отдаётся по hactar.js?v= 15 -> 16.
+   style.css не менялся, ?v= поднят на шаг вместе с CACHE_VERSION,
+   чтобы шкалы не разъехались (tests/test_style_version_bump.py). */
+/* Бамп v123 -> v124: NA2-07 — вкладки Project Hactar получили навигацию
+   стрелками и Home/End (WAI-ARIA Tabs Pattern): hactar.js вышел за
+   ?v= 16 -> 17, style.css — за ?v= 446 -> 447 (обе шкалы идут парой). */
+/* Бамп v124 -> v125: NV2-02 — чипы «Купить» на главной получили класс
+   .shop-chip вместо инлайн-стиля (рамка, box-sizing, min-width:0).
+   style.css ?v= 447 -> 448, index.html переехал вместе с ним. */
+/* Бамп v126 -> v127: NP2-01 — кнопка «Сохранить стек» получила состояние :active и тосты на все исходы (пустое имя, перезапись, отказ хранилища). hactar.js вышел за ?v= 17 -> 18, style.css — за ?v= 449 -> 450 (обе шкалы идут парой). */
+/* Бамп v127 -> v128: P2-02 - поисковый запрос магазина чистится от скобочных уточнений и редакционных оговорок из поля forms (Родиола: обрезанная скобка, Коллаген: 72 символа текста вместо товара). hactar.js вышел за ?v= 18 -> 19, style.css - за ?v= 450 -> 451 (обе шкалы идут парой). */
+/* Бамп v128 -> v129: NP2-04 — проверка дозы сравнивает введённое значение с верхней нормой в общей шкале (включая МЕ), NaN не выдаётся наружу; hactar.js вышел за ?v= 19 -> 20, style.css — за ?v= 451 -> 452 (обе шкалы идут парой). */
+/* Бамп v129 -> v130: P2-05 — запрос магазина теперь только по названию
+   на всех поверхностях: чипы index.html, кнопки sup-страниц
+   (scripts/build_sup.py, пересобраны 97 страниц) и чипы Project Hactar
+   (hactar.js вышел за ?v= 20 -> 21, style.css - за ?v= 452 -> 453,
+   обе шкалы идут парой). */
+/* Бамп v130 -> v131: NQ2-01 и NQ2-05 — выбор добавок пишется в
+   localStorage с задержкой 400 мс (сброс на pagehide и при уходе
+   вкладки в фон), а при выборе пятой и последующих добавок один раз
+   показывается подсказка оставить 2-3 для точного сравнения;
+   hactar.js вышел за ?v= 21 -> 22, style.css - за ?v= 453 -> 454
+   (обе шкалы идут парой). */
+/* Бамп v131 -> v132: A2-01 - кнопка смены темы получила доступное имя
+   (aria-label «Переключить на светлую/тёмную тему»): статическая метка в
+   разметке 143 файлов, обновление метки вместе с текстом в инлайн-блоках,
+   ключи a11y.themeToLight/themeToDark в i18n.js и setLight() в script.js.
+   i18n.js вышел за ?v= 2 -> 3, script.js - за ?v= 293 -> 294,
+   style.css - за ?v= 454 -> 455 (обе шкалы идут парой). */
+/* Бамп v132 -> v133: A2-05 — у свёрнутых блоков <details> на главной появился aria-expanded, синхронизируемый с фактическим состоянием (initDisclosures в script.js); script.js вышел за ?v= 294 -> 295, style.css - за ?v= 455 -> 456 (обе шкалы идут парой). */
+/* Бамп v133 -> v134: A2-06 — контейнер графа на Hactar стал фокусируемым (tabindex, role="img", aria-label, aria-describedby на подсказку), у него появился :focus-visible, а связи продублированы текстовым списком для скринридеров (renderGraphAlt в hactar.js); hactar.js вышел за ?v= 22 -> 23. style.css не менялся, ?v= 456 остаётся. */
+/* Бамп v134 -> v135: NA2-02, NA2-06 — кнопки стеков получили aria-label, у переключателя списка появился aria-expanded (setStacksOpen в hactar.js), мобильная шторка Hactar управляет фокусом: открытие переводит его на первый видимый элемент, «Готово» возвращает на «Выбрать добавки», Tab ходит по кругу, Esc закрывает (инлайн-скрипт hactar.html); hactar.js вышел за ?v= 23 -> 24. style.css не менялся, ?v= 456 остаётся. */
+/* Бамп v135 -> v136: M2-02 — на trends.html сетка сводных карточек
+   (.insights-grid) больше не задаёт жёсткую дорожку 280px: на 320px её
+   ширина ~257px, и карточки вылезали за правый край контейнера на 23px.
+   minmax(min(280px,100%),1fr) схлопывает дорожку до ширины контейнера.
+   Менялся только trends.html (инлайн <style>), style.css не менялся,
+   ?v= 456 остаётся. */
+/* Бамп v136 -> v137: NM2-01, NM2-02, NM2-03 — на 320px чипы магазинов
+   в таблице «Обзор» больше не задают white-space:nowrap и переносятся
+   внутри ячейки (max-width:100%, overflow-wrap:anywhere), кнопка стека
+   выросла с 36px до 44px (WCAG 2.5.5), у ячеек таблицы на ≤480px
+   уменьшены отступы. Менялся только hactar.html (инлайн <style>),
+   style.css не менялся, ?v= 456 остаётся. */
+/* Бамп v137 -> v138: NSE2-01 — у hactar.html canonical был относительным
+   (href="hactar.html"); заменён на абсолютный
+   https://deadsno.github.io/brain-25-evidence/hactar.html, как в sitemap
+   и в og:url. Менялся только hactar.html, style.css не менялся,
+   ?v= 456 остаётся. */
+/* Бамп v138 -> v139: NSE2-02 — <title> на hactar.html сокращён с 60 до
+   49 символов (убран «комбинаций», бренд-суффикс сохранён), og:title и
+   twitter:title синхронизированы с ним. Менялся только hactar.html,
+   style.css не менялся, ?v= 456 остаётся. */
+/* Бамп v139 -> v140: SE2-01, SE2-03, SE2-04, SE2-05 — у чипов магазинов на
+   sup-страницах и у внешних ссылок появился rel="nofollow" (PubMed-бейдж,
+   три магазина, PMID/DOI), «+ Сравнить» стал ссылкой на
+   hactar.html?tab=compare&ids=… (работает без JS), на главной добавлены
+   SearchAction в WebSite и отдельный ItemList, а также поддержка ?search=
+   (инлайн-скрипт на load). Менялись index.html, feedback.html,
+   privacy.html, support.html, trends.html и 131 страница sup/;
+   style.css и script.js не менялись, ?v= 456 и ?v= 295 остаются. */
+/* Бамп v140 -> v141: FIX-39 (D2-03, D2-04) — из data.json убраны пустые
+   ключи doi в key_sources (Витамин K1, PABA) и поле forms переведено из
+   строки в массив строк. Читатели адаптированы: script.js (карточка,
+   модалка, сравнительная таблица, блок «нет данных»), hactar.js (forms
+   для карточки добавки), scripts/build_sup.py (forms_text через «, »).
+   script.js вышел за ?v= 295 -> 296, hactar.js - за ?v= 24 -> 25.
+   style.css не менялся, ?v= 456 остаётся. */
+/* Бамп v141 -> v142: FIX-40 (MAN-05) — renderQuadrant больше не падает
+   молча на нечисловом hedges_g: значение приводится к числу, нефинитные
+   точки отбрасываются (раньше строка «0.71» давала пустой график без
+   ошибки в консоли). script.js вышел за ?v= 296 -> 297. style.css не
+   менялся, ?v= 456 остаётся. */
+/* Бамп v142 -> v143: FIX-42 (C2-01, C2-05) — @font-face переведён с
+   font-display: swap на optional (подмена шрифта после первой отрисовки
+   больше не даёт CLS), пять начертаний Inter предзагружаются в <head>
+   главной. style.css вышел за ?v= 456 -> 457 (145 страниц + шаблоны),
+   script.js не менялся, ?v= 297 остаётся. */
+/* Бамп v144 -> v145: FIX-43 (C2-03) — vis-network больше не подключён
+   тегом в hactar.html: библиотеку (673 КБ) лениво грузит hactar.js
+   (loadVisNetwork) только когда открыта вкладка «Связи», с общим
+   промисом на повторные загрузки и сбросом при ошибке. Проверка выбора
+   стоит после гейта currentMode, чтобы сохранённый стек не тянул
+   библиотеку на «Обзоре». hactar.js вышел за ?v= 25 -> 27.
+   style.css не менялся, ?v= 457 остаётся. */
+/* Бамп v146 -> v147: FIX-48 (NP2-05) — заглушки-редиректы
+   calculator/compare/interactions/map/graph/atlas перед meta refresh
+   кладут имя старой страницы в sessionStorage, hactar.js читает флаг
+   (с фолбэком на document.referrer) и показывает тост о переезде.
+   hactar.js вышел за ?v= 27 -> 28. Без бампа кэша у пользователя остался
+   бы старый hactar.js без уведомления. style.min.css ?v= 458 не менялся. */
+/* Бамп v147 -> v148: FIX-52 (I2-01, I2-02, I2-03) — в навбаре 141 страницы
+   появился переключатель языка (select#langSelect). i18n.js вышел за
+   ?v= 3 -> 4: словарь сведён в один файл (ключи share/science2/tracker
+   переехали сюда), добавлена локаль en, появились setLocale() и
+   initLangSwitcher(). share.js вышел за ?v= 1 -> 2: свой мини-словарь
+   убран, строки берутся из общего t(). style.css тоже менялся — правило
+   .lang-select, за ним style.min.css ?v= 458 -> 459. Без бампа кэша
+   пользователь получил бы старый i18n.js: без локали en и без
+   переключателя. */
+/* Бамп v148 -> v149: FIX-53 (NI2-01, NI2-02) — hactar.js переведён на общий
+   t() из docs/i18n.js: строки интерфейса (таблица «Обзор», тосты, стек,
+   граф, пустые состояния) вынесены в словарь, в hactar.html добавлены
+   атрибуты data-i18n-… для статики. hactar.js вышел за ?v= 28 -> 29, i18n.js — за
+   ?v= 4 -> 5 (146 страниц и два шаблона sup). Без бампа кэша пользователь
+   получил бы старый i18n.js, в котором новых ключей нет: вместо текста
+   Hactar показал бы имена ключей. style.min.css ?v= 459 не менялся. */
+/* Бамп v149 -> v150: FIX-56 (NL2-01, L2-04, NL2-02) — честность UI: слово
+   «Купить» убрано из интерфейса (заголовок строки обзора и aria-подписи
+   чипов магазинов стали «Где искать» / «Найти»), в docs/privacy.html
+   добавлен раздел о localStorage Hactar. Без бампа кэша пользователь
+   получил бы прежние i18n.js и sup-страницы с подписями «Где купить».
+   style.min.css ?v= 459 не менялся. */
+/* Бамп v150 -> v151: FIX-57 (U2-03, U2-05) — у чипов магазинов и кнопки
+   «Удиви меня» появился :active-отклик в style.css (scale(.96) с рамкой
+   акцента; сдвиг на 1px с вдавленной тенью), style.min.css пересобран
+   csso, ?v= в 148 страницах поднят с 459 на 460. Без бампа кэша
+   пользователь получил бы старый style.min.css без активных состояний. */
+/* Бамп v151 -> v152: FIX-58 (U2-06, NU2-01) — копирование ссылки получило
+   отклик при отказе буфера обмена (script.min.js пересобран terser), в
+   пустом результате поиска Hactar появилась кнопка «Сбросить фильтры»
+   (hactar.js, i18n.js), ?v= поднят в 147 страницах и 2 шаблонах. Без
+   бампа кэша пользователь получил бы прежние скрипты без этих правок. */
+/* Бамп v152 -> v153: FIX-60 (NMK2-01, NMK2-02) — в docs/i18n.js появился
+   ключ hactar.h1 и переписан hactar.sub, ?v= в 147 файлах поднят с 7 на 8.
+   Без бампа кэша пользователь получил бы прежний i18n.js без ключа h1 —
+   вместо заголовка Hactar увидел бы его имя. */
+/* Бамп v153 -> v154: FIX-62 (PW2-01, PW2-02) — страница 404.html подключила
+   manifest и pwa.js (перед ним i18n.js: подпись плашки офлайна берётся через
+   t(), а она объявлена только там), сама 404.html добавлена в STATIC_ASSETS.
+   Без бампа кэша прекеш остался бы прежним, и страница офлайн не открывалась
+   бы вовсе — ровно то, ради чего её в прекеш и добавляли. */
+/* Бамп v154 -> v155: FIX-63 (NPW2-01) — hactar.html подключила pwa.js (без
+   него SW на ней не регистрировался), а offline.html — i18n.js перед pwa.js:
+   подпись плашки офлайна берётся через t(), объявленную только там, и без неё
+   падала с ReferenceError ровно в том состоянии, для которого страница и
+   сделана. Оба файла лежат в STATIC_ASSETS и отдаются cache-first: без бампа
+   пользователь получил бы их прежние копии без этих правок. */
+/* Бамп v155 -> v156: FIX-64 (PW2-03, PW2-04) — в STATIC_ASSETS добавлены
+   maskable-192.png и maskable-512.png: манифест предлагал их с самого
+   начала, но прекеш их не содержал, и на Android установка проходила без
+   маскируемых иконок, а офлайн — без них вовсе. Второе: version.json
+   переведён на network-first со сверкой поля app — при смене версии
+   приложения SW сам пересобирает кэш, не дожидаясь ручного бампа. Бамп
+   нужен потому, что sw.js и manifest.webmanifest лежат в прекеше и
+   отдаются cache-first: без него возвратные посетители получили бы старые
+   копии, где новых иконок нет. */
+/* Бамп v156 -> v157: FIX-66 (NPW2-03, NPW2-04) — pwa.js получил кнопку
+   установки (обработчик beforeinstallprompt), i18n.js — её подпись, а
+   манифест переведён с тёмного #1c1c1e на светлый #f5f5f7 в
+   background_color/theme_color. Все три файла лежат в прекеше и отдаются
+   cache-first; без бампа возвратные посетители остались бы со старым
+   pwa.js без кнопки и со старым манифестом, а manifest.webmanifest вообще
+   не имеет ?v= и разблокировать его иначе нечем. */
+/* Бамп v157 -> v158: FIX-71 — футер и переключатель языка переведены на
+   английский. У select#langSelect вместо зашитого aria-label="Сменить язык"
+   теперь data-i18n-aria-label="a11y.langSelect", у семи ссылок футера —
+   data-i18n-text, ключи добавлены в docs/i18n.js (ru + en).
+   i18n.js лежит в STATIC_ASSETS и отдаётся cache-first, поэтому его номер
+   ?v= поднят с 9 до 10 на 147 страницах и в обоих шаблонах sup — иначе
+   возвратный посетитель получил бы старый словарь, и applyI18n подставил бы
+   в футер имена ключей вместо текста. */
+/* Бамп v158 -> v159 FIX-76 (WADA-01): контраст футера — правка style.css, перегенерация style.min.css, ?v= 460 -> 461. */
+/* Бамп v159 -> v160 FIX-76 (WADA-02): у .qaGrid возвращён tabindex и добавлен :focus-visible (скроллируемая область обязана быть доступна с клавиатуры); style.min.css перегенерирован, ?v= 461 -> 462. */
+/* Бамп v160 -> v161 FIX-77: данные карточек переведены на английский.
+   В docs/i18n.js добавлены loadEnCards/mergeEnCard/initEnSupData, в
+   docs/script.js и docs/hactar.js — наложение оверлея data_en.json, в
+   docs/sw.js — data_en.json в DATA_RE (network-first). i18n.js и
+   script.min.js лежат в STATIC_ASSETS и отдаются cache-first, поэтому без
+   нового имени кэша возвратный посетитель остался бы со старым словарём
+   и без приложения EN-данных. */
+/* Бамп v161 -> v162 FEATURE-1: профиль пользователя (вес, рост, возраст,
+   пол) в панели «Обзор» — ИМТ, BMR по Миффлину–Сан Жеору, дозы «на кг» из
+   data.json и предупреждение о беременности. Правки в docs/hactar.html,
+   docs/hactar.js и docs/i18n.js; все три лежат в STATIC_ASSETS и отдаются
+   cache-first, поэтому без нового имени кэша возвратный посетитель
+   остался бы со старой страницей и без новых ключей словаря. */
+/* Бамп v162 -> v163 NAV-01, NAV-02: футер 7 корневых страниц получил ссылку
+   на каталог (faq, glossary, methodology, privacy, support, terms-of-use,
+   trends), а шапка hactar.html переведена с собственных ключей hactar.nav на
+   общие index.feedback / index.support / index.random / nav.home — сами
+   четыре ключа hactar.nav из docs/i18n.js удалены. Изменены docs/hactar.html,
+   docs/i18n.js и футеры семи страниц; все они лежат в STATIC_ASSETS и
+   отдаются cache-first, поэтому без нового имени кэша возвратный посетитель
+   остался бы со старой шапкой и футером. */
+/* Бамп v163 -> v164 BATCH-1: VIS-01, VIS-03, MOB-01, MOB-02, MOB-03 (layout-фиксы) */
+/* Бамп v164 -> v165 BATCH-2: og:locale, og:url заглушек, описание hactar (SEO-03/04/05) */
+/* Бамп v166 -> v167 FIX-01: PROD-01 pregnancy flag */
+var CACHE_VERSION = 'v167';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
@@ -243,10 +558,19 @@ var CACHE_DATA = CACHE_VERSION + '-data';
    пути, а не по имени файла. data_index.json тоже идёт сюда: раньше он уходил в
    cacheFirstForStatic и при отказе получал HTML вместо JSON, r.json() падал, и
    boot показывал «не загрузились данные» даже когда файл был на диске.
-   Именно /^data(_index)?\.json$/ — data_ma_timeline.json и data_price_history.json
+   Именно /^data(_index|_en)?\.json$/ — data_ma_timeline.json и data_price_history.json
    под это НЕ подходят (там после /data идёт _ma_timeline / _price_history) и
-   остаются в статике, как и раньше. */
-var DATA_RE = /\/data(_index)?\.json$/;
+   остаются в статике, как и раньше. data_en.json (FIX-77, EN-оверлей данных)
+   сюда тоже попадает: он меняется вместе с контентом, поэтому network-first,
+   а не cache-first. */
+var DATA_RE = /\/data(_index|_en)?\.json$/;
+
+/* version.json — единственный файл, по которому видно, что сайт обновился.
+   Стратегия для него своя (network-first со сверкой app), поэтому он не
+   может идти ни в DATA_RE (там всегда JSON-массив и пустое состояние []),
+   ни в cacheFirstForStatic (тот отдавал бы копию с первого визита и версию
+   приложения не увидел бы вовсе). */
+var VERSION_RE = /\/version\.json$/;
 
 /* sup/*.html, кроме sup/index.html. Каталог и пять прекешенных страниц
    (kreatin, magniy, omega-3, paba, vitamin-d) остаются в STATIC_ASSETS и
@@ -263,7 +587,9 @@ var OFFLINE_URL = './offline.html';
 
 var STATIC_ASSETS = [
   './index.html',
+  './hactar.html',
   './calculator.html',
+  './compare.html',
   './map.html',
   './interactions.html',
   './atlas.html',
@@ -275,15 +601,18 @@ var STATIC_ASSETS = [
   './graph.html',
   './support.html',
   './offline.html',
+  './404.html',
   './manifest.webmanifest',
   './feed.xml',
   './pwa.js',
   './version.js',
-  './script.js',
+  './script.min.js',
   './i18n.js',
-  './style.css',
+  './style.min.css',
   './effect_tags.json',
   './effect_labels.json',
+  /* FIX-77: английские подписи мишеней — нужны офлайн так же, как русские. */
+  './effect_labels_en.json',
   './sup/index.html',
   './sup/kreatin.html',
   './sup/magniy.html',
@@ -292,12 +621,17 @@ var STATIC_ASSETS = [
   './sup/vitamin-d.html',
   './icons/192.png',
   './icons/512.png',
+  /* PW2-03: маскируемые иконки манифест предлагал с самого начала, но в
+     прекеше их не было — при установке на Android они тянулись из сети, а в
+     офлайне отсутствовали. */
+  './icons/maskable-192.png',
+  './icons/maskable-512.png',
   './fonts/inter-regular.woff2',
   './fonts/inter-medium.woff2',
   './fonts/inter-semibold.woff2',
   './fonts/inter-bold.woff2',
   './fonts/inter-extrabold.woff2',
-  './share.js?v=1',
+  './share.js?v=2',
   /* v5.6.2: cookie-согласие и загрузчик Метрики. С query — ровно тем, что
      просят страницы: staticCacheKey сохраняет v как значимый параметр, и
      точное совпадение в cacheFirstForStatic срабатывает без ignoreSearch. */
@@ -347,6 +681,72 @@ async function networkFirstForData(req) {
        загрузить данные» — то есть ХУЖЕ, чем было до v49. Пустой результат —
        валидный ответ, а не ошибка; observability даёт заголовок x-fallback. */
     return new Response('[]', {
+      status: 200,
+      headers: { 'Content-Type': 'application/json; charset=utf-8', 'x-fallback': 'empty' }
+    });
+  }
+}
+
+/* Версия приложения из version.json — поле app, строка вида "5.6.5".
+   Остальные поля для инвалидации не годятся: data — дата данных (меняется
+   пересборкой данных, не трогая статику), tests — счётчик тестов, audit —
+   версия методики. */
+function appVersionOf(json) {
+  if (!json || typeof json.app !== 'string') return '';
+  return json.app.trim();
+}
+
+/* PW2-04: полная пересборка кэша. Это ровно то, что делает бамп
+   CACHE_VERSION, но по факту смены app в version.json, а не по памяти
+   человека. Удаляем обе ветки (статика отдаётся cache-first, данные лежат
+   отдельно и тоже устарели), затем заново кладём прекеш. */
+async function rebuildCaches() {
+  await caches.delete(CACHE_STATIC);
+  await caches.delete(CACHE_DATA);
+  var cache = await caches.open(CACHE_STATIC);
+  await Promise.all(STATIC_ASSETS.map(function (url) {
+    return cache.add(url).catch(function (err) {
+      console.warn('[sw] skip ' + url + ':', err.message || err);
+    });
+  }));
+}
+
+/* PW2-04: version.json — network-first со сверкой версии приложения.
+
+   До этого version.json шёл через cacheFirstForStatic: копия с первого
+   визита отдавалась всегда, и даже новая версия сайта не была видна SW —
+   кэш чистился только ручным бампом CACHE_VERSION. Здесь свежий файл
+   берётся из сети при каждом запуске (version.js и так просит его с ?ts=,
+   staticCacheKey эту метку срезает), а поле app сравнивается с тем, что
+   лежит в кэше. Разошлось — значит сайт обновили, и кэш пересобирается
+   без участия человека. */
+async function networkFirstForVersion(req) {
+  var cache = await caches.open(CACHE_STATIC);
+  var key = staticCacheKey(req);
+  try {
+    var resp = await fetch(req, { cache: 'no-store' });
+    if (!resp || !resp.ok) throw new Error('version not 200');
+    var fresh = '';
+    try { fresh = appVersionOf(await resp.clone().json()); } catch (e) { fresh = ''; }
+    var prev = '';
+    var stored = await cache.match(key);
+    if (stored) {
+      try { prev = appVersionOf(await stored.json()); } catch (e) { prev = ''; }
+    }
+    if (prev && fresh && prev !== fresh) {
+      await rebuildCaches();
+      cache = await caches.open(CACHE_STATIC); // старая ссылка уже удалена
+    }
+    /* Запись в кэш может не пройти по квоте — ответ при этом валиден,
+       отдаём его как есть. */
+    try { await cache.put(key, resp.clone()); } catch (e) { /* квота: не блокер */ }
+    return resp;
+  } catch (err) {
+    /* Офлайн: последняя известная копия. Пустой объект — валидный JSON:
+       version.js просто нечего применить, и он сам пишет console.warn. */
+    var cached = await cache.match(key);
+    if (cached) return cached;
+    return new Response('{}', {
       status: 200,
       headers: { 'Content-Type': 'application/json; charset=utf-8', 'x-fallback': 'empty' }
     });
@@ -533,7 +933,9 @@ self.addEventListener('fetch', function (event) {
   var url = new URL(req.url);
   if (url.origin !== self.location.origin) return;
 
-  if (DATA_RE.test(url.pathname)) {
+  if (VERSION_RE.test(url.pathname)) {
+    event.respondWith(networkFirstForVersion(req));
+  } else if (DATA_RE.test(url.pathname)) {
     event.respondWith(networkFirstForData(req));
   } else if (SUP_HTML_RE.test(url.pathname) && url.pathname.indexOf('/sup/index.html') === -1) {
     event.respondWith(staleWhileRevalidateForSup(req));

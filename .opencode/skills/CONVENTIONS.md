@@ -8,18 +8,18 @@
 
 | Что | Значение | Как проверить |
 |---|---|---|
-| HTML, контентные | 13 в `docs/` | `ls docs/*.html` — их 15, из них 2 не контентные: `offline.html` (запасной экран SW) и `google4a9d23e35c6c3e23.html` (файл верификации Google). Верификация Яндекса — метатегом в `docs/index.html` (16.10.2026, файл `yandex_cc2e3cf2ee185b01.html` удалён) |
+| HTML, контентные | 9 в `docs/` | `ls docs/*.html` — их 19: 10 контентных (`terms-of-use.html` — юридическая), 6 noindex-редиректов (`calculator.html`/`compare.html` → `hactar.html?tab=overview`, `atlas.html`/`graph.html`/`interactions.html`/`map.html` → `hactar.html?tab=graph`), плюс `404.html` и `offline.html` (служебные) и `google4a9d23e35c6c3e23.html` (файл верификации Google). Верификация Яндекса — метатегом в `docs/index.html` (16.10.2026, файл `yandex_cc2e3cf2ee185b01.html` удалён) |
 | HTML, sup | 131 в `docs/sup/` (index + 130 карточек) | `ls docs/sup/*.html \| wc -l` |
-| JS | 9 файлов в `docs/` | `ls docs/*.js \| wc -l` |
-| CSS | `docs/style.css`, версия `?v=430` | `grep -ho 'style\.css?v=[0-9]*' docs/*.html docs/sup/*.html \| sort -u` |
-| SW cache | `v97` | `grep CACHE_VERSION docs/sw.js` → `var CACHE_VERSION = 'v97'` |
-| Тесты | **1982** собрано; 1729 passed в worktree — см. «Базовая линия тестов» | `pytest --collect-only -q` → `1982 tests collected` |
+| JS | 10 файлов в `docs/` | `ls docs/*.js \| wc -l` |
+| CSS | `docs/style.min.css` (исходник — `docs/style.css`), версия `?v=464` | `grep -ho 'style\(\.min\)\?\.css?v=[0-9]*' docs/*.html docs/sup/*.html \| sort -u` |
+| SW cache | `v166` | `grep CACHE_VERSION docs/sw.js` → `var CACHE_VERSION = 'v166'` |
+| Тесты | **2017** собрано; прогон без маркерных групп — 1802 passed, 215 deselected, 0 failed — см. «Базовая линия тестов» | `pytest --collect-only -q` → `2017 tests collected`; `docs/version.json` → `"tests": 2017` |
 | Скиллы | 19 проектных в git (20 в main checkout: `cyberaudit` в `.gitignore`) + 20 глобальных | `ls .opencode/skills/ \| wc -l`, `ls ~/.config/opencode/skills/ \| wc -l` |
 
-Число skipped зависит от окружения и **не является константой проекта**:
-это opt-in гейты, требующие `RUN_SNAPSHOTS=1`, `RUN_A11Y=1`, `RUN_GRAPH=1`,
-`RUN_TABS=1`, `RUN_E2E=1`, живого сервера `:8000` и `data/db/brain.duckdb`.
-Разложение по причинам и верный порог — в разделе «Базовая линия тестов».
+Число skipped на чистом окружении — **0**: в v5.6.5 гейты `RUN_*` удалены.
+Единственная ожидаемая причина скипов — отсутствие `data/db/brain.duckdb`
+(16 тестов DuckDB скипаются, если файла нет). Подробности — в разделе
+«Базовая линия тестов».
 
 ## Как проверять
 
@@ -38,23 +38,28 @@
 
 | Где | passed | skipped | всего |
 |---|---|---|---|
-| Основной checkout `C:\analytics\brain-25-evidence` (@ 724c754) | 1744 | 237 | 1981 |
-| Worktree v5.6-dev (@ cd177e5, shiny-lagoon) | 1729 | 253 | 1982 |
+| Основной checkout `C:\analytics\brain-25-evidence` (v5.6.5-dev) | 1802 | 0 | 2017 (215 deselected по маркерам) |
 
-Замер 16.10.2026. Разница — **16 тестов DuckDB**: `tests/conftest.py:11`
+Замер 26.10.2026 (v5.6.5-dev, HEAD 9efdd3d5): собрано 2017 тестов
+(`pytest --collect-only -q`), совпадает с `docs/version.json` (`"tests": 2017`).
+Прогон с исключением маркерных групп
+(`not (snapshots or a11y or tabs or graph or mobile375 or e2e)`) →
+1802 passed, 215 deselected, 0 failed (~84 с).
+Прежний расклад (16.10.2026: 1746 passed + 237 skipped) объяснялся двумя вещами:
+opt-in гейты (`RUN_SNAPSHOTS=1`, `RUN_A11Y=1`, `RUN_GRAPH=1`, `RUN_TABS=1`,
+`RUN_E2E=1`, живой сервер `:8000`) и 16 тестов DuckDB: `tests/conftest.py:11`
 задаёт `DB_PATH = ROOT/"data"/"db"/"brain.duckdb"`, а `:168` пропускает их,
-если файла нет. База весит 162 МБ и в git не лежит — в worktree её просто
-не бывает (skipped 237 ↔ 253 сходится; ±1 итем в коллекции — main и
-worktree стоят на разных коммитах).
+если файла нет. База весит 162 МБ и в git не лежит — без неё эти 16 скипаются
+и поныне.
 
 Правила:
 
-- **Перед merge гонять в основном checkout** — там 1744, и только там
-  видно, что DuckDB-часть не разъехалась.
-- В worktree держаться **≥1729 passed и 0 новых skip сверх 253**. Падение
-  числа passed — регрессия, уменьшившееся число skipped — расхождение с
-  базой.
-- Старые ориентиры (1063 / 1073 / 1314) — до волны гейтов 13–16.10.2026;
+- **Перед merge гонять в основном checkout** — там собрано 2017, и только там видно,
+  что DuckDB-часть не разъехалась.
+- В worktree/чужом окружении ориентироваться на
+  `pytest --collect-only -q`: passed-число зависит от наличия БД (−16) и
+  сервера `:8000`. Падение passed при тех же условиях — регрессия.
+- Старые ориентиры (1063 / 1073 / 1314 / 1744–1746) — до v5.6.5;
   актуальные — в таблице выше.
 - Не копировать `brain.duckdb` между worktree: файл gitignored, и
   пересборка базы после правки `data.json` дешевле, чем расхождение
@@ -94,8 +99,8 @@ worktree стоят на разных коммитах).
 вместе с ветками сессий. Перед удалением worktree:
 
 ```
-git -C <main> merge-base --is-ancestor <worktree-HEAD> v5.6-dev
-git -C <main> diff origin/v5.6-dev <worktree-HEAD> --stat
+git -C <main> merge-base --is-ancestor <worktree-HEAD> v5.6.5-dev
+git -C <main> diff origin/v5.6.5-dev <worktree-HEAD> --stat
 ```
 
 Ненулевой код возврата у первой = коммиты ещё не в ветке, **но только если
@@ -107,7 +112,7 @@ git -C <main> diff origin/v5.6-dev <worktree-HEAD> --stat
 
 После `cherry-pick` — **пушить немедленно**, не откладывая до конца
 задачи. Прецедент 15.10.2026: 6 коммитов (`5a6e219` … `9a336cc`) провисели
-локально ~10 минут после `Merge origin/v5.6-dev into v5.6-dev`; всё это время
+локально ~10 минут после `Merge origin/v5.6.5-dev into v5.6.5-dev`; всё это время
 ветка была `ahead 6`, и следующая задача исходила из неверного числа
 коммитов. Cherry-pick — это операция с чужими коммитами: пока они не в
 `origin`, следующий `merge origin/...` может их затронуть.
@@ -133,6 +138,18 @@ Remove-Item -Recurse -Force "<worktree-root>\<имя>" -EA SilentlyContinue
 нет в выводе `git worktree list`. Незарегистрированный каталог удалять
 безопасно — ref'ов у него нет, терять нечего.
 
+### Скрипт очистки worktree: `scripts/cleanup_worktrees.py`
+
+Сканирует `git worktree list`, для каждого worktree (кроме текущей
+ветки `v5.6.5-dev`) проверяет `git log v5.6.5-dev..HEAD --oneline`:
+
+- коммитов нет → `git worktree remove` + удалить пустой каталог-оболочку;
+- коммиты есть → WARN, пропустить (нужен cherry-pick в `v5.6.5-dev` +
+  push, см. раздел выше).
+
+Отчёт: сколько worktree было, сколько удалено, сколько с коммитами.
+Запускать из главного чекаута `C:\analytics\brain-25-evidence`.
+
 ### Push из detached HEAD
 
 Ветка может быть занята другим чекаутом (`git worktree list` показывает её
@@ -140,18 +157,18 @@ Remove-Item -Recurse -Force "<worktree-root>\<имя>" -EA SilentlyContinue
 работает по refspec и указатель ветки не трогает:
 
 ```
-git push origin HEAD:v5.6-dev     # fast-forward, только remote
+git push origin HEAD:v5.6.5-dev   # fast-forward, только remote
 ```
 
 Локальная ветка в главном чекауте после этого отстаёт; догонять её
 отдельным `merge --ff-only` по явному разрешению.
 
-### Пуш — только в v5.6-dev до merge v5.6.4
+### Пуш — только в v5.6.5-dev до merge v5.6.4
 
-- Все коммиты до merge v5.6.4 — ТОЛЬКО в `v5.6-dev`.
+- Все коммиты до merge v5.6.4 — ТОЛЬКО в `v5.6.5-dev`.
 - `main` = заморожен на теге `v5.6.3`.
-- Перед push: `git branch --show-current`. Если не `v5.6-dev` → СТОП.
-- Прецедент: 16.10.2026 PERF-P2-01 ушёл в `main` вместо `v5.6-dev` (инцидент с ветками — откатили `main` к `99c67b9` / тегу `v5.6.3`, перенесли в `v5.6-dev` через cherry-pick `c881a85`).
+- Перед push: `git branch --show-current`. Если не `v5.6.5-dev` → СТОП.
+- Прецедент: 16.10.2026 PERF-P2-01 ушёл в `main` вместо `v5.6.5-dev` (инцидент с ветками — откатили `main` к `99c67b9` / тегу `v5.6.3`, перенесли в `v5.6.5-dev` через cherry-pick `c881a85`).
 
 ## OpenCode worktree (автоматика)
 
@@ -171,15 +188,15 @@ git push origin HEAD:v5.6-dev     # fast-forward, только remote
   ```
   git worktree list
   ```
-  для каждого: `git -C <wt> log v5.6-dev..HEAD --oneline`
+  для каждого: `git -C <wt> log v5.6.5-dev..HEAD --oneline`
   Пусто → safe. Не пусто → **не повод сразу cherry-pick'ить**: сперва
-  `git -C <main> diff origin/v5.6-dev <wt-HEAD> --stat`, пусто → уже забрано
+  `git -C <main> diff origin/v5.6.5-dev <wt-HEAD> --stat`, пусто → уже забрано
   (следующий раздел).
 - Отдельный случай — батч, который ещё ни разу не забирали. Тогда HEAD
   worktree не принадлежит ни одной ветке:
   ```
   git -C <main> branch --contains <wt-HEAD>
-  git -C <main> diff origin/v5.6-dev <wt-HEAD> --stat
+  git -C <main> diff origin/v5.6.5-dev <wt-HEAD> --stat
   ```
   ⚠️ Вывод `branch --contains` читается **только в паре** с `diff`:
   пусто + diff пусто → уже забрано (ложный сигнал, следующий раздел);
@@ -198,24 +215,24 @@ git push origin HEAD:v5.6-dev     # fast-forward, только remote
 ### Ложное срабатывание проверки после cherry-pick
 
 ⚠️ После `cherry-pick` хеши коммитов **меняются** — переписывается committer
-timestamp. Поэтому `git -C <wt> log v5.6-dev..HEAD` покажет коммиты даже
+timestamp. Поэтому `git -C <wt> log v5.6.5-dev..HEAD` покажет коммиты даже
 после того, как их содержимое уже в ветке и запушено.
 
 Проверено 15.10.2026: батч 10 жил в `sunny-canyon` как `f4ea752 … eb47cf4`
-(родитель `f4ea752` = `06ca148` = HEAD `v5.6-dev` в тот момент). После
-`cherry-pick` в `v5.6-dev` получилась параллельная история `44a66b3 … bcbce7a`,
+(родитель `f4ea752` = `06ca148` = HEAD `v5.6.5-dev` в тот момент). После
+`cherry-pick` в `v5.6.5-dev` получилась параллельная история `44a66b3 … bcbce7a`,
 и проверка выше дала ложное «6 непушенных коммитов».
 
 Содержимое при этом не потеряно — совпадало дерево:
 
 ```
-git diff origin/v5.6-dev eb47cf4      # пусто
-git diff v5.6-dev HEAD                # пусто
+git diff origin/v5.6.5-dev eb47cf4   # пусто
+git diff v5.6.5-dev HEAD             # пусто
 ```
 
 **Решающий критерий — сравнение деревьев, а не список коммитов.**
 Сверять хеши нельзя: перед удалением worktree, который уже cherry-picked,
-`git log v5.6-dev..HEAD` будет непустым, и это нормально.
+`git log v5.6.5-dev..HEAD` будет непустым, и это нормально.
 
 То же касается `git branch --contains`. Замерено 16.10.2026 на
 `eager-circuit` (`61cc177`, cherry-picked как `8ada05d`): ветка не найдена,
@@ -230,8 +247,8 @@ git diff v5.6-dev HEAD                # пусто
 | `* v5.6-dev` | пусто | обычное состояние, всё в ветке |
 
 Контроль на тот же момент: `git branch --contains 76b3ce1` (база, не
-cherry-pick'илась) → `* v5.6-dev`, и `merge-base --is-ancestor 61cc177
-v5.6-dev` → exit 1 на уже забранном коммите.
+cherry-pick'илась) → `* v5.6.5-dev`, и `merge-base --is-ancestor 61cc177
+v5.6.5-dev` → exit 1 на уже забранном коммите.
 
 ## Pre-commit порядок генераторов
 
@@ -248,7 +265,7 @@ v5.6-dev` → exit 1 на уже забранном коммите.
 | 1 | Sitemap | `python scripts/build_sitemap.py --commit-date` | пишет `docs/sitemap.xml`, сам делает `git add` |
 | 2 | Junk guard | `git ls-files -- docs reports` + regex | ловит `_*_tmp_*`, `_*_diag_*`, `_*_baseline_*` |
 | 3 | Feed | `python scripts/build_feed.py --commit-date` | пишет `docs/feed.xml`, сам делает `git add` |
-| 4 | Тесты | `pytest -q -m "not network and not snapshot_data" -k "not real_docs_sitemap_is_current and not live_docs_feed_is_current"` | exit ≠ 0 → коммит прерван |
+| 4 | Тесты | `pytest -q -m "not network and not snapshot_data and not (snapshots or a11y or tabs or graph or mobile375 or e2e)" -k "not real_docs_sitemap_is_current and not live_docs_feed_is_current"` | exit ≠ 0 → коммит прерван. Фильтр `not (snapshots or …)` не даёт хуку гонять браузерные маркеры — полный прогон ~8–10 минут; подстроку `not network and not snapshot_data` требует `test_precommit_hook.py` |
 
 - `--commit-date` обязателен. Без него генератор ставит дату запуска, и гейт
   «artefact is stale» срабатывает сам на себе.
@@ -272,14 +289,18 @@ v5.6-dev` → exit 1 на уже забранном коммите.
 - Прецедент: 17.10.2026 (563837c) — использован 
   --no-verify из-за зависшего хука. Нарушение, записано.
 
+## Прецедент: --no-verify при e5c090c
+2026-10-17, коммит e5c090c сделан с --no-verify из-за падающего теста в worktree. Владелец НЕ давал разрешения. Правильное решение: перейти в main checkout, где тест проходит (19 скиллов), и закоммитить без --no-verify. Прецедент записан, нарушение.
+
 ## Бамп кэша style.css (`?v=` и `CACHE_VERSION`)
 
 Правка `docs/style.css` не доезжает до браузера сама: страницы подключают
 `style.css?v=NNN`, и при неизменном NNN возвратные посетители получают файл из
 кэша. Поэтому правка CSS = бамп четырёх точек сразу:
 
-1. `style.css?v=NNN` — во **всех** 144 файлах (`docs/*.html` +
-   `docs/sup/*.html`), значение обязано остаться единым. Замена — **литеральная**
+1. `style.css?v=NNN` — во **всех** 143 файлах со `<link>` (`docs/*.html` +
+   `docs/sup/*.html`; из 147 файлов ссылку не держат `atlas.html`,
+   `graph.html`, `offline.html`, `google*.html`), значение обязано остаться единым. Замена — **литеральная**
    (`str.replace('style.css?v=429', 'style.css?v=430')`), не regex по разметке:
    см. «Правила безопасности» в `AGENTS.md`.
 2. `tests/_style_version_baseline.txt` — то же число, руками.
@@ -303,7 +324,7 @@ v5.6-dev` → exit 1 на уже забранном коммите.
 Если за одну сессию правок `style.css` несколько (13C1/13C2/13C3 и т.п.) —
 **бампать один раз**: первый коммит с правкой CSS поднимает `?v=` и
 `CACHE_VERSION`, остальные коммиты правят только `style.css`. Вариант Б
-(бампать каждую правку) отвергнут: он гоняет 144 файла на каждый коммит, не
+(бампать каждую правку) отвергнут: он гоняет 143 файла на каждый коммит, не
 меняя для пользователя ничего — обе версии уезжают одним push, а кэш
 инвалидируется один раз.
 
@@ -355,74 +376,66 @@ CYBER-P1-02.
 | `AUDIT_MASTER.md` | `reports/AUDIT_MASTER.md` — **не** в `reports/audits/` |
 | Реестр открытого по 10 источникам | `reports/OPEN_EVERYTHING.md` |
 
-## Базовая линия тестов
+## Гейт pre-commit: исторический замер 14.10.2026
 
-Замерено 14.10.2026. Команда гейта — та же, что в pre-commit:
-
-```
-pytest -q -m "not network and not snapshot_data" \
-  -k "not real_docs_sitemap_is_current and not live_docs_feed_is_current"
-```
+Актуальная базовая линия — раздел «Базовая линия тестов» выше
+(v5.6.5: собрано 2017, прогон без маркеров → 1802 passed / 0 failed). Живая команда гейта —
+в таблице «Pre-commit порядок генераторов» (шаг 4), текст —
+в `.githooks/pre-commit`; дублировать её здесь не нужно. Цифры ниже —
+до волны изменений 13–16.10.2026 и до v5.6.5:
 
 | Прогон | Где | Собрано | passed | skipped | deselected |
 |---|---|---:|---:|---:|---:|
-| `--collect-only` | worktree `stellar-river` (`c39da87`) | **1314** | — | — | — |
-| `--collect-only` | main checkout `C:/analytics/brain-25-evidence` (`bcaa3bd`) | **1314** | — | — | — |
-| Гейт pre-commit | worktree | 1314 | **1057** | 251 | 6 |
-| Гейт pre-commit | main checkout | 1314 | **1073** | 235 | 6 |
+| Гейт pre-commit | worktree | 1314 | 1057 | 251 | 6 |
+| Гейт pre-commit | main checkout | 1314 | 1073 | 235 | 6 |
 
-- `docs/version.json` `"tests": 1314` — **единственное** корректное число
-  тестов в репозитории. Оно совпадает с `--collect-only` в обоих окружениях.
-- Разница 1073 − 1057 = **16** — это не регрессия и не расхождение кода.
-  `data/db/brain.duckdb` (не отслеживается git) есть в main checkout и
-  **отсутствует** в worktree: `tests/test_sql.py` +
-  `tests/test_integration_api_db.py` дают ровно 16 тестов, которые без базы
-  скипаются. Проверено: в worktree эти 16 → `16 skipped`, в main checkout
-  проходят.
-- Расхождения кода между worktree и main checkout нет: коммит у них общий,
-  батч 8 добавил только коммиты с правками `reports/*.md`.
+- Источник правды по количеству тестов — `docs/version.json`
+  (`"tests"`: 1314 на момент замера, 2017 в v5.6.5). Число 1188
+  из старых отчётов в history и файлах не воспроизводится — не
+  использовать.
+- `tests/test_precommit_hook.py` требует подстроку
+  `"not network and not snapshot_data"` в тексте хука — при правке
+  команды гейта её сохраняют. Сама метка `network` удалена 2026-10-01
+  и ничего не отфильтровывала.
+- Разница 1073 − 1057 = 16 тестов DuckDB (`tests/conftest.py`: без БД
+  `data/db/brain.duckdb` тесты `test_sql` и `test_integration_api_db`
+  скипаются; подробнее — в разделе «Базовая линия тестов» выше).
 
-### Разложение skipped
+### Гейты opt-in RUN_* — удалены в v5.6.5
 
-| Причина | Шт. | Чем включается |
-|---|---:|---|
-| `test_visual_snapshots.py` | 76 | `RUN_SNAPSHOTS=1` |
-| `test_a11y_axe.py` | 73 | `RUN_A11Y=1` |
-| `test_graph_interaction.py` | 42 | `RUN_GRAPH=1` + сервер `:8000` |
-| `test_tabs_interaction.py` | 42 | `RUN_TABS=1` + сервер `:8000` |
-| DuckDB отсутствует (`test_sql`, `test_integration_api_db`) | 16 | `python scripts/db/import_to_duckdb.py` |
-| e2e | 2 | `RUN_E2E=1` |
-
-Ни одна из переменных `RUN_*` в окружении **не выставлена** (проверено
-14.10.2026) — то есть «без гейтов» это текущее состояние по умолчанию.
+Раньше браузерные маркеры (snapshots, a11y, tabs, graph, mobile375, e2e)
+снимались с коллекции переменными `RUN_SNAPSHOTS` / `RUN_A11Y` /
+`RUN_TABS` / `RUN_GRAPH` / `RUN_MOBILE` / `RUN_E2E`, и «разложение
+skipped» (76 + 73 + 42 + 42 + 16 + 2) описывало эту эпоху. В v5.6.5
+гейты удалены: обычный `pytest -q` запускает всё (~8–10 минут, замер
+v5.6.5 — 492 с), а хук снимает браузерные маркеры фильтром `-m`, чтобы
+коммит не зависел от Chromium и живого сервера. Поэтому советы «выставь
+RUN_*=1» из старых отчётов больше не применимы.
 
 ### Ловушки этого замера
 
-- **1188 не воспроизводится.** Ноль совпадений: `Select-String` по
-  `reports/*.md` + `reports/audits/*.md`; `git log --all -G '\b1188\b'` по
-  `docs/version.json` и `reports/`; `git grep -w 1188` по 200 последним
-  коммитам. В истории `"tests"` значения идут 1311 → **1314** → (вне
-  `v5.6-dev`) 1338 → 1342 → 1348 → 1378 → 1446 — мимо 1188. Порог гейта
-  брать из `docs/version.json`, а не из памяти.
-- **Устаревшие числа в отчётах:** 1076 / 1070 / 235 / 201 / 878 / 1079.
-  Базовая линия от 11.10.2026 была 1070 passed / 235 skipped; расхождение с
-  нынешним числом появилось **до** батча 8 (на `bcaa3bd`, `94f20f4`) — батч 8
-  трогал только `reports/*.md`.
-- **Сервер `:8000` на этой машине лежит.** Проверять
-  `Invoke-RestMethod http://localhost:8000/version.json` перед любым прогоном
-  эталонов, иначе 84 теста graph/tabs скипнутся молча (ловушка из `AGENTS.md`).
-- Поднимать opt-in гейты ради красивого числа **не надо** — это v5.6.5+,
-  см. CAVEATS #18 в `OPEN_EVERYTHING.md`.
+- **Порог гейта брать из `docs/version.json`, а не из памяти.**
+  Прецедент: число 1188 из старого отчёта не воспроизводится ни в
+  `reports/`, ни в истории значений `"tests"`.
+- **Сервер `:8000`:** в v5.6.5 его поднимает autouse-фикстура `live_server`
+  (`tests/conftest.py`), если на порту не отдаётся docs/ этого репозитория
+  (сверка sha256 style.css). Проверять `:8000` вручную
+  (`Invoke-RestMethod http://localhost:8000/version.json`) нужно при
+  ручных замерах и Playwright-прогонах вне pytest — до v5.6.5 лежащий
+  сервер молча скипал 84 теста.
+- Поднимать эмуляцию гейтов ради «красивого» числа не надо — это
+  CAVEATS #18 в `OPEN_EVERYTHING.md`.
 
 ### Обновление эталонов (UPDATE_SNAPSHOTS)
 
-Требуются **две** переменные, иначе тесты скипнутся молча:
+Гейт `RUN_SNAPSHOTS` удалён в v5.6.5 — от переменных скип больше не зависит.
+Нужна только переменная перезаписи:
 
 ```powershell
-$env:RUN_SNAPSHOTS="1"                                    # иначе 4 skipped
 $env:UPDATE_SNAPSHOTS="interactions-412,interactions-1280"
 pytest -q -m snapshots -k interactions
 ```
+
 
 Разделитель списка — **запятая**, не `;` (`_parse_update`,
 `test_visual_snapshots.py:131`). При `;` режим молча остаётся `off`: тесты

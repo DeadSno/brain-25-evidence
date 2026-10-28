@@ -1,22 +1,34 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" dir="ltr">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Нет соединения — Brain 25 Evidence</title>
+<link rel="manifest" href="manifest.webmanifest">
 <meta name="description" content="Страница недоступна офлайн. Проверьте соединение и обновите.">
 <meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#1c1c1e" media="(prefers-color-scheme: dark)">
 <meta name="robots" content="noindex">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Нет соединения — Brain 25 Evidence">
+<meta name="twitter:description" content="Страница недоступна офлайн. Проверьте соединение и обновите.">
+<meta name="twitter:image" content="https://deadsno.github.io/brain-25-evidence/og.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="БАДы">
+<link rel="apple-touch-icon" href="icons/192.png">
 <link rel="icon" href="icons/192.png">
 <!--
   Страница отдаётся service worker'ом, когда пользователь офлайн открывает
   адрес, которого нет в кэше (docs/sw.js, cacheFirstForStatic).
 
-  Полностью автономная: стили и скрипт инлайновые, БЕЗ внешних <link> и <script>.
-  Иначе офлайн она сама не отрисовалась бы — те самые CSS/JS, которые не
-  загрузились, и не дали бы ей показаться. Разметка намеренно не использует
-  style.css, чтобы не тянуть в кэш ещё один зависимый ресурс.
+  Стили инлайновые, style.css намеренно не подключается: разметка не должна
+  зависеть от файла, которого может не оказаться в кэше.
+  Внешних ресурсов ровно три, и все три лежат в прекеше sw.js (STATIC_ASSETS):
+  manifest.webmanifest, i18n.js и pwa.js. Их отдаёт сам service worker из кэша,
+  а не сеть, поэтому офлайн они доступны. В прежней редакции этого комментария
+  было написано «без внешних <link> и <script>», хотя manifest и pwa.js уже
+  стояли; после FIX-63 к ним добавился i18n.js — без него pwa.js падал на t().
 -->
 <style>
   :root { color-scheme: light dark; }
@@ -46,7 +58,7 @@
   .logo { font-size: 2rem; line-height: 1; margin-bottom: 12px; }
   h1 { font-size: 1.3rem; font-weight: 600; margin: 0 0 10px; }
   p  { font-size: .95rem; line-height: 1.55; margin: 0 0 8px; }
-  .hint { color: #6e6e73; font-size: .85rem; margin-bottom: 22px; }
+  .hint { color: #6e6e73; font-size: .875rem; margin-bottom: 22px; }
   .btn {
     display: inline-flex; align-items: center; justify-content: center;
     /* 44px — не ниже порога тап-таргета (WCAG 2.5.5) */
@@ -59,7 +71,7 @@
   }
   .btn:active { filter: brightness(.92); }
   a:focus-visible, button:focus-visible { outline: 2px solid #0a84ff; outline-offset: 3px; }
-  .links { margin-top: 22px; font-size: .85rem; line-height: 2; }
+  .links { margin-top: 22px; font-size: .875rem; line-height: 2; }
   .links a { color: inherit; text-decoration: none; border-bottom: 1px solid currentColor; }
   @media (prefers-reduced-motion: no-preference) {
     .btn { transition: filter .15s; }
@@ -69,13 +81,13 @@
 <body>
 <main class="card">
   <div class="logo" aria-hidden="true">🧠</div>
-  <h1>Нет соединения</h1>
-  <p>Страница <strong id="path">не найдена</strong> ещё не сохранена на этом
-     устройстве, поэтому офлайн её показать нечем.</p>
-  <p class="hint">Уже загруженные страницы продолжают работать. Появится связь —
-     обновите, и всё вернётся.</p>
-  <button class="btn" id="retry" type="button">Обновить</button>
-  <p class="links"><a href="index.html">На главную</a></p>
+  <h1><span data-i18n-text="offline.001">Нет соединения</span></h1>
+  <p><span data-i18n-text="offline.002">Страница</span> <strong id="path"><span data-i18n-text="offline.003">не найдена</span></strong> <span data-i18n-text="offline.004">ещё не сохранена на этом
+     устройстве, поэтому офлайн её показать нечем.</span></p>
+  <p class="hint"><span data-i18n-text="offline.005">Уже загруженные страницы продолжают работать. Появится связь —
+     обновите, и всё вернётся.</span></p>
+  <button class="btn" id="retry" type="button"><span data-i18n-text="offline.006">Обновить</span></button>
+  <p class="links"><a href="index.html"><span data-i18n-text="offline.007">На главную</span></a></p>
 </main>
 <script>
   // Показываем, какой именно адрес не нашёлся в кэше.
@@ -89,5 +101,12 @@
     location.reload();
   });
 </script>
+<!-- v5.6.5 FIX-63: pwa.js стоял без i18n.js, хотя подпись плашки офлайна
+     берёт через t('pwa.offline') (i18n.js:1200). Ровно на этой странице
+     офлайн гарантирован, поэтому ReferenceError случался бы всегда, а не
+     изредка. Порядок держится на типе подключения: без defer — сразу. -->
+<script src="i18n.js?v=15" defer></script>
+<script src="pwa.js?v=283" defer></script>
 </body>
 </html>
+

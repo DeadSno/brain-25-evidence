@@ -107,6 +107,17 @@ project: brain-25-evidence
 - Контент не заходит под Dynamic Island
 - Кнопки не заезжают под home bar
 
+### Новый UI (v5.6.5) — проверять отдельно на 360/375px
+- `hactar.html?tab=graph` — «звезда» канваса механизмов не выходит за
+  viewport, подписи узлов не обрезаны
+- `hactar.html?tab=overview` — таблица доз/взаимодействий скроллится
+  **внутри** контейнера, не даёт горизонтальный скролл всей странице
+- Боковая панель `#hactarSidebar` (`aside.hactar-sidebar`) на мобильном —
+  оверлей: не перекрывает липкую шапку, закрывается по `Esc` и тапу мимо
+- Два таба Hactar (`Overview` / `Links`) не переносятся криво: tablist
+  фиксируется внизу (`position:fixed;bottom:0`) с `overflow-x:auto` —
+  проверить, что не перекрывает контент и не уезжает под home bar
+
 ## Android-специфика (Tecno, Samsung, Xiaomi)
 
 - `-webkit-tap-highlight-color: transparent` — убрать серую подсветку при тапе
@@ -165,6 +176,34 @@ project: brain-25-evidence
     ### ВАЖНОЕ
     ### ЖЕЛАТЕЛЬНОЕ
 
+## Локаль: RU + EN (обязательно для всех проверок)
+
+Проверять в обеих локалях: RU (`lang="ru"`) и EN (`localStorage.lang='en'`).
+Оба языка — столпы проекта, ни один не второстепенный. Каждая проверка выше
+выполняется дважды — в RU и в EN; находку помечать локалью `RU` / `EN` / `RU+EN`.
+
+| Локаль | Как включить | Откуда текст |
+|---|---|---|
+| RU | по умолчанию, `<html lang="ru">` | словарь `docs/i18n.js` (`I18N.ru`), данные — `docs/data.json` |
+| EN | `#langSelect` или `localStorage.setItem('lang','en')` + перезагрузка | `docs/i18n.js` (`I18N.en`) + `docs/data_en.json` (паритет 130/130) |
+
+- `docs/i18n.js` выставляет `document.documentElement.lang = LOCALE`;
+  статический `<html lang="ru">` на всех страницах — это долг SEO-01, а не
+  признак того, что RU главнее
+- Переводятся атрибуты `data-i18n`, `data-i18n-text`, `-title`, `-alt`,
+  `-aria-label`, `-placeholder`, `-tooltip`, `-vars`
+- В EN не должно остаться кириллицы в интерфейсе (гейт
+  `tests/test_i18n_no_russian.py`); русская строка в EN — находка
+- Пока перевод не применён, `<html>` держит класс `i18n-pending`
+  (`html.i18n-pending main{visibility:hidden}`) — проверять, что класс
+  снимается и контент не остаётся скрытым
+- Находка «только в RU» или «только в EN» — это находка, а не норма
+
+Английские строки другой длины: проверять переносы и переполнение на
+360 и 375 px в обеих локалях.
+
+- Длинные подписи кнопок в EN не должны ломать тап-таргеты.
+
 ## Рекомендации (сверх находок)
 
 После P0/P1/P2 — блок «Рекомендации». Это идеи, не находки.
@@ -190,7 +229,7 @@ project: brain-25-evidence
 
 ПРИМЕРЫ ПРАВИЛЬНЫХ НАХОДОК:
 
-"style.css:8 — .btn на 360px: height 41px. WCAG 2.5.5 требует 44px. Фикс: padding .7rem 1.1rem, min-height 44px."
+"style.css:8 — .btn на 360px: height 41px. WCAG 2.5.5 требует 44px. Фикс: padding .7rem 1.1rem, min-height 44px. (Правится style.css; в продакшене грузится style.min.css — после правки перегенерировать `npx --yes csso-cli docs/style.css -o docs/style.min.css` и бампнуть `?v=` в страницах, иначе фикс не доедет до браузера.)"
 
 "index.html:196 — input#search font-size 14px. На iOS при фокусе зум до 16px → horizontal scroll. Фикс: font-size:16px."
 

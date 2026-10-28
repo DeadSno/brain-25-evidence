@@ -1,0 +1,20 @@
+{
+  "sleep": "Sleep",
+  "stress": "Stress / anxiety",
+  "mood": "Mood",
+  "brain": "Brain / memory",
+  "energy": "Energy / alertness",
+  "immunity": "Immunity",
+  "heart": "Heart / vessels",
+  "blood": "Blood",
+  "muscle": "Muscles / sport",
+  "joints": "Joints",
+  "bones": "Bones",
+  "skin": "Skin / hair",
+  "metabolism": "Metabolism / weight",
+  "gut": "Gut / intestines",
+  "hormones": "Hormones",
+  "vision": "Vision",
+  "urinary": "Urinary",
+  "liver": "Liver"
+}

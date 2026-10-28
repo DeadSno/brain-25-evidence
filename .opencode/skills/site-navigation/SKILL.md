@@ -43,18 +43,65 @@ project: brain-25-evidence
 
 ## Правила
 
+## Локаль: RU + EN (обязательно для всех проверок)
+
+Проверять в обеих локалях: RU (`lang="ru"`) и EN (`localStorage.lang='en'`).
+Оба языка — столпы проекта, ни один не второстепенный. Каждая проверка выше
+выполняется дважды — в RU и в EN; находку помечать локалью `RU` / `EN` / `RU+EN`.
+
+| Локаль | Как включить | Откуда текст |
+|---|---|---|
+| RU | по умолчанию, `<html lang="ru">` | словарь `docs/i18n.js` (`I18N.ru`), данные — `docs/data.json` |
+| EN | `#langSelect` или `localStorage.setItem('lang','en')` + перезагрузка | `docs/i18n.js` (`I18N.en`) + `docs/data_en.json` (паритет 130/130) |
+
+- `docs/i18n.js` выставляет `document.documentElement.lang = LOCALE`;
+  статический `<html lang="ru">` на всех страницах — это долг SEO-01, а не
+  признак того, что RU главнее
+- Переводятся атрибуты `data-i18n`, `data-i18n-text`, `-title`, `-alt`,
+  `-aria-label`, `-placeholder`, `-tooltip`, `-vars`
+- В EN не должно остаться кириллицы в интерфейсе (гейт
+  `tests/test_i18n_no_russian.py`); русская строка в EN — находка
+- Пока перевод не применён, `<html>` держит класс `i18n-pending`
+  (`html.i18n-pending main{visibility:hidden}`) — проверять, что класс
+  снимается и контент не остаётся скрытым
+- Находка «только в RU» или «только в EN» — это находка, а не норма
+
+Подписи навигации переводятся через `data-i18n-text`: проверять, что
+в EN нет русских пунктов меню.
+
+- Обход карты сайта выполнять в обеих локалях — ссылки не должны
+  зависеть от локали.
+
 ### 1. Целевые страницы (все должны быть в навигации)
-- index.html - Главная
-- map.html - Карта механизмов
-- interactions.html - Взаимодействия
-- graph.html - Граф связей
-- atlas.html - Атлас
-- calculator.html - Калькулятор
+- index.html - Главная (каталог добавок)
+- hactar.html - Project Hactar: два таба, `?tab=overview` (таблица доз/
+  взаимодействий/цен) и `?tab=graph` (граф связей)
+- trends.html - Тренды
 - methodology.html - Методология
 - faq.html - FAQ
 - glossary.html - Глоссарий
-- trends.html - Тренды
 - feedback.html - Обратная связь
+- support.html - Поддержать проект
+- privacy.html - Приватность
+- terms-of-use.html - Условия использования
+- 404.html, offline.html - служебные (в общий nav не обязательны)
+- sup/index.html и `sup/*.html` - карточки добавок (130 карточек)
+
+> **Страницы-редиректы (6):** `calculator.html`, `compare.html`,
+> `graph.html`, `atlas.html`, `interactions.html`, `map.html`. Это не
+> отдельные страницы, а заглушки: `<meta http-equiv="refresh">` (есть у
+> всех шести) на `hactar.html?tab=overview` (calculator, compare) или
+> `hactar.html?tab=graph` (graph, atlas, interactions, map), плюс
+> `noindex, follow`, canonical на целевой URL, видимая CTA-ссылка в
+> `<body>` и `sessionStorage.hactarRedirectedFrom`. Дополнительный
+> JS-фолбэк `window.location.replace()` есть только у `graph.html` и
+> `atlas.html`; остальным он не нужен — refresh срабатывает без JS.
+> В навигацию их не ставить и из навигации не требовать.
+>
+> **Deep-link Hactar — только два значения:** `?tab=overview` (по
+> умолчанию) и `?tab=graph`. Любой другой параметр, включая устаревший
+> `?tab=links`, открывает «Обзор» (`docs/hactar.js`, `modeFromUrl()`).
+> Старые `?tab=calc` и `?tab=compare` переписываются на `?tab=overview`.
 
 ### 2. Структура навигации
 Каждая HTML страница в docs/ должна иметь единый блок навигации.
@@ -63,7 +110,7 @@ project: brain-25-evidence
     <header>
       <nav>
         <a href="index.html">Главная</a>
-        <a href="map.html">Карта механизмов</a>
+        <a href="hactar.html">Project Hactar</a>
         ...
       </nav>
     </header>
@@ -79,7 +126,10 @@ project: brain-25-evidence
 2. Найти во всех HTML паттерн закрывающего nav
 3. Вставить новую ссылку ПЕРЕД закрывающим тегом
 4. НЕ дублировать если уже есть
-5. Пропустить страницы: feedback.html, graph.html
+5. Пропустить страницы без общего nav: 6 редирект-заглушек
+   (`calculator.html`, `compare.html`, `graph.html`, `atlas.html`,
+   `interactions.html`, `map.html`), `offline.html`,
+   `google4a9d23e35c6c3e23.html`; `feedback.html`
 
 ### 5. Формат отчёта
 Таблица: Страница | Есть nav | Ссылок | Статус

@@ -16,7 +16,7 @@
       {
         "id": "Магний",
         "label": "Магний",
-        "grade": "B",
+        "grade": "D",
         "code": 1
       },
       {
@@ -28,19 +28,19 @@
       {
         "id": "Цинк",
         "label": "Цинк",
-        "grade": "B",
+        "grade": "D",
         "code": 0
       },
       {
         "id": "CoQ10",
         "label": "CoQ10",
-        "grade": "B",
+        "grade": "D",
         "code": 1
       },
       {
         "id": "Витамин C",
         "label": "Витамин C",
-        "grade": "B",
+        "grade": "D",
         "code": 0
       },
       {
@@ -64,7 +64,7 @@
       {
         "id": "Лактоферрин",
         "label": "Лактоферрин",
-        "grade": "B",
+        "grade": "D",
         "code": 1
       },
       {
@@ -76,7 +76,7 @@
       {
         "id": "Женьшень",
         "label": "Женьшень",
-        "grade": "B",
+        "grade": "D",
         "code": 1
       },
       {
@@ -207,7 +207,7 @@
         "id": "Магний",
         "label": "Магний",
         "kind": "supplement",
-        "grade": "B",
+        "grade": "D",
         "code": 1
       },
       {
@@ -277,14 +277,14 @@
         "id": "NAC",
         "label": "NAC",
         "kind": "supplement",
-        "grade": "B",
+        "grade": "D",
         "code": 1
       },
       {
         "id": "Цинк",
         "label": "Цинк",
         "kind": "supplement",
-        "grade": "B",
+        "grade": "D",
         "code": 0
       },
       {
@@ -305,7 +305,7 @@
         "id": "CoQ10",
         "label": "CoQ10",
         "kind": "supplement",
-        "grade": "B",
+        "grade": "D",
         "code": 1
       },
       {
@@ -319,7 +319,7 @@
         "id": "Мелатонин",
         "label": "Мелатонин",
         "kind": "supplement",
-        "grade": "A",
+        "grade": "D",
         "code": 1
       },
       {
@@ -347,28 +347,28 @@
         "id": "L-цитруллин",
         "label": "L-цитруллин",
         "kind": "supplement",
-        "grade": "B",
+        "grade": "D",
         "code": 1
       },
       {
         "id": "Витамин C",
         "label": "Витамин C",
         "kind": "supplement",
-        "grade": "B",
+        "grade": "D",
         "code": 0
       },
       {
         "id": "Эхинацея",
         "label": "Эхинацея",
         "kind": "supplement",
-        "grade": "B",
+        "grade": "D",
         "code": 0
       },
       {
         "id": "Зверобой",
         "label": "Зверобой",
         "kind": "supplement",
-        "grade": "B",
+        "grade": "D",
         "code": 1
       },
       {
@@ -389,7 +389,7 @@
         "id": "B9",
         "label": "B9",
         "kind": "supplement",
-        "grade": "A",
+        "grade": "D",
         "code": 1
       },
       {
@@ -438,7 +438,7 @@
         "id": "BCAA",
         "label": "BCAA",
         "kind": "supplement",
-        "grade": "B",
+        "grade": "D",
         "code": 0
       },
       {
@@ -466,14 +466,14 @@
         "id": "Псиллиум",
         "label": "Псиллиум",
         "kind": "supplement",
-        "grade": "B",
+        "grade": "D",
         "code": 1
       },
       {
         "id": "Имбирь",
         "label": "Имбирь",
         "kind": "supplement",
-        "grade": "B",
+        "grade": "D",
         "code": 1
       },
       {
@@ -515,7 +515,7 @@
         "id": "Альфа-липоевая кислота",
         "label": "Альфа-липоевая кислота",
         "kind": "supplement",
-        "grade": "B",
+        "grade": "D",
         "code": 1
       },
       {
@@ -529,14 +529,14 @@
         "id": "Расторопша",
         "label": "Расторопша",
         "kind": "supplement",
-        "grade": "B",
+        "grade": "D",
         "code": 0
       },
       {
         "id": "Лактоферрин",
         "label": "Лактоферрин",
         "kind": "supplement",
-        "grade": "B",
+        "grade": "D",
         "code": 1
       },
       {
@@ -627,7 +627,7 @@
         "id": "Кверцетин",
         "label": "Кверцетин",
         "kind": "supplement",
-        "grade": "B",
+        "grade": "D",
         "code": 1
       },
       {
@@ -704,7 +704,7 @@
         "id": "Женьшень",
         "label": "Женьшень",
         "kind": "supplement",
-        "grade": "B",
+        "grade": "D",
         "code": 1
       },
       {

@@ -9,8 +9,8 @@
   "orientation": "any",
   "lang": "ru",
   "dir": "ltr",
-  "background_color": "#1c1c1e",
-  "theme_color": "#1c1c1e",
+  "background_color": "#f5f5f7",
+  "theme_color": "#f5f5f7",
   "categories": ["health", "medical", "education"],
   "icons": [
     { "src": "./icons/192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
@@ -32,7 +32,7 @@
       "name": "Атлас механизмов",
       "short_name": "Атлас",
       "description": "Интерактивная карта механизмов и взаимодействий",
-      "url": "./atlas.html",
+      "url": "./hactar.html?tab=graph",
       "icons": [
         { "src": "./icons/192.png", "sizes": "192x192", "type": "image/png" }
       ]
@@ -42,6 +42,15 @@
       "short_name": "Глоссарий",
       "description": "Что означают грейды, индексы и формулировки вердиктов",
       "url": "./glossary.html",
+      "icons": [
+        { "src": "./icons/192.png", "sizes": "192x192", "type": "image/png" }
+      ]
+    },
+    {
+      "name": "Сравнение БАДов",
+      "short_name": "Сравнение",
+      "description": "Сравните до 10 добавок рядом: грейд, эффекты, дозировка, безопасность",
+      "url": "./hactar.html?tab=compare",
       "icons": [
         { "src": "./icons/192.png", "sizes": "192x192", "type": "image/png" }
       ]

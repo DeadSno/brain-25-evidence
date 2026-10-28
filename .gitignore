@@ -227,6 +227,14 @@ data/pmc/tmp/
 
 scripts/_*.py
 
+# FIX-SPRINT B2: временные артефакты аудита и прогонов тестов не тащим в git
+_audit_script.js
+pytest_*.txt
+serve_log.txt
+tests/snapshots/*/_actual/
+_tmp_*.js
+_tmp_*.py
+
 # A3.2.3: heavy full texts, regenerable
 data/pmc/text/
 data/pmc/tmp/
@@ -262,6 +270,8 @@ data/db/
 data/papers/papers.json
 data/journals/scimago.json
 data/papers/papers_slim.json
+data/journals/nlm_catalog.json
+data/papers/stats_claims.json
 
 # Logs
 logs/
@@ -311,4 +321,14 @@ docs/_baseline_*
 
 tests/a11y_report/
 
-tests/a11y_report/
+# FIX-SPRINT B6 (v5.6.5): артефакты прогонов и старые архивированные скриншоты
+*.json.gz
+snap_head_*.xml
+reports/archive/v26*.png
+db_import_log.txt
+
+# JUnit/pytest dumps (FIX-69 follow-up: h9_pytest.xml и подобные)
+*.pytest.xml
+reports/*.pytest.xml
+reports/*_pytest.xml
+

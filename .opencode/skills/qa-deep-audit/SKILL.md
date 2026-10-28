@@ -48,7 +48,8 @@ project: brain-25-evidence
 ## Специфика проекта brain-25-evidence
 
 См. .opencode/skills/CONVENTIONS.md — структура проекта и правила
-(в том числе гейты тестов: `RUN_E2E=1`, `RUN_SNAPSHOTS=1`).
+(в том числе базовая линия тестов — актуальное число брать оттуда, в скиллах
+его не хардкодить; гейты `RUN_*` удалены, полный `pytest -q` без скипов).
 
 ## Жёсткие правила
 
@@ -121,6 +122,20 @@ project: brain-25-evidence
 - CSRF (если применимо)
 - Sensitive данные
 
+### 9. Новый UI: Hactar, редиректы, compare
+- Редиректы работают на прямом заходе: `graph.html`/`atlas.html`/`interactions.html`/`map.html`
+  → `hactar.html?tab=graph`, `calculator.html`/`compare.html` → `hactar.html?tab=overview`
+  (meta refresh + `location.replace`, `sessionStorage.hactarRedirectedFrom`, `noindex, follow`)
+- Два таба `hactar.html` (`Overview` / `Links`, `.hactar-tabs[role="tablist"]`):
+  переключение и синхронизация с `?tab=` не ломают состояние; прямой заход на
+  `?tab=graph` открывает граф, `aria-selected` ровно у одного таба
+  (значение `?tab=links` не поддерживается — неизвестный параметр
+  открывает «Обзор»)
+- `hactar.html?tab=overview` — нет битых ссылок на карточки/скрипты; корректное
+  состояние при 0/1/2 выбранных добавках; счётчик PMID не расходится с данными
+- боковая панель `#hactarSidebar` (`aside.hactar-sidebar`, не `#nodeSidePanel`)
+  открывается/закрывается без JS-ошибок, `Esc` возвращает фокус
+
 ## Формат находки
 
 "scripts/analyze_coi.py — нет тестов. Фикстура classify_coi() лежит в 4 отчётах (POSITIVE/NEGATIVE/unclear/missing), но живых тестов нет. Проверено 13.10.2026 (F-39): файла tests/test_analyze_coi.py в репозитории нет, а сам модуль существует — scripts/analyze_coi.py. Раньше стояло «тесты: tests/test_analyze_coi.py в фикстурах 5 XML-файлов», и такого файла никогда не было."
@@ -144,6 +159,36 @@ project: brain-25-evidence
     ## ВАЖНОЕ (баг в проде)
     ## ЖЕЛАТЕЛЬНОЕ (UX деградация)
     ## Рекомендации
+
+## Локаль: RU + EN (обязательно для всех проверок)
+
+Проверять в обеих локалях: RU (`lang="ru"`) и EN (`localStorage.lang='en'`).
+Оба языка — столпы проекта, ни один не второстепенный. Каждая проверка выше
+выполняется дважды — в RU и в EN; находку помечать локалью `RU` / `EN` / `RU+EN`.
+
+| Локаль | Как включить | Откуда текст |
+|---|---|---|
+| RU | по умолчанию, `<html lang="ru">` | словарь `docs/i18n.js` (`I18N.ru`), данные — `docs/data.json` |
+| EN | `#langSelect` или `localStorage.setItem('lang','en')` + перезагрузка | `docs/i18n.js` (`I18N.en`) + `docs/data_en.json` (паритет 130/130) |
+
+- `docs/i18n.js` выставляет `document.documentElement.lang = LOCALE`;
+  статический `<html lang="ru">` на всех страницах — это долг SEO-01, а не
+  признак того, что RU главнее
+- Переводятся атрибуты `data-i18n`, `data-i18n-text`, `-title`, `-alt`,
+  `-aria-label`, `-placeholder`, `-tooltip`, `-vars`
+- В EN не должно остаться кириллицы в интерфейсе (гейт
+  `tests/test_i18n_no_russian.py`); русская строка в EN — находка
+- Пока перевод не применён, `<html>` держит класс `i18n-pending`
+  (`html.i18n-pending main{visibility:hidden}`) — проверять, что класс
+  снимается и контент не остаётся скрытым
+- Находка «только в RU» или «только в EN» — это находка, а не норма
+
+Edge case «EN без перевода»: элемент с `data-i18n` без ключа в
+`I18N.en`.
+
+- Edge case «кириллица в EN»: гейт `tests/test_i18n_no_russian.py`
+  ловит разметку, но текст из данных (`data_en.json`) надо смотреть
+  руками.
 
 ## Рекомендации (сверх находок)
 

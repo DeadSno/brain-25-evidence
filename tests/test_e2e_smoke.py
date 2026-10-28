@@ -1,64 +1,46 @@
-"""Запуск scripts/e2e_smoke.py как теста pytest (QA_AUDIT P1).
+"""Запуск scripts/e2e_smoke.py из pytest (QA_AUDIT P1).
 
-556 строк браузерных проверок лежали в scripts/ с единственной функцией main() и
-`if __name__ == "__main__"`. pytest.ini ограничивает testpaths = tests, поэтому
-этот единственный уровень тестирования, ловящий регрессии рендеринга, не
-запускался НИКОГДА — ни локально, ни в CI.
+556 строк проверок живут в scripts/ и вызываются функцией main().
 
-Тест не переписывает логику: он импортирует main() и вызывает её, поэтому
-все ~60 assert внутри скрипта становятся проверками pytest (AssertionError →
-FAILED). Дублировать 556 строк было бы худшим вариантом — через месяц они бы
-разошлись.
+v5.6.5: скрипт запускается ПОДПРОЦЕССОМ, а не через `from e2e_smoke import
+main`. Раньше тест вызывал main() в том же процессе, а скрипт открывает свой
+`sync_playwright()`. В полном прогоне сессионная фикстура
+`playwright_instance` (tests/conftest.py) уже держит один sync-контекст, и
+второй падал с `Error: It looks like you are using Playwright Sync API inside
+the asyncio loop` — то есть `pytest -q -m e2e` проходил, а обычный
+`pytest -q` падал. Подпроцесс даёт чистый интерпретатор без чужого event loop.
 
-Запуск:    pytest -q -m e2e
-           pytest -q tests/test_e2e_smoke.py -m e2e
-По умолчанию e2e ИСКЛЮЧЁН через pytest.ini (addopts: -m "not network and not e2e"),
-потому что прогон длинный (30+ загрузок страниц, запуск http.server и Chromium)
-и CI не ставит браузер: `playwright install chromium` в workflows/tests.yml нет,
-поэтому включение e2e по умолчанию уронило бы сборку.
+Запуск:    python -m pytest -q -m e2e
+           python -m pytest -q tests/test_e2e_smoke.py
+Скрипт поднимает свой http.server на :8123 и Chromium.
 """
-import socket
+import subprocess
 import sys
 from pathlib import Path
 
 import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "scripts"))
 
 pytestmark = pytest.mark.e2e
 
-PORT = 8123  # тот же порт, что в scripts/e2e_smoke.py (BASE = http://localhost:8123)
+SCRIPT = ROOT / "scripts" / "e2e_smoke.py"
 
 
-def _port_busy(port: int) -> bool:
-    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-        s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        try:
-            s.bind(("127.0.0.1", port))
-        except OSError:
-            return True
-    return False
-
-
-def _chromium_available() -> bool:
-    try:
-        from playwright.sync_api import sync_playwright
-    except ImportError:
-        return False
-    try:
-        with sync_playwright() as pw:
-            b = pw.chromium.launch()
-            b.close()
-    except Exception:  # noqa: BLE001 — браузер может быть не установлен
-        return False
-    return True
-
-
-@pytest.mark.skipif(_port_busy(PORT), reason=f"порт {PORT} занят — скрипт не сможет поднять свой http.server")
-@pytest.mark.skipif(not _chromium_available(), reason="playwright или Chromium не установлены (playwright install chromium)")
 def test_e2e_smoke():
-    """Полный браузерный смоук: карточки, модалка, атлас, тема, консольные ошибки."""
-    from e2e_smoke import main
-
-    main()  # все проверки внутри — assert; AssertionError превращается в FAILED
+    """Чистый запуск смоука: шапка, фильтры, модалка, тема, глоссарий, ошибки."""
+    assert SCRIPT.exists(), f"нет скрипта {SCRIPT}"
+    proc = subprocess.run(
+        [sys.executable, str(SCRIPT)],
+        cwd=str(ROOT),
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        timeout=600,
+    )
+    assert proc.returncode == 0, (
+        f"e2e_smoke.py вернул {proc.returncode}\n"
+        f"--- stdout ---\n{proc.stdout[-4000:]}\n"
+        f"--- stderr ---\n{proc.stderr[-4000:]}"
+    )

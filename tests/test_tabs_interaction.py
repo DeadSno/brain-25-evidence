@@ -1,37 +1,57 @@
-"""Вкладки переключаются кликом, а не только выглядят как переключаемые.
+"""Клик по вкладкам действительно переключает: interactions и trends.
 
-Зачем этот файл существует. При переименовании `.tab` -> `.tr-tab`
-(v5.4.1) наибольшая опасность — расхождение селектора в JS с разметкой.
-Тогда страница выглядит РОВНО ТАК ЖЕ: класс в разметке и CSS-правила
-переименованы согласованно, значит вычисленные стили те же, значит
-визуальный эталон совпадает побайтово. Расхождение проявляется только
-в `querySelectorAll` — вернёт пустой список, обработчик `click` не
-навесится, и кнопка станет мёртвой.
+Зачем файл существует. Расхождение селектора в JS с разметкой не видно
+ни на одном снимке: класс в разметке и CSS-правило меняются
+согласованно, вычисленные стили те же, эталон совпадает побайтово.
+Ломается только `querySelectorAll` — обработчик не навешивается, и
+кнопка молча становится мёртвой. Так было в v5.4.0 с dataset.tab (см.
+reports/archive/v51/RENAME_TAB.md, раздел 3.1 — файл переехал из
+reports/ при консолидации v5.6.3, commit 9ac8d4d), и тогда вывод
+«снапшоты зелёные, значит всё в порядке» оказался ложью.
 
-Именно так ломалось в v5.4.0: инверсия семантики переменной дала клик,
-который ничего не делал, при полностью зелёных снимках. Тогда вывод был
-«снапшоты зелёные, значит всё в порядке» — а порядка не было.
+На сайте ДВЕ разные реализации вкладок, путать их нельзя:
 
-Поэтому здесь главная проверка не «элемент нашёлся», а «клик перенёс класс
-состояния на другой элемент». Остальные проверки защищают от тихой
-подмены: что фон и шрифт пришли от правила класса, а не от того, что
-элемент с классом нашёлся, и что атрибут переключения на месте — при
-переименовании класса однажды уже чуть не потерялся `dataset.tab`
-(подробности в reports/RENAME_TAB.md, раздел 3.1).
+  interactions (docs/interactions.html:284-289): `.tr-tabs` с
+  role="tablist", кнопки `[role="tab"]` с data-mode, класс состояния
+  `active`, aria-selected + roving tabindex, панели role="tabpanel".
+  Всё пересчитывает setMode (docs/interactions.html:423-443); класса
+  `active` в исходной разметке кнопок нет — его ставит только JS
+  (docs/interactions.html:430, начальный вызов :474).
 
-Стоимость прогона. Нажатий 4: по одному на пару движок × страница.
-Состояние «до» и «после» снимается в одной фикстуре, и остальные
-проверки читают записанный результат. Нажатий 42 было бы медленнее в
-десять раз ради того же вывода; расхождение всё равно проявилось бы в
-проверках 6 и 7, а не в самом факте нажатия.
+  trends (docs/trends.html:375-379): `.tr-tabs` без ARIA, кнопки
+  `.tr-tab` с data-tab, класс состояния `on` (в разметке уже стоит,
+  docs/trends.html:376). Переключает setTab (docs/trends.html:500-504).
+
+Главная проверка — не «элемент нашёлся», а «клик перенёс состояние на
+другую вкладку и снял его с прежней». Остальные проверки защищают от
+тихой подмены: счёт и состав вкладок, согласованность aria-selected /
+tabindex с активной вкладкой, видимость активной панели, отсутствие
+старых селекторов.
+
+Ожидание вместо таймаутов. Фиксированный `wait_for_timeout` после
+загрузки проверяет, что сервер быстрый, а не что UI готов. Вместо него
+`wait_for_function` по признаку готовности:
+
+  interactions — появился `.tr-tabs [role="tab"].active`: класс ставит
+  только setMode при загрузке (docs/interactions.html:474);
+
+  trends — `#kpiPubs2025` перестал быть «—»: renderStats заполняет KPI
+  в конце initApp (docs/trends.html:496, 515), а обработчики вкладок
+  вяжутся ДО него (docs/trends.html:485-486), то есть заполненный KPI
+  означает: клик уже будет перехвачен. Это важно, потому что на trends
+  вкладки оживают только после загрузки data_index.json и
+  timeseries.json (docs/trends.html:453-460) — событие `load` этой
+  гарантии не даёт: fetch() на него не ждётся.
 
 Запуск:
-    python -m http.server 8000 --directory docs   (из корня репозитория)
-    $env:RUN_TABS="1"; pytest -q -m tabs
+    python -m pytest tests/test_tabs_interaction.py -q
 
-Без RUN_TABS тесты сняты настройкой в tests/conftest.py — они требуют
-живого сервера и браузеров Playwright, а обычный `pytest -q` должен
-оставаться быстрым и работать в CI без сервера.
+Гейт RUN_TABS удалён в v5.6.5 (tests/conftest.py). Сервер :8000 поднимает
+autouse-фикстура live_server в tests/conftest.py из docs/ (если там уже
+не отдаётся docs этого репозитория — сверка по sha256 style.css). Тестам
+нужен живой сервер и браузеры Playwright; обычный `pytest -q` собирает их
+в общий прогон (~8-10 мин), а для быстрого прогона без браузера —
+`-m "not (tabs or graph)"`.
 """
 import hashlib
 import os
@@ -52,31 +72,102 @@ BASE_URL = os.environ.get("SNAPSHOT_BASE_URL",
 #: Firefox не добавлен — 1.2% трафика РФ, тот же отказ, что и в снапшотах.
 BROWSERS = ("chromium", "webkit")
 
-#: Имя класса вкладки и контейнера после v5.4.1.
-TAB = ".tr-tab"
-TABS = ".tr-tabs"
-#: До v5.4.1. Проверяются как «должно исчезнуть».
-OLD_TAB = ".tab"
-OLD_TABS = ".tabs"
+#: Мин. высота кнопки: базовое правило `button { min-height: 44px }`
+#: (docs/style.css:361) покрывает вкладки обеих страниц; свои правила
+#: (docs/style.css:2521 для [role="tab"], docs/trends.html:74 для
+#: .tr-tab) min-height не переопределяют. 44 px — порог WCAG 2.5.8.
+#: Замерено 2026-10-18 на обоих движках: ровно 44 у всех вкладок.
+MIN_TAB_HEIGHT = 44
 
-#: Страница, класс состояния, атрибут переключения, значения для клика,
-#: ожидаемое число кнопок, ожидаемое число кнопок по атрибуту.
+#: Страница, селектор вкладок, ключ dataset (без "data-"), класс
+#: состояния, какая вкладка активна по умолчанию, какую кликаем, счёт и
+#: состав вкладок, старые селекторы (обязаны отсутствовать), JS-признак
+#: готовности страницы.
 PAGES = (
-    ("interactions", "active", "data-mode", "supplements", "drugs", 2, 2),
-    ("trends", "on", "data-tab", "growth", "wiki", 3, 3),
+    {
+        # v5.6.5 (H-1): interactions.html стал страницей-редиректом на
+        # hactar.html, поэтому вкладки проверяются на hactar.html.
+        # H-9: вкладок две — «Обзор» (сводка стека, дозы, сравнение,
+        # где купить) и «Связи»; калькулятор и сравнение стали
+        # секциями «Обзора», отдельных вкладок больше нет.
+        "page": "hactar",
+        # Селектор самого JS: docs/hactar.html (setMode).
+        "tabs": '.hactar-tabs [role="tab"]',
+        "attr": "mode",          # data-mode на кнопках вкладок
+        "state": "active",       # класс состояния
+        "first": "overview",     # default
+        "second": "links",
+        "n_tabs": 2,             # разметка: docs/hactar.html
+        "modes": ("overview", "links"),
+        # #int-graph / .int-layout остались только в мёртвом <style>
+        # (docs/interactions.html), элементов с ними нет;
+        # .tr-tab заменён на [role="tab"].
+        "old_absent": ("#int-graph", ".int-layout", ".tr-tab"),
+        # setMode отработал при загрузке: класс ставит только он.
+        "ready_js": "() => !!document.querySelector("
+                    "'.hactar-tabs [role=\"tab\"].active')",
+    },
+    {
+        "page": "trends",
+        # Селектор самого JS: docs/trends.html:485, :502.
+        "tabs": ".tr-tab",
+        "attr": "tab",           # data-tab: docs/trends.html:376-378
+        "state": "on",           # класс состояния: docs/trends.html:502
+        "first": "growth",       # в разметке: docs/trends.html:376
+        "second": "wiki",
+        "n_tabs": 3,             # разметка: docs/trends.html:376-378
+        "modes": ("growth", "wiki", "citations"),
+        # Имена до переименования .tab -> .tr-tab (v5.4.1) не должны
+        # вернуться ни на trends, ни где-либо ещё.
+        "old_absent": (".tab", ".tabs"),
+        # initApp отработал: renderStats заполнил KPI
+        # (docs/trends.html:496, :515). Обработчики вкладок вяжутся до
+        # него (docs/trends.html:485-486), значит клик перехвачен.
+        "ready_js": "() => document.getElementById('kpiPubs2025')"
+                    ".textContent !== '—'",
+    },
 )
 
-#: Мин. высота кнопки — из правила `.preset, .tr-tab { min-height: 44px }`
-#: в style.css. Проверяется как нижняя граница, а не точное число.
-MIN_TAB_HEIGHT = 44
+#: Снимок состояния вкладок и панелей — сериализуемый словарь.
+#: `attr` приходит как ключ dataset: "mode" на interactions, "tab" на
+#: trends — по data-атрибуту своей страницы (см. PAGES).
+SNAP_JS = """({sel, attr}) => ({
+    tabs: [...document.querySelectorAll(sel)].map(t => ({
+        mode: t.dataset[attr],
+        cls: t.className,
+        aria: t.getAttribute('aria-selected'),
+        tabindex: t.getAttribute('tabindex'),
+        w: Math.round(t.getBoundingClientRect().width),
+        h: Math.round(t.getBoundingClientRect().height),
+    })),
+    panels: [...document.querySelectorAll('[data-panel]')].map(p => ({
+        name: p.dataset.panel,
+        cls: p.className,
+        hidden: p.hidden,
+        display: getComputedStyle(p).display,
+    })),
+})"""
+
+#: Клик по вкладке по значению её data-атрибута. Селектор ищется в
+#: браузере, а не строкой на Python: если разъедутся написание
+#: атрибута и значение, упадёт наш собственный код проверки, а не
+#: молча «повезёт».
+CLICK_JS = """({sel, attr, want}) => {
+    const el = [...document.querySelectorAll(sel)]
+        .find(e => e.dataset[attr] === want);
+    if (!el) return false;
+    el.click();
+    return true;
+}"""
 
 
 def _check_server() -> None:
     """Сервер обязан отдавать файлы ИМЕННО ЭТОГО репозитория.
 
     Иначе тест проверял бы чужую копию проекта: правка в docs/ не попала
-    бы на страницу, тест снял бы старое состояние и рапортовал бы зелёным.
-    Та же защита, что в test_visual_snapshots.py, — сверка хэша style.css.
+    бы на страницу, тест снял бы старое состояние и рапортовал бы
+    зелёным. Та же защита, что в test_visual_snapshots.py, — сверка
+    хэша style.css.
     """
     try:
         with urllib.request.urlopen(f"{BASE_URL}/style.css", timeout=10) as resp:
@@ -96,80 +187,13 @@ def _check_server() -> None:
         )
 
 
-def _bg_signature(page, selector):
-    """Фон кнопки как пара (backgroundColor, backgroundImage).
-
-    Проверять только `backgroundColor` нельзя: у активной вкладки фон
-    задан градиентом, а градиент живёт в `background-image`, и
-    `backgroundColor` для него возвращает `rgba(0, 0, 0, 0)`. Такая
-    проверка проходила бы только потому, что первой по счётной вкладке
-    оказывалась неактивная, и падала бы на здоровой странице, если бы
-    порядок изменился. Пара отражает оба случая: непрозрачный цвет у
-    неактивной и градиент у активной.
-    """
-    return page.eval_on_selector(
-        selector,
-        "el => { const cs = getComputedStyle(el);"
-        " return [cs.backgroundColor, cs.backgroundImage] }")
-
-
-def _has_visible_background(sig):
-    """Есть ли хоть какой-то видимый фон."""
-    color, image = sig
-    return color != ("rgba(0, 0, 0, 0)") or image != "none"
-
-
-#: Состояния фона, которые означают «правило не применилось».
-NO_BACKGROUND = ("rgba(0, 0, 0, 0)", "none")
-
-
-def _capture(page, state_cls, data_attr, second):
-    """Снимок состояния вкладок в виде обычного словаря (сериализуемо)."""
-    names = page.eval_on_selector_all(TAB, "els => els.map(e => e.className)")
-    by_attr = page.eval_on_selector_all(
-        TAB, "els => els.map(e => e.getAttribute('" + data_attr + "'))")
-    return {
-        "names": names,
-        "by_attr": by_attr,
-        "count": len(names),
-        "count_old": len(page.query_selector_all(OLD_TAB)),
-        "tabs_count": len(page.query_selector_all(TABS)),
-        "tabs_count_old": len(page.query_selector_all(OLD_TABS)),
-        "by_attr_count": len(page.query_selector_all("[" + data_attr + "]")),
-        "box": page.eval_on_selector(
-            TAB, "el => { const r = el.getBoundingClientRect();"
-                 " return [Math.round(r.width), Math.round(r.height)] }"),
-    }
-
-
-def _click_second(page, data_attr, second):
-    """Нажать на вкладку по значению атрибута.
-
-    Селектор достаётся в браузере, а не строкой на стороне Python: если
-    разъедутся написание атрибута и значение, упадёт наш собственный код
-    проверки, а не страница.
-    """
-    hit = page.evaluate(
-        """({sel, attr, want}) => {
-            const el = [...document.querySelectorAll(sel)]
-                .find(e => e.getAttribute(attr) === want);
-            if (!el) return false;
-            el.click();
-            return true;
-        }""", {"sel": TAB, "attr": data_attr, "want": second})
-    if not hit:
-        pytest.fail(
-            f"не нашлась кнопка с {data_attr}={second!r} по селектору {TAB} — "
-            f"клик невозможен, проверять переключение не на чем")
-
-
 def _launch(pw, engine):
     """Запустить движок. Отдельная функция только ради skip-сообщения.
 
-    `pw` передаётся снаружи, а не создаётся здесь: `sync_playwright().start()`
-    без удержания объекта контекста отдаёт драйвер сборщику мусора, и
-    следующая фикстура падает с «Sync API inside the asyncio loop». Поэтому
-    `with sync_playwright()` живёт в самой фикстуре.
+    `pw` передаётся снаружи, а не создаётся здесь: второй
+    `sync_playwright()` в одной сессии падает с «Sync API inside the
+    asyncio loop», поэтому общий экземпляр живёт в
+    tests/conftest.py::playwright_instance.
     """
     try:
         return getattr(pw, engine).launch()
@@ -179,230 +203,306 @@ def _launch(pw, engine):
 
 
 @pytest.fixture(scope="session")
-def pw():
-    """Один Playwright на всю сессию.
+def pw(playwright_instance):
+    """Один Playwright на всю сессию — общий для всех браузерных модулей.
 
-    Отдельный `sync_playwright()` на каждую фикстуру не работает: после
-    первых четырёх teardown следующий падает с «Sync API inside the
-    asyncio loop». Один экземпляр на сессию — тот же приём, что и в
-    test_visual_snapshots.py.
+    Свой `sync_playwright()` здесь больше не открывается: второй такой
+    контекст в одной сессии падает с «Sync API inside the asyncio loop»
+    (измерено: 90 errors при `-m "tabs or graph or mobile375"`). Общий
+    экземпляр живёт в tests/conftest.py::playwright_instance.
     """
-    with playwright_api.sync_playwright() as p:
-        yield p
+    return playwright_instance
+
+
+def _open_page(browser, cfg):
+    """Открыть страницу и дождаться готовности вкладок (см. ready_js)."""
+    ctx = browser.new_context(viewport={"width": 1280, "height": 900})
+    page = ctx.new_page()
+    page.goto(f"{BASE_URL}/{cfg['page']}.html", wait_until="load")
+    page.wait_for_function(cfg["ready_js"])
+    return ctx, page
+
+
+def _click_tab(page, cfg):
+    """Кликнуть по вкладке cfg['second']; упасть, если её нет."""
+    hit = page.evaluate(CLICK_JS, {
+        "sel": cfg["tabs"], "attr": cfg["attr"], "want": cfg["second"]})
+    if not hit:
+        pytest.fail(
+            f"не нашлась кнопка с data-{cfg['attr']}={cfg['second']!r} по "
+            f"селектору {cfg['tabs']} — клик невозможен, проверять "
+            f"переключение не на чем")
+
+
+def _is_active(tab, state):
+    """Есть ли класс состояния у вкладки (как отдельный токен класса).
+
+    Подстрочная проверка `state in cls` ловит чужие классы, в названии
+    которых встретились те же буквы (например, «on» внутри «only»),
+    поэтому className разбивается на токены.
+    """
+    return state in tab["cls"].split()
 
 
 #: 4 пары: движок × страница.
-TAB_CASES = [(b,) + p for b in BROWSERS for p in PAGES]
+TAB_CASES = [(b, p) for b in BROWSERS for p in PAGES]
 
 
 @pytest.fixture(scope="session", params=TAB_CASES,
-                ids=lambda p: f"{p[0]}-{p[1]}")
+                ids=lambda bp: f"{bp[0]}-{bp[1]['page']}")
 def tab_case(request, pw):
     """Состояние вкладок до клика и после него — один проход на пару.
 
-    Параметризация живёт на фикстуре, а не через `@pytest.mark.parametrize`
-    на тестах: пометка одноимённого аргумента перекрыла бы одноимённую
-    фикстуру, и тест получил бы сырой tuple вместо словаря. Навигация и
+    Параметризация живёт на фикстуре, а не через
+    `@pytest.mark.parametrize` на тестах: пометка одноимённого аргумента
+    перекрыла бы фикстуру, и тест получил бы сырой tuple. Навигация и
     нажатие происходят ровно один раз на пару, результат записывается и
     читается остальными проверками.
     """
-    # request.param = (движок,) + PAGES[i], поэтому 8 значений, а не 7.
-    engine, page_name, state_cls, data_attr, first, second, n_tabs, \
-        n_by_attr = request.param
+    engine, cfg = request.param
     _check_server()
     browser = _launch(pw, engine)
-    ctx = browser.new_context(viewport={"width": 1280, "height": 900})
-    page = ctx.new_page()
+    ctx, page = _open_page(browser, cfg)
     try:
-        page.goto(f"{BASE_URL}/{page_name}.html", wait_until="load")
-        page.wait_for_timeout(400)
-        before = _capture(page, state_cls, data_attr, second)
-        _click_second(page, data_attr, second)
-        page.wait_for_timeout(350)
-        after_classes = page.eval_on_selector_all(
-            TAB,
-            "els => els.map(e => [e.getAttribute('" + data_attr + "'),"
-            " e.className])")
-        yield {
-            "engine": engine,
-            "page": page_name,
-            "state_cls": state_cls,
-            "data_attr": data_attr,
-            "first": first,
-            "second": second,
-            "n_tabs": n_tabs,
-            "n_by_attr": n_by_attr,
-            "before": before,
-            "after": {k: v for k, v in after_classes},
-            # фон и шрифт берём ПОСЛЕ клика: у активной вкладки свой фон
-            "bg": _bg_signature(page, TAB),
-            "font": page.eval_on_selector(
-                TAB, "el => getComputedStyle(el).fontSize"),
-        }
+        before = page.evaluate(SNAP_JS, {"sel": cfg["tabs"],
+                                         "attr": cfg["attr"]})
+        before["old"] = {s: len(page.query_selector_all(s))
+                         for s in cfg["old_absent"]}
+        _click_tab(page, cfg)
+        after = page.evaluate(SNAP_JS, {"sel": cfg["tabs"],
+                                        "attr": cfg["attr"]})
+        yield {"engine": engine, "cfg": cfg, "before": before, "after": after}
     finally:
         ctx.close()
         browser.close()
 
 
+#: Страница с ARIA-вкладками и панелями — только interactions.
 @pytest.fixture(scope="session", params=BROWSERS, ids=lambda b: b)
-def engine_only(request, pw):
-    """Движок для проверок, не привязанных к конкретной странице."""
-    engine = request.param
-    browser = _launch(pw, engine)
-    yield {"engine": engine, "browser": browser}
-    browser.close()
+def int_case(request, pw):
+    """Глубокий снимок interactions: aria-selected/tabindex и панели.
 
-
-# ── 10 проверок на пару движок × страница = 40 ──
-
-def test_tab_selector_finds_buttons(tab_case):
-    """Переименованный селектор находит все кнопки вкладок."""
-    assert tab_case["before"]["count"] == tab_case["n_tabs"], (
-        f"{tab_case['page']}: {TAB} нашёл "
-        f"{tab_case['before']['count']} кнопок, ожидалось {tab_case['n_tabs']}")
-
-
-def test_old_selector_absent_from_markup(tab_case):
-    """Старый класс `.tab` не должен остаться ни на одной кнопке."""
-    assert tab_case["before"]["count_old"] == 0, (
-        f"{tab_case['page']}: старый {OLD_TAB} ещё встречается в разметке — "
-        f"переименование не доведено до конца")
-
-
-def test_container_renamed(tab_case):
-    """Контейнер переименован в `.tr-tabs`, старый `.tabs` не остался.
-
-    Контейнер проверяется отдельно от вкладок: если переименовать только
-    кнопки, разметка соберётся, но `flex` перестанет применяться, и ряд
-    вкладок развалится. Снапшот это поймает, а тест — точнее.
+    Отдельная фикстура, а не флаг в tab_case: assertions должны
+    утверждать что-то на КАЖДОМ прогоне, а не молча пропускать страницу
+    без ARIA. Trends таких атрибутов и панелей не имеет вовсе
+    (docs/trends.html:376-378 — голые кнопки), поэтому его глубокая
+    проверка не имеет предмета.
     """
-    b = tab_case["before"]
-    assert b["tabs_count"] == 1, (
-        f"{tab_case['page']}: {TABS} нашёл {b['tabs_count']} контейнеров, "
-        f"ожидался 1")
-    assert b["tabs_count_old"] == 0, (
-        f"{tab_case['page']}: старый {OLD_TABS} ещё есть — flex-раскладка "
-        f"контейнера перестанет применяться")
+    engine = request.param
+    cfg = PAGES[0]  # interactions
+    _check_server()
+    browser = _launch(pw, engine)
+    ctx, page = _open_page(browser, cfg)
+    try:
+        before = page.evaluate(SNAP_JS, {"sel": cfg["tabs"],
+                                         "attr": cfg["attr"]})
+        _click_tab(page, cfg)
+        after = page.evaluate(SNAP_JS, {"sel": cfg["tabs"],
+                                        "attr": cfg["attr"]})
+        yield {"engine": engine, "cfg": cfg, "before": before, "after": after}
+    finally:
+        ctx.close()
+        browser.close()
+
+
+# ── 6 проверок на пару движок × страница = 24 ──
+
+
+def test_selector_finds_all_tabs(tab_case):
+    """Селектор находит все кнопки вкладок — счёт верный.
+
+    interactions: 4 кнопки (docs/interactions.html:285-288), селектор
+    `.tr-tabs [role="tab"]` — тот же, что у самого JS
+    (docs/interactions.html:427, :445). trends: 3 кнопки
+    (docs/trends.html:376-378), селектор `.tr-tab` — тот же, что у
+    setTab (docs/trends.html:502). Если селектор в JS разошёлся с
+    разметкой, querySelectorAll вернёт меньше кнопок или пусто.
+    """
+    d = tab_case
+    got = len(d["before"]["tabs"])
+    assert got == d["cfg"]["n_tabs"], (
+        f"{d['cfg']['page']} / {d['engine']}: {d['cfg']['tabs']} нашёл "
+        f"{got} кнопок, ожидалось {d['cfg']['n_tabs']}")
+
+
+def test_selector_finds_expected_modes(tab_case):
+    """Найдены именно те вкладки, которыми различает обработчик.
+
+    Атрибуты — это то, чем setMode/setTab отличают одну вкладку от
+    другой (docs/interactions.html:428, :447; docs/trends.html:486,
+    :502): data-mode=graph|mech|sups|drugs на interactions
+    (docs/interactions.html:285-288), data-tab=growth|wiki|citations на
+    trends (docs/trends.html:376-378). Пустое или чужое значение
+    означает, что клик по вкладке уйдёт в несуществующий режим.
+    """
+    d = tab_case
+    modes = [t["mode"] for t in d["before"]["tabs"]]
+    assert None not in modes, (
+        f"{d['cfg']['page']}: у части вкладок нет data-{d['cfg']['attr']}: "
+        f"{modes} — обработчик не сможет определить, какой режим открыть")
+    assert set(modes) == set(d["cfg"]["modes"]), (
+        f"{d['cfg']['page']}: состав вкладок {modes}, ожидался "
+        f"{sorted(d['cfg']['modes'])}")
+
+
+def test_default_active_tab(tab_case):
+    """По умолчанию активна первая вкладка: graph на interactions, growth на trends.
+
+    На interactions класса `active` в разметке кнопок нет — его ставит
+    только setMode при загрузке (docs/interactions.html:430, начальный
+    вызов :474, default 'graph' :415-418). То есть эта проверка заодно
+    доказывает, что JS-обработчик дошёл до вкладок. На trends класс `on`
+    стоит прямо в разметке (docs/trends.html:376), и проверка фиксирует
+    разметку; что JS его переключает — доказывает следующий тест.
+    """
+    d = tab_case
+    state = d["cfg"]["state"]
+    active = [t["mode"] for t in d["before"]["tabs"]
+              if _is_active(t, state)]
+    assert active == [d["cfg"]["first"]], (
+        f"{d['cfg']['page']} / {d['engine']}: до клика активны {active}, "
+        f"ожидалась только {d['cfg']['first']!r} — класс состояния "
+        f".{state} не в порядке")
+
+
+def test_click_switches_active_tab(tab_case):
+    """ГЛАВНАЯ ПРОВЕРКА: клик переносит класс состояния на другую вкладку.
+
+    Именно её отсутствие в v5.4.0 скрывало поломку: страница выглядела
+    правильно, а кнопка ничего не делала, потому что обработчик
+    навешивался на селектор, которого в разметке больше не было
+    (docs/interactions.html:445-449; docs/trends.html:485-486).
+    """
+    d = tab_case
+    state = d["cfg"]["state"]
+    by_mode = {t["mode"]: t for t in d["after"]["tabs"]}
+    got_new = by_mode.get(d["cfg"]["second"])
+    assert got_new is not None, (
+        f"{d['cfg']['page']}: вкладка {d['cfg']['second']!r} исчезла из "
+        f"{d['cfg']['tabs']} после клика")
+    assert _is_active(got_new, state), (
+        f"{d['cfg']['page']} / {d['engine']}: клик по "
+        f"data-{d['cfg']['attr']}={d['cfg']['second']!r} не поставил "
+        f".{state} (className={got_new['cls']!r}) — обработчик стал no-op: "
+        f"его селектор разошёлся с разметкой")
+    got_old = by_mode.get(d["cfg"]["first"])
+    assert got_old is not None and not _is_active(got_old, state), (
+        f"{d['cfg']['page']}: .{state} остался на {d['cfg']['first']!r} "
+        f"(className={got_old and got_old['cls']!r}) — две вкладки "
+        f"выглядят активными, переключение превратилось в залипание")
+    actives = [t["mode"] for t in d["after"]["tabs"] if _is_active(t, state)]
+    assert actives == [d["cfg"]["second"]], (
+        f"{d['cfg']['page']}: после клика активны {actives}, ровно одна "
+        f"ожидалась: {d['cfg']['second']!r}")
+
+
+def test_old_selectors_absent(tab_case):
+    """Старые селекторы не должны остаться в разметке как элементы.
+
+    На interactions #int-graph и .int-layout дожили только в мёртвом
+    <style> (docs/interactions.html:101-148) — ни одного элемента; класс
+    .tr-tab заменён на [role="tab"] (docs/interactions.html:285-288), и
+    остаток .tr-tab дал бы вкладкам двойную стилизацию: CSS-правило
+    .tr-tab (docs/style.css:1074) применялось бы к одним кнопкам, а
+    .tr-tabs [role="tab"] (docs/style.css:2521) — к другим. На trends
+    актуальны классы v5.4.1 `.tr-tab`; возврат старых имён .tab/.tabs
+    означал бы откат переименования.
+    """
+    d = tab_case
+    for sel, got in d["before"]["old"].items():
+        assert got == 0, (
+            f"{d['cfg']['page']}: старый селектор {sel} нашёл {got} "
+            f"элементов — переименование не доведено до конца")
 
 
 def test_tab_geometry(tab_case):
-    """Кнопка имеет ненулевую геометрию и держит минимальные 44 px.
+    """Вкладка имеет ненулевую геометрию и держит минимальные 44 px.
 
-    Высота 44 px — не украшение: она задаётся правилом
-    `.preset, .tr-tab { min-height: 44px }` и является порогом WCAG 2.5.8.
-    Съехавший селектор оставил бы кнопку ниже порога, и это не видно ни
-    на одном снимке — вкладки просто стали бы мельче.
+    Высота 44 px задаётся базовым правилом `button { min-height: 44px }`
+    (docs/style.css:361) и является порогом WCAG 2.5.8; правила вкладок
+    (docs/style.css:2521, docs/trends.html:74) min-height не
+    переопределяют. Схлопнувшаяся или мелкая кнопка не видна ни на одном
+    снимке как регрессия селектора — она просто станет меньше.
+    Замер 2026-10-18: у всех вкладок ровно 44 px на обоих движках.
     """
-    w, h = tab_case["before"]["box"]
-    assert w > 0 and h > 0, f"{tab_case['page']}: геометрия {w}x{h} px"
-    assert h >= MIN_TAB_HEIGHT, (
-        f"{tab_case['page']}: высота вкладки {h} px < {MIN_TAB_HEIGHT} px — "
-        f"правило класса не применилось")
+    d = tab_case
+    for t in d["before"]["tabs"]:
+        assert t["w"] > 0 and t["h"] >= MIN_TAB_HEIGHT, (
+            f"{d['cfg']['page']}: вкладка {t['mode']!r} имеет геометрию "
+            f"{t['w']}x{t['h']} px (нужно ширина > 0, высота >= "
+            f"{MIN_TAB_HEIGHT})")
 
 
-def test_state_class_present_before_click(tab_case):
-    """До клика у одной вкладки есть класс состояния."""
-    state = tab_case["state_cls"]
-    assert any(state in c for c in tab_case["before"]["names"]), (
-        f"{tab_case['page']}: до клика нет .{state} в "
-        f"{tab_case['before']['names']}")
+# ── 2 проверки на движок (interactions) = 4 ──
 
 
-def test_click_switches_state(tab_case):
-    """ГЛАВНАЯ ПРОВЕРКА: клик переносит класс состояния на другую вкладку.
+def test_aria_selected_and_tabindex_track_active(int_case):
+    """aria-selected и tabindex согласованы с активной вкладкой.
 
-    Именно её не было в проекте, и именно её отсутствие скрывало поломку
-    с `dataset.tab`: страница выглядела правильно, а кнопка не работала.
+    Разворачивается отдельно от классов, потому что aria-selected — это
+    не просто «атбут есть»: он управляет и цветом (атрибутный селектор
+    docs/style.css:2533-2538), и клавиатурой. roving tabindex (у
+    активной 0, у остальных -1, docs/interactions.html:431-432) —
+    единственный способ добраться до вкладок с клавиатуры по WAI-ARIA
+    tabs pattern; без него Tab застревает на первой кнопке. Начальная
+    разметка — docs/interactions.html:285-288, пересчёт —
+    docs/interactions.html:427-433.
     """
-    state = tab_case["state_cls"]
-    got = tab_case["after"].get(tab_case["second"], "")
-    assert state in got, (
-        f"{tab_case['page']} / {tab_case['engine']}: клик по "
-        f"{tab_case['data_attr']}={tab_case['second']!r} не поставил .{state}; "
-        f"className={got!r}. Селектор обработчика разошёлся с разметкой — "
-        f"клик стал no-op.")
+    d = int_case
+    state = d["cfg"]["state"]
+    for label, snap, want in (("до клика", d["before"], d["cfg"]["first"]),
+                              ("после клика", d["after"], d["cfg"]["second"])):
+        for t in snap["tabs"]:
+            active = _is_active(t, state)
+            assert t["aria"] in ("true", "false"), (
+                f"interactions / {d['engine']}: {label} aria-selected у "
+                f"{t['mode']!r} = {t['aria']!r} — атрибут пропал")
+            assert t["tabindex"] in ("0", "-1"), (
+                f"interactions / {d['engine']}: {label} tabindex у "
+                f"{t['mode']!r} = {t['tabindex']!r} — roving tabindex сломан")
+            assert (t["aria"] == "true") == active == (t["tabindex"] == "0"), (
+                f"interactions / {d['engine']}: {label} вкладка {t['mode']!r}"
+                f": класс={t['cls']!r}, aria-selected={t['aria']!r}, "
+                f"tabindex={t['tabindex']!r} — три признака активности "
+                f"разошлись, клавиатурщик попадёт не на ту вкладку")
+        selected = [t["mode"] for t in snap["tabs"] if t["aria"] == "true"]
+        assert selected == [want], (
+            f"interactions / {d['engine']}: {label} aria-selected=true у "
+            f"{selected}, ожидалась только {want!r}")
 
 
-def test_click_clears_previous_state(tab_case):
-    """Клик снимает класс состояния с прежней вкладки — переключение, а не залипание."""
-    state = tab_case["state_cls"]
-    got = tab_case["after"].get(tab_case["first"])
-    assert got is not None, (
-        f"{tab_case['page']}: вкладка {tab_case['first']!r} исчезла из "
-        f"{TAB} после клика")
-    assert state not in got, (
-        f"{tab_case['page']}: .{state} остался на {tab_case['first']!r} "
-        f"(className={got!r}) — две вкладки выглядят активными")
+def test_panel_follows_active_tab(int_case):
+    """Панель активной вкладки показана, остальные скрыты — до и после клика.
 
-
-def test_computed_background_applied(tab_case):
-    """Фон посчитан браузером, то есть правило класса действительно совпало.
-
-    Проверка на вычисленные значения, а не на наличие класса: класс в
-    разметке есть и при съехавшем селекторе, а вот совпадение правил —
-    нет. Различает «переименовали» и «сломали раскладку».
-
-    Сравнивается пара (backgroundColor, backgroundImage), потому что у
-    активной вкладки фон — градиент, а градиент живёт в background-image,
-    и один только backgroundColor для него прозрачен. Первая версия этой
-    проверки смотрела лишь на цвет: на здоровой странице она проходила
-    только потому, что первой оказывалась неактивная вкладка. См.
-    `_bg_signature`.
+    Панели: docs/interactions.html:292 (panel-graph, class="active" в
+    разметке), :315, :335, :353. setMode переключает и класс, и
+    свойство hidden (docs/interactions.html:434-437); CSS держит
+    видимость на классе: `[data-panel] { display: none }` /
+    `[data-panel].active { display: block }` (docs/style.css:2548-2549).
+    Проверяются оба признака плюс вычисленный display: так ловится и
+    расхождение JS с разметкой, и случай, когда [hidden] перебит
+    авторским CSS — класс остался, а панель видна насквозь.
     """
-    sig = tuple(tab_case["bg"])
-    assert sig != NO_BACKGROUND and _has_visible_background(sig), (
-        f"{tab_case['page']}: фон прозрачен ({sig}) — правило класса не "
-        f"применилось")
-
-
-def test_computed_font_size_from_rule(tab_case):
-    """Размер шрифта задан правилом класса, а не базовым 16 px.
-
-    Обе страницы задают свой кегль в правиле вкладки (`.9rem` и `.92rem`),
-    поэтому 16 px означало бы, что селектор не совпал.
-    """
-    assert tab_case["font"] != "16px", (
-        f"{tab_case['page']}: шрифт 16 px — правило класса не применилось")
-
-
-def test_data_attribute_intact(tab_case):
-    """Атрибут переключения цел и не был переименован вместе с классом.
-
-    Отдельная проверка потому, что `.tab` и `data-tab` выглядят
-    одинаково, а ведут себя по-разному: замена `.tab` в `dataset.tab`
-    ломает чтение атрибута, и вкладки перестают переключаться при
-    полностью зелёном снимке. На `trends.html` такой вход ровно один.
-    """
-    values = tab_case["before"]["by_attr"]
-    assert all(values), (
-        f"{tab_case['page']}: пустой {tab_case['data_attr']} у части вкладок: "
-        f"{values}")
-    assert len(values) == tab_case["n_tabs"], (
-        f"{tab_case['page']}: {tab_case['data_attr']} прочитан у "
-        f"{len(values)} кнопок из {tab_case['n_tabs']}")
-
-
-# ── 1 проверка на движок = 2 ──
-
-def test_selector_by_data_attribute_counts(engine_only):
-    """Селектор по атрибуту находит ровно нужное число кнопок.
-
-    На обеих страницах сразу: атрибут — это то, чем обработчик различает
-    вкладки, и его поломка выглядит как «кнопки есть, но ничего не
-    происходит». Проверяется на каждом движке, потому что разбор
-    атрибутов у WebKit и Chromium — независимый код.
-    """
-    _check_server()
-    browser = engine_only["browser"]
-    ctx = browser.new_context(viewport={"width": 1280, "height": 900})
-    page = ctx.new_page()
-    try:
-        for page_name, _s, data_attr, _f, _sec, _n, n_by_attr in PAGES:
-            page.goto(f"{BASE_URL}/{page_name}.html", wait_until="load")
-            page.wait_for_timeout(300)
-            got = len(page.query_selector_all("[" + data_attr + "]"))
-            assert got == n_by_attr, (
-                f"{page_name} / {engine_only['engine']}: селектор "
-                f"[{data_attr}] нашёл {got} кнопок, ожидалось {n_by_attr}")
-    finally:
-        ctx.close()
+    d = int_case
+    for label, snap, want in (("до клика", d["before"], d["cfg"]["first"]),
+                              ("после клика", d["after"], d["cfg"]["second"])):
+        panels = {p["name"]: p for p in snap["panels"]}
+        assert set(panels) == set(d["cfg"]["modes"]), (
+            f"interactions / {d['engine']}: {label} панели "
+            f"{sorted(panels)}, ожидался по одной на каждую вкладку "
+            f"{sorted(d['cfg']['modes'])}")
+        for name, p in panels.items():
+            if name == want:
+                assert ("active" in p["cls"].split()
+                        and not p["hidden"]
+                        and p["display"] != "none"), (
+                    f"interactions / {d['engine']}: {label} панель "
+                    f"{name!r} должна быть видимой (class={p['cls']!r}, "
+                    f"hidden={p['hidden']}, display={p['display']!r})")
+            else:
+                assert ("active" not in p["cls"].split()
+                        and p["hidden"]
+                        and p["display"] == "none"), (
+                    f"interactions / {d['engine']}: {label} панель "
+                    f"{name!r} должна быть скрытой (class={p['cls']!r}, "
+                    f"hidden={p['hidden']}, display={p['display']!r})")

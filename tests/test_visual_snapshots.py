@@ -28,13 +28,15 @@ WebKit (Safari iOS, Mobile Safari). Firefox отложен.
 Как запускать
 -------------
     python -m http.server 8000 --directory docs     # из корня репозитория
-    $env:RUN_SNAPSHOTS="1"; pytest -q -m snapshots   # проверка (76 тестов, ~4 мин)
+    pytest -q -m snapshots                          # проверка (76 тестов, ~4 мин)
     $env:UPDATE_SNAPSHOTS="1"; pytest -q -m snapshots   # перезаписать ВСЕ эталоны
     $env:UPDATE_SNAPSHOTS="modal-index,cookie-banner"; pytest -q -m snapshots
     python scripts/compress_snapshots.py --apply    # ужать эталоны (lossless)
 
-В addopts стоит `-m "not snapshots"`, поэтому обычный `pytest -q` снапшоты
-не запускает. Адрес сервера переопределяется: SNAPSHOT_BASE_URL=http://localhost:8020
+Гейт RUN_SNAPSHOTS удалён в v5.6.5 (tests/conftest.py): снапшоты собираются
+обычным `pytest -q` (полный прогон ~8-10 мин). Для быстрого прогона без
+браузера — `-m "not snapshots"`. Адрес сервера переопределяется:
+SNAPSHOT_BASE_URL=http://localhost:8020
 
 Обновление эталонов — поимённо (#98, F-18)
 -------------------------------------------
@@ -223,23 +225,20 @@ FULL_PAGE_CAP_PX = {"webkit": 32767}
 # Формат: (страница, ширина) -> (замеренная высота, причина).
 KNOWN_UNCOVERED = {
     ("index", 412): (
-        42937,
-        "index@412 = 42937 px при потолке webkit 32767 px. Обходится"
+        43019,
+        "index@412 = 43019 px при потолке webkit 32767 px. Обходится"
         " тайлами (clip + full_page): эталон webkit/index-412.png есть"
         " и проходит. Запись осталась гейтом высоты и страховкой на"
         " случай, если тайловая съёмка перестанет работать. В chromium"
         " та же страница снимается целиком (там потолка нет, поэтому"
         " гейт вызывается только под webkit)."
-        " Число перемерено 14.10.2026 (батч 8B, MKT-P1-03): прежняя"
-        " запись 42044 px была верна для v5.1.6, потом разошлась на 12 %"
-        " — гейт это поймал, — а к 14.10.2026 расхождение дошло до 1.7 %"
-        " при допуске 2 %, то есть запас был исчерпан. Добавление одного"
-        " пункта в #whyTrust (соцдоказательства, +160 px) перевело"
-        " расхождение за допуск: 2.1 %."
+        " Число перемерено 20.10.2026 (Хотфикс блока 7: убраны section"
+        " compareSection и блок heroCta с главной): прежняя запись"
+        " 43998 px (v5.6.5-dev до хотфикса) разошлась на 2.2 % — гейт"
+        " поймал. Предыдущий рост: 42937 px (v5.6.4) → 43998 px"
+        " (v5.6.5-dev, #whyTrust +160 px)."
         " Контрольная перекрёстная сверка: chromium снимает ту же"
-        " страницу целиком, эталон index-412.png = 42934 px — разница"
-        " 3 px, это та же постоянная разница движков, что и до правки"
-        " (42772 против 42776 на HEAD).",
+        " страницу целиком, эталон index-412.png = 42934 px.",
     ),
 }
 
@@ -433,23 +432,23 @@ def _check_server() -> None:
 
 
 @pytest.fixture(scope="session", params=BROWSERS, ids=lambda b: b)
-def browser(request):
+def browser(request, playwright_instance):
     """Движок Playwright. Параметризована, поэтому каждый тест, который
     берёт browser, прогоняется по всем движкам. Имя движка доступно как
     browser.name — по нему выбирается каталог эталонов."""
     engine = request.param
-    with playwright_api.sync_playwright() as pw:
-        try:
-            b = getattr(pw, engine).launch()
-        except Exception as exc:  # noqa: BLE001 — причина попадёт в текст skip
-            pytest.skip(f"{engine} не запускается: {exc}. "
-                        f"Поставь: playwright install {engine}")
-        # У Browser из sync_api нет .name/.browser_name, а имя движка нужно
-        # фикстуре snap_dir. Вешаем своё: у объекта нет __slots__, аутентичное
-        # поле Playwright не даёт.
-        b.engine = engine
-        yield b
-        b.close()
+    pw = playwright_instance
+    try:
+        b = getattr(pw, engine).launch()
+    except Exception as exc:  # noqa: BLE001 — причина попадёт в текст skip
+        pytest.skip(f"{engine} не запускается: {exc}. "
+                    f"Поставь: playwright install {engine}")
+    # У Browser из sync_api нет .name/.browser_name, а имя движка нужно
+    # фикстуре snap_dir. Вешаем своё: у объекта нет __slots__, аутентичное
+    # поле Playwright не даёт.
+    b.engine = engine
+    yield b
+    b.close()
 
 
 @pytest.fixture(scope="session")
@@ -977,6 +976,7 @@ def test_page_snapshot(_env_checked, browser, snap_dir, page_name, width, height
     ctx.add_init_script(CHART_PATCH_JS)
     ctx.add_init_script(CONSENT_INIT_JS)
     page = ctx.new_page()
+    page.emulate_media(reduced_motion="reduce")
     try:
         png = _capture(page, page_name, full_page=True)
     finally:
@@ -985,7 +985,7 @@ def test_page_snapshot(_env_checked, browser, snap_dir, page_name, width, height
 
 
 def test_modal_index_snapshot(_env_checked, browser, snap_dir):
-    """Модалка на index: самая частая точка отказа при смене токенов."""
+    """Карточка на index ведёт на sup/<id>.html (модалка убрана v5.6.5)."""
     ctx = browser.new_context(viewport={"width": 1280, "height": 900},
                               service_workers="block", reduced_motion="reduce",
                               color_scheme=COLOR_SCHEME)
@@ -993,6 +993,7 @@ def test_modal_index_snapshot(_env_checked, browser, snap_dir):
     ctx.add_init_script(CHART_PATCH_JS)
     ctx.add_init_script(CONSENT_INIT_JS)
     page = ctx.new_page()
+    page.emulate_media(reduced_motion="reduce")
     try:
         url = f"{BASE_URL}/index.html"
         _open(page, url)   # прогрев, см. п.5 в докстринге
@@ -1020,13 +1021,10 @@ def test_modal_index_snapshot(_env_checked, browser, snap_dir):
         card = page.locator("#cardsGrid .card").first
         card.scroll_into_view_if_needed()
         card.click()
-        page.wait_for_function(
-            "() => { const o = document.getElementById('modalOverlay');"
-            " return o && getComputedStyle(o).display !== 'none'"
-            " && !!document.querySelector('#modalBody h2'); }",
-            timeout=30_000)
+        # Клик по карточке ведёт на sup/<slug>.html вместо модалки (v5.6.5).
+        page.wait_for_url("**/sup/*.html", timeout=30_000)
+        page.wait_for_load_state("networkidle")
         page.wait_for_timeout(SETTLE_MS)
-        # Модалка — оверлей поверх вьюпорта, full_page здесь неуместен.
         png = page.screenshot(full_page=False)
     finally:
         ctx.close()
@@ -1066,6 +1064,7 @@ def test_cookie_banner_visible_first_visit(_env_checked, browser, snap_dir):
                               color_scheme=COLOR_SCHEME)
     ctx.add_init_script(CHART_PATCH_JS)
     page = ctx.new_page()
+    page.emulate_media(reduced_motion="reduce")
     yandex = []
     page.on("request",
             lambda r: yandex.append(r.url) if "mc.yandex.ru" in r.url else None)

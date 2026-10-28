@@ -39,6 +39,7 @@ import re
 import sys
 from collections import Counter
 from pathlib import Path
+from urllib.parse import quote
 
 from jinja2 import Environment, FileSystemLoader
 from markupsafe import Markup
@@ -106,8 +107,12 @@ TRANS = {
 # что и в .grade.gX: белый текст на них даёт 4.59-5.94:1, а бейджи в
 # одном ряду не различаются светлотой. Прежний комментарий про
 # расхождение палитр удалён вместе с самим расхождением.
-GRADE_COLORS = {"A": "#15803d", "B": "#4d7c0f", "C": "#b45309",
-                "D": "#b91c1c"}
+# v5.6.5 (V2-03): значения вынесены в токены style.css — те же четыре
+# цвета, что и в .grade.gX, но объявлены один раз. Инлайн-стиль бейджа
+# теперь ссылается на var(), поэтому палитра грейдов правится в одном
+# месте.
+GRADE_COLORS = {"A": "var(--grade-a-fill)", "B": "var(--grade-b-fill)",
+                "C": "var(--grade-c-fill)", "D": "var(--grade-d-fill)"}
 # Fallback рисуется с тем же белым текстом, поэтому серый #888888
 # (3.54:1) заменён на #4b5563 (7.48:1).
 GRADE_FALLBACK = "#4b5563"
@@ -174,6 +179,30 @@ def html_val(value) -> str:
 def json_val(value) -> Markup:
     """Значение для JSON-LD: экранирование строки JSON, а не HTML."""
     return Markup(json.dumps(text(value), ensure_ascii=False)[1:-1])
+
+
+def js_str(value) -> Markup:
+    """Строковый ЛИТЕРАЛ для встраиваемого JavaScript — кавычки внутри.
+
+    Отличие от json_val(): тот отдаёт содержимое строки без кавычек,
+    потому что вставляется в уже закавыченное место (JSON-LD, `"key": "…"`).
+    В JS-выражении `var name = {{ … }};` кавычки нужны, и раньше их не
+    было вовсе — в каждую из 131 страницы sup/ уезжал код
+
+        var url = https://deadsno.github.io/brain-25-evidence/sup/magniy.html;
+
+    то есть голый URL вне кавычек. Это SyntaxError, и он убивал весь
+    инлайновый <script> целиком (кнопки «Цитировать», «Прослушать»,
+    «Удиви меня» на странице не работали), при этом ни один тест не
+    падал: tests/test_js_syntax.py проверяет только docs/*.js, а не
+    скрипты внутри HTML.
+
+    `<`, `>` и `&` дополнительно уводятся в \\uXXXX: без этого строка,
+    содержащая `</script`, закрыла бы тег раньше времени.
+    """
+    s = json.dumps(text(value), ensure_ascii=False)
+    return Markup(s.replace("<", "\\u003c").replace(">", "\\u003e")
+                   .replace("&", "\\u0026"))
 
 
 def first_cap(s: str) -> str:
@@ -286,6 +315,14 @@ def build_context(rec: dict, slug: str, warnings: list[str]) -> dict:
             f"{GRADE_FALLBACK}. Проверь data.json: грейд вне A/B/C/D."
         )
 
+    hedges_g_raw = rec.get("hedges_g")
+    hedges_g_pct = None
+    if hedges_g_raw is not None:
+        try:
+            hedges_g_pct = round(abs(float(hedges_g_raw)) * 100, 1)
+        except (TypeError, ValueError):
+            hedges_g_pct = None
+
     mechs = []
     for m in (rec.get("mechs") or []):
         if not isinstance(m, (list, tuple)) or len(m) < 3:
@@ -335,6 +372,64 @@ def build_context(rec: dict, slug: str, warnings: list[str]) -> dict:
             "doi": raw_field(s.get("doi")),
         })
 
+    # PMID-мета для sup-страницы: счёток и первый PMID для поиска в PubMed.
+    pmid_count = len(sources)
+    pmid_first = sources[0]["pmid"] if sources else ""
+
+    # shop_query — только название, url-кодировано для поиска в магазинах.
+    # P2-05 (24.10.2026): раньше сюда добавлялась первая форма выпуска, и
+    # 130 sup-страниц искали не так, как главная (там — только название).
+    # Хуже: forms — редакторский текст, а не атрибут товара, и разрез по
+    # запятой рвал скобки — «Родиола экстракт (SHR-5» уходил в три магазина
+    # на 130 страницах. Единый запрос по названию совпадает с index.html и
+    # не угадывает форму за пользователя; форма остаётся подсказкой в
+    # shop_look_text («ищите форму X на этикетке»).
+    forms_list = rec.get("forms") or []
+    if isinstance(forms_list, str):
+        first_form = forms_list.split(",")[0].strip()
+    elif isinstance(forms_list, (list, tuple)):
+        first_form = str(forms_list[0]).split(",")[0].strip() if forms_list else ""
+    else:
+        first_form = ""
+    # FIX-39 (D2-04): forms в data.json теперь массив строк. Для страницы
+    # он нужен одной строкой через запятую - как было до перехода.
+    if isinstance(forms_list, (list, tuple)):
+        forms_text = ", ".join(str(x) for x in forms_list)
+    else:
+        forms_text = str(forms_list)
+    shop_query = quote((text(rec.get("name")) or "").strip())
+    # FIX-75: это строки интерфейса, а не данные, поэтому переводить их
+    # обязан i18n.js. Готовая разметка кладётся прямо в контекст: autoescape
+    # у шаблона выключен намеренно (см. make_env), значит data-i18n-* дойдёт
+    # до страницы как есть. Видимый русский текст при этом остаётся
+    # байт-в-байт прежним — иначе поехали бы визуальные эталоны.
+    if first_form:
+        look_vars = json.dumps({"form": first_form}, ensure_ascii=False).replace("'", "&#39;")
+        shop_look_text = ('<span data-i18n-text="sup.lookForForm" data-i18n-vars=\''
+                          + look_vars + "'>"
+                          + "Ищите форму «" + first_form + "» на этикетке, проверяйте дозировку и наличие сертификата качества (GMP/ISO)."
+                          + "</span>")
+    else:
+        shop_look_text = ('<span data-i18n-text="sup.lookForGeneric">'
+                          "Проверяйте дозировку на этикетке и наличие сертификата качества (GMP/ISO)."
+                          "</span>")
+
+    # unknowns — причины неопределённости для блока «Что мы не знаем».
+    unknowns = []
+    if not forms_list:
+        unknowns.append('<span data-i18n-text="sup.noFormsData">Нет данных о формах выпуска.</span>')
+    if pmid_count <= 2:
+        # В данных встречаются только 1 и 2, но 0 тоже возможен: форма
+        # единственного числа зависит от числа, поэтому две отдельные строки.
+        few_key = "sup.fewSourcesOne" if pmid_count == 1 else "sup.fewSourcesMany"
+        few_word = "источник" if pmid_count == 1 else "источников"
+        unknowns.append(
+            '<span data-i18n-text="%s" data-i18n-vars=\'{"n": "%d"}\'>'
+            "Мало подтверждений в PubMed (%d %s).</span>"
+            % (few_key, pmid_count, pmid_count, few_word)
+        )
+    unknowns_text = " ".join(unknowns)
+
     # Мета собирается из неэкранированных значений и экранируется
     # целиком, один раз. Иначе склейка «Грейд A: 7 мета-анализов» с
     # ampersand-полем дала бы двойное экранирование на границе.
@@ -342,9 +437,25 @@ def build_context(rec: dict, slug: str, warnings: list[str]) -> dict:
     seo_name = raw_field(rec.get("name"))
     seo_effect = raw_field(effects_list[0] if effects_list else "")
 
+    # shop_query в карточке каталога — та же формула, что и на странице:
+    # только название (P2-05). Иначе две ветки сборки давали бы разные
+    # ссылки на один и тот же товар.
+    _shop_query = quote((rec.get("name") or "").strip())
+    _pmid_count = len(sources)
+    _pmid_first = sources[0]["pmid"] if sources else ""
+    _unknowns_reasons = []
+    if not rec.get("forms"):
+        _unknowns_reasons.append("нет данных о формах выпуска")
+    if len(sources) > 0 and len(sources) < 3:
+        _unknowns_reasons.append("мало подтвержденных источников (" + str(len(sources)) + ")")
+    _unknowns_text = " ".join(_unknowns_reasons)
+
     return {
         "name": html_val(rec.get("name")),
         "slug": slug,
+        # FIX-77: id нужен английскому оверлею на клиенте — sup-страница
+        # статическая, а data_en.json ключуется русским id карточки.
+        "id": html_val(rec.get("id")),
         "url": f"{BASE_URL}/sup/{slug}.html",
         "base_url": BASE_URL,
         "about": html_val(rec.get("about")),
@@ -358,12 +469,15 @@ def build_context(rec: dict, slug: str, warnings: list[str]) -> dict:
         "verdict": html_val(rec.get("verdict")),
         "grade": html_val(grade),
         "grade_color": color,
+        "hedges_g": rec.get("hedges_g"),
+        "hedges_g_pct": hedges_g_pct,
         "who_needs": html_val(rec.get("who_needs")),
         "onset": html_val(rec.get("onset")),
         "scienceIndex": html_val(rec.get("scienceIndex")),
         "rct": html_val(rec.get("rct")),
         "metaCount": html_val(rec.get("metaCount")),
         "effects": [html_val(e) for e in (rec.get("effects") or [])],
+        "effects_json": json.dumps([html_val(e) for e in (rec.get("effects") or [])], ensure_ascii=False),
         "mechs": mechs,
         "dosage": html_val(rec.get("dosage")),
         "course": html_val(rec.get("course")),
@@ -374,10 +488,16 @@ def build_context(rec: dict, slug: str, warnings: list[str]) -> dict:
         "no_interactions": no_inter,
         "inter_note_cap": first_cap(note),
         "key_sources": sources,
+        "pmid_count": _pmid_count,
+        "pmid_first": _pmid_first,
+        "shop_query": _shop_query,
+        "shop_look_text": "Обратите внимание на форму выпуска, дозировку и сертификаты качества перед покупкои.",
+        "unknowns_text": _unknowns_text,
+        "unknowns": bool(_unknowns_text),
         "how_to_choose": html_val(rec.get("how_to_choose")),
         # #40: формы выпуска. Пустая строка при отсутствии данных —
         # в шаблоне блок гасится через {% if forms %}, а не заглушкой.
-        "forms": html_val(rec.get("forms")) if rec.get("forms") else "",
+        "forms": html_val(forms_text) if forms_text else "",
         "food_sources": html_val(rec.get("food_sources")),
         "guidelines": html_val(rec.get("guidelines")),
         # На пяти существующих страницах стоит MedicalWebPage.
@@ -387,6 +507,13 @@ def build_context(rec: dict, slug: str, warnings: list[str]) -> dict:
         # Отдельные значения для JSON-LD: там нужно экранирование JSON,
         # а не HTML, иначе &gt; внутри JSON-строки испортит файл.
         "name_j": json_val(rec.get("name")),
+        # Строковые литералы для встраиваемого JS: с кавычками и с
+        # уводом `<`/`>`/`&`, чтобы содержимое нельзя было вынести из
+        # <script> и чтобы `var name = …` был валидным JS. Раньше здесь
+        # стоял name_j без кавычек и голый url — оба давали SyntaxError
+        # в каждой из 131 страницы (см. js_str в этом файле).
+        "name_js": js_str(rec.get("name")),
+        "url_js": js_str(f"{BASE_URL}/sup/{slug}.html"),
         # JSON-LD description — дословная копия meta/og description, тот же
         # канон, что завели для og:* и twitter:* в MKT-P2-09/10. Раньше здесь
         # стояло about_j (сырое поле about), из-за чего на 94 страницах из 144
@@ -398,6 +525,12 @@ def build_context(rec: dict, slug: str, warnings: list[str]) -> dict:
         "description_j": json_val(seo_description(rec)),
         "about_j": json_val(rec.get("about")),
         "category_j": json_val(rec.get("category")),
+        "pmid_count": pmid_count,
+        "pmid_first": pmid_first,
+        "shop_query": shop_query,
+        "shop_look_text": shop_look_text,
+        "unknowns": unknowns,
+        "unknowns_text": unknowns_text,
     }
 
 
@@ -467,18 +600,19 @@ def build_index_context(by_slug: dict[str, dict], warnings: list[str]) -> dict:
                 f"{slug}: грейд {grade!r} вне {GRADE_ORDER} — на карточке "
                 f"не будет класса .grade.gX. Проверь data.json."
             )
-        raw.append((name, slug, category, verdict, grade, code))
+        raw.append((name, slug, category, verdict, grade, code, text(rec.get("id")) or name))
 
     raw.sort(key=lambda row: (row[0], row[1]))
 
     cards = []
-    for name, slug, category, verdict, grade, code in raw:
+    for name, slug, category, verdict, grade, code, cid in raw:
         # hay — то, по чему ищет поле фильтра на странице. Строится из
         # сырых строк и приводится в нижний регистр, потому что сравнение
         # в браузере тоже в нижнем регистре (toLowerCase).
         hay = " ".join((name, category, verdict, grade)).lower()
         cards.append({
             "slug": slug,
+            "id": html_val(cid),
             "name": html_val(name),
             "category": html_val(category),
             "verdict": html_val(verdict),

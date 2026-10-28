@@ -61,16 +61,19 @@ ROOT = Path(__file__).resolve().parents[1] / "docs"
 CONTENT_PAGES = (
     "atlas.html",
     "calculator.html",
+    "compare.html",
     "faq.html",
     "feedback.html",
     "glossary.html",
     "graph.html",
+    "hactar.html",
     "index.html",
     "interactions.html",
     "map.html",
     "methodology.html",
     "privacy.html",
     "support.html",
+    "terms-of-use.html",
     "trends.html",
 )
 
@@ -81,6 +84,9 @@ EXCLUDED_PAGES = {
                     "SEO-теги в ней не выводятся by design",
     "google4a9d23e35c6c3e23.html": "файл верификации Google Search Console — "
                                   "мета-теги туда не пишутся никогда",
+    "404.html": "служебная страница GitHub Pages, отдаётся только на несуществующие "
+                "URL и не индексируется поисковым ботом (robots noindex); "
+                "SEO-теги не требуются",
 }
 
 # Канон: какие теги обязаны быть и чему равны.
@@ -269,6 +275,21 @@ ALL_PAGES = sorted(
     p.relative_to(ROOT).as_posix() for p in ROOT.rglob("*.html")
 )
 
+# Страницы без JSON-LD. Раньше тест ниже скипался со словами «проверка не
+# применима», и в обычном прогоне это выглядело как успех — ровно та ловушка,
+# из-за которой скипы перестают читать. Теперь отсутствие разметки допустимо
+# ТОЛЬКО для явного списка: compare.html (собирается из data.json без
+# статического текста), google4a9d23e35c6c3e23.html (подтверждение владения
+# поисковиком), offline.html (служебная страница service worker) и 404.html
+# (служебная страница GitHub Pages). Появление новой страницы без разметки —
+# падение, а не скип.
+NO_JSONLD_PAGES = frozenset({
+    "compare.html",
+    "google4a9d23e35c6c3e23.html",
+    "offline.html",
+    "404.html",
+})
+
 
 @pytest.mark.parametrize("name", ALL_PAGES)
 def test_jsonld_description_mirrors_meta(name: str) -> None:
@@ -287,7 +308,11 @@ def test_jsonld_description_mirrors_meta(name: str) -> None:
     html = (ROOT / name).read_text(encoding="utf-8")
     descriptions = _top_level_jsonld_descriptions(html)
     if not descriptions:
-        pytest.skip(f"{name}: разметки JSON-LD нет (проверка не применима)")
+        assert name in NO_JSONLD_PAGES, (
+            f"{name}: нет JSON-LD, и страницы нет в NO_JSONLD_PAGES. "
+            f"Либо добавьте разметку, либо обоснуйте исключение в списке."
+        )
+        return
     meta = _meta_map(html).get("description")
     bad = [d for d in descriptions if d != meta]
     assert not bad, (

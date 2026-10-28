@@ -68,18 +68,25 @@ EXCLUDED_PREFIXES = ("google",)
 # Порядок списка = порядок в sitemap.xml.
 ROOT_PAGES: list[tuple[str, str, str]] = [
     ("index.html", "weekly", "1.0"),
-    ("calculator.html", "weekly", "0.9"),
+    # v5.6.5 (A-2): Project Hactar — единая страница со связями, калькулятором
+    # и сравнением. До сих пор её в sitemap не было вовсе, поэтому краулер
+    # её не видел.
+    ("hactar.html", "weekly", "0.9"),
     ("trends.html", "weekly", "0.9"),
-    ("map.html", "weekly", "0.8"),
-    ("interactions.html", "weekly", "0.8"),
-    ("graph.html", "weekly", "0.8"),
-    ("atlas.html", "weekly", "0.8"),
+    # v5.6.5 (A-2): calculator.html, map.html, interactions.html и compare.html
+    # выведены — все четыре стали страницами-редиректами на hactar.html.
+    # Редирект в sitemap не место: поисковику нужен конечный адрес, а не
+    # 0-секундный мета-рефреш, иначе обе вкладки конкурируют за один и тот
+    # же контент. То же и для graph.html / atlas.html, выведенных раньше.
     ("methodology.html", "monthly", "0.6"),
     ("faq.html", "monthly", "0.6"),
     ("glossary.html", "monthly", "0.5"),
     ("feedback.html", "monthly", "0.4"),
     ("support.html", "monthly", "0.3"),
     ("privacy.html", "monthly", "0.3"),
+    # v5.6.5 FIX-55 (L2-01): условия использования и лицензия на данные
+    # (CC BY 4.0). Меняется редко — yearly с тем же весом, что у приватности.
+    ("terms-of-use.html", "yearly", "0.3"),
 ]
 
 # Каталог секции добавок — вузел над карточками, поэтому выше их.

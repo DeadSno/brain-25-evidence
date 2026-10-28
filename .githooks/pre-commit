@@ -1,12 +1,12 @@
 #!/bin/sh
 # brain-25-evidence: pre-commit hook
-# ?????? pytest ??? network-??????. ???? ??????? ? ?????? ??????????.
-# ??????: git commit --no-verify
+# Отключаем сетевые тесты pytest, чтобы коммит не зависел от внешних сервисов.
+# Обойти: git commit --no-verify
 
 ROOT="$(git rev-parse --show-toplevel)"
 cd "$ROOT" || exit 1
 
-# ???? python ? venv (Windows ??? Unix), fallback ? ?????????
+# Ищем python в venv (Windows или Unix), fallback в системный
 PY=""
 for candidate in ".venv/Scripts/python.exe" ".venv/bin/python" "python3" "python"; do
     if command -v "$candidate" >/dev/null 2>&1 || [ -x "$candidate" ]; then
@@ -16,7 +16,7 @@ for candidate in ".venv/Scripts/python.exe" ".venv/bin/python" "python3" "python
 done
 
 if [ -z "$PY" ]; then
-    echo "pre-commit: python ?? ??????, ????????? ?????"
+    echo "pre-commit: python не найден, пропускаю тесты"
     exit 0
 fi
 
@@ -136,6 +136,26 @@ echo "-> build_interactions_graph.py / build_timeseries.py"
 }
 git add docs/interactions_graph.json docs/timeseries.json
 
+# --- граф: --check генераторов (PAGES_REVIEW п.20, 2026-10-17) -------------
+# build_graph_data.py и build_graph_positions.py — детерминированные
+# генераторы артефактов графа. --check не пишет, только сверяет с текущим
+# файлом и выходит с кодом 1 при расхождении. Работают на закоммиченных
+# data.json / effect_tags.json / graph_mech_edges.json. Не требуют git add:
+# вывод --check не меняет файлы, а только валидирует.
+echo "-> build_graph_data.py --check / build_graph_positions.py --check"
+"$PY" scripts/build_graph_data.py --check || {
+    echo ""
+    echo "GRAPH_DATA CHECK FAILED. docs/graph_data.json не совпадает с генератором."
+    echo "Запусти python scripts/build_graph_data.py и закоммить результат."
+    exit 1
+}
+"$PY" scripts/build_graph_positions.py --check || {
+    echo ""
+    echo "GRAPH_POSITIONS CHECK FAILED. docs/graph_positions.json не совпадает с генератором."
+    echo "Запусти python scripts/build_graph_positions.py и закоммить результат."
+    exit 1
+}
+
 # --- sitemap check внутри hook (v5.6.2, 2026-10-08) ---------------------------
 # test_real_docs_sitemap_is_current ИСКЛЮЧЁН из прогона hook намеренно. Тест
 # вызывает build_sitemap.py --check, который индекс игноририрует by design и
@@ -160,8 +180,16 @@ git add docs/interactions_graph.json docs/timeseries.json
 #
 # Строка -m сохранена без изменений: tests/test_precommit_hook.py:57 требует
 # наличие "not network and not snapshot_data" в тексте этого хука.
-echo "-> pytest -q -m 'not network and not snapshot_data' -k 'not real_docs_sitemap_is_current and not live_docs_feed_is_current'"
-"$PY" -m pytest -q -m "not network and not snapshot_data" -k "not real_docs_sitemap_is_current and not live_docs_feed_is_current" --no-header 2>&1
+# v5.6.5: из фильтра убраны тяжёлые браузерные маркеры. Раньше они не попадали
+# в прогон сами — их снимал с коллекции tests/conftest.py по переменным
+# RUN_SNAPSHOTS/RUN_A11Y/RUN_TABS/RUN_GRAPH/RUN_MOBILE/RUN_E2E. Гейты удалены,
+# и обычный `pytest -q` стал запускать всё (~10 минут): для commit hook это
+# неприемлемо. Браузерные тесты остаются в `pytest -q` и в CI — hook их не гоняет,
+# чтобы коммит не занимал десять минут и не зависел от запущенного Chromium.
+# Подстрока "not network and not snapshot_data" сохранена: её проверяет
+# tests/test_precommit_hook.py (HOOK_FILTER).
+echo "-> pytest -q -m 'not network and not snapshot_data and not (snapshots or a11y or tabs or graph or mobile375 or e2e)' -k 'not real_docs_sitemap_is_current and not live_docs_feed_is_current'"
+"$PY" -m pytest -q -m "not network and not snapshot_data and not (snapshots or a11y or tabs or graph or mobile375 or e2e)" -k "not real_docs_sitemap_is_current and not live_docs_feed_is_current" --no-header 2>&1
 RC=$?
 
 if [ $RC -ne 0 ]; then

@@ -14,11 +14,19 @@
     <meta property="og:description" content="Каталог из 130 БАД: название, категория, ведикт и грейд доказательности A-D. Карточка ведёт на страницу добавки с механизмами и дозировкой.">
     <meta property="og:image" content="https://deadsno.github.io/brain-25-evidence/og.png">
     <meta property="og:site_name" content="Brain 25 Evidence">
+<meta property="og:locale" content="ru_RU">
     <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Каталог БАДов: 130 добавок — Brain 25 Evidence">
+    <meta name="twitter:description" content="Каталог из 130 БАД: название, категория, ведикт и грейд доказательности A-D. Карточка ведёт на страницу добавки с механизмами и дозировкой.">
+    <meta name="twitter:image" content="https://deadsno.github.io/brain-25-evidence/og.png">
     <link rel="manifest" href="../manifest.webmanifest">
     <meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
     <meta name="theme-color" content="#1c1c1e" media="(prefers-color-scheme: dark)">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="БАДы">
     <link rel="apple-touch-icon" href="../icons/192.png">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
     <script>
     try {
       if (localStorage.getItem('theme') === 'light') {
@@ -26,11 +34,11 @@
       }
     } catch(e) {}
     </script>
-    <link rel="stylesheet" href="../style.css?v=435">
-    <script src="../version.js?v=312"></script>
-    <script src="../i18n.js?v=2"></script>
-    <script src="../pwa.js?v=282" defer></script>
-    <script src="../share.js?v=1" defer></script>
+    <link rel="stylesheet" href="../style.min.css?v=464">
+    <script src="../version.js?v=312" defer></script>
+    <script src="../i18n.js?v=15" defer></script>
+    <script src="../pwa.js?v=283" defer></script>
+    <script src="../share.js?v=2" defer></script>
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -76,42 +84,45 @@
     </style>
 </head>
 <body>
-<a href="#main" class="skip-link">Перейти к содержимому</a>
+<a href="#main" class="skip-link" data-i18n-text="a11y.skipToContent">Перейти к содержимому</a>
 
 <div class="site-header">
-  <div class="trustbar">🧬 Открытые данные · Бесплатно · Без рекламы</div>
+  <div class="trustbar" data-i18n-text="index.trustbar">🧬 Открытые данные · Бесплатно · Без рекламы</div>
   <header class="top">
     <div class="site-title"><a href="../index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a></div>
     <nav class="actions" data-i18n-aria-label="a11y.navMain">
-      <a class="btn c-home" href="../index.html">🏠 Главная</a>
-      <a class="btn c-feedback" href="../feedback.html">💬 Обратная связь</a>
-      <a class="btn c-support" href="../support.html">💚 Поддержать</a>
-      <button class="btn" id="themeBtn">🌞 Светлая тема</button>
+      <a class="btn c-feedback" href="../feedback.html" data-i18n-text="index.feedback">💬 Обратная связь</a>
+      <a class="btn c-support" href="../support.html" data-i18n-text="index.support">💚 Поддержать</a>
+      <!-- FIX-75: aria-label у #themeBtn ставит скрипт темы (t("a11y.themeToDark") /
+           t("a11y.themeToLight")) — статический атрибут перетирался и ломал EN-гейт. -->
+      <button class="btn c-theme" id="themeBtn">🌞 Светлая тема</button>
+      <select id="langSelect" class="lang-select" data-i18n-aria-label="a11y.langSelect"><option value="ru">RU</option><option value="en">EN</option></select>
+      <button class="btn c-random" id="randomBtn" data-i18n-text="index.random">🎲 Удиви меня</button>
     </nav>
   </header>
 </div>
 
 <main id="main">
-  <h1>Каталог БАДов</h1>
+  <h1 data-i18n-text="supcat.h1">Каталог БАДов</h1>
 
     <nav class="breadcrumbs">
-        <a href="../index.html">Главная</a> → <strong>Каталог БАДов</strong>
+        <a href="../index.html" data-i18n-text="nav.home">Главная</a> → <strong data-i18n-text="supcat.h1">Каталог БАДов</strong>
     </nav>
 
-    <p class="hint">130 добавок: название, категория, вердикт и грейд доказательности A-D. Карточка ведёт на страницу добавки.</p>
+    <p class="hint" data-i18n-text="supcat.intro" data-i18n-vars='{"n": "130"}'>130 добавок: название, категория, вердикт и грейд доказательности A-D. Карточка ведёт на страницу добавки.</p>
 
     <section id="controls">
-      <label for="supSearch" class="sr-only">Поиск по названию, категории или вердикту</label>
+      <label for="supSearch" class="sr-only" data-i18n-text="supcat.searchLabel">Поиск по названию, категории или вердикту</label>
       <input id="supSearch" data-i18n-placeholder="sup.searchPh"/>
-      <label for="supCategory" class="sr-only">Фильтр: категория</label>
+      <label for="supCategory" class="sr-only" data-i18n-text="supcat.filterCategory">Фильтр: категория</label>
       <select id="supCategory">
-        <option value="all">Любая категория</option>
-        <option value="Антиоксидант">Антиоксидант (1)</option><option value="Антиоксидант/Воспаление">Антиоксидант/Воспаление (1)</option><option value="Антиоксидант/Кожа">Антиоксидант/Кожа (1)</option><option value="Антиоксидант/Метаболизм">Антиоксидант/Метаболизм (1)</option><option value="Антиоксидант/Неврология">Антиоксидант/Неврология (1)</option><option value="Антиоксидант/Психиатрия">Антиоксидант/Психиатрия (1)</option><option value="Беременность/Кровь">Беременность/Кровь (1)</option><option value="Воспаление/Метаболизм">Воспаление/Метаболизм (1)</option><option value="Воспаление/Суставы">Воспаление/Суставы (2)</option><option value="Глаза/Зрение">Глаза/Зрение (1)</option><option value="Гормоны">Гормоны (1)</option><option value="ЖКТ">ЖКТ (1)</option><option value="ЖКТ/Метаболизм">ЖКТ/Метаболизм (2)</option><option value="Женское здоровье/СПКЯ">Женское здоровье/СПКЯ (1)</option><option value="Иммунитет">Иммунитет (5)</option><option value="Иммунитет/Антиоксидант">Иммунитет/Антиоксидант (1)</option><option value="Иммунитет/Грибы">Иммунитет/Грибы (1)</option><option value="Иммунитет/Дети">Иммунитет/Дети (1)</option><option value="Иммунитет/ОРВИ">Иммунитет/ОРВИ (3)</option><option value="Кишечник">Кишечник (3)</option><option value="Когниция">Когниция (6)</option><option value="Когниция/Деменция">Когниция/Деменция (1)</option><option value="Когниция/Дети">Когниция/Дети (1)</option><option value="Когниция/Инсульт">Когниция/Инсульт (1)</option><option value="Когниция/Нервная система">Когниция/Нервная система (1)</option><option value="Когниция/Память">Когниция/Память (1)</option><option value="Когниция/Сосуды">Когниция/Сосуды (2)</option><option value="Когниция/Стресс">Когниция/Стресс (2)</option><option value="Кожа и суставы">Кожа и суставы (4)</option><option value="Кожа/Волосы">Кожа/Волосы (1)</option><option value="Кожа/Суставы">Кожа/Суставы (1)</option><option value="Кости/Беременность">Кости/Беременность (1)</option><option value="Кости/Иммунитет">Кости/Иммунитет (4)</option><option value="Кости/Сосуды">Кости/Сосуды (1)</option><option value="Критические состояния/Спорт">Критические состояния/Спорт (1)</option><option value="Кровь/Анемия">Кровь/Анемия (1)</option><option value="Метаболизм">Метаболизм (4)</option><option value="Метаболизм/Антиоксидант">Метаболизм/Антиоксидант (1)</option><option value="Метаболизм/Диабет">Метаболизм/Диабет (2)</option><option value="Метаболизм/Сексуальное здоровье">Метаболизм/Сексуальное здоровье (1)</option><option value="Метаболизм/Холестерин">Метаболизм/Холестерин (1)</option><option value="Минерал/Сердце">Минерал/Сердце (1)</option><option value="Мочеполовая система">Мочеполовая система (2)</option><option value="Настроение">Настроение (2)</option><option value="Неврология/Метаболизм">Неврология/Метаболизм (5)</option><option value="Неврология/Спорт">Неврология/Спорт (1)</option><option value="Нейромедиатор/Сон">Нейромедиатор/Сон (1)</option><option value="Нервная система/Кровь">Нервная система/Кровь (1)</option><option value="Общее">Общее (12)</option><option value="Печень">Печень (1)</option><option value="Печень/Спорт">Печень/Спорт (1)</option><option value="Почки/Выносливость">Почки/Выносливость (1)</option><option value="Производительность">Производительность (1)</option><option value="Психика/Депрессия">Психика/Депрессия (2)</option><option value="Психика/Сон">Психика/Сон (2)</option><option value="Психика/Суставы">Психика/Суставы (1)</option><option value="Сексуальное здоровье">Сексуальное здоровье (1)</option><option value="Сексуальное здоровье/Спорт">Сексуальное здоровье/Спорт (1)</option><option value="Сексуальное здоровье/Энергия">Сексуальное здоровье/Энергия (1)</option><option value="Сердце">Сердце (1)</option><option value="Сердце/Растения">Сердце/Растения (2)</option><option value="Сердце/Энергия">Сердце/Энергия (1)</option><option value="Сердце/сосуды">Сердце/сосуды (2)</option><option value="Сон">Сон (2)</option><option value="Сон/Тревожность">Сон/Тревожность (1)</option><option value="Сон/Циркадные ритмы">Сон/Циркадные ритмы (1)</option><option value="Сосуды/Антиоксидант">Сосуды/Антиоксидант (1)</option><option value="Сосуды/Беременность">Сосуды/Беременность (1)</option><option value="Сосуды/Метаболизм">Сосуды/Метаболизм (1)</option><option value="Спорт">Спорт (3)</option><option value="Спорт/Выносливость">Спорт/Выносливость (1)</option><option value="Спорт/Когниция">Спорт/Когниция (1)</option><option value="Спорт/Мышцы">Спорт/Мышцы (1)</option><option value="Спорт/Сосуды">Спорт/Сосуды (1)</option><option value="Старение/Метаболизм">Старение/Метаболизм (1)</option><option value="Стресс/Адаптоген">Стресс/Адаптоген (1)</option><option value="Суставы/Кожа">Суставы/Кожа (1)</option><option value="Суставы/Остеоартрит">Суставы/Остеоартрит (1)</option><option value="Усталость/Адаптоген">Усталость/Адаптоген (1)</option>
+        <option value="all" data-i18n-text="supcat.anyCategory">Любая категория</option>
+        <option value="Беременность/Кровь">Беременность/Кровь (1)</option><option value="Воспаление/Метаболизм">Воспаление/Метаболизм (2)</option><option value="Воспаление/Суставы">Воспаление/Суставы (2)</option><option value="Глаза/Зрение">Глаза/Зрение (1)</option><option value="Гормоны">Гормоны (1)</option><option value="ЖКТ">ЖКТ (1)</option><option value="ЖКТ/Метаболизм">ЖКТ/Метаболизм (2)</option><option value="Женское здоровье/СПКЯ">Женское здоровье/СПКЯ (1)</option><option value="Иммунитет">Иммунитет (5)</option><option value="Иммунитет/Антиоксидант">Иммунитет/Антиоксидант (1)</option><option value="Иммунитет/Грибы">Иммунитет/Грибы (1)</option><option value="Иммунитет/Дети">Иммунитет/Дети (1)</option><option value="Иммунитет/ОРВИ">Иммунитет/ОРВИ (3)</option><option value="Кишечник">Кишечник (3)</option><option value="Когниция">Когниция (11)</option><option value="Когниция/Деменция">Когниция/Деменция (1)</option><option value="Когниция/Дети">Когниция/Дети (1)</option><option value="Когниция/Инсульт">Когниция/Инсульт (1)</option><option value="Когниция/Нервная система">Когниция/Нервная система (1)</option><option value="Кожа и суставы">Кожа и суставы (7)</option><option value="Кожа/Волосы">Кожа/Волосы (1)</option><option value="Кости/Беременность">Кости/Беременность (1)</option><option value="Кости/Иммунитет">Кости/Иммунитет (4)</option><option value="Кости/Сосуды">Кости/Сосуды (1)</option><option value="Критические состояния/Спорт">Критические состояния/Спорт (1)</option><option value="Кровь/Анемия">Кровь/Анемия (1)</option><option value="Метаболизм">Метаболизм (9)</option><option value="Метаболизм/Диабет">Метаболизм/Диабет (2)</option><option value="Минерал/Сердце">Минерал/Сердце (1)</option><option value="Мочеполовая система">Мочеполовая система (2)</option><option value="Настроение">Настроение (2)</option><option value="Неврология/Метаболизм">Неврология/Метаболизм (6)</option><option value="Неврология/Спорт">Неврология/Спорт (1)</option><option value="Нейромедиатор/Сон">Нейромедиатор/Сон (1)</option><option value="Нервная система/Кровь">Нервная система/Кровь (1)</option><option value="Общее">Общее (12)</option><option value="Печень">Печень (1)</option><option value="Печень/Спорт">Печень/Спорт (1)</option><option value="Почки/Выносливость">Почки/Выносливость (1)</option><option value="Производительность">Производительность (1)</option><option value="Психика/Депрессия">Психика/Депрессия (3)</option><option value="Психика/Сон">Психика/Сон (2)</option><option value="Психика/Суставы">Психика/Суставы (1)</option><option value="Сексуальное здоровье">Сексуальное здоровье (3)</option><option value="Сексуальное здоровье/Спорт">Сексуальное здоровье/Спорт (1)</option><option value="Сердце">Сердце (6)</option><option value="Сон">Сон (2)</option><option value="Сон/Тревожность">Сон/Тревожность (1)</option><option value="Сон/Циркадные ритмы">Сон/Циркадные ритмы (1)</option><option value="Сосуды/Беременность">Сосуды/Беременность (1)</option><option value="Сосуды/Метаболизм">Сосуды/Метаболизм (1)</option><option value="Спорт">Спорт (4)</option><option value="Спорт/Когниция">Спорт/Когниция (1)</option><option value="Спорт/Мышцы">Спорт/Мышцы (1)</option><option value="Спорт/Сосуды">Спорт/Сосуды (1)</option><option value="Старение/Метаболизм">Старение/Метаболизм (1)</option><option value="Стресс/Адаптоген">Стресс/Адаптоген (1)</option><option value="Суставы/Остеоартрит">Суставы/Остеоартрит (1)</option><option value="Усталость/Адаптоген">Усталость/Адаптоген (1)</option>
       </select>
-      <label for="supGrade" class="sr-only">Фильтр: грейд доказательности</label>
+      <label for="supGrade" class="sr-only" data-i18n-text="supcat.filterGrade">Фильтр: грейд доказательности</label>
       <select id="supGrade">
-        <option value="all">Любой грейд</option>
-        <option value="A">Грейд A (8)</option><option value="B">Грейд B (45)</option><option value="C">Грейд C (52)</option><option value="D">Грейд D (25)</option>
+        <option value="all" data-i18n-text="supcat.anyGrade">Любой грейд</option>
+        <option value="A" data-i18n-text="supcat.gradeOption" data-i18n-vars='{"g": "A", "n": "6"}'>Грейд A (6)</option><option value="B" data-i18n-text="supcat.gradeOption" data-i18n-vars='{"g": "B", "n": "22"}'>Грейд B (22)</option><option value="C" data-i18n-text="supcat.gradeOption" data-i18n-vars='{"g": "C", "n": "52"}'>Грейд C (52)</option><option value="D" data-i18n-text="supcat.gradeOption" data-i18n-vars='{"g": "D", "n": "50"}'>Грейд D (50)</option>
       </select>
     </section>
 
@@ -119,947 +130,950 @@
       <!-- v5.6.5: live-регион (A11Y-P2-05). Бейдж переписывается при
            каждом изменении фильтра (sup_index.html.j2:190) — без
            озвучивания результат фильтрации был виден только глазами. -->
-      <h2>Все добавки <span id="countBadge" class="hint" role="status" aria-live="polite">показано 130 из 130</span></h2>
+      <h2><span data-i18n-text="supcat.allSupplements">Все добавки</span> <span id="countBadge" class="hint" role="status" aria-live="polite" data-i18n-text="supcat.shown" data-i18n-vars='{"shown": "130", "total": "130"}'>показано 130 из 130</span></h2>
 
       <div id="cardsGrid">
         
-        <a class="card" href="5-htp.html" data-slug="5-htp" data-cat="Психика/Депрессия" data-grade="C" data-code="-1" data-hay="5-htp психика/депрессия не подтверждено c">
-          <span class="cat">Психика/Депрессия</span>
-          <strong class="card-title">5-HTP</strong>
-          <div class="verdict v-1">не подтверждено</div>
-          <span class="grade gC" title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
+        <a class="card" href="5-htp.html" data-sup-id="5-HTP" data-slug="5-htp" data-cat="Психика/Депрессия" data-grade="C" data-code="-1" data-hay="5-htp психика/депрессия не подтверждено c">
+          <span class="cat" data-sup="category">Психика/Депрессия</span>
+          <strong class="card-title" data-sup="name">5-HTP</strong>
+          <div class="verdict v-1" data-sup="verdict">не подтверждено</div>
+          <span class="grade gC" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "C"}' title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
         </a>
         
-        <a class="card" href="alpha-gpc.html" data-slug="alpha-gpc" data-cat="Когниция" data-grade="C" data-code="0" data-hay="alpha-gpc когниция зависит от контекста c">
-          <span class="cat">Когниция</span>
-          <strong class="card-title">Alpha-GPC</strong>
-          <div class="verdict v0">зависит от контекста</div>
-          <span class="grade gC" title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
+        <a class="card" href="alpha-gpc.html" data-sup-id="Alpha-GPC" data-slug="alpha-gpc" data-cat="Когниция" data-grade="C" data-code="0" data-hay="alpha-gpc когниция зависит от контекста c">
+          <span class="cat" data-sup="category">Когниция</span>
+          <strong class="card-title" data-sup="name">Alpha-GPC</strong>
+          <div class="verdict v0" data-sup="verdict">зависит от контекста</div>
+          <span class="grade gC" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "C"}' title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
         </a>
         
-        <a class="card" href="b-lactis.html" data-slug="b-lactis" data-cat="Кишечник" data-grade="C" data-code="0" data-hay="b. lactis кишечник зависит от контекста c">
-          <span class="cat">Кишечник</span>
-          <strong class="card-title">B. lactis</strong>
-          <div class="verdict v0">зависит от контекста</div>
-          <span class="grade gC" title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
+        <a class="card" href="b-lactis.html" data-sup-id="B. lactis" data-slug="b-lactis" data-cat="Кишечник" data-grade="C" data-code="0" data-hay="b. lactis кишечник зависит от контекста c">
+          <span class="cat" data-sup="category">Кишечник</span>
+          <strong class="card-title" data-sup="name">B. lactis</strong>
+          <div class="verdict v0" data-sup="verdict">зависит от контекста</div>
+          <span class="grade gC" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "C"}' title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
         </a>
         
-        <a class="card" href="b1.html" data-slug="b1" data-cat="Неврология/Метаболизм" data-grade="C" data-code="0" data-hay="b1 неврология/метаболизм зависит от контекста c">
-          <span class="cat">Неврология/Метаболизм</span>
-          <strong class="card-title">B1</strong>
-          <div class="verdict v0">зависит от контекста</div>
-          <span class="grade gC" title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
+        <a class="card" href="b1.html" data-sup-id="B1" data-slug="b1" data-cat="Неврология/Метаболизм" data-grade="C" data-code="0" data-hay="b1 неврология/метаболизм зависит от контекста c">
+          <span class="cat" data-sup="category">Неврология/Метаболизм</span>
+          <strong class="card-title" data-sup="name">B1</strong>
+          <div class="verdict v0" data-sup="verdict">зависит от контекста</div>
+          <span class="grade gC" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "C"}' title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
         </a>
         
-        <a class="card" href="b12.html" data-slug="b12" data-cat="Нервная система/Кровь" data-grade="B" data-code="0" data-hay="b12 нервная система/кровь зависит от контекста b">
-          <span class="cat">Нервная система/Кровь</span>
-          <strong class="card-title">B12</strong>
-          <div class="verdict v0">зависит от контекста</div>
-          <span class="grade gB" title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
+        <a class="card" href="b12.html" data-sup-id="B12" data-slug="b12" data-cat="Нервная система/Кровь" data-grade="B" data-code="0" data-hay="b12 нервная система/кровь зависит от контекста b">
+          <span class="cat" data-sup="category">Нервная система/Кровь</span>
+          <strong class="card-title" data-sup="name">B12</strong>
+          <div class="verdict v0" data-sup="verdict">зависит от контекста</div>
+          <span class="grade gB" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "B"}' title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
         </a>
         
-        <a class="card" href="b2.html" data-slug="b2" data-cat="Общее" data-grade="B" data-code="1" data-hay="b2 общее работает b">
-          <span class="cat">Общее</span>
-          <strong class="card-title">B2</strong>
-          <div class="verdict v1">работает</div>
-          <span class="grade gB" title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
+        <a class="card" href="b2.html" data-sup-id="B2" data-slug="b2" data-cat="Общее" data-grade="D" data-code="1" data-hay="b2 общее работает d">
+          <span class="cat" data-sup="category">Общее</span>
+          <strong class="card-title" data-sup="name">B2</strong>
+          <div class="verdict v1" data-sup="verdict">работает</div>
+          <span class="grade gD" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "D"}' title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
         </a>
         
-        <a class="card" href="b3.html" data-slug="b3" data-cat="Метаболизм" data-grade="C" data-code="0" data-hay="b3 метаболизм зависит от контекста c">
-          <span class="cat">Метаболизм</span>
-          <strong class="card-title">B3</strong>
-          <div class="verdict v0">зависит от контекста</div>
-          <span class="grade gC" title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
+        <a class="card" href="b3.html" data-sup-id="B3" data-slug="b3" data-cat="Метаболизм" data-grade="C" data-code="0" data-hay="b3 метаболизм зависит от контекста c">
+          <span class="cat" data-sup="category">Метаболизм</span>
+          <strong class="card-title" data-sup="name">B3</strong>
+          <div class="verdict v0" data-sup="verdict">зависит от контекста</div>
+          <span class="grade gC" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "C"}' title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
         </a>
         
-        <a class="card" href="b5.html" data-slug="b5" data-cat="Общее" data-grade="D" data-code="-1" data-hay="b5 общее не подтверждено d">
-          <span class="cat">Общее</span>
-          <strong class="card-title">B5</strong>
-          <div class="verdict v-1">не подтверждено</div>
-          <span class="grade gD" title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
+        <a class="card" href="b5.html" data-sup-id="B5" data-slug="b5" data-cat="Общее" data-grade="D" data-code="-1" data-hay="b5 общее не подтверждено d">
+          <span class="cat" data-sup="category">Общее</span>
+          <strong class="card-title" data-sup="name">B5</strong>
+          <div class="verdict v-1" data-sup="verdict">не подтверждено</div>
+          <span class="grade gD" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "D"}' title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
         </a>
         
-        <a class="card" href="b6.html" data-slug="b6" data-cat="Неврология/Метаболизм" data-grade="B" data-code="1" data-hay="b6 неврология/метаболизм работает b">
-          <span class="cat">Неврология/Метаболизм</span>
-          <strong class="card-title">B6</strong>
-          <div class="verdict v1">работает</div>
-          <span class="grade gB" title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
+        <a class="card" href="b6.html" data-sup-id="B6" data-slug="b6" data-cat="Неврология/Метаболизм" data-grade="B" data-code="1" data-hay="b6 неврология/метаболизм работает b">
+          <span class="cat" data-sup="category">Неврология/Метаболизм</span>
+          <strong class="card-title" data-sup="name">B6</strong>
+          <div class="verdict v1" data-sup="verdict">работает</div>
+          <span class="grade gB" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "B"}' title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
         </a>
         
-        <a class="card" href="b9.html" data-slug="b9" data-cat="Беременность/Кровь" data-grade="A" data-code="1" data-hay="b9 беременность/кровь работает a">
-          <span class="cat">Беременность/Кровь</span>
-          <strong class="card-title">B9</strong>
-          <div class="verdict v1">работает</div>
-          <span class="grade gA" title="Грейд A — шкала доказательности (см. glossary.html)">Грейд A</span>
+        <a class="card" href="b9.html" data-sup-id="B9" data-slug="b9" data-cat="Беременность/Кровь" data-grade="D" data-code="1" data-hay="b9 беременность/кровь работает d">
+          <span class="cat" data-sup="category">Беременность/Кровь</span>
+          <strong class="card-title" data-sup="name">B9</strong>
+          <div class="verdict v1" data-sup="verdict">работает</div>
+          <span class="grade gD" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "D"}' title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
         </a>
         
-        <a class="card" href="bcaa.html" data-slug="bcaa" data-cat="Печень/Спорт" data-grade="B" data-code="0" data-hay="bcaa печень/спорт зависит от контекста b">
-          <span class="cat">Печень/Спорт</span>
-          <strong class="card-title">BCAA</strong>
-          <div class="verdict v0">зависит от контекста</div>
-          <span class="grade gB" title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
+        <a class="card" href="bcaa.html" data-sup-id="BCAA" data-slug="bcaa" data-cat="Печень/Спорт" data-grade="D" data-code="0" data-hay="bcaa печень/спорт зависит от контекста d">
+          <span class="cat" data-sup="category">Печень/Спорт</span>
+          <strong class="card-title" data-sup="name">BCAA</strong>
+          <div class="verdict v0" data-sup="verdict">зависит от контекста</div>
+          <span class="grade gD" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "D"}' title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
         </a>
         
-        <a class="card" href="cdp-holin.html" data-slug="cdp-holin" data-cat="Когниция/Инсульт" data-grade="B" data-code="0" data-hay="cdp-холин когниция/инсульт зависит от контекста b">
-          <span class="cat">Когниция/Инсульт</span>
-          <strong class="card-title">CDP-холин</strong>
-          <div class="verdict v0">зависит от контекста</div>
-          <span class="grade gB" title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
+        <a class="card" href="cdp-holin.html" data-sup-id="CDP-холин" data-slug="cdp-holin" data-cat="Когниция/Инсульт" data-grade="D" data-code="0" data-hay="cdp-холин когниция/инсульт зависит от контекста d">
+          <span class="cat" data-sup="category">Когниция/Инсульт</span>
+          <strong class="card-title" data-sup="name">CDP-холин</strong>
+          <div class="verdict v0" data-sup="verdict">зависит от контекста</div>
+          <span class="grade gD" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "D"}' title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
         </a>
         
-        <a class="card" href="coq10.html" data-slug="coq10" data-cat="Сердце/Энергия" data-grade="B" data-code="1" data-hay="coq10 сердце/энергия работает b">
-          <span class="cat">Сердце/Энергия</span>
-          <strong class="card-title">CoQ10</strong>
-          <div class="verdict v1">работает</div>
-          <span class="grade gB" title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
+        <a class="card" href="coq10.html" data-sup-id="CoQ10" data-slug="coq10" data-cat="Сердце" data-grade="D" data-code="1" data-hay="coq10 сердце работает d">
+          <span class="cat" data-sup="category">Сердце</span>
+          <strong class="card-title" data-sup="name">CoQ10</strong>
+          <div class="verdict v1" data-sup="verdict">работает</div>
+          <span class="grade gD" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "D"}' title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
         </a>
         
-        <a class="card" href="d-mannoza.html" data-slug="d-mannoza" data-cat="Мочеполовая система" data-grade="D" data-code="-1" data-hay="d-манноза мочеполовая система не подтверждено d">
-          <span class="cat">Мочеполовая система</span>
-          <strong class="card-title">D-манноза</strong>
-          <div class="verdict v-1">не подтверждено</div>
-          <span class="grade gD" title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
+        <a class="card" href="d-mannoza.html" data-sup-id="D-манноза" data-slug="d-mannoza" data-cat="Мочеполовая система" data-grade="D" data-code="-1" data-hay="d-манноза мочеполовая система не подтверждено d">
+          <span class="cat" data-sup="category">Мочеполовая система</span>
+          <strong class="card-title" data-sup="name">D-манноза</strong>
+          <div class="verdict v-1" data-sup="verdict">не подтверждено</div>
+          <span class="grade gD" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "D"}' title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
         </a>
         
-        <a class="card" href="dha.html" data-slug="dha" data-cat="Когниция" data-grade="C" data-code="0" data-hay="dha когниция зависит от контекста c">
-          <span class="cat">Когниция</span>
-          <strong class="card-title">DHA</strong>
-          <div class="verdict v0">зависит от контекста</div>
-          <span class="grade gC" title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
+        <a class="card" href="dha.html" data-sup-id="DHA" data-slug="dha" data-cat="Когниция" data-grade="C" data-code="0" data-hay="dha когниция зависит от контекста c">
+          <span class="cat" data-sup="category">Когниция</span>
+          <strong class="card-title" data-sup="name">DHA</strong>
+          <div class="verdict v0" data-sup="verdict">зависит от контекста</div>
+          <span class="grade gC" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "C"}' title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
         </a>
         
-        <a class="card" href="epa.html" data-slug="epa" data-cat="Сердце/сосуды" data-grade="B" data-code="1" data-hay="epa сердце/сосуды работает b">
-          <span class="cat">Сердце/сосуды</span>
-          <strong class="card-title">EPA</strong>
-          <div class="verdict v1">работает</div>
-          <span class="grade gB" title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
+        <a class="card" href="epa.html" data-sup-id="EPA" data-slug="epa" data-cat="Сердце" data-grade="D" data-code="1" data-hay="epa сердце работает d">
+          <span class="cat" data-sup="category">Сердце</span>
+          <strong class="card-title" data-sup="name">EPA</strong>
+          <div class="verdict v1" data-sup="verdict">работает</div>
+          <span class="grade gD" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "D"}' title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
         </a>
         
-        <a class="card" href="gla.html" data-slug="gla" data-cat="Кожа и суставы" data-grade="C" data-code="0" data-hay="gla кожа и суставы зависит от контекста c">
-          <span class="cat">Кожа и суставы</span>
-          <strong class="card-title">GLA</strong>
-          <div class="verdict v0">зависит от контекста</div>
-          <span class="grade gC" title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
+        <a class="card" href="gla.html" data-sup-id="GLA" data-slug="gla" data-cat="Кожа и суставы" data-grade="C" data-code="0" data-hay="gla кожа и суставы зависит от контекста c">
+          <span class="cat" data-sup="category">Кожа и суставы</span>
+          <strong class="card-title" data-sup="name">GLA</strong>
+          <div class="verdict v0" data-sup="verdict">зависит от контекста</div>
+          <span class="grade gC" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "C"}' title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
         </a>
         
-        <a class="card" href="hmb.html" data-slug="hmb" data-cat="Спорт" data-grade="B" data-code="1" data-hay="hmb спорт работает b">
-          <span class="cat">Спорт</span>
-          <strong class="card-title">HMB</strong>
-          <div class="verdict v1">работает</div>
-          <span class="grade gB" title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
+        <a class="card" href="hmb.html" data-sup-id="HMB" data-slug="hmb" data-cat="Спорт" data-grade="B" data-code="1" data-hay="hmb спорт работает b">
+          <span class="cat" data-sup="category">Спорт</span>
+          <strong class="card-title" data-sup="name">HMB</strong>
+          <div class="verdict v1" data-sup="verdict">работает</div>
+          <span class="grade gB" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "B"}' title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
         </a>
         
-        <a class="card" href="l-teanin.html" data-slug="l-teanin" data-cat="Когниция/Стресс" data-grade="B" data-code="1" data-hay="l-теанин когниция/стресс работает b">
-          <span class="cat">Когниция/Стресс</span>
-          <strong class="card-title">L-Теанин</strong>
-          <div class="verdict v1">работает</div>
-          <span class="grade gB" title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
+        <a class="card" href="l-teanin.html" data-sup-id="L-Теанин" data-slug="l-teanin" data-cat="Когниция" data-grade="B" data-code="1" data-hay="l-теанин когниция работает b">
+          <span class="cat" data-sup="category">Когниция</span>
+          <strong class="card-title" data-sup="name">L-Теанин</strong>
+          <div class="verdict v1" data-sup="verdict">работает</div>
+          <span class="grade gB" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "B"}' title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
         </a>
         
-        <a class="card" href="l-karnitin.html" data-slug="l-karnitin" data-cat="Неврология/Спорт" data-grade="C" data-code="0" data-hay="l-карнитин неврология/спорт зависит от контекста c">
-          <span class="cat">Неврология/Спорт</span>
-          <strong class="card-title">L-карнитин</strong>
-          <div class="verdict v0">зависит от контекста</div>
-          <span class="grade gC" title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
+        <a class="card" href="l-karnitin.html" data-sup-id="L-карнитин" data-slug="l-karnitin" data-cat="Неврология/Спорт" data-grade="C" data-code="0" data-hay="l-карнитин неврология/спорт зависит от контекста c">
+          <span class="cat" data-sup="category">Неврология/Спорт</span>
+          <strong class="card-title" data-sup="name">L-карнитин</strong>
+          <div class="verdict v0" data-sup="verdict">зависит от контекста</div>
+          <span class="grade gC" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "C"}' title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
         </a>
         
-        <a class="card" href="l-tsitrullin.html" data-slug="l-tsitrullin" data-cat="Спорт/Сосуды" data-grade="B" data-code="1" data-hay="l-цитруллин спорт/сосуды работает b">
-          <span class="cat">Спорт/Сосуды</span>
-          <strong class="card-title">L-цитруллин</strong>
-          <div class="verdict v1">работает</div>
-          <span class="grade gB" title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
+        <a class="card" href="l-tsitrullin.html" data-sup-id="L-цитруллин" data-slug="l-tsitrullin" data-cat="Спорт/Сосуды" data-grade="D" data-code="1" data-hay="l-цитруллин спорт/сосуды работает d">
+          <span class="cat" data-sup="category">Спорт/Сосуды</span>
+          <strong class="card-title" data-sup="name">L-цитруллин</strong>
+          <div class="verdict v1" data-sup="verdict">работает</div>
+          <span class="grade gD" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "D"}' title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
         </a>
         
-        <a class="card" href="lgg.html" data-slug="lgg" data-cat="Кишечник" data-grade="B" data-code="1" data-hay="lgg кишечник работает b">
-          <span class="cat">Кишечник</span>
-          <strong class="card-title">LGG</strong>
-          <div class="verdict v1">работает</div>
-          <span class="grade gB" title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
+        <a class="card" href="lgg.html" data-sup-id="LGG" data-slug="lgg" data-cat="Кишечник" data-grade="B" data-code="1" data-hay="lgg кишечник работает b">
+          <span class="cat" data-sup="category">Кишечник</span>
+          <strong class="card-title" data-sup="name">LGG</strong>
+          <div class="verdict v1" data-sup="verdict">работает</div>
+          <span class="grade gB" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "B"}' title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
         </a>
         
-        <a class="card" href="msm.html" data-slug="msm" data-cat="Кожа и суставы" data-grade="B" data-code="1" data-hay="msm кожа и суставы работает b">
-          <span class="cat">Кожа и суставы</span>
-          <strong class="card-title">MSM</strong>
-          <div class="verdict v1">работает</div>
-          <span class="grade gB" title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
+        <a class="card" href="msm.html" data-sup-id="MSM" data-slug="msm" data-cat="Кожа и суставы" data-grade="B" data-code="1" data-hay="msm кожа и суставы работает b">
+          <span class="cat" data-sup="category">Кожа и суставы</span>
+          <strong class="card-title" data-sup="name">MSM</strong>
+          <div class="verdict v1" data-sup="verdict">работает</div>
+          <span class="grade gB" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "B"}' title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
         </a>
         
-        <a class="card" href="nac.html" data-slug="nac" data-cat="Антиоксидант/Психиатрия" data-grade="B" data-code="1" data-hay="nac антиоксидант/психиатрия работает b">
-          <span class="cat">Антиоксидант/Психиатрия</span>
-          <strong class="card-title">NAC</strong>
-          <div class="verdict v1">работает</div>
-          <span class="grade gB" title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
+        <a class="card" href="nac.html" data-sup-id="NAC" data-slug="nac" data-cat="Психика/Депрессия" data-grade="D" data-code="1" data-hay="nac психика/депрессия работает d">
+          <span class="cat" data-sup="category">Психика/Депрессия</span>
+          <strong class="card-title" data-sup="name">NAC</strong>
+          <div class="verdict v1" data-sup="verdict">работает</div>
+          <span class="grade gD" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "D"}' title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
         </a>
         
-        <a class="card" href="nmn.html" data-slug="nmn" data-cat="Старение/Метаболизм" data-grade="C" data-code="-1" data-hay="nmn старение/метаболизм не подтверждено c">
-          <span class="cat">Старение/Метаболизм</span>
-          <strong class="card-title">NMN</strong>
-          <div class="verdict v-1">не подтверждено</div>
-          <span class="grade gC" title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
+        <a class="card" href="nmn.html" data-sup-id="NMN" data-slug="nmn" data-cat="Старение/Метаболизм" data-grade="C" data-code="-1" data-hay="nmn старение/метаболизм не подтверждено c">
+          <span class="cat" data-sup="category">Старение/Метаболизм</span>
+          <strong class="card-title" data-sup="name">NMN</strong>
+          <div class="verdict v-1" data-sup="verdict">не подтверждено</div>
+          <span class="grade gC" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "C"}' title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
         </a>
         
-        <a class="card" href="paba.html" data-slug="paba" data-cat="Общее" data-grade="D" data-code="-1" data-hay="paba общее не подтверждено d">
-          <span class="cat">Общее</span>
-          <strong class="card-title">PABA</strong>
-          <div class="verdict v-1">не подтверждено</div>
-          <span class="grade gD" title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
+        <a class="card" href="paba.html" data-sup-id="PABA" data-slug="paba" data-cat="Общее" data-grade="D" data-code="-1" data-hay="paba общее не подтверждено d">
+          <span class="cat" data-sup="category">Общее</span>
+          <strong class="card-title" data-sup="name">PABA</strong>
+          <div class="verdict v-1" data-sup="verdict">не подтверждено</div>
+          <span class="grade gD" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "D"}' title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
         </a>
         
-        <a class="card" href="pqq.html" data-slug="pqq" data-cat="Когниция" data-grade="D" data-code="0" data-hay="pqq когниция зависит от контекста d">
-          <span class="cat">Когниция</span>
-          <strong class="card-title">PQQ</strong>
-          <div class="verdict v0">зависит от контекста</div>
-          <span class="grade gD" title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
+        <a class="card" href="pqq.html" data-sup-id="PQQ" data-slug="pqq" data-cat="Когниция" data-grade="D" data-code="0" data-hay="pqq когниция зависит от контекста d">
+          <span class="cat" data-sup="category">Когниция</span>
+          <strong class="card-title" data-sup="name">PQQ</strong>
+          <div class="verdict v0" data-sup="verdict">зависит от контекста</div>
+          <span class="grade gD" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "D"}' title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
         </a>
         
-        <a class="card" href="s-boulardii.html" data-slug="s-boulardii" data-cat="Кишечник" data-grade="B" data-code="1" data-hay="s. boulardii кишечник работает b">
-          <span class="cat">Кишечник</span>
-          <strong class="card-title">S. boulardii</strong>
-          <div class="verdict v1">работает</div>
-          <span class="grade gB" title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
+        <a class="card" href="s-boulardii.html" data-sup-id="S. boulardii" data-slug="s-boulardii" data-cat="Кишечник" data-grade="D" data-code="1" data-hay="s. boulardii кишечник работает d">
+          <span class="cat" data-sup="category">Кишечник</span>
+          <strong class="card-title" data-sup="name">S. boulardii</strong>
+          <div class="verdict v1" data-sup="verdict">работает</div>
+          <span class="grade gD" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "D"}' title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
         </a>
         
-        <a class="card" href="same.html" data-slug="same" data-cat="Психика/Суставы" data-grade="B" data-code="1" data-hay="same психика/суставы работает b">
-          <span class="cat">Психика/Суставы</span>
-          <strong class="card-title">SAMe</strong>
-          <div class="verdict v1">работает</div>
-          <span class="grade gB" title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
+        <a class="card" href="same.html" data-sup-id="SAMe" data-slug="same" data-cat="Психика/Суставы" data-grade="B" data-code="1" data-hay="same психика/суставы работает b">
+          <span class="cat" data-sup="category">Психика/Суставы</span>
+          <strong class="card-title" data-sup="name">SAMe</strong>
+          <div class="verdict v1" data-sup="verdict">работает</div>
+          <span class="grade gB" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "B"}' title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
         </a>
         
-        <a class="card" href="alanin.html" data-slug="alanin" data-cat="Спорт" data-grade="C" data-code="0" data-hay="аланин спорт зависит от контекста c">
-          <span class="cat">Спорт</span>
-          <strong class="card-title">Аланин</strong>
-          <div class="verdict v0">зависит от контекста</div>
-          <span class="grade gC" title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
+        <a class="card" href="alanin.html" data-sup-id="Аланин" data-slug="alanin" data-cat="Спорт" data-grade="C" data-code="0" data-hay="аланин спорт зависит от контекста c">
+          <span class="cat" data-sup="category">Спорт</span>
+          <strong class="card-title" data-sup="name">Аланин</strong>
+          <div class="verdict v0" data-sup="verdict">зависит от контекста</div>
+          <span class="grade gC" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "C"}' title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
         </a>
         
-        <a class="card" href="alfa-lipoevaya-kislota.html" data-slug="alfa-lipoevaya-kislota" data-cat="Неврология/Метаболизм" data-grade="B" data-code="1" data-hay="альфа-липоевая кислота неврология/метаболизм работает b">
-          <span class="cat">Неврология/Метаболизм</span>
-          <strong class="card-title">Альфа-липоевая кислота</strong>
-          <div class="verdict v1">работает</div>
-          <span class="grade gB" title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
+        <a class="card" href="alfa-lipoevaya-kislota.html" data-sup-id="Альфа-липоевая кислота" data-slug="alfa-lipoevaya-kislota" data-cat="Неврология/Метаболизм" data-grade="D" data-code="1" data-hay="альфа-липоевая кислота неврология/метаболизм работает d">
+          <span class="cat" data-sup="category">Неврология/Метаболизм</span>
+          <strong class="card-title" data-sup="name">Альфа-липоевая кислота</strong>
+          <div class="verdict v1" data-sup="verdict">работает</div>
+          <span class="grade gD" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "D"}' title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
         </a>
         
-        <a class="card" href="arginin.html" data-slug="arginin" data-cat="Сосуды/Беременность" data-grade="B" data-code="0" data-hay="аргинин сосуды/беременность зависит от контекста b">
-          <span class="cat">Сосуды/Беременность</span>
-          <strong class="card-title">Аргинин</strong>
-          <div class="verdict v0">зависит от контекста</div>
-          <span class="grade gB" title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
+        <a class="card" href="arginin.html" data-sup-id="Аргинин" data-slug="arginin" data-cat="Сосуды/Беременность" data-grade="B" data-code="0" data-hay="аргинин сосуды/беременность зависит от контекста b">
+          <span class="cat" data-sup="category">Сосуды/Беременность</span>
+          <strong class="card-title" data-sup="name">Аргинин</strong>
+          <div class="verdict v0" data-sup="verdict">зависит от контекста</div>
+          <span class="grade gB" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "B"}' title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
         </a>
         
-        <a class="card" href="astaksantin.html" data-slug="astaksantin" data-cat="Антиоксидант/Кожа" data-grade="C" data-code="0" data-hay="астаксантин антиоксидант/кожа зависит от контекста c">
-          <span class="cat">Антиоксидант/Кожа</span>
-          <strong class="card-title">Астаксантин</strong>
-          <div class="verdict v0">зависит от контекста</div>
-          <span class="grade gC" title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
+        <a class="card" href="astaksantin.html" data-sup-id="Астаксантин" data-slug="astaksantin" data-cat="Кожа и суставы" data-grade="C" data-code="0" data-hay="астаксантин кожа и суставы зависит от контекста c">
+          <span class="cat" data-sup="category">Кожа и суставы</span>
+          <strong class="card-title" data-sup="name">Астаксантин</strong>
+          <div class="verdict v0" data-sup="verdict">зависит от контекста</div>
+          <span class="grade gC" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "C"}' title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
         </a>
         
-        <a class="card" href="astragal.html" data-slug="astragal" data-cat="Иммунитет" data-grade="B" data-code="1" data-hay="астрагал иммунитет работает b">
-          <span class="cat">Иммунитет</span>
-          <strong class="card-title">Астрагал</strong>
-          <div class="verdict v1">работает</div>
-          <span class="grade gB" title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
+        <a class="card" href="astragal.html" data-sup-id="Астрагал" data-slug="astragal" data-cat="Иммунитет" data-grade="B" data-code="1" data-hay="астрагал иммунитет работает b">
+          <span class="cat" data-sup="category">Иммунитет</span>
+          <strong class="card-title" data-sup="name">Астрагал</strong>
+          <div class="verdict v1" data-sup="verdict">работает</div>
+          <span class="grade gB" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "B"}' title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
         </a>
         
-        <a class="card" href="ashvaganda.html" data-slug="ashvaganda" data-cat="Стресс/Адаптоген" data-grade="B" data-code="1" data-hay="ашваганда стресс/адаптоген работает b">
-          <span class="cat">Стресс/Адаптоген</span>
-          <strong class="card-title">Ашваганда</strong>
-          <div class="verdict v1">работает</div>
-          <span class="grade gB" title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
+        <a class="card" href="ashvaganda.html" data-sup-id="Ашваганда" data-slug="ashvaganda" data-cat="Стресс/Адаптоген" data-grade="B" data-code="1" data-hay="ашваганда стресс/адаптоген работает b">
+          <span class="cat" data-sup="category">Стресс/Адаптоген</span>
+          <strong class="card-title" data-sup="name">Ашваганда</strong>
+          <div class="verdict v1" data-sup="verdict">работает</div>
+          <span class="grade gB" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "B"}' title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
         </a>
         
-        <a class="card" href="bakopa.html" data-slug="bakopa" data-cat="Когниция/Память" data-grade="B" data-code="1" data-hay="бакопа когниция/память работает b">
-          <span class="cat">Когниция/Память</span>
-          <strong class="card-title">Бакопа</strong>
-          <div class="verdict v1">работает</div>
-          <span class="grade gB" title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
+        <a class="card" href="bakopa.html" data-sup-id="Бакопа" data-slug="bakopa" data-cat="Когниция" data-grade="B" data-code="1" data-hay="бакопа когниция работает b">
+          <span class="cat" data-sup="category">Когниция</span>
+          <strong class="card-title" data-sup="name">Бакопа</strong>
+          <div class="verdict v1" data-sup="verdict">работает</div>
+          <span class="grade gB" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "B"}' title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
         </a>
         
-        <a class="card" href="berberin.html" data-slug="berberin" data-cat="Метаболизм/Диабет" data-grade="B" data-code="1" data-hay="берберин метаболизм/диабет работает b">
-          <span class="cat">Метаболизм/Диабет</span>
-          <strong class="card-title">Берберин</strong>
-          <div class="verdict v1">работает</div>
-          <span class="grade gB" title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
+        <a class="card" href="berberin.html" data-sup-id="Берберин" data-slug="berberin" data-cat="Метаболизм/Диабет" data-grade="B" data-code="1" data-hay="берберин метаболизм/диабет работает b">
+          <span class="cat" data-sup="category">Метаболизм/Диабет</span>
+          <strong class="card-title" data-sup="name">Берберин</strong>
+          <div class="verdict v1" data-sup="verdict">работает</div>
+          <span class="grade gB" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "B"}' title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
         </a>
         
-        <a class="card" href="beta-alanin.html" data-slug="beta-alanin" data-cat="Спорт/Выносливость" data-grade="C" data-code="0" data-hay="бета-аланин спорт/выносливость зависит от контекста c">
-          <span class="cat">Спорт/Выносливость</span>
-          <strong class="card-title">Бета-аланин</strong>
-          <div class="verdict v0">зависит от контекста</div>
-          <span class="grade gC" title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
+        <a class="card" href="beta-alanin.html" data-sup-id="Бета-аланин" data-slug="beta-alanin" data-cat="Спорт" data-grade="C" data-code="0" data-hay="бета-аланин спорт зависит от контекста c">
+          <span class="cat" data-sup="category">Спорт</span>
+          <strong class="card-title" data-sup="name">Бета-аланин</strong>
+          <div class="verdict v0" data-sup="verdict">зависит от контекста</div>
+          <span class="grade gC" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "C"}' title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
         </a>
         
-        <a class="card" href="beta-glyukany-ovsa.html" data-slug="beta-glyukany-ovsa" data-cat="Метаболизм/Холестерин" data-grade="B" data-code="1" data-hay="бета-глюканы овса метаболизм/холестерин работает b">
-          <span class="cat">Метаболизм/Холестерин</span>
-          <strong class="card-title">Бета-глюканы овса</strong>
-          <div class="verdict v1">работает</div>
-          <span class="grade gB" title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
+        <a class="card" href="beta-glyukany-ovsa.html" data-sup-id="Бета-глюканы овса" data-slug="beta-glyukany-ovsa" data-cat="Метаболизм" data-grade="B" data-code="1" data-hay="бета-глюканы овса метаболизм работает b">
+          <span class="cat" data-sup="category">Метаболизм</span>
+          <strong class="card-title" data-sup="name">Бета-глюканы овса</strong>
+          <div class="verdict v1" data-sup="verdict">работает</div>
+          <span class="grade gB" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "B"}' title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
         </a>
         
-        <a class="card" href="betain.html" data-slug="betain" data-cat="Метаболизм" data-grade="C" data-code="0" data-hay="бетаин метаболизм зависит от контекста c">
-          <span class="cat">Метаболизм</span>
-          <strong class="card-title">Бетаин</strong>
-          <div class="verdict v0">зависит от контекста</div>
-          <span class="grade gC" title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
+        <a class="card" href="betain.html" data-sup-id="Бетаин" data-slug="betain" data-cat="Метаболизм" data-grade="C" data-code="0" data-hay="бетаин метаболизм зависит от контекста c">
+          <span class="cat" data-sup="category">Метаболизм</span>
+          <strong class="card-title" data-sup="name">Бетаин</strong>
+          <div class="verdict v0" data-sup="verdict">зависит от контекста</div>
+          <span class="grade gC" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "C"}' title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
         </a>
         
-        <a class="card" href="biotin.html" data-slug="biotin" data-cat="Кожа/Волосы" data-grade="D" data-code="-1" data-hay="биотин кожа/волосы не подтверждено d">
-          <span class="cat">Кожа/Волосы</span>
-          <strong class="card-title">Биотин</strong>
-          <div class="verdict v-1">не подтверждено</div>
-          <span class="grade gD" title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
+        <a class="card" href="biotin.html" data-sup-id="Биотин" data-slug="biotin" data-cat="Кожа/Волосы" data-grade="D" data-code="-1" data-hay="биотин кожа/волосы не подтверждено d">
+          <span class="cat" data-sup="category">Кожа/Волосы</span>
+          <strong class="card-title" data-sup="name">Биотин</strong>
+          <div class="verdict v-1" data-sup="verdict">не подтверждено</div>
+          <span class="grade gD" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "D"}' title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
         </a>
         
-        <a class="card" href="bor.html" data-slug="bor" data-cat="Кости/Иммунитет" data-grade="D" data-code="-1" data-hay="бор кости/иммунитет не подтверждено d">
-          <span class="cat">Кости/Иммунитет</span>
-          <strong class="card-title">Бор</strong>
-          <div class="verdict v-1">не подтверждено</div>
-          <span class="grade gD" title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
+        <a class="card" href="bor.html" data-sup-id="Бор" data-slug="bor" data-cat="Кости/Иммунитет" data-grade="D" data-code="-1" data-hay="бор кости/иммунитет не подтверждено d">
+          <span class="cat" data-sup="category">Кости/Иммунитет</span>
+          <strong class="card-title" data-sup="name">Бор</strong>
+          <div class="verdict v-1" data-sup="verdict">не подтверждено</div>
+          <span class="grade gD" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "D"}' title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
         </a>
         
-        <a class="card" href="bosvelliya.html" data-slug="bosvelliya" data-cat="Воспаление/Суставы" data-grade="C" data-code="1" data-hay="босвеллия воспаление/суставы работает c">
-          <span class="cat">Воспаление/Суставы</span>
-          <strong class="card-title">Босвеллия</strong>
-          <div class="verdict v1">работает</div>
-          <span class="grade gC" title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
+        <a class="card" href="bosvelliya.html" data-sup-id="Босвеллия" data-slug="bosvelliya" data-cat="Воспаление/Суставы" data-grade="C" data-code="1" data-hay="босвеллия воспаление/суставы работает c">
+          <span class="cat" data-sup="category">Воспаление/Суставы</span>
+          <strong class="card-title" data-sup="name">Босвеллия</strong>
+          <div class="verdict v1" data-sup="verdict">работает</div>
+          <span class="grade gC" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "C"}' title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
         </a>
         
-        <a class="card" href="boyaryshnik.html" data-slug="boyaryshnik" data-cat="Сердце/Растения" data-grade="B" data-code="1" data-hay="боярышник сердце/растения работает b">
-          <span class="cat">Сердце/Растения</span>
-          <strong class="card-title">Боярышник</strong>
-          <div class="verdict v1">работает</div>
-          <span class="grade gB" title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
+        <a class="card" href="boyaryshnik.html" data-sup-id="Боярышник" data-slug="boyaryshnik" data-cat="Сердце" data-grade="B" data-code="1" data-hay="боярышник сердце работает b">
+          <span class="cat" data-sup="category">Сердце</span>
+          <strong class="card-title" data-sup="name">Боярышник</strong>
+          <div class="verdict v1" data-sup="verdict">работает</div>
+          <span class="grade gB" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "B"}' title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
         </a>
         
-        <a class="card" href="buzina.html" data-slug="buzina" data-cat="Иммунитет/ОРВИ" data-grade="B" data-code="1" data-hay="бузина иммунитет/орви работает b">
-          <span class="cat">Иммунитет/ОРВИ</span>
-          <strong class="card-title">Бузина</strong>
-          <div class="verdict v1">работает</div>
-          <span class="grade gB" title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
+        <a class="card" href="buzina.html" data-sup-id="Бузина" data-slug="buzina" data-cat="Иммунитет/ОРВИ" data-grade="B" data-code="1" data-hay="бузина иммунитет/орви работает b">
+          <span class="cat" data-sup="category">Иммунитет/ОРВИ</span>
+          <strong class="card-title" data-sup="name">Бузина</strong>
+          <div class="verdict v1" data-sup="verdict">работает</div>
+          <span class="grade gB" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "B"}' title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
         </a>
         
-        <a class="card" href="valeriana.html" data-slug="valeriana" data-cat="Сон/Тревожность" data-grade="C" data-code="0" data-hay="валериана сон/тревожность зависит от контекста c">
-          <span class="cat">Сон/Тревожность</span>
-          <strong class="card-title">Валериана</strong>
-          <div class="verdict v0">зависит от контекста</div>
-          <span class="grade gC" title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
+        <a class="card" href="valeriana.html" data-sup-id="Валериана" data-slug="valeriana" data-cat="Сон/Тревожность" data-grade="C" data-code="0" data-hay="валериана сон/тревожность зависит от контекста c">
+          <span class="cat" data-sup="category">Сон/Тревожность</span>
+          <strong class="card-title" data-sup="name">Валериана</strong>
+          <div class="verdict v0" data-sup="verdict">зависит от контекста</div>
+          <span class="grade gC" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "C"}' title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
         </a>
         
-        <a class="card" href="vitamin-a.html" data-slug="vitamin-a" data-cat="Общее" data-grade="C" data-code="0" data-hay="витамин a общее зависит от контекста c">
-          <span class="cat">Общее</span>
-          <strong class="card-title">Витамин A</strong>
-          <div class="verdict v0">зависит от контекста</div>
-          <span class="grade gC" title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
+        <a class="card" href="vitamin-a.html" data-sup-id="Витамин A" data-slug="vitamin-a" data-cat="Общее" data-grade="C" data-code="0" data-hay="витамин a общее зависит от контекста c">
+          <span class="cat" data-sup="category">Общее</span>
+          <strong class="card-title" data-sup="name">Витамин A</strong>
+          <div class="verdict v0" data-sup="verdict">зависит от контекста</div>
+          <span class="grade gC" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "C"}' title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
         </a>
         
-        <a class="card" href="vitamin-c.html" data-slug="vitamin-c" data-cat="Иммунитет/Антиоксидант" data-grade="B" data-code="0" data-hay="витамин c иммунитет/антиоксидант зависит от контекста b">
-          <span class="cat">Иммунитет/Антиоксидант</span>
-          <strong class="card-title">Витамин C</strong>
-          <div class="verdict v0">зависит от контекста</div>
-          <span class="grade gB" title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
+        <a class="card" href="vitamin-c.html" data-sup-id="Витамин C" data-slug="vitamin-c" data-cat="Иммунитет/Антиоксидант" data-grade="D" data-code="0" data-hay="витамин c иммунитет/антиоксидант зависит от контекста d">
+          <span class="cat" data-sup="category">Иммунитет/Антиоксидант</span>
+          <strong class="card-title" data-sup="name">Витамин C</strong>
+          <div class="verdict v0" data-sup="verdict">зависит от контекста</div>
+          <span class="grade gD" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "D"}' title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
         </a>
         
-        <a class="card" href="vitamin-d.html" data-slug="vitamin-d" data-cat="Кости/Иммунитет" data-grade="A" data-code="0" data-hay="витамин d кости/иммунитет зависит от контекста a">
-          <span class="cat">Кости/Иммунитет</span>
-          <strong class="card-title">Витамин D</strong>
-          <div class="verdict v0">зависит от контекста</div>
-          <span class="grade gA" title="Грейд A — шкала доказательности (см. glossary.html)">Грейд A</span>
+        <a class="card" href="vitamin-d.html" data-sup-id="Витамин D" data-slug="vitamin-d" data-cat="Кости/Иммунитет" data-grade="A" data-code="0" data-hay="витамин d кости/иммунитет зависит от контекста a">
+          <span class="cat" data-sup="category">Кости/Иммунитет</span>
+          <strong class="card-title" data-sup="name">Витамин D</strong>
+          <div class="verdict v0" data-sup="verdict">зависит от контекста</div>
+          <span class="grade gA" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "A"}' title="Грейд A — шкала доказательности (см. glossary.html)">Грейд A</span>
         </a>
         
-        <a class="card" href="vitamin-e.html" data-slug="vitamin-e" data-cat="Антиоксидант/Неврология" data-grade="C" data-code="0" data-hay="витамин e антиоксидант/неврология зависит от контекста c">
-          <span class="cat">Антиоксидант/Неврология</span>
-          <strong class="card-title">Витамин E</strong>
-          <div class="verdict v0">зависит от контекста</div>
-          <span class="grade gC" title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
+        <a class="card" href="vitamin-e.html" data-sup-id="Витамин E" data-slug="vitamin-e" data-cat="Неврология/Метаболизм" data-grade="C" data-code="0" data-hay="витамин e неврология/метаболизм зависит от контекста c">
+          <span class="cat" data-sup="category">Неврология/Метаболизм</span>
+          <strong class="card-title" data-sup="name">Витамин E</strong>
+          <div class="verdict v0" data-sup="verdict">зависит от контекста</div>
+          <span class="grade gC" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "C"}' title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
         </a>
         
-        <a class="card" href="vitamin-k1.html" data-slug="vitamin-k1" data-cat="Кости/Иммунитет" data-grade="C" data-code="0" data-hay="витамин k1 кости/иммунитет зависит от контекста c">
-          <span class="cat">Кости/Иммунитет</span>
-          <strong class="card-title">Витамин K1</strong>
-          <div class="verdict v0">зависит от контекста</div>
-          <span class="grade gC" title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
+        <a class="card" href="vitamin-k1.html" data-sup-id="Витамин K1" data-slug="vitamin-k1" data-cat="Кости/Иммунитет" data-grade="C" data-code="0" data-hay="витамин k1 кости/иммунитет зависит от контекста c">
+          <span class="cat" data-sup="category">Кости/Иммунитет</span>
+          <strong class="card-title" data-sup="name">Витамин K1</strong>
+          <div class="verdict v0" data-sup="verdict">зависит от контекста</div>
+          <span class="grade gC" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "C"}' title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
         </a>
         
-        <a class="card" href="vitamin-k2.html" data-slug="vitamin-k2" data-cat="Кости/Сосуды" data-grade="C" data-code="0" data-hay="витамин k2 кости/сосуды зависит от контекста c">
-          <span class="cat">Кости/Сосуды</span>
-          <strong class="card-title">Витамин K2</strong>
-          <div class="verdict v0">зависит от контекста</div>
-          <span class="grade gC" title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
+        <a class="card" href="vitamin-k2.html" data-sup-id="Витамин K2" data-slug="vitamin-k2" data-cat="Кости/Сосуды" data-grade="C" data-code="0" data-hay="витамин k2 кости/сосуды зависит от контекста c">
+          <span class="cat" data-sup="category">Кости/Сосуды</span>
+          <strong class="card-title" data-sup="name">Витамин K2</strong>
+          <div class="verdict v0" data-sup="verdict">зависит от контекста</div>
+          <span class="grade gC" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "C"}' title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
         </a>
         
-        <a class="card" href="gaba.html" data-slug="gaba" data-cat="Психика/Сон" data-grade="D" data-code="-1" data-hay="габа психика/сон не подтверждено d">
-          <span class="cat">Психика/Сон</span>
-          <strong class="card-title">ГАБА</strong>
-          <div class="verdict v-1">не подтверждено</div>
-          <span class="grade gD" title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
+        <a class="card" href="gaba.html" data-sup-id="ГАБА" data-slug="gaba" data-cat="Психика/Сон" data-grade="D" data-code="-1" data-hay="габа психика/сон не подтверждено d">
+          <span class="cat" data-sup="category">Психика/Сон</span>
+          <strong class="card-title" data-sup="name">ГАБА</strong>
+          <div class="verdict v-1" data-sup="verdict">не подтверждено</div>
+          <span class="grade gD" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "D"}' title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
         </a>
         
-        <a class="card" href="gialuronovaya-kislota.html" data-slug="gialuronovaya-kislota" data-cat="Суставы/Кожа" data-grade="C" data-code="0" data-hay="гиалуроновая кислота суставы/кожа зависит от контекста c">
-          <span class="cat">Суставы/Кожа</span>
-          <strong class="card-title">Гиалуроновая кислота</strong>
-          <div class="verdict v0">зависит от контекста</div>
-          <span class="grade gC" title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
+        <a class="card" href="gialuronovaya-kislota.html" data-sup-id="Гиалуроновая кислота" data-slug="gialuronovaya-kislota" data-cat="Кожа и суставы" data-grade="C" data-code="0" data-hay="гиалуроновая кислота кожа и суставы зависит от контекста c">
+          <span class="cat" data-sup="category">Кожа и суставы</span>
+          <strong class="card-title" data-sup="name">Гиалуроновая кислота</strong>
+          <div class="verdict v0" data-sup="verdict">зависит от контекста</div>
+          <span class="grade gC" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "C"}' title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
         </a>
         
-        <a class="card" href="gimnema.html" data-slug="gimnema" data-cat="Метаболизм" data-grade="C" data-code="0" data-hay="гимнема метаболизм зависит от контекста c">
-          <span class="cat">Метаболизм</span>
-          <strong class="card-title">Гимнема</strong>
-          <div class="verdict v0">зависит от контекста</div>
-          <span class="grade gC" title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
+        <a class="card" href="gimnema.html" data-sup-id="Гимнема" data-slug="gimnema" data-cat="Метаболизм" data-grade="C" data-code="0" data-hay="гимнема метаболизм зависит от контекста c">
+          <span class="cat" data-sup="category">Метаболизм</span>
+          <strong class="card-title" data-sup="name">Гимнема</strong>
+          <div class="verdict v0" data-sup="verdict">зависит от контекста</div>
+          <span class="grade gC" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "C"}' title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
         </a>
         
-        <a class="card" href="ginkgo.html" data-slug="ginkgo" data-cat="Когниция/Сосуды" data-grade="D" data-code="-1" data-hay="гинкго когниция/сосуды не подтверждено d">
-          <span class="cat">Когниция/Сосуды</span>
-          <strong class="card-title">Гинкго</strong>
-          <div class="verdict v-1">не подтверждено</div>
-          <span class="grade gD" title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
+        <a class="card" href="ginkgo.html" data-sup-id="Гинкго" data-slug="ginkgo" data-cat="Когниция" data-grade="D" data-code="-1" data-hay="гинкго когниция не подтверждено d">
+          <span class="cat" data-sup="category">Когниция</span>
+          <strong class="card-title" data-sup="name">Гинкго</strong>
+          <div class="verdict v-1" data-sup="verdict">не подтверждено</div>
+          <span class="grade gD" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "D"}' title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
         </a>
         
-        <a class="card" href="glitsin.html" data-slug="glitsin" data-cat="Нейромедиатор/Сон" data-grade="D" data-code="-1" data-hay="глицин нейромедиатор/сон не подтверждено d">
-          <span class="cat">Нейромедиатор/Сон</span>
-          <strong class="card-title">Глицин</strong>
-          <div class="verdict v-1">не подтверждено</div>
-          <span class="grade gD" title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
+        <a class="card" href="glitsin.html" data-sup-id="Глицин" data-slug="glitsin" data-cat="Нейромедиатор/Сон" data-grade="D" data-code="-1" data-hay="глицин нейромедиатор/сон не подтверждено d">
+          <span class="cat" data-sup="category">Нейромедиатор/Сон</span>
+          <strong class="card-title" data-sup="name">Глицин</strong>
+          <div class="verdict v-1" data-sup="verdict">не подтверждено</div>
+          <span class="grade gD" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "D"}' title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
         </a>
         
-        <a class="card" href="glutamin.html" data-slug="glutamin" data-cat="Критические состояния/Спорт" data-grade="C" data-code="0" data-hay="глутамин критические состояния/спорт зависит от контекста c">
-          <span class="cat">Критические состояния/Спорт</span>
-          <strong class="card-title">Глутамин</strong>
-          <div class="verdict v0">зависит от контекста</div>
-          <span class="grade gC" title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
+        <a class="card" href="glutamin.html" data-sup-id="Глутамин" data-slug="glutamin" data-cat="Критические состояния/Спорт" data-grade="C" data-code="0" data-hay="глутамин критические состояния/спорт зависит от контекста c">
+          <span class="cat" data-sup="category">Критические состояния/Спорт</span>
+          <strong class="card-title" data-sup="name">Глутамин</strong>
+          <div class="verdict v0" data-sup="verdict">зависит от контекста</div>
+          <span class="grade gC" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "C"}' title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
         </a>
         
-        <a class="card" href="glutation.html" data-slug="glutation" data-cat="Общее" data-grade="C" data-code="0" data-hay="глутатион общее зависит от контекста c">
-          <span class="cat">Общее</span>
-          <strong class="card-title">Глутатион</strong>
-          <div class="verdict v0">зависит от контекста</div>
-          <span class="grade gC" title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
+        <a class="card" href="glutation.html" data-sup-id="Глутатион" data-slug="glutation" data-cat="Общее" data-grade="C" data-code="0" data-hay="глутатион общее зависит от контекста c">
+          <span class="cat" data-sup="category">Общее</span>
+          <strong class="card-title" data-sup="name">Глутатион</strong>
+          <div class="verdict v0" data-sup="verdict">зависит от контекста</div>
+          <span class="grade gC" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "C"}' title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
         </a>
         
-        <a class="card" href="glyukozamin-hondroitin.html" data-slug="glyukozamin-hondroitin" data-cat="Суставы/Остеоартрит" data-grade="C" data-code="0" data-hay="глюкозамин + хондроитин суставы/остеоартрит зависит от контекста c">
-          <span class="cat">Суставы/Остеоартрит</span>
-          <strong class="card-title">Глюкозамин + хондроитин</strong>
-          <div class="verdict v0">зависит от контекста</div>
-          <span class="grade gC" title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
+        <a class="card" href="glyukozamin-hondroitin.html" data-sup-id="Глюкозамин + хондроитин" data-slug="glyukozamin-hondroitin" data-cat="Суставы/Остеоартрит" data-grade="C" data-code="0" data-hay="глюкозамин + хондроитин суставы/остеоартрит зависит от контекста c">
+          <span class="cat" data-sup="category">Суставы/Остеоартрит</span>
+          <strong class="card-title" data-sup="name">Глюкозамин + хондроитин</strong>
+          <div class="verdict v0" data-sup="verdict">зависит от контекста</div>
+          <span class="grade gC" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "C"}' title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
         </a>
         
-        <a class="card" href="gotu-kola.html" data-slug="gotu-kola" data-cat="Когниция/Сосуды" data-grade="C" data-code="0" data-hay="готу кола когниция/сосуды зависит от контекста c">
-          <span class="cat">Когниция/Сосуды</span>
-          <strong class="card-title">Готу кола</strong>
-          <div class="verdict v0">зависит от контекста</div>
-          <span class="grade gC" title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
+        <a class="card" href="gotu-kola.html" data-sup-id="Готу кола" data-slug="gotu-kola" data-cat="Когниция" data-grade="C" data-code="0" data-hay="готу кола когниция зависит от контекста c">
+          <span class="cat" data-sup="category">Когниция</span>
+          <strong class="card-title" data-sup="name">Готу кола</strong>
+          <div class="verdict v0" data-sup="verdict">зависит от контекста</div>
+          <span class="grade gC" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "C"}' title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
         </a>
         
-        <a class="card" href="guperzin-a.html" data-slug="guperzin-a" data-cat="Когниция/Деменция" data-grade="B" data-code="0" data-hay="гуперзин а когниция/деменция зависит от контекста b">
-          <span class="cat">Когниция/Деменция</span>
-          <strong class="card-title">Гуперзин А</strong>
-          <div class="verdict v0">зависит от контекста</div>
-          <span class="grade gB" title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
+        <a class="card" href="guperzin-a.html" data-sup-id="Гуперзин А" data-slug="guperzin-a" data-cat="Когниция/Деменция" data-grade="B" data-code="0" data-hay="гуперзин а когниция/деменция зависит от контекста b">
+          <span class="cat" data-sup="category">Когниция/Деменция</span>
+          <strong class="card-title" data-sup="name">Гуперзин А</strong>
+          <div class="verdict v0" data-sup="verdict">зависит от контекста</div>
+          <span class="grade gB" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "B"}' title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
         </a>
         
-        <a class="card" href="ezhovik.html" data-slug="ezhovik" data-cat="Когниция/Нервная система" data-grade="D" data-code="-1" data-hay="ежовик когниция/нервная система не подтверждено d">
-          <span class="cat">Когниция/Нервная система</span>
-          <strong class="card-title">Ежовик</strong>
-          <div class="verdict v-1">не подтверждено</div>
-          <span class="grade gD" title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
+        <a class="card" href="ezhovik.html" data-sup-id="Ежовик" data-slug="ezhovik" data-cat="Когниция/Нервная система" data-grade="D" data-code="-1" data-hay="ежовик когниция/нервная система не подтверждено d">
+          <span class="cat" data-sup="category">Когниция/Нервная система</span>
+          <strong class="card-title" data-sup="name">Ежовик</strong>
+          <div class="verdict v-1" data-sup="verdict">не подтверждено</div>
+          <span class="grade gD" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "D"}' title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
         </a>
         
-        <a class="card" href="zhelezo.html" data-slug="zhelezo" data-cat="Кровь/Анемия" data-grade="A" data-code="1" data-hay="железо кровь/анемия работает a">
-          <span class="cat">Кровь/Анемия</span>
-          <strong class="card-title">Железо</strong>
-          <div class="verdict v1">работает</div>
-          <span class="grade gA" title="Грейд A — шкала доказательности (см. glossary.html)">Грейд A</span>
+        <a class="card" href="zhelezo.html" data-sup-id="Железо" data-slug="zhelezo" data-cat="Кровь/Анемия" data-grade="A" data-code="1" data-hay="железо кровь/анемия работает a">
+          <span class="cat" data-sup="category">Кровь/Анемия</span>
+          <strong class="card-title" data-sup="name">Железо</strong>
+          <div class="verdict v1" data-sup="verdict">работает</div>
+          <span class="grade gA" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "A"}' title="Грейд A — шкала доказательности (см. glossary.html)">Грейд A</span>
         </a>
         
-        <a class="card" href="zhenshen.html" data-slug="zhenshen" data-cat="Когниция" data-grade="B" data-code="1" data-hay="женьшень когниция работает b">
-          <span class="cat">Когниция</span>
-          <strong class="card-title">Женьшень</strong>
-          <div class="verdict v1">работает</div>
-          <span class="grade gB" title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
+        <a class="card" href="zhenshen.html" data-sup-id="Женьшень" data-slug="zhenshen" data-cat="Когниция" data-grade="D" data-code="1" data-hay="женьшень когниция работает d">
+          <span class="cat" data-sup="category">Когниция</span>
+          <strong class="card-title" data-sup="name">Женьшень</strong>
+          <div class="verdict v1" data-sup="verdict">работает</div>
+          <span class="grade gD" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "D"}' title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
         </a>
         
-        <a class="card" href="zveroboy.html" data-slug="zveroboy" data-cat="Психика/Депрессия" data-grade="B" data-code="1" data-hay="зверобой психика/депрессия работает b">
-          <span class="cat">Психика/Депрессия</span>
-          <strong class="card-title">Зверобой</strong>
-          <div class="verdict v1">работает</div>
-          <span class="grade gB" title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
+        <a class="card" href="zveroboy.html" data-sup-id="Зверобой" data-slug="zveroboy" data-cat="Психика/Депрессия" data-grade="D" data-code="1" data-hay="зверобой психика/депрессия работает d">
+          <span class="cat" data-sup="category">Психика/Депрессия</span>
+          <strong class="card-title" data-sup="name">Зверобой</strong>
+          <div class="verdict v1" data-sup="verdict">работает</div>
+          <span class="grade gD" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "D"}' title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
         </a>
         
-        <a class="card" href="imbir.html" data-slug="imbir" data-cat="ЖКТ/Метаболизм" data-grade="B" data-code="1" data-hay="имбирь жкт/метаболизм работает b">
-          <span class="cat">ЖКТ/Метаболизм</span>
-          <strong class="card-title">Имбирь</strong>
-          <div class="verdict v1">работает</div>
-          <span class="grade gB" title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
+        <a class="card" href="imbir.html" data-sup-id="Имбирь" data-slug="imbir" data-cat="ЖКТ/Метаболизм" data-grade="D" data-code="1" data-hay="имбирь жкт/метаболизм работает d">
+          <span class="cat" data-sup="category">ЖКТ/Метаболизм</span>
+          <strong class="card-title" data-sup="name">Имбирь</strong>
+          <div class="verdict v1" data-sup="verdict">работает</div>
+          <span class="grade gD" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "D"}' title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
         </a>
         
-        <a class="card" href="inozitol.html" data-slug="inozitol" data-cat="Женское здоровье/СПКЯ" data-grade="C" data-code="0" data-hay="инозитол женское здоровье/спкя зависит от контекста c">
-          <span class="cat">Женское здоровье/СПКЯ</span>
-          <strong class="card-title">Инозитол</strong>
-          <div class="verdict v0">зависит от контекста</div>
-          <span class="grade gC" title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
+        <a class="card" href="inozitol.html" data-sup-id="Инозитол" data-slug="inozitol" data-cat="Женское здоровье/СПКЯ" data-grade="C" data-code="0" data-hay="инозитол женское здоровье/спкя зависит от контекста c">
+          <span class="cat" data-sup="category">Женское здоровье/СПКЯ</span>
+          <strong class="card-title" data-sup="name">Инозитол</strong>
+          <div class="verdict v0" data-sup="verdict">зависит от контекста</div>
+          <span class="grade gC" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "C"}' title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
         </a>
         
-        <a class="card" href="yod.html" data-slug="yod" data-cat="Гормоны" data-grade="D" data-code="-1" data-hay="йод гормоны не подтверждено d">
-          <span class="cat">Гормоны</span>
-          <strong class="card-title">Йод</strong>
-          <div class="verdict v-1">не подтверждено</div>
-          <span class="grade gD" title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
+        <a class="card" href="yod.html" data-sup-id="Йод" data-slug="yod" data-cat="Гормоны" data-grade="D" data-code="-1" data-hay="йод гормоны не подтверждено d">
+          <span class="cat" data-sup="category">Гормоны</span>
+          <strong class="card-title" data-sup="name">Йод</strong>
+          <div class="verdict v-1" data-sup="verdict">не подтверждено</div>
+          <span class="grade gD" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "D"}' title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
         </a>
         
-        <a class="card" href="yohimbin.html" data-slug="yohimbin" data-cat="Сексуальное здоровье" data-grade="D" data-code="-1" data-hay="йохимбин сексуальное здоровье не подтверждено d">
-          <span class="cat">Сексуальное здоровье</span>
-          <strong class="card-title">Йохимбин</strong>
-          <div class="verdict v-1">не подтверждено</div>
-          <span class="grade gD" title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
+        <a class="card" href="yohimbin.html" data-sup-id="Йохимбин" data-slug="yohimbin" data-cat="Сексуальное здоровье" data-grade="D" data-code="-1" data-hay="йохимбин сексуальное здоровье не подтверждено d">
+          <span class="cat" data-sup="category">Сексуальное здоровье</span>
+          <strong class="card-title" data-sup="name">Йохимбин</strong>
+          <div class="verdict v-1" data-sup="verdict">не подтверждено</div>
+          <span class="grade gD" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "D"}' title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
         </a>
         
-        <a class="card" href="kaliy.html" data-slug="kaliy" data-cat="Сердце/сосуды" data-grade="B" data-code="0" data-hay="калий сердце/сосуды зависит от контекста b">
-          <span class="cat">Сердце/сосуды</span>
-          <strong class="card-title">Калий</strong>
-          <div class="verdict v0">зависит от контекста</div>
-          <span class="grade gB" title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
+        <a class="card" href="kaliy.html" data-sup-id="Калий" data-slug="kaliy" data-cat="Сердце" data-grade="B" data-code="0" data-hay="калий сердце зависит от контекста b">
+          <span class="cat" data-sup="category">Сердце</span>
+          <strong class="card-title" data-sup="name">Калий</strong>
+          <div class="verdict v0" data-sup="verdict">зависит от контекста</div>
+          <span class="grade gB" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "B"}' title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
         </a>
         
-        <a class="card" href="kaltsiy.html" data-slug="kaltsiy" data-cat="Кости/Беременность" data-grade="A" data-code="0" data-hay="кальций кости/беременность зависит от контекста a">
-          <span class="cat">Кости/Беременность</span>
-          <strong class="card-title">Кальций</strong>
-          <div class="verdict v0">зависит от контекста</div>
-          <span class="grade gA" title="Грейд A — шкала доказательности (см. glossary.html)">Грейд A</span>
+        <a class="card" href="kaltsiy.html" data-sup-id="Кальций" data-slug="kaltsiy" data-cat="Кости/Беременность" data-grade="A" data-code="0" data-hay="кальций кости/беременность зависит от контекста a">
+          <span class="cat" data-sup="category">Кости/Беременность</span>
+          <strong class="card-title" data-sup="name">Кальций</strong>
+          <div class="verdict v0" data-sup="verdict">зависит от контекста</div>
+          <span class="grade gA" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "A"}' title="Грейд A — шкала доказательности (см. glossary.html)">Грейд A</span>
         </a>
         
-        <a class="card" href="karnozin.html" data-slug="karnozin" data-cat="Когниция" data-grade="D" data-code="-1" data-hay="карнозин когниция не подтверждено d">
-          <span class="cat">Когниция</span>
-          <strong class="card-title">Карнозин</strong>
-          <div class="verdict v-1">не подтверждено</div>
-          <span class="grade gD" title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
+        <a class="card" href="karnozin.html" data-sup-id="Карнозин" data-slug="karnozin" data-cat="Когниция" data-grade="D" data-code="-1" data-hay="карнозин когниция не подтверждено d">
+          <span class="cat" data-sup="category">Когниция</span>
+          <strong class="card-title" data-sup="name">Карнозин</strong>
+          <div class="verdict v-1" data-sup="verdict">не подтверждено</div>
+          <span class="grade gD" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "D"}' title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
         </a>
         
-        <a class="card" href="kvertsetin.html" data-slug="kvertsetin" data-cat="Антиоксидант/Воспаление" data-grade="B" data-code="1" data-hay="кверцетин антиоксидант/воспаление работает b">
-          <span class="cat">Антиоксидант/Воспаление</span>
-          <strong class="card-title">Кверцетин</strong>
-          <div class="verdict v1">работает</div>
-          <span class="grade gB" title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
+        <a class="card" href="kvertsetin.html" data-sup-id="Кверцетин" data-slug="kvertsetin" data-cat="Воспаление/Метаболизм" data-grade="D" data-code="1" data-hay="кверцетин воспаление/метаболизм работает d">
+          <span class="cat" data-sup="category">Воспаление/Метаболизм</span>
+          <strong class="card-title" data-sup="name">Кверцетин</strong>
+          <div class="verdict v1" data-sup="verdict">работает</div>
+          <span class="grade gD" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "D"}' title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
         </a>
         
-        <a class="card" href="klyukva.html" data-slug="klyukva" data-cat="Мочеполовая система" data-grade="C" data-code="0" data-hay="клюква мочеполовая система зависит от контекста c">
-          <span class="cat">Мочеполовая система</span>
-          <strong class="card-title">Клюква</strong>
-          <div class="verdict v0">зависит от контекста</div>
-          <span class="grade gC" title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
+        <a class="card" href="klyukva.html" data-sup-id="Клюква" data-slug="klyukva" data-cat="Мочеполовая система" data-grade="C" data-code="0" data-hay="клюква мочеполовая система зависит от контекста c">
+          <span class="cat" data-sup="category">Мочеполовая система</span>
+          <strong class="card-title" data-sup="name">Клюква</strong>
+          <div class="verdict v0" data-sup="verdict">зависит от контекста</div>
+          <span class="grade gC" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "C"}' title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
         </a>
         
-        <a class="card" href="kollagen.html" data-slug="kollagen" data-cat="Кожа/Суставы" data-grade="B" data-code="1" data-hay="коллаген кожа/суставы работает b">
-          <span class="cat">Кожа/Суставы</span>
-          <strong class="card-title">Коллаген</strong>
-          <div class="verdict v1">работает</div>
-          <span class="grade gB" title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
+        <a class="card" href="kollagen.html" data-sup-id="Коллаген" data-slug="kollagen" data-cat="Кожа и суставы" data-grade="D" data-code="1" data-hay="коллаген кожа и суставы работает d">
+          <span class="cat" data-sup="category">Кожа и суставы</span>
+          <strong class="card-title" data-sup="name">Коллаген</strong>
+          <div class="verdict v1" data-sup="verdict">работает</div>
+          <span class="grade gD" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "D"}' title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
         </a>
         
-        <a class="card" href="korditseps.html" data-slug="korditseps" data-cat="Почки/Выносливость" data-grade="B" data-code="1" data-hay="кордицепс почки/выносливость работает b">
-          <span class="cat">Почки/Выносливость</span>
-          <strong class="card-title">Кордицепс</strong>
-          <div class="verdict v1">работает</div>
-          <span class="grade gB" title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
+        <a class="card" href="korditseps.html" data-sup-id="Кордицепс" data-slug="korditseps" data-cat="Почки/Выносливость" data-grade="B" data-code="1" data-hay="кордицепс почки/выносливость работает b">
+          <span class="cat" data-sup="category">Почки/Выносливость</span>
+          <strong class="card-title" data-sup="name">Кордицепс</strong>
+          <div class="verdict v1" data-sup="verdict">работает</div>
+          <span class="grade gB" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "B"}' title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
         </a>
         
-        <a class="card" href="kofein.html" data-slug="kofein" data-cat="Производительность" data-grade="A" data-code="1" data-hay="кофеин производительность работает a">
-          <span class="cat">Производительность</span>
-          <strong class="card-title">Кофеин</strong>
-          <div class="verdict v1">работает</div>
-          <span class="grade gA" title="Грейд A — шкала доказательности (см. glossary.html)">Грейд A</span>
+        <a class="card" href="kofein.html" data-sup-id="Кофеин" data-slug="kofein" data-cat="Производительность" data-grade="A" data-code="1" data-hay="кофеин производительность работает a">
+          <span class="cat" data-sup="category">Производительность</span>
+          <strong class="card-title" data-sup="name">Кофеин</strong>
+          <div class="verdict v1" data-sup="verdict">работает</div>
+          <span class="grade gA" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "A"}' title="Грейд A — шкала доказательности (см. glossary.html)">Грейд A</span>
         </a>
         
-        <a class="card" href="kreatin.html" data-slug="kreatin" data-cat="Спорт/Когниция" data-grade="A" data-code="1" data-hay="креатин спорт/когниция работает a">
-          <span class="cat">Спорт/Когниция</span>
-          <strong class="card-title">Креатин</strong>
-          <div class="verdict v1">работает</div>
-          <span class="grade gA" title="Грейд A — шкала доказательности (см. glossary.html)">Грейд A</span>
+        <a class="card" href="kreatin.html" data-sup-id="Креатин" data-slug="kreatin" data-cat="Спорт/Когниция" data-grade="A" data-code="1" data-hay="креатин спорт/когниция работает a">
+          <span class="cat" data-sup="category">Спорт/Когниция</span>
+          <strong class="card-title" data-sup="name">Креатин</strong>
+          <div class="verdict v1" data-sup="verdict">работает</div>
+          <span class="grade gA" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "A"}' title="Грейд A — шкала доказательности (см. glossary.html)">Грейд A</span>
         </a>
         
-        <a class="card" href="kremniy.html" data-slug="kremniy" data-cat="Кости/Иммунитет" data-grade="C" data-code="0" data-hay="кремний кости/иммунитет зависит от контекста c">
-          <span class="cat">Кости/Иммунитет</span>
-          <strong class="card-title">Кремний</strong>
-          <div class="verdict v0">зависит от контекста</div>
-          <span class="grade gC" title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
+        <a class="card" href="kremniy.html" data-sup-id="Кремний" data-slug="kremniy" data-cat="Кости/Иммунитет" data-grade="C" data-code="0" data-hay="кремний кости/иммунитет зависит от контекста c">
+          <span class="cat" data-sup="category">Кости/Иммунитет</span>
+          <strong class="card-title" data-sup="name">Кремний</strong>
+          <div class="verdict v0" data-sup="verdict">зависит от контекста</div>
+          <span class="grade gC" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "C"}' title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
         </a>
         
-        <a class="card" href="kurkumin.html" data-slug="kurkumin" data-cat="Воспаление/Суставы" data-grade="B" data-code="0" data-hay="куркумин воспаление/суставы зависит от контекста b">
-          <span class="cat">Воспаление/Суставы</span>
-          <strong class="card-title">Куркумин</strong>
-          <div class="verdict v0">зависит от контекста</div>
-          <span class="grade gB" title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
+        <a class="card" href="kurkumin.html" data-sup-id="Куркумин" data-slug="kurkumin" data-cat="Воспаление/Суставы" data-grade="B" data-code="0" data-hay="куркумин воспаление/суставы зависит от контекста b">
+          <span class="cat" data-sup="category">Воспаление/Суставы</span>
+          <strong class="card-title" data-sup="name">Куркумин</strong>
+          <div class="verdict v0" data-sup="verdict">зависит от контекста</div>
+          <span class="grade gB" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "B"}' title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
         </a>
         
-        <a class="card" href="lavanda.html" data-slug="lavanda" data-cat="Настроение" data-grade="C" data-code="0" data-hay="лаванда настроение зависит от контекста c">
-          <span class="cat">Настроение</span>
-          <strong class="card-title">Лаванда</strong>
-          <div class="verdict v0">зависит от контекста</div>
-          <span class="grade gC" title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
+        <a class="card" href="lavanda.html" data-sup-id="Лаванда" data-slug="lavanda" data-cat="Настроение" data-grade="C" data-code="0" data-hay="лаванда настроение зависит от контекста c">
+          <span class="cat" data-sup="category">Настроение</span>
+          <strong class="card-title" data-sup="name">Лаванда</strong>
+          <div class="verdict v0" data-sup="verdict">зависит от контекста</div>
+          <span class="grade gC" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "C"}' title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
         </a>
         
-        <a class="card" href="laktoferrin.html" data-slug="laktoferrin" data-cat="Иммунитет/Дети" data-grade="B" data-code="1" data-hay="лактоферрин иммунитет/дети работает b">
-          <span class="cat">Иммунитет/Дети</span>
-          <strong class="card-title">Лактоферрин</strong>
-          <div class="verdict v1">работает</div>
-          <span class="grade gB" title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
+        <a class="card" href="laktoferrin.html" data-sup-id="Лактоферрин" data-slug="laktoferrin" data-cat="Иммунитет/Дети" data-grade="D" data-code="1" data-hay="лактоферрин иммунитет/дети работает d">
+          <span class="cat" data-sup="category">Иммунитет/Дети</span>
+          <strong class="card-title" data-sup="name">Лактоферрин</strong>
+          <div class="verdict v1" data-sup="verdict">работает</div>
+          <span class="grade gD" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "D"}' title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
         </a>
         
-        <a class="card" href="lizin.html" data-slug="lizin" data-cat="Иммунитет" data-grade="D" data-code="-1" data-hay="лизин иммунитет не подтверждено d">
-          <span class="cat">Иммунитет</span>
-          <strong class="card-title">Лизин</strong>
-          <div class="verdict v-1">не подтверждено</div>
-          <span class="grade gD" title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
+        <a class="card" href="lizin.html" data-sup-id="Лизин" data-slug="lizin" data-cat="Иммунитет" data-grade="D" data-code="-1" data-hay="лизин иммунитет не подтверждено d">
+          <span class="cat" data-sup="category">Иммунитет</span>
+          <strong class="card-title" data-sup="name">Лизин</strong>
+          <div class="verdict v-1" data-sup="verdict">не подтверждено</div>
+          <span class="grade gD" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "D"}' title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
         </a>
         
-        <a class="card" href="lyutein-zeaksantin.html" data-slug="lyutein-zeaksantin" data-cat="Глаза/Зрение" data-grade="B" data-code="1" data-hay="лютеин + зеаксантин глаза/зрение работает b">
-          <span class="cat">Глаза/Зрение</span>
-          <strong class="card-title">Лютеин + зеаксантин</strong>
-          <div class="verdict v1">работает</div>
-          <span class="grade gB" title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
+        <a class="card" href="lyutein-zeaksantin.html" data-sup-id="Лютеин + зеаксантин" data-slug="lyutein-zeaksantin" data-cat="Глаза/Зрение" data-grade="D" data-code="1" data-hay="лютеин + зеаксантин глаза/зрение работает d">
+          <span class="cat" data-sup="category">Глаза/Зрение</span>
+          <strong class="card-title" data-sup="name">Лютеин + зеаксантин</strong>
+          <div class="verdict v1" data-sup="verdict">работает</div>
+          <span class="grade gD" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "D"}' title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
         </a>
         
-        <a class="card" href="magniy.html" data-slug="magniy" data-cat="Минерал/Сердце" data-grade="B" data-code="1" data-hay="магний минерал/сердце работает b">
-          <span class="cat">Минерал/Сердце</span>
-          <strong class="card-title">Магний</strong>
-          <div class="verdict v1">работает</div>
-          <span class="grade gB" title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
+        <a class="card" href="magniy.html" data-sup-id="Магний" data-slug="magniy" data-cat="Минерал/Сердце" data-grade="D" data-code="1" data-hay="магний минерал/сердце работает d">
+          <span class="cat" data-sup="category">Минерал/Сердце</span>
+          <strong class="card-title" data-sup="name">Магний</strong>
+          <div class="verdict v1" data-sup="verdict">работает</div>
+          <span class="grade gD" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "D"}' title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
         </a>
         
-        <a class="card" href="maytake.html" data-slug="maytake" data-cat="Иммунитет" data-grade="D" data-code="-1" data-hay="майтаке иммунитет не подтверждено d">
-          <span class="cat">Иммунитет</span>
-          <strong class="card-title">Майтаке</strong>
-          <div class="verdict v-1">не подтверждено</div>
-          <span class="grade gD" title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
+        <a class="card" href="maytake.html" data-sup-id="Майтаке" data-slug="maytake" data-cat="Иммунитет" data-grade="D" data-code="-1" data-hay="майтаке иммунитет не подтверждено d">
+          <span class="cat" data-sup="category">Иммунитет</span>
+          <strong class="card-title" data-sup="name">Майтаке</strong>
+          <div class="verdict v-1" data-sup="verdict">не подтверждено</div>
+          <span class="grade gD" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "D"}' title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
         </a>
         
-        <a class="card" href="maka.html" data-slug="maka" data-cat="Сексуальное здоровье/Энергия" data-grade="C" data-code="0" data-hay="мака сексуальное здоровье/энергия зависит от контекста c">
-          <span class="cat">Сексуальное здоровье/Энергия</span>
-          <strong class="card-title">Мака</strong>
-          <div class="verdict v0">зависит от контекста</div>
-          <span class="grade gC" title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
+        <a class="card" href="maka.html" data-sup-id="Мака" data-slug="maka" data-cat="Сексуальное здоровье" data-grade="C" data-code="0" data-hay="мака сексуальное здоровье зависит от контекста c">
+          <span class="cat" data-sup="category">Сексуальное здоровье</span>
+          <strong class="card-title" data-sup="name">Мака</strong>
+          <div class="verdict v0" data-sup="verdict">зависит от контекста</div>
+          <span class="grade gC" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "C"}' title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
         </a>
         
-        <a class="card" href="marganets.html" data-slug="marganets" data-cat="Общее" data-grade="D" data-code="-1" data-hay="марганец общее не подтверждено d">
-          <span class="cat">Общее</span>
-          <strong class="card-title">Марганец</strong>
-          <div class="verdict v-1">не подтверждено</div>
-          <span class="grade gD" title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
+        <a class="card" href="marganets.html" data-sup-id="Марганец" data-slug="marganets" data-cat="Общее" data-grade="D" data-code="-1" data-hay="марганец общее не подтверждено d">
+          <span class="cat" data-sup="category">Общее</span>
+          <strong class="card-title" data-sup="name">Марганец</strong>
+          <div class="verdict v-1" data-sup="verdict">не подтверждено</div>
+          <span class="grade gD" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "D"}' title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
         </a>
         
-        <a class="card" href="med.html" data-slug="med" data-cat="Общее" data-grade="D" data-code="-1" data-hay="медь общее не подтверждено d">
-          <span class="cat">Общее</span>
-          <strong class="card-title">Медь</strong>
-          <div class="verdict v-1">не подтверждено</div>
-          <span class="grade gD" title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
+        <a class="card" href="med.html" data-sup-id="Медь" data-slug="med" data-cat="Общее" data-grade="D" data-code="-1" data-hay="медь общее не подтверждено d">
+          <span class="cat" data-sup="category">Общее</span>
+          <strong class="card-title" data-sup="name">Медь</strong>
+          <div class="verdict v-1" data-sup="verdict">не подтверждено</div>
+          <span class="grade gD" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "D"}' title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
         </a>
         
-        <a class="card" href="melatonin.html" data-slug="melatonin" data-cat="Сон/Циркадные ритмы" data-grade="A" data-code="1" data-hay="мелатонин сон/циркадные ритмы работает a">
-          <span class="cat">Сон/Циркадные ритмы</span>
-          <strong class="card-title">Мелатонин</strong>
-          <div class="verdict v1">работает</div>
-          <span class="grade gA" title="Грейд A — шкала доказательности (см. glossary.html)">Грейд A</span>
+        <a class="card" href="melatonin.html" data-sup-id="Мелатонин" data-slug="melatonin" data-cat="Сон/Циркадные ритмы" data-grade="D" data-code="1" data-hay="мелатонин сон/циркадные ритмы работает d">
+          <span class="cat" data-sup="category">Сон/Циркадные ритмы</span>
+          <strong class="card-title" data-sup="name">Мелатонин</strong>
+          <div class="verdict v1" data-sup="verdict">работает</div>
+          <span class="grade gD" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "D"}' title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
         </a>
         
-        <a class="card" href="melissa.html" data-slug="melissa" data-cat="Сон" data-grade="C" data-code="0" data-hay="мелисса сон зависит от контекста c">
-          <span class="cat">Сон</span>
-          <strong class="card-title">Мелисса</strong>
-          <div class="verdict v0">зависит от контекста</div>
-          <span class="grade gC" title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
+        <a class="card" href="melissa.html" data-sup-id="Мелисса" data-slug="melissa" data-cat="Сон" data-grade="C" data-code="0" data-hay="мелисса сон зависит от контекста c">
+          <span class="cat" data-sup="category">Сон</span>
+          <strong class="card-title" data-sup="name">Мелисса</strong>
+          <div class="verdict v0" data-sup="verdict">зависит от контекста</div>
+          <span class="grade gC" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "C"}' title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
         </a>
         
-        <a class="card" href="metionin.html" data-slug="metionin" data-cat="Метаболизм" data-grade="D" data-code="-1" data-hay="метионин метаболизм не подтверждено d">
-          <span class="cat">Метаболизм</span>
-          <strong class="card-title">Метионин</strong>
-          <div class="verdict v-1">не подтверждено</div>
-          <span class="grade gD" title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
+        <a class="card" href="metionin.html" data-sup-id="Метионин" data-slug="metionin" data-cat="Метаболизм" data-grade="D" data-code="-1" data-hay="метионин метаболизм не подтверждено d">
+          <span class="cat" data-sup="category">Метаболизм</span>
+          <strong class="card-title" data-sup="name">Метионин</strong>
+          <div class="verdict v-1" data-sup="verdict">не подтверждено</div>
+          <span class="grade gD" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "D"}' title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
         </a>
         
-        <a class="card" href="molibden.html" data-slug="molibden" data-cat="Общее" data-grade="D" data-code="-1" data-hay="молибден общее не подтверждено d">
-          <span class="cat">Общее</span>
-          <strong class="card-title">Молибден</strong>
-          <div class="verdict v-1">не подтверждено</div>
-          <span class="grade gD" title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
+        <a class="card" href="molibden.html" data-sup-id="Молибден" data-slug="molibden" data-cat="Общее" data-grade="D" data-code="-1" data-hay="молибден общее не подтверждено d">
+          <span class="cat" data-sup="category">Общее</span>
+          <strong class="card-title" data-sup="name">Молибден</strong>
+          <div class="verdict v-1" data-sup="verdict">не подтверждено</div>
+          <span class="grade gD" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "D"}' title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
         </a>
         
-        <a class="card" href="niatsinamid.html" data-slug="niatsinamid" data-cat="Кожа и суставы" data-grade="C" data-code="0" data-hay="ниацинамид кожа и суставы зависит от контекста c">
-          <span class="cat">Кожа и суставы</span>
-          <strong class="card-title">Ниацинамид</strong>
-          <div class="verdict v0">зависит от контекста</div>
-          <span class="grade gC" title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
+        <a class="card" href="niatsinamid.html" data-sup-id="Ниацинамид" data-slug="niatsinamid" data-cat="Кожа и суставы" data-grade="C" data-code="0" data-hay="ниацинамид кожа и суставы зависит от контекста c">
+          <span class="cat" data-sup="category">Кожа и суставы</span>
+          <strong class="card-title" data-sup="name">Ниацинамид</strong>
+          <div class="verdict v0" data-sup="verdict">зависит от контекста</div>
+          <span class="grade gC" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "C"}' title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
         </a>
         
-        <a class="card" href="omega-3.html" data-slug="omega-3" data-cat="Сердце" data-grade="B" data-code="0" data-hay="омега-3 сердце зависит от контекста b">
-          <span class="cat">Сердце</span>
-          <strong class="card-title">Омега-3</strong>
-          <div class="verdict v0">зависит от контекста</div>
-          <span class="grade gB" title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
+        <a class="card" href="omega-3.html" data-sup-id="Омега-3" data-slug="omega-3" data-cat="Сердце" data-grade="B" data-code="0" data-hay="омега-3 сердце зависит от контекста b">
+          <span class="cat" data-sup="category">Сердце</span>
+          <strong class="card-title" data-sup="name">Омега-3</strong>
+          <div class="verdict v0" data-sup="verdict">зависит от контекста</div>
+          <span class="grade gB" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "B"}' title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
         </a>
         
-        <a class="card" href="ornitin.html" data-slug="ornitin" data-cat="Спорт" data-grade="D" data-code="-1" data-hay="орнитин спорт не подтверждено d">
-          <span class="cat">Спорт</span>
-          <strong class="card-title">Орнитин</strong>
-          <div class="verdict v-1">не подтверждено</div>
-          <span class="grade gD" title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
+        <a class="card" href="ornitin.html" data-sup-id="Орнитин" data-slug="ornitin" data-cat="Спорт" data-grade="D" data-code="-1" data-hay="орнитин спорт не подтверждено d">
+          <span class="cat" data-sup="category">Спорт</span>
+          <strong class="card-title" data-sup="name">Орнитин</strong>
+          <div class="verdict v-1" data-sup="verdict">не подтверждено</div>
+          <span class="grade gD" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "D"}' title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
         </a>
         
-        <a class="card" href="pazhitnik.html" data-slug="pazhitnik" data-cat="Метаболизм/Сексуальное здоровье" data-grade="C" data-code="0" data-hay="пажитник метаболизм/сексуальное здоровье зависит от контекста c">
-          <span class="cat">Метаболизм/Сексуальное здоровье</span>
-          <strong class="card-title">Пажитник</strong>
-          <div class="verdict v0">зависит от контекста</div>
-          <span class="grade gC" title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
+        <a class="card" href="pazhitnik.html" data-sup-id="Пажитник" data-slug="pazhitnik" data-cat="Сексуальное здоровье" data-grade="C" data-code="0" data-hay="пажитник сексуальное здоровье зависит от контекста c">
+          <span class="cat" data-sup="category">Сексуальное здоровье</span>
+          <strong class="card-title" data-sup="name">Пажитник</strong>
+          <div class="verdict v0" data-sup="verdict">зависит от контекста</div>
+          <span class="grade gC" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "C"}' title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
         </a>
         
-        <a class="card" href="passiflora.html" data-slug="passiflora" data-cat="Сон" data-grade="C" data-code="0" data-hay="пассифлора сон зависит от контекста c">
-          <span class="cat">Сон</span>
-          <strong class="card-title">Пассифлора</strong>
-          <div class="verdict v0">зависит от контекста</div>
-          <span class="grade gC" title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
+        <a class="card" href="passiflora.html" data-sup-id="Пассифлора" data-slug="passiflora" data-cat="Сон" data-grade="C" data-code="0" data-hay="пассифлора сон зависит от контекста c">
+          <span class="cat" data-sup="category">Сон</span>
+          <strong class="card-title" data-sup="name">Пассифлора</strong>
+          <div class="verdict v0" data-sup="verdict">зависит от контекста</div>
+          <span class="grade gC" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "C"}' title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
         </a>
         
-        <a class="card" href="piknogenol.html" data-slug="piknogenol" data-cat="Сосуды/Антиоксидант" data-grade="C" data-code="0" data-hay="пикногенол сосуды/антиоксидант зависит от контекста c">
-          <span class="cat">Сосуды/Антиоксидант</span>
-          <strong class="card-title">Пикногенол</strong>
-          <div class="verdict v0">зависит от контекста</div>
-          <span class="grade gC" title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
+        <a class="card" href="piknogenol.html" data-sup-id="Пикногенол" data-slug="piknogenol" data-cat="Метаболизм" data-grade="C" data-code="0" data-hay="пикногенол метаболизм зависит от контекста c">
+          <span class="cat" data-sup="category">Метаболизм</span>
+          <strong class="card-title" data-sup="name">Пикногенол</strong>
+          <div class="verdict v0" data-sup="verdict">зависит от контекста</div>
+          <span class="grade gC" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "C"}' title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
         </a>
         
-        <a class="card" href="probiotiki.html" data-slug="probiotiki" data-cat="ЖКТ" data-grade="B" data-code="0" data-hay="пробиотики жкт зависит от контекста b">
-          <span class="cat">ЖКТ</span>
-          <strong class="card-title">Пробиотики</strong>
-          <div class="verdict v0">зависит от контекста</div>
-          <span class="grade gB" title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
+        <a class="card" href="probiotiki.html" data-sup-id="Пробиотики" data-slug="probiotiki" data-cat="ЖКТ" data-grade="B" data-code="0" data-hay="пробиотики жкт зависит от контекста b">
+          <span class="cat" data-sup="category">ЖКТ</span>
+          <strong class="card-title" data-sup="name">Пробиотики</strong>
+          <div class="verdict v0" data-sup="verdict">зависит от контекста</div>
+          <span class="grade gB" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "B"}' title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
         </a>
         
-        <a class="card" href="prolin.html" data-slug="prolin" data-cat="Кожа и суставы" data-grade="D" data-code="-1" data-hay="пролин кожа и суставы не подтверждено d">
-          <span class="cat">Кожа и суставы</span>
-          <strong class="card-title">Пролин</strong>
-          <div class="verdict v-1">не подтверждено</div>
-          <span class="grade gD" title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
+        <a class="card" href="prolin.html" data-sup-id="Пролин" data-slug="prolin" data-cat="Кожа и суставы" data-grade="D" data-code="-1" data-hay="пролин кожа и суставы не подтверждено d">
+          <span class="cat" data-sup="category">Кожа и суставы</span>
+          <strong class="card-title" data-sup="name">Пролин</strong>
+          <div class="verdict v-1" data-sup="verdict">не подтверждено</div>
+          <span class="grade gD" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "D"}' title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
         </a>
         
-        <a class="card" href="psillium.html" data-slug="psillium" data-cat="ЖКТ/Метаболизм" data-grade="B" data-code="1" data-hay="псиллиум жкт/метаболизм работает b">
-          <span class="cat">ЖКТ/Метаболизм</span>
-          <strong class="card-title">Псиллиум</strong>
-          <div class="verdict v1">работает</div>
-          <span class="grade gB" title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
+        <a class="card" href="psillium.html" data-sup-id="Псиллиум" data-slug="psillium" data-cat="ЖКТ/Метаболизм" data-grade="D" data-code="1" data-hay="псиллиум жкт/метаболизм работает d">
+          <span class="cat" data-sup="category">ЖКТ/Метаболизм</span>
+          <strong class="card-title" data-sup="name">Псиллиум</strong>
+          <div class="verdict v1" data-sup="verdict">работает</div>
+          <span class="grade gD" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "D"}' title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
         </a>
         
-        <a class="card" href="pustyrnik.html" data-slug="pustyrnik" data-cat="Сердце/Растения" data-grade="D" data-code="-1" data-hay="пустырник сердце/растения не подтверждено d">
-          <span class="cat">Сердце/Растения</span>
-          <strong class="card-title">Пустырник</strong>
-          <div class="verdict v-1">не подтверждено</div>
-          <span class="grade gD" title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
+        <a class="card" href="pustyrnik.html" data-sup-id="Пустырник" data-slug="pustyrnik" data-cat="Сердце" data-grade="D" data-code="-1" data-hay="пустырник сердце не подтверждено d">
+          <span class="cat" data-sup="category">Сердце</span>
+          <strong class="card-title" data-sup="name">Пустырник</strong>
+          <div class="verdict v-1" data-sup="verdict">не подтверждено</div>
+          <span class="grade gD" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "D"}' title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
         </a>
         
-        <a class="card" href="rastoropsha.html" data-slug="rastoropsha" data-cat="Печень" data-grade="B" data-code="0" data-hay="расторопша печень зависит от контекста b">
-          <span class="cat">Печень</span>
-          <strong class="card-title">Расторопша</strong>
-          <div class="verdict v0">зависит от контекста</div>
-          <span class="grade gB" title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
+        <a class="card" href="rastoropsha.html" data-sup-id="Расторопша" data-slug="rastoropsha" data-cat="Печень" data-grade="D" data-code="0" data-hay="расторопша печень зависит от контекста d">
+          <span class="cat" data-sup="category">Печень</span>
+          <strong class="card-title" data-sup="name">Расторопша</strong>
+          <div class="verdict v0" data-sup="verdict">зависит от контекста</div>
+          <span class="grade gD" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "D"}' title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
         </a>
         
-        <a class="card" href="reyshi.html" data-slug="reyshi" data-cat="Иммунитет/Грибы" data-grade="C" data-code="0" data-hay="рейши иммунитет/грибы зависит от контекста c">
-          <span class="cat">Иммунитет/Грибы</span>
-          <strong class="card-title">Рейши</strong>
-          <div class="verdict v0">зависит от контекста</div>
-          <span class="grade gC" title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
+        <a class="card" href="reyshi.html" data-sup-id="Рейши" data-slug="reyshi" data-cat="Иммунитет/Грибы" data-grade="C" data-code="0" data-hay="рейши иммунитет/грибы зависит от контекста c">
+          <span class="cat" data-sup="category">Иммунитет/Грибы</span>
+          <strong class="card-title" data-sup="name">Рейши</strong>
+          <div class="verdict v0" data-sup="verdict">зависит от контекста</div>
+          <span class="grade gC" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "C"}' title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
         </a>
         
-        <a class="card" href="resveratrol.html" data-slug="resveratrol" data-cat="Антиоксидант/Метаболизм" data-grade="C" data-code="0" data-hay="ресвератрол антиоксидант/метаболизм зависит от контекста c">
-          <span class="cat">Антиоксидант/Метаболизм</span>
-          <strong class="card-title">Ресвератрол</strong>
-          <div class="verdict v0">зависит от контекста</div>
-          <span class="grade gC" title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
+        <a class="card" href="resveratrol.html" data-sup-id="Ресвератрол" data-slug="resveratrol" data-cat="Метаболизм" data-grade="C" data-code="0" data-hay="ресвератрол метаболизм зависит от контекста c">
+          <span class="cat" data-sup="category">Метаболизм</span>
+          <strong class="card-title" data-sup="name">Ресвератрол</strong>
+          <div class="verdict v0" data-sup="verdict">зависит от контекста</div>
+          <span class="grade gC" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "C"}' title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
         </a>
         
-        <a class="card" href="riboflavin.html" data-slug="riboflavin" data-cat="Неврология/Метаболизм" data-grade="B" data-code="1" data-hay="рибофлавин неврология/метаболизм работает b">
-          <span class="cat">Неврология/Метаболизм</span>
-          <strong class="card-title">Рибофлавин</strong>
-          <div class="verdict v1">работает</div>
-          <span class="grade gB" title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
+        <a class="card" href="riboflavin.html" data-sup-id="Рибофлавин" data-slug="riboflavin" data-cat="Неврология/Метаболизм" data-grade="D" data-code="1" data-hay="рибофлавин неврология/метаболизм работает d">
+          <span class="cat" data-sup="category">Неврология/Метаболизм</span>
+          <strong class="card-title" data-sup="name">Рибофлавин</strong>
+          <div class="verdict v1" data-sup="verdict">работает</div>
+          <span class="grade gD" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "D"}' title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
         </a>
         
-        <a class="card" href="rodiola.html" data-slug="rodiola" data-cat="Усталость/Адаптоген" data-grade="C" data-code="0" data-hay="родиола усталость/адаптоген зависит от контекста c">
-          <span class="cat">Усталость/Адаптоген</span>
-          <strong class="card-title">Родиола</strong>
-          <div class="verdict v0">зависит от контекста</div>
-          <span class="grade gC" title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
+        <a class="card" href="rodiola.html" data-sup-id="Родиола" data-slug="rodiola" data-cat="Усталость/Адаптоген" data-grade="C" data-code="0" data-hay="родиола усталость/адаптоген зависит от контекста c">
+          <span class="cat" data-sup="category">Усталость/Адаптоген</span>
+          <strong class="card-title" data-sup="name">Родиола</strong>
+          <div class="verdict v0" data-sup="verdict">зависит от контекста</div>
+          <span class="grade gC" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "C"}' title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
         </a>
         
-        <a class="card" href="selen.html" data-slug="selen" data-cat="Общее" data-grade="C" data-code="0" data-hay="селен общее зависит от контекста c">
-          <span class="cat">Общее</span>
-          <strong class="card-title">Селен</strong>
-          <div class="verdict v0">зависит от контекста</div>
-          <span class="grade gC" title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
+        <a class="card" href="selen.html" data-sup-id="Селен" data-slug="selen" data-cat="Общее" data-grade="C" data-code="0" data-hay="селен общее зависит от контекста c">
+          <span class="cat" data-sup="category">Общее</span>
+          <strong class="card-title" data-sup="name">Селен</strong>
+          <div class="verdict v0" data-sup="verdict">зависит от контекста</div>
+          <span class="grade gC" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "C"}' title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
         </a>
         
-        <a class="card" href="serin.html" data-slug="serin" data-cat="Неврология/Метаболизм" data-grade="C" data-code="0" data-hay="серин неврология/метаболизм зависит от контекста c">
-          <span class="cat">Неврология/Метаболизм</span>
-          <strong class="card-title">Серин</strong>
-          <div class="verdict v0">зависит от контекста</div>
-          <span class="grade gC" title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
+        <a class="card" href="serin.html" data-sup-id="Серин" data-slug="serin" data-cat="Неврология/Метаболизм" data-grade="C" data-code="0" data-hay="серин неврология/метаболизм зависит от контекста c">
+          <span class="cat" data-sup="category">Неврология/Метаболизм</span>
+          <strong class="card-title" data-sup="name">Серин</strong>
+          <div class="verdict v0" data-sup="verdict">зависит от контекста</div>
+          <span class="grade gC" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "C"}' title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
         </a>
         
-        <a class="card" href="sulforafan.html" data-slug="sulforafan" data-cat="Общее" data-grade="C" data-code="0" data-hay="сульфорафан общее зависит от контекста c">
-          <span class="cat">Общее</span>
-          <strong class="card-title">Сульфорафан</strong>
-          <div class="verdict v0">зависит от контекста</div>
-          <span class="grade gC" title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
+        <a class="card" href="sulforafan.html" data-sup-id="Сульфорафан" data-slug="sulforafan" data-cat="Общее" data-grade="C" data-code="0" data-hay="сульфорафан общее зависит от контекста c">
+          <span class="cat" data-sup="category">Общее</span>
+          <strong class="card-title" data-sup="name">Сульфорафан</strong>
+          <div class="verdict v0" data-sup="verdict">зависит от контекста</div>
+          <span class="grade gC" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "C"}' title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
         </a>
         
-        <a class="card" href="syvorotochnyy-protein.html" data-slug="syvorotochnyy-protein" data-cat="Спорт/Мышцы" data-grade="A" data-code="1" data-hay="сывороточный протеин спорт/мышцы работает a">
-          <span class="cat">Спорт/Мышцы</span>
-          <strong class="card-title">Сывороточный протеин</strong>
-          <div class="verdict v1">работает</div>
-          <span class="grade gA" title="Грейд A — шкала доказательности (см. glossary.html)">Грейд A</span>
+        <a class="card" href="syvorotochnyy-protein.html" data-sup-id="Сывороточный протеин" data-slug="syvorotochnyy-protein" data-cat="Спорт/Мышцы" data-grade="A" data-code="1" data-hay="сывороточный протеин спорт/мышцы работает a">
+          <span class="cat" data-sup="category">Спорт/Мышцы</span>
+          <strong class="card-title" data-sup="name">Сывороточный протеин</strong>
+          <div class="verdict v1" data-sup="verdict">работает</div>
+          <span class="grade gA" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "A"}' title="Грейд A — шкала доказательности (см. glossary.html)">Грейд A</span>
         </a>
         
-        <a class="card" href="taurin.html" data-slug="taurin" data-cat="Метаболизм/Антиоксидант" data-grade="C" data-code="0" data-hay="таурин метаболизм/антиоксидант зависит от контекста c">
-          <span class="cat">Метаболизм/Антиоксидант</span>
-          <strong class="card-title">Таурин</strong>
-          <div class="verdict v0">зависит от контекста</div>
-          <span class="grade gC" title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
+        <a class="card" href="taurin.html" data-sup-id="Таурин" data-slug="taurin" data-cat="Метаболизм" data-grade="C" data-code="0" data-hay="таурин метаболизм зависит от контекста c">
+          <span class="cat" data-sup="category">Метаболизм</span>
+          <strong class="card-title" data-sup="name">Таурин</strong>
+          <div class="verdict v0" data-sup="verdict">зависит от контекста</div>
+          <span class="grade gC" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "C"}' title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
         </a>
         
-        <a class="card" href="tirozin.html" data-slug="tirozin" data-cat="Когниция/Стресс" data-grade="D" data-code="-1" data-hay="тирозин когниция/стресс не подтверждено d">
-          <span class="cat">Когниция/Стресс</span>
-          <strong class="card-title">Тирозин</strong>
-          <div class="verdict v-1">не подтверждено</div>
-          <span class="grade gD" title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
+        <a class="card" href="tirozin.html" data-sup-id="Тирозин" data-slug="tirozin" data-cat="Когниция" data-grade="D" data-code="-1" data-hay="тирозин когниция не подтверждено d">
+          <span class="cat" data-sup="category">Когниция</span>
+          <strong class="card-title" data-sup="name">Тирозин</strong>
+          <div class="verdict v-1" data-sup="verdict">не подтверждено</div>
+          <span class="grade gD" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "D"}' title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
         </a>
         
-        <a class="card" href="tribulus.html" data-slug="tribulus" data-cat="Сексуальное здоровье/Спорт" data-grade="D" data-code="-1" data-hay="трибулус сексуальное здоровье/спорт не подтверждено d">
-          <span class="cat">Сексуальное здоровье/Спорт</span>
-          <strong class="card-title">Трибулус</strong>
-          <div class="verdict v-1">не подтверждено</div>
-          <span class="grade gD" title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
+        <a class="card" href="tribulus.html" data-sup-id="Трибулус" data-slug="tribulus" data-cat="Сексуальное здоровье/Спорт" data-grade="D" data-code="-1" data-hay="трибулус сексуальное здоровье/спорт не подтверждено d">
+          <span class="cat" data-sup="category">Сексуальное здоровье/Спорт</span>
+          <strong class="card-title" data-sup="name">Трибулус</strong>
+          <div class="verdict v-1" data-sup="verdict">не подтверждено</div>
+          <span class="grade gD" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "D"}' title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
         </a>
         
-        <a class="card" href="triptofan.html" data-slug="triptofan" data-cat="Психика/Сон" data-grade="C" data-code="1" data-hay="триптофан психика/сон работает c">
-          <span class="cat">Психика/Сон</span>
-          <strong class="card-title">Триптофан</strong>
-          <div class="verdict v1">работает</div>
-          <span class="grade gC" title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
+        <a class="card" href="triptofan.html" data-sup-id="Триптофан" data-slug="triptofan" data-cat="Психика/Сон" data-grade="C" data-code="1" data-hay="триптофан психика/сон работает c">
+          <span class="cat" data-sup="category">Психика/Сон</span>
+          <strong class="card-title" data-sup="name">Триптофан</strong>
+          <div class="verdict v1" data-sup="verdict">работает</div>
+          <span class="grade gC" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "C"}' title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
         </a>
         
-        <a class="card" href="fosfatidilserin.html" data-slug="fosfatidilserin" data-cat="Когниция/Дети" data-grade="C" data-code="0" data-hay="фосфатидилсерин когниция/дети зависит от контекста c">
-          <span class="cat">Когниция/Дети</span>
-          <strong class="card-title">Фосфатидилсерин</strong>
-          <div class="verdict v0">зависит от контекста</div>
-          <span class="grade gC" title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
+        <a class="card" href="fosfatidilserin.html" data-sup-id="Фосфатидилсерин" data-slug="fosfatidilserin" data-cat="Когниция/Дети" data-grade="C" data-code="0" data-hay="фосфатидилсерин когниция/дети зависит от контекста c">
+          <span class="cat" data-sup="category">Когниция/Дети</span>
+          <strong class="card-title" data-sup="name">Фосфатидилсерин</strong>
+          <div class="verdict v0" data-sup="verdict">зависит от контекста</div>
+          <span class="grade gC" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "C"}' title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
         </a>
         
-        <a class="card" href="hlorofill.html" data-slug="hlorofill" data-cat="Антиоксидант" data-grade="C" data-code="0" data-hay="хлорофилл антиоксидант зависит от контекста c">
-          <span class="cat">Антиоксидант</span>
-          <strong class="card-title">Хлорофилл</strong>
-          <div class="verdict v0">зависит от контекста</div>
-          <span class="grade gC" title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
+        <a class="card" href="hlorofill.html" data-sup-id="Хлорофилл" data-slug="hlorofill" data-cat="Метаболизм" data-grade="C" data-code="0" data-hay="хлорофилл метаболизм зависит от контекста c">
+          <span class="cat" data-sup="category">Метаболизм</span>
+          <strong class="card-title" data-sup="name">Хлорофилл</strong>
+          <div class="verdict v0" data-sup="verdict">зависит от контекста</div>
+          <span class="grade gC" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "C"}' title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
         </a>
         
-        <a class="card" href="holin.html" data-slug="holin" data-cat="Когниция" data-grade="C" data-code="0" data-hay="холин когниция зависит от контекста c">
-          <span class="cat">Когниция</span>
-          <strong class="card-title">Холин</strong>
-          <div class="verdict v0">зависит от контекста</div>
-          <span class="grade gC" title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
+        <a class="card" href="holin.html" data-sup-id="Холин" data-slug="holin" data-cat="Когниция" data-grade="C" data-code="0" data-hay="холин когниция зависит от контекста c">
+          <span class="cat" data-sup="category">Когниция</span>
+          <strong class="card-title" data-sup="name">Холин</strong>
+          <div class="verdict v0" data-sup="verdict">зависит от контекста</div>
+          <span class="grade gC" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "C"}' title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
         </a>
         
-        <a class="card" href="hrom.html" data-slug="hrom" data-cat="Метаболизм/Диабет" data-grade="C" data-code="0" data-hay="хром метаболизм/диабет зависит от контекста c">
-          <span class="cat">Метаболизм/Диабет</span>
-          <strong class="card-title">Хром</strong>
-          <div class="verdict v0">зависит от контекста</div>
-          <span class="grade gC" title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
+        <a class="card" href="hrom.html" data-sup-id="Хром" data-slug="hrom" data-cat="Метаболизм/Диабет" data-grade="C" data-code="0" data-hay="хром метаболизм/диабет зависит от контекста c">
+          <span class="cat" data-sup="category">Метаболизм/Диабет</span>
+          <strong class="card-title" data-sup="name">Хром</strong>
+          <div class="verdict v0" data-sup="verdict">зависит от контекста</div>
+          <span class="grade gC" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "C"}' title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
         </a>
         
-        <a class="card" href="tsink.html" data-slug="tsink" data-cat="Иммунитет/ОРВИ" data-grade="B" data-code="0" data-hay="цинк иммунитет/орви зависит от контекста b">
-          <span class="cat">Иммунитет/ОРВИ</span>
-          <strong class="card-title">Цинк</strong>
-          <div class="verdict v0">зависит от контекста</div>
-          <span class="grade gB" title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
+        <a class="card" href="tsink.html" data-sup-id="Цинк" data-slug="tsink" data-cat="Иммунитет/ОРВИ" data-grade="D" data-code="0" data-hay="цинк иммунитет/орви зависит от контекста d">
+          <span class="cat" data-sup="category">Иммунитет/ОРВИ</span>
+          <strong class="card-title" data-sup="name">Цинк</strong>
+          <div class="verdict v0" data-sup="verdict">зависит от контекста</div>
+          <span class="grade gD" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "D"}' title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
         </a>
         
-        <a class="card" href="tsistein.html" data-slug="tsistein" data-cat="Общее" data-grade="D" data-code="-1" data-hay="цистеин общее не подтверждено d">
-          <span class="cat">Общее</span>
-          <strong class="card-title">Цистеин</strong>
-          <div class="verdict v-1">не подтверждено</div>
-          <span class="grade gD" title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
+        <a class="card" href="tsistein.html" data-sup-id="Цистеин" data-slug="tsistein" data-cat="Общее" data-grade="D" data-code="-1" data-hay="цистеин общее не подтверждено d">
+          <span class="cat" data-sup="category">Общее</span>
+          <strong class="card-title" data-sup="name">Цистеин</strong>
+          <div class="verdict v-1" data-sup="verdict">не подтверждено</div>
+          <span class="grade gD" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "D"}' title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
         </a>
         
-        <a class="card" href="chaga.html" data-slug="chaga" data-cat="Иммунитет" data-grade="C" data-code="0" data-hay="чага иммунитет зависит от контекста c">
-          <span class="cat">Иммунитет</span>
-          <strong class="card-title">Чага</strong>
-          <div class="verdict v0">зависит от контекста</div>
-          <span class="grade gC" title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
+        <a class="card" href="chaga.html" data-sup-id="Чага" data-slug="chaga" data-cat="Иммунитет" data-grade="C" data-code="0" data-hay="чага иммунитет зависит от контекста c">
+          <span class="cat" data-sup="category">Иммунитет</span>
+          <strong class="card-title" data-sup="name">Чага</strong>
+          <div class="verdict v0" data-sup="verdict">зависит от контекста</div>
+          <span class="grade gC" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "C"}' title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
         </a>
         
-        <a class="card" href="chesnok.html" data-slug="chesnok" data-cat="Сосуды/Метаболизм" data-grade="B" data-code="1" data-hay="чеснок сосуды/метаболизм работает b">
-          <span class="cat">Сосуды/Метаболизм</span>
-          <strong class="card-title">Чеснок</strong>
-          <div class="verdict v1">работает</div>
-          <span class="grade gB" title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
+        <a class="card" href="chesnok.html" data-sup-id="Чеснок" data-slug="chesnok" data-cat="Сосуды/Метаболизм" data-grade="B" data-code="1" data-hay="чеснок сосуды/метаболизм работает b">
+          <span class="cat" data-sup="category">Сосуды/Метаболизм</span>
+          <strong class="card-title" data-sup="name">Чеснок</strong>
+          <div class="verdict v1" data-sup="verdict">работает</div>
+          <span class="grade gB" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "B"}' title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
         </a>
         
-        <a class="card" href="chernyy-tmin.html" data-slug="chernyy-tmin" data-cat="Воспаление/Метаболизм" data-grade="C" data-code="0" data-hay="чёрный тмин воспаление/метаболизм зависит от контекста c">
-          <span class="cat">Воспаление/Метаболизм</span>
-          <strong class="card-title">Чёрный тмин</strong>
-          <div class="verdict v0">зависит от контекста</div>
-          <span class="grade gC" title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
+        <a class="card" href="chernyy-tmin.html" data-sup-id="Чёрный тмин" data-slug="chernyy-tmin" data-cat="Воспаление/Метаболизм" data-grade="C" data-code="0" data-hay="чёрный тмин воспаление/метаболизм зависит от контекста c">
+          <span class="cat" data-sup="category">Воспаление/Метаболизм</span>
+          <strong class="card-title" data-sup="name">Чёрный тмин</strong>
+          <div class="verdict v0" data-sup="verdict">зависит от контекста</div>
+          <span class="grade gC" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "C"}' title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
         </a>
         
-        <a class="card" href="shatavari.html" data-slug="shatavari" data-cat="Общее" data-grade="C" data-code="0" data-hay="шатавари общее зависит от контекста c">
-          <span class="cat">Общее</span>
-          <strong class="card-title">Шатавари</strong>
-          <div class="verdict v0">зависит от контекста</div>
-          <span class="grade gC" title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
+        <a class="card" href="shatavari.html" data-sup-id="Шатавари" data-slug="shatavari" data-cat="Общее" data-grade="C" data-code="0" data-hay="шатавари общее зависит от контекста c">
+          <span class="cat" data-sup="category">Общее</span>
+          <strong class="card-title" data-sup="name">Шатавари</strong>
+          <div class="verdict v0" data-sup="verdict">зависит от контекста</div>
+          <span class="grade gC" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "C"}' title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
         </a>
         
-        <a class="card" href="shiitake.html" data-slug="shiitake" data-cat="Иммунитет" data-grade="C" data-code="0" data-hay="шиитаке иммунитет зависит от контекста c">
-          <span class="cat">Иммунитет</span>
-          <strong class="card-title">Шиитаке</strong>
-          <div class="verdict v0">зависит от контекста</div>
-          <span class="grade gC" title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
+        <a class="card" href="shiitake.html" data-sup-id="Шиитаке" data-slug="shiitake" data-cat="Иммунитет" data-grade="C" data-code="0" data-hay="шиитаке иммунитет зависит от контекста c">
+          <span class="cat" data-sup="category">Иммунитет</span>
+          <strong class="card-title" data-sup="name">Шиитаке</strong>
+          <div class="verdict v0" data-sup="verdict">зависит от контекста</div>
+          <span class="grade gC" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "C"}' title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
         </a>
         
-        <a class="card" href="shlemnik.html" data-slug="shlemnik" data-cat="Настроение" data-grade="C" data-code="0" data-hay="шлемник настроение зависит от контекста c">
-          <span class="cat">Настроение</span>
-          <strong class="card-title">Шлемник</strong>
-          <div class="verdict v0">зависит от контекста</div>
-          <span class="grade gC" title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
+        <a class="card" href="shlemnik.html" data-sup-id="Шлемник" data-slug="shlemnik" data-cat="Настроение" data-grade="C" data-code="0" data-hay="шлемник настроение зависит от контекста c">
+          <span class="cat" data-sup="category">Настроение</span>
+          <strong class="card-title" data-sup="name">Шлемник</strong>
+          <div class="verdict v0" data-sup="verdict">зависит от контекста</div>
+          <span class="grade gC" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "C"}' title="Грейд C — шкала доказательности (см. glossary.html)">Грейд C</span>
         </a>
         
-        <a class="card" href="ehinatseya.html" data-slug="ehinatseya" data-cat="Иммунитет/ОРВИ" data-grade="B" data-code="0" data-hay="эхинацея иммунитет/орви зависит от контекста b">
-          <span class="cat">Иммунитет/ОРВИ</span>
-          <strong class="card-title">Эхинацея</strong>
-          <div class="verdict v0">зависит от контекста</div>
-          <span class="grade gB" title="Грейд B — шкала доказательности (см. glossary.html)">Грейд B</span>
+        <a class="card" href="ehinatseya.html" data-sup-id="Эхинацея" data-slug="ehinatseya" data-cat="Иммунитет/ОРВИ" data-grade="D" data-code="0" data-hay="эхинацея иммунитет/орви зависит от контекста d">
+          <span class="cat" data-sup="category">Иммунитет/ОРВИ</span>
+          <strong class="card-title" data-sup="name">Эхинацея</strong>
+          <div class="verdict v0" data-sup="verdict">зависит от контекста</div>
+          <span class="grade gD" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "D"}' title="Грейд D — шкала доказательности (см. glossary.html)">Грейд D</span>
         </a>
         
       </div>
 
-      <p class="hint">Шкала доказательности A-D расшифрована в <a href="../glossary.html">глоссарии</a>, методика подсчёта — в <a href="../methodology.html">методологии</a>.</p>
+      <p class="hint"><span data-i18n-text="supcat.scaleA">Шкала доказательности A-D расшифрована в</span> <a href="../glossary.html" data-i18n-text="supcat.scaleGlossary">глоссарии</a><span data-i18n-text="supcat.scaleB">, методика подсчёта — в</span> <a href="../methodology.html" data-i18n-text="supcat.scaleMethodology">методологии</a>.</p>
     </section>
 </main>
 
 <footer class="site-footer">
   <p class="disc">
-    <b>⚠️ Не медицинская рекомендация.</b>
-    Сайт предоставляет данные из открытых научных источников
+    <b data-i18n-text="index.discWarn">⚠️ Не медицинская рекомендация.</b>
+    <span data-i18n-text="index.discA">Сайт предоставляет данные из открытых научных источников
     (PubMed, Europe PMC, CrossRef, OpenAlex, ClinicalTrials.gov, Wikimedia)
-    для информирования и самостоятельного образования.
-    <b>НЕ заменяет</b> консультацию, диагноз и лечение.
-    При любых сомнениях — обращайтесь к специалисту.
+    для информирования и самостоятельного образования.</span>
+    <b data-i18n-text="index.discNo">НЕ заменяет</b> <span data-i18n-text="index.discB">консультацию, диагноз и лечение.
+    При любых сомнениях — обращайтесь к специалисту.</span>
   </p>
   <p class="meta">
     v<span data-version="app"></span> ·
-    данные на <span data-version="data"></span>
+    <span data-i18n-text="index.dataUpdated">данные на</span> <span data-version="data"></span>
   </p>
   <p class="links">
-    <a href="../methodology.html">📐 Методология</a> ·
-    <a href="../faq.html">❓ FAQ</a> ·
-    <a href="../glossary.html">📖 Глоссарий</a> ·
-    <a href="../privacy.html">🔐 Приватность</a>
+    <a href="../methodology.html" data-i18n-text="footer.methodology">📐 Методология</a> ·
+    <a href="../faq.html" data-i18n-text="footer.faq">❓ FAQ</a> ·
+    <a href="../glossary.html" data-i18n-text="footer.glossary">📖 Глоссарий</a> ·
+    <a href="../privacy.html" data-i18n-text="footer.privacy">🔐 Приватность</a> ·
+    <a href="../terms-of-use.html" data-i18n-text="footer.terms">📄 Условия использования</a> ·
+    <a href="index.html" data-i18n-text="footer.catalog">💊 Каталог БАДов</a> ·
+    <a href="../feed.xml" data-i18n-text="footer.rss">📡 RSS</a>
   </p>
-  <p class="copy">© 2026 Vladislav "DeadSno" Pereshivalov · MIT</p>
-  <p class="share-row"><button class="btn share-page" type="button">🔗 Поделиться</button></p>
+  <p class="copy">© 2026 Vladislav "DeadSno" Pereshivalov · MIT · <a href="../terms-of-use.html#data-license" data-i18n-text="index.dataLicense">Данные: CC BY 4.0</a></p>
+  <p class="share-row"><button class="btn share-page" type="button" data-i18n-text="index.share">🔗 Поделиться</button></p>
 </footer>
 
 <script>
@@ -1071,11 +1085,13 @@ document.addEventListener('DOMContentLoaded', function () {
   if (light) { document.body.classList.add('light'); document.documentElement.classList.add('light'); }
   var b = document.getElementById('themeBtn');
   if (b) b.textContent = light ? t("theme.dark") : t("theme.light");
+  if (b) b.setAttribute('aria-label', light ? t("a11y.themeToDark") : t("a11y.themeToLight"));
   if (b) b.onclick = function () {
     var on = !document.documentElement.classList.contains('light');
     document.documentElement.classList.toggle('light', on);
     document.body.classList.toggle('light', on);
     b.textContent = on ? t("theme.dark") : t("theme.light");
+    b.setAttribute('aria-label', on ? t("a11y.themeToDark") : t("a11y.themeToLight"));
     localStorage.setItem('theme', on ? 'light' : 'dark');
   };
 
@@ -1102,7 +1118,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (ok) { c.removeAttribute('hidden'); shown++; }
       else { c.setAttribute('hidden', ''); }
     }
-    badge.textContent = 'показано ' + shown + ' из ' + cards.length;
+    badge.textContent = t('supcat.shown', { shown: shown, total: cards.length });
   }
 
   search.addEventListener('input', apply);
@@ -1116,13 +1132,12 @@ document.addEventListener('DOMContentLoaded', function () {
      ни одного запроса к mc.yandex.ru не происходит. -->
 <div id="cookieBanner" role="dialog" data-i18n-aria-label="a11y.cookieConsent" hidden>
   <div class="cb-text">
-    Мы используем cookie и Яндекс.Метрику, чтобы понять, какие материалы полезны.
-    Аналитика включается только после вашего согласия.
-    <a href="../privacy.html">Политика конфиденциальности</a>
+    <span data-i18n-text="index.cookieText">Мы используем cookie и Яндекс.Метрику, чтобы понять, какие материалы полезны. Аналитика включается только после вашего согласия.</span>
+    <a href="../privacy.html" data-i18n-text="index.cookiePolicy">Политика конфиденциальности</a>
   </div>
   <div class="cb-actions">
-    <button type="button" id="cookieAccept" class="cb-btn cb-accept">Принять</button>
-    <button type="button" id="cookieReject" class="cb-btn cb-reject">Отклонить</button>
+    <button type="button" id="cookieAccept" class="cb-btn cb-accept" data-i18n-text="index.cookieAccept">Принять</button>
+    <button type="button" id="cookieReject" class="cb-btn cb-reject" data-i18n-text="index.cookieReject">Отклонить</button>
   </div>
 </div>
 <script src="../cookie-banner.js?v=1"></script>
@@ -1130,3 +1145,4 @@ document.addEventListener('DOMContentLoaded', function () {
 <script>initCookieBanner();</script>
 </body>
 </html>
+

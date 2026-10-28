@@ -1,13 +1,18 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" dir="ltr">
 <head>
   <meta charset="utf-8">
   <script defer src="version.js?v=312"></script>
-  <script src="i18n.js?v=2"></script>
+  <script src="i18n.js?v=15" defer></script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#1c1c1e" media="(prefers-color-scheme: dark)">
 <title>📖 Глоссарий доказательной медицины — Brain 25 Evidence</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="БАДы">
+<link rel="apple-touch-icon" href="icons/192.png">
 <meta name="description" content="Глоссарий терминов по БАДам и доказательности: scienceIndex, грейды A-D, вердикт, механизм действия, систематический обзор, РКИ, биодоступность."/>
 <script>
 // v5.4.0 (dark-first): тёмная тема — это ОТСУТСТВИЕ класса light.
@@ -19,7 +24,7 @@ try {
   }
 } catch (e) {}
 </script>
-<link rel="stylesheet" href="style.css?v=435"/>
+<link rel="stylesheet" href="style.min.css?v=464"/>
 <script>
   try {
     document.addEventListener('DOMContentLoaded', function () {
@@ -30,6 +35,7 @@ try {
     if (light) { document.body.classList.add('light'); }
       var b = document.getElementById('themeBtn');
       if (b) b.textContent = light ? t("theme.dark") : t("theme.light");
+      if (b) b.setAttribute('aria-label', light ? t("a11y.themeToDark") : t("a11y.themeToLight"));
     });
   } catch (e) {}
 </script>
@@ -41,6 +47,7 @@ try {
     <meta property="og:description" content="Глоссарий терминов по БАДам и доказательности: scienceIndex, грейды A-D, вердикт, механизм действия, систематический обзор, РКИ, биодоступность.">
     <meta property="og:image" content="https://deadsno.github.io/brain-25-evidence/og.png">
     <meta property="og:site_name" content="Brain 25 Evidence">
+    <meta property="og:locale" content="ru_RU">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="📖 Глоссарий доказательной медицины — Brain 25 Evidence">
     <meta name="twitter:description" content="Глоссарий терминов по БАДам и доказательности: scienceIndex, грейды A-D, вердикт, механизм действия, систематический обзор, РКИ, биодоступность.">
@@ -55,30 +62,26 @@ try {
       "inLanguage": "ru"
     }
     </script>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
 </head>
 <body>
-<a href="#main" class="skip-link">Перейти к содержимому</a>
+<a href="#main" class="skip-link"><span data-i18n-text="a11y.skipToContent">Перейти к содержимому</span></a>
 <div class="site-header">
-  <div class="trustbar">🧬 Открытые данные · Бесплатно · Без рекламы</div>
+  <div class="trustbar"><span data-i18n-text="index.trustbar">🧬 Открытые данные · Бесплатно · Без рекламы</span></div>
   <header class="top">
     <div class="site-title"><a href="index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a> <span class="v">v<span data-version="app"></span></span></div>
     <nav class="actions" data-i18n-aria-label="a11y.navMain">
-      <a class="btn c-calc" href="calculator.html">🧮 Калькулятор</a>
-      <a class="btn c-mech" href="map.html">🧩 Механизмы</a>
-      <a class="btn c-links" href="interactions.html">🔗 Связи</a>
-      <a class="btn c-atlas" href="atlas.html">🌐 Атлас</a>
-      <a class="btn c-trends" href="trends.html">📈 Тренды</a>
-      <a class="btn c-bi" href="https://brain-25-evidence.streamlit.app" target="_blank" rel="noopener">🧠 BI ↗</a>
-      <a class="btn c-graph" href="graph.html">🕸️ Граф связей</a>
-      <a class="btn c-feedback" href="feedback.html">💬 Обратная связь</a>
-      <a class="btn c-support" href="support.html">💚 Поддержать</a>
-      <button class="btn" id="themeBtn">🌞 Светлая тема</button>
+      <a class="btn c-feedback" href="feedback.html"><span data-i18n-text="index.feedback">💬 Обратная связь</span></a>
+      <a class="btn c-support" href="support.html"><span data-i18n-text="index.support">💚 Поддержать</span></a>
+      <button class="btn c-theme" id="themeBtn" data-i18n-aria-label="a11y.themeToLight" aria-label="Переключить на светлую тему"><span data-i18n-text="theme.light">🌞 Светлая тема</span></button>
+      <select id="langSelect" class="lang-select" data-i18n-aria-label="a11y.langSelect"><option value="ru">RU</option><option value="en">EN</option></select>
+      <button class="btn c-random" id="randomBtn"><span data-i18n-text="index.random">🎲 Удиви меня</span></button>
     </nav>
   </header>
 </div>
 
 <main id="main">
-  <h1>Термины доказательной медицины</h1>
+  <h1><span data-i18n-text="glossary.001">Термины доказательной медицины</span></h1>
 
   <!-- v5.5.0 A2: страница была единственной без h2/h3 и без секций.
        12 терминов разложены по трём группам; порядок исходной таблицы
@@ -89,54 +92,54 @@ try {
        подсчёте структуры страницы. -->
 
   <section class="glossary-section" id="glossary-methods">
-    <h2>Методы и статистика</h2>
-    <p>Как вообще оценивают эффект добавки и что означают числа в таблице.</p>
+    <h2><span data-i18n-text="glossary.002">Методы и статистика</span></h2>
+    <p><span data-i18n-text="glossary.003">Как вообще оценивают эффект добавки и что означают числа в таблице.</span></p>
     <div class="table-wrap">
     <table style="width:100%;border-collapse:collapse;margin-bottom:2rem">
     <thead>
-    <tr style="border-bottom:2px solid var(--border)"><th style="text-align:start;padding:.6rem .8rem">Термин</th><th style="text-align:start;padding:.6rem .8rem">Определение</th></tr>
+    <tr style="border-bottom:2px solid var(--border)"><th style="text-align:start;padding:.6rem .8rem"><span data-i18n-text="glossary.004">Термин</span></th><th style="text-align:start;padding:.6rem .8rem"><span data-i18n-text="glossary.005">Определение</span></th></tr>
     </thead>
     <tbody>
-    <tr style="border-bottom:1px solid var(--border)"><td style="padding:.55rem .8rem;font-weight:600">Мета-анализ</td><td style="padding:.55rem .8rem">Статистическое объединение 10-50 исследований для среднего эффекта</td></tr>
-    <tr style="border-bottom:1px solid var(--border)"><td style="padding:.55rem .8rem;font-weight:600">РКИ</td><td style="padding:.55rem .8rem">Рандомизированное контролируемое исследование: золотой стандарт доказательств</td></tr>
-    <tr style="border-bottom:1px solid var(--border)"><td style="padding:.55rem .8rem;font-weight:600">Hedges' g</td><td style="padding:.55rem .8rem">Размер эффекта в стандартных отклонениях (0.2=малый, 0.5=средний, 0.8+=большой)</td></tr>
-    <tr><td style="padding:.55rem .8rem;font-weight:600">CI (доверительный интервал)</td><td style="padding:.55rem .8rem">Диапазон, в котором с 95% вероятностью лежит истинный эффект</td></tr>
+    <tr style="border-bottom:1px solid var(--border)"><td style="padding:.55rem .8rem;font-weight:600"><span data-i18n-text="glossary.006">Мета-анализ</span></td><td style="padding:.55rem .8rem"><span data-i18n-text="glossary.007">Статистическое объединение 10-50 исследований для среднего эффекта</span></td></tr>
+    <tr style="border-bottom:1px solid var(--border)"><td style="padding:.55rem .8rem;font-weight:600"><span data-i18n-text="cmp.table.rct">РКИ</span></td><td style="padding:.55rem .8rem"><span data-i18n-text="glossary.008">Рандомизированное контролируемое исследование: золотой стандарт доказательств</span></td></tr>
+    <tr style="border-bottom:1px solid var(--border)"><td style="padding:.55rem .8rem;font-weight:600">Hedges' g</td><td style="padding:.55rem .8rem"><span data-i18n-text="glossary.009">Размер эффекта в стандартных отклонениях (0.2=малый, 0.5=средний, 0.8+=большой)</span></td></tr>
+    <tr><td style="padding:.55rem .8rem;font-weight:600"><span data-i18n-text="glossary.010">CI (доверительный интервал)</span></td><td style="padding:.55rem .8rem"><span data-i18n-text="glossary.011">Диапазон, в котором с 95% вероятностью лежит истинный эффект</span></td></tr>
     </tbody>
     </table>
     </div>
   </section>
 
   <section class="glossary-section" id="glossary-metrics">
-    <h2>Метрики проекта</h2>
-    <p>Шкалы, которыми этот сайт заменяет слово «работает».</p>
+    <h2><span data-i18n-text="glossary.012">Метрики проекта</span></h2>
+    <p><span data-i18n-text="glossary.013">Шкалы, которыми этот сайт заменяет слово «работает».</span></p>
     <div class="table-wrap">
     <table style="width:100%;border-collapse:collapse;margin-bottom:2rem">
     <thead>
-    <tr style="border-bottom:2px solid var(--border)"><th style="text-align:start;padding:.6rem .8rem">Термин</th><th style="text-align:start;padding:.6rem .8rem">Определение</th></tr>
+    <tr style="border-bottom:2px solid var(--border)"><th style="text-align:start;padding:.6rem .8rem"><span data-i18n-text="glossary.014">Термин</span></th><th style="text-align:start;padding:.6rem .8rem"><span data-i18n-text="glossary.015">Определение</span></th></tr>
     </thead>
     <tbody>
-    <tr style="border-bottom:1px solid var(--border)"><td style="padding:.55rem .8rem;font-weight:600">Science Index</td><td style="padding:.55rem .8rem">Сумма РКИ + 5×мета-анализы: объём науки по добавке</td></tr>
-    <tr style="border-bottom:1px solid var(--border)"><td style="padding:.55rem .8rem;font-weight:600">Грейд</td><td style="padding:.55rem .8rem">A-D: крепко доказано / умеренно / много науки мало эффекта / данных мало</td></tr>
-    <tr><td style="padding:.55rem .8rem;font-weight:600">Вердикт</td><td style="padding:.55rem .8rem">Работает / зависит от контекста / не подтверждено / данных недостаточно</td></tr>
+    <tr style="border-bottom:1px solid var(--border)"><td style="padding:.55rem .8rem;font-weight:600">Science Index</td><td style="padding:.55rem .8rem"><span data-i18n-text="glossary.016">Сумма РКИ + 5×мета-анализы: объём науки по добавке</span></td></tr>
+    <tr style="border-bottom:1px solid var(--border)"><td style="padding:.55rem .8rem;font-weight:600"><span data-i18n-text="card.gradeTitle">Грейд</span></td><td style="padding:.55rem .8rem"><span data-i18n-text="glossary.017">A-D: крепко доказано / умеренно / много науки мало эффекта / данных мало</span></td></tr>
+    <tr><td style="padding:.55rem .8rem;font-weight:600"><span data-i18n-text="cmp.verdict">Вердикт</span></td><td style="padding:.55rem .8rem"><span data-i18n-text="glossary.018">Работает / зависит от контекста / не подтверждено / данных недостаточно</span></td></tr>
     </tbody>
     </table>
     </div>
   </section>
 
   <section class="glossary-section" id="glossary-properties">
-    <h2>Свойства и взаимодействия</h2>
-    <p>Чем добавки отличаются друг от друга и как они сочетаются.</p>
+    <h2><span data-i18n-text="glossary.019">Свойства и взаимодействия</span></h2>
+    <p><span data-i18n-text="glossary.020">Чем добавки отличаются друг от друга и как они сочетаются.</span></p>
     <div class="table-wrap">
     <table style="width:100%;border-collapse:collapse;margin-bottom:2rem">
     <thead>
-    <tr style="border-bottom:2px solid var(--border)"><th style="text-align:start;padding:.6rem .8rem">Термин</th><th style="text-align:start;padding:.6rem .8rem">Определение</th></tr>
+    <tr style="border-bottom:2px solid var(--border)"><th style="text-align:start;padding:.6rem .8rem"><span data-i18n-text="glossary.021">Термин</span></th><th style="text-align:start;padding:.6rem .8rem"><span data-i18n-text="glossary.022">Определение</span></th></tr>
     </thead>
     <tbody>
-    <tr style="border-bottom:1px solid var(--border)"><td style="padding:.55rem .8rem;font-weight:600">Биодоступность</td><td style="padding:.55rem .8rem">Процент вещества, доходящий до крови (зависит от формы)</td></tr>
-    <tr style="border-bottom:1px solid var(--border)"><td style="padding:.55rem .8rem;font-weight:600">Синергист</td><td style="padding:.55rem .8rem">Добавка, усиливающая эффект другой (Омега-3 + Витамин D)</td></tr>
-    <tr style="border-bottom:1px solid var(--border)"><td style="padding:.55rem .8rem;font-weight:600">Антагонист</td><td style="padding:.55rem .8rem">Добавка, конкурирующая за всасывание (кальций+железо)</td></tr>
-    <tr style="border-bottom:1px solid var(--border)"><td style="padding:.55rem .8rem;font-weight:600">UL (upper limit)</td><td style="padding:.55rem .8rem">Верхний безопасный предел суточной дозы</td></tr>
-    <tr><td style="padding:.55rem .8rem;font-weight:600">Onset</td><td style="padding:.55rem .8rem">Время до начала эффекта (30 мин / 2-4 недели / не ощущается)</td></tr>
+    <tr style="border-bottom:1px solid var(--border)"><td style="padding:.55rem .8rem;font-weight:600"><span data-i18n-text="glossary.023">Биодоступность</span></td><td style="padding:.55rem .8rem"><span data-i18n-text="glossary.024">Процент вещества, доходящий до крови (зависит от формы)</span></td></tr>
+    <tr style="border-bottom:1px solid var(--border)"><td style="padding:.55rem .8rem;font-weight:600"><span data-i18n-text="glossary.025">Синергист</span></td><td style="padding:.55rem .8rem"><span data-i18n-text="glossary.026">Добавка, усиливающая эффект другой (Омега-3 + Витамин D)</span></td></tr>
+    <tr style="border-bottom:1px solid var(--border)"><td style="padding:.55rem .8rem;font-weight:600"><span data-i18n-text="glossary.027">Антагонист</span></td><td style="padding:.55rem .8rem"><span data-i18n-text="glossary.028">Добавка, конкурирующая за всасывание (кальций+железо)</span></td></tr>
+    <tr style="border-bottom:1px solid var(--border)"><td style="padding:.55rem .8rem;font-weight:600">UL (upper limit)</td><td style="padding:.55rem .8rem"><span data-i18n-text="glossary.029">Верхний безопасный предел суточной дозы</span></td></tr>
+    <tr><td style="padding:.55rem .8rem;font-weight:600">Onset</td><td style="padding:.55rem .8rem"><span data-i18n-text="glossary.030">Время до начала эффекта (30 мин / 2-4 недели / не ощущается)</span></td></tr>
     </tbody>
     </table>
     </div>
@@ -146,26 +149,27 @@ try {
 
 <footer class="site-footer">
   <p class="disc">
-    <b>⚠️ Не медицинская рекомендация.</b>
-    Сайт предоставляет данные из открытых научных источников
+    <b><span data-i18n-text="index.discWarn">⚠️ Не медицинская рекомендация.</span></b>
+    <span data-i18n-text="index.discA">Сайт предоставляет данные из открытых научных источников
     (PubMed, Europe PMC, CrossRef, OpenAlex, ClinicalTrials.gov, Wikimedia)
-    для информирования и самостоятельного образования.
-    <b>НЕ заменяет</b> консультацию, диагноз и лечение.
-    При любых сомнениях — обращайтесь к специалисту.
+    для информирования и самостоятельного образования.</span>
+    <b><span data-i18n-text="index.discNo">НЕ заменяет</span></b> <span data-i18n-text="index.discB">консультацию, диагноз и лечение.
+    При любых сомнениях — обращайтесь к специалисту.</span>
   </p>
   <p class="meta">
-    v<span data-version="app"></span> ·
-    данные на <span data-version="data"></span>
+    v<span data-version="app"></span> · <span data-i18n-text="index.dataUpdated">данные на</span> <span data-version="data"></span>
   </p>
   <p class="links">
-    <a href="methodology.html">📐 Методология</a> ·
-    <a href="faq.html">❓ FAQ</a> ·
-    <a href="glossary.html">📖 Глоссарий</a> ·
-    <a href="privacy.html">🔐 Приватность</a> ·
-    <a href="feed.xml">📡 RSS</a>
+    <a href="methodology.html" data-i18n-text="footer.methodology">📐 Методология</a> ·
+    <a href="faq.html" data-i18n-text="footer.faq">❓ FAQ</a> ·
+    <a href="glossary.html" data-i18n-text="footer.glossary">📖 Глоссарий</a> ·
+    <a href="privacy.html" data-i18n-text="footer.privacy">🔐 Приватность</a> ·
+    <a href="terms-of-use.html" data-i18n-text="footer.terms">📄 Условия использования</a> ·
+    <a href="sup/index.html" data-i18n-text="footer.catalog">💊 Каталог БАДов</a> ·
+    <a href="feed.xml" data-i18n-text="footer.rss">📡 RSS</a>
   </p>
-  <p class="copy">© 2026 Vladislav "DeadSno" Pereshivalov · MIT</p>
-  <p class="share-row"><button class="btn share-page" type="button">🔗 Поделиться</button></p>
+  <p class="copy">© 2026 Vladislav "DeadSno" Pereshivalov · MIT · <a href="terms-of-use.html#data-license"><span data-i18n-text="index.dataLicense">Данные: CC BY 4.0</span></a></p>
+  <p class="share-row"><button class="btn share-page" type="button"><span data-i18n-text="share.label">🔗 Поделиться</span></button></p>
 </footer>
 <script>
 const $ = id => document.getElementById(id);
@@ -178,6 +182,7 @@ $('themeBtn').onclick = () => {
     document.documentElement.classList.toggle('light', light);
     document.body.classList.toggle('light', light);
   $('themeBtn').textContent = light ? t("theme.dark") : t("theme.light");
+  $('themeBtn').setAttribute('aria-label', light ? t("a11y.themeToDark") : t("a11y.themeToLight"));
     localStorage.setItem('theme', light ? 'light' : 'dark');
 };
 </script>
@@ -197,24 +202,50 @@ window.addEventListener('scroll', () => {
   }
 });
 </script>
-<script src="pwa.js?v=282" defer></script>
-<script src="share.js?v=1" defer></script>
+<script src="pwa.js?v=283" defer></script>
+<script src="share.js?v=2" defer></script>
 <!-- v5.6.2: cookie-согласие + Яндекс.Метрика (счётчик 112465667).
      Метрика грузится ТОЛЬКО после нажатия «Принять»: до согласия
      ни одного запроса к mc.yandex.ru не происходит. -->
 <div id="cookieBanner" role="dialog" data-i18n-aria-label="a11y.cookieConsent" hidden>
   <div class="cb-text">
-    Мы используем cookie и Яндекс.Метрику, чтобы понять, какие материалы полезны.
-    Аналитика включается только после вашего согласия.
-    <a href="privacy.html">Политика конфиденциальности</a>
+    <span data-i18n-text="index.cookieText">Мы используем cookie и Яндекс.Метрику, чтобы понять, какие материалы полезны.
+    Аналитика включается только после вашего согласия.</span>
+    <a href="privacy.html"><span data-i18n-text="index.cookiePolicy">Политика конфиденциальности</span></a>
   </div>
   <div class="cb-actions">
-    <button type="button" id="cookieAccept" class="cb-btn cb-accept">Принять</button>
-    <button type="button" id="cookieReject" class="cb-btn cb-reject">Отклонить</button>
+    <button type="button" id="cookieAccept" class="cb-btn cb-accept"><span data-i18n-text="index.cookieAccept">Принять</span></button>
+    <button type="button" id="cookieReject" class="cb-btn cb-reject"><span data-i18n-text="index.cookieReject">Отклонить</span></button>
   </div>
 </div>
 <script src="cookie-banner.js?v=1"></script>
 <script src="metrika.js?v=1"></script>
-<script>initCookieBanner();</script>
+<script>initCookieBanner();// Кнопка «🎲 Удиви меня»: случайная добавка из каталога.
+// Список страниц берём из sitemap.xml — там уже готовые URL по slug
+// (sup/magniy.html). Раньше здесь собирались d.id из data.json и
+// открывался 'sup/' + id + '.html', но id — отображаемое имя
+// (кириллица), а файлы называются по slug, поэтому кнопка вела на 404
+// на всех страницах раздела. slugify живёт в Python
+// (scripts/build_sup.py) и в JS не дублируется.
+(function(){
+  var btn = document.getElementById('randomBtn');
+  if(!btn) return;
+  var sitemapUrl = new URL('sitemap.xml', location.href).href;
+  btn.onclick = function(){
+    fetch(sitemapUrl).then(function(r){ return r.text(); }).then(function(xml){
+      var doc = new DOMParser().parseFromString(xml, 'application/xml');
+      var urls = [];
+      doc.querySelectorAll('url > loc').forEach(function(node){
+        var u = (node.textContent || '').trim();
+        if(/\/sup\/[^/]+\.html$/.test(u) && !/\/sup\/index\.html$/.test(u)) urls.push(u);
+      });
+      if(!urls.length){ console.warn('[random] в sitemap.xml нет страниц добавок'); return; }
+      location.href = urls[Math.floor(Math.random() * urls.length)];
+    }).catch(function(err){ console.warn('[random] не удалось загрузить sitemap.xml', err); });
+  };
+})();
+
+</script>
 </body>
 </html>
+

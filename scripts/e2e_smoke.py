@@ -7,6 +7,17 @@ DOCS = Path(__file__).resolve().parents[1] / "docs"
 BASE = "http://localhost:8123"
 
 
+def open_modal(pg, sid: str, ts: int) -> None:
+    """Открыть модалку добавки по диплинку #sup=<id>.
+
+    v5.6.5: клик по карточке больше не открывает модалку — он ведёт на
+    sup/<id>.html (docs/script.js:803-807). Модалка открывается только
+    через hash #sup=, который разбирает initApp (docs/script.js:469-470).
+    """
+    pg.goto(f"{BASE}/index.html?ts={ts}#sup={sid}", wait_until="domcontentloaded")
+    pg.wait_for_selector("#modalOverlay", state="visible", timeout=5000)
+
+
 def main() -> None:
     data = json.loads((DOCS / "data.json").read_text(encoding="utf-8"))
     n_all, n_price = len(data), sum(1 for s in data if s.get("price") is not None)
@@ -46,11 +57,14 @@ def main() -> None:
             assert qa == 3, f"секция «3 вопроса»: блоков {qa}, ожидалось 3"
             assert pg.locator("#qaSection").inner_text(), "секция «3 вопроса» пуста"
 
-            # v2.3: 15 блоков в модалке + заглушка пустых блоков
+            # v2.3: блоки полной карточки + заглушка пустых блоков.
+            # 14, а не 15: блок «Цена» удалён в 883a53c (M9, 2026-09-17) —
+            # CARD_GROUPS в docs/script.js даёт what/who/works/evidence +
+            # how/onset + notwho/conflicts/friends/ul + food/official/shop/myths.
             ts += 1; pg.goto(f"{BASE}/index.html?ts={ts}#sup=Фосфатидилсерин", wait_until="domcontentloaded")
             pg.wait_for_selector("#modalOverlay", state="visible", timeout=5000)
             nblocks = pg.locator("#modalBody .cblock").count()
-            assert nblocks == 15, f"блоков полной карточки {nblocks}, ожидалось 15"
+            assert nblocks == 14, f"блоков полной карточки {nblocks}, ожидалось 14"
             assert pg.locator("#modalBody .cbEmpty").count() > 0, "нет заглушки «данных пока нет — проверяем»"
 
             # v2.3: зелёная подсказка «хорошая пара» в модалке Магния (магний+B6)
@@ -96,12 +110,14 @@ def main() -> None:
             assert med.count() == 1, "баннер medium не появился на кальций+железо"
             assert "конкурируют за всасывание" in med.inner_text(), "текст medium-баннера не тот"
 
-            # v2.4: вкладка «Квадрант доказательности» рендерит (или честная заглушка)
+            # v2.4: вкладка «Квадрант доказательности» рендерит (или честная заглушка).
+            # v5.6.5: id #tabQuadrant в разметке нет — вкладки графика это
+            # .chartTab[data-view] внутри #viewTabs (docs/index.html:480-483).
             ts += 1; pg.goto(f"{BASE}/index.html?ts={ts}", wait_until="domcontentloaded")
-            pg.wait_for_selector("#tabQuadrant", state="attached", timeout=5000)
+            pg.wait_for_selector('.chartTab[data-view="quadrant"]', state="attached", timeout=5000)
             pg.wait_for_function("window.chart != null", timeout=5000)
             n_verified = sum(1 for s in data if s.get("hedges_g") is not None)
-            pg.click("#tabQuadrant")
+            pg.click('.chartTab[data-view="quadrant"]')
             pg.wait_for_function("window.quadrantChart != null", timeout=5000)
             qpts = pg.evaluate("window.quadrantChart?.data?.datasets?.length ?? -1")
             assert qpts == n_verified, f"точек квадранта {qpts}, ожидалось {n_verified}"
@@ -116,14 +132,23 @@ def main() -> None:
                 pg.wait_for_selector(".card[data-id='" + first["id"] + "']", state="attached", timeout=5000)
                 card_grade = pg.locator(".card[data-id='" + first["id"] + "'] .grade").count()
                 assert card_grade == 1, "нет грейда на карточке верифицированной добавки"
-                pg.click(f".card[data-id='{first['id']}']")
-                pg.wait_for_selector("#modalOverlay", state="visible", timeout=5000)
+                ts += 1; open_modal(pg, first["id"], ts)
                 assert pg.locator("#modalBody .grade").count() >= 1, "грейд не в модалке"
                 assert first["grade"] in pg.locator("#modalBody").inner_text(), "буква грейда не в модалке"
 
+            # v5.6.5 (A-1.1): «Карта механизмов» закрыта — страница стала
+            # редиректом на hactar.html?tab=graph (механизмы живут во
+            # вкладке «Связи» Project Hactar). Прежняя проверка цепочки
+            # «вещество → мишень → эффект» (#chain на map.html) здесь
+            # больше неуместна: элемента #chain на странице больше нет.
             pg.goto(f"{BASE}/map.html?supplement=Эхинацея", wait_until="domcontentloaded")
-            pg.wait_for_selector("#chain", state="attached", timeout=5000)
-            assert "Эхинацея" in pg.locator("#chain").inner_text(), "атлас не открыл добавку"
+            pg.wait_for_function("() => location.search.includes('tab=graph')", timeout=8000)
+            assert "hactar.html" in pg.url and "tab=graph" in pg.url, \
+                "map.html должен редиректить на hactar.html?tab=graph (A-1.1)"
+            # конечная страница открылась на вкладке «Связи»
+            assert pg.locator("#hactarTabLinks[aria-selected='true']").count() == 1, \
+                "после редиректа map.html активна не вкладка «Связи»"
+            pg.wait_for_selector("#hactarPanelLinks.active", state="visible", timeout=5000)
 
             # ==================== v2.6: trust visuals ====================
             FILL = {"A": 4, "B": 3, "C": 2, "D": 1}
@@ -131,14 +156,23 @@ def main() -> None:
             pg.wait_for_selector(".card[data-id='Кофеин']", state="attached", timeout=5000)
             cof = next(s for s in data if s["id"] == "Кофеин")
 
-            # B: 5 точек по грейду у Кофеина (B=3), 0 точек + «ждёт верификации» у Креатина
-            assert FILL[cof["grade"]] == 3
-            assert pg.locator(".card[data-id='Кофеин'] .gdots i.on").count() == FILL[cof["grade"]]
-            assert pg.locator(".card[data-id='Креатин'] .gdots i.on").count() == 0
-            assert "ждёт верификации" in pg.locator(".card[data-id='Креатин']").inner_text()
+            # B: грейд-бейдж в карточке соответствует data.json.
+            # v5.6.5: точек грейда (.gdots) в вёрстке больше нет — они удалены
+            # в 883a53c (M9) вместе с ценой, вместо них бейдж .grade.gX
+            # (docs/script.js:99-102). Прежние константы (3 точки / «ждёт
+            # верификации» у Креатина) стали ложными: Кофеин теперь грейд A,
+            # а Креатин получил hedges_g.
+            assert pg.locator(".card[data-id='Кофеин'] .grade").count() == 1
+            assert pg.locator(".card[data-id='Кофеин'] .grade.g" + cof["grade"]).count() == 1
+            no_g = next(s for s in data if s.get("hedges_g") is None)
+            assert pg.locator(f".card[data-id='{no_g['id']}'] .gBadge").count() == 0, \
+                "у добавки без hedges_g не должно быть бейджа g"
 
-            # D: «Обновлено» + «ручная вычитка» на карточке
-            assert "Обновлено: " + cof["updated"] in pg.locator(".card[data-id='Кофеин']").inner_text()
+            # D: «Обновлено» + «ручная вычитка» на карточке.
+            # Дата берётся из docs/version.json (window.APP_VERSION.data), а не
+            # из поля updated записи — так в updatedLine (docs/script.js).
+            data_date = __import__("json").loads((DOCS / "version.json").read_text(encoding="utf-8"))["data"]
+            assert "Обновлено: " + data_date in pg.locator(".card[data-id='Кофеин']").inner_text()
             assert "ручная вычитка" in pg.locator(".card[data-id='Кофеин']").inner_text()
 
             # C: оси X — кнопки есть, переключение перерисовывает без reload
@@ -151,10 +185,10 @@ def main() -> None:
             pg.click("#axisMA")
             pg.wait_for_function("window.chart?.data?.datasets.length === " + str(n_ma), timeout=5000)
 
-            # модалка Кофеина: точки, бейджи, иконки источников (честно: цена без иконки — price_source пуст у всех)
-            pg.click(".card[data-id='Кофеин']")
-            pg.wait_for_selector("#modalOverlay", state="visible", timeout=5000)
-            assert pg.locator("#modalBody .gdots i.on").count() == 3, "в модалке нет 3 точек грейда B"
+            # модалка Кофеина: бейдж грейда, иконки источников (честно: цена без иконки — price_source пуст у всех)
+            ts += 1; open_modal(pg, "Кофеин", ts)
+            assert pg.locator("#modalBody .grade.g" + cof["grade"]).count() >= 1, \
+                "в модалке нет бейджа грейда " + cof["grade"]
             assert "ручная вычитка" in pg.locator("#modalBody").inner_text()
             assert "Обновлено: " in pg.locator("#modalBody").inner_text()
             assert pg.locator("#modalBody a.srcIcon[href*='pubmed']").count() >= 1
@@ -182,8 +216,12 @@ def main() -> None:
             pg.wait_for_selector("#trustSummary", state="attached", timeout=5000)
             assert pg.locator(".trustbar").count() == 1 and "Открытые данные" in pg.locator(".trustbar").inner_text()
             assert pg.locator("#trustSummary").count() == 1 and "Как мы проверяем данные" in pg.locator("#trustSummary").inner_text()
+            # v5.6.5 (A-1.1): map.html — редирект на hactar.html?tab=graph,
+            # trustbar проверяем на конечной странице (у hactar.html он
+            # свой, в .site-header).
             pg.goto(f"{BASE}/map.html?ts={ts}", wait_until="domcontentloaded")
-            pg.wait_for_selector("#chain", state="attached", timeout=5000)
+            pg.wait_for_function("() => location.search.includes('tab=graph')", timeout=8000)
+            assert "hactar.html" in pg.url, "map.html должен редиректить на hactar.html?tab=graph (A-1.1)"
             assert "Открытые данные" in pg.locator(".trustbar").inner_text()
 
             # ==================== конец v2.6 ====================
@@ -196,18 +234,14 @@ def main() -> None:
             # A: карточка больше не рисует «ценность»-блоки
             assert "ценность" not in pg.locator(".card[data-id='Кофеин']").inner_text()
 
-            # B: блок «История цены» вместо экономики; canvas ИЛИ честный фолбэк (историй цен нет)
-            pg.click(".card[data-id='Кофеин']")
-            pg.wait_for_selector("#modalOverlay", state="visible", timeout=5000)
-            pg.wait_for_function(
-                "(() => { if (!document.getElementById('modalBody')) return false; "
-                "const el = document.getElementById('ecoSpark'); "
-                "if (!el) return false; "
-                "return el.getElementsByTagName('canvas').length > 0 || "
-                "el.innerText.includes('спарклайн появится') || el.dataset.state !== undefined; })()",
-                timeout=5000)
+            # B: экономика-блок и «История цены» демонтированы полностью.
+            # v5.6.5: элемента #ecoSpark и текста «История цены» в коде больше
+            # нет вообще (docs/script.js не содержит ни одного вхождения),
+            # поэтому ждать их бессмысленно. Проверяем фактическое состояние.
+            ts += 1; open_modal(pg, "Кофеин", ts)
             body = pg.locator("#modalBody").inner_text()
-            assert "История цены" in body, "нет блока «История цены» в модалке"
+            assert "История цены" not in body, "блок «История цены» вернулся в модалку"
+            assert pg.locator("#modalBody #ecoSpark").count() == 0, "#ecoSpark вернулся в модалку"
             assert "ЭКОНОМИКА" not in body and "₽ за единицу эффекта" not in body, \
                 "экономика-блок не демонтирован (v2.7.1)"
             assert "ценност" not in body, "в модалке осталась «ценность»"
@@ -215,45 +249,53 @@ def main() -> None:
             # C: тултип цены (priceTip) демонтирован вместе с экономика-блоком
             assert pg.locator("#modalBody .priceTip").count() == 0, "priceTip остался в модалке"
 
-            # D: блок «Ключевые мета-анализы (топ-3 поиска)» — ≥1 ссылки + пометка до и после
-            assert "Ключевые мета-анализы" in body, "нет блока топ-3 МА"
+            # D: блок источников (топ-3) — заголовок зависит от того, ручной
+            # набор или автотоп. v5.6.5: текст «Ключевые мета-анализы» и
+            # пометка «верифицированных добавок сейчас: N» заменены в i18n
+            # на sources.curatedTitle / sources.autoTitle и
+            # sources.curatedNote / sources.autoNote (docs/i18n.js:93-96).
+            curated = bool(cof.get("key_sources"))
+            title = "Проверенные источники (топ-3)" if curated else "Мета-анализы (топ-3 авто-поиска)"
+            assert title in body, f"нет блока источников {title!r}"
             assert pg.locator("#modalBody a[href*='pubmed.ncbi.nlm.nih.gov/']").count() >= 1, \
                 "нет ссылок на PubMed в топ-3"
-            vc = sum(1 for s in data if (s.get("key_sources") or []))
-            note = "верифицированных добавок сейчас: " + str(vc)
-            cuts = pg.locator("#modalBody").inner_text().count(note)
-            assert cuts >= 2, f"пометка топ-3 не до+после списка: вхождений {cuts}"
+            if curated:
+                assert "Отобраны вручную по топ-2 МА" in body, "нет пометки о ручном отборе"
+            else:
+                note = f"верифицировано сейчас: {sum(1 for s in data if s.get('key_sources'))} из {n_all}"
+                assert note in body, f"нет пометки автотопа: {note!r}"
 
             pg.keyboard.press("Escape")
             pg.wait_for_selector("#modalOverlay", state="hidden", timeout=5000)
 
-            # E: Креатин (без g) — экономика-причина демонтирована, блок «История цены» на месте
-            pg.click(".card[data-id='Креатин']")
-            pg.wait_for_selector("#modalOverlay", state="visible", timeout=5000)
+            # E: Креатин — экономика-блок демонтирован, «Истории цены» нет
+            ts += 1; open_modal(pg, "Креатин", ts)
             kb = pg.locator("#modalBody").inner_text()
             assert "Эффект ждёт верификации" not in kb, "у добавки без g осталась экономика-причина"
-            assert "История цены" in kb, "у добавки без g нет блока «История цены»"
+            assert "История цены" not in kb, "блок «История цены» вернулся в модалку"
             pg.keyboard.press("Escape")
             pg.wait_for_selector("#modalOverlay", state="hidden", timeout=5000)
 
-            # F: сравнение — колонка «₽ за единицу эффекта» вместо «Ценность»
-            pg.select_option("#compareSelect1", label=cof["name"])
-            pg.select_option("#compareSelect2", label="Креатин")
-            pg.click("#compareBtn")
-            cmp_txt = pg.locator("#compareResult").inner_text()
-            assert "₽ за единицу эффекта" in cmp_txt, "в сравнении нет колонки стоимости эффекта"
-            assert "Ценность" not in cmp_txt and "ценность" not in cmp_txt, \
-                "в сравнении осталась «Ценность»"
+            # F: сравнение теперь на hactar.html (H-1, редирект);
+            # функционал сравнения будет добавлен позже. compare.html
+            # редиректит на hactar.html.
+            pg.goto(f"{BASE}/compare.html", wait_until="domcontentloaded")
+            pg.wait_for_timeout(1000)
+            assert "hactar.html" in pg.url, "compare.html должен редиректить на hactar.html (H-1)"
             # ==================== конец v2.6.1 ====================
 
             # ==================== v2.6.2: UI-фиксы ====================
 
-            # F1.3: JS-рендер tĩnh строки (не из HTML) — «цена не найдена» из script.js
+            # F1.3: JS-строка с кириллицей рендерится (не кракозябры).
+            # v5.6.5: «цена не найдена» удалена вместе с ценой — берём другую
+            # JS-строку из i18n: счётчик фильтра t("filter.count") =
+            # "({shown} из {total})", рендерится в #countBadge.
             ts += 1; pg.goto(f"{BASE}/index.html?ts={ts}", wait_until="domcontentloaded")
             pg.wait_for_selector(".card[data-id]", state="attached", timeout=5000)
             pg.wait_for_function("window.chart != null", timeout=5000)
-            assert "цена не найдена" in pg.content(), \
-                "F1.3: JS-строка «цена не найдена» не рендерится (.encoding?)"
+            badge_txt = pg.locator("#countBadge").inner_text()
+            assert f"({n_all} из {n_all})" in badge_txt, \
+                f"F1.3: JS-строка счётчика не рендерится по-русски: {badge_txt!r}"
 
             # F2.3: чип «Мышцы / спорт» — графики уважают фильтры
             import json as _json
@@ -278,25 +320,9 @@ def main() -> None:
             pg.locator('.tagPreset[data-tag="all"]').click()
             pg.wait_for_timeout(200)
 
-            # F4.3: радар — значения ∈ [0,100]
-            ts += 1; pg.goto(f"{BASE}/index.html?ts={ts}", wait_until="domcontentloaded")
-            pg.wait_for_selector(".card[data-id]", state="attached", timeout=5000)
-            pg.wait_for_function("window.chart != null", timeout=5000)
-            # открыть секцию сравнения, чтобы радар отрендерился
-            pg.select_option("#compareSelect1", label="Кофеин")
-            pg.select_option("#compareSelect2", label="Креатин")
-            pg.click("#compareBtn")
-            pg.wait_for_function("window.radarInstance != null", timeout=5000)
-            radar_vals = pg.evaluate("""() => {
-                const ds = window.radarInstance.data.datasets;
-                return ds.flatMap(d => d.data);
-            }""")
-            assert all(0 <= v <= 100 for v in radar_vals), \
-                f"F4.3: радар значения вне [0,100]: {[round(v,1) for v in radar_vals if v < 0 or v > 100]}"
-            # подпись осей содержит «нормировано по базе»
-            labels_text = pg.evaluate("window.radarInstance.data.labels.join(' ')")
-            assert "нормировано по базе" in labels_text, \
-                f"F4.3: нет подписи «нормировано по базе» на осях: {labels_text!r}"
+            # F4.3: радар был на compare.html, теперь compare.html редиректит
+            # на hactar.html (H-1). Проверка радара будет добавлена вместе
+            # с функционалом сравнения.
 
             # F5.4: высота секции доверия #trustSummary ≤ 40% прежней
             OLD_TRUST_HEIGHT = 223.5   # измерено на main (9acbd6a) playwright 1280×900
@@ -370,33 +396,43 @@ def main() -> None:
 
             assert not errors, f"ошибки консоли: {errors}"
 
-            # v2.7.1: статическая строка титула в content (задача 3.2)
+            # v2.7.1: статическая строка титула в content (задача 3.2).
+            # v5.6.5 (QA-02, FIX-04): MK2-06 (794992c5) заменил заголовок на
+            # «Независимая база БАДов: доказательства, а не маркетинг»
+            # (docs/index.html:310) — проверяем актуальный h1.
             pg.goto(f"{BASE}/index.html?ts={ts}", wait_until="domcontentloaded")
-            assert "что работает, а что нет" in pg.content(), "v2.7.1: title missing"
+            assert "Независимая база БАДов: доказательства, а не маркетинг" in pg.locator("h1").inner_text(), \
+                "QA-02: h1 не совпадает с заголовком docs/index.html:310"
             ts += 1
 
-            # v2.5: faq/glossary/changelog_public рендерятся, футер-ссылки на них живые
-            for sub in ["faq", "glossary", "changelog_public"]:
-                for page in ["index.html", "map.html"]:
+            # v2.5: faq/glossary рендерятся, футер-ссылки на них живые.
+            # v5.6.5: changelog_public.html удалён из docs/ (страницы нет
+            # и никто на неё не ссылается) — из списка убран. h1 глоссария
+            # называется «Термины доказательной медицины».
+            for sub in ["faq", "glossary"]:
+                # v5.6.5 (A-1.1): map.html больше не самостоятельная страница
+                # (редирект на hactar.html?tab=graph) — футерные ссылки
+                # проверяем на конечной странице hactar.html.
+                for page in ["index.html", "hactar.html"]:
                     pg.goto(f"{BASE}/{page}?ts={ts}", wait_until="domcontentloaded")
                     page_html = pg.content()
                     assert f'href="{sub}.html"' in page_html, f"{page} не ссылается на {sub}.html"
                 ts += 1
                 pg.goto(f"{BASE}/{sub}.html?ts={ts}", wait_until="domcontentloaded")
                 if sub == "faq":
-                    assert pg.locator("details.qa").count() == 8, "faq: не 8 аккордеонов"
-                elif sub == "glossary":
-                    assert "Глоссарий" in pg.locator("h1").inner_text(), "glossary: нет h1"
+                    # v5.6.5: аккордеонов стало 12 (было 8) — FAQ расширен.
+                    n_qa = pg.locator("details.qa").count()
+                    assert n_qa == 12, f"faq: аккордеонов {n_qa}, ожидалось 12"
                 else:
-                    assert "Журнал" in pg.locator("h1").inner_text(), "changelog_public: нет h1"
+                    assert "Термины доказательной медицины" in pg.locator("h1").inner_text(), \
+                        "glossary: нет h1"
 
 # === PART A tracker ===
             # A2: кнопка «📅 В мой курс» появляется в модалке
             ts += 1; pg.goto(f"{BASE}/index.html?ts={ts}", wait_until="domcontentloaded")
             pg.wait_for_selector(".card[data-id='Омега-3']", state="attached", timeout=5000)
             pg.wait_for_function("window.chart != null", timeout=5000)
-            pg.click(".card[data-id='Омега-3']")
-            pg.wait_for_selector("#modalOverlay", state="visible", timeout=5000)
+            ts += 1; open_modal(pg, "Омега-3", ts)
             pg.wait_for_selector("[data-tracker-btn]", state="attached", timeout=3000)
             btn = pg.locator("[data-tracker-btn]")
             assert btn.count() == 1, "кнопка «В мой курс» не появилась в модалке"
@@ -512,44 +548,46 @@ def main() -> None:
             )
             assert n_points == 12, f"Chart.js точек {n_points}, ожидалось 12"
 
-            # C4: спарклайн — честный фолбэк при пустой истории price
+            # C4: спарклайн цены демонтирован вместе с экономика-блоком —
+            # #ecoSpark в коде нет вообще (0 вхождений в docs/script.js).
             ts += 1; pg.goto(f"{BASE}/index.html?ts={ts}#sup=Магний", wait_until="domcontentloaded")
             pg.wait_for_selector("#modalOverlay", state="visible", timeout=5000)
-            pg.wait_for_selector("#ecoSpark", state="attached", timeout=5000)
-            spark = pg.locator("#ecoSpark")
-            txt = spark.inner_text()
-            assert "история копится с v2.1" in txt, f"нет фолбэк-текста спарклайна: {txt!r}"
-            assert spark.get_attribute("data-state") == "fallback", \
-                f"спарклайн не в state=fallback: {spark.get_attribute('data-state')!r}"
+            assert pg.locator("#ecoSpark").count() == 0, "#ecoSpark вернулся в модалку"
+            assert "история копится с v2.1" not in pg.locator("#modalBody").inner_text(), \
+                "вернулся фолбэк-текст спарклайна"
             pg.keyboard.press("Escape")
 
             # ==================== конец PART C timeline ====================
 
-            # === v2.7.1 chunk 3: computed-style иерархия «наука ≥1.2× цена» ===
-            ts += 1; pg.goto(f"{BASE}/index.html?ts={ts}", wait_until="domcontentloaded")
-            pg.wait_for_selector(".card[data-id]", state="attached", timeout=5000)
-            pg.click(".card[data-id] >> nth=0")
-            pg.wait_for_selector("#modalOverlay", state="visible", timeout=5000)
+            # === v2.7.1 chunk 3: иерархия заголовков блоков ===
+            # v5.6.5: блока price в карточке больше нет (883a53c), поэтому
+            # сравнивать «наука ≥1.2× цена» не с чем. Проверяем, что заголовки
+            # блоков рендерятся и заголовок evidence крупнее обычного h4.
+            ts += 1; open_modal(pg, "Кофеин", ts)
             fs = pg.evaluate("""(() => {
               const g = k => {
                 const el = document.querySelector('#modalBody .cblock[data-block-key="' + k + '"] h4');
                 const f = el ? parseFloat(getComputedStyle(el).fontSize) : NaN;
                 return f;
               };
-              return [g('evidence'), g('price')];
+              return [g('evidence'), g('how')];
             })()""")
             assert len(fs) == 2 and fs[0] > 0 and fs[1] > 0, \
-                f"иерархия: не найдены h4 блоков evidence/price: {fs}"
-            assert fs[0] >= fs[1] * 1.2, \
-                f"иерархия: наука {fs[0]}px < 1.2× цена {fs[1]}px"
-            # ссылка «Для врачей» в футере index и map
-            assert pg.locator("footer a[href='for_doctors.html']").count() == 1, \
-                "в футере index.html нет ссылки «Для врачей»"
+                f"иерархия: не найдены h4 блоков evidence/how: {fs}"
+            assert pg.locator("#modalBody .cblock[data-block-key='price']").count() == 0, \
+                "блок price вернулся в карточку"
+            # «Для врачей» в футере index и Hactar. v5.6.5: страницы
+            # for_doctors.html в docs/ нет и ссылки на неё нет — проверяем
+            # фактическое отсутствие (регрессия — если ссылка вернётся без страницы).
+            assert pg.locator("footer a[href='for_doctors.html']").count() == 0, \
+                "в футере index.html есть ссылка на несуществующую for_doctors.html"
             pg.keyboard.press("Escape")
-            pg.goto(f"{BASE}/map.html?ts={ts}", wait_until="domcontentloaded")
-            pg.wait_for_selector("#chain", state="attached", timeout=5000)
-            assert pg.locator("footer a[href='for_doctors.html']").count() == 1, \
-                "в футере map.html нет ссылки «Для врачей»"
+            # v5.6.5 (A-1.1): map.html стал редиректом на hactar.html?tab=graph —
+            # футер конечной страницы проверяем там.
+            pg.goto(f"{BASE}/hactar.html?ts={ts}", wait_until="domcontentloaded")
+            pg.wait_for_selector(".hactar-tabs [role='tab']", state="attached", timeout=5000)
+            assert pg.locator("footer a[href='for_doctors.html']").count() == 0, \
+                "в футере hactar.html есть ссылка на несуществующую for_doctors.html"
 
             assert not errors, f"ошибки консоли: {errors}"
             b.close()

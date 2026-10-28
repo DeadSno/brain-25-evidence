@@ -13,11 +13,19 @@
     <meta property="og:description" content="Прекурсор ацетилхолина: при деменции — слабый плюс; у здоровых 315-630 мг улучшает Stroop через час. Грейд C: 1 мета-анализов, 13 РКИ.">
     <meta property="og:image" content="https://deadsno.github.io/brain-25-evidence/og.png">
     <meta property="og:site_name" content="Brain 25 Evidence">
+<meta property="og:locale" content="ru_RU">
     <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Alpha-GPC — Когниция — Brain 25 Evidence">
+    <meta name="twitter:description" content="Прекурсор ацетилхолина: при деменции — слабый плюс; у здоровых 315-630 мг улучшает Stroop через час. Грейд C: 1 мета-анализов, 13 РКИ.">
+    <meta name="twitter:image" content="https://deadsno.github.io/brain-25-evidence/og.png">
     <link rel="manifest" href="../manifest.webmanifest">
     <meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#1c1c1e" media="(prefers-color-scheme: dark)">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="БАДы">
     <link rel="apple-touch-icon" href="../icons/192.png">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
     <script>
     try {
       if (localStorage.getItem('theme') === 'light') {
@@ -25,11 +33,11 @@
       }
     } catch(e) {}
     </script>
-    <link rel="stylesheet" href="../style.css?v=435">
-    <script src="../version.js?v=312"></script>
-    <script src="../i18n.js?v=2"></script>
-    <script src="../pwa.js?v=282" defer></script>
-<script src="../share.js?v=1" defer></script>
+    <link rel="stylesheet" href="../style.min.css?v=464">
+    <script src="../version.js?v=312" defer></script>
+    <script src="../i18n.js?v=15" defer></script>
+    <script src="../pwa.js?v=283" defer></script>
+<script src="../share.js?v=2" defer></script>
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -47,157 +55,203 @@
     </script>
     
 </head>
-<body>
-<a href="#main" class="skip-link">Перейти к содержимому</a>
+<body data-sup-id="Alpha-GPC" data-sup-slug="alpha-gpc">
+<a href="#main" class="skip-link" data-i18n-text="a11y.skipToContent">Перейти к содержимому</a>
 
 <div class="site-header">
-  <div class="trustbar">🧬 Открытые данные · Бесплатно · Без рекламы</div>
+  <div class="trustbar" data-i18n-text="index.trustbar">🧬 Открытые данные · Бесплатно · Без рекламы</div>
   <header class="top">
     <div class="site-title"><a href="../index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a></div>
     <nav class="actions" data-i18n-aria-label="a11y.navMain">
-      <a class="btn c-home" href="../index.html">🏠 Главная</a>
-      <a class="btn c-feedback" href="../feedback.html">💬 Обратная связь</a>
-      <a class="btn c-support" href="../support.html">💚 Поддержать</a>
-      <button class="btn" id="themeBtn">🌞 Светлая тема</button>
+      <a class="btn c-feedback" href="../feedback.html" data-i18n-text="index.feedback">💬 Обратная связь</a>
+      <a class="btn c-support" href="../support.html" data-i18n-text="index.support">💚 Поддержать</a>
+      <!-- FIX-75: aria-label у #themeBtn ставит скрипт темы (t("a11y.themeToDark") /
+           t("a11y.themeToLight")) — статический атрибут перетирался и ломал EN-гейт. -->
+      <button class="btn c-theme" id="themeBtn">🌞 Светлая тема</button>
+      <select id="langSelect" class="lang-select" data-i18n-aria-label="a11y.langSelect"><option value="ru">RU</option><option value="en">EN</option></select>
+      <button class="btn c-random" id="randomBtn" data-i18n-text="index.random">🎲 Удиви меня</button>
     </nav>
   </header>
 </div>
 
 <main id="main" class="sup-wrap">
-  <h1>Alpha-GPC: доказательства</h1>
+  <h1><span data-sup="name">Alpha-GPC</span><span data-i18n-text="sup.h1Suffix">: доказательства</span></h1>
 
     
     <nav class="breadcrumbs">
-        <a href="../index.html">Главная</a> → <a href="index.html">Все добавки</a> → <strong>Alpha-GPC</strong>
+        <a href="../index.html" data-i18n-text="nav.home">Главная</a> → <a href="index.html" data-i18n-text="nav.catalog">Каталог</a> → <strong><span data-sup="name">Alpha-GPC</span></strong>
     </nav>
 
     <div class="sup-header">
-        <h2>Alpha-GPC</h2>
-        <span class="grade-badge" style="background:#b45309"><abbr data-i18n-title="trends.gradeAbbr">Грейд C</abbr></span>
-        <span class="verdict">— зависит от контекста</span>
+        <h2><span data-sup="name">Alpha-GPC</span></h2>
+        <span class="grade-badge" style="background:var(--grade-c-fill)"><abbr data-i18n-title="trends.gradeAbbr" data-i18n-tooltip="sup.gradeTooltip" data-i18n-text="sup.gradeShort" data-i18n-vars='{"g": "C"}' data-tooltip="Грейд C">Грейд C</abbr></span>
+        
+        <span class="verdict">— <span data-sup="verdict">зависит от контекста</span></span>
+        <button class="btn btn-cite" type="button" id="citeBtn" aria-label="Цитировать Alpha-GPC" data-i18n-aria-label="sup.citeTitle" data-i18n-text="sup.citeLabel">📋 Цитировать</button>
+        <span id="citeTooltip" class="cite-tooltip" role="tooltip" aria-hidden="true" data-i18n-text="cite.copied">Скопировано!</span>
+        <button class="btn btn-tts" type="button" id="ttsBtn" aria-label="Прослушать Alpha-GPC" data-i18n-aria-label="sup.ttsTitle" data-i18n-text="sup.ttsLabel">🔊 Прослушать</button>
+    </div>
+
+    
+    <div class="sup-meta">
+        
+        <a href="https://pubmed.ncbi.nlm.nih.gov/?term=41426989" target="_blank" rel="nofollow noopener" class="pmid-badge" data-target="alpha-gpc">
+            🔬 5 <span data-i18n-text="sup.pmidMany">источников</span> <span data-i18n-text="sup.pmidIn">в PubMed</span>
+        </a>
+        
+        
+        
+        <a class="btn cmp-add" data-cmp="alpha-gpc" href="../hactar.html?tab=compare&amp;ids=alpha-gpc" data-i18n-text="sup.compare">+ Сравнить</a>
+        
+    </div>
+    
+
+    <div class="sup-section">
+        <h2 data-i18n-text="sup.h2About">О добавке</h2>
+        <p data-sup="about">Прекурсор ацетилхолина: при деменции — слабый плюс; у здоровых 315-630 мг улучшает Stroop через час.</p>
+        <p><b data-i18n-text="sup.whoNeeds">Кому нужно:</b> <span data-sup="who_needs">Пожилые при деменции — адъюнкт к терапии (по врачу); при СД2 со снижением — слабый сигнал; здоровым — точечный Stroop (n=20).</span></p>
+        <p><b data-i18n-text="sup.onset">Когда эффект:</b> <span data-sup="onset">Здоровым Stroop быстрее через 60 мин (без N-Back); при снижении — недели с терапией.</span></p>
     </div>
 
     <div class="sup-section">
-        <h2>О добавке</h2>
-        <p>Прекурсор ацетилхолина: при деменции — слабый плюс; у здоровых 315-630 мг улучшает Stroop через час.</p>
-        <p><b>Кому нужно:</b> Пожилые при деменции — адъюнкт к терапии (по врачу); при СД2 со снижением — слабый сигнал; здоровым — точечный Stroop (n=20).</p>
-        <p><b>Когда эффект:</b> Здоровым Stroop быстрее через 60 мин (без N-Back); при снижении — недели с терапией.</p>
+        <h2 data-i18n-text="sup.h2Metrics">Метрики</h2>
+        <p><b data-i18n-text="sup.scienceIndex">Индекс науки:</b> 18 · <b data-i18n-text="sup.rct">РКИ:</b> 13 · <b data-i18n-text="sup.metaCount">Мета-анализов:</b> 1</p>
+        <p><b data-i18n-text="sup.category">Категория:</b> <span data-sup="category">Когниция</span></p>
     </div>
 
     <div class="sup-section">
-        <h2>Метрики</h2>
-        <p><b>Индекс науки:</b> 18 · <b>РКИ:</b> 13 · <b>Мета-анализов:</b> 1</p>
-        <p><b>Категория:</b> Когниция</p>
+        <h2 data-i18n-text="sup.h2Effects">Эффекты</h2>
+        <div><span class="tag" data-sup="effect" data-sup-i="0">Память (только в комбинации с донепезилом у пациентов)</span></div>
     </div>
 
     <div class="sup-section">
-        <h2>Эффекты</h2>
-        <div><span class="tag">Память (только в комбинации с донепезилом у пациентов)</span></div>
-    </div>
-
-    <div class="sup-section">
-        <h2>Механизмы действия</h2>
+        <h2 data-i18n-text="sup.h2Mechs">Механизмы действия</h2>
         
         <div class="mech-card">
-            <div class="mech-body">Биодоступный холин → синтез ацетилхолина</div>
-            <div class="mech-effect">Мощность в спорте и когниция у пожилых (слабо)</div>
-            <div class="mech-strength s-context">контекст</div>
+            <div class="mech-body" data-sup="mech-body" data-sup-i="0">Биодоступный холин → синтез ацетилхолина</div>
+            <div class="mech-effect" data-sup="mech-effect" data-sup-i="0">Мощность в спорте и когниция у пожилых (слабо)</div>
+            <div class="mech-strength s-context" data-sup="mech-strength" data-sup-i="0">контекст</div>
         </div>
         <div class="mech-card">
-            <div class="mech-body">Предшественник ацетилхолина в комбинации с донепезилом</div>
-            <div class="mech-effect">ADAS-Cog 12 нед: −13.9% vs −0.9%; в комбинации с донепезилом (119)</div>
-            <div class="mech-strength s-medium">умеренно</div>
+            <div class="mech-body" data-sup="mech-body" data-sup-i="1">Предшественник ацетилхолина в комбинации с донепезилом</div>
+            <div class="mech-effect" data-sup="mech-effect" data-sup-i="1">ADAS-Cog 12 нед: −13.9% vs −0.9%; в комбинации с донепезилом (119)</div>
+            <div class="mech-strength s-medium" data-sup="mech-strength" data-sup-i="1">умеренно</div>
         </div>
         <div class="mech-card">
-            <div class="mech-body">Острый когнитивный буст у здоровых после разовой дозы</div>
-            <div class="mech-effect">Stroop быстрее (d=0.61) через 60 мин; N-Back/Flanker без разницы (n=20)</div>
-            <div class="mech-strength s-weak">слабо</div>
+            <div class="mech-body" data-sup="mech-body" data-sup-i="2">Острый когнитивный буст у здоровых после разовой дозы</div>
+            <div class="mech-effect" data-sup="mech-effect" data-sup-i="2">Stroop быстрее (d=0.61) через 60 мин; N-Back/Flanker без разницы (n=20)</div>
+            <div class="mech-strength s-weak" data-sup="mech-strength" data-sup-i="2">слабо</div>
         </div>
         <div class="mech-card">
-            <div class="mech-body">Когниция при лёгком снижении на фоне СД2 (1200 мг/д)</div>
-            <div class="mech-effect">MMSE-разница +1.7 значима на 12-м мес; 6 мес — без эффекта (n=36)</div>
-            <div class="mech-strength s-weak">слабо</div>
+            <div class="mech-body" data-sup="mech-body" data-sup-i="3">Когниция при лёгком снижении на фоне СД2 (1200 мг/д)</div>
+            <div class="mech-effect" data-sup="mech-effect" data-sup-i="3">MMSE-разница +1.7 значима на 12-м мес; 6 мес — без эффекта (n=36)</div>
+            <div class="mech-strength s-weak" data-sup="mech-strength" data-sup-i="3">слабо</div>
         </div>
     </div>
 
     <div class="sup-section">
-        <h2>Дозировка</h2>
-        <p><b>Стандартная доза:</b> 300-600 мг</p>
-        <p><b>Курс:</b> курсы</p>
-        <p><b>Верхний предел:</b> Формального UL не установлен — данных о токсичности нет.</p>
+        <h2 data-i18n-text="sup.h2Dosage">Дозировка</h2>
+        <p><b data-i18n-text="sup.standardDose">Стандартная доза:</b> <span data-sup="dosage">300-600 мг</span></p>
+        <p><b data-i18n-text="sup.course">Курс:</b> <span data-sup="course">курсы</span></p>
+        <p><b data-i18n-text="sup.upperLimit">Верхний предел:</b> <span data-sup="upper_limit">Формального UL не установлен — данных о токсичности нет.</span></p>
+    </div>
+
+    
+    <div class="sup-section shop-section">
+        <h2 data-i18n-text="sup.h2Where">🛒 Где искать</h2>
+        <div style="font-size:var(--fs-4);color:var(--muted);margin-bottom:8px;" data-i18n-text="sup.externalWarn">⚠️ Вы переходите на сторонний сайт</div>
+        <div class="shop-buttons">
+            <a href="https://market.yandex.ru/search?text=Alpha-GPC" target="_blank" rel="nofollow noopener" class="shop-btn" data-i18n-text="sup.yamarket">Я.Маркет ↗</a>
+            <a href="https://www.ozon.ru/search/?text=Alpha-GPC" target="_blank" rel="nofollow noopener" class="shop-btn">Ozon ↗</a>
+            <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=Alpha-GPC" target="_blank" rel="nofollow noopener" class="shop-btn">WB ↗</a>
+        </div>
+        <div class="shop-look">
+            <strong data-i18n-text="sup.lookFor">Что искать при покупке:</strong> <span data-sup="shopLook"><span data-i18n-text="sup.lookForGeneric">Проверяйте дозировку на этикетке и наличие сертификата качества (GMP/ISO).</span></span>
+        </div>
+    </div>
+    
+
+    
+    <div class="sup-section unknowns-section">
+        <h2 data-i18n-text="sup.h2Unknowns">🔍 Что мы не знаем</h2>
+        <p><span data-i18n-text="sup.noFormsData">Нет данных о формах выпуска.</span></p>
+    </div>
+    
+
+    <div class="sup-section">
+        <h2 data-i18n-text="sup.h2Caution">Осторожно</h2>
+        <p data-sup="caution">Alpha-GPC (L-alpha-glycerylphosphorylcholine) — прекурсор ацетилхолина. В базе НЕТ мета-анализов или систематических обзоров. Возможно, данные есть в отдельных РКИ, но систематической оценки нет. Популярность в спортивном питании не подтверждена доказательной базой.</p>
     </div>
 
     <div class="sup-section">
-        <h2>Осторожно</h2>
-        <p>Alpha-GPC (L-alpha-glycerylphosphorylcholine) — прекурсор ацетилхолина. В базе НЕТ мета-анализов или систематических обзоров. Возможно, данные есть в отдельных РКИ, но систематической оценки нет. Популярность в спортивном питании не подтверждена доказательной базой.</p>
+        <h2 data-i18n-text="sup.h2Myths">Мифы</h2>
+        <p data-sup="myths">«Улучшает память всем» — в МА памяти/беглости не видно. «Лечит деменцию сам» — эффект с донепезилом. «Спортсменам буст» — только Stroop, n=20.</p>
     </div>
 
     <div class="sup-section">
-        <h2>Мифы</h2>
-        <p>«Улучшает память всем» — в МА памяти/беглости не видно. «Лечит деменцию сам» — эффект с донепезилом. «Спортсменам буст» — только Stroop, n=20.</p>
-    </div>
-
-    <div class="sup-section">
-        <h2>Взаимодействия</h2>
+        <h2 data-i18n-text="sup.h2Interactions">Взаимодействия</h2>
         <div class="inter-note">Известных взаимодействий нет</div>
     </div>
 
     <div class="sup-section">
-        <h2>Источники</h2>
+        <h2 data-i18n-text="sup.h2Sources">Источники</h2>
         
         <div class="src-card">
             <div class="src-title">Comparison of the effects of choline alphoscerate and citicoline in patients with dementia disorders: a systematic review and meta-analysis.</div>
-            <div class="src-meta">Frontiers in neurology · 2025 · <a href="https://pubmed.ncbi.nlm.nih.gov/41426989/" target="_blank" rel="noopener">PMID: 41426989</a> | DOI: <a href="https://doi.org/10.3389/fneur.2025.1649661">10.3389/fneur.2025.1649661</a></div>
+            <div class="src-meta">Frontiers in neurology · 2025 · <a href="https://pubmed.ncbi.nlm.nih.gov/41426989/" target="_blank" rel="nofollow noopener">PMID: 41426989</a> | DOI: <a href="https://doi.org/10.3389/fneur.2025.1649661" target="_blank" rel="nofollow noopener noreferrer">10.3389/fneur.2025.1649661</a></div>
         </div>
         <div class="src-card">
             <div class="src-title">Activity of Choline Alphoscerate on Adult-Onset Cognitive Dysfunctions: A Systematic Review and Meta-Analysis.</div>
-            <div class="src-meta">Journal of Alzheimer&#x27;s disease : JAD · 2023 · <a href="https://pubmed.ncbi.nlm.nih.gov/36683513/" target="_blank" rel="noopener">PMID: 36683513</a> | DOI: <a href="https://doi.org/10.3233/JAD-221189">10.3233/JAD-221189</a></div>
+            <div class="src-meta">Journal of Alzheimer&#x27;s disease : JAD · 2023 · <a href="https://pubmed.ncbi.nlm.nih.gov/36683513/" target="_blank" rel="nofollow noopener">PMID: 36683513</a> | DOI: <a href="https://doi.org/10.3233/JAD-221189" target="_blank" rel="nofollow noopener noreferrer">10.3233/JAD-221189</a></div>
         </div>
         <div class="src-card">
             <div class="src-title">Effects of choline alfoscerate on cognitive function and quality of life in type 2 diabetes: A double-blind, randomized, placebo-controlled trial.</div>
-            <div class="src-meta">Diabetes, obesity &amp; metabolism · 2025 · <a href="https://pubmed.ncbi.nlm.nih.gov/39703111/" target="_blank" rel="noopener">PMID: 39703111</a> | DOI: <a href="https://doi.org/10.1111/dom.16131">10.1111/dom.16131</a></div>
+            <div class="src-meta">Diabetes, obesity &amp; metabolism · 2025 · <a href="https://pubmed.ncbi.nlm.nih.gov/39703111/" target="_blank" rel="nofollow noopener">PMID: 39703111</a> | DOI: <a href="https://doi.org/10.1111/dom.16131" target="_blank" rel="nofollow noopener noreferrer">10.1111/dom.16131</a></div>
         </div>
         <div class="src-card">
             <div class="src-title">Acute Alpha-Glycerylphosphorylcholine Supplementation Enhances Cognitive Performance in Healthy Men.</div>
-            <div class="src-meta">Nutrients · 2024 · <a href="https://pubmed.ncbi.nlm.nih.gov/39683633/" target="_blank" rel="noopener">PMID: 39683633</a> | DOI: <a href="https://doi.org/10.3390/nu16234240">10.3390/nu16234240</a></div>
+            <div class="src-meta">Nutrients · 2024 · <a href="https://pubmed.ncbi.nlm.nih.gov/39683633/" target="_blank" rel="nofollow noopener">PMID: 39683633</a> | DOI: <a href="https://doi.org/10.3390/nu16234240" target="_blank" rel="nofollow noopener noreferrer">10.3390/nu16234240</a></div>
         </div>
         <div class="src-card">
             <div class="src-title">Comparative study of choline alfoscerate as a combination therapy with donepezil: A mixed double-blind randomized controlled and open-label observation trial.</div>
-            <div class="src-meta">Medicine · 2024 · <a href="https://pubmed.ncbi.nlm.nih.gov/38875437/" target="_blank" rel="noopener">PMID: 38875437</a> | DOI: <a href="https://doi.org/10.1097/MD.0000000000038067">10.1097/MD.0000000000038067</a></div>
+            <div class="src-meta">Medicine · 2024 · <a href="https://pubmed.ncbi.nlm.nih.gov/38875437/" target="_blank" rel="nofollow noopener">PMID: 38875437</a> | DOI: <a href="https://doi.org/10.1097/MD.0000000000038067" target="_blank" rel="nofollow noopener noreferrer">10.1097/MD.0000000000038067</a></div>
         </div>
     </div>
 
     <div class="sup-section">
-        <h2>Как выбирать</h2>
-        <p>Стандарт 300-600 мг/сут курсами; при деменции — адъюнкт с врачом; здоровому «буста памяти» не ждать.</p>
-        <p><b>Пищевые источники:</b> Очищенный фосфолипид, а не продукт; холин есть в яйцах и печени, но не в форме A-GPC.</p>
-        <p><b>Клинические рекомендации:</b> МА 2023 (PMID 36683513, 7 РКИ): с донепезилом когниция MD 1.72; сольный против плацебо MD 3.50; спортивной базы нет.</p>
+        <h2 data-i18n-text="sup.h2HowTo">Как выбирать</h2>
+        <p data-sup="how_to_choose">Стандарт 300-600 мг/сут курсами; при деменции — адъюнкт с врачом; здоровому «буста памяти» не ждать.</p>
+        <p><b data-i18n-text="sup.foodSources">Пищевые источники:</b> <span data-sup="food_sources">Очищенный фосфолипид, а не продукт; холин есть в яйцах и печени, но не в форме A-GPC.</span></p>
+        <p><b data-i18n-text="sup.guidelines">Клинические рекомендации:</b> <span data-sup="guidelines">МА 2023 (PMID 36683513, 7 РКИ): с донепезилом когниция MD 1.72; сольный против плацебо MD 3.50; спортивной базы нет.</span></p>
     </div>
 
-    <a href="../index.html" class="back-link">← Вернуться к списку</a>
+    <a href="index.html" class="back-link" data-i18n-text="sup.backToCatalog">← В каталог</a>
 </main>
 
 <footer class="site-footer">
   <p class="disc">
-    <b>⚠️ Не медицинская рекомендация.</b>
-    Сайт предоставляет данные из открытых научных источников
+    <b data-i18n-text="index.discWarn">⚠️ Не медицинская рекомендация.</b>
+    <span data-i18n-text="index.discA">Сайт предоставляет данные из открытых научных источников
     (PubMed, Europe PMC, CrossRef, OpenAlex, ClinicalTrials.gov, Wikimedia)
-    для информирования и самостоятельного образования.
-    <b>НЕ заменяет</b> консультацию, диагноз и лечение.
-    При любых сомнениях — обращайтесь к специалисту.
+    для информирования и самостоятельного образования.</span>
+    <b data-i18n-text="index.discNo">НЕ заменяет</b> <span data-i18n-text="index.discB">консультацию, диагноз и лечение.
+    При любых сомнениях — обращайтесь к специалисту.</span>
   </p>
   <p class="meta">
     v<span data-version="app"></span> ·
-    данные на <span data-version="data"></span>
+    <span data-i18n-text="index.dataUpdated">данные на</span> <span data-version="data"></span>
   </p>
   <p class="links">
-    <a href="../methodology.html">📐 Методология</a> ·
-    <a href="../faq.html">❓ FAQ</a> ·
-    <a href="../glossary.html">📖 Глоссарий</a> ·
-    <a href="../privacy.html">🔐 Приватность</a>
+    <a href="../methodology.html" data-i18n-text="footer.methodology">📐 Методология</a> ·
+    <a href="../faq.html" data-i18n-text="footer.faq">❓ FAQ</a> ·
+    <a href="../glossary.html" data-i18n-text="footer.glossary">📖 Глоссарий</a> ·
+    <a href="../privacy.html" data-i18n-text="footer.privacy">🔐 Приватность</a> ·
+    <a href="../terms-of-use.html" data-i18n-text="footer.terms">📄 Условия использования</a> ·
+    <a href="index.html" data-i18n-text="footer.catalog">💊 Каталог БАДов</a> ·
+    <a href="../feed.xml" data-i18n-text="footer.rss">📡 RSS</a>
   </p>
-  <p class="copy">© 2026 Vladislav "DeadSno" Pereshivalov · MIT</p>
-  <p class="share-row"><button class="btn share-page" type="button">🔗 Поделиться</button></p>
+  <p class="copy">© 2026 Vladislav "DeadSno" Pereshivalov · MIT · <a href="../terms-of-use.html#data-license" data-i18n-text="index.dataLicense">Данные: CC BY 4.0</a></p>
+  <p class="share-row"><button class="btn share-page" type="button" data-i18n-text="index.share">🔗 Поделиться</button></p>
 </footer>
 
 <script>
@@ -209,11 +263,13 @@ document.addEventListener('DOMContentLoaded', function () {
   if (light) { document.body.classList.add('light'); document.documentElement.classList.add('light'); }
   var b = document.getElementById('themeBtn');
   if (b) b.textContent = light ? t("theme.dark") : t("theme.light");
+  if (b) b.setAttribute('aria-label', light ? t("a11y.themeToDark") : t("a11y.themeToLight"));
   if (b) b.onclick = function () {
     var on = !document.documentElement.classList.contains('light');
     document.documentElement.classList.toggle('light', on);
     document.body.classList.toggle('light', on);
     b.textContent = on ? t("theme.dark") : t("theme.light");
+    b.setAttribute('aria-label', on ? t("a11y.themeToDark") : t("a11y.themeToLight"));
     localStorage.setItem('theme', on ? 'light' : 'dark');
   };
 });
@@ -224,17 +280,177 @@ document.addEventListener('DOMContentLoaded', function () {
      ни одного запроса к mc.yandex.ru не происходит. -->
 <div id="cookieBanner" role="dialog" data-i18n-aria-label="a11y.cookieConsent" hidden>
   <div class="cb-text">
-    Мы используем cookie и Яндекс.Метрику, чтобы понять, какие материалы полезны.
-    Аналитика включается только после вашего согласия.
-    <a href="../privacy.html">Политика конфиденциальности</a>
+    <span data-i18n-text="index.cookieText">Мы используем cookie и Яндекс.Метрику, чтобы понять, какие материалы полезны. Аналитика включается только после вашего согласия.</span>
+    <a href="../privacy.html" data-i18n-text="index.cookiePolicy">Политика конфиденциальности</a>
   </div>
   <div class="cb-actions">
-    <button type="button" id="cookieAccept" class="cb-btn cb-accept">Принять</button>
-    <button type="button" id="cookieReject" class="cb-btn cb-reject">Отклонить</button>
+    <button type="button" id="cookieAccept" class="cb-btn cb-accept" data-i18n-text="index.cookieAccept">Принять</button>
+    <button type="button" id="cookieReject" class="cb-btn cb-reject" data-i18n-text="index.cookieReject">Отклонить</button>
   </div>
 </div>
 <script src="../cookie-banner.js?v=1"></script>
 <script src="../metrika.js?v=1"></script>
 <script>initCookieBanner();</script>
+<script>
+// Кнопка «+ Сравнить»: сохраняет id в localStorage, тост + авто-переход на сравнение.
+(function () {
+  var btn = document.querySelector('.cmp-add');
+  if (!btn) return;
+  var id = btn.getAttribute('data-cmp');
+  function showToast(msg) {
+    var t = document.createElement('div');
+    // A11Y-12: тост объявляется скринридером (role="status" + aria-live)
+    t.setAttribute('role', 'status');
+    t.setAttribute('aria-live', 'polite');
+    t.textContent = msg;
+    t.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);padding:.6rem 1.2rem;background:rgba(0,0,0,.85);color:#fff;border-radius:8px;font-size:.9rem;z-index:9999;opacity:0;transition:opacity .2s';
+    document.body.appendChild(t);
+    requestAnimationFrame(function () { t.style.opacity = '1'; });
+    setTimeout(function () {
+      t.style.opacity = '0';
+      setTimeout(function () { t.remove(); }, 200);
+    }, 2000);
+  }
+  btn.addEventListener('click', function (e) {
+    // SE2-04: элемент — ссылка, поэтому навигация работает и без JS.
+    // Перехватываем только обычный левый клик без модификаторов, чтобы
+    // успеть записать id в localStorage перед переходом.
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+    e.preventDefault();
+    var arr = [];
+    try { arr = JSON.parse(localStorage.getItem('compareIds') || '[]'); } catch (e) {}
+    if (!arr.includes(id)) {
+      arr.push(id);
+      localStorage.setItem('compareIds', JSON.stringify(arr));
+    }
+    btn.textContent = t('cmp.btn.added');
+    btn.setAttribute('aria-disabled', 'true');
+    showToast(t('cmp.toast.added'));
+    location.href = btn.getAttribute('href');
+  });
+})();
+
+// FIX-74: подпись счётчика собирается через t(), поэтому число источников
+// склоняется по-русски и не склоняется по-английски.
+function pmidWord(n) {
+  if (LOCALE === 'ru') {
+    var d = n % 10, dd = n % 100;
+    if (d === 1 && dd !== 11) return t('sup.pmidOne');
+    if (d >= 2 && d <= 4 && (dd < 12 || dd > 14)) return t('sup.pmidFew');
+    return t('sup.pmidMany');
+  }
+  return n === 1 ? t('sup.pmidOne') : t('sup.pmidMany');
+}
+
+// Count-up анимация для PMID-счётчика (IntersectionObserver + requestAnimationFrame)
+(function(){
+  var badge = document.querySelector('.pmid-badge[data-target]');
+  if(!badge) return;
+  var m = badge.textContent.match(/(\d+)/);
+  if(!m) return;
+  var target = +m[1];
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        var dur = 700, t0 = performance.now();
+        function raf(now){
+          var p = Math.min((now-t0)/dur, 1);
+          badge.textContent = '🔬 ' + Math.floor(p*target) + ' ' + pmidWord(Math.floor(p*target)) + ' ' + t('sup.pmidIn');
+          if(p<1) requestAnimationFrame(raf); else obs.disconnect();
+        }
+        requestAnimationFrame(raf);
+        obs.disconnect();
+      }
+    });
+  });
+  obs.observe(badge);
+})();
+
+// Кнопка «Цитировать»: копирует цитирование в формате APA в буфер обмена
+(function(){
+  var btn = document.getElementById('citeBtn');
+  var tip = document.getElementById('citeTooltip');
+  if(!btn) return;
+  var name = "Alpha-GPC";
+  var url = "https://deadsno.github.io/brain-25-evidence/sup/alpha-gpc.html";
+  btn.onclick = function(){
+    var text = 'brain-25-evidence. (2026). ' + name + '. Retrieved from ' + url;
+    function citetip(ok){
+      // I18N-02: строки тултипа вынесены в словарь i18n.js
+      tip.textContent = ok ? t('cite.copied') : t('cite.copyFailed');
+      tip.setAttribute('aria-hidden','false');
+      setTimeout(function(){ tip.setAttribute('aria-hidden','true'); }, 2000);
+    }
+    function citeFallback(){
+      try {
+        var ta = document.createElement('textarea');
+        ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+        ta.setAttribute('readonly','');
+        document.body.appendChild(ta); ta.select();
+        var ok = document.execCommand('copy');
+        document.body.removeChild(ta);
+        citetip(ok);
+      } catch(e) { citetip(false); }
+    }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      // FIX-SPRINT B2: промис без catch давал необработанную ошибку
+      // в консоли, когда браузер отводил writeText (headless, права).
+      navigator.clipboard.writeText(text).then(function(){ citetip(true); }).catch(citeFallback);
+    } else { citeFallback(); }
+  };
+})();
+
+// Кнопка «Прослушать»: TTS через Web Speech API
+(function(){
+  var btn = document.getElementById('ttsBtn');
+  if(!btn) return;
+  if(!window.speechSynthesis){ btn.style.display = 'none'; return; }  
+  var currentUtterance = null; // CWV-05: текущее utterance (сбрасывается в onend/onerror)
+  var name = "Alpha-GPC";
+  var effects = ["Память (только в комбинации с донепезилом у пациентов)"];
+  btn.onclick = function(){
+    var ttsLang = 'ru';
+    if (typeof LOCALE !== 'undefined' && LOCALE) ttsLang = LOCALE;
+    if (ttsLang === 'ru') ttsLang = 'ru' + '-RU';
+    // CWV-05: не копим устаревшие utterance. Повторный клик гасит начатую
+    // речь, а ссылка сбрасывается, когда utterance доиграл или упал —
+    // иначе SpeechSynthesis удерживает его (и слушателей) в памяти.
+    if (currentUtterance) window.speechSynthesis.cancel();
+    var utterance = new SpeechSynthesisUtterance(name + (effects ? ', ' + effects : ''));
+    utterance.lang = ttsLang;
+    utterance.onend = function () { if (currentUtterance === utterance) currentUtterance = null; };
+    utterance.onerror = function () { if (currentUtterance === utterance) currentUtterance = null; };
+    currentUtterance = utterance;
+    window.speechSynthesis.speak(utterance);
+  };
+})();
+
+// Кнопка «🎲 Удиви меня»: случайная добавка из каталога.
+// Список страниц берём из sitemap.xml — там уже готовые URL по slug
+// (sup/magniy.html). Раньше здесь собирались d.id из data.json и
+// открывался 'sup/' + id + '.html'; id — отображаемое имя (кириллица),
+// а файлы называются по slug, плюс на этой странице добавлялся лишний
+// префикс sup/, потому что страница уже лежит в sup/. Кнопка вела на
+// 404 всегда. slugify живёт в Python (scripts/build_sup.py) и в JS
+// не дублируется.
+(function(){
+  var btn = document.getElementById('randomBtn');
+  if(!btn) return;
+  var sitemapUrl = new URL('../sitemap.xml', location.href).href;
+  btn.onclick = function(){
+    fetch(sitemapUrl).then(function(r){ return r.text(); }).then(function(xml){
+      var doc = new DOMParser().parseFromString(xml, 'application/xml');
+      var urls = [];
+      doc.querySelectorAll('url > loc').forEach(function(node){
+        var u = (node.textContent || '').trim();
+        if(/\/sup\/[^/]+\.html$/.test(u) && !/\/sup\/index\.html$/.test(u)) urls.push(u);
+      });
+      if(!urls.length){ console.warn('[random] в sitemap.xml нет страниц добавок'); return; }
+      location.href = urls[Math.floor(Math.random() * urls.length)];
+    }).catch(function(err){ console.warn('[random] не удалось загрузить sitemap.xml', err); });
+  };
+})();
+</script>
 </body>
 </html>
+

@@ -1,0 +1,2032 @@
+{
+  "version": "v1",
+  "generated_at": "2026-10-24T16:48:11.587588+00:00",
+  "count_nodes": 147,
+  "count_edges": 160,
+  "license": "CC BY 4.0",
+  "source": "https://github.com/DeadSno/brain-25-evidence",
+  "site": "https://deadsno.github.io/brain-25-evidence",
+  "schema": {
+    "nodes": "[{id, label, kind: supplement|drug, grade?, code?}]",
+    "edges": "[{from, to, type: interaction|synergy|antagonist, severity, note}]"
+  },
+  "nodes": [
+    {
+      "id": "Креатин",
+      "label": "Креатин",
+      "kind": "supplement",
+      "grade": "A",
+      "code": 1
+    },
+    {
+      "id": "Омега-3",
+      "label": "Омега-3",
+      "kind": "supplement",
+      "grade": "B",
+      "code": 0
+    },
+    {
+      "id": "Витамин D",
+      "label": "Витамин D",
+      "kind": "supplement",
+      "grade": "A",
+      "code": 0
+    },
+    {
+      "id": "B12",
+      "label": "B12",
+      "kind": "supplement",
+      "grade": "B",
+      "code": 0
+    },
+    {
+      "id": "Магний",
+      "label": "Магний",
+      "kind": "supplement",
+      "grade": "D",
+      "code": 1
+    },
+    {
+      "id": "Кофеин",
+      "label": "Кофеин",
+      "kind": "supplement",
+      "grade": "A",
+      "code": 1
+    },
+    {
+      "id": "L-Теанин",
+      "label": "L-Теанин",
+      "kind": "supplement",
+      "grade": "B",
+      "code": 1
+    },
+    {
+      "id": "Бакопа",
+      "label": "Бакопа",
+      "kind": "supplement",
+      "grade": "B",
+      "code": 1
+    },
+    {
+      "id": "Гинкго",
+      "label": "Гинкго",
+      "kind": "supplement",
+      "grade": "D",
+      "code": -1
+    },
+    {
+      "id": "Родиола",
+      "label": "Родиола",
+      "kind": "supplement",
+      "grade": "C",
+      "code": 0
+    },
+    {
+      "id": "Ашваганда",
+      "label": "Ашваганда",
+      "kind": "supplement",
+      "grade": "B",
+      "code": 1
+    },
+    {
+      "id": "Гуперзин А",
+      "label": "Гуперзин А",
+      "kind": "supplement",
+      "grade": "B",
+      "code": 0
+    },
+    {
+      "id": "Куркумин",
+      "label": "Куркумин",
+      "kind": "supplement",
+      "grade": "B",
+      "code": 0
+    },
+    {
+      "id": "Ресвератрол",
+      "label": "Ресвератрол",
+      "kind": "supplement",
+      "grade": "C",
+      "code": 0
+    },
+    {
+      "id": "NAC",
+      "label": "NAC",
+      "kind": "supplement",
+      "grade": "D",
+      "code": 1
+    },
+    {
+      "id": "Цинк",
+      "label": "Цинк",
+      "kind": "supplement",
+      "grade": "D",
+      "code": 0
+    },
+    {
+      "id": "Тирозин",
+      "label": "Тирозин",
+      "kind": "supplement",
+      "grade": "D",
+      "code": -1
+    },
+    {
+      "id": "Таурин",
+      "label": "Таурин",
+      "kind": "supplement",
+      "grade": "C",
+      "code": 0
+    },
+    {
+      "id": "CoQ10",
+      "label": "CoQ10",
+      "kind": "supplement",
+      "grade": "D",
+      "code": 1
+    },
+    {
+      "id": "Пикногенол",
+      "label": "Пикногенол",
+      "kind": "supplement",
+      "grade": "C",
+      "code": 0
+    },
+    {
+      "id": "Мелатонин",
+      "label": "Мелатонин",
+      "kind": "supplement",
+      "grade": "D",
+      "code": 1
+    },
+    {
+      "id": "ГАБА",
+      "label": "ГАБА",
+      "kind": "supplement",
+      "grade": "D",
+      "code": -1
+    },
+    {
+      "id": "Глицин",
+      "label": "Глицин",
+      "kind": "supplement",
+      "grade": "D",
+      "code": -1
+    },
+    {
+      "id": "Валериана",
+      "label": "Валериана",
+      "kind": "supplement",
+      "grade": "C",
+      "code": 0
+    },
+    {
+      "id": "L-цитруллин",
+      "label": "L-цитруллин",
+      "kind": "supplement",
+      "grade": "D",
+      "code": 1
+    },
+    {
+      "id": "Витамин C",
+      "label": "Витамин C",
+      "kind": "supplement",
+      "grade": "D",
+      "code": 0
+    },
+    {
+      "id": "Эхинацея",
+      "label": "Эхинацея",
+      "kind": "supplement",
+      "grade": "D",
+      "code": 0
+    },
+    {
+      "id": "Зверобой",
+      "label": "Зверобой",
+      "kind": "supplement",
+      "grade": "D",
+      "code": 1
+    },
+    {
+      "id": "5-HTP",
+      "label": "5-HTP",
+      "kind": "supplement",
+      "grade": "C",
+      "code": -1
+    },
+    {
+      "id": "Пробиотики",
+      "label": "Пробиотики",
+      "kind": "supplement",
+      "grade": "B",
+      "code": 0
+    },
+    {
+      "id": "B9",
+      "label": "B9",
+      "kind": "supplement",
+      "grade": "D",
+      "code": 1
+    },
+    {
+      "id": "Железо",
+      "label": "Железо",
+      "kind": "supplement",
+      "grade": "A",
+      "code": 1
+    },
+    {
+      "id": "Триптофан",
+      "label": "Триптофан",
+      "kind": "supplement",
+      "grade": "C",
+      "code": 1
+    },
+    {
+      "id": "Глюкозамин + хондроитин",
+      "label": "Глюкозамин + хондроитин",
+      "kind": "supplement",
+      "grade": "C",
+      "code": 0
+    },
+    {
+      "id": "Витамин E",
+      "label": "Витамин E",
+      "kind": "supplement",
+      "grade": "C",
+      "code": 0
+    },
+    {
+      "id": "Биотин",
+      "label": "Биотин",
+      "kind": "supplement",
+      "grade": "D",
+      "code": -1
+    },
+    {
+      "id": "L-карнитин",
+      "label": "L-карнитин",
+      "kind": "supplement",
+      "grade": "C",
+      "code": 0
+    },
+    {
+      "id": "BCAA",
+      "label": "BCAA",
+      "kind": "supplement",
+      "grade": "D",
+      "code": 0
+    },
+    {
+      "id": "Аргинин",
+      "label": "Аргинин",
+      "kind": "supplement",
+      "grade": "B",
+      "code": 0
+    },
+    {
+      "id": "Кальций",
+      "label": "Кальций",
+      "kind": "supplement",
+      "grade": "A",
+      "code": 0
+    },
+    {
+      "id": "Гиалуроновая кислота",
+      "label": "Гиалуроновая кислота",
+      "kind": "supplement",
+      "grade": "C",
+      "code": 0
+    },
+    {
+      "id": "Псиллиум",
+      "label": "Псиллиум",
+      "kind": "supplement",
+      "grade": "D",
+      "code": 1
+    },
+    {
+      "id": "Имбирь",
+      "label": "Имбирь",
+      "kind": "supplement",
+      "grade": "D",
+      "code": 1
+    },
+    {
+      "id": "Чеснок",
+      "label": "Чеснок",
+      "kind": "supplement",
+      "grade": "B",
+      "code": 1
+    },
+    {
+      "id": "Клюква",
+      "label": "Клюква",
+      "kind": "supplement",
+      "grade": "C",
+      "code": 0
+    },
+    {
+      "id": "Пустырник",
+      "label": "Пустырник",
+      "kind": "supplement",
+      "grade": "D",
+      "code": -1
+    },
+    {
+      "id": "Боярышник",
+      "label": "Боярышник",
+      "kind": "supplement",
+      "grade": "B",
+      "code": 1
+    },
+    {
+      "id": "Инозитол",
+      "label": "Инозитол",
+      "kind": "supplement",
+      "grade": "C",
+      "code": 0
+    },
+    {
+      "id": "Альфа-липоевая кислота",
+      "label": "Альфа-липоевая кислота",
+      "kind": "supplement",
+      "grade": "D",
+      "code": 1
+    },
+    {
+      "id": "Астаксантин",
+      "label": "Астаксантин",
+      "kind": "supplement",
+      "grade": "C",
+      "code": 0
+    },
+    {
+      "id": "Расторопша",
+      "label": "Расторопша",
+      "kind": "supplement",
+      "grade": "D",
+      "code": 0
+    },
+    {
+      "id": "Лактоферрин",
+      "label": "Лактоферрин",
+      "kind": "supplement",
+      "grade": "D",
+      "code": 1
+    },
+    {
+      "id": "SAMe",
+      "label": "SAMe",
+      "kind": "supplement",
+      "grade": "B",
+      "code": 1
+    },
+    {
+      "id": "Йохимбин",
+      "label": "Йохимбин",
+      "kind": "supplement",
+      "grade": "D",
+      "code": -1
+    },
+    {
+      "id": "Пажитник",
+      "label": "Пажитник",
+      "kind": "supplement",
+      "grade": "C",
+      "code": 0
+    },
+    {
+      "id": "Чёрный тмин",
+      "label": "Чёрный тмин",
+      "kind": "supplement",
+      "grade": "C",
+      "code": 0
+    },
+    {
+      "id": "Трибулус",
+      "label": "Трибулус",
+      "kind": "supplement",
+      "grade": "D",
+      "code": -1
+    },
+    {
+      "id": "Кордицепс",
+      "label": "Кордицепс",
+      "kind": "supplement",
+      "grade": "B",
+      "code": 1
+    },
+    {
+      "id": "Рейши",
+      "label": "Рейши",
+      "kind": "supplement",
+      "grade": "C",
+      "code": 0
+    },
+    {
+      "id": "Сывороточный протеин",
+      "label": "Сывороточный протеин",
+      "kind": "supplement",
+      "grade": "A",
+      "code": 1
+    },
+    {
+      "id": "Глутамин",
+      "label": "Глутамин",
+      "kind": "supplement",
+      "grade": "C",
+      "code": 0
+    },
+    {
+      "id": "Босвеллия",
+      "label": "Босвеллия",
+      "kind": "supplement",
+      "grade": "C",
+      "code": 1
+    },
+    {
+      "id": "Витамин K2",
+      "label": "Витамин K2",
+      "kind": "supplement",
+      "grade": "C",
+      "code": 0
+    },
+    {
+      "id": "Берберин",
+      "label": "Берберин",
+      "kind": "supplement",
+      "grade": "B",
+      "code": 1
+    },
+    {
+      "id": "Кверцетин",
+      "label": "Кверцетин",
+      "kind": "supplement",
+      "grade": "D",
+      "code": 1
+    },
+    {
+      "id": "Астрагал",
+      "label": "Астрагал",
+      "kind": "supplement",
+      "grade": "B",
+      "code": 1
+    },
+    {
+      "id": "Шлемник",
+      "label": "Шлемник",
+      "kind": "supplement",
+      "grade": "C",
+      "code": 0
+    },
+    {
+      "id": "Пассифлора",
+      "label": "Пассифлора",
+      "kind": "supplement",
+      "grade": "C",
+      "code": 0
+    },
+    {
+      "id": "Мелисса",
+      "label": "Мелисса",
+      "kind": "supplement",
+      "grade": "C",
+      "code": 0
+    },
+    {
+      "id": "Лаванда",
+      "label": "Лаванда",
+      "kind": "supplement",
+      "grade": "C",
+      "code": 0
+    },
+    {
+      "id": "Чага",
+      "label": "Чага",
+      "kind": "supplement",
+      "grade": "C",
+      "code": 0
+    },
+    {
+      "id": "Шиитаке",
+      "label": "Шиитаке",
+      "kind": "supplement",
+      "grade": "C",
+      "code": 0
+    },
+    {
+      "id": "Сульфорафан",
+      "label": "Сульфорафан",
+      "kind": "supplement",
+      "grade": "C",
+      "code": 0
+    },
+    {
+      "id": "MSM",
+      "label": "MSM",
+      "kind": "supplement",
+      "grade": "B",
+      "code": 1
+    },
+    {
+      "id": "Гимнема",
+      "label": "Гимнема",
+      "kind": "supplement",
+      "grade": "C",
+      "code": 0
+    },
+    {
+      "id": "Женьшень",
+      "label": "Женьшень",
+      "kind": "supplement",
+      "grade": "D",
+      "code": 1
+    },
+    {
+      "id": "Селен",
+      "label": "Селен",
+      "kind": "supplement",
+      "grade": "C",
+      "code": 0
+    },
+    {
+      "id": "Йод",
+      "label": "Йод",
+      "kind": "supplement",
+      "grade": "D",
+      "code": -1
+    },
+    {
+      "id": "Медь",
+      "label": "Медь",
+      "kind": "supplement",
+      "grade": "D",
+      "code": -1
+    },
+    {
+      "id": "Калий",
+      "label": "Калий",
+      "kind": "supplement",
+      "grade": "B",
+      "code": 0
+    },
+    {
+      "id": "MAO-ингибиторы",
+      "label": "MAO-ингибиторы",
+      "kind": "drug"
+    },
+    {
+      "id": "Витамин B6",
+      "label": "Витамин B6",
+      "kind": "drug"
+    },
+    {
+      "id": "НПВС",
+      "label": "НПВС",
+      "kind": "drug"
+    },
+    {
+      "id": "НПВС (ибупрофен)",
+      "label": "НПВС (ибупрофен)",
+      "kind": "drug"
+    },
+    {
+      "id": "Пиперин (чёрный перец)",
+      "label": "Пиперин (чёрный перец)",
+      "kind": "drug"
+    },
+    {
+      "id": "активированный уголь",
+      "label": "активированный уголь",
+      "kind": "drug"
+    },
+    {
+      "id": "алкоголь",
+      "label": "алкоголь",
+      "kind": "drug"
+    },
+    {
+      "id": "антибиотики",
+      "label": "антибиотики",
+      "kind": "drug"
+    },
+    {
+      "id": "антибиотики (тетрациклины, хинолоны)",
+      "label": "антибиотики (тетрациклины, хинолоны)",
+      "kind": "drug"
+    },
+    {
+      "id": "антибиотики (хинолоны, тетрациклины)",
+      "label": "антибиотики (хинолоны, тетрациклины)",
+      "kind": "drug"
+    },
+    {
+      "id": "антибиотики тетрациклинового ряда",
+      "label": "антибиотики тетрациклинового ряда",
+      "kind": "drug"
+    },
+    {
+      "id": "антигипертензивные",
+      "label": "антигипертензивные",
+      "kind": "drug"
+    },
+    {
+      "id": "антигипертензивные препараты",
+      "label": "антигипертензивные препараты",
+      "kind": "drug"
+    },
+    {
+      "id": "антидепрессанты",
+      "label": "антидепрессанты",
+      "kind": "drug"
+    },
+    {
+      "id": "антидепрессанты MAO",
+      "label": "антидепрессанты MAO",
+      "kind": "drug"
+    },
+    {
+      "id": "антидепрессанты SSRI",
+      "label": "антидепрессанты SSRI",
+      "kind": "drug"
+    },
+    {
+      "id": "антидепрессанты SSRI/MAO",
+      "label": "антидепрессанты SSRI/MAO",
+      "kind": "drug"
+    },
+    {
+      "id": "антидиабетические",
+      "label": "антидиабетические",
+      "kind": "drug"
+    },
+    {
+      "id": "антикоагулянты",
+      "label": "антикоагулянты",
+      "kind": "drug"
+    },
+    {
+      "id": "антикоагулянты (варфарин)",
+      "label": "антикоагулянты (варфарин)",
+      "kind": "drug"
+    },
+    {
+      "id": "антикоагулянты (варфарин, гепарин)",
+      "label": "антикоагулянты (варфарин, гепарин)",
+      "kind": "drug"
+    },
+    {
+      "id": "антитиреоидные препараты",
+      "label": "антитиреоидные препараты",
+      "kind": "drug"
+    },
+    {
+      "id": "антихолинергические",
+      "label": "антихолинергические",
+      "kind": "drug"
+    },
+    {
+      "id": "антихолинергические препараты",
+      "label": "антихолинергические препараты",
+      "kind": "drug"
+    },
+    {
+      "id": "антихолинэстеразные (донепезил)",
+      "label": "антихолинэстеразные (донепезил)",
+      "kind": "drug"
+    },
+    {
+      "id": "бензодиазепины (диазепам, алпразолам)",
+      "label": "бензодиазепины (диазепам, алпразолам)",
+      "kind": "drug"
+    },
+    {
+      "id": "бисфосфонаты",
+      "label": "бисфосфонаты",
+      "kind": "drug"
+    },
+    {
+      "id": "варфарин",
+      "label": "варфарин",
+      "kind": "drug"
+    },
+    {
+      "id": "варфарин и антикоагулянты",
+      "label": "варфарин и антикоагулянты",
+      "kind": "drug"
+    },
+    {
+      "id": "гепатотоксичные препараты",
+      "label": "гепатотоксичные препараты",
+      "kind": "drug"
+    },
+    {
+      "id": "дигоксин",
+      "label": "дигоксин",
+      "kind": "drug"
+    },
+    {
+      "id": "диуретики",
+      "label": "диуретики",
+      "kind": "drug"
+    },
+    {
+      "id": "иммунодепрессанты",
+      "label": "иммунодепрессанты",
+      "kind": "drug"
+    },
+    {
+      "id": "иммуносупрессанты (циклоспорин, такролимус)",
+      "label": "иммуносупрессанты (циклоспорин, такролимус)",
+      "kind": "drug"
+    },
+    {
+      "id": "ингибиторы протонной помпы",
+      "label": "ингибиторы протонной помпы",
+      "kind": "drug"
+    },
+    {
+      "id": "инсулин",
+      "label": "инсулин",
+      "kind": "drug"
+    },
+    {
+      "id": "инсулин/сахароснижающие",
+      "label": "инсулин/сахароснижающие",
+      "kind": "drug"
+    },
+    {
+      "id": "клозапин",
+      "label": "клозапин",
+      "kind": "drug"
+    },
+    {
+      "id": "лабораторные тесты (тропонин, ТТГ)",
+      "label": "лабораторные тесты (тропонин, ТТГ)",
+      "kind": "drug"
+    },
+    {
+      "id": "леводопа",
+      "label": "леводопа",
+      "kind": "drug"
+    },
+    {
+      "id": "левотироксин",
+      "label": "левотироксин",
+      "kind": "drug"
+    },
+    {
+      "id": "литий",
+      "label": "литий",
+      "kind": "drug"
+    },
+    {
+      "id": "любые препараты",
+      "label": "любые препараты",
+      "kind": "drug"
+    },
+    {
+      "id": "метотрексат",
+      "label": "метотрексат",
+      "kind": "drug"
+    },
+    {
+      "id": "метформин",
+      "label": "метформин",
+      "kind": "drug"
+    },
+    {
+      "id": "метформин, инсулин",
+      "label": "метформин, инсулин",
+      "kind": "drug"
+    },
+    {
+      "id": "нитраты",
+      "label": "нитраты",
+      "kind": "drug"
+    },
+    {
+      "id": "нитроглицерин",
+      "label": "нитроглицерин",
+      "kind": "drug"
+    },
+    {
+      "id": "оральные контрацептивы",
+      "label": "оральные контрацептивы",
+      "kind": "drug"
+    },
+    {
+      "id": "препараты железа",
+      "label": "препараты железа",
+      "kind": "drug"
+    },
+    {
+      "id": "препараты лития",
+      "label": "препараты лития",
+      "kind": "drug"
+    },
+    {
+      "id": "препараты меди",
+      "label": "препараты меди",
+      "kind": "drug"
+    },
+    {
+      "id": "препараты щитовидной железы",
+      "label": "препараты щитовидной железы",
+      "kind": "drug"
+    },
+    {
+      "id": "противоэпилептические",
+      "label": "противоэпилептические",
+      "kind": "drug"
+    },
+    {
+      "id": "саквинавир",
+      "label": "саквинавир",
+      "kind": "drug"
+    },
+    {
+      "id": "сахароснижающие",
+      "label": "сахароснижающие",
+      "kind": "drug"
+    },
+    {
+      "id": "седативные",
+      "label": "седативные",
+      "kind": "drug"
+    },
+    {
+      "id": "седативные (бензодиазепины, барбитураты)",
+      "label": "седативные (бензодиазепины, барбитураты)",
+      "kind": "drug"
+    },
+    {
+      "id": "статины",
+      "label": "статины",
+      "kind": "drug"
+    },
+    {
+      "id": "стимуляторы",
+      "label": "стимуляторы",
+      "kind": "drug"
+    },
+    {
+      "id": "теофиллин",
+      "label": "теофиллин",
+      "kind": "drug"
+    },
+    {
+      "id": "тиазидные диуретики",
+      "label": "тиазидные диуретики",
+      "kind": "drug"
+    },
+    {
+      "id": "тиреоидные препараты",
+      "label": "тиреоидные препараты",
+      "kind": "drug"
+    },
+    {
+      "id": "трамадол",
+      "label": "трамадол",
+      "kind": "drug"
+    },
+    {
+      "id": "химиотерапия",
+      "label": "химиотерапия",
+      "kind": "drug"
+    },
+    {
+      "id": "циклоспорин",
+      "label": "циклоспорин",
+      "kind": "drug"
+    },
+    {
+      "id": "цитохром P450 субстраты",
+      "label": "цитохром P450 субстраты",
+      "kind": "drug"
+    }
+  ],
+  "edges": [
+    {
+      "from": "Креатин",
+      "to": "диуретики",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "риск обезвоживания, пить больше воды"
+    },
+    {
+      "from": "Креатин",
+      "to": "НПВС (ибупрофен)",
+      "type": "interaction",
+      "severity": "low",
+      "note": "нагрузка на почки при длительном приёме"
+    },
+    {
+      "from": "Омега-3",
+      "to": "антикоагулянты (варфарин, гепарин)",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "усиливает эффект, контроль свёртываемости"
+    },
+    {
+      "from": "Омега-3",
+      "to": "НПВС",
+      "type": "interaction",
+      "severity": "low",
+      "note": "дополнительный антиагрегантный эффект"
+    },
+    {
+      "from": "Омега-3",
+      "to": "Витамин E",
+      "type": "synergy",
+      "severity": "low",
+      "note": ""
+    },
+    {
+      "from": "Витамин D",
+      "to": "тиазидные диуретики",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "риск гиперкальциемии"
+    },
+    {
+      "from": "Витамин D",
+      "to": "дигоксин",
+      "type": "interaction",
+      "severity": "high",
+      "note": "гиперкальциемия усиливает токсичность"
+    },
+    {
+      "from": "Витамин D",
+      "to": "Витамин K2",
+      "type": "synergy",
+      "severity": "low",
+      "note": ""
+    },
+    {
+      "from": "Витамин D",
+      "to": "Магний",
+      "type": "synergy",
+      "severity": "low",
+      "note": ""
+    },
+    {
+      "from": "B12",
+      "to": "метформин",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "снижает всасывание, контроль уровня"
+    },
+    {
+      "from": "B12",
+      "to": "ингибиторы протонной помпы",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "снижает всасывание"
+    },
+    {
+      "from": "Магний",
+      "to": "антибиотики тетрациклинового ряда",
+      "type": "interaction",
+      "severity": "high",
+      "note": "снижает всасывание, раздельный приём 2-4 часа"
+    },
+    {
+      "from": "Магний",
+      "to": "бисфосфонаты",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "раздельный приём 2 часа"
+    },
+    {
+      "from": "Магний",
+      "to": "диуретики",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "усиливает потерю магния"
+    },
+    {
+      "from": "Магний",
+      "to": "Витамин B6",
+      "type": "synergy",
+      "severity": "low",
+      "note": ""
+    },
+    {
+      "from": "Кофеин",
+      "to": "антидепрессанты MAO",
+      "type": "interaction",
+      "severity": "high",
+      "note": "гипертензивный криз"
+    },
+    {
+      "from": "Кофеин",
+      "to": "теофиллин",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "усиливает токсичность"
+    },
+    {
+      "from": "Кофеин",
+      "to": "антикоагулянты",
+      "type": "interaction",
+      "severity": "low",
+      "note": "может влиять на свёртываемость"
+    },
+    {
+      "from": "L-Теанин",
+      "to": "антигипертензивные",
+      "type": "interaction",
+      "severity": "low",
+      "note": "может усиливать снижение АД"
+    },
+    {
+      "from": "L-Теанин",
+      "to": "стимуляторы",
+      "type": "interaction",
+      "severity": "low",
+      "note": "смягчает эффекты, не опасно"
+    },
+    {
+      "from": "Бакопа",
+      "to": "антихолинергические препараты",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "антагонизм эффектов"
+    },
+    {
+      "from": "Бакопа",
+      "to": "седативные",
+      "type": "interaction",
+      "severity": "low",
+      "note": "может усиливать седацию"
+    },
+    {
+      "from": "Гинкго",
+      "to": "антикоагулянты",
+      "type": "interaction",
+      "severity": "high",
+      "note": "усиливает эффект, риск кровотечений"
+    },
+    {
+      "from": "Гинкго",
+      "to": "НПВС",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "дополнительный антиагрегантный эффект"
+    },
+    {
+      "from": "Гинкго",
+      "to": "антидепрессанты SSRI",
+      "type": "interaction",
+      "severity": "low",
+      "note": "возможна серотониновая нагрузка"
+    },
+    {
+      "from": "Родиола",
+      "to": "антидепрессанты SSRI",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "серотониновая нагрузка"
+    },
+    {
+      "from": "Родиола",
+      "to": "антигипертензивные",
+      "type": "interaction",
+      "severity": "low",
+      "note": "может влиять на АД"
+    },
+    {
+      "from": "Ашваганда",
+      "to": "седативные (бензодиазепины, барбитураты)",
+      "type": "interaction",
+      "severity": "high",
+      "note": "усиливает седацию"
+    },
+    {
+      "from": "Ашваганда",
+      "to": "иммунодепрессанты",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "антагонизм эффектов"
+    },
+    {
+      "from": "Ашваганда",
+      "to": "левотироксин",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "может повышать T3/T4, контроль ТТГ"
+    },
+    {
+      "from": "Гуперзин А",
+      "to": "антихолинэстеразные (донепезил)",
+      "type": "interaction",
+      "severity": "high",
+      "note": "аддитивный эффект, токсичность"
+    },
+    {
+      "from": "Гуперзин А",
+      "to": "антихолинергические",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "антагонизм эффектов"
+    },
+    {
+      "from": "Куркумин",
+      "to": "антикоагулянты",
+      "type": "interaction",
+      "severity": "high",
+      "note": "усиливает эффект, риск кровотечений"
+    },
+    {
+      "from": "Куркумин",
+      "to": "НПВС",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "дополнительный противовоспалительный эффект"
+    },
+    {
+      "from": "Куркумин",
+      "to": "сахароснижающие",
+      "type": "interaction",
+      "severity": "low",
+      "note": "может усиливать эффект"
+    },
+    {
+      "from": "Куркумин",
+      "to": "Пиперин (чёрный перец)",
+      "type": "synergy",
+      "severity": "low",
+      "note": ""
+    },
+    {
+      "from": "Ресвератрол",
+      "to": "антикоагулянты",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "усиливает эффект"
+    },
+    {
+      "from": "Ресвератрол",
+      "to": "НПВС",
+      "type": "interaction",
+      "severity": "low",
+      "note": "дополнительный антиагрегантный эффект"
+    },
+    {
+      "from": "NAC",
+      "to": "нитроглицерин",
+      "type": "interaction",
+      "severity": "high",
+      "note": "усиливает эффект, риск гипотензии"
+    },
+    {
+      "from": "NAC",
+      "to": "активированный уголь",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "снижает всасывание"
+    },
+    {
+      "from": "Цинк",
+      "to": "антибиотики (хинолоны, тетрациклины)",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "снижает всасывание, раздельный приём 2-4 часа"
+    },
+    {
+      "from": "Цинк",
+      "to": "препараты меди",
+      "type": "interaction",
+      "severity": "low",
+      "note": "длительный приём снижает медь"
+    },
+    {
+      "from": "Цинк",
+      "to": "Кальций",
+      "type": "antagonist",
+      "severity": "medium",
+      "note": ""
+    },
+    {
+      "from": "Цинк",
+      "to": "Железо",
+      "type": "antagonist",
+      "severity": "medium",
+      "note": ""
+    },
+    {
+      "from": "Цинк",
+      "to": "Медь",
+      "type": "antagonist",
+      "severity": "medium",
+      "note": ""
+    },
+    {
+      "from": "Тирозин",
+      "to": "MAO-ингибиторы",
+      "type": "interaction",
+      "severity": "critical",
+      "note": "гипертензивный криз, ОПАСНО"
+    },
+    {
+      "from": "Тирозин",
+      "to": "леводопа",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "конкурируют за всасывание"
+    },
+    {
+      "from": "Таурин",
+      "to": "антигипертензивные",
+      "type": "interaction",
+      "severity": "low",
+      "note": "может усиливать эффект"
+    },
+    {
+      "from": "Таурин",
+      "to": "литий",
+      "type": "interaction",
+      "severity": "low",
+      "note": "возможно влияние на концентрацию"
+    },
+    {
+      "from": "CoQ10",
+      "to": "варфарин",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "может снижать эффект, контроль МНО"
+    },
+    {
+      "from": "CoQ10",
+      "to": "антигипертензивные",
+      "type": "interaction",
+      "severity": "low",
+      "note": "может усиливать эффект"
+    },
+    {
+      "from": "CoQ10",
+      "to": "Витамин E",
+      "type": "synergy",
+      "severity": "low",
+      "note": ""
+    },
+    {
+      "from": "Пикногенол",
+      "to": "антикоагулянты",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "усиливает эффект"
+    },
+    {
+      "from": "Пикногенол",
+      "to": "иммунодепрессанты",
+      "type": "interaction",
+      "severity": "low",
+      "note": "иммуностимулирующий эффект"
+    },
+    {
+      "from": "Мелатонин",
+      "to": "варфарин",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "усиливает эффект, контроль МНО"
+    },
+    {
+      "from": "Мелатонин",
+      "to": "антидепрессанты SSRI",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "серотониновый синдром редок, но возможен"
+    },
+    {
+      "from": "Мелатонин",
+      "to": "алкоголь",
+      "type": "interaction",
+      "severity": "high",
+      "note": "снижает эффективность, усиливает седацию"
+    },
+    {
+      "from": "ГАБА",
+      "to": "антигипертензивные",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "может усиливать эффект"
+    },
+    {
+      "from": "ГАБА",
+      "to": "седативные",
+      "type": "interaction",
+      "severity": "low",
+      "note": "может усиливать седацию"
+    },
+    {
+      "from": "Глицин",
+      "to": "клозапин",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "может снижать эффект"
+    },
+    {
+      "from": "Глицин",
+      "to": "седативные",
+      "type": "interaction",
+      "severity": "low",
+      "note": "усиливает седацию"
+    },
+    {
+      "from": "Валериана",
+      "to": "седативные",
+      "type": "interaction",
+      "severity": "high",
+      "note": "усиливает седацию"
+    },
+    {
+      "from": "Валериана",
+      "to": "алкоголь",
+      "type": "interaction",
+      "severity": "high",
+      "note": "усиливает седацию"
+    },
+    {
+      "from": "L-цитруллин",
+      "to": "антигипертензивные",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "может усиливать эффект"
+    },
+    {
+      "from": "L-цитруллин",
+      "to": "нитраты",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "усиливает вазодилатацию"
+    },
+    {
+      "from": "Витамин C",
+      "to": "антикоагулянты (варфарин)",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "высокие дозы могут снижать эффект"
+    },
+    {
+      "from": "Витамин C",
+      "to": "препараты железа",
+      "type": "interaction",
+      "severity": "low",
+      "note": "усиливает всасывание (синергист)"
+    },
+    {
+      "from": "Витамин C",
+      "to": "Железо",
+      "type": "synergy",
+      "severity": "low",
+      "note": ""
+    },
+    {
+      "from": "Эхинацея",
+      "to": "иммунодепрессанты",
+      "type": "interaction",
+      "severity": "high",
+      "note": "антагонизм эффектов"
+    },
+    {
+      "from": "Эхинацея",
+      "to": "гепатотоксичные препараты",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "теоретический риск"
+    },
+    {
+      "from": "Зверобой",
+      "to": "антидепрессанты SSRI/MAO",
+      "type": "interaction",
+      "severity": "critical",
+      "note": "серотониновый синдром, ОПАСНО ДЛЯ ЖИЗНИ"
+    },
+    {
+      "from": "Зверобой",
+      "to": "оральные контрацептивы",
+      "type": "interaction",
+      "severity": "high",
+      "note": "снижает эффективность, риск беременности"
+    },
+    {
+      "from": "Зверобой",
+      "to": "циклоспорин",
+      "type": "interaction",
+      "severity": "critical",
+      "note": "снижает концентрацию, отторжение трансплантата"
+    },
+    {
+      "from": "Зверобой",
+      "to": "варфарин",
+      "type": "interaction",
+      "severity": "high",
+      "note": "снижает эффект, контроль МНО"
+    },
+    {
+      "from": "5-HTP",
+      "to": "антидепрессанты SSRI/MAO",
+      "type": "interaction",
+      "severity": "critical",
+      "note": "серотониновый синдром, ОПАСНО ДЛЯ ЖИЗНИ"
+    },
+    {
+      "from": "5-HTP",
+      "to": "трамадол",
+      "type": "interaction",
+      "severity": "critical",
+      "note": "серотониновый синдром"
+    },
+    {
+      "from": "Пробиотики",
+      "to": "антибиотики",
+      "type": "interaction",
+      "severity": "low",
+      "note": "раздельный приём 2 часа, пробиотик после курса"
+    },
+    {
+      "from": "Пробиотики",
+      "to": "иммунодепрессанты",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "теоретический риск инфекции"
+    },
+    {
+      "from": "B9",
+      "to": "метотрексат",
+      "type": "interaction",
+      "severity": "critical",
+      "note": "антагонист, снижает эффект химиотерапии"
+    },
+    {
+      "from": "B9",
+      "to": "противоэпилептические",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "может снижать концентрацию препаратов"
+    },
+    {
+      "from": "Железо",
+      "to": "ингибиторы протонной помпы",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "снижает всасывание"
+    },
+    {
+      "from": "Железо",
+      "to": "Кальций",
+      "type": "antagonist",
+      "severity": "medium",
+      "note": ""
+    },
+    {
+      "from": "Железо",
+      "to": "леводопа",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "снижает эффект"
+    },
+    {
+      "from": "Железо",
+      "to": "Магний",
+      "type": "antagonist",
+      "severity": "medium",
+      "note": ""
+    },
+    {
+      "from": "Триптофан",
+      "to": "антидепрессанты SSRI/MAO",
+      "type": "interaction",
+      "severity": "critical",
+      "note": "серотониновый синдром, ОПАСНО"
+    },
+    {
+      "from": "Глюкозамин + хондроитин",
+      "to": "варфарин",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "может усиливать эффект, контроль МНО"
+    },
+    {
+      "from": "Глюкозамин + хондроитин",
+      "to": "сахароснижающие",
+      "type": "interaction",
+      "severity": "low",
+      "note": "может влиять на гликемию"
+    },
+    {
+      "from": "Витамин E",
+      "to": "антикоагулянты",
+      "type": "interaction",
+      "severity": "high",
+      "note": "усиливает эффект, риск кровотечений"
+    },
+    {
+      "from": "Витамин E",
+      "to": "статины",
+      "type": "interaction",
+      "severity": "low",
+      "note": "может снижать эффект (спорно)"
+    },
+    {
+      "from": "Биотин",
+      "to": "лабораторные тесты (тропонин, ТТГ)",
+      "type": "interaction",
+      "severity": "high",
+      "note": "искажает результаты, стоп за 3 дня"
+    },
+    {
+      "from": "L-карнитин",
+      "to": "варфарин",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "может усиливать эффект"
+    },
+    {
+      "from": "L-карнитин",
+      "to": "препараты щитовидной железы",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "может снижать эффект"
+    },
+    {
+      "from": "BCAA",
+      "to": "леводопа",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "конкурируют за всасывание"
+    },
+    {
+      "from": "Аргинин",
+      "to": "антигипертензивные",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "может усиливать эффект"
+    },
+    {
+      "from": "Аргинин",
+      "to": "нитраты",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "усиливает вазодилатацию"
+    },
+    {
+      "from": "Кальций",
+      "to": "антибиотики (тетрациклины, хинолоны)",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "снижает всасывание, раздельный приём 2-4 часа"
+    },
+    {
+      "from": "Кальций",
+      "to": "бисфосфонаты",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "раздельный приём 2 часа"
+    },
+    {
+      "from": "Кальций",
+      "to": "препараты железа",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "конкурируют за всасывание"
+    },
+    {
+      "from": "Гиалуроновая кислота",
+      "to": "антикоагулянты",
+      "type": "interaction",
+      "severity": "low",
+      "note": "теоретический риск (инъекции)"
+    },
+    {
+      "from": "Псиллиум",
+      "to": "любые препараты",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "снижает всасывание, раздельный приём 2 часа"
+    },
+    {
+      "from": "Имбирь",
+      "to": "антикоагулянты",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "усиливает эффект"
+    },
+    {
+      "from": "Имбирь",
+      "to": "сахароснижающие",
+      "type": "interaction",
+      "severity": "low",
+      "note": "может усиливать эффект"
+    },
+    {
+      "from": "Чеснок",
+      "to": "антикоагулянты",
+      "type": "interaction",
+      "severity": "high",
+      "note": "усиливает эффект, риск кровотечений"
+    },
+    {
+      "from": "Чеснок",
+      "to": "саквинавир",
+      "type": "interaction",
+      "severity": "high",
+      "note": "снижает концентрацию"
+    },
+    {
+      "from": "Клюква",
+      "to": "варфарин",
+      "type": "interaction",
+      "severity": "high",
+      "note": "усиливает эффект, контроль МНО"
+    },
+    {
+      "from": "Пустырник",
+      "to": "седативные",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "усиливает седацию"
+    },
+    {
+      "from": "Пустырник",
+      "to": "антигипертензивные",
+      "type": "interaction",
+      "severity": "low",
+      "note": "может усиливать эффект"
+    },
+    {
+      "from": "Боярышник",
+      "to": "дигоксин",
+      "type": "interaction",
+      "severity": "high",
+      "note": "усиливает эффект, риск токсичности"
+    },
+    {
+      "from": "Боярышник",
+      "to": "антигипертензивные",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "усиливает эффект"
+    },
+    {
+      "from": "Инозитол",
+      "to": "литий",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "может снижать эффект"
+    },
+    {
+      "from": "Альфа-липоевая кислота",
+      "to": "инсулин/сахароснижающие",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "усиливает гипогликемический эффект"
+    },
+    {
+      "from": "Альфа-липоевая кислота",
+      "to": "препараты щитовидной железы",
+      "type": "interaction",
+      "severity": "low",
+      "note": "может влиять на метаболизм"
+    },
+    {
+      "from": "Астаксантин",
+      "to": "антикоагулянты",
+      "type": "interaction",
+      "severity": "low",
+      "note": "теоретический риск"
+    },
+    {
+      "from": "Расторопша",
+      "to": "цитохром P450 субстраты",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "может влиять на метаболизм"
+    },
+    {
+      "from": "Лактоферрин",
+      "to": "препараты железа",
+      "type": "interaction",
+      "severity": "low",
+      "note": "синергист, улучшает всасывание"
+    },
+    {
+      "from": "Лактоферрин",
+      "to": "Железо",
+      "type": "synergy",
+      "severity": "low",
+      "note": ""
+    },
+    {
+      "from": "SAMe",
+      "to": "антидепрессанты SSRI/MAO",
+      "type": "interaction",
+      "severity": "high",
+      "note": "серотониновый синдром"
+    },
+    {
+      "from": "Йохимбин",
+      "to": "антидепрессанты",
+      "type": "interaction",
+      "severity": "critical",
+      "note": "гипертензивный криз, ОПАСНО"
+    },
+    {
+      "from": "Йохимбин",
+      "to": "антигипертензивные",
+      "type": "interaction",
+      "severity": "high",
+      "note": "антагонизм эффектов"
+    },
+    {
+      "from": "Пажитник",
+      "to": "антикоагулянты",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "усиливает эффект"
+    },
+    {
+      "from": "Пажитник",
+      "to": "сахароснижающие",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "усиливает эффект"
+    },
+    {
+      "from": "Чёрный тмин",
+      "to": "антикоагулянты",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "может влиять на свёртываемость"
+    },
+    {
+      "from": "Чёрный тмин",
+      "to": "сахароснижающие",
+      "type": "interaction",
+      "severity": "low",
+      "note": "может усиливать эффект"
+    },
+    {
+      "from": "Трибулус",
+      "to": "антидиабетические",
+      "type": "interaction",
+      "severity": "low",
+      "note": "может влиять на гликемию"
+    },
+    {
+      "from": "Кордицепс",
+      "to": "иммунодепрессанты",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "антагонизм эффектов"
+    },
+    {
+      "from": "Рейши",
+      "to": "антикоагулянты",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "усиливает эффект"
+    },
+    {
+      "from": "Рейши",
+      "to": "иммунодепрессанты",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "антагонизм эффектов"
+    },
+    {
+      "from": "Сывороточный протеин",
+      "to": "леводопа",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "белок снижает всасывание, раздельный приём"
+    },
+    {
+      "from": "Глутамин",
+      "to": "химиотерапия",
+      "type": "interaction",
+      "severity": "low",
+      "note": "может снижать токсичность (адъювант)"
+    },
+    {
+      "from": "Босвеллия",
+      "to": "НПВС",
+      "type": "interaction",
+      "severity": "low",
+      "note": "аддитивный противовоспалительный эффект"
+    },
+    {
+      "from": "Босвеллия",
+      "to": "антикоагулянты",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "может влиять на свёртываемость"
+    },
+    {
+      "from": "Витамин K2",
+      "to": "варфарин",
+      "type": "interaction",
+      "severity": "critical",
+      "note": "ПРОТИВОПОКАЗАН: антагонист, снижает МНО"
+    },
+    {
+      "from": "Берберин",
+      "to": "метформин",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "аддитивный эффект, риск гипогликемии"
+    },
+    {
+      "from": "Берберин",
+      "to": "циклоспорин",
+      "type": "interaction",
+      "severity": "high",
+      "note": "повышает концентрацию, токсичность"
+    },
+    {
+      "from": "Берберин",
+      "to": "антикоагулянты",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "может влиять на свёртываемость"
+    },
+    {
+      "from": "Кверцетин",
+      "to": "антикоагулянты",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "усиливает эффект"
+    },
+    {
+      "from": "Кверцетин",
+      "to": "циклоспорин",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "может повышать концентрацию"
+    },
+    {
+      "from": "Астрагал",
+      "to": "иммуносупрессанты (циклоспорин, такролимус)",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "может снижать эффект — стимулирует иммунный ответ"
+    },
+    {
+      "from": "Астрагал",
+      "to": "литий",
+      "type": "interaction",
+      "severity": "low",
+      "note": "есть данные о повышении уровня лития в крови"
+    },
+    {
+      "from": "Шлемник",
+      "to": "варфарин и антикоагулянты",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "усиливает эффект, риск кровотечений"
+    },
+    {
+      "from": "Шлемник",
+      "to": "бензодиазепины (диазепам, алпразолам)",
+      "type": "interaction",
+      "severity": "low",
+      "note": "суммация седативного эффекта"
+    },
+    {
+      "from": "Пассифлора",
+      "to": "седативные",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "усиливает седацию"
+    },
+    {
+      "from": "Пассифлора",
+      "to": "MAO-ингибиторы",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "теоретический риск"
+    },
+    {
+      "from": "Мелисса",
+      "to": "седативные",
+      "type": "interaction",
+      "severity": "low",
+      "note": "может усиливать эффект"
+    },
+    {
+      "from": "Мелисса",
+      "to": "препараты щитовидной железы",
+      "type": "interaction",
+      "severity": "low",
+      "note": "может влиять на ТТГ"
+    },
+    {
+      "from": "Лаванда",
+      "to": "седативные",
+      "type": "interaction",
+      "severity": "low",
+      "note": "может усиливать эффект"
+    },
+    {
+      "from": "Чага",
+      "to": "варфарин",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "усиливает антикоагулянтный эффект — контроль МНО"
+    },
+    {
+      "from": "Чага",
+      "to": "метформин, инсулин",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "может снижать сахар — риск гипогликемии"
+    },
+    {
+      "from": "Шиитаке",
+      "to": "варфарин",
+      "type": "interaction",
+      "severity": "low",
+      "note": "теоретически усиливает"
+    },
+    {
+      "from": "Сульфорафан",
+      "to": "тиреоидные препараты",
+      "type": "interaction",
+      "severity": "low",
+      "note": "высокие дозы могут влиять на щитовидку — контроль ТТГ"
+    },
+    {
+      "from": "MSM",
+      "to": "антикоагулянты",
+      "type": "interaction",
+      "severity": "low",
+      "note": "теоретически может усиливать, но данных мало"
+    },
+    {
+      "from": "Гимнема",
+      "to": "метформин",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "может усиливать гипогликемический эффект"
+    },
+    {
+      "from": "Гимнема",
+      "to": "инсулин",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "риск гипогликемии — контроль сахара обязателен"
+    },
+    {
+      "from": "Женьшень",
+      "to": "антикоагулянты",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "может влиять на свёртываемость"
+    },
+    {
+      "from": "Женьшень",
+      "to": "инсулин/сахароснижающие",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "усиливает гипогликемический эффект"
+    },
+    {
+      "from": "Женьшень",
+      "to": "Кофеин",
+      "type": "interaction",
+      "severity": "low",
+      "note": "усиливает стимуляцию"
+    },
+    {
+      "from": "Селен",
+      "to": "статины",
+      "type": "interaction",
+      "severity": "low",
+      "note": "может снижать эффект (спорно)"
+    },
+    {
+      "from": "Йод",
+      "to": "антитиреоидные препараты",
+      "type": "interaction",
+      "severity": "high",
+      "note": "антагонизм эффектов"
+    },
+    {
+      "from": "Йод",
+      "to": "препараты лития",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "риск гипотиреоза"
+    },
+    {
+      "from": "Калий",
+      "to": "антигипертензивные препараты",
+      "type": "interaction",
+      "severity": "medium",
+      "note": "в MA рост АД при высокой экскреции калия отмечен только у пациентов на лекарственной терапии"
+    }
+  ]
+}

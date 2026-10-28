@@ -23,11 +23,21 @@
     <meta property="og:description" content="{{ seo_desc }}">
     <meta property="og:image" content="{{ base_url }}/og.png">
     <meta property="og:site_name" content="Brain 25 Evidence">
+<meta property="og:locale" content="ru_RU">
     <meta name="twitter:card" content="summary_large_image">
+    {# v5.6.5 FIX-61 (MK2-03): каталог отдавал только карточку — title,
+       description и image добавлены дословными копиями og:* выше.
+       Комментарий закрыт без перевода строки, как на карточках. #}<meta name="twitter:title" content="Каталог БАДов: {{ total }} добавок — Brain 25 Evidence">
+    <meta name="twitter:description" content="{{ seo_desc }}">
+    <meta name="twitter:image" content="{{ base_url }}/og.png">
     <link rel="manifest" href="../manifest.webmanifest">
     <meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
     <meta name="theme-color" content="#1c1c1e" media="(prefers-color-scheme: dark)">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="БАДы">
     <link rel="apple-touch-icon" href="../icons/192.png">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
     <script>
     try {
       if (localStorage.getItem('theme') === 'light') {
@@ -35,11 +45,11 @@
       }
     } catch(e) {}
     </script>
-    <link rel="stylesheet" href="../style.css?v=435">
-    <script src="../version.js?v=312"></script>
-    <script src="../i18n.js?v=2"></script>
-    <script src="../pwa.js?v=282" defer></script>
-    <script src="../share.js?v=1" defer></script>
+    <link rel="stylesheet" href="../style.min.css?v=464">
+    <script src="../version.js?v=312" defer></script>
+    <script src="../i18n.js?v=15" defer></script>
+    <script src="../pwa.js?v=283" defer></script>
+    <script src="../share.js?v=2" defer></script>
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -85,42 +95,45 @@
     </style>
 </head>
 <body>
-<a href="#main" class="skip-link">Перейти к содержимому</a>
+<a href="#main" class="skip-link" data-i18n-text="a11y.skipToContent">Перейти к содержимому</a>
 
 <div class="site-header">
-  <div class="trustbar">🧬 Открытые данные · Бесплатно · Без рекламы</div>
+  <div class="trustbar" data-i18n-text="index.trustbar">🧬 Открытые данные · Бесплатно · Без рекламы</div>
   <header class="top">
     <div class="site-title"><a href="../index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a></div>
     <nav class="actions" data-i18n-aria-label="a11y.navMain">
-      <a class="btn c-home" href="../index.html">🏠 Главная</a>
-      <a class="btn c-feedback" href="../feedback.html">💬 Обратная связь</a>
-      <a class="btn c-support" href="../support.html">💚 Поддержать</a>
-      <button class="btn" id="themeBtn">🌞 Светлая тема</button>
+      <a class="btn c-feedback" href="../feedback.html" data-i18n-text="index.feedback">💬 Обратная связь</a>
+      <a class="btn c-support" href="../support.html" data-i18n-text="index.support">💚 Поддержать</a>
+      <!-- FIX-75: aria-label у #themeBtn ставит скрипт темы (t("a11y.themeToDark") /
+           t("a11y.themeToLight")) — статический атрибут перетирался и ломал EN-гейт. -->
+      <button class="btn c-theme" id="themeBtn">🌞 Светлая тема</button>
+      <select id="langSelect" class="lang-select" data-i18n-aria-label="a11y.langSelect"><option value="ru">RU</option><option value="en">EN</option></select>
+      <button class="btn c-random" id="randomBtn" data-i18n-text="index.random">🎲 Удиви меня</button>
     </nav>
   </header>
 </div>
 
 <main id="main">
-  <h1>Каталог БАДов</h1>
+  <h1 data-i18n-text="supcat.h1">Каталог БАДов</h1>
 
     <nav class="breadcrumbs">
-        {# v5.6.3 E4: прежний комментарий E2 стоял на отдельной строке, и Jinja выводил после него строку из 8 пробелов — на docs/sup/index.html такой строки нет, и прогон build_sup.py добавлял её заново. Комментарий сжат в строку с крошкой: смысл прежний, крошка «Назад» удалена, потому что она вела на тот же ../index.html, что и «Главная». #}<a href="../index.html">Главная</a> → <strong>Каталог БАДов</strong>
+        {# v5.6.3 E4: прежний комментарий E2 стоял на отдельной строке, и Jinja выводил после него строку из 8 пробелов — на docs/sup/index.html такой строки нет, и прогон build_sup.py добавлял её заново. Комментарий сжат в строку с крошкой: смысл прежний, крошка «Назад» удалена, потому что она вела на тот же ../index.html, что и «Главная». #}<a href="../index.html" data-i18n-text="nav.home">Главная</a> → <strong data-i18n-text="supcat.h1">Каталог БАДов</strong>
     </nav>
 
-    <p class="hint">{{ total }} добавок: название, категория, вердикт и грейд доказательности A-D. Карточка ведёт на страницу добавки.</p>
+    <p class="hint" data-i18n-text="supcat.intro" data-i18n-vars='{"n": "{{ total }}"}'>{{ total }} добавок: название, категория, вердикт и грейд доказательности A-D. Карточка ведёт на страницу добавки.</p>
 
     <section id="controls">
-      <label for="supSearch" class="sr-only">Поиск по названию, категории или вердикту</label>
+      <label for="supSearch" class="sr-only" data-i18n-text="supcat.searchLabel">Поиск по названию, категории или вердикту</label>
       <input id="supSearch" data-i18n-placeholder="sup.searchPh"/>
-      <label for="supCategory" class="sr-only">Фильтр: категория</label>
+      <label for="supCategory" class="sr-only" data-i18n-text="supcat.filterCategory">Фильтр: категория</label>
       <select id="supCategory">
-        <option value="all">Любая категория</option>
+        <option value="all" data-i18n-text="supcat.anyCategory">Любая категория</option>
         {% for cat in categories %}<option value="{{ cat.name }}">{{ cat.name }} ({{ cat.count }})</option>{% endfor %}
       </select>
-      <label for="supGrade" class="sr-only">Фильтр: грейд доказательности</label>
+      <label for="supGrade" class="sr-only" data-i18n-text="supcat.filterGrade">Фильтр: грейд доказательности</label>
       <select id="supGrade">
-        <option value="all">Любой грейд</option>
-        {% for g in grades %}<option value="{{ g.value }}">Грейд {{ g.value }} ({{ g.count }})</option>{% endfor %}
+        <option value="all" data-i18n-text="supcat.anyGrade">Любой грейд</option>
+        {% for g in grades %}<option value="{{ g.value }}" data-i18n-text="supcat.gradeOption" data-i18n-vars='{"g": "{{ g.value }}", "n": "{{ g.count }}"}'>Грейд {{ g.value }} ({{ g.count }})</option>{% endfor %}
       </select>
     </section>
 
@@ -128,44 +141,47 @@
       <!-- v5.6.5: live-регион (A11Y-P2-05). Бейдж переписывается при
            каждом изменении фильтра (sup_index.html.j2:190) — без
            озвучивания результат фильтрации был виден только глазами. -->
-      <h2>Все добавки <span id="countBadge" class="hint" role="status" aria-live="polite">показано {{ total }} из {{ total }}</span></h2>
+      <h2><span data-i18n-text="supcat.allSupplements">Все добавки</span> <span id="countBadge" class="hint" role="status" aria-live="polite" data-i18n-text="supcat.shown" data-i18n-vars='{"shown": "{{ total }}", "total": "{{ total }}"}'>показано {{ total }} из {{ total }}</span></h2>
 
       <div id="cardsGrid">
         {% for c in cards %}
-        <a class="card" href="{{ c.slug }}.html" data-slug="{{ c.slug }}" data-cat="{{ c.category }}" data-grade="{{ c.grade }}" data-code="{{ c.code }}" data-hay="{{ c.hay }}">
-          <span class="cat">{{ c.category }}</span>
-          <strong class="card-title">{{ c.name }}</strong>
-          <div class="verdict v{{ c.code }}">{{ c.verdict }}</div>
-          <span class="grade g{{ c.grade }}" title="Грейд {{ c.grade }} — шкала доказательности (см. glossary.html)">Грейд {{ c.grade }}</span>
+        <a class="card" href="{{ c.slug }}.html" data-sup-id="{{ c.id }}" data-slug="{{ c.slug }}" data-cat="{{ c.category }}" data-grade="{{ c.grade }}" data-code="{{ c.code }}" data-hay="{{ c.hay }}">
+          <span class="cat" data-sup="category">{{ c.category }}</span>
+          <strong class="card-title" data-sup="name">{{ c.name }}</strong>
+          <div class="verdict v{{ c.code }}" data-sup="verdict">{{ c.verdict }}</div>
+          <span class="grade g{{ c.grade }}" data-i18n-title="supcat.gradeTooltip" data-i18n-text="supcat.gradeShort" data-i18n-vars='{"g": "{{ c.grade }}"}' title="Грейд {{ c.grade }} — шкала доказательности (см. glossary.html)">Грейд {{ c.grade }}</span>
         </a>
         {% endfor %}
       </div>
 
-      <p class="hint">Шкала доказательности A-D расшифрована в <a href="../glossary.html">глоссарии</a>, методика подсчёта — в <a href="../methodology.html">методологии</a>.</p>
+      <p class="hint"><span data-i18n-text="supcat.scaleA">Шкала доказательности A-D расшифрована в</span> <a href="../glossary.html" data-i18n-text="supcat.scaleGlossary">глоссарии</a><span data-i18n-text="supcat.scaleB">, методика подсчёта — в</span> <a href="../methodology.html" data-i18n-text="supcat.scaleMethodology">методологии</a>.</p>
     </section>
 </main>
 
 <footer class="site-footer">
   <p class="disc">
-    <b>⚠️ Не медицинская рекомендация.</b>
-    Сайт предоставляет данные из открытых научных источников
+    <b data-i18n-text="index.discWarn">⚠️ Не медицинская рекомендация.</b>
+    <span data-i18n-text="index.discA">Сайт предоставляет данные из открытых научных источников
     (PubMed, Europe PMC, CrossRef, OpenAlex, ClinicalTrials.gov, Wikimedia)
-    для информирования и самостоятельного образования.
-    <b>НЕ заменяет</b> консультацию, диагноз и лечение.
-    При любых сомнениях — обращайтесь к специалисту.
+    для информирования и самостоятельного образования.</span>
+    <b data-i18n-text="index.discNo">НЕ заменяет</b> <span data-i18n-text="index.discB">консультацию, диагноз и лечение.
+    При любых сомнениях — обращайтесь к специалисту.</span>
   </p>
   <p class="meta">
     v<span data-version="app"></span> ·
-    данные на <span data-version="data"></span>
+    <span data-i18n-text="index.dataUpdated">данные на</span> <span data-version="data"></span>
   </p>
   {# v5.6.3 E4: ссылка на privacy добавлена — на 131/131 страницах docs/sup/ она есть, а шаблон остался позади и прогон build_sup.py её срезал. Комментарий в строку с тегом: с новой строки он дал бы в выводе лишнюю строку из пробелов. #}<p class="links">
-    <a href="../methodology.html">📐 Методология</a> ·
-    <a href="../faq.html">❓ FAQ</a> ·
-    <a href="../glossary.html">📖 Глоссарий</a> ·
-    <a href="../privacy.html">🔐 Приватность</a>
+    <a href="../methodology.html" data-i18n-text="footer.methodology">📐 Методология</a> ·
+    <a href="../faq.html" data-i18n-text="footer.faq">❓ FAQ</a> ·
+    <a href="../glossary.html" data-i18n-text="footer.glossary">📖 Глоссарий</a> ·
+    <a href="../privacy.html" data-i18n-text="footer.privacy">🔐 Приватность</a> ·
+    <a href="../terms-of-use.html" data-i18n-text="footer.terms">📄 Условия использования</a> ·
+    <a href="index.html" data-i18n-text="footer.catalog">💊 Каталог БАДов</a> ·
+    <a href="../feed.xml" data-i18n-text="footer.rss">📡 RSS</a>
   </p>
-  <p class="copy">© 2026 Vladislav "DeadSno" Pereshivalov · MIT</p>
-  <p class="share-row"><button class="btn share-page" type="button">🔗 Поделиться</button></p>
+  <p class="copy">© 2026 Vladislav "DeadSno" Pereshivalov · MIT · <a href="../terms-of-use.html#data-license" data-i18n-text="index.dataLicense">Данные: CC BY 4.0</a></p>
+  <p class="share-row"><button class="btn share-page" type="button" data-i18n-text="index.share">🔗 Поделиться</button></p>
 </footer>
 
 <script>
@@ -177,11 +193,13 @@ document.addEventListener('DOMContentLoaded', function () {
   if (light) { document.body.classList.add('light'); document.documentElement.classList.add('light'); }
   var b = document.getElementById('themeBtn');
   if (b) b.textContent = light ? t("theme.dark") : t("theme.light");
+  if (b) b.setAttribute('aria-label', light ? t("a11y.themeToDark") : t("a11y.themeToLight"));
   if (b) b.onclick = function () {
     var on = !document.documentElement.classList.contains('light');
     document.documentElement.classList.toggle('light', on);
     document.body.classList.toggle('light', on);
     b.textContent = on ? t("theme.dark") : t("theme.light");
+    b.setAttribute('aria-label', on ? t("a11y.themeToDark") : t("a11y.themeToLight"));
     localStorage.setItem('theme', on ? 'light' : 'dark');
   };
 
@@ -208,7 +226,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (ok) { c.removeAttribute('hidden'); shown++; }
       else { c.setAttribute('hidden', ''); }
     }
-    badge.textContent = 'показано ' + shown + ' из ' + cards.length;
+    badge.textContent = t('supcat.shown', { shown: shown, total: cards.length });
   }
 
   search.addEventListener('input', apply);
@@ -222,13 +240,12 @@ document.addEventListener('DOMContentLoaded', function () {
      ни одного запроса к mc.yandex.ru не происходит. -->
 <div id="cookieBanner" role="dialog" data-i18n-aria-label="a11y.cookieConsent" hidden>
   <div class="cb-text">
-    Мы используем cookie и Яндекс.Метрику, чтобы понять, какие материалы полезны.
-    Аналитика включается только после вашего согласия.
-    <a href="../privacy.html">Политика конфиденциальности</a>
+    <span data-i18n-text="index.cookieText">Мы используем cookie и Яндекс.Метрику, чтобы понять, какие материалы полезны. Аналитика включается только после вашего согласия.</span>
+    <a href="../privacy.html" data-i18n-text="index.cookiePolicy">Политика конфиденциальности</a>
   </div>
   <div class="cb-actions">
-    <button type="button" id="cookieAccept" class="cb-btn cb-accept">Принять</button>
-    <button type="button" id="cookieReject" class="cb-btn cb-reject">Отклонить</button>
+    <button type="button" id="cookieAccept" class="cb-btn cb-accept" data-i18n-text="index.cookieAccept">Принять</button>
+    <button type="button" id="cookieReject" class="cb-btn cb-reject" data-i18n-text="index.cookieReject">Отклонить</button>
   </div>
 </div>
 <script src="../cookie-banner.js?v=1"></script>
@@ -236,3 +253,4 @@ document.addEventListener('DOMContentLoaded', function () {
 <script>initCookieBanner();</script>
 </body>
 </html>
+

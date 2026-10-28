@@ -57,7 +57,10 @@ DOCS = ROOT / "docs"
 #: Файлы вне области действия гейта.
 SKIP_DIRS = ("sup", "vendor", "adr", "api", "bpmn", "briefs", "dev", "icons")
 #: Имена файлов вне области действия гейта.
-SKIP_FILES = ("style.css", "legacy.css")
+#: `style.min.css` — сгенерированная копия `style.css` (FIX-44, csso-cli):
+#: гейт смотрит на исходники, а минифицированный файл повторяет те же
+#: объявления, только в одну строку, и править его вручную нельзя.
+SKIP_FILES = ("style.css", "style.min.css", "legacy.css")
 
 #: Физическое свойство -> логическая замена.
 #: Важно: `padding-left` -> `padding-inline-START`, а НЕ `padding-inline`.

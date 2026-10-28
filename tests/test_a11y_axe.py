@@ -58,18 +58,19 @@ wcag2a / wcag2aa / wcag2aaa / wcag21a / wcag21aa / wcag22aa:
 Числа узлов сняты один раз и лежат в tests/a11y_baseline.json. Переснимать
 базу можно только осознанно:
 
-    $env:UPDATE_A11Y_BASELINE="1"; RUN_A11Y=1 pytest -q -m a11y
+    $env:UPDATE_A11Y_BASELINE="1"; pytest -q -m a11y
 
 Как запускать
 -------------
     python -m http.server 8000 --directory docs     # из корня репозитория
-    $env:RUN_A11Y="1"; pytest -q -m a11y             # только доступность
-    $env:RUN_SNAPSHOTS="1"; pytest -q -m snapshots   # только снапшоты
+    pytest -q -m a11y             # только доступность
+    pytest -q -m snapshots        # только снапшоты
 
-Гейт на переменной окружения, а не на `-m` в addopts: `-m` из командной строки
-ПЕРЕКРЫВАЕТ addopts (измерено в tests/conftest.py, см. докстринг там).
-Обычный `pytest -q` эти тесты не собирает — им нужен браузер и запущенный
-сервер, а полный прогон должен оставаться быстрым (~4 с).
+Гейт RUN_A11Y удалён в v5.6.5 (tests/conftest.py). Маркер на `-m`, а не на
+переменной окружения: `-m` из командной строки ПЕРЕКРЫВАЕТ addopts. Обычный
+`pytest -q` собирает эти тесты в общий прогон (сервер поднимает autouse-фикстура
+live_server в tests/conftest.py); для быстрого прогона без браузера —
+`-m "not a11y"`.
 """
 from __future__ import annotations
 
@@ -149,15 +150,15 @@ def axe_source() -> str:
 
 
 @pytest.fixture(scope="session")
-def browser():
-    with playwright_api.sync_playwright() as pw:
-        try:
-            b = pw.chromium.launch()
-        except Exception as exc:  # noqa: BLE001 — причина уедет в текст skip
-            pytest.skip(f"Chromium не запускается: {exc}. "
-                        f"Поставь: playwright install chromium")
-        yield b
-        b.close()
+def browser(playwright_instance):
+    pw = playwright_instance
+    try:
+        b = pw.chromium.launch()
+    except Exception as exc:  # noqa: BLE001 — причина уедет в текст skip
+        pytest.skip(f"Chromium не запускается: {exc}. "
+                    f"Поставь: playwright install chromium")
+    yield b
+    b.close()
 
 
 @pytest.fixture(scope="session")
@@ -196,6 +197,17 @@ THEMES = ("dark", "light")
 #: когда у него появится переключатель (или решится, чем он управляется).
 NO_THEME_PAGES = frozenset({"offline"})
 
+#: Страницы, которые тянут сторонние хосты. Здесь `networkidle` непригоден:
+#: `goto` ждёт полной тишины в сети, а чужой сервер отвечает как повезёт, и
+#: тогда тест падает по таймауту (NRC2-01: feedback.html грузит
+#: forms.yandex.ru — `embed.js` + iframe, которые держат соединения открытыми
+#: и `networkidle` не наступает). Ждём `domcontentloaded`: он наступает после
+#: разбора разметки и defer-скриптов, то есть собственная отрисовка страницы
+#: уже сделана, а фоновые чужие соединения больше не блокируют замер.
+#: Содержимое чужого iframe axe и не увидел бы: `axe.run(document)` работает
+#: только с главным документом.
+EXTERNAL_HOST_PAGES = frozenset({"feedback"})
+
 
 def _themes_for(page_name: str) -> tuple[str, ...]:
     """Темы, которые осмысленно меряем на странице."""
@@ -231,9 +243,21 @@ def _assert_theme(page, theme: str) -> None:
 
 # ─────────────────────────── прогон axe ───────────────────────────
 
-def _run_axe(page, axe_js: str, url: str, theme: str = "dark") -> list[dict]:
+def _wait_until_for(page_name: str) -> str:
+    """Стратегия ожидания загрузки для страницы.
+
+    Локальные страницы ждём по `networkidle` — он точнее: дожидается, пока
+    страница дочитает свои JSON. Для страниц со сторонними хостами это
+    ловушка (см. EXTERNAL_HOST_PAGES), поэтому там `domcontentloaded`.
+    """
+    return ("domcontentloaded" if page_name in EXTERNAL_HOST_PAGES
+            else "networkidle")
+
+
+def _run_axe(page, axe_js: str, url: str, theme: str = "dark",
+             wait_until: str = "networkidle") -> list[dict]:
     """Зайти на страницу, дождаться отрисовки, прогнать axe-core."""
-    page.goto(url, wait_until="networkidle", timeout=NAV_TIMEOUT_MS)
+    page.goto(url, wait_until=wait_until, timeout=NAV_TIMEOUT_MS)
     # Тема проверяется на ЖИВОЙ странице, а не задаётся проверкой в тесте: иначе
     # прогон в light молчал бы о тёмной странице (контраст посчитан по чужим
     # цветам) и дал бы зелёный результат на заведомо неверном замере.
@@ -346,7 +370,7 @@ def _verify(name: str, violations: list[dict]) -> None:
                 f"{len(fatal)}\n" + "\n".join(fatal) + extra +
                 f"\n    полный отчёт: {report}\n"
                 f"    Базу переснимают только осознанно:\n"
-                f"    $env:UPDATE_A11Y_BASELINE='1'; RUN_A11Y=1 pytest -q -m a11y")
+                f"    $env:UPDATE_A11Y_BASELINE='1'; pytest -q -m a11y")
 
 
 # ─────────────────────────── тесты ───────────────────────────
@@ -379,7 +403,8 @@ def test_a11y_wcag22(_env_checked, browser, axe_source, page_name, width, height
     page = ctx.new_page()
     try:
         violations = _run_axe(page, axe_source,
-                              f"{BASE_URL}/{page_name}.html", theme)
+                              f"{BASE_URL}/{page_name}.html", theme,
+                              wait_until=_wait_until_for(page_name))
     finally:
         ctx.close()
     _verify(f"{_slug(page_name)}-{width}-{theme}", violations)
@@ -399,7 +424,7 @@ def test_a11y_baseline_is_present(_env_checked):  # noqa: ARG001
     assert base, (
         f"{BASELINE_PATH.name} пуст или отсутствует — гейт доступности не имеет "
         f"базы и пропустит всё. Сними её целиком, БЕЗ -k:\n"
-        f"    $env:UPDATE_A11Y_BASELINE='1'; RUN_A11Y=1 pytest -q -m a11y"
+        f"    $env:UPDATE_A11Y_BASELINE='1'; pytest -q -m a11y"
     )
 
 
@@ -428,7 +453,7 @@ def test_a11y_baseline_covers_every_page(_env_checked):  # noqa: ARG001
         f"в базе нет {len(missing)} из {len(expected)} комбинаций "
         f"страница/разрешение: {', '.join(missing)}\n"
         f"    Эти страницы гейт не контролирует. Пересними базу целиком, БЕЗ -k:\n"
-        f"    $env:UPDATE_A11Y_BASELINE='1'; RUN_A11Y=1 pytest -q -m a11y"
+        f"    $env:UPDATE_A11Y_BASELINE='1'; pytest -q -m a11y"
     )
 
     # Записи вне матрицы: страница переименована или удалена, а база о ней помнит.
@@ -454,5 +479,5 @@ def test_a11y_axe_version_pinned():
     assert found == AXE_VERSION, (
         f"в tests/vendor/axe.min.js версия {found}, а тест ждёт {AXE_VERSION}. "
         f"Либо верни файл, либо обнови AXE_VERSION и пересними базу: "
-        f"$env:UPDATE_A11Y_BASELINE='1'; RUN_A11Y=1 pytest -q -m a11y"
+        f"$env:UPDATE_A11Y_BASELINE='1'; pytest -q -m a11y"
     )

@@ -54,8 +54,11 @@ DOCS = ROOT / "docs"
 SW = DOCS / "sw.js"
 BASELINE = Path(__file__).resolve().parent / "_style_version_baseline.txt"
 
-#: style.css?v=NNN — с необязательным суффиксом вида ?v=427a
-STYLE_HREF = re.compile(r"""style\.css\?v=(\d+)""")
+#: style.css?v=NNN — с необязательным суффиксом вида ?v=427a.
+#: FIX-44: страницы подключают минифицированный файл — style.min.css?v=NNN,
+#: поэтому имя принимается и с «.min», и без: гейт проверяет версию, а не
+#: то, минифицирован CSS или нет.
+STYLE_HREF = re.compile(r"""style(?:\.min)?\.css\?v=(\d+)""")
 #: Число под version.js?v=NNN — отдельная шкала, к предмету теста не относится
 VERSION_HREF = re.compile(r"""version\.js\?v=(\d+)""")
 
@@ -190,7 +193,7 @@ def test_templates_match_pages_style_version():
         for line in tpl.read_text(encoding="utf-8").splitlines():
             # Только настоящая разметка: в комментариях {# … #} шаблона
             # перечислены старые номера голыми «?v=413», «?v=423» и т.п.
-            if "href" in line and "style.css?v=" in line:
+            if "href" in line and ("style.css?v=" in line or "style.min.css?v=" in line):
                 found |= {int(v) for v in STYLE_HREF.findall(line)}
         if found and found != {baseline}:
             drift[tpl.relative_to(ROOT).as_posix()] = sorted(found)

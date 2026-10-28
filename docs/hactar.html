@@ -1,0 +1,753 @@
+<!doctype html>
+<html lang="ru" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1c1c1e" media="(prefers-color-scheme: dark)">
+  <meta name="description" content="Project Hactar — калькулятор стеков БАДов: подбор из 130 добавок, проверка взаимодействий и доз, персональный расчёт. Бесплатно, без регистрации."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="Project Hactar — подбор БАДов — Brain 25 Evidence"/>
+  <meta property="og:description" content="Project Hactar — калькулятор стеков БАДов: подбор из 130 добавок, проверка взаимодействий и доз, персональный расчёт. Бесплатно, без регистрации."/>
+  <meta property="og:url" content="https://deadsno.github.io/brain-25-evidence/hactar.html"/>
+  <link rel="canonical" href="https://deadsno.github.io/brain-25-evidence/hactar.html">
+  <link rel="alternate" type="application/rss+xml" title="brain-25-evidence" href="https://deadsno.github.io/brain-25-evidence/feed.xml">
+  <meta property="og:image" content="https://deadsno.github.io/brain-25-evidence/og.png"/>
+  <meta property="og:locale" content="ru_RU">
+  <meta name="twitter:image" content="https://deadsno.github.io/brain-25-evidence/og.png"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Project Hactar — подбор БАДов — Brain 25 Evidence"/>
+  <meta name="twitter:description" content="Project Hactar — калькулятор стеков БАДов: подбор из 130 добавок, проверка взаимодействий и доз, персональный расчёт. Бесплатно, без регистрации."/>
+  <title>Project Hactar — подбор БАДов — Brain 25 Evidence</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="БАДы">
+  <link rel="apple-touch-icon" href="icons/192.png">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231c1c1e' rx='8'/%3E%3Ccircle cx='10' cy='11' r='3' fill='%230a84ff'/%3E%3Ccircle cx='22' cy='11' r='3' fill='%230a84ff'/%3E%3Ccircle cx='10' cy='21' r='3' fill='%230a84ff'/%3E%3Ccircle cx='22' cy='21' r='3' fill='%230a84ff'/%3E%3Cpath d='M 10 21 Q 16 25 22 21' fill='none' stroke='%230a84ff' stroke-width='2'/%3E%3C/svg%3E">
+  <script>
+    try {
+      if (localStorage.getItem('theme') === 'light') {
+        document.documentElement.classList.add('light');
+      }
+    } catch (e) {}
+  </script>
+  <link rel="stylesheet" href="style.min.css?v=464"/>
+  <style>
+    /* Project Hactar — скелет (H-1, только вёрстка) */
+    :root{--hactar-sidebar:340px;}
+    body{margin:0;padding:0;background:var(--bg);color:var(--text)}
+    .hactar-wrap{display:grid;grid-template-columns:var(--hactar-sidebar) 1fr;min-height:100vh}
+    .hactar-sidebar{position:sticky;top:0;height:100vh;overflow-y:auto;padding:var(--space-6) var(--space-6) var(--space-12);border-inline-end:1px solid var(--border);background:var(--card-bg)}
+    .hactar-main{display:flex;flex-direction:flex;flex-direction:column;min-width:0;padding:var(--space-6) var(--space-6) var(--space-12)}
+    .hactar-top{margin-bottom:var(--space-6)}
+    .hactar-top h1{font-size:1.6rem;margin:0 0 var(--space-2);font-weight:700;letter-spacing:.02em}
+    .hactar-top .sub{font-size:var(--fs-5);color:var(--muted);margin:0}
+    .hactar-pick{display:inline-flex;flex-wrap:wrap;align-items:center;gap:var(--space-2);padding:var(--space-2) var(--space-4);border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--card-bg);color:var(--text);font-size:.95rem;margin-bottom:var(--space-4)}
+    .hactar-pick strong{color:var(--text)}
+    .hactar-btn-pick{display:none;padding:var(--space-2) var(--space-4);border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--card-bg);color:var(--text);cursor:pointer;font-size:.9rem;margin-bottom:var(--space-4)}
+    /* H-5: липкая панель вкладок в правой зоне. top:0 — держится у
+       верхнего края вьюпорта, пока прокручивается правая колонка. Фон
+       --bg совпадает с фоном страницы, поэтому содержимое не
+       просвечивает сквозь панель. padding:10px 0 — кнопки встают вровень
+       с заголовком и содержимым панели (у .hactar-main свой отступ 24px,
+       у панели — 0). */
+    .hactar-tabs[role="tablist"]{position:sticky;top:0;z-index:10;background:var(--bg);padding:10px 0;display:flex;gap:var(--space-2);overflow-x:auto;scrollbar-width:thin;flex-wrap:nowrap;margin-bottom:var(--space-4)}
+    .hactar-tabs[role="tablist"]::-webkit-scrollbar{height:0}
+    .hactar-tabs[role="tablist"] [role="tab"]{padding:var(--space-2) var(--space-4);border:1px solid var(--border);background:var(--card-bg);color:var(--text);border-radius:var(--radius-lg);cursor:pointer;font-size:.9rem;font-weight:500;white-space:nowrap;flex-shrink:0;transition:background-color .15s ease,color .15s ease,border-color .15s ease}
+    /* H-5: активная вкладка — синяя заливка + белый текст. Заливка
+       --chip-on-bg (#1f5fbf), а не var(--accent): с белым тот даёт
+       3.65:1 — ниже порога WCAG AA (4.5:1). У --chip-on-bg с белым
+       6.09:1 в обеих темах — тот же приём, что у .hactar-chip. */
+    .hactar-tabs[role="tablist"] [role="tab"][aria-selected="true"]{background:var(--chip-on-bg);color:#fff;border-color:var(--chip-on-bg)}
+    .hactar-tabs[role="tablist"] [role="tab"][aria-selected="true"]:hover{background:#1a4f9e;border-color:#1a4f9e}
+    /* Неактивная вкладка: серая подложка (--card-bg) и приглушённый
+       текст (--muted). Контраст 4.98:1 в тёмной теме и 5.07:1 в
+       светлой — оба выше 4.5:1. */
+    .hactar-tabs[role="tablist"] [role="tab"][aria-selected="false"]{background:var(--card-bg);color:var(--muted)}
+    /* H-5: наведение — текст становится основным, появляется акцентная
+       рамка. Текст --text, а не --muted: так контраст не зависит от
+       оттенка подложки и остаётся выше порога в обеих темах. */
+    .hactar-tabs[role="tablist"] [role="tab"][aria-selected="false"]:hover{background:#333336;border-color:var(--accent);color:var(--text)}
+    html.light .hactar-tabs[role="tablist"] [role="tab"][aria-selected="false"]:hover{background:#ececef}
+    /* H-5: на странице Hactar шапка сайта не липкая. Иначе она
+       (position:sticky, top:0, z-index:100 — docs/style.css:943)
+       перекрыла бы липкую панель вкладок (top:0, z-index:10): табы
+       уезжали бы под шапку и пропадали бы из виду при прокрутке. */
+    body.hactar-page .site-header{position:static}
+    .hactar-panels{display:flex;flex-direction:column}
+    .hactar-panel{display:none;padding:var(--space-4) 0}
+    .hactar-panel.active{display:block}
+    /* Project Hactar — полная ширина (H-3).
+       Общий body в style.css ограничен 1200px (max-width:1200px;margin:0 auto),
+       из-за чего страница сидела в общем контейнере сайта. Переопределяем
+       ТОЛЬКО для этой страницы: класс .hactar-page стоит на <body>.
+       Ширина — 100% от вьюпорта, поля 20px по краям. Левая панель остаётся
+       340px (--hactar-sidebar), правая зона забирает всё остальное (1fr). */
+    body.hactar-page{max-width:none;width:100%;margin:0;padding:0 20px}
+    /* Project Hactar — список добавок (H-2) */
+    .hactar-search{width:100%;min-height:44px;margin-bottom:var(--space-3);padding:.5rem .7rem;border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--card-bg);color:var(--text);font-size:1rem}
+    .hactar-search:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
+    .hactar-list{display:flex;flex-direction:column;gap:2px}
+    /* [hidden] из UA-стилей слабее авторского display:flex у .hactar-card,
+       поэтому скрытие строки задаём явно — иначе отфильтрованные карточки
+       остались бы в потоке. */
+    .hactar-row[hidden]{display:none}
+    .hactar-card{display:flex;align-items:center;gap:var(--space-3);padding:.45rem .5rem;border:1px solid transparent;border-radius:var(--radius-md);cursor:pointer;margin-inline-end:0;font-weight:400}
+    .hactar-card:hover{background:var(--bg);border-color:var(--border)}
+    .hactar-card:focus-within{outline:2px solid var(--accent);outline-offset:1px}
+    .hactar-card.is-on{background:rgba(10,132,255,.12);border-color:var(--accent)}
+    html.light .hactar-card.is-on{background:rgba(0,102,204,.10)}
+    .hactar-check{width:20px;height:20px;min-width:20px;margin:0;accent-color:var(--accent);cursor:pointer;flex-shrink:0}
+    .hactar-name{flex:1 1 auto;min-width:0;font-size:var(--fs-5);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .hactar-card .grade{flex:0 0 auto;margin-inline-start:0;min-width:1.7rem;text-align:center}
+    .hactar-empty{padding:var(--space-4) 0;color:var(--muted);font-size:var(--fs-4);text-align:center}
+    /* Project Hactar — чипсы фильтра по грейду (H-3).
+       Активный чип помечен aria-pressed="true" — на него же завязан стиль,
+       поэтому состояние живёт в разметке, а не в отдельном классе. */
+    .hactar-chips{display:flex;flex-wrap:wrap;gap:var(--space-2);margin-bottom:var(--space-3)}
+    .hactar-chip{min-height:44px;padding:.25rem .8rem;border:1px solid var(--border);border-radius:var(--radius-pill);background:var(--card-bg);color:var(--muted);font-size:.9rem;font-weight:600;line-height:1.2;cursor:pointer}
+    .hactar-chip:hover{border-color:var(--accent);color:var(--text)}
+    .hactar-chip:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+    /* Активный чип — заливка --chip-on-bg (#1f5fbf), а не var(--accent):
+       в тёмной теме --accent (#0a84ff) даёт с белым 3.29:1 — минус WCAG AA
+       (нужно 4.5:1). #1f5fbf даёт 6.09:1 в обеих темах — тот же приём, что
+       у .preset.on и .activeFilters .chip в style.css. */
+    .hactar-chip[aria-pressed="true"]{background:var(--chip-on-bg);border-color:var(--chip-on-bg);color:#fff}
+    /* Кнопка «Очистить всё» — снимает все галочки и чистит память браузера.
+       Стоит НАД списком: список из 130 строк длинный, и кнопка в конце
+       потока была бы за пределами экрана — до неё не дотянуться без
+       длинной прокрутки. */
+    .hactar-clear{display:inline-flex;align-items:center;margin:0 0 var(--space-3);padding:.4rem .9rem;min-height:44px;border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--card-bg);color:var(--muted);font-size:var(--fs-4);cursor:pointer}
+    .hactar-clear:hover{border-color:var(--accent);color:var(--text)}
+    .hactar-clear:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+    /* Скелетоны на время загрузки JSON: серые пульсирующие заглушки. */
+    .hactar-skel{display:flex;align-items:center;gap:var(--space-3);padding:.45rem .5rem}
+    .hactar-skel-box{width:20px;height:20px;border-radius:6px;flex-shrink:0;background:var(--grad-shimmer);background-size:200% 100%}
+    .hactar-skel-line{height:12px;border-radius:var(--radius-pill);flex:1 1 auto;background:var(--grad-shimmer);background-size:200% 100%}
+    .hactar-skel-pill{width:26px;height:18px;border-radius:var(--radius-pill);flex-shrink:0;background:var(--grad-shimmer);background-size:200% 100%}
+    @media (prefers-reduced-motion: no-preference){
+      .hactar-skel-box,.hactar-skel-line,.hactar-skel-pill{animation:hactarShimmer 1.2s infinite}
+      @keyframes hactarShimmer{to{background-position:-200% 0}}
+    }
+    /* Project Hactar — тосты (H-4): микро-фидбек при добавлении и удалении
+       добавки. Контейнер прибит к низу экрана (левой-правой стороной
+       растянут, чтобы длинный текст тоста переносился, а не обрезался),
+       сам тост живёт 2 секунды и уходит плавным затуханием. */
+    .hactar-toasts{position:fixed;inset-inline-start:0;inset-inline-end:0;bottom:24px;z-index:200;display:flex;flex-direction:column;align-items:center;gap:var(--space-2);padding:0 var(--space-4);pointer-events:none}
+    .hactar-toast{display:flex;align-items:center;gap:var(--space-3);max-width:100%;padding:.55rem .95rem;border:1px solid var(--border);border-radius:var(--radius-pill);background:var(--card-bg);box-shadow:var(--shadow-md);color:var(--text);font-size:var(--fs-5);line-height:var(--lh-tight);opacity:0;transform:translateY(10px);transition:opacity .3s ease,transform .3s ease}
+    .hactar-toast.is-in{opacity:1;transform:translateY(0)}
+    .hactar-toast.is-out{opacity:0;transform:translateY(10px)}
+    .hactar-toast-icon{display:inline-flex;align-items:center;justify-content:center;flex:0 0 22px;width:22px;height:22px;border-radius:50%;color:#fff;font-size:var(--fs-4);font-weight:700}
+    .hactar-toast-text{min-width:0}
+    /* Зелёная галочка — «добавлен в стек», серый крестик — «удалён из стека».
+       Белый на этих фонах даёт 5.37:1 и 5.07:1 (нужно 4.5:1). Фоном нельзя
+       ставить var(--muted): белый на нём даёт 2.80:1 — минус WCAG AA. */
+    .hactar-toast-ok .hactar-toast-icon{background:#1f7a3d}
+    .hactar-toast-off .hactar-toast-icon{background:#6e6e73}
+    /* Project Hactar — красивое пустое состояние (H-4). Пока не выбрана ни
+       одна добавка, вместо сухой заглушки показываем иллюстрацию, крупный
+       заголовок, подсказку и кнопку, которая возвращает к списку добавок. */
+    .hactar-empty-state{display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--space-3);max-width:620px;margin:0 auto;padding:var(--space-8) var(--space-4)}
+    /* [hidden] из UA-стилей слабее авторского display:flex — скрытие задаём
+       явно, иначе блок остался бы в потоке (то же, что с .hactar-row[hidden]
+       выше). То же для всех блоков Hactar с display:flex/grid: полагаться
+       на UA-стиль в одном файле с авторскими нельзя. */
+    .hactar-empty-state[hidden]{display:none}
+    .hactar-empty-art{position:relative;display:flex;align-items:center;justify-content:center;width:104px;height:104px;margin-bottom:var(--space-1);border:1px dashed var(--border);border-radius:50%;background:radial-gradient(circle at 50% 38%,rgba(10,132,255,.28),rgba(10,132,255,.06) 62%,transparent 74%);font-size:2.8rem;line-height:1}
+    /* Второе кольцо вокруг иллюстрации — «спутники» вокруг пробирки. */
+    .hactar-empty-art::after{content:"";position:absolute;inset:-10px;border:1px solid var(--border);border-radius:50%;opacity:.45}
+    .hactar-empty-title{margin:0;font-size:clamp(1.15rem,4.5vw,1.5rem);font-weight:700;letter-spacing:.01em}
+    .hactar-empty-hint{margin:0;max-width:44ch;color:var(--muted);font-size:var(--fs-5);line-height:var(--lh-normal)}
+    .hactar-empty-btn{margin-top:var(--space-2);padding:var(--space-3) var(--space-6);min-height:44px;border:none;border-radius:var(--radius-pill);background:var(--chip-on-bg);color:#fff;font-size:var(--fs-5);font-weight:600;cursor:pointer}
+    .hactar-empty-btn:hover{filter:brightness(1.08)}
+    .hactar-empty-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+    /* Обёртка пустого результата поиска: текст и кнопка «Сбросить фильтры»
+       по центру колонки. Своего display у неё нет, поэтому [hidden] из
+       UA-стилей работает без дополнительного правила. */
+    .hactar-empty-cta{text-align:center}
+    /* Project Hactar — граф связей (H-6).
+       Рисуется только эго-сеть выбранных добавок: полный граф из 130
+       узлов (MAN-03) не рисуется никогда. Контейнеру нужна явная
+       высота — иначе canvas vis-network схлопнется в ноль. */
+    .hactar-graph-wrap{display:flex;flex-direction:column;gap:var(--space-3)}
+    /* [hidden] слабее авторского display:flex — скрытие задаём явно. */
+    .hactar-graph-wrap[hidden]{display:none}
+    .hactar-graph-bar{display:flex;align-items:center;justify-content:space-between;gap:var(--space-3);flex-wrap:wrap}
+    .hactar-legend{display:flex;align-items:center;gap:var(--space-4);flex-wrap:wrap;font-size:var(--fs-5);color:var(--muted)}
+    .hactar-legend-item{display:inline-flex;align-items:center;gap:var(--space-2);white-space:nowrap}
+    /* Кнопка «Сброс» — перерисовывает граф, если узлы «уплыли». */
+    .hactar-graph-reset{padding:.4rem .9rem;min-height:44px;border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--card-bg);color:var(--muted);font-size:var(--fs-4);cursor:pointer}
+    .hactar-graph-reset:hover{border-color:var(--accent);color:var(--text)}
+    .hactar-graph-reset:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+    .hactar-graph{height:clamp(320px,56vh,560px);border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--card-bg);overflow:hidden}
+    .hactar-graph:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+    .hactar-graph-note{margin:0;font-size:var(--fs-5);color:var(--muted)}
+    /* Project Hactar — единая таблица «Обзор» (H-10).
+       Все параметры выбранных добавок в одной таблице: по строкам —
+       параметры (грейд, эффекты, дозы, взаимодействия), по столбцам —
+       сами добавки. Строки собирает docs/hactar.js из массива
+       OVERVIEW_ROWS, поэтому новая строка (цена, таймлайн) — это
+       правка массива, а не вёрстки.
+       Таблица умеет горизонтальную прокрутку внутри контейнера — иначе
+       на узком экране она растянула бы всю страницу. */
+    .hactar-ov{display:flex;flex-direction:column;gap:var(--space-4)}
+    /* [hidden] слабее авторского display:flex — скрытие задаём явно. */
+    .hactar-ov[hidden]{display:none}
+    .hactar-ov-head{display:flex;flex-direction:column;gap:var(--space-1)}
+    .hactar-ov-title{margin:0;font-size:1.25rem;font-weight:700;letter-spacing:.01em;line-height:var(--lh-title)}
+    .hactar-ov-note{margin:0;font-size:var(--fs-4);color:var(--muted);line-height:var(--lh-normal)}
+    .hactar-ov-scroll{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+    .hactar-ov-table{width:100%;min-width:420px;border-collapse:collapse;font-size:var(--fs-5)}
+    .hactar-ov-caption{padding-bottom:var(--space-2);color:var(--muted);font-size:var(--fs-4);line-height:var(--lh-normal);text-align:left;caption-side:top}
+    .hactar-ov-param,.hactar-ov-sup,.hactar-ov-rowhead{padding:var(--space-3);border-bottom:1px solid var(--border);font-weight:600;text-align:left;vertical-align:top}
+    .hactar-ov-sup{font-size:var(--fs-6)}
+    .hactar-ov-cell{padding:var(--space-3);border-bottom:1px solid var(--border);line-height:var(--lh-normal);vertical-align:top}
+    .hactar-ov-inline{color:var(--muted);font-size:var(--fs-4)}
+    .hactar-ov-list{margin:0;padding-inline-start:1.1rem;display:flex;flex-direction:column;gap:var(--space-1)}
+    .hactar-ov-none{color:var(--muted);font-size:var(--fs-4)}
+    /* Поле дозы: ввод + единица + подпись (диапазон, статус, ошибка).
+       Подпись живёт отдельно от <input>: перерисовка статуса не должна
+       трогать само поле — иначе потерялся бы фокус и набор текста. */
+    .hactar-ov-dose{display:flex;flex-direction:column;gap:var(--space-1);min-width:9rem}
+    .hactar-ov-dose-field{display:flex;align-items:center;gap:var(--space-2)}
+    .hactar-ov-dose-input{flex:1 1 6rem;min-width:0;max-width:11rem;padding:var(--space-2) var(--space-3);border:1px solid var(--border);border-radius:var(--radius-md);background:var(--bg);color:var(--text);font-size:var(--fs-5)}
+    /* U2-02: некорректная доза подсвечивается красной рамкой. */
+    .hactar-ov-dose-input-bad{border:1px solid var(--danger-tx)}
+    .hactar-ov-dose-unit{font-size:var(--fs-4);color:var(--muted);white-space:nowrap}
+    .hactar-ov-dose-meta{display:flex;flex-direction:column;gap:var(--space-0-2);font-size:var(--fs-4);line-height:var(--lh-normal)}
+    .hactar-ov-dose-norm{color:var(--muted)}
+    .hactar-ov-dose-ok{color:var(--info-tx)}
+    .hactar-ov-dose-warn{color:var(--danger-tx);font-weight:600}
+    .hactar-ov-dose-err{color:var(--danger-tx);font-weight:600}
+    /* FEATURE-1 (v5.6.5): профиль пользователя — вес, рост, возраст, пол.
+       Панель стоит над таблицей «Обзора» и должна быть компактной, чтобы
+       не отъедать место у таблицы: одна строка на десктопе (grid auto-fit),
+       две колонки на узком экране. Отдельной вкладки не заводим — решение
+       владельца (никаких «третьих табов»). */
+    .hactar-profile{display:flex;flex-direction:column;gap:var(--space-3);padding:var(--space-3) var(--space-4);border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--card-bg)}
+    .hactar-profile-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--space-1) var(--space-3)}
+    .hactar-profile-title{margin:0;font-size:var(--fs-6);font-weight:700;line-height:var(--lh-title)}
+    .hactar-profile-hint{margin:0;font-size:var(--fs-4);color:var(--muted);line-height:var(--lh-normal)}
+    /* VIS-03: 6.5rem не влезало в 207px контейнера на 320px - auto-fit
+       давал одну колонку и панель растягивалась на 4 ряда (469px).
+       5.5rem даёт на 320px две колонки по ~99px (2x2). */
+    .hactar-profile-form{display:grid;grid-template-columns:repeat(auto-fit,minmax(5.5rem,1fr));gap:var(--space-2) var(--space-3);align-items:end}
+    .hactar-profile-field{display:flex;flex-direction:column;gap:var(--space-0-2);min-width:0}
+    .hactar-profile-field-check{justify-content:end}
+    /* [hidden] слабее авторского display:flex — скрытие задаём явно. */
+    .hactar-profile-field[hidden]{display:none}
+    .hactar-profile-label{font-size:var(--fs-4);color:var(--muted)}
+    .hactar-profile-input,.hactar-profile-select{width:100%;min-width:0;padding:var(--space-2) var(--space-3);border:1px solid var(--border);border-radius:var(--radius-md);background:var(--bg);color:var(--text);font-size:var(--fs-5);font-family:inherit}
+    /* MOB-01: сам чекбокс 24px (WCAG 2.5.8), а подпись целиком - 44px
+       по высоте (WCAG 2.5.5): промах по нему скрывал предупреждение
+       о противопоказаниях при беременности. */
+    #hactarProfilePreg{inline-size:24px;block-size:24px;flex:0 0 auto;margin:0}
+    .hactar-profile-check{display:flex;align-items:center;gap:var(--space-2);min-height:44px;font-size:var(--fs-5);white-space:nowrap}
+    .hactar-profile-out{display:flex;flex-wrap:wrap;gap:var(--space-2) var(--space-5)}
+    .hactar-profile-metric{display:flex;align-items:baseline;gap:var(--space-2);font-size:var(--fs-4);color:var(--muted)}
+    .hactar-profile-metric-value{font-size:var(--fs-6);font-weight:700;color:var(--text);font-variant-numeric:tabular-nums}
+    /* Категория ИМТ: цвет — только подсказка, рядом стоит текст («норма»),
+       потому что одного цвета для доступности мало. Токены проверены на AA
+       в обеих темах: --grade-a-tx 8.00:1 / 4.61:1, --grade-c-tx 8.35:1 /
+       4.61:1, --danger-tx и --info-tx переопределены для светлой темы. */
+    .hactar-profile-flag{font-size:var(--fs-4);font-weight:600}
+    .hactar-profile-flag-low{color:var(--info-tx)}
+    .hactar-profile-flag-ok{color:var(--grade-a-tx)}
+    .hactar-profile-flag-high{color:var(--grade-c-tx)}
+    .hactar-profile-flag-very-high{color:var(--danger-tx)}
+    .hactar-profile-status{margin:0;font-size:var(--fs-4);color:var(--muted);line-height:var(--lh-normal)}
+    .hactar-profile-status:empty{display:none}
+    /* Рекомендация «на кг массы» в ячейке дозы — отдельная строка, чтобы не
+       сливалась с нормой из data.json и со статусом ввода. */
+    .hactar-ov-dose-perkg{color:var(--info-tx)}
+    /* Доза выше upper_limit: рамка красная, как у некорректной, но само
+       число валидно, поэтому aria-invalid остаётся false, а текст
+       предупреждения живёт в .hactar-ov-dose-warn. */
+    .hactar-ov-dose-input-over{border:1px solid var(--danger-tx)}
+    /* Беременность: предупреждение над таблицей и красная шапка колонки. */
+    .hactar-ov-preg{margin:0;padding:var(--space-2) var(--space-3);border-radius:var(--radius-md);border-inline-start:3px solid var(--danger-tx);background:var(--card-bg);color:var(--danger-tx);font-size:var(--fs-4);font-weight:600;line-height:var(--lh-normal)}
+    .hactar-ov-preg[hidden]{display:none}
+    .hactar-ov-sup-preg{color:var(--danger-tx)}
+    /* Взаимодействия между добавками: конфликт — предупреждение,
+       общие мишени и общий механизм — нейтральная справка. */
+    .hactar-ov-conflict,.hactar-ov-rel{display:block;margin-bottom:var(--space-1)}
+    .hactar-ov-conflict{color:var(--danger-tx);font-weight:600}
+    .hactar-ov-rel{color:var(--muted);font-size:var(--fs-4)}
+    /* Чипы магазинов в строке «Где искать».
+       NM2-03: раньше у чипа стоял white-space:nowrap — длинное название
+       магазина не переносилось и вылезало за ячейку. Теперь текст может
+       переноситься, а сам чип не шире ячейки. min-height:44px остаётся:
+       тач-таргет не уменьшается, при переносе растёт только высота. */
+    .hactar-ov-shops{display:flex;flex-wrap:wrap;gap:var(--space-2)}
+    .hactar-ov-shop{display:inline-flex;align-items:center;min-height:44px;max-width:100%;padding:.35rem .8rem;border:1px solid var(--border);border-radius:var(--radius-pill);background:var(--card-bg);color:var(--text);font-size:var(--fs-4);font-weight:600;line-height:1.2;text-decoration:none;white-space:normal;overflow-wrap:anywhere}
+    .hactar-ov-shop:hover{border-color:var(--accent);background:var(--bg)}
+    .hactar-ov-shop:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+    /* NM2-01: на 320px таблица «Обзор» шире экрана — так и задумано:
+       .hactar-ov-scroll (233px) прокручивает её по горизонтали, а сама
+       страница не скроллится (document.scrollWidth == clientWidth == 305).
+       Убирать min-width:420px нельзя: при 233px три колонки добавок
+       сжимаются до ~64px, и содержимое ячеек наезжает друг на друга —
+       это вернуло бы NM2-03. Что реально уменьшаем на мобильном —
+       внутренние отступы ячеек и минимальную ширину поля дозы: таблица
+       становится компактнее при той же читаемости, горизонтальная
+       прокрутка укорачивается. */
+    @media (max-width: 480px){
+      .hactar-ov-param,.hactar-ov-sup,.hactar-ov-rowhead,.hactar-ov-cell{padding:var(--space-2)}
+      .hactar-ov-dose{min-width:0}
+      /* FEATURE-1: на телефоне панель профиля не должна отъедать высоту у
+         таблицы — уменьшаем её внутренние отступы и зазоры. Поля ввода
+         остаются не ниже 40px: палец должен попадать без прицеливания. */
+      .hactar-profile{padding:var(--space-2) var(--space-3);gap:var(--space-2)}
+      .hactar-profile-form{gap:var(--space-1) var(--space-2)}
+      .hactar-profile-input,.hactar-profile-select{padding:var(--space-2) var(--space-2)}
+    }
+    /* Мобильная шторка */
+    .hactar-sidebar.open{display:block}
+    /* Мобильная кнопка «Готово» — тот же контраст, что у активного чипа:
+       var(--accent) (#0a84ff) с белым даёт 3.29:1, --chip-on-bg (#1f5fbf) — 6.09:1. */
+    .hactar-done{display:none;width:100%;padding:var(--space-3);border:none;border-radius:var(--radius-lg);background:var(--chip-on-bg);color:#fff;font-size:1rem;cursor:pointer;margin-bottom:var(--space-4)}
+    /* NV2-01: планшеты 769-1024px. Фиксированные 340px съедали почти
+       половину ширины: на 769px правой колонке оставалось 389px, и строка
+       «Выбрано: N / 130» переносилась на вторую строку. Панель сужается
+       до 260px, внутренние отступы — до --space-4: список из 130 добавок
+       остаётся читаемым, контенту достаётся 509px вместо 389px.
+       Ниже 768px работает прежняя шторка, выше 1024px — прежние 340px. */
+    @media (min-width: 769px) and (max-width: 1024px){
+      :root{--hactar-sidebar:260px}
+      .hactar-sidebar{padding:var(--space-4) var(--space-4) var(--space-12)}
+    }
+    @media (max-width: 768px){
+      .hactar-wrap{display:block}
+      .hactar-sidebar{display:none;position:fixed;inset:0;z-index:100;width:100vw;height:100vh;overflow-y:auto;overscroll-behavior:contain;padding:var(--space-4) var(--space-4) var(--space-12);border-inline-end:none;border-bottom:1px solid var(--border)}
+      /* MOB-03: шторка занимает весь экран, но фон под ней продолжал
+         прокручиваться (scroll chaining в iOS). JS вешает класс, пока
+         шторка открыта, и снимает при закрытии. */
+      body.hactar-overlay-open{overflow:hidden}
+      .hactar-done{display:block}
+      .hactar-main{padding:var(--space-4) var(--space-4) var(--space-12)}
+      .hactar-btn-pick{display:inline-flex}
+      /* H-5: на мобильном табы по-прежнему прибиты к низу. top:auto
+         обязателен: базовое правило задаёт top:0, и вместе с bottom:0
+         липкая полоса растянулась бы на весь экран. */
+      /* MOB-02: бар прижат к низу экрана, на iPhone с home-indicator
+         нижняя треть кнопок уходила в системную полосу. */
+      .hactar-tabs[role="tablist"]{position:fixed;top:auto;bottom:0;inset-inline-start:0;width:100%;padding:var(--space-3) var(--space-4);padding-bottom:max(var(--space-3), env(safe-area-inset-bottom, 0px));background:var(--bg);border-top:1px solid var(--border);z-index:50;margin:0}
+      .hactar-tabs[role="tablist"] [role="tab"]{flex:1;text-align:center}
+      .hactar-panels{padding-bottom:calc(var(--space-3) + 56px + env(safe-area-inset-bottom, 0px))}
+      /* На мобильном табы прибиты к низу — тост встаёт над ними, а не поверх. */
+      .hactar-toasts{bottom:84px}
+    }
+    @media (prefers-reduced-motion: reduce){
+      .hactar-tabs[role="tablist"] [role="tab"]{transition:none!important}
+      /* Тост всё равно появляется и исчезает, но без сдвига: при
+         prefers-reduced-motion двигать текст нельзя (WCAG 2.3.3). */
+      .hactar-toast{transition:opacity .3s ease}
+      .hactar-toast.is-in,.hactar-toast.is-out{transform:none}
+    }
+  /* Project Hactar — «Мои стеки» (H-11): сохранение и загрузка протоколов. */
+  .hactar-stack-actions{display:inline-flex;align-items:center;gap:var(--space-2);flex-wrap:wrap;margin-inline-start:var(--space-4)}
+  /* NM2-02: min-height 36px не проходил WCAG 2.5.5 (44px для тач-таргета) —
+     кнопка стека ниже остальных кнопок страницы, у которых 44px.
+     Высота выровнена по общему правилу, вертикальные отступы уменьшены,
+     чтобы шапка не выросла. */
+  .hactar-stack-btn{display:inline-flex;align-items:center;gap:.3rem;padding:.2rem .75rem;min-height:44px;border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--card-bg);color:var(--text);font-size:var(--fs-4);font-weight:500;cursor:pointer;white-space:nowrap}
+  .hactar-stack-btn:hover{border-color:var(--accent);color:var(--text)}
+  /* NP2-01: нажатие должно быть видно. Раньше был только :hover, поэтому
+     клик по кнопке (особенно на тач-экране, где hover нет) не давал отклика. */
+  .hactar-stack-btn:active{transform:translateY(1px);border-color:var(--accent);background:var(--card-bg);filter:brightness(.92)}
+  .hactar-stack-btn:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+  /* NMK2-02 (25.10.2026): «Сохранить стек» — primary. Заливка и тень взяты
+     из .btn.calc (--grad-calc / --shadow-calc, контраст 5.42:1), но объявлены
+     здесь: inline <style> идёт ниже по каскаду, чем style.min.css, и базовый
+     .hactar-stack-btn иначе перебил бы фон .btn.calc, а его
+     color:var(--on-solid)!important дал бы белую подпись на светлой карточке.
+     Ширина не фиксируется: кнопка живёт в inline-flex-строке со счётчиком
+     выбора, width:100% растянул бы её на всю карточку. Ховер и :active тоже
+     переопределены — у базового класса они меняют цвет текста на --text и
+     сбрасывают фон, из-за чего белая подпись теряла контраст. */
+  .hactar-stack-btn--primary{background:var(--grad-calc);border-color:transparent;color:var(--on-solid);font-weight:600;box-shadow:var(--shadow-calc)}
+  .hactar-stack-btn--primary:hover{border-color:transparent;color:var(--on-solid);opacity:.92;box-shadow:var(--shadow-calc-hover)}
+  .hactar-stack-btn--primary:active{background:var(--grad-calc);color:var(--on-solid);filter:brightness(.94)}
+  .hactar-stacks-dropdown{position:relative;display:inline-block}
+  .hactar-stacks-dropdown[hidden]{display:none}
+  .hactar-stacks-list{position:absolute;top:100%;inset-inline-end:0;margin-top:4px;min-width:240px;max-width:320px;max-height:320px;overflow-y:auto;padding:var(--space-2);background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius-lg);box-shadow:var(--shadow-md);z-index:50;display:flex;flex-direction:column;gap:var(--space-2)}
+  .hactar-stacks-list[hidden]{display:none}
+  .hactar-stack-item{display:flex;align-items:center;gap:var(--space-2);padding:.35rem .5rem;border-radius:var(--radius-md);border:1px solid transparent}
+  .hactar-stack-item-name{flex:1 1 auto;min-width:0;font-size:var(--fs-4);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .hactar-stack-load,.hactar-stack-del{padding:.2rem .5rem;min-height:28px;border:1px solid var(--border);border-radius:var(--radius-md);background:var(--bg);color:var(--text);font-size:var(--fs-4);cursor:pointer}
+  .hactar-stack-del{color:var(--muted);min-width:28px;padding:.2rem .4rem}
+  .hactar-stack-load:hover,.hactar-stack-del:hover{border-color:var(--accent);color:var(--text)}
+  .hactar-stack-load:focus-visible,.hactar-stack-del:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+  @media (max-width: 768px){
+    .hactar-stack-actions{margin-inline-start:0;margin-top:var(--space-2)}
+  }
+  </style>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MedicalWebPage",
+      "name": "Project Hactar — подбор комбинаций БАДов",
+      "description": "Project Hactar — калькулятор стеков БАДов: подбор из 130 добавок, проверка взаимодействий и доз, персональный расчёт. Бесплатно, без регистрации.",
+      "url": "https://deadsno.github.io/brain-25-evidence/hactar.html",
+      "inLanguage": "ru"
+    }
+    </script>
+</head>
+<body class="hactar-page">
+<a href="#main" class="skip-link" data-i18n-text="a11y.skipToContent">Перейти к содержимому</a>
+<div class="site-header">
+  <div class="trustbar" data-i18n-text="hactar.trustbar">🧬 Открытые данные · Бесплатно · Без рекламы</div>
+  <header class="top">
+    <div class="site-title"><a href="index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a> <span class="v">v<span data-version="app"></span></span></div>
+    <nav class="actions" data-i18n-aria-label="a11y.navMain">
+      <a class="btn c-feedback" href="feedback.html" data-i18n-text="index.feedback">💬 Обратная связь</a>
+      <a class="btn c-support" href="support.html" data-i18n-text="index.support">💚 Поддержать</a>
+      <button class="btn c-theme" id="themeBtn" aria-label="Переключить на светлую тему" data-i18n-text="theme.light" data-i18n-aria-label="a11y.themeToLight">🌞 Светлая тема</button>
+      <select id="langSelect" class="lang-select" data-i18n-aria-label="a11y.langSelect"><option value="ru">RU</option><option value="en">EN</option></select>
+      <button class="btn c-random" id="randomBtn" data-i18n-text="index.random">🎲 Удиви меня</button>
+    </nav>
+  </header>
+</div>
+
+<main id="main">
+  <nav class="breadcrumbs">
+    <a href="index.html" data-i18n-text="nav.home">Главная</a> → <strong>Project Hactar</strong>
+  </nav>
+  <div class="hactar-wrap">
+    <aside class="hactar-sidebar" id="hactarSidebar">
+      <button class="hactar-done" id="hactarDone" data-i18n-text="hactar.sidebar.done">Готово</button>
+      <input type="search" id="hactarSearch" class="hactar-search" placeholder="Поиск добавки…" aria-label="Поиск добавки" autocomplete="off" data-i18n-placeholder="hactar.search.ph" data-i18n-aria-label="hactar.search.aria">
+      <!-- Чипсы фильтра по грейду (H-3). По умолчанию активен «Все». -->
+      <div class="hactar-chips" id="hactarChips" role="group" aria-label="Фильтр по грейду доказательности" data-i18n-aria-label="hactar.chips.group">
+        <button type="button" class="hactar-chip" data-grade="all" aria-pressed="true" aria-label="Все — без фильтра по грейду" data-i18n-aria-label="hactar.chip.allAria" data-i18n-text="hactar.chip.all">Все</button>
+        <button type="button" class="hactar-chip" data-grade="A" aria-pressed="false" aria-label="A — высокая доказательность" title="Грейд A — высокая доказательность" data-i18n-aria-label="hactar.chip.aAria" data-i18n-title="hactar.chip.aTitle">A</button>
+        <button type="button" class="hactar-chip" data-grade="B" aria-pressed="false" aria-label="B — средняя доказательность" title="Грейд B — средняя доказательность" data-i18n-aria-label="hactar.chip.bAria" data-i18n-title="hactar.chip.bTitle">B</button>
+        <button type="button" class="hactar-chip" data-grade="C" aria-pressed="false" aria-label="C — низкая доказательность" title="Грейд C — низкая доказательность" data-i18n-aria-label="hactar.chip.cAria" data-i18n-title="hactar.chip.cTitle">C</button>
+        <button type="button" class="hactar-chip" data-grade="D" aria-pressed="false" aria-label="D — недостаточно данных" title="Грейд D — недостаточно данных" data-i18n-aria-label="hactar.chip.dAria" data-i18n-title="hactar.chip.dTitle">D</button>
+      </div>
+      <!-- Сброс выбора (H-3): снимает все галочки и чистит localStorage.
+           Кнопка стоит над списком — до кнопки в конце длинного списка
+           не добраться без прокрутки. -->
+      <button type="button" class="hactar-clear" id="hactarClearAll" data-i18n-text="hactar.clearAll">Очистить всё</button>
+      <div id="hactarList" class="hactar-list" role="group" aria-label="Список добавок" aria-busy="true" data-i18n-aria-label="hactar.list.aria">
+        <!-- Скелетоны (H-2): видны сразу, до загрузки JSON. -->
+        <div class="hactar-skel" aria-hidden="true"><span class="hactar-skel-box"></span><span class="hactar-skel-line"></span><span class="hactar-skel-pill"></span></div>
+        <div class="hactar-skel" aria-hidden="true"><span class="hactar-skel-box"></span><span class="hactar-skel-line"></span><span class="hactar-skel-pill"></span></div>
+        <div class="hactar-skel" aria-hidden="true"><span class="hactar-skel-box"></span><span class="hactar-skel-line"></span><span class="hactar-skel-pill"></span></div>
+        <div class="hactar-skel" aria-hidden="true"><span class="hactar-skel-box"></span><span class="hactar-skel-line"></span><span class="hactar-skel-pill"></span></div>
+        <div class="hactar-skel" aria-hidden="true"><span class="hactar-skel-box"></span><span class="hactar-skel-line"></span><span class="hactar-skel-pill"></span></div>
+        <div class="hactar-skel" aria-hidden="true"><span class="hactar-skel-box"></span><span class="hactar-skel-line"></span><span class="hactar-skel-pill"></span></div>
+        <div class="hactar-skel" aria-hidden="true"><span class="hactar-skel-box"></span><span class="hactar-skel-line"></span><span class="hactar-skel-pill"></span></div>
+        <div class="hactar-skel" aria-hidden="true"><span class="hactar-skel-box"></span><span class="hactar-skel-line"></span><span class="hactar-skel-pill"></span></div>
+        <div class="hactar-skel" aria-hidden="true"><span class="hactar-skel-box"></span><span class="hactar-skel-line"></span><span class="hactar-skel-pill"></span></div>
+        <div class="hactar-skel" aria-hidden="true"><span class="hactar-skel-box"></span><span class="hactar-skel-line"></span><span class="hactar-skel-pill"></span></div>
+      </div>
+      <div class="hactar-empty-cta" id="hactarEmpty" hidden>
+        <p class="hactar-empty" id="hactarEmptyText" data-i18n-text="hactar.notFound">Ничего не найдено</p>
+        <button type="button" class="hactar-empty-btn" id="hactarResetFilters" data-i18n-text="hactar.search.reset">Сбросить фильтры</button>
+      </div>
+    </aside>
+    <div class="hactar-main" id="hactarMain">
+      <div class="hactar-top">
+        <h1 data-i18n-text="hactar.h1">Project Hactar: конструктор стеков БАДов</h1>
+        <p class="sub" data-i18n-text="hactar.sub">Собирайте комбинации, проверяйте взаимодействия и дозировки в одном окне — 130 добавок с оценкой доказательности.</p>
+      </div>
+      <div class="hactar-pick"><span data-i18n-text="hactar.picked">Выбрано: </span><strong><span id="hactarCount" aria-live="polite">0</span></strong> / <span id="hactarTotal">130</span>
+        <span class="hactar-stack-actions">
+          <!-- NA2-02: видимая подпись короче действия, поэтому имя задано
+               явно: у «Сохранить стек» не сказано, что именно сохраняется,
+               а у «Мои стеки» — что кнопка раскрывает список. -->
+          <button type="button" class="hactar-stack-btn hactar-stack-btn--primary" id="hactarSaveStack" aria-label="Сохранить текущий стек добавок" data-i18n-text="hactar.stack.save" data-i18n-aria-label="hactar.stack.saveAria">💾 Сохранить стек</button>
+          <span class="hactar-stacks-dropdown" id="hactarStacksDropdown" hidden>
+            <button type="button" class="hactar-stack-btn" id="hactarStacksToggle" aria-label="Открыть список сохранённых стеков" aria-expanded="false" aria-controls="hactarStacksList" data-i18n-text="hactar.stack.mine" data-i18n-aria-label="hactar.stack.mineAria">📂 Мои стеки ▾</button>
+            <div class="hactar-stacks-list" id="hactarStacksList" hidden></div>
+          </span>
+        </span>
+      </div>
+      <button class="hactar-btn-pick" id="hactarBtnPick" data-i18n-text="hactar.btn.pick">🔍 Выбрать добавки</button>
+      <!-- H-9: вкладок две, а не три. «Калькулятор» и «Сравнение»
+           слиты в «Обзор» — четыре секции с общей прокруткой: когнитивная
+           нагрузка падает, а весь набор данных остаётся на одном экране. -->
+      <div class="hactar-tabs" role="tablist" aria-label="Режимы Hactar" data-i18n-aria-label="hactar.tabs.aria">
+        <button role="tab" id="hactarTabOverview" aria-controls="hactarPanelOverview" aria-selected="true" tabindex="0" data-mode="overview" data-i18n-text="hactar.tab.overview">Обзор</button>
+        <button role="tab" id="hactarTabLinks" aria-controls="hactarPanelLinks" aria-selected="false" tabindex="-1" data-mode="links" data-i18n-text="hactar.tab.links">Связи</button>
+      </div>
+      <div class="hactar-panels">
+        <!-- H-9/H-10: единая панель «Обзор». С H-9 вкладки «Калькулятор»
+             и «Сравнение» стали секциями этой панели, с H-10 — одной
+             таблицей: строки собирает docs/hactar.js (OVERVIEW_ROWS),
+             колонки — выбранные добавки. -->
+        <div class="hactar-panel active" id="hactarPanelOverview" data-panel="overview">
+          <!-- FEATURE-1 (v5.6.5): профиль пользователя живёт прямо в
+               «Обзоре», а не отдельной вкладкой. Владелец против третьих
+               вкладок: расчёт нужен там же, где таблица дозировок, иначе
+               связь между весом и дозой не видна. Панель стоит выше
+               пустого состояния — профиль полезен и без выбранных добавок. -->
+          <section class="hactar-profile" id="hactarProfile" aria-labelledby="hactarProfileTitle">
+            <div class="hactar-profile-head">
+              <h2 class="hactar-profile-title" id="hactarProfileTitle" data-i18n-text="hactar.profile.title">Профиль</h2>
+              <p class="hactar-profile-hint" data-i18n-text="hactar.profile.hint">Данные остаются в браузере: они нужны только для расчёта</p>
+            </div>
+            <div class="hactar-profile-form">
+              <label class="hactar-profile-field">
+                <span class="hactar-profile-label" data-i18n-text="hactar.profile.sex">Пол</span>
+                <select class="hactar-profile-select" id="hactarProfileSex">
+                  <option value="m" data-i18n-text="hactar.profile.sexM">Мужской</option>
+                  <option value="f" data-i18n-text="hactar.profile.sexF">Женский</option>
+                </select>
+              </label>
+              <label class="hactar-profile-field">
+                <span class="hactar-profile-label" data-i18n-text="hactar.profile.weight">Вес, кг</span>
+                <input class="hactar-profile-input" id="hactarProfileWeight" type="number" inputmode="decimal" min="20" max="300" step="0.1" placeholder="70" autocomplete="off" />
+              </label>
+              <label class="hactar-profile-field">
+                <span class="hactar-profile-label" data-i18n-text="hactar.profile.height">Рост, см</span>
+                <input class="hactar-profile-input" id="hactarProfileHeight" type="number" inputmode="numeric" min="90" max="250" step="1" placeholder="175" autocomplete="off" />
+              </label>
+              <label class="hactar-profile-field">
+                <span class="hactar-profile-label" data-i18n-text="hactar.profile.age">Возраст, лет</span>
+                <input class="hactar-profile-input" id="hactarProfileAge" type="number" inputmode="numeric" min="14" max="120" step="1" placeholder="30" autocomplete="off" />
+              </label>
+              <div class="hactar-profile-field hactar-profile-field-check" id="hactarProfilePregWrap" hidden>
+                <label class="hactar-profile-check">
+                  <input type="checkbox" id="hactarProfilePreg" />
+                  <span data-i18n-text="hactar.profile.pregnant">Беременность</span>
+                </label>
+              </div>
+            </div>
+            <div class="hactar-profile-out" aria-live="polite">
+              <div class="hactar-profile-metric">
+                <span class="hactar-profile-metric-label" data-i18n-text="hactar.profile.bmi">ИМТ</span>
+                <span class="hactar-profile-metric-value" id="hactarProfileBmi">—</span>
+                <span class="hactar-profile-flag" id="hactarProfileBmiFlag"></span>
+              </div>
+              <div class="hactar-profile-metric">
+                <span class="hactar-profile-metric-label" data-i18n-text="hactar.profile.bmr">BMR</span>
+                <span class="hactar-profile-metric-value" id="hactarProfileBmr">—</span>
+                <span class="hactar-profile-metric-unit" data-i18n-text="hactar.profile.kcal">ккал/сут</span>
+              </div>
+            </div>
+            <p class="hactar-profile-status" id="hactarProfileStatus" role="status"></p>
+          </section>
+          <div class="hactar-empty-state">
+            <div class="hactar-empty-art" aria-hidden="true">🧪</div>
+            <p class="hactar-empty-title" data-i18n-text="hactar.empty.title">Пока ничего не выбрано</p>
+            <p class="hactar-empty-hint" data-i18n-text="hactar.empty.hint">Отметьте галочками добавки в левом меню, чтобы увидеть их связи, дозировки и совместимость</p>
+            <button type="button" class="hactar-empty-btn" data-i18n-text="hactar.btn.pick">🔍 Выбрать добавки</button>
+          </div>
+          <!-- H-10: единая модульная таблица «Обзор». Строки собирает
+               docs/hactar.js из массива OVERVIEW_ROWS: чтобы добавить
+               новую строку (цена, таймлайн, безопасность), достаточно
+               дописать объект в массив — разметку править не нужно.
+               Колонка — одна выбранная добавка, шапка (thead) — её
+               название, остальные строки — параметры. -->
+          <div class="hactar-ov" id="hactarOverview" hidden>
+            <!-- FEATURE-1: предупреждение о беременности. Показывается,
+                 когда в профиле отмечена беременность, а среди выбранных
+                 добавок есть та, у которой в caution прямо сказано
+                 «не рекомендуется при беременности». Список собирает
+                 docs/hactar.js, поэтому элемент пуст в разметке. -->
+            <p class="hactar-ov-preg" id="hactarOvPreg" role="alert" hidden></p>
+            <div class="hactar-ov-head">
+              <h2 class="hactar-ov-title" data-i18n-text="hactar.ov.title">Обзор стека</h2>
+              <p class="hactar-ov-note" id="hactarOvNote"></p>
+            </div>
+            <div class="hactar-ov-scroll">
+              <table class="hactar-ov-table">
+                <caption class="hactar-ov-caption" data-i18n-text="hactar.ov.caption">Параметры выбранных добавок</caption>
+                <thead>
+                  <tr id="hactarOvHead"></tr>
+                </thead>
+                <tbody id="hactarOvBody"></tbody>
+              </table>
+            </div>
+            <p class="hactar-ov-caption" style="font-size:var(--fs-6);margin-top:var(--space-2);color:var(--muted);" data-i18n-text="hactar.ov.footnote">
+              * Стоимость указана ориентировочно на основе средних рыночных данных и не является публичной офертой.
+            </p>
+          </div>
+        </div>
+        <div class="hactar-panel" id="hactarPanelLinks" data-panel="links">
+          <!-- Пустое состояние (H-4): пока добавки не выбраны — иллюстрация,
+               заголовок, подсказка и кнопка «Выбрать добавки». -->
+          <div class="hactar-empty-state">
+            <div class="hactar-empty-art" aria-hidden="true">🧪</div>
+            <p class="hactar-empty-title" data-i18n-text="hactar.empty.title">Пока ничего не выбрано</p>
+            <p class="hactar-empty-hint" data-i18n-text="hactar.empty.hint">Отметьте галочками добавки в левом меню, чтобы увидеть их связи, дозировки и совместимость</p>
+            <button type="button" class="hactar-empty-btn" data-i18n-text="hactar.btn.pick">🔍 Выбрать добавки</button>
+          </div>
+          <!-- H-6: эго-сеть выбранных добавок. Показывается, когда выбрана
+               хотя бы одна добавка; пока ничего не выбрано — пустое
+               состояние выше. Полный граф из 130 узлов не рисуется
+               никогда: только связи вокруг выбранных добавок (MAN-03). -->
+          <div class="hactar-graph-wrap" id="hactarGraphWrap" hidden>
+            <div class="hactar-graph-bar">
+              <div class="hactar-legend" aria-label="Легенда графа" data-i18n-aria-label="hactar.legend.aria">
+                <span class="hactar-legend-item"><span aria-hidden="true">🟢</span> <span data-i18n-text="hactar.legend.sups">Добавки</span></span>
+                <span class="hactar-legend-item"><span aria-hidden="true">🟣</span> <span data-i18n-text="hactar.legend.mechs">Механизмы</span></span>
+                <span class="hactar-legend-item"><span aria-hidden="true">🟠</span> <span data-i18n-text="hactar.legend.drugs">Лекарства</span></span>
+              </div>
+              <button type="button" class="hactar-graph-reset" id="hactarGraphReset" data-i18n-text="hactar.graph.reset">[ Сброс ]</button>
+            </div>
+            <!-- A2-06: canvas vis-network не попадает в дерево доступности и
+                 не управляется с клавиатуры, поэтому фокус получает
+                 контейнер. Роль — img, а не application: application
+                 переключил бы скринридер в режим форм и потребовал полного
+                 управления клавишами, которого у vis-network 9.1.9 нет.
+                 Текстовый эквивалент связей наполняет renderGraphAlt(). -->
+            <div class="hactar-graph" id="hactarGraph" tabindex="0" role="img"
+                 aria-label="Интерактивный граф связей выбранных добавок: добавки, механизмы, лекарства и связи между ними" data-i18n-aria-label="hactar.graph.aria"
+                 aria-describedby="hactarGraphHint"></div>
+            <p class="sr-only" id="hactarGraphHint" data-i18n-text="hactar.graph.hint">Граф не управляется с клавиатуры: узлы нельзя выбрать стрелками. Текстовый список связей идёт сразу после графа.</p>
+            <p class="hactar-graph-note" id="hactarGraphNote" role="status"></p>
+            <div class="sr-only" id="hactarGraphAlt" role="group" aria-label="Текстовый список связей графа" data-i18n-aria-label="hactar.graph.altAria"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- Тосты (H-4): микро-фидбек о добавлении/удалении добавки.
+     Контейнер статический: live-region обязан существовать в разметке
+     ДО того, как в него попадёт сообщение, иначе скринридер его не озвучит. -->
+<div class="hactar-toasts" id="hactarToasts" role="status" aria-live="polite" aria-atomic="false"></div>
+
+<script>
+(function(){
+  'use strict';
+
+  var sidebar = document.getElementById('hactarSidebar');
+  var btnPick = document.getElementById('hactarBtnPick');
+  var btnDone = document.getElementById('hactarDone');
+
+  /* NA2-06: фокус не должен теряться при открытии и закрытии шторки.
+     Раньше openDrawer() только добавлял класс .open: фокус оставался на
+     кнопке «Выбрать добавки», то есть за пределами того, что теперь
+     занимает весь экран. Скринридер и Tab продолжали ходить по странице
+     под шторкой.
+
+     FOCUSABLE — стандартный набор для обхода Tab. Скрытые элементы
+     отсекаются через getClientRects(): у .hactar-done на десктопе
+     display:none, и фокус туда уходить не должен. */
+  var FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]), ' +
+    'select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+  function focusables(){
+    var all = sidebar.querySelectorAll(FOCUSABLE);
+    var list = [];
+    for (var i = 0; i < all.length; i++){
+      if (all[i].getClientRects().length) list.push(all[i]);
+    }
+    return list;
+  }
+
+  // Мобильная шторка: открыть / закрыть
+  function openDrawer(){
+    sidebar.classList.add('open');
+    /* MOB-03: шторка занимает весь экран, но страница под ней продолжала
+       прокручиваться (scroll chaining в iOS). Класс на body держит
+       overflow:hidden; снимается вместе с закрытием. */
+    document.body.classList.add('hactar-overlay-open');
+    /* Первый видимый элемент шторки: на мобильном это «Готово» (оно
+       стоит в разметке раньше поиска), на планшете «Готово» скрыто и
+       фокус получает поле поиска. */
+    var list = focusables();
+    if (list.length) list[0].focus();
+  }
+  function closeDrawer(){
+    sidebar.classList.remove('open');
+    document.body.classList.remove('hactar-overlay-open');
+    /* Возврат фокуса на кнопку, которая шторку открыла: иначе после
+       «Готово» фокус уезжает в начало документа. */
+    if (btnPick) btnPick.focus();
+  }
+  if (btnPick) btnPick.addEventListener('click', openDrawer);
+  if (btnDone) btnDone.addEventListener('click', closeDrawer);
+
+  /* NA2-06, часть вторая: пока шторка открыта, Tab ходит по кругу внутри
+     неё, а Esc закрывает. Условие «есть класс open» обязательно: на
+     десктопе этот же <aside> — обычная колонка, и перехватывать там Tab
+     нельзя. stopPropagation на Esc нужен, чтобы глобальный обработчик
+     hactar.js не принял тот же Esc за «очистить поиск» и не стёр запрос. */
+  if (sidebar) {
+    sidebar.addEventListener('keydown', function(e){
+      if (sidebar.classList.contains('open')) {
+        if (e.key === 'Escape') {
+          e.stopPropagation();
+          closeDrawer();
+        } else if (e.key === 'Tab') {
+          var list = focusables();
+          if (list.length) {
+            var first = list[0];
+            var last = list[list.length - 1];
+            var active = document.activeElement;
+            var inside = sidebar.contains(active);
+            if (e.shiftKey && (active === first || !inside)) {
+              e.preventDefault();
+              last.focus();
+            } else if (!e.shiftKey && (active === last || !inside)) {
+              e.preventDefault();
+              first.focus();
+            }
+          }
+        }
+      }
+    });
+  }
+
+  // H-5: логика вкладок (переключение + ?tab= в адресе) переехала в
+  // hactar.js — там же живёт синхронизация URL. Здесь остались только
+  // шторка и переключатель темы.
+
+  // Тема
+  var themeBtn = document.getElementById('themeBtn');
+  if (themeBtn){
+    themeBtn.addEventListener('click', function(){
+      var light = !document.documentElement.classList.contains('light');
+      document.documentElement.classList.toggle('light', light);
+      document.body.classList.toggle('light', light);
+      localStorage.setItem('theme', light ? 'light' : 'dark');
+      themeBtn.textContent = t(light ? 'theme.dark' : 'theme.light');
+      themeBtn.setAttribute('aria-label', t(light ? 'a11y.themeToDark' : 'a11y.themeToLight'));
+    });
+  }
+})();
+</script>
+<!-- vis-network — движок графа связей (H-6), 673 КБ. С FIX-43 (C2-03)
+     библиотека НЕ подключена тегом: её загружает hactar.js лениво
+     (loadVisNetwork) только при переходе на вкладку «Связи». На «Обзоре»
+     и «Сравнении» эти байты не качаются и не парсятся. -->
+<script src="hactar.js?v=33" defer></script>
+<script src="i18n.js?v=15"></script>
+<!-- v5.6.5 FIX-63 (NPW2-01): pwa.js на этой странице не подключался вовсе,
+     поэтому SW не регистрировался на втором по посещаемости экране сайта и
+     офлайн-режим там не включался. Порядок важен: i18n.js выше исполняется
+     при разборе и объявляет t(), которой pwa.js подписывает плашку офлайна. -->
+<script src="pwa.js?v=283" defer></script>
+<script src="share.js?v=2" defer></script>
+
+<footer class="site-footer">
+  <p class="disc">
+    <b data-i18n-text="hactar.disc.title">⚠️ Не медицинская рекомендация.</b>
+    <span data-i18n-text="hactar.disc.body">Сайт предоставляет данные из открытых научных источников (PubMed, Europe PMC, CrossRef, OpenAlex, ClinicalTrials.gov, Wikimedia) для информирования и самостоятельного образования.</span>
+    <b data-i18n-text="hactar.disc.noReplace">НЕ заменяет</b> <span data-i18n-text="hactar.disc.footer">консультацию, диагноз и лечение. При любых сомнениях — обращайтесь к специалисту.</span>
+  </p>
+  <p class="meta">
+    v<span data-version="app"></span> ·
+    <span data-i18n-text="index.dataUpdated">данные на</span> <span data-version="data"></span>
+  </p>
+  <p class="links">
+    <a href="methodology.html" data-i18n-text="footer.methodology">📐 Методология</a> ·
+    <a href="faq.html" data-i18n-text="footer.faq">❓ FAQ</a> ·
+    <a href="glossary.html" data-i18n-text="footer.glossary">📖 Глоссарий</a> ·
+    <a href="privacy.html" data-i18n-text="footer.privacy">🔐 Приватность</a> ·
+    <a href="terms-of-use.html" data-i18n-text="footer.terms">📄 Условия использования</a> ·
+    <a href="sup/index.html" data-i18n-text="footer.catalog">💊 Каталог БАДов</a> ·
+    <a href="feed.xml" data-i18n-text="footer.rss">📡 RSS</a>
+  </p>
+  <p class="copy">© 2026 Vladislav "DeadSno" Pereshivalov · MIT · <a href="terms-of-use.html#data-license" data-i18n-text="index.dataLicense">Данные: CC BY 4.0</a></p>
+  <p class="share-row"><button class="btn share-page" type="button" data-i18n-text="share.label">🔗 Поделиться</button></p>
+</footer>
+</body>
+</html>

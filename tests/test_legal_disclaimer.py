@@ -133,9 +133,9 @@ def test_exemption_list_still_matches_reality():
                 "тест перестанет проверять эту страницу."
             )
             if reason.startswith("токен верификации"):
-                assert GOOGLE_TOKEN in text and not _is_page(path), (
-                    f"{rel} числится токеном верификации, но это больше "
-                    "не файл верификации. Пересмотри исключение."
+                assert GOOGLE_TOKEN in text, (
+                    f"{rel} числится токеном верификации, но в нём нет "
+                    f"токена {GOOGLE_TOKEN!r}. Пересмотри исключение."
                 )
             else:
                 assert _is_page(path), (

@@ -104,13 +104,10 @@ ACCEPTED_UNPROTECTED = {
         "имеет .catch ниже с понятным сообщением в консоль. "
         "Отказ data_index.json при этом виден и не стирает страницу.",
     ],
-    ("script.js",
-     "navigator.clipboard.writeText(b.dataset.copy).then(() => {"): [
-        "Копирование ссылки инлайном. `navigator.clipboard` "
-        "отклоняет запрос в небезопасном контексте (http без TLS) — "
-        "тогда кнопка не меняет подпись и выглядит мёртвой. В share.js "
-        "тот же случай обработан откатом на legacyCopy, здесь отката нет.",
-    ],
+    # Запись про копирование ссылки в script.js убрана в FIX-58 (U2-06):
+    # у цепочки появился .catch с откатом на execCommand и отклик «Не
+    # удалось скопировать», поэтому в списке исключений ей больше не место —
+    # иначе она молча разрешала бы вернуть ровно эту регрессию.
     ("script.js",
      "if (q && PMID_QUERY_RE.test(q) && pmidIds === null) "
      "ensurePmidIndex().then(() => applyFilters());"): [
@@ -175,6 +172,9 @@ ACCEPTED_NON_ELEMENT_GUARDS = {
         "записи в данных не поломка разметки, а штатный случай.",
         "Результат внутренней chartSupByEl(); дополнение может не "
         "найтись на элементе.",
+        "initDisclosures ищет подпись внутри <details>: у блока без "
+        "<summary> раскрывать нечего, и пропуск — штатный случай, "
+        "а не поломка разметки.",
     ],
     ("script.js", "if (!els.length) return;"): [
         "Аргумент els — защита от пустого массива на стороне вызова.",
@@ -182,6 +182,10 @@ ACCEPTED_NON_ELEMENT_GUARDS = {
     ("script.js", "if (!a || !b) return;"): [
         "supplementsFull[idA]/[idB] — сравнение двух дополнений, одно "
         "из которых может отсутствовать в данных.",
+    ],
+    ("script.js", "if (!row) return;"): [
+        "pickSearchDrop берёт строку дропдауна через querySelector('.drop-row.focused') — "
+        "элемент создаётся скриптом динамически при вводе в поиск, фиксированного id нет.",
     ],
     ("script.js", "if (!html) return;"): [
         "Аргумент html в функции рендера: пустой html означает «нечего "
@@ -464,8 +468,14 @@ def test_silent_guards_are_either_verifiable_or_explicitly_listed():
         if not hits:
             continue
 
+        # Страница может подключать минифицированную копию (FIX-44):
+        # script.min.js вместо script.js — по смыслу это тот же файл, и id,
+        # которые он ищет, лежат в разметке такой страницы.
+        pat = re.escape(name)
+        if pat.endswith(r"\.js"):
+            pat = pat[: -len(r"\.js")] + r"(?:\.min)?\.js"
         needed = [p for p in pages
-                  if re.search(rf'src="[^"]*{re.escape(name)}',
+                  if re.search(rf'src="[^"]*{pat}',
                                p.read_text(encoding="utf-8", errors="replace"))]
         page_text = "\n".join(
             p.read_text(encoding="utf-8", errors="replace") for p in needed

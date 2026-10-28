@@ -22,16 +22,24 @@
 
    Лицензия SIL OFL 1.1 лежит рядом, в docs/fonts/LICENSE-Inter.txt —
    по условию OFL лицензия обязана сопровождать шрифт. */
+/* FIX-42 (C2-01): было font-display: swap — текст успевал отрисоваться
+   системным шрифтом и затем переставлялся на Inter, давая CLS 0.29 на
+   index.html под медленной сетью (замер Playwright: один сдвиг 0.2883
+   на t=4775 мс, ровно в момент подмены шрифта). optional убирает подмену
+   после первой отрисовки: шрифт применяется, только если успел к ней,
+   иначе страница остаётся на системном до следующего захода (он уже
+   будет в кэше). Эти же файлы предзагружаются в <head> главной, чтобы
+   на нормальной сети Inter попадал в первую отрисовку. */
 @font-face { font-family: 'Inter'; font-weight: 400; font-style: normal;
-  src: url('fonts/inter-regular.woff2') format('woff2'); font-display: swap; }
+  src: url('fonts/inter-regular.woff2') format('woff2'); font-display: optional; }
 @font-face { font-family: 'Inter'; font-weight: 500; font-style: normal;
-  src: url('fonts/inter-medium.woff2') format('woff2'); font-display: swap; }
+  src: url('fonts/inter-medium.woff2') format('woff2'); font-display: optional; }
 @font-face { font-family: 'Inter'; font-weight: 600; font-style: normal;
-  src: url('fonts/inter-semibold.woff2') format('woff2'); font-display: swap; }
+  src: url('fonts/inter-semibold.woff2') format('woff2'); font-display: optional; }
 @font-face { font-family: 'Inter'; font-weight: 700; font-style: normal;
-  src: url('fonts/inter-bold.woff2') format('woff2'); font-display: swap; }
+  src: url('fonts/inter-bold.woff2') format('woff2'); font-display: optional; }
 @font-face { font-family: 'Inter'; font-weight: 800; font-style: normal;
-  src: url('fonts/inter-extrabold.woff2') format('woff2'); font-display: swap; }
+  src: url('fonts/inter-extrabold.woff2') format('woff2'); font-display: optional; }
 
 :root{
   /* ── Шаг 9: межстрочный интервал ── */
@@ -157,10 +165,12 @@
      с прежними (9 уникальных размеров). Свёртка к целевой шкале из 6
      ступеней — отдельная задача 1C (см. STAGE1B_TYPOGRAPHY.md, П4). */
   /* MOB-P2-11 (16.10.2026): минимальный кегль поднят до 12px (0.75rem).
-     --fs-1/--fs-2 сохранены для семантики, значения совпадают с --fs-3. */
-  --fs-1: .75rem;
-  --fs-2: .75rem;
-  --fs-3: .75rem;
+     V2-04 (24.10.2026): пол поднят до 14px (0.875rem) — 12px ниже
+     читаемого минимума. Ступени --fs-1…--fs-3 схлопнуты в нижнюю
+     границу шкалы: размеров меньше 14px в проекте быть не должно. */
+  --fs-1: .875rem;
+  --fs-2: .875rem;
+  --fs-3: .875rem;
   --fs-4: .875rem;
   --fs-5: 1rem;
   --fs-6: 1.1rem;
@@ -217,6 +227,123 @@
   --icon-critical: #fc8495;   /* критические состояния */
   --icon-neutral:  #a4aab5;   /* категория не опознана */
   --icon-github:   #8ab4d6;   /* кнопка «Доработать на GitHub» */
+  /* v5.6.5 Block 4 (O-02): токены вместо хардкода в .btn.c-* и карточках главной */
+  --icon-home:     #64748b;   /* кнопка «Главная» */
+  --icon-calc:     #3b82f6;   /* калькулятор */
+  --icon-mech:     #10b981;   /* карта взаимодействий */
+  --icon-atlas:    #8b5cf6;   /* атлас */
+  --icon-trends:   #ec4899;   /* тренды */
+  --icon-bi:       #06b6d4;   /* BI-дашборд */
+  --icon-support:  #7b61ff;   /* кнопка «Поддержать» */
+  --chart-a:       #3498db;   /* радар сравнения, серия 1 (compare.html) */
+  --chart-b:       #e67e22;   /* радар сравнения, серия 2 (compare.html) */
+  --on-accent:     #1a1a1a;   /* тёмный текст на янтарной плашке CTA */
+  /* O-02: парные стопы диагональных градиентов карточек главной
+     (цвета = прежние inline rgba из index.html). Градиенты ссылаются
+     только на эти токены: стопы должны оставаться читаемыми для
+     пробы контраста (color-mix() в стопах градиента запрещён гейтом
+     test_every_gradient_in_style_css_is_parsed). */
+  --t-calc-a: rgba(59,130,246,.15);     --t-calc-b: rgba(59,130,246,.04);
+  --t-mech-a: rgba(16,185,129,.15);     --t-mech-b: rgba(16,185,129,.04);
+  --t-trends-a: rgba(236,72,153,.15);   --t-trends-b: rgba(236,72,153,.04);
+  --t-bi-a: rgba(6,182,212,.15);        --t-bi-b: rgba(6,182,212,.04);
+  --t-featured-a: rgba(245,158,11,.18); --t-featured-b: rgba(139,92,246,.14);
+  /* v5.6.5 (V2-03): цвета, которые были жёсткими hex прямо в правилах.
+     Токены заведены по РОЛИ, а не по значению: --on-solid — текст на
+     цветной заливке (белый в обеих темах), --grade-X-fill — заливка
+     бейджа грейда (одинаковая в тёмной и светлой, поэтому html.light её
+     не переопределяет). Значения перенесены один в один: правка V2-03
+     не меняет ни одного пикселя, только точку объявления цвета.
+     Пары «светлая/тёмная» остались в селекторах html:not(.light) — там
+     токен назван с суффиксом -dark, чтобы не путать с базовым. */
+  --on-solid:      #fff;
+  --on-warn:       #222;
+  --grade-a-fill:  #15803d;
+  --grade-b-fill:  #4d7c0f;
+  --grade-c-fill:  #b45309;
+  --grade-d-fill:  #b91c1c;
+  --warn-tx:       #b45309;
+  --warn-fill:     #b45309;
+  --warn-tx-dark:  #e67e22;
+  --warn-medium-dark: #d4a017;
+  --ok-tx:         #2f7d4f;
+  --ok-tx-dark:    #3aa863;
+  --conflict-fill: #d62839;
+  --synergy-fill:  #2a8046;
+  --star:          #f1c40f;
+  --fav-idle:      #666;
+  --fav-hover:     #aaa;
+  --tab-on-tx-dark: #5aa9ff;
+  --gdot:          #bdc3c7;
+  --gBadge-tx:     #636efa;
+  --cmp-added-tx:  #2e7d32;
+  --h1-tx-light:   #1a1d21;
+  --h1-tx-dark:    #fafafa;
+  --critical-border: #991b1b;
+  --legend-syn:    #4caf50;
+  --legend-int:    #ff9800;
+  --legend-drug:   #9e9e9e;
+  --legend-tx:     #e2e8f0;
+  --sev-medium-soft-tx:   #ff7043;
+  --sev-critical-soft-tx: #ff5252;
+  --cta-fill:      #0a6bc9;
+  --badge-a-tx:    #7fc784;
+  --badge-b-tx:    #b7d68b;
+  --badge-c-tx:    #ffb74d;
+  --badge-d-tx:    #ef5350;
+  --skip-bg:       #000;
+  --tooltip-bg:    #333;
+  /* v5.6.5 (V2-06): палитра графа связей. Раньше жила жёсткими hex прямо
+     в docs/hactar.js — COLOR_SUP/COLOR_MECH/COLOR_DRUG/COLOR_LINK, карта
+     SEVERITY, обводки узлов и цвет рёбер. От темы не зависит: граф рисуется
+     в canvas, и «светлый» вариант палитры не запрашивался ни разу, поэтому
+     html.light эти токены не переопределяет. Суффикс -border — обводка узла,
+     подобранная к заливке вручную (не производная от неё). Значения
+     перенесены один в один: правка V2-06 не меняет ни одного пикселя. */
+  --graph-sup:         #2ecc71;
+  --graph-sup-border:  #1e8449;
+  --graph-mech:        #9b59b6;
+  --graph-mech-border: #7d3c98;
+  --graph-drug:        #e67e22;
+  --graph-drug-border: #a9590b;
+  --graph-link:        #3498db;
+  --graph-edge:        #6b7280;
+  --graph-label:       #ffffff;
+  --graph-sev-high:    #e74c3c;
+  --graph-sev-medium:  #f39c12;
+  --graph-sev-low:     #7f8c8d;
+
+  /* v5.6.5 (NV2-06): палитра графиков trends.html. Раньше цвета жили
+     литералами в JS (GRADE_COLOR / GRADE_BG) и в <style> самой страницы:
+     правка палитры требовала искать hex по файлу, а тема на них не влияла.
+     Значения перенесены один в один, график выглядит как раньше.
+     Серии грейдов отличаются от --grade-*-fill: там заливка под белый
+     текст (порог AA), здесь — цвет линии или столбца на фоне карточки. */
+  --chart-grade-a:     #22c55e;
+  --chart-grade-b:     #84cc16;
+  --chart-grade-c:     #f59e0b;
+  --chart-grade-d:     #ef4444;
+  --chart-grade-a-bg:  rgba(34, 197, 94, .7);
+  --chart-grade-b-bg:  rgba(132, 204, 22, .7);
+  --chart-grade-c-bg:  rgba(245, 158, 11, .7);
+  --chart-grade-d-bg:  rgba(239, 68, 68, .7);
+  /* Легенда scatter-матрицы: у A свой зелёный — так было с v3.1. */
+  --chart-grade-a-dot: rgba(16, 185, 129, .9);
+  --chart-grade-b-dot: rgba(132, 204, 22, .9);
+  --chart-grade-c-dot: rgba(245, 158, 11, .9);
+  --chart-grade-d-dot: rgba(239, 68, 68, .9);
+  --chart-cites-fill:   rgba(52, 152, 219, .8);
+  --chart-cites-border: #2980b9;
+  /* Подписи осей и сетка: переопределяются в html.light ниже. */
+  --chart-label:       #e9eaee;
+  --chart-grid:        rgba(128, 128, 128, .15);
+  /* Тона карточек-инсайтов (левая полоса). */
+  --tone-blue:         #3498db;
+  --tone-green:        #10b981;
+  --tone-red:          #ef4444;
+  --tone-orange:       #f59e0b;
+  /* Предупреждение о категории: янтарь, читаемый на карточке обеих тем. */
+  --warn-tx-amber:     #f59e0b;
 }
 /* v5.6.4 (#44): 7 токенов сдвинуты к белому. Не «для красоты» — подложка
    плашки .tagChip берёт тот же --ic через color-mix на 14%, и на тёмной
@@ -259,7 +386,7 @@
    намеренно: по замеру Шага 8.4 #8ecbff не рисуется ни на одной из
    17 страниц в светлой теме (0 вхождений), а в тёмной 24-54.
    Объявлять его для светлой — утверждение, которое ничего не проверяет. */
-html.light{--bg:#f5f5f7;--text:#1c1c1e;--card-bg:#fff;--border:#d1d1d6;--shadow:rgba(0,0,0,.08);--accent:#0062cc;--muted:#6e6e73;--shadow-lg: 0 12px 32px rgba(0,0,0,.16)}
+html.light{--bg:#f5f5f7;--text:#1c1c1e;--card-bg:#fff;--border:#d1d1d6;--shadow:rgba(0,0,0,.08);--accent:#0062cc;--muted:#6e6e73;--shadow-lg: 0 12px 32px rgba(0,0,0,.16);--chart-label:#1c1c1e;--chart-grid:rgba(0,0,0,.08)}
 
 /* v5.6.3 E1: палитра грейдов для СВЕТЛОЙ темы — те же значения, что
    v4.1 поставил на заливку чипов .grade.gX. Обоснование значений —
@@ -299,7 +426,7 @@ html.light{
    axe). До правки:
      .hint   opacity .6  (style.css:421)   → 4.49:1   порог 4.5
      .meta   opacity .7  (style.css:1625)  → 4.29:1   (+ .site-footer .85)
-     .copy   opacity .6  (style.css:1642)  → 3.32:1
+     .copy   opacity .6  → 3.32:1  (исправлено FIX-76, см. .site-footer .copy)
    Переопределение в html.light, а не правка базовых правил: тёмная тема на
    них держится, и её контрастные цифры после v5.4.0 не пересчитывались.
    Селекторы (0,2,1) перебивают базовые (0,1,0) и .site-footer .meta/.copy
@@ -308,8 +435,11 @@ html.light{
    тему», а её собственный долг (правило .top .v ниже), и он исправлен
    там же, в базовом правиле, для обеих тем. */
 html.light .hint { opacity: .85; }
+/* FIX-76 (WADA-01): правило html.light .copy{opacity:.85} убрано. Оно
+   гасило ту же ссылку «Data: CC BY 4.0» поверх var(--muted) до 2.8:1 в
+   светлой теме. Цвет теперь задаётся один раз в .site-footer .copy
+   непрозрачным var(--muted), и opacity больше не нужна. */
 html.light .meta { opacity: .85; }
-html.light .copy { opacity: .85; }
 *{box-sizing:border-box;margin:0;padding:0}
 
 /* v5.0.0 (Android): серый tap-highlight браузера проступал поверх фирменных
@@ -317,6 +447,13 @@ html.light .copy { opacity: .85; }
    и двойной-тап-зум, но НЕ отключает :hover-эффекты (в отличие от none). */
 *{-webkit-tap-highlight-color:transparent}
 button,a,.chip,.tr-tab,.favBtn,.preset,.chartTab,.profile-btn,.tagPreset{touch-action:manipulation}
+
+/* V2-04 (24.10.2026): браузерный стиль для <code>/<pre> — monospace 13px,
+   то есть ниже принятого в проекте пола 14px. Замер Playwright на 10
+   страницах: единственные элементы меньше 14px после правки шкалы — это
+   <code> с UA-кеглем 13px (methodology, faq, index). 1em наследует кегль
+   абзаца, поэтому код остаётся в шкале и не спорит с окружением. */
+code,kbd,samp,pre{font-size:var(--fs-4)}
 
 /* ===== v4.1: навигация с клавиатуры — видимый фокус (WCAG 2.4.7) ===== */
 /* Раньше outline не задавался нигде: фокус ставился, но был не виден */
@@ -332,6 +469,14 @@ button,a,.chip,.tr-tab,.favBtn,.preset,.chartTab,.profile-btn,.tagPreset{touch-a
    слово только тогда, когда оно физически не влезает в строку, поэтому на
    обычном русском/английском тексте раскладку не трогает. */
 body{background:var(--bg);color:var(--text);padding:var(--space-6);transition:background .25s,color .25s;max-width:1200px;margin:0 auto;line-height:var(--lh-normal);overflow-wrap:break-word}
+
+/* CWV-01 (BATCH-3): в EN страница сначала рисуется по-русски, а через
+   100–160 мс приходит перевод и текст подменяется — это давало CLS до
+   0,247 при пороге «poor» 0,1. Класс ставит i18n.js (подключён в <head>,
+   до первой отрисовки) и снимает, когда перевод применён. Место под main
+   сохраняется, поэтому layout не «прыгает». visibility, а не display:
+   display:none пересчитал бы поток и дал тот же шифт в момент показа. */
+html.i18n-pending main { visibility: hidden; }
 header{display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-6);flex-wrap:wrap;gap:var(--space-4)}
 h1{font-size:var(--fs-9);font-weight:600}
 .hdr{display:flex;gap:.6rem;align-items:center}
@@ -339,7 +484,7 @@ h1{font-size:var(--fs-9);font-weight:600}
 /* v4.1: белый на #3498db давал 3.15:1 — заливка затемнена до 5.42:1 в обеих темах */
 .btn.calc {
   background: var(--grad-calc);
-  color: #fff !important;
+  color: var(--on-solid) !important;
   border: none;
   font-weight: 600;
   box-shadow: var(--shadow-calc);
@@ -463,6 +608,10 @@ select{background:var(--card-bg);color:var(--text);border:1px solid var(--border
    задаёт нижнюю границу, а если padding уже даёт больше — не мешает.
    trends.html с 34px до 46px поднят отдельно, локальным правилом. */
 select{min-height:44px}
+/* I2-01 (FIX-52): переключатель языка в навбаре. Базовый вид (фон, рамка,
+   радиус, 44px по высоте) даёт общее правило select выше — здесь только
+   отступ от кнопки темы, чтобы селектор к ней не лип. */
+.lang-select{margin-inline-start:var(--space-2)}
 /* v5.0.0 mobile: iOS Safari зумит страницу при фокусе на поле с font-size < 16px,
    после чего появляется горизонтальный скролл. Базовый порог 16px для всех полей.
    Страничные правила вида `.params input{font-size:.9rem}` (calculator.html:45,48,61),
@@ -475,7 +624,7 @@ input,select,textarea{font-family:inherit;font-size:var(--fs-5)}
 #cardsGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.2rem}
 .card{background:var(--card-bg);border:1px solid var(--border);border-radius:10px;padding:var(--space-4) 1.2rem;box-shadow:var(--shadow-sm);position:relative}
 .card .card-title{display:block;font-size:var(--fs-6);font-weight:700;margin-bottom:var(--space-0-3)}
-.card .verdict{display:inline-block;font-size:var(--fs-4);padding:var(--space-0-2) .6rem;border-radius:20px;color:#fff;margin-bottom:var(--space-2)}
+.card .verdict{display:inline-block;font-size:var(--fs-4);padding:var(--space-0-2) .6rem;border-radius:20px;color:var(--on-solid);margin-bottom:var(--space-2)}
 .card .price{font-weight:500;color:var(--accent)}
 .card .effects{font-size:var(--fs-4);margin-top:.4rem;opacity:.8}
 .card .effects span{background:var(--bg);padding:.1rem var(--space-2);border-radius:var(--radius-xl);margin-inline-end:var(--space-0-3);display:inline-block;margin-bottom:var(--space-0-2)}
@@ -513,16 +662,120 @@ footer p{margin-bottom:var(--space-2)}
    ВАЖНО: padding-top у #modal НЕ сдвигает абсолютно спозиционированную
    кнопку (для abs-потомков containing block — padding box родителя),
    поэтому правило для кнопки нужно отдельное. */
-#modalClose{position:absolute;top:max(.6rem,env(safe-area-inset-top,0px));inset-inline-end:.6rem;width:auto}
+#modalClose{position:absolute;top:max(.6rem,env(safe-area-inset-top,0px));inset-inline-end:.6rem;width:auto;min-width:44px;min-height:44px;display:inline-flex;align-items:center;justify-content:center;font-size:1.5rem}
 #modal h2{margin-bottom:.4rem}
 #modal .mrow{margin:.35rem 0;font-size:var(--fs-4)}
 #modal .warn{color:var(--sev-critical)}
 /* v4.3: в тёмной теме #c0392b даёт 2.56:1 на карточке */
 html:not(.light) #modal .warn{color:var(--sev-critical-dark)}
-.skeleton { min-height: 170px; border-radius: var(--radius-xl);
-  background: var(--grad-shimmer);
-  background-size: 200% 100%; animation: sh 1.2s infinite; }
-@keyframes sh { to { background-position: -200% 0; } }
+/* ===== v5.6.5: блок «Где купить» в модалке ===== */
+#modal .shopBlock{margin:.5rem 0;border:1px solid var(--border);border-radius:var(--radius-lg);background:var(--bg)}
+#modal .shopTitle{font-weight:700;font-size:var(--fs-4);margin:.4rem .6rem .2rem}
+#modal .shopButtons{display:flex;gap:.5rem;flex-wrap:wrap;margin:.2rem .6rem .6rem}
+#modal .shopBtn{
+  flex:1 1 auto;min-width:0;
+  display:inline-flex;align-items:center;justify-content:center;
+  gap:.35rem;padding:.5rem .7rem;border:1px solid var(--border);border-radius:var(--radius);
+  background:var(--card-bg);color:var(--text);text-decoration:none;font-size:var(--fs-4);line-height:1.2;
+}
+#modal .shopBtn:hover{border-color:var(--accent)}
+#modal .shopBtn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+#modal .shopLookBlock{margin:.5rem 0 0;padding:.5rem .6rem;border:1px solid var(--border);border-radius:var(--radius);background:var(--bg)}
+#modal .shopLookTitle{font-weight:700;font-size:var(--fs-4);margin:0 0 .2rem}
+#modal .shopLookText{font-size:var(--fs-4);margin:0 0 .25rem;opacity:.9}
+#modal .shopLookDose{font-size:var(--fs-4);margin:0;font-weight:600}
+html:not(.light) #modal .shopBtn{color:var(--text);border-color:var(--border)}
+html:not(.light) #modal .shopBtn:hover{border-color:var(--accent-2)}
+/* ===== мобильная вёрстка модалки (<=480px, в т.ч. 412px) ===== */
+@media(max-width:480px){
+  #modal .shopButtons{flex-direction:column;gap:.4rem}
+  #modal .shopBtn{width:100%;justify-content:center}
+}
+@media (prefers-reduced-motion: no-preference) {
+  .skeleton { aspect-ratio: 3 / 4; border-radius: var(--radius-xl);
+    background: var(--grad-shimmer);
+    background-size: 200% 100%; animation: sh 1.2s infinite; }
+  @keyframes sh { to { background-position: -200% 0; } }
+}
+@media (prefers-reduced-motion: reduce) {
+  .skeleton { animation: none !important; }
+}
+/* v5.6.5 V-11: было фиксированное min-height:170px — скелетон не совпадал
+   с реальной высотой .card ни на десктопе (367px @1280), ни на мобильном
+   (~292px @375) → прыжок вёрстки при загрузке (CLS). aspect-ratio
+   подгоняет блок под метрику реальных карточек. */
+@media (max-width: 620px) {
+  .skeleton { aspect-ratio: 4 / 5; }
+}
+
+/* ===== v5.6.5 Block 7.8: UI Polish — анимации и микро-интеракции =====
+   Всё внутри @media (prefers-reduced-motion: no-preference), чтобы
+   пользователи с «уменьшить движение» в ОС не получали анимации. */
+@media (prefers-reduced-motion: no-preference) {
+  /* 1. Плавное переключение табов (interactions.html) */
+  @keyframes fadeInSlideUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  [data-panel].active {
+    animation: fadeInSlideUp 0.3s ease-out both;
+  }
+
+  /* 4. Пульс при добавлении в Сравнение (map.html .cmpBtn) */
+  @keyframes pop {
+    0%   { transform: scale(1); }
+    50%  { transform: scale(1.2); }
+    100% { transform: scale(1); }
+  }
+  .cmpBtn.pop {
+    animation: pop 0.3s ease-out both;
+  }
+
+  /* 4. Bounce на липкой панели сравнения (map.html #cmpPanel.open) */
+  @keyframes bounce {
+    0%   { transform: translateY(0); }
+    50%  { transform: translateY(-6px); }
+    100% { transform: translateY(0); }
+  }
+  #cmpPanel.open.bounce {
+    animation: bounce 0.4s ease-out both;
+  }
+
+  /* 6. Focus-эффект графа: не-фокусные узлы полупрозрачны */
+  .graph-dimmed .vis-node:not(.focused) {
+    opacity: 0.2;
+    transition: opacity 0.3s ease;
+  }
+}
+
+/* 5. Тултипы на бейджах Grade (data-tooltip) — без анимации, работает всегда */
+[data-tooltip] {
+  position: relative;
+  cursor: default;
+}
+[data-tooltip]::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 125%;
+  inset-inline-start: 50%;
+  transform: translatex(-50%);
+  padding: .3rem .6rem;
+  border-radius: var(--radius-md);
+  background: var(--bg);
+  color: var(--fg);
+  font-size: var(--fs-4);
+  font-weight: 400;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .15s ease;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  z-index: var(--z-tooltip);
+}
+[data-tooltip]:hover::after {
+  opacity: 1;
+}
 /* ===== v1.2: мобильная адаптация нового UI ===== */
 @media (max-width: 768px) {
   body { padding: var(--space-4); }
@@ -535,7 +788,11 @@ html:not(.light) #modal .warn{color:var(--sev-critical-dark)}
   .row { flex-direction: column; }
   .row > div { width: 100%; }
   .row button { width: 100%; }
-  select { width: 100%; }
+  /* VIS-01: правило задумывалось для форм, но растягивало и селектор
+     языка в шапке (#langSelect.lang-select) — на 768px шапка вырастала
+     вдвое, навигация уезжала в горизонтальную прокрутку. Язык исключён,
+     остальные select на мобильном по-прежнему занимают всю ширину. */
+  select:not(.lang-select) { width: 100%; }
   #compareResult { font-size: var(--fs-4); overflow-x: auto; }
   #compareResult th, #compareResult td { padding: .4rem; }
   #modal { padding: var(--space-4); max-height: 90vh; }
@@ -575,7 +832,7 @@ html:not(.light) .calcResult .warn { color: var(--sev-critical-dark); }
 .favBtn {
   position: absolute; top: .5rem; inset-inline-end: .6rem;
   background: transparent; border: none; padding: 0;
-  color: #666; font-size: var(--fs-8); line-height: 1;
+  color: var(--fav-idle); font-size: var(--fs-8); line-height: 1;
   cursor: pointer; z-index: var(--z-inline);
   transition: color .15s, transform .15s;
   /* v5.0.0 mobile: было 18×22px (ширина = ширина глифа ☆ при padding:0) против
@@ -591,15 +848,15 @@ html:not(.light) .calcResult .warn { color: var(--sev-critical-dark); }
    Сам текст подписи короткий и прижат влево, визуально наезд не был виден —
    правило убирает именно зону тапа. 52px = 44px звезда + 4px отступ + запас. */
 .card .cat { max-width: calc(100% - 52px); }
-@media (hover:hover){.favBtn:hover { color: #aaa; transform: scale(1.2); }}
+@media (hover:hover){.favBtn:hover { color: var(--fav-hover); transform: scale(1.2); }}
 /* v4.2: в светлой теме #f1c40f давал 1.53:1 — тёмное золото, в тёмной теме
    возвращаем исходный яркий оттенок (там он даёт 8.4:1). */
 .favBtn.on { color: var(--sev-medium); text-shadow: 0 0 8px rgba(138, 104, 0, .45); }
 .favFilter { margin-inline-start: var(--space-2); padding: var(--space-2) .8rem; border: 1px solid var(--border);
              border-radius: var(--radius-md); background: var(--card-bg); color: var(--text); cursor: pointer; }
 .favFilter.on { border-color: var(--sev-medium); color: var(--sev-medium); }
-html:not(.light) .favBtn.on { color: #f1c40f; text-shadow: 0 0 8px rgba(241, 196, 15, .55); }
-html:not(.light) .favFilter.on { border-color: #f1c40f; color: #f1c40f; }
+html:not(.light) .favBtn.on { color: var(--star); text-shadow: 0 0 8px rgba(241, 196, 15, .55); }
+html:not(.light) .favFilter.on { border-color: var(--star); color: var(--star); }
 /* ===== v1.3: подсветка карточки после модалки ===== */
 .card.flash {
   box-shadow: var(--shadow-flash);
@@ -678,7 +935,7 @@ footer, .site-footer { padding-bottom: env(safe-area-inset-bottom, 0px); }
 }
 
 /* 3. Градиентные бейджи вердиктов */
-.verdict { border: none; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.3); font-weight: 600; }
+.verdict { border: none; color: var(--on-solid); text-shadow: 0 1px 2px rgba(0,0,0,.3); font-weight: 600; }
 /* v4.1: градиентные правила .verdict ниже перебиваются сплошными !important
    из блока v3.1 выше; удалены как мёртвые. */
 
@@ -691,7 +948,7 @@ footer, .site-footer { padding-bottom: env(safe-area-inset-bottom, 0px); }
 .bestBadge {
   display: inline-block; margin: 0 0 .35rem 0;
   font-size: var(--fs-4); font-weight: 700;
-  padding: .18rem var(--space-2); border-radius: var(--radius-pill); color: #222;
+  padding: .18rem var(--space-2); border-radius: var(--radius-pill); color: var(--on-warn);
   background: var(--grad-badge);
   box-shadow: var(--shadow-badge);
 }
@@ -733,7 +990,7 @@ font-size:var(--fs-7);cursor:pointer;opacity:0;pointer-events:none;transition:.2
 /* v4.3: белый на заливке — контраст от темы не зависит, поэтому затемняем
    базовые правила. Замеры: .conflict-banner было 3.34:1, .conflict-banner.medium
    2.85:1, .synergy-banner 4.32:1. */
-.conflict-banner{background:#d62839;color:#fff;padding:var(--space-4);text-align:center;font-weight:600;
+.conflict-banner{background:var(--conflict-fill);color:var(--on-solid);padding:var(--space-4);text-align:center;font-weight:600;
 position:sticky;top:0;z-index:var(--z-banner);animation:fadeIn .25s}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 
@@ -765,24 +1022,26 @@ position:sticky;top:0;z-index:var(--z-banner);animation:fadeIn .25s}
 .hline{margin-top:var(--space-1);opacity:.85}
 /* v4.3: цвет текста на фоне темы — в светлой теме нужен тёмный зелёный
    (было 3.97:1), в тёмной — светлый (было 3.22:1). */
-.goodPair{color:#2f7d4f;font-weight:600}
-html:not(.light) .goodPair{color:#3aa863}
+.goodPair{color:var(--ok-tx);font-weight:600}
+html:not(.light) .goodPair{color:var(--ok-tx-dark)}
 .sev{font-size:var(--fs-4);margin:.15rem 0}
 /* v4.2: цвет текста на фоне темы (фактически --bg, не карточка) — в светлой
    теме нужны тёмные варианты. Замеры: .sev-critical было 3.51:1,
    .sev-high 2.62:1, .sev-medium 2.72:1. */
 .sev-critical{color:var(--sev-critical);font-weight:600}
-.sev-high{color:#b45309}
+.sev-high{color:var(--warn-tx)}
 .sev-medium{color:var(--sev-medium)}
 /* в тёмной теме обратно к светлым оттенкам */
 html:not(.light) .sev-critical{color:var(--sev-critical-dark)}
-html:not(.light) .sev-high{color:#e67e22}
-html:not(.light) .sev-medium{color:#d4a017}
+html:not(.light) .sev-high{color:var(--warn-tx-dark)}
+.cmp-error{color:var(--sev-critical)}
+html:not(.light) .cmp-error{color:var(--sev-critical-dark)}
+html:not(.light) .sev-medium{color:var(--warn-medium-dark)}
 .sev-low{color:var(--text);opacity:.7}
 
 /* ===== v2.3: живой баннер — medium (оранжевый), synergy (зелёный) ===== */
-.conflict-banner.medium{background:#b45309}
-.synergy-banner{background:#2a8046;color:#fff;padding:var(--space-4);text-align:center;font-weight:600;
+.conflict-banner.medium{background:var(--warn-fill)}
+.synergy-banner{background:var(--synergy-fill);color:var(--on-solid);padding:var(--space-4);text-align:center;font-weight:600;
 position:sticky;top:0;z-index:var(--z-banner);animation:fadeIn .25s}
 
 /* ===== v2.4: вкладки графика, грейды A–D ===== */
@@ -791,7 +1050,16 @@ position:sticky;top:0;z-index:var(--z-banner);animation:fadeIn .25s}
   padding:.45rem .9rem;border-radius:var(--radius-md);cursor:pointer;font-size:var(--fs-4);font-weight:500}
 .chartTab.on{border-color:var(--accent);color:var(--accent);box-shadow:var(--shadow-tab-on)}
 .grade{display:inline-block;font-size:var(--fs-4);font-weight:700;padding:.15rem .55rem;
-  border-radius:var(--radius-pill);color:#fff;vertical-align:middle;margin-inline-start:var(--space-0-3)}
+  border-radius:var(--radius-pill);color:var(--on-solid);vertical-align:middle;margin-inline-start:var(--space-0-3)}
+/* v5.6.5: PMID-счётчик в карточке (бейдж "🔬 N иссл.") */
+.pmidBadge{display:inline-block;padding:.1rem .5rem;border-radius:var(--radius-pill);background:rgba(52,152,219,.15);color:var(--accent,#3498db);border:1px solid rgba(52,152,219,.4);font-size:var(--fs-4);font-weight:600;vertical-align:middle;margin-inline-start:var(--space-0-3)}
+html:not(.light) .pmidBadge{background:rgba(52,152,219,.1);border-color:rgba(52,152,219,.35)}
+/* v5.6.5: бейдж размера эффекта Hedges' g */
+.gBadge{display:inline-block;padding:.05rem .4rem;border-radius:var(--radius-pill);background:rgba(99,110,250,.12);color:var(--gBadge-tx);border:1px solid rgba(99,110,250,.35);font-size:var(--fs-4);font-weight:600;vertical-align:middle;margin-inline-start:.3rem}
+html:not(.light) .gBadge{background:rgba(99,110,250,.08);border-color:rgba(99,110,250,.3)}
+/* v5.6.5: блок «Что мы не знаем» — честность, а не ошибка */
+.unknowns{margin-top:var(--space-2);padding:.5rem .75rem;border-radius:var(--radius-md);background:rgba(99,110,250,.07);border:1px solid rgba(99,110,250,.22);color:var(--muted,#6e6e73);font-size:var(--fs-4);line-height:1.45}
+html:not(.light) .unknowns{background:rgba(99,110,250,.05);border-color:rgba(99,110,250,.18)}
 /* v4.1: .gA–.gD перебивались .grade.gX с !important (специфичность 0,2,0
    против 0,1,0) и в разметке не использовались — удалены как мёртвые. */
 
@@ -885,7 +1153,7 @@ body.trends-page .trustbar { position: sticky; top: 0; z-index: var(--z-header);
 
 /* ===== v2.6: 5-точечный бейдж доверия (грейд) ===== */
 .gdots{display:inline-flex;gap:3px;vertical-align:middle;margin-inline-start:.35rem}
-.gdots i{width:10px;height:10px;border-radius:50%;background:#bdc3c7;display:inline-block}
+.gdots i{width:10px;height:10px;border-radius:50%;background:var(--gdot);display:inline-block}
 .gdots i.on{box-shadow:var(--shadow-dot)}
 .vwait{font-size:var(--fs-4);opacity:.6;margin-inline-start:.4rem;font-style:italic}
 
@@ -1093,10 +1361,10 @@ html:not(.light) .chip a:visited { color: var(--link-tx-dark); }
 .preset{padding:.4rem .8rem;border-radius:20px;background:var(--card-bg);border:1px solid var(--border);cursor:pointer;font-size:var(--fs-4);transition:all .15s}
 /* v4.1: var(--accent) давал белым 3.65:1 в тёмной теме — фиксированная
    заливка #1f5fbf даёт 6.09:1 в обеих */
-.preset.on{background:var(--chip-on-bg);color:#fff;border-color:var(--chip-on-bg)}
+.preset.on{background:var(--chip-on-bg);color:var(--on-solid);border-color:var(--chip-on-bg)}
 @media (hover:hover){.preset:hover{border-color:var(--accent)}}
 .activeFilters{display:flex;gap:.4rem;flex-wrap:wrap;margin:var(--space-2) 0;font-size:var(--fs-4)}
-.activeFilters .chip{background:var(--chip-on-bg);color:#fff;padding:var(--space-1) .6rem;border-radius:var(--radius-xl);display:inline-flex;align-items:center;gap:var(--space-0-3);min-height:44px}
+.activeFilters .chip{background:var(--chip-on-bg);color:var(--on-solid);padding:var(--space-1) .6rem;border-radius:var(--radius-xl);display:inline-flex;align-items:center;gap:var(--space-0-3);min-height:44px}
 .activeFilters .chip .x{cursor:pointer;opacity:.8}
 .activeFilters .chip .x:hover{opacity:1}
 
@@ -1120,6 +1388,7 @@ html:not(.light) .chip a:visited { color: var(--link-tx-dark); }
   #modal,#modalBody{overflow-x:hidden!important;word-break:break-word}
   #modal *{max-width:100%!important;min-width:0!important;box-sizing:border-box}
   #modal a,#modal .srcIcon,#modal .chip-pmid,#modal .mrow{word-break:break-word;overflow-wrap:anywhere}
+.src-meta a{overflow-wrap:anywhere}
   #modal .srcRow,#modal .shareRow{flex-wrap:wrap!important}
   #modal img,#modal canvas{max-width:100%!important;height:auto}
   #controls{flex-direction:column;gap:var(--space-2)}
@@ -1153,17 +1422,17 @@ html:not(.light) .chip a:visited { color: var(--link-tx-dark); }
 html:not(.light) a.btn{text-decoration:none}
 
 /* ===== v3.1: палитра грейдов A-D (зелёный/лайм/янтарь/красный) ===== */
-.grade.gA { background: #15803d !important; color: #fff !important; border-color: #15803d !important; }
-.grade.gB { background: #4d7c0f !important; color: #fff !important; border-color: #4d7c0f !important; }
-.grade.gC { background: #b45309 !important; color: #fff !important; border-color: #b45309 !important; }
-.grade.gD { background: #b91c1c !important; color: #fff !important; border-color: #b91c1c !important; }
+.grade.gA { background: var(--grade-a-fill) !important; color: var(--on-solid) !important; border-color: var(--grade-a-fill) !important; }
+.grade.gB { background: var(--grade-b-fill) !important; color: var(--on-solid) !important; border-color: var(--grade-b-fill) !important; }
+.grade.gC { background: var(--grade-c-fill) !important; color: var(--on-solid) !important; border-color: var(--grade-c-fill) !important; }
+.grade.gD { background: var(--grade-d-fill) !important; color: var(--on-solid) !important; border-color: var(--grade-d-fill) !important; }
 
 /* вердикты в тон палитре */
 
 /* вердикты в тон палитре грейдов (v3.1) */
-.verdict.v1  { background: #15803d !important; }
-.verdict.v0  { background: #b45309 !important; }
-.verdict.v-1 { background: #b91c1c !important; }
+.verdict.v1  { background: var(--grade-a-fill) !important; }
+.verdict.v0  { background: var(--grade-c-fill) !important; }
+.verdict.v-1 { background: var(--grade-d-fill) !important; }
 
 /* ===== v4.1: контраст белого текста на заливке — обе темы (WCAG AA) ===== */
 /* Замеры до правки: .grade.gB 1.98:1, .grade.gC 2.15:1, .grade.gA 2.28:1,
@@ -1179,7 +1448,7 @@ html:not(.light) a.btn{text-decoration:none}
    переопределение остаётся только для тёмной темы. В светлой var(--accent)
    #0062cc на белом даёт 5.80:1 и проходит без правок. */
 html:not(.light) .chartTab.on {
-  border-color: #5aa9ff; color: #5aa9ff; box-shadow: var(--shadow-tab-on-dark);
+  border-color: var(--tab-on-tx-dark); color: var(--tab-on-tx-dark); box-shadow: var(--shadow-tab-on-dark);
 }
 
 /* v3.1: плоские цвета вердиктов */
@@ -1516,11 +1785,11 @@ h1 a:first-child::before, .top .site-title a:first-child::before {
 }
 html.light h1,
 html.light h1 a, html.light .top .site-title a {
-  color: #1a1d21 !important;
+  color: var(--h1-tx-light) !important;
 }
 html:not(.light) h1,
 html:not(.light) h1 a, html:not(.light) .top .site-title a {
-  color: #fafafa !important;
+  color: var(--h1-tx-dark) !important;
 }
 /* v5.6.4 (#44): opacity .65 убрана, color остался var(--muted).
    Версия в шапке стояла на !important, поэтому переопределение
@@ -1762,7 +2031,6 @@ body.modal-open { overflow: hidden; }
      1rem = 16px. Замер и обоснование: reports/V550.md, A1. */
   font-size: var(--fs-5);
   color: var(--text);
-  opacity: .85;
   line-height: 1.55;
 }
 .site-footer p { margin: var(--space-2) 0; }
@@ -1786,7 +2054,14 @@ body.modal-open { overflow: hidden; }
   padding: .8rem 0;
 }
 .site-footer .links a:hover { text-decoration: underline; }
-.site-footer .copy { opacity: .6; font-size: var(--fs-5); }
+/* v5.6.5 FIX-76 (WADA-01): контраст строки копирайта. Раньше здесь была
+   цепочка прозрачностей — .site-footer{opacity:.85} × .copy{opacity:.6}
+   (а в светлой теме ещё html.light .copy{.85}) — итог α≈0.51, и ссылка
+   «Data: CC BY 4.0» давала 3.52:1 при пороге AA 4.5:1. Прозрачность
+   контейнера дочерним элементом не компенсируется, поэтому opacity снята
+   и у подвала: вместо неё — непрозрачный var(--muted). Цифры: 6.07:1 на
+   тёмном --bg и 4.68:1 на светлом --bg (axe-core 4.13.0, 1280 и 412). */
+.site-footer .copy { color: var(--muted); font-size: var(--fs-5); }
 
 /* v5.6.2 P1 (тач-таргеты): <summary> без собственного правила даёт бокс 24px.
    Замерено 2026-10-07 (Playwright, Chromium): 12 штук на faq.html — это
@@ -1822,6 +2097,16 @@ summary {
   outline-offset: 2px;
 }
 .qa-details[open] > summary { margin-bottom: var(--space-3); }
+/* v5.6.5 FIX-76 (WADA-02): контейнер .qaGrid остаётся в Tab-порядке
+   (tabindex="0"), потому что на мобильном это скроллируемая область
+   (overflow-x:auto в медиазапросе ниже) — без tabindex axe даёт
+   scrollable-region-focusable (WCAG 2.1.1). Но остановка Tab обязана быть
+   видимой: у контейнера раньше не было :focus-visible, и axe-обход
+   фиксировал «фокус без индикатора» (WCAG 2.4.7). */
+.qaGrid:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
 
 /* ═══ Главная: кнопки фильтра в один ряд (v5.5.0 A3) ═══ */
 /* Раньше favFilter и resetFilters стояли стопкой и занимали 96px.
@@ -1857,21 +2142,41 @@ summary {
 .glossary-section > p { max-width: 72ch; margin-bottom: var(--space-4); }
 
 /* ═══ Цветные кнопки навбара (палитра карточек главной) ═══ */
-.btn.c-home   { border-color: #64748b; background: rgba(100,116,139,.12); }
-.btn.c-calc   { border-color: #3b82f6; background: rgba(59,130,246,.12); }
-.btn.c-mech   { border-color: #10b981; background: rgba(16,185,129,.12); }
-.btn.c-links  { border-color: var(--inter-medium); background: rgba(245,158,11,.12); }
-.btn.c-atlas  { border-color: #8b5cf6; background: rgba(139,92,246,.12); }
-.btn.c-trends { border-color: #ec4899; background: rgba(236,72,153,.12); }
-.btn.c-bi     { border-color: #06b6d4; background: rgba(6,182,212,.12); }
-.btn.c-graph     { border-color: var(--inter-high); background: rgba(239,68,68,.12); }
-.btn.c-feedback  { border-color: var(--inter-low); background: rgba(132,204,22,.12); }
-.btn.c-refresh  { border-color: #6366f1; background: rgba(99,102,241,.12); }
-.btn.c-support  { border-color: #7b61ff; background: rgba(123,97,255,.12); }
+/* v5.6.5 Block 4 (O-02/V-01..V-08): хардкод заменён на токены; 12%/8%
+   подобраны как точный эквивалент прежних rgba(...,.12)/rgba(...,.08). */
+.btn.c-home   { border-color: var(--icon-home); background: color-mix(in srgb, var(--icon-home) 12%, transparent); }
+.btn.c-calc   { border-color: var(--icon-calc); background: color-mix(in srgb, var(--icon-calc) 12%, transparent); }
+.btn.c-mech   { border-color: var(--icon-mech); background: color-mix(in srgb, var(--icon-mech) 12%, transparent); }
+.btn.c-links  { border-color: var(--inter-medium); background: color-mix(in srgb, var(--inter-medium) 12%, transparent); }
+.btn.c-atlas  { border-color: var(--icon-atlas); background: color-mix(in srgb, var(--icon-atlas) 12%, transparent); }
+.btn.c-trends { border-color: var(--icon-trends); background: color-mix(in srgb, var(--icon-trends) 12%, transparent); }
+.btn.c-bi     { border-color: var(--icon-bi); background: color-mix(in srgb, var(--icon-bi) 12%, transparent); }
+.btn.c-graph     { border-color: var(--inter-high); background: color-mix(in srgb, var(--inter-high) 12%, transparent); }
+.btn.c-feedback  { border-color: var(--inter-low); background: color-mix(in srgb, var(--inter-low) 12%, transparent); }
+.btn.c-support  { border-color: var(--icon-support); background: color-mix(in srgb, var(--icon-support) 12%, transparent); }
 /* v5.6.2 E4: кнопка GitHub была единственной серой .btn без класса
    в блоке «Как помочь проекту». Фирменный чёрный GitHub не годится
    ни в одной из двух тем, поэтому взят стальной #8ab4d6 / #3f5b73. */
 .btn.c-github  { border-color: var(--icon-github); background: color-mix(in srgb, var(--icon-github) 12%, transparent); }
+/* Кнопки темы и случайной добавки — цветовая заливка, чтобы не выбивались
+   из дизайна наравне с .c-feedback и .c-support (U2-01 / MAN-01). */
+.btn.c-theme  { border-color: var(--icon-trends); background: color-mix(in srgb, var(--icon-trends) 12%, transparent); }
+.btn.c-random { border-color: var(--icon-bi);   background: color-mix(in srgb, var(--icon-bi)   12%, transparent); }
+
+/* U2-05 (25.10.2026): у «Удиви меня» микроинтеракция была слабее, чем у
+   соседних кнопок: общий .btn:active (scale .98 + opacity .8) на маленькой
+   цветной кнопке читался как «ничего не произошло». Теперь кнопка проседает
+   на 1px и получает вдавленную тень — отклик виден и на мобильном, где
+   :hover не срабатывает. Правило специфичнее .btn:active (0,3,0 против
+   0,2,0), поэтому transform перебивается без !important. */
+.btn.c-random {
+  transition: transform .1s ease, box-shadow .1s ease, filter .1s ease;
+}
+.btn.c-random:active {
+  transform: translateY(1px) scale(.97);
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, .22);
+  filter: brightness(.96);
+}
 
 /* Рамка при наведении. Правило одно здесь, а не в локальных
    <style> на 6 страницах (на atlas — дважды); на 11 страницах его
@@ -1882,19 +2187,28 @@ summary {
 
 
 /* В светлой теме — чуть плотнее фон для контраста */
-html.light .btn.c-home   { background: rgba(100,116,139,.08); }
-html.light .btn.c-calc   { background: rgba(59,130,246,.08); }
-html.light .btn.c-mech   { background: rgba(16,185,129,.08); }
-html.light .btn.c-links  { background: rgba(245,158,11,.08); }
-html.light .btn.c-atlas  { background: rgba(139,92,246,.08); }
-html.light .btn.c-trends { background: rgba(236,72,153,.08); }
-html.light .btn.c-bi     { background: rgba(6,182,212,.08); }
-html.light .btn.c-graph     { background: rgba(239,68,68,.08); }
-html.light .btn.c-feedback  { background: rgba(132,204,22,.08); }
-html.light .btn.c-refresh  { background: rgba(99,102,241,.08); }
-html.light .btn.c-support  { background: rgba(123,97,255,.08); }
+html.light .btn.c-home   { background: color-mix(in srgb, var(--icon-home) 8%, transparent); }
+html.light .btn.c-calc   { background: color-mix(in srgb, var(--icon-calc) 8%, transparent); }
+html.light .btn.c-mech   { background: color-mix(in srgb, var(--icon-mech) 8%, transparent); }
+html.light .btn.c-links  { background: color-mix(in srgb, var(--inter-medium) 8%, transparent); }
+html.light .btn.c-atlas  { background: color-mix(in srgb, var(--icon-atlas) 8%, transparent); }
+html.light .btn.c-trends { background: color-mix(in srgb, var(--icon-trends) 8%, transparent); }
+html.light .btn.c-bi     { background: color-mix(in srgb, var(--icon-bi) 8%, transparent); }
+html.light .btn.c-graph     { background: color-mix(in srgb, var(--inter-high) 8%, transparent); }
+html.light .btn.c-feedback  { background: color-mix(in srgb, var(--inter-low) 8%, transparent); }
+html.light .btn.c-support  { background: color-mix(in srgb, var(--icon-support) 8%, transparent); }
 /* v5.6.2 E4: в светлой теме подложка плотнее, как у остальных c-* */
 html.light .btn.c-github  { background: color-mix(in srgb, var(--icon-github) 8%, transparent); }
+html.light .btn.c-theme  { background: color-mix(in srgb, var(--icon-trends) 8%, transparent); }
+html.light .btn.c-random { background: color-mix(in srgb, var(--icon-bi)   8%, transparent); }
+
+/* ===== v5.6.5: sup-страницы — блок мета (PMID, «+ Сравнить», магазины) ===== */
+.sup-meta{display:flex;flex-wrap:wrap;gap:0.55rem;align-items:center;margin:0.8rem 0}
+.cmpAdded{color:var(--cmp-added-tx);font-weight:700;display:none;margin-left:0.4rem}
+.shops{display:flex;flex-wrap:wrap;gap:0.45rem;margin-top:0.35rem}
+.shop{padding:.32rem .68rem;border:1px solid var(--aborder);border-radius:var(--radius-pill);background:var(--apanel);color:var(--atext);text-decoration:none;font-size:var(--fs-4)}
+.shop:hover{border-color:var(--border-hover)}
+.pmidBadge{display:inline-block;padding:.12rem .5rem;border-radius:var(--radius-pill);background:rgba(31,111,165,.18);color:var(--info-fill);border:1px solid rgba(31,111,165,.45);font-size:var(--fs-4);margin-inline-end:.35rem}
 
 /* ===== v5.0.0 mobile: логотип-ссылка в шапке (тап-таргет 44px) =====
    Правило стоит ПОСЛЕ @media(max-width:480px), потому что там
@@ -1929,7 +2243,7 @@ header.top > .site-title > a, header.hdr > .site-title > a { display: inline-fle
    margin и clip — иначе фокус-видимая ссылка осталась бы 1x1 px. */
 .skip-link{position:absolute;width:1px;height:1px;margin:-1px;padding:0;
   overflow:hidden;clip:rect(0,0,0,0);clip-path:inset(50%);white-space:nowrap;border:0}
-.skip-link:focus{position:fixed;inset-inline-start:0;top:0;z-index:var(--z-skip);background:#000;color:#fff;
+.skip-link:focus{position:fixed;inset-inline-start:0;top:0;z-index:var(--z-skip);background:var(--skip-bg);color:var(--on-solid);
   width:auto;height:auto;margin:0;clip:auto;clip-path:none;overflow:visible;
   padding:var(--space-2) var(--space-4);padding-top: env(safe-area-inset-top, 0px);font-size:var(--fs-4);border-radius:0 0 6px 0;text-decoration:none}
 
@@ -1994,7 +2308,7 @@ main h1 { font-weight: 700 !important;
 .breadcrumbs a { color: var(--accent); text-decoration: none; }
 .sup-header { display: flex; gap: var(--space-4); align-items: center; margin-bottom: var(--space-6); flex-wrap: wrap; }
 .sup-header h2 { margin: 0; font-size: var(--fs-7); font-weight: 600; }
-.sup-wrap .grade-badge { display: inline-block; padding: var(--space-2) var(--space-4); border-radius: var(--radius-lg); color: #fff; font-weight: 700; font-size: var(--fs-6); }  /* было: .grade-badge; padding 6px 14px -> 8/16 (П7) */
+.sup-wrap .grade-badge { display: inline-block; padding: var(--space-2) var(--space-4); border-radius: var(--radius-lg); color: var(--on-solid); font-weight: 700; font-size: var(--fs-6); }  /* было: .grade-badge; padding 6px 14px -> 8/16 (П7) */
 /* v5.6.0 этап 1.5: под текстом бейджа шёл ряд точек — это браузерное
    text-decoration: underline dotted у <abbr title>, а не сломанный border.
    Замерено в DevTools: у .grade-badge text-decoration: none, у вложенного
@@ -2050,7 +2364,7 @@ html.light .s-context {
 .inter-low { border-color: var(--inter-low); }
 .inter-medium { border-color: var(--inter-medium); }
 .inter-high { border-color: var(--inter-high); }
-.inter-critical { border-color: #991b1b; }
+.inter-critical { border-color: var(--critical-border); }
 .inter-with { font-weight: 600; }
 .inter-sev { font-size: var(--fs-4); color: var(--muted); text-transform: uppercase; margin: var(--space-1) 0; }
 .inter-note { font-size: var(--fs-4); }
@@ -2080,10 +2394,10 @@ html.light .s-context {
    когда выяснилось, что под этим id жили ДВА разных сайдбара. */
 .legend { padding: var(--space-2) var(--space-6); display: flex; gap: var(--space-4); flex-wrap: wrap; font-size: var(--fs-4); color: var(--muted); }
 .legend span::before { content: ''; display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-inline-end: .35rem; vertical-align: middle; }
-.legend .syn::before { background: #4caf50; }
+.legend .syn::before { background: var(--legend-syn); }
 .legend .ant::before { background: var(--sev-high); }
-.legend .int::before { background: #ff9800; }
-.legend .drug::before { background: #9e9e9e; }
+.legend .int::before { background: var(--legend-int); }
+.legend .drug::before { background: var(--legend-drug); }
 .sb-head { position: relative; }
 .sb-close { position: absolute; inset-inline-end: -.4rem; top: -.4rem; background: transparent; border: none; color: var(--muted); font-size: var(--fs-8); cursor: pointer; padding: var(--space-0-2) var(--space-2); border-radius: var(--radius-md); }
 @media (hover:hover){.sb-close:hover { background: rgba(127,127,127,.15); color: var(--fg); }}
@@ -2096,11 +2410,11 @@ html.light .s-context {
 .sb-links a { color: var(--accent); text-decoration: none; font-weight: 500; cursor: pointer; }
 .sb-links a:hover { text-decoration: underline; }
 .sb-sev { display: inline-block; font-size: var(--fs-4); padding: var(--space-1) var(--space-2); border-radius: var(--radius-md); margin-inline-start: var(--space-1); background: rgba(127,127,127,.15); color: inherit; opacity: .8; }  /* было: padding 1px 6px, margin .4rem (П7) */
-.sb-sev.medium { background: rgba(255,112,67,.2); color: #ff7043; opacity: 1; }
+.sb-sev.medium { background: rgba(255,112,67,.2); color: var(--sev-medium-soft-tx); opacity: 1; }
 .sb-sev.high { background: rgba(229,57,53,.2); color: var(--sev-high); opacity: 1; }
-.sb-sev.critical { background: rgba(183,28,28,.3); color: #ff5252; opacity: 1; }
+.sb-sev.critical { background: rgba(183,28,28,.3); color: var(--sev-critical-soft-tx); opacity: 1; }
 .sb-note { font-size: var(--fs-4); color: var(--muted); margin-top: var(--space-0-2); line-height: 1.4; }
-.sb-cta { display: block; margin-top: 1.2rem; padding: .6rem var(--space-4); text-align: center; background: #0a6bc9; color: #fff; border-radius: var(--radius-lg); text-decoration: none; font-weight: 500; }
+.sb-cta { display: block; margin-top: 1.2rem; padding: .6rem var(--space-4); text-align: center; background: var(--cta-fill); color: var(--on-solid); border-radius: var(--radius-lg); text-decoration: none; font-weight: 500; }
 .sb-cta:hover { opacity: .9; }
 .severityFilter { display: none; align-items: center; gap: .8rem; padding: var(--space-0-3) var(--space-6); font-size: var(--fs-4); color: var(--muted); }
 .severityFilter.visible { display: flex; }
@@ -2148,11 +2462,11 @@ html.light .s-context {
 #atl-sidebar li { padding:.45rem var(--space-2);margin:var(--space-1) 0;border:1px solid var(--aborder);border-radius:var(--radius-lg);cursor:pointer;font-size:var(--fs-4)}
 @media (hover:hover){#atl-sidebar li:hover { border-color: var(--border-hover);background:rgba(127,127,127,.06) }}
 #atl-sidebar .badge { display:inline-block;padding:.1rem .45rem;border-radius:var(--radius-md);font-size:var(--fs-4);background:rgba(127,127,127,.15);margin-inline-start:.4rem;opacity:.85 }
-#atl-sidebar .badge.A { background:rgba(76,175,80,.25);color:#7fc784 }
-#atl-sidebar .badge.B { background:rgba(139,195,74,.25);color:#b7d68b }
-#atl-sidebar .badge.C { background:rgba(255,152,0,.22);color:#ffb74d }
-#atl-sidebar .badge.D { background:rgba(229,57,53,.2);color:#ef5350 }
-#atl-sidebar .cta { display:inline-block;margin-top:var(--space-4);padding:var(--space-2) var(--space-4);background:var(--info-blue);color:#fff;border-radius:var(--radius-lg);text-decoration:none;font-weight:500 }
+#atl-sidebar .badge.A { background:rgba(76,175,80,.25);color:var(--badge-a-tx) }
+#atl-sidebar .badge.B { background:rgba(139,195,74,.25);color:var(--badge-b-tx) }
+#atl-sidebar .badge.C { background:rgba(255,152,0,.22);color:var(--badge-c-tx) }
+#atl-sidebar .badge.D { background:rgba(229,57,53,.2);color:var(--badge-d-tx) }
+#atl-sidebar .cta { display:inline-block;margin-top:var(--space-4);padding:var(--space-2) var(--space-4);background:var(--info-blue);color:var(--on-solid);border-radius:var(--radius-lg);text-decoration:none;font-weight:500 }
 /* v5.6.1: белый на #3498db = 3.15:1. Заливка затемняется до #1f6fa5
    (белый на ней = 5.42:1) — тем же приёмом, что у .btn.calc выше.
    Только светлая тема: sidebar скрыт (display:none до .open), а в тёмной
@@ -2295,7 +2609,7 @@ header .site-title > a { min-height: 44px; }
 /* #1f6fa5, а не var(--accent): в тёмной теме --accent = #0a84ff, белый
    текст на нём даёт 3.68:1 — ниже AA для текста. #1f6fa5 даёт 5.42:1
    (замер проекта из #atl-sidebar .cta, v5.6.1). */
-#cookieBanner .cb-accept { background: var(--info-fill); border-color: var(--info-fill); color: #fff; }
+#cookieBanner .cb-accept { background: var(--info-fill); border-color: var(--info-fill); color: var(--on-solid); }
 #cookieBanner .cb-accept:hover { opacity: .92; border-color: var(--info-fill); }
 html.light #cookieBanner { box-shadow: var(--shadow-pop-light); }
 @media (max-width: 640px) {
@@ -2323,7 +2637,7 @@ html.light #cookieBanner { box-shadow: var(--shadow-pop-light); }
 .atlas-legend {
   position: absolute; left: 1rem; bottom: 1rem;
   background: var(--apanel); border: 1px solid var(--aborder); border-radius: 10px;
-  padding: .6rem .85rem; font-size: var(--fs-3); line-height: 1.7; z-index: 10;
+  padding: .6rem .85rem; font-size: var(--fs-4); line-height: 1.7; z-index: 10;
   opacity: .9; backdrop-filter: blur(4px); box-shadow: var(--shadow-legend);
   pointer-events: none;
 }
@@ -2343,7 +2657,7 @@ html.light #cookieBanner { box-shadow: var(--shadow-pop-light); }
     position: absolute;
     bottom: 8px; left: 8px;
     max-width: 150px;
-    font-size: var(--fs-1);
+    font-size: var(--fs-4);
     padding: .35rem var(--space-2);
     line-height: 1.35;
   }
@@ -2355,7 +2669,459 @@ html.light #cookieBanner { box-shadow: var(--shadow-pop-light); }
     display: block;
     margin-top: var(--space-0-3);
     opacity: .5;
-    font-size: var(--fs-2);
+    font-size: var(--fs-4);
     cursor: pointer;
   }
+}
+
+/* ===== 2.2.2: режим «граф» на interactions.html =====
+   Контейнер графа, панель управления и мобильная адаптация перенесены
+   из graph.html. Стили в единой таблице (style.css?v=436), а не в
+   локальном <style>, чтобы не раздувать разметку.
+   .state-loading / .state-empty / .state-error переиспользуются из
+   локального <style> interactions.html. */
+.graph-panel-controls {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+.graph-canvas {
+  width: 100%;
+  height: 600px;
+  /* 2.2.5: место под cookie-баннер (position: fixed в низу), чтобы
+     нижние узлы графа не прятались под ним. 100 px достаточно даже при
+     высоте баннера ~166 px — узлы остаются видимыми. */
+  margin-bottom: 100px;
+}
+/* MAN-03: легенда типов узлов графа */
+.graph-legend {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
+  margin: 8px 0 12px 0;
+  font-size: 14px;
+  color: var(--legend-tx);
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.legend-dot {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.35);
+}
+@media (max-width: 640px) {
+  .graph-canvas { height: 70vh; margin-bottom: 0; }
+  .graph-panel-controls { flex-direction: column; }
+}
+
+/* ===== 2.2.x: 4-режимная панель вкладок и панели режимов =====
+   Перенесено из локального <style> docs/interactions.html (2.2.1).
+   Правило «источник истины один»: в разметке остаётся только класс,
+   оформление живёт в общей таблице стилей.
+
+   Селектор сужен до .tr-tabs[role="tablist"], а не просто .tr-tabs.
+   Класс .tr-tabs используется ещё и на trends.html, где это ряд кнопок
+   .tr-tab без role="tab". Без сужения перенос навязал бы чужой
+   раскладке padding: var(--space-4) var(--space-6) var(--space-2),
+   overflow-x: auto и scrollbar-width: thin. */
+.tr-tabs[role="tablist"] {
+  padding: var(--space-4) var(--space-6) var(--space-2);
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  flex-wrap: nowrap;
+}
+.tr-tabs[role="tablist"]::-webkit-scrollbar { height: 0; }
+.tr-tabs[role="tablist"]::-webkit-scrollbar-thumb { display: none; }
+.tr-tabs[role="tablist"] [role="tab"] {
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--border);
+  background: var(--card-bg);
+  color: var(--fg);
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: .9rem;
+  font-weight: 500;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.tr-tabs[role="tablist"] [role="tab"][aria-selected="true"] {
+  background: var(--chip-on-bg);
+  color: var(--on-solid);
+  border-color: var(--chip-on-bg);
+}
+.tr-tabs[role="tablist"] [role="tab"][aria-selected="false"] { opacity: .85; }
+.tr-tabs[role="tablist"] [role="tab"]:focus-visible {
+  outline: 2px solid var(--accent); outline-offset: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .tr-tabs[role="tablist"] [role="tab"] { transition: none !important; }
+}
+
+/* Панели режимов */
+.tab-panels { margin-top: var(--space-2); overflow-x: auto; }
+[data-panel] { display: none; padding: var(--space-4) 0; }
+[data-panel].active { display: block; }
+
+/* ===== 2.2.5: Side-Panel (информационная панель по узлу) ===== */
+.side-panel {
+  position: fixed;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 400px;
+  max-width: 90vw;
+  background: var(--card-bg);
+  border-left: 1px solid var(--border);
+  box-shadow: var(--shadow-pop);
+  z-index: 1000;
+  transform: translateX(100%);
+  transition: transform 0.28s ease;
+  display: flex;
+  flex-direction: column;
+  color: var(--fg);
+  overflow: hidden;
+}
+.side-panel.open {
+  transform: none;
+}
+.side-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-6);
+  border-bottom: 1px solid var(--border);
+  background: var(--card-bg);
+  flex-shrink: 0;
+}
+.side-panel-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--fg);
+}
+#sidePanelClose {
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0.2rem;
+  border-radius: var(--radius-md);
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+#sidePanelClose:hover { color: var(--fg); background: rgba(0,0,0,0.1); }
+#sidePanelClose:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.side-panel-body {
+  padding: var(--space-6);
+  overflow-y: auto;
+  flex: 1;
+  font-size: 0.95rem;
+  line-height: var(--lh-normal);
+}
+.side-panel-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  z-index: 999;
+  backdrop-filter: blur(2px);
+}
+.side-panel-body .sp-badge {
+  display: inline-block;
+  padding: 0.15rem 0.6rem;
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-4);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-right: 0.5rem;
+  margin-bottom: 0.3rem;
+}
+.side-panel-body .sp-grade {
+  font-weight: 700;
+}
+.side-panel-body .sp-effects {
+  margin: 0.7rem 0;
+  padding-left: 1.2rem;
+}
+.side-panel-body .sp-effects li { margin-bottom: 0.25rem; }
+.side-panel-body .sp-forms { margin: 0.5rem 0; }
+.side-panel-body .sp-btn {
+  display: inline-block;
+  margin-top: 0.8rem;
+  padding: 0.5rem 1rem;
+  background: var(--accent);
+  color: var(--on-solid);
+  border: none;
+  border-radius: var(--radius-lg);
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+.side-panel-body .sp-btn:hover { opacity: 0.92; }
+.side-panel-body .sp-mech-list { margin: 0.5rem 0; padding-left: 1.2rem; }
+.side-panel-body .sp-mech-list li { margin-bottom: 0.2rem; }
+.side-panel-body .sp-empty { color: var(--muted); text-align: center; padding: 2rem; }
+
+@media (max-width: 640px) {
+  .side-panel {
+    width: 100%;
+    max-width: 100%;
+    height: 60vh;
+    bottom: 0;
+    top: auto;
+    border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+    border-left: none;
+    border-top: 1px solid var(--border);
+    transform: translateY(100%);
+  }
+  .side-panel.open { transform: none; }
+  .side-panel-header::before {
+    content: '';
+    display: block;
+    width: 36px;
+    height: 4px;
+    background: rgba(127,127,127,.5);
+    border-radius: 2px;
+    margin: var(--space-0-3) auto .6rem;
+    cursor: grab;
+  }
+}
+
+/* Блок 7.9: Плацебо-бар (sup-страницы) */
+.placebo-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+  font-size: 0.875rem; /* V-09: было 0.78rem (~12.5px) — целевой размер 14px */
+  flex: 1 1 240px;
+  min-width: min(200px, 100%);
+}
+.placebo-track {
+  flex: 1;
+  height: 6px;
+  background: rgba(0,0,0,.08);
+  border-radius: 3px;
+  overflow: hidden;
+  min-width: min(80px, 100%);
+}
+/* v5.6.5: было `var(--amut, #666)`. Переменной --amut в style.css нет ни
+   в одной теме, поэтому цвет всегда падал в #666, и на тёмной теме
+   (#1c1c1e) контраст был 3.2:1 — ниже AA. --muted определена в обеих
+   темах (#9a9aa0 / #6e6e73) и даёт 7.3:1 и 5.7:1. */
+.placebo-label { color: var(--muted); white-space: nowrap; }
+/* v5.6.5 Block 4: удалён дубль .placebo-track без min-width — валидный
+   остаётся первый (с min-width: min(80px, 100%)). */
+.placebo-fill {
+  height: 100%;
+  background: var(--placebo-color, #4d7c0f);
+  border-radius: 3px;
+  transition: width 0.6s ease;
+}
+html.light .placebo-track { background: rgba(0,0,0,.06); }
+
+/* Блок 7.9: Кнопки цитировать / прослушать (sup-страницы) */
+.btn-cite, .btn-tts {
+  margin-inline-start: var(--space-2);
+  padding: 0.25rem 0.5rem;
+  font-size: var(--fs-4);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+.cite-tooltip {
+  position: absolute;
+  background: var(--tooltip-bg);
+  color: var(--on-solid);
+  padding: 0.15rem 0.4rem;
+  border-radius: 3px;
+  font-size: var(--fs-4);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+  z-index: 10;
+}
+.cite-tooltip[aria-hidden="false"] { opacity: 1; }
+
+/* ═══ v5.6.5 Block 4 (O-02): классы вместо инлайна в index.html ═══ */
+
+/* Live-search дропдаун под строкой поиска (перенесено из index.html <style>) */
+.search-drop {
+  position: absolute; z-index: 40; margin-top: 4px;
+  background: var(--card-bg); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); box-shadow: var(--shadow);
+  min-width: min(260px, 100%); max-width: 420px; max-height: 340px;
+  overflow-y: auto; display: none;
+}
+.search-drop .drop-row {
+  padding: .55rem .75rem; font-size: .9rem; cursor: pointer;
+  border-bottom: 1px solid rgba(0,0,0,.06); display: flex;
+  align-items: center; gap: .5rem; color: var(--text);
+}
+.search-drop .drop-row:last-child { border-bottom: none; }
+/* O-02: было rgba(10,132,255,.08) — хардкод blue; теперь через токен */
+.search-drop .drop-row:hover, .search-drop .drop-row.focused {
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+}
+.search-drop .drop-name { font-weight: 600; }
+.search-drop .drop-cat { opacity: .7; font-size: var(--fs-4); margin-inline-start: auto; }
+.search-drop .drop-empty { padding: .75rem 1rem; color: var(--muted); font-size: .9rem; text-align: center; }
+
+/* Широкая карточка «Исследовать связи» (index.html); акцент задаётся на
+   элементе через --card-accent / --card-accent-2 (аналог прежних rgba). */
+.card-featured {
+  display: block; margin-bottom: .7rem;
+  border: 2px solid var(--card-accent, var(--accent));
+  border-radius: 14px; text-decoration: none; color: inherit;
+  background: linear-gradient(135deg, var(--t-featured-a), var(--t-featured-b));
+}
+.card-featured-inner { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; padding: 1.05rem 1.25rem; }
+.card-featured-icon  { font-size: 2rem; line-height: 1; }
+.card-featured-text  { flex: 1 1 240px; min-width: 0; }
+.card-featured-title { font-weight: 700; font-size: 1.15rem; margin-bottom: .2rem; }
+.card-featured-desc  { opacity: .8; font-size: .92rem; }
+.card-featured-cta {
+  display: inline-block; padding: .55rem 1rem; border-radius: 10px;
+  background: var(--card-accent, var(--accent)); color: var(--on-accent, #1a1a1a);
+  font-weight: 600; white-space: nowrap;
+}
+
+/* Быстрые ссылки главной (index.html .card-link); рамка/акцент через
+   --card-accent, заливка — через пары стопов из :root (см. --t-*).
+   Градиент в каждом классе ссылается на токен напрямую: проба контраста
+   резолвит var() однопроходно и через цепочку алиасов стоп не видит. */
+.card-link {
+  display: block;
+  border: 2px solid var(--card-accent, var(--accent));
+  border-radius: 12px; text-decoration: none; color: inherit;
+}
+.lc-calc {
+  background: linear-gradient(135deg, var(--t-calc-a), var(--t-calc-b));
+}
+.lc-map {
+  background: linear-gradient(135deg, var(--t-mech-a), var(--t-mech-b));
+}
+.lc-trends {
+  background: linear-gradient(135deg, var(--t-trends-a), var(--t-trends-b));
+}
+.lc-bi {
+  background: linear-gradient(135deg, var(--t-bi-a), var(--t-bi-b));
+}
+.card-link-icon { font-size: 1.4rem; }
+.card-link-title { font-weight: 600; margin: .3rem 0; }
+.card-link-desc { opacity: .75; font-size: var(--fs-4); }
+.card-link-ext { opacity: .6; font-weight: 400; font-size: var(--fs-4); }
+
+/* Регрессия от Блока 4: глобальный html:not(.light) a{text-decoration:underline}
+   имеет специфичность (0,1,2) и перебивает text-decoration:none на карточках
+   (.card-featured / .card-link — (0,1,0)). Повышаем специфичность до (0,2,1),
+   чтобы вернуть чистые карточки в тёмной теме (в light-теме underscore нет). */
+html:not(.light) .card-featured,
+html:not(.light) .card-link {
+  text-decoration: none;
+}
+
+/* Оценки в плитках главной: инлайн-стили бейджа сняты,
+   margin-bottom вернули, т.к. в базе .grade его нет */
+.tile .grade { margin-bottom: .4rem; }
+
+/* NV2-02 (24.10.2026): чипы «Купить» (Ozon/WB) на главной — рамка и вся
+   раскладка переехали из инлайн-стиля в класс. Инлайн не давал ни
+   box-sizing, ни min-width:0, поэтому длинная подпись на 320px распирала
+   ячейку сетки. Отдельное правило .tile .shop-chip нужно из-за
+   html:not(.light) a{text-decoration:underline} (0,1,2): без него в тёмной
+   теме чипы получали подчёркивание. */
+.shop-chip {
+  flex: 1 1 0;
+  min-width: 0;
+  box-sizing: border-box;
+  max-width: 100%;
+  padding: .25rem .35rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  font-size: var(--fs-4);
+  text-align: center;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+.tile .shop-chip { text-decoration: none; }
+
+/* U2-03 (25.10.2026): у чипов магазинов не было отклика на нажатие.
+   На мобильном :hover не срабатывает вовсе, поэтому чип выглядел
+   «мёртвым»: тап по нему ничем не отличался от тапа по пустому месту.
+   Голый `a:active` здесь не годится — см. блок «отклик на нажатие» выше:
+   ссылки в тексте при нажатии не должны прыгать. Поэтому перечислены
+   только классы кнопок-чипов: .shop-chip в плитках главной, .shop на
+   sup-страницах и #modal .shopBtn в карточке добавки. Все три — ссылки
+   на поиск в магазине, которые открываются в новой вкладке, так что
+   :active живёт ровно столько, сколько длится нажатие. */
+.shop-chip,
+.shop,
+#modal .shopBtn {
+  transition: transform .1s ease, border-color .1s ease, background-color .1s ease;
+}
+.shop-chip:active,
+.shop:active,
+#modal .shopBtn:active {
+  transform: scale(.96);
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+}
+
+/* Радар профиля в compare.html: обёртка задана классом вместо инлайна,
+   канвас адаптивный (V-08: было фиксированные 520px canvas) */
+.radar-wrap { position: relative; max-width: 520px; margin: 0 auto; }
+.radar-wrap canvas { max-width: 100%; }
+
+/* Кнопка «Кубик»: видимая подпись рядом с эмодзи 🎲 (UX-03) */
+.random-label {
+  display: inline-block;
+  margin-left: .35rem;
+  font-size: .9rem;
+  pointer-events: none;
+  user-select: none;
+  vertical-align: middle;
+}
+/* v5.6.5 (V2-02): явные границы для самого узкого и самого широкого экрана.
+   До этого в файле были только max-width 375/480/600/620/640/768 и
+   min-width 621-1200, то есть 320px и 1440px не были описаны вовсе.
+
+   320px — нижняя граница поддержки (iPhone SE 1-го поколения, внешний
+   экран Galaxy Fold). Замер в Playwright по 11 страницам (index, hactar,
+   sup/index, sup/magniy, trends, methodology, faq, glossary, privacy,
+   support, feedback) показал: горизонтальной прокрутки нет ни на одной,
+   отступы тела уже 9.6px, кнопки 12.5px при тач-таргете 44px. Сжимать
+   дальше нечего — это нарушило бы 44px минимум. Поэтому блок не «ужимает»
+   вёрстку, а страхует её от будущих широких детей: картинка, видео или
+   iframe без собственных ограничений больше не вытолкнут страницу. */
+@media (max-width: 320px) {
+  img, video, iframe { max-width: 100%; height: auto; }
+  main { min-width: 0; }
+}
+
+/* 1440px — верхняя граница, после которой прирост ширины ничего не даёт.
+   Все страницы уже ограничены body max-width 1200px, кроме Project Hactar:
+   у него body.hactar-page задаёт max-width:none намеренно (граф занимает
+   экран). На 1920px рабочая область растягивалась до 1865px, из них
+   1525px — контент. Ограничиваем её 1440px и центрируем: шапка остаётся
+   во всю ширину, рабочая область — нет. */
+@media (min-width: 1440px) {
+  .hactar-wrap { max-width: 1440px; margin-left: auto; margin-right: auto; }
 }

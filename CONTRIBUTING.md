@@ -119,13 +119,16 @@ python -m http.server 8000 --directory docs
 ### Проверка перед коммитом
 
 ```bash
-pytest -q          # ожидается: 736 passed, 18 skipped
+pytest -q          # ожидается: 1990 passed, 0 skipped (~8-10 мин)
 ```
 
-18 пропущенных — это `e2e`-тесты. Они выключены по умолчанию; полный прогон:
+В v5.6.5 opt-in гейты `RUN_*` удалены: `pytest -q` запускает и браузерные
+метки (`snapshots` / `a11y` / `e2e` / `tabs` / `graph` / `mobile375`);
+сервер на :8000 при необходимости поднимает autouse-фикстура
+`live_server` в `tests/conftest.py`. Быстрый прогон без браузера:
 
 ```bash
-RUN_E2E=1 pytest -q -m e2e
+pytest -q -m "not (snapshots or a11y or tabs or graph or mobile375 or e2e)"
 ```
 
 ⚠️ Число тестов должно совпадать с `tests` в `docs/version.json`. За этим следит
@@ -238,6 +241,17 @@ docs(readme): refresh for v5.0
 - **Про данные:** [issue](https://github.com/DeadSno/brain-25-evidence/issues/new)
 - **Про архитектуру:** см. [ARCHITECTURE.md](ARCHITECTURE.md)
 - **Про методологию:** [methodology.html](https://deadsno.github.io/brain-25-evidence/methodology.html)
+
+---
+
+## Кодекс поведения и безопасность
+
+Участие в проекте регулируется [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) —
+адаптацией Contributor Covenant 2.1. Спорить о данных можно и нужно, о
+личности автора — нет; о нарушениях сообщайте мейнтейнеру приватно.
+
+Об уязвимостях **не пишите в публичный issue**: каналы и сроки описаны в
+[SECURITY.md](SECURITY.md).
 
 ---
 

@@ -4,6 +4,46 @@ function esc(s) {
   ));
 }
 const $ = id => document.getElementById(id);
+
+// ===== A11Y-13: skip-link должен не только прыгнуть по якорю, но и
+// перевести фокус на <main> (index.html: main[tabindex="-1"]).
+// Браузер по клику на #main-якорь фокус не ставит — делаем это вручную.
+(function initSkipLink() {
+  const skip = document.querySelector('.skip-link');
+  const main = document.getElementById('main');
+  if (skip && main) {
+    skip.addEventListener('click', () => {
+      main.focus({ preventScroll: false });
+    });
+  }
+})();
+
+// ===== A11Y-10: единая точка синхронизации aria-expanded у input#search
+// (role="combobox") с состоянием live-search дропдауна #searchDrop.
+function setSearchDropOpen(open) {
+  const search = $('search');
+  if (search) search.setAttribute('aria-expanded', open ? 'true' : 'false');
+}
+
+// ===== slug: кириллическое id -> транслит для URL sup/<slug>.html =====
+const TRANS = {
+  "а":"a","б":"b","в":"v","г":"g","д":"d","е":"e","ё":"e",
+  "ж":"zh","з":"z","и":"i","й":"y","к":"k","л":"l","м":"m",
+  "н":"n","о":"o","п":"p","р":"r","с":"s","т":"t","у":"u",
+  "ф":"f","х":"h","ц":"ts","ч":"ch","ш":"sh","щ":"sch",
+  "ъ":"","ы":"y","ь":"","э":"e","ю":"yu","я":"ya"
+};
+function slugify(name) {
+  const out = [];
+  for (const ch of String(name || '').toLowerCase()) {
+    if (ch in TRANS) out.push(TRANS[ch]);
+    else if (ch === '-' || ch === '_' || ch === ' ') out.push('-');
+    else if (ch >= 'a' && ch <= 'z' || ch >= '0' && ch <= '9') out.push(ch);
+    else out.push('-');
+  }
+  return out.join('').replace(/-{2,}/g, '-').replace(/^-|-$/g, '');
+}
+
 // 13A2a (I18N-P2-01): LOCALE, I18N и t() перенесены в глобальный
 // docs/i18n.js (classic-скрипт, подключается до script.js и до
 // inline-скриптов тем). Здесь — только потребление I18N / t / LOCALE.
@@ -33,13 +73,18 @@ const PMID_QUERY_RE = /^\d{4,}$/;
 function ensureFullData() {
   if (supplementsFull) return Promise.resolve(supplementsFull);
   if (!supplementsFullPromise) {
-    supplementsFullPromise = fetchJson('data.json').then(data => {
-      supplementsFull = Object.fromEntries(data.map(c => [c.id, c]));
-      return supplementsFull;
-    }).catch(err => {
-      supplementsFullPromise = null;   // разрешаем retry
-      throw err;
-    });
+    // FIX-77: в EN к data.json добавляется оверлей data_en.json. В RU
+    // loadEnCards() резолвится в null без сетевого запроса, поэтому
+    // русская версия грузит ровно те же файлы, что и раньше.
+    supplementsFullPromise = Promise.all([fetchJson('data.json'), loadEnCards()])
+      .then(([data, enCards]) => {
+        const list = enCards ? data.map(c => mergeEnCard(c, enCards[c.id])) : data;
+        supplementsFull = Object.fromEntries(list.map(c => [c.id, c]));
+        return supplementsFull;
+      }).catch(err => {
+        supplementsFullPromise = null;   // разрешаем retry
+        throw err;
+      });
   }
   return supplementsFullPromise;
 }
@@ -103,6 +148,51 @@ function gradeBadge(s) {
 
 const GRADE_PRIOR = { A: 0, B: 1, C: 2, D: 3 };   // v2.6.1: сортировка «по грейду» A<B<C<D<нет
 
+// ===== v5.6.5: PMID-счётчик (доверие) =====
+function pmidCount(s) {
+  return s.key_sources ? s.key_sources.length : 0;
+}
+function pmidBadge(s) {
+  const n = pmidCount(s);
+  if (!n) return '';
+  return '<span class="pmidBadge" title="' + t("cmp.pmid") + ': ' + n + '">🔬 ' + n + ' ' + t("cmp.pmid").toLowerCase() + '</span>';
+}
+
+// ===== v5.6.5: шкала эффекта (Hedges' g) — человекочитаемо =====
+function gLabel(g) {
+  if (g == null) return '';
+  if (g < 0.2) return t("g.weak");
+  if (g < 0.5) return t("g.medium");
+  if (g < 0.8) return t("g.high");
+  return t("g.veryHigh");
+}
+function gSpan(s) {
+  const g = Number(s.hedges_g);
+  if (!Number.isFinite(g)) return '';
+  return '<span class="gBadge" title="' + t("g.tooltip", { label: gLabel(g), g: g.toFixed(2) }) + '">' + t("g.label") + g.toFixed(2) + '</span>';
+}
+function onsetSpan(s) {
+  const o = s.onset;
+  if (!o) return '';
+  return '<div class="mrow">⏱ <b>' + t("card.onset") + '</b> ' + esc(o) + '</div>';
+}
+function cautionSpan(s) {
+  const c = s.caution;
+  if (!c) return '';
+  return '<div class="mrow warn">⚠️ <b>' + t("card.cautionTitle") + '</b> ' + esc(c) + '</div>';
+}
+function unknownsBlock(s) {
+  const reasons = [];
+  // forms с FIX-39 — массив, поэтому пустой массив тоже «нет данных».
+  if (!s.forms || !s.forms.length) reasons.push(t("card.unknowns.forms"));
+  const n = pmidCount(s);
+  if (n > 0 && n < 3) reasons.push(t("card.unknowns.sources", { n: n }));
+  if (!reasons.length) return '';
+  return '<div class="mrow unknowns">' +
+    '<b>🔍 ' + t("card.unknowns") + '</b><br>' + reasons.join(' ') +
+    '</div>';
+}
+
 // ===== v2.6: бейдж «ручная вычитка» (у карточек с ручным вердиктом — все вердикты ручные) =====
 // Tooltip-хелперы для метрик (наведение показывает формулу)
 function scienceSpan(s) {
@@ -112,7 +202,7 @@ function maSpan(s) {
   return '<span title="' + t("ma.tooltip") + '">' + t("ma.label") + s.metaCount + '</span>';
 }
 function citationsSpan(s) {
-  if (s.citations == null) {
+  if (s.citations == null || s.citations === 0) {
     return '<span title="' + t("cit.none.tooltip") + '">' + t("cit.none") + '</span>';
   }
   return '<span title="' + t("cit.tooltip") + '">' + t("cit.label") + s.citations + '</span>';
@@ -138,6 +228,39 @@ function pubmedLink(s) {
 function wikiLink(s) {
   return ' <a class="srcIcon" target="_blank" rel="noopener" title="' + t("sources.wikiTitle") + '" href="https://ru.wikipedia.org/wiki/' +
     encodeURIComponent(s.name.replace(/\+/g, ' ')) + '">' + t("sources.wiki") + '</a>';
+}
+
+// ===== v5.6.5: блок «Где искать» + «Что искать при покупке» в модалке =====
+function shopBlock(s) {
+  const name = s.name || '';
+  // «первая форма из массива»: с FIX-39 (D2-04) в данных forms — массив
+  // строк, берём первый элемент и режем его по « — » или «;»
+  // (например «оксид — плохо усваивается; цитрат…» → «оксид»).
+  const formRaw = Array.isArray(s.forms) ? (s.forms[0] || '') : (s.forms || '');
+  const form = formRaw ? String(formRaw).split(/[;—–]/)[0].trim() : '';
+  const q = form ? encodeURIComponent(name + '+' + form) : encodeURIComponent(name);
+  const yandex = 'https://market.yandex.ru/search?text=' + q;
+  const ozon = 'https://www.ozon.ru/search/?text=' + q;
+  const wb = 'https://www.wildberries.ru/catalog/0/search.aspx?search=' + q;
+  let html = '<div class="mrow shopBlock">' +
+    '<div class="shopTitle">' + t("shop.whereBuy") + '</div>' +
+    '<div class="shopButtons">' +
+    '<a class="shopBtn" href="' + yandex + '" target="_blank" rel="noopener">' + t("shop.market") + ' ↗</a>' +
+    '<a class="shopBtn" href="' + ozon + '" target="_blank" rel="noopener">' + t("shop.ozon") + ' ↗</a>' +
+    '<a class="shopBtn" href="' + wb + '" target="_blank" rel="noopener">' + t("shop.wb") + ' ↗</a>' +
+    '</div></div>';
+  // Блок «Что искать при покупке» — заголовок и текст всегда; дозировка —
+  // только если в данных есть dosage.min/dosage.max (сейчас dosage — строка,
+  // поэтому рекомендация не показывается, блок остаётся).
+  html += '<div class="mrow shopLookBlock">' +
+    '<div class="shopLookTitle">' + t("shop.lookFor") + '</div>' +
+    '<div class="shopLookText">' + t("shop.lookForText") + '</div>';
+  const dos = s.dosage;
+  if (dos && typeof dos === 'object' && dos.min != null && dos.max != null) {
+    html += '<div class="shopLookDose">' + t("shop.dosageRec", { min: dos.min, max: dos.max }) + '</div>';
+  }
+  html += '</div>';
+  return html;
 }
 // ===== v2.6: кнопка «Нашли неточность?» (issue с добавка+поле) =====
 function issueUrl(s, field) {
@@ -184,7 +307,7 @@ const CARDBLOCKS = [
   { key: 'ul',        title: t("block.ul"),         get: s => s.upper_limit || '' },
   { key: 'food',      title: t("block.food"),            get: s => s.food_sources || '' },
   { key: 'official',  title: t("block.official"),       get: s => s.guidelines || '' },
-  { key: 'shop',      title: t("block.shop"),     get: s => s.how_to_choose || s.forms || '' },
+  { key: 'shop',      title: t("block.shop"),     get: s => s.how_to_choose || (Array.isArray(s.forms) ? s.forms.join(', ') : (s.forms || '')) || '' },
   { key: 'myths',     title: t("block.myths"),             get: s => s.myths || '' }
 ];
 
@@ -245,6 +368,31 @@ function initTheme() {
 }
 initTheme();
 
+// A2-05 (24.10.2026): <details>/<summary> уже отдают состояние раскрытия
+// нативно (Chrome: роль DisclosureTriangle + свойство expanded), но
+// aria-expanded делает его явным и не зависит от движка: у старых WebKit
+// нативный expanded появлялся с задержкой. Ставим значение из фактического
+// состояния, а не из разметки: браузер помнит открытые details после
+// перезагрузки, и жёсткое «false» разошлось бы с картинкой.
+// role="button" намеренно не ставим: <summary> и так кнопка в дереве
+// доступности, а явная роль стёрла бы семантику disclosure.
+function initDisclosures() {
+  document.querySelectorAll('details').forEach(d => {
+    const s = d.querySelector(':scope > summary');
+    if (!s) return;
+    const sync = () => s.setAttribute('aria-expanded', d.open ? 'true' : 'false');
+    sync();
+    d.addEventListener('toggle', sync);
+    // Событие toggle браузер ставит в очередь задач и доставляет заметно
+    // позже клика — всё это время атрибут врал бы. Поэтому на клик ставим
+    // значение сразу: активация summary ещё не прошла, значит новое
+    // состояние — противоположное текущему. toggle потом подтверждает его
+    // и заодно выравнивает любой рассинхрон.
+    s.addEventListener('click', () => s.setAttribute('aria-expanded', d.open ? 'false' : 'true'));
+  });
+}
+initDisclosures();
+
 // INDEX_CTA_FIX (MKT-P1-02 follow-up): кнопка «Найти свою добавку»
 // ведёт на каталог (#cardsContainer), а не на #search: поле поиска стоит
 // ВЫШЕ CTA по DOM, якорь почти не двигал страницу и не ставил фокус.
@@ -256,7 +404,18 @@ initTheme();
 // renderEffectChips после загрузки данных) либо фолбэк «Топ по науке»
 // (статичный .preset в #presetRow). preventScroll обязателен: без него
 // focus() немедленно дёргает прокрутку и обрывает smooth-анимацию.
-document.querySelectorAll('a.btn.calc[href="#cardsContainer"]').forEach((cta) => {
+//
+// v5.6.5 (A-1): селектор потерял уточнение .calc. Кнопка «Найти свою
+// добавку» переехала на первый экран и стала вторичной (класс .btn),
+// потому что главный CTA теперь «Открыть Project Hactar» (.btn.calc).
+// Уточнение .calc больше не различало две кнопки, а по одному href
+// обе они не поймались бы.
+//
+// v5.6.5 (A-1.1): уточнение .btn тоже снято — «Найти свою добавку»
+// больше не кнопка, а текстовая ссылка tertiary (класс .hero-search).
+// Селектор по одному href и так однозначен: на странице такая ссылка
+// ровно одна.
+document.querySelectorAll('a[href="#cardsContainer"]').forEach((cta) => {
   cta.addEventListener('click', (e) => {
     e.preventDefault();
     const target = $('cardsContainer');
@@ -272,9 +431,26 @@ document.querySelectorAll('a.btn.calc[href="#cardsContainer"]').forEach((cta) =>
   });
 });
 
-const fetchJson = (url) => fetch(url + '?ts=' + Date.now())
+// CWV-03 (BATCH-3): было '?ts=' + Date.now() — уникальный URL на каждый
+// запрос, поэтому data.json (742 КБ) и data_index.json (87 КБ) не попадали
+// в HTTP-кэш никогда, даже при повторном визите. Теперь параметр зависит
+// только от версии сборки (её задаёт i18n.js): в релизе меняется один раз,
+// между релизами кэш работает.
+const DATA_VERSION = (typeof window !== 'undefined' && window.BUILD_VERSION) || '5.6.5';
+const fetchJson = (url) => fetch(url + '?v=' + DATA_VERSION)
   .then(r => { if (!r.ok) throw new Error('no data for ' + url); return r.json(); });
-Promise.allSettled([fetchJson('data_index.json'), fetchJson('effect_tags.json'), fetchJson('effect_labels.json')])
+
+// v5.6.5 (CWV-03): loadGzJson удалён. Функция не использовалась нигде:
+// эти данные (data_index.json, effect_tags.json, effect_labels.json,
+// data.json) грузятся через fetchJson, а .json.gz в проекте нет.
+// DecompressionStream-вариант можно вернуть, когда появятся .gz-артефакты
+// в пайплайне сборки данных.
+// FIX-77: подписи мишеней («Сон», «ЖКТ / кишечник») — такой же контент,
+// как данные карточек, поэтому в EN берём английский оверлей. Язык читаем
+// из <html lang>: i18n.js выставляет его при загрузке, раньше этого скрипта.
+const LABELS_SRC = document.documentElement.lang === 'en'
+  ? 'effect_labels_en.json' : 'effect_labels.json';
+Promise.allSettled([fetchJson('data_index.json'), fetchJson('effect_tags.json'), fetchJson(LABELS_SRC)])
   .then(([d, tg, lb]) => {
     if (d.status !== 'fulfilled') throw new Error('data_index.json не загружен');
     const idx = d.value;
@@ -282,8 +458,14 @@ Promise.allSettled([fetchJson('data_index.json'), fetchJson('effect_tags.json'),
     effectTags = tg.status === 'fulfilled' ? tg.value : {};
     effectLabels = lb.status === 'fulfilled' ? lb.value : {};
     if (tg.status !== 'fulfilled') console.warn('[effect_tags.json] ?? ???????? ? ???? ?????????');
-    if (lb.status !== 'fulfilled') console.warn('[effect_labels.json] ?? ???????? ? ???? ?????????');
-    initApp();
+    if (lb.status !== 'fulfilled') console.warn('[' + LABELS_SRC + '] ?? ???????? ? ???? ?????????');
+    // FIX-77: index-карточки тоже берут имя/категорию/вердикт/эффекты из
+    // data.json, поэтому в EN накладываем тот же оверлей. Поля, которых
+    // в оверлее нет, остаются русскими.
+    return loadEnCards().then((enCards) => {
+      if (enCards) supplements = supplements.map(c => mergeEnCard(c, enCards[c.id]));
+      initApp();
+    });
   })
   .catch((err) => {
     console.error('[boot] фатально:', err);
@@ -304,14 +486,18 @@ Promise.allSettled([fetchJson('data_index.json'), fetchJson('effect_tags.json'),
 
 function initApp() {
   BEST = supplements.filter(s => s.scienceIndex != null).sort((x, y) => y.scienceIndex - x.scienceIndex).slice(0, 3).map(s => s.id);
-  supplements.forEach(s => { $('compareSelect1').add(new Option(s.name, s.id)); $('compareSelect2').add(new Option(s.name, s.id)); });
-  if (supplements.length >= 2) { $('compareSelect1').value = supplements[0].id; $('compareSelect2').value = supplements[1].id; }
-  // v3.3: сравнение — по кнопке «Сравнить» или смене селекта (не на загрузке:
-  // data.json догружается prefetch'ем, главная рендерится без ожидания 472 KB)
-  $('compareBtn').addEventListener('click', renderCompare);
-  $('compareSelect1').addEventListener('change', renderCompare);
-  $('compareSelect2').addEventListener('change', renderCompare);
+  supplements.forEach(s => { /* сравнение больше не рендерится на главной — только на compare.html */ });
+  // v3.3: сравнение убрано с главной — см. compare.html (секция O-03/PA-02)
   $('search').addEventListener('input', applyFilters);
+  $('search').addEventListener('input', (e) => { renderSearchDrop(e.target.value); });
+  $('search').addEventListener('keydown', (e) => {
+    const drop = $('searchDrop');
+    if (!drop || drop.style.display === 'none') return;
+    if (e.key === 'ArrowDown') { e.preventDefault(); searchDropActive = Math.min(searchDropActive + 1, drop.querySelectorAll('.drop-row').length - 1); updateSearchDropFocus(); }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); searchDropActive = Math.max(searchDropActive - 1, 0); updateSearchDropFocus(); }
+    else if (e.key === 'Enter') { e.preventDefault(); pickSearchDrop(); }
+    else if (e.key === 'Escape') { drop.style.display = 'none'; searchDropActive = -1; setSearchDropOpen(false); }
+  });
   ['verdictFilter', 'sortSelect'].forEach(id => { const el = $(id); if (el) el.addEventListener('change', applyFilters); });
   document.querySelectorAll('.preset').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -324,7 +510,6 @@ function initApp() {
       applyFilters();
     });
   });
-  $('compareBtn').onclick = renderCompare;
   $('modalClose').onclick = closeModal;
   $('modalOverlay').onclick = e => { if (e.target.id === 'modalOverlay') closeModal(); };
   document.addEventListener('keydown', e => {
@@ -332,6 +517,24 @@ function initApp() {
     else trapModalFocus(e);   // v5.6.2 (T3): Tab/Shift+Tab не покидают модалку
   });
   document.addEventListener('click', e => {
+    // Закрыть live-search дропдаун при клике вне поля и самого дропдауна
+    const drop = $('searchDrop');
+    if (drop && drop.style.display !== 'none') {
+      const insideDrop = e.target.closest('#searchDrop, #search');
+      if (!insideDrop) { drop.style.display = 'none'; searchDropActive = -1; setSearchDropOpen(false); }
+    }
+    // Клик по результату live-search -> переход на страницу добавки
+    const srow = e.target.closest('.drop-row[data-id]');
+    if (srow) {
+      e.preventDefault();
+      const id = srow.dataset.id;
+      $('search').value = '';
+      drop.style.display = 'none';
+      searchDropActive = -1;
+      setSearchDropOpen(false);
+      location.href = 'sup/' + slugify(id) + '.html';
+      return;
+    }
     const chip = e.target.closest('.tagChip');
     if (!chip) return;
     e.stopPropagation();
@@ -374,12 +577,46 @@ function initApp() {
   }
 });
 
+  /* U2-06 (25.10.2026): копирование умело только успех. Если буфер обмена
+     недоступен (нет разрешения, страница открыта не по HTTPS, старый
+     браузер), обработчик молчал: человек нажимал и не понимал, сработало
+     ли. Теперь у обеих веток есть отклик — «Скопировано» или «Не удалось
+     скопировать», плюс запасной путь через execCommand. Тост здесь не
+     годится: showToast живёт внутри IIFE в hactar.js и наружу не отдан. */
+  function copyMark(el, text) {
+    const old = el.textContent;
+    el.setAttribute('aria-live', 'polite');
+    el.textContent = text;
+    setTimeout(() => { el.textContent = old; }, 1500);
+  }
+  function copyLegacy(text) {
+    const area = document.createElement('textarea');
+    area.value = text;
+    area.setAttribute('readonly', '');
+    area.style.position = 'fixed';
+    area.style.opacity = '0';
+    document.body.appendChild(area);
+    area.select();
+    let ok = false;
+    try { ok = document.execCommand('copy'); } catch (err) { ok = false; }
+    document.body.removeChild(area);
+    return ok;
+  }
   document.addEventListener('click', e => {
     const b = e.target.closest('.copyLink');
     if (!b) return;
-    navigator.clipboard.writeText(b.dataset.copy).then(() => {
-      const old = b.textContent; b.textContent = t("common.copied");
-      setTimeout(() => { b.textContent = old; }, 1500);
+    const text = b.dataset.copy || '';
+    if (!navigator.clipboard || !navigator.clipboard.writeText) {
+      const ok = copyLegacy(text);
+      copyMark(b, ok ? t("common.copied") : t("share.fail"));
+      return;
+    }
+    navigator.clipboard.writeText(text).then(() => {
+      copyMark(b, t("common.copied"));
+    }).catch(err => {
+      console.error('[copy] clipboard.writeText не сработал, пробуем execCommand:', err);
+      const ok = copyLegacy(text);
+      copyMark(b, ok ? t("common.copied") : t("share.fail"));
     });
   });
   const deep = decodeURIComponent(location.hash.replace('#sup=', ''));
@@ -402,7 +639,12 @@ function initApp() {
   });
 
   $('resetFilters').addEventListener('click', () => {
-    const row = $('favFilter').parentElement;
+    // v5.6.5: чистим всю панель #controls, а не только ряд кнопок.
+    // Раньше row = $('favFilter').parentElement (.filter-actions), а в нём
+    // одни кнопки — ни #search, ни #verdictFilter, ни #sortSelect не
+    // сбрасывались, и «Сбросить фильтры» не возвращал карточки после
+    // поиска. Найдено тестом test_ui_verify (сброс не вернул карточки).
+    const row = $('controls');
     row.querySelectorAll('input').forEach(i => { i.value = ''; });
     row.querySelectorAll('select').forEach(s => { s.selectedIndex = 0; });
     onlyFavs = false;
@@ -472,6 +714,8 @@ function setLight(on) {
   document.documentElement.classList.toggle('light', on);
   document.body.classList.toggle('light', on);
   $('themeBtn').textContent = on ? t("theme.dark") : t("theme.light");
+  // A2-01 (24.10.2026): доступное имя — действие, а не состояние.
+  $('themeBtn').setAttribute('aria-label', on ? t("a11y.themeToDark") : t("a11y.themeToLight"));
   if (currentData.length) { if (chartTab === 'price') renderBubble(currentData); else renderQuadrant(currentData); }
 }
 
@@ -589,6 +833,70 @@ function applyFilters() {
   }
 }
 
+
+// ===== Live-search дропдаун под строкой поиска (index.html) =====
+let searchDropActive = -1;
+
+function renderSearchDrop(q) {
+  const drop = $('searchDrop');
+  if (!drop) return;
+  const v = (q || '').trim();
+  if (!v) { drop.style.display = 'none'; drop.innerHTML = ''; searchDropActive = -1; setSearchDropOpen(false); return; }
+  const vl = v.toLowerCase();
+  const results = supplements.filter(s =>
+    s.name.toLowerCase().includes(vl) || (s.effects || []).join(' ').toLowerCase().includes(vl)
+  ).slice(0, 8);
+  if (!results.length) {
+    // 13A2a: строка вынесена в словарь (ключ empty.notFound)
+    drop.innerHTML = '<div class="drop-empty">' + esc(t("empty.notFound")) + '</div>';
+    drop.style.display = 'block';
+    searchDropActive = -1;
+    setSearchDropOpen(true);
+    return;
+  }
+  drop.innerHTML = results.map((s, i) =>
+    // A11Y-10: id на каждой опции — нужен для aria-activedescendant на #search
+    '<div class="drop-row" role="option" id="searchDropOpt' + i + '" data-id="' + esc(s.id) + '" data-index="' + i + '">' +
+    '<span class="drop-name">' + esc(s.name) + '</span>' +
+    '<span class="drop-cat">' + esc(s.category || '') + '</span>' +
+    '</div>'
+  ).join('');
+  drop.style.display = 'block';
+  searchDropActive = -1;
+  setSearchDropOpen(true);
+  updateSearchDropFocus();
+}
+
+function updateSearchDropFocus() {
+  const drop = $('searchDrop');
+  if (!drop || drop.style.display === 'none') return;
+  const rows = drop.querySelectorAll('.drop-row');
+  rows.forEach((r, i) => {
+    r.classList.toggle('focused', i === searchDropActive);
+    r.setAttribute('aria-selected', i === searchDropActive ? 'true' : 'false');
+  });
+  // A11Y-10: активная опция рассказывается скринридеру через
+  // aria-activedescendant на input#search (role="combobox")
+  const search = $('search');
+  if (search) {
+    const active = rows[searchDropActive];
+    if (active && searchDropActive >= 0) search.setAttribute('aria-activedescendant', active.id);
+    else search.removeAttribute('aria-activedescendant');
+  }
+}
+
+function pickSearchDrop() {
+  const drop = $('searchDrop');
+  if (!drop || drop.style.display === 'none') return;
+  const row = drop.querySelector('.drop-row.focused') || drop.querySelector('.drop-row');
+  if (!row) return;
+  const id = row.dataset.id;
+  $('search').value = '';
+  drop.style.display = 'none';
+  searchDropActive = -1;
+  setSearchDropOpen(false);
+  location.href = 'sup/' + slugify(id) + '.html';
+}
 
 const EFFECT_PRIORITY = [
   'sleep', 'stress', 'mood', 'brain', 'energy', 'immunity',
@@ -712,18 +1020,19 @@ function renderCards(data) {
       '<span class="tagChip" data-cat-group="' + catGroup(effectLabels[t] || t) + '" data-tag="' + esc(t) + '" title="' + esc(effectLabels[t] || t) + '">' + esc(effectLabels[t] || t) + '</span>'
     ).join('') + '</div></div>').join('');
   g.querySelectorAll('.card').forEach(el => {
+    const url = 'sup/' + slugify(el.dataset.id) + '.html';
     el.onclick = (e) => {
       if (e.target.closest('a')) return;
-      openModal(el.dataset.id);
+      location.href = url;
     };
     // v5.6.2 батч C (T3): карточка — div с onclick, без него она
     // недостижима с клавиатуры: ни Enter, ни Пробел ничего не делали.
-    // Роли не назначаем — div-карточка не диалог и не ссылка.
+    // Роли не назначаем — div-карточка не ссылка.
     el.onkeydown = (e) => {
       if (e.key !== 'Enter' && e.key !== ' ') return;
       if (e.target.closest('a, button')) return;   // свои элементы обработают сами
       e.preventDefault();
-      openModal(el.dataset.id);
+      location.href = url;
     };
   });
 }
@@ -764,25 +1073,16 @@ function trapModalFocus(e) {
 async function openModal(id) {
   scrollBeforeModal = window.scrollY || 0;
 
-  // Lazy load полного data.json при первом клике (кешируется в памяти)
+  // FIX-77: раньше здесь был свой fetchJson('data.json') — дубль
+  // ensureFullData() и обход EN-оверлея. Теперь единая точка загрузки.
   let s = supplementsFull ? supplementsFull[id] : null;
   if (!s) {
-    if (!supplementsFullPromise) {
-      console.log('[modal] загружаем полный data.json (один раз за сессию)…');
-      supplementsFullPromise = fetchJson('data.json').then(data => {
-        supplementsFull = Object.fromEntries(data.map(c => [c.id, c]));
-        return supplementsFull;
-      }).catch(err => {
-        console.error('[modal] не удалось загрузить data.json:', err);
-        supplementsFullPromise = null;  // разрешим retry
-        throw err;
-      });
-    }
     try {
-      const map = await supplementsFullPromise;
+      const map = await ensureFullData();
       s = map[id];
-    } catch {
-      return;  // уже залогировано
+    } catch (err) {
+      console.error('[modal] не удалось загрузить data.json:', err);
+      return;
     }
   }
   if (!s) return;
@@ -806,7 +1106,7 @@ async function openModal(id) {
     : '';
 
   $('modalBody').innerHTML = '<h2 id="modalTitle">' + esc(s.name) + '</h2>' + updatedLine(s) + manualBadge(s) +
-    '<div class="mrow"><span class="verdict v' + esc(s.code) + '">' + esc(s.verdict) + '</span> · ' + esc(s.category || '') + (s.grade ? ' · <span class="grade g' + esc(s.grade) + '">' + t("card.grade") + ' ' + esc(s.grade) + '</span> · ' + esc(GRADE_LABEL[s.grade] || '') : '') + '</div>' +     '<div class="mrow">' + scienceSpan(s) + pubmedLink(s) + ' · ' + maSpan(s) + '</div>' +
+    '<div class="mrow"><span class="verdict v' + esc(s.code) + '">' + esc(s.verdict) + '</span> · ' + esc(s.category || '') + (s.grade ? ' · <span class="grade g' + esc(s.grade) + '">' + t("card.grade") + ' ' + esc(s.grade) + '</span> · ' + esc(GRADE_LABEL[s.grade] || '') : '') + pmidBadge(s) + '</div>' +     '<div class="mrow">' + scienceSpan(s) + gSpan(s) + pubmedLink(s) + ' · ' + maSpan(s) + '</div>' +
     maTop3Block(s) +    trialsLine +
     calcLine +
     (s.citations != null ? '<div class="mrow">' + t("modal.citations") + s.citations + '</div>' : '') +
@@ -814,10 +1114,13 @@ async function openModal(id) {
     '<div class="mrow"><b>' + t("modal.effects") + '</b> ' + ((s.effects || []).join(', ') || '—') + '</div>' +
     '<div class="mrow">💊 <b>' + t("modal.dosage") + '</b> ' + (s.dosage || '—') + '</div>' +
     '<div class="mrow">⏳ <b>' + t("modal.course") + '</b> ' + (s.course || '—') + '</div>' +
-    (s.forms ? '<div class="mrow">🧪 <b>' + t("modal.forms") + '</b> ' + s.forms + '</div>' : '') +
+    onsetSpan(s) +
+    (s.forms && s.forms.length ? '<div class="mrow">🧪 <b>' + t("modal.forms") + '</b> ' + esc(Array.isArray(s.forms) ? s.forms.join(', ') : s.forms) + '</div>' : '') +
+    unknownsBlock(s) +
+    shopBlock(s) +
     shareRow(s) +
     compareBlock(s) +
-    '<div class="mrow warn">⚠️ ' + (s.caution || '—') + '</div>' +
+    cautionSpan(s) +
     // Кнопку копирования ссылки здесь убрали как дубль: выше, в shareRow(),
     // уже есть «🔗 копировать» с тем же действием (docs/script.js, P1-3).
     ' <a class="favFilter" target="_blank" rel="noopener" href="' + issueUrl(s, '') + '">' + t("modal.issue") + '</a></div>' +
@@ -888,10 +1191,7 @@ function setAxisX(ax) {
 
 function gotoCompare(idA, idB) {
   closeModal();
-  $('compareSelect1').value = idA;
-  $('compareSelect2').value = idB;
-  renderCompare();
-  document.getElementById('compareSection').scrollIntoView({ behavior: 'smooth' });
+  location.href = 'hactar.html?tab=compare&ids=' + encodeURIComponent(idA) + (idB ? ',' + encodeURIComponent(idB) : '');
 }
 
 // ── Адаптивные размеры пузырей: на мобильном меньше ─────────
@@ -961,7 +1261,7 @@ function renderBubble(data) {
         if (!els.length) return;
         const s = chartSupByEl(e.chart, els[0]);
         if (!s) return;
-        openModal(s.id);
+        location.href = 'sup/' + slugify(s.id) + '.html';
       },
       onHover: (e, els) => {
         e.native.target.style.cursor = els.length ? 'pointer' : 'default';
@@ -973,7 +1273,18 @@ function renderBubble(data) {
 
 // ===== v2.4: квадрант доказательности (Hedges' g vs scienceIndex) =====
 function renderQuadrant(data) {
-  const verified = data.filter(s => s.hedges_g != null);
+  // FIX-40 (MAN-05): hedges_g мог прийти строкой («0.71») — из data.json,
+  // api/v1 или правки руками. Chart.js в scatter молча не рисует точку с
+  // нечисловым x, и график выглядит пустым без единой ошибки в консоли.
+  // Поэтому значение приводим к числу, а всё нефинитное (null, "", NaN,
+  // «н/д») отбрасываем — это же число попадает в подпись «ждут проверки».
+  const verified = data
+    .map(s => {
+      if (s.hedges_g == null || s.scienceIndex == null) return null;
+      const g = Number(s.hedges_g), si = Number(s.scienceIndex);
+      return Number.isFinite(g) && Number.isFinite(si) ? { s, g, si } : null;
+    })
+    .filter(Boolean);
   $('quadrantNote').textContent = verified.length < data.length
     ? t("quadrant.waiting", { count: data.length - verified.length }) : '';
   const ctx = $('quadrantChart').getContext('2d');
@@ -983,9 +1294,9 @@ function renderQuadrant(data) {
     type: 'scatter',
     data: { datasets: (() => {
       const { rFor, rHoverFor } = bubbleRadii();
-      return verified.map(s => ({
+      return verified.map(({ s, g, si }) => ({
         label: s.name,
-        data: [{ x: s.hedges_g, y: Math.max(1, s.scienceIndex) }],
+        data: [{ x: g, y: Math.max(1, si) }],
         backgroundColor: vColorAlpha(s.code),
         pointRadius: rFor(s),
         pointHoverRadius: rHoverFor(s),
@@ -1013,8 +1324,8 @@ function renderQuadrant(data) {
           return s ? ' ' + s.name + ' · g=' + s.hedges_g + ' · ' + (s.grade || '—') + ' · ' + s.verdict : '';
         } } }
       },
-      onClick: (e, els) => { if (!els.length) return; const s = chartSupByEl(e.chart, els[0]); if (!s) return; openModal(s.id); },
-      onHover: (e, els) => { e.native.target.style.cursor = els.length ? 'pointer' : 'default'; }
+      onClick: (e, els) => { if (!els.length) return; const s = chartSupByEl(e.chart, els[0]); if (!s) return; location.href = 'sup/' + slugify(s.id) + '.html'; },
+      onHover: (e, els) => { e.native.style.cursor = els.length ? 'pointer' : 'default'; }
     }
   });
   window.quadrantChart = quadrantInstance;
@@ -1038,21 +1349,23 @@ async function renderCompare() {
   let a = supplementsFull ? supplementsFull[idA] : null;
   let b = supplementsFull ? supplementsFull[idB] : null;
   if (!a || !b) {
-    if (!supplementsFullPromise) {
-      supplementsFullPromise = fetchJson('data.json').then(data => {
-        supplementsFull = Object.fromEntries(data.map(c => [c.id, c]));
-        return supplementsFull;
-      }).catch(err => {
-        console.error('[compare] не удалось загрузить data.json:', err);
-        supplementsFullPromise = null;
-        throw err;
-      });
-    }
     try {
-      const map = await supplementsFullPromise;
+      const map = await ensureFullData();
       a = map[idA];
       b = map[idB];
     } catch {
+      // UX-01/UX-02 (FIX-SPRINT B2): раньше был тихой return — пользователь
+      // нажимал «Сравнить», ничего не происходило и не было видно, что
+      // запрос упал. Теперь показываем ошибку с кнопкой повтора.
+      const res = $('compareResult');
+      if (res) {
+        res.innerHTML =
+          '<div style="padding:.6rem .8rem;border:1px solid var(--aborder);border-radius:var(--radius-lg);background:var(--apanel)">' +
+          '<span role="alert">' + t("boot.error") + '</span>' +
+          ' <button type="button" class="btn" id="compareRetry" style="margin-inline-start:.4rem">' + t("boot.retry") + '</button></div>';
+        const retry = $('compareRetry');
+        if (retry) retry.onclick = () => { renderCompare(); };
+      }
       return;
     }
   }
@@ -1114,9 +1427,11 @@ async function renderCompare() {
     return [science, maBase, verified, completeness];
   };
   const PROF_LABELS = [t("prof.science"), t("prof.maBase"), t("prof.verified"), t("prof.completeness")];
-  if (radarInstance) radarInstance.destroy();
-  radarInstance = new Chart($('radarChart'), {
-    type: 'radar',
+  const rc = $('radarChart');
+  if (rc) {
+    if (radarInstance) radarInstance.destroy();
+    radarInstance = new Chart(rc, {
+      type: 'radar',
     data: {
       labels: [
         t("prof.long.science"),
@@ -1150,7 +1465,8 @@ async function renderCompare() {
       }
     }
   });
-  window.radarInstance = radarInstance;
+    window.radarInstance = radarInstance;
+  }
 }
 
 // ===== v1.3: избранное =====

@@ -17,8 +17,9 @@
 
 ## Скиллы
 
-20 скиллов в `.opencode/skills/` (`Get-ChildItem .opencode\skills -Directory |
-Measure-Object` = 20; источник истины — `.opencode/skills/SKILLS_INDEX.md:5`).
+19 скиллов в `.opencode/skills/` (`Get-ChildItem .opencode\skills -Directory`
+= 19; ещё один — вендорный `cyberaudit` — в `.gitignore`, поэтому в main
+checkout каталогов 20; источник истины — `.opencode/skills/SKILLS_INDEX.md:5`).
 Загружаются по требованию: агент видит только имя и описание, полный
 `SKILL.md` подгружается под задачу. Это экономит контекст, поэтому скилл
 стоит называть явно.
@@ -26,7 +27,6 @@ Measure-Object` = 20; источник истины — `.opencode/skills/SKILLS
 | Скилл | Для чего |
 |---|---|
 | `data-audit` | аудит данных (5 слоёв) |
-| `data-validation` | целостность и консистентность данных |
 | `project-audit` | полный аудит проекта по 12 проверкам |
 | `qa-deep-audit` | покрытие тестами, edge cases, empty/error states |
 | `release-check` | готовность к коммиту и push |
@@ -44,6 +44,7 @@ Measure-Object` = 20; источник истины — `.opencode/skills/SKILLS
 | `marketing-deep-audit` | воронка, CTA, соцдоказательства, тексты |
 | `product-audit` | UI/UX, маркетинг, QA, mobile по 4 направлениям |
 | `legal-compliance-audit` | юридический чек-лист для сайта о БАДах |
+| `repo-size-audit` | крупные файлы, размер репо, что удалить |
 | `cyberaudit` | OWASP Top 10, CVSS, ASVS |
 
 ## MCP

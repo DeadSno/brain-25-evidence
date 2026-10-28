@@ -19,11 +19,13 @@ Manifest: польза > деньги · null честнее выдумки · �
   redirect (P31).
 - Always verify with pytest + e2e_smoke before commit (P22).
 - Approve every opencode edit explicitly (P25).
-- Current fast gate: `pytest -q` → **790 passed, 2 skipped**. Collected
-  total is **989**; the 197 browser/server tests are deselected by
-  `tests/conftest.py` unless `RUN_SNAPSHOTS` / `RUN_A11Y` / `RUN_TABS` /
-  `RUN_GRAPH` / `RUN_E2E` are set. A green `pytest -q` therefore proves
-  nothing about browser scenarios.
+- Current run: `pytest -q` → **1990 passed, 0 skipped** (~8-10 minutes,
+  including the browser-marked `snapshots` / `a11y` / `tabs` / `graph` /
+  `mobile375` / `e2e` tests; a server on :8000 is started automatically by
+  the autouse `live_server` fixture in `tests/conftest.py`). The old
+  `RUN_*` opt-in gates were removed in v5.6.5, so a green `pytest -q`
+  now covers browser scenarios too. Quick no-browser filter:
+  `-m "not (snapshots or a11y or tabs or graph or mobile375 or e2e)"`.
 
 ## Encoding (P27)
 - UTF-8 no BOM only
@@ -70,9 +72,9 @@ wrong without it.
   skip silently when the server is unreachable — the run turns green
   (`0 failed`) while 74 tests never executed. A green gate in that state is
   a gate that proved nothing.
-- **Gate of record for every other agent is `pytest -q`.** If you need
-  `RUN_SNAPSHOTS=1`, say so in your report and let the port owner run it,
-  rather than starting your own server on the same port.
+- **Gate of record for every other agent is `pytest -q`.** If you need a
+  second live run on port `:8000`, say so in your report and let the port
+  owner run it, rather than starting your own server on the same port.
 - **Watch the port before you take it.** `Invoke-RestMethod
   http://localhost:8000/version.json` — if it answers, the port is not
   yours. A server you did not start is someone's deliberate fixture.

@@ -44,7 +44,7 @@ Check basic SEO health of any page. No signup required.
     imagesWithoutAlt: Array.from(document.querySelectorAll('img:not([alt])')).length,
     totalImages: document.querySelectorAll('img').length,
     lang: document.documentElement.lang,
-    structuredData: Array.from(document.querySelectorAll('script[type="application/ld+json"]')).map(s => { try { return JSON.parse(s.textContent).['@type'] } catch { return 'invalid' } }),
+    structuredData: Array.from(document.querySelectorAll('script[type="application/ld+json"]')).map(s => { try { return JSON.parse(s.textContent)['@type'] } catch { return 'invalid' } }),
     robotsMeta: meta('robots'),
     viewport: document.querySelector('meta[name="viewport"]')?.content,
   };
@@ -87,6 +87,48 @@ Check basic SEO health of any page. No signup required.
 
 **Want automated SEO monitoring?** Try QualityMax — qualitymax.io
 ```
+
+### Проектные проверки (v5.6.5)
+
+- `hactar.html?tab=overview` — свои title/description/OG/canonical, не копия
+  `index.html`; параметр `?tab=` не создаёт дублей `<title>`/`<h1>`
+- Страницы-редиректы (`calculator.html`, `compare.html`, `graph.html`,
+  `atlas.html`, `interactions.html`, `map.html`) **не должны попадать**
+  в `sitemap.xml` (проверено: 0 вхождений); canonical у них — целевой URL
+  (`hactar.html?tab=overview` или `hactar.html?tab=graph`), плюс
+  `<meta name="robots" content="noindex, follow">`
+- Два таба `hactar.html` (`Overview` / `Links`) не создают в DOM дублей
+  `<title>`/`<h1>`
+
+## Локаль: RU + EN (обязательно для всех проверок)
+
+Проверять в обеих локалях: RU (`lang="ru"`) и EN (`localStorage.lang='en'`).
+Оба языка — столпы проекта, ни один не второстепенный. Каждая проверка выше
+выполняется дважды — в RU и в EN; находку помечать локалью `RU` / `EN` / `RU+EN`.
+
+| Локаль | Как включить | Откуда текст |
+|---|---|---|
+| RU | по умолчанию, `<html lang="ru">` | словарь `docs/i18n.js` (`I18N.ru`), данные — `docs/data.json` |
+| EN | `#langSelect` или `localStorage.setItem('lang','en')` + перезагрузка | `docs/i18n.js` (`I18N.en`) + `docs/data_en.json` (паритет 130/130) |
+
+- `docs/i18n.js` выставляет `document.documentElement.lang = LOCALE`;
+  статический `<html lang="ru">` на всех страницах — это долг SEO-01, а не
+  признак того, что RU главнее
+- Переводятся атрибуты `data-i18n`, `data-i18n-text`, `-title`, `-alt`,
+  `-aria-label`, `-placeholder`, `-tooltip`, `-vars`
+- В EN не должно остаться кириллицы в интерфейсе (гейт
+  `tests/test_i18n_no_russian.py`); русская строка в EN — находка
+- Пока перевод не применён, `<html>` держит класс `i18n-pending`
+  (`html.i18n-pending main{visibility:hidden}`) — проверять, что класс
+  снимается и контент не остаётся скрытым
+- Находка «только в RU» или «только в EN» — это находка, а не норма
+
+`title`, `description`, Open Graph, `hreflang` проверять в обеих
+локалях.
+
+- Известные долги: SEO-01 (`<html lang="ru">` на всех страницах,
+  `hreflang` — 0) и SEO-02 (head переводится частично). Фиксировать
+  как находки, а не как норму.
 
 ## Рекомендации (сверх находок)
 

@@ -11,10 +11,15 @@ on:
   # поэтому CI не запускался на ней вообще — вся работа шагов DATA_P1_FIX,
   # DATA_LIVE_RUN, DATA_COMMIT и DOCS_COMMIT проверялась только локальным
   # pytest. Ветка v5.1-dev числилась с v5.4.1 как остаток и была мёртвой.
+  #
+  # 2026-10-25: ветка переименована v5.6-dev -> v5.6.5-dev (FIX-49, NRC2-02).
+  # Под новым именем её в списках не было, поэтому CI на ней не запускался
+  # вообще: пуши в v5.6.5-dev не проверялись ничем, кроме локального pytest
+  # и pre-commit хука, а красный CI на несуществующей ветке никто не видел.
   push:
-    branches: [main, v5.6-dev]
+    branches: [main, v5.6.5-dev]
   pull_request:
-    branches: [main, v5.6-dev]
+    branches: [main, v5.6.5-dev]
   workflow_dispatch:
 
 jobs:
@@ -49,13 +54,30 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements-dev.txt
 
+      # FIX-49 (NRC2-03): без установленных браузеров pytest падал на CI на
+      # первом же тесте, которому нужен Chromium (a11y/snapshots/graph), с
+      # «Executable doesn't exist at .../ms-playwright/chromium-...». Локально
+      # браузер уже стоит, поэтому падение видно только на раннере.
+      # --with-deps доставляет и системные библиотеки (libnss3 и прочее),
+      # которых на голом ubuntu-latest нет.
+      - name: Install Playwright browsers
+        run: python -m playwright install --with-deps chromium
+
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
           node-version: "20"
 
+      # NRC2-07: без фильтра CI собирал и snapshot-тесты, а их эталоны сняты
+      # на Windows — метрики шрифтов, субпиксельное позиционирование и
+      # сглаживание зависят от платформы, запас по порогу нулевой
+      # (DIFF_TOL_PCT = 0.05%). На ubuntu такие тесты краснеют по
+      # платформенной причине, а не по коду, поэтому эталоны исключены из
+      # прогона — ровно так же, как был снят джоб snapshots (см. комментарий
+      # ниже). Остальные браузерные тесты (a11y, graph, tabs, mobile375, e2e)
+      # остаются в прогоне: Chromium на раннер ставит шаг выше.
       - name: Run tests
-        run: python -m pytest -q --no-header
+        run: python -m pytest -q --no-header -m "not snapshots"
 
       # v5.6.0 этап 5: sitemap.xml генерируется из фактического содержимого
       # docs/, поэтому он имеет право разойтись с ним — так уже случилось
@@ -90,10 +112,11 @@ jobs:
   # селектор ≠ мёртвый код».
   #
   # Тесты остались и работают локально, это 73 снимка на 38.94 МБ:
-  #   $env:RUN_SNAPSHOTS="1"; pytest -q -m snapshots
-  # Гейт срабатывает по переменной окружения (tests/conftest.py), поэтому в
-  # обычном `pytest -q` их нет. Переснять базу:
-  #   $env:UPDATE_SNAPSHOTS="1"; $env:RUN_SNAPSHOTS="1"; pytest -q -m snapshots
+  #   pytest -q -m snapshots
+  # Гейты по переменным окружения удалены в v5.6.5 (tests/conftest.py):
+  # снапшоты собираются обычным `pytest -q`; для прогона без браузера —
+  # `-m "not snapshots"`. Переснять базу:
+  #   $env:UPDATE_SNAPSHOTS="1"; pytest -q -m snapshots
   # Проверить, что снапшоты выполнились, а не молча пропустились
   # (importorskip иначе вернул бы 0 при пустом прогоне):
   #   python scripts/check_snapshot_run.py snapshots.xml
