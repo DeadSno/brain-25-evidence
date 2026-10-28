@@ -332,3 +332,6 @@ db_import_log.txt
 reports/*.pytest.xml
 reports/*_pytest.xml
 
+# Учебный конспект СА — внутренние учебные заметки, не для публичного репо
+.opencode/System Analysis low.md
+
