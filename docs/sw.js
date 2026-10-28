@@ -549,7 +549,8 @@
 /* Бамп v177 -> v178 FIX-22: remove duplicate install/activate in sw.js */
 /* Бамп v179 -> v180 FIX-27: дисклеймер «БАД не является лекарственным средством» добавлен в футер всех страниц, ключ footer.legalDisclaimer в i18n.js (RU+EN) */
 /* Бамп v181 -> v182 FIX-31: VIS-02 градиент-маска навбара 16 -> 24px, padding-inline-end 24px, CSS-версия 469 */
-var CACHE_VERSION = 'v182';
+/* Бамп v182 -> v183 FIX-32: VIS-03 placebo-полоса >100 % не обрезается молча, цифра вынесена в метку, CSS-версия 470 */
+var CACHE_VERSION = 'v183';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 

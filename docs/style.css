@@ -2995,7 +2995,30 @@ html.light #cookieBanner { box-shadow: var(--shadow-pop-light); }
   background: var(--placebo-color, #4d7c0f);
   border-radius: 3px;
   transition: width 0.6s ease;
+  /* FIX-32 / VIS-03: 16 из 89 полос были шире дорожки (макс 231 %), а
+     .placebo-track{overflow:hidden} их обрезал — визуально «полно», как у
+     честных 100 %. max-width страхует, если inline-ширина когда-нибудь
+     снова превысит 100 % (в шаблоне она уже зажата). */
+  max-width: 100%;
 }
+/* FIX-32 / VIS-03: полоса > 100 % получает штриховку — видно, что шкала
+   упёрлась в предел, а не что эффект ровно 100 %. Цвета только через
+   var(--placebo-color) и прозрачность, поэтому темы не ломаются. */
+.placebo-track.is-over .placebo-fill {
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(255, 255, 255, .35) 0 4px,
+    rgba(255, 255, 255, 0) 4px 8px
+  );
+}
+/* FIX-32 / VIS-03: числовая метка рядом с полосой — без неё 231 % были
+   неотличимы от 100 % (это и был баг). tabular-nums держит цифры ровно. */
+.placebo-pct {
+  color: var(--muted);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.placebo-track.is-over + .placebo-pct { font-weight: 600; }
 html.light .placebo-track { background: rgba(0,0,0,.06); }
 
 /* Блок 7.9: Кнопки цитировать / прослушать (sup-страницы) */

@@ -56,7 +56,7 @@
        на всех 131 странице при следующей перегенерации. Теперь это ловит
        гейт tests/test_style_version_bump.py, который хук действительно
        исполняет (test_build_sup_idempotent.py помечен snapshot_data и в
-       хуке не гоняется). #}<link rel="stylesheet" href="../style.min.css?v=469">
+       хуке не гоняется). #}<link rel="stylesheet" href="../style.min.css?v=470">
     <script src="../version.js?v=312" defer></script>
     <script src="../i18n.js?v=19" defer></script>
     <script src="../pwa.js?v=284" defer></script>
@@ -109,11 +109,22 @@
         <h2><span data-sup="name">{{ name }}</span></h2>
         <span class="grade-badge" style="background:{{ grade_color }}"><abbr data-i18n-title="trends.gradeAbbr" data-i18n-tooltip="sup.gradeTooltip" data-i18n-text="sup.gradeShort" data-i18n-vars='{"g": "{{ grade }}"}' data-tooltip="Грейд {{ grade }}">Грейд {{ grade }}</abbr></span>
         {% if hedges_g_pct is not none %}
-        <div class="placebo-bar" data-i18n-aria-label="sup.placeboBar" aria-label="Размер эффекта плацебо">
+        {# FIX-32 / VIS-03: было два дефекта. 1) Полоса шириной 231 % обрезалась
+           .placebo-track{overflow:hidden} и выглядела как честные 100 % — теперь
+           ширина зажата в 100 %, а реальное значение вынесено в видимую метку
+           .placebo-pct («231 %»), у полосы > 100 % добавляется класс is-over
+           (штриховка, см. style.css). 2) role="progressbar" с
+           aria-valuenow="231.0" при aria-valuemax="100" — невалидный ARIA:
+           progressbar не описывает «во сколько раз больше». Вместо него
+           роль img на дорожке с тем же описанием sup.placeboAria (ключ уже
+           содержит {n}), а группа получила role="group" — aria-label на
+           generic-элементе не работает. #}
+        <div class="placebo-bar" role="group" data-i18n-aria-label="sup.placeboBar" aria-label="Размер эффекта плацебо">
             <span class="placebo-label" data-i18n-text="sup.placebo">Плацебо</span>
-            <div class="placebo-track">
-                <div class="placebo-fill" style="width: {{ hedges_g_pct }}%;" role="progressbar" data-i18n-aria-label="sup.placeboAria" data-i18n-vars='{"n": "{{ hedges_g_pct }}"}' aria-label="Размер эффекта относительно плацебо: {{ hedges_g_pct }} процентов" aria-valuenow="{{ hedges_g_pct }}" aria-valuemin="0" aria-valuemax="100"></div>
+            <div class="placebo-track{% if hedges_g_pct is not none and hedges_g_pct > 100 %} is-over{% endif %}" role="img" data-i18n-aria-label="sup.placeboAria" data-i18n-vars='{"n": "{{ hedges_g_pct }}"}' aria-label="Размер эффекта относительно плацебо: {{ hedges_g_pct }} процентов">
+                <div class="placebo-fill" style="width: {% if hedges_g_pct > 100 %}100{% else %}{{ hedges_g_pct }}{% endif %}%;"></div>
             </div>
+            <span class="placebo-pct" aria-hidden="true">{{ hedges_g_pct }}%</span>
             <span class="placebo-label" data-i18n-text="sup.effect">Эффект</span>
         </div>
         {% endif %}
