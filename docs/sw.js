@@ -551,7 +551,8 @@ self.addEventListener('activate', event => {
 /* Бамп v164 -> v165 BATCH-2: og:locale, og:url заглушек, описание hactar (SEO-03/04/05) */
 /* Бамп v171 -> v172 FIX-16: A11Y-01 tabpanel */
 /* Бамп v172 -> v173 FIX-17: A11Y-02 дровере role="dialog" aria-modal aria-labelledby inert фон фокус Esc закрывает */
-var CACHE_VERSION = 'v173';
+/* Бамп v173 -> v174 FIX-18: A11Y-05 shop-btn стили на 130 sup-страницах, min-height 24px, gap, focus-visible */
+var CACHE_VERSION = 'v174';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
