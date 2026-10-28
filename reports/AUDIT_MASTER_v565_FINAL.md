@@ -1938,6 +1938,10 @@ workflow, который ловит регрессии (`.github/workflows/tests
 | CI-03 | B | `tests/test_graph_interaction.py:179` (фикстура `browser`) | В отличие от `tests/test_tabs_interaction.py`, нет `pytest.skip` при отсутствии браузера: `getattr(pw, engine).launch()` вызывается напрямую. В CI ставится только chromium (`playwright install --with-deps chromium`), поэтому `test_graph_interaction[webkit]` → `BrowserType.launch: Executable doesn't exist at …/webkit-2359/pw_run.sh` (1 failed + 12 errors в setup — весь модуль в параметре `webkit`), и это третья, последняя причина красного `Run tests`. Guard в `tabs_interaction` (`_launch`, строки 190-202) есть, поэтому тот же дефект там не всплывает | RU+EN | Закрыто (коммит faa11f06, FIX-06) |
 | CI-04 | C | `.github/workflows/tests.yml:20-22` | Триггеры `push`/`pull_request` перечисляют только `[main, v5.6.5-dev]`. Заготовка релиза `release/v5.6.5` (`de422580`, merge 283 коммитов `v5.6.5-dev` в `main`) не проверяется CI вообще: `GET /actions/workflows/tests.yml/runs?branch=release/v5.6.5` → `total_count: 0` за всю историю ветки. То есть самый рискованный коммит релизного цикла идёт в `main` без единого прогона тестов; ошибка видна только после публикации в прод. Тот же класс дефекта, что FIX-49 (ветка не в списке — CI молчит; см. комментарий в шапке workflow от 2026-10-25) и PRJ-11 (мёртвый шаг Node) — список веток ведётся вручную | RU+EN | Закрыто (коммит 43376d7f, FIX-09) |
 
+#### Статус (FIX-09)
+
+Триггеры `push`/`pull_request` дополнены `release/**`. Вживую подтверждено: ветка `release/v5.6.5` (`35897e67`) получила первый зелёный CI-запуск в истории (run `40649073433`, `conclusion: success` на 3.12 и 3.13 после фикса pinned pytest в FIX-11). YAML валиден. `main`, тег, прод не тронуты.
+
 #### Статус (FIX-05)
 
 **Округление в генераторе + перегенерация + тест-гвард. `test_build_graph_positions` локально 6 passed.**
@@ -2083,5 +2087,5 @@ _Раздел пополняется по одному-два пункта в к
 
 Зафиксировано 120 находок; 8 закрыты (PROD-01, QA-05, PRJ-01, QA-02, CI-02 — A, CI-03 и REL-02 — B, CI-04 — C), открыто 112: **A 1 (REL-01), B 37, C 74**. Фиксы идут по одной задаче на находку (`--no-verify`, обоснование: build-шаги хука перезаписывают даты). CI `tests.yml` — **зелёный** (запуск 40522483626, 3.12 и 3.13); с FIX-09 он же запускается на `release/**`.
 
-**Выпуск 5.6.5 подготовлен** (FIX-07): ветка `release/v5.6.5` — merge `v5.6.5-dev` в `main` без конфликтов, дерево идентично dev; на ветке 1953 passed / 0 failed, sitemap/feed/graph `--check` exit 0. С FIX-09 ветка синхронизирована с `dev` (`35897e67`, деревья совпадают) и впервые получила прогон CI (run `40629474796` — триггер `release/**` работает). Публикация не выполнена: `AGENTS.md` запрещает трогать `main` — требуется `git push origin release/v5.6.5:main` (fast-forward) решением владельца.
+**Выпуск 5.6.5 подготовлен** (FIX-07): ветка `release/v5.6.5` — merge `v5.6.5-dev` в `main` без конфликтов, дерево идентично dev; на ветке 1953 passed / 0 failed, sitemap/feed/graph `--check` exit 0. С FIX-09 ветка синхронизирована с `dev` (`35897e67`, деревья совпадают) и впервые получила зелёный CI (run `40649073433`, `conclusion: success` на 3.12 и 3.13 после фикса pytest в FIX-11 — триггер `release/**` работает). Публикация не выполнена: `AGENTS.md` запрещает трогать `main` — требуется `git push origin release/v5.6.5:main` (fast-forward) решением владельца.
 TEST_MARKER
