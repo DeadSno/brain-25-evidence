@@ -99,4 +99,4 @@ def test_live_data_untouched():
     assert DATA.exists()
     data = json.loads(DATA.read_text(encoding="utf-8"))
     assert len(data) == 130
-    assert all("price_date" not in s for s in data)
+    assert all("price_date" not in s for s in data)# FIX-11b marker
