@@ -548,7 +548,8 @@
 /* Бамп v176 -> v177 FIX-21: VIS-01 #langSelect order на мобиле + mask-градиент actions */
 /* Бамп v177 -> v178 FIX-22: remove duplicate install/activate in sw.js */
 /* Бамп v179 -> v180 FIX-27: дисклеймер «БАД не является лекарственным средством» добавлен в футер всех страниц, ключ footer.legalDisclaimer в i18n.js (RU+EN) */
-var CACHE_VERSION = 'v180';
+/* Бамп v180 -> v181 FIX-28: PWA-03 манифест переведён на EN-поля (name, short_name, description, lang, 4 shortcuts) */
+var CACHE_VERSION = 'v181';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
