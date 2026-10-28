@@ -2,7 +2,7 @@
 
 > Куда смотреть: какой скилл использовать в какой ситуации.
 > Общие правила для всех скиллов — в [`CONVENTIONS.md`](CONVENTIONS.md).
-> Обновлено: 2026-10-18. **Скиллов: 19 проектных (в git) + 20 глобальных**
+> Обновлено: 2026-10-28. **Скиллов: 20 проектных (в git) + 20 глобальных**
 > — наборы совпадают, кроме `cyberaudit` (вендорный, в `.gitignore`: в
 > worktree не появляется, в main checkout есть, поэтому каталогов там 20).
 
@@ -257,7 +257,7 @@ npx -y vortix-cli@0.1.3 check # внешний статический аудит
 | ревизия скиллов | archive/v51/SKILLS_REVISION.md |
 | установка скиллов | archive/v51/SKILLS_INSTALL.md |
 
-## Полный список (19 проектных + вендорный `cyberaudit`)
+## Полный список (20 проектных + вендорный `cyberaudit`)
 
 - accessibility-check
 - core-web-vitals
@@ -265,6 +265,7 @@ npx -y vortix-cli@0.1.3 check # внешний статический аудит
 - data-audit
 - docs-sync
 - i18n-rtl-audit
+- learning-content-audit
 - legal-compliance-audit
 - marketing-deep-audit
 - mobile-deep-audit
@@ -280,4 +281,4 @@ npx -y vortix-cli@0.1.3 check # внешний статический аудит
 - ui-ux-deep-audit
 - visual-design-audit
 
-**Версия:** v2.4 (2026-10-18)
+**Версия:** v2.5 (2026-10-28)
