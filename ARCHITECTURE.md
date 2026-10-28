@@ -178,7 +178,7 @@ python scripts/update_all.py --apply
 
 ## Тесты
 
-**1990 тестов, все зелёные** (`docs/version.json`: `"tests": 1990`).
+**2035 тестов, все зелёные** (`docs/version.json`: `"tests": 2035`).
 
 | Файл | Что покрывает |
 |------|---------------|

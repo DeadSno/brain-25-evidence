@@ -19,7 +19,7 @@ Manifest: польза > деньги · null честнее выдумки · �
   redirect (P31).
 - Always verify with pytest + e2e_smoke before commit (P22).
 - Approve every opencode edit explicitly (P25).
-- Current run: `pytest -q` → **1990 passed, 0 skipped** (~8-10 minutes,
+- Current run: `pytest -q` → **2035 passed, 0 skipped** (~8-10 minutes,
   including the browser-marked `snapshots` / `a11y` / `tabs` / `graph` /
   `mobile375` / `e2e` tests; a server on :8000 is started automatically by
   the autouse `live_server` fixture in `tests/conftest.py`). The old
