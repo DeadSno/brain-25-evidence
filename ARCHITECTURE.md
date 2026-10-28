@@ -255,4 +255,7 @@ python scripts/e2e_smoke.py          # сайт работает
 
 ## Лицензия
 
-MIT. Используйте данные как угодно, указывайте источник.
+**Код** — MIT (см. `LICENSE`). **Данные** (`data.json`, `data_en.json`, контент сайта) —
+**CC BY 4.0**: используйте свободно, включая коммерческое использование, с обязательным
+указанием авторства (см. `docs/terms-of-use.html#data-license`, образец:
+`<Brain 25 Evidence, https://deadsno.github.io/brain-25-evidence/, CC BY 4.0>`).

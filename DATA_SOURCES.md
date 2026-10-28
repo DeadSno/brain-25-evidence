@@ -241,5 +241,9 @@ curl "https://api.openalex.org/works/pmid:34567890?mailto=test@example.com"
 
 ## Лицензии
 
-- Код: MIT
-- Данные: из открытых источников, используйте свободно с указанием источника
+- Код: MIT (см. `LICENSE`)
+- Скомпилированные данные (`data.json`, `data_en.json`, контент сайта): CC BY 4.0 — используйте
+  свободно, включая коммерческое использование, с обязательным указанием авторства
+  («Brain 25 Evidence, https://deadsno.github.io/brain-25-evidence/, CC BY 4.0»),
+  см. `docs/terms-of-use.html#data-license`
+- Данные первоисточников: по лицензиям источников (см. таблицу выше)

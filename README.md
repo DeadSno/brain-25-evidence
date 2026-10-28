@@ -341,7 +341,7 @@ streamlit run app.py
 | **Публикаций** | **37 618** из PubMed, из них с абстрактом — 35 377 |
 | **Тегов эффектов** | 18 нормализованных |
 | **PWA** | офлайн-режим, установка на телефон |
-| **Лицензия** | Код — MIT. Данные — лицензии источников, см. `DATA_SOURCES.md`. **Фактически используются:** PubMed (ToS NCBI), OpenAlex CC0, Wikipedia CC BY-SA 3.0, ClinicalTrials.gov public domain (US Gov). **Запланирован, но данных нет:** SCImago Journal Rank (CC BY-NC) — в репозитории нет ни одного артефакта SCImago, только скрипты `fetch_scimago.py` и `join_scimago.py`; ни квартилей, ни журналов в `data.json` нет, поэтому лицензия SCImago на текущие данные не распространяется |
+| **Лицензия** | **Код** — MIT. **Скомпилированные данные** (`data.json`, `data_en.json`, контент сайта) — **CC BY 4.0** (атрибуция обязательна, см. `terms-of-use.html#data-license`). Лицензии первоисточников — в `DATA_SOURCES.md`. **Фактически используются:** PubMed (ToS NCBI), OpenAlex CC0, Wikipedia CC BY-SA 3.0, ClinicalTrials.gov public domain (US Gov). **Запланирован, но данных нет:** SCImago Journal Rank (CC BY-NC) — в репозитории нет ни одного артефакта SCImago, только скрипты `fetch_scimago.py` и `join_scimago.py`; ни квартилей, ни журналов в `data.json` нет, поэтому лицензия SCImago на текущие данные не распространяется |
 
 **Ссылки:**
 
@@ -417,7 +417,14 @@ streamlit run app.py
 
 ### Лицензия
 
-MIT — используйте данные как угодно, указывайте источник.
+**Код** — MIT (см. [`LICENSE`](LICENSE)). **Данные** (`data.json`, `data_en.json`,
+контент сайта) — **[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.ru)**:
+используйте свободно, включая коммерческое использование, но с обязательным указанием
+авторства — см. [terms-of-use.html#data-license](https://deadsno.github.io/brain-25-evidence/terms-of-use.html#data-license).
+Лицензии первоисточников (PubMed, OpenAlex, Wikipedia, ClinicalTrials.gov) — в
+[DATA_SOURCES.md](DATA_SOURCES.md).
+
+Образец атрибуции: `<Brain 25 Evidence, https://deadsno.github.io/brain-25-evidence/, CC BY 4.0>`.
 
 ### Источники данных
 
