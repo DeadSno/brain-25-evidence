@@ -502,7 +502,7 @@ LCP/FCP ниже — это локальная отдача, сравниват�
 | ID | Крит. | Где | Что именно | Метрика | Локаль | Ширина | Статус |
 |---|---|---|---|---|---|---|---|
 | CWV-01 | B | `docs/i18n.js` (загрузка `docs/data_en.json`) | В EN к каждой странице добавляется **305 КБ** `data_en.json` поверх уже загруженного `data.json`. Одиночная карточка: RU 879 КБ → EN 1184 КБ (**+35 %**), причём нужна она ради одной карточки: `sup/magniy` в RU тянет 0,1 КБ (`fetch`), в EN — 305 КБ. `index`: 2727 → 3032 КБ; `hactar`: 3630 → 3934 КБ. Запросов +1 на каждой странице | вес страницы | RU+EN | 375, 1280 | открыто |
-| CWV-02 | B | `docs/index.html` — `script.js:79` и `tracker.js:17` | `data.json` (742 КБ) запрашивается **дважды**: `script.js` (`fetchJson('data.json')`) и трекер приёма (`fetch('data.json?v=' + BUILD_VERSION)`), старт 21 мс и 143 мс. Второй ответ приходит из кэша, но 742 КБ заново декодируются и парсятся; трекеру нужен только список названий/категорий для «моего курса». В `script.js:1076` тот же дубль уже чинили (FIX-77) — вернулся со стороны `tracker.js` | req 2×742 КБ | RU+EN | 375, 1280 | открыто |
+| CWV-02 | B | `docs/index.html` — `script.js:79` и `tracker.js:17` | `data.json` (742 КБ) запрашивается **дважды**: `script.js` (`fetchJson('data.json')`) и трекер приёма (`fetch('data.json?v=' + BUILD_VERSION)`), старт 21 мс и 143 мс. Второй ответ приходит из кэша, но 742 КБ заново декодируются и парсятся; трекеру нужен только список названий/категорий для «моего курса». В `script.js:1076` тот же дубль уже чинили (FIX-77) — вернулся со стороны `tracker.js` | req 2×742 КБ | RU+EN | 375, 1280 | Закрыто (e99eed72) |
 | CWV-03 | C | `docs/trends.html:1125` | `fetch('timeseries.json?v=' + Date.now())` — cache-busting по времени. Рядом, в строке 480, тот же файл берётся как `fetchJson('timeseries.json')` (URL `?v=5.6.5`), поэтому в ресурсах **две разные записи**: `?v=5.6.5` (старт 22 мс) и `?v=1793018396008` (старт 24 мс), по 196 КБ. Второй адрес уникален на каждый визит: HTTP-кэш и SW его не отдают, 196 КБ качаются всегда. Это **регресс архивного CWV-03**, где `?ts=` меняли на `?v=` | 2×196 КБ, 0 % cache hit | RU+EN | 375, 1280 | открыто |
 | CWV-04 | C | `docs/hactar.html`, `<head>` | `i18n.js` (207 КБ) подключён **без `defer`/`async`** — на `index.html` тот же файл идёт с `defer`. 207 КБ в блокирующем `<head>` задерживают первую отрисовку на всех вкладках Hactar. Убрать `defer` нельзя «в лоб»: именно этот файл выставляет класс `i18n-pending` до перевода и гасит FOUC в EN — нужен минимальный inline-сниппет с классом, а сам словарь грузить отложенно | 207 КБ blocking | RU+EN | 375, 1280 | открыто |
 | CWV-05 | C | `docs/index.html` | **2132 узла DOM** в документе против порога Google «excessive DOM» 1500 (у `hactar` 959, у карточек 218–223, `trends` 582). Причина — стартовая выдача карточек целиком в разметке; при 130 карточках и двух локалях это 2132 узла до первого взаимодействия | 2132 nodes | RU+EN | 375, 1280 | открыто |
@@ -2770,9 +2770,9 @@ Y «Индекс науки (log)», `#axisRow` скрыт; возврат на 
 | — | Дополнительные баги (CHART-01, I18N-05b, FOOTER-01, QA-06b) | 0 | 2 | 2 | 4 |
 | **ИТОГО (зафиксировано)** | | **6** | **40** | **75** | **121** |
 
-**Открыто: A 1 / B 8 / C 67 — всего 76** (закрыто 45: PROD-01, QA-05, PRJ-01, QA-02, CI-02 — все A; CI-03, REL-02 — B; CI-04 — C; PWA-02, I18N-01, I18N-02, I18N-03 — B; A11Y-02 — B, FIX-17; A11Y-05 — B, FIX-18; PWA-01 — B, FIX-19; PWA-04 — C, FIX-20; VIS-01 — B, FIX-21; PWA-05 — C, FIX-22; CHART-01 — B, FIX-23; DOCS-02 — B, FIX-26; LEGAL-01 — B, FIX-27; LEGAL-02 — B, FIX-27; PWA-03 — C, FIX-28; DOCS-01 — B, FIX-29; DOCS-06 — B, FIX-30; VIS-02 — B, FIX-31; VIS-03 — B, FIX-32; I18N-04 — C, FIX-33; I18N-05 — C, FIX-34; QA-01 — B, FIX-36; QA-03 — B, FIX-37; QA-04 — B, FIX-37; QA-06 — B, FIX-39; DOCS-03 — B, FIX-40; DATA-05 — B, FIX-41; DATA-01 — B, FIX-42; PRJ-02 — B, FIX-43; PRJ-03 — B, FIX-44; PRJ-04 — B, FIX-45; REL-03 — B, FIX-46; PROD-02 — дубль QA-06b, FIX-39; DOCS-04 — дубль DOCS-01, FIX-29; PRJ-10 — moot, FIX-44; MKT-01 — B, FIX-47; LEGAL-03 — B, FIX-48).
+**Открыто: A 1 / B 7 / C 67 — всего 75** (закрыто 46: PROD-01, QA-05, PRJ-01, QA-02, CI-02 — все A; CI-03, REL-02 — B; CI-04 — C; PWA-02, I18N-01, I18N-02, I18N-03 — B; A11Y-02 — B, FIX-17; A11Y-05 — B, FIX-18; PWA-01 — B, FIX-19; PWA-04 — C, FIX-20; VIS-01 — B, FIX-21; PWA-05 — C, FIX-22; CHART-01 — B, FIX-23; DOCS-02 — B, FIX-26; LEGAL-01 — B, FIX-27; LEGAL-02 — B, FIX-27; PWA-03 — C, FIX-28; DOCS-01 — B, FIX-29; DOCS-06 — B, FIX-30; VIS-02 — B, FIX-31; VIS-03 — B, FIX-32; I18N-04 — C, FIX-33; I18N-05 — C, FIX-34; QA-01 — B, FIX-36; QA-03 — B, FIX-37; QA-04 — B, FIX-37; QA-06 — B, FIX-39; DOCS-03 — B, FIX-40; DATA-05 — B, FIX-41; DATA-01 — B, FIX-42; PRJ-02 — B, FIX-43; PRJ-03 — B, FIX-44; PRJ-04 — B, FIX-45; REL-03 — B, FIX-46; PROD-02 — дубль QA-06b, FIX-39; DOCS-04 — дубль DOCS-01, FIX-29; PRJ-10 — moot, FIX-44; MKT-01 — B, FIX-47; LEGAL-03 — B, FIX-48; CWV-02 — B, FIX-49).
 
-Зафиксирована 121 находка; 45 закрыты (PROD-01, QA-05, PRJ-01, QA-02, CI-02 — A, CI-03, REL-02, PWA-02, I18N-01, I18N-02, I18N-03 — B, CI-04 — C; A11Y-02 — B, FIX-17; A11Y-05 — B, FIX-18; PWA-01 — B, FIX-19; PWA-04 — C, FIX-20; VIS-01 — B, FIX-21; PWA-05 — C, FIX-22; CHART-01 — B, FIX-23; DOCS-02 — B, FIX-26; LEGAL-01 — B, FIX-27; LEGAL-02 — B, FIX-27; PWA-03 — C, FIX-28; DOCS-01 — B, FIX-29; DOCS-06 — B, FIX-30; VIS-02 — B, FIX-31; VIS-03 — B, FIX-32; I18N-04 — C, FIX-33; I18N-05 — C, FIX-34; QA-01 — B, FIX-36; QA-03 — B, FIX-37; QA-04 — B, FIX-37; QA-06 — B, FIX-39; DOCS-03 — B, FIX-40; DATA-05 — B, FIX-41; DATA-01 — B, FIX-42; PRJ-02 — B, FIX-43; PRJ-03 — B, FIX-44; PRJ-04 — B, FIX-45; REL-03 — B, FIX-46; PROD-02 — дубль QA-06b, FIX-39; DOCS-04 — дубль DOCS-01, FIX-29; PRJ-10 — moot, FIX-44; MKT-01 — B, FIX-47; LEGAL-03 — B, FIX-48), открыто 76: **A 1 (REL-01), B 8, C 67**. Фиксы идут по одной задаче на находку. CI `tests.yml` — **зелёный** (запуск 40522483626, 3.12 и 3.13); с FIX-09 он же запускается на `release/**`. Хук `.githooks/pre-commit` пройден без `--no-verify` в коммите `24470567` (FIX-46, REL-03).
+Зафиксирована 121 находка; 46 закрыты (PROD-01, QA-05, PRJ-01, QA-02, CI-02 — A, CI-03, REL-02, PWA-02, I18N-01, I18N-02, I18N-03 — B, CI-04 — C; A11Y-02 — B, FIX-17; A11Y-05 — B, FIX-18; PWA-01 — B, FIX-19; PWA-04 — C, FIX-20; VIS-01 — B, FIX-21; PWA-05 — C, FIX-22; CHART-01 — B, FIX-23; DOCS-02 — B, FIX-26; LEGAL-01 — B, FIX-27; LEGAL-02 — B, FIX-27; PWA-03 — C, FIX-28; DOCS-01 — B, FIX-29; DOCS-06 — B, FIX-30; VIS-02 — B, FIX-31; VIS-03 — B, FIX-32; I18N-04 — C, FIX-33; I18N-05 — C, FIX-34; QA-01 — B, FIX-36; QA-03 — B, FIX-37; QA-04 — B, FIX-37; QA-06 — B, FIX-39; DOCS-03 — B, FIX-40; DATA-05 — B, FIX-41; DATA-01 — B, FIX-42; PRJ-02 — B, FIX-43; PRJ-03 — B, FIX-44; PRJ-04 — B, FIX-45; REL-03 — B, FIX-46; PROD-02 — дубль QA-06b, FIX-39; DOCS-04 — дубль DOCS-01, FIX-29; PRJ-10 — moot, FIX-44; MKT-01 — B, FIX-47; LEGAL-03 — B, FIX-48; CWV-02 — B, FIX-49), открыто 75: **A 1 (REL-01), B 7, C 67**. Фиксы идут по одной задаче на находку. CI `tests.yml` — **зелёный** (запуск 40522483626, 3.12 и 3.13); с FIX-09 он же запускается на `release/**`. Хук `.githooks/pre-commit` пройден без `--no-verify` в коммите `24470567` (FIX-46, REL-03).
 
 #### Статус (CLEANUP-VERIFY)
 
@@ -2857,6 +2857,30 @@ Y «Индекс науки (log)», `#axisRow` скрыт; возврат на 
 **Каскад:** `docs/hactar.js` в `STATIC_ASSETS` → `CACHE_VERSION` v192 → v193.
 
 Счётчики: B 9 → 8 (LEGAL-03閉). Всего открыто: 77 → 76. Закрыто: 44 → 45.
+
+#### Статус (FIX-49)
+
+**CWV-02 закрыт (коммит e99eed72).** `data.json` больше не грузится дважды на `index.html`.
+
+| Поле | Было | Стало |
+|---|---|---|
+| `script.min.js` загрузка | `fetchJson("data.json")` напрямую в `ensureFullData()` | `getData()` — возвращает общий `window.__dataPromise` |
+| `tracker.js` загрузка | `fetch('data.json?v=' + BUILD_VERSION)` напрямую | `window.getData()` — тот же промис, второй fetch не идёт |
+| `window.__dataPromise` | не было | Единый кэширующий промис для всех потребителей `data.json` |
+| `window.getData()` | не было | Функция-обёртка: возвращает `__dataPromise` или создаёт новый |
+
+**Проверки:**
+- `grep -c "fetch.*data\.json" docs/script.js docs/tracker.js` → 1 (только в `script.js` через `getData()`, в `tracker.js` — вызов `getData()`)
+- `grep -c "getData\|__dataPromise" docs/script.js docs/script.min.js docs/tracker.js` → ≥2 (определение + использование)
+- `script.min.js?v=304 → ?v=305` в `docs/index.html`
+- `CACHE_VERSION` v193 → v194 в `docs/sw.js` (комментарий `Бамп v193 -> v194` без `*`)
+- `STATIC_ASSETS` в `sw.js`: `./script.min.js → ./script.min.js?v=305`
+- Тесты: `1880 passed, 0 failed`
+- Снапшоты: не переснимались (layout не меняется, только сетевой запрос убирается)
+
+**Каскад:** `docs/script.min.js` в `STATIC_ASSETS` → `CACHE_VERSION` v193 → v194.
+
+Счётчики: B 8 → 7 (CWV-02閉). Всего открыто: 76 → 75. Закрыто: 45 → 46.
 
 **Выпуск 5.6.5 подготовлен** (FIX-07): ветка `release/v5.6.5` — merge `v5.6.5-dev` в `main` без конфликтов, дерево идентично dev; на ветке 1953 passed / 0 failed, sitemap/feed/graph `--check` exit 0. С FIX-09 ветка синхронизирована с `dev` (`35897e67`, деревья совпадают) и впервые получила зелёный CI (run `40649073433`, `conclusion: success` на 3.12 и 3.13 после фикса pytest в FIX-11 — триггер `release/**` работает). Публикация не выполнена: `AGENTS.md` запрещает трогать `main` — требуется `git push origin release/v5.6.5:main` (fast-forward) решением владельца.
 TEST_MARKER
