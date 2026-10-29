@@ -557,7 +557,12 @@
    больше не затирает span data-i18n-text у кнопки темы, убран задвоенный
    префикс документа (наследие FIX-19). i18n.js, style.min.css, script.min.js
    и pwa.js не менялись: ?v= остаются 470, 20 и 284. */
-var CACHE_VERSION = 'v185';
+/* Бамп v185 -> v186 FIX-35 (I18N-05b): setLight в script.js больше не пишет
+   btn.textContent, а сохраняет span data-i18n-text и синхронизирует его ключ
+   (тот же приём, что в applyTheme на 404.html). script.min.js пропатчен
+   точечно, ?v=303 -> 304 в index.html. i18n.js, style.min.css, pwa.js и
+   hactar.js не менялись. */
+var CACHE_VERSION = 'v186';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 

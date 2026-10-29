@@ -710,12 +710,28 @@ function initApp() {
 // true = светлая тема. Тёмная теперь это ОТСУТСТВИЕ класса, поэтому
 // setLight(false) ничего не добавляет. Название setDark вводило в
 // заблуждение: при on=true включалась светлая тема.
+// FIX-35 (I18N-05b): подпись кнопки темы может жить в <span data-i18n-text>
+// (так размечены 404.html и ещё 8 статических страниц). Прежний
+// btn.textContent = ... стирал span вместе с ключом, и следующий applyI18n()
+// уже не мог перевести кнопку. Теперь span сохраняется, а его ключ
+// синхронизируется с состоянием темы — тот же приём, что в applyTheme() на
+// 404.html (FIX-34).
+function setThemeBtnLabel(light) {
+  const btn = $('themeBtn');
+  if (!btn) return;
+  const key = light ? 'theme.dark' : 'theme.light';
+  const text = t(key);
+  const lbl = btn.querySelector('[data-i18n-text]');
+  if (lbl) { lbl.setAttribute('data-i18n-text', key); lbl.textContent = text; }
+  else btn.textContent = text;
+  // A2-01 (24.10.2026): доступное имя — действие, а не состояние.
+  btn.setAttribute('aria-label', light ? t("a11y.themeToDark") : t("a11y.themeToLight"));
+}
+
 function setLight(on) {
   document.documentElement.classList.toggle('light', on);
   document.body.classList.toggle('light', on);
-  $('themeBtn').textContent = on ? t("theme.dark") : t("theme.light");
-  // A2-01 (24.10.2026): доступное имя — действие, а не состояние.
-  $('themeBtn').setAttribute('aria-label', on ? t("a11y.themeToDark") : t("a11y.themeToLight"));
+  setThemeBtnLabel(on);
   if (currentData.length) { if (chartTab === 'price') renderBubble(currentData); else renderQuadrant(currentData); }
 }
 
