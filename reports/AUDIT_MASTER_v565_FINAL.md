@@ -1410,7 +1410,7 @@ DOCS-06 закрыт по варианту B + C: один хук вместо �
 |---|---|---|---|---|---|
 | LEGAL-01 | B | `README.md:420, :344`; `ARCHITECTURE.md:256`; `DATA_SOURCES.md:242` ↔ футер 142 страниц + `docs/terms-of-use.html#data-license` | Правовой аспект DOCS-02 (не дубль): к данным сайт применяет **CC BY 4.0** — футер «Данные: CC BY 4.0» на 142 страницах и раздел лицензии в `terms-of-use.html` с формулой атрибуции «Brain 25 Evidence, https://…, CC BY 4.0». Репозиторий же говорит иное: `README.md:420` «MIT — используйте данные **как угодно**, указывайте источник». Пользователь, который поверит README, переиспользует данные на условиях MIT, тогда как сайт требует атрибуции по CC BY 4.0; в `README.md:344`, `ARCHITECTURE.md:256`, `DATA_SOURCES.md:242` CC BY 4.0 не упомянут вовсе. Два разных набора условий для одного и того же массива данных | RU | Закрыто (снято в FIX-26, коммит 863b52db: README/ARCHITECTURE/DATA_SOURCES приведены к CC BY 4.0 для данных, MIT для кода) |
 | LEGAL-02 | B | 150 страниц, `docs/terms-of-use.html` | Нет дисклеймера категории товара: формулировки «**не является лекарственным средством**» на сайте нет ни разу (0 вхождений на 150 страницах). Есть общий медицинский дисклеймер («Не медицинская рекомендация» в футере + разделы terms-of-use «Не медицинская рекомендация», «Информация «как есть»», «Ограничение ответственности»), но он про рекомендации, а не про статус продукта. Шесть вхождений «лекарствен» — это тексты данных (`who_needs`, механизмы, взаимодействия: «не рекомендован при приёме лекарственных средств»), а не дисклеймер. Обязательность такой формулировки для БАД в РФ — **требует юриста** | RU+EN | Закрыто (edb5c0df) |
-| LEGAL-03 | B | `docs/hactar.js:2862` (`PREG_RE`) | Правовой аспект PROD-01 (A): предупреждение о противопоказаниях при беременности работает только в RU. В EN баннер остаётся `hidden` с пустым текстом, то есть англоязычный пользователь не получает предупреждения, которое получает русскоязычный. Правило самого скилла (`SKILL.md:355`) называет «дисклеймер есть в RU, нет в EN» находкой уровня P0; здесь дефект уже зафиксирован как PROD-01 (A), поэтому правовой аспект идёт отдельной строкой с Crit B — один дефект не должен считаться двумя A | EN | открыто |
+| LEGAL-03 | B | `docs/hactar.js:2862` (`PREG_RE`) | Правовой аспект PROD-01 (A): предупреждение о противопоказаниях при беременности работает только в RU. В EN баннер остаётся `hidden` с пустым текстом, то есть англоязычный пользователь не получает предупреждения, которое получает русскоязычный. Правило самого скилла (`SKILL.md:355`) называет «дисклеймер есть в RU, нет в EN» находкой уровня P0; здесь дефект уже зафиксирован как PROD-01 (A), поэтому правовой аспект идёт отдельной строкой с Crit B — один дефект не должен считаться двумя A | EN | Закрыто (a29a48a0) |
 | LEGAL-04 | C | 150 страниц, `docs/terms-of-use.html` | Нет возрастного ограничения: «18 лет» — 0, «совершеннолет» — 0, «не для детей» — нет («детям» на 2 страницах, «возрастн» на 7 страницах sup — это тексты данных о возрастных группах, не ограничение). При этом сайт публикует дозировки (`dosage`, `course`, `upper_limit` в каждой карточке) и предупреждения для беременных, но не задаёт нижнюю возрастную границу. Нужна ли она для БАД — **требует юриста** | RU+EN | открыто |
 | LEGAL-05 | C | `docs/feed.xml`, `docs/sitemap.xml`, `docs/robots.txt` | В машиночитаемых артефактах нет ни copyright, ни лицензии: `feed.xml` (131 запись) без `<copyright>`, `sitemap.xml` (141 URL) и `robots.txt` без каких-либо условий. Условия CC BY 4.0 существуют только в HTML-футере, поэтому RSS-читалка и потребитель данных, работающий с фидом или API, этих условий не получает | RU+EN | открыто |
 
@@ -2770,9 +2770,9 @@ Y «Индекс науки (log)», `#axisRow` скрыт; возврат на 
 | — | Дополнительные баги (CHART-01, I18N-05b, FOOTER-01, QA-06b) | 0 | 2 | 2 | 4 |
 | **ИТОГО (зафиксировано)** | | **6** | **40** | **75** | **121** |
 
-**Открыто: A 1 / B 9 / C 67 — всего 77** (закрыто 44: PROD-01, QA-05, PRJ-01, QA-02, CI-02 — все A; CI-03, REL-02 — B; CI-04 — C; PWA-02, I18N-01, I18N-02, I18N-03 — B; A11Y-02 — B, FIX-17; A11Y-05 — B, FIX-18; PWA-01 — B, FIX-19; PWA-04 — C, FIX-20; VIS-01 — B, FIX-21; PWA-05 — C, FIX-22; CHART-01 — B, FIX-23; DOCS-02 — B, FIX-26; LEGAL-01 — B, FIX-27; LEGAL-02 — B, FIX-27; PWA-03 — C, FIX-28; DOCS-01 — B, FIX-29; DOCS-06 — B, FIX-30; VIS-02 — B, FIX-31; VIS-03 — B, FIX-32; I18N-04 — C, FIX-33; I18N-05 — C, FIX-34; QA-01 — B, FIX-36; QA-03 — B, FIX-37; QA-04 — B, FIX-37; QA-06 — B, FIX-39; DOCS-03 — B, FIX-40; DATA-05 — B, FIX-41; DATA-01 — B, FIX-42; PRJ-02 — B, FIX-43; PRJ-03 — B, FIX-44; PRJ-04 — B, FIX-45; REL-03 — B, FIX-46; PROD-02 — дубль QA-06b, FIX-39; DOCS-04 — дубль DOCS-01, FIX-29; PRJ-10 — moot, FIX-44; MKT-01 — B, FIX-47).
+**Открыто: A 1 / B 8 / C 67 — всего 76** (закрыто 45: PROD-01, QA-05, PRJ-01, QA-02, CI-02 — все A; CI-03, REL-02 — B; CI-04 — C; PWA-02, I18N-01, I18N-02, I18N-03 — B; A11Y-02 — B, FIX-17; A11Y-05 — B, FIX-18; PWA-01 — B, FIX-19; PWA-04 — C, FIX-20; VIS-01 — B, FIX-21; PWA-05 — C, FIX-22; CHART-01 — B, FIX-23; DOCS-02 — B, FIX-26; LEGAL-01 — B, FIX-27; LEGAL-02 — B, FIX-27; PWA-03 — C, FIX-28; DOCS-01 — B, FIX-29; DOCS-06 — B, FIX-30; VIS-02 — B, FIX-31; VIS-03 — B, FIX-32; I18N-04 — C, FIX-33; I18N-05 — C, FIX-34; QA-01 — B, FIX-36; QA-03 — B, FIX-37; QA-04 — B, FIX-37; QA-06 — B, FIX-39; DOCS-03 — B, FIX-40; DATA-05 — B, FIX-41; DATA-01 — B, FIX-42; PRJ-02 — B, FIX-43; PRJ-03 — B, FIX-44; PRJ-04 — B, FIX-45; REL-03 — B, FIX-46; PROD-02 — дубль QA-06b, FIX-39; DOCS-04 — дубль DOCS-01, FIX-29; PRJ-10 — moot, FIX-44; MKT-01 — B, FIX-47; LEGAL-03 — B, FIX-48).
 
-Зафиксирована 121 находка; 44 закрыты (PROD-01, QA-05, PRJ-01, QA-02, CI-02 — A, CI-03, REL-02, PWA-02, I18N-01, I18N-02, I18N-03 — B, CI-04 — C; A11Y-02 — B, FIX-17; A11Y-05 — B, FIX-18; PWA-01 — B, FIX-19; PWA-04 — C, FIX-20; VIS-01 — B, FIX-21; PWA-05 — C, FIX-22; CHART-01 — B, FIX-23; DOCS-02 — B, FIX-26; LEGAL-01 — B, FIX-27; LEGAL-02 — B, FIX-27; PWA-03 — C, FIX-28; DOCS-01 — B, FIX-29; DOCS-06 — B, FIX-30; VIS-02 — B, FIX-31; VIS-03 — B, FIX-32; I18N-04 — C, FIX-33; I18N-05 — C, FIX-34; QA-01 — B, FIX-36; QA-03 — B, FIX-37; QA-04 — B, FIX-37; QA-06 — B, FIX-39; DOCS-03 — B, FIX-40; DATA-05 — B, FIX-41; DATA-01 — B, FIX-42; PRJ-02 — B, FIX-43; PRJ-03 — B, FIX-44; PRJ-04 — B, FIX-45; REL-03 — B, FIX-46; PROD-02 — дубль QA-06b, FIX-39; DOCS-04 — дубль DOCS-01, FIX-29; PRJ-10 — moot, FIX-44; MKT-01 — B, FIX-47), открыто 77: **A 1 (REL-01), B 9, C 67**. Фиксы идут по одной задаче на находку. CI `tests.yml` — **зелёный** (запуск 40522483626, 3.12 и 3.13); с FIX-09 он же запускается на `release/**`. Хук `.githooks/pre-commit` пройден без `--no-verify` в коммите `24470567` (FIX-46, REL-03).
+Зафиксирована 121 находка; 45 закрыты (PROD-01, QA-05, PRJ-01, QA-02, CI-02 — A, CI-03, REL-02, PWA-02, I18N-01, I18N-02, I18N-03 — B, CI-04 — C; A11Y-02 — B, FIX-17; A11Y-05 — B, FIX-18; PWA-01 — B, FIX-19; PWA-04 — C, FIX-20; VIS-01 — B, FIX-21; PWA-05 — C, FIX-22; CHART-01 — B, FIX-23; DOCS-02 — B, FIX-26; LEGAL-01 — B, FIX-27; LEGAL-02 — B, FIX-27; PWA-03 — C, FIX-28; DOCS-01 — B, FIX-29; DOCS-06 — B, FIX-30; VIS-02 — B, FIX-31; VIS-03 — B, FIX-32; I18N-04 — C, FIX-33; I18N-05 — C, FIX-34; QA-01 — B, FIX-36; QA-03 — B, FIX-37; QA-04 — B, FIX-37; QA-06 — B, FIX-39; DOCS-03 — B, FIX-40; DATA-05 — B, FIX-41; DATA-01 — B, FIX-42; PRJ-02 — B, FIX-43; PRJ-03 — B, FIX-44; PRJ-04 — B, FIX-45; REL-03 — B, FIX-46; PROD-02 — дубль QA-06b, FIX-39; DOCS-04 — дубль DOCS-01, FIX-29; PRJ-10 — moot, FIX-44; MKT-01 — B, FIX-47; LEGAL-03 — B, FIX-48), открыто 76: **A 1 (REL-01), B 8, C 67**. Фиксы идут по одной задаче на находку. CI `tests.yml` — **зелёный** (запуск 40522483626, 3.12 и 3.13); с FIX-09 он же запускается на `release/**`. Хук `.githooks/pre-commit` пройден без `--no-verify` в коммите `24470567` (FIX-46, REL-03).
 
 #### Статус (CLEANUP-VERIFY)
 
@@ -2818,6 +2818,45 @@ Y «Индекс науки (log)», `#axisRow` скрыт; возврат на 
 **Каскад:** `docs/index.html` в `STATIC_ASSETS` → `CACHE_VERSION` v191 → v192. `style.min.css` / `script.min.js` / `i18n.js` / `pwa.js` / `hactar.js` не тронуты. `?v=` не менялось (HTML не версионируется).
 
 Счётчики: B 10 → 9 (MKT-01閉). Всего открыто: 78 → 77. Закрыто: 43 → 44.
+
+#### Статус (FIX-48)
+
+**LEGAL-03 закрыт (коммит a29a48a0).** PREG_RE в `docs/hactar.js:2968` расширен EN-терминами, чтобы предупреждение о беременности срабатывало и на английских карточках.
+
+| Поле | Было | Стало |
+|---|---|---|
+| `PREG_RE` | `(?:не\s+рекоменд|нельзя|противопоказ|избега|запрещ)[^.;]{0,120}беременн\|беременн[^.;]{0,120}(?:избега\|не\s+рекоменд\|нельзя\|противопоказ)` | то же + `\|(?:not\s+recommended\|do\s+not\|must\s+not\|should\s+not\|contraindicat\|avoid\|prohibit)[^.;]{0,120}(?:pregnan\|breastfeed\|lactat\|nursing\|trimester\|expectant)\|(?:pregnan\|breastfeed\|lactat\|nursing\|trimester\|expectant)[^.;]{0,120}(?:not\s+recommended\|do\s+not\|must\s+not\|should\s+not\|contraindicat\|avoid\|prohibit)` |
+| EN-термины в PREG_RE | не было | `pregnan`, `breastfeed`, `lactat`, `nursing`, `trimester`, `expectant` + constraint-глаголы (`not recommended`, `do not`, `must not`, `should not`, `contraindicat`, `avoid`, `prohibit`) |
+| Флаг `i` | был | сохранён |
+
+**Числа (через tests/js_preg_harness.js + test_pregnancy_warning.py):**
+- RU matches: 6 → 6 (не изменились, RU-регулярку не трогали)
+- EN matches: 0 → 6 (было 0 — баг, теперь parity)
+- Разница RU vs EN: 0 (полный паритет)
+
+**Тест:** `tests/test_pregnancy_warning.py` — 5 тестов:
+1. `test_preg_re_is_reg_exp` — PREG_RE извлекается и работоспособен
+2. `test_preg_re_ru_matches` — ≥3 RU-карточек триггерят
+3. `test_preg_re_en_matches` — ≥3 EN-карточек триггерят
+4. `test_preg_re_parity` — разница RU/EN ≤ 2
+5. `test_preg_re_negative` — карточка без pregnancy-слов не триггерит
+
+Все 5 тестов: **passed**.
+
+**Проверки:**
+- `python -m pytest tests/test_pregnancy_warning.py -q` → 5 passed
+- `python -m pytest -q -m "not (snapshots or a11y or tabs or graph or mobile375 or e2e)"` → **1880 passed, 0 failed**
+- `grep -c "pregnan\|breastfeed\|lactat\|nursing" docs/hactar.js` → ≥1 (в PREG_RE)
+- `hactar.js?v=37 → ?v=38` в `docs/hactar.html`
+- `CACHE_VERSION` v192 → v193 в `docs/sw.js` (комментарий `Бамп v192 -> v193` без `*`)
+- `STATIC_ASSETS` в `sw.js`: `./hactar.js?v=37 → ./hactar.js?v=38`
+- `docs/version.json`: `tests` 2090 → 2095 (+5 новых тестов)
+- `style.min.css` / `script.min.js` / `i18n.js` / `pwa.js` — не тронуты
+- Снапшоты: не переснимались (RU-регулярку не меняли, layout не изменился)
+
+**Каскад:** `docs/hactar.js` в `STATIC_ASSETS` → `CACHE_VERSION` v192 → v193.
+
+Счётчики: B 9 → 8 (LEGAL-03閉). Всего открыто: 77 → 76. Закрыто: 44 → 45.
 
 **Выпуск 5.6.5 подготовлен** (FIX-07): ветка `release/v5.6.5` — merge `v5.6.5-dev` в `main` без конфликтов, дерево идентично dev; на ветке 1953 passed / 0 failed, sitemap/feed/graph `--check` exit 0. С FIX-09 ветка синхронизирована с `dev` (`35897e67`, деревья совпадают) и впервые получила зелёный CI (run `40649073433`, `conclusion: success` на 3.12 и 3.13 после фикса pytest в FIX-11 — триггер `release/**` работает). Публикация не выполнена: `AGENTS.md` запрещает трогать `main` — требуется `git push origin release/v5.6.5:main` (fast-forward) решением владельца.
 TEST_MARKER
