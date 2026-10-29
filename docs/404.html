@@ -12,20 +12,6 @@
 <meta name="twitter:image" content="https://deadsno.github.io/brain-25-evidence/og.png">
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
-<meta name="theme-color" conte<!DOCTYPE html>
-<html lang="ru" dir="ltr">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>404 — страница не найдена | brain-25-evidence</title>
-<meta name="description" content="Такого адреса на сайте нет. Поиск по 130 добавкам и переход на главную.">
-<meta name="robots" content="noindex">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="404 — страница не найдена | brain-25-evidence">
-<meta name="twitter:description" content="Такого адреса на сайте нет. Поиск по 130 добавкам и переход на главную.">
-<meta name="twitter:image" content="https://deadsno.github.io/brain-25-evidence/og.png">
-<link rel="manifest" href="manifest.webmanifest">
-<meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#1c1c1e" media="(prefers-color-scheme: dark)">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -133,23 +119,35 @@
   //   (то же соглашение, что script.js initTheme на остальных страницах).
   var root = document.documentElement;
   var btn = document.getElementById('themeBtn');
-  // FIX-74: строки берём через t(), когда i18n.js уже загружен (он идёт ниже),
-  // иначе — русский текст как раньше: applyTheme вызывается до него.
+  // FIX-74: строки берём через t(), когда i18n.js уже загружен, иначе —
+  // русский текст как запасной вариант.
   function tr(key, fallback) {
     return (typeof window.t === 'function') ? window.t(key) : fallback;
   }
+  // FIX-34 (I18N-05): текст кнопки темы живёт в <span data-i18n-text>, а не
+  // в btn.textContent. Прежний код затирал textContent — разметка исчезала,
+  // и applyI18n() уже не мог перевести кнопку: на EN-странице оставалось
+  // «🌞 Светлая тема». Теперь span сохраняется, а его ключ синхронизируется
+  // с состоянием темы, чтобы applyI18n() дал тот же текст на новом языке.
   function applyTheme(light) {
     root.classList.toggle('light', light);
-    if (btn) btn.textContent = light
-      ? tr('theme.dark', '🌙 Тёмная тема')
-      : tr('theme.light', '🌞 Светлая тема');
+    if (btn) {
+      var key = light ? 'theme.dark' : 'theme.light';
+      var text = tr(key, light ? '🌙 Тёмная тема' : '🌞 Светлая тема');
+      var lbl = btn.querySelector('[data-i18n-text]');
+      if (lbl) { lbl.setAttribute('data-i18n-text', key); lbl.textContent = text; }
+      else btn.textContent = text;
+    }
     if (btn) btn.setAttribute('aria-label', light
       ? tr('a11y.themeToDark', 'Переключить на тёмную тему')
       : tr('a11y.themeToLight', 'Переключить на светлую тему'));
   }
-  applyTheme(function () {
+  var startLight = function () {
     try { return localStorage.getItem('theme') === 'light'; } catch (e) { return false; }
-  }());
+  }();
+  // FIX-34: класс темы ставим сразу (иначе светлая тема мигала бы тёмной),
+  // а подпись кнопки — на DOMContentLoaded, когда i18n.js уже исполнился.
+  root.classList.toggle('light', startLight);
   if (btn) btn.addEventListener('click', function () {
     var light = !root.classList.contains('light');
     try { localStorage.setItem('theme', light ? 'light' : 'dark'); } catch (e) {}
@@ -266,27 +264,25 @@
     .then(function (r) { return r.ok ? r.text() : ''; })
     .then(function (t) { if (t) index = buildIndex(t); });
 
-  window.__nfRefresh = function () {
+  // FIX-34 (I18N-05): FIX-74 перерисовывал строки сразу после тега i18n.js,
+  // но тот подключён с defer и исполняется только после разбора документа —
+  // то есть перерисовка шла раньше словаря и снова падала в русский хардкод.
+  // Слушатель DOMContentLoaded срабатывает после defer-скриптов: t() готов.
+  document.addEventListener('DOMContentLoaded', function () {
     applyTheme(root.classList.contains('light'));
     if (hint) hint.textContent = tr('notfound.hint', 'Введите название или эффект — покажу до 8 совпадений из каталога.');
-  };
+  });
 })();
 </script>
 <!-- v5.6.5 FIX-62 (PW2-01): страница была единственной в корне без pwa.js —
      SW на ней не регистрировался, офлайн-режим не включался. pwa.js требует
      i18n.js: подпись плашки он берёт через t('pwa.offline'), а глобальная t()
      объявлена только там (i18n.js:1200). Без i18n.js на этой странице любое
-     реальное отключение сети давало ReferenceError вместо плашки. Порядок
-     задан самим типом подключения: i18n.js без defer исполняется во время
-     разбора, pwa.js с defer — после него, поэтому t() уже существует. -->
+     реальное отключение сети давало ReferenceError вместо плашки.
+     FIX-34 (I18N-05): оба скрипта с defer, и порядок задан порядком тегов —
+     defer-скрипты исполняются в порядке подключения, поэтому к моменту
+     запуска pwa.js глобальная t() уже объявлена. -->
 <script src="i18n.js?v=20" defer></script>
-<!-- FIX-74: строки, которые ставит инлайновый скрипт выше (тема, подсказка
-     поиска), перерисовываем ещё раз — теперь t() уже существует. -->
-<script>
-(function () {
-  if (typeof window.__nfRefresh === 'function') window.__nfRefresh();
-})();
-</script>
 <script src="pwa.js?v=284" defer></script>
 </body>
 </html>

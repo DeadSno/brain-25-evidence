@@ -551,7 +551,13 @@
 /* Бамп v181 -> v182 FIX-31: VIS-02 градиент-маска навбара 16 -> 24px, padding-inline-end 24px, CSS-версия 469 */
 /* Бамп v182 -> v183 FIX-32: VIS-03 placebo-полоса >100 % не обрезается молча, цифра вынесена в метку, CSS-версия 470 */
 /* Бамп v183 -> v184 FIX-33: I18N-04 — подписи механизмов графа в EN берутся из оверлея data_en.json по индексу, короткие имена mech.<slug> в i18n.js; hactar.js ?v=35 -> 36, i18n.js ?v=19 -> 20 */
-var CACHE_VERSION = 'v184';
+/* Бамп v184 -> v185 FIX-34 (I18N-05): 404.html - русский хардкод темы и
+   подсказки поиска в EN. Инлайновый скрипт перерисовывает строки на
+   DOMContentLoaded (defer-скрипты к этому моменту исполнены), applyTheme
+   больше не затирает span data-i18n-text у кнопки темы, убран задвоенный
+   префикс документа (наследие FIX-19). i18n.js, style.min.css, script.min.js
+   и pwa.js не менялись: ?v= остаются 470, 20 и 284. */
+var CACHE_VERSION = 'v185';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
