@@ -29,12 +29,13 @@
                              │
                              ▼
         ┌────────────────────────────────────────────────────┐
-        │  Frontend (static HTML + vanilla JS)              │
-        │  • index.html       — дашборд, радар, сравнение  │
-        │  • map.html         — карта механизмов           │
-        │  • interactions.html — карта связей (vis-network)│
-        │  • atlas.html       — атлас 25×130                │
-        │  • calculator.html  — калькулятор БАДов          │
+        │  Frontend (static HTML + vanilla JS)               │
+        │  • index.html       — дашборд, радар, сравнение    │
+        │  • hactar.html      — Project Hactar: подбор       │
+        │                      добавок, ego-граф связей      │
+        │  • legacy-URL       — calculator, interactions,    │
+        │                      atlas, map, graph, compare    │
+        │                      → редирект на hactar.html     │
         └────────────────────┬───────────────────────────────┘
                              │
                              ▼
@@ -110,32 +111,52 @@ python scripts/update_all.py --apply
 
 - **Vanilla JS.** Никаких фреймворков — сайт статический на GitHub Pages
 - **Один `data.json`** — источник данных, разные страницы рендерят разное
-- **Inline JS** в четырёх HTML (карты и калькулятор) — компромисс: плюс автономность, минус размер файлов
+- **Inline JS — только служебный** (тема, JSON-LD, баннер cookie, кнопка
+  «вниз»); логика страниц вынесена в `script.js` и `hactar.js`
 - **PWA v31** — service worker кэширует `data.json` и статику; офлайн-режим работает
 
 ### Страницы
 
+Строк — на 29.10.2026. Шесть legacy-файлов (`calculator`, `interactions`,
+`atlas`, `map`, `graph`, `compare`) — **не отдельные страницы, а редиректы
+на единый инструмент `hactar.html`** (см. ниже).
+
 | Файл | Строк | Что |
 |------|-------|-----|
-| `script.js` | 926 | Main-логика index.html: карточки, модалка, графики, фильтры |
-| `calculator.html` | 777 | Калькулятор: дозы, конфликты, профили, рекомендации |
-| `hactar.html` | 470 | Project Hactar: подбор добавок, вкладки «Обзор» (таблица) и «Связи» (ego-граф) |
-| `interactions.html` | 764 | Vis-network граф связей |
-| `atlas.html` | 729 | noindex-редирект на `interactions.html#mech` (v5.6.5) |
-| `map.html` | 598 | noindex-редирект на `hactar.html?tab=graph` (v5.6.5) |
-| `style.css` | 530 | Общие стили |
-| `index.html` | 362 | Дашборд |
+| `index.html` | 856 | Дашборд: карточки, фильтры, радар, модалка |
+| `script.js` | 1629 | Main-логика `index.html` |
+| `style.css` | 3242 | Общие стили (в прод идёт `style.min.css`) |
+| `hactar.html` | 863 | **Основной инструмент.** Project Hactar: подбор добавок, вкладки «Обзор» (`?tab=overview`) и «Связи» (`?tab=graph`) |
+| `hactar.js` | 3169 | Логика Hactar: таблица, ego-граф на vis-network, профили, `localStorage` |
+| `calculator.html` | 82 | legacy-редирект → `hactar.html?tab=overview` |
+| `interactions.html` | 84 | legacy-редирект → `hactar.html?tab=graph` |
+| `atlas.html` | 74 | legacy-редирект → `hactar.html?tab=graph` |
+| `map.html` | 97 | legacy-редирект → `hactar.html?tab=graph` |
+| `graph.html` | 81 | legacy-редирект → `hactar.html?tab=graph` |
+| `compare.html` | 71 | legacy-редирект → `hactar.html?tab=overview` |
+
+**Как устроен редирект.** В `<head>` — `<meta http-equiv="refresh"
+content="0;url=hactar.html?tab=…">`, `noindex, follow` и `canonical` на
+конечный адрес; перед переадресацией страница пишет
+`sessionStorage.hactarRedirectedFrom` (Hactar по нему показывает, откуда
+пришёл пользователь). Сам файл — короткая заглушка «страница переехала» +
+CTA, сохранена ради старых ссылок, закладок и поисковой выдачи; входящих
+ссылок из навигации на неё нет.
 
 ### Библиотеки (CDN, без сборки)
 
 - **Chart.js 4.4.1** — графики (bubble, quadrant, radar, line)
-- **vis-network 9.1.9** — графы (карты связей, атлас, ego-граф Project Hactar)
+- **vis-network 9.1.9** — граф связей: ego-граф во вкладке «Связи»
+  Project Hactar (единственный потребитель)
 
 ### Project Hactar
 
 Страница подбора БАДов (`docs/hactar.html` + `docs/hactar.js`) — витрина
 данных для конечного пользователя: отметить набор добавок (1+) и увидеть,
-что с ними делать вместе.
+что с ними делать вместе. **Это единственный инструмент-витрина проекта**:
+ранее самостоятельные страницы (`calculator`, `interactions`, `atlas`,
+`map`, `graph`, `compare`) закрыты и ведут сюда редиректами — см. таблицу
+в разделе «Страницы».
 
 - **Данные** — `data_index.json` (лёгкая проекция `data.json`: грейд, эффекты,
   категории) как первичный источник; при его недоступности — фолбэк на
@@ -152,7 +173,11 @@ python scripts/update_all.py --apply
 
 ---
 
-## Калькулятор БАДов
+## Калькулятор БАДов (вкладка «Обзор» внутри Hactar)
+
+Отдельной страницы-калькулятора больше нет: логика живёт в `docs/hactar.js`
+и показывается во вкладке «Обзор» (`hactar.html?tab=overview`), а
+`docs/calculator.html` — legacy-редирект на неё.
 
 ### Данные
 
