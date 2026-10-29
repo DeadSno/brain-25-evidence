@@ -1,0 +1,71 @@
+{
+ "_meta": {
+  "card": "Пробиотики",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Пробиотики": {
+   "about": "Living cultures; the effect is STRAIN SPECIFIC - “a probiotic at all” does not exist.",
+   "category": "GI Tract",
+   "category_group": "gut",
+   "caution": "The effect is STRAIN-SPECIFIC. Proven strains: Lactobacillus rhamnosus GG, Saccharomyces boulardii, Bifidobacterium infantis 35624. Contraindicated in: premature infants (FDA warning 2023), patients with CVC, immunocompromised, acute pancreatitis - risk of bacteremia.",
+   "course": "4+ weeks",
+   "dosage": "1-10 billion CFU",
+   "effects": [
+    "Intestines, immunity"
+   ],
+   "food_sources": "Yogurt, kefir, sauerkraut, kimchi, kombucha are related, but not equal to the additive.",
+   "forms": [
+    "billion CFU",
+    "multiple strains"
+   ],
+   "guidelines": "Cochrane: Moderate evidence for L. rhamnosus GG and S. boulardii in antibiotic diarrhea; EFSA: immunity claims not approved.",
+   "how_to_choose": "Strain on label (LGG, not just Lactobacillus); CFU for expiration date, not for release; storage conditions.",
+   "interactions": [
+    {
+     "note": "separate intake 2 hours, probiotic after the course",
+     "severity": "low",
+     "with": "antibiotics"
+    },
+    {
+     "note": "theoretical risk of infection",
+     "severity": "medium",
+     "with": "immunosuppressants"
+    }
+   ],
+   "mechs": [
+    [
+     "Strain-specific: L. rhamnosus GG - intestinal barrier; S. boulardii - diarrhea on antibiotics",
+     "Gut/immunity for specific indications",
+     "moderate"
+    ],
+    [
+     "Restoration of microbiota + barrier function during a course of antibiotics",
+     "Antibiotic-associated diarrhea in children: less common (33 RCT, 6352)",
+     "moderate"
+    ],
+    [
+     "Competition with C. difficile for a niche and mucosal immunomodulation",
+     "CDAD after antibiotics: prevention in adults/children (2025)",
+     "moderate"
+    ],
+    [
+     "Reducing the duration of acute infectious diarrhea (probiotics)",
+     "Diarrhea is shorter; the effect is stable in sensitivity (82 RCT, 12 127)",
+     "weak"
+    ]
+   ],
+   "myths": "“More billions of CFU is better” – the strain and the evidence are more important. “Populates the intestines forever” - transient in nature.",
+   "name": "Probiotics",
+   "onset": "Antibiotic-associated diarrhea - from 1-2 days of co-administration; IBS - 4-8 weeks.",
+   "title": "Probiotics",
+   "upper_limit": "No UL; caution with immunosuppression and central venous catheters.",
+   "verdict": "depends on context",
+   "who_needs": "Diarrhea on antibiotics (specific strains), IBS (strain-dependent), recovery after a course of antibiotics."
+  }
+ }
+}

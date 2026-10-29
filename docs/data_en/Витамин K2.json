@@ -1,0 +1,64 @@
+{
+ "_meta": {
+  "card": "Витамин K2",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Витамин K2": {
+   "about": "Osteocalcin γ-carboxylation cofactor: lumbar BMD is higher in postmenopausal osteoporosis.",
+   "category": "Bones / Blood Vessels",
+   "category_group": "bone",
+   "caution": "Vitamin K2 (menaquinone, MK-7). For osteoporosis in postmenopausal women: systematic reviews are available (36033779, 35711002). For fractures: mixed data (used as a treatment for osteoporosis in Japan). For vascular calcification: limited data. Dose: 45-180 mcg/day. Caution: warfarin (vitamin K antagonist). There is little data (only 5 abstracts).",
+   "course": "—",
+   "dosage": "100-200 mcg",
+   "effects": [
+    "Bones/vessels: few RCT, context"
+   ],
+   "food_sources": "Natto, cheeses, eggs, meat; fat-soluble - take with fats.",
+   "forms": [
+    "MK-7",
+    "MK-4"
+   ],
+   "guidelines": "MA 2015–2022: with osteoporosis, BMD is higher; fractures RR 0.43–0.50 only after sensitive analysis; AEs are more common (RR 1.22–1.33).",
+   "how_to_choose": "Menaquinone MK-7 45–180 mcg/day with fat; do not start on warfarin; priority - osteoporosis.",
+   "interactions": [
+    {
+     "note": "CONTRAINDICATED: antagonist, reduces INR",
+     "severity": "critical",
+     "with": "warfarin"
+    }
+   ],
+   "mechs": [
+    [
+     "Activates osteocalcin and MGP (Ca into bone, not into blood vessels)",
+     "Bones/vessels: few RCT, context",
+     "context"
+    ],
+    [
+     "Osteocalcin γ-carboxylation cofactor (bone)",
+     "BMD of the lower back and forearm is higher (WMD 2.17/1.57); without osteoporosis there is no effect",
+     "moderate"
+    ],
+    [
+     "Reduction of undercarboxylated osteocalcin (uc-OC)",
+     "uc-OC and uc-OC/cOC are lower, total osteocalcin +26.5; fractures RR 0.43–0.50 only after sensitive analysis",
+     "weak"
+    ]
+   ],
+   "myths": "“Bones for everyone” - without osteoporosis, BMD does not change. “Cleans blood vessels” - there is little data. “Blood is like warfarin” - on the contrary, it is contraindicated with it.",
+   "name": "Vitamin K2",
+   "onset": "Long-term effect: MIC and uc-OC change over distance; There is no quick “bone strengthening”.",
+   "synergists": [
+    "Vitamin D"
+   ],
+   "title": "Vitamin K2",
+   "upper_limit": "No formal UL listed - no toxicity data available.",
+   "verdict": "depends on context",
+   "who_needs": "Postmenopausal women with osteoporosis or low BMD (often with vitamin D); Without osteoporosis there is no effect."
+  }
+ }
+}

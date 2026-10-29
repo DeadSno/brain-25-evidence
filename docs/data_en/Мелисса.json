@@ -1,0 +1,67 @@
+{
+ "_meta": {
+  "card": "Мелисса",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Мелисса": {
+   "about": "A mild herbal anxiolytic from the mint family. One of the few with RCT on cognition under acute stress.",
+   "category": "Sleep",
+   "category_group": "brain",
+   "caution": "Caution with hypothyroidism - there is evidence of an effect on the thyroid gland in large doses. May interact with sedatives and thyroid medications.",
+   "course": "2-4 weeks for lasting effect",
+   "dosage": "300-600 mg",
+   "effects": [
+    "Anxiety",
+    "Dream",
+    "Cognition (context)"
+   ],
+   "food_sources": "Used as a spice and in teas. Fresh leaves - in salads and drinks.",
+   "forms": [
+    "extract (rosmarinic acid 4-6%)"
+   ],
+   "guidelines": "EMA is included in traditional herbal medicines as an anxiolytic and for GI. EFSA health claims do not approve.",
+   "how_to_choose": "Standardized extract for rosmarinic acid 4-6%. Or a whole leaf for tea - no worse.",
+   "interactions": [
+    {
+     "note": "may enhance the effect",
+     "severity": "low",
+     "with": "sedatives"
+    },
+    {
+     "note": "may affect TSH",
+     "severity": "low",
+     "with": "thyroid medications"
+    }
+   ],
+   "mechs": [
+    [
+     "Rosmarinic acid: GABA transaminase inhibition",
+     "Anxiolytic effect, sedation",
+     "moderate"
+    ],
+    [
+     "Essential oils (citral, citronellal): acetylcholine modulation",
+     "Cognition, memory (under stress)",
+     "moderate"
+    ],
+    [
+     "Polyphenols: antioxidant protection",
+     "Neuroprotection, reduction of oxidative stress",
+     "weak"
+    ]
+   ],
+   "myths": "“Replaces sleeping pills” - no, the effect is mild. “Helps everyone with anxiety” - works mainly for situational anxiety, not for clinical disorders.",
+   "name": "Lemon Balm",
+   "onset": "30-60 minutes for acute effect; 2-4 weeks for sustained reduction in anxiety.",
+   "title": "Lemon Balm",
+   "upper_limit": "There is no formal UL. High doses (above 3 g/day of extract) can affect the thyroid gland.",
+   "verdict": "depends on context",
+   "who_needs": "People in stressful periods - exams, deadlines. For mild anxiety. Like evening tea before bed."
+  }
+ }
+}

@@ -1,0 +1,56 @@
+{
+ "_meta": {
+  "card": "BCAA",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "BCAA": {
+   "about": "Leucine/isoleucine/valine: there is no sports effect with enough protein; niche - hepatic encephalopathy.",
+   "category": "Liver / Sports",
+   "category_group": "liver",
+   "caution": "BCAA (leucine/isoleucine/valine). For hepatic encephalopathy in cirrhosis: 4 Cochrane reviews show effectiveness. For sports: meta-analyses are inconsistent - many show no clinically significant effect. For sarcopenia in cirrhosis: data available. For oncology/surgical: limited data.",
+   "course": "—",
+   "dosage": "5-10 g",
+   "effects": [
+    "There is no effect with enough protein (not confirmed)"
+   ],
+   "food_sources": "Eggs, meat, milk, soy: All protein contains BCAA - it's easier to eat protein than a supplement.",
+   "forms": [
+    "micronized",
+    "instant (2:1:1)"
+   ],
+   "guidelines": "Cochrane 2017: BCAA reduces symptoms of encephalopathy (16 RCT), does not change mortality; There is no benefit for sports.",
+   "how_to_choose": "Take the supplement only for cirrhosis with encephalopathy; It makes no sense for sports - protein/protein is more effective.",
+   "interactions": [
+    {
+     "note": "compete for absorption",
+     "severity": "medium",
+     "with": "levodopa"
+    }
+   ],
+   "mechs": [
+    [
+     "Leucine → mTOR → protein synthesis",
+     "There is no effect with enough protein",
+     "marketing"
+    ],
+    [
+     "Correction of unbalanced amino profile (BCAA/AAA)",
+     "Hepatic encephalopathy: fewer symptoms (Cochrane, 827 people); no for mortality",
+     "context"
+    ]
+   ],
+   "myths": "“They build muscles without food” - there is no effect if there is enough protein. “They treat the liver” - only for encephalopathy with cirrhosis, they do not affect mortality.",
+   "name": "BCAA",
+   "onset": "Encephalopathy: symptomatically, in courses; for muscles there is no immediate effect.",
+   "title": "BCAA",
+   "upper_limit": "No formal UL listed - no toxicity data available.",
+   "verdict": "depends on context",
+   "who_needs": "Cirrhosis with hepatic encephalopathy; athletes/vegans with a lack of protein - but just protein is better."
+  }
+ }
+}

@@ -1,0 +1,54 @@
+{
+ "_meta": {
+  "card": "Ежовик",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Ежовик": {
+   "about": "Edible mushroom: neurogenesis and cognition - in vitro and in animals; on people 1 RCT + pilot, the base is small.",
+   "category": "Cognition / Nervous System",
+   "category_group": "brain",
+   "caution": "Hericium erinaceus (lion's mane). The only abstract in the database is an overview of potential properties. There are VERY few high-quality RCTs on cognitive function in humans. The main data are preclinical. Not to be confused with nootropic effects without evidence base.",
+   "course": "—",
+   "dosage": "No data",
+   "effects": [
+    "Neurogenesis"
+   ],
+   "food_sources": "Edible mushroom (fresh or dried); clinical doses and forms have not been determined.",
+   "forms": [
+    "mushroom (edible)"
+   ],
+   "guidelines": "No recommendations: SR 2025 (PMID 40959699) - 5 RCT + 3 pilots, modest data; side effects - GI and allergies.",
+   "how_to_choose": "There is no standard: take an edible mushroom, not an “extract with neurogenesis”; Allergy sufferers be careful.",
+   "interactions": [],
+   "mechs": [
+    [
+     "Hericenones/erinacins → NGF synthesis (in vitro, mice)",
+     "People do not have stable RCTs",
+     "marketing"
+    ],
+    [
+     "Cognitive performance in dementia: MMSE shift",
+     "MMSE +1.17 in a team of 1 RCT + 1 pilot; the base is tiny",
+     "weak"
+    ],
+    [
+     "Microbiota: increasing diversity and SCFA producers",
+     "Gut microbiota up, SCFA more; clinical significance not shown",
+     "context"
+    ]
+   ],
+   "myths": "“Mushroom nootropic” - in people 1 RCT + pilot (MMSE +1.17). \"Neurogenesis\" - BDNF/NGF in vitro and in mice. “Harmless” - GI discomfort and allergies.",
+   "name": "Lion's Mane",
+   "onset": "Coursework and weak: MMSE +1.17 after long-term use; no acute effect has been described.",
+   "title": "Lion's Mane",
+   "upper_limit": "No formal UL listed - no toxicity data available.",
+   "verdict": "not confirmed",
+   "who_needs": "Elderly with cognitive complaints - base of 1 RCT + 1 pilot; healthy has not been proven; doses are from animal studies only."
+  }
+ }
+}

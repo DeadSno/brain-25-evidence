@@ -1,0 +1,57 @@
+{
+ "_meta": {
+  "card": "Глутатион",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Глутатион": {
+   "about": "The main intracellular antioxidant. The problem is poor absorption when taken orally. NAC works indirectly - as a predecessor.",
+   "category": "General",
+   "category_group": "general",
+   "caution": "Oral glutathione is poorly absorbed—most is destroyed in the GI. The liposomal form is better. IV glutathione - only in the clinic (used in cosmetology, but its effectiveness in skin whitening has not been confirmed). Avoid during pregnancy without advice.",
+   "course": "8-12 weeks; the effect orally is weak",
+   "dosage": "500-1000 mg",
+   "effects": [
+    "Antioxidant",
+    "Detox (context)",
+    "Skin (with i.v.)"
+   ],
+   "food_sources": "In food - as part of proteins (meat, fish, avocado, asparagus). The body synthesizes it itself - in the absence of a deficiency, supplements are useless.",
+   "forms": [
+    "liposomal"
+   ],
+   "guidelines": "EFSA does not approve health claims. In clinical medicine - IV for poisoning, paracetamol hepatitis.",
+   "how_to_choose": "Liposomal glutathione (better bioavailability) or NAC (as a precursor, cheaper and more effective).",
+   "interactions": [],
+   "mechs": [
+    [
+     "Primary cell antioxidant: neutralizes free radicals",
+     "Cell protection, liver support",
+     "moderate"
+    ],
+    [
+     "Cofactor for detox enzymes (glutathione-S-transferase)",
+     "Metabolism of xenobiotics, detox",
+     "moderate"
+    ],
+    [
+     "Support of glutathione pool in lymphocytes",
+     "Immune function",
+     "weak"
+    ]
+   ],
+   "myths": "“Skin whitens” is a popular myth in Asia, no RCT. “Improves everything” is an exaggeration. NAC often works better and is cheaper.",
+   "name": "Glutathione",
+   "onset": "4-8 weeks for changes in tests (blood levels); on health - not noticeable.",
+   "pregnancy_contraindicated": true,
+   "title": "Glutathione",
+   "upper_limit": "There is no formal UL. Doses up to 2 g/day are well tolerated.",
+   "verdict": "depends on context",
+   "who_needs": "People with oxidative stress (chronic diseases, smoking). For HIV, diabetes, liver disease - deficiency. In cosmetology - intravenously for “whitening” (the effect has not been confirmed by RCT)."
+  }
+ }
+}

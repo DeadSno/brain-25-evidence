@@ -1,0 +1,54 @@
+{
+ "_meta": {
+  "card": "Бета-глюканы овса",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Бета-глюканы овса": {
+   "about": "Oat Soluble Fiber: Lowers LDL and cholesterol when high; FDA/EFSA approved.",
+   "category": "Metabolism",
+   "category_group": "metab",
+   "caution": "Oat beta-glucans are soluble fiber. FDA health claim (USA) officially approved: 'soluble fiber from oats may reduce the risk of CVD by lowering cholesterol'. A meta-analysis (35631184) confirms a decrease in LDL in hypercholesterolemic individuals. The effect is dose dependent: optimum 3+ g/day. For glycemic control: data available. Safe.",
+   "course": "—",
+   "dosage": "3 g/day (EFSA climate)",
+   "effects": [
+    "LDL −5-10%: stable, EFSA approved"
+   ],
+   "food_sources": "Oatmeal, bran, whole oats: beta-glucan is concentrated in them; for 3 g/day - a serving of oatmeal.",
+   "forms": [
+    "oat soluble fiber"
+   ],
+   "guidelines": "The FDA and EFSA have approved the claim: 3 g/day reduces cholesterol. MA 2022 (13 RCT, 927): TC −0.24, LDL −0.27 mmol/l.",
+   "how_to_choose": "Oat beta-glucan 3 g/day - from oatmeal/bran or supplement; no claims about “detox”.",
+   "interactions": [],
+   "mechs": [
+    [
+     "Soluble fiber: bile acids + SCFA",
+     "LDL −5-10%: stable, EFSA approved",
+     "strong"
+    ],
+    [
+     "Binding of bile acids in the lumen: cholesterol down",
+     "TC −0.24, LDL −0.27 mmol/l (13 RCT, 927; hyper-cholesterol)",
+     "moderate"
+    ],
+    [
+     "No effect on TG and HDL (mechanism limited by cholesterol)",
+     "TG −0.04 and HDL 0.00 mmol/l: no effect (NS)",
+     "context"
+    ]
+   ],
+   "myths": "“Reduces TG and increases HDL” - has no effect on either one (MA 2022). “Beta-glucan is stronger than statins” - the reduction in LDL is modest.",
+   "name": "Oat Beta-Glucans",
+   "onset": "The effect is dose-dependent: at 3 g/day, LDL decreases over weeks of administration, not at once.",
+   "title": "Oat Beta-Glucans",
+   "upper_limit": "No formal UL listed - no toxicity data available.",
+   "verdict": "works",
+   "who_needs": "Hypercholesterolemia and high risk of CVD - lowering LDL as a dietary measure; in healthy people the effect is small."
+  }
+ }
+}

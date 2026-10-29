@@ -1,0 +1,51 @@
+{
+ "_meta": {
+  "card": "CDP-холин",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "CDP-холин": {
+   "about": "Choline donor for acetylcholine and membranes; effect on cognitive decline in patients, not in healthy people.",
+   "category": "Cognition / Stroke",
+   "category_group": "brain",
+   "caution": "Citicoline (CDP-choline) is a precursor to phosphatidylcholine. For acute ischemic stroke: there is evidence, but recent reviews show limited effectiveness. For cognitive impairment and dementia: evidence is mixed. Safe in standard doses (1000-2000 mg/day). Used in Europe and Asia as a medicine.",
+   "course": "courses",
+   "dosage": "250-500 mg",
+   "effects": [
+    "Memory (in patients) (not confirmed)"
+   ],
+   "food_sources": "Choline is found in eggs, liver, legumes; but citicoline is a pharmaceutical form and cannot be obtained from food.",
+   "guidelines": "Cochrane 2020 (stroke): no effect; MA 2023 (MCI/dementia): cognition better (SMD 0.56–1.57), quality low.",
+   "how_to_choose": "250–500 mg of citicoline in courses for cognitive complaints in the elderly; healthy people without a diagnosis - do not take it.",
+   "interactions": [],
+   "mechs": [
+    [
+     "Choline → acetylcholine + phosphatidylcholine (membranes)",
+     "Memory in the elderly/under stress, weak in healthy people",
+     "context"
+    ],
+    [
+     "Resynthesis of membrane phospholipids during ischemia",
+     "Acute ischemic stroke: no effect on GRADE mortality/disability (10 RCT, 4281)",
+     "marketing"
+    ],
+    [
+     "Cholinergic support for dementia and MCI",
+     "MCI/AD/post-stroke dementia: better cognition (SMD 0.56–1.57), poor RCT quality",
+     "context"
+    ]
+   ],
+   "myths": "“Saves in case of stroke” - does not change mortality/disability (10 RCT, 4281). “Nootropic for healthy people” – patients’ niche.",
+   "name": "CDP-Choline",
+   "onset": "Course effect: cognitive shifts over weeks and months; does not provide sharp “clarity”.",
+   "title": "CDP-Choline",
+   "upper_limit": "No formal UL listed - no toxicity data available.",
+   "verdict": "depends on context",
+   "who_needs": "Elderly with mild cognitive decline and post-stroke dementia (as prescribed); healthy for the “brain” - there is no effect."
+  }
+ }
+}

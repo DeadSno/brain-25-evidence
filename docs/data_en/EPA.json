@@ -1,0 +1,56 @@
+{
+ "_meta": {
+  "card": "EPA",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "EPA": {
+   "about": "EPA - omega-3 with anti-inflammatory effect: linearly reduces triglycerides and non-HDL (90 RCT) and alleviates depression with formulas with EPA ≥60% at a dose of ≤1 g/day.",
+   "category": "Heart",
+   "category_group": "cardio",
+   "caution": "The safety of high doses has not been addressed in the abstract; against the background of anticoagulants and high doses (>2-4 g/day) - consult a doctor.",
+   "course": "Course - weeks-months; The decrease in triglycerides lasts while taking it.",
+   "dosage": "Depression: EPA ≤1 g/day (forms with EPA ≥60%); lipids: total dose of omega-3 >2 g/day.",
+   "effects": [
+    "Depression",
+    "Triglycerides",
+    "Cardiorisk (not confirmed)"
+   ],
+   "food_sources": "Products are not listed in the abstracts; the standard is oily fish and fish oil, but the evidence relates to supplementation with a specified dose of EPA.",
+   "forms": [
+    "with EPA ≥60%"
+   ],
+   "guidelines": "MA 2023 (90 RCT, 72,598): omega-3 linearly reduces TG and non-HDL, clearly at doses >2 g/day; MA 2019 (26, 2160): EPA ≥60% ≤1 g/day for depression (SMD −0.28).",
+   "how_to_choose": "See mg EPA and EPA proportion ≥60%; for depression ≤1 g/day EPA; with lipids >2 g/day; Avoid DHA-dominant formulas for mental health purposes.",
+   "interactions": [],
+   "mechs": [
+    [
+     "EPA ≥60%: anti-inflammatory modulation in depression",
+     "reduction in depressive symptoms (SMD −0.28, EPA-pure −0.50)",
+     "moderate"
+    ],
+    [
+     "Dose-dependent suppression of triglyceride synthesis",
+     "TG and non-HDL - linear at doses >2 g/day (90 RCT)",
+     "strong"
+    ],
+    [
+     "DHA-pure formulas for depression",
+     "there is no significant improvement - the effect is associated with EPA",
+     "context"
+    ]
+   ],
+   "myths": "“Any omega-3 is the same” - DHA-pure did not improve depression (MA 2019). “Reduces cholesterol” - no: triglycerides and non-HDL, LDL - J-shaped. “1 g per day for everyone” - for lipids you need more than 2 g/day.",
+   "name": "EPA",
+   "onset": "Lipids - dose-dependent, course (weeks) at doses >2 g/day; depression - weeks or months of use, the effect according to MA 2019 is not acute.",
+   "title": "EPA",
+   "upper_limit": "not established (not given in abstracts)",
+   "verdict": "works",
+   "who_needs": "Hypertriglyceridemia, especially in obesity - omega-3 >2 g/day; depression - formulas ≥60% EPA ≤1 g/day; the effect is specifically EPA: DHA-pure has not shown any benefit for mental purposes."
+  }
+ }
+}

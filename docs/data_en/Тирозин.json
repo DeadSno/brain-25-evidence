@@ -1,0 +1,65 @@
+{
+ "_meta": {
+  "card": "Тирозин",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Тирозин": {
+   "about": "Dopamine precursor: maintains working memory during acute stress/lack of sleep; does not affect sports.",
+   "category": "Cognition",
+   "category_group": "brain",
+   "caution": "ONLY 1 relevant meta-analysis after screening (the rest are about tyrosine kinase inhibitors in oncology, not about amino acids). For cognitive function under stress: single RCT evidence, low quality. For sports results: no systematic proofs.",
+   "course": "situationally",
+   "dosage": "500-2000 mg",
+   "effects": [
+    "Cognition under stress"
+   ],
+   "food_sources": "Cheese, chicken, fish, turkey, peanuts, bananas; for acute stress, L-tyrosine 500–2000 mg is easier.",
+   "forms": [
+    "L-tyrosine"
+   ],
+   "guidelines": "SR 2015 (15 papers): cognitive buffer only under stress; sports results do not improve; single dose data.",
+   "how_to_choose": "L-tyrosine 500–2000 mg once under stress (competition, night without sleep); not for regular use.",
+   "interactions": [
+    {
+     "note": "hypertensive crisis, DANGER",
+     "severity": "critical",
+     "with": "MAO inhibitors"
+    },
+    {
+     "note": "compete for absorption",
+     "severity": "medium",
+     "with": "levodopa"
+    }
+   ],
+   "mechs": [
+    [
+     "Catecholamine precursor (dopamine, NA)",
+     "Cognition ONLY during acute stress/lack of sleep",
+     "context"
+    ],
+    [
+     "Replenishment of depleted catecholamines in the brain during exercise (dopamine, norepinephrine)",
+     "Working memory and information processing are affected by stress and overload",
+     "context"
+    ],
+    [
+     "Claimed ergogenicity in sports via catecholamines (muscle fatigue)",
+     "No effect on athletic performance in most studies",
+     "marketing"
+    ]
+   ],
+   "myths": "“Accelerates the brain for everyone” - only against the background of depleted catecholamines. “Sports doping” - performance does not increase.",
+   "name": "Tyrosine",
+   "onset": "Acute single action (500–2000 mg before exercise); courses have not been studied.",
+   "title": "Tyrosine",
+   "upper_limit": "No formal UL listed - no toxicity data available.",
+   "verdict": "not confirmed",
+   "who_needs": "Only under acute cognitive stress: lack of sleep, extreme conditions, high cognitive stress; There is no “for tone” for healthy people."
+  }
+ }
+}

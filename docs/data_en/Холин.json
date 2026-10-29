@@ -1,0 +1,57 @@
+{
+ "_meta": {
+  "card": "Холин",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Холин": {
+   "about": "Choline is a source of acetylcholine and methyl groups: α-GPC improves cognition in age-related/vascular disorders (MA 2023), in pregnancy - for the fetal brain.",
+   "category": "Cognition",
+   "category_group": "brain",
+   "caution": "Security was not dealt with separately in the abstracts; in a number of countries α-GPC is a medicine (MA 2023); during pregnancy, the dose is as recommended by the doctor.",
+   "course": "Course - weeks-months; a sustained effect has been described in combination with donepezil.",
+   "dosage": "No data",
+   "effects": [
+    "Cognition",
+    "Fetal neural tube",
+    "Function and behavior"
+   ],
+   "food_sources": "Egg yolk, liver, meat, soy; Choline is often deficient in plant-based diets, especially during pregnancy (SR 2025).",
+   "forms": [
+    "choline bitartrate",
+    "alpha GPC"
+   ],
+   "guidelines": "MA 2023 (7 RCT): α-GPC + donepezil - cognition MD 1.72 [0.20-3.25], behavior MD −7.61; SR 2025: Choline in pregnancy - lower risk of neural tube defects.",
+   "how_to_choose": "According to the data - α-GPC form; during pregnancy, the dose is as recommended by the doctor; in healthy individuals, rely on the lack of evidence for cognition.",
+   "interactions": [],
+   "mechs": [
+    [
+     "α-GPC is a precursor to phosphatidylcholine and acetylcholine",
+     "improved cognitive outcomes (MD 1.72 with donepezil)",
+     "moderate"
+    ],
+    [
+     "Choline in folate metabolism and neural tube development",
+     "lower risk of neural tube defects with sufficient intake",
+     "weak"
+    ],
+    [
+     "Combination with a cholinesterase inhibitor in patients with neurocognitive disorders",
+     "better function and behavior (MD 0.79, −7.61)",
+     "context"
+    ]
+   ],
+   "myths": "“Choline makes everyone smarter” - in MA 2023, an effect in patients with cognitive disorders. “There is enough soy lecithin” - different forms, data mainly on α-GPC. “Food provides the norm”—pregnant women do not get enough choline (SR 2025).",
+   "name": "Choline",
+   "onset": "MA 2023: effect on cognition - during a course (weeks-months), especially in combination with donepezil; acute effects in healthy people are not indicated.",
+   "title": "Choline",
+   "upper_limit": "not established (not given in abstracts)",
+   "verdict": "depends on context",
+   "who_needs": "Adults with cognitive impairment (vascular/age-related) - α-GPC; pregnant and lactating women with low choline in the diet; in healthy people with normal status there is no evidence."
+  }
+ }
+}

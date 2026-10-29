@@ -1,0 +1,62 @@
+{
+ "_meta": {
+  "card": "Астаксантин",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Астаксантин": {
+   "about": "Carotenoid: after exercise, creatine kinase is lower, skin is better; on VO2max and IVF outcomes - no.",
+   "category": "Skin & Joints",
+   "category_group": "bone",
+   "caution": "Astaxanthin is a carotenoid from the algae Haematococcus pluvialis. For skin: a systematic review (32202443) shows improvement in parameters. For fertility: data available (39127677, 41714661). For sport/rehabilitation: limited data. For the liver: there is data. There is little data on clinical outcomes—mostly biomarkers. Safe at doses of 4-12 mg/day.",
+   "course": "—",
+   "dosage": "4-12 mg",
+   "effects": [
+    "Skin/eyes: weak-positive, context"
+   ],
+   "food_sources": "Originally a microalgae; in food (salmon, krill) the concentrations are low - working 3-6 mg from the supplement.",
+   "guidelines": "MA 2026 (24 RCT): creatine kinase SMD −0.45, LDH −0.93, VO2max without shift. Skin (SR 2021): 3-6 mg/day for texture/wrinkles.",
+   "how_to_choose": "3-6 mg/day for skin, 4-12 mg/day with fats for recovery; standardization according to Haematococcus pluvialis.",
+   "interactions": [
+    {
+     "note": "theoretical risk",
+     "severity": "low",
+     "with": "anticoagulants"
+    }
+   ],
+   "mechs": [
+    [
+     "The strongest carotenoid membrane antioxidant",
+     "Skin/eyes: weak-positive, context",
+     "weak"
+    ],
+    [
+     "Antioxidant protection of follicular fluid",
+     "Oocyte maturation is higher (MD 8.40); IVF/pregnancy outcomes do not change",
+     "context"
+    ],
+    [
+     "Reduced markers of muscle damage after exercise",
+     "Creatine kinase is lower after training (SMD −0.45); performance does not increase",
+     "moderate"
+    ],
+    [
+     "Photoprotection and regeneration of the epidermis",
+     "Wrinkles, skin texture, and skin moisture are better at 3–6 mg/day; little data",
+     "weak"
+    ]
+   ],
+   "myths": "“Pumps up VO2max” - no (24 RCT), recovery works. “Cures infertility” - oocyte maturation is better, IVF without changes.",
+   "name": "Astaxanthin",
+   "onset": "Course course: skin - 3-6 mg/day for weeks; recovery markers - after exercise.",
+   "title": "Astaxanthin",
+   "upper_limit": "No formal UL listed - no toxicity data available.",
+   "verdict": "depends on context",
+   "who_needs": "Recovery after training (muscle enzymes down); skin photoaging; fertility (oocyte maturation) - context."
+  }
+ }
+}

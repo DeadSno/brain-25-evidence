@@ -1,0 +1,56 @@
+{
+ "_meta": {
+  "card": "Лютеин + зеаксантин",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Лютеин + зеаксантин": {
+   "about": "Macular carotenoids: antioxidant; slow down age-related macular degeneration, but do not save you from screens.",
+   "category": "Eyes / Vision",
+   "category_group": "vision",
+   "caution": "Lutein and zeaxanthin are retinal carotenoids. For age-related macular degeneration (AMD): systematic reviews show improvement in macular pigment and slower progression. For cataracts: risk reduction. For retinopathy of prematurity: Cochrane (40292760). AREDS2 formula (lutein + zeaxanthin) is the standard for AMD. Dose: 10 mg lutein + 2 mg zeaxanthin/day. Safe.",
+   "course": "—",
+   "dosage": "10+2 mg/day with fats",
+   "effects": [
+    "AMD is slow; “blue light screens” - marketing (not confirmed)"
+   ],
+   "food_sources": "Spinach, cabbage, egg yolk, corn, pumpkin are bioavailable with fats; taking them with oil is mandatory.",
+   "guidelines": "MA 2019: MPOD +0.07, pungency +0.28 (10–20 mg); nuclear cataract RR 0.63–0.73; AREDS2-dose 10+2 mg; premature - no.",
+   "how_to_choose": "AREDS2 dosage - 10 mg lutein + 2 mg zeaxanthin with fatty food; buy not “formulas”, but composition.",
+   "interactions": [],
+   "mechs": [
+    [
+     "Macular pigment: blue filter + antioxidant",
+     "AMD is slow; “blue light screens” - marketing",
+     "context"
+    ],
+    [
+     "Macular pigment density: linear with dose (10–20 mg/d)",
+     "MPOD +0.07, sharpness +0.28, contrast +0.26 (9 RCT, 920 eyes)",
+     "moderate"
+    ],
+    [
+     "Antioxidant in the lens: reduction of nuclear cataracts",
+     "Nuclear cataract: RR 0.63–0.73 (observational data, 8 studies)",
+     "weak"
+    ],
+    [
+     "Antioxidant Protection of Prematurity (ROP): The Claim",
+     "Retinal protection has not been confirmed in preterm infants (Cochrane 2025)",
+     "context"
+    ]
+   ],
+   "myths": "“They save you from blue screens” - protection from the monitor has not been proven. “Help prematurity” - ROP risk not reduced (Cochrane 2025).",
+   "name": "Lutein + Zeaxanthin",
+   "onset": "The density of macular pigment grows over months, faster by 20 mg; There is no effect in days.",
+   "title": "Lutein + Zeaxanthin",
+   "upper_limit": "No formal UL listed - no toxicity data available.",
+   "verdict": "works",
+   "who_needs": "People with age-related macular degeneration (AREDS2) and familial risk; for nuclear cataracts - observational data."
+  }
+ }
+}

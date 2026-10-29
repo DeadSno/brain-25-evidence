@@ -1,0 +1,46 @@
+{
+ "_meta": {
+  "card": "Молибден",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Молибден": {
+   "about": "Molybdenum is an essential trace element; There are no MAs prescribed for people in the selection: the reviews concern the status of microelements and toxic metals; dietary supplements have not been studied.",
+   "category": "General",
+   "category_group": "general",
+   "caution": "Excess micronutrients are potentially harmful; reviews note harm from excess metals - supplementation without indications is not justified.",
+   "course": "Not installed.",
+   "dosage": "No data: the purpose of molybdenum in the abstracts has not been studied.",
+   "effects": [
+    "Micronutrient status"
+   ],
+   "food_sources": "Legumes, grains, nuts, offal, dairy products; The content is highly dependent on the soil.",
+   "guidelines": "ESPEN 2022: trace elements are essential, deficiencies affect outcomes, monitoring is needed; reviews 2009 (hemodialysis) and 2026 - status in patients, purpose not studied.",
+   "how_to_choose": "Do not choose a supplement without indications - there is no data on effectiveness; if a deficiency is suspected, the status is assessed by a doctor.",
+   "interactions": [],
+   "mechs": [
+    [
+     "Essential nature of microelements, the impact of deficiency on disease outcomes",
+     "maintenance of metabolism in case of deficiency (ESPEN 2022)",
+     "context"
+    ],
+    [
+     "Tracking Micronutrient Levels in Dialysis Patients",
+     "in dialysis patients the level of a number of elements is changed; molybdenum among those tracked",
+     "context"
+    ]
+   ],
+   "myths": "“Microelements are equally beneficial for everyone” - the status of patients varies, there is no data. “A useful metal means an additive” - there is no evidence. “Toxic metals are only harmful” - some metals are essential, the question is the dose.",
+   "name": "Molybdenum",
+   "onset": "Not described: studies on the use of molybdenum were not found in abstracts.",
+   "title": "Molybdenum",
+   "upper_limit": "not established (not given in abstracts)",
+   "verdict": "not confirmed",
+   "who_needs": "No data on indications: groups are monitored as risk of deficiency or excess of microelements (chronic diseases, hemodialysis); With normal nutrition, the needs are covered."
+  }
+ }
+}

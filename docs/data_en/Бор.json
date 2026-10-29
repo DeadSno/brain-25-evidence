@@ -1,0 +1,51 @@
+{
+ "_meta": {
+  "card": "Бор",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Бор": {
+   "about": "Boron in the pool is almost unstudied: two sources are about scaffolds for bone outside of humans and the third place in the network MA for drugs after lithotripsy.",
+   "category": "Bones / Immunity",
+   "category_group": "bone",
+   "caution": "In the network MA, all drugs showed an acceptable safety profile, but there are no separate data on doses and risks of boron in the pool.",
+   "course": "not listed in abstracts",
+   "dosage": "No data",
+   "effects": [
+    "No proven effects"
+   ],
+   "food_sources": "In the pool abstracts, sources of boron are not discussed: both sources are about materials for bone and about drug therapy.",
+   "guidelines": "There are no separate clinical recommendations for boron in the pool: two sources are a review of materials for bone tissue and a network MA for drugs.",
+   "how_to_choose": "There is no data to guide the choice of form and dose: neither of the two sources evaluates boron supplementation.",
+   "interactions": [],
+   "mechs": [
+    [
+     "Boron is included in the structure of hydroxyapatite scaffolds to enhance bone regeneration",
+     "The effect has been studied in vitro and in animal models",
+     "weak"
+    ],
+    [
+     "In the network MA for therapy after lithotripsy, boron supplementation took third place according to SUCRA (67.9%)",
+     "Third place among drugs after lithotripsy",
+     "weak"
+    ],
+    [
+     "There is no data on the effect of boron on people outside of these two works in the pool",
+     "The effect of the supplement has not been confirmed",
+     "marketing"
+    ]
+   ],
+   "myths": "“Boron strengthens bones” - a source about scaffolds with boron in vitro and in animals, not about tablets. “Helps against stones” - only third in the network MA, SUCRA 67.9%, after tamsulosin with tadalafil.",
+   "name": "Boron",
+   "onset": "Not studied: there are no direct RCTs with boron in the pool.",
+   "title": "Boron",
+   "upper_limit": "not listed in abstracts",
+   "verdict": "not confirmed",
+   "who_needs": "There is no data on the target group: neither of the two sources tested boron supplementation as a stand-alone treatment method."
+  }
+ }
+}

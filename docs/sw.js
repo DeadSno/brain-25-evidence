@@ -584,7 +584,12 @@
 /* Бамп v196 -> v197 FIX-52 (UIUX-08): openModal() теперь показывает ошибку
    с кнопкой Retry вместо console.error; script.min.js ?v=305 -> ?v=306,
    i18n.js ?v=22 -> ?v=23 на всех HTML. */
-var CACHE_VERSION = 'v197';
+/* Бамп v197 -> v198 FIX-55 (CWV-06): data_en.json разбит на пофайловые
+   оверлеи docs/data_en/<id>.json — карточная страница sup-страницам грузит
+   только свой (~2-3 КБ вместо 326 КБ). Новые файлы добавлены в DATA_RE
+   (network-first); без бампа кэша возвратный посетитель останется на
+   старом i18n.js (?v=23 -> ?v=24 на всех HTML) и не увидит сплит. */
+var CACHE_VERSION = 'v198';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
@@ -597,7 +602,7 @@ var CACHE_DATA = CACHE_VERSION + '-data';
    остаются в статике, как и раньше. data_en.json (FIX-77, EN-оверлей данных)
    сюда тоже попадает: он меняется вместе с контентом, поэтому network-first,
    а не cache-first. */
-var DATA_RE = /\/data(_index|_en)?\.json$/;
+var DATA_RE = /\/data(_index|_en)?\.json$|\/data_en\/[^\/]+\.json$/;
 
 /* version.json — единственный файл, по которому видно, что сайт обновился.
    Стратегия для него своя (network-first со сверкой app), поэтому он не

@@ -1,0 +1,52 @@
+{
+ "_meta": {
+  "card": "Ниацинамид",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Ниацинамид": {
+   "about": "Niacinamide (B3): reduces the risk of non-melanoma skin cancer in those with a history of it (RR 0.50, MA 2022); topically - for hyperpigmentation; the effect has not been described in healthy people.",
+   "category": "Skin & Joints",
+   "category_group": "bone",
+   "caution": "Increased risk of GI symptoms (MA 2022); topical forms are better tolerated; not to be confused with niacin.",
+   "course": "Prevention is still relevant (according to RCT schemes from MA 2022); Topically - in courses.",
+   "dosage": "No data",
+   "effects": [
+    "Preventing skin cancer",
+    "Hyperpigmentation"
+   ],
+   "food_sources": "Meat, poultry, fish, liver, peanuts; nutritional status is not detailed in abstracts.",
+   "guidelines": "MA 2022 (29 trials, n=3039): nicotinamide - skin cancer RR 0.50 [0.29-0.85], weak recommendation; reviews 2022/2025: topical niacinamide among treatments for PIH.",
+   "how_to_choose": "Orally - only as prescribed by a doctor if you have a history of skin cancer; topical - niacinamide agents for pigmentation; not to be confused with niacin (flushing).",
+   "interactions": [],
+   "mechs": [
+    [
+     "NAD+ restoration and DNA repair",
+     "prevention of non-melanoma skin cancer (RR 0.50, MA 2022)",
+     "moderate"
+    ],
+    [
+     "Topical niacinamide for post-inflammatory hyperpigmentation",
+     "lightening of spots, high quality research",
+     "moderate"
+    ],
+    [
+     "Topical treatments for axillary hyperpigmentation",
+     "reduction of pigmentation along with lasers and other means",
+     "weak"
+    ]
+   ],
+   "myths": "“Lipid data - about niacin” - does not apply to nicotinamide. “Nicotinamide is harmless” - there are GI AEs (MA 2022). “Everyone needs it for their skin” - proven for groups at risk of skin cancer and hyperpigmentation.",
+   "name": "Niacinamide",
+   "onset": "Chemoprophylaxis - in a course while taking it; in MA 2022, the effect on skin cancer and actinic keratoses is significant, GI AEs are noted.",
+   "title": "Niacinamide",
+   "upper_limit": "not established (not given in abstracts)",
+   "verdict": "depends on context",
+   "who_needs": "Individuals with cancer or ≥1 skin cancer—chemoprophylaxis (weak GRADE recommendation); topically - for hyperpigmentation; There is no data for “everyone has energy”."
+  }
+ }
+}

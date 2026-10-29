@@ -1,0 +1,64 @@
+{
+ "_meta": {
+  "card": "Лаванда",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Лаванда": {
+   "about": "One of the few herbal anxiolytics tested in major RCTs (Silexan is a standardized oil). Compare with lorazepam in anxiety studies.",
+   "category": "Mood",
+   "category_group": "brain",
+   "caution": "Orally only standardized oil in capsules (Silexan). DO NOT take regular essential oil internally - it is toxic. During pregnancy - avoid. May enhance the effect of sedatives.",
+   "course": "6-10 weeks for sustained anxiolytic effect",
+   "dosage": "80-160 mg",
+   "effects": [
+    "Anxiety",
+    "Dream",
+    "Mood"
+   ],
+   "food_sources": "As a spice in cooking (very little). The main one is essential oil or extract.",
+   "forms": [
+    "extract (stabilized lavender oil",
+    "Silexan)"
+   ],
+   "guidelines": "There is RCT (Silexan vs lorazepam, vs placebo) - one of the few with a decent evidence base. EFSA health claims do not approve.",
+   "how_to_choose": "Silexan (standardized preparation) or equivalent in capsules. For aromatherapy - 100% essential oil, not aromatic mixtures.",
+   "interactions": [
+    {
+     "note": "may enhance the effect",
+     "severity": "low",
+     "with": "sedatives"
+    }
+   ],
+   "mechs": [
+    [
+     "Linalyl acetate and linalool: modulation of GABA-A and NMDA receptors",
+     "Anxiolytic effect",
+     "moderate"
+    ],
+    [
+     "Inhibition of calcium channels in neurons",
+     "Decreased CNS excitability",
+     "moderate"
+    ],
+    [
+     "Effect on serotonin 5-HT1A receptors",
+     "Mood, antidepressant effect (weak)",
+     "weak"
+    ]
+   ],
+   "myths": "“All essential oils are the same” - no, only the standardized one with linalyl acetate works. “Instantly knocks you out” - a mild effect, not a sleeping pill.",
+   "name": "Lavender",
+   "onset": "30-60 minutes for acute calming effect; 2-6 weeks for sustainable.",
+   "pregnancy_contraindicated": true,
+   "title": "Lavender",
+   "upper_limit": "There is no formal UL. Silexan capsules 80-160 mg/day are well tolerated.",
+   "verdict": "depends on context",
+   "who_needs": "People with mild to moderate anxiety disorders. Students during stressful periods. As an evening ritual for sleep."
+  }
+ }
+}

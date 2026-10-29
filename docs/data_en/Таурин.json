@@ -1,0 +1,67 @@
+{
+ "_meta": {
+  "card": "Таурин",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Таурин": {
+   "about": "Sulfoamino acid-osmolyte: improves cardiometabolic markers - glucose, lipids, blood pressure, liver.",
+   "category": "Metabolism",
+   "category_group": "metab",
+   "caution": "Taurine is a sulfonic acid with many functions. For cardiometabolism: Meta-analyses show modest improvements in blood pressure/lipids in people with metabolic problems. For cognitive function: limited data (40320621). For height in low birth weight infants: data available (29368111). Safe in doses of 1-6 g/day.",
+   "course": "—",
+   "dosage": "500-2000 mg",
+   "effects": [
+    "Calm"
+   ],
+   "food_sources": "Meat, seafood, fish are the main sources; vegetarians are in a low consumption area, but shortages are rare.",
+   "guidelines": "MA 2026 (34 RCT): glucose −5.9 mg/dL, TG −14.4, LDL −5.1, SBP −4.4, AST/ALT down; dose-effect 1.5–3 g/day.",
+   "how_to_choose": "Taurine 1.5–3 g/day for T2D/hypertension/steatosis; for “energy” or mind - do not take it.",
+   "interactions": [
+    {
+     "note": "may enhance the effect",
+     "severity": "low",
+     "with": "antihypertensive"
+    },
+    {
+     "note": "Possible effect on concentration",
+     "severity": "low",
+     "with": "lithium"
+    }
+   ],
+   "mechs": [
+    [
+     "Osmolyte, GABA/glycine modulation, Ca2+ homeostasis",
+     "Slight sedation, endurance (weak data)",
+     "weak"
+    ],
+    [
+     "Cardiometabolic profile: glucose, lipids, insulin",
+     "Glucose −5.9, LDL −5.1, TG −14.4 mg/dL; HOMA-IR −0.57 (34 RCT)",
+     "moderate"
+    ],
+    [
+     "Liver markers and antioxidant protection",
+     "AST −9.7, ALT −8.3 U/l; MDA (SMD −1.16) and CRP lower",
+     "moderate"
+    ],
+    [
+     "Claimed cognitive support",
+     "Cognition: no effect (7 RCT, 402 people); MMSE +3.09 only in conjunction with medications",
+     "marketing"
+    ]
+   ],
+   "myths": "“Calms and helps to think” - cognition without effect (7 RCT, 402); “energy” - the dose in a jar (~mg) is a penny versus workers 1.5–3 g.",
+   "name": "Taurine",
+   "onset": "Cardiometabolic effect of the course: weeks-months; There is no “calm down” in RCT.",
+   "title": "Taurine",
+   "upper_limit": "No formal UL listed - no toxicity data available.",
+   "verdict": "depends on context",
+   "who_needs": "Metabolic syndrome, T2D, steatosis, hypertension - cardiometabolic markers; for the \"mind\" without evidence."
+  }
+ }
+}

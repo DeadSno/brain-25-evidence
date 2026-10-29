@@ -1,0 +1,54 @@
+{
+ "_meta": {
+  "card": "Орнитин",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Орнитин": {
+   "about": "Ornithine was studied only for safety: SR 22 studies on healthy people found a maximum of 14,025 mg/day, but did not evaluate the effectiveness.",
+   "category": "Sports",
+   "category_group": "sport",
+   "caution": "The main adverse events in SR are gastrointestinal disorders; risk analysis showed a difference of 0.00 (95% CI ±0.02, p = 1.00).",
+   "course": "the maximum duration studied in SR is 156 days; Dosage regimens for sports have not been studied",
+   "dosage": "No data",
+   "effects": [
+    "Tolerability"
+   ],
+   "food_sources": "In the abstracts of the pool, food sources are not discussed: SR only considered oral administration of the drug in addition to the usual diet.",
+   "forms": [
+    "L-ornithine hydrochloride"
+   ],
+   "guidelines": "There are no clinical recommendations for ornithine in the pool: the only source is the SR for safety with a NOAEL calculation of 12,000 mg/day.",
+   "how_to_choose": "The form studied was L-ornithine hydrochloride; It makes sense to take it only under the supervision of a doctor with a confirmed deficiency, and not for sports.",
+   "interactions": [],
+   "mechs": [
+    [
+     "Ornithine is an essential amino acid with many physiological roles, but the mechanisms of the effect in the pool have not been understood",
+     "Oral tolerance",
+     "weak"
+    ],
+    [
+     "In SR 22 studies, analysis of adverse events did not reveal a significant difference in the risk of gastrointestinal disorders",
+     "GI disorders as the only observed risk",
+     "moderate"
+    ],
+    [
+     "There is no data on the effect of ornithine intake on health indicators or performance in the pool",
+     "The effect of the additive has not been studied",
+     "marketing"
+    ]
+   ],
+   "myths": "“Ornithine removes ammonia and relieves fatigue” - there is not a single work on effectiveness in the pool. “Safe means useful” - SR confirms only tolerability up to 12,000 mg/day.",
+   "name": "Ornithine",
+   "onset": "Not studied: the timing of the effect in SR for safety was not assessed, the maximum course studied was 156 days.",
+   "title": "Ornithine",
+   "upper_limit": "NOAEL 12,000 mg/day according to SR; there are no other boundaries in the pool",
+   "verdict": "not confirmed",
+   "who_needs": "For none according to the pool: The effectiveness of ornithine as a supplement has not been assessed in any review. The second source about taurine in newborns is a different substance."
+  }
+ }
+}

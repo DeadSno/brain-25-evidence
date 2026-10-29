@@ -1,0 +1,70 @@
+{
+ "_meta": {
+  "card": "Гинкго",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Гинкго": {
+   "about": "In pathology (dementia, post-stroke), EGb-761 can support cognition; in healthy people there is no effect.",
+   "category": "Cognition",
+   "category_group": "brain",
+   "caution": "Cochrane reviews on dementia: effect is STATISTICALLY small, NOT clinically significant. For cognitive functions in healthy people there is NO effect. Risk of bleeding (antiplatelet effect) - be careful with anticoagulants. DOES NOT prevent dementia (large RCT GEM, n=3069).",
+   "course": "8-12 weeks",
+   "dosage": "120-240 mg",
+   "effects": [
+    "Attention"
+   ],
+   "food_sources": "Not for consumption (leaves in supplements).",
+   "forms": [
+    "leaf extract (24% flavonoids)"
+   ],
+   "guidelines": "EFSA: claims not approved. Cochrane: In dementia, effect is modest and inconsistent; in healthy people - not confirmed.",
+   "how_to_choose": "Standardization 24% flavonoids + 6% terpenes (EGb-761).",
+   "interactions": [
+    {
+     "note": "enhances the effect, risk of bleeding",
+     "severity": "high",
+     "with": "anticoagulants"
+    },
+    {
+     "note": "additional antiplatelet effect",
+     "severity": "medium",
+     "with": "NSAIDs"
+    },
+    {
+     "note": "possible serotonin load",
+     "severity": "low",
+     "with": "SSRI antidepressants"
+    }
+   ],
+   "mechs": [
+    [
+     "Ginkgolides: microcirculation, PAF antagonism",
+     "In healthy people, meta-analyses are negative",
+     "marketing"
+    ],
+    [
+     "Antioxidant activity of the extract: neutralizes free radicals",
+     "Fewer manifestations of tardive dyskinesia in patients on antipsychotics",
+     "weak"
+    ],
+    [
+     "Neuroprotection in cerebrovascular pathology (ischemia, dementia)",
+     "Cognition, activities of daily living and quality of life in dementia and stroke",
+     "context"
+    ]
+   ],
+   "myths": "“Improves memory for everyone” - an effect with age-related decline, not in healthy people. “Safe with aspirin” – risk of bleeding.",
+   "name": "Ginkgo",
+   "onset": "Cognitive functions - 12-24 weeks; only for pathology, for healthy people there is no data.",
+   "title": "Ginkgo",
+   "upper_limit": "240 mg extract/day; higher - bleeding.",
+   "verdict": "not confirmed",
+   "who_needs": "Only with confirmed pathology: mild/moderate dementia (adjuvant), ischemic stroke. Healthy people don’t need it."
+  }
+ }
+}

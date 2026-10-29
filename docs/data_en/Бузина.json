@@ -1,0 +1,54 @@
+{
+ "_meta": {
+  "card": "Бузина",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Бузина": {
+   "about": "Elderberry for colds/flu: symptoms are shorter (MA 2019), but confidence is low; there is no prevention.",
+   "category": "Immunity / Viral Infections",
+   "category_group": "immune",
+   "caution": "Sambucus nigra (black elderberry). Meta-analysis of RCT shows a significant reduction in the duration of ARI symptoms (~4 days). Effective against influenza A/B and rhinovirus infections. Safe in the short term. Caution: raw berries/leaves are toxic (cyanogenic glycosides) - standardized extracts only. There is little data (only 2 RCTs in the database).",
+   "course": "5-7 days",
+   "dosage": "No data",
+   "effects": [
+    "Symptoms of ARI"
+   ],
+   "food_sources": "Ripe berries - jam/syrups; raw and unripe are toxic; in the clinic - a standardized extract.",
+   "forms": [
+    "extract/syrup"
+   ],
+   "guidelines": "MA 2019 (n=180): symptoms are shorter. SR 2021 (5 RCT, GRADE): duration/severity; vs oseltamivir - fewer complications.",
+   "how_to_choose": "Standardized extract/syrup; on the first day of symptoms 5-7 days; not raw berries.",
+   "interactions": [],
+   "mechs": [
+    [
+     "Anthocyanins: blockade of viral attachment + immunomodulation",
+     "Reduces the duration of colds/flu by 1-2 days; prevention - weak",
+     "moderate"
+    ],
+    [
+     "Reducing the duration and severity of ARI/influenza (treatment)",
+     "Duration of flu/symptoms is lower; confidence is unstable (5 RCT, SR)",
+     "weak"
+    ],
+    [
+     "Comparison with oseltamivir for influenza",
+     "Lower risk of flu complications and AEs vs oseltamivir (SR 2021)",
+     "context"
+    ]
+   ],
+   "myths": "“Elderberry cures colds” - only shorter/easier, the risk does not decrease. “Works for everyone” - no. “Raw berries are good for you” - toxic, extracts.",
+   "name": "Elderberry",
+   "onset": "Course 5-7 days from the start of symptoms; effect - shorter/lighter; prevention - no.",
+   "title": "Elderberry",
+   "upper_limit": "No formal UL listed - no toxicity data available.",
+   "verdict": "works",
+   "who_needs": "Start of ARI/flu symptoms - shorten duration; when refusing oseltamivir, complications are rare; prevention - no."
+  }
+ }
+}

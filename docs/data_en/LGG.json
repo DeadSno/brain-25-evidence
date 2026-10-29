@@ -1,0 +1,52 @@
+{
+ "_meta": {
+  "card": "LGG",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "LGG": {
+   "about": "Lactobacillus rhamnosus GG: ESPGHAN makes a strong recommendation for antibiotic prophylaxis of diarrhea; for gastroenteritis, it shortens the duration of diarrhea.",
+   "category": "Gut",
+   "category_group": "gut",
+   "caution": "The overall confidence in the data on probiotics in Cochrane 2020 is low; in severe and immunocompromised patients, use caution.",
+   "course": "Course for the duration of taking antibiotics or until diarrhea disappears.",
+   "dosage": "Abstracts indicate a daily dose of 10^10 CFU; smaller doses gave borderline results.",
+   "effects": [
+    "Prevention of diarrhea with antibiotics",
+    "Duration of acute diarrhea"
+   ],
+   "food_sources": "Fermented dairy products - kefir, yogurt, but the GG strain in them is not guaranteed and is not specified.",
+   "guidelines": "ESPGHAN 2016: Lactobacillus rhamnosus GG - moderate quality evidence, strong recommendation for antibiotic prophylaxis of diarrhea in children.",
+   "how_to_choose": "Look specifically for Lactobacillus rhamnosus GG, indicating the strain and CFU number; other strains of L. rhamnosus are not considered equal.",
+   "interactions": [],
+   "mechs": [
+    [
+     "Adhesion to intestinal epithelium and protection of mucosal barrier function",
+     "Prevention of Diarrhea with Antibiotics (ESPGHAN)",
+     "strong"
+    ],
+    [
+     "Reducing the duration of acute gastroenteritis in children",
+     "Reduction in the number of days of diarrhea (MD -0.85 days)",
+     "moderate"
+    ],
+    [
+     "Regional variability of effect according to large studies",
+     "Greater influence in European studies",
+     "weak"
+    ]
+   ],
+   "myths": "“An all-purpose probiotic” - ESPGHAN recommends LGG only for the prevention of diarrhea due to antibiotics. “Treats C. difficile” - S. boulardii is recommended there. “One RCT does not make a difference” - a meta-analysis of 18 RCTs confirmed the effect.",
+   "name": "LGG",
+   "onset": "Within a dose, days: in a meta-analysis, the duration of diarrhea was reduced by an average of 0.85 days.",
+   "title": "LGG",
+   "upper_limit": "not set in abstracts",
+   "verdict": "works",
+   "who_needs": "Children on a course of antibiotics with risk factors - prevention of diarrhea; in acute gastroenteritis, it shortens its duration. Not recommended for adults."
+  }
+ }
+}

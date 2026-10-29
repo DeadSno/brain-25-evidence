@@ -1,0 +1,54 @@
+{
+ "_meta": {
+  "card": "PQQ",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "PQQ": {
+   "about": "A young supplement with noisy marketing. There are single RCTs on cognition in the elderly (small samples), most of the data are from animal models.",
+   "category": "Cognition",
+   "category_group": "brain",
+   "caution": "There is little data on humans - most of the research is on animals. RCT single, small samples. Not recommended during pregnancy. Rarely - insomnia when taken in the evening.",
+   "course": "8-12 weeks courses",
+   "dosage": "10-20 mg",
+   "effects": [
+    "Mitochondria",
+    "Cognition (context)",
+    "Antioxidant"
+   ],
+   "food_sources": "Trace amounts in natto, parsley, green tea, kiwi. You can't get your dose from food.",
+   "guidelines": "EFSA does not approve. In Japan it has been sold as a dietary supplement since the 1970s, but without strict health claims.",
+   "how_to_choose": "Standardized PQQ (BioPQQ or equivalent). Avoid cheap powders without COA.",
+   "interactions": [],
+   "mechs": [
+    [
+     "Mitochondrial dehydrogenase cofactor: respiratory chain support",
+     "Cell energy metabolism, mitochondrial function",
+     "weak"
+    ],
+    [
+     "Antioxidant: stable over a wide pH range, withstands thousands of oxidative cycles",
+     "Protecting mitochondria from oxidative stress",
+     "weak"
+    ],
+    [
+     "PGC-1α activation: mitochondrial biogenesis",
+     "Potential neuroprotective effect",
+     "context"
+    ]
+   ],
+   "myths": "“Reverses mitochondrial aging” is an exaggeration. “Improves memory instantly” - no, the effect is weak and cumulative. CoQ10 has much more evidence.",
+   "name": "PQQ",
+   "onset": "4-8 weeks; does not give acute effects.",
+   "pregnancy_contraindicated": true,
+   "title": "PQQ",
+   "upper_limit": "There is no formal UL. Doses up to 40 mg/day are considered safe.",
+   "verdict": "depends on context",
+   "who_needs": "Older adults interested in mitochondrial support. In sports - as “energy for cells”. The evidence base is weaker than that of CoQ10."
+  }
+ }
+}

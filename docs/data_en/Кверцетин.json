@@ -1,0 +1,65 @@
+{
+ "_meta": {
+  "card": "Кверцетин",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Кверцетин": {
+   "about": "Flavonoid: moderately reduces systolic blood pressure; the effect on endurance is trivial.",
+   "category": "Inflammation / Metabolism",
+   "category_group": "immune",
+   "caution": "Quercetin is a flavonoid from onions/apples. For blood pressure: a meta-analysis (35948195) shows a moderate decrease. For cardiometabolic factors: improvement of markers (umbrella review 37654199). For endurance: data available (22805526). For hyperuricemia/gout: data available (41514376). Bioavailability is low - forms with enhancers (piperine, phospholipids) are needed. Dose: 500-1000 mg/day.",
+   "course": "—",
+   "dosage": "500-1000 mg",
+   "effects": [
+    "Allergy/ARI: not confirmed in humans (not confirmed)"
+   ],
+   "food_sources": "Onions, apples, tea, capers; bioavailability is low - working dose from the supplement.",
+   "forms": [
+    "with piperine/phospholipids"
+   ],
+   "guidelines": "Umbrella 2023 (5 MA): SBP −1.9 mm, insulin −1.07; MA 2022: SBP −2.4, in (pre)hypertensive patients DBP −3.1.",
+   "how_to_choose": "500–1000 mg/day with piperine (bioavailability); with pressure - not instead of, but along with treatment.",
+   "interactions": [
+    {
+     "note": "enhances the effect",
+     "severity": "medium",
+     "with": "anticoagulants"
+    },
+    {
+     "note": "may increase concentration",
+     "severity": "medium",
+     "with": "cyclosporine"
+    }
+   ],
+   "mechs": [
+    [
+     "Mast cell stabilization (in vitro)",
+     "Allergy/ARI: not confirmed in humans",
+     "marketing"
+    ],
+    [
+     "Decreased systolic blood pressure (endothelium-vasodilation)",
+     "SBP −1.9–2.4 mmHg; DBP only in (pre)hyper. subgroup −3.1",
+     "weak"
+    ],
+    [
+     "Ergogenic potential (aerobic endurance)",
+     "BO2max +1.9%, EP +0.7%; “trivial” for trained and untrained (n=288)",
+     "context"
+    ]
+   ],
+   "myths": "“Treats allergies” - stabilization of mast cells only in vitro. “Increases endurance” - BO2max +1.9%, but “trivial” for amateurs (MA 2013).",
+   "name": "Quercetin",
+   "onset": "Effect on blood pressure - course, weeks of admission; There is no ergogenic “at a time”.",
+   "title": "Quercetin",
+   "upper_limit": "No formal UL listed - no toxicity data available.",
+   "verdict": "works",
+   "who_needs": "Increased SBP as a mild supplement; hyperuricemia/gout - data available; Allergy/ARI - no."
+  }
+ }
+}

@@ -1,0 +1,62 @@
+{
+ "_meta": {
+  "card": "Сульфорафан",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Сульфорафан": {
+   "about": "Active substance from broccoli and other cruciferous vegetables. Potent antioxidant in vitro, but RCTs in humans are few and small. The actual effect of food may be greater than that of capsules.",
+   "category": "General",
+   "category_group": "general",
+   "caution": "For hypothyroidism - be careful (in high doses it affects the thyroid gland). Rarely - GI discomfort. Human studies are limited, with most of the data being in vitro.",
+   "course": "8-12 weeks; the effect accumulates",
+   "dosage": "10-40 mg",
+   "effects": [
+    "Detox (context)",
+    "Antioxidant",
+    "Inflammation"
+   ],
+   "food_sources": "Broccoli (especially sprouts - up to 100x more sulforaphane than mature ones), Brussels sprouts, cauliflower, kale.",
+   "forms": [
+    "Broccoli sprout extract (glucoraphanin + myrosinase)"
+   ],
+   "guidelines": "EFSA does not approve. It is being actively studied in cancer prevention, but so far there are no definitive recommendations.",
+   "how_to_choose": "Extract from broccoli sprouts with glucoraphanin + myrosinase (important - active sulforaphane is formed only upon their contact).",
+   "interactions": [
+    {
+     "note": "high doses can affect the thyroid gland - TSH control",
+     "severity": "low",
+     "with": "thyroid drugs"
+    }
+   ],
+   "mechs": [
+    [
+     "Activation of the Nrf2 pathway: induction of antioxidant enzymes",
+     "Phase II detox enzymes, xenobiotic protection",
+     "moderate"
+    ],
+    [
+     "Inhibition of NF-κB: reduction of inflammatory cytokines",
+     "Anti-inflammatory effect",
+     "moderate"
+    ],
+    [
+     "Epigenetic changes: HDAC inhibition",
+     "Potential antitumor effect (in vitro)",
+     "context"
+    ]
+   ],
+   "myths": "“Cures cancer” is an exaggeration, in vitro ≠ in vivo. “Replaces broccoli” - no, the effect of food may be stronger and safer.",
+   "name": "Sulforaphane",
+   "onset": "4-8 weeks for changes in biomarkers (CRP, glutathione). There are no acute effects.",
+   "title": "Sulforaphane",
+   "upper_limit": "There is no formal UL. High doses (60+ mg/day) can affect the thyroid gland.",
+   "verdict": "depends on context",
+   "who_needs": "People concerned with prevention (mainly long-term goals). If you eat cruciferous vegetables regularly, you don’t need a supplement—the effect comes from eating."
+  }
+ }
+}

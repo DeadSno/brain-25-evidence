@@ -1,0 +1,54 @@
+{
+ "_meta": {
+  "card": "Серин",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Серин": {
+   "about": "Serine was studied only in rare genetic diseases - HSAN1 and GRIN2B variants: 18 patients and 4 children. For everyone else, it has not been tested as a supplement.",
+   "category": "Neurology / Metabolism",
+   "category_group": "brain",
+   "caution": "The dose in studies is hundreds of milligrams per kilogram of weight; inclusion in the study was determined by genetic diagnosis and not by supplementation requirement.",
+   "course": "12 months in RCT for HSAN1; two 6-month cycles in the GRIN2B studies",
+   "dosage": "No data",
+   "effects": [
+    "Course of rare genetic diseases"
+   ],
+   "food_sources": "The pool abstracts do not discuss dietary sources: both studies used oral L-serine as the drug.",
+   "forms": [
+    "oral L-serine"
+   ],
+   "guidelines": "There are no recommendations for serine in the pool: there are two point studies in rare genetic diseases, without meta-analyses.",
+   "how_to_choose": "The form studied was oral L-serine; Self-administration is pointless: doses are designed for specific genetic diagnoses.",
+   "interactions": [],
+   "mechs": [
+    [
+     "L-serine serves as a precursor to D-serine, which modulates the activity of NMDA receptors",
+     "Action for GRIN2B variants",
+     "weak"
+    ],
+    [
+     "In RCT for HSAN1, the improvement in the CMTNS scale was 1.5 points (95% CI -2.8…-0.1, p = 0.03)",
+     "Slightly better for hereditary neuropathy",
+     "weak"
+    ],
+    [
+     "Of the 14 additional PRPP-A measures, there were no significant differences; secondary outcomes varied",
+     "No significant effect on secondary outcomes",
+     "marketing"
+    ]
+   ],
+   "myths": "“Works like a nootropic” - in RCT the effect was 1.5 points on the scale in 18 patients with a rare disease. “Safe for everyone” - a dose of hundreds of mg per kg of body weight, self-administration is inappropriate.",
+   "name": "Serine",
+   "onset": "In RCT for HSAN1 - an annual course with an improvement of 1.5 points on the CMTNS scale; in GRIN2B studies - 6 months per cycle.",
+   "title": "Serine",
+   "upper_limit": "not listed in abstracts; in RCT 400 mg/kg/day was used",
+   "verdict": "depends on context",
+   "who_needs": "Only patients with confirmed pathology - HSAN1 or GRIN2B variants - and under medical supervision. There is no general recommendation for healthy people."
+  }
+ }
+}

@@ -1,0 +1,64 @@
+{
+ "_meta": {
+  "card": "Витамин D",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Витамин D": {
+   "about": "Hormone-secosteroid: calcium absorption, immunity, muscles.",
+   "category": "Bones / Immunity",
+   "category_group": "bone",
+   "caution": "The effect depends on the BASELINE 25(OH)D level. At >50 nmol/l there is almost no benefit. At <30 nmol/l - significant. A pre-appointment test is required. >4000 IU/long term: hypercalcemia, stones. Conflict with thiazides.",
+   "course": "in winter all the time",
+   "dosage": "1000-2000 IU",
+   "effects": [
+    "Mood (if there is a deficit)"
+   ],
+   "food_sources": "Fatty fish, yolk, enriched milk; In winter there is not enough food.",
+   "forms": [
+    "D3 (cholecalciferol)"
+   ],
+   "guidelines": "EFSA: bones and muscles; NIH: Recommends monitoring blood levels.",
+   "how_to_choose": "D3 (cholecalciferol), not D2; oil capsules; dosage in IU on the label.",
+   "interactions": [
+    {
+     "note": "risk of hypercalcemia",
+     "severity": "medium",
+     "with": "thiazide diuretics"
+    },
+    {
+     "note": "hypercalcemia increases toxicity",
+     "severity": "high",
+     "with": "digoxin"
+    }
+   ],
+   "mechs": [
+    [
+     "VDR receptors of the hippocampus → neurotrophins NGF/GDNF",
+     "Mood/cognition ONLY in deficit",
+     "context"
+    ],
+    [
+     "1,25(OH)2D via VDR: intestinal calcium absorption, bone mineralization",
+     "Fewer fractures in older people, especially with calcium",
+     "moderate"
+    ]
+   ],
+   "myths": "“The more, the better” - fat-soluble, accumulates. “There is enough summer sun for the winter” - a supply for 2-3 months.",
+   "name": "Vitamin D",
+   "onset": "Subjectively, no way: monitor the 25(OH)D analysis after 8-12 weeks.",
+   "synergists": [
+    "Vitamin K2",
+    "Magnesium"
+   ],
+   "title": "Vitamin D",
+   "upper_limit": "4000 IU/day (EFSA); long-term 10,000+ - risk of hypercalcemia.",
+   "verdict": "depends on context",
+   "who_needs": "Northern latitudes October-March, office work, dark skin, obesity, age 65+."
+  }
+ }
+}

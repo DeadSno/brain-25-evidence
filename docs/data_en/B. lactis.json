@@ -1,0 +1,52 @@
+{
+ "_meta": {
+  "card": "B. lactis",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "B. lactis": {
+   "about": "Bifidobacterium lactis: the only probiotic with a significant effect on stool frequency in chronic constipation; in other settings, data are limited.",
+   "category": "Gut",
+   "category_group": "gut",
+   "caution": "The studies have high heterogeneity and risk of bias, so interpretation of the results requires caution.",
+   "course": "A course as part of the treatment of chronic constipation or functional abdominal discomfort.",
+   "dosage": "The exact dose is not given in the abstracts; In some studies, B. lactis was included in combinations with fiber.",
+   "effects": [
+    "Bowel frequency for constipation",
+    "Functional abdominal pain"
+   ],
+   "food_sources": "Kefir, yogurt, fermented foods, but the B. lactis strain is not specified or guaranteed.",
+   "guidelines": "MA 2022 (Clin Nutr): B. lactis with a significant effect on stool frequency in constipation. Cochrane 2023: on probiotics for functional abdominal pain - low certainty.",
+   "how_to_choose": "It is B. lactis, and not mixtures: the effect has been confirmed for constipation in adults. Dietary fiber is a separate strategy and not a replacement for a probiotic.",
+   "interactions": [],
+   "mechs": [
+    [
+     "Increase in the relative abundance of bifidobacteria in the intestines with fiber intake",
+     "Reducing dysbiosis in type 2 diabetes",
+     "weak"
+    ],
+    [
+     "Stimulation of intestinal motility and transit",
+     "Frequency of bowel movements due to chronic constipation (SMD 0.71)",
+     "moderate"
+    ],
+    [
+     "Changing the composition of the microbiota and reducing inflammation",
+     "Improvement in symptoms of functional abdominal pain",
+     "weak"
+    ]
+   ],
+   "myths": "“Probiotics treat constipation” - the effect is shown only for B. lactis, mixtures and other strains make no difference. “Stool consistency improves” – no (SMD 0.26, p=0.08). “Data for diabetes - about a probiotic” - it’s about fiber.",
+   "name": "B. lactis",
+   "onset": "Within a week of treatment: stool frequency and symptoms improved throughout the course.",
+   "title": "B. lactis",
+   "upper_limit": "not set in abstracts",
+   "verdict": "depends on context",
+   "who_needs": "Adults with chronic constipation - increased bowel movements (SMD 0.71). Children with functional abdominal pain - overall effect of probiotics (RR 1.57), low confidence."
+  }
+ }
+}

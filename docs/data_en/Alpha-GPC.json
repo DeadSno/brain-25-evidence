@@ -1,0 +1,56 @@
+{
+ "_meta": {
+  "card": "Alpha-GPC",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Alpha-GPC": {
+   "about": "Acetylcholine precursor: for dementia - weak plus; in healthy people, 315-630 mg improves Stroop after an hour.",
+   "category": "Cognition",
+   "category_group": "brain",
+   "caution": "Alpha-GPC (L-alpha-glycerylphosphorylcholine) is a precursor of acetylcholine. There are NO meta-analyses or systematic reviews in the database. There may be data in individual RCTs, but no systematic evaluation. Its popularity in sports nutrition is not supported by evidence.",
+   "course": "courses",
+   "dosage": "300-600 mg",
+   "effects": [
+    "Memory (only in combination with donepezil in patients)"
+   ],
+   "food_sources": "Purified phospholipid, not a product; Choline is found in eggs and liver, but not in the A-GPC form.",
+   "guidelines": "MA 2023 (PMID 36683513, 7 RCT): with donepezil cognition MD 1.72; solo vs placebo MD 3.50; There is no sports facility.",
+   "how_to_choose": "Standard 300-600 mg/day in courses; for dementia - adjunct with a doctor; A healthy person can’t wait for a “memory boost.”",
+   "interactions": [],
+   "mechs": [
+    [
+     "Bioavailable choline → acetylcholine synthesis",
+     "Sports power and cognition in the elderly (weak)",
+     "context"
+    ],
+    [
+     "Acetylcholine precursor in combination with donepezil",
+     "ADAS-Cog 12 weeks: −13.9% vs −0.9%; in combination with donepezil (119)",
+     "moderate"
+    ],
+    [
+     "Acute cognitive boost in healthy people after a single dose",
+     "Stroop faster (d=0.61) after 60 min; N-Back/Flanker no difference (n=20)",
+     "weak"
+    ],
+    [
+     "Cognition with slight decrease due to T2D (1200 mg/d)",
+     "MMSE difference +1.7 is significant at 12 months; 6 months - no effect (n=36)",
+     "weak"
+    ]
+   ],
+   "myths": "“Improves memory for everyone” - memory/fluency is not visible in MA. “Treats dementia itself” - effect with donepezil. “Boost for athletes” - only Stroop, n=20.",
+   "name": "Alpha-GPC",
+   "onset": "Healthy Stroop faster after 60 min (without N-Back); if it decreases, weeks of therapy.",
+   "title": "Alpha-GPC",
+   "upper_limit": "No formal UL listed - no toxicity data available.",
+   "verdict": "depends on context",
+   "who_needs": "Elderly with dementia - adjunct to therapy (by doctor); with T2D with a decrease - a weak signal; healthy - spot Stroop (n=20)."
+  }
+ }
+}

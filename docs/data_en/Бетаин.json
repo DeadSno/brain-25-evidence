@@ -1,0 +1,58 @@
+{
+ "_meta": {
+  "card": "Бетаин",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Бетаин": {
+   "about": "Betaine moderately increases maximum strength, primarily in the legs, but at 4 g/day and longer it raises total cholesterol.",
+   "category": "Metabolism",
+   "category_group": "metab",
+   "caution": "At 4 g/day and longer, total cholesterol increases by 0.34 mmol/l; Data on efficacy and safety in the elderly are still insufficient.",
+   "course": "From 7 days for power effects; in lipid metabolism studies - from 6 to 24 weeks.",
+   "dosage": "No data",
+   "effects": [
+    "Maximum strength",
+    "Jumpability",
+    "Total cholesterol"
+   ],
+   "food_sources": "Food sources are not listed in the abstract: the studies used a betaine drug, not a dietary change.",
+   "guidelines": "There are no clinical recommendations for betaine in the pool: three sources are reviews on aging, athletic performance and lipid metabolism.",
+   "how_to_choose": "You should expect an effect only from regular use for at least 7 days; at doses above 4 g/day, it is necessary to take into account the increase in total cholesterol.",
+   "interactions": [],
+   "mechs": [
+    [
+     "Betaine as a donor of methyl groups increases the concentration of S-adenosylmethionine",
+     "Reduced homocysteine",
+     "weak"
+    ],
+    [
+     "Betaine improves mitochondrial function, reduces oxidative stress and inflammation",
+     "Slowing down age-related changes",
+     "weak"
+    ],
+    [
+     "In MA 17 studies, taking from 7 days gave an effect on maximum strength, stronger for the lower body",
+     "Increased maximum leg strength",
+     "moderate"
+    ],
+    [
+     "In MA 6 RCT at 4 g/day, total cholesterol increased by 0.34 mmol/l, LDL, HDL and triglycerides did not change",
+     "Increase in total cholesterol with long-term use",
+     "moderate"
+    ]
+   ],
+   "myths": "“Works for any performance” - upper body, endurance and power in MA unchanged. “Reduces cholesterol” - on the contrary, the total increased by 0.34 mmol/l. “Protects the heart” - no connection with cardiovascular disease and diabetes has been identified.",
+   "name": "Betaine",
+   "onset": "A positive effect in strength appears when taken for 7 days - this is the minimum included in the meta-analysis.",
+   "title": "Betaine",
+   "upper_limit": "not listed in abstracts",
+   "verdict": "depends on context",
+   "who_needs": "Athletes who need maximum strength in the squat and bench press; For homocysteine, the data were reviewed and no association with heart disease or diabetes was found."
+  }
+ }
+}

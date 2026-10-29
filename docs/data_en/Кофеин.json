@@ -1,0 +1,72 @@
+{
+ "_meta": {
+  "card": "Кофеин",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Кофеин": {
+   "about": "Adenosine receptor antagonist: vigor, endurance; the most proven stimulant.",
+   "category": "Performance",
+   "category_group": "metab",
+   "caution": "Half-life is 5-6 hours (in 30% of people - 9-10 hours). After 14:00 - sleep disturbance. Safe up to 400 mg/day. Pregnancy: up to 200 mg. CYP1A2 slow metabolizers are more sensitive. Teenagers: caution.",
+   "course": "as needed",
+   "dosage": "100-200 mg",
+   "effects": [
+    "Cheerfulness, reaction speed",
+    "Mood, motivation"
+   ],
+   "food_sources": "Coffee, tea, dark chocolate, guarana.",
+   "forms": [
+    "anhydrous",
+    "citrate"
+   ],
+   "guidelines": "EFSA: 400 mg/day safe; ISSN position: ergogenic 3-6 mg/kg.",
+   "how_to_choose": "Tablets for precise dose before training; in coffee the dose varies (espresso 60-80 mg).",
+   "interactions": [
+    {
+     "note": "hypertensive crisis",
+     "severity": "high",
+     "with": "MAO antidepressants"
+    },
+    {
+     "note": "increases toxicity",
+     "severity": "medium",
+     "with": "theophylline"
+    },
+    {
+     "note": "may affect clotting",
+     "severity": "low",
+     "with": "anticoagulants"
+    }
+   ],
+   "mechs": [
+    [
+     "Antagonism of adenosine A1/A2A receptors → dopamine/NA without inhibition",
+     "Cheerfulness, reaction speed",
+     "strong"
+    ],
+    [
+     "Blockade of adenosine receptors reduces perceived fatigue during aerobic exercise",
+     "Better results in time trials (cycling, running)",
+     "moderate"
+    ],
+    [
+     "Counteraction of sleepiness through adenosine receptors in wakefulness structures",
+     "Fewer errors, higher alertness during sleep deprivation and shift work",
+     "moderate"
+    ]
+   ],
+   "myths": "“Coffee dehydrates” - moderate diuresis does not lead to dehydration. “After 18:00 everyone is allowed” - the CYP1A2 genotype decides, sleep suffers even without sensations.",
+   "name": "Caffeine",
+   "onset": "30-60 minutes, peak 1-2 hours; half-life is 5-6 hours (longer for some).",
+   "title": "Caffeine",
+   "upper_limit": "EFSA: single 200 mg, up to 400 mg/day; pregnancy - 200 mg/day.",
+   "verdict": "works",
+   "who_needs": "Sports for endurance and strength; night shifts; sleep deprivation (caution)."
+  }
+ }
+}

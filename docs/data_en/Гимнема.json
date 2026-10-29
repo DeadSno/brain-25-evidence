@@ -1,0 +1,67 @@
+{
+ "_meta": {
+  "card": "Гимнема",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Гимнема": {
+   "about": "Ayurvedic herb for diabetes. There are RCT (small samples), the effect on glycemia is modest - a decrease in HbA1c by 0.5-1%. Does not replace metformin.",
+   "category": "Metabolism",
+   "category_group": "metab",
+   "caution": "In type 2 diabetes - may increase the effect of metformin/insulin and the risk of hypoglycemia. Sugar monitoring is mandatory. Does not replace therapy. During pregnancy - avoid.",
+   "course": "4-12 weeks",
+   "dosage": "400-600 mg",
+   "effects": [
+    "Glucose",
+    "Appetite for sweets"
+   ],
+   "food_sources": "It is not used as food - only the leaves of the plant in extract.",
+   "forms": [
+    "extract (gymnemic acid 25%+)"
+   ],
+   "guidelines": "In Ayurveda, it is a traditional remedy for diabetes. In India it is used as part of drugs. FDA/EFSA does not approve.",
+   "how_to_choose": "Standardized extract for gymnemic acid 25%+. Check for COA.",
+   "interactions": [
+    {
+     "note": "may enhance the hypoglycemic effect",
+     "severity": "medium",
+     "with": "metformin"
+    },
+    {
+     "note": "risk of hypoglycemia - sugar control is mandatory",
+     "severity": "medium",
+     "with": "insulin"
+    }
+   ],
+   "mechs": [
+    [
+     "Gymnemic acid: blockade of sweet receptors on the tongue",
+     "Decreased perception of sweets and appetite for sugar",
+     "moderate"
+    ],
+    [
+     "Gymnemosides: inhibition of intestinal glucose absorption",
+     "Reduced postprandial glycemia",
+     "moderate"
+    ],
+    [
+     "Stimulation of pancreatic β-cells (animals)",
+     "Possible improvement in insulin sensitivity",
+     "context"
+    ]
+   ],
+   "myths": "“Treats diabetes” - no, only an auxiliary remedy. “Removes cravings for sweets completely” - the effect is moderate in some people.",
+   "name": "Gymnema",
+   "onset": "2-4 weeks for effect on appetite; 8-12 weeks for changes in tests.",
+   "pregnancy_contraindicated": true,
+   "title": "Gymnema",
+   "upper_limit": "There is no formal UL. Doses up to 1 g/day are well tolerated.",
+   "verdict": "depends on context",
+   "who_needs": "People with prediabetes (HbA1c 5.7-6.4%). For type 2 diabetes - only in addition to therapy, with control. To reduce cravings for sweets."
+  }
+ }
+}

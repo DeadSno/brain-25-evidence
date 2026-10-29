@@ -1,0 +1,54 @@
+{
+ "_meta": {
+  "card": "Мака",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Мака": {
+   "about": "Maca root: sexual function and menopausal symptoms - limited evidence; does not affect hormones.",
+   "category": "Sexual Health",
+   "category_group": "metab",
+   "caution": "Maca (Lepidium meyenii) is a root crop native to the Andes. For sexual function: improvement in men and women. For menopausal symptoms: data available. For male fertility: conflicting evidence. There is little data (2 MA). Dose: 1.5-3 g/day.",
+   "course": "—",
+   "dosage": "1.5-3 g",
+   "effects": [
+    "Libido: small positive MA; hormones - no"
+   ],
+   "food_sources": "Maca root is a food raw material (powder, flour, food additive); doses 1.5-3 g/day.",
+   "forms": [
+    "root powder"
+   ],
+   "guidelines": "2022 MA (sperm quality): higher volume/motility; 2024 MA (physical performance): weak signal. Libido - limited evidence.",
+   "how_to_choose": "1.5-3 g/day standardized root powder; The safety of long-term use has not been proven.",
+   "interactions": [],
+   "mechs": [
+    [
+     "Macamides: indirect dopaminergics",
+     "Libido: small positive MA; hormones - no",
+     "weak"
+    ],
+    [
+     "Biologically active components of the root: effect on libido",
+     "Sexual function plus in 2/4 RCT (including IIEF-5 in ED); limited evidence",
+     "weak"
+    ],
+    [
+     "Adaptogenic regulation of menopausal symptoms",
+     "Kupperman/Greene in plus (4/4 RCT); low quality, safety not proven",
+     "weak"
+    ]
+   ],
+   "myths": "“Aphrodisiac for everyone” - effect in 2 out of 4 RCTs. “Pumps up testosterone” - hormones do not change. “Menopause solved” - 4/4 RCT plus, quality low.",
+   "name": "Maca",
+   "onset": "Coursework: in RCT - weeks of intake 1.5-3 g / day; There is no one-time “lifting dose”.",
+   "title": "Maca",
+   "upper_limit": "No formal UL listed - no toxicity data available.",
+   "verdict": "depends on context",
+   "who_needs": "Decreased libido, menopausal symptoms (data limited); healthy athletes - without obvious effect."
+  }
+ }
+}

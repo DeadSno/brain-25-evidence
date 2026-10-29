@@ -1,0 +1,62 @@
+{
+ "_meta": {
+  "card": "Йохимбин",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Йохимбин": {
+   "about": "Alpha-2 blocker: there is an effect for ED (old MA), but the price is blood pressure, pulse, impulsivity.",
+   "category": "Sexual Health",
+   "category_group": "metab",
+   "caution": "Yohimbine (alpha-2 adrenergic blocker) from Pausinystalia yohimbe. Historically used for erectile dysfunction. The FDA approved it in the 1990s, but research stopped after Viagra was introduced in 1998. There are NO contemporary systematic reviews. Serious side effects: tachycardia, anxiety, increased blood pressure. Interacts with many medications. In the EU and Canada it is prohibited as a dietary supplement. Not recommended without medical supervision.",
+   "course": "—",
+   "dosage": "2.5-10 mg",
+   "effects": [
+    "Fat burning is weak, the price is side effects"
+   ],
+   "food_sources": "The bark of the Pausinystalia yohimbe tree is not food; Its “yohimbe” extracts are prohibited in a number of countries outside of pharmacies.",
+   "guidelines": "MA 1998 (7 RCT, ED): OR 3.85 vs placebo; There are no current reviews. RCT 2022 (n=18): Sprint is better. The side effects are significant.",
+   "how_to_choose": "Start 2.5 mg, maximum 10 mg, with a doctor and blood pressure/pulse monitoring; not with antidepressants; prohibited in EU/Canada.",
+   "interactions": [
+    {
+     "note": "hypertensive crisis, DANGER",
+     "severity": "critical",
+     "with": "antidepressants"
+    },
+    {
+     "note": "antagonism effects",
+     "severity": "high",
+     "with": "antihypertensive"
+    }
+   ],
+   "mechs": [
+    [
+     "Alpha-2 blocker → lipolysis and NA",
+     "Fat burning is weak, the price is side effects",
+     "weak"
+    ],
+    [
+     "A2 antagonism presynaptic: erectile function",
+     "ED: OR 3.85 vs placebo (MA 1998, 7 RCT); Serious AEs are rare and reversible",
+     "weak"
+    ],
+    [
+     "Alpha-2 blockade + adrenaline: lipolysis during exercise",
+     "Fat% 9.3→7.1 over 21 days in football players, no strength gain (1 RCT, n=20)",
+     "context"
+    ]
+   ],
+   "myths": "“Burn fat” - one RCT (n=20), no strength. “Safe” - tachycardia, blood pressure, impulsivity; It is prohibited as a dietary supplement in the EU/Canada.",
+   "name": "Yohimbine",
+   "onset": "Acute: 2.5 mg over 20 minutes - ergogenic shifts; course: fat% lower in 21 days (n=20).",
+   "title": "Yohimbine",
+   "upper_limit": "No formal UL listed - no toxicity data available.",
+   "verdict": "not confirmed",
+   "who_needs": "Only under medical supervision: for ED (old data); fat burning/sprinting - single RCT; not for self-medication."
+  }
+ }
+}

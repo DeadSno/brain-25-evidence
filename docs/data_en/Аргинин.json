@@ -1,0 +1,66 @@
+{
+ "_meta": {
+  "card": "Аргинин",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Аргинин": {
+   "about": "Nitric oxide precursor: weaker than citrulline for pumping; niches - preeclampsia, NEC in premature infants.",
+   "category": "Blood Vessels / Pregnancy",
+   "category_group": "cardio",
+   "caution": "L-arginine is a precursor of nitric oxide (NO). For the prevention of preeclampsia: there is data. For necrotizing enterocolitis (NEC) in prematurity: Cochrane confirms effectiveness. For nitric oxide in angina: Cochrane. For blood pressure: moderate decrease. For erectile dysfunction: limited data (often with pycnogenol). For glycemic control: mixed evidence.",
+   "course": "—",
+   "dosage": "3-6 g",
+   "effects": [
+    "BP/pumping: weaker than citrulline, context"
+   ],
+   "food_sources": "Meat, poultry, fish, nuts, pumpkin seeds; but bioavailability from food is controversial - citrulline is easier.",
+   "forms": [
+    "L-arginine",
+    "arginine alphoketoglutarate"
+   ],
+   "guidelines": "Preeclampsia: RR 0.52 (0.35–0.78, low confidence). NEC in prematurity: Cochrane. Sports: 3–6 g/day – consider GI.",
+   "how_to_choose": "If arginine: L-form, without “technology”. Dose - according to the purpose of administration (preeclampsia / NEC - as prescribed by the doctor).",
+   "interactions": [
+    {
+     "note": "may enhance the effect",
+     "severity": "medium",
+     "with": "antihypertensive"
+    },
+    {
+     "note": "enhances vasodilation",
+     "severity": "medium",
+     "with": "nitrates"
+    }
+   ],
+   "mechs": [
+    [
+     "Precursor to NO, but bioavailability is low",
+     "BP/pumping: weaker than citrulline, context",
+     "context"
+    ],
+    [
+     "NO substrate → vasodilation, prevention of preeclampsia",
+     "Preeclampsia: RR 0.52, severe 0.23 (2025, n=2028); confidence is low",
+     "moderate"
+    ],
+    [
+     "NO substrate for GI endothelium in preterm infants",
+     "Necrotizing enterocolitis: preventive mechanism, 3 RCT (n=285)",
+     "weak"
+    ]
+   ],
+   "myths": "“Powerful pumping” - low bioavailability, citrulline is better. “More is better” - above 6 g it hits the GI. “Treats preeclampsia” - only reduces the risk.",
+   "name": "Arginine",
+   "onset": "BP response over hours-days; preeclampsia - courses for weeks; in sports the effect is unpredictable.",
+   "title": "Arginine",
+   "upper_limit": "No formal UL listed - no toxicity data available.",
+   "verdict": "depends on context",
+   "who_needs": "Pregnant women at risk of preeclampsia, premature babies (NEC) - as prescribed by a doctor. L-citrulline is better for sports."
+  }
+ }
+}

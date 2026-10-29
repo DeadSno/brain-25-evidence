@@ -1,0 +1,52 @@
+{
+ "_meta": {
+  "card": "DHA",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "DHA": {
+   "about": "DHA in Alzheimer's disease slows progression on the CDR scale (SMD -0.41), but MMSE and ADAS-cog make no difference; the effect is not shown in healthy people.",
+   "category": "Cognition",
+   "category_group": "brain",
+   "caution": "GI side effects are the most common; the drug with EPA and DHA had a negative effect on ventricular volume. Does not replace primary therapy.",
+   "course": "Long-term use as part of the treatment of Alzheimer's disease; for nursing mothers - for the entire period of breastfeeding.",
+   "dosage": "Doses are not given in the abstracts: different combinations of EPA, DHA and medications with them were used.",
+   "effects": [
+    "Alzheimer's progression (CDR)",
+    "Postpartum depression (factor)"
+   ],
+   "food_sources": "Fatty fish - salmon, mackerel, herring, caviar; The DHA content in milk depends on the mother's diet.",
+   "guidelines": "MA 2024 in Alzheimer's: CDR slowing of progression (SMD -0.41), MMSE and ADAS-cog without significant differences. SR 2021: Omega-3 and -6 are less effective.",
+   "how_to_choose": "For Alzheimer's - n-3-PUFA; studies have found no differences between individual supplements. For postpartum depression, the concentration of DHA in milk is important.",
+   "interactions": [],
+   "mechs": [
+    [
+     "Incorporation into neuronal membranes and anti-inflammatory effect",
+     "Slowing cognitive decline in Alzheimer's",
+     "weak"
+    ],
+    [
+     "Substrate for retinal and brain tissue membranes",
+     "Anti-inflammatory effect in neurodegeneration",
+     "moderate"
+    ],
+    [
+     "Association of high concentrations of DHA in milk with the incidence of postpartum depression",
+     "Protective factor for breastfeeding",
+     "context"
+    ]
+   ],
+   "myths": "“Omega-3 protects everyone’s brain”—supplements are less effective for neurodegeneration. “Improves memory for healthy people” - not confirmed in abstracts. “The more, the better” - the most often noted GI side effects.",
+   "name": "DHA",
+   "onset": "For Alzheimer's - as part of long-term use; however, no significant changes were recorded in MMSE and ADAS-cog.",
+   "title": "DHA",
+   "upper_limit": "not set in abstracts",
+   "verdict": "depends on context",
+   "who_needs": "Patients with confirmed Alzheimer's disease - according to the CDR scale. Nursing mothers: high concentrations of DHA in milk are considered protective factors. There is no data for healthy people."
+  }
+ }
+}

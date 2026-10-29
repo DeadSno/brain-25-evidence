@@ -1,0 +1,60 @@
+{
+ "_meta": {
+  "card": "Глутамин",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Глутамин": {
+   "about": "Conditionally essential amino acid; in intensive care, the effect is controversial; there are no data on outcomes for sports/muscles.",
+   "category": "Critical Care / Sports",
+   "category_group": "critical",
+   "caution": "For critical care (ICU, burns): Cochrane shows CLEAR effect - some RCTs are positive, others are not. For prematurity: Cochrane showed no benefit. For sports/immunity after exercise: no systematic data with clinical outcomes. It is safe orally, but the effect is questionable outside the ICU.",
+   "course": "—",
+   "dosage": "5-10 g",
+   "effects": [
+    "Muscles: not confirmed; gut/immunity - only in the clinic"
+   ],
+   "food_sources": "Red meat, poultry, fish, milk, yogurt, legumes are the main sources; With normal nutrition there is no deficiency.",
+   "forms": [
+    "L-glutamine"
+   ],
+   "guidelines": "2024 MA (clinical): benefit is controversial and varies by group; 2024 MA (perioperative immunonutrition): complications below. Healthy people - no effect.",
+   "how_to_choose": "Not necessary for healthy people with adequate nutrition; In the clinic, use medications as prescribed by your doctor, not dietary supplements.",
+   "interactions": [
+    {
+     "note": "may reduce toxicity (adjuvant)",
+     "severity": "low",
+     "with": "chemotherapy"
+    }
+   ],
+   "mechs": [
+    [
+     "Conditionally essential: fuel of enterocytes and lymphocytes",
+     "Muscles: not confirmed; gut/immunity - only in the clinic",
+     "weak"
+    ],
+    [
+     "Immune support in critical conditions",
+     "Early RCT: fewer infections; 2 large RCTs did not confirm benefit (Cochrane 2014)",
+     "context"
+    ],
+    [
+     "Metabolic fuel of enterocytes and lymphocytes in newborns",
+     "Prematures: no difference in infections and weight gain (Cochrane 2001)",
+     "marketing"
+    ]
+   ],
+   "myths": "“Conditionally irreplaceable = everyone” - the clinical benefit is controversial (2024 MA). “For muscles” - no RCT.",
+   "name": "Glutamine",
+   "onset": "There is no immediate effect; in the clinic for days to weeks, the benefit was not confirmed in large RCTs.",
+   "title": "Glutamine",
+   "upper_limit": "No formal UL listed - no toxicity data available.",
+   "verdict": "depends on context",
+   "who_needs": "Only in the clinic as conditionally indispensable in critical conditions (as prescribed); healthy - not indicated, no benefit."
+  }
+ }
+}

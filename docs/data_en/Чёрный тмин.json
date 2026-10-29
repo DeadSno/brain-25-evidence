@@ -1,0 +1,65 @@
+{
+ "_meta": {
+  "card": "Чёрный тмин",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Чёрный тмин": {
+   "about": "Thymoquinone: Moderately improves glycemia, blood pressure, weight, and inflammation in metabolic diseases.",
+   "category": "Inflammation / Metabolism",
+   "category_group": "immune",
+   "caution": "Black cumin (Nigella sativa, thymoquinone). For inflammation and oxidative stress: data available. For cardiometabolic factors in metabolic syndrome/diabetes: mixed evidence. For asthma: data available. Data are sparse and RCT quality is often poor. Safe in standard doses.",
+   "course": "—",
+   "dosage": "1-2 g",
+   "effects": [
+    "Glycemia/lipids: moderate MA"
+   ],
+   "food_sources": "Black cumin seeds and their oil as a seasoning; for working doses - 1–2 g of seed powder or oil in a course.",
+   "forms": [
+    "seed powder or oil"
+   ],
+   "guidelines": "GRADE-MA 2026 (31 RCT, 2145): weight −1.59 kg, SBP −3.25, DBP −2.75 mm, FBS −18.6, HbA1c −0.56%; MA: hs-CRP and TNF-α ↓.",
+   "how_to_choose": "Seed powder 1–2 g/day or oil; standardization for thymoquinone is desirable - the effect is dose-dependent.",
+   "interactions": [
+    {
+     "note": "may affect clotting",
+     "severity": "medium",
+     "with": "anticoagulants"
+    },
+    {
+     "note": "may enhance the effect",
+     "severity": "low",
+     "with": "hypoglycemic"
+    }
+   ],
+   "mechs": [
+    [
+     "Thymoquinone: anti-inflammatory, PPAR",
+     "Glycemia/lipids: moderate MA",
+     "moderate"
+    ],
+    [
+     "Thymoquinone: cardiometabolic risk factors",
+     "MA 2026 (31 RCT): weight −1.59 kg, SBP −3.25, DBP −2.75 mmHg, FBS −18.6 mg/dL, HbA1c −0.56%",
+     "moderate"
+    ],
+    [
+     "Thymoquinone: restoration of redox balance",
+     "MA (10 RCT): hs-CRP −0.67, TNF-α −2.29, MDA −1.18; TAC +0.35 (high heterogeneity)",
+     "weak"
+    ]
+   ],
+   "myths": "“A miracle of everything” - modest effects, on markers. “Reduces insulin” - HOMA-IR does not change (MA 2026). “Seasoning = dose” - you need g/oil.",
+   "name": "Black Seed",
+   "onset": "Course effects: weeks-months; for asthma - 4–8 weeks.",
+   "title": "Black Seed",
+   "upper_limit": "No formal UL listed - no toxicity data available.",
+   "verdict": "depends on context",
+   "who_needs": "T2D/metabolic syndrome (glucose, HbA1c, blood pressure, weight) and frequent colds/inflammation; for bronchial asthma - adjunct with a doctor."
+  }
+ }
+}

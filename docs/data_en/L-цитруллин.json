@@ -1,0 +1,65 @@
+{
+ "_meta": {
+  "card": "L-цитруллин",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "L-цитруллин": {
+   "about": "Precursor of arginine and NO: increases arginine in plasma, gives a sports “pump”; does not reduce pressure.",
+   "category": "Sports / Blood Vessels",
+   "category_group": "sport",
+   "caution": "L-citrulline is a precursor of arginine and nitric oxide (NO). More effective than arginine itself (not metabolized into GI, raises arginine levels better). For blood pressure: meta-analyses show a modest reduction. For sports: improved performance and recovery. For erectile function: there is data. For preeclampsia: data available. Dose: 3-6 g/day. Safe.",
+   "course": "as needed",
+   "dosage": "6-8 g",
+   "effects": [
+    "Blood flow, performance (not confirmed)"
+   ],
+   "food_sources": "Watermelon water is a rich source; For a sports dose, a supplement is simpler (6–8 g malate).",
+   "forms": [
+    "citrulline malate"
+   ],
+   "guidelines": "MA 2018: BP unchanged; SR 2025: arginine for preeclampsia RR 0.52 (LOW), citrulline - no data.",
+   "how_to_choose": "Citrulline malate 6–8 g 60 minutes before exercise; more bioavailable than arginine, not metabolized in GI.",
+   "interactions": [
+    {
+     "note": "may enhance the effect",
+     "severity": "medium",
+     "with": "antihypertensive"
+    },
+    {
+     "note": "enhances vasodilation",
+     "severity": "medium",
+     "with": "nitrates"
+    }
+   ],
+   "mechs": [
+    [
+     "Arginine → NO → vasodilation",
+     "Pumping, medium intensity performance",
+     "moderate"
+    ],
+    [
+     "Increase in plasma arginine and nitrates/nitrites (NO substrate)",
+     "Direct vasodilation upon administration is inconsistent; ergogenic effect in terms of RCT",
+     "context"
+    ],
+    [
+     "L-arginine precursor: a hypothetical NO pathway in pregnancy",
+     "Preeclampsia: no data for citrulline (1 RCT); arginine has RR 0.52",
+     "context"
+    ]
+   ],
+   "myths": "“Reduces blood pressure” - MA 2018 without any effect on blood pressure. “Treats preeclampsia” - there is data for arginine (RR 0.52), citrulline - 1 RCT without effect.",
+   "name": "L-Citrulline",
+   "onset": "Acute effect when taken 60 minutes before exercise; there is no cumulative effect.",
+   "title": "L-Citrulline",
+   "upper_limit": "No formal UL listed - no toxicity data available.",
+   "verdict": "works",
+   "who_needs": "Athletes under intense stress (citrulline malate 6–8 g); no benefit has been proven for preeclampsia."
+  }
+ }
+}

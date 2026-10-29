@@ -1,0 +1,51 @@
+{
+ "_meta": {
+  "card": "PABA",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "PABA": {
+   "about": "PABA as a supplement has not been confirmed: the only oral RCT is PABA potassium salt 12 g/day for systemic scleroderma, there is no difference with placebo.",
+   "category": "General",
+   "category_group": "general",
+   "caution": "In the RCT, 18 patients on the active substance and 6 on placebo withdrew due to adverse reactions: gastrointestinal intolerance and headache.",
+   "course": "in RCT - 48 weeks of continuous use; there are no other schemes in the pool",
+   "dosage": "No data",
+   "effects": [
+    "No proven effects"
+   ],
+   "food_sources": "In pool abstracts, food sources are not discussed; In the literature, PABA is found as a marker of the completeness of 24-hour urine collection, and not as a nutrient.",
+   "guidelines": "There are no PABA recommendations in the pool: one negative RCT for systemic scleroderma and topical sunscreen tests are available.",
+   "how_to_choose": "There is nothing to buy: there is no confirmed dose or form for oral administration, and external agents are a separate issue.",
+   "interactions": [],
+   "mechs": [
+    [
+     "PABA potassium salt was administered orally to RCT for systemic scleroderma at a dose of 12 g/day",
+     "No skin changes were detected compared to placebo",
+     "weak"
+    ],
+    [
+     "In topical trials, the PFA method did not distinguish the 7% dimethyl-PABA formula from placebo",
+     "Sun protection effect of external form",
+     "weak"
+    ],
+    [
+     "There is no direct data on the effect of taking PABA on the human body in the pool",
+     "The effect of the supplement has not been confirmed",
+     "marketing"
+    ]
+   ],
+   "myths": "“PABA is included in sunscreens, which means it is useful internally” - external means and oral administration are two different things. “Helps skin diseases” - PABA potassium salt did not differ from placebo in RCT.",
+   "name": "PABA",
+   "onset": "RCT lasted 48 weeks without effect; no positive response times were recorded in the pool.",
+   "title": "PABA",
+   "upper_limit": "not listed in abstracts",
+   "verdict": "not confirmed",
+   "who_needs": "For no one according to the pool. For the skin, only topical PABA derivatives have been studied, not oral administration."
+  }
+ }
+}

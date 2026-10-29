@@ -1,0 +1,65 @@
+{
+ "_meta": {
+  "card": "Глюкозамин + хондроитин",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Глюкозамин + хондроитин": {
+   "about": "Cartilage substrates for osteoarthritis; the effect is small, close to placebo; chondroitin is a little stronger.",
+   "category": "Joints / Osteoarthritis",
+   "category_group": "bone",
+   "caution": "CHONDROITIN works better than glucosamine. The effect is small but clinically significant (NNT=5). RCT quality is mostly LOW. Glucosamine sulfate works better than hydrochloride. There were fewer serious adverse events than placebo (Peto OR 0.40).",
+   "course": "—",
+   "dosage": "1500+1200 mg/day, course 3-6 months",
+   "effects": [
+    "Osteoarthritis pain: effect ≈ placebo"
+   ],
+   "food_sources": "Bone broths, cartilage, shrimp; You can’t get working doses from food - it’s easier to take a supplement.",
+   "forms": [
+    "sulfate (not hydrochloride)"
+   ],
+   "guidelines": "2025 SR (safety): profile acceptable; 2023 MA (knee): chondroitin - short-term benefit, glucosamine ≈ placebo (except Rotta).",
+   "how_to_choose": "Chondroitin 1200 mg or glucosamine sulfate 1500 mg (not hydrochloride); course 3–6 months; no effect - quit.",
+   "interactions": [
+    {
+     "note": "may enhance the effect, INR control",
+     "severity": "medium",
+     "with": "warfarin"
+    },
+    {
+     "note": "may affect glycemia",
+     "severity": "low",
+     "with": "hypoglycemic"
+    }
+   ],
+   "mechs": [
+    [
+     "Cartilage matrix substrate; MA are inconsistent",
+     "Osteoarthritis pain: effect ≈ placebo",
+     "marketing"
+    ],
+    [
+     "Chondroitin: short-term effect on OA pain",
+     "Pain in the first 6 months is lower (10%); long-term effects without confirmation (43 RCT)",
+     "weak"
+    ],
+    [
+     "Glucosamine: analgesic and functional effect",
+     "VAS is marginally lower; WOMAC is insignificant, only the Rotta drug is better (20 RCT to 2005)",
+     "weak"
+    ]
+   ],
+   "myths": "“Restores cartilage” - regeneration has not been proven in RCT. “Acts like ibuprofen” - the effect is small and close to placebo, wears off after a year.",
+   "name": "Glucosamine + Chondroitin",
+   "onset": "Course effect: pain is lower in the first 6 months, by the year the effect wears off (43 RCT).",
+   "title": "Glucosamine + Chondroitin",
+   "upper_limit": "No formal UL listed - no toxicity data available.",
+   "verdict": "depends on context",
+   "who_needs": "Knee arthrosis: modest pain relief in the first months; in case of severe wear and tear and obesity, it is not a replacement for treatment."
+  }
+ }
+}

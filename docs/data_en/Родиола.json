@@ -1,0 +1,66 @@
+{
+ "_meta": {
+  "card": "Родиола",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Родиола": {
+   "about": "Adaptogen: reduces fatigue, improves concentration during stress.",
+   "category": "Fatigue / Adaptogen",
+   "category_group": "brain",
+   "caution": "Rhodiola rosea is an adaptogen. Systematic reviews show modest effects on fatigue, but the quality of RCTs is often low. For athletic performance: data are conflicting. For depression: insufficient data. Safety: good in short-term RCTs. Optimal dose: 200-600 mg/day standardized extract (3-6% rosavins).",
+   "course": "intermittent courses",
+   "dosage": "200-400 mg",
+   "effects": [
+    "Fatigue resistance"
+   ],
+   "food_sources": "Not eaten (root in supplements).",
+   "forms": [
+    "extract (SHR-5",
+    "3% rosavins)"
+   ],
+   "guidelines": "EFSA: claims not approved; MA—moderate effect on fatigue.",
+   "how_to_choose": "Standardization 3% rosavins + 1% salidroside; SHR-5 (Swedish extract).",
+   "interactions": [
+    {
+     "note": "serotonin load",
+     "severity": "medium",
+     "with": "SSRI antidepressants"
+    },
+    {
+     "note": "may affect blood pressure",
+     "severity": "low",
+     "with": "antihypertensive"
+    }
+   ],
+   "mechs": [
+    [
+     "Adaptogen: HPA axis modulation, mild MAO inhibition",
+     "Fatigue due to acute stress",
+     "context"
+    ],
+    [
+     "Reducing mental fatigue during stress (adaptogenic response)",
+     "Mental fatigue: 3/5 RCT positive, risk of displacement high (SR 2012)",
+     "weak"
+    ],
+    [
+     "Sports/stress: acute and chronic use",
+     "Acute: Stamina and RPE plus; chronic: anaerobic, non-aerobic (13 RCT)",
+     "weak"
+    ]
+   ],
+   "myths": "“Replaces coffee” is a different mechanism, not a stimulant. “Works for everyone” - the effect depends on baseline fatigue.",
+   "name": "Rhodiola",
+   "onset": "Mental fatigue - accumulates over 1-2 weeks; Acute effects in reviews are inconsistent.",
+   "title": "Rhodiola",
+   "upper_limit": "600 mg extract/day; higher - irritability.",
+   "verdict": "depends on context",
+   "who_needs": "Burnout, mental fatigue, shift schedule, students in session."
+  }
+ }
+}

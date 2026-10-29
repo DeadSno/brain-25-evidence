@@ -1,0 +1,65 @@
+{
+ "_meta": {
+  "card": "Имбирь",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Имбирь": {
+   "about": "Anti-inflammatory, antiemetic, moderate effect on pain.",
+   "category": "GI Tract / Metabolism",
+   "category_group": "gut",
+   "caution": "Ginger (Zingiber officinale). For nausea in pregnancy: systematic reviews support effectiveness (dose 1 g/day). For postoperative nausea: data available. For glycemic control in type 2 diabetes: moderate improvement. For inflammation/oxidative stress: data available. Safe in doses up to 4 g/day. Caution: anticoagulants (antiplatelet effect).",
+   "course": "—",
+   "dosage": "1 g/day dry root",
+   "effects": [
+    "Nausea (pregnancy, motion sickness, chemo): works (not confirmed)"
+   ],
+   "food_sources": "Ginger root (fresh, dried); additives = extract.",
+   "forms": [
+    "extract (5% gingerols)"
+   ],
+   "guidelines": "EFSA: claims not approved; MA has a moderate effect on pain in osteoarthritis.",
+   "how_to_choose": "Standardization of 5% gingerols; capsules or fresh root.",
+   "interactions": [
+    {
+     "note": "enhances the effect",
+     "severity": "medium",
+     "with": "anticoagulants"
+    },
+    {
+     "note": "may enhance the effect",
+     "severity": "low",
+     "with": "hypoglycemic"
+    }
+   ],
+   "mechs": [
+    [
+     "Gingerols: modulation of 5-HT3 and GI motility",
+     "Nausea (pregnancy, motion sickness, chemo): works",
+     "strong"
+    ],
+    [
+     "Prevention of postoperative nausea and vomiting",
+     "Vomiting after surgery: ginger oil RR 0.39; nausea without clear benefit (18 RCT)",
+     "moderate"
+    ],
+    [
+     "Anti-inflammatory gingerols → metabolic profile",
+     "T2D: glucose −18.8, HbA1c −0.57%, blood pressure lower; lipids unchanged (10 RCT)",
+     "context"
+    ]
+   ],
+   "myths": "“Cures a cold” - relieves symptoms, does not cure. “Safe with anticoagulants” - risk of bleeding.",
+   "name": "Ginger",
+   "onset": "Nausea - 30-60 minutes; pain - 4-8 weeks.",
+   "title": "Ginger",
+   "upper_limit": "4 g/day; higher - GI discomfort, bleeding.",
+   "verdict": "works",
+   "who_needs": "Osteoarthritis, nausea during pregnancy, postoperative vomiting, muscle pain."
+  }
+ }
+}

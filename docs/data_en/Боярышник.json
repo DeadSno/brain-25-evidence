@@ -1,0 +1,65 @@
+{
+ "_meta": {
+  "card": "Боярышник",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Боярышник": {
+   "about": "Leaf/flower extract: in chronic heart failure, improves workload and symptoms, as an adjunct to therapy.",
+   "category": "Heart",
+   "category_group": "cardio",
+   "caution": "Hawthorn (Crataegus spp.). For CHF: A Cochrane review (18254076) confirms improvement in symptoms (shortness of breath, fatigue) and exercise capacity. Used in European herbal medicine as an adjuvant. The effect develops after 4-8 weeks. Does not replace standard therapy for CHF. Safe in standard doses. Caution: digoxin (increases the effect), antihypertensive drugs.",
+   "course": "—",
+   "dosage": "600-1200 mg",
+   "effects": [
+    "CH adjunct weakly; healthy - no"
+   ],
+   "food_sources": "The berries are edible, but the working doses are a standardized extract of the leaves and flowers; You can’t pick up berries.",
+   "forms": [
+    "extract"
+   ],
+   "guidelines": "Cochrane 2008 (14 RCT): load +5.35 W, higher tolerance; symptoms below; AEs are rare; only adjunct for heart failure.",
+   "how_to_choose": "Standardized extract 600–1200 mg/day; only for heart failure as prescribed by a doctor and with checking for interactions.",
+   "interactions": [
+    {
+     "note": "enhances effect, risk of toxicity",
+     "severity": "high",
+     "with": "digoxin"
+    },
+    {
+     "note": "enhances the effect",
+     "severity": "medium",
+     "with": "antihypertensive"
+    }
+   ],
+   "mechs": [
+    [
+     "Procyanidins: coronary blood flow",
+     "CH adjunct weakly; healthy - no",
+     "weak"
+    ],
+    [
+     "Adjunct chronic heart failure: workload and tolerance",
+     "CH NYHA I-III: maximum load +5.4-7 W, higher tolerance (855/632 people)",
+     "weak"
+    ],
+    [
+     "Reduction in double product (HR x BP) and symptoms",
+     "With HF: shortness of breath and fatigue are lower; double product minus (-20)",
+     "weak"
+    ]
+   ],
+   "myths": "“Heals the whole heart” is only an adjunct for heart failure, not a replacement for therapy. “Safe with tablets” - risk with digoxin and antihypertensives.",
+   "name": "Hawthorn",
+   "onset": "Effect on endurance and symptoms - after 4-8 weeks of use; not visible in short courses.",
+   "title": "Hawthorn",
+   "upper_limit": "No formal UL listed - no toxicity data available.",
+   "verdict": "works",
+   "who_needs": "CHF I–III NYHA - adjunct to standard therapy under a doctor; healthy and without a diagnosis there is no benefit."
+  }
+ }
+}

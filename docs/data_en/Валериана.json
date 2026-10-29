@@ -1,0 +1,65 @@
+{
+ "_meta": {
+  "card": "Валериана",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Валериана": {
+   "about": "Valerian root: subjectively the quality of sleep is slightly better, objectively (time to fall asleep) - no effect.",
+   "category": "Sleep / Anxiety",
+   "category_group": "brain",
+   "caution": "Valerian officinalis (Valeriana officinalis). For insomnia: Meta-analyses are inconsistent, with some showing minimal improvement in falling asleep and others showing no effect. Review 17517355 is literally called 'safe but not effective'. For anxiety: A Cochrane review (17054208) shows limited evidence. The effect develops after 2-4 weeks (not instantaneous). Safe, non-addictive (unlike benzodiazepines). Dose: 300-600 mg extract.",
+   "course": "2-4 weeks",
+   "dosage": "300-600 mg",
+   "effects": [
+    "Sleep, anxiety (reported)"
+   ],
+   "food_sources": "Not a food: it is the root of the plant, used as an extract/powder; There are no working doses in food.",
+   "forms": [
+    "extract"
+   ],
+   "guidelines": "2024 umbrella (insomnia): subjective sleep better, objective metrics without shift; 2023 umbrella: the effect is modest, the data quality is low.",
+   "how_to_choose": "300-600 mg of extract before bedtime for a course of 2-4 weeks; do not exceed the dose, do not combine with sedatives without a doctor.",
+   "interactions": [
+    {
+     "note": "enhances sedation",
+     "severity": "high",
+     "with": "sedatives"
+    },
+    {
+     "note": "enhances sedation",
+     "severity": "high",
+     "with": "alcohol"
+    }
+   ],
+   "mechs": [
+    [
+     "Valepotriates: weak GABAergic modulation",
+     "Subjective sleep quality, small effect",
+     "weak"
+    ],
+    [
+     "Anxiety disorders: the evidence base is minimal (1 RCT)",
+     "Anxiety: single RCT (n=36); no data",
+     "context"
+    ],
+    [
+     "Subjective effect on sleep without objective metrics",
+     "Sleep: subjectively better (RR 1.37), latency unchanged (MA 18 RCT)",
+     "context"
+    ]
+   ],
+   "myths": "“Valerian = sleeping pill” - latency without shift (18 RCT). “Treats anxiety” - 1 RCT (n=36). “Doesn’t work” – subjectively better, RR 1.37.",
+   "name": "Valerian",
+   "onset": "There is no objective reduction in latency; subjective improvement is partial, course 2-4 weeks.",
+   "title": "Valerian",
+   "upper_limit": "No formal UL listed - no toxicity data available.",
+   "verdict": "depends on context",
+   "who_needs": "Mild sleep complaints, where a placebo profile is sufficient; for severe insomnia and anxiety, there is little data."
+  }
+ }
+}

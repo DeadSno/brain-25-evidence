@@ -1,0 +1,65 @@
+{
+ "_meta": {
+  "card": "Глицин",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Глицин": {
+   "about": "Inhibitory amino acid: improves sleep onset (3 g) in selected RCTs; There are no meta-analyses - the base is weak.",
+   "category": "Neurotransmitter / Sleep",
+   "category_group": "brain",
+   "caution": "Glycine is an inhibitory neurotransmitter. There are NO meta-analyses or systematic reviews in the database. Selected RCTs have shown: improvement in sleep quality (3 g at bedtime), adjuvant in schizophrenia (as an adjuvant to antipsychotics), maintenance of collagen synthesis. But there is no systematic assessment of these effects. Popular in biohacking circles, but the evidence base is weak.",
+   "course": "—",
+   "dosage": "3 g before bed",
+   "effects": [
+    "Dream (stated)"
+   ],
+   "food_sources": "Collagen/gelatin, meat, legumes - rich in glycine; It’s difficult to get a dose of 3 g from food.",
+   "forms": [
+    "L-glycine"
+   ],
+   "guidelines": "SR 2024: nervous system - most positive effects, but data quality is low; doses 3 g before bedtime, courses up to 4 months.",
+   "how_to_choose": "If you try it, regular glycine 3 g before bedtime; the effect is subjective, you should not expect science (card D).",
+   "interactions": [
+    {
+     "note": "may reduce the effect",
+     "severity": "medium",
+     "with": "clozapine"
+    },
+    {
+     "note": "enhances sedation",
+     "severity": "low",
+     "with": "sedatives"
+    }
+   ],
+   "mechs": [
+    [
+     "Reduction of core body temperature + NMDA co-agonist",
+     "Falling asleep (3 g before bedtime)",
+     "moderate"
+    ],
+    [
+     "Glutathione synthesis (GlyNAC): antioxidant correction",
+     "GlyNAC in the elderly: GSH reduction, less oxidative stress/inflammation (n=36)",
+     "weak"
+    ],
+    [
+     "Sleep and psychiatric symptoms with long-term use",
+     "Healthy people sleep better; samples are small, risk of bias high (SR 2024)",
+     "context"
+    ]
+   ],
+   "myths": "Proven sleep aid - SR 2024: improving sleep in small samples with high risk of bias. “Prolongs life”—an effect in animals, not in humans.",
+   "name": "Glycine",
+   "onset": "Sleep - with a single dose of 3 g before bedtime; in the review courses up to 4 months; no taxonomy.",
+   "title": "Glycine",
+   "upper_limit": "No formal UL listed - no toxicity data available.",
+   "verdict": "not confirmed",
+   "who_needs": "Unproven: data on sleep and schizophrenia in small samples; biohacker enthusiasts; elderly - GlyNAC experiment (n=36)."
+  }
+ }
+}

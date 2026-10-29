@@ -1,0 +1,60 @@
+{
+ "_meta": {
+  "card": "Рейши",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Рейши": {
+   "about": "Ganoderma: adjuvant to oncology therapy - QoL and immunity are slightly better; \"dream\" is not confirmed.",
+   "category": "Immunity / Mushrooms",
+   "category_group": "immune",
+   "caution": "Reishi (Ganoderma lucidum) is the 'mushroom of immortality' from traditional Chinese medicine. For cancer: 2 Cochrane reviews (27045603, 22696372) show possible benefit as an ADJUVANT to chemotherapy (improved immune response, quality of life), but NOT as monotherapy. For general immune function: limited data. For sleep/anxiety: no systematic data. Safe in standard doses.",
+   "course": "—",
+   "dosage": "1-2 g",
+   "effects": [
+    "Sleep/immunity: not confirmed in humans"
+   ],
+   "food_sources": "As a rare product (bitter, hard); clinical form - extract 1-2 g/day.",
+   "forms": [
+    "extract (polysaccharides/triterpenes)"
+   ],
+   "guidelines": "2023 SR (mushrooms in onco): adjuvant - leukocytes and QoL higher; 2026 SR (diabetes): glycemia lower. Monotherapy is not recommended.",
+   "how_to_choose": "1-2 g of extract/day, standardization for polysaccharides and triterpenes; in case of oncology - only with a doctor.",
+   "interactions": [
+    {
+     "note": "enhances the effect",
+     "severity": "medium",
+     "with": "anticoagulants"
+    },
+    {
+     "note": "antagonism effects",
+     "severity": "medium",
+     "with": "immunosuppressants"
+    }
+   ],
+   "mechs": [
+    [
+     "Triterpenes + beta-glucans: immunomodulation",
+     "Sleep/immunity: not confirmed in humans",
+     "marketing"
+    ],
+    [
+     "Beta-glucans (G. lucidum) as an adjuvant for cancer therapy",
+     "Cochrane 2016 (5 RCT): WBC and quality of life moderately better; monotherapy is not recommended",
+     "context"
+    ]
+   ],
+   "myths": "“Mushroom of immortality against cancer” - 5 RCT, adjuvant only; monotherapy is not recommended. “Deep sleep” - no data on sleep/anxiety.",
+   "name": "Reishi",
+   "onset": "Coursework and modest (weeks); Acute “immune elevation”/drowsiness is not indicated in RCT.",
+   "title": "Reishi",
+   "upper_limit": "No formal UL listed - no toxicity data available.",
+   "verdict": "depends on context",
+   "who_needs": "Patients with cancer as an adjuvant (discuss with doctor); without the diagnosis “boost immunity/sleep” - there is no evidence."
+  }
+ }
+}

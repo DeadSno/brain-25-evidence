@@ -1,0 +1,55 @@
+{
+ "_meta": {
+  "card": "Витамин K1",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Витамин K1": {
+   "about": "Vitamin K1: in MA the effect on cardio-metabolic factors is limited (HOMA-IR, CRP), in K2 the effect is more pronounced; bone data from reviews of K as a whole.",
+   "category": "Bones / Immunity",
+   "category_group": "bone",
+   "caution": "Metabolic effect is limited; Abstract data on the safety of high doses are sparse; If there is a clotting disorder, consult a doctor.",
+   "course": "Not installed.",
+   "dosage": "Dosages of K1 are not given separately in the abstracts.",
+   "effects": [
+    "Insulin resistance",
+    "Dice (K1+K2)"
+   ],
+   "food_sources": "Leafy greens (spinach, cabbage, broccoli), green vegetables, vegetable oils; K1 is predominantly a plant source.",
+   "forms": [
+    "phylloquinone"
+   ],
+   "guidelines": "MA 2024 (17 RCT): vitamin K reduces HOMA-IR (WMD -0.24), other - no; MA 2019 (13 RCT): CRP and sensitivity index only; review 2008: K1 and K2 are associated with BMD and fractures.",
+   "how_to_choose": "Choose the form according to the purpose: metabolic effects are stronger in K2; K1 - common food phylloquinone; without indications, the benefit has not been proven.",
+   "interactions": [],
+   "mechs": [
+    [
+     "Vitamin K and insulin sensitivity",
+     "decrease in HOMA-IR (MA 2024, WMD -0.24), the effect is stronger in K2",
+     "weak"
+    ],
+    [
+     "Vitamin K and inflammatory marker",
+     "decrease in CRP (MA 2019, p=0.01), other factors unchanged",
+     "weak"
+    ],
+    [
+     "K1 and K2 in bone metabolism",
+     "association with BMD and reduction in fractures (2008 review)",
+     "weak"
+    ]
+   ],
+   "myths": "“K1 and K2 are interchangeable” - different forms. “Helps coagulation of all” - effect in newborns. “The supplement will improve bones”—data from dialysis patients. “Needed by everyone” - no data.",
+   "name": "Vitamin K1",
+   "onset": "The timing of the effect has not been established: in MA 2024, a decrease in HOMA-IR was noted when taking vitamin K as part of the RCT.",
+   "title": "Vitamin K1",
+   "upper_limit": "not established (not given in abstracts)",
+   "verdict": "depends on context",
+   "who_needs": "In case of impaired insulin sensitivity, the effect is small and is stronger in K2 than in K1; in the elderly, for bones - data on K1+K2, primarily MK-4; There is no benefit shown for healthy people."
+  }
+ }
+}

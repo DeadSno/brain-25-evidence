@@ -1,0 +1,55 @@
+{
+ "_meta": {
+  "card": "GLA",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "GLA": {
+   "about": "GLA (evening primrose oil): for atopic dermatitis in children there are indications of benefit in case of poor quality of work; Ineffective for acne and psoriasis.",
+   "category": "Skin & Joints",
+   "category_group": "bone",
+   "caution": "Ineffective for acne, psoriasis, chronic manual dermatitis, hepatitis B, preeclampsia and Sjögren's syndrome.",
+   "course": "A course of weeks-months according to schemes from research; exact terms are not given in abstracts.",
+   "dosage": "No data",
+   "effects": [
+    "Atopic dermatitis",
+    "Inflammatory conditions"
+   ],
+   "food_sources": "Flax, hemp, and soy contain trace amounts of GLA; a practical source is evening primrose seed oil.",
+   "forms": [
+    "evening primrose oil"
+   ],
+   "guidelines": "EAACI 2024: Insufficient evidence for evening primrose. Review 2024: No strong recommendations for inflammatory conditions due to heterogeneity.",
+   "how_to_choose": "For skin - Oenothera biennis oil; take into account the low quality of research. For arthritis and diabetes, there is insufficient data to make a choice.",
+   "interactions": [],
+   "mechs": [
+    [
+     "Substrate for prostaglandins and anti-inflammatory mediators",
+     "Relief of symptoms of atopic dermatitis",
+     "weak"
+    ],
+    [
+     "Support barrier function and skin hydration",
+     "Improved skin condition in healthy volunteers",
+     "weak"
+    ],
+    [
+     "Metabolism of GLA into leukotrienes and anti-inflammatory mediators",
+     "Mixed results in inflammatory diseases",
+     "context"
+    ]
+   ],
+   "myths": "“Primrose heals the skin” - data relate to atopic dermatitis in children. “It will help with joints” - with rheumatoid arthritis, the results are mixed. “Proven” - quality according to Jadad is low, review 2024 requires caution.",
+   "name": "GLA",
+   "onset": "Within the framework of the reception, weeks-months; for dermatitis, the assessment is based on the SCORAD scale, the rate in abstracts is not specified.",
+   "title": "GLA",
+   "upper_limit": "not set in abstracts",
+   "verdict": "depends on context",
+   "who_needs": "Children with atopic dermatitis without food allergies - there is evidence of improvement in symptoms. Ineffective for acne, psoriasis, PMS, dry eyes and preeclampsia."
+  }
+ }
+}

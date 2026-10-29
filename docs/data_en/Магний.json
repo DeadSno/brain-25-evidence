@@ -1,0 +1,70 @@
+{
+ "_meta": {
+  "card": "Магний",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Магний": {
+   "about": "Cofactor of 300+ enzymes: muscles, nerves, sleep. The effect and tolerability depend on the form.",
+   "category": "Mineral / Heart",
+   "category_group": "bone",
+   "caution": "Magnesium is an essential mineral. For arterial hypertension: Cochrane (16856052) confirms a decrease in pressure (especially if there is an initial deficiency). For type 2 diabetes: meta-analyses show improvement in HbA1c and insulin resistance. For seizures during pregnancy: data available. For migraine: there is data outside the database. Form matters: citrate/glycinate/malate is better than oxide. Dose: 200-400 mg/day. Caution: renal failure, bradycardia.",
+   "course": "constantly when there is a shortage",
+   "dosage": "200-400 mg",
+   "effects": [
+    "Sleep, relaxation (not confirmed)"
+   ],
+   "food_sources": "Pumpkin seeds, almonds, buckwheat, dark chocolate, leafy greens.",
+   "forms": [
+    "citrate",
+    "glycinate"
+   ],
+   "guidelines": "EFSA: muscle and nervous system function; NIH: deficiency more common after age 70.",
+   "how_to_choose": "Citrate, glycinate, bisglycinate - absorption and tolerability; oxide is cheap, poorly absorbed, weakens.",
+   "interactions": [
+    {
+     "note": "reduces absorption, separate doses for 2-4 hours",
+     "severity": "high",
+     "with": "tetracycline antibiotics"
+    },
+    {
+     "note": "separate reception 2 hours",
+     "severity": "medium",
+     "with": "bisphosphonates"
+    },
+    {
+     "note": "increases magnesium loss",
+     "severity": "medium",
+     "with": "diuretics"
+    }
+   ],
+   "mechs": [
+    [
+     "Mg2+ block NMDA + GABA modulation → decreased excitability",
+     "Sleep, relaxation",
+     "context"
+    ],
+    [
+     "Regulation of vascular tone and blood pressure by magnesium ion",
+     "Decrease in systolic and diastolic pressure",
+     "moderate"
+    ]
+   ],
+   "myths": "“Calms immediately” - the effect is cumulative. “Either form is the same” - the oxide barely raises levels.",
+   "name": "Magnesium",
+   "onset": "Sleep and cramps - 2-4 weeks; blood levels - 4-8 weeks.",
+   "synergists": [
+    "Vitamin B6",
+    "Vitamin D"
+   ],
+   "title": "Magnesium",
+   "upper_limit": "350 mg/day added (US IOM); more - diarrhea.",
+   "verdict": "works",
+   "who_needs": "Refined nutrition, intense training, age 60+, deficiency according to analysis."
+  }
+ }
+}

@@ -1,0 +1,75 @@
+{
+ "_meta": {
+  "card": "Зверобой",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Зверобой": {
+   "about": "Hyperforin blocks serotonin reuptake: works for mild depression, comparable to SSRIs.",
+   "category": "Mental Health / Depression",
+   "category_group": "brain",
+   "caution": "For mild-moderate depression: comparable effectiveness to SSRI, BUT fewer side effects. DOES NOT work for severe depression/suicidality. CRITICAL: interaction with drugs (CYP3A4 inducer) - reduces the effectiveness of oral contraceptives, anticoagulants, antiretrovirals, immunosuppressants. Photosensitivity.",
+   "course": "4-6 weeks",
+   "dosage": "300 mg 3 times a day (0.3% hypericin)",
+   "effects": [
+    "Mood (mild depression) (not confirmed)"
+   ],
+   "food_sources": "In pharmacies there is herb for tea, but the working doses are a standardized extract; you cannot get them with tea.",
+   "forms": [
+    "extract (0.3% hypericin)"
+   ],
+   "guidelines": "2023 MA (vs SSRI): parity in response and remission; 2021 SR: CYP3A4 inducer, interaction with warfarin. Mild to moderate depression only.",
+   "how_to_choose": "Extract 300 mg 3 times a day (0.3% hypericin), course 4-6 weeks; check for drug interactions.",
+   "interactions": [
+    {
+     "note": "serotonin syndrome, LIFE DANGEROUS",
+     "severity": "critical",
+     "with": "SSRI/MAO antidepressants"
+    },
+    {
+     "note": "reduces effectiveness, risk of pregnancy",
+     "severity": "high",
+     "with": "oral contraceptives"
+    },
+    {
+     "note": "reduces concentration, transplant rejection",
+     "severity": "critical",
+     "with": "cyclosporine"
+    },
+    {
+     "note": "reduces the effect, INR control",
+     "severity": "high",
+     "with": "warfarin"
+    }
+   ],
+   "mechs": [
+    [
+     "Hyperforin: serotonin/NA reuptake inhibition",
+     "Mild depression; induction of CYP3A4 - interactions!",
+     "moderate"
+    ],
+    [
+     "Comparability with SSRIs: response and remission",
+     "Response/remission comparable to SSRIs (RR ~1.0), dropout lower (OR 0.59); 27 RCT, 3808",
+     "moderate"
+    ],
+    [
+     "Safety limitations: severe depression and duration",
+     "Data is only 4-12 weeks; There is no evidence for severe depression and suicidality",
+     "context"
+    ]
+   ],
+   "myths": "“Treats severe depression” - mild/moderate only. \"Safe Herb\" - CYP3A4 inducer: reduces contraceptives and anticoagulants.",
+   "name": "St. John's Wort",
+   "onset": "Effect by 4-12 weeks, noticeable from 2-4 weeks; data is only short-term.",
+   "title": "St. John's Wort",
+   "upper_limit": "No formal UL listed - no toxicity data available.",
+   "verdict": "works",
+   "who_needs": "Mild to moderate depression, when you want to avoid the side effects of SSRIs; Contraindicated in severe depression and suicidality."
+  }
+ }
+}

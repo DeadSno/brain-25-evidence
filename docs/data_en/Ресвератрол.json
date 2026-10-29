@@ -1,0 +1,62 @@
+{
+ "_meta": {
+  "card": "Ресвератрол",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Ресвератрол": {
+   "about": "Grape polyphenol: improves biomarkers (lipids, glucose), clinical value not proven.",
+   "category": "Metabolism",
+   "category_group": "metab",
+   "caution": "Resveratrol is a polyphenol from grapes. There is a lot of data on biomarkers (lipids, inflammation, oxidative stress, insulin resistance), but clinical outcomes are often insignificant. Bioavailability is low (rapidly metabolized). Doses in RCT are often very high (500-1500 mg/day), in dietary supplements - 50-100 mg. For obesity/type 2 diabetes: data available. For cardiovascular outcomes: effect not proven. 'French paradox' - marketing.",
+   "course": "—",
+   "dosage": "100-500 mg",
+   "effects": [
+    "Anti-aging effect"
+   ],
+   "food_sources": "Grapes, red wine, peanuts, blueberries; dietary doses cannot reach the RCT level (500+ mg).",
+   "guidelines": "Umbrella 2026 (45 MA): waist −0.8 cm, cholesterol and blood pressure in T2D - high confidence; glucose and endothelium - average.",
+   "how_to_choose": "T2D/overweight only: 100–500 mg from RCT; regular dietary supplements of 50–100 mg are meaningless.",
+   "interactions": [
+    {
+     "note": "enhances the effect",
+     "severity": "medium",
+     "with": "anticoagulants"
+    },
+    {
+     "note": "additional antiplatelet effect",
+     "severity": "low",
+     "with": "NSAIDs"
+    }
+   ],
+   "mechs": [
+    [
+     "Activation of SIRT1 (sirtuins) - proven in mice",
+     "Bioavailability in humans ~0, effect not confirmed",
+     "marketing"
+    ],
+    [
+     "Metabolic action (SIRT1/AMPK): insulin and glucose sensitivity",
+     "Fasting glucose, HbA1c and insulin resistance are lower in T2D",
+     "context"
+    ],
+    [
+     "Vascular endothelial support: flow-dependent vasodilation, adhesion molecules",
+     "Vascular function is higher (FMD +1.43%), BP is lower in T2D",
+     "moderate"
+    ]
+   ],
+   "myths": "“Like a glass of wine” - French paradox marketing, the doses in wine are cheap. “Anti-aging” - bioavailability in humans is ~0, dietary supplement 50 mg is far from RCT doses.",
+   "name": "Resveratrol",
+   "onset": "Metabolic effects course: weeks-months; there is no immediate effect.",
+   "title": "Resveratrol",
+   "upper_limit": "No formal UL listed - no toxicity data available.",
+   "verdict": "depends on context",
+   "who_needs": "T2D (BP, cholesterol, insulin resistance) and obesity (waist); healthy - no effect."
+  }
+ }
+}

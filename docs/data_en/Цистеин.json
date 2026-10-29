@@ -1,0 +1,52 @@
+{
+ "_meta": {
+  "card": "Цистеин",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Цистеин": {
+   "about": "Cysteine is a precursor to glutathione; MA for free cysteine ​​is small, the data relate to the NAC derivative (mucolytics for COPD, paracetamol poisoning).",
+   "category": "General",
+   "category_group": "general",
+   "caution": "Do not mix cysteine and NAC as equivalents; high-dose amino acids were not assessed in abstracts; for medical conditions - consult a doctor.",
+   "course": "Not installed.",
+   "dosage": "No data",
+   "effects": [
+    "NAC for COPD",
+    "Glutathione precursor"
+   ],
+   "food_sources": "Meat, poultry, eggs, dairy products, legumes, onions, garlic, broccoli; the diet does not understand abstracts.",
+   "guidelines": "Cochrane 2018: NAC is an antidote for paracetamol poisoning; MA 2024: mucolytics (including NAC) for COPD reduce exacerbations and hospitalizations; SR 2023: NAC effects vary.",
+   "how_to_choose": "For free cysteine there is no choice of form - no data; Use NAC according to clinical indications (doctor); There is no benefit shown in conventional dietary supplements.",
+   "interactions": [],
+   "mechs": [
+    [
+     "NAC derivative and mucolytic action",
+     "reduction in exacerbations and hospitalizations in stable COPD (MA 2024)",
+     "moderate"
+    ],
+    [
+     "NAC as an antidote for paracetamol poisoning",
+     "metabolite detoxification, liver protection (Cochrane 2018)",
+     "moderate"
+    ],
+    [
+     "Role of NAC in bipolar disorder",
+     "effects vary, mostly insignificant (SR 2023)",
+     "context"
+    ]
+   ],
+   "myths": "“Cysteine is the same as NAC”—related but different molecules. “It is useful for everyone against oxidation” - healthy data does not exist. “Works for COPD” - talking about a derivative of NAC in a group of patients.",
+   "name": "Cysteine",
+   "onset": "Not established: The administration of free cysteine and the timing of effect were not studied in the abstracts.",
+   "title": "Cysteine",
+   "upper_limit": "not established (not given in abstracts)",
+   "verdict": "not confirmed",
+   "who_needs": "There are no direct indications for cysteine supplements in the selection; NAC has been studied for COPD (reduction of exacerbations) and as an antidote for paracetamol overdose; healthy - no data."
+  }
+ }
+}

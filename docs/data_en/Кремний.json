@@ -1,0 +1,46 @@
+{
+ "_meta": {
+  "card": "Кремний",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Кремний": {
+   "about": "Silicon for bones: the only umbrella review - effect on bone metabolism mainly in animals; The threshold of effect achievable in humans has not been determined.",
+   "category": "Bones / Immunity",
+   "category_group": "bone",
+   "caution": "There is little data on the safety of supplements; excess microelements are not indicated; In the review, many regimens exceed the norm of 25 mg/day.",
+   "course": "Not installed.",
+   "dosage": "No data",
+   "effects": [
+    "Bone metabolism"
+   ],
+   "food_sources": "Whole grains, vegetables, root vegetables, bananas, drinking water; Product specifics are not provided in the abstracts.",
+   "guidelines": "Umbrella review 2024 (Nutrients): effect threshold ~139 mg Si/kg/day - unrealistic for humans; Recommendations for supplements are not formulated.",
+   "how_to_choose": "There is no data for choosing a form; if you are interested in silicon, use food sources instead of dietary supplements; The effectiveness of supplements has not been confirmed.",
+   "interactions": [],
+   "mechs": [
+    [
+     "The effect of silicon on bone and mineral metabolism",
+     "in animal studies positive effect at high doses",
+     "context"
+    ],
+    [
+     "Translation of results from animals to humans",
+     "threshold ~139 mg/kg/day is unlikely to be achievable in humans",
+     "context"
+    ]
+   ],
+   "myths": "“Silicon strengthens everyone’s bones” – 2024 survey data mainly from animals. “Effective dose achievable”—the threshold of ~139 mg/kg/day is unrealistic for humans. “The only review is proven” - people have little data.",
+   "name": "Silicon",
+   "onset": "Not established: The review did not determine the effective dose and timing of effect in humans.",
+   "title": "Silicon",
+   "upper_limit": "not established (not given in abstracts; the norm of 25 mg/day is mentioned in the review)",
+   "verdict": "depends on context",
+   "who_needs": "Indications are not defined: there is little data on the benefits of dietary supplements in humans; animal review reveals potential role in bone metabolism; For healthy people without deficiency, supplementation is not justified."
+  }
+ }
+}

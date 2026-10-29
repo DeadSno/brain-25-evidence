@@ -1,0 +1,54 @@
+{
+ "_meta": {
+  "card": "NMN",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "NMN": {
+   "about": "The precursor of NAD+ is the “molecule of youth”; does not improve metabolism, strength and muscles in humans.",
+   "category": "Aging / Metabolism",
+   "category_group": "gut",
+   "caution": "NMN (nicotinamide mononucleotide) is a precursor to NAD+. For safety: data available (42514320) - good tolerability. For glucose and lipid metabolism: mixed data (39531138). For muscle mass: limited data (40275690). Most of the data are short-term RCTs. Long-term effects have not been studied. NOT proven to be effective for 'anti-aging' in humans.",
+   "course": "—",
+   "dosage": "250-1000 mg",
+   "effects": [
+    "Outcomes (strength, cognition): not confirmed"
+   ],
+   "food_sources": "NMN in food is not practical: trace amounts (broccoli, avocado); supplements are the only way to work.",
+   "forms": [
+    "beta-nicotinamide mononucleotide"
+   ],
+   "guidelines": "SR 2026 (15 RCT, GRADE): Courses are transferable; no broad metabolic benefits; “rejuvenation” has not been confirmed.",
+   "how_to_choose": "If tried: 250–1000 mg/d (RCT doses) in short courses; no metabolic effect should be expected.",
+   "interactions": [],
+   "mechs": [
+    [
+     "NAD+ precursor → sirtuins",
+     "Outcomes (strength, cognition): not confirmed",
+     "marketing"
+    ],
+    [
+     "Short courses are tolerable: AEs and ALT/AST unchanged",
+     "Safe 250–2000 mg/d, 14 days–24 weeks (15 RCT, GRADE)",
+     "context"
+    ],
+    [
+     "Glycemia/lipids/muscle outcomes: no effect",
+     "No benefit on glucose/lipids/strength; DBP and HOMA-IR are only signals (MA)",
+     "context"
+    ]
+   ],
+   "myths": "“Molecule of Youth” - glucose/lipids/muscles do not improve in humans (MA 2024-2025). “Expensive means it works” - there is no dose-dependent effect.",
+   "name": "NMN",
+   "onset": "From 14 days to 24 weeks (250–2000 mg/d), metabolism did not change; There is no “rejuvenation”.",
+   "title": "NMN",
+   "upper_limit": "No formal UL listed - no toxicity data available.",
+   "verdict": "not confirmed",
+   "who_needs": "Not determined: no benefit for glucose/lipids/muscle in healthy people; weak signals - only in the elderly and with early metabolites. risks."
+  }
+ }
+}

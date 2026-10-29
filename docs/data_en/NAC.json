@@ -1,0 +1,70 @@
+{
+ "_meta": {
+  "card": "NAC",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "NAC": {
+   "about": "Precursor of glutathione, the main cell antioxidant: fewer exacerbations of COPD, liver protection.",
+   "category": "Mental Health / Depression",
+   "category_group": "brain",
+   "caution": "N-acetylcysteine is a precursor of glutathione. 4 Cochrane reviews in the database! For COPD: reduces the frequency of exacerbations. For acute liver failure (non-paracetamol): Cochrane. For H. pylori (adjuvant): Cochrane. For sepsis: Cochrane. For psychiatry (OCD, trichotillomania, bipolar): there is RCT with positive data. Dose: 600-1200 mg 2 times/day. Safe, side effects: GI.",
+   "course": "courses",
+   "dosage": "600-1200 mg",
+   "effects": [
+    "Cognition (psychiatry) (not confirmed)"
+   ],
+   "food_sources": "There is no separate food source: NAC is a cysteine derivative; cysteine ​​is found in meat, eggs, and oatmeal.",
+   "forms": [
+    "N-acetyl-L-cysteine"
+   ],
+   "guidelines": "Cochrane: in COPD there are fewer exacerbations (RR 0.87) at doses up to 600 mg; there is no benefit for sepsis; for H. pylori - adjunct.",
+   "how_to_choose": "Any L-form NAC, 600–1200 mg/day. Expensive “sports” versions are not needed - reviews are based on the classic form.",
+   "interactions": [
+    {
+     "note": "enhances the effect, risk of hypotension",
+     "severity": "high",
+     "with": "nitroglycerin"
+    },
+    {
+     "note": "reduces absorption",
+     "severity": "medium",
+     "with": "activated carbon"
+    }
+   ],
+   "mechs": [
+    [
+     "Glutathione precursor + glutamatergic modulation",
+     "Adjunct in OCD/depression, antioxidant status",
+     "context"
+    ],
+    [
+     "Mucolytic and antioxidant effect: thinning mucus in the respiratory tract",
+     "Fewer exacerbations of COPD at 600 mg/day and below",
+     "moderate"
+    ],
+    [
+     "Antimicrobial adjuvant: destruction of H. pylori biofilms, bactericidal activity",
+     "Higher eradication of H. pylori in combination with antibiotics",
+     "weak"
+    ],
+    [
+     "Glutathione precursor: neutralize toxic metabolites in the liver",
+     "Less risk of transplantation in paracetamol liver failure",
+     "context"
+    ]
+   ],
+   "myths": "“Antioxidant = health” – did not reduce mortality in sepsis (Cochrane). “Higher dose is better” - for COPD >600 mg without benefit; works up to 600 mg.",
+   "name": "NAC",
+   "onset": "There is no immediate effect: with COPD, exacerbations are less frequent over a distance, NAC is taken in courses.",
+   "title": "NAC",
+   "upper_limit": "No formal UL listed - no toxicity data available.",
+   "verdict": "works",
+   "who_needs": "For COPD with frequent exacerbations; liver failure (including paracetamol); resistant H. pylori."
+  }
+ }
+}

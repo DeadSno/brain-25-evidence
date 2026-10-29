@@ -1,0 +1,51 @@
+{
+ "_meta": {
+  "card": "B3",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "B3": {
+   "about": "Nicotinamide (form B3): reduces the risk of non-melanoma skin cancer in people with a history of it (RR 0.50, MA 2022); the effect is not shown in healthy people.",
+   "category": "Metabolism",
+   "category_group": "metab",
+   "caution": "Increased risk of GI AEs (MA 2022); niacin forms give flushing; if there is a history of skin cancer, a doctor’s prescription.",
+   "course": "Long-term, as long as prevention is relevant (according to RCT schemes in MA 2022).",
+   "dosage": "No data",
+   "effects": [
+    "Preventing skin cancer",
+    "Hyperpigmentation (topical)"
+   ],
+   "food_sources": "Meat, poultry, fish, liver, peanuts; Cereal niacin is absorbed less well - nutrition is not detailed in the abstracts.",
+   "forms": [
+    "nicotinamide",
+    "nicotinic acid"
+   ],
+   "guidelines": "MA 2022 (29 trials, n=3039): Nicotinamide reduces skin cancer - RR 0.50 [0.29-0.85], moderate potency; weak recommendation for persons with a history of skin cancer.",
+   "how_to_choose": "Nicotinamide (not niacin - no flushing) in chemoprophylaxis doses under the supervision of a physician; topical forms - for hyperpigmentation.",
+   "interactions": [],
+   "mechs": [
+    [
+     "Nicotinamide: NAD+ restoration and DNA repair",
+     "prevention of non-melanoma skin cancer (RR 0.50)",
+     "moderate"
+    ],
+    [
+     "Topical niacinamide for post-inflammatory hyperpigmentation",
+     "lightening of dark spots with high quality examinations",
+     "weak"
+    ]
+   ],
+   "myths": "“The data on the reduction in LDL relate to niacin” - that MA is about statins and has nothing to do with B3. “More B3 is healthier” - nicotinamide has GI AEs. “Everyone needs B3 for their skin” - evidence for high-risk groups.",
+   "name": "Vitamin B3",
+   "onset": "Chemoprophylaxis - in a course while taking it; in MA the effect on skin cancer and actinic keratoses is significant, GI AEs are possible.",
+   "title": "Vitamin B3",
+   "upper_limit": "not established (not given in abstracts)",
+   "verdict": "depends on context",
+   "who_needs": "People with a cancerous field or a history of skin cancer - chemoprophylaxis with nicotinamide (GRADE weak); for hyperpigmentation - topically; There is no data for “everyone’s” metabolism."
+  }
+ }
+}

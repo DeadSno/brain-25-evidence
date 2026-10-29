@@ -1,0 +1,69 @@
+{
+ "_meta": {
+  "card": "Витамин C",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Витамин C": {
+   "about": "Antioxidant and cofactor: collagen, immunity, iron absorption.",
+   "category": "Immunity / Antioxidant",
+   "category_group": "immune",
+   "caution": "For ARI: prevention does NOT reduce the incidence in the general population (RR 0.96), BUT in extreme stress (marathon/skiing/army) it reduces by 50%. Therapy after symptoms begin does NOT work. For CVD: large RCTs showed no benefit. >2000 mg/day: GI side effects, risk of oxalate stones.",
+   "course": "load periods",
+   "dosage": "500-1000 mg",
+   "effects": [
+    "Immunity (under loads) (not confirmed)"
+   ],
+   "food_sources": "Bell pepper, black currant, kiwi, citrus fruits, sauerkraut.",
+   "forms": [
+    "ascorbic acid",
+    "lecithin form"
+   ],
+   "guidelines": "EFSA: immunity and collagen; Cochrane: The common cold is slightly shorter lasting, but not less common in the general population.",
+   "how_to_choose": "Regular ascorbic acid is sufficient; “liposomal and esterified” is an overpayment without strong data.",
+   "interactions": [
+    {
+     "note": "high doses may reduce the effect",
+     "severity": "medium",
+     "with": "anticoagulants (warfarin)"
+    },
+    {
+     "note": "enhances absorption (synergist)",
+     "severity": "low",
+     "with": "iron supplements"
+    }
+   ],
+   "mechs": [
+    [
+     "Hydroxylase cofactor (collagen), antioxidant, iron absorption",
+     "Immunity ONLY during exercise (marathon, cold)",
+     "context"
+    ],
+    [
+     "Antioxidant protection of the immune system under extreme stress",
+     "Colds are half as common among marathon runners, skiers and military personnel (RR 0.50)",
+     "moderate"
+    ],
+    [
+     "Antioxidant pathways in primary prevention of cardiovascular diseases",
+     "Cardiovascular events are not decreasing",
+     "marketing"
+    ]
+   ],
+   "myths": "“Prevents colds” - not in the general population. “Megadoses are safe” - GI and stones.",
+   "name": "Vitamin C",
+   "onset": "Subjectively no; in case of deficiency (gums, fatigue) - 1-2 weeks of replenishment.",
+   "synergists": [
+    "Iron"
+   ],
+   "title": "Vitamin C",
+   "upper_limit": "2000 mg/day; higher - diarrhea and the risk of kidney stones in predisposed people.",
+   "verdict": "depends on context",
+   "who_needs": "Smokers (+35 mg/day), few vegetables and fruits, extreme loads."
+  }
+ }
+}

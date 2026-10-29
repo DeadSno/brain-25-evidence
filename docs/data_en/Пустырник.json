@@ -1,0 +1,65 @@
+{
+ "_meta": {
+  "card": "Пустырник",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Пустырник": {
+   "about": "Motherwort: traditionally \"nervous heart\"; sedative/hypotensive effect in an open clinic, no MA.",
+   "category": "Heart",
+   "category_group": "cardio",
+   "caution": "Motherwort (Leonurus cardiaca). There are NO meta-analyses or systematic reviews in the database. A popular remedy in Eastern European traditional medicine for 'calming the heart', anxiety, palpitations. But there is no evidence base. Not recommended for serious cardiovascular diseases without medical supervision. May interact with anticoagulants.",
+   "course": "—",
+   "dosage": "tea/extract 2-3 r/day",
+   "effects": [
+    "Anxiety/sleep: subjective, RCT low"
+   ],
+   "food_sources": "Motherwort herb is not food, a raw material for tea/tincture/extract; Pharmacopoeia standardizes flavonoids ≥0.2%.",
+   "forms": [
+    "extract/tincture"
+   ],
+   "guidelines": "RCT 2011 (n=50, 28 days): CGI 80% with improvement but no placebo. Reviews 2013/2021: phytochemistry, no clinical MA.",
+   "how_to_choose": "Extract/tincture according to pharmacopoeia (flavonoids ≥0.2%); for hypertension - monitor blood pressure with a doctor.",
+   "interactions": [
+    {
+     "note": "enhances sedation",
+     "severity": "medium",
+     "with": "sedatives"
+    },
+    {
+     "note": "may enhance the effect",
+     "severity": "low",
+     "with": "antihypertensive"
+    }
+   ],
+   "mechs": [
+    [
+     "Flavonoids: weak GABA modulation",
+     "Anxiety/sleep: subjective, RCT low",
+     "weak"
+    ],
+    [
+     "Hypotensive and sedative effect (open clinic)",
+     "Stage 1 hypertension + anxiety: CGI improvement ~80% (28 days, n=50)",
+     "weak"
+    ],
+    [
+     "Cardiac electrophysiology and mitochondrial protection (experiment)",
+     "Isolated hearts/mitochondria: uncoupled oxidation, less ROS; laboratory cardioprotection",
+     "context"
+    ]
+   ],
+   "myths": "“From heartbeats to everyone” - electrophysiology only in isolated hearts. “Safe” - interactions with anticoagulants and antihypertensives.",
+   "name": "Motherwort",
+   "onset": "Coursework: in grade 1 hypertension the effect is a week earlier than in grade 2; course 28 days (n=50).",
+   "title": "Motherwort",
+   "upper_limit": "No formal UL listed - no toxicity data available.",
+   "verdict": "not confirmed",
+   "who_needs": "Mild hypertension stage 1 with anxiety/insomnia (adjunct, open data); for serious CVD - only with a doctor."
+  }
+ }
+}

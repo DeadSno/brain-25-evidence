@@ -1,0 +1,62 @@
+{
+ "_meta": {
+  "card": "5-HTP",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "5-HTP": {
+   "about": "Serotonin precursor: ~65% remission, but old RCTs, no placebo; monotherapy is not recommended.",
+   "category": "Mental Health / Depression",
+   "category_group": "brain",
+   "caution": "5-hydroxytryptophan (serotonin precursor). A Cochrane review shows that older RCTs (1960s-80s) had methodological problems. Current data is limited. For depression: not recommended as monotherapy. Caution: serotonin syndrome in combination with SSRI/MAOI. Side effects: nausea, GI disorders. Quality of supplements varies (contamination with eosinophilia-myalgia syndrome in the past).",
+   "course": "courses",
+   "dosage": "100-300 mg",
+   "effects": [
+    "Mood"
+   ],
+   "food_sources": "There is no food with 5-HTP - it is a metabolite of tryptophan; tryptophan itself is in meat/milk, but the path is different.",
+   "guidelines": "Cochrane 2001: 2 RCT (n=64), OR 4.10 - low quality. MA 2020: remission 0.65, g 1.11, almost no placebo.",
+   "how_to_choose": "Only with a doctor; standardized product, 100-300 mg; not with SSRI/MAOI; risk of nausea and contamination (EMS).",
+   "interactions": [
+    {
+     "note": "serotonin syndrome, LIFE DANGEROUS",
+     "severity": "critical",
+     "with": "SSRI/MAO antidepressants"
+    },
+    {
+     "note": "serotonin syndrome",
+     "severity": "critical",
+     "with": "tramadol"
+    }
+   ],
+   "mechs": [
+    [
+     "Direct precursor to serotonin (bypassing tryptophan)",
+     "Mood/sleep in short courses; NOT with SSRI",
+     "context"
+    ],
+    [
+     "Correction of serotonergic dysfunction in depression",
+     "Remission 65% (0.55–0.78), H^ 1.11; RCT quality is low",
+     "weak"
+    ],
+    [
+     "Limitations: few high-quality RCTs, no placebo, heterogeneity",
+     "Cochrane 2001: 2 RCT (n=64); no long-term data",
+     "context"
+    ]
+   ],
+   "myths": "\"Nature's Antidepressant\" - RCT 1960-80s, no placebo. “Safe with SSRI” - serotonin syndrome. “Remission 65%” - I² 76%.",
+   "name": "5-HTP",
+   "onset": "The effect is not systematized: some of the schemes last for weeks; there is little data on speed and stability.",
+   "title": "5-HTP",
+   "upper_limit": "No formal UL listed - no toxicity data available.",
+   "verdict": "not confirmed",
+   "who_needs": "The issue of depression is decided by the doctor; self-administration is not indicated - RCT quality is low, risk of serotonin syndrome with SSRI/MAOI."
+  }
+ }
+}

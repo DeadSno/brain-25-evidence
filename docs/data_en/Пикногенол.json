@@ -1,0 +1,70 @@
+{
+ "_meta": {
+  "card": "Пикногенол",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Пикногенол": {
+   "about": "Pine bark extract: moderately reduces blood pressure, lipids and glucose; “panacea” has not been proven.",
+   "category": "Metabolism",
+   "category_group": "metab",
+   "caution": "Pycnogenol is an extract of the bark of the French maritime pine (Pinus pinaster). There is 1 Cochrane review (22513958) on chronic diseases. For blood pressure: moderate decrease. For lipids: data are mixed. Safe in standard doses (50-200 mg/day). Antioxidant properties have been well studied, but clinical outcomes are often limited.",
+   "course": "—",
+   "dosage": "50-100 mg",
+   "effects": [
+    "Cognition"
+   ],
+   "food_sources": "Not a food product: maritime pine bark extract is sold as a dietary supplement; There are no working doses in food.",
+   "forms": [
+    "bark extract (70% procyanidins)"
+   ],
+   "guidelines": "2025 MA (cardiometabolic profile): SBP/LDL lower; 2023 MA (ED): effective when combined with arginine. Widespread prevention has not been confirmed.",
+   "how_to_choose": "50-100 mg of standardized extract (70% procyanidins), course >12 weeks.",
+   "interactions": [
+    {
+     "note": "enhances the effect",
+     "severity": "medium",
+     "with": "anticoagulants"
+    },
+    {
+     "note": "immunostimulating effect",
+     "severity": "low",
+     "with": "immunosuppressants"
+    }
+   ],
+   "mechs": [
+    [
+     "Proanthocyanidins: endothelium (NO), antioxidant",
+     "Veins/swelling is moderate; cognition is weak; the price is inadequate",
+     "context"
+    ],
+    [
+     "Reduced blood pressure (vascular function)",
+     "SBP −3.2, DBP −1.9 mmHg; DBP only on course >12 weeks",
+     "weak"
+    ],
+    [
+     "Cardiometabolic profile: glucose, lipids, blood pressure",
+     "Glucose −5.9, LDL −7.1, HDL +3.3 mg/dL; HbA1c −0.29% (24 RCT, 1594 people)",
+     "moderate"
+    ],
+    [
+     "Claimed broad prevention of chronic diseases",
+     "Cochrane 2012: results for 7 nosologies are not generalizable (15 RCT, 791 people)",
+     "marketing"
+    ]
+   ],
+   "myths": "“Cures 7 diseases” - it was not possible to generalize (heterogeneity, different outcomes). “Worth the money” - the working niches are narrow.",
+   "name": "Pycnogenol",
+   "onset": "Course and moderate: DBP responds only to >12 weeks; glucose and lipids - in weeks.",
+   "title": "Pycnogenol",
+   "upper_limit": "No formal UL listed - no toxicity data available.",
+   "verdict": "depends on context",
+   "who_needs": "Cardiometabolic problems (BP, lipids, glucose) as an addition to treatment; There is an effect in combination with therapy, but a weaker effect - separately."
+  }
+ }
+}

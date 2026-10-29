@@ -1,0 +1,70 @@
+{
+ "_meta": {
+  "card": "Ашваганда",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Ашваганда": {
+   "about": "Adaptogen: reduces cortisol, anxiety, improves sleep.",
+   "category": "Stress / Adaptogen",
+   "category_group": "brain",
+   "caution": "Withania somnifera is an adaptogen. Meta-analyses show that the reduction in cortisol is significant, but the subjective perception of stress may not improve. Effective for sleep. Safety: good in short-term RCTs (4-12 weeks). Long-term data are limited. Caution: autoimmune diseases, pregnancy (teratogenicity in the preclinic).",
+   "course": "4-8 weeks",
+   "dosage": "300-600 mg",
+   "effects": [
+    "Stress resistance"
+   ],
+   "food_sources": "Not eaten (root in supplements).",
+   "forms": [
+    "root extract (withanolides)"
+   ],
+   "guidelines": "EFSA: claims not approved; MA series - moderate effect on anxiety and sleep.",
+   "how_to_choose": "Standardization 5% withanolides (KSM-66, Sensoril); root, not leaves.",
+   "interactions": [
+    {
+     "note": "enhances sedation",
+     "severity": "high",
+     "with": "sedatives (benzodiazepines, barbiturates)"
+    },
+    {
+     "note": "antagonism effects",
+     "severity": "medium",
+     "with": "immunosuppressants"
+    },
+    {
+     "note": "may increase T3/T4, TSH control",
+     "severity": "medium",
+     "with": "levothyroxine"
+    }
+   ],
+   "mechs": [
+    [
+     "Withanolides → reduction of cortisol (HPA axis)",
+     "Stress, anxiety",
+     "moderate"
+    ],
+    [
+     "Reduced HPA axis hyperactivation in the evening: sleep-promoting effect of the extract",
+     "Better sleep quality, especially with insomnia (≥600 mg/day, ≥8 weeks)",
+     "moderate"
+    ],
+    [
+     "Effect on glucose and lipid metabolism (experimental and early clinical data)",
+     "Glucose, HbA1c and lipids in diabetes mellitus",
+     "weak"
+    ]
+   ],
+   "myths": "“Works immediately like a tranquilizer” - the effect is cumulative. “Any extract is the same” - withanolides decide.",
+   "name": "Ashwagandha",
+   "onset": "Anxiety and sleep - 4-8 weeks; cortisol - 2-4 weeks.",
+   "title": "Ashwagandha",
+   "upper_limit": "600-1200 mg extract/day; higher - GI discomfort.",
+   "verdict": "works",
+   "who_needs": "Chronic stress, anxiety, insomnia (≥600 mg ≥8 weeks)."
+  }
+ }
+}

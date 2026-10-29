@@ -1,0 +1,57 @@
+{
+ "_meta": {
+  "card": "Гиалуроновая кислота",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Гиалуроновая кислота": {
+   "about": "Polysaccharide of joints and skin; works in the form of injections for arthrosis, there is no data available orally.",
+   "category": "Skin & Joints",
+   "category_group": "bone",
+   "caution": "Intra-articular injections for knee OA: SMALL effect, and PRP (plasma) is SUPERIOR to HA (LP-PRP MD -10.54 WOMAC). Oral (DS): high-quality RCT with NO outcomes. Cosmetic fillers: rare severe vascular complications (necrosis, loss of vision).",
+   "course": "—",
+   "dosage": "120-200 mg",
+   "effects": [
+    "Skin weak, knee context (Japanese MA)"
+   ],
+   "food_sources": "You can’t get it from food: there are no working doses of HA in foods; in chicken broth and cartilage the quantities are negligible.",
+   "guidelines": "Cochrane 2015: HA injections are of little help for ankle arthrosis. MA 2026: PRP is more effective than HA. No oral data available.",
+   "how_to_choose": "The oral form does not make sense (no data); injections - discuss with your doctor, PRP is more effective according to WOMAC.",
+   "interactions": [
+    {
+     "note": "theoretical risk (injections)",
+     "severity": "low",
+     "with": "anticoagulants"
+    }
+   ],
+   "mechs": [
+    [
+     "Partially absorbed → dermis and synovial fluid",
+     "Skin weak, knee context (Japanese MA)",
+     "weak"
+    ],
+    [
+     "IV injection: viscoelastic properties in joint fluid",
+     "Ankle osteoarthritis pain: −12% AOS, 6 months (Cochrane)",
+     "weak"
+    ],
+    [
+     "Injection form for knee arthrosis (comparison with PRP)",
+     "PRP is better according to WOMAC/VAS (NMA 2026, 42 RCT); GC - active control",
+     "context"
+    ]
+   ],
+   "myths": "“We drink and the joints are lubricated” - RCT does not show any benefit orally. “Better than plasma” - no: PRP is superior to HA according to WOMAC (MA 2026).",
+   "name": "Hyaluronic Acid",
+   "onset": "Injections: effect on pain is visible for months (6 months, −12% AOS); Dietary supplement - no effect shown.",
+   "title": "Hyaluronic Acid",
+   "upper_limit": "No formal UL listed - no toxicity data available.",
+   "verdict": "depends on context",
+   "who_needs": "Arthrosis of the knee/ankle (injections); the oral form is only hope for the skin, there is no benefit in RCT."
+  }
+ }
+}

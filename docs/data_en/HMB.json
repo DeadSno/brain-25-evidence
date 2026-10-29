@@ -1,0 +1,55 @@
+{
+ "_meta": {
+  "card": "HMB",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "HMB": {
+   "about": "HMB is a metabolite of leucine: preserves muscle in cancer patients (review 2022) and increases walking speed in sarcopenia with exercise (MA 2024).",
+   "category": "Sports",
+   "category_group": "sport",
+   "caution": "In reviews, safety was comparable to placebo; the effects are concentrated in clinical groups—do not exaggerate expectations in healthy people.",
+   "course": "Weeks to months, along with a training program or nutritional support.",
+   "dosage": "Ca-HMB 3 g/day (80% of studies in SR 2022).",
+   "effects": [
+    "Muscle mass in cancer",
+    "Sarcopenia"
+   ],
+   "food_sources": "HMB - metabolite, no food source; substrate leucine - in meat, fish, eggs, dairy products.",
+   "forms": [
+    "Ca-HMB (calcium salt)"
+   ],
+   "guidelines": "JCSM 2022 (CP 15 papers, cancer): muscle mass 4/4, function 2/2, hospitalizations 3/3; MA 2024 (5 RCT): walking speed SMD 0.48; umbrella 2021: low-moderate confidence.",
+   "how_to_choose": "Ca-HMB form, ~3 g/day (according to research schemes); target groups - patients and elderly people with stress; There is no data for sports outside the context of these reviews.",
+   "interactions": [],
+   "mechs": [
+    [
+     "Slows muscle protein breakdown and supports protein synthesis",
+     "preservation of muscle mass and function in patients with cancer (4/4)",
+     "moderate"
+    ],
+    [
+     "HMB + training for sarcopenia",
+     "increased walking speed (SMD 0.48, MA 2024)",
+     "moderate"
+    ],
+    [
+     "HMB and clinical outcomes in risk groups",
+     "reduction in hospitalizations, trend towards better survival",
+     "moderate"
+    ]
+   ],
+   "myths": "“HMB is an anabolic for everyone” - data mainly in patients and the elderly. “Works on its own” - effects are often combined. “Added and the muscles grow” - no effect was found on grip strength and weight in MA 2024.",
+   "name": "HMB",
+   "onset": "Course from weeks to months: effects on weight and function are described when taking ~3 g/day; in MA 2024, walking speed increased as part of training.",
+   "title": "HMB",
+   "upper_limit": "not established (not given in abstracts)",
+   "verdict": "works",
+   "who_needs": "Patients with cancer under therapy - maintenance of muscle mass (Ca-HMB ~3 g/day in 80% of studies); elderly with sarcopenia - as part of exercise programs; otherwise data is limited."
+  }
+ }
+}

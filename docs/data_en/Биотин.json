@@ -1,0 +1,60 @@
+{
+ "_meta": {
+  "card": "Биотин",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Биотин": {
+   "about": "Vitamin B7: useful only in cases of deficiency; in healthy people it has not been proven for hair/nails; distorts analyses.",
+   "category": "Skin / Hair",
+   "category_group": "bone",
+   "caution": "Biotin (vitamin B7, vitamin H). There are NO systematic reviews or meta-analyses on clinical effects in healthy people. Biotin deficiency is rare (only with genetic diseases, long-term parenteral nutrition, consumption of raw egg whites). In healthy people with normal levels - supplements have no proven effect on hair/nails/skin. Side effects: distortion of laboratory tests (troponin, thyroid hormones).",
+   "course": "—",
+   "dosage": "30-100 mcg",
+   "effects": [
+    "Hair/nails only in case of deficiency; interferes with analyzes"
+   ],
+   "food_sources": "Eggs, liver, nuts, legumes, milk; Deficiency is unlikely with a normal diet.",
+   "forms": [
+    "d-biotin"
+   ],
+   "guidelines": "MA 2022 (5 RCT, 445): TC −0.22 significant, glucose/TG on the borderline, insulin without effect. Risk: Immunoassay bias.",
+   "how_to_choose": "30-100 mcg/day with food; 48 hours before thyroid/troponin tests, cancel; on hair - only in case of deficiency.",
+   "interactions": [
+    {
+     "note": "distorts the results, stop in 3 days",
+     "severity": "high",
+     "with": "laboratory tests (troponin, TSH)"
+    }
+   ],
+   "mechs": [
+    [
+     "Coenzyme carboxylase (keratin indirectly)",
+     "Hair/nails only in case of deficiency; interferes with analyzes",
+     "context"
+    ],
+    [
+     "Coenzyme of four carboxylases: fatty acid metabolism/gluconeogenesis",
+     "In malnutrition and pregnant women, deficiency markers are lower; Glycemic control in T2D is questionable",
+     "context"
+    ],
+    [
+     "Claimed glucose and lipid control in T2D",
+     "Total cholesterol is lower (−0.22); glucose/TG borderline significant; insulin without effect (5 RCT, 445)",
+     "marketing"
+    ]
+   ],
+   "myths": "“For hair and nails for everyone” - only in case of shortage. “Harmless in any dose” - distorts immunoassays (thyroid, troponin).",
+   "name": "Biotin",
+   "onset": "In case of shortage - for weeks; healthy people have no effect at all.",
+   "title": "Biotin",
+   "upper_limit": "No formal UL listed - no toxicity data available.",
+   "verdict": "not confirmed",
+   "who_needs": "Only confirmed deficiency (genetics, parenteral nutrition, raw eggs); healthy for hair/nails - not proven."
+  }
+ }
+}

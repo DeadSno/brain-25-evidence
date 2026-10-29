@@ -1,0 +1,51 @@
+{
+ "_meta": {
+  "card": "D-манноза",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "D-манноза": {
+   "about": "Sugar that blocks E. coli adhesion: in case of recurrent UTIs, the data are contradictory, fresh LA is zero.",
+   "category": "Urogenital System",
+   "category_group": "cardio",
+   "caution": "D-mannose is a simple sugar. Popular for preventing urinary tract infections (especially recurrent UTIs). Mechanism: prevents the adhesion of E. coli to the epithelium of the bladder. Selected RCTs show comparable efficacy to antibiotic prophylaxis, but there are NO systematic reviews in PubMed. Dose: 1-2 g/day. Safe. High-quality meta-analyses are needed.",
+   "course": "—",
+   "dosage": "2 g/day",
+   "effects": [
+    "Recurrent UTI: promising, MA is small"
+   ],
+   "food_sources": "D-mannose - simple sugar from berries and fruit juices; workers 1-2 g are more convenient from powder/tablets.",
+   "guidelines": "Cochrane 2022: low evidence; MA 2025 (6 RCT, 1167): RR 0.57 NS; MA 2020: RR 0.23; RCT 2026 - antibiotics are stronger.",
+   "how_to_choose": "1-2 g/day course; adjuvant/prophylaxis only, not treatment for UTI; if you have symptoms, call a doctor.",
+   "interactions": [],
+   "mechs": [
+    [
+     "Blocks FimH E. coli - no adhesion",
+     "Recurrent UTI: promising, MA is small",
+     "moderate"
+    ],
+    [
+     "Antiadhesion of uropathogenic E. coli to the urothelium, elimination in urine",
+     "Recurrence of UTI: MA controversial (2020 RR 0.23, 2025 null)",
+     "context"
+    ],
+    [
+     "Prevention of relapses in users without a catheter (anti-adhesion)",
+     "UTIs are less common, disease-free period is longer, QoL is higher (n=695, 2021)",
+     "weak"
+    ]
+   ],
+   "myths": "“An alternative to antibiotics” - MA 2025 did not find any effect (RR 0.57, NS). “Better than antibiotics” - RCT 2026: 0.2 vs 0.32 episodes.",
+   "name": "D-Mannose",
+   "onset": "Course, prophylactic: 1-2 g/day; There is no one-time “treatment” - antibiotics are faster.",
+   "title": "D-Mannose",
+   "upper_limit": "No formal UL listed - no toxicity data available.",
+   "verdict": "not confirmed",
+   "who_needs": "Women with recurrent UTIs who need non-drug prevention; fresh MA does not show any effect."
+  }
+ }
+}

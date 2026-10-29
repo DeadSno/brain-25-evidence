@@ -1,0 +1,51 @@
+{
+ "_meta": {
+  "card": "Метионин",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Метионин": {
+   "about": "All three meta-analyses on methionine are about dairy cows, not people; for a person as a supplement there is no data in the pool.",
+   "category": "Metabolism",
+   "category_group": "metab",
+   "caution": "Doses and effects cannot be transferred from dairy cows to humans: these animals use methionine to synthesize milk protein.",
+   "course": "not specified in abstracts for humans; in cows the optimal duration is 68-72 days",
+   "dosage": "No data",
+   "effects": [
+    "No proven effects in humans"
+   ],
+   "food_sources": "In the pool abstracts, food sources for humans are not discussed: all three meta-analyses are about feeding dairy cows.",
+   "guidelines": "There are no methionine recommendations for humans in the pool: only meta-analyses on dairy cow productivity are available.",
+   "how_to_choose": "There is nothing to choose: there are no confirmed doses for humans, and the grams indicated in the meta-analyses are calculated for reverse-transition cows.",
+   "interactions": [],
+   "mechs": [
+    [
+     "In experiments on dairy cows, methionine supplementation increased milk protein yield by 2.23 g per 1 g of metabolized methionine",
+     "Increase in milk protein in cows",
+     "weak"
+    ],
+    [
+     "Crude milk yield did not respond significantly to methionine, only protein responded",
+     "Milk protein is growing, milk yield is not",
+     "weak"
+    ],
+    [
+     "There is no data on the effect of methionine intake on humans in the pool",
+     "The effect of the supplement in humans has not been studied",
+     "marketing"
+    ]
+   ],
+   "myths": "“Meta-analysis proves benefits” - all three were carried out on methionine for dairy cows, they cannot be transferred to humans. “Improves strength” - there is not a single work on humans in the pool.",
+   "name": "Methionine",
+   "onset": "Response times have only been studied in cows: 68-72 days for protected methionine. Not studied in humans.",
+   "title": "Methionine",
+   "upper_limit": "not listed in abstracts",
+   "verdict": "not confirmed",
+   "who_needs": "For no one, according to the pool: all three meta-analyses were performed on cows, none on humans."
+  }
+ }
+}

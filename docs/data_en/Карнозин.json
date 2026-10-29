@@ -1,0 +1,51 @@
+{
+ "_meta": {
+  "card": "Карнозин",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Карнозин": {
+   "about": "There are no direct MAs for carnosine - only data through the precursor β-alanine (increases muscle carnosine and performance), the effect is indirect.",
+   "category": "Cognition",
+   "category_group": "brain",
+   "caution": "β-alanine increases the risk of paresthesia (OR 8.9, MA 2019); ALT is slightly higher, but within normal limits; There is little safety data for carnosine itself.",
+   "course": "5-8 weeks of accumulation (β-alanine, SR 2025).",
+   "dosage": "No data",
+   "effects": [
+    "Endurance (via β-alanine)"
+   ],
+   "food_sources": "Carnosine is found in meat, poultry, fish (especially beef); β-alanine - in muscle tissue of animals.",
+   "guidelines": "MA 2017 (40 studies, n=1461): overall ES 0.18, exercises 0.5-10 min - 0.50; SR 2025: 4-6.4 g/day in fractions, 5-8 weeks; risk analysis 2019: paresthesia OR 8.9, ALT within normal limits.",
+   "how_to_choose": "If the goal is performance, consider β-alanine (fractional doses of 4-6.4 g/day); The carnosine supplement itself has been less studied.",
+   "interactions": [],
+   "mechs": [
+    [
+     "Increasing muscle carnosine due to β-alanine",
+     "improvement of exercise capacity 0.5-10 min (ES 0.50)",
+     "moderate"
+    ],
+    [
+     "Buffering of H+ ions during high-intensity work",
+     "increased performance (general ES 0.18)",
+     "weak"
+    ],
+    [
+     "Fractional precursor dosing regimen",
+     "best effect on strength and power at 4-6.4 g/day (SR 2025)",
+     "weak"
+    ]
+   ],
+   "myths": "“Carnosine = β-alanine” is a precursor, related but different substances. “Quick effect” - weeks of accumulation are needed. “Paresthesia is a sign of performance” is a side effect of β-alanine (OR 8.9), not carnosine directly.",
+   "name": "Carnosine",
+   "onset": "After several weeks of accumulation: β-alanine 4-6.4 g/day 5-8 weeks (SR 2025); For carnosine itself, the timing has not been established.",
+   "title": "Carnosine",
+   "upper_limit": "not established (not given in abstracts)",
+   "verdict": "not confirmed",
+   "who_needs": "High-intensity athletes - data via β-alanine precursor (exercise capacity 0.5-10 min, ES 0.50); There is little direct data on carnosine supplementation itself."
+  }
+ }
+}

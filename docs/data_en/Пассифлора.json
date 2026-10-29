@@ -1,0 +1,67 @@
+{
+ "_meta": {
+  "card": "Пассифлора",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Пассифлора": {
+   "about": "Mild herbal sedative. One of the few to show an effect in RCT on falling asleep - comparable to oxazepam in some studies (but small samples).",
+   "category": "Sleep",
+   "category_group": "brain",
+   "caution": "Caution for hypotension (may reduce blood pressure). Rarely - sedative interaction with alcohol and barbiturates. Cancel 2 weeks before surgery.",
+   "course": "2-4 weeks; for anxiety - as directed",
+   "dosage": "250-500 mg",
+   "effects": [
+    "Falling asleep",
+    "Anxiety",
+    "Sleep quality"
+   ],
+   "food_sources": "Not consumed as food - leaves and flowers in the form of infusion or extract.",
+   "forms": [
+    "extract (vitexin 2-4%)"
+   ],
+   "guidelines": "It is included in the European phytotherapeutic tradition as an anxiolytic. EFSA does not approve health claims, but the EMA does include traditional herbal medicines.",
+   "how_to_choose": "Standardized extract for flavonoids (vitexin 2-4%). Tea mixtures are weaker, but work for mild anxiety.",
+   "interactions": [
+    {
+     "note": "enhances sedation",
+     "severity": "medium",
+     "with": "sedatives"
+    },
+    {
+     "note": "theoretical risk",
+     "severity": "medium",
+     "with": "MAO inhibitors"
+    }
+   ],
+   "mechs": [
+    [
+     "Flavonoids (vitexin, isovitexin): GABA-A agonism",
+     "Sedative effect, improved sleep",
+     "moderate"
+    ],
+    [
+     "Maltol and ethyl maltol: reducing anxiety",
+     "Anxiolytic effect",
+     "moderate"
+    ],
+    [
+     "MAO inhibition (weak)",
+     "Mood, emotional background",
+     "weak"
+    ]
+   ],
+   "myths": "“Replaces sleeping pills” - no, the effect is weaker and milder. “Instantly knocks you out” - does not work like benzodiazepines.",
+   "name": "Passionflower",
+   "onset": "30-60 minutes after administration; for a lasting effect - 1-2 weeks.",
+   "title": "Passionflower",
+   "upper_limit": "There is no formal UL. Doses up to 4 g of dry leaf are well tolerated.",
+   "verdict": "depends on context",
+   "who_needs": "People with difficulty falling asleep (stressful periods). Not for chronic insomnia - there's melatonin or CBT-I. For mild anxiety."
+  }
+ }
+}

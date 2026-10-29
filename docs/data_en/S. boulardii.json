@@ -1,0 +1,53 @@
+{
+ "_meta": {
+  "card": "S. boulardii",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "S. boulardii": {
+   "about": "Yeast probiotic: effective and safe in 84% of cases in 27 RCTs (5029 patients); reduces the risk of diarrhea with antibiotics (RR 0.47).",
+   "category": "Gut",
+   "category_group": "gut",
+   "caution": "Safety confirmed in 27 RCTs and 5029 patients; in critically ill patients with central venous catheters was not assessed in abstracts.",
+   "course": "Course for the duration of taking antibiotics; for the prevention of diarrhea in travelers - from the beginning of the trip.",
+   "dosage": "No data",
+   "effects": [
+    "Prevention of diarrhea with antibiotics",
+    "Acute diarrhea in children",
+    "Diarrhea in travelers"
+   ],
+   "food_sources": "Not a food product, but a yeast preparation; kefir and sauerkraut are not sources of S. boulardii.",
+   "guidelines": "ESPGHAN 2016: S. boulardii - moderate quality, strong recommendation for antibiotic prophylaxis of diarrhea in children. WJG 2010: Strongly recommended for adults.",
+   "how_to_choose": "Indicate the S. boulardii strain and CFU number; ESPGHAN is recommended for the prevention of diarrhea in children. Combinations with zinc were studied separately.",
+   "interactions": [],
+   "mechs": [
+    [
+     "Yeast probiotic competes with pathogens for adhesion to the intestinal epithelium",
+     "Reduced incidence of diarrhea with antibiotics (RR 0.47)",
+     "strong"
+    ],
+    [
+     "Production of antimicrobial metabolites and support of intestinal barrier function",
+     "Reducing the duration of acute diarrhea",
+     "moderate"
+    ],
+    [
+     "Stabilization of microflora against the background of H. pylori eradication",
+     "Reduction of symptoms after H. pylori therapy",
+     "weak"
+    ]
+   ],
+   "myths": "“Cures any diarrhea” is mainly prevention. “All probiotics are safe” – Cochrane 2020 has low quality of evidence. “It works the same for everyone” - with zinc the effect is stronger.",
+   "name": "S. boulardii",
+   "onset": "Prevention from the first day of antibiotics; for acute diarrhea, reduce the duration - within the limits of the dose, days.",
+   "title": "S. boulardii",
+   "upper_limit": "not set in abstracts",
+   "verdict": "works",
+   "who_needs": "Adults on a course of antibiotics - prevention of diarrhea; children - in combination with zinc for acute diarrhea. Treatment of diarrhea that has already begun—limited data."
+  }
+ }
+}

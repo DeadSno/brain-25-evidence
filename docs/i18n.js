@@ -2687,12 +2687,39 @@ var EN_CARD_FIELDS = [
   'guidelines', 'how_to_choose', 'myths', 'forms', 'mechs', 'interactions',
   'synergists', 'antagonists'
 ];
-var _enCardsPromise = null;
+var _enCardsPromise = null;          // полный оверлей (каталог, hactar)
+var _enCardPromises = Object.create(null); // по одной карте: id -> promise
 
 // Загружается только в EN и только один раз за страницу. Ошибка сети не
 // фатальна: возвращаем null, страница остаётся на русских данных.
-function loadEnCards() {
+// cardId — загрузить только одну карточку (docs/data_en/<id>.json, ~2–3 КБ
+// вместо полного data_en.json, 326 КБ — FIX-55 / CWV-06). Без cardId —
+// полный оверлей (каталог sup/index.html, Hactar).
+function loadEnCards(cardId) {
   if (LOCALE !== 'en') return Promise.resolve(null);
+  if (cardId) {
+    if (_enCardPromises[cardId]) return _enCardPromises[cardId];
+    var url = EN_DATA_BASE + 'data_en/' + cardId + '.json?v=' + dataVersion();
+    _enCardPromises[cardId] = fetch(url)
+      .then(function (r) {
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.json();
+      })
+      .then(function (d) { return (d && d.supplements) || {}; })
+      .catch(function (err) {
+        console.warn('[i18n] data_en/' + cardId + '.json не загрузился:', err && err.message);
+        _enCardPromises[cardId] = null;   // разрешаем повтор
+        return null;
+      });
+    // CWV-01: снимаем завесу после того, как вызывающий код разложил перевод
+    // по странице. setTimeout(0) — нарочно: обработчики страницы (.then на
+    // этом же промисе) регистрируются позже нашего и должны успеть
+    // выполниться до показа main, иначе шифт просто переедет на мгновение.
+    _enCardPromises[cardId].then(function () {
+      setTimeout(releaseI18nPending, 0);
+    }, releaseI18nPending);
+    return _enCardPromises[cardId];
+  }
   if (!_enCardsPromise) {
     _enCardsPromise = fetch(EN_DATA_BASE + EN_DATA_FILE + '?v=' + dataVersion())
       .then(function (r) {
@@ -2705,10 +2732,6 @@ function loadEnCards() {
         _enCardsPromise = null;   // разрешаем повтор
         return null;
       });
-    // CWV-01: снимаем завесу после того, как вызывающий код разложил перевод
-    // по странице. setTimeout(0) — нарочно: обработчики страницы (.then на
-    // этом же промисе) регистрируются позже нашего и должны успеть
-    // выполниться до показа main, иначе шифт просто переедет на мгновение.
     _enCardsPromise.then(function () {
       setTimeout(releaseI18nPending, 0);
     }, releaseI18nPending);
@@ -2862,7 +2885,7 @@ function initEnSupData() {
   var id = body && body.getAttribute('data-sup-id');
   var isCatalog = !!(body && body.querySelector('a[data-sup-id]'));
   if (!id && !isCatalog) return Promise.resolve();
-  return loadEnCards().then(function (cards) {
+  return loadEnCards(id).then(function (cards) {
     if (!cards) return;
     if (id) {
       if (cards[id]) applyEnSupData(cards[id]);

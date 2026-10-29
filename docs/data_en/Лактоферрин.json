@@ -1,0 +1,60 @@
+{
+ "_meta": {
+  "card": "Лактоферрин",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Лактоферрин": {
+   "about": "Milk glycoprotein: preterm lower late sepsis (2 Cochrane); children - sepsis and diarrhea, not ARI.",
+   "category": "Immunity / Children",
+   "category_group": "immune",
+   "caution": "Lactoferrin is a milk glycoprotein. For prematurity: 2 Cochrane reviews support prevention of late-onset sepsis and NEC. For pediatric infections: data available. For iron status: improves absorption. Safe. Caution: milk protein allergy.",
+   "course": "—",
+   "dosage": "100-200 mg",
+   "effects": [
+    "Hardware: context (adjunct) (not confirmed)"
+   ],
+   "food_sources": "Lactoferrin - in breast milk (especially colostrum) and cow's milk; additive - extracted protein.",
+   "guidelines": "Cochrane 2020 (12 RCT, 5425): late sepsis RR 0.82, NNTB 25, low quality. MA 2025: sepsis OR 0.60, diarrhea 0.56.",
+   "how_to_choose": "100-200 mg/day lactoferrin; for premature babies - only for their intended purpose; Be careful if you are allergic to milk.",
+   "interactions": [
+    {
+     "note": "synergist, improves absorption",
+     "severity": "low",
+     "with": "iron supplements"
+    }
+   ],
+   "mechs": [
+    [
+     "Fe binds → transport + hepcidin modulation",
+     "Hardware: context (adjunct)",
+     "context"
+    ],
+    [
+     "Antimicrobial protection in premature infants (intestinal barrier)",
+     "Late sepsis: RR 0.82 (12 RCT, 5425, low confidence); NNTB 25",
+     "weak"
+    ],
+    [
+     "Antimicrobial effect in childhood infections",
+     "Pediatrics: sepsis OR 0.60, diarrhea OR 0.56; ARI without effect (25 studies)",
+     "weak"
+    ]
+   ],
+   "myths": "“Kills all infections” - from ARI in children without effect (OR 0.61, NS). “Works in adults” – neonatal/pediatric evidence.",
+   "name": "Lactoferrin",
+   "onset": "Preventive and course: in premature infants with regular addition to the diet.",
+   "synergists": [
+    "Iron"
+   ],
+   "title": "Lactoferrin",
+   "upper_limit": "No formal UL listed - no toxicity data available.",
+   "verdict": "works",
+   "who_needs": "Premature under medical supervision (prevention of late sepsis, NNTB 25); children with frequent intestinal/septic infections."
+  }
+ }
+}

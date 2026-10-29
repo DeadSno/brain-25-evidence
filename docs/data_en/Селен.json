@@ -1,0 +1,62 @@
+{
+ "_meta": {
+  "card": "Селен",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Селен": {
+   "about": "Selenium is a trace element for the thyroid gland; the effect of dietary supplements was confirmed in patients with Hashimoto's thyroiditis; in healthy people with normal status, no benefit was shown.",
+   "category": "General",
+   "category_group": "general",
+   "caution": "Toxic in excess (selenosis); if the status is normal, supplements are not recommended; discuss the dose with your doctor.",
+   "course": "Course according to RCT schemes from MA 2024 (weeks-months), duration - on the dynamics of antibodies and TSH under the supervision of a physician.",
+   "dosage": "The exact dose of selenium in dietary supplements is not given in the abstracts.",
+   "effects": [
+    "Hashimoto's",
+    "Thyroid"
+   ],
+   "food_sources": "Brazil nuts, seafood, eggs, meat, organ meats, whole grains; The content in food depends greatly on the soil.",
+   "forms": [
+    "l-selenomionine",
+    "selenium yeast"
+   ],
+   "guidelines": "MA 2024 (35 RCT): selenium reduces TSH (SMD -0.21), TPOAb (SMD -0.96), MDA; network-MA 2024: TPOAb (SMD -2.44) and TgAb (SMD -2.76); ESPEN 2022: status monitoring.",
+   "how_to_choose": "Only in cases of confirmed deficiency or Hashimoto's disease, the dose is as per the doctor; if the status is normal, the supplement is not indicated.",
+   "interactions": [
+    {
+     "note": "may reduce the effect (debatable)",
+     "severity": "low",
+     "with": "statins"
+    }
+   ],
+   "mechs": [
+    [
+     "Participation in the synthesis of selenoproteins and antioxidant protection of the thyroid gland",
+     "reduction of TPOAb/TgAb and TSH in Hashimoto's (MA 2024)",
+     "moderate"
+    ],
+    [
+     "Reduced oxidative stress (MDA marker)",
+     "reduction in MDA when taking selenium (MA 2024)",
+     "moderate"
+    ],
+    [
+     "Effective only in case of deficiency or autoimmune process",
+     "healthy people with normal levels have no effect",
+     "context"
+    ]
+   ],
+   "myths": "“Selenium is good for everyone’s thyroid gland” - the effect is shown for Hashimoto’s, but not for everyone. “It’s worth drinking just in case” - no benefit is shown at normal levels. “Every form is the same”—the forms in the abstracts were not compared.",
+   "name": "Selenium",
+   "onset": "In Hashimoto's, a decrease in TPOAb and TSH is described by the course of administration; in MA 2024, the effect on TSH (SMD -0.21) is within the framework of RCT, the timing is not allocated.",
+   "title": "Selenium",
+   "upper_limit": "not established (not given in abstracts; high doses - risk of selenosis)",
+   "verdict": "depends on context",
+   "who_needs": "Patients with Hashimoto's thyroiditis - decreased antibodies and TSH (MA 2024); if selenium deficiency is confirmed, correction according to status; For healthy people with normal levels, the supplement is not indicated."
+  }
+ }
+}

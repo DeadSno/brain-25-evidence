@@ -1,0 +1,61 @@
+{
+ "_meta": {
+  "card": "Шиитаке",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Шиитаке": {
+   "about": "The edible mushroom with the most researched evidence base among mushrooms. Lentinan is approved in Japan as an adjuvant for cancer therapy.",
+   "category": "Immunity",
+   "category_group": "immune",
+   "caution": "In its raw form it contains lentinan, which is not digested - only eaten cooked. Rarely - allergies. May interact with anticoagulants.",
+   "course": "4-12 weeks",
+   "dosage": "500-1500 mg",
+   "effects": [
+    "Immunity",
+    "Cholesterol (weak)"
+   ],
+   "food_sources": "The edible mushroom is a source of vitamins B and D (with UV irradiation). Used in soups, stir-fries, and Asian cuisine.",
+   "forms": [
+    "mushrooms (fresh/dried) or extract (polysaccharides 20%+)"
+   ],
+   "guidelines": "Lentinan is approved in Japan as an antitumor adjuvant (for clinics, not for dietary supplements). EFSA - no health claims.",
+   "how_to_choose": "Fresh or dried mushrooms from the store are more reliable than capsules. When choosing an extract, the concentration of polysaccharides is 20%+.",
+   "interactions": [
+    {
+     "note": "theoretically enhances",
+     "severity": "low",
+     "with": "warfarin"
+    }
+   ],
+   "mechs": [
+    [
+     "Lentinan (β-1,3-glucan): activation of dendritic cells and macrophages",
+     "Immune modulation",
+     "moderate"
+    ],
+    [
+     "Erytadenine: lower cholesterol levels",
+     "Lipid profile (weak)",
+     "weak"
+    ],
+    [
+     "Ergothioneine: antioxidant",
+     "Protection against oxidative stress",
+     "weak"
+    ]
+   ],
+   "myths": "“Works against all types of cancer” is an exaggeration, only an adjuvant for specific types. “Raw mushrooms are healthier” - raw mushrooms contain indigestible lentinan + risk of poisoning.",
+   "name": "Shiitake",
+   "onset": "2-4 weeks; mainly through nutrition.",
+   "title": "Shiitake",
+   "upper_limit": "There is no formal UL. Doses up to 2-3 g/day of extract are well tolerated.",
+   "verdict": "depends on context",
+   "who_needs": "Mainly as part of the diet. In capsules - for immune support. NOT to treat anything."
+  }
+ }
+}

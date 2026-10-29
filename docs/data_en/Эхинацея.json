@@ -1,0 +1,65 @@
+{
+ "_meta": {
+  "card": "Эхинацея",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Эхинацея": {
+   "about": "Immunomodulator: ARI prevention - slight reduction in incidence (RR 0.78); treatment duration - no effect shown.",
+   "category": "Immunity / Viral Infections",
+   "category_group": "immune",
+   "caution": "For ARI PREVENTION: significant effect (-22% incidence, Cochrane 2014). For TREATMENT after the onset of symptoms: NO effect. Security: good in the short term (RR 1.09, 0.95-1.25 - not significant). Different species (E. purpurea, E. angustifolia) and extracts - effectiveness varies. Caution: autoimmune diseases.",
+   "course": "up to 8 weeks",
+   "dosage": "No data",
+   "effects": [
+    "Prevention of ARI (claimed) (not confirmed)"
+   ],
+   "food_sources": "Not edible (root/herb in supplements).",
+   "forms": [
+    "alcohol extract or juice"
+   ],
+   "guidelines": "EFSA: claims not approved. Cochrane 2014: heterogeneity among products is high. MA 2019: no effect on duration, RR 0.78 on frequency (clinical significance is debatable).",
+   "how_to_choose": "E. purpurea (not angustifolia); alcoholic extract or juice.",
+   "interactions": [
+    {
+     "note": "antagonism effects",
+     "severity": "high",
+     "with": "immunosuppressants"
+    },
+    {
+     "note": "theoretical risk",
+     "severity": "medium",
+     "with": "hepatotoxic drugs"
+    }
+   ],
+   "mechs": [
+    [
+     "Arabinogalactans: immunomodulation",
+     "Prevention of colds: the effect is minimal, MAs are contradictory",
+     "weak"
+    ],
+    [
+     "Prevention of ARI (reduction in episode frequency)",
+     "ARI frequency: RR 0.78 (95% CI 0.68-0.88); clinical significance is questionable",
+     "weak"
+    ],
+    [
+     "Cold treatment: duration of symptoms",
+     "Duration of ARI: MD -0.45 days with CI through zero - no effect",
+     "marketing"
+    ]
+   ],
+   "myths": "“Prevents colds”—the effect on frequency is modest (RR 0.78). “Reduces duration” - MD −0.45 days, insignificant; effectiveness has not been confirmed.",
+   "name": "Echinacea",
+   "onset": "Prevention - 4-8 weeks. Treatment duration - effect not confirmed.",
+   "title": "Echinacea",
+   "upper_limit": "900 mg extract/day; higher - GI discomfort.",
+   "verdict": "depends on context",
+   "who_needs": "Prevention during the season ARI (modest). Treatment of colds - no effect."
+  }
+ }
+}

@@ -1,0 +1,51 @@
+{
+ "_meta": {
+  "card": "Марганец",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Марганец": {
+   "about": "Manganese is an essential trace element, but the SR on minerals for sports explicitly states: no relevant work on manganese was found.",
+   "category": "General",
+   "category_group": "general",
+   "caution": "ESPEN notes the potential toxicity of micronutrients in excess; There is no data on safe doses of manganese in the pool.",
+   "course": "not specified",
+   "dosage": "No data",
+   "effects": [
+    "Correction of manganese deficiency"
+   ],
+   "food_sources": "Cereals, nuts and tea; Separate data on the sources of manganese are not provided in the abstracts of the pool.",
+   "guidelines": "ESPEN 2022 makes recommendations for micronutrients based on consensus: there are few intervention studies, and a meta-analysis could not be performed.",
+   "how_to_choose": "Manganese supplementation is not supported by any human work in the pool; if a deficiency is suspected, analysis rather than independent use.",
+   "interactions": [],
+   "mechs": [
+    [
+     "Minerals and trace elements are involved in hundreds of biological processes, and manganese belongs to this class",
+     "Correction of deficiency with nutritional support",
+     "weak"
+    ],
+    [
+     "Micronutrient deficiency is considered as a possible factor in the pathogenesis of androgenic alopecia",
+     "Possible effect on hair loss",
+     "weak"
+    ],
+    [
+     "No relevant works on manganese were found in SR on sports minerals",
+     "The effect of the additive has not been studied",
+     "marketing"
+    ]
+   ],
+   "myths": "“All athletes need manganese” - no studies on manganese were found in SR for 128 works. “Improves hair growth” - in the SR on alopecia, manganese is only in the list, it is not in the conclusions.",
+   "name": "Manganese",
+   "onset": "Not studied: There is no RCT with manganese in the pool.",
+   "title": "Manganese",
+   "upper_limit": "not listed in abstracts",
+   "verdict": "not confirmed",
+   "who_needs": "Only with confirmed deficiency or with nutritional support. Manganese deficiency was not identified in either the athletic performance data or the vegan diet data."
+  }
+ }
+}

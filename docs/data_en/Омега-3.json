@@ -1,0 +1,65 @@
+{
+ "_meta": {
+  "card": "Омега-3",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Омега-3": {
+   "about": "Polyunsaturated fatty acids: membranes, inflammation, brain, triglycerides.",
+   "category": "Heart",
+   "category_group": "cardio",
+   "caution": "GENERAL omega-3s (DHA+EPA from fish oil) have LITTLE effect. Pure EPA (icosapent ethyl, prescription) - STRONG for hyperTG + CVD/diabetes. >4 g/day: risk of bleeding + AF. Cheap brands: contamination.",
+   "course": "8-12 weeks",
+   "dosage": "1-2 g",
+   "effects": [
+    "Neuroplasticity"
+   ],
+   "food_sources": "Salmon, mackerel, sardines, herring; plant ALA (flax, walnut) is converted to EPA/DHA by 5-10%.",
+   "forms": [
+    "triglyceride",
+    "ethyl ester",
+    "FFF"
+   ],
+   "guidelines": "EFSA: DHA for brain and vision. AHA: fish 2 times a week. Cochrane: at CVD events - “little or no effect” (not “modest”).",
+   "how_to_choose": "On the can there are mg of EPA+DHA, not “fish oil 1000 mg”; TG/rTG forms; oxidation (TOTOX) if indicated.",
+   "interactions": [
+    {
+     "note": "enhances the effect, control of clotting",
+     "severity": "medium",
+     "with": "anticoagulants (warfarin, heparin)"
+    },
+    {
+     "note": "additional antiplatelet effect",
+     "severity": "low",
+     "with": "NSAIDs"
+    }
+   ],
+   "mechs": [
+    [
+     "EPA/DHA in neuronal membranes + resolvins (resolution of inflammation)",
+     "Neuroplasticity, mood support",
+     "strong"
+    ],
+    [
+     "High-dose EPA: stabilization of atherosclerotic plaques and triglycerides",
+     "Fewer cardiovascular events in high-risk and TG patients on statins",
+     "context"
+    ]
+   ],
+   "myths": "“Any fish oil works” – a 1000 mg capsule can contain 300 mg EPA+DHA. “Plant omega equivalent” - ALA conversion is low.",
+   "name": "Omega-3",
+   "onset": "Triglycerides and CVD markers - 4-8 weeks; there is little data for other outcomes.",
+   "synergists": [
+    "Vitamin E"
+   ],
+   "title": "Omega-3",
+   "upper_limit": "Up to 5 g EPA+DHA per day is safe (EFSA); above 3 g on anticoagulants - only with a doctor.",
+   "verdict": "depends on context",
+   "who_needs": "Fatty fish less than 2 times a week; elevated triglycerides (with your doctor); pregnancy (DHA)."
+  }
+ }
+}

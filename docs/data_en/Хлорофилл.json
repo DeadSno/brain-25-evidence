@@ -1,0 +1,60 @@
+{
+ "_meta": {
+  "card": "Хлорофилл",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Хлорофилл": {
+   "about": "Chlorophyllin reduces the bioavailability of aflatoxins; “detox” and “for acne” are not confirmed.",
+   "category": "Metabolism",
+   "category_group": "metab",
+   "caution": "Chlorophyll/chlorophyllin. There are NO meta-analyses or systematic reviews on clinical effects in PubMed. Popular claims: 'detox', 'antioxidant', 'wound healing', 'anti-carcinogenic' - are not supported by systematic evidence. Chlorophyllin (semi-synthetic water-soluble form) has been studied in the context of reducing aflatoxin absorption, but no systematic reviews are available. Popularity on TikTok/Instagram ≠ evidence.",
+   "course": "—",
+   "dosage": "100 mg/day (TikTok trend)",
+   "effects": [
+    "Aflatoxin detox (confirmed)",
+    "Acne/odor - not confirmed"
+   ],
+   "food_sources": "Green vegetables - spinach, parsley, cabbage; chlorophyllin - water-soluble form as a supplement.",
+   "forms": [
+    "chlorophyllin (water soluble form)"
+   ],
+   "guidelines": "Qidong (n=180, 4 months): aflatoxin adducts −55%. Leukopenia: 85% vs 26.7% (n=105). Topically - pilot n=10. MA no.",
+   "how_to_choose": "Chlorophyllin 100 mg/day - only with a known aflatoxin load; on the skin - gel with Cu-chlorophyllin.",
+   "interactions": [],
+   "mechs": [
+    [
+     "Porphyrin ring; binds odorants in vitro",
+     "Acne/odor/detox: not confirmed",
+     "marketing"
+    ],
+    [
+     "Complexation of carcinogens in GI: blocking bioavailability",
+     "Aflatoxin adducts in urine: −55% (RCT, 180 people, Qidong)",
+     "moderate"
+    ],
+    [
+     "Topical application for photodamaged skin (topical)",
+     "Photodamaged skin: improvement within 8 weeks; pilot n=10",
+     "weak"
+    ],
+    [
+     "Stimulation of granulopoiesis in leukopenia (Chinese RCT)",
+     "Leukopenia: effect 85% vs 26.7% placebo (p<0.01); n=105",
+     "weak"
+    ]
+   ],
+   "myths": "“Removes toxins” - only aflatoxin against the background of load. “For acne and odor” - no. TikTok trend ≠ evidence.",
+   "name": "Chlorophyll",
+   "onset": "Coursework: in RCT - 3-4 months (aflatoxin -55%); There is no such thing as an acute “detox.”",
+   "title": "Chlorophyll",
+   "upper_limit": "No formal UL listed - no toxicity data available.",
+   "verdict": "depends on context",
+   "who_needs": "Niches only: aflatoxin load (mold food); leukopenia (Chinese RCT); “wellness detox” for healthy people - no data."
+  }
+ }
+}

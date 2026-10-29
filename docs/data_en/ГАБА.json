@@ -1,0 +1,65 @@
+{
+ "_meta": {
+  "card": "ГАБА",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "ГАБА": {
+   "about": "Main inhibitory neurotransmitter; oral GABA does not pass the BBB well - sleep/stress is poorly confirmed.",
+   "category": "Mental Health / Sleep",
+   "category_group": "brain",
+   "caution": "Gamma-aminobutyric acid (GABA). A systematic review of 14 placebo-controlled RCTs found: LIMITED evidence for stress, VERY LIMITED for sleep. The main problem: oral GABA does not cross the blood-brain barrier (BBB). The clinical effect is doubtful. The evidence is mixed and the quality of RCTs is often poor.",
+   "course": "—",
+   "dosage": "100-300 mg",
+   "effects": [
+    "Calm (stated)"
+   ],
+   "food_sources": "Fermented and fermented foods contain GABA; how much is absorbed into the brain has not been established.",
+   "forms": [
+    "gamma-aminobutyric acid"
+   ],
+   "guidelines": "SR 2020 (14 placebo-RCT): stress - limited evidence, sleep - very limited; There are no recommendations on dose/course.",
+   "how_to_choose": "If you try it, 100–300 mg (research doses); You shouldn’t expect any effect - card D.",
+   "interactions": [
+    {
+     "note": "may enhance the effect",
+     "severity": "medium",
+     "with": "antihypertensive"
+    },
+    {
+     "note": "may increase sedation",
+     "severity": "low",
+     "with": "sedatives"
+    }
+   ],
+   "mechs": [
+    [
+     "Does not pass the BBB: transporter transfer is limited",
+     "The claimed dream has not been confirmed",
+     "marketing"
+    ],
+    [
+     "Peripheral mechanisms of stress response to oral GABA",
+     "Stress: limited evidence, effect inconsistent (SR 2020)",
+     "weak"
+    ],
+    [
+     "Neuromodulation from the outside without passing the BBB (periphery/vagus nerve)",
+     "Sleep: very limited data, not confirmed (SR 2020)",
+     "context"
+    ]
+   ],
+   "myths": "“Calms as a pharmaceutical drug” - limited evidence, some RCT without effect. “Goes to the brain” - the BBB passes the worst.",
+   "name": "GABA",
+   "onset": "The effect is unstable: stress is limited, sleep is very limited (SR 2020).",
+   "title": "GABA",
+   "upper_limit": "No formal UL listed - no toxicity data available.",
+   "verdict": "not confirmed",
+   "who_needs": "Undecided: a review of 14 RCTs provided limited evidence for stress and very limited evidence for sleep; healthy no."
+  }
+ }
+}

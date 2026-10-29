@@ -1,0 +1,66 @@
+{
+ "_meta": {
+  "card": "Йод",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Йод": {
+   "about": "Iodine is a trace element for the thyroid gland; in the selection of abstracts there are no positive MA specifically for iodine supplements; there is data on iodine restriction in Hashimoto’s.",
+   "category": "Hormones",
+   "category_group": "metab",
+   "caution": "Excess iodine can worsen thyroiditis; for diseases of the thyroid gland - medical supervision; Without a deficiency, supplementation is not justified.",
+   "course": "Not established: There is no data on the effectiveness of additives in the abstracts.",
+   "dosage": "The dosages of iodine dietary supplements are not given in the abstracts.",
+   "effects": [
+    "Thyroid gland"
+   ],
+   "food_sources": "Seafood, fish, seaweed, iodized salt, dairy products; Content depends on region and soil.",
+   "forms": [
+    "potassium iodide",
+    "algae"
+   ],
+   "guidelines": "ESPEN 2022: assessment of status and prescription of microelements for deficiency; SR 2023 (Hashimoto): iodine restriction had no effect; There are no positive MAs for iodine supplements in the selection.",
+   "how_to_choose": "Take only with a confirmed deficiency as prescribed by a doctor; dose and form - according to status; for diseases of the thyroid gland - a special scheme.",
+   "interactions": [
+    {
+     "note": "antagonism effects",
+     "severity": "high",
+     "with": "antithyroid drugs"
+    },
+    {
+     "note": "risk of hypothyroidism",
+     "severity": "medium",
+     "with": "lithium preparations"
+    }
+   ],
+   "mechs": [
+    [
+     "Correction of established iodine deficiency",
+     "supporting thyroid function in case of deficiency",
+     "context"
+    ],
+    [
+     "Iodine in the diet for Hashimoto's thyroiditis",
+     "Iodine restriction had no effect (SR 2023)",
+     "context"
+    ],
+    [
+     "Assessment of trace element status in the clinic",
+     "Deficiencies are significant in acute and chronic diseases (ESPEN 2022)",
+     "context"
+    ]
+   ],
+   "myths": "“More iodine means better thyroid” - in a 2023 review, a diet with iodine restriction did not show any effect. “Everyone needs iodine” - supplementation is logical only if there is an established deficiency. “Iodine is harmless” - excess iodine affects the gland.",
+   "name": "Iodine",
+   "onset": "No data: the timing of the effect of iodine dietary supplements is not described in abstracts.",
+   "title": "Iodine",
+   "upper_limit": "not established (not given in abstracts)",
+   "verdict": "not confirmed",
+   "who_needs": "Correction of iodine deficiency - based on nutritional status (ESPEN emphasizes the importance of deficiencies); for Hashimoto's, reducing iodine had no effect; healthy without data deficiency there is no."
+  }
+ }
+}

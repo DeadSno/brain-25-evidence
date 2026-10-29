@@ -1,0 +1,60 @@
+{
+ "_meta": {
+  "card": "Кордицепс",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Кордицепс": {
+   "about": "TCM fungus: CKD has lower creatinine/proteinuria; Metabolism is better after transplantation.",
+   "category": "Kidneys / Endurance",
+   "category_group": "cardio",
+   "caution": "Cordyceps sinensis is a mushroom from traditional Chinese medicine. For CKD: 2 Cochrane reviews (25519252, 26457607) show improvement in renal function as an adjuvant to standard therapy. For kidney transplant recipients: data available. For endurance: limited data (individual RCTs, not systematically compiled). For pulmonary diseases: limited data. Expensive drug, often counterfeited.",
+   "course": "—",
+   "dosage": "1-3 g",
+   "effects": [
+    "VO2: weak in the elderly, none in athletes"
+   ],
+   "food_sources": "Not food: mushroom, TCM raw materials; the drug is expensive and often counterfeited - there is no food source.",
+   "forms": [
+    "mushroom (standardized)"
+   ],
+   "guidelines": "2024 MA (lung cancer): adjuvant - QoL better; 2024 MA (COPD, Bailing): lung function is higher. Standardization of form is critical.",
+   "how_to_choose": "1-3 g/day of standardized mushroom, with quality control; for CKD/transplantation - only with a doctor.",
+   "interactions": [
+    {
+     "note": "antagonism effects",
+     "severity": "medium",
+     "with": "immunosuppressants"
+    }
+   ],
+   "mechs": [
+    [
+     "Cordycepin: ATP and O2 utilization (mice)",
+     "VO2: weak in the elderly, none in athletes",
+     "weak"
+    ],
+    [
+     "Reduction of creatinine and proteinuria in CKD (not on dialysis)",
+     "CKD: creatinine −61 µmol/l, clearance +9.2; RCT quality is poor",
+     "weak"
+    ],
+    [
+     "Adjuvant to immunosuppression after kidney transplantation",
+     "Rejection = azathioprine, but nephrotoxicity and metabolism are better (2017)",
+     "context"
+    ]
+   ],
+   "myths": "“Sports ergogenics” - RCTs for endurance are single, not systematized. “It will cure the kidneys on its own” - only an adjuvant, the quality of RCT is weak.",
+   "name": "Cordyceps",
+   "onset": "Coursework: markers are better during CKD therapy; after transplantation the effect is 6-12 months.",
+   "title": "Cordyceps",
+   "upper_limit": "No formal UL listed - no toxicity data available.",
+   "verdict": "works",
+   "who_needs": "CKD without dialysis (adjuvant, with a doctor); kidney transplant recipients (not in place of immunosuppression); sport is not justified."
+  }
+ }
+}

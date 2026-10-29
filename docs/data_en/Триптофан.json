@@ -1,0 +1,60 @@
+{
+ "_meta": {
+  "card": "Триптофан",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Триптофан": {
+   "about": "Serotonin/melatonin precursor: with ≥1 g/day, fewer night awakenings; the mood is mildly better.",
+   "category": "Mental Health / Sleep",
+   "category_group": "brain",
+   "caution": "L-tryptophan is a precursor of serotonin. Effect on sleep ONLY at >=1 g/day. DO NOT combine with SSRI/MAOI (serotonin syndrome). Dose: 0.14-3 g/day.",
+   "course": "—",
+   "dosage": "500-1000 mg",
+   "effects": [
+    "Sleep, mood"
+   ],
+   "food_sources": "Turkey, milk, cheese, eggs, bananas, oatmeal; for 1 g/day it is more convenient to supplement with L-tryptophan.",
+   "forms": [
+    "L-tryptophan"
+   ],
+   "guidelines": "MA 2022: awakenings −81 min/g (SMD −1.08), stronger with ≥1 g/day. SR 2021 (11 RCT): Low Alert.",
+   "how_to_choose": "L-tryptophan ≥1 g/day before bedtime course; do not combine with SSRI/MAOI due to serotonin syndrome.",
+   "interactions": [
+    {
+     "note": "serotonin syndrome, DANGER",
+     "severity": "critical",
+     "with": "SSRI/MAO antidepressants"
+    }
+   ],
+   "mechs": [
+    [
+     "Precursor to serotonin → melatonin",
+     "Sleep and mood (softly)",
+     "context"
+    ],
+    [
+     "Melatonin synthesis: dosage ≥1 g reduces awakenings",
+     "WASO −81 min/g (SMD −1.08); other sleep components unchanged",
+     "moderate"
+    ],
+    [
+     "Boosting Serotonin: Reducing Anxiety in Healthy People",
+     "Negative emotions down, positive emotions up (4/11 RCT); aggression - no",
+     "weak"
+    ]
+   ],
+   "myths": "“The mood swings” - in healthy people it is moderate (4/11 RCT), aggression without shift. “500 mg is enough” - awakening only reduces ≥1 g/day.",
+   "name": "Tryptophan",
+   "onset": "Course: less awakenings with regular ≥1 g/day; a single dose is not enough.",
+   "title": "Tryptophan",
+   "upper_limit": "No formal UL listed - no toxicity data available.",
+   "verdict": "works",
+   "who_needs": "Poor sleep with frequent awakenings and shallow phases; mild decreased mood/anxiety in healthy people; not with SSRI/MAOI."
+  }
+ }
+}

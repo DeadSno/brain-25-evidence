@@ -1,0 +1,62 @@
+{
+ "_meta": {
+  "card": "Альфа-липоевая кислота",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Альфа-липоевая кислота": {
+   "about": "Antioxidant and coenzyme: sensory symptoms of diabetic polyneuropathy are lower; Doesn't help you lose weight.",
+   "category": "Neurology / Metabolism",
+   "category_group": "brain",
+   "caution": "Alpha lipoic acid (ALA) is an antioxidant. For diabetic peripheral neuropathy: A Cochrane review supports efficacy (600 mg/day IV or PO). For cardiometabolic factors: data available. For weight: the effect is small. For the liver (MASLD): data available. For fertility: limited data. Safe in doses of 300-600 mg/day. Caution: diabetes (reduce sugar, adjust insulin dose).",
+   "course": "—",
+   "dosage": "600 mg/day",
+   "effects": [
+    "Neuropathy: moderate; weight loss - no (not confirmed)"
+   ],
+   "food_sources": "Liver, spinach, broccoli: ALA in bound form - the 600 mg studied cannot be obtained from food.",
+   "guidelines": "MA 2023 (10 RCT, 1242): sensory symptoms lower, dose-dependent; Cochrane 2024 (816) showed no benefit after 6 months.",
+   "how_to_choose": "600 mg/day – research dose; higher only with a doctor; in case of diabetes, adjust glucose-lowering medications.",
+   "interactions": [
+    {
+     "note": "enhances the hypoglycemic effect",
+     "severity": "medium",
+     "with": "insulin/glycemic agents"
+    },
+    {
+     "note": "may affect metabolism",
+     "severity": "low",
+     "with": "thyroid medications"
+    }
+   ],
+   "mechs": [
+    [
+     "Coenzyme + glutathione regeneration",
+     "Neuropathy: moderate; weight loss - no",
+     "context"
+    ],
+    [
+     "Reducing oxidative stress and improving nerve fiber microcirculation",
+     "Sensory symptoms of diabetic polyneuropathy are lower, dose-dependent (10 RCT, 1242 people)",
+     "context"
+    ],
+    [
+     "Claimed disease-modifying effect in diabetic neuropathy",
+     "Cochrane review 2024: small/not significant effect on symptoms at 6 months (3 RCT, 816 people)",
+     "marketing"
+    ]
+   ],
+   "myths": "“Cures neuropathy” - Cochrane 2024 for 6 months there is almost no effect, improvement only in sensory symptoms (MA 2023). “Burns fat” - no effect.",
+   "name": "Alpha-Lipoic Acid",
+   "onset": "Effect over a distance of weeks (600–1800 mg/day); Cochrane 2024 sees no benefit for 6 months.",
+   "title": "Alpha-Lipoic Acid",
+   "upper_limit": "No formal UL listed - no toxicity data available.",
+   "verdict": "works",
+   "who_needs": "Diabetic polyneuropathy with sensory symptoms - under medical supervision, 600 mg/day; Don't rely on weight."
+  }
+ }
+}

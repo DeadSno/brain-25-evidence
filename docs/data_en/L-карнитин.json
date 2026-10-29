@@ -1,0 +1,71 @@
+{
+ "_meta": {
+  "card": "L-карнитин",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "L-карнитин": {
+   "about": "Transports fatty acids to mitochondria; the effects are modest: ~1 kg of weight, small shift of markers in T2D.",
+   "category": "Neurology / Sports",
+   "category_group": "brain",
+   "caution": "Acetyl-L-carnitine for diabetic neuropathy: effect ONLY at a dose of >1500 mg/day, certainty VERY LOW. For moving lameness: the effect is insignificant. For weight loss/sports: NO systematic proofs. 2 of 4 studies were funded by the manufacturer.",
+   "course": "—",
+   "dosage": "1-2 g",
+   "effects": [
+    "Weight: minimum (~1 kg); recovery is weak"
+   ],
+   "food_sources": "Red meat is the main source; vegetarians/vegans are usually at the lower end of normal, but deficiency is rare.",
+   "forms": [
+    "L-carnitine",
+    "acetyl-L-carnitine"
+   ],
+   "guidelines": "ALC >1500 mg/d for neuropathy - certainty VERY LOW; T2D: per 1 g/day HbA1c −0.16% (Cochrane 2019/2024).",
+   "how_to_choose": "Regular L-carnitine for metabolism - 1–2 g/day; for neuropathy - acetyl-L-carnitine, doses according to the doctor.",
+   "interactions": [
+    {
+     "note": "may enhance the effect",
+     "severity": "medium",
+     "with": "warfarin"
+    },
+    {
+     "note": "may reduce the effect",
+     "severity": "medium",
+     "with": "thyroid medications"
+    }
+   ],
+   "mechs": [
+    [
+     "Transport of FAs into mitochondria (beta-oxidation)",
+     "Weight: minimum (~1 kg); recovery is weak",
+     "weak"
+    ],
+    [
+     "Neuroprotection and neurotrophy of peripheral nerves (acetyl-L-carnitine)",
+     "Diabetic polyneuropathy: adjunct, clinical benefit not proven",
+     "context"
+    ],
+    [
+     "Metabolic support for muscles during ischemia (propionylcarnitine)",
+     "Intermittent claudication: walking distance, Cochrane 2021",
+     "context"
+    ],
+    [
+     "Dose-dependent improvement of cardiometabolic markers in T2D",
+     "T2D: per 1 g/day HbA1c −0.16%, BMI −0.37, LDL −0.11; the effect is small",
+     "weak"
+    ]
+   ],
+   "myths": "“It will melt fat on mitochondria” - it is stated, but the effect is ~1 kg and is contradictory. “Vitamin therapy” is a dosage form (ALC/PLC), not a dietary supplement.",
+   "name": "L-Carnitine",
+   "onset": "Neuropathy - courses 6-12 months; T2D markers - 12-24 weeks; there is no immediate effect.",
+   "title": "L-Carnitine",
+   "upper_limit": "No formal UL listed - no toxicity data available.",
+   "verdict": "depends on context",
+   "who_needs": "Diabetic neuropathy (>1500 mg/day ALC), T2D with metabolic targets, claudication; for healthy weight loss - weak."
+  }
+ }
+}

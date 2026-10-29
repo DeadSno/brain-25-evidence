@@ -1,0 +1,56 @@
+{
+ "_meta": {
+  "card": "Фосфатидилсерин",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Фосфатидилсерин": {
+   "about": "Phospholipid of neuronal membranes: reduces inattention in ADHD in children; “nootropic” has not been confirmed.",
+   "category": "Cognition / Children",
+   "category_group": "brain",
+   "caution": "Phosphatidylserine is a phospholipid. For children with ADHD: there is evidence of improvement in attention and memory (33539192). For cognitive function in healthy adults: limited data. Safe in standard doses (100-300 mg/day). Historically produced from soybeans (formerly cow brain).",
+   "course": "courses",
+   "dosage": "100-300 mg",
+   "effects": [
+    "Memory (elderly, weak)",
+    "Attention in ADHD in children"
+   ],
+   "food_sources": "There is no separate source in food: the raw material is soy lecithin (formerly cow brain).",
+   "forms": [
+    "soy",
+    "sunflower"
+   ],
+   "guidelines": "MA 2021 (PMID 33539192, 216 children): inattention ES 0.36 significant, low quality; SR 2026 (42538853): not confirmed.",
+   "how_to_choose": "100-300 mg/day PS in courses, standardized composition; for children with ADHD - only with a doctor.",
+   "interactions": [],
+   "mechs": [
+    [
+     "Phospholipid of neuronal membranes: fluidity + modulation of acetylcholine/dopamine",
+     "Memory with age-related decline; in healthy people it is weak",
+     "context"
+    ],
+    [
+     "Reducing inattention in children with ADHD",
+     "Inattention: ES 0.36 (p=0.01) at 200-300 mg/d; quality is low",
+     "moderate"
+    ],
+    [
+     "Cognition in mental disorders (schizophrenia, affect)",
+     "Benefits are uneven, no global improvements - adjunctive (SR 11)",
+     "context"
+    ]
+   ],
+   "myths": "“Panacea” - SR 2026 (11 works): no enhancer. “ADHD cured” – significant inattention, hyperactivity NS. \"Schizophrenia\" - memory in 1 work.",
+   "name": "Phosphatidylserine",
+   "onset": "Coursework: in MA the effect on inattention in ADHD; There is no sharp “focus”.",
+   "title": "Phosphatidylserine",
+   "upper_limit": "No formal UL listed - no toxicity data available.",
+   "verdict": "depends on context",
+   "who_needs": "Children with ADHD: inattention ES 0.36 (200-300 mg/d), low quality, with a doctor; elderly and healthy - without hard data."
+  }
+ }
+}

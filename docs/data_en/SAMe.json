@@ -1,0 +1,60 @@
+{
+ "_meta": {
+  "card": "SAMe",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "SAMe": {
+   "about": "Methyl group donor; helps with depression (adjuvant), osteoarthritis pain and liver support.",
+   "category": "Mental Health / Joints",
+   "category_group": "brain",
+   "caution": "SAMe (S-adenosylmethionine) is a universal donor of methyl groups. For depression: efficacy comparable to SSRIs in RCT. For osteoarthritis: A Cochrane review (19821403) confirms the analgesic effect. For the liver: there is data. For bipolar disorder: CAUTION (risk of mania). High price, low stability - enteric forms are needed. Dose: 400-1600 mg/day.",
+   "course": "—",
+   "dosage": "400-800 mg",
+   "effects": [
+    "Depression adjunct: small MA"
+   ],
+   "food_sources": "You cannot get it directly from food - it is synthesized by the body from methionine (eggs, fish, legumes).",
+   "forms": [
+    "enteric forms"
+   ],
+   "guidelines": "Cochrane 2009: arthrosis pain −0.4 cm VAS, same function. Liver: 1000–1200 mg/d improves parameters (SR 2024).",
+   "how_to_choose": "Enteric forms, 400–800 mg/d on an empty stomach; for depression/bipolar - only with a doctor. Expensive.",
+   "interactions": [
+    {
+     "note": "serotonin syndrome",
+     "severity": "high",
+     "with": "SSRI/MAO antidepressants"
+    }
+   ],
+   "mechs": [
+    [
+     "Donor of methyl groups in the synthesis of NM",
+     "Depression adjunct: small MA",
+     "context"
+    ],
+    [
+     "Reducing pain in knee/hip osteoarthritis",
+     "Pain: SMD −0.17, ~0.4 cm VAS; function without effect (4 RCT, 656)",
+     "weak"
+    ],
+    [
+     "Methylation in Hepatocytes: Support for Liver Diseases",
+     "Liver parameters are better, AEs are rare (1000–1200 mg/d; SR 15 articles)",
+     "context"
+    ]
+   ],
+   "myths": "“Instantly lifts the mood” - with major depression the effect is delayed. “Harmless in bipolar” - risk of mania, only with a doctor.",
+   "name": "SAMe",
+   "onset": "Depression: improvement in the first weeks; pain due to arthrosis - slight change by 1-3 months.",
+   "title": "SAMe",
+   "upper_limit": "No formal UL listed - no toxicity data available.",
+   "verdict": "works",
+   "who_needs": "Adults with depression (adjunct to therapy); for osteoarthritis - mild pain relief; with liver pathology."
+  }
+ }
+}

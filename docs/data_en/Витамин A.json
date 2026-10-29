@@ -1,0 +1,56 @@
+{
+ "_meta": {
+  "card": "Витамин A",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Витамин A": {
+   "about": "Vitamin A is fat soluble and is needed for vision, skin and immunity; data on dietary supplements are mainly about correction of deficiency, and not about “improvement” in healthy people.",
+   "category": "General",
+   "category_group": "general",
+   "caution": "Fat soluble - accumulates, ESPEN warns of potential toxicity; without monitoring status, high doses are not justified.",
+   "course": "Course on Confirmed Deficiency with Reassessment of Status (ESPEN 2022).",
+   "dosage": "No data",
+   "effects": [
+    "Vitamin A deficiency",
+    "Hair with AGA (weak data)"
+   ],
+   "food_sources": "Liver, eggs, dairy products, yellow-orange vegetables (beta-carotene); absorption depends on fats in the diet.",
+   "forms": [
+    "retinol",
+    "beta carotene"
+   ],
+   "guidelines": "ESPEN 2022: status monitoring and toxicity accounting; SR 2024 (AGA): deficiencies - factors of alopecia, A not key; SR 2023: Food insecurity linked to shortages.",
+   "how_to_choose": "Only with a confirmed deficiency and according to the doctor’s dosage; retinol and beta-carotene differ in toxicity; healthy people without a deficiency - not needed.",
+   "interactions": [],
+   "mechs": [
+    [
+     "Replenishing A deficiency: retinol for vision, skin, immunity",
+     "correction of an established deficit - a basic need",
+     "context"
+    ],
+    [
+     "Micronutrients for androgenetic alopecia",
+     "for A, the data in the review is weak, emphasis is placed on B/D/Fe/Zn",
+     "context"
+    ],
+    [
+     "Food insecurity and micronutrient status",
+     "deficiency is associated in 89% of studies, incl. by A",
+     "context"
+    ]
+   ],
+   "myths": "“More A means better skin and hair” - in the AGA review, the emphasis is on B, D, Fe, Zn, the role of A is weak. “There are always enough vitamins” - when food supply is unsafe, deficiency is common. “A is harmless” - fat soluble, ESPEN is mindful of toxicity.",
+   "name": "Vitamin A",
+   "onset": "In case of deficiency - course correction, weeks-months, under status control; the effect in healthy people (skin/hair) is not described in the abstracts.",
+   "title": "Vitamin A",
+   "upper_limit": "not established (not given in abstracts; fat soluble - toxicity possible)",
+   "verdict": "depends on context",
+   "who_needs": "People with confirmed deficiency (risk is high if food is insecure - 89% of studies); AGA - the role of A is separately weak; healthy people without deficiency are not shown to benefit."
+  }
+ }
+}

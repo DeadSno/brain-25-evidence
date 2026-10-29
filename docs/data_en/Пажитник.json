@@ -1,0 +1,60 @@
+{
+ "_meta": {
+  "card": "Пажитник",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Пажитник": {
+   "about": "Trigonella spice: in diabetics reduces fasting, after meals and HbA1c sugar; healthy people do not.",
+   "category": "Sexual Health",
+   "category_group": "metab",
+   "caution": "Fenugreek (Trigonella foenum-graecum). For glycemic control: meta-analysis (24438170) shows reduction in fasting sugar. For lactation: Individual RCTs show an increase in milk volume. For testosterone/libido: data are limited and conflicting. There is little data (1 abstract in the database). Safe in standard doses (5-15 g seeds or 500-1000 mg extract).",
+   "course": "—",
+   "dosage": "500 mg-6 g/day",
+   "effects": [
+    "Glycemia is moderate; libido is weak"
+   ],
+   "food_sources": "Fenugreek seeds are a spice and the basis of culinary mixtures; for working doses you need a powder/extract.",
+   "forms": [
+    "extract (saponins) or seeds"
+   ],
+   "guidelines": "2023 MA (glycemia): FBG −0.96, HbA1c −0.85% in T2D; 2023 MA (metabolic syndrome): components improved. Healthy people - no effect.",
+   "how_to_choose": "Extract standardized for saponins, 500 mg - several g/day; for T2D - glycemic control with a doctor.",
+   "interactions": [
+    {
+     "note": "enhances the effect",
+     "severity": "medium",
+     "with": "anticoagulants"
+    },
+    {
+     "note": "enhances the effect",
+     "severity": "medium",
+     "with": "hypoglycemic"
+    }
+   ],
+   "mechs": [
+    [
+     "Saponins (protodioscin) + fiber",
+     "Glycemia is moderate; libido is weak",
+     "context"
+    ],
+    [
+     "Saponins and soluble fiber: glucose utilization",
+     "MA (10 RCT): FBG −0.96, postprandial −2.19 mmol/l, HbA1c −0.85%; effect at medium/high doses and in diabetics",
+     "moderate"
+    ]
+   ],
+   "myths": "“Burns fat and pumps up testosterone” - the data is contradictory. “Reduces sugar for everyone” - the effect of MA is only in diabetics at medium/high doses.",
+   "name": "Fenugreek",
+   "onset": "Coursework: in RCT from 1 week of admission; affects sugar on an empty stomach and after meals, not acutely.",
+   "title": "Fenugreek",
+   "upper_limit": "No formal UL listed - no toxicity data available.",
+   "verdict": "depends on context",
+   "who_needs": "T2D with the need for mild glycemic control (adjunct); nursing - separate RCT; there is little data on libido/testosterone."
+  }
+ }
+}

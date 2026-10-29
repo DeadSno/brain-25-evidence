@@ -1,0 +1,57 @@
+{
+ "_meta": {
+  "card": "Шатавари",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Шатавари": {
+   "about": "Classic Ayurveda for women's health. The main use is to stimulate lactation in nursing mothers.",
+   "category": "General",
+   "category_group": "general",
+   "caution": "Not recommended during pregnancy without consulting a doctor. During lactation, an effect on hormones is possible. Check for human studies - there are few.",
+   "course": "4-8 weeks; for lactation - as prescribed",
+   "dosage": "250-500 mg",
+   "effects": [
+    "Lactation",
+    "Women's health",
+    "Digestion"
+   ],
+   "food_sources": "It is not used as food - the root is taken as an extract or decoction.",
+   "forms": [
+    "extract (saponins 20-40%)"
+   ],
+   "guidelines": "Not included in the recommendations of EFSA, FDA. Ayurvedic sources indicate widespread use, modern RCTs are limited.",
+   "how_to_choose": "Standardized extract for saponins 20-40%; Avoid powders of unknown origin.",
+   "interactions": [],
+   "mechs": [
+    [
+     "Saponins (shatavari-saponins): stimulate prolactin synthesis",
+     "Enhancing lactation in nursing mothers",
+     "moderate"
+    ],
+    [
+     "Adaptogenic effect: modulation of GABA and serotonin",
+     "Reduced anxiety, improved mood",
+     "weak"
+    ],
+    [
+     "Improved digestion: mild laxative effect",
+     "Digestion, GI comfort",
+     "context"
+    ]
+   ],
+   "myths": "“Stimulates female hormones in men” - no data. “Works for fertility in everyone” - only limited data for specific groups.",
+   "name": "Shatavari",
+   "onset": "3-7 days for effect on lactation; for an adaptogenic effect - 2-4 weeks.",
+   "pregnancy_contraindicated": true,
+   "title": "Shatavari",
+   "upper_limit": "There is no formal UL. Doses up to 1 g/day are considered safe in short courses.",
+   "verdict": "depends on context",
+   "who_needs": "Nursing mothers with insufficient milk supply (RCT available). Women in menopause - there is little data, there is traditional use."
+  }
+ }
+}

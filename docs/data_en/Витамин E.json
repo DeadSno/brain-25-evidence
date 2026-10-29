@@ -1,0 +1,66 @@
+{
+ "_meta": {
+  "card": "Витамин E",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Витамин E": {
+   "about": "Membrane antioxidant: no effect on CVD/cancer in healthy people; for NAFLD - uncertain; tardive dyskinesia - weak conflicting data.",
+   "category": "Neurology / Metabolism",
+   "category_group": "brain",
+   "caution": "Vitamin E is a fat-soluble antioxidant. 15 Cochrane reviews in the database! For tardive dyskinesia (a side effect of antipsychotics): there is evidence of improvement. For MASLD: there is Cochrane (2 years, 800 IU/day). For Alzheimer's: there is Cochrane, but the effect is clinically small. For CVD/cancer prevention in healthy individuals: NO effect (large RCT). Caution: >400 IU/day increases all-cause mortality in some MAs.",
+   "course": "—",
+   "dosage": "do not exceed 400 IU, preferably from food",
+   "effects": [
+    "Prevention of CVD and mortality: not confirmed"
+   ],
+   "food_sources": "Nuts, vegetable oils, seeds - with a normal diet, deficiency is rare; Healthy people don't need supplements.",
+   "forms": [
+    "tocopherol",
+    "tocotrienol"
+   ],
+   "guidelines": "Cochrane 2018: no clear difference with placebo for tardive dyskinesia; Alzheimer's - no; NAFLD—uncertain. The dose should not exceed 400 IU/day.",
+   "how_to_choose": "Preferably from food; in supplements no higher than 400 IU. The form (alpha/s-mixed) is not critical - the data does not discriminate.",
+   "interactions": [
+    {
+     "note": "enhances the effect, risk of bleeding",
+     "severity": "high",
+     "with": "anticoagulants"
+    },
+    {
+     "note": "may reduce the effect (debatable)",
+     "severity": "low",
+     "with": "statins"
+    }
+   ],
+   "mechs": [
+    [
+     "Fat-soluble membrane antioxidant",
+     "Prevention of CVD and mortality: not confirmed",
+     "marketing"
+    ],
+    [
+     "Reduces oxidative stress in the liver (antioxidant)",
+     "For NAFLD: benefit uncertain (16 RCT, 1066 people; Cochrane 2024)",
+     "context"
+    ],
+    [
+     "Suppression of free radicals in nervous tissue",
+     "Cognition in AD and MCI: no clinically significant effect",
+     "marketing"
+    ]
+   ],
+   "myths": "“Antioxidant for everything” – no effect for Alzheimer’s/MCI and CVD. “The more the merrier” - high doses (>400 IU) do not provide benefit; There are no mortality data in key sources.",
+   "name": "Vitamin E",
+   "onset": "Delayed effect: for NAFLD courses up to 2 years; clinically small, no immediate flush.",
+   "title": "Vitamin E",
+   "upper_limit": "1000 mg/day (α-tocopherol)",
+   "verdict": "depends on context",
+   "who_needs": "NAFLD - as prescribed by a doctor; analysis deficit. For tardive dyskinesia, the data are weak and contradictory (Cochrane)."
+  }
+ }
+}

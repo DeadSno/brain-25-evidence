@@ -1,0 +1,54 @@
+{
+ "_meta": {
+  "card": "Пролин",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Пролин": {
+   "about": "Free proline as a supplement has not been studied: all studies in the pool are about collagen and gelatin, where proline is only a compound amino acid.",
+   "category": "Skin & Joints",
+   "category_group": "bone",
+   "caution": "The pool data refer to collagen and not to free proline: tolerability and dosage of the amino acid itself were not assessed.",
+   "course": "in collagen studies - from 3 days to 1 week; schemes have not been studied for proline",
+   "dosage": "Free proline doses have not been studied; in RCT, 15 g of collagen peptides were used twice a day and 15-30 g of hydrolyzate",
+   "effects": [
+    "No proven effects"
+   ],
+   "food_sources": "In the pool abstracts, food sources are not discussed: only oral administration of collagen and gelatin peptides was studied.",
+   "forms": [
+    "collagen peptides/hydrolysate"
+   ],
+   "guidelines": "There are no recommendations for free proline in the pool: studies are available on collagen and gelatin, not the amino acid itself.",
+   "how_to_choose": "There is nothing to choose: there is no confirmed dose of free proline, and the data on collagen refer to another product.",
+   "interactions": [],
+   "mechs": [
+    [
+     "In the RCT of collagen peptides in the blood, glycine, proline and hydroxyproline increased, but connective tissue synthesis did not increase",
+     "Connective tissue synthesis unchanged",
+     "weak"
+    ],
+    [
+     "Collagen hydrolyzate at a dose of 15-30 g dose-dependently increased the PINP marker in 8 men with training experience",
+     "Increase in collagen synthesis marker",
+     "weak"
+    ],
+    [
+     "Proline alone was not used in pool studies",
+     "The effect of free proline has not been studied",
+     "marketing"
+    ]
+   ],
+   "myths": "“Collagen works, so does proline” - in RCT with collagen peptides, proline in the blood increased, but the synthesis of connective tissue did not increase. “Restores tendons” - there are no direct RCTs for proline in the pool.",
+   "name": "Proline",
+   "onset": "The timing of response to free proline has not been studied; in collagen studies, patterns were limited to days.",
+   "title": "Proline",
+   "upper_limit": "not listed in abstracts",
+   "verdict": "not confirmed",
+   "who_needs": "For none in the pool: None of the studies provided proline as a stand-alone supplement."
+  }
+ }
+}

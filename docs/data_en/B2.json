@@ -1,0 +1,51 @@
+{
+ "_meta": {
+  "card": "B2",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "B2": {
+   "about": "Riboflavin (B2): 400 mg/day for 3 months significantly reduces the frequency, duration and pain of migraine (MA 2022); Vegans have a risk of deficiency.",
+   "category": "General",
+   "category_group": "general",
+   "caution": "Water soluble; There are no significant AEs reported in the abstracts at 400 mg/day.",
+   "course": "3 months according to the MA 2022 scheme, then according to dynamics.",
+   "dosage": "400 mg/day for migraine prevention (3 months).",
+   "effects": [
+    "Migraine prevention",
+    "Deficiency in vegans (not confirmed)"
+   ],
+   "food_sources": "Milk, eggs, meat, liver, mushrooms, whole grains; with veganism, intake is often lower than normal (SR 2021).",
+   "forms": [
+    "riboflavin",
+    "riboflavin 5'-phosphate"
+   ],
+   "guidelines": "MA 2022 (8 RCT + 1 clinical, n=673): 400 mg/day 3 months - frequency (p=.001), days (p=.005), duration (p=.003), pain (p=.015); SR 2021: Low B2 intake in vegans.",
+   "how_to_choose": "Regular riboflavin 400 mg for migraines; in B-complexes the dose is lower and the goal is different; Check the form and dosage on the label.",
+   "interactions": [],
+   "mechs": [
+    [
+     "Energy metabolism coenzyme, participation in mitochondrial metabolism",
+     "migraine prevention 400 mg/day – reduction in 4 outcomes",
+     "moderate"
+    ],
+    [
+     "Addressing the Risk of Low Intake When Vegan",
+     "prevention of B2 deficiency, but not cure",
+     "context"
+    ]
+   ],
+   "myths": "“B2 is just a vitamin for energy” - strong data specifically for migraines. “The vitamin has no effect on migraine” - MA from 9 studies (n=673) showed an improvement in all 4 outcomes. “Any dose works” - the effect is described for 400 mg/day.",
+   "name": "Vitamin B2",
+   "onset": "Prevention of migraine - a course of 3 months (MA 2022): significantly fewer days, duration, frequency and pain.",
+   "title": "Vitamin B2",
+   "upper_limit": "not established (not specified in abstracts)",
+   "verdict": "works",
+   "who_needs": "Migraine sufferers - prevention 400 mg/day, 3 months; vegans and vegetarians - risk of low B2 intake; “for everyone’s energy” - no data."
+  }
+ }
+}

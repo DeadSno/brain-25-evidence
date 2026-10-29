@@ -1,0 +1,75 @@
+{
+ "_meta": {
+  "card": "Кальций",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Кальций": {
+   "about": "Macromineral: bone mineralization, vascular tone; Without deficiency it is useless, it works in pregnancy.",
+   "antagonists": [
+    "Iron",
+    "Zinc"
+   ],
+   "category": "Bones / Pregnancy",
+   "category_group": "bone",
+   "caution": "Effect in pregnancy: High doses ≥1 g/day reduce preeclampsia, especially when dietary Ca is LOW. The risk of HELLP syndrome is increased (RR 2.67, but absolutely rare). Outside of pregnancy: prevention of fractures with vitamin D only.",
+   "course": "—",
+   "dosage": "500-600 mg",
+   "effects": [
+    "Fractures: MA inconsistent; without deficit it is useless"
+   ],
+   "food_sources": "Dairy products, sesame seeds, greens, fish with bones; absorption depends on vitamin D.",
+   "forms": [
+    "citrate",
+    "carbonate"
+   ],
+   "guidelines": "Cochrane 2018: ≥1 g/d in pregnancy reduces preeclampsia. For bone - 500–600 mg + D; Without deficit there is no benefit.",
+   "how_to_choose": "First food (milk/sesame); supplement 500–600 mg + vitamin D. Carbonate or citrate - as tolerated.",
+   "interactions": [
+    {
+     "note": "reduces absorption, separate doses for 2-4 hours",
+     "severity": "medium",
+     "with": "antibiotics (tetracyclines, quinolones)"
+    },
+    {
+     "note": "separate reception 2 hours",
+     "severity": "medium",
+     "with": "bisphosphonates"
+    },
+    {
+     "note": "compete for absorption",
+     "severity": "medium",
+     "with": "iron supplements"
+    }
+   ],
+   "mechs": [
+    [
+     "Bone mineralization substrate",
+     "Fractures: MA inconsistent; without deficit it is useless",
+     "context"
+    ],
+    [
+     "Calcium in pregnancy: regulation of vascular tone",
+     "BP is up less often (RR 0.65), preeclampsia is lower (≥1 g/d; 15,730)",
+     "moderate"
+    ],
+    [
+     "The effect of calcium on blood pressure in normotensive patients (primary prevention)",
+     "Small shifts in blood pressure; preventive benefit not established (Cochrane 2022)",
+     "weak"
+    ]
+   ],
+   "myths": "“The more, the better” - without a deficiency, it does not prevent fractures. “Reduces blood pressure for everyone” - the effect is small in normotensive patients (Cochrane 2022).",
+   "name": "Calcium",
+   "onset": "Preeclampsia: courses during pregnancy; on bone - months or years, and only with vitamin D.",
+   "title": "Calcium",
+   "upper_limit": "2500 mg/day",
+   "verdict": "depends on context",
+   "who_needs": "Pregnant women with low dietary Ca (≥1 g/d reduces preeclampsia); elderly with deficiency - be sure to take vitamin D."
+  }
+ }
+}

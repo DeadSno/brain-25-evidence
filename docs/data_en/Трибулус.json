@@ -1,0 +1,60 @@
+{
+ "_meta": {
+  "card": "Трибулус",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Трибулус": {
+   "about": "The myth of the “testosterone booster”: it does not affect T in most people; for erectile dysfunction, IIEF is higher.",
+   "category": "Sexual Health / Sports",
+   "category_group": "metab",
+   "caution": "Tribulus (Tribulus terrestris). There are NO meta-analyses or systematic reviews in PubMed. Individual RCTs show no significant effect on testosterone in healthy men. Popularity as a 'testosterone booster' in sports nutrition has NOT been proven. For libido in women: limited data. Safe in standard doses, but effectiveness is questionable.",
+   "course": "—",
+   "dosage": "750-1500 mg",
+   "effects": [
+    "Testosterone/strength: not confirmed"
+   ],
+   "food_sources": "Tribulus fruits and grass are not food; clinical form - standardized saponin extract.",
+   "forms": [
+    "saponin extract"
+   ],
+   "guidelines": "MA 2026 (8 RCT): IIEF-5 +3.23 vs placebo, testosterone NS. SR 2025 (10): T does not change. SR 2014: marketing unfounded.",
+   "how_to_choose": "Saponin extract 750-1500 mg/day; for ED - see a doctor; “testosterone boosters” are not worth paying for.",
+   "interactions": [
+    {
+     "note": "may affect glycemia",
+     "severity": "low",
+     "with": "antidiabetic"
+    }
+   ],
+   "mechs": [
+    [
+     "Steroidal saponins - claimed precursor",
+     "Testosterone/strength: not confirmed",
+     "marketing"
+    ],
+    [
+     "Saponins and NO signaling: erectile function",
+     "MA 2026 (8 studies): IIEF-5 +3.23 and IIEF-15 +14.44 versus placebo; testosterone did not change",
+     "weak"
+    ],
+    [
+     "Androgenic effect: myth versus data",
+     "SR 2025 (10 studies): testosterone does not increase in the majority; +60–70 ng/dl only in hypogonals (small value)",
+     "context"
+    ]
+   ],
+   "myths": "“Pumps up testosterone” - for the majority there are no changes, an increase only in hypogonal ones (+60-70 ng/dl). Strength and Mass - SR 2022 unchanged.",
+   "name": "Tribulus",
+   "onset": "Course course: 1-3 months at 400-750 mg/day; there is no acute effect, T does not increase in healthy people.",
+   "title": "Tribulus",
+   "upper_limit": "No formal UL listed - no toxicity data available.",
+   "verdict": "not confirmed",
+   "who_needs": "Erectile dysfunction (IIEF better, T unchanged); female sex function - low evidence; for sports “testosterone” - no."
+  }
+ }
+}

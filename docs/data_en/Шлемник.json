@@ -1,0 +1,67 @@
+{
+ "_meta": {
+  "card": "Шлемник",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Шлемник": {
+   "about": "Chinese herb with anti-anxiety effect. Studied in RCT, but less so than valerian or passionflower. The effect is soft.",
+   "category": "Mood",
+   "category_group": "brain",
+   "caution": "Possible interactions with anticoagulants (warfarin) - risk of bleeding. Rarely - with benzodiazepines, enhances the effect. There is little data available during pregnancy.",
+   "course": "2-4 weeks for anxiolytic effect",
+   "dosage": "300-500 mg",
+   "effects": [
+    "Anxiety",
+    "Dream",
+    "Cognition (context)"
+   ],
+   "food_sources": "It is not used as food - only an extract or decoction of the root.",
+   "forms": [
+    "extract (baicalin 30%+)"
+   ],
+   "guidelines": "Not included in EFSA/FDA recommendations. In TCM it is officially used as an anxiolytic.",
+   "how_to_choose": "Standardized extract for baicalin 30%+. Check for COA (Certificate of Analysis).",
+   "interactions": [
+    {
+     "note": "enhances the effect, risk of bleeding",
+     "severity": "medium",
+     "with": "warfarin and anticoagulants"
+    },
+    {
+     "note": "summation of sedative effect",
+     "severity": "low",
+     "with": "benzodiazepines (diazepam, alprazolam)"
+    }
+   ],
+   "mechs": [
+    [
+     "Flavonoids (baicalin, baicalein): modulation of GABA-A receptors",
+     "Anxiolytic effect, reduction of anxiety",
+     "moderate"
+    ],
+    [
+     "Orientin and wogonin: antioxidant effects in the CNS",
+     "Neuroprotection, reduction of inflammation in the brain",
+     "weak"
+    ],
+    [
+     "Inhibition of MAO and GABA reuptake",
+     "Calm, improve sleep",
+     "context"
+    ]
+   ],
+   "myths": "“Replaces antidepressants” - no, it does not work for clinical depression. “Instantly calms” - the effect accumulates.",
+   "name": "Skullcap",
+   "onset": "2-4 weeks of use for a sustainable effect; does not work “at once”.",
+   "title": "Skullcap",
+   "upper_limit": "There is no formal UL. In Chinese medicine, doses are up to 9 g/day, in Western RCT - up to 1.5 g/day.",
+   "verdict": "depends on context",
+   "who_needs": "People with chronic anxiety, mild-to-moderate. Does not replace therapy for clinical disorders. Students during the session."
+  }
+ }
+}

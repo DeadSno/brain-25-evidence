@@ -1,0 +1,58 @@
+{
+ "_meta": {
+  "card": "Калий",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Калий": {
+   "about": "Potassium lowers blood pressure, more so in hypertensive patients, but the relationship is U-shaped: with excess potassium, pressure, on the contrary, increases.",
+   "category": "Heart",
+   "category_group": "cardio",
+   "caution": "Excess potassium increased blood pressure in patients on antihypertensive drugs; for cystinuria, hydration and alkalization without graduation are recommended.",
+   "course": "RCTs in MA lasted from 4 weeks; the optimal period is not specified in the abstracts.",
+   "dosage": "In MA the range is 30-140 mmol/day; Specific dosage regimens are not given in the abstracts.",
+   "effects": [
+    "Blood pressure",
+    "Urinary potassium excretion"
+   ],
+   "food_sources": "Bananas, potatoes, beans, spinach and dairy products; in the pool, potassium is considered both as food and as a supplement in doses of 30-140 mmol/day.",
+   "guidelines": "For cystinuria (2021): hydration, diet and alkalization; statements are not graded due to low evidence. ESPEN 2022 - by consensus.",
+   "how_to_choose": "The source is more important than dietary supplements: MA examined doses of 30-140 mmol/day, and self-administration is dangerous for blood pressure medications and kidney diseases.",
+   "interactions": [
+    {
+     "note": "in MA, an increase in blood pressure with high potassium excretion was observed only in patients on drug therapy",
+     "severity": "medium",
+     "with": "antihypertensive drugs"
+    }
+   ],
+   "mechs": [
+    [
+     "Dose-dependent relationship: reduction in blood pressure to a difference of 30 mmol/day, then the effect weakens",
+     "Decrease in systolic and diastolic blood pressure",
+     "moderate"
+    ],
+    [
+     "U-shaped relationship: above ~80 mmol/day excretion, blood pressure increases, especially with drug treatment",
+     "Increase in blood pressure with excess potassium",
+     "moderate"
+    ],
+    [
+     "The decrease in blood pressure from potassium is stronger in hypertensive patients and with high sodium intake",
+     "Greater effect in subgroups with hypertension",
+     "moderate"
+    ]
+   ],
+   "myths": "“Potassium tablets = diet” - part of the data concerns high-potassium salt, not dietary supplements. “The more, the better” - an increase in blood pressure already with a difference in excretion above ~80 mmol/day. “Helps everyone” - stronger in hypertensive patients.",
+   "name": "Potassium",
+   "onset": "Only RCTs lasting 4 weeks or more are included in the MA; a shorter course is not stated in abstracts.",
+   "title": "Potassium",
+   "upper_limit": "not listed in abstracts; MA indicates an increase in blood pressure with an excretion difference above ~80 mmol/day",
+   "verdict": "depends on context",
+   "who_needs": "People with hypertension and high sodium intake. During drug therapy for blood pressure, excess potassium, on the contrary, increased it in MA."
+  }
+ }
+}

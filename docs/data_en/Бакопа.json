@@ -1,0 +1,65 @@
+{
+ "_meta": {
+  "card": "Бакопа",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Бакопа": {
+   "about": "Nootropic: improves memory and learning (brain adaptogen).",
+   "category": "Cognition",
+   "category_group": "brain",
+   "caution": "Bacopa monnieri is an adaptogen from Ayurveda. Meta-analysis 24252493 showed significant improvement in memory after 8-12 weeks. The effects are NOT felt immediately (unlike caffeine). Optimal dose: 300 mg/day standardized extract (50% bacosides). Safe in short-term RCT (4-12 weeks). Side effects: gastrointestinal (nausea, cramps).",
+   "course": "8-12 weeks",
+   "dosage": "300 mg extract (50% bacosides)",
+   "effects": [
+    "Memory (course)"
+   ],
+   "food_sources": "Not consumed as food (grass in supplements).",
+   "forms": [
+    "extract (bacosides 50%)"
+   ],
+   "guidelines": "EFSA: claims not approved; MA—moderate effect on memory.",
+   "how_to_choose": "Standardization of 50% bacosides; with food (fat soluble).",
+   "interactions": [
+    {
+     "note": "antagonism effects",
+     "severity": "medium",
+     "with": "anticholinergic drugs"
+    },
+    {
+     "note": "may increase sedation",
+     "severity": "low",
+     "with": "sedatives"
+    }
+   ],
+   "mechs": [
+    [
+     "Bacosides: acetylcholinesterase inhibition + dendrite growth",
+     "Memory (effect from 4-12 weeks)",
+     "moderate"
+    ],
+    [
+     "Dose dependence: ≥600 mg/d bacosides - working memory up",
+     "Working memory: SMD ~2.0, better than ginkgo and low doses (29 RCT, 2107)",
+     "moderate"
+    ],
+    [
+     "Speed of attention and response selection (cholinergic activation)",
+     "Trail B −17.9 ms, CRT −10.6 ms; 12 weeks (9 RCT, 518)",
+     "weak"
+    ]
+   ],
+   "myths": "“Works like piracetam” - the mechanism is different, slower. “Instant effect” - 8-12 weeks minimum.",
+   "name": "Bacopa",
+   "onset": "Memory - 8-12 weeks (cumulative effect).",
+   "title": "Bacopa",
+   "upper_limit": "300-450 mg extract/day; higher - GI discomfort, fatigue.",
+   "verdict": "works",
+   "who_needs": "Age-related memory decline, students in session; healthy adults - working memory."
+  }
+ }
+}

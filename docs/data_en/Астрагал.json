@@ -1,0 +1,67 @@
+{
+ "_meta": {
+  "card": "Астрагал",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Астрагал": {
+   "about": "Classic Chinese adaptogen. The main effect is immunomodulation, especially in immunocompromised patients.",
+   "category": "Immunity",
+   "category_group": "immune",
+   "caution": "Caution for autoimmune diseases - stimulates the immune response. May enhance the effect of immunosuppressants/cyclosporine. During pregnancy, there is not enough data.",
+   "course": "4-12 weeks, courses; for immunity - during cold season",
+   "dosage": "250-500 mg",
+   "effects": [
+    "Immunity",
+    "Fatigue",
+    "Quality of life (in patients)"
+   ],
+   "food_sources": "It is not used as food - the root is taken as an extract, decoction or capsules.",
+   "forms": [
+    "extract (polysaccharides 10-20%)"
+   ],
+   "guidelines": "Not included in EFSA/FDA recommendations as a medicine. In China, it is officially approved as part of drugs. There are systematic reviews, but the quality of RCTs is average.",
+   "how_to_choose": "Standardized extract for polysaccharides 10-20% or astrosides IV 0.5%. Avoid products without specified concentration.",
+   "interactions": [
+    {
+     "note": "may reduce the effect - stimulates the immune response",
+     "severity": "medium",
+     "with": "immunosuppressants (cyclosporine, tacrolimus)"
+    },
+    {
+     "note": "there is evidence of increased lithium levels in the blood",
+     "severity": "low",
+     "with": "lithium"
+    }
+   ],
+   "mechs": [
+    [
+     "Polysaccharides (astragalans): activation of macrophages and NK cells",
+     "Strengthening antiviral immunity",
+     "moderate"
+    ],
+    [
+     "Saponins (astrosides): modulation of T cell response",
+     "Immune modulation, inflammation reduction",
+     "moderate"
+    ],
+    [
+     "Flavonoids (calycosin): telomere protection, antioxidant",
+     "Antioxidant protection, potential anti-aging",
+     "context"
+    ]
+   ],
+   "myths": "“Cures all diseases from aging to cancer” - no, only immunomodulation. “Works for everyone” - the effect is noticeable in people with initial fatigue, not in healthy people.",
+   "name": "Astragalus",
+   "onset": "2-4 weeks for immune effect; does not work “here and now”.",
+   "title": "Astragalus",
+   "upper_limit": "There is no formal UL. Doses up to 3 g/day are well tolerated. IV forms - only in the clinic, not for independent use.",
+   "verdict": "works",
+   "who_needs": "Frequently ill people (there is RCT on ARI prevention). Patients with chronic fatigue. In complex therapy after infections."
+  }
+ }
+}

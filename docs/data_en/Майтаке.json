@@ -1,0 +1,51 @@
+{
+ "_meta": {
+  "card": "Майтаке",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Майтаке": {
+   "about": "Maitake has been studied in animals: both meta-analyses of the polysaccharide were performed on mouse models; there is not a single RCT on humans in the pool.",
+   "category": "Immunity",
+   "category_group": "immune",
+   "caution": "The authors of both meta-analyses noted the low quality of the included studies and the risk of bias in selection, detection, and reporting.",
+   "course": "not specified in abstracts for humans",
+   "dosage": "No data",
+   "effects": [
+    "No proven effects in humans"
+   ],
+   "food_sources": "Sources are not discussed in abstracts: both meta-analyses study isolated fungal polysaccharides, not food products.",
+   "guidelines": "There are no recommendations for maitake in the pool: two sources are meta-analyses on animal models with SYRCLE risk of bias assessment.",
+   "how_to_choose": "There is nothing to evaluate: there is no human dose data in the pool, so any extracts and combinations remain outside the scope of study.",
+   "interactions": [],
+   "mechs": [
+    [
+     "Maitake polysaccharide suppressed tumor growth and increased remission rates in animal experiments",
+     "Antitumor effect in mice",
+     "weak"
+    ],
+    [
+     "In animal models, an increase in CD4+ and CD8+ T lymphocytes, NK cells and macrophages was noted",
+     "Changes in immune parameters in animals",
+     "weak"
+    ],
+    [
+     "Transfer of data from animal models to humans in the pool is not justified",
+     "The effect in humans has not been studied",
+     "marketing"
+    ]
+   ],
+   "myths": "“Meta-analysis proves benefit” - these are meta-analyses on animals; according to the rules of the project, they are not transferred to humans. “Immunity confirmed” - the authors themselves write that the quality of the work is low.",
+   "name": "Maitake",
+   "onset": "Not studied in humans: the timing of effect in both meta-analyses was based on animal models.",
+   "title": "Maitake",
+   "upper_limit": "not listed in abstracts",
+   "verdict": "not confirmed",
+   "who_needs": "For no one, according to the pool: All 44 papers in the two meta-analyses were performed on animal models, not humans."
+  }
+ }
+}

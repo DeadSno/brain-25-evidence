@@ -1,0 +1,56 @@
+{
+ "_meta": {
+  "card": "B6",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "B6": {
+   "about": "Pyridoxine (B6): reduces nausea and vomiting during pregnancy (MA 2023); for neuropathy as monotherapy has not been studied, and high doses themselves are toxic to the nerves.",
+   "category": "Neurology / Metabolism",
+   "category_group": "brain",
+   "caution": "High doses → sensory axonal neuropathy, symptoms improve after discontinuation (CP 2023); during pregnancy, the dose is as per the doctor.",
+   "course": "For the period of symptoms of nausea/vomiting during pregnancy.",
+   "dosage": "No data",
+   "effects": [
+    "Nausea during pregnancy",
+    "Neuropathy (risk with excess)"
+   ],
+   "food_sources": "Chicken, fish, liver, potatoes, bananas, chickpeas, whole grains; During heat treatment, losses are significant.",
+   "forms": [
+    "pyridoxine",
+    "pyridoxal 5-phosphate"
+   ],
+   "guidelines": "MA 2023 (18 studies): pyridoxine alone and in combination - Rhode's 0.78 [0.26-1.31], PUQE 0.75 [0.28-1.22]; CP 2023: high doses of B6 - risk of neurotoxicity.",
+   "how_to_choose": "Pyridoxine in doses for NVP under the supervision of a physician; do not take megadoses; For neuropathy, do not prescribe alone.",
+   "interactions": [],
+   "mechs": [
+    [
+     "Pyridoxine for nausea/vomiting during pregnancy",
+     "reduction in symptoms (Rhode's 0.78, PUQE 0.75)",
+     "moderate"
+    ],
+    [
+     "High B6 Levels and Sensory Axonal Neuropathy",
+     "neurotoxicity in excess, improvement after withdrawal",
+     "context"
+    ],
+    [
+     "B6 as part of a combination treatment for neuropathy",
+     "monotherapy has not been studied - the role has not been confirmed",
+     "context"
+    ]
+   ],
+   "myths": "“B6 heals nerves” - in CP 2023 there is no data on B6 as a monotherapy for neuropathy. “More B6 is better” is the opposite: high levels cause sensory axonal neuropathy. “Natural means safe” – the dose decides.",
+   "name": "Vitamin B6",
+   "onset": "For nausea during pregnancy - improvement during use (MA 2023); No deadlines have been established for other indications.",
+   "title": "Vitamin B6",
+   "upper_limit": "not established (not given in abstracts; high doses are neurotoxic)",
+   "verdict": "works",
+   "who_needs": "Pregnant women with nausea/vomiting - pyridoxine alone or in combination; for neuropathy - only as part of dose-controlled treatment; high doses - risk of sensory neuropathy."
+  }
+ }
+}

@@ -1,0 +1,66 @@
+{
+ "_meta": {
+  "card": "B12",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "B12": {
+   "about": "Methionine synthase cofactor: critical in deficiency; does not improve cognition and energy in healthy people.",
+   "category": "Nervous System / Blood",
+   "category_group": "brain",
+   "caution": "Oral B12 (1000-2000 mcg/day) is as effective as injections for maintaining levels (Cochrane). For cognitive functions in healthy people there is NO effect. Critical for vegans and the elderly with atrophic gastritis. For pernicious anemia - injections.",
+   "course": "only for deficiency/vegans",
+   "dosage": "500-1000 mcg",
+   "effects": [
+    "Cognition (if deficient)"
+   ],
+   "food_sources": "Meat, fish, eggs, dairy products; algae and yeast are unreliable sources, vegans need a supplement.",
+   "forms": [
+    "methylcobalamin",
+    "cyanocobalamin"
+   ],
+   "guidelines": "Oral = injections according to B12 level (NMA 2024, 4275); vegans have a higher functional deficit; STI - risk +42% (SR 2023).",
+   "how_to_choose": "500–1000 mcg orally/sublingually; for deficiency or vegans; before taking - B12 + MMA + homocysteine.",
+   "interactions": [
+    {
+     "note": "reduces suction, level control",
+     "severity": "medium",
+     "with": "metformin"
+    },
+    {
+     "note": "reduces absorption",
+     "severity": "medium",
+     "with": "proton pump inhibitors"
+    }
+   ],
+   "mechs": [
+    [
+     "Methionine synthase cofactor, myelination",
+     "Energy/cognition ONLY in deficit (vegans, 60+)",
+     "context"
+    ],
+    [
+     "Participation in the methionine/folate cycle and erythropoiesis: hemoglobin synthesis, homocysteine reduction",
+     "Hemoglobin and homocysteine are normalized in case of deficiency",
+     "context"
+    ],
+    [
+     "Absorption in the ileum depends on gastric acidity and intrinsic factor (PPIs interfere)",
+     "The risk of deficiency is higher in those taking PPIs and in the elderly",
+     "context"
+    ]
+   ],
+   "myths": "“Raises everyone’s energy” - in healthy people, cognition and fatigue do not change (16 RCT). “Injection only”—oral 1000–2000 mcg is just as effective.",
+   "name": "Vitamin B12",
+   "onset": "If there is a deficiency, it takes weeks to restore the level; There is no immediate “rush of energy”.",
+   "title": "Vitamin B12",
+   "upper_limit": "No formal UL listed - no toxicity data available.",
+   "verdict": "depends on context",
+   "who_needs": "Vegans, elderly (atrophic gastritis), taking PPIs, pregnant women with deficiency; pernicious anemia - injections only."
+  }
+ }
+}

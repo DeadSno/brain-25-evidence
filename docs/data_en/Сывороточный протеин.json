@@ -1,0 +1,67 @@
+{
+ "_meta": {
+  "card": "Сывороточный протеин",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Сывороточный протеин": {
+   "about": "Gold Standard Protein: Leucine + Full Amino Profile; works with strength loads and sarcopenia.",
+   "category": "Sports / Muscles",
+   "category_group": "sport",
+   "caution": "Whey protein is the gold standard of protein for athletes and seniors. For muscle mass: Multiple meta-analyses support effectiveness when combined with strength training. For sarcopenia in the elderly: works. For glycemic control: improvement of postprandial glucose. For weight loss: there is evidence when combined with diet. Isolate vs. concentrate: isolate contains more protein. Dose: 20-40 g/day.",
+   "course": "—",
+   "dosage": "20-40 g",
+   "effects": [
+    "Muscles and sarcopenia prevention: extensive MA"
+   ],
+   "food_sources": "Whey: milk, kefir, cottage cheese; Using supplements, they eat up protein sparingly when food is scarce.",
+   "forms": [
+    "concentrate (WPC)",
+    "isolate (WPI)",
+    "hydrolyzate (WPH)"
+   ],
+   "guidelines": "MA 2023–2024: with sarcopenia, muscle SMD 0.47 and walking 1.13; body composition - only with exercise and a calorie deficit.",
+   "how_to_choose": "Isolate for lactose intolerance; 20–40 g after training; the benchmark is leucine ≥2.5 g per serving.",
+   "interactions": [
+    {
+     "note": "protein reduces absorption, separate intake",
+     "severity": "medium",
+     "with": "levodopa"
+    }
+   ],
+   "mechs": [
+    [
+     "Leucine → mTOR + full amino profile → muscle synthesis",
+     "Muscles and sarcopenia prevention: extensive MA",
+     "strong"
+    ],
+    [
+     "Support muscle mass and function in sarcopenia",
+     "For sarcopenia: muscle mass (SMD 0.47), walking speed (1.13), grip strength higher (with RT)",
+     "strong"
+    ],
+    [
+     "Body composition: lean mass up, fat and waist down",
+     "Best effect for overweight: with strength training and calorie deficit (35 RCT)",
+     "moderate"
+    ],
+    [
+     "Decrease in pro-inflammatory signal (IL-6), increase in IGF-1",
+     "In sarcopenia: IL-6 is lower, IGF-1 and albumin are higher",
+     "context"
+    ]
+   ],
+   "myths": "“It builds muscle on its own” – without strength training there is no effect on sarcopenia (10 RCT, 1154). “The more, the better” - above 2.2 g/kg there is no benefit.",
+   "name": "Whey Protein",
+   "onset": "The effect accumulates through training and is visible in 8–16 weeks; The mass does not provide a quick pump.",
+   "title": "Whey Protein",
+   "upper_limit": "No formal UL listed - no toxicity data available.",
+   "verdict": "works",
+   "who_needs": "Athletes (1.6–2.2 g protein/kg/day), elderly with sarcopenia, losing weight with a calorie deficit."
+  }
+ }
+}

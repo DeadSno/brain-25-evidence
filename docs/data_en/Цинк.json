@@ -1,0 +1,77 @@
+{
+ "_meta": {
+  "card": "Цинк",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Цинк": {
+   "about": "Cofactor of immunity, skin and testosterone synthesis; competes with copper.",
+   "antagonists": [
+    "Calcium",
+    "Iron",
+    "Copper"
+   ],
+   "category": "Immunity / Viral Infections",
+   "category_group": "immune",
+   "caution": "Effect with ARI: ONLY if you start taking it in the first 24 hours. Lozenges/syrup (not tablets). Dose 75-100 mg/day. Side effects: nausea, metallic taste. >40 mg/day long-term → copper deficiency. For children in developing countries for diarrhea - WHO recommendation.",
+   "course": "courses 4-8 weeks",
+   "dosage": "15-30 mg",
+   "effects": [
+    "Cognition (if deficit) (not confirmed)"
+   ],
+   "food_sources": "Oysters, beef, pumpkin seeds, cheese.",
+   "forms": [
+    "picolinate",
+    "citrate",
+    "gluconate"
+   ],
+   "guidelines": "EFSA: immunity and skin; NIH: Vegetarians at risk for deficiency.",
+   "how_to_choose": "Picolinate, citrate, gluconate; 15-25 mg elemental zinc; “50 mg + copper” should not be taken without indications.",
+   "interactions": [
+    {
+     "note": "reduces absorption, separate doses for 2-4 hours",
+     "severity": "medium",
+     "with": "antibiotics (quinolones, tetracyclines)"
+    },
+    {
+     "note": "long-term use reduces copper",
+     "severity": "low",
+     "with": "copper preparations"
+    }
+   ],
+   "mechs": [
+    [
+     "Synaptic Zn2+ modulates NMDA; cofactor of 300+ enzymes",
+     "Cognition ONLY in deficit",
+     "context"
+    ],
+    [
+     "Antiviral and immune effects of Zn2+: suppression of viral replication in the respiratory tract",
+     "Colds are shorter and milder when taking zinc (lozenges)",
+     "weak"
+    ],
+    [
+     "Reduced prostaglandins and antioxidant (SOD1): less uterine cramps",
+     "Menstrual pain lower (Hedges' g -1.54)",
+     "moderate"
+    ],
+    [
+     "Support of testosterone synthesis (cofactor of steroidogenesis) in zinc deficiency",
+     "Testosterone is higher only with zinc deficiency",
+     "context"
+    ]
+   ],
+   "myths": "“Cure a cold in a day” - lozenges slightly shorten the duration. “More - more testosterone” - only in case of deficiency.",
+   "name": "Zinc",
+   "onset": "In case of deficiency (taste, skin, healing) - 4-8 weeks; “immunity” is not subjectively felt.",
+   "title": "Zinc",
+   "upper_limit": "40 mg/day long-term; months above 50 mg – copper deficiency.",
+   "verdict": "depends on context",
+   "who_needs": "Vegetarians and vegans (phytates), little animal protein, deficiency according to analysis."
+  }
+ }
+}

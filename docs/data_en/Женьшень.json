@@ -1,0 +1,71 @@
+{
+ "_meta": {
+  "card": "Женьшень",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Женьшень": {
+   "about": "Ginseng: improves memory (MA 2024 SMD 0.19, high doses 0.33), attention and cognition do not change; American ginseng—fatigue in cancer therapy (ASCO 2024).",
+   "category": "Cognition",
+   "category_group": "brain",
+   "caution": "Safety data in healthy subjects is limited; in case of cancer - coordinate with the oncologist; in healthy people the effect is small.",
+   "course": "According to RCT schemes (usually weeks-months), incl. during cancer therapy for fatigue.",
+   "dosage": "No data",
+   "effects": [
+    "Memory",
+    "Fatigue during cancer therapy (not confirmed)"
+   ],
+   "food_sources": "Ginseng is a root, not a food product; used in the form of extracts, powders and teas; tradition - East Asia (Panax ginseng).",
+   "forms": [
+    "root extract (ginsenoids)"
+   ],
+   "guidelines": "MA 2024 (15 RCT, n=671): memory SMD 0.19, high dose 0.33; ASCO-SIO 2024: American ginseng - for fatigue, low-moderate confidence; adaptogens: chronic fatigue.",
+   "how_to_choose": "Panax ginseng (Asian) - for memory; American ginseng (Panax quinquefolius) - for fatigue in cancer therapy; standardized extracts, doses according to research schemes.",
+   "interactions": [
+    {
+     "note": "may affect clotting",
+     "severity": "medium",
+     "with": "anticoagulants"
+    },
+    {
+     "note": "enhances the hypoglycemic effect",
+     "severity": "medium",
+     "with": "insulin/glycemic agents"
+    },
+    {
+     "note": "enhances stimulation",
+     "severity": "low",
+     "with": "caffeine"
+    }
+   ],
+   "mechs": [
+    [
+     "Taking ginseng preparations for memory impairment",
+     "significant memory improvement (SMD 0.19; high dose 0.33)",
+     "weak"
+    ],
+    [
+     "American Ginseng for Cancer Fatigue",
+     "temporary support during therapy (ASCO 2024)",
+     "moderate"
+    ],
+    [
+     "Adaptogenic effect of plant extracts",
+     "resistance to stress without increasing oxygen consumption, historical use",
+     "context"
+    ]
+   ],
+   "myths": "“Ginseng improves all thinking” - MA: memory yes, attention and executive functions no. “Any ginseng is the same” - fatigue has been studied in American. “Adaptogens are good for everyone”—the data for healthy people is weak.",
+   "name": "Ginseng",
+   "onset": "Course: effect on memory in MA 2024 when taking ginseng preparations in RCT; for fatigue - for the duration of therapy according to the ASCO scheme.",
+   "title": "Ginseng",
+   "upper_limit": "not established (not given in abstracts)",
+   "verdict": "works",
+   "who_needs": "For memory impairment, the effect is significant, higher at high doses (SMD 0.33); during cancer therapy - American ginseng for fatigue (ASCO recommendation); in healthy people the effect is small."
+  }
+ }
+}

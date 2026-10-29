@@ -1,0 +1,74 @@
+{
+ "_meta": {
+  "card": "Куркумин",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Куркумин": {
+   "about": "Turmeric polyphenol: inflammation (NF-κB); bioavailability itself is poor.",
+   "category": "Inflammation / Joints",
+   "category_group": "immune",
+   "caution": "The bioavailability of curcumin is VERY low without enhancers (piperine, liposomes, nanoparticles). Cochrane: Works to maintain remission in ulcerative colitis. For OA: moderate effect. For weight loss/cancer: data are weak. Caution: cholelithiasis, anticoagulants.",
+   "course": "courses",
+   "dosage": "500 mg with piperine",
+   "effects": [
+    "Mood, cognition"
+   ],
+   "food_sources": "Turmeric in food (about 3% curcumin); with piperine and fats the absorption is higher.",
+   "forms": [
+    "phytosome",
+    "with piperine"
+   ],
+   "guidelines": "EFSA: claims not approved; a number of MAs have a modest effect in osteoarthritis (small trials, heterogeneity).",
+   "how_to_choose": "Standardization of 95% curcuminoids + piperine or phosphosome/liquid forms; “turmeric powder in capsule” is weak.",
+   "interactions": [
+    {
+     "note": "enhances the effect, risk of bleeding",
+     "severity": "high",
+     "with": "anticoagulants"
+    },
+    {
+     "note": "additional anti-inflammatory effect",
+     "severity": "medium",
+     "with": "NSAIDs"
+    },
+    {
+     "note": "may enhance the effect",
+     "severity": "low",
+     "with": "hypoglycemic"
+    }
+   ],
+   "mechs": [
+    [
+     "Inhibition of NF-κB, increase in BDNF; bioavailability is low (requires piperine)",
+     "Mood is adjunctive to depression",
+     "context"
+    ],
+    [
+     "Anti-inflammatory effect in GI: maintaining remission of ulcerative colitis",
+     "No relapses in combination with mesalazine",
+     "weak"
+    ],
+    [
+     "Metabolic effect in type 2 diabetes mellitus (body composition)",
+     "Body weight, BMI and waist circumference are lower (>1000 mg/day)",
+     "context"
+    ]
+   ],
+   "myths": "“Turmeric in food = supplement dose” - 1-2 g of powder contains 30-60 mg of curcumin with poor absorption. “Completely cures inflammation”—the effect is modest.",
+   "name": "Curcumin",
+   "onset": "Joint pain - 4-8 weeks; there is no immediate effect.",
+   "synergists": [
+    "Piperine (black pepper)"
+   ],
+   "title": "Curcumin",
+   "upper_limit": "There is no formal UL; high doses - GI discomfort; for gallstones - carefully (choleretic).",
+   "verdict": "depends on context",
+   "who_needs": "Osteoarthritis as a supplement; components of metabolic syndrome (moderate data)."
+  }
+ }
+}

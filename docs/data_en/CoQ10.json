@@ -1,0 +1,71 @@
+{
+ "_meta": {
+  "card": "CoQ10",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "CoQ10": {
+   "about": "Mitochondria electron carrier and antioxidant; niche - heart failure (Cochrane).",
+   "category": "Heart",
+   "category_group": "cardio",
+   "caution": "Coenzyme Q10 (ubiquinone/ubiquinol). For heart failure: 2 Cochrane reviews confirm effectiveness (reduction in mortality, hospitalization). For blood pressure: 2 Cochrane reviews show a decrease. For statin myopathy: data are conflicting. For migraine: limited data. Dose: 100-300 mg/day. Ubiquinol (active form) is more bioavailable, but more expensive.",
+   "course": "courses",
+   "dosage": "100-200 mg",
+   "effects": [
+    "Energy, cognition (not confirmed)"
+   ],
+   "food_sources": "Meat, fish, and offal provide milligrams; You cannot get a dose of 100–200 mg from food.",
+   "forms": [
+    "ubiquinone",
+    "ubiquinol",
+    "micronized",
+    "liposomal"
+   ],
+   "guidelines": "Cochrane 2021: Possible mortality and hospitalization benefits for HF; for hypertension the effect is unreliable.",
+   "how_to_choose": "Ubiquinone 100–300 mg/day; ubiquinol is more bioavailable, but more expensive; with statins the level drops.",
+   "interactions": [
+    {
+     "note": "may reduce effect, control INR",
+     "severity": "medium",
+     "with": "warfarin"
+    },
+    {
+     "note": "may enhance the effect",
+     "severity": "low",
+     "with": "antihypertensive"
+    }
+   ],
+   "mechs": [
+    [
+     "Ubiquinone: electron transfer in mitochondria",
+     "Energy in statin users/elderly; in healthy people it is weak",
+     "context"
+    ],
+    [
+     "Antioxidant and stabilization of myocardial calcium-dependent channels",
+     "Ubiquinone deficiency correlates with severity of heart failure",
+     "context"
+    ],
+    [
+     "Reduced blood pressure (vascular tone, endothelium)",
+     "Cochrane review: effect on BP in primary hypertension is uncertain",
+     "marketing"
+    ]
+   ],
+   "myths": "“Energy for everyone” - no effect in healthy people, niche - heart failure. “Reduces blood pressure” - Cochrane considers the effect unreliable.",
+   "name": "CoQ10",
+   "onset": "Delayed, in courses: less mortality and hospitalization for HF; There is no instant charge.",
+   "synergists": [
+    "Vitamin E"
+   ],
+   "title": "CoQ10",
+   "upper_limit": "No formal UL listed - no toxicity data available.",
+   "verdict": "works",
+   "who_needs": "Heart failure as part of therapy; elderly and on statins; for hypertension and healthy people - there is little data."
+  }
+ }
+}

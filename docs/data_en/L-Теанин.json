@@ -1,0 +1,63 @@
+{
+ "_meta": {
+  "card": "L-Теанин",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "L-Теанин": {
+   "about": "Green tea amino acid: calm focus and less stress; 200 mg over 30-60 minutes improves attention.",
+   "category": "Cognition",
+   "category_group": "brain",
+   "caution": "L-theanine is an amino acid found in tea. A meta-analysis of 31 RCTs showed improved attention and reduced stress. Effect on sleep: Evidence is mixed. Synergy with caffeine is a classic nootropic stack. Safe in standard doses (100-200 mg/day). Does not cause drowsiness. Well tolerated.",
+   "course": "as needed",
+   "dosage": "100-200 mg",
+   "effects": [
+    "Calm Focus",
+    "Attention without jitter"
+   ],
+   "food_sources": "Green tea: 5-20 mg per cup - far from effective; for 100-200 mg, concentrated forms are needed.",
+   "guidelines": "MA 2026 (31 RCT, 1168): attention SMD 0.51, stress 0.31, fatigue - none. SR 2026 (13, n=550): sleep 200-450 mg. No NYA.",
+   "how_to_choose": "Pure L-theanine 100-200 mg; with caffeine 2:1 for focus; without “sleep formulas”; as needed.",
+   "interactions": [
+    {
+     "note": "may increase blood pressure reduction",
+     "severity": "low",
+     "with": "antihypertensive"
+    },
+    {
+     "note": "softens the effects, not dangerous",
+     "severity": "low",
+     "with": "stimulants"
+    }
+   ],
+   "mechs": [
+    [
+     "Modulation of glutamate, increase in EEG alpha rhythm",
+     "Calm alertness, synergy with caffeine",
+     "moderate"
+    ],
+    [
+     "Glutamatergic modulation against reactive stress",
+     "Stress reduction in stressful conditions (200-400 mg/day)",
+     "moderate"
+    ],
+    [
+     "Relaxation without sedation: support onset and sleep quality",
+     "Falling asleep, maintaining sleep and feeling restored (200-450 mg/day)",
+     "moderate"
+    ]
+   ],
+   "myths": "“Theanine = tea” - 5-20 mg per cup, not 200. “Leds to sleep” - relaxation without sedation. “Treats anxiety” - modest, significant in 1 work.",
+   "name": "L-Theanine",
+   "onset": "Acutely: 200 mg over 30-60 minutes - better attention (SMD 0.51); sleep - course, 200-450 mg/day.",
+   "title": "L-Theanine",
+   "upper_limit": "No formal UL listed - no toxicity data available.",
+   "verdict": "works",
+   "who_needs": "Mental work under stress; “Jitter-free focus” (caffeine 2:1); sleep support 200-450 mg; anxiety - weak."
+  }
+ }
+}

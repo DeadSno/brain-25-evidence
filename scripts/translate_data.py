@@ -48,6 +48,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 DATA_FILE = ROOT / "docs" / "data.json"
 OUT_FILE = ROOT / "docs" / "data_en.json"
+EN_OVERLAY_DIR = ROOT / "docs" / "data_en"   # пофайловые оверлеи: data_en/<id>.json
 CACHE_FILE = ROOT / "logs" / "translate_cache_ru_en.json"
 LEFTOVER_FILE = ROOT / "logs" / "translate_cyrillic_left.tsv"
 
@@ -608,6 +609,28 @@ def build_overlay(cards, tr: Translator):
     return out
 
 
+def emit_per_card(overlay):
+    """Пишет docs/data_en/<id>.json для каждой карточки — оверлей из одной
+    записи. Карточная страница (sup/*.html с data-sup-id) грузит только свой
+    файл (~2–3 КБ) вместо полного data_en.json (326 КБ) — FIX-55 (CWV-06).
+    Каталог и Hactar по-прежнему грузят полный data_en.json. """
+    EN_OVERLAY_DIR.mkdir(parents=True, exist_ok=True)
+    for cid, item in overlay.items():
+        payload = {
+            "_meta": {
+                "generated": "2026-10-29",
+                "source": "docs/data.json",
+                "translator": "google-translate-free",
+                "card": cid,
+            },
+            "supplements": {cid: item},
+        }
+        (EN_OVERLAY_DIR / (cid + ".json")).write_text(
+            json.dumps(payload, ensure_ascii=False, indent=1, sort_keys=True),
+            encoding="utf-8",
+        )
+
+
 def check_overlay():
     cards = load_cards()
     if not OUT_FILE.exists():
@@ -686,6 +709,7 @@ def main(argv=None):
         }
         OUT_FILE.write_text(json.dumps(payload, ensure_ascii=False, indent=1, sort_keys=True),
                             encoding="utf-8")
+        emit_per_card(overlay)
 
     if tr.leftovers:
         LEFTOVER_FILE.parent.mkdir(parents=True, exist_ok=True)

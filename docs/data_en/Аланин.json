@@ -1,0 +1,52 @@
+{
+ "_meta": {
+  "card": "Аланин",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Аланин": {
+   "about": "Meta-analysis in the pool - on β-alanine, which is a different substance than α-alanine; There is no data on α-alanine itself.",
+   "category": "Sports",
+   "category_group": "sport",
+   "caution": "The pool mixes three topics: β-alanine for endurance, antidepressants and nutrition for female athletes; Alanine itself has not been studied.",
+   "course": "abstracts indicate only chronic use; specific duration not specified",
+   "dosage": "The meta-analysis noted that the total amount of β-alanine taken did not modify the effect; specific doses are not given in abstracts.",
+   "effects": [
+    "Endurance at load 0.5-10 min",
+    "Overall Performance (β-Alanine)"
+   ],
+   "food_sources": "In the abstracts of the pool, food sources are not discussed: the meta-analysis on β-alanine concerned oral administration of the drug.",
+   "guidelines": "There are no recommendations for alanine in the pool: the only sports review is for female athletes, and there is no specific information about alanine there.",
+   "how_to_choose": "There is no data on α-alanine, there is nothing to buy. If you are interested in endurance, the pool only contains β-alanine.",
+   "interactions": [],
+   "mechs": [
+    [
+     "In a meta-analysis of β-alanine, the effect on endurance performance at 0.5-10 minutes was 0.50 versus 0.11 for exercise performance.",
+     "Endurance under loads 0.5-10 min",
+     "moderate"
+    ],
+    [
+     "Load duration significantly modified the effect (p = 0.004), but training and load mode did not",
+     "The effect depends on the type of load",
+     "weak"
+    ],
+    [
+     "A meta-analysis was performed for β-alanine; α-alanine was not used in pool work",
+     "The effect of α-alanine has not been studied",
+     "marketing"
+    ]
+   ],
+   "myths": "“Beta-alanine is alanine” - different substances: β-alanine goes into muscle carnosine, α-alanine has not been studied in any pool work. “There is data” - it is for β-alanine, the overall effect is 0.18 with 1461 participants.",
+   "name": "Alanine",
+   "onset": "The timing for α-alanine has not been studied; in the β-alanine meta-analysis, the protocols were chrotic only.",
+   "title": "Alanine",
+   "upper_limit": "not listed in abstracts",
+   "verdict": "depends on context",
+   "who_needs": "For anyone, according to the pool: There are no studies on α-alanine as a supplement. Data for β-alanine refer to a different substance."
+  }
+ }
+}

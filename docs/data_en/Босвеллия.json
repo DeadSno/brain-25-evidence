@@ -1,0 +1,65 @@
+{
+ "_meta": {
+  "card": "Босвеллия",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Босвеллия": {
+   "about": "Indian Frankincense: Acids inhibit 5-LOX; pain and stiffness are lower with osteoarthritis.",
+   "category": "Inflammation / Joints",
+   "category_group": "immune",
+   "caution": "Boswellia serrata - 'Indian incense'. For osteoarthritis: Aflapin standardized extract (38365549) shows improvement in pain/function. For inflammation: Inhibits 5-lipoxygenase (5-LOX), an alternative to NSAIDs. For asthma/IBD: limited data. There is little data (2 abstracts in the database). A standardized extract with ≥30% boswellic acids is required. Dose: 100-250 mg 2-3 times/day.",
+   "course": "—",
+   "dosage": "300-500 mg",
+   "effects": [
+    "Osteoarthritis pain: moderate, in MA comparable to NSAIDs"
+   ],
+   "food_sources": "Non-food: Boswellia serrata (frankincense) resin; It is used as a supplement and cannot be obtained from food.",
+   "forms": [
+    "extract (AKBA ≥30%)"
+   ],
+   "guidelines": "MA 2024 (9 RCT, 712): VAS and WOMAC pain −10.7, stiffness −5.5; Aflapin is stronger (−16.1 vs −4.7); AEs as placebo.",
+   "how_to_choose": "Extract with AKBA ≥30%, better standardized forms; 300-500 mg 2-3 times a day in a course.",
+   "interactions": [
+    {
+     "note": "additive anti-inflammatory effect",
+     "severity": "low",
+     "with": "NSAIDs"
+    },
+    {
+     "note": "may affect clotting",
+     "severity": "medium",
+     "with": "anticoagulants"
+    }
+   ],
+   "mechs": [
+    [
+     "Boswellic acids: 5-LOX inhibition → inflammation down",
+     "Osteoarthritis pain: moderate, in MA comparable to NSAIDs",
+     "moderate"
+    ],
+    [
+     "5-LOX Inhibition: Lower OA Symptoms",
+     "OA: VAS -10.7, WOMAC-pain and function -10.7 (9 RCT, 712 people)",
+     "moderate"
+    ],
+    [
+     "Standardized forms are better than non-standardized ones",
+     "Aflapin is stronger than other extracts (VAS -16.1 vs -4.7); modified forms are the best WOMAC",
+     "context"
+    ]
+   ],
+   "myths": "“Treats asthma and IBD” - limited data, niche - joints. \"All forms are the same\" - Aflapin and modified forms are noticeably stronger.",
+   "name": "Boswellia",
+   "onset": "Symptomatic: Pain and function improve after weeks of taking the standardized extract.",
+   "title": "Boswellia",
+   "upper_limit": "No formal UL listed - no toxicity data available.",
+   "verdict": "works",
+   "who_needs": "Joint osteoarthritis (pain, stiffness, function) as an alternative/addition to NSAIDs; according to AEs it is safe in NMA."
+  }
+ }
+}

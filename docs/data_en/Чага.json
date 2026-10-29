@@ -1,0 +1,67 @@
+{
+ "_meta": {
+  "card": "Чага",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Чага": {
+   "about": "Northern mushroom, traditionally used in Russia and Siberia. Modern RCTs in humans are rare - most of the data are in vitro and on animals.",
+   "category": "Immunity",
+   "category_group": "immune",
+   "caution": "High oxalate content is contraindicated for kidney stones. May interact with anticoagulants (warfarin) and antidiabetic drugs - risk of hypoglycemia. For autoimmune diseases, be careful.",
+   "course": "4-12 weeks courses",
+   "dosage": "500-1000 mg",
+   "effects": [
+    "Immunity",
+    "Antioxidant",
+    "Inflammation"
+   ],
+   "food_sources": "Chaga tea is a traditional drink. The mushroom itself is inedible, only a decoction or extract.",
+   "forms": [
+    "extract (β-glucans 10%+)"
+   ],
+   "guidelines": "In Russia, it is a component of traditional medicine and is approved as part of some drugs. FDA/EFSA do not approve health claims.",
+   "how_to_choose": "Extract indicating the concentration of polysaccharides (β-glucans 10%+). Avoid cheap powders - they have few active substances.",
+   "interactions": [
+    {
+     "note": "enhances the anticoagulant effect - INR control",
+     "severity": "medium",
+     "with": "warfarin"
+    },
+    {
+     "note": "may reduce sugar - risk of hypoglycemia",
+     "severity": "medium",
+     "with": "metformin, insulin"
+    }
+   ],
+   "mechs": [
+    [
+     "Melanins and polysaccharides (β-glucans): activation of macrophages and NK cells",
+     "Immune modulation",
+     "moderate"
+    ],
+    [
+     "Betulin and betulinic acid: antioxidant",
+     "Protecting cells from oxidative stress",
+     "moderate"
+    ],
+    [
+     "Triterpenoids: anti-inflammatory effects",
+     "Reducing chronic inflammation",
+     "weak"
+    ]
+   ],
+   "myths": "“Cures cancer” - no, not a single confirmed RCT. “The Soviet pill for everything” is a historical myth, the effect is modest.",
+   "name": "Chaga",
+   "onset": "2-4 weeks for immune effect; usually does not produce noticeable changes in well-being.",
+   "title": "Chaga",
+   "upper_limit": "There is no formal UL. High doses increase the risk of oxalate stones.",
+   "verdict": "depends on context",
+   "who_needs": "Supporters of adaptogens and mushroom medicine. People with chronic inflammation (as measured by CRP). DOES NOT replace treatment."
+  }
+ }
+}

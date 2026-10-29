@@ -1,0 +1,46 @@
+{
+ "_meta": {
+  "card": "Лизин",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Лизин": {
+   "about": "Lysine for herpes labialis: A 2015 Cochrane review (32 RCTs) found no evidence of prevention; safe, but no effect shown.",
+   "category": "Immunity",
+   "category_group": "immune",
+   "caution": "In the review, antiviral AEs were not increased; Lyzin - no recorded AEs, but no effect.",
+   "course": "Not installed.",
+   "dosage": "No data",
+   "effects": [
+    "Prevention of herpes (no effect)"
+   ],
+   "food_sources": "Meat, fish, eggs, legumes, cheese; the diet is not understood in abstracts; deficits in normal nutrition have not been described.",
+   "guidelines": "Cochrane 2015 (32 RCT, n=2640): Lysine was not found to be effective in preventing herpes; Long-term oral antivirals reduce relapses, but the benefit is small.",
+   "how_to_choose": "Do not choose Lysin for the prevention of herpes - there is no data; If there are frequent relapses, discuss antiviral medications with your doctor.",
+   "interactions": [],
+   "mechs": [
+    [
+     "Lysin and prevention of recurrence of herpes on the lips",
+     "no evidence of effectiveness found (Cochrane 2015)",
+     "context"
+    ],
+    [
+     "Long-term suppressive antiviral therapy as a basis for prevention",
+     "reduction in relapses, clinical benefit is small",
+     "context"
+    ]
+   ],
+   "myths": "“Lysine prevents herpes” - Cochrane 2015: no evidence. “Natural means it works” - relapses are reduced by antivirals, not Lysine. “More Lysin will heal faster” has not been studied.",
+   "name": "Lysine",
+   "onset": "No data: A 2015 review did not confirm the effectiveness of lysine for prevention.",
+   "title": "Lysine",
+   "upper_limit": "not established (not given in abstracts)",
+   "verdict": "not confirmed",
+   "who_needs": "People with recurrent herpes on the lips who are expecting prophylaxis from Lyzin - effectiveness has not been confirmed; in case of relapses, antiviral drugs are effective (clinical benefit is small)."
+  }
+ }
+}

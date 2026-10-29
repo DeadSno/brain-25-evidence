@@ -1,0 +1,54 @@
+{
+ "_meta": {
+  "card": "Готу кола",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Готу кола": {
+   "about": "Centella: cognition = placebo; cheerfulness is higher, anger is lower; wound healing - 4 RCT.",
+   "category": "Cognition",
+   "category_group": "brain",
+   "caution": "Gotu kola (Centella asiatica) is an adaptogen from Ayurveda. For cognitive function: there is evidence, but the quality of RCT is often low. For venous insufficiency: data available. Safe in standard doses (60-240 mg/day). Caution: Hepatotoxicity in rare cases.",
+   "course": "courses",
+   "dosage": "300-600 mg",
+   "effects": [
+    "Cognition"
+   ],
+   "food_sources": "The leaves of Centella asiatica are eaten as greens in Asia; clinical doses are from a standardized extract.",
+   "forms": [
+    "extract (asiaticoside)"
+   ],
+   "guidelines": "MA 2017 (5 RCT): cognition = placebo; cheerfulness SMD 0.71, anger −0.81 (1 hour). SR 2022: healing - 4 RCT.",
+   "how_to_choose": "Extract with standardization for triterpenes (asiaticoside), 300-600 mg in courses; If you have liver problems, do not take it.",
+   "interactions": [],
+   "mechs": [
+    [
+     "Triterpenes (asiaticoside): microcirculation and venous tone, weak GABA modulation",
+     "Venous insufficiency is moderate; cognition/sleep—weak data",
+     "weak"
+    ],
+    [
+     "Mood modulation: cheerfulness and reduction of irritability",
+     "Cheerfulness is higher (SMD 0.71), anger is lower (−0.81) after 1 hour; cognition without effect",
+     "context"
+    ],
+    [
+     "Angiogenesis and collagen I synthesis (wound healing)",
+     "Healing: angiogenesis via collagen I/FGF/VEGF; 4 RCT without meta-analysis",
+     "weak"
+    ]
+   ],
+   "myths": "Nootropic herb - no difference from placebo in all domains of cognition. “Heals wounds from the inside” - 4 small RCTs without meta-analysis. Rare hepatotoxicity.",
+   "name": "Gotu Kola",
+   "onset": "After 1 hour, cheerfulness is higher and anger is lower; There is no cognitive benefit even with the course.",
+   "title": "Gotu Kola",
+   "upper_limit": "No formal UL listed - no toxicity data available.",
+   "verdict": "depends on context",
+   "who_needs": "Venous insufficiency and swelling; fatigue/irritability (energy after 1 hour); wound healing - course."
+  }
+ }
+}

@@ -1,0 +1,51 @@
+{
+ "_meta": {
+  "card": "Медь",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Медь": {
+   "about": "Copper is an essential mineral, but there is no data on the benefits of supplementation at normal levels: ESPEN explicitly notes the lack of intervention studies.",
+   "category": "General",
+   "category_group": "general",
+   "caution": "ESPEN specifically addresses the potential toxicity of micronutrients in excess; There is no data on the upper limit specifically for copper in the pool.",
+   "course": "not specified; ESPEN describes monitoring micronutrient status during nutritional support",
+   "dosage": "No data",
+   "effects": [
+    "Correction of copper deficiency"
+   ],
+   "food_sources": "Liver, seafood, nuts, seeds and cocoa; The Vegan Diet SR lists copper as one of the nutrients for which no deficiency has been identified.",
+   "guidelines": "ESPEN 2022: Recommendations for micronutrients are based on consensus, there are few intervention studies, a meta-analysis could not be carried out - the level of evidence is low.",
+   "how_to_choose": "Pool copper supplements are not supported by any research; if a deficiency is suspected, use a blood test rather than taking it on your own.",
+   "interactions": [],
+   "mechs": [
+    [
+     "Copper is an essential trace element necessary for metabolism; deficiency is detected in acute and chronic diseases",
+     "Correction of subclinical deficiency",
+     "weak"
+    ],
+    [
+     "Deficiency or imbalance of micronutrients is considered as a possible factor in the pathogenesis of androgenetic alopecia",
+     "Possible effect on hair loss",
+     "weak"
+    ],
+    [
+     "There is no direct data on the effect of copper intake on a healthy person in the studies studied.",
+     "The effect of the supplement outside of deficiency has not been confirmed",
+     "marketing"
+    ]
+   ],
+   "myths": "“Everyone needs copper” - SR on a vegan diet did not reveal any copper deficiency. “Improves hair growth” - in the SR on androgenetic alopecia, copper is only in the list of micronutrients, the conclusions relate to B, D, Fe, Se, Zn.",
+   "name": "Copper",
+   "onset": "Not studied: There are no separate RCTs measuring the timing of the copper effect in the pool.",
+   "title": "Copper",
+   "upper_limit": "not listed in abstracts",
+   "verdict": "not confirmed",
+   "who_needs": "Only with confirmed deficiency or with enteral and parenteral nutrition. In a normal diet, copper deficiency has not been identified, even among vegans."
+  }
+ }
+}

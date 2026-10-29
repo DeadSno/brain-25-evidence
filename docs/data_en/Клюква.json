@@ -1,0 +1,55 @@
+{
+ "_meta": {
+  "card": "Клюква",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Клюква": {
+   "about": "Cranberries and UTIs: prevention of relapses in women - minus 26%; treatment - no RCT; the effect is limited.",
+   "category": "Urogenital System",
+   "category_group": "cardio",
+   "caution": "Cranberry (Vaccinium macrocarpon). For the prevention of urinary tract infections: Previously considered effective (proanthocyanidins prevent bacterial adhesion), but current meta-analyses show limited effectiveness. For pressure: data are very limited. There is little data (only 2 abstracts in the database).",
+   "course": "—",
+   "dosage": "36 mg PAC/day",
+   "effects": [
+    "Recurrence of UTI: −30% in risk groups"
+   ],
+   "food_sources": "Berries and unsweetened fruit drinks are PAC; store-bought “juice” is diluted - PAC is not enough.",
+   "forms": [
+    "concentrate/juice (PAC ~36 mg)"
+   ],
+   "guidelines": "Cochrane 2023 (50 RCT, 8857): reduces UTI in groups, confidence low. MA 2017 (7, n=1498): RR 0.74. Treatment - no.",
+   "how_to_choose": "Concentrate with PAC ~36 mg/day (juice without sugar); course for relapses; If you have symptoms, see a doctor.",
+   "interactions": [
+    {
+     "note": "enhances the effect, INR control",
+     "severity": "high",
+     "with": "warfarin"
+    }
+   ],
+   "mechs": [
+    [
+     "PACs block E. coli adhesion to the urothelium",
+     "Recurrence of UTI: −30% in risk groups",
+     "moderate"
+    ],
+    [
+     "Antiadhesive proanthocyanidins: prevention vs treatment",
+     "Treatment of bacterial cystitis: no effect (review of dogs and cats, 122 animals)",
+     "context"
+    ]
+   ],
+   "myths": "“Treats cystitis” - Cochrane 2023: RCT no. “Prevention for all” - mainly women with relapses. “Any juice” - you need PAC, the fruit drink is diluted.",
+   "name": "Cranberry",
+   "onset": "Course prophylaxis: effect - for months; not “juice for cystitis”; if you have symptoms, call a doctor.",
+   "title": "Cranberry",
+   "upper_limit": "No formal UL listed - no toxicity data available.",
+   "verdict": "depends on context",
+   "who_needs": "Women with recurrent UTIs (RR 0.74)—modest effect; not for treatment and not for the elderly/with a catheter - limited data."
+  }
+ }
+}

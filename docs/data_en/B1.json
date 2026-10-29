@@ -1,0 +1,56 @@
+{
+ "_meta": {
+  "card": "B1",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "B1": {
+   "about": "Thiamine (B1) is a nerve tissue vitamin: in peripheral neuropathy, including alcoholic, treatment with B1 improves symptoms; healthy people without data deficits have no data.",
+   "category": "Neurology / Metabolism",
+   "category_group": "brain",
+   "caution": "In normal doses, thiamine is safe; ESPEN points out the importance of correct status assessment; For alcoholic neuropathy, the key is to abstain from alcohol.",
+   "course": "Weeks-months, in parallel with eliminating the cause (abstinence from alcohol).",
+   "dosage": "No data",
+   "effects": [
+    "Neuropathy",
+    "Alcoholic neuropathy"
+   ],
+   "food_sources": "Whole grains, legumes, pork, nuts, yeast; with alcoholism and heat treatment, absorption decreases.",
+   "forms": [
+    "thiamine",
+    "benfotiamine"
+   ],
+   "guidelines": "SR 2019: for alcoholic polyneuropathy - B-complex with thiamine. MA 2021: B1 improves symptoms (OR 5.34 [1.87-15.19]). ESPEN 2022: micronutrient status monitoring.",
+   "how_to_choose": "Benfotiamine or thiamine in B-complex; dose - according to confirmed deficiency; with alcoholism, prevention against deficiency, and not “just in case.”",
+   "interactions": [],
+   "mechs": [
+    [
+     "Replenishment of B1 in case of deficiency: coenzyme of energy metabolism of nervous tissue",
+     "improvement in symptoms of peripheral neuropathy (OR 5.34)",
+     "weak"
+    ],
+    [
+     "B-complex with thiamine for alcoholic polyneuropathy",
+     "relief of sensory neuropathy in chronic alcohol users",
+     "context"
+    ],
+    [
+     "Treatment with B-vitamins without regard to baseline status (common RCT pool)",
+     "trend towards improvement without statistical significance (OR 2.58)",
+     "context"
+    ]
+   ],
+   "myths": "“B1 pumps up a healthy brain” - in MA 2021, the effect is only in patients with neuropathy (n=3). “An alcoholic has enough vitamins” - neuropathy in alcoholism in 46%. “The more, the better” - they check the status, not megadoses.",
+   "name": "Vitamin B1",
+   "onset": "Course - weeks: for neuropathy, treatment with B1 significantly improved symptoms (MA 2021); There is no acute effect like stimulants.",
+   "title": "Vitamin B1",
+   "upper_limit": "not established (not given in abstracts)",
+   "verdict": "depends on context",
+   "who_needs": "Chronic alcohol consumers (risk of neuropathy 46.3%); patients with peripheral neuropathy - improvement in symptoms (OR 5.34); with normal B1 status there is no evidence."
+  }
+ }
+}

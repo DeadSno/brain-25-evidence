@@ -1,0 +1,54 @@
+{
+ "_meta": {
+  "card": "Рибофлавин",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Рибофлавин": {
+   "about": "Vitamin B2 is a mitochondrial cofactor; works as a prophylaxis for migraine in adults (400 mg/day).",
+   "category": "Neurology / Metabolism",
+   "category_group": "brain",
+   "caution": "Riboflavin (vitamin B2). For migraine prevention: systematic reviews (33779525, 28485121) show effectiveness at a dose of 400 mg/day. The effect develops after 2-3 months. Safe, no serious side effects (bright yellow urine is normal). For hereditary metabolic diseases (complex I deficiency): data available. For anemia there is no systematic data.",
+   "course": "—",
+   "dosage": "400 mg/day",
+   "effects": [
+    "Migraine prevention: moderate MA (not confirmed)"
+   ],
+   "food_sources": "Milk, eggs, mushrooms, liver, almonds, greens; Deficiency is rare, for migraines - doses of supplements, not food.",
+   "forms": [
+    "regular riboflavin (not the \"active forms\")"
+   ],
+   "guidelines": "MA 2022 (9 articles, 673 people): days/frequency/duration/pain lower. SR 2017: stable in adults, combinations do not help.",
+   "how_to_choose": "Regular riboflavin 400 mg/day (not “active forms”), course from 3 months; cheap and safe.",
+   "interactions": [],
+   "mechs": [
+    [
+     "Mitochondrial energy metabolism (complexes I/II)",
+     "Migraine prevention: moderate MA",
+     "moderate"
+    ],
+    [
+     "Correction of mitochondrial dysfunction in migraine",
+     "Migraine: fewer days, frequency, duration and pain at 400 mg/day (8 RCT, 673)",
+     "moderate"
+    ],
+    [
+     "Prophylactic profile: adults vs children and combinations",
+     "In adults, the effect is stable; mixed in children; combinations don't help",
+     "context"
+    ]
+   ],
+   "myths": "“Relieves an attack immediately” - prevention: less often after 2-3 months. “Yellow urine is dangerous” is the norm; in children the effect is mixed.",
+   "name": "Riboflavin",
+   "onset": "The effect develops after 2–3 months of taking 400 mg/day; Migraine does not stop quickly.",
+   "title": "Riboflavin",
+   "upper_limit": "No formal UL listed - no toxicity data available.",
+   "verdict": "works",
+   "who_needs": "Adults with frequent migraines who need non-drug prevention; In children the effect is mixed; healthy people do not need it."
+  }
+ }
+}

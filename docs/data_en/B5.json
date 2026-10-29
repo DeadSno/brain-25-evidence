@@ -1,0 +1,50 @@
+{
+ "_meta": {
+  "card": "B5",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "B5": {
+   "about": "Pantothenic acid (B5): the benefits of dietary supplements have not been confirmed in abstracts; deficiency - in spinal cord injuries; topical dexpanthenol is no better than others.",
+   "category": "General",
+   "category_group": "general",
+   "caution": "The safety of high doses is not reported in the abstracts; In case of SM injuries, the nutritional picture is complex.",
+   "course": "Not installed.",
+   "dosage": "No data: B5 dietary supplement has not been studied in abstracts.",
+   "effects": [
+    "Deficiency in spinal cord injury",
+    "Nipple pain (topical)"
+   ],
+   "food_sources": "Widely distributed: meat, liver, eggs, legumes, whole grains; severe deficiency is rare.",
+   "forms": [
+    "pantothenic acid"
+   ],
+   "guidelines": "CP 2019 (SCI): B5 Deficiency in Chronic Spinal Cord Injury—A Matter of Screening, Not Supplementation; SR 2005: topical dexpanthenol is no better than other treatments for nipple pain.",
+   "how_to_choose": "There is no data for choosing a form; if a deficiency is suspected, assess the status; in B-complexes it is harmless, no benefits beyond the norm have been shown.",
+   "interactions": [],
+   "mechs": [
+    [
+     "Topical dexpanthenol for nipple pain",
+     "no better than other products in the 2005 review",
+     "context"
+    ],
+    [
+     "B5 deficiency in patients with chronic spinal cord injury",
+     "malnutrition indicator; the benefits of supplements have not been shown",
+     "context"
+    ]
+   ],
+   "myths": "“B5 is the vitamin of beauty and nerves” - there is no data in the abstracts. “Dexpanthenol treats pain during feeding” - in CP, no topical drug has surpassed the others. “Useful just in case” - without a deficiency the effect has not been proven.",
+   "name": "Vitamin B5",
+   "onset": "Not described: in abstracts, the use of B5 dietary supplements and the timing of the effect were not studied.",
+   "title": "Vitamin B5",
+   "upper_limit": "not established (not given in abstracts)",
+   "verdict": "not confirmed",
+   "who_needs": "Groups at risk for deficiency (chronic spinal cord injury - SR 2019), but there is no evidence of benefit from supplements; There are no indications for healthy people with a normal diet."
+  }
+ }
+}

@@ -1,0 +1,60 @@
+{
+ "_meta": {
+  "card": "Расторопша",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Расторопша": {
+   "about": "Silymarin stabilizes hepatocyte membranes; improves markers, clinical significance is controversial.",
+   "category": "Liver",
+   "category_group": "liver",
+   "caution": "Milk thistle (Silybum marianum, silymarin). For metabolic liver dysfunction (MLD): there is a Cochrane review. For alcoholic/viral hepatitis: Cochrane shows limited effectiveness. For insulin resistance: there is data. Clinical significance is controversial—biochemical markers improve, but clinical outcomes are often insignificant. Safe.",
+   "course": "—",
+   "dosage": "420 mg silymarin/day",
+   "effects": [
+    "NAFLD: small unstable effect (not confirmed)"
+   ],
+   "food_sources": "Ordinary seeds are only suitable for tea; clinical dose - standardized silymarin 420 mg.",
+   "forms": [
+    "silymarin (extract)"
+   ],
+   "guidelines": "Cochrane 2007 (18 RCT, 1088): overall mortality NS, hepatic RR 0.50; SR 2025: HOMA-IR −2.29 in T2D, not in NAFLD.",
+   "how_to_choose": "Silymarin 420 mg/day (not powder), courses for months; in case of complaints, first diagnose the liver.",
+   "interactions": [
+    {
+     "note": "may affect metabolism",
+     "severity": "medium",
+     "with": "cytochrome P450 substrates"
+    }
+   ],
+   "mechs": [
+    [
+     "Silybin: stabilization of hepatocyte membranes",
+     "NAFLD: small unstable effect",
+     "weak"
+    ],
+    [
+     "Reducing insulin resistance in patients with T2D",
+     "HOMA-IR −2.29 (p=0.047); FI no effect; improved in T2D, not in NAFLD (n=673)",
+     "weak"
+    ],
+    [
+     "Alcoholic/viral liver injury: survival",
+     "Hepatic mortality RR 0.50, but overall NS; RCT quality low (2007)",
+     "context"
+    ]
+   ],
+   "myths": "“Restores the liver after alcohol” - does not reduce overall mortality (RR 0.78). “Sugar for everyone” - HOMA-IR falls only in T2D, not in NAFLD.",
+   "name": "Milk Thistle",
+   "onset": "Course effect: enzymes and HOMA-IR after 4–12 weeks; There is no quick “liver cleanse”.",
+   "title": "Milk Thistle",
+   "upper_limit": "No formal UL listed - no toxicity data available.",
+   "verdict": "depends on context",
+   "who_needs": "ASLD/NAFLD (adjunct to lifestyle); for insulin resistance in T2D - there is data."
+  }
+ }
+}

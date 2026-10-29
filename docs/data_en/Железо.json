@@ -1,0 +1,81 @@
+{
+ "_meta": {
+  "card": "Железо",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Железо": {
+   "about": "Hemoglobin cofactor: works for anemia and ferritin deficiency; at normal levels there is no benefit.",
+   "antagonists": [
+    "Calcium",
+    "Zinc",
+    "Magnesium"
+   ],
+   "category": "Blood / Anemia",
+   "category_group": "cardio",
+   "caution": "The effect depends on the INITIAL ferritin level. Healthy people with normal Fe have little benefit. In case of anemia or deficiency - significant. GI side effects (constipation, nausea) are frequent. Pregnancy: WHO routine recommendation.",
+   "course": "supervised courses",
+   "dosage": "No data",
+   "effects": [
+    "Energy (for anemia)"
+   ],
+   "food_sources": "Red meat (heme - better absorbed); vegetable and tannins (tea) are worse. You can't get enough food if there's a shortage.",
+   "forms": [
+    "bisglycinate",
+    "sulfate"
+   ],
+   "guidelines": "WHO - routine during pregnancy; in case of deficiency, courses and under the control of ferritin. Cochrane: anemia RR 0.30 (0.20–0.47).",
+   "how_to_choose": "Start with ferritin/OAC only. Don’t push the form: choose the one that is tolerable - GI side effects decide.",
+   "interactions": [
+    {
+     "note": "reduces absorption",
+     "severity": "medium",
+     "with": "proton pump inhibitors"
+    },
+    {
+     "note": "compete for absorption, separate administration",
+     "severity": "medium",
+     "with": "calcium"
+    },
+    {
+     "note": "reduces the effect",
+     "severity": "medium",
+     "with": "levodopa"
+    }
+   ],
+   "mechs": [
+    [
+     "Heme/ferritin: O2 transport; tyrosine hydroxylase cofactor",
+     "Energy ONLY for anemia/latent deficiency",
+     "context"
+    ],
+    [
+     "Replenishment of hemoglobin and ferritin in case of deficiency/anemia",
+     "Anemia during pregnancy: RR 0.30 (0.20–0.47); Ferritin is normal",
+     "strong"
+    ],
+    [
+     "Restoration of O2 transport and neurotransmission in anemia",
+     "Physical performance and cognition in deficit (2016)",
+     "weak"
+    ],
+    [
+     "Intermittent regimen (1–3 times/week): ferritin accumulation",
+     "Effective for lower GI AEs (nausea/constipation) vs daily (2011)",
+     "context"
+    ]
+   ],
+   "myths": "“More - more energetic” - there is no benefit at normal ferritin levels. “Only daily” - 1–3 r/week softer. “Tea cancels everything” - it only reduces absorption.",
+   "name": "Iron",
+   "onset": "Ferritin and hemoglobin increase over 4–12 weeks; the 1–3 r/week scheme is gentler on GI.",
+   "title": "Iron",
+   "upper_limit": "45 mg/day",
+   "verdict": "works",
+   "who_needs": "Menstruating women, pregnant women (WHO), vegans/vegetarians and anyone deficient in ferritin - order by analysis."
+  }
+ }
+}

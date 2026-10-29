@@ -1,0 +1,56 @@
+{
+ "_meta": {
+  "card": "Хром",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Хром": {
+   "about": "Strengthens insulin receptor signaling; with T2D - weak shifts in glycemia and lipids, weight - no.",
+   "category": "Metabolism / Diabetes",
+   "category_group": "metab",
+   "caution": "Chromium (usually picolinate). For type 2 diabetes: meta-analyses show small reductions in fasting glucose and HbA1c. For obesity: Cochrane (24293292) shows an INsignificant effect on weight. For PCOS: data available. For pressure: the effect is small. The data are mixed, the clinical significance is controversial. Safe at standard doses (200-1000 mcg/day).",
+   "course": "—",
+   "dosage": "200-400 mcg",
+   "effects": [
+    "Glycemia/weight: not confirmed"
+   ],
+   "food_sources": "Broccoli, whole grains, potatoes, yeast; You can’t gain 200–400 mcg of dietary chromium.",
+   "guidelines": "SR 2024: FPG/HbA1c/HOMA-IR lower in courses 2–6 months; Cochrane 2013: weight unchanged; MA 2025 (PCOS): more ovulations.",
+   "how_to_choose": "Picolinate 200–400 mcg/day under glucose control for T2D/PCOS; for healthy weight loss - do not take it.",
+   "interactions": [],
+   "mechs": [
+    [
+     "Enhanced insulin receptor signaling",
+     "Glycemia/weight: not confirmed",
+     "marketing"
+    ],
+    [
+     "Glycemic control in T2D (long-term use)",
+     "FPG, insulin, HbA1c, HOMA-IR are lower in courses of 2–6 months; heterogeneous data",
+     "weak"
+    ],
+    [
+     "Lipid profile and inflammation",
+     "HDL is higher, TG and total cholesterol is lower; hs-CRP and MDA lower (meta-analyses)",
+     "weak"
+    ],
+    [
+     "Mock metformin for PCOS",
+     "PCOS: insulin/LH lower, ovulation more frequent; 200 mcg is better than metformin according to HOMA-IR",
+     "context"
+    ]
+   ],
+   "myths": "“Fat burner” - Cochrane 2013 (9 RCT, 622): weight is not significant. “Like metformin” - 200 mcg for PCOS reduces HOMA-IR better, RCT quality is modest.",
+   "name": "Chromium",
+   "onset": "The effect is cumulative: glucose and insulin change over 2–6 months; there is no fast one.",
+   "title": "Chromium",
+   "upper_limit": "No formal UL listed - no toxicity data available.",
+   "verdict": "depends on context",
+   "who_needs": "T2D with poor glycemic control (courses 2–6 months) and PCOS; for weight loss - doesn't work."
+  }
+ }
+}

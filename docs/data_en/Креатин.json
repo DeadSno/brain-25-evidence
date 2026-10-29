@@ -1,0 +1,65 @@
+{
+ "_meta": {
+  "card": "Креатин",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Креатин": {
+   "about": "Most Researched Sports Supplement: Helps muscles recapture ATP, the currency of short, powerful efforts.",
+   "category": "Sports / Cognition",
+   "category_group": "sport",
+   "caution": "The ONLY proven form is CREATINE MONOHYDRATE. HCl/ester/buffer - marketing. Long-term safe in healthy people (ISSN). The myth about the kidneys has been debunked. Water retention of 0.5-2 kg in the first weeks is normal.",
+   "course": "permanently, effect from 2-4 weeks",
+   "dosage": "3-5 g",
+   "effects": [
+    "Working memory under load"
+   ],
+   "food_sources": "Red meat and fish: about 4-5 g per kilogram of raw product - difficult to get enough of.",
+   "forms": [
+    "monohydrate"
+   ],
+   "guidelines": "ISSN position: effective and safe; EFSA health claims for sports are not required.",
+   "how_to_choose": "Monohydrate (Creapure sign); without “transport systems” and overpayments for exotic forms.",
+   "interactions": [
+    {
+     "note": "risk of dehydration, drink more water",
+     "severity": "medium",
+     "with": "diuretics"
+    },
+    {
+     "note": "load on the kidneys with long-term use",
+     "severity": "low",
+     "with": "NSAIDs (ibuprofen)"
+    }
+   ],
+   "mechs": [
+    [
+     "Phosphocreatine buffer: ATP resynthesis in neurons and muscles",
+     "Working memory under load, strength",
+     "strong"
+    ],
+    [
+     "Brain energy metabolism: replenishment of brain stores of creatine phosphate for neurons",
+     "Memory, attention, information processing speed",
+     "moderate"
+    ],
+    [
+     "Creatine phosphate reserve in high intensity sets: more working repetitions",
+     "Increase in lean mass and strength in conjunction with strength training",
+     "context"
+    ]
+   ],
+   "myths": "“It hits the kidneys in healthy people” - not confirmed at standard doses. “It doesn’t work without loading” - it works, it’s just slower.",
+   "name": "Creatine",
+   "onset": "2-4 weeks of regular use (with a loading period of 5-7 days); does not give an instant “tide”.",
+   "title": "Creatine",
+   "upper_limit": "There is no formal UL; 3-5 g/day is safe for a long time; above 10 g/day - GI discomfort.",
+   "verdict": "works",
+   "who_needs": "Strength and sprint athletes; vegetarians and vegans (there is less creatine in muscles without meat); elderly – against loss of muscle mass."
+  }
+ }
+}

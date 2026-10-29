@@ -1,0 +1,55 @@
+{
+ "_meta": {
+  "card": "Коллаген",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Коллаген": {
+   "about": "Structural protein: skin, joints, bones. Peptides are absorbed.",
+   "category": "Skin & Joints",
+   "category_group": "bone",
+   "caution": "Hydrolyzed collagen 2.5-10 g/day, 8-24 weeks. The effect on the skin is significant, but the quality of RCT is often low (high risk of bias). For joints (OA): data are conflicting. Safe, no serious side effects. Optimally: hydrolyzate or peptides (not native collagen).",
+   "course": "8-12 weeks",
+   "dosage": "5-10 g",
+   "effects": [
+    "Skin, joints (not confirmed)"
+   ],
+   "food_sources": "Bone broth, animal skin, gelatin; additives = hydrolyzate (peptides).",
+   "forms": [
+    "hydrolyzate or peptides are not “edible gelatin”; type I/III - skin",
+    "II - joints"
+   ],
+   "guidelines": "EFSA: claims not approved; series MA - moderate effect on the skin and joints.",
+   "how_to_choose": "Hydrolyzate (peptides), not gelatin; types I+III (skin), II (joints); with vitamin C.",
+   "interactions": [],
+   "mechs": [
+    [
+     "Peptides → stimulation of own collagen (proline/hydroxyproline)",
+     "Elasticity of skin, joints under load",
+     "moderate"
+    ],
+    [
+     "Saturation of the dermis with peptides: hydration, elasticity, wrinkles",
+     "Skin: elasticity, hydration, wrinkle depth better (RCT 1125 and 805 people)",
+     "moderate"
+    ],
+    [
+     "Substrate for healing: density and renewal of the dermis",
+     "Wound healing and dermal density: positive, preliminary data",
+     "context"
+    ]
+   ],
+   "myths": "“Gelatin is equivalent” - peptides are absorbed better. “Works immediately” - 8-12 weeks minimum.",
+   "name": "Collagen",
+   "onset": "Skin - 8-12 weeks; joints - 12-24 weeks.",
+   "title": "Collagen",
+   "upper_limit": "15 g/day is safe; higher - GI discomfort.",
+   "verdict": "works",
+   "who_needs": "Osteoarthritis, wrinkles (25+), athletes (joints), postmenopause (bones)."
+  }
+ }
+}

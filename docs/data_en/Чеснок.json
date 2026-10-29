@@ -1,0 +1,65 @@
+{
+ "_meta": {
+  "card": "Чеснок",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Чеснок": {
+   "about": "Sulfur-containing compounds: moderate effect on blood pressure and cholesterol.",
+   "category": "Blood Vessels / Metabolism",
+   "category_group": "cardio",
+   "caution": "Garlic (Allium sativum). For blood pressure: meta-analyses show a moderate decrease (-5-8 mmHg systolic). For cholesterol: moderate reduction. For cardiometabolic factors: data available. The effect depends on the form (aged garlic extract is better). Safe in standard doses. Caution: anticoagulants, operations (antiplatelet effect).",
+   "course": "—",
+   "dosage": "600-1200 mg",
+   "effects": [
+    "Blood pressure −2-4 mm Hg, lipids slightly: moderate"
+   ],
+   "food_sources": "Fresh garlic (2-4 cloves/day); additives = allicin extract.",
+   "forms": [
+    "aged garlic extract"
+   ],
+   "guidelines": "EFSA: claims not approved; MA - modest effect on blood pressure and cholesterol.",
+   "how_to_choose": "Standardization 1.3% allicin; aged garlic extract (AGE) is better tolerated.",
+   "interactions": [
+    {
+     "note": "enhances the effect, risk of bleeding",
+     "severity": "high",
+     "with": "anticoagulants"
+    },
+    {
+     "note": "reduces concentration",
+     "severity": "high",
+     "with": "saquinavir"
+    }
+   ],
+   "mechs": [
+    [
+     "Allicin/H2S: vasodilation",
+     "Blood pressure −2-4 mm Hg, lipids slightly: moderate",
+     "moderate"
+    ],
+    [
+     "Aged garlic and lipid profile",
+     "TC −10.2, LDL −5.9, HDL +2.2, TG −5.8 mg/dl (108 RCT, 7137)",
+     "moderate"
+    ],
+    [
+     "Glycemic and antihypertensive adjuvant",
+     "SBP −3.7, DBP −2.0 mmHg; glucose −2.8, HOMA-IR −0.37 (complex MA 2026)",
+     "moderate"
+    ]
+   ],
+   "myths": "“It will replace statins”—the effect is modest. “Fresh garlic is equivalent” - the additives are more stable.",
+   "name": "Garlic",
+   "onset": "BP - 8-12 weeks; cholesterol - 12-24 weeks.",
+   "title": "Garlic",
+   "upper_limit": "1200 mg extract/day; higher - GI discomfort, odor.",
+   "verdict": "works",
+   "who_needs": "High blood pressure (adjuvant), high cholesterol, prevention."
+  }
+ }
+}

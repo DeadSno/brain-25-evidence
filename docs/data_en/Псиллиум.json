@@ -1,0 +1,60 @@
+{
+ "_meta": {
+  "card": "Псиллиум",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Псиллиум": {
+   "about": "Soluble fiber: cholesterol, sugar, stool regularity.",
+   "category": "GI Tract / Metabolism",
+   "category_group": "gut",
+   "caution": "ONE of the most proven fibers. The effect is dose-dependent: optimal ≥10 g/day 15 minutes before meals. Safe for a long time. GI side effects (bloating) in the first weeks. Adequate water intake is required.",
+   "course": "—",
+   "dosage": "5-10 g",
+   "effects": [
+    "LDL and stool: stable effect (not confirmed)"
+   ],
+   "food_sources": "Flea plantain seeds; additives = husk (98% fiber).",
+   "forms": [
+    "husk (powder)"
+   ],
+   "guidelines": "EFSA: 10 g/day lowers cholesterol; FDA: health claim for the heart.",
+   "how_to_choose": "Husk (husk), not whole seeds; powder or capsules.",
+   "interactions": [
+    {
+     "note": "reduces absorption, separate doses for 2 hours",
+     "severity": "medium",
+     "with": "any drugs"
+    }
+   ],
+   "mechs": [
+    [
+     "Soluble fiber: binds bile acids",
+     "LDL and stool: stable effect",
+     "strong"
+    ],
+    [
+     "Viscous gel: slows absorption of glucose and lipids",
+     "T2D/prediabetes: glucose, HbA1c, HOMA-IR lower (GRADE-meta, 19 RCT, 962 people)",
+     "moderate"
+    ],
+    [
+     "Satiety and Viscosity: Weight Control",
+     "Weight −2.1 kg, waist −2.2 cm at 10.8 g/day before meals (6 RCT, 354)",
+     "moderate"
+    ]
+   ],
+   "myths": "“Replaces vegetables” - there is fiber, but no vitamins. “Works without water” - constipation without water.",
+   "name": "Psyllium",
+   "onset": "Cholesterol - 4-8 weeks; stool - 1-3 days.",
+   "title": "Psyllium",
+   "upper_limit": "30 g/day; higher - bloating; drink a lot of water.",
+   "verdict": "works",
+   "who_needs": "High cholesterol, constipation, prediabetes, weight control."
+  }
+ }
+}

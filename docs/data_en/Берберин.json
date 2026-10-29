@@ -1,0 +1,70 @@
+{
+ "_meta": {
+  "card": "Берберин",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Берберин": {
+   "about": "Alkaloid: reduces sugar, improves insulin sensitivity.",
+   "category": "Metabolism / Diabetes",
+   "category_group": "metab",
+   "caution": "Berberine is an alkaloid from plants. For glycemic control: Meta-analyses show comparable efficacy to metformin in some RCTs. For lipids: moderate reduction. For obesity and liver disease (NAFLD): data available. Dose: 500 mg 2-3 times a day. Side effects: gastrointestinal. Caution: CYP3A4 inhibitor - interacts with medications.",
+   "course": "—",
+   "dosage": "500 mg 2-3 times a day before meals",
+   "effects": [
+    "Glycemia: MA comparable to metformin"
+   ],
+   "food_sources": "Barberry, turmeric (trace amounts); additives = extract.",
+   "forms": [
+    "hydrochloride"
+   ],
+   "guidelines": "EFSA: claims not approved; series of MA - the effect is comparable to metformin.",
+   "how_to_choose": "Berberine HCl or phytosome; 500 mg 3 times/day with food.",
+   "interactions": [
+    {
+     "note": "additive effect, risk of hypoglycemia",
+     "severity": "medium",
+     "with": "metformin"
+    },
+    {
+     "note": "increases concentration, toxicity",
+     "severity": "high",
+     "with": "cyclosporine"
+    },
+    {
+     "note": "may affect clotting",
+     "severity": "medium",
+     "with": "anticoagulants"
+    }
+   ],
+   "mechs": [
+    [
+     "AMPK activation → insulin sensitivity",
+     "Glycemia: MA comparable to metformin",
+     "moderate"
+    ],
+    [
+     "AMPK activation: lipid profile and blood pressure",
+     "TG −23.7, TC −20.6, LDL −9.6, SBP −5.5, HDL +1.4 mg/dl (dose-response MA)",
+     "moderate"
+    ],
+    [
+     "Anti-inflammatory signal (IL-6, TNF-α, CRP)",
+     "IL-6 −1.23, TNF-α −1.04, CRP −0.62 (umbrella from RCT 2024)",
+     "weak"
+    ]
+   ],
+   "myths": "“Replace metformin” - the effect is similar, but there is less data. “Safe with statins” - interaction.",
+   "name": "Berberine",
+   "onset": "Sugar - 4-8 weeks; insulin - 8-12 weeks.",
+   "title": "Berberine",
+   "upper_limit": "1500 mg/day; higher - GI discomfort.",
+   "verdict": "works",
+   "who_needs": "Prediabetes, metabolic syndrome, type 2 diabetes (moderate data)."
+  }
+ }
+}

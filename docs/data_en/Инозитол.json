@@ -1,0 +1,57 @@
+{
+ "_meta": {
+  "card": "Инозитол",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Инозитол": {
+   "about": "Insulin signal mediator: gestational diabetes less common (RR 0.42); PCOS - live birth not proven.",
+   "category": "Women's Health / PCOS",
+   "category_group": "women",
+   "caution": "For PCOS: may reduce miscarriages, BUT the data is VERY LOW quality. No effect was shown for live births (OR 2.42, CI crosses 1). For gestational diabetes: a preventive effect is possible, but data are limited. NOT a replacement for metformin.",
+   "course": "—",
+   "dosage": "2-4 g",
+   "effects": [
+    "PCOS moderate; anxiety mixed"
+   ],
+   "food_sources": "Cereals, corn, legumes, and meat contain myo-inositol; doses of 2–4 g from food are unattainable.",
+   "guidelines": "Umbrella-MA 2026 (19 studies, 17,932): HDM RR 0.42, preterm birth RR 0.38; quality is VERY LOW.",
+   "how_to_choose": "Myo-inositol 2–4 g/day – research doses; for PCOS and HDM only with a doctor, carefully with lithium.",
+   "interactions": [
+    {
+     "note": "may reduce the effect",
+     "severity": "medium",
+     "with": "lithium"
+    }
+   ],
+   "mechs": [
+    [
+     "Second messenger of insulin and 5-HT receptors",
+     "PCOS moderate; anxiety mixed",
+     "context"
+    ],
+    [
+     "Insulin sensitizer: insulin signal mediator",
+     "Gestational diabetes: RR 0.42; insulin therapy RR 0.33; preterm births lower (17,932)",
+     "moderate"
+    ],
+    [
+     "Restoring ovarian function in PCOS",
+     "PCOS: ovulation is higher, insulin resistance is better; quality of evidence is limited (Cochrane 2018)",
+     "context"
+    ]
+   ],
+   "myths": "“Guarantees pregnancy” - Cochrane: no effect on live birth (OR crosses 1). “Instead of metformin” - no, adjuvant.",
+   "name": "Inositol",
+   "onset": "GDM prophylaxis from 10–24 weeks of pregnancy; with PCOS, the effect is assessed over months of use.",
+   "title": "Inositol",
+   "upper_limit": "No formal UL listed - no toxicity data available.",
+   "verdict": "depends on context",
+   "who_needs": "Pregnant women at risk of gestational diabetes; PCOS with insulin resistance; does not replace metformin."
+  }
+ }
+}

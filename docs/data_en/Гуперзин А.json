@@ -1,0 +1,65 @@
+{
+ "_meta": {
+  "card": "Гуперзин А",
+  "cards": 130,
+  "generated": "2026-10-26",
+  "note": "overlay keyed by russian card id; missing field = russian fallback",
+  "source": "docs/data.json",
+  "translator": "google-translate-free"
+ },
+ "supplements": {
+  "Гуперзин А": {
+   "about": "Acetylcholinesterase inhibitor: better for Alzheimer's, but weak data; MCI has not been studied.",
+   "category": "Cognition / Dementia",
+   "category_group": "brain",
+   "caution": "Huperzine A is an acetylcholinesterase inhibitor from the club moss plant (Chinese medicine). There are 3 Cochrane reviews: for Alzheimer's disease, vascular dementia and mild cognitive impairment. There is some effectiveness, but it is comparable to other AChE inhibitors (donepezil). Side effects: cholinergic (nausea, bradycardia). Caution: bradycardia, asthma, obstructive pulmonary disease.",
+   "course": "cycles 2/1 weeks",
+   "dosage": "50-200 mcg",
+   "effects": [
+    "Memory (Alzheimer's)"
+   ],
+   "food_sources": "The club moss (Huperzia serrata) is not food; The supplement is a standardized plant extract.",
+   "forms": [
+    "H. serrata extract"
+   ],
+   "guidelines": "2024 network MA (vascular dementia): effect; 2022 umbrella (BA): cognition is better in small RCTs. UKN: No RCT.",
+   "how_to_choose": "H. serrata extract 50-200 mcg in cycles, not for asthma/bradycardia, not with cholinergic drugs.",
+   "interactions": [
+    {
+     "note": "additive effect, toxicity",
+     "severity": "high",
+     "with": "anticholinesterase (donepezil)"
+    },
+    {
+     "note": "antagonism effects",
+     "severity": "medium",
+     "with": "anticholinergic"
+    }
+   ],
+   "mechs": [
+    [
+     "Reversible acetylcholinesterase inhibitor (Huperzia serrata) → acetylcholine at synapses",
+     "Memory in dementia (used in China); healthy people have a weak, narrow window of safety",
+     "context"
+    ],
+    [
+     "Neuroprotection: protection against beta-amyloid, glutamate, peroxide",
+     "BA: cognitive benefit from small RCTs, quality weak (Cochrane 2008)",
+     "context"
+    ],
+    [
+     "Claimed use in vascular dementia and MCI",
+     "Vascular dementia: 1 RCT (14 people), MMSE WMD 2.40 ns; no RCT for UKN",
+     "marketing"
+    ]
+   ],
+   "myths": "“Pumps up the brain of a healthy person” - RCT only for dementia. “It will save you from MCI” - no RCT. “Safe in any dose” - cholinergic side effects.",
+   "name": "Huperzine A",
+   "onset": "For course dementia (weeks or longer); does not provide acute “clarity” to a healthy person.",
+   "title": "Huperzine A",
+   "upper_limit": "No formal UL listed - no toxicity data available.",
+   "verdict": "depends on context",
+   "who_needs": "Elderly with dementia - as prescribed by a doctor (used in China); healthy for the “brain” - no data; UKN without RCT."
+  }
+ }
+}
