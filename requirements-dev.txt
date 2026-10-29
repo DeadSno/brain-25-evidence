@@ -1,15 +1,15 @@
 pytest==9.1.1
-pandas
-numpy
-requests
+pandas==3.0.5
+numpy==2.5.2
+requests==2.34.2
 # openpyxl удалён 12.10.2026 (§28): ни одного импорта и ни одного
 # to_excel/read_excel в репозитории. Косвенно нужен был только для
 # выгрузки, которой в проекте нет. Подтверждено также отчётом
 # reports/audits/perf.md и разделом «Закрыто» в v5.6.1.
 # Снапшоты (tests/test_visual_snapshots.py). Браузеры ставятся отдельно:
 # python -m playwright install chromium webkit
-Pillow
+Pillow==12.3.0
 playwright==1.63.0
 
-jinja2>=3.1.6
-lxml>=5.0
+jinja2==3.1.6
+lxml==6.1.3

@@ -1,9 +1,9 @@
 # Runtime-зависимости для скриптов (fetch_meta.py, build_ma_timeline.py и т.п.)
 # Для тестов достаточно requirements-dev.txt
-pandas
-numpy
-matplotlib
-requests
+pandas==3.0.5
+numpy==2.5.2
+matplotlib==3.11.1
+requests==2.34.2
 # v5.6.3 (TR-P1-04): версия зафиксирована, а не свободная. DuckDB читает
 # data/db/brain.duckdb и формирует содержимое страниц, поэтому её версия —
 # часть воспроизводимости сборки наравне с Playwright. Без пина свежая
@@ -11,21 +11,21 @@ requests
 # само, и всплывает уже в готовых страницах, а не в CI. Менять пин — только
 # вместе с перегенерацией данных и пересъёмкой эталонов.
 duckdb==1.5.5
-streamlit>=1.30
+streamlit==1.30
 
 # Дополнительные зависимости (аудит 2026-09-30)
-beautifulsoup4>=4.12
-curl_cffi>=0.7
-PyMuPDF>=1.24
-Pillow
-networkx>=3.2
-pyvis>=0.3
+beautifulsoup4==4.12
+curl_cffi==0.7
+PyMuPDF==1.24
+Pillow==12.3.0
+networkx==3.6.1
+pyvis==0.3.2
 # v5.6.0 (этап 1): генератор страниц sup. Jinja2 и MarkupSafe уже
 # приезжали транзитивно (streamlit), но в requirements их не
 # было — при свежей установке из файла шаблон не отрендерился бы.
 # Версии совпадают с установленными в .venv: Jinja2 3.1.6, MarkupSafe 3.0.3.
-jinja2>=3.1.6
-markupsafe>=2.1
+jinja2==3.1.6
+markupsafe==3.0.3
 # v5.1.6: версия ЗАФИКСИРОВАНА, а не ">=1.40". Эталоны визуальных снапшотов
 # снимаются конкретной сборкой движка: playwright 1.62.0 тянет chromium-1234 и
 # webkit-2336, 1.63.0 — chromium-1243 и webkit-2359. Проверено на этой машине,
@@ -33,4 +33,4 @@ markupsafe>=2.1
 # Playwright меняет браузеры и может сдвинуть картинку. Пин делает среду
 # воспроизводимой; менять его — только вместе с пересъёмкой эталонов.
 playwright==1.63.0
-playwright-stealth>=1.0
+playwright-stealth==1.0
