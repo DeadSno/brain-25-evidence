@@ -8,5 +8,17 @@
     "ts": {
       "command": ["typescript-language-server", "--stdio"]
     }
+  },
+  "mcp": {
+    "servers": {
+      "mcp-mermaid": {
+        "type": "local",
+        "command": [
+          "npx",
+          "-y",
+          "mcp-mermaid"
+        ]
+      }
+    }
   }
 }

@@ -21,10 +21,11 @@ ROADMAP #101: «watchdog не проверяет MCP/Serena». Замер пок
 этого теста её не существовало: watchdog гонял только `test_schema.py`
 и `test_site_data.py`, то есть данные сайта, но не инструментарий.
 
-Тест написан так, чтобы покрыть и `mcp`, когда владелец перенесёт его
-декларацию в репозиторий: блока `mcp` в конфиге сейчас нет, и
+Тест написан так, чтобы покрыть и `mcp`: с v5.6.5 блок объявлен в
+репозитории в формате OpenCode V2 (`mcp.servers.<name>`), и
 `test_mcp_block_is_absent_or_wellformed` фиксирует это явно, а не
-молча пропускает.
+молча пропускает. Поддерживаются оба формата — V1 (`mcp.<name>`) и
+V2 (`mcp.servers.<name>`); разбор — в `_server_configs`.
 
 Про PATH
 --------
@@ -54,9 +55,10 @@ CONFIG = ROOT / "opencode.json"
 #: иначе гейт требовал бы вернуть то, что удалено намеренно.
 REQUIRED_KEYS = {"$schema", "lsp"}
 
-#: Блоки, чьи команды должны разрешаться. `mcp` добавлен заранее: если
-#: владелец перенесёт декларацию MCP в репозиторий, тест начнёт проверять
-#: её без правок этого файла.
+#: Блоки, чьи команды должны разрешаться. `mcp` был добавлен заранее —
+#: на случай, если владелец перенесёт декларацию MCP в репозиторий; в
+#: v5.6.5 это произошло (`mcp.servers.mcp-mermaid`), и проверка
+#: заработала без правок этого списка.
 COMMAND_BLOCKS = ("lsp", "mcp")
 
 IN_CI = os.environ.get("CI", "").lower() in {"1", "true", "yes"}
@@ -64,6 +66,20 @@ IN_CI = os.environ.get("CI", "").lower() in {"1", "true", "yes"}
 
 def _config() -> dict:
     return json.loads(CONFIG.read_text(encoding="utf-8"))
+
+
+def _server_configs(block_data: dict):
+    """Yield (name, cfg) pairs from a command block.
+
+    Supports both V1 format (block.<name> -> cfg) and V2 format
+    (block.servers.<name> -> cfg), the latter being the OpenCode V2
+    `mcp.servers` schema.
+    """
+    servers = block_data.get("servers")
+    if isinstance(servers, dict):
+        yield from servers.items()
+    else:
+        yield from block_data.items()
 
 
 def test_config_is_valid_json():
@@ -98,7 +114,8 @@ def test_declared_commands_are_wellformed():
         if entries is None:
             continue
         assert isinstance(entries, dict), f"{block} должен быть объектом"
-        for name, cfg in entries.items():
+        for name, cfg in _server_configs(entries):
+            assert isinstance(cfg, dict), f"{block}.{name} должен быть объектом"
             cmd = cfg.get("command")
             assert isinstance(cmd, list) and cmd, (
                 f"{block}.{name}.command должен быть непустым массивом, "
@@ -143,7 +160,7 @@ def test_declared_commands_resolve_in_path():
         cfg["command"][0]
         for block in COMMAND_BLOCKS
         if isinstance(data.get(block), dict)
-        for cfg in data[block].values()
+        for name, cfg in _server_configs(data[block])
         if isinstance(cfg, dict) and cfg.get("command")
     ]
     assert declared, (
@@ -169,10 +186,10 @@ def test_declared_commands_resolve_in_path():
 def test_mcp_block_is_absent_or_wellformed():
         """Фиксирует текущее состояние по MCP.
 
-        Сейчас блока `mcp` нет: конфигурация живёт в пользовательском
-        каталоге. Тест не требует его наличия (это было бы неверно -
-        решение владельца), но и не пропускает тему молча: если блок
-        появится, к нему применяются все проверки выше.
+        Блок `mcp` объявлен в v5.6.5 (V2-формат `mcp.servers`), но тест
+        по-прежнему не требует его наличия: это решение владельца. Он
+        лишь не пропускает тему молча — если блок есть, к нему
+        применяются все проверки выше.
         """
         data = _config()
         assert "mcp" not in data or isinstance(data["mcp"], dict), (
