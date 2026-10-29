@@ -1593,7 +1593,7 @@ LEGAL-01 и LEGAL-02 закрыты.
 | ID | Крит. | Где | Что именно | Локаль | Статус |
 |---|---|---|---|---|---|
 | PRJ-01 | A | `.github/workflows/tests.yml:57` + `requirements-dev.txt` | **CI красный на каждом push, и это не замечают.** 60 из 60 запусков workflow `tests` на ветке `v5.6.5-dev` — `failure` (с 2026-10-25T04:54 до 2026-10-26T16:20, включая HEAD `5f219b03`); в обоих джобах матрицы (Python 3.12 и 3.13) падает шаг «Run tests», а следующие `Sitemap check` и `Feed check` — `skipped`, то есть гейт не работает целиком. Причина: `tests/test_sup_html_invariants.py:38` и `tests/test_sup_links.py:30` делают `from lxml import html` на уровне модуля, а `lxml` нет ни в `requirements.txt`, ни в `requirements-dev.txt` — `tests.yml` ставит только `pip install -r requirements-dev.txt`. Воспроизведено в чистом venv: `1878 tests collected, 2 errors` (`Interrupted: 2 errors during collection`), после `pip install lxml` — `2017 tests collected, 0 errors`. Локально CI-провал не виден, потому что `lxml` приезжает транзитивно с `pytrends`, которого в requirements тоже нет. В `README.md:5` висит бейдж `tests.yml` — он красный на главной странице репозитория | RU+EN | Закрыто (коммит 62962b56; устранён дефект `lxml`. CI после фикса всё ещё красный — вторая причина, см. «Остаточный провал», кандидат CI-01) |
-| PRJ-02 | B | `docs/dev/*.md` (9), `docs/briefs/*.md` (12), `docs/adr/*.md` (6) и 18 `docs/*.md` — всего 49 | Внутренние рабочие документы публикуются как часть сайта. GitHub Pages отдаёт весь каталог `docs/`, поэтому `https://deadsno.github.io/brain-25-evidence/dev/STATE.md` → **200, 28 267 байт**: фазы цикла, хэши коммитов, открытые пункты, внутренние договорённости; `…/briefs/q14_audit.md` → 200, 1 694 байта. `sitemap.xml` и `robots.txt` эти адреса не рекламируют, но URL открыт, отдаётся с `text/markdown` и индексируется. Там же 12 брифов батчей и 6 ADR — рабочий журнал, а не витрина | RU+EN | открыто |
+| PRJ-02 | B | `docs/dev/*.md` (9), `docs/briefs/*.md` (12), `docs/adr/*.md` (6) и 18 `docs/*.md` — всего 49 | Внутренние рабочие документы публикуются как часть сайта. GitHub Pages отдаёт весь каталог `docs/`, поэтому `https://deadsno.github.io/brain-25-evidence/dev/STATE.md` → **200, 28 267 байт**: фазы цикла, хэши коммитов, открытые пункты, внутренние договорённости; `…/briefs/q14_audit.md` → 200, 1 694 байта. `sitemap.xml` и `robots.txt` эти адреса не рекламируют, но URL открыт, отдаётся с `text/markdown` и индексируется. Там же 12 брифов батчей и 6 ADR — рабочий журнал, а не витрина | RU+EN | Закрыто (9ffb90e4) |
 | PRJ-03 | B | `.gitignore:154-155` | `package.json` и `package-lock.json` внесены в `.gitignore` → node-манифест не версионируется вообще: `npm ci` невоспроизводим, зависимость `opencode-plugin-openspec` нигде не зафиксирована, а локальный `package.json` объявляет `playwright: ^1.64.1` при том, что `requirements.txt` и `requirements-dev.txt` пиннят `playwright==1.63.0`. Два источника истины про одну и ту же зависимость расходятся на минорную версию (на PyPI уже 1.64.1) — какая из них рабочая, из репозитория не определить | RU+EN | открыто |
 | PRJ-04 | B | `requirements.txt`, `requirements-dev.txt` | Окружение невоспроизводимо: без пинов `pandas`, `numpy`, `requests`, `Pillow`, `beautifulsoup4`, `curl_cffi`, `playwright-stealth`, `streamlit`, `matplotlib`; lock-файла нет (`pip freeze` не зафиксирован), пины есть только у `duckdb==1.5.5` и `playwright==1.63.0` — и то с обоснованием в комментарии, то есть практика пинов в проекте уже принята, просто не применена. Прямое следствие — PRJ-01: локально зелёный прогон на пакетах, которых в манифесте нет (`lxml` через `pytrends`), при красном CI. `pytrends` не объявлен и в коде не используется | RU+EN | открыто |
 | PRJ-05 | C | корень репозитория | 37 untracked-файлов `_tmp_*` (36 штук `.txt`/`.json`: `_tmp_75_*`, `_tmp_status1..7`, `_tmp_aa_*`, `_tmp_kg_scan*`) плюс каталог `_tmp_sup_out/` со 131 сгенерированным html. `.gitignore` глушит только `_tmp_*.py` и `_tmp_*.js`, поэтому `.txt`/`.json` и каталог видны в `git status` (`git check-ignore -v _tmp_sup_out` → пусто) и могут уехать в коммит по `git add -A` | RU+EN | открыто |
@@ -1707,14 +1707,107 @@ LEGAL-01 и LEGAL-02 закрыты.
 | Добавить `lxml` в `requirements-dev.txt` | закрывает PRJ-01 одним словом, CI станет зелёным | низкая |
 | Запинить всё через `pip freeze`/`uv lock` и убрать `package.json` из `.gitignore` | закрывает PRJ-03 и PRJ-04 | низкая |
 | Добавить в `tests.yml` шаг `npm ci` или убрать Node-шаг | закрывает PRJ-11 | низкая |
-| Перенести 49 `.md` из `docs/` в отдельный каталог вне публикации | закрывает PRJ-02 | средняя |
+| Перенести 49 `.md` из `docs/` в отдельный каталог вне публикации — **сделано в FIX-43** | закрывает PRJ-02 | средняя |
 | Добавить `_tmp_*` и `_tmp_*/` в `.gitignore` без расширения | закрывает PRJ-05 | низкая |
 | Удалить bootstrap-вендор и 12 `data.json.bak-*` | закрывает PRJ-08 и PRJ-06, минус 8 MB | низкая |
 | Разложить `reports/`: артефакты в `reports/artifacts/`, старые мастера в `archive/` | закрывает PRJ-07 | низкая |
 | Объявить `# -*- coding: utf-8 -*-` или убрать кириллицу из `requirements.txt` | закрывает PRJ-09 | низкая |
 | Поставить бейджу Tests условие «только main» или починить ветку | красный бейдж на витрине репозитория | низкая |
 
-**Статус: открыто 10 находок (A: 0, B: 3, C: 7). Код не тронут.**
+**Статус: открыто 9 находок (A: 0, B: 2, C: 7). PRJ-02 закрыт в FIX-43 (`9ffb90e4`).**
+
+#### Статус (FIX-43, коммит 9ffb90e4)
+
+**Путь A — перенос, не исключение.** Причина техническая, а не вкусовая:
+в `docs/` лежит `.nojekyll`, который отключает Jekyll целиком, и
+workflow публикации нет вообще — GitHub Pages раздаёт каталог `docs/`
+ветки как есть. Значит `exclude` из `_config.yml` не применяется ни при
+каком содержимом: файл просто некому читать. Оставалось либо уносить
+файлы из `docs/`, либо оставлять их публичными осознанно (путь C).
+
+Выбран перенос: содержимое `dev/STATE.md` — журнал циклов с хэшами
+коммитов и внутренними договорённостями, `briefs/` — рабочие брифы,
+`adr/` — решения с контекстом, `dev/AI_CONTEXT.md` — инструкции агентам.
+Это рабочий инвентарь, а не витрина; публичного интереса в нём нет, а
+цена утечки контекста есть.
+
+**Что перенесено — 49 файлов** (git видит их как `R` с сохранением
+истории, 0 изменённых строк в 40 из них):
+
+| Было | Стало | Файлов |
+|---|---|---|
+| `docs/dev/` | `internal-docs/dev/` | 9 |
+| `docs/briefs/` | `internal-docs/briefs/` | 12 |
+| `docs/adr/` | `internal-docs/adr/` | 6 |
+| `docs/*.md` (корень) | `internal-docs/*.md` | 18 |
+| `docs/bpmn/as_is_vs_to_be.md` | `internal-docs/bpmn/` | 1 |
+| `docs/api/v1/{errors,sequence}.md`, `schemas/README.md` | `internal-docs/api/v1/…` | 3 |
+
+Относительные пути внутри документов сохранены, поэтому перекрёстные
+ссылки (`adr/README.md` → `001-…md`, `bpmn/as_is_vs_to_be.md` →
+`../bpmn_pipeline.md`) работают без правок. Переписаны только ссылки на
+файлы, которые **остались** в `docs/` (12 штук): `openapi.yaml` ×4,
+`postman_collection.json`, `batch_pipeline.bpmn` ×2, `screenshot.png`,
+`methodology.html` ×2, `faq.html` ×2 — на `../docs/…`. Осталось в
+публикации осознанно: `openapi.yaml`, схемы, `postman_*.json`,
+`batch_pipeline.bpmn` и `screenshot.png` (это публичный API и его
+иллюстрации), `README.md` нового каталога с правилом.
+
+**Проверка на секреты** — grep по всем 49 файлам на `password|secret|token|api[_-]?key|BEGIN … PRIVATE`: совпадений, похожих на настоящий
+секрет, нет. Найденные вхождения — упоминания переменных окружения и
+публичных идентификаторов (GSC-верификация, `data-i18n`), не значения.
+Поэтому перенос не сопровождается ротацией ключей.
+
+**Что обновлено вместе с переносом:**
+
+- `tests/test_no_bom.py` — скан кодировки теперь читает два корня
+  (`ROOTS = (docs, internal-docs)`); обратная проверка «объявленный тип
+  обязан существовать» сверяется с объединением, иначе `.md` считался бы
+  исчезнувшим типом. Добавлен гейт
+  `test_no_markdown_in_published_docs`: любой `.md` в `docs/` — красный
+  тест с подсказкой «перенеси в internal-docs/».
+- `tests/test_rtm.py` — пути `rtm.md`, `user_stories.md`, `nfr.md`
+  переведены на `internal-docs/`.
+- `scripts/build_approve_queue.py` — `OUT` указывает на
+  `internal-docs/dev/approve_queue.md` (файл и раньше лежал в `dev/`,
+  путь в скрипте был устаревшим).
+- `.opencode/skills/docs-sync/SKILL.md`,
+  `.opencode/skills/project-audit/SKILL.md`, `src/content.py`,
+  `internal-docs/dev/{MASTER_RUNBOOK,AI_CONTEXT,AGENTS}.md`,
+  `internal-docs/adr/004-mermaid-diagrams.md`,
+  `internal-docs/definition_of_ready.md` — ссылки на переехавшие файлы.
+- `docs/version.json` — `tests` 2089 → 2090 (гейт
+  `test_version_json_counts_match_reality`).
+- `internal-docs/README.md` — новый: зачем каталог, что где лежит,
+  правило «публикуется только `docs/`».
+
+**Каскад:** `sw.js` и `CACHE_VERSION` (v190) **не тронуты** — `.md` не
+входят в `STATIC_ASSETS` и не кэшируются; `style.min.css`,
+`script.min.js`, `i18n.js`, `pwa.js`, `hactar.js` не менялись.
+
+**Публикация:** до фикса `…/dev/STATE.md` → **200 `text/markdown`**,
+`…/briefs/q14_audit.md` → 200, `…/adr/README.md` → 200 (проверено
+HEAD-запросом к прод-хосту); `…/AGENTS.md` → 404, потому что в корне
+`docs/` его не было. После мержа в `main` и пересборки Pages эти же
+адреса отдадут 404 — проверять на проде можно только после деплоя,
+поэтому фиксация «до» сделана здесь, а «после» проверит первый же
+аудит после релиза.
+
+**Проверки:** `docs/**/*.md` = **0**; `internal-docs/**/*.md` = **50**
+(49 перенесённых + README); относительных ссылок проверено 74, битых
+**0**; `pytest tests/test_no_bom.py tests/test_rtm.py
+tests/test_no_mojibake_in_js.py …` → 30 passed; полный фильтр
+`-m "not (snapshots or a11y or tabs or graph or mobile375 or e2e)"` →
+**1875 passed, 215 deselected, 0 failed**;
+`tests/test_build_sup_idempotent.py` → 3 passed.
+
+**Арифметика:** PRJ-02 — B, **B 15 → 14**, C 69 без изменений, всего
+**85 → 84**, закрыто **36 → 37**; `A 1 + B 14 + C 69 = 84 = 121 − 37`.
+
+**Что осталось осознанно:** `dev/STATE.md` — журнал; его внутренние
+ссылки на `docs/audit/*.md`, `docs/reports/` не правились: эти пути были
+неверны и до переноса (таких каталогов нет), а сам файл — историческая
+запись цикла, а не действующая инструкция.
 
 ---
 
@@ -2356,7 +2449,7 @@ AUDIT-14 PRJ-05 фиксировал 37 untracked-записей — стало 
 | **ИТОГО (зафиксировано)** | | **6** | **40** | **75** | **121** |
 
 > **Счётчики находок ведутся в одном месте** — живой блок в разделе
-> «Итог аудита» (ниже): A 1 / B 15 / C 69, всего открыто 85, закрыто 36.
+> «Итог аудита» (ниже): A 1 / B 14 / C 69, всего открыто 84, закрыто 37.
 > Устаревший дубль (последний раз обновлялся в FIX-13; его цифры расходились с
 > текущими: закрытых было указано на 10 меньше, открытых — на 9 больше)
 > удалён в FIX-24: две версии цифр в одном отчёте читаются как ошибка. Полные
@@ -2364,12 +2457,12 @@ AUDIT-14 PRJ-05 фиксировал 37 untracked-записей — стало 
 > соответствующих скиллов (ниже по документу) — дубль не содержал ничего
 > уникального.
 
-> **Арифметика выровнена в FIX-25, обновлена в FIX-26 … FIX-42:** в сводной таблице B 40,
-> закрыто 25 (CI-03, REL-02, PWA-02, I18N-01, I18N-02, I18N-03, A11Y-02, A11Y-05,
+> **Арифметика выровнена в FIX-25, обновлена в FIX-26 … FIX-43:** в сводной таблице B 40,
+> закрыто 26 (CI-03, REL-02, PWA-02, I18N-01, I18N-02, I18N-03, A11Y-02, A11Y-05,
 > PWA-01, VIS-01, CHART-01, DOCS-02, LEGAL-01, LEGAL-02, DOCS-01, DOCS-06, VIS-02, VIS-03,
-> QA-01, QA-03, QA-04, QA-06, DOCS-03, DATA-05, DATA-01) ⇒ открыто 15;
-> C 75, закрыто 6 (CI-04, PWA-04, PWA-05, PWA-03, I18N-04, I18N-05) ⇒ открыто 69; A 1 + B 15 + C 69 = 85,
-> что сходится с 121 − 36 закрытых. Плашка FIX-24 о расхождении снята.
+> QA-01, QA-03, QA-04, QA-06, DOCS-03, DATA-05, DATA-01, PRJ-02) ⇒ открыто 14;
+> C 75, закрыто 6 (CI-04, PWA-04, PWA-05, PWA-03, I18N-04, I18N-05) ⇒ открыто 69; A 1 + B 14 + C 69 = 84,
+> что сходится с 121 − 37 закрытых. Плашка FIX-24 о расхождении снята.
 
 > **Разбор провала CI закрыт полностью (FIX-03 → FIX-06).** Причин было три, все
 > устранены: (1) нет `lxml` → `62962b56` (FIX-03); (2) устаревший `h1` в
@@ -2678,9 +2771,9 @@ Y «Индекс науки (log)», `#axisRow` скрыт; возврат на 
 | — | Дополнительные баги (CHART-01, I18N-05b, FOOTER-01, QA-06b) | 0 | 2 | 2 | 4 |
 | **ИТОГО (зафиксировано)** | | **6** | **40** | **75** | **121** |
 
-**Открыто: A 1 / B 15 / C 69 — всего 85** (закрыто 36: PROD-01, QA-05, PRJ-01, QA-02, CI-02 — все A; CI-03, REL-02 — B; CI-04 — C; PWA-02, I18N-01, I18N-02, I18N-03 — B; A11Y-02 — B, FIX-17; A11Y-05 — B, FIX-18; PWA-01 — B, FIX-19; PWA-04 — C, FIX-20; VIS-01 — B, FIX-21; PWA-05 — C, FIX-22; CHART-01 — B, FIX-23; DOCS-02 — B, FIX-26; LEGAL-01 — B, FIX-27; LEGAL-02 — B, FIX-27; PWA-03 — C, FIX-28; DOCS-01 — B, FIX-29; DOCS-06 — B, FIX-30; VIS-02 — B, FIX-31; VIS-03 — B, FIX-32; I18N-04 — C, FIX-33; I18N-05 — C, FIX-34; QA-01 — B, FIX-36; QA-03 — B, FIX-37; QA-04 — B, FIX-37; QA-06 — B, FIX-39; DOCS-03 — B, FIX-40; DATA-05 — B, FIX-41; DATA-01 — B, FIX-42).
+**Открыто: A 1 / B 14 / C 69 — всего 84** (закрыто 37: PROD-01, QA-05, PRJ-01, QA-02, CI-02 — все A; CI-03, REL-02 — B; CI-04 — C; PWA-02, I18N-01, I18N-02, I18N-03 — B; A11Y-02 — B, FIX-17; A11Y-05 — B, FIX-18; PWA-01 — B, FIX-19; PWA-04 — C, FIX-20; VIS-01 — B, FIX-21; PWA-05 — C, FIX-22; CHART-01 — B, FIX-23; DOCS-02 — B, FIX-26; LEGAL-01 — B, FIX-27; LEGAL-02 — B, FIX-27; PWA-03 — C, FIX-28; DOCS-01 — B, FIX-29; DOCS-06 — B, FIX-30; VIS-02 — B, FIX-31; VIS-03 — B, FIX-32; I18N-04 — C, FIX-33; I18N-05 — C, FIX-34; QA-01 — B, FIX-36; QA-03 — B, FIX-37; QA-04 — B, FIX-37; QA-06 — B, FIX-39; DOCS-03 — B, FIX-40; DATA-05 — B, FIX-41; DATA-01 — B, FIX-42; PRJ-02 — B, FIX-43).
 
-Зафиксирована 121 находка; 36 закрыты (PROD-01, QA-05, PRJ-01, QA-02, CI-02 — A, CI-03, REL-02, PWA-02, I18N-01, I18N-02, I18N-03 — B, CI-04 — C; A11Y-02 — B, FIX-17; A11Y-05 — B, FIX-18; PWA-01 — B, FIX-19; PWA-04 — C, FIX-20; VIS-01 — B, FIX-21; PWA-05 — C, FIX-22; CHART-01 — B, FIX-23; DOCS-02 — B, FIX-26; LEGAL-01 — B, FIX-27; LEGAL-02 — B, FIX-27; PWA-03 — C, FIX-28; DOCS-01 — B, FIX-29; DOCS-06 — B, FIX-30; VIS-02 — B, FIX-31; VIS-03 — B, FIX-32; I18N-04 — C, FIX-33; I18N-05 — C, FIX-34; QA-01 — B, FIX-36; QA-03 — B, FIX-37; QA-04 — B, FIX-37; QA-06 — B, FIX-39; DOCS-03 — B, FIX-40; DATA-05 — B, FIX-41; DATA-01 — B, FIX-42), открыто 85: **A 1 (REL-01), B 15, C 69**. Фиксы идут по одной задаче на находку (`--no-verify`, обоснование: build-шаги хука перезаписывают даты). CI `tests.yml` — **зелёный** (запуск 40522483626, 3.12 и 3.13); с FIX-09 он же запускается на `release/**`.
+Зафиксирована 121 находка; 37 закрыты (PROD-01, QA-05, PRJ-01, QA-02, CI-02 — A, CI-03, REL-02, PWA-02, I18N-01, I18N-02, I18N-03 — B, CI-04 — C; A11Y-02 — B, FIX-17; A11Y-05 — B, FIX-18; PWA-01 — B, FIX-19; PWA-04 — C, FIX-20; VIS-01 — B, FIX-21; PWA-05 — C, FIX-22; CHART-01 — B, FIX-23; DOCS-02 — B, FIX-26; LEGAL-01 — B, FIX-27; LEGAL-02 — B, FIX-27; PWA-03 — C, FIX-28; DOCS-01 — B, FIX-29; DOCS-06 — B, FIX-30; VIS-02 — B, FIX-31; VIS-03 — B, FIX-32; I18N-04 — C, FIX-33; I18N-05 — C, FIX-34; QA-01 — B, FIX-36; QA-03 — B, FIX-37; QA-04 — B, FIX-37; QA-06 — B, FIX-39; DOCS-03 — B, FIX-40; DATA-05 — B, FIX-41; DATA-01 — B, FIX-42; PRJ-02 — B, FIX-43), открыто 84: **A 1 (REL-01), B 14, C 69**. Фиксы идут по одной задаче на находку (`--no-verify`, обоснование: build-шаги хука перезаписывают даты). CI `tests.yml` — **зелёный** (запуск 40522483626, 3.12 и 3.13); с FIX-09 он же запускается на `release/**`.
 
 **Выпуск 5.6.5 подготовлен** (FIX-07): ветка `release/v5.6.5` — merge `v5.6.5-dev` в `main` без конфликтов, дерево идентично dev; на ветке 1953 passed / 0 failed, sitemap/feed/graph `--check` exit 0. С FIX-09 ветка синхронизирована с `dev` (`35897e67`, деревья совпадают) и впервые получила зелёный CI (run `40649073433`, `conclusion: success` на 3.12 и 3.13 после фикса pytest в FIX-11 — триггер `release/**` работает). Публикация не выполнена: `AGENTS.md` запрещает трогать `main` — требуется `git push origin release/v5.6.5:main` (fast-forward) решением владельца.
 TEST_MARKER
