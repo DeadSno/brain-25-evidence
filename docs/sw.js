@@ -565,7 +565,10 @@
 /* Бамп v186 -> v187 FIX-37: trends.html в STATIC_ASSETS, исправлена гонка
    загрузки JSON и defer-скрипта i18n.js (QA-03 webkit-trends таймаут). */
 /* Бамп v187 -> v188 FIX-38: футер на 148 страницах (дисклеймеры сведены к одному), i18n.js ?v=20 -> 21. */
-var CACHE_VERSION = 'v188';
+/* Бамп v188 -> v189 FIX-39 (QA-06): в UNIT_SRC/NO_UL/toMg/sameUnit добавлены
+   латинские единицы и английские маркеры «нормы нет» — EN-строки
+   upper_limit теперь парсятся; hactar.js ?v=36 -> 37. */
+var CACHE_VERSION = 'v189';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
@@ -653,7 +656,7 @@ var STATIC_ASSETS = [
   './cookie-banner.js?v=1',
   './metrika.js?v=1',
   /* FIX-12: PWA-02 — скрипты без которых офлайн ломается (страницы в прекеше, скриптов нет). */
-  './hactar.js?v=36',
+  './hactar.js?v=37',
   './science2.js?v=281',
   './tracker.js?v=281',
   './vendor/chart.umd-4.4.1.min.js',

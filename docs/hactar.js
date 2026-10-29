@@ -2088,14 +2088,19 @@
 
   /* ── разбор дозировок (из H-7, без изменений) ────────────────────────── */
 
-  var UNIT_SRC = '(мкг|мг|г|мкмоль|ммоль|млрд\\s*КОЕ|КОЕ|МЕ|IU|CFU|млрд)';
+  /* QA-06b (FIX-39): в data_en.json единицы латинские (350 mg/day, 4000 IU/day),
+     а в UNIT_SRC были только русские — EN-строки не парсились вовсе, и проверка
+     верхней нормы в EN не работала. Длинные варианты идут раньше коротких. */
+  var UNIT_SRC = '(мкг|мг|мкмоль|ммоль|млрд\\s*КОЕ|КОЕ|МЕ|млрд|mcg|µg|ug|mg|г|g|IU|CFU)';
   var UNIT_LOOKAHEAD = '(?![A-Za-zА-Яа-яЁё])';
   var RANGE_RE = new RegExp(
     '(\\d+(?:[.,]\\d+)?)\\s*[-–—]\\s*(\\d+(?:[.,]\\d+)?)\\s*' + UNIT_SRC + UNIT_LOOKAHEAD, 'i');
   var SINGLE_RE = new RegExp(
     '(\\d+(?:[.,]\\d+)?)\\s*(?:\\+\\s*(\\d+(?:[.,]\\d+)?)\\s*)?' + UNIT_SRC + UNIT_LOOKAHEAD, 'i');
   /* Маркеры «нет суточной нормы (UL)» — проверяем до поиска чисел. */
-  var NO_UL = /формального\s+ul|ul\s*:?\s*нет|нет\s+ul|не\s+установлен|не\s+указан|не\s+приводится|noael/i;
+  /* QA-06b (FIX-39): маркеры «нормы нет» тоже были только русские. EN-строка
+     «There is no formal UL; 3-5 g/day…» парсилась как UL = 5 g. */
+  var NO_UL = /формального\s+ul|ul\s*:?\s*нет|нет\s+ul|не\s+установлен|не\s+указан|не\s+приводится|noael|no\s+(?:formal\s+|established\s+)?ul|not\s+specified|not\s+established|not\s+listed/i;
   var ULNUM_RE = new RegExp('(\\d+(?:[.,]\\d+)?)\\s*' + UNIT_SRC + UNIT_LOOKAHEAD, 'i');
   /* Доза — только число: буквы и минус (U2-02) не проходят. */
   var DOSE_RE = /^\d+(?:[.,]\d+)?$/;
@@ -2135,7 +2140,7 @@
       var num = parseNum(mm[1]);
       var unit = mm[2] || '';
       var after = t.slice(mm.index + mm[0].length, mm.index + mm[0].length + 40);
-      var hasSupt = /сут|в сутки|сутки/i.test(after);
+      var hasSupt = /сут|сутки|day|daily/i.test(after);
       var item = { mg: num, unit: unit };
       if (hasSupt) {
         if (!bestWithSupt || num > bestWithSupt.mg) bestWithSupt = item;
@@ -2149,9 +2154,9 @@
   /* Переводит значение в миллиграммы. null — если единицу нельзя привести к мг. */
   function toMg(value, unit) {
     var u = String(unit || '').toLowerCase().replace(/\s+/g, '');
-    if (u === 'мг') return value;
-    if (u === 'г') return value * 1000;
-    if (u === 'мкг') return value / 1000;
+    if (u === 'мг' || u === 'mg') return value;
+    if (u === 'г' || u === 'g') return value * 1000;
+    if (u === 'мкг' || u === 'mcg' || u === 'ug' || u === 'µg') return value / 1000;
     return null;
   }
 
@@ -2160,8 +2165,13 @@
      IU и МЕ — одно и то же (русская и латинская запись). */
   function sameUnit(a, b) {
     var norm = function (u) {
-      var s = String(u || '').toUpperCase().replace(/\s+/g, '');
-      return s === 'IU' ? 'МЕ' : s;
+      /* µ (U+00B5) в верхнем регистре становится греческой Μ — приводим заранее. */
+      var s = String(u || '').replace(/µ/g, 'u').toUpperCase().replace(/\s+/g, '');
+      if (s === 'IU') return 'МЕ';
+      if (s === 'MG') return 'МГ';
+      if (s === 'G') return 'Г';
+      if (s === 'MCG' || s === 'UG') return 'МКГ';
+      return s;
     };
     var x = norm(a), y = norm(b);
     return !!x && x === y;
