@@ -37,13 +37,25 @@ def test_empty_block_placeholder():
     assert "cbEmpty" in SCRIPT, "нет класса cbEmpty для пустых блоков"
 
 
-def test_low_block_for_supplements_without_interactions():
-    no_pair = set(content.INTERACTIONS) | set(content.INTERACTIONS_ALIAS) | set(content.INTERACTIONS_CANDIDATES)
-    for d in data:
-        if d["id"] in no_pair or any(i.get("with") for i in d.get("interactions", [])):
-            continue
-        assert any(i["severity"] == "low" and "известных взаимодействий нет" in i.get("note", "")
-                   for i in d["interactions"]), f"{d['id']}: нет low-блока"
+def test_cards_without_interactions_stay_explicit_empty_lists():
+    """FIX-50 (DATA-04): «нет данных» — это пустой список, а не строка в `with`.
+
+    До FIX-50 карточкам без пар в словаре дописывалась запись
+    {"with": "нет данных", "severity": "low", "note": ...}: строка-заглушка
+    стояла в поле, где ожидается ИМЯ добавки, и docs/script.js:renderConflicts()
+    печатал её как добавку («нет данных · низкая»). Теперь отсутствие
+    взаимодействий выражено пустым списком, а объяснение рисует штатная
+    заглушка блока (ключ card.blockEmpty в docs/i18n.js).
+
+    Счётчик держит регресс в обе стороны: и возврат заглушки (ловится ещё и
+    tests/test_data_en_placeholders.py), и молчаливую потерю реальных записей.
+    """
+    empty = [d["id"] for d in data if not d.get("interactions")]
+    assert len(empty) == 51, (
+        f"карточек с пустым interactions {len(empty)}, ожидалось 51. "
+        f"Если данные правились осознанно — обновите число; если нет — "
+        f"записи потеряны: {empty[:10]}"
+    )
 
 
 def test_antagonist_pair_calcium_iron():

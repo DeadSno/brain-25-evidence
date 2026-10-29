@@ -69,13 +69,7 @@
       "food_sources": "Purified phospholipid, not a product; Choline is found in eggs and liver, but not in the A-GPC form.",
       "guidelines": "MA 2023 (PMID 36683513, 7 RCT): with donepezil cognition MD 1.72; solo vs placebo MD 3.50; There is no sports facility.",
       "how_to_choose": "Standard 300-600 mg/day in courses; for dementia - adjunct with a doctor; A healthy person can’t wait for a “memory boost.”",
-      "interactions": [
-        {
-          "note": "no known interactions",
-          "severity": "low",
-          "with": "no data"
-        }
-      ],
+      "interactions": [],
       "mechs": [
         [
           "Bioavailable choline → acetylcholine synthesis",
@@ -120,13 +114,7 @@
       "food_sources": "Kefir, yogurt, fermented foods, but the B. lactis strain is not specified or guaranteed.",
       "guidelines": "MA 2022 (Clin Nutr): B. lactis with a significant effect on stool frequency in constipation. Cochrane 2023: on probiotics for functional abdominal pain - low certainty.",
       "how_to_choose": "It is B. lactis, and not mixtures: the effect has been confirmed for constipation in adults. Dietary fiber is a separate strategy and not a replacement for a probiotic.",
-      "interactions": [
-        {
-          "note": "no known interactions",
-          "severity": "low",
-          "with": "no data"
-        }
-      ],
+      "interactions": [],
       "mechs": [
         [
           "Increase in the relative abundance of bifidobacteria in the intestines with fiber intake",
@@ -170,13 +158,7 @@
       ],
       "guidelines": "SR 2019: for alcoholic polyneuropathy - B-complex with thiamine. MA 2021: B1 improves symptoms (OR 5.34 [1.87-15.19]). ESPEN 2022: micronutrient status monitoring.",
       "how_to_choose": "Benfotiamine or thiamine in B-complex; dose - according to confirmed deficiency; with alcoholism, prevention against deficiency, and not “just in case.”",
-      "interactions": [
-        {
-          "note": "no known interactions",
-          "severity": "low",
-          "with": "no data"
-        }
-      ],
+      "interactions": [],
       "mechs": [
         [
           "Replenishment of B1 in case of deficiency: coenzyme of energy metabolism of nervous tissue",
@@ -274,13 +256,7 @@
       ],
       "guidelines": "MA 2022 (8 RCT + 1 clinical, n=673): 400 mg/day 3 months - frequency (p=.001), days (p=.005), duration (p=.003), pain (p=.015); SR 2021: Low B2 intake in vegans.",
       "how_to_choose": "Regular riboflavin 400 mg for migraines; in B-complexes the dose is lower and the goal is different; Check the form and dosage on the label.",
-      "interactions": [
-        {
-          "note": "no known interactions",
-          "severity": "low",
-          "with": "no data"
-        }
-      ],
+      "interactions": [],
       "mechs": [
         [
           "Energy metabolism coenzyme, participation in mitochondrial metabolism",
@@ -319,13 +295,7 @@
       ],
       "guidelines": "MA 2022 (29 trials, n=3039): Nicotinamide reduces skin cancer - RR 0.50 [0.29-0.85], moderate potency; weak recommendation for persons with a history of skin cancer.",
       "how_to_choose": "Nicotinamide (not niacin - no flushing) in chemoprophylaxis doses under the supervision of a physician; topical forms - for hyperpigmentation.",
-      "interactions": [
-        {
-          "note": "no known interactions",
-          "severity": "low",
-          "with": "no data"
-        }
-      ],
+      "interactions": [],
       "mechs": [
         [
           "Nicotinamide: NAD+ restoration and DNA repair",
@@ -363,13 +333,7 @@
       ],
       "guidelines": "CP 2019 (SCI): B5 Deficiency in Chronic Spinal Cord Injury—A Matter of Screening, Not Supplementation; SR 2005: topical dexpanthenol is no better than other treatments for nipple pain.",
       "how_to_choose": "There is no data for choosing a form; if a deficiency is suspected, assess the status; in B-complexes it is harmless, no benefits beyond the norm have been shown.",
-      "interactions": [
-        {
-          "note": "no known interactions",
-          "severity": "low",
-          "with": "no data"
-        }
-      ],
+      "interactions": [],
       "mechs": [
         [
           "Topical dexpanthenol for nipple pain",
@@ -408,13 +372,7 @@
       ],
       "guidelines": "MA 2023 (18 studies): pyridoxine alone and in combination - Rhode's 0.78 [0.26-1.31], PUQE 0.75 [0.28-1.22]; CP 2023: high doses of B6 - risk of neurotoxicity.",
       "how_to_choose": "Pyridoxine in doses for NVP under the supervision of a physician; do not take megadoses; For neuropathy, do not prescribe alone.",
-      "interactions": [
-        {
-          "note": "no known interactions",
-          "severity": "low",
-          "with": "no data"
-        }
-      ],
+      "interactions": [],
       "mechs": [
         [
           "Pyridoxine for nausea/vomiting during pregnancy",
@@ -551,13 +509,7 @@
       "food_sources": "Choline is found in eggs, liver, legumes; but citicoline is a pharmaceutical form and cannot be obtained from food.",
       "guidelines": "Cochrane 2020 (stroke): no effect; MA 2023 (MCI/dementia): cognition better (SMD 0.56–1.57), quality low.",
       "how_to_choose": "250–500 mg of citicoline in courses for cognitive complaints in the elderly; healthy people without a diagnosis - do not take it.",
-      "interactions": [
-        {
-          "note": "no known interactions",
-          "severity": "low",
-          "with": "no data"
-        }
-      ],
+      "interactions": [],
       "mechs": [
         [
           "Choline → acetylcholine + phosphatidylcholine (membranes)",
@@ -655,13 +607,7 @@
       "food_sources": "D-mannose - simple sugar from berries and fruit juices; workers 1-2 g are more convenient from powder/tablets.",
       "guidelines": "Cochrane 2022: low evidence; MA 2025 (6 RCT, 1167): RR 0.57 NS; MA 2020: RR 0.23; RCT 2026 - antibiotics are stronger.",
       "how_to_choose": "1-2 g/day course; adjuvant/prophylaxis only, not treatment for UTI; if you have symptoms, call a doctor.",
-      "interactions": [
-        {
-          "note": "no known interactions",
-          "severity": "low",
-          "with": "no data"
-        }
-      ],
+      "interactions": [],
       "mechs": [
         [
           "Blocks FimH E. coli - no adhesion",
@@ -701,13 +647,7 @@
       "food_sources": "Fatty fish - salmon, mackerel, herring, caviar; The DHA content in milk depends on the mother's diet.",
       "guidelines": "MA 2024 in Alzheimer's: CDR slowing of progression (SMD -0.41), MMSE and ADAS-cog without significant differences. SR 2021: Omega-3 and -6 are less effective.",
       "how_to_choose": "For Alzheimer's - n-3-PUFA; studies have found no differences between individual supplements. For postpartum depression, the concentration of DHA in milk is important.",
-      "interactions": [
-        {
-          "note": "no known interactions",
-          "severity": "low",
-          "with": "no data"
-        }
-      ],
+      "interactions": [],
       "mechs": [
         [
           "Incorporation into neuronal membranes and anti-inflammatory effect",
@@ -751,13 +691,7 @@
       ],
       "guidelines": "MA 2023 (90 RCT, 72,598): omega-3 linearly reduces TG and non-HDL, clearly at doses >2 g/day; MA 2019 (26, 2160): EPA ≥60% ≤1 g/day for depression (SMD −0.28).",
       "how_to_choose": "See mg EPA and EPA proportion ≥60%; for depression ≤1 g/day EPA; with lipids >2 g/day; Avoid DHA-dominant formulas for mental health purposes.",
-      "interactions": [
-        {
-          "note": "no known interactions",
-          "severity": "low",
-          "with": "no data"
-        }
-      ],
+      "interactions": [],
       "mechs": [
         [
           "EPA ≥60%: anti-inflammatory modulation in depression",
@@ -800,13 +734,7 @@
       ],
       "guidelines": "EAACI 2024: Insufficient evidence for evening primrose. Review 2024: No strong recommendations for inflammatory conditions due to heterogeneity.",
       "how_to_choose": "For skin - Oenothera biennis oil; take into account the low quality of research. For arthritis and diabetes, there is insufficient data to make a choice.",
-      "interactions": [
-        {
-          "note": "no known interactions",
-          "severity": "low",
-          "with": "no data"
-        }
-      ],
+      "interactions": [],
       "mechs": [
         [
           "Substrate for prostaglandins and anti-inflammatory mediators",
@@ -849,13 +777,7 @@
       ],
       "guidelines": "JCSM 2022 (CP 15 papers, cancer): muscle mass 4/4, function 2/2, hospitalizations 3/3; MA 2024 (5 RCT): walking speed SMD 0.48; umbrella 2021: low-moderate confidence.",
       "how_to_choose": "Ca-HMB form, ~3 g/day (according to research schemes); target groups - patients and elderly people with stress; There is no data for sports outside the context of these reviews.",
-      "interactions": [
-        {
-          "note": "no known interactions",
-          "severity": "low",
-          "with": "no data"
-        }
-      ],
+      "interactions": [],
       "mechs": [
         [
           "Slows muscle protein breakdown and supports protein synthesis",
@@ -1058,13 +980,7 @@
       "food_sources": "Fermented dairy products - kefir, yogurt, but the GG strain in them is not guaranteed and is not specified.",
       "guidelines": "ESPGHAN 2016: Lactobacillus rhamnosus GG - moderate quality evidence, strong recommendation for antibiotic prophylaxis of diarrhea in children.",
       "how_to_choose": "Look specifically for Lactobacillus rhamnosus GG, indicating the strain and CFU number; other strains of L. rhamnosus are not considered equal.",
-      "interactions": [
-        {
-          "note": "no known interactions",
-          "severity": "low",
-          "with": "no data"
-        }
-      ],
+      "interactions": [],
       "mechs": [
         [
           "Adhesion to intestinal epithelium and protection of mucosal barrier function",
@@ -1215,13 +1131,7 @@
       ],
       "guidelines": "SR 2026 (15 RCT, GRADE): Courses are transferable; no broad metabolic benefits; “rejuvenation” has not been confirmed.",
       "how_to_choose": "If tried: 250–1000 mg/d (RCT doses) in short courses; no metabolic effect should be expected.",
-      "interactions": [
-        {
-          "note": "little data, no known interactions",
-          "severity": "low",
-          "with": "no data"
-        }
-      ],
+      "interactions": [],
       "mechs": [
         [
           "NAD+ precursor → sirtuins",
@@ -1260,13 +1170,7 @@
       "food_sources": "In pool abstracts, food sources are not discussed; In the literature, PABA is found as a marker of the completeness of 24-hour urine collection, and not as a nutrient.",
       "guidelines": "There are no PABA recommendations in the pool: one negative RCT for systemic scleroderma and topical sunscreen tests are available.",
       "how_to_choose": "There is nothing to buy: there is no confirmed dose or form for oral administration, and external agents are a separate issue.",
-      "interactions": [
-        {
-          "note": "no known interactions",
-          "severity": "low",
-          "with": "no data"
-        }
-      ],
+      "interactions": [],
       "mechs": [
         [
           "PABA potassium salt was administered orally to RCT for systemic scleroderma at a dose of 12 g/day",
@@ -1308,13 +1212,7 @@
       "food_sources": "Trace amounts in natto, parsley, green tea, kiwi. You can't get your dose from food.",
       "guidelines": "EFSA does not approve. In Japan it has been sold as a dietary supplement since the 1970s, but without strict health claims.",
       "how_to_choose": "Standardized PQQ (BioPQQ or equivalent). Avoid cheap powders without COA.",
-      "interactions": [
-        {
-          "note": "no known interactions",
-          "severity": "low",
-          "with": "no data"
-        }
-      ],
+      "interactions": [],
       "mechs": [
         [
           "Mitochondrial dehydrogenase cofactor: respiratory chain support",
@@ -1355,13 +1253,7 @@
       "food_sources": "Not a food product, but a yeast preparation; kefir and sauerkraut are not sources of S. boulardii.",
       "guidelines": "ESPGHAN 2016: S. boulardii - moderate quality, strong recommendation for antibiotic prophylaxis of diarrhea in children. WJG 2010: Strongly recommended for adults.",
       "how_to_choose": "Indicate the S. boulardii strain and CFU number; ESPGHAN is recommended for the prevention of diarrhea in children. Combinations with zinc were studied separately.",
-      "interactions": [
-        {
-          "note": "no known interactions",
-          "severity": "low",
-          "with": "no data"
-        }
-      ],
+      "interactions": [],
       "mechs": [
         [
           "Yeast probiotic competes with pathogens for adhesion to the intestinal epithelium",
@@ -1449,13 +1341,7 @@
       "food_sources": "In the abstracts of the pool, food sources are not discussed: the meta-analysis on β-alanine concerned oral administration of the drug.",
       "guidelines": "There are no recommendations for alanine in the pool: the only sports review is for female athletes, and there is no specific information about alanine there.",
       "how_to_choose": "There is no data on α-alanine, there is nothing to buy. If you are interested in endurance, the pool only contains β-alanine.",
-      "interactions": [
-        {
-          "note": "no known interactions",
-          "severity": "low",
-          "with": "no data"
-        }
-      ],
+      "interactions": [],
       "mechs": [
         [
           "In a meta-analysis of β-alanine, the effect on endurance performance at 0.5-10 minutes was 0.50 versus 0.11 for exercise performance.",
@@ -1875,13 +1761,7 @@
       ],
       "guidelines": "SR 2017: productivity has not increased, effort is lower; MA 2026 in women: TTE is higher (SMD 0.49), confidence is very low.",
       "how_to_choose": "Regular powder 3.2–6.4 g/day in fractions (≤1.6 g per dose - less tingling); \"matrices\" are not needed.",
-      "interactions": [
-        {
-          "note": "no known interactions",
-          "severity": "low",
-          "with": "no data"
-        }
-      ],
+      "interactions": [],
       "mechs": [
         [
           "Accumulation of carnosine → buffering of H+ in muscle",
@@ -1923,13 +1803,7 @@
       ],
       "guidelines": "The FDA and EFSA have approved the claim: 3 g/day reduces cholesterol. MA 2022 (13 RCT, 927): TC −0.24, LDL −0.27 mmol/l.",
       "how_to_choose": "Oat beta-glucan 3 g/day - from oatmeal/bran or supplement; no claims about “detox”.",
-      "interactions": [
-        {
-          "note": "no known interactions",
-          "severity": "low",
-          "with": "no data"
-        }
-      ],
+      "interactions": [],
       "mechs": [
         [
           "Soluble fiber: bile acids + SCFA",
@@ -1970,13 +1844,7 @@
       "food_sources": "Food sources are not listed in the abstract: the studies used a betaine drug, not a dietary change.",
       "guidelines": "There are no clinical recommendations for betaine in the pool: three sources are reviews on aging, athletic performance and lipid metabolism.",
       "how_to_choose": "You should expect an effect only from regular use for at least 7 days; at doses above 4 g/day, it is necessary to take into account the increase in total cholesterol.",
-      "interactions": [
-        {
-          "note": "no known interactions",
-          "severity": "low",
-          "with": "no data"
-        }
-      ],
+      "interactions": [],
       "mechs": [
         [
           "Betaine as a donor of methyl groups increases the concentration of S-adenosylmethionine",
@@ -2068,13 +1936,7 @@
       "food_sources": "In the pool abstracts, sources of boron are not discussed: both sources are about materials for bone and about drug therapy.",
       "guidelines": "There are no separate clinical recommendations for boron in the pool: two sources are a review of materials for bone tissue and a network MA for drugs.",
       "how_to_choose": "There is no data to guide the choice of form and dose: neither of the two sources evaluates boron supplementation.",
-      "interactions": [
-        {
-          "note": "no known interactions",
-          "severity": "low",
-          "with": "no data"
-        }
-      ],
+      "interactions": [],
       "mechs": [
         [
           "Boron is included in the structure of hydroxyapatite scaffolds to enhance bone regeneration",
@@ -2222,13 +2084,7 @@
       ],
       "guidelines": "MA 2019 (n=180): symptoms are shorter. SR 2021 (5 RCT, GRADE): duration/severity; vs oseltamivir - fewer complications.",
       "how_to_choose": "Standardized extract/syrup; on the first day of symptoms 5-7 days; not raw berries.",
-      "interactions": [
-        {
-          "note": "no known interactions",
-          "severity": "low",
-          "with": "no data"
-        }
-      ],
+      "interactions": [],
       "mechs": [
         [
           "Anthocyanins: blockade of viral attachment + immunomodulation",
@@ -2325,13 +2181,7 @@
       ],
       "guidelines": "ESPEN 2022: status monitoring and toxicity accounting; SR 2024 (AGA): deficiencies - factors of alopecia, A not key; SR 2023: Food insecurity linked to shortages.",
       "how_to_choose": "Only with a confirmed deficiency and according to the doctor’s dosage; retinol and beta-carotene differ in toxicity; healthy people without a deficiency - not needed.",
-      "interactions": [
-        {
-          "note": "no known interactions",
-          "severity": "low",
-          "with": "no data"
-        }
-      ],
+      "interactions": [],
       "mechs": [
         [
           "Replenishing A deficiency: retinol for vision, skin, immunity",
@@ -2537,13 +2387,7 @@
       ],
       "guidelines": "MA 2024 (17 RCT): vitamin K reduces HOMA-IR (WMD -0.24), other - no; MA 2019 (13 RCT): CRP and sensitivity index only; review 2008: K1 and K2 are associated with BMD and fractures.",
       "how_to_choose": "Choose the form according to the purpose: metabolic effects are stronger in K2; K1 - common food phylloquinone; without indications, the benefit has not been proven.",
-      "interactions": [
-        {
-          "note": "no known interactions",
-          "severity": "low",
-          "with": "no data"
-        }
-      ],
+      "interactions": [],
       "mechs": [
         [
           "Vitamin K and insulin sensitivity",
@@ -2952,13 +2796,7 @@
       ],
       "guidelines": "EFSA does not approve health claims. In clinical medicine - IV for poisoning, paracetamol hepatitis.",
       "how_to_choose": "Liposomal glutathione (better bioavailability) or NAC (as a precursor, cheaper and more effective).",
-      "interactions": [
-        {
-          "note": "no known interactions",
-          "severity": "low",
-          "with": "no data"
-        }
-      ],
+      "interactions": [],
       "mechs": [
         [
           "Primary cell antioxidant: neutralizes free radicals",
@@ -3053,13 +2891,7 @@
       ],
       "guidelines": "MA 2017 (5 RCT): cognition = placebo; cheerfulness SMD 0.71, anger −0.81 (1 hour). SR 2022: healing - 4 RCT.",
       "how_to_choose": "Extract with standardization for triterpenes (asiaticoside), 300-600 mg in courses; If you have liver problems, do not take it.",
-      "interactions": [
-        {
-          "note": "no known interactions",
-          "severity": "low",
-          "with": "no data"
-        }
-      ],
+      "interactions": [],
       "mechs": [
         [
           "Triterpenes (asiaticoside): microcirculation and venous tone, weak GABA modulation",
@@ -3154,13 +2986,7 @@
       ],
       "guidelines": "No recommendations: SR 2025 (PMID 40959699) - 5 RCT + 3 pilots, modest data; side effects - GI and allergies.",
       "how_to_choose": "There is no standard: take an edible mushroom, not an “extract with neurogenesis”; Allergy sufferers be careful.",
-      "interactions": [
-        {
-          "note": "little data, no known interactions",
-          "severity": "low",
-          "with": "no data"
-        }
-      ],
+      "interactions": [],
       "mechs": [
         [
           "Hericenones/erinacins → NGF synthesis (in vitro, mice)",
@@ -3701,13 +3527,7 @@
       "food_sources": "Carnosine is found in meat, poultry, fish (especially beef); β-alanine - in muscle tissue of animals.",
       "guidelines": "MA 2017 (40 studies, n=1461): overall ES 0.18, exercises 0.5-10 min - 0.50; SR 2025: 4-6.4 g/day in fractions, 5-8 weeks; risk analysis 2019: paresthesia OR 8.9, ALT within normal limits.",
       "how_to_choose": "If the goal is performance, consider β-alanine (fractional doses of 4-6.4 g/day); The carnosine supplement itself has been less studied.",
-      "interactions": [
-        {
-          "note": "no known interactions",
-          "severity": "low",
-          "with": "no data"
-        }
-      ],
+      "interactions": [],
       "mechs": [
         [
           "Increasing muscle carnosine due to β-alanine",
@@ -3846,13 +3666,7 @@
       ],
       "guidelines": "EFSA: claims not approved; series MA - moderate effect on the skin and joints.",
       "how_to_choose": "Hydrolyzate (peptides), not gelatin; types I+III (skin), II (joints); with vitamin C.",
-      "interactions": [
-        {
-          "note": "no known interactions",
-          "severity": "low",
-          "with": "no data"
-        }
-      ],
+      "interactions": [],
       "mechs": [
         [
           "Peptides → stimulation of own collagen (proline/hydroxyproline)",
@@ -4052,13 +3866,7 @@
       "food_sources": "Whole grains, vegetables, root vegetables, bananas, drinking water; Product specifics are not provided in the abstracts.",
       "guidelines": "Umbrella review 2024 (Nutrients): effect threshold ~139 mg Si/kg/day - unrealistic for humans; Recommendations for supplements are not formulated.",
       "how_to_choose": "There is no data for choosing a form; if you are interested in silicon, use food sources instead of dietary supplements; The effectiveness of supplements has not been confirmed.",
-      "interactions": [
-        {
-          "note": "no known interactions",
-          "severity": "low",
-          "with": "no data"
-        }
-      ],
+      "interactions": [],
       "mechs": [
         [
           "The effect of silicon on bone and mineral metabolism",
@@ -4254,13 +4062,7 @@
       "food_sources": "Meat, fish, eggs, legumes, cheese; the diet is not understood in abstracts; deficits in normal nutrition have not been described.",
       "guidelines": "Cochrane 2015 (32 RCT, n=2640): Lysine was not found to be effective in preventing herpes; Long-term oral antivirals reduce relapses, but the benefit is small.",
       "how_to_choose": "Do not choose Lysin for the prevention of herpes - there is no data; If there are frequent relapses, discuss antiviral medications with your doctor.",
-      "interactions": [
-        {
-          "note": "no known interactions",
-          "severity": "low",
-          "with": "no data"
-        }
-      ],
+      "interactions": [],
       "mechs": [
         [
           "Lysin and prevention of recurrence of herpes on the lips",
@@ -4294,13 +4096,7 @@
       "food_sources": "Spinach, cabbage, egg yolk, corn, pumpkin are bioavailable with fats; taking them with oil is mandatory.",
       "guidelines": "MA 2019: MPOD +0.07, pungency +0.28 (10–20 mg); nuclear cataract RR 0.63–0.73; AREDS2-dose 10+2 mg; premature - no.",
       "how_to_choose": "AREDS2 dosage - 10 mg lutein + 2 mg zeaxanthin with fatty food; buy not “formulas”, but composition.",
-      "interactions": [
-        {
-          "note": "no known interactions",
-          "severity": "low",
-          "with": "no data"
-        }
-      ],
+      "interactions": [],
       "mechs": [
         [
           "Macular pigment: blue filter + antioxidant",
@@ -4402,13 +4198,7 @@
       "food_sources": "Sources are not discussed in abstracts: both meta-analyses study isolated fungal polysaccharides, not food products.",
       "guidelines": "There are no recommendations for maitake in the pool: two sources are meta-analyses on animal models with SYRCLE risk of bias assessment.",
       "how_to_choose": "There is nothing to evaluate: there is no human dose data in the pool, so any extracts and combinations remain outside the scope of study.",
-      "interactions": [
-        {
-          "note": "no known interactions",
-          "severity": "low",
-          "with": "no data"
-        }
-      ],
+      "interactions": [],
       "mechs": [
         [
           "Maitake polysaccharide suppressed tumor growth and increased remission rates in animal experiments",
@@ -4450,13 +4240,7 @@
       ],
       "guidelines": "2022 MA (sperm quality): higher volume/motility; 2024 MA (physical performance): weak signal. Libido - limited evidence.",
       "how_to_choose": "1.5-3 g/day standardized root powder; The safety of long-term use has not been proven.",
-      "interactions": [
-        {
-          "note": "no known interactions",
-          "severity": "low",
-          "with": "no data"
-        }
-      ],
+      "interactions": [],
       "mechs": [
         [
           "Macamides: indirect dopaminergics",
@@ -4495,13 +4279,7 @@
       "food_sources": "Cereals, nuts and tea; Separate data on the sources of manganese are not provided in the abstracts of the pool.",
       "guidelines": "ESPEN 2022 makes recommendations for micronutrients based on consensus: there are few intervention studies, and a meta-analysis could not be performed.",
       "how_to_choose": "Manganese supplementation is not supported by any human work in the pool; if a deficiency is suspected, analysis rather than independent use.",
-      "interactions": [
-        {
-          "note": "no known interactions",
-          "severity": "low",
-          "with": "no data"
-        }
-      ],
+      "interactions": [],
       "mechs": [
         [
           "Minerals and trace elements are involved in hundreds of biological processes, and manganese belongs to this class",
@@ -4540,13 +4318,7 @@
       "food_sources": "Liver, seafood, nuts, seeds and cocoa; The Vegan Diet SR lists copper as one of the nutrients for which no deficiency has been identified.",
       "guidelines": "ESPEN 2022: Recommendations for micronutrients are based on consensus, there are few intervention studies, a meta-analysis could not be carried out - the level of evidence is low.",
       "how_to_choose": "Pool copper supplements are not supported by any research; if a deficiency is suspected, use a blood test rather than taking it on your own.",
-      "interactions": [
-        {
-          "note": "no known interactions",
-          "severity": "low",
-          "with": "no data"
-        }
-      ],
+      "interactions": [],
       "mechs": [
         [
           "Copper is an essential trace element necessary for metabolism; deficiency is detected in acute and chronic diseases",
@@ -4700,13 +4472,7 @@
       "food_sources": "In the pool abstracts, food sources for humans are not discussed: all three meta-analyses are about feeding dairy cows.",
       "guidelines": "There are no methionine recommendations for humans in the pool: only meta-analyses on dairy cow productivity are available.",
       "how_to_choose": "There is nothing to choose: there are no confirmed doses for humans, and the grams indicated in the meta-analyses are calculated for reverse-transition cows.",
-      "interactions": [
-        {
-          "note": "no known interactions",
-          "severity": "low",
-          "with": "no data"
-        }
-      ],
+      "interactions": [],
       "mechs": [
         [
           "In experiments on dairy cows, methionine supplementation increased milk protein yield by 2.23 g per 1 g of metabolized methionine",
@@ -4745,13 +4511,7 @@
       "food_sources": "Legumes, grains, nuts, offal, dairy products; The content is highly dependent on the soil.",
       "guidelines": "ESPEN 2022: trace elements are essential, deficiencies affect outcomes, monitoring is needed; reviews 2009 (hemodialysis) and 2026 - status in patients, purpose not studied.",
       "how_to_choose": "Do not choose a supplement without indications - there is no data on effectiveness; if a deficiency is suspected, the status is assessed by a doctor.",
-      "interactions": [
-        {
-          "note": "no known interactions",
-          "severity": "low",
-          "with": "no data"
-        }
-      ],
+      "interactions": [],
       "mechs": [
         [
           "Essential nature of microelements, the impact of deficiency on disease outcomes",
@@ -4786,13 +4546,7 @@
       "food_sources": "Meat, poultry, fish, liver, peanuts; nutritional status is not detailed in abstracts.",
       "guidelines": "MA 2022 (29 trials, n=3039): nicotinamide - skin cancer RR 0.50 [0.29-0.85], weak recommendation; reviews 2022/2025: topical niacinamide among treatments for PIH.",
       "how_to_choose": "Orally - only as prescribed by a doctor if you have a history of skin cancer; topical - niacinamide agents for pigmentation; not to be confused with niacin (flushing).",
-      "interactions": [
-        {
-          "note": "no known interactions",
-          "severity": "low",
-          "with": "no data"
-        }
-      ],
+      "interactions": [],
       "mechs": [
         [
           "NAD+ restoration and DNA repair",
@@ -4887,13 +4641,7 @@
       ],
       "guidelines": "There are no clinical recommendations for ornithine in the pool: the only source is the SR for safety with a NOAEL calculation of 12,000 mg/day.",
       "how_to_choose": "The form studied was L-ornithine hydrochloride; It makes sense to take it only under the supervision of a doctor with a confirmed deficiency, and not for sports.",
-      "interactions": [
-        {
-          "note": "no known interactions",
-          "severity": "low",
-          "with": "no data"
-        }
-      ],
+      "interactions": [],
       "mechs": [
         [
           "Ornithine is an essential amino acid with many physiological roles, but the mechanisms of the effect in the pool have not been understood",
@@ -5155,13 +4903,7 @@
       ],
       "guidelines": "There are no recommendations for free proline in the pool: studies are available on collagen and gelatin, not the amino acid itself.",
       "how_to_choose": "There is nothing to choose: there is no confirmed dose of free proline, and the data on collagen refer to another product.",
-      "interactions": [
-        {
-          "note": "no known interactions",
-          "severity": "low",
-          "with": "no data"
-        }
-      ],
+      "interactions": [],
       "mechs": [
         [
           "In the RCT of collagen peptides in the blood, glycine, proline and hydroxyproline increased, but connective tissue synthesis did not increase",
@@ -5450,13 +5192,7 @@
       ],
       "guidelines": "MA 2022 (9 articles, 673 people): days/frequency/duration/pain lower. SR 2017: stable in adults, combinations do not help.",
       "how_to_choose": "Regular riboflavin 400 mg/day (not “active forms”), course from 3 months; cheap and safe.",
-      "interactions": [
-        {
-          "note": "no known interactions",
-          "severity": "low",
-          "with": "no data"
-        }
-      ],
+      "interactions": [],
       "mechs": [
         [
           "Mitochondrial energy metabolism (complexes I/II)",
@@ -5602,13 +5338,7 @@
       ],
       "guidelines": "There are no recommendations for serine in the pool: there are two point studies in rare genetic diseases, without meta-analyses.",
       "how_to_choose": "The form studied was oral L-serine; Self-administration is pointless: doses are designed for specific genetic diagnoses.",
-      "interactions": [
-        {
-          "note": "no known interactions",
-          "severity": "low",
-          "with": "no data"
-        }
-      ],
+      "interactions": [],
       "mechs": [
         [
           "L-serine serves as a precursor to D-serine, which modulates the activity of NMDA receptors",
@@ -5961,13 +5691,7 @@
       ],
       "guidelines": "MA 2021 (PMID 33539192, 216 children): inattention ES 0.36 significant, low quality; SR 2026 (42538853): not confirmed.",
       "how_to_choose": "100-300 mg/day PS in courses, standardized composition; for children with ADHD - only with a doctor.",
-      "interactions": [
-        {
-          "note": "no known interactions",
-          "severity": "low",
-          "with": "no data"
-        }
-      ],
+      "interactions": [],
       "mechs": [
         [
           "Phospholipid of neuronal membranes: fluidity + modulation of acetylcholine/dopamine",
@@ -6010,13 +5734,7 @@
       ],
       "guidelines": "Qidong (n=180, 4 months): aflatoxin adducts −55%. Leukopenia: 85% vs 26.7% (n=105). Topically - pilot n=10. MA no.",
       "how_to_choose": "Chlorophyllin 100 mg/day - only with a known aflatoxin load; on the skin - gel with Cu-chlorophyllin.",
-      "interactions": [
-        {
-          "note": "no known interactions",
-          "severity": "low",
-          "with": "no data"
-        }
-      ],
+      "interactions": [],
       "mechs": [
         [
           "Porphyrin ring; binds odorants in vitro",
@@ -6066,13 +5784,7 @@
       ],
       "guidelines": "MA 2023 (7 RCT): α-GPC + donepezil - cognition MD 1.72 [0.20-3.25], behavior MD −7.61; SR 2025: Choline in pregnancy - lower risk of neural tube defects.",
       "how_to_choose": "According to the data - α-GPC form; during pregnancy, the dose is as recommended by the doctor; in healthy individuals, rely on the lack of evidence for cognition.",
-      "interactions": [
-        {
-          "note": "no known interactions",
-          "severity": "low",
-          "with": "no data"
-        }
-      ],
+      "interactions": [],
       "mechs": [
         [
           "α-GPC is a precursor to phosphatidylcholine and acetylcholine",
@@ -6111,13 +5823,7 @@
       "food_sources": "Broccoli, whole grains, potatoes, yeast; You can’t gain 200–400 mcg of dietary chromium.",
       "guidelines": "SR 2024: FPG/HbA1c/HOMA-IR lower in courses 2–6 months; Cochrane 2013: weight unchanged; MA 2025 (PCOS): more ovulations.",
       "how_to_choose": "Picolinate 200–400 mcg/day under glucose control for T2D/PCOS; for healthy weight loss - do not take it.",
-      "interactions": [
-        {
-          "note": "no known interactions",
-          "severity": "low",
-          "with": "no data"
-        }
-      ],
+      "interactions": [],
       "mechs": [
         [
           "Enhanced insulin receptor signaling",
@@ -6227,13 +5933,7 @@
       "food_sources": "Meat, poultry, eggs, dairy products, legumes, onions, garlic, broccoli; the diet does not understand abstracts.",
       "guidelines": "Cochrane 2018: NAC is an antidote for paracetamol poisoning; MA 2024: mucolytics (including NAC) for COPD reduce exacerbations and hospitalizations; SR 2023: NAC effects vary.",
       "how_to_choose": "For free cysteine there is no choice of form - no data; Use NAC according to clinical indications (doctor); There is no benefit shown in conventional dietary supplements.",
-      "interactions": [
-        {
-          "note": "no known interactions",
-          "severity": "low",
-          "with": "no data"
-        }
-      ],
+      "interactions": [],
       "mechs": [
         [
           "NAC derivative and mucolytic action",
@@ -6439,13 +6139,7 @@
       ],
       "guidelines": "Not included in the recommendations of EFSA, FDA. Ayurvedic sources indicate widespread use, modern RCTs are limited.",
       "how_to_choose": "Standardized extract for saponins 20-40%; Avoid powders of unknown origin.",
-      "interactions": [
-        {
-          "note": "no known interactions",
-          "severity": "low",
-          "with": "no data"
-        }
-      ],
+      "interactions": [],
       "mechs": [
         [
           "Saponins (shatavari-saponins): stimulate prolactin synthesis",

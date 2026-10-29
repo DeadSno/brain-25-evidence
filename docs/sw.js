@@ -571,7 +571,15 @@
 /* Бамп v193 -> v194 FIX-49 (CWV-02): data.json загружается один раз через
    общий window.__dataPromise/getData() в script.min.js и tracker.js вместо
    двух независимых fetch. script.min.js ?v=304 -> 305. */
-var CACHE_VERSION = 'v194';
+/* Бамп v194 -> v195 FIX-50 (DATA-04): из interactions убраны записи-заглушки
+   {"with": "нет данных"} в docs/data.json и {"with": "no data"} в
+   docs/data_en.json - по 51 карточке, у всех interactions состоял ровно из
+   этой одной записи, поэтому теперь там пустой массив и блок рисует штатную
+   заглушку t("card.blockEmpty"). data_en.json и data_index.json в
+   STATIC_ASSETS не лежат: они уходят в network-first по DATA_RE, но кэш
+   данных назван от CACHE_VERSION, поэтому бамп чистит и его. Скрипты не
+   менялись: script.min.js ?v=305, hactar.js ?v=38, i18n.js ?v=21. */
+var CACHE_VERSION = 'v195';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 

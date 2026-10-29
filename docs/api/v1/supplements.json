@@ -1,6 +1,6 @@
 {
   "version": "v1",
-  "generated_at": "2026-10-24T16:48:11.587588+00:00",
+  "generated_at": "2026-10-29T09:39:44.583880+00:00",
   "count": 130,
   "license": "CC BY 4.0",
   "source": "https://github.com/DeadSno/brain-25-evidence",
@@ -854,13 +854,7 @@
           "контекст"
         ]
       ],
-      "interactions": [
-        {
-          "with": "нет данных",
-          "severity": "low",
-          "note": "мало данных, нет известных взаимодействий"
-        }
-      ],
+      "interactions": [],
       "key_sources": [
         {
           "pmid": "40959699",
@@ -1238,13 +1232,7 @@
           "контекст"
         ]
       ],
-      "interactions": [
-        {
-          "with": "нет данных",
-          "severity": "low",
-          "note": "известных взаимодействий нет"
-        }
-      ],
+      "interactions": [],
       "key_sources": [
         {
           "pmid": "33539192",
@@ -1319,13 +1307,7 @@
           "слабо"
         ]
       ],
-      "interactions": [
-        {
-          "with": "нет данных",
-          "severity": "low",
-          "note": "известных взаимодействий нет"
-        }
-      ],
+      "interactions": [],
       "key_sources": [
         {
           "pmid": "41426989",
@@ -1433,13 +1415,7 @@
           "контекст"
         ]
       ],
-      "interactions": [
-        {
-          "with": "нет данных",
-          "severity": "low",
-          "note": "известных взаимодействий нет"
-        }
-      ],
+      "interactions": [],
       "key_sources": [
         {
           "pmid": "32860632",
@@ -2405,13 +2381,7 @@
           "слабо"
         ]
       ],
-      "interactions": [
-        {
-          "with": "нет данных",
-          "severity": "low",
-          "note": "известных взаимодействий нет"
-        }
-      ],
+      "interactions": [],
       "key_sources": [
         {
           "pmid": "28878245",
@@ -2826,13 +2796,7 @@
           "контекст"
         ]
       ],
-      "interactions": [
-        {
-          "with": "нет данных",
-          "severity": "low",
-          "note": "нет известных взаимодействий"
-        }
-      ],
+      "interactions": [],
       "key_sources": [
         {
           "pmid": "27377257",
@@ -3174,13 +3138,7 @@
           "контекст"
         ]
       ],
-      "interactions": [
-        {
-          "with": "нет данных",
-          "severity": "low",
-          "note": "известных взаимодействий нет"
-        }
-      ],
+      "interactions": [],
       "key_sources": [
         {
           "pmid": "33827515",
@@ -3421,13 +3379,7 @@
           "контекст"
         ]
       ],
-      "interactions": [
-        {
-          "with": "нет данных",
-          "severity": "low",
-          "note": "нет известных взаимодействий"
-        }
-      ],
+      "interactions": [],
       "key_sources": [
         {
           "pmid": "42342959",
@@ -5193,13 +5145,7 @@
           "контекст"
         ]
       ],
-      "interactions": [
-        {
-          "with": "нет данных",
-          "severity": "low",
-          "note": "нет известных взаимодействий"
-        }
-      ],
+      "interactions": [],
       "key_sources": [
         {
           "pmid": "35631184",
@@ -5257,13 +5203,7 @@
           "контекст"
         ]
       ],
-      "interactions": [
-        {
-          "with": "нет данных",
-          "severity": "low",
-          "note": "нет известных взаимодействий"
-        }
-      ],
+      "interactions": [],
       "key_sources": [
         {
           "pmid": "33779525",
@@ -5338,13 +5278,7 @@
           "контекст"
         ]
       ],
-      "interactions": [
-        {
-          "with": "нет данных",
-          "severity": "low",
-          "note": "нет известных взаимодействий"
-        }
-      ],
+      "interactions": [],
       "key_sources": [
         {
           "pmid": "31887124",
@@ -5614,13 +5548,7 @@
           "слабо"
         ]
       ],
-      "interactions": [
-        {
-          "with": "нет данных",
-          "severity": "low",
-          "note": "нет известных взаимодействий"
-        }
-      ],
+      "interactions": [],
       "key_sources": [
         {
           "pmid": "41004704",
@@ -5732,13 +5660,7 @@
           "слабо"
         ]
       ],
-      "interactions": [
-        {
-          "with": "нет данных",
-          "severity": "low",
-          "note": "известных взаимодействий нет"
-        }
-      ],
+      "interactions": [],
       "key_sources": [
         {
           "pmid": "36110519",
@@ -5813,13 +5735,7 @@
           "контекст"
         ]
       ],
-      "interactions": [
-        {
-          "with": "нет данных",
-          "severity": "low",
-          "note": "известных взаимодействий нет"
-        }
-      ],
+      "interactions": [],
       "key_sources": [
         {
           "pmid": "39541030",
@@ -6674,13 +6590,7 @@
           "контекст"
         ]
       ],
-      "interactions": [
-        {
-          "with": "нет данных",
-          "severity": "low",
-          "note": "мало данных, нет известных взаимодействий"
-        }
-      ],
+      "interactions": [],
       "key_sources": [
         {
           "pmid": "42514320",
@@ -6921,13 +6831,7 @@
           "слабо"
         ]
       ],
-      "interactions": [
-        {
-          "with": "нет данных",
-          "severity": "low",
-          "note": "нет известных взаимодействий"
-        }
-      ],
+      "interactions": [],
       "key_sources": [
         {
           "pmid": "25844615",
@@ -7578,13 +7482,7 @@
           "контекст"
         ]
       ],
-      "interactions": [
-        {
-          "with": "нет данных",
-          "severity": "low",
-          "note": "известных взаимодействий нет"
-        }
-      ],
+      "interactions": [],
       "key_sources": [
         {
           "pmid": "41816216",
@@ -8511,13 +8409,7 @@
           "слабо"
         ]
       ],
-      "interactions": [
-        {
-          "with": "нет данных",
-          "severity": "low",
-          "note": "известных взаимодействий нет"
-        }
-      ],
+      "interactions": [],
       "key_sources": [
         {
           "pmid": "39444151",
@@ -8625,13 +8517,7 @@
           "контекст"
         ]
       ],
-      "interactions": [
-        {
-          "with": "нет данных",
-          "severity": "low",
-          "note": "известных взаимодействий нет"
-        }
-      ],
+      "interactions": [],
       "key_sources": [
         {
           "pmid": "38908296",
@@ -9094,13 +8980,7 @@
           "контекст"
         ]
       ],
-      "interactions": [
-        {
-          "with": "нет данных",
-          "severity": "low",
-          "note": "известных взаимодействий нет"
-        }
-      ],
+      "interactions": [],
       "key_sources": [
         {
           "pmid": "33619867",
@@ -9168,13 +9048,7 @@
           "контекст"
         ]
       ],
-      "interactions": [
-        {
-          "with": "нет данных",
-          "severity": "low",
-          "note": "известных взаимодействий нет"
-        }
-      ],
+      "interactions": [],
       "key_sources": [
         {
           "pmid": "40362867",
@@ -9228,13 +9102,7 @@
           "контекст"
         ]
       ],
-      "interactions": [
-        {
-          "with": "нет данных",
-          "severity": "low",
-          "note": "известных взаимодействий нет"
-        }
-      ],
+      "interactions": [],
       "key_sources": [
         {
           "pmid": "31383846",
@@ -9294,13 +9162,7 @@
           "контекст"
         ]
       ],
-      "interactions": [
-        {
-          "with": "нет данных",
-          "severity": "low",
-          "note": "известных взаимодействий нет"
-        }
-      ],
+      "interactions": [],
       "key_sources": [
         {
           "pmid": "35365361",
@@ -9362,13 +9224,7 @@
           "контекст"
         ]
       ],
-      "interactions": [
-        {
-          "with": "нет данных",
-          "severity": "low",
-          "note": "известных взаимодействий нет"
-        }
-      ],
+      "interactions": [],
       "key_sources": [
         {
           "pmid": "35365361",
@@ -9423,13 +9279,7 @@
           "слабо"
         ]
       ],
-      "interactions": [
-        {
-          "with": "нет данных",
-          "severity": "low",
-          "note": "известных взаимодействий нет"
-        }
-      ],
+      "interactions": [],
       "key_sources": [
         {
           "pmid": "35134311",
@@ -9484,13 +9334,7 @@
           "контекст"
         ]
       ],
-      "interactions": [
-        {
-          "with": "нет данных",
-          "severity": "low",
-          "note": "известных взаимодействий нет"
-        }
-      ],
+      "interactions": [],
       "key_sources": [
         {
           "pmid": "30420688",
@@ -9557,13 +9401,7 @@
           "контекст"
         ]
       ],
-      "interactions": [
-        {
-          "with": "нет данных",
-          "severity": "low",
-          "note": "известных взаимодействий нет"
-        }
-      ],
+      "interactions": [],
       "key_sources": [
         {
           "pmid": "36719452",
@@ -9617,13 +9455,7 @@
           "контекст"
         ]
       ],
-      "interactions": [
-        {
-          "with": "нет данных",
-          "severity": "low",
-          "note": "известных взаимодействий нет"
-        }
-      ],
+      "interactions": [],
       "key_sources": [
         {
           "pmid": "26252373",
@@ -9670,13 +9502,7 @@
           "контекст"
         ]
       ],
-      "interactions": [
-        {
-          "with": "нет данных",
-          "severity": "low",
-          "note": "известных взаимодействий нет"
-        }
-      ],
+      "interactions": [],
       "key_sources": [
         {
           "pmid": "38337624",
@@ -9729,13 +9555,7 @@
           "умеренно"
         ]
       ],
-      "interactions": [
-        {
-          "with": "нет данных",
-          "severity": "low",
-          "note": "известных взаимодействий нет"
-        }
-      ],
+      "interactions": [],
       "key_sources": [
         {
           "pmid": "35301826",
@@ -9801,13 +9621,7 @@
           "слабо"
         ]
       ],
-      "interactions": [
-        {
-          "with": "нет данных",
-          "severity": "low",
-          "note": "известных взаимодействий нет"
-        }
-      ],
+      "interactions": [],
       "key_sources": [
         {
           "pmid": "27797728",
@@ -10087,13 +9901,7 @@
           "контекст"
         ]
       ],
-      "interactions": [
-        {
-          "with": "нет данных",
-          "severity": "low",
-          "note": "известных взаимодействий нет"
-        }
-      ],
+      "interactions": [],
       "key_sources": [
         {
           "pmid": "35365361",
@@ -10153,13 +9961,7 @@
           "слабо"
         ]
       ],
-      "interactions": [
-        {
-          "with": "нет данных",
-          "severity": "low",
-          "note": "известных взаимодействий нет"
-        }
-      ],
+      "interactions": [],
       "key_sources": [
         {
           "pmid": "38282652",
@@ -10225,13 +10027,7 @@
           "слабо"
         ]
       ],
-      "interactions": [
-        {
-          "with": "нет данных",
-          "severity": "low",
-          "note": "известных взаимодействий нет"
-        }
-      ],
+      "interactions": [],
       "key_sources": [
         {
           "pmid": "40843925",
@@ -10284,13 +10080,7 @@
           "контекст"
         ]
       ],
-      "interactions": [
-        {
-          "with": "нет данных",
-          "severity": "low",
-          "note": "известных взаимодействий нет"
-        }
-      ],
+      "interactions": [],
       "key_sources": [
         {
           "pmid": "39413571",
@@ -10358,13 +10148,7 @@
           "слабо"
         ]
       ],
-      "interactions": [
-        {
-          "with": "нет данных",
-          "severity": "low",
-          "note": "известных взаимодействий нет"
-        }
-      ],
+      "interactions": [],
       "key_sources": [
         {
           "pmid": "20458757",
@@ -10431,13 +10215,7 @@
           "слабо"
         ]
       ],
-      "interactions": [
-        {
-          "with": "нет данных",
-          "severity": "low",
-          "note": "известных взаимодействий нет"
-        }
-      ],
+      "interactions": [],
       "key_sources": [
         {
           "pmid": "26756877",
@@ -10497,13 +10275,7 @@
           "слабо"
         ]
       ],
-      "interactions": [
-        {
-          "with": "нет данных",
-          "severity": "low",
-          "note": "известных взаимодействий нет"
-        }
-      ],
+      "interactions": [],
       "key_sources": [
         {
           "pmid": "36372047",
@@ -10570,13 +10342,7 @@
           "контекст"
         ]
       ],
-      "interactions": [
-        {
-          "with": "нет данных",
-          "severity": "low",
-          "note": "известных взаимодействий нет"
-        }
-      ],
+      "interactions": [],
       "key_sources": [
         {
           "pmid": "38924283",
@@ -10643,13 +10409,7 @@
           "контекст"
         ]
       ],
-      "interactions": [
-        {
-          "with": "нет данных",
-          "severity": "low",
-          "note": "известных взаимодействий нет"
-        }
-      ],
+      "interactions": [],
       "key_sources": [
         {
           "pmid": "38360611",
@@ -10715,13 +10475,7 @@
           "маркетинг"
         ]
       ],
-      "interactions": [
-        {
-          "with": "нет данных",
-          "severity": "low",
-          "note": "известных взаимодействий нет"
-        }
-      ],
+      "interactions": [],
       "key_sources": [
         {
           "pmid": "35365361",
@@ -10780,13 +10534,7 @@
           "маркетинг"
         ]
       ],
-      "interactions": [
-        {
-          "with": "нет данных",
-          "severity": "low",
-          "note": "известных взаимодействий нет"
-        }
-      ],
+      "interactions": [],
       "key_sources": [
         {
           "pmid": "30909645",
@@ -10911,13 +10659,7 @@
           "маркетинг"
         ]
       ],
-      "interactions": [
-        {
-          "with": "нет данных",
-          "severity": "low",
-          "note": "известных взаимодействий нет"
-        }
-      ],
+      "interactions": [],
       "key_sources": [
         {
           "pmid": "42773491",
@@ -10983,13 +10725,7 @@
           "умеренно"
         ]
       ],
-      "interactions": [
-        {
-          "with": "нет данных",
-          "severity": "low",
-          "note": "известных взаимодействий нет"
-        }
-      ],
+      "interactions": [],
       "key_sources": [
         {
           "pmid": "39514262",
@@ -11055,13 +10791,7 @@
           "маркетинг"
         ]
       ],
-      "interactions": [
-        {
-          "with": "нет данных",
-          "severity": "low",
-          "note": "известных взаимодействий нет"
-        }
-      ],
+      "interactions": [],
       "key_sources": [
         {
           "pmid": "40368108",
@@ -11127,13 +10857,7 @@
           "маркетинг"
         ]
       ],
-      "interactions": [
-        {
-          "with": "нет данных",
-          "severity": "low",
-          "note": "известных взаимодействий нет"
-        }
-      ],
+      "interactions": [],
       "key_sources": [
         {
           "pmid": "40323503",
@@ -11185,13 +10909,7 @@
           "маркетинг"
         ]
       ],
-      "interactions": [
-        {
-          "with": "нет данных",
-          "severity": "low",
-          "note": "известных взаимодействий нет"
-        }
-      ],
+      "interactions": [],
       "key_sources": [
         {
           "pmid": "34271115",
@@ -11250,13 +10968,7 @@
           "маркетинг"
         ]
       ],
-      "interactions": [
-        {
-          "with": "нет данных",
-          "severity": "low",
-          "note": "известных взаимодействий нет"
-        }
-      ],
+      "interactions": [],
       "key_sources": [
         {
           "pmid": "8151563",
@@ -11314,13 +11026,7 @@
           "маркетинг"
         ]
       ],
-      "interactions": [
-        {
-          "with": "нет данных",
-          "severity": "low",
-          "note": "известных взаимодействий нет"
-        }
-      ],
+      "interactions": [],
       "key_sources": [
         {
           "pmid": "39086044",
@@ -11379,13 +11085,7 @@
           "маркетинг"
         ]
       ],
-      "interactions": [
-        {
-          "with": "нет данных",
-          "severity": "low",
-          "note": "известных взаимодействий нет"
-        }
-      ],
+      "interactions": [],
       "key_sources": [
         {
           "pmid": "30626650",
@@ -11445,13 +11145,7 @@
           "маркетинг"
         ]
       ],
-      "interactions": [
-        {
-          "with": "нет данных",
-          "severity": "low",
-          "note": "известных взаимодействий нет"
-        }
-      ],
+      "interactions": [],
       "key_sources": [
         {
           "pmid": "39032921",
