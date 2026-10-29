@@ -229,6 +229,10 @@ const I18N = {
     "modal.forms": "Формы/штаммы:",
     "modal.issue": "❌ Нашли неточность? Сообщить",
     "modal.fullCard": "🧩 Полная карточка добавки",
+    "modal.cardNotFound": "Карточка «{id}» не найдена в базе данных.",
+    // ошибки загрузки
+    "ui.error.network": "⚠ Не удалось загрузить данные о добавке. Проверьте соединение и попробуйте снова.",
+    "ui.error.retry": "🔄 Повторить",
     // графики
     "chart.missingMsg": "⚠️ {count} добавок без значения («{axis}») не показаны на графике",
     "chart.logSuffix": " (лог)",
@@ -1498,6 +1502,10 @@ const I18N = {
     "modal.forms": "Forms/strains:",
     "modal.issue": "❌ Found an inaccuracy? Report it",
     "modal.fullCard": "🧩 Full supplement card",
+    "modal.cardNotFound": "Card “{id}” not found in the database.",
+    // load errors
+    "ui.error.network": "⚠ Failed to load supplement data. Check your connection and try again.",
+    "ui.error.retry": "🔄 Retry",
     "chart.missingMsg": "⚠️ {count} supplements without a value (“{axis}”) are not shown on the chart",
     "chart.logSuffix": " (log)",
     "chart.yTitleLog": "Science index (log)",

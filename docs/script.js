@@ -1105,6 +1105,19 @@ function trapModalFocus(e) {
   else if (!e.shiftKey && active === last) { e.preventDefault(); first.focus(); }
 }
 
+function showModalError(id, errMsg, retryLabel) {
+  const html =
+    '<div class="mrow error">' +
+    '<div class="errTitle">⚠ ' + esc(errMsg) + '</div>' +
+    '<div class="errDetail">' + t("modal.cardNotFound", { id: esc(id) }) + '</div>' +
+    '<button class="modalRetry" data-id="' + esc(id) + '" onclick="openModal(this.dataset.id)">' + esc(retryLabel) + '</button>' +
+    '</div>';
+  $('modalBody').innerHTML = html;
+  $('modalOverlay').style.display = 'flex';
+  document.body.classList.add('modal-open');
+  focusModalFirst();
+}
+
 async function openModal(id) {
   scrollBeforeModal = window.scrollY || 0;
 
@@ -1116,11 +1129,14 @@ async function openModal(id) {
       const map = await ensureFullData();
       s = map[id];
     } catch (err) {
-      console.error('[modal] не удалось загрузить data.json:', err);
+      showModalError(id, t('ui.error.network'), t('ui.error.retry'));
       return;
     }
   }
-  if (!s) return;
+  if (!s) {
+    showModalError(id, t('ui.error.network'), t('ui.error.retry'));
+    return;
+  }
   curModal = id;
 
   const trialsLine = s.ongoing != null

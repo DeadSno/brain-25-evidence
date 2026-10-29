@@ -581,7 +581,10 @@
    менялись: script.min.js ?v=305, hactar.js ?v=38, i18n.js ?v=21. */
 /* Бамп v195 -> v196 FIX-51 (NAV-01): trends.html и 131 sup-страницы получили
    ссылку footer.trends в подвале; i18n.js ?v=21 -> ?v=22 на всех HTML. */
-var CACHE_VERSION = 'v196';
+/* Бамп v196 -> v197 FIX-52 (UIUX-08): openModal() теперь показывает ошибку
+   с кнопкой Retry вместо console.error; script.min.js ?v=305 -> ?v=306,
+   i18n.js ?v=22 -> ?v=23 на всех HTML. */
+var CACHE_VERSION = 'v197';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
