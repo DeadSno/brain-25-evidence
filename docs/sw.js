@@ -564,7 +564,8 @@
    hactar.js не менялись. */
 /* Бамп v186 -> v187 FIX-37: trends.html в STATIC_ASSETS, исправлена гонка
    загрузки JSON и defer-скрипта i18n.js (QA-03 webkit-trends таймаут). */
-var CACHE_VERSION = 'v187';
+/* Бамп v187 -> v188 FIX-38: футер на 148 страницах (дисклеймеры сведены к одному), i18n.js ?v=20 -> 21. */
+var CACHE_VERSION = 'v188';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 

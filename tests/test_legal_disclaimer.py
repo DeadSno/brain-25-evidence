@@ -32,8 +32,17 @@ docs/google4a9d23e35c6c3e23.html. Проверка показала, что эт
 Что тест проверяет
 ------------------
 1. Каждый HTML-документ в docs/ и docs/sup/ содержит блок class="disc"
-   с фразой «Не медицинская рекомендация» — кроме двух перечисленных
-   исключений, каждое с записанной причиной.
+   (источники данных) и блок class="legal-disclaimer" с правовой
+   формулировкой «БАД не является лекарственным» — кроме двух
+   перечисленных исключений, каждое с записанной причиной.
+
+   FIX-38 (FOOTER-01): до этого гейт требовал фразу «Не медицинская
+   рекомендация» из блока .disc. Блок .disc сокращён до перечня
+   источников — предупреждений о вреде самолечения в футере было два
+   (пересказ + правовая формулировка), и владелец видел один и тот же
+   смысл трижды. Правовая формулировка осталась в .legal-disclaimer,
+   поэтому гейт теперь проверяет именно её: смысл требования не
+   ослаб, он привязан к точному тексту, а не к пересказу.
 2. Список исключений не растёт молча: каждый элемент всё ещё
    существует, всё ещё не содержит дисклеймера и всё ещё относится к
    своему типу (токен верификации / страница ошибки). Если файл
@@ -51,7 +60,8 @@ ROOT = Path(__file__).resolve().parents[1]
 DOCS = ROOT / "docs"
 
 DISC_CLASS = 'class="disc"'
-DISC_TEXT = "Не медицинская рекомендация"
+LEGAL_CLASS = 'class="legal-disclaimer"'
+DISC_TEXT = "БАД не является лекарственным"
 #: Текст, который Google Search Console требует дословно. Если он есть в
 #: файле, файл - токен верификации, а не страница.
 GOOGLE_TOKEN = "google-site-verification:"
@@ -85,12 +95,12 @@ def test_every_claiming_page_carries_the_disclaimer():
             continue                      # токен верификации, не документ
         if p.name in EXEMPT:
             continue                      # исключение с записанной причиной
-        if DISC_CLASS not in text or DISC_TEXT not in text:
+        if DISC_CLASS not in text or LEGAL_CLASS not in text or DISC_TEXT not in text:
             missing.append(p.relative_to(DOCS.parent).as_posix())
     assert not missing, (
         f"Страница без дисклеймера ({len(missing)}):\n"
         + "\n".join(f"  {f}" for f in missing)
-        + "\nДисклеймер — это <p class=\"disc\"> в футере страницы. "
+        + "\nДисклеймер — это <p class=\"legal-disclaimer\"> в футере страницы. "
           "Если страница сознательно без него, добавь её в EXEMPT "
           "в этом файле вместе с причиной."
     )
@@ -161,7 +171,7 @@ def test_no_orphan_exemptions():
         p.name
         for p in DOCS.rglob("*.html")
         if not _is_page(p) or (
-            "disc" not in p.read_text(encoding="utf-8")
+            LEGAL_CLASS not in p.read_text(encoding="utf-8")
         )
     }
     stale = sorted(listed - actual)
