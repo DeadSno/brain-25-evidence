@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta name="lang" content="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="manifest" href="../manifest.webmanifest">
+<meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1c1c1e" media="(prefers-color-scheme: dark)">
+<meta name="description" content="Карта связей 130 БАД: синергии, антагонизмы и конфликты с лекарствами. Интерактивный граф по общим механизмам, с фильтрами по эффекту и риску."/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="Карта связей — синергии и конфликты — Brain 25 Evidence"/>
+<meta property="og:description" content="Карта связей 130 БАД: синергии, антагонизмы и конфликты с лекарствами. Интерактивный граф по общим механизмам, с фильтрами по эффекту и риску."/>
+<meta property="og:url" content="https://deadsno.github.io/brain-25-evidence/hactar.html?tab=graph"/>
+<!-- A-2: страница-редирект. Карта связей живёт в Hactar (вкладка
+     «Связи», ?tab=graph): адрес конечный, одного хопа достаточно.
+     SEO-теги сохранены: их требуют tests/test_seo_meta_consistency.py
+     (CONTENT_PAGES). -->
+<!-- NP2-05: сообщаем Hactar, откуда пришёл пользователь; читает hactar.js. -->
+<script>try{sessionStorage.setItem('hactarRedirectedFrom','interactions')}catch(e){}</script>
+<meta http-equiv="refresh" content="0;url=hactar.html?tab=graph">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://deadsno.github.io/brain-25-evidence/hactar.html?tab=graph">
+<link rel="alternate" type="application/rss+xml" title="brain-25-evidence" href="https://deadsno.github.io/brain-25-evidence/feed.xml">
+<meta property="og:image" content="https://deadsno.github.io/brain-25-evidence/og.png"/>
+<meta property="og:site_name" content="Brain 25 Evidence"/>
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Карта связей — синергии и конфликты — Brain 25 Evidence"/>
+<meta name="twitter:description" content="Карта связей 130 БАД: синергии, антагонизмы и конфликты с лекарствами. Интерактивный граф по общим механизмам, с фильтрами по эффекту и риску."/>
+<meta name="twitter:image" content="https://deadsno.github.io/brain-25-evidence/og.png"/>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="БАДы">
+<link rel="apple-touch-icon" href="../icons/192.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231c1c1e' rx='8'/%3E%3Ccircle cx='10' cy='11' r='3' fill='%230a84ff'/%3E%3Ccircle cx='22' cy='11' r='3' fill='%230a84ff'/%3E%3Ccircle cx='10' cy='21' r='3' fill='%230a84ff'/%3E%3Ccircle cx='22' cy='21' r='3' fill='%230a84ff'/%3E%3Cpath d='M 10 21 Q 16 25 22 21' fill='none' stroke='%230a84ff' stroke-width='2'/%3E%3C/svg%3E">
+<title>Карта связей — синергии и конфликты — Brain 25 Evidence</title>
+<script defer src="../version.js?v=312"></script>
+<script src="../i18n.js?v=24"></script>
+<script>
+// v5.4.0 (dark-first): тёмная тема — это ОТСУТСТВИЕ класса light.
+// До загрузки CSS ничего добавлять не нужно: :root уже тёмный.
+// light ставится только если пользователь выбрал светлую тему.
+try {
+  if (localStorage.getItem('theme') === 'light') {
+    document.documentElement.classList.add('light');
+  }
+} catch (e) {}
+</script>
+<link rel="stylesheet" href="../style.min.css?v=470"/>
+<!-- v5.6.1: vis-network вендорен в docs/vendor/ — снапшоты страницы больше не зависят от unpkg -->
+<script src="../vendor/vis-network-9.1.9.min.js" defer></script>
+<script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MedicalWebPage",
+      "name": "Карта связей",
+      "description": "Карта связей 130 БАД: синергии, антагонизмы и конфликты с лекарствами. Интерактивный граф по общим механизмам, с фильтрами по эффекту и риску.",
+      "url": "https://deadsno.github.io/brain-25-evidence/interactions.html",
+      "inLanguage": "ru"
+    }
+    </script>
+</head>
+<body>
+  <main id="main">
+    <h1><span>Links and interactions</span></h1>
+    <p><span>This page has moved: the interaction graph now lives in Project Hactar.</span></p>
+    <p><a class="cta" href="../hactar.html?tab=graph"><span>Go to Hactar →</span></a></p>
+  </main>
+  <!-- Дисклеймер оставлен намеренно: tests/test_legal_disclaimer.py требует
+       class="disc" с фразой «Не медицинская рекомендация» на каждой странице
+       с тегом <html>. У редиректа нет собственных утверждений о БАДах, но
+       выпадать из гейта из-за этого он не должен. -->
+  <footer>
+        <p class="disc"><span>⚠️ Data from open scientific sources (PubMed, Europe PMC, CrossRef, OpenAlex, ClinicalTrials.gov, Wikimedia) for information and education.</span></p>
+    <p class="legal-disclaimer">Dietary supplements are not medicines. Consult a doctor before use.</p>
+  </footer>
+  <script src="../pwa.js?v=284" defer></script>
+</body>
+</html>
+
+
+
+
+

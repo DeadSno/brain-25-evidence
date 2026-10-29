@@ -272,7 +272,11 @@ def _top_level_jsonld_descriptions(html: str) -> list[str]:
 
 
 ALL_PAGES = sorted(
-    p.relative_to(ROOT).as_posix() for p in ROOT.rglob("*.html")
+    p.relative_to(ROOT).as_posix()
+    for p in ROOT.rglob("*.html")
+    # docs/en/ — сгенерированные EN-копии (статьи сборки, SEO-01 этап 1),
+    # не исходные страницы сайта: они не участвуют в проверке SEO-метатегов.
+    if not p.relative_to(ROOT).as_posix().startswith("en/")
 )
 
 # Страницы без JSON-LD. Раньше тест ниже скипался со словами «проверка не

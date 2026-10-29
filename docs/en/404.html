@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta name="lang" content="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>404 — страница не найдена | brain-25-evidence</title>
+<meta name="description" content="Такого адреса на сайте нет. Поиск по 130 добавкам и переход на главную.">
+<meta name="robots" content="noindex">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="404 — страница не найдена | brain-25-evidence">
+<meta name="twitter:description" content="Такого адреса на сайте нет. Поиск по 130 добавкам и переход на главную.">
+<meta name="twitter:image" content="https://deadsno.github.io/brain-25-evidence/og.png">
+<link rel="manifest" href="../manifest.webmanifest">
+<meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1c1c1e" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="БАДы">
+<link rel="apple-touch-icon" href="../icons/192.png">
+<link rel="icon" href="../icons/192.png">
+<!-- v5.6.5 FIX-SPRINT B7: страница 404 для GitHub Pages.
+     Служебная: не индексируется (noindex), исключена из sitemap
+     (build_sitemap ROOT_PAGES), из SEO-тестов (EXCLUDED_PAGES,
+     NO_JSONLD_PAGES в tests/test_seo_meta_consistency.py) и из снапшотов
+     (PAGES не расширяется — 76 снимков без изменений).
+     Тёмная тема — дефолт style.css (html без класса .light); переключатель
+     темы и кубик — инлайн, без script.js: страница не должна зависеть от
+     скрипта каталога. Поиск по каталогу парсит sup/index.html (карточки
+   уже несут name→slug и data-hay сборки build_sup.py, JS-словарь не
+     дублируется). -->
+<link rel="stylesheet" href="../style.min.css?v=470">
+<style>
+  /* Локальные правила — только для служебных блоков этой страницы. */
+  .notfound { max-width: 640px; margin: 0 auto; text-align: center; padding: 2.5rem 0; }
+  .notfound .code { font-size: 3rem; font-weight: 700; margin: 0; line-height: 1; }
+  #nfSearch { width: 100%; min-height: 46px; margin: 1.2rem 0 .8rem; padding: 0 1rem; box-sizing: border-box; }
+  #nfResults { display: grid; gap: .5rem; text-align: left; margin: 0 0 1rem; padding: 0; list-style: none; }
+  #nfResults a { display: block; padding: .55rem .8rem; border: 1px solid var(--border); border-radius: 10px; text-decoration: none; color: inherit; }
+  #nfResults a:hover { border-color: var(--accent); }
+  #nfHint { color: var(--muted); font-size: var(--fs-4); }
+</style>
+</head>
+<body>
+<a href="#main" class="skip-link"><span>Skip to content</span></a>
+<div class="site-header">
+  <div class="trustbar"><span>🧬 Open data · Free · No ads</span></div>
+  <header class="top">
+    <div class="site-title"><a href="../index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a> <span class="v">v<span data-version="app"></span></span></div>
+    <nav class="actions" aria-label="Главная навигация">
+      <a class="btn c-feedback" href="../feedback.html"><span>💬 Feedback</span></a>
+      <a class="btn c-support" href="../support.html"><span>💚 Support us</span></a>
+      <!-- FIX-75: aria-label у #themeBtn ставит applyTheme() через tr("a11y.themeToDark"/"a11y.themeToLight"). -->
+      <button class="btn c-theme" id="themeBtn"><span>🌞 Light theme</span></button>
+      <select id="langSelect" class="lang-select"><option value="ru">RU</option><option value="en">EN</option></select>
+      <button class="btn c-random" id="randomBtn"><span>🎲 Surprise me</span></button>
+    </nav>
+  </header>
+</div>
+
+<main id="main" tabindex="-1">
+  <div class="notfound">
+    <p class="code" aria-hidden="true">404</p>
+    <h1 style="margin:.5rem 0 0"><span>Page not found</span></h1>
+    <p style="color:var(--muted)"><span>There is no such address on the site — or it has moved. Search for a supplement or go back to the home page.</span></p>
+    <label for="nfSearch" class="sr-only"><span>Search the catalog for a supplement</span></label>
+    <!-- A2-07: aria-label повторяет текст label намеренно — на остальных
+         страницах имя поля приходит из data-i18n-aria-label, и служебная
+         страница не должна выпадать из этой схемы. aria-controls связывает
+         поле со списком, aria-describedby — с подсказкой, которая уже
+         служит живым регионом (aria-live="polite" ниже). -->
+    <input id="nfSearch" type="search" placeholder="Например: магний или сон" autocomplete="off" aria-label="Поиск добавки по каталогу" aria-controls="nfResults" aria-describedby="nfHint">
+    <p id="nfHint" aria-live="polite"></p>
+    <!-- Живой регион здесь один — #nfHint со счётчиком. aria-live на самом
+         списке объявлял бы все ссылки на каждое нажатие клавиши и дублировал
+         бы счётчик, поэтому список остаётся обычным списком с именем. -->
+    <ul id="nfResults" role="list" aria-label="Результаты поиска"></ul>
+    <p style="margin:1rem 0 0;display:flex;flex-wrap:wrap;gap:.75rem;justify-content:center">
+      <a class="btn" href="../index.html"><span>🏠 Home</span></a>
+      <a class="btn" href="../sup/index.html"><span>📄 Catalog of 130 supplements</span></a>
+    </p>
+  </div>
+</main>
+
+<footer class="site-footer">
+    <p class="disc"><span>⚠️ Data from open scientific sources (PubMed, Europe PMC, CrossRef, OpenAlex, ClinicalTrials.gov, Wikimedia) for information and education.</span></p>
+  <p class="meta">
+    v<span data-version="app"></span> · <span>data as of</span> <span data-version="data"></span>
+  </p>
+  <p class="links">
+    <a href="../methodology.html">📐 Methodology</a> ·
+    <a href="../faq.html">❓ FAQ</a> ·
+    <a href="../glossary.html">📖 Glossary</a> ·
+    <a href="../trends.html">📈 Trends</a> ·
+    <a href="../privacy.html">🔐 Privacy</a> ·
+    <a href="../terms-of-use.html">📄 Terms of Use</a> ·
+    <a href="../sup/index.html">💊 Supplement Catalog</a> ·
+    <a href="../feed.xml">📡 RSS</a>
+  </p>
+  <p class="copy">© 2026 Vladislav "DeadSno" Pereshivalov · MIT · <a href="../terms-of-use.html#data-license"><span>Data: CC BY 4.0</span></a></p>
+  <p class="legal-disclaimer">Dietary supplements are not medicines. Consult a doctor before use.</p>
+  <!-- v5.6.5 (V2-05): футер унифицирован с index.html. Блока share-row
+       здесь нет намеренно: делиться адресом несуществующей страницы
+       бессмысленно, а сам блок требует share.js, которого на служебной
+       странице нет. -->
+</footer>
+
+<script defer src="../version.js?v=312"></script>
+<script>
+(function () {
+  // — Тема: дефолт тёмный; localStorage['theme'] = 'light' включает светлую
+  //   (то же соглашение, что script.js initTheme на остальных страницах).
+  var root = document.documentElement;
+  var btn = document.getElementById('themeBtn');
+  // FIX-74: строки берём через t(), когда i18n.js уже загружен, иначе —
+  // русский текст как запасной вариант.
+  function tr(key, fallback) {
+    return (typeof window.t === 'function') ? window.t(key) : fallback;
+  }
+  // FIX-34 (I18N-05): текст кнопки темы живёт в <span data-i18n-text>, а не
+  // в btn.textContent. Прежний код затирал textContent — разметка исчезала,
+  // и applyI18n() уже не мог перевести кнопку: на EN-странице оставалось
+  // «🌞 Светлая тема». Теперь span сохраняется, а его ключ синхронизируется
+  // с состоянием темы, чтобы applyI18n() дал тот же текст на новом языке.
+  function applyTheme(light) {
+    root.classList.toggle('light', light);
+    if (btn) {
+      var key = light ? 'theme.dark' : 'theme.light';
+      var text = tr(key, light ? '🌙 Тёмная тема' : '🌞 Светлая тема');
+      var lbl = btn.querySelector('[data-i18n-text]');
+      if (lbl) { lbl.setAttribute('data-i18n-text', key); lbl.textContent = text; }
+      else btn.textContent = text;
+    }
+    if (btn) btn.setAttribute('aria-label', light
+      ? tr('a11y.themeToDark', 'Переключить на тёмную тему')
+      : tr('a11y.themeToLight', 'Переключить на светлую тему'));
+  }
+  var startLight = function () {
+    try { return localStorage.getItem('theme') === 'light'; } catch (e) { return false; }
+  }();
+  // FIX-34: класс темы ставим сразу (иначе светлая тема мигала бы тёмной),
+  // а подпись кнопки — на DOMContentLoaded, когда i18n.js уже исполнился.
+  root.classList.toggle('light', startLight);
+  if (btn) btn.addEventListener('click', function () {
+    var light = !root.classList.contains('light');
+    try { localStorage.setItem('theme', light ? 'light' : 'dark'); } catch (e) {}
+    applyTheme(light);
+  });
+
+  // — Кубик: случайная добавка из sitemap.xml (как на остальных страницах).
+  var rnd = document.getElementById('randomBtn');
+  if (rnd) rnd.addEventListener('click', function () {
+    fetch('sitemap.xml')
+      .then(function (r) { return r.ok ? r.text() : ''; })
+      .then(function (t) {
+        var urls = (new DOMParser().parseFromString(t, 'text/xml'))
+          .querySelectorAll('loc');
+        var list = [];
+        for (var i = 0; i < urls.length; i++) {
+          var u = urls[i].textContent;
+          if (/\/sup\/[a-z0-9-]+\.html$/.test(u) && !/\/sup\/index\.html$/.test(u)) {
+            list.push(u.replace(/^https?:\/\/[^/]+/, ''));
+          }
+        }
+        if (list.length) location.href = list[Math.floor(Math.random() * list.length)];
+      });
+  });
+
+  // — Поиск: карточки читаем из sup/index.html (name, slug, data-hay уже
+  //   собраны шаблоном; словарь в JS не дублируется). Индекс строится один раз.
+  var input = document.getElementById('nfSearch');
+  var out = document.getElementById('nfResults');
+  var hint = document.getElementById('nfHint');
+  var index = null;
+
+  function buildIndex(html) {
+    var doc = new DOMParser().parseFromString(html, 'text/html');
+    var cards = doc.querySelectorAll('#cardsGrid .card[href]');
+    var items = [];
+    for (var i = 0; i < cards.length; i++) {
+      var a = cards[i];
+      items.push({
+        href: a.getAttribute('href').replace(/^sup\//, ''),
+        name: (a.querySelector('.card-title') || {}).textContent || '',
+        hay: (a.getAttribute('data-hay') || '').toLowerCase()
+      });
+    }
+    return items;
+  }
+
+  /* Общий отбор совпадений: им пользуются и вывод списка, и Enter (Q2-03). */
+  function findMatches(query) {
+    var found = [];
+    if (index === null) return found;
+    for (var i = 0; i < index.length && found.length < 8; i++) {
+      var it = index[i];
+      if (it.name.toLowerCase().indexOf(query) !== -1 || it.hay.indexOf(query) !== -1) {
+        found.push(it);
+      }
+    }
+    return found;
+  }
+
+  function render(q) {
+    var query = (q || '').trim().toLowerCase();
+    if (!query) {
+      out.textContent = '';
+      hint.textContent = tr('notfound.hint', 'Введите название или эффект — покажу до 8 совпадений из каталога.');
+      return;
+    }
+    if (index === null) {
+      hint.textContent = tr('notfound.loading', 'Каталог ещё загружается…');
+      return;
+    }
+    var found = findMatches(query);
+    out.textContent = '';
+    found.forEach(function (it) {
+      var li = document.createElement('li');
+      var a = document.createElement('a');
+      a.href = 'sup/' + it.href;
+      a.textContent = it.name;
+      li.appendChild(a);
+      out.appendChild(li);
+    });
+    if (!found.length) {
+      hint.textContent = tr('notfound.nothing', 'Ничего не нашлось в каталоге. Попробуйте эффект: «сон», «память».');
+    } else {
+      hint.textContent = tr('notfound.found', 'Найдено: {n} (показаны первые {shown})')
+        .replace('{n}', found.length).replace('{shown}', found.length);
+    }
+  }
+
+  if (input) {
+    input.addEventListener('input', function () { render(input.value); });
+    // Q2-03 (24.10.2026): Enter — ожидаемый жест в поле поиска.
+    // Есть совпадения — открываем первое (список показывает до 8, порядок
+    // отбора тот же, что в подсказке). Пусто — уводим в каталог на главной:
+    // параметр ?search= index.html не разбирает (в script.js нет
+    // URLSearchParams), и ссылка с ним молча открывала бы обычную главную.
+    // Честнее показать пользователю поле поиска в каталоге, чем обещать
+    // поиск, которого не будет.
+    input.addEventListener('keydown', function (e) {
+      if (e.key !== 'Enter') return;
+      e.preventDefault();
+      var q = input.value.trim();
+      if (!q) return;
+      var found = findMatches(q.toLowerCase());
+      if (found.length) {
+        location.href = 'sup/' + found[0].href;
+      } else {
+        location.href = 'index.html#cardsContainer';
+      }
+    });
+  }
+  if (hint) hint.textContent = tr('notfound.hint', 'Введите название или эффект — покажу до 8 совпадений из каталога.');
+  fetch('sup/index.html')
+    .then(function (r) { return r.ok ? r.text() : ''; })
+    .then(function (t) { if (t) index = buildIndex(t); });
+
+  // FIX-34 (I18N-05): FIX-74 перерисовывал строки сразу после тега i18n.js,
+  // но тот подключён с defer и исполняется только после разбора документа —
+  // то есть перерисовка шла раньше словаря и снова падала в русский хардкод.
+  // Слушатель DOMContentLoaded срабатывает после defer-скриптов: t() готов.
+  document.addEventListener('DOMContentLoaded', function () {
+    applyTheme(root.classList.contains('light'));
+    if (hint) hint.textContent = tr('notfound.hint', 'Введите название или эффект — покажу до 8 совпадений из каталога.');
+  });
+})();
+</script>
+<!-- v5.6.5 FIX-62 (PW2-01): страница была единственной в корне без pwa.js —
+     SW на ней не регистрировался, офлайн-режим не включался. pwa.js требует
+     i18n.js: подпись плашки он берёт через t('pwa.offline'), а глобальная t()
+     объявлена только там (i18n.js:1200). Без i18n.js на этой странице любое
+     реальное отключение сети давало ReferenceError вместо плашки.
+     FIX-34 (I18N-05): оба скрипта с defer, и порядок задан порядком тегов —
+     defer-скрипты исполняются в порядке подключения, поэтому к моменту
+     запуска pwa.js глобальная t() уже объявлена. -->
+<script src="../i18n.js?v=24" defer></script>
+<script src="../pwa.js?v=284" defer></script>
+</body>
+</html>
+
+
+
+
+

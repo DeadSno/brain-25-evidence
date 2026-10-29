@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta name="lang" content="en">
+  <meta charset="utf-8">
+  <script defer src="../version.js?v=312"></script>
+  <script src="../i18n.js?v=24" defer></script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1c1c1e" media="(prefers-color-scheme: dark)">
+<title>Методология — как мы оцениваем БАДы — Brain 25 Evidence</title>
+<link rel="manifest" href="../manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="БАДы">
+<link rel="apple-touch-icon" href="../icons/192.png">
+<meta name="description" content="Методология проекта: как отбираются публикации PubMed, считается индекс доказательности scienceIndex, присваиваются грейды A-D и вердикты."/>
+<script>
+// v5.4.0 (dark-first): тёмная тема — это ОТСУТСТВИЕ класса light.
+// До загрузки CSS ничего добавлять не нужно: :root уже тёмный.
+// light ставится только если пользователь выбрал светлую тему.
+try {
+  if (localStorage.getItem('theme') === 'light') {
+    document.documentElement.classList.add('light');
+  }
+} catch (e) {}
+</script>
+<link rel="stylesheet" href="../style.min.css?v=470"/>
+<style>
+  /* P2-10 / v5.6.2 батч C (V1): локальное «h2 { font-size: 1.125rem }»
+     удалено — значение переехало в общий токен style.css. Источник
+     истины один. */
+</style>
+
+<script>
+  try {
+    document.addEventListener('DOMContentLoaded', function () {
+      var light = localStorage.getItem('theme') === 'light';
+      // v5.4.0 (dark-first): светлая тема добавляется только когда
+    // пользователь её выбрал. Раньше здесь стояло add('dark') при !light,
+    // то есть класс задавался явно; теперь тёмная — это его отсутствие.
+    if (light) { document.body.classList.add('light'); }
+      var b = document.getElementById('themeBtn');
+      if (b) b.textContent = light ? t("theme.dark") : t("theme.light");
+      if (b) b.setAttribute('aria-label', light ? t("a11y.themeToDark") : t("a11y.themeToLight"));
+    });
+  } catch (e) {}
+</script>
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://deadsno.github.io/brain-25-evidence/methodology.html">
+    <link rel="canonical" href="https://deadsno.github.io/brain-25-evidence/methodology.html">
+    <link rel="alternate" type="application/rss+xml" title="brain-25-evidence" href="https://deadsno.github.io/brain-25-evidence/feed.xml">
+    <meta property="og:title" content="Методология — как мы оцениваем БАДы — Brain 25 Evidence">
+    <meta property="og:description" content="Методология проекта: как отбираются публикации PubMed, считается индекс доказательности scienceIndex, присваиваются грейды A-D и вердикты.">
+    <meta property="og:image" content="https://deadsno.github.io/brain-25-evidence/og.png">
+    <meta property="og:site_name" content="Brain 25 Evidence">
+    <meta property="og:locale" content="ru_RU">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Методология — как мы оцениваем БАДы — Brain 25 Evidence">
+    <meta name="twitter:description" content="Методология проекта: как отбираются публикации PubMed, считается индекс доказательности scienceIndex, присваиваются грейды A-D и вердикты.">
+    <meta name="twitter:image" content="https://deadsno.github.io/brain-25-evidence/og.png">
+<script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Методология",
+      "description": "Методология проекта: как отбираются публикации PubMed, считается индекс доказательности scienceIndex, присваиваются грейды A-D и вердикты.",
+      "url": "https://deadsno.github.io/brain-25-evidence/methodology.html",
+      "inLanguage": "ru"
+    }
+    </script>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
+</head>
+<body>
+<a href="#main" class="skip-link"><span>Skip to content</span></a>
+<div class="site-header">
+  <div class="trustbar"><span>🧬 Open data · Free · No ads</span></div>
+  <header class="top">
+    <div class="site-title"><a href="../index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a> <span class="v">v<span data-version="app"></span></span></div>
+    <nav class="actions">
+      <a class="btn c-feedback" href="../feedback.html"><span>💬 Feedback</span></a>
+      <a class="btn c-support" href="../support.html"><span>💚 Support us</span></a>
+      <button class="btn c-theme" id="themeBtn" aria-label="Переключить на светлую тему"><span>🌞 Light theme</span></button>
+      <select id="langSelect" class="lang-select"><option value="ru">RU</option><option value="en">EN</option></select>
+      <button class="btn c-random" id="randomBtn"><span>🎲 Surprise me</span></button>
+    </nav>
+  </header>
+</div>
+
+<main id="main">
+  <h1><span>Methodology</span></h1>
+
+
+<section style="background:var(--card-bg);padding:1.5rem;border-radius:12px;border:1px solid var(--border);margin-bottom:1.5rem">
+<h2><span>What is audit v</span><span data-version="audit"></span></h2>
+<p><b><span>The audit is a full manual verification of 130 supplements</span></b> <span>using</span> <b><span>an adapted PRISMA methodology</span></b> <span>(Preferred Reporting Items for Systematic Reviews and Meta-Analyses). We implemented</span> <b><span>6 key stages</span></b><span>: identification → screening → deduplication → abstract reading → source appraisal → synthesis.</span>
+<br><br>
+<b><span>What we do not do:</span></b> <span>we do not read full texts (only the top-15 abstracts), we do not run double-blind screening, we do not register the protocol in PROSPERO, and we do not formally assess the risk of bias. This is a deliberate simplification to cover 130 supplements with one person. Every supplement went through:</span></p>
+<ol style="margin:.6rem 0 1rem 1.5rem;line-height:1.8">
+  <li><b><span>Search PubMed</span></b> <span>— systematic reviews and meta-analyses (MA/SR)</span></li>
+  <li><b><span>Screening</span></b> <span>— filtering by relevance</span></li>
+  <li><b><span>Deduplication</span></b> <span>— removing duplicates and updates</span></li>
+  <li><b><span>Reading the top-15 abstracts</span></b> <span>— extracting effect data</span></li>
+  <li><b><span>Assigning grade A–D</span></b> <span>— based on the strength of evidence</span></li>
+</ol>
+<p><b><span>Result:</span></b> <span>130 audit cards in</span> <code>data/processed/audit/</code><span>, 14 audit commits, tags</span> <code>v3.0-audit-top20</code> <span> and </span> <code>v3.0-audit-complete</code>.</p>
+</section>
+
+<section style="background:var(--card-bg);padding:1.5rem;border-radius:12px;border:1px solid var(--border);margin-bottom:1.5rem">
+<h2><span>PRISMA funnel</span></h2>
+<p><span>For every supplement we run the standard systematic review funnel:</span></p>
+<pre tabindex="0" style="background:var(--card-bg);padding:1rem;border-radius:8px;overflow-x:auto;font-size:var(--fs-4);line-height:1.6">Found: 100-500 articles (PubMed: MA + SR)
+    ↓
+Screening: 20-100 relevant (title filter)
+    ↓
+Unique: 10-90 (dedupe by authors/years)
+    ↓
+Read: top-15 (sort: Cochrane → year → number of RCTs)
+    ↓
+Audit card: grade + verdict + effect_outcome + caution</pre>
+<p><b><span>Example:</span></b> <span>Creatine — 132 found, 36 screened, 35 unique, 15 read → grade A, verdict “works”.</span></p>
+</section>
+
+<section style="background:var(--card-bg);padding:1.5rem;border-radius:12px;border:1px solid var(--border);margin-bottom:1.5rem">
+<h2><span>Grades A–D</span></h2>
+<p><span>Grades are assigned</span> <b><span>manually</span></b> <span>after reading the abstracts, based on the strength of evidence:</span></p>
+<ul style="margin:.6rem 0 1rem 1.5rem;line-height:1.8">
+  <li><b style="color:var(--grade-a-tx)"><span>A — works very well:</span></b> <span>multiple Cochrane reviews, large RCTs, strong effect (Hedges' g ≥ 0.4). Examples: Vitamin D, Creatine, Iron, Caffeine, B9, Whey protein.</span></li>
+  <li><b style="color:var(--grade-b-tx)"><span>B — works:</span></b> <span>systematic reviews exist, the effect is confirmed, but there is less data or the effect is moderate. Examples: Omega-3, Zinc, Magnesium, Melatonin, CoQ10.</span></li>
+  <li><b style="color:var(--grade-c-tx)"><span>C — depends on context:</span></b> <span>data exist, but the effect is small, contradictory or present only under specific conditions. Examples: Resveratrol, NMN, Chromium, Valerian.</span></li>
+  <li><b style="color:var(--grade-d-tx)"><span>D — not confirmed:</span></b> <span>no systematic reviews exist, or they show no effect. Examples: Biotin, Yohimbine, Tribulus, Chlorophyll.</span></li>
+</ul>
+<p><b><span>Important:</span></b> <span>grades are assigned by a human, not by a formula. This allows us to account for nuances (RCT quality, clinical relevance, side effects).</span></p>
+</section>
+
+<section style="background:var(--card-bg);padding:1.5rem;border-radius:12px;border:1px solid var(--border);margin-bottom:1.5rem">
+<h2><span>Verdicts</span></h2>
+<p><span>Every supplement gets one of three verdicts:</span></p>
+<ul style="margin:.6rem 0 1rem 1.5rem;line-height:1.8">
+  <li><b style="background:var(--grade-a-fill);color:var(--on-solid);padding:.2rem .6rem;border-radius:20px"><span>works</span></b> <span>— the effect is confirmed by systematic reviews</span></li>
+  <li><b style="background:var(--grade-c-fill);color:var(--on-solid);padding:.2rem .6rem;border-radius:20px"><span>depends on context</span></b> <span>— the effect exists but is limited to specific conditions (dose, population, duration)</span></li>
+  <li><b style="background:var(--grade-d-fill);color:var(--on-solid);padding:.2rem .6rem;border-radius:20px"><span>not proven</span></b> <span>— there are no systematic data, or they show no effect</span></li>
+</ul>
+</section>
+
+<section style="background:var(--card-bg);padding:1.5rem;border-radius:12px;border:1px solid var(--border);margin-bottom:1.5rem">
+<h2><span>What an audit card contains</span></h2>
+<p><span>Each of the 130 cards (</span><code>data/processed/audit/*.md</code><span>) contains:</span></p>
+<ul style="margin:.6rem 0 1rem 1.5rem;line-height:1.8">
+  <li><b><span>PRISMA funnel:</span></b> <span>found → screened → unique → read</span></li>
+  <li><b><span>JSON block:</span></b> id, category, verdict, grade, effect_outcome, caution, key_sources (PMID), updated</li>
+  <li><b><span>Verdicts by context:</span></b> <span>which grade for which condition (e.g. sleep vs. anxiety)</span></li>
+  <li><b><span>Key sources:</span></b> <span>PMIDs of the top-3 systematic reviews</span></li>
+</ul>
+</section>
+
+<section style="background:var(--card-bg);padding:1.5rem;border-radius:12px;border:1px solid var(--border);margin-bottom:1.5rem">
+<h2><span>Grade distribution (130 supplements)</span></h2>
+<ul style="margin:.6rem 0 1rem 1.5rem;line-height:1.8">
+  <li><b style="color:var(--grade-a-tx)"><span>A (works very well):</span></b> <span>6 supplements (4.6%)</span></li>
+  <li><b style="color:var(--grade-b-tx)"><span>B (works):</span></b> <span>22 supplements (16.9%)</span></li>
+  <li><b style="color:var(--grade-c-tx)"><span>C (depends on context):</span></b> <span>52 supplements (40.0%)</span></li>
+  <li><b style="color:var(--grade-d-tx)"><span>D (not confirmed):</span></b> <span>50 supplements (38.5%)</span></li>
+</ul>
+<p><span>This is an honest distribution: not “everything works”, but the real picture of the evidence.</span></p>
+</section>
+
+<!-- v5.6.2 (#97, T5): раздел про COI. До этого строка «COI» встречалась в docs/
+     ровно дважды — в og:description и twitter:description глоссария, то есть
+     обещание из мета-тега не подкреплялось ни одной страницей.
+     Числа ниже не выдуманы, а прочитаны из reports/coi_report.json
+     (замер 2026-10-07): total_full_texts 6310, declared_yes 467,
+     declared_none 4349, unclear 674, missing 820.
+     Файл coi_per_paper.json намеренно НЕ ссылается: он лежит в reports/,
+     который не публикуется на GitHub Pages — проверено запросом, отдаёт 404.
+     Поэтому здесь ссылки нет, а не «забыли». -->
+<section style="background:var(--card-bg);padding:1.5rem;border-radius:12px;border:1px solid var(--border);margin-bottom:1.5rem">
+<h2><span>Conflicts of interest (COI)</span></h2>
+<p><span>A conflict of interest (COI) is a link between a study author and anyone who could benefit from the result: sponsorship by a manufacturer, collaboration with a pharmaceutical company, a position in the industry. It is not a verdict on the quality of the work, but it is a factor the reader must know.</span></p>
+<p><span>We review COI in all</span> <b>6310</b> <span>full texts we read during the audit and check them against the disclosure block in the paper itself:</span></p>
+<ul style="margin:.6rem 0 1rem 1.5rem;line-height:1.8">
+  <li><b><span>Conflict declared:</span></b> <span>467 papers —</span> <b>8,5%</b> <span>of those that had any disclosure at all</span></li>
+  <li><b><span>No conflict declared:</span></b> <span>4,349 papers</span></li>
+  <li><b><span>Unclear:</span></b> <span>674 papers — the wording does not allow a clear judgement</span></li>
+  <li><b><span>Not disclosed:</span></b> <span>820 papers</span></li>
+</ul>
+<p><span>That is, in</span> <b>5490</b> <span>cases out of 6,310 (87%) the authors declared something, and only 8.5% of those who declared anything mentioned an industry link.</span></p>
+<p><span>Separately we count funding markers in the papers themselves: sponsorship is mentioned in</span> <b>3500</b> <span>papers (55.5%), mentions of pharmaceutical companies — in</span> <b>282</b> <span>(4.5%). These counters are independent of COI: a paper can declare no conflict while describing sponsorship — exactly such discrepancies are what we flag.</span></p>
+<p><b><span>Important:</span></b> <span>the presence of a COI does not mean the study conclusions are wrong — systematic reviews with conflicts of interest are counted on par with the rest. We show the fact and leave the trust decision to the reader.</span></p>
+</section>
+
+</main>
+
+<footer class="site-footer">
+    <p class="disc"><span>⚠️ Data from open scientific sources (PubMed, Europe PMC, CrossRef, OpenAlex, ClinicalTrials.gov, Wikimedia) for information and education.</span></p>
+  <p class="meta">
+    v<span data-version="app"></span> · <span>data as of</span> <span data-version="data"></span>
+  </p>
+  <p class="links">
+    <a href="../methodology.html">📐 Methodology</a> ·
+    <a href="../faq.html">❓ FAQ</a> ·
+    <a href="../glossary.html">📖 Glossary</a> ·
+    <a href="../trends.html">📈 Trends</a> ·
+    <a href="../privacy.html">🔐 Privacy</a> ·
+    <a href="../terms-of-use.html">📄 Terms of Use</a> ·
+    <a href="../sup/index.html">💊 Supplement Catalog</a> ·
+    <a href="../feed.xml">📡 RSS</a>
+  </p>
+  <p class="copy">© 2026 Vladislav "DeadSno" Pereshivalov · MIT · <a href="../terms-of-use.html#data-license"><span>Data: CC BY 4.0</span></a></p>
+  <p class="legal-disclaimer">Dietary supplements are not medicines. Consult a doctor before use.</p>
+  <p class="share-row"><button class="btn share-page" type="button"><span>🔗 Share</span></button></p>
+</footer>
+<script>
+const $ = id => document.getElementById(id);
+$('themeBtn').onclick = () => {
+  // v5.4.0 (dark-first): тёмная = нет класса light на <html>
+    // v5.4.0 (dark-first): light означает «переключаем В светлую».
+    // До этого здесь стояло !on, где on = «сейчас тёмная», —
+    // новое состояние совпадало с текущим и клик ничего не менял.
+    const light = !document.documentElement.classList.contains('light');
+    document.documentElement.classList.toggle('light', light);
+    document.body.classList.toggle('light', light);
+  $('themeBtn').textContent = light ? t("theme.dark") : t("theme.light");
+  $('themeBtn').setAttribute('aria-label', light ? t("a11y.themeToDark") : t("a11y.themeToLight"));
+    localStorage.setItem('theme', light ? 'light' : 'dark');
+};
+</script>
+<button class="toBottom" id="toBottom" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})">↓</button>
+<script>
+window.addEventListener('scroll', () => {
+  const btn = document.getElementById('toBottom');
+  if (!btn) return;
+  // Раньше порог был 400px: на коротких страницах (atlas, calculator, glossary,
+  // map) он недостижим и кнопка не появлялась. Проверяем прокручиваемость.
+  const scrollable = document.body.scrollHeight > window.innerHeight + 100;
+  const atBottom = window.scrollY + window.innerHeight >= document.body.scrollHeight - 100;
+  if (scrollable && window.scrollY > 100 && !atBottom) {
+    btn.classList.add('show');
+  } else {
+    btn.classList.remove('show');
+  }
+});
+</script>
+<script src="../pwa.js?v=284" defer></script>
+<script src="../share.js?v=2" defer></script>
+<!-- v5.6.2: cookie-согласие + Яндекс.Метрика (счётчик 112465667).
+     Метрика грузится ТОЛЬКО после нажатия «Принять»: до согласия
+     ни одного запроса к mc.yandex.ru не происходит. -->
+<div id="cookieBanner" role="dialog" hidden>
+  <div class="cb-text">
+    <span>We use cookies and Yandex.Metrica to understand which materials are useful. Analytics is enabled only after your consent.</span>
+    <a href="../privacy.html"><span>Privacy policy</span></a>
+  </div>
+  <div class="cb-actions">
+    <button type="button" id="cookieAccept" class="cb-btn cb-accept"><span>Accept</span></button>
+    <button type="button" id="cookieReject" class="cb-btn cb-reject"><span>Decline</span></button>
+  </div>
+</div>
+<script src="../cookie-banner.js?v=1"></script>
+<script src="../metrika.js?v=1"></script>
+<script>initCookieBanner();// Кнопка «🎲 Удиви меня»: случайная добавка из каталога.
+// Список страниц берём из sitemap.xml — там уже готовые URL по slug
+// (sup/magniy.html). Раньше здесь собирались d.id из data.json и
+// открывался 'sup/' + id + '.html', но id — отображаемое имя
+// (кириллица), а файлы называются по slug, поэтому кнопка вела на 404
+// на всех страницах раздела. slugify живёт в Python
+// (scripts/build_sup.py) и в JS не дублируется.
+(function(){
+  var btn = document.getElementById('randomBtn');
+  if(!btn) return;
+  var sitemapUrl = new URL('sitemap.xml', location.href).href;
+  btn.onclick = function(){
+    fetch(sitemapUrl).then(function(r){ return r.text(); }).then(function(xml){
+      var doc = new DOMParser().parseFromString(xml, 'application/xml');
+      var urls = [];
+      doc.querySelectorAll('url > loc').forEach(function(node){
+        var u = (node.textContent || '').trim();
+        if(/\/sup\/[^/]+\.html$/.test(u) && !/\/sup\/index\.html$/.test(u)) urls.push(u);
+      });
+      if(!urls.length){ console.warn('[random] в sitemap.xml нет страниц добавок'); return; }
+      location.href = urls[Math.floor(Math.random() * urls.length)];
+    }).catch(function(err){ console.warn('[random] не удалось загрузить sitemap.xml', err); });
+  };
+})();
+
+</script>
+</body>
+</html>
+
+
+
+
+

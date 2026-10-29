@@ -2651,10 +2651,22 @@ function applyI18n(root) {
 // страница стала бы наполовину английской. Перезагрузка дешевле и честнее.
 function setLocale(lang) {
   if (I18N_LANGS.indexOf(lang) === -1 || lang === LOCALE) return;
+  var path = location.pathname;
+  var isEn = path.indexOf('/en/') !== -1;
+  var newPath;
+  if (lang === 'en' && !isEn) {
+    // RU -> EN: вставить /en/ перед последним сегментом пути.
+    newPath = path.replace(/\/([^\/]*$)/, '/en/$1');
+  } else if (lang === 'ru' && isEn) {
+    // EN -> RU: убрать /en/ из пути.
+    newPath = path.replace('/en/', '/');
+  } else {
+    return; // уже на целевой локали
+  }
   try {
     localStorage.setItem(I18N_LANG_KEY, lang);
   } catch (e) { /* приватный режим: выбор не сохранится, но применится */ }
-  location.reload();
+  location.href = newPath;
 }
 
 function initLangSwitcher() {
@@ -2896,6 +2908,9 @@ function initEnSupData() {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
+  // EN-страницы уже содержат готовый перевод в HTML — JS-переводчик
+  // не нужен и не должен перезаписывать текст (SEO-01, этап 1, FIX-57).
+  if (document.querySelector('meta[name="lang"]')?.content === 'en') return;
   applyI18n();
   initLangSwitcher();
   // CWV-01: подмена завесы. На sup-страницах и в Hactar перевод приходит

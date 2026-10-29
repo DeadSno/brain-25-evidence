@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta name="lang" content="en">
+  <meta charset="utf-8">
+  <script defer src="../version.js?v=312"></script>
+  <script src="../i18n.js?v=24" defer></script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Независимая база БАДов: доказательства, а не маркетинг</title>
+<meta name="description" content="130 добавок: оценка доказательности по PubMed, механизм действия и честный вердикт — без рекламы и партнёрских ссылок."/>
+<!-- Верификация Яндекс.Вебмастера (16.10.2026): метатег вместо файла
+     yandex_cc2e3cf2ee185b01.html — файл удалён в тот же день -->
+<meta name="yandex-verification" content="cc2e3cf2ee185b01" />
+<meta property="og:title" content="Независимая база БАДов: доказательства, а не маркетинг"/>
+<meta property="og:description" content="130 добавок: оценка доказательности по PubMed, механизм действия и честный вердикт — без рекламы и партнёрских ссылок."/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://deadsno.github.io/brain-25-evidence/"/>
+<meta property="og:image" content="https://deadsno.github.io/brain-25-evidence/og.png"/>
+<meta property="og:site_name" content="Brain 25 Evidence"/>
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Независимая база БАДов: доказательства, а не маркетинг"/>
+<meta name="twitter:description" content="130 добавок: оценка доказательности по PubMed, механизм действия и честный вердикт — без рекламы и партнёрских ссылок."/>
+<meta name="twitter:image" content="https://deadsno.github.io/brain-25-evidence/og.png"/>
+<link rel="canonical" href="https://deadsno.github.io/brain-25-evidence/">
+<link rel="alternate" type="application/rss+xml" title="brain-25-evidence" href="https://deadsno.github.io/brain-25-evidence/feed.xml">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧠</text></svg>"/>
+<link rel="manifest" href="../manifest.webmanifest">
+<meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1c1c1e" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="БАДы">
+<link rel="apple-touch-icon" href="../icons/192.png">
+<script>
+  try {
+    document.addEventListener('DOMContentLoaded', function () {
+      var light = localStorage.getItem('theme') === 'light';
+      // v5.4.0 (dark-first): светлая тема добавляется только когда
+    // пользователь её выбрал. Раньше здесь стояло add('dark') при !light,
+    // то есть класс задавался явно; теперь тёмная — это его отсутствие.
+    if (light) { document.body.classList.add('light'); }
+      var b = document.getElementById('themeBtn');
+      if (b) b.textContent = light ? t("theme.dark") : t("theme.light");
+      if (b) b.setAttribute('aria-label', light ? t("a11y.themeToDark") : t("a11y.themeToLight"));
+    });
+  } catch (e) {}
+</script>
+<!-- v5.6.1: chart.js вендорен в docs/vendor/ — без сети графики на странице не рисуются -->
+<script src="../vendor/chart.umd-4.4.1.min.js" defer></script>
+  <!-- v5.4.0: Inter убран с Google Fonts. Причина не в размере — в приватности:
+       fonts.googleapis.com отдавал шрифт с IP посетителя на каждой загрузке,
+       то есть третья сторона получала данные о визите. Метрика с index.html
+       снята по той же причине. Шрифт теперь лежит в docs/fonts/ и подключён
+       через @font-face в style.css, поэтому работает на всех 18 страницах,
+       а не только на index.html. Лицензия SIL OFL 1.1: docs/fonts/LICENSE-Inter.txt -->
+<script>
+// v5.4.0 (dark-first): тёмная тема — это ОТСУТСТВИЕ класса light.
+// До загрузки CSS ничего добавлять не нужно: :root уже тёмный.
+// light ставится только если пользователь выбрал светлую тему.
+try {
+  if (localStorage.getItem('theme') === 'light') {
+    document.documentElement.classList.add('light');
+  }
+} catch (e) {}
+</script>
+<!-- FIX-42 (C2-05): шрифты предзагружаются до style.css, иначе браузер
+     узнаёт о них только после разбора CSS — под медленной сетью это
+     десятки-сотни миллисекунд, за которые успевает отрисоваться системный
+     шрифт. Все пять начертаний используются на главной (400/500/600/700/800),
+     поэтому предзагрузка не добавляет байтов, а только поднимает приоритет.
+     crossorigin обязателен: шрифты запрашиваются в CORS-режиме. -->
+<link rel="preload" href="../fonts/inter-regular.woff2" as="font" type="font/woff2" crossorigin/>
+<link rel="preload" href="../fonts/inter-medium.woff2" as="font" type="font/woff2" crossorigin/>
+<link rel="preload" href="../fonts/inter-semibold.woff2" as="font" type="font/woff2" crossorigin/>
+<link rel="preload" href="../fonts/inter-bold.woff2" as="font" type="font/woff2" crossorigin/>
+<link rel="preload" href="../fonts/inter-extrabold.woff2" as="font" type="font/woff2" crossorigin/>
+<link rel="stylesheet" href="../style.min.css?v=470"/>
+<style>
+:root{--apanel:var(--card-bg);--aborder:var(--border);--atext:var(--text)}
+/* Единая шапка для всех страниц */
+.btn{
+  padding:.45rem .8rem;border:1px solid var(--border);border-radius:var(--radius-lg);
+  background:var(--card-bg);color:var(--text);cursor:pointer;
+  font-size:var(--fs-4);text-decoration:none;line-height:var(--lh-tight);
+}
+
+  /* ── Mobile (≤640px) ─────────────────────────────────────── */
+  @media (max-width: 640px) { body { padding: 0.6rem !important; }
+    .wrap { padding: 0.6rem !important; }
+    .top { flex-direction: column; align-items: stretch; gap: var(--space-2); margin: 0 0 .6rem; }
+    .top .site-title { font-size: 1.05rem; line-height: 1.25; }
+    .top .site-title a { display: inline-block; }
+    .top .v { font-size: var(--fs-3); }
+    .top { flex-wrap: wrap; gap: var(--space-0-3); }
+    .top .site-title { font-size: .9rem !important; line-height: var(--lh-tight); flex: 1 1 100% !important; max-width: 100% !important; white-space: normal !important; }
+    .top .site-title a { white-space: normal !important; }
+    .top .actions { flex: 1 1 100% !important; justify-content: flex-start !important; }
+    #compareResult { overflow-x: auto !important; -webkit-overflow-scrolling: touch; max-width: 100%; display: block; }
+    #compareResult table { min-width: 520px !important; display: table; }
+    .actions { gap: .35rem; }
+    .btn { padding: .4rem .6rem; font-size: var(--fs-4); }
+    .actions { width: 100%; justify-content: flex-end; }
+    #themeBtn { margin-inline-start: auto; }
+    /* v5.5.0 A1: было .78rem (12.48px) — локальное правило перебивало
+   .site-footer в style.css. Поднято до 1rem вместе с ним. */
+footer { font-size: 1rem !important; }
+    #chartWrap, .chartWrap { height: 320px !important; }
+    #quadrantChart, #bubbleChart { max-width: 100% !important; }
+    #quadrantChart, #bubbleChart { font-size: var(--fs-4); }
+    /* Радар */
+    #radarChart { max-width: 100% !important; }
+    .top .site-title { font-size: 1rem !important; }
+    .top .site-title a { white-space: normal; }
+    .top .site-title { font-size: .95rem !important; max-width: 100%; }
+    .top .site-title .v { display: none; }   /* версия на мобилке не нужна */
+    canvas { max-width: 100% !important; }
+    h1 { line-height: 1.3; }
+    h1 br { display: none; }  /* если есть принудительные переносы */
+    #compareResult {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    #compareResult table {
+      min-width: 520px;
+      font-size: var(--fs-4);
+    }
+    #compareResult th, #compareResult td {
+      padding: var(--space-2) .6rem;
+      white-space: normal;
+    }
+    .top .site-title { font-size: .92rem !important; line-height: var(--lh-tight); }
+    .top .site-title {
+      font-size: var(--fs-4) !important;
+      white-space: normal !important;
+      overflow: visible !important;
+      max-width: 100%;
+      line-height: 1.25;
+    }
+    .top .site-title a {
+      white-space: normal !important;
+      display: inline;
+    }
+    .top { padding-top: var(--space-0-3); margin-bottom: .8rem; gap: var(--space-0-3); }
+    .top .actions { justify-content: flex-end; width: auto; }
+    /* Карточка добавки = fullscreen */
+    #modalOverlay {
+      padding: 0 !important;
+      align-items: stretch !important;
+    }
+    #modal {
+      max-width: 100% !important;
+      width: 100% !important;
+      max-height: 100dvh !important;
+      height: 100dvh !important;
+      border-radius: 0 !important;
+      padding: var(--space-4) !important;
+    }
+    /* E2-1: 44px vy neseny iz @media(max-width:640px) NARUZHU. Ranshe razmer
+       kraski dejstvoval tolko na mobilnom, a na desktope razmer zavisel ot
+       obshchego padding vsekh knopok — i lomalsya ot pravki postoronnego
+       pravila. Teper 44px garantirany na vsekh shirinakh. */
+    #modalClose {
+      width: 44px !important;
+      min-width: 44px !important;
+      height: 44px !important;
+      min-height: 44px !important;
+      padding: 0 !important;
+      top: .5rem !important;
+      inset-inline-end: .5rem !important;
+      font-size: 1.4rem !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,.35) !important;
+      color: #fff !important;
+      border-radius: 50% !important;
+      z-index: 10 !important;
+    }
+  }
+  /* ── Touch UX ──────────────────────────────────────── */
+  button, .btn, .chip, a, .chartTab, [role="button"] {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+  button, .btn, .chip, .chartTab { user-select: none; -webkit-user-select: none; }
+  body { -webkit-font-smoothing: antialiased; overscroll-behavior-y: none; }
+  /* Safe area (iPhone с вырезом) */
+  @supports (padding: env(safe-area-inset-bottom)) {
+    body { padding-bottom: env(safe-area-inset-bottom); }
+  }
+  /* P2-10 / v5.6.2 батч C (V1): локальное «h2 { font-size: 1.125rem }»
+     удалено — значение переехало в общий токен style.css. Шесть страниц
+     дублировали его у себя, glossary был единственной без своего правила
+     и остался со сломанной иерархией. Источник истины один — style.css. */
+
+  /* Популярные добавки: 5×2 на десктопе, 2×5 на мобилке */
+  @media (max-width: 640px) {
+    /* v5.6.5 (V2-04): minmax(0,1fr) вместо 1fr — при поднятом поле шрифта
+       14px min-content длинной подписи распирал колонку на 12px и давал
+       горизонтальный скролл на 320px. */
+    .popularGrid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+  }
+
+  /* ── v5.6.5 (A-1): главная под структуру Project Hactar ───────────
+     Два новых локальных правила: .hero-cta (ряд CTA первого экрана)
+     и .card-featured-lg (большая карточка Hactar на всю ширину).
+
+     Почему локально, а не в style.css: правило репозитория — правка
+     style.css тянет массовый бамп ?v= в 145 страницах и два шаблона.
+     Для одной страницы и двух элементов это несоразмерно; прецедент
+     тот же, что у карточки «Сравнение добавок» (инлайн-стиль, чтобы
+     не бампать общий CSS). Классы .hero-cta и .card-featured-lg
+     живут только на главной — новый общий класс ради них не заводим. */
+  .hero-cta { display: flex; flex-wrap: wrap; gap: .6rem; margin: 0 0 1.3rem; }
+
+  /* FIX-59 (MK2-02): «Найти свою добавку» снова кнопка — и единственная
+     primary на странице. Стиль берётся из дизайн-системы (.btn.calc),
+     поэтому локально остаётся только то, чего у .btn нет: ссылка
+     выравнивается по центру ряда и не переносит эмодзи отдельно от
+     текста. Прежнее правило гасило заливку (color --muted +
+     подчёркивание) и делало ссылку tertiary — оно убрано: без заливки
+     иерархии на странице не было вовсе. */
+  .hero-cta .hero-search { display: inline-flex; align-items: center; gap: .45rem; min-height: 44px; }
+  .card-featured-lg { margin-bottom: 1rem; }
+  .card-featured-lg .card-featured-inner { padding: 1.5rem 1.7rem; gap: 1.3rem; }
+  .card-featured-lg .card-featured-icon { font-size: 3rem; }
+  .card-featured-lg .card-featured-text { flex: 1 1 320px; }
+  .card-featured-lg .card-featured-title { font-size: 1.5rem; margin-bottom: .3rem; }
+  .card-featured-lg .card-featured-desc { font-size: 1rem; }
+  .card-featured-lg .card-featured-cta { padding: .75rem 1.3rem; font-size: 1rem; }
+  @media (max-width: 640px) {
+    .hero-cta .hero-search { font-size: .9rem; }
+    .card-featured-lg .card-featured-inner { padding: 1.1rem 1.15rem; gap: .9rem; }
+    .card-featured-lg .card-featured-icon { font-size: 2.2rem; }
+    .card-featured-lg .card-featured-title { font-size: 1.2rem; }
+    .card-featured-lg .card-featured-desc { font-size: .92rem; }
+    .card-featured-lg .card-featured-cta { padding: .6rem .9rem; font-size: .9rem; }
+  }
+
+</style>
+<script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Независимая база БАДов: доказательства, а не маркетинг",
+      "description": "130 добавок: оценка доказательности по PubMed, механизм действия и честный вердикт — без рекламы и партнёрских ссылок.",
+      "url": "https://deadsno.github.io/brain-25-evidence/",
+      "inLanguage": "ru",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://deadsno.github.io/brain-25-evidence/index.html?search={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+    <!-- SE2-03: ItemList первых 10 добавок каталога. Порядок и слаги взяты
+         из docs/data_index.json через scripts/build_sup.py:slugify, поэтому
+         позиции 1-10 совпадают с началом списка добавок на главной.
+         Отдельный блок ld+json, а не @graph: tests/test_seo_meta_consistency.py
+         сверяет description верхнего уровня с meta и не ожидает его здесь. -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "name": "БАДы каталога brain-25-evidence",
+      "numberOfItems": 10,
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Креатин", "url": "https://deadsno.github.io/brain-25-evidence/sup/kreatin.html"},
+        {"@type": "ListItem", "position": 2, "name": "Омега-3", "url": "https://deadsno.github.io/brain-25-evidence/sup/omega-3.html"},
+        {"@type": "ListItem", "position": 3, "name": "Витамин D", "url": "https://deadsno.github.io/brain-25-evidence/sup/vitamin-d.html"},
+        {"@type": "ListItem", "position": 4, "name": "B12", "url": "https://deadsno.github.io/brain-25-evidence/sup/b12.html"},
+        {"@type": "ListItem", "position": 5, "name": "Магний", "url": "https://deadsno.github.io/brain-25-evidence/sup/magniy.html"},
+        {"@type": "ListItem", "position": 6, "name": "Кофеин", "url": "https://deadsno.github.io/brain-25-evidence/sup/kofein.html"},
+        {"@type": "ListItem", "position": 7, "name": "L-Теанин", "url": "https://deadsno.github.io/brain-25-evidence/sup/l-teanin.html"},
+        {"@type": "ListItem", "position": 8, "name": "Бакопа", "url": "https://deadsno.github.io/brain-25-evidence/sup/bakopa.html"},
+        {"@type": "ListItem", "position": 9, "name": "Ежовик", "url": "https://deadsno.github.io/brain-25-evidence/sup/ezhovik.html"},
+        {"@type": "ListItem", "position": 10, "name": "Гинкго", "url": "https://deadsno.github.io/brain-25-evidence/sup/ginkgo.html"}
+      ]
+    }
+    </script>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to content</a>
+<div class="site-header">
+  <div class="trustbar">🧬 Open data · Free · No ads</div>
+  <header class="top">
+    <div class="site-title"><a href="../index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a> <span class="v">v<span data-version="app"></span></span></div>
+    <nav class="actions">
+      <a class="btn c-feedback" href="../feedback.html">💬 Feedback</a>
+      <a class="btn c-support" href="../support.html">💚 Support us</a>
+      <!-- FIX-75: aria-label у #themeBtn ставит скрипт темы (t("a11y.themeToDark") /
+           t("a11y.themeToLight")). Статический русский атрибут всё равно
+           перетирался при загрузке, а в EN-режиме до загрузки скрипта читался
+           как русский — гейт tests/test_i18n_no_russian.py падал на нём. -->
+      <button class="btn c-theme" id="themeBtn">🌞 Светлая тема</button>
+      <select id="langSelect" class="lang-select"><option value="ru">RU</option><option value="en">EN</option></select>
+      <button class="btn c-random" id="randomBtn">🎲 Surprise me</button>
+    </nav>
+  </header>
+</div>
+
+<main id="main" tabindex="-1">
+  <!-- FIX-59 (MK2-06): H1 отвечает на вопрос «что это и зачем» прямым
+       текстом, а не рубрикой. Подзаголовок называет метод (оценка
+       доказательности по PubMed) и то, чего на сайте нет — рекламы
+       и партнёрских ссылок. -->
+  <h1>Independent supplement database: evidence, not marketing</h1>
+  <p style="margin:0 0 1rem;font-size:1rem;color:var(--muted)">130 supplements: PubMed-based evidence rating, mechanism of action and an honest verdict — no ads, no affiliate links.</p>
+
+<!-- v5.6.5 FIX-SPRINT B7 (MKT-05): цифры доверия вынесены на первый экран.
+     Числа верифицированы: 130 добавок (docs/data.json), 37 618 статей
+     (docs/db/paper.duckdb), 199 взаимодействий (inter_data, разбивка
+     9/24/74/92 — см. секцию whyTrust ниже). Наряду с CTA-строкой это
+     заменяет упразднённый навбар как главный указатель навигации. -->
+<section id="heroStats" aria-label="Ключевые цифры проекта" style="display:flex;flex-wrap:wrap;gap:.5rem 1.2rem;margin:0 0 1rem;font-size:.95rem;color:var(--muted)">
+  <span><b style="color:var(--text)">130</b><span> supplements</span></span>
+  <span><b style="color:var(--text)">37 618</b><span> scientific papers</span></span>
+  <span><b style="color:var(--text)">199</b><span> verified interactions</span></span>
+  <!-- FIX-59 (MK2-04): у трёх цифр появился источник. flex-basis:100%
+       выносит подпись на отдельную строку, не ломая ряд из трёх
+       показателей на узких экранах. -->
+  <span style="flex-basis:100%;font-size:var(--fs-6)"><span>Sources: PubMed, Europe PMC and manual review of meta-analyses —</span> <a href="../methodology.html">how we count</a>.</span>
+</section>
+
+<!-- FIX-59 (MK2-02): иерархия кнопок. Primary на главной ровно одна —
+     «Найти свою добавку»: это единственное действие первого экрана, и оно
+     берёт существующий primary-стиль дизайн-системы .btn.calc (заливка
+     --grad-calc, контраст 5.42:1 в обеих темах). Новый класс .btn-primary
+     не заводился — второго primary-стиля в системе нет.
+
+     Остальное — не конкуренты: кнопки шапки и футера (c-feedback,
+     c-support, c-theme, c-random) это стандартный хром сайта, одинаковая
+     шапка на всех 145 страницах; большая карточка Hactar ниже — витрина
+     со своей ссылкой, а не кнопка; чипы магазинов, теги и фильтры —
+     третичные контролы. Дублей главного действия больше нет: кнопка
+     «Открыть Project Hactar» из hero убрана ещё в A-1.1 именно потому,
+     что повторяла карточку.
+
+     Обработчик в script.js цепляется к a[href="#cardsContainer"] — по
+     href, поэтому ни id, ни класс ему не нужны. -->
+<div class="hero-cta">
+  <a class="btn calc hero-search" href="#cardsContainer">🔍 Find your supplement →</a>
+</div>
+
+
+<!-- v5.5.0: блок быстрых кнопок под шапкой удалён — все три ссылки
+     дублировали «Поддержать» в шапке и карточки «Калькулятор» / «Карта
+     механизмов» в сетке.
+     14.10.2026, батч 7 (MKT-P1-02): главный CTA добавлен отдельно, в конец
+     блока «Сначала ответим на 3 вопроса», и вёл на `#search`. Это
+     единственное действие на главной, которого нет ни в одной ссылке —
+     ни в шапке, ни в сетке карточек, — поэтому дублем не становится. Класс
+     `.btn.calc` взят как есть: это единственный primary-стиль в
+     дизайн-системе, новый класс не заводился ради одного элемента.
+
+     14.10.2026, INDEX_CTA_FIX (вариант F, follow-up MKT-P1-02): цель
+     поменяна с `#search` на `#cardsContainer`. Якорь на input поиска вёл
+     ВЫШЕ CTA по DOM, а после сворачивания блока «3 вопросов» в <details>
+     (v5.5.0) прокрутка была ≈0 и фокус не ставился — клик не давал ничего.
+     «Найти свою добавку» — семантика браузинга, каталог 130 добавок с
+     фильтрами и есть эта задача. Обработчик в script.js цепляется к
+     a.btn[href="#cardsContainer"] — по href, поэтому id в разметке
+     не нужен, а кнопку можно переставлять без правки скрипта.
+
+     22.10.2026, A-1: кнопка убрана из этого блока и перенесена на первый
+     экран (см. .hero-cta выше) — тогда она была вторичным действием рядом
+     с главным CTA «Открыть Project Hactar». Уточнение .calc в селекторе
+     script.js снято вместе с переездом.
+
+     22.10.2026, A-1.1: кнопка «Открыть Project Hactar» из hero убрана
+     (дублировала большую карточку Hactar ниже по странице), а сама
+     «Найти свою добавку» переведена из .btn в текстовую ссылку
+     tertiary. Селектор script.js больше не уточняет .btn — по href
+     он и так однозначен. -->
+
+<section id="controls">
+  <label for="search" class="sr-only">Search by name or effect</label>
+  <input id="search" role="combobox" aria-expanded="false" aria-haspopup="listbox" aria-controls="searchDrop" aria-autocomplete="list"/>
+  <div id="searchDrop" class="search-drop" role="listbox" aria-label="Результаты поиска"></div>
+  <label for="verdictFilter" class="sr-only">Filter: verdict</label>
+  <select id="verdictFilter">
+    <option value="all">Any verdict</option>
+    <option value="1">✅ works</option>
+    <option value="0">⚖️ depends on context</option>
+    <option value="-1">❌ not confirmed</option>
+  </select>
+  <label for="sortSelect" class="sr-only">Sort the list</label>
+  <select id="sortSelect">
+    <option value="science">🔬 By evidence (science)</option>
+    <option value="name">Alphabetical</option>
+    <option value="grade">🎖 By evidence grade</option>
+  </select>
+  <!-- v5.5.0 A3: кнопки фильтра стояли стопкой и занимали 96px
+       (44 + 8 зазор + 44). В один ряд — 52px, и навигационные карточки
+       (.quick-links) поднимаются с 904 на 852, то есть попадают на
+       первый экран при высоте 852. Замер: reports/V550_FINAL.md, A3. -->
+  <div class="filter-actions">
+    <button id="favFilter" class="favFilter">⭐ <span id="favCount">0</span></button>
+    <button id="resetFilters" class="favFilter">✕</button>
+  </div>
+</section>
+
+<section id="qaSection" style="background:var(--card-bg);padding:1.2rem 1.5rem;border-radius:12px;border:1px solid var(--border)">
+  <!-- v5.5.0 A3: блок ленты вопросов занимал 371px и полностью вытеснял
+       навигационные карточки за первый экран (они начинались на 904 при
+       высоте экрана 852). Свёрнут нативным details: работает без JS,
+       доступен с клавиатуры, состояние запоминает браузер.
+
+       v5.5.0 (финал): заголовок секции раньше стоял над details отдельным
+       h2, а внутри висел второй текст «Показать ответы» — на экране это
+       читалось как два заголовка подряд. h2 убран, его текст перенесён в
+       summary, который и служит подписью свёрнутого блока. Совпадает со
+       стилем остальных details на странице (`details.method`).
+
+       Известная цена: секция больше не имеет собственного заголовка, и
+       три вопроса (h3) остаются без заголовка уровнем выше. Подпись
+       summary не является заголовком — её роль disclosure button.
+       Заголовок при необходимости возвращается внутрь summary: модель
+       содержимого summary разрешает заголовки. Точный пример не пишу
+       здесь текстом — иначе подсчёт заголовков страницы примет его за
+       настоящий, ровно как случилось с предыдущей правкой этого
+       комментария. -->
+  <details class="qa-details">
+    <summary aria-expanded="false">First, three questions</summary>
+    <div class="qaGrid" tabindex="0">
+      <div class="qa">
+        <h2 class="qa-q">1. How is a supplement different from a drug?</h2>
+        <p>A supplement complements nutrition, it does not replace treatment. Supplements are not registered as drugs, but meta-analyses exist — those are what we count.</p>
+      </div>
+      <div class="qa">
+        <h2 class="qa-q">2. Why do I need it?</h2>
+        <p>Three honest reasons: a deficiency (vitamin D in winter), a goal (creatine for training), evidence-based prevention (omega-3).</p>
+      </div>
+      <div class="qa">
+        <h2 class="qa-q">3. How to choose?</h2>
+        <p>Verdict and evidence grade → dosage from the studies → drug conflicts → and only then the price.</p>
+      </div>
+    </div>
+  </details>
+  <!-- v5.6.5 (A-1): кнопка «Найти свою добавку» перенесена на первый экран
+       (см. .hero-cta выше). Здесь осталась ссылка на методологию —
+       она ведёт в другой документ и дублем не стала.
+       22.10.2026 (A-1.1): в hero она стала текстовой ссылкой
+       tertiary — кнопки-дубли на странице больше нет. -->
+  <p style="margin:1rem 0 0;display:flex;flex-wrap:wrap;gap:.75rem;align-items:center">
+    <a href="../methodology.html">Full methodology explained →</a>
+  </p>
+</section>
+
+<section style="margin:1.5rem 0">
+  <!-- v5.6.5 (A-1): хаб из шести карточек заменён новой структурой.
+       Project Hactar — единая точка входа: связи, дозы, сравнение,
+       безопасность. Калькулятор, сравнение, связи, граф и атлас стали
+       редиректами на hactar.html, поэтому отдельные карточки на них
+       только путали пользователя (он уходил на страницу, которая тут же
+       отправляла его дальше). Внизу остались два независимых приложения,
+       которые в Hactar не входят: тренды (своя страница) и BI (внешний
+       Streamlit).
+
+       Акцент карточки — янтарный (--inter-medium): плашка CTA в дизайн-
+       системе рассчитана на тёмный текст (--on-accent), и на синем
+       акценте в светлой теме контраст падал бы до 2.9:1. -->
+  <a class="card-featured card-featured-lg" href="../hactar.html" style="--card-accent:var(--inter-medium)">
+    <div class="card-featured-inner">
+      <div class="card-featured-icon">🧠</div>
+      <div class="card-featured-text">
+        <div class="card-featured-title">Project Hactar</div>
+        <div class="card-featured-desc">One workspace: interactions, dosages, comparison, safety</div>
+      </div>
+      <span class="card-featured-cta">Open Project Hactar →</span>
+    </div>
+  </a>
+
+  <div class="quick-links">
+  <a class="card-link lc-trends" href="../trends.html" style="--card-accent:var(--icon-trends)">
+    <div class="card-link-icon">📈</div>
+    <div class="card-link-title">Popularity trends</div>
+    <div class="card-link-desc">10 years of data: PubMed publications, Wikipedia, citations</div>
+  </a>
+
+  <a class="card-link lc-bi" href="https://brain-25-evidence.streamlit.app" target="_blank" rel="nofollow noopener" style="--card-accent:var(--icon-bi)">
+    <div class="card-link-icon">🧬</div>
+    <div class="card-link-title">brain-25-evidence BI <span class="card-link-ext">↗</span></div>
+    <div class="card-link-desc">Separate app: 37,618 papers, filters, CSV export</div>
+  </a>
+</div>
+</section>
+
+<section id="trustSummary" style="background:var(--card-bg);padding:.75rem 1.2rem;border-radius:12px;border:1px solid var(--border)">
+  <div style="display:flex;flex-wrap:wrap;align-items:center;gap:.7rem">
+    <h2 style="margin:0">🔬 How we verify the data</h2>
+    <div class="trustChips">
+      <a class="chip" href="https://pubmed.ncbi.nlm.nih.gov/" target="_blank" rel="nofollow noopener">PubMed ↗</a>
+      <span class="chip">manual review</span>
+      <span class="chip"><span>tests:</span> <span data-version="tests"></span></span>
+    </div>
+  </div>
+</section>
+
+<section id="whyTrust" style="background:var(--card-bg);padding:1.2rem;border-radius:12px;border:1px solid var(--border);margin-top:1rem">
+  <h2 style="margin:0 0 .8rem">Why you can trust this</h2>
+  <ul style="margin:0;padding-inline-start:1.2rem;line-height:1.6">
+    <li style="margin-bottom:.5rem"><b>The verdict is set by hand, not by a formula.</b><span> A machine computes the science index, but the final “USEFUL / Possible / Not confirmed” we assign ourselves — after reading the two strongest meta-analyses.</span></li>
+    <li style="margin-bottom:.5rem"><b>Every link can be opened and checked.</b><span> All 130 of 130 supplements carry a PMID and a meta-analysis with a PubMed link on the card.</span></li>
+    <li style="margin-bottom:.5rem"><b>Drug interactions are sorted by severity.</b><span> 199 pairs: 9 critical, 24 high, 74 moderate, 92 low — each one describes what happens when combined.</span></li>
+    <li style="margin-bottom:.5rem"><b>The data sits right there; you can recompute it.</b><span> 15 JSON files in the</span> <code>docs/</code><span> folder — take them and check for yourself.</span></li>
+    <li><b>Three answers, not two.</b> <span>If there are few meta-analyses, it stays “Possible” — it never turns into “USEFUL”. Contested effects are flagged right on the card.</span></li>
+  </ul>
+</section>
+
+<section id="popularTiles" style="margin:2rem 0">
+  <h2 style="margin:0 0 1rem">Popular supplements</h2>
+  <div class="popularGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:1rem">
+    <div class="tile" style="border:1px solid var(--border);border-radius:12px;padding:.8rem;background:var(--card-bg);display:flex;flex-direction:column;gap:.35rem">
+      <a href="../sup/magniy.html" style="display:block;text-decoration:none;color:inherit;flex:1">
+        <div style="font-weight:700;font-size:.95rem;margin-bottom:.3rem">Magnesium</div>
+        <div style="font-size:var(--fs-4);opacity:.7;margin-bottom:.4rem"><span>Mineral / Heart</span></div>
+        <span class="grade gA">A</span>
+        <div style="font-size:var(--fs-4);line-height:1.3"><span>Sleep, relaxation</span></div>
+      </a>
+      <div style="display:flex;gap:.4rem;border-top:1px solid var(--border);padding-top:.5rem">
+        <a href="https://www.ozon.ru/search/?text=%D0%9C%D0%B0%D0%B3%D0%BD%D0%B8%D0%B9" target="_blank" rel="noopener nofollow" aria-label="Найти Магний на Ozon" title="Где искать: Ozon" class="shop-chip">🛒 Ozon</a>
+        <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%9C%D0%B0%D0%B3%D0%BD%D0%B8%D0%B9" target="_blank" rel="noopener nofollow" aria-label="Найти Магний на Wildberries" title="Где искать: Wildberries" class="shop-chip">🛒 WB</a>
+      </div>
+    </div>
+
+    <div class="tile" style="border:1px solid var(--border);border-radius:12px;padding:.8rem;background:var(--card-bg);display:flex;flex-direction:column;gap:.35rem">
+      <a href="../sup/omega-3.html" style="display:block;text-decoration:none;color:inherit;flex:1">
+        <div style="font-weight:700;font-size:.95rem;margin-bottom:.3rem">Omega-3</div>
+        <div style="font-size:var(--fs-4);opacity:.7;margin-bottom:.4rem"><span>Heart</span></div>
+        <span class="grade gB">B</span>
+        <div style="font-size:var(--fs-4);line-height:1.3"><span>Neuroplasticity</span></div>
+      </a>
+      <div style="display:flex;gap:.4rem;border-top:1px solid var(--border);padding-top:.5rem">
+        <a href="https://www.ozon.ru/search/?text=%D0%9E%D0%BC%D0%B5%D0%B3%D0%B0-3" target="_blank" rel="noopener nofollow" aria-label="Найти Омега-3 на Ozon" title="Где искать: Ozon" class="shop-chip">🛒 Ozon</a>
+        <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%9E%D0%BC%D0%B5%D0%B3%D0%B0-3" target="_blank" rel="noopener nofollow" aria-label="Найти Омега-3 на Wildberries" title="Где искать: Wildberries" class="shop-chip">🛒 WB</a>
+      </div>
+    </div>
+
+    <div class="tile" style="border:1px solid var(--border);border-radius:12px;padding:.8rem;background:var(--card-bg);display:flex;flex-direction:column;gap:.35rem">
+      <a href="../sup/vitamin-d.html" style="display:block;text-decoration:none;color:inherit;flex:1">
+        <div style="font-weight:700;font-size:.95rem;margin-bottom:.3rem">Vitamin D</div>
+        <div style="font-size:var(--fs-4);opacity:.7;margin-bottom:.4rem"><span>Bones / Immunity</span></div>
+        <span class="grade gA">A</span>
+        <div style="font-size:var(--fs-4);line-height:1.3"><span>Mood (if deficient)</span></div>
+      </a>
+      <div style="display:flex;gap:.4rem;border-top:1px solid var(--border);padding-top:.5rem">
+        <a href="https://www.ozon.ru/search/?text=%D0%92%D0%B8%D1%82%D0%B0%D0%BC%D0%B8%D0%BD%20D" target="_blank" rel="noopener nofollow" aria-label="Найти Витамин D на Ozon" title="Где искать: Ozon" class="shop-chip">🛒 Ozon</a>
+        <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%92%D0%B8%D1%82%D0%B0%D0%BC%D0%B8%D0%BD%20D" target="_blank" rel="noopener nofollow" aria-label="Найти Витамин D на Wildberries" title="Где искать: Wildberries" class="shop-chip">🛒 WB</a>
+      </div>
+    </div>
+
+    <div class="tile" style="border:1px solid var(--border);border-radius:12px;padding:.8rem;background:var(--card-bg);display:flex;flex-direction:column;gap:.35rem">
+      <a href="../sup/b12.html" style="display:block;text-decoration:none;color:inherit;flex:1">
+        <div style="font-weight:700;font-size:.95rem;margin-bottom:.3rem">Vitamin B12</div>
+        <div style="font-size:var(--fs-4);opacity:.7;margin-bottom:.4rem"><span>Nervous system / Blood</span></div>
+        <span class="grade gB">B</span>
+        <div style="font-size:var(--fs-4);line-height:1.3"><span>Cognition (if deficient)</span></div>
+      </a>
+      <div style="display:flex;gap:.4rem;border-top:1px solid var(--border);padding-top:.5rem">
+        <a href="https://www.ozon.ru/search/?text=%D0%92%D0%B8%D1%82%D0%B0%D0%BC%D0%B8%D0%BD%20B12" target="_blank" rel="noopener nofollow" aria-label="Найти Витамин B12 на Ozon" title="Где искать: Ozon" class="shop-chip">🛒 Ozon</a>
+        <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%92%D0%B8%D1%82%D0%B0%D0%BC%D0%B8%D0%BD%20B12" target="_blank" rel="noopener nofollow" aria-label="Найти Витамин B12 на Wildberries" title="Где искать: Wildberries" class="shop-chip">🛒 WB</a>
+      </div>
+    </div>
+
+    <div class="tile" style="border:1px solid var(--border);border-radius:12px;padding:.8rem;background:var(--card-bg);display:flex;flex-direction:column;gap:.35rem">
+      <a href="../sup/tsink.html" style="display:block;text-decoration:none;color:inherit;flex:1">
+        <div style="font-weight:700;font-size:.95rem;margin-bottom:.3rem">Zinc</div>
+        <div style="font-size:var(--fs-4);opacity:.7;margin-bottom:.4rem"><span>Immunity / Colds</span></div>
+        <span class="grade gD">D</span>
+        <div style="font-size:var(--fs-4);line-height:1.3"><span>Cognition (if deficient)</span></div>
+      </a>
+      <div style="display:flex;gap:.4rem;border-top:1px solid var(--border);padding-top:.5rem">
+        <a href="https://www.ozon.ru/search/?text=%D0%A6%D0%B8%D0%BD%D0%BA" target="_blank" rel="noopener nofollow" aria-label="Найти Цинк на Ozon" title="Где искать: Ozon" class="shop-chip">🛒 Ozon</a>
+        <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%A6%D0%B8%D0%BD%D0%BA" target="_blank" rel="noopener nofollow" aria-label="Найти Цинк на Wildberries" title="Где искать: Wildberries" class="shop-chip">🛒 WB</a>
+      </div>
+    </div>
+
+    <div class="tile" style="border:1px solid var(--border);border-radius:12px;padding:.8rem;background:var(--card-bg);display:flex;flex-direction:column;gap:.35rem">
+      <a href="../sup/kurkumin.html" style="display:block;text-decoration:none;color:inherit;flex:1">
+        <div style="font-weight:700;font-size:.95rem;margin-bottom:.3rem">Curcumin</div>
+        <div style="font-size:var(--fs-4);opacity:.7;margin-bottom:.4rem"><span>Inflammation / Joints</span></div>
+        <span class="grade gB">B</span>
+        <div style="font-size:var(--fs-4);line-height:1.3"><span>Mood, cognition</span></div>
+      </a>
+      <div style="display:flex;gap:.4rem;border-top:1px solid var(--border);padding-top:.5rem">
+        <a href="https://www.ozon.ru/search/?text=%D0%9A%D1%83%D1%80%D0%BA%D1%83%D0%BC%D0%B8%D0%BD" target="_blank" rel="noopener nofollow" aria-label="Найти Куркумин на Ozon" title="Где искать: Ozon" class="shop-chip">🛒 Ozon</a>
+        <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%9A%D1%83%D1%80%D0%BA%D1%83%D0%BC%D0%B8%D0%BD" target="_blank" rel="noopener nofollow" aria-label="Найти Куркумин на Wildberries" title="Где искать: Wildberries" class="shop-chip">🛒 WB</a>
+      </div>
+    </div>
+
+    <div class="tile" style="border:1px solid var(--border);border-radius:12px;padding:.8rem;background:var(--card-bg);display:flex;flex-direction:column;gap:.35rem">
+      <a href="../sup/zhelezo.html" style="display:block;text-decoration:none;color:inherit;flex:1">
+        <div style="font-weight:700;font-size:.95rem;margin-bottom:.3rem">Iron</div>
+        <div style="font-size:var(--fs-4);opacity:.7;margin-bottom:.4rem"><span>Blood / Anemia</span></div>
+        <span class="grade gD">D</span>
+        <div style="font-size:var(--fs-4);line-height:1.3"><span>Energy (with anemia)</span></div>
+      </a>
+      <div style="display:flex;gap:.4rem;border-top:1px solid var(--border);padding-top:.5rem">
+        <a href="https://www.ozon.ru/search/?text=%D0%96%D0%B5%D0%BB%D0%B5%D0%B7%D0%BE" target="_blank" rel="noopener nofollow" aria-label="Найти Железо на Ozon" title="Где искать: Ozon" class="shop-chip">🛒 Ozon</a>
+        <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%96%D0%B5%D0%BB%D0%B5%D0%B7%D0%BE" target="_blank" rel="noopener nofollow" aria-label="Найти Железо на Wildberries" title="Где искать: Wildberries" class="shop-chip">🛒 WB</a>
+      </div>
+    </div>
+
+    <div class="tile" style="border:1px solid var(--border);border-radius:12px;padding:.8rem;background:var(--card-bg);display:flex;flex-direction:column;gap:.35rem">
+      <a href="../sup/melatonin.html" style="display:block;text-decoration:none;color:inherit;flex:1">
+        <div style="font-weight:700;font-size:.95rem;margin-bottom:.3rem">Melatonin</div>
+        <div style="font-size:var(--fs-4);opacity:.7;margin-bottom:.4rem"><span>Sleep / Circadian rhythm</span></div>
+        <span class="grade gD">D</span>
+        <div style="font-size:var(--fs-4);line-height:1.3"><span>Falling asleep, jet lag</span></div>
+      </a>
+      <div style="display:flex;gap:.4rem;border-top:1px solid var(--border);padding-top:.5rem">
+        <a href="https://www.ozon.ru/search/?text=%D0%9C%D0%B5%D0%BB%D0%B0%D1%82%D0%BE%D0%BD%D0%B8%D0%BD" target="_blank" rel="noopener nofollow" aria-label="Найти Мелатонин на Ozon" title="Где искать: Ozon" class="shop-chip">🛒 Ozon</a>
+        <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%9C%D0%B5%D0%BB%D0%B0%D1%82%D0%BE%D0%BD%D0%B8%D0%BD" target="_blank" rel="noopener nofollow" aria-label="Найти Мелатонин на Wildberries" title="Где искать: Wildberries" class="shop-chip">🛒 WB</a>
+      </div>
+    </div>
+
+    <div class="tile" style="border:1px solid var(--border);border-radius:12px;padding:.8rem;background:var(--card-bg);display:flex;flex-direction:column;gap:.35rem">
+      <a href="../sup/vitamin-c.html" style="display:block;text-decoration:none;color:inherit;flex:1">
+        <div style="font-weight:700;font-size:.95rem;margin-bottom:.3rem">Vitamin C</div>
+        <div style="font-size:var(--fs-4);opacity:.7;margin-bottom:.4rem"><span>Immunity / Antioxidant</span></div>
+        <span class="grade gD">D</span>
+        <div style="font-size:var(--fs-4);line-height:1.3"><span>Immunity (under stress)</span></div>
+      </a>
+      <div style="display:flex;gap:.4rem;border-top:1px solid var(--border);padding-top:.5rem">
+        <a href="https://www.ozon.ru/search/?text=%D0%92%D0%B8%D1%82%D0%B0%D0%BC%D0%B8%D0%BD%20C" target="_blank" rel="noopener nofollow" aria-label="Найти Витамин C на Ozon" title="Где искать: Ozon" class="shop-chip">🛒 Ozon</a>
+        <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%92%D0%B8%D1%82%D0%B0%D0%BC%D0%B8%D0%BD%20C" target="_blank" rel="noopener nofollow" aria-label="Найти Витамин C на Wildberries" title="Где искать: Wildberries" class="shop-chip">🛒 WB</a>
+      </div>
+    </div>
+
+    <div class="tile" style="border:1px solid var(--border);border-radius:12px;padding:.8rem;background:var(--card-bg);display:flex;flex-direction:column;gap:.35rem">
+      <a href="../sup/kreatin.html" style="display:block;text-decoration:none;color:inherit;flex:1">
+        <div style="font-weight:700;font-size:.95rem;margin-bottom:.3rem">Creatine</div>
+        <div style="font-size:var(--fs-4);opacity:.7;margin-bottom:.4rem"><span>Sport / Cognition</span></div>
+        <span class="grade gA">A</span>
+        <div style="font-size:var(--fs-4);line-height:1.3"><span>Working memory under load</span></div>
+      </a>
+      <div style="display:flex;gap:.4rem;border-top:1px solid var(--border);padding-top:.5rem">
+        <a href="https://www.ozon.ru/search/?text=%D0%9A%D1%80%D0%B5%D0%B0%D1%82%D0%B8%D0%BD" target="_blank" rel="noopener nofollow" aria-label="Найти Креатин на Ozon" title="Где искать: Ozon" class="shop-chip">🛒 Ozon</a>
+        <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%9A%D1%80%D0%B5%D0%B0%D1%82%D0%B8%D0%BD" target="_blank" rel="noopener nofollow" aria-label="Найти Креатин на Wildberries" title="Где искать: Wildberries" class="shop-chip">🛒 WB</a>
+      </div>
+    </div>
+  </div>
+  <p style="margin:.7rem 0 0;text-align:center"><a href="../sup/index.html" style="color:var(--accent)">Open the full catalog (130 supplements) →</a></p>
+</section>
+
+<section id="chartSection">
+  <h2><span id="chartTitle">Evidence: science index / research volume</span> <span id="chartHint" class="hint">(bubble = meta-analyses, Y axis is logarithmic)</span></h2>
+  <details class="method">
+    <summary aria-expanded="false">📐 What is the “science index”?</summary>
+    <p><b>Science index = RCTs + 5 × meta-analyses</b><span> in PubMed for the query “(supplement) AND (outcome)”.</span></p>
+    <p><span>The index measures the</span> <i>amount</i><span> of science, not the effect size. Verdicts are assigned manually from the top-2 meta-analyses.</span></p>
+  </details>
+  <details class="method">
+    <summary aria-expanded="false">🎯 What is “effect size” (Hedges' g)?</summary>
+    <p><b>Hedges' g</b><span> is the standard metric of how much a supplement</span> <i>really helps</i><span> compared with placebo.</span></p>
+    <p style="margin-top:.5rem"><b>How to read it:</b></p>
+    <ul style="margin:.3rem 0 .5rem 1.2rem">
+      <li><b>0</b><span> — no effect (like placebo)</span></li>
+      <li><b>±0.2</b><span> — small effect (noticeable but modest)</span></li>
+      <li><b>±0.5</b><span> — medium effect (clinically meaningful)</span></li>
+      <li><b>±0.8+</b><span> — large effect (obvious to anyone)</span></li>
+      <li><b>Negative</b><span> — does not mean “bad”. It depends on what was measured: e.g. for Magnesium g = −0.67 on the anxiety scale is a</span> <i>decrease</i><span> in anxiety, which is good</span></li>
+    </ul>
+    <p>We take g from the first relevant meta-analysis for each supplement. One supplement can have many g values for different outcomes (sleep, strength, memory) — we show one example, not the “main effect”.</p>
+  </details>
+  <div class="chartTabs" id="viewTabs">
+    <button class="chartTab on" data-view="price">📊 Evidence</button>
+    <button class="chartTab" data-view="quadrant">🎯 Effect size (g)</button>
+  </div>
+  <div class="chartTabs" id="axisRow">
+    <button id="axisMA" class="chartTab on">Number of MAs</button>
+    <button id="axisRCT" class="chartTab">Number of RCTs</button>
+  </div>
+  <div id="chartWrap">
+    <canvas id="bubbleChart"></canvas>
+    <canvas id="quadrantChart"></canvas>
+  </div>
+  <p id="chartNote" class="hint" style="margin-top:.5rem"></p>
+  <p id="quadrantNote" class="hint" style="margin-top:.5rem"></p>
+  <p id="chartSummary" class="hint" style="margin-top:.3rem;font-weight:500"></p>
+</section>
+
+<section id="cardsContainer">
+  <h2><span>All supplements</span> <span id="countBadge" class="hint"></span></h2>
+
+  <div class="filterSection">
+    <span class="filterLabel">Quick picks</span>
+    <div class="presetRow" id="presetRow">
+      <button class="preset" data-preset="science">🏆 Top by science</button>
+      <button class="preset" data-preset="verdict">💎 Proven</button>
+      <button class="preset" data-preset="ongoing">🔥 Under study now</button>
+    </div>
+  </div>
+
+  <div class="filterSection">
+    <span class="filterLabel">By effect</span>
+    <div class="tagPresets" id="tagPresets"></div>
+  </div>
+
+  <div class="activeFilters" id="activeFilters"></div>
+
+  <div id="cardsGrid"></div>
+</section>
+
+<section id="helpProject" style="background:var(--card-bg);padding:1.2rem 1.5rem;border-radius:12px;border:1px solid var(--border)">
+  <h2>💚 How to help the project</h2>
+  <p class="hint">The project is free: no ads, no subscriptions, no selling of data. Support speeds up card updates and development.</p>
+  <div style="display:flex;flex-wrap:wrap;gap:.5rem">
+    <a class="btn c-support" href="https://yoomoney.ru/fundraise/1KKDKB0O1EC.260930" target="_blank" rel="nofollow noopener">💚 Support us on YooMoney</a>
+    <a class="btn c-feedback" href="../feedback.html">💬 Feedback</a>
+    <a class="btn c-github" href="https://github.com/DeadSno/brain-25-evidence" target="_blank" rel="nofollow noopener">⭐ Contribute on GitHub</a>
+  </div>
+</section>
+</main>
+<footer class="site-footer">
+    <p class="disc"><span>⚠️ Data from open scientific sources (PubMed, Europe PMC, CrossRef, OpenAlex, ClinicalTrials.gov, Wikimedia) for information and education.</span></p>
+  <p class="meta">
+    v<span data-version="app"></span> ·
+    <span>data as of</span> <span data-version="data"></span>
+  </p>
+  <p class="links">
+    <a href="../methodology.html">📐 Methodology</a> ·
+    <a href="../faq.html">❓ FAQ</a> ·
+    <a href="../glossary.html">📖 Glossary</a> ·
+    <a href="../trends.html">📈 Trends</a> ·
+    <a href="../privacy.html">🔐 Privacy</a> ·
+    <a href="../terms-of-use.html">📄 Terms of Use</a> ·
+    <a href="../sup/index.html">💊 Supplement Catalog</a> ·
+    <a href="../feed.xml">📡 RSS</a>
+  </p>
+  <p class="copy">© 2026 Vladislav "DeadSno" Pereshivalov · MIT · <a href="../terms-of-use.html#data-license">Data: CC BY 4.0</a></p>
+  <p class="legal-disclaimer">Dietary supplements are not medicines. Consult a doctor before use.</p>
+  <p class="share-row"><button class="btn share-page" type="button">🔗 Share</button></p>
+</footer>
+
+<div id="modalOverlay" style="display:none">
+  <div id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button id="modalClose">✕</button>
+    <div id="modalBody"></div>
+  </div>
+</div>
+<script src="../script.min.js?v=306" defer></script>
+<script src="../science2.js?v=281" defer></script>
+<script src="../tracker.js?v=281" defer></script>
+<script src="../pwa.js?v=284" defer></script>
+<script src="../share.js?v=2" defer></script>
+<button class="toBottom" id="toBottom" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})">↓</button>
+<script>
+window.addEventListener('scroll', () => {
+  const btn = document.getElementById('toBottom');
+  if (!btn) return;
+  // Раньше порог был 400px: на коротких страницах (atlas, calculator, glossary,
+  // map) он недостижим и кнопка не появлялась. Проверяем прокручиваемость.
+  const scrollable = document.body.scrollHeight > window.innerHeight + 100;
+  const atBottom = window.scrollY + window.innerHeight >= document.body.scrollHeight - 100;
+  if (scrollable && window.scrollY > 100 && !atBottom) {
+    btn.classList.add('show');
+  } else {
+    btn.classList.remove('show');
+  }
+});
+
+// 🔄 Обновить в шапке: та же логика, что была inline onclick в футере.
+// location.reload(true) игнорировался браузерами, поэтому без аргумента.
+document.getElementById('refreshBtn')?.addEventListener('click', () => {
+  location.reload();
+});
+</script>
+<!-- v5.6.2: cookie-согласие + Яндекс.Метрика (счётчик 112465667).
+     Метрика грузится ТОЛЬКО после нажатия «Принять»: до согласия
+     ни одного запроса к mc.yandex.ru не происходит. -->
+<div id="cookieBanner" role="dialog" hidden>
+  <div class="cb-text">
+    <span>We use cookies and Yandex.Metrica to understand which materials are useful. Analytics is enabled only after your consent.</span>
+    <a href="../privacy.html">Privacy policy</a>
+  </div>
+  <div class="cb-actions">
+    <button type="button" id="cookieAccept" class="cb-btn cb-accept">Accept</button>
+    <button type="button" id="cookieReject" class="cb-btn cb-reject">Decline</button>
+  </div>
+</div>
+<script src="../cookie-banner.js?v=1"></script>
+<script src="../metrika.js?v=1"></script>
+<script>initCookieBanner();// Кнопка «🎲 Удиви меня»: случайная добавка из каталога.
+// Список страниц берём из sitemap.xml — там уже готовые URL по slug
+// (sup/magniy.html). Раньше здесь собирались d.id из data.json и
+// открывался 'sup/' + id + '.html', но id — отображаемое имя
+// (кириллица), а файлы называются по slug, поэтому кнопка вела на 404
+// на всех страницах раздела. slugify живёт в Python
+// (scripts/build_sup.py) и в JS не дублируется.
+(function(){
+  var btn = document.getElementById('randomBtn');
+  if(!btn) return;
+  var sitemapUrl = new URL('sitemap.xml', location.href).href;
+  btn.onclick = function(){
+    fetch(sitemapUrl).then(function(r){ return r.text(); }).then(function(xml){
+      var doc = new DOMParser().parseFromString(xml, 'application/xml');
+      var urls = [];
+      doc.querySelectorAll('url > loc').forEach(function(node){
+        var u = (node.textContent || '').trim();
+        if(/\/sup\/[^/]+\.html$/.test(u) && !/\/sup\/index\.html$/.test(u)) urls.push(u);
+      });
+      if(!urls.length){ console.warn('[random] в sitemap.xml нет страниц добавок'); return; }
+      location.href = urls[Math.floor(Math.random() * urls.length)];
+    }).catch(function(err){ console.warn('[random] не удалось загрузить sitemap.xml', err); });
+  };
+})();
+</script>
+
+<!-- SE2-03: поддержка ?search= из разметки SearchAction. Без этого параметра
+     разметка обещала бы функцию, которой нет, а Google требует, чтобы
+     urlTemplate действительно выполнял поиск. Скрипт заполняет существующее
+     поле #search и запускает тот же фильтр, что и ручной ввод (слушатель
+     input навешивает script.js). Ждём load: инлайновый скрипт в конце body
+     исполняется раньше отложенных скриптов, и событие input потерялось бы. -->
+<script>
+window.addEventListener('load', function () {
+  var q;
+  try { q = new URLSearchParams(location.search).get('search'); } catch (e) { return; }
+  if (!q) return;
+  var input = document.getElementById('search');
+  if (!input) return;
+  input.value = q;
+  input.dispatchEvent(new Event('input', { bubbles: true }));
+});
+</script>
+</body>
+</html>
+
+
+
+
+

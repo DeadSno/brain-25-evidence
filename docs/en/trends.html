@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta name="lang" content="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Тренды популярности БАДов 2015-2025 — Brain 25 Evidence</title>
+<link rel="manifest" href="../manifest.webmanifest">
+<meta name="description" content="10 лет данных по 130 добавкам: публикации PubMed, просмотры Wikipedia и цитирования исследований. Как менялась доказательная база и где появились новые работы."/>
+<meta property="og:title" content="Тренды популярности БАДов 2015-2025 — Brain 25 Evidence"/>
+<meta property="og:description" content="10 лет данных по 130 добавкам: публикации PubMed, просмотры Wikipedia и цитирования исследований. Как менялась доказательная база и где появились новые работы."/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://deadsno.github.io/brain-25-evidence/trends.html"/>
+<link rel="canonical" href="https://deadsno.github.io/brain-25-evidence/trends.html">
+<link rel="alternate" type="application/rss+xml" title="brain-25-evidence" href="https://deadsno.github.io/brain-25-evidence/feed.xml">
+<meta property="og:image" content="https://deadsno.github.io/brain-25-evidence/og.png"/>
+<meta property="og:site_name" content="Brain 25 Evidence"/>
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Тренды популярности БАДов 2015-2025 — Brain 25 Evidence"/>
+<meta name="twitter:description" content="10 лет данных по 130 добавкам: публикации PubMed, просмотры Wikipedia и цитирования исследований. Как менялась доказательная база и где появились новые работы."/>
+<meta name="twitter:image" content="https://deadsno.github.io/brain-25-evidence/og.png"/>
+<meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1c1c1e" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="БАДы">
+<link rel="apple-touch-icon" href="../icons/192.png">
+<script src="../i18n.js?v=24" defer></script>
+<script>
+// v5.6.3: вместо трёх одинаковых веток if/else/catch, каждая из которых
+// безусловно вешала light на body. Разница была не косметическая: ниже,
+// в локальном style-блоке на строках 94-95, есть единственное во всём
+// проекте правило `body.light header.top .site-title` — все 66 остальных
+// темных правил разметки в style.css завязаны на `html.light`.
+// То есть этот блок красил заголовок хедера в светлый #1c1c1e тёмному
+// посетителю, и снимал цвет только когда initApp() доходил до
+// setTheme(getTheme()) — то есть после Promise.all из двух fetch.
+// На медленной сети заголовок оставался тёмным по цвету на тёмном фоне.
+// Теперь ровно то, что в faq.html:29-41 и index.html — класс на body
+// ставится только по выбору пользователя, и подпись кнопки обновляется
+// сразу, не дожидаясь загрузки данных.
+try {
+  document.addEventListener('DOMContentLoaded', function () {
+    var light = localStorage.getItem('theme') === 'light';
+    if (light) { document.body.classList.add('light'); }
+    var b = document.getElementById('themeBtn');
+    if (b) b.textContent = light ? t("theme.dark") : t("theme.light");
+    if (b) b.setAttribute('aria-label', light ? t("a11y.themeToDark") : t("a11y.themeToLight"));
+  });
+} catch (e) {}
+</script>
+<script>
+// v5.4.0 (dark-first): тёмная тема — это ОТСУТСТВИЕ класса light.
+// До загрузки CSS ничего добавлять не нужно: :root уже тёмный.
+// light ставится только если пользователь выбрал светлую тему.
+try {
+  if (localStorage.getItem('theme') === 'light') {
+    document.documentElement.classList.add('light');
+  }
+} catch (e) {}
+</script>
+<link rel="stylesheet" href="../style.min.css?v=470">
+<!-- v5.6.1: chart.js вендорен в docs/vendor/ — без сети графики на странице не рисуются -->
+<script src="../vendor/chart.umd-4.4.1.min.js" defer></script>
+<script src="../version.js?v=312" defer></script>
+<style>
+  body{max-width:1200px;margin:0 auto;padding:var(--space-6)}
+  .filters{display:flex;flex-wrap:wrap;gap:.8rem 1.2rem;margin:var(--space-4) 0;padding:.8rem var(--space-4);
+    background:var(--card-bg);border:1px solid var(--border);border-radius:10px}
+  .filters label{display:flex;align-items:center;gap:.4rem;font-size:.9rem}
+  /* v5.6.2 P1 (тач-таргеты): было 34px — замерено на всех четырёх селектах
+     при 320 и 412. padding был var(--space-0-3) = .3rem = 4.8px; при .7rem
+     бокс становится 46.8px, плюс min-height как страховка от смены шрифта.
+     Горизонтальный padding не тронут — иначе съехала бы ширина узких
+     селектов (gradeFilter 67px, topFilter 58px) и фильтры перестали бы
+     помещаться в строку на 320. */
+  .filters select{background:var(--card-bg);color:var(--text);border:1px solid var(--border);
+    border-radius:var(--radius-md);padding:.7rem var(--space-2);font-size:16px;min-height:44px}
+  .tr-tabs{display:flex;gap:.4rem;margin:var(--space-4) 0 .6rem;flex-wrap:wrap}
+  .tr-tab{background:var(--card-bg);color:var(--text);border:1px solid var(--border);
+    padding:var(--space-2) var(--space-4);border-radius:var(--radius-lg);cursor:pointer;font-size:.92rem}
+  /* v4.1: белый на #3498db давал 3.15:1 — затемнено до 5.42:1 в обеих темах.
+     v5.6.5 (NV2-06): тот же градиент уже объявлен токеном --grad-calc. */
+  .tr-tab.on{background:var(--grad-calc);color:var(--on-solid);border:none;font-weight:600}
+
+  /* Выравнивание кнопок — единый стиль, без special-casing для .calc */
+  header.top .actions > a.btn,
+  header.top .actions > button.btn {
+    padding:var(--space-2) var(--space-4) !important;
+    font-size:.95rem !important;
+    line-height:var(--lh-tight) !important;
+    height:2.25rem !important;
+    display:inline-flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    box-sizing:border-box !important;
+    margin:0 !important;
+  }
+  /* Сброс специальных правил для .btn.calc в шапке — чтобы не съезжал */
+  header.top .actions .btn.calc {
+    padding:var(--space-2) var(--space-4) !important;
+    height:2.25rem !important;
+    border-radius:var(--radius-lg) !important;
+  }
+  .chart-wrap{position:relative;height:600px;background:var(--card-bg);
+    border:1px solid var(--border);border-radius:var(--radius-xl);padding:var(--space-4);margin-bottom:var(--space-4)}
+  @media(max-width:640px){.chart-wrap{height:500px}}
+  .chart-note{font-size:var(--fs-4);opacity:.7;margin:.4rem 0 var(--space-4)}
+  .stat-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:.8rem;margin:var(--space-4) 0}
+  .stat-card{background:var(--card-bg);border:1px solid var(--border);
+    border-radius:10px;padding:.9rem var(--space-4)}
+  .stat-card .label{font-size:var(--fs-4);opacity:.7;margin-bottom:var(--space-0-3)}
+  .stat-card .value{font-size:1.5rem;font-weight:700}
+  .stat-card .delta{font-size:var(--fs-4);color:var(--grade-a-tx);margin-top:var(--space-0-2)}
+  .stat-card .delta.down{color:var(--grade-d-tx)}
+
+  /* Убираем sticky-шапку — на странице с графиками она мешает.
+     v5.6.0: липкой теперь обёртка .site-header (style.css), а не сам
+     .top. Поэтому отключаем липкость у обёртки, а не у header.top —
+     старое правило header.top{position:static} стало беспредметным и
+     оставляло страницу единственной, где шапка не липнет.
+     Намерение сохранено: на графиках шапка мешает, поэтому она уезжает
+     вместе с прокруткой. */
+  body.trends-page .site-header{position:static!important}
+  header.top{display:flex;flex-wrap:wrap;gap:.4rem .6rem}
+  header.top .site-title{flex:1 1 100%;font-size:1.3rem;line-height:var(--lh-tight);margin:0 0 .4rem;color:var(--text)!important}
+  header.top .site-title a{color:var(--text)!important;text-decoration:none!important}
+  body.light header.top .site-title,
+  body.light header.top .site-title a{color:var(--text)!important}
+  html:not(.light) header.top .site-title,
+  html:not(.light) header.top .site-title a{color:var(--text)!important}
+  header.top .site-title a{white-space:normal;overflow:visible}
+  header.top .actions{flex:1 1 100%;display:flex;flex-wrap:wrap;gap:.4rem;justify-content:flex-end}
+  @media(max-width:640px){
+    header.top .site-title{font-size:1.05rem}
+    header.top .site-title .v{display:none}
+  }
+/* ===== Главное ===== */
+.executive-summary{margin:var(--space-6) 0}
+.executive-summary h2{margin:0 0 var(--space-0-3);font-size:1.15rem}
+.executive-summary .hint{margin:0 0 .8rem;opacity:.7;font-size:.88rem}
+.insights-grid{
+  /* min(280px,100%) вместо 280px: на узких экранах (≤320px, контентная
+     ширина ~257px) жёсткая дорожка 280px выносила карточки за правый
+     край контейнера на 23px — M2-02 в FIX_PLAN. min() схлопывает
+     дорожку до ширины контейнера, auto-fit при этом даёт одну колонку. */
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));
+  gap:.8rem;margin:var(--space-4) 0;
+}
+/* v5.6.2 — резерв высоты под асинхронное наполнение insightsGrid.
+   Без него grid растёт со 105px (одна карточка «Загрузка…») до ~620px после
+   подстановки пяти карточек и сдвигает всё нижележащее содержимое: CLS 0.11
+   на продакшене и 0.22–0.25 локально с задержкой данных.
+   Значения — минимальные измеренные финальные высоты в каждой зоне числа
+   колонок. Они НЕ превышают финальную высоту, поэтому итоговая высота
+   страницы не меняется и визуальные эталоны остаются валидными. */
+.insights-grid{min-height:530px}
+@media (min-width:700px) and (max-width:1023px){.insights-grid{min-height:341px}}
+@media (min-width:1024px){.insights-grid{min-height:246px}}
+.insight-card{
+  background:var(--card-bg);border:1px solid var(--border);
+  border-radius:var(--radius-xl);padding:.9rem var(--space-4);display:flex;gap:.8rem;align-items:flex-start;
+}
+.insight-card[data-tone="blue"]{border-inline-start:3px solid var(--tone-blue)}
+.insight-card[data-tone="green"]{border-inline-start:3px solid var(--tone-green)}
+.insight-card[data-tone="red"]{border-inline-start:3px solid var(--tone-red)}
+.insight-card[data-tone="orange"]{border-inline-start:3px solid var(--tone-orange)}
+.insight-icon{font-size:1.6rem;line-height:1;flex-shrink:0}
+.insight-title{font-weight:600;margin-bottom:var(--space-1);font-size:1rem}
+.insight-text{font-size:1rem;opacity:.85;line-height:1.45}
+
+/* ===== Scatter Matrix ===== */
+.scatter-section{margin:var(--space-8) 0}
+.scatter-section h2{margin:0 0 var(--space-0-3);font-size:1.15rem}
+.scatter-section .hint{margin:0 0 .8rem;opacity:.7;font-size:.88rem}
+.scatter-wrap{
+  background:var(--card-bg);border:1px solid var(--border);
+  border-radius:var(--radius-xl);padding:var(--space-4);position:relative;
+}
+.scatter-canvas-box{position:relative;height:560px}
+.scatter-legend{
+  display:flex;gap:var(--space-4);flex-wrap:wrap;margin-top:.7rem;
+  font-size:var(--fs-4);opacity:.85;
+}
+.scatter-legend span::before{
+  content:"";display:inline-block;width:10px;height:10px;
+  border-radius:50%;margin-inline-end:.35rem;vertical-align:middle;
+}
+.scatter-legend [data-g="A"]::before{background:var(--chart-grade-a-dot)}
+.scatter-legend [data-g="B"]::before{background:var(--chart-grade-b-dot)}
+.scatter-legend [data-g="C"]::before{background:var(--chart-grade-c-dot)}
+.scatter-legend [data-g="D"]::before{background:var(--chart-grade-d-dot)}
+@media (max-width:700px){.scatter-canvas-box{height:400px}}
+
+/* ===== Categories ===== */
+.categories-section{margin:var(--space-8) 0}
+.categories-section h2{margin:0 0 var(--space-0-3);font-size:1.15rem}
+.categories-section .hint{margin:0 0 .8rem;opacity:.7;font-size:.88rem}
+.categories-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:.8rem;margin:var(--space-4) 0;
+}
+.category-card{
+  background:var(--card-bg);border:1px solid var(--border);
+  border-radius:var(--radius-xl);padding:.9rem var(--space-4);
+}
+.category-name{font-weight:600;font-size:.98rem;margin-bottom:.6rem}
+.cat-count{
+  background:var(--border);color:var(--text);font-size:var(--fs-3);
+  padding:.1rem .45rem;border-radius:var(--radius-md);margin-inline-start:.4rem;font-weight:400;
+}
+.cat-row{
+  display:flex;justify-content:space-between;font-size:var(--fs-4);
+  padding:var(--space-0-2) 0;
+}
+.cat-label{opacity:.65}
+/* v4.3: #f59e0b на белой карточке давал 2.15:1. Базовое правило — тёмный
+   вариант (5.02:1), в тёмной теме возвращаем исходный (6.49:1 на --card-bg). */
+.cat-warn{
+  margin-top:.55rem;font-size:var(--fs-4);color:var(--warn-tx);
+  border-top:1px solid var(--border);padding-top:.55rem;
+}
+html:not(.light) .cat-warn{color:var(--warn-tx-amber)}
+
+/* ===== Methodology ===== */
+.methodology{
+  background:var(--card-bg);border:1px solid var(--border);
+  border-radius:var(--radius-xl);padding:var(--space-2) 1.2rem;margin:var(--space-6) 0;
+}
+.methodology summary{cursor:pointer;font-weight:600;padding:.6rem 0;font-size:.95rem}
+.method-body{font-size:.88rem;line-height:var(--lh-loose);padding-bottom:.8rem}
+.method-body h3{margin:var(--space-4) 0 .35rem;font-size:1.1rem;color:var(--text)}
+.method-body ul{margin:var(--space-0-3) 0;padding-inline-start:1.3rem}
+.method-body li{margin:var(--space-0-2) 0}
+.method-body pre{
+  background:rgba(128,128,128,.1);padding:.7rem .9rem;border-radius:var(--radius-lg);
+  font-size:var(--fs-4);overflow-x:auto;margin:.4rem 0;
+}
+.method-footer{margin-top:var(--space-4);opacity:.9;font-size:var(--fs-4)}
+
+  /* v5.5.0 A4: длина строки была 165 символов при ширине контейнера
+     1152px — вдвое больше читаемой нормы.
+
+     Селектор намеренно без привязки к секциям: один из четырёх hint
+     стоит сразу после <h1> и ни в executive-summary, ни в
+     scatter-section, ни в categories-section не попадает. Правило с
+     перечислением секций оставляло его на исходной ширине 1152px.
+
+     Почему 64ch, а не 72ch: ch — ширина глифа «0», а длина строки
+     считается по средней ширине строчных. Цифры шире «x», и при 72ch
+     фактически выходило 83 символа — выше заявленной нормы в 80.
+     Значение подобрано перебором по замеру, а не рассчитано: при 64ch
+     фактически выходит 74 символа.
+
+     Графики, сетка .insight-card и таблицы не затрагиваются: правило
+     действует только на p, а не на контейнеры. */
+  .hint,
+  .chart-note,
+  .method-footer{max-width:64ch}
+
+  /* v5.6.1: дисклеймер переехал из футера сразу под h1. Стиль
+     .site-footer .disc на него больше не действует — повторяем вид. */
+  main > p.disc{opacity:.9;margin:var(--space-2) 0 var(--space-4)}
+</style>
+<script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MedicalWebPage",
+      "name": "Тренды популярности",
+      "description": "10 лет данных по 130 добавкам: публикации PubMed, просмотры Wikipedia и цитирования исследований. Как менялась доказательная база и где появились новые работы.",
+      "url": "https://deadsno.github.io/brain-25-evidence/trends.html",
+      "inLanguage": "ru"
+    }
+    </script>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
+</head>
+<body class="trends-page">
+<a href="#main" class="skip-link"><span>Skip to content</span></a>
+
+<div class="site-header">
+  <div class="trustbar"><span>📊 Open data · Free · No ads</span></div>
+
+  <header class="top">
+    <div class="site-title"><a href="../index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a> <span class="v">v<span data-version="app"></span></span></div>
+    <nav class="actions">
+      <a class="btn c-feedback" href="../feedback.html"><span>💬 Feedback</span></a>
+      <a class="btn c-support" href="../support.html"><span>💚 Support us</span></a>
+      <button class="btn c-theme" id="themeBtn" aria-label="Переключить на светлую тему"><span>🌞 Light theme</span></button>
+      <select id="langSelect" class="lang-select"><option value="ru">RU</option><option value="en">EN</option></select>
+      <button class="btn c-random" id="randomBtn"><span>🎲 Surprise me</span></button>
+    </nav>
+  </header>
+</div>
+
+<main id="main">
+  <h1><span>Popularity trends</span></h1>
+
+<p class="hint" style="opacity:.75;margin:.4rem 0 0">
+  <span>10 years of data on 130 supplements: PubMed publications, ru.wikipedia views, citations of key studies. Click a column to open the supplement card.</span>
+</p>
+
+<section class="executive-summary">
+  <h2><span>🎯 Highlights</span></h2>
+  <p class="hint"><span>Automatic conclusions from the data: what is growing, what is overrated, where science outruns the hype.</span></p>
+  <!-- v5.6.5 (A11Y-P2-05): сетка инсайтов и категории ниже заполняются
+     один раз при загрузке (:1091-1092) — это обычный контент страницы,
+     а не результат действия пользователя. Live-регион не нужен. -->
+  <div class="insights-grid" id="insightsGrid">
+    <div class="insight-card" data-tone="blue">
+      <div class="insight-icon">⏳</div>
+      <div><div class="insight-title">Loading…</div>
+      <div class="insight-text"><span>Analyzing 86 supplements on two metrics</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- KPI-карточки.
+     v5.6.5 (A11Y-P2-05): блок НАМЕРЕННО без live-региона. Значения
+     проставляются один раз при загрузке (renderStats :483) и дальше не
+     меняются — экранный диктор и так проходит их в обычном порядке
+     чтения, а регион заставил бы читать четыре карточки второй раз. -->
+<div class="stat-cards" id="statCards">
+  <div class="stat-card">
+    <div class="label"><span>Publications 2025</span></div>
+    <div class="value" id="kpiPubs2025">—</div>
+    <div class="delta" id="kpiPubsDelta">—</div>
+  </div>
+  <div class="stat-card">
+    <div class="label"><span>Wikipedia views/month (Dec 2025)</span></div>
+    <div class="value" id="kpiWiki">—</div>
+    <div class="delta" id="kpiWikiDelta">—</div>
+  </div>
+  <div class="stat-card">
+    <div class="label"><span>Citations 2025</span></div>
+    <div class="value" id="kpiCites2025">—</div>
+    <div class="delta" id="kpiCitesDelta">—</div>
+  </div>
+  <div class="stat-card">
+    <div class="label"><span>Top by growth</span></div>
+    <div class="value" id="kpiTop" style="font-size:1.1rem">—</div>
+    <div class="delta" id="kpiTopDelta">—</div>
+  </div>
+</div>
+
+<!-- Фильтры -->
+<div class="filters">
+  <label><span>Period:</span>
+    <select id="periodFilter">
+      <option value="2015-2025">2015–2025</option>
+      <option value="2018-2025">2018–2025</option>
+      <option value="2020-2025">2020–2025</option>
+    </select>
+  </label>
+  <label><span>Category:</span>
+    <select id="categoryFilter"><option value="all">All</option></select>
+  </label>
+  <label><abbr><span>Grade</span></abbr>:
+    <select id="gradeFilter">
+      <option value="all">All</option>
+      <option value="A">A</option>
+      <option value="B">B</option>
+      <option value="C">C</option>
+      <option value="D">D</option>
+    </select>
+  </label>
+  <label><span>Top:</span>
+    <select id="topFilter">
+      <option value="10">10</option>
+      <option value="20" selected>20</option>
+      <option value="30">30</option>
+      <option value="50">50</option>
+    </select>
+  </label>
+</div>
+
+<!-- Табы -->
+<div class="tr-tabs">
+  <button class="tr-tab on" data-tab="growth"><span>Publication growth</span></button>
+  <button class="tr-tab" data-tab="wiki">Wikipedia</button>
+  <button class="tr-tab" data-tab="citations"><span>Citations</span></button>
+</div>
+
+<div class="chart-wrap">
+  <canvas id="trendsChart"></canvas>
+</div>
+<!-- v5.6.5: live-регион (A11Y-P2-05). Подпись под графиком переписывается
+     renderChart() (:561) при каждой смене вкладки (setTab :476) и при
+     изменении любого из четырёх фильтров (:463) — то есть по действию
+     пользователя. Без региона смена «рост / Wikipedia / цитаты» была
+     беззвучной. -->
+<p class="chart-note" id="chartNote" role="status" aria-live="polite"></p>
+
+</main>
+
+<!-- v5.6.1: футер стоял здесь, между чартом и секциями «Матрица» /
+     «Категории» — то есть буквально в середине страницы, и рвал контент.
+     Перенесён в конец страницы (после methodology), дисклеймер поднят
+     под h1. -->
+
+<!-- Модалка -->
+<div id="modalOverlay" style="display:none">
+  <div id="modal">
+    <button id="modalClose" class="btn">×</button>
+    <!-- v5.6.5: live-регион (A11Y-P2-05). openModal() (:727) собирает
+         содержимое и только потом показывает оверлей (:758-759), поэтому
+         озвучивание приходит при открытии. Сама роль dialog и перевод
+         фокуса внутрь модалки — отдельная правка, здесь не в объёме. -->
+    <div id="modalBody" aria-live="polite"></div>
+  </div>
+</div>
+
+<script>
+'use strict';
+// v5.6.3 (I18N-P2-04): локаль из <html lang> вместо семи литералов
+// 'ru-RU' по коду страницы. 13A2a: LOCALE объявлен в общем docs/i18n.js.
+
+// ── XSS protection ────────────────────────────────────────────
+function esc(s) {
+  if (s == null) return '';
+  return String(s).replace(/[&<>"']/g, c => (
+    { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
+  ));
+}
+
+// v5.6.5 (NV2-06): цвета графика больше не литералы в JS, а токены
+// --chart-* в style.css (:root, светлая тема переопределяет --chart-label
+// и --chart-grid). Резервные значения — именованные цвета CSS: если
+// style.css не загрузился, график остаётся читаемым, но второй копии
+// палитры в коде нет.
+function cssVar(name, fallback) {
+  const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+  return v || fallback;
+}
+
+const GRADE_COLOR = {
+  A: cssVar('--chart-grade-a', 'mediumseagreen'),
+  B: cssVar('--chart-grade-b', 'yellowgreen'),
+  C: cssVar('--chart-grade-c', 'orange'),
+  D: cssVar('--chart-grade-d', 'tomato'),
+};
+const GRADE_BG = {
+  A: cssVar('--chart-grade-a-bg', 'mediumseagreen'),
+  B: cssVar('--chart-grade-b-bg', 'yellowgreen'),
+  C: cssVar('--chart-grade-c-bg', 'orange'),
+  D: cssVar('--chart-grade-d-bg', 'tomato'),
+};
+
+let SUPP = [];           // data_index.json
+let TS = {};             // timeseries.json
+let byId = {};
+let chart = null;
+let currentTab = 'growth';
+
+// ── Тема ──────────────────────────────────────────────────────
+function setTheme(light) {
+  document.body.classList.toggle('light', light);
+  document.documentElement.classList.toggle('light', light);
+  const btn = document.getElementById('themeBtn');
+  if (btn) btn.textContent = light ? t("theme.dark") : t("theme.light");
+  if (btn) btn.setAttribute('aria-label', light ? t("a11y.themeToDark") : t("a11y.themeToLight"));
+  try { localStorage.setItem('theme', light ? 'light' : 'dark'); } catch (e) {}
+  // перерисовываем чтобы цвета подписей обновились
+  if (TS.pubmed) renderChart();
+}
+
+function getTheme() {
+  let saved = null;
+  try { saved = localStorage.getItem('theme'); } catch (e) {}
+  return saved === 'light';
+}
+
+// ── Загрузка данных ───────────────────────────────────────────
+const fetchJson = (url) => fetch(url + '?v=' + (window.BUILD_VERSION || '5.6.5'))
+  .then(r => { if (!r.ok) throw new Error(url + ': ' + r.status); return r.json(); });
+
+// i18n.js и version.js подключены с `defer`: они выполняются после полного
+// парсинга документа, а этот встроенный скрипт — в середине тела. Без
+// ожидания `t()` загрузка JSON могла завершиться раньше, чем `t` появится,
+// и `initApp()` падал с необработанным ReferenceError — страница висела
+// вечно в WebKit/Safari (баг страницы, а не теста).
+function bootTrends() {
+  if (typeof window.t !== 'function') {
+    return setTimeout(bootTrends, 20);
+  }
+  Promise.all([
+    fetchJson('data_index.json'),
+    fetchJson('timeseries.json'),
+  ]).then(([data, ts]) => {
+    SUPP = (data.supplements || data).sort((a, b) => a.id.localeCompare(b.id, 'ru'));
+    TS = ts;
+    byId = Object.fromEntries(SUPP.map(c => [c.id, c]));
+    initApp();
+  }).catch(err => {
+    console.error('[boot]', err);
+    // v5.6.5 (A11Y-P2-05): роль на самом сообщении, а не на .chart-wrap —
+    // контейнер держит <canvas>, регион на нём озвучивал бы весь холст.
+    // Ошибка приходит один раз, поэтому assertive (role="alert").
+    document.querySelector('.chart-wrap').innerHTML =
+      '<p role="alert" style="color:var(--grade-d-tx);padding:2rem;text-align:center">' + t("trends.loadError") + esc(err.message) + '</p>';
+  });
+}
+bootTrends();
+
+// ── Инициализация ─────────────────────────────────────────────
+function initApp() {
+  // категории в фильтр
+  const cats = [...new Set(SUPP.map(c => c.category))].sort();
+  const sel = document.getElementById('categoryFilter');
+  cats.forEach(c => {
+    const o = document.createElement('option');
+    o.value = c; o.textContent = c;
+    sel.appendChild(o);
+  });
+
+  // тема
+  setTheme(getTheme());
+
+  // события
+  document.querySelectorAll('.tr-tab').forEach(b =>
+    b.addEventListener('click', () => setTab(b.dataset.tab)));
+  ['periodFilter', 'categoryFilter', 'gradeFilter', 'topFilter'].forEach(id =>
+    document.getElementById(id).addEventListener('change', renderChart));
+  document.getElementById('themeBtn').addEventListener('click', () => setTheme(!document.documentElement.classList.contains('light')));
+  document.getElementById('modalClose').addEventListener('click', closeModal);
+  document.getElementById('modalOverlay').addEventListener('click', e => {
+    if (e.target.id === 'modalOverlay') closeModal();
+  });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+  renderStats();
+  renderChart();
+}
+
+function setTab(tab) {
+  currentTab = tab;
+  document.querySelectorAll('.tr-tab').forEach(b => b.classList.toggle('on', b.dataset.tab === tab));
+  renderChart();
+}
+
+// ── KPI карточки ──────────────────────────────────────────────
+function renderStats() {
+  // Публикации 2025
+  const pubTotals = {};
+  Object.entries(TS.pubmed || {}).forEach(([id, s]) => {
+    pubTotals[id] = { y2025: s['2025'] || 0, y2015: s['2015'] || 0 };
+  });
+  const sumPubs2025 = Object.values(pubTotals).reduce((sum, x) => sum + x.y2025, 0);
+  const sumPubs2015 = Object.values(pubTotals).reduce((sum, x) => sum + x.y2015, 0);
+  document.getElementById('kpiPubs2025').textContent = sumPubs2025.toLocaleString(LOCALE);
+  const pubsDelta = sumPubs2015 ? Math.round((sumPubs2025 / sumPubs2015 - 1) * 100) : 0;
+  const pubsDEl = document.getElementById('kpiPubsDelta');
+  pubsDEl.textContent = (pubsDelta >= 0 ? '↑ ' : '↓ ') + Math.abs(pubsDelta) + t("trends.pctTo2015");
+  pubsDEl.className = 'delta' + (pubsDelta < 0 ? ' down' : '');
+
+  // Wiki декабрь 2025 (последний месяц)
+  let sumWiki = 0, lastMonth = null;
+  Object.values(TS.wiki || {}).forEach(s => {
+    const m = Object.keys(s).sort().pop();
+    if (m) { sumWiki += s[m] || 0; lastMonth = m; }
+  });
+  document.getElementById('kpiWiki').textContent = sumWiki.toLocaleString(LOCALE);
+
+  // Цитаты 2025
+  const cite2025 = Object.values(TS.citations || {}).reduce((s, c) => s + (c['2025'] || 0), 0);
+  const cite2015 = Object.values(TS.citations || {}).reduce((s, c) => s + (c['2015'] || 0), 0);
+  document.getElementById('kpiCites2025').textContent = cite2025.toLocaleString(LOCALE);
+  const citeDelta = cite2015 ? Math.round((cite2025 / cite2015 - 1) * 100) : 0;
+  const citeEl = document.getElementById('kpiCitesDelta');
+  citeEl.textContent = (citeDelta >= 0 ? '↑ ' : '↓ ') + Math.abs(citeDelta) + t("trends.pctTo2015");
+  citeEl.className = 'delta' + (citeDelta < 0 ? ' down' : '');
+
+  // Топ по росту
+  const growth = Object.entries(TS.pubmed || {}).map(([id, s]) => {
+    const first = (s['2015'] || 0) + (s['2016'] || 0) + (s['2017'] || 0);
+    const last = (s['2023'] || 0) + (s['2024'] || 0) + (s['2025'] || 0);
+    const g = first > 0 ? last / first : 0;
+    return { id, growth: g, first };
+  }).filter(x => x.first >= 20);  // фильтр от шума
+
+  growth.sort((a, b) => b.growth - a.growth);
+  const top = growth[0];
+  if (top) {
+    document.getElementById('kpiTop').textContent = top.id;
+    document.getElementById('kpiTopDelta').textContent = '×' + top.growth.toFixed(2) + t("trends.per10y");
+  }
+}
+
+// ── Фильтрация ────────────────────────────────────────────────
+function getFiltered() {
+  const cat = document.getElementById('categoryFilter').value;
+  const grade = document.getElementById('gradeFilter').value;
+  return SUPP.filter(c => {
+    if (cat !== 'all' && c.category !== cat) return false;
+    if (grade !== 'all' && c.grade !== grade) return false;
+    return true;
+  });
+}
+
+function getYears() {
+  const range = document.getElementById('periodFilter').value;
+  const [a, b] = range.split('-').map(Number);
+  return Array.from({ length: b - a + 1 }, (_, i) => String(a + i));
+}
+
+// ── Отрисовка ─────────────────────────────────────────────────
+function renderChart() {
+  const years = getYears();
+  const top = parseInt(document.getElementById('topFilter').value, 10);
+  const filtered = getFiltered();
+  const filteredIds = new Set(filtered.map(c => c.id));
+
+  const ctx = document.getElementById('trendsChart').getContext('2d');
+  if (chart) { chart.destroy(); chart = null; }
+
+  const isLight = document.documentElement.classList.contains('light');
+  const txt = cssVar('--chart-label', isLight ? 'black' : 'gainsboro');
+  const grid = cssVar('--chart-grid', 'rgba(128,128,128,.15)');
+
+  const note = document.getElementById('chartNote');
+
+  if (currentTab === 'growth') {
+    const rows = Object.entries(TS.pubmed || {})
+      .filter(([id]) => filteredIds.has(id))
+      .map(([id, s]) => {
+        const first = years.slice(0, 3).reduce((sum, y) => sum + (s[y] || 0), 0) / 3;
+        const last = years.slice(-3).reduce((sum, y) => sum + (s[y] || 0), 0) / 3;
+        const growth = first > 0 ? last / first : 0;
+        return { id, growth, first };
+      })
+      .filter(x => x.first >= 5 && x.growth > 1.05)
+      .sort((a, b) => b.growth - a.growth)
+      .slice(0, top);
+
+    const labels = rows.map(r => r.id);
+    const values = rows.map(r => r.growth);
+    const colors = rows.map(r => GRADE_BG[byId[r.id]?.grade] || 'rgba(128,128,128,.7)');
+
+    chart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels,
+        datasets: [{
+          label: t("trends.pubGrowthLabel"),
+          data: values,
+          backgroundColor: colors,
+          borderRadius: 4,
+        }],
+      },
+      options: {
+        indexAxis: 'y',
+        responsive: true,
+        maintainAspectRatio: false,
+        onClick: (e, els) => { if (els[0]) openModal(rows[els[0].index].id); },
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: (ctx) => {
+                const r = rows[ctx.dataIndex];
+                const s = TS.pubmed[r.id] || {};
+                return `×${r.growth.toFixed(2)} · ${s[years[0]] || 0} → ${s[years[years.length-1]] || 0}`;
+              },
+            },
+          },
+        },
+        scales: {
+          x: { grid: { color: grid }, ticks: { color: txt }, title: { display: true, text: t("trends.xAxisBase"), color: txt } },
+          y: { grid: { display: false }, ticks: { color: txt, font: { size: 11 } } },
+        },
+      },
+    });
+    note.textContent = t("trends.shown", { n: rows.length });
+  }
+
+  else if (currentTab === 'wiki') {
+    const rows = Object.entries(TS.wiki || {})
+      .filter(([id]) => filteredIds.has(id))
+      .map(([id, s]) => {
+        const lastMonth = Object.keys(s).sort().pop();
+        return { id, last: lastMonth ? s[lastMonth] : 0 };
+      })
+      .filter(x => x.last > 0)
+      .sort((a, b) => b.last - a.last)
+      .slice(0, Math.min(top, 10));  // wiki читается лучше с меньшим
+
+    // Собираем все уникальные месяцы в выбранном периоде
+    const allMonths = new Set();
+    rows.forEach(r => Object.keys(TS.wiki[r.id] || {}).forEach(m => {
+      if (m >= years[0] + '-01' && m <= years[years.length-1] + '-12') allMonths.add(m);
+    }));
+    const months = [...allMonths].sort();
+
+    const datasets = rows.map(r => {
+      const s = TS.wiki[r.id] || {};
+      const values = months.map(m => s[m] || 0);
+      const c = byId[r.id];
+      return {
+        label: `${r.id}${c?.grade ? ' [' + c.grade + ']' : ''}`,
+        data: values,
+        borderColor: GRADE_COLOR[c?.grade] || 'gray',
+        backgroundColor: 'transparent',
+        borderWidth: 1.4,
+        tension: 0.3,
+        pointRadius: 0,
+        pointHoverRadius: 4,
+      };
+    });
+
+    chart = new Chart(ctx, {
+      type: 'line',
+      data: { labels: months, datasets },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
+        plugins: {
+          legend: { labels: { color: txt, font: { size: 10 } }, position: 'top' },
+        },
+        scales: {
+          x: {
+            grid: { color: grid },
+            ticks: {
+              color: txt, maxRotation: 0,
+              callback: function(v) {
+                const m = this.getLabelForValue(v);
+                return m && m.endsWith('-01') ? m.slice(0, 4) : '';
+              },
+            },
+          },
+          y: { grid: { color: grid }, ticks: { color: txt } },
+        },
+      },
+    });
+    note.textContent = t("trends.topShown", { n: rows.length });
+  }
+
+  else if (currentTab === 'citations') {
+    // Сумма по всем добавкам за каждый год
+    const totals = {};
+    years.forEach(y => {
+      totals[y] = Object.entries(TS.citations || {})
+        .filter(([id]) => filteredIds.has(id))
+        .reduce((sum, [, s]) => sum + (s[y] || 0), 0);
+    });
+
+    chart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: years,
+        datasets: [{
+          label: t("trends.citesPerYearLabel"),
+          data: years.map(y => totals[y]),
+          backgroundColor: cssVar('--chart-cites-fill', 'rgba(52,152,219,.8)'),
+          borderColor: cssVar('--chart-cites-border', 'steelblue'),
+          borderWidth: 1,
+          borderRadius: 4,
+        }],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: (ctx) => ctx.parsed.y.toLocaleString(LOCALE) + t("trends.citationsSuffix"),
+            },
+          },
+        },
+        scales: {
+          x: { grid: { color: grid }, ticks: { color: txt } },
+          y: { grid: { color: grid }, ticks: { color: txt, callback: v => v.toLocaleString(LOCALE) } },
+        },
+      },
+    });
+
+    const first = totals[years[0]] || 0;
+    const last = totals[years[years.length - 1]] || 0;
+    const d = first > 0 ? Math.round((last / first - 1) * 100) : 0;
+    note.textContent = t("trends.citeSumGrowth", { d: (d >= 0 ? '+' : '') + d });
+  }
+}
+
+// ── Модалка ───────────────────────────────────────────────────
+function openModal(id) {
+  const c = byId[id];
+  if (!c) return;
+
+  const parts = [];
+  parts.push(`<h2>${esc(c.name)}</h2>`);
+  parts.push(`<div class="mrow"><span class="verdict v${esc(c.code)}">${esc(c.verdict)}</span>` +
+    (c.grade ? ` · <span class="grade g${esc(c.grade)}">${t("card.grade")} ${esc(c.grade)}</span>` : '') +
+    ` · ${esc(c.category)}</div>`);
+  if (c.scienceIndex) parts.push(`<div class="mrow">${t("trends.sciIndex")}<b>${c.scienceIndex}</b> (MA: ${c.metaCount || 0})</div>`);
+  if (c.citations != null) parts.push(`<div class="mrow">${t("trends.citKeySource")}${c.citations}</div>`);
+  if (c.wiki != null) parts.push(`<div class="mrow">${t("trends.wikiPerMonth")}${c.wiki.toLocaleString(LOCALE)}</div>`);
+  if (c.ongoing != null) parts.push(`<div class="mrow">${t("trends.activeTrials")}${c.ongoing}</div>`);
+  if (c.effects?.length) parts.push(`<div class="mrow"><b>${t("trends.effectsLabel")}</b> ${c.effects.map(esc).join(', ')}</div>`);
+
+  // мини-график динамики
+  const pubS = TS.pubmed[id] || {};
+  const wikiS = TS.wiki[id] || {};
+  const citeS = TS.citations[id] || {};
+  if (Object.keys(pubS).length) {
+    const ys = Object.keys(pubS).sort();
+    parts.push(`<div class="mrow" style="margin-top:.8rem"><b>${t("trends.pubsByYear")}</b> ` +
+      ys.map(y => `<span style="opacity:.7">${y}:</span> ${pubS[y]}`).join(' · ') + `</div>`);
+  }
+  if (Object.keys(citeS).length) {
+    const total = Object.values(citeS).reduce((s, x) => s + x, 0);
+    parts.push(`<div class="mrow"><b>${t("trends.totalCites")}</b> ${total.toLocaleString(LOCALE)}</div>`);
+  }
+
+  parts.push(`<div class="mrow" style="margin-top:1rem"><a class="btn" href="../index.html#sup=${encodeURIComponent(id)}">${t("trends.openFullCard")}</a></div>`);
+
+  document.getElementById('modalBody').innerHTML = parts.join('');
+  document.getElementById('modalOverlay').style.display = 'flex';
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').style.display = 'none';
+}
+</script>
+<section class="scatter-section">
+  <h2><span>🎯 “Science × Interest” matrix</span></h2>
+  <p class="hint">
+    <span>Each dot is a supplement. X = publication growth (2015→2025), Y = Wikipedia view growth. Size = publication volume in 2025. Colour = evidence grade. Click a dot for the card.</span>
+  </p>
+  <div class="scatter-wrap">
+    <div class="scatter-canvas-box"><canvas id="scatterMatrix"></canvas></div>
+    <div class="scatter-legend">
+      <span data-g="A"><span>grade A — firmly proven</span></span>
+      <span data-g="B"><span>grade B — moderate</span></span>
+      <span data-g="C"><span>grade C — heavily studied, small effect</span></span>
+      <span data-g="D"><span>grade D — little data</span></span>
+    </div>
+  </div>
+</section>
+
+<section class="categories-section">
+  <h2><span>📊 Category breakdown</span></h2>
+  <p class="hint"><span>Comparison of 8 categories by average publication growth, leader, failure and hype risk.</span></p>
+  <div class="categories-grid" id="categoryCards"></div>
+</section>
+
+<details class="methodology">
+  <summary><span>📐 Methodology and data limitations</span></summary>
+  <div class="method-body">
+    <h3><span>Sources</span></h3>
+    <ul>
+      <li><b>PubMed E-utilities</b> <span>— number of publications by year 2015–2025 for 130 supplements</span></li>
+      <li><b>Wikipedia REST API</b> <span>— monthly ru.wikipedia views (90 of 130 supplements)</span></li>
+      <li><b>OpenAlex</b> <span>— citations by year (130 of 130 supplements, not used in the scatter plot)</span></li>
+    </ul>
+    <h3><span>Growth formula</span></h3>
+    <pre tabindex="0">growth_pub  = pubmed[id][2025] / pubmed[id][2015]
+growth_wiki = avg(wiki[id][последние 6 мес]) / avg(wiki[id][первые 6 мес])</pre>
+    <h3><span>Assumptions</span></h3>
+    <ul>
+      <li><span>Growth &gt; ×1.5 — “significant”, &gt; ×2.0 — “anomalous”</span></li>
+      <li><span>Z-score &gt; 2σ — statistical outlier (anomaly)</span></li>
+      <li><span>For wiki we take the first/last 6 months — this smooths seasonality</span></li>
+    </ul>
+    <h3><span>Limitations</span></h3>
+    <ul>
+      <li><span>PubMed has indexed preprints since 2019 — part of the 2020–2022 growth may be an artefact</span></li>
+      <li><span>Wiki views ≠ supplement consumption, they show interest (sometimes driven by news events)</span></li>
+      <li><span>OpenAlex is incomplete before 2023 — year-over-year citation comparison is unreliable</span></li>
+      <li><span>The catalog has 130 supplements; series were collected for 130 (PubMed and citations) and 90 (Wiki). The “Sport” (2) and “Sleep” (3) categories are small, so their conclusions are less stable than for “Cognition” (26)</span></li>
+    </ul>
+    <h3><span>Series coverage</span></h3>
+    <p>
+      <span>PubMed publication and citation series were collected for all</span> <b>130</b> <span>catalog supplements — before the DATA-P1-12 data collection this was 94 of 130. A Wikipedia view series exists for</span> <b>90</b> <span>of 130: the other 40 have no ru.wikipedia article with view history, so the second metric is not computed for them. The “Highlights” section and the z-score computation include</span> <b>86</b> <span>supplements — only those with both metrics. Four more (Cranberry, D-mannose, Yohimbine, Shatavari) have no non-zero value for 2015 or 2025 in the PubMed series, and without both yearly values growth is not computed.</span>
+    </p>
+    <p class="method-footer">
+      <span>Full methodology —</span> <a href="../methodology.html">methodology.html</a> · <span>Source data —</span> <a href="https://github.com/DeadSno/brain-25-evidence" target="_blank" rel="nofollow noopener">GitHub ↗</a>
+    </p>
+  </div>
+</details>
+
+<footer class="site-footer">
+    <p class="disc"><span>⚠️ Data from open scientific sources (PubMed, Europe PMC, CrossRef, OpenAlex, ClinicalTrials.gov, Wikimedia) for information and education.</span></p>
+  <p class="meta">
+    v<span data-version="app"></span> · <span>data as of</span> <span data-version="data"></span>
+  </p>
+  <p class="links">
+    <a href="../methodology.html">📐 Methodology</a> ·
+    <a href="../faq.html">❓ FAQ</a> ·
+    <a href="../glossary.html">📖 Glossary</a> ·
+    <a href="../trends.html">📈 Trends</a> ·
+    <a href="../privacy.html">🔐 Privacy</a> ·
+    <a href="../terms-of-use.html">📄 Terms of Use</a> ·
+    <a href="../sup/index.html">💊 Supplement Catalog</a> ·
+    <a href="../feed.xml">📡 RSS</a>
+  </p>
+  <p class="copy">© 2026 Vladislav "DeadSno" Pereshivalov · MIT · <a href="../terms-of-use.html#data-license"><span>Data: CC BY 4.0</span></a></p>
+  <p class="legal-disclaimer">Dietary supplements are not medicines. Consult a doctor before use.</p>
+  <p class="share-row"><button class="btn share-page" type="button"><span>🔗 Share</span></button></p>
+</footer>
+
+<script>
+(function(){
+  let TS_ = null, SUPP_ = null, scatterChart_ = null;
+
+  const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => (
+    { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
+  ));
+  const mean = a => a.reduce((x, y) => x + y, 0) / a.length;
+  const std = a => { const m = mean(a); return Math.sqrt(a.reduce((s, v) => s + (v - m) ** 2, 0) / a.length); };
+
+  function growthPub(id) {
+    const p = (TS_.pubmed || {})[id] || {};
+    const y0 = p['2015'], y1 = p['2025'];
+    if (!y0 || !y1) return null;
+    return y1 / y0;
+  }
+  function growthWiki(id) {
+    const w = (TS_.wiki || {})[id] || {};
+    const months = Object.keys(w).sort();
+    if (months.length < 12) return null;
+    const first = months.slice(0, 6), last = months.slice(-6);
+    const avg = arr => arr.reduce((s, m) => s + (w[m] || 0), 0) / arr.length;
+    const v0 = avg(first), v1 = avg(last);
+    if (!v0 || !v1) return null;
+    return v1 / v0;
+  }
+
+  function computeItems() {
+    return SUPP_.map(s => ({
+      id: s.id, name: s.name, grade: s.grade, category: s.category,
+      pub: growthPub(s.id),
+      wiki: growthWiki(s.id),
+      size: ((TS_.pubmed || {})[s.id] || {})['2025'] || 0,
+    })).filter(x => x.pub && x.wiki);
+  }
+
+  function computeInsights(items) {
+    const mP = mean(items.map(x => x.pub)), sP = std(items.map(x => x.pub));
+    const mW = mean(items.map(x => x.wiki)), sW = std(items.map(x => x.wiki));
+    items.forEach(x => {
+      x.zP = (x.pub - mP) / sP;
+      x.zW = (x.wiki - mW) / sW;
+    });
+    const out = [];
+
+    const sci = items.filter(x => x.pub > x.wiki * 1.5 && x.pub > 1.5)
+                     .sort((a, b) => (b.pub - b.wiki) - (a.pub - a.wiki));
+    if (sci[0]) out.push({
+      icon: '🔬', title: t("trends.ins1Title"), tone: 'blue',
+      text: `${sci[0].name}${t("trends.insPubPrefix")}${sci[0].pub.toFixed(2)}, wiki ×${sci[0].wiki.toFixed(2)}${t("trends.insSciFaster")}`
+    });
+
+    const hype = items.filter(x => x.wiki > x.pub * 1.5 && ['C','D'].includes(x.grade))
+                      .sort((a, b) => (b.wiki - b.pub) - (a.wiki - a.pub));
+    if (hype[0]) out.push({
+      icon: '🔥', title: t("trends.ins2Title"), tone: 'red',
+      text: `${hype[0].name}: wiki ×${hype[0].wiki.toFixed(2)}${t("trends.insPubComma")}${hype[0].pub.toFixed(2)}${t("trends.insGradePrefix")}${hype[0].grade}${t("trends.insHypeGrowth")}`
+    });
+
+    const hid = items.filter(x => x.pub > 1.5 && x.wiki < 1.1).sort((a, b) => b.pub - a.pub);
+    if (hid[0]) out.push({
+      icon: '❄️', title: t("trends.ins3Title"), tone: 'blue',
+      text: `${hid[0].name}${t("trends.insPubPrefix")}${hid[0].pub.toFixed(2)}, wiki ×${hid[0].wiki.toFixed(2)}${t("trends.insUndervalued")}`
+    });
+
+    const lead = items.filter(x => x.pub > 1.3 && x.wiki > 1.3 && ['A','B'].includes(x.grade))
+                      .sort((a, b) => (b.pub + b.wiki) - (a.pub + a.wiki));
+    if (lead[0]) out.push({
+      icon: '⭐', title: t("trends.ins4Title"), tone: 'green',
+      text: `${lead[0].name}: ×${lead[0].pub.toFixed(2)}${t("trends.insLeadMid")}${lead[0].wiki.toFixed(2)}${t("trends.insWikiGrade")}${lead[0].grade}`
+    });
+
+    const ano = items.filter(x => Math.abs(x.zP) > 2 || Math.abs(x.zW) > 2)
+                     .sort((a, b) => Math.max(Math.abs(b.zP), Math.abs(b.zW)) - Math.max(Math.abs(a.zP), Math.abs(a.zW)));
+    if (ano[0]) {
+      const z = Math.max(Math.abs(ano[0].zP), Math.abs(ano[0].zW));
+      out.push({
+        icon: '⚠️', title: t("trends.ins5Title"), tone: 'orange',
+        text: `${ano[0].name}: z-score ${z.toFixed(2)}${t("trends.insAnomaly")}`
+      });
+    }
+    return { out, mP, mW };
+  }
+
+  function renderInsights(insights) {
+    const grid = document.getElementById('insightsGrid');
+    if (!grid) return;
+    grid.innerHTML = insights.map(i => `
+      <div class="insight-card" data-tone="${i.tone}">
+        <div class="insight-icon">${i.icon}</div>
+        <div>
+          <div class="insight-title">${esc(i.title)}</div>
+          <div class="insight-text">${esc(i.text)}</div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // Плагин квадрантов
+  const quadrantPlugin = {
+    id: 'quadrantLabels',
+    beforeDraw(chart) {
+      const { ctx, chartArea, scales: { x, y } } = chart;
+      if (!chartArea || chart.__mP == null || chart.__mW == null) return;
+      const mx = x.getPixelForValue(chart.__mP);
+      const my = y.getPixelForValue(chart.__mW);
+      ctx.save();
+      ctx.font = 'bold 13px system-ui, sans-serif';
+      ctx.fillStyle = 'rgba(160,160,160,.4)';
+      ctx.textAlign = 'left';
+      ctx.fillText(t("trends.qHype"), chartArea.left + 12, chartArea.top + 22);
+      ctx.textAlign = 'right';
+      ctx.fillText(t("trends.qLeaders"), chartArea.right - 12, chartArea.top + 22);
+      ctx.textAlign = 'left';
+      ctx.fillText(t("trends.qForget"), chartArea.left + 12, chartArea.bottom - 10);
+      ctx.textAlign = 'right';
+      ctx.fillText(t("trends.qScience"), chartArea.right - 12, chartArea.bottom - 10);
+      ctx.strokeStyle = 'rgba(160,160,160,.35)';
+      ctx.setLineDash([5, 5]);
+      ctx.beginPath();
+      ctx.moveTo(mx, chartArea.top); ctx.lineTo(mx, chartArea.bottom);
+      ctx.moveTo(chartArea.left, my); ctx.lineTo(chartArea.right, my);
+      ctx.stroke();
+      ctx.restore();
+    }
+  };
+  if (window.Chart) Chart.register(quadrantPlugin);
+
+  const GRADE_COLOR = {
+    A: 'rgba(16,185,129,.8)',
+    B: 'rgba(132,204,22,.8)',
+    C: 'rgba(245,158,11,.8)',
+    D: 'rgba(239,68,68,.8)',
+  };
+
+  function renderScatter(items, mP, mW) {
+    const cvs = document.getElementById('scatterMatrix');
+    if (!cvs) return;
+    if (scatterChart_) scatterChart_.destroy();
+
+    // Цвета под текущую тему
+    const cs = getComputedStyle(document.body);
+    const gridColor = 'rgba(128,128,128,.15)';
+    const textColor = cs.getPropertyValue('--text').trim() || 'gainsboro';
+
+    const data = items.map(x => ({
+      x: x.pub, y: x.wiki,
+      r: Math.max(5, Math.min(22, Math.sqrt(x.size) / 1.8)),
+      label: x.name, grade: x.grade,
+      bg: GRADE_COLOR[x.grade] || 'rgba(128,128,128,.6)',
+    }));
+
+    scatterChart_ = new Chart(cvs.getContext('2d'), {
+      type: 'bubble',
+      data: { datasets: [{ data, backgroundColor: data.map(d => d.bg), borderColor: data.map(d => d.bg), borderWidth: 1 }] },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: (ctx) => {
+                const d = ctx.raw;
+                return `${d.label} · ×${d.x.toFixed(2)} pub · ×${d.y.toFixed(2)} wiki${t("trends.tipGrade")}${d.grade}`;
+              },
+            },
+          },
+        },
+        scales: {
+          x: {
+            title: { display: true, text: t("trends.yAxisPubs"), color: textColor },
+            grid: { color: gridColor }, ticks: { color: textColor },
+          },
+          y: {
+            title: { display: true, text: t("trends.yAxisWiki"), color: textColor },
+            grid: { color: gridColor }, ticks: { color: textColor },
+          },
+        },
+      },
+    });
+    scatterChart_.__mP = mP;
+    scatterChart_.__mW = mW;
+    scatterChart_.update('none');
+  }
+
+  function renderCategories(items) {
+    const box = document.getElementById('categoryCards');
+    if (!box) return;
+
+    // Разбиваем "Спорт/Когниция" → ["Спорт", "Когниция"]
+    const byCat = {};
+    items.forEach(x => {
+      const cats = String(x.category || '').split('/').map(s => s.trim()).filter(Boolean);
+      cats.forEach(c => { (byCat[c] = byCat[c] || []).push(x); });
+    });
+
+    // Оставляем только категории с 3+ добавками, сортируем по размеру
+    const rows = Object.entries(byCat)
+      .filter(([, arr]) => arr.length >= 3)
+      .sort((a, b) => b[1].length - a[1].length);
+
+    box.innerHTML = rows.map(([cat, arr]) => {
+      const avg = arr.reduce((s, x) => s + x.pub, 0) / arr.length;
+      const leader = arr.slice().sort((a, b) => b.pub - a.pub)[0];
+      const loser = arr.slice().sort((a, b) => a.pub - b.pub)[0];
+      const dShare = arr.filter(x => x.grade === 'D').length / arr.length;
+      return `
+        <div class="category-card">
+          <div class="category-name">${esc(cat)} <span class="cat-count">${arr.length}</span></div>
+          <div class="cat-row"><span class="cat-label">${t("trends.catAvg")}</span><span>×${avg.toFixed(2)}</span></div>
+          <div class="cat-row"><span class="cat-label">${t("trends.catLeader")}</span><span>${esc(leader.name)} ×${leader.pub.toFixed(2)}</span></div>
+          <div class="cat-row"><span class="cat-label">${t("trends.catLoser")}</span><span>${esc(loser.name)} ×${loser.pub.toFixed(2)}</span></div>
+          ${dShare > 0.3 ? `<div class="cat-warn">${t("trends.catNoProof", { n: Math.round(dShare * 100) })}</div>` : ''}
+        </div>`;
+    }).join('');
+  }
+
+  async function init() {
+    const [ts, idx] = await Promise.all([
+      fetch('timeseries.json?v=' + Date.now())
+        .then(r => (r.ok ? r.json() : Promise.reject(new Error('HTTP ' + r.status)))),
+      fetch('data_index.json?v=' + Date.now())
+        .then(r => (r.ok ? r.json() : Promise.reject(new Error('HTTP ' + r.status)))),
+    ]).catch(function (err) {
+      // Без этого необработанный промис молча ломал рендер страницы
+      console.warn(t("trends.warnLog"), err);
+    });
+    TS_ = ts;
+    SUPP_ = idx.supplements || [];
+
+    const items = computeItems();
+    if (!items.length) return;
+
+    const { out, mP, mW } = computeInsights(items);
+    renderInsights(out);
+    renderCategories(items);
+    renderScatter(items, mP, mW);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+<button class="toBottom" id="toBottom" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})">↓</button>
+<script>
+window.addEventListener('scroll', () => {
+  const btn = document.getElementById('toBottom');
+  if (!btn) return;
+  // Раньше порог был 400px: на коротких страницах (atlas, calculator, glossary,
+  // map) он недостижим и кнопка не появлялась. Проверяем прокручиваемость.
+  const scrollable = document.body.scrollHeight > window.innerHeight + 100;
+  const atBottom = window.scrollY + window.innerHeight >= document.body.scrollHeight - 100;
+  if (scrollable && window.scrollY > 100 && !atBottom) {
+    btn.classList.add('show');
+  } else {
+    btn.classList.remove('show');
+  }
+});
+</script>
+<script src="../pwa.js?v=284" defer></script>
+<script src="../share.js?v=2" defer></script>
+<!-- v5.6.2: cookie-согласие + Яндекс.Метрика (счётчик 112465667).
+     Метрика грузится ТОЛЬКО после нажатия «Принять»: до согласия
+     ни одного запроса к mc.yandex.ru не происходит. -->
+<div id="cookieBanner" role="dialog" hidden>
+  <div class="cb-text">
+    <span>We use cookies and Yandex.Metrica to understand which materials are useful. Analytics is enabled only after your consent.</span>
+    <a href="../privacy.html"><span>Privacy policy</span></a>
+  </div>
+  <div class="cb-actions">
+    <button type="button" id="cookieAccept" class="cb-btn cb-accept"><span>Accept</span></button>
+    <button type="button" id="cookieReject" class="cb-btn cb-reject"><span>Decline</span></button>
+  </div>
+</div>
+<script src="../cookie-banner.js?v=1"></script>
+<script src="../metrika.js?v=1"></script>
+<script>initCookieBanner();// Кнопка «🎲 Удиви меня»: случайная добавка из каталога.
+// Список страниц берём из sitemap.xml — там уже готовые URL по slug
+// (sup/magniy.html). Раньше здесь собирались d.id из data.json и
+// открывался 'sup/' + id + '.html', но id — отображаемое имя
+// (кириллица), а файлы называются по slug, поэтому кнопка вела на 404
+// на всех страницах раздела. slugify живёт в Python
+// (scripts/build_sup.py) и в JS не дублируется.
+(function(){
+  var btn = document.getElementById('randomBtn');
+  if(!btn) return;
+  var sitemapUrl = new URL('sitemap.xml', location.href).href;
+  btn.onclick = function(){
+    fetch(sitemapUrl).then(function(r){ return r.text(); }).then(function(xml){
+      var doc = new DOMParser().parseFromString(xml, 'application/xml');
+      var urls = [];
+      doc.querySelectorAll('url > loc').forEach(function(node){
+        var u = (node.textContent || '').trim();
+        if(/\/sup\/[^/]+\.html$/.test(u) && !/\/sup\/index\.html$/.test(u)) urls.push(u);
+      });
+      if(!urls.length){ console.warn('[random] в sitemap.xml нет страниц добавок'); return; }
+      location.href = urls[Math.floor(Math.random() * urls.length)];
+    }).catch(function(err){ console.warn('[random] не удалось загрузить sitemap.xml', err); });
+  };
+})();
+
+</script>
+</body>
+</html>
+
+
+
+
+
