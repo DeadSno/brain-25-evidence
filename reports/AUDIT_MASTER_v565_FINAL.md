@@ -505,11 +505,34 @@ LCP/FCP ниже — это локальная отдача, сравниват�
 
 | ID | Крит. | Где | Что именно | Метрика | Локаль | Ширина | Статус |
 |---|---|---|---|---|---|---|---|
-| CWV-01 | B | `docs/i18n.js` (загрузка `docs/data_en.json`) | В EN к каждой странице добавляется **305 КБ** `data_en.json` поверх уже загруженного `data.json`. Одиночная карточка: RU 879 КБ → EN 1184 КБ (**+35 %**), причём нужна она ради одной карточки: `sup/magniy` в RU тянет 0,1 КБ (`fetch`), в EN — 305 КБ. `index`: 2727 → 3032 КБ; `hactar`: 3630 → 3934 КБ. Запросов +1 на каждой странице | вес страницы | RU+EN | 375, 1280 | открыто |
+| CWV-01 | B | `docs/i18n.js` (загрузка `docs/data_en.json`) | В EN к каждой странице добавляется **305 КБ** `data_en.json` поверх уже загруженного `data.json`. Одиночная карточка: RU 879 КБ → EN 1184 КБ (**+35 %**), причём нужна она ради одной карточки: `sup/magniy` в RU тянет 0,1 КБ (`fetch`), в EN — 305 КБ. `index`: 2727 → 3032 КБ; `hactar`: 3630 → 3934 КБ. Запросов +1 на каждой странице | вес страницы | RU+EN | 375, 1280 | Закрыто — не воспроизводится (FIX-54), переформулировано в CWV-06 |
 | CWV-02 | B | `docs/index.html` — `script.js:79` и `tracker.js:17` | `data.json` (742 КБ) запрашивается **дважды**: `script.js` (`fetchJson('data.json')`) и трекер приёма (`fetch('data.json?v=' + BUILD_VERSION)`), старт 21 мс и 143 мс. Второй ответ приходит из кэша, но 742 КБ заново декодируются и парсятся; трекеру нужен только список названий/категорий для «моего курса». В `script.js:1076` тот же дубль уже чинили (FIX-77) — вернулся со стороны `tracker.js` | req 2×742 КБ | RU+EN | 375, 1280 | Закрыто (e99eed72) |
 | CWV-03 | C | `docs/trends.html:1125` | `fetch('timeseries.json?v=' + Date.now())` — cache-busting по времени. Рядом, в строке 480, тот же файл берётся как `fetchJson('timeseries.json')` (URL `?v=5.6.5`), поэтому в ресурсах **две разные записи**: `?v=5.6.5` (старт 22 мс) и `?v=1793018396008` (старт 24 мс), по 196 КБ. Второй адрес уникален на каждый визит: HTTP-кэш и SW его не отдают, 196 КБ качаются всегда. Это **регресс архивного CWV-03**, где `?ts=` меняли на `?v=` | 2×196 КБ, 0 % cache hit | RU+EN | 375, 1280 | открыто |
 | CWV-04 | C | `docs/hactar.html`, `<head>` | `i18n.js` (207 КБ) подключён **без `defer`/`async`** — на `index.html` тот же файл идёт с `defer`. 207 КБ в блокирующем `<head>` задерживают первую отрисовку на всех вкладках Hactar. Убрать `defer` нельзя «в лоб»: именно этот файл выставляет класс `i18n-pending` до перевода и гасит FOUC в EN — нужен минимальный inline-сниппет с классом, а сам словарь грузить отложенно | 207 КБ blocking | RU+EN | 375, 1280 | открыто |
 | CWV-05 | C | `docs/index.html` | **2132 узла DOM** в документе против порога Google «excessive DOM» 1500 (у `hactar` 959, у карточек 218–223, `trends` 582). Причина — стартовая выдача карточек целиком в разметке; при 130 карточках и двух локалях это 2132 узла до первого взаимодействия | 2132 nodes | RU+EN | 375, 1280 | открыто |
+| CWV-06 | B | `docs/i18n.js:2694` (`loadEnCards`), `docs/data_en.json` | **Карточка тянет оверлей целиком ради одной записи.** `data_en.json` — 334 363 Б (326 КБ) на 130 карточек; `sup/magniy.html` в EN качает все 326 КБ, чтобы перевести одну карточку, чьи собственные данные — 0,1 КБ (`fetch`). Пофайлового оверлея нет, поэтому кэш помогает только на повторном визите той же карточки. Требует разбиения пайплайна: `scripts/translate_data.py` → `docs/data_en/<id>.json` → `i18n.js` | 326 КБ на 1 карточку | EN | 375, 1280 | открыто |
+
+#### Статус (FIX-54)
+
+**CWV-01 закрыта как не воспроизводимая.** Исходная формулировка — «305 КБ `data_en.json` запрашивается на всех 150 страницах при переключении на EN» — замером не подтвердилась.
+
+Замер: локальный сервер `:8000`, Playwright, `localStorage.lang='en'`, слушатель `page.on('request')` на каждый переход (не кэш, а именно факт запроса).
+
+| Страницы | `data_en.json` |
+|---|---|
+| `glossary`, `faq`, `methodology`, `privacy`, `terms-of-use`, `support`, `feedback`, `offline`, `trends` | **0 запросов** (9 из 9) |
+| `index`, `hactar`, `sup/index`, `sup/*` (карточки) | 1 запрос |
+| те же страницы в RU | 0 запросов |
+
+Причина, почему так: единственная точка загрузки — `i18n.js:2694 loadEnCards()`, и она уже ограничена тремя условиями: `if (LOCALE !== 'en') return Promise.resolve(null)` (в RU сети нет вообще), мемоизация `_enCardsPromise` (один запрос на страницу, без дублей) и guard `initEnSupData()` — только `body[data-sup-id]` (карточка) или `a[data-sup-id]` (каталог). `script.js` с `loadEnCards()` подключён только к `index.html` (на `404.html` его нет — прежнее совпадение было в комментарии), `hactar.js` — только к `hactar.html`; `atlas/calculator/compare/graph/interactions/map` — redirect-заглушки на `hactar.html`, сами `hactar.js` не грузят. То есть загрузка уже совпадает с формулировкой самой находки — «нужна только для каталога, поиска и карточек».
+
+Пути A/B/C не применялись: путь A (guard по типу страницы) в коде уже реализован, B (разделение словарей) не нужен — `i18n.js` тянет `data_en.json` не ради строк интерфейса, а ради полей карточек, C (обернуть `fetch` в проверку контейнера) тоже уже сделан через `initEnSupData`.
+
+Что осталось реальным — вынесено в **CWV-06**: 130 карточек качают весь оверлей ради одной записи. Это другой дефект и другая правка (пайплайн + 130 HTML), в FIX-54 не входит.
+
+Код не менялся: `script.js` / `script.min.js` / `sw.js` / `CACHE_VERSION` не тронуты, версия `?v=` не поднималась. Тесты: `1890 passed, 0 failed` (`-m "not (snapshots or a11y or tabs or graph or mobile375 or e2e)"`).
+
+Счётчики: закрыто 49 → **50** (CWV-01 — B, не воспроизводится); открыто A 1 / B 4 / C 67 = **72** (B не изменился: закрыта CWV-01, открыта CWV-06).
 
 ### Совпало с архивом
 
@@ -2821,7 +2844,7 @@ Y «Индекс науки (log)», `#axisRow` скрыт; возврат на 
 | 2 | visual-design-audit | 0 | 3 | 4 | 7 |
 | 3 | mobile-deep-audit | 0 | 0 | 2 | 2 |
 | 4 | seo-check | 0 | 1 | 2 | 3 |
-| 5 | core-web-vitals | 0 | 2 | 3 | 5 |
+| 5 | core-web-vitals | 0 | 3 | 3 | 6 |
 | 6 | product-audit | 1 | 1 | 2 | 4 |
 | 7 | qa-deep-audit | 2 | 4 | 5 | 11 |
 | 8 | accessibility-check | 0 | 3 | 3 | 6 |
@@ -2838,11 +2861,11 @@ Y «Индекс науки (log)», `#axisRow` скрыт; возврат на 
 | 19 | skill-audit | 0 | 0 | 1 | 1 |
 | — | CI-находки (вне 19 скиллов) | 1 | 1 | 1 | 3 |
 | — | Дополнительные баги (CHART-01, I18N-05b, FOOTER-01, QA-06b, AUDIT-01) | 0 | 2 | 3 | 5 |
-| **ИТОГО (зафиксировано)** | | **6** | **39** | **76** | **121** |
+| **ИТОГО (зафиксировано)** | | **6** | **40** | **76** | **122** |
 
-**Открыто: A 1 / B 4 / C 67 — всего 72** (закрыто 49: PROD-01, QA-05, PRJ-01, QA-02, CI-02 — все A; CI-03, REL-02 — B; CI-04 — C; PWA-02, I18N-01, I18N-02, I18N-03 — B; A11Y-02 — B, FIX-17; A11Y-05 — B, FIX-18; PWA-01 — B, FIX-19; PWA-04 — C, FIX-20; VIS-01 — B, FIX-21; PWA-05 — C, FIX-22; CHART-01 — B, FIX-23; DOCS-02 — B, FIX-26; LEGAL-01 — B, FIX-27; LEGAL-02 — B, FIX-27; PWA-03 — C, FIX-28; DOCS-01 — B, FIX-29; DOCS-06 — B, FIX-30; VIS-02 — B, FIX-31; VIS-03 — B, FIX-32; I18N-04 — C, FIX-33; I18N-05 — C, FIX-34; QA-01 — B, FIX-36; QA-03 — B, FIX-37; QA-04 — B, FIX-37; QA-06 — B, FIX-39; DOCS-03 — B, FIX-40; DATA-05 — B, FIX-41; DATA-01 — B, FIX-42; PRJ-02 — B, FIX-43; PRJ-03 — B, FIX-44; PRJ-04 — B, FIX-45; REL-03 — B, FIX-46; PROD-02 — дубль QA-06b, FIX-39; DOCS-04 — дубль DOCS-01, FIX-29; PRJ-10 — moot, FIX-44; MKT-01 — B, FIX-47; LEGAL-03 — B, FIX-48; CWV-02 — B, FIX-49; DATA-04 — B, FIX-50; NAV-01 — B, FIX-51; UIUX-08 — B, FIX-52).
+**Открыто: A 1 / B 4 / C 67 — всего 72** (закрыто 50: PROD-01, QA-05, PRJ-01, QA-02, CI-02 — все A; CI-03, REL-02 — B; CI-04 — C; PWA-02, I18N-01, I18N-02, I18N-03 — B; A11Y-02 — B, FIX-17; A11Y-05 — B, FIX-18; PWA-01 — B, FIX-19; PWA-04 — C, FIX-20; VIS-01 — B, FIX-21; PWA-05 — C, FIX-22; CHART-01 — B, FIX-23; DOCS-02 — B, FIX-26; LEGAL-01 — B, FIX-27; LEGAL-02 — B, FIX-27; PWA-03 — C, FIX-28; DOCS-01 — B, FIX-29; DOCS-06 — B, FIX-30; VIS-02 — B, FIX-31; VIS-03 — B, FIX-32; I18N-04 — C, FIX-33; I18N-05 — C, FIX-34; QA-01 — B, FIX-36; QA-03 — B, FIX-37; QA-04 — B, FIX-37; QA-06 — B, FIX-39; DOCS-03 — B, FIX-40; DATA-05 — B, FIX-41; DATA-01 — B, FIX-42; PRJ-02 — B, FIX-43; PRJ-03 — B, FIX-44; PRJ-04 — B, FIX-45; REL-03 — B, FIX-46; PROD-02 — дубль QA-06b, FIX-39; DOCS-04 — дубль DOCS-01, FIX-29; PRJ-10 — moot, FIX-44; MKT-01 — B, FIX-47; LEGAL-03 — B, FIX-48; CWV-02 — B, FIX-49; DATA-04 — B, FIX-50; NAV-01 — B, FIX-51; UIUX-08 — B, FIX-52; CWV-01 — B, FIX-54, не воспроизводится).
 
-Зафиксирована 121 находка; 49 закрыты (PROD-01, QA-05, PRJ-01, QA-02, CI-02 — A, CI-03, REL-02, PWA-02, I18N-01, I18N-02, I18N-03 — B, CI-04 — C; A11Y-02 — B, FIX-17; A11Y-05 — B, FIX-18; PWA-01 — B, FIX-19; PWA-04 — C, FIX-20; VIS-01 — B, FIX-21; PWA-05 — C, FIX-22; CHART-01 — B, FIX-23; DOCS-02 — B, FIX-26; LEGAL-01 — B, FIX-27; LEGAL-02 — B, FIX-27; PWA-03 — C, FIX-28; DOCS-01 — B, FIX-29; DOCS-06 — B, FIX-30; VIS-02 — B, FIX-31; VIS-03 — B, FIX-32; I18N-04 — C, FIX-33; I18N-05 — C, FIX-34; QA-01 — B, FIX-36; QA-03 — B, FIX-37; QA-04 — B, FIX-37; QA-06 — B, FIX-39; DOCS-03 — B, FIX-40; DATA-05 — B, FIX-41; DATA-01 — B, FIX-42; PRJ-02 — B, FIX-43; PRJ-03 — B, FIX-44; PRJ-04 — B, FIX-45; REL-03 — B, FIX-46; PROD-02 — дубль QA-06b, FIX-39; DOCS-04 — дубль DOCS-01, FIX-29; PRJ-10 — moot, FIX-44; MKT-01 — B, FIX-47; LEGAL-03 — B, FIX-48; CWV-02 — B, FIX-49; DATA-04 — B, FIX-50; NAV-01 — B, FIX-51; UIUX-08 — B, FIX-52), открыто 72: **A 1 (REL-01), B 4, C 67**. Фиксы идут по одной задаче на находку. CI `tests.yml` — **зелёный** (запуск 40522483626, 3.12 и 3.13); с FIX-09 он же запускается на `release/**`. Хук `.githooks/pre-commit` пройден без `--no-verify` в коммите `24470567` (FIX-46, REL-03).
+Зафиксированы 122 находки; 50 закрыты (PROD-01, QA-05, PRJ-01, QA-02, CI-02 — A, CI-03, REL-02, PWA-02, I18N-01, I18N-02, I18N-03 — B, CI-04 — C; A11Y-02 — B, FIX-17; A11Y-05 — B, FIX-18; PWA-01 — B, FIX-19; PWA-04 — C, FIX-20; VIS-01 — B, FIX-21; PWA-05 — C, FIX-22; CHART-01 — B, FIX-23; DOCS-02 — B, FIX-26; LEGAL-01 — B, FIX-27; LEGAL-02 — B, FIX-27; PWA-03 — C, FIX-28; DOCS-01 — B, FIX-29; DOCS-06 — B, FIX-30; VIS-02 — B, FIX-31; VIS-03 — B, FIX-32; I18N-04 — C, FIX-33; I18N-05 — C, FIX-34; QA-01 — B, FIX-36; QA-03 — B, FIX-37; QA-04 — B, FIX-37; QA-06 — B, FIX-39; DOCS-03 — B, FIX-40; DATA-05 — B, FIX-41; DATA-01 — B, FIX-42; PRJ-02 — B, FIX-43; PRJ-03 — B, FIX-44; PRJ-04 — B, FIX-45; REL-03 — B, FIX-46; PROD-02 — дубль QA-06b, FIX-39; DOCS-04 — дубль DOCS-01, FIX-29; PRJ-10 — moot, FIX-44; MKT-01 — B, FIX-47; LEGAL-03 — B, FIX-48; CWV-02 — B, FIX-49; DATA-04 — B, FIX-50; NAV-01 — B, FIX-51; UIUX-08 — B, FIX-52; CWV-01 — B, FIX-54, не воспроизводится), открыто 72: **A 1 (REL-01), B 4 (CWV-06 — новая, CWV-04/CWV-05 — C), C 67**. Фиксы идут по одной задаче на находку. CI `tests.yml` — **зелёный** (запуск 40522483626, 3.12 и 3.13); с FIX-09 он же запускается на `release/**`. Хук `.githooks/pre-commit` пройден без `--no-verify` в коммите `24470567` (FIX-46, REL-03).
 
 #### Статус (CLEANUP-VERIFY)
 
