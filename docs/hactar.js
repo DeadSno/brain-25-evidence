@@ -2965,7 +2965,7 @@ var OVERVIEW_ROWS = [
      «не рекомендуется / избегать / нельзя» с беременностью. Просто
      упоминание беременности не годится — там обычно совет «согласуйте с
      врачом», и предупреждение на нём было бы шумом. */
-  var PREG_RE = /(?:не\s+рекоменд|нельзя|противопоказ|избега|запрещ)[^.;]{0,120}беременн|беременн[^.;]{0,120}(?:избега|не\s+рекоменд|нельзя|противопоказ)/i;
+  var PREG_RE = /(?:не\s+рекоменд|нельзя|противопоказ|избега|запрещ)[^.;]{0,120}беременн|беременн[^.;]{0,120}(?:избега|не\s+рекоменд|нельзя|противопоказ)|(?:not\s+recommended|do\s+not|must\s+not|should\s+not|contraindicat|avoid|prohibit)[^.;]{0,120}(?:pregnan|breastfeed|lactat|nursing|trimester|expectant)|(?:pregnan|breastfeed|lactat|nursing|trimester|expectant)[^.;]{0,120}(?:not\s+recommended|do\s+not|must\s+not|should\s+not|contraindicat|avoid|prohibit)/i;
 
   function pregRisk(rec) {
     if (!profile.pregnant || profile.sex !== 'f') return false;

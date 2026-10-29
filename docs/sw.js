@@ -568,8 +568,11 @@
 /* Бамп v188 -> v189 FIX-39 (QA-06): в UNIT_SRC/NO_UL/toMg/sameUnit добавлены
    латинские единицы и английские маркеры «нормы нет» — EN-строки
    upper_limit теперь парсятся; hactar.js ?v=36 -> 37. */
-/* Бамп v191 -> v192 FIX-47 (MKT-01): синхронизирован title/og:title/twitter:title/JSON-LD name с актуальным УТП в <h1> (index.html). CSS и JS не менялись: ?v= остаются 470 (style.min.css), 304 (script.min.js), 21 (i18n.js), 284 (pwa.js), 37 (hactar.js). HTML не версионируется. */
-var CACHE_VERSION = 'v192';
+/* Бамп v192 -> v193 FIX-48 (LEGAL-03): PREG_RE в hactar.js расширен EN-терминами
+   (pregnan/breastfeed/lactat/nursing/trimester/expectant + constraint-глаголы),
+   чтобы предупреждение о беременности срабатывало и на английских карточках.
+   hactar.js ?v=37 -> 38. */
+var CACHE_VERSION = 'v193';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
@@ -657,7 +660,7 @@ var STATIC_ASSETS = [
   './cookie-banner.js?v=1',
   './metrika.js?v=1',
   /* FIX-12: PWA-02 — скрипты без которых офлайн ломается (страницы в прекеше, скриптов нет). */
-  './hactar.js?v=37',
+  './hactar.js?v=38',
   './science2.js?v=281',
   './tracker.js?v=281',
   './vendor/chart.umd-4.4.1.min.js',
