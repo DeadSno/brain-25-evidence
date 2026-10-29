@@ -562,7 +562,9 @@
    (тот же приём, что в applyTheme на 404.html). script.min.js пропатчен
    точечно, ?v=303 -> 304 в index.html. i18n.js, style.min.css, pwa.js и
    hactar.js не менялись. */
-var CACHE_VERSION = 'v186';
+/* Бамп v186 -> v187 FIX-37: trends.html в STATIC_ASSETS, исправлена гонка
+   загрузки JSON и defer-скрипта i18n.js (QA-03 webkit-trends таймаут). */
+var CACHE_VERSION = 'v187';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 

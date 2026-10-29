@@ -475,22 +475,33 @@ function getTheme() {
 const fetchJson = (url) => fetch(url + '?v=' + (window.BUILD_VERSION || '5.6.5'))
   .then(r => { if (!r.ok) throw new Error(url + ': ' + r.status); return r.json(); });
 
-Promise.all([
-  fetchJson('data_index.json'),
-  fetchJson('timeseries.json'),
-]).then(([data, ts]) => {
-  SUPP = (data.supplements || data).sort((a, b) => a.id.localeCompare(b.id, 'ru'));
-  TS = ts;
-  byId = Object.fromEntries(SUPP.map(c => [c.id, c]));
-  initApp();
-}).catch(err => {
-  console.error('[boot]', err);
-  // v5.6.5 (A11Y-P2-05): роль на самом сообщении, а не на .chart-wrap —
-  // контейнер держит <canvas>, регион на нём озвучивал бы весь холст.
-  // Ошибка приходит один раз, поэтому assertive (role="alert").
-  document.querySelector('.chart-wrap').innerHTML =
-    '<p role="alert" style="color:var(--grade-d-tx);padding:2rem;text-align:center">' + t("trends.loadError") + esc(err.message) + '</p>';
-});
+// i18n.js и version.js подключены с `defer`: они выполняются после полного
+// парсинга документа, а этот встроенный скрипт — в середине тела. Без
+// ожидания `t()` загрузка JSON могла завершиться раньше, чем `t` появится,
+// и `initApp()` падал с необработанным ReferenceError — страница висела
+// вечно в WebKit/Safari (баг страницы, а не теста).
+function bootTrends() {
+  if (typeof window.t !== 'function') {
+    return setTimeout(bootTrends, 20);
+  }
+  Promise.all([
+    fetchJson('data_index.json'),
+    fetchJson('timeseries.json'),
+  ]).then(([data, ts]) => {
+    SUPP = (data.supplements || data).sort((a, b) => a.id.localeCompare(b.id, 'ru'));
+    TS = ts;
+    byId = Object.fromEntries(SUPP.map(c => [c.id, c]));
+    initApp();
+  }).catch(err => {
+    console.error('[boot]', err);
+    // v5.6.5 (A11Y-P2-05): роль на самом сообщении, а не на .chart-wrap —
+    // контейнер держит <canvas>, регион на нём озвучивал бы весь холст.
+    // Ошибка приходит один раз, поэтому assertive (role="alert").
+    document.querySelector('.chart-wrap').innerHTML =
+      '<p role="alert" style="color:var(--grade-d-tx);padding:2rem;text-align:center">' + t("trends.loadError") + esc(err.message) + '</p>';
+  });
+}
+bootTrends();
 
 // ── Инициализация ─────────────────────────────────────────────
 function initApp() {
