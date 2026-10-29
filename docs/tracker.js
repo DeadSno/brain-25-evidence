@@ -14,13 +14,7 @@
 
   function fetchSupplements() {
     if (_supplementsCache) return Promise.resolve(_supplementsCache);
-    return fetch('data.json?v=' + (window.BUILD_VERSION || '5.6.5'))
-      .then(function (r) {
-        if (!r.ok) throw new Error('data.json HTTP ' + r.status);
-        return r.json();
-      })
-      .then(function (d) { _supplementsCache = d; return d; })
-      .catch(function () { return []; });
+    return window.getData().catch(function () { return []; });
   }
 
   function findSup(id) {

@@ -568,11 +568,10 @@
 /* Бамп v188 -> v189 FIX-39 (QA-06): в UNIT_SRC/NO_UL/toMg/sameUnit добавлены
    латинские единицы и английские маркеры «нормы нет» — EN-строки
    upper_limit теперь парсятся; hactar.js ?v=36 -> 37. */
-/* Бамп v192 -> v193 FIX-48 (LEGAL-03): PREG_RE в hactar.js расширен EN-терминами
-   (pregnan/breastfeed/lactat/nursing/trimester/expectant + constraint-глаголы),
-   чтобы предупреждение о беременности срабатывало и на английских карточках.
-   hactar.js ?v=37 -> 38. */
-var CACHE_VERSION = 'v193';
+/* Бамп v193 -> v194 FIX-49 (CWV-02): data.json загружается один раз через
+   общий window.__dataPromise/getData() в script.min.js и tracker.js вместо
+   двух независимых fetch. script.min.js ?v=304 -> 305. */
+var CACHE_VERSION = 'v194';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
@@ -628,7 +627,7 @@ var STATIC_ASSETS = [
   './feed.xml',
   './pwa.js',
   './version.js',
-  './script.min.js',
+  './script.min.js?v=305',
   './i18n.js',
   './style.min.css',
   './effect_tags.json',

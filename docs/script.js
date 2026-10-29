@@ -51,6 +51,7 @@ function slugify(name) {
 let supplements = [], currentData = [], chartInstance = null, radarInstance = null, onlyFavs = false;
 let supplementsFull = null;         // {id: {...}} — загружается при первом клике
 let supplementsFullPromise = null;  // in-flight запрос data.json
+window.getData = window.getData || (() => window.__dataPromise || (window.__dataPromise = fetchJson('data.json')));
 // v5.6.2 (батч C, T4): поиск по PMID возвращал 0 результатов. Причина —
 // PMID лежит в data.json (key_sources[].pmid), а фильтр работал по
 // data_index.json, где таких полей нет: index отдаёт только id / name /
@@ -76,7 +77,7 @@ function ensureFullData() {
     // FIX-77: в EN к data.json добавляется оверлей data_en.json. В RU
     // loadEnCards() резолвится в null без сетевого запроса, поэтому
     // русская версия грузит ровно те же файлы, что и раньше.
-    supplementsFullPromise = Promise.all([fetchJson('data.json'), loadEnCards()])
+    supplementsFullPromise = Promise.all([getData(), loadEnCards()])
       .then(([data, enCards]) => {
         const list = enCards ? data.map(c => mergeEnCard(c, enCards[c.id])) : data;
         supplementsFull = Object.fromEntries(list.map(c => [c.id, c]));
