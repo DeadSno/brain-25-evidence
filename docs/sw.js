@@ -579,7 +579,9 @@
    STATIC_ASSETS не лежат: они уходят в network-first по DATA_RE, но кэш
    данных назван от CACHE_VERSION, поэтому бамп чистит и его. Скрипты не
    менялись: script.min.js ?v=305, hactar.js ?v=38, i18n.js ?v=21. */
-var CACHE_VERSION = 'v195';
+/* Бамп v195 -> v196 FIX-51 (NAV-01): trends.html и 131 sup-страницы получили
+   ссылку footer.trends в подвале; i18n.js ?v=21 -> ?v=22 на всех HTML. */
+var CACHE_VERSION = 'v196';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
