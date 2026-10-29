@@ -56,10 +56,14 @@
 
 | ID | Крит. | Где | Что именно | Локаль | Статус |
 |---|---|---|---|---|---|
-| NAV-01 | B | `docs/trends.html` | Страница-сирота: 1 входящая ссылка на весь сайт (только `index.html`). Ни в шапке, ни в футере «Трендов» нет. При этом страница в `sitemap.xml`, 64 КБ контента. Для сравнения: `methodology/faq/glossary/privacy/terms` — по 142 входящих. | RU+EN | открыто |
+| NAV-01 | B | `docs/trends.html` | Страница-сирота: 1 входящая ссылка на весь сайт (только `index.html`). Ни в шапке, ни в футере «Трендов» нет. При этом страница в `sitemap.xml`, 64 КБ контента. Для сравнения: `methodology/faq/glossary/privacy/terms` — по 142 входящих. | RU+EN | Закрыто (f72c39f5) |
 | NAV-02 | C | `docs/hactar.html` (шапка, бренд-чип) | В шапке висит одинокий «v»: `v<span data-version="app"></span>` (3 таких спана на странице) не заполняется, потому что `hactar.html` не подключает `version.js` (подключены `hactar.js`, `i18n.js`, `pwa.js`, `share.js`). На `index.html` тот же чип показывает «v5.6.5». Проверено в браузере: `header.innerText` = «🧠 brain-25-evidence v 💬 Feedback …» | RU+EN | открыто |
 | NAV-03 | C | `docs/hactar.js:197` `modeFromUrl()` | Расхождение URL и состояния для неизвестного `?tab=`: `?tab=links` открывает «Обзор», но адрес остаётся `?tab=links` (в отличие от legacy `?tab=calc`/`?tab=compare`, которые переписываются на `?tab=overview` через `syncUrl()`). Ссылка «поделиться» врёт о вкладке. Проверено: `location.search` = `?tab=links`, `aria-selected` = `hactarTabOverview` | RU+EN | открыто |
 | NAV-04 | C | `docs/privacy.html:98` | Ссылка «Сравнение» (`data-i18n-text="hactar.redirect.compare"`) ведёт на `hactar.html?tab=compare` — без `ids`. Legacy-шим переписывает адрес в `?tab=overview`, подборка пустая: пользователь жмёт «Сравнение», попадает в общий «Обзор». Остальные 130 карточек передают `&ids=<slug>` и подборка срабатывает | RU+EN | открыто |
+
+#### Статус (FIX-51)
+
+Путь A (публичная страница в футер): `docs/trends.html` получает ссылку `footer.trends` в подвале на всех 150 HTML-страницах (10 главных + 131 `docs/sup/*.html` + `sup/index.html`) и в шаблонах `templates/sup.html.j2` / `templates/sup_index.html.j2`. i18n ключ `footer.trends` (RU: «Тренды популярности», EN: «Popularity trends») уже был в `docs/i18n.js` (строки 564/1795); все HTML теперь ссылаются на `i18n.js?v=22` (было `?v=21`). `CACHE_VERSION` в `docs/sw.js`: v195 → v196. Визуальные эталоны пересняты (`UPDATE_SNAPSHOTS=1`, 76 passed). diff PNG затрагивает только зону подвала.
 
 ### Проверено и в порядке (не находки)
 
@@ -117,7 +121,7 @@
 ## Аудит 2/19: visual-design-audit
 
 **Проверка предыдущего:** AUDIT-01 (site-navigation) зафиксирован — 4 находки
-(NAV-01…NAV-04), 0 A / 1 B / 3 C, все открыто. OK.
+(NAV-01…NAV-04), 0 A / 1 B / 3 C, NAV-01 закрыт (FIX-51, f72c39f5), 3 открыто. OK.
 
 Прогон: весь сайт × 2 локали (RU `lang="ru"`, EN `localStorage.lang='en'`) ×
 2 ширины (1280, 375). Покрытие замеров — 149 страниц: 141 из `sitemap.xml`
@@ -2495,8 +2499,8 @@ AUDIT-14 PRJ-05 фиксировал 37 untracked-записей — стало 
 | 18/19 | ui-ux-deep-audit | 0 | 1 | 7 | 8 |
 | 19/19 | skill-audit | 0 | 0 | 1 | 1 |
 | CI | CI-находки (вне 19 скиллов) | 1 | 1 | 1 | 3 |
-| — | Дополнительные баги (CHART-01, I18N-05b, FOOTER-01, QA-06b) | 0 | 2 | 2 | 4 |
-| **ИТОГО (зафиксировано)** | | **6** | **40** | **75** | **121** |
+| — | Дополнительные баги (CHART-01, I18N-05b, FOOTER-01, QA-06b, AUDIT-01) | 0 | 2 | 3 | 5 |
+| **ИТОГО (зафиксировано)** | | **6** | **40** | **76** | **122** |
 
 > **Счётчики находок ведутся в одном месте** — живой блок в разделе
 > «Итог аудита» (ниже): A 1 / B 11 / C 69, всего открыто 81, закрыто 40.
@@ -2682,6 +2686,7 @@ _Раздел пополняется по одному-два пункта в к
 | I18N-05b | C | `docs/script.js:713-720` (`setLight`), `docs/index.html:298` (`#themeBtn`), `docs/faq.html:44`, `docs/trends.html:461` и ещё 6 статических страниц | **`setLight()` писал `btn.textContent = …` и стёр бы `<span data-i18n-text="theme.light">` вместе с ключом** — тот же класс, что I18N-05, но не на 149 страницах: `script.min.js` подключён ровно на одной (`index.html`), и кнопка там размечена простым текстом без span, то есть видимого дефекта не было ни на одной странице. Тот же паттерн реально стирает span в инлайн-блоках `<head>` у 8 статических страниц (`faq`, `feedback`, `glossary`, `methodology`, `privacy`, `support`, `terms-of-use`, `trends`) — текст там остаётся верным, потому что инлайн-код сам пишет `t(...)`, но разметка теряется; вынесено отдельно, не чинилось | RU+EN | Закрыто (25f4e7fd) |
 | FOOTER-01 | C | `docs/404.html`, `p.disc` на 148 страницах, `templates/sup.html.j2`, `templates/sup_index.html.j2` | **Дисклеймеры наложены: один смысл четыре раза.** «Не медицинская рекомендация» + «НЕ заменяет консультацию, диагноз и лечение» + «При любых сомнениях — обращайтесь к специалисту» (`p.disc`) и «БАД не является лекарственным средством… проконсультируйтесь с врачом» (`p.legal-disclaimer`). Владелец на скриншоте 404.html увидел это как «три раза одна фраза». Дублирования разметки нет: `legalDisclaimer` на странице ровно один | RU+EN | Закрыто (2c55b679) |
 | QA-06b | B | `docs/hactar.js:2094` (`UNIT_SRC`), `:2103` (`NO_UL`), `:2143` (`hasSupt`), `:2155` (`toMg`), `:2166` (`sameUnit`) | **EN-строки `upper_limit` не парсились.** В `UNIT_SRC` были только русские единицы, в `NO_UL` — только русские маркеры «нормы нет», `hasSupt` знал только «/сут», `toMg`/`sameUnit` — только «мг/г/мкг». Следствие: в EN проверка верхней нормы (красная рамка дозы) не работала ни на одной карточке, а «There is no formal UL; 3-5 g/day» давало ложную норму 5 г. Найдено тестами QA-06, закрыто там же | EN | Закрыто (13b414a5, FIX-39) |
+| AUDIT-01 | C | `reports/AUDIT_MASTER_v565_FINAL.md` | **Посторонняя строка TEST_MARKER в конце отчёта.** greps по `tests/`, `scripts/`, `.githooks/`, `.github/` дают 0 вхождений — строка не имеет отношения к коду, это мусор (следов неочистки временных файлов). | — | открыто |
 
 ### Статус (FIX-23)
 
@@ -2818,10 +2823,10 @@ Y «Индекс науки (log)», `#axisRow` скрыт; возврат на 
 | 18 | ui-ux-deep-audit | 0 | 1 | 7 | 8 |
 | 19 | skill-audit | 0 | 0 | 1 | 1 |
 | — | CI-находки (вне 19 скиллов) | 1 | 1 | 1 | 3 |
-| — | Дополнительные баги (CHART-01, I18N-05b, FOOTER-01, QA-06b) | 0 | 2 | 2 | 4 |
-| **ИТОГО (зафиксировано)** | | **6** | **40** | **75** | **121** |
+| — | Дополнительные баги (CHART-01, I18N-05b, FOOTER-01, QA-06b, AUDIT-01) | 0 | 2 | 3 | 5 |
+| **ИТОГО (зафиксировано)** | | **6** | **40** | **76** | **122** |
 
-**Открыто: A 1 / B 6 / C 67 — всего 74** (закрыто 47: PROD-01, QA-05, PRJ-01, QA-02, CI-02 — все A; CI-03, REL-02 — B; CI-04 — C; PWA-02, I18N-01, I18N-02, I18N-03 — B; A11Y-02 — B, FIX-17; A11Y-05 — B, FIX-18; PWA-01 — B, FIX-19; PWA-04 — C, FIX-20; VIS-01 — B, FIX-21; PWA-05 — C, FIX-22; CHART-01 — B, FIX-23; DOCS-02 — B, FIX-26; LEGAL-01 — B, FIX-27; LEGAL-02 — B, FIX-27; PWA-03 — C, FIX-28; DOCS-01 — B, FIX-29; DOCS-06 — B, FIX-30; VIS-02 — B, FIX-31; VIS-03 — B, FIX-32; I18N-04 — C, FIX-33; I18N-05 — C, FIX-34; QA-01 — B, FIX-36; QA-03 — B, FIX-37; QA-04 — B, FIX-37; QA-06 — B, FIX-39; DOCS-03 — B, FIX-40; DATA-05 — B, FIX-41; DATA-01 — B, FIX-42; PRJ-02 — B, FIX-43; PRJ-03 — B, FIX-44; PRJ-04 — B, FIX-45; REL-03 — B, FIX-46; PROD-02 — дубль QA-06b, FIX-39; DOCS-04 — дубль DOCS-01, FIX-29; PRJ-10 — moot, FIX-44; MKT-01 — B, FIX-47; LEGAL-03 — B, FIX-48; CWV-02 — B, FIX-49; DATA-04 — B, FIX-50).
+**Открыто: A 1 / B 5 / C 67 — всего 73** (закрыто 48: PROD-01, QA-05, PRJ-01, QA-02, CI-02 — все A; CI-03, REL-02 — B; CI-04 — C; PWA-02, I18N-01, I18N-02, I18N-03 — B; A11Y-02 — B, FIX-17; A11Y-05 — B, FIX-18; PWA-01 — B, FIX-19; PWA-04 — C, FIX-20; VIS-01 — B, FIX-21; PWA-05 — C, FIX-22; CHART-01 — B, FIX-23; DOCS-02 — B, FIX-26; LEGAL-01 — B, FIX-27; LEGAL-02 — B, FIX-27; PWA-03 — C, FIX-28; DOCS-01 — B, FIX-29; DOCS-06 — B, FIX-30; VIS-02 — B, FIX-31; VIS-03 — B, FIX-32; I18N-04 — C, FIX-33; I18N-05 — C, FIX-34; QA-01 — B, FIX-36; QA-03 — B, FIX-37; QA-04 — B, FIX-37; QA-06 — B, FIX-39; DOCS-03 — B, FIX-40; DATA-05 — B, FIX-41; DATA-01 — B, FIX-42; PRJ-02 — B, FIX-43; PRJ-03 — B, FIX-44; PRJ-04 — B, FIX-45; REL-03 — B, FIX-46; PROD-02 — дубль QA-06b, FIX-39; DOCS-04 — дубль DOCS-01, FIX-29; PRJ-10 — moot, FIX-44; MKT-01 — B, FIX-47; LEGAL-03 — B, FIX-48; CWV-02 — B, FIX-49; DATA-04 — B, FIX-50; NAV-01 — B, FIX-51).
 
 Зафиксирована 121 находка; 47 закрыты (PROD-01, QA-05, PRJ-01, QA-02, CI-02 — A, CI-03, REL-02, PWA-02, I18N-01, I18N-02, I18N-03 — B, CI-04 — C; A11Y-02 — B, FIX-17; A11Y-05 — B, FIX-18; PWA-01 — B, FIX-19; PWA-04 — C, FIX-20; VIS-01 — B, FIX-21; PWA-05 — C, FIX-22; CHART-01 — B, FIX-23; DOCS-02 — B, FIX-26; LEGAL-01 — B, FIX-27; LEGAL-02 — B, FIX-27; PWA-03 — C, FIX-28; DOCS-01 — B, FIX-29; DOCS-06 — B, FIX-30; VIS-02 — B, FIX-31; VIS-03 — B, FIX-32; I18N-04 — C, FIX-33; I18N-05 — C, FIX-34; QA-01 — B, FIX-36; QA-03 — B, FIX-37; QA-04 — B, FIX-37; QA-06 — B, FIX-39; DOCS-03 — B, FIX-40; DATA-05 — B, FIX-41; DATA-01 — B, FIX-42; PRJ-02 — B, FIX-43; PRJ-03 — B, FIX-44; PRJ-04 — B, FIX-45; REL-03 — B, FIX-46; PROD-02 — дубль QA-06b, FIX-39; DOCS-04 — дубль DOCS-01, FIX-29; PRJ-10 — moot, FIX-44; MKT-01 — B, FIX-47; LEGAL-03 — B, FIX-48; CWV-02 — B, FIX-49; DATA-04 — B, FIX-50), открыто 74: **A 1 (REL-01), B 6, C 67**. Фиксы идут по одной задаче на находку. CI `tests.yml` — **зелёный** (запуск 40522483626, 3.12 и 3.13); с FIX-09 он же запускается на `release/**`. Хук `.githooks/pre-commit` пройден без `--no-verify` в коммите `24470567` (FIX-46, REL-03).
 
