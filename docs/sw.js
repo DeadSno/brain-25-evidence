@@ -568,15 +568,8 @@
 /* Бамп v188 -> v189 FIX-39 (QA-06): в UNIT_SRC/NO_UL/toMg/sameUnit добавлены
    латинские единицы и английские маркеры «нормы нет» — EN-строки
    upper_limit теперь парсятся; hactar.js ?v=36 -> 37. */
-/* Бамп v190 -> v191 FIX-46 (REL-03): пересобраны build-артефакты (data_index.json), CACHE_VERSION синхронизирован
-   нормализованы — 76 строковых заглушек «Нет данных» (wiki 40, ongoing 36)
-   заменены на null, канон типа int или null как у hedges_g. Пересобраны
-   docs/data_index.json (проекция полей) и tests/snapshot_data.json.
-   data.json идёт через DATA_RE, но бамп нужен: без него возвратный
-   посетитель останется на старом массиве. CSS и JS не менялись:
-   ?v= остаются 470 (style.min.css), 304 (script.min.js), 21 (i18n.js),
-   284 (pwa.js), 37 (hactar.js). */
-var CACHE_VERSION = 'v191';
+/* Бамп v191 -> v192 FIX-47 (MKT-01): синхронизирован title/og:title/twitter:title/JSON-LD name с актуальным УТП в <h1> (index.html). CSS и JS не менялись: ?v= остаются 470 (style.min.css), 304 (script.min.js), 21 (i18n.js), 284 (pwa.js), 37 (hactar.js). HTML не версионируется. */
+var CACHE_VERSION = 'v192';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
