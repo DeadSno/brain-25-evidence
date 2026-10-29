@@ -10,7 +10,7 @@
        v5.6.5 (SEO-P2-01): описание вынесено в seo_desc и больше не повторяется
        вручную трижды. Раньше JSON-LD держал укороченную копию, а meta и og —
        полную, поэтому правка одной строки расходилась с двумя другими. #}<title>Каталог БАДов: {{ total }} добавок — Brain 25 Evidence</title>
-    {% set seo_desc = "Каталог из " ~ total ~ " БАД: название, категория, ведикт и грейд доказательности A-D. Карточка ведёт на страницу добавки с механизмами и дозировкой." %}
+    {% set seo_desc = "Каталог из " ~ total ~ " БАД: название, категория, вердикт и грейд доказательности A-D. Карточка ведёт на страницу добавки с механизмами и дозировкой." %}
     <meta name="description" content="{{ seo_desc }}">
     <link rel="canonical" href="{{ url }}">
     <link rel="alternate" hreflang="ru" href="{{ url }}">
@@ -144,7 +144,7 @@
       <!-- v5.6.5: live-регион (A11Y-P2-05). Бейдж переписывается при
            каждом изменении фильтра (sup_index.html.j2:190) — без
            озвучивания результат фильтрации был виден только глазами. -->
-      <h2><span data-i18n-text="supcat.allSupplements">Все добавки</span> <span id="countBadge" class="hint" role="status" aria-live="polite" data-i18n-text="supcat.shown" data-i18n-vars='{"shown": "{{ total }}", "total": "{{ total }}"}'>показано {{ total }} из {{ total }}</span></h2>
+      <h2><span data-i18n-text="supcat.allSupplements">Все добавки</span> <span id="countBadge" class="hint" role="status" aria-live="polite" data-i18n-text="supcat.shown" data-i18n-vars='{"shown": "{{ total }}", "total": "{{ total }}"}' style="margin-left:0.75rem">показано {{ total }} из {{ total }}</span></h2>
 
       <div id="cardsGrid">
         {% for c in cards %}

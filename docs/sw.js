@@ -592,7 +592,10 @@
 /* Бамп v198 -> v199 FIX-58 (SEO-01): добавлены hreflang-теги на 300 страниц,
    EN-копии в docs/en/ и двуязычный sitemap.xml (282 URL). HTML и sw.js
    изменились — кэш нужно очистить. */
-var CACHE_VERSION = 'v199';
+/* Бамп v199 -> v200 FIX-59 (MKT-02, MKT-08): в docs/sup/index.html исправлена
+   опечатка "ведикт" -> "вердикт" (4 места) и добавлен отступ у бейджа
+   счётчика в заголовке каталога. */
+var CACHE_VERSION = 'v200';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
