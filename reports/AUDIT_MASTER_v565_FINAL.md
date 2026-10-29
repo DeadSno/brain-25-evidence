@@ -2359,6 +2359,16 @@ AUDIT-14 PRJ-05 фиксировал 37 untracked-записей — стало 
 
 Путь: user-facing error + Retry в модалке при сбое загрузки данных. `docs/script.js`: добавлена функция `showModalError(id, errMsg, retryLabel)` (рендерит ⚠ сообщение, `modal.cardNotFound` деталь и кнопку «Повторить» с `onclick="openModal(this.dataset.id)"`); блок `catch` в `openModal()` теперь вызывает `showModalError(id, t('ui.error.network'), t('ui.error.retry'))` вместо `console.error`; то же для случая `if (!s)` после `ensureFullData()`. `docs/script.min.js`: соответствующие минимализированные правки. `docs/i18n.js`: новые ключи `modal.cardNotFound`, `ui.error.network`, `ui.error.retry` (RU+EN). `docs/index.html`: `script.min.js?v=305 → ?v=306`. Все HTML: `i18n.js?v=22 → ?v=23` (включая шаблоны `templates/sup.html.j2` / `templates/sup_index.html.j2` и пересборку 131 `docs/sup/*.html`). `docs/sw.js`: `CACHE_VERSION v196 → v197`. Тесты: 1889 passed, 1 pre-existing failure (test_toolchain_config, opencode.json, не関連).
 
+#### Статус (FIX-53, коммит 4a284cb4)
+
+Блокер CI из FIX-52 (`tests/test_toolchain_config.py::test_declared_commands_are_wellformed`) снят.
+
+**Почему падал.** `opencode.json` получил MCP-сервер в формате OpenCode V2: `mcp.servers.mcp-mermaid` с командой `npx -y mcp-mermaid`. Тест перебирал блок как V1 — `for name, cfg in entries.items()` — и принимал ключ `servers` за имя сервера. У `cfg = {"mcp-mermaid": {...}}` нет `command`, отсюда `AssertionError: mcp.servers.command должен быть непустым массивом, получено None`. То же построение в `test_declared_commands_resolve_in_path` дало бы `KeyError: 'command'`.
+
+**Как исправлено — вариант A (обновить тест).** Добавлен хелпер `_server_configs(block_data)`: отдаёт пары `(name, cfg)` и понимает оба формата — при наличии `block.servers` (dict) итерирует его, иначе сам блок. Хелпер применён в `test_declared_commands_are_wellformed` и `test_declared_commands_resolve_in_path`; в первом добавлена проверка `isinstance(cfg, dict)`, чтобы ошибка формата читалась как «`mcp.servers` должен быть объектом», а не как `AttributeError`. Варианты B и C не понадобились: `npx` разрешается в PATH, а `opencode.json` — часть репозитория (в нём же блок `lsp`), убирать его из индекса нельзя. Устаревшие утверждения в докстрингах («блока `mcp` в конфиге сейчас нет») приведены к факту.
+
+Проверка: `tests/test_toolchain_config.py` — 6 passed; полный прогон `-m "not (snapshots or a11y or tabs or graph or mobile375 or e2e)"` — 1890 passed, 0 failed; pre-commit хук на коммите — 1884 passed. `CACHE_VERSION` не менялся: правка в `tests/`, а `tests/` не входит в `STATIC_ASSETS`. Счётчики находок не менялись — это багфикс CI, а не находка аудита.
+
 ### Отдельно: состояния (пустые, загрузка, ошибки, успех) в обеих локалях
 
 **Пустые состояния (empty states):**
