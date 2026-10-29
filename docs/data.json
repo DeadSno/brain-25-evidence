@@ -10096,7 +10096,7 @@
     "scienceIndex": 8,
     "metaCount": 0,
     "citations": 24,
-    "wiki": "Нет данных",
+    "wiki": null,
     "ongoing": 6,
     "effects": [
       "Лактация",
@@ -11382,7 +11382,7 @@
     "scienceIndex": 12,
     "metaCount": 0,
     "citations": 144,
-    "wiki": "Нет данных",
+    "wiki": null,
     "ongoing": 1,
     "effects": [
       "Митохондрии",
@@ -11660,7 +11660,7 @@
     "scienceIndex": 1939,
     "metaCount": 279,
     "citations": 63,
-    "wiki": "Нет данных",
+    "wiki": null,
     "ongoing": 0,
     "effects": [
       "Суставы",
@@ -11801,7 +11801,7 @@
     "scienceIndex": 24,
     "metaCount": 2,
     "citations": 1127,
-    "wiki": "Нет данных",
+    "wiki": null,
     "ongoing": 3,
     "effects": [
       "Глюкоза",
@@ -11944,8 +11944,8 @@
     "scienceIndex": 710,
     "metaCount": 64,
     "citations": 871,
-    "wiki": "Нет данных",
-    "ongoing": "Нет данных",
+    "wiki": null,
+    "ongoing": null,
     "effects": [
       "Нейропатия",
       "Алкогольная нейропатия"
@@ -12051,8 +12051,8 @@
     "scienceIndex": 2362,
     "metaCount": 194,
     "citations": 54,
-    "wiki": "Нет данных",
-    "ongoing": "Нет данных",
+    "wiki": null,
+    "ongoing": null,
     "effects": [
       "Когниция",
       "Нервная трубка плода",
@@ -12145,8 +12145,8 @@
     "scienceIndex": 4196,
     "metaCount": 414,
     "citations": 494,
-    "wiki": "Нет данных",
-    "ongoing": "Нет данных",
+    "wiki": null,
+    "ongoing": null,
     "effects": [
       "Депрессия",
       "Триглицериды",
@@ -12245,8 +12245,8 @@
     "scienceIndex": 4164,
     "metaCount": 371,
     "citations": 701,
-    "wiki": "Нет данных",
-    "ongoing": "Нет данных",
+    "wiki": null,
+    "ongoing": null,
     "effects": [
       "Дефицит витамина A",
       "Волосы при AGA (данные слабые)"
@@ -12352,8 +12352,8 @@
     "scienceIndex": 917,
     "metaCount": 76,
     "citations": 1111,
-    "wiki": "Нет данных",
-    "ongoing": "Нет данных",
+    "wiki": null,
+    "ongoing": null,
     "effects": [
       "Профилактика мигрени",
       "Дефицит у веганов (не подтверждено)"
@@ -12447,8 +12447,8 @@
     "scienceIndex": 3220,
     "metaCount": 354,
     "citations": 51,
-    "wiki": "Нет данных",
-    "ongoing": "Нет данных",
+    "wiki": null,
+    "ongoing": null,
     "effects": [
       "Профилактика рака кожи",
       "Гиперпигментация (топикально)"
@@ -12542,8 +12542,8 @@
     "scienceIndex": 130,
     "metaCount": 6,
     "citations": 828,
-    "wiki": "Нет данных",
-    "ongoing": "Нет данных",
+    "wiki": null,
+    "ongoing": null,
     "effects": [
       "Дефицит при травмах спинного мозга",
       "Боль в сосках (топикально)"
@@ -12643,8 +12643,8 @@
     "scienceIndex": 1612,
     "metaCount": 166,
     "citations": 174,
-    "wiki": "Нет данных",
-    "ongoing": "Нет данных",
+    "wiki": null,
+    "ongoing": null,
     "effects": [
       "Тошнота при беременности",
       "Нейропатия (риск при избытке)"
@@ -12743,8 +12743,8 @@
     "scienceIndex": 1319,
     "metaCount": 114,
     "citations": 117,
-    "wiki": "Нет данных",
-    "ongoing": "Нет данных",
+    "wiki": null,
+    "ongoing": null,
     "effects": [
       "Профилактика герпеса (без эффекта)"
     ],
@@ -12827,8 +12827,8 @@
     "scienceIndex": 25,
     "metaCount": 2,
     "citations": 17,
-    "wiki": "Нет данных",
-    "ongoing": "Нет данных",
+    "wiki": null,
+    "ongoing": null,
     "effects": [
       "Костный метаболизм"
     ],
@@ -12901,8 +12901,8 @@
     "scienceIndex": 500,
     "metaCount": 54,
     "citations": 368,
-    "wiki": "Нет данных",
-    "ongoing": "Нет данных",
+    "wiki": null,
+    "ongoing": null,
     "effects": [
       "Мышечная масса при раке",
       "Саркопения"
@@ -13007,8 +13007,8 @@
     "scienceIndex": 169,
     "metaCount": 15,
     "citations": 361,
-    "wiki": "Нет данных",
-    "ongoing": "Нет данных",
+    "wiki": null,
+    "ongoing": null,
     "effects": [
       "Выносливость (через β-аланин)"
     ],
@@ -13110,8 +13110,8 @@
     "scienceIndex": 1020,
     "metaCount": 126,
     "citations": 397,
-    "wiki": "Нет данных",
-    "ongoing": "Нет данных",
+    "wiki": null,
+    "ongoing": null,
     "effects": [
       "Память",
       "Усталость при терапии рака (не подтверждено)"
@@ -13226,8 +13226,8 @@
     "scienceIndex": 2633,
     "metaCount": 328,
     "citations": 162,
-    "wiki": "Нет данных",
-    "ongoing": "Нет данных",
+    "wiki": null,
+    "ongoing": null,
     "effects": [
       "Хашимото",
       "Щитовидка"
@@ -13333,8 +13333,8 @@
     "scienceIndex": 295,
     "metaCount": 33,
     "citations": 655,
-    "wiki": "Нет данных",
-    "ongoing": "Нет данных",
+    "wiki": null,
+    "ongoing": null,
     "effects": [
       "Щитовидная железа"
     ],
@@ -13430,8 +13430,8 @@
     "scienceIndex": 115,
     "metaCount": 12,
     "citations": 896,
-    "wiki": "Нет данных",
-    "ongoing": "Нет данных",
+    "wiki": null,
+    "ongoing": null,
     "effects": [
       "Статус микроэлементов"
     ],
@@ -13516,8 +13516,8 @@
     "scienceIndex": 231,
     "metaCount": 17,
     "citations": 23,
-    "wiki": "Нет данных",
-    "ongoing": "Нет данных",
+    "wiki": null,
+    "ongoing": null,
     "effects": [
       "Инсулинорезистентность",
       "Кости (K1+K2)"
@@ -13621,8 +13621,8 @@
     "scienceIndex": 1931,
     "metaCount": 220,
     "citations": 51,
-    "wiki": "Нет данных",
-    "ongoing": "Нет данных",
+    "wiki": null,
+    "ongoing": null,
     "effects": [
       "Профилактика рака кожи",
       "Гиперпигментация"
@@ -13711,8 +13711,8 @@
     "scienceIndex": 2783,
     "metaCount": 284,
     "citations": 63,
-    "wiki": "Нет данных",
-    "ongoing": "Нет данных",
+    "wiki": null,
+    "ongoing": null,
     "effects": [
       "NAC при COPD",
       "Предшественник глутатиона"
@@ -13815,8 +13815,8 @@
     "scienceIndex": 368,
     "metaCount": 48,
     "citations": 631,
-    "wiki": "Нет данных",
-    "ongoing": "Нет данных",
+    "wiki": null,
+    "ongoing": null,
     "effects": [
       "Профилактика диареи при антибиотиках",
       "Острая диарея у детей",
@@ -13920,8 +13920,8 @@
     "scienceIndex": 297,
     "metaCount": 25,
     "citations": 386,
-    "wiki": "Нет данных",
-    "ongoing": "Нет данных",
+    "wiki": null,
+    "ongoing": null,
     "effects": [
       "Профилактика диареи при антибиотиках",
       "Длительность острой диареи"
@@ -14017,8 +14017,8 @@
     "scienceIndex": 588,
     "metaCount": 25,
     "citations": 230,
-    "wiki": "Нет данных",
-    "ongoing": "Нет данных",
+    "wiki": null,
+    "ongoing": null,
     "effects": [
       "Частота стула при запоре",
       "Функциональная боль в животе"
@@ -14116,8 +14116,8 @@
     "scienceIndex": 3976,
     "metaCount": 320,
     "citations": 620,
-    "wiki": "Нет данных",
-    "ongoing": "Нет данных",
+    "wiki": null,
+    "ongoing": null,
     "effects": [
       "Прогрессия Альцгеймера (CDR)",
       "Послеродовая депрессия (фактор)"
@@ -14215,8 +14215,8 @@
     "scienceIndex": 469,
     "metaCount": 41,
     "citations": 73,
-    "wiki": "Нет данных",
-    "ongoing": "Нет данных",
+    "wiki": null,
+    "ongoing": null,
     "effects": [
       "Атопический дерматит",
       "Воспалительные состояния"
@@ -14316,8 +14316,8 @@
     "scienceIndex": 2670,
     "metaCount": 309,
     "citations": 1078,
-    "wiki": "Нет данных",
-    "ongoing": "Нет данных",
+    "wiki": null,
+    "ongoing": null,
     "effects": [
       "Коррекция дефицита меди"
     ],
@@ -14407,8 +14407,8 @@
     "scienceIndex": 541,
     "metaCount": 76,
     "citations": 743,
-    "wiki": "Нет данных",
-    "ongoing": "Нет данных",
+    "wiki": null,
+    "ongoing": null,
     "effects": [
       "Коррекция дефицита марганца"
     ],
@@ -14491,8 +14491,8 @@
     "scienceIndex": 9614,
     "metaCount": 745,
     "citations": 579,
-    "wiki": "Нет данных",
-    "ongoing": "Нет данных",
+    "wiki": null,
+    "ongoing": null,
     "effects": [
       "Артериальное давление",
       "Выделение калия с мочой"
@@ -14590,8 +14590,8 @@
     "scienceIndex": 18,
     "metaCount": 1,
     "citations": 128,
-    "wiki": "Нет данных",
-    "ongoing": "Нет данных",
+    "wiki": null,
+    "ongoing": null,
     "effects": [
       "Нет подтверждённых эффектов"
     ],
@@ -14671,8 +14671,8 @@
     "scienceIndex": 142,
     "metaCount": 10,
     "citations": 47,
-    "wiki": "Нет данных",
-    "ongoing": "Нет данных",
+    "wiki": null,
+    "ongoing": null,
     "effects": [
       "Максимальная сила",
       "Прыгучесть",
@@ -14781,8 +14781,8 @@
     "scienceIndex": 43,
     "metaCount": 5,
     "citations": 216,
-    "wiki": "Нет данных",
-    "ongoing": "Нет данных",
+    "wiki": null,
+    "ongoing": null,
     "effects": [
       "Нет подтверждённых эффектов у людей"
     ],
@@ -14879,8 +14879,8 @@
     "scienceIndex": 52,
     "metaCount": 3,
     "citations": 4,
-    "wiki": "Нет данных",
-    "ongoing": "Нет данных",
+    "wiki": null,
+    "ongoing": null,
     "effects": [
       "Переносимость приёма"
     ],
@@ -14965,8 +14965,8 @@
     "scienceIndex": 16,
     "metaCount": 2,
     "citations": 29,
-    "wiki": "Нет данных",
-    "ongoing": "Нет данных",
+    "wiki": null,
+    "ongoing": null,
     "effects": [
       "Нет подтверждённых эффектов у людей"
     ],
@@ -15051,8 +15051,8 @@
     "scienceIndex": 63,
     "metaCount": 5,
     "citations": 53,
-    "wiki": "Нет данных",
-    "ongoing": "Нет данных",
+    "wiki": null,
+    "ongoing": null,
     "effects": [
       "Нет подтверждённых эффектов"
     ],
@@ -15141,8 +15141,8 @@
     "scienceIndex": 71,
     "metaCount": 3,
     "citations": 12,
-    "wiki": "Нет данных",
-    "ongoing": "Нет данных",
+    "wiki": null,
+    "ongoing": null,
     "effects": [
       "Нет подтверждённых эффектов"
     ],
@@ -15234,8 +15234,8 @@
     "scienceIndex": 2,
     "metaCount": 0,
     "citations": 113,
-    "wiki": "Нет данных",
-    "ongoing": "Нет данных",
+    "wiki": null,
+    "ongoing": null,
     "effects": [
       "Течение редких генетических болезней"
     ],
@@ -15327,8 +15327,8 @@
     "scienceIndex": 5,
     "metaCount": 1,
     "citations": 301,
-    "wiki": "Нет данных",
-    "ongoing": "Нет данных",
+    "wiki": null,
+    "ongoing": null,
     "effects": [
       "Выносливость при нагрузке 0.5-10 мин",
       "Общая работоспособность (β-аланин)"
