@@ -136,7 +136,7 @@
 
 ### 5.1 REST API (v1)
 
-Спецификация: [docs/api/v1/openapi.yaml](api/v1/openapi.yaml) (OpenAPI 3.0.3).
+Спецификация: [docs/api/v1/openapi.yaml](../docs/api/v1/openapi.yaml) (OpenAPI 3.0.3).
 
 | Endpoint | Метод | Назначение | Размер |
 |----------|-------|-----------|--------|

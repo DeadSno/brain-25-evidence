@@ -1,7 +1,7 @@
 # Definition of Ready (DoR)
 
 > Критерии готовности User Story к работе. Пока задача не соответствует DoR — её нельзя брать в спринт.
-> Дополняет [Definition of Done](https://github.com/DeadSno/brain-25-evidence/blob/main/docs/user_stories.md).
+> Дополняет [Definition of Done](https://github.com/DeadSno/brain-25-evidence/blob/main/internal-docs/user_stories.md).
 
 ## Чек-лист DoR для User Story
 

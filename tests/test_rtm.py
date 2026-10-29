@@ -2,21 +2,21 @@
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-RTM = ROOT / "docs" / "rtm.md"
-US = ROOT / "docs" / "user_stories.md"
-NFR = ROOT / "docs" / "nfr.md"
+RTM = ROOT / "internal-docs" / "rtm.md"
+US = ROOT / "internal-docs" / "user_stories.md"
+NFR = ROOT / "internal-docs" / "nfr.md"
 
 
 def test_rtm_exists():
-    assert RTM.exists(), "docs/rtm.md не найден"
+    assert RTM.exists(), "internal-docs/rtm.md не найден"
 
 
 def test_user_stories_exists():
-    assert US.exists(), "docs/user_stories.md не найден"
+    assert US.exists(), "internal-docs/user_stories.md не найден"
 
 
 def test_nfr_exists():
-    assert NFR.exists(), "docs/nfr.md не найден"
+    assert NFR.exists(), "internal-docs/nfr.md не найден"
 
 
 def test_all_us_mentioned_in_rtm():

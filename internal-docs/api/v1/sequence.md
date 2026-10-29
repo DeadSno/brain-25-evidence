@@ -1,7 +1,7 @@
 # API Sequence Diagram — взаимодействие клиента с API
 
 > Sequence-диаграммы основных сценариев работы с REST API.
-> Дополняет [OpenAPI spec](openapi.yaml) и [Error Contract](errors.md).
+> Дополняет [OpenAPI spec](../../../docs/api/v1/openapi.yaml) и [Error Contract](errors.md).
 
 ## 1. Успешный запрос — список добавок
 
@@ -65,9 +65,9 @@ sequenceDiagram
 
 ## Связанные документы
 
-- [OpenAPI 3.0 spec](openapi.yaml) — формальная спецификация
+- [OpenAPI 3.0 spec](../../../docs/api/v1/openapi.yaml) — формальная спецификация
 - [Error Contract](errors.md) — все возможные ошибки
-- [Postman Collection](postman_collection.json) — рабочие примеры
+- [Postman Collection](../../../docs/api/v1/postman_collection.json) — рабочие примеры
 
 ## Версия
 

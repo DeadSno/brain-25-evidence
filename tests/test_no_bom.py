@@ -1,6 +1,6 @@
 """P27: UTF-8 no BOM only. Проверяет отсутствие BOM в HTML/CSS/JS.
 
-Правило зафиксировано в docs/dev/AGENTS.md (раздел Encoding) и в NFR:
+Правило зафиксировано в internal-docs/dev/AGENTS.md (раздел Encoding) и в NFR:
 канон — 0 BOM. Проверка нужна потому, что нарушение невидимо: правка
 через инструмент молча снимает BOM, а **второй** BOM тем хуже — перед
 <!DOCTYPE> он превращается в символьный токен, из-за чего парсер не
@@ -33,10 +33,20 @@ v5.6.3: два расширения покрытия (ROADMAP #46)
 
 Сам тест прошёл при первом же прогоне с расширенным охватом: BOM в
 docs/ нет ни в одном файле, включая вендор.
+
+FIX-43 (PRJ-02): 49 внутренних .md перенесены из docs/ в internal-docs/,
+поэтому скан читает два корня (ROOTS) и обратная проверка «объявленный
+тип обязан существовать» сверяется с их объединением. Иначе .md
+считался бы исчезнувшим типом.
 """
 from pathlib import Path
 
 DOCS = Path(__file__).resolve().parent.parent / "docs"
+#: Внутренние документы (PRJ-02, FIX-43): раньше лежали в docs/ и
+#: публиковались GitHub Pages. Перенесены, но правило «0 BOM»
+#: распространяется и на них — это по-прежнему UTF-8 тексты в репозитории.
+INTERNAL = Path(__file__).resolve().parent.parent / "internal-docs"
+ROOTS = (DOCS, INTERNAL)
 BOM = b"\xef\xbb\xbf"
 
 #: Типы файлов, которые браузер или его инструменты читают как текст.
@@ -74,13 +84,14 @@ def _has_bom(f: Path) -> bool:
 
 def _files(suffixes=None):
     wanted = TEXT_SUFFIXES if suffixes is None else suffixes
-    for f in sorted(DOCS.rglob("*")):
-        if not f.is_file():
-            continue
-        if JUNK_MARKER in f.name:
-            continue
-        if f.suffix.lower() in wanted:
-            yield f
+    for root in ROOTS:
+        for f in sorted(root.rglob("*")):
+            if not f.is_file():
+                continue
+            if JUNK_MARKER in f.name:
+                continue
+            if f.suffix.lower() in wanted:
+                yield f
 
 
 def _rel(f: Path) -> str:
@@ -150,10 +161,11 @@ def test_bom_scan_covers_everything_the_project_ships():
     """
     present: set[str] = set()
     dotfiles: set[str] = set()
-    for f in DOCS.rglob("*"):
-        if not f.is_file() or JUNK_MARKER in f.name:
-            continue
-        (dotfiles.add(f.name) if not f.suffix else present.add(f.suffix.lower()))
+    for root in ROOTS:
+        for f in root.rglob("*"):
+            if not f.is_file() or JUNK_MARKER in f.name:
+                continue
+            (dotfiles.add(f.name) if not f.suffix else present.add(f.suffix.lower()))
 
     unscanned = sorted(present - TEXT_SUFFIXES - KNOWN_BINARY)
     assert not unscanned, (
@@ -173,10 +185,11 @@ def test_bom_scan_covers_everything_the_project_ships():
     # Обратная проверка: объявленный текстовый тип должен реально
     # существовать, иначе скан тихо пустеет после удаления папки.
     absent = sorted(t for t in TEXT_SUFFIXES if not any(
-        f.suffix.lower() == t for f in DOCS.rglob("*") if f.is_file()))
+        f.suffix.lower() == t
+        for root in ROOTS for f in root.rglob("*") if f.is_file()))
     assert not absent, (
-        f"TEXT_SUFFIXES объявляет типы, которых в docs/ нет: "
-        f"{', '.join(absent)}. Убери их или добавь файлы."
+        f"TEXT_SUFFIXES объявляет типы, которых нет ни в docs/, ни в "
+        f"internal-docs/: {', '.join(absent)}. Убери их или добавь файлы."
     )
 
 
@@ -201,6 +214,26 @@ def test_bom_scan_actually_reads_the_expected_number_of_files():
     assert any(f.parent.name == "vendor" for f in scanned), (
         "docs/vendor/ не попал в скан. Прежний вариант PATTERNS был "
         "нерекурсивным и вендор не проверял вообще."
+    )
+
+
+def test_no_markdown_in_published_docs():
+    """PRJ-02 (FIX-43): .md в docs/ означает, что документ снова публикуется.
+
+    GitHub Pages отдаёт каталог docs/ целиком, `.nojekyll` отключает
+    Jekyll, поэтому `exclude` из `_config.yml` не действует. Любой .md,
+    положенный сюда, немедленно становится доступен по прямому URL
+    (text/markdown, 200) и индексируется. Гейт дешёвый: он ловит возврат
+    привычки писать заметки в docs/.
+    """
+    found = sorted(_rel(f) for f in DOCS.rglob("*.md"))
+    assert not found, (
+        f"В публикуемом docs/ снова {len(found)} .md — перенеси их в "
+        f"internal-docs/:\n" + "\n".join(f"  {f}" for f in found)
+    )
+    assert (INTERNAL / "README.md").exists(), (
+        "internal-docs/README.md отсутствует — там описано правило "
+        "«публикуется только docs/»"
     )
 
 

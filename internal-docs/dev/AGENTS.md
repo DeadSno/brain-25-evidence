@@ -6,7 +6,7 @@ Open evidence-based supplement guide. **130** items in `docs/data.json`
 HTML files — 130 cards plus the `index.html` catalogue).
 Manifest: польза > деньги · null честнее выдумки · нет партнёрок.
 
-## Active protocol (docs/dev/MASTER_RUNBOOK.md)
+## Active protocol (internal-docs/dev/MASTER_RUNBOOK.md)
 - Rules **P1-P41** apply in every session. P33-P41 were appended after the
   first version of this file and are as binding as P1-P32; the runbook is
   the source of truth, this file is the short digest.

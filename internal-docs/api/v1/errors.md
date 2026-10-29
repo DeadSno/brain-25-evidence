@@ -117,7 +117,7 @@ def fetch_json(url, retries=3):
 
 ## Связанные документы
 
-- [OpenAPI spec](openapi.yaml)
+- [OpenAPI spec](../../../docs/api/v1/openapi.yaml)
 - [Sequence diagrams](sequence.md)
 - [NFR, раздел Доступность](../../nfr.md)
 

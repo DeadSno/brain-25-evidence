@@ -1,7 +1,7 @@
 # API Schemas - JSON Schema валидация
 
 > Формальные [JSON Schema](https://json-schema.org/) для валидации ответов API.
-> Дополняют [OpenAPI 3.0 spec](../openapi.yaml).
+> Дополняют [OpenAPI 3.0 spec](../../../../docs/api/v1/openapi.yaml).
 
 ## Файлы
 

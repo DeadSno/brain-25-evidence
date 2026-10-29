@@ -76,7 +76,7 @@ flowchart TB
 
 ## Связанные документы
 
-- [BPMN pipeline TO-BE](batch_pipeline.bpmn)
+- [BPMN pipeline TO-BE](../../docs/bpmn/batch_pipeline.bpmn)
 - [BPMN pipeline описание](../bpmn_pipeline.md)
 - [NFR](../nfr.md)
 

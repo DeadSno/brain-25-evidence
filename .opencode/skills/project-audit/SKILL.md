@@ -84,8 +84,8 @@ project: brain-25-evidence
 
 ### 7. Синхронизация документации
 - Ссылки в .md на несуществующие файлы
-- docs/glossary.md vs реальные термины в коде
-- docs/data_dictionary.md vs реальные поля в data.json
+- internal-docs/glossary.md vs реальные термины в коде
+- internal-docs/data_dictionary.md vs реальные поля в data.json
 - Упоминания версий (должны совпадать с текущей)
 
 ### 8. Безопасность

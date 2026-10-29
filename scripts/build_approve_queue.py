@@ -1,5 +1,5 @@
 """v2.4: approves-очередь — кандидаты Hedges' g из PubMed (мета-анализы).
-Строит docs/approve_queue.md БЕЗ записи g в data.json: владелец смотрит ряд
+Строит internal-docs/dev/approve_queue.md БЕЗ записи g в data.json: владелец смотрит ряд
 и помечает «ок»/«нет» — только после «ок» значение переезжает в docs/data.json.
 Ключ к сверке с приорами соавтора: |extract_g − PRIOR_G| ≤ 0.1 → «приор совпал».
 
@@ -19,7 +19,7 @@ from scripts.extract_g import candidates, year_of  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "docs" / "data.json"
-OUT = ROOT / "docs" / "approve_queue.md"
+OUT = ROOT / "internal-docs" / "dev" / "approve_queue.md"
 
 # sid (id в data.json) → PubMed-запрос. Топ-10 нацелены на ЦЕЛЕВОЙ исход
 # (владелец: если МА с основным исходом нет — добавку пропустить).

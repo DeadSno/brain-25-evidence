@@ -32,6 +32,6 @@
 
 ## Соглашения
 
-- Файлы: `docs/architecture_diagrams.md`, `docs/bpmn_pipeline.md`
+- Файлы: `internal-docs/architecture_diagrams.md`, `internal-docs/bpmn_pipeline.md`
 - Стили: без emoji в узлах (проблемы с рендером)
 - Без `classDef` в mermaid (иногда ломает preview)

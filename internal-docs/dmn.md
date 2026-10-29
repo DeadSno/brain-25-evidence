@@ -6,7 +6,7 @@
 > Связанные документы:
 > - User Stories: [user_stories.md](user_stories.md)
 > - SRS: [srs.md](srs.md)
-> - Методология: [methodology.html](methodology.html)
+> - Методология: [methodology.html](../docs/methodology.html)
 
 ## 1. Контекст решения
 

@@ -70,29 +70,31 @@ project: brain-25-evidence
 с RU-источником; расхождение — находка.
 
 ### 1. Битые ссылки
-Пройти все .md в `docs/`, найти ссылки вида `[текст](путь)`.
-Проверить, что файл по этому пути существует.
+Пройти все .md в `internal-docs/` (внутренние документы; в `docs/` их нет
+намеренно — см. PRJ-02) и в корне репозитория, найти ссылки вида
+`[текст](путь)`. Проверить, что файл по этому пути существует.
 Исключение: внешние http/https ссылки.
 
 ### 2. Навигация
 Проверить, что `README.md` ссылается на все ключевые артефакты:
-- docs/srs.md, docs/rtm.md, docs/erd.md, docs/nfr.md
-- docs/bpmn_pipeline.md, docs/dmn.md
+- internal-docs/srs.md, internal-docs/rtm.md, internal-docs/erd.md,
+  internal-docs/nfr.md
+- internal-docs/bpmn_pipeline.md, internal-docs/dmn.md
 - docs/api/v1/openapi.yaml
-- docs/user_stories.md, docs/adr/README.md
+- internal-docs/user_stories.md, internal-docs/adr/README.md
 
 ### 3. Устаревшие упоминания
 - Версии ниже v3.7
 - Числа: 103, 113, 94, 9074, 5135
 - Названия старых батчей
 
-### 4. Дубли в docs/
+### 4. Дубли в internal-docs/
 - Файлы с одинаковым содержимым
 - Похожие по названию (описание_methodology vs methodology)
 
 ### 5. Форматирование
 - Файлы с непарными ``` (тройные backticks)
-- Файлы с CRLF в .md (должно быть LF для GitHub Pages)
+- Файлы с CRLF в .md (в репозитории канон — LF)
 
 ## Формат вывода
 
