@@ -589,7 +589,10 @@
    только свой (~2-3 КБ вместо 326 КБ). Новые файлы добавлены в DATA_RE
    (network-first); без бампа кэша возвратный посетитель останется на
    старом i18n.js (?v=23 -> ?v=24 на всех HTML) и не увидит сплит. */
-var CACHE_VERSION = 'v198';
+/* Бамп v198 -> v199 FIX-58 (SEO-01): добавлены hreflang-теги на 300 страниц,
+   EN-копии в docs/en/ и двуязычный sitemap.xml (282 URL). HTML и sw.js
+   изменились — кэш нужно очистить. */
+var CACHE_VERSION = 'v199';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 

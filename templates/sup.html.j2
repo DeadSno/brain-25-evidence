@@ -6,6 +6,9 @@
     <title>{{ title }}</title>
     <meta name="description" content="{{ description }}">
     <link rel="canonical" href="{{ url }}">
+    <link rel="alternate" hreflang="ru" href="{{ url }}">
+    <link rel="alternate" hreflang="en" href="{{ base_url }}/en/sup/{{ slug }}.html">
+    <link rel="alternate" hreflang="x-default" href="{{ url }}">
     {# v5.6.0 этап 5: RSS-фид docs/feed.xml (scripts/build_feed.py).
        Ссылка на него — в <head> каждой страницы: без неё фид не находится
        ни автообнаружением, ни вкладкой «RSS» в браузере. Адрес абсолютный,

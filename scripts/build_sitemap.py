@@ -8,16 +8,23 @@
 
 Что попадает в sitemap:
 
-- корневые контентные страницы `docs/*.html`
-- все страницы `docs/sup/*.html`, включая каталог `sup/index.html`
+- корневые контентные страницы `docs/*.html` (RU) и их EN-копии `docs/en/*.html`
+- все страницы `docs/sup/*.html` (RU) и их EN-копии `docs/en/sup/*.html`,
+  включая каталог `sup/index.html`
 
 Что НЕ попадает, и почему:
 
-- `offline.html` — не контентная страница, а офлайн-заглушка, которую
-  отдаёт сервис-воркер при отсутствии сети. В индексации ей не место
-  (решение владельца, зафиксировано в исходном комментарии sitemap)
+- `offline.html` / `docs/en/offline.html` — не контентная страница, а
+  офлайн-заглушка, которую отдаёт сервис-воркер при отсутствии сети.
+  В индексации ей не место (решение владельца, зафиксировано в исходном
+  комментарии sitemap).
 - `google*.html` — служебный файл верификации Google Search Console,
-  не страница сайта
+  не страница сайта.
+- `404.html` / `docs/en/404.html` — служебная страница GitHub Pages,
+  отдаётся только на несуществующие URL и не индексируется.
+
+Каждая страница получает блок `<xhtml:link rel="alternate">` с trzema
+языковыми версиями: ru / en / x-default (связка SEO-01, FIX-58).
 
 Приоритеты и changefreq взяты из исходного файла и разложены по смыслу:
 главная выше разделов, разделы выше карточек, карточки — одним уровнем.
@@ -49,6 +56,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import re
 import subprocess
 import sys
 from datetime import date
@@ -58,10 +66,10 @@ ROOT = Path(__file__).resolve().parent.parent
 DOCS = ROOT / "docs"
 SITEMAP = DOCS / "sitemap.xml"
 
-BASE = "https://deadsno.github.io/brain-25-evidence/"
+BASE = "https://deadsno.github.io/brain-25-evidence"
 
 # Исключения. Совпадение по имени, регистронезависимо.
-EXCLUDED_ROOT = {"offline.html"}
+EXCLUDED_ROOT = {"offline.html", "404.html"}
 EXCLUDED_PREFIXES = ("google",)
 
 # (путь относительно docs/, changefreq, priority).
@@ -99,11 +107,11 @@ HEADER = """<?xml version="1.0" encoding="UTF-8"?>
   ручная правка здесь уже расходилась с фактическим содержимым docs/
   (17 URL при 143 существующих).
 
-  {count} страниц: {n_root} корневых + {n_sup} в docs/sup/
-  (каталог + карточки).
+  {count} страниц: {n_root} корневых + {n_sup} в docs/sup/ (каждая в паре
+  RU + EN, т.е. {n_ru} RU + {n_en} EN).
 
-  offline.html намеренно не указан — это не контентная страница, а
-  офлайн-заглушка, которую сервис-воркер отдаёт при отсутствии сети.
+  offline.html / 404.html намеренно не указаны — это не контентные
+  страницы (офлайн-заглушка и служебная страница GitHub Pages).
   google*.html — служебный файл верификации Google Search Console.
 
   lastmod берётся из даты последнего коммита файла (git log, короткий
@@ -111,18 +119,19 @@ HEADER = """<?xml version="1.0" encoding="UTF-8"?>
   объявила бы весь сайт свежим. Для файлов вне git подставляется
   дата сборки.
 -->
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
 """
+
+_ALTERNATES = (
+    '    <xhtml:link rel="alternate" hreflang="ru" href="{ru}" />\n'
+    '    <xhtml:link rel="alternate" hreflang="en" href="{en}" />\n'
+    '    <xhtml:link rel="alternate" hreflang="x-default" href="{ru}" />\n'
+)
 
 
 def _staged_docs_paths() -> set[str]:
-    """Пути под docs/, уже поставленные в индекс и ждущие коммита.
-
-    Нужны, чтобы отличить «файл изменён, но ещё не закоммичен» от «файл
-    лежит в коммите». Первые получают дату коммита (см. `--commit-date`),
-    вторые — дату из истории. Ключи — пути относительно docs/, как их
-    ожидает collect().
-    """
+    """Пути под docs/, уже поставленные в индекс и ждущие коммита."""
     try:
         out = subprocess.run(
             ["git", "diff", "--cached", "--name-only", "--diff-filter=ACMR", "--", "docs/"],
@@ -146,12 +155,6 @@ def _staged_docs_paths() -> set[str]:
 
 def _last_commit_date(rel_to_docs: str, fallback: str) -> str:
     """Дата последнего коммита файла. Для файлов вне git — fallback."""
-    # Главная страница в sitemap значится пустым loc (её canonical — с
-    # косой чертой), но путь к файлу от этого не становится docs/: такой
-    # pathspec означал бы «любой файл в docs», и lastmod главной двигался бы
-    # от правки чего угодно, включая сам sitemap.xml. Тогда каждый коммит,
-    # чинящий sitemap, делает его снова устаревшим — проверено 2026-10-08.
-    # Поэтому путь строим от имени файла, а не от loc.
     if not rel_to_docs:
         rel_to_docs = "index.html"
     path = f"docs/{rel_to_docs}"
@@ -172,41 +175,56 @@ def _last_commit_date(rel_to_docs: str, fallback: str) -> str:
     return value
 
 
-def _entry(loc: str, lastmod: str, changefreq: str, priority: str) -> str:
+def _entry(loc: str, lastmod: str, changefreq: str, priority: str,
+           ru_url: str, en_url: str) -> str:
+    alternates = _ALTERNATES.format(ru=ru_url, en=en_url)
+    loc_path = loc if loc else ""
     return (
         "  <url>\n"
-        f"    <loc>{BASE}{loc}</loc>\n"
+        f"    <loc>{BASE}{loc_path}</loc>\n"
         f"    <lastmod>{lastmod}</lastmod>\n"
         f"    <changefreq>{changefreq}</changefreq>\n"
         f"    <priority>{priority}</priority>\n"
+        f"{alternates}"
         "  </url>\n"
     )
 
 
+def _ru_en_urls(rel_to_docs: str) -> tuple[str, str]:
+    """Вернуть (ru_url, en_url) для страницы по пути относительно docs/."""
+    if rel_to_docs == "index.html":
+        return BASE + "/", BASE + "/en/"
+    return BASE + "/" + rel_to_docs, BASE + "/en/" + rel_to_docs
+
+
+def _en_loc(rel_to_docs: str) -> str:
+    """loc (относительно BASE) для EN-версии страницы."""
+    if rel_to_docs == "index.html":
+        return "en/"
+    return "en/" + rel_to_docs
+
+
 def collect() -> list[tuple[str, str, str, str]]:
-    """Список (loc, source, changefreq, priority) — в порядке sitemap.xml.
+    """Список кортежей (loc, source, changefreq, priority) — как раньше.
 
-    `source` — путь относительно docs/, по которому берётся lastmod. Он
-    совпадает с loc у всех страниц, КРОМЕ главной: у неё loc пустой (см.
-    ниже), а дата нужна по файлу docs/index.html. Держать оба поля
-    отдельно — единственный способ не превратить lastmod главной в
-    самоссылку.
+    `loc` — путь для <loc> (относительно BASE, "" для главной, без слэша —
+    чтобы `BASE + loc` давало корректный URL, например `BASE + ""` для
+    главной и `BASE + "/en/"` для EN-главной).
 
-    Порядок разделов и приоритеты заданы ROOT_PAGES и SUP_INDEX; сами
-    карточки берутся из каталога и сортируются по имени, чтобы два
-    прогона давали байт-в-байт одинаковый файл.
+    `source` — путь относительно docs/ для lastmod (RU-источник).
+
+    ru_url/en_url вычисляются в render() через _ru_en_urls(source).
     """
     collected: list[tuple[str, str, str, str]] = []
+
+    def add(name: str, changefreq: str, priority: str) -> None:
+        loc = "" if name == "index.html" else name
+        collected.append((loc, name, changefreq, priority))
 
     for name, changefreq, priority in ROOT_PAGES:
         if not (DOCS / name).is_file():
             raise SystemExit(f"Нет контентной страницы: docs/{name}")
-        # У главной canonical — с косой чертой, а не /index.html
-        # (`docs/index.html`, `<link rel="canonical">`). В sitemap пишем
-        # тот же адрес, что в canonical: два разных написания одной
-        # страницы Google считает двумя URL.
-        loc = "" if name == "index.html" else name
-        collected.append((loc, name, changefreq, priority))
+        add(name, changefreq, priority)
 
     sup_dir = DOCS / "sup"
     if not sup_dir.is_dir():
@@ -221,11 +239,11 @@ def collect() -> list[tuple[str, str, str, str]]:
         raise SystemExit("docs/sup/ пуст — список карточек пуст")
 
     index_name, index_freq, index_priority = SUP_INDEX
-    collected.append((index_name, index_name, index_freq, index_priority))
+    add(index_name, index_freq, index_priority)
 
     changefreq, priority = SUP_CARD
     for name in cards:
-        collected.append((f"sup/{name}", f"sup/{name}", changefreq, priority))
+        add(f"sup/{name}", changefreq, priority)
 
     return collected
 
@@ -237,25 +255,48 @@ def render(commit_date: str | None = None) -> str:
     (см. `--commit-date`). Без неё генерация полностью опирается на
     историю git и детерминирована: это и есть режим CI.
     """
-    entries = collect()
+    ru_records = collect()
     today = commit_date or date.today().isoformat()
-    n_sup = sum(1 for loc, _src, _f, _p in entries if loc.startswith("sup/"))
-    n_root = len(entries) - n_sup
-
     staged = _staged_docs_paths() if commit_date else set()
 
+    # Раскладываем записи: каждая RU-страница порождает пару (RU + EN).
+    # Каждая запись — (loc, source, changefreq, priority).
+    records: list[tuple[tuple[str, str, str, str], str, str]] = []
+    for loc, source, changefreq, priority in ru_records:
+        ru_url, en_url = _ru_en_urls(source)
+        records.append(((loc, source, changefreq, priority), ru_url, en_url))
+        en_loc = "en/" if loc == "" else "en/" + loc
+        records.append(((en_loc, source, changefreq, priority), ru_url, en_url))
+
+    n_ru = len(ru_records)
+    n_en = len(ru_records)
+    n_sup = sum(1 for (loc, _s, _f, _p), _r, _e in records if loc.startswith("sup/"))
+    n_root = len(records) - n_sup
+
     chunks = [
-        HEADER.format(count=len(entries), n_root=n_root, n_sup=n_sup)
+        HEADER.format(
+            count=len(records),
+            n_root=n_root,
+            n_sup=n_sup,
+            n_ru=n_ru,
+            n_en=n_en,
+        )
     ]
-    for loc, source, changefreq, priority in entries:
-        # Файл из индекса ещё не имеет коммита — `git log` вернул бы дату
-        # его ПРЕДЫДУЩЕЙ правки, и sitemap разошёлся бы с CI сразу после
-        # коммита. Поэтому для индекса берём дату коммита.
+    for (loc, source, changefreq, priority), ru_url, en_url in records:
         if source in staged:
             lastmod = today
         else:
             lastmod = _last_commit_date(source, today)
-        chunks.append(_entry(loc, lastmod, changefreq, priority))
+        chunks.append(
+            _entry(
+                loc,
+                lastmod,
+                changefreq,
+                priority,
+                ru_url,
+                en_url,
+            )
+        )
     chunks.append("</urlset>\n")
     return "".join(chunks)
 

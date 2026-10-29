@@ -11,6 +11,8 @@ docs/en/sup/ с adaptations для английской версии:
   словаря docs/i18n.js (блок I18N.en).
 * i18n.js на EN-страницах отключается через meta[name="lang"] (см.
   правку в самом i18n.js).
+* В <head> добавляются canonical (на EN-URL) и 3 hreflang-тега
+  (ru / en / x-default) для связки языков (SEO-01, этап 2, FIX-58).
 """
 
 import json
@@ -23,6 +25,8 @@ DOCS = "docs"
 EN_DIR = os.path.join(DOCS, "en")
 EN_SUP_DIR = os.path.join(EN_DIR, "sup")
 I18N_PATH = os.path.join(DOCS, "i18n.js")
+
+BASE = "https://deadsno.github.io/brain-25-evidence"
 
 
 def extract_en_dict(i18n_path):
@@ -176,6 +180,63 @@ def strip_i18n_markers(html):
     return html
 
 
+def page_urls(rel_to_docs):
+    """Вернуть (ru_url, en_url) для страницы по пути относительно docs/.
+
+    Главная: docs/index.html -> ru https://.../ , en https://.../en/
+    Карточка: docs/sup/alanin.html -> ru https://.../sup/alanin.html,
+    en https://.../en/sup/alanin.html
+    """
+    if rel_to_docs == "index.html":
+        return BASE + "/", BASE + "/en/"
+    return BASE + "/" + rel_to_docs, BASE + "/en/" + rel_to_docs
+
+
+def ru_en_urls_for_en(en_rel_to_docs):
+    """Для EN-страницы (путь относительно docs/, начинается с 'en/'):
+    вернуть (ru_url, en_url).
+
+    en/index.html -> ru https://.../ , en https://.../en/
+    en/sup/alanin.html -> ru https://.../sup/alanin.html,
+    en https://.../en/sup/alanin.html
+    """
+    if en_rel_to_docs == "en/index.html":
+        return BASE + "/", BASE + "/en/"
+    ru_rel = en_rel_to_docs[len("en/"):]
+    return BASE + "/" + ru_rel, BASE + "/" + en_rel_to_docs
+
+
+def add_hreflang_and_canonical(html, ru_url, en_url):
+    """Вставить canonical (на EN-URL) и 3 hreflang-тега в <head>.
+
+    Абсолютные URL с доменом https://deadsno.github.io/brain-25-evidence/
+    (требование SEO-01 для корректной связки языков поисковиками).
+    """
+    # Удалить существующий canonical и hreflang (чтобы не дублировать
+    # при повторном прогоне генератора)
+    html = re.sub(
+        r'\s*<link rel="canonical" href="[^"]*"\s*/?>', '', html, count=1
+    )
+    html = re.sub(
+        r'\s*<link rel="alternate" hreflang="(ru|en|x-default)"[^>]*>',
+        '', html,
+    )
+    block = (
+        f'\n  <link rel="canonical" href="{en_url}">'
+        f'\n  <link rel="alternate" hreflang="ru" href="{ru_url}" />'
+        f'\n  <link rel="alternate" hreflang="en" href="{en_url}" />'
+        f'\n  <link rel="alternate" hreflang="x-default" href="{ru_url}" />'
+    )
+    # Вставить после <meta charset="utf-8"> (чтобы charset шёл перед
+    # любыми link/скриптами — требование test_charset_declaration_precedes_any_fetchable_element),
+    # иначе — сразу после <head>.
+    if '<meta charset="utf-8">' in html:
+        html = html.replace('<meta charset="utf-8">', '<meta charset="utf-8">' + block, 1)
+    else:
+        html = html.replace("<head>", "<head>" + block, 1)
+    return html
+
+
 def process_html(src_path, dst_path, en_dict, depth):
     with open(src_path, "r", encoding="utf-8") as f:
         html = f.read()
@@ -197,6 +258,11 @@ def process_html(src_path, dst_path, en_dict, depth):
 
     # 6. Удаляем все data-i18n-* маркеры (перевод уже применён статически)
     html = strip_i18n_markers(html)
+
+    # 7. Hreflang + canonical (EN-страница)
+    rel_to_docs = os.path.relpath(dst_path, DOCS).replace("\\", "/")
+    ru_url, en_url = ru_en_urls_for_en(rel_to_docs)
+    html = add_hreflang_and_canonical(html, ru_url, en_url)
 
     os.makedirs(os.path.dirname(dst_path), exist_ok=True)
     with open(dst_path, "w", encoding="utf-8") as f:
