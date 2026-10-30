@@ -595,7 +595,9 @@
 /* Бамп v199 -> v200 FIX-59 (MKT-02, MKT-08): в docs/sup/index.html исправлена
    опечатка "ведикт" -> "вердикт" (4 места) и добавлен отступ у бейджа
    счётчика в заголовке каталога. */
-var CACHE_VERSION = 'v200';
+/* Бамп v200 -> v201 FIX-60 (VIS-04, VIS-05, VIS-06): унифицированы line-height
+   (1.2/1.5/1.4), border-radius (8px/12px/50%), убран !important из h3. */
+var CACHE_VERSION = 'v201';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
