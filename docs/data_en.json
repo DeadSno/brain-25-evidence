@@ -757,7 +757,7 @@
    ],
    "myths": "“Primrose heals the skin” - data relate to atopic dermatitis in children. “It will help with joints” - with rheumatoid arthritis, the results are mixed. “Proven” - quality according to Jadad is low, review 2024 requires caution.",
    "name": "GLA",
-   "onset": "Within the framework of the reception, weeks-months; for dermatitis, the assessment is based on the SCORAD scale, the rate in abstracts is not specified.",
+   "onset": "Within the framework of the intake, weeks-months; for dermatitis, the assessment is based on the SCORAD scale, the rate in abstracts is not specified.",
    "title": "GLA",
    "upper_limit": "not set in abstracts",
    "verdict": "depends on context",
@@ -3508,7 +3508,7 @@
      "with": "antibiotics (tetracyclines, quinolones)"
     },
     {
-     "note": "separate reception 2 hours",
+     "note": "separate intake 2 hours",
      "severity": "medium",
      "with": "bisphosphonates"
     },
@@ -4192,7 +4192,7 @@
      "with": "tetracycline antibiotics"
     },
     {
-     "note": "separate reception 2 hours",
+     "note": "separate intake 2 hours",
      "severity": "medium",
      "with": "bisphosphonates"
     },

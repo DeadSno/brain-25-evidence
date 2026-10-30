@@ -8,11 +8,11 @@
   <link rel="alternate" hreflang="en" href="https://deadsno.github.io/brain-25-evidence/en/trends.html" />
   <link rel="alternate" hreflang="x-default" href="https://deadsno.github.io/brain-25-evidence/trends.html" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Тренды популярности БАДов 2015-2025 — Brain 25 Evidence</title>
+<title>Supplement popularity trends 2015-2025 — Brain 25 Evidence</title>
 <link rel="manifest" href="../manifest.webmanifest">
-<meta name="description" content="10 лет данных по 130 добавкам: публикации PubMed, просмотры Wikipedia и цитирования исследований. Как менялась доказательная база и где появились новые работы."/>
-<meta property="og:title" content="Тренды популярности БАДов 2015-2025 — Brain 25 Evidence"/>
-<meta property="og:description" content="10 лет данных по 130 добавкам: публикации PubMed, просмотры Wikipedia и цитирования исследований. Как менялась доказательная база и где появились новые работы."/>
+<meta name="description" content="10 years of data on 130 supplements: PubMed publications, Wikipedia views and citation of studies. How the evidence base has changed and where new research has emerged."/>
+<meta property="og:title" content="Supplement popularity trends 2015-2025 — Brain 25 Evidence"/>
+<meta property="og:description" content="10 years of data on 130 supplements: PubMed publications, Wikipedia views and citation of studies. How the evidence base has changed and where new research has emerged."/>
 <meta property="og:type" content="website"/>
 <meta property="og:url" content="https://deadsno.github.io/brain-25-evidence/trends.html"/>
 <link rel="alternate" type="application/rss+xml" title="brain-25-evidence" href="https://deadsno.github.io/brain-25-evidence/feed.xml">
@@ -20,29 +20,29 @@
 <meta property="og:site_name" content="Brain 25 Evidence"/>
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="Тренды популярности БАДов 2015-2025 — Brain 25 Evidence"/>
-<meta name="twitter:description" content="10 лет данных по 130 добавкам: публикации PubMed, просмотры Wikipedia и цитирования исследований. Как менялась доказательная база и где появились новые работы."/>
+<meta name="twitter:title" content="Supplement popularity trends 2015-2025 — Brain 25 Evidence"/>
+<meta name="twitter:description" content="10 years of data on 130 supplements: PubMed publications, Wikipedia views and citation of studies. How the evidence base has changed and where new research has emerged."/>
 <meta name="twitter:image" content="https://deadsno.github.io/brain-25-evidence/og.png"/>
 <meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#1c1c1e" media="(prefers-color-scheme: dark)">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="БАДы">
+<meta name="apple-mobile-web-app-title" content="Supplements">
 <link rel="apple-touch-icon" href="../icons/192.png">
-<script src="../i18n.js?v=25" defer></script>
+<script src="../i18n.js?v=26" defer></script>
 <script>
-// v5.6.3: вместо трёх одинаковых веток if/else/catch, каждая из которых
-// безусловно вешала light на body. Разница была не косметическая: ниже,
-// в локальном style-блоке на строках 94-95, есть единственное во всём
-// проекте правило `body.light header.top .site-title` — все 66 остальных
-// темных правил разметки в style.css завязаны на `html.light`.
-// То есть этот блок красил заголовок хедера в светлый #1c1c1e тёмному
-// посетителю, и снимал цвет только когда initApp() доходил до
-// setTheme(getTheme()) — то есть после Promise.all из двух fetch.
-// На медленной сети заголовок оставался тёмным по цвету на тёмном фоне.
-// Теперь ровно то, что в faq.html:29-41 и index.html — класс на body
-// ставится только по выбору пользователя, и подпись кнопки обновляется
-// сразу, не дожидаясь загрузки данных.
+
+
+
+
+
+
+
+
+
+
+
+
 try {
   document.addEventListener('DOMContentLoaded', function () {
     var light = localStorage.getItem('theme') === 'light';
@@ -54,9 +54,9 @@ try {
 } catch (e) {}
 </script>
 <script>
-// v5.4.0 (dark-first): тёмная тема — это ОТСУТСТВИЕ класса light.
-// До загрузки CSS ничего добавлять не нужно: :root уже тёмный.
-// light ставится только если пользователь выбрал светлую тему.
+
+
+
 try {
   if (localStorage.getItem('theme') === 'light') {
     document.documentElement.classList.add('light');
@@ -64,7 +64,7 @@ try {
 } catch (e) {}
 </script>
 <link rel="stylesheet" href="../style.min.css?v=473">
-<!-- v5.6.1: chart.js вендорен в docs/vendor/ — без сети графики на странице не рисуются -->
+
 <script src="../vendor/chart.umd-4.4.1.min.js" defer></script>
 <script src="../version.js?v=312" defer></script>
 <style>
@@ -72,22 +72,16 @@ try {
   .filters{display:flex;flex-wrap:wrap;gap:.8rem 1.2rem;margin:var(--space-4) 0;padding:.8rem var(--space-4);
     background:var(--card-bg);border:1px solid var(--border);border-radius:10px}
   .filters label{display:flex;align-items:center;gap:.4rem;font-size:.9rem}
-  /* v5.6.2 P1 (тач-таргеты): было 34px — замерено на всех четырёх селектах
-     при 320 и 412. padding был var(--space-0-3) = .3rem = 4.8px; при .7rem
-     бокс становится 46.8px, плюс min-height как страховка от смены шрифта.
-     Горизонтальный padding не тронут — иначе съехала бы ширина узких
-     селектов (gradeFilter 67px, topFilter 58px) и фильтры перестали бы
-     помещаться в строку на 320. */
+  
   .filters select{background:var(--card-bg);color:var(--text);border:1px solid var(--border);
     border-radius:var(--radius-md);padding:.7rem var(--space-2);font-size:16px;min-height:44px}
   .tr-tabs{display:flex;gap:.4rem;margin:var(--space-4) 0 .6rem;flex-wrap:wrap}
   .tr-tab{background:var(--card-bg);color:var(--text);border:1px solid var(--border);
     padding:var(--space-2) var(--space-4);border-radius:var(--radius-lg);cursor:pointer;font-size:.92rem}
-  /* v4.1: белый на #3498db давал 3.15:1 — затемнено до 5.42:1 в обеих темах.
-     v5.6.5 (NV2-06): тот же градиент уже объявлен токеном --grad-calc. */
+  
   .tr-tab.on{background:var(--grad-calc);color:var(--on-solid);border:none;font-weight:600}
 
-  /* Выравнивание кнопок — единый стиль, без special-casing для .calc */
+  
   header.top .actions > a.btn,
   header.top .actions > button.btn {
     padding:var(--space-2) var(--space-4) !important;
@@ -100,7 +94,7 @@ try {
     box-sizing:border-box !important;
     margin:0 !important;
   }
-  /* Сброс специальных правил для .btn.calc в шапке — чтобы не съезжал */
+  
   header.top .actions .btn.calc {
     padding:var(--space-2) var(--space-4) !important;
     height:2.25rem !important;
@@ -119,13 +113,7 @@ try {
   .stat-card .delta{font-size:var(--fs-4);color:var(--grade-a-tx);margin-top:var(--space-0-2)}
   .stat-card .delta.down{color:var(--grade-d-tx)}
 
-  /* Убираем sticky-шапку — на странице с графиками она мешает.
-     v5.6.0: липкой теперь обёртка .site-header (style.css), а не сам
-     .top. Поэтому отключаем липкость у обёртки, а не у header.top —
-     старое правило header.top{position:static} стало беспредметным и
-     оставляло страницу единственной, где шапка не липнет.
-     Намерение сохранено: на графиках шапка мешает, поэтому она уезжает
-     вместе с прокруткой. */
+  
   body.trends-page .site-header{position:static!important}
   header.top{display:flex;flex-wrap:wrap;gap:.4rem .6rem}
   header.top .site-title{flex:1 1 100%;font-size:1.3rem;line-height:var(--lh-tight);margin:0 0 .4rem;color:var(--text)!important}
@@ -140,25 +128,16 @@ try {
     header.top .site-title{font-size:1.05rem}
     header.top .site-title .v{display:none}
   }
-/* ===== Главное ===== */
+
 .executive-summary{margin:var(--space-6) 0}
 .executive-summary h2{margin:0 0 var(--space-0-3);font-size:1.15rem}
 .executive-summary .hint{margin:0 0 .8rem;opacity:.7;font-size:.88rem}
 .insights-grid{
-  /* min(280px,100%) вместо 280px: на узких экранах (≤320px, контентная
-     ширина ~257px) жёсткая дорожка 280px выносила карточки за правый
-     край контейнера на 23px — M2-02 в FIX_PLAN. min() схлопывает
-     дорожку до ширины контейнера, auto-fit при этом даёт одну колонку. */
+  
   display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));
   gap:.8rem;margin:var(--space-4) 0;
 }
-/* v5.6.2 — резерв высоты под асинхронное наполнение insightsGrid.
-   Без него grid растёт со 105px (одна карточка «Загрузка…») до ~620px после
-   подстановки пяти карточек и сдвигает всё нижележащее содержимое: CLS 0.11
-   на продакшене и 0.22–0.25 локально с задержкой данных.
-   Значения — минимальные измеренные финальные высоты в каждой зоне числа
-   колонок. Они НЕ превышают финальную высоту, поэтому итоговая высота
-   страницы не меняется и визуальные эталоны остаются валидными. */
+
 .insights-grid{min-height:530px}
 @media (min-width:700px) and (max-width:1023px){.insights-grid{min-height:341px}}
 @media (min-width:1024px){.insights-grid{min-height:246px}}
@@ -174,7 +153,7 @@ try {
 .insight-title{font-weight:600;margin-bottom:var(--space-1);font-size:1rem}
 .insight-text{font-size:1rem;opacity:.85;line-height:1.45}
 
-/* ===== Scatter Matrix ===== */
+
 .scatter-section{margin:var(--space-8) 0}
 .scatter-section h2{margin:0 0 var(--space-0-3);font-size:1.15rem}
 .scatter-section .hint{margin:0 0 .8rem;opacity:.7;font-size:.88rem}
@@ -197,7 +176,7 @@ try {
 .scatter-legend [data-g="D"]::before{background:var(--chart-grade-d-dot)}
 @media (max-width:700px){.scatter-canvas-box{height:400px}}
 
-/* ===== Categories ===== */
+
 .categories-section{margin:var(--space-8) 0}
 .categories-section h2{margin:0 0 var(--space-0-3);font-size:1.15rem}
 .categories-section .hint{margin:0 0 .8rem;opacity:.7;font-size:.88rem}
@@ -219,15 +198,14 @@ try {
   padding:var(--space-0-2) 0;
 }
 .cat-label{opacity:.65}
-/* v4.3: #f59e0b на белой карточке давал 2.15:1. Базовое правило — тёмный
-   вариант (5.02:1), в тёмной теме возвращаем исходный (6.49:1 на --card-bg). */
+
 .cat-warn{
   margin-top:.55rem;font-size:var(--fs-4);color:var(--warn-tx);
   border-top:1px solid var(--border);padding-top:.55rem;
 }
 html:not(.light) .cat-warn{color:var(--warn-tx-amber)}
 
-/* ===== Methodology ===== */
+
 .methodology{
   background:var(--card-bg);border:1px solid var(--border);
   border-radius:var(--radius-xl);padding:var(--space-2) 1.2rem;margin:var(--space-6) 0;
@@ -243,36 +221,20 @@ html:not(.light) .cat-warn{color:var(--warn-tx-amber)}
 }
 .method-footer{margin-top:var(--space-4);opacity:.9;font-size:var(--fs-4)}
 
-  /* v5.5.0 A4: длина строки была 165 символов при ширине контейнера
-     1152px — вдвое больше читаемой нормы.
-
-     Селектор намеренно без привязки к секциям: один из четырёх hint
-     стоит сразу после <h1> и ни в executive-summary, ни в
-     scatter-section, ни в categories-section не попадает. Правило с
-     перечислением секций оставляло его на исходной ширине 1152px.
-
-     Почему 64ch, а не 72ch: ch — ширина глифа «0», а длина строки
-     считается по средней ширине строчных. Цифры шире «x», и при 72ch
-     фактически выходило 83 символа — выше заявленной нормы в 80.
-     Значение подобрано перебором по замеру, а не рассчитано: при 64ch
-     фактически выходит 74 символа.
-
-     Графики, сетка .insight-card и таблицы не затрагиваются: правило
-     действует только на p, а не на контейнеры. */
+  
   .hint,
   .chart-note,
   .method-footer{max-width:64ch}
 
-  /* v5.6.1: дисклеймер переехал из футера сразу под h1. Стиль
-     .site-footer .disc на него больше не действует — повторяем вид. */
+  
   main > p.disc{opacity:.9;margin:var(--space-2) 0 var(--space-4)}
 </style>
 <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "MedicalWebPage",
-      "name": "Тренды популярности",
-      "description": "10 лет данных по 130 добавкам: публикации PubMed, просмотры Wikipedia и цитирования исследований. Как менялась доказательная база и где появились новые работы.",
+      "name": "Popularity trends",
+      "description": "10 years of data on 130 supplements: PubMed publications, Wikipedia views and citation of studies. How the evidence base has changed and where new research has emerged.",
       "url": "https://deadsno.github.io/brain-25-evidence/trends.html",
       "inLanguage": "ru"
     }
@@ -290,7 +252,7 @@ html:not(.light) .cat-warn{color:var(--warn-tx-amber)}
     <nav class="actions">
       <a class="btn c-feedback" href="../feedback.html"><span>💬 Feedback</span></a>
       <a class="btn c-support" href="../support.html"><span>💚 Support us</span></a>
-      <button class="btn c-theme" id="themeBtn" aria-label="Переключить на светлую тему"><span>🌞 Light theme</span></button>
+      <button class="btn c-theme" id="themeBtn"><span>🌞 Light theme</span></button>
       <select id="langSelect" class="lang-select"><option value="ru">RU</option><option value="en">EN</option></select>
       <button class="btn c-random" id="randomBtn"><span>🎲 Surprise me</span></button>
     </nav>
@@ -307,9 +269,7 @@ html:not(.light) .cat-warn{color:var(--warn-tx-amber)}
 <section class="executive-summary">
   <h2><span>🎯 Highlights</span></h2>
   <p class="hint"><span>Automatic conclusions from the data: what is growing, what is overrated, where science outruns the hype.</span></p>
-  <!-- v5.6.5 (A11Y-P2-05): сетка инсайтов и категории ниже заполняются
-     один раз при загрузке (:1091-1092) — это обычный контент страницы,
-     а не результат действия пользователя. Live-регион не нужен. -->
+  
   <div class="insights-grid" id="insightsGrid">
     <div class="insight-card" data-tone="blue">
       <div class="insight-icon">⏳</div>
@@ -319,11 +279,7 @@ html:not(.light) .cat-warn{color:var(--warn-tx-amber)}
   </div>
 </section>
 
-<!-- KPI-карточки.
-     v5.6.5 (A11Y-P2-05): блок НАМЕРЕННО без live-региона. Значения
-     проставляются один раз при загрузке (renderStats :483) и дальше не
-     меняются — экранный диктор и так проходит их в обычном порядке
-     чтения, а регион заставил бы читать четыре карточки второй раз. -->
+
 <div class="stat-cards" id="statCards">
   <div class="stat-card">
     <div class="label"><span>Publications 2025</span></div>
@@ -347,7 +303,7 @@ html:not(.light) .cat-warn{color:var(--warn-tx-amber)}
   </div>
 </div>
 
-<!-- Фильтры -->
+
 <div class="filters">
   <label><span>Period:</span>
     <select id="periodFilter">
@@ -378,7 +334,7 @@ html:not(.light) .cat-warn{color:var(--warn-tx-amber)}
   </label>
 </div>
 
-<!-- Табы -->
+
 <div class="tr-tabs">
   <button class="tr-tab on" data-tab="growth"><span>Publication growth</span></button>
   <button class="tr-tab" data-tab="wiki">Wikipedia</button>
@@ -388,38 +344,28 @@ html:not(.light) .cat-warn{color:var(--warn-tx-amber)}
 <div class="chart-wrap">
   <canvas id="trendsChart"></canvas>
 </div>
-<!-- v5.6.5: live-регион (A11Y-P2-05). Подпись под графиком переписывается
-     renderChart() (:561) при каждой смене вкладки (setTab :476) и при
-     изменении любого из четырёх фильтров (:463) — то есть по действию
-     пользователя. Без региона смена «рост / Wikipedia / цитаты» была
-     беззвучной. -->
+
 <p class="chart-note" id="chartNote" role="status" aria-live="polite"></p>
 
 </main>
 
-<!-- v5.6.1: футер стоял здесь, между чартом и секциями «Матрица» /
-     «Категории» — то есть буквально в середине страницы, и рвал контент.
-     Перенесён в конец страницы (после methodology), дисклеймер поднят
-     под h1. -->
 
-<!-- Модалка -->
+
+
 <div id="modalOverlay" style="display:none">
   <div id="modal">
     <button id="modalClose" class="btn">×</button>
-    <!-- v5.6.5: live-регион (A11Y-P2-05). openModal() (:727) собирает
-         содержимое и только потом показывает оверлей (:758-759), поэтому
-         озвучивание приходит при открытии. Сама роль dialog и перевод
-         фокуса внутрь модалки — отдельная правка, здесь не в объёме. -->
+    
     <div id="modalBody" aria-live="polite"></div>
   </div>
 </div>
 
 <script>
 'use strict';
-// v5.6.3 (I18N-P2-04): локаль из <html lang> вместо семи литералов
-// 'ru-RU' по коду страницы. 13A2a: LOCALE объявлен в общем docs/i18n.js.
 
-// ── XSS protection ────────────────────────────────────────────
+
+
+
 function esc(s) {
   if (s == null) return '';
   return String(s).replace(/[&<>"']/g, c => (
@@ -427,11 +373,11 @@ function esc(s) {
   ));
 }
 
-// v5.6.5 (NV2-06): цвета графика больше не литералы в JS, а токены
-// --chart-* в style.css (:root, светлая тема переопределяет --chart-label
-// и --chart-grid). Резервные значения — именованные цвета CSS: если
-// style.css не загрузился, график остаётся читаемым, но второй копии
-// палитры в коде нет.
+
+
+
+
+
 function cssVar(name, fallback) {
   const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
   return v || fallback;
@@ -450,13 +396,13 @@ const GRADE_BG = {
   D: cssVar('--chart-grade-d-bg', 'tomato'),
 };
 
-let SUPP = [];           // data_index.json
-let TS = {};             // timeseries.json
+let SUPP = [];           
+let TS = {};             
 let byId = {};
 let chart = null;
 let currentTab = 'growth';
 
-// ── Тема ──────────────────────────────────────────────────────
+
 function setTheme(light) {
   document.body.classList.toggle('light', light);
   document.documentElement.classList.toggle('light', light);
@@ -464,7 +410,7 @@ function setTheme(light) {
   if (btn) btn.textContent = light ? t("theme.dark") : t("theme.light");
   if (btn) btn.setAttribute('aria-label', light ? t("a11y.themeToDark") : t("a11y.themeToLight"));
   try { localStorage.setItem('theme', light ? 'light' : 'dark'); } catch (e) {}
-  // перерисовываем чтобы цвета подписей обновились
+  
   if (TS.pubmed) renderChart();
 }
 
@@ -474,15 +420,15 @@ function getTheme() {
   return saved === 'light';
 }
 
-// ── Загрузка данных ───────────────────────────────────────────
+
 const fetchJson = (url) => fetch(url + '?v=' + (window.BUILD_VERSION || '5.6.5'))
   .then(r => { if (!r.ok) throw new Error(url + ': ' + r.status); return r.json(); });
 
-// i18n.js и version.js подключены с `defer`: они выполняются после полного
-// парсинга документа, а этот встроенный скрипт — в середине тела. Без
-// ожидания `t()` загрузка JSON могла завершиться раньше, чем `t` появится,
-// и `initApp()` падал с необработанным ReferenceError — страница висела
-// вечно в WebKit/Safari (баг страницы, а не теста).
+
+
+
+
+
 function bootTrends() {
   if (typeof window.t !== 'function') {
     return setTimeout(bootTrends, 20);
@@ -497,18 +443,18 @@ function bootTrends() {
     initApp();
   }).catch(err => {
     console.error('[boot]', err);
-    // v5.6.5 (A11Y-P2-05): роль на самом сообщении, а не на .chart-wrap —
-    // контейнер держит <canvas>, регион на нём озвучивал бы весь холст.
-    // Ошибка приходит один раз, поэтому assertive (role="alert").
+    
+    
+    
     document.querySelector('.chart-wrap').innerHTML =
       '<p role="alert" style="color:var(--grade-d-tx);padding:2rem;text-align:center">' + t("trends.loadError") + esc(err.message) + '</p>';
   });
 }
 bootTrends();
 
-// ── Инициализация ─────────────────────────────────────────────
+
 function initApp() {
-  // категории в фильтр
+  
   const cats = [...new Set(SUPP.map(c => c.category))].sort();
   const sel = document.getElementById('categoryFilter');
   cats.forEach(c => {
@@ -517,10 +463,10 @@ function initApp() {
     sel.appendChild(o);
   });
 
-  // тема
+  
   setTheme(getTheme());
 
-  // события
+  
   document.querySelectorAll('.tr-tab').forEach(b =>
     b.addEventListener('click', () => setTab(b.dataset.tab)));
   ['periodFilter', 'categoryFilter', 'gradeFilter', 'topFilter'].forEach(id =>
@@ -542,9 +488,9 @@ function setTab(tab) {
   renderChart();
 }
 
-// ── KPI карточки ──────────────────────────────────────────────
+
 function renderStats() {
-  // Публикации 2025
+  
   const pubTotals = {};
   Object.entries(TS.pubmed || {}).forEach(([id, s]) => {
     pubTotals[id] = { y2025: s['2025'] || 0, y2015: s['2015'] || 0 };
@@ -557,7 +503,7 @@ function renderStats() {
   pubsDEl.textContent = (pubsDelta >= 0 ? '↑ ' : '↓ ') + Math.abs(pubsDelta) + t("trends.pctTo2015");
   pubsDEl.className = 'delta' + (pubsDelta < 0 ? ' down' : '');
 
-  // Wiki декабрь 2025 (последний месяц)
+  
   let sumWiki = 0, lastMonth = null;
   Object.values(TS.wiki || {}).forEach(s => {
     const m = Object.keys(s).sort().pop();
@@ -565,7 +511,7 @@ function renderStats() {
   });
   document.getElementById('kpiWiki').textContent = sumWiki.toLocaleString(LOCALE);
 
-  // Цитаты 2025
+  
   const cite2025 = Object.values(TS.citations || {}).reduce((s, c) => s + (c['2025'] || 0), 0);
   const cite2015 = Object.values(TS.citations || {}).reduce((s, c) => s + (c['2015'] || 0), 0);
   document.getElementById('kpiCites2025').textContent = cite2025.toLocaleString(LOCALE);
@@ -574,13 +520,13 @@ function renderStats() {
   citeEl.textContent = (citeDelta >= 0 ? '↑ ' : '↓ ') + Math.abs(citeDelta) + t("trends.pctTo2015");
   citeEl.className = 'delta' + (citeDelta < 0 ? ' down' : '');
 
-  // Топ по росту
+  
   const growth = Object.entries(TS.pubmed || {}).map(([id, s]) => {
     const first = (s['2015'] || 0) + (s['2016'] || 0) + (s['2017'] || 0);
     const last = (s['2023'] || 0) + (s['2024'] || 0) + (s['2025'] || 0);
     const g = first > 0 ? last / first : 0;
     return { id, growth: g, first };
-  }).filter(x => x.first >= 20);  // фильтр от шума
+  }).filter(x => x.first >= 20);  
 
   growth.sort((a, b) => b.growth - a.growth);
   const top = growth[0];
@@ -590,7 +536,7 @@ function renderStats() {
   }
 }
 
-// ── Фильтрация ────────────────────────────────────────────────
+
 function getFiltered() {
   const cat = document.getElementById('categoryFilter').value;
   const grade = document.getElementById('gradeFilter').value;
@@ -607,7 +553,7 @@ function getYears() {
   return Array.from({ length: b - a + 1 }, (_, i) => String(a + i));
 }
 
-// ── Отрисовка ─────────────────────────────────────────────────
+
 function renderChart() {
   const years = getYears();
   const top = parseInt(document.getElementById('topFilter').value, 10);
@@ -686,9 +632,9 @@ function renderChart() {
       })
       .filter(x => x.last > 0)
       .sort((a, b) => b.last - a.last)
-      .slice(0, Math.min(top, 10));  // wiki читается лучше с меньшим
+      .slice(0, Math.min(top, 10));  
 
-    // Собираем все уникальные месяцы в выбранном периоде
+    
     const allMonths = new Set();
     rows.forEach(r => Object.keys(TS.wiki[r.id] || {}).forEach(m => {
       if (m >= years[0] + '-01' && m <= years[years.length-1] + '-12') allMonths.add(m);
@@ -740,7 +686,7 @@ function renderChart() {
   }
 
   else if (currentTab === 'citations') {
-    // Сумма по всем добавкам за каждый год
+    
     const totals = {};
     years.forEach(y => {
       totals[y] = Object.entries(TS.citations || {})
@@ -786,7 +732,7 @@ function renderChart() {
   }
 }
 
-// ── Модалка ───────────────────────────────────────────────────
+
 function openModal(id) {
   const c = byId[id];
   if (!c) return;
@@ -802,7 +748,7 @@ function openModal(id) {
   if (c.ongoing != null) parts.push(`<div class="mrow">${t("trends.activeTrials")}${c.ongoing}</div>`);
   if (c.effects?.length) parts.push(`<div class="mrow"><b>${t("trends.effectsLabel")}</b> ${c.effects.map(esc).join(', ')}</div>`);
 
-  // мини-график динамики
+  
   const pubS = TS.pubmed[id] || {};
   const wikiS = TS.wiki[id] || {};
   const citeS = TS.citations[id] || {};
@@ -858,8 +804,8 @@ function closeModal() {
       <li><b>OpenAlex</b> <span>— citations by year (130 of 130 supplements, not used in the scatter plot)</span></li>
     </ul>
     <h3><span>Growth formula</span></h3>
-    <pre tabindex="0">growth_pub  = pubmed[id][2025] / pubmed[id][2015]
-growth_wiki = avg(wiki[id][последние 6 мес]) / avg(wiki[id][первые 6 мес])</pre>
+    <pre tabindex="0"><span>growth_pub  = pubmed[id][2025] / pubmed[id][2015]
+growth_wiki = avg(wiki[id][last 6 months]) / avg(wiki[id][first 6 months])</span></pre>
     <h3><span>Assumptions</span></h3>
     <ul>
       <li><span>Growth &gt; ×1.5 — “significant”, &gt; ×2.0 — “anomalous”</span></li>
@@ -1001,7 +947,7 @@ growth_wiki = avg(wiki[id][последние 6 мес]) / avg(wiki[id][перв
     `).join('');
   }
 
-  // Плагин квадрантов
+  
   const quadrantPlugin = {
     id: 'quadrantLabels',
     beforeDraw(chart) {
@@ -1043,7 +989,7 @@ growth_wiki = avg(wiki[id][последние 6 мес]) / avg(wiki[id][перв
     if (!cvs) return;
     if (scatterChart_) scatterChart_.destroy();
 
-    // Цвета под текущую тему
+    
     const cs = getComputedStyle(document.body);
     const gridColor = 'rgba(128,128,128,.15)';
     const textColor = cs.getPropertyValue('--text').trim() || 'gainsboro';
@@ -1092,14 +1038,14 @@ growth_wiki = avg(wiki[id][последние 6 мес]) / avg(wiki[id][перв
     const box = document.getElementById('categoryCards');
     if (!box) return;
 
-    // Разбиваем "Спорт/Когниция" → ["Спорт", "Когниция"]
+    
     const byCat = {};
     items.forEach(x => {
       const cats = String(x.category || '').split('/').map(s => s.trim()).filter(Boolean);
       cats.forEach(c => { (byCat[c] = byCat[c] || []).push(x); });
     });
 
-    // Оставляем только категории с 3+ добавками, сортируем по размеру
+    
     const rows = Object.entries(byCat)
       .filter(([, arr]) => arr.length >= 3)
       .sort((a, b) => b[1].length - a[1].length);
@@ -1127,7 +1073,7 @@ growth_wiki = avg(wiki[id][последние 6 мес]) / avg(wiki[id][перв
       fetch('data_index.json?v=' + Date.now())
         .then(r => (r.ok ? r.json() : Promise.reject(new Error('HTTP ' + r.status)))),
     ]).catch(function (err) {
-      // Без этого необработанный промис молча ломал рендер страницы
+      
       console.warn(t("trends.warnLog"), err);
     });
     TS_ = ts;
@@ -1154,8 +1100,8 @@ growth_wiki = avg(wiki[id][последние 6 мес]) / avg(wiki[id][перв
 window.addEventListener('scroll', () => {
   const btn = document.getElementById('toBottom');
   if (!btn) return;
-  // Раньше порог был 400px: на коротких страницах (atlas, calculator, glossary,
-  // map) он недостижим и кнопка не появлялась. Проверяем прокручиваемость.
+  
+  
   const scrollable = document.body.scrollHeight > window.innerHeight + 100;
   const atBottom = window.scrollY + window.innerHeight >= document.body.scrollHeight - 100;
   if (scrollable && window.scrollY > 100 && !atBottom) {
@@ -1167,9 +1113,7 @@ window.addEventListener('scroll', () => {
 </script>
 <script src="../pwa.js?v=284" defer></script>
 <script src="../share.js?v=2" defer></script>
-<!-- v5.6.2: cookie-согласие + Яндекс.Метрика (счётчик 112465667).
-     Метрика грузится ТОЛЬКО после нажатия «Принять»: до согласия
-     ни одного запроса к mc.yandex.ru не происходит. -->
+
 <div id="cookieBanner" role="dialog" hidden>
   <div class="cb-text">
     <span>We use cookies and Yandex.Metrica to understand which materials are useful. Analytics is enabled only after your consent.</span>
@@ -1182,13 +1126,13 @@ window.addEventListener('scroll', () => {
 </div>
 <script src="../cookie-banner.js?v=1"></script>
 <script src="../metrika.js?v=1"></script>
-<script>initCookieBanner();// Кнопка «🎲 Удиви меня»: случайная добавка из каталога.
-// Список страниц берём из sitemap.xml — там уже готовые URL по slug
-// (sup/magniy.html). Раньше здесь собирались d.id из data.json и
-// открывался 'sup/' + id + '.html', но id — отображаемое имя
-// (кириллица), а файлы называются по slug, поэтому кнопка вела на 404
-// на всех страницах раздела. slugify живёт в Python
-// (scripts/build_sup.py) и в JS не дублируется.
+<script>initCookieBanner();
+
+
+
+
+
+
 (function(){
   var btn = document.getElementById('randomBtn');
   if(!btn) return;
@@ -1201,9 +1145,9 @@ window.addEventListener('scroll', () => {
         var u = (node.textContent || '').trim();
         if(/\/sup\/[^/]+\.html$/.test(u) && !/\/sup\/index\.html$/.test(u)) urls.push(u);
       });
-      if(!urls.length){ console.warn('[random] в sitemap.xml нет страниц добавок'); return; }
+      if(!urls.length){ console.warn('[random] no supplement pages in sitemap.xml'); return; }
       location.href = urls[Math.floor(Math.random() * urls.length)];
-    }).catch(function(err){ console.warn('[random] не удалось загрузить sitemap.xml', err); });
+    }).catch(function(err){ console.warn('[random] failed to load sitemap.xml', err); });
   };
 })();
 

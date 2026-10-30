@@ -27,7 +27,7 @@
 <meta name="theme-color" content="#1c1c1e" media="(prefers-color-scheme: dark)">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="БАДы">
+    <meta name="apple-mobile-web-app-title" content="Supplements">
     <link rel="apple-touch-icon" href="../icons/192.png">
     <script>
     try {
@@ -38,14 +38,12 @@
     </script>
     <link rel="stylesheet" href="../style.min.css?v=473">
     <script src="../version.js?v=312" defer></script>
-    <script src="../i18n.js?v=25" defer></script>
+    <script src="../i18n.js?v=26" defer></script>
     <script src="../pwa.js?v=284" defer></script>
 <script src="../share.js?v=2" defer></script>
     <style>
         .support-wrap { max-width: 720px; margin: 40px auto; padding: 0 var(--space-5); }
-        /* v4.1: заголовок страницы стал h2 (в шапке остаётся единственный h1).
-   Размер 1.8rem сохранён от старого h1; подзаголовки ниже переопределены
-   правилом .support-card h2, которое идёт после. */
+        
 .support-wrap h2 { margin-bottom: var(--space-2); font-weight: 600; }
         .support-wrap .lead { color: var(--muted); margin-bottom: var(--space-8); font-size: 1.05rem; }
         .support-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius-xl); padding: var(--space-6); margin-bottom: var(--space-5); }
@@ -63,7 +61,7 @@
     {
       "@context": "https://schema.org",
       "@type": "WebPage",
-      "name": "Поддержать проект",
+      "name": "Support the project",
       "description": "Поддержать открытый проект Brain 25 Evidence: база данных о 130 БАДах на основе публикаций PubMed. Пожертвование на хостинг и обновление данных.",
       "url": "https://deadsno.github.io/brain-25-evidence/support.html",
       "inLanguage": "ru"
@@ -91,19 +89,10 @@
 <main id="main" class="support-wrap">
   <h1><span>Support the project</span></h1>
 
-  <!-- v5.6.1: убран дубль <h2>Поддержать проект</h2> — заголовок уже
-       продублирован h1 выше, на экране он шёл два раза подряд. CTA-блок
-       с ссылкой на ЮMoney ниже не тронут. -->
+  
     <p class="lead"><span>Brain 25 Evidence is an open project about dietary supplements. No ads, no subscriptions, no monetization.</span></p>
 
-    <!-- MKT-P1-08: соцдоказательства. Числа вынесены из lead-абзаца, где
-         они стояли вперемешку с описанием проекта, в отдельный блок фактов:
-         так видно сразу и на странице не остаётся дублей одного и того же
-         числа. Тон — перечисление, без оценок («лучший», «№1»): проект не
-         собирает отзывы и не может предъявить их честно. Соцдоказательство
-         здесь — проверяемость: каждое число открывается пользователем.
-         130 добавок и 199 пар взаимодействий посчитаны по docs/data.json,
-         наличие PMID проверено на всех 130 страницах docs/sup/*.html. -->
+    
     <div class="support-card">
       <h2><span>📊 What the project contains</span></h2>
       <ul>
@@ -166,9 +155,9 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-  // v5.4.0 (dark-first): тёмная тема — это ОТСУТСТВИЕ класса light.
-  // Раньше здесь стояло add('dark'), и тема задавалась явно; теперь
-  // light добавляется только когда пользователь выбрал светлую.
+  
+  
+  
   var light = localStorage.getItem('theme') === 'light';
   if (light) { document.body.classList.add('light'); document.documentElement.classList.add('light'); }
   var b = document.getElementById('themeBtn');
@@ -185,9 +174,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 </script>
 
-<!-- v5.6.2: cookie-согласие + Яндекс.Метрика (счётчик 112465667).
-     Метрика грузится ТОЛЬКО после нажатия «Принять»: до согласия
-     ни одного запроса к mc.yandex.ru не происходит. -->
+
 <div id="cookieBanner" role="dialog" hidden>
   <div class="cb-text">
     <span>We use cookies and Yandex.Metrica to understand which materials are useful. Analytics is enabled only after your consent.</span>
@@ -200,13 +187,13 @@ document.addEventListener('DOMContentLoaded', function () {
 </div>
 <script src="../cookie-banner.js?v=1"></script>
 <script src="../metrika.js?v=1"></script>
-<script>initCookieBanner();// Кнопка «🎲 Удиви меня»: случайная добавка из каталога.
-// Список страниц берём из sitemap.xml — там уже готовые URL по slug
-// (sup/magniy.html). Раньше здесь собирались d.id из data.json и
-// открывался 'sup/' + id + '.html', но id — отображаемое имя
-// (кириллица), а файлы называются по slug, поэтому кнопка вела на 404
-// на всех страницах раздела. slugify живёт в Python
-// (scripts/build_sup.py) и в JS не дублируется.
+<script>initCookieBanner();
+
+
+
+
+
+
 (function(){
   var btn = document.getElementById('randomBtn');
   if(!btn) return;

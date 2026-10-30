@@ -28,7 +28,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="БАДы">
 <link rel="apple-touch-icon" href="icons/192.png">
-<script src="i18n.js?v=25" defer></script>
+<script src="i18n.js?v=26" defer></script>
 <script>
 // v5.6.3: вместо трёх одинаковых веток if/else/catch, каждая из которых
 // безусловно вешала light на body. Разница была не косметическая: ниже,
@@ -289,7 +289,7 @@ html:not(.light) .cat-warn{color:var(--warn-tx-amber)}
     <nav class="actions" data-i18n-aria-label="a11y.navMain">
       <a class="btn c-feedback" href="feedback.html"><span data-i18n-text="index.feedback">💬 Обратная связь</span></a>
       <a class="btn c-support" href="support.html"><span data-i18n-text="index.support">💚 Поддержать</span></a>
-      <button class="btn c-theme" id="themeBtn" data-i18n-aria-label="a11y.themeToLight" aria-label="Переключить на светлую тему"><span data-i18n-text="theme.light">🌞 Светлая тема</span></button>
+      <button class="btn c-theme" id="themeBtn" data-i18n-aria-label="a11y.themeToLight"><span data-i18n-text="theme.light">🌞 Светлая тема</span></button>
       <select id="langSelect" class="lang-select" data-i18n-aria-label="a11y.langSelect"><option value="ru">RU</option><option value="en">EN</option></select>
       <button class="btn c-random" id="randomBtn"><span data-i18n-text="index.random">🎲 Удиви меня</span></button>
     </nav>
@@ -859,8 +859,8 @@ function closeModal() {
       <li><b>OpenAlex</b> <span data-i18n-text="trends.024">— цитирования по годам (130 из 130 добавок, в scatter не используются)</span></li>
     </ul>
     <h3><span data-i18n-text="trends.025">Формула роста</span></h3>
-    <pre tabindex="0">growth_pub  = pubmed[id][2025] / pubmed[id][2015]
-growth_wiki = avg(wiki[id][последние 6 мес]) / avg(wiki[id][первые 6 мес])</pre>
+    <pre tabindex="0"><span data-i18n-text="trends.formula">growth_pub  = pubmed[id][2025] / pubmed[id][2015]
+growth_wiki = avg(wiki[id][последние 6 мес]) / avg(wiki[id][первые 6 мес])</span></pre>
     <h3><span data-i18n-text="trends.026">Допущения</span></h3>
     <ul>
       <li><span data-i18n-text="trends.027">Рост &gt; ×1.5 — «значимый», &gt; ×2.0 — «аномальный»</span></li>
@@ -1211,9 +1211,9 @@ window.addEventListener('scroll', () => {
         var u = (node.textContent || '').trim();
         if(/\/sup\/[^/]+\.html$/.test(u) && !/\/sup\/index\.html$/.test(u)) urls.push(u);
       });
-      if(!urls.length){ console.warn('[random] в sitemap.xml нет страниц добавок'); return; }
+      if(!urls.length){ console.warn('[random] no supplement pages in sitemap.xml'); return; }
       location.href = urls[Math.floor(Math.random() * urls.length)];
-    }).catch(function(err){ console.warn('[random] не удалось загрузить sitemap.xml', err); });
+    }).catch(function(err){ console.warn('[random] failed to load sitemap.xml', err); });
   };
 })();
 

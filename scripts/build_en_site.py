@@ -156,7 +156,7 @@ def build_ru_to_en_map(ru_dict, en_dict):
 
 
 def translate_head_tags(html, ru_to_en):
-    """Перевести <title>, meta description, og:title, og:description по ru->en map."""
+    """Перевести <title>, meta description, og:*, twitter:*, apple-mobile-web-app-title по ru->en map."""
     # <title>
     m = re.search(r'<title>(.*?)</title>', html, re.DOTALL)
     if m:
@@ -201,6 +201,168 @@ def translate_head_tags(html, ru_to_en):
                 1
             )
 
+    # twitter:title
+    m = re.search(r'<meta name="twitter:title" content="(.*?)"/>', html)
+    if m:
+        ru_tt = m.group(1)
+        en_tt = ru_to_en.get(ru_tt)
+        if en_tt:
+            html = html.replace(
+                f'<meta name="twitter:title" content="{ru_tt}"/>',
+                f'<meta name="twitter:title" content="{en_tt}"/>',
+                1
+            )
+
+    # twitter:description
+    m = re.search(r'<meta name="twitter:description" content="(.*?)"/>', html)
+    if m:
+        ru_td = m.group(1)
+        en_td = ru_to_en.get(ru_td)
+        if en_td:
+            html = html.replace(
+                f'<meta name="twitter:description" content="{ru_td}"/>',
+                f'<meta name="twitter:description" content="{en_td}"/>',
+                1
+            )
+
+    # apple-mobile-web-app-title
+    m = re.search(r'<meta name="apple-mobile-web-app-title" content="(.*?)">', html)
+    if m:
+        ru_at = m.group(1)
+        en_at = ru_to_en.get(ru_at)
+        if en_at:
+            html = html.replace(
+                f'<meta name="apple-mobile-web-app-title" content="{ru_at}">',
+                f'<meta name="apple-mobile-web-app-title" content="{en_at}">',
+                1
+            )
+
+    return html
+
+
+def translate_json_ld(html, ru_to_en):
+    """Перевести name/description в блоках application/ld+json по ru->en map."""
+    def _replace(m):
+        content = m.group(1)
+        m2 = re.search(r'"name"\s*:\s*"([^"]*)"', content)
+        if m2:
+            ru_name = m2.group(1)
+            en_name = ru_to_en.get(ru_name)
+            if en_name:
+                content = content.replace('"name": "%s"' % ru_name, '"name": "%s"' % en_name)
+        m3 = re.search(r'"description"\s*:\s*"([^"]*)"', content)
+        if m3:
+            ru_desc = m3.group(1)
+            en_desc = ru_to_en.get(ru_desc)
+            if en_desc:
+                content = content.replace('"description": "%s"' % ru_desc, '"description": "%s"' % en_desc)
+        return m.group(0).replace(m.group(1), content)
+
+    html = re.sub(
+        r'<script type="application/ld\+json">(.*?)</script>',
+        _replace,
+        html,
+        flags=re.DOTALL,
+    )
+    return html
+
+
+def strip_comments(html):
+    """Удаляет HTML-, JS- и CSS-комментарии, чтобы русский текст комментариев
+    не попал на EN-страницу. JS //-комментарии убираются посимвольно с учётом
+    строковых литералов и regex-литералов, чтобы не сломать код (например,
+    /^sup\// не превращалось в /^sup\)."""
+    # HTML-комментарии
+    html = re.sub(r'<!--.*?-->', '', html, flags=re.DOTALL)
+
+    def _strip_js_comments(js):
+        out = []
+        i = 0
+        n = len(js)
+        in_str = None      # None | '"' | "'" | '`'
+        in_regex = False
+        in_block = False   # /* ... */
+        line_start = True
+        while i < n:
+            ch = js[i]
+            nxt = js[i + 1] if i + 1 < n else ''
+            if in_block:
+                if ch == '*' and nxt == '/':
+                    in_block = False
+                    i += 2
+                    continue
+                i += 1
+                continue
+            if in_str:
+                if ch == '\\':
+                    out.append(js[i:i + 2])
+                    i += 2
+                    continue
+                if ch == in_str:
+                    in_str = None
+                out.append(ch)
+                i += 1
+                continue
+            if in_regex:
+                if ch == '\\':
+                    out.append(js[i:i + 2])
+                    i += 2
+                    continue
+                if ch == '/':
+                    in_regex = False
+                out.append(ch)
+                i += 1
+                continue
+            # Свободный режим: не внутри строки/регекса/блок-комментария
+            if ch == '/' and nxt == '/':
+                # Инлайн- или строковый комментарий — пропускаем до конца строки
+                while i < n and js[i] != '\n':
+                    i += 1
+                continue
+            if ch == '/' and nxt == '*':
+                in_block = True
+                i += 2
+                continue
+            # Определяем, не начало ли это regex-литерала
+            if ch == '/':
+                prev = js[i - 1] if i > 0 else ''
+                is_regex = (
+                    i == 0
+                    or prev in '([,=:!&|?~'
+                    or (prev.isspace() and line_start)
+                    or js[max(0, i - 10):i].strip().endswith(('return', 'case', 'throw', 'yield'))
+                )
+                if is_regex:
+                    in_regex = True
+                    out.append(ch)
+                    i += 1
+                    continue
+            if ch in ('"', "'", '`'):
+                in_str = ch
+                out.append(ch)
+                i += 1
+                continue
+            out.append(ch)
+            if ch == '\n':
+                line_start = True
+            else:
+                line_start = False
+            i += 1
+        return ''.join(out)
+
+    # JS-комментарии внутри <script>...</script>
+    def _strip_script_comments(m):
+        attrs = m.group(1)
+        content = _strip_js_comments(m.group(2))
+        return f'<script{attrs}>{content}</script>'
+    html = re.sub(r'<script([^>]*)>(.*?)</script>', _strip_script_comments, html, flags=re.DOTALL)
+    # CSS-комментарии внутри <style>...</style>
+    def _strip_style_comments(m):
+        attrs = m.group(1)
+        content = m.group(2)
+        content = re.sub(r'/\*.*?\*/', '', content, flags=re.DOTALL)
+        return f'<style{attrs}>{content}</style>'
+    html = re.sub(r'<style([^>]*)>(.*?)</style>', _strip_style_comments, html, flags=re.DOTALL)
     return html
 
 
@@ -425,6 +587,10 @@ def process_html(src_path, dst_path, en_dict, ru_to_en, depth):
     # 1. lang="ru" -> lang="en"
     html = html.replace('<html lang="ru"', '<html lang="en"')
 
+    # 1.5. Снятие комментариев (HTML + JS) — русские комментарии не должны
+    #      попасть на EN-страницу.
+    html = strip_comments(html)
+
     # 2. Пути к ресурсам
     html = fix_resource_paths(html, depth)
 
@@ -437,8 +603,14 @@ def process_html(src_path, dst_path, en_dict, ru_to_en, depth):
     # 5. Перевод data-i18n-placeholder (значение атрибута) — применяем статически
     html = translate_attr_value(html, "data-i18n-placeholder", en_dict)
 
-    # 6. SEO-02: перевести <title>, description, og:title, og:description по ru->en map
+    # 5.5. Перевод data-i18n-aria-label (значение атрибута) — применяем статически
+    html = translate_attr_value(html, "data-i18n-aria-label", en_dict)
+
+    # 6. SEO-02: перевести <title>, description, og:*, twitter:*, apple-mobile-web-app-title
     html = translate_head_tags(html, ru_to_en)
+
+    # 6.5. JSON-LD: перевести name/description в application/ld+json
+    html = translate_json_ld(html, ru_to_en)
 
     # 7. SEO-03: og:locale ru_RU -> en_US
     html = fix_og_locale(html)

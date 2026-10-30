@@ -2,7 +2,8 @@
  "_meta": {
   "card": "Цистеин",
   "generated": "2026-10-30",
-  "source": "docs/data_en.json"
+  "source": "docs/data_en.json (cleaned)",
+  "translator": "google-translate-free + manual cleanup"
  },
  "supplements": {
   "Цистеин": {

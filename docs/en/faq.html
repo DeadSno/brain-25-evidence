@@ -8,7 +8,7 @@
   <link rel="alternate" hreflang="en" href="https://deadsno.github.io/brain-25-evidence/en/faq.html" />
   <link rel="alternate" hreflang="x-default" href="https://deadsno.github.io/brain-25-evidence/faq.html" />
   <script defer src="../version.js?v=312"></script>
-  <script src="../i18n.js?v=25" defer></script>
+  <script src="../i18n.js?v=26" defer></script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#1c1c1e" media="(prefers-color-scheme: dark)">
@@ -16,13 +16,13 @@
 <link rel="manifest" href="../manifest.webmanifest">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="БАДы">
+<meta name="apple-mobile-web-app-title" content="Supplements">
 <link rel="apple-touch-icon" href="../icons/192.png">
 <meta name="description" content="Частые вопросы о доказательности БАДов: как считается индекс scienceIndex, что означают грейды A-D, можно ли доверять вердиктам и как проверить источник."/>
 <script>
-// v5.4.0 (dark-first): тёмная тема — это ОТСУТСТВИЕ класса light.
-// До загрузки CSS ничего добавлять не нужно: :root уже тёмный.
-// light ставится только если пользователь выбрал светлую тему.
+
+
+
 try {
   if (localStorage.getItem('theme') === 'light') {
     document.documentElement.classList.add('light');
@@ -31,9 +31,7 @@ try {
 </script>
 <link rel="stylesheet" href="../style.min.css?v=473"/>
 <style>
-  /* P2-10 / v5.6.2 батч C (V1): локальное «h2 { font-size: 1.125rem }»
-     удалено — значение переехало в общий токен style.css. Источник
-     истины один. */
+  
   h3 { font-size: 1rem; }
 </style>
 
@@ -41,9 +39,9 @@ try {
   try {
     document.addEventListener('DOMContentLoaded', function () {
       var light = localStorage.getItem('theme') === 'light';
-      // v5.4.0 (dark-first): светлая тема добавляется только когда
-    // пользователь её выбрал. Раньше здесь стояло add('dark') при !light,
-    // то есть класс задавался явно; теперь тёмная — это его отсутствие.
+      
+    
+    
     if (light) { document.body.classList.add('light'); }
       var b = document.getElementById('themeBtn');
       if (b) b.textContent = light ? t("theme.dark") : t("theme.light");
@@ -67,7 +65,7 @@ try {
     {
       "@context": "https://schema.org",
       "@type": "FAQPage",
-      "name": "Часто задаваемые вопросы",
+      "name": "Frequently asked questions",
       "description": "Частые вопросы о доказательности БАДов: как считается индекс scienceIndex, что означают грейды A-D, можно ли доверять вердиктам и как проверить источник.",
       "url": "https://deadsno.github.io/brain-25-evidence/faq.html",
       "inLanguage": "ru",
@@ -307,10 +305,10 @@ try {
 <script>
 const $ = id => document.getElementById(id);
 $('themeBtn').onclick = () => {
-  // v5.4.0 (dark-first): тёмная = нет класса light на <html>
-    // v5.4.0 (dark-first): light означает «переключаем В светлую».
-    // До этого здесь стояло !on, где on = «сейчас тёмная», —
-    // новое состояние совпадало с текущим и клик ничего не менял.
+  
+    
+    
+    
     const light = !document.documentElement.classList.contains('light');
     document.documentElement.classList.toggle('light', light);
     document.body.classList.toggle('light', light);
@@ -324,8 +322,8 @@ $('themeBtn').onclick = () => {
 window.addEventListener('scroll', () => {
   const btn = document.getElementById('toBottom');
   if (!btn) return;
-  // Раньше порог был 400px: на коротких страницах (atlas, calculator, glossary,
-  // map) он недостижим и кнопка не появлялась. Проверяем прокручиваемость.
+  
+  
   const scrollable = document.body.scrollHeight > window.innerHeight + 100;
   const atBottom = window.scrollY + window.innerHeight >= document.body.scrollHeight - 100;
   if (scrollable && window.scrollY > 100 && !atBottom) {
@@ -337,9 +335,7 @@ window.addEventListener('scroll', () => {
 </script>
 <script src="../pwa.js?v=284" defer></script>
 <script src="../share.js?v=2" defer></script>
-<!-- v5.6.2: cookie-согласие + Яндекс.Метрика (счётчик 112465667).
-     Метрика грузится ТОЛЬКО после нажатия «Принять»: до согласия
-     ни одного запроса к mc.yandex.ru не происходит. -->
+
 <div id="cookieBanner" role="dialog" hidden>
   <div class="cb-text">
     <span>We use cookies and Yandex.Metrica to understand which materials are useful. Analytics is enabled only after your consent.</span>
@@ -352,13 +348,13 @@ window.addEventListener('scroll', () => {
 </div>
 <script src="../cookie-banner.js?v=1"></script>
 <script src="../metrika.js?v=1"></script>
-<script>initCookieBanner();// Кнопка «🎲 Удиви меня»: случайная добавка из каталога.
-// Список страниц берём из sitemap.xml — там уже готовые URL по slug
-// (sup/magniy.html). Раньше здесь собирались d.id из data.json и
-// открывался 'sup/' + id + '.html', но id — отображаемое имя
-// (кириллица), а файлы называются по slug, поэтому кнопка вела на 404
-// на всех страницах раздела. slugify живёт в Python
-// (scripts/build_sup.py) и в JS не дублируется.
+<script>initCookieBanner();
+
+
+
+
+
+
 (function(){
   var btn = document.getElementById('randomBtn');
   if(!btn) return;

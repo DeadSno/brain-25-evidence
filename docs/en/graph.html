@@ -12,15 +12,8 @@
   <meta name="theme-color" content="#1c1c1e" media="(prefers-color-scheme: dark)">
   <link rel="apple-touch-icon" href="../icons/192.png">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <!-- v5.6.5 (A-2): страница-редирект. Отдельный граф удалён, все связи
-       переехали на вкладку «Связи» в hactar.html. Файл оставлен, чтобы
-       старые ссылки и закладки не вели в никуда. Раньше редирект шёл
-       на interactions.html#graph, а тот — на hactar.html: два хопа вместо
-       одного. Теперь адрес конечный. SEO-теги сохранены: их
-       требуют tests/test_seo_meta_consistency.py (CONTENT_PAGES), и без них
-       гейт падает — редирект, выпавший из охвата, вернул бы долг MKT-P2-06/07
-       молча. -->
-  <!-- NP2-05: сообщаем Hactar, откуда пришёл пользователь; читает hactar.js. -->
+  
+  
   <script>try{sessionStorage.setItem('hactarRedirectedFrom','graph')}catch(e){}</script>
   <meta http-equiv="refresh" content="0; url=hactar.html?tab=graph">
   <meta name="robots" content="noindex, follow">
@@ -41,16 +34,16 @@
     {
       "@context": "https://schema.org",
       "@type": "MedicalWebPage",
-      "name": "Граф связей",
+      "name": "Link graph",
       "description": "Интерактивный граф связей 130 БАД и 1982 рёбер: общие механизмы, теги эффектов, прямые взаимодействия. Наглядная карта доказательной базы.",
       "url": "https://deadsno.github.io/brain-25-evidence/graph.html",
       "inLanguage": "ru"
     }
     </script>
   <script>
-    // Редирект сразу, без ожидания DOMContentLoaded: страница пустая,
-    // ждать нечего. replace() вместо href — чтобы кнопка «назад» возвращала
-    // на страницу-источник, а не зацикливалась на этом редиректе.
+    
+    
+    
     window.location.replace("hactar.html?tab=graph");
   </script>
   <style>
@@ -58,7 +51,7 @@
     a { color: #1d4ed8; }
   </style>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
-  <script src="../i18n.js?v=25"></script>
+  <script src="../i18n.js?v=26"></script>
 </head>
 <body>
   <main>
@@ -66,11 +59,7 @@
     <p><span>This page has moved to the “Graph” tab on the links map.</span></p>
     <p><a href="../hactar.html?tab=graph"><span>Go to the graph →</span></a></p>
   </main>
-  <!-- Дисклеймер оставлен намеренно: tests/test_legal_disclaimer.py требует
-       class="disc" с фразой «Не медицинская рекомендация» на каждой странице
-       с тегом <html>. У редиректа нет собственных утверждений о БАДах, но
-       выпадать из гейта из-за этого он не должен — иначе гейт тихо теряет
-       страницу. -->
+  
   <footer>
         <p class="disc"><span>⚠️ Data from open scientific sources (PubMed, Europe PMC, CrossRef, OpenAlex, ClinicalTrials.gov, Wikimedia) for information and education.</span></p>
     <p class="legal-disclaimer">Dietary supplements are not medicines. Consult a doctor before use.</p>

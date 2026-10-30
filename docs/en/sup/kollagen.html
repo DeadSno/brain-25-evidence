@@ -8,18 +8,18 @@
   <link rel="alternate" hreflang="en" href="https://deadsno.github.io/brain-25-evidence/en/sup/kollagen.html" />
   <link rel="alternate" hreflang="x-default" href="https://deadsno.github.io/brain-25-evidence/sup/kollagen.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <title>Коллаген — Кожа и суставы — Brain 25 Evidence</title>
+    <title>Коллаген — Кости и суставы — Brain 25 Evidence</title>
     <meta name="description" content="Структурный белок: кожа, суставы, кости. Пептиды всасываются. Грейд D: 28 мета-анализов, 427 РКИ. Эффекты: кожа, суставы (не подтверждено).">
     <link rel="alternate" type="application/rss+xml" title="brain-25-evidence" href="https://deadsno.github.io/brain-25-evidence/feed.xml">
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://deadsno.github.io/brain-25-evidence/sup/kollagen.html">
-    <meta property="og:title" content="Коллаген — Кожа и суставы — Brain 25 Evidence">
+    <meta property="og:title" content="Коллаген — Кости и суставы — Brain 25 Evidence">
     <meta property="og:description" content="Структурный белок: кожа, суставы, кости. Пептиды всасываются. Грейд D: 28 мета-анализов, 427 РКИ. Эффекты: кожа, суставы (не подтверждено).">
     <meta property="og:image" content="https://deadsno.github.io/brain-25-evidence/og.png">
     <meta property="og:site_name" content="Brain 25 Evidence">
 <meta property="og:locale" content="en_US">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Коллаген — Кожа и суставы — Brain 25 Evidence">
+    <meta name="twitter:title" content="Коллаген — Кости и суставы — Brain 25 Evidence">
     <meta name="twitter:description" content="Структурный белок: кожа, суставы, кости. Пептиды всасываются. Грейд D: 28 мета-анализов, 427 РКИ. Эффекты: кожа, суставы (не подтверждено).">
     <meta name="twitter:image" content="https://deadsno.github.io/brain-25-evidence/og.png">
     <link rel="manifest" href="../../manifest.webmanifest">
@@ -27,7 +27,7 @@
 <meta name="theme-color" content="#1c1c1e" media="(prefers-color-scheme: dark)">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="БАДы">
+    <meta name="apple-mobile-web-app-title" content="Supplements">
     <link rel="apple-touch-icon" href="../../icons/192.png">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
     <script>
@@ -39,7 +39,7 @@
     </script>
     <link rel="stylesheet" href="../../style.min.css?v=473">
     <script src="../../version.js?v=312" defer></script>
-    <script src="../../i18n.js?v=25" defer></script>
+    <script src="../../i18n.js?v=26" defer></script>
     <script src="../../pwa.js?v=284" defer></script>
 <script src="../../share.js?v=2" defer></script>
     <script type="application/ld+json">
@@ -53,7 +53,7 @@
         "@type": "Drug",
         "name": "Коллаген",
         "description": "Структурный белок: кожа, суставы, кости. Пептиды всасываются.",
-        "category": "Кожа и суставы"
+        "category": "Кости и суставы"
       }
     }
     </script>
@@ -69,8 +69,7 @@
     <nav class="actions">
       <a class="btn c-feedback" href="../../feedback.html">💬 Feedback</a>
       <a class="btn c-support" href="../../support.html">💚 Support us</a>
-      <!-- FIX-75: aria-label у #themeBtn ставит скрипт темы (t("a11y.themeToDark") /
-           t("a11y.themeToLight")) — статический атрибут перетирался и ломал EN-гейт. -->
+      
       <button class="btn c-theme" id="themeBtn">🌞 Светлая тема</button>
       <select id="langSelect" class="lang-select"><option value="ru">RU</option><option value="en">EN</option></select>
       <button class="btn c-random" id="randomBtn">🎲 Surprise me</button>
@@ -130,7 +129,7 @@
     <div class="sup-section">
         <h2>Metrics</h2>
         <p><b>Science index:</b> 567 · <b>RCTs:</b> 427 · <b>Meta-analyses:</b> 28</p>
-        <p><b>Category:</b> <span data-sup="category">Кожа и суставы</span></p>
+        <p><b>Category:</b> <span data-sup="category">Кости и суставы</span></p>
     </div>
 
     <div class="sup-section">
@@ -252,9 +251,9 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-  // v5.4.0 (dark-first): тёмная тема — это ОТСУТСТВИЕ класса light.
-  // Раньше здесь стояло add('dark'), и тема задавалась явно; теперь
-  // light добавляется только когда пользователь выбрал светлую.
+  
+  
+  
   var light = localStorage.getItem('theme') === 'light';
   if (light) { document.body.classList.add('light'); document.documentElement.classList.add('light'); }
   var b = document.getElementById('themeBtn');
@@ -271,9 +270,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 </script>
 
-<!-- v5.6.2: cookie-согласие + Яндекс.Метрика (счётчик 112465667).
-     Метрика грузится ТОЛЬКО после нажатия «Принять»: до согласия
-     ни одного запроса к mc.yandex.ru не происходит. -->
+
 <div id="cookieBanner" role="dialog" hidden>
   <div class="cb-text">
     <span>We use cookies and Yandex.Metrica to understand which materials are useful. Analytics is enabled only after your consent.</span>
@@ -288,14 +285,14 @@ document.addEventListener('DOMContentLoaded', function () {
 <script src="../../metrika.js?v=1"></script>
 <script>initCookieBanner();</script>
 <script>
-// Кнопка «+ Сравнить»: сохраняет id в localStorage, тост + авто-переход на сравнение.
+
 (function () {
   var btn = document.querySelector('.cmp-add');
   if (!btn) return;
   var id = btn.getAttribute('data-cmp');
   function showToast(msg) {
     var t = document.createElement('div');
-    // A11Y-12: тост объявляется скринридером (role="status" + aria-live)
+    
     t.setAttribute('role', 'status');
     t.setAttribute('aria-live', 'polite');
     t.textContent = msg;
@@ -308,9 +305,9 @@ document.addEventListener('DOMContentLoaded', function () {
     }, 2000);
   }
   btn.addEventListener('click', function (e) {
-    // SE2-04: элемент — ссылка, поэтому навигация работает и без JS.
-    // Перехватываем только обычный левый клик без модификаторов, чтобы
-    // успеть записать id в localStorage перед переходом.
+    
+    
+    
     if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
     e.preventDefault();
     var arr = [];
@@ -326,8 +323,8 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 })();
 
-// FIX-74: подпись счётчика собирается через t(), поэтому число источников
-// склоняется по-русски и не склоняется по-английски.
+
+
 function pmidWord(n) {
   if (LOCALE === 'ru') {
     var d = n % 10, dd = n % 100;
@@ -338,7 +335,7 @@ function pmidWord(n) {
   return n === 1 ? t('sup.pmidOne') : t('sup.pmidMany');
 }
 
-// Count-up анимация для PMID-счётчика (IntersectionObserver + requestAnimationFrame)
+
 (function(){
   var badge = document.querySelector('.pmid-badge[data-target]');
   if(!badge) return;
@@ -362,7 +359,7 @@ function pmidWord(n) {
   obs.observe(badge);
 })();
 
-// Кнопка «Цитировать»: копирует цитирование в формате APA в буфер обмена
+
 (function(){
   var btn = document.getElementById('citeBtn');
   var tip = document.getElementById('citeTooltip');
@@ -372,7 +369,7 @@ function pmidWord(n) {
   btn.onclick = function(){
     var text = 'brain-25-evidence. (2026). ' + name + '. Retrieved from ' + url;
     function citetip(ok){
-      // I18N-02: строки тултипа вынесены в словарь i18n.js
+      
       tip.textContent = ok ? t('cite.copied') : t('cite.copyFailed');
       tip.setAttribute('aria-hidden','false');
       setTimeout(function(){ tip.setAttribute('aria-hidden','true'); }, 2000);
@@ -389,28 +386,28 @@ function pmidWord(n) {
       } catch(e) { citetip(false); }
     }
     if(navigator.clipboard && navigator.clipboard.writeText){
-      // FIX-SPRINT B2: промис без catch давал необработанную ошибку
-      // в консоли, когда браузер отводил writeText (headless, права).
+      
+      
       navigator.clipboard.writeText(text).then(function(){ citetip(true); }).catch(citeFallback);
     } else { citeFallback(); }
   };
 })();
 
-// Кнопка «Прослушать»: TTS через Web Speech API
+
 (function(){
   var btn = document.getElementById('ttsBtn');
   if(!btn) return;
   if(!window.speechSynthesis){ btn.style.display = 'none'; return; }  
-  var currentUtterance = null; // CWV-05: текущее utterance (сбрасывается в onend/onerror)
+  var currentUtterance = null; 
   var name = "Коллаген";
   var effects = ["Кожа, суставы (не подтверждено)"];
   btn.onclick = function(){
     var ttsLang = 'ru';
     if (typeof LOCALE !== 'undefined' && LOCALE) ttsLang = LOCALE;
     if (ttsLang === 'ru') ttsLang = 'ru' + '-RU';
-    // CWV-05: не копим устаревшие utterance. Повторный клик гасит начатую
-    // речь, а ссылка сбрасывается, когда utterance доиграл или упал —
-    // иначе SpeechSynthesis удерживает его (и слушателей) в памяти.
+    
+    
+    
     if (currentUtterance) window.speechSynthesis.cancel();
     var utterance = new SpeechSynthesisUtterance(name + (effects ? ', ' + effects : ''));
     utterance.lang = ttsLang;
@@ -421,14 +418,14 @@ function pmidWord(n) {
   };
 })();
 
-// Кнопка «🎲 Удиви меня»: случайная добавка из каталога.
-// Список страниц берём из sitemap.xml — там уже готовые URL по slug
-// (sup/magniy.html). Раньше здесь собирались d.id из data.json и
-// открывался 'sup/' + id + '.html'; id — отображаемое имя (кириллица),
-// а файлы называются по slug, плюс на этой странице добавлялся лишний
-// префикс sup/, потому что страница уже лежит в sup/. Кнопка вела на
-// 404 всегда. slugify живёт в Python (scripts/build_sup.py) и в JS
-// не дублируется.
+
+
+
+
+
+
+
+
 (function(){
   var btn = document.getElementById('randomBtn');
   if(!btn) return;

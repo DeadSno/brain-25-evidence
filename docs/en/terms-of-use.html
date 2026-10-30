@@ -27,7 +27,7 @@
     <meta name="theme-color" content="#1c1c1e" media="(prefers-color-scheme: dark)">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="БАДы">
+    <meta name="apple-mobile-web-app-title" content="Supplements">
     <link rel="apple-touch-icon" href="../icons/192.png">
     <script>
     try {
@@ -38,7 +38,7 @@
     </script>
     <link rel="stylesheet" href="../style.min.css?v=473">
     <script src="../version.js?v=312" defer></script>
-    <script src="../i18n.js?v=25" defer></script>
+    <script src="../i18n.js?v=26" defer></script>
     <script src="../pwa.js?v=284" defer></script>
     <script src="../share.js?v=2" defer></script>
     <style>
@@ -58,7 +58,7 @@
     {
       "@context": "https://schema.org",
       "@type": "WebPage",
-      "name": "Условия использования",
+      "name": "Terms of Use",
       "description": "Условия использования Brain 25 Evidence: информация «как есть», не медицинская рекомендация, ограничение ответственности, лицензия на данные CC BY 4.0 и код MIT.",
       "url": "https://deadsno.github.io/brain-25-evidence/terms-of-use.html",
       "inLanguage": "ru"
@@ -185,8 +185,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 </script>
 
-<!-- v5.6.5 FIX-55: баннер cookie и Метрика — те же, что на privacy.html.
-     Метрика грузится только после «Принять». -->
+
 <div id="cookieBanner" role="dialog" hidden>
   <div class="cb-text">
     <span>We use cookies and Yandex.Metrica to understand which materials are useful. Analytics is enabled only after your consent.</span>
@@ -199,8 +198,8 @@ document.addEventListener('DOMContentLoaded', function () {
 </div>
 <script src="../cookie-banner.js?v=1"></script>
 <script src="../metrika.js?v=1"></script>
-<script>initCookieBanner();// Кнопка «🎲 Удиви меня»: случайная добавка из каталога.
-// Список страниц берём из sitemap.xml — там уже готовые URL по slug.
+<script>initCookieBanner();
+
 (function(){
   var btn = document.getElementById('randomBtn');
   if(!btn) return;
