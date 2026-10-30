@@ -597,7 +597,10 @@
    счётчика в заголовке каталога. */
 /* Бамп v200 -> v201 FIX-60 (VIS-04, VIS-05, VIS-06): унифицированы line-height
    (1.2/1.5/1.4), border-radius (8px/12px/50%), убран !important из h3. */
-var CACHE_VERSION = 'v201';
+/* Бамп v201 -> v202 FIX-61 (MKT-03, MKT-04, MKT-06): честный текст формы обратной
+   связи, корректная цифра 94 из 130 в FAQ, CTA на калькулятор в FAQ, обновлены
+   визуальные снимки. */
+var CACHE_VERSION = 'v202';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
