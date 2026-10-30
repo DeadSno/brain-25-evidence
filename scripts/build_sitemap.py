@@ -297,6 +297,10 @@ def render(commit_date: str | None = None) -> str:
                 en_url,
             )
         )
+    chunks.append(
+        '<!-- \u00a9 2026 Vladislav "DeadSno" Pereshivalov. '
+        "Данные: CC BY 4.0 -->\n"
+    )
     chunks.append("</urlset>\n")
     return "".join(chunks)
 

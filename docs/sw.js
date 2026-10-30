@@ -609,7 +609,11 @@
    сравнивает пиксели после приведения к RGBA, без im.mode (из-за него отчёт
    ложно говорил «ПИКСЕЛИ ИЗМЕНИЛИСЬ» на эталонах с палитрой). pwa.js
    ?v=284 -> ?v=285 на всех HTML. */
-var CACHE_VERSION = 'v210';
+/* Бамп v210 -> v211 FIX-76 (LEGAL-04, LEGAL-05, QA-12): в футере появилась
+   строка 18+ (class legal-age, ключ footer.age в i18n.js), у sup-шаблонов и
+   страниц i18n.js ?v= 27 -> 28, у лент и карты сайта появился copyright.
+   Поднято, чтобы новые разметка и словарь не остались в старой копии кэша. */
+var CACHE_VERSION = 'v211';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 

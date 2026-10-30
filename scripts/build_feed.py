@@ -298,6 +298,7 @@ def render(commit_date: str | None = None) -> str:
         'type="application/rss+xml"/>\n'
         f"    <lastBuildDate>{_rfc822(newest)}</lastBuildDate>\n"
         f"    <generator>scripts/build_feed.py</generator>\n"
+        '    <copyright>\u00a9 2026 Vladislav "DeadSno" Pereshivalov</copyright>\n'
     ]
     for it in items:
         chunks.append(_item(it))

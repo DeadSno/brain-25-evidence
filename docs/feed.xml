@@ -22,6 +22,7 @@
     <atom:link href="https://deadsno.github.io/brain-25-evidence/feed.xml" rel="self" type="application/rss+xml"/>
     <lastBuildDate>Fri, 30 Oct 2026 00:00:00 +0000</lastBuildDate>
     <generator>scripts/build_feed.py</generator>
+    <copyright>© 2026 Vladislav "DeadSno" Pereshivalov</copyright>
   <item>
     <title>Каталог БАДов: 130 добавок — Brain 25 Evidence</title>
     <link>https://deadsno.github.io/brain-25-evidence/sup/index.html</link>
