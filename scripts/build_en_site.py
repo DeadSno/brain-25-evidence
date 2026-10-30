@@ -29,7 +29,188 @@ I18N_PATH = os.path.join(DOCS, "i18n.js")
 BASE = "https://deadsno.github.io/brain-25-evidence"
 
 
+def extract_ru_dict(i18n_path):
+    """Извлечь I18N.ru из i18n.js как Python-словарь (аналогично extract_en_dict)."""
+    with open(i18n_path, "r", encoding="utf-8") as f:
+        content = f.read()
+
+    m = re.search(r'\bru\s*:\s*\{', content)
+    if not m:
+        raise ValueError("I18N.ru block not found in i18n.js")
+
+    start = m.end() - 1
+    depth = 0
+    in_str = False
+    str_char = None
+    i = start
+    end = None
+    while i < len(content):
+        ch = content[i]
+        if in_str:
+            if ch == "\\":
+                i += 2
+                continue
+            if ch == str_char:
+                in_str = False
+        else:
+            if ch in ('"', "'"):
+                in_str = True
+                str_char = ch
+            elif ch == "{":
+                depth += 1
+            elif ch == "}":
+                depth -= 1
+                if depth == 0:
+                    end = i
+                    break
+        i += 1
+
+    if end is None:
+        raise ValueError("could not find closing '}' of I18N.ru block")
+
+    block = content[start:end + 1]
+    pair_re = re.compile(
+        r'"((?:[^"\\]|\\.)*)"\s*:\s*"((?:[^"\\]|\\.)*)"'
+    )
+    result = {}
+    for k_raw, v_raw in pair_re.findall(block):
+        key = json.loads('"' + k_raw + '"')
+        val = json.loads('"' + v_raw + '"')
+        result[key] = val
+
+    return result
+
+
 def extract_en_dict(i18n_path):
+    """Извлечь I18N.en из i18n.js как Python-словарь.
+
+    Парсит блок `en: { ... }` через поиск пар "key": "value" с учётом
+    экранирования кавычек — надёжнее json.loads, т.к. внутри блока могут
+    быть комментарии // и значения с //
+    """
+    with open(i18n_path, "r", encoding="utf-8") as f:
+        content = f.read()
+
+    # Найти блок "en: {"
+    m = re.search(r'\ben\s*:\s*\{', content)
+    if not m:
+        raise ValueError("I18N.en block not found in i18n.js")
+
+    start = m.end() - 1  # позиция '{' блока en
+
+    # Подсчёт вложенных скобок с учётом строковых литералов
+    depth = 0
+    in_str = False
+    str_char = None
+    i = start
+    end = None
+    while i < len(content):
+        ch = content[i]
+        if in_str:
+            if ch == "\\":
+                i += 2
+                continue
+            if ch == str_char:
+                in_str = False
+        else:
+            if ch in ('"', "'"):
+                in_str = True
+                str_char = ch
+            elif ch == "{":
+                depth += 1
+            elif ch == "}":
+                depth -= 1
+                if depth == 0:
+                    end = i
+                    break
+        i += 1
+
+    if end is None:
+        raise ValueError("could not find closing '}' of I18N.en block")
+
+    block = content[start:end + 1]
+
+    # Извлечь все пары "key": "value" (ключ и значение в двойных кавычках,
+    # с поддержкой экранированных кавычек внутри строк)
+    pair_re = re.compile(
+        r'"((?:[^"\\]|\\.)*)"\s*:\s*"((?:[^"\\]|\\.)*)"'
+    )
+    result = {}
+    for k_raw, v_raw in pair_re.findall(block):
+        # Декодировать JS-строки (\n, \uXXXX, \\ и т.д.) через JSON
+        key = json.loads('"' + k_raw + '"')
+        val = json.loads('"' + v_raw + '"')
+        result[key] = val
+
+    return result
+
+
+def build_ru_to_en_map(ru_dict, en_dict):
+    """Словарь: значение RU -> значение EN для ключей, есть в обоих словарях."""
+    mapping = {}
+    for key, ru_val in ru_dict.items():
+        en_val = en_dict.get(key)
+        if en_val is not None and en_val != ru_val:
+            mapping[ru_val] = en_val
+    return mapping
+
+
+def translate_head_tags(html, ru_to_en):
+    """Перевести <title>, meta description, og:title, og:description по ru->en map."""
+    # <title>
+    m = re.search(r'<title>(.*?)</title>', html, re.DOTALL)
+    if m:
+        ru_title = m.group(1).strip()
+        en_title = ru_to_en.get(ru_title)
+        if en_title:
+            html = html.replace(f'<title>{ru_title}</title>', f'<title>{en_title}</title>', 1)
+
+    # meta name="description"
+    m = re.search(r'<meta name="description" content="(.*?)"/>', html)
+    if m:
+        ru_desc = m.group(1)
+        en_desc = ru_to_en.get(ru_desc)
+        if en_desc:
+            html = html.replace(
+                f'<meta name="description" content="{ru_desc}"/>',
+                f'<meta name="description" content="{en_desc}"/>',
+                1
+            )
+
+    # og:title
+    m = re.search(r'<meta property="og:title" content="(.*?)"/>', html)
+    if m:
+        ru_og = m.group(1)
+        en_og = ru_to_en.get(ru_og)
+        if en_og:
+            html = html.replace(
+                f'<meta property="og:title" content="{ru_og}"/>',
+                f'<meta property="og:title" content="{en_og}"/>',
+                1
+            )
+
+    # og:description
+    m = re.search(r'<meta property="og:description" content="(.*?)"/>', html)
+    if m:
+        ru_ogd = m.group(1)
+        en_ogd = ru_to_en.get(ru_ogd)
+        if en_ogd:
+            html = html.replace(
+                f'<meta property="og:description" content="{ru_ogd}"/>',
+                f'<meta property="og:description" content="{en_ogd}"/>',
+                1
+            )
+
+    return html
+
+
+def fix_og_locale(html):
+    """Заменить og:locale ru_RU -> en_US на EN-страницах."""
+    return re.sub(
+        r'(<meta property="og:locale" content=")ru_RU(">)',
+        r'\1en_US\2',
+        html
+    )
     """Извлечь I18N.en из i18n.js как Python-словарь.
 
     Парсит блок `en: { ... }` через поиск пар "key": "value" с учётом
@@ -237,7 +418,7 @@ def add_hreflang_and_canonical(html, ru_url, en_url):
     return html
 
 
-def process_html(src_path, dst_path, en_dict, depth):
+def process_html(src_path, dst_path, en_dict, ru_to_en, depth):
     with open(src_path, "r", encoding="utf-8") as f:
         html = f.read()
 
@@ -256,10 +437,16 @@ def process_html(src_path, dst_path, en_dict, depth):
     # 5. Перевод data-i18n-placeholder (значение атрибута) — применяем статически
     html = translate_attr_value(html, "data-i18n-placeholder", en_dict)
 
-    # 6. Удаляем все data-i18n-* маркеры (перевод уже применён статически)
+    # 6. SEO-02: перевести <title>, description, og:title, og:description по ru->en map
+    html = translate_head_tags(html, ru_to_en)
+
+    # 7. SEO-03: og:locale ru_RU -> en_US
+    html = fix_og_locale(html)
+
+    # 8. Удаляем все data-i18n-* маркеры (перевод уже применён статически)
     html = strip_i18n_markers(html)
 
-    # 7. Hreflang + canonical (EN-страница)
+    # 9. Hreflang + canonical (EN-страница)
     rel_to_docs = os.path.relpath(dst_path, DOCS).replace("\\", "/")
     ru_url, en_url = ru_en_urls_for_en(rel_to_docs)
     html = add_hreflang_and_canonical(html, ru_url, en_url)
@@ -271,7 +458,9 @@ def process_html(src_path, dst_path, en_dict, depth):
 
 def main():
     en_dict = extract_en_dict(I18N_PATH)
-    print(f"Извлечено переводов EN: {len(en_dict)}")
+    ru_dict = extract_ru_dict(I18N_PATH)
+    ru_to_en = build_ru_to_en_map(ru_dict, en_dict)
+    print(f"Извлечено переводов EN: {len(en_dict)}, RU: {len(ru_dict)}, ru->en map: {len(ru_to_en)}")
 
     os.makedirs(EN_SUP_DIR, exist_ok=True)
 
@@ -280,7 +469,7 @@ def main():
     for src in sorted(root_htmls):
         name = os.path.basename(src)
         dst = os.path.join(EN_DIR, name)
-        process_html(src, dst, en_dict, 1)
+        process_html(src, dst, en_dict, ru_to_en, 1)
         print(f"  {src} -> {dst}")
 
     # Sup-страницы docs/sup/*.html -> docs/en/sup/*.html (глубина 2 -> ../../)
@@ -288,7 +477,7 @@ def main():
     for src in sorted(sup_htmls):
         rel = os.path.relpath(src, DOCS)  # sup/alanin.html
         dst = os.path.join(EN_DIR, rel)
-        process_html(src, dst, en_dict, 2)
+        process_html(src, dst, en_dict, ru_to_en, 2)
         print(f"  {src} -> {dst}")
 
     total = len(root_htmls) + len(sup_htmls)
