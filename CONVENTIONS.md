@@ -42,7 +42,10 @@
 
 То же и для `calculator.html`, `compare.html`, `interactions.html` и
 `map.html` — они тоже редиректы на `hactar.html`, только на другой таб
-(`?tab=calc`, `?tab=compare`, `?tab=graph`).
+(`calculator.html` и `compare.html` → `?tab=overview`, `interactions.html`
+и `map.html` → `?tab=graph`). Исторические URL `?tab=calc` и `?tab=compare`
+принимаются как legacy и нормализуются в `?tab=overview` (`hactar.js`,
+`LEGACY_TABS`).
 
 Канонический URL один — `hactar.html`. Заглушки помечены
 `<meta name="robots" content="noindex, follow">` и выведены из
@@ -52,8 +55,8 @@ sitemap не место, поисковику нужен конечный адр
 `interactions.html` / `map.html` не добавлять и в навбар не возвращать:
 это совместимость со старыми адресами, а не точки входа.
 
-Свой выбор страница принимает через query: `hactar.html?tab=calc`,
-`?tab=compare`, `?tab=graph` (вкладка «Связи»). Параметр `?ids=A,B`
+Свой выбор страница принимает через query: `hactar.html?tab=overview`,
+`?tab=graph` (вкладка «Связи»). Параметр `?ids=A,B`
 добавляет к отмеченным добавкам указанные id — им пользуется кнопка
 «+ Сравнить» на страницах добавок.
 
