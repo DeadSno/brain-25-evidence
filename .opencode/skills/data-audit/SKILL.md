@@ -76,7 +76,8 @@ project: brain-25-evidence
 | `hedges_g_ci` без значения | **48** (44 без ключа + 4 `null`) |
 | `ma_top3` без значения | **4** (ключ есть у всех 130; у 4 — `[]`) |
 | `citations` без значения | **0** (все 130 заполнены) |
-| уникальных значений `category` | **79** (36 корневых сегментов) |
+| унифицированных категорий (category_group) | **12** |
+| карточек с `upper_limit_num` | **35** |
 
 ### Слой 3 — DuckDB
 
@@ -87,7 +88,7 @@ project: brain-25-evidence
 | `key_source` | 393 | **связь** статей с веществами |
 | `mech` | 391 | механизмы, по `supplement_id` |
 | `supplement_tag` | 226 | теги веществ |
-| `interaction` | 199 | взаимодействия, по `supplement_id` |
+| `interaction` | 148 | взаимодействия, по `supplement_id` |
 | `effect_tag` | 18 | словарь канонических тегов |
 | `supplement` | 130 | вещества, зеркало `data.json` |
 
@@ -176,7 +177,7 @@ key_source(supplement_id, pmid, doi, title, year, journal)   393 строки
 ```
 
 Остальные таблицы: `supplement` (130), `mech` (391, по `supplement_id`),
-`interaction` (199), `supplement_tag` (226), `effect_tag` (18, словарь тегов),
+`interaction` (148), `supplement_tag` (226), `effect_tag` (18, словарь тегов),
 `coi` (6310, по `pmid`).
 
 Отсюда две ошибки, которых надо избежать:

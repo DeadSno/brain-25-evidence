@@ -183,7 +183,7 @@ performance, security, accessibility, bugs, seo, maintainability, privacy). **Э
 pytest -q                     # все тесты (собирается 2017, см. CONVENTIONS.md)
 pytest -q tests/test_api_contract.py       # контракт API
 pytest -q -m e2e              # браузерные e2e (гейты RUN_* удалены в v5.6.5)
-pytest -q -m snapshots        # визуальные снапшоты, 37 шт.
+pytest -q -m snapshots        # визуальные снапшоты, 76 шт.
 node --check docs/script.js   # синтаксис JS без сборщиков
 python scripts/ui_verify.py   # браузерная проверка UI
 npx -y vortix-cli@0.1.3 check # внешний статический аудит сайта
@@ -228,7 +228,7 @@ npx -y vortix-cli@0.1.3 check # внешний статический аудит
 | Тренды | [audits/trends.md](../../reports/audits/trends.md) |
 | Скиллы | [audits/skills.md](../../reports/audits/skills.md) |
 
-Индекс всего аудита и список открытых находок — `reports/AUDIT_MASTER_v565_final.md`.
+Индекс всего аудита и список открытых находок — `reports/AUDIT_MASTER_v565_FINAL.md`.
 Исходные отчёты — `reports/archive/`.
 
 ### Прогоны скиллов (`reports/archive/v56/`)
