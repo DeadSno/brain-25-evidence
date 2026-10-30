@@ -477,6 +477,80 @@ def translate_attr_value(html, attr, en_dict):
     return pattern.sub(repl, html)
 
 
+def _template_to_regex(ru_template: str) -> tuple[str, list[str]]:
+    """Преобразовать шаблон с {var} в regex с уникальными capture-group.
+    Возвращает (regex, список имён переменных в порядке следования)."""
+    escaped = re.escape(ru_template)
+    var_names: list[str] = []
+
+    def replace_var(m):
+        var_names.append(m.group(1))
+        return f'(?P<v{len(var_names)}>.+)'
+
+    regex = re.sub(r'\\\{([^}]+)\\\}', replace_var, escaped)
+    return regex, var_names
+
+
+def translate_plain_attributes(html: str, ru_to_en: dict[str, str]) -> str:
+    """Перевести plain-атрибуты data-tooltip и aria-label, не помеченные
+    data-i18n-*. Использует ru_to_en карту с поддержкой переменных {g}, {n}."""
+
+    def _translate_one(ru_text: str) -> str:
+        if ru_text in ru_to_en:
+            return ru_to_en[ru_text]
+        # Специальные случаи: aria-label с подставленным именем добавки
+        if ru_text.startswith("Цитировать "):
+            return "Cite " + ru_text[len("Цитировать "):]
+        if ru_text.startswith("Прослушать "):
+            return "Listen to " + ru_text[len("Прослушать "):]
+        # Попробовать шаблонное совпадение с переменными.
+        # Шаблоны сортируются по длине (убывание), чтобы более специфичные
+        # (длинные) шаблоны перехватывались раньше коротких (例如 "Грейд {g}"
+        # не должен перехватывать "Грейд {g} — шкала доказательности...").
+        for ru_template, en_template in sorted(
+            ru_to_en.items(), key=lambda kv: -len(kv[0])
+        ):
+            if '{' not in ru_template:
+                continue
+            regex, var_names = _template_to_regex(ru_template)
+            try:
+                m = re.fullmatch(regex, ru_text)
+            except re.error:
+                continue
+            if m:
+                result = en_template
+                for i, var_name in enumerate(var_names, 1):
+                    result = result.replace('{' + var_name + '}', m.group(f'v{i}'))
+                return result
+        return ru_text
+
+    # data-tooltip="..."
+    html = re.sub(
+        r'data-tooltip=(["\'])([^"\']*)\1',
+        lambda m: f'data-tooltip={m.group(1)}{_translate_one(m.group(2))}{m.group(1)}',
+        html,
+    )
+    # aria-label="..."
+    html = re.sub(
+        r'aria-label=(["\'])([^"\']*)\1',
+        lambda m: f'aria-label={m.group(1)}{_translate_one(m.group(2))}{m.group(1)}',
+        html,
+    )
+    # title="..."
+    html = re.sub(
+        r'title=(["\'])([^"\']*)\1',
+        lambda m: f'title={m.group(1)}{_translate_one(m.group(2))}{m.group(1)}',
+        html,
+    )
+    # placeholder="..."
+    html = re.sub(
+        r'placeholder=(["\'])([^"\']*)\1',
+        lambda m: f'placeholder={m.group(1)}{_translate_one(m.group(2))}{m.group(1)}',
+        html,
+    )
+    return html
+
+
 def translate_text_content(html, en_dict):
     """Заменить текст внутри элементов с data-i18n-text="key"."""
     pattern = re.compile(
@@ -605,6 +679,9 @@ def process_html(src_path, dst_path, en_dict, ru_to_en, depth):
 
     # 5.5. Перевод data-i18n-aria-label (значение атрибута) — применяем статически
     html = translate_attr_value(html, "data-i18n-aria-label", en_dict)
+
+    # 5.6. Перевод plain-атрибутов data-tooltip и aria-label (без data-i18n-* маркера)
+    html = translate_plain_attributes(html, ru_to_en)
 
     # 6. SEO-02: перевести <title>, description, og:*, twitter:*, apple-mobile-web-app-title
     html = translate_head_tags(html, ru_to_en)

@@ -302,7 +302,7 @@
     <nav class="actions">
       <a class="btn c-feedback" href="../feedback.html">💬 Feedback</a>
       <a class="btn c-support" href="../support.html">💚 Support us</a>
-      <button class="btn c-theme" id="themeBtn" aria-label="Переключить на светлую тему">🌞 Light theme</button>
+      <button class="btn c-theme" id="themeBtn" aria-label="Switch to light theme">🌞 Light theme</button>
       <select id="langSelect" class="lang-select"><option value="ru">RU</option><option value="en">EN</option></select>
       <button class="btn c-random" id="randomBtn">🎲 Surprise me</button>
     </nav>
@@ -318,18 +318,18 @@
     <aside class="hactar-sidebar" id="hactarSidebar" role="dialog" aria-modal="true" aria-labelledby="hactarSidebarTitle">
       <h2 class="sr-only" id="hactarSidebarTitle">Choose supplements</h2>
       <button class="hactar-done" id="hactarDone">Done</button>
-      <input type="search" id="hactarSearch" class="hactar-search" placeholder="Поиск добавки…" aria-label="Поиск добавки" autocomplete="off">
+      <input type="search" id="hactarSearch" class="hactar-search" placeholder="Search a supplement…" aria-label="Search a supplement" autocomplete="off">
       
-      <div class="hactar-chips" id="hactarChips" role="group" aria-label="Фильтр по грейду доказательности">
-        <button type="button" class="hactar-chip" data-grade="all" aria-pressed="true" aria-label="Все — без фильтра по грейду">All</button>
-        <button type="button" class="hactar-chip" data-grade="A" aria-pressed="false" aria-label="A — высокая доказательность" title="Грейд A — высокая доказательность">A</button>
-        <button type="button" class="hactar-chip" data-grade="B" aria-pressed="false" aria-label="B — средняя доказательность" title="Грейд B — средняя доказательность">B</button>
-        <button type="button" class="hactar-chip" data-grade="C" aria-pressed="false" aria-label="C — низкая доказательность" title="Грейд C — низкая доказательность">C</button>
-        <button type="button" class="hactar-chip" data-grade="D" aria-pressed="false" aria-label="D — недостаточно данных" title="Грейд D — недостаточно данных">D</button>
+      <div class="hactar-chips" id="hactarChips" role="group" aria-label="Filter by evidence grade">
+        <button type="button" class="hactar-chip" data-grade="all" aria-pressed="true" aria-label="All — without grade filter">All</button>
+        <button type="button" class="hactar-chip" data-grade="A" aria-pressed="false" aria-label="A — high evidence" title="Grade A — high evidence">A</button>
+        <button type="button" class="hactar-chip" data-grade="B" aria-pressed="false" aria-label="B — moderate evidence" title="Grade B — moderate evidence">B</button>
+        <button type="button" class="hactar-chip" data-grade="C" aria-pressed="false" aria-label="C — low evidence" title="Grade C — low evidence">C</button>
+        <button type="button" class="hactar-chip" data-grade="D" aria-pressed="false" aria-label="D — insufficient data" title="Grade D — insufficient data">D</button>
       </div>
       
       <button type="button" class="hactar-clear" id="hactarClearAll">Clear all</button>
-      <div id="hactarList" class="hactar-list" role="group" aria-label="Список добавок" aria-busy="true">
+      <div id="hactarList" class="hactar-list" role="group" aria-label="Supplement list" aria-busy="true">
         
         <div class="hactar-skel" aria-hidden="true"><span class="hactar-skel-box"></span><span class="hactar-skel-line"></span><span class="hactar-skel-pill"></span></div>
         <div class="hactar-skel" aria-hidden="true"><span class="hactar-skel-box"></span><span class="hactar-skel-line"></span><span class="hactar-skel-pill"></span></div>
@@ -355,16 +355,16 @@
       <div class="hactar-pick"><span>Selected: </span><strong><span id="hactarCount" aria-live="polite">0</span></strong> / <span id="hactarTotal">130</span>
         <span class="hactar-stack-actions">
           
-          <button type="button" class="hactar-stack-btn hactar-stack-btn--primary" id="hactarSaveStack" aria-label="Сохранить текущий стек добавок">💾 Save stack</button>
+          <button type="button" class="hactar-stack-btn hactar-stack-btn--primary" id="hactarSaveStack" aria-label="Save the current supplement stack">💾 Save stack</button>
           <span class="hactar-stacks-dropdown" id="hactarStacksDropdown" hidden>
-            <button type="button" class="hactar-stack-btn" id="hactarStacksToggle" aria-label="Открыть список сохранённых стеков" aria-expanded="false" aria-controls="hactarStacksList">📂 My stacks ▾</button>
+            <button type="button" class="hactar-stack-btn" id="hactarStacksToggle" aria-label="Open the list of saved stacks" aria-expanded="false" aria-controls="hactarStacksList">📂 My stacks ▾</button>
             <div class="hactar-stacks-list" id="hactarStacksList" hidden></div>
           </span>
         </span>
       </div>
       <button class="hactar-btn-pick" id="hactarBtnPick">🔍 Choose supplements</button>
       
-      <div class="hactar-tabs" role="tablist" aria-label="Режимы Hactar">
+      <div class="hactar-tabs" role="tablist" aria-label="Hactar modes">
         <button role="tab" id="hactarTabOverview" aria-controls="hactarPanelOverview" aria-selected="true" tabindex="0" data-mode="overview">Overview</button>
         <button role="tab" id="hactarTabLinks" aria-controls="hactarPanelLinks" aria-selected="false" tabindex="-1" data-mode="links">Links</button>
       </div>
@@ -457,7 +457,7 @@
           
           <div class="hactar-graph-wrap" id="hactarGraphWrap" hidden>
             <div class="hactar-graph-bar">
-              <div class="hactar-legend" aria-label="Легенда графа">
+              <div class="hactar-legend" aria-label="Graph legend">
                 <span class="hactar-legend-item"><span aria-hidden="true">🟢</span> <span>Supplements</span></span>
                 <span class="hactar-legend-item"><span aria-hidden="true">🟣</span> <span>Mechanisms</span></span>
                 <span class="hactar-legend-item"><span aria-hidden="true">🟠</span> <span>Drugs</span></span>
@@ -466,11 +466,11 @@
             </div>
             
             <div class="hactar-graph" id="hactarGraph" tabindex="0" role="img"
-                 aria-label="Интерактивный граф связей выбранных добавок: добавки, механизмы, лекарства и связи между ними"
+                 aria-label="Interactive graph of the selected supplements' links: supplements, mechanisms, drugs and the links between them"
                  aria-describedby="hactarGraphHint"></div>
             <p class="sr-only" id="hactarGraphHint">The graph is not keyboard operable: nodes cannot be selected with the arrow keys. A text list of the links follows right after the graph.</p>
             <p class="hactar-graph-note" id="hactarGraphNote" role="status"></p>
-            <div class="sr-only" id="hactarGraphAlt" role="group" aria-label="Текстовый список связей графа"></div>
+            <div class="sr-only" id="hactarGraphAlt" role="group" aria-label="Text list of graph links"></div>
           </div>
         </div>
       </div>

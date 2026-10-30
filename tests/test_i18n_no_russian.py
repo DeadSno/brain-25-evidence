@@ -71,23 +71,22 @@ ROOT = Path(__file__).resolve().parents[1]
 DOCS = ROOT / "docs"
 I18N = DOCS / "i18n.js"
 
-#: Страницы, на которых владелец требует чистый английский.
-PAGES = (
-    "index.html",
-    "hactar.html",
-    "methodology.html",
-    "faq.html",
-    "glossary.html",
-    "privacy.html",
-    "support.html",
-    "feedback.html",
-    "trends.html",
-    "404.html",
-    "terms-of-use.html",
-    "offline.html",
-    "sup/magniy.html",
-    "sup/index.html",
+#: Все RU-страницы для сканирования (docs/*.html + docs/sup/*.html).
+_RU_PAGES = sorted(
+    str(p.relative_to(DOCS).as_posix())
+    for p in list(DOCS.glob("*.html")) + list((DOCS / "sup").glob("*.html"))
+    if p.name not in {"google4a9d23e35c6c3e23.html"}
 )
+
+#: Все EN-страницы для сканирования (docs/en/*.html + docs/en/sup/*.html).
+_EN_PAGES = sorted(
+    "en/" + str(p.relative_to(DOCS / "en").as_posix())
+    for p in list((DOCS / "en").glob("*.html")) + list((DOCS / "en" / "sup").glob("*.html"))
+    if p.name not in {"google4a9d23e35c6c3e23.html"}
+)
+
+#: Все страницы вместе (RU + EN).
+PAGES = _RU_PAGES + _EN_PAGES
 
 CYR = re.compile(r"[А-Яа-яЁё]+")
 
@@ -311,13 +310,47 @@ def page_offenders(page: str) -> list[str]:
 # ────────────────────────────── тесты ──────────────────────────────
 
 
-@pytest.mark.parametrize("page", PAGES)
+@pytest.mark.parametrize("page", _RU_PAGES)
 def test_no_russian_text_in_english_mode(page: str) -> None:
-    """В EN-режиме на странице нет русского текста, кроме данных."""
+    """В EN-режиме на RU-странице нет русского текста, кроме данных."""
     found = page_offenders(page)
     assert not found, (
         "на странице %s остался русский текст вне data-i18n-* "
         "(оберните его в data-i18n-text и добавьте ключ в docs/i18n.js):\n%s"
+        % (page, "\n".join(found))
+    )
+
+
+def page_offenders_strict(page: str) -> list[str]:
+    """Как page_offenders, но без белого списка data_tokens: любая кириллица — ошибка."""
+    scan = PageScan()
+    scan.feed((DOCS / page).read_text(encoding="utf-8"))
+    scan.close()
+    found: list[str] = []
+    for line, text in scan.texts:
+        words = sorted(set(CYR.findall(text)))
+        if words:
+            found.append(
+                "%s:%d текст %r → кириллица: %s"
+                % (page, line, text[:160], ", ".join(words))
+            )
+    for line, name, value in scan.attrs:
+        words = sorted(set(CYR.findall(value)))
+        if words:
+            found.append(
+                "%s:%d атрибут %s=%r → кириллица: %s"
+                % (page, line, name, value[:160], ", ".join(words))
+            )
+    return found
+
+
+@pytest.mark.parametrize("page", _EN_PAGES)
+def test_no_russian_in_en_pages(page: str) -> None:
+    """На EN-странице нет русского текста вне data-i18n-* (кроме данных)."""
+    found = page_offenders(page)
+    assert not found, (
+        "на EN-странице %s остался русский текст вне data-i18n-* "
+        "(оберните в data-i18n-text или добавьте перевод в i18n.js):\n%s"
         % (page, "\n".join(found))
     )
 
