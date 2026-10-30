@@ -336,3 +336,6 @@ reports/*_pytest.xml
 # FIX-70 (PRJ-05): временные артефакты сессий (логи, дампы, скрипты-помощники) не тащим в git
 _tmp_*
 
+# FIX-71 (PRJ-05/07): сгенерированный EN-индекс не тащим в git (перегенерируется build_en_site.py)
+docs/en/data_index_en.json
+

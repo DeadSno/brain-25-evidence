@@ -104,8 +104,8 @@ def test_gate_fails_on_swapped_library(tmp_path):
     for rel in gvd.EXPECTED:
         shutil.copy2(ROOT / rel, fake_root / rel)
 
-    # вместо chart.js кладём bootstrap.js — размер другой, хеш тоже
-    shutil.copy2(ROOT / "docs/vendor/bootstrap-5.0.0-beta3.min.js",
+    # вместо chart.js кладём другой файл из vendor — размер другой, хеш тоже
+    shutil.copy2(ROOT / "docs/vendor/vis-network-9.1.9.min.js",
                  fake_root / SAMPLE)
 
     broken = _run_check(SAMPLE, fake_root, gvd.EXPECTED)
