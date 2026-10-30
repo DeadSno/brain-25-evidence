@@ -1,5 +1,6 @@
 # БАДы: доказательства и механизмы
 
+![Version](https://img.shields.io/badge/version-5.6.5-blue)
 [![Streamlit Live](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://brain-25-evidence.streamlit.app)
 [![Static site](https://img.shields.io/badge/📖_Статический_сайт-GitHub_Pages-222?logo=github)](https://deadsno.github.io/brain-25-evidence/)
 [![Tests](https://github.com/DeadSno/brain-25-evidence/actions/workflows/tests.yml/badge.svg)](https://github.com/DeadSno/brain-25-evidence/actions/workflows/tests.yml)

@@ -50,9 +50,9 @@ def test_marker_registered():
 
 def test_hook_mentions_filter():
     """Hook на диске использует ровно тот фильтр, который проверяется выше."""
-    hook = ROOT / ".git" / "hooks" / "pre-commit"
+    hook = ROOT / ".githooks" / "pre-commit"
     if not hook.exists():
-        return  # hook не установлен в этой копии — нечего проверять
+        pytest.fail("Hook not found: .githooks/pre-commit отсутствует")
     text = hook.read_text(encoding="utf-8", errors="replace")
     assert HOOK_FILTER in text, (
         "pre-commit не исключает snapshot_data — коммит с обновлением данных "

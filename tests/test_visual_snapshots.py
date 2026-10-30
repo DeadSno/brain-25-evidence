@@ -154,6 +154,7 @@ PAGES = (
     "methodology", "faq", "glossary", "feedback", "support",
     "hactar", "sup/index",
     "sup/kreatin", "sup/omega-3", "sup/vitamin-d", "sup/magniy", "sup/paba",
+    "en/index", "en/sup/magniy",
     "offline",
 )
 VIEWPORTS = ((412, 852), (1280, 900))
@@ -592,6 +593,17 @@ def _capture(page, page_name: str, *, full_page: bool) -> bytes:
     # Инъекция после загрузки: в <head> до style.css её вставить нельзя.
     page.add_style_tag(content=KILL_CSS)
     page.evaluate("() => document.fonts.ready")
+
+    # i18n.js ставит i18n-pending на <html> при загрузке; для RU убирается
+    # сразу (releaseI18nPending на DOMContentLoaded), для EN — через 1500 мс
+    # таймером. Без ожидания сравнение тем упадёт на EN-страницах.
+    try:
+        page.wait_for_function(
+            "() => !document.documentElement.classList.contains('i18n-pending')",
+            timeout=5000,
+        )
+    except Exception:  # noqa: BLE001 — класс должен сняться; если нет — тема проверит
+        pass
 
     # Проверяем, что правило применилось — см. п.1 в докстринге.
     t = page.evaluate("() => getComputedStyle(document.body).transition")
