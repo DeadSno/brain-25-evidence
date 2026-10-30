@@ -50,7 +50,7 @@
       "name": "Compare supplements",
       "short_name": "Compare",
       "description": "Compare up to 10 supplements side by side: grade, effects, dosage, safety",
-      "url": "./hactar.html?tab=compare",
+      "url": "./hactar.html?tab=overview",
       "icons": [
         { "src": "./icons/192.png", "sizes": "192x192", "type": "image/png" }
       ]

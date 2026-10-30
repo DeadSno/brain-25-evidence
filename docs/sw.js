@@ -603,7 +603,13 @@
 /* Бамп v204 -> v205 FIX-64 (SEO-02, SEO-03): EN title/description/og переведены, og:locale = en_US. */
 /* Бамп v208 -> v209 FIX-72 (A11Y-03, A11Y-06, QA-09): aria-busy на смене языка,
    расширение axe покрытия на hactar и каталог, тесты SW/manifest/PWA. */
-var CACHE_VERSION = 'v209';
+/* Бамп v209 -> v210 FIX-75 (PWA-06, PWA-07, SIZE-05): подпись кнопки установки
+   берётся из словаря и обновляется при смене языка; ярлык «Сравнение» в манифесте
+   переведён с legacy ?tab=compare (редирект) на прямой ?tab=overview; pixel_hash
+   сравнивает пиксели после приведения к RGBA, без im.mode (из-за него отчёт
+   ложно говорил «ПИКСЕЛИ ИЗМЕНИЛИСЬ» на эталонах с палитрой). pwa.js
+   ?v=284 -> ?v=285 на всех HTML. */
+var CACHE_VERSION = 'v210';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 

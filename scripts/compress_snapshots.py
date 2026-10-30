@@ -187,7 +187,13 @@ def pixel_hash(path: Path):
     if Image is None:
         return None
     with Image.open(path) as im:
-        return (im.size, im.mode,
+        # FIX-75 (SIZE-05): im.mode в кортеж НЕ входит. oxipng с --strip safe
+        # вправе перевести картинку в другой цветовой режим (P -> RGB,
+        # RGB -> RGBA, LA -> RGBA), не меняя ни одного видимого пикселя.
+        # Пока режим был частью хэша, такие файлы объявлялись «пиксели
+        # изменились», хотя глаз разницы не видит. Сравнивать
+        # надо то, что видит глаз: размер и байты после приведения к RGBA.
+        return (im.size,
                 hashlib.sha256(im.convert("RGBA").tobytes()).hexdigest())
 
 

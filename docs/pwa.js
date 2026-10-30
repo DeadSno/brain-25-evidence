@@ -181,6 +181,26 @@
     }
   }
 
+  /* FIX-75 (PWA-06): единая точка получения подписи кнопки установки.
+     Словарь отдаёт t('pwa.install'); если i18n.js на странице нет
+     (служебные страницы Google/offline) — английский текст, а не
+     сырой ключ «pwa.install» на кнопке. */
+  function installLabel() {
+    if (typeof t === 'function') return t('pwa.install');
+    return 'Install app';
+  }
+
+  /* Пока страница жива, подпись должна следовать за языком. Переключатель
+     сейчас перезагружает страницу (setLocale -> location.href), но сама
+     подписка остаётся верной и для будущей смены языка без перезагрузки:
+     событие change от #langSelect и внешнее i18n:change обрабатываются
+     одинаково. На перезагрузке кнопка создаётся заново — уже с нужной
+     подписью. */
+  function refreshInstallLabel() {
+    var btn = installRow ? installRow.querySelector('#pwaInstall') : null;
+    if (btn) btn.textContent = installLabel();
+  }
+
   function showInstall() {
     if (installRow || isStandalone()) return;
     var footer = document.querySelector('.site-footer');
@@ -189,7 +209,15 @@
       btn.type = 'button';
       btn.className = 'btn';
       btn.id = 'pwaInstall';
-      btn.textContent = t('pwa.install');
+      /* FIX-75 (PWA-06): подпись кнопки идёт через словарь, а не строкой
+         в разметке. data-i18n-text нужен на случай, если applyI18n()
+         когда-нибудь прогонят по футеру повторно; t() вызывается сразу,
+         потому что кнопка создаётся асинхронно (beforeinstallprompt), уже
+         после первого applyI18n(). typeof-проверка — страховка для
+         страниц без i18n.js: без неё ReferenceError убивал бы showInstall
+         целиком, и кнопка не появлялась бы вовсе. */
+      btn.setAttribute('data-i18n-text', 'pwa.install');
+      btn.textContent = installLabel();
       btn.addEventListener('click', function () {
         /* Событие обнуляется сразу: второй prompt() по нему браузер
            отклонит, а повторно полученный beforeinstallprompt заведёт
@@ -230,4 +258,14 @@
     deferredPrompt = null;
     hideInstall();
   });
+
+  /* FIX-75 (PWA-06): смена языка — подпись кнопки меняется на лету.
+     Ловим сам <select id="langSelect"> (его вешает i18n.js) и внешнее
+     событие i18n:change, если страница когда-нибудь начнёт менять язык
+     без перезагрузки. Второй слушатель безвреден: refreshInstallLabel
+     ничего не делает, когда кнопки нет. */
+  document.addEventListener('change', function (event) {
+    if (event.target && event.target.id === 'langSelect') refreshInstallLabel();
+  });
+  window.addEventListener('i18n:change', refreshInstallLabel);
 })();
