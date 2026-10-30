@@ -601,8 +601,9 @@
    связи, корректная цифра 94 из 130 в FAQ, CTA на калькулятор в FAQ, обновлены
    визуальные снимки. */
 /* Бамп v204 -> v205 FIX-64 (SEO-02, SEO-03): EN title/description/og переведены, og:locale = en_US. */
-/* Бамп v207 -> v208 FIX-68 (MKT-05, MKT-07, PROD-03): блок аудитории на главной, очистка переводов EN, trends переведен на английский */
-var CACHE_VERSION = 'v208';
+/* Бамп v208 -> v209 FIX-72 (A11Y-03, A11Y-06, QA-09): aria-busy на смене языка,
+   расширение axe покрытия на hactar и каталог, тесты SW/manifest/PWA. */
+var CACHE_VERSION = 'v209';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 

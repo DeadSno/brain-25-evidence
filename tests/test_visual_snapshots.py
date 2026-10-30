@@ -152,6 +152,7 @@ def _should_update(name: str) -> bool:
 PAGES = (
     "index", "map", "interactions", "graph", "atlas", "calculator", "trends",
     "methodology", "faq", "glossary", "feedback", "support",
+    "hactar", "sup/index",
     "sup/kreatin", "sup/omega-3", "sup/vitamin-d", "sup/magniy", "sup/paba",
     "offline",
 )

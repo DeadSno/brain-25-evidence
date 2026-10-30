@@ -35,11 +35,20 @@ document.documentElement.lang = LOCALE;
 // html.i18n-pending main { visibility: hidden } — место под контент
 // сохраняется, но пользователь не видит русский текст, который вот-вот
 // сменится (иначе виден именно скачок).
-if (LOCALE === 'en') document.documentElement.classList.add('i18n-pending');
+if (LOCALE === 'en') {
+  document.documentElement.classList.add('i18n-pending');
+  var main = document.querySelector('main');
+  if (main) {
+    main.setAttribute('aria-busy', 'true');
+    main.setAttribute('aria-live', 'polite');
+  }
+}
 var _i18nPendingTimer = null;
 function releaseI18nPending() {
   if (!document.documentElement.classList.contains('i18n-pending')) return;
   document.documentElement.classList.remove('i18n-pending');
+  var main = document.querySelector('main');
+  if (main) main.setAttribute('aria-busy', 'false');
   if (_i18nPendingTimer !== null) {
     clearTimeout(_i18nPendingTimer);
     _i18nPendingTimer = null;
