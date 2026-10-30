@@ -727,6 +727,16 @@ html:not(.light) #modal .shopBtn:hover{border-color:var(--accent-2)}
   .skeleton { aspect-ratio: 4 / 5; }
 }
 
+/* ===== v5.6.5 FIX-65 (UIUX-05): тост при сохранении стека ===== */
+.hactar-toast{display:inline-flex;align-items:center;gap:var(--space-2);padding:var(--space-2) var(--space-4);border-radius:var(--radius-lg);color:var(--text);background:var(--card-bg);border:1px solid var(--border);box-shadow:var(--shadow-md);font-size:var(--fs-5);min-height:44px;opacity:0;animation:toastIn .22s ease forwards}
+.hactar-toast.ok{border-color:var(--accent)}
+.hactar-toast.off{border-color:var(--danger-tx)}
+.hactar-toast.is-out{animation-name:toastOut;animation-duration:.22s;animation-fill-mode:forwards}
+.hactar-toast-icon{font-size:1.25rem;line-height:1}
+.hactar-toast-text{white-space:nowrap}
+@keyframes toastIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes toastOut{to{opacity:0;transform:translateY(10px)}}
+
 /* ===== v5.6.5 Block 7.8: UI Polish — анимации и микро-интеракции =====
    Всё внутри @media (prefers-reduced-motion: no-preference), чтобы
    пользователи с «уменьшить движение» в ОС не получали анимации. */

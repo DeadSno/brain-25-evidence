@@ -858,7 +858,15 @@ function applyFilters() {
   currentData.sort(cmp[sort]);
   renderActiveFilters();
   $('countBadge').textContent = t("filter.count", { shown: currentData.length, total: supplements.length });
-  renderCards(currentData);
+  /* UIUX-02: скелетоны при фильтрации — мягкий визуальный отклик до
+     появления карточек. Данные уже в памяти, задержка имитирует отклик
+     сети; renderCards сам по себе рендерит синхронно (тестовый стенд
+     вызывает его напрямую, где setTimeout не выполняется). */
+  const g = $('cardsGrid');
+  g.innerHTML = '<div class="card skeleton" style="height: 100px; margin-bottom: 10px;"></div>' +
+                '<div class="card skeleton" style="height: 100px; margin-bottom: 10px;"></div>' +
+                '<div class="card skeleton" style="height: 100px; margin-bottom: 10px;"></div>';
+  setTimeout(() => { renderCards(currentData); }, 150);
   if (chartTab === 'price') renderBubble(currentData); else renderQuadrant(currentData);
   updateFavUI();
   // F2.2: подпись под чартом — показано N из M
@@ -1060,7 +1068,7 @@ function renderCards(data) {
       if (e.target.closest('a')) return;
       location.href = url;
     };
-    // v5.6.2 батч C (T3): карточка — div с onclick, без него она
+    // v5.6.2 батч C (T3): карточка — div с onclick, без неё она
     // недостижима с клавиатуры: ни Enter, ни Пробел ничего не делали.
     // Роли не назначаем — div-карточка не ссылка.
     el.onkeydown = (e) => {
