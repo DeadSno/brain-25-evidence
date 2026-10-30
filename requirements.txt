@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Runtime-зависимости для скриптов (fetch_meta.py, build_ma_timeline.py и т.п.)
 # Для тестов достаточно requirements-dev.txt
 pandas==3.0.5

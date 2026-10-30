@@ -69,11 +69,6 @@ jobs:
       - name: Install Playwright browsers
         run: python -m playwright install --with-deps chromium
 
-      - name: Set up Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-
       # NRC2-07: без фильтра CI собирал и snapshot-тесты, а их эталоны сняты
       # на Windows — метрики шрифтов, субпиксельное позиционирование и
       # сглаживание зависят от платформы, запас по порогу нулевой
