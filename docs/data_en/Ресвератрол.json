@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Ресвератрол",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Ресвератрол": {
    "about": "Grape polyphenol: improves biomarkers (lipids, glucose), clinical value not proven.",
-   "category": "Metabolism",
+   "category": "Other",
    "category_group": "metab",
    "caution": "Resveratrol is a polyphenol from grapes. There is a lot of data on biomarkers (lipids, inflammation, oxidative stress, insulin resistance), but clinical outcomes are often insignificant. Bioavailability is low (rapidly metabolized). Doses in RCT are often very high (500-1500 mg/day), in dietary supplements - 50-100 mg. For obesity/type 2 diabetes: data available. For cardiovascular outcomes: effect not proven. 'French paradox' - marketing.",
    "course": "—",

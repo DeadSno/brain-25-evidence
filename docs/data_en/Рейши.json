@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Рейши",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Рейши": {
    "about": "Ganoderma: adjuvant to oncology therapy - QoL and immunity are slightly better; \"dream\" is not confirmed.",
-   "category": "Immunity / Mushrooms",
+   "category": "Immunity",
    "category_group": "immune",
    "caution": "Reishi (Ganoderma lucidum) is the 'mushroom of immortality' from traditional Chinese medicine. For cancer: 2 Cochrane reviews (27045603, 22696372) show possible benefit as an ADJUVANT to chemotherapy (improved immune response, quality of life), but NOT as monotherapy. For general immune function: limited data. For sleep/anxiety: no systematic data. Safe in standard doses.",
    "course": "—",

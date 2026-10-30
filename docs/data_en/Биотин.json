@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Биотин",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Биотин": {
    "about": "Vitamin B7: useful only in cases of deficiency; in healthy people it has not been proven for hair/nails; distorts analyses.",
-   "category": "Skin / Hair",
+   "category": "Beauty",
    "category_group": "bone",
    "caution": "Biotin (vitamin B7, vitamin H). There are NO systematic reviews or meta-analyses on clinical effects in healthy people. Biotin deficiency is rare (only with genetic diseases, long-term parenteral nutrition, consumption of raw egg whites). In healthy people with normal levels - supplements have no proven effect on hair/nails/skin. Side effects: distortion of laboratory tests (troponin, thyroid hormones).",
    "course": "—",

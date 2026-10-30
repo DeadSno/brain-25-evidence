@@ -1,11 +1,8 @@
 {
  "_meta": {
   "card": "Гинкго",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Гинкго": {
@@ -63,6 +60,8 @@
    "onset": "Cognitive functions - 12-24 weeks; only for pathology, for healthy people there is no data.",
    "title": "Ginkgo",
    "upper_limit": "240 mg extract/day; higher - bleeding.",
+   "upper_limit_num": 240.0,
+   "upper_limit_unit": "mg",
    "verdict": "not confirmed",
    "who_needs": "Only with confirmed pathology: mild/moderate dementia (adjuvant), ischemic stroke. Healthy people don’t need it."
   }

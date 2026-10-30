@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "B3",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "B3": {
    "about": "Nicotinamide (form B3): reduces the risk of non-melanoma skin cancer in people with a history of it (RR 0.50, MA 2022); the effect is not shown in healthy people.",
-   "category": "Metabolism",
+   "category": "Other",
    "category_group": "metab",
    "caution": "Increased risk of GI AEs (MA 2022); niacin forms give flushing; if there is a history of skin cancer, a doctor’s prescription.",
    "course": "Long-term, as long as prevention is relevant (according to RCT schemes in MA 2022).",

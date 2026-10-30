@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Куркумин",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Куркумин": {
    "about": "Turmeric polyphenol: inflammation (NF-κB); bioavailability itself is poor.",
-   "category": "Inflammation / Joints",
+   "category": "Other",
    "category_group": "immune",
    "caution": "The bioavailability of curcumin is VERY low without enhancers (piperine, liposomes, nanoparticles). Cochrane: Works to maintain remission in ulcerative colitis. For OA: moderate effect. For weight loss/cancer: data are weak. Caution: cholelithiasis, anticoagulants.",
    "course": "courses",

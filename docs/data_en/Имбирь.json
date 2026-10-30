@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Имбирь",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Имбирь": {
    "about": "Anti-inflammatory, antiemetic, moderate effect on pain.",
-   "category": "GI Tract / Metabolism",
+   "category": "GI Tract & Digestion",
    "category_group": "gut",
    "caution": "Ginger (Zingiber officinale). For nausea in pregnancy: systematic reviews support effectiveness (dose 1 g/day). For postoperative nausea: data available. For glycemic control in type 2 diabetes: moderate improvement. For inflammation/oxidative stress: data available. Safe in doses up to 4 g/day. Caution: anticoagulants (antiplatelet effect).",
    "course": "—",
@@ -58,6 +55,8 @@
    "onset": "Nausea - 30-60 minutes; pain - 4-8 weeks.",
    "title": "Ginger",
    "upper_limit": "4 g/day; higher - GI discomfort, bleeding.",
+   "upper_limit_num": 4.0,
+   "upper_limit_unit": "g",
    "verdict": "works",
    "who_needs": "Osteoarthritis, nausea during pregnancy, postoperative vomiting, muscle pain."
   }

@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Шатавари",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Шатавари": {
    "about": "Classic Ayurveda for women's health. The main use is to stimulate lactation in nursing mothers.",
-   "category": "General",
+   "category": "Other",
    "category_group": "general",
    "caution": "Not recommended during pregnancy without consulting a doctor. During lactation, an effect on hormones is possible. Check for human studies - there are few.",
    "course": "4-8 weeks; for lactation - as prescribed",
@@ -50,6 +47,8 @@
    "pregnancy_contraindicated": true,
    "title": "Shatavari",
    "upper_limit": "There is no formal UL. Doses up to 1 g/day are considered safe in short courses.",
+   "upper_limit_num": 1.0,
+   "upper_limit_unit": "g",
    "verdict": "depends on context",
    "who_needs": "Nursing mothers with insufficient milk supply (RCT available). Women in menopause - there is little data, there is traditional use."
   }

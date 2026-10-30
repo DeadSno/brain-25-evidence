@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "5-HTP",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "5-HTP": {
    "about": "Serotonin precursor: ~65% remission, but old RCTs, no placebo; monotherapy is not recommended.",
-   "category": "Mental Health / Depression",
+   "category": "Stress & Mood",
    "category_group": "brain",
    "caution": "5-hydroxytryptophan (serotonin precursor). A Cochrane review shows that older RCTs (1960s-80s) had methodological problems. Current data is limited. For depression: not recommended as monotherapy. Caution: serotonin syndrome in combination with SSRI/MAOI. Side effects: nausea, GI disorders. Quality of supplements varies (contamination with eosinophilia-myalgia syndrome in the past).",
    "course": "courses",

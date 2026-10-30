@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "ГАБА",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "ГАБА": {
    "about": "Main inhibitory neurotransmitter; oral GABA does not pass the BBB well - sleep/stress is poorly confirmed.",
-   "category": "Mental Health / Sleep",
+   "category": "Stress & Mood",
    "category_group": "brain",
    "caution": "Gamma-aminobutyric acid (GABA). A systematic review of 14 placebo-controlled RCTs found: LIMITED evidence for stress, VERY LIMITED for sleep. The main problem: oral GABA does not cross the blood-brain barrier (BBB). The clinical effect is doubtful. The evidence is mixed and the quality of RCTs is often poor.",
    "course": "—",

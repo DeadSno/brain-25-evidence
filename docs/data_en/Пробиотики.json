@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Пробиотики",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Пробиотики": {
    "about": "Living cultures; the effect is STRAIN SPECIFIC - “a probiotic at all” does not exist.",
-   "category": "GI Tract",
+   "category": "GI Tract & Digestion",
    "category_group": "gut",
    "caution": "The effect is STRAIN-SPECIFIC. Proven strains: Lactobacillus rhamnosus GG, Saccharomyces boulardii, Bifidobacterium infantis 35624. Contraindicated in: premature infants (FDA warning 2023), patients with CVC, immunocompromised, acute pancreatitis - risk of bacteremia.",
    "course": "4+ weeks",

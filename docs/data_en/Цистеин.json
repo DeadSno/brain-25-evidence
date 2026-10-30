@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Цистеин",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Цистеин": {
    "about": "Cysteine is a precursor to glutathione; MA for free cysteine ​​is small, the data relate to the NAC derivative (mucolytics for COPD, paracetamol poisoning).",
-   "category": "General",
+   "category": "Other",
    "category_group": "general",
    "caution": "Do not mix cysteine and NAC as equivalents; high-dose amino acids were not assessed in abstracts; for medical conditions - consult a doctor.",
    "course": "Not installed.",

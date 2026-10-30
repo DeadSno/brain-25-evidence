@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "B2",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "B2": {
    "about": "Riboflavin (B2): 400 mg/day for 3 months significantly reduces the frequency, duration and pain of migraine (MA 2022); Vegans have a risk of deficiency.",
-   "category": "General",
+   "category": "Other",
    "category_group": "general",
    "caution": "Water soluble; There are no significant AEs reported in the abstracts at 400 mg/day.",
    "course": "3 months according to the MA 2022 scheme, then according to dynamics.",

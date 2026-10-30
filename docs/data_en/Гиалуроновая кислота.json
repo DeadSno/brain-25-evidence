@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Гиалуроновая кислота",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Гиалуроновая кислота": {
    "about": "Polysaccharide of joints and skin; works in the form of injections for arthrosis, there is no data available orally.",
-   "category": "Skin & Joints",
+   "category": "Bones & Joints",
    "category_group": "bone",
    "caution": "Intra-articular injections for knee OA: SMALL effect, and PRP (plasma) is SUPERIOR to HA (LP-PRP MD -10.54 WOMAC). Oral (DS): high-quality RCT with NO outcomes. Cosmetic fillers: rare severe vascular complications (necrosis, loss of vision).",
    "course": "—",

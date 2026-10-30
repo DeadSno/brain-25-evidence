@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Хлорофилл",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Хлорофилл": {
    "about": "Chlorophyllin reduces the bioavailability of aflatoxins; “detox” and “for acne” are not confirmed.",
-   "category": "Metabolism",
+   "category": "Other",
    "category_group": "metab",
    "caution": "Chlorophyll/chlorophyllin. There are NO meta-analyses or systematic reviews on clinical effects in PubMed. Popular claims: 'detox', 'antioxidant', 'wound healing', 'anti-carcinogenic' - are not supported by systematic evidence. Chlorophyllin (semi-synthetic water-soluble form) has been studied in the context of reducing aflatoxin absorption, but no systematic reviews are available. Popularity on TikTok/Instagram ≠ evidence.",
    "course": "—",

@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Аргинин",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Аргинин": {
    "about": "Nitric oxide precursor: weaker than citrulline for pumping; niches - preeclampsia, NEC in premature infants.",
-   "category": "Blood Vessels / Pregnancy",
+   "category": "Heart & Blood Vessels",
    "category_group": "cardio",
    "caution": "L-arginine is a precursor of nitric oxide (NO). For the prevention of preeclampsia: there is data. For necrotizing enterocolitis (NEC) in prematurity: Cochrane confirms effectiveness. For nitric oxide in angina: Cochrane. For blood pressure: moderate decrease. For erectile dysfunction: limited data (often with pycnogenol). For glycemic control: mixed evidence.",
    "course": "—",

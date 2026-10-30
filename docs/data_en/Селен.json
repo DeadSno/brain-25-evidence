@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Селен",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Селен": {
    "about": "Selenium is a trace element for the thyroid gland; the effect of dietary supplements was confirmed in patients with Hashimoto's thyroiditis; in healthy people with normal status, no benefit was shown.",
-   "category": "General",
+   "category": "Other",
    "category_group": "general",
    "caution": "Toxic in excess (selenosis); if the status is normal, supplements are not recommended; discuss the dose with your doctor.",
    "course": "Course according to RCT schemes from MA 2024 (weeks-months), duration - on the dynamics of antibodies and TSH under the supervision of a physician.",

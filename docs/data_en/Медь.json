@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Медь",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Медь": {
    "about": "Copper is an essential mineral, but there is no data on the benefits of supplementation at normal levels: ESPEN explicitly notes the lack of intervention studies.",
-   "category": "General",
+   "category": "Other",
    "category_group": "general",
    "caution": "ESPEN specifically addresses the potential toxicity of micronutrients in excess; There is no data on the upper limit specifically for copper in the pool.",
    "course": "not specified; ESPEN describes monitoring micronutrient status during nutritional support",

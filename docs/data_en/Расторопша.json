@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Расторопша",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Расторопша": {
    "about": "Silymarin stabilizes hepatocyte membranes; improves markers, clinical significance is controversial.",
-   "category": "Liver",
+   "category": "Other",
    "category_group": "liver",
    "caution": "Milk thistle (Silybum marianum, silymarin). For metabolic liver dysfunction (MLD): there is a Cochrane review. For alcoholic/viral hepatitis: Cochrane shows limited effectiveness. For insulin resistance: there is data. Clinical significance is controversial—biochemical markers improve, but clinical outcomes are often insignificant. Safe.",
    "course": "—",

@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Витамин E",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Витамин E": {
    "about": "Membrane antioxidant: no effect on CVD/cancer in healthy people; for NAFLD - uncertain; tardive dyskinesia - weak conflicting data.",
-   "category": "Neurology / Metabolism",
+   "category": "Cognition",
    "category_group": "brain",
    "caution": "Vitamin E is a fat-soluble antioxidant. 15 Cochrane reviews in the database! For tardive dyskinesia (a side effect of antipsychotics): there is evidence of improvement. For MASLD: there is Cochrane (2 years, 800 IU/day). For Alzheimer's: there is Cochrane, but the effect is clinically small. For CVD/cancer prevention in healthy individuals: NO effect (large RCT). Caution: >400 IU/day increases all-cause mortality in some MAs.",
    "course": "—",
@@ -59,6 +56,8 @@
    "onset": "Delayed effect: for NAFLD courses up to 2 years; clinically small, no immediate flush.",
    "title": "Vitamin E",
    "upper_limit": "1000 mg/day (α-tocopherol)",
+   "upper_limit_num": 1000.0,
+   "upper_limit_unit": "mg",
    "verdict": "depends on context",
    "who_needs": "NAFLD - as prescribed by a doctor; analysis deficit. For tardive dyskinesia, the data are weak and contradictory (Cochrane)."
   }

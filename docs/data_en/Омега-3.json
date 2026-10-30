@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Омега-3",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Омега-3": {
    "about": "Polyunsaturated fatty acids: membranes, inflammation, brain, triglycerides.",
-   "category": "Heart",
+   "category": "Heart & Blood Vessels",
    "category_group": "cardio",
    "caution": "GENERAL omega-3s (DHA+EPA from fish oil) have LITTLE effect. Pure EPA (icosapent ethyl, prescription) - STRONG for hyperTG + CVD/diabetes. >4 g/day: risk of bleeding + AF. Cheap brands: contamination.",
    "course": "8-12 weeks",
@@ -58,6 +55,8 @@
    ],
    "title": "Omega-3",
    "upper_limit": "Up to 5 g EPA+DHA per day is safe (EFSA); above 3 g on anticoagulants - only with a doctor.",
+   "upper_limit_num": 5.0,
+   "upper_limit_unit": "g",
    "verdict": "depends on context",
    "who_needs": "Fatty fish less than 2 times a week; elevated triglycerides (with your doctor); pregnancy (DHA)."
   }

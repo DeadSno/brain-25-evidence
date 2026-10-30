@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Мака",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Мака": {
    "about": "Maca root: sexual function and menopausal symptoms - limited evidence; does not affect hormones.",
-   "category": "Sexual Health",
+   "category": "Women's Health",
    "category_group": "metab",
    "caution": "Maca (Lepidium meyenii) is a root crop native to the Andes. For sexual function: improvement in men and women. For menopausal symptoms: data available. For male fertility: conflicting evidence. There is little data (2 MA). Dose: 1.5-3 g/day.",
    "course": "—",

@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Бета-аланин",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Бета-аланин": {
    "about": "Builds carnosine - a proton buffer in the muscle: support for work for 1-4 minutes; There is no effect on strength and VO2max.",
-   "category": "Sports",
+   "category": "Sports & Performance",
    "category_group": "sport",
    "caution": "Effect ONLY on activity 1-4 minutes (anaerobic threshold). Increases carnosine in muscles. Side effect: paresthesia (skin tingling) - can be solved by splitting the dose (≤1.6 g per dose). Optimum: 4-6 g/day, 4-6 weeks.",
    "course": "4+ weeks (carnosine accumulation)",

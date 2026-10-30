@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Ашваганда",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Ашваганда": {
    "about": "Adaptogen: reduces cortisol, anxiety, improves sleep.",
-   "category": "Stress / Adaptogen",
+   "category": "Stress & Mood",
    "category_group": "brain",
    "caution": "Withania somnifera is an adaptogen. Meta-analyses show that the reduction in cortisol is significant, but the subjective perception of stress may not improve. Effective for sleep. Safety: good in short-term RCTs (4-12 weeks). Long-term data are limited. Caution: autoimmune diseases, pregnancy (teratogenicity in the preclinic).",
    "course": "4-8 weeks",
@@ -63,6 +60,8 @@
    "onset": "Anxiety and sleep - 4-8 weeks; cortisol - 2-4 weeks.",
    "title": "Ashwagandha",
    "upper_limit": "600-1200 mg extract/day; higher - GI discomfort.",
+   "upper_limit_num": 1200.0,
+   "upper_limit_unit": "mg",
    "verdict": "works",
    "who_needs": "Chronic stress, anxiety, insomnia (≥600 mg ≥8 weeks)."
   }

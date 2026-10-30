@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Лаванда",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Лаванда": {
    "about": "One of the few herbal anxiolytics tested in major RCTs (Silexan is a standardized oil). Compare with lorazepam in anxiety studies.",
-   "category": "Mood",
+   "category": "Stress & Mood",
    "category_group": "brain",
    "caution": "Orally only standardized oil in capsules (Silexan). DO NOT take regular essential oil internally - it is toxic. During pregnancy - avoid. May enhance the effect of sedatives.",
    "course": "6-10 weeks for sustained anxiolytic effect",
@@ -57,6 +54,8 @@
    "pregnancy_contraindicated": true,
    "title": "Lavender",
    "upper_limit": "There is no formal UL. Silexan capsules 80-160 mg/day are well tolerated.",
+   "upper_limit_num": 160.0,
+   "upper_limit_unit": "mg",
    "verdict": "depends on context",
    "who_needs": "People with mild to moderate anxiety disorders. Students during stressful periods. As an evening ritual for sleep."
   }

@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "L-цитруллин",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "L-цитруллин": {
    "about": "Precursor of arginine and NO: increases arginine in plasma, gives a sports “pump”; does not reduce pressure.",
-   "category": "Sports / Blood Vessels",
+   "category": "Sports & Performance",
    "category_group": "sport",
    "caution": "L-citrulline is a precursor of arginine and nitric oxide (NO). More effective than arginine itself (not metabolized into GI, raises arginine levels better). For blood pressure: meta-analyses show a modest reduction. For sports: improved performance and recovery. For erectile function: there is data. For preeclampsia: data available. Dose: 3-6 g/day. Safe.",
    "course": "as needed",

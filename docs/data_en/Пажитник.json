@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Пажитник",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Пажитник": {
    "about": "Trigonella spice: in diabetics reduces fasting, after meals and HbA1c sugar; healthy people do not.",
-   "category": "Sexual Health",
+   "category": "Women's Health",
    "category_group": "metab",
    "caution": "Fenugreek (Trigonella foenum-graecum). For glycemic control: meta-analysis (24438170) shows reduction in fasting sugar. For lactation: Individual RCTs show an increase in milk volume. For testosterone/libido: data are limited and conflicting. There is little data (1 abstract in the database). Safe in standard doses (5-15 g seeds or 500-1000 mg extract).",
    "course": "—",

@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Витамин K2",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Витамин K2": {
    "about": "Osteocalcin γ-carboxylation cofactor: lumbar BMD is higher in postmenopausal osteoporosis.",
-   "category": "Bones / Blood Vessels",
+   "category": "Bones & Joints",
    "category_group": "bone",
    "caution": "Vitamin K2 (menaquinone, MK-7). For osteoporosis in postmenopausal women: systematic reviews are available (36033779, 35711002). For fractures: mixed data (used as a treatment for osteoporosis in Japan). For vascular calcification: limited data. Dose: 45-180 mcg/day. Caution: warfarin (vitamin K antagonist). There is little data (only 5 abstracts).",
    "course": "—",

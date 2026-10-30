@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "D-манноза",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "D-манноза": {
    "about": "Sugar that blocks E. coli adhesion: in case of recurrent UTIs, the data are contradictory, fresh LA is zero.",
-   "category": "Urogenital System",
+   "category": "Other",
    "category_group": "cardio",
    "caution": "D-mannose is a simple sugar. Popular for preventing urinary tract infections (especially recurrent UTIs). Mechanism: prevents the adhesion of E. coli to the epithelium of the bladder. Selected RCTs show comparable efficacy to antibiotic prophylaxis, but there are NO systematic reviews in PubMed. Dose: 1-2 g/day. Safe. High-quality meta-analyses are needed.",
    "course": "—",

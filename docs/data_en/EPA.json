@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "EPA",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "EPA": {
    "about": "EPA - omega-3 with anti-inflammatory effect: linearly reduces triglycerides and non-HDL (90 RCT) and alleviates depression with formulas with EPA ≥60% at a dose of ≤1 g/day.",
-   "category": "Heart",
+   "category": "Heart & Blood Vessels",
    "category_group": "cardio",
    "caution": "The safety of high doses has not been addressed in the abstract; against the background of anticoagulants and high doses (>2-4 g/day) - consult a doctor.",
    "course": "Course - weeks-months; The decrease in triglycerides lasts while taking it.",

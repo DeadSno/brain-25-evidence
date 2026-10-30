@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Чёрный тмин",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Чёрный тмин": {
    "about": "Thymoquinone: Moderately improves glycemia, blood pressure, weight, and inflammation in metabolic diseases.",
-   "category": "Inflammation / Metabolism",
+   "category": "Other",
    "category_group": "immune",
    "caution": "Black cumin (Nigella sativa, thymoquinone). For inflammation and oxidative stress: data available. For cardiometabolic factors in metabolic syndrome/diabetes: mixed evidence. For asthma: data available. Data are sparse and RCT quality is often poor. Safe in standard doses.",
    "course": "—",

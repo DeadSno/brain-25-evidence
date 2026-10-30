@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Гуперзин А",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Гуперзин А": {
    "about": "Acetylcholinesterase inhibitor: better for Alzheimer's, but weak data; MCI has not been studied.",
-   "category": "Cognition / Dementia",
+   "category": "Cognition",
    "category_group": "brain",
    "caution": "Huperzine A is an acetylcholinesterase inhibitor from the club moss plant (Chinese medicine). There are 3 Cochrane reviews: for Alzheimer's disease, vascular dementia and mild cognitive impairment. There is some effectiveness, but it is comparable to other AChE inhibitors (donepezil). Side effects: cholinergic (nausea, bradycardia). Caution: bradycardia, asthma, obstructive pulmonary disease.",
    "course": "cycles 2/1 weeks",

@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Йохимбин",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Йохимбин": {
    "about": "Alpha-2 blocker: there is an effect for ED (old MA), but the price is blood pressure, pulse, impulsivity.",
-   "category": "Sexual Health",
+   "category": "Women's Health",
    "category_group": "metab",
    "caution": "Yohimbine (alpha-2 adrenergic blocker) from Pausinystalia yohimbe. Historically used for erectile dysfunction. The FDA approved it in the 1990s, but research stopped after Viagra was introduced in 1998. There are NO contemporary systematic reviews. Serious side effects: tachycardia, anxiety, increased blood pressure. Interacts with many medications. In the EU and Canada it is prohibited as a dietary supplement. Not recommended without medical supervision.",
    "course": "—",

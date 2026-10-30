@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "NAC",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "NAC": {
    "about": "Precursor of glutathione, the main cell antioxidant: fewer exacerbations of COPD, liver protection.",
-   "category": "Mental Health / Depression",
+   "category": "Stress & Mood",
    "category_group": "brain",
    "caution": "N-acetylcysteine is a precursor of glutathione. 4 Cochrane reviews in the database! For COPD: reduces the frequency of exacerbations. For acute liver failure (non-paracetamol): Cochrane. For H. pylori (adjuvant): Cochrane. For sepsis: Cochrane. For psychiatry (OCD, trichotillomania, bipolar): there is RCT with positive data. Dose: 600-1200 mg 2 times/day. Safe, side effects: GI.",
    "course": "courses",

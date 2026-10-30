@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "MSM",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "MSM": {
    "about": "Source of organic sulfur. Studied in RCT on osteoarthritis - effect comparable to NSAIDs in some studies, but with fewer side effects.",
-   "category": "Skin & Joints",
+   "category": "Bones & Joints",
    "category_group": "bone",
    "caution": "Rarely - GI discomfort, headache, insomnia when taken in the evening. Safe for a long time. Not recommended during pregnancy - limited data.",
    "course": "4-12 weeks for joints; 4-6 weeks for skin",
@@ -56,6 +53,8 @@
    "pregnancy_contraindicated": true,
    "title": "MSM",
    "upper_limit": "There is no formal UL. Doses up to 6 g/day are well tolerated by most.",
+   "upper_limit_num": 6.0,
+   "upper_limit_unit": "g",
    "verdict": "works",
    "who_needs": "People with osteoarthritis (knee pain). For chronic inflammatory conditions. In sports - for recovery."
   }

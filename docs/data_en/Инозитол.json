@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Инозитол",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Инозитол": {
    "about": "Insulin signal mediator: gestational diabetes less common (RR 0.42); PCOS - live birth not proven.",
-   "category": "Women's Health / PCOS",
+   "category": "Women's Health",
    "category_group": "women",
    "caution": "For PCOS: may reduce miscarriages, BUT the data is VERY LOW quality. No effect was shown for live births (OR 2.42, CI crosses 1). For gestational diabetes: a preventive effect is possible, but data are limited. NOT a replacement for metformin.",
    "course": "—",

@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Родиола",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Родиола": {
    "about": "Adaptogen: reduces fatigue, improves concentration during stress.",
-   "category": "Fatigue / Adaptogen",
+   "category": "Stress & Mood",
    "category_group": "brain",
    "caution": "Rhodiola rosea is an adaptogen. Systematic reviews show modest effects on fatigue, but the quality of RCTs is often low. For athletic performance: data are conflicting. For depression: insufficient data. Safety: good in short-term RCTs. Optimal dose: 200-600 mg/day standardized extract (3-6% rosavins).",
    "course": "intermittent courses",
@@ -59,6 +56,8 @@
    "onset": "Mental fatigue - accumulates over 1-2 weeks; Acute effects in reviews are inconsistent.",
    "title": "Rhodiola",
    "upper_limit": "600 mg extract/day; higher - irritability.",
+   "upper_limit_num": 600.0,
+   "upper_limit_unit": "mg",
    "verdict": "depends on context",
    "who_needs": "Burnout, mental fatigue, shift schedule, students in session."
   }

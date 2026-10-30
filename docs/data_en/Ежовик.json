@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Ежовик",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Ежовик": {
    "about": "Edible mushroom: neurogenesis and cognition - in vitro and in animals; on people 1 RCT + pilot, the base is small.",
-   "category": "Cognition / Nervous System",
+   "category": "Cognition",
    "category_group": "brain",
    "caution": "Hericium erinaceus (lion's mane). The only abstract in the database is an overview of potential properties. There are VERY few high-quality RCTs on cognitive function in humans. The main data are preclinical. Not to be confused with nootropic effects without evidence base.",
    "course": "—",

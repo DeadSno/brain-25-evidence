@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Бор",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Бор": {
    "about": "Boron in the pool is almost unstudied: two sources are about scaffolds for bone outside of humans and the third place in the network MA for drugs after lithotripsy.",
-   "category": "Bones / Immunity",
+   "category": "Bones & Joints",
    "category_group": "bone",
    "caution": "In the network MA, all drugs showed an acceptable safety profile, but there are no separate data on doses and risks of boron in the pool.",
    "course": "not listed in abstracts",

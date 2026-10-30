@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Витамин C",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Витамин C": {
    "about": "Antioxidant and cofactor: collagen, immunity, iron absorption.",
-   "category": "Immunity / Antioxidant",
+   "category": "Immunity",
    "category_group": "immune",
    "caution": "For ARI: prevention does NOT reduce the incidence in the general population (RR 0.96), BUT in extreme stress (marathon/skiing/army) it reduces by 50%. Therapy after symptoms begin does NOT work. For CVD: large RCTs showed no benefit. >2000 mg/day: GI side effects, risk of oxalate stones.",
    "course": "load periods",
@@ -62,6 +59,8 @@
    ],
    "title": "Vitamin C",
    "upper_limit": "2000 mg/day; higher - diarrhea and the risk of kidney stones in predisposed people.",
+   "upper_limit_num": 2000.0,
+   "upper_limit_unit": "mg",
    "verdict": "depends on context",
    "who_needs": "Smokers (+35 mg/day), few vegetables and fruits, extreme loads."
   }

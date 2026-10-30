@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Бузина",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Бузина": {
    "about": "Elderberry for colds/flu: symptoms are shorter (MA 2019), but confidence is low; there is no prevention.",
-   "category": "Immunity / Viral Infections",
+   "category": "Immunity",
    "category_group": "immune",
    "caution": "Sambucus nigra (black elderberry). Meta-analysis of RCT shows a significant reduction in the duration of ARI symptoms (~4 days). Effective against influenza A/B and rhinovirus infections. Safe in the short term. Caution: raw berries/leaves are toxic (cyanogenic glycosides) - standardized extracts only. There is little data (only 2 RCTs in the database).",
    "course": "5-7 days",

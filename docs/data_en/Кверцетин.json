@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Кверцетин",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Кверцетин": {
    "about": "Flavonoid: moderately reduces systolic blood pressure; the effect on endurance is trivial.",
-   "category": "Inflammation / Metabolism",
+   "category": "Other",
    "category_group": "immune",
    "caution": "Quercetin is a flavonoid from onions/apples. For blood pressure: a meta-analysis (35948195) shows a moderate decrease. For cardiometabolic factors: improvement of markers (umbrella review 37654199). For endurance: data available (22805526). For hyperuricemia/gout: data available (41514376). Bioavailability is low - forms with enhancers (piperine, phospholipids) are needed. Dose: 500-1000 mg/day.",
    "course": "—",

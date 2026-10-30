@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Лютеин + зеаксантин",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Лютеин + зеаксантин": {
    "about": "Macular carotenoids: antioxidant; slow down age-related macular degeneration, but do not save you from screens.",
-   "category": "Eyes / Vision",
+   "category": "Beauty",
    "category_group": "vision",
    "caution": "Lutein and zeaxanthin are retinal carotenoids. For age-related macular degeneration (AMD): systematic reviews show improvement in macular pigment and slower progression. For cataracts: risk reduction. For retinopathy of prematurity: Cochrane (40292760). AREDS2 formula (lutein + zeaxanthin) is the standard for AMD. Dose: 10 mg lutein + 2 mg zeaxanthin/day. Safe.",
    "course": "—",

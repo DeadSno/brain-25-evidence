@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Кремний",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Кремний": {
    "about": "Silicon for bones: the only umbrella review - effect on bone metabolism mainly in animals; The threshold of effect achievable in humans has not been determined.",
-   "category": "Bones / Immunity",
+   "category": "Bones & Joints",
    "category_group": "bone",
    "caution": "There is little data on the safety of supplements; excess microelements are not indicated; In the review, many regimens exceed the norm of 25 mg/day.",
    "course": "Not installed.",
@@ -39,6 +36,8 @@
    "onset": "Not established: The review did not determine the effective dose and timing of effect in humans.",
    "title": "Silicon",
    "upper_limit": "not established (not given in abstracts; the norm of 25 mg/day is mentioned in the review)",
+   "upper_limit_num": 25.0,
+   "upper_limit_unit": "mg",
    "verdict": "depends on context",
    "who_needs": "Indications are not defined: there is little data on the benefits of dietary supplements in humans; animal review reveals potential role in bone metabolism; For healthy people without deficiency, supplementation is not justified."
   }

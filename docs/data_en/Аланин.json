@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Аланин",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Аланин": {
    "about": "Meta-analysis in the pool - on β-alanine, which is a different substance than α-alanine; There is no data on α-alanine itself.",
-   "category": "Sports",
+   "category": "Sports & Performance",
    "category_group": "sport",
    "caution": "The pool mixes three topics: β-alanine for endurance, antidepressants and nutrition for female athletes; Alanine itself has not been studied.",
    "course": "abstracts indicate only chronic use; specific duration not specified",

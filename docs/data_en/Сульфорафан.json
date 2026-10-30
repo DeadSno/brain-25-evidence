@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Сульфорафан",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Сульфорафан": {
    "about": "Active substance from broccoli and other cruciferous vegetables. Potent antioxidant in vitro, but RCTs in humans are few and small. The actual effect of food may be greater than that of capsules.",
-   "category": "General",
+   "category": "Other",
    "category_group": "general",
    "caution": "For hypothyroidism - be careful (in high doses it affects the thyroid gland). Rarely - GI discomfort. Human studies are limited, with most of the data being in vitro.",
    "course": "8-12 weeks; the effect accumulates",

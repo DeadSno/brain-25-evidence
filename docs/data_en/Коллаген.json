@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Коллаген",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Коллаген": {
    "about": "Structural protein: skin, joints, bones. Peptides are absorbed.",
-   "category": "Skin & Joints",
+   "category": "Bones & Joints",
    "category_group": "bone",
    "caution": "Hydrolyzed collagen 2.5-10 g/day, 8-24 weeks. The effect on the skin is significant, but the quality of RCT is often low (high risk of bias). For joints (OA): data are conflicting. Safe, no serious side effects. Optimally: hydrolyzate or peptides (not native collagen).",
    "course": "8-12 weeks",
@@ -48,6 +45,8 @@
    "onset": "Skin - 8-12 weeks; joints - 12-24 weeks.",
    "title": "Collagen",
    "upper_limit": "15 g/day is safe; higher - GI discomfort.",
+   "upper_limit_num": 15.0,
+   "upper_limit_unit": "g",
    "verdict": "works",
    "who_needs": "Osteoarthritis, wrinkles (25+), athletes (joints), postmenopause (bones)."
   }

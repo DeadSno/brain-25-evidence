@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Сывороточный протеин",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Сывороточный протеин": {
    "about": "Gold Standard Protein: Leucine + Full Amino Profile; works with strength loads and sarcopenia.",
-   "category": "Sports / Muscles",
+   "category": "Sports & Performance",
    "category_group": "sport",
    "caution": "Whey protein is the gold standard of protein for athletes and seniors. For muscle mass: Multiple meta-analyses support effectiveness when combined with strength training. For sarcopenia in the elderly: works. For glycemic control: improvement of postprandial glucose. For weight loss: there is evidence when combined with diet. Isolate vs. concentrate: isolate contains more protein. Dose: 20-40 g/day.",
    "course": "—",

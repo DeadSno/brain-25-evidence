@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "B9",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "B9": {
    "about": "Methyl cycle coenzyme: critical for the fetal neural tube, reduces homocysteine.",
-   "category": "Pregnancy / Blood",
+   "category": "Women's Health",
    "category_group": "women",
    "caution": "Folic acid (vitamin B9). 12 Cochrane reviews in the database! For the prevention of neural tube defects: Cochrane supports efficacy (400 mcg/day 1–3 months before conception and in the first trimester). For pregnancy: Cochrane. To reduce homocysteine: works. For cognitive function in older people: Cochrane shows no benefit. Caution: masks B12 deficiency in the elderly. Methylfolate (5-MTHF) is the active form for people with the MTHFR polymorphism.",
    "course": "by appointment",
@@ -59,6 +56,8 @@
    "onset": "1–3 months before conception; homocysteine ​​in weeks; for cognition in the elderly - no effect.",
    "title": "Vitamin B9",
    "upper_limit": "1000 mcg/day (synthetic folic acid)",
+   "upper_limit_num": 1000.0,
+   "upper_limit_unit": "mcg",
    "verdict": "works",
    "who_needs": "Planning/pregnant women (neural tube), with elevated homocysteine, vegans, elderly with a deficiency according to analysis."
   }

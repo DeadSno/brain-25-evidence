@@ -1,11 +1,8 @@
 {
  "_meta": {
   "card": "Железо",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Железо": {
@@ -15,7 +12,7 @@
     "Zinc",
     "Magnesium"
    ],
-   "category": "Blood / Anemia",
+   "category": "Other",
    "category_group": "cardio",
    "caution": "The effect depends on the INITIAL ferritin level. Healthy people with normal Fe have little benefit. In case of anemia or deficiency - significant. GI side effects (constipation, nausea) are frequent. Pregnancy: WHO routine recommendation.",
    "course": "supervised courses",
@@ -74,6 +71,8 @@
    "onset": "Ferritin and hemoglobin increase over 4–12 weeks; the 1–3 r/week scheme is gentler on GI.",
    "title": "Iron",
    "upper_limit": "45 mg/day",
+   "upper_limit_num": 45.0,
+   "upper_limit_unit": "mg",
    "verdict": "works",
    "who_needs": "Menstruating women, pregnant women (WHO), vegans/vegetarians and anyone deficient in ferritin - order by analysis."
   }

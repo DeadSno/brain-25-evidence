@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Боярышник",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Боярышник": {
    "about": "Leaf/flower extract: in chronic heart failure, improves workload and symptoms, as an adjunct to therapy.",
-   "category": "Heart",
+   "category": "Heart & Blood Vessels",
    "category_group": "cardio",
    "caution": "Hawthorn (Crataegus spp.). For CHF: A Cochrane review (18254076) confirms improvement in symptoms (shortness of breath, fatigue) and exercise capacity. Used in European herbal medicine as an adjuvant. The effect develops after 4-8 weeks. Does not replace standard therapy for CHF. Safe in standard doses. Caution: digoxin (increases the effect), antihypertensive drugs.",
    "course": "—",

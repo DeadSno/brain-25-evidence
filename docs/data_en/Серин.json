@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Серин",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Серин": {
    "about": "Serine was studied only in rare genetic diseases - HSAN1 and GRIN2B variants: 18 patients and 4 children. For everyone else, it has not been tested as a supplement.",
-   "category": "Neurology / Metabolism",
+   "category": "Cognition",
    "category_group": "brain",
    "caution": "The dose in studies is hundreds of milligrams per kilogram of weight; inclusion in the study was determined by genetic diagnosis and not by supplementation requirement.",
    "course": "12 months in RCT for HSAN1; two 6-month cycles in the GRIN2B studies",
@@ -47,6 +44,8 @@
    "onset": "In RCT for HSAN1 - an annual course with an improvement of 1.5 points on the CMTNS scale; in GRIN2B studies - 6 months per cycle.",
    "title": "Serine",
    "upper_limit": "not listed in abstracts; in RCT 400 mg/kg/day was used",
+   "upper_limit_num": 400.0,
+   "upper_limit_unit": "mg",
    "verdict": "depends on context",
    "who_needs": "Only patients with confirmed pathology - HSAN1 or GRIN2B variants - and under medical supervision. There is no general recommendation for healthy people."
   }

@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "GLA",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "GLA": {
    "about": "GLA (evening primrose oil): for atopic dermatitis in children there are indications of benefit in case of poor quality of work; Ineffective for acne and psoriasis.",
-   "category": "Skin & Joints",
+   "category": "Bones & Joints",
    "category_group": "bone",
    "caution": "Ineffective for acne, psoriasis, chronic manual dermatitis, hepatitis B, preeclampsia and Sjögren's syndrome.",
    "course": "A course of weeks-months according to schemes from research; exact terms are not given in abstracts.",

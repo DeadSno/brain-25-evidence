@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Глутатион",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Глутатион": {
    "about": "The main intracellular antioxidant. The problem is poor absorption when taken orally. NAC works indirectly - as a predecessor.",
-   "category": "General",
+   "category": "Other",
    "category_group": "general",
    "caution": "Oral glutathione is poorly absorbed—most is destroyed in the GI. The liposomal form is better. IV glutathione - only in the clinic (used in cosmetology, but its effectiveness in skin whitening has not been confirmed). Avoid during pregnancy without advice.",
    "course": "8-12 weeks; the effect orally is weak",
@@ -50,6 +47,8 @@
    "pregnancy_contraindicated": true,
    "title": "Glutathione",
    "upper_limit": "There is no formal UL. Doses up to 2 g/day are well tolerated.",
+   "upper_limit_num": 2.0,
+   "upper_limit_unit": "g",
    "verdict": "depends on context",
    "who_needs": "People with oxidative stress (chronic diseases, smoking). For HIV, diabetes, liver disease - deficiency. In cosmetology - intravenously for “whitening” (the effect has not been confirmed by RCT)."
   }

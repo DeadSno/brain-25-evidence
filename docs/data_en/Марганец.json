@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Марганец",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Марганец": {
    "about": "Manganese is an essential trace element, but the SR on minerals for sports explicitly states: no relevant work on manganese was found.",
-   "category": "General",
+   "category": "Other",
    "category_group": "general",
    "caution": "ESPEN notes the potential toxicity of micronutrients in excess; There is no data on safe doses of manganese in the pool.",
    "course": "not specified",

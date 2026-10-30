@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "NMN",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "NMN": {
    "about": "The precursor of NAD+ is the “molecule of youth”; does not improve metabolism, strength and muscles in humans.",
-   "category": "Aging / Metabolism",
+   "category": "Other",
    "category_group": "gut",
    "caution": "NMN (nicotinamide mononucleotide) is a precursor to NAD+. For safety: data available (42514320) - good tolerability. For glucose and lipid metabolism: mixed data (39531138). For muscle mass: limited data (40275690). Most of the data are short-term RCTs. Long-term effects have not been studied. NOT proven to be effective for 'anti-aging' in humans.",
    "course": "—",

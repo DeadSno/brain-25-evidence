@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "HMB",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "HMB": {
    "about": "HMB is a metabolite of leucine: preserves muscle in cancer patients (review 2022) and increases walking speed in sarcopenia with exercise (MA 2024).",
-   "category": "Sports",
+   "category": "Sports & Performance",
    "category_group": "sport",
    "caution": "In reviews, safety was comparable to placebo; the effects are concentrated in clinical groups—do not exaggerate expectations in healthy people.",
    "course": "Weeks to months, along with a training program or nutritional support.",

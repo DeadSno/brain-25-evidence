@@ -1,11 +1,8 @@
 {
  "_meta": {
   "card": "Кальций",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Кальций": {
@@ -14,7 +11,7 @@
     "Iron",
     "Zinc"
    ],
-   "category": "Bones / Pregnancy",
+   "category": "Bones & Joints",
    "category_group": "bone",
    "caution": "Effect in pregnancy: High doses ≥1 g/day reduce preeclampsia, especially when dietary Ca is LOW. The risk of HELLP syndrome is increased (RR 2.67, but absolutely rare). Outside of pregnancy: prevention of fractures with vitamin D only.",
    "course": "—",
@@ -68,6 +65,8 @@
    "onset": "Preeclampsia: courses during pregnancy; on bone - months or years, and only with vitamin D.",
    "title": "Calcium",
    "upper_limit": "2500 mg/day",
+   "upper_limit_num": 2500.0,
+   "upper_limit_unit": "mg",
    "verdict": "depends on context",
    "who_needs": "Pregnant women with low dietary Ca (≥1 g/d reduces preeclampsia); elderly with deficiency - be sure to take vitamin D."
   }

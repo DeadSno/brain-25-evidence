@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Валериана",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Валериана": {
    "about": "Valerian root: subjectively the quality of sleep is slightly better, objectively (time to fall asleep) - no effect.",
-   "category": "Sleep / Anxiety",
+   "category": "Sleep",
    "category_group": "brain",
    "caution": "Valerian officinalis (Valeriana officinalis). For insomnia: Meta-analyses are inconsistent, with some showing minimal improvement in falling asleep and others showing no effect. Review 17517355 is literally called 'safe but not effective'. For anxiety: A Cochrane review (17054208) shows limited evidence. The effect develops after 2-4 weeks (not instantaneous). Safe, non-addictive (unlike benzodiazepines). Dose: 300-600 mg extract.",
    "course": "2-4 weeks",

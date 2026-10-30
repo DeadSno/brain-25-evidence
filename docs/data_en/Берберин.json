@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Берберин",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Берберин": {
    "about": "Alkaloid: reduces sugar, improves insulin sensitivity.",
-   "category": "Metabolism / Diabetes",
+   "category": "Other",
    "category_group": "metab",
    "caution": "Berberine is an alkaloid from plants. For glycemic control: Meta-analyses show comparable efficacy to metformin in some RCTs. For lipids: moderate reduction. For obesity and liver disease (NAFLD): data available. Dose: 500 mg 2-3 times a day. Side effects: gastrointestinal. Caution: CYP3A4 inhibitor - interacts with medications.",
    "course": "—",
@@ -63,6 +60,8 @@
    "onset": "Sugar - 4-8 weeks; insulin - 8-12 weeks.",
    "title": "Berberine",
    "upper_limit": "1500 mg/day; higher - GI discomfort.",
+   "upper_limit_num": 1500.0,
+   "upper_limit_unit": "mg",
    "verdict": "works",
    "who_needs": "Prediabetes, metabolic syndrome, type 2 diabetes (moderate data)."
   }

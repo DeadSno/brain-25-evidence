@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Глюкозамин + хондроитин",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Глюкозамин + хондроитин": {
    "about": "Cartilage substrates for osteoarthritis; the effect is small, close to placebo; chondroitin is a little stronger.",
-   "category": "Joints / Osteoarthritis",
+   "category": "Bones & Joints",
    "category_group": "bone",
    "caution": "CHONDROITIN works better than glucosamine. The effect is small but clinically significant (NNT=5). RCT quality is mostly LOW. Glucosamine sulfate works better than hydrochloride. There were fewer serious adverse events than placebo (Peto OR 0.40).",
    "course": "—",

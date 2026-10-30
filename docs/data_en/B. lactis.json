@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "B. lactis",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "B. lactis": {
    "about": "Bifidobacterium lactis: the only probiotic with a significant effect on stool frequency in chronic constipation; in other settings, data are limited.",
-   "category": "Gut",
+   "category": "GI Tract & Digestion",
    "category_group": "gut",
    "caution": "The studies have high heterogeneity and risk of bias, so interpretation of the results requires caution.",
    "course": "A course as part of the treatment of chronic constipation or functional abdominal discomfort.",

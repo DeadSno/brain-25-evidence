@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Бетаин",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Бетаин": {
    "about": "Betaine moderately increases maximum strength, primarily in the legs, but at 4 g/day and longer it raises total cholesterol.",
-   "category": "Metabolism",
+   "category": "Other",
    "category_group": "metab",
    "caution": "At 4 g/day and longer, total cholesterol increases by 0.34 mmol/l; Data on efficacy and safety in the elderly are still insufficient.",
    "course": "From 7 days for power effects; in lipid metabolism studies - from 6 to 24 weeks.",

@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Фосфатидилсерин",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Фосфатидилсерин": {
    "about": "Phospholipid of neuronal membranes: reduces inattention in ADHD in children; “nootropic” has not been confirmed.",
-   "category": "Cognition / Children",
+   "category": "Cognition",
    "category_group": "brain",
    "caution": "Phosphatidylserine is a phospholipid. For children with ADHD: there is evidence of improvement in attention and memory (33539192). For cognitive function in healthy adults: limited data. Safe in standard doses (100-300 mg/day). Historically produced from soybeans (formerly cow brain).",
    "course": "courses",

@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Клюква",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Клюква": {
    "about": "Cranberries and UTIs: prevention of relapses in women - minus 26%; treatment - no RCT; the effect is limited.",
-   "category": "Urogenital System",
+   "category": "Other",
    "category_group": "cardio",
    "caution": "Cranberry (Vaccinium macrocarpon). For the prevention of urinary tract infections: Previously considered effective (proanthocyanidins prevent bacterial adhesion), but current meta-analyses show limited effectiveness. For pressure: data are very limited. There is little data (only 2 abstracts in the database).",
    "course": "—",

@@ -1,11 +1,8 @@
 {
  "_meta": {
   "card": "Бакопа",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Бакопа": {
@@ -58,6 +55,8 @@
    "onset": "Memory - 8-12 weeks (cumulative effect).",
    "title": "Bacopa",
    "upper_limit": "300-450 mg extract/day; higher - GI discomfort, fatigue.",
+   "upper_limit_num": 450.0,
+   "upper_limit_unit": "mg",
    "verdict": "works",
    "who_needs": "Age-related memory decline, students in session; healthy adults - working memory."
   }

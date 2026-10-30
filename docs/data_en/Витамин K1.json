@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Витамин K1",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Витамин K1": {
    "about": "Vitamin K1: in MA the effect on cardio-metabolic factors is limited (HOMA-IR, CRP), in K2 the effect is more pronounced; bone data from reviews of K as a whole.",
-   "category": "Bones / Immunity",
+   "category": "Bones & Joints",
    "category_group": "bone",
    "caution": "Metabolic effect is limited; Abstract data on the safety of high doses are sparse; If there is a clotting disorder, consult a doctor.",
    "course": "Not installed.",

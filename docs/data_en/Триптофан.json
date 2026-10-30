@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Триптофан",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Триптофан": {
    "about": "Serotonin/melatonin precursor: with ≥1 g/day, fewer night awakenings; the mood is mildly better.",
-   "category": "Mental Health / Sleep",
+   "category": "Stress & Mood",
    "category_group": "brain",
    "caution": "L-tryptophan is a precursor of serotonin. Effect on sleep ONLY at >=1 g/day. DO NOT combine with SSRI/MAOI (serotonin syndrome). Dose: 0.14-3 g/day.",
    "course": "—",

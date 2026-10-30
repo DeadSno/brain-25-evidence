@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "B5",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "B5": {
    "about": "Pantothenic acid (B5): the benefits of dietary supplements have not been confirmed in abstracts; deficiency - in spinal cord injuries; topical dexpanthenol is no better than others.",
-   "category": "General",
+   "category": "Other",
    "category_group": "general",
    "caution": "The safety of high doses is not reported in the abstracts; In case of SM injuries, the nutritional picture is complex.",
    "course": "Not installed.",

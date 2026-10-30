@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Пустырник",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Пустырник": {
    "about": "Motherwort: traditionally \"nervous heart\"; sedative/hypotensive effect in an open clinic, no MA.",
-   "category": "Heart",
+   "category": "Heart & Blood Vessels",
    "category_group": "cardio",
    "caution": "Motherwort (Leonurus cardiaca). There are NO meta-analyses or systematic reviews in the database. A popular remedy in Eastern European traditional medicine for 'calming the heart', anxiety, palpitations. But there is no evidence base. Not recommended for serious cardiovascular diseases without medical supervision. May interact with anticoagulants.",
    "course": "—",

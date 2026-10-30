@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Витамин A",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Витамин A": {
    "about": "Vitamin A is fat soluble and is needed for vision, skin and immunity; data on dietary supplements are mainly about correction of deficiency, and not about “improvement” in healthy people.",
-   "category": "General",
+   "category": "Other",
    "category_group": "general",
    "caution": "Fat soluble - accumulates, ESPEN warns of potential toxicity; without monitoring status, high doses are not justified.",
    "course": "Course on Confirmed Deficiency with Reassessment of Status (ESPEN 2022).",

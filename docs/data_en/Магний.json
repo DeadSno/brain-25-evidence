@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Магний",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Магний": {
    "about": "Cofactor of 300+ enzymes: muscles, nerves, sleep. The effect and tolerability depend on the form.",
-   "category": "Mineral / Heart",
+   "category": "Other",
    "category_group": "bone",
    "caution": "Magnesium is an essential mineral. For arterial hypertension: Cochrane (16856052) confirms a decrease in pressure (especially if there is an initial deficiency). For type 2 diabetes: meta-analyses show improvement in HbA1c and insulin resistance. For seizures during pregnancy: data available. For migraine: there is data outside the database. Form matters: citrate/glycinate/malate is better than oxide. Dose: 200-400 mg/day. Caution: renal failure, bradycardia.",
    "course": "constantly when there is a shortage",
@@ -63,6 +60,8 @@
    ],
    "title": "Magnesium",
    "upper_limit": "350 mg/day added (US IOM); more - diarrhea.",
+   "upper_limit_num": 350.0,
+   "upper_limit_unit": "mg",
    "verdict": "works",
    "who_needs": "Refined nutrition, intense training, age 60+, deficiency according to analysis."
   }

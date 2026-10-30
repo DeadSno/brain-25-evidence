@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Глутамин",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Глутамин": {
    "about": "Conditionally essential amino acid; in intensive care, the effect is controversial; there are no data on outcomes for sports/muscles.",
-   "category": "Critical Care / Sports",
+   "category": "Other",
    "category_group": "critical",
    "caution": "For critical care (ICU, burns): Cochrane shows CLEAR effect - some RCTs are positive, others are not. For prematurity: Cochrane showed no benefit. For sports/immunity after exercise: no systematic data with clinical outcomes. It is safe orally, but the effect is questionable outside the ICU.",
    "course": "—",

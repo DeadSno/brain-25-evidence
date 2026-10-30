@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Гимнема",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Гимнема": {
    "about": "Ayurvedic herb for diabetes. There are RCT (small samples), the effect on glycemia is modest - a decrease in HbA1c by 0.5-1%. Does not replace metformin.",
-   "category": "Metabolism",
+   "category": "Other",
    "category_group": "metab",
    "caution": "In type 2 diabetes - may increase the effect of metformin/insulin and the risk of hypoglycemia. Sugar monitoring is mandatory. Does not replace therapy. During pregnancy - avoid.",
    "course": "4-12 weeks",
@@ -60,6 +57,8 @@
    "pregnancy_contraindicated": true,
    "title": "Gymnema",
    "upper_limit": "There is no formal UL. Doses up to 1 g/day are well tolerated.",
+   "upper_limit_num": 1.0,
+   "upper_limit_unit": "g",
    "verdict": "depends on context",
    "who_needs": "People with prediabetes (HbA1c 5.7-6.4%). For type 2 diabetes - only in addition to therapy, with control. To reduce cravings for sweets."
   }

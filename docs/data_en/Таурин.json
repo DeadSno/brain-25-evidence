@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Таурин",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Таурин": {
    "about": "Sulfoamino acid-osmolyte: improves cardiometabolic markers - glucose, lipids, blood pressure, liver.",
-   "category": "Metabolism",
+   "category": "Other",
    "category_group": "metab",
    "caution": "Taurine is a sulfonic acid with many functions. For cardiometabolism: Meta-analyses show modest improvements in blood pressure/lipids in people with metabolic problems. For cognitive function: limited data (40320621). For height in low birth weight infants: data available (29368111). Safe in doses of 1-6 g/day.",
    "course": "—",

@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Рибофлавин",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Рибофлавин": {
    "about": "Vitamin B2 is a mitochondrial cofactor; works as a prophylaxis for migraine in adults (400 mg/day).",
-   "category": "Neurology / Metabolism",
+   "category": "Cognition",
    "category_group": "brain",
    "caution": "Riboflavin (vitamin B2). For migraine prevention: systematic reviews (33779525, 28485121) show effectiveness at a dose of 400 mg/day. The effect develops after 2-3 months. Safe, no serious side effects (bright yellow urine is normal). For hereditary metabolic diseases (complex I deficiency): data available. For anemia there is no systematic data.",
    "course": "—",

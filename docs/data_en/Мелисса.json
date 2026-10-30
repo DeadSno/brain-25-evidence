@@ -1,11 +1,8 @@
 {
  "_meta": {
   "card": "Мелисса",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Мелисса": {
@@ -60,6 +57,8 @@
    "onset": "30-60 minutes for acute effect; 2-4 weeks for sustained reduction in anxiety.",
    "title": "Lemon Balm",
    "upper_limit": "There is no formal UL. High doses (above 3 g/day of extract) can affect the thyroid gland.",
+   "upper_limit_num": 3.0,
+   "upper_limit_unit": "g",
    "verdict": "depends on context",
    "who_needs": "People in stressful periods - exams, deadlines. For mild anxiety. Like evening tea before bed."
   }

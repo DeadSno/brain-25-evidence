@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Лактоферрин",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Лактоферрин": {
    "about": "Milk glycoprotein: preterm lower late sepsis (2 Cochrane); children - sepsis and diarrhea, not ARI.",
-   "category": "Immunity / Children",
+   "category": "Immunity",
    "category_group": "immune",
    "caution": "Lactoferrin is a milk glycoprotein. For prematurity: 2 Cochrane reviews support prevention of late-onset sepsis and NEC. For pediatric infections: data available. For iron status: improves absorption. Safe. Caution: milk protein allergy.",
    "course": "—",

@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Альфа-липоевая кислота",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Альфа-липоевая кислота": {
    "about": "Antioxidant and coenzyme: sensory symptoms of diabetic polyneuropathy are lower; Doesn't help you lose weight.",
-   "category": "Neurology / Metabolism",
+   "category": "Cognition",
    "category_group": "brain",
    "caution": "Alpha lipoic acid (ALA) is an antioxidant. For diabetic peripheral neuropathy: A Cochrane review supports efficacy (600 mg/day IV or PO). For cardiometabolic factors: data available. For weight: the effect is small. For the liver (MASLD): data available. For fertility: limited data. Safe in doses of 300-600 mg/day. Caution: diabetes (reduce sugar, adjust insulin dose).",
    "course": "—",

@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "CDP-холин",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "CDP-холин": {
    "about": "Choline donor for acetylcholine and membranes; effect on cognitive decline in patients, not in healthy people.",
-   "category": "Cognition / Stroke",
+   "category": "Cognition",
    "category_group": "brain",
    "caution": "Citicoline (CDP-choline) is a precursor to phosphatidylcholine. For acute ischemic stroke: there is evidence, but recent reviews show limited effectiveness. For cognitive impairment and dementia: evidence is mixed. Safe in standard doses (1000-2000 mg/day). Used in Europe and Asia as a medicine.",
    "course": "courses",

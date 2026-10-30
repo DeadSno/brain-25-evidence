@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Кофеин",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Кофеин": {
    "about": "Adenosine receptor antagonist: vigor, endurance; the most proven stimulant.",
-   "category": "Performance",
+   "category": "Sports & Performance",
    "category_group": "metab",
    "caution": "Half-life is 5-6 hours (in 30% of people - 9-10 hours). After 14:00 - sleep disturbance. Safe up to 400 mg/day. Pregnancy: up to 200 mg. CYP1A2 slow metabolizers are more sensitive. Teenagers: caution.",
    "course": "as needed",
@@ -65,6 +62,8 @@
    "onset": "30-60 minutes, peak 1-2 hours; half-life is 5-6 hours (longer for some).",
    "title": "Caffeine",
    "upper_limit": "EFSA: single 200 mg, up to 400 mg/day; pregnancy - 200 mg/day.",
+   "upper_limit_num": 400.0,
+   "upper_limit_unit": "mg",
    "verdict": "works",
    "who_needs": "Sports for endurance and strength; night shifts; sleep deprivation (caution)."
   }

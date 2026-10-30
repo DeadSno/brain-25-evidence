@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Креатин",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Креатин": {
    "about": "Most Researched Sports Supplement: Helps muscles recapture ATP, the currency of short, powerful efforts.",
-   "category": "Sports / Cognition",
+   "category": "Sports & Performance",
    "category_group": "sport",
    "caution": "The ONLY proven form is CREATINE MONOHYDRATE. HCl/ester/buffer - marketing. Long-term safe in healthy people (ISSN). The myth about the kidneys has been debunked. Water retention of 0.5-2 kg in the first weeks is normal.",
    "course": "permanently, effect from 2-4 weeks",
@@ -58,6 +55,8 @@
    "onset": "2-4 weeks of regular use (with a loading period of 5-7 days); does not give an instant “tide”.",
    "title": "Creatine",
    "upper_limit": "There is no formal UL; 3-5 g/day is safe for a long time; above 10 g/day - GI discomfort.",
+   "upper_limit_num": 5.0,
+   "upper_limit_unit": "g",
    "verdict": "works",
    "who_needs": "Strength and sprint athletes; vegetarians and vegans (there is less creatine in muscles without meat); elderly – against loss of muscle mass."
   }

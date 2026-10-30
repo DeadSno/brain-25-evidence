@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Витамин D",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Витамин D": {
    "about": "Hormone-secosteroid: calcium absorption, immunity, muscles.",
-   "category": "Bones / Immunity",
+   "category": "Bones & Joints",
    "category_group": "bone",
    "caution": "The effect depends on the BASELINE 25(OH)D level. At >50 nmol/l there is almost no benefit. At <30 nmol/l - significant. A pre-appointment test is required. >4000 IU/long term: hypercalcemia, stones. Conflict with thiazides.",
    "course": "in winter all the time",

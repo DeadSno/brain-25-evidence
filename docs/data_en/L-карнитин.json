@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "L-карнитин",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "L-карнитин": {
    "about": "Transports fatty acids to mitochondria; the effects are modest: ~1 kg of weight, small shift of markers in T2D.",
-   "category": "Neurology / Sports",
+   "category": "Cognition",
    "category_group": "brain",
    "caution": "Acetyl-L-carnitine for diabetic neuropathy: effect ONLY at a dose of >1500 mg/day, certainty VERY LOW. For moving lameness: the effect is insignificant. For weight loss/sports: NO systematic proofs. 2 of 4 studies were funded by the manufacturer.",
    "course": "—",

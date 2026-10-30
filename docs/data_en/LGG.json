@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "LGG",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "LGG": {
    "about": "Lactobacillus rhamnosus GG: ESPGHAN makes a strong recommendation for antibiotic prophylaxis of diarrhea; for gastroenteritis, it shortens the duration of diarrhea.",
-   "category": "Gut",
+   "category": "GI Tract & Digestion",
    "category_group": "gut",
    "caution": "The overall confidence in the data on probiotics in Cochrane 2020 is low; in severe and immunocompromised patients, use caution.",
    "course": "Course for the duration of taking antibiotics or until diarrhea disappears.",

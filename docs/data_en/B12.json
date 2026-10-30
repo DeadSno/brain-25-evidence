@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "B12",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "B12": {
    "about": "Methionine synthase cofactor: critical in deficiency; does not improve cognition and energy in healthy people.",
-   "category": "Nervous System / Blood",
+   "category": "Cognition",
    "category_group": "brain",
    "caution": "Oral B12 (1000-2000 mcg/day) is as effective as injections for maintaining levels (Cochrane). For cognitive functions in healthy people there is NO effect. Critical for vegans and the elderly with atrophic gastritis. For pernicious anemia - injections.",
    "course": "only for deficiency/vegans",

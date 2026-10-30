@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Кордицепс",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Кордицепс": {
    "about": "TCM fungus: CKD has lower creatinine/proteinuria; Metabolism is better after transplantation.",
-   "category": "Kidneys / Endurance",
+   "category": "Other",
    "category_group": "cardio",
    "caution": "Cordyceps sinensis is a mushroom from traditional Chinese medicine. For CKD: 2 Cochrane reviews (25519252, 26457607) show improvement in renal function as an adjuvant to standard therapy. For kidney transplant recipients: data available. For endurance: limited data (individual RCTs, not systematically compiled). For pulmonary diseases: limited data. Expensive drug, often counterfeited.",
    "course": "—",

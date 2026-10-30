@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Босвеллия",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Босвеллия": {
    "about": "Indian Frankincense: Acids inhibit 5-LOX; pain and stiffness are lower with osteoarthritis.",
-   "category": "Inflammation / Joints",
+   "category": "Other",
    "category_group": "immune",
    "caution": "Boswellia serrata - 'Indian incense'. For osteoarthritis: Aflapin standardized extract (38365549) shows improvement in pain/function. For inflammation: Inhibits 5-lipoxygenase (5-LOX), an alternative to NSAIDs. For asthma/IBD: limited data. There is little data (2 abstracts in the database). A standardized extract with ≥30% boswellic acids is required. Dose: 100-250 mg 2-3 times/day.",
    "course": "—",

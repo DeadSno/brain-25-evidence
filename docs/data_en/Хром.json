@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Хром",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Хром": {
    "about": "Strengthens insulin receptor signaling; with T2D - weak shifts in glycemia and lipids, weight - no.",
-   "category": "Metabolism / Diabetes",
+   "category": "Other",
    "category_group": "metab",
    "caution": "Chromium (usually picolinate). For type 2 diabetes: meta-analyses show small reductions in fasting glucose and HbA1c. For obesity: Cochrane (24293292) shows an INsignificant effect on weight. For PCOS: data available. For pressure: the effect is small. The data are mixed, the clinical significance is controversial. Safe at standard doses (200-1000 mcg/day).",
    "course": "—",

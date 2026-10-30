@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "PABA",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "PABA": {
    "about": "PABA as a supplement has not been confirmed: the only oral RCT is PABA potassium salt 12 g/day for systemic scleroderma, there is no difference with placebo.",
-   "category": "General",
+   "category": "Other",
    "category_group": "general",
    "caution": "In the RCT, 18 patients on the active substance and 6 on placebo withdrew due to adverse reactions: gastrointestinal intolerance and headache.",
    "course": "in RCT - 48 weeks of continuous use; there are no other schemes in the pool",

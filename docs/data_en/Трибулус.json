@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Трибулус",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Трибулус": {
    "about": "The myth of the “testosterone booster”: it does not affect T in most people; for erectile dysfunction, IIEF is higher.",
-   "category": "Sexual Health / Sports",
+   "category": "Women's Health",
    "category_group": "metab",
    "caution": "Tribulus (Tribulus terrestris). There are NO meta-analyses or systematic reviews in PubMed. Individual RCTs show no significant effect on testosterone in healthy men. Popularity as a 'testosterone booster' in sports nutrition has NOT been proven. For libido in women: limited data. Safe in standard doses, but effectiveness is questionable.",
    "course": "—",

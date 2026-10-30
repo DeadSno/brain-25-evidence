@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "B1",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "B1": {
    "about": "Thiamine (B1) is a nerve tissue vitamin: in peripheral neuropathy, including alcoholic, treatment with B1 improves symptoms; healthy people without data deficits have no data.",
-   "category": "Neurology / Metabolism",
+   "category": "Cognition",
    "category_group": "brain",
    "caution": "In normal doses, thiamine is safe; ESPEN points out the importance of correct status assessment; For alcoholic neuropathy, the key is to abstain from alcohol.",
    "course": "Weeks-months, in parallel with eliminating the cause (abstinence from alcohol).",

@@ -1,11 +1,8 @@
 {
  "_meta": {
   "card": "PQQ",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "PQQ": {
@@ -47,6 +44,8 @@
    "pregnancy_contraindicated": true,
    "title": "PQQ",
    "upper_limit": "There is no formal UL. Doses up to 40 mg/day are considered safe.",
+   "upper_limit_num": 40.0,
+   "upper_limit_unit": "mg",
    "verdict": "depends on context",
    "who_needs": "Older adults interested in mitochondrial support. In sports - as “energy for cells”. The evidence base is weaker than that of CoQ10."
   }

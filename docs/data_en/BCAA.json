@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "BCAA",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "BCAA": {
    "about": "Leucine/isoleucine/valine: there is no sports effect with enough protein; niche - hepatic encephalopathy.",
-   "category": "Liver / Sports",
+   "category": "Other",
    "category_group": "liver",
    "caution": "BCAA (leucine/isoleucine/valine). For hepatic encephalopathy in cirrhosis: 4 Cochrane reviews show effectiveness. For sports: meta-analyses are inconsistent - many show no clinically significant effect. For sarcopenia in cirrhosis: data available. For oncology/surgical: limited data.",
    "course": "—",

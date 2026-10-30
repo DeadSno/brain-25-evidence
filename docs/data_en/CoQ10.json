@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "CoQ10",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "CoQ10": {
    "about": "Mitochondria electron carrier and antioxidant; niche - heart failure (Cochrane).",
-   "category": "Heart",
+   "category": "Heart & Blood Vessels",
    "category_group": "cardio",
    "caution": "Coenzyme Q10 (ubiquinone/ubiquinol). For heart failure: 2 Cochrane reviews confirm effectiveness (reduction in mortality, hospitalization). For blood pressure: 2 Cochrane reviews show a decrease. For statin myopathy: data are conflicting. For migraine: limited data. Dose: 100-300 mg/day. Ubiquinol (active form) is more bioavailable, but more expensive.",
    "course": "courses",

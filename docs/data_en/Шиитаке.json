@@ -1,11 +1,8 @@
 {
  "_meta": {
   "card": "Шиитаке",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Шиитаке": {
@@ -54,6 +51,8 @@
    "onset": "2-4 weeks; mainly through nutrition.",
    "title": "Shiitake",
    "upper_limit": "There is no formal UL. Doses up to 2-3 g/day of extract are well tolerated.",
+   "upper_limit_num": 3.0,
+   "upper_limit_unit": "g",
    "verdict": "depends on context",
    "who_needs": "Mainly as part of the diet. In capsules - for immune support. NOT to treat anything."
   }

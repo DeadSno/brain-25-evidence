@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Псиллиум",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Псиллиум": {
    "about": "Soluble fiber: cholesterol, sugar, stool regularity.",
-   "category": "GI Tract / Metabolism",
+   "category": "GI Tract & Digestion",
    "category_group": "gut",
    "caution": "ONE of the most proven fibers. The effect is dose-dependent: optimal ≥10 g/day 15 minutes before meals. Safe for a long time. GI side effects (bloating) in the first weeks. Adequate water intake is required.",
    "course": "—",
@@ -53,6 +50,8 @@
    "onset": "Cholesterol - 4-8 weeks; stool - 1-3 days.",
    "title": "Psyllium",
    "upper_limit": "30 g/day; higher - bloating; drink a lot of water.",
+   "upper_limit_num": 30.0,
+   "upper_limit_unit": "g",
    "verdict": "works",
    "who_needs": "High cholesterol, constipation, prediabetes, weight control."
   }

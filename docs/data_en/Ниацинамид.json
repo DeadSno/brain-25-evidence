@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Ниацинамид",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Ниацинамид": {
    "about": "Niacinamide (B3): reduces the risk of non-melanoma skin cancer in those with a history of it (RR 0.50, MA 2022); topically - for hyperpigmentation; the effect has not been described in healthy people.",
-   "category": "Skin & Joints",
+   "category": "Bones & Joints",
    "category_group": "bone",
    "caution": "Increased risk of GI symptoms (MA 2022); topical forms are better tolerated; not to be confused with niacin.",
    "course": "Prevention is still relevant (according to RCT schemes from MA 2022); Topically - in courses.",

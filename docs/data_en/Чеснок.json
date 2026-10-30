@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Чеснок",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Чеснок": {
    "about": "Sulfur-containing compounds: moderate effect on blood pressure and cholesterol.",
-   "category": "Blood Vessels / Metabolism",
+   "category": "Heart & Blood Vessels",
    "category_group": "cardio",
    "caution": "Garlic (Allium sativum). For blood pressure: meta-analyses show a moderate decrease (-5-8 mmHg systolic). For cholesterol: moderate reduction. For cardiometabolic factors: data available. The effect depends on the form (aged garlic extract is better). Safe in standard doses. Caution: anticoagulants, operations (antiplatelet effect).",
    "course": "—",
@@ -58,6 +55,8 @@
    "onset": "BP - 8-12 weeks; cholesterol - 12-24 weeks.",
    "title": "Garlic",
    "upper_limit": "1200 mg extract/day; higher - GI discomfort, odor.",
+   "upper_limit_num": 1200.0,
+   "upper_limit_unit": "mg",
    "verdict": "works",
    "who_needs": "High blood pressure (adjuvant), high cholesterol, prevention."
   }

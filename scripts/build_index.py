@@ -32,8 +32,6 @@ INDEX_FIELDS = [
     "id", "name", "category", "code", "verdict", "grade",
     "scienceIndex", "metaCount", "citations", "wiki", "ongoing",
     "effects", "updated", "interactions", "upper_limit", "hedges_g",
-    "price",                        # future-proof (сейчас пусто, но дешёв)
-    "synergists", "antagonists",    # для fav banner (checkInteractions)
 ]
 
 

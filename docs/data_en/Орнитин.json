@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Орнитин",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Орнитин": {
    "about": "Ornithine was studied only for safety: SR 22 studies on healthy people found a maximum of 14,025 mg/day, but did not evaluate the effectiveness.",
-   "category": "Sports",
+   "category": "Sports & Performance",
    "category_group": "sport",
    "caution": "The main adverse events in SR are gastrointestinal disorders; risk analysis showed a difference of 0.00 (95% CI ±0.02, p = 1.00).",
    "course": "the maximum duration studied in SR is 156 days; Dosage regimens for sports have not been studied",
@@ -47,6 +44,8 @@
    "onset": "Not studied: the timing of the effect in SR for safety was not assessed, the maximum course studied was 156 days.",
    "title": "Ornithine",
    "upper_limit": "NOAEL 12,000 mg/day according to SR; there are no other boundaries in the pool",
+   "upper_limit_num": 12000.0,
+   "upper_limit_unit": "mg",
    "verdict": "not confirmed",
    "who_needs": "For none according to the pool: The effectiveness of ornithine as a supplement has not been assessed in any review. The second source about taurine in newborns is a different substance."
   }

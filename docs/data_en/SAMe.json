@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "SAMe",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "SAMe": {
    "about": "Methyl group donor; helps with depression (adjuvant), osteoarthritis pain and liver support.",
-   "category": "Mental Health / Joints",
+   "category": "Stress & Mood",
    "category_group": "brain",
    "caution": "SAMe (S-adenosylmethionine) is a universal donor of methyl groups. For depression: efficacy comparable to SSRIs in RCT. For osteoarthritis: A Cochrane review (19821403) confirms the analgesic effect. For the liver: there is data. For bipolar disorder: CAUTION (risk of mania). High price, low stability - enteric forms are needed. Dose: 400-1600 mg/day.",
    "course": "—",

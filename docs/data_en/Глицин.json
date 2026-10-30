@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Глицин",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Глицин": {
    "about": "Inhibitory amino acid: improves sleep onset (3 g) in selected RCTs; There are no meta-analyses - the base is weak.",
-   "category": "Neurotransmitter / Sleep",
+   "category": "Cognition",
    "category_group": "brain",
    "caution": "Glycine is an inhibitory neurotransmitter. There are NO meta-analyses or systematic reviews in the database. Selected RCTs have shown: improvement in sleep quality (3 g at bedtime), adjuvant in schizophrenia (as an adjuvant to antipsychotics), maintenance of collagen synthesis. But there is no systematic assessment of these effects. Popular in biohacking circles, but the evidence base is weak.",
    "course": "—",

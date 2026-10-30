@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Астаксантин",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Астаксантин": {
    "about": "Carotenoid: after exercise, creatine kinase is lower, skin is better; on VO2max and IVF outcomes - no.",
-   "category": "Skin & Joints",
+   "category": "Bones & Joints",
    "category_group": "bone",
    "caution": "Astaxanthin is a carotenoid from the algae Haematococcus pluvialis. For skin: a systematic review (32202443) shows improvement in parameters. For fertility: data available (39127677, 41714661). For sport/rehabilitation: limited data. For the liver: there is data. There is little data on clinical outcomes—mostly biomarkers. Safe at doses of 4-12 mg/day.",
    "course": "—",

@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Метионин",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Метионин": {
    "about": "All three meta-analyses on methionine are about dairy cows, not people; for a person as a supplement there is no data in the pool.",
-   "category": "Metabolism",
+   "category": "Other",
    "category_group": "metab",
    "caution": "Doses and effects cannot be transferred from dairy cows to humans: these animals use methionine to synthesize milk protein.",
    "course": "not specified in abstracts for humans; in cows the optimal duration is 68-72 days",

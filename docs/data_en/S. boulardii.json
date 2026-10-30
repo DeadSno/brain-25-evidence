@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "S. boulardii",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "S. boulardii": {
    "about": "Yeast probiotic: effective and safe in 84% of cases in 27 RCTs (5029 patients); reduces the risk of diarrhea with antibiotics (RR 0.47).",
-   "category": "Gut",
+   "category": "GI Tract & Digestion",
    "category_group": "gut",
    "caution": "Safety confirmed in 27 RCTs and 5029 patients; in critically ill patients with central venous catheters was not assessed in abstracts.",
    "course": "Course for the duration of taking antibiotics; for the prevention of diarrhea in travelers - from the beginning of the trip.",

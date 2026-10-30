@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Пикногенол",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Пикногенол": {
    "about": "Pine bark extract: moderately reduces blood pressure, lipids and glucose; “panacea” has not been proven.",
-   "category": "Metabolism",
+   "category": "Other",
    "category_group": "metab",
    "caution": "Pycnogenol is an extract of the bark of the French maritime pine (Pinus pinaster). There is 1 Cochrane review (22513958) on chronic diseases. For blood pressure: moderate decrease. For lipids: data are mixed. Safe in standard doses (50-200 mg/day). Antioxidant properties have been well studied, but clinical outcomes are often limited.",
    "course": "—",

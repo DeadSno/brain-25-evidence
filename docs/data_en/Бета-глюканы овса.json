@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Бета-глюканы овса",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Бета-глюканы овса": {
    "about": "Oat Soluble Fiber: Lowers LDL and cholesterol when high; FDA/EFSA approved.",
-   "category": "Metabolism",
+   "category": "Other",
    "category_group": "metab",
    "caution": "Oat beta-glucans are soluble fiber. FDA health claim (USA) officially approved: 'soluble fiber from oats may reduce the risk of CVD by lowering cholesterol'. A meta-analysis (35631184) confirms a decrease in LDL in hypercholesterolemic individuals. The effect is dose dependent: optimum 3+ g/day. For glycemic control: data available. Safe.",
    "course": "—",

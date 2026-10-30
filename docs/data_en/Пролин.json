@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Пролин",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Пролин": {
    "about": "Free proline as a supplement has not been studied: all studies in the pool are about collagen and gelatin, where proline is only a compound amino acid.",
-   "category": "Skin & Joints",
+   "category": "Bones & Joints",
    "category_group": "bone",
    "caution": "The pool data refer to collagen and not to free proline: tolerability and dosage of the amino acid itself were not assessed.",
    "course": "in collagen studies - from 3 days to 1 week; schemes have not been studied for proline",

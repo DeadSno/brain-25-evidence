@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Калий",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Калий": {
    "about": "Potassium lowers blood pressure, more so in hypertensive patients, but the relationship is U-shaped: with excess potassium, pressure, on the contrary, increases.",
-   "category": "Heart",
+   "category": "Heart & Blood Vessels",
    "category_group": "cardio",
    "caution": "Excess potassium increased blood pressure in patients on antihypertensive drugs; for cystinuria, hydration and alkalization without graduation are recommended.",
    "course": "RCTs in MA lasted from 4 weeks; the optimal period is not specified in the abstracts.",

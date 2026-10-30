@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Молибден",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Молибден": {
    "about": "Molybdenum is an essential trace element; There are no MAs prescribed for people in the selection: the reviews concern the status of microelements and toxic metals; dietary supplements have not been studied.",
-   "category": "General",
+   "category": "Other",
    "category_group": "general",
    "caution": "Excess micronutrients are potentially harmful; reviews note harm from excess metals - supplementation without indications is not justified.",
    "course": "Not installed.",

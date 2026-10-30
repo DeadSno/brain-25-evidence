@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "B6",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "B6": {
    "about": "Pyridoxine (B6): reduces nausea and vomiting during pregnancy (MA 2023); for neuropathy as monotherapy has not been studied, and high doses themselves are toxic to the nerves.",
-   "category": "Neurology / Metabolism",
+   "category": "Cognition",
    "category_group": "brain",
    "caution": "High doses → sensory axonal neuropathy, symptoms improve after discontinuation (CP 2023); during pregnancy, the dose is as per the doctor.",
    "course": "For the period of symptoms of nausea/vomiting during pregnancy.",

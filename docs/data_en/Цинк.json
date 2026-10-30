@@ -1,11 +1,8 @@
 {
  "_meta": {
   "card": "Цинк",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Цинк": {
@@ -15,7 +12,7 @@
     "Iron",
     "Copper"
    ],
-   "category": "Immunity / Viral Infections",
+   "category": "Immunity",
    "category_group": "immune",
    "caution": "Effect with ARI: ONLY if you start taking it in the first 24 hours. Lozenges/syrup (not tablets). Dose 75-100 mg/day. Side effects: nausea, metallic taste. >40 mg/day long-term → copper deficiency. For children in developing countries for diarrhea - WHO recommendation.",
    "course": "courses 4-8 weeks",
@@ -70,6 +67,8 @@
    "onset": "In case of deficiency (taste, skin, healing) - 4-8 weeks; “immunity” is not subjectively felt.",
    "title": "Zinc",
    "upper_limit": "40 mg/day long-term; months above 50 mg – copper deficiency.",
+   "upper_limit_num": 50.0,
+   "upper_limit_unit": "mg",
    "verdict": "depends on context",
    "who_needs": "Vegetarians and vegans (phytates), little animal protein, deficiency according to analysis."
   }

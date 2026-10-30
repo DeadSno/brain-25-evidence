@@ -601,8 +601,8 @@
    связи, корректная цифра 94 из 130 в FAQ, CTA на калькулятор в FAQ, обновлены
    визуальные снимки. */
 /* Бамп v204 -> v205 FIX-64 (SEO-02, SEO-03): EN title/description/og переведены, og:locale = en_US. */
-/* Бамп v205 -> v206 FIX-65 (UIUX-01, UIUX-02, UIUX-05): модалка #modalOverlay в hactar.html, скелетоны при фильтрации каталога, тост при сохранении стека. */
-var CACHE_VERSION = 'v206';
+/* Бамп v206 -> v207 FIX-67 (DATA-02, DATA-03, DATA-06): очищены поля индекса price/synergists/antagonists, категории унифицированы (12), upper_limit_num/unit добавлены. */
+var CACHE_VERSION = 'v207';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 

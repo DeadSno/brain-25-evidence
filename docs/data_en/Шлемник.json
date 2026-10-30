@@ -1,16 +1,13 @@
 {
  "_meta": {
   "card": "Шлемник",
-  "cards": 130,
-  "generated": "2026-10-26",
-  "note": "overlay keyed by russian card id; missing field = russian fallback",
-  "source": "docs/data.json",
-  "translator": "google-translate-free"
+  "generated": "2026-10-30",
+  "source": "docs/data_en.json"
  },
  "supplements": {
   "Шлемник": {
    "about": "Chinese herb with anti-anxiety effect. Studied in RCT, but less so than valerian or passionflower. The effect is soft.",
-   "category": "Mood",
+   "category": "Stress & Mood",
    "category_group": "brain",
    "caution": "Possible interactions with anticoagulants (warfarin) - risk of bleeding. Rarely - with benzodiazepines, enhances the effect. There is little data available during pregnancy.",
    "course": "2-4 weeks for anxiolytic effect",
@@ -60,6 +57,8 @@
    "onset": "2-4 weeks of use for a sustainable effect; does not work “at once”.",
    "title": "Skullcap",
    "upper_limit": "There is no formal UL. In Chinese medicine, doses are up to 9 g/day, in Western RCT - up to 1.5 g/day.",
+   "upper_limit_num": 9.0,
+   "upper_limit_unit": "g",
    "verdict": "depends on context",
    "who_needs": "People with chronic anxiety, mild-to-moderate. Does not replace therapy for clinical disorders. Students during the session."
   }
