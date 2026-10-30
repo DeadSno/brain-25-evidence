@@ -434,11 +434,11 @@ html.light{
    span.v из этого списка убран: версия в шапке — не «приём под тёмную
    тему», а её собственный долг (правило .top .v ниже), и он исправлен
    там же, в базовом правиле, для обеих тем. */
-html.light .hint { opacity: .85; }
 /* FIX-76 (WADA-01): правило html.light .copy{opacity:.85} убрано. Оно
    гасило ту же ссылку «Data: CC BY 4.0» поверх var(--muted) до 2.8:1 в
    светлой теме. Цвет теперь задаётся один раз в .site-footer .copy
    непрозрачным var(--muted), и opacity больше не нужна. */
+html.light .hint { color: var(--muted); }
 html.light .meta { opacity: .85; }
 *{box-sizing:border-box;margin:0;padding:0}
 
@@ -650,7 +650,7 @@ footer p{margin-bottom:var(--space-2)}
    закалка: если контрол ever окажется в колонке уже 150px, он ужмётся,
    а не вылезет за страницу. См. tests/test_min_width_justified.py. */
 #controls input,#controls select{flex:1;min-width:min(150px,100%)}
-.hint{font-size:var(--fs-4);opacity:.6;font-weight:400}
+.hint{font-size:var(--fs-4);color:var(--muted);font-weight:400}
 .card{cursor:pointer}
 .card .cat{font-size:var(--fs-4);opacity:1;display:block;margin-bottom:var(--space-0-2)}
 #modalOverlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:var(--z-overlay);display:flex;align-items:center;justify-content:center;padding:var(--space-4)}
@@ -1205,7 +1205,7 @@ body.trends-page .trustbar { position: sticky; top: 0; z-index: var(--z-header);
 .shareRow a{text-decoration:none}
 .compareChips{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:var(--space-0-3)}
 .compareChips .chipbx{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-pill);
-  padding:var(--space-0-2) .6rem;font-size:var(--fs-4);cursor:pointer}
+  padding:var(--space-0-2) .6rem;font-size:var(--fs-4);cursor:pointer;min-height:44px;display:inline-flex;align-items:center;justify-content:center}
 @media (hover:hover){.compareChips .chipbx:hover{border-color:var(--accent);color:var(--accent)}}
 #trustSummary ul{margin:.4rem 0 0 1.2rem;opacity:.9}
 #trustSummary li{margin:var(--space-0-2) 0}
@@ -1279,7 +1279,7 @@ body.trends-page .trustbar { position: sticky; top: 0; z-index: var(--z-header);
 
    map.html «Открыть карточку добавки» — единственный потомок <p>, тоже
    одиночная ссылка, но она уже 216×21px и покрывается общим правилом ниже. */
-nav.breadcrumbs a, .src-meta a { min-height: 44px; display: inline-flex; align-items: center; }
+nav.breadcrumbs a, .src-meta a { min-height: 44px; min-width: 44px; display: inline-flex; align-items: center; }
 
 /* 4. .back-link — «← Вернуться к списку» внизу sup/* (5 страниц). Класс
    объявлен в каждом sup-файле как display:inline-block, поэтому здесь
@@ -2630,6 +2630,7 @@ html:not(.light) #cookieBanner .cb-text a { color: var(--accent-2); }
    - .site-title > a: логотип был 25-26px на 136 страницах. */
 input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]):not([type="file"]),
 textarea { min-height: 44px; }
+input[type="checkbox"],input[type="radio"]{width:24px;height:24px}
 label[for]:not(.sr-only) {
   display: inline-flex;
   align-items: center;
