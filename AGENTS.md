@@ -55,6 +55,29 @@ checkout каталогов 20; источник истины — `.opencode/ski
 - `exa` — выключен (`enabled: false`)
 - `duckdb` — выключен (`enabled: false`), путь в `data/db/brain.duckdb`
 - `git` — операции Git, local (`mcp-server-git` через `uvx`), 12 tools
+- `obsidian-rest` — хранилище Obsidian через Local REST API, local
+  (`with-context-mcp`), 33+ tools, `enabled: true`
+
+### Obsidian MCP — ключ через окружение
+
+Для работы MCP-сервера Obsidian нужна переменная окружения
+`OBSIDIAN_API_KEY` — ключ из плагина **Local REST API** в Obsidian
+(`.obsidian/plugins/obsidian-local-rest-api/data.json`, поле `apiKey`).
+Значение задаётся в User-окружении Windows и переживает перезапуск:
+
+```powershell
+[Environment]::SetEnvironmentVariable('OBSIDIAN_API_KEY', '<ключ>', 'User')
+```
+
+В конфиге ключа нет — только безопасная подстановка OpenCode
+`{env:OBSIDIAN_API_KEY}` (синтаксис именно без `$`: `${env:...}` OpenCode
+не раскрывает, а `test_secrets_use_env_indirection` ждёт префикс
+`{env:`). Туда же `OBSIDIAN_API_URL=https://127.0.0.1:27124`,
+`OBSIDIAN_VAULT` и `PROJECT_BASE_PATH=Projects`.
+
+Требования: Obsidian запущен, плагин включён, порт 27124 слушает
+(`netstat -an | findstr 27124`). Новая переменная окружения видна только
+новым процессам — после её установки OpenCode нужно перезапустить.
 
 ## Git MCP — permission
 
