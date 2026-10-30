@@ -600,7 +600,8 @@
 /* Бамп v201 -> v202 FIX-61 (MKT-03, MKT-04, MKT-06): честный текст формы обратной
    связи, корректная цифра 94 из 130 в FAQ, CTA на калькулятор в FAQ, обновлены
    визуальные снимки. */
-var CACHE_VERSION = 'v202';
+/* Бамп v202 -> v203 FIX-62 (NAV-02, NAV-03, UIUX-03): версия в шапке, fallback для таба, CTA в профиле. */
+var CACHE_VERSION = 'v203';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 

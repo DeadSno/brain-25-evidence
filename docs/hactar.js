@@ -199,6 +199,11 @@
     if (tab === 'graph') return 'links';
     if (tab === 'overview') return 'overview';
     if (LEGACY_TABS[tab]) return LEGACY_TABS[tab];
+    /* Неизвестный / отсутствующий tab: дефолт «Обзор» и перезапись адреса,
+       чтобы ссылка «поделиться» не врала о вкладке (NAV-03). */
+    if (tab) {
+      history.replaceState(null, '', '?tab=overview' + location.hash);
+    }
     return DEFAULT_MODE;
   }
 

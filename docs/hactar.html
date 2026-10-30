@@ -543,6 +543,8 @@
               </div>
             </div>
             <p class="hactar-profile-status" id="hactarProfileStatus" role="status"></p>
+            <span class="hactar-profile-cta" data-i18n-text="hactar.profile.cta">Заполните профиль, чтобы рассчитать дозировки —</span>
+            <a href="?tab=overview" class="hactar-profile-cta-link" data-i18n-text="hactar.profile.ctaLink">открыть обзор добавок</a>
           </section>
           <div class="hactar-empty-state">
             <div class="hactar-empty-art" aria-hidden="true">🧪</div>
@@ -829,7 +831,8 @@
      библиотека НЕ подключена тегом: её загружает hactar.js лениво
      (loadVisNetwork) только при переходе на вкладку «Связи». На «Обзоре»
      и «Сравнении» эти байты не качаются и не парсятся. -->
-<script src="hactar.js?v=38" defer></script>
+<script src="hactar.js?v=40" defer></script>
+<script defer src="version.js?v=312"></script>
 <script src="i18n.js?v=24"></script>
 <!-- v5.6.5 FIX-63 (NPW2-01): pwa.js на этой странице не подключался вовсе,
      поэтому SW не регистрировался на втором по посещаемости экране сайта и
