@@ -618,8 +618,10 @@
    починки баннера конфликтов на index и поднят ?v= 308 -> 309, EN-эталоны
    a11y добавлены в tests/a11y_baseline.json. Поднято, чтобы новая разметка
    и скрипт не остались в старой копии кэша. */
-/* Бамп v213 -> v214 FIX-80 (NAV-04, VIS-07): синхронизация отчёта, закрыты C-находки NAV-04 (ссылка Сравнение → ?tab=overview в privacy.html) и VIS-07 (хардкодные цвета → CSS-переменные). style.css → style.min.css, ?v= 473 -> 474 в разметке. Поднято, чтобы новая разметка и стили не остались в старой копии кэша. */
-var CACHE_VERSION = 'v214';
+/* Бамп v214 -> v215 FIX-81 (I18N-06, UIUX-06): word-wrap для длинных слов
+   в карточках, min-width:0 для бейджей/чипов, isStandalone в pwa.js.
+   style.css → style.min.css, ?v= 474 -> 475, pwa.js?v= 285 -> 286. */
+var CACHE_VERSION = 'v215';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
