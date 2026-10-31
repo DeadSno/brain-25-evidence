@@ -1,0 +1,13 @@
+{
+  "name": "brain-25-evidence",
+  "version": "5.6.5",
+  "private": true,
+  "devDependencies": {
+    "terser": "^5.27.0",
+    "csso-cli": "^4.0.2"
+  },
+  "scripts": {
+    "build:js": "terser docs/script.js -o docs/script.min.js -c -m",
+    "build:css": "csso docs/style.css -o docs/style.min.css"
+  }
+}

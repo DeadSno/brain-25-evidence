@@ -330,6 +330,25 @@ streamlit run app.py
 # 3. Deploy → получаешь https://brain-25-evidence.streamlit.app
 ```
 
+## Сборка статических ассетов
+
+Минификация JS и CSS выполняется через `npm` (скрипты в корневом `package.json`).
+
+```bash
+# 1. Установить зависимости (один раз)
+npm install
+
+# 2. Собрать script.min.js из docs/script.js (terser)
+npm run build:js
+
+# 3. Собрать style.min.css из docs/style.css (csso)
+npm run build:css
+```
+
+Скрипты:
+- `build:js` — `terser docs/script.js -o docs/script.min.js -c -m`
+- `build:css` — `csso docs/style.css -o docs/style.min.css`
+
 ## Статус релиза
 
 | | |

@@ -49,6 +49,9 @@ function slugify(name) {
 // inline-скриптов тем). Здесь — только потребление I18N / t / LOCALE.
 
 let supplements = [], currentData = [], chartInstance = null, radarInstance = null, onlyFavs = false;
+// CWV-05: пагинация карточек на index.html — изначально 30, «Показать ещё 30» дорисовывает порциями.
+let cardOffset = 0;
+const cardPageSize = 30;
 let supplementsFull = null;         // {id: {...}} — загружается при первом клике
 let supplementsFullPromise = null;  // in-flight запрос data.json
 window.getData = window.getData || (() => window.__dataPromise || (window.__dataPromise = fetchJson('data.json')));
@@ -850,6 +853,7 @@ function maTop3Block(s) {
     + body;
 }
 function applyFilters() {
+  cardOffset = 0;   // CWV-05: сброс пагинации при изменении фильтров
   const q = $('search').value.toLowerCase().trim();
   const v = $('verdictFilter').value, ef = effectFilterCurrent, sort = presetScience ? 'science' : $('sortSelect').value;
   // v5.6.2 (T4): запрос-цифра ищем по PMID через ленивый индекс. Пока
@@ -1062,17 +1066,14 @@ const catGroup = (raw) => {
 function renderCards(data) {
   const g = $('cardsGrid');
   if (!data.length) { g.innerHTML = '<div class="empty">' + t("empty.notFound") + ' ' +
-      '<button id="resetAll" class="favFilter">' + t("empty.resetFavs") + '</button></div>'; return; }
-  // v5.6.2 батч C (T3): карточка получает tabindex="-1" — она становится
-  // фокусируемой (фокус возвращается на неё после закрытия модалки), но
-  // НЕ входит в порядок обхода Tab: перебор 130 карточек стрелками не
-  // нужен, открывать их с клавиатуры можно в любом случае через Enter.
-  g.innerHTML = data.map(s => '<div class="card" data-id="' + esc(s.id) + '" tabindex="-1">' +
+      '<button id="resetAll" class="favFilter">' + t("empty.resetFavs") + '</button></div>'; $('showMoreBtn').style.display = 'none'; return; }
+  // CWV-05: рендерим только текущую порцию [cardOffset, cardOffset + cardPageSize)
+  const from = cardOffset;
+  const to = Math.min(from + cardPageSize, data.length);
+  const page = data.slice(from, to);
+  g.innerHTML = page.map(s => '<div class="card" data-id="' + esc(s.id) + '" tabindex="-1">' +
     '<button class="favBtn' + (isFav(s.id) ? ' on' : '') + '" data-fav="' + esc(s.id) + '" title="' + t("card.favTitle") + '">' + (isFav(s.id) ? '★' : '☆') + '</button>' +
     (BEST.includes(s.id) ? '<span class="bestBadge">' + t("card.top3") + '</span>' : '') +
-    // Заголовок карточки — НЕ h3: на index их было 134 (по одной на добавку),
-    // из-за чего структура документа переставала отражать реальные разделы.
-    // Название добавки — strong, разделы остались h2 (P2-16).
     '<span class="cat" data-cat-group="' + (s.category_group || 'neutral') + '">' + esc(s.category || '') + '</span><strong class="card-title">' + esc(s.name) + '</strong>' +
     updatedLine(s) + manualBadge(s) +
     '<div class="verdict v' + esc(s.code) + '">' + esc(s.verdict) + '</div>' + gradeBadge(s) +     '<div class="effects">' + (s.effects || []).map(e => '<span>' + esc(e) + '</span>').join('') + '</div>' +
@@ -1085,17 +1086,24 @@ function renderCards(data) {
       if (e.target.closest('a')) return;
       location.href = url;
     };
-    // v5.6.2 батч C (T3): карточка — div с onclick, без неё она
-    // недостижима с клавиатуры: ни Enter, ни Пробел ничего не делали.
-    // Роли не назначаем — div-карточка не ссылка.
     el.onkeydown = (e) => {
       if (e.key !== 'Enter' && e.key !== ' ') return;
-      if (e.target.closest('a, button')) return;   // свои элементы обработают сами
+      if (e.target.closest('a, button')) return;
       e.preventDefault();
       location.href = url;
     };
   });
+  // Показать ещё 30 — показываем только если есть неотрендеренные карточки
+  const btn = $('showMoreBtn');
+  if (to >= data.length) { btn.style.display = 'none'; }
+  else { btn.style.display = ''; btn.textContent = t("index.showMore"); }
 }
+
+// CWV-05: «Показать ещё 30» — наращивает cardOffset и дорисовывает порцию.
+$('showMoreBtn').onclick = () => {
+  cardOffset += cardPageSize;
+  renderCards(currentData);
+};
 
 // v5.6.2 (батч C, T3): ловушка фокуса внутри модалки. Без неё Tab
 // выходил из диалога на элементы страницы под ним — то есть модалка
