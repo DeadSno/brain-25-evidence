@@ -29,7 +29,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Supplements">
 <link rel="apple-touch-icon" href="../icons/192.png">
-<script src="../i18n.js?v=28" defer></script>
+<script src="../i18n.js?v=29" defer></script>
 <script>
 
 
@@ -249,11 +249,11 @@ html:not(.light) .cat-warn{color:var(--warn-tx-amber)}
 
   <header class="top">
     <div class="site-title"><a href="../index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a> <span class="v">v<span data-version="app"></span></span></div>
-    <nav class="actions">
+    <nav class="actions" aria-label="Main navigation">
       <a class="btn c-feedback" href="../feedback.html"><span>💬 Feedback</span></a>
       <a class="btn c-support" href="../support.html"><span>💚 Support us</span></a>
-      <button class="btn c-theme" id="themeBtn"><span>🌞 Light theme</span></button>
-      <select id="langSelect" class="lang-select"><option value="ru">RU</option><option value="en">EN</option></select>
+      <button class="btn c-theme" id="themeBtn" aria-label="Switch to light theme"><span>🌞 Light theme</span></button>
+      <select id="langSelect" class="lang-select" aria-label="Switch language"><option value="ru">RU</option><option value="en">EN</option></select>
       <button class="btn c-random" id="randomBtn"><span>🎲 Surprise me</span></button>
     </nav>
   </header>
@@ -315,7 +315,7 @@ html:not(.light) .cat-warn{color:var(--warn-tx-amber)}
   <label><span>Category:</span>
     <select id="categoryFilter"><option value="all">All</option></select>
   </label>
-  <label><abbr><span>Grade</span></abbr>:
+  <label><abbr title="Grade A-D — the evidence scale (see glossary.html)"><span>Grade</span></abbr>:
     <select id="gradeFilter">
       <option value="all">All</option>
       <option value="A">A</option>
@@ -354,7 +354,7 @@ html:not(.light) .cat-warn{color:var(--warn-tx-amber)}
 
 <div id="modalOverlay" style="display:none">
   <div id="modal">
-    <button id="modalClose" class="btn">×</button>
+    <button id="modalClose" class="btn" aria-label="Close dialog">×</button>
     
     <div id="modalBody" aria-live="polite"></div>
   </div>
@@ -845,6 +845,7 @@ growth_wiki = avg(wiki[id][last 6 months]) / avg(wiki[id][first 6 months])</span
     <a href="../feed.xml">📡 RSS</a>
   </p>
   <p class="copy">© 2026 Vladislav "DeadSno" Pereshivalov · MIT · <a href="../terms-of-use.html#data-license"><span>Data: CC BY 4.0</span></a></p>
+  <p class="legal-age">18+ This information is intended for adults aged 18 and over.</p>
   <p class="legal-disclaimer">Dietary supplements are not medicines. Consult a doctor before use.</p>
   <p class="share-row"><button class="btn share-page" type="button"><span>🔗 Share</span></button></p>
 </footer>
@@ -1095,7 +1096,7 @@ growth_wiki = avg(wiki[id][last 6 months]) / avg(wiki[id][first 6 months])</span
   }
 })();
 </script>
-<button class="toBottom" id="toBottom" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})">↓</button>
+<button class="toBottom" id="toBottom" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})" title="Down" aria-label="Scroll the page down">↓</button>
 <script>
 window.addEventListener('scroll', () => {
   const btn = document.getElementById('toBottom');
@@ -1114,7 +1115,7 @@ window.addEventListener('scroll', () => {
 <script src="../pwa.js?v=285" defer></script>
 <script src="../share.js?v=2" defer></script>
 
-<div id="cookieBanner" role="dialog" hidden>
+<div id="cookieBanner" role="dialog" aria-label="Cookie consent" hidden>
   <div class="cb-text">
     <span>We use cookies and Yandex.Metrica to understand which materials are useful. Analytics is enabled only after your consent.</span>
     <a href="../privacy.html"><span>Privacy policy</span></a>

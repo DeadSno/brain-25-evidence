@@ -39,7 +39,7 @@
     </script>
     <link rel="stylesheet" href="../../style.min.css?v=473">
     <script src="../../version.js?v=312" defer></script>
-    <script src="../../i18n.js?v=28" defer></script>
+    <script src="../../i18n.js?v=29" defer></script>
     <script src="../../pwa.js?v=285" defer></script>
 <script src="../../share.js?v=2" defer></script>
     <script type="application/ld+json">
@@ -66,12 +66,12 @@
   <div class="trustbar">🧬 Open data · Free · No ads</div>
   <header class="top">
     <div class="site-title"><a href="../../index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a></div>
-    <nav class="actions">
+    <nav class="actions" aria-label="Main navigation">
       <a class="btn c-feedback" href="../../feedback.html">💬 Feedback</a>
       <a class="btn c-support" href="../../support.html">💚 Support us</a>
       
       <button class="btn c-theme" id="themeBtn">🌞 Светлая тема</button>
-      <select id="langSelect" class="lang-select"><option value="ru">RU</option><option value="en">EN</option></select>
+      <select id="langSelect" class="lang-select" aria-label="Switch language"><option value="ru">RU</option><option value="en">EN</option></select>
       <button class="btn c-random" id="randomBtn">🎲 Surprise me</button>
     </nav>
   </header>
@@ -87,7 +87,7 @@
 
     <div class="sup-header">
         <h2><span data-sup="name">Железо</span></h2>
-        <span class="grade-badge" style="background:var(--grade-a-fill)"><abbr data-i18n-vars='{"g": "A"}' data-tooltip="Grade A">Grade {g}</abbr></span>
+        <span class="grade-badge" style="background:var(--grade-a-fill)"><abbr title="Grade A-D — the evidence scale (see glossary.html)" data-i18n-vars='{"g": "A"}' data-tooltip="Grade A">Grade {g}</abbr></span>
         
         
         <div class="placebo-bar" role="group" aria-label="Placebo effect size">
@@ -292,7 +292,7 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 
 
-<div id="cookieBanner" role="dialog" hidden>
+<div id="cookieBanner" role="dialog" aria-label="Cookie consent" hidden>
   <div class="cb-text">
     <span>We use cookies and Yandex.Metrica to understand which materials are useful. Analytics is enabled only after your consent.</span>
     <a href="../../privacy.html">Privacy policy</a>

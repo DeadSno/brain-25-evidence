@@ -7,6 +7,7 @@
   let STORAGE_KEY = 'myCourse';
   let DEFAULT_DAYS = 30;
   let _supplementsCache = null;
+  let retriedFor = '';   // QA-13 (FIX-77): защита от повторного ожидания для того же id
 
   // I2-02 (FIX-52): словарь и t() переехали в docs/i18n.js. tracker.js
   // подключается с defer после синхронного i18n.js в <head>, поэтому
@@ -14,7 +15,14 @@
 
   function fetchSupplements() {
     if (_supplementsCache) return Promise.resolve(_supplementsCache);
-    return window.getData().catch(function () { return []; });
+    // QA-13 (FIX-77): кэш не заполнялся нигде — findSup() всегда возвращал
+    // null, и кнопка «В мой курс» не появлялась ни в одной модалке.
+    return window.getData()
+      .then(function (data) {
+        _supplementsCache = Array.isArray(data) ? data : (data && data.supplements) || [];
+        return _supplementsCache;
+      })
+      .catch(function () { return []; });
   }
 
   function findSup(id) {
@@ -99,6 +107,15 @@
     let hash = decodeURIComponent((location.hash || '').replace('#sup=', ''));
     if (!hash) return;
     let sup = findSup(hash);
+    // QA-13 (FIX-77): модалку могли открыть раньше, чем догрузился
+    // data.json. Раньше кнопка в этом случае не появлялась никогда,
+    // потому что повторного вызова не было. Одна повторная попытка
+    // после загрузки — без бесконечного цикла на несуществующем id.
+    if (!sup && retriedFor !== hash) {
+      retriedFor = hash;
+      fetchSupplements().then(function () { injectCourseButton(); })
+        .catch(function () { /* кнопка не критична: модалка уже открыта */ });
+    }
     if (!sup) return;
 
     // Кнопка «📅 В мой курс»

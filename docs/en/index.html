@@ -8,7 +8,7 @@
   <link rel="alternate" hreflang="en" href="https://deadsno.github.io/brain-25-evidence/en/" />
   <link rel="alternate" hreflang="x-default" href="https://deadsno.github.io/brain-25-evidence/" />
   <script defer src="../version.js?v=312"></script>
-  <script src="../i18n.js?v=28" defer></script>
+  <script src="../i18n.js?v=29" defer></script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Independent supplement database: evidence, not marketing</title>
 <meta name="description" content="130 supplements: PubMed-based evidence rating, mechanism of action and an honest verdict — no ads, no affiliate links."/>
@@ -253,12 +253,12 @@ footer { font-size: 1rem !important; }
   <div class="trustbar">🧬 Open data · Free · No ads</div>
   <header class="top">
     <div class="site-title"><a href="../index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a> <span class="v">v<span data-version="app"></span></span></div>
-    <nav class="actions">
+    <nav class="actions" aria-label="Main navigation">
       <a class="btn c-feedback" href="../feedback.html">💬 Feedback</a>
       <a class="btn c-support" href="../support.html">💚 Support us</a>
       
       <button class="btn c-theme" id="themeBtn">🌞 Светлая тема</button>
-      <select id="langSelect" class="lang-select"><option value="ru">RU</option><option value="en">EN</option></select>
+      <select id="langSelect" class="lang-select" aria-label="Switch language"><option value="ru">RU</option><option value="en">EN</option></select>
       <button class="btn c-random" id="randomBtn">🎲 Surprise me</button>
     </nav>
   </header>
@@ -289,7 +289,7 @@ footer { font-size: 1rem !important; }
 
 <section id="controls">
   <label for="search" class="sr-only">Search by name or effect</label>
-  <input id="search" role="combobox" aria-expanded="false" aria-haspopup="listbox" aria-controls="searchDrop" aria-autocomplete="list"/>
+  <input id="search" placeholder="🔍 Search: name or effect..." role="combobox" aria-expanded="false" aria-haspopup="listbox" aria-controls="searchDrop" aria-autocomplete="list"/>
   <div id="searchDrop" class="search-drop" role="listbox" aria-label="Search results"></div>
   <label for="verdictFilter" class="sr-only">Filter: verdict</label>
   <select id="verdictFilter">
@@ -306,8 +306,8 @@ footer { font-size: 1rem !important; }
   </select>
   
   <div class="filter-actions">
-    <button id="favFilter" class="favFilter">⭐ <span id="favCount">0</span></button>
-    <button id="resetFilters" class="favFilter">✕</button>
+    <button id="favFilter" class="favFilter" title="Show only favorites" aria-label="Show only favorites">⭐ <span id="favCount">0</span></button>
+    <button id="resetFilters" class="favFilter" title="Reset all filters and search" aria-label="Reset all filters and search">✕</button>
   </div>
 </section>
 
@@ -397,8 +397,10 @@ footer { font-size: 1rem !important; }
         <div style="font-size:var(--fs-4);line-height:1.3"><span>Sleep, relaxation</span></div>
       </a>
       <div style="display:flex;gap:.4rem;border-top:1px solid var(--border);padding-top:.5rem">
-        <a href="https://www.ozon.ru/search/?text=%D0%9C%D0%B0%D0%B3%D0%BD%D0%B8%D0%B9" target="_blank" rel="noopener nofollow" aria-label="Find Magnesium on Ozon" title="Where to look: Ozon" class="shop-chip">🛒 Ozon</a>
-        <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%9C%D0%B0%D0%B3%D0%BD%D0%B8%D0%B9" target="_blank" rel="noopener nofollow" aria-label="Find Magnesium on Wildberries" title="Where to look: Wildberries" class="shop-chip">🛒 WB</a>
+        <a href="https://www.ozon.ru/search/?text=%D0%9C%D0%B0%D0%B3%D0%BD%D0%B8%D0%B9" target="_blank" rel="noopener nofollow" aria-label="Find Magnesium on Ozon"
+           title="Where to look: Ozon" class="shop-chip">🛒 Ozon</a>
+        <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%9C%D0%B0%D0%B3%D0%BD%D0%B8%D0%B9" target="_blank" rel="noopener nofollow" aria-label="Find Magnesium on Wildberries"
+           title="Where to look: Wildberries" class="shop-chip">🛒 WB</a>
       </div>
     </div>
 
@@ -410,8 +412,10 @@ footer { font-size: 1rem !important; }
         <div style="font-size:var(--fs-4);line-height:1.3"><span>Neuroplasticity</span></div>
       </a>
       <div style="display:flex;gap:.4rem;border-top:1px solid var(--border);padding-top:.5rem">
-        <a href="https://www.ozon.ru/search/?text=%D0%9E%D0%BC%D0%B5%D0%B3%D0%B0-3" target="_blank" rel="noopener nofollow" aria-label="Find Omega-3 on Ozon" title="Where to look: Ozon" class="shop-chip">🛒 Ozon</a>
-        <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%9E%D0%BC%D0%B5%D0%B3%D0%B0-3" target="_blank" rel="noopener nofollow" aria-label="Find Omega-3 on Wildberries" title="Where to look: Wildberries" class="shop-chip">🛒 WB</a>
+        <a href="https://www.ozon.ru/search/?text=%D0%9E%D0%BC%D0%B5%D0%B3%D0%B0-3" target="_blank" rel="noopener nofollow" aria-label="Find Omega-3 on Ozon"
+           title="Where to look: Ozon" class="shop-chip">🛒 Ozon</a>
+        <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%9E%D0%BC%D0%B5%D0%B3%D0%B0-3" target="_blank" rel="noopener nofollow" aria-label="Find Omega-3 on Wildberries"
+           title="Where to look: Wildberries" class="shop-chip">🛒 WB</a>
       </div>
     </div>
 
@@ -423,8 +427,10 @@ footer { font-size: 1rem !important; }
         <div style="font-size:var(--fs-4);line-height:1.3"><span>Mood (if deficient)</span></div>
       </a>
       <div style="display:flex;gap:.4rem;border-top:1px solid var(--border);padding-top:.5rem">
-        <a href="https://www.ozon.ru/search/?text=%D0%92%D0%B8%D1%82%D0%B0%D0%BC%D0%B8%D0%BD%20D" target="_blank" rel="noopener nofollow" aria-label="Find Vitamin D on Ozon" title="Where to look: Ozon" class="shop-chip">🛒 Ozon</a>
-        <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%92%D0%B8%D1%82%D0%B0%D0%BC%D0%B8%D0%BD%20D" target="_blank" rel="noopener nofollow" aria-label="Find Vitamin D on Wildberries" title="Where to look: Wildberries" class="shop-chip">🛒 WB</a>
+        <a href="https://www.ozon.ru/search/?text=%D0%92%D0%B8%D1%82%D0%B0%D0%BC%D0%B8%D0%BD%20D" target="_blank" rel="noopener nofollow" aria-label="Find Vitamin D on Ozon"
+           title="Where to look: Ozon" class="shop-chip">🛒 Ozon</a>
+        <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%92%D0%B8%D1%82%D0%B0%D0%BC%D0%B8%D0%BD%20D" target="_blank" rel="noopener nofollow" aria-label="Find Vitamin D on Wildberries"
+           title="Where to look: Wildberries" class="shop-chip">🛒 WB</a>
       </div>
     </div>
 
@@ -436,8 +442,10 @@ footer { font-size: 1rem !important; }
         <div style="font-size:var(--fs-4);line-height:1.3"><span>Cognition (if deficient)</span></div>
       </a>
       <div style="display:flex;gap:.4rem;border-top:1px solid var(--border);padding-top:.5rem">
-        <a href="https://www.ozon.ru/search/?text=%D0%92%D0%B8%D1%82%D0%B0%D0%BC%D0%B8%D0%BD%20B12" target="_blank" rel="noopener nofollow" aria-label="Find Vitamin B12 on Ozon" title="Where to look: Ozon" class="shop-chip">🛒 Ozon</a>
-        <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%92%D0%B8%D1%82%D0%B0%D0%BC%D0%B8%D0%BD%20B12" target="_blank" rel="noopener nofollow" aria-label="Find Vitamin B12 on Wildberries" title="Where to look: Wildberries" class="shop-chip">🛒 WB</a>
+        <a href="https://www.ozon.ru/search/?text=%D0%92%D0%B8%D1%82%D0%B0%D0%BC%D0%B8%D0%BD%20B12" target="_blank" rel="noopener nofollow" aria-label="Find Vitamin B12 on Ozon"
+           title="Where to look: Ozon" class="shop-chip">🛒 Ozon</a>
+        <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%92%D0%B8%D1%82%D0%B0%D0%BC%D0%B8%D0%BD%20B12" target="_blank" rel="noopener nofollow" aria-label="Find Vitamin B12 on Wildberries"
+           title="Where to look: Wildberries" class="shop-chip">🛒 WB</a>
       </div>
     </div>
 
@@ -449,8 +457,10 @@ footer { font-size: 1rem !important; }
         <div style="font-size:var(--fs-4);line-height:1.3"><span>Cognition (if deficient)</span></div>
       </a>
       <div style="display:flex;gap:.4rem;border-top:1px solid var(--border);padding-top:.5rem">
-        <a href="https://www.ozon.ru/search/?text=%D0%A6%D0%B8%D0%BD%D0%BA" target="_blank" rel="noopener nofollow" aria-label="Find Zinc on Ozon" title="Where to look: Ozon" class="shop-chip">🛒 Ozon</a>
-        <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%A6%D0%B8%D0%BD%D0%BA" target="_blank" rel="noopener nofollow" aria-label="Find Zinc on Wildberries" title="Where to look: Wildberries" class="shop-chip">🛒 WB</a>
+        <a href="https://www.ozon.ru/search/?text=%D0%A6%D0%B8%D0%BD%D0%BA" target="_blank" rel="noopener nofollow" aria-label="Find Zinc on Ozon"
+           title="Where to look: Ozon" class="shop-chip">🛒 Ozon</a>
+        <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%A6%D0%B8%D0%BD%D0%BA" target="_blank" rel="noopener nofollow" aria-label="Find Zinc on Wildberries"
+           title="Where to look: Wildberries" class="shop-chip">🛒 WB</a>
       </div>
     </div>
 
@@ -462,8 +472,10 @@ footer { font-size: 1rem !important; }
         <div style="font-size:var(--fs-4);line-height:1.3"><span>Mood, cognition</span></div>
       </a>
       <div style="display:flex;gap:.4rem;border-top:1px solid var(--border);padding-top:.5rem">
-        <a href="https://www.ozon.ru/search/?text=%D0%9A%D1%83%D1%80%D0%BA%D1%83%D0%BC%D0%B8%D0%BD" target="_blank" rel="noopener nofollow" aria-label="Find Curcumin on Ozon" title="Where to look: Ozon" class="shop-chip">🛒 Ozon</a>
-        <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%9A%D1%83%D1%80%D0%BA%D1%83%D0%BC%D0%B8%D0%BD" target="_blank" rel="noopener nofollow" aria-label="Find Curcumin on Wildberries" title="Where to look: Wildberries" class="shop-chip">🛒 WB</a>
+        <a href="https://www.ozon.ru/search/?text=%D0%9A%D1%83%D1%80%D0%BA%D1%83%D0%BC%D0%B8%D0%BD" target="_blank" rel="noopener nofollow" aria-label="Find Curcumin on Ozon"
+           title="Where to look: Ozon" class="shop-chip">🛒 Ozon</a>
+        <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%9A%D1%83%D1%80%D0%BA%D1%83%D0%BC%D0%B8%D0%BD" target="_blank" rel="noopener nofollow" aria-label="Find Curcumin on Wildberries"
+           title="Where to look: Wildberries" class="shop-chip">🛒 WB</a>
       </div>
     </div>
 
@@ -475,8 +487,10 @@ footer { font-size: 1rem !important; }
         <div style="font-size:var(--fs-4);line-height:1.3"><span>Energy (with anemia)</span></div>
       </a>
       <div style="display:flex;gap:.4rem;border-top:1px solid var(--border);padding-top:.5rem">
-        <a href="https://www.ozon.ru/search/?text=%D0%96%D0%B5%D0%BB%D0%B5%D0%B7%D0%BE" target="_blank" rel="noopener nofollow" aria-label="Find Iron on Ozon" title="Where to look: Ozon" class="shop-chip">🛒 Ozon</a>
-        <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%96%D0%B5%D0%BB%D0%B5%D0%B7%D0%BE" target="_blank" rel="noopener nofollow" aria-label="Find Iron on Wildberries" title="Where to look: Wildberries" class="shop-chip">🛒 WB</a>
+        <a href="https://www.ozon.ru/search/?text=%D0%96%D0%B5%D0%BB%D0%B5%D0%B7%D0%BE" target="_blank" rel="noopener nofollow" aria-label="Find Iron on Ozon"
+           title="Where to look: Ozon" class="shop-chip">🛒 Ozon</a>
+        <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%96%D0%B5%D0%BB%D0%B5%D0%B7%D0%BE" target="_blank" rel="noopener nofollow" aria-label="Find Iron on Wildberries"
+           title="Where to look: Wildberries" class="shop-chip">🛒 WB</a>
       </div>
     </div>
 
@@ -488,8 +502,10 @@ footer { font-size: 1rem !important; }
         <div style="font-size:var(--fs-4);line-height:1.3"><span>Falling asleep, jet lag</span></div>
       </a>
       <div style="display:flex;gap:.4rem;border-top:1px solid var(--border);padding-top:.5rem">
-        <a href="https://www.ozon.ru/search/?text=%D0%9C%D0%B5%D0%BB%D0%B0%D1%82%D0%BE%D0%BD%D0%B8%D0%BD" target="_blank" rel="noopener nofollow" aria-label="Find Melatonin on Ozon" title="Where to look: Ozon" class="shop-chip">🛒 Ozon</a>
-        <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%9C%D0%B5%D0%BB%D0%B0%D1%82%D0%BE%D0%BD%D0%B8%D0%BD" target="_blank" rel="noopener nofollow" aria-label="Find Melatonin on Wildberries" title="Where to look: Wildberries" class="shop-chip">🛒 WB</a>
+        <a href="https://www.ozon.ru/search/?text=%D0%9C%D0%B5%D0%BB%D0%B0%D1%82%D0%BE%D0%BD%D0%B8%D0%BD" target="_blank" rel="noopener nofollow" aria-label="Find Melatonin on Ozon"
+           title="Where to look: Ozon" class="shop-chip">🛒 Ozon</a>
+        <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%9C%D0%B5%D0%BB%D0%B0%D1%82%D0%BE%D0%BD%D0%B8%D0%BD" target="_blank" rel="noopener nofollow" aria-label="Find Melatonin on Wildberries"
+           title="Where to look: Wildberries" class="shop-chip">🛒 WB</a>
       </div>
     </div>
 
@@ -501,8 +517,10 @@ footer { font-size: 1rem !important; }
         <div style="font-size:var(--fs-4);line-height:1.3"><span>Immunity (under stress)</span></div>
       </a>
       <div style="display:flex;gap:.4rem;border-top:1px solid var(--border);padding-top:.5rem">
-        <a href="https://www.ozon.ru/search/?text=%D0%92%D0%B8%D1%82%D0%B0%D0%BC%D0%B8%D0%BD%20C" target="_blank" rel="noopener nofollow" aria-label="Find Vitamin C on Ozon" title="Where to look: Ozon" class="shop-chip">🛒 Ozon</a>
-        <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%92%D0%B8%D1%82%D0%B0%D0%BC%D0%B8%D0%BD%20C" target="_blank" rel="noopener nofollow" aria-label="Find Vitamin C on Wildberries" title="Where to look: Wildberries" class="shop-chip">🛒 WB</a>
+        <a href="https://www.ozon.ru/search/?text=%D0%92%D0%B8%D1%82%D0%B0%D0%BC%D0%B8%D0%BD%20C" target="_blank" rel="noopener nofollow" aria-label="Find Vitamin C on Ozon"
+           title="Where to look: Ozon" class="shop-chip">🛒 Ozon</a>
+        <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%92%D0%B8%D1%82%D0%B0%D0%BC%D0%B8%D0%BD%20C" target="_blank" rel="noopener nofollow" aria-label="Find Vitamin C on Wildberries"
+           title="Where to look: Wildberries" class="shop-chip">🛒 WB</a>
       </div>
     </div>
 
@@ -514,8 +532,10 @@ footer { font-size: 1rem !important; }
         <div style="font-size:var(--fs-4);line-height:1.3"><span>Working memory under load</span></div>
       </a>
       <div style="display:flex;gap:.4rem;border-top:1px solid var(--border);padding-top:.5rem">
-        <a href="https://www.ozon.ru/search/?text=%D0%9A%D1%80%D0%B5%D0%B0%D1%82%D0%B8%D0%BD" target="_blank" rel="noopener nofollow" aria-label="Find Creatine on Ozon" title="Where to look: Ozon" class="shop-chip">🛒 Ozon</a>
-        <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%9A%D1%80%D0%B5%D0%B0%D1%82%D0%B8%D0%BD" target="_blank" rel="noopener nofollow" aria-label="Find Creatine on Wildberries" title="Where to look: Wildberries" class="shop-chip">🛒 WB</a>
+        <a href="https://www.ozon.ru/search/?text=%D0%9A%D1%80%D0%B5%D0%B0%D1%82%D0%B8%D0%BD" target="_blank" rel="noopener nofollow" aria-label="Find Creatine on Ozon"
+           title="Where to look: Ozon" class="shop-chip">🛒 Ozon</a>
+        <a href="https://www.wildberries.ru/catalog/0/search.aspx?search=%D0%9A%D1%80%D0%B5%D0%B0%D1%82%D0%B8%D0%BD" target="_blank" rel="noopener nofollow" aria-label="Find Creatine on Wildberries"
+           title="Where to look: Wildberries" class="shop-chip">🛒 WB</a>
       </div>
     </div>
   </div>
@@ -565,9 +585,9 @@ footer { font-size: 1rem !important; }
   <div class="filterSection">
     <span class="filterLabel">Quick picks</span>
     <div class="presetRow" id="presetRow">
-      <button class="preset" data-preset="science">🏆 Top by science</button>
-      <button class="preset" data-preset="verdict">💎 Proven</button>
-      <button class="preset" data-preset="ongoing">🔥 Under study now</button>
+      <button class="preset" data-preset="science" title="Sort: evidence">🏆 Top by science</button>
+      <button class="preset" data-preset="verdict" title="Verdict “works” only">💎 Proven</button>
+      <button class="preset" data-preset="ongoing" title="Has active human trials">🔥 Under study now</button>
     </div>
   </div>
 
@@ -615,16 +635,16 @@ footer { font-size: 1rem !important; }
 
 <div id="modalOverlay" style="display:none">
   <div id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-    <button id="modalClose">✕</button>
+    <button id="modalClose" aria-label="Close dialog">✕</button>
     <div id="modalBody"></div>
   </div>
 </div>
-<script src="../script.min.js?v=308" defer></script>
+<script src="../script.min.js?v=309" defer></script>
 <script src="../science2.js?v=281" defer></script>
-<script src="../tracker.js?v=281" defer></script>
+<script src="../tracker.js?v=282" defer></script>
 <script src="../pwa.js?v=285" defer></script>
 <script src="../share.js?v=2" defer></script>
-<button class="toBottom" id="toBottom" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})">↓</button>
+<button class="toBottom" id="toBottom" onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})" title="Down" aria-label="Scroll the page down">↓</button>
 <script>
 window.addEventListener('scroll', () => {
   const btn = document.getElementById('toBottom');
@@ -647,7 +667,7 @@ document.getElementById('refreshBtn')?.addEventListener('click', () => {
 });
 </script>
 
-<div id="cookieBanner" role="dialog" hidden>
+<div id="cookieBanner" role="dialog" aria-label="Cookie consent" hidden>
   <div class="cb-text">
     <span>We use cookies and Yandex.Metrica to understand which materials are useful. Analytics is enabled only after your consent.</span>
     <a href="../privacy.html">Privacy policy</a>

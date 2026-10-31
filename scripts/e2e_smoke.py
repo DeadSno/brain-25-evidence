@@ -34,7 +34,14 @@ def main() -> None:
             pg.goto(f"{BASE}/index.html", wait_until="domcontentloaded")
             pg.wait_for_selector(".card", state="attached", timeout=5000)
             pg.wait_for_function("window.chart != null", timeout=5000)
-            cards = pg.locator(".card").count()                      # ALIGN-селектор
+            # FIX-77: в статической разметке index.html лежат 3 карточки-заглушки
+            # (они видны до гидратации датасета), поэтому мгновенный подсчёт
+            # ловил их, а не реальную выдачу. Ждём, пока грид дорендерится, и
+            # считаем только после этого.
+            pg.wait_for_function(
+                "n => document.querySelectorAll('#cardsGrid .card').length === n",
+                arg=n_all, timeout=15000)
+            cards = pg.locator("#cardsGrid .card").count()            # ALIGN-селектор
             assert cards == n_all, f"карточек {cards}, ожидалось {n_all}"
             # После проверки данных:
             assert "Как мы проверяем" in pg.content() or "Открытые данные" in pg.content(), \
@@ -203,12 +210,24 @@ def main() -> None:
             exp_chips = min(3, same_n)
             assert pg.locator(".compareChips .chipbx").count() == exp_chips, "чипы «Сравнить с» не по категории/топ-3"
 
-            # A5: кнопка неточности в модалке; чип сравнения ведёт в #compareSection
+            # A5: кнопка неточности в модалке; чип сравнения ведёт в сравнение.
+            # v5.6.5 (H-1): секции #compareSection на главной больше нет —
+            # gotoCompare (docs/script.js:1267) уводит на hactar.html?tab=compare.
             assert pg.locator("#modalBody a[href*='issues/new']").count() == 1
             if exp_chips:
                 pg.click(".compareChips .chipbx >> nth=0")
-                pg.wait_for_selector("#compareSection", state="visible", timeout=5000)
-                assert pg.evaluate("document.getElementById('compareSelect1').value") == "Кофеин"
+                pg.wait_for_function(
+                    "() => location.pathname.endsWith('/hactar.html')"
+                    " && location.search.includes('ids=')", timeout=8000)
+                from urllib.parse import unquote
+                # hactar.js нормализует tab=compare в tab=overview (закладки
+                # сравнения там ещё нет), но пара ids доезжает — её и проверяем.
+                assert "Кофеин" in unquote(pg.url), \
+                    f"чип сравнения не передал добавку в URL: {unquote(pg.url)}"
+                # возвращаемся в модалку, чтобы проверить закрытие по Escape
+                ts += 1
+                pg.goto(f"{BASE}/index.html?ts={ts}#sup=Кофеин", wait_until="domcontentloaded")
+                pg.wait_for_selector("#modalOverlay", state="visible", timeout=5000)
             pg.keyboard.press("Escape")
             pg.wait_for_selector("#modalOverlay", state="hidden", timeout=5000)
 

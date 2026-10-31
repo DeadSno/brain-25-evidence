@@ -2653,7 +2653,12 @@ function i18nVars(el) {
   try { return JSON.parse(raw); } catch (e) { return null; }
 }
 
-function applyI18n(root) {
+// QA-13 (FIX-77): атрибутная половина перевода вынесена отдельно, потому что
+// EN-страницы переводят текст статически в HTML и JS-переводчик там выключен
+// (SEO-01, FIX-57). Но aria-label/title/placeholder в HTML не переводятся:
+// без них у #langSelect нет доступного имени и axe даёт select-name
+// [critical]. Поэтому на EN применяем только атрибуты, текст не трогаем.
+function applyI18nAttrs(root) {
   root = root || document;
   root.querySelectorAll('[data-i18n-title]').forEach(el =>
     el.title = t(el.dataset.i18nTitle, i18nVars(el)));
@@ -2668,6 +2673,11 @@ function applyI18n(root) {
   // переводится отдельным правилом: атрибут и называется иначе.
   root.querySelectorAll('[data-i18n-tooltip]').forEach(el =>
     el.setAttribute('data-tooltip', t(el.dataset.i18nTooltip, i18nVars(el))));
+}
+
+function applyI18n(root) {
+  applyI18nAttrs(root);
+  root = root || document;
   root.querySelectorAll('[data-i18n-text]').forEach(el =>
     el.textContent = t(el.dataset.i18nText, i18nVars(el)));
 }
@@ -2941,7 +2951,11 @@ function initEnSupData() {
 document.addEventListener('DOMContentLoaded', function () {
   // EN-страницы уже содержат готовый перевод в HTML — JS-переводчик
   // не нужен и не должен перезаписывать текст (SEO-01, этап 1, FIX-57).
-  if (document.querySelector('meta[name="lang"]')?.content === 'en') return;
+  // QA-13 (FIX-77): атрибуты — исключение, см. applyI18nAttrs.
+  if (document.querySelector('meta[name="lang"]')?.content === 'en') {
+    applyI18nAttrs();
+    return;
+  }
   applyI18n();
   initLangSwitcher();
   // CWV-01: подмена завесы. На sup-страницах и в Hactar перевод приходит

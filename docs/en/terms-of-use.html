@@ -38,7 +38,7 @@
     </script>
     <link rel="stylesheet" href="../style.min.css?v=473">
     <script src="../version.js?v=312" defer></script>
-    <script src="../i18n.js?v=28" defer></script>
+    <script src="../i18n.js?v=29" defer></script>
     <script src="../pwa.js?v=285" defer></script>
     <script src="../share.js?v=2" defer></script>
     <style>
@@ -73,11 +73,11 @@
   <div class="trustbar"><span>🧬 Open data · Free · No ads</span></div>
   <header class="top">
     <div class="site-title"><a href="../index.html"><span class="h1-emoji">🧠</span> brain-25-evidence</a> <span class="v">v<span data-version="app"></span></span></div>
-    <nav class="actions">
+    <nav class="actions" aria-label="Main navigation">
       <a class="btn c-feedback" href="../feedback.html"><span>💬 Feedback</span></a>
       <a class="btn c-support" href="../support.html"><span>💚 Support us</span></a>
       <button class="btn c-theme" id="themeBtn" aria-label="Switch to light theme"><span>🌞 Light theme</span></button>
-      <select id="langSelect" class="lang-select"><option value="ru">RU</option><option value="en">EN</option></select>
+      <select id="langSelect" class="lang-select" aria-label="Switch language"><option value="ru">RU</option><option value="en">EN</option></select>
       <button class="btn c-random" id="randomBtn"><span>🎲 Surprise me</span></button>
     </nav>
   </header>
@@ -187,7 +187,7 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 
 
-<div id="cookieBanner" role="dialog" hidden>
+<div id="cookieBanner" role="dialog" aria-label="Cookie consent" hidden>
   <div class="cb-text">
     <span>We use cookies and Yandex.Metrica to understand which materials are useful. Analytics is enabled only after your consent.</span>
     <a href="../privacy.html"><span>Privacy policy</span></a>

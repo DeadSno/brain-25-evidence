@@ -613,7 +613,12 @@
    строка 18+ (class legal-age, ключ footer.age в i18n.js), у sup-шаблонов и
    страниц i18n.js ?v= 27 -> 28, у лент и карты сайта появился copyright.
    Поднято, чтобы новые разметка и словарь не остались в старой копии кэша. */
-var CACHE_VERSION = 'v211';
+/* Бамп v211 -> v212 FIX-77 (QA-13, LEGAL-04): корневые страницы получили
+   строку 18+ в футере (ключ footer.age), script.min.js пересобран после
+   починки баннера конфликтов на index и поднят ?v= 308 -> 309, EN-эталоны
+   a11y добавлены в tests/a11y_baseline.json. Поднято, чтобы новая разметка
+   и скрипт не остались в старой копии кэша. */
+var CACHE_VERSION = 'v212';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
@@ -703,7 +708,7 @@ var STATIC_ASSETS = [
   /* FIX-12: PWA-02 — скрипты без которых офлайн ломается (страницы в прекеше, скриптов нет). */
   './hactar.js?v=38',
   './science2.js?v=281',
-  './tracker.js?v=281',
+  './tracker.js?v=282',
   './vendor/chart.umd-4.4.1.min.js',
   './vendor/vis-network-9.1.9.min.js'];
 

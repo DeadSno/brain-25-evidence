@@ -623,6 +623,23 @@ function initApp() {
   const deep = decodeURIComponent(location.hash.replace('#sup=', ''));
   if (deep && supplements.some(s => s.id === deep)) setTimeout(() => openModal(deep), 300);
   renderEffectChips(); applyFilters(); checkInteractions();
+  // FIX-77: index — это data_index.json, а в нём нет antagonists/synergists
+  // (v5.6.2 разделила лёгкий индекс и полный data.json). Поэтому баннер
+  // конфликтов после разделения не появлялся никогда: checkInteractions()
+  // видел пустые списки. Подмешиваем два поля из полного data.json, когда
+  // избранного ≥ 2 — меньше пар не бывает, лишний запрос не нужен.
+  if (getFavs().length >= 2) {
+    ensureFullData().then(map => {
+      supplements.forEach(s => {
+        const full = map[s.id];
+        if (full) {
+          s.antagonists = full.antagonists;
+          s.synergists = full.synergists;
+        }
+      });
+      checkInteractions();
+    }).catch(() => { /* баннер — не критичный путь, молча остаёмся без него */ });
+  }
   // v2.4: вкладки графика «Цена vs наука | Квадрант доказательности»
   // v2.6: оси X графика
     $('axisMA').onclick = () => setAxisX('ma');

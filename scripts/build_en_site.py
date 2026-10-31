@@ -477,6 +477,46 @@ def translate_attr_value(html, attr, en_dict):
     return pattern.sub(repl, html)
 
 
+I18N_ATTR_PAIRS = (
+    ("data-i18n-title", "title"),
+    ("data-i18n-aria-label", "aria-label"),
+    ("data-i18n-placeholder", "placeholder"),
+    ("data-i18n-alt", "alt"),
+    ("data-i18n-tooltip", "data-tooltip"),
+)
+_TAG_RE = re.compile(r"<[a-zA-Z][^>]*>")
+
+
+def materialize_i18n_attrs(html: str, en_dict: dict[str, str]) -> str:
+    """data-i18n-X="ключ" -> настоящий атрибут X="перевод" (QA-13).
+
+    До FIX-77 шаг 8 просто стирал маркеры, и значение пропадало: у
+    #langSelect в EN не оставалось aria-label вообще. Если настоящий
+    атрибут в теге уже есть (русский текст), маркер просто снимается —
+    его переведёт translate_plain_attributes. Если перевода ключа нет,
+    маркер остаётся и его снимет strip_i18n_markers, как раньше.
+    """
+
+    def fix_tag(m):
+        tag = m.group(0)
+        for src, dst in I18N_ATTR_PAIRS:
+            mk = re.search(r'\s' + re.escape(src) + r'=(["\'])([^"\']*)\1', tag)
+            if not mk:
+                continue
+            key, quote = mk.group(2), mk.group(1)
+            val = en_dict.get(key)
+            has_real = bool(
+                re.search(r'\s' + re.escape(dst) + r'=', tag[:mk.start()] + tag[mk.end():])
+            )
+            if has_real or val is None:
+                tag = tag[:mk.start()] + tag[mk.end():]
+                continue
+            tag = tag[:mk.start()] + f' {dst}={quote}{val}{quote}' + tag[mk.end():]
+        return tag
+
+    return _TAG_RE.sub(fix_tag, html)
+
+
 def _template_to_regex(ru_template: str) -> tuple[str, list[str]]:
     """Преобразовать шаблон с {var} в regex с уникальными capture-group.
     Возвращает (regex, список имён переменных в порядке следования)."""
@@ -584,6 +624,11 @@ def strip_i18n_markers(html):
     Перевод уже применён статически, JS-переводчик отключён через
     meta[name="lang"], поэтому маркеры только мешают тестам (они ищут
     ключи в словаре, а там уже английские значения, а не ключи).
+
+    QA-13 (FIX-77): перед удалением маркеры атрибутов материализуются в
+    настоящие атрибуты иначе значение исчезало вместе с маркером — у
+    #langSelect не оставалось ни data-i18n-aria-label, ни aria-label,
+    и axe давал select-name [critical] на всех EN-страницах.
     """
     for marker in (
         "data-i18n-text",
@@ -674,14 +719,13 @@ def process_html(src_path, dst_path, en_dict, ru_to_en, depth):
     # 4. Перевод data-i18n-text (содержимое элемента) — применяем статически
     html = translate_text_content(html, en_dict)
 
-    # 5. Перевод data-i18n-placeholder (значение атрибута) — применяем статически
-    html = translate_attr_value(html, "data-i18n-placeholder", en_dict)
-
-    # 5.5. Перевод data-i18n-aria-label (значение атрибута) — применяем статически
-    html = translate_attr_value(html, "data-i18n-aria-label", en_dict)
-
-    # 5.6. Перевод plain-атрибутов data-tooltip и aria-label (без data-i18n-* маркера)
+    # 5. Перевод plain-атрибутов data-tooltip и aria-label (без data-i18n-* маркера)
     html = translate_plain_attributes(html, ru_to_en)
+
+    # 5.5. QA-13: маркеры атрибутов -> настоящие атрибуты с переводом.
+    # Раньше здесь переводилось только значение маркера, а шаг 8 удалял его
+    # целиком, и EN-страница оставалась без aria-label/title/placeholder.
+    html = materialize_i18n_attrs(html, en_dict)
 
     # 6. SEO-02: перевести <title>, description, og:*, twitter:*, apple-mobile-web-app-title
     html = translate_head_tags(html, ru_to_en)

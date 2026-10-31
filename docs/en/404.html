@@ -47,7 +47,7 @@
       <a class="btn c-support" href="../support.html"><span>💚 Support us</span></a>
       
       <button class="btn c-theme" id="themeBtn"><span>🌞 Light theme</span></button>
-      <select id="langSelect" class="lang-select"><option value="ru">RU</option><option value="en">EN</option></select>
+      <select id="langSelect" class="lang-select" aria-label="Switch language"><option value="ru">RU</option><option value="en">EN</option></select>
       <button class="btn c-random" id="randomBtn"><span>🎲 Surprise me</span></button>
     </nav>
   </header>
@@ -60,7 +60,8 @@
     <p style="color:var(--muted)"><span>There is no such address on the site — or it has moved. Search for a supplement or go back to the home page.</span></p>
     <label for="nfSearch" class="sr-only"><span>Search the catalog for a supplement</span></label>
     
-    <input id="nfSearch" type="search" placeholder="For example: magnesium or sleep" autocomplete="off" aria-label="Search the catalog for a supplement" aria-controls="nfResults" aria-describedby="nfHint">
+    <input id="nfSearch" type="search" placeholder="For example: magnesium or sleep" autocomplete="off"
+           aria-label="Search the catalog for a supplement" aria-controls="nfResults" aria-describedby="nfHint">
     <p id="nfHint" aria-live="polite"></p>
     
     <ul id="nfResults" role="list" aria-label="Search results"></ul>
@@ -87,6 +88,7 @@
     <a href="../feed.xml">📡 RSS</a>
   </p>
   <p class="copy">© 2026 Vladislav "DeadSno" Pereshivalov · MIT · <a href="../terms-of-use.html#data-license"><span>Data: CC BY 4.0</span></a></p>
+  <p class="legal-age">18+ This information is intended for adults aged 18 and over.</p>
   <p class="legal-disclaimer">Dietary supplements are not medicines. Consult a doctor before use.</p>
   
 </footer>
@@ -254,7 +256,7 @@
 })();
 </script>
 
-<script src="../i18n.js?v=28" defer></script>
+<script src="../i18n.js?v=29" defer></script>
 <script src="../pwa.js?v=285" defer></script>
 </body>
 </html>
