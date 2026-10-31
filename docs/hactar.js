@@ -1154,7 +1154,42 @@
         window.hactarDrawer.close();
         return;
       }
-      clearSearch();
+    }
+
+    /* UIUX-07 (FIX-82): клавиатурное управление графом.
+       Стрелкиパン, +/- — зум. Работает только когда фокус на #hactarGraph
+       и нет активного поля ввода. */
+    if (network && t && t.id === 'hactarGraph') {
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        network.moveTo({ offset: { x: -100, y: 0 } });
+        return;
+      }
+      if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        network.moveTo({ offset: { x: 100, y: 0 } });
+        return;
+      }
+      if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        network.moveTo({ offset: { x: 0, y: -100 } });
+        return;
+      }
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        network.moveTo({ offset: { x: 0, y: 100 } });
+        return;
+      }
+      if (e.key === '+' || e.key === '=') {
+        e.preventDefault();
+        network.moveTo({ scale: network.getScale() * 1.15, animation: false });
+        return;
+      }
+      if (e.key === '-') {
+        e.preventDefault();
+        network.moveTo({ scale: network.getScale() / 1.15, animation: false });
+        return;
+      }
     }
   });
 

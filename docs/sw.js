@@ -618,10 +618,11 @@
    починки баннера конфликтов на index и поднят ?v= 308 -> 309, EN-эталоны
    a11y добавлены в tests/a11y_baseline.json. Поднято, чтобы новая разметка
    и скрипт не остались в старой копии кэша. */
-/* Бамп v214 -> v215 FIX-81 (I18N-06, UIUX-06): word-wrap для длинных слов
-   в карточках, min-width:0 для бейджей/чипов, isStandalone в pwa.js.
-   style.css → style.min.css, ?v= 474 -> 475, pwa.js?v= 285 -> 286. */
-var CACHE_VERSION = 'v215';
+/* Бамп v215 -> v216 FIX-82 (PROD-04, UIUX-07): форма обратной связи на EN
+   получила notice о русскоязычной форме, граф «Связи» получил управление
+   с клавиатуры (стрелки, +/-). hactar.js?v=41 -> v42. Поднято, чтобы новая
+   разметка и скрипт не остались в старой копии кэша. */
+var CACHE_VERSION = 'v216';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 
