@@ -113,7 +113,7 @@ python scripts/update_all.py --apply
 - **Один `data.json`** — источник данных, разные страницы рендерят разное
 - **Inline JS — только служебный** (тема, JSON-LD, баннер cookie, кнопка
   «вниз»); логика страниц вынесена в `script.js` и `hactar.js`
-- **PWA v208** — service worker кэширует `data.json` и статику; офлайн-режим работает
+- **PWA v213** — service worker (`var CACHE_VERSION` в `docs/sw.js`) кэширует `data.json` и статику; офлайн-режим работает
 
 ### Страницы
 

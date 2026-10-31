@@ -227,7 +227,7 @@ curl "https://api.openalex.org/works/pmid:34567890?mailto=test@example.com"
   инструкция в `ROADMAP.md`, строка техдолга 35.
 - Snapshot: `tests/snapshot_data.json` (существует)
 - История правок: `git log --oneline docs/data.json`
-- Бакенд кеша PWA: `docs/sw.js` версии v208
+- Бакенд кеша PWA: `docs/sw.js`, `var CACHE_VERSION` (FIX-79 — v213)
 
 ## Юридический дисклеймер
 
