@@ -1069,9 +1069,9 @@ growth_wiki = avg(wiki[id][last 6 months]) / avg(wiki[id][first 6 months])</span
 
   async function init() {
     const [ts, idx] = await Promise.all([
-      fetch('timeseries.json?v=' + Date.now())
+      fetch('timeseries.json?v=' + dataVersion())
         .then(r => (r.ok ? r.json() : Promise.reject(new Error('HTTP ' + r.status)))),
-      fetch('data_index.json?v=' + Date.now())
+      fetch('data_index.json?v=' + dataVersion())
         .then(r => (r.ok ? r.json() : Promise.reject(new Error('HTTP ' + r.status)))),
     ]).catch(function (err) {
       

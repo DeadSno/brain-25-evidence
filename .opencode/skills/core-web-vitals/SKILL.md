@@ -154,3 +154,7 @@ AVIF/WebP; ensure it isn't behind render-blocking JS.
 | Идея | Зачем | Сложность |
 |------|-------|:---------:|
 | ... | ... | низкая/средняя/высокая |
+
+## См. также
+
+- [AUDIT_MASTER_v565_FINAL.md](../../reports/AUDIT_MASTER_v565_FINAL.md) — актуальный отчет по аудиту проекта

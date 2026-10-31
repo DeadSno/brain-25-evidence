@@ -86,5 +86,14 @@ project: brain-25-evidence
 
 ## Отчёт
 
-Писать в [`reports/audits/skills.md`](../../../reports/audits/skills.md) —
-дописать результат аудита разделом с датой, а не перезаписывать файл.
+В цикле v5.6.5 и далее результат пишется в
+[`reports/AUDIT_MASTER_v565_FINAL.md`](../../../reports/AUDIT_MASTER_v565_FINAL.md)
+(раздел «Аудит 19/19: skill-audit») — дописать разделом с датой, а не
+перезаписывать файл.
+
+Отдельный отчёт [`reports/audits/skills.md`](../../../reports/audits/skills.md)
+остаётся для одиночных прогонов скилла вне мастер-цикла.
+
+## См. также
+
+- [AUDIT_MASTER_v565_FINAL.md](../../reports/AUDIT_MASTER_v565_FINAL.md) — актуальный отчет по аудиту проекта

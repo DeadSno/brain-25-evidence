@@ -260,3 +260,7 @@ project: brain-25-evidence
 - ТОП-5 проблем (по приоритету)
 - Порядок фиксов
 - Оценка времени
+
+## См. также
+
+- [AUDIT_MASTER_v565_FINAL.md](../../reports/AUDIT_MASTER_v565_FINAL.md) — актуальный отчет по аудиту проекта

@@ -59,3 +59,7 @@ project: brain-25-evidence
 3. **Reporting:**
    - Present findings in a clear table with columns: Item, Size, Is it used?, Recommended Action (Delete/Compress/Archive/Ignore), and Potential Savings.
    - **Crucially:** Always present the report and ask for explicit confirmation before executing any destructive action (like `git rm`).
+
+## См. также
+
+- [AUDIT_MASTER_v565_FINAL.md](../../reports/AUDIT_MASTER_v565_FINAL.md) — актуальный отчет по аудиту проекта

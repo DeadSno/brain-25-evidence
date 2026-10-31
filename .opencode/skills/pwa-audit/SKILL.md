@@ -130,3 +130,7 @@ project: brain-25-evidence
 
 ## Если PWA не готов
 Вывести список что нужно доделать с приоритетами.
+
+## См. также
+
+- [AUDIT_MASTER_v565_FINAL.md](../../reports/AUDIT_MASTER_v565_FINAL.md) — актуальный отчет по аудиту проекта

@@ -138,3 +138,7 @@ Check whether your UI survives translation. No signup required.
 | Идея | Зачем | Сложность |
 |------|-------|:---------:|
 | ... | ... | низкая/средняя/высокая |
+
+## См. также
+
+- [AUDIT_MASTER_v565_FINAL.md](../../reports/AUDIT_MASTER_v565_FINAL.md) — актуальный отчет по аудиту проекта
