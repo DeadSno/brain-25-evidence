@@ -623,7 +623,12 @@
    tooltip.enabled = true, interaction nearest/intersect. script.min.js
    пересобран, ?v= 310 -> 311. Поднято, чтобы новый скрипт не остался в старой
    копии кэша. */
-var CACHE_VERSION = 'v218';
+/* Бамп v218 -> v219 FIX-86: единый стиль переключателя языка в шапке —
+   #langSelect оформлен как соседние кнопки .btn (appearance:none, своя
+   стрелка, те же высота/радиус/шрифт, hover/focus), style.min.css пересобран,
+   ?v= 475 -> 476 на всех страницах. Поднято, чтобы новый CSS не остался в
+   старой копии кэша. */
+var CACHE_VERSION = 'v219';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 

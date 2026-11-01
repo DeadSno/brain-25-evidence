@@ -631,10 +631,47 @@ select{background:var(--card-bg);color:var(--text);border:1px solid var(--border
    задаёт нижнюю границу, а если padding уже даёт больше — не мешает.
    trends.html с 34px до 46px поднят отдельно, локальным правилом. */
 select{min-height:44px}
-/* I2-01 (FIX-52): переключатель языка в навбаре. Базовый вид (фон, рамка,
-   радиус, 44px по высоте) даёт общее правило select выше — здесь только
-   отступ от кнопки темы, чтобы селектор к ней не лип. */
-.lang-select{margin-inline-start:var(--space-2)}
+/* FIX-86: переключатель языка в шапке оформлен как соседние кнопки .btn
+   (высота 44px, радиус --radius-lg, шрифт, hover/focus). appearance:none
+   убирает системную стрелку и фон; своя стрелка — SVG в background-image.
+   margin-inline-start снят: равномерный отступ между всеми элементами даёт
+   gap в .actions, иначе перед #langSelect было 16px вместо 8px у соседей.
+   min-width не даёт схлопнуться до текста, пока стрелка занимает правый
+   край. Акцент — синий --icon-calc (#3b82f6), гармонирует с зелёным,
+   фиолетовым и жёлтым акцентами остальных кнопок. */
+#langSelect.lang-select{
+  appearance:none;
+  -webkit-appearance:none;
+  background-color:color-mix(in srgb, var(--icon-calc) 12%, transparent);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 4.5 6 8l3.5-3.5' fill='none' stroke='%233b82f6' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-position:right 8px center;
+  background-repeat:no-repeat;
+  background-size:12px 12px;
+  border:1px solid var(--icon-calc);
+  border-radius:var(--radius-lg);
+  color:var(--text);
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  font-family:inherit;
+  font-size:var(--fs-4);
+  height:44px;
+  min-height:44px;
+  min-width:min(64px,100%);
+  padding:0 12px;
+  text-align:center;
+}
+@media (hover:hover){
+  #langSelect.lang-select:hover{
+    background-color:var(--border);
+    border-color:var(--border-hover);
+  }
+}
+#langSelect.lang-select:focus-visible{
+  outline:2px solid var(--accent);
+  outline-offset:2px;
+}
 /* v5.0.0 mobile: iOS Safari зумит страницу при фокусе на поле с font-size < 16px,
    после чего появляется горизонтальный скролл. Базовый порог 16px для всех полей.
    Страничные правила вида `.params input{font-size:.9rem}` (calculator.html:45,48,61),
