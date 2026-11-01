@@ -618,12 +618,12 @@
    починки баннера конфликтов на index и поднят ?v= 308 -> 309, EN-эталоны
    a11y добавлены в tests/a11y_baseline.json. Поднято, чтобы новая разметка
    и скрипт не остались в старой копии кэша. */
-/* Бамп v216 -> v217 FIX-84 (BUG-CHART-02): на графике силы эффекта
-   починена ось X (type: 'linear', display: true) и тултипы (добавлен Y —
-   индекс науки), добавлена легенда цветов уровня доказательности.
-   script.min.js пересобран, ?v= 309 -> 310. Поднято, чтобы новый скрипт
-   не остался в старой копии кэша. */
-var CACHE_VERSION = 'v217';
+/* Бамп v217 -> v218 FIX-85 (BUG-CHART-02b): тултипы на графике силы эффекта
+   починены — chartSupByEl защищена от undefined и берёт добавку из ctx.raw._s,
+   tooltip.enabled = true, interaction nearest/intersect. script.min.js
+   пересобран, ?v= 310 -> 311. Поднято, чтобы новый скрипт не остался в старой
+   копии кэша. */
+var CACHE_VERSION = 'v218';
 var CACHE_STATIC = CACHE_VERSION + '-static';
 var CACHE_DATA = CACHE_VERSION + '-data';
 

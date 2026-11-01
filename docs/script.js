@@ -343,12 +343,16 @@ function renderCardBlocks(s) {
 // ===== v2.3: баннеры избранного (critical/medium/synergy) =====
 
 function chartSupByEl(chart, el) {
+  if (!el) return undefined;
   const ds = (chart.data.datasets || [])[el.datasetIndex] || {};
   if (ds.label) {
     const byLabel = supplements.find(x => x.id === ds.label || x.name === ds.label);
     if (byLabel) return byLabel;
   }
-  return chartPts[el.index] || chartPts[el.datasetIndex];
+  // В scatter с одним пунктом на датасет el.index всегда 0, поэтому
+  // полагаемся на datasetIndex, а не на index. chartPts заполняется
+  // в renderBubble; для renderQuadrant данные берутся из ctx.raw._s.
+  return chartPts[el.datasetIndex];
 }
 
 (function skeleton() {
@@ -1332,24 +1336,21 @@ function renderBubble(data) {
       },
       plugins: {
         legend: { display: false },
-        tooltip: {
-          callbacks: {
-            label: ctx => {
-              const s = chartSupByEl(ctx.chart, { datasetIndex: ctx.datasetIndex, index: ctx.dataIndex });
-              return s ? ' ' + s.name + ' · ' + AXIS_LABEL[axisX] + ': ' + axisVal(s) + ' · ' + s.verdict : '';
-            }
+        tooltip: { enabled: true, callbacks: {
+          label: ctx => {
+            const s = chartSupByEl(ctx.chart, { datasetIndex: ctx.datasetIndex, index: ctx.dataIndex });
+            return s ? ' ' + s.name + ' · ' + AXIS_LABEL[axisX] + ': ' + axisVal(s) + ' · ' + s.verdict : '';
           }
-        }
+        } }
       },
+      interaction: { mode: 'nearest', intersect: false },
       onClick: (e, els) => {
         if (!els.length) return;
         const s = chartSupByEl(e.chart, els[0]);
         if (!s) return;
         location.href = 'sup/' + slugify(s.id) + '.html';
       },
-      onHover: (e, els) => {
-        e.native.target.style.cursor = els.length ? 'pointer' : 'default';
-      }
+      interaction: { mode: 'nearest', intersect: true }
     }
   });
   window.chart = chartInstance;
@@ -1408,7 +1409,7 @@ function renderQuadrant(data) {
       const { rFor, rHoverFor } = bubbleRadii();
       return verified.map(({ s, g, si }) => ({
         label: s.name,
-        data: [{ x: g, y: Math.max(1, si) }],
+        data: [{ x: g, y: Math.max(1, si), _s: s }],
         backgroundColor: vColorAlpha(s.code),
         pointRadius: rFor(s),
         pointHoverRadius: rHoverFor(s),
@@ -1435,8 +1436,8 @@ function renderQuadrant(data) {
       plugins: {
         legend: { display: false },
         effectColorLegend: {},
-        tooltip: { callbacks: { label: ctx => {
-          const s = chartSupByEl(ctx.chart, { datasetIndex: ctx.datasetIndex, index: ctx.dataIndex });
+        tooltip: { enabled: true, callbacks: { label: ctx => {
+          const s = ctx.raw && ctx.raw._s ? ctx.raw._s : chartSupByEl(ctx.chart, { datasetIndex: ctx.datasetIndex, index: ctx.dataIndex });
           if (!s) return '';
           const g = Number(s.hedges_g), si = Number(s.scienceIndex);
           return ' ' + s.name + ' · g=' + (Number.isFinite(g) ? g.toFixed(2) : s.hedges_g)
@@ -1444,8 +1445,8 @@ function renderQuadrant(data) {
             + ' · ' + s.verdict;
         } } }
       },
+      interaction: { mode: 'nearest', intersect: false },
       onClick: (e, els) => { if (!els.length) return; const s = chartSupByEl(e.chart, els[0]); if (!s) return; location.href = 'sup/' + slugify(s.id) + '.html'; },
-      onHover: (e, els) => { e.native.style.cursor = els.length ? 'pointer' : 'default'; }
     }
   });
   window.quadrantChart = quadrantInstance;
