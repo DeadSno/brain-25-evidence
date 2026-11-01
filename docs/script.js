@@ -1356,6 +1356,34 @@ function renderBubble(data) {
 }
 
 // ===== v2.4: квадрант доказательности (Hedges' g vs scienceIndex) =====
+// Кастомная легенда цветов уровня доказательности (зеленый/жёлтый/красный),
+// так как каждый пузырек — отдельный датасет (стандартная legenda Chart.js
+// вывела бы 130 записей по именам добавок).
+const effectColorLegend = {
+  id: 'effectColorLegend',
+  afterDraw: chart => {
+    const ctx = chart.ctx;
+    const area = chart.chartArea;
+    if (!area) return;
+    const items = [
+      { color: 'rgba(45,138,78,0.75)', label: 'Высокий уровень доказательности' },
+      { color: 'rgba(212,160,23,0.75)', label: 'Средний уровень доказательности' },
+      { color: 'rgba(192,57,43,0.75)', label: 'Низкий уровень доказательности' }
+    ];
+    const x = area.right + 12;
+    let y = area.top + 14;
+    const txt = getComputedStyle(document.body).getPropertyValue('--text') || '#111';
+    ctx.font = '12px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+    ctx.textBaseline = 'middle';
+    items.forEach(({ color, label }) => {
+      ctx.fillStyle = color;
+      ctx.fillRect(x, y - 8, 14, 14);
+      ctx.fillStyle = txt;
+      ctx.fillText(label, x + 22, y);
+      y += 28;
+    });
+  }
+};
 function renderQuadrant(data) {
   // FIX-40 (MAN-05): hedges_g мог прийти строкой («0.71») — из data.json,
   // api/v1 или правки руками. Chart.js в scatter молча не рисует точку с
@@ -1390,10 +1418,13 @@ function renderQuadrant(data) {
       responsive: true, maintainAspectRatio: false,
       scales: {
         x: {
+          type: 'linear',
+          display: true,
           title: { display: true, text: t("quadrant.xTitle"), color: txt },
-          suggestedMin: -2.5,
-          suggestedMax: 2.5,
-          grid: { color: ctx => ctx.tick.value === 0 ? 'rgba(128,128,128,.5)' : 'rgba(128,128,128,.15)' }
+          min: -3,
+          max: 3,
+          grid: { color: ctx => ctx.tick.value === 0 ? 'rgba(128,128,128,.5)' : 'rgba(128,128,128,.15)' },
+          ticks: { callback: v => Number.isFinite(v) ? v.toFixed(1) : '' }
         },
         y: {
           type: 'logarithmic',
@@ -1403,9 +1434,14 @@ function renderQuadrant(data) {
       },
       plugins: {
         legend: { display: false },
+        effectColorLegend: {},
         tooltip: { callbacks: { label: ctx => {
           const s = chartSupByEl(ctx.chart, { datasetIndex: ctx.datasetIndex, index: ctx.dataIndex });
-          return s ? ' ' + s.name + ' · g=' + s.hedges_g + ' · ' + (s.grade || '—') + ' · ' + s.verdict : '';
+          if (!s) return '';
+          const g = Number(s.hedges_g), si = Number(s.scienceIndex);
+          return ' ' + s.name + ' · g=' + (Number.isFinite(g) ? g.toFixed(2) : s.hedges_g)
+            + ' · индекс науки=' + (Number.isFinite(si) ? si.toFixed(1) : s.scienceIndex)
+            + ' · ' + s.verdict;
         } } }
       },
       onClick: (e, els) => { if (!els.length) return; const s = chartSupByEl(e.chart, els[0]); if (!s) return; location.href = 'sup/' + slugify(s.id) + '.html'; },
